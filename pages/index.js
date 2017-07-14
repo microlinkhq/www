@@ -45,31 +45,33 @@ export default class extends React.Component {
         <section
           className='sans-serif flex justify-center flex-column items-center ph3'
           style={{flex: 1}}
-          >
+        >
 
-          <h1 className='tc f3 f2-m f1-l b white-90 mb0 lh-title'>
-              Convert a link into information
-            </h1>
+          <h2 className='tc f3 f2-m f1-l b white-90 mb0 lh-title'>
+            Convert a link into information
+          </h2>
 
-          <form onSubmit={this.handleSubmit} className='black-80 w-80 w-50-l pv3'>
+          <form onSubmit={this.handleSubmit} className='black-80 w-80 w-80-m w-30-l pv3'>
             <input
               style={{outlineColor: 'white'}}
               className='input-reset outline-0 bg-black ba b--dark-gray white pa2 mb2 db w-100 br2'
               placeholder={DEFAULT_LINK}
               type='url'
               onChange={this.handleChange}
-
               required
             />
           </form>
 
-          <div className='relative ba b--dark-gray bg-black mv4'>
+          <div className='relative ba b--dark-gray bg-black mv4 grow'>
             <Card {...this.getData()} />
           </div>
         </section>
 
         <div className='tc pv3 sans-serif silver'>
-          Check our <a className='link white b' href='/api'>API</a>, it's free
+          Check our{' '}
+          <a className='link white b' href='/api'>
+            API
+          </a>, it's free
         </div>
       </Layout>
     )
