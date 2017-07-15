@@ -53,7 +53,7 @@ export default class extends React.Component {
           </h2>
 
           <form
-            className='fade-in black-80 w-80 w-80-m w-30-l pv3'
+            className='fade-in black-80 w-80 w-80-m w-40-l pv3'
             style={{animationDelay: '1.5s'}}
             >
             <input
@@ -67,17 +67,17 @@ export default class extends React.Component {
           </form>
 
           <div
-            className='fade-in relative ba b--dark-gray bg-black mv5 grow'
+            className='fade-in relative ba b--dark-gray bg-black mv4 grow'
             style={{animationDelay: '1.5s'}}>
             <Card {...this.getData()} />
           </div>
         </section>
 
         <div
-          className='fade-in tc pv3 sans-serif silver'
+          className='fade-in tc pv3 sans-serif gray'
           style={{animationDelay: '3s'}}>
           Check our{' '}
-          <a className='link white b' href='/api'>
+          <a className='link white b' href='https://api.microlink.io'>
             API
           </a>, it's free
         </div>
