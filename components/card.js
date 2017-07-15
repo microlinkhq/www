@@ -1,15 +1,16 @@
 import dateFormat from 'dateformat'
+import Link from 'next/link'
 
 export default ({title, image, url, publisher, author, date}) =>
   <section className=''>
     <div className=''>
-      <a href={url} target='_blank' rel='noopener'>
+      <Link href={url} target='_blank' rel='noopener'>
         <img
           src={image}
           className='card__image hover-transition'
           style={{objectFit: 'cover'}}
           />
-      </a>
+      </Link>
     </div>
 
     <div className='absolute bottom-0 right-0 left-0 pa3 bg-black lh-copy o-80'>
@@ -18,9 +19,9 @@ export default ({title, image, url, publisher, author, date}) =>
           {publisher}
         </span>
         <br />
-        <a href={url} rel='noopener' className='f4 f2-ns b link white'>
+        <Link href={url} rel='noopener' className='f4 f2-ns b link white'>
           {title}
-        </a>
+        </Link>
       </span>
       <br />
       <span className='f7 f5-ns silver'>
