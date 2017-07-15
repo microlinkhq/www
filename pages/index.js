@@ -6,13 +6,14 @@ import 'isomorphic-fetch'
 import NavBar from '../components/navbar'
 import Layout from '../components/layout'
 import Card from '../components/card'
+import isUrl from '../util/is-url'
 
 const DEFAULT_LINK = 'https://www.youtube.com/watch?v=w2_5-bJUEMY'
 
 const fetchData = async url => {
   const res = await fetch(`http://api.microlink.io/?url=${url}`)
-  const {data} = await res.json()
-  return data
+  const json = await res.json()
+  return json
 }
 
 export default class extends React.Component {
@@ -23,17 +24,17 @@ export default class extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   static async getInitialProps () {
-    const data = await fetchData(DEFAULT_LINK)
+    const {data} = await fetchData(DEFAULT_LINK)
     return {data}
   }
   handleChange (event) {
-    this.setState({value: event.target.value})
+    const value = event.target.value
+    if (value === '') this.handleSubmit(DEFAULT_LINK)
+    if (isUrl(value)) this.handleSubmit(value)
   }
-
-  async handleSubmit (event) {
-    event.preventDefault()
-    const data = await fetchData(this.state.value)
-    this.setState({data})
+  async handleSubmit (url) {
+    const {status, data} = await fetchData(url)
+    if (status === 'success') this.setState({data})
   }
   getData () {
     return this.state.data || this.props.data
@@ -47,12 +48,11 @@ export default class extends React.Component {
           style={{flex: 1}}
         >
 
-          <h2 className='fade-in tc f3 f2-m f1-l b white-90 mb0 lh-title ma0'>
+          <h2 className='fade-in tc f3 f1-ns b white-90 mb0 lh-title ma0'>
             Extract information from a link
           </h2>
 
           <form
-            onSubmit={this.handleSubmit}
             className='fade-in black-80 w-80 w-80-m w-30-l pv3'
             style={{animationDelay: '1.5s'}}
             >

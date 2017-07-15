@@ -34,7 +34,8 @@
     "react-highlight": "~0.10.0",
     "react-syntax-highlight": "~15.3.0",
     "styled-jsx-postcss": "~0.2.0",
-    "tachyons": "~4.7.4"
+    "tachyons": "~4.7.4",
+    "url-regex": "~4.1.1"
   },
   "devDependencies": {
     "git-dirty": "latest",
