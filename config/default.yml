@@ -1,5 +1,5 @@
-title: microlink
-description: A Platinum React Boilerplate Powered By Next
+title: microlink | Extract information from a link
+description: Microlink is a simple microservice for extract meta information from any link
 image: /static/img/logo.png
 twitter: '@windtodayco'
-url: https://app.windtoday.co
+url: https://microlink.io
