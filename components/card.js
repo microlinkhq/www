@@ -1,7 +1,7 @@
 export default ({title, image, url, publisher, author, date}) =>
   <section className=''>
     <div className=''>
-      <a target='_blank' rel='noopener'>
+      <a target='_blank' rel='noopener' href={url}>
         <img
           src={image}
           className='card__image hover-transition'
@@ -16,7 +16,7 @@ export default ({title, image, url, publisher, author, date}) =>
           {publisher}
         </span>
         <br />
-        <a className='f4 f3-ns b link white' target='_blank' rel='noopener'>
+        <a className='f4 f3-ns b link white' target='_blank' rel='noopener' href={url}>
           {title}
         </a>
       </span>
