@@ -10,7 +10,7 @@ import Card from '../components/card'
 const DEFAULT_LINK = 'https://www.youtube.com/watch?v=w2_5-bJUEMY'
 
 const fetchData = async url => {
-  const res = await fetch(`http://api.microlink.io/?url=${url}`)
+  const res = await fetch(`https://api.microlink.io/?url=${url}`)
   const json = await res.json()
   return json
 }
