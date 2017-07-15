@@ -45,12 +45,11 @@
     "node": ">= 8"
   },
   "scripts": {
-    "build": "next build",
+    "build": "next build && next export",
     "clean": "rm -rf node_modules",
     "dev": "next",
     "lint": "standard-markdown && standard",
     "pretest": "npm run lint",
-    "start": "next start && next export",
     "test": "exit 0"
   },
   "license": "MIT"
