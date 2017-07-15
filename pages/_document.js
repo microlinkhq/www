@@ -48,26 +48,7 @@ export default class Document extends NextDocument {
           <link rel='shortcut icon' href='/static/favicon/favicon.ico' />
           <meta name='msapplication-config' content='/static/favicon/browserconfig.xml' />
           <meta name='theme-color' content='#ffffff' />
-          <style global jsx>{`
-            @import 'tachyons/src/tachyons';
-
-            .fade-in {
-              animation-fill-mode: both;
-              animation-name: fadeIn;
-              animation-duration: 1.5s;
-              animation-delay: .75s;
-            }
-
-            @keyframes fadeIn {
-              from {
-                opacity: 0;
-              }
-
-              to {
-                opacity: 1;
-              }
-            }
-          `}</style>
+          <link rel='stylesheet' href='https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css' />
         </Head>
         <body className='bg-black white'>
           <Main />

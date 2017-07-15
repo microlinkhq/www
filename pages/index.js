@@ -44,7 +44,7 @@ export default class extends React.Component {
       <Layout className='vh-100 flex vh-100 flex-column'>
         <NavBar />
         <section
-          className='sans-serif flex justify-start flex-column items-center ph3 pt6'
+          className='sans-serif flex justify-start flex-column items-center ph3 pt5'
           style={{flex: 1}}
         >
 
@@ -81,6 +81,24 @@ export default class extends React.Component {
             API
           </a>, it's free
         </div>
+        <style jsx>{`
+          .fade-in {
+            animation-fill-mode: both;
+            animation-name: fadeIn;
+            animation-duration: 1.5s;
+            animation-delay: .75s;
+          }
+
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+
+            to {
+              opacity: 1;
+            }
+          }
+        `}</style>
       </Layout>
     )
   }
