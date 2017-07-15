@@ -4,12 +4,14 @@ import Link from 'next/link'
 export default ({title, image, url, publisher, author, date}) =>
   <section className=''>
     <div className=''>
-      <Link href={url} target='_blank' rel='noopener'>
-        <img
-          src={image}
-          className='card__image hover-transition'
-          style={{objectFit: 'cover'}}
-          />
+      <Link prefetch href={url}>
+        <a target='_blank' rel='noopener'>
+          <img
+            src={image}
+            className='card__image hover-transition'
+            style={{objectFit: 'cover'}}
+            />
+        </a>
       </Link>
     </div>
 
@@ -19,8 +21,10 @@ export default ({title, image, url, publisher, author, date}) =>
           {publisher}
         </span>
         <br />
-        <Link href={url} rel='noopener' className='f4 f2-ns b link white'>
-          {title}
+        <Link prefetch href={url}>
+          <a className='f4 f2-ns b link white' target='_blank' rel='noopener'>
+            {title}
+          </a>
         </Link>
       </span>
       <br />
