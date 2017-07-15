@@ -1,18 +1,15 @@
 import dateFormat from 'dateformat'
-import Link from 'next/link'
 
 export default ({title, image, url, publisher, author, date}) =>
   <section className=''>
     <div className=''>
-      <Link prefetch href={url}>
-        <a target='_blank' rel='noopener'>
-          <img
-            src={image}
-            className='card__image hover-transition'
-            style={{objectFit: 'cover'}}
+      <a target='_blank' rel='noopener'>
+        <img
+          src={image}
+          className='card__image hover-transition'
+          style={{objectFit: 'cover'}}
             />
-        </a>
-      </Link>
+      </a>
     </div>
 
     <div className='absolute bottom-0 right-0 left-0 pa3 bg-black lh-copy o-80'>
@@ -21,11 +18,9 @@ export default ({title, image, url, publisher, author, date}) =>
           {publisher}
         </span>
         <br />
-        <Link prefetch href={url}>
-          <a className='f4 f2-ns b link white' target='_blank' rel='noopener'>
-            {title}
-          </a>
-        </Link>
+        <a className='f4 f2-ns b link white' target='_blank' rel='noopener'>
+          {title}
+        </a>
       </span>
       <br />
       <span className='f7 f5-ns silver'>
