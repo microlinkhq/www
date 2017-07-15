@@ -7,7 +7,7 @@ import NavBar from '../components/navbar'
 import Layout from '../components/layout'
 import Card from '../components/card'
 
-const DEFAULT_LINK = 'https://www.youtube.com/watch?v=uLe-QQEKOwA'
+const DEFAULT_LINK = 'https://www.youtube.com/watch?v=w2_5-bJUEMY'
 
 const fetchData = async url => {
   const res = await fetch(`http://api.microlink.io/?url=${url}`)
@@ -43,15 +43,19 @@ export default class extends React.Component {
       <Layout className='vh-100 flex vh-100 flex-column'>
         <NavBar />
         <section
-          className='sans-serif flex justify-center flex-column items-center ph3'
+          className='sans-serif flex justify-start flex-column items-center ph3 pt6'
           style={{flex: 1}}
         >
 
-          <h2 className='tc f3 f2-m f1-l b white-90 mb0 lh-title'>
-            Convert a link into information
+          <h2 className='fade-in tc f3 f2-m f1-l b white-90 mb0 lh-title ma0'>
+            Extract information from a link
           </h2>
 
-          <form onSubmit={this.handleSubmit} className='black-80 w-80 w-80-m w-30-l pv3'>
+          <form
+            onSubmit={this.handleSubmit}
+            className='fade-in black-80 w-80 w-80-m w-30-l pv3'
+            style={{animationDelay: '1.5s'}}
+            >
             <input
               style={{outlineColor: 'white'}}
               className='input-reset outline-0 bg-black ba b--dark-gray white pa2 mb2 db w-100 br2'
@@ -62,12 +66,16 @@ export default class extends React.Component {
             />
           </form>
 
-          <div className='relative ba b--dark-gray bg-black mv4 grow'>
+          <div
+            className='fade-in relative ba b--dark-gray bg-black mv5 grow'
+            style={{animationDelay: '1.5s'}}>
             <Card {...this.getData()} />
           </div>
         </section>
 
-        <div className='tc pv3 sans-serif silver'>
+        <div
+          className='fade-in tc pv3 sans-serif silver'
+          style={{animationDelay: '3s'}}>
           Check our{' '}
           <a className='link white b' href='/api'>
             API
