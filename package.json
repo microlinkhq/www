@@ -21,7 +21,6 @@
     "config": "~1.26.1",
     "create-react-class": "~15.6.0",
     "cssnano": "~3.10.0",
-    "dateformat": "~2.0.0",
     "isomorphic-fetch": "~2.2.1",
     "js-yaml": "~3.8.4",
     "next": "~3.0.1-beta.14",

@@ -1,5 +1,3 @@
-import dateFormat from 'dateformat'
-
 export default ({title, image, url, publisher, author, date}) =>
   <section className=''>
     <div className=''>
@@ -12,20 +10,17 @@ export default ({title, image, url, publisher, author, date}) =>
       </a>
     </div>
 
-    <div className='absolute bottom-0 right-0 left-0 pa3 bg-black lh-copy o-80'>
+    <div className='absolute bottom-0 right-0 left-0 pv2 ph3 bg-black lh-copy o-80'>
       <span>
-        <span className='f7 f5-ns silver'>
+        <span className='f7 f5-ns gray'>
           {publisher}
         </span>
         <br />
-        <a className='f4 f2-ns b link white' target='_blank' rel='noopener'>
+        <a className='f4 f3-ns b link white' target='_blank' rel='noopener'>
           {title}
         </a>
       </span>
       <br />
-      <span className='f7 f5-ns silver'>
-        {dateFormat(date, 'dddd, mmmm dS yyyy')}
-      </span>
     </div>
     <style jsx>{`
       .card__image {
@@ -34,15 +29,8 @@ export default ({title, image, url, publisher, author, date}) =>
         will-change: box-shadow;
         transition-duration: .2s;
         transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-        height: 13rem;
-        width: 23rem;
-      }
-
-      @media screen and (min-width: 48em) {
-        .card__image {
-          width: 48rem;
-          height: 27rem;
-        }
+        width: 480px;
+        height: 285px;
       }
 
       .card__image:hover {
