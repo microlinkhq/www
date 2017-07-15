@@ -24,7 +24,7 @@
     "dateformat": "~2.0.0",
     "isomorphic-fetch": "~2.2.1",
     "js-yaml": "~3.8.4",
-    "next": "~3.0.1-beta.13",
+    "next": "~3.0.1-beta.14",
     "postcss-cssnext": "~2.11.0",
     "postcss-easy-import": "~2.1.0",
     "postcss-focus": "~2.0.0",
@@ -34,8 +34,7 @@
     "react-highlight": "~0.10.0",
     "react-syntax-highlight": "~15.3.0",
     "styled-jsx-postcss": "~0.2.0",
-    "tachyons": "~4.7.4",
-    "url-regex": "~4.1.1"
+    "tachyons": "~4.7.4"
   },
   "devDependencies": {
     "git-dirty": "latest",
@@ -51,7 +50,7 @@
     "dev": "next",
     "lint": "standard-markdown && standard",
     "pretest": "npm run lint",
-    "start": "next start",
+    "start": "next start && next export",
     "test": "exit 0"
   },
   "license": "MIT"

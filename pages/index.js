@@ -6,7 +6,6 @@ import 'isomorphic-fetch'
 import NavBar from '../components/navbar'
 import Layout from '../components/layout'
 import Card from '../components/card'
-import isUrl from '../util/is-url'
 
 const DEFAULT_LINK = 'https://www.youtube.com/watch?v=w2_5-bJUEMY'
 
@@ -29,8 +28,9 @@ export default class extends React.Component {
   }
   handleChange (event) {
     const value = event.target.value
-    if (value === '') this.handleSubmit(DEFAULT_LINK)
-    if (isUrl(value)) this.handleSubmit(value)
+    return value !== ''
+      ? this.handleSubmit(value)
+      : this.handleSubmit(DEFAULT_LINK)
   }
   async handleSubmit (url) {
     const {status, data} = await fetchData(url)
