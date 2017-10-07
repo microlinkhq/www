@@ -1,0 +1,42 @@
+{
+  "name": "microlink-www",
+  "description": "microlink website",
+  "version": "1.0.0",
+  "author": {
+    "email": "mathews.kyle@gmail.com",
+    "name": "Kyle Mathews"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "dependencies": {
+    "autoprefixer": "~7.1.4",
+    "gatsby": "~1.9.45",
+    "gatsby-link": "~1.6.17",
+    "gatsby-plugin-google-analytics": "~1.0.8",
+    "gatsby-plugin-netlify": "~1.0.6",
+    "gatsby-plugin-offline": "~1.0.9",
+    "gatsby-plugin-postcss-sass": "~1.0.12",
+    "gatsby-plugin-react-helmet": "^1.0.5",
+    "gatsby-plugin-sharp": "~1.6.8",
+    "gatsby-plugin-styled-components": "~1.0.5",
+    "gatsby-source-filesystem": "~1.5.2",
+    "gatsby-transformer-sharp": "~1.6.8",
+    "normalize.css": "~7.0.0",
+    "palx": "~1.0.2",
+    "postcss-focus": "~2.0.0",
+    "rebass": "~1.0.4",
+    "tachyons-sass": "~4.8.1"
+  },
+  "devDependencies": {
+    "prettier": "~1.6.1"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "dev": "gatsby develop",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "license": "MIT"
+}
