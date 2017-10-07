@@ -1,10 +1,19 @@
 {
   "name": "microlink-www",
   "description": "microlink website",
+  "homepage": "https://github.com/microlink/microlink-www#readme",
   "version": "1.0.0",
   "author": {
-    "email": "mathews.kyle@gmail.com",
-    "name": "Kyle Mathews"
+    "email": "josefrancisco.verdu@gmail.com",
+    "name": "Kiko Beats",
+    "url": "https://github.com/Kikobeats"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microlink/microlink-www.git"
+  },
+  "bugs": {
+    "url": "git+https://github.com/microlink/microlink-www.git"
   },
   "keywords": [
     "gatsby"
@@ -25,18 +34,33 @@
     "normalize.css": "~7.0.0",
     "palx": "~1.0.2",
     "postcss-focus": "~2.0.0",
-    "rebass": "~1.0.4",
-    "tachyons-sass": "~4.8.1"
+    "rebass": "~1.0.4"
   },
   "devDependencies": {
-    "prettier": "~1.6.1"
+    "babel-eslint": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "prettier-standard": "latest",
+    "standard": "latest"
   },
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby develop",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
+    "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
-  "license": "MIT"
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "prettier-standard",
+      "git add"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "React"
+    ],
+    "parser": "babel-eslint"
+  }
 }
