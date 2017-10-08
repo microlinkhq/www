@@ -1,7 +1,7 @@
-import React from "react"
-import { Flex, Button } from 'rebass'
+import React from 'react'
+import {Flex, Button} from 'rebass'
 import styled from 'styled-components'
-import { fontSize } from 'styled-system'
+import {fontSize} from 'styled-system'
 
 const CustomButton = Button.extend`
   width: 93px;
@@ -12,12 +12,11 @@ const CustomButton = Button.extend`
 `
 
 const CustomInput = styled.input`
-  ${fontSize}
-  display: inline-block;
-  transition: box-shadow .4s ease, background .4s ease;
+  ${fontSize} display: inline-block;
+  transition: box-shadow 0.4s ease, background 0.4s ease;
   border: 0;
-  box-shadow: inset 0 0 0 1px #FFFFFF;
-  background: #FFFFFF;
+  box-shadow: inset 0 0 0 1px #ffffff;
+  background: #ffffff;
   width: 80%;
   height: 100%;
   vertical-align: middle;
@@ -43,15 +42,15 @@ const CustomFlex = Flex.extend`
 
 export default () => (
   <CustomForm>
-    <CustomFlex justify='center' align='center' role="search">
+    <CustomFlex justify='center' align='center' role='search'>
       <CustomInput
         f={3}
-        type="search"
-        placeholder="https://shipow.github.io/searchbox"
-        autoComplete="off"
-        required="required"
+        type='search'
+        placeholder='https://shipow.github.io/searchbox'
+        autoComplete='off'
+        required='required'
       />
-    <CustomButton children='Go' />
+      <CustomButton children='Go' />
     </CustomFlex>
   </CustomForm>
 )
