@@ -1,8 +1,8 @@
 import React from 'react'
 import {Box} from 'rebass'
 
-export default () => (
-  <Box width='48px'>
+export default props => (
+  <Box width='48px' {...props}>
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
       <path
         fill='currentColor'

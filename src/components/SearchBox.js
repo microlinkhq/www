@@ -42,7 +42,7 @@ const CustomFlex = Flex.extend`
 
 export default () => (
   <CustomForm>
-    <CustomFlex justify='center' align='center' role='search'>
+    <CustomFlex justify='space-around' align='center' role='search'>
       <CustomInput
         f={3}
         type='search'
