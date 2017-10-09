@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "autoprefixer": "~7.1.4",
+    "cssnano": "~3.10.0",
     "gatsby": "~1.9.45",
     "gatsby-link": "~1.6.17",
     "gatsby-plugin-google-analytics": "~1.0.8",

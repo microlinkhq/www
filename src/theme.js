@@ -59,9 +59,13 @@ export const monospace = '"SF Mono", "Roboto Mono", Menlo, monospace'
 
 export const cx = key => colors[key] || key
 
-export const textGradient = () => `
+export const bgGradient = `
+background-image: linear-gradient(to right, #ec4e44, #c02e74 41%, #449bf8);
+`
+
+export const textGradient = `
+  ${bgGradient}
   display: inline-block;
-  background-image: linear-gradient(to right, #ec4e44, #c02e74 41%, #449bf8);
   background-size: cover;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -71,6 +75,7 @@ export const textGradient = () => `
 
 export default {
   textGradient,
+  bgGradient,
   breakpoints,
   space,
   fontSizes,

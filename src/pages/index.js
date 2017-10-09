@@ -1,7 +1,8 @@
 import React from 'react'
 import {Avatar, Flex, Heading, Subhead} from 'rebass'
-import {textGradient} from '../theme'
+import styled from 'styled-components'
 
+import {bgGradient} from '../theme'
 import Container from '../components/Container'
 import Separator from '../components/Separator'
 import SearchBox from '../components/SearchBox'
@@ -9,7 +10,7 @@ import DemoCard from '../components/DemoCard'
 import CodeCard from '../components/CodeCard'
 
 const CustomSubhead = Subhead.extend`
-  ${textGradient} text-align: center;
+  text-align: center;
   font-weight: normal;
   max-width: 40rem;
 `
@@ -19,8 +20,12 @@ const CustomAvatar = Avatar.extend`
   box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
 `
 
+const Main = styled.main`
+  ${bgGradient}
+`
+
 export default () => (
-  <main>
+  <Main>
     <Container bg='#fafcfd' px='310px' py={3}>
       <Flex justify='center' direction='column' align='center' px={4}>
         {/* <Logo pb={1} /> */}
@@ -53,5 +58,5 @@ export default () => (
       title='Easy'
       text='Using our API is easy integrate it in your current workflow.'
       />
-  </main>
+  </Main>
 )

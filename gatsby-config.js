@@ -12,7 +12,12 @@ module.exports = {
       options: {
         postCssPlugins: [
           require('postcss-focus'),
-          require('autoprefixer')({grid: false})
+          require('cssnano')({
+            autoprefixer: true,
+            mergeIdents: true,
+            zindex: true,
+            discardUnused: true
+          })
         ],
         precision: 8
       }
@@ -22,15 +27,15 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `src`,
-        path: `${__dirname}/src/`,
-      },
+        path: `${__dirname}/src/`
+      }
     },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: `UA-93349937-2`,
-      },
+        trackingId: `UA-93349937-2`
+      }
     },
-    `gatsby-plugin-offline`,
-  ],
+    `gatsby-plugin-offline`
+  ]
 }
