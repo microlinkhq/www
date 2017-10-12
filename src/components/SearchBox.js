@@ -7,16 +7,14 @@ const CustomButton = Button.extend`
   width: 93px;
   height: 48px;
   border-radius: 8px;
-  background-color: #449bf8;
-  color: white;
 `
 
 const CustomInput = styled.input`
   ${fontSize} display: inline-block;
   transition: box-shadow 0.4s ease, background 0.4s ease;
   border: 0;
-  box-shadow: inset 0 0 0 1px #ffffff;
-  background: #ffffff;
+  box-shadow: inset 0 0 0 1px white;
+  background: white;
   width: 80%;
   height: 100%;
   vertical-align: middle;
@@ -32,7 +30,7 @@ const CustomForm = styled.form`
   background: white;
   border-radius: 8px;
   box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
-  border: solid 8px #ffffff;
+  border: solid 8px white;
 `
 
 const CustomFlex = Flex.extend`
@@ -50,7 +48,7 @@ export default () => (
         autoComplete='off'
         required='required'
       />
-      <CustomButton children='Go' />
+      <CustomButton color='white' bg='#449bf8' children='Go' />
     </CustomFlex>
   </CustomForm>
 )

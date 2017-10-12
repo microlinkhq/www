@@ -35,6 +35,7 @@
     "normalize.css": "~7.0.0",
     "palx": "~1.0.2",
     "postcss-focus": "~2.0.0",
+    "react-live": "~1.7.1",
     "rebass": "~1.0.4"
   },
   "devDependencies": {
