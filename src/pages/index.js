@@ -39,9 +39,8 @@ export default class extends Component {
 
     return (
       <main>
-        <Container bg='#f7f8fa' px='310px' py={3}>
-
-          <Flex justify='center' direction='column' align='center' px={7}>
+        <Container bg='#f7f8fa' px='310px' pt={3}>
+          <Flex is='section' justify='center' direction='column' align='center' px={[7, 0]}>
             <Flex justify='center' direction='column' align='center' py={3}>
               <Heading f={6} pb={2} color='#222' bold>Microlink</Heading>
               <CustomSubhead f='36px'>Turns any link into information.</CustomSubhead>
@@ -55,7 +54,9 @@ export default class extends Component {
             />
             <Text py={2} f={1} color='#4B5663'>Enter an URL. Receive information.</Text>
           </Flex>
+        </Container>
 
+        <Container bg='#f7f8fa' pb={3}>
           <CodeCard
             url={this.getUrl(url)}
             bg='#f7f8fa'

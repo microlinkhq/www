@@ -2,16 +2,21 @@ import React, {Component} from 'react'
 
 import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, BackgroundImage} from 'rebass'
 import styled from 'styled-components'
+import { responsiveStyle } from 'styled-system'
 import Tilt from 'react-tilt'
-
 import fetch from 'unfetch'
-
-import Container from './Container'
 
 import {
   LiveProvider,
   LiveEditor
 } from 'react-live'
+
+import Container from './Container'
+
+const cardHeight = responsiveStyle({
+  prop: 'maxHeight',
+  cssProperty: 'maxHeight'
+})
 
 const colors = {
   black: '#24292e',
@@ -104,12 +109,12 @@ const Editor = styled(hoc()(LiveEditor))`
 `
 
 const CustomCard = Card.extend`
-max-height: ${props => props.height}px;
 overflow: auto;
+${cardHeight}
 `
 
 const PreviewCard = ({children, size, ...props}) => (
-  <CustomCard width={size} height={size / 2} {...props}>
+  <CustomCard width={size} maxHeight={size.map(n => `${n / 2}px`)} {...props}>
     {children}
   </CustomCard>
 )
@@ -182,13 +187,13 @@ export default class extends Component {
           mountStylesheet={false}
           code={JSON.stringify(this.state, null, 2)}>
           <Row justify='space-around' direction='row' align='center' wrap>
-            <PreviewCard size={600}>
+            <PreviewCard size={[600, 500]}>
               <Editor width={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
             </PreviewCard>
 
             <Tilt className='tilt' options={{ max: 8, scale: 1.02 }}>
               <PreviewCard
-                size={600}
+                size={[600, 500]}
                 style={{boxShadow: `0 32px 64px 0 ${paletteColors[0]}`}}
               >
 
