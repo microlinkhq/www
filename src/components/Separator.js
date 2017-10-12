@@ -10,9 +10,6 @@ const Separator = Box.extend`
   height: 4px;
   background-image: linear-gradient(to right, #ec4e44, #c02e74 41%, #449bf8);
 `
-const Body = Text.extend`
-line-height: 26px;
-`
 
 export default ({title, text, bg, py}) => (
   <Container bg={bg} px='310px' py={3}>
@@ -21,7 +18,9 @@ export default ({title, text, bg, py}) => (
         <Header color='#222' pb={1} bold f={4}>{title}</Header>
         <Separator />
       </Box>
-      <Body color='#A4A9B0'>{text}</Body>
+      <Box
+        style={{lineHeight: '26px'}}
+        color='#A4A9B0'>{text}</Box>
     </Flex>
   </Container>
 )

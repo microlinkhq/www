@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Flex, Button} from 'rebass'
 import styled from 'styled-components'
-import {fontSize} from 'styled-system'
+import { space, width, fontSize, color } from 'styled-system'
 
 const CustomButton = Button.extend`
   width: 93px;
@@ -24,10 +24,12 @@ const CustomInput = styled.input`
 `
 
 const CustomForm = styled.form`
-  width: 100%;
+  ${space}
+  ${width}
+  ${fontSize}
+  ${color}
   height: 65px;
   white-space: nowrap;
-  background: white;
   border-radius: 8px;
   box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
   border: solid 8px white;
@@ -38,17 +40,35 @@ const CustomFlex = Flex.extend`
   height: 100%;
 `
 
-export default () => (
-  <CustomForm>
-    <CustomFlex justify='space-around' align='center' role='search'>
-      <CustomInput
-        f={3}
-        type='search'
-        placeholder='https://shipow.github.io/searchbox'
-        autoComplete='off'
-        required='required'
-      />
-      <CustomButton color='white' bg='#449bf8' children='Go' />
-    </CustomFlex>
-  </CustomForm>
-)
+export default class extends Component {
+  render () {
+    const {placeholder, onChange, ...props} = this.props
+
+    return (
+      <CustomForm {...props}>
+        <CustomFlex justify='space-around' align='center' role='search'>
+          <CustomInput
+            f={3}
+            type='search'
+            placeholder={placeholder}
+            autoComplete='off'
+            required='required'
+            onChange={event => {
+              this.setState({ value: event.target.value })
+            }}
+          />
+          <CustomButton
+            color='white'
+            bg='#449bf8'
+            children='Try It'
+            onClick={event => {
+              event.preventDefault()
+              const value = this.state.value.trim()
+              this.props.onSubmit(value)
+            }}
+          />
+        </CustomFlex>
+      </CustomForm>
+    )
+  }
+}

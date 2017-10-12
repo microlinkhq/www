@@ -19,24 +19,25 @@
     "gatsby"
   ],
   "dependencies": {
-    "autoprefixer": "~7.1.4",
+    "autoprefixer": "~7.1.5",
     "cssnano": "~3.10.0",
-    "gatsby": "~1.9.45",
-    "gatsby-link": "~1.6.17",
+    "gatsby": "~1.9.55",
+    "gatsby-link": "~1.6.20",
     "gatsby-plugin-google-analytics": "~1.0.8",
     "gatsby-plugin-netlify": "~1.0.6",
     "gatsby-plugin-offline": "~1.0.9",
     "gatsby-plugin-postcss-sass": "~1.0.12",
-    "gatsby-plugin-react-helmet": "^1.0.5",
-    "gatsby-plugin-sharp": "~1.6.8",
+    "gatsby-plugin-react-helmet": "^1.0.6",
+    "gatsby-plugin-sharp": "~1.6.9",
     "gatsby-plugin-styled-components": "~1.0.5",
-    "gatsby-source-filesystem": "~1.5.2",
-    "gatsby-transformer-sharp": "~1.6.8",
+    "gatsby-source-filesystem": "~1.5.3",
+    "gatsby-transformer-sharp": "~1.6.10",
     "normalize.css": "~7.0.0",
     "palx": "~1.0.2",
     "postcss-focus": "~2.0.0",
     "react-live": "~1.7.1",
-    "rebass": "~1.0.4"
+    "rebass": "~1.0.4",
+    "unfetch": "~3.0.0"
   },
   "devDependencies": {
     "babel-eslint": "latest",

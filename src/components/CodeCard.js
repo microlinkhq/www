@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
 
-import {hoc, Truncate, Avatar, Text, Box, monospace, Card, Flex, BackgroundImage} from 'rebass'
+import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, BackgroundImage} from 'rebass'
+import styled from 'styled-components'
+import Tilt from 'react-tilt'
+
+import fetch from 'unfetch'
+
 import Container from './Container'
-import styled, {css} from 'styled-components'
 
 import {
   LiveProvider,
@@ -39,7 +43,7 @@ const Editor = styled(hoc()(LiveEditor))`
   outline: none;
   tab-size: 2;
   color: ${colors.black};
-  background-color: ${colors.gray};
+  background-color: ${colors.white};
   .token.comment,
   .token.prolog,
   .token.doctype,
@@ -100,15 +104,12 @@ const Editor = styled(hoc()(LiveEditor))`
 `
 
 const CustomCard = Card.extend`
-max-height: ${props => props.height};
+max-height: ${props => props.height}px;
 overflow: auto;
-${props => props.boxShadow && css`
-  box-shadow: 0 32px 64px 0 ${props.boxShadow};
-`}
 `
 
-const PreviewCard = ({children, ...props}) => (
-  <CustomCard width={512} height='256px' {...props}>
+const PreviewCard = ({children, size, ...props}) => (
+  <CustomCard width={size} height={size / 2} {...props}>
     {children}
   </CustomCard>
 )
@@ -133,76 +134,83 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.onChange = this.onChange.bind(this)
+    this.fetchUrl = this.fetchUrl.bind(this)
 
     this.state = {
-      'author': null,
-      'date': null,
-      'description': 'Software Engineer, UNIX, JavaScript & Open Source.',
-      'favicon': 'https://kikobeats.com/favicon.ico',
-      'image': {
-        'width': 500,
-        'height': 500,
-        'type': 'png',
-        'url': 'https://kikobeats.com/images/avatar.png',
-        'dominantColor': '#D0B5A2',
-        'paletteColors': [
-          '#D2A386',
-          '#2C221F',
-          '#934222'
-        ]
-      },
-      'logo': null,
-      'publisher': 'Kikobeats',
-      'title': 'Kikobeats',
-      'url': 'https://kikobeats.com',
-      'screenshot': {
-        'url': 'https://i.imgur.com/5hPylhL.png',
-        'type': 'png',
-        'width': 800,
-        'height': 600
+      data: {
+        favicon: '',
+        image: {
+          paletteColors: [0]
+        }
       }
     }
   }
 
   onChange (newState) {
     try {
-      this.setState({...JSON.parse(newState)})
+      const {data} = JSON.parse(newState)
+      this.setState({data})
     } catch (err) {
+      console.log(err)
     }
   }
 
+  fetchUrl (url) {
+    fetch(url)
+      .then(r => r.json())
+      .then(({data}) => {
+        this.setState({url, data})
+      })
+  }
+
+  componentDidMount () {
+    this.fetchUrl(this.props.url)
+  }
+
+  componentWillUpdate (nextProps, nextState) {
+    if (nextProps.url !== nextState.url) this.fetchUrl(nextProps.url)
+  }
+
   render () {
-    const {favicon, publisher, description, image} = this.state
+    const {url, ...props} = this.props
+    const {favicon, publisher, description, image} = this.state.data
+    const {paletteColors = ['#ccc']} = image
 
     return (
-      <Container is='section' {...this.props}>
+      <Container is='section' {...props}>
         <Provider
           mountStylesheet={false}
           code={JSON.stringify(this.state, null, 2)}>
           <Row justify='space-around' direction='row' align='center' wrap>
-            <PreviewCard>
-              <Editor w={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
+            <PreviewCard size={600}>
+              <Editor width={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
             </PreviewCard>
 
-            <PreviewCard boxShadow={image.paletteColors[0]}>
-              <BackgroundImage
-                ratio={1 / 2}
-                src={image.url}
-                style={{position: 'relative'}}
+            <Tilt className='tilt' options={{ max: 8, scale: 1.02 }}>
+              <PreviewCard
+                size={600}
+                style={{boxShadow: `0 32px 64px 0 ${paletteColors[0]}`}}
               >
-                <CardHeader p={3} width='100%' bg='rgba(255, 255, 255, 0.95)'>
-                  <Flex align='flex-start'>
-                    <CardHeaderLogo src={favicon} />
-                    <CardHeaderBody ml={2} mt={2}>
-                      <Truncate>{publisher}</Truncate>
-                      <Truncate>{description}</Truncate>
-                    </CardHeaderBody>
-                  </Flex>
-                </CardHeader>
-              </BackgroundImage>
-            </PreviewCard>
+
+                <BackgroundImage
+                  ratio={1 / 2}
+                  src={image.url}
+                  style={{position: 'relative'}}
+              >
+                  <CardHeader p={3} width='100%'
+                    style={{background: 'rgba(255, 255, 255, 0.95)'}}>
+                    <Flex align='flex-start'>
+                      <CardHeaderLogo src={favicon} />
+                      <CardHeaderBody ml={2} mt={2}>
+                        <Truncate>{publisher}</Truncate>
+                        <Truncate>{description}</Truncate>
+                      </CardHeaderBody>
+                    </Flex>
+                  </CardHeader>
+                </BackgroundImage>
+              </PreviewCard>
+            </Tilt>
           </Row>
-          {/* <Error /> */}
         </Provider>
       </Container>
     )
