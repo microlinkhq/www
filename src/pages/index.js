@@ -68,6 +68,7 @@ export default class extends Component {
               width={['100%', '60%']}
               my={3}
               placeholder={URL_FALLBACK}
+              value={this.state.url === URL_FALLBACK ? null : this.state.url}
               onSubmit={url => this.setState({url})}
             />
             <Text py={2} f={1} color='#4B5663'>Enter an URL. Receive information.</Text>

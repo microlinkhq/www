@@ -63,7 +63,7 @@ export default class extends Component {
   }
 
   render () {
-    const {placeholder, onChange, ...props} = this.props
+    const {placeholder, onChange, value, ...props} = this.props
 
     return (
       <CustomForm {...props}>
@@ -75,6 +75,7 @@ export default class extends Component {
             autoComplete='off'
             required='required'
             onChange={this.updateValue.bind(this)}
+            value={value}
           />
           <CustomButton
             color='white'
