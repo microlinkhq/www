@@ -1,14 +1,14 @@
+/* global graphql */
 
-import React, {Component} from 'react'
 import {Box, Row, Column, Text, Avatar, Flex, Heading, Subhead} from 'rebass'
+import {css} from 'styled-components'
+import React, {Component} from 'react'
 
 import {textGradient} from '../theme'
 import Container from '../components/Container'
 import Separator from '../components/Separator'
 import SearchBox from '../components/SearchBox'
 import CodeCard from '../components/CodeCard'
-
-const API_ENDPOINT = 'http://localhost:3000/1.0'
 
 const CustomSubhead = Subhead.extend`
   ${textGradient}
@@ -17,9 +17,25 @@ const CustomSubhead = Subhead.extend`
   max-width: 40rem;
 `
 
+const floatAnimation = css`
+  display: inline-block;
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+`
+
 const CustomAvatar = Avatar.extend`
   border-radius: 8px;
   box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
+  cursor: pointer;
+  ${floatAnimation}
 `
 
 const URL_FALLBACK = 'https://kikobeats.com'
@@ -30,15 +46,17 @@ export default class extends Component {
     this.state = { url: URL_FALLBACK }
   }
 
-  getUrl (url) {
-    return `${API_ENDPOINT}/?url=${url}&screenshot&paletteColors`
+  getUrl (apiEndpoint, url) {
+    return `${apiEndpoint}/?url=${url}&paletteColors`
   }
 
   render () {
     const url = this.state.url || URL_FALLBACK
+    const {apiEndpoint} = this.props
+    const showcases = this.props.data.allLettersYaml.edges.map(item => item.node)
 
     return (
-      <main>
+      <main style={{background: '#f7f8fa'}}>
         <Container bg='#f7f8fa' px='310px' pt={3}>
           <Flex is='section' justify='center' direction='column' align='center' px={[7, 0]}>
             <Flex justify='center' direction='column' align='center' py={3}>
@@ -47,7 +65,7 @@ export default class extends Component {
             </Flex>
             <SearchBox
               bg='white'
-              width='100%'
+              width={['100%', '60%']}
               my={3}
               placeholder={URL_FALLBACK}
               onSubmit={url => this.setState({url})}
@@ -58,18 +76,21 @@ export default class extends Component {
 
         <Container bg='#f7f8fa' pb={3}>
           <CodeCard
-            url={this.getUrl(url)}
+            url={this.getUrl(apiEndpoint, url)}
             bg='#f7f8fa'
             p={5} />
 
           <Flex width='100%' justify='space-around' py={3}>
-            {Array.from(Array(10).keys()).map(index => (
+            {showcases.map((item, index) => (
               <CustomAvatar
                 key={index}
-                size={48}
-                src='https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=2048&q=20'
-                  />
-                ))}
+                size={64}
+                src={item.favicon}
+                onClick={evt => {
+                  evt.preventDefault()
+                  this.setState({url: item.url})
+                }} />)
+            )}
           </Flex>
         </Container>
 
@@ -125,8 +146,20 @@ export default class extends Component {
             </Column>
           </Row>
         </Container>
-
       </main>
     )
   }
 }
+
+export const query = graphql`
+query Showcase {
+  allLettersYaml {
+    edges {
+      node {
+        favicon
+        url
+      }
+    }
+  }
+}
+`

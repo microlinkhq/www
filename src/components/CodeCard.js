@@ -14,7 +14,7 @@ import {
 import Container from './Container'
 
 const cardHeight = responsiveStyle({
-  prop: 'maxHeight',
+  prop: 'height',
   cssProperty: 'maxHeight'
 })
 
@@ -114,7 +114,7 @@ ${cardHeight}
 `
 
 const PreviewCard = ({children, size, ...props}) => (
-  <CustomCard width={size} maxHeight={size.map(n => `${n / 2}px`)} {...props}>
+  <CustomCard width={size} height={size.map(n => `${n / 2}px`)} {...props}>
     {children}
   </CustomCard>
 )
@@ -127,12 +127,11 @@ const CardHeader = Box.extend`
 `
 
 const CardHeaderLogo = Avatar.extend`
-  border-radius: 0;
   max-width: 48px;
 `
 
 const CardHeaderBody = Box.extend`
-  flex: 1;
+  max-width: 85%;
 `
 
 export default class extends Component {
@@ -205,7 +204,8 @@ export default class extends Component {
                   <CardHeader p={3} width='100%'
                     style={{background: 'rgba(255, 255, 255, 0.95)'}}>
                     <Flex align='flex-start'>
-                      <CardHeaderLogo src={favicon} />
+                      <CardHeaderLogo
+                        src={favicon.url || favicon || image.url || image} />
                       <CardHeaderBody ml={2} mt={2}>
                         <Truncate>{publisher}</Truncate>
                         <Truncate>{description}</Truncate>

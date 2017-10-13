@@ -1,12 +1,14 @@
 module.exports = {
   siteMetadata: {
     name: 'microlink',
-    twitter: '@microlinkio'
+    twitter: '@microlinkio',
+    apiEndpoint: 'http://localhost:3000/1.0'
   },
   plugins: [
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-netlify`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-plugin-postcss-sass`,
       options: {
@@ -28,6 +30,13 @@ module.exports = {
       options: {
         name: `src`,
         path: `${__dirname}/src/`
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `data`,
+        path: `${__dirname}/data/`
       }
     },
     {

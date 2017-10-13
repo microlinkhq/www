@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
-import {Flex, Button} from 'rebass'
-import styled from 'styled-components'
 import { space, width, fontSize, color } from 'styled-system'
+import {debounce} from 'throttle-debounce'
+import React, {Component} from 'react'
+import styled from 'styled-components'
+import {Flex, Button} from 'rebass'
 
 const CustomButton = Button.extend`
   width: 93px;
@@ -40,7 +41,27 @@ const CustomFlex = Flex.extend`
   height: 100%;
 `
 
+const DEBOUNCE_MS = 500
+
 export default class extends Component {
+  constructor (props) {
+    super(props)
+    this.setEventValue = debounce(DEBOUNCE_MS, this.setEventValue)
+  }
+
+  submitValue () {
+    this.props.onSubmit(this.state.value)
+  }
+
+  setEventValue (value) {
+    this.setState({ value })
+    this.props.onSubmit(value)
+  }
+
+  updateValue (event) {
+    this.setEventValue(event.target.value.trim())
+  }
+
   render () {
     const {placeholder, onChange, ...props} = this.props
 
@@ -53,19 +74,12 @@ export default class extends Component {
             placeholder={placeholder}
             autoComplete='off'
             required='required'
-            onChange={event => {
-              this.setState({ value: event.target.value })
-            }}
+            onChange={this.updateValue.bind(this)}
           />
           <CustomButton
             color='white'
             bg='#449bf8'
             children='Try It'
-            onClick={event => {
-              event.preventDefault()
-              const value = this.state.value.trim()
-              this.props.onSubmit(value)
-            }}
           />
         </CustomFlex>
       </CustomForm>

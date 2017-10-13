@@ -32,11 +32,14 @@
     "gatsby-plugin-styled-components": "~1.0.5",
     "gatsby-source-filesystem": "~1.5.3",
     "gatsby-transformer-sharp": "~1.6.10",
+    "gatsby-transformer-yaml": "~1.5.11",
     "normalize.css": "~7.0.0",
     "palx": "~1.0.2",
     "postcss-focus": "~2.0.0",
     "react-live": "~1.7.1",
+    "react-tilt": "~0.1.4",
     "rebass": "~1.0.4",
+    "throttle-debounce": "~1.0.1",
     "unfetch": "~3.0.0"
   },
   "devDependencies": {

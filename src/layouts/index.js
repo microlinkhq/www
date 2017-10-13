@@ -8,19 +8,23 @@ import React from 'react'
 import theme from '../theme'
 import '../styles/main.scss'
 
-const TemplateWrapper = ({ children, data }) => (
-  <div>
-    <Helmet defaultTitle={data.site.siteMetadata.name} titleTemplate={`%s | ${data.site.siteMetadata.name}`}>
-      <meta name='twitter:site' content={data.site.siteMetadata.name} />
-      <meta name='og:type' content='website' />
-      <meta name='og:site_name' content={data.site.siteMetadata.name} />
-    </Helmet>
+const TemplateWrapper = ({ children, data, ...props }) => {
+  const {apiEndpoint, name} = data.site.siteMetadata
 
-    <Provider theme={theme}>
-      {children()}
-    </Provider>
-  </div>
-)
+  return (
+    <div>
+      <Helmet defaultTitle={name} titleTemplate={`%s | ${name}`}>
+        <meta name='twitter:site' content={name} />
+        <meta name='og:type' content='website' />
+        <meta name='og:site_name' content={name} />
+      </Helmet>
+
+      <Provider theme={theme}>
+        {children({...props, apiEndpoint})}
+      </Provider>
+    </div>
+  )
+}
 
 TemplateWrapper.propTypes = {
   children: PropTypes.func
@@ -32,7 +36,8 @@ export const query = graphql`
     site {
       siteMetadata {
         name,
-        twitter
+        twitter,
+        apiEndpoint
       }
     }
   }
