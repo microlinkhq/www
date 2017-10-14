@@ -4,6 +4,7 @@ import Container from './Container'
 
 const Header = Text.extend`
   letter-spacing: 0.9px;
+  text-transforM: uppercase;
 `
 
 const Separator = Box.extend`
@@ -15,7 +16,7 @@ export default ({title, text, bg, py}) => (
   <Container bg={bg} px='310px' py={3}>
     <Flex justify='center' direction='column' align='center' px={4}>
       <Box py={py}>
-        <Header color='#222' pb={1} bold f={4}>{title}</Header>
+        <Header color='#222' pb={1} bold f={2}>{title}</Header>
         <Separator />
       </Box>
       <Box
