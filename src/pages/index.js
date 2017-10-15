@@ -106,8 +106,8 @@ export default class extends Component {
         </Section>
 
         <Section bg='white'>
-          <Separator py={4} title='Pricing' />
-          <Container p={[2, 5]}>
+          <Separator title='Pricing' />
+          <Container py={[2, 5]}>
             <PricingTable />
           </Container>
         </Section>

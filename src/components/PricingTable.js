@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {Lead} from 'rebass'
 
 const Table = styled.table`
   width: 100%;
@@ -28,10 +29,10 @@ export default () => (
       <Tr>
         <Th />
         <Td >
-          <h2>Community</h2>
+          <Lead bold>Community</Lead>
         </Td>
         <Td>
-          <h2>Professional</h2>
+          <Lead bold>Professional</Lead>
         </Td>
       </Tr>
       <Tr>
