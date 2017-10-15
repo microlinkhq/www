@@ -33,6 +33,10 @@ ${color}
 ${space}
 `
 
+const CustomHeading = Heading.extend`
+  letter-spacing: 2px;
+`
+
 const URL_FALLBACK = 'https://kikobeats.com'
 
 export default class extends Component {
@@ -54,13 +58,15 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black' py={3} mx='auto' />
-        <Section bg='#f7f8fa' pt={6}>
+        <Section bg='#FAFBFC' pt={6}>
           <Container px={[0, '310px']} pt={3}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
-                <Heading f={[5, 6]} pb={2} color='#222' bold>Microlink</Heading>
+                <CustomHeading f={[5, 6]} pb={2} color='#222' bold>
+                  Microlink
+                </CustomHeading>
                 <CustomSubhead f={['36px', 4]}>
-                  Turns any link into information.
+                  Turns any link into information
                 </CustomSubhead>
               </Flex>
               <SearchBox
@@ -75,8 +81,8 @@ export default class extends Component {
             </Flex>
           </Container>
 
-          <Container bg='#f7f8fa' pt={3} pb={5}>
-            <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#f7f8fa' p={[3, 5]} />
+          <Container bg='#FAFBFC' pt={3} pb={5}>
+            <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#FAFBFC' p={[3, 5]} />
             <DemoLinks
               links={demos}
               onClick={(event, item) => {
@@ -94,14 +100,14 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='#f7f8fa'>
+        <Section bg='#FAFBFC'>
           <Separator py={4} title='Puts your links into context' />
           <Container p={[2, 5]}>
             <ContentFeature />
           </Container>
         </Section>
 
-        <Section bg='#f7f8fa'>
+        <Section bg='#FAFBFC'>
           <Separator py={4} title='Puts your links into context' />
           <Container p={[2, 5]}>
             <ContentFeature direction='right' />
@@ -115,7 +121,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Footer bg='#f7f8fa' mx={-2} py={[3, 4]} px={[0, 7]} />
+        <Footer bg='#FAFBFC' mx={-2} py={[3, 4]} px={[0, 7]} />
       </Main>
     )
   }

@@ -5,7 +5,7 @@ export const space = [0, 4, 8, 16, 32, 64, 128, 256]
 export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96]
 export const weights = [400, 600]
 
-const palette = palx('#00CFFF')
+const palette = palx('#449bf8')
 
 const flattened = Object.keys(palette).reduce((a, key) => {
   const value = palette[key]
