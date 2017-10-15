@@ -13,6 +13,8 @@ import Separator from '../components/Separator'
 import SearchBox from '../components/SearchBox'
 import DemoLinks from '../components/DemoLinks'
 import CodeCard from '../components/CodeCard'
+import Footer from '../components/Footer'
+import NavBar from '../components/NavBar'
 import {textGradient} from '../theme'
 
 const CustomSubhead = Subhead.extend`
@@ -51,7 +53,8 @@ export default class extends Component {
 
     return (
       <Main>
-        <Section bg='#f7f8fa'>
+        <NavBar bg='white' color='black' py={3} mx='auto' />
+        <Section bg='#f7f8fa' pt={6}>
           <Container px={[0, '310px']} pt={3}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
@@ -111,6 +114,8 @@ export default class extends Component {
             <PricingTable />
           </Container>
         </Section>
+
+        <Footer bg='#f7f8fa' mx={-2} py={[3, 4]} px={[0, 7]} />
       </Main>
     )
   }

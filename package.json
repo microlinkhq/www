@@ -37,6 +37,7 @@
     "normalize.css": "~7.0.0",
     "palx": "~1.0.2",
     "postcss-focus": "~2.0.0",
+    "react-feather": "~1.0.7",
     "react-live": "~1.7.1",
     "react-tilt": "~0.1.4",
     "rebass": "~1.0.4",
