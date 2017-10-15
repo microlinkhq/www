@@ -8,10 +8,10 @@ const Separator = Box.extend`
 `
 
 export default ({title, text, bg, py}) => (
-  <Container bg={bg} px='310px' py={3}>
+  <Container bg={bg} px={[0, '310px']} py={3}>
     <Flex justify='center' direction='column' align='center' px={4}>
       <Box py={py}>
-        <Lead color='#222' pb={1} bold f={5}>{title}</Lead>
+        <Lead color='#222' pb={1} bold f={[4, 5]}>{title}</Lead>
         <Separator />
       </Box>
       <Box

@@ -1,7 +1,7 @@
 /* global graphql */
 
-import {Text, Avatar, Flex, Heading, Subhead} from 'rebass'
-import styled, {css} from 'styled-components'
+import {Text, Flex, Heading, Subhead} from 'rebass'
+import styled from 'styled-components'
 import { color, space } from 'styled-system'
 import React, {Component} from 'react'
 
@@ -21,28 +21,12 @@ const CustomSubhead = Subhead.extend`
   max-width: 40rem;
 `
 
-const floatAnimation = css`
-  display: inline-block;
-  vertical-align: middle;
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px transparent;
-  transition-duration: 0.3s;
-  transition-property: transform;
-  transition-timing-function: ease-out;
-
-  &:hover {
-    transform: translateY(-8px);
-  }
-`
-
-const CustomAvatar = Avatar.extend`
-  border-radius: 8px;
-  box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
-  cursor: pointer;
-  ${floatAnimation};
-`
-
 const Section = styled.section`
+${color}
+${space}
+`
+
+const Main = styled.main`
 ${color}
 ${space}
 `
@@ -66,17 +50,19 @@ export default class extends Component {
     const features = data.features.edges.map(item => item.node)
 
     return (
-      <main>
+      <Main>
         <Section bg='#f7f8fa'>
-          <Container px='310px' pt={3}>
-            <Flex is='section' justify='center' direction='column' align='center' px={[7, 0]}>
+          <Container px={[0, '310px']} pt={3}>
+            <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
-                <Heading f={6} pb={2} color='#222' bold>Microlink</Heading>
-                <CustomSubhead f='36px'>Turns any link into information.</CustomSubhead>
+                <Heading f={[5, 6]} pb={2} color='#222' bold>Microlink</Heading>
+                <CustomSubhead f={['36px', 4]}>
+                  Turns any link into information.
+                </CustomSubhead>
               </Flex>
               <SearchBox
                 bg='white'
-                width={['100%', '60%']}
+                width={['80%', '100%']}
                 my={3}
                 placeholder={URL_FALLBACK}
                 value={this.state.url === URL_FALLBACK ? null : this.state.url}
@@ -87,7 +73,7 @@ export default class extends Component {
           </Container>
 
           <Container bg='#f7f8fa' pt={3} pb={5}>
-            <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#f7f8fa' p={5} />
+            <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#f7f8fa' p={[3, 5]} />
             <DemoLinks
               links={demos}
               onClick={(event, item) => {
@@ -100,33 +86,32 @@ export default class extends Component {
 
         <Section bg='white'>
           <Separator py={4} title='Puts your links into context' />
-
-          <Container px={5} py={5}>
+          <Container p={[0, 5]}>
             <ContentGrid data={features} itemsPerRow={3} />
           </Container>
         </Section>
 
         <Section bg='#f7f8fa'>
           <Separator py={4} title='Puts your links into context' />
-          <Container px={5} py={5}>
+          <Container p={[2, 5]}>
             <ContentFeature />
           </Container>
         </Section>
 
         <Section bg='#f7f8fa'>
           <Separator py={4} title='Puts your links into context' />
-          <Container px={5} py={5}>
+          <Container p={[2, 5]}>
             <ContentFeature direction='right' />
           </Container>
         </Section>
 
         <Section bg='white'>
           <Separator py={4} title='Pricing' />
-          <Container px={5} py={4}>
+          <Container p={[2, 5]}>
             <PricingTable />
           </Container>
         </Section>
-      </main>
+      </Main>
     )
   }
 }

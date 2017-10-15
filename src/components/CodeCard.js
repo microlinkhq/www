@@ -39,6 +39,7 @@ const Provider = styled(LiveProvider)`
 
 const Editor = styled(hoc()(LiveEditor))`
   width: 100%;
+  max-height: inherit;
   box-sizing: border-box;
   font-family: ${monospace};
   font-size: 13px;
@@ -186,13 +187,14 @@ export default class extends Component {
           mountStylesheet={false}
           code={JSON.stringify(this.state, null, 2)}>
           <Row justify='space-around' direction='row' align='center' wrap>
-            <PreviewCard size={[600, 500]}>
+            <PreviewCard size={[395, 500]} my={3}>
               <Editor width={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
             </PreviewCard>
 
             <Tilt className='tilt' options={{ max: 8, scale: 1.02 }}>
               <PreviewCard
-                size={[600, 500]}
+                size={[395, 500]}
+                my={3}
                 style={{boxShadow: `0 32px 64px 0 ${palette[0]}`}}
               >
 
@@ -205,7 +207,7 @@ export default class extends Component {
                     style={{background: '#f7f8fa'}}>
                     <Flex align='flex-start'>
                       <CardHeaderLogo
-                        src={favicon.url || favicon || image.url || image} />
+                        src={favicon.url || favicon || image.url || image} />
                       <CardHeaderBody ml={2} mt={2}>
                         <Truncate>{publisher}</Truncate>
                         <Truncate>{description}</Truncate>

@@ -34,6 +34,7 @@ const CustomForm = styled.form`
   border-radius: 8px;
   box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
   border: solid 8px white;
+  max-width: 1024px;
 `
 
 const CustomFlex = Flex.extend`
