@@ -1,11 +1,6 @@
 import React from 'react'
-import {Box, Text, Flex} from 'rebass'
+import {Lead, Box, Flex} from 'rebass'
 import Container from './Container'
-
-const Header = Text.extend`
-  letter-spacing: 0.9px;
-  text-transforM: uppercase;
-`
 
 const Separator = Box.extend`
   height: 4px;
@@ -16,7 +11,7 @@ export default ({title, text, bg, py}) => (
   <Container bg={bg} px='310px' py={3}>
     <Flex justify='center' direction='column' align='center' px={4}>
       <Box py={py}>
-        <Header color='#222' pb={1} bold f={2}>{title}</Header>
+        <Lead color='#222' pb={1} bold f={5}>{title}</Lead>
         <Separator />
       </Box>
       <Box

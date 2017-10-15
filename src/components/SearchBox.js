@@ -75,7 +75,7 @@ export default class extends Component {
             autoComplete='off'
             required='required'
             onChange={this.updateValue.bind(this)}
-            value={value}
+            value={value || ''}
           />
           <CustomButton
             color='white'

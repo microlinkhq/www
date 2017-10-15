@@ -144,7 +144,7 @@ export default class extends Component {
       data: {
         favicon: '',
         image: {
-          paletteColors: [0]
+          palette: [0]
         }
       }
     }
@@ -178,7 +178,7 @@ export default class extends Component {
   render () {
     const {url, ...props} = this.props
     const {favicon, publisher, description, image} = this.state.data
-    const {dominantColor, paletteColors = ['#ccc']} = image
+    const {palette = ['#ccc']} = image
 
     return (
       <Container is='section' {...props}>
@@ -193,7 +193,7 @@ export default class extends Component {
             <Tilt className='tilt' options={{ max: 8, scale: 1.02 }}>
               <PreviewCard
                 size={[600, 500]}
-                style={{boxShadow: `0 32px 64px 0 ${dominantColor || paletteColors[0]}`}}
+                style={{boxShadow: `0 32px 64px 0 ${palette[0]}`}}
               >
 
                 <BackgroundImage

@@ -1,16 +1,19 @@
 /* global graphql */
 
-import {Box, Row, Column, Measure, Text, Avatar, Flex, Heading, Subhead} from 'rebass'
+import {Text, Avatar, Flex, Heading, Subhead} from 'rebass'
 import styled, {css} from 'styled-components'
 import { color, space } from 'styled-system'
 import React, {Component} from 'react'
-import chunk from 'lodash.chunk'
 
-import {textGradient} from '../theme'
+import ContentFeature from '../components/ContentFeature'
+import PricingTable from '../components/PricingTable'
+import ContentGrid from '../components/ContentGrid'
 import Container from '../components/Container'
 import Separator from '../components/Separator'
 import SearchBox from '../components/SearchBox'
+import DemoLinks from '../components/DemoLinks'
 import CodeCard from '../components/CodeCard'
+import {textGradient} from '../theme'
 
 const CustomSubhead = Subhead.extend`
   ${textGradient} text-align: center;
@@ -44,10 +47,6 @@ ${color}
 ${space}
 `
 
-const CustomMeasure = Measure.extend`
-  max-width: 30rem;
-`
-
 const URL_FALLBACK = 'https://kikobeats.com'
 
 export default class extends Component {
@@ -57,7 +56,7 @@ export default class extends Component {
   }
 
   getUrl (apiEndpoint, url) {
-    return `${apiEndpoint}/?url=${url}&paletteColors`
+    return `${apiEndpoint}/?url=${url}&palette`
   }
 
   render () {
@@ -72,9 +71,7 @@ export default class extends Component {
           <Container px='310px' pt={3}>
             <Flex is='section' justify='center' direction='column' align='center' px={[7, 0]}>
               <Flex justify='center' direction='column' align='center' py={3}>
-                <Heading f={6} pb={2} color='#222' bold>
-                Microlink
-              </Heading>
+                <Heading f={6} pb={2} color='#222' bold>Microlink</Heading>
                 <CustomSubhead f='36px'>Turns any link into information.</CustomSubhead>
               </Flex>
               <SearchBox
@@ -91,52 +88,42 @@ export default class extends Component {
 
           <Container bg='#f7f8fa' pt={3} pb={5}>
             <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#f7f8fa' p={5} />
-            <Flex width='100%' justify='space-around' py={3}>
-              {demos.map((item, index) => (
-                <CustomAvatar
-                  key={index}
-                  size={64}
-                  src={item.favicon}
-                  onClick={evt => {
-                    evt.preventDefault()
-                    this.setState({url: item.url})
-                  }}
-              />
-            ))}
-            </Flex>
+            <DemoLinks
+              links={demos}
+              onClick={(event, item) => {
+                event.preventDefault()
+                this.setState({url: item.url})
+              }}
+            />
           </Container>
         </Section>
 
         <Section bg='white'>
-          <Separator
-            py={4}
-            title='Put your links in context'
-            text={
-              <CustomMeasure f={2}>
-                We offer a simple <a href='#'>API</a> microservice to extract useful information from whatever internet link. Just call it.
-              </CustomMeasure>
-            }
-          />
+          <Separator py={4} title='Puts your links into context' />
 
           <Container px={5} py={5}>
-            {chunk(features, 3).map((row, index) => (
-              <Row key={index} pb={4}>
-                {row.map(({title, description}, index) => (
-                  <Column key={index} style={{textAlign: 'center'}}>
-                    <Avatar
-                      size={54}
-                      src='https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=2048&q=20'
-                    />
-                    <Box py={3}>
-                      <Subhead f={3} py={3} bold>
-                        {title}
-                      </Subhead>
-                      <Measure color='#4B5663'>{description}</Measure>
-                    </Box>
-                  </Column>
-                ))}
-              </Row>
-            ))}
+            <ContentGrid data={features} itemsPerRow={3} />
+          </Container>
+        </Section>
+
+        <Section bg='#f7f8fa'>
+          <Separator py={4} title='Puts your links into context' />
+          <Container px={5} py={5}>
+            <ContentFeature />
+          </Container>
+        </Section>
+
+        <Section bg='#f7f8fa'>
+          <Separator py={4} title='Puts your links into context' />
+          <Container px={5} py={5}>
+            <ContentFeature direction='right' />
+          </Container>
+        </Section>
+
+        <Section bg='white'>
+          <Separator py={4} title='Pricing' />
+          <Container px={5} py={4}>
+            <PricingTable />
           </Container>
         </Section>
       </main>
