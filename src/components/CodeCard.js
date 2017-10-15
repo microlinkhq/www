@@ -187,7 +187,11 @@ export default class extends Component {
           mountStylesheet={false}
           code={JSON.stringify(this.state, null, 2)}>
           <Row justify='space-around' direction='row' align='center' wrap>
-            <PreviewCard size={[395, 500]} my={3}>
+            <PreviewCard
+              size={[395, 500]}
+              my={3}
+              style={{boxShadow: `rgb(206, 212, 218) 0 32px 64px 0`}}
+              >
               <Editor width={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
             </PreviewCard>
 
@@ -195,7 +199,7 @@ export default class extends Component {
               <PreviewCard
                 size={[395, 500]}
                 my={3}
-                style={{boxShadow: `0 32px 64px 0 ${palette[0]}`}}
+                style={{boxShadow: `${palette[0] || 'rgb(206, 212, 218)'}  0 32px 64px 0`}}
               >
 
                 <BackgroundImage
