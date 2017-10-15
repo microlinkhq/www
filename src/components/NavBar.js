@@ -42,7 +42,7 @@ const NavBar = props => (
         />
       <CustomNavLink
         px={3}
-        href='mailto:hello@apex.sh'
+        href='mailto:hello@microlink.io'
         children='Contact'
         />
     </CustomToolbar>
