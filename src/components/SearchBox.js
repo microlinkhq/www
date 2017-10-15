@@ -8,6 +8,7 @@ const CustomButton = Button.extend`
   width: 93px;
   height: 48px;
   border-radius: 8px;
+  cursor: pointer;
 `
 
 const CustomInput = styled.input`
@@ -22,6 +23,19 @@ const CustomInput = styled.input`
   white-space: normal;
   appearance: none;
   outline: 0;
+
+  ::-webkit-input-placeholder {
+    opacity: 0.45;
+  }
+  ::-moz-placeholder {
+    opacity: 0.45;
+  }
+  :-ms-input-placeholder {
+    opacity: 0.45;
+  }
+  :-moz-placeholder {
+    opacity: 0.45;
+  }
 `
 
 const CustomForm = styled.form`
@@ -32,7 +46,7 @@ const CustomForm = styled.form`
   height: 65px;
   white-space: nowrap;
   border-radius: 8px;
-  box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
+  box-shadow: 0 16px 24px 0 rgba(206, 212, 218, 0.3);
   border: solid 8px white;
   max-width: 1024px;
 `
@@ -80,8 +94,11 @@ export default class extends Component {
           />
           <CustomButton
             color='white'
-            bg='#449bf8'
+            bg='blue'
             children='Try It'
+            onClick={event => {
+              event.preventDefault()
+            }}
           />
         </CustomFlex>
       </CustomForm>
