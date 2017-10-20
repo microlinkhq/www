@@ -51,6 +51,9 @@
     "prettier-standard": "latest",
     "standard": "latest"
   },
+  "engines": {
+    "node": ">= 8"
+  },
   "scripts": {
     "build": "gatsby build",
     "clean:cache": "rm -rf .cache",
