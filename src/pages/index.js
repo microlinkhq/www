@@ -59,7 +59,7 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black' py={3} mx='auto' />
-        <Section bg='#FAFBFC' pt={6}>
+        <Section bg='#FAFBFC' pt={6} id='home'>
           <Container px={[0, '310px']} pt={3}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
@@ -94,7 +94,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='white'>
+        <Section bg='white' id='features'>
           <Separator py={4} title='Puts your links into context' />
           <Container p={[0, 5]}>
             <ContentGrid data={features} itemsPerRow={3} />
@@ -115,7 +115,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='white'>
+        <Section bg='white' id='pricing'>
           <Separator title='Pricing' />
           <Container py={[2, 5]}>
             <PricingTable />

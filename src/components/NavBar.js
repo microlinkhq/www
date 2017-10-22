@@ -22,7 +22,7 @@ const NavBar = props => (
     <CustomToolbar bg='transparent' {...props}>
       <CustomNavLink
         px={3}
-        href='/'
+        href='#home'
         children='Home'
       />
       <CustomNavLink
@@ -38,12 +38,14 @@ const NavBar = props => (
       <CustomNavLink
         px={3}
         href='https://docs.microlink.io'
+        target='_blank'
         children='Documentation'
         />
       <CustomNavLink
         px={3}
         href='mailto:hello@microlink.io'
         children='Contact'
+        target='_blank'
         />
     </CustomToolbar>
   </Fixed>
