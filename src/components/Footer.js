@@ -9,7 +9,7 @@ export default props => (
 
     <NavLink
       ml='auto'
-      href='http://jxnblk.com'
+      href='http://twitter.com/microlinkio'
       children={<Twitter />}
       />
   </Flex>

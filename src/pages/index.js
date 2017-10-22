@@ -15,6 +15,7 @@ import DemoLinks from '../components/DemoLinks'
 import CodeCard from '../components/CodeCard'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
+import Logo from '../components/Logo'
 import {textGradient} from '../theme'
 
 const CustomSubhead = Subhead.extend`
@@ -63,7 +64,7 @@ export default class extends Component {
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
                 <CustomHeading f={[5, 6]} pb={2} color='#222' bold>
-                  Microlink
+                  Microlink <Logo ml={1} width={'64px'} />
                 </CustomHeading>
                 <CustomSubhead f={['36px', 4]}>
                   Turns any link into information
@@ -121,7 +122,10 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Footer bg='#FAFBFC' mx={-2} py={[3, 4]} px={[0, 7]} />
+        <Section bg='#FAFBFC'>
+          <Footer mx={-2} py={[3, 4]} px={[0, 7]} />
+        </Section>
+
       </Main>
     )
   }

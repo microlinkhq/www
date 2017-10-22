@@ -40,12 +40,10 @@ export default ({links, onClick}) => (
   <Flex width='100%' justify='space-around' py={3} px={6}>
     {links.map((item) => (
       <Logo
-        size={['32px', '48px']}
         key={item.favicon}
         src={item.favicon}
-        onClick={event => {
-          onClick(event, item)
-        }} />
+        onClick={event => onClick(event, item)}
+      />
   ))}
   </Flex>
 )
