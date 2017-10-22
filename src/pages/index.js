@@ -37,7 +37,7 @@ const CustomHeading = Heading.extend`
   letter-spacing: 2px;
 `
 
-const URL_FALLBACK = 'https://kikobeats.com'
+const URL_FALLBACK = 'https://vimeo.com/188175573'
 
 export default class extends Component {
   constructor (props) {

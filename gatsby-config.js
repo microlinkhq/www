@@ -1,8 +1,15 @@
+'use strict'
+
+const isProduction = process.env.NODE_ENV === 'production'
+
+const API_ENDPOINT_PROD = 'https://api.microlink.io/1.0'
+const API_ENDPOINT_DEV = 'http://localhost:3000/1.0'
+
 module.exports = {
   siteMetadata: {
     name: 'microlink',
     twitter: '@microlinkio',
-    apiEndpoint: 'http://localhost:3000/1.0'
+    apiEndpoint: isProduction ? API_ENDPOINT_PROD : API_ENDPOINT_DEV
   },
   plugins: [
     `gatsby-plugin-styled-components`,
