@@ -4,8 +4,8 @@ import { Twitter } from 'react-feather'
 
 export default props => (
   <Flex is='footer' {...props}>
-    <NavLink href='http://jxnblk.com/rebass' children='Documentation' />
-    <NavLink href='https://github.com/jxnblk/rebass' children='Contact' />
+    <NavLink target='_blank' href='http://docs.microlink.io' children='Documentation' />
+    <NavLink href='mailto:hello@microlink.io' children='Contact' />
 
     <NavLink
       ml='auto'
