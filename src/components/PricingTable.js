@@ -85,7 +85,7 @@ export default () => (
     </Table>
 
     <Flex is='section' justify='center' direction='column' align='center'>
-      <Text pt={4} f={1} color='#4B5663'>
+      <Text pt={4} f={1} color='gray8'>
         Do you need more? <Link href='#'>Contact us</Link>.
       </Text>
     </Flex>

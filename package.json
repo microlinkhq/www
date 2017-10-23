@@ -71,7 +71,8 @@
   },
   "standard": {
     "globals": [
-      "React"
+      "React",
+      "graphql"
     ],
     "parser": "babel-eslint"
   }

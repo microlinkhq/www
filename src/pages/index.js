@@ -1,13 +1,10 @@
-/* global graphql */
-
 import {Text, Flex, Heading, Subhead} from 'rebass'
 import styled from 'styled-components'
 import { color, space } from 'styled-system'
 import React, {Component} from 'react'
 
-import ContentFeature from '../components/ContentFeature'
 import PricingTable from '../components/PricingTable'
-import ContentGrid from '../components/ContentGrid'
+import FeatureList from '../components/FeatureList'
 import Container from '../components/Container'
 import Separator from '../components/Separator'
 import SearchBox from '../components/SearchBox'
@@ -54,7 +51,6 @@ export default class extends Component {
     const url = this.state.url || URL_FALLBACK
     const {apiEndpoint, data} = this.props
     const demos = data.demos.edges.map(item => item.node)
-    const features = data.features.edges.map(item => item.node)
 
     return (
       <Main>
@@ -78,11 +74,11 @@ export default class extends Component {
                 value={this.state.url === URL_FALLBACK ? null : this.state.url}
                 onSubmit={url => this.setState({url})}
               />
-              <Text py={2} f={1} color='#4B5663'>Enter an URL. Receive information.</Text>
+              <Text py={2} f={1} color='gray8'>Enter an URL. Receive information.</Text>
             </Flex>
           </Container>
 
-          <Container bg='#FAFBFC' pt={3} pb={5}>
+          <Container bg='#FAFBFC' pt={3} pb={4}>
             <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#FAFBFC' p={[3, 5]} />
             <DemoLinks
               links={demos}
@@ -94,30 +90,13 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='white' id='features'>
-          <Separator py={4} title='Puts your links into context' />
-          <Container p={[0, 5]}>
-            <ContentGrid data={features} itemsPerRow={3} />
-          </Container>
+        <Section bg='#FAFBFC' pt={4} pb={5} id='features'>
+          <FeatureList />
         </Section>
 
-        <Section bg='#FAFBFC'>
-          <Separator py={4} title='Puts your links into context' />
-          <Container p={[2, 5]}>
-            <ContentFeature />
-          </Container>
-        </Section>
-
-        <Section bg='#FAFBFC'>
-          <Separator py={4} title='Puts your links into context' />
-          <Container p={[2, 5]}>
-            <ContentFeature direction='right' />
-          </Container>
-        </Section>
-
-        <Section bg='white' id='pricing'>
+        <Section bg='white' id='pricing' py={4}>
           <Separator title='Pricing' />
-          <Container py={[2, 5]}>
+          <Container py={4}>
             <PricingTable />
           </Container>
         </Section>
@@ -138,14 +117,6 @@ export const query = graphql`
         node {
           favicon
           url
-        }
-      }
-    }
-    features: allFeaturesYaml {
-      edges {
-        node {
-          title
-          description
         }
       }
     }

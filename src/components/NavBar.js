@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  Fixed,
-  Toolbar,
-  NavLink
-} from 'rebass'
+import { Fixed, Toolbar, NavLink } from 'rebass'
 
 const CustomNavLink = NavLink.extend`
   text-transform: uppercase;

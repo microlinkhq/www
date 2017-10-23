@@ -22,7 +22,7 @@ export default styled.a`
     background-color: ${colors.gray9};
     visibility: hidden;
     transform: scaleX(0);
-    transition: all 0.10s ease-in-out 0s;
+    transition: all 0.1s ease-in-out 0s;
   }
 
   &:hover:before {

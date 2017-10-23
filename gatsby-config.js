@@ -2,8 +2,8 @@
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-const API_ENDPOINT_PROD = 'https://api.microlink.io/1.0'
-const API_ENDPOINT_DEV = 'http://localhost:3000/1.0'
+const API_ENDPOINT_PROD = 'https://api.microlink.io'
+const API_ENDPOINT_DEV = 'http://localhost:3000'
 
 module.exports = {
   siteMetadata: {
