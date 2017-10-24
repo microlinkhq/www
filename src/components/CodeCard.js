@@ -1,15 +1,23 @@
 import React, {Component} from 'react'
-
 import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, BackgroundImage} from 'rebass'
+import { LiveProvider, LiveEditor } from 'react-live'
 import { responsiveStyle } from 'styled-system'
 import styled from 'styled-components'
 import Tilt from 'react-tilt'
 import fetch from 'unfetch'
-import { LiveProvider, LiveEditor } from 'react-live'
 
 import Container from './Container'
 
 const DEBOUNCE_MS = 700
+const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
+
+const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
+
+const getImageUrl = url => (
+  typeof url === 'string'
+    ? `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}&w=500`
+    : ''
+)
 
 const cardHeight = responsiveStyle({
   prop: 'height',
@@ -143,7 +151,7 @@ export default class extends Component {
       data: {
         favicon: '',
         image: {
-          palette: [0]
+          palette: []
         }
       }
     }
@@ -153,9 +161,7 @@ export default class extends Component {
     try {
       const {data} = JSON.parse(newState)
       this.setState({data})
-    } catch (err) {
-      console.log(err)
-    }
+    } catch (err) {}
   }
 
   fetchUrl (url) {
@@ -185,6 +191,7 @@ export default class extends Component {
     const {url, ...props} = this.props
     const {favicon, publisher, description, image} = this.state.data
     const {palette = ['#ccc']} = image
+    const logo = favicon.url || favicon || image.url || image
 
     return (
       <Container is='section' {...props}>
@@ -209,14 +216,13 @@ export default class extends Component {
 
                 <BackgroundImage
                   ratio={1 / 2}
-                  src={image.url}
+                  src={getImageUrl(image.url)}
                   style={{position: 'relative'}}
               >
                   <CardHeader p={3} width='100%'
                     style={{background: '#f7f8fa'}}>
                     <Flex align='flex-start'>
-                      <CardHeaderLogo
-                        src={favicon.url || favicon || image.url || image} />
+                      <CardHeaderLogo src={getImageUrl(logo)} />
                       <CardHeaderBody ml={2} mt={2}>
                         <Truncate>{publisher}</Truncate>
                         <Truncate>{description}</Truncate>
