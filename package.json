@@ -40,7 +40,6 @@
     "react-live": "~1.7.1",
     "react-tilt": "~0.1.4",
     "rebass": "~1.0.4",
-    "throttle-debounce": "~1.0.1",
     "unfetch": "~3.0.0"
   },
   "devDependencies": {

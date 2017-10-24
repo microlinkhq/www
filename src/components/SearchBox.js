@@ -1,5 +1,4 @@
 import { space, width, fontSize, color } from 'styled-system'
-import {debounce} from 'throttle-debounce'
 import React, {Component} from 'react'
 import styled from 'styled-components'
 import {Flex, Button} from 'rebass'
@@ -56,25 +55,16 @@ const CustomFlex = Flex.extend`
   height: 100%;
 `
 
-const DEBOUNCE_MS = 500
-
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.setEventValue = debounce(DEBOUNCE_MS, this.setEventValue)
-  }
-
-  submitValue () {
-    this.props.onSubmit(this.state.value)
-  }
-
-  setEventValue (value) {
-    this.setState({ value })
-    this.props.onSubmit(value)
+    this.updateValue = this.updateValue.bind(this)
   }
 
   updateValue (event) {
-    this.setEventValue(event.target.value.trim())
+    const value = event.target.value.trim()
+    this.setState({ value })
+    this.props.onChange(value)
   }
 
   render () {
@@ -89,7 +79,7 @@ export default class extends Component {
             placeholder={placeholder}
             autoComplete='off'
             required='required'
-            onChange={this.updateValue.bind(this)}
+            onChange={this.updateValue}
             value={value || ''}
           />
           <CustomButton

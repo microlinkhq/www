@@ -1,17 +1,15 @@
 import React, {Component} from 'react'
 
 import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, BackgroundImage} from 'rebass'
-import styled from 'styled-components'
 import { responsiveStyle } from 'styled-system'
+import styled from 'styled-components'
 import Tilt from 'react-tilt'
 import fetch from 'unfetch'
-
-import {
-  LiveProvider,
-  LiveEditor
-} from 'react-live'
+import { LiveProvider, LiveEditor } from 'react-live'
 
 import Container from './Container'
+
+const DEBOUNCE_MS = 700
 
 const cardHeight = responsiveStyle({
   prop: 'height',
@@ -162,10 +160,17 @@ export default class extends Component {
 
   fetchUrl (url) {
     fetch(url)
-      .then(r => r.json())
+      .then(res => res.json())
       .then(({data}) => {
-        this.setState({url, data})
+        data && this.setState({url, data})
       })
+  }
+
+  debounceFetchUrl (url) {
+    clearTimeout(this.debouncedSetState)
+    this.debouncedSetState = setTimeout(() => {
+      this.fetchUrl(url)
+    }, DEBOUNCE_MS)
   }
 
   componentDidMount () {
@@ -173,7 +178,7 @@ export default class extends Component {
   }
 
   componentWillUpdate (nextProps, nextState) {
-    if (nextProps.url !== nextState.url) this.fetchUrl(nextProps.url)
+    if (nextProps.url !== nextState.url) this.debounceFetchUrl(nextProps.url)
   }
 
   render () {

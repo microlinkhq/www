@@ -72,7 +72,7 @@ export default class extends Component {
                 my={3}
                 placeholder={URL_FALLBACK}
                 value={this.state.url === URL_FALLBACK ? null : this.state.url}
-                onSubmit={url => this.setState({url})}
+                onChange={url => this.setState({url})}
               />
               <Text py={2} f={1} color='gray8'>Enter an URL. Receive information.</Text>
             </Flex>
