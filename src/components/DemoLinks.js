@@ -36,10 +36,11 @@ const Logo = styled(Avatar)`
   ${avatarWidth}
 `
 
-export default ({links, onClick}) => (
-  <Flex width='100%' justify='space-around' py={3} px={6}>
+export default ({links, onClick, ...props}) => (
+  <Flex width='100%' justify='space-around' wrap {...props}>
     {links.map((item) => (
       <Logo
+        p={[3, 0]}
         key={item.favicon}
         src={item.favicon}
         onClick={event => onClick(event, item)}

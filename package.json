@@ -33,6 +33,7 @@
     "gatsby-source-filesystem": "~1.5.3",
     "gatsby-transformer-sharp": "~1.6.10",
     "gatsby-transformer-yaml": "~1.5.11",
+    "hidden-styled": "~1.0.0-0",
     "normalize.css": "~7.0.0",
     "palx": "~1.0.2",
     "postcss-focus": "~3.0.0",

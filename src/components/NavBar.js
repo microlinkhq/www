@@ -1,5 +1,6 @@
 import React from 'react'
 import { Fixed, Toolbar, NavLink } from 'rebass'
+import Hide from 'hidden-styled'
 
 const CustomNavLink = NavLink.extend`
   text-transform: uppercase;
@@ -14,37 +15,39 @@ const CustomToolbar = Toolbar.extend`
 `
 
 const NavBar = props => (
-  <Fixed z={2} top left right>
-    <CustomToolbar bg='transparent' {...props}>
-      <CustomNavLink
-        px={3}
-        href='#home'
-        children='Home'
+  <Hide xs sm>
+    <Fixed z={2} top left right>
+      <CustomToolbar bg='transparent' {...props}>
+        <CustomNavLink
+          px={3}
+          href='#home'
+          children='Home'
       />
-      <CustomNavLink
-        px={3}
-        href='#features'
-        children='Features'
+        <CustomNavLink
+          px={3}
+          href='#features'
+          children='Features'
         />
-      <CustomNavLink
-        px={3}
-        href='#pricing'
-        children='Pricing'
+        <CustomNavLink
+          px={3}
+          href='#pricing'
+          children='Pricing'
         />
-      <CustomNavLink
-        px={3}
-        href='https://docs.microlink.io'
-        target='_blank'
-        children='Documentation'
+        <CustomNavLink
+          px={3}
+          href='https://docs.microlink.io'
+          target='_blank'
+          children='Documentation'
         />
-      <CustomNavLink
-        px={3}
-        href='mailto:hello@microlink.io'
-        children='Contact'
-        target='_blank'
+        <CustomNavLink
+          px={3}
+          href='mailto:hello@microlink.io'
+          children='Contact'
+          target='_blank'
         />
-    </CustomToolbar>
-  </Fixed>
+      </CustomToolbar>
+    </Fixed>
+  </Hide>
 )
 
 export default NavBar

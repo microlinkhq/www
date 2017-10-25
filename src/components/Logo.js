@@ -6,8 +6,7 @@ export default props => (
     src='/logo.png'
     style={{
       display: 'inline',
-      position: 'relative',
-      top: '13px'
+      position: 'relative'
     }}
     {...props}
   />

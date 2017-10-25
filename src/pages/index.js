@@ -1,6 +1,6 @@
 import {Text, Flex, Heading, Subhead} from 'rebass'
-import styled from 'styled-components'
 import { color, space } from 'styled-system'
+import styled from 'styled-components'
 import React, {Component} from 'react'
 
 import PricingTable from '../components/PricingTable'
@@ -55,14 +55,14 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black' py={3} mx='auto' />
-        <Section bg='#FAFBFC' pt={6} id='home'>
+        <Section bg='#FAFBFC' pt={[0, 6]} id='home'>
           <Container px={[0, '310px']} pt={3}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
                 <CustomHeading f={[5, 6]} pb={2} color='#222' bold>
-                  Microlink <Logo ml={1} width={'64px'} />
+                  Microlink <Logo ml={1} width={['32px', '64px']} />
                 </CustomHeading>
-                <CustomSubhead f={['36px', 4]}>
+                <CustomSubhead f={[3, 4]}>
                   Turns any link into information
                 </CustomSubhead>
               </Flex>
@@ -81,6 +81,7 @@ export default class extends Component {
           <Container bg='#FAFBFC' pt={3} pb={4}>
             <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#FAFBFC' p={[3, 5]} />
             <DemoLinks
+              py={3} px={[3, 6]}
               links={demos}
               onClick={(event, item) => {
                 event.preventDefault()
@@ -90,7 +91,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='#FAFBFC' pt={4} pb={5} id='features'>
+        <Section bg='#FAFBFC' pt={[2, 4]} pb={[3, 5]} id='features'>
           <FeatureList />
         </Section>
 
@@ -102,7 +103,7 @@ export default class extends Component {
         </Section>
 
         <Section bg='#FAFBFC'>
-          <Footer mx={-2} py={[3, 4]} px={[0, 7]} />
+          <Footer mx={-2} py={[3, 4]} px={[3, 7]} />
         </Section>
 
       </Main>
