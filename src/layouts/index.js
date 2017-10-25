@@ -9,15 +9,29 @@ import theme from '../theme'
 import '../styles/main.scss'
 
 const TemplateWrapper = ({ children, data, ...props }) => {
-  const {apiEndpoint, name} = data.site.siteMetadata
+  const {apiEndpoint, siteUrl, title, ogImage, description, twitter} = data.site.siteMetadata
 
   return (
     <div>
-      <Helmet defaultTitle={name} titleTemplate={`%s | ${name}`}>
-        <meta name='twitter:site' content={name} />
-        <meta name='og:type' content='website' />
-        <meta name='og:site_name' content={name} />
-      </Helmet>
+      <Helmet
+        defaultTitle={`${title} | ${description}`} titleTemplate={`%s | ${title}`}
+        meta={[
+          {itemProp: 'name', content: title},
+          {itemProp: 'description', content: description},
+          {itemProp: 'image', content: ogImage},
+          {name: 'twitter:card', content: 'summary_large_image'},
+          {name: 'twitter:title', content: title},
+          {name: 'twitter:description', content: description},
+          {name: 'twitter:site', content: twitter},
+          {name: 'twitter:image', content: ogImage},
+          {name: 'twitter:creator', content: twitter},
+          {property: 'og:url', content: siteUrl},
+          {name: 'og:title', content: title},
+          {name: 'og:description', content: description},
+          {name: 'og:image', content: ogImage},
+          {name: 'og:site_name', content: title},
+          {name: 'og:type', content: 'website'}
+        ]} />
 
       <Provider theme={theme}>
         {children({...props, apiEndpoint})}
@@ -35,8 +49,11 @@ export const query = graphql`
   query LayoutQuery {
     site {
       siteMetadata {
-        name,
-        twitter,
+        siteUrl
+        title
+        description
+        ogImage
+        twitter
         apiEndpoint
       }
     }

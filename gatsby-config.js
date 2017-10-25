@@ -1,19 +1,23 @@
 'use strict'
 
+const url = require('url')
 const isProduction = process.env.NODE_ENV === 'production'
 
 const API_ENDPOINT_PROD = 'https://api.microlink.io'
 const API_ENDPOINT_DEV = 'http://localhost:3000'
+const SITE_URL = 'https://microlink.io'
 
 module.exports = {
   siteMetadata: {
-    name: 'microlink',
+    siteUrl: SITE_URL,
+    title: 'microlink',
+    description: 'Turns any link into information.',
+    ogImage: url.resolve(SITE_URL, '/preview.png'),
     twitter: '@microlinkio',
     apiEndpoint: isProduction ? API_ENDPOINT_PROD : API_ENDPOINT_DEV
   },
   plugins: [
     `gatsby-plugin-styled-components`,
-    `gatsby-plugin-netlify`,
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-yaml`,
     {
@@ -52,6 +56,13 @@ module.exports = {
         trackingId: `UA-108549225-1`
       }
     },
-    `gatsby-plugin-offline`
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://microlink.io`
+      }
+    },
+    `gatsby-plugin-offline`,
+    `gatsby-plugin-netlify`
   ]
 }

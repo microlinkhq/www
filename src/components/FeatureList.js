@@ -41,7 +41,7 @@ export default () => (
       </Li>
       <Li pb={[3, 4]}>
         <Text f={[3, 4]}>
-          Provide an <Link href='https://docs.microlink.io/#url' target='_blank'>url</Link> and extract the information.
+          Provide an <Link href='https://docs.microlink.io/#url' target='_blank'>url</Link> for extracting the information.
         </Text>
       </Li>
       <Li pb={[3, 4]}>
@@ -51,7 +51,7 @@ export default () => (
       </Li>
       <Li pb={[3, 4]}>
         <Text f={[3, 4]}>
-          Take <Link href='https://docs.microlink.io/#screenshot' target='_blank'>screenshots</Link> directly.
+          Take <Link href='https://docs.microlink.io/#screenshot' target='_blank'>screenshots</Link>, partial or full page.
         </Text>
       </Li>
       <Li pb={[3, 4]}>

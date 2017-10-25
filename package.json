@@ -23,6 +23,7 @@
     "cssnano": "~3.10.0",
     "gatsby": "~1.9.55",
     "gatsby-link": "~1.6.20",
+    "gatsby-plugin-canonical-urls": "~1.0.8",
     "gatsby-plugin-google-analytics": "~1.0.8",
     "gatsby-plugin-netlify": "~1.0.6",
     "gatsby-plugin-offline": "~1.0.9",
