@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import {Flex, Text, Lead} from 'rebass'
+import {Link, ButtonOutline, Flex, Text, Lead} from 'rebass'
 import {colors} from '../theme'
-import Link from './Link'
+import CustomLink from './Link'
 
 const Table = styled.table`
   width: 100%;
@@ -48,6 +48,19 @@ const Tr = styled.tr`
   border-spacing: 2px;
   border-color: grey;
 `
+
+const Note = styled.span`
+  &::before {
+    content: " * ";
+    font-weight: 100;
+    font-size: .8em;
+    position: relative;
+    top: -5px;
+    left: 0;
+    color: ${colors.gray8};
+  }
+`
+
 export default () => (
   <div>
     <Table>
@@ -73,23 +86,40 @@ export default () => (
         </Tr>
         <Tr>
           <Th>Request caching</Th>
-          <Td>24h</Td>
+          <Td>5 days</Td>
           <Td>Custom</Td>
         </Tr>
         <Tr>
           <Th />
           <TdPrice>0</TdPrice>
-          <TdPrice>*6</TdPrice>
+          <TdPrice>6<Note /></TdPrice>
+        </Tr>
+        <Tr>
+          <Th />
+          <Th />
+          <Td>
+            <Link
+              href='mailto:hi@microlink.io'
+              target='_blank'
+              children={
+                <ButtonOutline
+                  style={{cursor: 'pointer'}}
+                  color='blue'
+                  children='Buy Now'
+                />
+              }
+            />
+          </Td>
         </Tr>
       </tbody>
     </Table>
 
     <Flex is='section' justify='center' direction='column' align='center'>
       <Text pt={4} px={5} f={1} color='gray8' style={{fontStyle: 'italic'}}>
-        * It will be higher in the future. Buy today and keep the initial price.
+        * It could be higher in the future. Buy today and keep the initial price.
       </Text>
       <Text pt={4} f={1} color='gray8'>
-        Do you need more? <Link href='#'>Contact us</Link>.
+        Do you need more? <CustomLink href='mailto:hi@microlink.io' target='_blank'>Contact us</CustomLink>.
       </Text>
     </Flex>
   </div>
