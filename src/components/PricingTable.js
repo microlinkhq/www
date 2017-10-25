@@ -79,12 +79,15 @@ export default () => (
         <Tr>
           <Th />
           <TdPrice>0</TdPrice>
-          <TdPrice>9</TdPrice>
+          <TdPrice>*6</TdPrice>
         </Tr>
       </tbody>
     </Table>
 
     <Flex is='section' justify='center' direction='column' align='center'>
+      <Text pt={4} px={5} f={1} color='gray8' style={{fontStyle: 'italic'}}>
+        * It will be higher in the future. Buy today and keep the initial price.
+      </Text>
       <Text pt={4} f={1} color='gray8'>
         Do you need more? <Link href='#'>Contact us</Link>.
       </Text>
