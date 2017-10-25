@@ -4,8 +4,6 @@ import Hide from 'hidden-styled'
 
 const CustomNavLink = NavLink.extend`
   text-transform: uppercase;
-  font-size: 12px;
-  line-height: 12px;
   opacity: .45;
 `
 
@@ -19,27 +17,32 @@ const NavBar = props => (
     <Fixed z={2} top left right>
       <CustomToolbar bg='transparent' {...props}>
         <CustomNavLink
+          f={'12px'}
           px={3}
           href='#home'
           children='Home'
       />
         <CustomNavLink
+          f={'12px'}
           px={3}
           href='#features'
           children='Features'
         />
         <CustomNavLink
+          f={'12px'}
           px={3}
           href='#pricing'
           children='Pricing'
         />
         <CustomNavLink
+          f={'12px'}
           px={3}
           href='https://docs.microlink.io'
           target='_blank'
           children='Documentation'
         />
         <CustomNavLink
+          f={'12px'}
           px={3}
           href='mailto:hello@microlink.io'
           children='Contact'
