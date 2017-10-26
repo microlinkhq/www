@@ -30,12 +30,29 @@ const TdPrice = Td.extend`
   }
 
   &::after {
-    content: "/mo";
+    content: "/month";
     font-weight: 100;
     font-size: .8em;
     position: relative;
     top: 0;
     color: ${colors.black50};
+  }
+`
+
+const MonthlyRequests = styled.span`
+  &::after {
+    font-weight: 100;
+    font-size: .8em;
+    content: "/month";
+    position: relative;
+    top: 0;
+    color: ${colors.black50};
+  }
+`
+
+const DailyRequests = MonthlyRequests.extend`
+  &::after {
+    content: "/day";
   }
 `
 
@@ -51,7 +68,7 @@ const Tr = styled.tr`
 
 const Note = styled.span`
   &::before {
-    content: " * ";
+    content: "*";
     font-weight: 100;
     font-size: .8em;
     position: relative;
@@ -75,9 +92,9 @@ export default () => (
           </Td>
         </Tr>
         <Tr>
-          <Th>Max requests per day</Th>
-          <Td>250</Td>
-          <Td>10‚000</Td>
+          <Th>Rate Limit</Th>
+          <Td>250 <DailyRequests>reqs</DailyRequests></Td>
+          <Td>10,000 <MonthlyRequests>reqs</MonthlyRequests></Td>
         </Tr>
         <Tr>
           <Th>Screenshot image hosting</Th>
@@ -115,8 +132,8 @@ export default () => (
     </Table>
 
     <Flex is='section' justify='center' direction='column' align='center'>
-      <Text pt={4} px={5} f={1} color='gray8' style={{fontStyle: 'italic'}}>
-        * It could be higher in the future. Buy today and keep the initial price.
+      <Text pt={4} px={5} f={3} color='gray8'>
+        * Special price for early adopters.
       </Text>
       <Text pt={4} f={1} color='gray8'>
         Do you need more? <CustomLink href='mailto:hi@microlink.io' target='_blank'>Contact us</CustomLink>.
