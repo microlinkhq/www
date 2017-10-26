@@ -204,7 +204,10 @@ export default class extends Component {
               my={3}
               style={{boxShadow: `rgb(206, 212, 218) 0 32px 64px 0`}}
               >
-              <Editor width={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
+              <Editor
+                width={[ 1, 1, 1 / 2 ]}
+                onChange={this.onChange}
+                />
             </PreviewCard>
 
             <Tilt className='tilt' options={{ max: 8, scale: 1.02 }}>

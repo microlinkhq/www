@@ -1,4 +1,4 @@
-import {Text, Flex, Heading, Subhead} from 'rebass'
+import {Box, Text, Flex, Heading, Subhead} from 'rebass'
 import { color, space } from 'styled-system'
 import styled from 'styled-components'
 import React, {Component} from 'react'
@@ -74,20 +74,32 @@ export default class extends Component {
                 value={this.state.url === URL_FALLBACK ? null : this.state.url}
                 onChange={url => this.setState({url})}
               />
-              <Text py={2} f={1} color='gray8'>Enter an URL. Receive information.</Text>
+              <Text py={2} f={1} color='gray8'>
+                Enter an URL. Receive information.
+              </Text>
             </Flex>
           </Container>
 
           <Container bg='#FAFBFC' pt={3} pb={4}>
-            <DemoLinks
-              py={[3, 4]} px={[3, 6]}
-              links={demos}
-              onClick={(event, item) => {
-                event.preventDefault()
-                this.setState({url: item.url})
-              }}
-            />
             <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#FAFBFC' py={[3, 4]} px={[3, 5]} />
+
+            <Box pt={4}>
+              <Flex is='section' justify='center' direction='column' align='center'>
+                <Text py={3} f={1} color='gray8'>
+                  Click for see an example
+                  </Text>
+              </Flex>
+
+              <DemoLinks
+                pt={[2, 3]} pb={[3, 4]} px={[3, 6]}
+                links={demos}
+                onClick={(event, item) => {
+                  event.preventDefault()
+                  this.setState({url: item.url})
+                }}
+              />
+            </Box>
+
           </Container>
         </Section>
 

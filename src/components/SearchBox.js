@@ -58,13 +58,20 @@ const CustomFlex = Flex.extend`
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.updateValue = this.updateValue.bind(this)
+    this.setValue = this.setValue.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.state = { value: this.props.value || '' }
   }
 
-  updateValue (event) {
+  setValue (event) {
+    event.preventDefault()
     const value = event.target.value.trim()
     this.setState({ value })
-    this.props.onChange(value)
+  }
+
+  onChange (event) {
+    event.preventDefault()
+    this.props.onChange(this.state.value)
   }
 
   render () {
@@ -79,16 +86,15 @@ export default class extends Component {
             placeholder={placeholder}
             autoComplete='off'
             required='required'
-            onChange={this.updateValue}
-            value={value || ''}
+            onChange={this.setValue}
+            value={this.state.value}
+            autoFocus
           />
           <CustomButton
             color='white'
             bg='blue'
             children='Try It'
-            onClick={event => {
-              event.preventDefault()
-            }}
+            onClick={this.onChange}
           />
         </CustomFlex>
       </CustomForm>
