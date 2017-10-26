@@ -132,7 +132,7 @@ export default () => (
     </Table>
 
     <Flex is='section' justify='center' direction='column' align='center'>
-      <Text pt={4} px={5} f={3} color='gray8'>
+      <Text pt={4} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
         * Special price for early adopters.
       </Text>
       <Text pt={4} f={1} color='gray8'>

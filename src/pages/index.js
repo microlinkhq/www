@@ -79,25 +79,25 @@ export default class extends Component {
           </Container>
 
           <Container bg='#FAFBFC' pt={3} pb={4}>
-            <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#FAFBFC' p={[3, 5]} />
             <DemoLinks
-              py={3} px={[3, 6]}
+              py={[3, 4]} px={[3, 6]}
               links={demos}
               onClick={(event, item) => {
                 event.preventDefault()
                 this.setState({url: item.url})
               }}
             />
+            <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#FAFBFC' py={[3, 4]} px={[3, 5]} />
           </Container>
         </Section>
 
-        <Section bg='#FAFBFC' pt={[2, 4]} pb={[3, 5]} id='features'>
+        <Section bg='#FAFBFC' pt={[3, 4]} pb={[3, 4]} id='features'>
           <FeatureList />
         </Section>
 
-        <Section bg='white' id='pricing' py={4}>
-          <Separator title='Pricing' />
-          <Container py={4}>
+        <Section bg='white' id='pricing' py={[3, 4]}>
+          <Separator title='Pricing' py={3} />
+          <Container py={[3, 4]}>
             <PricingTable />
           </Container>
         </Section>
