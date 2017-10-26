@@ -8,7 +8,6 @@ import fetch from 'unfetch'
 
 import Container from './Container'
 
-const DEBOUNCE_MS = 700
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 
 const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
@@ -169,14 +168,8 @@ export default class extends Component {
       .then(res => res.json())
       .then(({data}) => {
         data && this.setState({url, data})
+        this.props.loaderStop()
       })
-  }
-
-  debounceFetchUrl (url) {
-    clearTimeout(this.debouncedSetState)
-    this.debouncedSetState = setTimeout(() => {
-      this.fetchUrl(url)
-    }, DEBOUNCE_MS)
   }
 
   componentDidMount () {
@@ -184,14 +177,14 @@ export default class extends Component {
   }
 
   componentWillUpdate (nextProps, nextState) {
-    if (nextProps.url !== nextState.url) this.debounceFetchUrl(nextProps.url)
+    if (nextProps.url !== nextState.url) this.fetchUrl(nextProps.url)
   }
 
   render () {
-    const {url, ...props} = this.props
+    const {url, loaderStop, ...props} = this.props
     const {favicon, publisher, description, image} = this.state.data
     const {palette = ['#ccc']} = image
-    const logo = favicon.url || favicon || image.url || image
+    const logo = favicon.url || favicon || image.url || image
 
     return (
       <Container is='section' {...props}>

@@ -1,7 +1,15 @@
 import { space, width, fontSize, color } from 'styled-system'
+import {Flex, Button, ButtonOutline} from 'rebass'
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import {Flex, Button} from 'rebass'
+import Spinner from './Spinner'
+
+const CustomButtonOutline = ButtonOutline.extend`
+  width: 93px;
+  height: 48px;
+  border-radius: 8px;
+  cursor: pointer;
+`
 
 const CustomButton = Button.extend`
   width: 93px;
@@ -70,12 +78,38 @@ export default class extends Component {
   }
 
   onChange (event) {
-    event.preventDefault()
     this.props.onChange(this.state.value)
   }
 
+  renderLoadingButton () {
+    return (
+      <CustomButtonOutline onClick={event => {
+        event.preventDefault()
+      }}>
+        <Flex justify='center' align='center'
+          style={{transform: 'scale(0.5)', height: '100%'}}>
+          <Spinner />
+        </Flex>
+      </CustomButtonOutline>
+    )
+  }
+
+  renderButton () {
+    return (
+      <CustomButton
+        color='white'
+        bg='blue'
+        onClick={event => {
+          event.preventDefault()
+          this.onChange()
+        }}>
+          Try it
+      </CustomButton>
+    )
+  }
+
   render () {
-    const {placeholder, onChange, value, ...props} = this.props
+    const {loading, placeholder, onChange, value, ...props} = this.props
 
     return (
       <CustomForm {...props}>
@@ -90,12 +124,8 @@ export default class extends Component {
             value={this.state.value}
             autoFocus
           />
-          <CustomButton
-            color='white'
-            bg='blue'
-            children='Try It'
-            onClick={this.onChange}
-          />
+
+          {!loading ? this.renderButton() : this.renderLoadingButton()}
         </CustomFlex>
       </CustomForm>
     )

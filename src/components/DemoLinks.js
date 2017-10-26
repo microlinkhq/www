@@ -43,7 +43,10 @@ export default ({links, onClick, ...props}) => (
         p={[3, 0]}
         key={item.favicon}
         src={item.favicon}
-        onClick={event => onClick(event, item)}
+        onClick={event => {
+          event.preventDefault()
+          onClick(item)
+        }}
       />
   ))}
   </Flex>

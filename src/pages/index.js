@@ -40,11 +40,21 @@ const URL_FALLBACK = 'https://vimeo.com/188175573'
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.state = {url: URL_FALLBACK}
+    this.state = {loading: false, url: URL_FALLBACK}
+    this.loaderStop = this.loaderStop.bind(this)
+    this.setUrl = this.setUrl.bind(this)
   }
 
   getUrl (apiEndpoint, url) {
     return `${apiEndpoint}/?url=${url}&palette`
+  }
+
+  setUrl (url) {
+    if (url !== this.state.url) this.setState({loading: true, url})
+  }
+
+  loaderStop () {
+    this.setState({loading: false})
   }
 
   render () {
@@ -70,9 +80,10 @@ export default class extends Component {
                 bg='white'
                 width={['80%', '100%']}
                 my={3}
+                loading={this.state.loading}
                 placeholder={URL_FALLBACK}
                 value={this.state.url === URL_FALLBACK ? null : this.state.url}
-                onChange={url => this.setState({url})}
+                onChange={this.setUrl}
               />
               <Text py={2} f={1} color='gray8'>
                 Enter an URL. Receive information.
@@ -81,7 +92,12 @@ export default class extends Component {
           </Container>
 
           <Container bg='#FAFBFC' pt={3} pb={4}>
-            <CodeCard url={this.getUrl(apiEndpoint, url)} bg='#FAFBFC' py={[3, 4]} px={[3, 5]} />
+            <CodeCard
+              url={this.getUrl(apiEndpoint, url)}
+              bg='#FAFBFC'
+              py={[3, 4]} px={[3, 5]}
+              loaderStop={this.loaderStop}
+            />
 
             <Box pt={4}>
               <Flex is='section' justify='center' direction='column' align='center'>
@@ -93,10 +109,7 @@ export default class extends Component {
               <DemoLinks
                 pt={[2, 3]} pb={[3, 4]} px={[3, 6]}
                 links={demos}
-                onClick={(event, item) => {
-                  event.preventDefault()
-                  this.setState({url: item.url})
-                }}
+                onClick={({url}) => this.setUrl(url)}
               />
             </Box>
 
