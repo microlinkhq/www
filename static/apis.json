@@ -1,0 +1,65 @@
+{
+  "name": "microlink.io",
+  "description": "Turns any link into information.",
+  "image": "https://microlink.io/logo.png",
+  "url": "http://microlink.io/apis.json",
+  "tags": [
+    "API",
+    "embeddable",
+    "preview-images-links",
+    "embedded-media",
+    "screenshot",
+    "color-palette",
+    "embed",
+    "preview-links"
+  ],
+  "apis": [
+    {
+	      "name": "microlink",
+	      "description": "Turns any link into information",
+	      "image": "https://microlink.io/logo.png",
+        "humanURL": "https://docs.microlink.io",
+        "baseURL": "https://api.microlink.io",
+	      "tags": [
+          "API",
+          "embeddable",
+          "preview-images-links",
+          "embedded-media",
+          "screenshot",
+          "color-palette",
+          "embed",
+          "preview-links"
+	      ],
+	      "properties": [
+	        {
+	          "type": "Pricing",
+	          "url": "https://microlink.io#pricing"
+	        },
+	        {
+	          "type": "X-docs",
+	          "url": "https://docs.microlink.io"
+	        }
+	      ],
+	      "contact": [
+	        {
+	          "FN": "Microlink HQ",
+	          "email": "hi@microlink.io",
+	          "X-twitter": "microlinkio"
+	        }
+	      ]
+	    }
+  ],
+  "created": "2017-10-10",
+  "modified": "2017-10-10",
+  "url": "http://microlink.io/apis.json",
+  "specificationVersion": "1.0",
+  "maintainers": [
+    {
+      "FN": "Kiko Beats",
+      "X-Twitter": "kikobeats",
+      "X-GitHub": "kikobeats",
+      "email": "josefrancisco.verdu@gmail.com",
+      "url": "https://kikobeats.com"
+    }
+  ]
+}
