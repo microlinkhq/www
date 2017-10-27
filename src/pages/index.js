@@ -102,7 +102,7 @@ export default class extends Component {
             <Box pt={4}>
               <Flex is='section' justify='center' direction='column' align='center'>
                 <Text py={3} f={1} color='gray8'>
-                  Click for see an example
+                  Click to see it in action
                   </Text>
               </Flex>
 
