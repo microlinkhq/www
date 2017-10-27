@@ -182,7 +182,9 @@ export default class extends Component {
 
   render () {
     const {url, loaderStop, ...props} = this.props
-    const {favicon, publisher, description, image} = this.state.data
+    const {publisher, description} = this.state.data
+    const favicon = this.state.data.favicon || {}
+    const image = this.state.data.image || {}
     const {palette = ['#ccc']} = image
     const logo = favicon.url || favicon || image.url || image
 
