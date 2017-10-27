@@ -44,7 +44,7 @@ const NavBar = props => (
         <CustomNavLink
           f={'12px'}
           px={3}
-          href='mailto:hi@microlink.io'
+          href='mailto:hello@microlink.io'
           children='Contact'
           target='_blank'
         />

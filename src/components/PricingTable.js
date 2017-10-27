@@ -116,7 +116,7 @@ export default () => (
           <Th />
           <Td>
             <Link
-              href='mailto:hi@microlink.io'
+              href='mailto:hello@microlink.io'
               target='_blank'
               children={
                 <ButtonOutline
@@ -136,7 +136,7 @@ export default () => (
         * Special price for early adopters.
       </Text>
       <Text pt={4} f={1} color='gray8'>
-        Do you need more? <CustomLink href='mailto:hi@microlink.io' target='_blank'>Contact us</CustomLink>.
+        Do you need more? <CustomLink href='mailto:hello@microlink.io' target='_blank'>Contact us</CustomLink>.
       </Text>
     </Flex>
   </div>
