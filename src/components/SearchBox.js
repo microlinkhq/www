@@ -104,7 +104,6 @@ export default class extends Component {
 
   onSubmit (event) {
     event.preventDefault()
-    console.log(this.state.value)
     this.props.onChange(this.state.value)
   }
 
@@ -120,7 +119,7 @@ export default class extends Component {
             type='url'
             placeholder={placeholder}
             onChange={this.setValue}
-            value={this.state.value}
+            value={value || this.state.value}
             required
             autoComplete='on'
             autoFocus

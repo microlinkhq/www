@@ -82,7 +82,7 @@ export default class extends Component {
                 my={3}
                 loading={this.state.loading}
                 placeholder={URL_FALLBACK}
-                value={this.state.url === URL_FALLBACK ? null : this.state.url}
+                value={this.state.url !== URL_FALLBACK && this.state.url}
                 onChange={this.setUrl}
               />
               <Text py={2} f={1} color='gray8'>

@@ -12,6 +12,7 @@ import Container from './Container'
 import {colors} from '../theme'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
+const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
 
 const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
 
@@ -223,7 +224,7 @@ export default class extends Component {
     const {publisher, description} = this.state.data
     const favicon = this.state.data.favicon || {}
     const image = this.state.data.image || {}
-    const {palette = [colors.gray2, colors.gray3, colors.gray4]} = image
+    const palette = [].concat(image.palette).filter(c => colorMeasure.isLight(color(c)))
     const logo = favicon.url || favicon || image.url || image
 
     return (
@@ -242,7 +243,7 @@ export default class extends Component {
             <CustomTilt
               className='tilt'
               options={{ max: 8, scale: 1.02 }}
-              colors={palette.filter(c => colorMeasure.isLight(color(c)))}
+              colors={palette.length > 1 ? palette : PALETTE_FALLBACK}
               duration={'5s'}
             >
               <PreviewCard size={[395, 500]} my={3}>
