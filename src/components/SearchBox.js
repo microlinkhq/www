@@ -67,7 +67,7 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.setValue = this.setValue.bind(this)
-    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
     this.state = { value: this.props.value || '' }
   }
 
@@ -75,10 +75,6 @@ export default class extends Component {
     event.preventDefault()
     const value = event.target.value.trim()
     this.setState({ value })
-  }
-
-  onChange (event) {
-    this.props.onChange(this.state.value)
   }
 
   renderLoadingButton () {
@@ -99,29 +95,34 @@ export default class extends Component {
       <CustomButton
         color='white'
         bg='blue'
-        onClick={event => {
-          event.preventDefault()
-          this.onChange()
-        }}>
+        type='submit'
+        >
           Try it
       </CustomButton>
     )
+  }
+
+  onSubmit (event) {
+    event.preventDefault()
+    console.log(this.state.value)
+    this.props.onChange(this.state.value)
   }
 
   render () {
     const {loading, placeholder, onChange, value, ...props} = this.props
 
     return (
-      <CustomForm {...props}>
-        <CustomFlex justify='space-around' align='center' role='search'>
+      <CustomForm role='form' {...props} onSubmit={this.onSubmit}>
+        <CustomFlex justify='space-around' align='center'>
           <CustomInput
+            name='url'
             f={3}
-            type='search'
+            type='url'
             placeholder={placeholder}
-            autoComplete='off'
-            required='required'
             onChange={this.setValue}
             value={this.state.value}
+            required
+            autoComplete='on'
             autoFocus
           />
 
