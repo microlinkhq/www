@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, BackgroundImage} from 'rebass'
+import styled, { keyframes } from 'styled-components'
 import { LiveProvider, LiveEditor } from 'react-live'
 import { responsiveStyle } from 'styled-system'
-import styled from 'styled-components'
+import colorMeasure from 'color-measure'
 import Tilt from 'react-tilt'
 import fetch from 'unfetch'
+import color from 'color'
 
 import Container from './Container'
+import {colors} from '../theme'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 
@@ -18,12 +21,25 @@ const getImageUrl = url => (
     : ''
 )
 
+const animateGlow = keyframes`
+  0% {
+    background-position:0% 50%;
+  }
+
+  50% {
+    background-position:100% 50%;
+  }
+  100% {
+    background-position:0% 50%;
+  }
+`
+
 const cardHeight = responsiveStyle({
   prop: 'height',
   cssProperty: 'maxHeight'
 })
 
-const colors = {
+const codeColors = {
   black: '#24292e',
   gray: '#f6f8fa',
   gray2: '#eaecef',
@@ -53,16 +69,16 @@ const Editor = styled(hoc()(LiveEditor))`
   overflow: auto;
   outline: none;
   tab-size: 2;
-  color: ${colors.black};
-  background-color: ${colors.white};
+  color: ${codeColors.black};
+  background-color: ${codeColors.white};
   .token.comment,
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    color: ${colors.midgray};
+    color: ${codeColors.midgray};
   }
   .token.punctuation {
-    color: ${colors.black};
+    color: ${codeColors.black};
   }
   .token.property,
   .token.tag,
@@ -70,9 +86,7 @@ const Editor = styled(hoc()(LiveEditor))`
   .token.number,
   .token.constant,
   .token.symbol {
-    // color: hsl(350, 40%, 70%);
-    color: ${colors.green};
-    // color: ${colors.black};
+    color: ${codeColors.green};
   }
   .token.selector,
   .token.attr-name,
@@ -80,7 +94,7 @@ const Editor = styled(hoc()(LiveEditor))`
   .token.char,
   .token.builtin,
   .token.inserted {
-    color: ${colors.purple};
+    color: ${codeColors.purple};
   }
   // .token.operator,
   // .token.entity,
@@ -93,11 +107,11 @@ const Editor = styled(hoc()(LiveEditor))`
   .token.atrule,
   .token.attr-value,
   .token.keyword {
-    color: ${colors.red};
+    color: ${codeColors.red};
   }
   .token.regex,
   .token.important {
-    color: ${colors.red};
+    color: ${codeColors.red};
   }
   .token.important,
   .token.bold {
@@ -120,10 +134,34 @@ ${cardHeight}
 `
 
 const PreviewCard = ({children, size, ...props}) => (
-  <CustomCard width={size} height={size.map(n => `${n / 2}px`)} {...props}>
+  <CustomCard
+    width={size}
+    height={size.map(n => `${n / 2}px`)} {...props}
+    left={0}>
     {children}
   </CustomCard>
 )
+
+const CustomTilt = styled(Tilt)`
+transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+
+&::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(1);
+  filter: blur(25px);
+  background: linear-gradient(270deg, ${props => props.colors.join(', ')});
+  background-size: 200% 200%;
+  animation: ${animateGlow} ${props => props.duration} ease infinite;
+}
+`
 
 const CardHeader = Box.extend`
   position: absolute;
@@ -185,7 +223,7 @@ export default class extends Component {
     const {publisher, description} = this.state.data
     const favicon = this.state.data.favicon || {}
     const image = this.state.data.image || {}
-    const {palette = ['#ccc']} = image
+    const {palette = [colors.gray2, colors.gray3, colors.gray4]} = image
     const logo = favicon.url || favicon || image.url || image
 
     return (
@@ -195,33 +233,29 @@ export default class extends Component {
           code={JSON.stringify(this.state, null, 2)}>
           <Row justify='space-around' direction='row' align='center' wrap>
             <PreviewCard
+              style={{boxShadow: `${colors.gray2} 0 32px 64px 0`}}
               size={[395, 500]}
-              my={3}
-              style={{boxShadow: `rgb(206, 212, 218) 0 32px 64px 0`}}
-              >
-              <Editor
-                width={[ 1, 1, 1 / 2 ]}
-                onChange={this.onChange}
-                />
+              my={3}>
+              <Editor width={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
             </PreviewCard>
 
-            <Tilt className='tilt' options={{ max: 8, scale: 1.02 }}>
-              <PreviewCard
-                size={[395, 500]}
-                my={3}
-                style={{boxShadow: `${palette[0] || 'rgb(206, 212, 218)'}  0 32px 64px 0`}}
-              >
-
+            <CustomTilt
+              className='tilt'
+              options={{ max: 8, scale: 1.02 }}
+              colors={palette.filter(c => colorMeasure.isLight(color(c)))}
+              duration={'5s'}
+            >
+              <PreviewCard size={[395, 500]} my={3}>
                 <BackgroundImage
                   ratio={1 / 2}
                   src={getImageUrl(image.url)}
                   style={{position: 'relative'}}
-              >
+                  >
                   <CardHeader p={3} width='100%'
                     style={{background: '#f7f8fa'}}>
                     <Flex align='flex-start'>
                       <CardHeaderLogo src={getImageUrl(logo)} />
-                      <CardHeaderBody ml={2} mt={2}>
+                      <CardHeaderBody ml={2}>
                         <Truncate>{publisher}</Truncate>
                         <Truncate>{description}</Truncate>
                       </CardHeaderBody>
@@ -229,7 +263,7 @@ export default class extends Component {
                   </CardHeader>
                 </BackgroundImage>
               </PreviewCard>
-            </Tilt>
+            </CustomTilt>
           </Row>
         </Provider>
       </Container>
