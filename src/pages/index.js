@@ -70,7 +70,7 @@ export default class extends Component {
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
                 <CustomHeading f={[5, 6]} pb={2} color='#222' bold>
-                  Microlink <Logo ml={1} width={['32px', '64px']} />
+                  Microlink <Logo ml={1} width={['32px', '48px']} />
                 </CustomHeading>
                 <CustomSubhead f={[3, 4]}>
                   Turns any link into information
