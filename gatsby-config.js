@@ -59,7 +59,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://microlink.io`
+        siteUrl: SITE_URL
       }
     },
     `gatsby-plugin-offline`,

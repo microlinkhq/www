@@ -93,8 +93,8 @@ export default () => (
         </Tr>
         <Tr>
           <Th>Rate Limit</Th>
-          <Td>250 <DailyRequests>reqs</DailyRequests></Td>
-          <Td>10,000 <MonthlyRequests>reqs</MonthlyRequests></Td>
+          <Td>1,000 <DailyRequests>reqs</DailyRequests></Td>
+          <Td>10,000 <DailyRequests>reqs</DailyRequests></Td>
         </Tr>
         <Tr>
           <Th>Screenshot image hosting</Th>
