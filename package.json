@@ -43,6 +43,7 @@
     "react-feather": "~1.0.7",
     "react-live": "~1.7.1",
     "react-tilt": "~0.1.4",
+    "react-typeform-embed": "~0.1.2",
     "rebass": "~1.0.4",
     "unfetch": "~3.0.0"
   },

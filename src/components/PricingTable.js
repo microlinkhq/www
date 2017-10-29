@@ -1,8 +1,9 @@
+import { ReactTypeformEmbed } from 'react-typeform-embed'
 import styled from 'styled-components'
+import React, {Component} from 'react'
 import Hide from 'hidden-styled'
-import React from 'react'
 
-import {Link, ButtonOutline, Flex, Text, Lead} from 'rebass'
+import {ButtonOutline, Flex, Text, Lead} from 'rebass'
 import {colors} from '../theme'
 import CustomLink from './Link'
 
@@ -80,72 +81,88 @@ const Note = styled.span`
   }
 `
 
-export default () => (
-  <div>
-    <Table>
-      <tbody>
-        <Tr>
-          <Th />
-          <Td >
-            <Lead bold>Free</Lead>
-          </Td>
-          <Td>
-            <Lead bold>Pro</Lead>
-          </Td>
-        </Tr>
-        <Tr>
-          <Th>Rate Limit</Th>
-          <Td>
-            <Hide xs sm>1,000 <DailyRequests>reqs</DailyRequests></Hide>
-            <Hide md lg>1K <DailyRequests>reqs</DailyRequests></Hide>
-          </Td>
-          <Td>
-            <Hide xs sm>10,000 <DailyRequests>reqs</DailyRequests></Hide>
-            <Hide md lg>10K <DailyRequests>reqs</DailyRequests></Hide>
-          </Td>
-        </Tr>
-        <Tr>
-          <Th>Screenshot image hosting</Th>
-          <Td>Imgur</Td>
-          <Td>Custom</Td>
-        </Tr>
-        <Tr>
-          <Th>Request caching</Th>
-          <Td>5 days</Td>
-          <Td>Custom</Td>
-        </Tr>
-        <Tr>
-          <Th />
-          <TdPrice>0</TdPrice>
-          <TdPrice>6<Note /></TdPrice>
-        </Tr>
-        <Tr>
-          <Th />
-          <Th />
-          <Td>
-            <Link
-              href='mailto:hello@microlink.io'
-              target='_blank'
-              children={
+export default class extends Component {
+  constructor (props) {
+    super(props)
+    this.openForm = this.openForm.bind(this)
+  }
+
+  openForm () {
+    this.typeformEmbed.typeform.open()
+  }
+
+  render () {
+    return (
+      <div>
+        <Table>
+          <tbody>
+            <Tr>
+              <Th />
+              <Td >
+                <Lead bold>Free</Lead>
+              </Td>
+              <Td>
+                <Lead bold>Pro</Lead>
+              </Td>
+            </Tr>
+            <Tr>
+              <Th>Rate Limit</Th>
+              <Td>
+                <Hide xs sm>1,000 <DailyRequests>reqs</DailyRequests></Hide>
+                <Hide md lg>1K <DailyRequests>reqs</DailyRequests></Hide>
+              </Td>
+              <Td>
+                <Hide xs sm>10,000 <DailyRequests>reqs</DailyRequests></Hide>
+                <Hide md lg>10K <DailyRequests>reqs</DailyRequests></Hide>
+              </Td>
+            </Tr>
+            <Tr>
+              <Th>Screenshot image hosting</Th>
+              <Td>Imgur</Td>
+              <Td>Custom</Td>
+            </Tr>
+            <Tr>
+              <Th>Request caching</Th>
+              <Td>5 days</Td>
+              <Td>Custom</Td>
+            </Tr>
+            <Tr>
+              <Th />
+              <TdPrice>0</TdPrice>
+              <TdPrice>6<Note /></TdPrice>
+            </Tr>
+            <Tr>
+              <Th />
+              <Th />
+              <Td>
+                <ReactTypeformEmbed
+                  popup
+                  autoOpen={false}
+                  url={'https://kikobeats.typeform.com/to/KCZMOv'}
+                  hideHeaders
+                  hideFooter
+                  style={{top: 100}}
+                  ref={(node => (this.typeformEmbed = node))} />
                 <ButtonOutline
                   style={{cursor: 'pointer'}}
                   color='blue'
+                  onClick={this.openForm}
                   children='Buy Now'
                 />
-              }
-            />
-          </Td>
-        </Tr>
-      </tbody>
-    </Table>
+              </Td>
+            </Tr>
+          </tbody>
+        </Table>
 
-    <Flex is='section' justify='center' direction='column' align='center'>
-      <Text pt={4} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
-        * Special price for early adopters.
-      </Text>
-      <Text pt={4} f={1} color='gray8'>
-        Do you need more? <CustomLink href='mailto:hello@microlink.io' target='_blank'>Contact us</CustomLink>.
-      </Text>
-    </Flex>
-  </div>
-)
+        <Flex is='section' justify='center' direction='column' align='center'>
+          <Text pt={4} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
+            * Special price for early adopters.
+          </Text>
+          <Text pt={4} f={1} color='gray8'>
+            Do you need more? <CustomLink style={{cursor: 'pointer'}} onClick={this.openForm}>Contact us</CustomLink>.
+          </Text>
+        </Flex>
+      </div>
+    )
+  }
+}
