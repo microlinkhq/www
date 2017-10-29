@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, BackgroundImage} from 'rebass'
 import styled, { keyframes } from 'styled-components'
 import { LiveProvider, LiveEditor } from 'react-live'
-import { responsiveStyle } from 'styled-system'
+import { responsiveStyle, width } from 'styled-system'
 import colorMeasure from 'color-measure'
 import Tilt from 'react-tilt'
 import fetch from 'unfetch'
@@ -35,7 +35,7 @@ const animateGlow = keyframes`
   }
 `
 
-const cardHeight = responsiveStyle({
+const maxHeight = responsiveStyle({
   prop: 'height',
   cssProperty: 'maxHeight'
 })
@@ -131,7 +131,7 @@ const Editor = styled(hoc()(LiveEditor))`
 
 const CustomCard = Card.extend`
 overflow: auto;
-${cardHeight}
+${maxHeight}
 `
 
 const PreviewCard = ({children, size, ...props}) => (
@@ -172,7 +172,8 @@ const CardHeader = Box.extend`
 `
 
 const CardHeaderLogo = Avatar.extend`
-  max-width: 48px;
+  ${width}
+  height: 100%;
 `
 
 const CardHeaderBody = Box.extend`
@@ -235,7 +236,7 @@ export default class extends Component {
           <Row justify='space-around' direction='row' align='center' wrap>
             <PreviewCard
               style={{boxShadow: `${colors.gray2} 0 32px 64px 0`}}
-              size={[395, 500]}
+              size={[350, 500]}
               my={3}>
               <Editor width={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
             </PreviewCard>
@@ -246,16 +247,16 @@ export default class extends Component {
               colors={palette.length > 1 ? palette : PALETTE_FALLBACK}
               duration={'5s'}
             >
-              <PreviewCard size={[395, 500]} my={3}>
+              <PreviewCard size={[350, 500]} my={3}>
                 <BackgroundImage
                   ratio={1 / 2}
                   src={getImageUrl(image.url)}
                   style={{position: 'relative'}}
                   >
-                  <CardHeader p={3} width='100%'
+                  <CardHeader p={[2, 3]} width='100%'
                     style={{background: '#f7f8fa'}}>
                     <Flex align='flex-start'>
-                      <CardHeaderLogo src={getImageUrl(logo)} />
+                      <CardHeaderLogo width={['32px', '48px']} src={getImageUrl(logo)} />
                       <CardHeaderBody ml={2}>
                         <Truncate>{publisher}</Truncate>
                         <Truncate>{description}</Truncate>

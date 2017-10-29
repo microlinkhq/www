@@ -1,5 +1,7 @@
-import React from 'react'
 import styled from 'styled-components'
+import Hide from 'hidden-styled'
+import React from 'react'
+
 import {Link, ButtonOutline, Flex, Text, Lead} from 'rebass'
 import {colors} from '../theme'
 import CustomLink from './Link'
@@ -85,16 +87,22 @@ export default () => (
         <Tr>
           <Th />
           <Td >
-            <Lead bold>Community</Lead>
+            <Lead bold>Free</Lead>
           </Td>
           <Td>
-            <Lead bold>Professional</Lead>
+            <Lead bold>Pro</Lead>
           </Td>
         </Tr>
         <Tr>
           <Th>Rate Limit</Th>
-          <Td>1,000 <DailyRequests>reqs</DailyRequests></Td>
-          <Td>10,000 <DailyRequests>reqs</DailyRequests></Td>
+          <Td>
+            <Hide xs sm>1,000 <DailyRequests>reqs</DailyRequests></Hide>
+            <Hide md lg>1K <DailyRequests>reqs</DailyRequests></Hide>
+          </Td>
+          <Td>
+            <Hide xs sm>10,000 <DailyRequests>reqs</DailyRequests></Hide>
+            <Hide md lg>10K <DailyRequests>reqs</DailyRequests></Hide>
+          </Td>
         </Tr>
         <Tr>
           <Th>Screenshot image hosting</Th>

@@ -91,11 +91,11 @@ export default class extends Component {
             </Flex>
           </Container>
 
-          <Container bg='#FAFBFC' pt={3} pb={4}>
+          <Container bg='#FAFBFC' pt={3} pb={4} px={3}>
             <CodeCard
               url={this.getUrl(apiEndpoint, url)}
               bg='#FAFBFC'
-              py={[3, 4]} px={[3, 5]}
+              py={[0, 4]} px={[0, 5]}
               loaderStop={this.loaderStop}
             />
 
