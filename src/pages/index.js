@@ -85,11 +85,22 @@ export default class extends Component {
                 value={this.state.url !== URL_FALLBACK && this.state.url}
                 onChange={this.setUrl}
               />
-              <Text py={2} f={1} color='gray8'>
-                Enter an URL. Receive information.
-              </Text>
             </Flex>
           </Container>
+
+          <Box pt={4}>
+            <Flex is='section' justify='center' direction='column' align='center'>
+              <Text pb={2} f={1} color='gray8'>
+                Click to see it in action →
+              </Text>
+            </Flex>
+
+            <DemoLinks
+              pt={[2, 3]} px={[3, 6]}
+              links={demos}
+              onClick={({url}) => this.setUrl(url)}
+            />
+          </Box>
 
           <Container bg='#FAFBFC' pt={3} pb={4} px={3}>
             <CodeCard
@@ -98,20 +109,6 @@ export default class extends Component {
               py={[0, 4]} px={[0, 5]}
               loaderStop={this.loaderStop}
             />
-
-            <Box pt={4}>
-              <Flex is='section' justify='center' direction='column' align='center'>
-                <Text py={3} f={1} color='gray8'>
-                  Click to see it in action
-                  </Text>
-              </Flex>
-
-              <DemoLinks
-                pt={[2, 3]} pb={[3, 4]} px={[3, 6]}
-                links={demos}
-                onClick={({url}) => this.setUrl(url)}
-              />
-            </Box>
 
           </Container>
         </Section>
