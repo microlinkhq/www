@@ -141,7 +141,7 @@ export default class extends Component {
                   url={'https://kikobeats.typeform.com/to/KCZMOv'}
                   hideHeaders
                   hideFooter
-                  style={{top: 100}}
+                  style={{width: 0, height: 0}}
                   ref={(node => (this.typeformEmbed = node))} />
                 <ButtonOutline
                   style={{cursor: 'pointer'}}
