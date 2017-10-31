@@ -66,15 +66,13 @@ const CustomFlex = Flex.extend`
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.setValue = this.setValue.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.state = { value: this.props.value || '' }
   }
 
-  setValue (event) {
-    event.preventDefault()
-    const value = event.target.value.trim()
-    this.setState({ value })
+  handleChange (event) {
+    this.setState({value: event.target.value})
   }
 
   renderLoadingButton () {
@@ -118,8 +116,8 @@ export default class extends Component {
             f={3}
             type='url'
             placeholder={placeholder}
-            onChange={this.setValue}
-            value={value || this.state.value}
+            onChange={this.handleChange}
+            value={this.state.value}
             required
             autoComplete='on'
             autoFocus
