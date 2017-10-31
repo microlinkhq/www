@@ -11,7 +11,7 @@ module.exports = {
   siteMetadata: {
     siteUrl: SITE_URL,
     title: 'microlink',
-    description: 'Turns any link into information.',
+    description: 'Get relevant information from any link.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     twitter: '@microlinkio',
     apiEndpoint: isProduction ? API_ENDPOINT_PROD : API_ENDPOINT_DEV

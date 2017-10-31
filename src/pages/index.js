@@ -73,7 +73,7 @@ export default class extends Component {
                   Microlink <Logo ml={1} width={['32px', '48px']} />
                 </CustomHeading>
                 <CustomSubhead f={[3, 4]}>
-                  Turns any link into information
+                  Get relevant information from any link.
                 </CustomSubhead>
               </Flex>
               <SearchBox
