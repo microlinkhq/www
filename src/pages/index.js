@@ -95,11 +95,13 @@ export default class extends Component {
               </Text>
             </Flex>
 
-            <DemoLinks
-              pt={[2, 3]} px={[3, 6]}
-              links={demos}
-              onClick={({url}) => this.setUrl(url)}
-            />
+            <Container>
+              <DemoLinks
+                pt={[2, 3]} px={[3, 6]}
+                links={demos}
+                onClick={({url}) => this.setUrl(url)}
+              />
+            </Container>
           </Box>
 
           <Container bg='#FAFBFC' pt={3} pb={4} px={3}>
