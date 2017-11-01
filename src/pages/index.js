@@ -82,7 +82,7 @@ export default class extends Component {
                 my={3}
                 loading={this.state.loading}
                 placeholder={URL_FALLBACK}
-                value={this.state.url !== URL_FALLBACK && this.state.url}
+                value={this.state.url !== URL_FALLBACK ? this.state.url : null}
                 onChange={this.setUrl}
               />
             </Flex>

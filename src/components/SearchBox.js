@@ -72,7 +72,7 @@ export default class extends Component {
   }
 
   handleChange (event) {
-    this.setState({value: event.target.value})
+    this.setState({value: event.target.value.trim()})
   }
 
   renderLoadingButton () {
@@ -103,6 +103,11 @@ export default class extends Component {
   onSubmit (event) {
     event.preventDefault()
     this.props.onChange(this.state.value)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const {value} = nextProps
+    value && this.setState({value})
   }
 
   render () {
