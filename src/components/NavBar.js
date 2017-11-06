@@ -1,6 +1,7 @@
 import React from 'react'
-import { Fixed, Toolbar, NavLink } from 'rebass'
+import { Flex, Fixed, Toolbar, NavLink } from 'rebass'
 import Hide from 'hidden-styled'
+import Changelog from './Changelog'
 
 const CustomNavLink = NavLink.extend`
   text-transform: uppercase;
@@ -36,11 +37,18 @@ const NavBar = props => (
         />
         <CustomNavLink
           f={'12px'}
-          px={3}
+          pl={0}
+          pr={1}
           href='https://docs.microlink.io'
           target='_blank'
-          children='Documentation'
+          children={
+            <Flex px={3}>
+              <span>Documentation</span>
+              <Changelog />
+            </Flex>
+          }
         />
+
         <CustomNavLink
           f={'12px'}
           px={3}
