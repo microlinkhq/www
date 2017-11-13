@@ -188,10 +188,44 @@ export default class extends Component {
 
     this.state = {
       data: {
-        favicon: '',
+        author: null,
+        date: null,
+        description: 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
+        favicon: {
+          width: 180,
+          height: 180,
+          type: 'png',
+          url: 'https://i.vimeocdn.com/favicon/main-touch_180',
+          palette: [
+            '#04acec',
+            '#94dcfb',
+            '#025f82'
+          ],
+          background_color: '#94DCFB',
+          color: '#025E81',
+          alternative_color: '#025F82'
+        },
         image: {
-          palette: []
-        }
+          width: 1280,
+          height: 720,
+          type: 'jpg',
+          url: 'https://i.vimeocdn.com/video/598160082_1280x720.jpg',
+          palette: [
+            '#564748',
+            '#21a8f4',
+            '#dabcbd',
+            '#9ccded',
+            '#5d7c9b',
+            '#044cad'
+          ],
+          background_color: '#564748',
+          color: '#77CAF8',
+          alternative_color: '#C8DFFE'
+        },
+        logo: null,
+        publisher: 'Vimeo',
+        title: 'Converse - Past meets Present - Montage',
+        url: 'https://vimeo.com/188175573'
       }
     }
   }
