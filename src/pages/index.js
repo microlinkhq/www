@@ -64,7 +64,7 @@ export default class extends Component {
 
     return (
       <Main>
-        <NavBar bg='white' color='black' py={1} mx='auto' />
+        <NavBar bg='white' color='black50' py={1} mx='auto' />
         <Section bg='#FAFBFC' pt={[0, 5]} id='home'>
           <Container px={[0, '310px']} pt={3}>
             <Flex is='section' justify='center' direction='column' align='center'>
