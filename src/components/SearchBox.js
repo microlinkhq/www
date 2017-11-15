@@ -16,6 +16,7 @@ const CustomButton = Button.extend`
   height: 48px;
   border-radius: 8px;
   cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
 `
 
 const CustomInput = styled.input`
@@ -30,6 +31,7 @@ const CustomInput = styled.input`
   white-space: normal;
   appearance: none;
   outline: 0;
+  padding: 0;
 
   ::-webkit-input-placeholder {
     opacity: 0.45;
@@ -53,7 +55,7 @@ const CustomForm = styled.form`
   height: 65px;
   white-space: nowrap;
   border-radius: 8px;
-  box-shadow: 0 16px 24px 0 rgba(206, 212, 218, 0.3);
+  box-shadow: 0 10px 24px 0 rgba(206, 212, 218, 0.3);
   border: solid 8px white;
   max-width: 1024px;
 `
@@ -94,8 +96,7 @@ export default class extends Component {
         color='white'
         bg='blue'
         type='submit'
-        >
-          Try it
+        >Try it
       </CustomButton>
     )
   }
