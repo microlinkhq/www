@@ -1,22 +1,23 @@
-import {Box, Text, Flex, Heading, Subhead} from 'rebass'
+import {ButtonOutline, Box, Text, Flex, Heading, Subhead} from 'rebass'
 import { color, space } from 'styled-system'
 import styled from 'styled-components'
 import React, {Component} from 'react'
+import fetch from 'unfetch'
 
+import {colors, bgGradient, textGradient} from '../theme'
 import ContentFeature from '../components/ContentFeature'
 import PricingTable from '../components/PricingTable'
 import ContentGrid from '../components/ContentGrid'
-import FeatureList from '../components/FeatureList'
-import Container from '../components/Container'
-import Separator from '../components/Separator'
-import SearchBox from '../components/SearchBox'
+import WaveSection from '../components/WaveSection'
 import DemoLinks from '../components/DemoLinks'
+import Container from '../components/Container'
+import SearchBox from '../components/SearchBox'
+import Separator from '../components/Separator'
 import CodeCard from '../components/CodeCard'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
 import Link from '../components/Link'
-import {textGradient} from '../theme'
 
 const CustomSubhead = Subhead.extend`
   ${textGradient} text-align: center;
@@ -38,14 +39,89 @@ const CustomHeading = Heading.extend`
   letter-spacing: 2px;
 `
 
-const URL_FALLBACK = 'https://vimeo.com/188175573'
+const GradientSection = Section.extend`
+${bgGradient}
+`
+
+const URL_FALLBACK = 'https://vimeo.com/188175573/'
 
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.state = {loading: false, url: URL_FALLBACK}
     this.loaderStop = this.loaderStop.bind(this)
     this.setUrl = this.setUrl.bind(this)
+    this.fetchUrl = this.fetchUrl.bind(this)
+
+    this.state = {
+      loading: false,
+      url: URL_FALLBACK,
+      data: {
+        author: null,
+        date: null,
+        description: 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
+        favicon: {
+          width: 180,
+          height: 180,
+          type: 'png',
+          url: 'https://i.vimeocdn.com/favicon/main-touch_180',
+          palette: [
+            '#04acec',
+            '#94dcfb',
+            '#025f82'
+          ],
+          background_color: '#94DCFB',
+          color: '#025E81',
+          alternative_color: '#025F82'
+        },
+        image: {
+          width: 1280,
+          height: 720,
+          type: 'jpg',
+          url: 'https://i.vimeocdn.com/video/598160082_1280x720.jpg',
+          palette: [
+            '#564748',
+            '#21a8f4',
+            '#dabcbd',
+            '#9ccded',
+            '#5d7c9b',
+            '#044cad'
+          ],
+          background_color: '#564748',
+          color: '#77CAF8',
+          alternative_color: '#C8DFFE'
+        },
+        logo: null,
+        publisher: 'Vimeo',
+        title: 'Converse - Past meets Present - Montage',
+        url: 'https://vimeo.com/188175573'
+      }
+    }
+  }
+
+  loaderStop () {
+    this.setState({loading: false})
+  }
+
+  fetchUrl (url) {
+    fetch(this.getUrl(this.props.apiEndpoint, url))
+      .then(res => res.json())
+      .then(({data}) => {
+        if (data) this.setState({url, data})
+        this.loaderStop()
+      })
+  }
+
+  onChange (newState) {
+    try {
+      const {data} = JSON.parse(newState)
+      this.setState({data})
+    } catch (err) {}
+  }
+
+  componentWillUpdate (nextProps, nextState) {
+    const currentUrl = this.state.url
+    const nextUrl = nextState.url
+    if (currentUrl !== nextUrl) this.fetchUrl(nextUrl)
   }
 
   getUrl (apiEndpoint, url) {
@@ -56,20 +132,15 @@ export default class extends Component {
     if (url !== this.state.url) this.setState({loading: true, url})
   }
 
-  loaderStop () {
-    this.setState({loading: false})
-  }
-
   render () {
-    const url = this.state.url || URL_FALLBACK
-    const {apiEndpoint, data} = this.props
+    const {data} = this.props
     const demos = data.demos.edges.map(item => item.node)
     const features = data.features.edges.map(item => item.node)
 
     return (
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
-        <Section bg='#FAFBFC' pt={[0, 5]} id='home'>
+        <WaveSection accentColor={this.state.data.image.color} bg='#FAFBFC' py={5} id='home'>
           <Container px={[0, '310px']} pt={3}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
@@ -92,7 +163,7 @@ export default class extends Component {
             </Flex>
           </Container>
 
-          <Box pt={4}>
+          <Box py={5}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Text pb={2} f={1} color='gray8'>
                 Click to see it in action →
@@ -108,16 +179,16 @@ export default class extends Component {
             </Container>
           </Box>
 
-          <Container bg='#FAFBFC' pt={3} pb={4} px={3}>
+          <Container bg='transparent' pt={3} pb={4} px={3}>
             <CodeCard
-              url={this.getUrl(apiEndpoint, url)}
-              bg='#FAFBFC'
+              data={this.state.data}
+              bg='transparent'
               py={[0, 4]} px={[0, 5]}
-              loaderStop={this.loaderStop}
+              onChange={data => this.setState({ data: JSON.parse(data) })}
             />
 
           </Container>
-        </Section>
+        </WaveSection>
 
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
@@ -159,6 +230,19 @@ export default class extends Component {
           </Container>
         </Section>
 
+        <GradientSection>
+          <Container p={[2, 6]}>
+            <Flex justify='center' align='center' direction='column'>
+              <ButtonOutline
+                fontSize={2}
+                style={{cursor: 'pointer'}}
+                color='white'
+                children='API Documentation'
+              />
+            </Flex>
+          </Container>
+        </GradientSection>
+
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
             <ContentFeature direction='right'>
@@ -196,6 +280,13 @@ export default class extends Component {
                 Zero overhead. No dependencies.
               </Text>
             </ContentFeature>
+          </Container>
+        </Section>
+
+        <Section bg='white' id='features'>
+          <Separator py={4} title='Features' />
+          <Container p={[0, 5]}>
+            <ContentGrid data={features} itemsPerRow={3} />
           </Container>
         </Section>
 
