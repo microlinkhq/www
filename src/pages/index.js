@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import React, {Component} from 'react'
 import fetch from 'unfetch'
 
-import {colors, bgGradient, textGradient} from '../theme'
+import {bgGradient, textGradient} from '../theme'
 import ContentFeature from '../components/ContentFeature'
 import PricingTable from '../components/PricingTable'
 import ContentGrid from '../components/ContentGrid'
@@ -140,7 +140,7 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
-        <WaveSection accentColor={this.state.data.image.color} bg='#FAFBFC' mt={5} id='home'>
+        <WaveSection bg='#FAFBFC' mt={5} id='home' data={this.state.data.image}>
           <Container px={[0, '310px']} pt={3}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>

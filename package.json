@@ -20,8 +20,6 @@
   ],
   "dependencies": {
     "autoprefixer": "~7.1.5",
-    "color": "~2.0.0",
-    "color-measure": "~1.0.1",
     "cssnano": "~3.10.0",
     "gatsby": "~1.9.55",
     "gatsby-link": "~1.6.20",
