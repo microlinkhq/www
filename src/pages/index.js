@@ -140,7 +140,7 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
-        <WaveSection accentColor={this.state.data.image.color} bg='#FAFBFC' py={5} id='home'>
+        <WaveSection accentColor={this.state.data.image.color} bg='#FAFBFC' mt={5} id='home'>
           <Container px={[0, '310px']} pt={3}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
