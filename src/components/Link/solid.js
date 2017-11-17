@@ -1,10 +1,9 @@
-import React from 'react'
 import styled from 'styled-components'
-import {colors} from '../theme'
+import {colors} from '../../theme'
 
 const BORDER_WIDTH = '2px'
 
-const CustomLink = styled.a`
+export default styled.a`
   display: inline;
   text-decoration: none;
   font-weight: 600;
@@ -36,13 +35,3 @@ const CustomLink = styled.a`
     outline-width: 0;
   }
 `
-
-export default ({to, external, children, ...props}) => (
-  <CustomLink
-    href={to}
-    target={external ? '_blank' : '_self'}
-    {...props}
-  >
-    {children}
-  </CustomLink>
-)

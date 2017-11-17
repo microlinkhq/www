@@ -1,9 +1,10 @@
 import { ReactTypeformEmbed } from 'react-typeform-embed'
 import styled from 'styled-components'
 import React, {Component} from 'react'
+import {Flex, Text, Lead} from 'rebass'
 import Hide from 'hidden-styled'
 
-import {ButtonOutline, Flex, Text, Lead} from 'rebass'
+import ButtonGradient from './ButtonGradient'
 import {colors} from '../theme'
 import CustomLink from './Link'
 
@@ -143,12 +144,13 @@ export default class extends Component {
                   hideFooter
                   style={{width: 0, height: 0}}
                   ref={(node => (this.typeformEmbed = node))} />
-                <ButtonOutline
-                  style={{cursor: 'pointer'}}
-                  color='blue'
-                  onClick={this.openForm}
-                  children='Buy Now'
-                />
+                <div>
+                  <ButtonGradient
+                    style={{cursor: 'pointer'}}
+                    color='blue'
+                    onClick={this.openForm}
+                  />
+                </div>
               </Td>
             </Tr>
           </tbody>

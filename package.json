@@ -20,6 +20,8 @@
   ],
   "dependencies": {
     "autoprefixer": "~7.1.5",
+    "color": "~2.0.1",
+    "color-measure": "~1.0.1",
     "cssnano": "~3.10.0",
     "gatsby": "~1.9.55",
     "gatsby-link": "~1.6.20",
@@ -43,6 +45,7 @@
     "react-tilt": "~0.1.4",
     "react-typeform-embed": "~0.1.2",
     "rebass": "~1.0.4",
+    "styled-components": "~2.2.3",
     "unfetch": "~3.0.0"
   },
   "devDependencies": {

@@ -1,10 +1,10 @@
-import {ButtonOutline, Box, Text, Flex, Heading, Subhead} from 'rebass'
+import {Box, Text, Flex, Heading, Subhead} from 'rebass'
 import { color, space } from 'styled-system'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import React, {Component} from 'react'
 import fetch from 'unfetch'
 
-import {bgGradient, textGradient} from '../theme'
+import {textGradient} from '../theme'
 import ContentFeature from '../components/ContentFeature'
 import PricingTable from '../components/PricingTable'
 import ContentGrid from '../components/ContentGrid'
@@ -17,7 +17,7 @@ import CodeCard from '../components/CodeCard'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
-import Link from '../components/Link'
+import Link, {LinkDotted} from '../components/Link'
 
 const CustomSubhead = Subhead.extend`
   ${textGradient} text-align: center;
@@ -39,8 +39,22 @@ const CustomHeading = Heading.extend`
   letter-spacing: 2px;
 `
 
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+`
+
 const GradientSection = Section.extend`
-${bgGradient}
+background: linear-gradient(-45deg, #f8a144, #f8449b, #449bf8, #44f8a1);
+background-size: 450% 450%;
+animation: ${gradientAnimation} 20s ease infinite;
 `
 
 const URL_FALLBACK = 'https://vimeo.com/188175573/'
@@ -195,68 +209,65 @@ export default class extends Component {
             <ContentFeature direction='right'>
               <Subhead f={[4, 5]} py={4}>Extract data from any website</Subhead>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 Enter an URL, receive information. Easy peasy.
               </Text>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 You can obtain well structured and normalized data from practically any website, just providing the <Link to='https://docs.microlink.io/#url' external>url</Link>.
               </Text>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 We also have <Link to='https://docs.microlink.io/#prerender' external>prerendering</Link> for get information from client side applications.
               </Text>
             </ContentFeature>
           </Container>
         </Section>
 
-        <Section bg='#FAFBFC'>
+        <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
             <ContentFeature direction='right'>
               <Subhead f={[4, 5]} py={4}>Build rich media embeds</Subhead>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 No matters if you are a newspaper, tech writter or just have a personal blog.
               </Text>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 Improve your social content engagement using adaptative UIs for any media.
               </Text>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 We provide you <Link to='https://docs.microlink.io/#palette' external>palette</Link> schema per each image detected using our <Link to='https://docs.microlink.io' external>API</Link>.
               </Text>
             </ContentFeature>
           </Container>
         </Section>
 
-        <GradientSection>
-          <Container p={[2, 6]}>
+        <GradientSection bg='#FAFBFC'>
+          <Container p={[6, '192px']}>
             <Flex justify='center' align='center' direction='column'>
-              <ButtonOutline
-                fontSize={2}
-                style={{cursor: 'pointer'}}
-                color='white'
-                children='API Documentation'
-              />
+              <Text color='white' f={3}>
+                See more in our <LinkDotted to='https://docs.microlink.io' external>API Documentation</LinkDotted>.
+              </Text>
             </Flex>
           </Container>
         </GradientSection>
 
-        <Section bg='#FAFBFC'>
+        <Section bg='#FAFBFC' py={5}>
           <Container p={[2, 5]}>
             <ContentFeature direction='right'>
               <Subhead f={[4, 5]} py={4}>Take screenshots</Subhead>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 Automate <Link to='https://docs.microlink.io/#screenshot' external>screenshots</Link> of any website, displaying them anywhere.
               </Text>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 Capture easily partial or full page snapshots, without complications.
               </Text>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 You can also emulate specific <Link to='https://docs.microlink.io/#device-emulation' external>devices</Link> or adapt the viewport.
               </Text>
             </ContentFeature>
@@ -268,15 +279,15 @@ export default class extends Component {
             <ContentFeature direction='right'>
               <Subhead f={[4, 5]} py={4}>Embed in your markup</Subhead>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 The integration of third parties more simple and universal without effort.
               </Text>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 You can <Link to='https://docs.microlink.io/#embed' external>embed</Link> the API calls directly in your HTML markup.
               </Text>
 
-              <Text f='18px' py={3} pl={'64px'}>
+              <Text f='18px' py={3} pl={[0, '64px']}>
                 Zero overhead. No dependencies.
               </Text>
             </ContentFeature>
