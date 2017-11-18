@@ -40,6 +40,6 @@ export default styled.section`
 ${color}
 ${space}
 background-size: cover;
-height: 100vh;
+min-height: 100vh;
 background-image: ${props => `url("data:image/svg+xml;utf8,${svg(props)}")`}
 `

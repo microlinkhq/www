@@ -33,11 +33,6 @@ const animateGlow = keyframes`
   }
 `
 
-const maxHeight = responsiveStyle({
-  prop: 'height',
-  cssProperty: 'maxHeight'
-})
-
 const codeColors = {
   black: '#24292e',
   gray: '#f6f8fa',
@@ -129,14 +124,25 @@ const Editor = styled(hoc()(LiveEditor))`
 
 const CustomCard = Card.extend`
 overflow: auto;
-${maxHeight}
+min-width: 450px;
+max-width: 450px;
+max-height: 225px;
+
+@media only screen and (min-width : 1440px) {
+  min-width: 550px;
+  max-width: 550px;
+  max-height: 275px;
+}
+
+@media only screen and (max-width : 32rem) {
+  min-width: 350px;
+  max-width: 350px;
+  max-height: 175px;
+}
 `
 
 const PreviewCard = ({children, size, ...props}) => (
-  <CustomCard
-    width={size}
-    height={size.map(n => `${n / 2}px`)} {...props}
-    left={0}>
+  <CustomCard {...props}>
     {children}
   </CustomCard>
 )
@@ -186,16 +192,17 @@ export default class extends Component {
     const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => colorMeasure.isLight(color(c)))
     const logo = favicon.url || favicon || image.url || image
+    const cardSizes = [300, 400, 450, 630]
 
     return (
       <Container is='section' {...props}>
         <Provider
           mountStylesheet={false}
           code={JSON.stringify(data, null, 2)}>
-          <Row justify='space-around' direction='row' align='center' wrap>
+          <Row justify='space-around' direction={['column-reverse', 'row']} align='center' wrap>
             <PreviewCard
               style={{boxShadow: `${colors.gray2} 0 32px 64px 0`}}
-              size={[350, 600]}
+              size={cardSizes}
               my={3}>
               <Editor width={[ 1, 1, 1 / 2 ]} onChange={onChange} />
             </PreviewCard>
@@ -206,7 +213,7 @@ export default class extends Component {
               colors={palette.length > 1 ? palette : PALETTE_FALLBACK}
               duration={'5s'}
             >
-              <PreviewCard size={[350, 600]} my={3}>
+              <PreviewCard size={cardSizes} my={3}>
                 <BackgroundImage
                   ratio={1 / 2}
                   src={getImageUrl(image.url)}

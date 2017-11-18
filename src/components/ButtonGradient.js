@@ -30,6 +30,6 @@ const GradientSpan = styled.span`
 
 export default props => (
   <GradientButton {...props}>
-    <GradientSpan>Buy Now</GradientSpan>
+    <GradientSpan>Buy</GradientSpan>
   </GradientButton>
 )

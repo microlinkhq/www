@@ -1,7 +1,8 @@
 import {Box, Text, Flex, Heading, Subhead} from 'rebass'
-import { color, space } from 'styled-system'
 import styled, {keyframes} from 'styled-components'
+import { color, space } from 'styled-system'
 import React, {Component} from 'react'
+import Hide from 'hidden-styled'
 import fetch from 'unfetch'
 
 import {textGradient} from '../theme'
@@ -52,9 +53,10 @@ const gradientAnimation = keyframes`
 `
 
 const GradientSection = Section.extend`
-background: linear-gradient(-45deg, #f8a144, #f8449b, #449bf8, #44f8a1);
-background-size: 450% 450%;
-animation: ${gradientAnimation} 20s ease infinite;
+background-color: #08AEEA;
+background: linear-gradient(225deg, #ec4e44, #c02e74 41%, #449bf8);
+background-size: 120% 120%;
+animation: ${gradientAnimation} 15s ease infinite;
 `
 
 const URL_FALLBACK = 'https://vimeo.com/188175573/'
@@ -154,21 +156,22 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
-        <WaveSection bg='#FAFBFC' mt={5} id='home' data={this.state.data.image}>
-          <Container px={[0, '310px']} pt={3}>
+
+        <WaveSection bg='#FAFBFC' mt={'56px'} id='home' data={this.state.data.image}>
+          <Container px={[3, 6]} pt={4}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
                 <CustomHeading f={[5, 6]} pb={2} color='#222' bold>
                   Microlink <Logo ml={1} width={['32px', '48px']} />
                 </CustomHeading>
-                <CustomSubhead f={[3, 4]}>
-                  Get relevant information from any website.
+                <CustomSubhead f={[3, 4]} px={5}>
+                  Get relevant information from any website
                 </CustomSubhead>
               </Flex>
               <SearchBox
                 bg='white'
                 width={['80%', '100%']}
-                my={3}
+                my={[1, 3]}
                 loading={this.state.loading}
                 placeholder={URL_FALLBACK}
                 value={this.state.url !== URL_FALLBACK ? this.state.url : null}
@@ -177,47 +180,49 @@ export default class extends Component {
             </Flex>
           </Container>
 
-          <Box py={5}>
+          <Box py={4} px={[3, 6]}>
             <Flex is='section' justify='center' direction='column' align='center'>
-              <Text pb={2} f={1} color='gray8'>
+              <Text f={1} pt={3} pb={3} color='gray8'>
                 Click to see it in action →
               </Text>
             </Flex>
 
-            <Container>
+            <Container pb={3}>
               <DemoLinks
-                pt={[2, 3]} px={[3, 6]}
+                px={[0, '96px']}
                 links={demos}
                 onClick={({url}) => this.setUrl(url)}
               />
             </Container>
+
+            <Container bg='transparent' py={3}>
+              <CodeCard
+                data={this.state.data}
+                bg='transparent'
+                pt={4}
+                pb={5}
+                onChange={data => this.setState({ data: JSON.parse(data) })}
+              />
+
+            </Container>
           </Box>
 
-          <Container bg='transparent' pt={3} pb={4} px={3}>
-            <CodeCard
-              data={this.state.data}
-              bg='transparent'
-              py={[0, 4]} px={[0, 5]}
-              onChange={data => this.setState({ data: JSON.parse(data) })}
-            />
-
-          </Container>
         </WaveSection>
 
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
             <ContentFeature direction='right'>
-              <Subhead f={[4, 5]} py={4}>Extract data from any website</Subhead>
+              <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Extract data from any website</Subhead>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 Enter an URL, receive information. Easy peasy.
               </Text>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 You can obtain well structured and normalized data from practically any website, just providing the <Link to='https://docs.microlink.io/#url' external>url</Link>.
               </Text>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 We also have <Link to='https://docs.microlink.io/#prerender' external>prerendering</Link> for get information from client side applications.
               </Text>
             </ContentFeature>
@@ -227,17 +232,17 @@ export default class extends Component {
         <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
             <ContentFeature direction='right'>
-              <Subhead f={[4, 5]} py={4}>Build rich media embeds</Subhead>
+              <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Build rich media embeds</Subhead>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 No matters if you are a newspaper, tech writter or just have a personal blog.
               </Text>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 Improve your social content engagement using adaptative UIs for any media.
               </Text>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 We provide you <Link to='https://docs.microlink.io/#palette' external>palette</Link> schema per each image detected using our <Link to='https://docs.microlink.io' external>API</Link>.
               </Text>
             </ContentFeature>
@@ -247,8 +252,11 @@ export default class extends Component {
         <GradientSection bg='#FAFBFC'>
           <Container p={[6, '192px']}>
             <Flex justify='center' align='center' direction='column'>
-              <Text color='white' f={3}>
-                See more in our <LinkDotted to='https://docs.microlink.io' external>API Documentation</LinkDotted>.
+              <Text color='white' pb={2} f={3}>
+                See more awesome features
+              </Text>
+              <Text color='white' f={4}>
+                <LinkDotted to='https://docs.microlink.io' external>API Documentation</LinkDotted>
               </Text>
             </Flex>
           </Container>
@@ -257,17 +265,17 @@ export default class extends Component {
         <Section bg='#FAFBFC' py={5}>
           <Container p={[2, 5]}>
             <ContentFeature direction='right'>
-              <Subhead f={[4, 5]} py={4}>Take screenshots</Subhead>
+              <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Take screenshots</Subhead>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 Automate <Link to='https://docs.microlink.io/#screenshot' external>screenshots</Link> of any website, displaying them anywhere.
               </Text>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 Capture easily partial or full page snapshots, without complications.
               </Text>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 You can also emulate specific <Link to='https://docs.microlink.io/#device-emulation' external>devices</Link> or adapt the viewport.
               </Text>
             </ContentFeature>
@@ -277,39 +285,40 @@ export default class extends Component {
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
             <ContentFeature direction='right'>
-              <Subhead f={[4, 5]} py={4}>Embed in your markup</Subhead>
+              <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Embed in your markup</Subhead>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 The integration of third parties more simple and universal without effort.
               </Text>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 You can <Link to='https://docs.microlink.io/#embed' external>embed</Link> the API calls directly in your HTML markup.
               </Text>
 
-              <Text f='18px' py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
                 Zero overhead. No dependencies.
               </Text>
             </ContentFeature>
           </Container>
         </Section>
 
-        <Section bg='white' id='features'>
-          <Separator py={4} title='Features' />
-          <Container p={[0, 5]}>
-            <ContentGrid data={features} itemsPerRow={3} />
+        <Section bg='white' id='features' px={[2, 5]} pt={[2, 5]}>
+          <Separator pb={[2, 5]} title='Features' />
+          <Container>
+            <Hide xs sm><ContentGrid data={features} itemsPerRow={3} /></Hide>
+            <Hide md lg><ContentGrid data={features} itemsPerRow={1} /></Hide>
           </Container>
         </Section>
 
-        <Section bg='white' id='pricing' py={[3, 4]}>
-          <Separator title='Pricing' py={3} />
-          <Container py={[3, 4]}>
+        <Section bg='white' id='pricing' px={[2, 5]} pt={[2, 5]}>
+          <Separator title='Pricing' pb={[2, 5]} />
+          <Container pb={[2, 5]}>
             <PricingTable />
           </Container>
         </Section>
 
-        <Section bg='#FAFBFC'>
-          <Footer mx={-2} py={[3, 4]} px={[3, 7]} />
+        <Section bg='black' color='gray1'>
+          <Footer py={[3, 4]} px={[3, 7]} />
         </Section>
 
       </Main>
