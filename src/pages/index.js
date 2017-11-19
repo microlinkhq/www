@@ -211,7 +211,7 @@ export default class extends Component {
 
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
-            <ContentFeature direction='right'>
+            <ContentFeature direction='right' image='/img/carbon-dracula.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Extract data from any website</Subhead>
 
               <Text f={[2, 3]} py={3} pl={[0, '64px']}>
@@ -231,7 +231,7 @@ export default class extends Component {
 
         <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
-            <ContentFeature direction='right'>
+            <ContentFeature direction='right' image='/img/link-preview.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Build rich media embeds</Subhead>
 
               <Text f={[2, 3]} py={3} pl={[0, '64px']}>
@@ -264,7 +264,7 @@ export default class extends Component {
 
         <Section bg='#FAFBFC' py={5}>
           <Container p={[2, 5]}>
-            <ContentFeature direction='right'>
+            <ContentFeature direction='right' image='/img/browser.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Take screenshots</Subhead>
 
               <Text f={[2, 3]} py={3} pl={[0, '64px']}>
@@ -284,7 +284,7 @@ export default class extends Component {
 
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
-            <ContentFeature direction='right'>
+            <ContentFeature direction='right' image='/img/embed.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Embed in your markup</Subhead>
 
               <Text f={[2, 3]} py={3} pl={[0, '64px']}>
