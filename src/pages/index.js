@@ -214,15 +214,15 @@ export default class extends Component {
             <ContentFeature direction='right' image='/img/carbon-dracula.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Extract data from any website</Subhead>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 Enter an URL, receive information. Easy peasy.
               </Text>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 You can obtain well structured and normalized data from practically any website, just providing the <Link to='https://docs.microlink.io/#url' external>url</Link>.
               </Text>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 We also have <Link to='https://docs.microlink.io/#prerender' external>prerendering</Link> for get information from client side applications.
               </Text>
             </ContentFeature>
@@ -234,15 +234,15 @@ export default class extends Component {
             <ContentFeature direction='right' image='/img/link-preview.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Build rich media embeds</Subhead>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 No matters if you are a newspaper, tech writter or just have a personal blog.
               </Text>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 Improve your social content engagement using adaptative UIs for any media.
               </Text>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 We provide you <Link to='https://docs.microlink.io/#palette' external>palette</Link> schema per each image detected using our <Link to='https://docs.microlink.io' external>API</Link>.
               </Text>
             </ContentFeature>
@@ -267,15 +267,15 @@ export default class extends Component {
             <ContentFeature direction='right' image='/img/browser.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Take screenshots</Subhead>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 Automate <Link to='https://docs.microlink.io/#screenshot' external>screenshots</Link> of any website, displaying them anywhere.
               </Text>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 Capture easily partial or full page snapshots, without complications.
               </Text>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 You can also emulate specific <Link to='https://docs.microlink.io/#device-emulation' external>devices</Link> or adapt the viewport.
               </Text>
             </ContentFeature>
@@ -287,15 +287,15 @@ export default class extends Component {
             <ContentFeature direction='right' image='/img/embed-support.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Embed in your markup</Subhead>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 The integration of third parties more simple and universal without effort.
               </Text>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 You can <Link to='https://docs.microlink.io/#embed' external>embed</Link> the API calls directly in your HTML markup.
               </Text>
 
-              <Text f={[2, 3]} py={3} pl={[0, '64px']}>
+              <Text f={[2, 3]} py={3}>
                 Zero overhead. No dependencies.
               </Text>
             </ContentFeature>
