@@ -1,17 +1,23 @@
 - title: Data extracting
-  description: Need to screenshot lots of websites at once? Use our simple bulk capture tool to get what you need.
+  description: Obtain structured and normalized data from any website.
+  icon: /img/data.png
 
 - title: Prerendering
-  description: Need to screenshot lots of websites at once? Use our simple bulk capture tool to get what you need.
+  description: Get information from client side applications as well.
+  icon: /img/prerendering.png
 
 - title: Predominant colors
-  description: Need to screenshot lots of websites at once? Use our simple bulk capture tool to get what you need.
+  description: Build adaptative UIs from any media getting colorize schema.
+  icon: /img/palette.png
 
 - title: Screenshot
-  description: Need to screenshot lots of websites at once? Use our simple bulk capture tool to get what you need.
+  description: Automative full or partial screen snapshots.
+  icon: /img/screenshot.png
 
 - title: Device simulation
-  description: Need to screenshot lots of websites at once? Use our simple bulk capture tool to get what you need.
+  description: Simulate along different viewports.
+  icon: /img/device.png
 
 - title: Embed support
-  description: Need to screenshot lots of websites at once? Use our simple bulk capture tool to get what you need.
+  description: API calls directly from the HTML markup.
+  icon: /img/embed.png

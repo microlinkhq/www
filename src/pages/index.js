@@ -250,10 +250,10 @@ export default class extends Component {
         </Section>
 
         <GradientSection bg='#FAFBFC'>
-          <Container p={[6, '192px']}>
+          <Container p={6}>
             <Flex justify='center' align='center' direction='column'>
               <Text color='white' pb={2} f={3}>
-                See more awesome features
+                Discover all things you can do at
               </Text>
               <Text color='white' f={4}>
                 <LinkDotted to='https://docs.microlink.io' external>API Documentation</LinkDotted>
@@ -284,7 +284,7 @@ export default class extends Component {
 
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
-            <ContentFeature direction='right' image='/img/embed.png'>
+            <ContentFeature direction='right' image='/img/embed-support.png'>
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Embed in your markup</Subhead>
 
               <Text f={[2, 3]} py={3} pl={[0, '64px']}>
@@ -333,6 +333,7 @@ export const query = graphql`
         node {
           title
           description
+          icon
         }
       }
     }
