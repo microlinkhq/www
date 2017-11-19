@@ -1,0 +1,23 @@
+- title: Data extracting
+  description: Obtain structured and normalized data from any website.
+  icon: /img/data.png
+
+- title: Prerendering
+  description: Get information from client side applications as well.
+  icon: /img/prerendering.png
+
+- title: Predominant colors
+  description: Build adaptative UIs from any media getting colorize schema.
+  icon: /img/palette.png
+
+- title: Screenshot
+  description: Automative full or partial screen snapshots.
+  icon: /img/screenshot.png
+
+- title: Device simulation
+  description: Simulate along different viewports.
+  icon: /img/device.png
+
+- title: Embed support
+  description: API calls directly from the HTML markup.
+  icon: /img/embed.png

@@ -5,7 +5,6 @@ import { LiveProvider, LiveEditor } from 'react-live'
 import { responsiveStyle, width } from 'styled-system'
 import colorMeasure from 'color-measure'
 import Tilt from 'react-tilt'
-import fetch from 'unfetch'
 import color from 'color'
 
 import Container from './Container'
@@ -13,7 +12,6 @@ import {colors} from '../theme'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
-
 const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
 
 const getImageUrl = url => (
@@ -34,11 +32,6 @@ const animateGlow = keyframes`
     background-position:0% 50%;
   }
 `
-
-const maxHeight = responsiveStyle({
-  prop: 'height',
-  cssProperty: 'maxHeight'
-})
 
 const codeColors = {
   black: '#24292e',
@@ -131,14 +124,25 @@ const Editor = styled(hoc()(LiveEditor))`
 
 const CustomCard = Card.extend`
 overflow: auto;
-${maxHeight}
+min-width: 450px;
+max-width: 450px;
+max-height: 225px;
+
+@media only screen and (min-width : 1440px) {
+  min-width: 550px;
+  max-width: 550px;
+  max-height: 275px;
+}
+
+@media only screen and (max-width : 32rem) {
+  min-width: 350px;
+  max-width: 350px;
+  max-height: 175px;
+}
 `
 
 const PreviewCard = ({children, size, ...props}) => (
-  <CustomCard
-    width={size}
-    height={size.map(n => `${n / 2}px`)} {...props}
-    left={0}>
+  <CustomCard {...props}>
     {children}
   </CustomCard>
 )
@@ -181,98 +185,26 @@ const CardHeaderBody = Box.extend`
 `
 
 export default class extends Component {
-  constructor (props) {
-    super(props)
-    this.onChange = this.onChange.bind(this)
-    this.fetchUrl = this.fetchUrl.bind(this)
-
-    this.state = {
-      data: {
-        author: null,
-        date: null,
-        description: 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
-        favicon: {
-          width: 180,
-          height: 180,
-          type: 'png',
-          url: 'https://i.vimeocdn.com/favicon/main-touch_180',
-          palette: [
-            '#04acec',
-            '#94dcfb',
-            '#025f82'
-          ],
-          background_color: '#94DCFB',
-          color: '#025E81',
-          alternative_color: '#025F82'
-        },
-        image: {
-          width: 1280,
-          height: 720,
-          type: 'jpg',
-          url: 'https://i.vimeocdn.com/video/598160082_1280x720.jpg',
-          palette: [
-            '#564748',
-            '#21a8f4',
-            '#dabcbd',
-            '#9ccded',
-            '#5d7c9b',
-            '#044cad'
-          ],
-          background_color: '#564748',
-          color: '#77CAF8',
-          alternative_color: '#C8DFFE'
-        },
-        logo: null,
-        publisher: 'Vimeo',
-        title: 'Converse - Past meets Present - Montage',
-        url: 'https://vimeo.com/188175573'
-      }
-    }
-  }
-
-  onChange (newState) {
-    try {
-      const {data} = JSON.parse(newState)
-      this.setState({data})
-    } catch (err) {}
-  }
-
-  fetchUrl (url) {
-    fetch(url)
-      .then(res => res.json())
-      .then(({data}) => {
-        data && this.setState({url, data})
-        this.props.loaderStop()
-      })
-  }
-
-  componentDidMount () {
-    this.fetchUrl(this.props.url)
-  }
-
-  componentWillUpdate (nextProps, nextState) {
-    if (nextProps.url !== nextState.url) this.fetchUrl(nextProps.url)
-  }
-
   render () {
-    const {url, loaderStop, ...props} = this.props
-    const {publisher, description} = this.state.data
-    const favicon = this.state.data.favicon || {}
-    const image = this.state.data.image || {}
+    const {data, onChange, ...props} = this.props
+    const {publisher, description} = data
+    const favicon = data.favicon || {}
+    const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => colorMeasure.isLight(color(c)))
     const logo = favicon.url || favicon || image.url || image
+    const cardSizes = [300, 400, 450, 630]
 
     return (
       <Container is='section' {...props}>
         <Provider
           mountStylesheet={false}
-          code={JSON.stringify(this.state, null, 2)}>
-          <Row justify='space-around' direction='row' align='center' wrap>
+          code={JSON.stringify(data, null, 2)}>
+          <Row justify='space-around' direction={['column-reverse', 'row']} align='center' wrap>
             <PreviewCard
               style={{boxShadow: `${colors.gray2} 0 32px 64px 0`}}
-              size={[350, 500]}
+              size={cardSizes}
               my={3}>
-              <Editor width={[ 1, 1, 1 / 2 ]} onChange={this.onChange} />
+              <Editor width={[ 1, 1, 1 / 2 ]} onChange={onChange} />
             </PreviewCard>
 
             <CustomTilt
@@ -281,7 +213,7 @@ export default class extends Component {
               colors={palette.length > 1 ? palette : PALETTE_FALLBACK}
               duration={'5s'}
             >
-              <PreviewCard size={[350, 500]} my={3}>
+              <PreviewCard size={cardSizes} my={3}>
                 <BackgroundImage
                   ratio={1 / 2}
                   src={getImageUrl(image.url)}

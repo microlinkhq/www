@@ -37,10 +37,10 @@ const Logo = styled(Avatar)`
 `
 
 export default ({links, onClick, ...props}) => (
-  <Flex width='100%' justify='space-around' wrap {...props}>
+  <Flex width='100%' justify='space-between' wrap {...props}>
     {links.map((item) => (
       <Logo
-        p={[3, 0]}
+        p={[2, 0]}
         key={item.favicon}
         src={item.favicon}
         onClick={event => {

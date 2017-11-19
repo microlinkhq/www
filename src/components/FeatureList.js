@@ -26,7 +26,7 @@ const Li = styled.li`
      content: '✓';
      display: block;
      position: absolute;
-     top: .25em;
+     top: .5em;
      left: 0;
    }
 `
