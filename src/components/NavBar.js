@@ -17,19 +17,19 @@ const NavBar = props => (
     <CustomToolbar bg='transparent' {...props} >
       <CustomNavLink
         f='12px'
-        px={3}
+        px={[2, 3]}
         href='#home'
         children='Home'
       />
       <CustomNavLink
         f='12px'
-        px={3}
+        px={[2, 3]}
         href='#features'
         children='Features'
         />
       <CustomNavLink
         f='12px'
-        px={3}
+        px={[2, 3]}
         href='#pricing'
         children='Pricing'
         />
@@ -40,7 +40,7 @@ const NavBar = props => (
         href='https://docs.microlink.io'
         target='_blank'
         children={
-          <Flex px={3}>
+          <Flex px={[2, 3]}>
             <span>API</span>
             <Changelog />
           </Flex>
@@ -49,7 +49,7 @@ const NavBar = props => (
 
       <CustomNavLink
         f='12px'
-        px={3}
+        px={[2, 3]}
         href='mailto:hello@microlink.io'
         children='Contact'
         target='_blank'
