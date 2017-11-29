@@ -8,6 +8,8 @@ const API_ENDPOINT_PROD = 'https://api.microlink.io'
 const API_ENDPOINT_DEV = 'http://localhost:3000'
 const SITE_URL = 'https://microlink.io'
 
+const API_ENDPOINT = isProduction || isDevelopment ? API_ENDPOINT_PROD : API_ENDPOINT_DEV
+
 module.exports = {
   siteMetadata: {
     siteUrl: SITE_URL,
@@ -15,7 +17,7 @@ module.exports = {
     description: 'Get relevant information from any website.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     twitter: '@microlinkio',
-    apiEndpoint: isProduction || isDevelopment ? API_ENDPOINT_PROD : API_ENDPOINT_DEV
+    apiEndpoint: API_ENDPOINT
   },
   plugins: [
     `gatsby-plugin-styled-components`,

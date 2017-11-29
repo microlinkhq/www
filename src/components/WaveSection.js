@@ -2,11 +2,9 @@ import { color, space } from 'styled-system'
 import styled from 'styled-components'
 
 const svg = ({data, ...props}) => {
-  const {
-    alternative_color: alternativeColor,
-    color
-  } = data
-
+  const {image, logo} = data
+  const alternativeColor = image.alternative_color || logo.alternative_color
+  const color = image.color || logo.color
   return (
     `
     <svg width='3342' height='1688' viewBox='0 0 3342 1688' xmlns='http://www.w3.org/2000/svg'>

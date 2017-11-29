@@ -72,29 +72,15 @@ export default class extends Component {
       loading: false,
       url: URL_FALLBACK,
       data: {
-        author: null,
-        date: null,
-        description: 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
-        favicon: {
-          width: 180,
-          height: 180,
-          type: 'png',
-          url: 'https://i.vimeocdn.com/favicon/main-touch_180',
-          palette: [
-            '#04acec',
-            '#94dcfb',
-            '#025f82'
-          ],
-          background_color: '#94DCFB',
-          color: '#025E81',
-          alternative_color: '#025F82'
-        },
-        image: {
-          width: 1280,
-          height: 720,
-          type: 'jpg',
-          url: 'https://i.vimeocdn.com/video/598160082_1280x720.jpg',
-          palette: [
+        'author': null,
+        'date': null,
+        'description': 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
+        'image': {
+          'width': 1280,
+          'height': 720,
+          'type': 'jpg',
+          'url': 'https://i.vimeocdn.com/video/598160082_1280x720.jpg',
+          'palette': [
             '#564748',
             '#21a8f4',
             '#dabcbd',
@@ -102,14 +88,27 @@ export default class extends Component {
             '#5d7c9b',
             '#044cad'
           ],
-          background_color: '#564748',
-          color: '#77CAF8',
-          alternative_color: '#C8DFFE'
+          'background_color': '#564748',
+          'color': '#77CAF8',
+          'alternative_color': '#C8DFFE'
         },
-        logo: null,
-        publisher: 'Vimeo',
-        title: 'Converse - Past meets Present - Montage',
-        url: 'https://vimeo.com/188175573'
+        'logo': {
+          'width': 180,
+          'height': 180,
+          'type': 'png',
+          'url': 'https://i.vimeocdn.com/favicon/main-touch_180',
+          'palette': [
+            '#04acec',
+            '#94dcfb',
+            '#025f82'
+          ],
+          'background_color': '#94DCFB',
+          'color': '#025E81',
+          'alternative_color': '#025F82'
+        },
+        'publisher': 'Vimeo',
+        'title': 'Converse - Past meets Present - Montage',
+        'url': 'https://vimeo.com/188175573'
       }
     }
   }
@@ -157,7 +156,7 @@ export default class extends Component {
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
 
-        <WaveSection bg='#FAFBFC' mt={'56px'} id='home' data={this.state.data.image}>
+        <WaveSection bg='#FAFBFC' mt={'56px'} id='home' data={this.state.data}>
           <Container px={[3, 6]} pt={4}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
