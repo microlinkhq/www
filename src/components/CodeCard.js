@@ -188,10 +188,9 @@ export default class extends Component {
   render () {
     const {data, onChange, ...props} = this.props
     const {publisher, description} = data
-    const favicon = data.favicon || {}
+    const logo = data.logo || {}
     const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => colorMeasure.isLight(color(c)))
-    const logo = favicon.url || favicon || image.url || image
     const cardSizes = [300, 400, 450, 630]
 
     return (
@@ -222,7 +221,7 @@ export default class extends Component {
                   <CardHeader p={[2, 3]} width='100%'
                     style={{background: '#f7f8fa'}}>
                     <Flex align='flex-start'>
-                      <CardHeaderLogo width={['32px', '48px']} src={getImageUrl(logo)} />
+                      <CardHeaderLogo width={['32px', '48px']} src={getImageUrl(logo.url || logo)} />
                       <CardHeaderBody ml={2}>
                         <Truncate>{publisher}</Truncate>
                         <Truncate>{description}</Truncate>
