@@ -3,7 +3,6 @@ import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, BackgroundImage} from
 import styled, { keyframes } from 'styled-components'
 import { LiveProvider, LiveEditor } from 'react-live'
 import { width } from 'styled-system'
-import colorMeasure from 'color-measure'
 import Tilt from 'react-tilt'
 import color from 'color'
 
@@ -190,7 +189,7 @@ export default class extends Component {
     const {publisher, description} = data
     const logo = data.logo || {}
     const image = data.image || {}
-    const palette = [].concat(image.palette).filter(c => colorMeasure.isLight(color(c)))
+    const palette = [].concat(image.palette).filter(c => color(c).light())
     const cardSizes = [300, 400, 450, 630]
 
     return (
