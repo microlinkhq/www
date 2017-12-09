@@ -53,8 +53,7 @@ const gradientAnimation = keyframes`
 `
 
 const GradientSection = Section.extend`
-background-color: #08AEEA;
-background: linear-gradient(225deg, #ec4e44, #c02e74 41%, #449bf8);
+background: ${props => props.gradient};
 background-size: 120% 120%;
 animation: ${gradientAnimation} 15s ease infinite;
 `
@@ -242,20 +241,20 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                We provide you <Link to='https://docs.microlink.io/#palette' external>palette</Link> schema per each image detected using our <Link to='https://docs.microlink.io' external>API</Link>.
+                You can do that easily integrating <Link to='https://microlinkjs.org' external>microlink.js</Link> in your site.
               </Text>
             </ContentFeature>
           </Container>
         </Section>
 
-        <GradientSection bg='#FAFBFC'>
+        <GradientSection gradient='linear-gradient(225deg, #2af598 0%, #009efd 100%)'>
           <Container p={6}>
             <Flex justify='center' align='center' direction='column'>
               <Text color='white' pb={2} f={3}>
-                Discover all things you can do at
+                Convert your links previews with
               </Text>
               <Text color='white' f={4}>
-                <LinkDotted to='https://docs.microlink.io' external>API Documentation</LinkDotted>
+                <LinkDotted to='https://microlink.js.org' external>microlink.js</LinkDotted>
               </Text>
             </Flex>
           </Container>
@@ -308,6 +307,19 @@ export default class extends Component {
             <Hide md lg><ContentGrid data={features} itemsPerRow={1} /></Hide>
           </Container>
         </Section>
+
+        <GradientSection bg='#FAFBFC' gradient='linear-gradient(225deg, #ec4e44, #c02e74 41%, #449bf8)'>
+          <Container p={6}>
+            <Flex justify='center' align='center' direction='column'>
+              <Text color='white' pb={2} f={3}>
+                Discover all things you can do at
+              </Text>
+              <Text color='white' f={4}>
+                <LinkDotted to='https://docs.microlink.io' external>API Documentation</LinkDotted>
+              </Text>
+            </Flex>
+          </Container>
+        </GradientSection>
 
         <Section bg='white' id='pricing' px={[2, 5]} pt={[2, 5]}>
           <Separator title='Pricing' pb={[2, 5]} />

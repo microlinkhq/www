@@ -60,7 +60,6 @@
   "scripts": {
     "build": "gatsby build",
     "clean:cache": "rm -rf .cache",
-
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "test": "exit 0"

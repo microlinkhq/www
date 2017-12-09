@@ -27,12 +27,7 @@ const NavBar = props => (
         href='#features'
         children='Features'
         />
-      <CustomNavLink
-        f='12px'
-        px={[2, 3]}
-        href='#pricing'
-        children='Pricing'
-        />
+
       <CustomNavLink
         f='12px'
         pl={0}
@@ -44,15 +39,22 @@ const NavBar = props => (
             <span>API</span>
             <Changelog />
           </Flex>
-          }
+        }
         />
 
       <CustomNavLink
         f='12px'
         px={[2, 3]}
-        href='mailto:hello@microlink.io'
-        children='Contact'
+        href='https://microlink.js.org'
         target='_blank'
+        children='Developer'
+      />
+
+      <CustomNavLink
+        f='12px'
+        px={[2, 3]}
+        href='#pricing'
+        children='Pricing'
         />
     </CustomToolbar>
   </Fixed>
