@@ -14,9 +14,9 @@ const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
 const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
 
 const getImageUrl = url => (
-  typeof url === 'string'
-    ? `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}&w=500`
-    : ''
+  url.indexOf('https://') === 0
+  ? url
+  : `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
 )
 
 const animateGlow = keyframes`
@@ -214,7 +214,7 @@ export default class extends Component {
               <PreviewCard size={cardSizes} my={3}>
                 <BackgroundImage
                   ratio={1 / 2}
-                  src={getImageUrl(image.url)}
+                  src={getImageUrl(image.url || image)}
                   style={{position: 'relative'}}
                   >
                   <CardHeader p={[2, 3]} width='100%'
