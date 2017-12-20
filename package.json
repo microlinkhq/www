@@ -75,7 +75,8 @@
   "standard": {
     "globals": [
       "React",
-      "graphql"
+      "graphql",
+      "requestAnimationFrame"
     ],
     "parser": "babel-eslint"
   }

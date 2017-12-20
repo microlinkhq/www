@@ -1,12 +1,30 @@
 import { ReactTypeformEmbed } from 'react-typeform-embed'
-import styled from 'styled-components'
-import React, {Component} from 'react'
 import {Flex, Text, Lead} from 'rebass'
-import Hide from 'hidden-styled'
+import styled, {keyframes} from 'styled-components'
+import React, {Component} from 'react'
 
 import ButtonGradient from './ButtonGradient'
+import PricePicker from './PricePicker'
 import {colors} from '../theme'
 import CustomLink from './Link'
+
+const BASE_PRICE = 9
+const BASE_DAILY_REQS = 1000
+
+const highlight = keyframes`
+  from {
+     background-color: yellow;
+   }
+   to {
+     background-color: #fff;
+   }
+`
+
+const Highlight = styled.span`
+  animation-name: ${highlight};
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+`
 
 const Table = styled.table`
   width: 100%;
@@ -86,6 +104,26 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.openForm = this.openForm.bind(this)
+    this.priceSelected = this.priceSelected.bind(this)
+    this.state = { price: BASE_PRICE }
+  }
+
+  priceSelected (dailyReqs) {
+    const newPrice = (BASE_PRICE * dailyReqs) / BASE_DAILY_REQS
+    this.setState({price: Math.round(newPrice).toLocaleString('en-US')})
+
+    if (this.raf) return
+    if (this.state.highlight) {
+    // reset the animation
+      this.setState({ highlight: false }, () => {
+        this.raf = requestAnimationFrame(() => {
+          this.raf = null
+          this.setState({ highlight: true })
+        })
+      })
+    } else {
+      this.setState({ highlight: true })
+    }
   }
 
   openForm () {
@@ -93,6 +131,8 @@ export default class extends Component {
   }
 
   render () {
+    const { highlight } = this.state
+
     return (
       <div>
         <Table>
@@ -109,12 +149,10 @@ export default class extends Component {
             <Tr>
               <Th>Rate Limit</Th>
               <Td>
-                <Hide xs sm>1,000 <DailyRequests>reqs</DailyRequests></Hide>
-                <Hide md lg>1K <DailyRequests>reqs</DailyRequests></Hide>
+                <DailyRequests>reqs</DailyRequests>
               </Td>
               <Td>
-                <Hide xs sm>10,000 <DailyRequests>reqs</DailyRequests></Hide>
-                <Hide md lg>10K <DailyRequests>reqs</DailyRequests></Hide>
+                <PricePicker onChange={this.priceSelected} /><DailyRequests>reqs</DailyRequests>
               </Td>
             </Tr>
             <Tr>
@@ -130,7 +168,11 @@ export default class extends Component {
             <Tr>
               <Th />
               <TdPrice>0</TdPrice>
-              <TdPrice>6<Note /></TdPrice>
+              <TdPrice>
+                { highlight
+                ? <Highlight>{this.state.price}</Highlight>
+                : <span>{this.state.price}</span> }
+              </TdPrice>
             </Tr>
             <Tr>
               <Th />
@@ -158,10 +200,10 @@ export default class extends Component {
 
         <Flex is='section' justify='center' direction='column' align='center'>
           <Text pt={4} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
-            * Special price for early adopters.
+            Do you need more?
           </Text>
-          <Text pt={4} f={1} color='gray8'>
-            Do you need more? <CustomLink style={{cursor: 'pointer'}} onClick={this.openForm}>Contact us</CustomLink>.
+          <Text pt={3} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
+            <CustomLink style={{cursor: 'pointer'}} onClick={this.openForm}>Contact us</CustomLink>.
           </Text>
         </Flex>
       </div>
