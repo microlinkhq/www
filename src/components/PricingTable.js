@@ -1,10 +1,12 @@
 import { ReactTypeformEmbed } from 'react-typeform-embed'
-import {Flex, Text, Lead} from 'rebass'
 import styled, {keyframes} from 'styled-components'
+import { HelpCircle } from 'react-feather'
+import {Flex, Text, Lead} from 'rebass'
 import React, {Component} from 'react'
 
 import ButtonGradient from './ButtonGradient'
 import PricePicker from './PricePicker'
+import Tooltip from './ToolTip'
 import {colors} from '../theme'
 import CustomLink from './Link'
 
@@ -88,17 +90,17 @@ const Tr = styled.tr`
   border-color: grey;
 `
 
-const Note = styled.span`
-  &::before {
-    content: "*";
-    font-weight: 100;
-    font-size: .8em;
-    position: relative;
-    top: -5px;
-    left: 0;
-    color: ${colors.gray8};
-  }
-`
+// const Note = styled.span`
+//   &::before {
+//     content: "*";
+//     font-weight: 100;
+//     font-size: .8em;
+//     position: relative;
+//     top: -5px;
+//     left: 0;
+//     color: ${colors.gray8};
+//   }
+// `
 
 export default class extends Component {
   constructor (props) {
@@ -147,21 +149,58 @@ export default class extends Component {
               </Td>
             </Tr>
             <Tr>
-              <Th>Rate Limit</Th>
+              <Th>
+                <Tooltip
+                  content={
+                    <div>
+                      <Text>Rate limit is based in a daily quota of requests.</Text>
+                      <Text>It will be reset every day</Text>
+                    </div>
+                  }>
+                  <Flex justify='center' align='center'>
+                    <Text bold pr={1}>Rate Limit</Text>
+                    <HelpCircle color={colors.black50} size={14} />
+                  </Flex>
+                </Tooltip>
+              </Th>
               <Td>
-                <DailyRequests>reqs</DailyRequests>
+                500 <DailyRequests>reqs</DailyRequests>
               </Td>
               <Td>
                 <PricePicker onChange={this.priceSelected} /><DailyRequests>reqs</DailyRequests>
               </Td>
             </Tr>
             <Tr>
-              <Th>Screenshot image hosting</Th>
+              <Th>
+                <Tooltip
+                  content={
+                    <div>
+                      <Text>Screenshots need to be saved in a physical space.</Text>
+                    </div>
+                  }>
+                  <Flex justify='center' align='center'>
+                    <Text bold pr={1}>Image Hosting</Text>
+                    <HelpCircle color={colors.black50} size={14} />
+                  </Flex>
+                </Tooltip>
+              </Th>
               <Td>Imgur</Td>
               <Td>Custom</Td>
             </Tr>
             <Tr>
-              <Th>Request caching</Th>
+              <Th>
+                <Tooltip
+                  content={
+                    <div>
+                      <Text>We follow a query caching policy for successive API calls.</Text>
+                    </div>
+                  }>
+                  <Flex justify='center' align='center'>
+                    <Text bold pr={1}>Request Caching</Text>
+                    <HelpCircle color={colors.black50} size={14} />
+                  </Flex>
+                </Tooltip>
+              </Th>
               <Td>5 days</Td>
               <Td>Custom</Td>
             </Tr>
