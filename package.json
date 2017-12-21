@@ -54,7 +54,8 @@
     "husky": "latest",
     "lint-staged": "latest",
     "prettier-standard": "latest",
-    "standard": "latest"
+    "standard": "latest",
+    "standard-markdown": "latest"
   },
   "engines": {
     "node": ">= 8"
