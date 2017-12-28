@@ -63,7 +63,7 @@ const TdPrice = Td.extend`
   }
 `
 
-const MonthlyRequests = styled.span`
+const SubSpan = styled.span`
   &::after {
     font-weight: 100;
     font-size: .8em;
@@ -74,9 +74,15 @@ const MonthlyRequests = styled.span`
   }
 `
 
-const DailyRequests = MonthlyRequests.extend`
+const DailyRequests = SubSpan.extend`
   &::after {
     content: "/day";
+  }
+`
+
+const RequestsConcurrency = SubSpan.extend`
+  &::after {
+    content: "/seq";
   }
 `
 
@@ -203,6 +209,23 @@ export default class extends Component {
               </Th>
               <Td>5 days</Td>
               <Td>Custom</Td>
+            </Tr>
+            <Tr>
+              <Th>
+                <Tooltip
+                  content={
+                    <div>
+                      <Text>Maximum simultaneous requests you can make.</Text>
+                    </div>
+                  }>
+                  <Flex justify='center' align='center'>
+                    <Text bold pr={1}>Request Concurrency</Text>
+                    <HelpCircle color={colors.black50} size={14} />
+                  </Flex>
+                </Tooltip>
+              </Th>
+              <Td>1<RequestsConcurrency /></Td>
+              <Td>∞<RequestsConcurrency /></Td>
             </Tr>
             <Tr>
               <Th />
