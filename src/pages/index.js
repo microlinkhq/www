@@ -72,6 +72,7 @@ export default class extends Component {
       url: URL_FALLBACK,
       data: {
         'author': null,
+        'lang': null,
         'date': null,
         'description': 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
         'image': {
