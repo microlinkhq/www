@@ -1,6 +1,5 @@
 import React from 'react'
 import {Flex, NavLink, Input, ButtonOutline, Text} from 'rebass'
-import { Github, Twitter } from 'react-feather'
 
 const CustomButtonOutline = ButtonOutline.extend`
   font-weight: normal;
@@ -13,7 +12,7 @@ const CustomButtonOutline = ButtonOutline.extend`
 `
 export default props => (
   <Flex is='footer' direction='column' {...props}>
-    <Flex mb={4}>
+    <Flex mb={2}>
       <Flex direction='column'>
         <Text f={1}>Early access and updates on new releases.</Text>
         <Flex py={3} px={0} align='center' justify='flex-start'>
@@ -36,12 +35,17 @@ export default props => (
         mr={2}
         target='_blank'
         href='http://twitter.com/microlinkio'
-        children={<Twitter size={28} />}
+        children='Twitter'
         />
       <NavLink
         target='_blank'
         href='http://github.com/microlinkhq'
-        children={<Github size={28} />}
+        children='GitHub'
+        />
+      <NavLink
+        target='_blank'
+        href='https://medium.com/microlink'
+        children='Medium'
         />
     </Flex>
   </Flex>

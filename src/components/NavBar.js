@@ -21,12 +21,6 @@ const NavBar = props => (
         href='#home'
         children='Home'
       />
-      <CustomNavLink
-        f='12px'
-        px={[2, 3]}
-        href='#features'
-        children='Features'
-        />
 
       <CustomNavLink
         f='12px'
@@ -56,6 +50,14 @@ const NavBar = props => (
         href='#pricing'
         children='Pricing'
         />
+
+      <CustomNavLink
+        f='12px'
+        px={[2, 3]}
+        href='https://medium.com/microlink'
+        target='_blank'
+        children='Blog'
+          />
     </CustomToolbar>
   </Fixed>
 )
