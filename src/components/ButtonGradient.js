@@ -28,8 +28,8 @@ const GradientSpan = styled.span`
   text-fill-color: transparent;
 `
 
-export default props => (
+export default ({children, ...props}) => (
   <GradientButton {...props}>
-    <GradientSpan>Buy</GradientSpan>
+    <GradientSpan>{children}</GradientSpan>
   </GradientButton>
 )

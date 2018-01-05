@@ -1,10 +1,19 @@
+import { color, style } from 'styled-system'
 import styled from 'styled-components'
+
 import {colors} from '../../theme'
 
-export default styled.a`
-  color: ${colors.white};
+const borderColor = style({
+  prop: 'borderColor',
+  cssProperty: 'color'
+})
+
+const LinkDotted = styled.a`
+  ${color}
+  ${borderColor}
   text-decoration: none;
-  border-bottom: dashed 2px ${colors.white};
+  border-bottom-width: 2px;
+  border-bottom-style: dashed;
   opacity: 1;
   transition: opacity 0.15s ease-in;
 
@@ -13,3 +22,9 @@ export default styled.a`
     transition: opacity 0.15s ease-in;
   }
 `
+
+LinkDotted.defaultProps = {
+  color: colors.white
+}
+
+export default LinkDotted

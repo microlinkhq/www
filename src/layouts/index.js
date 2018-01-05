@@ -9,7 +9,14 @@ import theme from '../theme'
 import '../styles/main.scss'
 
 const TemplateWrapper = ({ children, data, ...props }) => {
-  const {apiEndpoint, siteUrl, title, ogImage, description, twitter} = data.site.siteMetadata
+  const {
+    siteUrl,
+    title,
+    ogImage,
+    description,
+    twitter,
+    ...metadata
+  } = data.site.siteMetadata
 
   return (
     <div>
@@ -34,7 +41,7 @@ const TemplateWrapper = ({ children, data, ...props }) => {
         ]} />
 
       <Provider theme={theme}>
-        {children({...props, apiEndpoint})}
+        {children({...props, ...metadata})}
       </Provider>
     </div>
   )
@@ -55,6 +62,9 @@ export const query = graphql`
         ogImage
         twitter
         apiEndpoint
+        paymentEndpoint
+        paymentApiKey
+        stripeKey
       }
     }
   }

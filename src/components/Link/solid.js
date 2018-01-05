@@ -1,14 +1,22 @@
+import { color, style } from 'styled-system'
 import styled from 'styled-components'
 import {colors} from '../../theme'
 
 const BORDER_WIDTH = '2px'
 
-export default styled.a`
+const borderColor = style({
+  prop: 'borderColor',
+  cssProperty: 'borderColor'
+})
+
+const LinkSolid = styled.a`
+  ${borderColor}
+  ${color}
   display: inline;
   text-decoration: none;
   font-weight: 600;
-  border-bottom: ${BORDER_WIDTH} solid ${colors.gray2};
-  color: ${colors.gray8};
+  border-bottom-width: ${BORDER_WIDTH};
+  border-bottom-style: solid;
   line-height: normal;
   position: relative;
 
@@ -35,3 +43,10 @@ export default styled.a`
     outline-width: 0;
   }
 `
+
+LinkSolid.defaultProps = {
+  color: colors.gray8,
+  borderColor: colors.gray2
+}
+
+export default LinkSolid

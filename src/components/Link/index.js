@@ -7,12 +7,12 @@ const createLink = ChildComponent => ({to, external, children, ...props}) => (
   <ChildComponent
     href={to}
     target={external ? '_blank' : '_self'}
+    style={{cursor: 'pointer'}}
     {...props}
   >
     {children}
   </ChildComponent>
 )
 
-export default createLink(solid)
 export const LinkSolid = createLink(solid)
 export const LinkDotted = createLink(dotted)

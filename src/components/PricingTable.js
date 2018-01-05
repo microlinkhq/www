@@ -1,17 +1,18 @@
-import { ReactTypeformEmbed } from 'react-typeform-embed'
 import styled, {keyframes} from 'styled-components'
 import { HelpCircle } from 'react-feather'
 import {Flex, Text, Lead} from 'rebass'
 import React, {Component} from 'react'
 
-import ButtonGradient from './ButtonGradient'
 import PricePicker from './PricePicker'
+import Checkout from './Checkout'
+import {LinkSolid} from './Link'
 import Tooltip from './ToolTip'
 import {colors} from '../theme'
-import CustomLink from './Link'
 
 const BASE_PRICE = 9
 const BASE_DAILY_REQS = 1000
+
+const toLocale = number => Math.round(number).toLocaleString('en-US')
 
 const highlight = keyframes`
   from {
@@ -111,14 +112,22 @@ const Tr = styled.tr`
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.openForm = this.openForm.bind(this)
     this.priceSelected = this.priceSelected.bind(this)
-    this.state = { price: BASE_PRICE }
+    this.state = {
+      plan: 'pro-1k',
+      description: `${toLocale(BASE_DAILY_REQS)} daily requests`,
+      price: BASE_PRICE,
+      panelLabel: `$${BASE_PRICE}/month`
+    }
   }
 
-  priceSelected (dailyReqs) {
-    const newPrice = (BASE_PRICE * dailyReqs) / BASE_DAILY_REQS
-    this.setState({price: Math.round(newPrice).toLocaleString('en-US')})
+  priceSelected ({plan, reqs}) {
+    const newPrice = (BASE_PRICE * reqs) / BASE_DAILY_REQS
+    this.setState({
+      description: `${toLocale(reqs)} daily requests`,
+      price: toLocale(newPrice),
+      panelLabel: `$${newPrice}/month`
+    })
 
     if (this.raf) return
     if (this.state.highlight) {
@@ -132,10 +141,6 @@ export default class extends Component {
     } else {
       this.setState({ highlight: true })
     }
-  }
-
-  openForm () {
-    this.typeformEmbed.typeform.open()
   }
 
   render () {
@@ -175,23 +180,6 @@ export default class extends Component {
               <Td>
                 <PricePicker onChange={this.priceSelected} /><DailyRequests>reqs</DailyRequests>
               </Td>
-            </Tr>
-            <Tr>
-              <Th>
-                <Tooltip
-                  content={
-                    <div>
-                      <Text>Screenshots need to be saved in a physical space.</Text>
-                    </div>
-                  }>
-                  <Flex justify='center' align='center'>
-                    <Text bold pr={1}>Image Hosting</Text>
-                    <HelpCircle color={colors.black50} size={14} />
-                  </Flex>
-                </Tooltip>
-              </Th>
-              <Td>Imgur</Td>
-              <Td>Custom</Td>
             </Tr>
             <Tr>
               <Th>
@@ -240,21 +228,14 @@ export default class extends Component {
               <Th />
               <Th />
               <Td>
-                <ReactTypeformEmbed
-                  popup
-                  autoOpen={false}
-                  url={'https://kikobeats.typeform.com/to/KCZMOv'}
-                  hideHeaders
-                  hideFooter
-                  style={{width: 0, height: 0}}
-                  ref={(node => (this.typeformEmbed = node))} />
-                <div>
-                  <ButtonGradient
-                    style={{cursor: 'pointer'}}
-                    color='blue'
-                    onClick={this.openForm}
-                  />
-                </div>
+                <Checkout
+                  api={this.props.api}
+                  plan={this.state.plan}
+                  apiKey={this.props.apiKey}
+                  stripeKey={this.props.stripeKey}
+                  panelLabel={this.state.panelLabel}
+                  description={this.state.description}
+                />
               </Td>
             </Tr>
           </tbody>
@@ -265,7 +246,7 @@ export default class extends Component {
             Do you need more?
           </Text>
           <Text pt={3} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
-            <CustomLink style={{cursor: 'pointer'}} onClick={this.openForm}>Contact us</CustomLink>.
+            <LinkSolid onClick={this.openForm}>Contact us</LinkSolid>.
           </Text>
         </Flex>
       </div>

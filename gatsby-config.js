@@ -2,13 +2,16 @@
 
 const url = require('url')
 const isProduction = process.env.NODE_ENV === 'production'
-const isDevelopment = process.env.NODE_ENV === 'development'
 
-const API_ENDPOINT_PROD = 'https://api.microlink.io'
-const API_ENDPOINT_DEV = 'http://localhost:3000'
+const API_ENDPOINT = isProduction
+  ? 'https://api.microlink.io'
+  : 'http://localhost:3000'
+
+const PAYMENT_ENDPOINT = isProduction
+  ? 'https://int.microlink.io'
+  : 'http://localhost:1337'
+
 const SITE_URL = 'https://microlink.io'
-
-const API_ENDPOINT = isProduction || isDevelopment ? API_ENDPOINT_PROD : API_ENDPOINT_DEV
 
 module.exports = {
   siteMetadata: {
@@ -17,7 +20,10 @@ module.exports = {
     description: 'Get relevant information from any website.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     twitter: '@microlinkio',
-    apiEndpoint: API_ENDPOINT
+    apiEndpoint: API_ENDPOINT,
+    paymentEndpoint: PAYMENT_ENDPOINT,
+    paymentApiKey: process.env.PAYMENT_API_KEY,
+    stripeKey: process.env.STRIPE_KEY
   },
   plugins: [
     `gatsby-plugin-styled-components`,

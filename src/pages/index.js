@@ -7,6 +7,7 @@ import fetch from 'unfetch'
 
 import {textGradient} from '../theme'
 import ContentFeature from '../components/ContentFeature'
+import {LinkSolid, LinkDotted} from '../components/Link'
 import PricingTable from '../components/PricingTable'
 import ContentGrid from '../components/ContentGrid'
 import WaveSection from '../components/WaveSection'
@@ -18,7 +19,6 @@ import CodeCard from '../components/CodeCard'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
-import Link, {LinkDotted} from '../components/Link'
 
 const CustomSubhead = Subhead.extend`
   ${textGradient} text-align: center;
@@ -121,6 +121,7 @@ export default class extends Component {
     fetch(this.getUrl(this.props.apiEndpoint, url))
       .then(res => res.json())
       .then(({data}) => {
+        console.log(data)
         if (data) this.setState({url, data})
         this.loaderStop()
       })
@@ -148,7 +149,7 @@ export default class extends Component {
   }
 
   render () {
-    const {data} = this.props
+    const {data, paymentEndpoint, paymentApiKey, stripeKey} = this.props
     const demos = data.demos.edges.map(item => item.node)
     const features = data.features.edges.map(item => item.node)
 
@@ -218,11 +219,11 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can obtain well structured and normalized data from practically any website, just providing the <Link to='https://docs.microlink.io/#url' external>url</Link>.
+                You can obtain well structured and normalized data from practically any website, just providing the <LinkSolid to='https://docs.microlink.io/#url' external>url</LinkSolid>.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                We also have <Link to='https://docs.microlink.io/#prerender' external>prerendering</Link> for get information from client side applications.
+                We also have <LinkSolid to='https://docs.microlink.io/#prerender' external>prerendering</LinkSolid> for get information from client side applications.
               </Text>
             </ContentFeature>
           </Container>
@@ -242,7 +243,7 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can do that easily integrating <Link to='https://microlinkjs.org' external>microlink.js</Link> in your site.
+                Use our JavaScript SDK <LinkSolid to='https://microlinkjs.org' external>microlink.js</LinkSolid> for easily integrating your site.
               </Text>
             </ContentFeature>
           </Container>
@@ -267,7 +268,7 @@ export default class extends Component {
               <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Take screenshots</Subhead>
 
               <Text f={[2, 3]} py={3}>
-                Automate <Link to='https://docs.microlink.io/#screenshot' external>screenshots</Link> of any website, displaying them anywhere.
+                Automate <LinkSolid to='https://docs.microlink.io/#screenshot' external>screenshots</LinkSolid> of any website, displaying them anywhere.
               </Text>
 
               <Text f={[2, 3]} py={3}>
@@ -275,7 +276,7 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can also emulate specific <Link to='https://docs.microlink.io/#device-emulation' external>devices</Link> or adapt the viewport.
+                You can also emulate specific <LinkSolid to='https://docs.microlink.io/#device-emulation' external>devices</LinkSolid> or adapt the viewport.
               </Text>
             </ContentFeature>
           </Container>
@@ -291,7 +292,7 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can <Link to='https://docs.microlink.io/#embed' external>embed</Link> the API calls directly in your HTML markup.
+                You can <LinkSolid to='https://docs.microlink.io/#embed' external>embed</LinkSolid> the API calls directly in your HTML markup.
               </Text>
 
               <Text f={[2, 3]} py={3}>
@@ -325,7 +326,11 @@ export default class extends Component {
         <Section bg='white' id='pricing' px={[2, 5]} pt={[2, 5]}>
           <Separator title='Pricing' pb={[2, 5]} />
           <Container pb={[2, 5]}>
-            <PricingTable />
+            <PricingTable
+              api={paymentEndpoint}
+              apiKey={paymentApiKey}
+              stripeKey={stripeKey}
+            />
           </Container>
         </Section>
 
