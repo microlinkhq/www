@@ -64,7 +64,7 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "clean:cache": "rm -rf .cache",
+    "clean": "rm -rf node_modules .cache",
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "lint": "standard-markdown && standard",

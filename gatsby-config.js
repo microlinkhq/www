@@ -1,7 +1,13 @@
 'use strict'
 
 const url = require('url')
-const isProduction = process.env.NODE_ENV === 'production'
+
+const { NODE_ENV, STRIPE_KEY, PAYMENT_API_KEY } = process.env
+
+if (!STRIPE_KEY) throw new TypeError('Need to declare a `STRIPE_KEY` env.')
+if (!PAYMENT_API_KEY) throw new TypeError('Need to declare a `PAYMENT_API_KEY` env.')
+
+const isProduction = NODE_ENV === 'production'
 
 const API_ENDPOINT = isProduction
   ? 'https://api.microlink.io'
