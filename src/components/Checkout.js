@@ -1,10 +1,11 @@
 /* global StripeCheckout */
 
 import React, {Component} from 'react'
-import ButtonGradient from './ButtonGradient'
-import {LinkDotted} from './Link'
 import {Fixed} from 'rebass'
 import fetch from 'unfetch'
+
+import ButtonGradient from './ButtonGradient'
+import {LinkDotted} from './Link'
 
 const serialize = obj => (
   Object.keys(obj).reduce((acc, key) => {
@@ -26,7 +27,8 @@ export default class extends Component {
   }
 
   configure () {
-    const {plan, description, panelLabel, endpoint, apiKey, stripeKey} = this.props
+    const {plan, description, panelLabel, api, apiKey, stripeKey} = this.props
+
     this.handler = StripeCheckout.configure({
       key: stripeKey,
       image: 'https://microlink.io/logo.png',
@@ -36,12 +38,13 @@ export default class extends Component {
       panelLabel,
       description,
       token: token => {
-        fetch(`${endpoint}/payment`, {
+        fetch(`${api}/payment`, {
           headers: {'Content-Type': 'application/json', 'x-api-key': apiKey},
           method: 'POST',
           body: JSON.stringify({plan, token, email_template: 'payment_success'})
         })
-        .then(data => this.setState({paymentState: data.status}))
+        .then(res => res.json())
+        .then(({status}) => this.setState({paymentState: status}))
         .catch(() => this.setState({paymentState: 'fail'}))
       }
     })
@@ -69,7 +72,7 @@ export default class extends Component {
   successPayment () {
     return (
       <Fixed m={2} p={3} bg='green3' color='green9' z={1} right bottom>
-        Payment successfully! We sent you an email.
+        Payment processed! We sent you an email.
       </Fixed>
     )
   }

@@ -144,7 +144,8 @@ export default class extends Component {
   }
 
   render () {
-    const { highlight } = this.state
+    const { highlight, plan, description, panelLabel, price } = this.state
+    const { api, apiKey, stripeKey } = this.props
 
     return (
       <div>
@@ -220,8 +221,8 @@ export default class extends Component {
               <TdPrice>0</TdPrice>
               <TdPrice>
                 { highlight
-                ? <Highlight>{this.state.price}</Highlight>
-                : <span>{this.state.price}</span> }
+                ? <Highlight>{price}</Highlight>
+                : <span>{price}</span> }
               </TdPrice>
             </Tr>
             <Tr>
@@ -229,12 +230,12 @@ export default class extends Component {
               <Th />
               <Td>
                 <Checkout
-                  api={this.props.api}
-                  plan={this.state.plan}
-                  apiKey={this.props.apiKey}
-                  stripeKey={this.props.stripeKey}
-                  panelLabel={this.state.panelLabel}
-                  description={this.state.description}
+                  api={api}
+                  plan={plan}
+                  apiKey={apiKey}
+                  stripeKey={stripeKey}
+                  panelLabel={panelLabel}
+                  description={description}
                 />
               </Td>
             </Tr>
