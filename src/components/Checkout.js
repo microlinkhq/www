@@ -45,7 +45,10 @@ export default class extends Component {
         })
         .then(res => res.json())
         .then(({status}) => this.setState({paymentState: status}))
-        .catch(() => this.setState({paymentState: 'fail'}))
+        .catch((err) => {
+          console.error(err)
+          this.setState({paymentState: 'fail'})
+        })
       }
     })
   }
