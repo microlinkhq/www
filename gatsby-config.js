@@ -2,20 +2,14 @@
 
 const url = require('url')
 
-const { NODE_ENV, STRIPE_KEY, PAYMENT_API_KEY } = process.env
+const envError = propName => new TypeError(`Need to declare a ${propName}' env.`)
 
-if (!STRIPE_KEY) throw new TypeError('Need to declare a `STRIPE_KEY` env.')
-if (!PAYMENT_API_KEY) throw new TypeError('Need to declare a `PAYMENT_API_KEY` env.')
+const { STRIPE_KEY, PAYMENT_API_KEY, API_ENDPOINT, PAYMENT_ENDPOINT } = process.env
 
-const isProduction = NODE_ENV === 'production' || NODE_ENV === 'staging'
-
-const API_ENDPOINT = isProduction
-  ? 'https://api.microlink.io'
-  : 'http://localhost:3000'
-
-const PAYMENT_ENDPOINT = isProduction
-  ? 'https://int.microlink.io'
-  : 'http://localhost:1337'
+if (!STRIPE_KEY) throw envError('STRIPE_KEY')
+if (!PAYMENT_API_KEY) throw envError('PAYMENT_API_KEY')
+if (!API_ENDPOINT) throw envError('API_ENDPOINT')
+if (!PAYMENT_ENDPOINT) throw envError('PAYMENT_ENDPOINT')
 
 const SITE_URL = 'https://microlink.io'
 
