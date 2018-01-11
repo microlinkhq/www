@@ -1,10 +1,8 @@
-/* global StripeCheckout */
+/* global fetch, StripeCheckout */
 
 import React, {Component} from 'react'
-import {Fixed} from 'rebass'
-import fetch from 'unfetch'
+import {Fixed, ButtonOutline} from 'rebass'
 
-import ButtonGradient from './ButtonGradient'
 import {LinkDotted} from './Link'
 
 const serialize = obj => (
@@ -98,12 +96,12 @@ export default class extends Component {
       <div>
         {paymentState && paymentState === 'success' && this.successPayment()}
         {paymentState && paymentState !== 'success' && this.errorPayment()}
-        <ButtonGradient
+        <ButtonOutline
           onClick={this.openStripe}
           onTouchStart={this.openStripe}
           style={{cursor: 'pointer'}}>
           Buy
-        </ButtonGradient>
+        </ButtonOutline>
       </div>
     )
   }

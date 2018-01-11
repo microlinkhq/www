@@ -1,17 +1,6 @@
 import React from 'react'
 import {Avatar, Flex} from 'rebass'
 import styled, {css} from 'styled-components'
-import { responsiveStyle } from 'styled-system'
-
-const avatarHeight = responsiveStyle({
-  prop: 'size',
-  cssProperty: 'height'
-})
-
-const avatarWidth = responsiveStyle({
-  prop: 'size',
-  cssProperty: 'width'
-})
 
 const floatAnimation = css`
   display: inline-block;
@@ -32,15 +21,15 @@ const Logo = styled(Avatar)`
   box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
   cursor: pointer;
   ${floatAnimation};
-  ${avatarHeight};
-  ${avatarWidth}
 `
 
-export default ({links, onClick, ...props}) => (
+export default ({links, onClick, size, ...props}) => (
   <Flex width='100%' justify='space-between' wrap {...props}>
     {links.map((item) => (
       <Logo
-        p={[2, 0]}
+        px={3}
+        size={size}
+        p={[2, 1]}
         key={item.favicon}
         src={item.favicon}
         onClick={event => {

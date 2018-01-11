@@ -1,24 +1,34 @@
+/* global fetch */
+
 import {Box, Text, Flex, Heading, Subhead} from 'rebass'
-import styled, {keyframes} from 'styled-components'
 import { color, space } from 'styled-system'
+import MicrolinkCard from 'react-microlink'
+import styled from 'styled-components'
 import React, {Component} from 'react'
 import Hide from 'hidden-styled'
-import fetch from 'unfetch'
+import colorWrapper from 'color'
 
-import {textGradient} from '../theme'
+import {
+  WaveSection,
+  RippleSection,
+  Section,
+  GradientSection
+} from '../components/Section'
+
 import ContentFeature from '../components/ContentFeature'
 import {LinkSolid, LinkDotted} from '../components/Link'
 import PricingTable from '../components/PricingTable'
 import ContentGrid from '../components/ContentGrid'
-import WaveSection from '../components/WaveSection'
 import DemoLinks from '../components/DemoLinks'
 import Container from '../components/Container'
 import SearchBox from '../components/SearchBox'
 import Separator from '../components/Separator'
 import CodeCard from '../components/CodeCard'
+import getColors from '../helpers/get-colors'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
+import {textGradient} from '../theme'
 
 const CustomSubhead = Subhead.extend`
   ${textGradient} text-align: center;
@@ -26,36 +36,20 @@ const CustomSubhead = Subhead.extend`
   max-width: 40rem;
 `
 
-const Section = styled.section`
-${color}
-${space}
-`
-
 const Main = styled.main`
 ${color}
 ${space}
 `
 
+const EllipsisText = Text.extend`
+  max-width: 500px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
 const CustomHeading = Heading.extend`
   letter-spacing: 2px;
-`
-
-const gradientAnimation = keyframes`
-  0% {
-    background-position: 0% 50%
-  }
-  50% {
-    background-position: 100% 50%
-  }
-  100% {
-    background-position: 0% 50%
-  }
-`
-
-const GradientSection = Section.extend`
-background: ${props => props.gradient};
-background-size: 120% 120%;
-animation: ${gradientAnimation} 15s ease infinite;
 `
 
 const URL_FALLBACK = 'https://vimeo.com/188175573/'
@@ -71,27 +65,29 @@ export default class extends Component {
       loading: false,
       url: URL_FALLBACK,
       data: {
+        'lang': 'en',
         'author': null,
-        'lang': null,
-        'date': null,
-        'description': 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
+        'title': 'Converse - Past meets Present - Montage',
+        'publisher': 'Vimeo',
         'image': {
           'width': 1280,
           'height': 720,
           'type': 'jpg',
-          'url': 'https://i.vimeocdn.com/video/598160082_1280x720.jpg',
+          'url': 'https://i.vimeocdn.com/filter/overlay?src0=https://i.vimeocdn.com/video/598160082_1280x720.webp&src1=https://f.vimeocdn.com/images_v6/share/play_icon_overlay.png',
           'palette': [
-            '#564748',
-            '#21a8f4',
-            '#dabcbd',
-            '#9ccded',
-            '#5d7c9b',
-            '#044cad'
+            '#334553',
+            '#1689d4',
+            '#c8afae',
+            '#6abce2',
+            '#6c8ca4',
+            '#0c54ac'
           ],
-          'background_color': '#564748',
-          'color': '#77CAF8',
-          'alternative_color': '#C8DFFE'
+          'background_color': '#C8AFAE',
+          'color': '#0B4368',
+          'alternative_color': '#0A458D'
         },
+        'description': 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
+        'date': '2016-10-20T13:06:52.000Z',
         'logo': {
           'width': 180,
           'height': 180,
@@ -106,8 +102,6 @@ export default class extends Component {
           'color': '#025E81',
           'alternative_color': '#025F82'
         },
-        'publisher': 'Vimeo',
-        'title': 'Converse - Past meets Present - Montage',
         'url': 'https://vimeo.com/188175573'
       }
     }
@@ -121,7 +115,6 @@ export default class extends Component {
     fetch(this.getUrl(this.props.apiEndpoint, url))
       .then(res => res.json())
       .then(({data}) => {
-        console.log(data)
         if (data) this.setState({url, data})
         this.loaderStop()
       })
@@ -150,14 +143,18 @@ export default class extends Component {
 
   render () {
     const {data, paymentEndpoint, paymentApiKey, stripeKey} = this.props
-    const demos = data.demos.edges.map(item => item.node)
     const features = data.features.edges.map(item => item.node)
+    const demos = data.demos.edges.map(item => item.node)
+    const { color: _color, alternativeColor: _alternativeColor } = getColors(this.state.data)
+
+    const colorBase = colorWrapper(_alternativeColor || _color)
+    const textColor = colorWrapper(colorBase).dark() ? '#FAFBFC' : 'gray9'
 
     return (
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
 
-        <WaveSection bg='#FAFBFC' mt={'56px'} id='home' data={this.state.data}>
+        <WaveSection bg='#FAFBFC' mt={'56px'} id='home' color={_color} alternativeColor={_alternativeColor}>
           <Container px={[3, 6]} pt={4}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
@@ -182,7 +179,7 @@ export default class extends Component {
 
           <Box py={4} px={[3, 6]}>
             <Flex is='section' justify='center' direction='column' align='center'>
-              <Text f={1} pt={3} pb={3} color='gray8'>
+              <Text f={1} py={3} color='gray8'>
                 Click to see it in action →
               </Text>
             </Flex>
@@ -195,7 +192,7 @@ export default class extends Component {
               />
             </Container>
 
-            <Container bg='transparent' py={3}>
+            <Container bg='transparent' py={3} color='black'>
               <CodeCard
                 data={this.state.data}
                 bg='transparent'
@@ -203,10 +200,8 @@ export default class extends Component {
                 pb={5}
                 onChange={data => this.setState({ data: JSON.parse(data) })}
               />
-
             </Container>
           </Box>
-
         </WaveSection>
 
         <Section bg='#FAFBFC'>
@@ -249,18 +244,45 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <GradientSection gradient='linear-gradient(225deg, #2af598 0%, #009efd 100%)'>
-          <Container p={6}>
+        <RippleSection color={_color} alternativeColor={_alternativeColor} id='sdk'>
+          <Container p={5}>
             <Flex justify='center' align='center' direction='column'>
-              <Text color='white' pb={2} f={3}>
-                Convert your links previews with
+              <Text color={textColor} py={3} f={4}>
+                Converts your links
               </Text>
-              <Text color='white' f={4}>
-                <LinkDotted to='https://microlink.js.org' external>microlink.js</LinkDotted>
+              <EllipsisText style={{opacity: '0.5'}} color={textColor} py={3} f={4}>
+                {this.state.url}
+              </EllipsisText>
+              <Text color={textColor} py={3} f={3}>
+                into beautiful previews
+              </Text>
+              <MicrolinkCard
+                key={`MicrolinkCard__${this.state.url}`}
+                url={this.state.url}
+                image={['image', 'logo']}
+                round
+                palette
+              />
+              <Flex py={3} is='section' justify='center' direction='column' align='center'>
+                <Text f={1} py={3} pb={1} color={textColor}>
+                  Click to see more examples →
+                </Text>
+              </Flex>
+
+              <Container pb={3}>
+                <DemoLinks
+                  size={32}
+                  px={[0, '96px']}
+                  links={demos}
+                  onClick={({url}) => this.setUrl(url)}
+                />
+              </Container>
+              <Text color={textColor} pt={4} f={3}>
+                using <LinkDotted color={textColor} to='https://microlink.js.org' external>Microlink SDK</LinkDotted>
               </Text>
             </Flex>
           </Container>
-        </GradientSection>
+        </RippleSection>
 
         <Section bg='#FAFBFC' py={5}>
           <Container p={[2, 5]}>
@@ -310,8 +332,8 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <GradientSection bg='#FAFBFC' gradient='linear-gradient(225deg, #ec4e44, #c02e74 41%, #449bf8)'>
-          <Container p={6}>
+        <GradientSection bg='#FAFBFC' gradient='linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)'>
+          <Container p={7}>
             <Flex justify='center' align='center' direction='column'>
               <Text color='white' pb={2} f={3}>
                 Discover all things you can do at

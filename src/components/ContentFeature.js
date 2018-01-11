@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {Image, Box, Flex, Measure} from 'rebass'
 import { responsiveStyle, textAlign } from 'styled-system'
 

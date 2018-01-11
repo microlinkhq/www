@@ -1,10 +1,6 @@
-import { color, space } from 'styled-system'
-import styled from 'styled-components'
+import Section from './Section'
 
-const svg = ({data, ...props}) => {
-  const {image, logo} = data
-  const alternativeColor = image.alternative_color || logo.alternative_color
-  const color = image.color || logo.color
+const svg = ({alternativeColor, color, ...props}) => {
   return (
     `
     <svg width='3342' height='1688' viewBox='0 0 3342 1688' xmlns='http://www.w3.org/2000/svg'>
@@ -34,9 +30,7 @@ const svg = ({data, ...props}) => {
   )
 }
 
-export default styled.section`
-${color}
-${space}
+export default Section.extend`
 background-size: cover;
 min-height: 100vh;
 background-image: ${props => `url("data:image/svg+xml;utf8,${svg(props)}")`}
