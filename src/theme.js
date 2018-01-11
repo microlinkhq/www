@@ -59,8 +59,10 @@ export const monospace = '"SF Mono", "Roboto Mono", Menlo, monospace'
 
 export const cx = key => colors[key] || key
 
+export const gradient = `linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8)`
+
 export const bgGradient = `
-background-image: linear-gradient(to right, #ec4e44, #c02e74 41%, #449bf8);
+background-image: ${gradient};
 `
 
 export const textGradient = `
@@ -76,6 +78,7 @@ export const textGradient = `
 export default {
   textGradient,
   bgGradient,
+  gradient,
   breakpoints,
   space,
   fontSizes,

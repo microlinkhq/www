@@ -26,6 +26,7 @@ module.exports = {
     stripeKey: process.env.STRIPE_KEY
   },
   plugins: [
+    `gatsby-plugin-react-next`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-yaml`,
