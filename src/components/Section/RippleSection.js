@@ -17,7 +17,7 @@ const svg = ({color, alternativeColor, ...props}) => {
 }
 
 export default Section.extend`
-  background-image: ${props => `url("data:image/svg+xml;utf8,${svg(props)}")`};
+  background-image: ${props => `url("data:image/svg+xml;utf8,${encodeURIComponent(svg(props))}")`};
   position: relative;
   background-size: cover;
   background-position: center;
