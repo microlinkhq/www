@@ -1,7 +1,8 @@
 /* global fetch, StripeCheckout */
 
 import React, {Component} from 'react'
-import {Fixed, ButtonOutline} from 'rebass'
+import {Fixed} from 'rebass'
+import ButtonOutline from './ButtonOutline'
 
 import {LinkDotted} from './Link'
 
@@ -97,6 +98,8 @@ export default class extends Component {
         {paymentState && paymentState === 'success' && this.successPayment()}
         {paymentState && paymentState !== 'success' && this.errorPayment()}
         <ButtonOutline
+          hover={{ color: 'white', backgroundColor: 'primary' }}
+          color='primary'
           onClick={this.openStripe}
           onTouchStart={this.openStripe}
           style={{cursor: 'pointer'}}>

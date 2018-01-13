@@ -22,16 +22,16 @@ import ContentGrid from '../components/ContentGrid'
 import DemoLinks from '../components/DemoLinks'
 import Container from '../components/Container'
 import SearchBox from '../components/SearchBox'
-import Separator from '../components/Separator'
 import CodeCard from '../components/CodeCard'
 import getColors from '../helpers/get-colors'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
-import {textGradient} from '../theme'
+import {textGradient, primaryFont} from '../theme'
 
-const CustomSubhead = Subhead.extend`
-  ${textGradient} text-align: center;
+const Description = Subhead.extend`
+  ${textGradient}
+  text-align: center;
   font-weight: normal;
   max-width: 40rem;
 `
@@ -49,7 +49,7 @@ const EllipsisText = Text.extend`
 `
 
 const CustomHeading = Heading.extend`
-  letter-spacing: 2px;
+  ${primaryFont}
 `
 
 const URL_FALLBACK = 'https://vimeo.com/188175573/'
@@ -153,17 +153,16 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
-
         <WaveSection bg='#FAFBFC' mt={'56px'} id='home' color={_color} alternativeColor={_alternativeColor}>
           <Container px={[3, 6]} pt={4}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
-                <CustomHeading f={[5, 6]} pb={2} color='#222' bold>
-                  Microlink <Logo ml={1} width={['32px', '48px']} />
+                <CustomHeading f={[5, 6]} pb={2} color='#303A52' bold>
+                  <Logo ml={1} width={['32px', '48px']} /> microlink
                 </CustomHeading>
-                <CustomSubhead f={[3, 4]} px={5}>
+                <Description f={[3, 4]} px={5} color='#654EA3'>
                   Get relevant information from any website
-                </CustomSubhead>
+                </Description>
               </Flex>
               <SearchBox
                 bg='white'
@@ -207,7 +206,12 @@ export default class extends Component {
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
             <ContentFeature direction='right' image='/img/carbon-dracula.png'>
-              <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Extract data from any website</Subhead>
+              <Subhead
+                f={[3, 5]}
+                pt={[0, 3]}
+                pb={[3, 4]}
+                color='secondary'
+              >Extract data from any website</Subhead>
 
               <Text f={[2, 3]} py={3}>
                 Enter an URL, receive information. Easy peasy.
@@ -227,7 +231,12 @@ export default class extends Component {
         <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
             <ContentFeature direction='right' image='/img/link-preview.png'>
-              <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Build rich media embeds</Subhead>
+              <Subhead
+                f={[3, 5]}
+                pt={[0, 3]}
+                pb={[3, 4]}
+                color='secondary'
+              >Build rich media embeds</Subhead>
 
               <Text f={[2, 3]} py={3}>
                 No matters if you are a newspaper, tech writter or just have a personal blog.
@@ -287,7 +296,12 @@ export default class extends Component {
         <Section bg='#FAFBFC' py={5}>
           <Container p={[2, 5]}>
             <ContentFeature direction='right' image='/img/browser.png'>
-              <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Take screenshots</Subhead>
+              <Subhead
+                f={[3, 5]}
+                pt={[0, 3]}
+                pb={[3, 4]}
+                color='secondary'
+              >Take screenshots</Subhead>
 
               <Text f={[2, 3]} py={3}>
                 Automate <LinkSolid to='https://docs.microlink.io/#screenshot' external>screenshots</LinkSolid> of any website, displaying them anywhere.
@@ -307,7 +321,12 @@ export default class extends Component {
         <Section bg='#FAFBFC'>
           <Container p={[2, 5]}>
             <ContentFeature direction='right' image='/img/embed-support.png'>
-              <Subhead f={[3, 5]} pt={[0, 3]} pb={[3, 4]}>Embed in your markup</Subhead>
+              <Subhead
+                f={[3, 5]}
+                pt={[0, 3]}
+                pb={[3, 4]}
+                color='secondary'
+              >Embed in your markup</Subhead>
 
               <Text f={[2, 3]} py={3}>
                 The integration of third parties more simple and universal without effort.
@@ -325,7 +344,12 @@ export default class extends Component {
         </Section>
 
         <Section bg='white' id='features' px={[2, 5]} pt={[2, 5]}>
-          <Separator pb={[2, 5]} title='Features' />
+          <Subhead
+            f={[4, 5]}
+            py={5}
+            style={{textAlign: 'center'}}
+            color='secondary'
+            >Features</Subhead>
           <Container>
             <Hide xs sm><ContentGrid data={features} itemsPerRow={3} /></Hide>
             <Hide md lg><ContentGrid data={features} itemsPerRow={1} /></Hide>
@@ -345,8 +369,13 @@ export default class extends Component {
           </Container>
         </GradientSection>
 
-        <Section bg='white' id='pricing' px={[2, 5]} pt={[2, 5]}>
-          <Separator title='Pricing' pb={[2, 5]} />
+        <Section bg='white' id='pricing' px={[2, 5]} pt={[2, 5]} pb={[5, 0]}>
+          <Subhead
+            f={[4, 5]}
+            py={5}
+            style={{textAlign: 'center'}}
+            color='secondary'
+            >Pricing</Subhead>
           <Container pb={[2, 5]}>
             <PricingTable
               api={paymentEndpoint}
@@ -356,7 +385,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='black' color='gray1'>
+        <Section bg='#10111B' color='gray1'>
           <Footer py={[3, 5]} px={[3, 7]} />
         </Section>
 

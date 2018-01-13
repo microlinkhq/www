@@ -10,9 +10,15 @@ const CustomButtonOutline = ButtonOutline.extend`
     color: black;
   }
 `
+
+const CustomNavLink = NavLink.extend`
+  align-items: flex-start;
+  padding: 0;
+`
+
 export default props => (
   <Flex is='footer' direction='column' {...props}>
-    <Flex mb={2}>
+    <Flex mb={2} direction={['column', 'row']} py={3}>
       <Flex direction='column'>
         <Text f={1}>Early access and updates on new releases.</Text>
         <Flex py={3} px={0} align='center' justify='flex-start'>
@@ -22,31 +28,32 @@ export default props => (
           </form>
         </Flex>
       </Flex>
-      <NavLink
-        f={5}
-        ml='auto'
-        href='mailto:hello@microlink.io'
-        target='_blank'
-        children='hello@microlink.io'
-        />
-    </Flex>
-    <Flex w={1} justify='flex-end'>
-      <NavLink
-        mr={2}
-        target='_blank'
-        href='http://twitter.com/microlinkio'
-        children='Twitter'
-        />
-      <NavLink
-        target='_blank'
-        href='http://github.com/microlinkhq'
-        children='GitHub'
-        />
-      <NavLink
-        target='_blank'
-        href='https://medium.com/microlink'
-        children='Medium'
-        />
+      <Flex mt={[3, 0]} ml={[0, 'auto']} direction='column'>
+        <CustomNavLink
+          f={[3, 5]}
+          href='mailto:hello@microlink.io'
+          target='_blank'
+          children='hello@microlink.io'
+          />
+        <Flex w={1} justify={['flex-start', 'flex-end']}>
+          <NavLink
+            mr={2}
+            target='_blank'
+            href='http://twitter.com/microlinkio'
+            children='Twitter'
+              />
+          <NavLink
+            target='_blank'
+            href='http://github.com/microlinkhq'
+            children='GitHub'
+              />
+          <NavLink
+            target='_blank'
+            href='https://medium.com/microlink'
+            children='Medium'
+              />
+        </Flex>
+      </Flex>
     </Flex>
   </Flex>
 )

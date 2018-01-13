@@ -23,6 +23,8 @@ const flattened = Object.keys(palette).reduce((a, key) => {
 // todo: flatten
 
 export const colors = Object.assign({}, flattened, {
+  secondary: '#F76698',
+  primary: '#303A52',
   black: '#000',
   black90: 'rgba(0,0,0,.9)',
   black80: 'rgba(0,0,0,.8)',
@@ -59,7 +61,7 @@ export const monospace = '"SF Mono", "Roboto Mono", Menlo, monospace'
 
 export const cx = key => colors[key] || key
 
-export const gradient = `linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8)`
+export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
 
 export const bgGradient = `
 background-image: ${gradient};
@@ -75,7 +77,12 @@ export const textGradient = `
   text-fill-color: transparent;
 `
 
+export const primaryFont = `
+  font-family: 'avenir next', avenir, sans-serif;
+`
+
 export default {
+  primaryFont,
   textGradient,
   bgGradient,
   gradient,

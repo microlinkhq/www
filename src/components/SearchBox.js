@@ -94,7 +94,7 @@ export default class extends Component {
     return (
       <CustomButton
         color='white'
-        bg='blue'
+        bg='primary'
         type='submit'
         >Try it
       </CustomButton>
