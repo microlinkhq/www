@@ -152,15 +152,15 @@ transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
 &::after {
   position: absolute;
   content: "";
-  top: 0;
+  top: 10%;
   left: 0;
   right: 0;
   z-index: -1;
-  height: 100%;
+  height: 85%;
   width: 100%;
   margin: 0 auto;
   transform: scale(1);
-  filter: blur(25px);
+  filter: blur(18px);
   background: linear-gradient(270deg, ${props => props.colors.join(', ')});
   background-size: 200% 200%;
   animation: ${animateGlow} ${props => props.duration} ease infinite;
@@ -171,7 +171,7 @@ const CardHeader = Box.extend`
   position: absolute;
   bottom: 0;
   margin: 0;
-  box-shadow: 0 5px 30px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
 `
 
 const CardHeaderLogo = Avatar.extend`
@@ -199,7 +199,7 @@ export default class extends Component {
           code={JSON.stringify(data, null, 2)}>
           <Row justify='space-around' direction={['column-reverse', 'row']} align='center' wrap>
             <PreviewCard
-              style={{boxShadow: `${colors.gray2} 0 32px 64px 0`}}
+              style={{boxShadow: `${colors.gray2} 0px 2px 54px 0px`}}
               size={cardSizes}
               my={3}>
               <Editor width={[ 1, 1, 1 / 2 ]} onChange={onChange} />
