@@ -52,7 +52,7 @@ const CustomHeading = Heading.extend`
   ${primaryFont}
 `
 
-const URL_FALLBACK = 'https://vimeo.com/188175573/'
+const URL_FALLBACK = 'https://www.nytimes.com/2017/09/19/learning/whats-going-on-in-this-graph-sept-19-2017.html'
 
 export default class extends Component {
   constructor (props) {
@@ -66,43 +66,42 @@ export default class extends Component {
       url: URL_FALLBACK,
       data: {
         'lang': 'en',
-        'author': null,
-        'title': 'Converse - Past meets Present - Montage',
-        'publisher': 'Vimeo',
+        'author': 'The Learning Network',
+        'title': 'What’s Going On in This Graph? | Sept. 19, 2017',
+        'publisher': 'NYTimes',
         'image': {
-          'width': 1280,
-          'height': 720,
-          'type': 'jpg',
-          'url': 'https://i.vimeocdn.com/filter/overlay?src0=https://i.vimeocdn.com/video/598160082_1280x720.webp&src1=https://f.vimeocdn.com/images_v6/share/play_icon_overlay.png',
-          'palette': [
-            '#334553',
-            '#1689d4',
-            '#c8afae',
-            '#6abce2',
-            '#6c8ca4',
-            '#0c54ac'
-          ],
-          'background_color': '#C8AFAE',
-          'color': '#0B4368',
-          'alternative_color': '#0A458D'
-        },
-        'description': 'Converse has spent a good part of this year updating some of their classics. Our past is constantly catching up to us, but we rarely get to see the relationship…',
-        'date': '2016-10-20T13:06:52.000Z',
-        'logo': {
-          'width': 180,
-          'height': 180,
+          'width': 1003,
+          'height': 524,
           'type': 'png',
-          'url': 'https://i.vimeocdn.com/favicon/main-touch_180',
+          'url': 'https://static01.nyt.com/images/2017/09/13/learning/WGOITGraph09-19-17LN/WGOITGraph09-19-17LN-facebookJumbo-v2.png',
           'palette': [
-            '#04acec',
-            '#94dcfb',
-            '#025f82'
+            '#1c94bc',
+            '#ecfbb4',
+            '#25519f',
+            '#505cac',
+            '#cbccd2'
           ],
-          'background_color': '#94DCFB',
-          'color': '#025E81',
-          'alternative_color': '#025F82'
+          'background_color': '#CBCCD2',
+          'color': '#115A73',
+          'alternative_color': '#25519F'
         },
-        'url': 'https://vimeo.com/188175573'
+        'description': 'Look closely at this graph, and join the moderated conversation about what you and other students see.',
+        'date': '2017-09-19T09:30:01.000Z',
+        'logo': {
+          'width': 57,
+          'height': 57,
+          'type': 'png',
+          'url': 'https://static01.nyt.com/images/icons/ios-default-homescreen-57x57.png',
+          'palette': [
+            '#2b2b2b',
+            '#c4c4c4',
+            '#7c7c7c'
+          ],
+          'background_color': '#C4C4C4',
+          'color': '#2B2B2B',
+          'alternative_color': '#4F4F4F'
+        },
+        'url': 'https://www.nytimes.com/2017/09/19/learning/whats-going-on-in-this-graph-sept-19-2017.html'
       }
     }
   }
@@ -287,7 +286,7 @@ export default class extends Component {
                 />
               </Container>
               <Text color={textColor} pt={4} f={3}>
-                using <LinkDotted color={textColor} to='https://microlink.js.org' external>Microlink SDK</LinkDotted>
+                using <LinkDotted color={textColor} to='https://microlink.js.org' external>Microlink SDK</LinkDotted>.
               </Text>
             </Flex>
           </Container>
