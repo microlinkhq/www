@@ -3,7 +3,7 @@ import {Image} from 'rebass'
 
 export default props => (
   <Image
-    src='/logo_trim.png'
+    src='/logo.svg'
     style={{
       display: 'inline',
       position: 'relative'
