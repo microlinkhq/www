@@ -217,11 +217,11 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can obtain well structured and normalized data from practically any website, just providing the <LinkSolid to='https://docs.microlink.io/#url' external>url</LinkSolid>.
+                You can obtain well structured and normalized data from practically any website, just providing the <LinkSolid to='https://docs.microlink.io/api/#api-parameters/url' external>url</LinkSolid>.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                We also have <LinkSolid to='https://docs.microlink.io/#prerender' external>prerendering</LinkSolid> for get information from client side applications.
+                We also have <LinkSolid to='https://docs.microlink.io/api/#api-parameters/prerender' external>prerendering</LinkSolid> for get information from client side applications.
               </Text>
             </ContentFeature>
           </Container>
@@ -246,7 +246,7 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                Use our JavaScript SDK <LinkSolid to='https://microlinkjs.org' external>microlink.js</LinkSolid> for easily integrating your site.
+                Use our <LinkSolid to='https://docs.microlink.io/sdk' external>SDK</LinkSolid> for easily integrating your site.
               </Text>
             </ContentFeature>
           </Container>
@@ -286,7 +286,7 @@ export default class extends Component {
                 />
               </Container>
               <Text color={textColor} pt={4} f={3}>
-                using <LinkDotted color={textColor} to='https://microlink.js.org' external>Microlink SDK</LinkDotted>.
+                See <LinkDotted color={textColor} to='https://docs.microlink.io/sdk' external>SDK Documentation</LinkDotted>.
               </Text>
             </Flex>
           </Container>
@@ -303,7 +303,7 @@ export default class extends Component {
               >Take screenshots</Subhead>
 
               <Text f={[2, 3]} py={3}>
-                Automate <LinkSolid to='https://docs.microlink.io/#screenshot' external>screenshots</LinkSolid> of any website, displaying them anywhere.
+                Automate <LinkSolid to='https://docs.microlink.io/api/#api-parameters/screenshot' external>screenshots</LinkSolid> of any website, displaying them anywhere.
               </Text>
 
               <Text f={[2, 3]} py={3}>
@@ -311,7 +311,7 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can also emulate specific <LinkSolid to='https://docs.microlink.io/#device-emulation' external>devices</LinkSolid> or adapt the viewport.
+                You can also emulate specific <LinkSolid to='https://docs.microlink.io/api/#api-parameters/screenshot/device-emulation' external>devices</LinkSolid> or adapt the viewport.
               </Text>
             </ContentFeature>
           </Container>
@@ -332,7 +332,7 @@ export default class extends Component {
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can <LinkSolid to='https://docs.microlink.io/#embed' external>embed</LinkSolid> the API calls directly in your HTML markup.
+                You can <LinkSolid to='https://docs.microlink.io/api/#api-parameters/embed' external>embed</LinkSolid> the API calls directly in your HTML markup.
               </Text>
 
               <Text f={[2, 3]} py={3}>
@@ -362,7 +362,7 @@ export default class extends Component {
                 Discover all things you can do at
               </Text>
               <Text color='white' f={4}>
-                <LinkDotted to='https://docs.microlink.io' external>API Documentation</LinkDotted>
+                <LinkDotted to='https://docs.microlink.io/api/' external>API Documentation</LinkDotted>
               </Text>
             </Flex>
           </Container>

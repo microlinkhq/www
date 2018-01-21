@@ -16,7 +16,7 @@ const SITE_URL = 'https://microlink.io'
 module.exports = {
   siteMetadata: {
     siteUrl: SITE_URL,
-    title: 'microlink',
+    title: 'Microlink',
     description: 'Get relevant information from any website.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     twitter: '@microlinkio',

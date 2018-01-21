@@ -30,19 +30,11 @@ const NavBar = props => (
         target='_blank'
         children={
           <Flex px={[2, 3]}>
-            <span>API</span>
+            <span>Docs</span>
             <Changelog />
           </Flex>
         }
         />
-
-      <CustomNavLink
-        f='12px'
-        px={[2, 3]}
-        href='https://microlink.js.org'
-        target='_blank'
-        children='Developer'
-      />
 
       <CustomNavLink
         f='12px'
