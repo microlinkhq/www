@@ -39,7 +39,7 @@ export default props => (
           <NavLink
             mr={2}
             target='_blank'
-            href='http://twitter.com/microlinkio'
+            href='http://twitter.com/microlinkhq'
             children='Twitter'
               />
           <NavLink
