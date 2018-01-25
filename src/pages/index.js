@@ -147,7 +147,7 @@ export default class extends Component {
     const { color: _color, alternativeColor: _alternativeColor } = getColors(this.state.data)
 
     const colorBase = colorWrapper(_alternativeColor || _color)
-    const textColor = colorWrapper(colorBase).dark() ? '#FAFBFC' : 'gray9'
+    const textColor = colorWrapper(colorBase).isDark() ? '#FAFBFC' : 'gray9'
 
     return (
       <Main>
