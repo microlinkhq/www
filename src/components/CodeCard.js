@@ -189,7 +189,7 @@ export default class extends Component {
     const {publisher, description} = data
     const logo = data.logo || {}
     const image = data.image || {}
-    const palette = [].concat(image.palette).filter(c => color(c).light())
+    const palette = [].concat(image.palette).filter(c => color(c).isLight())
     const cardSizes = [300, 400, 450, 630]
 
     return (
