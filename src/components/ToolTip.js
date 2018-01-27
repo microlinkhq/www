@@ -42,7 +42,7 @@ export default ({content, children, ...props}) => (
   <TooltipWrapper>
     <Tooltip
       styles={STYLES}
-      content={content}>
+      content={[content]}>
       {children}
     </Tooltip>
   </TooltipWrapper>
