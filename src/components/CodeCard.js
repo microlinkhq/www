@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, BackgroundImage} from 'rebass'
+import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, Banner} from 'rebass'
 import styled, { keyframes } from 'styled-components'
 import { LiveProvider, LiveEditor } from 'react-live'
 import { width } from 'styled-system'
@@ -7,7 +7,7 @@ import Tilt from 'react-tilt'
 import color from 'color'
 
 import Container from './Container'
-import {colors} from '../theme'
+import {colors, height} from '../theme'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
@@ -122,49 +122,43 @@ const Editor = styled(hoc()(LiveEditor))`
 `
 
 const CustomCard = Card.extend`
-overflow: auto;
-min-width: 450px;
-max-width: 450px;
-max-height: 225px;
-
-@media only screen and (min-width : 1440px) {
-  min-width: 550px;
-  max-width: 550px;
-  max-height: 275px;
-}
-
-@media only screen and (max-width : 32rem) {
-  min-width: 350px;
-  max-width: 350px;
-  max-height: 175px;
-}
+  ${width}
+  ${height}
+  overflow: auto;
 `
 
-const PreviewCard = ({children, size, ...props}) => (
+const PreviewCard = ({children, ...props}) => (
   <CustomCard {...props}>
     {children}
   </CustomCard>
 )
 
 const CustomTilt = styled(Tilt)`
-transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+  ${width}
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
 
-&::after {
-  position: absolute;
-  content: "";
-  top: 10%;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  height: 85%;
-  width: 100%;
-  margin: 0 auto;
-  transform: scale(1);
-  filter: blur(18px);
-  background: linear-gradient(270deg, ${props => props.colors.join(', ')});
-  background-size: 200% 200%;
-  animation: ${animateGlow} ${props => props.duration} ease infinite;
-}
+  &::after {
+    position: absolute;
+    content: "";
+    top: 10%;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 85%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(1);
+    filter: blur(18px);
+    background: linear-gradient(270deg, ${props => props.colors.join(', ')});
+    background-size: 200% 200%;
+    animation: ${animateGlow} ${props => props.duration} ease infinite;
+  }
+`
+
+const CardBackgroundImage = Banner.extend`
+  ${height}
+  min-height: auto;
+  padding: 0;
 `
 
 const CardHeader = Box.extend`
@@ -183,6 +177,9 @@ const CardHeaderBody = Box.extend`
   max-width: 85%;
 `
 
+const cardHeights = [ '175px', '200px', '', '235px', '275px' ]
+const cardWidths = [ 1, '', 0.45 ]
+
 export default class extends Component {
   render () {
     const {data, onChange, ...props} = this.props
@@ -190,19 +187,20 @@ export default class extends Component {
     const logo = data.logo || {}
     const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => color(c).isLight())
-    const cardSizes = [300, 400, 450, 630]
 
     return (
       <Container is='section' {...props}>
         <Provider
           mountStylesheet={false}
           code={JSON.stringify(data, null, 2)}>
-          <Row justify='space-around' direction={['column-reverse', 'row']} align='center' wrap>
+          <Row justify='space-around' direction={['column-reverse', '', 'row']} align='center' wrap>
             <PreviewCard
               style={{boxShadow: `${colors.gray2} 0px 2px 54px 0px`}}
-              size={cardSizes}
-              my={3}>
-              <Editor width={[ 1, 1, 1 / 2 ]} onChange={onChange} />
+              width={cardWidths}
+              height={cardHeights}
+              my={3}
+            >
+              <Editor width={[ 1 ]} onChange={onChange} />
             </PreviewCard>
 
             <CustomTilt
@@ -210,11 +208,12 @@ export default class extends Component {
               options={{ max: 8, scale: 1.02 }}
               colors={palette.length > 1 ? palette : PALETTE_FALLBACK}
               duration={'5s'}
+              width={cardWidths}
             >
-              <PreviewCard size={cardSizes} my={3}>
-                <BackgroundImage
-                  ratio={1 / 2}
-                  src={getImageUrl(image.url || image)}
+              <PreviewCard my={3} width={1} height={cardHeights}>
+                <CardBackgroundImage
+                  height='100%'
+                  backgroundImage={getImageUrl(image.url || image)}
                   style={{position: 'relative'}}
                   >
                   <CardHeader p={[2, 3]} width='100%'
@@ -227,7 +226,7 @@ export default class extends Component {
                       </CardHeaderBody>
                     </Flex>
                   </CardHeader>
-                </BackgroundImage>
+                </CardBackgroundImage>
               </PreviewCard>
             </CustomTilt>
           </Row>

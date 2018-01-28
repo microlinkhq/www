@@ -87,6 +87,11 @@ export const maxWidth = responsiveStyle({
   cssProperty: 'maxWidth'
 })
 
+export const height = responsiveStyle({
+  prop: 'height',
+  cssProperty: 'height'
+})
+
 export default {
   primaryFont,
   textGradient,
@@ -100,5 +105,6 @@ export default {
   monospace,
   colors,
   radius,
-  maxWidth
+  maxWidth,
+  height
 }

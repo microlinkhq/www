@@ -153,20 +153,20 @@ export default class extends Component {
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
         <WaveSection bg='#FAFBFC' mt={'56px'} id='home' color={_color} alternativeColor={_alternativeColor}>
-          <Container px={[3, 6]} pt={4}>
+          <Container px={[3, 4, 5, 6]} pt={4}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
                 <CustomHeading f={[5, 6]} pb={2} color='#303A52' bold>
                   <Logo ml={1} width={['32px', '48px']} /> microlink
                 </CustomHeading>
-                <Description f={[3, 4]} px={5} color='#654EA3'>
+                <Description f={[2, 3, 4]} px={[2, 4, 5]} color='#654EA3'>
                   Get relevant information from any website
                 </Description>
               </Flex>
               <SearchBox
                 bg='white'
-                width={['80%', '100%']}
-                my={[1, 3]}
+                width={1}
+                my={3}
                 loading={this.state.loading}
                 placeholder={URL_FALLBACK}
                 value={this.state.url !== URL_FALLBACK ? this.state.url : null}
@@ -175,7 +175,7 @@ export default class extends Component {
             </Flex>
           </Container>
 
-          <Box py={4} px={[3, 6]}>
+          <Box py={4} px={[2, 4]}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Text f={1} py={3} color='gray8'>
                 Click to see it in action →
@@ -184,7 +184,7 @@ export default class extends Component {
 
             <Container pb={3}>
               <DemoLinks
-                px={[0, '96px']}
+                px={[0, 4, 6, 0]}
                 links={demos}
                 onClick={({url}) => this.setUrl(url)}
               />
@@ -196,6 +196,7 @@ export default class extends Component {
                 bg='transparent'
                 pt={4}
                 pb={5}
+                px={[0, '', '', 3]}
                 onChange={data => this.setState({ data: JSON.parse(data) })}
               />
             </Container>
