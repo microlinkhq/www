@@ -27,7 +27,8 @@ import getColors from '../helpers/get-colors'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
-import {textGradient, primaryFont} from '../theme'
+import CustomBox from '../components/CustomBox'
+import {textGradient, primaryFont, maxWidth} from '../theme'
 
 const Description = Subhead.extend`
   ${textGradient}
@@ -42,7 +43,7 @@ ${space}
 `
 
 const EllipsisText = Text.extend`
-  max-width: 500px;
+  ${maxWidth}
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -255,22 +256,24 @@ export default class extends Component {
         <RippleSection color={_color} alternativeColor={_alternativeColor} id='sdk'>
           <Container p={5}>
             <Flex justify='center' align='center' direction='column'>
-              <Text color={textColor} py={3} f={4}>
+              <Text color={textColor} py={3} f={[3, 4]}>
                 Converts your links
               </Text>
-              <EllipsisText style={{opacity: '0.5'}} color={textColor} py={3} f={4}>
+              <EllipsisText style={{opacity: '0.5'}} color={textColor} py={3} f={[2, 4]} maxWidth={['100%', '500px']}>
                 {this.state.url}
               </EllipsisText>
-              <Text color={textColor} py={3} f={3}>
+              <Text color={textColor} py={3} f={[1, 3]}>
                 into beautiful previews
               </Text>
-              <MicrolinkCard
-                key={`MicrolinkCard__${this.state.url}`}
-                url={this.state.url}
-                image={['image', 'logo']}
-                round
-                palette
-              />
+              <CustomBox alignSelf={['stretch', 'center']}>
+                <MicrolinkCard
+                  key={`MicrolinkCard__${this.state.url}`}
+                  url={this.state.url}
+                  image={['image', 'logo']}
+                  round
+                  palette
+                />
+              </CustomBox>
               <Flex py={3} is='section' justify='center' direction='column' align='center'>
                 <Text f={1} py={3} pb={1} color={textColor}>
                   Click to see more examples →
