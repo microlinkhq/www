@@ -1,5 +1,14 @@
-import React, {Component} from 'react'
-import {hoc, Truncate, Avatar, Box, monospace, Card, Flex, Banner} from 'rebass'
+import React, { Component } from 'react'
+import {
+  hoc,
+  Truncate,
+  Avatar,
+  Box,
+  monospace,
+  Card,
+  Flex,
+  Banner
+} from 'rebass'
 import styled, { keyframes } from 'styled-components'
 import { LiveProvider, LiveEditor } from 'react-live'
 import { width } from 'styled-system'
@@ -7,17 +16,16 @@ import Tilt from 'react-tilt'
 import color from 'color'
 
 import Container from './Container'
-import {colors, height} from '../theme'
+import { colors, height } from '../theme'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
-const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
+const PALETTE_FALLBACK = [ colors.gray2, colors.gray3, colors.gray4 ]
 const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
 
-const getImageUrl = url => (
+const getImageUrl = url =>
   url.indexOf('https://') === 0
-  ? url
-  : `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
-)
+    ? url
+    : `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
 
 const animateGlow = keyframes`
   0% {
@@ -127,7 +135,7 @@ const CustomCard = Card.extend`
   overflow: auto;
 `
 
-const PreviewCard = ({children, ...props}) => (
+const PreviewCard = ({ children, ...props }) => (
   <CustomCard {...props}>
     {children}
   </CustomCard>
@@ -182,27 +190,29 @@ const cardWidths = [ 1, '', 0.45 ]
 
 export default class extends Component {
   render () {
-    const {data, onChange, ...props} = this.props
-    const {publisher, description} = data
+    const { data, onChange, ...props } = this.props
+    const { publisher, description } = data
     const logo = data.logo || {}
     const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => color(c).isLight())
 
     return (
       <Container is='section' {...props}>
-        <Provider
-          mountStylesheet={false}
-          code={JSON.stringify(data, null, 2)}>
-          <Row justify='space-around' direction={['column-reverse', '', 'row']} align='center' wrap>
+        <Provider mountStylesheet={false} code={JSON.stringify(data, null, 2)}>
+          <Row
+            justify='space-around'
+            direction={[ 'column-reverse', '', 'row' ]}
+            align='center'
+            wrap
+          >
             <PreviewCard
-              style={{boxShadow: `${colors.gray2} 0px 2px 54px 0px`}}
+              style={{ boxShadow: `${colors.gray2} 0px 2px 54px 0px` }}
               width={cardWidths}
               height={cardHeights}
               my={3}
             >
               <Editor width={[ 1 ]} onChange={onChange} />
             </PreviewCard>
-
             <CustomTilt
               className='tilt'
               options={{ max: 8, scale: 1.02 }}
@@ -214,12 +224,18 @@ export default class extends Component {
                 <CardBackgroundImage
                   height='100%'
                   backgroundImage={getImageUrl(image.url || image)}
-                  style={{position: 'relative'}}
+                  style={{ position: 'relative' }}
+                >
+                  <CardHeader
+                    p={[ 2, 3 ]}
+                    width='100%'
+                    style={{ background: '#f7f8fa' }}
                   >
-                  <CardHeader p={[2, 3]} width='100%'
-                    style={{background: '#f7f8fa'}}>
                     <Flex align='flex-start'>
-                      <CardHeaderLogo width={['32px', '48px']} src={getImageUrl(logo.url || logo)} />
+                      <CardHeaderLogo
+                        width={[ '32px', '48px' ]}
+                        src={getImageUrl(logo.url || logo)}
+                      />
                       <CardHeaderBody ml={2}>
                         <Truncate>{publisher}</Truncate>
                         <Truncate>{description}</Truncate>

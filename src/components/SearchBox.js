@@ -1,6 +1,6 @@
 import { space, width, fontSize, color } from 'styled-system'
-import {Flex, Button, ButtonOutline} from 'rebass'
-import React, {Component} from 'react'
+import { Flex, Button, ButtonOutline } from 'rebass'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import Spinner from './Spinner'
 import { height } from '../theme'
@@ -17,7 +17,8 @@ const CustomButton = CustomButtonOutline.extend`
 `
 
 const CustomInput = styled.input`
-  ${fontSize} display: inline-block;
+  ${fontSize}
+  display: inline-block;
   transition: box-shadow 0.4s ease, background 0.4s ease;
   border: 0;
   box-shadow: inset 0 0 0 1px white;
@@ -74,7 +75,7 @@ export default class extends Component {
   }
 
   handleChange (event) {
-    this.setState({value: event.target.value.trim()})
+    this.setState({ value: event.target.value.trim() })
   }
 
   renderLoadingButton () {
@@ -117,12 +118,12 @@ export default class extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const {value} = nextProps
-    value && this.setState({value})
+    const { value } = nextProps
+    value && this.setState({ value })
   }
 
   render () {
-    const {loading, placeholder, onChange, value, ...props} = this.props
+    const { loading, placeholder, onChange, value, ...props } = this.props
 
     return (
       <CustomForm
@@ -143,7 +144,6 @@ export default class extends Component {
             autoComplete='on'
             autoFocus
           />
-
           {!loading ? this.renderButton() : this.renderLoadingButton()}
         </CustomFlex>
       </CustomForm>
