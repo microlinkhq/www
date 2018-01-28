@@ -1,20 +1,12 @@
 import React from 'react'
 import {Image, Box, Flex, Measure} from 'rebass'
-import { responsiveStyle, textAlign } from 'styled-system'
-
-const maxWidth = responsiveStyle({
-  prop: 'maxWidth',
-  cssProperty: 'maxWidth'
-})
-
-const CustomBox = Box.extend`
-${textAlign}
-`
+import CustomBox from './CustomBox'
+import {maxWidth} from '../theme'
 
 const CustomImage = Image.extend`
-${maxWidth}
-border-radius: 8px;
-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  ${maxWidth}
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 `
 
 export default ({

@@ -1,4 +1,5 @@
 import palx from 'palx'
+import {responsiveStyle} from 'styled-system'
 
 export const breakpoints = [ 32, 48, 64, 80 ]
 export const space = [0, 4, 8, 16, 32, 64, 128, 256]
@@ -81,6 +82,11 @@ export const primaryFont = `
   font-family: 'avenir next', avenir, sans-serif;
 `
 
+export const maxWidth = responsiveStyle({
+  prop: 'maxWidth',
+  cssProperty: 'maxWidth'
+})
+
 export default {
   primaryFont,
   textGradient,
@@ -93,5 +99,6 @@ export default {
   font,
   monospace,
   colors,
-  radius
+  radius,
+  maxWidth
 }
