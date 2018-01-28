@@ -1,5 +1,4 @@
 /* global fetch */
-
 import {Box, Text, Flex, Heading, Subhead} from 'rebass'
 import { color, space } from 'styled-system'
 import MicrolinkCard from 'react-microlink'
@@ -38,8 +37,8 @@ const Description = Subhead.extend`
 `
 
 const Main = styled.main`
-${color}
-${space}
+  ${color}
+  ${space}
 `
 
 const EllipsisText = Text.extend`

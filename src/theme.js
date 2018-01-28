@@ -65,7 +65,7 @@ export const cx = key => colors[key] || key
 export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
 
 export const bgGradient = `
-background-image: ${gradient};
+  background-image: ${gradient};
 `
 
 export const textGradient = `
