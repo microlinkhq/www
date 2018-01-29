@@ -48,7 +48,7 @@
     "react-tilt": "~0.1.4",
     "rebass": "~1.0.4",
     "stripe-checkout-lite": "0.0.1",
-    "styled-components": "~3.0.2",
+    "styled-components": "~3.1.0",
     "unfetch": "~3.0.0"
   },
   "devDependencies": {
