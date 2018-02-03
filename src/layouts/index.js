@@ -13,6 +13,7 @@ const TemplateWrapper = ({ children, data, ...props }) => {
     siteUrl,
     title,
     ogImage,
+    ogVideo,
     description,
     twitter,
     ...metadata
@@ -33,6 +34,7 @@ const TemplateWrapper = ({ children, data, ...props }) => {
           {name: 'twitter:image', content: ogImage},
           {name: 'twitter:creator', content: twitter},
           {property: 'og:url', content: siteUrl},
+          {property: 'og:video:secure_url', content: ogVideo},
           {property: 'og:title', content: title},
           {property: 'og:description', content: description},
           {property: 'og:image', content: ogImage},
