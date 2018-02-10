@@ -17,13 +17,13 @@ export default ({
 }) => (
   <Flex
     align={'center'}
-    direction={['column', direction === 'left' ? 'row' : 'row-reverse']}
+    direction={['column', '', '', direction === 'left' ? 'row' : 'row-reverse']}
     justify='center'
   >
-    <Box width={[1, 1]} px={4} pb={[4, 0]} style={{maxWidth: '512px'}}>
-      <CustomImage src={image} width={['800px']} maxWidth={['100%', 'none']} />
-    </Box>
-    <CustomBox px={4} align={['center', 'left']}>
+    <CustomBox width={1} px={4} pb={[4, '', '', 0]} maxWidth={['100%', '', '600px', '512px']}>
+      <CustomImage src={image} width={['800px']} maxWidth={['100%', '', '', 'none']} />
+    </CustomBox>
+    <CustomBox px={4} align={['center', '', '', 'left']}>
       <Measure>
         {children}
       </Measure>

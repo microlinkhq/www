@@ -208,7 +208,7 @@ export default class extends Component {
         </WaveSection>
 
         <Section bg='#FAFBFC'>
-          <Container p={[2, 5]}>
+          <Container p={[2, 5]} pt={[4, 5]}>
             <ContentFeature direction='right' image='/img/carbon-dracula.png'>
               <SectionSubhead
                 f={[3, 5]}
@@ -299,8 +299,8 @@ export default class extends Component {
           </Container>
         </RippleSection>
 
-        <Section bg='#FAFBFC' py={5}>
-          <Container p={[2, 5]}>
+        <Section bg='#FAFBFC'>
+          <Container p={[2, 5]} pt={[4, 5]}>
             <ContentFeature direction='right' image='/img/browser.png'>
               <SectionSubhead
                 f={[3, 5]}
@@ -324,7 +324,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='#FAFBFC'>
+        <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
             <ContentFeature direction='right' image='/img/embed-support.png'>
               <SectionSubhead
