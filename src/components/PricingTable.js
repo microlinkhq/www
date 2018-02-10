@@ -1,13 +1,13 @@
-import styled, {keyframes} from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { HelpCircle } from 'react-feather'
-import {Flex, Text, Lead} from 'rebass'
-import React, {Component} from 'react'
+import { Flex, Text, Lead } from 'rebass'
+import React, { Component } from 'react'
 
 import PricePicker from './PricePicker'
 import Checkout from './Checkout'
-import {LinkSolid} from './Link'
+import { LinkSolid } from './Link'
 import Tooltip from './ToolTip'
-import {colors} from '../theme'
+import { colors } from '../theme'
 
 const BASE_PRICE = 9
 const BASE_DAILY_REQS = 1000
@@ -37,7 +37,7 @@ const Table = styled.table`
 `
 
 const Td = styled.td`
-  padding: .75rem;
+  padding: 0.75rem;
   vertical-align: top;
 `
 
@@ -47,7 +47,7 @@ const TdPrice = Td.extend`
   &::before {
     content: "$";
     font-weight: 100;
-    font-size: .8em;
+    font-size: 0.8em;
     position: relative;
     top: -5px;
     left: 0;
@@ -57,7 +57,7 @@ const TdPrice = Td.extend`
   &::after {
     content: "/month";
     font-weight: 100;
-    font-size: .8em;
+    font-size: 0.8em;
     position: relative;
     top: 0;
     color: ${colors.black50};
@@ -67,7 +67,7 @@ const TdPrice = Td.extend`
 const SubSpan = styled.span`
   &::after {
     font-weight: 100;
-    font-size: .8em;
+    font-size: 0.8em;
     content: "/month";
     position: relative;
     top: 0;
@@ -88,7 +88,7 @@ const RequestsConcurrency = SubSpan.extend`
 `
 
 const Th = styled.th`
-  padding: .75rem;
+  padding: 0.75rem;
   vertical-align: top;
 `
 
@@ -121,8 +121,8 @@ export default class extends Component {
     }
   }
 
-  priceSelected ({plan, reqs}) {
-    const newPrice = (BASE_PRICE * reqs) / BASE_DAILY_REQS
+  priceSelected ({ plan, reqs }) {
+    const newPrice = BASE_PRICE * reqs / BASE_DAILY_REQS
     this.setState({
       description: `${toLocale(reqs)} daily requests`,
       price: toLocale(newPrice),
@@ -131,7 +131,7 @@ export default class extends Component {
 
     if (this.raf) return
     if (this.state.highlight) {
-    // reset the animation
+      // reset the animation
       this.setState({ highlight: false }, () => {
         this.raf = requestAnimationFrame(() => {
           this.raf = null
@@ -153,7 +153,7 @@ export default class extends Component {
           <tbody>
             <Tr>
               <Th />
-              <Td >
+              <Td>
                 <Lead bold>Free</Lead>
               </Td>
               <Td>
@@ -164,13 +164,16 @@ export default class extends Component {
               <Th>
                 <Tooltip
                   content={
-                    <div key="rate-limits">
+                    <div key='rate-limits'>
                       <Text>Rate limit is based in a daily quota of requests.</Text>
                       <Text>It will be reset every day</Text>
                     </div>
-                  }>
+                  }
+                >
                   <Flex justify='center' align='center'>
-                    <Text bold pr={1}>Rate Limit</Text>
+                    <Text bold pr={1}>
+                      Rate Limit
+                    </Text>
                     <HelpCircle color={colors.black50} size={14} />
                   </Flex>
                 </Tooltip>
@@ -179,19 +182,23 @@ export default class extends Component {
                 500 <DailyRequests>reqs</DailyRequests>
               </Td>
               <Td>
-                <PricePicker onChange={this.priceSelected} /><DailyRequests>reqs</DailyRequests>
+                <PricePicker onChange={this.priceSelected} />
+                <DailyRequests>reqs</DailyRequests>
               </Td>
             </Tr>
             <Tr>
               <Th>
                 <Tooltip
                   content={
-                    <div key="request-caching">
+                    <div key='request-caching'>
                       <Text>We follow a query caching policy for successive API calls.</Text>
                     </div>
-                  }>
+                  }
+                >
                   <Flex justify='center' align='center'>
-                    <Text bold pr={1}>Request Caching</Text>
+                    <Text bold pr={1}>
+                      Request Caching
+                    </Text>
                     <HelpCircle color={colors.black50} size={14} />
                   </Flex>
                 </Tooltip>
@@ -203,27 +210,30 @@ export default class extends Component {
               <Th>
                 <Tooltip
                   content={
-                    <div key="request-concurrency">
+                    <div key='request-concurrency'>
                       <Text>Maximum simultaneous requests you can make.</Text>
                     </div>
-                  }>
+                  }
+                >
                   <Flex justify='center' align='center'>
-                    <Text bold pr={1}>Request Concurrency</Text>
+                    <Text bold pr={1}>
+                      Request Concurrency
+                    </Text>
                     <HelpCircle color={colors.black50} size={14} />
                   </Flex>
                 </Tooltip>
               </Th>
-              <Td>1<RequestsConcurrency /></Td>
-              <Td>∞<RequestsConcurrency /></Td>
+              <Td>
+                1<RequestsConcurrency />
+              </Td>
+              <Td>
+                ∞<RequestsConcurrency />
+              </Td>
             </Tr>
             <Tr>
               <Th />
               <TdPrice>0</TdPrice>
-              <TdPrice>
-                { highlight
-                ? <Highlight>{price}</Highlight>
-                : <span>{price}</span> }
-              </TdPrice>
+              <TdPrice>{highlight ? <Highlight>{price}</Highlight> : <span>{price}</span>}</TdPrice>
             </Tr>
             <Tr>
               <Th />
@@ -243,10 +253,10 @@ export default class extends Component {
         </Table>
 
         <Flex is='section' justify='center' direction='column' align='center'>
-          <Text pt={4} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
+          <Text pt={4} px={5} f={3} color='gray8' style={{ textAlign: 'center' }}>
             Do you need more?
           </Text>
-          <Text pt={3} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
+          <Text pt={3} px={5} f={3} color='gray8' style={{ textAlign: 'center' }}>
             <LinkSolid onClick={this.openForm}>Contact us</LinkSolid>.
           </Text>
         </Flex>

@@ -1,5 +1,5 @@
 import { space, width, fontSize, color } from 'styled-system'
-import { Flex, Button, ButtonOutline } from 'rebass'
+import { Flex, ButtonOutline } from 'rebass'
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Spinner from './Spinner'

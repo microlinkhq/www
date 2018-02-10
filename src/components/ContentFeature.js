@@ -1,5 +1,5 @@
 import React from 'react'
-import {Image, Box, Flex, Measure} from 'rebass'
+import {Image, Flex, Measure} from 'rebass'
 import CustomBox from './CustomBox'
 import {maxWidth} from '../theme'
 
