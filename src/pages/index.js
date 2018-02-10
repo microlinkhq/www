@@ -364,7 +364,7 @@ export default class extends Component {
         </Section>
 
         <GradientSection bg='#FAFBFC' gradient='linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)'>
-          <Container p={7}>
+          <Container py={[6, '', '', 7]}>
             <Flex justify='center' align='center' direction='column'>
               <Text color='white' pb={2} f={3}>
                 Discover all things you can do at
