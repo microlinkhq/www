@@ -195,16 +195,15 @@ export default class extends Component {
     const logo = data.logo || {}
     const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => color(c).isLight())
+    const code = JSON.stringify(data, null, 2)
 
     return (
       <Container is='section' {...props}>
-        <Provider mountStylesheet={false} code={JSON.stringify(data, null, 2)}>
-          <Row
-            justify='space-around'
-            direction={[ 'column-reverse', '', 'row' ]}
-            align='center'
-            wrap
-          >
+        <Provider
+          code={code}
+          noInline
+          mountStylesheet={false}>
+          <Row justify='space-around' direction={[ 'column-reverse', '', 'row' ]} align='center' wrap>
             <PreviewCard
               style={{ boxShadow: `${colors.gray2} 0px 2px 54px 0px` }}
               width={cardWidths}
