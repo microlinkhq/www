@@ -376,14 +376,14 @@ export default class extends Component {
           </Container>
         </GradientSection>
 
-        <Section bg='white' id='pricing' px={[2, 5]} pt={[2, 5]} pb={[5, 0]}>
+        <Section bg='white' id='pricing' px={[2, '', 5]} pt={[2, 5]} pb={[5, 0]}>
           <SectionSubhead
             f={[4, 5]}
             py={5}
             style={{textAlign: 'center'}}
             color='secondary'
             >Pricing</SectionSubhead>
-          <Container pb={[2, 5]}>
+          <Container pb={[2, 5]} px={[0, '', 3]}>
             <PricingTable
               api={paymentEndpoint}
               apiKey={paymentApiKey}
