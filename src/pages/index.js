@@ -349,7 +349,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='white' id='features' px={[2, 5]} pt={[2, 5]}>
+        <Section bg='white' id='features' px={[2, '', 5]} pt={[2, 5]}>
           <SectionSubhead
             f={[4, 5]}
             py={5}
@@ -357,8 +357,9 @@ export default class extends Component {
             color='secondary'
             >Features</SectionSubhead>
           <Container>
-            <Hide xs sm><ContentGrid data={features} itemsPerRow={3} /></Hide>
-            <Hide md lg><ContentGrid data={features} itemsPerRow={1} /></Hide>
+            <Hide xs sm md><ContentGrid data={features} itemsPerRow={3} /></Hide>
+            <Hide xs lg><ContentGrid data={features} itemsPerRow={2} /></Hide>
+            <Hide sm md lg><ContentGrid data={features} itemsPerRow={1} /></Hide>
           </Container>
         </Section>
 
