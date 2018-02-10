@@ -156,7 +156,7 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
-        <WaveSection bg='#FAFBFC' mt={'56px'} id='home' color={_color} alternativeColor={_alternativeColor}>
+        <WaveSection bg='#FAFBFC' pt={'56px'} id='home' color={_color} alternativeColor={_alternativeColor}>
           <Container px={[3, 4, 5, 6]} pt={4}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
