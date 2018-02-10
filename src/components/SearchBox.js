@@ -1,26 +1,24 @@
 import { space, width, fontSize, color } from 'styled-system'
-import {Flex, Button, ButtonOutline} from 'rebass'
-import React, {Component} from 'react'
+import { Flex, Button, ButtonOutline } from 'rebass'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import Spinner from './Spinner'
+import { height } from '../theme'
 
 const CustomButtonOutline = ButtonOutline.extend`
-  width: 93px;
-  height: 48px;
+  ${width}
+  ${height}
   border-radius: 8px;
   cursor: pointer;
 `
 
-const CustomButton = Button.extend`
-  width: 93px;
-  height: 48px;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+const CustomButton = CustomButtonOutline.extend`
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 `
 
 const CustomInput = styled.input`
-  ${fontSize} display: inline-block;
+  ${fontSize}
+  display: inline-block;
   transition: box-shadow 0.4s ease, background 0.4s ease;
   border: 0;
   box-shadow: inset 0 0 0 1px white;
@@ -52,7 +50,7 @@ const CustomForm = styled.form`
   ${width}
   ${fontSize}
   ${color}
-  height: 65px;
+  ${height}
   white-space: nowrap;
   border-radius: 8px;
   box-shadow: 0 10px 24px 0 rgba(206, 212, 218, 0.3);
@@ -65,6 +63,9 @@ const CustomFlex = Flex.extend`
   height: 100%;
 `
 
+const buttonWidths = [ '76px', '', '92px' ]
+const buttonHeights = [ '40px', '', '48px' ]
+
 export default class extends Component {
   constructor (props) {
     super(props)
@@ -74,16 +75,23 @@ export default class extends Component {
   }
 
   handleChange (event) {
-    this.setState({value: event.target.value.trim()})
+    this.setState({ value: event.target.value.trim() })
   }
 
   renderLoadingButton () {
     return (
-      <CustomButtonOutline onClick={event => {
-        event.preventDefault()
-      }}>
-        <Flex justify='center' align='center'
-          style={{transform: 'scale(0.5)', height: '100%'}}>
+      <CustomButtonOutline
+        width={buttonWidths}
+        height={buttonHeights}
+        onClick={event => {
+          event.preventDefault()
+        }}
+      >
+        <Flex
+          justify='center'
+          align='center'
+          style={{ transform: 'scale(0.5)', height: '100%' }}
+        >
           <Spinner />
         </Flex>
       </CustomButtonOutline>
@@ -96,7 +104,10 @@ export default class extends Component {
         color='white'
         bg='primary'
         type='submit'
-        >Try it
+        width={buttonWidths}
+        height={buttonHeights}
+      >
+        Try it
       </CustomButton>
     )
   }
@@ -107,19 +118,24 @@ export default class extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const {value} = nextProps
-    value && this.setState({value})
+    const { value } = nextProps
+    value && this.setState({ value })
   }
 
   render () {
-    const {loading, placeholder, onChange, value, ...props} = this.props
+    const { loading, placeholder, onChange, value, ...props } = this.props
 
     return (
-      <CustomForm role='form' {...props} onSubmit={this.onSubmit}>
+      <CustomForm
+        role='form'
+        {...props}
+        onSubmit={this.onSubmit}
+        height={[ '48px', '', '65px' ]}
+      >
         <CustomFlex justify='space-around' align='center'>
           <CustomInput
             name='url'
-            f={3}
+            f={[ 2, 2, 3 ]}
             type='url'
             placeholder={placeholder}
             onChange={this.handleChange}
@@ -128,7 +144,6 @@ export default class extends Component {
             autoComplete='on'
             autoFocus
           />
-
           {!loading ? this.renderButton() : this.renderLoadingButton()}
         </CustomFlex>
       </CustomForm>

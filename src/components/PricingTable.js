@@ -164,7 +164,7 @@ export default class extends Component {
               <Th>
                 <Tooltip
                   content={
-                    <div>
+                    <div key="rate-limits">
                       <Text>Rate limit is based in a daily quota of requests.</Text>
                       <Text>It will be reset every day</Text>
                     </div>
@@ -186,7 +186,7 @@ export default class extends Component {
               <Th>
                 <Tooltip
                   content={
-                    <div>
+                    <div key="request-caching">
                       <Text>We follow a query caching policy for successive API calls.</Text>
                     </div>
                   }>
@@ -203,7 +203,7 @@ export default class extends Component {
               <Th>
                 <Tooltip
                   content={
-                    <div>
+                    <div key="request-concurrency">
                       <Text>Maximum simultaneous requests you can make.</Text>
                     </div>
                   }>

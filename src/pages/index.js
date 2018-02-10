@@ -1,5 +1,4 @@
 /* global fetch */
-
 import {Box, Text, Flex, Heading, Subhead} from 'rebass'
 import { color, space } from 'styled-system'
 import MicrolinkCard from 'react-microlink'
@@ -27,7 +26,8 @@ import getColors from '../helpers/get-colors'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
-import {textGradient, primaryFont} from '../theme'
+import CustomBox from '../components/CustomBox'
+import {textGradient, primaryFont, maxWidth} from '../theme'
 
 const SectionSubhead = Subhead.extend`
 display: block;
@@ -41,12 +41,12 @@ max-width: 40rem;
 `
 
 const Main = styled.main`
-${color}
-${space}
+  ${color}
+  ${space}
 `
 
 const EllipsisText = Text.extend`
-  max-width: 500px;
+  ${maxWidth}
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -156,21 +156,21 @@ export default class extends Component {
     return (
       <Main>
         <NavBar bg='white' color='black50' py={1} mx='auto' />
-        <WaveSection bg='#FAFBFC' mt={'56px'} id='home' color={_color} alternativeColor={_alternativeColor}>
-          <Container px={[3, 6]} pt={4}>
+        <WaveSection bg='#FAFBFC' pt={'56px'} id='home' color={_color} alternativeColor={_alternativeColor}>
+          <Container px={[3, 4, 5, 6]} pt={4}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
                 <CustomHeading f={[5, 6]} pb={2} color='#303A52' bold>
                   <Logo ml={1} width={['32px', '48px']} /> microlink
                 </CustomHeading>
-                <Description f={[3, 4]} px={5}>
+                <Description f={[2, 3, 4]} px={[2, 4, 5]}>
                   Get relevant information from any website
                 </Description>
               </Flex>
               <SearchBox
                 bg='white'
-                width={['80%', '100%']}
-                my={[1, 3]}
+                width={1}
+                my={3}
                 loading={this.state.loading}
                 placeholder={URL_FALLBACK}
                 value={this.state.url !== URL_FALLBACK ? this.state.url : null}
@@ -179,7 +179,7 @@ export default class extends Component {
             </Flex>
           </Container>
 
-          <Box py={4} px={[3, 6]}>
+          <Box py={4} px={[2, 4]}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Text f={1} py={3} color='gray8'>
                 Click to see it in action →
@@ -188,7 +188,7 @@ export default class extends Component {
 
             <Container pb={3}>
               <DemoLinks
-                px={[0, '96px']}
+                px={[0, 4, 6, 0]}
                 links={demos}
                 onClick={({url}) => this.setUrl(url)}
               />
@@ -200,6 +200,7 @@ export default class extends Component {
                 bg='transparent'
                 pt={4}
                 pb={5}
+                px={[0, '', '', 3]}
                 onChange={data => this.setState({ data: JSON.parse(data) })}
               />
             </Container>
@@ -207,7 +208,7 @@ export default class extends Component {
         </WaveSection>
 
         <Section bg='#FAFBFC'>
-          <Container p={[2, 5]}>
+          <Container p={[2, 5]} pt={[4, 5]}>
             <ContentFeature direction='right' image='/img/carbon-dracula.png'>
               <SectionSubhead
                 f={[3, 5]}
@@ -259,22 +260,24 @@ export default class extends Component {
         <RippleSection color={_color} alternativeColor={_alternativeColor} id='sdk'>
           <Container p={5}>
             <Flex justify='center' align='center' direction='column'>
-              <Text color={textColor} py={3} f={4}>
+              <Text color={textColor} py={3} f={[3, 4]}>
                 Converts your links
               </Text>
-              <EllipsisText style={{opacity: '0.5'}} color={textColor} py={3} f={4}>
+              <EllipsisText style={{opacity: '0.5'}} color={textColor} py={3} f={[2, 4]} maxWidth={['100%', '500px']}>
                 {this.state.url}
               </EllipsisText>
-              <Text color={textColor} py={3} f={3}>
+              <Text color={textColor} py={3} f={[1, 3]}>
                 into beautiful previews
               </Text>
-              <MicrolinkCard
-                key={`MicrolinkCard__${this.state.url}`}
-                url={this.state.url}
-                image={['image', 'logo']}
-                round
-                palette
-              />
+              <CustomBox alignSelf={['stretch', 'center']}>
+                <MicrolinkCard
+                  key={`MicrolinkCard__${this.state.url}`}
+                  url={this.state.url}
+                  image={['image', 'logo']}
+                  round
+                  palette
+                />
+              </CustomBox>
               <Flex py={3} is='section' justify='center' direction='column' align='center'>
                 <Text f={1} py={3} pb={1} color={textColor}>
                   Click to see more examples →
@@ -296,8 +299,8 @@ export default class extends Component {
           </Container>
         </RippleSection>
 
-        <Section bg='#FAFBFC' py={5}>
-          <Container p={[2, 5]}>
+        <Section bg='#FAFBFC'>
+          <Container p={[2, 5]} pt={[4, 5]}>
             <ContentFeature direction='right' image='/img/browser.png'>
               <SectionSubhead
                 f={[3, 5]}
@@ -321,7 +324,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='#FAFBFC'>
+        <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
             <ContentFeature direction='right' image='/img/embed-support.png'>
               <SectionSubhead
@@ -346,7 +349,7 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <Section bg='white' id='features' px={[2, 5]} pt={[2, 5]}>
+        <Section bg='white' id='features' px={[2, '', 5]} pt={[2, 5]}>
           <SectionSubhead
             f={[4, 5]}
             py={5}
@@ -354,13 +357,14 @@ export default class extends Component {
             color='secondary'
             >Features</SectionSubhead>
           <Container>
-            <Hide xs sm><ContentGrid data={features} itemsPerRow={3} /></Hide>
-            <Hide md lg><ContentGrid data={features} itemsPerRow={1} /></Hide>
+            <Hide xs sm md><ContentGrid data={features} itemsPerRow={3} /></Hide>
+            <Hide xs lg><ContentGrid data={features} itemsPerRow={2} /></Hide>
+            <Hide sm md lg><ContentGrid data={features} itemsPerRow={1} /></Hide>
           </Container>
         </Section>
 
         <GradientSection bg='#FAFBFC' gradient='linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)'>
-          <Container p={7}>
+          <Container py={[6, '', '', 7]}>
             <Flex justify='center' align='center' direction='column'>
               <Text color='white' pb={2} f={3}>
                 Discover all things you can do at
@@ -372,14 +376,14 @@ export default class extends Component {
           </Container>
         </GradientSection>
 
-        <Section bg='white' id='pricing' px={[2, 5]} pt={[2, 5]} pb={[5, 0]}>
+        <Section bg='white' id='pricing' px={[2, '', 5]} pt={[2, 5]} pb={[5, 0]}>
           <SectionSubhead
             f={[4, 5]}
             py={5}
             style={{textAlign: 'center'}}
             color='secondary'
             >Pricing</SectionSubhead>
-          <Container pb={[2, 5]}>
+          <Container pb={[2, 5]} px={[0, '', 3]}>
             <PricingTable
               api={paymentEndpoint}
               apiKey={paymentApiKey}
@@ -389,7 +393,9 @@ export default class extends Component {
         </Section>
 
         <Section bg='#10111B' color='gray1'>
-          <Footer py={[3, 5]} px={[3, 7]} />
+          <Container py={[3, 4, 5]}>
+            <Footer />
+          </Container>
         </Section>
 
       </Main>
