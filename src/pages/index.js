@@ -393,7 +393,9 @@ export default class extends Component {
         </Section>
 
         <Section bg='#10111B' color='gray1'>
-          <Footer py={[3, 5]} px={[3, 7]} />
+          <Container py={[3, 4, 5]}>
+            <Footer />
+          </Container>
         </Section>
 
       </Main>

@@ -1,5 +1,6 @@
 import React from 'react'
 import {Flex, NavLink, Input, ButtonOutline, Text} from 'rebass'
+import {alignSelf} from 'styled-system'
 
 const CustomButtonOutline = ButtonOutline.extend`
   font-weight: normal;
@@ -12,13 +13,13 @@ const CustomButtonOutline = ButtonOutline.extend`
 `
 
 const CustomNavLink = NavLink.extend`
-  align-items: flex-start;
   padding: 0;
+  ${alignSelf}
 `
 
 export default props => (
   <Flex is='footer' direction='column' {...props}>
-    <Flex mb={2} direction={['column', 'row']} py={3}>
+    <Flex mb={2} direction={['column', '', 'row']} align='center' py={3}>
       <Flex direction='column'>
         <Text f={1}>Early access and updates on new releases.</Text>
         <Flex py={3} px={0} align='center' justify='flex-start'>
@@ -28,14 +29,15 @@ export default props => (
           </form>
         </Flex>
       </Flex>
-      <Flex mt={[3, 0]} ml={[0, 'auto']} direction='column'>
+      <Flex mt={[3, '', 0]} ml={[0, '', 'auto']} direction='column'>
         <CustomNavLink
-          f={[3, 5]}
+          f={[3, '', 5]}
           href='mailto:hello@microlink.io'
           target='_blank'
           children='hello@microlink.io'
+          alignSelf={['center', '', 'flex-start']}
           />
-        <Flex w={1} justify={['flex-start', 'flex-end']}>
+        <Flex w={1} justify={['flex-start', '', 'flex-end']}>
           <NavLink
             mr={2}
             target='_blank'
