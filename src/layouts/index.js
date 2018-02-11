@@ -62,6 +62,7 @@ export const query = graphql`
         title
         description
         ogImage
+        ogVideo
         twitter
         apiEndpoint
         paymentEndpoint
