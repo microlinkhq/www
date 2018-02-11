@@ -19,7 +19,7 @@ module.exports = {
     title: 'microlink',
     description: 'Get relevant information from any website.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
-    ogVideo: url.resolve(SITE_URL, '/preview.gif'),
+    ogVideo: url.resolve(SITE_URL, '/preview.mp4'),
     twitter: '@microlinkio',
     apiEndpoint: API_ENDPOINT,
     paymentEndpoint: PAYMENT_ENDPOINT,
