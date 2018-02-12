@@ -30,7 +30,7 @@ export default class extends Component {
 
     this.handler = StripeCheckout.configure({
       key: stripeKey,
-      image: 'https://microlink.io/logo.png',
+      image: 'https://microlink.io/logo-trim.png',
       locale: 'auto',
       allowRememberMe: false,
       name: 'Professional Plan',
