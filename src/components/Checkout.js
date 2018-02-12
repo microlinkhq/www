@@ -2,9 +2,21 @@
 
 import React, {Component} from 'react'
 import {Fixed} from 'rebass'
-import ButtonOutline from './ButtonOutline'
+import {Choose} from 'react-extras'
 
+import ButtonOutline from './ButtonOutline'
 import {LinkDotted} from './Link'
+
+const PAYMENT_STATE = {
+  PROCESSING: 'processing',
+  SUCCESS: 'success',
+  FAILED: 'failed'
+}
+
+const ERROR_MAIL_OPTS = {
+  subject: 'Payment process error',
+  body: 'Hello,\n\nSomething bad happens trying to pay you at microlink.io.\n\nCan you help me?'
+}
 
 const serialize = obj => (
   Object.keys(obj).reduce((acc, key) => {
@@ -13,16 +25,11 @@ const serialize = obj => (
   }, []).join('&')
 )
 
-const ERROR_MAIL_OPTS = {
-  subject: 'Payment process error',
-  body: 'Hello,\n\nSomething bad happens trying to pay you at microlink.io.\n\nCan you help me?'
-}
-
 export default class extends Component {
   constructor (props) {
     super(props)
     this.openStripe = this.openStripe.bind(this)
-    this.state = {paymentState: null}
+    this.state = {paymentState: ''}
   }
 
   configure () {
@@ -37,16 +44,17 @@ export default class extends Component {
       panelLabel,
       description,
       token: token => {
+        this.setState({paymentState: PAYMENT_STATE.PROCESSING})
         fetch(`${api}/payment`, {
           headers: {'Content-Type': 'application/json', 'x-api-key': apiKey},
           method: 'POST',
           body: JSON.stringify({plan, token, email_template: 'payment_success'})
         })
         .then(res => res.json())
-        .then(({status}) => this.setState({paymentState: status}))
+        .then(({status}) => this.setState({paymentState: PAYMENT_STATE.SUCCESS}))
         .catch((err) => {
           console.error(err)
-          this.setState({paymentState: 'fail'})
+          this.setState({paymentState: PAYMENT_STATE.FAILED})
         })
       }
     })
@@ -71,18 +79,18 @@ export default class extends Component {
     })
   }
 
-  successPayment () {
+  successPayment (text) {
     return (
       <Fixed m={2} p={3} bg='green3' color='green9' z={1} right bottom>
-        Payment processed! We sent you an email.
+        {text}
       </Fixed>
     )
   }
 
-  errorPayment () {
+  errorPayment (text) {
     return (
       <Fixed m={2} p={3} bg='red3' color='red9' z={1} right bottom>
-        Payment not processed. <LinkDotted
+        {text} <LinkDotted
           color='red9'
           href={`mailto:hello@microlink.io?${serialize(ERROR_MAIL_OPTS)}`}
         >Contact us</LinkDotted>.
@@ -95,8 +103,18 @@ export default class extends Component {
 
     return (
       <div>
-        {paymentState && paymentState === 'success' && this.successPayment()}
-        {paymentState && paymentState !== 'success' && this.errorPayment()}
+        <Choose>
+          <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
+            {this.successPayment('Processing...')}
+          </Choose.When>
+          <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
+            {this.successPayment('Payment processed! We sent you an email.')}
+          </Choose.When>
+          <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
+            {this.errorPayment('Payment not processed.')}
+          </Choose.When>
+        </Choose>
+
         <ButtonOutline
           hover={{ color: 'white', backgroundColor: 'primary' }}
           color='primary'
