@@ -10,7 +10,8 @@ import Tooltip from './ToolTip'
 import { colors } from '../theme'
 
 const BASE_PRICE = 9
-const BASE_DAILY_REQS = 1000
+const BASE_PLAN = 'pro-1k'
+const BASE_PLAN_REQS = 1000
 
 const toLocale = number => Math.round(number).toLocaleString('en-US')
 
@@ -114,16 +115,18 @@ export default class extends Component {
     super(props)
     this.priceSelected = this.priceSelected.bind(this)
     this.state = {
-      plan: 'pro-1k',
-      description: `${toLocale(BASE_DAILY_REQS)} daily requests`,
+      plan: BASE_PLAN,
+      description: `${toLocale(BASE_PLAN_REQS)} daily requests`,
       price: BASE_PRICE,
       panelLabel: `$${BASE_PRICE}/month`
     }
   }
 
   priceSelected ({ plan, reqs }) {
-    const newPrice = BASE_PRICE * reqs / BASE_DAILY_REQS
+    const newPrice = BASE_PRICE * reqs / BASE_PLAN_REQS
+
     this.setState({
+      plan,
       description: `${toLocale(reqs)} daily requests`,
       price: toLocale(newPrice),
       panelLabel: `$${newPrice}/month`
@@ -182,7 +185,12 @@ export default class extends Component {
                 500 <DailyRequests>reqs</DailyRequests>
               </Td>
               <Td>
-                <PricePicker onChange={this.priceSelected} />
+                <PricePicker
+                  base={{
+                    plan: BASE_PLAN,
+                    reqs: BASE_PLAN_REQS
+                  }}
+                  onChange={this.priceSelected} />
                 <DailyRequests>reqs</DailyRequests>
               </Td>
             </Tr>

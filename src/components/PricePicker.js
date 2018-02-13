@@ -18,7 +18,7 @@ const PLANS = {
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.state = { plan: 'pro-1k', reqs: 1000 }
+    this.state = {...this.props.base}
     this.handleChange = this.handleChange.bind(this)
   }
 
