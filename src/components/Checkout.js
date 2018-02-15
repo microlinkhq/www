@@ -2,10 +2,10 @@
 
 import React, {Component} from 'react'
 import {Fixed} from 'rebass'
-import {Choose} from 'react-extras'
 
 import ButtonOutline from './ButtonOutline'
 import {LinkDotted} from './Link'
+import Choose from './Choose'
 
 const PAYMENT_STATE = {
   PROCESSING: 'processing',
