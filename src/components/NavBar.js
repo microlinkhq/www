@@ -1,4 +1,4 @@
-import { Flex, Fixed, Toolbar, NavLink } from 'rebass'
+import {Flex, Fixed, Toolbar, NavLink} from 'rebass'
 import React from 'react'
 
 import Changelog from './Changelog'
@@ -14,13 +14,8 @@ const CustomToolbar = Toolbar.extend`
 
 const NavBar = props => (
   <Fixed z={2} top left right>
-    <CustomToolbar bg='transparent' {...props} >
-      <CustomNavLink
-        f='12px'
-        px={[2, 3]}
-        href='#home'
-        children='Home'
-      />
+    <CustomToolbar bg='transparent' {...props}>
+      <CustomNavLink f='12px' px={[2, 3]} href='#home' children='Home' />
 
       <CustomNavLink
         f='12px'
@@ -34,14 +29,9 @@ const NavBar = props => (
             <Changelog />
           </Flex>
         }
-        />
+      />
 
-      <CustomNavLink
-        f='12px'
-        px={[2, 3]}
-        href='#pricing'
-        children='Pricing'
-        />
+      <CustomNavLink f='12px' px={[2, 3]} href='#pricing' children='Pricing' />
 
       <CustomNavLink
         f='12px'
@@ -49,7 +39,15 @@ const NavBar = props => (
         href='https://medium.com/microlink'
         target='_blank'
         children='Blog'
-          />
+      />
+
+      <CustomNavLink
+        f='12px'
+        px={[2, 3]}
+        href='https://chat.microlink.io'
+        target='_blank'
+        children='Chat'
+      />
     </CustomToolbar>
   </Fixed>
 )
