@@ -191,7 +191,7 @@ const cardWidths = [ 1, '', 0.45 ]
 export default class extends Component {
   render () {
     const { data, onChange, ...props } = this.props
-    const { publisher, description } = data
+    const { publisher, author, title, description } = data
     const logo = data.logo || {}
     const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => color(c).isLight())
@@ -236,7 +236,7 @@ export default class extends Component {
                         src={getImageUrl(logo.url || logo)}
                       />
                       <CardHeaderBody ml={2}>
-                        <Truncate>{publisher}</Truncate>
+                        <Truncate>{publisher || author || title}</Truncate>
                         <Truncate>{description}</Truncate>
                       </CardHeaderBody>
                     </Flex>
