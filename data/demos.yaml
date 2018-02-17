@@ -31,8 +31,14 @@
 - url: https://vimeo.com/188175573
   favicon: https://i.vimeocdn.com/favicon/main-touch_180
 
-- url: https://www.instagram.com/p/BXHj-DllyYU/
+- url: https://www.instagram.com/p/BeV6tOhFUor/
   favicon: https://www.instagram.com/static/images/ico/apple-touch-icon-76x76-precomposed.png/932e4d9af891.png
+
+- url: http://www.imdb.com/title/tt5463162
+  favicon: https://i.imgur.com/7yomUyo.png
+
+- url: https://www.amazon.com/dp/B06XCM9LJ4
+  favicon: https://i.imgur.com/S3TT9Gg.png
 
 - url: https://www.bbc.com/news/technology-40762328
   favicon: https://i.imgur.com/nqVXw1q.png
@@ -40,5 +46,5 @@
 - url: https://soundcloud.com/beautybrainsp/beauty-brain-swag-bandicoot
   favicon: https://i.imgur.com/0tVxe8Z.png
 
-- url: https://www.amazon.com/dp/B06XCM9LJ4
-  favicon: https://i.imgur.com/ngLNpIv.png
+- url: https://www.apple.com/homepod
+  favicon: https://i.imgur.com/UsW7eMB.png
