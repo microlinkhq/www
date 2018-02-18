@@ -1,22 +1,14 @@
-import { color, style } from 'styled-system'
+import { color, fontWeight } from 'styled-system'
 import styled from 'styled-components'
 import {colors} from '../../theme'
 
 const BORDER_WIDTH = '2px'
 
-const borderColor = style({
-  prop: 'borderColor',
-  cssProperty: 'borderColor'
-})
-
 const LinkSolid = styled.a`
-  ${borderColor}
   ${color}
+  ${fontWeight}
   display: inline;
   text-decoration: none;
-  font-weight: 600;
-  border-bottom-width: ${BORDER_WIDTH};
-  border-bottom-style: solid;
   line-height: normal;
   position: relative;
 
@@ -27,15 +19,13 @@ const LinkSolid = styled.a`
     height: ${BORDER_WIDTH};
     bottom: -${BORDER_WIDTH};
     left: 0;
-    background-color: ${colors.gray9};
-    visibility: hidden;
-    transform: scaleX(0);
-    transition: all 0.1s ease-in-out 0s;
+    background-color: ${props => props.borderColor || props.color};
+    opacity: 1;
   }
 
-  &:hover:before {
-    visibility: visible;
-    transform: scaleX(1);
+  &:hover {
+    opacity: 0.5;
+    transition: opacity 0.15s ease-in;s
   }
 
   &:active,
@@ -45,8 +35,7 @@ const LinkSolid = styled.a`
 `
 
 LinkSolid.defaultProps = {
-  color: colors.gray8,
-  borderColor: colors.gray2
+  color: colors.primary
 }
 
 export default LinkSolid

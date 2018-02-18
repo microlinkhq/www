@@ -160,11 +160,11 @@ export default class extends Component {
           <Container px={[3, 4, 5, 6]} pt={4}>
             <Flex is='section' justify='center' direction='column' align='center'>
               <Flex justify='center' direction='column' align='center' py={3}>
-                <CustomHeading f={[5, 6]} pb={2} color='#303A52' bold>
+                <CustomHeading f={[5, 6]} pb={2} color='primary' bold>
                   <Logo ml={1} width={['32px', '48px']} /> microlink
                 </CustomHeading>
                 <Description f={[2, 3, 4]} px={[2, 4, 5]}>
-                  Get relevant information from any website
+                  Get relevant information from any link
                 </Description>
               </Flex>
               <SearchBox
@@ -215,18 +215,18 @@ export default class extends Component {
                 pt={[0, 3]}
                 pb={[3, 4]}
                 color='secondary'
-              >Extract data from any website</SectionSubhead>
+              >Get the context of any link</SectionSubhead>
 
               <Text f={[2, 3]} py={3}>
                 Enter an URL, receive information. Easy peasy.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can obtain well structured and normalized data from practically any website, just providing the <LinkSolid to='https://docs.microlink.io/api/#api-parameters/url' external>url</LinkSolid>.
+                You can obtain well structured and normalized data from practically any website, just providing the <LinkDotted to='https://docs.microlink.io/api/#api-parameters/url' external>url</LinkDotted>.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                We also have <LinkSolid to='https://docs.microlink.io/api/#api-parameters/prerender' external>prerendering</LinkSolid> for get information from client side applications.
+                We also have <LinkDotted to='https://docs.microlink.io/api/#api-parameters/prerender' external>prerendering</LinkDotted> for get information from client side applications.
               </Text>
             </ContentFeature>
           </Container>
@@ -243,15 +243,15 @@ export default class extends Component {
               >Build rich media embeds</SectionSubhead>
 
               <Text f={[2, 3]} py={3}>
-                No matters if you are a newspaper, tech writter or just have a personal blog.
+                Improve your engagement for any media.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                Improve your social content engagement using adaptative UIs for any media.
+                We help your users to understand why a link was shared and whether they need to act on it.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                Use our <LinkSolid to='https://docs.microlink.io/sdk' external>SDK</LinkSolid> for easily integrating your site.
+                Use our <LinkDotted to='https://docs.microlink.io/sdk' external>SDK</LinkDotted> for easily integrate it into your site.
               </Text>
             </ContentFeature>
           </Container>
@@ -293,7 +293,11 @@ export default class extends Component {
                 />
               </Container>
               <Text color={textColor} pt={4} f={3}>
-                See <LinkDotted color={textColor} to='https://docs.microlink.io/sdk' external>SDK Documentation</LinkDotted>.
+                See <LinkSolid
+                  color={textColor}
+                  to='https://docs.microlink.io/sdk' external>
+                  SDK Documentation
+                </LinkSolid>.
               </Text>
             </Flex>
           </Container>
@@ -310,15 +314,15 @@ export default class extends Component {
               >Take screenshots</SectionSubhead>
 
               <Text f={[2, 3]} py={3}>
-                Automate <LinkSolid to='https://docs.microlink.io/api/#api-parameters/screenshot' external>screenshots</LinkSolid> of any website, displaying them anywhere.
+                Automate <LinkDotted to='https://docs.microlink.io/api/#api-parameters/screenshot' external>screenshot</LinkDotted>, displaying them anywhere.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                Capture easily partial or full page snapshots, without complications.
+                Capture partial or full page snapshots, without complications.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can also emulate specific <LinkSolid to='https://docs.microlink.io/api/#api-parameters/screenshot/device-emulation' external>devices</LinkSolid> or adapt the viewport.
+                We also support <LinkDotted to='https://docs.microlink.io/api/#api-parameters/screenshot/device-emulation' external>device</LinkDotted> emulation.
               </Text>
             </ContentFeature>
           </Container>
@@ -335,11 +339,11 @@ export default class extends Component {
               >Embed in your markup</SectionSubhead>
 
               <Text f={[2, 3]} py={3}>
-                The integration of third parties more simple and universal without effort.
+                Start by not writing any code.
               </Text>
 
               <Text f={[2, 3]} py={3}>
-                You can <LinkSolid to='https://docs.microlink.io/api/#api-parameters/embed' external>embed</LinkSolid> the API calls directly in your HTML markup.
+                You can <LinkDotted to='https://docs.microlink.io/api/#api-parameters/embed' external>embed</LinkDotted> directly in your HTML components.
               </Text>
 
               <Text f={[2, 3]} py={3}>
@@ -370,7 +374,12 @@ export default class extends Component {
                 Discover all things you can do at
               </Text>
               <Text color='white' f={4}>
-                <LinkDotted to='https://docs.microlink.io/api/' external>API Documentation</LinkDotted>
+                <LinkSolid
+                  color='white'
+                  to='https://docs.microlink.io/api/'
+                  external>
+                  API Documentation
+                </LinkSolid>
               </Text>
             </Flex>
           </Container>

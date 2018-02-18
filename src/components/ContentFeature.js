@@ -18,7 +18,7 @@ export default ({
   <Flex
     align={'center'}
     direction={['column', '', '', direction === 'left' ? 'row' : 'row-reverse']}
-    justify='center'
+    justify='space-evenly'
   >
     <CustomBox width={1} px={4} pb={[4, '', '', 0]} maxWidth={['100%', '', '600px', '512px']}>
       <CustomImage src={image} width={['800px']} maxWidth={['100%', '', '', 'none']} />

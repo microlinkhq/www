@@ -24,7 +24,7 @@ const flattened = Object.keys(palette).reduce((a, key) => {
 // todo: flatten
 
 export const colors = Object.assign({}, flattened, {
-  secondary: '#F76698',
+  secondary: '#EA407B',
   primary: '#303A52',
   black: '#000',
   black90: 'rgba(0,0,0,.9)',

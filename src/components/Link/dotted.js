@@ -15,7 +15,6 @@ const LinkDotted = styled.a`
   border-bottom-width: 2px;
   border-bottom-style: dashed;
   opacity: 1;
-  transition: opacity 0.15s ease-in;
 
   &:hover {
     opacity: 0.5;
@@ -24,7 +23,7 @@ const LinkDotted = styled.a`
 `
 
 LinkDotted.defaultProps = {
-  color: colors.white
+  color: colors.blue6
 }
 
 export default LinkDotted

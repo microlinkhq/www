@@ -17,7 +17,7 @@ module.exports = {
   siteMetadata: {
     siteUrl: SITE_URL,
     title: 'microlink',
-    description: 'Get relevant information from any website.',
+    description: 'Get relevant information from any link.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     ogVideo: url.resolve(SITE_URL, '/preview.mp4'),
     twitter: '@microlinkio',
