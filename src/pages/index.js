@@ -130,9 +130,9 @@ export default class extends Component {
   }
 
   componentWillUpdate (nextProps, nextState) {
-    const currentUrl = this.state.url
+    const {url} = this.state
     const nextUrl = nextState.url
-    if (currentUrl !== nextUrl) this.fetchUrl(nextUrl)
+    if (url !== nextUrl) this.fetchUrl(nextUrl)
   }
 
   getUrl (apiEndpoint, url) {
