@@ -1,9 +1,8 @@
-import {textAlign, alignSelf} from 'styled-system'
+import {textAlign} from 'styled-system'
 import {Box} from 'rebass'
 import {maxWidth} from '../theme'
 
 export default Box.extend`
-  ${alignSelf}
   ${textAlign}
   ${maxWidth}
 `
