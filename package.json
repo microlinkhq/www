@@ -44,7 +44,7 @@
     "react-feather": "~1.0.8",
     "react-helmet": "~5.2.0",
     "react-live": "~1.9.2",
-    "react-microlink": "~1.4.1",
+    "react-microlink": "~1.5.0",
     "react-tilt": "~0.1.4",
     "rebass": "~1.0.7",
     "stripe-checkout-lite": "0.0.1",
