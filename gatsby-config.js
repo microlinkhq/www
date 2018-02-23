@@ -14,6 +14,7 @@ if (!PAYMENT_ENDPOINT) throw envError('PAYMENT_ENDPOINT')
 const SITE_URL = 'https://microlink.io'
 
 module.exports = {
+  polyfill: false,
   siteMetadata: {
     siteUrl: SITE_URL,
     title: 'microlink',
