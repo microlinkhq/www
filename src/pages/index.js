@@ -26,7 +26,6 @@ import getColors from '../helpers/get-colors'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
-import CustomBox from '../components/CustomBox'
 import {textGradient, primaryFont, maxWidth} from '../theme'
 
 const SectionSubhead = Subhead.extend`
@@ -131,9 +130,9 @@ export default class extends Component {
   }
 
   componentWillUpdate (nextProps, nextState) {
-    const currentUrl = this.state.url
+    const {url} = this.state
     const nextUrl = nextState.url
-    if (currentUrl !== nextUrl) this.fetchUrl(nextUrl)
+    if (url !== nextUrl) this.fetchUrl(nextUrl)
   }
 
   getUrl (apiEndpoint, url) {
@@ -269,15 +268,16 @@ export default class extends Component {
               <Text color={textColor} py={3} f={[1, 3]}>
                 into beautiful previews
               </Text>
-              <CustomBox alignSelf={['stretch', 'center']}>
+              <Box width={1}>
                 <MicrolinkCard
                   key={`MicrolinkCard__${this.state.url}`}
                   url={this.state.url}
                   image={['image', 'logo']}
                   round
                   palette
+                  style={{margin: '0 auto'}}
                 />
-              </CustomBox>
+              </Box>
               <Flex py={3} is='section' justify='center' direction='column' align='center'>
                 <Text f={1} py={3} pb={1} color={textColor}>
                   Click to see more examples →
