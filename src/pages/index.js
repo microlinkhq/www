@@ -371,7 +371,7 @@ export default class extends Component {
           <Container py={[6, '', '', 7]}>
             <Flex justify='center' align='center' direction='column'>
               <Text color='white' pb={2} f={3}>
-                Discover all things you can do at
+                Discover everything you can do in the
               </Text>
               <Text color='white' f={4}>
                 <LinkSolid
