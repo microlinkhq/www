@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cp scripts/buble/buble.deps.js node_modules/buble/dist
-cp scripts/buble/buble.deps.js.map node_modules/buble/dist
