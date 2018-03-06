@@ -2,7 +2,7 @@
   "name": "microlink-www",
   "description": "microlink website",
   "homepage": "https://github.com/microlink/microlink-www#readme",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "email": "josefrancisco.verdu@gmail.com",
     "name": "Kiko Beats",
@@ -65,6 +65,14 @@
   "engines": {
     "node": ">= 8"
   },
+  "files": [
+    "data",
+    "gatsby-browser.js",
+    "gatsby-config.js",
+    "gatsby-node.js",
+    "src",
+    "static"
+  ],
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
     "clean": "rm -rf node_modules .cache",
