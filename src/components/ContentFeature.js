@@ -13,12 +13,12 @@ export default ({
   image = 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=2048&q=20',
   children,
   title,
-  direction = 'left'
+  flexDirection = 'left'
 }) => (
   <Flex
-    align={'center'}
-    direction={['column', '', '', direction === 'left' ? 'row' : 'row-reverse']}
-    justify='space-evenly'
+    alignContent={'center'}
+    flexDirection={['column', '', '', flexDirection === 'left' ? 'row' : 'row-reverse']}
+    justifyContent='space-evenly'
   >
     <CustomBox width={1} px={4} pb={[4, '', '', 0]} maxWidth={['100%', '', '600px', '512px']}>
       <CustomImage src={image} width={['800px']} maxWidth={['100%', '', '', 'none']} />
