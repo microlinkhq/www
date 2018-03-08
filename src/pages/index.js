@@ -28,11 +28,11 @@ import NavBar from '../components/NavBar'
 import Logo from '../components/Logo'
 import {textGradient, primaryFont, maxWidth} from '../theme'
 
-const SectionSubhead = Subhead.extend`
+const SectionSubhead = styled(Subhead)`
 display: block;
 `
 
-const Description = Subhead.extend`
+const Description = styled(Subhead)`
 ${textGradient}
 text-align: center;
 font-weight: normal;
@@ -154,15 +154,15 @@ export default class extends Component {
 
     return (
       <Main>
-        <NavBar bg='white' color='black50' py={1} mx='auto' />
+        <NavBar bg='white' color='black50' py={2} mx='auto' />
         <WaveSection bg='#FAFBFC' pt={'56px'} id='home' color={_color} alternativeColor={_alternativeColor}>
           <Container px={[3, 4, 5, 6]} pt={4}>
-            <Flex is='section' justify='center' direction='column' align='center'>
-              <Flex justify='center' direction='column' align='center' py={3}>
-                <CustomHeading f={[5, 6]} pb={2} color='primary' bold>
+            <Flex is='section' justifyContent='center' flexDirection='column' alignItems='center'>
+              <Flex justifyContent='center' flexDirection='column' alignItems='center' py={3}>
+                <CustomHeading fontWeight='bold' fontSize={[5, 6]} pb={2} color='primary'>
                   <Logo ml={1} width={['32px', '48px']} /> microlink
                 </CustomHeading>
-                <Description f={[2, 3, 4]} px={[2, 4, 5]}>
+                <Description fontSize={[2, 3, 4]} px={[2, 4, 5]}>
                   Get relevant information from any link
                 </Description>
               </Flex>
@@ -179,8 +179,8 @@ export default class extends Component {
           </Container>
 
           <Box py={4} px={[2, 4]}>
-            <Flex is='section' justify='center' direction='column' align='center'>
-              <Text f={1} py={3} color='gray8'>
+            <Flex is='section' justifyContent='center' flexDirection='column' alignItems='center'>
+              <Text fontSize={1} py={3} color='gray8'>
                 Click to see it in action →
               </Text>
             </Flex>
@@ -188,6 +188,7 @@ export default class extends Component {
             <Container pb={3}>
               <DemoLinks
                 px={[0, 4, 6, 0]}
+                size={56}
                 links={demos}
                 onClick={({url}) => this.setUrl(url)}
               />
@@ -207,24 +208,24 @@ export default class extends Component {
         </WaveSection>
 
         <Section bg='#FAFBFC'>
-          <Container p={[2, 5]} pt={[4, 5]}>
-            <ContentFeature direction='right' image='/img/carbon-dracula.png'>
+          <Container pb={[5]} pt={[4, 5]}>
+            <ContentFeature flexDirection='right' image='/img/carbon-dracula.png'>
               <SectionSubhead
-                f={[3, 5]}
+                fontSize={[3, 5]}
                 pt={[0, 3]}
                 pb={[3, 4]}
                 color='secondary'
               >Get the context of any link</SectionSubhead>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 Enter an URL, receive information. Easy peasy.
               </Text>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 You can obtain well structured and normalized data from practically any website, just providing the <LinkDotted to='https://docs.microlink.io/api/#api-parameters/url' external>url</LinkDotted>.
               </Text>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 We also have <LinkDotted to='https://docs.microlink.io/api/#api-parameters/prerender' external>prerendering</LinkDotted> for get information from client side applications.
               </Text>
             </ContentFeature>
@@ -233,23 +234,23 @@ export default class extends Component {
 
         <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
-            <ContentFeature direction='right' image='/img/link-preview.png'>
+            <ContentFeature flexDirection='right' image='/img/link-preview.png'>
               <SectionSubhead
-                f={[3, 5]}
+                fontSize={[3, 5]}
                 pt={[0, 3]}
                 pb={[3, 4]}
                 color='secondary'
               >Build rich media embeds</SectionSubhead>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 Improve your engagement for any media.
               </Text>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 We help your users to understand why a link was shared and whether they need to act on it.
               </Text>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 Use our <LinkDotted to='https://docs.microlink.io/sdk' external>SDK</LinkDotted> for easily integrate it into your site.
               </Text>
             </ContentFeature>
@@ -258,14 +259,14 @@ export default class extends Component {
 
         <RippleSection color={_color} alternativeColor={_alternativeColor} id='sdk'>
           <Container p={5}>
-            <Flex justify='center' align='center' direction='column'>
-              <Text color={textColor} py={3} f={[3, 4]}>
+            <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+              <Text color={textColor} py={3} fontSize={[3, 4]}>
                 Converts your links
               </Text>
-              <EllipsisText style={{opacity: '0.5'}} color={textColor} py={3} f={[2, 4]} maxWidth={['100%', '500px']}>
+              <EllipsisText style={{opacity: '0.5'}} color={textColor} p={3} fontSize={[2, 4]} maxWidth={['100%', '500px']}>
                 {this.state.url}
               </EllipsisText>
-              <Text color={textColor} py={3} f={[1, 3]}>
+              <Text color={textColor} py={3} fontSize={[1, 3]}>
                 into beautiful previews
               </Text>
               <Box width={1}>
@@ -278,21 +279,21 @@ export default class extends Component {
                   style={{margin: '0 auto'}}
                 />
               </Box>
-              <Flex py={3} is='section' justify='center' direction='column' align='center'>
-                <Text f={1} py={3} pb={1} color={textColor}>
+              <Flex py={3} is='section' justifyContent='center' flexDirection='column' alignItems='center'>
+                <Text fontSize={1} py={3} pb={1} color={textColor}>
                   Click to see more examples →
                 </Text>
               </Flex>
 
               <Container pb={3}>
                 <DemoLinks
-                  size={32}
+                  size={40}
                   px={[0, '96px']}
                   links={demos}
                   onClick={({url}) => this.setUrl(url)}
                 />
               </Container>
-              <Text color={textColor} pt={4} f={3}>
+              <Text color={textColor} pt={4} fontSize={3}>
                 See <LinkSolid
                   color={textColor}
                   to='https://docs.microlink.io/sdk' external>
@@ -304,24 +305,24 @@ export default class extends Component {
         </RippleSection>
 
         <Section bg='#FAFBFC'>
-          <Container p={[2, 5]} pt={[4, 5]}>
-            <ContentFeature direction='right' image='/img/browser.png'>
+          <Container pb={[4]} pt={[4, 5]}>
+            <ContentFeature flexDirection='right' image='/img/browser.png'>
               <SectionSubhead
-                f={[3, 5]}
+                fontSize={[3, 5]}
                 pt={[0, 3]}
                 pb={[3, 4]}
                 color='secondary'
               >Take screenshots</SectionSubhead>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 Automate <LinkDotted to='https://docs.microlink.io/api/#api-parameters/screenshot' external>screenshot</LinkDotted>, displaying them anywhere.
               </Text>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 Capture partial or full page snapshots, without complications.
               </Text>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 We also support <LinkDotted to='https://docs.microlink.io/api/#api-parameters/screenshot/device-emulation' external>device</LinkDotted> emulation.
               </Text>
             </ContentFeature>
@@ -330,34 +331,34 @@ export default class extends Component {
 
         <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
-            <ContentFeature direction='right' image='/img/embed-support.png'>
+            <ContentFeature flexDirection='right' image='/img/embed-support.png'>
               <SectionSubhead
-                f={[3, 5]}
+                fontSize={[3, 5]}
                 pt={[0, 3]}
                 pb={[3, 4]}
                 color='secondary'
               >Embed in your markup</SectionSubhead>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 Start by not writing any code.
               </Text>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 You can <LinkDotted to='https://docs.microlink.io/api/#api-parameters/embed' external>embed</LinkDotted> directly in your HTML components.
               </Text>
 
-              <Text f={[2, 3]} py={3}>
+              <Text fontSize={[2, 3]} py={3}>
                 Zero overhead. No dependencies.
               </Text>
             </ContentFeature>
           </Container>
         </Section>
 
-        <Section bg='white' id='features' px={[2, '', 5]} pt={[2, 5]}>
+        <Section bg='white' id='features' px={[2, '', 5]} pt={[2, 3]}>
           <SectionSubhead
-            f={[4, 5]}
+            fontSize={[4, 5]}
             py={5}
-            style={{textAlign: 'center'}}
+            textAlign='center'
             color='secondary'
             >Features</SectionSubhead>
           <Container>
@@ -368,12 +369,12 @@ export default class extends Component {
         </Section>
 
         <GradientSection bg='#FAFBFC' gradient='linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)'>
-          <Container py={[6, '', '', 7]}>
-            <Flex justify='center' align='center' direction='column'>
-              <Text color='white' pb={2} f={3}>
+          <Container py={[6, 7, 7, 7]}>
+            <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+              <Text color='white' pb={2} fontSize={3}>
                 Discover everything you can do in the
               </Text>
-              <Text color='white' f={4}>
+              <Text color='white' fontSize={4}>
                 <LinkSolid
                   color='white'
                   to='https://docs.microlink.io/api/'
@@ -385,11 +386,11 @@ export default class extends Component {
           </Container>
         </GradientSection>
 
-        <Section bg='white' id='pricing' px={[2, '', 5]} pt={[2, 5]} pb={[5, 0]}>
+        <Section bg='white' id='pricing' px={[2, '', 5]} pt={[2, 3]} pb={[5, 0]}>
           <SectionSubhead
-            f={[4, 5]}
+            fontSize={[4, 5]}
             py={5}
-            style={{textAlign: 'center'}}
+            textAlign='center'
             color='secondary'
             >Pricing</SectionSubhead>
           <Container pb={[2, 5]} px={[0, '', 3]}>
