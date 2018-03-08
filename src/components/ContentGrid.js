@@ -20,7 +20,7 @@ export default ({data, itemsPerRow}) => (
                 style={{borderRadius: 0}}
               />
               <Box py={3}>
-                <Subhead fontSize={3} py={3} fontWeight='bold'>
+                <Subhead f={3} py={3} bold>
                   {title}
                 </Subhead>
                 <CustomMeasure color='#4B5663'>{description}</CustomMeasure>
