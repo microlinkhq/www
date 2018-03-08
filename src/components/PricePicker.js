@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
-import {space, width} from 'styled-system'
 import {Select} from 'rebass'
 
 const CustomSelect = Select.extend`
-${space}
-${width}
 cursor: pointer;
 `
 
@@ -36,12 +33,11 @@ export default class extends Component {
   render () {
     return (
       <CustomSelect
-        mr={1}
-        py={1}
+        pr={1}
         width='4rem'
         value={this.state.reqs}
         onChange={this.handleChange}
-      >
+        >
         <option value={1000}>1K</option>
         <option value={3000}>3K</option>
         <option value={10000}>10K</option>

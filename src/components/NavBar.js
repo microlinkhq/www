@@ -5,9 +5,6 @@ import Changelog from './Changelog'
 
 const CustomNavLink = NavLink.extend`
   text-transform: uppercase;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.063);
-  }
 `
 
 const CustomToolbar = Toolbar.extend`
@@ -16,17 +13,12 @@ const CustomToolbar = Toolbar.extend`
 `
 
 const NavBar = props => (
-  <Fixed zIndex={2} top={0} left={0} right={0}>
+  <Fixed z={2} top left right>
     <CustomToolbar bg='transparent' {...props}>
-      <CustomNavLink
-        fontSize='12px'
-        px={[2, 3]}
-        href='#home'
-        children='Home'
-      />
+      <CustomNavLink f='12px' px={[2, 3]} href='#home' children='Home' />
 
       <CustomNavLink
-        fontSize='12px'
+        f='12px'
         pl={0}
         pr={1}
         href='https://docs.microlink.io'
@@ -39,15 +31,10 @@ const NavBar = props => (
         }
       />
 
-      <CustomNavLink
-        fontSize='12px'
-        px={[2, 3]}
-        href='#pricing'
-        children='Pricing'
-      />
+      <CustomNavLink f='12px' px={[2, 3]} href='#pricing' children='Pricing' />
 
       <CustomNavLink
-        fontSize='12px'
+        f='12px'
         px={[2, 3]}
         href='https://medium.com/microlink'
         target='_blank'
@@ -55,7 +42,7 @@ const NavBar = props => (
       />
 
       <CustomNavLink
-        fontSize='12px'
+        f='12px'
         px={[2, 3]}
         href='https://chat.microlink.io'
         target='_blank'

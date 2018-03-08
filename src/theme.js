@@ -1,44 +1,10 @@
 import palx from 'palx'
 import {responsiveStyle} from 'styled-system'
 
-export const breakpoints = [
-  32,
-  48,
-  64,
-  80
-].map(n => n + 'em')
-
-export const space = [
-  0,
-  4,
-  8,
-  16,
-  32,
-  64,
-  128,
-  256,
-  512
-]
-
-export const fontSizes = [
-  12,
-  14,
-  16,
-  20,
-  24,
-  32,
-  48,
-  64,
-  72,
-  96
-]
-
-export const fontWeights = {
-  normal: 400,
-  bold: 600
-}
-
-export const radii = [ 0, 2, 4 ]
+export const breakpoints = [ 32, 48, 64, 80 ]
+export const space = [0, 4, 8, 16, 32, 64, 128, 256]
+export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96]
+export const weights = [400, 600]
 
 const palette = palx('#449bf8')
 
@@ -54,6 +20,8 @@ const flattened = Object.keys(palette).reduce((a, key) => {
   }
   return a
 }, {})
+
+// todo: flatten
 
 export const colors = Object.assign({}, flattened, {
   secondary: '#EA407B',
@@ -88,11 +56,9 @@ export const colors = Object.assign({}, flattened, {
   white0125: 'rgba(255,255,255,.0125)'
 })
 
-export const fonts = {
-  0: 'Interface, -apple-system, BlinkMacSystemFont, sans-serif',
-  sans: 'Interface, -apple-system, BlinkMacSystemFont, sans-serif',
-  mono: '"SF Mono", "Roboto Mono", Menlo, monospace'
-}
+export const radius = 4
+export const font = `Interface, -apple-system, BlinkMacSystemFont, sans-serif`
+export const monospace = '"SF Mono", "Roboto Mono", Menlo, monospace'
 
 export const cx = key => colors[key] || key
 
@@ -101,12 +67,6 @@ export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654
 export const bgGradient = `
   background-image: ${gradient};
 `
-
-export const shadows = [
-  'none',
-  `inset 0 0 0 1px ${colors.gray}`,
-  `inset 0 0 0 1px ${colors.gray}, 0 0 4px ${colors.gray}`
-]
 
 export const textGradient = `
   ${bgGradient}
@@ -118,7 +78,6 @@ export const textGradient = `
   text-fill-color: transparent;
 `
 
-// TODO: remove
 export const primaryFont = `
   font-family: 'avenir next', avenir, sans-serif;
 `
@@ -141,10 +100,11 @@ export default {
   breakpoints,
   space,
   fontSizes,
-  fontWeights,
-  fonts,
+  weights,
+  font,
+  monospace,
   colors,
-  radii,
+  radius,
   maxWidth,
   height
 }
