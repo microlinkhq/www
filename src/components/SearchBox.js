@@ -2,8 +2,9 @@ import { space, width, fontWeight, fontSize, color } from 'styled-system'
 import { Flex, ButtonOutline } from 'rebass'
 import React, { Component } from 'react'
 import styled from 'styled-components'
+
+import { height } from 'theme'
 import Spinner from './Spinner'
-import { height } from '../theme'
 
 const CustomButtonOutline = ButtonOutline.extend`
   ${fontWeight}

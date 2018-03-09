@@ -7,7 +7,7 @@ import Tilt from 'react-tilt'
 import color from 'color'
 
 import Container from './Container'
-import {colors, height} from '../theme'
+import {colors, height} from 'theme'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]

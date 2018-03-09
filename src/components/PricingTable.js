@@ -2,13 +2,14 @@ import styled, {keyframes} from 'styled-components'
 import {HelpCircle, Check} from 'react-feather'
 import {Flex, Text, Lead} from 'rebass'
 import React, {Component} from 'react'
-import Hide from 'hidden-styled'
 
-import PricePicker from './PricePicker'
-import Checkout from './Checkout'
+import Hide from './Hide'
+import Tooltip from './Tooltip'
 import {LinkSolid} from './Link'
-import Tooltip from './ToolTip'
-import {colors} from '../theme'
+import Checkout from './Checkout'
+import PricePicker from './PricePicker'
+
+import {colors} from 'theme'
 
 const BASE_PRICE = 9
 const BASE_PLAN = 'pro-1k'
@@ -167,6 +168,7 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
+                  key='rate-limit'
                   content={
                     <div>
                       <Text fontWeight='normal'>
@@ -179,9 +181,7 @@ export default class extends Component {
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       Rate Limit
                     </Text>
-                    <Hide xs sm>
-                      <HelpCircle color={colors.black50} size={14} />
-                    </Hide>
+                    <HelpCircle color={colors.black50} size={14} />
                   </Flex>
                 </Tooltip>
               </Th>
@@ -202,6 +202,7 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
+                  key='req-concurrency'
                   content={
                     <div>
                       <Text fontWeight='normal'>Maximum simultaneous requests you can make.
@@ -209,17 +210,15 @@ export default class extends Component {
                     </div>
                   }>
                   <Flex justify='center' align='center'>
-                    <Hide xs sm>
-                      <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
+                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
+                      <Hide breakpoints={[0, 1]}>
                         Request Concurrency
-                      </Text>
-                      <HelpCircle color={colors.black50} size={14} />
-                    </Hide>
-                    <Hide md lg>
-                      <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
+                      </Hide>
+                      <Hide breakpoints={[2, 3]}>
                         Req. Concurrency
-                      </Text>
-                    </Hide>
+                      </Hide>
+                    </Text>
+                    <HelpCircle color={colors.black50} size={14} />
                   </Flex>
                 </Tooltip>
               </Th>
@@ -233,6 +232,7 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
+                  key='req-caching'
                   content={
                     <div>
                       <Text fontWeight='normal'>
@@ -241,17 +241,15 @@ export default class extends Component {
                     </div>
                   }>
                   <Flex justify='center' align='center'>
-                    <Hide xs sm>
-                      <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
-                        Request Caching
-                      </Text>
-                      <HelpCircle color={colors.black50} size={14} />
-                    </Hide>
-                    <Hide md lg>
-                      <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
-                        Req. Caching
-                      </Text>
-                    </Hide>
+                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
+                      <Hide breakpoints={[0, 1]}>
+                      Request Caching
+                      </Hide>
+                      <Hide breakpoints={[2, 3]}>
+                      Req. Caching
+                      </Hide>
+                    </Text>
+                    <HelpCircle color={colors.black50} size={14} />
                   </Flex>
                 </Tooltip>
               </Th>
@@ -265,6 +263,7 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
+                  key='support'
                   content={
                     <div>
                       <Text fontWeight='normal'>We provide chat support to help you integrate with your services.</Text>
@@ -274,9 +273,7 @@ export default class extends Component {
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       Live Support
                     </Text>
-                    <Hide xs sm>
-                      <HelpCircle color={colors.black50} size={14} />
-                    </Hide>
+                    <HelpCircle color={colors.black50} size={14} />
                   </Flex>
                 </Tooltip>
               </Th>

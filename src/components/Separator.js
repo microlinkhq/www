@@ -1,9 +1,11 @@
 import React from 'react'
 import {Lead, Box, Flex} from 'rebass'
-import Container from './Container'
-import {bgGradient} from '../theme'
+import styled from 'styled-components'
 
-const CustomLead = Lead.extend`
+import Container from './Container'
+import {bgGradient} from 'theme'
+
+const CustomLead = styled(Lead)`
   ${bgGradient} background-repeat: no-repeat;
   background-size: 100% 0.1em;
   background-position: 0 88%;

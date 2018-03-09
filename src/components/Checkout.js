@@ -4,8 +4,8 @@ import React, {Component} from 'react'
 import {Fixed} from 'rebass'
 
 import ButtonOutline from './ButtonOutline'
-import {LinkDotted} from './Link'
 import Choose from './Choose'
+import {LinkDotted} from './Link'
 
 const PAYMENT_STATE = {
   PROCESSING: 'processing',
@@ -18,12 +18,13 @@ const ERROR_MAIL_OPTS = {
   body: 'Hello,\n\nSomething bad happens trying to pay you at microlink.io.\n\nCan you help me?'
 }
 
-const serialize = obj => (
-  Object.keys(obj).reduce((acc, key) => {
-    acc.push(`${key}=${encodeURIComponent(obj[key])}`)
-    return acc
-  }, []).join('&')
-)
+const serialize = obj =>
+  Object.keys(obj)
+    .reduce((acc, key) => {
+      acc.push(`${key}=${encodeURIComponent(obj[key])}`)
+      return acc
+    }, [])
+    .join('&')
 
 export default class extends Component {
   constructor (props) {
@@ -50,12 +51,12 @@ export default class extends Component {
           method: 'POST',
           body: JSON.stringify({plan, token, email_template: 'payment_success'})
         })
-        .then(res => res.json())
-        .then(({status}) => this.setState({paymentState: PAYMENT_STATE.SUCCESS}))
-        .catch((err) => {
-          console.error(err)
-          this.setState({paymentState: PAYMENT_STATE.FAILED})
-        })
+          .then(res => res.json())
+          .then(({status}) => this.setState({paymentState: PAYMENT_STATE.SUCCESS}))
+          .catch(err => {
+            console.error(err)
+            this.setState({paymentState: PAYMENT_STATE.FAILED})
+          })
       }
     })
   }
@@ -90,10 +91,10 @@ export default class extends Component {
   errorPayment (text) {
     return (
       <Fixed m={2} p={3} bg='red3' color='red9' z={1} right bottom>
-        {text} <LinkDotted
-          color='red9'
-          href={`mailto:hello@microlink.io?${serialize(ERROR_MAIL_OPTS)}`}
-        >Contact us</LinkDotted>.
+        {text}{' '}
+        <LinkDotted color='red9' href={`mailto:hello@microlink.io?${serialize(ERROR_MAIL_OPTS)}`}>
+          Contact us
+        </LinkDotted>.
       </Fixed>
     )
   }
@@ -116,7 +117,7 @@ export default class extends Component {
         </Choose>
 
         <ButtonOutline
-          hover={{ color: 'white', backgroundColor: 'primary' }}
+          hover={{color: 'white', backgroundColor: 'primary'}}
           color='primary'
           onClick={this.openStripe}
           onTouchStart={this.openStripe}

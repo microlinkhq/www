@@ -24,7 +24,7 @@ const Logo = styled(Avatar)`
 `
 
 export default ({links, onClick, size, ...props}) => (
-  <Flex width='100%' justify='space-between' wrap {...props}>
+  <Flex width='100%' justify='space-between' flexWrap {...props}>
     {links.map(item => (
       <Logo
         size={size}
