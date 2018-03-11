@@ -40,7 +40,7 @@
     "palx": "~1.0.3",
     "postcss-focus": "~3.0.0",
     "react": "~16.2.0",
-    "react-aria-tooltip": "~1.2.0",
+    "react-aria-tooltip": "~1.2.1",
     "react-dom": "~16.2.0",
     "react-feather": "~1.0.8",
     "react-helmet": "~5.2.0",

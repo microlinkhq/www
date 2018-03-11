@@ -170,12 +170,9 @@ export default class extends Component {
                 <Tooltip
                   key='rate-limit'
                   content={
-                    <div>
-                      <Text fontWeight='normal'>
-                        Rate limit is based in a daily quota of requests.
-                      </Text>
-                      <Text fontWeight='normal'>It will be reset every day</Text>
-                    </div>
+                    <Text fontWeight='normal'>
+                      Rate limit is based in a daily quota of requests. <br />It will be reset every day.
+                    </Text>
                   }>
                   <Flex justify='center' align='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
@@ -204,10 +201,9 @@ export default class extends Component {
                 <Tooltip
                   key='req-concurrency'
                   content={
-                    <div>
-                      <Text fontWeight='normal'>Maximum simultaneous requests you can make.
-                      </Text>
-                    </div>
+                    <Text fontWeight='normal'>
+                      Maximum simultaneous requests you can make.
+                    </Text>
                   }>
                   <Flex justify='center' align='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
@@ -234,11 +230,9 @@ export default class extends Component {
                 <Tooltip
                   key='req-caching'
                   content={
-                    <div>
-                      <Text fontWeight='normal'>
-                        We follow a query caching policy for successive API calls.
-                      </Text>
-                    </div>
+                    <Text fontWeight='normal'>
+                      We follow a query caching policy for successive API calls.
+                    </Text>
                   }>
                   <Flex justify='center' align='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
@@ -265,9 +259,8 @@ export default class extends Component {
                 <Tooltip
                   key='support'
                   content={
-                    <div>
-                      <Text fontWeight='normal'>We provide chat support to help you integrate with your services.</Text>
-                    </div>
+                    <Text fontWeight='normal'>We provide chat support to help you integrate with your services.
+                    </Text>
                   }>
                   <Flex justify='center' align='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
