@@ -49,7 +49,7 @@
     "react-tilt": "~0.1.4",
     "rebass": "github:Kikobeats/rebass#select-arrow-build",
     "stripe-checkout-lite": "0.0.1",
-    "styled-components": "~3.2.1",
+    "styled-components": "~3.2.2",
     "styled-system": "~2.2.1",
     "unfetch": "~3.0.0"
   },
