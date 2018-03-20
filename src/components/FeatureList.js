@@ -21,7 +21,7 @@ const Li = styled.li`
   padding-left: 1.5em;
   position: relative;
 
-   &:after {
+   &::after {
      font-family: monospace;
      content: '✓';
      display: block;
