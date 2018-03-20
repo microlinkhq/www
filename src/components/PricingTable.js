@@ -3,11 +3,13 @@ import {HelpCircle, Check} from 'react-feather'
 import {Flex, Text, Lead} from 'rebass'
 import React, {Component} from 'react'
 
-import PricePicker from './PricePicker'
-import Checkout from './Checkout'
+import Hide from './Hide'
+import Tooltip from './Tooltip'
 import {LinkSolid} from './Link'
-import Tooltip from './ToolTip'
-import {colors} from '../theme'
+import Checkout from './Checkout'
+import PricePicker from './PricePicker'
+
+import {colors} from 'theme'
 
 const BASE_PRICE = 9
 const BASE_PLAN = 'pro-1k'
@@ -157,23 +159,23 @@ export default class extends Component {
             <Tr>
               <Th />
               <Td>
-                <Lead bold>Free</Lead>
+                <Lead fontWeight='bold'>Free</Lead>
               </Td>
               <Td>
-                <Lead bold>Pro</Lead>
+                <Lead fontWeight='bold'>Pro</Lead>
               </Td>
             </Tr>
             <Tr>
               <Th>
                 <Tooltip
+                  key='rate-limit'
                   content={
-                    <div>
-                      <Text>Rate limit is based in a daily quota of requests.</Text>
-                      <Text>It will be reset every day</Text>
-                    </div>
+                    <Text fontWeight='normal'>
+                      Rate limit is based in a daily quota of requests. <br />It will be reset every day.
+                    </Text>
                   }>
                   <Flex justify='center' align='center'>
-                    <Text bold pr={1}>
+                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       Rate Limit
                     </Text>
                     <HelpCircle color={colors.black50} size={14} />
@@ -197,14 +199,20 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
+                  key='req-concurrency'
                   content={
-                    <div>
-                      <Text>Maximum simultaneous requests you can make.</Text>
-                    </div>
+                    <Text fontWeight='normal'>
+                      Maximum simultaneous requests you can make.
+                    </Text>
                   }>
                   <Flex justify='center' align='center'>
-                    <Text bold pr={1}>
-                      Request Concurrency
+                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
+                      <Hide breakpoints={[0, 1]}>
+                        Request Concurrency
+                      </Hide>
+                      <Hide breakpoints={[2, 3]}>
+                        Req. Concurrency
+                      </Hide>
                     </Text>
                     <HelpCircle color={colors.black50} size={14} />
                   </Flex>
@@ -220,14 +228,20 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
+                  key='req-caching'
                   content={
-                    <div>
-                      <Text>We follow a query caching policy for successive API calls.</Text>
-                    </div>
+                    <Text fontWeight='normal'>
+                      We follow a query caching policy for successive API calls.
+                    </Text>
                   }>
                   <Flex justify='center' align='center'>
-                    <Text bold pr={1}>
+                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
+                      <Hide breakpoints={[0, 1]}>
                       Request Caching
+                      </Hide>
+                      <Hide breakpoints={[2, 3]}>
+                      Req. Caching
+                      </Hide>
                     </Text>
                     <HelpCircle color={colors.black50} size={14} />
                   </Flex>
@@ -243,13 +257,13 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
+                  key='support'
                   content={
-                    <div>
-                      <Text>We provide chat support to help you integrate with your services.</Text>
-                    </div>
+                    <Text fontWeight='normal'>We provide chat support to help you integrate with your services.
+                    </Text>
                   }>
                   <Flex justify='center' align='center'>
-                    <Text bold pr={1}>
+                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       Live Support
                     </Text>
                     <HelpCircle color={colors.black50} size={14} />
@@ -285,11 +299,15 @@ export default class extends Component {
           </tbody>
         </Table>
 
-        <Flex is='section' justify='center' direction='column' align='center'>
-          <Text pt={4} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
+        <Flex
+          is='section'
+          justifyContent='center'
+          flexDirection='column'
+          alignContent='center'>
+          <Text textAlign='center' pt={4} px={5} f={3} color='gray8'>
             Do you need more?
           </Text>
-          <Text pt={3} px={5} f={3} color='gray8' style={{textAlign: 'center'}}>
+          <Text textAlign='center' pt={3} px={5} f={3} color='gray8'>
             <LinkSolid fontWeight='bold' onClick={this.openForm}>Contact us</LinkSolid>.
           </Text>
         </Flex>

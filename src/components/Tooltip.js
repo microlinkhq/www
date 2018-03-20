@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactARIAToolTip from 'react-aria-tooltip'
-import {keyframes} from 'styled-components'
+import { keyframes } from 'styled-components'
 
 const fadeIn = keyframes`
   0% {
@@ -19,10 +19,8 @@ cursor: help;
 }
 `
 
-export default ({content, children, ...props}) => (
-  <Tooltip
-    eventType='hover'
-    message={[content]}>
+export default ({ content, children, ...props }) => (
+  <Tooltip eventType='hover' message={[content]}>
     {children}
   </Tooltip>
 )

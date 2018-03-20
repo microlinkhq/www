@@ -16,3 +16,5 @@ const createLink = ChildComponent => ({to, external, children, ...props}) => (
 
 export const LinkSolid = createLink(solid)
 export const LinkDotted = createLink(dotted)
+
+export default { LinkSolid, LinkDotted }

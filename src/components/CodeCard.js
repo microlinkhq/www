@@ -1,31 +1,20 @@
-import React, { Component } from 'react'
-import {
-  hoc,
-  Truncate,
-  Avatar,
-  Box,
-  monospace,
-  Card,
-  Flex,
-  Banner
-} from 'rebass'
-import styled, { keyframes } from 'styled-components'
-import { LiveProvider, LiveEditor } from 'react-live'
-import { width } from 'styled-system'
+import React, {Component} from 'react'
+import {Truncate, Avatar, Box, monospace, Card, Flex, Banner} from 'rebass'
+import styled, {keyframes} from 'styled-components'
+import {LiveProvider, LiveEditor} from 'react-live'
+import {width} from 'styled-system'
 import Tilt from 'react-tilt'
 import color from 'color'
 
 import Container from './Container'
-import { colors, height } from '../theme'
+import {colors, height} from 'theme'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
-const PALETTE_FALLBACK = [ colors.gray2, colors.gray3, colors.gray4 ]
+const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
 const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
 
 const getImageUrl = url =>
-  url.indexOf('https://') === 0
-    ? url
-    : `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
+  url.indexOf('https://') === 0 ? url : `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
 
 const animateGlow = keyframes`
   0% {
@@ -59,9 +48,8 @@ const Provider = styled(LiveProvider)`
   position: relative;
 `
 
-const Editor = styled(hoc()(LiveEditor))`
-  width: 100%;
-  max-height: inherit;
+const Editor = styled(LiveEditor)`
+  ${width} max-height: inherit;
   box-sizing: border-box;
   font-family: ${monospace};
   font-size: 13px;
@@ -97,14 +85,6 @@ const Editor = styled(hoc()(LiveEditor))`
   .token.inserted {
     color: ${codeColors.purple};
   }
-  // .token.operator,
-  // .token.entity,
-  // .token.url,
-  // .language-css .token.string,
-  // .style .token.string,
-  // .token.variable {
-  //   color: hsl(40, 90%, 60%);
-  // }
   .token.atrule,
   .token.attr-value,
   .token.keyword {
@@ -130,24 +110,18 @@ const Editor = styled(hoc()(LiveEditor))`
 `
 
 const CustomCard = Card.extend`
-  ${width}
-  ${height}
+  ${width} ${height} padding: 0;
   overflow: auto;
 `
 
-const PreviewCard = ({ children, ...props }) => (
-  <CustomCard {...props}>
-    {children}
-  </CustomCard>
-)
+const PreviewCard = ({children, ...props}) => <CustomCard {...props}>{children}</CustomCard>
 
 const CustomTilt = styled(Tilt)`
-  ${width}
-  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+  ${width} transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
 
   &::after {
     position: absolute;
-    content: "";
+    content: '';
     top: 10%;
     left: 0;
     right: 0;
@@ -164,8 +138,7 @@ const CustomTilt = styled(Tilt)`
 `
 
 const CardBackgroundImage = Banner.extend`
-  ${height}
-  min-height: auto;
+  ${height} min-height: auto;
   padding: 0;
 `
 
@@ -173,25 +146,25 @@ const CardHeader = Box.extend`
   position: absolute;
   bottom: 0;
   margin: 0;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.075);
 `
 
 const CardHeaderLogo = Avatar.extend`
-  ${width}
-  height: 100%;
+  ${width} height: 100%;
 `
 
 const CardHeaderBody = Box.extend`
+  color: black;
   max-width: 85%;
 `
 
-const cardHeights = [ '175px', '200px', '', '235px', '275px' ]
-const cardWidths = [ 1, '', 0.45 ]
+const cardHeights = ['175px', '200px', '', '235px', '275px']
+const cardWidths = [1, '', 0.45]
 
 export default class extends Component {
   render () {
-    const { data, onChange, ...props } = this.props
-    const { publisher, author, title, description } = data
+    const {data, onChange, ...props} = this.props
+    const {publisher, author, title, description} = data
     const logo = data.logo || {}
     const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => color(c).isLight())
@@ -199,40 +172,34 @@ export default class extends Component {
 
     return (
       <Container is='section' {...props}>
-        <Provider
-          code={code}
-          noInline
-          mountStylesheet={false}>
-          <Row justify='space-around' direction={[ 'column-reverse', '', 'row' ]} align='center' wrap>
+        <Provider code={code} noInline mountStylesheet={false}>
+          <Row
+            justifyContent='space-around'
+            flexDirection={['column-reverse', '', 'row']}
+            alignContent='center'
+            flexWrap>
             <PreviewCard
-              style={{ boxShadow: `${colors.gray2} 0px 2px 54px 0px` }}
+              style={{boxShadow: `${colors.gray2} 0px 2px 54px 0px`}}
               width={cardWidths}
               height={cardHeights}
-              my={3}
-            >
-              <Editor width={[ 1 ]} onChange={onChange} />
+              my={3}>
+              <Editor width={[1]} onChange={onChange} />
             </PreviewCard>
             <CustomTilt
               className='tilt'
-              options={{ max: 8, scale: 1.02 }}
+              options={{max: 8, scale: 1.02}}
               colors={palette.length > 1 ? palette : PALETTE_FALLBACK}
               duration={'5s'}
-              width={cardWidths}
-            >
+              width={cardWidths}>
               <PreviewCard my={3} width={1} height={cardHeights}>
                 <CardBackgroundImage
                   height='100%'
                   backgroundImage={getImageUrl(image.url || image)}
-                  style={{ position: 'relative' }}
-                >
-                  <CardHeader
-                    p={[ 2, 3 ]}
-                    width='100%'
-                    style={{ background: '#f7f8fa' }}
-                  >
+                  style={{position: 'relative'}}>
+                  <CardHeader p={[2, 3]} width='100%' style={{background: '#f7f8fa'}}>
                     <Flex align='flex-start'>
                       <CardHeaderLogo
-                        width={[ '32px', '48px' ]}
+                        width={['32px', '48px']}
                         src={getImageUrl(logo.url || logo)}
                       />
                       <CardHeaderBody ml={2}>

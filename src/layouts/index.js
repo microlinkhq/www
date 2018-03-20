@@ -5,8 +5,8 @@ import Helmet from 'react-helmet'
 import { Provider } from 'rebass'
 import React from 'react'
 
-import theme from '../theme'
-import '../styles/main.scss'
+import theme from 'theme'
+import 'styles/main.scss'
 
 const TemplateWrapper = ({ children, data, ...props }) => {
   const {
