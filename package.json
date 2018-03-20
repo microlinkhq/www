@@ -47,7 +47,7 @@
     "react-live": "~1.10.1",
     "react-microlink": "1",
     "react-tilt": "~0.1.4",
-    "rebass": "2.0.0-0",
+    "rebass": "github:Kikobeats/rebass#select-arrow-build",
     "stripe-checkout-lite": "0.0.1",
     "styled-components": "~3.2.1",
     "styled-system": "~2.2.1",
@@ -78,12 +78,17 @@
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "lint": "standard-markdown && standard src",
+    "precommit": "lint-staged",
     "pretest": "npm run lint",
     "test": "exit 0"
   },
   "private": true,
   "license": "MIT",
   "lint-staged": {
+    "package.json": [
+      "finepack",
+      "git add"
+    ],
     "*.js": [
       "prettier-standard",
       "git add"
