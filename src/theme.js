@@ -113,7 +113,8 @@ export const maxWidth = responsiveStyle({
 
 export const height = responsiveStyle({
   prop: 'height',
-  cssProperty: 'height'
+  cssProperty: 'height',
+  numberToPx: true
 })
 
 export default {

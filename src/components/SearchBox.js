@@ -92,20 +92,6 @@ export default class extends Component {
     )
   }
 
-  renderButton () {
-    return (
-      <PrimaryButton
-        type='submit'
-        width={buttonWidths}
-        height={buttonHeights}
-        fontSize={[0, 2]}
-        borderRadius={3}
-      >
-        Try it
-      </PrimaryButton>
-    )
-  }
-
   onSubmit (event) {
     event.preventDefault()
     this.props.onChange(this.state.value)
@@ -138,7 +124,17 @@ export default class extends Component {
             autoComplete='on'
             autoFocus
           />
-          {!loading ? this.renderButton() : this.renderLoadingButton()}
+          <PrimaryButton
+            type='submit'
+            width={buttonWidths}
+            height={buttonHeights}
+            fontSize={[0, 2]}
+            borderRadius={3}
+            spinner={loading ? { height: 24 } : false}
+            disabled={loading}
+          >
+            Try it
+          </PrimaryButton>
         </CustomFlex>
       </CustomForm>
     )
