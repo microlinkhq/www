@@ -8,6 +8,7 @@ const OutlineButton = styled(Outline)`
   ${baseStyle} transition: color, background-color .15s;
 
   &:hover {
+    box-shadow: none;
     color: ${props => colors[props.bg]};
     background-color: ${props => colors[props.color]};
   }

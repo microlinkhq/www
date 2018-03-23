@@ -9,6 +9,17 @@ const CustomNavLink = NavLink.extend`
   ${alignSelf};
 `
 
+const SignButton = OutlineButton.extend`
+  color: #10111b;
+  background-color: white;
+  box-shadow: none;
+
+  &:hover {
+    color: #10111b;
+    background-color: white;
+  }
+`
+
 export default props => (
   <Flex is='footer' flexDirection='column' {...props}>
     <Flex mb={2} flexDirection={['column', '', 'row']} align='center' py={3}>
@@ -27,12 +38,7 @@ export default props => (
               px={2}
               mr={2}
             />
-            <OutlineButton
-              color='black'
-              bg='white'
-              py={'10px'}
-              children='Sign Up'
-            />
+            <SignButton py={'10px'} children='Sign Up' />
           </form>
         </Flex>
       </Flex>
