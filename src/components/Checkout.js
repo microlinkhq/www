@@ -1,11 +1,12 @@
 /* global fetch, StripeCheckout */
 
 import React, { Component } from 'react'
-import { Fixed } from 'rebass'
-
 import { OutlineButton } from './Buttons'
+import Notification from './Notification'
 import { LinkDotted } from './Link'
 import Choose from './Choose'
+
+import { marshall } from '../helpers'
 
 const PAYMENT_STATE = {
   PROCESSING: 'processing',
@@ -18,14 +19,6 @@ const ERROR_MAIL_OPTS = {
   body:
     'Hello,\n\nSomething bad happens trying to pay you at microlink.io.\n\nCan you help me?'
 }
-
-const serialize = obj =>
-  Object.keys(obj)
-    .reduce((acc, key) => {
-      acc.push(`${key}=${encodeURIComponent(obj[key])}`)
-      return acc
-    }, [])
-    .join('&')
 
 export default class extends Component {
   constructor (props) {
@@ -87,28 +80,6 @@ export default class extends Component {
     })
   }
 
-  successPayment (text) {
-    return (
-      <Fixed m={2} p={3} bg='green3' color='green9' z={1} right bottom>
-        {text}
-      </Fixed>
-    )
-  }
-
-  errorPayment (text) {
-    return (
-      <Fixed m={2} p={3} bg='red3' color='red9' z={1} right bottom>
-        {text}{' '}
-        <LinkDotted
-          color='red9'
-          href={`mailto:hello@microlink.io?${serialize(ERROR_MAIL_OPTS)}`}
-        >
-          Contact us
-        </LinkDotted>.
-      </Fixed>
-    )
-  }
-
   render () {
     const { paymentState } = this.state
 
@@ -116,13 +87,21 @@ export default class extends Component {
       <div>
         <Choose>
           <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
-            {this.successPayment('Processing...')}
+            <Notification.Success children='Processing...' />
           </Choose.When>
           <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
-            {this.successPayment('Payment processed! We sent you an email.')}
+            <Notification.Success children='Payment processed! We sent you an email.' />
           </Choose.When>
           <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-            {this.errorPayment('Payment not processed.')}
+            <Notification.Danger>
+              Payment not processed.{' '}
+              <LinkDotted
+                color='red8'
+                href={`mailto:hello@microlink.io?${marshall(ERROR_MAIL_OPTS)}`}
+              >
+                Contact us
+              </LinkDotted>.
+            </Notification.Danger>
           </Choose.When>
         </Choose>
 
