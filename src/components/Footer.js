@@ -1,16 +1,8 @@
 import React from 'react'
-import {Flex, NavLink, Input, ButtonOutline, Text} from 'rebass'
-import {alignSelf} from 'styled-system'
+import { Flex, NavLink, Input, ButtonOutline, Text } from 'rebass'
+import { alignSelf } from 'styled-system'
 
-const CustomButtonOutline = ButtonOutline.extend`
-  font-weight: normal;
-  cursor: pointer;
-
-  &:hover {
-    background: white;
-    color: black;
-  }
-`
+import { OutlineButton } from './Buttons'
 
 const CustomNavLink = NavLink.extend`
   padding: 0;
@@ -25,7 +17,8 @@ export default props => (
         <Flex py={3} px={0} align='center' justifyContent='flex-start'>
           <form
             action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
-            method='post'>
+            method='post'
+          >
             <Input
               name='EMAIL'
               placeholder='Email Address...'
@@ -34,7 +27,12 @@ export default props => (
               px={2}
               mr={2}
             />
-            <CustomButtonOutline color='white' children='Sign Up' />
+            <OutlineButton
+              color='black'
+              bg='white'
+              py={'10px'}
+              children='Sign Up'
+            />
           </form>
         </Flex>
       </Flex>
@@ -53,8 +51,16 @@ export default props => (
             href='http://twitter.com/microlinkhq'
             children='Twitter'
           />
-          <NavLink target='_blank' href='http://github.com/microlinkhq' children='GitHub' />
-          <NavLink target='_blank' href='https://medium.com/microlink' children='Medium' />
+          <NavLink
+            target='_blank'
+            href='http://github.com/microlinkhq'
+            children='GitHub'
+          />
+          <NavLink
+            target='_blank'
+            href='https://medium.com/microlink'
+            children='Medium'
+          />
         </Flex>
       </Flex>
     </Flex>

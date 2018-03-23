@@ -1,26 +1,14 @@
-import { space, width, fontWeight, fontSize, color } from 'styled-system'
-import { Flex, ButtonOutline } from 'rebass'
+import { space, width, fontSize, color } from 'styled-system'
+import { Flex } from 'rebass'
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { height } from 'theme'
 import Spinner from './Spinner'
-
-const CustomButtonOutline = ButtonOutline.extend`
-  ${fontWeight}
-  ${width}
-  ${height}
-  border-radius: 8px;
-  cursor: pointer;
-`
-
-const CustomButton = CustomButtonOutline.extend`
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-`
+import { PrimaryButton, OutlineButton } from './Buttons'
 
 const CustomInput = styled.input`
-  ${fontSize}
-  display: inline-block;
+  ${fontSize} display: inline-block;
   transition: box-shadow 0.4s ease, background 0.4s ease;
   border: 0;
   box-shadow: inset 0 0 0 1px white;
@@ -48,12 +36,7 @@ const CustomInput = styled.input`
 `
 
 const CustomForm = styled.form`
-  ${space}
-  ${width}
-  ${fontSize}
-  ${color}
-  ${height}
-  white-space: nowrap;
+  ${space} ${width} ${fontSize} ${color} ${height} white-space: nowrap;
   border-radius: 8px;
   box-shadow: 0 10px 24px 0 rgba(206, 212, 218, 0.3);
   border: solid 8px white;
@@ -65,8 +48,16 @@ const CustomFlex = Flex.extend`
   height: 100%;
 `
 
-const buttonWidths = [ '61.3px', '', '92px' ]
-const buttonHeights = [ '32px', '', '48px' ]
+const buttonWidths = ['61.3px', '', '92px']
+const buttonHeights = ['32px', '', '48px']
+
+const SpinnerButton = styled(OutlineButton)`
+  &:hover {
+    .path {
+      stroke: white;
+    }
+  }
+`
 
 export default class extends Component {
   constructor (props) {
@@ -82,7 +73,8 @@ export default class extends Component {
 
   renderLoadingButton () {
     return (
-      <CustomButtonOutline
+      <SpinnerButton
+        borderRadius={3}
         width={buttonWidths}
         height={buttonHeights}
         onClick={event => {
@@ -96,23 +88,21 @@ export default class extends Component {
         >
           <Spinner />
         </Flex>
-      </CustomButtonOutline>
+      </SpinnerButton>
     )
   }
 
   renderButton () {
     return (
-      <CustomButton
-        color='white'
-        bg='primary'
+      <PrimaryButton
         type='submit'
         width={buttonWidths}
         height={buttonHeights}
-        fontWeight='bold'
         fontSize={[0, 2]}
+        borderRadius={3}
       >
         Try it
-      </CustomButton>
+      </PrimaryButton>
     )
   }
 
@@ -133,13 +123,13 @@ export default class extends Component {
       <CustomForm
         role='form'
         onSubmit={this.onSubmit}
-        height={[ '53px', '', '80px' ]}
+        height={['53px', '', '80px']}
         {...props}
       >
         <CustomFlex justify='space-around' align='center'>
           <CustomInput
             name='url'
-            fontSize={[ 1, 2, 3 ]}
+            fontSize={[1, 2, 3]}
             type='url'
             placeholder={placeholder}
             onChange={this.handleChange}

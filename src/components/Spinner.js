@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import {colors} from 'theme'
+import { colors } from 'theme'
 
 const Spinner = () => (
   <StyledSpinner viewBox='0 0 50 50'>
@@ -22,7 +22,7 @@ const StyledSpinner = styled.svg`
   height: 50px;
 
   .path {
-    stroke: ${colors.blue};
+    stroke: ${colors.primary};
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }

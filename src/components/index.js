@@ -1,4 +1,3 @@
-import ButtonOutline from './ButtonOutline'
 import Changelog from './Changelog'
 import Checkout from './Checkout'
 import Choose from './Choose'
@@ -11,6 +10,8 @@ import DemoLinks from './DemoLinks'
 import FeatureList from './FeatureList'
 import Footer from './Footer'
 import Hide from './Hide'
+import Label from './Label'
+import Main from './Main'
 import NavBar from './NavBar'
 import PricePicker from './PricePicker'
 import PricingTable from './PricingTable'
@@ -22,9 +23,9 @@ import Tooltip from './Tooltip'
 import * as Logos from './Logo'
 import * as Links from './Link'
 import * as Sections from './Section'
+import * as Buttons from './Buttons'
 
 export default {
-  ButtonOutline,
   Changelog,
   Checkout,
   Choose,
@@ -36,7 +37,9 @@ export default {
   DemoLinks,
   FeatureList,
   Footer,
+  Main,
   Hide,
+  Label,
   NavBar,
   PricePicker,
   PricingTable,
@@ -46,5 +49,6 @@ export default {
   Tooltip,
   ...Logos,
   ...Links,
-  ...Sections
+  ...Sections,
+  ...Buttons
 }
