@@ -22,34 +22,34 @@ const TemplateWrapper = ({ children, data, ...props }) => {
   return (
     <div>
       <Helmet
-        defaultTitle={`${title} | ${description}`} titleTemplate={`%s | ${title}`}
+        defaultTitle={`${title} | ${description}`}
+        titleTemplate={`%s | ${title}`}
         meta={[
-          {itemProp: 'name', content: title},
-          {itemProp: 'description', content: description},
-          {itemProp: 'image', content: ogImage},
-          {name: 'twitter:card', content: 'summary_large_image'},
-          {name: 'twitter:title', content: title},
-          {name: 'twitter:description', content: description},
-          {name: 'twitter:site', content: twitter},
-          {name: 'twitter:image', content: ogImage},
-          {name: 'twitter:creator', content: twitter},
-          {name: 'twitter:label1', value: 'API'},
-          {name: 'twitter:data1', value: 'api.microlink.io'},
-          {name: 'twitter:label2', value: 'Documentation'},
-          {name: 'twitter:data2', value: 'docs.microlink.io'},
-          {name: 'twitter:creator', content: twitter},
-          {property: 'og:url', content: siteUrl},
-          {property: 'og:video:secure_url', content: ogVideo},
-          {property: 'og:title', content: title},
-          {property: 'og:description', content: description},
-          {property: 'og:image', content: ogImage},
-          {property: 'og:site_name', content: title},
-          {property: 'og:type', content: 'website'}
-        ]} />
+          { itemProp: 'name', content: title },
+          { itemProp: 'description', content: description },
+          { itemProp: 'image', content: ogImage },
+          { name: 'twitter:card', content: 'summary_large_image' },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: description },
+          { name: 'twitter:site', content: twitter },
+          { name: 'twitter:image', content: ogImage },
+          { name: 'twitter:creator', content: twitter },
+          { name: 'twitter:label1', value: 'API' },
+          { name: 'twitter:data1', value: 'api.microlink.io' },
+          { name: 'twitter:label2', value: 'Documentation' },
+          { name: 'twitter:data2', value: 'docs.microlink.io' },
+          { name: 'twitter:creator', content: twitter },
+          { property: 'og:url', content: siteUrl },
+          { property: 'og:video:secure_url', content: ogVideo },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: description },
+          { property: 'og:image', content: ogImage },
+          { property: 'og:site_name', content: title },
+          { property: 'og:type', content: 'website' }
+        ]}
+      />
 
-      <Provider theme={theme}>
-        {children({...props, ...metadata})}
-      </Provider>
+      <Provider theme={theme}>{children({ ...props, ...metadata })}</Provider>
     </div>
   )
 }

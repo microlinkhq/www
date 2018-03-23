@@ -46,6 +46,7 @@
     "react-helmet": "~5.2.0",
     "react-live": "~1.10.1",
     "react-microlink": "1",
+    "react-stripe-elements": "~1.6.0",
     "react-tilt": "~0.1.4",
     "rebass": "github:Kikobeats/rebass#select-arrow-build",
     "stripe-checkout-lite": "0.0.1",
@@ -77,7 +78,7 @@
     "clean": "rm -rf node_modules .cache",
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
-    "lint": "standard-markdown && standard src",
+    "lint": "standard-markdown && standard src/*/**.js",
     "precommit": "lint-staged",
     "pretest": "npm run lint",
     "test": "exit 0"

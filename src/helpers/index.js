@@ -1,5 +1,9 @@
 import getColors from './get-colors'
+import marshall from './marshall'
+import unmarshall from './unmarshall'
 
 export default {
-  getColors
+  getColors,
+  marshall,
+  unmarshall
 }
