@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, NavLink, Input, ButtonOutline, Text } from 'rebass'
+import { Flex, NavLink, Input, Text } from 'rebass'
 import { alignSelf } from 'styled-system'
 
 import { OutlineButton } from './Buttons'
