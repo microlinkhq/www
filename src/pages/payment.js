@@ -21,8 +21,8 @@ import {
   CardExpiryElement,
   CardCVCElement,
   StripeProvider,
-  Elements,
-  injectStripe
+  injectStripe,
+  Elements
 } from 'react-stripe-elements'
 
 const PAYMENT_STATE = {
@@ -172,6 +172,7 @@ export default class extends Component {
   constructor () {
     super()
     this.state = {
+      mountOnLoad: false,
       stripe: null
     }
     this.loadStripe = this.loadStripe.bind(this)
@@ -203,21 +204,24 @@ export default class extends Component {
           ]}
           onChangeClientState={(newState, addedTags, removedTags) => {
             const el = addedTags.scriptTags && addedTags.scriptTags[0]
-            if (el) el.onload = this.loadStripe
+            if (el && !this.state.mountOnLoad) {
+              el.onload = this.loadStripe
+              this.setState({ mountOnLoad: true })
+            }
           }}
         />
         <StripeProvider stripe={this.state.stripe}>
-          <Elements>
-            <Flex flexDirection='column'>
-              <Heading
-                children='Add Payment'
-                fontSize={3}
-                pb={4}
-                color='black80'
-              />
+          <Flex flexDirection='column'>
+            <Heading
+              children='Add Payment'
+              fontSize={3}
+              pb={4}
+              color='black80'
+            />
+            <Elements>
               <CardForm api={api} apiKey={apiKey} fontSize={'18px'} />
-            </Flex>
-          </Elements>
+            </Elements>
+          </Flex>
         </StripeProvider>
       </Container>
     )
