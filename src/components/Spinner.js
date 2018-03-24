@@ -48,7 +48,8 @@ const StyledSpinner = styled.svg`
 `
 
 StyledSpinner.defaultProps = {
-  size: '50px'
+  width: 64,
+  height: 16
 }
 
 export default Spinner

@@ -30,15 +30,16 @@ const Spinner = styled(PrimaryButton)`
   }
 `
 
-const SpinnerButton = ({ spinnerProps, ...props }) => (
+const SpinnerButton = ({ children, ...props }) => (
   <Spinner {...props}>
     <Flex justify='center' align='center'>
-      <SpinnerIcon width={64} height={16} {...spinnerProps} />
+      {children}
     </Flex>
   </Spinner>
 )
 
 export default ({ spinner, ...props }) => {
-  const el = spinner ? SpinnerButton : PrimaryButton
-  return createElement(el, { spinnerProps: spinner, ...props })
+  if (!spinner) return createElement(PrimaryButton, props)
+  const children = createElement(SpinnerIcon, spinner)
+  return createElement(SpinnerButton, { ...props, children })
 }
