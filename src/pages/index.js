@@ -1,10 +1,9 @@
 /* global fetch */
 
-import {Box, Text, Flex, Heading, Subhead} from 'rebass'
-import {color, space} from 'styled-system'
+import { Box, Text, Flex, Heading, Subhead } from 'rebass'
 import MicrolinkCard from 'react-microlink'
 import styled from 'styled-components'
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import colorWrapper from 'color'
 
 import {
@@ -24,12 +23,13 @@ import {
   CodeCard,
   Footer,
   NavBar,
+  Main,
   MicrolinkLogo
 } from 'components'
 
-import {getColors} from 'helpers'
+import { getColors } from 'helpers'
 
-import {textGradient, primaryFont, maxWidth} from 'theme'
+import { textGradient, primaryFont, maxWidth } from 'theme'
 
 const SectionSubhead = styled(Subhead)`
   display: block;
@@ -39,10 +39,6 @@ const Description = styled(Subhead)`
   ${textGradient} text-align: center;
   font-weight: normal;
   max-width: 40rem;
-`
-
-const Main = styled.main`
-  ${color} ${space};
 `
 
 const EllipsisText = Text.extend`
@@ -91,7 +87,8 @@ export default class extends Component {
           width: 57,
           height: 57,
           type: 'png',
-          url: 'https://static01.nyt.com/images/icons/ios-default-homescreen-57x57.png',
+          url:
+            'https://static01.nyt.com/images/icons/ios-default-homescreen-57x57.png',
           palette: ['#2b2b2b', '#c4c4c4', '#7c7c7c'],
           background_color: '#C4C4C4',
           color: '#2B2B2B',
@@ -104,27 +101,27 @@ export default class extends Component {
   }
 
   loaderStop () {
-    this.setState({loading: false})
+    this.setState({ loading: false })
   }
 
   fetchUrl (url) {
     fetch(this.getUrl(this.props.apiEndpoint, url))
       .then(res => res.json())
-      .then(({data}) => {
-        if (data) this.setState({url, data})
+      .then(({ data }) => {
+        if (data) this.setState({ url, data })
         this.loaderStop()
       })
   }
 
   onChange (newState) {
     try {
-      const {data} = JSON.parse(newState)
-      this.setState({data})
+      const { data } = JSON.parse(newState)
+      this.setState({ data })
     } catch (err) {}
   }
 
   componentWillUpdate (nextProps, nextState) {
-    const {url} = this.state
+    const { url } = this.state
     const nextUrl = nextState.url
     if (url !== nextUrl) this.fetchUrl(nextUrl)
   }
@@ -134,14 +131,16 @@ export default class extends Component {
   }
 
   setUrl (url) {
-    if (url !== this.state.url) this.setState({loading: true, url})
+    if (url !== this.state.url) this.setState({ loading: true, url })
   }
 
   render () {
-    const {data, paymentEndpoint, paymentApiKey, stripeKey} = this.props
+    const { data, paymentEndpoint, paymentApiKey, stripeKey } = this.props
     const features = data.features.edges.map(item => item.node)
     const demos = data.demos.edges.map(item => item.node)
-    const {color: _color, alternativeColor: _alternativeColor} = getColors(this.state.data)
+    const { color: _color, alternativeColor: _alternativeColor } = getColors(
+      this.state.data
+    )
 
     const colorBase = colorWrapper(_alternativeColor || _color)
     const textColor = colorWrapper(colorBase).isDark() ? '#FAFBFC' : 'gray9'
@@ -154,11 +153,27 @@ export default class extends Component {
           pt={'56px'}
           id='home'
           color={_color}
-          alternativeColor={_alternativeColor}>
+          alternativeColor={_alternativeColor}
+        >
           <Container px={[3, 4, 5, 6]} pt={4}>
-            <Flex is='section' justifyContent='center' flexDirection='column' alignItems='center'>
-              <Flex justifyContent='center' flexDirection='column' alignItems='center' py={3}>
-                <CustomHeading fontWeight='bold' fontSize={[5, 6]} pb={2} color='primary'>
+            <Flex
+              is='section'
+              justifyContent='center'
+              flexDirection='column'
+              alignItems='center'
+            >
+              <Flex
+                justifyContent='center'
+                flexDirection='column'
+                alignItems='center'
+                py={3}
+              >
+                <CustomHeading
+                  fontWeight='bold'
+                  fontSize={[5, 6]}
+                  pb={2}
+                  color='primary'
+                >
                   <MicrolinkLogo ml={1} width={['32px', '48px']} /> microlink
                 </CustomHeading>
                 <Description fontSize={[2, 3, 4]} px={[2, 4, 5]}>
@@ -178,7 +193,12 @@ export default class extends Component {
           </Container>
 
           <Box py={4} px={[2, 4]}>
-            <Flex is='section' justifyContent='center' flexDirection='column' alignItems='center'>
+            <Flex
+              is='section'
+              justifyContent='center'
+              flexDirection='column'
+              alignItems='center'
+            >
               <Text fontSize={1} py={3} color='gray8'>
                 Click to see it in action →
               </Text>
@@ -189,7 +209,7 @@ export default class extends Component {
                 px={[0, 4, 6, 0]}
                 size={56}
                 links={demos}
-                onClick={({url}) => this.setUrl(url)}
+                onClick={({ url }) => this.setUrl(url)}
               />
             </Container>
 
@@ -200,7 +220,7 @@ export default class extends Component {
                 pt={4}
                 pb={5}
                 px={[0, '', '', 3]}
-                onChange={data => this.setState({data: JSON.parse(data)})}
+                onChange={data => this.setState({ data: JSON.parse(data) })}
               />
             </Container>
           </Box>
@@ -208,8 +228,16 @@ export default class extends Component {
 
         <Section bg='#FAFBFC'>
           <Container pb={[5]} pt={[4, 5]}>
-            <ContentFeature flexDirection='right' image='/img/carbon-dracula.png'>
-              <SectionSubhead fontSize={[3, 5]} pt={[0, 3]} pb={[3, 4]} color='secondary'>
+            <ContentFeature
+              flexDirection='right'
+              image='/img/carbon-dracula.png'
+            >
+              <SectionSubhead
+                fontSize={[3, 5]}
+                pt={[0, 3]}
+                pb={[3, 4]}
+                color='secondary'
+              >
                 Get the context of any link
               </SectionSubhead>
 
@@ -218,16 +246,22 @@ export default class extends Component {
               </Text>
 
               <Text fontSize={[2, 3]} py={3}>
-                You can obtain well structured and normalized data from practically any website,
-                just providing the{' '}
-                <LinkDotted to='https://docs.microlink.io/api/#api-parameters/url' external>
+                You can obtain well structured and normalized data from
+                practically any website, just providing the{' '}
+                <LinkDotted
+                  to='https://docs.microlink.io/api/#api-parameters/url'
+                  external
+                >
                   url
                 </LinkDotted>.
               </Text>
 
               <Text fontSize={[2, 3]} py={3}>
                 We also have{' '}
-                <LinkDotted to='https://docs.microlink.io/api/#api-parameters/prerender' external>
+                <LinkDotted
+                  to='https://docs.microlink.io/api/#api-parameters/prerender'
+                  external
+                >
                   prerendering
                 </LinkDotted>{' '}
                 for get information from client side applications.
@@ -239,7 +273,12 @@ export default class extends Component {
         <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
             <ContentFeature flexDirection='right' image='/img/link-preview.png'>
-              <SectionSubhead fontSize={[3, 5]} pt={[0, 3]} pb={[3, 4]} color='secondary'>
+              <SectionSubhead
+                fontSize={[3, 5]}
+                pt={[0, 3]}
+                pb={[3, 4]}
+                color='secondary'
+              >
                 Build rich media embeds
               </SectionSubhead>
 
@@ -248,8 +287,8 @@ export default class extends Component {
               </Text>
 
               <Text fontSize={[2, 3]} py={3}>
-                We help your users to understand why a link was shared and whether they need to act
-                on it.
+                We help your users to understand why a link was shared and
+                whether they need to act on it.
               </Text>
 
               <Text fontSize={[2, 3]} py={3}>
@@ -263,18 +302,27 @@ export default class extends Component {
           </Container>
         </Section>
 
-        <RippleSection color={_color} alternativeColor={_alternativeColor} id='sdk'>
+        <RippleSection
+          color={_color}
+          alternativeColor={_alternativeColor}
+          id='sdk'
+        >
           <Container p={5}>
-            <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+            <Flex
+              justifyContent='center'
+              alignItems='center'
+              flexDirection='column'
+            >
               <Text color={textColor} py={3} fontSize={[3, 4]}>
                 Converts your links
               </Text>
               <EllipsisText
-                style={{opacity: '0.5'}}
+                style={{ opacity: '0.5' }}
                 color={textColor}
                 p={3}
                 fontSize={[2, 4]}
-                maxWidth={['100%', '500px']}>
+                maxWidth={['100%', '500px']}
+              >
                 {this.state.url}
               </EllipsisText>
               <Text color={textColor} py={3} fontSize={[1, 3]}>
@@ -287,7 +335,7 @@ export default class extends Component {
                   image={['image', 'logo']}
                   round
                   palette
-                  style={{margin: '0 auto'}}
+                  style={{ margin: '0 auto' }}
                 />
               </Box>
               <Flex
@@ -295,7 +343,8 @@ export default class extends Component {
                 is='section'
                 justifyContent='center'
                 flexDirection='column'
-                alignItems='center'>
+                alignItems='center'
+              >
                 <Text fontSize={1} py={3} pb={1} color={textColor}>
                   Click to see more examples →
                 </Text>
@@ -306,12 +355,16 @@ export default class extends Component {
                   size={40}
                   px={[0, '96px']}
                   links={demos}
-                  onClick={({url}) => this.setUrl(url)}
+                  onClick={({ url }) => this.setUrl(url)}
                 />
               </Container>
               <Text color={textColor} pt={4} fontSize={3}>
                 See{' '}
-                <LinkSolid color={textColor} to='https://docs.microlink.io/sdk' external>
+                <LinkSolid
+                  color={textColor}
+                  to='https://docs.microlink.io/sdk'
+                  external
+                >
                   SDK Documentation
                 </LinkSolid>.
               </Text>
@@ -322,13 +375,21 @@ export default class extends Component {
         <Section bg='#FAFBFC'>
           <Container pb={[4]} pt={[4, 5]}>
             <ContentFeature flexDirection='right' image='/img/browser.png'>
-              <SectionSubhead fontSize={[3, 5]} pt={[0, 3]} pb={[3, 4]} color='secondary'>
+              <SectionSubhead
+                fontSize={[3, 5]}
+                pt={[0, 3]}
+                pb={[3, 4]}
+                color='secondary'
+              >
                 Take screenshots
               </SectionSubhead>
 
               <Text fontSize={[2, 3]} py={3}>
                 Automate{' '}
-                <LinkDotted to='https://docs.microlink.io/api/#api-parameters/screenshot' external>
+                <LinkDotted
+                  to='https://docs.microlink.io/api/#api-parameters/screenshot'
+                  external
+                >
                   screenshot
                 </LinkDotted>, displaying them anywhere.
               </Text>
@@ -341,7 +402,8 @@ export default class extends Component {
                 We also support{' '}
                 <LinkDotted
                   to='https://docs.microlink.io/api/#api-parameters/screenshot/device-emulation'
-                  external>
+                  external
+                >
                   device
                 </LinkDotted>{' '}
                 emulation.
@@ -352,8 +414,16 @@ export default class extends Component {
 
         <Section bg='#FAFBFC' pb={5}>
           <Container p={[2, 5]}>
-            <ContentFeature flexDirection='right' image='/img/embed-support.png'>
-              <SectionSubhead fontSize={[3, 5]} pt={[0, 3]} pb={[3, 4]} color='secondary'>
+            <ContentFeature
+              flexDirection='right'
+              image='/img/embed-support.png'
+            >
+              <SectionSubhead
+                fontSize={[3, 5]}
+                pt={[0, 3]}
+                pb={[3, 4]}
+                color='secondary'
+              >
                 Embed in your markup
               </SectionSubhead>
 
@@ -363,7 +433,10 @@ export default class extends Component {
 
               <Text fontSize={[2, 3]} py={3}>
                 You can{' '}
-                <LinkDotted to='https://docs.microlink.io/api/#api-parameters/embed' external>
+                <LinkDotted
+                  to='https://docs.microlink.io/api/#api-parameters/embed'
+                  external
+                >
                   embed
                 </LinkDotted>{' '}
                 directly in your HTML components.
@@ -377,7 +450,12 @@ export default class extends Component {
         </Section>
 
         <Section bg='white' id='features' px={[2, '', 5]} pt={[2, 3]}>
-          <SectionSubhead fontSize={[4, 5]} py={5} textAlign='center' color='secondary'>
+          <SectionSubhead
+            fontSize={[4, 5]}
+            py={5}
+            textAlign='center'
+            color='secondary'
+          >
             Features
           </SectionSubhead>
           <Container>
@@ -395,14 +473,23 @@ export default class extends Component {
 
         <GradientSection
           bg='#FAFBFC'
-          gradient='linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)'>
+          gradient='linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)'
+        >
           <Container py={[6, 7, 7, 7]}>
-            <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+            <Flex
+              justifyContent='center'
+              alignItems='center'
+              flexDirection='column'
+            >
               <Text color='white' pb={2} fontSize={3}>
                 Discover everything you can do in the
               </Text>
               <Text color='white' fontSize={4}>
-                <LinkSolid color='white' to='https://docs.microlink.io/api/' external>
+                <LinkSolid
+                  color='white'
+                  to='https://docs.microlink.io/api/'
+                  external
+                >
                   API Documentation
                 </LinkSolid>
               </Text>
@@ -410,12 +497,27 @@ export default class extends Component {
           </Container>
         </GradientSection>
 
-        <Section bg='white' id='pricing' px={[2, '', 5]} pt={[2, 3]} pb={[5, 0]}>
-          <SectionSubhead fontSize={[4, 5]} py={5} textAlign='center' color='secondary'>
+        <Section
+          bg='white'
+          id='pricing'
+          px={[2, '', 5]}
+          pt={[2, 3]}
+          pb={[5, 0]}
+        >
+          <SectionSubhead
+            fontSize={[4, 5]}
+            py={5}
+            textAlign='center'
+            color='secondary'
+          >
             Pricing
           </SectionSubhead>
           <Container pb={[2, 5]} px={[0, '', 3]}>
-            <PricingTable api={paymentEndpoint} apiKey={paymentApiKey} stripeKey={stripeKey} />
+            <PricingTable
+              api={paymentEndpoint}
+              apiKey={paymentApiKey}
+              stripeKey={stripeKey}
+            />
           </Container>
         </Section>
 

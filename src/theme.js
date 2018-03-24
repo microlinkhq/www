@@ -1,44 +1,25 @@
 import palx from 'palx'
-import {responsiveStyle} from 'styled-system'
+import { responsiveStyle } from 'styled-system'
 
-export const breakpoints = [
-  32,
-  48,
-  64,
-  80
-].map(n => n + 'em')
+export const breakpoints = [32, 48, 64, 80].map(n => n + 'em')
 
-export const space = [
-  0,
-  4,
-  8,
-  16,
-  32,
-  64,
-  128,
-  256,
-  512
-]
+export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512]
 
-export const fontSizes = [
-  12,
-  14,
-  16,
-  20,
-  24,
-  32,
-  48,
-  64,
-  72,
-  96
-]
+export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96]
 
 export const fontWeights = {
   normal: 400,
   bold: 600
 }
 
-export const radii = [ 0, 2, 4 ]
+export const letterSpacings = {
+  normal: 'normal',
+  caps: '0.25em'
+}
+
+export const radii = [0, 2, 4, 8]
+
+export const borders = [0, '1px solid', '2px solid']
 
 const palette = palx('#449bf8')
 
@@ -108,6 +89,8 @@ export const shadows = [
   `inset 0 0 0 1px ${colors.gray}, 0 0 4px ${colors.gray}`
 ]
 
+export const lineHeights = [1, 1.125, 1.25, 1.5]
+
 export const textGradient = `
   ${bgGradient}
   display: inline-block;
@@ -130,7 +113,8 @@ export const maxWidth = responsiveStyle({
 
 export const height = responsiveStyle({
   prop: 'height',
-  cssProperty: 'height'
+  cssProperty: 'height',
+  numberToPx: true
 })
 
 export default {
@@ -142,6 +126,8 @@ export default {
   space,
   fontSizes,
   fontWeights,
+  lineHeights,
+  letterSpacings,
   fonts,
   colors,
   radii,

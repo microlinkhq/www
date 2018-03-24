@@ -1,15 +1,15 @@
-import styled, {keyframes} from 'styled-components'
-import {HelpCircle, Check} from 'react-feather'
-import {Flex, Text, Lead} from 'rebass'
-import React, {Component} from 'react'
+import styled, { keyframes } from 'styled-components'
+import { HelpCircle, Check } from 'react-feather'
+import { Flex, Text, Lead } from 'rebass'
+import React, { Component } from 'react'
 
-import Hide from './Hide'
-import Tooltip from './Tooltip'
-import {LinkSolid} from './Link'
-import Checkout from './Checkout'
 import PricePicker from './PricePicker'
+import Checkout from './Checkout'
+import { LinkSolid } from './Link'
+import Tooltip from './Tooltip'
+import Hide from './Hide'
 
-import {colors} from 'theme'
+import { colors } from 'theme'
 
 const BASE_PRICE = 9
 const BASE_PLAN = 'pro-1k'
@@ -124,7 +124,7 @@ export default class extends Component {
     }
   }
 
-  priceSelected ({plan, reqs}) {
+  priceSelected ({ plan, reqs }) {
     const newPrice = BASE_PRICE * reqs / BASE_PLAN_REQS
 
     this.setState({
@@ -137,20 +137,20 @@ export default class extends Component {
     if (this.raf) return
     if (this.state.highlight) {
       // reset the animation
-      this.setState({highlight: false}, () => {
+      this.setState({ highlight: false }, () => {
         this.raf = requestAnimationFrame(() => {
           this.raf = null
-          this.setState({highlight: true})
+          this.setState({ highlight: true })
         })
       })
     } else {
-      this.setState({highlight: true})
+      this.setState({ highlight: true })
     }
   }
 
   render () {
-    const {highlight, plan, description, panelLabel, price} = this.state
-    const {api, apiKey, stripeKey} = this.props
+    const { highlight, plan, description, panelLabel, price } = this.state
+    const { api, apiKey, stripeKey } = this.props
 
     return (
       <div>
@@ -171,9 +171,11 @@ export default class extends Component {
                   key='rate-limit'
                   content={
                     <Text fontWeight='normal'>
-                      Rate limit is based in a daily quota of requests. <br />It will be reset every day.
+                      Rate limit is based in a daily quota of requests. <br />It
+                      will be reset every day.
                     </Text>
-                  }>
+                  }
+                >
                   <Flex justify='center' align='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       Rate Limit
@@ -204,15 +206,12 @@ export default class extends Component {
                     <Text fontWeight='normal'>
                       Maximum simultaneous requests you can make.
                     </Text>
-                  }>
+                  }
+                >
                   <Flex justify='center' align='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
-                      <Hide breakpoints={[0, 1]}>
-                        Request Concurrency
-                      </Hide>
-                      <Hide breakpoints={[2, 3]}>
-                        Req. Concurrency
-                      </Hide>
+                      <Hide breakpoints={[0, 1]}>Request Concurrency</Hide>
+                      <Hide breakpoints={[2, 3]}>Req. Concurrency</Hide>
                     </Text>
                     <HelpCircle color={colors.black50} size={14} />
                   </Flex>
@@ -233,15 +232,12 @@ export default class extends Component {
                     <Text fontWeight='normal'>
                       We follow a query caching policy for successive API calls.
                     </Text>
-                  }>
+                  }
+                >
                   <Flex justify='center' align='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
-                      <Hide breakpoints={[0, 1]}>
-                      Request Caching
-                      </Hide>
-                      <Hide breakpoints={[2, 3]}>
-                      Req. Caching
-                      </Hide>
+                      <Hide breakpoints={[0, 1]}>Request Caching</Hide>
+                      <Hide breakpoints={[2, 3]}>Req. Caching</Hide>
                     </Text>
                     <HelpCircle color={colors.black50} size={14} />
                   </Flex>
@@ -259,9 +255,12 @@ export default class extends Component {
                 <Tooltip
                   key='support'
                   content={
-                    <Text fontWeight='normal'>We provide chat support to help you integrate with your services.
+                    <Text fontWeight='normal'>
+                      We provide chat support to help you integrate with your
+                      services.
                     </Text>
-                  }>
+                  }
+                >
                   <Flex justify='center' align='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       Live Support
@@ -280,7 +279,13 @@ export default class extends Component {
             <Tr>
               <Th />
               <TdPrice>0</TdPrice>
-              <TdPrice>{highlight ? <Highlight>{price}</Highlight> : <span>{price}</span>}</TdPrice>
+              <TdPrice>
+                {highlight ? (
+                  <Highlight>{price}</Highlight>
+                ) : (
+                  <span>{price}</span>
+                )}
+              </TdPrice>
             </Tr>
             <Tr>
               <Th />
@@ -303,12 +308,15 @@ export default class extends Component {
           is='section'
           justifyContent='center'
           flexDirection='column'
-          alignContent='center'>
+          alignContent='center'
+        >
           <Text textAlign='center' pt={4} px={5} f={3} color='gray8'>
             Do you need more?
           </Text>
           <Text textAlign='center' pt={3} px={5} f={3} color='gray8'>
-            <LinkSolid fontWeight='bold' onClick={this.openForm}>Contact us</LinkSolid>.
+            <LinkSolid fontWeight='bold' onClick={this.openForm}>
+              Contact us
+            </LinkSolid>.
           </Text>
         </Flex>
       </div>

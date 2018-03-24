@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { width } from 'styled-system'
 
-import {colors} from 'theme'
+import { height, colors } from 'theme'
 
-const Spinner = () => (
-  <StyledSpinner viewBox='0 0 50 50'>
+const Spinner = props => (
+  <StyledSpinner viewBox='0 0 50 50' {...props}>
     <circle
       className='path'
       cx='25'
@@ -17,12 +18,10 @@ const Spinner = () => (
 )
 
 const StyledSpinner = styled.svg`
-  animation: rotate 2s linear infinite;
-  width: 50px;
-  height: 50px;
+  ${width} ${height} animation: rotate 2s linear infinite;
 
   .path {
-    stroke: ${colors.blue};
+    stroke: ${colors.primary};
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }
@@ -47,5 +46,9 @@ const StyledSpinner = styled.svg`
     }
   }
 `
+
+StyledSpinner.defaultProps = {
+  size: '50px'
+}
 
 export default Spinner
