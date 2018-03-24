@@ -90,7 +90,7 @@ class _CardForm extends React.Component {
 
     stripe
       .createToken()
-      .then(token =>
+      .then(({ token }) =>
         fetch(`${api}/payment/update`, {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
           method: 'POST',
