@@ -1,5 +1,4 @@
 import palx from 'palx'
-import { responsiveStyle } from 'styled-system'
 
 export const breakpoints = [32, 48, 64, 80].map(n => n + 'em')
 
@@ -101,24 +100,7 @@ export const textGradient = `
   text-fill-color: transparent;
 `
 
-// TODO: remove
-export const primaryFont = `
-  font-family: 'avenir next', avenir, sans-serif;
-`
-
-export const maxWidth = responsiveStyle({
-  prop: 'maxWidth',
-  cssProperty: 'maxWidth'
-})
-
-export const height = responsiveStyle({
-  prop: 'height',
-  cssProperty: 'height',
-  numberToPx: true
-})
-
 export default {
-  primaryFont,
   textGradient,
   bgGradient,
   gradient,
@@ -130,7 +112,5 @@ export default {
   letterSpacings,
   fonts,
   colors,
-  radii,
-  maxWidth,
-  height
+  radii
 }

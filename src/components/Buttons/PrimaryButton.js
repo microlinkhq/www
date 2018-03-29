@@ -32,7 +32,7 @@ const Spinner = styled(PrimaryButton)`
 
 const SpinnerButton = ({ children, ...props }) => (
   <Spinner {...props}>
-    <Flex justify='center' align='center'>
+    <Flex justify='center' textAlign='center'>
       {children}
     </Flex>
   </Spinner>

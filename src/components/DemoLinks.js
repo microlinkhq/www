@@ -1,6 +1,6 @@
 import React from 'react'
-import {Avatar, Flex} from 'rebass'
-import styled, {css} from 'styled-components'
+import { Avatar, Flex } from 'rebass'
+import styled, { css } from 'styled-components'
 
 const floatAnimation = css`
   display: inline-block;
@@ -23,8 +23,8 @@ const Logo = styled(Avatar)`
   ${floatAnimation};
 `
 
-export default ({links, onClick, size, ...props}) => (
-  <Flex width='100%' justify='space-between' flexWrap {...props}>
+export default ({ links, onClick, size, ...props }) => (
+  <Flex width='100%' justify='space-between' flexWrap='wrap' {...props}>
     {links.map(item => (
       <Logo
         size={size}

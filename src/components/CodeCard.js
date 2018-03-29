@@ -1,20 +1,23 @@
-import React, {Component} from 'react'
-import {Truncate, Avatar, Box, monospace, Card, Flex, Banner} from 'rebass'
-import styled, {keyframes} from 'styled-components'
-import {LiveProvider, LiveEditor} from 'react-live'
-import {width} from 'styled-system'
+import React, { Component } from 'react'
+import { Truncate, Avatar, Box, monospace, Card, Flex, Banner } from 'rebass'
+import styled, { keyframes } from 'styled-components'
+import { LiveProvider, LiveEditor } from 'react-live'
+import { width } from 'styled-system'
 import Tilt from 'react-tilt'
 import color from 'color'
 
 import Container from './Container'
-import {colors, height} from 'theme'
+import { colors } from 'theme'
+import { height } from 'helpers'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
 const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
 
 const getImageUrl = url =>
-  url.indexOf('https://') === 0 ? url : `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
+  url.indexOf('https://') === 0
+    ? url
+    : `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
 
 const animateGlow = keyframes`
   0% {
@@ -49,7 +52,8 @@ const Provider = styled(LiveProvider)`
 `
 
 const Editor = styled(LiveEditor)`
-  ${width} max-height: inherit;
+  ${width};
+  max-height: inherit;
   box-sizing: border-box;
   font-family: ${monospace};
   font-size: 13px;
@@ -110,11 +114,15 @@ const Editor = styled(LiveEditor)`
 `
 
 const CustomCard = Card.extend`
-  ${width} ${height} padding: 0;
+  ${width};
+  ${height};
+  padding: 0;
   overflow: auto;
 `
 
-const PreviewCard = ({children, ...props}) => <CustomCard {...props}>{children}</CustomCard>
+const PreviewCard = ({ children, ...props }) => (
+  <CustomCard {...props}>{children}</CustomCard>
+)
 
 const CustomTilt = styled(Tilt)`
   ${width} transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
@@ -138,7 +146,8 @@ const CustomTilt = styled(Tilt)`
 `
 
 const CardBackgroundImage = Banner.extend`
-  ${height} min-height: auto;
+  ${height};
+  min-height: auto;
   padding: 0;
 `
 
@@ -163,8 +172,8 @@ const cardWidths = [1, '', 0.45]
 
 export default class extends Component {
   render () {
-    const {data, onChange, ...props} = this.props
-    const {publisher, author, title, description} = data
+    const { data, onChange, ...props } = this.props
+    const { publisher, author, title, description } = data
     const logo = data.logo || {}
     const image = data.image || {}
     const palette = [].concat(image.palette).filter(c => color(c).isLight())
@@ -177,27 +186,35 @@ export default class extends Component {
             justifyContent='space-around'
             flexDirection={['column-reverse', '', 'row']}
             alignContent='center'
-            flexWrap>
+            flexWrap='wrap'
+          >
             <PreviewCard
-              style={{boxShadow: `${colors.gray2} 0px 2px 54px 0px`}}
+              style={{ boxShadow: `${colors.gray2} 0px 2px 54px 0px` }}
               width={cardWidths}
               height={cardHeights}
-              my={3}>
+              my={3}
+            >
               <Editor width={[1]} onChange={onChange} />
             </PreviewCard>
             <CustomTilt
               className='tilt'
-              options={{max: 8, scale: 1.02}}
+              options={{ max: 8, scale: 1.02 }}
               colors={palette.length > 1 ? palette : PALETTE_FALLBACK}
               duration={'5s'}
-              width={cardWidths}>
+              width={cardWidths}
+            >
               <PreviewCard my={3} width={1} height={cardHeights}>
                 <CardBackgroundImage
                   height='100%'
                   backgroundImage={getImageUrl(image.url || image)}
-                  style={{position: 'relative'}}>
-                  <CardHeader p={[2, 3]} width='100%' style={{background: '#f7f8fa'}}>
-                    <Flex align='flex-start'>
+                  style={{ position: 'relative' }}
+                >
+                  <CardHeader
+                    p={[2, 3]}
+                    width='100%'
+                    style={{ background: '#f7f8fa' }}
+                  >
+                    <Flex alignItems='flex-start'>
                       <CardHeaderLogo
                         width={['32px', '48px']}
                         src={getImageUrl(logo.url || logo)}

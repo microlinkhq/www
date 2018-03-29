@@ -83,7 +83,7 @@ export default class extends Component {
       >
         <Flex
           justify='center'
-          align='center'
+          alignItems='center'
           style={{ transform: 'scale(0.5)', height: '100%' }}
         >
           <Spinner />
@@ -112,7 +112,7 @@ export default class extends Component {
         height={['53px', '', '80px']}
         {...props}
       >
-        <CustomFlex justify='space-around' align='center'>
+        <CustomFlex justify='space-around' alignItems='center'>
           <CustomInput
             name='url'
             fontSize={[1, 2, 3]}

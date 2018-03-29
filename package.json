@@ -59,6 +59,7 @@
     "husky": "latest",
     "lint-staged": "latest",
     "prettier-standard": "latest",
+    "react-aria-tooltip": "~1.2.1",
     "standard": "latest",
     "standard-markdown": "latest"
   },
