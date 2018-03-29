@@ -1,4 +1,7 @@
 import React from 'react'
+import { Main, Section } from 'components/elements'
+import { Helmet } from 'react-helmet'
+import { NavBar } from 'components/patterns'
 
 const Post = ({ post }) => (
   <div>
@@ -8,15 +11,19 @@ const Post = ({ post }) => (
   </div>
 )
 
-const IndexPage = ({ data: { allMarkdownRemark: { edges } } }) => {
+const BlogIndex = ({ data: { allMarkdownRemark: { edges } } }) => {
   const Posts = edges
-    .filter(edge => !!edge.node.frontmatter.date) // You can filter your posts based on some criteria
+    .filter(edge => !!edge.node.frontmatter.date)
     .map(edge => <Post key={edge.node.id} post={edge.node} />)
 
-  return <div>{Posts}</div>
+  return (
+    <Main>
+      <NavBar />
+      <Helmet title='Blog' />
+      <Section pt={'56px'}>{Posts}</Section>
+    </Main>
+  )
 }
-
-export default IndexPage
 
 export const pageQuery = graphql`
   query IndexBlog {
@@ -35,3 +42,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default BlogIndex

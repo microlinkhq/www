@@ -157,7 +157,7 @@ export default class extends Component {
 
     return (
       <Main>
-        <NavBar bg='white' color='black50' py={2} mx='auto' />
+        <NavBar />
         <WaveSection
           bg='#FAFBFC'
           pt={'56px'}
