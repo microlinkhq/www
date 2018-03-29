@@ -2,9 +2,15 @@
 
 const url = require('url')
 
-const envError = propName => new TypeError(`Need to declare a ${propName}' env.`)
+const envError = propName =>
+  new TypeError(`Need to declare a ${propName}' env.`)
 
-const { STRIPE_KEY, PAYMENT_API_KEY, API_ENDPOINT, PAYMENT_ENDPOINT } = process.env
+const {
+  STRIPE_KEY,
+  PAYMENT_API_KEY,
+  API_ENDPOINT,
+  PAYMENT_ENDPOINT
+} = process.env
 
 if (!STRIPE_KEY) throw envError('STRIPE_KEY')
 if (!PAYMENT_API_KEY) throw envError('PAYMENT_API_KEY')
@@ -31,7 +37,7 @@ module.exports = {
     `gatsby-plugin-react-next`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-transformer-yaml`,
+    `gatsby-plugin-catch-links`,
     {
       resolve: `gatsby-plugin-postcss-sass`,
       options: {
@@ -51,15 +57,15 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `src`,
-        path: `${__dirname}/src/`
+        name: `data`,
+        path: `${__dirname}/data/`
       }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `data`,
-        path: `${__dirname}/data/`
+        path: `${__dirname}/data/posts`,
+        name: 'posts'
       }
     },
     {
@@ -74,6 +80,8 @@ module.exports = {
         siteUrl: SITE_URL
       }
     },
+    `gatsby-transformer-remark`,
+    `gatsby-transformer-yaml`,
     `gatsby-plugin-netlify`
   ]
 }
