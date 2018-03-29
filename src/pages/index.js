@@ -27,9 +27,9 @@ import {
   MicrolinkLogo
 } from 'components'
 
-import { getColors } from 'helpers'
+import { getColors, maxWidth } from 'helpers'
 
-import { textGradient, primaryFont, maxWidth } from 'theme'
+import { textGradient } from 'theme'
 
 const SectionSubhead = styled(Subhead)`
   display: block;
@@ -42,13 +42,18 @@ const Description = styled(Subhead)`
 `
 
 const EllipsisText = Text.extend`
-  ${maxWidth} white-space: nowrap;
+  ${maxWidth};
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `
 
+EllipsisText.defaultProps = {
+  blacklist: [...Text.defaultProps.blacklist, 'maxWidth']
+}
+
 const CustomHeading = Heading.extend`
-  ${primaryFont};
+  font-family: 'avenir next', avenir, sans-serif;
 `
 
 const URL_FALLBACK =

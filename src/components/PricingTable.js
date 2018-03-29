@@ -168,15 +168,14 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
-                  key='rate-limit'
-                  content={
-                    <Text fontWeight='normal'>
+                  message={
+                    <Text is='span' fontWeight='normal'>
                       Rate limit is based in a daily quota of requests. <br />It
                       will be reset every day.
                     </Text>
                   }
                 >
-                  <Flex justify='center' align='center'>
+                  <Flex justify='center' alignItems='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       Rate Limit
                     </Text>
@@ -201,14 +200,13 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
-                  key='req-concurrency'
-                  content={
-                    <Text fontWeight='normal'>
+                  message={
+                    <Text is='span' fontWeight='normal'>
                       Maximum simultaneous requests you can make.
                     </Text>
                   }
                 >
-                  <Flex justify='center' align='center'>
+                  <Flex justify='center' alignItems='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       <Hide breakpoints={[0, 1]}>Request Concurrency</Hide>
                       <Hide breakpoints={[2, 3]}>Req. Concurrency</Hide>
@@ -227,14 +225,13 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
-                  key='req-caching'
-                  content={
-                    <Text fontWeight='normal'>
+                  message={
+                    <Text is='span' fontWeight='normal'>
                       We follow a query caching policy for successive API calls.
                     </Text>
                   }
                 >
-                  <Flex justify='center' align='center'>
+                  <Flex justify='center' alignItems='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       <Hide breakpoints={[0, 1]}>Request Caching</Hide>
                       <Hide breakpoints={[2, 3]}>Req. Caching</Hide>
@@ -253,15 +250,14 @@ export default class extends Component {
             <Tr>
               <Th>
                 <Tooltip
-                  key='support'
-                  content={
-                    <Text fontWeight='normal'>
+                  message={
+                    <Text is='span' fontWeight='normal'>
                       We provide chat support to help you integrate with your
                       services.
                     </Text>
                   }
                 >
-                  <Flex justify='center' align='center'>
+                  <Flex justify='center' alignItems='center'>
                     <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
                       Live Support
                     </Text>

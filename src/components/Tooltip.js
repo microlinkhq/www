@@ -19,8 +19,4 @@ cursor: help;
 }
 `
 
-export default ({ content, children, ...props }) => (
-  <Tooltip eventType='hover' message={[content]}>
-    {children}
-  </Tooltip>
-)
+export default props => <Tooltip eventType='hover' {...props} />

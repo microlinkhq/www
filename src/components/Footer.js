@@ -5,9 +5,13 @@ import { alignSelf } from 'styled-system'
 import { OutlineButton } from './Buttons'
 
 const CustomNavLink = NavLink.extend`
-  padding: 0;
   ${alignSelf};
+  padding: 0;
 `
+
+CustomNavLink.defaultProps = {
+  blacklist: [...NavLink.defaultProps.blacklist, 'alignSelf']
+}
 
 const SignButton = OutlineButton.extend`
   color: #10111b;
@@ -22,10 +26,15 @@ const SignButton = OutlineButton.extend`
 
 export default props => (
   <Flex is='footer' flexDirection='column' {...props}>
-    <Flex mb={2} flexDirection={['column', '', 'row']} align='center' py={3}>
+    <Flex
+      mb={2}
+      flexDirection={['column', '', 'row']}
+      alignItems='center'
+      py={3}
+    >
       <Flex flexDirection='column'>
         <Text fontSize={1}>Early access and updates on new releases.</Text>
-        <Flex py={3} px={0} align='center' justifyContent='flex-start'>
+        <Flex py={3} px={0} alignItems='center' justifyContent='flex-start'>
           <form
             action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
             method='post'
