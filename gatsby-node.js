@@ -17,7 +17,7 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
 exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators
 
-  const blogPostTemplate = path.resolve(`src/templates/blog-template.js`)
+  const blogPostTemplate = path.resolve(`src/layouts/blog.js`)
 
   return graphql(`
     {

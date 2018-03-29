@@ -1,35 +1,40 @@
 /* global fetch */
 
-import { Box, Text, Flex, Heading, Subhead } from 'rebass'
+import {
+  WaveSection,
+  RippleSection,
+  GradientSection,
+  Section,
+  Hide,
+  Main,
+  Box,
+  Text,
+  Flex,
+  Heading,
+  Subhead,
+  LinkSolid,
+  LinkDotted,
+  Container
+} from 'components/elements'
+
+import { Microlink as MicrolinkLogo } from 'components/logos'
 import MicrolinkCard from 'react-microlink'
 import styled from 'styled-components'
 import React, { Component } from 'react'
 import colorWrapper from 'color'
 
 import {
-  Hide,
-  WaveSection,
-  RippleSection,
-  Section,
-  GradientSection,
   ContentFeature,
-  LinkSolid,
-  LinkDotted,
   PricingTable,
   ContentGrid,
   DemoLinks,
-  Container,
   SearchBox,
   CodeCard,
   Footer,
-  NavBar,
-  Main,
-  MicrolinkLogo
-} from 'components'
+  NavBar
+} from 'components/patterns'
 
-import { getColors, maxWidth } from 'helpers'
-
-import { textGradient } from 'theme'
+import { textGradient, getColors, maxWidth } from 'helpers'
 
 const SectionSubhead = styled(Subhead)`
   display: block;

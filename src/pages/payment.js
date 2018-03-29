@@ -2,19 +2,20 @@
 
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { Flex, Heading } from 'rebass'
-import { Helmet } from 'react-helmet'
-
 import {
+  Main,
   Label,
   Container,
   PrimaryButton,
   Choose,
   Notification,
-  LinkDotted
-} from 'components'
+  LinkDotted,
+  Flex,
+  Heading
+} from 'components/elements'
 
-import { marshall, unmarshall } from '../helpers'
+import { Helmet } from 'react-helmet'
+import { marshall, unmarshall } from 'helpers'
 
 import {
   CardNumberElement,
@@ -114,7 +115,7 @@ class _CardForm extends React.Component {
     const { paymentState } = this.state
 
     return (
-      <div>
+      <Main>
         <Choose>
           <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
             <Notification.Success children='Processing...' />
@@ -161,7 +162,7 @@ class _CardForm extends React.Component {
             spinner={paymentState === PAYMENT_STATE.PROCESSING}
           />
         </Form>
-      </div>
+      </Main>
     )
   }
 }

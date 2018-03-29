@@ -78,10 +78,6 @@ export const cx = key => colors[key] || key
 
 export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
 
-export const bgGradient = `
-  background-image: ${gradient};
-`
-
 export const shadows = [
   'none',
   `inset 0 0 0 1px ${colors.gray}`,
@@ -90,19 +86,7 @@ export const shadows = [
 
 export const lineHeights = [1, 1.125, 1.25, 1.5]
 
-export const textGradient = `
-  ${bgGradient}
-  display: inline-block;
-  background-size: cover;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-`
-
 export default {
-  textGradient,
-  bgGradient,
   gradient,
   breakpoints,
   space,
