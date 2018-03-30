@@ -2,6 +2,7 @@ import React from 'react'
 import { Heading, Text, Link } from 'components/elements'
 import styled from 'styled-components'
 import { space, fontSizes, fonts, colors } from 'theme'
+import CodeCopy from 'react-codecopy'
 
 export const H1 = styled(Heading)([])
 
@@ -130,10 +131,12 @@ const Code = styled.code`
   font-family: ${fonts.mono};
 `
 
-export const PreCode = ({ children, syntax }) => (
-  <Pre>
-    <Code>{children}</Code>
-  </Pre>
+export const PreCode = props => (
+  <CodeCopy text={props.children}>
+    <Pre>
+      <Code {...props} />
+    </Pre>
+  </CodeCopy>
 )
 
 export const Img = styled.img`

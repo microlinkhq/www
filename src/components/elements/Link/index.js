@@ -11,7 +11,8 @@ const base = styled.a`
   font-size: inherit;
 `
 
-const determinteTarget = href => (href.startsWith('/') ? '_self' : '_blank')
+const determinteTarget = (href = '') =>
+  href.startsWith('/') ? '_self' : '_blank'
 
 const createLink = ChildComponent => ({
   href,
