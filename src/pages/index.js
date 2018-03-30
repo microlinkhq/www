@@ -6,7 +6,6 @@ import {
   GradientSection,
   Section,
   Hide,
-  Main,
   Box,
   Text,
   Flex,
@@ -20,7 +19,7 @@ import {
 import { Microlink as MicrolinkLogo } from 'components/logos'
 import MicrolinkCard from 'react-microlink'
 import styled from 'styled-components'
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import colorWrapper from 'color'
 
 import {
@@ -29,9 +28,7 @@ import {
   ContentGrid,
   DemoLinks,
   SearchBox,
-  CodeCard,
-  Footer,
-  NavBar
+  CodeCard
 } from 'components/patterns'
 
 import { textGradient, getColors, maxWidth } from 'helpers'
@@ -156,11 +153,9 @@ export default class extends Component {
     const textColor = colorWrapper(colorBase).isDark() ? '#FAFBFC' : 'gray9'
 
     return (
-      <Main>
-        <NavBar />
+      <Fragment>
         <WaveSection
           bg='#FAFBFC'
-          pt={'56px'}
           id='home'
           color={_color}
           alternativeColor={_alternativeColor}
@@ -530,13 +525,7 @@ export default class extends Component {
             />
           </Container>
         </Section>
-
-        <Section bg='#10111B' color='gray1'>
-          <Container py={[3, 4, 5]} px={[0, 0, 5]}>
-            <Footer />
-          </Container>
-        </Section>
-      </Main>
+      </Fragment>
     )
   }
 }

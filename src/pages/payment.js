@@ -3,7 +3,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import {
-  Main,
   Label,
   Container,
   PrimaryButton,
@@ -115,7 +114,7 @@ class _CardForm extends React.Component {
     const { paymentState } = this.state
 
     return (
-      <Main>
+      <div>
         <Choose>
           <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
             <Notification.Success children='Processing...' />
@@ -162,7 +161,7 @@ class _CardForm extends React.Component {
             spinner={paymentState === PAYMENT_STATE.PROCESSING}
           />
         </Form>
-      </Main>
+      </div>
     )
   }
 }
@@ -197,7 +196,7 @@ export default class extends Component {
     const { paymentApiKey: apiKey, paymentEndpoint: api } = this.props
 
     return (
-      <Container is='main' maxWidth='350px' pt={5}>
+      <Container is='section' maxWidth='350px' pt={5} pb={3}>
         <Helmet
           title='Add Payment'
           script={[

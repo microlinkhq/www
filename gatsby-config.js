@@ -23,7 +23,7 @@ module.exports = {
   polyfill: false,
   siteMetadata: {
     siteUrl: SITE_URL,
-    title: 'microlink',
+    title: 'microlink.io',
     description: 'Get relevant information from any link.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     ogVideo: url.resolve(SITE_URL, '/preview.mp4'),
@@ -80,6 +80,7 @@ module.exports = {
         siteUrl: SITE_URL
       }
     },
+    `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-transformer-remark`,
     `gatsby-transformer-yaml`,
     `gatsby-plugin-netlify`
