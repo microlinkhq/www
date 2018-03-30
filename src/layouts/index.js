@@ -11,7 +11,7 @@ import { NavBar, Footer } from 'components/patterns'
 import theme from 'theme'
 import 'styles/main.scss'
 
-const TemplateWrapper = ({ children, data, ...props }) => {
+const IndexLayout = ({ children, data, ...props }) => {
   const {
     siteUrl,
     title,
@@ -65,11 +65,11 @@ const TemplateWrapper = ({ children, data, ...props }) => {
   )
 }
 
-TemplateWrapper.propTypes = {
+IndexLayout.propTypes = {
   children: PropTypes.func
 }
 
-export default TemplateWrapper
+export default IndexLayout
 export const query = graphql`
   query LayoutQuery {
     site {
