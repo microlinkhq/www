@@ -52,6 +52,7 @@
     "react-microlink": "1",
     "react-stripe-elements": "~1.6.0",
     "react-tilt": "~0.1.4",
+    "react-timeago": "~3.4.3",
     "rebass": "github:Kikobeats/rebass#select-arrow-build",
     "stripe-checkout-lite": "0.0.1",
     "styled-components": "~3.2.2",

@@ -7,6 +7,8 @@ export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512]
 export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96]
 
 export const fontWeights = {
+  lighter: 100,
+  light: 200,
   normal: 400,
   bold: 600
 }
@@ -38,6 +40,7 @@ const flattened = Object.keys(palette).reduce((a, key) => {
 export const colors = Object.assign({}, flattened, {
   secondary: '#EA407B',
   primary: '#303A52',
+  link: '#067df7',
   black: '#000',
   black90: 'rgba(0,0,0,.9)',
   black80: 'rgba(0,0,0,.8)',
@@ -69,9 +72,9 @@ export const colors = Object.assign({}, flattened, {
 })
 
 export const fonts = {
-  0: 'Interface, -apple-system, BlinkMacSystemFont, sans-serif',
-  sans: 'Interface, -apple-system, BlinkMacSystemFont, sans-serif',
-  mono: '"SF Mono", "Roboto Mono", Menlo, monospace'
+  sans: "'Inter UI', sans-serif",
+  mono:
+    '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace'
 }
 
 export const cx = key => colors[key] || key

@@ -23,6 +23,10 @@ const CustomNavLink = NavLink.extend`
     `};
 `
 
+CustomNavLink.defaultProps = {
+  blacklist: [...NavLink.defaultProps.blacklist, 'active']
+}
+
 const CustomToolbar = Toolbar.extend`
   justify-content: center;
   box-shadow: rgb(206, 212, 218) 0 -5px 15px 0;

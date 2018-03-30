@@ -1,10 +1,20 @@
 import React from 'react'
 import { alignSelf } from 'styled-system'
 import { OutlineButton, Flex, NavLink, Input, Text } from 'components/elements'
+import { Github, Twitter } from 'react-feather'
 
 const CustomNavLink = NavLink.extend`
   ${alignSelf};
   padding: 0;
+`
+
+const NavLinkIcon = NavLink.extend`
+  transition: all 0.1s ease-out;
+  &:hover {
+    svg {
+      fill: white;
+    }
+  }
 `
 
 CustomNavLink.defaultProps = {
@@ -29,6 +39,7 @@ export default props => (
       flexDirection={['column', '', 'row']}
       alignItems='center'
       py={3}
+      p
     >
       <Flex flexDirection='column'>
         <Text fontSize={1}>Early access and updates on new releases.</Text>
@@ -57,22 +68,17 @@ export default props => (
           children='hello@microlink.io'
           alignSelf={['center', '', 'flex-start']}
         />
-        <Flex w={1} justifyContent={['flex-start', '', 'flex-end']}>
-          <NavLink
+        <Flex w={1} justifyContent={['center', '', 'flex-end']}>
+          <NavLinkIcon
             mr={2}
             target='_blank'
             href='http://twitter.com/microlinkhq'
-            children='Twitter'
+            children={<Twitter size={20} />}
           />
-          <NavLink
+          <NavLinkIcon
             target='_blank'
             href='http://github.com/microlinkhq'
-            children='GitHub'
-          />
-          <NavLink
-            target='_blank'
-            href='https://medium.com/microlink'
-            children='Medium'
+            children={<Github size={20} />}
           />
         </Flex>
       </Flex>

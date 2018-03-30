@@ -1,5 +1,5 @@
 import { PrimaryButton, OutlineButton } from './Button'
-import { LinkDotted, LinkSolid } from './Link'
+import { Link, LinkDotted, LinkSolid } from './Link'
 import { Section, RippleSection, GradientSection, WaveSection } from './Section'
 
 import Box from './Box'
@@ -7,6 +7,8 @@ import Choose from './Choose'
 import Container from './Container'
 import Hide from './Hide'
 import Label from './Label'
+import Heading from './Heading'
+import Text from './Text'
 import Changelog from './Changelog'
 import Checkout from './Checkout'
 import PricePicker from './PricePicker'
@@ -36,8 +38,11 @@ export {
   PricePicker,
   PrimaryButton,
   OutlineButton,
+  Link,
   LinkDotted,
-  LinkSolid
+  LinkSolid,
+  Heading,
+  Text
 }
 
 export {
@@ -51,12 +56,10 @@ export {
   Select,
   Row,
   Column,
-  Text,
   Subhead,
   NavLink,
   Input,
   Fixed,
   Toolbar,
-  Lead,
-  Heading
+  Lead
 } from 'rebass'

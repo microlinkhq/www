@@ -56,7 +56,7 @@ const IndexLayout = ({ children, data, ...props }) => {
         <NavBar />
         <Box py='56px'>{children({ ...props, ...metadata })}</Box>
         <Section bg='#10111B' color='gray1'>
-          <Container py={[3, 4, 5]} px={[0, 0, 5]}>
+          <Container py={[3, 4, 5]} px={0} maxWidth='900px'>
             <Footer />
           </Container>
         </Section>
