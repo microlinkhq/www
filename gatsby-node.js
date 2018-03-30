@@ -14,6 +14,23 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
   })
 }
 
+exports.onCreatePage = ({ page, boundActionCreators }) => {
+  const { createPage, deletePage } = boundActionCreators
+
+  const replacePath = _path =>
+    _path.startsWith(`/blog/`) ? _path.replace(/\/blog\//, `/`) : _path
+
+  return new Promise(resolve => {
+    const oldPage = Object.assign({}, page)
+    page.path = replacePath(page.path)
+    if (page.path !== oldPage.path) {
+      deletePage(oldPage)
+      createPage(page)
+    }
+    resolve()
+  })
+}
+
 exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators
 
