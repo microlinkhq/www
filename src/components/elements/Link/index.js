@@ -9,6 +9,9 @@ const base = styled.a`
   text-decoration: none;
   color: ${colors.link};
   font-size: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 const determinteTarget = (href = '') =>

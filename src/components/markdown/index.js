@@ -106,7 +106,7 @@ export const CodeInline = styled(Text)(
   props => `
 color: ${colors.secondary};
 display: inline;
-border: 1px solid ${colors.gray2};
+border: 1px solid #dee2e6;
 font-size: 0.75rem;
 padding: 3px 10px;
 border-radius: 3px;
@@ -124,7 +124,7 @@ const Pre = styled.pre`
   font-family: ${fonts.mono};
   font-size: 13px;
   line-height: 20px;
-  background: ${colors.gray0};
+  background: #fafbfc;
   color: ${colors.secondary};
 `
 const Code = styled.code`
