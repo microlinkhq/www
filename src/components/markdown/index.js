@@ -11,7 +11,7 @@ H1.defaultProps = {
   maxWidth: '900px',
   is: 'h1',
   fontSize: [`${fontSizes[6] * 0.75}px`, 6],
-  lineHeight: 2,
+  lineHeight: 3,
   mt: 5,
   mb: 4
 }

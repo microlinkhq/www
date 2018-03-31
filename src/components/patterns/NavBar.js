@@ -1,4 +1,3 @@
-import { navigateTo } from 'gatsby-link'
 import React, { Component } from 'react'
 import { Changelog, Flex, Fixed, Toolbar, NavLink } from 'components/elements'
 import { css } from 'styled-components'
@@ -24,6 +23,7 @@ const CustomNavLink = NavLink.extend`
 `
 
 CustomNavLink.defaultProps = {
+  is: 'a',
   blacklist: [...NavLink.defaultProps.blacklist, 'active']
 }
 
@@ -33,17 +33,6 @@ const CustomToolbar = Toolbar.extend`
 `
 
 export default class extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      active: ''
-    }
-  }
-
-  componentDidMount () {
-    this.setState({ active: window.location.pathname })
-  }
-
   render () {
     return (
       <Fixed zIndex={2} top={0} left={0} right={0}>
@@ -54,12 +43,7 @@ export default class extends Component {
           style={{ height: '53px' }}
           {...this.props}
         >
-          <CustomNavLink
-            fontSize='12px'
-            px={[2, 3]}
-            children='Home'
-            onClick={() => navigateTo('/')}
-          />
+          <CustomNavLink fontSize='12px' px={[2, 3]} children='Home' href='/' />
 
           <CustomNavLink
             fontSize='12px'
@@ -86,8 +70,7 @@ export default class extends Component {
             fontSize='12px'
             px={[2, 3]}
             children='Blog'
-            onClick={() => navigateTo('/blog')}
-            active={this.state.active === '/blog'}
+            href='/blog/'
           />
 
           <CustomNavLink
