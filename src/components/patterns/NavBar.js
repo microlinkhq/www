@@ -36,8 +36,12 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      active: window.location.pathname
+      active: ''
     }
+  }
+
+  componentDidMount () {
+    this.setState({ active: window.location.pathname })
   }
 
   render () {
