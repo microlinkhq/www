@@ -23,7 +23,7 @@ module.exports = {
   polyfill: false,
   siteMetadata: {
     siteUrl: SITE_URL,
-    title: 'microlink.io',
+    title: 'Microlink',
     description: 'Get relevant information from any link.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     ogVideo: url.resolve(SITE_URL, '/preview.mp4'),
