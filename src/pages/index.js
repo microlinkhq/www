@@ -340,7 +340,7 @@ export default class extends Component {
                   image={['image', 'logo']}
                   round
                   palette
-                  style={{ margin: '0 auto' }}
+                  style={{ margin: '0 auto', borderRadius: '.42857em' }}
                 />
               </Box>
               <Flex
