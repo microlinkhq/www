@@ -2,6 +2,7 @@
 
 const webpack = require('webpack')
 const path = require('path')
+const fs = require('fs')
 
 exports.modifyBabelrc = ({ babelrc }) => {
   return {
@@ -21,19 +22,54 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
   })
 }
 
-exports.onCreatePage = ({ page, boundActionCreators }) => {
-  const { createPage, deletePage } = boundActionCreators
+exports.createPages = ({ graphql, boundActionCreators }) => {
+  const { createPage } = boundActionCreators
+  return new Promise((resolve, reject) => {
+    const blogIndexTemplate = path.resolve(`src/layouts/blog.js`)
+    // Query for markdown nodes to use in creating pages.
+    resolve(
+      graphql(
+        `
+          {
+            allJavascriptFrontmatter {
+              edges {
+                node {
+                  frontmatter {
+                    title
+                    date
+                    slug
+                    page
+                  }
+                }
+              }
+            }
+          }
+        `
+      ).then(result => {
+        if (result.errors) {
+          reject(result.errors)
+        }
 
-  const replacePath = _path =>
-    _path.startsWith(`/blog/`) ? _path.replace(/\/blog\//, `/`) : _path
+        const slugs = fs
+          .readdirSync('src/pages/blog')
+          .map(slug => path.basename(slug, path.extname(slug)))
 
-  return new Promise(resolve => {
-    const oldPage = Object.assign({}, page)
-    page.path = replacePath(page.path)
-    if (page.path !== oldPage.path) {
-      deletePage(oldPage)
-      createPage(page)
-    }
-    resolve()
+        const posts = result.data.allJavascriptFrontmatter.edges
+          .map((data, index) => ({
+            ...data.node.frontmatter,
+            slug: slugs[index]
+          }))
+          .filter(({ page }) => !page)
+          .sort((a, b) => new Date(a.date) - new Date(b.date))
+
+        return Promise.resolve(
+          createPage({
+            path: '/blog',
+            component: blogIndexTemplate,
+            context: { posts }
+          })
+        )
+      })
+    )
   })
 }

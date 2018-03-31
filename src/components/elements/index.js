@@ -50,6 +50,7 @@ export {
   Measure,
   Truncate,
   Avatar,
+  Divider,
   Card,
   Flex,
   Banner,

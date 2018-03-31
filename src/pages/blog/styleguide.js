@@ -4,10 +4,13 @@ import md from 'markdown-in-js'
 
 import postLayout from 'layouts/post'
 
-export default postLayout({
+export const frontmatter = {
   title: 'styleguide',
-  date: '19 January 2018'
-})(md(components)`
+  date: '19 January 2018',
+  page: true
+}
+
+export default postLayout(frontmatter)(md(components)`
 
 > Subscribe into our awesome [newsletter](https://hola.com)!
 

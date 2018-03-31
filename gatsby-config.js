@@ -38,6 +38,7 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-catch-links`,
+    `gatsby-transformer-javascript-frontmatter`,
     {
       resolve: `gatsby-plugin-postcss-sass`,
       options: {

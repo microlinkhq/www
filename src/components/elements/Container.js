@@ -1,11 +1,11 @@
 import { Container } from 'rebass'
-import { width, space } from 'styled-system'
+import { textAlign, width, space } from 'styled-system'
 import styled from 'styled-components'
 
 const CustomContainer = styled(Container)`
   ${space};
   ${width};
-  max-width: ${props => props.maxWidth};
+  ${textAlign} max-width: ${props => props.maxWidth};
   margin: auto;
 `
 

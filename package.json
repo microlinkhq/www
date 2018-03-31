@@ -35,6 +35,7 @@
     "gatsby-plugin-sharp": "~1.6.41",
     "gatsby-plugin-styled-components": "~2.0.9",
     "gatsby-source-filesystem": "~1.5.27",
+    "gatsby-transformer-javascript-frontmatter": "~1.0.8",
     "gatsby-transformer-remark": "~1.7.39",
     "gatsby-transformer-sharp": "~1.6.22",
     "gatsby-transformer-yaml": "~1.5.16",

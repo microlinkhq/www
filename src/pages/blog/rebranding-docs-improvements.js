@@ -4,10 +4,13 @@ import md from 'markdown-in-js'
 
 import postLayout from 'layouts/post'
 
-export default postLayout({
+export const frontmatter = {
+  slug: 'rebranding-docs-improvements',
   title: 'Product Brief #2: A new branding, documentation & improvements',
-  date: '30 December 2017'
-})(md(components)`
+  date: '31 January 2018'
+}
+
+export default postLayout(frontmatter)(md(components)`
 ## Prerendering by default
 
 ![Example of using microlink for Amazon links. Prerending improves data accuracy.](https://i.imgur.com/VC9vYjz.png)

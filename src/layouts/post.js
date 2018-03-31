@@ -3,15 +3,9 @@
 import React from 'react'
 import { Text, Section } from 'components/elements'
 import { H1 } from 'components/markdown'
-import Helmet from 'react-helmet'
+import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-
-const formatDate = timestamp =>
-  timestamp.toLocaleString('en-us', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric'
-  })
+import Helmet from 'react-helmet'
 
 export default function PostLayout ({ title, date }) {
   const timestamp = new Date(date)

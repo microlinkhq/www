@@ -5,6 +5,13 @@ import getColors from './get-colors'
 import marshall from './marshall'
 import unmarshall from './unmarshall'
 
+export const formatDate = timestamp =>
+  timestamp.toLocaleString('en-us', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  })
+
 export const maxWidth = responsiveStyle({
   prop: 'maxWidth',
   cssProperty: 'maxWidth'

@@ -5,10 +5,12 @@ import md from 'markdown-in-js'
 
 import postLayout from 'layouts/post'
 
-export default postLayout({
+export const frontmatter = {
   title: 'Product Brief #3: Video support, better prerendering & SDK features',
   date: '02 March 2017'
-})(md(components)`
+}
+
+export default postLayout(frontmatter)(md(components)`
 ## Microlink API
 
 ![](https://i.imgur.com/o8cC1k4.png)
