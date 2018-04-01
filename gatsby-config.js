@@ -76,6 +76,9 @@ module.exports = {
       }
     },
     {
+      resolve: `gatsby-plugin-sitemap`
+    },
+    {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
         siteUrl: SITE_URL
