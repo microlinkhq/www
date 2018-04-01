@@ -5,7 +5,6 @@ import md from 'markdown-in-js'
 import postLayout from 'layouts/post'
 
 export const frontmatter = {
-  slug: 'rebranding-docs-improvements',
   title: 'Product Brief #2: A new branding, documentation & improvements',
   date: '31 January 2018'
 }

@@ -12,8 +12,6 @@ export const frontmatter = {
 
 export default postLayout(frontmatter)(md(components)`
 
-> Subscribe into our awesome [newsletter](https://hola.com)!
-
 #### **Headers**
 
 # A Header 1

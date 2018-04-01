@@ -37,7 +37,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                   frontmatter {
                     title
                     date
-                    slug
                     page
                   }
                 }
@@ -52,7 +51,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
         const slugs = fs
           .readdirSync('src/pages/blog')
-          .filter(({ page }) => !page)
           .map(slug => path.basename(slug, path.extname(slug)))
 
         const posts = result.data.allJavascriptFrontmatter.edges
@@ -60,7 +58,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             ...data.node.frontmatter,
             slug: slugs[index]
           }))
-          .filter(({ page }) => !page)
+          .filter(({ page }) => page !== true)
           .sort((a, b) => new Date(b.date) - new Date(a.date))
 
         return Promise.resolve(
