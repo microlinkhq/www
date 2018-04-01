@@ -14,7 +14,7 @@ const Heading = HeadingBase.extend`
 
 HeadingBase.defaultProps = {
   fontWeight: 'bold',
-  blacklist: [...HeadingBase.defaultProps.blacklist, 'maxWidth', 'lineHeight']
+  blacklist: [...Object.keys(Heading.propTypes), 'maxWidth', 'lineHeight']
 }
 
 export default Heading

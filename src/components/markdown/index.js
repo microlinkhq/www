@@ -23,7 +23,7 @@ H2.defaultProps = {
   maxWidth: '900px',
   is: 'h2',
   fontSize: [`${fontSizes[5] * 0.75}px`, 5],
-  lineHeight: [2, 3],
+  // lineHeight: [2, 3],
   mt: 5,
   mb: 4
 }
@@ -35,7 +35,7 @@ H3.defaultProps = {
   maxWidth: '900px',
   is: 'h3',
   fontSize: 4,
-  lineHeight: 2,
+  // lineHeight: 2,
   mt: 5,
   mb: 4
 }
@@ -47,7 +47,7 @@ H4.defaultProps = {
   maxWidth: '900px',
   is: 'h4',
   fontSize: 3,
-  lineHeight: 2,
+  // lineHeight: 2,
   mt: 5,
   mb: 4
 }
@@ -59,7 +59,7 @@ H5.defaultProps = {
   maxWidth: '900px',
   is: 'h5',
   fontSize: 2,
-  lineHeight: 2,
+  // lineHeight: 2,
   mt: 4,
   mb: 2
 }
@@ -71,7 +71,7 @@ H6.defaultProps = {
   maxWidth: '900px',
   is: 'h6',
   fontSize: 1,
-  lineHeight: 2,
+  // lineHeight: 2,
   mt: 4,
   mb: 2
 }

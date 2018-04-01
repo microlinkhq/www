@@ -8,7 +8,7 @@ const Box = BoxBase.extend`
 `
 
 Box.defaultProps = {
-  blacklist: [...BoxBase.defaultProps.blacklist, 'maxWidth', 'textAlign']
+  blacklist: [...Object.keys(BoxBase.propTypes), 'maxWidth', 'textAlign']
 }
 
 export default Box

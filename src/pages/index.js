@@ -51,7 +51,7 @@ const EllipsisText = Text.extend`
 `
 
 EllipsisText.defaultProps = {
-  blacklist: [...Text.defaultProps.blacklist, 'maxWidth']
+  blacklist: [...Object.keys(Text.propTypes), 'maxWidth']
 }
 
 const CustomHeading = Heading.extend`

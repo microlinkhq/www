@@ -24,7 +24,7 @@ const CustomNavLink = NavLink.extend`
 
 CustomNavLink.defaultProps = {
   is: 'a',
-  blacklist: [...NavLink.defaultProps.blacklist, 'active']
+  blacklist: [...Object.keys(NavLink.propTypes), 'active']
 }
 
 const CustomToolbar = Toolbar.extend`

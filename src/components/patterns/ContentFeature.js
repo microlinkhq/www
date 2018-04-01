@@ -10,7 +10,7 @@ const CustomImage = Image.extend`
 
 CustomImage.defaultProps = {
   is: 'img',
-  blacklist: [...Image.defaultProps.blacklist, 'maxWidth']
+  blacklist: [...Object.keys(Image.propTypes), 'maxWidth']
 }
 
 export default ({ image, children, title, flexDirection = 'left' }) => (

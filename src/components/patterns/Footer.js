@@ -23,7 +23,7 @@ const NavLinkIcon = NavLink.extend`
 
 ContactButton.defaultProps = {
   is: 'a',
-  blacklist: [...NavLink.defaultProps.blacklist, 'alignSelf']
+  blacklist: [...Object.keys(NavLink.propTypes), 'alignSelf']
 }
 
 const SignButton = OutlineButton.extend`
