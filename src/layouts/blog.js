@@ -4,13 +4,11 @@ import { H2 } from 'components/markdown'
 import { Helmet } from 'react-helmet'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-import { lineHeights } from 'theme'
 
 const Link = H2.extend`
   text-decoration: none;
   cursor: pointer;
   color: black;
-  line-height: ${lineHeights[3]}
 
   &:hover {
     text-decoration: underline;

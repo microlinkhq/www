@@ -11,7 +11,7 @@ H1.defaultProps = {
   maxWidth: '900px',
   is: 'h1',
   fontSize: [`${fontSizes[6] * 0.75}px`, 6],
-  lineHeight: 3,
+  lineHeight: [2, 3],
   mt: 5,
   mb: 4
 }
@@ -23,7 +23,7 @@ H2.defaultProps = {
   maxWidth: '900px',
   is: 'h2',
   fontSize: [`${fontSizes[5] * 0.75}px`, 5],
-  lineHeight: 2,
+  lineHeight: [2, 3],
   mt: 5,
   mb: 4
 }
@@ -97,9 +97,21 @@ Strong.defaultProps = {
   fontWeight: 'bold'
 }
 
-export const Ul = styled.ul``
+export const Ul = styled(Text)([])
 
-export const Li = styled.li``
+Ul.defaultProps = {
+  mx: 'auto',
+  is: 'ul',
+  maxWidth: '900px'
+}
+
+export const Li = styled(Text)([])
+
+Li.defaultProps = {
+  mx: 'auto',
+  is: 'li',
+  maxWidth: '900px'
+}
 
 export const CodeInline = styled(Text)(
   [],
