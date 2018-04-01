@@ -1,4 +1,10 @@
 @import '~normalize.css';
+@import url('https://rsms.me/inter/inter-ui.css');
+
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 
 body {
   line-height: 1.8;
@@ -12,4 +18,9 @@ body #HW_badge_cont {
 
 body #HW_badge {
   top: 1.5px;
+}
+
+::selection {
+  background-color: #ffe079;
+  color: #000;
 }

@@ -2,9 +2,15 @@
 
 const url = require('url')
 
-const envError = propName => new TypeError(`Need to declare a ${propName}' env.`)
+const envError = propName =>
+  new TypeError(`Need to declare a ${propName}' env.`)
 
-const { STRIPE_KEY, PAYMENT_API_KEY, API_ENDPOINT, PAYMENT_ENDPOINT } = process.env
+const {
+  STRIPE_KEY,
+  PAYMENT_API_KEY,
+  API_ENDPOINT,
+  PAYMENT_ENDPOINT
+} = process.env
 
 if (!STRIPE_KEY) throw envError('STRIPE_KEY')
 if (!PAYMENT_API_KEY) throw envError('PAYMENT_API_KEY')
@@ -17,7 +23,7 @@ module.exports = {
   polyfill: false,
   siteMetadata: {
     siteUrl: SITE_URL,
-    title: 'microlink',
+    title: 'Microlink',
     description: 'Get relevant information from any link.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     ogVideo: url.resolve(SITE_URL, '/preview.mp4'),
@@ -31,7 +37,8 @@ module.exports = {
     `gatsby-plugin-react-next`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-transformer-yaml`,
+    `gatsby-plugin-catch-links`,
+    `gatsby-transformer-javascript-frontmatter`,
     {
       resolve: `gatsby-plugin-postcss-sass`,
       options: {
@@ -51,15 +58,15 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `src`,
-        path: `${__dirname}/src/`
+        name: `data`,
+        path: `${__dirname}/data/`
       }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `data`,
-        path: `${__dirname}/data/`
+        path: `${__dirname}/src/pages/blog/`,
+        name: 'posts'
       }
     },
     {
@@ -69,11 +76,17 @@ module.exports = {
       }
     },
     {
+      resolve: `gatsby-plugin-sitemap`
+    },
+    {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
         siteUrl: SITE_URL
       }
     },
+    `gatsby-plugin-remove-trailing-slashes`,
+    `gatsby-transformer-remark`,
+    `gatsby-transformer-yaml`,
     `gatsby-plugin-netlify`
   ]
 }

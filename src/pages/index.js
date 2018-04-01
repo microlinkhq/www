@@ -1,35 +1,37 @@
 /* global fetch */
 
-import { Box, Text, Flex, Heading, Subhead } from 'rebass'
+import {
+  WaveSection,
+  RippleSection,
+  GradientSection,
+  Section,
+  Hide,
+  Box,
+  Text,
+  Flex,
+  Heading,
+  Subhead,
+  LinkSolid,
+  LinkDotted,
+  Container
+} from 'components/elements'
+
+import { Microlink as MicrolinkLogo } from 'components/logos'
 import MicrolinkCard from 'react-microlink'
 import styled from 'styled-components'
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import colorWrapper from 'color'
 
 import {
-  Hide,
-  WaveSection,
-  RippleSection,
-  Section,
-  GradientSection,
   ContentFeature,
-  LinkSolid,
-  LinkDotted,
   PricingTable,
   ContentGrid,
   DemoLinks,
-  Container,
   SearchBox,
-  CodeCard,
-  Footer,
-  NavBar,
-  Main,
-  MicrolinkLogo
-} from 'components'
+  CodeCard
+} from 'components/patterns'
 
-import { getColors, maxWidth } from 'helpers'
-
-import { textGradient } from 'theme'
+import { textGradient, getColors, maxWidth } from 'helpers'
 
 const SectionSubhead = styled(Subhead)`
   display: block;
@@ -49,11 +51,12 @@ const EllipsisText = Text.extend`
 `
 
 EllipsisText.defaultProps = {
-  blacklist: [...Text.defaultProps.blacklist, 'maxWidth']
+  blacklist: [...Object.keys(Text.propTypes), 'maxWidth']
 }
 
 const CustomHeading = Heading.extend`
   font-family: 'avenir next', avenir, sans-serif;
+  line-height: 60px;
 `
 
 const URL_FALLBACK =
@@ -151,11 +154,9 @@ export default class extends Component {
     const textColor = colorWrapper(colorBase).isDark() ? '#FAFBFC' : 'gray9'
 
     return (
-      <Main>
-        <NavBar bg='white' color='black50' py={2} mx='auto' />
+      <Fragment>
         <WaveSection
           bg='#FAFBFC'
-          pt={'56px'}
           id='home'
           color={_color}
           alternativeColor={_alternativeColor}
@@ -176,12 +177,11 @@ export default class extends Component {
                 <CustomHeading
                   fontWeight='bold'
                   fontSize={[5, 6]}
-                  pb={2}
                   color='primary'
                 >
                   <MicrolinkLogo ml={1} width={['32px', '48px']} /> microlink
                 </CustomHeading>
-                <Description fontSize={[2, 3, 4]} px={[2, 4, 5]}>
+                <Description fontSize={[2, 3, 4]} px={[2, 4, 5]} my={0}>
                   Get relevant information from any link
                 </Description>
               </Flex>
@@ -254,7 +254,7 @@ export default class extends Component {
                 You can obtain well structured and normalized data from
                 practically any website, just providing the{' '}
                 <LinkDotted
-                  to='https://docs.microlink.io/api/#api-parameters/url'
+                  href='https://docs.microlink.io/api/#api-parameters/url'
                   external
                 >
                   url
@@ -264,7 +264,7 @@ export default class extends Component {
               <Text fontSize={[2, 3]} py={3}>
                 We also have{' '}
                 <LinkDotted
-                  to='https://docs.microlink.io/api/#api-parameters/prerender'
+                  href='https://docs.microlink.io/api/#api-parameters/prerender'
                   external
                 >
                   prerendering
@@ -298,7 +298,7 @@ export default class extends Component {
 
               <Text fontSize={[2, 3]} py={3}>
                 Use our{' '}
-                <LinkDotted to='https://docs.microlink.io/sdk' external>
+                <LinkDotted href='https://docs.microlink.io/sdk' external>
                   SDK
                 </LinkDotted>{' '}
                 for easily integrate it into your site.
@@ -340,7 +340,7 @@ export default class extends Component {
                   image={['image', 'logo']}
                   round
                   palette
-                  style={{ margin: '0 auto', borderRadius: '.42857em' }}
+                  style={{ margin: '0 auto' }}
                 />
               </Box>
               <Flex
@@ -367,7 +367,7 @@ export default class extends Component {
                 See{' '}
                 <LinkSolid
                   color={textColor}
-                  to='https://docs.microlink.io/sdk'
+                  href='https://docs.microlink.io/sdk'
                   external
                 >
                   SDK Documentation
@@ -392,7 +392,7 @@ export default class extends Component {
               <Text fontSize={[2, 3]} py={3}>
                 Automate{' '}
                 <LinkDotted
-                  to='https://docs.microlink.io/api/#api-parameters/screenshot'
+                  href='https://docs.microlink.io/api/#api-parameters/screenshot'
                   external
                 >
                   screenshot
@@ -406,7 +406,7 @@ export default class extends Component {
               <Text fontSize={[2, 3]} py={3}>
                 We also support{' '}
                 <LinkDotted
-                  to='https://docs.microlink.io/api/#api-parameters/screenshot/device-emulation'
+                  href='https://docs.microlink.io/api/#api-parameters/screenshot/device-emulation'
                   external
                 >
                   device
@@ -439,7 +439,7 @@ export default class extends Component {
               <Text fontSize={[2, 3]} py={3}>
                 You can{' '}
                 <LinkDotted
-                  to='https://docs.microlink.io/api/#api-parameters/embed'
+                  href='https://docs.microlink.io/api/#api-parameters/embed'
                   external
                 >
                   embed
@@ -492,7 +492,7 @@ export default class extends Component {
               <Text color='white' fontSize={4}>
                 <LinkSolid
                   color='white'
-                  to='https://docs.microlink.io/api/'
+                  href='https://docs.microlink.io/api/'
                   external
                 >
                   API Documentation
@@ -525,13 +525,7 @@ export default class extends Component {
             />
           </Container>
         </Section>
-
-        <Section bg='#10111B' color='gray1'>
-          <Container py={[3, 4, 5]} px={[0, 0, 5]}>
-            <Footer />
-          </Container>
-        </Section>
-      </Main>
+      </Fragment>
     )
   }
 }

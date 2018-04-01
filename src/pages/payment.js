@@ -2,19 +2,19 @@
 
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { Flex, Heading } from 'rebass'
-import { Helmet } from 'react-helmet'
-
 import {
   Label,
   Container,
   PrimaryButton,
   Choose,
   Notification,
-  LinkDotted
-} from 'components'
+  LinkDotted,
+  Flex,
+  Heading
+} from 'components/elements'
 
-import { marshall, unmarshall } from '../helpers'
+import { Helmet } from 'react-helmet'
+import { marshall, unmarshall } from 'helpers'
 
 import {
   CardNumberElement,
@@ -196,7 +196,7 @@ export default class extends Component {
     const { paymentApiKey: apiKey, paymentEndpoint: api } = this.props
 
     return (
-      <Container is='main' maxWidth='350px' pt={5}>
+      <Container is='section' maxWidth='350px' pt={5} pb={3}>
         <Helmet
           title='Add Payment'
           script={[
