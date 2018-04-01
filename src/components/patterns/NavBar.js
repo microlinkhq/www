@@ -62,7 +62,7 @@ export default class extends Component {
           <CustomNavLink
             fontSize='12px'
             px={[2, 3]}
-            href='#pricing'
+            href='/#pricing'
             children='Pricing'
           />
 

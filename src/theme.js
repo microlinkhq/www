@@ -10,6 +10,7 @@ export const fontWeights = {
   lighter: 100,
   light: 200,
   normal: 400,
+  regular: 500,
   bold: 600
 }
 

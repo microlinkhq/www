@@ -313,9 +313,11 @@ export default class extends Component {
             Do you need more?
           </Text>
           <Text textAlign='center' pt={3} px={5} f={3} color='gray8'>
-            <LinkSolid fontWeight='bold' onClick={this.openForm}>
-              Contact us
-            </LinkSolid>.
+            <LinkSolid
+              fontWeight='bold'
+              href='mailto:hello@microlink.io?subject=About pricing'
+              children='Contact us'
+            />.
           </Text>
         </Flex>
       </div>

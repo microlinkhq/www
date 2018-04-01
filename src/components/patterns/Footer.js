@@ -3,9 +3,13 @@ import { alignSelf } from 'styled-system'
 import { OutlineButton, Flex, NavLink, Input, Text } from 'components/elements'
 import { Github, Twitter } from 'react-feather'
 
-const CustomNavLink = NavLink.extend`
+const ContactButton = NavLink.extend`
   ${alignSelf};
   padding: 0;
+  transition: opacity 0.15s ease;
+  &:hover {
+    opacity: 0.5;
+  }
 `
 
 const NavLinkIcon = NavLink.extend`
@@ -17,7 +21,8 @@ const NavLinkIcon = NavLink.extend`
   }
 `
 
-CustomNavLink.defaultProps = {
+ContactButton.defaultProps = {
+  is: 'a',
   blacklist: [...NavLink.defaultProps.blacklist, 'alignSelf']
 }
 
@@ -25,10 +30,12 @@ const SignButton = OutlineButton.extend`
   color: #10111b;
   background-color: white;
   box-shadow: none;
+  transition: opacity 0.15s ease;
 
   &:hover {
     color: #10111b;
     background-color: white;
+    opacity: 0.5;
   }
 `
 
@@ -61,7 +68,9 @@ export default props => (
         </Flex>
       </Flex>
       <Flex mt={[3, '', 0]} ml={[0, '', 'auto']} flexDirection='column'>
-        <CustomNavLink
+        <ContactButton
+          color='white'
+          fontWeight='bold'
           fontSize={[3, '', 5]}
           href='mailto:hello@microlink.io'
           target='_blank'

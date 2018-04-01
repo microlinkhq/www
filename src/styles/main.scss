@@ -1,6 +1,11 @@
 @import '~normalize.css';
 @import url('https://rsms.me/inter/inter-ui.css');
 
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 body {
   line-height: 1.8;
   overflow-x: hidden;

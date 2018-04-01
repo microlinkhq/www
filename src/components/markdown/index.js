@@ -1,7 +1,7 @@
 import React from 'react'
 import { Heading, Text, Link } from 'components/elements'
 import styled from 'styled-components'
-import { space, fontSizes, fonts, colors } from 'theme'
+import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
 import CodeCopy from 'react-codecopy'
 
 export const H1 = styled(Heading)([])
@@ -111,9 +111,8 @@ font-size: 0.75rem;
 padding: 3px 10px;
 border-radius: 3px;
 white-space: nowrap;
-font-weight: 600;
+font-weight: ${fontWeights.regular};
 font-family: ${fonts.mono};
--webkit-font-smoothing: antialiased;
 `
 )
 
@@ -123,6 +122,7 @@ const Pre = styled.pre`
   overflow-x: auto;
   font-family: ${fonts.mono};
   font-size: 13px;
+  font-weight: ${fontWeights.regular};
   line-height: 20px;
   background: #fafbfc;
   color: ${colors.secondary};
