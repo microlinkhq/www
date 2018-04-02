@@ -7,6 +7,7 @@ import postLayout from 'layouts/post'
 
 export const frontmatter = {
   title: 'Product Brief #3: Video support, better prerendering & SDK features',
+  slug: 'video-support-prerendering-sdk-features',
   date: '02 March 2018'
 }
 

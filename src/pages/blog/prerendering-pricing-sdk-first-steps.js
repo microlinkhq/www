@@ -6,7 +6,8 @@ import postLayout from 'layouts/post'
 
 export const frontmatter = {
   title: 'Product Brief #1: Prerendering, Pricing & SDK first steps',
-  date: '30 December 2017'
+  date: '30 December 2017',
+  slug: 'prerendering-pricing-sdk-first-steps'
 }
 
 export default postLayout(frontmatter)(md(components)`

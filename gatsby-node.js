@@ -2,7 +2,6 @@
 
 const webpack = require('webpack')
 const path = require('path')
-const fs = require('fs')
 
 exports.modifyBabelrc = ({ babelrc }) => {
   return {
@@ -38,6 +37,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                     title
                     date
                     page
+                    slug
                   }
                 }
               }
@@ -49,15 +49,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           reject(result.errors)
         }
 
-        const slugs = fs
-          .readdirSync('src/pages/blog')
-          .map(slug => path.basename(slug, path.extname(slug)))
-
         const posts = result.data.allJavascriptFrontmatter.edges
-          .map((data, index) => ({
-            ...data.node.frontmatter,
-            slug: slugs[index]
-          }))
+          .map((data, index) => ({ ...data.node.frontmatter }))
           .filter(({ page }) => page !== true)
           .sort((a, b) => new Date(b.date) - new Date(a.date))
 
