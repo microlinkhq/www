@@ -276,7 +276,7 @@ export default class extends Component {
         </Section>
 
         <Section bg='#FAFBFC' pb={5}>
-          <Container p={[4, 5]}>
+          <Container pt={[4, 5]}>
             <ContentFeature flexDirection='right' image='/img/link-preview.png'>
               <SectionSubhead
                 fontSize={[3, 5]}
@@ -418,7 +418,7 @@ export default class extends Component {
         </Section>
 
         <Section bg='#FAFBFC' pb={5}>
-          <Container p={[4, 5]}>
+          <Container pt={[4, 5]}>
             <ContentFeature
               flexDirection='right'
               image='/img/embed-support.png'
