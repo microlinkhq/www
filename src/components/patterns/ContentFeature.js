@@ -36,7 +36,7 @@ export default ({ image, children, title, flexDirection = 'left' }) => (
         maxWidth={['100%', '', '', 'none']}
       />
     </Box>
-    <Box px={4} textAlign={['center', '', '', 'left']}>
+    <Box flex={['', '', '', '1']} px={4} textAlign={['center', '', '', 'left']}>
       <Measure>{children}</Measure>
     </Box>
   </Flex>
