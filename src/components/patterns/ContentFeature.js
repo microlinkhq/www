@@ -15,7 +15,7 @@ CustomImage.defaultProps = {
 
 export default ({ image, children, title, flexDirection = 'left' }) => (
   <Flex
-    alignContent={'center'}
+    alignItems={'center'}
     flexDirection={[
       'column',
       '',
