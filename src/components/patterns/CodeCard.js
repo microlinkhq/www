@@ -23,10 +23,8 @@ const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
 const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
 
-const getImageUrl = url =>
-  url.indexOf('https://') === 0
-    ? url
-    : `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
+const getProxyImageUrl = url =>
+  `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
 
 const animateGlow = keyframes`
   0% {
@@ -215,7 +213,7 @@ export default class extends Component {
               <PreviewCard my={3} width={1} height={cardHeights}>
                 <CardBackgroundImage
                   height='100%'
-                  backgroundImage={getImageUrl(image.url || image)}
+                  backgroundImage={getProxyImageUrl(image.url || image)}
                   style={{ position: 'relative' }}
                 >
                   <CardHeader
@@ -226,7 +224,7 @@ export default class extends Component {
                     <Flex alignItems='flex-start'>
                       <CardHeaderLogo
                         width={['32px', '48px']}
-                        src={getImageUrl(logo.url || logo)}
+                        src={getProxyImageUrl(logo.url || logo)}
                       />
                       <CardHeaderBody ml={2}>
                         <Truncate>{publisher || author || title}</Truncate>
