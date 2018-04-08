@@ -1,7 +1,6 @@
 import React from 'react'
 import { alignSelf } from 'styled-system'
 import { OutlineButton, Flex, NavLink, Input, Text } from 'components/elements'
-import { Github, Twitter } from 'react-feather'
 
 const ContactButton = NavLink.extend`
   ${alignSelf};
@@ -12,12 +11,10 @@ const ContactButton = NavLink.extend`
   }
 `
 
-const NavLinkIcon = NavLink.extend`
+const CustomNavLink = NavLink.extend`
   transition: all 0.1s ease-out;
   &:hover {
-    svg {
-      fill: white;
-    }
+    opacity: 0.5;
   }
 `
 
@@ -78,16 +75,18 @@ export default props => (
           alignSelf={['center', '', 'flex-start']}
         />
         <Flex w={1} justifyContent={['center', '', 'flex-end']}>
-          <NavLinkIcon
+          <CustomNavLink mr={2} href='/privacy' children='Privacy' />
+          <CustomNavLink mr={2} href='/terms' children='Terms' />
+          <CustomNavLink
             mr={2}
             target='_blank'
             href='http://twitter.com/microlinkhq'
-            children={<Twitter size={20} />}
+            children='Twitter'
           />
-          <NavLinkIcon
+          <CustomNavLink
             target='_blank'
             href='http://github.com/microlinkhq'
-            children={<Github size={20} />}
+            children='GitHub'
           />
         </Flex>
       </Flex>
