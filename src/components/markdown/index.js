@@ -4,13 +4,22 @@ import styled from 'styled-components'
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
 import CodeCopy from 'react-codecopy'
 
+import { responsiveStyle } from 'styled-system'
+
+const maxWidth = responsiveStyle({
+  prop: 'maxWidth',
+  cssProperty: 'maxWidth'
+})
+
+const MAX_WIDTH_LAYOUT = 560
+
 export const H1 = styled(Heading)([])
 
 H1.defaultProps = {
   mx: 'auto',
-  maxWidth: '900px',
+  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
   is: 'h1',
-  fontSize: [`${fontSizes[6] * 0.75}px`, 6],
+  fontSize: [`${fontSizes[5] * 0.75}px`, 5],
   lineHeight: [2, 3],
   mt: 5,
   mb: 4
@@ -20,10 +29,10 @@ export const H2 = styled(Heading)([])
 
 H2.defaultProps = {
   mx: 'auto',
-  maxWidth: '900px',
+  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
   is: 'h2',
-  fontSize: [`${fontSizes[5] * 0.75}px`, 5],
-  // lineHeight: [2, 3],
+  fontSize: [`${fontSizes[4] * 0.75}px`, 4],
+  lineHeight: [2, 3],
   mt: 5,
   mb: 4
 }
@@ -32,10 +41,10 @@ export const H3 = styled(Heading)([])
 
 H3.defaultProps = {
   mx: 'auto',
-  maxWidth: '900px',
+  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
   is: 'h3',
-  fontSize: 4,
-  // lineHeight: 2,
+  fontSize: 3,
+  lineHeight: 2,
   mt: 5,
   mb: 4
 }
@@ -44,10 +53,10 @@ export const H4 = styled(Heading)([])
 
 H4.defaultProps = {
   mx: 'auto',
-  maxWidth: '900px',
+  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
   is: 'h4',
-  fontSize: 3,
-  // lineHeight: 2,
+  fontSize: 2,
+  lineHeight: 2,
   mt: 5,
   mb: 4
 }
@@ -56,10 +65,10 @@ export const H5 = styled(Heading)([])
 
 H5.defaultProps = {
   mx: 'auto',
-  maxWidth: '900px',
+  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
   is: 'h5',
-  fontSize: 2,
-  // lineHeight: 2,
+  fontSize: 1,
+  lineHeight: 2,
   mt: 4,
   mb: 2
 }
@@ -68,10 +77,11 @@ export const H6 = styled(Heading)([])
 
 H6.defaultProps = {
   mx: 'auto',
-  maxWidth: '900px',
+  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
   is: 'h6',
   fontSize: 1,
-  // lineHeight: 2,
+  color: 'gray9',
+  lineHeight: 2,
   mt: 4,
   mb: 2
 }
@@ -79,7 +89,7 @@ H6.defaultProps = {
 export const Paraph = props => {
   const isImageChildren =
     props.children && props.children.props && props.children.props.src
-  const maxWidth = isImageChildren ? '1000px' : '900px'
+  const maxWidth = isImageChildren ? '1000px' : '560px'
   return <Text maxWidth={maxWidth} {...props} />
 }
 
@@ -102,7 +112,7 @@ export const Ul = styled(Text)([])
 Ul.defaultProps = {
   mx: 'auto',
   is: 'ul',
-  maxWidth: '900px'
+  maxWidth: `${MAX_WIDTH_LAYOUT}px`
 }
 
 export const Li = styled(Text)([])
@@ -110,7 +120,7 @@ export const Li = styled(Text)([])
 Li.defaultProps = {
   mx: 'auto',
   is: 'li',
-  maxWidth: '900px'
+  maxWidth: `${MAX_WIDTH_LAYOUT}px`
 }
 
 export const CodeInline = styled(Text)(
@@ -152,15 +162,19 @@ export const PreCode = props => (
 )
 
 export const Img = styled.img`
+  ${maxWidth};
   border-radius: 3px;
   display: block;
-  margin: 4rem auto;
-  max-width: 100%;
+  margin: 2.5rem auto;
   text-align: center;
 `
 
+Img.defaultProps = {
+  maxWidth: ['100%', `${MAX_WIDTH_LAYOUT * 1.2}px`]
+}
+
 export const Figcaption = styled.figcaption`
-  margin-top: -1.5rem;
+  ${maxWidth} margin-top: -1.5rem;
   font-size: ${fontSizes[0]}px;
   color: ${colors.gray};
   text-align: center;

@@ -5,14 +5,16 @@ import { Helmet } from 'react-helmet'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 
+import { colors } from 'theme'
+
 const Link = H2.extend`
   text-decoration: none;
   cursor: pointer;
   color: black;
+  transition: all 0.1s ease-out;
 
   &:hover {
-    text-decoration: underline;
-    transition: all 5s ease-out;
+    color: ${colors.link};
   }
 `
 
@@ -24,7 +26,7 @@ const BlogPost = ({ title, date, slug }) => {
       <Link
         maxWidth='18em'
         mt={0}
-        pb={3}
+        mb={3}
         mx='auto'
         textAlign='center'
         is='a'

@@ -18,12 +18,12 @@ export default function PostLayout ({ title, date }) {
           <Text
             is='header'
             textAlign='center'
-            pb={3}
+            mb={2}
             maxWidth='900px'
             mx='auto'
           >
             <H1>{title}</H1>
-            <Text fontSize={0} color='gray'>
+            <Text fontSize={2} color='gray'>
               {formatDate(timestamp)} ({<TimeAgo date={date} />})
             </Text>
           </Text>
