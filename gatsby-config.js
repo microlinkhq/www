@@ -30,8 +30,8 @@ module.exports = {
     twitter: '@microlinkio',
     apiEndpoint: API_ENDPOINT,
     paymentEndpoint: PAYMENT_ENDPOINT,
-    paymentApiKey: process.env.PAYMENT_API_KEY,
-    stripeKey: process.env.STRIPE_KEY
+    paymentApiKey: PAYMENT_API_KEY,
+    stripeKey: STRIPE_KEY
   },
   plugins: [
     `gatsby-plugin-react-next`,
