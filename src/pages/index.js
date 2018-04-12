@@ -119,6 +119,9 @@ export default class extends Component {
         if (data) this.setState({ url, data })
         this.loaderStop()
       })
+      .catch(() => {
+        this.loaderStop()
+      })
   }
 
   onChange (newState) {
