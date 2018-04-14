@@ -187,7 +187,7 @@ export default class extends Component {
                 </Tooltip>
               </Th>
               <Td>
-                500 <DailyRequests>reqs</DailyRequests>
+                250 <DailyRequests>reqs</DailyRequests>
               </Td>
               <Td>
                 <PricePicker
