@@ -1,4 +1,7 @@
+/* eslint-disable */
 import React from 'react'
+/* eslint-enable */
+
 import components from 'components/markdown'
 import md from 'markdown-in-js'
 
