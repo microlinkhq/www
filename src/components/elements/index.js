@@ -9,7 +9,6 @@ import Hide from './Hide'
 import Label from './Label'
 import Heading from './Heading'
 import Text from './Text'
-import Changelog from './Changelog'
 import Checkout from './Checkout'
 import PricePicker from './PricePicker'
 import Main from './Main'
@@ -28,7 +27,6 @@ export {
   Container,
   Hide,
   Label,
-  Changelog,
   Main,
   Notification,
   Separator,

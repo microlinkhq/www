@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Changelog, Flex, Fixed, Toolbar, NavLink } from 'components/elements'
+import { Flex, Fixed, Toolbar, NavLink } from 'components/elements'
 import { css } from 'styled-components'
 import { colors } from 'theme'
 
@@ -54,7 +54,6 @@ export default class extends Component {
             children={
               <Flex px={[2, 3]}>
                 <span>Docs</span>
-                <Changelog />
               </Flex>
             }
           />
