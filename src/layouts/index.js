@@ -25,9 +25,10 @@ const IndexLayout = ({ children, data, ...props }) => {
   return (
     <Main>
       <Helmet
-        defaultTitle={`${title} | ${description}`}
-        titleTemplate={`%s | ${title}`}
+        defaultTitle={`${title}`}
+        titleTemplate={`%s | Microlink`}
         meta={[
+          { name: 'description', content: description },
           { itemProp: 'name', content: title },
           { itemProp: 'description', content: description },
           { itemProp: 'image', content: ogImage },
@@ -50,7 +51,9 @@ const IndexLayout = ({ children, data, ...props }) => {
           { property: 'og:site_name', content: title },
           { property: 'og:type', content: 'website' }
         ]}
-      />
+      >
+        <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
+      </Helmet>
 
       <Provider theme={theme}>
         <NavBar />

@@ -23,8 +23,9 @@ module.exports = {
   polyfill: false,
   siteMetadata: {
     siteUrl: SITE_URL,
-    title: 'Microlink',
-    description: 'Get relevant information from any link.',
+    title: 'Microlink easily converts your links into beautiful previews.',
+    description:
+      'Enter an URL, receive information. Get relevant information from any website and easily create beautiful links previews.',
     ogImage: url.resolve(SITE_URL, '/preview.png'),
     ogVideo: url.resolve(SITE_URL, '/preview.mp4'),
     twitter: '@microlinkio',

@@ -180,11 +180,16 @@ export default class extends Component {
                   fontSize={[5, 6]}
                   color='primary'
                 >
-                  <MicrolinkLogo ml={1} width={['32px', '48px']} /> microlink
+                  <MicrolinkLogo is='h1' ml={1} width={['32px', '48px']} />{' '}
+                  microlink
                 </CustomHeading>
-                <Description fontSize={[2, 3, 4]} px={[2, 4, 5]} my={0}>
-                  Get relevant information from any link
-                </Description>
+                <Description
+                  is='h2'
+                  fontSize={[2, 3, 4]}
+                  px={[2, 4, 5]}
+                  my={0}
+                  children='Easily convert links into beautiful previews'
+                />
               </Flex>
               <SearchBox
                 bg='white'
