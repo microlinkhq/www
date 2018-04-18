@@ -6,18 +6,13 @@
   text-rendering: optimizeLegibility;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   line-height: 1.8;
   overflow-x: hidden;
-}
-
-body #HW_badge_cont {
-  width: 12px;
-  height: 0;
-}
-
-body #HW_badge {
-  top: 1.5px;
 }
 
 ::selection {
