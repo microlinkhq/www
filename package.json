@@ -19,7 +19,7 @@
     "gatsby"
   ],
   "dependencies": {
-    "autoprefixer": "~8.3.0",
+    "autoprefixer": "~8.4.0",
     "color": "~3.0.0",
     "cssnano": "~3.10.0",
     "gatsby": "~1.9.250",
