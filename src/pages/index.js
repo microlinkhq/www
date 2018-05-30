@@ -176,12 +176,13 @@ export default class extends Component {
                 py={3}
               >
                 <CustomHeading
+                  is='h1'
                   fontWeight='bold'
+                  my={0}
                   fontSize={[5, 6]}
                   color='primary'
                 >
-                  <MicrolinkLogo is='h1' ml={1} width={['32px', '48px']} />{' '}
-                  microlink
+                  <MicrolinkLogo ml={1} width={['32px', '48px']} /> microlink
                 </CustomHeading>
                 <Description
                   is='h2'
