@@ -24,6 +24,7 @@ const BlogPost = ({ title, date, slug }) => {
   return (
     <Flex pb={3} pt={4} px={0} alignItems='center' flexDirection='column'>
       <Link
+        fontSize={4}
         maxWidth='18em'
         mt={0}
         mb={3}
