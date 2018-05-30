@@ -87,8 +87,10 @@ H6.defaultProps = {
 }
 
 export const Paraph = props => {
+  const isImageOrLink = props =>
+    props.children.props.href || props.children.props.src
   const isImageChildren =
-    props.children && props.children.props && props.children.props.src
+    props.children && props.children.props && isImageOrLink(props)
   const maxWidth = isImageChildren ? '1000px' : '560px'
   return <Text maxWidth={maxWidth} {...props} />
 }
@@ -119,6 +121,7 @@ export const Li = styled(Text)([])
 
 Li.defaultProps = {
   mx: 'auto',
+  mb: 2,
   is: 'li',
   maxWidth: `${MAX_WIDTH_LAYOUT}px`
 }
