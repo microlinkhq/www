@@ -1,4 +1,10 @@
 language: node_js
+
 node_js:
   - "node"
-after_success: npm run coveralls
+
+after_success:
+  - npm run coveralls
+
+after_script:
+  - npx urlint https://microlink.io
