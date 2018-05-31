@@ -6,10 +6,9 @@ import md from 'markdown-in-js'
 import postLayout from 'layouts/post'
 
 export const frontmatter = {
-  title:
-    'Product Brief #5: User Agent, Metascraper improvements and Gallery showcase',
+  title: 'Product Brief #5: New API Parameters & Gallery showcase',
   date: '30 May 2018',
-  slug: 'user-agent-gallery'
+  slug: 'new-api-parameters-gallery'
 }
 
 export default postLayout(frontmatter)(md(components)`
@@ -32,6 +31,16 @@ We added a new configurable [User Agent](https://docs.microlink.io/api/#api-para
 Normally you don't need to specify this value but some websites can have a different output based on the incoming request user agent.
 
 For example, is very common websites serve images on [WebP](https://en.wikipedia.org/wiki/WebP) format they detect that you are using Google Chrome.
+
+### Video API Parameter
+
+In the [previous](/blog/sdk-2-0-more-video-providers) Product Brief we introduced the first iteration of video support as part of the API supported data [types](https://docs.microlink.io/api/#introduction).
+
+Although it is widely used when you consume the API response using our [SDK](https://docs.microlink.io/sdk/), it can degrade the general user experience, making the response times a bit heavy, specially if you are only interested in the rest of data extracted by the API.
+
+We decide leverage the decision in the new [video](https://docs.microlink.io/api/#api-parameters/video) API Parameter, when the default value is \`false\`.
+
+If you are consuming link previews over the [SDK](https://docs.microlink.io/sdk/), no breaking changes here. Otherwise, keep in mind you need to pass it to have the same effect as until now.
 
 ## Metascraper v3.11
 
