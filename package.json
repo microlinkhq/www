@@ -54,7 +54,7 @@
     "react-iframe": "~1.1.0",
     "react-live": "~1.10.1",
     "react-microlink": "2",
-    "react-stripe-elements": "~1.6.0",
+    "react-stripe-elements": "~1.7.0",
     "react-tilt": "~0.1.4",
     "react-timeago": "~4.1.9",
     "rebass": "github:Kikobeats/rebass#select-arrow-build",
