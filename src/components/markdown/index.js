@@ -1,23 +1,19 @@
 import React from 'react'
-import { Heading, Text, Link } from 'components/elements'
 import styled from 'styled-components'
-import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
 import CodeCopy from 'react-codecopy'
+import { get } from 'dot-prop'
 
-import { responsiveStyle } from 'styled-system'
+import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
+import { Heading, Text, Link } from 'components/elements'
+import { maxWidth } from 'helpers/style'
 
-const maxWidth = responsiveStyle({
-  prop: 'maxWidth',
-  cssProperty: 'maxWidth'
-})
-
-const MAX_WIDTH_LAYOUT = 560
+const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
 export const H1 = styled(Heading)([])
 
 H1.defaultProps = {
+  maxWidth: 'normal',
   mx: 'auto',
-  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
   is: 'h1',
   fontSize: [`${fontSizes[5] * 0.75}px`, 5],
   lineHeight: [2, 3],
@@ -29,7 +25,7 @@ export const H2 = styled(Heading)([])
 
 H2.defaultProps = {
   mx: 'auto',
-  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
+  maxWidth: 'normal',
   is: 'h2',
   fontSize: [`${fontSizes[4] * 0.75}px`, 4],
   lineHeight: [2, 3],
@@ -41,7 +37,7 @@ export const H3 = styled(Heading)([])
 
 H3.defaultProps = {
   mx: 'auto',
-  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
+  maxWidth: 'normal',
   is: 'h3',
   fontSize: 3,
   lineHeight: 2,
@@ -53,7 +49,7 @@ export const H4 = styled(Heading)([])
 
 H4.defaultProps = {
   mx: 'auto',
-  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
+  maxWidth: 'normal',
   is: 'h4',
   fontSize: 2,
   lineHeight: 2,
@@ -65,7 +61,7 @@ export const H5 = styled(Heading)([])
 
 H5.defaultProps = {
   mx: 'auto',
-  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
+  maxWidth: 'normal',
   is: 'h5',
   fontSize: 1,
   lineHeight: 2,
@@ -77,7 +73,7 @@ export const H6 = styled(Heading)([])
 
 H6.defaultProps = {
   mx: 'auto',
-  maxWidth: `${MAX_WIDTH_LAYOUT}px`,
+  maxWidth: 'normal',
   is: 'h6',
   fontSize: 1,
   color: 'gray9',
@@ -87,11 +83,11 @@ H6.defaultProps = {
 }
 
 export const Paraph = props => {
-  const isImageOrLink = props =>
-    props.children.props.href || props.children.props.src
-  const isImageChildren =
-    props.children && props.children.props && isImageOrLink(props)
-  const maxWidth = isImageChildren ? '1000px' : '560px'
+  const special =
+    get(props, 'children.props.src') ||
+    get(props, 'children.props.href') ||
+    SPECIAL_COMPONENTS.includes(get(props, 'children.type.displayName'))
+  const maxWidth = special ? 'large' : 'normal'
   return <Text maxWidth={maxWidth} {...props} />
 }
 
@@ -114,7 +110,7 @@ export const Ul = styled(Text)([])
 Ul.defaultProps = {
   mx: 'auto',
   is: 'ul',
-  maxWidth: `${MAX_WIDTH_LAYOUT}px`
+  maxWidth: 'normal'
 }
 
 export const Li = styled(Text)([])
@@ -123,7 +119,7 @@ Li.defaultProps = {
   mx: 'auto',
   mb: 2,
   is: 'li',
-  maxWidth: `${MAX_WIDTH_LAYOUT}px`
+  maxWidth: 'normal'
 }
 
 export const CodeInline = styled(Text)(
@@ -173,7 +169,7 @@ export const Img = styled.img`
 `
 
 Img.defaultProps = {
-  maxWidth: ['100%', `${MAX_WIDTH_LAYOUT * 1.2}px`]
+  maxWidth: ['100%', 'large']
 }
 
 export const Figcaption = styled.figcaption`

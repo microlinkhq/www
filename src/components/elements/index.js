@@ -16,6 +16,8 @@ import Notification from './Notification'
 import Separator from './Separator'
 import Spinner from './Spinner'
 import Tooltip from './Tooltip'
+import CodeEditor from './CodeEditor'
+import Terminal from './Terminal'
 
 export {
   Section,
@@ -29,6 +31,8 @@ export {
   Label,
   Main,
   Notification,
+  CodeEditor,
+  Terminal,
   Separator,
   Spinner,
   Tooltip,
