@@ -1,10 +1,11 @@
 import { Text as TextBase } from 'rebass'
 import { textAlign, lineHeight } from 'styled-system'
+import { maxWidth } from 'helpers/style'
 
 const Text = TextBase.extend`
   ${textAlign};
   ${lineHeight};
-  max-width: ${props => props.maxWidth};
+  ${maxWidth};
 `
 
 Text.defaultProps = {

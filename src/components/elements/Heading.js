@@ -1,20 +1,15 @@
 import { Heading as HeadingBase } from 'rebass'
-import { responsiveStyle } from 'styled-system'
-
-const lineHeight = responsiveStyle({
-  prop: 'lineHeight',
-  cssProperty: 'lineHeight',
-  key: 'lineHeights'
-})
+import { maxWidth, lineHeight } from 'helpers/style'
 
 const Heading = HeadingBase.extend`
   ${lineHeight};
-  max-width: ${props => props.maxWidth};
+  ${maxWidth};
 `
 
-HeadingBase.defaultProps = {
+Heading.defaultProps = {
   fontWeight: 'bold',
-  blacklist: [...Object.keys(Heading.propTypes), 'maxWidth', 'lineHeight']
+  blacklist: [...Object.keys(HeadingBase.propTypes), 'maxWidth', 'lineHeight'],
+  maxWidth: 'inherit'
 }
 
 export default Heading

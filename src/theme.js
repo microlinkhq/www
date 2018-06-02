@@ -90,7 +90,17 @@ export const shadows = [
 
 export const lineHeights = [1, 1.125, 1.25, 1.5]
 
+export const maxWidths = [1, 2, 4, 8, 16, 32, 48, 64, 72, 82, 96].map(
+  n => n + 'em'
+)
+
+export const maxWidth = {
+  normal: '560px',
+  large: '720px'
+}
+
 export default {
+  maxWidths,
   gradient,
   breakpoints,
   space,
