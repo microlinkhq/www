@@ -1,0 +1,456 @@
+import React from 'react'
+import components, { Figcaption } from 'components/markdown'
+import { Link, CodeEditor, Terminal } from 'components/elements'
+import md from 'markdown-in-js'
+
+import postLayout from 'layouts/post'
+
+export const frontmatter = {
+  title: 'Introducing Custom Rules',
+  date: '31 May 2018',
+  slug: 'custom-rules'
+}
+
+export default postLayout(frontmatter)(md(components)`
+
+The [Microlink API](https://docs.microlink.io/api/#introduction) is used for extracting information from any link.
+
+Just enter an URL an you will receive data.
+
+It was designed to get generic information present in the target website, based on a metadata normalization using [metascraper](https://metascraper.js.org/#/).
+
+Although this is expected, many user cases are left out of the scope if they need to get specific data information.
+
+Today we are happy to introduce a new core functionality called **Custom Rules** 🎉.
+
+## Leveraging Custom Rules
+
+**Custom Rules** provides you an interface to interact with the API, specifying new data fields to get from an specific URL.
+
+Imagine you want ot interact with a Instagram profile url, like [@elonmusk](https://twitter.com/elonmusk)'s profile.
+
+![](https://i.imgur.com/subDjQ1.png)
+
+${(
+    <Figcaption>
+      {
+        "A website is just an interface for a database, let's convert the web into real data 🤘"
+      }.
+    </Figcaption>
+  )}
+
+Using [Microlink API](https://docs.microlink.io/api/#introduction), wen can obtain well structured and normalized data from the Instagram URL
+
+${(
+    <Terminal>
+    curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk
+    </Terminal>
+  )}
+
+The API response will be looks like
+
+${(
+    <CodeEditor language='json'>{`{
+  "status": "success",
+  "data": {
+    "lang": "en",
+    "author": null,
+    "title": "Elon Musk (@elonmusk) • Instagram photos and videos",
+    "publisher": "Instagram",
+    "image": {
+      "width": 150,
+      "height": 150,
+      "type": "jpg",
+      "url": "https://scontent-iad3-1.cdninstagram.com/vp/b3d0c296df87fe4b1de4b01639d001ae/5BB89A41/t51.2885-19/s150x150/28429097_208691389878371_4706100807026606080_n.jpg"
+    },
+    "description": "7.7m Followers, 39 Following, 210 Posts - See Instagram photos and videos from Elon Musk (@elonmusk)",
+    "video": null,
+    "date": null,
+    "logo": {
+      "width": 192,
+      "height": 192,
+      "type": "png",
+      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
+    },
+    "url": "https://www.instagram.com/elonmusk/"
+  }
+}
+    `}</CodeEditor>
+  )}
+
+Although it can be enough for having a global vision of what is behind the link (or build a link previsualization using our [SDK](https://docs.microlink.io/sdk/)), you could be interested in specific information that we don't expose because is not enough generic.
+
+Let's define a **rule** for extracting the avatar profile.
+
+## Defining rules
+
+A rule is the way to interact with the API, declaring what kind of data you want to extract.
+
+These properties are:
+
+### selector
+
+It's define the HTML element to get from the HTML of the target URL.
+
+![](https://i.imgur.com/3yy4kDD.png)
+
+${(
+    <Figcaption>
+      {
+        'A simple way to get the selector could be copy it directly from DevTools.'
+      }
+    </Figcaption>
+  )}
+
+The way to specify seletor is jQuery-like, so you can specify the selector using:
+
+- An HTML tag, e.g. \`img\`.
+- An CSS class or pseudo class, id or data attribute, e.g. \`.avatar\`.
+- A combination of both, e.g. \`first:img\`.
+
+### attr
+
+It defines what property from the matched selector should be picked.
+
+E.g., if you want to extract an \`img\`, probably you are interested in \`src\` property.
+
+### type
+
+It's define the type check validator to run against the value extracted defined by the \`selector\` and \`attr\`.
+
+The validators are the same that [basic](https://docs.microlink.io/api/#introduction) information extracted using the API, namely:
+
+- \`author\`
+- \`date\`
+- \`description\`
+- \`image\`
+- \`description\`
+- \`video\`
+- \`lang\`
+- \`logo\`
+- \`publisher\`
+- \`title\`
+- \`url\`
+
+
+Each \`type\` validator will be applied a set of mutations to the original value extracted.
+
+For example, if you define the \`type\` as \`image\`, then you will be sure that the value extraced will be an image compatible url and your browser can render it.
+
+But it will be different if you declare the \`type\` as \`author\`, where the value will be capitalized.
+
+## Querying using the API
+
+Now that we know how to define rules, let's see how to add it into the [API](https://api.microlink.io/) request.
+
+They need to be declared as query parameters using dot notation:
+
+${(
+    <CodeEditor language='json'>{`{
+  "data.avatar.selector": "img:first",
+  "data.avatar.attr": "src",
+  "data.avatar.type": "image"
+}
+    `}</CodeEditor>
+  )}
+
+${<Figcaption>{"Defining a new custom rule for 'avatar' field."}</Figcaption>}
+
+Here we are defining our **custom rule** for a new data field called **avatar**.
+
+${(
+    <Terminal>
+    curl
+    https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
+    </Terminal>
+  )}
+
+${(
+    <Figcaption>
+      {'Encoding the custom rule as query paramter in the API request'}.
+    </Figcaption>
+  )}
+
+After that, the API will be bring back to us the new data field \`avatar\`  as part of the response payload 🎉
+
+${(
+    <CodeEditor language='json'>{`
+{
+  "status": "success",
+  "data": {
+    "lang": "en",
+    "author": null,
+    "title": "Elon Musk (@elonmusk) • Instagram photos and videos",
+    "publisher": "Instagram",
+    "image": {
+      "width": 150,
+      "height": 150,
+      "type": "jpg",
+      "url": "https://scontent-iad3-1.cdninstagram.com/vp/b3d0c296df87fe4b1de4b01639d001ae/5BB89A41/t51.2885-19/s150x150/28429097_208691389878371_4706100807026606080_n.jpg"
+    },
+    "description": "7.7m Followers, 39 Following, 210 Posts - See Instagram photos and videos from Elon Musk (@elonmusk)",
+    "video": null,
+    "date": null,
+    "logo": {
+      "width": 192,
+      "height": 192,
+      "type": "png",
+      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
+    },
+    "url": "https://www.instagram.com/elonmusk/",
+    "avatar": {
+      "width": 150,
+      "height": 150,
+      "type": "jpg",
+      "url": "https://scontent-iad3-1.cdninstagram.com/vp/b3d0c296df87fe4b1de4b01639d001ae/5BB89A41/t51.2885-19/s150x150/28429097_208691389878371_4706100807026606080_n.jpg"
+    }
+  }
+}
+    `}</CodeEditor>
+  )}
+
+${<Figcaption>{"The payload now have a new 'avatar' field"}.</Figcaption>}
+
+In this case, because we defined the \`type\` as \`image\`, the API can handle the value property and provides us extra information like the image dimensions.
+
+## Adding more rules per field
+
+Some scenarios need to contemplate that the HTML markup can changes.
+
+This specially remarkable in the way to define the \`selector\` of your custom rules:
+
+- A very specific selector (e.g. \`.avatar\`) have better accuracy, but you do not have the guarantee that it is always present.
+- A more generic selector (e.g. \`img\`) makes it simple to be present in the HTML markup but not always with the expected value.
+
+Ideally, a good solution need to contemplate both approach: first try to resolve with a specific selector and fallback it into one more generic if it can't resolve with the first selector.
+
+This could be done with **custom rules** in the same API request 🎊.
+
+Just you need to declare the conditions as part of the same rule:
+
+
+${(
+    <CodeEditor language='json'>{`{
+  "data.avatar.0.selector": ".avatar",
+  "data.avatar.0.attr": "src",
+  "data.avatar.0.type": "image",
+  "data.avatar.1.selector": "img:first",
+  "data.avatar.1.attr": "src",
+  "data.avatar.1.type": "image"
+}
+    `}</CodeEditor>
+  )}
+
+${<Figcaption>{'Adding more than one rule per data field'}.</Figcaption>}
+
+Note that **order is important**: The data value extracted will be first value resolved successfully.
+
+## More than one result
+
+What happens if you declare a \`selector\` that it matches with more than one result?
+
+${(
+    <CodeEditor language='json'>{`{
+  "data.photos.selector": "article img",
+  "data.photos.attr": "src",
+  "data.photos.type": "image"
+}
+    `}</CodeEditor>
+  )}
+
+${(
+    <Figcaption>{'Declaring a custom rule for detecting all images'}.</Figcaption>
+  )}
+
+{(
+  <Terminal>
+    curl
+    https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
+  </Terminal>
+)}
+
+Can the API will be extract them? The answer is **yes**!
+
+${(
+    <CodeEditor language='json'>{`{
+  "status": "success",
+  "data": {
+    "lang": "en",
+    "author": null,
+    "title": "Elon Musk (@elonmusk) • Instagram photos and videos",
+    "publisher": "Instagram",
+    "image": {
+      "width": 150,
+      "height": 150,
+      "type": "jpg",
+      "url": "https://scontent-iad3-1.cdninstagram.com/vp/b3d0c296df87fe4b1de4b01639d001ae/5BB89A41/t51.2885-19/s150x150/28429097_208691389878371_4706100807026606080_n.jpg"
+    },
+    "description": "7.7m Followers, 39 Following, 210 Posts - See Instagram photos and videos from Elon Musk (@elonmusk)",
+    "video": null,
+    "date": null,
+    "logo": {
+      "width": 192,
+      "height": 192,
+      "type": "png",
+      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
+    },
+    "url": "https://www.instagram.com/elonmusk/",
+    "avatar": [
+      "https://scontent-iad3-1.cdninstagram.com/vp/1ffb38c951c16879d354091a0e80c836/5BA4CE48/t51.2885-15/s640x640/sh0.08/e35/c0.134.1080.1080/32039832_1818999621729707_2373182444238012416_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/9caae3887f4b707122a909ba18be9a17/5B167C40/t51.2885-15/s640x640/e15/31386504_411011476032232_463607480123916288_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/4fca495d133a478de0c63069761ff061/5BB36DC1/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/31310672_249632775610280_7873472706304278528_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/e29f9a4d023d86b8ababa9d9991ae311/5BC2252B/t51.2885-15/s640x640/sh0.08/e35/c180.0.720.720/31463407_209037936363460_7225796096243531776_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/76f95b5147452dd937441ca05ffb797c/5BA75F40/t51.2885-15/e35/c167.0.620.620/31070327_164427757566288_2666001116772171776_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/0f30cdcd2fa57864966c36f6dd6b1755/5BA26788/t51.2885-15/s640x640/sh0.08/e35/30086931_229916390892091_3747042018648391680_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/3ea8b95d0d5129cb88bedd5baf5e321e/5B9EAE06/t51.2885-15/s640x640/sh0.08/e35/c0.0.1079.1079/30085730_1657613874332856_5430454433135722496_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/33ccb38ad541fbdcd9fb6322f5767b5e/5BAB1CCD/t51.2885-15/e35/c75.0.358.358/29738552_2099263200285553_2919404320380157952_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/8af59e7ec6c4fd34955e127ff79693a4/5BC49E68/t51.2885-15/s640x640/sh0.08/e35/c0.134.1080.1080/29718069_662668550574944_3003405522683559936_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/d75424916f00cf8a6357f79c54f70812/5BC09704/t51.2885-15/s640x640/sh0.08/e35/c0.125.1080.1080/29738021_445961452525265_1824961269409513472_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/981aea1c5f2366827ad2875b995b2808/5B167EDE/t51.2885-15/e15/c236.0.607.607/29418227_611168632571297_6056208306052005888_n.jpg",
+      "https://scontent-iad3-1.cdninstagram.com/vp/0659175d64fc417dfe5a3a5e5428eb59/5BAE44B0/t51.2885-15/s640x640/sh0.08/e35/29739298_2051786191528079_7343938294230548480_n.jpg"
+    ]
+  }
+}
+    `}</CodeEditor>
+  )}
+
+${<Figcaption>{"The new 'photos' field is a collection"}.</Figcaption>}
+
+The only difference is that this time the result is a collection.
+
+## Adding fallback for basic rules
+
+When you see a \`null\` in the API response means that it can't resolve the value properly.
+
+You can define **custom rules** as fallback rules for an existing data field.
+
+For example, we are seeing that the API is not resolving the \`author\` field for Instagram profile urls. Let's add it!
+
+${(
+    <CodeEditor language='json'>{`{
+  "data.photos.selector": "section h1:last",
+  "data.photos.attr": "text",
+  "data.photos.type": "author"
+}
+    `}</CodeEditor>
+  )}
+
+
+${(
+    <Figcaption>
+      {'Declaring a custom rule for fallback a basic rule'}.
+    </Figcaption>
+  )}
+
+{(
+  <Terminal>
+    curl
+    https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&prerender&video=false&data.author.selector=section%20h1%3Alast&data.author.type=author&data.author.attr=text
+  </Terminal>
+)}
+
+${(
+    <CodeEditor language='json'>{`{
+  "status": "success",
+  "data": {
+    "lang": "en",
+    "author": "Elon Musk",
+    "title": "Elon Musk (@elonmusk) • Instagram photos and videos",
+    "publisher": "Instagram",
+    "image": {
+      "width": 150,
+      "height": 150,
+      "type": "jpg",
+      "url": "https://scontent-iad3-1.cdninstagram.com/vp/b3d0c296df87fe4b1de4b01639d001ae/5BB89A41/t51.2885-19/s150x150/28429097_208691389878371_4706100807026606080_n.jpg"
+    },
+    "description": "7.7m Followers, 39 Following, 210 Posts - See Instagram photos and videos from Elon Musk (@elonmusk)",
+    "video": null,
+    "date": null,
+    "logo": {
+      "width": 192,
+      "height": 192,
+      "type": "png",
+      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
+    },
+    "url": "https://www.instagram.com/elonmusk/"
+  }
+}
+    `}</CodeEditor>
+  )}
+
+Now the value is resolved properly 👌.
+
+## Combine with the rest of API Parameters
+
+One thing that makes [Microlink API](https://docs.microlink.io/api/#introduction) powerful is that you can combine [API Parameters](https://docs.microlink.io/api/#api-parameters) to works all together.
+
+${(
+    <CodeEditor language='json'>{`{
+  "data.photos.selector": "img:first",
+  "data.photos.attr": "src",
+  "data.photos.type": "image",
+  "filter": "avatar",
+  "palette": true,
+}
+    `}</CodeEditor>
+  )}
+
+
+${(
+    <Figcaption>
+      {'Custom rule + '}
+      <Link
+        href='https://docs.microlink.io/api/#api-parameters/palette'
+        children='palette'
+      />
+      {' + '}
+      <Link
+        href='https://docs.microlink.io/api/#api-parameters/filter'
+        children='filter'
+      />.
+    </Figcaption>
+  )}
+
+{(
+  <Terminal>
+    curl
+    https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false&palette&filter=avatar
+  </Terminal>
+)}
+
+${(
+    <CodeEditor language='json'>{`{
+  "status": "success",
+  "data": {
+    "avatar": {
+      "width": 150,
+      "height": 150,
+      "type": "jpg",
+      "url": "https://scontent-iad3-1.cdninstagram.com/vp/b3d0c296df87fe4b1de4b01639d001ae/5BB89A41/t51.2885-19/s150x150/28429097_208691389878371_4706100807026606080_n.jpg",
+      "palette": [
+        "#514030",
+        "#8a7f6c",
+        "#cac0ac",
+        "#f4e4d4",
+        "#4c3c24",
+        "#ad8851"
+      ],
+      "background_color": "#F4E4D4",
+      "color": "#755C37",
+      "alternative_color": "#4C3C24"
+    }
+  }
+}
+    `}</CodeEditor>
+  )}
+
+${(
+    <Figcaption>
+      {
+        'Detecting predominant color for an image extracted using a custom rule and filtering it 🤯'
+      }.
+    </Figcaption>
+  )}
+
+This is specially useful when you want to optimize your API calls response time.
+`)
