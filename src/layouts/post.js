@@ -18,7 +18,7 @@ export default function PostLayout ({ title, date }) {
           <Text
             is='header'
             textAlign='center'
-            mb={2}
+            mb={5}
             maxWidth='900px'
             mx='auto'
           >

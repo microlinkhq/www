@@ -88,6 +88,7 @@ class CodeEditor extends Component {
     const {
       language = 'javascript',
       showLineNumbers = true,
+      children,
       ...props
     } = this.props
 
@@ -105,6 +106,7 @@ class CodeEditor extends Component {
                 language={language}
                 style={dracula}
                 {...props}
+                children={children.trim()}
               />
             </TerminalTextWrapper>
           </CustomCodeCopy>

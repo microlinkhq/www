@@ -93,8 +93,8 @@ export const Paraph = props => {
 
 Paraph.defaultProps = {
   mx: 'auto',
-  my: 4,
-  mb: 3
+  mt: 3,
+  mb: 4
 }
 
 export const Strong = styled(Text)([])
@@ -110,6 +110,7 @@ export const Ul = styled(Text)([])
 Ul.defaultProps = {
   mx: 'auto',
   is: 'ul',
+  my: 4,
   maxWidth: 'normal'
 }
 
