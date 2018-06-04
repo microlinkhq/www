@@ -17,7 +17,7 @@ import {
 
 import { colors, fonts } from 'theme'
 
-import { height } from 'helpers'
+import { height } from 'helpers/style'
 
 const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]

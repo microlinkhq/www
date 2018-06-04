@@ -8,7 +8,7 @@ import {
   PrimaryButton,
   OutlineButton
 } from 'components/elements'
-import { height } from 'helpers'
+import { height } from 'helpers/style'
 
 const CustomInput = styled.input`
   ${fontSize} display: inline-block;

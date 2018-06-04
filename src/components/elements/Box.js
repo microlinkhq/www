@@ -1,7 +1,7 @@
 import { textAlign } from 'styled-system'
 import { Box as BoxBase } from 'rebass'
 
-import { maxWidth } from 'helpers'
+import { maxWidth } from 'helpers/style'
 
 const Box = BoxBase.extend`
   ${textAlign} ${maxWidth};

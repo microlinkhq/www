@@ -22,7 +22,6 @@
     "autoprefixer": "~8.5.2",
     "color": "~3.0.0",
     "cssnano": "~3.10.0",
-    "dot-prop": "~4.2.0",
     "gatsby": "~1.9.262",
     "gatsby-link": "~1.6.44",
     "gatsby-plugin-canonical-urls": "~1.0.18",

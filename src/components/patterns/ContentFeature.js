@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, Flex, Measure, Box } from 'components/elements'
 
-import { maxWidth } from 'helpers'
+import { maxWidth } from 'helpers/style'
 
 const CustomImage = Image.extend`
   ${maxWidth} border-radius: 8px;

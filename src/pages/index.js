@@ -31,7 +31,15 @@ import {
   CodeCard
 } from 'components/patterns'
 
-import { textGradient, getColors, maxWidth } from 'helpers'
+import { textGradient, maxWidth } from 'helpers/style'
+import { get } from 'helpers'
+
+const getColors = data => {
+  const alternativeColor =
+    get(data, 'image.alternative_color') || get(data, 'logo.alternative_color')
+  const color = get(data, 'image.color') || get(data, 'logo.color')
+  return { alternativeColor, color }
+}
 
 const SectionSubhead = styled(Subhead)`
   display: block;

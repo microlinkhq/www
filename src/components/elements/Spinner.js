@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { width } from 'styled-system'
 
 import { colors } from 'theme'
-import { height } from 'helpers'
+import { height } from 'helpers/style'
 
 const Spinner = props => (
   <StyledSpinner viewBox='0 0 50 50' {...props}>

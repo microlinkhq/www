@@ -3,7 +3,7 @@ import { Lead, Box, Flex } from 'rebass'
 import styled from 'styled-components'
 
 import Container from './Container'
-import { bgGradient } from 'helpers'
+import { bgGradient } from 'helpers/style'
 
 const CustomLead = styled(Lead)`
   ${bgGradient} background-repeat: no-repeat;
