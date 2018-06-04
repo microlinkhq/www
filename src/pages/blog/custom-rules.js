@@ -150,8 +150,7 @@ ${(
   "data.avatar.selector": "img:first",
   "data.avatar.attr": "src",
   "data.avatar.type": "image"
-}
-    `}</CodeEditor>
+}`}</CodeEditor>
   )}
 
 ${<Figcaption>{"Defining a new custom rule for 'avatar' field."}</Figcaption>}
@@ -174,8 +173,7 @@ ${(
 After that, the API will be bring back to us the new data field \`avatar\`  as part of the response payload 🎉
 
 ${(
-    <CodeEditor language='json'>{`
-{
+    <CodeEditor language='json'>{`{
   "status": "success",
   "data": {
     "lang": "en",
@@ -237,8 +235,7 @@ ${(
   "data.avatar.1.selector": "img:first",
   "data.avatar.1.attr": "src",
   "data.avatar.1.type": "image"
-}
-    `}</CodeEditor>
+}`}</CodeEditor>
   )}
 
 ${<Figcaption>{'Adding more than one rule per data field'}.</Figcaption>}
