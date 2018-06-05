@@ -84,6 +84,7 @@ export const query = graphql`
         ogVideo
         twitter
         apiEndpoint
+        apiKey
         paymentEndpoint
         paymentApiKey
         stripeKey

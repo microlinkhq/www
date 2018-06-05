@@ -120,11 +120,15 @@ export default class extends Component {
     this.setState({ loading: false })
   }
 
-  fetchUrl (url) {
-    fetch(this.getUrl(this.props.apiEndpoint, url))
+  fetchUrl (targetUrl) {
+    const { apiEndpoint, apiKey } = this.props
+    const headers = apiKey ? { 'x-api-key': apiKey } : {}
+    const url = this.getUrl(apiEndpoint, targetUrl)
+
+    fetch(url, { headers })
       .then(res => res.json())
       .then(({ data }) => {
-        if (data) this.setState({ url, data })
+        if (data) this.setState({ url: targetUrl, data })
         this.loaderStop()
       })
       .catch(this.loaderStop)
@@ -350,6 +354,7 @@ export default class extends Component {
               </Text>
               <Box width={1}>
                 <MicrolinkCard
+                  apiKey={this.props.apiKey}
                   key={`MicrolinkCard__${this.state.url}`}
                   url={this.state.url}
                   image={['image', 'logo']}
