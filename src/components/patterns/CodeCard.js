@@ -19,12 +19,9 @@ import { colors, fonts } from 'theme'
 
 import { height } from 'helpers/style'
 
-const REGEX_URL_WITHOUT_PROTOCOL = /(^\w+:|^)\/\//
 const PALETTE_FALLBACK = [colors.gray2, colors.gray3, colors.gray4]
-const urlWithoutProtocol = url => url.replace(REGEX_URL_WITHOUT_PROTOCOL, '')
-
 const getProxyImageUrl = url =>
-  `https://images.weserv.nl/?url=${urlWithoutProtocol(url)}`
+  `https://d1r1anxoiubeog.cloudfront.net/${encodeURIComponent(url)}`
 
 const animateGlow = keyframes`
   0% {
