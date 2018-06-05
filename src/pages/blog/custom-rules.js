@@ -325,9 +325,9 @@ For example, we are seeing that the API is not resolving the \`author\` field fo
 
 ${(
     <CodeEditor language='json'>{`{
-  "data.photos.selector": "section h1:last",
-  "data.photos.attr": "text",
-  "data.photos.type": "author"
+  "data.author.selector": "section h1:last",
+  "data.author.attr": "text",
+  "data.author.type": "author"
 }
     `}</CodeEditor>
   )}
