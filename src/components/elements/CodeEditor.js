@@ -14,10 +14,7 @@ const serializeComponent = children =>
 const TerminalWindow = styled.div`
   border-radius: 5px;
   margin: 50px 0;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 20px 50px 0px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: ${({ dark }) => (dark ? '#333' : '#eee')};
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
 `
 
 const TerminalHeader = styled.div`
