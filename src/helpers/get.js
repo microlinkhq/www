@@ -1,2 +1,3 @@
-export default (from, selector) =>
-  selector.split('.').reduce((prev, cur) => prev && prev[cur], from)
+import get from 'dlv'
+
+export default get
