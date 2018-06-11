@@ -46,7 +46,8 @@ const SectionSubhead = styled(Subhead)`
 `
 
 const Description = styled(Subhead)`
-  ${textGradient} text-align: center;
+  ${textGradient};
+  text-align: center;
   font-weight: normal;
   max-width: 40rem;
 `
@@ -200,7 +201,7 @@ export default class extends Component {
                   is='h2'
                   fontSize={[2, 3, 4]}
                   px={[2, 4, 5]}
-                  my={0}
+                  m={0}
                   children='Easily convert links into beautiful previews'
                 />
               </Flex>
