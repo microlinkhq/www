@@ -10,7 +10,8 @@ const {
   PAYMENT_API_KEY,
   API_ENDPOINT,
   API_KEY,
-  PAYMENT_ENDPOINT
+  PAYMENT_ENDPOINT,
+  GOOGLE_ANALYTICS_ID = `UA-108549225-1`
 } = process.env
 
 if (!STRIPE_KEY) throw envError('STRIPE_KEY')
@@ -76,7 +77,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: `UA-108549225-1`
+        trackingId: GOOGLE_ANALYTICS_ID
       }
     },
     {
