@@ -13,21 +13,21 @@ export const frontmatter = {
 
 export default postLayout(frontmatter)(md(components)`
 
-The [Microlink API](https://docs.microlink.io/api/#introduction) is used for extracting information from any link.
+The [Microlink API](https://docs.microlink.io/api/#introduction) is used for extracting information from **any** link.
 
-Just enter an URL an you will receive data.
+Just enter an URL and you will receive data.
 
-It was designed to get generic information present in the target website, based on a metadata normalization using [metascraper](https://metascraper.js.org/#/).
+It was designed to get generic information present in the target website, based on metadata normalization using [metascraper](https://metascraper.js.org/#/).
 
-Although this is expected, many user cases are left out of the scope if they need to get specific data information.
+Although this is expected, many use cases are left out of the scope if we need to get specific data information.
 
-Today we are happy to introduce a new core functionality called **Custom Rules** 🎉.
+Today we're happy to introduce a new core functionality called **Custom Rules** 🎉.
 
 ## Leveraging Custom Rules
 
-**Custom Rules** provides you an interface to interact with the API, specifying new data fields to get from an specific URL.
+**Custom Rules** provide you an interface to interact with the API, specifying new data fields that can be extracted from an specific URL.
 
-Imagine you want ot interact with a Instagram profile url, like [@elonmusk](https://twitter.com/elonmusk)'s profile.
+Imagine you want ot interact with an Instagram profile url, like [@elonmusk](https://twitter.com/elonmusk)'s profile.
 
 ![](https://i.imgur.com/subDjQ1.png)
 
@@ -39,7 +39,7 @@ ${(
     </Figcaption>
   )}
 
-Using [Microlink API](https://docs.microlink.io/api/#introduction), wen can obtain well structured and normalized data from the Instagram URL
+By using [Microlink API](https://docs.microlink.io/api/#introduction) we can obtain well structured and normalized data from any Instagram URL:
 
 ${(
     <Terminal>
@@ -47,7 +47,7 @@ ${(
     </Terminal>
   )}
 
-The API response will be looks like
+The API response will look like the following:
 
 ${(
     <CodeEditor language='json'>{`{
@@ -78,19 +78,17 @@ ${(
     `}</CodeEditor>
   )}
 
-Although it can be enough for having a global vision of what is behind the link (or build a link previsualization using our [SDK](https://docs.microlink.io/sdk/)), you could be interested in specific information that we don't expose because is not enough generic.
+Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](https://docs.microlink.io/sdk/)), you may be interested in specific information that we don't expose because it isn't generic.
 
 Let's define a **rule** for extracting the avatar profile.
 
 ## Defining rules
 
-A rule is the way to interact with the API, declaring what kind of data you want to extract.
-
-These properties are:
+A **rule** is a way to interact with the API. You've to declare the type of data you want to extract through **properties**. These properties are:
 
 ### selector
 
-It's define the HTML element to get from the HTML of the target URL.
+It defines the HTML element you want to get from the HTML of the targeted URL.
 
 ![](https://i.imgur.com/3yy4kDD.png)
 
@@ -102,23 +100,23 @@ ${(
     </Figcaption>
   )}
 
-The way to specify seletor is jQuery-like, so you can specify the selector using:
+The way to specify seletors is jQuery-like, so you can specify the selector using:
 
 - An HTML tag, e.g. \`img\`.
-- An CSS class or pseudo class, id or data attribute, e.g. \`.avatar\`.
+- An CSS class or pseudo class, id or data-attribute, e.g. \`.avatar\`.
 - A combination of both, e.g. \`first:img\`.
 
 ### attr
 
-It defines what property from the matched selector should be picked.
+It defines which property from the matched selector should be picked.
 
 E.g., if you want to extract an \`img\`, probably you are interested in \`src\` property.
 
 ### type
 
-It's define the type check validator to run against the value extracted defined by the \`selector\` and \`attr\`.
+It defines a **check validator** to be run against the extracted value defined by \`selector\` and \`attr\`.
 
-The validators are the same that [basic](https://docs.microlink.io/api/#introduction) information extracted using the API, namely:
+It's possible to validate all the [basic](https://docs.microlink.io/api/#introduction) properties that can be extracted using the API:
 
 - \`author\`
 - \`date\`
@@ -133,17 +131,17 @@ The validators are the same that [basic](https://docs.microlink.io/api/#introduc
 - \`url\`
 
 
-Each \`type\` validator will be applied a set of mutations to the original value extracted.
+Each validator \`type\` will be applied to a set of mutations from the original extracted value.
 
-For example, if you define the \`type\` as \`image\`, then you will be sure that the value extraced will be an image compatible url and your browser can render it.
+For example, if you define the \`type\` as \`image\`, then you'll be sure that the value extracted will be an image-compatible url, and your browser will be able to render it.
 
-But it will be different if you declare the \`type\` as \`author\`, where the value will be capitalized.
+But it'll be different if you declare the \`type\` as \`author\`, because the value will be capitalized.
 
 ## Querying using the API
 
-Now that we know how to define rules, let's see how to add it into the [API](https://api.microlink.io/) request.
+Now that we know how to define rules, let's see how to add them into the [API](https://api.microlink.io/) request.
 
-They need to be declared as query parameters using dot notation:
+They need to be declared as **query parameters** using **dot notation**:
 
 ${(
     <CodeEditor language='json'>{`{
@@ -170,7 +168,7 @@ ${(
     </Figcaption>
   )}
 
-After that, the API will be bring back to us the new data field \`avatar\`  as part of the response payload 🎉
+After that, the API will return the new data field \`avatar\` as part of the response payload 🎉
 
 ${(
     <CodeEditor language='json'>{`{
@@ -209,23 +207,22 @@ ${(
 
 ${<Figcaption>{"The payload now have a new 'avatar' field"}.</Figcaption>}
 
-In this case, because we defined the \`type\` as \`image\`, the API can handle the value property and provides us extra information like the image dimensions.
+In this case, we've defined the \`type\` as \`image\`. The API can handle the property value and then provide us extra information. Like, for instance, the image dimensions.
 
 ## Adding more rules per field
 
-Some scenarios need to contemplate that the HTML markup can changes.
+Some scenarios need to contemplate that HTML markup can change.
 
-This specially remarkable in the way to define the \`selector\` of your custom rules:
+This is specially remarkable in the way to define your custom rules \`selector\`:
 
-- A very specific selector (e.g. \`.avatar\`) have better accuracy, but you do not have the guarantee that it is always present.
-- A more generic selector (e.g. \`img\`) makes it simple to be present in the HTML markup but not always with the expected value.
+- A very specific selector (e.g. \`.avatar\`) has better accuracy, but you don't have the guarantee that it's always present.
+- A more generic selector (e.g. \`img\`) is easier to be found in the HTML markup, but it doesn't always have the expected value.
 
-Ideally, a good solution need to contemplate both approach: first try to resolve with a specific selector and fallback it into one more generic if it can't resolve with the first selector.
+Ideally, a good solution needs to contemplate both approaches: first, resolve with an specific selector, and second, fallback into one more generic if it can't resolve the first selector.
 
 This could be done with **custom rules** in the same API request 🎊.
 
-Just you need to declare the conditions as part of the same rule:
-
+You just need to declare the conditions as part of the same rule:
 
 ${(
     <CodeEditor language='json'>{`{
@@ -244,7 +241,7 @@ Note that **order is important**: The data value extracted will be first value r
 
 ## More than one result
 
-What happens if you declare a \`selector\` that it matches with more than one result?
+What happens if you declare a \`selector\` that matches with more than one result?
 
 ${(
     <CodeEditor language='json'>{`{
@@ -266,7 +263,7 @@ ${(
   </Terminal>
 )}
 
-Can the API will be extract them? The answer is **yes**!
+Can the API extract them? The answer is **yes**!
 
 ${(
     <CodeEditor language='json'>{`{
@@ -317,7 +314,7 @@ The only difference is that this time the result is a collection.
 
 ## Adding fallback for basic rules
 
-When you see a \`null\` in the API response means that it can't resolve the value properly.
+When you see a \`null\` in the API response, it means that it couldn't resolve the value properly.
 
 You can define **custom rules** as fallback rules for an existing data field.
 
@@ -377,9 +374,9 @@ ${(
 
 Now the value is resolved properly 👌.
 
-## Combine with the rest of API Parameters
+## Combine it with the rest of API Parameters
 
-One thing that makes [Microlink API](https://docs.microlink.io/api/#introduction) powerful is that you can combine [API Parameters](https://docs.microlink.io/api/#api-parameters) to works all together.
+One thing that makes [Microlink API](https://docs.microlink.io/api/#introduction) powerful is that you can combine every [API Parameter](https://docs.microlink.io/api/#api-parameters) to work together.
 
 ${(
     <CodeEditor language='json'>{`{
