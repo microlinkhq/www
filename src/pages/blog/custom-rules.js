@@ -7,6 +7,7 @@ import postLayout from 'layouts/post'
 
 export const frontmatter = {
   title: 'Introducing Custom Rules',
+  image: 'https://i.imgur.com/3yy4kDD.png',
   date: '31 May 2018',
   slug: 'custom-rules'
 }

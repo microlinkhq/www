@@ -19,6 +19,7 @@ import Tooltip from './Tooltip'
 import CodeEditor from './CodeEditor'
 import Terminal from './Terminal'
 import Subhead from './Subhead'
+import Metadata from './Metadata'
 
 export {
   Box,
@@ -34,6 +35,7 @@ export {
   LinkDotted,
   LinkSolid,
   Main,
+  Metadata,
   Notification,
   OutlineButton,
   PricePicker,

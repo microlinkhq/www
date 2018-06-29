@@ -25,12 +25,14 @@ const SITE_URL = 'https://microlink.io'
 module.exports = {
   polyfill: false,
   siteMetadata: {
+    siteName: 'Microlink',
     siteUrl: SITE_URL,
     title: 'Microlink easily converts your links into beautiful previews.',
     description:
       'Enter an URL, receive information. Get relevant information from any website and easily create beautiful links previews.',
-    ogImage: url.resolve(SITE_URL, '/preview.png'),
-    ogVideo: url.resolve(SITE_URL, '/preview.mp4'),
+    image: url.resolve(SITE_URL, '/preview.png'),
+    logo: url.resolve(SITE_URL, '/logo-trim.png'),
+    video: url.resolve(SITE_URL, '/preview.mp4'),
     twitter: '@microlinkio',
     apiEndpoint: API_ENDPOINT,
     apiKey: API_KEY,

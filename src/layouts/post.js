@@ -1,20 +1,28 @@
 /* global graphql */
 
 import React from 'react'
-import { Text, Section } from 'components/elements'
+import { Text, Section, Metadata } from 'components/elements'
 import { H1 } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-import Helmet from 'react-helmet'
 
-export default function PostLayout ({ title, date }) {
+export default function PostLayout ({ title, date, image, slug }) {
   const timestamp = new Date(date)
 
   return function withContent (content) {
-    const Post = props => {
+    const Post = ({ metadata }) => {
+      const meta = {
+        ...metadata,
+        title,
+        date,
+        image: image || metadata.logo,
+        siteUrl: `${metadata.siteUrl}/blog/${slug}`
+      }
+
       return (
         <Section px={3}>
-          <Helmet title={title} />
+          <Metadata {...meta} />
+
           <Text
             is='header'
             textAlign='center'
