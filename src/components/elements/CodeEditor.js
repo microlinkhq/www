@@ -5,6 +5,26 @@ import { dracula } from 'react-syntax-highlighter/styles/hljs'
 import styled from 'styled-components'
 import { fonts } from 'theme'
 
+const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
+  margin-top: 0px;
+  padding-bottom: 12px !important;
+  margin-bottom: 12px;
+
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+`
+
 const serializeComponent = children =>
   Children.map(
     children,
@@ -51,7 +71,7 @@ const TerminalText = styled.div`
   font-size: 13px;
   font-weight: normal;
   line-height: 20px;
-  padding: 10px 30px;
+  padding: 0 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   background: #282a36;
@@ -97,7 +117,7 @@ class CodeEditor extends Component {
             text={serializeComponent(this.props.children)}
           >
             <TerminalTextWrapper dark>
-              <SyntaxHighlighter
+              <CustomSyntaxHighlighter
                 lineNumberStyle={{ color: '#6272A4' }}
                 showLineNumbers={showLineNumbers}
                 language={language}
