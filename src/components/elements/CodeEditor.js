@@ -1,7 +1,7 @@
 import React, { Component, Children } from 'react'
 import CodeCopy from 'react-codecopy'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { dracula } from 'react-syntax-highlighter/styles/hljs'
+import * as themes from 'react-syntax-highlighter/styles/hljs'
 import styled from 'styled-components'
 import { fonts } from 'theme'
 
@@ -106,6 +106,7 @@ class CodeEditor extends Component {
       language = 'javascript',
       showLineNumbers = true,
       children,
+      theme = 'dracula',
       ...props
     } = this.props
 
@@ -121,7 +122,7 @@ class CodeEditor extends Component {
                 lineNumberStyle={{ color: '#6272A4' }}
                 showLineNumbers={showLineNumbers}
                 language={language}
-                style={dracula}
+                style={themes[theme]}
                 {...props}
                 children={children.trim()}
               />
