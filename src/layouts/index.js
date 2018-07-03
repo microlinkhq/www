@@ -11,13 +11,31 @@ import theme from 'theme'
 import 'styles/main.scss'
 
 const IndexLayout = ({ children, data, ...props }) => {
-  const metadata = data.site.siteMetadata
+  const {
+    apiEndpoint,
+    apiKey,
+    paymentEndpoint,
+    paymentApiKey,
+    stripeKey,
+    ...metadata
+  } = data.site.siteMetadata
+
   return (
     <Main>
       <Metadata {...metadata} />
       <Provider theme={theme}>
         <NavBar />
-        <Box py='56px'>{children({ ...props, metadata })}</Box>
+        <Box py='56px'>
+          {children({
+            ...props,
+            apiEndpoint,
+            apiKey,
+            paymentEndpoint,
+            paymentApiKey,
+            stripeKey,
+            metadata
+          })}
+        </Box>
         <Section bg='#10111B' color='gray1'>
           <Container py={[3, 4, 5]} px={0} maxWidth='900px'>
             <Footer />

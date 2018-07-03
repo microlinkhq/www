@@ -70,7 +70,7 @@ As part of the response header, we added two new headers to help optimize your A
 
 It returns the total amount of time used for processing the API call.
 
-#### x-fetch mode
+#### x-fetch-mode
 
 It specifies the way to content will be fetched.
 
@@ -78,7 +78,7 @@ It could be \`fetch\` or \`prerendering\`. The value is strongly related with [p
 
 #### x-fetch-time
 
-It expresses the amount of time spend just in the \`x-fetch mode\` step.
+It expresses the amount of time spend just in the \`x-fetch-mode\` step.
 
 ## Better contextual metadata
 
