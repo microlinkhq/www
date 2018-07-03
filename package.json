@@ -68,10 +68,12 @@
   "devDependencies": {
     "babel-eslint": "latest",
     "husky": "latest",
+    "imageoptim-cli": "latest",
     "lint-staged": "latest",
     "prettier-standard": "latest",
     "standard": "latest",
-    "standard-markdown": "latest"
+    "standard-markdown": "latest",
+    "svgo": "latest"
   },
   "engines": {
     "node": ">= 8"
@@ -100,6 +102,14 @@
     "package.json": [
       "finepack",
       "git add"
+    ],
+    "*.{png,jpeg,jpg,gif}": [
+      "imageoptim --imagealpha",
+      "git add"
+    ],
+    "*.svg": [
+      "svgo --pretty",
+      "git-add"
     ],
     "*.js": [
       "prettier-standard",
