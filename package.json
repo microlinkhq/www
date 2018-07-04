@@ -56,7 +56,7 @@
     "react-live": "~1.10.1",
     "react-microlink": "2",
     "react-stripe-elements": "~2.0.0",
-    "react-syntax-highlighter": "~7.0.4",
+    "react-syntax-highlighter": "~8.0.0",
     "react-tilt": "~0.1.4",
     "react-timeago": "~4.1.9",
     "rebass": "~2.0.0",
