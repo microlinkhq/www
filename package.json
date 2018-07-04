@@ -21,7 +21,7 @@
   "dependencies": {
     "autoprefixer": "~8.6.4",
     "color": "~3.0.0",
-    "cssnano": "~3.10.0",
+    "cssnano": "~4.0.0",
     "dlv": "~1.1.2",
     "gatsby": "~1.9.273",
     "gatsby-link": "~1.6.45",
