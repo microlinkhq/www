@@ -43,7 +43,6 @@ export default props => (
       flexDirection={['column', '', 'row']}
       alignItems='center'
       py={3}
-      p
     >
       <Flex flexDirection='column'>
         <Text fontSize={1}>Early access and updates on new releases.</Text>

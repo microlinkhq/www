@@ -47,10 +47,6 @@ const codeColors = {
   blue: '#005cc5'
 }
 
-const Row = styled(Flex)`
-  border-radius: 8px;
-`
-
 const Provider = styled(LiveProvider)`
   position: relative;
 `
@@ -186,7 +182,7 @@ export default class extends Component {
     return (
       <Container is='section' {...props}>
         <Provider code={code} noInline mountStylesheet={false}>
-          <Row
+          <Flex
             justifyContent='space-around'
             flexDirection={['column-reverse', '', 'row']}
             alignContent='center'
@@ -232,7 +228,7 @@ export default class extends Component {
                 </CardBackgroundImage>
               </PreviewCard>
             </CustomTilt>
-          </Row>
+          </Flex>
         </Provider>
       </Container>
     )
