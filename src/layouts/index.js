@@ -66,6 +66,8 @@ export const query = graphql`
         paymentEndpoint
         paymentApiKey
         stripeKey
+        siteName
+        logo
       }
     }
   }
