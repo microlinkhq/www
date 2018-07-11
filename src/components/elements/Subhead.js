@@ -1,17 +1,21 @@
-import React from 'react'
-import sys from 'system-components'
-import { Heading } from 'rebass'
+import system from 'system-components'
+import { Heading as HeadingBase } from 'rebass'
 
-const Base = props => <Heading is='h3' {...props} />
-
-export const Subhead = sys(
-  {
-    is: Base,
-    fontSize: 4
-  },
-  'space'
+export const Subhead = system(
+  { is: HeadingBase },
+  'space',
+  'lineHeight',
+  'textAlign',
+  'color',
+  'fontWeight',
+  'fontSize'
 )
 
 Subhead.displayName = 'Subhead'
+
+Subhead.defaultProps = {
+  is: 'h3',
+  fontSize: 4
+}
 
 export default Subhead

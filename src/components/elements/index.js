@@ -20,8 +20,10 @@ import CodeEditor from './CodeEditor'
 import Terminal from './Terminal'
 import Subhead from './Subhead'
 import Metadata from './Metadata'
+import Flex from './Flex'
 
 export {
+  Flex,
   Box,
   Checkout,
   Choose,
@@ -58,7 +60,6 @@ export {
   Column,
   Divider,
   Fixed,
-  Flex,
   Image,
   Input,
   Lead,
