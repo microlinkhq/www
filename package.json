@@ -62,7 +62,7 @@
     "rebass": "~2.0.1",
     "stripe-checkout-lite": "0.0.1",
     "styled-components": "~3.3.3",
-    "styled-system": "~2.3.5",
+    "styled-system": "~3.0.0",
     "unfetch": "~3.0.0"
   },
   "devDependencies": {
