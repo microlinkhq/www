@@ -4,7 +4,7 @@ import ContentGrid from './ContentGrid'
 import DemoLinks from './DemoLinks'
 import FeatureList from './FeatureList'
 import Footer from './Footer'
-import NavBar from './NavBar'
+import Toolbar from './Toolbar'
 import PricingTable from './PricingTable'
 import SearchBox from './SearchBox'
 
@@ -15,7 +15,7 @@ export {
   DemoLinks,
   FeatureList,
   Footer,
-  NavBar,
+  Toolbar,
   PricingTable,
   SearchBox
 }

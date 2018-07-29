@@ -8,10 +8,10 @@ import Container from './Container'
 import Hide from './Hide'
 import Label from './Label'
 import Heading from './Heading'
+import Toolbar from './Toolbar'
 import Text from './Text'
 import Checkout from './Checkout'
 import PricePicker from './PricePicker'
-import Main from './Main'
 import Notification from './Notification'
 import Separator from './Separator'
 import Spinner from './Spinner'
@@ -23,6 +23,7 @@ import Metadata from './Metadata'
 import Flex from './Flex'
 
 export {
+  Toolbar,
   Flex,
   Box,
   Checkout,
@@ -36,7 +37,6 @@ export {
   Link,
   LinkDotted,
   LinkSolid,
-  Main,
   Metadata,
   Notification,
   OutlineButton,
@@ -67,6 +67,5 @@ export {
   NavLink,
   Row,
   Select,
-  Toolbar,
   Truncate
 } from 'rebass'

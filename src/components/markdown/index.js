@@ -12,7 +12,7 @@ const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 export const H1 = styled(Heading)([])
 
 H1.defaultProps = {
-  maxWidth: 'normal',
+  maxWidth: 0,
   mx: 'auto',
   is: 'h1',
   fontSize: [`${fontSizes[5] * 0.75}px`, 5],
@@ -25,7 +25,7 @@ export const H2 = styled(Heading)([])
 
 H2.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: 0,
   is: 'h2',
   fontSize: [`${fontSizes[4] * 0.75}px`, 4],
   lineHeight: [2, 3],
@@ -37,7 +37,7 @@ export const H3 = styled(Heading)([])
 
 H3.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: 0,
   is: 'h3',
   fontSize: 3,
   lineHeight: 2,
@@ -49,7 +49,7 @@ export const H4 = styled(Heading)([])
 
 H4.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: 0,
   is: 'h4',
   fontSize: 2,
   lineHeight: 2,
@@ -61,7 +61,7 @@ export const H5 = styled(Heading)([])
 
 H5.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: 0,
   is: 'h5',
   fontSize: 1,
   lineHeight: 2,
@@ -73,7 +73,7 @@ export const H6 = styled(Heading)([])
 
 H6.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: 0,
   is: 'h6',
   fontSize: 1,
   color: 'gray9',
@@ -111,7 +111,7 @@ Ul.defaultProps = {
   mx: 'auto',
   is: 'ul',
   my: 4,
-  maxWidth: 'normal'
+  maxWidth: 0
 }
 
 export const Li = styled(Text)([])
@@ -120,7 +120,7 @@ Li.defaultProps = {
   mx: 'auto',
   mb: 2,
   is: 'li',
-  maxWidth: 'normal'
+  maxWidth: 0
 }
 
 export const CodeInline = styled(Text)(

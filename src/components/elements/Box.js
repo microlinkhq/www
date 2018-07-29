@@ -1,14 +1,6 @@
-import { textAlign } from 'styled-system'
+import system from 'system-components'
 import { Box as BoxBase } from 'rebass'
 
-import { maxWidth } from 'helpers/style'
-
-const Box = BoxBase.extend`
-  ${textAlign} ${maxWidth};
-`
-
-Box.defaultProps = {
-  blacklist: [...Object.keys(BoxBase.propTypes), 'maxWidth', 'textAlign']
-}
+const Box = system({ is: BoxBase }, 'textAlign', 'maxWidth', 'boxShadow')
 
 export default Box

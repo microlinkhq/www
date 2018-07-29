@@ -85,21 +85,21 @@ export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654
 export const shadows = [
   'none',
   `inset 0 0 0 1px ${colors.gray}`,
-  `inset 0 0 0 1px ${colors.gray}, 0 0 4px ${colors.gray}`
+  `inset 0 0 0 1px ${colors.gray}, 0 0 4px ${colors.gray}`,
+  'rgb(206, 212, 218) 0 -5px 15px 0'
 ]
 
 export const lineHeights = [1, 1.125, 1.25, 1.5]
 
-export const maxWidths = [1, 2, 4, 8, 16, 32, 48, 64, 72, 82, 96].map(
-  n => n + 'em'
-)
+export const maxWidths = [560, 720, 900, 1200].map(n => n + 'px')
 
-export const maxWidth = {
-  normal: '560px',
-  large: '720px'
+export const transition = {
+  short: '0.2s ease'
 }
 
 export default {
+  transition,
+  shadows,
   maxWidths,
   gradient,
   breakpoints,
