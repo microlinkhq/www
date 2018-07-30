@@ -1,6 +1,6 @@
 import CodeCard from './CodeCard'
 import ContentFeature from './ContentFeature'
-import ContentGrid from './ContentGrid'
+import Grid from './Grid'
 import DemoLinks from './DemoLinks'
 import FeatureList from './FeatureList'
 import Footer from './Footer'
@@ -11,7 +11,7 @@ import SearchBox from './SearchBox'
 export {
   CodeCard,
   ContentFeature,
-  ContentGrid,
+  Grid,
   DemoLinks,
   FeatureList,
   Footer,

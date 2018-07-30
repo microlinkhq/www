@@ -14,11 +14,6 @@ export const fontWeights = {
   bold: 600
 }
 
-export const letterSpacings = {
-  normal: 'normal',
-  caps: '0.25em'
-}
-
 export const radii = [0, 2, 4, 8]
 
 export const borders = [0, '1px solid', '2px solid']
@@ -91,13 +86,56 @@ export const shadows = [
 
 export const lineHeights = [1, 1.125, 1.25, 1.5]
 
-export const maxWidths = [560, 720, 900, 1200].map(n => n + 'px')
+export const maxWidths = [
+  1,
+  2,
+  4,
+  8,
+  12,
+  16,
+  20,
+  24,
+  28,
+  32,
+  36,
+  40,
+  44,
+  48,
+  64,
+  72,
+  82,
+  96
+].map(n => n + 'em')
 
 export const transition = {
   short: '0.2s ease'
 }
 
+export const bgGradient = `
+  background-image: ${gradient};
+`
+
+export const textGradient = `
+  ${bgGradient}
+  display: inline-block;
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+`
+
+export const textStyle = {
+  gradient: textGradient
+}
+
+export const layout = {
+  web: 1200
+}
+
 export default {
+  layout,
+  textStyle,
   transition,
   shadows,
   maxWidths,
@@ -107,7 +145,6 @@ export default {
   fontSizes,
   fontWeights,
   lineHeights,
-  letterSpacings,
   fonts,
   colors,
   radii

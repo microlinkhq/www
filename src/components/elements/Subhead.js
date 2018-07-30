@@ -8,7 +8,8 @@ export const Subhead = system(
   'textAlign',
   'color',
   'fontWeight',
-  'fontSize'
+  'fontSize',
+  'textTransform'
 )
 
 Subhead.displayName = 'Subhead'

@@ -1,15 +1,14 @@
-import { Heading as HeadingBase } from 'rebass'
-import { maxWidth, lineHeight } from 'helpers/style'
+import Text from './Text'
+import system from 'system-components'
 
-const Heading = HeadingBase.extend`
-  ${lineHeight};
-  ${maxWidth};
-`
+const Heading = system({ is: Text })
 
 Heading.defaultProps = {
-  fontWeight: 'bold',
-  blacklist: [...Object.keys(HeadingBase.propTypes), 'maxWidth', 'lineHeight'],
-  maxWidth: 'inherit'
+  is: 'h2',
+  lineHeight: 2,
+  fontWeight: 'regular',
+  fontSize: [5, 6],
+  variant: 'gradient'
 }
 
 export default Heading

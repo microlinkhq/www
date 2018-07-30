@@ -8,6 +8,8 @@ import Container from './Container'
 import Hide from './Hide'
 import Label from './Label'
 import Heading from './Heading'
+import Lead from './Lead'
+import Caps from './Caps'
 import Toolbar from './Toolbar'
 import Text from './Text'
 import Checkout from './Checkout'
@@ -23,6 +25,7 @@ import Metadata from './Metadata'
 import Flex from './Flex'
 
 export {
+  Caps,
   Toolbar,
   Flex,
   Box,
@@ -33,6 +36,7 @@ export {
   GradientSection,
   Heading,
   Hide,
+  Lead,
   Label,
   Link,
   LinkDotted,
@@ -62,8 +66,6 @@ export {
   Fixed,
   Image,
   Input,
-  Lead,
-  Measure,
   NavLink,
   Row,
   Select,

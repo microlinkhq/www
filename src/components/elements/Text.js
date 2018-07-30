@@ -1,20 +1,14 @@
 import { Text as TextBase } from 'rebass'
-import { textAlign, lineHeight } from 'styled-system'
-import { maxWidth } from 'helpers/style'
+import { variant } from 'styled-system'
+import system from 'system-components'
 
-const Text = TextBase.extend`
-  ${textAlign};
-  ${lineHeight};
-  ${maxWidth};
-`
+const textStyle = variant({ key: 'textStyle' })
+
+const Text = system({ is: TextBase }, 'maxWidth', textStyle)
 
 Text.defaultProps = {
-  blacklist: [
-    ...Object.keys(TextBase.propTypes),
-    'maxWidth',
-    'textAlign',
-    'lineHeight'
-  ]
+  is: 'p',
+  fontFamily: 'sans'
 }
 
 export default Text

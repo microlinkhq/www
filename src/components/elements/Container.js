@@ -1,16 +1,11 @@
-import { Container } from 'rebass'
-import { textAlign, width, space } from 'styled-system'
-import styled from 'styled-components'
+import { Container as ContainerBase } from 'rebass'
+import system from 'system-components'
+import { layout } from 'theme'
 
-const CustomContainer = styled(Container)`
-  ${space};
-  ${width};
-  ${textAlign} max-width: ${props => props.maxWidth};
-  margin: auto;
-`
+const Container = system({ is: ContainerBase })
 
-CustomContainer.defaultProps = {
-  maxWidth: '1400px'
+Container.defaultProps = {
+  maxWidth: layout.web
 }
 
-export default CustomContainer
+export default Container
