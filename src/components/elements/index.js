@@ -11,6 +11,7 @@ import Heading from './Heading'
 import Lead from './Lead'
 import Caps from './Caps'
 import Toolbar from './Toolbar'
+import Svg from './Svg'
 import Text from './Text'
 import Checkout from './Checkout'
 import PricePicker from './PricePicker'
@@ -25,19 +26,18 @@ import Metadata from './Metadata'
 import Flex from './Flex'
 
 export {
-  Caps,
-  Toolbar,
-  Flex,
   Box,
+  Caps,
   Checkout,
   Choose,
   CodeEditor,
   Container,
+  Flex,
   GradientSection,
   Heading,
   Hide,
-  Lead,
   Label,
+  Lead,
   Link,
   LinkDotted,
   LinkSolid,
@@ -51,8 +51,10 @@ export {
   Separator,
   Spinner,
   Subhead,
+  Svg,
   Terminal,
   Text,
+  Toolbar,
   Tooltip,
   WaveSection
 }

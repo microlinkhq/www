@@ -7,6 +7,7 @@ import Footer from './Footer'
 import Toolbar from './Toolbar'
 import PricingTable from './PricingTable'
 import SearchBox from './SearchBox'
+import List from './List'
 
 export {
   CodeCard,
@@ -14,6 +15,7 @@ export {
   Grid,
   DemoLinks,
   FeatureList,
+  List,
   Footer,
   Toolbar,
   PricingTable,

@@ -84,7 +84,9 @@ export const shadows = [
   'rgb(206, 212, 218) 0 -5px 15px 0'
 ]
 
-export const lineHeights = [1, 1.125, 1.25, 1.5]
+export const lineHeights = [1, 1.125, 1.25, 1.5, 2]
+
+export const widths = [1, 2, 4, 8, 12, 16, 24, 32, 48].map(n => n + 'rem')
 
 export const maxWidths = [
   1,
@@ -129,23 +131,22 @@ export const textStyle = {
   gradient: textGradient
 }
 
-export const layout = {
-  web: 1200
-}
+export const layout = [900, 900, 900]
 
 export default {
-  layout,
-  textStyle,
-  transition,
-  shadows,
-  maxWidths,
-  gradient,
   breakpoints,
-  space,
+  colors,
+  fonts,
   fontSizes,
   fontWeights,
+  gradient,
+  layout,
   lineHeights,
-  fonts,
-  colors,
-  radii
+  maxWidths,
+  radii,
+  shadows,
+  space,
+  textStyle,
+  transition,
+  widths
 }
