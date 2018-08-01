@@ -10,12 +10,12 @@ export default class extends Component {
   render () {
     return (
       <Fixed zIndex={2} top={0} left={0} right={0}>
-        <Box px={3} boxShadow={3} mx='auto'>
+        <Box px={3} boxShadow={3} mx='auto' bg='white'>
           <Toolbar
             is='header'
             px={0}
             mx='auto'
-            maxWidth={layout.web}
+            maxWidth={layout}
             justifyContent='space-between'
             bg='white'
             color='black50'
