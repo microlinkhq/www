@@ -5,7 +5,7 @@ import { layout } from 'theme'
 const Container = system({ is: ContainerBase })
 
 Container.defaultProps = {
-  maxWidth: layout.web
+  maxWidth: layout
 }
 
 export default Container

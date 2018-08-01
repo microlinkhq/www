@@ -19,7 +19,7 @@ export default ({ children, itemsPerRow }) => (
               textAlign={['center', 'center', 'inherit', 'inherit']}
             >
               <Caps color='black80' pb={3} fontWeight='bold' children={title} />
-              <Text lineHeight={3} color='black80' children={description} />
+              <Text color='black80' children={description} />
             </Box>
           </Column>
         ))}

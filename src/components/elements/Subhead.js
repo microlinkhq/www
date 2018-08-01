@@ -1,22 +1,15 @@
 import system from 'system-components'
-import { Heading as HeadingBase } from 'rebass'
+import Text from './Text'
 
-export const Subhead = system(
-  { is: HeadingBase },
-  'space',
-  'lineHeight',
-  'textAlign',
-  'color',
-  'fontWeight',
-  'fontSize',
-  'textTransform'
-)
+const Subhead = system({ is: Text })
 
 Subhead.displayName = 'Subhead'
 
 Subhead.defaultProps = {
   is: 'h3',
-  fontSize: 4
+  lineHeight: 4,
+  fontWeight: 'regular',
+  fontSize: [3, 4]
 }
 
 export default Subhead

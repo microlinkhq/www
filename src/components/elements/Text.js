@@ -8,7 +8,8 @@ const Text = system({ is: TextBase }, 'maxWidth', textStyle)
 
 Text.defaultProps = {
   is: 'p',
-  fontFamily: 'sans'
+  fontFamily: 'sans',
+  lineHeight: 3
 }
 
 export default Text
