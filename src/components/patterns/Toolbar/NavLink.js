@@ -9,7 +9,7 @@ const activeStyle = css`
 
 const NavLink = NavLinkBase.extend`
   text-transform: uppercase;
-  transition: color ${transition.short};
+  transition: color ${transition.medium};
   color: ${colors.gray7};
   box-shadow: none;
 

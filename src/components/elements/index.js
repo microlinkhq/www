@@ -3,31 +3,33 @@ import { Link, LinkDotted, LinkSolid } from './Link'
 import { Section, RippleSection, GradientSection, WaveSection } from './Section'
 
 import Box from './Box'
+import Caps from './Caps'
+import Card from './Card'
+import Checkout from './Checkout'
 import Choose from './Choose'
+import CodeEditor from './CodeEditor'
 import Container from './Container'
+import Flex from './Flex'
+import Heading from './Heading'
 import Hide from './Hide'
 import Label from './Label'
-import Heading from './Heading'
 import Lead from './Lead'
-import Caps from './Caps'
-import Toolbar from './Toolbar'
-import Svg from './Svg'
-import Text from './Text'
-import Checkout from './Checkout'
-import PricePicker from './PricePicker'
+import Metadata from './Metadata'
 import Notification from './Notification'
+import PricePicker from './PricePicker'
 import Separator from './Separator'
 import Spinner from './Spinner'
-import Tooltip from './Tooltip'
-import CodeEditor from './CodeEditor'
-import Terminal from './Terminal'
 import Subhead from './Subhead'
-import Metadata from './Metadata'
-import Flex from './Flex'
+import Svg from './Svg'
+import Terminal from './Terminal'
+import Text from './Text'
+import Toolbar from './Toolbar'
+import Tooltip from './Tooltip'
 
 export {
   Box,
   Caps,
+  Card,
   Checkout,
   Choose,
   CodeEditor,
@@ -62,7 +64,7 @@ export {
 export {
   Avatar,
   Banner,
-  Card,
+  BlockLink,
   Column,
   Divider,
   Fixed,

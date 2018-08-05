@@ -55,7 +55,7 @@ export default class extends Component {
   render () {
     return (
       <Fixed zIndex={2} top={0} left={0} right={0}>
-        <Box boxShadow={3} mx='auto' bg='white'>
+        <Box boxShadow={0} mx='auto' bg='white'>
           <Toolbar
             is='header'
             px={0}

@@ -6,6 +6,7 @@ export default props => (
   <Svg
     height='100%'
     xmlns='http://www.w3.org/2000/svg'
+    xmlnsXlink='http://www.w3.org/1999/xlink'
     viewBox='0 0 901.27 699.5'
     {...props}
   >
@@ -19,9 +20,9 @@ export default props => (
         gradientTransform='translate(-228.24 104.61) rotate(-18.05)'
         gradientUnits='userSpaceOnUse'
       >
-        <stop offset='0' stop-color='gray' stop-opacity='0.25' />
-        <stop offset='0.54' stop-color='gray' stop-opacity='0.12' />
-        <stop offset='1' stop-color='gray' stop-opacity='0.1' />
+        <stop offset='0' stopColor='gray' stopOpacity='0.25' />
+        <stop offset='0.54' stopColor='gray' stopOpacity='0.12' />
+        <stop offset='1' stopColor='gray' stopOpacity='0.1' />
       </linearGradient>
       <linearGradient
         id='2b201dea-c73f-4bea-9091-2864ae23bad1'
@@ -322,8 +323,8 @@ export default props => (
       y2='92.94'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <line
       x1='33.97'
@@ -332,9 +333,9 @@ export default props => (
       y2='172.23'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
-      stroke-dasharray='0 4.07'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeDasharray='0 4.07'
     />
     <line
       x1='59.14'
@@ -343,8 +344,8 @@ export default props => (
       y2='174.17'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <line
       x1='61.01'
@@ -353,8 +354,8 @@ export default props => (
       y2='115.7'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <line
       x1='65.52'
@@ -363,8 +364,8 @@ export default props => (
       y2='100.56'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       opacity='0.3'
     />
     <line
@@ -374,8 +375,8 @@ export default props => (
       y2='78.81'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       opacity='0.3'
     />
     <line
@@ -385,8 +386,8 @@ export default props => (
       y2='57.05'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       opacity='0.3'
     />
     <line
@@ -396,8 +397,8 @@ export default props => (
       y2='35.29'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       opacity='0.3'
     />
     <path
@@ -432,8 +433,8 @@ export default props => (
       y2='225.71'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <line
       x1='839.07'
@@ -442,9 +443,9 @@ export default props => (
       y2='241.37'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
-      stroke-dasharray='0 4.04'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeDasharray='0 4.04'
     />
     <line
       x1='793.02'
@@ -453,8 +454,8 @@ export default props => (
       y2='241.99'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <line
       x1='787.97'
@@ -463,8 +464,8 @@ export default props => (
       y2='368.88'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <line
       x1='803.66'
@@ -473,8 +474,8 @@ export default props => (
       y2='352.03'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       opacity='0.3'
     />
     <line
@@ -484,8 +485,8 @@ export default props => (
       y2='347.67'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       opacity='0.3'
     />
     <line
@@ -495,8 +496,8 @@ export default props => (
       y2='343.31'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       opacity='0.3'
     />
     <line
@@ -506,8 +507,8 @@ export default props => (
       y2='338.95'
       fill='none'
       stroke='#fff'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       opacity='0.3'
     />
     <path

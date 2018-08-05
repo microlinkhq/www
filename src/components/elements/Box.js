@@ -1,6 +1,15 @@
 import system from 'system-components'
 import { Box as BoxBase } from 'rebass'
+import { variant } from 'styled-system'
 
-const Box = system({ is: BoxBase }, 'textAlign', 'maxWidth', 'boxShadow')
+const boxStyle = variant({ key: 'boxStyle' })
+
+const Box = system(
+  { is: BoxBase },
+  'textAlign',
+  'maxWidth',
+  'boxShadow',
+  boxStyle
+)
 
 export default Box

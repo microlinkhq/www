@@ -14,7 +14,7 @@ export const fontWeights = {
   bold: 600
 }
 
-export const radii = [0, 2, 4, 8]
+export const radii = [0, 2, 4, 6, 8]
 
 export const borders = [0, '1px solid', '2px solid']
 
@@ -78,10 +78,12 @@ export const cx = key => colors[key] || key
 export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
 
 export const shadows = [
-  'none',
-  `inset 0 0 0 1px ${colors.gray}`,
-  `inset 0 0 0 1px ${colors.gray}, 0 0 4px ${colors.gray}`,
-  'rgb(206, 212, 218) 0 -5px 15px 0'
+  'rgb(206, 212, 218) 0 -5px 15px 0',
+  '0 1px 2px rgba(0,0,0,0.24)',
+  '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+  '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+  '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+  '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
 ]
 
 export const lineHeights = [1, 1.125, 1.25, 1.5, 2]
@@ -110,7 +112,8 @@ export const maxWidths = [
 ].map(n => n + 'em')
 
 export const transition = {
-  short: '0.2s ease'
+  short: '.1s cubic-bezier(.25,.8,.25,1)',
+  medium: '.35s cubic-bezier(.25,.8,.25,1)'
 }
 
 export const bgGradient = `
@@ -131,10 +134,17 @@ export const textStyle = {
   gradient: textGradient
 }
 
+export const boxStyle = {
+  gradient: `
+    background-image: linear-gradient(to bottom, #F76698 0%, #EA407B 29%, #654EA3 100%);
+  `
+}
+
 export const layout = [900, 900, 900]
 
 export default {
   breakpoints,
+  boxStyle,
   colors,
   fonts,
   fontSizes,
