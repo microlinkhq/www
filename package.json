@@ -47,7 +47,7 @@
     "palx": "~1.0.3",
     "postcss-focus": "~3.0.0",
     "react": "~16.4.1",
-    "react-aria-tooltip": "~1.2.1",
+    "react-aria-tooltip": "~1.3.0",
     "react-codecopy": "~2.1.3",
     "react-dom": "~16.4.1",
     "react-feather": "~1.1.1",
