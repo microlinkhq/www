@@ -15,7 +15,7 @@ import {
   Container,
   Hide
 } from 'components/elements'
-import { Grid } from 'components/patterns'
+import { PricingTable, Grid } from 'components/patterns'
 import { List, ListItem } from 'components/patterns/List'
 import {
   Working,
@@ -100,7 +100,7 @@ const CardLink = class extends Component {
 
 export default class extends Component {
   render () {
-    const { data } = this.props
+    const { data, paymentEndpoint, paymentApiKey, stripeKey } = this.props
     const features = data.features.edges.map(item => item.node)
 
     return (
@@ -157,7 +157,7 @@ export default class extends Component {
               alignItems='center'
               pb={5}
             >
-              <Heading pb={2} children={'Features'} />
+              <Heading children={'Features'} />
               <Lead color='black50' children={'Our feature at a glance.'} />
             </Flex>
             <Hide breakpoints={[0, 1]}>
@@ -244,6 +244,25 @@ export default class extends Component {
                 />
               </Flex>
             </Flex>
+          </Container>
+        </Box>
+        <Box is='article'>
+          <Container is='section' py={4}>
+            <Flex
+              is='header'
+              flexDirection='column'
+              justifyContent='center'
+              alignItems='center'
+              pb={5}
+            >
+              <Heading children='Pricing' />
+              <Lead color='black50' children='Pay as you go, cancel anytime' />
+            </Flex>
+            <PricingTable
+              apiEndpoint={paymentEndpoint}
+              apiKey={paymentApiKey}
+              stripeKey={stripeKey}
+            />
           </Container>
         </Box>
       </Fragment>

@@ -21,6 +21,7 @@ import Separator from './Separator'
 import Spinner from './Spinner'
 import Subhead from './Subhead'
 import Svg from './Svg'
+import Select from './Select'
 import Terminal from './Terminal'
 import Text from './Text'
 import Toolbar from './Toolbar'
@@ -50,6 +51,7 @@ export {
   PrimaryButton,
   RippleSection,
   Section,
+  Select,
   Separator,
   Spinner,
   Subhead,
@@ -72,6 +74,5 @@ export {
   Input,
   NavLink,
   Row,
-  Select,
   Truncate
 } from 'rebass'

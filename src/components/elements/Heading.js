@@ -5,7 +5,7 @@ const Heading = system({ is: Text })
 
 Heading.defaultProps = {
   is: 'h2',
-  lineHeight: 4,
+  lineHeight: 3,
   fontWeight: 'regular',
   fontSize: [5, 6],
   variant: 'gradient'

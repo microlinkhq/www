@@ -22,14 +22,17 @@ const ERROR_MAIL_OPTS = {
 }
 
 export default class extends Component {
-  constructor (props) {
-    super(props)
-    this.openStripe = this.openStripe.bind(this)
-    this.state = { paymentState: '' }
-  }
+  state = { paymentState: '' }
 
   configure () {
-    const { plan, description, panelLabel, api, apiKey, stripeKey } = this.props
+    const {
+      plan,
+      description,
+      panelLabel,
+      apiEndpoint,
+      apiKey,
+      stripeKey
+    } = this.props
 
     this.handler = StripeCheckout.configure({
       key: stripeKey,
@@ -41,7 +44,7 @@ export default class extends Component {
       description,
       token: token => {
         this.setState({ paymentState: PAYMENT_STATE.PROCESSING })
-        fetch(`${api}/payment/create`, {
+        fetch(`${apiEndpoint}/payment/create`, {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
           method: 'POST',
           body: JSON.stringify({
@@ -72,7 +75,7 @@ export default class extends Component {
     document.body.appendChild(s)
   }
 
-  openStripe (e) {
+  openStripe = e => {
     if (!this.handler) return
     this.configure()
     this.handler.open()
