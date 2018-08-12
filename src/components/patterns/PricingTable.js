@@ -1,4 +1,3 @@
-import { responsiveStyle } from 'styled-system'
 import system from 'system-components'
 import React, { Fragment, Component } from 'react'
 import styled, { keyframes } from 'styled-components'
@@ -336,7 +335,6 @@ export default class extends Component {
         </Table>
 
         <Flex
-          is='section'
           justifyContent='center'
           flexDirection='column'
           alignItems='center'

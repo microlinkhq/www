@@ -247,7 +247,7 @@ export default class extends Component {
           </Container>
         </Box>
         <Box is='article'>
-          <Container is='section' py={4}>
+          <Container is='section' pt={4} pb={0}>
             <Flex
               is='header'
               flexDirection='column'

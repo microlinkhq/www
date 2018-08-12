@@ -14,6 +14,7 @@ import Heading from './Heading'
 import Hide from './Hide'
 import Label from './Label'
 import Lead from './Lead'
+import Input from './Input'
 import Metadata from './Metadata'
 import Notification from './Notification'
 import PricePicker from './PricePicker'
@@ -39,6 +40,7 @@ export {
   GradientSection,
   Heading,
   Hide,
+  Input,
   Label,
   Lead,
   Link,
@@ -64,6 +66,7 @@ export {
 }
 
 export {
+  Small,
   Avatar,
   Banner,
   BlockLink,
@@ -71,7 +74,6 @@ export {
   Divider,
   Fixed,
   Image,
-  Input,
   NavLink,
   Row,
   Truncate

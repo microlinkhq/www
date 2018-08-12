@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { Provider } from 'rebass'
 import { Box, Metadata } from 'components/elements'
 import { TOOLBAR_SIZE } from 'components/elements/Toolbar'
-import { Toolbar } from 'components/patterns'
+import { Toolbar, Footer } from 'components/patterns'
 
 import theme from 'theme'
 import 'styles/main.scss'
@@ -26,7 +26,7 @@ const IndexLayout = ({ children, data, ...props }) => {
       <Metadata {...metadata} />
       <Provider is='main' theme={theme}>
         <Toolbar />
-        <Box py={TOOLBAR_SIZE}>
+        <Box pt={TOOLBAR_SIZE}>
           {children({
             ...props,
             apiEndpoint,
@@ -37,6 +37,7 @@ const IndexLayout = ({ children, data, ...props }) => {
             metadata
           })}
         </Box>
+        <Footer />
       </Provider>
     </Fragment>
   )
