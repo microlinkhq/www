@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Toolbar, Box, Fixed } from 'components/elements'
 import { Microlink } from 'components/logos'
-import { layout } from 'theme'
 
 import NavContainer from './NavContainer'
 import NavLink from './NavLink'
@@ -11,17 +10,7 @@ export default class extends Component {
     return (
       <Fixed zIndex={2} top={0} left={0} right={0}>
         <Box px={3} boxShadow={0} mx='auto' bg='white'>
-          <Toolbar
-            is='header'
-            px={0}
-            mx='auto'
-            maxWidth={layout}
-            justifyContent='space-between'
-            bg='white'
-            color='black50'
-            display={'flex'}
-            {...this.props}
-          >
+          <Toolbar mx='auto' justifyContent='space-between' {...this.props}>
             <NavContainer is='nav'>
               <NavLink
                 width={['32px', '48px']}

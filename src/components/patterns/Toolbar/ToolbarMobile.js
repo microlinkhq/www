@@ -56,16 +56,7 @@ export default class extends Component {
     return (
       <Fixed zIndex={2} top={0} left={0} right={0}>
         <Box boxShadow={0} mx='auto' bg='white'>
-          <Toolbar
-            is='header'
-            px={0}
-            mx={3}
-            justifyContent={'center'}
-            bg='white'
-            color='black50'
-            display={'flex'}
-            {...this.props}
-          >
+          <Toolbar mx={3} justifyContent='center' {...this.props}>
             <NavLink
               width={'32px'}
               display='flex'
