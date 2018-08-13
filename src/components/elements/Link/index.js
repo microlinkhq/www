@@ -1,17 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
-import { colors } from 'theme'
 
 import solid from './solid'
-
-const base = styled.a`
-  text-decoration: none;
-  color: ${colors.link};
-  font-size: inherit;
-  &:hover {
-    text-decoration: underline;
-  }
-`
+import base from './base'
 
 const determinteTarget = (href = '') =>
   href.startsWith('/') ? '_self' : '_blank'
@@ -22,12 +12,7 @@ const createLink = ChildComponent => ({
   children,
   ...props
 }) => (
-  <ChildComponent
-    href={href}
-    target={determinteTarget(href)}
-    style={{ cursor: 'pointer' }}
-    {...props}
-  >
+  <ChildComponent href={href} target={determinteTarget(href)} {...props}>
     {children}
   </ChildComponent>
 )
