@@ -6,8 +6,6 @@ export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512]
 
 export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96]
 
-export const widths = [1, 2, 4, 8, 12, 16, 24, 32, 48].map(n => n + 'rem')
-
 export const fontWeights = {
   lighter: 100,
   light: 200,
@@ -157,6 +155,5 @@ export default {
   shadows,
   space,
   textStyle,
-  transition,
-  widths
+  transition
 }

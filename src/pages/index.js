@@ -105,6 +105,23 @@ export default class extends Component {
 
     return (
       <Fragment>
+        <Box is='article'>
+          <Container is='section' py={4}>
+            <Flex
+              is='header'
+              flexDirection='column'
+              justifyContent='center'
+              alignItems='center'
+              pb={5}
+            >
+              <Heading
+                children='Extract structured data from any website'
+                maxWidth='12em'
+              />
+              <Lead color='black50' children='Enter an URL, receive data.' />
+            </Flex>
+          </Container>
+        </Box>
         <Box bg='#F5F4F9' is='article'>
           <Container is='section' py={[4, 6]}>
             <Flex
@@ -131,7 +148,7 @@ export default class extends Component {
                 />
                 <Hide breakpoints={[2, 3]}>
                   <Box textAlign='center'>
-                    <BrowserStats py={4} width={5} />
+                    <BrowserStats py={4} width={'16rem'} />
                   </Box>
                 </Hide>
                 <List pl={[4, 0]} mt={4}>
@@ -142,7 +159,10 @@ export default class extends Component {
               </Flex>
               <Hide breakpoints={[0, 1]}>
                 <Flex>
-                  <BrowserStats width={6} transform={'translateY(-28px)'} />
+                  <BrowserStats
+                    width={'24rem'}
+                    transform={'translateY(-28px)'}
+                  />
                 </Flex>
               </Hide>
             </Flex>
@@ -157,8 +177,8 @@ export default class extends Component {
               alignItems='center'
               pb={5}
             >
-              <Heading children={'Features'} />
-              <Lead color='black50' children={'Our feature at a glance.'} />
+              <Heading children='Features' />
+              <Lead color='black50' children='Our feature at a glance.' />
             </Flex>
             <Hide breakpoints={[0, 1]}>
               <Grid children={features} itemsPerRow={3} />
@@ -176,7 +196,10 @@ export default class extends Component {
             >
               <Hide breakpoints={[0, 1]}>
                 <Flex>
-                  <DesignProcess width={6} transform={'translateY(4px)'} />
+                  <DesignProcess
+                    width={'24rem'}
+                    transform={'translateY(4px)'}
+                  />
                 </Flex>
               </Hide>
               <Flex
@@ -199,7 +222,7 @@ export default class extends Component {
                 />
                 <Hide breakpoints={[2, 3]}>
                   <Box textAlign='center'>
-                    <DesignProcess py={4} width={5} />
+                    <DesignProcess py={4} width={'16rem'} />
                   </Box>
                 </Hide>
                 <List pl={[4, 0]} mt={4}>
