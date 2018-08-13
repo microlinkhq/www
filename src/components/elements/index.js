@@ -4,6 +4,7 @@ import { Link, LinkDotted, LinkSolid } from './Link'
 import Box from './Box'
 import Caps from './Caps'
 import Card from './Card'
+import CardHover from './CardHover'
 import Checkout from './Checkout'
 import Choose from './Choose'
 import Container from './Container'
@@ -30,6 +31,7 @@ export {
   Box,
   Caps,
   Card,
+  CardHover,
   Checkout,
   Choose,
   Container,
