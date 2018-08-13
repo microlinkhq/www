@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors } from 'theme'
 
-import dotted from './dotted'
 import solid from './solid'
 
 const base = styled.a`
@@ -34,5 +33,4 @@ const createLink = ChildComponent => ({
 )
 
 export const LinkSolid = createLink(solid)
-export const LinkDotted = createLink(dotted)
 export const Link = createLink(base)

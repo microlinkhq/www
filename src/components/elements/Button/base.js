@@ -1,12 +1,10 @@
-import { css } from 'styled-components'
-import { borders, fontWeight, display, width } from 'styled-system'
-import { height } from 'helpers/style'
+import system from 'system-components'
 
-export default css`
-  ${display};
-  ${width};
-  ${height};
-  ${fontWeight};
-  ${borders};
-  cursor: pointer;
-`
+export default system(
+  { is: 'a', cursor: 'pointer' },
+  'display',
+  'width',
+  'height',
+  'fontWeight',
+  'borders'
+)

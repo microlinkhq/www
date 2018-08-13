@@ -6,18 +6,13 @@ export const transform = responsiveStyle({
   cssProperty: 'transform'
 })
 
-export const width = responsiveStyle({
-  prop: 'width',
-  cssProperty: 'width',
-  key: 'widths'
-})
-
 const Svg = system(
   { is: 'svg' },
   { fill: 'currentColor' },
   'color',
   'space',
-  width,
+  'height',
+  'width',
   transform
 )
 

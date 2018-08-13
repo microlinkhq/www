@@ -4,7 +4,7 @@ import system from 'system-components'
 
 const textStyle = variant({ key: 'textStyle' })
 
-const Text = system({ is: TextBase }, 'maxWidth', textStyle)
+const Text = system({ is: TextBase }, 'maxWidth', 'textAlign', textStyle)
 
 Text.defaultProps = {
   is: 'p',

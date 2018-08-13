@@ -4,8 +4,7 @@ import CodeCopy from 'react-codecopy'
 import { get } from 'helpers'
 
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
-import { Heading, Text, Link } from 'components/elements'
-import { maxWidth } from 'helpers/style'
+import { Heading, Text, Link, Img as Image } from 'components/elements'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
@@ -161,16 +160,15 @@ export const PreCode = props => (
   </CodeCopy>
 )
 
-export const Img = styled.img`
-  ${maxWidth};
-  border-radius: 3px;
-  display: block;
-  margin: 2.5rem auto;
-  text-align: center;
-`
+export const Img = styled(Image)([])
 
 Img.defaultProps = {
-  maxWidth: ['100%', 'large']
+  maxWidth: ['100%', '900px'],
+  display: 'block',
+  borderRadius: '3px',
+  my: '2.5rem',
+  mx: 'auto',
+  textAlign: 'center'
 }
 
 export const Figcaption = styled.figcaption`
