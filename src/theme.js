@@ -70,7 +70,7 @@ export const colors = Object.assign({}, flattened, {
 export const fonts = {
   sans: "'Inter UI', sans-serif",
   mono:
-    "'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo, monospace"
+    '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace'
 }
 
 export const cx = key => colors[key] || key

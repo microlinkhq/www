@@ -9,7 +9,7 @@ import {
   Container,
   Hide
 } from 'components/elements'
-import { CardLink, LiveEditor, PricingTable, Grid } from 'components/patterns'
+import { CardLink, LiveDemo, PricingTable, Grid } from 'components/patterns'
 import { List, ListItem } from 'components/patterns/List'
 import {
   Working,
@@ -26,7 +26,7 @@ export default class extends Component {
     return (
       <Fragment>
         <Box is='article'>
-          <Container is='section' py={4}>
+          <Container is='section' pt={4} pb={5} px={0}>
             <Flex
               is='header'
               flexDirection='column'
@@ -38,11 +38,15 @@ export default class extends Component {
                 children='Extract structured data from any website'
                 maxWidth='12em'
               />
-              <Lead color='black50' children='Enter an URL, receive data.' />
+              <Lead
+                mt={2}
+                color='black50'
+                children='Enter an URL, receive data.'
+              />
             </Flex>
             <Box is='article'>
-              <Container is='section' py={[2, 3]}>
-                <LiveEditor />
+              <Container is='section' px={0}>
+                <LiveDemo />
               </Container>
             </Box>
           </Container>
@@ -103,7 +107,11 @@ export default class extends Component {
               pb={5}
             >
               <Heading children='Features' />
-              <Lead color='black50' children='Our feature at a glance.' />
+              <Lead
+                mt={2}
+                color='black50'
+                children='Our feature at a glance.'
+              />
             </Flex>
             <Hide breakpoints={[0, 1]}>
               <Grid children={features} itemsPerRow={3} />
@@ -142,6 +150,7 @@ export default class extends Component {
                   textAlign={['center', 'inherit']}
                   maxWidth={['inherit', 6]}
                   mt={[1, 3]}
+                  px={[3, 0]}
                   color='black80'
                   children='Microlink turns any website into useful structured data.'
                 />
@@ -204,7 +213,11 @@ export default class extends Component {
               pb={5}
             >
               <Heading children='Pricing' />
-              <Lead color='black50' children='Pay as you go, cancel anytime' />
+              <Lead
+                mt={2}
+                color='black50'
+                children='Pay as you go, cancel anytime'
+              />
             </Flex>
             <PricingTable
               apiEndpoint={paymentEndpoint}
