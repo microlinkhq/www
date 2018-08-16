@@ -32,7 +32,7 @@ export default class extends Component {
               flexDirection='column'
               justifyContent='center'
               alignItems='center'
-              pb={5}
+              pb={[4, 5]}
             >
               <Heading
                 children='Extract structured data from any website'
@@ -104,7 +104,7 @@ export default class extends Component {
               flexDirection='column'
               justifyContent='center'
               alignItems='center'
-              pb={5}
+              pb={[4, 5]}
             >
               <Heading children='Features' />
               <Lead
@@ -210,7 +210,7 @@ export default class extends Component {
               flexDirection='column'
               justifyContent='center'
               alignItems='center'
-              pb={5}
+              pb={[4, 5]}
             >
               <Heading children='Pricing' />
               <Lead

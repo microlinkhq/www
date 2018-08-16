@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { PrimaryButton, Card as CardBase, Flex } from 'components/elements'
+import { PrimaryButton, Card as CardBase, Flex, Box } from 'components/elements'
 import styled from 'styled-components'
 import { fonts, colors } from 'theme'
 
@@ -38,25 +38,29 @@ const SwitchButton = styled(PrimaryButton)`
   }
 `
 
-const Switch = ({ children, active, onChange }) =>
-  children.map(language => {
-    const isActive = active === language
-    return (
-      <SwitchButton
-        key={language}
-        children={language}
-        fontSize={0}
-        fontWeight='normal'
-        mr={2}
-        color={isActive ? '#247EFF' : '#333'}
-        bg={isActive ? '#E2F1FF' : '#f5f4f9'}
-        onClick={event => {
-          event.preventDefault()
-          onChange(language)
-        }}
-      />
-    )
-  })
+const Switch = ({ children, active, onChange }) => (
+  <Box px={'20px'} maxWidth={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}>
+    {children.map(language => {
+      const isActive = active === language
+      return (
+        <SwitchButton
+          key={language}
+          children={language}
+          fontSize={0}
+          fontWeight='normal'
+          mr={2}
+          mb={'12px'}
+          color={isActive ? '#247EFF' : '#333'}
+          bg={isActive ? '#E2F1FF' : '#f5f4f9'}
+          onClick={event => {
+            event.preventDefault()
+            onChange(language)
+          }}
+        />
+      )
+    })}
+  </Box>
+)
 
 const URL = 'https://twitter.com/futurism/status/882987478541533189'
 
@@ -68,30 +72,28 @@ export default class extends Component {
   }
 
   render () {
-    const { editor, preview } = this.state
-    const editorCode = EDITOR[editor]({ url: URL })
+    const { editor: editorLang, preview } = this.state
+    const editor = EDITOR[editorLang]
+    const code = editor({ url: URL })
     const isSDK = preview === 'SDK'
-    const isCurl = editor === 'cURL'
+    const isCurl = editorLang === 'cURL'
 
     return (
-      <Flex flexDirection={['column', 'row']} justifyContent='center' alignItems='center'>
+      <Flex
+        flexDirection={['column', 'row']}
+        justifyContent='center'
+        alignItems='center'
+      >
         <LiveProvider
           width='100%'
           flexDirection={['column-reverse', 'row']}
           justifyContent='space-between'
           mx={3}
-          alignItems='center'
-          code={editorCode}
+          alignItems={['center', 'flex-start']}
+          code={code}
           noInline
         >
           <Flex flexDirection='column'>
-            <Flex mb={3}>
-              <Switch
-                children={EDITORS}
-                active={this.state.editor}
-                onChange={editor => this.setState({ editor })}
-              />
-            </Flex>
             <Card
               px={'20px'}
               py={'25px'}
@@ -100,22 +102,22 @@ export default class extends Component {
             >
               <LiveEditor
                 contentEditable={false}
-                language='jsx'
+                language={editor.language || 'js'}
                 style={{
                   wordWrap: 'break-word',
                   whiteSpace: isCurl ? 'pre-line' : 'pre'
                 }}
               />
             </Card>
-          </Flex>
-          <Flex flexDirection='column' mb={[5, 0]}>
-            <Flex mb={3}>
+            <Flex mt={3}>
               <Switch
-                children={['SDK', 'JSON']}
-                active={this.state.preview}
-                onChange={preview => this.setState({ preview })}
+                children={EDITORS}
+                active={this.state.editor}
+                onChange={editor => this.setState({ editor })}
               />
             </Flex>
+          </Flex>
+          <Flex flexDirection='column' mb={[4, 0]}>
             <Card
               px={isSDK ? 0 : '20px'}
               py={isSDK ? 0 : '25px'}
@@ -125,6 +127,13 @@ export default class extends Component {
             >
               <Preview preview={preview} url={URL} />
             </Card>
+            <Flex mt={3}>
+              <Switch
+                children={['SDK', 'JSON']}
+                active={this.state.preview}
+                onChange={preview => this.setState({ preview })}
+              />
+            </Flex>
           </Flex>
         </LiveProvider>
       </Flex>

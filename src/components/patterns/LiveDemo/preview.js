@@ -26,7 +26,8 @@ const JSON_THEME = {
 
 const MicrolinkCard = styled(Microlink)`
   border: 0 !important;
-  .microlink_card__media, .microlink_card__media_video_wrapper {
+  .microlink_card__media,
+  .microlink_card__media_video_wrapper {
     flex: 0 0 135px;
   }
   .microlink_card__content {
@@ -43,13 +44,13 @@ const JSONViewer = styled(Box)`
 export default class extends Component {
   state = { loading: true, data: {} }
   componentWillMount () {
-    fetchFromApi(this.props).then(({ data }) =>
+    fetchFromApi({ ...this.props, video: true }).then(({ data }) =>
       this.setState({ data, loading: false })
     )
   }
   render () {
     const { loading, data } = this.state
-    const { preview } = this.props
+    const { preview, ...props } = this.props
     return preview === 'SDK' ? (
       <MicrolinkCard
         loading={loading}
@@ -57,7 +58,7 @@ export default class extends Component {
         data={data}
         noFetch
         video
-        {...this.props}
+        {...props}
       />
     ) : (
       <JSONViewer>
