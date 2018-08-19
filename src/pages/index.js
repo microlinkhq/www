@@ -9,7 +9,13 @@ import {
   Container,
   Hide
 } from 'components/elements'
-import { CardLink, LiveDemo, PricingTable, Grid } from 'components/patterns'
+import {
+  DemoLinks,
+  CardLink,
+  LiveDemo,
+  PricingTable,
+  Grid
+} from 'components/patterns'
 import { List, ListItem } from 'components/patterns/List'
 import {
   Working,
@@ -19,9 +25,17 @@ import {
 } from 'components/icons'
 
 export default class extends Component {
-  render () {
-    const { data, paymentEndpoint, paymentApiKey, stripeKey } = this.props
+  constructor (props) {
+    super(props)
+    const { data } = this.props
     const features = data.features.edges.map(item => item.node)
+    const demoLinks = data.demoLinks.edges.map(item => item.node.data)
+    const activeDemoLink = demoLinks[0]
+    this.state = { features, demoLinks, activeDemoLink }
+  }
+  render () {
+    const { paymentEndpoint, paymentApiKey, stripeKey } = this.props
+    const { features, demoLinks, activeDemoLink } = this.state
 
     return (
       <Fragment>
@@ -46,7 +60,31 @@ export default class extends Component {
             </Flex>
             <Box is='article'>
               <Container is='section' px={0}>
-                <LiveDemo />
+                <Flex flexDirection='column'>
+                  <LiveDemo children={activeDemoLink} />
+                  <Hide breakpoints={[0, 1]}>
+                    <Flex
+                      flexDirection='column'
+                      justifyContent='center'
+                      alignItems='center'
+                    >
+                      <Text
+                        fontSize={1}
+                        py={3}
+                        color='gray8'
+                        children='Try another link →'
+                      />
+                      <DemoLinks
+                        px={[4, 0]}
+                        size={[40, 48]}
+                        children={demoLinks}
+                        onClick={activeDemoLink =>
+                          this.setState({ activeDemoLink })
+                        }
+                      />
+                    </Flex>
+                  </Hide>
+                </Flex>
               </Container>
             </Box>
           </Container>
@@ -241,11 +279,44 @@ export const query = graphql`
         }
       }
     }
-    demos: allDemosYaml {
+    demoLinks: allDemoLink {
       edges {
         node {
-          favicon
-          url
+          data {
+            lang
+            author
+            title
+            publisher
+            description
+            date
+            url
+            image {
+              url
+              width
+              height
+              type
+              size
+              size_pretty
+            }
+            logo {
+              url
+              width
+              height
+              type
+              size
+              size_pretty
+            }
+            video {
+              url
+              width
+              height
+              type
+              size
+              size_pretty
+              duration
+              duration_pretty
+            }
+          }
         }
       }
     }

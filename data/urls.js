@@ -1,0 +1,19 @@
+module.exports = [
+  'https://twitter.com/futurism/status/882987478541533189',
+  'https://medium.com/@the_economist/apple-should-shrink-its-finance-arm-before-it-goes-bananas-f7fcdc754091',
+  'https://www.theverge.com/2017/10/27/16145498/insecure-broad-city-high-maintenance-web-series-hbo-comedy-central',
+  'https://techcrunch.com/2017/10/26/super-mario-odyssey-review-a-masterpiece-of-twists-and-turns/',
+  'https://www.washingtonpost.com/sf/local/2017/10/21/in-the-shadows-of-refinery-row-a-parable-of-redevelopment-and-race/?hpid=hp_hp-top-table-main_corpuschristi743pm%3Ahomepage%2Fstory',
+  'http://es.engadget.com/2017/10/23/meizu-m6-note-analisis-review-fotos/',
+  'https://www.youtube.com/watch?v=hwMkbaS_M_c',
+  'https://www.nytimes.com/2017/09/19/learning/whats-going-on-in-this-graph-sept-19-2017.html',
+  'https://gizmodo.com/drone-video-of-border-wall-prototypes-accidentally-show-1819710328',
+  'https://vimeo.com/188175573',
+  'https://www.apple.com/homepod',
+  'https://www.instagram.com/p/BeV6tOhFUor/',
+  'http://www.imdb.com/title/tt5463162',
+  'https://www.amazon.com/dp/B06XCM9LJ4',
+  'https://www.bbc.com/news/technology-40762328',
+  'https://soundcloud.com/beautybrainsp/beauty-brain-swag-bandicoot',
+  'https://en.wikipedia.org/wiki/Murcia'
+]

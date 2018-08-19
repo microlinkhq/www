@@ -16,7 +16,7 @@
   description: Type check rules for ensuring data extracted is correct.
 - title: Color Detection
   description: Predominant palette for each image detected.
-- title: GDPR compliant
+- title: Adblock Builtin
   description: Predominant palette for each image detected.
 - title: Video Support
   description: Predominant palette for each image detected.

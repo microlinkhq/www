@@ -341,7 +341,7 @@ export default class extends Component {
           pt={[4, 5]}
         >
           <Lead color='gray8' fontSize={2} children='Do you need more?' />
-          <Text mt={1} fontSize={1} color='gray8'>
+          <Text is='div' mt={1} fontSize={1} color='gray8'>
             <LinkSolid
               fontWeight='bold'
               href='mailto:hello@microlink.io?subject=About pricing'

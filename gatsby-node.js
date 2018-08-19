@@ -1,7 +1,34 @@
 'use strict'
 
+const KeyvFile = require('keyv-file')
+
 const webpack = require('webpack')
+const crypto = require('crypto')
+const pAll = require('p-all')
+const Keyv = require('keyv')
 const path = require('path')
+const got = require('got')
+
+const URLS = require('./data/urls')
+
+const keyv = new Keyv({
+  store: new KeyvFile({
+    filename: `./node_modules/.cache/microlink.msgpack`
+  })
+})
+
+const apiFetch = async url => {
+  console.log('fetching', url)
+  const cachedData = await keyv.get(url)
+  if (cachedData) return cachedData
+  const { body } = await got(
+    `https://api.microlink.io?url=${url}&video&paletteforce`,
+    { json: true }
+  )
+  const { data } = body
+  await keyv.set(url, data)
+  return data
+}
 
 exports.modifyBabelrc = ({ babelrc }) => {
   return {
@@ -19,6 +46,31 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
       root: path.resolve(__dirname, './src')
     }
   })
+}
+
+exports.sourceNodes = async ({ boundActionCreators }) => {
+  const { createNode } = boundActionCreators
+  const actions = URLS.map(url => () => apiFetch(url))
+  const links = await pAll(actions, { concurrency: 2 })
+
+  const toNode = data => {
+    const node = {
+      data: data,
+      id: data.url,
+      parent: '__SOURCE__',
+      children: [],
+      internal: { type: `DemoLink` }
+    }
+
+    node.internal.contentDigest = crypto
+      .createHash(`md5`)
+      .update(JSON.stringify(node))
+      .digest(`hex`)
+
+    return node
+  }
+
+  links.forEach(link => createNode(toNode(link)))
 }
 
 exports.createPages = ({ graphql, boundActionCreators }) => {

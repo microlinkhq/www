@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import Microlink, { fetchFromApi } from 'react-microlink'
+import React, { Fragment } from 'react'
+import Microlink from 'react-microlink'
 import ReactJson from 'react-json-view'
-import styled from 'styled-components'
-import { lineHeights, fontSizes, fonts, colors } from 'theme'
-import { Box } from 'components/elements'
+import styled, { css } from 'styled-components'
+import { transition, lineHeights, fontSizes, fonts, colors } from 'theme'
+import { Hide, Box } from 'components/elements'
+
+import { CARD_WIDTH_DESKTOP, CARD_WIDTH_MOBILE } from './theme'
 
 const JSON_THEME = {
   base00: 'white',
@@ -24,15 +26,33 @@ const JSON_THEME = {
   base0F: colors.secondary
 }
 
-const MicrolinkCard = styled(Microlink)`
+const cardCss = cardWidth => css`
   border: 0 !important;
   .microlink_card__media,
   .microlink_card__media_video_wrapper {
-    flex: 0 0 135px;
+    transition: flex ${transition.medium};
+    flex: 0 0 ${cardWidth};
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   .microlink_card__content {
-    flex: 0 0 125px;
+    flex: 0 0 135px;
   }
+
+  &:hover {
+    .microlink_card__media,
+    .microlink_card__media_video_wrapper {
+      flex: 0 0 135px;
+    }
+  }
+`
+
+const MicrolinkCardDesktop = styled(Microlink)`
+  ${cardCss(CARD_WIDTH_DESKTOP)};
+`
+const MicrolinkCardMobile = styled(Microlink)`
+  ${cardCss(CARD_WIDTH_MOBILE)};
 `
 
 const JSONViewer = styled(Box)`
@@ -41,38 +61,27 @@ const JSONViewer = styled(Box)`
   line-height: ${lineHeights[3]};
 `
 
-export default class extends Component {
-  state = { loading: true, data: {} }
-  componentWillMount () {
-    fetchFromApi({ ...this.props, video: true }).then(({ data }) =>
-      this.setState({ data, loading: false })
-    )
-  }
-  render () {
-    const { loading, data } = this.state
-    const { preview, ...props } = this.props
-    return preview === 'SDK' ? (
-      <MicrolinkCard
-        loading={loading}
-        size='large'
-        data={data}
-        noFetch
-        video
-        {...props}
+export default ({ preview, children }) =>
+  preview === 'SDK' ? (
+    <Fragment>
+      <Hide breakpoints={[0, 1]}>
+        <MicrolinkCardDesktop size='large' noFetch video data={children} />
+      </Hide>
+      <Hide breakpoints={[2, 3]}>
+        <MicrolinkCardMobile size='large' noFetch video data={children} />
+      </Hide>
+    </Fragment>
+  ) : (
+    <JSONViewer>
+      <ReactJson
+        theme={JSON_THEME}
+        collapseStringsAfterLength={18}
+        indentWidth={4}
+        enableClipboard={false}
+        displayDataTypes={false}
+        displayObjectSize={false}
+        name={null}
+        src={children}
       />
-    ) : (
-      <JSONViewer>
-        <ReactJson
-          theme={JSON_THEME}
-          collapseStringsAfterLength={18}
-          indentWidth={4}
-          enableClipboard={false}
-          displayDataTypes={false}
-          displayObjectSize={false}
-          name={null}
-          src={data}
-        />
-      </JSONViewer>
-    )
-  }
-}
+    </JSONViewer>
+  )

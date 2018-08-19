@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { PrimaryButton, Card as CardBase, Flex, Box } from 'components/elements'
+import {
+  Hide,
+  PrimaryButton,
+  Card as CardBase,
+  Flex,
+  Box
+} from 'components/elements'
 import styled from 'styled-components'
 import { fonts, colors } from 'theme'
 
@@ -7,14 +13,14 @@ import { LiveProvider, LiveEditor } from '../LiveCode'
 import EDITOR from './editor'
 import Preview from './preview'
 
-const EDITORS = Object.keys(EDITOR)
+import {
+  CARD_HEIGHT_DESKTOP,
+  CARD_WIDTH_DESKTOP,
+  CARD_WIDTH_MOBILE,
+  CARD_HEIGHT_MOBILE
+} from './theme'
 
-const CARD_RATIO_DESKTOP = 1.2
-const CARD_RATIO_MOBILE = 0.8
-const CARD_HEIGHT_DESKTOP = `${223.2 * CARD_RATIO_DESKTOP}px`
-const CARD_WIDTH_DESKTOP = `${338.6808 * CARD_RATIO_DESKTOP}px`
-const CARD_WIDTH_MOBILE = `${338.6808 * CARD_RATIO_MOBILE}px`
-const CARD_HEIGHT_MOBILE = `${338.6808 * CARD_RATIO_MOBILE}px`
+const EDITORS = Object.keys(EDITOR)
 
 const Card = styled(CardBase)`
   box-shadow: 0 10px 40px -10px ${colors.gray1};
@@ -62,8 +68,6 @@ const Switch = ({ children, active, onChange }) => (
   </Box>
 )
 
-const URL = 'https://twitter.com/futurism/status/882987478541533189'
-
 export default class extends Component {
   state = { editor: 'React', preview: 'SDK' }
 
@@ -73,8 +77,9 @@ export default class extends Component {
 
   render () {
     const { editor: editorLang, preview } = this.state
+    const { children } = this.props
     const editor = EDITOR[editorLang]
-    const code = editor({ url: URL })
+    const code = editor(children)
     const isSDK = preview === 'SDK'
     const isCurl = editorLang === 'cURL'
 
@@ -125,7 +130,7 @@ export default class extends Component {
               height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
               style={{ overflow: isSDK ? 'hidden' : 'auto' }}
             >
-              <Preview preview={preview} url={URL} />
+              <Preview preview={preview} children={children} />
             </Card>
             <Flex mt={3}>
               <Switch

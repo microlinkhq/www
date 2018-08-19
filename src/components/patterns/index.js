@@ -4,6 +4,16 @@ import Toolbar from './Toolbar'
 import LiveDemo from './LiveDemo'
 import CardLink from './CardLink'
 import PricingTable from './PricingTable'
+import DemoLinks from './DemoLinks'
 import List from './List'
 
-export { CardLink, LiveDemo, Grid, List, Footer, Toolbar, PricingTable }
+export {
+  CardLink,
+  LiveDemo,
+  Grid,
+  List,
+  Footer,
+  Toolbar,
+  PricingTable,
+  DemoLinks
+}
