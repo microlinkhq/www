@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Avatar, Flex } from 'components/elements'
+import { imageProxy } from 'react-microlink'
 
 const floatAnimation = css`
   display: inline-block;
@@ -37,7 +38,7 @@ export default ({ children, onClick, size, ...props }) => (
         size={size}
         p={1}
         key={data.url}
-        src={data.logo.url}
+        src={imageProxy(data.logo.url)}
         onClick={event => {
           event.preventDefault()
           onClick(data)
