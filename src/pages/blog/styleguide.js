@@ -8,7 +8,7 @@ export const frontmatter = {
   title: 'styleguide',
   slug: 'styleguide',
   date: '19 January 2018',
-  page: true
+  static: true
 }
 
 export default postLayout(frontmatter)(md(components)`

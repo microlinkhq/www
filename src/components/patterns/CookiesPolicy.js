@@ -3,8 +3,8 @@
 import React, { Component } from 'react'
 import { X } from 'react-feather'
 import { Flex, Small, Box, Link } from 'components/elements'
-import { colors, shadows } from 'theme'
 import styled from 'styled-components'
+import { colors } from 'theme'
 
 const ID = 'cookie_policy'
 

@@ -9,6 +9,7 @@ import { Heading, Text, Link, Img as Image } from 'components/elements'
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
 const WIDTH = {
+  layout: '900px',
   normal: '560px',
   large: '720px'
 }
@@ -21,6 +22,7 @@ H1.defaultProps = {
   is: 'h1',
   fontSize: [`${fontSizes[5] * 0.75}px`, 5],
   lineHeight: [2, 3],
+  textAlign: 'left',
   variant: null,
   mt: 5,
   mb: 4
@@ -34,6 +36,7 @@ H2.defaultProps = {
   is: 'h2',
   fontSize: [`${fontSizes[4] * 0.75}px`, 4],
   lineHeight: [2, 3],
+  textAlign: 'left',
   variant: null,
   mt: 5,
   mb: 4
@@ -47,6 +50,7 @@ H3.defaultProps = {
   is: 'h3',
   fontSize: 3,
   lineHeight: 2,
+  textAlign: 'left',
   variant: null,
   mt: 5,
   mb: 4
@@ -60,6 +64,7 @@ H4.defaultProps = {
   is: 'h4',
   fontSize: 2,
   lineHeight: 2,
+  textAlign: 'left',
   variant: null,
   mt: 5,
   mb: 4
@@ -73,6 +78,7 @@ H5.defaultProps = {
   is: 'h5',
   fontSize: 1,
   lineHeight: 2,
+  textAlign: 'left',
   variant: null,
   mt: 4,
   mb: 2
@@ -87,6 +93,7 @@ H6.defaultProps = {
   fontSize: 1,
   color: 'gray9',
   lineHeight: 2,
+  textAlign: 'left',
   variant: null,
   mt: 4,
   mb: 2
@@ -174,7 +181,7 @@ export const PreCode = props => (
 export const Img = styled(Image)([])
 
 Img.defaultProps = {
-  maxWidth: ['100%', '900px'],
+  maxWidth: ['100%', WIDTH.layout],
   display: 'block',
   borderRadius: '3px',
   my: '2.5rem',
@@ -183,7 +190,7 @@ Img.defaultProps = {
 }
 
 export const Figcaption = styled.figcaption`
-  max-width: 900px;
+  max-width: ${WIDTH.layout};
   margin-top: -1.5rem;
   font-size: ${fontSizes[0]}px;
   color: ${colors.gray};
@@ -192,11 +199,12 @@ export const Figcaption = styled.figcaption`
 `
 
 export const Blockquote = styled.blockquote`
+  margin: auto;
+  max-width: ${WIDTH.normal};
   border-left: 3px solid ${colors.black};
   padding-left: ${space[2]}px;
   font-style: italic;
   color: ${colors.gray8};
-  margin-left: -13px;
 `
 
 export default {

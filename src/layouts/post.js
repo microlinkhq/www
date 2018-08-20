@@ -4,17 +4,16 @@ import { H1 } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 
-export default function PostLayout ({ title, date, image, slug }) {
-  const timestamp = new Date(date)
+export default function PostLayout (frontmatter) {
+  const timestamp = new Date(frontmatter.date)
 
   return function withContent (content) {
     const Post = ({ metadata }) => {
       const meta = {
         ...metadata,
-        title,
-        date,
-        image: image || metadata.logo,
-        siteUrl: `${metadata.siteUrl}/blog/${slug}`
+        ...frontmatter,
+        image: frontmatter.image || metadata.logo,
+        siteUrl: `${metadata.siteUrl}/blog/${frontmatter.slug}`
       }
 
       return (
@@ -28,10 +27,12 @@ export default function PostLayout ({ title, date, image, slug }) {
             maxWidth='900px'
             mx='auto'
           >
-            <H1>{title}</H1>
-            <Text fontSize={2} color='gray'>
-              {formatDate(timestamp)} ({<TimeAgo date={date} />})
-            </Text>
+            <H1 textAlign='center' children={meta.title} />
+            {!meta.static && (
+              <Text fontSize={2} color='gray'>
+                {formatDate(timestamp)} ({<TimeAgo date={meta.date} />})
+              </Text>
+            )}
           </Text>
           {content}
         </Box>

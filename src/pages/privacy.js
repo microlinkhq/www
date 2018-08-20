@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React from 'react'
 /* eslint-enable */
-
 import components from 'components/markdown'
+import { Text, Link } from 'components/elements'
 import md from 'markdown-in-js'
 
 import postLayout from 'layouts/post'
@@ -10,50 +10,46 @@ import postLayout from 'layouts/post'
 export const frontmatter = {
   title: 'Privacy Policy',
   slug: 'privacy',
-  date: '08 April 2018'
+  date: '08 April 2018',
+  static: true
 }
 
 export default postLayout(frontmatter)(md(components)`
-Microlink HQ operates as microlink.io website, which provides the SERVICE.
 
-This page is used to inform website visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
+> Last update: August 20, 2018
 
-If you choose to use our Service, then you agree to the collection and use of information in relation with this policy. The Personal Information that we collect are used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
+${(
+    <Text fontSize={3}>
+    Your privacy is important to us. It is Microlink HQ's policy to respect your
+    privacy regarding any information we may collect from you across our website{' '}
+      <Link href='https://microlink.io' children='microlink.io' />, and other
+    sites we own and operate.
+    </Text>
+  )}
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at spectrum.chat, unless otherwise defined in this Privacy Policy.
+## Information we collect
 
-## Information Collection and Use
+**When you visit our website**: Our servers automatically log your computer’s Internet Protocol (IP) address anonymized, your browser type and version, the pages you visit, the time and date of your visit, the time spent on each page, and other standard data provided by your web browser for website analytics purposes.
 
-For a better experience while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to your name and email. The information that we collect will be used to contact or identify you.
+**When you choose a paid plan**: We ask for your email address and payment details, as well as what information you wish to include in your policy. This information is mandatory, as we use it to process the payment.
 
-## Log Data
+**When you use our API**: Similar to data collected for website analytics purposes, we do the same in our API for detecting errors or improve response timing.
 
-We want to inform you that whenever you visit our Service, we collect information that your browser sends to us that is called Log Data. This Log Data may include information such as your computer’s Internet Protocol (“IP”) address, browser version, pages of our Service that you visit, the time and date of your visit, the time spent on those pages, and other statistics.
+## Our legal bases for processing
 
-## Service Providers
+We process information lawfully, fairly and transparently.
 
-We may employ third-party companies and individuals due to the following reasons:
+When you consent to our use of information about you for a specific purpose, you have the right to change your mind at any time, but this won’t affect any processing we’ve already done.
 
-- To facilitate our Service;
-- To provide the Service on our behalf;
-- To perform Service-related services; or
-- To assist us in analyzing how our Service is used.
+We retain information for our sales records and to facilitate additional support after your order is complete. If necessary, we may retain your personal information for our compliance with a legal obligation or in order to protect your vital interests or the vital interests of another natural person.
 
-We want to inform our Service users that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+While we retain this information, we’ll protect it within commercially acceptable means to prevent loss and theft, as well as unauthorised access, disclosure, copying, use or modification. That said, we advise that no method of electronic transmission or storage is 100% secure and cannot guarantee absolute data security.
 
-## Security
+## About this policy
 
-We value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.
+Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and policies of those sites, and cannot accept responsibility or liability for their respective privacy practices.
 
-## Links to Other Sites
+At our discretion, we may update this policy to reflect current acceptable practices. We will take reasonable steps to let users know about significant changes via our website. Your continued use of this site after any changes to this policy will be regarded as acceptance of our practices around data and personal information.
 
-Our Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by us. Therefore, we strongly advise you to review the Privacy Policy of these websites. We have no control over, and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
-
-## Changes to This Privacy Policy
-
-We may update our Privacy Policy from time to time. Thus, we advise you to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately, after they are posted on this page.
-
-## Contact Us
-
-If you have any questions or suggestions about our Privacy Policy, do not hesitate to [contact us](mailto:hello@microlink.io).
+If you have any concerns or questions about how we handle your data and personal information, feel free to contact us at [hello@microlink.io](mailto:hello@microlink.io).
 `)
