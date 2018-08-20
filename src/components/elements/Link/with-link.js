@@ -18,11 +18,15 @@ const PrefetchLink = styled(PrefetchLinkBase)`
   ${linkStyle};
 `
 
-export default ChildComponent => ({ href, children, ...props }) => {
+export default ChildComponent => ({ actively, href, children, ...props }) => {
   if (isInternalLink(href)) {
     return (
       <ChildComponent {...props}>
-        <PrefetchLink to={href} children={children} />
+        <PrefetchLink
+          to={href}
+          children={children}
+          activeClassName={actively ? 'active' : null}
+        />
       </ChildComponent>
     )
   } else {

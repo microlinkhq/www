@@ -5,8 +5,6 @@ import { Microlink } from 'components/logos'
 import NavContainer from './NavContainer'
 import NavLink from './NavLink'
 
-const isActive = pathname => window.location.pathname === pathname
-
 export default class extends Component {
   render () {
     return (
@@ -36,7 +34,7 @@ export default class extends Component {
                 fontSize={0}
                 href='/blog'
                 children='Blog'
-                active={isActive('/blog')}
+                actively
               />
             </NavContainer>
             <NavContainer is='nav'>

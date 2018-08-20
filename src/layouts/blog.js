@@ -25,7 +25,8 @@ const BlogPost = ({ title, date, slug }) => {
   return (
     <Flex pb={3} pt={4} px={[4, 3]} alignItems='center' flexDirection='column'>
       <Link
-        fontSize={4}
+        lineHeight={[3, 2]}
+        fontSize={[2, 4]}
         maxWidth='18em'
         mt={0}
         mb={3}
@@ -35,10 +36,10 @@ const BlogPost = ({ title, date, slug }) => {
         href={`/blog/${slug}`}
         children={title}
       />
-      <Text fontSize={2} color='gray'>
+      <Text fontSize={[0, 2]} color='gray' textAlign={['center', 'inherit']}>
         {formatDate(timestamp)} ({<TimeAgo date={date} />})
       </Text>
-      <Divider width={'25%'} borderColor='rgb(234, 234, 234)' pt={4} />
+      <Divider width={'25%'} borderColor='rgb(234, 234, 234)' pt={[3, 4]} />
     </Flex>
   )
 }

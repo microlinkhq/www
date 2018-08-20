@@ -40,10 +40,10 @@ const IconWrapper = styled(Box)`
 `
 
 export default props => (
-  <Container px={0} maxWidth={[1024, 1024, 1024]}>
+  <Container px={[2, 0]} maxWidth={[1024, 1024, 1024]}>
     <Row
       is='footer'
-      py={5}
+      py={[4, 5]}
       mx='auto'
       bg='white'
       flexDirection={['column', 'row']}
@@ -100,28 +100,28 @@ export default props => (
       <Box pt={[3, 0]} pb={3} px={0}>
         <Flex flexDirection={['row', 'column']}>
           <LinkSolid
-            fontSize={1}
+            fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
             href='/privacy'
             children='API'
           />
           <LinkSolid
-            fontSize={1}
+            fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
             href='/privacy'
             children='Status Page'
           />
           <LinkSolid
-            fontSize={1}
+            fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
             href='/terms'
             children='Bug Reports'
           />
           <LinkSolid
-            fontSize={1}
+            fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
             href='/terms'
@@ -132,28 +132,28 @@ export default props => (
       <Box pb={[3, 0]} px={0}>
         <Flex flexDirection={['row', 'column']}>
           <LinkSolid
-            fontSize={1}
+            fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
             href='/terms'
             children='SDK'
           />
           <LinkSolid
-            fontSize={1}
+            fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
             href='/terms'
             children='Pricing'
           />
           <LinkSolid
-            fontSize={1}
+            fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
             href='/privacy'
             children='Feature Requests'
           />
           <LinkSolid
-            fontSize={1}
+            fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
             href='/privacy'

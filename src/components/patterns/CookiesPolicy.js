@@ -43,7 +43,7 @@ export default class extends Component {
             borderRadius={3}
             boxShadow='rgba(206, 212, 218, 0.5) 0 8px 13px 0'
           >
-            <Small fontSize={1} color='black80'>
+            <Small fontSize={['10px', 1]} color='black80'>
               <span>By using this website you agree to our </span>
               <Link
                 fontSize={0}

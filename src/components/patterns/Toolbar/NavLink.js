@@ -1,7 +1,6 @@
 import { NavLink as NavLinkBase } from 'components/elements'
 import { css } from 'styled-components'
 import { transition, fontWeights, colors } from 'theme'
-import is from 'styled-is'
 
 import withLink from '../../elements/Link/with-link'
 
@@ -20,7 +19,9 @@ const NavLink = NavLinkBase.extend`
     ${activeStyle};
   }
 
-  ${is('active')`${activeStyle}`};
+  > .active {
+    ${activeStyle};
+  }
 `
 
 NavLink.defaultProps = {

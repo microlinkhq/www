@@ -74,28 +74,29 @@ export default class extends Component {
                 fontSize={0}
                 px={2}
                 children='Pricing'
-                href='/'
+                href='/#pricing'
               />
               <NavLink
                 fontWeight='normal'
                 fontSize={0}
                 px={2}
                 children='Blog'
-                href='/'
+                actively
+                href='/blog'
               />
               <NavLink
                 fontWeight='normal'
                 fontSize={0}
                 px={2}
                 children='Docs'
-                href='/'
+                href='https://docs.microlink.io'
               />
               <NavLink
                 fontWeight='normal'
                 fontSize={0}
                 px={2}
                 children='Chat'
-                href='/'
+                href='https://chat.microlink.io'
               />
             </Nav>
           </Toolbar>
