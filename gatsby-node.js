@@ -88,7 +88,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                   frontmatter {
                     title
                     date
-                    page
+                    static
                     slug
                   }
                 }
@@ -103,7 +103,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
         const posts = result.data.allJavascriptFrontmatter.edges
           .map((data, index) => ({ ...data.node.frontmatter }))
-          .filter(({ page }) => page !== true)
+          .filter(({ static: isStatic }) => isStatic !== true)
           .sort((a, b) => new Date(b.date) - new Date(a.date))
 
         return Promise.resolve(
