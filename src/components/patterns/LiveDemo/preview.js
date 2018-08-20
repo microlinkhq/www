@@ -30,7 +30,7 @@ const cardCss = cardWidth => css`
   border: 0 !important;
   .microlink_card__media,
   .microlink_card__media_video_wrapper {
-    transition: flex ${transition.medium};
+    transition: flex ${transition.long};
     flex: 0 0 ${cardWidth};
     background-position: center;
     background-size: cover;
