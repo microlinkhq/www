@@ -10,15 +10,20 @@ export default ({ children, itemsPerRow }) => (
     flexDirection='column'
   >
     {chunk(children, itemsPerRow).map((row, index) => (
-      <Row key={index} pb={[4, 5]}>
+      <Row key={index} pb={[3, 5]}>
         {row.map(({ title, description }, index) => (
           <Column key={index} is='li' style={{ listStyle: 'none' }}>
             <Box
               mx={'auto'}
               maxWidth={['14em', '17em']}
-              textAlign={['center', 'center', 'inherit', 'inherit']}
+              textAlign={['left', 'left', 'inherit', 'inherit']}
             >
-              <Caps color='black80' pb={3} fontWeight='bold' children={title} />
+              <Caps
+                color='black80'
+                pb={[2, 3]}
+                fontWeight='bold'
+                children={title}
+              />
               <Text color='black80' children={description} />
             </Box>
           </Column>

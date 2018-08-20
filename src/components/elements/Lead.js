@@ -7,7 +7,7 @@ Lead.defaultProps = {
   is: 'p',
   lineHeight: 3,
   fontWeight: 'normal',
-  fontSize: [2, 4]
+  fontSize: [1, 4]
 }
 
 export default Lead

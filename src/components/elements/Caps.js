@@ -10,7 +10,7 @@ const Caps = system(
 )
 
 Caps.defaultProps = {
-  fontSize: 1
+  fontSize: [0, 1]
 }
 
 export default Caps

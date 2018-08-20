@@ -9,7 +9,7 @@ Subhead.defaultProps = {
   is: 'h3',
   lineHeight: 4,
   fontWeight: 'regular',
-  fontSize: [3, 4]
+  fontSize: [2, 4]
 }
 
 export default Subhead
