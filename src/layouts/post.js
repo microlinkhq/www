@@ -1,7 +1,5 @@
-/* global graphql */
-
 import React from 'react'
-import { Text, Section, Metadata } from 'components/elements'
+import { Text, Box, Metadata } from 'components/elements'
 import { H1 } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
@@ -20,7 +18,7 @@ export default function PostLayout ({ title, date, image, slug }) {
       }
 
       return (
-        <Section px={3}>
+        <Box px={3}>
           <Metadata {...meta} />
 
           <Text
@@ -36,7 +34,7 @@ export default function PostLayout ({ title, date, image, slug }) {
             </Text>
           </Text>
           {content}
-        </Section>
+        </Box>
       )
     }
 

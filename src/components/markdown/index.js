@@ -8,14 +8,20 @@ import { Heading, Text, Link, Img as Image } from 'components/elements'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
+const WIDTH = {
+  normal: '560px',
+  large: '720px'
+}
+
 export const H1 = styled(Heading)([])
 
 H1.defaultProps = {
-  maxWidth: 0,
+  maxWidth: WIDTH.normal,
   mx: 'auto',
   is: 'h1',
   fontSize: [`${fontSizes[5] * 0.75}px`, 5],
   lineHeight: [2, 3],
+  variant: null,
   mt: 5,
   mb: 4
 }
@@ -24,10 +30,11 @@ export const H2 = styled(Heading)([])
 
 H2.defaultProps = {
   mx: 'auto',
-  maxWidth: 0,
+  maxWidth: WIDTH.normal,
   is: 'h2',
   fontSize: [`${fontSizes[4] * 0.75}px`, 4],
   lineHeight: [2, 3],
+  variant: null,
   mt: 5,
   mb: 4
 }
@@ -36,10 +43,11 @@ export const H3 = styled(Heading)([])
 
 H3.defaultProps = {
   mx: 'auto',
-  maxWidth: 0,
+  maxWidth: WIDTH.normal,
   is: 'h3',
   fontSize: 3,
   lineHeight: 2,
+  variant: null,
   mt: 5,
   mb: 4
 }
@@ -48,10 +56,11 @@ export const H4 = styled(Heading)([])
 
 H4.defaultProps = {
   mx: 'auto',
-  maxWidth: 0,
+  maxWidth: WIDTH.normal,
   is: 'h4',
   fontSize: 2,
   lineHeight: 2,
+  variant: null,
   mt: 5,
   mb: 4
 }
@@ -60,10 +69,11 @@ export const H5 = styled(Heading)([])
 
 H5.defaultProps = {
   mx: 'auto',
-  maxWidth: 0,
+  maxWidth: WIDTH.normal,
   is: 'h5',
   fontSize: 1,
   lineHeight: 2,
+  variant: null,
   mt: 4,
   mb: 2
 }
@@ -72,11 +82,12 @@ export const H6 = styled(Heading)([])
 
 H6.defaultProps = {
   mx: 'auto',
-  maxWidth: 0,
+  maxWidth: WIDTH.normal,
   is: 'h6',
   fontSize: 1,
   color: 'gray9',
   lineHeight: 2,
+  variant: null,
   mt: 4,
   mb: 2
 }
@@ -86,7 +97,7 @@ export const Paraph = props => {
     get(props, 'children.props.src') ||
     get(props, 'children.props.href') ||
     SPECIAL_COMPONENTS.includes(get(props, 'children.type.displayName'))
-  const maxWidth = special ? 'large' : 'normal'
+  const maxWidth = special ? WIDTH.large : WIDTH.normal
   return <Text maxWidth={maxWidth} {...props} />
 }
 
@@ -110,7 +121,7 @@ Ul.defaultProps = {
   mx: 'auto',
   is: 'ul',
   my: 4,
-  maxWidth: 0
+  maxWidth: WIDTH.normal
 }
 
 export const Li = styled(Text)([])
@@ -119,7 +130,7 @@ Li.defaultProps = {
   mx: 'auto',
   mb: 2,
   is: 'li',
-  maxWidth: 0
+  maxWidth: WIDTH.normal
 }
 
 export const CodeInline = styled(Text)(
@@ -172,7 +183,8 @@ Img.defaultProps = {
 }
 
 export const Figcaption = styled.figcaption`
-  ${maxWidth} margin-top: -1.5rem;
+  max-width: 900px;
+  margin-top: -1.5rem;
   font-size: ${fontSizes[0]}px;
   color: ${colors.gray};
   text-align: center;

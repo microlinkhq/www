@@ -1,21 +1,6 @@
-import React from 'react'
-
+import withLink from './with-link'
 import solid from './solid'
 import base from './base'
 
-const determinteTarget = (href = '') =>
-  href.startsWith('/') ? '_self' : '_blank'
-
-const createLink = ChildComponent => ({
-  href,
-  external,
-  children,
-  ...props
-}) => (
-  <ChildComponent href={href} target={determinteTarget(href)} {...props}>
-    {children}
-  </ChildComponent>
-)
-
-export const LinkSolid = createLink(solid)
-export const Link = createLink(base)
+export const LinkSolid = withLink(solid)
+export const Link = withLink(base)

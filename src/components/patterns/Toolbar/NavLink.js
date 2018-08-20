@@ -1,6 +1,9 @@
 import { NavLink as NavLinkBase } from 'components/elements'
 import { css } from 'styled-components'
 import { transition, fontWeights, colors } from 'theme'
+import is from 'styled-is'
+
+import withLink from '../../elements/Link/with-link'
 
 const activeStyle = css`
   font-weight: ${fontWeights.bold};
@@ -17,12 +20,12 @@ const NavLink = NavLinkBase.extend`
     ${activeStyle};
   }
 
-  ${props => props.active && activeStyle};
+  ${is('active')`${activeStyle}`};
 `
 
 NavLink.defaultProps = {
-  is: 'a',
+  is: 'div',
   blacklist: [...Object.keys(NavLink.propTypes), 'active']
 }
 
-export default NavLink
+export default withLink(NavLink)

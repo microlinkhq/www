@@ -241,7 +241,7 @@ export default class extends Component {
             </Flex>
           </Container>
         </Box>
-        <Box is='article'>
+        <Box is='article' id='pricing'>
           <Container is='section' pt={4} pb={0}>
             <Flex
               is='header'

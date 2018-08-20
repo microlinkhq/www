@@ -5,6 +5,8 @@ import { Microlink } from 'components/logos'
 import NavContainer from './NavContainer'
 import NavLink from './NavLink'
 
+const isActive = pathname => window.location.pathname === pathname
+
 export default class extends Component {
   render () {
     return (
@@ -26,28 +28,15 @@ export default class extends Component {
                 fontWeight='normal'
                 fontSize={0}
                 pr={[2, 3]}
-                children='About'
-                href='/'
-              />
-              <NavLink
-                fontWeight='normal'
-                fontSize={0}
-                pr={[2, 3]}
-                children='Features'
-                href='/'
-              />
-              <NavLink
-                fontWeight='normal'
-                fontSize={0}
-                pr={[2, 3]}
                 children='Pricing'
-                href='/'
+                href='/#pricing'
               />
               <NavLink
                 fontWeight='normal'
                 fontSize={0}
+                href='/blog'
                 children='Blog'
-                href='/'
+                active={isActive('/blog')}
               />
             </NavContainer>
             <NavContainer is='nav'>
@@ -56,13 +45,13 @@ export default class extends Component {
                 fontSize={0}
                 pr={[2, 3]}
                 children='Docs'
-                href='/'
+                href='https://docs.microlink.io'
               />
               <NavLink
                 fontWeight='normal'
                 fontSize={0}
                 children='Chat'
-                href='/'
+                href='https://chat.microlink.io'
               />
             </NavContainer>
           </Toolbar>

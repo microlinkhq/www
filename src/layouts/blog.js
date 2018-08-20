@@ -22,7 +22,7 @@ const BlogPost = ({ title, date, slug }) => {
   const timestamp = new Date(date)
 
   return (
-    <Flex pb={3} pt={4} px={0} alignItems='center' flexDirection='column'>
+    <Flex pb={3} pt={4} px={[4, 3]} alignItems='center' flexDirection='column'>
       <Link
         fontSize={4}
         maxWidth='18em'

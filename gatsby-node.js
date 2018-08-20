@@ -18,11 +18,11 @@ const keyv = new Keyv({
 })
 
 const apiFetch = async url => {
-  console.log('fetching', url)
   const cachedData = await keyv.get(url)
   if (cachedData) return cachedData
+  console.log('fetching', url)
   const { body } = await got(
-    `https://api.microlink.io?url=${url}&video&paletteforce`,
+    `https://api.microlink.io?url=${url}&video&palette&force`,
     { json: true }
   )
   const { data } = body
