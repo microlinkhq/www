@@ -51,7 +51,7 @@ export default props => (
       alignItems='center'
       {...props}
     >
-      <Box px={0}>
+      <Box px={0} pb={[3, 0]}>
         <Flex pb={[3, 0]} flexDirection='column'>
           <Flex pb={3} justifyContent='center'>
             <Microlink />
@@ -97,7 +97,7 @@ export default props => (
           </Flex>
         </Flex>
       </Box>
-      <Box pt={[3, 0]} pb={3} px={0}>
+      <Box pt={[3, 0]} pb={[3, 0]} px={0}>
         <Flex flexDirection={['row', 'column']}>
           <LinkSolid
             fontSize={[0, 1]}
