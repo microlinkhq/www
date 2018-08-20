@@ -41,6 +41,13 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
   // See https://github.com/FormidableLabs/react-live/issues/5
   config.plugin('ignore', () => new webpack.IgnorePlugin(/^(xor|props)$/))
 
+  if (stage === 'build-html') {
+    config.loader('null', {
+      test: /react-json-view/,
+      loader: 'null-loader'
+    })
+  }
+
   return config.merge({
     resolve: {
       root: path.resolve(__dirname, './src')

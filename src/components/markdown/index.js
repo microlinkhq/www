@@ -12,11 +12,10 @@ const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 const withSlug = ChildComponent => props =>
   createElement(ChildComponent, {
     ...props,
-    id: slugo(props.children)
+    id: typeof props.children === 'string' ? slugo(props.children) : null
   })
 
 const WIDTH = {
-  layout: '900px',
   normal: '560px',
   large: '720px'
 }
@@ -188,7 +187,7 @@ export const PreCode = props => (
 export const Img = styled(Image)([])
 
 Img.defaultProps = {
-  maxWidth: ['100%', WIDTH.layout],
+  maxWidth: ['100%', WIDTH.large],
   display: 'block',
   borderRadius: '3px',
   my: '2.5rem',
@@ -197,7 +196,7 @@ Img.defaultProps = {
 }
 
 export const Figcaption = styled.figcaption`
-  max-width: ${WIDTH.layout};
+  max-width: ${WIDTH.large};
   margin-top: -1.5rem;
   font-size: ${fontSizes[0]}px;
   color: ${colors.gray};

@@ -1,8 +1,8 @@
 import system from 'system-components'
-import { Img as ImgBase } from 'rebass'
+import { Image as ImageBase } from 'rebass'
 
 const Img = system(
-  { is: ImgBase },
+  { is: ImageBase },
   'maxWidth',
   'display',
   'textAlign',

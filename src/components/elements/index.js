@@ -7,6 +7,7 @@ import Card from './Card'
 import CardHover from './CardHover'
 import Checkout from './Checkout'
 import Choose from './Choose'
+import CodeEditor from './CodeEditor'
 import Container from './Container'
 import Flex from './Flex'
 import Heading from './Heading'
@@ -34,6 +35,7 @@ export {
   CardHover,
   Checkout,
   Choose,
+  CodeEditor,
   Container,
   Flex,
   Heading,
