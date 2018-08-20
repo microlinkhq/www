@@ -1,19 +1,21 @@
-import Grid from './Grid'
-import Footer from './Footer'
-import Toolbar from './Toolbar'
-import LiveDemo from './LiveDemo'
 import CardLink from './CardLink'
-import PricingTable from './PricingTable'
+import CookiesPolicy from './CookiesPolicy'
 import DemoLinks from './DemoLinks'
+import Footer from './Footer'
+import Grid from './Grid'
 import List from './List'
+import LiveDemo from './LiveDemo'
+import PricingTable from './PricingTable'
+import Toolbar from './Toolbar'
 
 export {
   CardLink,
-  LiveDemo,
+  CookiesPolicy,
+  DemoLinks,
+  Footer,
   Grid,
   List,
-  Footer,
-  Toolbar,
+  LiveDemo,
   PricingTable,
-  DemoLinks
+  Toolbar
 }

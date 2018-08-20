@@ -9,7 +9,9 @@ export const Flex = system(
   'alignItems',
   'flexWrap',
   'maxWidth',
-  'lineHeight'
+  'lineHeight',
+  'borderRadius',
+  'boxShadow'
 )
 
 Flex.displayName = 'Flex'
