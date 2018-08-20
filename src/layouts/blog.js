@@ -1,13 +1,14 @@
 import React from 'react'
 import { Divider, Text, Flex, Container } from 'components/elements'
 import { H2 } from 'components/markdown'
+import styled from 'styled-components'
 import { Helmet } from 'react-helmet'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 
 import { colors } from 'theme'
 
-const Link = H2.extend`
+const Link = styled(H2)`
   text-decoration: none;
   cursor: pointer;
   color: black;

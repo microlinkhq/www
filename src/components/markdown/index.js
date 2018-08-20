@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { createElement } from 'react'
 import styled from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { get } from 'helpers'
+import slugo from 'slugo'
 
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
 import { Heading, Text, Link, Img as Image } from 'components/elements'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
+
+const withSlug = ChildComponent => props =>
+  createElement(ChildComponent, {
+    ...props,
+    id: slugo(props.children)
+  })
 
 const WIDTH = {
   layout: '900px',
@@ -14,7 +21,7 @@ const WIDTH = {
   large: '720px'
 }
 
-export const H1 = styled(Heading)([])
+export const H1 = withSlug(styled(Heading)([]))
 
 H1.defaultProps = {
   maxWidth: WIDTH.normal,
@@ -28,7 +35,7 @@ H1.defaultProps = {
   mb: 4
 }
 
-export const H2 = styled(Heading)([])
+export const H2 = withSlug(styled(Heading)([]))
 
 H2.defaultProps = {
   mx: 'auto',
@@ -42,7 +49,7 @@ H2.defaultProps = {
   mb: 4
 }
 
-export const H3 = styled(Heading)([])
+export const H3 = withSlug(styled(Heading)([]))
 
 H3.defaultProps = {
   mx: 'auto',
@@ -56,7 +63,7 @@ H3.defaultProps = {
   mb: 4
 }
 
-export const H4 = styled(Heading)([])
+export const H4 = withSlug(styled(Heading)([]))
 
 H4.defaultProps = {
   mx: 'auto',
@@ -70,7 +77,7 @@ H4.defaultProps = {
   mb: 4
 }
 
-export const H5 = styled(Heading)([])
+export const H5 = withSlug(styled(Heading)([]))
 
 H5.defaultProps = {
   mx: 'auto',
@@ -84,7 +91,7 @@ H5.defaultProps = {
   mb: 2
 }
 
-export const H6 = styled(Heading)([])
+export const H6 = withSlug(styled(Heading)([]))
 
 H6.defaultProps = {
   mx: 'auto',

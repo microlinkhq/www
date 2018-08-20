@@ -65,6 +65,7 @@
     "react-tilt": "~0.1.4",
     "react-timeago": "~4.1.9",
     "rebass": "~2.1.0",
+    "slugo": "~0.2.1",
     "stripe-checkout-lite": "0.0.1",
     "styled-components": "~3.4.2",
     "styled-is": "~1.1.5",
