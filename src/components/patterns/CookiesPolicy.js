@@ -45,12 +45,7 @@ export default class extends Component {
           >
             <Small fontSize={['10px', 1]} color='black80'>
               <span>By using this website you agree to our</span>
-              <Link
-                fontSize={0}
-                ml={1}
-                href={'/privacy'}
-                children='privacy policy'
-              />
+              <Link fontSize={0} ml={1} href={'/privacy'} children='privacy' />
               <span>.</span>
             </Small>
             <CloseButton ml={1} onClick={this.hide}>
