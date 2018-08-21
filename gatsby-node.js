@@ -18,16 +18,22 @@ const keyv = new Keyv({
 })
 
 const apiFetch = async url => {
-  const cachedData = await keyv.get(url)
-  if (cachedData) return cachedData
-  console.log('fetching', url)
-  const { body } = await got(
-    `https://api.microlink.io?url=${url}&video&palette&force`,
-    { json: true }
-  )
-  const { data } = body
-  await keyv.set(url, data)
-  return data
+  try {
+    const cachedData = await keyv.get(url)
+    if (cachedData) return cachedData
+
+    const { body } = await got(
+      `https://api.microlink.io?url=${url}&video&palette&force`,
+      { json: true }
+    )
+    console.log('fetched', url)
+    const { data } = body
+    await keyv.set(url, data)
+    return data
+  } catch (err) {
+    err.message = `${err.message}: ${url}`
+    throw err
+  }
 }
 
 exports.modifyBabelrc = ({ babelrc }) => {
