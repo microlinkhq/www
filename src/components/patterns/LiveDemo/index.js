@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
-import {
-  Hide,
-  PrimaryButton,
-  Card as CardBase,
-  Flex,
-  Box
-} from 'components/elements'
+import { PrimaryButton, Card as CardBase, Flex, Box } from 'components/elements'
 import styled from 'styled-components'
 import { fonts, colors } from 'theme'
 
@@ -81,7 +75,6 @@ export default class extends Component {
     const editor = EDITOR[editorLang]
     const code = editor(children)
     const isSDK = preview === 'SDK'
-    const isCurl = editorLang === 'cURL'
 
     return (
       <Flex
@@ -110,7 +103,7 @@ export default class extends Component {
                 language={editor.language || 'js'}
                 style={{
                   wordWrap: 'break-word',
-                  whiteSpace: isCurl ? 'pre-line' : 'pre'
+                  whiteSpace: editor.whiteSpace || 'pre'
                 }}
               />
             </Card>

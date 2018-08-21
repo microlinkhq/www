@@ -1,6 +1,6 @@
 import { createApiUrl } from 'react-microlink'
 
-const apiUrl = props => createApiUrl({ ...props, video: true })
+const apiUrl = props => createApiUrl({ ...props, video: true, contrast: true })
 
 const React = ({ url }) =>
   `import MicrolinkCard from 'react-microlink'
@@ -16,6 +16,8 @@ const React = ({ url }) =>
 React.language = 'jsx'
 
 const cURL = props => `$ curl "${apiUrl(props)}"`.trim()
+
+cURL.whiteSpace = 'pre-line'
 
 const HTML = ({ url }) =>
   `<!-- Microlink SDK Vanilla/UMD bundle -->
@@ -34,14 +36,14 @@ const HTML = ({ url }) =>
 
 HTML.language = 'html'
 
-const Nodejs = ({ url }) =>
+const Nodejs = props =>
   `'use strict'
 
 const got = require('got')
 
 ;(async () => {
   try {
-    const { body } = await got('https://api.microlink.io?url=${url}&video', { json: true })
+    const { body } = await got('${apiUrl(props)}', { json: true })
     console.log(body)
   } catch(err) {
     console.error(err)
@@ -62,15 +64,28 @@ puts response.read_body
 
 const PHP = props => `<?php
 
-$client = new http\\Client;
-$request = new http\\Client\\Request;
+$curl = curl_init();
 
-$request->setRequestUrl('${apiUrl(props)}');
-$request->setRequestMethod('GET');
+curl_setopt_array($curl, array(
+  CURLOPT_URL => '${apiUrl(props)}',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
 
-$client->enqueue($request)->send();
-$response = $client->getResponse();
-echo $response->getBody();
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+  echo 'cURL Error #:' . $err;
+} else {
+  echo $response;
+}
 
 ?>
 `
@@ -115,6 +130,12 @@ let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, 
 dataTask.resume()
 `
 
+const Java = props => `HttpResponse<String> response = Unirest.get('${apiUrl(
+  props
+)}')
+.asString();
+`
+
 export default {
   React,
   HTML,
@@ -122,6 +143,7 @@ export default {
   cURL,
   Ruby,
   Go,
+  Java,
   Python,
   PHP,
   Swift
