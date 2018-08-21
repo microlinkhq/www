@@ -14,8 +14,8 @@ import {
 
 import { colors } from 'theme'
 
-const BASE_PRICE = 9
-const BASE_PLAN = 'pro-1k'
+const BASE_PRICE = 12
+const BASE_PLAN = 'pro-1k-v2'
 const BASE_PLAN_REQS = 1000
 
 const toLocale = number => Math.round(number).toLocaleString('en-US')

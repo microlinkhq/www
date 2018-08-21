@@ -7,13 +7,13 @@ const CustomSelect = Select.extend`
 `
 
 const PLANS = {
-  1000: 'pro-1k',
-  3000: 'pro-3k',
-  10000: 'pro-10k',
-  50000: 'pro-50k',
-  100000: 'pro-100k',
-  500000: 'pro-500k',
-  1000000: 'pro-1m'
+  1000: 'pro-1k-v2',
+  3000: 'pro-3k-v2',
+  10000: 'pro-10k-v2',
+  50000: 'pro-50k-v2',
+  100000: 'pro-100k-v2',
+  500000: 'pro-500k-v2',
+  1000000: 'pro-1m-v2'
 }
 
 export default class extends Component {
