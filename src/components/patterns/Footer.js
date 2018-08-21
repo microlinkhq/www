@@ -103,28 +103,28 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='/privacy'
+            href='https://docs.microlink.io/api/#introduction'
             children='API'
           />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='/privacy'
+            href='https://status.microlink.io/'
             children='Status Page'
           />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='/terms'
+            href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
             children='Bug Reports'
           />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='/terms'
+            href='https://chat.microlink.io'
             children='Tech Support'
           />
         </Flex>
@@ -135,28 +135,28 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='/terms'
+            href='https://docs.microlink.io/sdk/'
             children='SDK'
           />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='/terms'
+            href='/#pricing'
             children='Pricing'
           />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='/privacy'
+            href='https://github.com/microlinkhq/open/issues/new?template=Feature_request.md'
             children='Feature Requests'
           />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='/privacy'
+            href='https://gallery.microlink.io/'
             children='Gallery'
           />
         </Flex>
@@ -172,6 +172,7 @@ export default props => (
                 <LinkSolid
                   mt={3}
                   px={0}
+                  href='mailto:hello@microlink.io'
                   children='We’d love to hear from you'
                 />
               </Flex>
@@ -200,16 +201,39 @@ export default props => (
             />
           </Flex>
           <Flex alignItems='center' justifyContent={['center', 'inherit']}>
-            <IconWrapper mr={3}>
+            <IconWrapper
+              rel='noopener noreferrer'
+              target='_blank'
+              is='a'
+              href='https://chat.microlink.io'
+              mr={3}
+            >
               <Slack color={colors.black80} size={20} />
             </IconWrapper>
-            <IconWrapper mr={3}>
+            <IconWrapper
+              rel='noopener noreferrer'
+              target='_blank'
+              is='a'
+              href='https://github.com/microlinkhq'
+              mr={3}
+            >
               <Github color={colors.black80} size={20} />
             </IconWrapper>
-            <IconWrapper mr={3}>
+            <IconWrapper
+              rel='noopener noreferrer'
+              target='_blank'
+              is='a'
+              href='mailto:hello@microlink.io'
+              mr={3}
+            >
               <Mail color={colors.black80} size={20} />
             </IconWrapper>
-            <IconWrapper>
+            <IconWrapper
+              rel='noopener noreferrer'
+              target='_blank'
+              is='a'
+              href='https://twitter.com/microlinkhq'
+            >
               <Twitter color={colors.black80} size={20} />
             </IconWrapper>
           </Flex>
