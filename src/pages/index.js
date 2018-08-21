@@ -92,7 +92,7 @@ export default class extends Component {
             </Box>
           </Container>
         </Box>
-        <Box bg='#F5F4F9' is='article'>
+        <Box bg='#faf9fc' is='article'>
           <Container is='section' py={[4, 6]}>
             <Flex
               flexDirection={['column', 'row']}
@@ -169,7 +169,7 @@ export default class extends Component {
             </Hide>
           </Container>
         </Box>
-        <Box bg='#F5F4F9' is='article'>
+        <Box bg='#faf9fc' is='article'>
           <Container is='section' py={[4, 6]}>
             <Flex
               flexDirection={['column', 'row']}
