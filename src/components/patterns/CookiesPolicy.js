@@ -44,13 +44,14 @@ export default class extends Component {
             boxShadow='rgba(206, 212, 218, 0.5) 0 8px 13px 0'
           >
             <Small fontSize={['10px', 1]} color='black80'>
-              <span>By using this website you agree to our </span>
+              <span>By using this website you agree to our</span>
               <Link
                 fontSize={0}
                 ml={1}
-                href={'process.env.LOCALE.footer.cookies.link'}
-                children='cookie policy'
+                href={'/privacy'}
+                children='privacy policy'
               />
+              <span>.</span>
             </Small>
             <CloseButton ml={1} onClick={this.hide}>
               <X size={12} color={colors.black80} />

@@ -7,6 +7,7 @@ import {
   Lead,
   Flex,
   Container,
+  Link,
   Hide
 } from 'components/elements'
 import {
@@ -121,8 +122,15 @@ export default class extends Component {
                   </Box>
                 </Hide>
                 <List pl={[4, 0]} mt={4}>
-                  <ListItem children='Runs on top of headless Chrome.' />
-                  <ListItem children='Simple API integration.' />
+                  <ListItem children='Headless browser service.' />
+                  <ListItem>
+                    {'Simple '}
+                    <Link
+                      href='https://docs.microlink.io/api/#introduction'
+                      children='API'
+                    />
+                    {' integration.'}
+                  </ListItem>
                   <ListItem children='Add it to your existing stack or cloud.' />
                 </List>
               </Flex>
@@ -202,7 +210,11 @@ export default class extends Component {
                 <List pl={[4, 0]} mt={4}>
                   <ListItem children='Works with any website.' />
                   <ListItem children='Detect complementary information (video, colors, dimensions, etc).' />
-                  <ListItem children='Customize payload using Custom Rules.' />
+                  <ListItem>
+                    {'Customize payload using '}
+                    <Link href='/blog/custom-rules/' children='Custom Rules' />
+                    {'.'}
+                  </ListItem>
                 </List>
               </Flex>
             </Flex>

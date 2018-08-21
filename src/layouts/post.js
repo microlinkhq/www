@@ -16,14 +16,15 @@ export default function PostLayout (frontmatter) {
         var s = document.createElement('script')
         s.id = 'anchor-js'
         s.src = 'https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js'
-        s.onload = () => {
-          anchors.add()
-        }
-        s.onerror = err => {
-          console.log('errr', err)
-        }
+        s.onload = this.configure
+        s.onerror = err => console.error(err)
         document.body.appendChild(s)
       }
+
+      configure = () => {
+        anchors.add()
+      }
+
       render () {
         const { metadata } = this.props
 
