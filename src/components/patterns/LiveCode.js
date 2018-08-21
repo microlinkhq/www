@@ -82,6 +82,10 @@ const Provider = system(
   'lineHeight'
 )
 
+Provider.defaultProps = {
+  blacklist: ['is']
+}
+
 export const LiveProvider = ({ code, noInline, ...props }) => (
   <Provider
     code={code}

@@ -1,13 +1,9 @@
 /* global fetch, StripeCheckout */
 
-import React, { Component } from 'react'
-import {
-  Choose,
-  LinkDotted,
-  Notification,
-  OutlineButton
-} from 'components/elements'
+import React, { Component, Fragment } from 'react'
+import { LinkDotted, Notification, OutlineButton } from 'components/elements'
 import { marshall } from 'helpers'
+import { Choose } from 'react-extras'
 
 const PAYMENT_STATE = {
   PROCESSING: 'processing',
@@ -22,7 +18,7 @@ const ERROR_MAIL_OPTS = {
 }
 
 export default class extends Component {
-  state = { paymentState: '' }
+  state = { paymentState: null }
 
   configure () {
     const {
@@ -88,31 +84,35 @@ export default class extends Component {
     const { paymentState } = this.state
 
     return (
-      <div>
-        <Choose>
-          <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
-            <Notification.Success children='Processing...' />
-          </Choose.When>
-          <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
-            <Notification.Success children='Payment processed! We sent you an email.' />
-          </Choose.When>
-          <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-            <Notification.Danger>
-              Payment not processed.{' '}
-              <LinkDotted
-                color='red8'
-                href={`mailto:hello@microlink.io?${marshall(ERROR_MAIL_OPTS)}`}
-              >
-                Contact us
-              </LinkDotted>.
-            </Notification.Danger>
-          </Choose.When>
-        </Choose>
+      <Fragment>
+        {paymentState && (
+          <Choose>
+            <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
+              <Notification.Success children='Processing...' />
+            </Choose.When>
+            <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
+              <Notification.Success children='Payment processed! We sent you an email.' />
+            </Choose.When>
+            <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
+              <Notification.Danger>
+                Payment not processed.{' '}
+                <LinkDotted
+                  color='red8'
+                  href={`mailto:hello@microlink.io?${marshall(
+                    ERROR_MAIL_OPTS
+                  )}`}
+                >
+                  Contact us
+                </LinkDotted>.
+              </Notification.Danger>
+            </Choose.When>
+          </Choose>
+        )}
 
         <OutlineButton onClick={this.openStripe} onTouchStart={this.openStripe}>
           Buy
         </OutlineButton>
-      </div>
+      </Fragment>
     )
   }
 }
