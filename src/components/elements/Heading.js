@@ -7,7 +7,7 @@ Heading.defaultProps = {
   is: 'h2',
   lineHeight: 1,
   textAlign: 'center',
-  fontWeight: 'regular',
+  fontWeight: 'bold',
   fontSize: [4, 6],
   variant: 'gradient'
 }

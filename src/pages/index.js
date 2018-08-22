@@ -43,7 +43,7 @@ export default class extends Component {
     return (
       <Fragment>
         <Box is='article'>
-          <Container is='section' pt={4} pb={5} px={0}>
+          <Container is='section' pt={5} pb={5} px={0}>
             <Flex
               is='header'
               flexDirection='column'
@@ -56,7 +56,7 @@ export default class extends Component {
                 maxWidth='12em'
               />
               <Lead
-                mt={2}
+                mt={4}
                 color='black50'
                 children='Enter an URL, receive data.'
               />
@@ -108,12 +108,13 @@ export default class extends Component {
                   is='header'
                   textAlign={['center', 'inherit']}
                   children='Browser as service'
+                  color='violet9'
                 />
                 <Text
                   textAlign={['center', 'inherit']}
-                  maxWidth={['inherit', 6]}
+                  maxWidth={['inherit', 8]}
                   mt={[1, 3]}
-                  color='black80'
+                  color='violet7'
                   children='Microlink is a powerful API for developers with top notch tecnologies of the industry.'
                 />
                 <Hide breakpoints={[2, 3]}>
@@ -122,16 +123,24 @@ export default class extends Component {
                   </Box>
                 </Hide>
                 <List pl={[4, 0]} mt={4}>
-                  <ListItem children='Headless browser service.' />
-                  <ListItem>
+                  <ListItem
+                    children='Headless browser service.'
+                    color='violet7'
+                  />
+                  <ListItem color='violet7'>
                     {'Simple '}
                     <Link
                       href='https://docs.microlink.io/api/#introduction'
                       children='API'
+                      color='violet9'
+                      fontWeight='bold'
                     />
                     {' integration.'}
                   </ListItem>
-                  <ListItem children='Add it to your existing stack or cloud.' />
+                  <ListItem
+                    children='Add it to your existing stack or cloud.'
+                    color='violet7'
+                  />
                 </List>
               </Flex>
               <Hide breakpoints={[0, 1]}>
@@ -146,7 +155,7 @@ export default class extends Component {
           </Container>
         </Box>
         <Box is='article'>
-          <Container is='section' py={4}>
+          <Container is='section' py={5}>
             <Flex
               is='header'
               flexDirection='column'
@@ -156,7 +165,7 @@ export default class extends Component {
             >
               <Heading children='Features' />
               <Lead
-                mt={2}
+                mt={4}
                 color='black50'
                 children='Our feature at a glance.'
               />
@@ -193,13 +202,14 @@ export default class extends Component {
                   is='header'
                   textAlign={['center', 'inherit']}
                   children='Turns any website into data'
+                  color='violet9'
                 />
                 <Text
                   textAlign={['center', 'inherit']}
                   maxWidth={['inherit', 6]}
                   mt={[1, 3]}
                   px={[3, 0]}
-                  color='black80'
+                  color='violet7'
                   children='Microlink turns any website into useful structured data.'
                 />
                 <Hide breakpoints={[2, 3]}>
@@ -208,11 +218,22 @@ export default class extends Component {
                   </Box>
                 </Hide>
                 <List pl={[4, 0]} mt={4}>
-                  <ListItem children='Works with any website.' />
-                  <ListItem children='Detect complementary information (video, colors, dimensions, etc).' />
-                  <ListItem>
+                  <ListItem
+                    children='Works with any website.'
+                    color='violet7'
+                  />
+                  <ListItem
+                    children='Detect complementary information (video, colors, dimensions, etc).'
+                    color='violet7'
+                  />
+                  <ListItem color='violet7'>
                     {'Customize payload using '}
-                    <Link href='/blog/custom-rules/' children='Custom Rules' />
+                    <Link
+                      href='/blog/custom-rules/'
+                      children='Custom Rules'
+                      color='violet9'
+                      fontWeight='bold'
+                    />
                     {'.'}
                   </ListItem>
                 </List>
@@ -256,7 +277,7 @@ export default class extends Component {
           </Container>
         </Box>
         <Box is='article' id='pricing'>
-          <Container is='section' pt={4} pb={0}>
+          <Container is='section' pt={5} pb={0}>
             <Flex
               is='header'
               flexDirection='column'
@@ -266,7 +287,7 @@ export default class extends Component {
             >
               <Heading children='Pricing' />
               <Lead
-                mt={2}
+                mt={4}
                 color='black50'
                 children='Pay as you go, cancel anytime'
               />

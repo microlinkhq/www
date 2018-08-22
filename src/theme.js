@@ -37,6 +37,18 @@ export const colors = Object.assign({}, flattened, {
   secondary: '#EA407B',
   primary: '#303A52',
   link: '#067df7',
+
+  violet0: '#faf9fc',
+  violet1: '#efecf5',
+  violet2: '#e3dfee',
+  violet3: '#d6d0e6',
+  violet4: '#c8c0de',
+  violet5: '#b8add5',
+  violet6: '#a699ca',
+  violet7: '#9080bd',
+  violet8: '#7460ac',
+  violet9: '#45356f',
+
   black: '#000',
   black90: 'rgba(0,0,0,.9)',
   black80: 'rgba(0,0,0,.8)',
@@ -139,7 +151,7 @@ export const boxStyle = {
   `
 }
 
-export const layout = [900, 900, 900]
+export const layout = [1024, 1024, 1024]
 
 export default {
   breakpoints,
