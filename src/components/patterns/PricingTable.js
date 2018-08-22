@@ -21,7 +21,9 @@ import PricePicker, {
 
 import { colors } from 'theme'
 
-const FREE_PLAN_RATE_LIMIT = 250
+const BASE_PRICE = 12
+const BASE_PLAN = 'pro-1k-v2'
+const BASE_PLAN_REQS = 1000
 
 const toLocale = number => Math.round(number).toLocaleString('en-US')
 
