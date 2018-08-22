@@ -18,14 +18,14 @@ export default postLayout(frontmatter)(md(components)`
 
 > Last update: August 20, 2018
 
-${(
-    <Text fontSize={3}>
-    Your privacy is important to us. It is Microlink HQ's policy to respect your
-    privacy regarding any information we may collect from you across our website{' '}
-      <Link href='https://microlink.io' children='microlink.io' />, and other
-    sites we own and operate.
-    </Text>
-  )}
+${
+  <Text fontSize={3}>
+  Your privacy is important to us. It is Microlink HQ's policy to respect your
+  privacy regarding any information we may collect from you across our website{' '}
+    <Link href='https://microlink.io' children='microlink.io' />, and other
+  sites we own and operate.
+  </Text>
+}
 
 ## Information we collect
 

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import Microlink from 'react-microlink'
 import ReactJson from 'react-json-view'
 import styled, { css } from 'styled-components'
-import { transition, lineHeights, fontSizes, fonts, colors } from 'theme'
+import { lineHeights, fontSizes, fonts, colors } from 'theme'
 import { Hide, Box } from 'components/elements'
 
 import { CARD_WIDTH_DESKTOP, CARD_WIDTH_MOBILE } from './theme'
@@ -30,21 +30,19 @@ const cardCss = cardWidth => css`
   border: 0 !important;
   .microlink_card__media,
   .microlink_card__media_video_wrapper {
-    transition: flex ${transition.long};
-    flex: 0 0 ${cardWidth};
+    flex: 0 0 165px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
   }
   .microlink_card__content {
-    flex: 0 0 135px;
+    flex: 0 0 105px;
   }
 
-  &:hover {
-    .microlink_card__media,
-    .microlink_card__media_video_wrapper {
-      flex: 0 0 135px;
-    }
+  .microlink_card__content_description,
+  .microlink_card__content_url {
+    color: ${colors.black90};
+    font-size: 13px;
   }
 `
 

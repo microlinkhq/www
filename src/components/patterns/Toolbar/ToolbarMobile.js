@@ -73,6 +73,13 @@ export default class extends Component {
                 fontWeight='normal'
                 fontSize={0}
                 px={2}
+                children='Features'
+                href='/#features'
+              />
+              <NavLink
+                fontWeight='normal'
+                fontSize={0}
+                px={2}
                 children='Pricing'
                 href='/#pricing'
               />

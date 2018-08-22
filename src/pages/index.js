@@ -43,7 +43,7 @@ export default class extends Component {
     return (
       <Fragment>
         <Box is='article'>
-          <Container is='section' pt={4} pb={5} px={0}>
+          <Container is='section' pt={5} pb={5} px={0}>
             <Flex
               is='header'
               flexDirection='column'
@@ -56,7 +56,7 @@ export default class extends Component {
                 maxWidth='12em'
               />
               <Lead
-                mt={2}
+                mt={[2, 3]}
                 color='black50'
                 children='Enter an URL, receive data.'
               />
@@ -111,9 +111,9 @@ export default class extends Component {
                 />
                 <Text
                   textAlign={['center', 'inherit']}
-                  maxWidth={['inherit', 6]}
+                  maxWidth={['inherit', 8]}
                   mt={[1, 3]}
-                  color='black80'
+                  color='violet9'
                   children='Microlink is a powerful API for developers with top notch tecnologies of the industry.'
                 />
                 <Hide breakpoints={[2, 3]}>
@@ -145,8 +145,8 @@ export default class extends Component {
             </Flex>
           </Container>
         </Box>
-        <Box is='article'>
-          <Container is='section' py={4}>
+        <Box is='article' id='features'>
+          <Container is='section' py={5}>
             <Flex
               is='header'
               flexDirection='column'
@@ -156,7 +156,7 @@ export default class extends Component {
             >
               <Heading children='Features' />
               <Lead
-                mt={2}
+                mt={[2, 3]}
                 color='black50'
                 children='Our feature at a glance.'
               />
@@ -199,7 +199,6 @@ export default class extends Component {
                   maxWidth={['inherit', 6]}
                   mt={[1, 3]}
                   px={[3, 0]}
-                  color='black80'
                   children='Microlink turns any website into useful structured data.'
                 />
                 <Hide breakpoints={[2, 3]}>
@@ -256,7 +255,7 @@ export default class extends Component {
           </Container>
         </Box>
         <Box is='article' id='pricing'>
-          <Container is='section' pt={4} pb={0}>
+          <Container is='section' pt={5} pb={0}>
             <Flex
               is='header'
               flexDirection='column'
@@ -265,11 +264,7 @@ export default class extends Component {
               pb={[4, 5]}
             >
               <Heading children='Pricing' />
-              <Lead
-                mt={2}
-                color='black50'
-                children='Pay as you go, cancel anytime'
-              />
+              <Lead mt={[2, 3]} color='black50' children='Pay as you go.' />
             </Flex>
             <PricingTable
               apiEndpoint={paymentEndpoint}

@@ -1,4 +1,4 @@
-import { Flex, Text, Caps, Row, Column, Box } from 'components/elements'
+import { Caps, Flex, Text, Row, Column, Box } from 'components/elements'
 import chunk from 'lodash.chunk'
 import React from 'react'
 
@@ -10,7 +10,7 @@ export default ({ children, itemsPerRow }) => (
     flexDirection='column'
   >
     {chunk(children, itemsPerRow).map((row, index) => (
-      <Row key={index} pb={[3, 5]}>
+      <Row key={index} pb={[2, 3]}>
         {row.map(({ title, description }, index) => (
           <Column key={index} is='li' style={{ listStyle: 'none' }}>
             <Box
@@ -20,11 +20,11 @@ export default ({ children, itemsPerRow }) => (
             >
               <Caps
                 color='black80'
-                pb={[2, 3]}
+                pb={[1, 2]}
                 fontWeight='bold'
                 children={title}
               />
-              <Text color='black80' children={description} />
+              <Text color='black50' children={description} />
             </Box>
           </Column>
         ))}

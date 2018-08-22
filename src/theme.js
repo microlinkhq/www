@@ -139,7 +139,7 @@ export const boxStyle = {
   `
 }
 
-export const layout = [900, 900, 900]
+export const layout = [1024, 1024, 1024]
 
 export default {
   breakpoints,
