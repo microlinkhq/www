@@ -64,7 +64,7 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
 exports.sourceNodes = async ({ boundActionCreators }) => {
   const { createNode } = boundActionCreators
   const actions = URLS.map(url => () => apiFetch(url))
-  const links = await pAll(actions, { concurrency: 2 })
+  const links = await pAll(actions, { concurrency: 1 })
 
   const toNode = data => {
     const node = {
