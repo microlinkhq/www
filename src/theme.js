@@ -38,8 +38,16 @@ export const colors = Object.assign({}, flattened, {
   primary: '#303A52',
   link: '#067df7',
 
-  purple: 'rgb(82, 63, 133)',
-  purple70: 'rgba(82, 63, 133, 0.7)',
+  violet0: '#faf9fc',
+  violet1: '#efecf5',
+  violet2: '#e3dfee',
+  violet3: '#d6d0e6',
+  violet4: '#c8c0de',
+  violet5: '#b8add5',
+  violet6: '#a699ca',
+  violet7: '#9080bd',
+  violet8: '#7460ac',
+  violet9: '#45356f',
 
   black: '#000',
   black90: 'rgba(0,0,0,.9)',

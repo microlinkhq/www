@@ -108,13 +108,13 @@ export default class extends Component {
                   is='header'
                   textAlign={['center', 'inherit']}
                   children='Browser as service'
-                  color='purple'
+                  color='violet9'
                 />
                 <Text
                   textAlign={['center', 'inherit']}
                   maxWidth={['inherit', 8]}
                   mt={[1, 3]}
-                  color='purple70'
+                  color='violet7'
                   children='Microlink is a powerful API for developers with top notch tecnologies of the industry.'
                 />
                 <Hide breakpoints={[2, 3]}>
@@ -125,20 +125,21 @@ export default class extends Component {
                 <List pl={[4, 0]} mt={4}>
                   <ListItem
                     children='Headless browser service.'
-                    color='purple70'
+                    color='violet7'
                   />
-                  <ListItem color='purple70'>
+                  <ListItem color='violet7'>
                     {'Simple '}
                     <Link
                       href='https://docs.microlink.io/api/#introduction'
                       children='API'
-                      color='purple'
+                      color='violet9'
+                      fontWeight='bold'
                     />
                     {' integration.'}
                   </ListItem>
                   <ListItem
                     children='Add it to your existing stack or cloud.'
-                    color='purple70'
+                    color='violet7'
                   />
                 </List>
               </Flex>
@@ -201,14 +202,14 @@ export default class extends Component {
                   is='header'
                   textAlign={['center', 'inherit']}
                   children='Turns any website into data'
-                  color='purple'
+                  color='violet9'
                 />
                 <Text
                   textAlign={['center', 'inherit']}
                   maxWidth={['inherit', 6]}
                   mt={[1, 3]}
                   px={[3, 0]}
-                  color='purple70'
+                  color='violet7'
                   children='Microlink turns any website into useful structured data.'
                 />
                 <Hide breakpoints={[2, 3]}>
@@ -219,18 +220,19 @@ export default class extends Component {
                 <List pl={[4, 0]} mt={4}>
                   <ListItem
                     children='Works with any website.'
-                    color='purple70'
+                    color='violet7'
                   />
                   <ListItem
                     children='Detect complementary information (video, colors, dimensions, etc).'
-                    color='purple70'
+                    color='violet7'
                   />
-                  <ListItem color='purple70'>
+                  <ListItem color='violet7'>
                     {'Customize payload using '}
                     <Link
                       href='/blog/custom-rules/'
                       children='Custom Rules'
-                      color='purple'
+                      color='violet9'
+                      fontWeight='bold'
                     />
                     {'.'}
                   </ListItem>
