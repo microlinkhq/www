@@ -2,11 +2,11 @@
 
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { Choose } from 'react-extras'
 import {
   Label,
   Container,
   PrimaryButton,
-  Choose,
   Notification,
   LinkDotted,
   Flex,

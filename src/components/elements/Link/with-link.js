@@ -25,7 +25,7 @@ export default ChildComponent => ({ actively, href, children, ...props }) => {
         <PrefetchLink
           to={href}
           children={children}
-          activeClassName={actively ? 'active' : null}
+          activeClassName={actively ? 'active' : undefined}
         />
       </ChildComponent>
     )
