@@ -1,7 +1,7 @@
 /* global fetch, StripeCheckout */
 
 import React, { Component, Fragment } from 'react'
-import { LinkDotted, Notification, OutlineButton } from 'components/elements'
+import { LinkSolid, Notification, Button } from 'components/elements'
 import { marshall } from 'helpers'
 import { Choose } from 'react-extras'
 
@@ -22,7 +22,7 @@ export default class extends Component {
 
   configure () {
     const {
-      plan,
+      planId,
       description,
       panelLabel,
       apiEndpoint,
@@ -40,14 +40,14 @@ export default class extends Component {
       description,
       token: token => {
         this.setState({ paymentState: PAYMENT_STATE.PROCESSING })
-        fetch(`${apiEndpoint}/payment/create`, {
+        fetch(`${apiEndpoint}/batch/series`, {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
           method: 'POST',
-          body: JSON.stringify({
-            plan,
-            token,
-            email_template: 'payment_success'
-          })
+          body: JSON.stringify([
+            { command: 'payment.create', planId, token },
+            { command: 'notification.email', templateId: 'welcome' },
+            { command: 'notification.email', templateId: 'send_api_key' }
+          ])
         })
           .then(res => res.json())
           .then(({ status }) =>
@@ -96,22 +96,26 @@ export default class extends Component {
             <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
               <Notification.Danger>
                 Payment not processed.{' '}
-                <LinkDotted
+                <LinkSolid
+                  display='inline'
                   color='red8'
+                  children='Contact us'
                   href={`mailto:hello@microlink.io?${marshall(
                     ERROR_MAIL_OPTS
                   )}`}
-                >
-                  Contact us
-                </LinkDotted>.
+                />
+                {'.'}
               </Notification.Danger>
             </Choose.When>
           </Choose>
         )}
 
-        <OutlineButton onClick={this.openStripe} onTouchStart={this.openStripe}>
-          Buy
-        </OutlineButton>
+        <Button
+          onClick={this.openStripe}
+          onTouchStart={this.openStripe}
+          children='Buy'
+          loading={paymentState === PAYMENT_STATE.PROCESSING}
+        />
       </Fragment>
     )
   }

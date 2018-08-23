@@ -1,14 +1,14 @@
 /* global fetch */
 
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
 import {
   Label,
   Container,
-  PrimaryButton,
+  Button,
   Notification,
-  LinkDotted,
+  LinkSolid,
   Flex,
   Heading
 } from 'components/elements'
@@ -76,29 +76,25 @@ const createOptions = fontSize => {
   }
 }
 
-class _CardForm extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = { paymentState: '' }
-  }
+class _CardForm extends Component {
+  state = { paymentState: null }
 
   handleSubmit = event => {
     event.preventDefault()
-    const { apiKey, api, stripe } = this.props
+    const { apiKey, apiEndpoint, stripe } = this.props
 
     this.setState({ paymentState: PAYMENT_STATE.PROCESSING })
 
     stripe
       .createToken()
       .then(({ token }) =>
-        fetch(`${api}/payment/update`, {
+        fetch(`${apiEndpoint}/batch/series`, {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
           method: 'POST',
-          body: JSON.stringify({
-            token,
-            user_id: unmarshall(window.location.search).id,
-            email_template: 'payment_updated'
-          })
+          body: JSON.stringify([
+            { command: 'payment.update', customerId: unmarshall(window.location.search).id, token },
+            { command: 'notification.email', templateId: 'payment_updated' }
+          ])
         })
       )
       .then(res => res.json())
@@ -114,8 +110,8 @@ class _CardForm extends React.Component {
     const { paymentState } = this.state
 
     return (
-      <div>
-        <Choose>
+      <Fragment>
+        {paymentState && <Choose>
           <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
             <Notification.Success children='Processing...' />
           </Choose.When>
@@ -125,43 +121,38 @@ class _CardForm extends React.Component {
           <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
             <Notification.Danger>
               Payment not updated.{' '}
-              <LinkDotted
+              <LinkSolid
+                children='Contact us'
                 color='red8'
                 href={`mailto:hello@microlink.io?${marshall(ERROR_MAIL_OPTS)}`}
-              >
-                Contact us
-              </LinkDotted>.
+              />
+              {'.'}
             </Notification.Danger>
           </Choose.When>
-        </Choose>
+        </Choose>}
 
         <Form onSubmit={this.handleSubmit}>
-          <Label display='block' fontSize={0} color='gray6'>
+          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
             Card number
             <CardNumberElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <Label display='block' fontSize={0} color='gray6'>
+          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
             Expiration date
             <CardExpiryElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <Label display='block' fontSize={0} color='gray6'>
+          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
             CVC
             <CardCVCElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <PrimaryButton
-            mt={4}
-            bg='primary'
+          <Button
             children='Add Card'
-            display={['block', 'inherit']}
-            width={['100%', 'inherit']}
-            disabled={paymentState !== ''}
-            spinner={paymentState === PAYMENT_STATE.PROCESSING}
+            loading={paymentState === PAYMENT_STATE.PROCESSING}
           />
         </Form>
-      </div>
+      </Fragment>
     )
   }
 }
@@ -169,16 +160,9 @@ class _CardForm extends React.Component {
 const CardForm = injectStripe(_CardForm)
 
 export default class extends Component {
-  constructor () {
-    super()
-    this.state = {
-      mountOnLoad: false,
-      stripe: null
-    }
-    this.loadStripe = this.loadStripe.bind(this)
-  }
+  state = { mountOnLoad: false, stripe: null }
 
-  loadStripe () {
+  loadStripe = () => {
     const { stripeKey } = this.props
 
     if (window.Stripe) {
@@ -193,12 +177,12 @@ export default class extends Component {
   }
 
   render () {
-    const { paymentApiKey: apiKey, paymentEndpoint: api } = this.props
+    const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } = this.props
 
     return (
-      <Container is='section' maxWidth='350px' pt={5} pb={3}>
+      <Container is='section' maxWidth='350px' pt={4} pb={3}>
         <Helmet
-          title='Add Payment'
+          title='Update Payment'
           script={[
             { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
           ]}
@@ -213,13 +197,12 @@ export default class extends Component {
         <StripeProvider stripe={this.state.stripe}>
           <Flex flexDirection='column'>
             <Heading
-              children='Add Payment'
-              fontSize={3}
+              children='Update Payment'
+              fontSize={[4, 5]}
               pb={4}
-              color='black80'
             />
             <Elements>
-              <CardForm api={api} apiKey={apiKey} fontSize={'18px'} />
+              <CardForm apiEndpoint={apiEndpoint} apiKey={apiKey} fontSize={'18px'} />
             </Elements>
           </Flex>
         </StripeProvider>

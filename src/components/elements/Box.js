@@ -9,6 +9,7 @@ const Box = system(
   'textAlign',
   'maxWidth',
   'boxShadow',
+  'display',
   boxStyle
 )
 

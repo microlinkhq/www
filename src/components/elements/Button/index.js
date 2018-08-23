@@ -1,7 +1,6 @@
-import OutlineButton from './OutlineButton'
-import PrimaryButton from './PrimaryButton'
+import button from './Button'
+import buttonOutline from './ButtonOutline'
+import withSpinner from './with-spinner'
 
-export default {
-  PrimaryButton,
-  OutlineButton
-}
+export const Button = withSpinner(button)
+export const ButtonOutline = withSpinner(buttonOutline)

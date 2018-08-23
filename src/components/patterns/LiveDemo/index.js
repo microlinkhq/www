@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { PrimaryButton, Card as CardBase, Flex, Box } from 'components/elements'
+import { Button, Card as CardBase, Flex, Box } from 'components/elements'
 import styled from 'styled-components'
 import { fonts, colors } from 'theme'
 
@@ -26,7 +26,7 @@ const Card = styled(CardBase)`
     box-shadow: none;
   }
 `
-const SwitchButton = styled(PrimaryButton)`
+const SwitchButton = styled(Button)`
   font-family: ${fonts.mono};
   cursor: pointer;
   padding-left: 10px;

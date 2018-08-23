@@ -1,11 +1,11 @@
 import React from 'react'
-import { Fixed } from 'rebass'
+import { Fixed } from 'components/elements'
 
 const createNotification = notificationProps => props => (
   <Fixed
     m={2}
     p={3}
-    z={1}
+    zIndex={3}
     right={0}
     bottom={0}
     {...notificationProps}

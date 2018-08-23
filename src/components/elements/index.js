@@ -1,5 +1,5 @@
-import { PrimaryButton, OutlineButton } from './Button'
-import { Link, LinkDotted, LinkSolid } from './Link'
+import { Button, ButtonOutline } from './Button'
+import { Link, LinkSolid } from './Link'
 
 import Box from './Box'
 import Caps from './Caps'
@@ -43,13 +43,12 @@ export {
   Label,
   Lead,
   Link,
-  LinkDotted,
   LinkSolid,
   Metadata,
   Notification,
-  OutlineButton,
+  ButtonOutline,
   PricePicker,
-  PrimaryButton,
+  Button,
   Select,
   Spinner,
   Subhead,

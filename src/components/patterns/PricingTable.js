@@ -323,7 +323,7 @@ export default class extends Component {
                 '',
                 <Checkout
                   apiEndpoint={apiEndpoint}
-                  plan={planId}
+                  planId={planId}
                   apiKey={apiKey}
                   stripeKey={stripeKey}
                   panelLabel={panelLabel}

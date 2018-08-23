@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import system from 'system-components'
 import Box from '../Box'
 import LinkBase from './base'
 
 import { transition, lineHeights } from 'theme'
 
-export const Link = styled(LinkBase)([])
+export const Link = system({ is: LinkBase })
 
 const LinkSolid = styled(Link)`
   text-decoration: none;
@@ -27,8 +28,13 @@ Link.defaultProps = {
   pb: '2px'
 }
 
-export default ({ fontWeight, href, children, ...props }) => (
-  <Box {...props}>
-    <LinkSolid href={href} children={children} fontWeight={fontWeight} />
+export default ({ fontWeight, href, children, color, ...props }) => (
+  <Box data-test {...props}>
+    <LinkSolid
+      color={color}
+      href={href}
+      children={children}
+      fontWeight={fontWeight}
+    />
   </Box>
 )

@@ -7,7 +7,7 @@ import {
   Small,
   Box,
   Row,
-  PrimaryButton,
+  ButtonOutline,
   Flex,
   Input,
   Text
@@ -83,9 +83,9 @@ export default props => (
                       fontSize={0}
                     />
                   </InputWrapper>
-                  <PrimaryButton>
+                  <ButtonOutline>
                     <Caps fontSize={0} children='Subscribe' />
-                  </PrimaryButton>
+                  </ButtonOutline>
                 </Flex>
               </form>
             </Flex>

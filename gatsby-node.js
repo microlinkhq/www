@@ -25,7 +25,7 @@ const apiFetch = async url => {
     const { body } = await got(key, { json: true })
     console.log('fetched', url)
     const { data } = body
-    await keyv.set(url, data)
+    await keyv.set(key, data)
     return data
   } catch (err) {
     err.message = `${err.message}: ${url}`

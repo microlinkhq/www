@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { colors } from 'theme'
 import is from 'styled-is'
 
-const Label = system({ is: LabelBase }, 'display')
+const Label = system({ is: LabelBase }, 'display', 'textAlign', 'space')
 
 export default styled(Label)`
   ${is('suffix')`
