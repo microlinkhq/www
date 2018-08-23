@@ -8,16 +8,12 @@ const envError = propName =>
 const {
   STRIPE_KEY,
   PAYMENT_API_KEY,
-  API_ENDPOINT,
-  API_KEY,
   PAYMENT_ENDPOINT,
   GOOGLE_ANALYTICS_ID = `UA-108549225-1`
 } = process.env
 
 if (!STRIPE_KEY) throw envError('STRIPE_KEY')
 if (!PAYMENT_API_KEY) throw envError('PAYMENT_API_KEY')
-if (!API_ENDPOINT) throw envError('API_ENDPOINT')
-if (!API_KEY) throw envError('API_KEY')
 if (!PAYMENT_ENDPOINT) throw envError('PAYMENT_ENDPOINT')
 
 const SITE_URL = 'https://microlink.io'
@@ -34,8 +30,6 @@ module.exports = {
     logo: url.resolve(SITE_URL, '/logo-trim.png'),
     video: url.resolve(SITE_URL, '/preview.mp4'),
     twitter: '@microlinkio',
-    apiEndpoint: API_ENDPOINT,
-    apiKey: API_KEY,
     paymentEndpoint: PAYMENT_ENDPOINT,
     paymentApiKey: PAYMENT_API_KEY,
     stripeKey: STRIPE_KEY

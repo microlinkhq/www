@@ -13,8 +13,6 @@ import 'styles/main.scss'
 
 const IndexLayout = ({ children, data, ...props }) => {
   const {
-    apiEndpoint,
-    apiKey,
     paymentEndpoint,
     paymentApiKey,
     stripeKey,
@@ -29,8 +27,6 @@ const IndexLayout = ({ children, data, ...props }) => {
         <Box pt={TOOLBAR_SIZE}>
           {children({
             ...props,
-            apiEndpoint,
-            apiKey,
             paymentEndpoint,
             paymentApiKey,
             stripeKey,
@@ -59,8 +55,6 @@ export const query = graphql`
         image
         video
         twitter
-        apiEndpoint
-        apiKey
         paymentEndpoint
         paymentApiKey
         stripeKey
