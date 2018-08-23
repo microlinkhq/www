@@ -1,551 +1,277 @@
-/* global fetch */
-
-import {
-  WaveSection,
-  RippleSection,
-  GradientSection,
-  Section,
-  Hide,
-  Box,
-  Text,
-  Flex,
-  Heading,
-  Subhead,
-  LinkSolid,
-  LinkDotted,
-  Container
-} from 'components/elements'
-
-import { Microlink as MicrolinkLogo } from 'components/logos'
-import MicrolinkCard from 'react-microlink'
-import styled from 'styled-components'
 import React, { Fragment, Component } from 'react'
-import colorWrapper from 'color'
-
 import {
-  ContentFeature,
-  PricingTable,
-  ContentGrid,
+  Text,
+  Subhead,
+  Box,
+  Heading,
+  Lead,
+  Flex,
+  Container,
+  Link,
+  Hide
+} from 'components/elements'
+import {
   DemoLinks,
-  SearchBox,
-  CodeCard
+  CardLink,
+  LiveDemo,
+  PricingTable,
+  Grid
 } from 'components/patterns'
-
-import { textGradient, maxWidth } from 'helpers/style'
-import { get } from 'helpers'
-
-const getColors = data => {
-  const alternativeColor =
-    get(data, 'image.alternative_color') || get(data, 'logo.alternative_color')
-  const color = get(data, 'image.color') || get(data, 'logo.color')
-  return { alternativeColor, color }
-}
-
-const SectionSubhead = styled(Subhead)`
-  display: block;
-`
-
-const Description = styled(Subhead)`
-  ${textGradient};
-  text-align: center;
-  font-weight: normal;
-  max-width: 40rem;
-`
-
-const EllipsisText = Text.extend`
-  ${maxWidth};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`
-
-EllipsisText.defaultProps = {
-  blacklist: [...Object.keys(Text.propTypes), 'maxWidth']
-}
-
-const CustomHeading = Heading.extend`
-  font-family: 'avenir next', avenir, sans-serif;
-  line-height: 60px;
-`
-
-const URL_FALLBACK =
-  'https://www.nytimes.com/2017/09/19/learning/whats-going-on-in-this-graph-sept-19-2017.html'
+import { List, ListItem } from 'components/patterns/List'
+import {
+  Working,
+  BrowserStats,
+  DesignProcess,
+  Frameworks
+} from 'components/icons'
 
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.loaderStop = this.loaderStop.bind(this)
-    this.setUrl = this.setUrl.bind(this)
-    this.fetchUrl = this.fetchUrl.bind(this)
-
-    this.state = {
-      loading: false,
-      url: URL_FALLBACK,
-      data: {
-        lang: 'en',
-        author: 'The Learning Network',
-        title: 'What’s Going On in This Graph? | Sept. 19, 2017',
-        publisher: 'NYTimes',
-        image: {
-          width: 1003,
-          height: 524,
-          type: 'png',
-          url:
-            'https://static01.nyt.com/images/2017/09/13/learning/WGOITGraph09-19-17LN/WGOITGraph09-19-17LN-facebookJumbo-v2.png',
-          palette: ['#1c94bc', '#ecfbb4', '#25519f', '#505cac', '#cbccd2'],
-          background_color: '#CBCCD2',
-          color: '#115A73',
-          alternative_color: '#25519F'
-        },
-        description:
-          'Look closely at this graph, and join the moderated conversation about what you and other students see.',
-        date: '2017-09-19T09:30:01.000Z',
-        logo: {
-          width: 57,
-          height: 57,
-          type: 'png',
-          url:
-            'https://static01.nyt.com/images/icons/ios-default-homescreen-57x57.png',
-          palette: ['#2b2b2b', '#c4c4c4', '#7c7c7c'],
-          background_color: '#C4C4C4',
-          color: '#2B2B2B',
-          alternative_color: '#4F4F4F'
-        },
-        url:
-          'https://www.nytimes.com/2017/09/19/learning/whats-going-on-in-this-graph-sept-19-2017.html'
-      }
-    }
-  }
-
-  loaderStop () {
-    this.setState({ loading: false })
-  }
-
-  fetchUrl (targetUrl) {
-    const { apiEndpoint, apiKey } = this.props
-    const headers = apiKey ? { 'x-api-key': apiKey } : {}
-    const url = this.getUrl(apiEndpoint, targetUrl)
-
-    fetch(url, { headers })
-      .then(res => res.json())
-      .then(({ data }) => {
-        if (data) this.setState({ url: targetUrl, data })
-        this.loaderStop()
-      })
-      .catch(this.loaderStop)
-  }
-
-  onChange (newState) {
-    try {
-      const { data } = JSON.parse(newState)
-      this.setState({ data })
-    } catch (err) {}
-  }
-
-  componentWillUpdate (nextProps, nextState) {
-    const { url } = this.state
-    const nextUrl = nextState.url
-    if (url !== nextUrl) this.fetchUrl(nextUrl)
-  }
-
-  getUrl (apiEndpoint, url) {
-    return `${apiEndpoint}/?url=${url}&palette`
-  }
-
-  setUrl (url) {
-    if (url !== this.state.url) this.setState({ loading: true, url })
-  }
-
-  render () {
-    const { data, paymentEndpoint, paymentApiKey, stripeKey } = this.props
+    const { data } = this.props
     const features = data.features.edges.map(item => item.node)
-    const demos = data.demos.edges.map(item => item.node)
-    const { color: _color, alternativeColor: _alternativeColor } = getColors(
-      this.state.data
+    const demoLinks = data.demoLinks.edges.map(item => item.node.data)
+    const activeDemoLink = demoLinks.find(
+      demoLink => demoLink.publisher.toLowerCase() === 'instagram'
     )
-
-    const colorBase = colorWrapper(_alternativeColor || _color)
-    const textColor = colorWrapper(colorBase).isDark() ? '#FAFBFC' : 'gray9'
+    this.state = { features, demoLinks, activeDemoLink }
+  }
+  render () {
+    const { paymentEndpoint, paymentApiKey, stripeKey } = this.props
+    const { features, demoLinks, activeDemoLink } = this.state
 
     return (
       <Fragment>
-        <WaveSection
-          bg='#FAFBFC'
-          id='home'
-          color={_color}
-          alternativeColor={_alternativeColor}
-        >
-          <Container px={[3, 4, 5, 6]} pt={4}>
+        <Box is='article'>
+          <Container is='section' pt={5} pb={5} px={0}>
             <Flex
-              is='section'
-              justifyContent='center'
+              is='header'
               flexDirection='column'
+              justifyContent='center'
               alignItems='center'
+              pb={[4, 5]}
             >
-              <Flex
-                justifyContent='center'
-                flexDirection='column'
-                alignItems='center'
-                py={3}
-              >
-                <CustomHeading
-                  is='h1'
-                  fontWeight='bold'
-                  my={0}
-                  fontSize={[5, 6]}
-                  color='primary'
-                >
-                  <MicrolinkLogo ml={1} width={['32px', '48px']} /> microlink
-                </CustomHeading>
-                <Description
-                  is='h2'
-                  fontSize={[2, 3, 4]}
-                  px={[2, 4, 5]}
-                  m={0}
-                  children='Easily convert links into beautiful previews'
-                />
-              </Flex>
-              <SearchBox
-                bg='white'
-                width={1}
-                my={3}
-                loading={this.state.loading}
-                placeholder={URL_FALLBACK}
-                value={this.state.url !== URL_FALLBACK ? this.state.url : null}
-                onChange={this.setUrl}
+              <Heading
+                children='Extract structured data from any website'
+                maxWidth='12em'
+              />
+              <Lead
+                mt={[2, 3]}
+                color='black50'
+                children='Enter an URL, receive data.'
               />
             </Flex>
-          </Container>
-
-          <Box py={4} px={[2, 4]}>
-            <Flex
-              is='section'
-              justifyContent='center'
-              flexDirection='column'
-              alignItems='center'
-            >
-              <Text fontSize={1} py={3} color='gray8'>
-                Click to see it in action →
-              </Text>
-            </Flex>
-
-            <Container pb={3}>
-              <DemoLinks
-                px={[0, 4, 6, 0]}
-                size={56}
-                links={demos}
-                onClick={({ url }) => this.setUrl(url)}
-              />
-            </Container>
-
-            <Container bg='transparent' py={3} color='black'>
-              <CodeCard
-                data={this.state.data}
-                bg='transparent'
-                pt={4}
-                pb={5}
-                px={[0, '', '', 3]}
-                onChange={data => this.setState({ data: JSON.parse(data) })}
-              />
-            </Container>
-          </Box>
-        </WaveSection>
-
-        <Section bg='#FAFBFC'>
-          <Container pb={[5]} pt={[4, 5]}>
-            <ContentFeature
-              flexDirection='right'
-              image='/img/carbon-dracula.png'
-            >
-              <SectionSubhead
-                fontSize={[3, 5]}
-                pt={[0, 3]}
-                pb={[3, 4]}
-                color='secondary'
-              >
-                Get the context of any link
-              </SectionSubhead>
-
-              <Text fontSize={[2, 3]} py={3}>
-                Enter an URL, receive information. Easy peasy.
-              </Text>
-
-              <Text fontSize={[2, 3]} py={3}>
-                You can obtain well structured and normalized data from
-                practically any website, just providing the{' '}
-                <LinkDotted
-                  href='https://docs.microlink.io/api/#api-parameters/url'
-                  external
-                >
-                  url
-                </LinkDotted>.
-              </Text>
-
-              <Text fontSize={[2, 3]} py={3}>
-                We also have{' '}
-                <LinkDotted
-                  href='https://docs.microlink.io/api/#api-parameters/prerender'
-                  external
-                >
-                  prerendering
-                </LinkDotted>{' '}
-                for get information from client side applications.
-              </Text>
-            </ContentFeature>
-          </Container>
-        </Section>
-
-        <Section bg='#FAFBFC' pb={5}>
-          <Container pt={[4, 5]}>
-            <ContentFeature flexDirection='right' image='/img/link-preview.png'>
-              <SectionSubhead
-                fontSize={[3, 5]}
-                pt={[0, 3]}
-                pb={[3, 4]}
-                color='secondary'
-              >
-                Build rich media embeds
-              </SectionSubhead>
-
-              <Text fontSize={[2, 3]} py={3}>
-                Improve your engagement for any media.
-              </Text>
-
-              <Text fontSize={[2, 3]} py={3}>
-                We help your users to understand why a link was shared and
-                whether they need to act on it.
-              </Text>
-
-              <Text fontSize={[2, 3]} py={3}>
-                Use our{' '}
-                <LinkDotted href='https://docs.microlink.io/sdk' external>
-                  SDK
-                </LinkDotted>{' '}
-                for easily integrate it into your site.
-              </Text>
-            </ContentFeature>
-          </Container>
-        </Section>
-
-        <RippleSection
-          color={_color}
-          alternativeColor={_alternativeColor}
-          id='sdk'
-        >
-          <Container p={5}>
-            <Flex
-              justifyContent='center'
-              alignItems='center'
-              flexDirection='column'
-            >
-              <Text color={textColor} py={3} fontSize={[3, 4]}>
-                Converts your links
-              </Text>
-              <EllipsisText
-                style={{ opacity: '0.5' }}
-                color={textColor}
-                p={3}
-                fontSize={[2, 4]}
-                maxWidth={['100%', '500px']}
-              >
-                {this.state.url}
-              </EllipsisText>
-              <Text color={textColor} py={3} fontSize={[1, 3]}>
-                into beautiful previews
-              </Text>
-              <Box width={1}>
-                <MicrolinkCard
-                  apiKey={this.props.apiKey}
-                  key={`MicrolinkCard__${this.state.url}`}
-                  url={this.state.url}
-                  image={['image', 'logo']}
-                  round
-                  palette
-                  style={{ margin: '0 auto' }}
-                />
-              </Box>
-              <Flex
-                py={3}
-                is='section'
-                justifyContent='center'
-                flexDirection='column'
-                alignItems='center'
-              >
-                <Text fontSize={1} py={3} pb={1} color={textColor}>
-                  Click to see more examples →
-                </Text>
-              </Flex>
-
-              <Container pb={3}>
-                <DemoLinks
-                  size={40}
-                  px={[0, '96px']}
-                  links={demos}
-                  onClick={({ url }) => this.setUrl(url)}
-                />
+            <Box is='article'>
+              <Container is='section' px={0}>
+                <Flex flexDirection='column'>
+                  <LiveDemo children={activeDemoLink} />
+                  <Hide breakpoints={[0, 1]}>
+                    <Flex
+                      flexDirection='column'
+                      justifyContent='center'
+                      alignItems='center'
+                    >
+                      <Text
+                        fontSize={1}
+                        py={3}
+                        color='gray8'
+                        children='Try another link →'
+                      />
+                      <DemoLinks
+                        px={[4, 0]}
+                        size={[40, 48]}
+                        children={demoLinks}
+                        onClick={activeDemoLink =>
+                          this.setState({ activeDemoLink })
+                        }
+                      />
+                    </Flex>
+                  </Hide>
+                </Flex>
               </Container>
-              <Text color={textColor} pt={4} fontSize={3}>
-                See{' '}
-                <LinkSolid
-                  color={textColor}
-                  href='https://docs.microlink.io/sdk'
-                  external
-                >
-                  SDK Documentation
-                </LinkSolid>.
-              </Text>
+            </Box>
+          </Container>
+        </Box>
+        <Box bg='#faf9fc' is='article'>
+          <Container is='section' py={[4, 6]}>
+            <Flex
+              flexDirection={['column', 'row']}
+              justifyContent='space-between'
+            >
+              <Flex
+                px={[4, 0]}
+                maxWidth={['100%', '23em']}
+                justifyContent='center'
+                flexDirection='column'
+              >
+                <Subhead
+                  is='header'
+                  textAlign={['center', 'inherit']}
+                  children='Browser as service'
+                />
+                <Text
+                  textAlign={['center', 'inherit']}
+                  maxWidth={['inherit', 8]}
+                  mt={[1, 3]}
+                  children='Microlink is a powerful API for developers with top notch tecnologies of the industry.'
+                />
+                <Hide breakpoints={[2, 3]}>
+                  <Box textAlign='center'>
+                    <BrowserStats py={4} width={'16rem'} />
+                  </Box>
+                </Hide>
+                <List pl={[4, 0]} mt={4}>
+                  <ListItem children='Headless browser service.' />
+                  <ListItem>
+                    {'Simple '}
+                    <Link
+                      href='https://docs.microlink.io/api/#introduction'
+                      children='API'
+                    />
+                    {' integration.'}
+                  </ListItem>
+                  <ListItem children='Add it to your existing stack or cloud.' />
+                </List>
+              </Flex>
+              <Hide breakpoints={[0, 1]}>
+                <Flex>
+                  <BrowserStats
+                    width={'24rem'}
+                    transform={'translateY(-28px)'}
+                  />
+                </Flex>
+              </Hide>
             </Flex>
           </Container>
-        </RippleSection>
-
-        <Section bg='#FAFBFC'>
-          <Container pb={[4]} pt={[4, 5]}>
-            <ContentFeature flexDirection='right' image='/img/browser.png'>
-              <SectionSubhead
-                fontSize={[3, 5]}
-                pt={[0, 3]}
-                pb={[3, 4]}
-                color='secondary'
-              >
-                Take screenshots
-              </SectionSubhead>
-
-              <Text fontSize={[2, 3]} py={3}>
-                Automate{' '}
-                <LinkDotted
-                  href='https://docs.microlink.io/api/#api-parameters/screenshot'
-                  external
-                >
-                  screenshot
-                </LinkDotted>, displaying them anywhere.
-              </Text>
-
-              <Text fontSize={[2, 3]} py={3}>
-                Capture partial or full page snapshots, without complications.
-              </Text>
-
-              <Text fontSize={[2, 3]} py={3}>
-                We also support{' '}
-                <LinkDotted
-                  href='https://docs.microlink.io/api/#api-parameters/screenshot/device-emulation'
-                  external
-                >
-                  device
-                </LinkDotted>{' '}
-                emulation.
-              </Text>
-            </ContentFeature>
-          </Container>
-        </Section>
-
-        <Section bg='#FAFBFC' pb={5}>
-          <Container pt={[4, 5]}>
-            <ContentFeature
-              flexDirection='right'
-              image='/img/embed-support.png'
-            >
-              <SectionSubhead
-                fontSize={[3, 5]}
-                pt={[0, 3]}
-                pb={[3, 4]}
-                color='secondary'
-              >
-                Embed in your markup
-              </SectionSubhead>
-
-              <Text fontSize={[2, 3]} py={3}>
-                Start by not writing any code.
-              </Text>
-
-              <Text fontSize={[2, 3]} py={3}>
-                You can{' '}
-                <LinkDotted
-                  href='https://docs.microlink.io/api/#api-parameters/embed'
-                  external
-                >
-                  embed
-                </LinkDotted>{' '}
-                directly in your HTML components.
-              </Text>
-
-              <Text fontSize={[2, 3]} py={3}>
-                Zero overhead. No dependencies.
-              </Text>
-            </ContentFeature>
-          </Container>
-        </Section>
-
-        <Section bg='white' id='features' px={[2, '', 5]} pt={[2, 3]}>
-          <SectionSubhead
-            fontSize={[4, 5]}
-            py={5}
-            textAlign='center'
-            color='secondary'
-          >
-            Features
-          </SectionSubhead>
-          <Container>
-            <Hide breakpoints={[0, 1, 2]}>
-              <ContentGrid data={features} itemsPerRow={3} />
-            </Hide>
-            <Hide breakpoints={[0, 3]}>
-              <ContentGrid data={features} itemsPerRow={2} />
-            </Hide>
-            <Hide breakpoints={[1, 2, 3]}>
-              <ContentGrid data={features} itemsPerRow={1} />
-            </Hide>
-          </Container>
-        </Section>
-
-        <GradientSection
-          bg='#FAFBFC'
-          gradient='linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)'
-        >
-          <Container py={[6, 7, 7, 7]}>
+        </Box>
+        <Box is='article' id='features'>
+          <Container is='section' py={5}>
             <Flex
+              is='header'
+              flexDirection='column'
               justifyContent='center'
               alignItems='center'
-              flexDirection='column'
+              pb={[4, 5]}
             >
-              <Text color='white' pb={2} fontSize={3}>
-                Discover everything you can do in the
-              </Text>
-              <Text color='white' fontSize={4}>
-                <LinkSolid
-                  color='white'
-                  href='https://docs.microlink.io/api/'
-                  external
-                >
-                  API Documentation
-                </LinkSolid>
-              </Text>
+              <Heading children='Features' />
+              <Lead
+                mt={[2, 3]}
+                color='black50'
+                children='Our feature at a glance.'
+              />
+            </Flex>
+            <Hide breakpoints={[0, 1]}>
+              <Grid children={features} itemsPerRow={3} />
+            </Hide>
+            <Hide breakpoints={[2, 3]}>
+              <Grid children={features} itemsPerRow={1} />
+            </Hide>
+          </Container>
+        </Box>
+        <Box bg='#faf9fc' is='article'>
+          <Container is='section' py={[4, 6]}>
+            <Flex
+              flexDirection={['column', 'row']}
+              justifyContent='space-between'
+            >
+              <Hide breakpoints={[0, 1]}>
+                <Flex>
+                  <DesignProcess
+                    width={'24rem'}
+                    transform={'translateY(4px)'}
+                  />
+                </Flex>
+              </Hide>
+              <Flex
+                px={[4, 0]}
+                maxWidth={['100%', '23em']}
+                justifyContent='center'
+                flexDirection='column'
+              >
+                <Subhead
+                  is='header'
+                  textAlign={['center', 'inherit']}
+                  children='Turns any website into data'
+                />
+                <Text
+                  textAlign={['center', 'inherit']}
+                  maxWidth={['inherit', 6]}
+                  mt={[1, 3]}
+                  px={[3, 0]}
+                  children='Microlink turns any website into useful structured data.'
+                />
+                <Hide breakpoints={[2, 3]}>
+                  <Box textAlign='center'>
+                    <DesignProcess py={4} width={'16rem'} />
+                  </Box>
+                </Hide>
+                <List pl={[4, 0]} mt={4}>
+                  <ListItem children='Works with any website.' />
+                  <ListItem children='Detect complementary information (video, colors, dimensions, etc).' />
+                  <ListItem>
+                    {'Customize payload using '}
+                    <Link href='/blog/custom-rules/' children='Custom Rules' />
+                    {'.'}
+                  </ListItem>
+                </List>
+              </Flex>
             </Flex>
           </Container>
-        </GradientSection>
-
-        <Section
-          bg='white'
-          id='pricing'
-          px={[2, '', 5]}
-          pt={[2, 3]}
-          pb={[5, 0]}
-        >
-          <SectionSubhead
-            fontSize={[4, 5]}
-            py={5}
-            textAlign='center'
-            color='secondary'
-          >
-            Pricing
-          </SectionSubhead>
-          <Container pb={[2, 5]} px={[0, '', 3]}>
+        </Box>
+        <Box variant='gradient' is='article'>
+          <Container is='section' py={[4, 5]}>
+            <Flex
+              px={3}
+              flexDirection={['column', 'row']}
+              justifyContent='space-between'
+            >
+              <Flex
+                justifyContent='center'
+                flexDirection='column'
+                alignItems='center'
+                mb={[4, 0]}
+              >
+                <CardLink
+                  href='https://docs.microlink.io/sdk'
+                  title='Explore the SDK'
+                  description='See beyond any link, easily converting links into beautiful previews. Build engagement for your website, improving the user experience.'
+                  iconComponent={Frameworks}
+                />
+              </Flex>
+              <Flex
+                justifyContent='center'
+                flexDirection='column'
+                alignItems='center'
+              >
+                <CardLink
+                  href='https://docs.microlink.io'
+                  title='Explore the Docs'
+                  description='Customize each payload using custom rules, detect predominant colors or take sreenshot. Embed API calls directly in your markup.'
+                  iconComponent={Working}
+                />
+              </Flex>
+            </Flex>
+          </Container>
+        </Box>
+        <Box is='article' id='pricing'>
+          <Container is='section' pt={5} pb={0}>
+            <Flex
+              is='header'
+              flexDirection='column'
+              justifyContent='center'
+              alignItems='center'
+              pb={[4, 5]}
+            >
+              <Heading children='Pricing' />
+              <Lead mt={[2, 3]} color='black50' children='Pay as you go.' />
+            </Flex>
             <PricingTable
-              api={paymentEndpoint}
+              apiEndpoint={paymentEndpoint}
               apiKey={paymentApiKey}
               stripeKey={stripeKey}
             />
           </Container>
-        </Section>
+        </Box>
       </Fragment>
     )
   }
@@ -558,15 +284,47 @@ export const query = graphql`
         node {
           title
           description
-          icon
         }
       }
     }
-    demos: allDemosYaml {
+    demoLinks: allDemoLink {
       edges {
         node {
-          favicon
-          url
+          data {
+            lang
+            author
+            title
+            publisher
+            description
+            date
+            url
+            image {
+              url
+              width
+              height
+              type
+              size
+              size_pretty
+            }
+            logo {
+              url
+              width
+              height
+              type
+              size
+              size_pretty
+            }
+            video {
+              url
+              width
+              height
+              type
+              size
+              size_pretty
+              duration
+              duration_pretty
+            }
+          }
         }
       }
     }

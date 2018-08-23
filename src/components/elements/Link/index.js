@@ -1,38 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { colors } from 'theme'
-
-import dotted from './dotted'
+import withLink from './with-link'
 import solid from './solid'
+import base from './base'
 
-const base = styled.a`
-  text-decoration: none;
-  color: ${colors.link};
-  font-size: inherit;
-  &:hover {
-    text-decoration: underline;
-  }
-`
-
-const determinteTarget = (href = '') =>
-  href.startsWith('/') ? '_self' : '_blank'
-
-const createLink = ChildComponent => ({
-  href,
-  external,
-  children,
-  ...props
-}) => (
-  <ChildComponent
-    href={href}
-    target={determinteTarget(href)}
-    style={{ cursor: 'pointer' }}
-    {...props}
-  >
-    {children}
-  </ChildComponent>
-)
-
-export const LinkSolid = createLink(solid)
-export const LinkDotted = createLink(dotted)
-export const Link = createLink(base)
+export const LinkSolid = withLink(solid)
+export const Link = withLink(base)

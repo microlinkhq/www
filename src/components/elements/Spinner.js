@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { width } from 'styled-system'
 
 import { colors } from 'theme'
-import { height } from 'helpers/style'
+
+import Svg from './Svg'
 
 const Spinner = props => (
   <StyledSpinner viewBox='0 0 50 50' {...props}>
@@ -18,8 +18,8 @@ const Spinner = props => (
   </StyledSpinner>
 )
 
-const StyledSpinner = styled.svg`
-  ${width} ${height} animation: rotate 2s linear infinite;
+const StyledSpinner = styled(Svg)`
+  animation: rotate 2s linear infinite;
 
   .path {
     stroke: ${colors.primary};

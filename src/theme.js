@@ -14,12 +14,7 @@ export const fontWeights = {
   bold: 600
 }
 
-export const letterSpacings = {
-  normal: 'normal',
-  caps: '0.25em'
-}
-
-export const radii = [0, 2, 4, 8]
+export const radii = [0, 2, 4, 6, 8]
 
 export const borders = [0, '1px solid', '2px solid']
 
@@ -75,7 +70,7 @@ export const colors = Object.assign({}, flattened, {
 export const fonts = {
   sans: "'Inter UI', sans-serif",
   mono:
-    "'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo, monospace"
+    '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace'
 }
 
 export const cx = key => colors[key] || key
@@ -83,32 +78,83 @@ export const cx = key => colors[key] || key
 export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
 
 export const shadows = [
-  'none',
-  `inset 0 0 0 1px ${colors.gray}`,
-  `inset 0 0 0 1px ${colors.gray}, 0 0 4px ${colors.gray}`
+  'rgb(206, 212, 218) 0 -5px 15px 0',
+  '0 1px 2px rgba(0,0,0,0.24)',
+  '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+  '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+  '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+  '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
 ]
 
-export const lineHeights = [1, 1.125, 1.25, 1.5]
+export const lineHeights = [1, 1.125, 1.25, 1.5, 2]
 
-export const maxWidths = [1, 2, 4, 8, 16, 32, 48, 64, 72, 82, 96].map(
-  n => n + 'em'
-)
+export const maxWidths = [
+  1,
+  2,
+  4,
+  8,
+  12,
+  16,
+  20,
+  24,
+  28,
+  32,
+  36,
+  40,
+  44,
+  48,
+  64,
+  72,
+  82,
+  96
+].map(n => n + 'em')
 
-export const maxWidth = {
-  normal: '560px',
-  large: '720px'
+export const transition = {
+  short: '.1s cubic-bezier(.25,.8,.25,1)',
+  medium: '.35s cubic-bezier(.25,.8,.25,1)',
+  long: '.45s cubic-bezier(.4, 0, .2, 1)'
 }
 
+export const bgGradient = `
+  background-image: ${gradient};
+`
+
+export const textGradient = `
+  ${bgGradient}
+  display: inline-block;
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+`
+
+export const textStyle = {
+  gradient: textGradient
+}
+
+export const boxStyle = {
+  gradient: `
+    background-image: linear-gradient(to bottom, #F76698 0%, #EA407B 29%, #654EA3 100%);
+  `
+}
+
+export const layout = [1024, 1024, 1024]
+
 export default {
-  maxWidths,
-  gradient,
   breakpoints,
-  space,
+  boxStyle,
+  colors,
+  fonts,
   fontSizes,
   fontWeights,
+  gradient,
+  layout,
   lineHeights,
-  letterSpacings,
-  fonts,
-  colors,
-  radii
+  maxWidths,
+  radii,
+  shadows,
+  space,
+  textStyle,
+  transition
 }

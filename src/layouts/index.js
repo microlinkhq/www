@@ -1,19 +1,18 @@
 /* global graphql */
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { Provider } from 'rebass'
-import { Box, Container, Main, Section, Metadata } from 'components/elements'
-import { NavBar, Footer } from 'components/patterns'
+import { Box, Metadata } from 'components/elements'
+import { TOOLBAR_SIZE } from 'components/elements/Toolbar'
+import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
 
 import theme from 'theme'
 import 'styles/main.scss'
 
 const IndexLayout = ({ children, data, ...props }) => {
   const {
-    apiEndpoint,
-    apiKey,
     paymentEndpoint,
     paymentApiKey,
     stripeKey,
@@ -21,28 +20,23 @@ const IndexLayout = ({ children, data, ...props }) => {
   } = data.site.siteMetadata
 
   return (
-    <Main>
+    <Fragment>
       <Metadata {...metadata} />
-      <Provider theme={theme}>
-        <NavBar />
-        <Box py='56px'>
+      <Provider is='main' theme={theme}>
+        <Toolbar />
+        <Box pt={TOOLBAR_SIZE}>
           {children({
             ...props,
-            apiEndpoint,
-            apiKey,
             paymentEndpoint,
             paymentApiKey,
             stripeKey,
             metadata
           })}
         </Box>
-        <Section bg='#10111B' color='gray1'>
-          <Container py={[3, 4, 5]} px={0} maxWidth='900px'>
-            <Footer />
-          </Container>
-        </Section>
+        <CookiesPolicy />
+        <Footer />
       </Provider>
-    </Main>
+    </Fragment>
   )
 }
 
@@ -59,10 +53,7 @@ export const query = graphql`
         title
         description
         image
-        video
         twitter
-        apiEndpoint
-        apiKey
         paymentEndpoint
         paymentApiKey
         stripeKey

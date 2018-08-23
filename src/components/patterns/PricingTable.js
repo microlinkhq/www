@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import system from 'system-components'
+import React, { Fragment, Component } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { HelpCircle, Check } from 'react-feather'
+import { Check, HelpCircle } from 'react-feather'
 import {
-  PricePicker,
+  Box,
   Tooltip,
   Hide,
+  Label,
   LinkSolid,
   Flex,
   Text,
@@ -12,13 +14,60 @@ import {
   Checkout
 } from 'components/elements'
 
+import PricePicker, {
+  DEFAULT_PLAN,
+  BASE_PLAN_PRICE
+} from 'components/elements/PricePicker'
+
 import { colors } from 'theme'
 
-const BASE_PRICE = 12
-const BASE_PLAN = 'pro-1k-v2'
-const BASE_PLAN_REQS = 1000
+const FREE_PLAN_RATE_LIMIT = 250
 
 const toLocale = number => Math.round(number).toLocaleString('en-US')
+
+const getMonthlyPrice = price => `$${price}/month`
+
+const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
+
+const TOOLTIPS = {
+  'Rate Limit':
+    'Maximum number of requests you can consume until reach the quota.',
+  'Request Concurrency': 'Maximum simultaneous requests you can make.',
+  'Request Caching':
+    'Speed up response timing caching payload for same API calls.',
+  'Screenshot support': 'Take partial or full screenshot for any website.',
+  'Video detection':
+    'It extracts the original video source from any link provided',
+  'Color Detection':
+    'It extracts palette & predominant colors for any image detected',
+  'Live Support':
+    'We provide chat support to help you integrate with your services.'
+}
+
+const Price = styled(Lead)`
+  font-weight: bold;
+  &::before {
+    content: '$';
+    font-weight: 100;
+    font-size: 0.8em;
+    position: relative;
+    top: -5px;
+    left: 0;
+    color: ${colors.black50};
+  }
+  &::after {
+    content: '/month';
+    font-weight: 100;
+    font-size: 0.8em;
+    position: relative;
+    top: 0;
+    color: ${colors.black50};
+  }
+`
+
+Price.defaultProps = {
+  fontSize: 2
+}
 
 const highlight = keyframes`
   from {
@@ -35,106 +84,144 @@ const Highlight = styled.span`
   animation-fill-mode: forwards;
 `
 
-const Table = styled.table`
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 1rem;
-  background-color: transparent;
-`
+const TableDataCell = system(
+  {
+    is: 'td'
+  },
+  'textAlign',
+  'color',
+  'space',
+  'fontWeight',
+  'fontSize',
+  'width'
+)
 
-const Td = styled.td`
-  padding: 0.75rem;
-  vertical-align: top;
-`
+const TableRow = system(
+  {
+    is: 'tr'
+  },
+  'textAlign',
+  'color',
+  'space',
+  'fontWeight',
+  'fontSize'
+)
 
-const TdPrice = Td.extend`
-  font-weight: bold;
+const TableHeader = system(
+  {
+    is: 'th'
+  },
+  'textAlign',
+  'color',
+  'space',
+  'fontWeight',
+  'fontSize'
+)
 
-  &::before {
-    content: '$';
-    font-weight: 100;
-    font-size: 0.8em;
-    position: relative;
-    top: -5px;
-    left: 0;
-    color: ${colors.black50};
-  }
+const Table = system(
+  { is: 'table' },
+  {
+    tableLayout: 'fixed',
+    'border-collapse': 'collapse',
+    textAlign: 'center'
+  },
+  'space'
+)
 
-  &::after {
-    content: '/month';
-    font-weight: 100;
-    font-size: 0.8em;
-    position: relative;
-    top: 0;
-    color: ${colors.black50};
-  }
-`
+const PricingHeader = ({ children }) => {
+  const [featureHeader, ...pricingPlans] = children
+  return (
+    <TableRow>
+      <TableHeader
+        fontWeight='bold'
+        color='darkBlue700'
+        textAlign='right'
+        fontSize={2}
+      >
+        {featureHeader}
+      </TableHeader>
+      {pricingPlans.map((children, index) => (
+        <TableHeader
+          pb={'.85rem'}
+          px={[3, '5rem']}
+          fontWeight='bold'
+          fontSize={2}
+          color='blue700'
+          key={`${featureHeader}_${children}_${index}`}
+          children={children}
+        />
+      ))}
+    </TableRow>
+  )
+}
 
-const SubSpan = styled.span`
-  &::after {
-    font-weight: 100;
-    font-size: 0.8em;
-    content: '/month';
-    position: relative;
-    top: 0;
-    color: ${colors.black50};
-  }
-`
+const PricingRow = ({ children, ...props }) => {
+  const [name, ...values] = children
 
-const DailyRequests = SubSpan.extend`
-  &::after {
-    content: '/day';
-  }
-`
+  return (
+    <TableRow>
+      <TableHeader {...props}>
+        <Hide breakpoints={[2, 3]}>
+          <Text
+            fontSize={0}
+            color='darkBlue400'
+            fontWeight='bold'
+            children={name}
+          />
+        </Hide>
+        <Hide breakpoints={[0, 1]}>
+          <Tooltip text={TOOLTIPS[name]}>
+            <Text
+              fontSize={1}
+              color='darkBlue400'
+              fontWeight='bold'
+              style={{ cursor: 'help' }}
+            >
+              {name}{' '}
+              {name && (
+                <HelpCircle
+                  size={12}
+                  color={colors.black50}
+                  style={{ vertialAlign: 'middle' }}
+                />
+              )}
+            </Text>
+          </Tooltip>
+        </Hide>
+      </TableHeader>
+      {values.map((children, index) => (
+        <TableDataCell
+          fontWeight='normal'
+          color='black80'
+          fontSize={1}
+          key={`${name}_${children}_${index}`}
+          children={children}
+        />
+      ))}
+    </TableRow>
+  )
+}
 
-const RequestsConcurrency = SubSpan.extend`
-  &::after {
-    content: '/seq';
-  }
-`
-
-const Th = styled.th`
-  padding: 0.75rem;
-  vertical-align: top;
-`
-
-const Tr = styled.tr`
-  border-spacing: 2px;
-  border-color: grey;
-`
-
-// const Note = styled.span`
-//   &::before {
-//     content: "*";
-//     font-weight: 100;
-//     font-size: .8em;
-//     position: relative;
-//     top: -5px;
-//     left: 0;
-//     color: ${colors.gray8};
-//   }
-// `
+PricingRow.defaultProps = {
+  pr: 4,
+  py: 2,
+  textAlign: 'right'
+}
 
 export default class extends Component {
-  constructor (props) {
-    super(props)
-    this.priceSelected = this.priceSelected.bind(this)
-    this.state = {
-      plan: BASE_PLAN,
-      description: `${toLocale(BASE_PLAN_REQS)} daily requests`,
-      price: BASE_PRICE,
-      panelLabel: `$${BASE_PRICE}/month`
-    }
+  state = {
+    price: BASE_PLAN_PRICE,
+    planId: DEFAULT_PLAN.planId,
+    description: getPlanDescription(DEFAULT_PLAN.reqs),
+    panelLabel: getMonthlyPrice(BASE_PLAN_PRICE)
   }
 
-  priceSelected ({ plan, reqs }) {
-    const newPrice = BASE_PRICE * reqs / BASE_PLAN_REQS
-
+  priceSelected = ({ price, planId, reqs }) => {
     this.setState({
-      plan,
-      description: `${toLocale(reqs)} daily requests`,
-      price: toLocale(newPrice),
-      panelLabel: `$${newPrice}/month`
+      price,
+      planId,
+      description: getPlanDescription(reqs),
+      panelLabel: getMonthlyPrice(price)
     })
 
     if (this.raf) return
@@ -152,167 +239,109 @@ export default class extends Component {
   }
 
   render () {
-    const { highlight, plan, description, panelLabel, price } = this.state
-    const { api, apiKey, stripeKey } = this.props
+    const { highlight, planId, description, panelLabel, price } = this.state
+    const { apiEndpoint, apiKey, stripeKey } = this.props
 
     return (
-      <div>
-        <Table>
+      <Box mx='auto' px={[0, 6]}>
+        <Table width='100%'>
+          <thead>
+            <PricingHeader children={['', 'Free', 'Pro']} />
+          </thead>
           <tbody>
-            <Tr>
-              <Th />
-              <Td>
-                <Lead fontWeight='bold'>Free</Lead>
-              </Td>
-              <Td>
-                <Lead fontWeight='bold'>Pro</Lead>
-              </Td>
-            </Tr>
-            <Tr>
-              <Th>
-                <Tooltip
-                  message={
-                    <Text is='span' fontWeight='normal'>
-                      Rate limit is based in a daily quota of requests. <br />It
-                      will be reset every day.
-                    </Text>
-                  }
-                >
-                  <Flex justify='center' alignItems='center'>
-                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
-                      Rate Limit
-                    </Text>
-                    <HelpCircle color={colors.black50} size={14} />
-                  </Flex>
-                </Tooltip>
-              </Th>
-              <Td>
-                250 <DailyRequests>reqs</DailyRequests>
-              </Td>
-              <Td>
-                <PricePicker
-                  base={{
-                    plan: BASE_PLAN,
-                    reqs: BASE_PLAN_REQS
-                  }}
-                  onChange={this.priceSelected}
-                />
-                <DailyRequests>reqs</DailyRequests>
-              </Td>
-            </Tr>
-            <Tr>
-              <Th>
-                <Tooltip
-                  message={
-                    <Text is='span' fontWeight='normal'>
-                      Maximum simultaneous requests you can make.
-                    </Text>
-                  }
-                >
-                  <Flex justify='center' alignItems='center'>
-                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
-                      <Hide breakpoints={[0, 1]}>Request Concurrency</Hide>
-                      <Hide breakpoints={[2, 3]}>Req. Concurrency</Hide>
-                    </Text>
-                    <HelpCircle color={colors.black50} size={14} />
-                  </Flex>
-                </Tooltip>
-              </Th>
-              <Td>
-                1<RequestsConcurrency />
-              </Td>
-              <Td>
-                ∞<RequestsConcurrency />
-              </Td>
-            </Tr>
-            <Tr>
-              <Th>
-                <Tooltip
-                  message={
-                    <Text is='span' fontWeight='normal'>
-                      We follow a query caching policy for successive API calls.
-                    </Text>
-                  }
-                >
-                  <Flex justify='center' alignItems='center'>
-                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
-                      <Hide breakpoints={[0, 1]}>Request Caching</Hide>
-                      <Hide breakpoints={[2, 3]}>Req. Caching</Hide>
-                    </Text>
-                    <HelpCircle color={colors.black50} size={14} />
-                  </Flex>
-                </Tooltip>
-              </Th>
-              <Td>
-                <Check color={colors.black} size={16} />
-              </Td>
-              <Td>
-                <Check color={colors.black} size={16} />
-              </Td>
-            </Tr>
-            <Tr>
-              <Th>
-                <Tooltip
-                  message={
-                    <Text is='span' fontWeight='normal'>
-                      We provide chat support to help you integrate with your
-                      services.
-                    </Text>
-                  }
-                >
-                  <Flex justify='center' alignItems='center'>
-                    <Text fontWeight='bold' fontSize={[1, 2]} pr={1}>
-                      Live Support
-                    </Text>
-                    <HelpCircle color={colors.black50} size={14} />
-                  </Flex>
-                </Tooltip>
-              </Th>
-              <Td>
-                <Check color={colors.black} size={16} />
-              </Td>
-              <Td>
-                <Check color={colors.black} size={16} />
-              </Td>
-            </Tr>
-            <Tr>
-              <Th />
-              <TdPrice>0</TdPrice>
-              <TdPrice>
-                {highlight ? (
-                  <Highlight>{price}</Highlight>
-                ) : (
-                  <span>{price}</span>
-                )}
-              </TdPrice>
-            </Tr>
-            <Tr>
-              <Th />
-              <Th />
-              <Td>
+            <PricingRow
+              children={[
+                'Rate Limit',
+                <Fragment>
+                  {FREE_PLAN_RATE_LIMIT}{' '}
+                  <Label display='inline' children='reqs' suffix='/day' />
+                </Fragment>,
+                <PricePicker onChange={this.priceSelected} />
+              ]}
+            />
+            <PricingRow
+              children={[
+                'Request Concurrency',
+                <Fragment>
+                  1 <Label display='inline' children='reqs' suffix='/sec' />
+                </Fragment>,
+                '∞'
+              ]}
+            />
+            <PricingRow
+              children={[
+                'Request Caching',
+                <Check size={16} color='#654EA3' />,
+                <Check size={16} color='#654EA3' />
+              ]}
+            />
+            <PricingRow
+              children={[
+                'Screenshot support',
+                <Check size={16} color='#654EA3' />,
+                <Check size={16} color='#654EA3' />
+              ]}
+            />
+            <PricingRow
+              children={[
+                'Video detection',
+                <Check size={16} color='#654EA3' />,
+                <Check size={16} color='#654EA3' />
+              ]}
+            />
+            <PricingRow
+              children={[
+                'Color Detection',
+                <Check size={16} color='#654EA3' />,
+                <Check size={16} color='#654EA3' />
+              ]}
+            />
+            <PricingRow
+              children={[
+                'Live Support',
+                <Check size={16} color='#654EA3' />,
+                <Check size={16} color='#654EA3' />
+              ]}
+            />
+            <PricingRow
+              py={3}
+              children={[
+                '',
+                <Price children={0} />,
+                <Price>
+                  {highlight ? (
+                    <Highlight>{price}</Highlight>
+                  ) : (
+                    <span>{price}</span>
+                  )}
+                </Price>
+              ]}
+            />
+            <PricingRow
+              children={[
+                '',
+                '',
                 <Checkout
-                  api={api}
-                  plan={plan}
+                  apiEndpoint={apiEndpoint}
+                  planId={planId}
                   apiKey={apiKey}
                   stripeKey={stripeKey}
                   panelLabel={panelLabel}
                   description={description}
                 />
-              </Td>
-            </Tr>
+              ]}
+            />
           </tbody>
         </Table>
 
         <Flex
-          is='section'
           justifyContent='center'
           flexDirection='column'
-          alignContent='center'
+          alignItems='center'
+          pt={[4, 5]}
         >
-          <Text textAlign='center' pt={4} px={5} f={3} color='gray8'>
-            Do you need more?
-          </Text>
-          <Text textAlign='center' pt={3} px={5} f={3} color='gray8'>
+          <Lead color='gray8' fontSize={2} children='Do you need more?' />
+          <Text is='div' mt={1} fontSize={1} color='gray8'>
             <LinkSolid
               fontWeight='bold'
               href='mailto:hello@microlink.io?subject=About pricing'
@@ -320,7 +349,7 @@ export default class extends Component {
             />.
           </Text>
         </Flex>
-      </div>
+      </Box>
     )
   }
 }

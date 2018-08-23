@@ -1,41 +1,40 @@
-import { color, fontWeight } from 'styled-system'
+import React from 'react'
 import styled from 'styled-components'
-import { colors } from 'theme'
+import system from 'system-components'
+import Box from '../Box'
+import LinkBase from './base'
 
-const BORDER_WIDTH = '2px'
+import { transition, lineHeights } from 'theme'
 
-const LinkSolid = styled.a`
-  ${color}
-  ${fontWeight}
-  display: inline;
+export const Link = system({ is: LinkBase })
+
+const LinkSolid = styled(Link)`
   text-decoration: none;
-  line-height: normal;
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: ${BORDER_WIDTH};
-    bottom: -${BORDER_WIDTH};
-    left: 0;
-    background-color: ${props => props.borderColor || props.color};
-    opacity: 1;
-  }
+  outline: 0;
+  opacity: 0.75;
+  display: inline-block;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  line-height: ${lineHeights[2]};
+  transition: border-color ${transition.short};
 
   &:hover {
-    opacity: 0.5;
-    transition: opacity 0.15s ease-in;s
-  }
-
-  &:active,
-  &:hover {
-    outline-width: 0;
+    border-color: currentColor;
   }
 `
 
-LinkSolid.defaultProps = {
-  color: colors.primary
+Link.defaultProps = {
+  fontWeight: 'bold',
+  color: 'black80',
+  pb: '2px'
 }
 
-export default LinkSolid
+export default ({ fontWeight, href, children, color, ...props }) => (
+  <Box data-test {...props}>
+    <LinkSolid
+      color={color}
+      href={href}
+      children={children}
+      fontWeight={fontWeight}
+    />
+  </Box>
+)

@@ -1,21 +1,21 @@
-import CodeCard from './CodeCard'
-import ContentFeature from './ContentFeature'
-import ContentGrid from './ContentGrid'
+import CardLink from './CardLink'
+import CookiesPolicy from './CookiesPolicy'
 import DemoLinks from './DemoLinks'
-import FeatureList from './FeatureList'
 import Footer from './Footer'
-import NavBar from './NavBar'
+import Grid from './Grid'
+import List from './List'
+import LiveDemo from './LiveDemo'
 import PricingTable from './PricingTable'
-import SearchBox from './SearchBox'
+import Toolbar from './Toolbar'
 
 export {
-  CodeCard,
-  ContentFeature,
-  ContentGrid,
+  CardLink,
+  CookiesPolicy,
   DemoLinks,
-  FeatureList,
   Footer,
-  NavBar,
+  Grid,
+  List,
+  LiveDemo,
   PricingTable,
-  SearchBox
+  Toolbar
 }

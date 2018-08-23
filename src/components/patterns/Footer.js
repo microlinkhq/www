@@ -1,94 +1,244 @@
 import React from 'react'
-import { alignSelf } from 'styled-system'
-import { OutlineButton, Flex, NavLink, Input, Text } from 'components/elements'
+import {
+  Container,
+  Hide,
+  LinkSolid,
+  Caps,
+  Small,
+  Box,
+  Row,
+  ButtonOutline,
+  Flex,
+  Input,
+  Text
+} from 'components/elements'
+import { Microlink } from 'components/logos'
+import { Mail, Slack, Github, Twitter } from 'react-feather'
+import styled from 'styled-components'
+import { transition, colors, layout } from 'theme'
 
-const ContactButton = NavLink.extend`
-  ${alignSelf};
-  padding: 0;
-  transition: opacity 0.15s ease;
-  &:hover {
-    opacity: 0.5;
-  }
+const InputWrapper = styled(Flex)`
+  border: 0;
+  border-color: #abb4bd;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 4px;
+  border: 0;
+  appearance: none;
 `
 
-const CustomNavLink = NavLink.extend`
-  transition: all 0.1s ease-out;
-  &:hover {
-    opacity: 0.5;
-  }
-`
-
-ContactButton.defaultProps = {
-  is: 'a',
-  blacklist: [...Object.keys(NavLink.propTypes), 'alignSelf']
-}
-
-const SignButton = OutlineButton.extend`
-  color: #10111b;
-  background-color: white;
-  box-shadow: none;
-  transition: opacity 0.15s ease;
+const IconWrapper = styled(Box)`
+  cursor: pointer;
+  opacity: 0.75;
+  transition: all ${transition.short};
 
   &:hover {
-    color: #10111b;
-    background-color: white;
-    opacity: 0.5;
+    opacity: 1;
+    > svg {
+      stroke: ${colors.black};
+    }
   }
 `
 
 export default props => (
-  <Flex is='footer' flexDirection='column' {...props}>
-    <Flex
-      mb={2}
-      flexDirection={['column', '', 'row']}
+  <Container px={[2, 0]} maxWidth={layout}>
+    <Row
+      is='footer'
+      py={[4, 5]}
+      mx='auto'
+      bg='white'
+      flexDirection={['column', 'row']}
+      justifyContent='space-between'
       alignItems='center'
-      py={3}
+      {...props}
     >
-      <Flex flexDirection='column'>
-        <Text fontSize={1}>Early access and updates on new releases.</Text>
-        <Flex py={3} px={0} alignItems='center' justifyContent='flex-start'>
-          <form
-            action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
-            method='post'
-          >
-            <Input
-              name='EMAIL'
-              placeholder='Email Address...'
-              width={'12rem'}
-              py={1}
-              px={2}
-              mr={2}
+      <Box px={0} pb={[3, 0]}>
+        <Flex pb={[3, 0]} flexDirection='column'>
+          <Flex pb={3} justifyContent='center'>
+            <Microlink />
+          </Flex>
+          <Flex flexDirection='column'>
+            <Text
+              color='black50'
+              fontSize={1}
+              children='Extract structured data from any website.'
             />
-            <SignButton py={'10px'} children='Sign Up' />
-          </form>
+          </Flex>
+          <Flex alignItems={['center', 'inherit']} flexDirection='column'>
+            <Flex py={['24px', 3]}>
+              <form
+                action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
+                method='post'
+              >
+                <Flex>
+                  <InputWrapper alignItems='center' mr={2}>
+                    <Box px={2} pt={1}>
+                      <Mail color={colors.black50} size={16} />
+                    </Box>
+                    <Input
+                      name='EMAIL'
+                      placeholder='you@domain.com'
+                      width='9rem'
+                      py={1}
+                      px={0}
+                      fontSize={0}
+                    />
+                  </InputWrapper>
+                  <ButtonOutline>
+                    <Caps fontSize={0} children='Subscribe' />
+                  </ButtonOutline>
+                </Flex>
+              </form>
+            </Flex>
+            <Text
+              color='black50'
+              fontSize={0}
+              children='Early access & updates on new releases.'
+            />
+          </Flex>
         </Flex>
-      </Flex>
-      <Flex mt={[3, '', 0]} ml={[0, '', 'auto']} flexDirection='column'>
-        <ContactButton
-          color='white'
-          fontWeight='bold'
-          fontSize={[3, '', 5]}
-          href='mailto:hello@microlink.io'
-          target='_blank'
-          children='hello@microlink.io'
-          alignSelf={['center', '', 'flex-start']}
-        />
-        <Flex w={1} justifyContent={['center', '', 'flex-end']}>
-          <CustomNavLink mr={2} href='/privacy' children='Privacy' />
-          <CustomNavLink mr={2} href='/terms' children='Terms' />
-          <CustomNavLink
+      </Box>
+      <Box pt={[3, 0]} pb={[3, 0]} px={0}>
+        <Flex flexDirection={['row', 'column']}>
+          <LinkSolid
+            fontSize={[0, 1]}
             mr={2}
-            target='_blank'
-            href='http://twitter.com/microlinkhq'
-            children='Twitter'
+            mb={[0, 3]}
+            href='https://docs.microlink.io/api/#introduction'
+            children='API'
           />
-          <CustomNavLink
-            target='_blank'
-            href='http://github.com/microlinkhq'
-            children='GitHub'
+          <LinkSolid
+            fontSize={[0, 1]}
+            mr={2}
+            mb={[0, 3]}
+            href='https://status.microlink.io/'
+            children='Status Page'
+          />
+          <LinkSolid
+            fontSize={[0, 1]}
+            mr={2}
+            mb={[0, 3]}
+            href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
+            children='Bug Reports'
+          />
+          <LinkSolid
+            fontSize={[0, 1]}
+            mr={2}
+            mb={[0, 3]}
+            href='https://chat.microlink.io'
+            children='Tech Support'
           />
         </Flex>
-      </Flex>
-    </Flex>
-  </Flex>
+      </Box>
+      <Box pb={[3, 0]} px={0}>
+        <Flex flexDirection={['row', 'column']}>
+          <LinkSolid
+            fontSize={[0, 1]}
+            mr={2}
+            mb={[0, 3]}
+            href='https://docs.microlink.io/sdk/'
+            children='SDK'
+          />
+          <LinkSolid
+            fontSize={[0, 1]}
+            mr={2}
+            mb={[0, 3]}
+            href='/#pricing'
+            children='Pricing'
+          />
+          <LinkSolid
+            fontSize={[0, 1]}
+            mr={2}
+            mb={[0, 3]}
+            href='https://github.com/microlinkhq/open/issues/new?template=Feature_request.md'
+            children='Feature Requests'
+          />
+          <LinkSolid
+            fontSize={[0, 1]}
+            mr={2}
+            mb={[0, 3]}
+            href='https://gallery.microlink.io/'
+            children='Gallery'
+          />
+        </Flex>
+      </Box>
+      <Box px={0}>
+        <Flex flexDirection='column'>
+          <Hide breakpoints={[0, 1]}>
+            <Flex alignItems='center'>
+              <Flex flexDirection='column'>
+                <Small color='black50' fontSize={1}>
+                  Questions?
+                </Small>
+                <LinkSolid
+                  mt={3}
+                  px={0}
+                  href='mailto:hello@microlink.io'
+                  children='We’d love to hear from you'
+                />
+              </Flex>
+            </Flex>
+          </Hide>
+          <Flex py={[3, 4]} alignItems='center'>
+            <Small
+              color='black80'
+              mr={2}
+              children='© Microlink'
+              style={{ opacity: '.75' }}
+              pb={'2px'}
+            />
+            <LinkSolid
+              fontWeight='normal'
+              mr={2}
+              fontSize={0}
+              href='/tos'
+              children='Terms'
+            />
+            <LinkSolid
+              fontWeight='normal'
+              fontSize={0}
+              href='/privacy'
+              children='Privacy'
+            />
+          </Flex>
+          <Flex alignItems='center' justifyContent={['center', 'inherit']}>
+            <IconWrapper
+              rel='noopener noreferrer'
+              target='_blank'
+              is='a'
+              href='https://chat.microlink.io'
+              mr={3}
+            >
+              <Slack color={colors.black80} size={20} />
+            </IconWrapper>
+            <IconWrapper
+              rel='noopener noreferrer'
+              target='_blank'
+              is='a'
+              href='https://github.com/microlinkhq'
+              mr={3}
+            >
+              <Github color={colors.black80} size={20} />
+            </IconWrapper>
+            <IconWrapper
+              rel='noopener noreferrer'
+              target='_blank'
+              is='a'
+              href='mailto:hello@microlink.io'
+              mr={3}
+            >
+              <Mail color={colors.black80} size={20} />
+            </IconWrapper>
+            <IconWrapper
+              rel='noopener noreferrer'
+              target='_blank'
+              is='a'
+              href='https://twitter.com/microlinkhq'
+            >
+              <Twitter color={colors.black80} size={20} />
+            </IconWrapper>
+          </Flex>
+        </Flex>
+      </Box>
+    </Row>
+  </Container>
 )

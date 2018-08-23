@@ -9,16 +9,13 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   margin-top: 0px;
   padding-bottom: 12px !important;
   margin-bottom: 12px;
-
   &::-webkit-scrollbar {
     width: 0.5em;
     height: 0.5em;
   }
-
   &::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 3px;
-
     &:hover {
       background: rgba(255, 255, 255, 0.2);
     }

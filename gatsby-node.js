@@ -1,7 +1,37 @@
 'use strict'
 
+const KeyvFile = require('keyv-file')
+
 const webpack = require('webpack')
+const crypto = require('crypto')
+const pAll = require('p-all')
+const Keyv = require('keyv')
 const path = require('path')
+const got = require('got')
+
+const URLS = require('./data/urls')
+
+const keyv = new Keyv({
+  store: new KeyvFile({
+    filename: `./node_modules/.cache/microlink.msgpack`
+  })
+})
+
+const apiFetch = async url => {
+  try {
+    const key = `https://api.microlink.io?url=${url}&video&palette&force`
+    const cachedData = await keyv.get(key)
+    if (cachedData) return cachedData
+    const { body } = await got(key, { json: true })
+    console.log('fetched', url)
+    const { data } = body
+    await keyv.set(key, data)
+    return data
+  } catch (err) {
+    err.message = `${err.message}: ${url}`
+    throw err
+  }
+}
 
 exports.modifyBabelrc = ({ babelrc }) => {
   return {
@@ -14,11 +44,43 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
   // See https://github.com/FormidableLabs/react-live/issues/5
   config.plugin('ignore', () => new webpack.IgnorePlugin(/^(xor|props)$/))
 
+  if (stage === 'build-html') {
+    config.loader('null', {
+      test: /react-json-view/,
+      loader: 'null-loader'
+    })
+  }
+
   return config.merge({
     resolve: {
       root: path.resolve(__dirname, './src')
     }
   })
+}
+
+exports.sourceNodes = async ({ boundActionCreators }) => {
+  const { createNode } = boundActionCreators
+  const actions = URLS.map(url => () => apiFetch(url))
+  const links = await pAll(actions, { concurrency: 1 })
+
+  const toNode = data => {
+    const node = {
+      data: data,
+      id: data.url,
+      parent: '__SOURCE__',
+      children: [],
+      internal: { type: `DemoLink` }
+    }
+
+    node.internal.contentDigest = crypto
+      .createHash(`md5`)
+      .update(JSON.stringify(node))
+      .digest(`hex`)
+
+    return node
+  }
+
+  links.forEach(link => createNode(toNode(link)))
 }
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
@@ -36,7 +98,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                   frontmatter {
                     title
                     date
-                    page
+                    static
                     slug
                   }
                 }
@@ -51,7 +113,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
         const posts = result.data.allJavascriptFrontmatter.edges
           .map((data, index) => ({ ...data.node.frontmatter }))
-          .filter(({ page }) => page !== true)
+          .filter(({ static: isStatic }) => isStatic !== true)
           .sort((a, b) => new Date(b.date) - new Date(a.date))
 
         return Promise.resolve(

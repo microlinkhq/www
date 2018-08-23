@@ -1,13 +1,9 @@
 /* global fetch, StripeCheckout */
 
-import React, { Component } from 'react'
-import {
-  Choose,
-  LinkDotted,
-  Notification,
-  OutlineButton
-} from 'components/elements'
+import React, { Component, Fragment } from 'react'
+import { LinkSolid, Notification, Button } from 'components/elements'
 import { marshall } from 'helpers'
+import { Choose } from 'react-extras'
 
 const PAYMENT_STATE = {
   PROCESSING: 'processing',
@@ -22,14 +18,17 @@ const ERROR_MAIL_OPTS = {
 }
 
 export default class extends Component {
-  constructor (props) {
-    super(props)
-    this.openStripe = this.openStripe.bind(this)
-    this.state = { paymentState: '' }
-  }
+  state = { paymentState: null }
 
   configure () {
-    const { plan, description, panelLabel, api, apiKey, stripeKey } = this.props
+    const {
+      planId,
+      description,
+      panelLabel,
+      apiEndpoint,
+      apiKey,
+      stripeKey
+    } = this.props
 
     this.handler = StripeCheckout.configure({
       key: stripeKey,
@@ -41,14 +40,14 @@ export default class extends Component {
       description,
       token: token => {
         this.setState({ paymentState: PAYMENT_STATE.PROCESSING })
-        fetch(`${api}/payment/create`, {
+        fetch(`${apiEndpoint}/batch/series`, {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
           method: 'POST',
-          body: JSON.stringify({
-            plan,
-            token,
-            email_template: 'payment_success'
-          })
+          body: JSON.stringify([
+            { command: 'payment.create', planId, token },
+            { command: 'notification.email', templateId: 'welcome' },
+            { command: 'notification.email', templateId: 'send_api_key' }
+          ])
         })
           .then(res => res.json())
           .then(({ status }) =>
@@ -72,7 +71,7 @@ export default class extends Component {
     document.body.appendChild(s)
   }
 
-  openStripe (e) {
+  openStripe = e => {
     if (!this.handler) return
     this.configure()
     this.handler.open()
@@ -85,31 +84,39 @@ export default class extends Component {
     const { paymentState } = this.state
 
     return (
-      <div>
-        <Choose>
-          <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
-            <Notification.Success children='Processing...' />
-          </Choose.When>
-          <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
-            <Notification.Success children='Payment processed! We sent you an email.' />
-          </Choose.When>
-          <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-            <Notification.Danger>
-              Payment not processed.{' '}
-              <LinkDotted
-                color='red8'
-                href={`mailto:hello@microlink.io?${marshall(ERROR_MAIL_OPTS)}`}
-              >
-                Contact us
-              </LinkDotted>.
-            </Notification.Danger>
-          </Choose.When>
-        </Choose>
+      <Fragment>
+        {paymentState && (
+          <Choose>
+            <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
+              <Notification.Success children='Processing...' />
+            </Choose.When>
+            <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
+              <Notification.Success children='Payment processed! We sent you an email.' />
+            </Choose.When>
+            <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
+              <Notification.Danger>
+                Payment not processed.{' '}
+                <LinkSolid
+                  display='inline'
+                  color='red8'
+                  children='Contact us'
+                  href={`mailto:hello@microlink.io?${marshall(
+                    ERROR_MAIL_OPTS
+                  )}`}
+                />
+                {'.'}
+              </Notification.Danger>
+            </Choose.When>
+          </Choose>
+        )}
 
-        <OutlineButton onClick={this.openStripe} onTouchStart={this.openStripe}>
-          Buy
-        </OutlineButton>
-      </div>
+        <Button
+          onClick={this.openStripe}
+          onTouchStart={this.openStripe}
+          children='Buy'
+          loading={paymentState === PAYMENT_STATE.PROCESSING}
+        />
+      </Fragment>
     )
   }
 }

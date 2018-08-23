@@ -1,9 +1,18 @@
-import { Label } from 'rebass'
-import { letterSpacing, color, display } from 'styled-system'
+import system from 'system-components'
+import { Label as LabelBase } from 'rebass'
 import styled from 'styled-components'
+import { colors } from 'theme'
+import is from 'styled-is'
+
+const Label = system({ is: LabelBase }, 'display', 'textAlign', 'space')
 
 export default styled(Label)`
-  ${display};
-  ${color};
-  ${letterSpacing};
+  ${is('suffix')`
+&::after {
+  font-weight: 100;
+  font-size: 0.8em;
+  color: ${colors.black50};
+  content: '${props => props.suffix}';
+}
+`};
 `

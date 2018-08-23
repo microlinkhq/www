@@ -7,11 +7,13 @@ export const Flex = system(
   'justifyContent',
   'flexDirection',
   'alignItems',
-  'flexWrap'
+  'flexWrap',
+  'maxWidth',
+  'lineHeight',
+  'borderRadius',
+  'boxShadow'
 )
 
 Flex.displayName = 'Flex'
-
-Flex.defaultProps = {}
 
 export default Flex

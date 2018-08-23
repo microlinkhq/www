@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Avatar, Flex } from 'components/elements'
+import { imageProxy } from 'react-microlink'
 
 const floatAnimation = css`
   display: inline-block;
@@ -10,7 +11,6 @@ const floatAnimation = css`
   transition-duration: 0.3s;
   transition-property: transform;
   transition-timing-function: ease-out;
-
   &:hover {
     transform: translateY(-8px);
   }
@@ -18,22 +18,30 @@ const floatAnimation = css`
 
 const Logo = styled(Avatar)`
   border-radius: 8px;
-  box-shadow: 0 16px 24px 0 rgba(127, 120, 118, 0.1);
+  box-shadow: none;
   cursor: pointer;
   ${floatAnimation};
 `
 
-export default ({ links, onClick, size, ...props }) => (
-  <Flex width='100%' justify='space-between' flexWrap='wrap' {...props}>
-    {links.map(item => (
+export default ({ children, onClick, size, ...props }) => (
+  <Flex
+    width='100%'
+    justifyContent='center'
+    alignItems='center'
+    flexWrap='wrap'
+    {...props}
+  >
+    {children.map(data => (
       <Logo
+        mr={1}
+        mb={1}
         size={size}
-        p={[2, 1]}
-        key={item.favicon}
-        src={item.favicon}
+        p={1}
+        key={data.url}
+        src={imageProxy(data.logo.url)}
         onClick={event => {
           event.preventDefault()
-          onClick(item)
+          onClick(data)
         }}
       />
     ))}

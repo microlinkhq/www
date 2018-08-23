@@ -7,7 +7,6 @@ export default ({
   image,
   twitter,
   siteUrl,
-  video,
   logo,
   siteName,
   ...props
@@ -33,7 +32,6 @@ export default ({
         { name: 'twitter:data2', value: 'docs.microlink.io' },
         { name: 'twitter:creator', content: twitter },
         { property: 'og:url', content: siteUrl },
-        { property: 'og:video:secure_url', content: video },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
         { property: 'og:image', content: image },

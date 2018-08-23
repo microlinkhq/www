@@ -1,83 +1,106 @@
-import React from 'react'
+import React, { createElement } from 'react'
 import styled from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { get } from 'helpers'
+import slugo from 'slugo'
 
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
-import { Heading, Text, Link } from 'components/elements'
-import { maxWidth } from 'helpers/style'
+import { Heading, Text, Link, Img as Image } from 'components/elements'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
-export const H1 = styled(Heading)([])
+const withSlug = ChildComponent => props =>
+  createElement(ChildComponent, {
+    ...props,
+    id: typeof props.children === 'string' ? slugo(props.children) : null
+  })
+
+const WIDTH = {
+  normal: '560px',
+  large: '720px'
+}
+
+export const H1 = withSlug(styled(Heading)([]))
 
 H1.defaultProps = {
-  maxWidth: 'normal',
+  maxWidth: WIDTH.normal,
   mx: 'auto',
   is: 'h1',
   fontSize: [`${fontSizes[5] * 0.75}px`, 5],
   lineHeight: [2, 3],
+  textAlign: 'left',
+  variant: null,
   mt: 5,
   mb: 4
 }
 
-export const H2 = styled(Heading)([])
+export const H2 = withSlug(styled(Heading)([]))
 
 H2.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: WIDTH.normal,
   is: 'h2',
   fontSize: [`${fontSizes[4] * 0.75}px`, 4],
   lineHeight: [2, 3],
+  textAlign: 'left',
+  variant: null,
   mt: 5,
   mb: 4
 }
 
-export const H3 = styled(Heading)([])
+export const H3 = withSlug(styled(Heading)([]))
 
 H3.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: WIDTH.normal,
   is: 'h3',
   fontSize: 3,
   lineHeight: 2,
+  textAlign: 'left',
+  variant: null,
   mt: 5,
   mb: 4
 }
 
-export const H4 = styled(Heading)([])
+export const H4 = withSlug(styled(Heading)([]))
 
 H4.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: WIDTH.normal,
   is: 'h4',
   fontSize: 2,
   lineHeight: 2,
+  textAlign: 'left',
+  variant: null,
   mt: 5,
   mb: 4
 }
 
-export const H5 = styled(Heading)([])
+export const H5 = withSlug(styled(Heading)([]))
 
 H5.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: WIDTH.normal,
   is: 'h5',
   fontSize: 1,
   lineHeight: 2,
+  textAlign: 'left',
+  variant: null,
   mt: 4,
   mb: 2
 }
 
-export const H6 = styled(Heading)([])
+export const H6 = withSlug(styled(Heading)([]))
 
 H6.defaultProps = {
   mx: 'auto',
-  maxWidth: 'normal',
+  maxWidth: WIDTH.normal,
   is: 'h6',
   fontSize: 1,
   color: 'gray9',
   lineHeight: 2,
+  textAlign: 'left',
+  variant: null,
   mt: 4,
   mb: 2
 }
@@ -87,7 +110,7 @@ export const Paraph = props => {
     get(props, 'children.props.src') ||
     get(props, 'children.props.href') ||
     SPECIAL_COMPONENTS.includes(get(props, 'children.type.displayName'))
-  const maxWidth = special ? 'large' : 'normal'
+  const maxWidth = special ? WIDTH.large : WIDTH.normal
   return <Text maxWidth={maxWidth} {...props} />
 }
 
@@ -111,7 +134,7 @@ Ul.defaultProps = {
   mx: 'auto',
   is: 'ul',
   my: 4,
-  maxWidth: 'normal'
+  maxWidth: WIDTH.normal
 }
 
 export const Li = styled(Text)([])
@@ -120,7 +143,7 @@ Li.defaultProps = {
   mx: 'auto',
   mb: 2,
   is: 'li',
-  maxWidth: 'normal'
+  maxWidth: WIDTH.normal
 }
 
 export const CodeInline = styled(Text)(
@@ -161,20 +184,20 @@ export const PreCode = props => (
   </CodeCopy>
 )
 
-export const Img = styled.img`
-  ${maxWidth};
-  border-radius: 3px;
-  display: block;
-  margin: 2.5rem auto;
-  text-align: center;
-`
+export const Img = styled(Image)([])
 
 Img.defaultProps = {
-  maxWidth: ['100%', 'large']
+  maxWidth: ['100%', WIDTH.large],
+  display: 'block',
+  borderRadius: '3px',
+  my: '2.5rem',
+  mx: 'auto',
+  textAlign: 'center'
 }
 
 export const Figcaption = styled.figcaption`
-  ${maxWidth} margin-top: -1.5rem;
+  max-width: ${WIDTH.large};
+  margin-top: -1.5rem;
   font-size: ${fontSizes[0]}px;
   color: ${colors.gray};
   text-align: center;
@@ -182,11 +205,12 @@ export const Figcaption = styled.figcaption`
 `
 
 export const Blockquote = styled.blockquote`
+  margin: auto;
+  max-width: ${WIDTH.normal};
   border-left: 3px solid ${colors.black};
   padding-left: ${space[2]}px;
   font-style: italic;
   color: ${colors.gray8};
-  margin-left: -13px;
 `
 
 export default {
