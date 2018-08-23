@@ -113,7 +113,6 @@ export default class extends Component {
                   textAlign={['center', 'inherit']}
                   maxWidth={['inherit', 8]}
                   mt={[1, 3]}
-                  color='violet9'
                   children='Microlink is a powerful API for developers with top notch tecnologies of the industry.'
                 />
                 <Hide breakpoints={[2, 3]}>

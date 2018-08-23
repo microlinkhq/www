@@ -51,15 +51,11 @@ const got = require('got')
 })()
 `.trim()
 
-const Ruby = props => `require 'uri'
-require 'net/http'
+const Ruby = props => `require('httparty')
 
-url = URI('${apiUrl(props)}')
-http = Net::HTTP.new(url.host, url.port)
-request = Net::HTTP::Get.new(url)
+response = HTTParty.get('${apiUrl(props)}')
 
-response = http.request(request)
-puts response.read_body
+puts response.body
 `
 
 const PHP = props => `<?php

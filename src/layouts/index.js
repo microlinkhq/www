@@ -53,7 +53,6 @@ export const query = graphql`
         title
         description
         image
-        video
         twitter
         paymentEndpoint
         paymentApiKey
