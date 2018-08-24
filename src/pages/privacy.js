@@ -23,7 +23,7 @@ ${
   Your privacy is important to us. It is Microlink HQ's policy to respect your
   privacy regarding any information we may collect from you across our website{' '}
     <Link href='https://microlink.io' children='microlink.io' />, and other
-  sites we own and operate.
+  sites we own and operate, according to EU General Data Protection Regulation (GDPR).
   </Text>
 }
 
@@ -33,7 +33,7 @@ ${
 
 **When you choose a paid plan**: We ask for your email address and payment details, as well as what information you wish to include in your policy. This information is mandatory, as we use it to process the payment.
 
-**When you use our API**: Similar to data collected for website analytics purposes, we do the same in our API for detecting errors or improve response timing.
+**When you consume our API**: Similar to data collected for website analytics purposes, we do the same in our API for detecting errors or improve response timing.
 
 ## Our legal bases for processing
 
