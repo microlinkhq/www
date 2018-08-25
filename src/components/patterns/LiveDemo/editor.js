@@ -98,7 +98,7 @@ func main() {
   url := "${apiUrl(props)}"
 
   if res, err := http.Get(url); err == nil {
-  var payload JSend
+  var payload Schema
 
   json.NewDecoder(res.Body).Decode(&payload)
   json.NewEncoder(os.Stdout).Encode(payload)
@@ -107,9 +107,9 @@ func main() {
   }
 }
 
-// Microlink API follows JSend format
+// Microlink API follows JSend schema format
 // See more: https://labs.omniti.com/labs/jsend
-type JSend struct {
+type Schema struct {
   Status  string \`json:"status"\`
   Message string \`json:"message,omitempty"\`
   Data    *Data  \`json:"data,omitempty"\`
