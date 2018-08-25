@@ -95,7 +95,7 @@ import (
 )
 
 func main() {
-  url := '${apiUrl(props)}'
+  url := "${apiUrl(props)}"
 
   if res, err := http.Get(url); err == nil {
   var payload JSend
@@ -134,14 +134,14 @@ type ImageURL struct {
   Height           int      \`json:"height,omitempty"\`
   Size             int      \`json:"size,omitempty"\`
   SizePretty       string   \`json:"size_pretty,omitempty"\`
-  Duration         int      \`json:"size,omitempty"\`
-  DurationPretty   string   \`json:"size_pretty,omitempty"\`
+  Duration         int      \`json:"duration,omitempty"\`
+  DurationPretty   string   \`json:"duration_pretty,omitempty"\`
   Type             string   \`json:"type,omitempty"\`
   URL              string   \`json:"url"\`
-  Palette          []string \`json:"url,omitempty"\`
-  BackgroundColor  string   \`json:"string,omitempty"\`
-  AlternativeColor string   \`json:"string,omitempty"\`
-  Color            string   \`json:"string,omitempty"\`
+  Palette          []string \`json:"palette,omitempty"\`
+  BackgroundColor  string   \`json:"background_color,omitempty"\`
+  AlternativeColor string   \`json:"alternative_color,omitempty"\`
+  Color            string   \`json:"color,omitempty"\`
 }
 `
 
