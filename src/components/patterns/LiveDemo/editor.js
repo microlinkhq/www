@@ -86,14 +86,62 @@ if ($err) {
 ?>
 `
 
-const Go = props => `func main() {
+const Go = props => `package main
+
+import (
+  "encoding/json"
+  "net/http"
+  "os"
+)
+
+func main() {
   url := '${apiUrl(props)}'
-  req, _ := http.NewRequest("GET", url)
-  res, _ := http.DefaultClient.Do(req)
-  defer res.Body.Close()
-  body, _ := ioutil.ReadAll(res.Body)
-  fmt.Println(res)
-  fmt.Println(string(body))
+
+  if res, err := http.Get(url); err == nil {
+  var payload JSend
+
+  json.NewDecoder(res.Body).Decode(&payload)
+  json.NewEncoder(os.Stdout).Encode(payload)
+
+  res.Body.Close()
+  }
+}
+
+// Microlink API follows JSend format
+// See more: https://labs.omniti.com/labs/jsend
+type JSend struct {
+  Status  string \`json:"status"\`
+  Message string \`json:"message,omitempty"\`
+  Data    *Data  \`json:"data,omitempty"\`
+}
+
+type Data struct {
+  Author      string    \`json:"author,omitempty"\`
+  Lang        string    \`json:"lang,omitempty"\`
+  Date        string    \`json:"date,omitempty"\`
+  Title       string    \`json:"title,omitempty"\`
+  Description string    \`json:"description,omitempty"\`
+  Publisher   string    \`json:"publisher,omitempty"\`
+  URL         string    \`json:"url"\`
+  Image       *ImageURL \`json:"image,omitempty"\`
+  Video       *ImageURL \`json:"video,omitempty"\`
+  Logo        *ImageURL \`json:"logo,omitempty"\`
+  Screenshot  *ImageURL \`json:"screenshot,omitempty"\`
+}
+
+type ImageURL struct {
+  Width            int      \`json:"width,omitempty"\`
+  Height           int      \`json:"height,omitempty"\`
+  Size             int      \`json:"size,omitempty"\`
+  SizePretty       string   \`json:"size_pretty,omitempty"\`
+  Duration         int      \`json:"size,omitempty"\`
+  DurationPretty   string   \`json:"size_pretty,omitempty"\`
+  Type             string   \`json:"type,omitempty"\`
+  URL              string   \`json:"url"\`
+  Palette          []string \`json:"url,omitempty"\`
+  BackgroundColor  string   \`json:"string,omitempty"\`
+  AlternativeColor string   \`json:"string,omitempty"\`
+  Color            string   \`json:"string,omitempty"\`
 }
 `
 
