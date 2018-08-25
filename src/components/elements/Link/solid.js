@@ -29,7 +29,7 @@ Link.defaultProps = {
 }
 
 export default ({ fontWeight, href, children, color, ...props }) => (
-  <Box data-test {...props}>
+  <Box {...props}>
     <LinkSolid
       color={color}
       href={href}

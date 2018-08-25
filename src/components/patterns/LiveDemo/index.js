@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom'
 import React, { Component } from 'react'
 import { Button, Card as CardBase, Flex, Box } from 'components/elements'
 import styled from 'styled-components'
@@ -65,8 +66,8 @@ const Switch = ({ children, active, onChange }) => (
 export default class extends Component {
   state = { editor: 'React', preview: 'SDK' }
 
-  onChange = data => {
-    this.setState(data)
+  componentDidUpdate () {
+    if (this.node) ReactDOM.findDOMNode(this.node).scrollTop = 0
   }
 
   render () {
@@ -117,6 +118,7 @@ export default class extends Component {
           </Flex>
           <Flex flexDirection='column' mb={[4, 0]}>
             <Card
+              ref={node => (this.node = node)}
               px={isSDK ? 0 : '20px'}
               py={isSDK ? 0 : '25px'}
               width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
