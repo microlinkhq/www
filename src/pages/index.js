@@ -31,9 +31,7 @@ export default class extends Component {
     const { data } = this.props
     const features = data.features.edges.map(item => item.node)
     const demoLinks = data.demoLinks.edges.map(item => item.node.data)
-    const activeDemoLink = demoLinks.find(
-      demoLink => demoLink.publisher.toLowerCase() === 'instagram'
-    )
+    const activeDemoLink = demoLinks.find(({publisher = ''} = {}) => /twitter/i.test(publisher))
     this.state = { features, demoLinks, activeDemoLink }
   }
   render () {
