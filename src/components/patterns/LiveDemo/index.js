@@ -72,7 +72,7 @@ export default class extends Component {
 
   render () {
     const { editor: editorLang, preview } = this.state
-    const { children } = this.props
+    const { children, siteUrl } = this.props
     const editor = EDITOR[editorLang]
     const code = editor(children)
     const isSDK = preview === 'SDK'
@@ -125,7 +125,7 @@ export default class extends Component {
               height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
               style={{ overflow: isSDK ? 'hidden' : 'auto' }}
             >
-              <Preview preview={preview} children={children} />
+              <Preview siteUrl={siteUrl} preview={preview} children={children} />
             </Card>
             <Flex mt={3}>
               <Switch

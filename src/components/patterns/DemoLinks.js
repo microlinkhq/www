@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Avatar, Flex } from 'components/elements'
-import { imageProxy } from 'react-microlink'
+import { getMediaAssetPath } from 'helpers'
 
 const floatAnimation = css`
   display: inline-block;
@@ -23,7 +23,7 @@ const Logo = styled(Avatar)`
   ${floatAnimation};
 `
 
-export default ({ children, onClick, size, ...props }) => (
+export default ({ siteUrl, children, onClick, size, ...props }) => (
   <Flex
     width='100%'
     justifyContent='center'
@@ -38,7 +38,7 @@ export default ({ children, onClick, size, ...props }) => (
         size={size}
         p={1}
         key={data.url}
-        src={imageProxy(data.logo.url)}
+        src={`${siteUrl}${getMediaAssetPath('logo', data).filepath}`}
         onClick={event => {
           event.preventDefault()
           onClick(data)

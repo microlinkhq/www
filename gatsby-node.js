@@ -1,15 +1,24 @@
 'use strict'
 
-const KeyvFile = require('keyv-file')
+/* eslint-disable */
+require = require('esm')(module)
+/* eslint-enable */
 
+const KeyvFile = require('keyv-file')
 const download = require('download')
 const webpack = require('webpack')
-const URL = require('url-parse')
 const crypto = require('crypto')
 const pAll = require('p-all')
 const path = require('path')
 const Keyv = require('keyv')
 const got = require('got')
+
+const {
+  ASSETS_PROPS,
+  default: getMediaAssetPath
+} = require('./src/helpers/get-media-asset-path')
+
+const { default: get } = require('./src/helpers/get')
 
 const URLS = require('./data/urls')
 
@@ -27,33 +36,22 @@ const apiFetch = async targetUrl => {
     const cachedData = await keyv.get(key)
     if (!isProduction && cachedData) return cachedData
     const { body } = await got(key, { json: true })
-
     const { data } = body
-    const { url, logo, screenshot, video, image } = data
 
-    const assets = [
-      { propName: 'logo', propValue: logo, url },
-      { propName: 'screenshot', propValue: screenshot, url },
-      { propName: 'video', propValue: video, url },
-      { propName: 'image', propValue: image, url }
-    ].filter(({ propValue }) => !!propValue)
+    const assets = ASSETS_PROPS.map(propName => ({
+      url: data.url,
+      propName,
+      propValue: get(data, propName)
+    })).filter(({ propValue }) => !!propValue)
 
     const downloads = assets.map(({ url, propName, propValue }) => {
-      const { hostname, pathname } = new URL(propValue.url)
-      const filepath = path.dirname(pathname).substr(1)
-      const downloadPath = path.resolve(
-        'static',
-        'card',
-        hostname,
-        propName,
-        filepath
-      )
-      console.log('downloadPath', downloadPath)
-      return download(propValue.url, downloadPath)
+      const { dirname, basename } = getMediaAssetPath(propName, data)
+      const dist = path.join(path.resolve('static'), dirname)
+      console.log(`fetch url=${targetUrl} dist=${dist}`)
+      return download(propValue.url, dist, { filename: basename })
     })
 
     await Promise.all([Promise.all(downloads), keyv.set(key, data)])
-    console.log(`fetch url=${targetUrl}`)
     return data
   } catch (err) {
     err.message = `${err.message}: ${targetUrl}`
