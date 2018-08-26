@@ -19,11 +19,13 @@ const keyv = new Keyv({
   })
 })
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const apiFetch = async targetUrl => {
   try {
     const key = `https://api.microlink.io?url=${targetUrl}&video&palette&force`
     const cachedData = await keyv.get(key)
-    if (cachedData) return cachedData
+    if (!isProduction && cachedData) return cachedData
     const { body } = await got(key, { json: true })
 
     const { data } = body
