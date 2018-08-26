@@ -2,11 +2,13 @@
 
 const KeyvFile = require('keyv-file')
 
+const download = require('download')
 const webpack = require('webpack')
+const URL = require('url-parse')
 const crypto = require('crypto')
 const pAll = require('p-all')
-const Keyv = require('keyv')
 const path = require('path')
+const Keyv = require('keyv')
 const got = require('got')
 
 const URLS = require('./data/urls')
@@ -17,18 +19,42 @@ const keyv = new Keyv({
   })
 })
 
-const apiFetch = async url => {
+const apiFetch = async targetUrl => {
   try {
-    const key = `https://api.microlink.io?url=${url}&video&palette&force`
+    const key = `https://api.microlink.io?url=${targetUrl}&video&palette&force`
     const cachedData = await keyv.get(key)
     if (cachedData) return cachedData
     const { body } = await got(key, { json: true })
-    console.log('fetched', url)
+
     const { data } = body
-    await keyv.set(key, data)
+    const { url, logo, screenshot, video, image } = data
+
+    const assets = [
+      { propName: 'logo', propValue: logo, url },
+      { propName: 'screenshot', propValue: screenshot, url },
+      { propName: 'video', propValue: video, url },
+      { propName: 'image', propValue: image, url }
+    ].filter(({ propValue }) => !!propValue)
+
+    const downloads = assets.map(({ url, propName, propValue }) => {
+      const { hostname, pathname } = new URL(propValue.url)
+      const filepath = path.dirname(pathname).substr(1)
+      const downloadPath = path.resolve(
+        'static',
+        'card',
+        hostname,
+        propName,
+        filepath
+      )
+      console.log('downloadPath', downloadPath)
+      return download(propValue.url, downloadPath)
+    })
+
+    await Promise.all([Promise.all(downloads), keyv.set(key, data)])
+    console.log(`fetch url=${targetUrl}`)
     return data
   } catch (err) {
-    err.message = `${err.message}: ${url}`
+    err.message = `${err.message}: ${targetUrl}`
     throw err
   }
 }

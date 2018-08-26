@@ -23,6 +23,7 @@
     "color": "~3.0.0",
     "cssnano": "~4.0.5",
     "dlv": "~1.1.2",
+    "download": "~7.1.0",
     "gatsby": "~1.9.277",
     "gatsby-link": "~1.6.46",
     "gatsby-plugin-canonical-urls": "~1.0.18",
@@ -71,7 +72,8 @@
     "styled-components": "~3.4.2",
     "styled-is": "~1.1.5",
     "styled-system": "~3.0.2",
-    "unfetch": "~3.1.1"
+    "unfetch": "~3.1.1",
+    "url-parse": "~1.4.3"
   },
   "devDependencies": {
     "babel-eslint": "latest",
