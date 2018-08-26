@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react'
+import styled, { css } from 'styled-components'
 import Microlink from 'react-microlink'
 import ReactJson from 'react-json-view'
-import styled, { css } from 'styled-components'
+import URL from 'url-parse'
+
 import { lineHeights, fontSizes, fonts, colors } from 'theme'
 import { Hide, Box } from 'components/elements'
 
@@ -59,14 +61,30 @@ const JSONViewer = styled(Box)`
   line-height: ${lineHeights[3]};
 `
 
-export default ({ preview, children }) =>
-  preview === 'SDK' ? (
+const mapAssetPath = (propName, payload) => {
+  const data = payload[propName]
+  if (!data) return payload
+  const { hostname, pathname } = new URL(data.url)
+  const newUrl = `/card/${hostname}/${propName}${pathname}`
+  return { ...data, url: newUrl }
+}
+
+export default ({ preview, children }) => {
+  const data = {
+    ...children,
+    logo: mapAssetPath('logo', children),
+    video: mapAssetPath('video', children),
+    screenshot: mapAssetPath('screenshot', children),
+    image: mapAssetPath('image', children)
+  }
+
+  return preview === 'SDK' ? (
     <Fragment>
       <Hide breakpoints={[0, 1]}>
-        <MicrolinkCardDesktop size='large' noFetch video data={children} />
+        <MicrolinkCardDesktop size='large' noFetch video data={data} />
       </Hide>
       <Hide breakpoints={[2, 3]}>
-        <MicrolinkCardMobile size='large' noFetch video data={children} />
+        <MicrolinkCardMobile size='large' noFetch video data={data} />
       </Hide>
     </Fragment>
   ) : (
@@ -83,3 +101,4 @@ export default ({ preview, children }) =>
       />
     </JSONViewer>
   )
+}
