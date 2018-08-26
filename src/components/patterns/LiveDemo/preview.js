@@ -2,10 +2,11 @@ import React, { Fragment } from 'react'
 import styled, { css } from 'styled-components'
 import Microlink from 'react-microlink'
 import ReactJson from 'react-json-view'
-import URL from 'url-parse'
 
 import { lineHeights, fontSizes, fonts, colors } from 'theme'
 import { Hide, Box } from 'components/elements'
+import getMediaAssetPath, { ASSETS_PROPS } from 'helpers/get-media-asset-path'
+import { get } from 'helpers'
 
 import { CARD_WIDTH_DESKTOP, CARD_WIDTH_MOBILE } from './theme'
 
@@ -61,22 +62,23 @@ const JSONViewer = styled(Box)`
   line-height: ${lineHeights[3]};
 `
 
-const mapAssetPath = (propName, payload) => {
-  const data = payload[propName]
-  if (!data) return payload
-  const { hostname, pathname } = new URL(data.url)
-  const newUrl = `/card/${hostname}/${propName}${pathname}`
-  return { ...data, url: newUrl }
+const mapLocalAssets = (data, siteUrl) => {
+  const mapper = {}
+
+  ASSETS_PROPS.forEach(propName => {
+    const propValue = get(data, propName)
+    if (propValue) {
+      const { filepath } = getMediaAssetPath(propName, data)
+      const url = `${siteUrl}${filepath}`
+      mapper[propName] = { ...propValue, url }
+    }
+  })
+
+  return { ...data, ...mapper }
 }
 
-export default ({ preview, children }) => {
-  const data = {
-    ...children,
-    logo: mapAssetPath('logo', children),
-    video: mapAssetPath('video', children),
-    screenshot: mapAssetPath('screenshot', children),
-    image: mapAssetPath('image', children)
-  }
+export default ({ siteUrl, preview, children }) => {
+  const data = mapLocalAssets(children, siteUrl)
 
   return preview === 'SDK' ? (
     <Fragment>

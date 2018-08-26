@@ -35,8 +35,9 @@ export default class extends Component {
     this.state = { features, demoLinks, activeDemoLink }
   }
   render () {
-    const { paymentEndpoint, paymentApiKey, stripeKey } = this.props
+    const { paymentEndpoint, paymentApiKey, stripeKey, metadata } = this.props
     const { features, demoLinks, activeDemoLink } = this.state
+    const { siteUrl } = metadata
 
     return (
       <Fragment>
@@ -62,7 +63,7 @@ export default class extends Component {
             <Box is='article'>
               <Container is='section' px={0}>
                 <Flex flexDirection='column'>
-                  <LiveDemo children={activeDemoLink} />
+                  <LiveDemo siteUrl={siteUrl} children={activeDemoLink} />
                   <Hide breakpoints={[0, 1]}>
                     <Flex
                       flexDirection='column'
@@ -76,6 +77,7 @@ export default class extends Component {
                         children='Try another link →'
                       />
                       <DemoLinks
+                        siteUrl={siteUrl}
                         px={[4, 0]}
                         size={[40, 48]}
                         children={demoLinks}

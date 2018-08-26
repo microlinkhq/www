@@ -24,6 +24,7 @@
     "cssnano": "~4.0.5",
     "dlv": "~1.1.2",
     "download": "~7.1.0",
+    "esm": "~3.0.80",
     "gatsby": "~1.9.277",
     "gatsby-link": "~1.6.46",
     "gatsby-plugin-canonical-urls": "~1.0.18",
@@ -69,10 +70,10 @@
     "styled-components": "~3.4.2",
     "styled-is": "~1.1.5",
     "styled-system": "~3.0.2",
-    "unfetch": "~3.1.1",
-    "url-parse": "~1.4.3"
+    "unfetch": "~3.1.1"
   },
   "devDependencies": {
+    "ava": "latest",
     "babel-eslint": "latest",
     "husky": "latest",
     "imageoptim-cli": "latest",
@@ -98,13 +99,18 @@
     "clean": "rm -rf node_modules .cache",
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
-    "lint": "standard-markdown && standard src/*/**.js",
+    "lint": "standard-markdown README.md && standard src/*/**.js",
     "precommit": "lint-staged",
     "pretest": "npm run lint",
-    "test": "exit 0"
+    "test": "ava"
   },
   "private": true,
   "license": "MIT",
+  "ava": {
+    "require": [
+      "esm"
+    ]
+  },
   "lint-staged": {
     "package.json": [
       "finepack",
