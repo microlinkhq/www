@@ -1,3 +1,25 @@
+<a name="2.1.0"></a>
+# 2.1.0 (2018-08-27)
+
+* Cache static assets ([76d5d25](https://github.com/microlink/microlink-www/commit/76d5d25))
+* Cache static assets ([ee30180](https://github.com/microlink/microlink-www/commit/ee30180))
+* Fix reset scroll on re-render component ([e8458b2](https://github.com/microlink/microlink-www/commit/e8458b2))
+* Force refresh cache on production ([6b46ea9](https://github.com/microlink/microlink-www/commit/6b46ea9))
+* Force refresh cache on production ([2d1d9fd](https://github.com/microlink/microlink-www/commit/2d1d9fd))
+* Remove unused dependencies ([e43ee5c](https://github.com/microlink/microlink-www/commit/e43ee5c))
+* Remove unused dependencies ([3445d93](https://github.com/microlink/microlink-www/commit/3445d93))
+* Rename JSend to Schema ([b726019](https://github.com/microlink/microlink-www/commit/b726019))
+* Unify asset path ([8c1926f](https://github.com/microlink/microlink-www/commit/8c1926f))
+* Unify asset path ([237d0d7](https://github.com/microlink/microlink-www/commit/237d0d7))
+* Update .travis.yml ([162b9b4](https://github.com/microlink/microlink-www/commit/162b9b4))
+* Update after code review ([bdef3fe](https://github.com/microlink/microlink-www/commit/bdef3fe))
+* Update features.yaml ([1832238](https://github.com/microlink/microlink-www/commit/1832238))
+* Update golang example ([f2880e8](https://github.com/microlink/microlink-www/commit/f2880e8))
+* Update privacy.js ([89feca9](https://github.com/microlink/microlink-www/commit/89feca9))
+* Use twitter link as default ([9081333](https://github.com/microlink/microlink-www/commit/9081333))
+
+
+
 <a name="2.0.0"></a>
 # 2.0.0 (2018-08-23)
 
