@@ -65,7 +65,7 @@
     "react-stripe-elements": "~2.0.1",
     "react-syntax-highlighter": "~8.0.1",
     "react-timeago": "~4.1.9",
-    "rebass": "~2.1.0",
+    "rebass": "~2.2.0",
     "slugo": "~0.2.1",
     "styled-components": "~3.4.2",
     "styled-is": "~1.1.5",
