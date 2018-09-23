@@ -96,11 +96,14 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
-    "clean": "rm -rf node_modules .cache",
+    "clean": "rm -rf node_modules && npm run clean:urls",
+    "clean:urls": "rm -rf node_modules/.cache/microlink.msgpack",
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "lint": "standard-markdown README.md && standard src/*/**.js",
+    "prebuild": "npm run clean:urls && node scripts/fetch-urls",
     "precommit": "lint-staged",
+    "predev": "node scripts/fetch-urls",
     "pretest": "npm run lint",
     "test": "ava"
   },
