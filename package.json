@@ -21,7 +21,7 @@
   "dependencies": {
     "autoprefixer": "~9.1.1",
     "color": "~3.0.0",
-    "cssnano": "~4.0.5",
+    "cssnano": "~4.1.1",
     "dlv": "~1.1.2",
     "download": "~7.1.0",
     "esm": "~3.0.80",
