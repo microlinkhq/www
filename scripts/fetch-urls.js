@@ -40,7 +40,7 @@ const apiFetch = async targetUrl => {
     const downloads = assets.map(({ url, propName, propValue }) => {
       const { dirname, basename } = getMediaAssetPath(propName, data)
       const dist = path.join(path.resolve('static'), dirname)
-      console.log(`fetch url=${targetUrl} dist=${dist}`)
+      console.log(`fetch:${propName} url=${targetUrl} dist=${dist}`)
       return download(propValue.url, dist, { filename: basename })
     })
 
