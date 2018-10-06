@@ -1,9 +1,10 @@
 import ReactDOM from 'react-dom'
 import React, { Component } from 'react'
-import { Button, Card as CardBase, Flex, Box } from 'components/elements'
+import is from 'styled-is'
 import styled from 'styled-components'
-import { fonts, colors } from 'theme'
 
+import { Button, Card as CardBase, Flex, Box } from 'components/elements'
+import { fonts, colors, transition } from 'theme'
 import { LiveProvider, LiveEditor } from '../LiveCode'
 import EDITOR from './editor'
 import Preview from './preview'
@@ -28,31 +29,44 @@ const Card = styled(CardBase)`
   }
 `
 const SwitchButton = styled(Button)`
+  box-shadow: none;
   font-family: ${fonts.mono};
   cursor: pointer;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 100px;
+  letter-spacing: 0.25px;
+  transition: color background-color ${transition.short};
+  color: ${colors.gray9};
+  background-color: ${colors.black05};
 
   &:focus {
     box-shadow: none;
   }
+
+  &:hover:not([disabled]) {
+    opacity: 1;
+  }
+
+  ${is('active')`
+    color: ${colors.white};
+    background-color: ${colors.link};
+  `};
 `
 
 const Switch = ({ children, active, onChange }) => (
-  <Box px={'20px'} maxWidth={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}>
+  <Box py={2} px={'20px'} maxWidth={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}>
     {children.map(language => {
       const isActive = active === language
       return (
         <SwitchButton
+          active={isActive}
           key={language}
           children={language}
           fontSize={0}
-          fontWeight='normal'
+          fontWeight='regular'
           mr={2}
           mb={'12px'}
-          color={isActive ? '#247EFF' : '#333'}
-          bg={isActive ? '#E2F1FF' : '#f5f4f9'}
           onClick={event => {
             event.preventDefault()
             onChange(language)
@@ -125,7 +139,11 @@ export default class extends Component {
               height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
               style={{ overflow: isSDK ? 'hidden' : 'auto' }}
             >
-              <Preview siteUrl={siteUrl} preview={preview} children={children} />
+              <Preview
+                siteUrl={siteUrl}
+                preview={preview}
+                children={children}
+              />
             </Card>
             <Flex mt={3}>
               <Switch
