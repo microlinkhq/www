@@ -8,3 +8,5 @@ public/
 yarn-error.log
 yarn.lock
 .env
+.envrc
+static/card/

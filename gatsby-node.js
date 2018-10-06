@@ -1,63 +1,8 @@
 'use strict'
 
-/* eslint-disable */
-require = require('esm')(module)
-/* eslint-enable */
-
-const KeyvFile = require('keyv-file')
-const download = require('download')
 const webpack = require('webpack')
 const crypto = require('crypto')
-const pAll = require('p-all')
 const path = require('path')
-const Keyv = require('keyv')
-const got = require('got')
-
-const {
-  ASSETS_PROPS,
-  default: getMediaAssetPath
-} = require('./src/helpers/get-media-asset-path')
-
-const { default: get } = require('./src/helpers/get')
-
-const URLS = require('./data/urls')
-
-const keyv = new Keyv({
-  store: new KeyvFile({
-    filename: `./node_modules/.cache/microlink.msgpack`
-  })
-})
-
-const isProduction = process.env.NODE_ENV === 'production'
-
-const apiFetch = async targetUrl => {
-  try {
-    const key = `https://api.microlink.io?url=${targetUrl}&video&palette&force`
-    const cachedData = await keyv.get(key)
-    if (!isProduction && cachedData) return cachedData
-    const { body } = await got(key, { json: true })
-    const { data } = body
-
-    const assets = ASSETS_PROPS.map(propName => ({
-      url: data.url,
-      propName,
-      propValue: get(data, propName)
-    })).filter(({ propValue }) => !!propValue)
-
-    const downloads = assets.map(({ url, propName, propValue }) => {
-      const { dirname, basename } = getMediaAssetPath(propName, data)
-      const dist = path.join(path.resolve('static'), dirname)
-      console.log(`fetch url=${targetUrl} dist=${dist}`)
-      return download(propValue.url, dist, { filename: basename })
-    })
-
-    await Promise.all([Promise.all(downloads), keyv.set(key, data)])
-    return data
-  } catch (err) {
-    err.message = `${err.message}: ${targetUrl}`
-    throw err
-  }
-}
 
 exports.modifyBabelrc = ({ babelrc }) => {
   return {
@@ -86,8 +31,7 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
 
 exports.sourceNodes = async ({ boundActionCreators }) => {
   const { createNode } = boundActionCreators
-  const actions = URLS.map(url => () => apiFetch(url))
-  const links = await pAll(actions, { concurrency: 1 })
+  // const links = await pAll(actions, { concurrency: 1 })
 
   const toNode = data => {
     const node = {
@@ -106,7 +50,7 @@ exports.sourceNodes = async ({ boundActionCreators }) => {
     return node
   }
 
-  links.forEach(link => createNode(toNode(link)))
+  require('./data/urls').forEach(link => createNode(toNode(link)))
 }
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
