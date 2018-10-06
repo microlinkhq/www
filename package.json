@@ -102,7 +102,6 @@
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "lint": "standard-markdown README.md && standard src/*/**.js",
     "prebuild": "npm run clean:urls && node scripts/fetch-urls",
-    "precommit": "lint-staged",
     "predev": "node scripts/fetch-urls",
     "pretest": "npm run lint",
     "test": "ava"
@@ -113,6 +112,11 @@
     "require": [
       "esm"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "package.json": [
