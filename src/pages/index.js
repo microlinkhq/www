@@ -297,9 +297,6 @@ export const query = graphql`
             author
             title
             publisher
-            description
-            date
-            url
             image {
               url
               width
@@ -307,7 +304,12 @@ export const query = graphql`
               type
               size
               size_pretty
+              background_color
+              color
+              alternative_color
             }
+            description
+            date
             logo {
               url
               width
@@ -315,17 +317,11 @@ export const query = graphql`
               type
               size
               size_pretty
+              background_color
+              color
+              alternative_color
             }
-            video {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              duration
-              duration_pretty
-            }
+            url
           }
         }
       }
