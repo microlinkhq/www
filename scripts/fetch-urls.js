@@ -63,6 +63,8 @@ const toDownload = async data => {
     propValue: get(data, propName)
   })).filter(({ propValue }) => !!propValue)
 
+  console.log(`fetch url=${data.url}`)
+
   const downloads = assets.map(({ url, propName, propValue }) => {
     const { dirname, basename } = getMediaAssetPath(data, propName)
     const dist = path.join(path.resolve('static'), dirname)
