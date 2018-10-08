@@ -1,4 +1,7 @@
 import React, { Fragment, Component } from 'react'
+
+import { fetchFromApi } from 'react-microlink'
+
 import {
   Text,
   Subhead,
@@ -8,8 +11,10 @@ import {
   Flex,
   Container,
   Link,
-  Hide
+  Hide,
+  SearchBox
 } from 'components/elements'
+
 import {
   DemoLinks,
   CardLink,
@@ -17,7 +22,9 @@ import {
   PricingTable,
   Grid
 } from 'components/patterns'
+
 import { List, ListItem } from 'components/patterns/List'
+
 import {
   Working,
   BrowserStats,
@@ -25,20 +32,39 @@ import {
   Frameworks
 } from 'components/icons'
 
+const REGEX_ACTIVE_LINK = /twitter/i
+
 export default class extends Component {
   constructor (props) {
     super(props)
     const { data } = this.props
+
     const features = data.features.edges.map(item => item.node)
     const demoLinks = data.demoLinks.edges.map(item => item.node.data)
-    const activeDemoLink = demoLinks.find(({ publisher = '' } = {}) =>
-      /twitter/i.test(publisher)
+    const linkExtracted = demoLinks.find(({ publisher = '' } = {}) =>
+      REGEX_ACTIVE_LINK.test(publisher)
     )
-    this.state = { features, demoLinks, activeDemoLink }
+
+    this.state = {
+      features,
+      demoLinks,
+      loading: false,
+      url: null,
+      linkExtracted
+    }
+  }
+
+  setUrl = url => {
+    if (url === this.state.url) return
+    this.setState({ loading: true })
+
+    fetchFromApi({ url, video: true, palette: true, audio: true }).then(res => {
+      this.setState({ loading: false, linkExtracted: res.data })
+    })
   }
   render () {
     const { paymentEndpoint, paymentApiKey, stripeKey, metadata } = this.props
-    const { features, demoLinks, activeDemoLink } = this.state
+    const { features, demoLinks, linkExtracted } = this.state
     const { siteUrl } = metadata
 
     return (
@@ -50,22 +76,26 @@ export default class extends Component {
               flexDirection='column'
               justifyContent='center'
               alignItems='center'
-              pb={[4, 5]}
+              pb={[3, 4]}
             >
               <Heading
                 children='Extract structured data from any website'
                 maxWidth='12em'
               />
-              <Lead
-                mt={[2, 3]}
-                color='black50'
-                children='Enter an URL, receive data.'
+              <SearchBox
+                width={400}
+                bg='white'
+                my={3}
+                loading={this.state.loading}
+                placeholder={'Enter an URL, receive data'}
+                value={this.state.url}
+                onChange={this.setUrl}
               />
             </Flex>
             <Box is='article'>
               <Container is='section' px={0}>
                 <Flex flexDirection='column'>
-                  <LiveDemo siteUrl={siteUrl} children={activeDemoLink} />
+                  <LiveDemo siteUrl={siteUrl} children={linkExtracted} />
                   <Hide breakpoints={[0, 1]}>
                     <Flex
                       flexDirection='column'
@@ -83,8 +113,8 @@ export default class extends Component {
                         px={[4, 0]}
                         size={[40, 48]}
                         children={demoLinks}
-                        onClick={activeDemoLink =>
-                          this.setState({ activeDemoLink })
+                        onClick={linkExtracted =>
+                          this.setState({ linkExtracted })
                         }
                       />
                     </Flex>

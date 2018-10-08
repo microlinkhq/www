@@ -18,6 +18,7 @@ import Lead from './Lead'
 import Metadata from './Metadata'
 import Notification from './Notification'
 import PricePicker from './PricePicker'
+import SearchBox from './SearchBox'
 import Select from './Select'
 import Spinner from './Spinner'
 import Subhead from './Subhead'
@@ -29,6 +30,8 @@ import Tooltip from './Tooltip'
 
 export {
   Box,
+  Button,
+  ButtonOutline,
   Caps,
   Card,
   CardHover,
@@ -46,9 +49,8 @@ export {
   LinkSolid,
   Metadata,
   Notification,
-  ButtonOutline,
   PricePicker,
-  Button,
+  SearchBox,
   Select,
   Spinner,
   Subhead,
@@ -60,7 +62,6 @@ export {
 }
 
 export {
-  Small,
   Avatar,
   Banner,
   BlockLink,
@@ -70,5 +71,6 @@ export {
   Image,
   NavLink,
   Row,
+  Small,
   Truncate
 } from 'rebass'
