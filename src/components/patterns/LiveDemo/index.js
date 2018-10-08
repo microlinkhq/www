@@ -29,29 +29,31 @@ const Card = styled(CardBase)`
   }
 `
 const SwitchButton = styled(Button)`
-  box-shadow: none;
-  font-family: ${fonts.mono};
-  cursor: pointer;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 100px;
-  letter-spacing: 0.25px;
-  transition: color background-color ${transition.short};
-  color: ${colors.gray9};
-  background-color: ${colors.black05};
-
-  &:focus {
+  &&& {
     box-shadow: none;
-  }
+    font-family: ${fonts.mono};
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 100px;
+    letter-spacing: 0.25px;
+    transition: color background-color ${transition.short};
+    color: ${colors.gray9};
+    background-color: ${colors.black05};
 
-  &:hover:not([disabled]) {
-    opacity: 1;
-  }
+    &:focus {
+      box-shadow: none;
+    }
 
-  ${is('active')`
+    &:hover:not([disabled]) {
+      opacity: 1;
+    }
+
+    ${is('active')`
     color: ${colors.white};
     background-color: ${colors.link};
   `};
+  }
 `
 
 const Switch = ({ children, active, onChange }) => (

@@ -15,11 +15,13 @@ const floatAnimation = css`
   }
 `
 
-const Logo = styled(Avatar)`
-  border-radius: 8px;
-  box-shadow: none;
-  cursor: pointer;
-  ${floatAnimation};
+const Logo = Avatar.extend`
+  &&& {
+    border-radius: 8px;
+    box-shadow: none;
+    cursor: pointer;
+    ${floatAnimation};
+  }
 `
 
 export default ({ siteUrl, children, onClick, size, ...props }) => (
