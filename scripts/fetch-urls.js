@@ -66,7 +66,7 @@ const toDownload = async data => {
   const downloads = assets.map(({ url, propName, propValue }) => {
     const { dirname, basename } = getMediaAssetPath(data, propName)
     const dist = path.join(path.resolve('static'), dirname)
-    console.log(`fetch:${propName} url=${url} dist=${dist}`)
+    console.log(`fetch:${propName} url=${propValue.url} dist=${dist}`)
     return download(propValue.url, dist, { filename: basename })
   })
 
@@ -74,15 +74,15 @@ const toDownload = async data => {
 }
 
 const fetchUrl = async url => {
-  const key = createApiUrl({
+  const key = `${createApiUrl({
     url,
     video: true,
     audio: true,
     contrast: true,
     force: true
-  })
+  })}&force`
 
-  const cachedData = await keyv.get(key)
+  const cachedData = await keyv.get()
   if (!isProduction && cachedData) return cachedData
 
   const data = await toFetch(key)
