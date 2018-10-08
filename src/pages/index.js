@@ -15,6 +15,8 @@ import {
   SearchBox
 } from 'components/elements'
 
+import { Small } from 'rebass'
+
 import {
   DemoLinks,
   CardLink,
@@ -56,10 +58,19 @@ export default class extends Component {
 
   setUrl = url => {
     if (url === this.state.url) return
-    this.setState({ loading: true })
+    this.setState({ linkFailed: null, loading: true })
 
-    fetchFromApi({ url, video: true, palette: true, audio: true }).then(res => {
-      this.setState({ loading: false, linkExtracted: res.data })
+    fetchFromApi({
+      url,
+      video: true,
+      palette: true,
+      audio: true
+    }).then(({ status, data, message }) => {
+      if (status === 'success') {
+        this.setState({ loading: false, linkExtracted: data })
+      } else {
+        this.setState({ loading: false, linkFailed: true })
+      }
     })
   }
   render () {
@@ -91,6 +102,13 @@ export default class extends Component {
                 value={this.state.url}
                 onChange={this.setUrl}
               />
+              {this.state.linkFailed && (
+                <Text
+                  color='black50'
+                  fontSize={0}
+                  children='Your link failed. Make sure it has content.'
+                />
+              )}
             </Flex>
             <Box is='article'>
               <Container is='section' px={0}>
