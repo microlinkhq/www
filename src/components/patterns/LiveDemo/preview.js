@@ -5,8 +5,6 @@ import ReactJson from 'react-json-view'
 
 import { lineHeights, fontSizes, fonts, colors } from 'theme'
 import { Hide, Box } from 'components/elements'
-import getMediaAssetPath, { ASSETS_PROPS } from 'helpers/get-media-asset-path'
-import { get } from 'helpers'
 
 import { CARD_WIDTH_DESKTOP, CARD_WIDTH_MOBILE } from './theme'
 
@@ -62,31 +60,14 @@ const JSONViewer = styled(Box)`
   line-height: ${lineHeights[3]};
 `
 
-const mapLocalAssets = (data, siteUrl) => {
-  const mapper = {}
-
-  ASSETS_PROPS.forEach(propName => {
-    const propValue = get(data, propName)
-    if (propValue) {
-      const { filepath } = getMediaAssetPath(propName, data)
-      const url = `${siteUrl}${filepath}`
-      mapper[propName] = { ...propValue, url }
-    }
-  })
-
-  return { ...data, ...mapper }
-}
-
 export default ({ siteUrl, preview, children }) => {
-  const data = mapLocalAssets(children, siteUrl)
-
   return preview === 'SDK' ? (
     <Fragment>
       <Hide breakpoints={[0, 1]}>
-        <MicrolinkCardDesktop size='large' noFetch video data={data} />
+        <MicrolinkCardDesktop size='large' noFetch video data={children} />
       </Hide>
       <Hide breakpoints={[2, 3]}>
-        <MicrolinkCardMobile size='large' noFetch video data={data} />
+        <MicrolinkCardMobile size='large' noFetch video data={children} />
       </Hide>
     </Fragment>
   ) : (

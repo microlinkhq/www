@@ -24,7 +24,6 @@
     "cssnano": "~4.0.5",
     "dlv": "~1.1.2",
     "download": "~7.1.0",
-    "esm": "~3.0.80",
     "gatsby": "~1.9.277",
     "gatsby-link": "~1.6.46",
     "gatsby-plugin-canonical-urls": "~1.0.18",
