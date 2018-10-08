@@ -1,4 +1,5 @@
-import React, { createElement } from 'react'
+import React, { Component, createElement } from 'react'
+import ReactDOM from 'react-dom'
 import { Flex } from 'rebass'
 import styled from 'styled-components'
 import SpinnerIcon from '../Spinner'
@@ -13,15 +14,30 @@ export default ChildComponent => {
 
   const SpinnerButton = ({ children, ...props }) => (
     <Spinner disabled {...props}>
-      <Flex justify='center' textAlign='center'>
-        {children}
-      </Flex>
+      <Flex justify='center' textAlign='center' children={children} />
     </Spinner>
   )
+  return class extends Component {
+    componentDidMount () {
+      const node = ReactDOM.findDOMNode(this.refs.button)
+      if (node) {
+        const { width } = node.getBoundingClientRect()
+        this.setState({ width })
+      }
+    }
 
-  return ({ loading, ...props }) => {
-    if (!loading) return createElement(ChildComponent, props)
-    const children = createElement(SpinnerIcon, props)
-    return createElement(SpinnerButton, { ...props, children })
+    render () {
+      const { loading, ...props } = this.props
+      if (!loading) {
+        return <ChildComponent ref='button' {...props} />
+      } else {
+        const children = createElement(SpinnerIcon, props)
+        return createElement(SpinnerButton, {
+          ...props,
+          style: { width: this.state.width },
+          children
+        })
+      }
+    }
   }
 }
