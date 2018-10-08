@@ -132,7 +132,11 @@ export default class extends Component {
                         size={[40, 48]}
                         children={demoLinks}
                         onClick={linkExtracted =>
-                          this.setState({ linkExtracted })
+                          this.setState({
+                            url: linkExtracted.url,
+                            linkFailed: false,
+                            linkExtracted
+                          })
                         }
                       />
                     </Flex>

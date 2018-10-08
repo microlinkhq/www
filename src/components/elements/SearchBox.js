@@ -66,6 +66,7 @@ class SearchBox extends Component {
     return (
       <Form py={1} is='form' role='form' onSubmit={this.onSubmit} {...props}>
         <Input
+          style={{ paddingRight: '6px' }}
           name='url'
           fontSize={'18px'}
           type='url'
