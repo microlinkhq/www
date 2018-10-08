@@ -37,7 +37,7 @@ export default ({ siteUrl, children, onClick, size, ...props }) => (
         size={size}
         p={1}
         key={data.url}
-        src={data.logo}
+        src={data.logo.url}
         onClick={event => {
           event.preventDefault()
           onClick(data)
