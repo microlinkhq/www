@@ -2,28 +2,13 @@
 
 const url = require('url')
 
-const envError = propName =>
-  new TypeError(`Need to declare a ${propName}' env.`)
-
 const {
-  DEPLOY_URL,
-  CONTEXT,
-  NODE_ENV,
-  URL,
   STRIPE_KEY,
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
-  GOOGLE_ANALYTICS_ID = `UA-108549225-1`
-} = process.env
-
-const SITE_URL = (() => {
-  if (NODE_ENV !== 'production') return 'http://localhost:8000'
-  return CONTEXT === 'production' ? URL : DEPLOY_URL
-})()
-
-if (!STRIPE_KEY) throw envError('STRIPE_KEY')
-if (!PAYMENT_API_KEY) throw envError('PAYMENT_API_KEY')
-if (!PAYMENT_ENDPOINT) throw envError('PAYMENT_ENDPOINT')
+  GOOGLE_ANALYTICS_ID,
+  SITE_URL
+} = require('./env')
 
 module.exports = {
   polyfill: false,
