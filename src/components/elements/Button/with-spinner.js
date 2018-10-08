@@ -32,9 +32,10 @@ export default ChildComponent => {
         return <ChildComponent ref='button' {...props} />
       } else {
         const children = createElement(SpinnerIcon, props)
+        const width = this.state && this.state.width
         return createElement(SpinnerButton, {
           ...props,
-          style: { width: this.state.width },
+          style: { width },
           children
         })
       }

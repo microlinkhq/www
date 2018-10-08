@@ -1,5 +1,7 @@
 import React, { Fragment, Component } from 'react'
 
+import { marshall, unmarshall } from 'helpers'
+
 import { fetchFromApi } from 'react-microlink'
 
 import {
@@ -14,8 +16,6 @@ import {
   Hide,
   SearchBox
 } from 'components/elements'
-
-import { Small } from 'rebass'
 
 import {
   DemoLinks,
@@ -56,16 +56,21 @@ export default class extends Component {
     }
   }
 
+  componentDidMount () {
+    const url = unmarshall(window.location.search).url
+    if (url) this.setUrl(decodeURIComponent(url))
+  }
+
   setUrl = url => {
     if (url === this.state.url) return
-    this.setState({ linkFailed: null, loading: true })
+    this.setState({ url, linkFailed: null, loading: true })
 
     fetchFromApi({
       url,
       video: true,
       palette: true,
       audio: true
-    }).then(({ status, data, message }) => {
+    }).then(({ status, data }) => {
       if (status === 'success') {
         this.setState({ loading: false, linkExtracted: data })
       } else {
@@ -100,7 +105,14 @@ export default class extends Component {
                 loading={this.state.loading}
                 placeholder={'Enter an URL, receive data'}
                 value={this.state.url}
-                onChange={this.setUrl}
+                onChange={url => {
+                  this.setUrl(url)
+                  window.history.pushState(
+                    {},
+                    '',
+                    `${siteUrl}?${marshall({ url })}`
+                  )
+                }}
               />
               {this.state.linkFailed && (
                 <Text
@@ -131,13 +143,19 @@ export default class extends Component {
                         px={[4, 0]}
                         size={[40, 48]}
                         children={demoLinks}
-                        onClick={linkExtracted =>
+                        onClick={linkExtracted => {
+                          const { url } = linkExtracted
+                          window.history.pushState(
+                            {},
+                            '',
+                            `${siteUrl}?${marshall({ url })}`
+                          )
                           this.setState({
-                            url: linkExtracted.url,
+                            url,
                             linkFailed: false,
                             linkExtracted
                           })
-                        }
+                        }}
                       />
                     </Flex>
                   </Hide>
