@@ -1,7 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Avatar, Flex } from 'components/elements'
-import { getMediaAssetPath } from 'helpers'
 
 const floatAnimation = css`
   display: inline-block;
@@ -38,7 +37,7 @@ export default ({ siteUrl, children, onClick, size, ...props }) => (
         size={size}
         p={1}
         key={data.url}
-        src={`${siteUrl}${getMediaAssetPath('logo', data).filepath}`}
+        src={data.logo.url}
         onClick={event => {
           event.preventDefault()
           onClick(data)

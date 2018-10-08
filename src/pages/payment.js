@@ -92,7 +92,11 @@ class _CardForm extends Component {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
           method: 'POST',
           body: JSON.stringify([
-            { command: 'payment.update', customerId: unmarshall(window.location.search).id, token },
+            {
+              command: 'payment.update',
+              customerId: unmarshall(window.location.search).id,
+              token
+            },
             { command: 'notification.email', templateId: 'payment_updated' }
           ])
         })
@@ -111,38 +115,61 @@ class _CardForm extends Component {
 
     return (
       <Fragment>
-        {paymentState && <Choose>
-          <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
-            <Notification.Success children='Processing...' />
-          </Choose.When>
-          <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
-            <Notification.Success children='Payment updated! We sent you an email.' />
-          </Choose.When>
-          <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-            <Notification.Danger>
-              Payment not updated.{' '}
-              <LinkSolid
-                children='Contact us'
-                color='red8'
-                href={`mailto:hello@microlink.io?${marshall(ERROR_MAIL_OPTS)}`}
-              />
-              {'.'}
-            </Notification.Danger>
-          </Choose.When>
-        </Choose>}
+        {paymentState && (
+          <Choose>
+            <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
+              <Notification.Success children='Processing...' />
+            </Choose.When>
+            <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
+              <Notification.Success children='Payment updated! We sent you an email.' />
+            </Choose.When>
+            <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
+              <Notification.Danger>
+                Payment not updated.{' '}
+                <LinkSolid
+                  display='inline'
+                  children='Contact us'
+                  color='red8'
+                  href={`mailto:hello@microlink.io?${marshall(
+                    ERROR_MAIL_OPTS
+                  )}`}
+                />
+                {'.'}
+              </Notification.Danger>
+            </Choose.When>
+          </Choose>
+        )}
 
         <Form onSubmit={this.handleSubmit}>
-          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
+          <Label
+            textAlign='left'
+            display='block'
+            fontSize={0}
+            color='gray6'
+            mb={4}
+          >
             Card number
             <CardNumberElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
+          <Label
+            textAlign='left'
+            display='block'
+            fontSize={0}
+            color='gray6'
+            mb={4}
+          >
             Expiration date
             <CardExpiryElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
+          <Label
+            textAlign='left'
+            display='block'
+            fontSize={0}
+            color='gray6'
+            mb={4}
+          >
             CVC
             <CardCVCElement {...createOptions(this.props.fontSize)} />
           </Label>
@@ -196,13 +223,13 @@ export default class extends Component {
         />
         <StripeProvider stripe={this.state.stripe}>
           <Flex flexDirection='column'>
-            <Heading
-              children='Update Payment'
-              fontSize={[4, 5]}
-              pb={4}
-            />
+            <Heading children='Update Payment' fontSize={[4, 5]} pb={4} />
             <Elements>
-              <CardForm apiEndpoint={apiEndpoint} apiKey={apiKey} fontSize={'18px'} />
+              <CardForm
+                apiEndpoint={apiEndpoint}
+                apiKey={apiKey}
+                fontSize={'18px'}
+              />
             </Elements>
           </Flex>
         </StripeProvider>

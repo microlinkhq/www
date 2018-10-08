@@ -1,4 +1,9 @@
 import React, { Fragment, Component } from 'react'
+
+import { marshall, unmarshall } from 'helpers'
+
+import { fetchFromApi } from 'react-microlink'
+
 import {
   Text,
   Subhead,
@@ -8,8 +13,10 @@ import {
   Flex,
   Container,
   Link,
-  Hide
+  Hide,
+  SearchBox
 } from 'components/elements'
+
 import {
   DemoLinks,
   CardLink,
@@ -17,7 +24,9 @@ import {
   PricingTable,
   Grid
 } from 'components/patterns'
+
 import { List, ListItem } from 'components/patterns/List'
+
 import {
   Working,
   BrowserStats,
@@ -25,20 +34,53 @@ import {
   Frameworks
 } from 'components/icons'
 
+const REGEX_ACTIVE_LINK = /twitter/i
+
 export default class extends Component {
   constructor (props) {
     super(props)
     const { data } = this.props
+
     const features = data.features.edges.map(item => item.node)
     const demoLinks = data.demoLinks.edges.map(item => item.node.data)
-    const activeDemoLink = demoLinks.find(({ publisher = '' } = {}) =>
-      /twitter/i.test(publisher)
+    const linkExtracted = demoLinks.find(({ publisher = '' } = {}) =>
+      REGEX_ACTIVE_LINK.test(publisher)
     )
-    this.state = { features, demoLinks, activeDemoLink }
+
+    this.state = {
+      features,
+      demoLinks,
+      loading: false,
+      url: '',
+      linkExtracted
+    }
+  }
+
+  componentDidMount () {
+    const url = unmarshall(window.location.search).url
+    if (url) this.setUrl(decodeURIComponent(url))
+  }
+
+  setUrl = url => {
+    if (url === this.state.url) return
+    this.setState({ url, linkFailed: null, loading: true })
+
+    fetchFromApi({
+      url,
+      video: true,
+      palette: true,
+      audio: true
+    }).then(({ status, data }) => {
+      if (status === 'success') {
+        this.setState({ loading: false, linkExtracted: data })
+      } else {
+        this.setState({ loading: false, linkFailed: true })
+      }
+    })
   }
   render () {
     const { paymentEndpoint, paymentApiKey, stripeKey, metadata } = this.props
-    const { features, demoLinks, activeDemoLink } = this.state
+    const { features, demoLinks, linkExtracted } = this.state
     const { siteUrl } = metadata
 
     return (
@@ -50,22 +92,40 @@ export default class extends Component {
               flexDirection='column'
               justifyContent='center'
               alignItems='center'
-              pb={[4, 5]}
+              pb={[3, 4]}
             >
               <Heading
                 children='Extract structured data from any website'
                 maxWidth='12em'
               />
-              <Lead
-                mt={[2, 3]}
-                color='black50'
-                children='Enter an URL, receive data.'
+              <SearchBox
+                width={400}
+                bg='white'
+                my={3}
+                loading={this.state.loading}
+                placeholder={'Enter an URL, receive data'}
+                value={this.state.url}
+                onChange={url => {
+                  this.setUrl(url)
+                  window.history.pushState(
+                    {},
+                    '',
+                    `${siteUrl}?${marshall({ url })}`
+                  )
+                }}
               />
+              {this.state.linkFailed && (
+                <Text
+                  color='black50'
+                  fontSize={0}
+                  children='Your link failed. Make sure it has content.'
+                />
+              )}
             </Flex>
             <Box is='article'>
               <Container is='section' px={0}>
                 <Flex flexDirection='column'>
-                  <LiveDemo siteUrl={siteUrl} children={activeDemoLink} />
+                  <LiveDemo siteUrl={siteUrl} children={linkExtracted} />
                   <Hide breakpoints={[0, 1]}>
                     <Flex
                       flexDirection='column'
@@ -83,9 +143,19 @@ export default class extends Component {
                         px={[4, 0]}
                         size={[40, 48]}
                         children={demoLinks}
-                        onClick={activeDemoLink =>
-                          this.setState({ activeDemoLink })
-                        }
+                        onClick={linkExtracted => {
+                          const { url } = linkExtracted
+                          window.history.pushState(
+                            {},
+                            '',
+                            `${siteUrl}?${marshall({ url })}`
+                          )
+                          this.setState({
+                            url,
+                            linkFailed: false,
+                            linkExtracted
+                          })
+                        }}
                       />
                     </Flex>
                   </Hide>

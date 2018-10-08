@@ -1,9 +1,7 @@
 'use strict'
 
-/* eslint-disable */
-require = require('esm')(module)
-/* eslint-enable */
-
+const { createApiUrl } = require('react-microlink')
+const { get, reduce } = require('lodash')
 const KeyvFile = require('keyv-file')
 const download = require('download')
 const pAll = require('p-all')
@@ -11,47 +9,93 @@ const Keyv = require('keyv')
 const path = require('path')
 const got = require('got')
 
+const { SITE_URL, isProduction } = require('../env')
 const { CACHE_PATH, URLS } = require('../data/urls')
-const isProduction = process.env.NODE_ENV === 'production'
+
+const API_MEDIA_PROPS = ['logo', 'screenshot', 'video', 'image']
 
 const keyv = new Keyv({ store: new KeyvFile({ filename: CACHE_PATH }) })
 
-const {
-  ASSETS_PROPS,
-  default: getMediaAssetPath
-} = require('../src/helpers/get-media-asset-path')
+const getMediaAssetPath = (data, propName) => {
+  const propValue = get(data, propName)
 
-const { default: get } = require('../src/helpers/get')
+  const publisher = get(data, 'publisher')
+  if (!publisher) throw new TypeError('publisher is empty.')
 
-const apiFetch = async targetUrl => {
-  try {
-    const key = `https://api.microlink.io?url=${targetUrl}&video&audio&palette&force`
-    const cachedData = await keyv.get(key)
-    if (!isProduction && cachedData) return cachedData
-    const { body } = await got(key, { json: true })
-    const { data } = body
+  const type = get(propValue, 'type')
+  if (!type) throw new TypeError('type is empty.')
 
-    const assets = ASSETS_PROPS.map(propName => ({
-      url: data.url,
-      propName,
-      propValue: get(data, propName)
-    })).filter(({ propValue }) => !!propValue)
+  const dirname = `/card/${publisher.toLowerCase()}`
+  const basename = `${propName}.${type}`
+  const filepath = `${dirname}/${basename}`
 
-    const downloads = assets.map(({ url, propName, propValue }) => {
-      const { dirname, basename } = getMediaAssetPath(propName, data)
-      const dist = path.join(path.resolve('static'), dirname)
-      console.log(`fetch:${propName} url=${targetUrl} dist=${dist}`)
-      return download(propValue.url, dist, { filename: basename })
-    })
-
-    await Promise.all([Promise.all(downloads), keyv.set(key, data)])
-    return data
-  } catch (err) {
-    err.message = `${err.message}: ${targetUrl}`
-    throw err
-  }
+  return { dirname, basename, filepath }
 }
-;(async () => {
-  const actions = URLS.map(url => () => apiFetch(url))
-  await pAll(actions, { concurrency: 2 })
-})()
+
+const toMapLocalAsset = data => {
+  const mapper = reduce(
+    API_MEDIA_PROPS,
+    (acc, propName) => {
+      const propValue = get(data, propName)
+      if (propValue) {
+        const { filepath } = getMediaAssetPath(data, propName)
+        const url = `${SITE_URL}${filepath}`
+        acc[propName] = { ...propValue, url }
+      }
+      return acc
+    },
+    {}
+  )
+
+  return { ...data, ...mapper }
+}
+
+const toFetch = async url => {
+  const { body } = await got(url, { json: true })
+  const { data } = body
+  return data
+}
+
+const toDownload = async data => {
+  const assets = API_MEDIA_PROPS.map(propName => ({
+    url: data.url,
+    propName,
+    propValue: get(data, propName)
+  })).filter(({ propValue }) => !!propValue)
+
+  console.log(`fetch url=${data.url}`)
+
+  const downloads = assets.map(({ url, propName, propValue }) => {
+    const { dirname, basename } = getMediaAssetPath(data, propName)
+    const dist = path.join(path.resolve('static'), dirname)
+    console.log(`fetch:${propName} url=${propValue.url} dist=${dist}`)
+    return download(propValue.url, dist, { filename: basename })
+  })
+
+  return Promise.all(downloads)
+}
+
+const fetchUrl = async url => {
+  const key = `${createApiUrl({
+    url,
+    video: true,
+    audio: true,
+    contrast: true,
+    force: true
+  })}&force`
+
+  const cachedData = await keyv.get()
+  if (!isProduction && cachedData) return cachedData
+
+  const data = await toFetch(key)
+  await toDownload(data)
+  await keyv.set(key, toMapLocalAsset(data))
+  return data
+}
+
+const fetchUrls = URLS.map(url => () => fetchUrl(url))
+
+pAll(fetchUrls, { concurrency: 2 }).catch(err => {
+  console.log(err)
+  process.exit(1)
+})

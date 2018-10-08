@@ -11,7 +11,8 @@ export const frontmatter = {
   slug: 'new-api-parameters-gallery'
 }
 
-export default postLayout(frontmatter)(md(components)`
+export default postLayout(frontmatter)(
+  md(components)`
 
 ## Microlink API
 
@@ -20,7 +21,7 @@ export default postLayout(frontmatter)(md(components)`
 ${(
     <Figcaption>
       <Link href='https://docs.microlink.io/api' children='Microlink API' />{' '}
-    examples was improved, highlighting the referenced term in each section.
+      examples was improved, highlighting the referenced term in each section.
     </Figcaption>
   )}
 
@@ -74,11 +75,7 @@ Please [contact with us](https://twitter.com/microlinkhq) for add your shiny pro
 
 ${(
     <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin: '0 auto'
-      }}
+      style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
     >
       <iframe
         frameBorder='0'
@@ -95,4 +92,5 @@ ${(
 All of these improvements or features are **community driven**: We listen to your feedback and act accordingly.
 
 Whether you are are building a product and you need fancy previews, you’re an indie hacker or simply you like frontend stuff, come [chat](https://chat.microlink.io/) with us 🙂.
-`)
+`
+)

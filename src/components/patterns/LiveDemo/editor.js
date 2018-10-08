@@ -51,14 +51,16 @@ const got = require('got')
 })()
 `.trim()
 
-const Ruby = props => `require('httparty')
+const Ruby = props =>
+  `require('httparty')
 
 response = HTTParty.get('${apiUrl(props)}')
 
 puts response.body
 `
 
-const PHP = props => `<?php
+const PHP = props =>
+  `<?php
 
 $curl = curl_init();
 
@@ -86,7 +88,8 @@ if ($err) {
 ?>
 `
 
-const Go = props => `package main
+const Go = props =>
+  `package main
 
 import (
   "encoding/json"
@@ -145,14 +148,16 @@ type ImageURL struct {
 }
 `
 
-const Python = props => `import requests
+const Python = props =>
+  `import requests
 
 url = '${apiUrl(props)}'
 response = requests.request("GET", url)
 print(response.text)
 `
 
-const Swift = props => `import Foundation
+const Swift = props =>
+  `import Foundation
 var request = NSMutableURLRequest(
   URL: NSURL(string: '${apiUrl(props)}')!,
   cachePolicy: .UseProtocolCachePolicy,
@@ -174,9 +179,8 @@ let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, 
 dataTask.resume()
 `
 
-const Java = props => `HttpResponse<String> response = Unirest.get('${apiUrl(
-  props
-)}')
+const Java = props =>
+  `HttpResponse<String> response = Unirest.get('${apiUrl(props)}')
 .asString();
 `
 
