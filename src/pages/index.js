@@ -51,7 +51,7 @@ export default class extends Component {
       features,
       demoLinks,
       loading: false,
-      url: null,
+      url: '',
       linkExtracted
     }
   }
