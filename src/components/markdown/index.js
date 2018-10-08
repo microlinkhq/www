@@ -148,7 +148,8 @@ Li.defaultProps = {
 
 export const CodeInline = styled(Text)(
   [],
-  props => `
+  props =>
+    `
 color: ${colors.secondary};
 display: inline;
 border: 1px solid #dee2e6;

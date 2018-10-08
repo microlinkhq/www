@@ -11,7 +11,8 @@ export const frontmatter = {
   slug: 'custom-rules-compression-headers'
 }
 
-export default postLayout(frontmatter)(md(components)`
+export default postLayout(frontmatter)(
+  md(components)`
 
 ## Custom rules
 
@@ -19,7 +20,10 @@ export default postLayout(frontmatter)(md(components)`
 
 ${(
     <Figcaption>
-      {'Custom Rules enables build custom API response based on your necessities'}.
+      {
+        'Custom Rules enables build custom API response based on your necessities'
+      }
+      .
     </Figcaption>
   )}
 
@@ -39,7 +43,8 @@ We wrote a specific blog [post](https://microlink.io/blog/custom-rules) explaini
 
 ${(
     <Figcaption>
-    Ensure to use <Strong children='Accept-Encoding' /> for enabling compression
+      Ensure to use <Strong children='Accept-Encoding' /> for enabling
+      compression
     </Figcaption>
   )}
 
@@ -58,8 +63,8 @@ x-fetch-time    : 618.055ms`}</CodeEditor>
 
 ${(
     <Figcaption>
-    The mission of these headers helps you optimize the response time of the
-    API.
+      The mission of these headers helps you optimize the response time of the
+      API.
     </Figcaption>
   )}
 
@@ -85,8 +90,8 @@ We added \`size\` and \`duration\` every time that [microlink API](https://docs.
 
 ${(
     <Terminal>
-    curl
-    https://api.microlink.io/?url=https://vimeo.com/188175573?v=hwMkbaS_M_c&video&filter=video
+      curl
+      https://api.microlink.io/?url=https://vimeo.com/188175573?v=hwMkbaS_M_c&video&filter=video
     </Terminal>
   )}
 
@@ -118,11 +123,7 @@ Notes how we provided the field with **pretty** suffix as well. It's the same va
 
 ${(
     <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin: '0 auto'
-      }}
+      style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
     >
       <iframe
         frameBorder='0'
@@ -139,4 +140,5 @@ ${(
 All of these improvements or features are **community driven**: We listen to your feedback and act accordingly.
 
 Whether you are are building a product and you need fancy previews, you’re an indie hacker or simply you like frontend stuff, come [chat](https://chat.microlink.io/) with us 🙂.
-`)
+`
+)

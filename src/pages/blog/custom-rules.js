@@ -12,7 +12,8 @@ export const frontmatter = {
   slug: 'custom-rules'
 }
 
-export default postLayout(frontmatter)(md(components)`
+export default postLayout(frontmatter)(
+  md(components)`
 
 The [Microlink API](https://docs.microlink.io/api/#introduction) is used for extracting information from **any** link.
 
@@ -36,7 +37,8 @@ ${(
     <Figcaption>
       {
         "A website is just an interface for a database, let's convert the web into real data 🤘"
-      }.
+      }
+      .
     </Figcaption>
   )}
 
@@ -44,7 +46,7 @@ By using [Microlink API](https://docs.microlink.io/api/#introduction) we can obt
 
 ${(
     <Terminal>
-    curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk
+      curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk
     </Terminal>
   )}
 
@@ -158,8 +160,8 @@ Here we are defining our **custom rule** for a new data field called **avatar**.
 
 ${(
     <Terminal>
-    curl
-    https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
+      curl
+      https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
     </Terminal>
   )}
 
@@ -254,7 +256,9 @@ ${(
   )}
 
 ${(
-    <Figcaption>{'Declaring a custom rule for detecting all images'}.</Figcaption>
+    <Figcaption>
+      {'Declaring a custom rule for detecting all images'}.
+    </Figcaption>
   )}
 
 {(
@@ -402,7 +406,8 @@ ${(
       <Link
         href='https://docs.microlink.io/api/#api-parameters/filter'
         children='filter'
-      />.
+      />
+      .
     </Figcaption>
   )}
 
@@ -443,9 +448,11 @@ ${(
     <Figcaption>
       {
         'Detecting predominant color for an image extracted using a custom rule and filtering it 🤯'
-      }.
+      }
+      .
     </Figcaption>
   )}
 
 This is specially useful when you want to optimize your API calls response time.
-`)
+`
+)

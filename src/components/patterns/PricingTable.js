@@ -346,7 +346,8 @@ export default class extends Component {
               fontWeight='bold'
               href='mailto:hello@microlink.io?subject=About pricing'
               children='Contact us'
-            />.
+            />
+            .
           </Text>
         </Flex>
       </Box>

@@ -11,7 +11,8 @@ export const frontmatter = {
   static: true
 }
 
-export default postLayout(frontmatter)(md(components)`
+export default postLayout(frontmatter)(
+  md(components)`
 
 #### **Headers**
 
@@ -112,4 +113,5 @@ ${<Figcaption children='This text is the caption for the image' />}
 
 Months ago I created [Fink](http://xn--rn8h.ws/), a URL Shortener service that I called it *for masses*.
 
-`)
+`
+)

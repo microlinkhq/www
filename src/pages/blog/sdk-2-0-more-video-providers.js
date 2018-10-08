@@ -11,7 +11,8 @@ export const frontmatter = {
   date: '11 April 2018'
 }
 
-export default postLayout(frontmatter)(md(components)`
+export default postLayout(frontmatter)(
+  md(components)`
 ## Microlink SDK
 
 ### Release 2.0
@@ -114,11 +115,7 @@ and [a lot, lot more](https://rg3.github.io/youtube-dl/supportedsites.html).
 
 ${(
     <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin: '0 auto'
-      }}
+      style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
     >
       <iframe
         frameBorder='0'
@@ -136,4 +133,5 @@ All of these improvements or features are **community driven**: We listen to you
 
 Whether you are are building a product and you need fancy previews, you’re an indie hacker or simply you like frontend stuff, come [chat](https://chat.microlink.io/) with us 🙂.
 
-`)
+`
+)

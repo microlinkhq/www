@@ -11,19 +11,20 @@ export const frontmatter = {
   date: '02 March 2018'
 }
 
-export default postLayout(frontmatter)(md(components)`
+export default postLayout(frontmatter)(
+  md(components)`
 ## Microlink API
 
 ![](https://i.imgur.com/o8cC1k4.png)
 
 ${(
     <Figcaption>
-    The new video data property in action.{' '}
+      The new video data property in action.{' '}
       <Link
         href='https://api.microlink.io/?url=https://www.amazon.com/dp/B06XCM9LJ4'
         children='Explore'
       />{' '}
-    the rest!
+      the rest!
     </Figcaption>
   )}
 
@@ -56,12 +57,12 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
 ${(
     <Figcaption>
       <Link href='https://docs.microlink.io' children='Microlink SDK' /> now
-    supports video previsualizations.{' '}
+      supports video previsualizations.{' '}
       <Link
         href='https://storybook.microlink.io/?selectedKind=Normal&selectedStory=with%20video%20media&full=0&addons=1&stories=1&panelRight=0&addonPanel=kadira%2Fjsx%2Fpanel'
         children='Explore'
       />{' '}
-    the rest!
+      the rest!
     </Figcaption>
   )}
 
@@ -73,12 +74,12 @@ Because [Microlink API ](https://docs.microlink.io/api/#introduction)can detect 
 
 ${(
     <Figcaption>
-    video support is included for{' '}
+      video support is included for{' '}
       <Link
         href='https://docs.microlink.io/sdk/getting-started/api-parameters/#size'
         children='normal or large'
       />{' '}
-    card sizes.
+      card sizes.
     </Figcaption>
   )}
 
@@ -90,7 +91,7 @@ We added properties to control the video, like [autoplay](https://docs.microlink
 
 ${(
     <Figcaption>
-    Our fancy loading animation, claps to{' '}
+      Our fancy loading animation, claps to{' '}
       <Link href='https://twitter.com/breadadams' children='@breadadamas' /> 👏.
     </Figcaption>
   )}
@@ -103,12 +104,12 @@ We improved the transition between how the card looks before the content of the 
 
 ${(
     <Figcaption>
-    Using the new{' '}
+      Using the new{' '}
       <Link
         href='https://docs.microlink.io/sdk/getting-started/api-parameters/#reverse'
         children='reverse'
       />{' '}
-    API paramter for invert the media position in the card.
+      API paramter for invert the media position in the card.
     </Figcaption>
   )}
 
@@ -155,7 +156,7 @@ See more [information](https://docs.microlink.io/sdk/getting-started/react/).
 
 ${(
     <Figcaption>
-    You are invited to{' '}
+      You are invited to{' '}
       <Link href='https://chat.microlink.io' children='chat.microlink.io' />.
     </Figcaption>
   )}
@@ -167,4 +168,5 @@ We want to create a community around the product and all the open source softwar
 All of these improvements or features are **community driven**: We listen to your feedback and act accordingly.
 
 Whether you are are building a product and you need fancy previews, you’re an indie hacker or simply you like frontend stuff, come [chat](https://chat.microlink.io/) with us 🙂.
-`)
+`
+)
