@@ -79,12 +79,10 @@ const fetchUrl = async url => {
   const key = `${createApiUrl({
     url,
     video: true,
-    audio: true,
-    contrast: true,
-    force: true
-  })}&force`
+    contrast: true
+  })}&audio&force`
 
-  const cachedData = await keyv.get()
+  const cachedData = await keyv.get(key)
   if (!isProduction && cachedData) return cachedData
 
   const data = await toFetch(key)
