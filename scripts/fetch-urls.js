@@ -1,13 +1,16 @@
 'use strict'
 
+const { chain, isNil, get, reduce } = require('lodash')
 const { createApiUrl } = require('react-microlink')
-const { get, reduce } = require('lodash')
+const parseDomain = require('parse-domain')
 const KeyvFile = require('keyv-file')
 const download = require('download')
 const pAll = require('p-all')
 const Keyv = require('keyv')
 const path = require('path')
 const got = require('got')
+
+const getDomain = url => parseDomain(url).domain
 
 const { SITE_URL, isProduction } = require('../env')
 const { CACHE_PATH, URLS } = require('../data/urls')
@@ -19,7 +22,7 @@ const keyv = new Keyv({ store: new KeyvFile({ filename: CACHE_PATH }) })
 const getMediaAssetPath = (data, propName) => {
   const propValue = get(data, propName)
 
-  const publisher = get(data, 'publisher')
+  const publisher = get(data, 'publisher') || getDomain(data.url)
   if (!publisher) throw new TypeError('publisher is empty.')
 
   const type = get(propValue, 'type')
@@ -57,15 +60,17 @@ const toFetch = async url => {
 }
 
 const toDownload = async data => {
-  const assets = API_MEDIA_PROPS.map(propName => ({
-    url: data.url,
-    propName,
-    propValue: get(data, propName)
-  })).filter(({ propValue }) => !!propValue)
+  const assets = chain(API_MEDIA_PROPS)
+    .map(propName => ({
+      propName,
+      propValue: get(data, propName)
+    }))
+    .filter(({ propValue }) => !isNil(propValue))
+    .value()
 
   console.log(`fetch url=${data.url}`)
 
-  const downloads = assets.map(({ url, propName, propValue }) => {
+  const downloads = assets.map(({ propName, propValue }) => {
     const { dirname, basename } = getMediaAssetPath(data, propName)
     const dist = path.join(path.resolve('static'), dirname)
     console.log(`fetch:${propName} url=${propValue.url} dist=${dist}`)
@@ -87,8 +92,9 @@ const fetchUrl = async url => {
 
   const data = await toFetch(key)
   await toDownload(data)
-  await keyv.set(key, toMapLocalAsset(data))
-  return data
+  const mappedData = toMapLocalAsset(data)
+  await keyv.set(key, mappedData)
+  return mappedData
 }
 
 const fetchUrls = URLS.map(url => () => fetchUrl(url))

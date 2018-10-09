@@ -35,8 +35,8 @@ exports.sourceNodes = async ({ boundActionCreators }) => {
 
   const toNode = data => {
     const node = {
-      data: data,
-      id: data.url,
+      data,
+      id: 'demolinks',
       parent: '__SOURCE__',
       children: [],
       internal: { type: `DemoLink` }
@@ -50,7 +50,7 @@ exports.sourceNodes = async ({ boundActionCreators }) => {
     return node
   }
 
-  require('./data/urls').forEach(link => createNode(toNode(link)))
+  createNode(toNode(require('./data/urls')))
 }
 
 exports.createPages = ({ graphql, boundActionCreators }) => {

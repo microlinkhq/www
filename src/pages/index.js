@@ -42,7 +42,7 @@ export default class extends Component {
     const { data } = this.props
 
     const features = data.features.edges.map(item => item.node)
-    const demoLinks = data.demoLinks.edges.map(item => item.node.data)
+    const demoLinks = data.demoLinks.edges[0].node.data
     const linkExtracted = demoLinks.find(({ publisher = '' } = {}) =>
       REGEX_ACTIVE_LINK.test(publisher)
     )
@@ -377,6 +377,24 @@ export const query = graphql`
               background_color
               color
               alternative_color
+            }
+            video {
+              url
+              width
+              height
+              type
+              size
+              size_pretty
+              duration
+              duration_pretty
+            }
+            audio {
+              url
+              type
+              size
+              size_pretty
+              duration
+              duration_pretty
             }
             description
             date

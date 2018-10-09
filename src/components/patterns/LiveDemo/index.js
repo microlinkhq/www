@@ -141,11 +141,7 @@ export default class extends Component {
               height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
               style={{ overflow: isSDK ? 'hidden' : 'auto' }}
             >
-              <Preview
-                siteUrl={siteUrl}
-                preview={preview}
-                children={children}
-              />
+              <Preview preview={preview} children={children} />
             </Card>
             <Flex mt={3}>
               <Switch
