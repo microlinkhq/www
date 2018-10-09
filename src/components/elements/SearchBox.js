@@ -68,7 +68,7 @@ class SearchBox extends Component {
         <Input
           style={{ paddingRight: '6px' }}
           name='url'
-          fontSize={'18px'}
+          fontSize={['13px', '18px']}
           type='url'
           placeholder={placeholder}
           onChange={this.handleChange}
@@ -79,7 +79,7 @@ class SearchBox extends Component {
           disabled={loading}
         />
 
-        <Button fontSize={1} children='Try it' loading={loading} />
+        <Button fontSize={[0, 1]} children='Try it' loading={loading} />
       </Form>
     )
   }

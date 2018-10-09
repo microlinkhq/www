@@ -99,7 +99,7 @@ export default class extends Component {
                 maxWidth='12em'
               />
               <SearchBox
-                width={400}
+                width={[250, 400]}
                 bg='white'
                 my={3}
                 loading={this.state.loading}
