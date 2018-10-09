@@ -17,9 +17,9 @@ const URLS = [
   'https://www.apple.com/homepod',
   'https://www.instagram.com/p/BeV6tOhFUor/',
   'http://www.imdb.com/title/tt5463162',
-  'https://www.amazon.com/dp/B06XCM9LJ4',
+  'https://www.amazon.com/All-new-Echo-Plus-Bundle-Philips/dp/B07H1QBW2L',
   'https://www.bbc.com/news/technology-40762328',
-  'https://www.facebook.com/afcajax/videos/1686831701364171',
+  'https://www.facebook.com/natgeo/videos/1959330137697840/',
   'https://soundcloud.com/theaipodcast/gtc-weather/',
   'https://en.wikipedia.org/wiki/Bob_Dylan',
   'https://www.nytimes.com/2018/09/01/opinion/sunday/how-make-big-decision.html'
