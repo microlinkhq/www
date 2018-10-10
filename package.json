@@ -103,7 +103,6 @@
     "lint": "standard-markdown README.md && standard src/*/**.js",
     "prebuild": "npm run clean:urls && node scripts/fetch-urls",
     "predev": "node scripts/fetch-urls",
-    "pretest": "npm run lint",
     "test": "ava"
   },
   "private": true,
