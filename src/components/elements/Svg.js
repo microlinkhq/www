@@ -1,7 +1,7 @@
 import system from 'system-components'
-import { responsiveStyle } from 'styled-system'
+import { style } from 'styled-system'
 
-export const transform = responsiveStyle({
+export const transform = style({
   prop: 'transform',
   cssProperty: 'transform'
 })
