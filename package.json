@@ -107,11 +107,6 @@
   },
   "private": true,
   "license": "MIT",
-  "ava": {
-    "require": [
-      "esm"
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
