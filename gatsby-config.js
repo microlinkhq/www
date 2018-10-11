@@ -18,7 +18,9 @@ module.exports = {
     title: 'Turns any website into data',
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',
-    image: url.resolve(SITE_URL, '/preview.png'),
+    image: url.resolve(SITE_URL, '/preview.jpg'),
+    video: url.resolve(SITE_URL, '/preview.mp4'),
+    gif: url.resolve(SITE_URL, '/preview.gif'),
     logo: url.resolve(SITE_URL, '/logo-trim.png'),
     twitter: '@microlinkio',
     paymentEndpoint: PAYMENT_ENDPOINT,
