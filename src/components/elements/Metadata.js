@@ -39,7 +39,7 @@ export default ({
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
         { property: 'og:image', content: image },
-        { property: 'og:video', content: video },
+        { property: 'og:video:secure_url', content: video },
         { property: 'og:logo', content: logo },
         { property: 'og:site_name', content: siteName },
         { property: 'og:type', content: 'website' }
