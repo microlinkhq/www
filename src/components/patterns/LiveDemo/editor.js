@@ -1,6 +1,6 @@
-import { createApiUrl } from 'react-microlink'
+import { createApiUrl } from 'helpers'
 
-const apiUrl = props => createApiUrl({ ...props, video: true, contrast: true })
+const apiUrl = props => createApiUrl(props.url)
 
 const React = ({ url }) =>
   `import MicrolinkCard from 'react-microlink'
