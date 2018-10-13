@@ -1,7 +1,6 @@
 'use strict'
 
 const { chain, isNil, get, reduce } = require('lodash')
-const { createApiUrl } = require('react-microlink')
 const parseDomain = require('parse-domain')
 const KeyvFile = require('keyv-file')
 const download = require('download')
@@ -9,6 +8,8 @@ const pAll = require('p-all')
 const Keyv = require('keyv')
 const path = require('path')
 const got = require('got')
+
+const createApiUrl = require('../src/helpers/create-api-url')
 
 const getDomain = url => parseDomain(url).domain
 
@@ -81,11 +82,7 @@ const toDownload = async data => {
 }
 
 const fetchUrl = async url => {
-  const key = `${createApiUrl({
-    url,
-    video: true,
-    contrast: true
-  })}&audio&force`
+  const key = createApiUrl(url)
 
   const cachedData = await keyv.get(key)
   if (!isProduction && cachedData) return cachedData

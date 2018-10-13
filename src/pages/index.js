@@ -1,8 +1,7 @@
+/* global fetch */
+
 import React, { Fragment, Component } from 'react'
-
-import { marshall, unmarshall } from 'helpers'
-
-import { fetchFromApi } from 'react-microlink'
+import { createApiUrl, marshall, unmarshall } from 'helpers'
 
 import {
   Text,
@@ -63,20 +62,19 @@ export default class extends Component {
 
   setUrl = url => {
     if (url === this.state.url) return
-    this.setState({ url, linkFailed: null, loading: true })
 
-    fetchFromApi({
-      url,
-      video: true,
-      palette: true,
-      audio: true
-    }).then(({ status, data }) => {
-      if (status === 'success') {
-        this.setState({ loading: false, linkExtracted: data })
-      } else {
-        this.setState({ loading: false, linkFailed: true })
-      }
-    })
+    this.setState({ url, linkFailed: null, loading: true })
+    const apiUrl = createApiUrl(url)
+
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(({ status, data }) => {
+        if (status === 'success') {
+          this.setState({ loading: false, linkExtracted: data })
+        } else {
+          this.setState({ loading: false, linkFailed: true })
+        }
+      })
   }
   render () {
     const { paymentEndpoint, paymentApiKey, stripeKey, metadata } = this.props

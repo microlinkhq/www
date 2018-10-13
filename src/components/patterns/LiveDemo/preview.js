@@ -60,7 +60,7 @@ const JSONViewer = styled(Box)`
   line-height: ${lineHeights[3]};
 `
 
-export default ({ siteUrl, preview, children }) => {
+export default ({ preview, children }) => {
   return preview === 'SDK' ? (
     <Fragment>
       <Hide breakpoints={[0, 1]}>
