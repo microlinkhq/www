@@ -2,9 +2,9 @@
 
 const { createApiUrl } = require('react-microlink')
 
-module.exports = url => {
+module.exports = (url, { force = false } = {}) => {
   let apiUrl = createApiUrl({ url, video: true, contrast: true })
   apiUrl += '&audio'
-  apiUrl += '&force'
+  if (force) apiUrl += '&force'
   return apiUrl
 }
