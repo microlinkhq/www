@@ -82,7 +82,7 @@ const toDownload = async data => {
 }
 
 const fetchUrl = async url => {
-  const key = createApiUrl(url)
+  const key = createApiUrl(url, { force: true })
 
   const cachedData = await keyv.get(key)
   if (!isProduction && cachedData) return cachedData
