@@ -11,7 +11,7 @@ const got = require('got')
 
 const createApiUrl = require('../src/helpers/create-api-url')
 
-const getDomain = url => parseDomain(url).domain
+const getDomain = url => (parseDomain(url) || {}).domain
 
 const { SITE_URL, isProduction } = require('../env')
 const { CACHE_PATH, URLS } = require('../data/urls')
