@@ -10,7 +10,8 @@ const {
   URL,
   STRIPE_KEY,
   PAYMENT_API_KEY,
-  PAYMENT_ENDPOINT
+  PAYMENT_ENDPOINT,
+  GOOGLE_ANALYTICS_ID
 } = process.env
 
 if (!STRIPE_KEY) throw envError('STRIPE_KEY')
@@ -23,8 +24,6 @@ const SITE_URL = (() => {
   if (!isProduction) return 'http://localhost:8000'
   return CONTEXT === 'production' ? URL : DEPLOY_URL
 })()
-
-const GOOGLE_ANALYTICS_ID = () => (isProduction ? 'UA-108549225-1' : '')
 
 module.exports = {
   isProduction,
