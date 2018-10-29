@@ -40,7 +40,7 @@
     "gatsby-source-filesystem": "1.5.39",
     "gatsby-transformer-javascript-frontmatter": "1.0.10",
     "gatsby-transformer-remark": "1.7.44",
-    "gatsby-transformer-sharp": "1.6.27",
+    "gatsby-transformer-sharp": "2.1.6",
     "gatsby-transformer-yaml": "1.5.18",
     "got": "9.2.0",
     "keyv": "3.0.0",
