@@ -42,7 +42,7 @@
     "gatsby-transformer-remark": "1.7.44",
     "gatsby-transformer-sharp": "1.6.27",
     "gatsby-transformer-yaml": "1.5.18",
-    "got": "9.2.0",
+    "got": "9.3.0",
     "keyv": "3.0.0",
     "keyv-file": "0.1.7",
     "lodash.chunk": "4.2.0",
