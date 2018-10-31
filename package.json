@@ -63,7 +63,7 @@
     "react-live": "1.11.0",
     "react-microlink": "2",
     "react-stripe-elements": "2.0.1",
-    "react-syntax-highlighter": "8.0.1",
+    "react-syntax-highlighter": "10.0.0",
     "react-timeago": "4.1.9",
     "rebass": "2.1.0",
     "slugo": "0.2.1",
