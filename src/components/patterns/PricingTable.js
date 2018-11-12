@@ -14,12 +14,10 @@ import {
   Checkout
 } from 'components/elements'
 
-import PricePicker, {
-  DEFAULT_PLAN,
-  BASE_PLAN_PRICE
-} from 'components/elements/PricePicker'
+import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 
 import { colors } from 'theme'
+import { formatNumber } from 'helpers'
 
 const FREE_PLAN_RATE_LIMIT = 250
 
@@ -210,18 +208,16 @@ PricingRow.defaultProps = {
 
 export default class extends Component {
   state = {
-    price: BASE_PLAN_PRICE,
-    planId: DEFAULT_PLAN.planId,
-    description: getPlanDescription(DEFAULT_PLAN.reqs),
-    panelLabel: getMonthlyPrice(BASE_PLAN_PRICE)
+    ...DEFAULT_PLAN,
+    description: getPlanDescription(DEFAULT_PLAN.reqsPerDay),
+    panelLabel: getMonthlyPrice(DEFAULT_PLAN.monthlyPrice)
   }
 
-  priceSelected = ({ price, planId, reqs }) => {
+  priceSelected = plan => {
     this.setState({
-      price,
-      planId,
-      description: getPlanDescription(reqs),
-      panelLabel: getMonthlyPrice(price)
+      ...plan,
+      description: getPlanDescription(plan.reqsPerDay),
+      panelLabel: getMonthlyPrice(plan.monthlyPrice)
     })
 
     if (this.raf) return
@@ -239,8 +235,17 @@ export default class extends Component {
   }
 
   render () {
-    const { highlight, planId, description, panelLabel, price } = this.state
+    const {
+      reqsPerDay,
+      highlight,
+      description,
+      panelLabel,
+      monthlyPrice,
+      planId
+    } = this.state
+
     const { apiEndpoint, apiKey, stripeKey } = this.props
+    const humanMonthlyPrice = formatNumber(monthlyPrice)
 
     return (
       <Box mx='auto' px={[0, 6]}>
@@ -310,9 +315,9 @@ export default class extends Component {
                 <Price children={0} />,
                 <Price>
                   {highlight ? (
-                    <Highlight>{price}</Highlight>
+                    <Highlight>{humanMonthlyPrice}</Highlight>
                   ) : (
-                    <span>{price}</span>
+                    <span>{humanMonthlyPrice}</span>
                   )}
                 </Price>
               ]}
@@ -322,8 +327,8 @@ export default class extends Component {
                 '',
                 '',
                 <Checkout
-                  apiEndpoint={apiEndpoint}
                   planId={planId}
+                  apiEndpoint={apiEndpoint}
                   apiKey={apiKey}
                   stripeKey={stripeKey}
                   panelLabel={panelLabel}
