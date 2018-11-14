@@ -1,8 +1,8 @@
-import { ButtonOutline as OutlineBase } from 'rebass'
+import { Button as ButtonBase } from 'rebass'
 import styled from 'styled-components'
 import { transition, colors } from 'theme'
 
-const ButtonOutline = styled(OutlineBase)`
+const ButtonOutline = styled(ButtonBase)`
   transition: color, background-color ${transition.short};
 
   &:hover:not([disabled]) {

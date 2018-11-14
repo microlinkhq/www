@@ -40,11 +40,11 @@ const CheckMark = props => (
   </svg>
 )
 
-export const List = props => <Box is='ul' {...props} />
+export const List = props => <Box as='ul' {...props} />
 
 export const ListItem = props => (
-  <Flex is='li' alignItems='flex-start' mb={3}>
-    <Text is='span' lineHeight={3} mr={2}>
+  <Flex as='li' alignItems='flex-start' mb={3}>
+    <Text as='span' lineHeight={3} mr={2}>
       <CheckMark />
     </Text>
     <Text {...props} />

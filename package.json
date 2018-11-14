@@ -19,6 +19,7 @@
     "gatsby"
   ],
   "dependencies": {
+    "@rebass/components": "4.0.0-1",
     "autoprefixer": "9.1.1",
     "color": "3.0.0",
     "cssnano": "4.0.5",
@@ -66,16 +67,17 @@
     "react-stripe-elements": "2.0.1",
     "react-syntax-highlighter": "10.1.0",
     "react-timeago": "4.1.9",
-    "rebass": "2.1.0",
+    "rebass": "3.0.0-10",
     "scroll-into-view-if-needed": "~2.2.20",
     "slugo": "0.2.1",
-    "styled-components": "3.4.2",
+    "styled-components": "4.1.1",
     "styled-is": "1.1.5",
-    "styled-system": "3.0.2",
+    "styled-system": "3.1.11",
     "unfetch": "3.1.1"
   },
   "devDependencies": {
     "babel-eslint": "latest",
+    "finepack": "latest",
     "husky": "latest",
     "imageoptim-cli": "latest",
     "lint-staged": "latest",

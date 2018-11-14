@@ -1,8 +1,8 @@
-import system from 'system-components'
+import sys from '@rebass/components'
 import { Card as CardBase } from 'rebass'
 
 // TODO: Unnecessary after https://github.com/jxnblk/rebass/pull/424
-const Card = system({ is: CardBase }, { overflow: 'auto' }, 'width', 'height')
+const Card = sys({ extend: CardBase }, { overflow: 'auto' }, 'width', 'height')
 
 Card.defaultProps = {
   borderRadius: 3,

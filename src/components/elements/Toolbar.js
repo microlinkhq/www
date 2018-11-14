@@ -1,12 +1,13 @@
-import { Toolbar as ToolbarBase } from 'rebass'
-import system from 'system-components'
+import sys from '@rebass/components'
+
+import Flex from 'components/elements/Flex'
 import { layout } from 'theme'
 
 export const TOOLBAR_SIZE = '67px'
 
-const Toolbar = system(
+const Toolbar = sys(
   {
-    is: ToolbarBase,
+    extends: Flex,
     overflowX: 'auto',
     overflowY: 'hidden'
   },

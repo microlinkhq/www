@@ -4,7 +4,7 @@ import React from 'react'
 
 export default ({ children, itemsPerRow }) => (
   <Flex
-    is='section'
+    as='section'
     justifyContent='center'
     alignContent='center'
     flexDirection='column'
@@ -12,7 +12,7 @@ export default ({ children, itemsPerRow }) => (
     {chunk(children, itemsPerRow).map((row, index) => (
       <Row key={index} pb={[2, 3]}>
         {row.map(({ title, description }, index) => (
-          <Column key={index} is='li' style={{ listStyle: 'none' }}>
+          <Column key={index} as='li' style={{ listStyle: 'none' }}>
             <Box
               mx={'auto'}
               maxWidth={['14em', '17em']}

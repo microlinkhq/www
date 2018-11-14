@@ -1,4 +1,4 @@
-import system from 'system-components'
+import sys from '@rebass/components'
 import React, { Fragment, Component } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Check, HelpCircle } from 'react-feather'
@@ -82,7 +82,7 @@ const Highlight = styled.span`
   animation-fill-mode: forwards;
 `
 
-const TableDataCell = system(
+const TableDataCell = sys(
   {
     is: 'td'
   },
@@ -94,7 +94,7 @@ const TableDataCell = system(
   'width'
 )
 
-const TableRow = system(
+const TableRow = sys(
   {
     is: 'tr'
   },
@@ -105,7 +105,7 @@ const TableRow = system(
   'fontSize'
 )
 
-const TableHeader = system(
+const TableHeader = sys(
   {
     is: 'th'
   },
@@ -116,7 +116,7 @@ const TableHeader = system(
   'fontSize'
 )
 
-const Table = system(
+const Table = sys(
   { is: 'table' },
   {
     tableLayout: 'fixed',
@@ -346,7 +346,7 @@ export default class extends Component {
           pt={[4, 5]}
         >
           <Lead color='gray8' fontSize={2} children='Do you need more?' />
-          <Text is='div' mt={1} fontSize={1} color='gray8'>
+          <Text as='div' mt={1} fontSize={1} color='gray8'>
             <LinkSolid
               fontWeight='bold'
               href='mailto:hello@microlink.io?subject=About pricing'

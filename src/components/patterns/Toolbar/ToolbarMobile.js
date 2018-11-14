@@ -69,7 +69,7 @@ export default class extends Component {
             >
               <Microlink />
             </NavLink>
-            <Nav is='nav'>
+            <Nav as='nav'>
               <NavLink
                 prefetch={false}
                 fontWeight='normal'

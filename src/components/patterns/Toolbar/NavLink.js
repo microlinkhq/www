@@ -1,5 +1,7 @@
+import sys from '@rebass/components'
+import styled, { css } from 'styled-components'
+
 import { NavLink as NavLinkBase } from 'components/elements'
-import { css } from 'styled-components'
 import { transition, fontWeights, colors } from 'theme'
 
 import withLink from '../../elements/Link/with-link'
@@ -9,7 +11,7 @@ const activeStyle = css`
   color: ${colors.gray9};
 `
 
-const NavLink = NavLinkBase.extend`
+const NavLink = styled(NavLinkBase)`
   text-transform: uppercase;
   transition: color ${transition.medium};
   color: ${colors.gray7};
@@ -26,7 +28,7 @@ const NavLink = NavLinkBase.extend`
 
 NavLink.defaultProps = {
   is: 'div',
-  blacklist: [...Object.keys(NavLink.propTypes), 'active']
+  blacklist: [...Object.keys(NavLinkBase.propTypes), 'active']
 }
 
 export default withLink(NavLink)

@@ -42,7 +42,7 @@ const IconWrapper = styled(Box)`
 export default props => (
   <Container px={[2, 0]} maxWidth={layout}>
     <Row
-      is='footer'
+      as='footer'
       py={[4, 5]}
       mx='auto'
       bg='white'

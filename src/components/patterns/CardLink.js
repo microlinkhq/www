@@ -20,14 +20,14 @@ CapsIcon.defaultProps = {
 const CardTitle = ({ children, hover }) => (
   <Text my={27}>
     <Caps
-      is='span'
+      as='span'
       fontWeight='bold'
       color='secondary'
       fontSize={2}
       children={children}
     />
     <CapsIcon
-      is='span'
+      as='span'
       fontWeight='bold'
       color='secondary'
       fontSize={2}

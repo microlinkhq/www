@@ -1,10 +1,10 @@
-import { Text as TextBase } from 'rebass'
+import sys from '@rebass/components'
 import { variant } from 'styled-system'
-import system from 'system-components'
+import { Text as TextBase } from 'rebass'
 
 const textStyle = variant({ key: 'textStyle' })
 
-const Text = system({ is: TextBase }, 'maxWidth', 'textAlign', textStyle)
+const Text = sys({ extend: TextBase }, 'maxWidth', 'textAlign', textStyle)
 
 Text.defaultProps = {
   is: 'p',

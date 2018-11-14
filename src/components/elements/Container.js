@@ -1,8 +1,21 @@
-import { Container as ContainerBase } from 'rebass'
-import system from 'system-components'
+import sys from '@rebass/components'
+
+import Box from 'components/elements/Box'
 import { layout } from 'theme'
 
-const Container = system({ is: ContainerBase })
+const ContainerBase = sys(
+  {
+    extend: Box,
+    px: 3,
+    mx: 'auto',
+    maxWidth: 1024
+  },
+  'maxWidth'
+)
+
+ContainerBase.displayName = 'Container'
+
+const Container = sys({ extend: ContainerBase })
 
 Container.defaultProps = {
   maxWidth: layout

@@ -1,8 +1,8 @@
+import sys from '@rebass/components'
 import { Flex as FlexBase } from 'rebass'
-import system from 'system-components'
 
-export const Flex = system(
-  { is: FlexBase },
+const Flex = sys(
+  { extend: FlexBase },
   'alignContent',
   'justifyContent',
   'flexDirection',

@@ -1,4 +1,4 @@
-import sys from 'system-components'
+import sys from '@rebass/components'
 import { colors } from 'theme'
 
 export const Input = sys(

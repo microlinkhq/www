@@ -12,7 +12,7 @@ export default class extends Component {
       <Fixed zIndex={2} top={0} left={0} right={0}>
         <Box px={3} boxShadow={0} mx='auto' bg='white'>
           <Toolbar mx='auto' justifyContent='space-between' {...this.props}>
-            <NavContainer is='nav'>
+            <NavContainer as='nav'>
               <NavLink
                 width={['32px', '48px']}
                 display='flex'
@@ -49,7 +49,7 @@ export default class extends Component {
                 actively
               />
             </NavContainer>
-            <NavContainer is='nav'>
+            <NavContainer as='nav'>
               <NavLink
                 fontWeight='normal'
                 fontSize={0}

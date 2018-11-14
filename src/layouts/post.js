@@ -40,7 +40,7 @@ export default function PostLayout (frontmatter) {
             <Metadata {...meta} />
 
             <Text
-              is='header'
+              as='header'
               textAlign='center'
               mb={5}
               maxWidth='900px'

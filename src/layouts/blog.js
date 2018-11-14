@@ -31,7 +31,7 @@ const BlogPost = ({ title, date, slug }) => {
         mb={3}
         mx='auto'
         textAlign='center'
-        is='a'
+        as='a'
         href={`/blog/${slug}`}
         children={title}
       />

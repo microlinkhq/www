@@ -1,12 +1,12 @@
-import system from 'system-components'
-import { responsiveStyle } from 'styled-system'
+import sys from '@rebass/components'
+import { style } from 'styled-system'
 
-export const transform = responsiveStyle({
+export const transform = style({
   prop: 'transform',
   cssProperty: 'transform'
 })
 
-const Svg = system(
+const Svg = sys(
   { is: 'svg' },
   { fill: 'currentColor' },
   'color',

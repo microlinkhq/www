@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { fontSize } from 'styled-system'
 import styled from 'styled-components'
-import system from 'system-components'
-import { Flex, Button } from 'components/elements'
+import sys from '@rebass/components'
+import Button from 'components/elements/Button'
+import Flex from 'components/elements/Flex'
 
 const Input = styled.input`
   ${fontSize};
@@ -33,7 +34,7 @@ const Input = styled.input`
   }
 `
 
-const Form = system({ is: Flex }, 'space', 'width', {
+const Form = sys({ extend: Flex }, 'space', 'width', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -64,7 +65,7 @@ class SearchBox extends Component {
     const { loading, placeholder, onChange, value, ...props } = this.props
 
     return (
-      <Form py={1} is='form' role='form' onSubmit={this.onSubmit} {...props}>
+      <Form py={1} as='form' role='form' onSubmit={this.onSubmit} {...props}>
         <Input
           style={{ paddingRight: '6px' }}
           name='url'

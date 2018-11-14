@@ -1,8 +1,8 @@
 import React from 'react'
-import { Image } from 'rebass'
+import { Img } from 'components/elements'
 
 export default props => (
-  <Image
+  <Img
     src='/logo.svg'
     style={{
       display: 'inline',

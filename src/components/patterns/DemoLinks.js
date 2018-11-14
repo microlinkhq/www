@@ -15,7 +15,7 @@ const floatAnimation = css`
   }
 `
 
-const Logo = Avatar.extend`
+const Logo = styled(Avatar)`
   &&& {
     border-radius: 8px;
     box-shadow: none;

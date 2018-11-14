@@ -1,9 +1,60 @@
-import system from 'system-components'
-import { Tooltip as TooltipBase } from 'rebass'
+import sys from '@rebass/components'
+import { themeGet } from 'styled-system'
 import styled, { keyframes } from 'styled-components'
 import { space, lineHeights, fontWeights, fontSizes, transition } from 'theme'
 
-const Tooltip = system({ is: TooltipBase }, 'space')
+const TooltipBase = sys(
+  {
+    color: 'white',
+    bg: 'black'
+  },
+  props => ({
+    display: 'inline-block',
+    position: 'relative',
+    color: 'inherit',
+    backgroundColor: 'transparent',
+    '&::before': {
+      display: 'none',
+      content: `"${props.text}"`,
+      position: 'absolute',
+      bottom: '100%',
+      left: '50%',
+      transform: 'translate(-50%, -4px)',
+      whiteSpace: 'nowrap',
+      fontSize: themeGet('fontSizes.0', '10px')(props),
+      paddingTop: '4px',
+      paddingBottom: '4px',
+      paddingLeft: '8px',
+      paddingRight: '8px',
+      color: themeGet('colors.' + props.color)(props),
+      backgroundColor: themeGet('colors.' + props.bg)(props),
+      borderRadius: themeGet('radii.1')(props) + 'px'
+    },
+    '&::after': {
+      display: 'none',
+      position: 'absolute',
+      bottom: '100%',
+      left: '50%',
+      transform: 'translate(-50%, 8px)',
+      content: '" "',
+      borderWidth: '6px',
+      borderStyle: 'solid',
+      borderColor: 'transparent',
+      borderTopColor: themeGet('colors.' + props.bg)(props)
+    },
+    '&:hover': {
+      '&::before, &::after': {
+        display: 'block'
+      }
+    }
+  }),
+  'space',
+  'color'
+)
+
+TooltipBase.displayName = 'Tooltip'
+
+const Tooltip = sys({ extend: TooltipBase }, 'space')
 
 const fadeIn = keyframes`
 from {
