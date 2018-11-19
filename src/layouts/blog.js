@@ -1,8 +1,7 @@
 import React from 'react'
-import { Divider, Text, Flex, Container } from 'components/elements'
+import { Divider, Text, Flex, Container, Metadata } from 'components/elements'
 import { H2 } from 'components/markdown'
 import styled from 'styled-components'
-import { Helmet } from 'react-helmet'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 
@@ -48,7 +47,7 @@ export default ({ pathContext }) => {
   const { posts } = pathContext
   return (
     <Container mx='auto'>
-      <Helmet title='Blog' />
+      <Metadata title='Blog' />
       <Flex flexDirection='column' alignItems='center' pt={4}>
         {posts.map(post => <BlogPost key={post.title} {...post} />)}
       </Flex>
