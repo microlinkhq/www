@@ -44,6 +44,7 @@ export default ({
         { property: 'og:site_name', content: siteName },
         { property: 'og:type', content: 'website' }
       ]}
+      {...props}
     >
       <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
     </Helmet>

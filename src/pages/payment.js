@@ -10,10 +10,10 @@ import {
   Notification,
   LinkSolid,
   Flex,
-  Heading
+  Heading,
+  Metadata
 } from 'components/elements'
 
-import { Helmet } from 'react-helmet'
 import { marshall, unmarshall } from 'helpers'
 
 import {
@@ -208,7 +208,7 @@ export default class extends Component {
 
     return (
       <Container is='section' maxWidth='350px' pt={4} pb={3}>
-        <Helmet
+        <Metadata
           title='Update Payment'
           script={[
             { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
