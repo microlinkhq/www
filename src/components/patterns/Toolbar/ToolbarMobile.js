@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Box, Fixed, Toolbar } from 'components/elements'
 import { Microlink } from 'components/logos'
+import { smoothScroll } from 'helpers'
 import styled from 'styled-components'
 
 import NavContainer from './NavContainer'
@@ -70,18 +71,22 @@ export default class extends Component {
             </NavLink>
             <Nav is='nav'>
               <NavLink
+                prefetch={false}
                 fontWeight='normal'
                 fontSize={0}
                 px={2}
                 children='Features'
                 href='/#features'
+                onClick={smoothScroll('features')}
               />
               <NavLink
+                prefetch={false}
                 fontWeight='normal'
                 fontSize={0}
                 px={2}
                 children='Pricing'
                 href='/#pricing'
+                onClick={smoothScroll('pricing')}
               />
               <NavLink
                 fontWeight='normal'
