@@ -18,14 +18,25 @@ const PrefetchLink = styled(PrefetchLinkBase)`
   ${linkStyle};
 `
 
-export default ChildComponent => ({ actively, href, children, ...props }) => {
-  if (isInternalLink(href)) {
+export default ChildComponent => ({
+  prefetch = true,
+  onClick,
+  actively,
+  href,
+  children,
+  ...props
+}) => {
+  const isInternal = isInternalLink(href)
+  const rel = isInternal ? null : 'noopener noreferrer'
+  const target = isInternal ? '_self' : '_blank'
+
+  if (prefetch && isInternal) {
     return (
       <ChildComponent {...props}>
         <PrefetchLink
           to={href}
           children={children}
-          activeClassName={actively ? 'active' : undefined}
+          activeClassName={actively && 'active'}
         />
       </ChildComponent>
     )
@@ -35,8 +46,9 @@ export default ChildComponent => ({ actively, href, children, ...props }) => {
         <ExternalLink
           href={href}
           children={children}
-          target='_blank'
-          rel='noopener noreferrer'
+          target={target}
+          rel={rel}
+          onClick={onClick}
         />
       </ChildComponent>
     )

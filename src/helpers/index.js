@@ -4,5 +4,14 @@ import unmarshall from './unmarshall'
 import marshall from './marshall'
 import get from './get'
 import createApiUrl from './create-api-url'
+import smoothScroll from './smooth-scroll'
 
-export { marshall, unmarshall, get, formatDate, formatNumber, createApiUrl }
+export {
+  smoothScroll,
+  marshall,
+  unmarshall,
+  get,
+  formatDate,
+  formatNumber,
+  createApiUrl
+}
