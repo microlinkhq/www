@@ -19,6 +19,7 @@ export default class extends Component {
                 fontSize={0}
                 pr={[2, 3]}
                 href='/'
+                onClick={() => window.scrollTo(0, 0)}
               >
                 <Microlink />
               </NavLink>

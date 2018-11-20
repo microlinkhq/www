@@ -1,44 +1,34 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
-import PrefetchLinkBase from 'gatsby-link'
+const isInternalLink = to => /^\/(?!\/)/.test(to)
 
-const linkStyle = css`
+const Link = styled.a`
   text-decoration: inherit;
   color: inherit;
 `
 
-const isInternalLink = to => /^\/(?!\/)/.test(to)
-
-const ExternalLink = styled.a`
-  ${linkStyle};
-`
-
-const PrefetchLink = styled(PrefetchLinkBase)`
-  ${linkStyle};
-`
-
-export default ChildComponent => ({ actively, href, children, ...props }) => {
-  if (isInternalLink(href)) {
-    return (
-      <ChildComponent {...props}>
-        <PrefetchLink
-          to={href}
-          children={children}
-          activeClassName={actively ? 'active' : undefined}
-        />
-      </ChildComponent>
-    )
-  } else {
-    return (
-      <ChildComponent {...props}>
-        <ExternalLink
-          href={href}
-          children={children}
-          target='_blank'
-          rel='noopener noreferrer'
-        />
-      </ChildComponent>
-    )
-  }
+// TODO: Add prefetching at gatsby v2
+// reference: https://github.com/microlinkhq/www/blob/6cef133982a1307cfc123e48dae5d5114e757ee0/src/components/elements/Link/with-link.js#L22
+export default ChildComponent => ({
+  actively,
+  href,
+  children,
+  onClick,
+  ...props
+}) => {
+  const isInternal = isInternalLink(href)
+  const target = isInternal ? '_self' : '_blank'
+  const rel = isInternal ? null : 'noopener noreferrer'
+  return (
+    <ChildComponent {...props}>
+      <Link
+        href={href}
+        children={children}
+        onClick={onClick}
+        target={target}
+        rel={rel}
+      />
+    </ChildComponent>
+  )
 }
