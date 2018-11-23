@@ -28,13 +28,12 @@ module.exports = {
     stripeKey: STRIPE_KEY
   },
   plugins: [
-    `gatsby-plugin-react-next`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-catch-links`,
     `gatsby-transformer-javascript-frontmatter`,
     {
-      resolve: `gatsby-plugin-postcss-sass`,
+      resolve: `gatsby-plugin-sass`,
       options: {
         postCssPlugins: [
           require('postcss-focus'),

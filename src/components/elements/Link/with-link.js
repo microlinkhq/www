@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import PrefetchLinkBase from 'gatsby-link'
+import { Link as PrefetchLinkBase } from 'gatsby'
 
 const linkStyle = css`
   text-decoration: inherit;

@@ -4,29 +4,28 @@ const webpack = require('webpack')
 const crypto = require('crypto')
 const path = require('path')
 
-exports.modifyBabelrc = ({ babelrc }) => {
-  return {
-    ...babelrc,
-    plugins: babelrc.plugins.concat([`markdown-in-js/babel`])
-  }
+exports.onCreateBabelConfig = ({ actions }) => {
+  actions.setBabelPlugin({
+    name: 'markdown-in-js/babel'
+  })
 }
 
-exports.modifyWebpackConfig = ({ config, stage }) => {
-  // See https://github.com/FormidableLabs/react-live/issues/5
-  config.plugin('ignore', () => new webpack.IgnorePlugin(/^(xor|props)$/))
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      modules: [path.resolve(__dirname, './src')]
+    },
+    plugins: [() => new webpack.IgnorePlugin(/^(xor|props)$/)]
+  })
 
   if (stage === 'build-html') {
-    config.loader('null', {
-      test: /react-json-view/,
-      loader: 'null-loader'
+    actions.setWebpackConfig({
+      rules: {
+        test: /react-json-view/,
+        loader: 'null-loader'
+      }
     })
   }
-
-  return config.merge({
-    resolve: {
-      root: path.resolve(__dirname, './src')
-    }
-  })
 }
 
 exports.sourceNodes = async ({ boundActionCreators }) => {
