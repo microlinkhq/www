@@ -1,7 +1,8 @@
-/* global fetch */
-
 import React, { Fragment, Component } from 'react'
+import { StaticQuery, graphql } from 'gatsby'
 import { createApiUrl, marshall, unmarshall } from 'helpers'
+
+import IndexLayout from 'layouts/index'
 
 import {
   Text,
@@ -35,7 +36,7 @@ import {
 
 const REGEX_ACTIVE_LINK = /twitter/i
 
-export default class extends Component {
+class Home extends Component {
   constructor (props) {
     super(props)
     const { data } = this.props
@@ -77,12 +78,13 @@ export default class extends Component {
       })
   }
   render () {
-    const { paymentEndpoint, paymentApiKey, stripeKey, metadata } = this.props
+    const {
+      siteMetadata: { paymentEndpoint, paymentApiKey, stripeKey, siteUrl }
+    } = this.props.data.site
     const { features, demoLinks, linkExtracted } = this.state
-    const { siteUrl } = metadata
 
     return (
-      <Fragment>
+      <IndexLayout>
         <Box is='article'>
           <Container is='section' pt={5} pb={5} px={0}>
             <Flex
@@ -342,75 +344,89 @@ export default class extends Component {
             />
           </Container>
         </Box>
-      </Fragment>
+      </IndexLayout>
     )
   }
 }
 
-export const query = graphql`
-  query LandingPage {
-    features: allFeaturesYaml {
-      edges {
-        node {
-          title
-          description
-        }
-      }
-    }
-    demoLinks: allDemoLink {
-      edges {
-        node {
-          data {
-            lang
-            author
+export default () => (
+  <StaticQuery
+    query={graphql`
+      query LandingPage {
+        site {
+          siteMetadata {
+            siteUrl
             title
-            publisher
-            image {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              background_color
-              color
-              alternative_color
-            }
-            video {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              duration
-              duration_pretty
-            }
-            audio {
-              url
-              type
-              size
-              size_pretty
-              duration
-              duration_pretty
-            }
             description
-            date
-            logo {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              background_color
-              color
-              alternative_color
+            image
+            video
+            twitter
+            paymentEndpoint
+            paymentApiKey
+            stripeKey
+            siteName
+            logo
+          }
+        }
+        features: allFeaturesYaml {
+          edges {
+            node {
+              title
+              description
             }
-            url
+          }
+        }
+        demoLinks: allDemoLink {
+          edges {
+            node {
+              data {
+                lang
+                author
+                title
+                publisher
+                image {
+                  url
+                  width
+                  height
+                  type
+                  size
+                  size_pretty
+                }
+                video {
+                  url
+                  width
+                  height
+                  type
+                  size
+                  size_pretty
+                  duration
+                  duration_pretty
+                }
+                audio {
+                  url
+                  type
+                  size
+                  size_pretty
+                  duration
+                  duration_pretty
+                }
+                description
+                date
+                logo {
+                  url
+                  width
+                  height
+                  type
+                  size
+                  size_pretty
+                }
+                url
+              }
+            }
           }
         }
       }
-    }
-  }
-`
+    `}
+    render={data => <Home data={data} />}
+  />
+)

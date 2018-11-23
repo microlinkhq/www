@@ -43,8 +43,7 @@ const BlogPost = ({ title, date, slug }) => {
   )
 }
 
-export default ({ pathContext }) => {
-  const { posts } = pathContext
+export default ({ pageContext: { posts = [] } }) => {
   return (
     <Container mx='auto'>
       <Metadata title='Blog' />
