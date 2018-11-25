@@ -8,7 +8,7 @@ import {
 
 import { lineHeights, fontSizes, fonts, colors } from 'theme'
 
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
 const prismStyle = css`
   .token.comment,
@@ -60,7 +60,7 @@ const prismStyle = css`
   }
 `
 
-const Provider = sys(
+const Provider = system(
   { extend: LiveProviderBase },
   {
     boxSizing: 'border-box',

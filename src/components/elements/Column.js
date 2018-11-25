@@ -1,7 +1,7 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import Box from 'components/elements/Box'
 
-const Column = sys(
+const Column = system(
   {
     extend: Box,
     px: 3,

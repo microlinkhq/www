@@ -1,7 +1,7 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import { Link as LinkBase } from 'rebass'
 
-const Link = sys({ extend: LinkBase }, 'fontWeight', props => ({
+const Link = system({ extend: LinkBase }, 'fontWeight', props => ({
   cursor: 'pointer',
   textDecoration: 'none',
   outline: 0

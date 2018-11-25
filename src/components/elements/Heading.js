@@ -1,7 +1,7 @@
 import Text from './Text'
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
-const Heading = sys({ extend: Text })
+const Heading = system({ extend: Text })
 
 Heading.defaultProps = {
   is: 'h2',

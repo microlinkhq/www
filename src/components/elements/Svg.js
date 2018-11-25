@@ -1,4 +1,4 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import { style } from 'styled-system'
 
 export const transform = style({
@@ -6,7 +6,7 @@ export const transform = style({
   cssProperty: 'transform'
 })
 
-const Svg = sys(
+const Svg = system(
   { is: 'svg' },
   { fill: 'currentColor' },
   'color',

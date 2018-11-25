@@ -1,6 +1,6 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
-const NavLink = sys(
+const NavLink = system(
   {
     is: 'a',
     color: 'inherit',

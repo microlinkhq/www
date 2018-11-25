@@ -1,7 +1,7 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import { Flex } from 'components/elements/Flex'
 
-const Row = sys({
+const Row = system({
   extend: Flex,
   mx: -3
 })

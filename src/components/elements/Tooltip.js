@@ -1,9 +1,9 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import { themeGet } from 'styled-system'
 import styled, { keyframes } from 'styled-components'
 import { space, lineHeights, fontWeights, fontSizes, transition } from 'theme'
 
-const TooltipBase = sys(
+const TooltipBase = system(
   {
     color: 'white',
     bg: 'black'
@@ -54,7 +54,7 @@ const TooltipBase = sys(
 
 TooltipBase.displayName = 'Tooltip'
 
-const Tooltip = sys({ extend: TooltipBase }, 'space')
+const Tooltip = system({ extend: TooltipBase }, 'space')
 
 const fadeIn = keyframes`
 from {

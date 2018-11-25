@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { fontSize } from 'styled-system'
 import styled from 'styled-components'
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import Button from 'components/elements/Button'
 import Flex from 'components/elements/Flex'
 
@@ -34,7 +34,7 @@ const Input = styled.input`
   }
 `
 
-const Form = sys({ extend: Flex }, 'space', 'width', {
+const Form = system({ extend: Flex }, 'space', 'width', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

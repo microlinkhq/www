@@ -1,7 +1,7 @@
 import Text from './Text'
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
-const Lead = sys({ extend: Text })
+const Lead = system({ extend: Text })
 
 Lead.defaultProps = {
   is: 'p',

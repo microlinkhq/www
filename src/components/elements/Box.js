@@ -1,10 +1,10 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import { Box as BoxBase } from 'rebass'
 import { variant } from 'styled-system'
 
 const boxStyle = variant({ key: 'boxStyle' })
 
-const Box = sys(
+const Box = system(
   { extend: BoxBase },
   'textAlign',
   'maxWidth',

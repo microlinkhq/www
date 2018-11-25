@@ -1,6 +1,6 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
-const BlockLink = sys(
+const BlockLink = system(
   {
     is: 'a',
     color: 'inherit'

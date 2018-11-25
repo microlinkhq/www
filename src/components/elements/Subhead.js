@@ -1,7 +1,7 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import Text from './Text'
 
-const Subhead = sys({ extend: Text })
+const Subhead = system({ extend: Text })
 
 Subhead.displayName = 'Subhead'
 

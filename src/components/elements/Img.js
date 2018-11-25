@@ -1,7 +1,7 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import { Image as ImageBase } from 'rebass'
 
-const Img = sys(
+const Img = system(
   { extend: ImageBase },
   'maxWidth',
   'display',

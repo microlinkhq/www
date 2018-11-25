@@ -1,12 +1,12 @@
 import React from 'react'
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import { themeGet } from 'styled-system'
 
 const arrow = encodeURI(
   `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='currentcolor'> <path d='M0 6 L32 6 L16 28 z' /> </svg>`
 )
 
-const SelectBase = sys(
+const SelectBase = system(
   {
     is: 'select',
     m: 0,
@@ -51,6 +51,10 @@ const SelectBase = sys(
 
 SelectBase.displayName = 'Select'
 
-const Select = sys({ extend: SelectBase, cursor: 'pointer' }, 'space', 'width')
+const Select = system(
+  { extend: SelectBase, cursor: 'pointer' },
+  'space',
+  'width'
+)
 
 export default Select

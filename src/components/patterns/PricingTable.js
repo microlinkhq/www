@@ -1,4 +1,4 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import React, { Fragment, Component } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Check, HelpCircle } from 'react-feather'
@@ -82,7 +82,7 @@ const Highlight = styled.span`
   animation-fill-mode: forwards;
 `
 
-const TableDataCell = sys(
+const TableDataCell = system(
   {
     is: 'td'
   },
@@ -94,7 +94,7 @@ const TableDataCell = sys(
   'width'
 )
 
-const TableRow = sys(
+const TableRow = system(
   {
     is: 'tr'
   },
@@ -105,7 +105,7 @@ const TableRow = sys(
   'fontSize'
 )
 
-const TableHeader = sys(
+const TableHeader = system(
   {
     is: 'th'
   },
@@ -116,7 +116,7 @@ const TableHeader = sys(
   'fontSize'
 )
 
-const Table = sys(
+const Table = system(
   { is: 'table' },
   {
     tableLayout: 'fixed',

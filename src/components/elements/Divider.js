@@ -1,6 +1,6 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
-export const Divider = sys(
+export const Divider = system(
   {
     is: 'hr',
     mx: 0,

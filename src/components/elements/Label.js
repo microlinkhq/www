@@ -1,9 +1,9 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import styled from 'styled-components'
 import { colors } from 'theme'
 import is from 'styled-is'
 
-const LabelBase = sys(
+const LabelBase = system(
   {
     is: 'label',
     fontSize: 1,
@@ -21,7 +21,7 @@ const LabelBase = sys(
 
 LabelBase.displayName = 'Label'
 
-const Label = sys({ extend: LabelBase }, 'display', 'textAlign', 'space')
+const Label = system({ extend: LabelBase }, 'display', 'textAlign', 'space')
 
 export default styled(Label)`
   ${is('suffix')`

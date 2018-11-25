@@ -1,7 +1,7 @@
 import Text from './Text'
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
-const Caps = sys(
+const Caps = system(
   { extend: Text },
   {
     letterSpacing: '0.5px',

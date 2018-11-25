@@ -1,4 +1,4 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import styled, { css } from 'styled-components'
 
 import { NavLink as NavLinkBase } from 'components/elements'

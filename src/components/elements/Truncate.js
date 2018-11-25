@@ -1,8 +1,8 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
 import Text from 'components/elements/Text'
 
-const Truncate = sys(
+const Truncate = system(
   {
     extend: Text
   },

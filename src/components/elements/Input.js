@@ -1,7 +1,7 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import { colors } from 'theme'
 
-export const Input = sys(
+export const Input = system(
   {
     is: 'input',
     type: 'text',

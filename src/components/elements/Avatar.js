@@ -1,8 +1,8 @@
-import sys from '@rebass/components'
+import { system } from 'helpers'
 
 import Img from 'components/elements/Img'
 
-const Avatar = sys(
+const Avatar = system(
   {
     extend: Img,
     size: 48,

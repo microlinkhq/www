@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import sys from '@rebass/components'
+import { system } from 'helpers'
 import Box from '../Box'
 import LinkBase from './base'
 
 import { transition, lineHeights } from 'theme'
 
-export const Link = sys({ extend: LinkBase })
+export const Link = system({ extend: LinkBase })
 
 const LinkSolid = styled(Link)`
   text-decoration: none;
