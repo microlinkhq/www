@@ -4,7 +4,7 @@ import { system } from 'helpers'
 const Lead = system({ extend: Text })
 
 Lead.defaultProps = {
-  is: 'p',
+  as: 'p',
   lineHeight: 3,
   fontWeight: 'normal',
   fontSize: [1, 4]

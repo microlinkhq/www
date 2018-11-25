@@ -22,7 +22,7 @@ const Toolbar = system(
 )
 
 Toolbar.defaultProps = {
-  is: 'header',
+  as: 'header',
   color: 'black50',
   bg: 'white',
   display: 'flex',

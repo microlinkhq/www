@@ -5,7 +5,7 @@ import is from 'styled-is'
 
 const LabelBase = system(
   {
-    is: 'label',
+    as: 'label',
     fontSize: 1,
     mb: 1,
     alignItems: 'center'

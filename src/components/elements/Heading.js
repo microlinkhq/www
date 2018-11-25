@@ -4,7 +4,7 @@ import { system } from 'helpers'
 const Heading = system({ extend: Text })
 
 Heading.defaultProps = {
-  is: 'h2',
+  as: 'h2',
   lineHeight: 1,
   textAlign: 'center',
   fontWeight: 'regular',

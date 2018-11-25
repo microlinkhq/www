@@ -8,7 +8,7 @@ const Link = system({ extend: LinkBase }, 'fontWeight', props => ({
 }))
 
 Link.defaultProps = {
-  is: 'span',
+  as: 'span',
   color: 'link'
 }
 

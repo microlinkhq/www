@@ -2,7 +2,7 @@ import { system } from 'helpers'
 
 export const Divider = system(
   {
-    is: 'hr',
+    as: 'hr',
     mx: 0,
     my: 3,
     border: 0,

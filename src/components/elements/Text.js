@@ -7,7 +7,7 @@ const textStyle = variant({ key: 'textStyle' })
 const Text = system({ extend: TextBase }, 'maxWidth', 'textAlign', textStyle)
 
 Text.defaultProps = {
-  is: 'p',
+  as: 'p',
   fontFamily: 'sans',
   lineHeight: 3,
   fontSize: [1, 2]

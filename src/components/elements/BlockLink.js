@@ -2,7 +2,7 @@ import { system } from 'helpers'
 
 const BlockLink = system(
   {
-    is: 'a',
+    as: 'a',
     color: 'inherit'
   },
   {

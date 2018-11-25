@@ -84,7 +84,7 @@ const Highlight = styled.span`
 
 const TableDataCell = system(
   {
-    is: 'td'
+    as: 'td'
   },
   'textAlign',
   'color',
@@ -96,7 +96,7 @@ const TableDataCell = system(
 
 const TableRow = system(
   {
-    is: 'tr'
+    as: 'tr'
   },
   'textAlign',
   'color',
@@ -107,7 +107,7 @@ const TableRow = system(
 
 const TableHeader = system(
   {
-    is: 'th'
+    as: 'th'
   },
   'textAlign',
   'color',
@@ -117,7 +117,7 @@ const TableHeader = system(
 )
 
 const Table = system(
-  { is: 'table' },
+  { as: 'table' },
   {
     tableLayout: 'fixed',
     'border-collapse': 'collapse',

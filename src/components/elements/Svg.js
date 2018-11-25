@@ -7,7 +7,7 @@ export const transform = style({
 })
 
 const Svg = system(
-  { is: 'svg' },
+  { as: 'svg' },
   { fill: 'currentColor' },
   'color',
   'space',

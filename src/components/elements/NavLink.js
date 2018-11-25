@@ -2,7 +2,7 @@ import { system } from 'helpers'
 
 const NavLink = system(
   {
-    is: 'a',
+    as: 'a',
     color: 'inherit',
     bg: 'transparent',
     fontSize: 1,

@@ -8,7 +8,7 @@ const arrow = encodeURI(
 
 const SelectBase = system(
   {
-    is: 'select',
+    as: 'select',
     m: 0,
     px: 1,
     py: 2,

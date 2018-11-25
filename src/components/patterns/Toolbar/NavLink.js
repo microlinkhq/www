@@ -27,7 +27,7 @@ const NavLink = styled(NavLinkBase)`
 `
 
 NavLink.defaultProps = {
-  is: 'div',
+  as: 'div',
   blacklist: [...Object.keys(NavLinkBase.propTypes), 'active']
 }
 

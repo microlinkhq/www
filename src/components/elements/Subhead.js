@@ -6,7 +6,7 @@ const Subhead = system({ extend: Text })
 Subhead.displayName = 'Subhead'
 
 Subhead.defaultProps = {
-  is: 'h3',
+  as: 'h3',
   lineHeight: 4,
   fontWeight: 'regular',
   fontSize: [2, 4]

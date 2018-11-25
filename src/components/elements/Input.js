@@ -3,7 +3,7 @@ import { colors } from 'theme'
 
 export const Input = system(
   {
-    is: 'input',
+    as: 'input',
     type: 'text',
     fontSize: 'inherit',
     lineHeight: 'inherit',
