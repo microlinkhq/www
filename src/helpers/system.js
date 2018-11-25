@@ -1,7 +1,6 @@
 import React from 'react'
 import { styles, util } from 'styled-system'
 import styled from 'styled-components'
-import { compose } from 'recompose'
 
 const css = props => props.css
 
@@ -28,12 +27,10 @@ const _blacklist = ['css', 'is', 'tag', 'extend', ...propNames]
 
 const tag = Base =>
   React.forwardRef(({ blacklist = [], ...props }, ref) => {
-    // console.log('Bse', Base.componentStyle.rules)
     const next = omit(
       props,
       typeof Base === 'string' ? [..._blacklist, ...blacklist] : ['extend']
     )
-
     return React.createElement(Base, { ...next, ref })
   })
 
@@ -50,20 +47,24 @@ const getPropTypes = funcs =>
 
 const system = (props = {}, ...keysOrStyles) => {
   const Base = props.extend || props.tag || props.is || 'div'
-  const funcs = keysOrStyles.map(key => styles[key] || key)
-  const Component = styled(tag(Base))([], ...funcs, css)
 
-  if (Base.componentStyle && Base.componentStyle.rules) {
-    Component.componentStyle.rules = [
-      ...Component.componentStyle.rules,
-      ...Base.componentStyle.rules
-    ]
-  }
+  const funcs = []
+    .concat(keysOrStyles)
+    .map(key => styles[key] || key)
+    .concat(util.get(Base, 'componentStyle.rules'))
+
+  const Component = styled(tag(Base))([], ...fns, css)
 
   const baseProps = util.get(props, 'extend.defaultProps') || {}
-  Component.defaultProps = { ...baseProps, ...props }
-  Component.propTypes = getPropTypes(funcs)
+
+  Component.defaultProps = {
+    ...baseProps,
+    ...props
+  }
+
+  Component.propTypes = getPropTypes(fns)
   Component.systemComponent = true
+
   return Component
 }
 
