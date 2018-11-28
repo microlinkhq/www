@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Box, Fixed, Toolbar } from 'components/elements'
+import { Flex, NavLink, Box, Fixed, Toolbar } from 'components/elements'
 import { Microlink } from 'components/logos'
 import { smoothScroll } from 'helpers'
 import styled from 'styled-components'
 
 import NavContainer from './NavContainer'
-import NavLink from './NavLink'
 
 const Nav = styled(NavContainer)`
   mask-image: -webkit-linear-gradient(
@@ -61,8 +60,6 @@ export default class extends Component {
             <NavLink
               width={'32px'}
               display='flex'
-              fontWeight='normal'
-              fontSize={0}
               px={2}
               href='/'
               style={{ flex: '0 0 auto' }}
@@ -72,8 +69,6 @@ export default class extends Component {
             <Nav as='nav'>
               <NavLink
                 prefetch={false}
-                fontWeight='normal'
-                fontSize={0}
                 px={2}
                 children='Features'
                 href='/#features'
@@ -81,31 +76,18 @@ export default class extends Component {
               />
               <NavLink
                 prefetch={false}
-                fontWeight='normal'
-                fontSize={0}
                 px={2}
                 children='Pricing'
                 href='/#pricing'
                 onClick={smoothScroll('pricing')}
               />
+              <NavLink px={2} children='Blog' actively href='/blog' />
               <NavLink
-                fontWeight='normal'
-                fontSize={0}
-                px={2}
-                children='Blog'
-                actively
-                href='/blog'
-              />
-              <NavLink
-                fontWeight='normal'
-                fontSize={0}
                 px={2}
                 children='Docs'
                 href='https://docs.microlink.io'
               />
               <NavLink
-                fontWeight='normal'
-                fontSize={0}
                 px={2}
                 children='Chat'
                 href='https://chat.microlink.io'

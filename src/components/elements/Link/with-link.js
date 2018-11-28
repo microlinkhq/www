@@ -36,7 +36,7 @@ export default ChildComponent => ({
         <PrefetchLink
           to={href}
           children={children}
-          // activeClassName={actively && 'active'}
+          activeClassName={actively && 'active'}
         />
       </ChildComponent>
     )

@@ -1,15 +1,31 @@
-import { system } from 'helpers'
+import styled, { css } from 'styled-components'
+import { fontWeights, transition, colors } from 'theme'
 
-const NavLink = system(
+import Text from './Text'
+import withLink from './Link/with-link'
+
+const activeStyle = css`
+  font-weight: ${fontWeights.bold};
+  color: ${colors.gray9};
+`
+
+const style = css`
+  transition: color ${transition.medium};
+
+  &:hover {
+    ${activeStyle};
+  }
+
+  > .active {
+    ${activeStyle};
+  }
+`
+
+const NavLink = styled(Text)(
   {
-    is: 'a',
-    color: 'inherit',
     bg: 'transparent',
-    fontSize: 1,
-    fontWeight: 'bold',
-    p: 2
-  },
-  props => ({
+    textTransform: 'uppercase',
+    color: 'inherit',
     display: 'inline-flex',
     alignItems: 'center',
     alignSelf: 'stretch',
@@ -19,14 +35,23 @@ const NavLink = system(
     '&:disabled': {
       opacity: 1 / 4
     }
-  }),
-  'width',
-  'fontSize',
-  'fontWeight',
-  'space',
-  'color'
+  },
+  props => props.css,
+  style
 )
+
+NavLink.defaultProps = {
+  ...Text.defaultProps,
+  p: 2,
+  fontSize: 0,
+  as: 'div',
+  color: 'gray7'
+}
+
+NavLink.propTypes = {
+  ...Text.propTypes
+}
 
 NavLink.displayName = 'NavLink'
 
-export default NavLink
+export default withLink(NavLink)

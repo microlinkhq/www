@@ -1,16 +1,53 @@
-import { system } from 'helpers'
-import { Box as BoxBase } from 'rebass'
-import { variant } from 'styled-system'
+import {
+  space,
+  color,
+  width,
+  flex,
+  order,
+  alignSelf,
+  fontSize,
+  variant,
+  textAlign,
+  maxWidth,
+  boxShadow,
+  display
+} from 'styled-system'
 
-const boxStyle = variant({ key: 'boxStyle' })
+import styled from 'styled-components'
 
-const Box = system(
-  { extend: BoxBase },
-  'textAlign',
-  'maxWidth',
-  'boxShadow',
-  'display',
-  boxStyle
+const Box = styled('div')(
+  {
+    boxSizing: 'border-box'
+  },
+  space,
+  textAlign,
+  maxWidth,
+  boxShadow,
+  display,
+  width,
+  fontSize,
+  color,
+  flex,
+  order,
+  alignSelf,
+  variant({ key: 'boxStyle' }),
+  props => props.css
 )
+
+Box.propTypes = {
+  ...space.propTypes,
+  ...textAlign.propTypes,
+  ...maxWidth.propTypes,
+  ...boxShadow.propTypes,
+  ...display.propTypes,
+  ...width.propTypes,
+  ...fontSize.propTypes,
+  ...color.propTypes,
+  ...flex.propTypes,
+  ...order.propTypes,
+  ...alignSelf.propTypes
+}
+
+Box.displayName = 'Box'
 
 export default Box
