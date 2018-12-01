@@ -1,15 +1,17 @@
-import { system } from 'helpers'
-import Text from './Text'
+import styled from 'styled-components'
 
-const Subhead = system({ extend: Text })
+import Heading from './Heading'
 
-Subhead.displayName = 'Subhead'
+const Subhead = styled(Heading)([])
 
 Subhead.defaultProps = {
-  is: 'h3',
+  ...Heading.defaultProps,
+  as: 'h3',
   lineHeight: 4,
   fontWeight: 'regular',
   fontSize: [2, 4]
 }
+
+Subhead.displayName = 'Subhead'
 
 export default Subhead
