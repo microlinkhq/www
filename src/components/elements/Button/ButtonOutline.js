@@ -1,8 +1,10 @@
-import { Button as ButtonBase } from 'rebass'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { transition, colors } from 'theme'
+import { themeGet } from 'styled-system'
 
-const ButtonOutline = styled(ButtonBase)`
+import Button from './Button'
+
+const style = css`
   transition: color, background-color ${transition.short};
 
   &:hover:not([disabled]) {
@@ -11,16 +13,29 @@ const ButtonOutline = styled(ButtonBase)`
     color: ${props => colors[props.bg]};
     background-color: ${props => colors[props.color]};
   }
-
-  &:disabled {
-    opacity: 0.8;
-  }
 `
 
+const ButtonOutline = styled(Button)(
+  props => ({
+    boxShadow: `inset 0 0 0 2px ${themeGet(
+      'colors.' + props.color,
+      props.color
+    )(props)}`
+  }),
+  props => ({
+    '&:hover:not([disabled])': {
+      opacity: 1
+    }
+  }),
+  style
+)
+
 ButtonOutline.defaultProps = {
+  ...Button.defaultProps,
   bg: 'white',
-  color: 'primary',
-  borderRadius: 2
+  color: 'primary'
 }
+
+ButtonOutline.displayName = 'ButtonOutline'
 
 export default ButtonOutline

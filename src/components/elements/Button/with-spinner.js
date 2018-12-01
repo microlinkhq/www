@@ -1,9 +1,10 @@
 import React, { Component, createElement } from 'react'
 import ReactDOM from 'react-dom'
-import { Flex } from 'rebass'
 import styled from 'styled-components'
 import SpinnerIcon from '../Spinner'
 import { colors } from 'theme'
+
+import Flex from '../Flex'
 
 export default ChildComponent => {
   const Spinner = styled(ChildComponent)`
