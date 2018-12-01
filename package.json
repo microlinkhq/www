@@ -38,7 +38,7 @@
     "gatsby-plugin-sitemap": "2.0.3",
     "gatsby-plugin-styled-components": "3.0.4",
     "gatsby-source-filesystem": "2.0.10",
-    "gatsby-transformer-javascript-frontmatter": "1.0.10",
+    "gatsby-transformer-javascript-frontmatter": "2.0.5",
     "gatsby-transformer-remark": "1.7.44",
     "gatsby-transformer-sharp": "1.6.27",
     "gatsby-transformer-yaml": "1.5.18",
