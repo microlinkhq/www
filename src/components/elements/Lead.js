@@ -1,13 +1,14 @@
-import Text from './Text'
-import { system } from 'helpers'
+import styled from 'styled-components'
 
-const Lead = system({ extend: Text })
+import Text from './Text'
+
+const Lead = styled(Text)([])
 
 Lead.defaultProps = {
-  is: 'p',
-  lineHeight: 3,
-  fontWeight: 'normal',
+  ...Text.defaultProps,
   fontSize: [1, 4]
 }
+
+Lead.displayName = 'Lead'
 
 export default Lead
