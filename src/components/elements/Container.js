@@ -1,24 +1,17 @@
-import { system } from 'helpers'
-
-import Box from 'components/elements/Box'
+import styled from 'styled-components'
 import { layout } from 'theme'
 
-const ContainerBase = system(
-  {
-    extend: Box,
-    px: 3,
-    mx: 'auto',
-    maxWidth: 1024
-  },
-  'maxWidth'
-)
+import Box from './Box'
 
-ContainerBase.displayName = 'Container'
-
-const Container = system({ extend: ContainerBase })
+const Container = styled(Box)([])
 
 Container.defaultProps = {
+  ...Box.defaultProps,
+  px: 3,
+  mx: 'auto',
   maxWidth: layout
 }
+
+Container.displayName = 'Container'
 
 export default Container

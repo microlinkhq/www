@@ -15,7 +15,7 @@ import {
 import { Microlink } from 'components/logos'
 import { Mail, Slack, Github, Twitter } from 'react-feather'
 import styled from 'styled-components'
-import { transition, colors, layout } from 'theme'
+import { transition, colors } from 'theme'
 
 const InputWrapper = styled(Flex)`
   border: 0;
@@ -40,7 +40,7 @@ const IconWrapper = styled(Box)`
 `
 
 export default props => (
-  <Container px={[2, 0]} maxWidth={layout}>
+  <Container px={[2, 0]}>
     <Row
       as='footer'
       py={[4, 5]}

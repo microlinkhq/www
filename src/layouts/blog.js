@@ -46,7 +46,7 @@ const BlogPost = ({ title, date, slug }) => {
 export default ({ pathContext }) => {
   const { posts } = pathContext
   return (
-    <Container mx='auto'>
+    <Container>
       <Metadata title='Blog' />
       <Flex flexDirection='column' alignItems='center' pt={4}>
         {posts.map(post => <BlogPost key={post.title} {...post} />)}
