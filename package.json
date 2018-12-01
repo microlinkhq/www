@@ -28,7 +28,7 @@
     "gatsby-link": "2.0.7",
     "gatsby-plugin-canonical-urls": "2.0.8",
     "gatsby-plugin-catch-links": "2.0.9",
-    "gatsby-plugin-google-analytics": "1.0.31",
+    "gatsby-plugin-google-analytics": "2.0.8",
     "gatsby-plugin-netlify": "1.0.21",
     "gatsby-plugin-postcss-sass": "1.0.22",
     "gatsby-plugin-react-helmet": "^2.0.11",
