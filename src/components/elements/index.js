@@ -9,7 +9,6 @@ import Card from './Card'
 import CardHover from './CardHover'
 import Checkout from './Checkout'
 import CodeEditor from './CodeEditor'
-import Column from './Column'
 import Container from './Container'
 import Divider from './Divider'
 import { Fixed } from './Position'
@@ -24,7 +23,6 @@ import Metadata from './Metadata'
 import NavLink from './NavLink'
 import Notification from './Notification'
 import PricePicker from './PricePicker'
-import Row from './Row'
 import SearchBox from './SearchBox'
 import Select from './Select'
 import Small from './Small'
@@ -48,7 +46,6 @@ export {
   CardHover,
   Checkout,
   CodeEditor,
-  Column,
   Container,
   Divider,
   Fixed,
@@ -65,7 +62,6 @@ export {
   NavLink,
   Notification,
   PricePicker,
-  Row,
   SearchBox,
   Select,
   Small,

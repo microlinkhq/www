@@ -6,7 +6,6 @@ import {
   Caps,
   Small,
   Box,
-  Row,
   ButtonOutline,
   Flex,
   Input,
@@ -41,7 +40,7 @@ const IconWrapper = styled(Box)`
 
 export default props => (
   <Container px={[2, 0]}>
-    <Row
+    <Flex
       as='footer'
       py={[4, 5]}
       mx='auto'
@@ -239,6 +238,6 @@ export default props => (
           </Flex>
         </Flex>
       </Box>
-    </Row>
+    </Flex>
   </Container>
 )
