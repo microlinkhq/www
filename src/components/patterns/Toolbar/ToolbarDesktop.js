@@ -18,7 +18,7 @@ export default class extends Component {
                 pr={[2, 3]}
                 href='/'
               >
-                <Microlink />
+                <Microlink size={'100%'} />
               </NavLink>
               <NavLink
                 prefetch={false}

@@ -16,7 +16,7 @@ import { Fixed } from './Position'
 import Flex from './Flex'
 import Heading from './Heading'
 import Hide from './Hide'
-import Img from './Img'
+import Image from './Image'
 import Input from './Input'
 import Label from './Label'
 import Lead from './Lead'
@@ -55,7 +55,7 @@ export {
   Flex,
   Heading,
   Hide,
-  Img,
+  Image,
   Input,
   Label,
   Lead,
