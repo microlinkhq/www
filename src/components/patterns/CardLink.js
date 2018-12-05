@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Caps, Text, CardHover, Flex, BlockLink } from 'components/elements'
+import { Caps, Text, Card, Flex, BlockLink } from 'components/elements'
 import styled from 'styled-components'
 import is from 'styled-is'
 
@@ -56,12 +56,7 @@ export default class extends Component {
         onMouseOut={this.mouseOut}
         onMouseOver={this.onMouseOver}
       >
-        <CardHover
-          py={[47.6, 56]}
-          px={4}
-          width={[314.5, 370]}
-          height={[400, 420]}
-        >
+        <Card py={[47.6, 56]} px={4} width={[314.5, 370]} height={[400, 420]}>
           <Flex
             justifyContent='space-between'
             alignItems='center'
@@ -78,7 +73,7 @@ export default class extends Component {
               children={description}
             />
           </Flex>
-        </CardHover>
+        </Card>
       </BlockLink>
     )
   }
