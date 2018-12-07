@@ -6,7 +6,6 @@ import BlockLink from './BlockLink'
 import Box from './Box'
 import Caps from './Caps'
 import Card from './Card'
-import CardHover from './CardHover'
 import Checkout from './Checkout'
 import CodeEditor from './CodeEditor'
 import Container from './Container'
@@ -43,7 +42,6 @@ export {
   ButtonOutline,
   Caps,
   Card,
-  CardHover,
   Checkout,
   CodeEditor,
   Container,

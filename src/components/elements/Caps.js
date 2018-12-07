@@ -8,7 +8,6 @@ const Caps = styled(Text)({
 
 Caps.defaultProps = {
   ...Text.defaultProps,
-  m: 0,
   fontSize: [0, 1]
 }
 

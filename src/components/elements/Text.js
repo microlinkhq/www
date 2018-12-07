@@ -1,16 +1,42 @@
-import { system } from 'helpers'
-import { variant } from 'styled-system'
-import { Text as TextBase } from 'rebass'
+import {
+  variant,
+  lineHeight,
+  fontFamily,
+  fontWeight,
+  textAlign,
+  letterSpacing
+} from 'styled-system'
 
-const textStyle = variant({ key: 'textStyle' })
+import styled from 'styled-components'
 
-const Text = system({ extend: TextBase }, 'maxWidth', 'textAlign', textStyle)
+import Box from './Box'
+
+const Text = styled(Box)(
+  fontFamily,
+  fontWeight,
+  textAlign,
+  lineHeight,
+  letterSpacing,
+  variant({ key: 'textStyle' }),
+  props => props.css
+)
+
+Text.propTypes = {
+  ...fontFamily.propTypes,
+  ...fontWeight.propTypes,
+  ...textAlign.propTypes,
+  ...lineHeight.propTypes,
+  ...letterSpacing.propTypes
+}
 
 Text.defaultProps = {
-  is: 'p',
+  as: 'p',
   fontFamily: 'sans',
+  m: 0,
   lineHeight: 3,
   fontSize: [1, 2]
 }
+
+Text.displayName = 'Text'
 
 export default Text
