@@ -1,13 +1,42 @@
-import { system } from 'helpers'
 import { themeGet } from 'styled-system'
-import styled, { keyframes } from 'styled-components'
-import { space, lineHeights, fontWeights, fontSizes, transition } from 'theme'
+import styled, { css, keyframes } from 'styled-components'
 
-const TooltipBase = system(
-  {
-    color: 'white',
-    bg: 'black'
-  },
+import Box from './Box'
+
+import {
+  space as spaceTheme,
+  lineHeights,
+  fontWeights,
+  fontSizes,
+  transition
+} from 'theme'
+
+const fadeIn = keyframes`
+from {
+  opacity:0;
+} to {
+  opacity:1;
+}
+`
+
+const style = css`
+  &::after {
+    animation: ${fadeIn} ${transition.medium};
+  }
+  &::before {
+    animation: ${fadeIn} ${transition.medium};
+    width: 300px;
+    padding: ${spaceTheme[3]}px;
+    line-height: ${lineHeights[3]};
+    letter-spacing: normal;
+    text-align: center;
+    font-size: ${fontSizes[0]}px;
+    white-space: inherit;
+    font-weight: ${fontWeights.normal};
+  }
+`
+
+const Tooltip = styled(Box)(
   props => ({
     display: 'inline-block',
     position: 'relative',
@@ -48,35 +77,15 @@ const TooltipBase = system(
       }
     }
   }),
-  'space',
-  'color'
+  style
 )
 
-TooltipBase.displayName = 'Tooltip'
-
-const Tooltip = system({ extend: TooltipBase }, 'space')
-
-const fadeIn = keyframes`
-from {
-  opacity:0;
-} to {
-  opacity:1;
+Tooltip.defaultProps = {
+  ...Box.defaultProps,
+  color: 'white',
+  bg: 'black'
 }
-`
 
-export default styled(Tooltip)`
-  &::after {
-    animation: ${fadeIn} ${transition.medium};
-  }
-  &::before {
-    animation: ${fadeIn} ${transition.medium};
-    width: 300px;
-    padding: ${space[3]}px;
-    line-height: ${lineHeights[3]};
-    letter-spacing: normal;
-    text-align: center;
-    font-size: ${fontSizes[0]}px;
-    white-space: inherit;
-    font-weight: ${fontWeights.normal};
-  }
-`
+Tooltip.displayName = 'Tooltip'
+
+export default Tooltip
