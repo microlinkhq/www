@@ -5,6 +5,10 @@
 
 ## Design System
 
+- [ ] Migrate `Link` and `BlockLink`.
+- [ ] Remove `blacklist` props.
+- [ ] Ensure don't pass hover states.
+
 ### Components
 
 
@@ -16,6 +20,7 @@ components/elements
     ├── Flex
     ├── Container
     └─┬ Text
+      ├── Label
       ├── Button
       ├── Lead
       ├── NavLink
