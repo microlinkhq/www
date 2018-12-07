@@ -1,4 +1,4 @@
-import { system } from 'helpers'
+import { formatNumber } from 'helpers'
 import React, { Fragment, Component } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Check, HelpCircle } from 'react-feather'
@@ -17,7 +17,6 @@ import {
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 
 import { colors } from 'theme'
-import { formatNumber } from 'helpers'
 
 const FREE_PLAN_RATE_LIMIT = 250
 
@@ -64,6 +63,7 @@ const Price = styled(Lead)`
 `
 
 Price.defaultProps = {
+  ...Lead.defaultProps,
   fontSize: 2
 }
 
@@ -82,64 +82,22 @@ const Highlight = styled.span`
   animation-fill-mode: forwards;
 `
 
-const TableDataCell = system(
-  {
-    is: 'td'
-  },
-  'textAlign',
-  'color',
-  'space',
-  'fontWeight',
-  'fontSize',
-  'width'
-)
-
-const TableRow = system(
-  {
-    is: 'tr'
-  },
-  'textAlign',
-  'color',
-  'space',
-  'fontWeight',
-  'fontSize'
-)
-
-const TableHeader = system(
-  {
-    is: 'th'
-  },
-  'textAlign',
-  'color',
-  'space',
-  'fontWeight',
-  'fontSize'
-)
-
-const Table = system(
-  { is: 'table' },
-  {
-    tableLayout: 'fixed',
-    'border-collapse': 'collapse',
-    textAlign: 'center'
-  },
-  'space'
-)
-
 const PricingHeader = ({ children }) => {
   const [featureHeader, ...pricingPlans] = children
   return (
-    <TableRow>
-      <TableHeader
+    <Text as='tr'>
+      <Text
+        as='th'
         fontWeight='bold'
         color='darkBlue700'
         textAlign='right'
         fontSize={2}
       >
         {featureHeader}
-      </TableHeader>
+      </Text>
       {pricingPlans.map((children, index) => (
-        <TableHeader
+        <Text
+          as='th'
           pb={'.85rem'}
           px={[3, '5rem']}
           fontWeight='bold'
@@ -149,7 +107,7 @@ const PricingHeader = ({ children }) => {
           children={children}
         />
       ))}
-    </TableRow>
+    </Text>
   )
 }
 
@@ -157,8 +115,8 @@ const PricingRow = ({ children, ...props }) => {
   const [name, ...values] = children
 
   return (
-    <TableRow>
-      <TableHeader {...props}>
+    <Text as='tr'>
+      <Text as='th' {...props}>
         <Hide breakpoints={[2, 3]}>
           <Text
             fontSize={0}
@@ -186,9 +144,10 @@ const PricingRow = ({ children, ...props }) => {
             </Text>
           </Tooltip>
         </Hide>
-      </TableHeader>
+      </Text>
       {values.map((children, index) => (
-        <TableDataCell
+        <Text
+          as='td'
           fontWeight='normal'
           color='black80'
           fontSize={1}
@@ -196,7 +155,7 @@ const PricingRow = ({ children, ...props }) => {
           children={children}
         />
       ))}
-    </TableRow>
+    </Text>
   )
 }
 
@@ -249,7 +208,12 @@ export default class extends Component {
 
     return (
       <Box mx='auto' px={[0, 6]}>
-        <Table width='100%'>
+        <Box
+          as='table'
+          width='100%'
+          textAlign='center'
+          style={{ tableLayout: 'fixed', borderCollapse: 'collapse' }}
+        >
           <thead>
             <PricingHeader children={['', 'Free', 'Pro']} />
           </thead>
@@ -337,7 +301,7 @@ export default class extends Component {
               ]}
             />
           </tbody>
-        </Table>
+        </Box>
 
         <Flex
           justifyContent='center'

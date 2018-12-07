@@ -15,7 +15,9 @@
 ```
 components/elements
 └─┬── Image
+  ├── Hide
   └─┬ Box
+    ├── Tooltip
     ├── Card
     ├── Flex
     ├── Container
