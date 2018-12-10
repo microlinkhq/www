@@ -127,21 +127,12 @@ const PricingRow = ({ children, ...props }) => {
         </Hide>
         <Hide breakpoints={[0, 1]}>
           <Tooltip text={TOOLTIPS[name]}>
-            <Text
-              fontSize={1}
-              color='darkBlue400'
-              fontWeight='bold'
-              style={{ cursor: 'help' }}
-            >
-              {name}{' '}
-              {name && (
-                <HelpCircle
-                  size={12}
-                  color={colors.black50}
-                  style={{ vertialAlign: 'middle' }}
-                />
-              )}
-            </Text>
+            <Flex alignItems='center' style={{ cursor: 'help' }}>
+              <Text mr={1} fontSize={1} color='darkBlue400' fontWeight='bold'>
+                {name}
+              </Text>
+              {name && <HelpCircle size={12} color={colors.black50} />}
+            </Flex>
           </Tooltip>
         </Hide>
       </Text>
