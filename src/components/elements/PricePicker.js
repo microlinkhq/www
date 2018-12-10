@@ -52,7 +52,6 @@ export default class extends Component {
       <Box>
         <Select
           mx='auto'
-          p={1}
           width={['3.2rem', '3.8rem']}
           value={this.state.reqs}
           onChange={this.handleChange}

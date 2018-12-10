@@ -19,6 +19,7 @@ components/elements
   └─┬ Box
     ├── Tooltip
     ├── Card
+    ├── Select
     ├── Flex
     ├── Container
     └─┬ Text
