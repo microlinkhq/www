@@ -41,7 +41,7 @@
     "gatsby-transformer-javascript-frontmatter": "2.0.5",
     "gatsby-transformer-remark": "2.1.15",
     "gatsby-transformer-sharp": "2.1.9",
-    "gatsby-transformer-yaml": "1.5.18",
+    "gatsby-transformer-yaml": "2.1.6",
     "got": "9.2.0",
     "human-number": "~1.0.1",
     "keyv": "3.0.0",
