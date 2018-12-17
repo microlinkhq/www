@@ -1,6 +1,10 @@
 import {
   space,
   color,
+  borderRadius,
+  borderColor,
+  borders,
+  lineHeight,
   width,
   flex,
   order,
@@ -10,7 +14,8 @@ import {
   textAlign,
   maxWidth,
   boxShadow,
-  display
+  display,
+  height
 } from 'styled-system'
 
 import styled from 'styled-components'
@@ -24,6 +29,11 @@ const Box = styled('div')(
   maxWidth,
   boxShadow,
   display,
+  borders,
+  borderRadius,
+  lineHeight,
+  borderColor,
+  height,
   width,
   fontSize,
   color,
@@ -39,13 +49,18 @@ Box.propTypes = {
   ...textAlign.propTypes,
   ...maxWidth.propTypes,
   ...boxShadow.propTypes,
+  ...borderColor.propTypes,
+  ...borderRadius.propTypes,
+  ...borders.propTypes,
   ...display.propTypes,
   ...width.propTypes,
+  ...height.propTypes,
   ...fontSize.propTypes,
   ...color.propTypes,
   ...flex.propTypes,
   ...order.propTypes,
-  ...alignSelf.propTypes
+  ...alignSelf.propTypes,
+  ...lineHeight.propTypes
 }
 
 Box.displayName = 'Box'

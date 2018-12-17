@@ -3,11 +3,7 @@ import {
   flexDirection,
   alignItems,
   justifyContent,
-  alignContent,
-  maxWidth,
-  lineHeight,
-  borderRadius,
-  boxShadow
+  alignContent
 } from 'styled-system'
 
 import styled from 'styled-components'
@@ -20,26 +16,18 @@ const Flex = styled(Box)(
   },
   alignContent,
   alignItems,
-  borderRadius,
-  boxShadow,
   flexDirection,
   flexWrap,
-  justifyContent,
-  lineHeight,
-  maxWidth,
-  props => props.css
+  justifyContent
 )
 
 Flex.propTypes = {
+  ...Box.propTypes,
   ...alignContent.propTypes,
   ...alignItems.propTypes,
-  ...borderRadius.propTypes,
-  ...boxShadow.propTypes,
   ...flexDirection.propTypes,
   ...flexWrap.propTypes,
-  ...justifyContent.propTypes,
-  ...lineHeight.propTypes,
-  ...maxWidth.propTypes
+  ...justifyContent.propTypes
 }
 
 Flex.displayName = 'Flex'
