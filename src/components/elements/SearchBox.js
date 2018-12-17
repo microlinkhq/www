@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { fontSize } from 'styled-system'
 import styled from 'styled-components'
-import { system } from 'helpers'
-import Button from 'components/elements/Button'
-import Flex from 'components/elements/Flex'
+import { Button } from './Button'
+import Form from './Form'
+import Input from './Input'
 
-const Input = styled.input`
+const CustomInput = styled(Input)`
   ${fontSize};
   display: inline-block;
   transition: box-shadow 0.4s ease, background 0.4s ease;
@@ -34,16 +34,6 @@ const Input = styled.input`
   }
 `
 
-const Form = system({ extend: Flex }, 'space', 'width', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  whiteSpace: 'nowrap',
-  borderRadius: '8px',
-  boxShadow: '0 10px 24px 0 rgba(206, 212, 218, 0.3)',
-  border: 'solid 8px white'
-})
-
 class SearchBox extends Component {
   state = { value: this.props.value }
 
@@ -65,8 +55,14 @@ class SearchBox extends Component {
     const { loading, placeholder, onChange, value, ...props } = this.props
 
     return (
-      <Form py={1} as='form' role='form' onSubmit={this.onSubmit} {...props}>
-        <Input
+      <Form
+        alignItems='center'
+        justifyContent='center'
+        py={1}
+        onSubmit={this.onSubmit}
+        {...props}
+      >
+        <CustomInput
           style={{ paddingRight: '6px' }}
           name='url'
           fontSize={['13px', '18px']}
@@ -79,7 +75,6 @@ class SearchBox extends Component {
           autoFocus
           disabled={loading}
         />
-
         <Button fontSize={[0, 1]} children='Try it' loading={loading} />
       </Form>
     )
