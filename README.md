@@ -24,9 +24,12 @@ components/elements
     ├── Container
     └─┬ Text
       ├── Label
+      ├── Input
       ├── Button
       ├── Lead
       ├── NavLink
       └─┬ Heading
-        └── SubHead
+      │ └── SubHead
+      ├─┬ Link
+        ├── LinkSolid
 ```
