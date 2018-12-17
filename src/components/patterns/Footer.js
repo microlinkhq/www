@@ -74,6 +74,7 @@ export default props => (
                       <Mail color={colors.black50} size={16} />
                     </Box>
                     <Input
+                      type='email'
                       name='EMAIL'
                       placeholder='you@domain.com'
                       width='9rem'
@@ -203,7 +204,7 @@ export default props => (
             <IconWrapper
               rel='noopener noreferrer'
               target='_blank'
-              is='a'
+              as='a'
               href='https://chat.microlink.io'
               mr={3}
             >
@@ -212,7 +213,7 @@ export default props => (
             <IconWrapper
               rel='noopener noreferrer'
               target='_blank'
-              is='a'
+              as='a'
               href='https://github.com/microlinkhq'
               mr={3}
             >
@@ -221,7 +222,7 @@ export default props => (
             <IconWrapper
               rel='noopener noreferrer'
               target='_blank'
-              is='a'
+              as='a'
               href='mailto:hello@microlink.io'
               mr={3}
             >
@@ -230,7 +231,7 @@ export default props => (
             <IconWrapper
               rel='noopener noreferrer'
               target='_blank'
-              is='a'
+              as='a'
               href='https://twitter.com/microlinkhq'
             >
               <Twitter color={colors.black80} size={20} />
