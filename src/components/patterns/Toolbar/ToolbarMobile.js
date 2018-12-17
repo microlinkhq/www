@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Flex, NavLink, Box, Fixed, Toolbar } from 'components/elements'
+import { NavLink, Box, Fixed, Toolbar } from 'components/elements'
 import { Microlink } from 'components/logos'
 import { smoothScroll } from 'helpers'
 import styled from 'styled-components'
