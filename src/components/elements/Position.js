@@ -5,6 +5,16 @@ import { Box } from 'rebass'
 
 export const Position = styled(Box)(position, zIndex, top, right, bottom, left)
 
+Position.propTypes = {
+  ...Box.propTypes,
+  ...position.propTypes,
+  ...zIndex.propTypes,
+  ...top.propTypes,
+  ...right.propTypes,
+  ...bottom.propTypes,
+  ...left.propTypes
+}
+
 export const Relative = styled(Position)([])
 
 Relative.defaultProps = {
