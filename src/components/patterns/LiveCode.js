@@ -1,4 +1,3 @@
-import React from 'react'
 import styled, { css } from 'styled-components'
 import {
   LiveProvider as LiveProviderBase,
@@ -7,8 +6,22 @@ import {
 } from 'react-live'
 
 import { lineHeights, fontSizes, fonts, colors } from 'theme'
-
-import { system } from 'helpers'
+import {
+  width,
+  space,
+  fontSize,
+  color,
+  flex,
+  order,
+  alignSelf,
+  alignContent,
+  justifyContent,
+  flexDirection,
+  alignItems,
+  flexWrap,
+  maxWidth,
+  lineHeight
+} from 'styled-system'
 
 const prismStyle = css`
   .token.comment,
@@ -60,40 +73,49 @@ const prismStyle = css`
   }
 `
 
-const Provider = system(
-  { extend: LiveProviderBase },
+export const LiveProvider = styled(LiveProviderBase)(
   {
     boxSizing: 'border-box',
     display: 'flex'
   },
-  'width',
-  'space',
-  'fontSize',
-  'color',
-  'flex',
-  'order',
-  'alignSelf',
-  'alignContent',
-  'justifyContent',
-  'flexDirection',
-  'alignItems',
-  'flexWrap',
-  'maxWidth',
-  'lineHeight'
+  width,
+  space,
+  fontSize,
+  color,
+  flex,
+  order,
+  alignSelf,
+  alignContent,
+  justifyContent,
+  flexDirection,
+  alignItems,
+  flexWrap,
+  maxWidth,
+  lineHeight
 )
 
-Provider.defaultProps = {
-  blacklist: ['is']
+LiveProvider.propTypes = {
+  ...LiveProviderBase.propTypes,
+  ...width.propTypes,
+  ...space.propTypes,
+  ...fontSize.propTypes,
+  ...color.propTypes,
+  ...flex.propTypes,
+  ...order.propTypes,
+  ...alignSelf.propTypes,
+  ...alignContent.propTypes,
+  ...justifyContent.propTypes,
+  ...flexDirection.propTypes,
+  ...alignItems.propTypes,
+  ...flexWrap.propTypes,
+  ...maxWidth.propTypes,
+  ...lineHeight.propTypes
 }
 
-export const LiveProvider = ({ code, noInline, ...props }) => (
-  <Provider
-    code={code}
-    noInline={noInline}
-    mountStylesheet={false}
-    {...props}
-  />
-)
+LiveProvider.defaultProps = {
+  ...LiveProviderBase.defaultProps,
+  mountStylesheet: false
+}
 
 export const LiveEditor = styled(LiveEditorBase)`
   height: 100%;
