@@ -1,22 +1,11 @@
-import { system } from 'helpers'
+import styled from 'styled-components'
 
-import Img from 'components/elements/Img'
+import Image from './Image'
 
-const Avatar = system(
-  {
-    extend: Img,
-    size: 48,
-    borderRadius: '99999px'
-  },
-  {
-    display: 'inline-block'
-  },
-  'borderRadius',
-  'space',
-  'color',
-  'size'
-)
-
-Avatar.displayName = 'Avatar'
+const Avatar = styled(Image)({
+  display: 'inline-block',
+  size: 48,
+  borderRadius: '99999px'
+})
 
 export default Avatar
