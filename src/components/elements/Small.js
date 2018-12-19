@@ -1,14 +1,14 @@
-import React from 'react'
-import { system } from 'helpers'
+import styled from 'styled-components'
 
-import Text from 'components/elements/Text'
+import Text from './Text'
 
-const Base = props => <Text {...props} as='small' />
+const Small = styled(Text)([])
 
-export const Small = system({
-  extend: Base,
+Small.defaultProps = {
+  ...Text.defaultProps,
+  as: 'small',
   fontSize: 0
-})
+}
 
 Small.displayName = 'Small'
 
