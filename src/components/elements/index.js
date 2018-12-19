@@ -24,7 +24,6 @@ import Notification from './Notification'
 import PricePicker from './PricePicker'
 import SearchBox from './SearchBox'
 import Select from './Select'
-import Small from './Small'
 import Spinner from './Spinner'
 import Subhead from './Subhead'
 import Svg from './Svg'
@@ -63,7 +62,6 @@ export {
   PricePicker,
   SearchBox,
   Select,
-  Small,
   Spinner,
   Subhead,
   Svg,

@@ -4,7 +4,6 @@ import {
   Hide,
   LinkSolid,
   Caps,
-  Small,
   Box,
   ButtonOutline,
   Flex,
@@ -91,7 +90,7 @@ export default props => (
             </Flex>
             <Text
               color='black50'
-              fontSize={0}
+              fontSize={1}
               children='Early access & updates on new releases.'
             />
           </Flex>
@@ -166,9 +165,9 @@ export default props => (
           <Hide breakpoints={[0, 1]}>
             <Flex alignItems='center'>
               <Flex flexDirection='column'>
-                <Small color='black50' fontSize={1}>
+                <Text color='black50' fontSize={1}>
                   Questions?
-                </Small>
+                </Text>
                 <LinkSolid
                   mt={3}
                   px={0}
@@ -179,12 +178,13 @@ export default props => (
             </Flex>
           </Hide>
           <Flex py={[3, 4]} alignItems='center'>
-            <Small
+            <Text
               color='black80'
               mr={2}
               children='© Microlink'
               style={{ opacity: '.75' }}
               pb={'2px'}
+              fontSize={1}
             />
             <LinkSolid
               fontWeight='normal'
