@@ -96,7 +96,7 @@ export default class extends Component {
                 children='Extract structured data from any website'
                 maxWidth='12em'
               />
-              {/* <SearchBox
+              <SearchBox
                 width={[250, 400]}
                 bg='white'
                 my={3}
@@ -111,7 +111,7 @@ export default class extends Component {
                     `${siteUrl}?${marshall({ url })}`
                   )
                 }}
-              /> */}
+              />
               {this.state.linkFailed && (
                 <Text
                   color='black50'
@@ -123,7 +123,7 @@ export default class extends Component {
             <Box as='article'>
               <Container as='section' px={0}>
                 <Flex flexDirection='column'>
-                  {/* <LiveDemo siteUrl={siteUrl} children={linkExtracted} /> */}
+                  <LiveDemo siteUrl={siteUrl} children={linkExtracted} />
                   <Hide breakpoints={[0, 1]}>
                     <Flex
                       flexDirection='column'
