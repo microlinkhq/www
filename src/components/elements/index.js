@@ -32,7 +32,7 @@ import Terminal from './Terminal'
 import Text from './Text'
 import Toolbar from './Toolbar'
 import Tooltip from './Tooltip'
-import Truncate from './Truncate'
+import Form from './Form'
 
 export {
   Avatar,
@@ -48,6 +48,7 @@ export {
   Divider,
   Fixed,
   Flex,
+  Form,
   Heading,
   Hide,
   Image,
@@ -69,6 +70,5 @@ export {
   Terminal,
   Text,
   Toolbar,
-  Tooltip,
-  Truncate
+  Tooltip
 }
