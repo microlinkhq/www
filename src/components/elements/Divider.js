@@ -1,20 +1,15 @@
-import { system } from 'helpers'
+import { borders, borderColor, space, color } from 'styled-system'
+import styled from 'styled-components'
 
-export const Divider = system(
-  {
-    is: 'hr',
-    mx: 0,
-    my: 3,
-    border: 0,
-    borderBottom: 1,
-    borderColor: 'gray'
-  },
-  'borders',
-  'borderColor',
-  'space',
-  'color'
-)
+const Divider = styled('hr')(borders, borderColor, space, color)
 
-Divider.displayName = 'Divider'
+Divider.defaultProps = {
+  as: 'hr',
+  mx: 0,
+  my: 3,
+  border: 0,
+  borderBottom: 1,
+  borderColor: 'gray'
+}
 
 export default Divider
