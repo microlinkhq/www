@@ -1,29 +1,15 @@
 import React from 'react'
 import { Divider, Text, Flex, Container, Metadata } from 'components/elements'
-import { H2 } from 'components/markdown'
-import styled from 'styled-components'
+import { H2Link } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-
-import { colors } from 'theme'
-
-const Link = styled(H2)`
-  text-decoration: none;
-  cursor: pointer;
-  color: black;
-  transition: all 0.1s ease-out;
-
-  &:hover {
-    color: ${colors.link};
-  }
-`
 
 const BlogPost = ({ title, date, slug }) => {
   const timestamp = new Date(date)
 
   return (
     <Flex pb={3} pt={4} px={[4, 3]} alignItems='center' flexDirection='column'>
-      <Link
+      <H2Link
         lineHeight={[3, 2]}
         fontSize={[2, 4]}
         maxWidth='18em'
@@ -31,7 +17,6 @@ const BlogPost = ({ title, date, slug }) => {
         mb={3}
         mx='auto'
         textAlign='center'
-        as='a'
         href={`/blog/${slug}`}
         children={title}
       />
