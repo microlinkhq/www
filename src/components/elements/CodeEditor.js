@@ -131,6 +131,4 @@ class CodeEditor extends Component {
   }
 }
 
-CodeEditor.displayName = 'CodeEditor'
-
 export default CodeEditor

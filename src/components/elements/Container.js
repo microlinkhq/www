@@ -12,6 +12,4 @@ Container.defaultProps = {
   maxWidth: layout
 }
 
-Container.displayName = 'Container'
-
 export default Container

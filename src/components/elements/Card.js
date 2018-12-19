@@ -11,12 +11,7 @@ const style = css`
   }
 `
 
-const Card = styled(Box)(
-  {
-    overflow: 'auto'
-  },
-  style
-)
+const Card = styled(Box)({ overflow: 'auto' }, style)
 
 Card.defaultProps = {
   ...Box.defaultProps,
@@ -24,7 +19,5 @@ Card.defaultProps = {
   borderRadius: 3,
   boxShadow: '0 10px 40px -10px rgba(0, 0, 0, 0.5)'
 }
-
-Card.displayName = 'Card'
 
 export default Card

@@ -14,10 +14,8 @@ const Label = styled(Text)`
   `};
 `
 
-Label.displayName = 'Label'
-
 Label.defaultProps = {
-  ...Label.defaultProps,
+  ...Text.defaultProps,
   as: 'label',
   fontSize: 1,
   mb: 1

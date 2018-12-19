@@ -22,8 +22,6 @@ const Input = styled(Text)(
   })
 )
 
-Input.displayName = 'Input'
-
 Input.defaultProps = {
   ...Text.defaultProps,
   as: 'input',

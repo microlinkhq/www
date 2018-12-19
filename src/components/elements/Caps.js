@@ -11,6 +11,4 @@ Caps.defaultProps = {
   fontSize: [0, 1]
 }
 
-Caps.displayName = 'Caps'
-
 export default Caps

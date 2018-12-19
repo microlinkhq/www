@@ -52,6 +52,4 @@ NavLink.propTypes = {
   ...Text.propTypes
 }
 
-NavLink.displayName = 'NavLink'
-
 export default withLink(NavLink)

@@ -72,6 +72,4 @@ Button.defaultProps = {
   borderRadius: 2
 }
 
-Button.displayName = 'Button'
-
 export default Button

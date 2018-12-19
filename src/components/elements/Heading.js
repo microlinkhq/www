@@ -14,6 +14,4 @@ Heading.defaultProps = {
   variant: 'gradient'
 }
 
-Heading.displayName = 'Heading'
-
 export default Heading

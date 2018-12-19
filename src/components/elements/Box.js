@@ -63,6 +63,4 @@ Box.propTypes = {
   ...lineHeight.propTypes
 }
 
-Box.displayName = 'Box'
-
 export default Box

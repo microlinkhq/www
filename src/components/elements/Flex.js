@@ -30,6 +30,4 @@ Flex.propTypes = {
   ...justifyContent.propTypes
 }
 
-Flex.displayName = 'Flex'
-
 export default Flex

@@ -36,6 +36,4 @@ ButtonOutline.defaultProps = {
   color: 'primary'
 }
 
-ButtonOutline.displayName = 'ButtonOutline'
-
 export default ButtonOutline

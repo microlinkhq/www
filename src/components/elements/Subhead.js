@@ -13,6 +13,4 @@ Subhead.defaultProps = {
   fontSize: [2, 4]
 }
 
-Subhead.displayName = 'Subhead'
-
 export default Subhead

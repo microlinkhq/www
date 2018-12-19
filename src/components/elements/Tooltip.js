@@ -86,6 +86,4 @@ Tooltip.defaultProps = {
   bg: 'black'
 }
 
-Tooltip.displayName = 'Tooltip'
-
 export default Tooltip

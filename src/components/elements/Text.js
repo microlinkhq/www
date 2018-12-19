@@ -30,13 +30,12 @@ Text.propTypes = {
 }
 
 Text.defaultProps = {
+  ...Box.defaultProps,
   as: 'p',
   fontFamily: 'sans',
   m: 0,
   lineHeight: 3,
   fontSize: [1, 2]
 }
-
-Text.displayName = 'Text'
 
 export default Text

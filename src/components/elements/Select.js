@@ -1,5 +1,3 @@
-import React from 'react'
-import { system } from 'helpers'
 import { themeGet } from 'styled-system'
 import styled from 'styled-components'
 
@@ -47,7 +45,5 @@ Select.defaultProps = {
   color: 'inherit',
   bg: 'transparent'
 }
-
-Select.displayName = 'Select'
 
 export default Select

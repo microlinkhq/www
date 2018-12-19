@@ -34,6 +34,4 @@ Image.defaultProps = {
   ...borderRadius.defaultProps
 }
 
-Image.displayName = 'Image'
-
 export default Image

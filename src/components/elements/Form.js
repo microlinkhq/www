@@ -14,6 +14,4 @@ Form.defaultProps = {
   role: 'form'
 }
 
-Form.displayName = 'Form'
-
 export default Form
