@@ -45,7 +45,7 @@
     "got": "9.2.0",
     "human-number": "~1.0.1",
     "keyv": "3.0.0",
-    "keyv-file": "0.1.7",
+    "keyv-file": "0.1.8",
     "lodash.chunk": "4.2.0",
     "markdown-in-js": "1.1.4",
     "normalize.css": "8.0.0",
