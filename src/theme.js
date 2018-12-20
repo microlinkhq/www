@@ -86,7 +86,7 @@ export const shadows = [
   '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
 ]
 
-export const lineHeights = [1, 1.125, 1.25, 1.5, 2]
+export const lineHeights = [1.123, 1.25, 1.5, 1.8, 2]
 
 export const maxWidths = [
   1,
