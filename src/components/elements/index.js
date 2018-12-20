@@ -9,7 +9,6 @@ import Card from './Card'
 import Checkout from './Checkout'
 import CodeEditor from './CodeEditor'
 import Container from './Container'
-import Divider from './Divider'
 import { Fixed } from './Position'
 import Flex from './Flex'
 import Heading from './Heading'
@@ -44,7 +43,6 @@ export {
   Checkout,
   CodeEditor,
   Container,
-  Divider,
   Fixed,
   Flex,
   Form,
