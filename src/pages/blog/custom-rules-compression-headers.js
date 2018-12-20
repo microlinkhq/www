@@ -14,7 +14,7 @@ export const frontmatter = {
 export default postLayout(frontmatter)(
   md(components)`
 
-## Custom rules
+## Custom Rules
 
 [![](https://i.imgur.com/subDjQ1.png)](https://microlink.io/blog/custom-rules)
 

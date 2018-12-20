@@ -1,14 +1,43 @@
-import React from 'react'
-import { Divider, Text, Flex, Container, Metadata } from 'components/elements'
-import { H2Link } from 'components/markdown'
+import React, { Fragment } from 'react'
+import { Text, Flex, Container, Metadata } from 'components/elements'
+import { H1, H2Link } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
+import styled, { css } from 'styled-components'
+import { colors, transition } from 'theme'
+import is from 'styled-is'
 
-const BlogPost = ({ title, date, slug }) => {
+const borderStyle = css`
+  ${is('borderTop')`
+    border-top: 1px solid ${colors.gray1};
+  `};
+  ${is('borderBottom')`
+    border-bottom: 1px solid ${colors.gray1};
+  `};
+`
+
+const CustomFlex = styled(Flex)`
+  ${borderStyle};
+  transition: background-color ${transition.short};
+  &:hover {
+    background-color: ${colors.gray0};
+  }
+`
+
+const BlogPost = ({ title, date, slug, isLastPost }) => {
   const timestamp = new Date(date)
 
   return (
-    <Flex pb={3} pt={4} px={[4, 3]} alignItems='center' flexDirection='column'>
+    <CustomFlex
+      as='section'
+      py={4}
+      px={[4, 3]}
+      alignItems='center'
+      flexDirection='column'
+      width='100%'
+      borderTop
+      borderBottom={isLastPost}
+    >
       <H2Link
         lineHeight={[3, 2]}
         fontSize={[2, 4]}
@@ -23,19 +52,31 @@ const BlogPost = ({ title, date, slug }) => {
       <Text fontSize={[0, 2]} color='gray' textAlign={['center', 'inherit']}>
         {formatDate(timestamp)} ({<TimeAgo date={date} />})
       </Text>
-      <Divider width={'25%'} borderColor='rgb(234, 234, 234)' pt={[3, 4]} />
-    </Flex>
+    </CustomFlex>
   )
 }
 
 export default ({ pathContext }) => {
   const { posts } = pathContext
+  console.log('posts.length', posts.length)
   return (
-    <Container>
+    <Fragment>
       <Metadata title='Blog' />
-      <Flex flexDirection='column' alignItems='center' pt={4}>
-        {posts.map(post => <BlogPost key={post.title} {...post} />)}
-      </Flex>
-    </Container>
+      <Container as='article' maxWidth={'inherit'}>
+        <Flex flexDirection='column' alignItems='center' pt={4}>
+          <H1 mt={0} mb={4} mx={0}>
+            Blog
+          </H1>
+          {posts.map((post, index) => {
+            const isLasPost = index === posts.length - 1
+            return (
+              <Fragment>
+                <BlogPost key={post.title} {...post} isLastPost={isLasPost} />
+              </Fragment>
+            )
+          })}
+        </Flex>
+      </Container>
+    </Fragment>
   )
 }
