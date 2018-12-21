@@ -9,13 +9,9 @@ const CapsIcon = styled(Caps)`
   transition: margin-left ${transition.medium};
 
   ${is('hover')`
-  margin-left: ${space[2]}px;
+  margin-left: ${space[2] * 1.2}px;
 `};
 `
-
-CapsIcon.defaultProps = {
-  blacklist: [...Object.keys(Caps.propTypes), 'hover']
-}
 
 const CardTitle = ({ children, hover }) => (
   <Text my={27}>

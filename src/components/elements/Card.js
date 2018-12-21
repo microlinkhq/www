@@ -6,7 +6,7 @@ import Box from './Box'
 const style = css`
   transition: all ${transition.medium};
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-8px);
     box-shadow: rgba(0, 0, 0, 0.5) 0px 30px 30px -30px;
   }
 `

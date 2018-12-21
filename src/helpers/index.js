@@ -7,6 +7,7 @@ import createApiUrl from './create-api-url'
 import smoothScroll from './smooth-scroll'
 import serializeComponent from './serialize-component'
 import withSlug from './with-slug'
+import withLink from './with-link'
 
 export {
   serializeComponent,
@@ -15,6 +16,7 @@ export {
   marshall,
   unmarshall,
   get,
+  withLink,
   formatDate,
   formatNumber,
   createApiUrl

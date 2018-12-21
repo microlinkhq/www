@@ -1,19 +1,17 @@
-import { system } from 'helpers'
+import styled from 'styled-components'
+import { space, color, width } from 'styled-system'
+import { withLink } from 'helpers'
 
-const BlockLink = system(
+const BlockLink = styled('a')(
   {
-    is: 'a',
-    color: 'inherit'
-  },
-  {
+    as: 'a',
+    color: 'inherit',
     display: 'block',
     textDecoration: 'none'
   },
-  'space',
-  'color',
-  'width'
+  space,
+  color,
+  width
 )
 
-BlockLink.displayName = 'BlockLink'
-
-export default BlockLink
+export default withLink(BlockLink)
