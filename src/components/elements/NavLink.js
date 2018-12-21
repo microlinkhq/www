@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import { fontWeights, transition, colors } from 'theme'
 
 import Text from './Text'
-import withLink from './Link/with-link'
+import { withLink } from 'helpers'
 
 const activeStyle = css`
   font-weight: ${fontWeights.bold};
