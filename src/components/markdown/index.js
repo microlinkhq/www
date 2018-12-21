@@ -8,9 +8,11 @@ import { Heading, Text, Link, Image as ImageBase } from 'components/elements'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
+const LAYOUT_WIDTH = 650
+
 const WIDTH = {
-  normal: '560px',
-  large: '720px'
+  normal: LAYOUT_WIDTH,
+  large: LAYOUT_WIDTH * 1.2
 }
 
 export const H1 = withSlug(styled(Heading)([]))
