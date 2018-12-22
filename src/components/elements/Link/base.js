@@ -1,14 +1,16 @@
-import { system } from 'helpers'
-import { Link as LinkBase } from 'rebass'
+import styled from 'styled-components'
+import Text from '../Text'
 
-const Link = system({ extend: LinkBase }, 'fontWeight', props => ({
+const Link = styled(Text)({
   cursor: 'pointer',
   textDecoration: 'none',
   outline: 0
-}))
+})
 
 Link.defaultProps = {
-  is: 'span',
+  ...Text.defaultProps,
+  as: 'span',
+  fontSize: 'inherit',
   color: 'link'
 }
 
