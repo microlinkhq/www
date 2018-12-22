@@ -2,34 +2,44 @@
   <img src="https://microlink.io/logo-banner.png" alt="microlink logo">
 </h1>
 
-
-## Design System
-
-- [ ] Migrate `Link` and `BlockLink`.
-- [ ] Remove `blacklist` props.
-- [ ] Ensure don't pass hover states.
-
 ### Components
 
 
 ```
 components/elements
-└─┬── Image
-  ├── Hide
-  └─┬ Box
-    ├── Tooltip
-    ├── Card
-    ├── Select
-    ├── Flex
-    ├── Container
-    └─┬ Text
-      ├── Label
-      ├── Input
-      ├── Button
-      ├── Lead
-      ├── NavLink
-      └─┬ Heading
-      │ └── SubHead
-      ├─┬ Link
-        ├── LinkSolid
+├─┬ Image
+│ └─┬ Avatar
+│   └── Logo
+├── Hide
+├── Terminal
+├── BlockLink
+├── Metadata
+├── CodeEditor
+├── Checkout
+├── Svg
+├── Form
+├── SearchBox
+├── PricePicker
+├─┬ Box
+│ ├── Tooltip
+│ ├── Container
+│ ├─┬ Position
+│ │ ├─┬ Fixed
+│ │ │ └── Notification
+│ │ └── Sticky
+│ ├── Card
+│ ├── Select
+│ ├─┬ Flex
+│ │ └── Toolbar
+│ └─┬ Text
+│   ├── Label   
+│   ├── Caps
+│   ├── Input
+│   ├── Button
+│   ├── Lead
+│   ├── NavLink
+│   └─┬ Heading
+│     │ └── SubHead
+│     ├─┬ Link
+│       ├── LinkSolid
 ```
