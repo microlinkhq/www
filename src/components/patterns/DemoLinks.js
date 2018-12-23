@@ -24,7 +24,7 @@ const Logo = styled(Avatar)`
   }
 `
 
-export default ({ siteUrl, children, onClick, size, ...props }) => (
+export default ({ children, onClick, size, ...props }) => (
   <Flex
     width='100%'
     justifyContent='center'

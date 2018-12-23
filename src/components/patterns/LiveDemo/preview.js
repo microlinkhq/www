@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import styled, { css } from 'styled-components'
-import Microlink from 'react-microlink'
+import Microlink from '@microlink/react'
 import ReactJson from 'react-json-view'
 
 import { lineHeights, fontSizes, fonts, colors } from 'theme'
@@ -61,13 +61,24 @@ const JSONViewer = styled(Box)`
 `
 
 export default ({ preview, children }) => {
+  console.log('children', children)
   return preview === 'SDK' ? (
     <Fragment>
       <Hide breakpoints={[0, 1]}>
-        <MicrolinkCardDesktop size='large' noFetch video data={children} />
+        <MicrolinkCardDesktop
+          url={children.url}
+          size='large'
+          noFetch
+          data={children}
+        />
       </Hide>
       <Hide breakpoints={[2, 3]}>
-        <MicrolinkCardMobile size='large' noFetch video data={children} />
+        <MicrolinkCardMobile
+          url={children.url}
+          size='large'
+          noFetch
+          data={children}
+        />
       </Hide>
     </Fragment>
   ) : (

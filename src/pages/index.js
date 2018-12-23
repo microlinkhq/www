@@ -37,22 +37,22 @@ const demoLinks = require('../../data/demo-links.json')
 
 const REGEX_ACTIVE_LINK = /twitter/i
 
+const defaultActiveLink = demoLinks.find(({ publisher = '' } = {}) =>
+  REGEX_ACTIVE_LINK.test(publisher)
+)
+
 export default class extends Component {
   constructor (props) {
     super(props)
     const { data } = this.props
-
     const features = data.features.edges.map(item => item.node)
-    const linkExtracted = demoLinks.find(({ publisher = '' } = {}) =>
-      REGEX_ACTIVE_LINK.test(publisher)
-    )
 
     this.state = {
       features,
       demoLinks,
+      activeLink: defaultActiveLink,
       loading: false,
-      url: '',
-      linkExtracted
+      url: ''
     }
   }
 
@@ -63,23 +63,22 @@ export default class extends Component {
 
   setUrl = url => {
     if (url === this.state.url) return
-
-    this.setState({ url, linkFailed: null, loading: true })
+    this.setState({ url, hasError: null, loading: true })
     const apiUrl = createApiUrl(url)
 
     fetch(apiUrl)
       .then(res => res.json())
       .then(({ status, data }) => {
         if (status === 'success') {
-          this.setState({ loading: false, linkExtracted: data })
+          this.setState({ loading: false, activeLink: data })
         } else {
-          this.setState({ loading: false, linkFailed: true })
+          this.setState({ loading: false, hasError: true })
         }
       })
   }
   render () {
     const { paymentEndpoint, paymentApiKey, stripeKey, metadata } = this.props
-    const { features, demoLinks, linkExtracted } = this.state
+    const { features, demoLinks, activeLink } = this.state
     const { siteUrl } = metadata
 
     return (
@@ -113,7 +112,7 @@ export default class extends Component {
                   )
                 }}
               />
-              {this.state.linkFailed && (
+              {this.state.hasError && (
                 <Text
                   color='black50'
                   fontSize={0}
@@ -124,7 +123,7 @@ export default class extends Component {
             <Box as='article'>
               <Container as='section' px={0}>
                 <Flex flexDirection='column'>
-                  <LiveDemo siteUrl={siteUrl} children={linkExtracted} />
+                  <LiveDemo children={activeLink} />
                   <Hide breakpoints={[0, 1]}>
                     <Flex
                       flexDirection='column'
@@ -138,12 +137,11 @@ export default class extends Component {
                         children='Try another link →'
                       />
                       <DemoLinks
-                        siteUrl={siteUrl}
                         px={[4, 0]}
                         size={[40, 48]}
                         children={demoLinks}
-                        onClick={linkExtracted => {
-                          const { url } = linkExtracted
+                        onClick={activeLink => {
+                          const { url } = activeLink
                           window.history.pushState(
                             {},
                             '',
@@ -151,8 +149,8 @@ export default class extends Component {
                           )
                           this.setState({
                             url,
-                            linkFailed: false,
-                            linkExtracted
+                            activeLink,
+                            hasError: false
                           })
                         }}
                       />

@@ -3,7 +3,7 @@ import components, { PreCode } from 'components/markdown'
 import md from 'markdown-in-js'
 
 import postLayout from 'layouts/post'
-import Microlink from 'react-microlink'
+import Microlink from '@microlink/react'
 
 export const frontmatter = {
   title: 'Product Brief #4: SDK 2.0 & more video providers',
@@ -39,10 +39,10 @@ ${(
 
 **React**
 
-Using [react-microlink](https://docs.microlink.io/sdk/getting-started/react/) just pass your custom CSS as \`style\` property:
+Using [@microlink/react](https://docs.microlink.io/sdk/getting-started/react/) just pass your custom CSS as \`style\` property:
 
 ${(
-    <PreCode>{`import Microlink from 'react-microlink'
+    <PreCode>{`import Microlink from '@microlink/react'
 
 <Microlink
   iamge='logo'
