@@ -2,6 +2,7 @@
 
 const { chain, isNil, get, reduce } = require('lodash')
 const parseDomain = require('parse-domain')
+const jsonFuture = require('json-future')
 const KeyvFile = require('keyv-file')
 const download = require('download')
 const pAll = require('p-all')
@@ -88,6 +89,8 @@ const fetchUrl = async url => {
   if (!isProduction && cachedData) return cachedData
 
   const data = await toFetch(key)
+  if (!data.lang) data.lang = 'en'
+
   await toDownload(data)
   const mappedData = toMapLocalAsset(data)
   await keyv.set(key, mappedData)
@@ -96,7 +99,11 @@ const fetchUrl = async url => {
 
 const fetchUrls = URLS.map(url => () => fetchUrl(url))
 
-pAll(fetchUrls, { concurrency: 2 }).catch(err => {
-  console.log(err)
-  process.exit(1)
-})
+pAll(fetchUrls, { concurrency: 2 })
+  .then(data =>
+    jsonFuture.saveAsync(path.resolve('data/demo-links.json'), data)
+  )
+  .catch(err => {
+    console.log(err)
+    process.exit(1)
+  })

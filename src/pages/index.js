@@ -33,6 +33,8 @@ import {
   Frameworks
 } from 'components/icons'
 
+const demoLinks = require('../../data/demo-links.json')
+
 const REGEX_ACTIVE_LINK = /twitter/i
 
 export default class extends Component {
@@ -41,7 +43,6 @@ export default class extends Component {
     const { data } = this.props
 
     const features = data.features.edges.map(item => item.node)
-    const demoLinks = data.demoLinks.edges[0].node.data
     const linkExtracted = demoLinks.find(({ publisher = '' } = {}) =>
       REGEX_ACTIVE_LINK.test(publisher)
     )
@@ -354,61 +355,6 @@ export const query = graphql`
         node {
           title
           description
-        }
-      }
-    }
-    demoLinks: allDemoLink {
-      edges {
-        node {
-          data {
-            lang
-            author
-            title
-            publisher
-            image {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              background_color
-              color
-              alternative_color
-            }
-            video {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              duration
-              duration_pretty
-            }
-            audio {
-              url
-              type
-              size
-              size_pretty
-              duration
-              duration_pretty
-            }
-            description
-            date
-            logo {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              background_color
-              color
-              alternative_color
-            }
-            url
-          }
         }
       }
     }
