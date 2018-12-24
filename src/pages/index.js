@@ -123,7 +123,10 @@ export default class extends Component {
             <Box as='article'>
               <Container as='section' px={0}>
                 <Flex flexDirection='column'>
-                  <LiveDemo children={activeLink} />
+                  <LiveDemo
+                    loading={this.state.loading}
+                    children={activeLink}
+                  />
                   <Hide breakpoints={[0, 1]}>
                     <Flex
                       flexDirection='column'

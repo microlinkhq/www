@@ -60,13 +60,13 @@ const JSONViewer = styled(Box)`
   line-height: ${lineHeights[3]};
 `
 
-export default ({ preview, children }) => {
-  console.log('children', children)
+export default ({ preview, loading, children }) => {
   return preview === 'SDK' ? (
     <Fragment>
       <Hide breakpoints={[0, 1]}>
         <MicrolinkCardDesktop
           url={children.url}
+          loading={loading}
           size='large'
           noFetch
           data={children}
@@ -75,6 +75,7 @@ export default ({ preview, children }) => {
       <Hide breakpoints={[2, 3]}>
         <MicrolinkCardMobile
           url={children.url}
+          loading={loading}
           size='large'
           noFetch
           data={children}
