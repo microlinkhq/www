@@ -6,7 +6,6 @@ const React = ({ url }) =>
   `import MicrolinkCard from '@microlink/react'
 
   <MicrolinkCard
-    size='large'
     url='${url}'
     size='large'
     video
