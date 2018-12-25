@@ -69,7 +69,7 @@ export default ({ preview, loading, children }) => {
           loading={loading}
           size='large'
           noFetch
-          data={children}
+          setData={children}
         />
       </Hide>
       <Hide breakpoints={[2, 3]}>
@@ -78,7 +78,7 @@ export default ({ preview, loading, children }) => {
           loading={loading}
           size='large'
           noFetch
-          data={children}
+          setData={children}
         />
       </Hide>
     </Fragment>
