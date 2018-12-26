@@ -106,8 +106,8 @@
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "lint": "standard-markdown README.md && standard src/*/**.js",
-    "prebuild": "npm run clean:urls && node scripts/fetch-urls",
-    "predev": "node scripts/fetch-urls",
+    "prebuild": "npm run clean:urls && node scripts/fetch-demo-links",
+    "predev": "node scripts/fetch-demo-links",
     "test": "exit 0"
   },
   "private": true,

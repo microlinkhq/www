@@ -15,7 +15,7 @@ const createApiUrl = require('../src/helpers/create-api-url')
 const getDomain = url => (parseDomain(url) || {}).domain
 
 const { SITE_URL, isProduction } = require('../env')
-const { CACHE_PATH, URLS } = require('../data/urls')
+const { CACHE_PATH, DEMO_LINKS } = require('../data/demo-links')
 
 const API_MEDIA_PROPS = ['logo', 'screenshot', 'video', 'image']
 
@@ -25,10 +25,10 @@ const getMediaAssetPath = (data, propName) => {
   const propValue = get(data, propName)
 
   const publisher = get(data, 'publisher') || getDomain(data.url)
-  if (!publisher) throw new TypeError('publisher is empty.')
+  if (!publisher) throw new TypeError(`publisher for ${propName} is empty.`)
 
   const type = get(propValue, 'type')
-  if (!type) throw new TypeError('type is empty.')
+  if (!type) throw new TypeError(`type for ${propName} is empty.`)
 
   const dirname = `/card/${publisher.toLowerCase()}`
   const basename = `${propName}.${type}`
@@ -82,7 +82,7 @@ const toDownload = async data => {
   return Promise.all(downloads)
 }
 
-const fetchUrl = async url => {
+const fetchDemoLink = async url => {
   const key = createApiUrl(url, { force: true })
 
   const cachedData = await keyv.get(key)
@@ -97,9 +97,9 @@ const fetchUrl = async url => {
   return mappedData
 }
 
-const fetchUrls = URLS.map(url => () => fetchUrl(url))
+const fetchDemoLinks = DEMO_LINKS.map(url => () => fetchDemoLink(url))
 
-pAll(fetchUrls, { concurrency: 2 })
+pAll(fetchDemoLinks, { concurrency: 2 })
   .then(data =>
     jsonFuture.saveAsync(path.resolve('data/demo-links.json'), data)
   )
