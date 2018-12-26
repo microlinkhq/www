@@ -70,8 +70,6 @@ const toDownload = async data => {
     .filter(({ propValue }) => !isNil(propValue))
     .value()
 
-  console.log(`fetch url=${data.url}`)
-
   const downloads = assets.map(({ propName, propValue }) => {
     const { dirname, basename } = getMediaAssetPath(data, propName)
     const dist = path.join(path.resolve('static'), dirname)
@@ -84,6 +82,7 @@ const toDownload = async data => {
 
 const fetchDemoLink = async url => {
   const key = createApiUrl(url, { force: true })
+  console.log(`fetch url=${key}`)
 
   const cachedData = await keyv.get(key)
   if (!isProduction && cachedData) return cachedData

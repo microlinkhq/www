@@ -127,38 +127,37 @@ export default class extends Component {
                     loading={this.state.loading}
                     children={activeLink}
                   />
-                  <Hide breakpoints={[0, 1]}>
-                    <Flex
-                      flexDirection='column'
-                      justifyContent='center'
-                      alignItems='center'
-                    >
-                      <Text
-                        fontSize={1}
-                        py={3}
-                        color='gray8'
-                        children='Try another link →'
-                      />
-                      <DemoLinks
-                        px={[4, 0]}
-                        size={[40, 48]}
-                        children={demoLinks}
-                        onClick={activeLink => {
-                          const { url } = activeLink
-                          window.history.pushState(
-                            {},
-                            '',
-                            `${siteUrl}?${marshall({ url })}`
-                          )
-                          this.setState({
-                            url,
-                            activeLink,
-                            hasError: false
-                          })
-                        }}
-                      />
-                    </Flex>
-                  </Hide>
+                  <Flex
+                    flexDirection='column'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Text
+                      fontSize={1}
+                      pt={4}
+                      pb={3}
+                      color='gray8'
+                      children='Try another link →'
+                    />
+                    <DemoLinks
+                      px={[4, 0]}
+                      size={[32, 38]}
+                      children={demoLinks}
+                      onClick={activeLink => {
+                        const { url } = activeLink
+                        window.history.pushState(
+                          {},
+                          '',
+                          `${siteUrl}?${marshall({ url })}`
+                        )
+                        this.setState({
+                          url,
+                          activeLink,
+                          hasError: false
+                        })
+                      }}
+                    />
+                  </Flex>
                 </Flex>
               </Container>
             </Box>
