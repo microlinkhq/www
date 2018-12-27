@@ -155,8 +155,8 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='https://gallery.microlink.io/'
-            children='Gallery'
+            href='https://debug.microlink.io/'
+            children='Debug'
           />
         </Flex>
       </Box>
