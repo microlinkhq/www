@@ -78,14 +78,20 @@
     "unfetch": "3.1.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
     "babel-eslint": "latest",
+    "conventional-github-releaser": "latest",
     "finepack": "latest",
+    "git-authors-cli": "latest",
     "husky": "latest",
     "imageoptim-cli": "latest",
     "lint-staged": "latest",
+    "npm-check-updates": "latest",
     "prettier-standard": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
+    "standard-version": "latest",
     "svgo": "latest"
   },
   "engines": {
@@ -106,34 +112,49 @@
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "lint": "standard-markdown README.md && standard src/*/**.js",
+    "postrelease": "npm run release:tags && npm run release:github",
     "prebuild": "npm run clean:urls && node scripts/fetch-demo-links",
     "predev": "node scripts/fetch-demo-links",
-    "test": "exit 0"
+    "prerelease": "npm run update:check && git-authors-cli",
+    "release": "git add package.json && standard-version -a",
+    "release:github": "conventional-github-releaser -p angular",
+    "release:tags": "git push --follow-tags origin HEAD:master",
+    "test": "exit 0",
+    "update": "ncu -a",
+    "update:check": "ncu -- --error-level 2"
   },
   "private": true,
   "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "package.json": [
-      "finepack",
-      "git add"
-    ],
-    "*.{png,jpeg,jpg,gif}": [
-      "imageoptim --imagealpha",
-      "git add"
-    ],
-    "*.svg": [
-      "svgo --pretty",
-      "git-add"
-    ],
-    "*.js": [
-      "prettier-standard",
-      "git add"
-    ]
+    "linters": {
+      "package.json": [
+        "finepack",
+        "git add"
+      ],
+      "*.{png,jpeg,jpg,gif}": [
+        "imageoptim --imagealpha",
+        "git add"
+      ],
+      "*.svg": [
+        "svgo --pretty",
+        "git-add"
+      ],
+      "*.js": [
+        "prettier-standard",
+        "git add"
+      ]
+    }
   },
   "standard": {
     "globals": [
@@ -142,5 +163,10 @@
       "requestAnimationFrame"
     ],
     "parser": "babel-eslint"
+  },
+  "standard-version": {
+    "scripts": {
+      "prechangelog": "git-authors-cli"
+    }
   }
 }
