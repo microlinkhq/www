@@ -22,7 +22,7 @@ const FREE_PLAN_RATE_LIMIT = 250
 
 const toLocale = number => Math.round(number).toLocaleString('en-US')
 
-const getMonthlyPrice = price => `$${price}/month`
+const getMonthlyPrice = price => `€${price}/month`
 
 const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
 
@@ -44,7 +44,7 @@ const TOOLTIPS = {
 const Price = styled(Lead)`
   font-weight: bold;
   &::before {
-    content: '$';
+    content: '€';
     font-weight: 100;
     font-size: 0.8em;
     position: relative;
