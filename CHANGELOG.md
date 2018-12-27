@@ -1,3 +1,44 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="2.2.1"></a>
+## 2.2.1 (2018-12-27)
+
+
+
+<a name="2.2.0"></a>
+# 2.2.0 (2018-12-27)
+
+
+### Bug Fixes
+
+* **package:** update got to version 9.2.0 ([21e9e20](https://github.com/microlink/microlink-www/commit/21e9e20))
+* avoid prefetching links ([3371f99](https://github.com/microlink/microlink-www/commit/3371f99)), closes [#242](https://github.com/microlink/microlink-www/issues/242)
+* better smooth scroll ([78d7a08](https://github.com/microlink/microlink-www/commit/78d7a08))
+* **package:** update parse-domain to version 2.1.7 ([50ad9c3](https://github.com/microlink/microlink-www/commit/50ad9c3))
+* **package:** update react-syntax-highlighter to version 10.1.0 ([6eb66bb](https://github.com/microlink/microlink-www/commit/6eb66bb))
+* duplicate ([8c505ea](https://github.com/microlink/microlink-www/commit/8c505ea))
+* update api ([1c56146](https://github.com/microlink/microlink-www/commit/1c56146))
+* use debug page instead of gallery ([643f7ae](https://github.com/microlink/microlink-www/commit/643f7ae))
+
+
+
+<a name="2.1.0"></a>
+# 2.1.0 (2018-08-27)
+
+
+
+<a name="2.0.0"></a>
+# 2.0.0 (2018-08-23)
+
+
+### Bug Fixes
+
+* **package:** update autoprefixer to version 9.0.0 ([5e072b9](https://github.com/microlink/microlink-www/commit/5e072b9))
+
+
+
 <a name="2.2.0"></a>
 # 2.2.0 (2018-12-27)
 
@@ -467,6 +508,3 @@
 * docs(readme): add Greenkeeper badge ([f12f352](https://github.com/microlink/microlink-www/commit/f12f352))
 * docs(readme): add Greenkeeper badge ([7897085](https://github.com/microlink/microlink-www/commit/7897085))
 * chore(package): update dependencies ([bad1816](https://github.com/microlink/microlink-www/commit/bad1816))
-
-
-
