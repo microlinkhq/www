@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/microlink/microlink-www/compare/v2.2.1...v2.2.2) (2018-12-27)
+
+
+### Bug Fixes
+
+* pricing in euro ([7e0f867](https://github.com/microlink/microlink-www/commit/7e0f867)), closes [#318](https://github.com/microlink/microlink-www/issues/318)
+
+
+
 <a name="2.2.1"></a>
 ## 2.2.1 (2018-12-27)
 
