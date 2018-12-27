@@ -10,13 +10,9 @@ const linkStyle = css`
 
 const isInternalLink = to => /^\/(?!\/)/.test(to)
 
-const ExternalLink = styled.a`
-  ${linkStyle};
-`
+const ExternalLink = styled('a')(linkStyle)
 
-const PrefetchLink = styled(PrefetchLinkBase)`
-  ${linkStyle};
-`
+const PrefetchLink = styled(PrefetchLinkBase)(linkStyle)
 
 export default ChildComponent => ({
   prefetch = true,

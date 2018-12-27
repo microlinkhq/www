@@ -2,6 +2,7 @@
 
 const { chain, isNil, get, reduce } = require('lodash')
 const parseDomain = require('parse-domain')
+const jsonFuture = require('json-future')
 const KeyvFile = require('keyv-file')
 const download = require('download')
 const pAll = require('p-all')
@@ -14,7 +15,7 @@ const createApiUrl = require('../src/helpers/create-api-url')
 const getDomain = url => (parseDomain(url) || {}).domain
 
 const { SITE_URL, isProduction } = require('../env')
-const { CACHE_PATH, URLS } = require('../data/urls')
+const { CACHE_PATH, DEMO_LINKS } = require('../data/demo-links')
 
 const API_MEDIA_PROPS = ['logo', 'screenshot', 'video', 'image']
 
@@ -24,10 +25,10 @@ const getMediaAssetPath = (data, propName) => {
   const propValue = get(data, propName)
 
   const publisher = get(data, 'publisher') || getDomain(data.url)
-  if (!publisher) throw new TypeError('publisher is empty.')
+  if (!publisher) throw new TypeError(`publisher for ${propName} is empty.`)
 
   const type = get(propValue, 'type')
-  if (!type) throw new TypeError('type is empty.')
+  if (!type) throw new TypeError(`type for ${propName} is empty.`)
 
   const dirname = `/card/${publisher.toLowerCase()}`
   const basename = `${propName}.${type}`
@@ -69,8 +70,6 @@ const toDownload = async data => {
     .filter(({ propValue }) => !isNil(propValue))
     .value()
 
-  console.log(`fetch url=${data.url}`)
-
   const downloads = assets.map(({ propName, propValue }) => {
     const { dirname, basename } = getMediaAssetPath(data, propName)
     const dist = path.join(path.resolve('static'), dirname)
@@ -81,22 +80,29 @@ const toDownload = async data => {
   return Promise.all(downloads)
 }
 
-const fetchUrl = async url => {
+const fetchDemoLink = async url => {
   const key = createApiUrl(url, { force: true })
+  console.log(`fetch url=${key}`)
 
   const cachedData = await keyv.get(key)
   if (!isProduction && cachedData) return cachedData
 
   const data = await toFetch(key)
+  if (!data.lang) data.lang = 'en'
+
   await toDownload(data)
   const mappedData = toMapLocalAsset(data)
   await keyv.set(key, mappedData)
   return mappedData
 }
 
-const fetchUrls = URLS.map(url => () => fetchUrl(url))
+const fetchDemoLinks = DEMO_LINKS.map(url => () => fetchDemoLink(url))
 
-pAll(fetchUrls, { concurrency: 2 }).catch(err => {
-  console.log(err)
-  process.exit(1)
-})
+pAll(fetchDemoLinks, { concurrency: 2 })
+  .then(data =>
+    jsonFuture.saveAsync(path.resolve('data/demo-links.json'), data)
+  )
+  .catch(err => {
+    console.log(err)
+    process.exit(1)
+  })

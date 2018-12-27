@@ -1,12 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import system from 'system-components'
 import Box from '../Box'
-import LinkBase from './base'
+import Link from './base'
 
 import { transition, lineHeights } from 'theme'
-
-export const Link = system({ is: LinkBase })
 
 const LinkSolid = styled(Link)`
   text-decoration: none;
@@ -22,7 +19,8 @@ const LinkSolid = styled(Link)`
   }
 `
 
-Link.defaultProps = {
+LinkSolid.defaultProps = {
+  ...Link.defaultProps,
   fontWeight: 'bold',
   color: 'black80',
   pb: '2px'

@@ -207,7 +207,7 @@ export default class extends Component {
     const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } = this.props
 
     return (
-      <Container is='section' maxWidth='350px' pt={4} pb={3}>
+      <Container as='section' maxWidth='350px' pt={4} pb={3}>
         <Metadata
           title='Update Payment'
           script={[

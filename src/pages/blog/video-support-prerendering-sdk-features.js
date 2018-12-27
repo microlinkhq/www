@@ -125,13 +125,13 @@ The easiest way to consume the frontend library. Just paste the corresponding sc
 
 ${(
     <PreCode>{`<!-- Microlink SDK Vanilla/UMD bundle -->
-<script type="text/javascript" src="//unpkg.com/microlinkjs@latest/umd/microlink.min.js"></script>
+<script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/umd/microlink.min.js"></script>
 
 <!-- Microlink SDK AMD bundle -->
-<script type="text/javascript" src="//unpkg.com/microlinkjs@latest/amd/microlink.min.js"></script>
+<script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/amd/microlink.min.js"></script>
 
 <!-- Microlink SDK CJS bundle -->
-<script type="text/javascript" src="//unpkg.com/microlinkjs@latest/cjs/microlink.min.js"></script>`}</PreCode>
+<script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/cjs/microlink.min.js"></script>`}</PreCode>
   )}
 
 See more [information](https://docs.microlink.io/sdk/getting-started/vanilla/).
@@ -142,11 +142,11 @@ If you’re using Microlink from your \`package.json\` then you’ll need to con
 
 **Vanilla version**
 
-${<PreCode>{`$ npm install microlinkjs@latest`}</PreCode>}
+${<PreCode>{`$ npm install @microlink/vanilla@latest`}</PreCode>}
 
 **React version**
 
-${<PreCode>{`$ npm update react-microlink@latest`}</PreCode>}
+${<PreCode>{`$ npm update @microlink/react@latest`}</PreCode>}
 
 See more [information](https://docs.microlink.io/sdk/getting-started/react/).
 

@@ -1,25 +1,13 @@
-import sys from 'system-components'
+import styled from 'styled-components'
 import { colors } from 'theme'
+import Text from './Text'
 
-export const Input = sys(
+const Input = styled(Text)(
   {
-    is: 'input',
-    type: 'text',
-    fontSize: 'inherit',
-    lineHeight: 'inherit',
-    px: 1,
-    py: 2,
-    m: 0,
-    width: 1,
-    border: 0,
-    borderColor: 'gray',
-    // boxShadow: 1,
-    borderRadius: 2,
-    color: 'inherit',
-    bg: 'transparent'
+    display: 'block',
+    maxWidth: '100%'
   },
-  props => ({
-    fontFamily: 'inherit',
+  prop => ({
     display: 'inline-block',
     verticalAlign: 'middle',
     border: 0,
@@ -34,6 +22,19 @@ export const Input = sys(
   })
 )
 
-Input.displayName = 'Input'
+Input.defaultProps = {
+  ...Text.defaultProps,
+  as: 'input',
+  type: 'text',
+  lineHeight: 'inherit',
+  px: 1,
+  py: 2,
+  m: 0,
+  width: 1,
+  border: 0,
+  borderColor: 'gray',
+  color: 'inherit',
+  bg: 'transparent'
+}
 
 export default Input

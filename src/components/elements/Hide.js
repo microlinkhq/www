@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import { theme } from 'rebass'
+import { breakpoints } from 'theme'
 
-const { breakpoints } = theme
 const lastIndex = breakpoints.length - 1
 
 const getMediaBreakpoint = (breakpoints, breakpoint, index) => {

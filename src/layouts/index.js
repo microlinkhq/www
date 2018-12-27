@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { ThemeProvider } from 'styled-components'
 
-import { Provider } from 'rebass'
 import { Box, Metadata } from 'components/elements'
 import { TOOLBAR_SIZE } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
@@ -22,20 +22,22 @@ const IndexLayout = ({ children, data, ...props }) => {
   return (
     <Fragment>
       <Metadata {...metadata} />
-      <Provider is='main' theme={theme}>
-        <Toolbar />
-        <Box pt={TOOLBAR_SIZE}>
-          {children({
-            ...props,
-            paymentEndpoint,
-            paymentApiKey,
-            stripeKey,
-            metadata
-          })}
-        </Box>
-        <CookiesPolicy />
-        <Footer />
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <main>
+          <Toolbar />
+          <Box pt={TOOLBAR_SIZE}>
+            {children({
+              ...props,
+              paymentEndpoint,
+              paymentApiKey,
+              stripeKey,
+              metadata
+            })}
+          </Box>
+          <CookiesPolicy />
+          <Footer />
+        </main>
+      </ThemeProvider>
     </Fragment>
   )
 }

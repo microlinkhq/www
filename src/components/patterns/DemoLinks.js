@@ -15,7 +15,7 @@ const floatAnimation = css`
   }
 `
 
-const Logo = Avatar.extend`
+const Logo = styled(Avatar)`
   &&& {
     border-radius: 8px;
     box-shadow: none;
@@ -24,7 +24,7 @@ const Logo = Avatar.extend`
   }
 `
 
-export default ({ siteUrl, children, onClick, size, ...props }) => (
+export default ({ children, onClick, size, ...props }) => (
   <Flex
     width='100%'
     justifyContent='center'

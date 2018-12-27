@@ -1,29 +1,44 @@
-import React from 'react'
-import { Divider, Text, Flex, Container, Metadata } from 'components/elements'
-import { H2 } from 'components/markdown'
-import styled from 'styled-components'
+import React, { Fragment } from 'react'
+import { Text, Flex, Container, Metadata } from 'components/elements'
+import { H1, H2Link } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
+import styled, { css } from 'styled-components'
+import { colors, transition } from 'theme'
+import is from 'styled-is'
 
-import { colors } from 'theme'
+const borderStyle = css`
+  ${is('borderTop')`
+    border-top: 1px solid ${colors.gray1};
+  `};
+  ${is('borderBottom')`
+    border-bottom: 1px solid ${colors.gray1};
+  `};
+`
 
-const Link = styled(H2)`
-  text-decoration: none;
-  cursor: pointer;
-  color: black;
-  transition: all 0.1s ease-out;
-
+const CustomFlex = styled(Flex)`
+  ${borderStyle};
+  transition: background-color ${transition.short};
   &:hover {
-    color: ${colors.link};
+    background-color: ${colors.gray0};
   }
 `
 
-const BlogPost = ({ title, date, slug }) => {
+const BlogPost = ({ title, date, slug, isLastPost }) => {
   const timestamp = new Date(date)
 
   return (
-    <Flex pb={3} pt={4} px={[4, 3]} alignItems='center' flexDirection='column'>
-      <Link
+    <CustomFlex
+      as='section'
+      py={4}
+      px={[4, 3]}
+      alignItems='center'
+      flexDirection='column'
+      width='100%'
+      borderTop
+      borderBottom={isLastPost}
+    >
+      <H2Link
         lineHeight={[3, 2]}
         fontSize={[2, 4]}
         maxWidth='18em'
@@ -31,26 +46,37 @@ const BlogPost = ({ title, date, slug }) => {
         mb={3}
         mx='auto'
         textAlign='center'
-        is='a'
         href={`/blog/${slug}`}
         children={title}
       />
       <Text fontSize={[0, 2]} color='gray' textAlign={['center', 'inherit']}>
         {formatDate(timestamp)} ({<TimeAgo date={date} />})
       </Text>
-      <Divider width={'25%'} borderColor='rgb(234, 234, 234)' pt={[3, 4]} />
-    </Flex>
+    </CustomFlex>
   )
 }
 
 export default ({ pathContext }) => {
   const { posts } = pathContext
+  console.log('posts.length', posts.length)
   return (
-    <Container mx='auto'>
+    <Fragment>
       <Metadata title='Blog' />
-      <Flex flexDirection='column' alignItems='center' pt={4}>
-        {posts.map(post => <BlogPost key={post.title} {...post} />)}
-      </Flex>
-    </Container>
+      <Container as='article' maxWidth={'inherit'}>
+        <Flex flexDirection='column' alignItems='center' pt={4}>
+          <H1 mt={0} mb={4} mx={0}>
+            Blog
+          </H1>
+          {posts.map((post, index) => {
+            const isLasPost = index === posts.length - 1
+            return (
+              <Fragment>
+                <BlogPost key={post.title} {...post} isLastPost={isLasPost} />
+              </Fragment>
+            )
+          })}
+        </Flex>
+      </Container>
+    </Fragment>
   )
 }
