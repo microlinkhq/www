@@ -1,10 +1,14 @@
-import { Container as ContainerBase } from 'rebass'
-import system from 'system-components'
+import styled from 'styled-components'
 import { layout } from 'theme'
 
-const Container = system({ is: ContainerBase })
+import Box from './Box'
+
+const Container = styled(Box)([])
 
 Container.defaultProps = {
+  ...Box.defaultProps,
+  px: 3,
+  mx: 'auto',
   maxWidth: layout
 }
 

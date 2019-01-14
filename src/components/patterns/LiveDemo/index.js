@@ -19,13 +19,16 @@ import {
 const EDITORS = Object.keys(EDITOR)
 
 const Card = styled(CardBase)`
-  box-shadow: 0 10px 40px -10px ${colors.gray1};
-  &:hover {
-    transform: none;
-    box-shadow: 0;
-  }
-  &:focus {
-    box-shadow: none;
+  &&& {
+    box-shadow: 0 10px 40px -10px ${colors.gray1};
+    transition: none;
+    &:hover {
+      transform: none;
+      box-shadow: 0;
+    }
+    &:focus {
+      box-shadow: none;
+    }
   }
 `
 const SwitchButton = styled(Button)`
@@ -88,7 +91,7 @@ export default class extends Component {
 
   render () {
     const { editor: editorLang, preview } = this.state
-    const { children, siteUrl } = this.props
+    const { children, loading } = this.props
     const editor = EDITOR[editorLang]
     const code = editor(children)
     const isSDK = preview === 'SDK'
@@ -103,8 +106,8 @@ export default class extends Component {
           width='100%'
           flexDirection={['column-reverse', 'row']}
           justifyContent='space-between'
-          mx={3}
           alignItems={['center', 'flex-start']}
+          mx={3}
           code={code}
           noInline
         >
@@ -141,7 +144,11 @@ export default class extends Component {
               height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
               style={{ overflow: isSDK ? 'hidden' : 'auto' }}
             >
-              <Preview preview={preview} children={children} />
+              <Preview
+                loading={loading}
+                preview={preview}
+                children={children}
+              />
             </Card>
             <Flex mt={3}>
               <Switch

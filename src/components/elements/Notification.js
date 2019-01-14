@@ -1,5 +1,5 @@
 import React from 'react'
-import { Fixed } from 'components/elements'
+import { Fixed } from './Position'
 
 const createNotification = notificationProps => props => (
   <Fixed

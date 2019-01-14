@@ -1,7 +1,6 @@
 'use strict'
 
 const webpack = require('webpack')
-const crypto = require('crypto')
 const path = require('path')
 
 exports.modifyBabelrc = ({ babelrc }) => {
@@ -27,30 +26,6 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
       root: path.resolve(__dirname, './src')
     }
   })
-}
-
-exports.sourceNodes = async ({ boundActionCreators }) => {
-  const { createNode } = boundActionCreators
-  // const links = await pAll(actions, { concurrency: 1 })
-
-  const toNode = data => {
-    const node = {
-      data,
-      id: 'demolinks',
-      parent: '__SOURCE__',
-      children: [],
-      internal: { type: `DemoLink` }
-    }
-
-    node.internal.contentDigest = crypto
-      .createHash(`md5`)
-      .update(JSON.stringify(node))
-      .digest(`hex`)
-
-    return node
-  }
-
-  createNode(toNode(require('./data/urls')))
 }
 
 exports.createPages = ({ graphql, boundActionCreators }) => {

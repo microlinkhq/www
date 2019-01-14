@@ -1,13 +1,12 @@
-import React from 'react'
-import { Image } from 'rebass'
+import { Image } from 'components/elements'
+import styled from 'styled-components'
 
-export default props => (
-  <Image
-    src='/logo.svg'
-    style={{
-      display: 'inline',
-      position: 'relative'
-    }}
-    {...props}
-  />
-)
+const Microlink = styled(Image)([])
+
+Microlink.defaultProps = {
+  ...Image.defaultProps,
+  src: '/logo.svg',
+  style: { height: 'auto' }
+}
+
+export default Microlink

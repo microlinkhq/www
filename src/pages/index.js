@@ -33,25 +33,26 @@ import {
   Frameworks
 } from 'components/icons'
 
+const demoLinks = require('../../data/demo-links.json')
+
 const REGEX_ACTIVE_LINK = /twitter/i
+
+const defaultActiveLink = demoLinks.find(({ publisher = '' } = {}) =>
+  REGEX_ACTIVE_LINK.test(publisher)
+)
 
 export default class extends Component {
   constructor (props) {
     super(props)
     const { data } = this.props
-
     const features = data.features.edges.map(item => item.node)
-    const demoLinks = data.demoLinks.edges[0].node.data
-    const linkExtracted = demoLinks.find(({ publisher = '' } = {}) =>
-      REGEX_ACTIVE_LINK.test(publisher)
-    )
 
     this.state = {
       features,
       demoLinks,
+      activeLink: defaultActiveLink,
       loading: false,
-      url: '',
-      linkExtracted
+      url: ''
     }
   }
 
@@ -62,31 +63,30 @@ export default class extends Component {
 
   setUrl = url => {
     if (url === this.state.url) return
-
-    this.setState({ url, linkFailed: null, loading: true })
+    this.setState({ url, hasError: null, loading: true })
     const apiUrl = createApiUrl(url)
 
     fetch(apiUrl)
       .then(res => res.json())
       .then(({ status, data }) => {
         if (status === 'success') {
-          this.setState({ loading: false, linkExtracted: data })
+          this.setState({ loading: false, activeLink: data })
         } else {
-          this.setState({ loading: false, linkFailed: true })
+          this.setState({ loading: false, hasError: true })
         }
       })
   }
   render () {
     const { paymentEndpoint, paymentApiKey, stripeKey, metadata } = this.props
-    const { features, demoLinks, linkExtracted } = this.state
+    const { features, demoLinks, activeLink } = this.state
     const { siteUrl } = metadata
 
     return (
       <Fragment>
-        <Box is='article'>
-          <Container is='section' pt={5} pb={5} px={0}>
+        <Box as='article'>
+          <Container as='section' pt={5} pb={5} px={0}>
             <Flex
-              is='header'
+              as='header'
               flexDirection='column'
               justifyContent='center'
               alignItems='center'
@@ -112,7 +112,7 @@ export default class extends Component {
                   )
                 }}
               />
-              {this.state.linkFailed && (
+              {this.state.hasError && (
                 <Text
                   color='black50'
                   fontSize={0}
@@ -120,50 +120,51 @@ export default class extends Component {
                 />
               )}
             </Flex>
-            <Box is='article'>
-              <Container is='section' px={0}>
+            <Box as='article'>
+              <Container as='section' px={0}>
                 <Flex flexDirection='column'>
-                  <LiveDemo siteUrl={siteUrl} children={linkExtracted} />
-                  <Hide breakpoints={[0, 1]}>
-                    <Flex
-                      flexDirection='column'
-                      justifyContent='center'
-                      alignItems='center'
-                    >
-                      <Text
-                        fontSize={1}
-                        py={3}
-                        color='gray8'
-                        children='Try another link →'
-                      />
-                      <DemoLinks
-                        siteUrl={siteUrl}
-                        px={[4, 0]}
-                        size={[40, 48]}
-                        children={demoLinks}
-                        onClick={linkExtracted => {
-                          const { url } = linkExtracted
-                          window.history.pushState(
-                            {},
-                            '',
-                            `${siteUrl}?${marshall({ url })}`
-                          )
-                          this.setState({
-                            url,
-                            linkFailed: false,
-                            linkExtracted
-                          })
-                        }}
-                      />
-                    </Flex>
-                  </Hide>
+                  <LiveDemo
+                    loading={this.state.loading}
+                    children={activeLink}
+                  />
+                  <Flex
+                    flexDirection='column'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Text
+                      fontSize={1}
+                      pt={4}
+                      pb={3}
+                      color='gray8'
+                      children='Try another link →'
+                    />
+                    <DemoLinks
+                      px={[4, 0]}
+                      size={[32, 38]}
+                      children={demoLinks}
+                      onClick={activeLink => {
+                        const { url } = activeLink
+                        window.history.pushState(
+                          {},
+                          '',
+                          `${siteUrl}?${marshall({ url })}`
+                        )
+                        this.setState({
+                          url,
+                          activeLink,
+                          hasError: false
+                        })
+                      }}
+                    />
+                  </Flex>
                 </Flex>
               </Container>
             </Box>
           </Container>
         </Box>
-        <Box bg='#faf9fc' is='article'>
-          <Container is='section' py={[4, 6]}>
+        <Box bg='#faf9fc' as='article'>
+          <Container as='section' py={[4, 6]}>
             <Flex
               flexDirection={['column', 'row']}
               justifyContent='space-between'
@@ -175,7 +176,7 @@ export default class extends Component {
                 flexDirection='column'
               >
                 <Subhead
-                  is='header'
+                  as='header'
                   textAlign={['center', 'inherit']}
                   children='Browser as service'
                 />
@@ -214,10 +215,10 @@ export default class extends Component {
             </Flex>
           </Container>
         </Box>
-        <Box is='article' id='features'>
-          <Container is='section' py={5}>
+        <Box as='article' id='features'>
+          <Container as='section' py={5}>
             <Flex
-              is='header'
+              as='header'
               flexDirection='column'
               justifyContent='center'
               alignItems='center'
@@ -238,8 +239,8 @@ export default class extends Component {
             </Hide>
           </Container>
         </Box>
-        <Box bg='#faf9fc' is='article'>
-          <Container is='section' py={[4, 6]}>
+        <Box bg='#faf9fc' as='article'>
+          <Container as='section' py={[4, 6]}>
             <Flex
               flexDirection={['column', 'row']}
               justifyContent='space-between'
@@ -259,7 +260,7 @@ export default class extends Component {
                 flexDirection='column'
               >
                 <Subhead
-                  is='header'
+                  as='header'
                   textAlign={['center', 'inherit']}
                   children='Turns any website into data'
                 />
@@ -288,8 +289,8 @@ export default class extends Component {
             </Flex>
           </Container>
         </Box>
-        <Box variant='gradient' is='article'>
-          <Container is='section' py={[4, 5]}>
+        <Box variant='gradient' as='article'>
+          <Container as='section' py={[4, 5]}>
             <Flex
               px={3}
               flexDirection={['column', 'row']}
@@ -323,10 +324,10 @@ export default class extends Component {
             </Flex>
           </Container>
         </Box>
-        <Box is='article' id='pricing'>
-          <Container is='section' pt={5} pb={0}>
+        <Box as='article' id='pricing'>
+          <Container as='section' pt={5} pb={0}>
             <Flex
-              is='header'
+              as='header'
               flexDirection='column'
               justifyContent='center'
               alignItems='center'
@@ -354,61 +355,6 @@ export const query = graphql`
         node {
           title
           description
-        }
-      }
-    }
-    demoLinks: allDemoLink {
-      edges {
-        node {
-          data {
-            lang
-            author
-            title
-            publisher
-            image {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              background_color
-              color
-              alternative_color
-            }
-            video {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              duration
-              duration_pretty
-            }
-            audio {
-              url
-              type
-              size
-              size_pretty
-              duration
-              duration_pretty
-            }
-            description
-            date
-            logo {
-              url
-              width
-              height
-              type
-              size
-              size_pretty
-              background_color
-              color
-              alternative_color
-            }
-            url
-          }
         }
       }
     }

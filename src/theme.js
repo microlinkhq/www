@@ -78,7 +78,7 @@ export const cx = key => colors[key] || key
 export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
 
 export const shadows = [
-  'rgb(206, 212, 218) 0 -5px 15px 0',
+  '0 2px 4px rgba(0, 0, 0, 0.03)',
   '0 1px 2px rgba(0,0,0,0.24)',
   '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
   '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
@@ -86,7 +86,7 @@ export const shadows = [
   '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
 ]
 
-export const lineHeights = [1, 1.125, 1.25, 1.5, 2]
+export const lineHeights = [1.123, 1.25, 1.5, 1.8, 2]
 
 export const maxWidths = [
   1,

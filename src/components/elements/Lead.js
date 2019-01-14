@@ -1,12 +1,11 @@
-import Text from './Text'
-import system from 'system-components'
+import styled from 'styled-components'
 
-const Lead = system({ is: Text })
+import Text from './Text'
+
+const Lead = styled(Text)([])
 
 Lead.defaultProps = {
-  is: 'p',
-  lineHeight: 3,
-  fontWeight: 'normal',
+  ...Text.defaultProps,
   fontSize: [1, 4]
 }
 

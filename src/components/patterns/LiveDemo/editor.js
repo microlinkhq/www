@@ -3,10 +3,9 @@ import { createApiUrl } from 'helpers'
 const apiUrl = props => createApiUrl(props.url)
 
 const React = ({ url }) =>
-  `import MicrolinkCard from 'react-microlink'
+  `import MicrolinkCard from '@microlink/react'
 
   <MicrolinkCard
-    size='large'
     url='${url}'
     size='large'
     video
@@ -21,7 +20,7 @@ cURL.whiteSpace = 'pre-line'
 
 const HTML = ({ url }) =>
   `<!-- Microlink SDK Vanilla/UMD bundle -->
-<script src="//cdn.jsdelivr.net/npm/microlinkjs@latest/umd/microlink.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/umd/microlink.min.js"></script>
 
 <!-- Replace all elements with \`link-preview\` class -->
 <script>

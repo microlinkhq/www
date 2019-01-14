@@ -1,3 +1,170 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="2.2.3"></a>
+## [2.2.3](https://github.com/microlink/microlink-www/compare/v2.2.2...v2.2.3) (2019-01-02)
+
+
+### Bug Fixes
+
+* **package:** update react-extras to version 0.8.0 ([7ef0511](https://github.com/microlink/microlink-www/commit/7ef0511))
+
+
+
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/microlink/microlink-www/compare/v2.2.1...v2.2.2) (2018-12-27)
+
+
+### Bug Fixes
+
+* pricing in euro ([7e0f867](https://github.com/microlink/microlink-www/commit/7e0f867)), closes [#318](https://github.com/microlink/microlink-www/issues/318)
+
+
+
+<a name="2.2.1"></a>
+## 2.2.1 (2018-12-27)
+
+
+
+<a name="2.2.0"></a>
+# 2.2.0 (2018-12-27)
+
+
+### Bug Fixes
+
+* **package:** update got to version 9.2.0 ([21e9e20](https://github.com/microlink/microlink-www/commit/21e9e20))
+* avoid prefetching links ([3371f99](https://github.com/microlink/microlink-www/commit/3371f99)), closes [#242](https://github.com/microlink/microlink-www/issues/242)
+* better smooth scroll ([78d7a08](https://github.com/microlink/microlink-www/commit/78d7a08))
+* **package:** update parse-domain to version 2.1.7 ([50ad9c3](https://github.com/microlink/microlink-www/commit/50ad9c3))
+* **package:** update react-syntax-highlighter to version 10.1.0 ([6eb66bb](https://github.com/microlink/microlink-www/commit/6eb66bb))
+* duplicate ([8c505ea](https://github.com/microlink/microlink-www/commit/8c505ea))
+* update api ([1c56146](https://github.com/microlink/microlink-www/commit/1c56146))
+* use debug page instead of gallery ([643f7ae](https://github.com/microlink/microlink-www/commit/643f7ae))
+
+
+
+<a name="2.1.0"></a>
+# 2.1.0 (2018-08-27)
+
+
+
+<a name="2.0.0"></a>
+# 2.0.0 (2018-08-23)
+
+
+### Bug Fixes
+
+* **package:** update autoprefixer to version 9.0.0 ([5e072b9](https://github.com/microlink/microlink-www/commit/5e072b9))
+
+
+
+<a name="2.2.0"></a>
+# 2.2.0 (2018-12-27)
+
+* fix: avoid prefetching links ([3371f99](https://github.com/microlink/microlink-www/commit/3371f99)), closes [#242](https://github.com/microlink/microlink-www/issues/242)
+* fix: better smooth scroll ([78d7a08](https://github.com/microlink/microlink-www/commit/78d7a08))
+* fix: duplicate ([8c505ea](https://github.com/microlink/microlink-www/commit/8c505ea))
+* fix: update api ([1c56146](https://github.com/microlink/microlink-www/commit/1c56146))
+* fix: use debug page instead of gallery ([643f7ae](https://github.com/microlink/microlink-www/commit/643f7ae))
+* fix(package): update got to version 9.2.0 ([21e9e20](https://github.com/microlink/microlink-www/commit/21e9e20))
+* fix(package): update parse-domain to version 2.1.7 ([50ad9c3](https://github.com/microlink/microlink-www/commit/50ad9c3))
+* fix(package): update react-syntax-highlighter to version 10.1.0 ([6eb66bb](https://github.com/microlink/microlink-www/commit/6eb66bb))
+* refactor: add more demo links ([2c03438](https://github.com/microlink/microlink-www/commit/2c03438))
+* Add Image Component ([56c4a14](https://github.com/microlink/microlink-www/commit/56c4a14))
+* Add informational message ([e82077f](https://github.com/microlink/microlink-www/commit/e82077f))
+* Add SearchBox ([37fd8ae](https://github.com/microlink/microlink-www/commit/37fd8ae))
+* Adjust metadata ([ee79d32](https://github.com/microlink/microlink-www/commit/ee79d32))
+* Adjust responsive ([fcd4942](https://github.com/microlink/microlink-www/commit/fcd4942))
+* Align help circle ([9cbc402](https://github.com/microlink/microlink-www/commit/9cbc402))
+* Calculate spinner width ([fdc0f45](https://github.com/microlink/microlink-www/commit/fdc0f45))
+* Calculate url in script ([5c2b0ee](https://github.com/microlink/microlink-www/commit/5c2b0ee))
+* Define GA as process env variable ([d64cb1f](https://github.com/microlink/microlink-www/commit/d64cb1f))
+* Disable force by default ([4da8990](https://github.com/microlink/microlink-www/commit/4da8990))
+* Display button inline ([4a73771](https://github.com/microlink/microlink-www/commit/4a73771))
+* Extract common code into helper ([a61ecf7](https://github.com/microlink/microlink-www/commit/a61ecf7))
+* Extract environment variables ([43c5a6e](https://github.com/microlink/microlink-www/commit/43c5a6e))
+* Fix border box ([d8d54f4](https://github.com/microlink/microlink-www/commit/d8d54f4))
+* Fix check cache using key ([7adfb01](https://github.com/microlink/microlink-www/commit/7adfb01))
+* Fix get domain ([c03263b](https://github.com/microlink/microlink-www/commit/c03263b))
+* Fix linter ([6c940d8](https://github.com/microlink/microlink-www/commit/6c940d8))
+* Fix linter ([14025f5](https://github.com/microlink/microlink-www/commit/14025f5))
+* Fix preview image ([bf6a767](https://github.com/microlink/microlink-www/commit/bf6a767))
+* Fix preview video urls ([e84b3a0](https://github.com/microlink/microlink-www/commit/e84b3a0))
+* Fix priority ([2a44b85](https://github.com/microlink/microlink-www/commit/2a44b85))
+* Fix warning ([e1b0960](https://github.com/microlink/microlink-www/commit/e1b0960))
+* Force fetch links ([2cf0182](https://github.com/microlink/microlink-www/commit/2cf0182))
+* Improve Searchbox feedback ([2fb214b](https://github.com/microlink/microlink-www/commit/2fb214b))
+* Initial updates ([9b929fc](https://github.com/microlink/microlink-www/commit/9b929fc))
+* Lock dependencies ([c5f5e2f](https://github.com/microlink/microlink-www/commit/c5f5e2f))
+* Migrate Avatar component ([2c002fb](https://github.com/microlink/microlink-www/commit/2c002fb))
+* Migrate BlockLink & CardLink components ([10e5e93](https://github.com/microlink/microlink-www/commit/10e5e93))
+* Migrate Button component ([89b8153](https://github.com/microlink/microlink-www/commit/89b8153))
+* Migrate Caps component ([f0ec905](https://github.com/microlink/microlink-www/commit/f0ec905))
+* Migrate Card Component ([e378240](https://github.com/microlink/microlink-www/commit/e378240))
+* Migrate Column & Row Component ([9d219d5](https://github.com/microlink/microlink-www/commit/9d219d5))
+* Migrate Container component ([ce627eb](https://github.com/microlink/microlink-www/commit/ce627eb))
+* Migrate Divider Component ([7733578](https://github.com/microlink/microlink-www/commit/7733578))
+* Migrate from `is` to `as` ([7808a12](https://github.com/microlink/microlink-www/commit/7808a12))
+* Migrate Heading component ([050ff8f](https://github.com/microlink/microlink-www/commit/050ff8f))
+* Migrate Input Component ([bfaa5bb](https://github.com/microlink/microlink-www/commit/bfaa5bb))
+* Migrate Label Component ([35763b9](https://github.com/microlink/microlink-www/commit/35763b9))
+* Migrate Lead component ([0b40953](https://github.com/microlink/microlink-www/commit/0b40953))
+* Migrate LiveDemo component ([a55d3f6](https://github.com/microlink/microlink-www/commit/a55d3f6))
+* Migrate markdown text components ([761ff9a](https://github.com/microlink/microlink-www/commit/761ff9a))
+* Migrate microlink logo component ([5e438ff](https://github.com/microlink/microlink-www/commit/5e438ff))
+* Migrate navbar components ([600cae3](https://github.com/microlink/microlink-www/commit/600cae3))
+* Migrate Position Component ([1e65beb](https://github.com/microlink/microlink-www/commit/1e65beb))
+* Migrate PricingTable Component ([fd8ea83](https://github.com/microlink/microlink-www/commit/fd8ea83))
+* Migrate SearchBox Component ([de79d48](https://github.com/microlink/microlink-www/commit/de79d48))
+* Migrate Select Component ([7e0e248](https://github.com/microlink/microlink-www/commit/7e0e248))
+* Migrate Small Component ([e5c3fba](https://github.com/microlink/microlink-www/commit/e5c3fba))
+* Migrate Subhead component ([ee130eb](https://github.com/microlink/microlink-www/commit/ee130eb))
+* Migrate Svg component ([2f6b6a5](https://github.com/microlink/microlink-www/commit/2f6b6a5))
+* Migrate Text components ([d400a17](https://github.com/microlink/microlink-www/commit/d400a17))
+* Migrate Toolbar Component ([5e5e495](https://github.com/microlink/microlink-www/commit/5e5e495))
+* Migrate Tooltip component ([26eea0c](https://github.com/microlink/microlink-www/commit/26eea0c))
+* Move fetch urls into a separate script ([94ccf07](https://github.com/microlink/microlink-www/commit/94ccf07))
+* output script prop name ([9512dd0](https://github.com/microlink/microlink-www/commit/9512dd0))
+* Pass loading state ([62f2418](https://github.com/microlink/microlink-www/commit/62f2418))
+* PricePicker refactor ([746b84e](https://github.com/microlink/microlink-www/commit/746b84e))
+* Print url info ([303b249](https://github.com/microlink/microlink-www/commit/303b249))
+* Refactor shadows ([cf64cee](https://github.com/microlink/microlink-www/commit/cf64cee))
+* Remove ava ([b1983c0](https://github.com/microlink/microlink-www/commit/b1983c0))
+* Remove displayName ([4010391](https://github.com/microlink/microlink-www/commit/4010391))
+* Remove esm for ava ([de2e5b6](https://github.com/microlink/microlink-www/commit/de2e5b6))
+* Remove Small componetn ([6014808](https://github.com/microlink/microlink-www/commit/6014808))
+* Remove Truncate Component ([9a628e5](https://github.com/microlink/microlink-www/commit/9a628e5))
+* Remove unnecessary component ([760f69f](https://github.com/microlink/microlink-www/commit/760f69f))
+* Remove unnecessary helper ([3ebcd0d](https://github.com/microlink/microlink-www/commit/3ebcd0d))
+* Remove unnecessary prop ([9593e9b](https://github.com/microlink/microlink-www/commit/9593e9b))
+* Remove unnecessary test ([7e16fbd](https://github.com/microlink/microlink-www/commit/7e16fbd))
+* remove unreferenced Component ([97d2ade](https://github.com/microlink/microlink-www/commit/97d2ade))
+* Secure video url ([bc92249](https://github.com/microlink/microlink-www/commit/bc92249))
+* Serialize url ([421d75f](https://github.com/microlink/microlink-www/commit/421d75f))
+* Setup input value ([b154ede](https://github.com/microlink/microlink-www/commit/b154ede))
+* Tweaks ([6ffa493](https://github.com/microlink/microlink-www/commit/6ffa493))
+* Uncomment components ([8b9ab36](https://github.com/microlink/microlink-www/commit/8b9ab36))
+* Unify create API url ([9e31fb5](https://github.com/microlink/microlink-www/commit/9e31fb5))
+* Update blog layout ([e753a8a](https://github.com/microlink/microlink-www/commit/e753a8a))
+* Update blog layout ([1cc4a83](https://github.com/microlink/microlink-www/commit/1cc4a83))
+* Update component path ([fa36a02](https://github.com/microlink/microlink-www/commit/fa36a02))
+* Update graphql query ([00f825a](https://github.com/microlink/microlink-www/commit/00f825a))
+* Update helper reference ([1f96f34](https://github.com/microlink/microlink-www/commit/1f96f34))
+* Update hook ([3664c52](https://github.com/microlink/microlink-www/commit/3664c52))
+* Update line heights ([f6b147a](https://github.com/microlink/microlink-www/commit/f6b147a))
+* Update Links ([43ad4c1](https://github.com/microlink/microlink-www/commit/43ad4c1))
+* Update package.json ([835a2be](https://github.com/microlink/microlink-www/commit/835a2be))
+* Update SDK reference ([1a7ca4b](https://github.com/microlink/microlink-www/commit/1a7ca4b))
+* Update Toolbar shadow ([b648ba1](https://github.com/microlink/microlink-www/commit/b648ba1))
+* Update urls ([1cd01e6](https://github.com/microlink/microlink-www/commit/1cd01e6))
+* Use Metadata component instead of Helmet ([8058199](https://github.com/microlink/microlink-www/commit/8058199))
+* Use system helper ([13ede58](https://github.com/microlink/microlink-www/commit/13ede58))
+* WIP ([21397d6](https://github.com/microlink/microlink-www/commit/21397d6))
+* build: move urls as JSON ([143b7ee](https://github.com/microlink/microlink-www/commit/143b7ee))
+
+
+
 <a name="2.1.0"></a>
 # 2.1.0 (2018-08-27)
 
@@ -361,6 +528,3 @@
 * docs(readme): add Greenkeeper badge ([f12f352](https://github.com/microlink/microlink-www/commit/f12f352))
 * docs(readme): add Greenkeeper badge ([7897085](https://github.com/microlink/microlink-www/commit/7897085))
 * chore(package): update dependencies ([bad1816](https://github.com/microlink/microlink-www/commit/bad1816))
-
-
-

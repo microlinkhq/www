@@ -1,27 +1,17 @@
-import { Toolbar as ToolbarBase } from 'rebass'
-import system from 'system-components'
 import { layout } from 'theme'
+import styled from 'styled-components'
+import Flex from './Flex'
 
 export const TOOLBAR_SIZE = '67px'
 
-const Toolbar = system(
-  {
-    is: ToolbarBase,
-    overflowX: 'auto',
-    overflowY: 'hidden'
-  },
-  'minHeight',
-  'justifyContent',
-  'alignContent',
-  'color',
-  'display',
-  'space',
-  'maxWidth',
-  'height'
-)
+const Toolbar = styled(Flex)({
+  overflowX: 'auto',
+  overflowY: 'hidden'
+})
 
 Toolbar.defaultProps = {
-  is: 'header',
+  ...Flex.defaultProps,
+  as: 'header',
   color: 'black50',
   bg: 'white',
   display: 'flex',

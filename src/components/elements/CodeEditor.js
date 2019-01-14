@@ -1,7 +1,8 @@
-import React, { Component, Children } from 'react'
+import React, { Component } from 'react'
 import CodeCopy from 'react-codecopy'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import * as themes from 'react-syntax-highlighter/styles/hljs'
+import { serializeComponent } from 'helpers'
 import styled from 'styled-components'
 import { fonts } from 'theme'
 
@@ -21,12 +22,6 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
     }
   }
 `
-
-const serializeComponent = children =>
-  Children.map(
-    children,
-    child => (typeof child === 'string' ? child : child.props.children)
-  ).join('')
 
 const TerminalWindow = styled.div`
   border-radius: 5px;
@@ -131,6 +126,7 @@ class CodeEditor extends Component {
   }
 }
 
+// this is necessary for markdown
 CodeEditor.displayName = 'CodeEditor'
 
 export default CodeEditor

@@ -4,9 +4,7 @@ import {
   Hide,
   LinkSolid,
   Caps,
-  Small,
   Box,
-  Row,
   ButtonOutline,
   Flex,
   Input,
@@ -15,7 +13,7 @@ import {
 import { Microlink } from 'components/logos'
 import { Mail, Slack, Github, Twitter } from 'react-feather'
 import styled from 'styled-components'
-import { transition, colors, layout } from 'theme'
+import { transition, colors } from 'theme'
 
 const InputWrapper = styled(Flex)`
   border: 0;
@@ -40,9 +38,9 @@ const IconWrapper = styled(Box)`
 `
 
 export default props => (
-  <Container px={[2, 0]} maxWidth={layout}>
-    <Row
-      is='footer'
+  <Container px={[2, 0]}>
+    <Flex
+      as='footer'
       py={[4, 5]}
       mx='auto'
       bg='white'
@@ -75,6 +73,7 @@ export default props => (
                       <Mail color={colors.black50} size={16} />
                     </Box>
                     <Input
+                      type='email'
                       name='EMAIL'
                       placeholder='you@domain.com'
                       width='9rem'
@@ -91,7 +90,7 @@ export default props => (
             </Flex>
             <Text
               color='black50'
-              fontSize={0}
+              fontSize={1}
               children='Early access & updates on new releases.'
             />
           </Flex>
@@ -156,8 +155,8 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='https://gallery.microlink.io/'
-            children='Gallery'
+            href='https://debug.microlink.io/'
+            children='Debug'
           />
         </Flex>
       </Box>
@@ -166,9 +165,9 @@ export default props => (
           <Hide breakpoints={[0, 1]}>
             <Flex alignItems='center'>
               <Flex flexDirection='column'>
-                <Small color='black50' fontSize={1}>
+                <Text color='black50' fontSize={1}>
                   Questions?
-                </Small>
+                </Text>
                 <LinkSolid
                   mt={3}
                   px={0}
@@ -179,12 +178,13 @@ export default props => (
             </Flex>
           </Hide>
           <Flex py={[3, 4]} alignItems='center'>
-            <Small
+            <Text
               color='black80'
               mr={2}
               children='© Microlink'
               style={{ opacity: '.75' }}
               pb={'2px'}
+              fontSize={1}
             />
             <LinkSolid
               fontWeight='normal'
@@ -204,7 +204,7 @@ export default props => (
             <IconWrapper
               rel='noopener noreferrer'
               target='_blank'
-              is='a'
+              as='a'
               href='https://chat.microlink.io'
               mr={3}
             >
@@ -213,7 +213,7 @@ export default props => (
             <IconWrapper
               rel='noopener noreferrer'
               target='_blank'
-              is='a'
+              as='a'
               href='https://github.com/microlinkhq'
               mr={3}
             >
@@ -222,7 +222,7 @@ export default props => (
             <IconWrapper
               rel='noopener noreferrer'
               target='_blank'
-              is='a'
+              as='a'
               href='mailto:hello@microlink.io'
               mr={3}
             >
@@ -231,7 +231,7 @@ export default props => (
             <IconWrapper
               rel='noopener noreferrer'
               target='_blank'
-              is='a'
+              as='a'
               href='https://twitter.com/microlinkhq'
             >
               <Twitter color={colors.black80} size={20} />
@@ -239,6 +239,6 @@ export default props => (
           </Flex>
         </Flex>
       </Box>
-    </Row>
+    </Flex>
   </Container>
 )

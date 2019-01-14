@@ -1,10 +1,12 @@
-import Text from './Text'
-import system from 'system-components'
+import styled from 'styled-components'
 
-const Heading = system({ is: Text })
+import Text from './Text'
+
+const Heading = styled(Text)([])
 
 Heading.defaultProps = {
-  is: 'h2',
+  ...Text.defaultProps,
+  as: 'h2',
   lineHeight: 1,
   textAlign: 'center',
   fontWeight: 'regular',

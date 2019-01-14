@@ -2,7 +2,7 @@
   "name": "microlink-www",
   "description": "microlink website",
   "homepage": "https://github.com/microlink/microlink-www#readme",
-  "version": "2.1.0",
+  "version": "2.2.3",
   "author": {
     "email": "josefrancisco.verdu@gmail.com",
     "name": "Kiko Beats",
@@ -19,6 +19,8 @@
     "gatsby"
   ],
   "dependencies": {
+    "@microlink/react": "3",
+    "@rebass/components": "4.0.0-1",
     "autoprefixer": "9.4.0",
     "color": "3.0.0",
     "cssnano": "4.0.5",
@@ -44,6 +46,7 @@
     "gatsby-transformer-yaml": "1.5.18",
     "got": "9.2.0",
     "human-number": "~1.0.1",
+    "json-future": "~2.1.3",
     "keyv": "3.0.0",
     "keyv-file": "0.1.7",
     "lodash.chunk": "4.2.0",
@@ -52,36 +55,43 @@
     "p-all": "1.0.0",
     "palx": "1.0.3",
     "parse-domain": "2.1.7",
+    "polished": "~2.3.0",
     "postcss-focus": "3.0.0",
     "react": "16.4.2",
     "react-codecopy": "2.1.3",
     "react-dom": "16.4.2",
-    "react-extras": "0.7.1",
+    "react-extras": "0.8.0",
     "react-feather": "1.1.1",
     "react-helmet": "5.2.0",
     "react-iframe": "1.2.0",
     "react-json-view": "1.19.1",
     "react-live": "1.11.0",
-    "react-microlink": "2",
     "react-stripe-elements": "2.0.1",
     "react-syntax-highlighter": "10.1.0",
     "react-timeago": "4.1.9",
-    "rebass": "2.1.0",
+    "rebass": "3.0.0-10",
     "scroll-into-view-if-needed": "~2.2.20",
     "slugo": "0.2.1",
-    "styled-components": "3.4.2",
+    "styled-components": "4.1.1",
     "styled-is": "1.1.5",
-    "styled-system": "3.0.2",
+    "styled-system": "3.1.11",
     "unfetch": "3.1.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
     "babel-eslint": "latest",
+    "conventional-github-releaser": "latest",
+    "finepack": "latest",
+    "git-authors-cli": "latest",
     "husky": "latest",
     "imageoptim-cli": "latest",
     "lint-staged": "latest",
+    "npm-check-updates": "latest",
     "prettier-standard": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
+    "standard-version": "latest",
     "svgo": "latest"
   },
   "engines": {
@@ -102,34 +112,49 @@
     "dev": "gatsby develop --host localhost --port 8000",
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "lint": "standard-markdown README.md && standard src/*/**.js",
-    "prebuild": "npm run clean:urls && node scripts/fetch-urls",
-    "predev": "node scripts/fetch-urls",
-    "test": "exit 0"
+    "postrelease": "npm run release:tags && npm run release:github",
+    "prebuild": "npm run clean:urls && node scripts/fetch-demo-links",
+    "predev": "node scripts/fetch-demo-links",
+    "prerelease": "npm run update:check && git-authors-cli",
+    "release": "git add package.json && standard-version -a",
+    "release:github": "conventional-github-releaser -p angular",
+    "release:tags": "git push --follow-tags origin HEAD:master",
+    "test": "exit 0",
+    "update": "ncu -a",
+    "update:check": "ncu -- --error-level 2"
   },
   "private": true,
   "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "package.json": [
-      "finepack",
-      "git add"
-    ],
-    "*.{png,jpeg,jpg,gif}": [
-      "imageoptim --imagealpha",
-      "git add"
-    ],
-    "*.svg": [
-      "svgo --pretty",
-      "git-add"
-    ],
-    "*.js": [
-      "prettier-standard",
-      "git add"
-    ]
+    "linters": {
+      "package.json": [
+        "finepack",
+        "git add"
+      ],
+      "*.{png,jpeg,jpg,gif}": [
+        "imageoptim --imagealpha",
+        "git add"
+      ],
+      "*.svg": [
+        "svgo --pretty",
+        "git-add"
+      ],
+      "*.js": [
+        "prettier-standard",
+        "git add"
+      ]
+    }
   },
   "standard": {
     "globals": [
@@ -138,5 +163,10 @@
       "requestAnimationFrame"
     ],
     "parser": "babel-eslint"
+  },
+  "standard-version": {
+    "scripts": {
+      "prechangelog": "git-authors-cli"
+    }
   }
 }

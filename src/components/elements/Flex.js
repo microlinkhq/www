@@ -1,19 +1,33 @@
-import { Flex as FlexBase } from 'rebass'
-import system from 'system-components'
+import {
+  flexWrap,
+  flexDirection,
+  alignItems,
+  justifyContent,
+  alignContent
+} from 'styled-system'
 
-export const Flex = system(
-  { is: FlexBase },
-  'alignContent',
-  'justifyContent',
-  'flexDirection',
-  'alignItems',
-  'flexWrap',
-  'maxWidth',
-  'lineHeight',
-  'borderRadius',
-  'boxShadow'
+import styled from 'styled-components'
+
+import Box from './Box'
+
+const Flex = styled(Box)(
+  {
+    display: 'flex'
+  },
+  alignContent,
+  alignItems,
+  flexDirection,
+  flexWrap,
+  justifyContent
 )
 
-Flex.displayName = 'Flex'
+Flex.propTypes = {
+  ...Box.propTypes,
+  ...alignContent.propTypes,
+  ...alignItems.propTypes,
+  ...flexDirection.propTypes,
+  ...flexWrap.propTypes,
+  ...justifyContent.propTypes
+}
 
 export default Flex

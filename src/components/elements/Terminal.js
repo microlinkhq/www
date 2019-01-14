@@ -1,22 +1,16 @@
-import React, { Children } from 'react'
-import CodeCopy from 'react-codecopy'
-
 import styled, { keyframes } from 'styled-components'
+import React from 'react'
+import CodeCopy from 'react-codecopy'
 import { fonts } from 'theme'
+import { serializeComponent } from 'helpers'
 
-const serializeComponent = children =>
-  Children.map(
-    children,
-    child => (typeof child === 'string' ? child : child.props.children)
-  ).join('')
-
-const TerminalWindow = styled.div`
+const TerminalWindow = styled('div')`
   border-radius: 6px;
   margin: 50px 0;
   box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
 `
 
-const TerminalHeader = styled.div`
+const TerminalHeader = styled('div')`
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   display: flex;
@@ -26,7 +20,7 @@ const TerminalHeader = styled.div`
   padding: 1rem;
 `
 
-const TerminalButton = styled.div`
+const TerminalButton = styled('div')`
   border-radius: 50px;
   width: 12px;
   height: 12px;
@@ -34,7 +28,7 @@ const TerminalButton = styled.div`
   background ${({ color }) => color};
 `
 
-const TerminalTitle = styled.div`
+const TerminalTitle = styled('div')`
   display: flex;
   justify-content: center;
   flex: 1;
@@ -47,7 +41,7 @@ const blink = keyframes`
   from { opacity: 1.0; } to { opacity: 0.0; }
 `
 
-const TerminalText = styled.div`
+const TerminalText = styled('div')`
   padding: 30px;
   border-radius: 2px;
   overflow-x: auto;
@@ -64,7 +58,7 @@ const TerminalText = styled.div`
   align-items: center;
 `
 
-const TerminalTextWrapper = styled.div`
+const TerminalTextWrapper = styled('div')`
   word-break: break-all;
   &::before {
     content: '$ ';
@@ -88,7 +82,7 @@ const TerminalTextWrapper = styled.div`
   }
 `
 
-const Terminal = ({ title, children, dark }) => (
+const TerminalProvider = ({ title, children, dark }) => (
   <TerminalWindow dark={dark}>
     <TerminalHeader dark={dark}>
       <TerminalButton dark={dark} color='#FF5F56' />
@@ -104,7 +98,7 @@ const CustomCodeCopy = styled(CodeCopy)`
   top: -4px !important;
 `
 
-const _Terminal = ({ children, dark = false }) => {
+const Terminal = ({ children, dark = false }) => {
   const content = Array.isArray(children)
     ? children
     : children
@@ -112,7 +106,7 @@ const _Terminal = ({ children, dark = false }) => {
       .map((item, index) => <span key={index}>{item}</span>)
 
   return (
-    <Terminal dark={dark}>
+    <TerminalProvider dark={dark}>
       <div style={{ width: '100%' }}>
         <CustomCodeCopy
           theme={dark ? 'dark' : 'light'}
@@ -121,10 +115,11 @@ const _Terminal = ({ children, dark = false }) => {
           <TerminalTextWrapper dark={dark}>{content}</TerminalTextWrapper>
         </CustomCodeCopy>
       </div>
-    </Terminal>
+    </TerminalProvider>
   )
 }
 
-_Terminal.displayName = 'Terminal'
+// this is necessary for markdown
+Terminal.displayName = 'Terminal'
 
-export default _Terminal
+export default Terminal
