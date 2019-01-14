@@ -21,7 +21,7 @@
   "dependencies": {
     "@microlink/react": "3",
     "@rebass/components": "4.0.0-1",
-    "autoprefixer": "9.1.1",
+    "autoprefixer": "9.4.0",
     "color": "3.0.0",
     "cssnano": "4.0.5",
     "dlv": "1.1.2",
