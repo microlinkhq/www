@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.5"></a>
+## [2.2.5](https://github.com/microlink/microlink-www/compare/v2.2.4...v2.2.5) (2019-01-17)
+
+
+### Bug Fixes
+
+* **package:** update got to version 9.6.0 ([699e2a7](https://github.com/microlink/microlink-www/commit/699e2a7))
+* **package:** update react-stripe-elements to version 2.0.2 ([781b209](https://github.com/microlink/microlink-www/commit/781b209))
+
+
+
 <a name="2.2.4"></a>
 ## [2.2.4](https://github.com/microlink/microlink-www/compare/v2.2.3...v2.2.4) (2019-01-14)
 
