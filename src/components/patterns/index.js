@@ -7,6 +7,7 @@ import List from './List'
 import LiveDemo from './LiveDemo'
 import PricingTable from './PricingTable'
 import Toolbar from './Toolbar'
+import Layout from './Layout'
 
 export {
   CardLink,
@@ -17,5 +18,6 @@ export {
   List,
   LiveDemo,
   PricingTable,
-  Toolbar
+  Toolbar,
+  Layout
 }

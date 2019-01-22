@@ -3,9 +3,7 @@ import DesignProcess from './DesignProcess'
 import Frameworks from './Frameworks'
 import Working from './Working'
 
-export default {
-  BrowserStats,
-  DesignProcess,
-  Frameworks,
-  Working
-}
+export { BrowserStats }
+export { DesignProcess }
+export { Frameworks }
+export { Working }
