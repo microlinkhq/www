@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CodeCopy from 'react-codecopy'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import * as themes from 'react-syntax-highlighter/styles/hljs'
+import * as themes from 'react-syntax-highlighter/dist/styles/hljs'
 import { serializeComponent } from 'helpers'
 import styled from 'styled-components'
 import { fonts } from 'theme'
@@ -105,10 +105,7 @@ class CodeEditor extends Component {
     return (
       <Terminal dark>
         <div style={{ width: '100%' }}>
-          <CustomCodeCopy
-            theme={'dark'}
-            text={serializeComponent(this.props.children)}
-          >
+          <CustomCodeCopy theme={'dark'} text={serializeComponent(this.props.children)}>
             <TerminalTextWrapper dark>
               <CustomSyntaxHighlighter
                 lineNumberStyle={{ color: '#6272A4' }}
