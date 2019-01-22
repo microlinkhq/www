@@ -1,5 +1,3 @@
-'use strict'
-
 const { createApiUrl } = require('@microlink/react')
 
 module.exports = (url, { force = false } = {}) => {
