@@ -293,17 +293,10 @@ const query = graphql`
     }
     site {
       siteMetadata {
-        siteUrl
-        title
-        description
-        image
-        video
-        twitter
+        url
         paymentEndpoint
         paymentApiKey
         stripeKey
-        siteName
-        logo
       }
     }
   }

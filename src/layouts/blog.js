@@ -1,5 +1,7 @@
-import React, { Fragment } from 'react'
-import { Text, Flex, Container, Metadata } from 'components/elements'
+import React from 'react'
+import { Text, Flex, Container, Head } from 'components/elements'
+import { Layout } from 'components/patterns'
+
 import { H1, H2Link } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
@@ -58,25 +60,19 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
 
 export default ({ pathContext }) => {
   const { posts } = pathContext
-  console.log('posts.length', posts.length)
   return (
-    <Fragment>
-      <Metadata title='Blog' />
+    <Layout>
+      <Head title='Blog' />
       <Container as='article' maxWidth={'inherit'}>
         <Flex flexDirection='column' alignItems='center' pt={4}>
           <H1 mt={0} mb={4} mx={0}>
             Blog
           </H1>
-          {posts.map((post, index) => {
-            const isLasPost = index === posts.length - 1
-            return (
-              <Fragment>
-                <BlogPost key={post.title} {...post} isLastPost={isLasPost} />
-              </Fragment>
-            )
-          })}
+          {posts.map((post, index) => (
+            <BlogPost key={post.title} {...post} isLastPost={index === posts.length - 1} />
+          ))}
         </Flex>
       </Container>
-    </Fragment>
+    </Layout>
   )
 }
