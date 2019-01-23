@@ -17,7 +17,7 @@ import Image from './Image'
 import Input from './Input'
 import Label from './Label'
 import Lead from './Lead'
-import Metadata from './Metadata'
+import Head from './Head'
 import NavLink from './NavLink'
 import Notification from './Notification'
 import PricePicker from './PricePicker'
@@ -54,7 +54,7 @@ export {
   Lead,
   Link,
   LinkSolid,
-  Metadata,
+  Head,
   NavLink,
   Notification,
   PricePicker,
