@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { get, withSlug } from 'helpers'
 
@@ -14,6 +14,8 @@ const WIDTH = {
   normal: LAYOUT_WIDTH,
   large: LAYOUT_WIDTH * 1.2
 }
+
+export { Link }
 
 export const H1 = withSlug(styled(Heading)([]))
 
@@ -167,41 +169,42 @@ Li.defaultProps = {
   maxWidth: WIDTH.normal
 }
 
-export const CodeInline = styled(Text)(
-  [],
-  props =>
-    `
-color: ${colors.secondary};
-display: inline;
-border: 1px solid #dee2e6;
-font-size: 0.75rem;
-padding: 3px 10px;
-border-radius: 3px;
-white-space: nowrap;
-font-weight: ${fontWeights.regular};
-font-family: ${fonts.mono};
+const codeStyle = css`
+  color: ${colors.secondary};
+  font-family: ${fonts.mono};
+  font-weight: ${fontWeights.regular};
+  font-size: 90% !important;
 `
-)
+
+export const CodeInline = styled(Text)`
+  ${codeStyle};
+  display: inline;
+  padding: 0 4px;
+  white-space: nowrap;
+
+  &::before,
+  &::after {
+    content: '\`';
+  }
+`
+
+CodeInline.defaultProps = {
+  ...Text.defaultProps,
+  as: 'code'
+}
 
 const Pre = styled.pre`
+  ${codeStyle};
   padding: 30px;
   border-radius: 2px;
   overflow-x: auto;
-  font-family: ${fonts.mono};
-  font-size: 13px;
-  font-weight: ${fontWeights.regular};
   line-height: 20px;
   background: #fafbfc;
-  color: ${colors.secondary};
 `
-const Code = styled.code`
-  font-family: ${fonts.mono};
-`
-
 export const PreCode = props => (
   <CodeCopy text={props.children}>
     <Pre>
-      <Code {...props} />
+      <code {...props} />
     </Pre>
   </CodeCopy>
 )
