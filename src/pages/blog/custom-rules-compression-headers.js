@@ -19,13 +19,10 @@ export default postLayout(frontmatter)(
 [![](https://i.imgur.com/subDjQ1.png)](https://microlink.io/blog/custom-rules)
 
 ${(
-    <Figcaption>
-      {
-        'Custom Rules enables build custom API response based on your necessities'
-      }
-      .
-    </Figcaption>
-  )}
+  <Figcaption>
+    {'Custom Rules enables build custom API response based on your necessities'}.
+  </Figcaption>
+)}
 
 [microlink API](https://docs.microlink.io/api/#introduction) is so powerful for extracting data. We created links previews as one of the possible use cases (actually our [SDK](https://docs.microlink.io/sdk/)), but because the API response returns generic data, it's a bit difficult use microlink API for different problems scope.
 
@@ -42,11 +39,10 @@ We wrote a specific blog [post](https://microlink.io/blog/custom-rules) explaini
 [![](https://i.imgur.com/Jh7GHUP.png)](https://docs.microlink.io/api/#api-basics/compression)
 
 ${(
-    <Figcaption>
-      Ensure to use <Strong children='Accept-Encoding' /> for enabling
-      compression
-    </Figcaption>
-  )}
+  <Figcaption>
+    Ensure to use <Strong children='Accept-Encoding' /> for enabling compression
+  </Figcaption>
+)}
 
 Althought we support **brotli** and **gzip** from the beginning, we [added](https://docs.microlink.io/api/#api-basics/compression) a specific section into the documentation.
 
@@ -55,18 +51,17 @@ Using it, it will **save payload size up to 70%**, so ensure you are using it!
 ## Informational headers
 
 ${(
-    <CodeEditor language='bash'>{`$ curl -i -I -X GET https://api.microlink.io/\?url\=https%3A%2F%2Fwww.reddit.com
+  <CodeEditor language='bash'>{`$ curl -i -I -X GET https://api.microlink.io/\?url\=https%3A%2F%2Fwww.reddit.com
 x-response-time : 21.518ms
 x-fetch-mode    : fetch
 x-fetch-time    : 618.055ms`}</CodeEditor>
-  )}
+)}
 
 ${(
-    <Figcaption>
-      The mission of these headers helps you optimize the response time of the
-      API.
-    </Figcaption>
-  )}
+  <Figcaption>
+    The mission of these headers helps you optimize the response time of the API.
+  </Figcaption>
+)}
 
 As part of the response header, we added two new headers to help optimize your API calls:
 
@@ -89,16 +84,15 @@ It expresses the amount of time spend just in the \`x-fetch-mode\` step.
 We added \`size\` and \`duration\` every time that [microlink API](https://docs.microlink.io/api/#introduction) detects you are working with \`image\` or \`video\` 🎉.
 
 ${(
-    <Terminal>
-      curl
-      https://api.microlink.io/?url=https://vimeo.com/188175573?v=hwMkbaS_M_c&video&filter=video
-    </Terminal>
-  )}
+  <Terminal>
+    curl https://api.microlink.io/?url=https://vimeo.com/188175573?v=hwMkbaS_M_c&video&filter=video
+  </Terminal>
+)}
 
 The API response will look like:
 
 ${(
-    <CodeEditor language='json'>{`{
+  <CodeEditor language='json'>{`{
   "status": "success",
   "data": {
     "video": {
@@ -113,32 +107,7 @@ ${(
     }
   }
 }`}</CodeEditor>
-  )}
+)}
 
-Notes how we provided the field with **pretty** suffix as well. It's the same value but human readable 👌.
-
-# Come chat with us!
-
-![](https://i.imgur.com/wDY14fM.png)
-
-${(
-    <div
-      style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
-    >
-      <iframe
-        frameBorder='0'
-        target='_parent'
-        src='https://chat.microlink.io/iframe/dialog'
-        style={{
-          width: '250px',
-          height: '250px'
-        }}
-      />
-    </div>
-  )}
-
-All of these improvements or features are **community driven**: We listen to your feedback and act accordingly.
-
-Whether you are are building a product and you need fancy previews, you’re an indie hacker or simply you like frontend stuff, come [chat](https://chat.microlink.io/) with us 🙂.
-`
+Notes how we provided the field with **pretty** suffix as well. It's the same value but human readable 👌.`
 )

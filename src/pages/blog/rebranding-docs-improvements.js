@@ -1,7 +1,7 @@
 import React from 'react'
 import components, { Figcaption } from 'components/markdown'
-import Microlink from '@microlink/react'
-import { Flex, Link } from 'components/elements'
+import { Link } from 'components/elements'
+import { Microlink } from 'components/patterns'
 import md from 'markdown-in-js'
 
 import postLayout from 'layouts/post'
@@ -40,13 +40,13 @@ In addition, we took this opportunity to improve our payment process, you’ll n
 
 ## Unified Documentation
 
-![](https://cdn-images-1.medium.com/max/800/1*s5x2v8dBAD5TGJN4HXy6kw.jpeg)
+![](https://i.imgur.com/tJxodpG.jpg)
 
 ${(
-  <Figcaption
-    children='The only place for checking all the documentation is docs.microlink.io.
-    '
-  />
+  <Figcaption>
+    {'The only place for checking all the documentation is '}
+    <Link href='https://docs.microlink.io' children='docs.microlink.io' />.
+  </Figcaption>
 )}
 
   As we announced on [newsletter #1](https://medium.com/microlink/microlink-newsletter-1-13b8a055cd6c), we started shipping a set of front end libraries to make consuming the [microlink API](https://docs.microlink.io/api/#introduction) as easy as possible.
@@ -57,11 +57,7 @@ ${(
 
   After comparing multiple approaches on the matter and seeing how other companies take on the challenge, we decided on [ZEIT documentation](https://github.com/zeit/docs) portal.
 
-  ${(
-    <Flex justifyContent='center'>
-      <Microlink size='large' url={'https://twitter.com/Kikobeats/status/956221717319421952'} />
-    </Flex>
-  )}
+  ${<Microlink size='large' url={'https://twitter.com/Kikobeats/status/956221717319421952'} />}
 
   Although it required some laborious work, the final result is impressive. We are very grateful to [ZEIT](https://zeit.co/) for making it possible.
 

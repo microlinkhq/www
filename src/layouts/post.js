@@ -1,8 +1,8 @@
 import { Text, Box, Head } from 'components/elements'
-import { Layout } from 'components/patterns'
+import { H1, H2, Paraph, Strong, Link } from 'components/markdown'
+import { Chat, Layout } from 'components/patterns'
 import { StaticQuery, graphql } from 'gatsby'
 import React, { Component } from 'react'
-import { H1 } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 
@@ -54,6 +54,17 @@ export default function PostLayout (frontmatter) {
                       )}
                     </Text>
                     {content}
+                    <H2>Come chat with us</H2>
+                    <Chat />
+                    <Paraph>
+                      All of these improvements or features are <Strong>community driven</Strong>:
+                      We listen to your feedback and act accordingly.
+                    </Paraph>
+                    <Paraph>
+                      Whether you are are building a product and you need fancy previews, you’re an
+                      indie hacker or simply you like frontend stuff, come{' '}
+                      <Link href='https://chat.microlink.io/'>chat</Link> with us 🙂.
+                    </Paraph>
                   </Box>
                 </Layout>
               )

@@ -1,9 +1,9 @@
 import React from 'react'
-import components, { PreCode } from 'components/markdown'
+import components, { PreCode, Paraph, Strong } from 'components/markdown'
+import { Microlink } from 'components/patterns'
+import { Box } from 'components/elements'
 import md from 'markdown-in-js'
-
 import postLayout from 'layouts/post'
-import Microlink from '@microlink/react'
 
 export const frontmatter = {
   title: 'Product Brief #4: SDK 2.0 & more video providers',
@@ -29,27 +29,21 @@ But you can still extend the default style using CSS.
 
 For example, let's create a link preview for [browserless](https://browserless.js.org) project using custom \`border-radius\` style.
 
-${(
-    <Microlink
-      url='https://browserless.js.org'
-      style={{ borderRadius: '.42857em' }}
-      image='logo'
-    />
-  )}
+${<Microlink url='https://browserless.js.org' image='logo' />}
 
 **React**
 
 Using [@microlink/react](https://docs.microlink.io/sdk/getting-started/react/) just pass your custom CSS as \`style\` property:
 
 ${(
-    <PreCode>{`import Microlink from '@microlink/react'
+  <PreCode>{`import Microlink from '@microlink/react'
 
 <Microlink
   iamge='logo'
   url="https://browserless.js.org"
   style={{ borderRadius: '.42857em' }}
 />`}</PreCode>
-  )}
+)}
 
 Read more about [styling](https://docs.microlink.io/sdk/getting-started/react/#styling) in documentation.
 
@@ -58,7 +52,7 @@ Read more about [styling](https://docs.microlink.io/sdk/getting-started/react/#s
 The [vanilla](https://docs.microlink.io/sdk/getting-started/vanilla/) version can apply the custom style using the class names shipped with the component:
 
 ${(
-    <PreCode>{`<style>
+  <PreCode>{`<style>
 .microlink_card {
   border-radius: .42857em;
 }
@@ -71,7 +65,7 @@ ${(
     microlink('.card-preview')
   });
 </script>`}</PreCode>
-  )}
+)}
 
 Read more about [styling](https://docs.microlink.io/sdk/getting-started/vanilla/#styling) at documentation.
 
@@ -83,55 +77,60 @@ In this product sprint we focused on improving our \`video\` property added into
 
 We extended the original idea, adding support for detecting more video providers. The most popular internet sites are covered, such as
 
-**Amazon**
-
-${<Microlink url='https://www.amazon.com/dp/B06XCM9LJ4' />}
-
-**Facebook**
-
-${<Microlink url='https://www.facebook.com/afcajax/videos/1686831701364171' />}
-
-**Instagram**
-
-${<Microlink url='https://www.instagram.com/p/BXHj-DllyYU' />}
-
-**Twitter**
-
-${<Microlink url='https://twitter.com/verge/status/957383241714970624' />}
-
-**Vimeo**
-
-${<Microlink url='https://vimeo.com/188175573' />}
-
-**YouTube**
-
-${<Microlink url='https://www.youtube.com/watch?v=hwMkbaS_M_c' />}
-
-and [a lot, lot more](https://rg3.github.io/youtube-dl/supportedsites.html).
-
-# Come chat with us!
-
-![](https://i.imgur.com/wDY14fM.png)
-
 ${(
-    <div
-      style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
-    >
-      <iframe
-        frameBorder='0'
-        target='_parent'
-        src='https://chat.microlink.io/iframe/dialog'
-        style={{
-          width: '250px',
-          height: '250px'
-        }}
-      />
-    </div>
+  <Box mt={5} mb={5}>
+    <Paraph mb={3} style={{ textAlign: 'center' }}>
+      <Strong>Amazon</Strong>
+    </Paraph>
+    <Microlink url='https://www.amazon.com/dp/B06XCM9LJ4' />
+  </Box>
+)}
+
+  ${(
+    <Box mb={5}>
+      <Paraph mb={3} style={{ textAlign: 'center' }}>
+        <Strong>Facebook</Strong>
+      </Paraph>
+      <Microlink url='https://www.facebook.com/afcajax/videos/1686831701364171' />
+    </Box>
   )}
 
-All of these improvements or features are **community driven**: We listen to your feedback and act accordingly.
+  ${(
+    <Box mb={5}>
+      <Paraph mb={3} style={{ textAlign: 'center' }}>
+        <Strong>Instagram</Strong>
+      </Paraph>
+      <Microlink url='https://www.instagram.com/p/BXHj-DllyYU' />
+    </Box>
+  )}
 
-Whether you are are building a product and you need fancy previews, you’re an indie hacker or simply you like frontend stuff, come [chat](https://chat.microlink.io/) with us 🙂.
+  ${(
+    <Box mb={5}>
+      <Paraph mb={3} style={{ textAlign: 'center' }}>
+        <Strong>Twitter</Strong>
+      </Paraph>
+      <Microlink url='https://twitter.com/verge/status/957383241714970624' />
+    </Box>
+  )}
 
+  ${(
+    <Box mb={5}>
+      <Paraph mb={3} style={{ textAlign: 'center' }}>
+        <Strong>Vimeo</Strong>
+      </Paraph>
+      <Microlink url='https://vimeo.com/188175573' />
+    </Box>
+  )}
+
+  ${(
+    <Box mb={5}>
+      <Paraph mb={3} style={{ textAlign: 'center' }}>
+        <Strong>YouTube</Strong>
+      </Paraph>
+      <Microlink url='https://www.youtube.com/watch?v=hwMkbaS_M_c' />
+    </Box>
+  )}
+
+and [a lot, lot more](https://rg3.github.io/youtube-dl/supportedsites.html).
 `
 )

@@ -19,11 +19,11 @@ export default postLayout(frontmatter)(
 [![](https://i.imgur.com/2RNeKiR.png)](https://docs.microlink.io/api)
 
 ${(
-    <Figcaption>
-      <Link href='https://docs.microlink.io/api' children='Microlink API' />{' '}
-      examples was improved, highlighting the referenced term in each section.
-    </Figcaption>
-  )}
+  <Figcaption>
+    <Link href='https://docs.microlink.io/api' children='Microlink API' /> examples was improved,
+    highlighting the referenced term in each section.
+  </Figcaption>
+)}
 
 ### User Agent API Parameter
 
@@ -68,29 +68,5 @@ We are preparing a new post explaining how to do that, staty stunned 🤘.
 We started building a [gallery](https://gallery.microlink.io) of webs, apps or 🦄  who use microlink with some purpose.
 
 Please [contact with us](https://twitter.com/microlinkhq) for add your shiny project there ✨.
-
-# Come chat with us!
-
-![](https://i.imgur.com/wDY14fM.png)
-
-${(
-    <div
-      style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
-    >
-      <iframe
-        frameBorder='0'
-        target='_parent'
-        src='https://chat.microlink.io/iframe/dialog'
-        style={{
-          width: '250px',
-          height: '250px'
-        }}
-      />
-    </div>
-  )}
-
-All of these improvements or features are **community driven**: We listen to your feedback and act accordingly.
-
-Whether you are are building a product and you need fancy previews, you’re an indie hacker or simply you like frontend stuff, come [chat](https://chat.microlink.io/) with us 🙂.
 `
 )
