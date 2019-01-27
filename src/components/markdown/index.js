@@ -228,13 +228,17 @@ export const Figcaption = styled.figcaption`
   color: ${colors.gray};
   text-align: center;
   margin-bottom: 3rem;
+
+  > b {
+    font-size: ${fontSizes[0]}px;
+  }
 `
 
 export const Blockquote = styled.blockquote`
   margin: auto;
-  max-width: ${WIDTH.normal};
+  max-width: ${WIDTH.normal}px;
   border-left: 3px solid ${colors.black};
-  padding-left: ${space[2]}px;
+  padding-left: ${space[3]}px;
   font-style: italic;
   color: ${colors.gray8};
 `

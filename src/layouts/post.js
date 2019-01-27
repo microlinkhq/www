@@ -2,7 +2,7 @@ import { Text, Box, Head } from 'components/elements'
 import { H1, H2, Paraph, Strong, Link } from 'components/markdown'
 import { Chat, Layout } from 'components/patterns'
 import { StaticQuery, graphql } from 'gatsby'
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 
@@ -22,6 +22,22 @@ const query = graphql`
     }
   }
 `
+
+const PostFooter = () => (
+  <Fragment>
+    <H2>Come chat with us</H2>
+    <Chat />
+    <Paraph>
+      All of these improvements or features are <Strong>community driven</Strong>: We listen to your
+      feedback and act accordingly.
+    </Paraph>
+    <Paraph>
+      Whether you are are building a product and you need fancy previews, you’re an indie hacker or
+      simply you like frontend stuff, come <Link href='https://chat.microlink.io/'>chat</Link> with
+      us 🙂.
+    </Paraph>
+  </Fragment>
+)
 
 export default function PostLayout (frontmatter) {
   const timestamp = new Date(frontmatter.date)
@@ -54,17 +70,7 @@ export default function PostLayout (frontmatter) {
                       )}
                     </Text>
                     {content}
-                    <H2>Come chat with us</H2>
-                    <Chat />
-                    <Paraph>
-                      All of these improvements or features are <Strong>community driven</Strong>:
-                      We listen to your feedback and act accordingly.
-                    </Paraph>
-                    <Paraph>
-                      Whether you are are building a product and you need fancy previews, you’re an
-                      indie hacker or simply you like frontend stuff, come{' '}
-                      <Link href='https://chat.microlink.io/'>chat</Link> with us 🙂.
-                    </Paraph>
+                    {!frontmatter.static && <PostFooter />}
                   </Box>
                 </Layout>
               )
