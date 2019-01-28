@@ -169,7 +169,7 @@ export default class extends Component {
   }
 
   render () {
-    const { reqsPerDay, highlight, description, panelLabel, monthlyPrice, planId } = this.state
+    const { highlight, description, panelLabel, monthlyPrice, planId } = this.state
 
     const { apiEndpoint, apiKey, stripeKey } = this.props
     const humanMonthlyPrice = formatNumber(monthlyPrice)
