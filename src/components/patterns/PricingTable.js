@@ -49,7 +49,7 @@ const Price = styled(Lead)`
   }
   &::after {
     content: '/month';
-    font-weight: 100;
+    font-weight: ${fontWeights.light};
     font-size: 0.8em;
     position: relative;
     top: 0;
