@@ -6,14 +6,11 @@ const transform = style({
   cssProperty: 'transform'
 })
 
-const Svg = styled('svg')(
-  { as: 'svg', fill: 'currentColor' },
-  color,
-  space,
-  height,
-  width,
-  transform
-)
+const Svg = styled('svg')(color, space, height, width, transform)
+
+Svg.defaultProps = {
+  fill: 'currentColor'
+}
 
 Svg.propTypes = {
   ...space.propTypes,
