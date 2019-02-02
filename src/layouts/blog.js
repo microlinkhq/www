@@ -58,8 +58,8 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
   )
 }
 
-export default ({ pathContext }) => {
-  const { posts } = pathContext
+export default ({ pageContext }) => {
+  const { posts } = pageContext
   return (
     <Layout>
       <Head title='Blog' />
