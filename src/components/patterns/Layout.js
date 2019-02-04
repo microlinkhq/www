@@ -1,5 +1,3 @@
-/* global graphql */
-
 import React, { Fragment } from 'react'
 import { ThemeProvider } from 'styled-components'
 
