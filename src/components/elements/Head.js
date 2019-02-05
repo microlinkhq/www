@@ -90,6 +90,7 @@ function Head (props) {
               { property: 'og:type', content: 'website' },
               { property: 'og:updated_time', content: date }
             ]}
+            {...props}
           >
             <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
           </Helmet>
