@@ -4,7 +4,7 @@ import { StaticQuery, graphql } from 'gatsby'
 
 const getMeta = (props, data = {}) => {
   const { siteMetadata: metadata } = data.site
-  const { url, video, name, twitter, headline } = metadata
+  const { siteUrl: url, video, name, twitter, headline } = metadata
   const description = props.description || metadata.description
   const title = props.title
   const image = props.image || metadata.image
@@ -104,7 +104,7 @@ const query = graphql`
   query HeadQuery {
     site {
       siteMetadata {
-        url
+        siteUrl
         headline
         description
         image

@@ -15,7 +15,7 @@ module.exports = {
     // Basic
     name: 'Microlink',
     headline: 'Turns any website into data',
-    url: SITE_URL,
+    siteUrl: SITE_URL,
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',
     twitter: '@microlinkio',

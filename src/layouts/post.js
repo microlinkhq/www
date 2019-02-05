@@ -10,7 +10,7 @@ const query = graphql`
   query PostQuery {
     site {
       siteMetadata {
-        url
+        siteUrl
         headline
         description
         image
@@ -54,7 +54,7 @@ export default function PostLayout (frontmatter) {
               const meta = {
                 ...metadata,
                 ...frontmatter,
-                url: `${metadata.url}/blog/${frontmatter.slug}`
+                url: `${metadata.siteUrl}/blog/${frontmatter.slug}`
               }
 
               return (

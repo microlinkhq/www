@@ -293,7 +293,7 @@ const query = graphql`
     }
     site {
       siteMetadata {
-        url
+        siteUrl
         paymentEndpoint
         paymentApiKey
         stripeKey
