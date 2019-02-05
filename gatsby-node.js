@@ -1,6 +1,5 @@
 'use strict'
 
-const webpack = require('webpack')
 const path = require('path')
 
 exports.onCreateBabelConfig = ({ actions }) => {
@@ -9,16 +8,23 @@ exports.onCreateBabelConfig = ({ actions }) => {
   })
 }
 
-// TODO:
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  // See https://github.com/FormidableLabs/react-live/issues/5
-  // config.plugin('ignore', () => new webpack.IgnorePlugin(/^(xor|props)$/))
-  // if (stage === 'build-html') {
-  //   config.loader('null', {
-  //     test: /react-json-view/,
-  //     loader: 'null-loader'
-  //   })
-  // }
+exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
+  if (stage === 'build-html') {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /^(xor|props)$/,
+            use: loaders.null()
+          },
+          {
+            test: /react-json-view/,
+            use: loaders.null()
+          }
+        ]
+      }
+    })
+  }
 
   actions.setWebpackConfig({
     resolve: {
