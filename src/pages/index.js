@@ -1,6 +1,7 @@
 /* global fetch */
 
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
+import { StaticQuery, graphql } from 'gatsby'
 import { createApiUrl, marshall, unmarshall } from 'helpers'
 
 import {
@@ -16,22 +17,11 @@ import {
   SearchBox
 } from 'components/elements'
 
-import {
-  DemoLinks,
-  CardLink,
-  LiveDemo,
-  PricingTable,
-  Grid
-} from 'components/patterns'
+import { DemoLinks, CardLink, LiveDemo, PricingTable, Grid, Layout } from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List'
 
-import {
-  Working,
-  BrowserStats,
-  DesignProcess,
-  Frameworks
-} from 'components/icons'
+import { Working, BrowserStats, DesignProcess, Frameworks } from 'components/icons'
 
 const demoLinks = require('../../data/demo-links.json')
 
@@ -41,11 +31,10 @@ const defaultActiveLink = demoLinks.find(({ publisher = '' } = {}) =>
   REGEX_ACTIVE_LINK.test(publisher)
 )
 
-export default class extends Component {
+const Index = class extends Component {
   constructor (props) {
     super(props)
-    const { data } = this.props
-    const features = data.features.edges.map(item => item.node)
+    const features = this.props.features.edges.map(item => item.node)
 
     this.state = {
       features,
@@ -77,12 +66,12 @@ export default class extends Component {
       })
   }
   render () {
-    const { paymentEndpoint, paymentApiKey, stripeKey, metadata } = this.props
+    const { paymentEndpoint, paymentApiKey, stripeKey } = this.props
     const { features, demoLinks, activeLink } = this.state
-    const { siteUrl } = metadata
+    const { siteUrl } = this.props.site.siteMetadata
 
     return (
-      <Fragment>
+      <Layout>
         <Box as='article'>
           <Container as='section' pt={5} pb={5} px={0}>
             <Flex
@@ -92,10 +81,7 @@ export default class extends Component {
               alignItems='center'
               pb={[3, 4]}
             >
-              <Heading
-                children='Extract structured data from any website'
-                maxWidth='12em'
-              />
+              <Heading children='Extract structured data from any website' maxWidth='12em' />
               <SearchBox
                 width={[250, 400]}
                 bg='white'
@@ -105,11 +91,7 @@ export default class extends Component {
                 value={this.state.url}
                 onChange={url => {
                   this.setUrl(url)
-                  window.history.pushState(
-                    {},
-                    '',
-                    `${siteUrl}?${marshall({ url })}`
-                  )
+                  window.history.pushState({}, '', `${siteUrl}?${marshall({ url })}`)
                 }}
               />
               {this.state.hasError && (
@@ -123,33 +105,16 @@ export default class extends Component {
             <Box as='article'>
               <Container as='section' px={0}>
                 <Flex flexDirection='column'>
-                  <LiveDemo
-                    loading={this.state.loading}
-                    children={activeLink}
-                  />
-                  <Flex
-                    flexDirection='column'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Text
-                      fontSize={1}
-                      pt={4}
-                      pb={3}
-                      color='gray8'
-                      children='Try another link →'
-                    />
+                  <LiveDemo loading={this.state.loading} children={activeLink} />
+                  <Flex flexDirection='column' justifyContent='center' alignItems='center'>
+                    <Text fontSize={1} pt={4} pb={3} color='gray8' children='Try another link →' />
                     <DemoLinks
                       px={[4, 0]}
                       size={[32, 38]}
                       children={demoLinks}
                       onClick={activeLink => {
                         const { url } = activeLink
-                        window.history.pushState(
-                          {},
-                          '',
-                          `${siteUrl}?${marshall({ url })}`
-                        )
+                        window.history.pushState({}, '', `${siteUrl}?${marshall({ url })}`)
                         this.setState({
                           url,
                           activeLink,
@@ -165,10 +130,7 @@ export default class extends Component {
         </Box>
         <Box bg='#faf9fc' as='article'>
           <Container as='section' py={[4, 6]}>
-            <Flex
-              flexDirection={['column', 'row']}
-              justifyContent='space-between'
-            >
+            <Flex flexDirection={['column', 'row']} justifyContent='space-between'>
               <Flex
                 px={[4, 0]}
                 maxWidth={['100%', '23em']}
@@ -195,10 +157,7 @@ export default class extends Component {
                   <ListItem children='Headless browser service.' />
                   <ListItem>
                     {'Simple '}
-                    <Link
-                      href='https://docs.microlink.io/api/#introduction'
-                      children='API'
-                    />
+                    <Link href='https://docs.microlink.io/api/#introduction' children='API' />
                     {' integration.'}
                   </ListItem>
                   <ListItem children='Add it to your existing stack or cloud.' />
@@ -206,10 +165,7 @@ export default class extends Component {
               </Flex>
               <Hide breakpoints={[0, 1]}>
                 <Flex>
-                  <BrowserStats
-                    width={'24rem'}
-                    transform={'translateY(-28px)'}
-                  />
+                  <BrowserStats width={'24rem'} transform={'translateY(-28px)'} />
                 </Flex>
               </Hide>
             </Flex>
@@ -225,11 +181,7 @@ export default class extends Component {
               pb={[4, 5]}
             >
               <Heading children='Features' />
-              <Lead
-                mt={[2, 3]}
-                color='black50'
-                children='Our feature at a glance.'
-              />
+              <Lead mt={[2, 3]} color='black50' children='Our feature at a glance.' />
             </Flex>
             <Hide breakpoints={[0, 1]}>
               <Grid children={features} itemsPerRow={3} />
@@ -241,16 +193,10 @@ export default class extends Component {
         </Box>
         <Box bg='#faf9fc' as='article'>
           <Container as='section' py={[4, 6]}>
-            <Flex
-              flexDirection={['column', 'row']}
-              justifyContent='space-between'
-            >
+            <Flex flexDirection={['column', 'row']} justifyContent='space-between'>
               <Hide breakpoints={[0, 1]}>
                 <Flex>
-                  <DesignProcess
-                    width={'24rem'}
-                    transform={'translateY(4px)'}
-                  />
+                  <DesignProcess width={'24rem'} transform={'translateY(4px)'} />
                 </Flex>
               </Hide>
               <Flex
@@ -291,17 +237,8 @@ export default class extends Component {
         </Box>
         <Box variant='gradient' as='article'>
           <Container as='section' py={[4, 5]}>
-            <Flex
-              px={3}
-              flexDirection={['column', 'row']}
-              justifyContent='space-between'
-            >
-              <Flex
-                justifyContent='center'
-                flexDirection='column'
-                alignItems='center'
-                mb={[4, 0]}
-              >
+            <Flex px={3} flexDirection={['column', 'row']} justifyContent='space-between'>
+              <Flex justifyContent='center' flexDirection='column' alignItems='center' mb={[4, 0]}>
                 <CardLink
                   href='https://docs.microlink.io/sdk'
                   title='Explore the SDK'
@@ -309,11 +246,7 @@ export default class extends Component {
                   iconComponent={Frameworks}
                 />
               </Flex>
-              <Flex
-                justifyContent='center'
-                flexDirection='column'
-                alignItems='center'
-              >
+              <Flex justifyContent='center' flexDirection='column' alignItems='center'>
                 <CardLink
                   href='https://docs.microlink.io'
                   title='Explore the Docs'
@@ -343,13 +276,13 @@ export default class extends Component {
             />
           </Container>
         </Box>
-      </Fragment>
+      </Layout>
     )
   }
 }
 
-export const query = graphql`
-  query LandingPage {
+const query = graphql`
+  query IndexQuery {
     features: allFeaturesYaml {
       edges {
         node {
@@ -358,5 +291,15 @@ export const query = graphql`
         }
       }
     }
+    site {
+      siteMetadata {
+        siteUrl
+        paymentEndpoint
+        paymentApiKey
+        stripeKey
+      }
+    }
   }
 `
+
+export default () => <StaticQuery query={query} render={data => <Index {...data} />} />

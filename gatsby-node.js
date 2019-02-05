@@ -1,35 +1,40 @@
 'use strict'
 
-const webpack = require('webpack')
 const path = require('path')
 
-exports.modifyBabelrc = ({ babelrc }) => {
-  return {
-    ...babelrc,
-    plugins: babelrc.plugins.concat([`markdown-in-js/babel`])
-  }
+exports.onCreateBabelConfig = ({ actions }) => {
+  actions.setBabelPlugin({
+    name: `markdown-in-js/babel`
+  })
 }
 
-exports.modifyWebpackConfig = ({ config, stage }) => {
-  // See https://github.com/FormidableLabs/react-live/issues/5
-  config.plugin('ignore', () => new webpack.IgnorePlugin(/^(xor|props)$/))
-
+exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
   if (stage === 'build-html') {
-    config.loader('null', {
-      test: /react-json-view/,
-      loader: 'null-loader'
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /^(xor|props)$/,
+            use: loaders.null()
+          },
+          {
+            test: /react-json-view/,
+            use: loaders.null()
+          }
+        ]
+      }
     })
   }
 
-  return config.merge({
+  actions.setWebpackConfig({
     resolve: {
-      root: path.resolve(__dirname, './src')
+      modules: [path.resolve(__dirname, 'src'), 'node_modules']
     }
   })
 }
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions
   return new Promise((resolve, reject) => {
     const blogIndexTemplate = path.resolve(`src/layouts/blog.js`)
     // Query for markdown nodes to use in creating pages.
@@ -52,9 +57,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           }
         `
       ).then(result => {
-        if (result.errors) {
-          reject(result.errors)
-        }
+        if (result.errors) return reject(result.errors)
 
         const posts = result.data.allJavascriptFrontmatter.edges
           .map((data, index) => ({ ...data.node.frontmatter }))

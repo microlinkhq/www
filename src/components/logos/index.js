@@ -1,5 +1,3 @@
 import Microlink from './Microlink'
 
-export default {
-  Microlink
-}
+export { Microlink }

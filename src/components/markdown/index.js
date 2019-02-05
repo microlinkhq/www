@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { get, withSlug } from 'helpers'
 
@@ -14,6 +14,8 @@ const WIDTH = {
   normal: LAYOUT_WIDTH,
   large: LAYOUT_WIDTH * 1.2
 }
+
+export { Link }
 
 export const H1 = withSlug(styled(Heading)([]))
 
@@ -167,41 +169,42 @@ Li.defaultProps = {
   maxWidth: WIDTH.normal
 }
 
-export const CodeInline = styled(Text)(
-  [],
-  props =>
-    `
-color: ${colors.secondary};
-display: inline;
-border: 1px solid #dee2e6;
-font-size: 0.75rem;
-padding: 3px 10px;
-border-radius: 3px;
-white-space: nowrap;
-font-weight: ${fontWeights.regular};
-font-family: ${fonts.mono};
+const codeStyle = css`
+  color: ${colors.secondary};
+  font-family: ${fonts.mono};
+  font-weight: ${fontWeights.regular};
+  font-size: 90% !important;
 `
-)
+
+export const CodeInline = styled(Text)`
+  ${codeStyle};
+  display: inline;
+  padding: 0 4px;
+  white-space: nowrap;
+
+  &::before,
+  &::after {
+    content: '\`';
+  }
+`
+
+CodeInline.defaultProps = {
+  ...Text.defaultProps,
+  as: 'code'
+}
 
 const Pre = styled.pre`
+  ${codeStyle};
   padding: 30px;
   border-radius: 2px;
   overflow-x: auto;
-  font-family: ${fonts.mono};
-  font-size: 13px;
-  font-weight: ${fontWeights.regular};
   line-height: 20px;
   background: #fafbfc;
-  color: ${colors.secondary};
 `
-const Code = styled.code`
-  font-family: ${fonts.mono};
-`
-
 export const PreCode = props => (
   <CodeCopy text={props.children}>
     <Pre>
-      <Code {...props} />
+      <code {...props} />
     </Pre>
   </CodeCopy>
 )
@@ -225,13 +228,17 @@ export const Figcaption = styled.figcaption`
   color: ${colors.gray};
   text-align: center;
   margin-bottom: 3rem;
+
+  > b {
+    font-size: ${fontSizes[0]}px;
+  }
 `
 
 export const Blockquote = styled.blockquote`
   margin: auto;
-  max-width: ${WIDTH.normal};
+  max-width: ${WIDTH.normal}px;
   border-left: 3px solid ${colors.black};
-  padding-left: ${space[2]}px;
+  padding-left: ${space[3]}px;
   font-style: italic;
   color: ${colors.gray8};
 `

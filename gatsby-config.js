@@ -11,44 +11,47 @@ const {
 } = require('./env')
 
 module.exports = {
-  polyfill: false,
   siteMetadata: {
-    siteName: 'Microlink',
+    // Basic
+    name: 'Microlink',
+    headline: 'Turns any website into data',
     siteUrl: SITE_URL,
-    title: 'Turns any website into data',
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',
+    twitter: '@microlinkio',
     image: url.resolve(SITE_URL, '/preview.jpg'),
+    logo: url.resolve(SITE_URL, '/logo-trim.png'),
     video: url.resolve(SITE_URL, '/preview.mp4'),
     gif: url.resolve(SITE_URL, '/preview.gif'),
-    logo: url.resolve(SITE_URL, '/logo-trim.png'),
-    twitter: '@microlinkio',
-    paymentEndpoint: PAYMENT_ENDPOINT,
+
+    // Slack previsualization
+    dataLabel1: 'API',
+    dataLabel2: 'Documentation',
+    dataValue1: 'api.microlink.io',
+    dataValue2: 'docs.microlink.io',
+
+    // additional
     paymentApiKey: PAYMENT_API_KEY,
+    paymentEndpoint: PAYMENT_ENDPOINT,
     stripeKey: STRIPE_KEY
   },
   plugins: [
-    `gatsby-plugin-react-next`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-catch-links`,
     `gatsby-transformer-javascript-frontmatter`,
     {
-      resolve: `gatsby-plugin-postcss-sass`,
+      resolve: `gatsby-plugin-sass`,
       options: {
         postCssPlugins: [
           require('postcss-focus'),
           require('cssnano')({
-            autoprefixer: true,
-            mergeIdents: true,
-            zindex: true,
-            discardUnused: true
+            preset: require('cssnano-preset-advanced')
           })
         ],
         precision: 8
       }
     },
-    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {

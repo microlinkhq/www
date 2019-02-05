@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { External as ExternalIcon } from 'components/icons'
 
 import PrefetchLinkBase from 'gatsby-link'
 
@@ -15,6 +16,7 @@ const ExternalLink = styled('a')(linkStyle)
 const PrefetchLink = styled(PrefetchLinkBase)(linkStyle)
 
 export default ChildComponent => ({
+  icon = false,
   prefetch = true,
   onClick,
   actively,
@@ -29,23 +31,18 @@ export default ChildComponent => ({
   if (prefetch && isInternal) {
     return (
       <ChildComponent {...props}>
-        <PrefetchLink
-          to={href}
-          children={children}
-          activeClassName={actively && 'active'}
-        />
+        <PrefetchLink to={href} children={children} activeClassName={actively && 'active'} />
       </ChildComponent>
     )
   } else {
     return (
       <ChildComponent {...props}>
-        <ExternalLink
-          href={href}
-          children={children}
-          target={target}
-          rel={rel}
-          onClick={onClick}
-        />
+        <ExternalLink href={href} target={target} rel={rel} onClick={onClick}>
+          {children}
+          {!isInternal && icon && (
+            <ExternalIcon width='14px' style={{ position: 'relative', top: '2px' }} ml={1} />
+          )}
+        </ExternalLink>
       </ChildComponent>
     )
   }

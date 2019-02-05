@@ -7,15 +7,21 @@ import List from './List'
 import LiveDemo from './LiveDemo'
 import PricingTable from './PricingTable'
 import Toolbar from './Toolbar'
+import Layout from './Layout'
+import Chat from './Chat'
+import Microlink from './Microlink'
 
 export {
   CardLink,
+  Chat,
   CookiesPolicy,
   DemoLinks,
   Footer,
   Grid,
+  Layout,
   List,
   LiveDemo,
+  Microlink,
   PricingTable,
   Toolbar
 }

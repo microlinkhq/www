@@ -16,7 +16,7 @@ import {
 
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 
-import { colors } from 'theme'
+import { colors, fontWeights } from 'theme'
 
 const FREE_PLAN_RATE_LIMIT = 250
 
@@ -27,34 +27,29 @@ const getMonthlyPrice = price => `€${price}/month`
 const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
 
 const TOOLTIPS = {
-  'Rate Limit':
-    'Maximum number of requests you can consume until reach the quota.',
+  'Rate Limit': 'Maximum number of requests you can consume until reach the quota.',
   'Request Concurrency': 'Maximum simultaneous requests you can make.',
-  'Request Caching':
-    'Speed up response timing caching payload for same API calls.',
+  'Request Caching': 'Speed up response timing caching payload for same API calls.',
   'Screenshot support': 'Take partial or full screenshot for any website.',
-  'Video detection':
-    'It extracts the original video source from any link provided',
-  'Color Detection':
-    'It extracts palette & predominant colors for any image detected',
-  'Live Support':
-    'We provide chat support to help you integrate with your services.'
+  'Video detection': 'It extracts the original video source from any link provided',
+  'Color Detection': 'It extracts palette & predominant colors for any image detected',
+  'Live Support': 'We provide chat support to help you integrate with your services.'
 }
 
 const Price = styled(Lead)`
   font-weight: bold;
   &::before {
     content: '€';
-    font-weight: 100;
+    font-weight: ${fontWeights.light};
     font-size: 0.8em;
     position: relative;
     top: -5px;
     left: 0;
-    color: ${colors.black50};
+    color: ${colors.black80};
   }
   &::after {
     content: '/month';
-    font-weight: 100;
+    font-weight: ${fontWeights.light};
     font-size: 0.8em;
     position: relative;
     top: 0;
@@ -86,13 +81,7 @@ const PricingHeader = ({ children }) => {
   const [featureHeader, ...pricingPlans] = children
   return (
     <Text as='tr'>
-      <Text
-        as='th'
-        fontWeight='bold'
-        color='darkBlue700'
-        textAlign='right'
-        fontSize={2}
-      >
+      <Text as='th' fontWeight='bold' color='darkBlue700' textAlign='right' fontSize={2}>
         {featureHeader}
       </Text>
       {pricingPlans.map((children, index) => (
@@ -118,12 +107,7 @@ const PricingRow = ({ children, ...props }) => {
     <Text as='tr'>
       <Text as='th' {...props}>
         <Hide breakpoints={[2, 3]}>
-          <Text
-            fontSize={0}
-            color='darkBlue400'
-            fontWeight='bold'
-            children={name}
-          />
+          <Text fontSize={0} color='darkBlue400' fontWeight='bold' children={name} />
         </Hide>
         <Hide breakpoints={[0, 1]}>
           <Tooltip text={TOOLTIPS[name]}>
@@ -185,14 +169,7 @@ export default class extends Component {
   }
 
   render () {
-    const {
-      reqsPerDay,
-      highlight,
-      description,
-      panelLabel,
-      monthlyPrice,
-      planId
-    } = this.state
+    const { highlight, description, panelLabel, monthlyPrice, planId } = this.state
 
     const { apiEndpoint, apiKey, stripeKey } = this.props
     const humanMonthlyPrice = formatNumber(monthlyPrice)
@@ -213,8 +190,7 @@ export default class extends Component {
               children={[
                 'Rate Limit',
                 <Fragment>
-                  {FREE_PLAN_RATE_LIMIT}{' '}
-                  <Label display='inline' children='reqs' suffix='/day' />
+                  {FREE_PLAN_RATE_LIMIT} <Label display='inline' children='reqs' suffix='/day' />
                 </Fragment>,
                 <PricePicker onChange={this.priceSelected} />
               ]}
@@ -294,12 +270,7 @@ export default class extends Component {
           </tbody>
         </Box>
 
-        <Flex
-          justifyContent='center'
-          flexDirection='column'
-          alignItems='center'
-          pt={[4, 5]}
-        >
+        <Flex justifyContent='center' flexDirection='column' alignItems='center' pt={[4, 5]}>
           <Lead color='gray8' fontSize={2} children='Do you need more?' />
           <Text as='div' mt={1} fontSize={1} color='gray8'>
             <LinkSolid

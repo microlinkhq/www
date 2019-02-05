@@ -11,7 +11,7 @@ import {
   Text
 } from 'components/elements'
 import { Microlink } from 'components/logos'
-import { Mail, Slack, Github, Twitter } from 'react-feather'
+import { Mail, Slack, GitHub, Twitter } from 'react-feather'
 import styled from 'styled-components'
 import { transition, colors } from 'theme'
 
@@ -88,11 +88,7 @@ export default props => (
                 </Flex>
               </form>
             </Flex>
-            <Text
-              color='black50'
-              fontSize={1}
-              children='Early access & updates on new releases.'
-            />
+            <Text color='black50' fontSize={1} children='Early access & updates on new releases.' />
           </Flex>
         </Flex>
       </Box>
@@ -137,13 +133,7 @@ export default props => (
             href='https://docs.microlink.io/sdk/'
             children='SDK'
           />
-          <LinkSolid
-            fontSize={[0, 1]}
-            mr={2}
-            mb={[0, 3]}
-            href='/#pricing'
-            children='Pricing'
-          />
+          <LinkSolid fontSize={[0, 1]} mr={2} mb={[0, 3]} href='/#pricing' children='Pricing' />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
@@ -186,19 +176,8 @@ export default props => (
               pb={'2px'}
               fontSize={1}
             />
-            <LinkSolid
-              fontWeight='normal'
-              mr={2}
-              fontSize={0}
-              href='/tos'
-              children='Terms'
-            />
-            <LinkSolid
-              fontWeight='normal'
-              fontSize={0}
-              href='/privacy'
-              children='Privacy'
-            />
+            <LinkSolid fontWeight='normal' mr={2} fontSize={0} href='/tos' children='Terms' />
+            <LinkSolid fontWeight='normal' fontSize={0} href='/privacy' children='Privacy' />
           </Flex>
           <Flex alignItems='center' justifyContent={['center', 'inherit']}>
             <IconWrapper
@@ -217,7 +196,7 @@ export default props => (
               href='https://github.com/microlinkhq'
               mr={3}
             >
-              <Github color={colors.black80} size={20} />
+              <GitHub color={colors.black80} size={20} />
             </IconWrapper>
             <IconWrapper
               rel='noopener noreferrer'
