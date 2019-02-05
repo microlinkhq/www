@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.7"></a>
+## [2.2.7](https://github.com/microlink/microlink-www/compare/v2.2.6...v2.2.7) (2019-02-05)
+
+
+### Bug Fixes
+
+* add build-html stage ([b482719](https://github.com/microlink/microlink-www/commit/b482719))
+* add external icon for links ([279c801](https://github.com/microlink/microlink-www/commit/279c801))
+* add layout ([de1afa2](https://github.com/microlink/microlink-www/commit/de1afa2))
+* export properly ([71c3d85](https://github.com/microlink/microlink-www/commit/71c3d85))
+* extract common components ([bdfe07b](https://github.com/microlink/microlink-www/commit/bdfe07b))
+* font weight ([b398925](https://github.com/microlink/microlink-www/commit/b398925))
+* migrate import ([d08c4fd](https://github.com/microlink/microlink-www/commit/d08c4fd))
+* migrate index ([1ba5fda](https://github.com/microlink/microlink-www/commit/1ba5fda))
+* migrate layouy component ([25aa296](https://github.com/microlink/microlink-www/commit/25aa296))
+* migrate path context into page context ([b276920](https://github.com/microlink/microlink-www/commit/b276920))
+* pass rest of props ([6116013](https://github.com/microlink/microlink-www/commit/6116013))
+* remove custom html ([b18b7cf](https://github.com/microlink/microlink-www/commit/b18b7cf))
+* remove unnecessary polyfill ([3863548](https://github.com/microlink/microlink-www/commit/3863548))
+* remove unnecessary strict ([a269146](https://github.com/microlink/microlink-www/commit/a269146))
+* rename metadata into head ([bee8176](https://github.com/microlink/microlink-www/commit/bee8176))
+* rename url into siteUrl ([50a218d](https://github.com/microlink/microlink-www/commit/50a218d))
+* setup copy properly ([0337514](https://github.com/microlink/microlink-www/commit/0337514))
+* setup label font weight ([085da3b](https://github.com/microlink/microlink-www/commit/085da3b))
+* setup metadata properly ([f63afbf](https://github.com/microlink/microlink-www/commit/f63afbf))
+* simplify graphql queries ([011889c](https://github.com/microlink/microlink-www/commit/011889c))
+* typo with github name ([600536a](https://github.com/microlink/microlink-www/commit/600536a))
+* warnings ([835e562](https://github.com/microlink/microlink-www/commit/835e562))
+
+
+
 <a name="2.2.6"></a>
 ## [2.2.6](https://github.com/microlink/microlink-www/compare/v2.2.5...v2.2.6) (2019-02-03)
 
