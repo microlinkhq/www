@@ -1,6 +1,5 @@
-/* global fetch */
-
 import React, { Fragment, Component } from 'react'
+import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
 import {
@@ -160,11 +159,11 @@ class _CardForm extends Component {
 
 const CardForm = injectStripe(_CardForm)
 
-export default class extends Component {
+const Payment = class extends Component {
   state = { mountOnLoad: false, stripe: null }
 
   loadStripe = () => {
-    const { stripeKey } = this.props
+    const { stripeKey } = this.props.site.siteMetadata
 
     if (window.Stripe) {
       this.setState({ stripe: window.Stripe(stripeKey) })
@@ -178,7 +177,7 @@ export default class extends Component {
   }
 
   render () {
-    const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } = this.props
+    const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } = this.props.site.siteMetadata
 
     return (
       <Layout>
@@ -207,3 +206,17 @@ export default class extends Component {
     )
   }
 }
+
+const query = graphql`
+  query PaymentQuery {
+    site {
+      siteMetadata {
+        paymentEndpoint
+        paymentApiKey
+        stripeKey
+      }
+    }
+  }
+`
+
+export default () => <StaticQuery query={query} render={data => <Payment {...data} />} />
