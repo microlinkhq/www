@@ -13,6 +13,7 @@ import {
   Heading,
   Head
 } from 'components/elements'
+import { Layout } from 'components/patterns'
 
 import { marshall, unmarshall } from 'helpers'
 
@@ -180,27 +181,29 @@ export default class extends Component {
     const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } = this.props
 
     return (
-      <Container as='section' maxWidth='350px' pt={4} pb={3}>
-        <Head
-          title='Update Payment'
-          script={[{ id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }]}
-          onChangeClientState={(newState, addedTags, removedTags) => {
-            const el = addedTags.scriptTags && addedTags.scriptTags[0]
-            if (el && !this.state.mountOnLoad) {
-              el.onload = this.loadStripe
-              this.setState({ mountOnLoad: true })
-            }
-          }}
-        />
-        <StripeProvider stripe={this.state.stripe}>
-          <Flex flexDirection='column'>
-            <Heading children='Update Payment' fontSize={[4, 5]} pb={4} />
-            <Elements>
-              <CardForm apiEndpoint={apiEndpoint} apiKey={apiKey} fontSize={'18px'} />
-            </Elements>
-          </Flex>
-        </StripeProvider>
-      </Container>
+      <Layout>
+        <Container as='section' maxWidth='350px' pt={4} pb={3}>
+          <Head
+            title='Update Payment'
+            script={[{ id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }]}
+            onChangeClientState={(newState, addedTags, removedTags) => {
+              const el = addedTags.scriptTags && addedTags.scriptTags[0]
+              if (el && !this.state.mountOnLoad) {
+                el.onload = this.loadStripe
+                this.setState({ mountOnLoad: true })
+              }
+            }}
+          />
+          <StripeProvider stripe={this.state.stripe}>
+            <Flex flexDirection='column'>
+              <Heading children='Update Payment' fontSize={[4, 5]} pb={4} />
+              <Elements>
+                <CardForm apiEndpoint={apiEndpoint} apiKey={apiKey} fontSize={'18px'} />
+              </Elements>
+            </Flex>
+          </StripeProvider>
+        </Container>
+      </Layout>
     )
   }
 }
