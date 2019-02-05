@@ -66,9 +66,8 @@ const Index = class extends Component {
       })
   }
   render () {
-    const { paymentEndpoint, paymentApiKey, stripeKey } = this.props
     const { features, demoLinks, activeLink } = this.state
-    const { siteUrl } = this.props.site.siteMetadata
+    const { siteUrl, paymentEndpoint, paymentApiKey, stripeKey } = this.props.site.siteMetadata
 
     return (
       <Layout>
