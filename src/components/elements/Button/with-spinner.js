@@ -36,7 +36,7 @@ export default ChildComponent => {
         const width = this.state && this.state.width
         return createElement(SpinnerButton, {
           ...props,
-          style: { width },
+          style: { width, cursor: 'wait' },
           children
         })
       }

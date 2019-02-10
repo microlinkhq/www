@@ -8,9 +8,11 @@ import smoothScroll from './smooth-scroll'
 import serializeComponent from './serialize-component'
 import withSlug from './with-slug'
 import withLink from './with-link'
+import createCssState from './create-css-state'
 
 export {
   serializeComponent,
+  createCssState,
   withSlug,
   smoothScroll,
   marshall,

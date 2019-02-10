@@ -1,4 +1,4 @@
-import { Button, ButtonOutline } from './Button'
+import { ButtonPrimary, ButtonSecondary, ButtonOutline } from './Button'
 import { Link, LinkSolid } from './Link'
 
 import Avatar from './Avatar'
@@ -36,7 +36,8 @@ export {
   Avatar,
   BlockLink,
   Box,
-  Button,
+  ButtonPrimary,
+  ButtonSecondary,
   ButtonOutline,
   Caps,
   Card,

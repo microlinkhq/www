@@ -77,9 +77,16 @@
     "styled-system": "~3.2.1"
   },
   "devDependencies": {
+    "@babel/core": "latest",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
+    "@storybook/addon-a11y": "latest",
+    "@storybook/addon-options": "latest",
+    "@storybook/addon-viewport": "latest",
+    "@storybook/addons": "latest",
+    "@storybook/react": "latest",
     "babel-eslint": "latest",
+    "babel-loader": "latest",
     "conventional-github-releaser": "latest",
     "finepack": "latest",
     "git-authors-cli": "latest",
@@ -106,6 +113,7 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
+    "build-storybook": "build-storybook",
     "clean": "rm -rf node_modules && npm run clean:urls",
     "clean:urls": "rm -rf node_modules/.cache/microlink.msgpack",
     "dev": "gatsby develop --host localhost --port 8000",
@@ -118,6 +126,7 @@
     "release": "git add package.json && standard-version -a",
     "release:github": "conventional-github-releaser -p angular",
     "release:tags": "git push --follow-tags origin HEAD:master",
+    "storybook": "start-storybook -p 6006",
     "test": "exit 0",
     "update": "ncu -a",
     "update:check": "ncu -- --error-level 2"

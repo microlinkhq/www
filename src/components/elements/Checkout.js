@@ -1,7 +1,7 @@
 /* global fetch, StripeCheckout */
 
 import React, { Component, Fragment } from 'react'
-import { LinkSolid, Notification, Button } from 'components/elements'
+import { LinkSolid, Notification, ButtonSecondary } from 'components/elements'
 import { marshall } from 'helpers'
 import { Choose } from 'react-extras'
 
@@ -13,22 +13,14 @@ const PAYMENT_STATE = {
 
 const ERROR_MAIL_OPTS = {
   subject: 'Payment process error',
-  body:
-    'Hello,\n\nSomething bad happens trying to pay you at microlink.io.\n\nCan you help me?'
+  body: 'Hello,\n\nSomething bad happens trying to pay you at microlink.io.\n\nCan you help me?'
 }
 
 export default class extends Component {
   state = { paymentState: null }
 
   configure () {
-    const {
-      planId,
-      description,
-      panelLabel,
-      apiEndpoint,
-      apiKey,
-      stripeKey
-    } = this.props
+    const { planId, description, panelLabel, apiEndpoint, apiKey, stripeKey } = this.props
 
     this.handler = StripeCheckout.configure({
       key: stripeKey,
@@ -50,9 +42,7 @@ export default class extends Component {
           ])
         })
           .then(res => res.json())
-          .then(({ status }) =>
-            this.setState({ paymentState: PAYMENT_STATE.SUCCESS })
-          )
+          .then(({ status }) => this.setState({ paymentState: PAYMENT_STATE.SUCCESS }))
           .catch(err => {
             console.error(err)
             this.setState({ paymentState: PAYMENT_STATE.FAILED })
@@ -100,9 +90,7 @@ export default class extends Component {
                   display='inline'
                   color='red8'
                   children='Contact us'
-                  href={`mailto:hello@microlink.io?${marshall(
-                    ERROR_MAIL_OPTS
-                  )}`}
+                  href={`mailto:hello@microlink.io?${marshall(ERROR_MAIL_OPTS)}`}
                 />
                 {'.'}
               </Notification.Danger>
@@ -110,7 +98,7 @@ export default class extends Component {
           </Choose>
         )}
 
-        <Button
+        <ButtonSecondary
           onClick={this.openStripe}
           onTouchStart={this.openStripe}
           children='Buy'
