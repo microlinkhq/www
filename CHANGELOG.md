@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.13"></a>
+## [2.2.13](https://github.com/microlink/microlink-www/compare/v2.2.12...v2.2.13) (2019-02-10)
+
+
+### Bug Fixes
+
+* **package:** update react-iframe to version 1.4.0 ([175f4ef](https://github.com/microlink/microlink-www/commit/175f4ef))
+
+
+
 <a name="2.2.12"></a>
 ## [2.2.12](https://github.com/microlink/microlink-www/compare/v2.2.11...v2.2.12) (2019-02-07)
 
