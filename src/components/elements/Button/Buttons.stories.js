@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { ButtonPrimary, ButtonSecondary, ButtonOutline } from '.'
 import Box from '../Box'
 import Subhead from '../Subhead'
+import CodeEditor from '../CodeEditor'
 
 const buttons = [
   { name: 'Primary', Component: ButtonPrimary },
@@ -16,7 +17,7 @@ storiesOf('Components', module).add('Buttons', () => (
     {buttons.map(({ name, Component }) => (
       <Box mb={5}>
         <Subhead textAlign='left' mb={3}>
-          {name}
+          {`<Button${name} />`}
         </Subhead>
         {states.map(state => (
           <Box display={['block', 'inline']} pr={3} pb={3}>
@@ -30,6 +31,13 @@ storiesOf('Components', module).add('Buttons', () => (
             </Component>
           </Box>
         ))}
+        <CodeEditor language='jsx'>{`
+import { Button${name} } from 'components/elements'
+
+export default () => (
+  <Button${name}>${name}</Button${name}>
+)
+`}</CodeEditor>
       </Box>
     ))}
   </Fragment>
