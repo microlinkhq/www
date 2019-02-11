@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { createCssState } from 'helpers'
+import { createCssState } from 'helpers/style'
 
 import Button from './ButtonBase'
 

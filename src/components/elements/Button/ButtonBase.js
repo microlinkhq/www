@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { borders, borderColor, borderRadius, buttonStyle } from 'styled-system'
-import { createCssState } from 'helpers'
+import { createCssState } from 'helpers/style'
 import { transition, colors } from 'theme'
 
 import Text from '../Text'

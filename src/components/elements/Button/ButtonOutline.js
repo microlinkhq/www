@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { transition, colors } from 'theme'
 import { themeGet } from 'styled-system'
-import { createCssState } from 'helpers'
+import { createCssState } from 'helpers/style'
 
 import Button from './ButtonSecondary'
 
