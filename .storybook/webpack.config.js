@@ -21,6 +21,9 @@ module.exports = (baseConfig, env, defaultConfig) => {
   // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
   defaultConfig.resolve.mainFields = ['browser', 'module', 'main']
 
-  defaultConfig.resolve.modules = [path.resolve(__dirname, '../src'), 'node_modules']
+  defaultConfig.resolve.modules = [
+    ...defaultConfig.resolve.modules,
+    path.resolve(__dirname, '../src')
+  ]
   return defaultConfig
 }

@@ -4,8 +4,8 @@ import { withOptions } from '@storybook/addon-options'
 import { ThemeProvider } from 'styled-components'
 import React from 'react'
 
-import theme from '../src/theme'
-import Flex from '../src/components/elements/Flex'
+import theme from 'theme'
+import Flex from 'components/elements/Flex'
 
 // automatically import all files ending in *.stories.js
 const req = require.context('../src', true, /.stories.jsx?$/)
