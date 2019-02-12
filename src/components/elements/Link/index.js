@@ -1,4 +1,4 @@
-import { withLink } from 'helpers'
+import { withLink } from 'helpers/hoc'
 import solid from './solid'
 import base from './base'
 

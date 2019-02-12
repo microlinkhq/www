@@ -5,7 +5,7 @@ import { Choose } from 'react-extras'
 import {
   Label,
   Container,
-  Button,
+  ButtonSecondary,
   Notification,
   LinkSolid,
   Flex,
@@ -150,7 +150,10 @@ class _CardForm extends Component {
             <CardCVCElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <Button children='Add Card' loading={paymentState === PAYMENT_STATE.PROCESSING} />
+          <ButtonSecondary
+            children='Add Card'
+            loading={paymentState === PAYMENT_STATE.PROCESSING}
+          />
         </Form>
       </Fragment>
     )

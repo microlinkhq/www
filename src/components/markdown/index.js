@@ -1,7 +1,8 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import CodeCopy from 'react-codecopy'
-import { get, withSlug } from 'helpers'
+import { get } from 'helpers'
+import { withSlug } from 'helpers/hoc'
 
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
 import { Heading, Text, Link, Image as ImageBase } from 'components/elements'

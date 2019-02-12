@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { fontSize } from 'styled-system'
 import styled from 'styled-components'
-import { Button } from './Button'
+import { ButtonSecondary } from './Button'
 import Form from './Form'
 import Input from './Input'
 
@@ -55,13 +55,7 @@ class SearchBox extends Component {
     const { loading, placeholder, onChange, value, ...props } = this.props
 
     return (
-      <Form
-        alignItems='center'
-        justifyContent='center'
-        py={1}
-        onSubmit={this.onSubmit}
-        {...props}
-      >
+      <Form alignItems='center' justifyContent='center' py={1} onSubmit={this.onSubmit} {...props}>
         <CustomInput
           style={{ paddingRight: '6px' }}
           name='url'
@@ -75,7 +69,7 @@ class SearchBox extends Component {
           autoFocus
           disabled={loading}
         />
-        <Button fontSize={[0, 1]} children='Try it' loading={loading} />
+        <ButtonSecondary fontSize={[0, 1]} children='Try it' loading={loading} />
       </Form>
     )
   }
