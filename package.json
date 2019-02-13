@@ -27,7 +27,7 @@
     "cssnano-preset-advanced": "~4.0.6",
     "dlv": "~1.1.2",
     "download": "~7.1.0",
-    "gatsby": "~2.0.112",
+    "gatsby": "~2.1.0",
     "gatsby-link": "~2.0.10",
     "gatsby-plugin-canonical-urls": "~2.0.10",
     "gatsby-plugin-catch-links": "~2.0.11",
