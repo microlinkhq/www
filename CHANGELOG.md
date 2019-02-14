@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.16"></a>
+## [2.2.16](https://github.com/microlink/microlink-www/compare/v2.2.15...v2.2.16) (2019-02-14)
+
+
+### Bug Fixes
+
+* **package:** update gatsby to version 2.1.0 ([33c3753](https://github.com/microlink/microlink-www/commit/33c3753))
+
+
+
 <a name="2.2.15"></a>
 ## [2.2.15](https://github.com/microlink/microlink-www/compare/v2.2.14...v2.2.15) (2019-02-12)
 
