@@ -59,7 +59,7 @@
     "postcss-focus": "~4.0.0",
     "react": "16.8.2",
     "react-codecopy": "~2.2.0",
-    "react-dom": "16.8.1",
+    "react-dom": "16.8.2",
     "react-extras": "~0.9.0",
     "react-feather": "~1.1.6",
     "react-helmet": "~5.2.0",
