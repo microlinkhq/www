@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.17"></a>
+## [2.2.17](https://github.com/microlink/microlink-www/compare/v2.2.16...v2.2.17) (2019-02-15)
+
+
+### Bug Fixes
+
+* **package:** update react to version 16.8.2 ([3a020e9](https://github.com/microlink/microlink-www/commit/3a020e9))
+* **package:** update react-dom to version 16.8.2 ([eac80fa](https://github.com/microlink/microlink-www/commit/eac80fa))
+
+
+
 <a name="2.2.16"></a>
 ## [2.2.16](https://github.com/microlink/microlink-www/compare/v2.2.15...v2.2.16) (2019-02-14)
 
