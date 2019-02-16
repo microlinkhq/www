@@ -1,4 +1,5 @@
-import { Text, Box, Head } from 'components/elements'
+import { Text, Box } from 'components/elements'
+import Head from 'components/Head'
 import { H1, H2, Paraph, Strong, Link } from 'components/markdown'
 import { Chat, Layout } from 'components/patterns'
 import { StaticQuery, graphql } from 'gatsby'
@@ -28,13 +29,14 @@ const PostFooter = () => (
     <H2>Come chat with us</H2>
     <Chat />
     <Paraph>
-      All of these improvements or features are <Strong>community driven</Strong>: We listen to your
-      feedback and act accordingly.
+      All of these improvements or features are{' '}
+      <Strong>community driven</Strong>: We listen to your feedback and act
+      accordingly.
     </Paraph>
     <Paraph>
-      Whether you are are building a product and you need fancy previews, you’re an indie hacker or
-      simply you like frontend stuff, come <Link href='https://chat.microlink.io/'>chat</Link> with
-      us 🙂.
+      Whether you are are building a product and you need fancy previews, you’re
+      an indie hacker or simply you like frontend stuff, come{' '}
+      <Link href='https://chat.microlink.io/'>chat</Link> with us 🙂.
     </Paraph>
   </Fragment>
 )
@@ -61,11 +63,18 @@ export default function PostLayout (frontmatter) {
                 <Layout>
                   <Box px={3}>
                     <Head {...meta} />
-                    <Text as='header' textAlign='center' mb={5} maxWidth='900px' mx='auto'>
+                    <Text
+                      as='header'
+                      textAlign='center'
+                      mb={5}
+                      maxWidth='900px'
+                      mx='auto'
+                    >
                       <H1 textAlign='center' children={meta.title} />
                       {!meta.static && (
                         <Text fontSize={2} color='gray'>
-                          {formatDate(timestamp)} ({<TimeAgo date={meta.date} />})
+                          {formatDate(timestamp)} (
+                          {<TimeAgo date={meta.date} />})
                         </Text>
                       )}
                     </Text>

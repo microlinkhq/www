@@ -1,5 +1,6 @@
 import React from 'react'
-import { Text, Flex, Container, Head } from 'components/elements'
+import { Text, Flex, Container } from 'components/elements'
+import Head from 'components/Head'
 import { Layout } from 'components/patterns'
 
 import { H1, H2Link } from 'components/markdown'
@@ -69,7 +70,11 @@ export default ({ pageContext }) => {
             Blog
           </H1>
           {posts.map((post, index) => (
-            <BlogPost key={post.title} {...post} isLastPost={index === posts.length - 1} />
+            <BlogPost
+              key={post.title}
+              {...post}
+              isLastPost={index === posts.length - 1}
+            />
           ))}
         </Flex>
       </Container>

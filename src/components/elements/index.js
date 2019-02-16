@@ -17,7 +17,6 @@ import Image from './Image'
 import Input from './Input'
 import Label from './Label'
 import Lead from './Lead'
-import Head from './Head'
 import NavLink from './NavLink'
 import Notification from './Notification'
 import PricePicker from './PricePicker'
@@ -31,14 +30,16 @@ import Text from './Text'
 import Toolbar from './Toolbar'
 import Tooltip from './Tooltip'
 import Form from './Form'
+import BackgroundSlider from './BackgroundSlider'
 
 export {
   Avatar,
+  BackgroundSlider,
   BlockLink,
   Box,
+  ButtonOutline,
   ButtonPrimary,
   ButtonSecondary,
-  ButtonOutline,
   Caps,
   Card,
   Checkout,
@@ -55,7 +56,6 @@ export {
   Lead,
   Link,
   LinkSolid,
-  Head,
   NavLink,
   Notification,
   PricePicker,
