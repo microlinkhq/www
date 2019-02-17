@@ -95,6 +95,7 @@
     "lint-staged": "latest",
     "npm-check-updates": "latest",
     "prettier-standard": "latest",
+    "react-x-ray": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
     "standard-version": "latest",
