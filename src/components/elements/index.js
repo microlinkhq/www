@@ -30,11 +30,12 @@ import Text from './Text'
 import Toolbar from './Toolbar'
 import Tooltip from './Tooltip'
 import Form from './Form'
-import BackgroundSlider from './BackgroundSlider'
+import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
 
 export {
   Avatar,
   BackgroundSlider,
+  BackgroundSliderContainer,
   BlockLink,
   Box,
   ButtonOutline,
