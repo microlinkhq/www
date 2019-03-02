@@ -81,6 +81,8 @@
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "@storybook/addon-a11y": "latest",
+    "@storybook/addon-actions": "latest",
+    "@storybook/addon-console": "latest",
     "@storybook/addon-options": "latest",
     "@storybook/addon-viewport": "latest",
     "@storybook/addons": "latest",

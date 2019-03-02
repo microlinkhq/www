@@ -9,6 +9,8 @@ import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import XRay from 'react-x-ray'
 
+import '@storybook/addon-console'
+
 // automatically import all files ending in *.stories.js
 const req = require.context('../src', true, /.stories.jsx?$/)
 
@@ -33,7 +35,7 @@ window.___navigate = pathname => {
 
 addDecorator(
   withOptions({
-    name: 'Microlink Design',
+    name: 'design.microlink.io',
     url: 'https://github.com/microlinkhq/www',
     goFullScreen: false,
     showStoriesPanel: true,
