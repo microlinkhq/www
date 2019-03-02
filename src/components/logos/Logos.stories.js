@@ -43,4 +43,4 @@ function LogoStories () {
   )
 }
 
-storiesOf('Components', module).add('Logos', () => <LogoStories />)
+storiesOf('Logos', module).add('All', () => <LogoStories />)

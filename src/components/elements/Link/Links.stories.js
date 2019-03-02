@@ -5,10 +5,13 @@ import Box from '../Box'
 import Subhead from '../Subhead'
 import CodeEditor from '../CodeEditor'
 
-const buttons = [{ name: 'Link', Component: Link }, { name: 'LinkSolid', Component: LinkSolid }]
+const buttons = [
+  { name: 'Link', Component: Link },
+  { name: 'LinkSolid', Component: LinkSolid }
+]
 const states = [null, 'hover']
 
-storiesOf('Components', module).add('Links', () => (
+storiesOf('Elements', module).add('Links', () => (
   <Fragment>
     {buttons.map(({ name, Component }) => (
       <Box mb={5}>
@@ -27,7 +30,7 @@ storiesOf('Components', module).add('Links', () => (
             </Component>
           </Box>
         ))}
-        <CodeEditor language='jsx'>{`
+        <CodeEditor my={4} language='jsx'>{`
 import { ${name} } from 'components/elements'
 
 export default () => (

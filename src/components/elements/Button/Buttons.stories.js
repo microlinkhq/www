@@ -12,7 +12,7 @@ const buttons = [
 ]
 const states = [null, 'hover', 'disabled', 'loading']
 
-storiesOf('Components', module).add('Buttons', () => (
+storiesOf('Elements', module).add('Buttons', () => (
   <Fragment>
     {buttons.map(({ name, Component }) => (
       <Box mb={5}>
@@ -31,7 +31,7 @@ storiesOf('Components', module).add('Buttons', () => (
             </Component>
           </Box>
         ))}
-        <CodeEditor language='jsx'>{`
+        <CodeEditor my={4} language='jsx'>{`
 import { Button${name} } from 'components/elements'
 
 export default () => (
