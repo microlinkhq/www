@@ -5,6 +5,7 @@ import * as themes from 'react-syntax-highlighter/dist/styles/hljs'
 import { serializeComponent } from 'helpers'
 import styled from 'styled-components'
 import { fonts } from 'theme'
+import { Box } from 'components/elements'
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   margin-top: 0px;
@@ -23,11 +24,15 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   }
 `
 
-const TerminalWindow = styled.div`
+const TerminalWindow = styled(Box)`
   border-radius: 5px;
-  margin: 50px 0;
   box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
 `
+
+TerminalWindow.defaultProps = {
+  ...Box.defaultProps,
+  my: '50px'
+}
 
 const TerminalHeader = styled.div`
   border-top-right-radius: 3px;
@@ -76,8 +81,8 @@ const TerminalTextWrapper = styled.div`
   word-break: break-all;
 `
 
-const Terminal = ({ title, children, dark }) => (
-  <TerminalWindow dark={dark}>
+const Terminal = ({ title, children, dark, ...props }) => (
+  <TerminalWindow dark={dark} {...props}>
     <TerminalHeader dark={dark}>
       <TerminalButton dark={dark} color='#FF5F56' />
       <TerminalButton dark={dark} color='#FFBD2E' />
@@ -99,13 +104,17 @@ class CodeEditor extends Component {
       showLineNumbers = true,
       children,
       theme = 'dracula',
+      my,
       ...props
     } = this.props
 
     return (
-      <Terminal dark>
+      <Terminal dark my={my}>
         <div style={{ width: '100%' }}>
-          <CustomCodeCopy theme={'dark'} text={serializeComponent(this.props.children)}>
+          <CustomCodeCopy
+            theme={'dark'}
+            text={serializeComponent(this.props.children)}
+          >
             <TerminalTextWrapper dark>
               <CustomSyntaxHighlighter
                 lineNumberStyle={{ color: '#6272A4' }}
