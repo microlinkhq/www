@@ -30,7 +30,7 @@ const FacebookBase = ({ ratio, ...props }) => (
 )
 
 FacebookBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Facebook = styled(FacebookBase)`
@@ -66,7 +66,7 @@ const GitHubBase = ({ ratio, ...props }) => (
 )
 
 GitHubBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const GitHub = styled(GitHubBase)`
@@ -99,7 +99,7 @@ const MediumBase = ({ ratio, ...props }) => (
 )
 
 MediumBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Medium = styled(MediumBase)`
@@ -125,7 +125,7 @@ const SoundCloudBase = ({ ratio, ...props }) => (
 )
 
 SoundCloudBase.defaultProps = {
-  ratio: 1
+  ratio: 0.6
 }
 
 const SoundCloud = styled(SoundCloudBase)`
@@ -159,7 +159,7 @@ const GizmodoBase = ({ ratio, ...props }) => (
 )
 
 GizmodoBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Gizmodo = styled(GizmodoBase)`
@@ -190,7 +190,7 @@ const TwitterBase = ({ ratio, ...props }) => (
 )
 
 TwitterBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Twitter = styled(TwitterBase)`
@@ -227,7 +227,7 @@ const YouTubeBase = ({ ratio, ...props }) => (
 )
 
 YouTubeBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const YouTube = styled(YouTubeBase)`
@@ -259,7 +259,7 @@ const InstagramBase = ({ ratio, ...props }) => (
 )
 
 InstagramBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Instagram = styled(InstagramBase)`
@@ -288,7 +288,7 @@ const Wikipedia = ({ ratio, ...props }) => (
 )
 
 Wikipedia.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Apple = ({ ratio, ...props }) => (
@@ -325,7 +325,7 @@ const Apple = ({ ratio, ...props }) => (
 )
 
 Apple.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const AmazonBase = ({ ratio, ...props }) => (
@@ -355,7 +355,7 @@ const AmazonBase = ({ ratio, ...props }) => (
 )
 
 AmazonBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Amazon = styled(AmazonBase)`
@@ -402,7 +402,7 @@ const VimeoBase = ({ ratio, ...props }) => (
 )
 
 VimeoBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const FlickrBase = ({ ratio, ...props }) => (
@@ -426,7 +426,7 @@ const FlickrBase = ({ ratio, ...props }) => (
 )
 
 FlickrBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Flickr = styled(FlickrBase)`
@@ -493,7 +493,7 @@ const RedditBase = ({ ratio, ...props }) => (
 )
 
 RedditBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Reddit = styled(RedditBase)`
@@ -516,7 +516,7 @@ const NYTimes = ({ ratio, ...props }) => (
 )
 
 NYTimes.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const TheGuardian = ({ ratio, ...props }) => (
@@ -526,7 +526,7 @@ const TheGuardian = ({ ratio, ...props }) => (
 )
 
 TheGuardian.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const CNNBase = ({ ratio, ...props }) => (
@@ -547,7 +547,7 @@ const CNNBase = ({ ratio, ...props }) => (
 )
 
 CNNBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const CNN = styled(CNNBase)`
@@ -583,7 +583,7 @@ const EtsyBase = ({ ratio, ...props }) => (
 )
 
 EtsyBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Etsy = styled(EtsyBase)`
@@ -610,7 +610,7 @@ const EvenBriteBase = ({ ratio, ...props }) => (
 )
 
 EvenBriteBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const EventBrite = styled(EvenBriteBase)`
@@ -636,7 +636,7 @@ const TimeBase = ({ ratio, ...props }) => (
 )
 
 TimeBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Time = styled(TimeBase)`
@@ -659,7 +659,7 @@ const BBC = ({ ratio, ...props }) => (
 )
 
 BBC.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const NasaBase = ({ ratio, ...props }) => (
@@ -712,7 +712,7 @@ const NasaBase = ({ ratio, ...props }) => (
 )
 
 NasaBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Nasa = styled(NasaBase)`
@@ -738,7 +738,7 @@ const TEDBase = ({ ratio, ...props }) => (
 )
 
 TEDBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const TED = styled(TEDBase)`
@@ -764,7 +764,7 @@ const BuzzFeedBase = ({ ratio, ...props }) => (
 )
 
 BuzzFeedBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const BuzzFeed = styled(BuzzFeedBase)`
@@ -799,7 +799,7 @@ const FoxBase = ({ ratio, ...props }) => (
 )
 
 FoxBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Fox = styled(FoxBase)`
@@ -829,7 +829,7 @@ const TechCrunchBase = ({ ratio, ...props }) => (
 )
 
 TechCrunchBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const TechCrunch = styled(TechCrunchBase)`
@@ -855,7 +855,7 @@ const Vice = ({ ratio, ...props }) => (
 )
 
 Vice.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const ChangeBase = ({ ratio, ...props }) => (
@@ -868,7 +868,7 @@ const ChangeBase = ({ ratio, ...props }) => (
 )
 
 ChangeBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Change = styled(ChangeBase)`
@@ -894,7 +894,7 @@ const NetflixBase = ({ ratio, ...props }) => (
 )
 
 NetflixBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Netflix = styled(NetflixBase)`
@@ -920,7 +920,7 @@ const LifeHackerBase = ({ ratio, ...props }) => (
 )
 
 LifeHackerBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const LifeHacker = styled(LifeHackerBase)`
@@ -947,7 +947,7 @@ const TwitchBase = ({ ratio, ...props }) => (
 )
 
 TwitchBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Twitch = styled(TwitchBase)`
@@ -974,7 +974,7 @@ const GfycatBase = ({ ratio, ...props }) => (
 )
 
 GfycatBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Gfycat = styled(GfycatBase)`
@@ -1005,7 +1005,7 @@ const StackOverflowBase = ({ ratio, ...props }) => (
 )
 
 StackOverflowBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const StackOverflow = styled(StackOverflowBase)`
@@ -1039,7 +1039,7 @@ const MDN = ({ ratio, ...props }) => (
 )
 
 MDN.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Engadget = ({ ratio, ...props }) => (
@@ -1049,7 +1049,7 @@ const Engadget = ({ ratio, ...props }) => (
 )
 
 Engadget.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const ArsBase = ({ ratio, ...props }) => (
@@ -1065,7 +1065,7 @@ const ArsBase = ({ ratio, ...props }) => (
 )
 
 ArsBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const Ars = styled(ArsBase)`
@@ -1102,7 +1102,7 @@ const ProductHuntBase = ({ ratio, ...props }) => (
 )
 
 ProductHuntBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const ProductHunt = styled(ProductHuntBase)`
@@ -1128,7 +1128,7 @@ const TheVergeBase = ({ ratio, ...props }) => (
 )
 
 TheVergeBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const TheVerge = styled(TheVergeBase)`
@@ -1154,7 +1154,7 @@ const TNWBase = ({ ratio, ...props }) => (
 )
 
 TNWBase.defaultProps = {
-  ratio: 1
+  ratio: 0.8
 }
 
 const TNW = styled(TNWBase)`
@@ -1171,6 +1171,7 @@ const TNW = styled(TNWBase)`
 `
 
 export { Microlink }
+
 export { Amazon }
 export { Apple }
 export { Ars }
