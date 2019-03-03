@@ -1,6 +1,6 @@
 'use strict'
 
-const { chain, isNil, get, reduce } = require('lodash')
+const { filter, chain, isNil, get, reduce } = require('lodash')
 const beautyError = require('beauty-error')
 const parseDomain = require('parse-domain')
 const { compact, map } = require('lodash')
@@ -15,7 +15,6 @@ const path = require('path')
 const getDomain = url => (parseDomain(url) || {}).domain
 
 const { SITE_URL } = require('../env')
-const DEMO_LINKS = require('./demo-links')
 const DATA_DEMO_LINKS_PATH = path.resolve(__dirname, '../data/demo-links.json')
 const { MICROLINK_API_KEY } = process.env
 
@@ -98,6 +97,7 @@ const fetchDemoLink = async (key, { url, ...props }) => {
 const main = async () => {
   if (await existsFile(DATA_DEMO_LINKS_PATH)) return
 
+  const DEMO_LINKS = filter(require('./demo-links'), 'featured')
   const fetchDemoLinks = map(DEMO_LINKS, (value, key) => () =>
     fetchDemoLink(key, value)
   )
