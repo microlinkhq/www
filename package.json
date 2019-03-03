@@ -116,7 +116,7 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
-    "build-storybook": "build-storybook",
+    "build-storybook": "NODE_ENV=production build-storybook",
     "clean": "rm -rf node_modules && npm run clean:urls",
     "clean:urls": "rm -rf data/demo-links.json",
     "dev": "gatsby develop --host localhost --port 8000",
