@@ -1,0 +1,2015 @@
+[
+  {
+    "brand": "Apple",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "HomePod",
+      "publisher": "Apple",
+      "image": {
+        "url": "http://localhost:8000/card/apple/image.png",
+        "width": 1200,
+        "height": 630,
+        "type": "png",
+        "size": 315235,
+        "size_pretty": "315 kB",
+        "palette": [
+          "#B08FC1",
+          "#45B9E5",
+          "#314168",
+          "#AB51AA",
+          "#6B1C62",
+          "#D4AFF9"
+        ],
+        "background_color": "#B08FC1",
+        "color": "#FFFFFF",
+        "alternative_color": "#452144"
+      },
+      "description": "With amazing sound, spatial awareness, and the vast Apple Music library, HomePod takes the speaker to a whole new level.",
+      "audio": null,
+      "date": null,
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/apple/logo.ico",
+        "width": 16,
+        "height": 16,
+        "type": "ico",
+        "size": 22382,
+        "size_pretty": "22.4 kB"
+      },
+      "url": "https://www.apple.com/homepod/"
+    },
+    "url": "https://www.apple.com/homepod"
+  },
+  {
+    "brand": "Amazon",
+    "data": {
+      "lang": "en",
+      "author": "Amazon",
+      "title": "All-new Echo Plus (2nd Gen) Bundle with Philips Hue Bulb - Charcoal",
+      "publisher": "Amazon",
+      "image": {
+        "url": "http://localhost:8000/card/amazon/image.jpg",
+        "width": 1000,
+        "height": 1000,
+        "type": "jpg",
+        "size": 102382,
+        "size_pretty": "102 kB",
+        "palette": [
+          "#383A3E",
+          "#6F9188",
+          "#24B1AF",
+          "#EE9C31",
+          "#D9AE74",
+          "#B1CAD5"
+        ],
+        "background_color": "#383A3E",
+        "color": "#EE9C31",
+        "alternative_color": "#25B6B3"
+      },
+      "description": "Amazon.com: All-new Echo Plus (2nd Gen) Bundle with Philips Hue Bulb - Charcoal: Amazon Devices",
+      "audio": null,
+      "date": "2018-10-16T12:00:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/amazon/logo.ico",
+        "width": 48,
+        "height": 48,
+        "type": "ico",
+        "size": 17542,
+        "size_pretty": "17.5 kB"
+      },
+      "url": "https://www.amazon.com/All-new-Echo-Plus-Bundle-Philips/dp/B07H1QBW2L"
+    },
+    "url": "https://www.amazon.com/All-new-Echo-Plus-Bundle-Philips/dp/B07H1QBW2L",
+    "featured": true
+  },
+  {
+    "brand": "Ars",
+    "data": {
+      "lang": "en",
+      "author": "Timothy B. Lee",
+      "title": "Mickey Mouse will be public domain soon—here’s what that means",
+      "publisher": "Ars Technica",
+      "image": {
+        "url": "http://localhost:8000/card/ars technica/image.jpg",
+        "width": 760,
+        "height": 380,
+        "type": "jpg",
+        "size": 33110,
+        "size_pretty": "33.1 kB",
+        "palette": [
+          "#9A6665",
+          "#57383E",
+          "#BAB5CC",
+          "#CE5631",
+          "#980E1F",
+          "#FC9C5C"
+        ],
+        "background_color": "#9A6665",
+        "color": "#FFFFFF",
+        "alternative_color": "#FFFFFF"
+      },
+      "description": "The Internet stopped another copyright extension without firing a shot.",
+      "audio": null,
+      "date": "2019-01-01T17:10:35.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/ars technica/logo.png",
+        "width": 192,
+        "height": 192,
+        "type": "png",
+        "size": 4867,
+        "size_pretty": "4.87 kB",
+        "palette": [
+          "#FC4C04",
+          "#FCA478",
+          "#832701"
+        ],
+        "background_color": "#FC4C04",
+        "color": "#441401",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://arstechnica.com/tech-policy/2019/01/a-whole-years-worth-of-works-just-fell-into-the-public-domain/"
+    },
+    "url": "https://arstechnica.com/tech-policy/2019/01/a-whole-years-worth-of-works-just-fell-into-the-public-domain/"
+  },
+  {
+    "brand": "BBC",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "Elon Musk rolls out cheapest Tesla yet",
+      "publisher": "BBC News",
+      "image": {
+        "url": "http://localhost:8000/card/bbc news/image.jpg",
+        "width": 1024,
+        "height": 576,
+        "type": "jpg",
+        "size": 78221,
+        "size_pretty": "78.2 kB",
+        "palette": [
+          "#B42928",
+          "#AD625B",
+          "#D8B1AF",
+          "#6C1C27",
+          "#E8C1BC",
+          "#642C2C"
+        ],
+        "background_color": "#B42928",
+        "color": "#F1E4E3",
+        "alternative_color": "#030101"
+      },
+      "description": "The electric car maker hopes the Model 3, starting at $35,000, will bring mass market interest.",
+      "audio": null,
+      "date": "0173-07-02T12:00:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/bbc news/logo.png",
+        "width": 144,
+        "height": 144,
+        "type": "png",
+        "size": 10095,
+        "size_pretty": "10.1 kB",
+        "palette": [
+          "#990404",
+          "#CC0404",
+          "#E49D9D"
+        ],
+        "background_color": "#990404",
+        "color": "#FDA4A4",
+        "alternative_color": "#E8ABAB"
+      },
+      "url": "https://www.bbc.com/news/technology-40762328"
+    },
+    "url": "https://www.bbc.com/news/technology-40762328"
+  },
+  {
+    "brand": "BuzzFeed",
+    "data": {
+      "lang": "en",
+      "author": "Ryan Mac",
+      "title": "The Cambridge Analytica Whistleblower Wanted His New Company To Work With Trump Campaign’s Manager",
+      "publisher": "BuzzFeed News",
+      "image": {
+        "url": "http://localhost:8000/card/buzzfeed news/image.jpg",
+        "width": 625,
+        "height": 415,
+        "type": "jpg",
+        "size": 183776,
+        "size_pretty": "184 kB",
+        "palette": [
+          "#DFA87F",
+          "#896256",
+          "#4E3931",
+          "#6A2318",
+          "#A49484"
+        ],
+        "background_color": "#DFA87F",
+        "color": "#6A2318",
+        "alternative_color": "#523B33"
+      },
+      "description": "“We have developed a series of algorithms that can predict the personality traits of individual voters by analyzing their voterfile, social, online and consumer data.”",
+      "audio": null,
+      "date": "2018-03-28T18:38:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/buzzfeed news/logo.png",
+        "width": 180,
+        "height": 180,
+        "type": "png",
+        "size": 4291,
+        "size_pretty": "4.29 kB",
+        "palette": [
+          "#ADADAD",
+          "#444444",
+          "#848484"
+        ],
+        "background_color": "#ADADAD",
+        "color": "#3D3D3D",
+        "alternative_color": "#434343"
+      },
+      "url": "https://www.buzzfeednews.com/article/ryanmac/cambridge-analytica-chris-wylie-eunoia-trump-campaign"
+    },
+    "url": "https://www.buzzfeednews.com/article/ryanmac/cambridge-analytica-chris-wylie-eunoia-trump-campaign",
+    "featured": true
+  },
+  {
+    "brand": "CNN",
+    "data": {
+      "lang": "en",
+      "author": "Faith Karimi, CNN",
+      "title": "Rare black leopard captured in new images from Kenya",
+      "publisher": "CNN",
+      "image": {
+        "url": "http://localhost:8000/card/cnn/image.jpg",
+        "width": 1100,
+        "height": 619,
+        "type": "jpg",
+        "size": 111600,
+        "size_pretty": "112 kB",
+        "palette": [
+          "#697EA8",
+          "#2C3C4E",
+          "#9C938C",
+          "#24344C",
+          "#5176AD"
+        ],
+        "background_color": "#697EA8",
+        "color": "#FFFFFF",
+        "alternative_color": "#0E141D"
+      },
+      "description": "The elusive African black leopard is alive and well and living in Kenya -- and there are new pictures to prove it.",
+      "audio": null,
+      "date": "2019-02-14T16:22:44.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/cnn/logo.png",
+        "width": 76,
+        "height": 76,
+        "type": "png",
+        "size": 5372,
+        "size_pretty": "5.37 kB",
+        "palette": [
+          "#CC0404",
+          "#CC0C0C",
+          "#EC9999"
+        ],
+        "background_color": "#CC0404",
+        "color": "#FDE5E5",
+        "alternative_color": "#FEFBFB"
+      },
+      "url": "https://www.cnn.com/2019/02/13/africa/kenya-rare-black-leopard-black-panther/index.html"
+    },
+    "url": "https://edition.cnn.com/2019/02/13/africa/kenya-rare-black-leopard-black-panther/index.html"
+  },
+  {
+    "brand": "Change",
+    "data": {
+      "lang": "en",
+      "author": "Thaddeus Sharpe started this petition to The Walt Disney Company",
+      "title": "Sign the Petition",
+      "publisher": "Change.org",
+      "image": {
+        "url": "http://localhost:8000/card/change.org/image.jpg",
+        "width": 640,
+        "height": 360,
+        "type": "jpg",
+        "size": 35994,
+        "size_pretty": "36 kB",
+        "palette": [
+          "#162C68",
+          "#5B3460",
+          "#B9B6C3",
+          "#9E5BB2",
+          "#7997D2",
+          "#2C4CAC"
+        ],
+        "background_color": "#162C68",
+        "color": "#8BA0E1",
+        "alternative_color": "#BA8BC9"
+      },
+      "description": "Disney, please sell the rights to ‘Monkey Island’ back to its creator Ron Gilbert",
+      "audio": null,
+      "date": null,
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/change.org/logo.png",
+        "width": 114,
+        "height": 114,
+        "type": "png",
+        "size": 3106,
+        "size_pretty": "3.11 kB",
+        "palette": [
+          "#EC2C24",
+          "#F4948C",
+          "#7A0F0A"
+        ],
+        "background_color": "#EC2C24",
+        "color": "#250503",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://www.change.org/p/disney-please-sell-the-rights-to-monkey-island-back-to-its-creator-ron-gilbert"
+    },
+    "url": "https://www.change.org/p/disney-please-sell-the-rights-to-monkey-island-back-to-its-creator-ron-gilbert"
+  },
+  {
+    "brand": "Engadget",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "A fond farewell to our sister sites in Germany and Spain",
+      "publisher": "Engadget",
+      "image": {
+        "url": "http://localhost:8000/card/engadget/image.gif",
+        "width": 480,
+        "height": 232,
+        "type": "gif",
+        "size": 170532,
+        "size_pretty": "171 kB",
+        "palette": [
+          "#04040C",
+          "#7C7E84",
+          "#444C54",
+          "#BCBCB4",
+          "#3F3FBF"
+        ],
+        "background_color": "#04040C",
+        "color": "#7A7AD3",
+        "alternative_color": "#BCBCB4"
+      },
+      "description": "When I started at Engadget in 2010, I saw the site as an opportunity: a publication with millions of readers that would pay me to write for a living. After mont...",
+      "audio": null,
+      "date": null,
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/engadget/logo.png",
+        "width": 160,
+        "height": 160,
+        "type": "png",
+        "size": 1964,
+        "size_pretty": "1.96 kB",
+        "palette": [
+          "#646464",
+          "#BBBBBB",
+          "#484848"
+        ],
+        "background_color": "#646464",
+        "color": "#E6E6E6",
+        "alternative_color": "#050505"
+      },
+      "url": "https://www.engadget.com/2018/04/30/engadget-closing-germany-spain/"
+    },
+    "url": "https://www.engadget.com/2018/04/30/engadget-closing-germany-spain/?sr_source=Twitter"
+  },
+  {
+    "brand": "Etsy",
+    "data": {
+      "lang": "es",
+      "author": null,
+      "title": "Unicornio blanco cabeza con oro Alicorn, el Bayer. Taxidermia falso unicornio montaje en pared - Taxidermia sintética blanca, unicornio cuadros montaje - Kids Room",
+      "publisher": "Etsy",
+      "image": {
+        "url": "http://localhost:8000/card/etsy/image.jpg",
+        "width": 570,
+        "height": 754,
+        "type": "jpg",
+        "size": 16193,
+        "size_pretty": "16.2 kB",
+        "palette": [
+          "#684A2E",
+          "#9F7958",
+          "#8C6F58",
+          "#C8AC94",
+          "#B8845C"
+        ],
+        "background_color": "#684A2E",
+        "color": "#DFC8B6",
+        "alternative_color": "#D5C3B3"
+      },
+      "description": "Falso unicornio de Taxidermia: Bayer, nuestro exclusivo resina blanco unicornio cabeza w/oro personal, es de encargo pintado blanco w/oro personal y puede coincidir con cualquier estilo de decoración casera de la pared para colgar. ¿No quiero en blanco? Podemos personalizar cualquiera de nuestras",
+      "audio": null,
+      "date": null,
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/etsy/logo.ico",
+        "width": 32,
+        "height": 32,
+        "type": "ico",
+        "size": 4286,
+        "size_pretty": "4.29 kB"
+      },
+      "url": "https://www.etsy.com/es/listing/219173789/unicornio-blanco-cabeza-con-oro-alicorn"
+    },
+    "url": "https://www.etsy.com/es/listing/219173789/unicorn-head-white-w-gold-alicorn-the",
+    "featured": true
+  },
+  {
+    "brand": "EventBrite",
+    "data": {
+      "lang": "es",
+      "author": null,
+      "title": "TheAntiEvent18",
+      "publisher": "Eventbrite",
+      "image": {
+        "url": "http://localhost:8000/card/eventbrite/image.jpg",
+        "width": 1000,
+        "height": 500,
+        "type": "jpg",
+        "size": 37308,
+        "size_pretty": "37.3 kB",
+        "palette": [
+          "#0CD3B4",
+          "#5C5C5C",
+          "#7F7F7F",
+          "#89BEB9",
+          "#AAD9D4",
+          "#077D6B"
+        ],
+        "background_color": "#5C5C5C",
+        "color": "#11F1CE",
+        "alternative_color": "#21F3D3"
+      },
+      "description": "TheAntEvent es un Open Space de desarrollo de software y esta será ya la 6ª edición. No va a haber agenda ni ponentes de antemano. Los asistentes propondrán los temas que luego se votarán entre todos y se trabajarán en las sesiones. No se trata de ponencias, sino de coloquios en los que se fomenta e…",
+      "audio": null,
+      "date": "2018-10-05T00:00:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/eventbrite/logo.png",
+        "width": 194,
+        "height": 194,
+        "type": "png",
+        "size": 7874,
+        "size_pretty": "7.87 kB",
+        "palette": [
+          "#F45434",
+          "#F46C54",
+          "#7D1A06"
+        ],
+        "background_color": "#F45434",
+        "color": "#450E04",
+        "alternative_color": "#4A0F04"
+      },
+      "url": "https://www.eventbrite.es/e/49664776684?aff=efbneb"
+    },
+    "url": "https://www.eventbrite.es/e/entradas-theantievent18-49664776684#",
+    "featured": true
+  },
+  {
+    "brand": "Facebook",
+    "data": {
+      "lang": "en",
+      "author": "National Geographic",
+      "title": "This pair of Scottish wildcat kittens, some of the last of their kind, were f...",
+      "publisher": "Facebook",
+      "image": {
+        "url": "http://localhost:8000/card/facebook/image.jpg",
+        "width": 1920,
+        "height": 1080,
+        "type": "jpg",
+        "size": 217726,
+        "size_pretty": "218 kB",
+        "palette": [
+          "#A28171",
+          "#CDA99A",
+          "#5A3D2B",
+          "#55332C",
+          "#EAC4A4",
+          "#AC7452"
+        ],
+        "background_color": "#A28171",
+        "color": "#271A12",
+        "alternative_color": "#FFFFFF"
+      },
+      "description": "This pair of Scottish wildcat kittens, some of the last of their kind, were found alone in the wild at seven weeks old.",
+      "audio": {
+        "url": "https://video-iad3-1.xx.fbcdn.net/v/t42.1790-2/41882367_511917722604210_1783293691432009728_n.mp4?_nc_cat=105&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfYXVkaW9fYWFjcF82NF9mcmFnXzJfYXVkaW8ifQ==&_nc_ht=video-iad3-1.xx&oh=40364523dc2a252d49f889026883ac5b&oe=5C7C5D08",
+        "type": "mp4",
+        "size": 1583519,
+        "size_pretty": "1.58 MB",
+        "duration": 194.25875,
+        "duration_pretty": "3m"
+      },
+      "date": "2018-09-20T10:15:00.000Z",
+      "video": {
+        "url": "http://localhost:8000/card/facebook/video.mp4",
+        "width": 480,
+        "height": 270,
+        "type": "mp4",
+        "size": 15457833,
+        "size_pretty": "15.5 MB",
+        "duration": 194.060727,
+        "duration_pretty": "3m"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/facebook/logo.ico",
+        "width": 16,
+        "height": 16,
+        "type": "ico",
+        "size": 5430,
+        "size_pretty": "5.43 kB"
+      },
+      "url": "https://www.facebook.com/natgeo/videos/1959330137697840/"
+    },
+    "url": "https://www.facebook.com/natgeo/videos/1959330137697840/",
+    "featured": true
+  },
+  {
+    "brand": "Flickr",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "Egyptian Museum, Cario, Egypt",
+      "publisher": "Flickr",
+      "image": {
+        "url": "http://localhost:8000/card/flickr/image.jpg",
+        "width": 768,
+        "height": 1024,
+        "type": "jpg",
+        "size": 465372,
+        "size_pretty": "465 kB",
+        "palette": [
+          "#A37F5A",
+          "#89B2F4",
+          "#574637",
+          "#93B0CC",
+          "#BE843A",
+          "#284C84"
+        ],
+        "background_color": "#A37F5A",
+        "color": "#24190B",
+        "alternative_color": "#FFFFFF"
+      },
+      "description": "Egyptian Museum, Cario, Egypt",
+      "audio": null,
+      "date": "2019-03-03T20:52:09.550Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/flickr/logo.png",
+        "width": 175,
+        "height": 175,
+        "type": "png",
+        "size": 12504,
+        "size_pretty": "12.5 kB",
+        "palette": [
+          "#FB1A8E",
+          "#EF84BB",
+          "#B6C7DD",
+          "#820244"
+        ],
+        "background_color": "#FB1A8E",
+        "color": "#3E0121",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://www.flickr.com/photos/68166820@N08/46358385844/"
+    },
+    "url": "https://www.flickr.com/photos/68166820@N08/46358385844/",
+    "featured": true
+  },
+  {
+    "brand": "Fox",
+    "data": {
+      "lang": "en",
+      "author": "Gary Gastelu",
+      "title": "Like-new 1987 Buick GNX muscle with 8.5 miles on it up for auction",
+      "publisher": "Fox News",
+      "image": {
+        "url": "http://localhost:8000/card/fox news/image.jpg",
+        "width": 1280,
+        "height": 720,
+        "type": "jpg",
+        "size": 164893,
+        "size_pretty": "165 kB",
+        "palette": [
+          "#414540",
+          "#8E8955",
+          "#A3B3CF",
+          "#84AFCA",
+          "#B4DCF1",
+          "#27485C"
+        ],
+        "background_color": "#414540",
+        "color": "#B4DCF1",
+        "alternative_color": "#90B7CF"
+      },
+      "description": "Nothing beats that new car smell, even when it’s 32 years-old.",
+      "audio": null,
+      "date": "2019-02-13T00:00:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/fox news/logo.ico",
+        "width": 32,
+        "height": 32,
+        "type": "ico",
+        "size": 4286,
+        "size_pretty": "4.29 kB"
+      },
+      "url": "https://www.foxnews.com/auto/literally-like-new-1987-buick-gnx-muscle-car-up-for-auction-with-8-5-miles-on-it"
+    },
+    "url": "https://www.foxnews.com/auto/literally-like-new-1987-buick-gnx-muscle-car-up-for-auction-with-8-5-miles-on-it"
+  },
+  {
+    "brand": "Gfycat",
+    "data": {
+      "lang": "en",
+      "author": "anonymous",
+      "title": "Backflip",
+      "publisher": "Gfycat",
+      "image": {
+        "url": "http://localhost:8000/card/gfycat/image.gif",
+        "width": 444,
+        "height": 250,
+        "type": "gif",
+        "size": 2629197,
+        "size_pretty": "2.63 MB",
+        "palette": [
+          "#9C9061",
+          "#28576C",
+          "#2C4D59",
+          "#ACA47E",
+          "#B88C68",
+          "#AC7044"
+        ],
+        "background_color": "#9C9061",
+        "color": "#322114",
+        "alternative_color": "#342519"
+      },
+      "description": "Watch Backflip GIF on Gfycat. Discover more PUBG GIFs on Gfycat",
+      "audio": null,
+      "date": "2017-11-20T16:03:20.000Z",
+      "video": {
+        "url": "http://localhost:8000/card/gfycat/video.mp4",
+        "width": 1280,
+        "height": 720,
+        "type": "mp4",
+        "size": 3625794,
+        "size_pretty": "3.63 MB",
+        "duration": 10.03,
+        "duration_pretty": "10s"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/gfycat/logo.png",
+        "width": 180,
+        "height": 180,
+        "type": "png",
+        "size": 4439,
+        "size_pretty": "4.44 kB",
+        "palette": [
+          "#047CEC",
+          "#046CD4",
+          "#A4D4FC"
+        ],
+        "background_color": "#047CEC",
+        "color": "#011223",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://thumbs.gfycat.com/TimelyHealthyArmadillo-size_restricted.gif"
+    },
+    "url": "https://gfycat.com/gifs/detail/timelyhealthyarmadillo",
+    "featured": true
+  },
+  {
+    "brand": "GitHub",
+    "data": {
+      "lang": "en",
+      "author": "substack",
+      "title": "substack/stream-handbook",
+      "publisher": "GitHub",
+      "image": {
+        "url": "http://localhost:8000/card/github/image.jpg",
+        "width": 400,
+        "height": 400,
+        "type": "jpg",
+        "size": 35450,
+        "size_pretty": "35.5 kB",
+        "palette": [
+          "#F71904",
+          "#5B3F2D",
+          "#896652",
+          "#EEBC84",
+          "#C6BCA8",
+          "#8E2118"
+        ],
+        "background_color": "#5B3F2D",
+        "color": "#FEAFA7",
+        "alternative_color": "#F3BDB8"
+      },
+      "description": "how to write node programs with streams. Contribute to substack/stream-handbook development by creating an account on GitHub.",
+      "audio": null,
+      "date": "2019-03-03T12:00:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/github/logo.ico",
+        "width": 16,
+        "height": 16,
+        "type": "ico",
+        "size": 6518,
+        "size_pretty": "6.52 kB"
+      },
+      "url": "https://github.com/substack/stream-handbook"
+    },
+    "url": "https://github.com/substack/stream-handbook"
+  },
+  {
+    "brand": "Gizmodo",
+    "data": {
+      "lang": "en",
+      "author": "Matt Novak",
+      "title": "Drone Video of Border Wall Prototypes Accidentally Shows How Worthless the Wall Would Be",
+      "publisher": "Gizmodo",
+      "image": {
+        "url": "http://localhost:8000/card/gizmodo/image.jpg",
+        "width": 1600,
+        "height": 900,
+        "type": "jpg",
+        "size": 150828,
+        "size_pretty": "151 kB",
+        "palette": [
+          "#C6BAAB",
+          "#988C7D",
+          "#473E3A",
+          "#21160F",
+          "#DCCCB4",
+          "#AF744F"
+        ],
+        "background_color": "#C6BAAB",
+        "color": "#5A3C29",
+        "alternative_color": "#21160F"
+      },
+      "description": "US Customs and Border Protection recently released video of President Trump’s border wall prototypes in San Diego. And we couldn’t help but notice something strange from the video. It shows a bird’s-eye view of the wall from the perspective of a drone. And the drone is much, much higher than the wal…",
+      "audio": null,
+      "date": "2017-10-20T19:02:00.000Z",
+      "video": {
+        "url": "http://localhost:8000/card/gizmodo/video.mp4",
+        "width": 800,
+        "height": 450,
+        "type": "mp4",
+        "size": 509734,
+        "size_pretty": "510 kB",
+        "duration": 4.03,
+        "duration_pretty": "4s"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/gizmodo/logo.png",
+        "width": 200,
+        "height": 200,
+        "type": "png",
+        "size": 2751,
+        "size_pretty": "2.75 kB",
+        "palette": [
+          "#9C9C9C",
+          "#444444",
+          "#7C7C7C"
+        ],
+        "background_color": "#9C9C9C",
+        "color": "#2F2F2F",
+        "alternative_color": "#333333"
+      },
+      "url": "https://gizmodo.com/drone-video-of-border-wall-prototypes-accidentally-show-1819710328"
+    },
+    "url": "https://gizmodo.com/drone-video-of-border-wall-prototypes-accidentally-show-1819710328"
+  },
+  {
+    "brand": "Instagram",
+    "data": {
+      "lang": "en",
+      "author": "SpaceX",
+      "title": "Video by spacex",
+      "publisher": "Instagram",
+      "image": {
+        "url": "http://localhost:8000/card/instagram/image.jpg",
+        "width": 1080,
+        "height": 607,
+        "type": "jpg",
+        "size": 46439,
+        "size_pretty": "46.4 kB",
+        "palette": [
+          "#A4BADB",
+          "#232A36",
+          "#516FAD",
+          "#5C79B3",
+          "#ACBAD9",
+          "#445C9D"
+        ],
+        "background_color": "#A4BADB",
+        "color": "#354972",
+        "alternative_color": "#354779"
+      },
+      "description": "171.7k Likes, 2,804 Comments - SpaceX (@spacex) on Instagram: “First static fire test of Falcon Heavy complete—one step closer to first test flight!”",
+      "audio": null,
+      "date": "2018-01-24T18:39:47.000Z",
+      "video": {
+        "url": "http://localhost:8000/card/instagram/video.mp4",
+        "width": 640,
+        "height": 360,
+        "type": "mp4",
+        "size": 1056046,
+        "size_pretty": "1.06 MB",
+        "duration": 21.633333,
+        "duration_pretty": "22s"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/instagram/logo.png",
+        "width": 192,
+        "height": 192,
+        "type": "png",
+        "size": 34715,
+        "size_pretty": "34.7 kB",
+        "palette": [
+          "#FCC45C",
+          "#F77026",
+          "#AE2E92",
+          "#E4D4E9"
+        ],
+        "background_color": "#FCC45C",
+        "color": "#853205",
+        "alternative_color": "#93277B"
+      },
+      "url": "https://www.instagram.com/p/BeV6tOhFUor/"
+    },
+    "url": "https://www.instagram.com/p/BeV6tOhFUor/",
+    "featured": true
+  },
+  {
+    "brand": "LifeHacker",
+    "data": {
+      "lang": "en",
+      "author": "Josh Ocampo",
+      "title": "How to Cancel Your Gym Membership",
+      "publisher": "Lifehacker",
+      "image": {
+        "url": "http://localhost:8000/card/lifehacker/image.jpg",
+        "width": 1600,
+        "height": 900,
+        "type": "jpg",
+        "size": 229416,
+        "size_pretty": "229 kB",
+        "palette": [
+          "#7C7C7C",
+          "#444444",
+          "#BFBFBF"
+        ],
+        "background_color": "#7C7C7C",
+        "color": "#111111",
+        "alternative_color": "#FFFFFF"
+      },
+      "description": "We get it—sometimes, a gym just doesn’t work out. Maybe it’s too crowded or the ceilings tiles are falling and landing on your head. It happens! Unfortunately, canceling your gym membership is a lot like competing in the Hunger Games, of which there are no winners, only the wounded.",
+      "audio": null,
+      "date": "2019-02-14T22:00:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/lifehacker/logo.png",
+        "width": 200,
+        "height": 200,
+        "type": "png",
+        "size": 1231,
+        "size_pretty": "1.23 kB",
+        "palette": [
+          "#94B434",
+          "#CCDC9C",
+          "#54661D"
+        ],
+        "background_color": "#94B434",
+        "color": "#343F12",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://lifehacker.com/how-to-cancel-your-gym-membership-1832629564"
+    },
+    "url": "https://lifehacker.com/how-to-cancel-your-gym-membership-1832629564",
+    "featured": true
+  },
+  {
+    "brand": "MDN",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "Array.prototype.some()",
+      "publisher": "MDN Web Docs",
+      "image": {
+        "url": "http://localhost:8000/card/mdn web docs/image.png",
+        "width": 600,
+        "height": 600,
+        "type": "png",
+        "size": 3806,
+        "size_pretty": "3.81 kB",
+        "palette": [
+          "#7C7C7C",
+          "#444444",
+          "#BCBCBC"
+        ],
+        "background_color": "#7C7C7C",
+        "color": "#111111",
+        "alternative_color": "#FFFFFF"
+      },
+      "description": "The some() method tests whether at least one element in the array passes the test implemented by the provided function.",
+      "audio": null,
+      "date": "2019-01-13T11:19:43.606Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/mdn web docs/logo.png",
+        "width": 144,
+        "height": 144,
+        "type": "png",
+        "size": 1327,
+        "size_pretty": "1.33 kB",
+        "palette": [
+          "#8CD4F4",
+          "#223D48",
+          "#649CB9",
+          "#5C94AC",
+          "#345464",
+          "#64A4BC"
+        ],
+        "background_color": "#8CD4F4",
+        "color": "#29505E",
+        "alternative_color": "#325A6F"
+      },
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some"
+    },
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some"
+  },
+  {
+    "brand": "Medium",
+    "data": {
+      "lang": "en",
+      "author": "The Economist",
+      "title": "Apple should shrink its finance arm before it goes bananas",
+      "publisher": "Medium",
+      "image": {
+        "url": "http://localhost:8000/card/medium/image.jpeg",
+        "width": 1200,
+        "height": 632,
+        "type": "jpeg",
+        "size": 166002,
+        "size_pretty": "166 kB",
+        "palette": [
+          "#7088A7",
+          "#384356",
+          "#B0C3E1",
+          "#D3C8B0",
+          "#417187",
+          "#14394F"
+        ],
+        "background_color": "#7088A7",
+        "color": "#111E24",
+        "alternative_color": "#0C212E"
+      },
+      "description": "The world’s biggest firm has a financial arm half the size of Goldman Sachs",
+      "audio": null,
+      "date": "2017-10-27T04:02:44.312Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/medium/logo.png",
+        "width": 304,
+        "height": 304,
+        "type": "png",
+        "size": 6579,
+        "size_pretty": "6.58 kB",
+        "palette": [
+          "#7E7C7C",
+          "#BCBCBC",
+          "#4C4844"
+        ],
+        "background_color": "#7E7C7C",
+        "color": "#11100F",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://medium.com/@the_economist/apple-should-shrink-its-finance-arm-before-it-goes-bananas-f7fcdc754091"
+    },
+    "url": "https://medium.com/@the_economist/apple-should-shrink-its-finance-arm-before-it-goes-bananas-f7fcdc754091"
+  },
+  {
+    "brand": "NYTimes",
+    "data": {
+      "lang": "en",
+      "author": "Claire Cain Miller",
+      "title": "Ada Lovelace, Mathematician Who Wrote the First Computer Program",
+      "publisher": "The New York Times Obituaries The New York Times Obituaries",
+      "image": {
+        "url": "http://localhost:8000/card/the new york times obituaries the new york times obituaries/image.jpg",
+        "width": 1050,
+        "height": 549,
+        "type": "jpg",
+        "size": 151721,
+        "size_pretty": "152 kB",
+        "palette": [
+          "#847C7C",
+          "#403B3F",
+          "#E4D4AD",
+          "#CCAA83",
+          "#A9ACB4",
+          "#5D4426"
+        ],
+        "background_color": "#847C7C",
+        "color": "#FFFFFF",
+        "alternative_color": "#18120A"
+      },
+      "description": "Lovelace thought of math and logic as creative and imaginative, and her writings about computing in the mid-1800s earned her recognition as the first computer programmer.",
+      "audio": null,
+      "date": "2019-01-29T19:18:48.256Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/the new york times obituaries the new york times obituaries/logo.png",
+        "width": 57,
+        "height": 57,
+        "type": "png",
+        "size": 1184,
+        "size_pretty": "1.18 kB",
+        "palette": [
+          "#2B2B2B",
+          "#C4C4C4",
+          "#7C7C7C"
+        ],
+        "background_color": "#2B2B2B",
+        "color": "#C4C4C4",
+        "alternative_color": "#929292"
+      },
+      "url": "https://www.nytimes.com/interactive/2018/obituaries/overlooked-ada-lovelace.html"
+    },
+    "url": "https://www.nytimes.com/interactive/2018/obituaries/overlooked-ada-lovelace.html"
+  },
+  {
+    "brand": "Nasa",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "NASA’s Hubble Space Telescope Returns to Science Operations",
+      "publisher": "NASA",
+      "image": {
+        "url": "http://localhost:8000/card/nasa/image.jpg",
+        "width": 3000,
+        "height": 1993,
+        "type": "jpg",
+        "size": 946928,
+        "size_pretty": "947 kB",
+        "palette": [
+          "#364857",
+          "#907760",
+          "#D7BDA1",
+          "#4C84BC",
+          "#DCCABE",
+          "#844C0C"
+        ],
+        "background_color": "#364857",
+        "color": "#F1B168",
+        "alternative_color": "#AAC5DF"
+      },
+      "description": "NASA’s Hubble Space Telescope returned to normal operations late Friday, Oct. 26, and completed its first science observations on Saturday, Oct. 27 at 2:10 AM EDT.",
+      "audio": null,
+      "date": "2018-10-08T18:11:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/nasa/logo.png",
+        "width": 152,
+        "height": 152,
+        "type": "png",
+        "size": 11840,
+        "size_pretty": "11.8 kB",
+        "palette": [
+          "#1C5CAC",
+          "#E62E41",
+          "#864474",
+          "#7C74A6",
+          "#F9A1A9",
+          "#D0A4BC"
+        ],
+        "background_color": "#1C5CAC",
+        "color": "#FCE5E7",
+        "alternative_color": "#FCCED2"
+      },
+      "url": "http://www.nasa.gov/feature/goddard/2018/update-on-the-hubble-space-telescope-safe-mode"
+    },
+    "url": "https://www.nasa.gov/feature/goddard/2018/update-on-the-hubble-space-telescope-safe-mode",
+    "featured": true
+  },
+  {
+    "brand": "Netflix",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "Marvel's The Punisher | Netflix Official Site",
+      "publisher": "Netflix",
+      "image": {
+        "url": "http://localhost:8000/card/netflix/image.jpg",
+        "width": 1280,
+        "height": 720,
+        "type": "jpg",
+        "size": 122716,
+        "size_pretty": "123 kB",
+        "palette": [
+          "#0C2D44",
+          "#2D454F",
+          "#CFA078",
+          "#8C7C64"
+        ],
+        "background_color": "#0C2D44",
+        "color": "#CFA078",
+        "alternative_color": "#A4957F"
+      },
+      "description": "A former Marine out to punish the criminals responsible for his family’s murder finds himself ensnared in a military conspiracy.",
+      "audio": null,
+      "date": null,
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/netflix/logo.png",
+        "width": 64,
+        "height": 64,
+        "type": "png",
+        "size": 1755,
+        "size_pretty": "1.75 kB",
+        "palette": [
+          "#B20414",
+          "#E30C14"
+        ],
+        "background_color": "#B20414",
+        "color": "#FEE5E6",
+        "alternative_color": "#FEE5E6"
+      },
+      "url": "https://www.netflix.com/title/80117498"
+    },
+    "url": "https://www.netflix.com/es-en/title/80117498",
+    "featured": true
+  },
+  {
+    "brand": "ProductHunt",
+    "data": {
+      "lang": "en",
+      "author": "Stan Schroeder",
+      "title": "macOS Mojave - The next generation of software for Macs | Product Hunt",
+      "publisher": "Product Hunt",
+      "image": {
+        "url": "http://localhost:8000/card/product hunt/image.jpg",
+        "width": 1024,
+        "height": 512,
+        "type": "jpg",
+        "size": 80205,
+        "size_pretty": "80.2 kB",
+        "palette": [
+          "#334054",
+          "#A06C24",
+          "#5E86B1",
+          "#FAE4C2",
+          "#D1AB9D",
+          "#3AACC6"
+        ],
+        "background_color": "#334054",
+        "color": "#57B8CE",
+        "alternative_color": "#DEAD6A"
+      },
+      "description": "Stay better focused on your work in Dark Mode. Automatically organize files using Stacks. Take more kinds of screenshots with less effort. Try four handy new built-in apps, and discover great new ones in the redesigned Mac App Store. Now you can get more out of every click.",
+      "audio": null,
+      "date": "2018-06-05T07:00:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/product hunt/logo.png",
+        "width": 152,
+        "height": 152,
+        "type": "png",
+        "size": 1307,
+        "size_pretty": "1.31 kB",
+        "palette": [
+          "#DC542D",
+          "#ECAC94",
+          "#712812"
+        ],
+        "background_color": "#DC542D",
+        "color": "#2B0F07",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://www.producthunt.com/posts/macos-mojave"
+    },
+    "url": "https://www.producthunt.com/posts/macos-mojave",
+    "featured": true
+  },
+  {
+    "brand": "Reddit",
+    "data": {
+      "lang": "en",
+      "author": "GenericExcuseActivat",
+      "title": "Lebron James takes $154 million, 4-year deal with the Lakers.",
+      "publisher": "ESPN",
+      "image": {
+        "url": "http://localhost:8000/card/espn/image.jpg",
+        "width": 1296,
+        "height": 729,
+        "type": "jpg",
+        "size": 176891,
+        "size_pretty": "177 kB",
+        "palette": [
+          "#D9141A",
+          "#966755",
+          "#25314E",
+          "#AD0D0B",
+          "#EE5E62",
+          "#D7B0A9"
+        ],
+        "background_color": "#D9141A",
+        "color": "#040000",
+        "alternative_color": "#FEF6F6"
+      },
+      "description": "31,940 votes and 2,944 comments so far on Reddit",
+      "audio": null,
+      "date": "2018-07-02T00:14:41.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/espn/logo.png",
+        "width": 192,
+        "height": 192,
+        "type": "png",
+        "size": 8680,
+        "size_pretty": "8.68 kB",
+        "palette": [
+          "#FC4404",
+          "#FCA47C",
+          "#832201"
+        ],
+        "background_color": "#FC4404",
+        "color": "#3E1000",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://www.reddit.com/r/news/comments/8vebjp/lebron_james_takes_154_million_4year_deal_with/"
+    },
+    "url": "https://www.reddit.com/r/news/comments/8vebjp/lebron_james_takes_154_million_4year_deal_with/?st=JJ41AUKB&sh=be6868cb",
+    "featured": true
+  },
+  {
+    "brand": "SoundCloud",
+    "data": {
+      "lang": "en",
+      "author": "The AI Podcast",
+      "title": "Ep. 51: Live at GTC - Deep Learning Can Save Lives by Predicting Severe Weather",
+      "publisher": "Soundcloud",
+      "image": {
+        "url": "http://localhost:8000/card/soundcloud/image.jpg",
+        "width": 0,
+        "height": 0,
+        "type": "jpg",
+        "size": 83581,
+        "size_pretty": "83.6 kB",
+        "palette": [
+          "#81858C",
+          "#FCF8F6",
+          "#BCBBBD",
+          "#323C4F"
+        ],
+        "background_color": "#FCF8F6",
+        "color": "#323C4F",
+        "alternative_color": "#6E7279"
+      },
+      "description": "One of the things that makes the weather so dangerous is that it’s so hard to predict. Tornadoes, hail, high winds and flash floods cause billions of dollars worth of property damage, and injure or ki",
+      "audio": {
+        "url": "https://cf-media.sndcdn.com/clcG6IDMnbiy.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLW1lZGlhLnNuZGNkbi5jb20vY2xjRzZJRE1uYml5LjEyOC5tcDMiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE1NTE2NDc5MzJ9fX1dfQ__&Signature=CslWspkKx52tHpXLkOSGCb3NenVLSxWI1V8cfUpQ4BwEnURFEaZsQ4SfdpL990TVONjzCve1MEJJ5uW4WxEPmfLS~EzziX4EQa3rJs-C0HopXmQiKqU7x9xgKty5jN-9vOB4hXKXzY5DPRj2Azq-eadx8JJALZ65c0fNvnTWMFM8rTYA-DRQnUx19xQeWDrRB4HCRCvIWcIlqCct60vuqsOCR~E9dFHjHQLVqTxrwR7Yj70UIocxlC2H1V6iZcatD1cP2sGBCBRzg4RzJRSHYElVKxthcQOazSHIuTxDYrbyW4AhpKX5hNmq6h9VjqFEtMMiQDt2y65Oug52QVvHDw__&Key-Pair-Id=APKAJAGZ7VMH2PFPW6UQ",
+        "type": "mp3",
+        "size": 23061732,
+        "size_pretty": "23.1 MB",
+        "duration": 1441.332245,
+        "duration_pretty": "24m"
+      },
+      "date": "2018-03-29T02:06:49.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/soundcloud/logo.png",
+        "width": 114,
+        "height": 114,
+        "type": "png",
+        "size": 3144,
+        "size_pretty": "3.14 kB",
+        "palette": [
+          "#FC3A04",
+          "#F8AC7C",
+          "#831D01"
+        ],
+        "background_color": "#FC3A04",
+        "color": "#3D0D00",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://soundcloud.com/theaipodcast/gtc-weather"
+    },
+    "url": "https://soundcloud.com/theaipodcast/gtc-weather/",
+    "featured": true
+  },
+  {
+    "brand": "StackOverflow",
+    "data": {
+      "lang": "en",
+      "author": "edited Sep 4 ’10 at 19:29 Peter Mortensen 13.7k1986112",
+      "title": "What’s the difference between JavaScript and Java?",
+      "publisher": "Stack Overflow",
+      "image": {
+        "url": "http://localhost:8000/card/stack overflow/image.png",
+        "width": 316,
+        "height": 316,
+        "type": "png",
+        "size": 6562,
+        "size_pretty": "6.56 kB",
+        "palette": [
+          "#F48424",
+          "#BCBCBC",
+          "#7E3D06"
+        ],
+        "background_color": "#BCBCBC",
+        "color": "#713706",
+        "alternative_color": "#7A3B06"
+      },
+      "description": "What’s the difference between JavaScript and Java?",
+      "audio": null,
+      "date": "2008-10-28T22:12:15.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/stack overflow/logo.png",
+        "width": 158,
+        "height": 158,
+        "type": "png",
+        "size": 3445,
+        "size_pretty": "3.44 kB",
+        "palette": [
+          "#F48424",
+          "#BCBCBC",
+          "#7E3D06"
+        ],
+        "background_color": "#BCBCBC",
+        "color": "#713706",
+        "alternative_color": "#7A3B06"
+      },
+      "url": "https://stackoverflow.com/questions/245062/whats-the-difference-between-javascript-and-java/245068"
+    },
+    "url": "https://stackoverflow.com/questions/245062/whats-the-difference-between-javascript-and-java/245068#245068"
+  },
+  {
+    "brand": "TED",
+    "data": {
+      "lang": "en",
+      "author": "Jia Jiang",
+      "title": "What I learned from 100 days of rejection",
+      "publisher": "TED",
+      "image": {
+        "url": "http://localhost:8000/card/ted/image.jpg",
+        "width": 1050,
+        "height": 550,
+        "type": "jpg",
+        "size": 37992,
+        "size_pretty": "38 kB",
+        "palette": [
+          "#263253",
+          "#D9A893",
+          "#AB7461",
+          "#6E4B11",
+          "#AD6C4C",
+          "#C0AACC"
+        ],
+        "background_color": "#263253",
+        "color": "#C89A83",
+        "alternative_color": "#D89321"
+      },
+      "description": "Jia Jiang adventures boldly into a territory so many of us fear: rejection. By seeking out rejection for 100 days -- from asking a stranger to borrow $100 to requesting a",
+      "audio": null,
+      "date": "2016-12-07T16:30:43.000Z",
+      "video": {
+        "url": "http://localhost:8000/card/ted/video.mp4",
+        "width": 854,
+        "height": 480,
+        "type": "mp4",
+        "size": 109147790,
+        "size_pretty": "109 MB",
+        "duration": 935.8,
+        "duration_pretty": "16m"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/ted/logo.png",
+        "width": 180,
+        "height": 180,
+        "type": "png",
+        "size": 682,
+        "size_pretty": "682 B",
+        "palette": [
+          "#E42C1C",
+          "#F48C84",
+          "#76160E"
+        ],
+        "background_color": "#E42C1C",
+        "color": "#FFFFFF",
+        "alternative_color": "#110302"
+      },
+      "url": "https://www.ted.com/talks/jia_jiang_what_i_learned_from_100_days_of_rejection"
+    },
+    "url": "https://www.ted.com/talks/jia_jiang_what_i_learned_from_100_days_of_rejection"
+  },
+  {
+    "brand": "TNW",
+    "data": {
+      "lang": "en",
+      "author": "Már Másson Maack",
+      "title": "Report: Microsoft’s enterprise products covertly gather personal data on users",
+      "publisher": "The Next Web",
+      "image": {
+        "url": "http://localhost:8000/card/the next web/image.jpg",
+        "width": 1280,
+        "height": 640,
+        "type": "jpg",
+        "size": 193924,
+        "size_pretty": "194 kB",
+        "palette": [
+          "#043C6F",
+          "#BFB8B4",
+          "#7A7F82",
+          "#2F4861",
+          "#E5470E",
+          "#E45459"
+        ],
+        "background_color": "#043C6F",
+        "color": "#F79A78",
+        "alternative_color": "#EE9497"
+      },
+      "description": "Microsoft collects and stores personal data about the behavior of individual users of its enterprise offerings on a large scale, without any public documentation — according to a new report by Privacy Company. The data protection impact assessment (DPIA) was commissioned by the Dutch government to g…",
+      "audio": null,
+      "date": "2018-11-15T12:11:52.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/the next web/logo.png",
+        "width": 194,
+        "height": 194,
+        "type": "png",
+        "size": 23128,
+        "size_pretty": "23.1 kB",
+        "palette": [
+          "#E41D66",
+          "#CC0496",
+          "#F17999"
+        ],
+        "background_color": "#E41D66",
+        "color": "#12000E",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://thenextweb.com/microsoft/2018/11/15/report-microsofts-enterprise-products-covertly-gather-personal-data-on-users/"
+    },
+    "url": "https://thenextweb.com/microsoft/2018/11/15/report-microsofts-enterprise-products-covertly-gather-personal-data-on-users/"
+  },
+  {
+    "brand": "TechCrunch",
+    "data": {
+      "lang": "en",
+      "author": "Devin Coldewey",
+      "title": "Super Mario Odyssey is a masterpiece of twists and turns",
+      "publisher": "TechCrunch",
+      "image": {
+        "url": "http://localhost:8000/card/techcrunch/image.jpg",
+        "width": 710,
+        "height": 399,
+        "type": "jpg",
+        "size": 91881,
+        "size_pretty": "91.9 kB",
+        "palette": [
+          "#403C42",
+          "#50B257",
+          "#8CD6CA",
+          "#BCD4DB",
+          "#51996C",
+          "#228948"
+        ],
+        "background_color": "#403C42",
+        "color": "#32CB6B",
+        "alternative_color": "#66BC6C"
+      },
+      "description": "It’s almost unnerving how good Nintendo is at its job — at least, when the wizards there choose to apply themselves. Super Mario Odyssey is a embarrassment of riches, never failing to surprise for hours and hours and maintaining an unflaggingly positive feeling the entire time. It’s an essential fo…",
+      "audio": null,
+      "date": null,
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/techcrunch/logo.png",
+        "width": 192,
+        "height": 192,
+        "type": "png",
+        "size": 13780,
+        "size_pretty": "13.8 kB",
+        "palette": [
+          "#07A866",
+          "#07D40F",
+          "#8CE494"
+        ],
+        "background_color": "#07A866",
+        "color": "#FFFFFF",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "http://social.techcrunch.com/2017/10/26/super-mario-odyssey-review-a-masterpiece-of-twists-and-turns/"
+    },
+    "url": "https://techcrunch.com/2017/10/26/super-mario-odyssey-review-a-masterpiece-of-twists-and-turns/"
+  },
+  {
+    "brand": "TheGuardian",
+    "data": {
+      "lang": "en",
+      "author": "Katharine Viner",
+      "title": "Katharine Viner: ‘The Guardian’s reader funding model is working. It’s inspiring’",
+      "publisher": "the Guardian",
+      "image": {
+        "url": "http://localhost:8000/card/the guardian/image.jpg",
+        "width": 1200,
+        "height": 630,
+        "type": "jpg",
+        "size": 108480,
+        "size_pretty": "108 kB",
+        "palette": [
+          "#123363",
+          "#B8C2C4",
+          "#928968",
+          "#5D4A32",
+          "#AD7F26",
+          "#BCD4E4"
+        ],
+        "background_color": "#123363",
+        "color": "#C9932C",
+        "alternative_color": "#BCD4E4"
+      },
+      "description": "The Guardian’s editor-in-chief reflects on the state of media today and explains how the support of 1 million readers has enabled us to report and investigate the most important stories of our time",
+      "audio": null,
+      "date": "2018-11-13T12:15:35.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/the guardian/logo.png",
+        "width": 152,
+        "height": 152,
+        "type": "png",
+        "size": 1621,
+        "size_pretty": "1.62 kB",
+        "palette": [
+          "#042C64",
+          "#5A7397",
+          "#365484",
+          "#ACBCCC",
+          "#3C5C84"
+        ],
+        "background_color": "#042C64",
+        "color": "#8FA8D1",
+        "alternative_color": "#90ABCC"
+      },
+      "url": "http://www.theguardian.com/membership/2018/nov/12/katharine-viner-guardian-million-reader-funding"
+    },
+    "url": "https://www.theguardian.com/membership/2018/nov/12/katharine-viner-guardian-million-reader-funding"
+  },
+  {
+    "brand": "TheVerge",
+    "data": {
+      "lang": "en",
+      "author": "Shannon Liao",
+      "title": "Web series becoming TV pilots is the new normal",
+      "publisher": "The Verge",
+      "image": {
+        "url": "http://localhost:8000/card/the verge/image.jpg",
+        "width": 1200,
+        "height": 628,
+        "type": "jpg",
+        "size": 110658,
+        "size_pretty": "111 kB",
+        "palette": [
+          "#532453",
+          "#5E54FA",
+          "#FC08FB",
+          "#9A4AA1",
+          "#E1C8DD",
+          "#6F4289"
+        ],
+        "background_color": "#532453",
+        "color": "#FD5EFC",
+        "alternative_color": "#A39DFC"
+      },
+      "description": "Shows like Insecure, Broad City, and High Maintenance",
+      "audio": null,
+      "date": "2017-10-27T15:53:11.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/the verge/logo.png",
+        "width": 192,
+        "height": 192,
+        "type": "png",
+        "size": 22098,
+        "size_pretty": "22.1 kB",
+        "palette": [
+          "#E9078D",
+          "#D4B9CC",
+          "#A1158C",
+          "#DC94BC",
+          "#4C449C",
+          "#7C74AC"
+        ],
+        "background_color": "#D4B9CC",
+        "color": "#95045A",
+        "alternative_color": "#8E127B"
+      },
+      "url": "https://www.theverge.com/2017/10/27/16145498/insecure-broad-city-high-maintenance-web-series-hbo-comedy-central"
+    },
+    "url": "https://www.theverge.com/2017/10/27/16145498/insecure-broad-city-high-maintenance-web-series-hbo-comedy-central",
+    "featured": true
+  },
+  {
+    "brand": "TheWashingtonPost",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": null,
+      "publisher": null,
+      "image": null,
+      "description": null,
+      "audio": null,
+      "date": null,
+      "video": null,
+      "logo": null,
+      "url": "https://www.washingtonpost.com/technology/2018/12/14/facebook-says-new-bug-allowed-apps-access-private-photos-up-million-users/?utm_term=.09e8a4a366d9"
+    },
+    "url": "https://www.washingtonpost.com/technology/2018/12/14/facebook-says-new-bug-allowed-apps-access-private-photos-up-million-users/?utm_term=.09e8a4a366d9"
+  },
+  {
+    "brand": "Time",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "It’s Time for Action on Privacy, Says Apple’s CEO Tim Cook",
+      "publisher": "Sign InSign InSubscribe",
+      "image": {
+        "url": "http://localhost:8000/card/sign insign insubscribe/image.jpg",
+        "width": 720,
+        "height": 516,
+        "type": "jpg",
+        "size": 39967,
+        "size_pretty": "40 kB",
+        "palette": [
+          "#0C0604",
+          "#34455D",
+          "#BC8984",
+          "#8C6464",
+          "#F4BCA4",
+          "#BF5F3F"
+        ],
+        "background_color": "#0C0604",
+        "color": "#F4BCA4",
+        "alternative_color": "#BF5F3F"
+      },
+      "description": "We all deserve control over our digital lives",
+      "audio": null,
+      "date": null,
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/sign insign insubscribe/logo.ico",
+        "width": 32,
+        "height": 32,
+        "type": "ico",
+        "size": 1143,
+        "size_pretty": "1.14 kB"
+      },
+      "url": "http://time.com/collection/davos-2019/5502591/tim-cook-data-privacy/"
+    },
+    "url": "http://time.com/collection/davos-2019/5502591/tim-cook-data-privacy/"
+  },
+  {
+    "brand": "Twitch",
+    "data": {
+      "lang": "en",
+      "author": "shroud",
+      "title": "How gods play",
+      "publisher": "TwitchClips",
+      "image": {
+        "url": "http://localhost:8000/card/twitchclips/image.jpg",
+        "width": 262,
+        "height": 200,
+        "type": "jpg",
+        "size": 13662,
+        "size_pretty": "13.7 kB",
+        "palette": [
+          "#8162B4",
+          "#AF9DD0",
+          "#6444A4",
+          "#A494CC",
+          "#39265D"
+        ],
+        "background_color": "#8162B4",
+        "color": "#020103",
+        "alternative_color": "#FFFFFF"
+      },
+      "description": "Twitch is the world’s leading video platform and community for gamers.",
+      "audio": null,
+      "date": "2019-02-14T03:33:40.000Z",
+      "video": {
+        "url": "http://localhost:8000/card/twitchclips/video.mp4",
+        "width": 1920,
+        "height": 1080,
+        "type": "mp4",
+        "size": 60611235,
+        "size_pretty": "60.6 MB",
+        "duration": 59.967969,
+        "duration_pretty": "60s"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/twitchclips/logo.ico",
+        "width": 16,
+        "height": 16,
+        "type": "ico",
+        "size": 6518,
+        "size_pretty": "6.52 kB"
+      },
+      "url": "https://www.twitch.tv/shroud/clip/AuspiciousTubularBunnyFUNgineer"
+    },
+    "url": "https://www.twitch.tv/shroud/clip/AuspiciousTubularBunnyFUNgineer",
+    "featured": true
+  },
+  {
+    "brand": "Twitter",
+    "data": {
+      "lang": "en",
+      "author": "futurism",
+      "title": "Futurism on Twitter",
+      "publisher": "Twitter",
+      "image": {
+        "url": "http://localhost:8000/card/twitter/image.jpg",
+        "width": 720,
+        "height": 720,
+        "type": "jpg",
+        "size": 65648,
+        "size_pretty": "65.6 kB",
+        "palette": [
+          "#4CACFC",
+          "#BFC3C6",
+          "#6D92B9",
+          "#3D3D48",
+          "#040C15",
+          "#3CB4FC"
+        ],
+        "background_color": "#BFC3C6",
+        "color": "#025180",
+        "alternative_color": "#024C8A"
+      },
+      "description": "“These tires can even climb stairs https://t.co/ymr4KK15oI”",
+      "audio": null,
+      "date": "2019-03-03T08:39:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/twitter/logo.png",
+        "width": 192,
+        "height": 192,
+        "type": "png",
+        "size": 2113,
+        "size_pretty": "2.11 kB",
+        "palette": [
+          "#1CA4F4",
+          "#06517E"
+        ],
+        "background_color": "#1CA4F4",
+        "color": "#043451",
+        "alternative_color": "#043451"
+      },
+      "url": "https://twitter.com/futurism/status/882987478541533189"
+    },
+    "url": "https://twitter.com/futurism/status/882987478541533189",
+    "featured": true
+  },
+  {
+    "brand": "Vice",
+    "data": {
+      "lang": "en",
+      "author": "Daniel Oberhaus",
+      "title": "MIT Researchers Have Developed a ‘System for Dream Control’",
+      "publisher": "Motherboard",
+      "image": {
+        "url": "http://localhost:8000/card/motherboard/image.jpeg",
+        "width": 1200,
+        "height": 675,
+        "type": "jpeg",
+        "size": 75057,
+        "size_pretty": "75.1 kB",
+        "palette": [
+          "#3C54F4",
+          "#0C2089",
+          "#8AB8F4"
+        ],
+        "background_color": "#3C54F4",
+        "color": "#010207",
+        "alternative_color": "#F0F6FE"
+      },
+      "description": "When is a sleeper actually asleep?",
+      "audio": null,
+      "date": "2018-04-23T13:30:00.000Z",
+      "video": null,
+      "logo": {
+        "url": "http://localhost:8000/card/motherboard/logo.png",
+        "width": 228,
+        "height": 228,
+        "type": "png",
+        "size": 2514,
+        "size_pretty": "2.51 kB",
+        "palette": [
+          "#7C74BC",
+          "#BCBCDC",
+          "#A8A5D4",
+          "#847CC4",
+          "#2E295B"
+        ],
+        "background_color": "#7C74BC",
+        "color": "#FFFFFF",
+        "alternative_color": "#121024"
+      },
+      "url": "https://motherboard.vice.com/en_us/article/ywxjvg/steel-ball-control-dreams-dormio-mit-hypnagogia"
+    },
+    "url": "https://motherboard.vice.com/en_us/article/ywxjvg/steel-ball-control-dreams-dormio-mit-hypnagogia",
+    "featured": true
+  },
+  {
+    "brand": "Vimeo",
+    "data": {
+      "lang": "en",
+      "author": "pleid",
+      "title": "Converse All Star Modern - Director's Cut",
+      "publisher": "Vimeo",
+      "image": {
+        "url": "http://localhost:8000/card/vimeo/image.png",
+        "width": 0,
+        "height": 0,
+        "type": "png",
+        "size": 38598,
+        "size_pretty": "38.6 kB",
+        "palette": [
+          "#A2714F",
+          "#CBBBA9",
+          "#F5E5CC",
+          "#554029",
+          "#9F6139",
+          "#4E220E"
+        ],
+        "background_color": "#A2714F",
+        "color": "#150D08",
+        "alternative_color": "#1D0C05"
+      },
+      "description": "Past meets present is the main concept of the new Converse collection. Inspired by a particular environment each sneaker get transformed from the original retro…",
+      "audio": null,
+      "date": "2016-10-11T04:53:31.000Z",
+      "video": {
+        "url": "http://localhost:8000/card/vimeo/video.mp4",
+        "width": 1920,
+        "height": 1080,
+        "type": "mp4",
+        "size": 6976278,
+        "size_pretty": "6.98 MB",
+        "duration": 15,
+        "duration_pretty": "15s"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/vimeo/logo.png",
+        "width": 180,
+        "height": 180,
+        "type": "png",
+        "size": 4154,
+        "size_pretty": "4.15 kB",
+        "palette": [
+          "#04ACEC",
+          "#94DCFB",
+          "#025F82"
+        ],
+        "background_color": "#04ACEC",
+        "color": "#013C52",
+        "alternative_color": "#FFFFFF"
+      },
+      "url": "https://vimeo.com/186386161"
+    },
+    "url": "https://vimeo.com/186386161"
+  },
+  {
+    "brand": "Wikipedia",
+    "data": {
+      "lang": "en",
+      "author": null,
+      "title": "Bob Dylan - Wikipedia",
+      "publisher": "Wikipedia",
+      "image": {
+        "url": "http://localhost:8000/card/wikipedia/image.jpg",
+        "width": 1200,
+        "height": 1600,
+        "type": "jpg",
+        "size": 268195,
+        "size_pretty": "268 kB",
+        "palette": [
+          "#53312A",
+          "#CBB5AA",
+          "#986161",
+          "#571D0B",
+          "#ECCC9C",
+          "#4C2C94"
+        ],
+        "background_color": "#53312A",
+        "color": "#C7B8EA",
+        "alternative_color": "#ECCC9C"
+      },
+      "description": "Dylan has won many awards throughout his career including the 2016 Nobel Prize in Literature, ten Grammy Awards,[445] one Academy Award and one Golden Globe Award. He has been inducted into the Rock and Roll Hall of Fame, Nashville Songwriters Hall of Fame, and Songwriters Hall of Fame. In May 2000,…",
+      "audio": null,
+      "date": "2016-10-13T12:00:00.000Z",
+      "video": {
+        "url": "http://localhost:8000/card/wikipedia/video.webm",
+        "width": 854,
+        "height": 480,
+        "type": "webm",
+        "size": 16671232,
+        "size_pretty": "16.7 MB",
+        "duration": 0,
+        "duration_pretty": "0ms"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/wikipedia/logo.png",
+        "width": 160,
+        "height": 160,
+        "type": "png",
+        "size": 1399,
+        "size_pretty": "1.4 kB",
+        "palette": [
+          "#444444",
+          "#848484",
+          "#BCBCBC"
+        ],
+        "background_color": "#444444",
+        "color": "#BEBEBE",
+        "alternative_color": "#BCBCBC"
+      },
+      "url": "https://en.wikipedia.org/wiki/Bob_Dylan"
+    },
+    "url": "https://en.wikipedia.org/wiki/Bob_Dylan"
+  },
+  {
+    "brand": "YouTube",
+    "data": {
+      "lang": "en",
+      "author": "Kurzgesagt – In a Nutshell",
+      "title": "Wormholes Explained – Breaking Spacetime",
+      "publisher": "YouTube",
+      "image": {
+        "url": "http://localhost:8000/card/youtube/image.jpg",
+        "width": 1280,
+        "height": 720,
+        "type": "jpg",
+        "size": 120116,
+        "size_pretty": "120 kB",
+        "palette": [
+          "#C004F9",
+          "#EEEEA7",
+          "#25047C"
+        ],
+        "background_color": "#EEEEA7",
+        "color": "#AC04DF",
+        "alternative_color": "#25047C"
+      },
+      "description": "To support Kurzgesagt and learn more about Brilliant, go to https://www.brilliant.org/nutshell and sign up for free. The first 688 people that go to that link will get 20% off the annual Premium subscription. Are wormholes real or are they just magic disguised as physics and maths? And if they are …",
+      "audio": {
+        "url": "https://r3---sn-t0a7ln7d.googlevideo.com/videoplayback?fvip=3&ei=Jz98XJKlAYy58gSM7b2IBg&lmt=1550327141287979&requiressl=yes&ms=au%2Conr&beids=9466586&mv=m&mt=1551646427&key=yt6&ip=34.224.39.191&id=o-ADfeQ6dJqZrhi8RWfPwLjNqQ9gkS9Rwm0k1eg91Atc6t&mn=sn-t0a7ln7d%2Csn-vgqs7ns7&mm=31%2C26&signature=3928C886891A7F22CDD1AF8D13F7104A42602A67.CD1FEB9226353EC86EC66644E380432BD3C0A96F&initcwndbps=1943750&ipbits=0&clen=8935315&gir=yes&keepalive=yes&source=youtube&pl=19&itag=140&dur=552.054&txp=5532432&mime=audio%2Fmp4&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cexpire&expire=1551668103&c=WEB&ratebypass=yes",
+        "type": "aac",
+        "size": 8935315,
+        "size_pretty": "8.94 MB",
+        "duration": 552.054422,
+        "duration_pretty": "9m"
+      },
+      "date": null,
+      "video": {
+        "url": "http://localhost:8000/card/youtube/video.mp4",
+        "width": 1920,
+        "height": 1080,
+        "type": "mp4",
+        "size": 146466730,
+        "size_pretty": "146 MB",
+        "duration": 552,
+        "duration_pretty": "9m"
+      },
+      "logo": {
+        "url": "http://localhost:8000/card/youtube/logo.png",
+        "width": 144,
+        "height": 144,
+        "type": "png",
+        "size": 16275,
+        "size_pretty": "16.3 kB",
+        "palette": [
+          "#FC0404",
+          "#FC7474",
+          "#830101"
+        ],
+        "background_color": "#FC0404",
+        "color": "#FFFFFF",
+        "alternative_color": "#300000"
+      },
+      "url": "https://www.youtube.com/watch?v=9P6rdqiybaw"
+    },
+    "url": "https://www.youtube.com/watch?v=9P6rdqiybaw",
+    "featured": true
+  }
+]

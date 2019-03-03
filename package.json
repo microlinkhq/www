@@ -123,7 +123,6 @@
     "format": "prettier-standard --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "lint": "standard-markdown README.md && standard src/*/**.js",
     "postrelease": "npm run release:tags && npm run release:github",
-    "prebuild": "npm run clean:urls && node scripts/fetch-demo-links",
     "predev": "node scripts/fetch-demo-links",
     "prerelease": "npm run update:check && git-authors-cli",
     "release": "git add package.json && standard-version -a",
@@ -165,7 +164,7 @@
         "prettier-standard",
         "git add"
       ],
-      "data/demo-links.json": [
+      "scripts/demo-links.json": [
         "jsonsort --criteria logo --save --quiet",
         "git add"
       ]
