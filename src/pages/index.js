@@ -1,8 +1,6 @@
-/* global fetch */
-
 import React, { Component } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import { createApiUrl, marshall, unmarshall } from 'helpers'
+import { marshall, unmarshall } from 'helpers'
 import mql from '@microlink/mql'
 
 import {
