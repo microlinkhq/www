@@ -3,6 +3,7 @@
 const { chain, isNil, get, reduce } = require('lodash')
 const beautyError = require('beauty-error')
 const parseDomain = require('parse-domain')
+const { compact, map } = require('lodash')
 const jsonFuture = require('json-future')
 const mql = require('@microlink/mql')
 
@@ -76,31 +77,33 @@ const toDownload = async data => {
 const fetchDemoLink = async (key, { url, ...props }) => {
   console.log(`fetch url=${url}`)
 
-  const { data } = await mql(url, {
-    apiKey: MICROLINK_API_KEY,
-    video: true,
-    audio: true,
-    palette: true,
-    force: true
-  })
+  try {
+    const { data } = await mql(url, {
+      apiKey: MICROLINK_API_KEY,
+      video: true,
+      audio: true,
+      palette: true,
+      force: true
+    })
 
-  if (!data.lang) data.lang = 'en'
+    if (!data.lang) data.lang = 'en'
+    await toDownload(data)
 
-  await toDownload(data)
-
-  return { brand: key, data: toMapLocalAsset(data), url, ...props }
+    return { brand: key, data: toMapLocalAsset(data), url, ...props }
+  } catch (err) {
+    return null
+  }
 }
 
 const main = async () => {
   if (await existsFile(DATA_DEMO_LINKS_PATH)) return
 
-  const fetchDemoLinks = Object.keys(DEMO_LINKS).map(key => {
-    const value = DEMO_LINKS[key]
-    return () => fetchDemoLink(key, value)
-  })
+  const fetchDemoLinks = map(DEMO_LINKS, (value, key) => () =>
+    fetchDemoLink(key, value)
+  )
 
   const data = await pAll(fetchDemoLinks, { concurrency: 2 })
-  return jsonFuture.saveAsync(DATA_DEMO_LINKS_PATH, data)
+  return jsonFuture.saveAsync(DATA_DEMO_LINKS_PATH, compact(data))
 }
 
 main()
