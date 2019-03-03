@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import { createApiUrl, marshall, unmarshall } from 'helpers'
+import mql from '@microlink/mql'
 
 import {
   Text,
@@ -17,29 +18,40 @@ import {
   SearchBox
 } from 'components/elements'
 
-import { DemoLinks, CardLink, LiveDemo, PricingTable, Grid, Layout } from 'components/patterns'
+import {
+  DemoLinks,
+  CardLink,
+  LiveDemo,
+  PricingTable,
+  Grid,
+  Layout
+} from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List'
 
-import { Working, BrowserStats, DesignProcess, Frameworks } from 'components/icons'
+import {
+  Working,
+  BrowserStats,
+  DesignProcess,
+  Frameworks
+} from 'components/icons'
 
-const demoLinks = require('../../data/demo-links.json')
+import demoLinks from '../../data/demo-links.json'
 
-const REGEX_ACTIVE_LINK = /twitter/i
-
-const defaultActiveLink = demoLinks.find(({ publisher = '' } = {}) =>
-  REGEX_ACTIVE_LINK.test(publisher)
-)
+const featuredDemoLinks = demoLinks.filter(demoLink => demoLink.featured)
+const defaultDemoLink = demoLinks.find(demoLink => demoLink.brand === 'Twitch')
+  .data
 
 const Index = class extends Component {
   constructor (props) {
     super(props)
+
     const features = this.props.features.edges.map(item => item.node)
 
     this.state = {
       features,
-      demoLinks,
-      activeLink: defaultActiveLink,
+      demoLinks: featuredDemoLinks,
+      demoLink: defaultDemoLink,
       loading: false,
       url: ''
     }
@@ -52,22 +64,31 @@ const Index = class extends Component {
 
   setUrl = url => {
     if (url === this.state.url) return
-    this.setState({ url, hasError: null, loading: true })
-    const apiUrl = createApiUrl(url)
+    const demoLink = demoLinks.find(demoLink => demoLink.url === url)
+    if (demoLink) return this.setState({ url, demoLink: demoLink.data })
 
-    fetch(apiUrl)
-      .then(res => res.json())
-      .then(({ status, data }) => {
-        if (status === 'success') {
-          this.setState({ loading: false, activeLink: data })
-        } else {
-          this.setState({ loading: false, hasError: true })
-        }
-      })
+    this.setState({ url, hasError: null, loading: true })
+
+    mql(url, {
+      audio: true,
+      video: true,
+      force: true
+    }).then(({ status, data }) => {
+      if (status === 'success') {
+        this.setState({ loading: false, demoLink: data })
+      } else {
+        this.setState({ loading: false, hasError: true })
+      }
+    })
   }
   render () {
-    const { features, demoLinks, activeLink } = this.state
-    const { siteUrl, paymentEndpoint, paymentApiKey, stripeKey } = this.props.site.siteMetadata
+    const { features, demoLinks, demoLink } = this.state
+    const {
+      siteUrl,
+      paymentEndpoint,
+      paymentApiKey,
+      stripeKey
+    } = this.props.site.siteMetadata
 
     return (
       <Layout>
@@ -80,7 +101,10 @@ const Index = class extends Component {
               alignItems='center'
               pb={[3, 4]}
             >
-              <Heading children='Extract structured data from any website' maxWidth='12em' />
+              <Heading
+                children='Extract structured data from any website'
+                maxWidth='12em'
+              />
               <SearchBox
                 width={[250, 400]}
                 bg='white'
@@ -90,12 +114,16 @@ const Index = class extends Component {
                 value={this.state.url}
                 onChange={url => {
                   this.setUrl(url)
-                  window.history.pushState({}, '', `${siteUrl}?${marshall({ url })}`)
+                  window.history.pushState(
+                    {},
+                    '',
+                    `${siteUrl}?${marshall({ url })}`
+                  )
                 }}
               />
               {this.state.hasError && (
                 <Text
-                  color='black50'
+                  color='red7'
                   fontSize={0}
                   children='Your link failed. Make sure it has content.'
                 />
@@ -104,19 +132,32 @@ const Index = class extends Component {
             <Box as='article'>
               <Container as='section' px={0}>
                 <Flex flexDirection='column'>
-                  <LiveDemo loading={this.state.loading} children={activeLink} />
-                  <Flex flexDirection='column' justifyContent='center' alignItems='center'>
-                    <Text fontSize={1} pt={4} pb={3} color='gray8' children='Try another link →' />
+                  <LiveDemo loading={this.state.loading} children={demoLink} />
+                  <Flex
+                    flexDirection='column'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Text
+                      fontSize={1}
+                      pt={4}
+                      pb={3}
+                      color='gray8'
+                      children='Try another link →'
+                    />
                     <DemoLinks
+                      children={demoLinks}
                       px={[4, 0]}
                       size={[32, 38]}
-                      children={demoLinks}
-                      onClick={activeLink => {
-                        const { url } = activeLink
-                        window.history.pushState({}, '', `${siteUrl}?${marshall({ url })}`)
+                      onClick={demoLink => {
+                        window.history.pushState(
+                          {},
+                          '',
+                          `${siteUrl}?${marshall({ url: demoLink.url })}`
+                        )
                         this.setState({
-                          url,
-                          activeLink,
+                          url: demoLink.url,
+                          demoLink,
                           hasError: false
                         })
                       }}
@@ -129,7 +170,10 @@ const Index = class extends Component {
         </Box>
         <Box bg='#faf9fc' as='article'>
           <Container as='section' py={[4, 6]}>
-            <Flex flexDirection={['column', 'row']} justifyContent='space-between'>
+            <Flex
+              flexDirection={['column', 'row']}
+              justifyContent='space-between'
+            >
               <Flex
                 px={[4, 0]}
                 maxWidth={['100%', '23em']}
@@ -156,7 +200,10 @@ const Index = class extends Component {
                   <ListItem children='Headless browser service.' />
                   <ListItem>
                     {'Simple '}
-                    <Link href='https://docs.microlink.io/api/#introduction' children='API' />
+                    <Link
+                      href='https://docs.microlink.io/api/#introduction'
+                      children='API'
+                    />
                     {' integration.'}
                   </ListItem>
                   <ListItem children='Add it to your existing stack or cloud.' />
@@ -164,7 +211,10 @@ const Index = class extends Component {
               </Flex>
               <Hide breakpoints={[0, 1]}>
                 <Flex>
-                  <BrowserStats width={'24rem'} transform={'translateY(-28px)'} />
+                  <BrowserStats
+                    width={'24rem'}
+                    transform={'translateY(-28px)'}
+                  />
                 </Flex>
               </Hide>
             </Flex>
@@ -180,7 +230,11 @@ const Index = class extends Component {
               pb={[4, 5]}
             >
               <Heading children='Features' />
-              <Lead mt={[2, 3]} color='black50' children='Our feature at a glance.' />
+              <Lead
+                mt={[2, 3]}
+                color='black50'
+                children='Our feature at a glance.'
+              />
             </Flex>
             <Hide breakpoints={[0, 1]}>
               <Grid children={features} itemsPerRow={3} />
@@ -192,10 +246,16 @@ const Index = class extends Component {
         </Box>
         <Box bg='#faf9fc' as='article'>
           <Container as='section' py={[4, 6]}>
-            <Flex flexDirection={['column', 'row']} justifyContent='space-between'>
+            <Flex
+              flexDirection={['column', 'row']}
+              justifyContent='space-between'
+            >
               <Hide breakpoints={[0, 1]}>
                 <Flex>
-                  <DesignProcess width={'24rem'} transform={'translateY(4px)'} />
+                  <DesignProcess
+                    width={'24rem'}
+                    transform={'translateY(4px)'}
+                  />
                 </Flex>
               </Hide>
               <Flex
@@ -236,8 +296,17 @@ const Index = class extends Component {
         </Box>
         <Box variant='gradient' as='article'>
           <Container as='section' py={[4, 5]}>
-            <Flex px={3} flexDirection={['column', 'row']} justifyContent='space-between'>
-              <Flex justifyContent='center' flexDirection='column' alignItems='center' mb={[4, 0]}>
+            <Flex
+              px={3}
+              flexDirection={['column', 'row']}
+              justifyContent='space-between'
+            >
+              <Flex
+                justifyContent='center'
+                flexDirection='column'
+                alignItems='center'
+                mb={[4, 0]}
+              >
                 <CardLink
                   href='https://docs.microlink.io/sdk'
                   title='Explore the SDK'
@@ -245,7 +314,11 @@ const Index = class extends Component {
                   iconComponent={Frameworks}
                 />
               </Flex>
-              <Flex justifyContent='center' flexDirection='column' alignItems='center'>
+              <Flex
+                justifyContent='center'
+                flexDirection='column'
+                alignItems='center'
+              >
                 <CardLink
                   href='https://docs.microlink.io'
                   title='Explore the Docs'
@@ -301,4 +374,6 @@ const query = graphql`
   }
 `
 
-export default () => <StaticQuery query={query} render={data => <Index {...data} />} />
+export default () => (
+  <StaticQuery query={query} render={data => <Index {...data} />} />
+)

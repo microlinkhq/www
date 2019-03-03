@@ -7,11 +7,9 @@ import {
   BackgroundSliderContainer
 } from 'components/elements'
 import { transition } from 'theme'
-import { filter, chunk } from 'lodash'
+import { chunk } from 'lodash'
 
 import * as Logos from 'components/logos'
-
-import demoLinks from '../../../../data/demo-links.json'
 
 const NoWrap = styled(Flex)`
   white-space: nowrap;
@@ -39,16 +37,16 @@ LogoWrap.defaultProps = {
   px: 4
 }
 
-const featuredDemoLinks = filter(demoLinks, 'featured')
+const DURATION = 150
 
-export default ({ onClick }) => (
+const DemoLinks = ({ children, chunkSize, onClick }) => (
   <BackgroundSliderContainer as='article' py={0} px={0} maxWidth='100%'>
-    {chunk(featuredDemoLinks, 10).map((chunkBrands, chunkIndex) => {
+    {chunk(children, chunkSize).map((chunkBrands, chunkIndex) => {
       const isEven = chunkIndex % 2 === 0
       return (
         <BackgroundSlider
           key={chunkIndex}
-          duration={isEven ? 80 : 100}
+          duration={isEven ? DURATION : DURATION * 1.3}
           animationDirection={isEven ? 'reverse' : 'normal'}
         >
           <NoWrap>
@@ -66,3 +64,9 @@ export default ({ onClick }) => (
     })}
   </BackgroundSliderContainer>
 )
+
+DemoLinks.defaultProps = {
+  chunkSize: 10
+}
+
+export default DemoLinks
