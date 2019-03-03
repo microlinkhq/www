@@ -62,7 +62,7 @@ const Index = class extends Component {
 
   setUrl = url => {
     if (url === this.state.url) return
-    const demoLink = demoLinks.find(demoLink => demoLink.url === url)
+    const demoLink = demoLinks.find(demoLink => demoLink.data.url === url)
     if (demoLink) return this.setState({ url, demoLink: demoLink.data })
 
     this.setState({ url, hasError: null, loading: true })
@@ -79,6 +79,7 @@ const Index = class extends Component {
       }
     })
   }
+
   render () {
     const { features, demoLinks, demoLink } = this.state
     const {
