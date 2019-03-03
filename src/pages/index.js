@@ -145,8 +145,6 @@ const Index = class extends Component {
                     />
                     <DemoLinks
                       children={demoLinks}
-                      px={[4, 0]}
-                      size={[32, 38]}
                       onClick={demoLink => {
                         window.history.pushState(
                           {},
