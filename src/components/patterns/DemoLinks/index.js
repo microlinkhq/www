@@ -51,7 +51,7 @@ const DemoLinks = ({ children, chunkSize, onClick }) => (
         >
           <NoWrap>
             {chunkBrands.map(({ brand, data }, index) => (
-              <LogoWrap>
+              <LogoWrap key={brand}>
                 {createElement(Logos[brand], {
                   key: index,
                   ratio: 0.6,
