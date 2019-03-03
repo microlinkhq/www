@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { colors, transition, lineHeights } from 'theme'
+import { colors, transition } from 'theme'
 import { createCssState } from 'helpers/style'
 
 import Box from '../Box'
@@ -38,6 +38,12 @@ LinkSolid.defaultProps = {
 
 export default ({ fontWeight, href, children, color, ...props }) => (
   <Box display='inline'>
-    <LinkSolid {...props} color={color} href={href} children={children} fontWeight={fontWeight} />
+    <LinkSolid
+      {...props}
+      color={color}
+      href={href}
+      children={children}
+      fontWeight={fontWeight}
+    />
   </Box>
 )

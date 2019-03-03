@@ -1,0 +1,141 @@
+{
+  "Apple": {
+    "url": "https://www.apple.com/homepod"
+  },
+  "Amazon": {
+    "featured": true,
+    "url": "https://www.amazon.com/All-new-Echo-Plus-Bundle-Philips/dp/B07H1QBW2L"
+  },
+  "Ars": {
+    "url": "https://arstechnica.com/tech-policy/2019/01/a-whole-years-worth-of-works-just-fell-into-the-public-domain/"
+  },
+  "BBC": {
+    "url": "https://www.bbc.com/news/technology-40762328"
+  },
+  "BuzzFeed": {
+    "featured": true,
+    "url": "https://www.buzzfeednews.com/article/ryanmac/cambridge-analytica-chris-wylie-eunoia-trump-campaign"
+  },
+  "CNN": {
+    "url": "https://edition.cnn.com/2019/02/13/africa/kenya-rare-black-leopard-black-panther/index.html"
+  },
+  "Change": {
+    "url": "https://www.change.org/p/disney-please-sell-the-rights-to-monkey-island-back-to-its-creator-ron-gilbert"
+  },
+  "Engadget": {
+    "url": "https://www.engadget.com/2018/04/30/engadget-closing-germany-spain/?sr_source=Twitter"
+  },
+  "Etsy": {
+    "featured": true,
+    "url": "https://www.etsy.com/es/listing/219173789/unicorn-head-white-w-gold-alicorn-the"
+  },
+  "EventBrite": {
+    "featured": true,
+    "url": "https://www.eventbrite.es/e/entradas-theantievent18-49664776684#"
+  },
+  "Facebook": {
+    "featured": true,
+    "url": "https://www.facebook.com/natgeo/videos/1959330137697840/"
+  },
+  "Flickr": {
+    "featured": true,
+    "url": "https://www.flickr.com/photos/68166820@N08/46358385844/"
+  },
+  "Fox": {
+    "url": "https://www.foxnews.com/auto/literally-like-new-1987-buick-gnx-muscle-car-up-for-auction-with-8-5-miles-on-it"
+  },
+  "Gfycat": {
+    "featured": true,
+    "url": "https://gfycat.com/gifs/detail/timelyhealthyarmadillo"
+  },
+  "GitHub": {
+    "url": "https://github.com/substack/stream-handbook"
+  },
+  "Gizmodo": {
+    "url": "https://gizmodo.com/drone-video-of-border-wall-prototypes-accidentally-show-1819710328"
+  },
+  "Instagram": {
+    "featured": true,
+    "url": "https://www.instagram.com/p/BeV6tOhFUor/"
+  },
+  "LifeHacker": {
+    "featured": true,
+    "url": "https://lifehacker.com/how-to-cancel-your-gym-membership-1832629564"
+  },
+  "MDN": {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some"
+  },
+  "Medium": {
+    "url": "https://medium.com/@the_economist/apple-should-shrink-its-finance-arm-before-it-goes-bananas-f7fcdc754091"
+  },
+  "NYTimes": {
+    "url": "https://www.nytimes.com/interactive/2018/obituaries/overlooked-ada-lovelace.html"
+  },
+  "Nasa": {
+    "featured": true,
+    "url": "https://www.nasa.gov/feature/goddard/2018/update-on-the-hubble-space-telescope-safe-mode"
+  },
+  "Netflix": {
+    "featured": true,
+    "url": "https://www.netflix.com/es-en/title/80117498"
+  },
+  "ProductHunt": {
+    "featured": true,
+    "url": "https://www.producthunt.com/posts/macos-mojave"
+  },
+  "Reddit": {
+    "featured": true,
+    "url": "https://www.reddit.com/r/news/comments/8vebjp/lebron_james_takes_154_million_4year_deal_with/?st=JJ41AUKB&sh=be6868cb"
+  },
+  "SoundCloud": {
+    "featured": true,
+    "url": "https://soundcloud.com/theaipodcast/gtc-weather/"
+  },
+  "StackOverflow": {
+    "url": "https://stackoverflow.com/questions/245062/whats-the-difference-between-javascript-and-java/245068#245068"
+  },
+  "TED": {
+    "url": "https://www.ted.com/talks/jia_jiang_what_i_learned_from_100_days_of_rejection"
+  },
+  "TNW": {
+    "url": "https://thenextweb.com/microsoft/2018/11/15/report-microsofts-enterprise-products-covertly-gather-personal-data-on-users/"
+  },
+  "TechCrunch": {
+    "url": "https://techcrunch.com/2017/10/26/super-mario-odyssey-review-a-masterpiece-of-twists-and-turns/"
+  },
+  "TheGuardian": {
+    "url": "https://www.theguardian.com/membership/2018/nov/12/katharine-viner-guardian-million-reader-funding"
+  },
+  "TheVerge": {
+    "featured": true,
+    "url": "https://www.theverge.com/2017/10/27/16145498/insecure-broad-city-high-maintenance-web-series-hbo-comedy-central"
+  },
+  "TheWashingtonPost": {
+    "url": "https://www.washingtonpost.com/technology/2018/12/14/facebook-says-new-bug-allowed-apps-access-private-photos-up-million-users/?utm_term=.09e8a4a366d9"
+  },
+  "Time": {
+    "url": "http://time.com/collection/davos-2019/5502591/tim-cook-data-privacy/"
+  },
+  "Twitch": {
+    "featured": true,
+    "url": "https://www.twitch.tv/shroud/clip/AuspiciousTubularBunnyFUNgineer"
+  },
+  "Twitter": {
+    "featured": true,
+    "url": "https://twitter.com/futurism/status/882987478541533189"
+  },
+  "Vice": {
+    "featured": true,
+    "url": "https://motherboard.vice.com/en_us/article/ywxjvg/steel-ball-control-dreams-dormio-mit-hypnagogia"
+  },
+  "Vimeo": {
+    "url": "https://vimeo.com/186386161"
+  },
+  "Wikipedia": {
+    "url": "https://en.wikipedia.org/wiki/Bob_Dylan"
+  },
+  "YouTube": {
+    "featured": true,
+    "url": "https://www.youtube.com/watch?v=9P6rdqiybaw"
+  }
+}

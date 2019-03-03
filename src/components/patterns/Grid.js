@@ -1,5 +1,5 @@
 import { Caps, Flex, Text, Box } from 'components/elements'
-import chunk from 'lodash.chunk'
+import { chunk } from 'lodash'
 import React from 'react'
 
 export default ({ children, itemsPerRow }) => (
@@ -13,7 +13,13 @@ export default ({ children, itemsPerRow }) => (
               maxWidth={['14em', '17em']}
               textAlign={['left', 'left', 'inherit', 'inherit']}
             >
-              <Caps as='header' color='black80' pb={[1, 2]} fontWeight='bold' children={title} />
+              <Caps
+                as='header'
+                color='black80'
+                pb={[1, 2]}
+                fontWeight='bold'
+                children={title}
+              />
               <Text color='black50' children={description} />
             </Box>
           </Flex>

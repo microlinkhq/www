@@ -1,25 +1,25 @@
 'use strict'
 
 const { chain, isNil, get, reduce } = require('lodash')
+const beautyError = require('beauty-error')
 const parseDomain = require('parse-domain')
+const { compact, map } = require('lodash')
 const jsonFuture = require('json-future')
-const KeyvFile = require('keyv-file')
+const mql = require('@microlink/mql')
+
+const existsFile = require('exists-file')
 const download = require('download')
 const pAll = require('p-all')
-const Keyv = require('keyv')
 const path = require('path')
-const got = require('got')
-
-const createApiUrl = require('../src/helpers/create-api-url')
 
 const getDomain = url => (parseDomain(url) || {}).domain
 
-const { SITE_URL, isProduction } = require('../env')
-const { CACHE_PATH, DEMO_LINKS } = require('../data/demo-links')
+const { SITE_URL } = require('../env')
+const DEMO_LINKS = require('./demo-links')
+const DATA_DEMO_LINKS_PATH = path.resolve(__dirname, '../data/demo-links.json')
+const { MICROLINK_API_KEY } = process.env
 
 const API_MEDIA_PROPS = ['logo', 'screenshot', 'video', 'image']
-
-const keyv = new Keyv({ store: new KeyvFile({ filename: CACHE_PATH }) })
 
 const getMediaAssetPath = (data, propName) => {
   const propValue = get(data, propName)
@@ -55,12 +55,6 @@ const toMapLocalAsset = data => {
   return { ...data, ...mapper }
 }
 
-const toFetch = async url => {
-  const { body } = await got(url, { json: true })
-  const { data } = body
-  return data
-}
-
 const toDownload = async data => {
   const assets = chain(API_MEDIA_PROPS)
     .map(propName => ({
@@ -80,29 +74,41 @@ const toDownload = async data => {
   return Promise.all(downloads)
 }
 
-const fetchDemoLink = async url => {
-  const key = createApiUrl(url, { force: true })
-  console.log(`fetch url=${key}`)
+const fetchDemoLink = async (key, { url, ...props }) => {
+  console.log(`fetch url=${url}`)
 
-  const cachedData = await keyv.get(key)
-  if (!isProduction && cachedData) return cachedData
+  try {
+    const { data } = await mql(url, {
+      apiKey: MICROLINK_API_KEY,
+      video: true,
+      audio: true,
+      palette: true,
+      force: true
+    })
 
-  const data = await toFetch(key)
-  if (!data.lang) data.lang = 'en'
+    if (!data.lang) data.lang = 'en'
+    await toDownload(data)
 
-  await toDownload(data)
-  const mappedData = toMapLocalAsset(data)
-  await keyv.set(key, mappedData)
-  return mappedData
+    return { brand: key, data: toMapLocalAsset(data), url, ...props }
+  } catch (err) {
+    return null
+  }
 }
 
-const fetchDemoLinks = DEMO_LINKS.map(url => () => fetchDemoLink(url))
+const main = async () => {
+  if (await existsFile(DATA_DEMO_LINKS_PATH)) return
 
-pAll(fetchDemoLinks, { concurrency: 2 })
-  .then(data =>
-    jsonFuture.saveAsync(path.resolve('data/demo-links.json'), data)
+  const fetchDemoLinks = map(DEMO_LINKS, (value, key) => () =>
+    fetchDemoLink(key, value)
   )
+
+  const data = await pAll(fetchDemoLinks, { concurrency: 2 })
+  return jsonFuture.saveAsync(DATA_DEMO_LINKS_PATH, compact(data))
+}
+
+main()
+  .then(() => process.exit())
   .catch(err => {
-    console.log(err)
+    console.log(beautyError(err))
     process.exit(1)
   })

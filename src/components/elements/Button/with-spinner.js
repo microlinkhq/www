@@ -14,7 +14,7 @@ export default ChildComponent => {
   `
 
   const SpinnerButton = ({ children, ...props }) => (
-    <Spinner disabled {...props}>
+    <Spinner state='hover' {...props}>
       <Flex justify='center' textAlign='center' children={children} />
     </Spinner>
   )

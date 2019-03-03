@@ -12,15 +12,15 @@ const buttons = [
 ]
 const states = [null, 'hover', 'disabled', 'loading']
 
-storiesOf('Components', module).add('Buttons', () => (
+storiesOf('Elements', module).add('Buttons', () => (
   <Fragment>
     {buttons.map(({ name, Component }) => (
-      <Box mb={5}>
+      <Box mb={5} key={name}>
         <Subhead textAlign='left' mb={3}>
           {`<Button${name} />`}
         </Subhead>
         {states.map(state => (
-          <Box display={['block', 'inline']} pr={3} pb={3}>
+          <Box key={state} display={['block', 'inline']} pr={3} pb={3}>
             <Component
               key={`${name}:${state}`}
               state={state}
@@ -31,7 +31,7 @@ storiesOf('Components', module).add('Buttons', () => (
             </Component>
           </Box>
         ))}
-        <CodeEditor language='jsx'>{`
+        <CodeEditor my={4} language='jsx'>{`
 import { Button${name} } from 'components/elements'
 
 export default () => (

@@ -111,7 +111,7 @@ export const maxWidths = [
 
 export const transition = {
   short: '.1s cubic-bezier(.25,.8,.25,1)',
-  medium: '.35s cubic-bezier(.25,.8,.25,1)',
+  medium: '.3s cubic-bezier(.25,.8,.25,1)',
   long: '.45s cubic-bezier(.4, 0, .2, 1)'
 }
 

@@ -9,10 +9,10 @@ import {
   Notification,
   LinkSolid,
   Flex,
-  Heading,
-  Head
+  Heading
 } from 'components/elements'
 import { Layout } from 'components/patterns'
+import Head from 'components/Head'
 
 import { marshall, unmarshall } from 'helpers'
 
@@ -43,13 +43,15 @@ const Form = styled.form`
     margin: 10px 0 20px 0;
     max-width: 100%;
     padding: 10px 14px;
-    box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px, rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+    box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,
+      rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
     border-radius: 4px;
     background: white;
   }
 
   .StripeElement--focus {
-    box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px, rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
+    box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px,
+      rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
     -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
   }
@@ -100,7 +102,9 @@ class _CardForm extends Component {
         })
       )
       .then(res => res.json())
-      .then(({ status }) => this.setState({ paymentState: PAYMENT_STATE.SUCCESS }))
+      .then(({ status }) =>
+        this.setState({ paymentState: PAYMENT_STATE.SUCCESS })
+      )
       .catch(err => {
         console.error(err)
         this.setState({ paymentState: PAYMENT_STATE.FAILED })
@@ -126,7 +130,9 @@ class _CardForm extends Component {
                   display='inline'
                   children='Contact us'
                   color='red8'
-                  href={`mailto:hello@microlink.io?${marshall(ERROR_MAIL_OPTS)}`}
+                  href={`mailto:hello@microlink.io?${marshall(
+                    ERROR_MAIL_OPTS
+                  )}`}
                 />
                 {'.'}
               </Notification.Danger>
@@ -135,17 +141,35 @@ class _CardForm extends Component {
         )}
 
         <Form onSubmit={this.handleSubmit}>
-          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
+          <Label
+            textAlign='left'
+            display='block'
+            fontSize={0}
+            color='gray6'
+            mb={4}
+          >
             Card number
             <CardNumberElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
+          <Label
+            textAlign='left'
+            display='block'
+            fontSize={0}
+            color='gray6'
+            mb={4}
+          >
             Expiration date
             <CardExpiryElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <Label textAlign='left' display='block' fontSize={0} color='gray6' mb={4}>
+          <Label
+            textAlign='left'
+            display='block'
+            fontSize={0}
+            color='gray6'
+            mb={4}
+          >
             CVC
             <CardCVCElement {...createOptions(this.props.fontSize)} />
           </Label>
@@ -180,14 +204,19 @@ const Payment = class extends Component {
   }
 
   render () {
-    const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } = this.props.site.siteMetadata
+    const {
+      paymentApiKey: apiKey,
+      paymentEndpoint: apiEndpoint
+    } = this.props.site.siteMetadata
 
     return (
       <Layout>
         <Container as='section' maxWidth='350px' pt={4} pb={3}>
           <Head
             title='Update Payment'
-            script={[{ id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }]}
+            script={[
+              { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
+            ]}
             onChangeClientState={(newState, addedTags, removedTags) => {
               const el = addedTags.scriptTags && addedTags.scriptTags[0]
               if (el && !this.state.mountOnLoad) {
@@ -200,7 +229,11 @@ const Payment = class extends Component {
             <Flex flexDirection='column'>
               <Heading children='Update Payment' fontSize={[4, 5]} pb={4} />
               <Elements>
-                <CardForm apiEndpoint={apiEndpoint} apiKey={apiKey} fontSize={'18px'} />
+                <CardForm
+                  apiEndpoint={apiEndpoint}
+                  apiKey={apiKey}
+                  fontSize={'18px'}
+                />
               </Elements>
             </Flex>
           </StripeProvider>
@@ -222,4 +255,6 @@ const query = graphql`
   }
 `
 
-export default () => <StaticQuery query={query} render={data => <Payment {...data} />} />
+export default () => (
+  <StaticQuery query={query} render={data => <Payment {...data} />} />
+)

@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { Box, Head } from 'components/elements'
+import Head from 'components/Head'
+import { Box } from 'components/elements'
 import { TOOLBAR_SIZE } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
 

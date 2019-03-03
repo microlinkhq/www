@@ -10,4 +10,3 @@ yarn.lock
 .env
 .envrc
 static/card/
-data/demo-links.json

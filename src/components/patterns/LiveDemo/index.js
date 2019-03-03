@@ -3,7 +3,12 @@ import React, { Component } from 'react'
 import is from 'styled-is'
 import styled from 'styled-components'
 
-import { ButtonSecondary, Card as CardBase, Flex, Box } from 'components/elements'
+import {
+  ButtonSecondary,
+  Card as CardBase,
+  Flex,
+  Box
+} from 'components/elements'
 import { fonts, colors, transition } from 'theme'
 import { LiveProvider, LiveEditor } from '../LiveCode'
 import EDITOR from './editor'
@@ -97,7 +102,11 @@ export default class extends Component {
     const isSDK = preview === 'SDK'
 
     return (
-      <Flex flexDirection={['column', 'row']} justifyContent='center' alignItems='center'>
+      <Flex
+        flexDirection={['column', 'row']}
+        justifyContent='center'
+        alignItems='center'
+      >
         <LiveProvider
           width='100%'
           flexDirection={['column-reverse', 'row']}
@@ -140,7 +149,11 @@ export default class extends Component {
               height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
               style={{ overflow: isSDK ? 'hidden' : 'auto' }}
             >
-              <Preview loading={loading} preview={preview} children={children} />
+              <Preview
+                loading={loading}
+                preview={preview}
+                children={children}
+              />
             </Card>
             <Flex mt={3}>
               <Switch
