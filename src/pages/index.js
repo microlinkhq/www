@@ -36,7 +36,6 @@ import {
 
 import demoLinks from '../../data/demo-links.json'
 
-const featuredDemoLinks = demoLinks.filter(demoLink => demoLink.featured)
 const defaultDemoLink = demoLinks.find(demoLink => demoLink.brand === 'Twitter')
   .data
 
@@ -48,7 +47,7 @@ const Index = class extends Component {
 
     this.state = {
       features,
-      demoLinks: featuredDemoLinks,
+      demoLinks: demoLinks,
       demoLink: defaultDemoLink,
       loading: false,
       url: ''

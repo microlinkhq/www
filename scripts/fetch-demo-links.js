@@ -1,9 +1,8 @@
 'use strict'
 
-const { filter, chain, isNil, get, reduce } = require('lodash')
+const { omit, compact, map, chain, isNil, get, reduce } = require('lodash')
 const beautyError = require('beauty-error')
 const parseDomain = require('parse-domain')
-const { compact, map } = require('lodash')
 const jsonFuture = require('json-future')
 const mql = require('@microlink/mql')
 
@@ -97,8 +96,17 @@ const fetchDemoLink = async (key, { url, ...props }) => {
 const main = async () => {
   if (await existsFile(DATA_DEMO_LINKS_PATH)) return
 
-  const DEMO_LINKS = filter(require('./demo-links'), 'featured')
-  const fetchDemoLinks = map(DEMO_LINKS, (value, key) => () =>
+  const demoLinks = reduce(
+    require('./demo-links'),
+    (acc, demoLink, key) => {
+      const { featured, ...props } = demoLink
+      if (!featured) return acc
+      return { ...acc, [key]: props }
+    },
+    {}
+  )
+
+  const fetchDemoLinks = map(demoLinks, (value, key) => () =>
     fetchDemoLink(key, value)
   )
 
