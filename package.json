@@ -19,7 +19,7 @@
     "gatsby"
   ],
   "dependencies": {
-    "@microlink/mql": "~0.2.8",
+    "@microlink/mql": "~0.2.9",
     "@microlink/react": "~3",
     "@rebass/components": "~4.0.0-1",
     "autoprefixer": "~9.4.9",

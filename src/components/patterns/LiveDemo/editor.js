@@ -1,6 +1,9 @@
-import { createApiUrl } from 'helpers'
+import mql from '@microlink/mql'
 
-const apiUrl = props => createApiUrl(props.url)
+const createApiUrl = props => {
+  const [url] = mql.apiUrl(props.url)
+  return url
+}
 
 const React = ({ url }) =>
   `import MicrolinkCard from '@microlink/react'
@@ -14,7 +17,7 @@ const React = ({ url }) =>
 
 React.language = 'jsx'
 
-const cURL = props => `$ curl "${apiUrl(props)}"`.trim()
+const cURL = props => `$ curl "${createApiUrl(props)}"`.trim()
 
 cURL.whiteSpace = 'pre-line'
 
@@ -36,24 +39,20 @@ const HTML = ({ url }) =>
 HTML.language = 'html'
 
 const Nodejs = props =>
-  `'use strict'
+  `
+'use strict'
 
-const got = require('got')
+const mql = require('@microlink/mql')
 
-;(async () => {
-  try {
-    const { body } = await got('${apiUrl(props)}', { json: true })
-    console.log(body)
-  } catch(err) {
-    console.error(err)
-  }
-})()
+const url = '${props.url}'
+const { status, data } = await mql(url)
+console.log(data)
 `.trim()
 
 const Ruby = props =>
   `require('httparty')
 
-response = HTTParty.get('${apiUrl(props)}')
+response = HTTParty.get('${createApiUrl(props)}')
 
 puts response.body
 `
@@ -64,7 +63,7 @@ const PHP = props =>
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => '${apiUrl(props)}',
+  CURLOPT_URL => '${createApiUrl(props)}',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -97,7 +96,7 @@ import (
 )
 
 func main() {
-  url := "${apiUrl(props)}"
+  url := "${createApiUrl(props)}"
 
   if res, err := http.Get(url); err == nil {
   var payload Schema
@@ -150,7 +149,7 @@ type ImageURL struct {
 const Python = props =>
   `import requests
 
-url = '${apiUrl(props)}'
+url = '${createApiUrl(props)}'
 response = requests.request("GET", url)
 print(response.text)
 `
@@ -158,7 +157,7 @@ print(response.text)
 const Swift = props =>
   `import Foundation
 var request = NSMutableURLRequest(
-  URL: NSURL(string: '${apiUrl(props)}')!,
+  URL: NSURL(string: '${createApiUrl(props)}')!,
   cachePolicy: .UseProtocolCachePolicy,
   timeoutInterval: 10.0
 )
@@ -179,7 +178,7 @@ dataTask.resume()
 `
 
 const Java = props =>
-  `HttpResponse<String> response = Unirest.get('${apiUrl(props)}')
+  `HttpResponse<String> response = Unirest.get('${createApiUrl(props)}')
 .asString();
 `
 

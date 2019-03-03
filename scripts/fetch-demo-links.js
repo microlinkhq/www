@@ -99,7 +99,7 @@ const main = async () => {
     return () => fetchDemoLink(key, value)
   })
 
-  const data = await pAll(fetchDemoLinks, { concurrency: 1 })
+  const data = await pAll(fetchDemoLinks, { concurrency: 2 })
   return jsonFuture.saveAsync(DATA_DEMO_LINKS_PATH, data)
 }
 

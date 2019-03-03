@@ -1,6 +1,5 @@
 {
   "Apple": {
-    "featured": true,
     "url": "https://www.apple.com/homepod"
   },
   "Amazon": {
@@ -8,7 +7,6 @@
     "url": "https://www.amazon.com/All-new-Echo-Plus-Bundle-Philips/dp/B07H1QBW2L"
   },
   "Ars": {
-    "featured": true,
     "url": "https://arstechnica.com/tech-policy/2019/01/a-whole-years-worth-of-works-just-fell-into-the-public-domain/"
   },
   "BBC": {
@@ -25,7 +23,6 @@
     "url": "https://www.change.org/p/disney-please-sell-the-rights-to-monkey-island-back-to-its-creator-ron-gilbert"
   },
   "Engadget": {
-    "featured": true,
     "url": "https://www.engadget.com/2018/04/30/engadget-closing-germany-spain/?sr_source=Twitter"
   },
   "Etsy": {
@@ -52,11 +49,9 @@
     "url": "https://gfycat.com/gifs/detail/timelyhealthyarmadillo"
   },
   "GitHub": {
-    "featured": true,
     "url": "https://github.com/substack/stream-handbook"
   },
   "Gizmodo": {
-    "featured": true,
     "url": "https://gizmodo.com/drone-video-of-border-wall-prototypes-accidentally-show-1819710328"
   },
   "Instagram": {
@@ -71,11 +66,9 @@
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some"
   },
   "Medium": {
-    "featured": true,
     "url": "https://medium.com/@the_economist/apple-should-shrink-its-finance-arm-before-it-goes-bananas-f7fcdc754091"
   },
   "NYTimes": {
-    "featured": true,
     "url": "https://www.nytimes.com/interactive/2018/obituaries/overlooked-ada-lovelace.html"
   },
   "Nasa": {
@@ -111,7 +104,6 @@
     "url": "https://techcrunch.com/2017/10/26/super-mario-odyssey-review-a-masterpiece-of-twists-and-turns/"
   },
   "TheGuardian": {
-    "featured": true,
     "url": "https://www.theguardian.com/membership/2018/nov/12/katharine-viner-guardian-million-reader-funding"
   },
   "TheVerge": {
@@ -119,7 +111,6 @@
     "url": "https://www.theverge.com/2017/10/27/16145498/insecure-broad-city-high-maintenance-web-series-hbo-comedy-central"
   },
   "TheWashingtonPost": {
-    "featured": true,
     "url": "https://www.washingtonpost.com/technology/2018/12/14/facebook-says-new-bug-allowed-apps-access-private-photos-up-million-users/?utm_term=.09e8a4a366d9"
   },
   "Time": {
@@ -138,11 +129,9 @@
     "url": "https://motherboard.vice.com/en_us/article/ywxjvg/steel-ball-control-dreams-dormio-mit-hypnagogia"
   },
   "Vimeo": {
-    "featured": true,
     "url": "https://vimeo.com/186386161"
   },
   "Wikipedia": {
-    "featured": true,
     "url": "https://en.wikipedia.org/wiki/Bob_Dylan"
   },
   "YouTube": {

@@ -37,7 +37,7 @@ LogoWrap.defaultProps = {
   px: 4
 }
 
-const DURATION = 150
+const DURATION = 60
 
 const DemoLinks = ({ children, chunkSize, onClick }) => (
   <BackgroundSliderContainer as='article' py={0} px={0} maxWidth='100%'>
@@ -47,13 +47,14 @@ const DemoLinks = ({ children, chunkSize, onClick }) => (
         <BackgroundSlider
           key={chunkIndex}
           duration={isEven ? DURATION : DURATION * 1.3}
-          animationDirection={isEven ? 'reverse' : 'normal'}
+          animationDirection={isEven ? 'normal' : 'normal'}
         >
           <NoWrap>
             {chunkBrands.map(({ brand, data }, index) => (
               <LogoWrap>
                 {createElement(Logos[brand], {
                   key: index,
+                  ratio: 0.6,
                   onClick: () => onClick(data)
                 })}
               </LogoWrap>
