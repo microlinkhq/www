@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.26"></a>
+## [2.2.26](https://github.com/microlink/microlink-www/compare/v2.2.25...v2.2.26) (2019-03-04)
+
+
+### Bug Fixes
+
+* fetch assets properly ([d76e335](https://github.com/microlink/microlink-www/commit/d76e335))
+
+
+
 <a name="2.2.25"></a>
 ## [2.2.25](https://github.com/microlink/microlink-www/compare/v2.2.24...v2.2.25) (2019-03-03)
 
