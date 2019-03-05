@@ -105,7 +105,7 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='https://status.microlink.io/'
+            href='https://microlinkhq.checklyhq.com'
             children='Status Page'
           />
           <LinkSolid
