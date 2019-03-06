@@ -72,7 +72,7 @@
     "scroll-into-view-if-needed": "~2.2.20",
     "slugo": "~0.2.3",
     "styled-components": "~4.1.3",
-    "styled-is": "~1.1.5",
+    "styled-is": "~1.2.0",
     "styled-system": "~4.0.1"
   },
   "devDependencies": {
