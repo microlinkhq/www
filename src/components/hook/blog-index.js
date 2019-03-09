@@ -5,7 +5,9 @@ export const useBlogIndex = () => {
   const { allJavascriptFrontmatter } = useStaticQuery(
     graphql`
       query BlogIndexData {
-        allJavascriptFrontmatter {
+        allJavascriptFrontmatter(
+          filter: { frontmatter: { static: { ne: true } } }
+        ) {
           edges {
             node {
               frontmatter {
@@ -23,7 +25,6 @@ export const useBlogIndex = () => {
 
   return chain(allJavascriptFrontmatter.edges)
     .map('node.frontmatter')
-    .filter(({ static: isStatic }) => isStatic !== true)
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .value()
 }
