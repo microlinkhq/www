@@ -1,5 +1,6 @@
 import { formatNumber } from 'helpers'
-import React, { Fragment, Component } from 'react'
+import React, { useState, Fragment } from 'react'
+import { useSiteMetadata } from 'components/hook'
 import styled, { keyframes } from 'styled-components'
 import { Check, HelpCircle } from 'react-feather'
 import {
@@ -27,13 +28,18 @@ const getMonthlyPrice = price => `€${price}/month`
 const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
 
 const TOOLTIPS = {
-  'Rate Limit': 'Maximum number of requests you can consume until reach the quota.',
+  'Rate Limit':
+    'Maximum number of requests you can consume until reach the quota.',
   'Request Concurrency': 'Maximum simultaneous requests you can make.',
-  'Request Caching': 'Speed up response timing caching payload for same API calls.',
+  'Request Caching':
+    'Speed up response timing caching payload for same API calls.',
   'Screenshot support': 'Take partial or full screenshot for any website.',
-  'Video detection': 'It extracts the original video source from any link provided',
-  'Color Detection': 'It extracts palette & predominant colors for any image detected',
-  'Live Support': 'We provide chat support to help you integrate with your services.'
+  'Video detection':
+    'It extracts the original video source from any link provided',
+  'Color Detection':
+    'It extracts palette & predominant colors for any image detected',
+  'Live Support':
+    'We provide chat support to help you integrate with your services.'
 }
 
 const Price = styled(Lead)`
@@ -81,7 +87,13 @@ const PricingHeader = ({ children }) => {
   const [featureHeader, ...pricingPlans] = children
   return (
     <Text as='tr'>
-      <Text as='th' fontWeight='bold' color='darkBlue700' textAlign='right' fontSize={2}>
+      <Text
+        as='th'
+        fontWeight='bold'
+        color='darkBlue700'
+        textAlign='right'
+        fontSize={2}
+      >
         {featureHeader}
       </Text>
       {pricingPlans.map((children, index) => (
@@ -107,7 +119,12 @@ const PricingRow = ({ children, ...props }) => {
     <Text as='tr'>
       <Text as='th' {...props}>
         <Hide breakpoints={[2, 3]}>
-          <Text fontSize={0} color='darkBlue400' fontWeight='bold' children={name} />
+          <Text
+            fontSize={0}
+            color='darkBlue400'
+            fontWeight='bold'
+            children={name}
+          />
         </Hide>
         <Hide breakpoints={[0, 1]}>
           <Tooltip text={TOOLTIPS[name]}>
@@ -140,148 +157,158 @@ PricingRow.defaultProps = {
   textAlign: 'right'
 }
 
-export default class extends Component {
-  state = {
+function PricingTable () {
+  const { state, setState } = useState({
     ...DEFAULT_PLAN,
     description: getPlanDescription(DEFAULT_PLAN.reqsPerDay),
-    panelLabel: getMonthlyPrice(DEFAULT_PLAN.monthlyPrice)
-  }
+    panelLabel: getMonthlyPrice(DEFAULT_PLAN.monthlyPrice),
+    highlight: false
+  })
 
-  priceSelected = plan => {
-    this.setState({
+  const priceSelected = plan => {
+    setState({
       ...plan,
       description: getPlanDescription(plan.reqsPerDay),
       panelLabel: getMonthlyPrice(plan.monthlyPrice)
     })
 
-    if (this.raf) return
-    if (this.state.highlight) {
+    if (priceSelected.raf) return
+    if (state.highlight) {
       // reset the animation
-      this.setState({ highlight: false }, () => {
-        this.raf = requestAnimationFrame(() => {
-          this.raf = null
-          this.setState({ highlight: true })
+      setState({ highlight: false }, () => {
+        priceSelected.raf = requestAnimationFrame(() => {
+          priceSelected.raf = null
+          setState({ highlight: true })
         })
       })
     } else {
-      this.setState({ highlight: true })
+      setState({ highlight: true })
     }
   }
 
-  render () {
-    const { highlight, description, panelLabel, monthlyPrice, planId } = this.state
+  const { highlight, description, panelLabel, monthlyPrice, planId } = state
+  const humanMonthlyPrice = formatNumber(monthlyPrice)
+  const {
+    paymentApiKey: apiKey,
+    stripeKey,
+    paymentEndpoint: apiEndpoint
+  } = useSiteMetadata()
 
-    const { apiEndpoint, apiKey, stripeKey } = this.props
-    const humanMonthlyPrice = formatNumber(monthlyPrice)
-
-    return (
-      <Box mx='auto' px={[0, 6]}>
-        <Box
-          as='table'
-          width='100%'
-          textAlign='center'
-          style={{ tableLayout: 'fixed', borderCollapse: 'collapse' }}
-        >
-          <thead>
-            <PricingHeader children={['', 'Free', 'Pro']} />
-          </thead>
-          <tbody>
-            <PricingRow
-              children={[
-                'Rate Limit',
-                <Fragment>
-                  {FREE_PLAN_RATE_LIMIT} <Label display='inline' children='reqs' suffix='/day' />
-                </Fragment>,
-                <PricePicker onChange={this.priceSelected} />
-              ]}
-            />
-            <PricingRow
-              children={[
-                'Request Concurrency',
-                <Fragment>
-                  1 <Label display='inline' children='reqs' suffix='/sec' />
-                </Fragment>,
-                '∞'
-              ]}
-            />
-            <PricingRow
-              children={[
-                'Request Caching',
-                <Check size={16} color='#654EA3' />,
-                <Check size={16} color='#654EA3' />
-              ]}
-            />
-            <PricingRow
-              children={[
-                'Screenshot support',
-                <Check size={16} color='#654EA3' />,
-                <Check size={16} color='#654EA3' />
-              ]}
-            />
-            <PricingRow
-              children={[
-                'Video detection',
-                <Check size={16} color='#654EA3' />,
-                <Check size={16} color='#654EA3' />
-              ]}
-            />
-            <PricingRow
-              children={[
-                'Color Detection',
-                <Check size={16} color='#654EA3' />,
-                <Check size={16} color='#654EA3' />
-              ]}
-            />
-            <PricingRow
-              children={[
-                'Live Support',
-                <Check size={16} color='#654EA3' />,
-                <Check size={16} color='#654EA3' />
-              ]}
-            />
-            <PricingRow
-              py={3}
-              children={[
-                '',
-                <Price children={0} />,
-                <Price>
-                  {highlight ? (
-                    <Highlight>{humanMonthlyPrice}</Highlight>
-                  ) : (
-                    <span>{humanMonthlyPrice}</span>
-                  )}
-                </Price>
-              ]}
-            />
-            <PricingRow
-              children={[
-                '',
-                '',
-                <Checkout
-                  planId={planId}
-                  apiEndpoint={apiEndpoint}
-                  apiKey={apiKey}
-                  stripeKey={stripeKey}
-                  panelLabel={panelLabel}
-                  description={description}
-                />
-              ]}
-            />
-          </tbody>
-        </Box>
-
-        <Flex justifyContent='center' flexDirection='column' alignItems='center' pt={[4, 5]}>
-          <Lead color='gray8' fontSize={2} children='Do you need more?' />
-          <Text as='div' mt={1} fontSize={1} color='gray8'>
-            <LinkSolid
-              fontWeight='bold'
-              href='mailto:hello@microlink.io?subject=About pricing'
-              children='Contact us'
-            />
-            .
-          </Text>
-        </Flex>
+  return (
+    <Box mx='auto' px={[0, 6]}>
+      <Box
+        as='table'
+        width='100%'
+        textAlign='center'
+        style={{ tableLayout: 'fixed', borderCollapse: 'collapse' }}
+      >
+        <thead>
+          <PricingHeader children={['', 'Free', 'Pro']} />
+        </thead>
+        <tbody>
+          <PricingRow
+            children={[
+              'Rate Limit',
+              <Fragment>
+                {FREE_PLAN_RATE_LIMIT}{' '}
+                <Label display='inline' children='reqs' suffix='/day' />
+              </Fragment>,
+              <PricePicker onChange={priceSelected} />
+            ]}
+          />
+          <PricingRow
+            children={[
+              'Request Concurrency',
+              <Fragment>
+                1 <Label display='inline' children='reqs' suffix='/sec' />
+              </Fragment>,
+              '∞'
+            ]}
+          />
+          <PricingRow
+            children={[
+              'Request Caching',
+              <Check size={16} color='#654EA3' />,
+              <Check size={16} color='#654EA3' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              'Screenshot support',
+              <Check size={16} color='#654EA3' />,
+              <Check size={16} color='#654EA3' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              'Video detection',
+              <Check size={16} color='#654EA3' />,
+              <Check size={16} color='#654EA3' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              'Color Detection',
+              <Check size={16} color='#654EA3' />,
+              <Check size={16} color='#654EA3' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              'Live Support',
+              <Check size={16} color='#654EA3' />,
+              <Check size={16} color='#654EA3' />
+            ]}
+          />
+          <PricingRow
+            py={3}
+            children={[
+              '',
+              <Price children={0} />,
+              <Price>
+                {highlight ? (
+                  <Highlight>{humanMonthlyPrice}</Highlight>
+                ) : (
+                  <span>{humanMonthlyPrice}</span>
+                )}
+              </Price>
+            ]}
+          />
+          <PricingRow
+            children={[
+              '',
+              '',
+              <Checkout
+                planId={planId}
+                apiEndpoint={apiEndpoint}
+                apiKey={apiKey}
+                stripeKey={stripeKey}
+                panelLabel={panelLabel}
+                description={description}
+              />
+            ]}
+          />
+        </tbody>
       </Box>
-    )
-  }
+
+      <Flex
+        justifyContent='center'
+        flexDirection='column'
+        alignItems='center'
+        pt={[4, 5]}
+      >
+        <Lead color='gray8' fontSize={2} children='Do you need more?' />
+        <Text as='div' mt={1} fontSize={1} color='gray8'>
+          <LinkSolid
+            fontWeight='bold'
+            href='mailto:hello@microlink.io?subject=About pricing'
+            children='Contact us'
+          />
+          .
+        </Text>
+      </Flex>
+    </Box>
+  )
 }
+
+export default PricingTable

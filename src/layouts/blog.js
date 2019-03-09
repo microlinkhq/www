@@ -1,14 +1,14 @@
-import React from 'react'
 import { Text, Flex, Container } from 'components/elements'
-import Head from 'components/Head'
-import { Layout } from 'components/patterns'
-
 import { H1, H2Link } from 'components/markdown'
+import styled, { css } from 'styled-components'
+import { useBlogIndex } from 'components/hook'
+import { Layout } from 'components/patterns'
+import { colors, transition } from 'theme'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-import styled, { css } from 'styled-components'
-import { colors, transition } from 'theme'
+import Head from 'components/Head'
 import is from 'styled-is'
+import React from 'react'
 
 const borderStyle = css`
   ${is('borderTop')`
@@ -59,8 +59,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
   )
 }
 
-export default ({ pageContext }) => {
-  const { posts } = pageContext
+export default ({ posts = useBlogIndex() }) => {
   return (
     <Layout>
       <Head title='Blog' />
