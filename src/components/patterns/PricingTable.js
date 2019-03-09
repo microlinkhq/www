@@ -68,7 +68,7 @@ Price.defaultProps = {
   fontSize: 2
 }
 
-const highlight = keyframes`
+const animateHighlight = keyframes`
   from {
      background-color: yellow;
    }
@@ -78,7 +78,7 @@ const highlight = keyframes`
 `
 
 const Highlight = styled.span`
-  animation-name: ${highlight};
+  animation-name: ${animateHighlight};
   animation-duration: 1s;
   animation-fill-mode: forwards;
 `
@@ -158,7 +158,7 @@ PricingRow.defaultProps = {
 }
 
 function PricingTable () {
-  const { state, setState } = useState({
+  const [state, setState] = useState({
     ...DEFAULT_PLAN,
     description: getPlanDescription(DEFAULT_PLAN.reqsPerDay),
     panelLabel: getMonthlyPrice(DEFAULT_PLAN.monthlyPrice),

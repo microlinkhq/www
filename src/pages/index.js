@@ -1,4 +1,9 @@
-import { useDemolinks, useFeatures, useSiteMetadata } from 'components/hook'
+import {
+  useDefaultDemoLink,
+  useDemoLinks,
+  useFeatures,
+  useSiteMetadata
+} from 'components/hook'
 import { marshall, unmarshall } from 'helpers'
 import React, { useState } from 'react'
 import mql from '@microlink/mql'
@@ -37,8 +42,8 @@ import {
 function Index () {
   const [state, setState] = useState({
     features: useFeatures(),
-    demoLinks: useDemolinks(),
-    demoLink: useDemolinks().find(({ brand }) => brand === 'Twitter'),
+    demoLinks: useDemoLinks(),
+    demoLink: useDefaultDemoLink().data,
     loading: false,
     url: ''
   })
@@ -69,12 +74,7 @@ function Index () {
   }
 
   const { features, demoLinks, demoLink } = state
-  const {
-    siteUrl,
-    paymentEndpoint,
-    paymentApiKey,
-    stripeKey
-  } = useSiteMetadata()
+  const { siteUrl } = useSiteMetadata()
 
   return (
     <Layout>
@@ -95,11 +95,11 @@ function Index () {
               width={[250, 400]}
               bg='white'
               my={3}
-              loading={this.state.loading}
+              loading={state.loading}
               placeholder={'Enter an URL, receive data'}
-              value={this.state.url}
+              value={state.url}
               onChange={url => {
-                this.setUrl(url)
+                setUrl(url)
                 window.history.pushState(
                   {},
                   '',
@@ -107,7 +107,7 @@ function Index () {
                 )
               }}
             />
-            {this.state.hasError && (
+            {state.hasError && (
               <Text
                 color='red7'
                 fontSize={0}
@@ -118,7 +118,7 @@ function Index () {
           <Box as='article'>
             <Container as='section' px={0}>
               <Flex flexDirection='column'>
-                <LiveDemo loading={this.state.loading} children={demoLink} />
+                <LiveDemo loading={state.loading} children={demoLink} />
                 <Flex
                   flexDirection='column'
                   justifyContent='center'
@@ -139,7 +139,7 @@ function Index () {
                         '',
                         `${siteUrl}?${marshall({ url: demoLink.url })}`
                       )
-                      this.setState({
+                      setState({
                         url: demoLink.url,
                         demoLink,
                         hasError: false

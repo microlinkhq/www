@@ -1,5 +1,20 @@
-// TODO: Add JSON Gatsby Transformer
+import { useStaticQuery, graphql } from 'gatsby'
+import { map } from 'lodash'
 
-import demoLinks from '../../../data/demo-links.json'
+export const useDemoLinks = () => {
+  const { allDemoLinksJson } = useStaticQuery(
+    graphql`
+      query DemoLinksData {
+        allDemoLinksJson {
+          edges {
+            node {
+              ...DemoLinkFragment
+            }
+          }
+        }
+      }
+    `
+  )
 
-export const useDemoLinks = () => demoLinks
+  return map(allDemoLinksJson.edges, 'node')
+}
