@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.32"></a>
+## [2.2.32](https://github.com/microlink/microlink-www/compare/v2.2.31...v2.2.32) (2019-03-10)
+
+
+### Bug Fixes
+
+* **package:** update react-syntax-highlighter to version 10.2.0 ([14ffb14](https://github.com/microlink/microlink-www/commit/14ffb14))
+
+
+
 <a name="2.2.31"></a>
 ## [2.2.31](https://github.com/microlink/microlink-www/compare/v2.2.29...v2.2.31) (2019-03-10)
 
