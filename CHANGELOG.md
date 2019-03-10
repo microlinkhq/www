@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.30"></a>
+## [2.2.30](https://github.com/microlink/microlink-www/compare/v2.2.29...v2.2.30) (2019-03-10)
+
+
+### Bug Fixes
+
+* add fetch polyfill based on browser detection ([0529c35](https://github.com/microlink/microlink-www/commit/0529c35))
+* storybook ([e0fbb8d](https://github.com/microlink/microlink-www/commit/e0fbb8d))
+
+
+
 <a name="2.2.29"></a>
 ## [2.2.29](https://github.com/microlink/microlink-www/compare/v2.2.28...v2.2.29) (2019-03-06)
 
