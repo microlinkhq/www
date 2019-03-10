@@ -67,7 +67,7 @@
     "react-json-view": "~1.19.1",
     "react-live": "~1.12.0",
     "react-stripe-elements": "~2.0.3",
-    "react-syntax-highlighter": "~10.1.3",
+    "react-syntax-highlighter": "~10.2.0",
     "react-timeago": "~4.4.0",
     "rebass": "~3.0.1",
     "scroll-into-view-if-needed": "~2.2.20",
