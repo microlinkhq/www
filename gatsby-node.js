@@ -33,45 +33,14 @@ exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
   })
 }
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = ({ actions }) => {
   const { createPage } = actions
-  return new Promise((resolve, reject) => {
-    const blogIndexTemplate = path.resolve(`src/layouts/blog.js`)
-    // Query for markdown nodes to use in creating pages.
-    resolve(
-      graphql(
-        `
-          {
-            allJavascriptFrontmatter {
-              edges {
-                node {
-                  frontmatter {
-                    title
-                    date
-                    static
-                    slug
-                  }
-                }
-              }
-            }
-          }
-        `
-      ).then(result => {
-        if (result.errors) return reject(result.errors)
 
-        const posts = result.data.allJavascriptFrontmatter.edges
-          .map((data, index) => ({ ...data.node.frontmatter }))
-          .filter(({ static: isStatic }) => isStatic !== true)
-          .sort((a, b) => new Date(b.date) - new Date(a.date))
+  const blogIndexTemplate = path.resolve(`src/layouts/blog.js`)
 
-        return Promise.resolve(
-          createPage({
-            path: '/blog',
-            component: blogIndexTemplate,
-            context: { posts }
-          })
-        )
-      })
-    )
+  // Create blog index
+  createPage({
+    path: '/blog',
+    component: blogIndexTemplate
   })
 }

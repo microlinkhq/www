@@ -1,5 +1,7 @@
-import React, { Fragment, Component } from 'react'
-import { StaticQuery, graphql } from 'gatsby'
+/* global fetch */
+
+import React, { useState, Fragment, Component } from 'react'
+import { useSiteMetadata } from 'components/hook'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
 import {
@@ -186,75 +188,57 @@ class _CardForm extends Component {
 
 const CardForm = injectStripe(_CardForm)
 
-const Payment = class extends Component {
-  state = { mountOnLoad: false, stripe: null }
+function Payment () {
+  const [state, setState] = useState({ mountOnLoad: false, stripe: null })
+  const {
+    stripeKey,
+    paymentApiKey: apiKey,
+    paymentEndpoint: apiEndpoint
+  } = useSiteMetadata()
 
-  loadStripe = () => {
-    const { stripeKey } = this.props.site.siteMetadata
-
+  const loadStripe = () => {
     if (window.Stripe) {
-      this.setState({ stripe: window.Stripe(stripeKey) })
+      setState({ stripe: window.Stripe(stripeKey) })
     } else {
       const el = document.querySelector('#stripe-js')
       el &&
         el.addEventListener('load', () => {
-          this.setState({ stripe: window.Stripe(stripeKey) })
+          setState({ stripe: window.Stripe(stripeKey) })
         })
     }
   }
 
-  render () {
-    const {
-      paymentApiKey: apiKey,
-      paymentEndpoint: apiEndpoint
-    } = this.props.site.siteMetadata
-
-    return (
-      <Layout>
-        <Container as='section' maxWidth='350px' pt={4} pb={3}>
-          <Head
-            title='Update Payment'
-            script={[
-              { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
-            ]}
-            onChangeClientState={(newState, addedTags, removedTags) => {
-              const el = addedTags.scriptTags && addedTags.scriptTags[0]
-              if (el && !this.state.mountOnLoad) {
-                el.onload = this.loadStripe
-                this.setState({ mountOnLoad: true })
-              }
-            }}
-          />
-          <StripeProvider stripe={this.state.stripe}>
-            <Flex flexDirection='column'>
-              <Heading children='Update Payment' fontSize={[4, 5]} pb={4} />
-              <Elements>
-                <CardForm
-                  apiEndpoint={apiEndpoint}
-                  apiKey={apiKey}
-                  fontSize={'18px'}
-                />
-              </Elements>
-            </Flex>
-          </StripeProvider>
-        </Container>
-      </Layout>
-    )
-  }
+  return (
+    <Layout>
+      <Container as='section' maxWidth='350px' pt={4} pb={3}>
+        <Head
+          title='Update Payment'
+          script={[
+            { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
+          ]}
+          onChangeClientState={(newState, addedTags, removedTags) => {
+            const el = addedTags.scriptTags && addedTags.scriptTags[0]
+            if (el && !state.mountOnLoad) {
+              el.onload = loadStripe
+              setState({ mountOnLoad: true })
+            }
+          }}
+        />
+        <StripeProvider stripe={state.stripe}>
+          <Flex flexDirection='column'>
+            <Heading children='Update Payment' fontSize={[4, 5]} pb={4} />
+            <Elements>
+              <CardForm
+                apiEndpoint={apiEndpoint}
+                apiKey={apiKey}
+                fontSize={'18px'}
+              />
+            </Elements>
+          </Flex>
+        </StripeProvider>
+      </Container>
+    </Layout>
+  )
 }
 
-const query = graphql`
-  query PaymentQuery {
-    site {
-      siteMetadata {
-        paymentEndpoint
-        paymentApiKey
-        stripeKey
-      }
-    }
-  }
-`
-
-export default () => (
-  <StaticQuery query={query} render={data => <Payment {...data} />} />
-)
+export default Payment

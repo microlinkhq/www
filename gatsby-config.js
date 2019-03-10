@@ -52,6 +52,7 @@ module.exports = {
         precision: 8
       }
     },
+    `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
