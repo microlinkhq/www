@@ -1,13 +1,9 @@
-import { addDecorator } from '@storybook/react'
-import { configure } from '@storybook/react'
-import { withOptions } from '@storybook/addon-options'
+import { addDecorator, configure, addParameters } from '@storybook/react'
 import { ThemeProvider } from 'styled-components'
-import React, { useState } from 'react'
+import Flex from 'components/elements/Flex'
+import React from 'react'
 
 import theme from 'theme'
-import Flex from 'components/elements/Flex'
-import Box from 'components/elements/Box'
-import XRay from 'react-x-ray'
 
 import '@storybook/addon-console'
 
@@ -33,46 +29,28 @@ window.___navigate = pathname => {
   action('NavigateTo:')(pathname)
 }
 
-addDecorator(
-  withOptions({
-    name: 'design.microlink.io',
-    url: 'https://github.com/microlinkhq/www',
-    goFullScreen: false,
-    showStoriesPanel: true,
-    showAddonPanel: true,
-    showSearchBox: false,
-    sortStoriesByKind: true,
-    enableShortcuts: false // true by default
-  })
-)
+addParameters({
+  name: 'microlink design language',
+  url: 'https://github.com/microlinkhq/www',
+  goFullScreen: false,
+  showStoriesPanel: true,
+  showAddonPanel: true,
+  showSearchBox: false,
+  sortStoriesByKind: true,
+  enableShortcuts: false // true by default
+})
 
-addDecorator(story => <ThemeProvider theme={theme}>{story()}</ThemeProvider>)
-
-const DebugDecorator = props => {
-  const [isDebug, setDebug] = useState(false)
-  const Wrapper = isDebug ? XRay : Box
-  const buttonText = isDebug ? 'Disable Debug' : 'Enable Debug'
-
-  return (
-    <Box>
-      <Box pb={2}>
-        <button onClick={() => setDebug(!isDebug)}>{buttonText}</button>
-      </Box>
-
-      <Wrapper>
-        <Flex
-          p={5}
-          justiContent='center'
-          alignItems='baseline'
-          flexDirection='column'
-        >
-          {props.story()}
-        </Flex>
-      </Wrapper>
-    </Box>
-  )
-}
-
-addDecorator(story => <DebugDecorator story={story} />)
+addDecorator(story => (
+  <ThemeProvider theme={theme}>
+    <Flex
+      p={3}
+      justiContent='center'
+      alignItems='baseline'
+      flexDirection='column'
+    >
+      {story()}
+    </Flex>
+  </ThemeProvider>
+))
 
 configure(loadStories, module)
