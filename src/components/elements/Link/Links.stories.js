@@ -1,9 +1,6 @@
 import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Link, LinkSolid } from '.'
-import Box from '../Box'
-import Subhead from '../Subhead'
-import CodeEditor from '../CodeEditor'
+import { Box, Subhead, CodeEditor, Link, LinkSolid } from 'components/elements'
 
 const buttons = [
   { name: 'Link', Component: Link },
