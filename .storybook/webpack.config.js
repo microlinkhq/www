@@ -25,5 +25,15 @@ module.exports = (baseConfig, env, defaultConfig) => {
     ...defaultConfig.resolve.modules,
     path.resolve(__dirname, '../src')
   ]
+
+  defaultConfig.module.rules.push({
+    test: /^(xor|props)$/,
+    use: 'null-loader'
+  })
+  defaultConfig.module.rules.push({
+    test: /react-json-view/,
+    use: 'null-loader'
+  })
+
   return defaultConfig
 }

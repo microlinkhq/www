@@ -1,9 +1,13 @@
 import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
-import { ButtonPrimary, ButtonSecondary, ButtonOutline } from '.'
-import Box from '../Box'
-import Subhead from '../Subhead'
-import CodeEditor from '../CodeEditor'
+import {
+  Box,
+  Subhead,
+  CodeEditor,
+  ButtonPrimary,
+  ButtonSecondary,
+  ButtonOutline
+} from 'components/elements'
 
 const buttons = [
   { name: 'Primary', Component: ButtonPrimary },
