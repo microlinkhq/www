@@ -32,15 +32,3 @@ exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
     }
   })
 }
-
-exports.createPages = ({ actions }) => {
-  const { createPage } = actions
-
-  const blogIndexTemplate = path.resolve(`src/layouts/blog.js`)
-
-  // Create blog index
-  createPage({
-    path: '/blog',
-    component: blogIndexTemplate
-  })
-}
