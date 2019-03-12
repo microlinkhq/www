@@ -1,20 +1,20 @@
 import { useStaticQuery, graphql } from 'gatsby'
-import { chain } from 'lodash'
+import { get, chain } from 'lodash'
 
 export const useBlogIndex = () => {
-  const { allJavascriptFrontmatter } = useStaticQuery(
+  const { allMarkdownRemark } = useStaticQuery(
     graphql`
       query BlogIndexData {
-        allJavascriptFrontmatter(
-          filter: { frontmatter: { static: { ne: true } } }
-        ) {
+        allMarkdownRemark(filter: { fields: { slug: { regex: "/blog/" } } }) {
           edges {
             node {
+              fields {
+                slug
+              }
               frontmatter {
                 title
                 date
                 static
-                slug
               }
             }
           }
@@ -23,8 +23,8 @@ export const useBlogIndex = () => {
     `
   )
 
-  return chain(allJavascriptFrontmatter.edges)
-    .map('node.frontmatter')
+  return chain(get(allMarkdownRemark, 'edges'))
+    .map(({ node }) => ({ ...node.fields, ...node.frontmatter }))
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .value()
 }
