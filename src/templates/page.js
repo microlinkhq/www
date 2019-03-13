@@ -8,6 +8,7 @@ import TimeAgo from 'react-timeago'
 import MDX from 'mdx-scoped-runtime'
 import Head from 'components/Head'
 import { graphql } from 'gatsby'
+import slug from 'remark-slug'
 import { omit } from 'lodash'
 
 const { H1, H2, Paraph, Strong, Link, Blockquote } = mdComponents
@@ -42,7 +43,7 @@ export default function BlogPost ({ pageContext, data }, ...rest) {
     url: `${metadata.siteUrl}${frontmatter.slug}`
   }
 
-  const date = new Date(frontmatter.date)
+  const date = frontmatter.date && new Date(frontmatter.date)
 
   return (
     <Layout>
@@ -65,7 +66,11 @@ export default function BlogPost ({ pageContext, data }, ...rest) {
           </Blockquote>
         )}
 
-        <MDX components={mdComponents.default} scope={scopeComponents}>
+        <MDX
+          components={mdComponents.default}
+          scope={scopeComponents}
+          mdPlugins={[slug]}
+        >
           {rawMarkdownBody}
         </MDX>
         {isBlogPost && <PostFooter />}

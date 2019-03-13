@@ -3,9 +3,14 @@ import styled, { css } from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { get } from 'helpers'
 import { withSlug } from 'helpers/hoc'
-
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
-import { Heading, Text, Link, Image as ImageBase } from 'components/elements'
+import {
+  Box,
+  Heading,
+  Text,
+  Link,
+  Image as ImageBase
+} from 'components/elements'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
@@ -194,20 +199,24 @@ CodeInline.defaultProps = {
   as: 'code'
 }
 
-const Pre = styled.pre`
+const CodeWrapper = styled(Box)`
   ${codeStyle};
-  padding: 30px;
-  border-radius: 2px;
   overflow-x: auto;
-  line-height: 20px;
-  background: #fafbfc;
 `
-export const PreCode = props => (
-  <CodeCopy text={props.children}>
-    <Pre>
+
+export const Code = props => (
+  <CodeWrapper
+    lineHeight={2}
+    maxWidth={['100%', WIDTH.normal]}
+    mx='auto'
+    bg='#fafbfc'
+    p={4}
+    borderRadius={1}
+  >
+    <CodeCopy text={props.children}>
       <code {...props} />
-    </Pre>
-  </CodeCopy>
+    </CodeCopy>
+  </CodeWrapper>
 )
 
 export const Image = styled(ImageBase)([])
@@ -222,18 +231,25 @@ Image.defaultProps = {
   textAlign: 'center'
 }
 
-export const Figcaption = styled.figcaption`
-  max-width: ${WIDTH.large};
-  margin-top: -1.5rem;
-  font-size: ${fontSizes[0]}px;
-  color: ${colors.gray};
-  text-align: center;
-  margin-bottom: 3rem;
+const FigcaptionWrapper = styled(Text)([])
 
-  > b {
-    font-size: ${fontSizes[0]}px;
-  }
-`
+FigcaptionWrapper.defaultProps = {
+  ...Text.defaultProps,
+  fontSize: 0,
+  color: 'gray'
+}
+
+export const Figcaption = props => (
+  <Box
+    mx='auto'
+    maxWidth={['100%', WIDTH.large]}
+    mt='-1.5rem'
+    textAlign='center'
+    mb={'3rem'}
+  >
+    <FigcaptionWrapper {...props} />
+  </Box>
+)
 
 export const Blockquote = styled.blockquote`
   margin: auto;
@@ -255,7 +271,8 @@ export default {
   h4: H4,
   h5: H5,
   h6: H6,
-  code: CodeInline,
+  code: Code,
+  inlineCode: CodeInline,
   a: Link,
   blockquote: Blockquote,
   img: Image
