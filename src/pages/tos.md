@@ -1,21 +1,8 @@
-/* eslint-disable */
-import React from 'react'
-/* eslint-enable */
+---
+title: 'Terms of Service'
+date: '2018-04-08'
+---
 
-import components from 'components/markdown'
-import md from 'markdown-in-js'
-
-import postLayout from 'layouts/post'
-
-export const frontmatter = {
-  title: 'Terms of Service',
-  slug: 'tos',
-  date: '08 April 2018',
-  static: true
-}
-
-export default postLayout(frontmatter)(
-  md(components)`
 ## Terms
 
 By accessing the website at [microlink.io](https://microlink.io), you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.
@@ -57,5 +44,3 @@ Microlink HQ may revise these terms of service for its website at any time witho
 ## Governing Law
 
 These terms and conditions are governed by and construed in accordance with the laws of European Union and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
-`
-)

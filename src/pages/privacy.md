@@ -1,33 +1,15 @@
-/* eslint-disable */
-import React from 'react'
-/* eslint-enable */
-import components from 'components/markdown'
-import { Text, Link } from 'components/elements'
-import md from 'markdown-in-js'
+---
+title: 'Privacy Policy'
+date: '2018-08-20'
+---
 
-import postLayout from 'layouts/post'
-
-export const frontmatter = {
-  title: 'Privacy Policy',
-  slug: 'privacy',
-  date: '08 April 2018',
-  static: true
-}
-
-export default postLayout(frontmatter)(
-  md(components)`
-
-> Last update: August 20, 2018
-
-${(
-    <Text fontSize={3}>
-      Your privacy is important to us. It is Microlink HQ's policy to respect
-      your privacy regarding any information we may collect from you across our
-      website <Link href='https://microlink.io' children='microlink.io' />, and
-      other sites we own and operate, according to EU General Data Protection
-      Regulation (GDPR).
-    </Text>
-  )}
+<Paraph fontSize={3}>
+  Your privacy is important to us. It is Microlink HQ's policy to respect
+  your privacy regarding any information we may collect from you across our
+  website <Link href='https://microlink.io' children='microlink.io' />, and
+  other sites we own and operate, according to EU General Data Protection
+  Regulation (GDPR).
+</Paraph>
 
 ## Information we collect
 
@@ -54,5 +36,3 @@ Our website may link to external sites that are not operated by us. Please be aw
 At our discretion, we may update this policy to reflect current acceptable practices. We will take reasonable steps to let users know about significant changes via our website. Your continued use of this site after any changes to this policy will be regarded as acceptance of our practices around data and personal information.
 
 If you have any concerns or questions about how we handle your data and personal information, feel free to contact us at [hello@microlink.io](mailto:hello@microlink.io).
-`
-)
