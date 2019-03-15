@@ -2,7 +2,7 @@
   "name": "microlink-www",
   "description": "microlink website",
   "homepage": "https://github.com/microlink/microlink-www#readme",
-  "version": "2.2.32",
+  "version": "2.2.33",
   "author": {
     "email": "josefrancisco.verdu@gmail.com",
     "name": "Kiko Beats",
@@ -182,5 +182,8 @@
     "scripts": {
       "prechangelog": "git-authors-cli"
     }
-  }
+  },
+  "contributors": [
+    "midudev <miduga@gmail.com>"
+  ]
 }

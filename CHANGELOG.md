@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.33"></a>
+## [2.2.33](https://github.com/microlink/microlink-www/compare/v2.2.32...v2.2.33) (2019-03-15)
+
+
+### Bug Fixes
+
+* **www:** avoid NaN value using useState correctly ([8d78ee4](https://github.com/microlink/microlink-www/commit/8d78ee4))
+* **www:** crossorigin attribute missing camelCase ([2d74ba5](https://github.com/microlink/microlink-www/commit/2d74ba5))
+
+
+
 <a name="2.2.32"></a>
 ## [2.2.32](https://github.com/microlink/microlink-www/compare/v2.2.31...v2.2.32) (2019-03-10)
 
