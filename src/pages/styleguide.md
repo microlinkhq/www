@@ -69,6 +69,11 @@ Hello 😁 how are you? 🤓.
 
 A `Map` is the new `ECMAScript6` data structure. You can use a `Object` as a `Map`.
 
+
+<Terminal>
+  curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk
+</Terminal>
+
 ```js{3,8}
 // Example 1
 // Replace all `a` tags for microlink cards
