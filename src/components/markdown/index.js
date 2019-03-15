@@ -5,6 +5,7 @@ import { get } from 'helpers'
 import { withSlug } from 'helpers/hoc'
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
 import {
+  CodeEditor,
   Box,
   Heading,
   Text,
@@ -205,17 +206,8 @@ const CodeWrapper = styled(Box)`
 `
 
 export const Code = props => (
-  <CodeWrapper
-    lineHeight={2}
-    maxWidth={['100%', WIDTH.normal]}
-    mx='auto'
-    bg='#fafbfc'
-    p={4}
-    borderRadius={1}
-  >
-    <CodeCopy text={props.children}>
-      <code {...props} />
-    </CodeCopy>
+  <CodeWrapper maxWidth={['100%', WIDTH.normal]} mx='auto'>
+    <CodeEditor {...props} />
   </CodeWrapper>
 )
 

@@ -1,11 +1,103 @@
 import React, { Component } from 'react'
 import CodeCopy from 'react-codecopy'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import * as themes from 'react-syntax-highlighter/dist/styles/hljs'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { serializeComponent } from 'helpers'
 import styled from 'styled-components'
 import { fonts } from 'theme'
 import { Box } from 'components/elements'
+import { range } from 'lodash'
+
+const RE_LINES = /\{\d(?:, ?\d)?\}|[\d]/
+
+const getLines = (className = '') => {
+  const match = className.match(RE_LINES)
+  return match
+    ? match[0]
+        .replace('{', '')
+        .replace('}', '')
+        .split(',')
+        .map(n => Number(n.trim()))
+    : null
+}
+
+const generateHighlighLines = ([start, end]) => {
+  const collection = end ? range(start, end + 1) : start
+  return collection.map((line, index) => {
+    const isLast = index + 1 === collection.length
+    console.log('index', index, collection, isLast)
+    return `code > span:nth-child(${line})${!isLast ? ',' : ''}`
+  })
+}
+
+const prismTheme = {
+  'code[class*="language-"]': {
+    color: '#c5c8c6',
+    textShadow: '0 1px rgba(0, 0, 0, 0.3)',
+    fontFamily: fonts.mono,
+    direction: 'ltr',
+    textAlign: 'left',
+    whiteSpace: 'pre',
+    wordSpacing: 'normal',
+    wordBreak: 'normal',
+    lineHeight: '1.5',
+    MozTabSize: '4',
+    OTabSize: '4',
+    tabSize: '4',
+    WebkitHyphens: 'none',
+    MozHyphens: 'none',
+    msHyphens: 'none',
+    hyphens: 'none'
+  },
+  'pre[class*="language-"]': {
+    color: '#c5c8c6',
+    textShadow: '0 1px rgba(0, 0, 0, 0.3)',
+    fontFamily:
+      "Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace",
+    direction: 'ltr',
+    textAlign: 'left',
+    whiteSpace: 'pre',
+    wordSpacing: 'normal',
+    wordBreak: 'normal',
+    lineHeight: '1.5',
+    MozTabSize: '4',
+    OTabSize: '4',
+    tabSize: '4',
+    WebkitHyphens: 'none',
+    MozHyphens: 'none',
+    msHyphens: 'none',
+    hyphens: 'none',
+    padding: '1em',
+    margin: '.5em 0',
+    overflow: 'auto',
+    borderRadius: '0.3em',
+    background: 'rgb(40, 42, 54)'
+  },
+  ':not(pre) > code[class*="language-"]': {
+    background: 'rgb(40, 42, 54)',
+    padding: '.1em',
+    borderRadius: '.3em'
+  },
+  'attr-name': { color: 'rgb(241, 250, 140)', fontStyle: 'italic' },
+  comment: { color: '#656b80' },
+  string: { color: 'rgb(241, 250, 140)' },
+  url: { color: 'rgb(241, 250, 140)' },
+  variable: { color: 'rgb(214, 222, 235)' },
+  number: { color: 'rgb(247, 140, 108)' },
+  builtin: { color: 'rgb(130, 170, 255)' },
+  char: { color: 'rgb(130, 170, 255)' },
+  constant: { color: 'rgb(130, 170, 255)' },
+  function: { color: 'rgb(130, 170, 255)' },
+  punctuation: { color: 'rgb(199, 146, 234)' },
+  selector: { color: 'rgb(199, 146, 234)', fontStyle: "'italic'" },
+  doctype: { color: 'rgb(199, 146, 234)', fontStyle: "'italic'" },
+  class_name: { color: 'rgb(255, 203, 139)' },
+  tag: { color: '#ffa7c4' },
+  operator: { color: '#ffa7c4' },
+  keyword: { color: '#ffa7c4' },
+  boolean: { color: 'rgb(255, 88, 116)' },
+  property: { color: 'rgb(128, 203, 196)' },
+  namespace: { color: 'rgb(178, 204, 214)' }
+}
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   margin-top: 0px;
@@ -21,6 +113,12 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
     &:hover {
       background: rgba(255, 255, 255, 0.2);
     }
+  }
+
+  ${props =>
+    props.highlightLines && generateHighlighLines(props.highlightLines)} {
+    display: block;
+    background: #464957;
   }
 `
 
@@ -103,7 +201,6 @@ class CodeEditor extends Component {
       language = 'javascript',
       showLineNumbers = true,
       children,
-      theme = 'dracula',
       my,
       ...props
     } = this.props
@@ -117,10 +214,12 @@ class CodeEditor extends Component {
           >
             <TerminalTextWrapper dark>
               <CustomSyntaxHighlighter
+                highlightLines={getLines(this.props.className)}
                 lineNumberStyle={{ color: '#6272A4' }}
                 showLineNumbers={showLineNumbers}
                 language={language}
-                style={themes[theme]}
+                style={prismTheme}
+                wrapLines
                 {...props}
                 children={children.trim()}
               />
