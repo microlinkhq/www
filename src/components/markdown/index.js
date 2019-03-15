@@ -4,6 +4,7 @@ import { get } from 'helpers'
 import { withSlug } from 'helpers/hoc'
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
 import {
+  Terminal as TerminalBase,
   CodeEditor,
   Box,
   Heading,
@@ -11,6 +12,8 @@ import {
   Link,
   Image as ImageBase
 } from 'components/elements'
+
+import { Microlink as MicrolinkBase } from 'components/patterns'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
@@ -21,7 +24,27 @@ const WIDTH = {
   large: LAYOUT_WIDTH * 1.2
 }
 
+const CONTAINER_SPACE = {
+  mt: 3,
+  mb: 4
+}
+
+const withContainer = (ChildComponent, containerProps = {}) => props => (
+  <Box
+    maxWidth={['100%', WIDTH.normal]}
+    mx='auto'
+    {...CONTAINER_SPACE}
+    {...containerProps}
+  >
+    <ChildComponent {...props} />
+  </Box>
+)
+
 export { Link }
+
+export const Microlink = withContainer(MicrolinkBase)
+
+export const Terminal = withContainer(TerminalBase)
 
 export const H1 = withSlug(styled(Heading)([]))
 
@@ -143,8 +166,7 @@ export const Paraph = props => {
 
 Paraph.defaultProps = {
   mx: 'auto',
-  mt: 3,
-  mb: 4
+  ...CONTAINER_SPACE
 }
 
 export const Strong = styled(Text)([])
@@ -162,8 +184,15 @@ Ul.defaultProps = {
   ...Text.defaultProps,
   mx: 'auto',
   as: 'ul',
-  my: 4,
-  maxWidth: WIDTH.normal
+  maxWidth: WIDTH.normal,
+  ...CONTAINER_SPACE
+}
+
+export const Ol = styled(Ul)([])
+
+Ol.defaultProps = {
+  ...Ul.defaultProps,
+  as: 'ol'
 }
 
 export const Li = styled(Text)([])
@@ -211,37 +240,27 @@ export const Code = props => (
   </CodeWrapper>
 )
 
-export const Image = styled(ImageBase)([])
+const _ImageBase = styled(ImageBase)([])
 
-Image.defaultProps = {
-  ...Image.defaultProps,
-  maxWidth: ['100%', WIDTH.large],
-  display: 'block',
+_ImageBase.defaultProps = {
+  ...ImageBase.defaultProps,
   borderRadius: '3px',
-  my: '2.5rem',
   mx: 'auto',
   textAlign: 'center'
 }
 
-const FigcaptionWrapper = styled(Text)([])
+export const Image = withContainer(_ImageBase)
 
-FigcaptionWrapper.defaultProps = {
+const FigcaptionBase = styled(Text)([])
+
+FigcaptionBase.defaultProps = {
   ...Text.defaultProps,
   fontSize: 0,
-  color: 'gray'
+  color: 'gray',
+  textAlign: 'center'
 }
 
-export const Figcaption = props => (
-  <Box
-    mx='auto'
-    maxWidth={['100%', WIDTH.large]}
-    mt='-1.5rem'
-    textAlign='center'
-    mb={'3rem'}
-  >
-    <FigcaptionWrapper {...props} />
-  </Box>
-)
+export const Figcaption = withContainer(FigcaptionBase)
 
 export const Blockquote = styled.blockquote`
   margin: auto;
@@ -256,6 +275,7 @@ export default {
   p: Paraph,
   strong: Strong,
   ul: Ul,
+  ol: Ol,
   li: Li,
   h1: H1,
   h2: H2,
