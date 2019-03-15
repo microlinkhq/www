@@ -18,7 +18,7 @@ export default ({ children }) => (
       <CookiesPolicy />
       <Footer />
       <script
-        crossorigin='anonymous'
+        crossOrigin='anonymous'
         src='https://polyfill.io/v3/polyfill.min.js?features=fetch-polyfill'
       />
     </Fragment>
