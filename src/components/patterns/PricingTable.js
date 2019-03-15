@@ -20,6 +20,8 @@ import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { colors, fontWeights } from 'theme'
 
 const FREE_PLAN_RATE_LIMIT = 250
+const HIGHLIGHT_DURATION = 1
+const HIGHLIGHT_STATE_TIMEOUT = HIGHLIGHT_DURATION * 1000
 
 const toLocale = number => Math.round(number).toLocaleString('en-US')
 
@@ -70,16 +72,16 @@ Price.defaultProps = {
 
 const animateHighlight = keyframes`
   from {
-     background-color: yellow;
-   }
-   to {
-     background-color: #fff;
-   }
+    background-color: yellow;
+  }
+  to {
+    background-color: #fff;
+  }
 `
 
 const Highlight = styled.span`
   animation-name: ${animateHighlight};
-  animation-duration: 1s;
+  animation-duration: ${HIGHLIGHT_DURATION}s;
   animation-fill-mode: forwards;
 `
 
@@ -166,24 +168,17 @@ function PricingTable () {
   })
 
   const priceSelected = plan => {
-    setState({
+    const newState = {
       ...plan,
       description: getPlanDescription(plan.reqsPerDay),
       panelLabel: getMonthlyPrice(plan.monthlyPrice)
-    })
-
-    if (priceSelected.raf) return
-    if (state.highlight) {
-      // reset the animation
-      setState({ highlight: false }, () => {
-        priceSelected.raf = requestAnimationFrame(() => {
-          priceSelected.raf = null
-          setState({ highlight: true })
-        })
-      })
-    } else {
-      setState({ highlight: true })
     }
+
+    setState({ ...newState, highlight: true })
+
+    setTimeout(function () {
+      setState({ ...newState, highlight: false })
+    }, HIGHLIGHT_STATE_TIMEOUT)
   }
 
   const { highlight, description, panelLabel, monthlyPrice, planId } = state
