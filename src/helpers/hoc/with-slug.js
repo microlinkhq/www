@@ -1,6 +1,7 @@
 import React, { createElement } from 'react'
 import { Svg } from 'components/elements'
 import styled from 'styled-components'
+import title from 'title'
 
 import { colors } from 'theme'
 
@@ -70,9 +71,9 @@ export default ChildComponent => {
     return (
       <ChildComponent {...rest}>
         <PermalinkTarget id={id} />
-        <AnchorLink children={children} href={`#${id}`} />
+        <AnchorLink children={title(children)} href={`#${id}`} />
         <Permalink>
-          <PermalinkIcon width={16} ml={2} />
+          <PermalinkIcon width={14} ml={2} />
         </Permalink>
       </ChildComponent>
     )
