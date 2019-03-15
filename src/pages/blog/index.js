@@ -49,7 +49,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
         mb={3}
         mx='auto'
         textAlign='center'
-        href={`/blog/${slug}`}
+        href={slug}
         children={title}
       />
       <Text fontSize={[0, 2]} color='gray' textAlign={['center', 'inherit']}>

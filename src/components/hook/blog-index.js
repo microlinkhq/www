@@ -14,7 +14,6 @@ export const useBlogIndex = () => {
               frontmatter {
                 title
                 date
-                static
               }
             }
           }

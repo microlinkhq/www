@@ -1,6 +1,5 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import CodeCopy from 'react-codecopy'
 import { get } from 'helpers'
 import { withSlug } from 'helpers/hoc'
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
@@ -54,7 +53,7 @@ H2Base.defaultProps = {
   mb: 4
 }
 
-export const H2Link = withSlug(styled(H2Base)`
+export const H2Link = styled(H2Base)`
   text-decoration: none;
   cursor: pointer;
   color: black;
@@ -63,9 +62,10 @@ export const H2Link = withSlug(styled(H2Base)`
   &:hover {
     color: ${colors.link};
   }
-`)
+`
 
 H2Link.defaultProps = {
+  ...H2Base.defaultProps,
   as: 'a'
 }
 
