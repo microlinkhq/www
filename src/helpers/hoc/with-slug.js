@@ -61,8 +61,17 @@ const AnchorLink = styled.a`
 `
 
 export default ChildComponent => {
-  return ({ children, ...props }) => {
-    if (typeof children !== 'string') {
+  return ({ children, slug, ...props }) => {
+    const isString = typeof children === 'string'
+
+    if (isString && slug === false) {
+      return createElement(ChildComponent, {
+        children: title(children),
+        ...props
+      })
+    }
+
+    if (!isString) {
       return createElement(ChildComponent, { children, ...props })
     }
 

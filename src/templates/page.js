@@ -50,7 +50,7 @@ export default function BlogPost ({ pageContext, data }, ...rest) {
       <Box px={3}>
         <Head {...meta} />
         <Text as='header' textAlign='center' mb={5} maxWidth='900px' mx='auto'>
-          <H1 textAlign='center' children={meta.title} />
+          <H1 textAlign='center' children={meta.title} slug={false} />
           {isBlogPost && (
             <Text fontSize={2} color='gray'>
               {formatDate(date)} ({<TimeAgo date={date} />})
