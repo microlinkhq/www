@@ -129,8 +129,16 @@ export const textGradient = `
   text-fill-color: transparent;
 `
 
+export const textHoverGradient = `
+transition: background-image 5s;
+&:hover {
+  ${textGradient};
+}
+`
+
 export const textStyle = {
-  gradient: textGradient
+  gradient: textGradient,
+  hoverGradient: textHoverGradient
 }
 
 export const boxStyle = {

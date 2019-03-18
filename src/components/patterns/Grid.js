@@ -5,7 +5,12 @@ import React from 'react'
 export default ({ children, itemsPerRow }) => (
   <Flex justifyContent='center' alignItems='center' flexDirection='column'>
     {chunk(children, itemsPerRow).map((row, index) => (
-      <Flex justifyContent='space-between' key={index} pb={[2, 3]}>
+      <Flex
+        justifyContent={['center', 'center', 'space-between']}
+        key={index}
+        pb={[2, 3]}
+        width='100%'
+      >
         {row.map(({ title, description }, index) => (
           <Flex mb={4} key={index} as='li' style={{ listStyle: 'none' }}>
             <Box
