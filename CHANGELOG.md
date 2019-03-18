@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.37"></a>
+## [2.2.37](https://github.com/microlink/microlink-www/compare/v2.2.36...v2.2.37) (2019-03-18)
+
+
+### Bug Fixes
+
+* responsive ([675a872](https://github.com/microlink/microlink-www/commit/675a872))
+
+
+
 <a name="2.2.36"></a>
 ## [2.2.36](https://github.com/microlink/microlink-www/compare/v2.2.35...v2.2.36) (2019-03-18)
 
