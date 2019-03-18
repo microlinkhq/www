@@ -1,29 +1,16 @@
-import React from 'react'
-import components, { Figcaption } from 'components/markdown'
-import { Link } from 'components/elements'
-import md from 'markdown-in-js'
-
-import postLayout from 'layouts/post'
-
-export const frontmatter = {
-  title: 'Product Brief #5: New API Parameters & Gallery showcase',
-  date: '30 May 2018',
-  slug: 'new-api-parameters-gallery'
-}
-
-export default postLayout(frontmatter)(
-  md(components)`
+---
+title: 'Product Brief #5: New API Parameters & Gallery showcase'
+date: '2018-05-30'
+--- 
 
 ## Microlink API
 
 [![](https://i.imgur.com/2RNeKiR.png)](https://docs.microlink.io/api)
 
-${(
-  <Figcaption>
-    <Link href='https://docs.microlink.io/api' children='Microlink API' /> examples was improved,
-    highlighting the referenced term in each section.
-  </Figcaption>
-)}
+<Figcaption>
+  <Link href='https://docs.microlink.io/api' children='Microlink API' /> examples was improved,
+  highlighting the referenced term in each section.
+</Figcaption>
 
 ### User Agent API Parameter
 
@@ -68,5 +55,3 @@ We are preparing a new post explaining how to do that, staty stunned 🤘.
 We started building a [gallery](https://gallery.microlink.io) of webs, apps or 🦄  who use microlink with some purpose.
 
 Please [contact with us](https://twitter.com/microlinkhq) for add your shiny project there ✨.
-`
-)

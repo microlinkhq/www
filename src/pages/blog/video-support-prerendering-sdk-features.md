@@ -1,32 +1,20 @@
-import React from 'react'
-import components, { Figcaption, PreCode } from 'components/markdown'
-import { Link } from 'components/elements'
-import md from 'markdown-in-js'
+---
+title: 'Product Brief #3: Video support, better prerendering & SDK features'
+date: '2018-03-02'
+---
 
-import postLayout from 'layouts/post'
-
-export const frontmatter = {
-  title: 'Product Brief #3: Video support, better prerendering & SDK features',
-  slug: 'video-support-prerendering-sdk-features',
-  date: '02 March 2018'
-}
-
-export default postLayout(frontmatter)(
-  md(components)`
 ## Microlink API
 
 ![](https://i.imgur.com/o8cC1k4.png)
 
-${(
-  <Figcaption>
-    The new video data property in action.{' '}
-    <Link
-      href='https://api.microlink.io/?url=https://www.amazon.com/dp/B06XCM9LJ4'
-      children='Explore'
-    />{' '}
-    the rest!
-  </Figcaption>
-)}
+<Figcaption>
+  The new video data property in action.{' '}
+  <Link
+    href='https://api.microlink.io/?url=https://www.amazon.com/dp/B06XCM9LJ4'
+    children='Explore'
+  />{' '}
+  the rest!
+</Figcaption>
 
 ### A new video field
 
@@ -54,17 +42,15 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
 
 ![](https://i.imgur.com/MkuOzT9.gif)
 
-${(
-  <Figcaption>
-    <Link href='https://docs.microlink.io' children='Microlink SDK' /> now supports video
-    previsualizations.{' '}
-    <Link
-      href='https://storybook.microlink.io/?selectedKind=Normal&selectedStory=with%20video%20media&full=0&addons=1&stories=1&panelRight=0&addonPanel=kadira%2Fjsx%2Fpanel'
-      children='Explore'
-    />{' '}
-    the rest!
-  </Figcaption>
-)}
+<Figcaption>
+  <Link href='https://docs.microlink.io' children='Microlink SDK' /> now supports video
+  previsualizations.{' '}
+  <Link
+    href='https://storybook.microlink.io/?selectedKind=Normal&selectedStory=with%20video%20media&full=0&addons=1&stories=1&panelRight=0&addonPanel=kadira%2Fjsx%2Fpanel'
+    children='Explore'
+  />{' '}
+  the rest!
+</Figcaption>
 
 ### Added video support
 
@@ -72,16 +58,14 @@ Because [Microlink API ](https://docs.microlink.io/api/#introduction)can detect 
 
 ![](https://cdn-images-1.medium.com/max/1440/1*PWDop7s7KmmmvccVbULiyA.gif)
 
-${(
-  <Figcaption>
-    video support is included for{' '}
-    <Link
-      href='https://docs.microlink.io/sdk/getting-started/api-parameters/#size'
-      children='normal or large'
-    />{' '}
-    card sizes.
-  </Figcaption>
-)}
+<Figcaption>
+  video support is included for{' '}
+  <Link
+    href='https://docs.microlink.io/sdk/getting-started/api-parameters/#size'
+    children='normal or large'
+  />{' '}
+  card sizes.
+</Figcaption>
 
 We added properties to control the video, like [autoplay](https://docs.microlink.io/sdk/getting-started/api-parameters/#autoplay), [muted](https://docs.microlink.io/sdk/getting-started/api-parameters/#muted) or [loop](https://docs.microlink.io/sdk/getting-started/api-parameters/#loop) options.
 
@@ -89,12 +73,10 @@ We added properties to control the video, like [autoplay](https://docs.microlink
 
 ![](https://cdn-images-1.medium.com/max/1440/1*FwTUJSw1Vn4g8eC5wzMCkQ.gif)
 
-${(
-  <Figcaption>
-    Our fancy loading animation, claps to{' '}
-    <Link href='https://twitter.com/breadadams' children='@breadadamas' /> 👏.
-  </Figcaption>
-)}
+<Figcaption>
+  Our fancy loading animation, claps to{' '}
+  <Link href='https://twitter.com/breadadams' children='@breadadamas' /> 👏.
+</Figcaption>
 
 We improved the transition between how the card looks before the content of the card is loaded, to give it a more *natural* look.
 
@@ -102,16 +84,14 @@ We improved the transition between how the card looks before the content of the 
 
 ![](https://i.imgur.com/qyPAMve.png)
 
-${(
-  <Figcaption>
-    Using the new{' '}
-    <Link
-      href='https://docs.microlink.io/sdk/getting-started/api-parameters/#reverse'
-      children='reverse'
-    />{' '}
-    API paramter for invert the media position in the card.
-  </Figcaption>
-)}
+<Figcaption>
+  Using the new{' '}
+  <Link
+    href='https://docs.microlink.io/sdk/getting-started/api-parameters/#reverse'
+    children='reverse'
+  />{' '}
+  API paramter for invert the media position in the card.
+</Figcaption>
 
 We added the possibility to invert the orientation of the content in the card using a new field called [reverse](https://docs.microlink.io/sdk/getting-started/api-parameters/#reverse).
 
@@ -121,10 +101,9 @@ You’ll need to make sure you have version **1.7.0 or above** of the [Microlink
 
 ### From CDN
 
-The easiest way to consume the frontend library. Just paste the corresponding script before the closing \`<body>\` tag:
+The easiest way to consume the frontend library. Just paste the corresponding script before the closing `<body>` tag:
 
-${(
-  <PreCode>{`<!-- Microlink SDK Vanilla/UMD bundle -->
+```js
 <script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/umd/microlink.min.js"></script>
 
 <!-- Microlink SDK AMD bundle -->
@@ -132,7 +111,7 @@ ${(
 
 <!-- Microlink SDK CJS bundle -->
 <script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/cjs/microlink.min.js"></script>`}</PreCode>
-)}
+```
 
 See more [information](https://docs.microlink.io/sdk/getting-started/vanilla/).
 
@@ -142,12 +121,10 @@ If you’re using Microlink from your \`package.json\` then you’ll need to con
 
 **Vanilla version**
 
-${<PreCode>{`$ npm install @microlink/vanilla@latest`}</PreCode>}
+<Terminal>npm install @microlink/vanilla@latest</Terminal>
 
 **React version**
 
-${<PreCode>{`$ npm update @microlink/react@latest`}</PreCode>}
+<Terminal>npm update @microlink/react@latest</Terminal>
 
 See more [information](https://docs.microlink.io/sdk/getting-started/react/).
-`
-)

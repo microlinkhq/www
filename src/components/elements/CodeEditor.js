@@ -24,7 +24,6 @@ const generateHighlighLines = ([start, end]) => {
   const collection = end ? range(start, end + 1) : start
   return collection.map((line, index) => {
     const isLast = index + 1 === collection.length
-    console.log('index', index, collection, isLast)
     return `code > span:nth-child(${line})${!isLast ? ',' : ''}`
   })
 }
@@ -116,10 +115,12 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   }
 
   ${props =>
-    props.highlightLines && generateHighlighLines(props.highlightLines)} {
-    display: block;
-    background: #464957;
-  }
+    props.highlightLines
+      ? `${generateHighlighLines(props.highlightLines)} {
+      display: block;
+      background: #464957;
+    }`
+      : null}
 `
 
 const TerminalWindow = styled(Box)`
@@ -128,8 +129,7 @@ const TerminalWindow = styled(Box)`
 `
 
 TerminalWindow.defaultProps = {
-  ...Box.defaultProps,
-  my: '50px'
+  ...Box.defaultProps
 }
 
 const TerminalHeader = styled.div`
@@ -205,6 +205,8 @@ class CodeEditor extends Component {
       ...props
     } = this.props
 
+    const highlightLines = getLines(this.props.className)
+
     return (
       <Terminal dark my={my}>
         <div style={{ width: '100%' }}>
@@ -214,7 +216,7 @@ class CodeEditor extends Component {
           >
             <TerminalTextWrapper dark>
               <CustomSyntaxHighlighter
-                highlightLines={getLines(this.props.className)}
+                highlightLines={highlightLines}
                 lineNumberStyle={{ color: '#6272A4' }}
                 showLineNumbers={showLineNumbers}
                 language={language}

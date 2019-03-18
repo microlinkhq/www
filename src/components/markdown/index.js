@@ -235,7 +235,7 @@ const CodeWrapper = styled(Box)`
 `
 
 export const Code = props => (
-  <CodeWrapper maxWidth={['100%', WIDTH.normal]} mx='auto'>
+  <CodeWrapper maxWidth={['100%', WIDTH.normal]} mx='auto' {...CONTAINER_SPACE}>
     <CodeEditor {...props} />
   </CodeWrapper>
 )
