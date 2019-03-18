@@ -14,6 +14,7 @@ import {
 } from 'components/elements'
 
 import { Microlink as MicrolinkBase } from 'components/patterns'
+import { textHoverGradient } from '../../theme'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
@@ -81,10 +82,7 @@ export const H2Link = styled(H2Base)`
   cursor: pointer;
   color: black;
   transition: all 0.1s ease-out;
-
-  &:hover {
-    color: ${colors.link};
-  }
+  ${textHoverGradient}
 `
 
 H2Link.defaultProps = {
