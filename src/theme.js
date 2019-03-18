@@ -68,7 +68,7 @@ export const colors = Object.assign({}, flattened, {
 })
 
 export const fonts = {
-  sans: "'Inter UI', sans-serif",
+  sans: "'Inter', sans-serif",
   mono:
     '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace'
 }
