@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.35"></a>
+## [2.2.35](https://github.com/microlink/microlink-www/compare/v2.2.34...v2.2.35) (2019-03-18)
+
+
+### Bug Fixes
+
+* blog slug ([8f824ec](https://github.com/microlink/microlink-www/commit/8f824ec))
+* markup ([ed9e619](https://github.com/microlink/microlink-www/commit/ed9e619))
+* move demolinks out of the state ([793ea55](https://github.com/microlink/microlink-www/commit/793ea55))
+* show suffix ([b39c41f](https://github.com/microlink/microlink-www/commit/b39c41f))
+
+
+
 <a name="2.2.34"></a>
 ## [2.2.34](https://github.com/microlink/microlink-www/compare/v2.2.33...v2.2.34) (2019-03-16)
 
