@@ -1,18 +1,6 @@
-import React from 'react'
-import components, { Figcaption, PreCode } from 'components/markdown'
-import md from 'markdown-in-js'
-
-import postLayout from 'layouts/post'
-
-export const frontmatter = {
-  title: 'styleguide',
-  slug: 'styleguide',
-  date: '19 January 2018',
-  static: true
-}
-
-export default postLayout(frontmatter)(
-  md(components)`
+---
+title: 'Styleguide'
+---
 
 #### **Headers**
 
@@ -48,8 +36,6 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
 
 ~~Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.~~
 
-<mark>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</mark>
-
 Pellentesque *habitant* morbi tristique senectus et netus et malesuada fames ac turpis **egestas**. Vestibulum tortor <mark>quam</mark>, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet ~~quam~~ egestas semper. Aenean ultricies mi vitae est. Mauris [placerat](http://kikobeats.com) eleifend leo.
 
 #### **Quote**
@@ -70,48 +56,53 @@ Hello 😁 how are you? 🤓.
 
 * Bird
 * [McHale](http://)
-* \`Parish\`
+* `Parish`
 
 #### **Sort List**
 
 1. Bird
 2. [McHale](http://)
-3. \`Parish\`
+3. `Parish`
 
 
 #### **Code**
 
-A \`Map\` is the new \`ECMAScript6\` data structure. You can use a \`Object\` as a \`Map\`.
+A `Map` is the new `ECMAScript6` data structure. You can use a `Object` as a `Map`.
 
-${(
-    <PreCode>{`<script>
-  // Example 1
-  // Replace all \`a\` tags for microlink cards
-  microlink('a')
 
-  // Example 2
-  // Replace all elements with \`link-preview\` class
-  // for microlink cards
-  microlink('.link-previews')
+<Terminal>
+  curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk
+</Terminal>
 
-  // Example 3
-  // Replace all elements with \`link-preview\` class
-  // for microlink cards, passing API specific options
-  microlink('.link-previews')
-</script>
-    `}</PreCode>
-  )}
+```js{3,8}
+// Example 1
+// Replace all `a` tags for microlink cards
+microlink('a')
+
+// Example 2
+// Replace all elements with `link-preview` class
+// for microlink cards
+microlink('.link-previews')
+
+// Example 3
+// Replace all elements with `link-preview` class
+// for microlink cards, passing API specific options
+microlink('.link-previews')
+```
 
 #### **Image**
 
 Months ago I created [Fink](http://xn--rn8h.ws/), a URL Shortener service that I called it *for masses*.
 
 ![](http://placekitten.com/450/300)
-${<Figcaption children='This text is the caption for the image' />}
+
+![](http://placekitten.com/1000/740)
+
+![](http://placekitten.com/1200/800)
+
+
+<Figcaption children='This text is the caption for the image' />
 
 #### **Linkable Image**
 
 Months ago I created [Fink](http://xn--rn8h.ws/), a URL Shortener service that I called it *for masses*.
-
-`
-)

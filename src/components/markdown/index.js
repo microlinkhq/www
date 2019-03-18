@@ -1,11 +1,19 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import CodeCopy from 'react-codecopy'
 import { get } from 'helpers'
 import { withSlug } from 'helpers/hoc'
-
 import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
-import { Heading, Text, Link, Image as ImageBase } from 'components/elements'
+import {
+  Terminal as TerminalBase,
+  CodeEditor,
+  Box,
+  Heading,
+  Text,
+  Link,
+  Image as ImageBase
+} from 'components/elements'
+
+import { Microlink as MicrolinkBase } from 'components/patterns'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
@@ -16,7 +24,27 @@ const WIDTH = {
   large: LAYOUT_WIDTH * 1.2
 }
 
+const CONTAINER_SPACE = {
+  mt: 3,
+  mb: 4
+}
+
+const withContainer = (ChildComponent, containerProps = {}) => props => (
+  <Box
+    maxWidth={['100%', WIDTH.normal]}
+    mx='auto'
+    {...CONTAINER_SPACE}
+    {...containerProps}
+  >
+    <ChildComponent {...props} />
+  </Box>
+)
+
 export { Link }
+
+export const Microlink = withContainer(MicrolinkBase)
+
+export const Terminal = withContainer(TerminalBase)
 
 export const H1 = withSlug(styled(Heading)([]))
 
@@ -48,7 +76,7 @@ H2Base.defaultProps = {
   mb: 4
 }
 
-export const H2Link = withSlug(styled(H2Base)`
+export const H2Link = styled(H2Base)`
   text-decoration: none;
   cursor: pointer;
   color: black;
@@ -57,9 +85,10 @@ export const H2Link = withSlug(styled(H2Base)`
   &:hover {
     color: ${colors.link};
   }
-`)
+`
 
 H2Link.defaultProps = {
+  ...H2Base.defaultProps,
   as: 'a'
 }
 
@@ -137,8 +166,7 @@ export const Paraph = props => {
 
 Paraph.defaultProps = {
   mx: 'auto',
-  mt: 3,
-  mb: 4
+  ...CONTAINER_SPACE
 }
 
 export const Strong = styled(Text)([])
@@ -156,8 +184,15 @@ Ul.defaultProps = {
   ...Text.defaultProps,
   mx: 'auto',
   as: 'ul',
-  my: 4,
-  maxWidth: WIDTH.normal
+  maxWidth: WIDTH.normal,
+  ...CONTAINER_SPACE
+}
+
+export const Ol = styled(Ul)([])
+
+Ol.defaultProps = {
+  ...Ul.defaultProps,
+  as: 'ol'
 }
 
 export const Li = styled(Text)([])
@@ -194,46 +229,38 @@ CodeInline.defaultProps = {
   as: 'code'
 }
 
-const Pre = styled.pre`
+const CodeWrapper = styled(Box)`
   ${codeStyle};
-  padding: 30px;
-  border-radius: 2px;
   overflow-x: auto;
-  line-height: 20px;
-  background: #fafbfc;
 `
-export const PreCode = props => (
-  <CodeCopy text={props.children}>
-    <Pre>
-      <code {...props} />
-    </Pre>
-  </CodeCopy>
+
+export const Code = props => (
+  <CodeWrapper maxWidth={['100%', WIDTH.normal]} mx='auto' {...CONTAINER_SPACE}>
+    <CodeEditor {...props} />
+  </CodeWrapper>
 )
 
-export const Image = styled(ImageBase)([])
+const _ImageBase = styled(ImageBase)([])
 
-Image.defaultProps = {
-  ...Image.defaultProps,
-  maxWidth: ['100%', WIDTH.large],
-  display: 'block',
+_ImageBase.defaultProps = {
+  ...ImageBase.defaultProps,
   borderRadius: '3px',
-  my: '2.5rem',
   mx: 'auto',
   textAlign: 'center'
 }
 
-export const Figcaption = styled.figcaption`
-  max-width: ${WIDTH.large};
-  margin-top: -1.5rem;
-  font-size: ${fontSizes[0]}px;
-  color: ${colors.gray};
-  text-align: center;
-  margin-bottom: 3rem;
+export const Image = withContainer(_ImageBase)
 
-  > b {
-    font-size: ${fontSizes[0]}px;
-  }
-`
+const FigcaptionBase = styled(Text)([])
+
+FigcaptionBase.defaultProps = {
+  ...Text.defaultProps,
+  fontSize: 0,
+  color: 'gray',
+  textAlign: 'center'
+}
+
+export const Figcaption = withContainer(FigcaptionBase)
 
 export const Blockquote = styled.blockquote`
   margin: auto;
@@ -248,6 +275,7 @@ export default {
   p: Paraph,
   strong: Strong,
   ul: Ul,
+  ol: Ol,
   li: Li,
   h1: H1,
   h2: H2,
@@ -255,7 +283,8 @@ export default {
   h4: H4,
   h5: H5,
   h6: H6,
-  code: CodeInline,
+  code: Code,
+  inlineCode: CodeInline,
   a: Link,
   blockquote: Blockquote,
   img: Image

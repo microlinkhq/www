@@ -1,12 +1,7 @@
 'use strict'
 
+const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require('path')
-
-exports.onCreateBabelConfig = ({ actions }) => {
-  actions.setBabelPlugin({
-    name: `markdown-in-js/babel`
-  })
-}
 
 exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
   if (stage === 'build-html') {
@@ -33,14 +28,61 @@ exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
   })
 }
 
-exports.createPages = ({ actions }) => {
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions
+  if (node.internal.type === `MarkdownRemark`) {
+    const slug = createFilePath({ node, getNode, basePath: `pages` })
+    createNodeField({
+      node,
+      name: `slug`,
+      value: slug
+    })
+  }
+}
+
+exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const blogIndexTemplate = path.resolve(`src/layouts/blog.js`)
+  return new Promise((resolve, reject) => {
+    resolve(
+      graphql(
+        `
+          {
+            allMarkdownRemark {
+              edges {
+                node {
+                  fields {
+                    slug
+                  }
+                  frontmatter {
+                    title
+                    date
+                  }
+                }
+              }
+            }
+          }
+        `
+      ).then(result => {
+        if (result.errors) {
+          console.log(result.errors)
+          reject(result.errors)
+        }
 
-  // Create blog index
-  createPage({
-    path: '/blog',
-    component: blogIndexTemplate
+        // Create markdown pages
+        return Promise.all(
+          result.data.allMarkdownRemark.edges.map(({ node }) =>
+            createPage({
+              path: node.fields.slug,
+              component: path.resolve(`./src/templates/page.js`),
+              context: {
+                isBlogPost: node.fields.slug.startsWith('/blog/'),
+                slug: node.fields.slug
+              }
+            })
+          )
+        )
+      })
+    )
   })
 }

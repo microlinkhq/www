@@ -1,24 +1,13 @@
-import React from 'react'
-import components, { Figcaption } from 'components/markdown'
-import md from 'markdown-in-js'
+---
+title: 'Product Brief #1: Prerendering, Pricing & SDK first steps'
+date: '2017-12-30'
+--- 
 
-import postLayout from 'layouts/post'
-
-export const frontmatter = {
-  title: 'Product Brief #1: Prerendering, Pricing & SDK first steps',
-  date: '30 December 2017',
-  slug: 'prerendering-pricing-sdk-first-steps'
-}
-
-export default postLayout(frontmatter)(
-  md(components)`
 ## Prerendering by default
 
 ![Example of using microlink for Amazon links. Prerending improves data accuracy.](https://i.imgur.com/VC9vYjz.png)
 
-${(
-  <Figcaption children='Example of using microlink for Amazon links. Prerending improves data accuracy.' />
-)}
+<Figcaption children='Example of using microlink for Amazon links. Prerending improves data accuracy.' />
 
 When you access into a web, normally you need to wait a few milliseconds after all the content is available: Your browser is **prerendering** all the content before you can interact with it.
 
@@ -53,4 +42,3 @@ We are a company that believes in **Open Source Sustainability** and we want to 
 One of our core projects is [metascraper](https://github.com/microlinkhq/metascraper) that it converts regular HTML into structured data.
 
 We worked together with [Ian Storm Taylor](https://github.com/ianstormtaylor), the original metascraper’s author for commit our improvements and make it accessible to everyone.`
-)

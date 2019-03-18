@@ -1,19 +1,8 @@
-import React from 'react'
-import components, { Figcaption } from 'components/markdown'
-import { Link, CodeEditor, Terminal } from 'components/elements'
-import md from 'markdown-in-js'
-
-import postLayout from 'layouts/post'
-
-export const frontmatter = {
-  title: 'Introducing Custom Rules',
-  image: 'https://i.imgur.com/3yy4kDD.png',
-  date: '31 May 2018',
-  slug: 'custom-rules'
-}
-
-export default postLayout(frontmatter)(
-  md(components)`
+---
+title: 'Introducing Custom Rules'
+image: 'https://i.imgur.com/3yy4kDD.png'
+date: '2018-05-31'
+--- 
 
 The [Microlink API](https://docs.microlink.io/api/#introduction) is used for extracting information from **any** link.
 
@@ -33,27 +22,17 @@ Imagine you want ot interact with an Instagram profile url, like [@elonmusk](htt
 
 ![](https://i.imgur.com/subDjQ1.png)
 
-${(
-    <Figcaption>
-      {
-        "A website is just an interface for a database, let's convert the web into real data 🤘"
-      }
-      .
-    </Figcaption>
-  )}
+<Figcaption>A website is just an interface for a database, let's convert the web into real data 🤘.</Figcaption>
 
 By using [Microlink API](https://docs.microlink.io/api/#introduction) we can obtain well structured and normalized data from any Instagram URL:
 
-${(
-    <Terminal>
-      curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk
-    </Terminal>
-  )}
+<Terminal>curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk</Terminal>
+  
 
 The API response will look like the following:
 
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "status": "success",
   "data": {
     "lang": "en",
@@ -78,8 +57,7 @@ ${(
     "url": "https://www.instagram.com/elonmusk/"
   }
 }
-    `}</CodeEditor>
-  )}
+```
 
 Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](https://docs.microlink.io/sdk/)), you may be interested in specific information that we don't expose because it isn't generic.
 
@@ -95,50 +73,43 @@ It defines the HTML element you want to get from the HTML of the targeted URL.
 
 ![](https://i.imgur.com/3yy4kDD.png)
 
-${(
-    <Figcaption>
-      {
-        'A simple way to get the selector could be copy it directly from DevTools.'
-      }
-    </Figcaption>
-  )}
+<Figcaption>A simple way to get the selector could be copy it directly from DevTools.</Figcaption>
 
 The way to specify seletors is jQuery-like, so you can specify the selector using:
 
-- An HTML tag, e.g. \`img\`.
-- An CSS class or pseudo class, id or data-attribute, e.g. \`.avatar\`.
-- A combination of both, e.g. \`first:img\`.
+- An HTML tag, e.g. `img`.
+- An CSS class or pseudo class, id or data-attribute, e.g. `.avatar`.
+- A combination of both, e.g. `first:img`.
 
 ### attr
 
 It defines which property from the matched selector should be picked.
 
-E.g., if you want to extract an \`img\`, probably you are interested in \`src\` property.
+E.g., if you want to extract an `img`, probably you are interested in `src` property.
 
 ### type
 
-It defines a **check validator** to be run against the extracted value defined by \`selector\` and \`attr\`.
+It defines a **check validator** to be run against the extracted value defined by `selector` and `attr`.
 
 It's possible to validate all the [basic](https://docs.microlink.io/api/#introduction) properties that can be extracted using the API:
 
-- \`author\`
-- \`date\`
-- \`description\`
-- \`image\`
-- \`description\`
-- \`video\`
-- \`lang\`
-- \`logo\`
-- \`publisher\`
-- \`title\`
-- \`url\`
+- `author`
+- `date`
+- `description`
+- `image`
+- `description`
+- `video`
+- `lang`
+- `logo`
+- `publisher`
+- `title`
+- `url`
 
+Each validator `type` will be applied to a set of mutations from the original extracted value.
 
-Each validator \`type\` will be applied to a set of mutations from the original extracted value.
+For example, if you define the `type` as `image`, then you'll be sure that the value extracted will be an image-compatible url, and your browser will be able to render it.
 
-For example, if you define the \`type\` as \`image\`, then you'll be sure that the value extracted will be an image-compatible url, and your browser will be able to render it.
-
-But it'll be different if you declare the \`type\` as \`author\`, because the value will be capitalized.
+But it'll be different if you declare the `type` as `author`, because the value will be capitalized.
 
 ## Querying using the API
 
@@ -146,35 +117,26 @@ Now that we know how to define rules, let's see how to add them into the [API](h
 
 They need to be declared as **query parameters** using **dot notation**:
 
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "data.avatar.selector": "img:first",
   "data.avatar.attr": "src",
   "data.avatar.type": "image"
-}`}</CodeEditor>
-  )}
+}
+```
 
-${<Figcaption>{"Defining a new custom rule for 'avatar' field."}</Figcaption>}
+<Figcaption>Defining a new custom rule for 'avatar' field.</Figcaption>
 
 Here we are defining our **custom rule** for a new data field called **avatar**.
 
-${(
-    <Terminal>
-      curl
-      https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
-    </Terminal>
-  )}
+<Terminal>curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false</Terminal>
 
-${(
-    <Figcaption>
-      {'Encoding the custom rule as query paramter in the API request'}.
-    </Figcaption>
-  )}
+<Figcaption>Encoding the custom rule as query paramter in the API request.</Figcaption>
 
-After that, the API will return the new data field \`avatar\` as part of the response payload 🎉
+After that, the API will return the new data field `avatar` as part of the response payload 🎉
 
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "status": "success",
   "data": {
     "lang": "en",
@@ -205,21 +167,20 @@ ${(
     }
   }
 }
-    `}</CodeEditor>
-  )}
+```
 
-${<Figcaption>{"The payload now have a new 'avatar' field"}.</Figcaption>}
+<Figcaption>The payload now have a new 'avatar' field.</Figcaption>
 
-In this case, we've defined the \`type\` as \`image\`. The API can handle the property value and then provide us extra information. Like, for instance, the image dimensions.
+In this case, we've defined the `type` as `image`. The API can handle the property value and then provide us extra information. Like, for instance, the image dimensions.
 
 ## Adding more rules per field
 
 Some scenarios need to contemplate that HTML markup can change.
 
-This is specially remarkable in the way to define your custom rules \`selector\`:
+This is specially remarkable in the way to define your custom rules `selector`:
 
-- A very specific selector (e.g. \`.avatar\`) has better accuracy, but you don't have the guarantee that it's always present.
-- A more generic selector (e.g. \`img\`) is easier to be found in the HTML markup, but it doesn't always have the expected value.
+- A very specific selector (e.g. `.avatar`) has better accuracy, but you don't have the guarantee that it's always present.
+- A more generic selector (e.g. `img`) is easier to be found in the HTML markup, but it doesn't always have the expected value.
 
 Ideally, a good solution needs to contemplate both approaches: first, resolve with an specific selector, and second, fallback into one more generic if it can't resolve the first selector.
 
@@ -227,51 +188,41 @@ This could be done with **custom rules** in the same API request 🎊.
 
 You just need to declare the conditions as part of the same rule:
 
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "data.avatar.0.selector": ".avatar",
   "data.avatar.0.attr": "src",
   "data.avatar.0.type": "image",
   "data.avatar.1.selector": "img:first",
   "data.avatar.1.attr": "src",
   "data.avatar.1.type": "image"
-}`}</CodeEditor>
-  )}
+}
+```
 
-${<Figcaption>{'Adding more than one rule per data field'}.</Figcaption>}
+<Figcaption>Adding more than one rule per data field.</Figcaption>
 
 Note that **order is important**: The data value extracted will be first value resolved successfully.
 
 ## More than one result
 
-What happens if you declare a \`selector\` that matches with more than one result?
+What happens if you declare a `selector` that matches with more than one result?
 
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "data.photos.selector": "article img",
   "data.photos.attr": "src",
   "data.photos.type": "image"
 }
-    `}</CodeEditor>
-  )}
+```
 
-${(
-    <Figcaption>
-      {'Declaring a custom rule for detecting all images'}.
-    </Figcaption>
-  )}
+<Figcaption>Declaring a custom rule for detecting all images.</Figcaption>
 
-{(
-  <Terminal>
-    curl
-    https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
-  </Terminal>
-)}
+<Terminal>curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img&data.avatar.type=image&data.avatar.attr=src&prerender&video=false</Terminal>
 
 Can the API extract them? The answer is **yes**!
 
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "status": "success",
   "data": {
     "lang": "en",
@@ -310,46 +261,34 @@ ${(
     ]
   }
 }
-    `}</CodeEditor>
-  )}
+```
 
-${<Figcaption>{"The new 'photos' field is a collection"}.</Figcaption>}
+<Figcaption>The new 'photos' field is a collection.</Figcaption>
 
 The only difference is that this time the result is a collection.
 
 ## Adding fallback for basic rules
 
-When you see a \`null\` in the API response, it means that it couldn't resolve the value properly.
+When you see a `null` in the API response, it means that it couldn't resolve the value properly.
 
 You can define **custom rules** as fallback rules for an existing data field.
 
-For example, we are seeing that the API is not resolving the \`author\` field for Instagram profile urls. Let's add it!
+For example, we are seeing that the API is not resolving the `author` field for Instagram profile urls. Let's add it!
 
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "data.author.selector": "section h1:last",
   "data.author.attr": "text",
   "data.author.type": "author"
 }
-    `}</CodeEditor>
-  )}
+```
 
+<Figcaption>Declaring a custom rule for fallback a basic rule.</Figcaption>
 
-${(
-    <Figcaption>
-      {'Declaring a custom rule for fallback a basic rule'}.
-    </Figcaption>
-  )}
+<Terminal>curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&prerender&video=false&data.author.selector=section%20h1%3Alast&data.author.type=author&data.author.attr=text</Terminal>
 
-{(
-  <Terminal>
-    curl
-    https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&prerender&video=false&data.author.selector=section%20h1%3Alast&data.author.type=author&data.author.attr=text
-  </Terminal>
-)}
-
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "status": "success",
   "data": {
     "lang": "en",
@@ -374,8 +313,7 @@ ${(
     "url": "https://www.instagram.com/elonmusk/"
   }
 }
-    `}</CodeEditor>
-  )}
+```
 
 Now the value is resolved properly 👌.
 
@@ -383,43 +321,33 @@ Now the value is resolved properly 👌.
 
 One thing that makes [Microlink API](https://docs.microlink.io/api/#introduction) powerful is that you can combine every [API Parameter](https://docs.microlink.io/api/#api-parameters) to work together.
 
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "data.photos.selector": "img:first",
   "data.photos.attr": "src",
   "data.photos.type": "image",
   "filter": "avatar",
   "palette": true,
 }
-    `}</CodeEditor>
-  )}
+```
+<Figcaption>
+  {'Custom rule + '}
+  <Link
+    href='https://docs.microlink.io/api/#api-parameters/palette'
+    children='palette'
+  />
+  {' + '}
+  <Link
+    href='https://docs.microlink.io/api/#api-parameters/filter'
+    children='filter'
+  />
+  .
+</Figcaption>
 
+<Terminal>curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false&palette&filter=avatar</Terminal>
 
-${(
-    <Figcaption>
-      {'Custom rule + '}
-      <Link
-        href='https://docs.microlink.io/api/#api-parameters/palette'
-        children='palette'
-      />
-      {' + '}
-      <Link
-        href='https://docs.microlink.io/api/#api-parameters/filter'
-        children='filter'
-      />
-      .
-    </Figcaption>
-  )}
-
-{(
-  <Terminal>
-    curl
-    https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false&palette&filter=avatar
-  </Terminal>
-)}
-
-${(
-    <CodeEditor language='json'>{`{
+```json
+{
   "status": "success",
   "data": {
     "avatar": {
@@ -440,19 +368,9 @@ ${(
       "alternative_color": "#4C3C24"
     }
   }
-}
-    `}</CodeEditor>
-  )}
+}    
+```
 
-${(
-    <Figcaption>
-      {
-        'Detecting predominant color for an image extracted using a custom rule and filtering it 🤯'
-      }
-      .
-    </Figcaption>
-  )}
+<Figcaption>Detecting predominant color for an image extracted using a custom rule and filtering it 🤯.</Figcaption>
 
 This is specially useful when you want to optimize your API calls response time.
-`
-)
