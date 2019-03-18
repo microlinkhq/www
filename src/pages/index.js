@@ -42,7 +42,6 @@ import {
 function Index () {
   const [state, setState] = useState({
     features: useFeatures(),
-    demoLinks: useDemoLinks(),
     demoLink: useDefaultDemoLink().data,
     loading: false,
     url: ''
@@ -73,7 +72,8 @@ function Index () {
     })
   }
 
-  const { features, demoLinks, demoLink } = state
+  const { features, demoLink } = state
+  const demoLinks = useDemoLinks()
   const { siteUrl } = useSiteMetadata()
 
   return (
