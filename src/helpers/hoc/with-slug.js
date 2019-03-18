@@ -1,7 +1,7 @@
 import React, { createElement } from 'react'
 import { Svg } from 'components/elements'
 import styled from 'styled-components'
-import title from 'title'
+import { title } from 'helpers'
 
 import { colors } from 'theme'
 

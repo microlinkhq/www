@@ -5,6 +5,7 @@ import marshall from './marshall'
 import get from './get'
 import smoothScroll from './smooth-scroll'
 import serializeComponent from './serialize-component'
+import title from './title'
 
 export {
   serializeComponent,
@@ -13,5 +14,6 @@ export {
   unmarshall,
   get,
   formatDate,
-  formatNumber
+  formatNumber,
+  title
 }
