@@ -43,7 +43,7 @@
     "gatsby-plugin-styled-components": "~3.0.7",
     "gatsby-source-filesystem": "~2.0.27",
     "gatsby-transformer-javascript-frontmatter": "~2.0.9",
-    "gatsby-transformer-json": "~2.1.8",
+    "gatsby-transformer-json": "~2.1.11",
     "gatsby-transformer-remark": "~2.3.1",
     "gatsby-transformer-yaml": "~2.1.8",
     "human-number": "~1.0.2",
