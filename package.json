@@ -44,7 +44,7 @@
     "gatsby-source-filesystem": "~2.0.27",
     "gatsby-transformer-javascript-frontmatter": "~2.0.9",
     "gatsby-transformer-json": "~2.1.11",
-    "gatsby-transformer-remark": "~2.3.1",
+    "gatsby-transformer-remark": "~2.3.6",
     "gatsby-transformer-yaml": "~2.1.8",
     "human-number": "~1.0.2",
     "json-future": "~2.1.4",
