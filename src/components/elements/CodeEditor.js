@@ -210,7 +210,7 @@ class CodeEditor extends Component {
   render () {
     const {
       language = 'javascript',
-      showLineNumbers = true,
+      showLineNumbers = false,
       children,
       my,
       ...props
@@ -228,6 +228,8 @@ class CodeEditor extends Component {
             <TerminalTextWrapper dark>
               <CustomSyntaxHighlighter
                 highlightLines={highlightLines}
+                lineNumberStyle={{ color: '#6272A4' }}
+                showLineNumbers={showLineNumbers}
                 language={language}
                 style={prismTheme}
                 wrapLines
