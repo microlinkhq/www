@@ -1,6 +1,13 @@
-import React, { Fragment } from 'react'
+import {
+  useDefaultDemoLink,
+  useDemoLinks,
+  useFeatures,
+  useSiteMetadata
+} from 'components/hook'
 
-import { useFeatures } from 'components/hook'
+import { marshall, unmarshall } from 'helpers'
+import React, { useState } from 'react'
+import mql from '@microlink/mql'
 
 import {
   Text,
@@ -17,7 +24,14 @@ import {
   Hide
 } from 'components/elements'
 
-import { Grid, PricingTable, Layout } from 'components/patterns'
+import {
+  DemoLinks,
+  CardLink,
+  LiveDemo,
+  PricingTable,
+  Grid,
+  Layout
+} from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List'
 
@@ -77,7 +91,7 @@ const Pricing = () => (
   </Box>
 )
 
-const SDK = () => (
+const SDK = ({ children, onClick, siteUrl }) => (
   <Box
     py={[4, 5]}
     bg='pinky'
@@ -140,6 +154,37 @@ const SDK = () => (
       </Flex>
       <Box mx={4} />
       <Image src='https://i.imgur.com/iAmWh85.png' width={600} />
+    </Flex>
+
+    <Flex
+      as='section'
+      justifyContent='center'
+      alignItems='center'
+      mx='auto'
+      flexDirection='column'
+    >
+      <Text
+        pt={5}
+        pb={4}
+        fontSize={1}
+        color='gray8'
+        children='Try another link →'
+      />
+      <DemoLinks
+        children={children}
+        onClick={demoLink => {
+          window.history.pushState(
+            {},
+            '',
+            `${siteUrl}?${marshall({ url: demoLink.url })}`
+          )
+          onClick({
+            url: demoLink.url,
+            demoLink,
+            hasError: false
+          })
+        }}
+      />
     </Flex>
   </Box>
 )
@@ -240,11 +285,47 @@ const Features = ({ children }) => (
 )
 
 function Index () {
+  const [state, setState] = useState({
+    features: useFeatures(),
+    demoLink: useDefaultDemoLink().data,
+    loading: false,
+    url: ''
+  })
+
+  React.useEffect(() => {
+    const url = unmarshall(window.location.search).url
+    if (url) setUrl(decodeURIComponent(url))
+  })
+
+  const setUrl = url => {
+    if (url === state.url) return
+    const demoLink = demoLinks.find(demoLink => demoLink.data.url === url)
+    if (demoLink) return setState({ url, demoLink: demoLink.data })
+
+    setState({ url, hasError: null, loading: true })
+
+    mql(url, {
+      audio: true,
+      video: true,
+      force: true
+    }).then(({ status, data }) => {
+      if (status === 'success') {
+        setState({ loading: false, demoLink: data })
+      } else {
+        setState({ loading: false, hasError: true })
+      }
+    })
+  }
+
+  const { features, demoLink } = state
+  const demoLinks = useDemoLinks()
+  const { siteUrl } = useSiteMetadata()
+
   return (
     <Layout>
       <Hero />
-      <SDK />
-      <Features children={useFeatures()} />
+      <SDK children={demoLinks} />
+      <Features siteUrl={siteUrl} children={useFeatures()} onClick={setState} />
       <MQL />
       <Pricing />
       {/* <FAQ /> */}
