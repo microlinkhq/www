@@ -75,7 +75,7 @@ It defines the HTML element you want to get from the HTML of the targeted URL.
 
 <Figcaption>A simple way to get the selector could be copy it directly from DevTools.</Figcaption>
 
-The way to specify seletors is jQuery-like, so you can specify the selector using:
+The way to specify selectors is jQuery-like, so you can specify the selector using:
 
 - An HTML tag, e.g. `img`.
 - An CSS class or pseudo class, id or data-attribute, e.g. `.avatar`.
