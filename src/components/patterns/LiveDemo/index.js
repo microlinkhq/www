@@ -104,18 +104,10 @@ export default class extends Component {
     return (
       <Flex
         flexDirection={['column', 'row']}
-        justifyContent='center'
-        alignItems='center'
+        justifyContent='space-around'
+        alignItems='flex-start'
       >
-        <LiveProvider
-          width='100%'
-          flexDirection={['column-reverse', 'row']}
-          justifyContent='space-between'
-          alignItems={['center', 'flex-start']}
-          mx={3}
-          code={code}
-          noInline
-        >
+        <LiveProvider language='json' code={code} disabled>
           <Flex flexDirection='column'>
             <Card
               px={'20px'}
