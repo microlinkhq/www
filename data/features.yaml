@@ -1,16 +1,16 @@
-- title: Data on Demand
-  description: Consume as much data as you need, customizing each payload.
+- title: Cloud Browsing
+  description: Fast, scalable, and reliable browser automation.
 - title: Developer First
-  description: Our developer friendly API makes it easy to get started.
+  description: For developers, with top notch industry tecnologies.
 - title: Fully Programable
   description: Easily integrate it with any existing stack or cloud.
 - title: High Availability
   description: Cloud based solution with superior operational performance.
-- title: Cache Layer
+- title: Auto Caching
   description: Query caching police for improving response timing.
 - title: Scale on Time
-  description: Based on API call quotas, use just you need.
-- title: Screenshot Support
+  description: Based on API call quotas, use just what you need.
+- title: Screenshotting
   description: Full or partial website snapshots with device support.
 - title: Data Normalization
   description: Type check rules for ensuring data extracted is correct.
@@ -18,7 +18,7 @@
   description: Predominant palette for each image detected.
 - title: Adblock Builtin
   description: Faster reponsive timing avoid unnecessary requests.
-- title: Video Support
-  description: Detect the original streaming video source.
+- title: Media Support
+  description: Detect the original streaming video/audio source.
 - title: Embed Mode
   description: Incrust content directly in your HTML markup

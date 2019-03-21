@@ -7,7 +7,7 @@ const Heading = styled(Text)([])
 Heading.defaultProps = {
   ...Text.defaultProps,
   as: 'h2',
-  lineHeight: 1,
+  lineHeight: 'inherit',
   textAlign: 'center',
   fontWeight: 'regular',
   fontSize: [4, 6],

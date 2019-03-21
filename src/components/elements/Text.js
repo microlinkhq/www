@@ -22,6 +22,7 @@ const Text = styled(Box)(
 )
 
 Text.propTypes = {
+  ...Box.propTypes,
   ...fontFamily.propTypes,
   ...fontWeight.propTypes,
   ...textAlign.propTypes,
