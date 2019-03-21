@@ -44,7 +44,7 @@ const theme = {
     {
       types: ['selector', 'attr-name', 'string', 'char', 'builtin', 'inserted'],
       style: {
-        color: colors.purple5
+        color: '#654ea3'
       }
     },
     {
