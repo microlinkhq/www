@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Box, Select, Label } from 'components/elements'
 import humanNumber from 'human-number'
 
-const calculateMonthlyPrice = reqsPerDay => reqsPerDay / 1000 * BASE_PLAN_PRICE
+const calculateMonthlyPrice = reqsPerDay =>
+  (reqsPerDay / 1000) * BASE_PLAN_PRICE
 
 export const BASE_PLAN_PRICE = 12
 

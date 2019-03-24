@@ -8,16 +8,11 @@ export default ({ children, itemsPerRow }) => (
       <Flex
         justifyContent={['center', 'center', 'space-between']}
         key={index}
-        pb={[2, 3]}
         width='100%'
       >
         {row.map(({ title, description }, index) => (
           <Flex mb={4} key={index} as='li' style={{ listStyle: 'none' }}>
-            <Box
-              mx={'auto'}
-              maxWidth={['14em', '17em']}
-              textAlign={['left', 'left', 'inherit', 'inherit']}
-            >
+            <Box mx={'auto'} px={[3, 0]} maxWidth={['100%', '17em']}>
               <Caps
                 as='header'
                 color='black80'

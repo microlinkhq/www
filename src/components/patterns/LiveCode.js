@@ -88,7 +88,6 @@ const theme = {
 
 export const LiveProvider = props =>
   createElement(LiveProviderBase, {
-    mountStylesheet: false,
     noInline: true,
     theme,
     ...props

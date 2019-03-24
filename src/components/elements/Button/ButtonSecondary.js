@@ -6,7 +6,7 @@ const ButtonSecondary = styled(Button)([])
 
 ButtonSecondary.defaultProps = {
   ...Button.defaultProps,
-  bg: 'primary',
+  bg: 'link',
   color: 'white'
 }
 

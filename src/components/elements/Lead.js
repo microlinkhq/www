@@ -2,11 +2,12 @@ import styled from 'styled-components'
 
 import Text from './Text'
 
-const Lead = styled(Text)([])
+const Lead = styled(Text)``
 
 Lead.defaultProps = {
   ...Text.defaultProps,
-  fontSize: [1, 4]
+  fontSize: [2, 4],
+  lineHeight: 2
 }
 
 export default Lead
