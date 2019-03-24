@@ -6,19 +6,18 @@ import {
 } from 'components/hook'
 
 import { marshall, unmarshall } from 'helpers'
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import mql from '@microlink/mql'
 
 import {
   Text,
   ButtonSecondary,
   Image,
-  Subhead,
   Box,
   Heading,
+  Container as ContainerBase,
   Lead,
   Flex,
-  Container,
   Link,
   Caps,
   Hide
@@ -26,7 +25,6 @@ import {
 
 import {
   DemoLinks,
-  CardLink,
   LiveDemo,
   PricingTable,
   Grid,
@@ -34,25 +32,6 @@ import {
 } from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List'
-
-const Hero = () => (
-  <Box as='article'>
-    <Container as='header' py={5}>
-      <Flex
-        as='header'
-        flexDirection='column'
-        justifyContent='center'
-        alignItems='center'
-        pb={[4, 5]}
-      >
-        <Heading mt={4} fontSize={7} children='Turn websites into data' />
-        <Lead mt={[2, 3]} color='black50' textAlign='center' maxWidth={8}>
-          Microlink makes easy build an API on top of any website.
-        </Lead>
-      </Flex>
-    </Container>
-  </Box>
-)
 
 const FAQ = () => (
   <Box as='article'>
@@ -76,58 +55,87 @@ const FAQ = () => (
 const Pricing = () => (
   <Box as='article' id='pricing'>
     <Container as='section' pt={5} pb={0}>
-      <Flex
-        as='header'
-        flexDirection='column'
-        justifyContent='center'
-        alignItems='center'
-        pb={[4, 5]}
-      >
-        <Heading children='Pricing' />
-        <Lead mt={[2, 3]} color='black50' children='Pay as you go.' />
-      </Flex>
+      <Header children={['Pricing', 'Pay as you go.']} />
       <PricingTable />
     </Container>
   </Box>
 )
 
-const SDK = ({ children, onClick, siteUrl }) => (
-  <Box
-    py={[4, 5]}
+const Container = ({ children, maxWidth, ...props }) => (
+  <Box as='article' px={4} py={[4, 5]} {...props}>
+    <ContainerBase children={children} maxWidth={maxWidth} />
+  </Box>
+)
+
+const Header = ({ children, ...props }) => (
+  <Flex
+    as='header'
+    flexDirection='column'
+    justifyContent='center'
+    alignItems='center'
+    py={[2, 3]}
+    px={0}
+  >
+    <Heading px={0} children={children[0]} />
+    <Lead
+      px={4}
+      mt={[2, 1]}
+      color='black50'
+      textAlign='center'
+      children={children[1]}
+    />
+  </Flex>
+)
+
+const Hero = () => (
+  <Container id='hero'>
+    <Header
+      children={[
+        'Turn websites into data',
+        'Microlink makes easy build an API on top of any website.'
+      ]}
+    />
+  </Container>
+)
+
+const Subheader = ({ children }) => (
+  <Fragment>
+    <Lead fontSize={1} color='secondary'>
+      <Caps as='span' children={children[0]} />
+    </Lead>
+    <Heading mt={1} fontSize={[3, 4]} variant={null} children={children[1]} />
+  </Fragment>
+)
+
+const SDK = ({ loading, editor, children, onClick, siteUrl }) => (
+  <Container
+    maxWidth='100%'
     bg='pinky'
     id='sdk'
     borderColor='pinkest'
     borderTop='1px solid'
     borderBottom='1px solid'
-    as='article'
   >
     <Flex
-      as='header'
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
+      as='header'
     >
-      <Lead fontSize={1} color='secondary'>
-        <Caps as='span'>SDK</Caps>
-      </Lead>
-      <Heading
-        mt={1}
-        fontSize={4}
-        variant={null}
-        children='Beautiful Links Previews'
-      />
-      <Container mt={4} px={6} textAlign='center'>
+      <Subheader children={['SDK', 'Beautiful Links Previews']} />
+      <Box mt={4} textAlign={['inherit', 'center']}>
         <Text>
           <Link>Microlink SDK</Link> converts your links into rich media.
         </Text>
         <Text>Make your content attractive, engaging better your links.</Text>
-      </Container>
+      </Box>
     </Flex>
     <Flex
-      pt={[4, 5]}
+      py={[4, 5]}
       as='section'
       justifyContent='center'
-      alignItems='center'
+      alignItems={['center', 'end']}
+      flexDirection={['column', 'row']}
       mx='auto'
     >
       <Flex
@@ -136,26 +144,35 @@ const SDK = ({ children, onClick, siteUrl }) => (
         flexDirection='column'
       >
         <Text
-          textAlign={['center', 'inherit']}
           maxWidth={['inherit', 8]}
           mt={[1, 3]}
           children='Engage your content with rich media.'
         />
-        <List pl={[4, 0]} my={4}>
+        <List px={[3, 0]} mt={4} mb={3}>
           <ListItem children='Add it to an existing website or app.' />
           <ListItem children='Auto detection (image, video, audio) with media controls support.' />
           <ListItem children='Lightweight build size.' />
         </List>
-        <Box>
+        <Flex
+          alignItems='center'
+          justifyContent={['center', 'end']}
+          pb={[4, 0]}
+          flexDirection={['column', 'row']}
+        >
+          <Hide breakpoints={[1, 2, 3]}>
+            <LiveDemo loading={loading} children={editor} />
+          </Hide>
+
           <ButtonSecondary href='https://google.com'>
             <Caps fontSize={0}>See More</Caps>
           </ButtonSecondary>
-        </Box>
+        </Flex>
       </Flex>
       <Box mx={4} />
-      <Image src='https://i.imgur.com/iAmWh85.png' width={600} />
+      <Hide breakpoints={[0]}>
+        <LiveDemo loading={loading} children={editor} />
+      </Hide>
     </Flex>
-
     <Flex
       as='section'
       justifyContent='center'
@@ -164,8 +181,7 @@ const SDK = ({ children, onClick, siteUrl }) => (
       flexDirection='column'
     >
       <Text
-        pt={5}
-        pb={4}
+        pb={[4, 5]}
         fontSize={1}
         color='gray8'
         children='Try another link →'
@@ -186,7 +202,7 @@ const SDK = ({ children, onClick, siteUrl }) => (
         }}
       />
     </Flex>
-  </Box>
+  </Container>
 )
 
 const MQL = () => (
@@ -206,7 +222,7 @@ const MQL = () => (
       alignItems='center'
     >
       <Lead fontSize={1} color='secondary'>
-        <Caps>MQL</Caps>
+        <Caps as='span'>MQL</Caps>
       </Lead>
       <Heading
         mt={1}
@@ -258,30 +274,17 @@ const MQL = () => (
 )
 
 const Features = ({ children }) => (
-  <Box as='article' id='features'>
-    <Container as='section' py={5}>
-      <Flex
-        as='header'
-        flexDirection='column'
-        justifyContent='center'
-        alignItems='center'
-        pb={[4, 5]}
-      >
-        <Heading children='Features' />
-        <Lead
-          mt={[2, 3]}
-          color='black50'
-          children='Capabilities under the hood.'
-        />
-      </Flex>
+  <Container id='features'>
+    <Header children={['Features', 'Capabilities under the hood.']} />
+    <Box as='section' pt={[4, 5]}>
       <Hide breakpoints={[0, 1]}>
         <Grid children={children} itemsPerRow={3} />
       </Hide>
       <Hide breakpoints={[2, 3]}>
         <Grid children={children} itemsPerRow={1} />
       </Hide>
-    </Container>
-  </Box>
+    </Box>
+  </Container>
 )
 
 function Index () {
@@ -324,8 +327,14 @@ function Index () {
   return (
     <Layout>
       <Hero />
-      <SDK children={demoLinks} />
-      <Features siteUrl={siteUrl} children={useFeatures()} onClick={setState} />
+      <SDK
+        loading={state.loading}
+        children={demoLinks}
+        onClick={setState}
+        siteUrl={siteUrl}
+        editor={demoLink}
+      />
+      <Features children={useFeatures()} />
       <MQL />
       <Pricing />
       {/* <FAQ /> */}
