@@ -7,7 +7,8 @@ import Button from './ButtonSecondary'
 
 const style = css`
   transition: color, background-color ${transition.short};
-  box-shadow: inset 0 0 0 2px ${props => themeGet('colors.' + props.color, props.color)(props)};
+  box-shadow: inset 0 0 0 2px
+    ${({ theme }) => props => theme.colors[props.color]};
 `
 
 const hoverStyle = createCssState({
@@ -19,7 +20,8 @@ const hoverStyle = createCssState({
     box-shadow: none;
     color: ${props => colors[props.bg]};
     background-color: ${props => colors[props.color]};
-    box-shadow: inset 0 0 0 2px ${props => themeGet('colors.' + props.color, props.color)(props)};
+    box-shadow: inset 0 0 0 2px
+      ${props => themeGet('colors.' + props.color, props.color)(props)};
   `
 })
 
@@ -40,7 +42,7 @@ const ButtonOutline = styled(Button)`
 ButtonOutline.defaultProps = {
   ...Button.defaultProps,
   bg: 'white',
-  color: 'primary'
+  color: 'link'
 }
 
 export default ButtonOutline
