@@ -12,15 +12,14 @@ import mql from '@microlink/mql'
 import {
   Text,
   ButtonSecondary,
-  Image,
   Box,
   Heading,
   Container as ContainerBase,
   Lead,
+  Hide,
   Flex,
   Link,
-  Caps,
-  Hide
+  Caps
 } from 'components/elements'
 
 import {
@@ -28,7 +27,8 @@ import {
   LiveDemo,
   PricingTable,
   Grid,
-  Layout
+  Layout,
+  MQLEditor
 } from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List'
@@ -206,43 +206,36 @@ const SDK = ({ loading, editor, children, onClick, siteUrl }) => (
 )
 
 const MQL = () => (
-  <Box
-    py={[4, 5]}
-    as='article'
-    id='mql'
+  <Container
+    maxWidth='100%'
     bg='pinky'
+    id='sdk'
     borderColor='pinkest'
     borderTop='1px solid'
     borderBottom='1px solid'
   >
     <Flex
-      as='header'
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
+      as='header'
     >
-      <Lead fontSize={1} color='secondary'>
-        <Caps as='span'>MQL</Caps>
-      </Lead>
-      <Heading
-        mt={1}
-        fontSize={4}
-        variant={null}
-        children='Cloud Data Automatization'
-      />
-      <Container mt={4} px={6} textAlign='center'>
+      <Subheader children={['MQL', 'Data Extraction']} />
+
+      <Box mt={4} textAlign={['inherit', 'center']}>
         <Text>
-          <Link>Microlink Query Language</Link> (MQL) is an interface for
-          getting structured data.
+          <Link>Microlink Query Language</Link> (MQL) is the most modern data
+          interface.
         </Text>
-        <Text>It converts any website, into your API.</Text>
-      </Container>
+        <Text>Getting structured data, from any website.</Text>
+      </Box>
     </Flex>
     <Flex
-      pt={[4, 5]}
+      py={[4, 5]}
       as='section'
       justifyContent='center'
-      alignItems='center'
+      alignItems={['center', 'end']}
+      flexDirection={['column', 'row']}
       mx='auto'
     >
       <Flex
@@ -251,26 +244,36 @@ const MQL = () => (
         flexDirection='column'
       >
         <Text
-          textAlign={['center', 'inherit']}
           maxWidth={['inherit', 8]}
           mt={[1, 3]}
-          children='Extract structured data from any link.'
+          children='Turns any website into your API.'
         />
-        <List pl={[4, 0]} mt={4}>
-          <ListItem children='Cloud browser automation.' />
-          <ListItem children='Data driven rules definition.' />
-          <ListItem children='Lightweight build size.' />
+        <List px={[3, 0]} mt={4} mb={3}>
+          <ListItem children='Target any URL, specify content should be extracted.' />
+          <ListItem children='Data validation support based on types.' />
+          <ListItem children='HTTP & GraphQL endpoints.' />
         </List>
-        <Box>
+        <Flex
+          alignItems='center'
+          justifyContent={['center', 'end']}
+          pb={[4, 0]}
+          flexDirection={['column', 'row']}
+        >
+          <Hide breakpoints={[1, 2, 3]}>
+            <MQLEditor />
+          </Hide>
+
           <ButtonSecondary href='https://google.com'>
             <Caps fontSize={0}>See More</Caps>
           </ButtonSecondary>
-        </Box>
+        </Flex>
       </Flex>
       <Box mx={4} />
-      <Image src='https://i.imgur.com/WzS35pw.png' width={650} />
+      <Hide breakpoints={[0]}>
+        <MQLEditor />
+      </Hide>
     </Flex>
-  </Box>
+  </Container>
 )
 
 const Features = ({ children }) => (

@@ -52,7 +52,6 @@ const SelectLanguage = ({ children, active, onChange, ...props }) => (
           fontSize={0}
           fontWeight='regular'
           mr={2}
-          mb={'12px'}
         />
       )
     })}
@@ -69,7 +68,7 @@ const cardCss = cardWidth => css`
     background-repeat: no-repeat;
   }
   .microlink_card__content {
-    flex: 0 0 115px;
+    flex: 0 0 140px;
   }
 
   .microlink_card__content_description,
@@ -106,36 +105,53 @@ const CustomCodeCopy = styled(CodeCopy)`
   border: 0;
 `
 
-const CodePreview = ({ loading, children }) => {
+const CodePreview = ({ children }) => {
   const [{ editorLang }, setState] = useState({ editorLang: 'React' })
   const editor = EDITOR[editorLang]
   const code = editor(children)
 
   return (
-    <Flex flexDirection='column' alignItems='flex-end'>
-      <Flex>
-        <Text fontSize={0}>
-          <SelectLanguage
-            mx='auto'
-            width={'4.5rem'}
-            mb={2}
-            bg='white'
-            children={EDITORS}
-            active={editorLang}
-            onChange={editorLang => setState({ editorLang })}
-          />
-        </Text>
-        <CustomCodeCopy interactive text={serializeComponent(code)} />
-      </Flex>
-
-      <LiveProvider language={editor.language} code={code} disabled>
-        <LiveEditor
+    <Fragment>
+      <Flex flexDirection='column'>
+        <Flex
+          as='header'
           css={`
-            width: 100%;
+            align-self: flex-end;
+            position: sticky;
+            top: 0;
+            right: 0;
+            z-index: 1;
+
+            div {
+              position: inherit;
+            }
           `}
-        />
-      </LiveProvider>
-    </Flex>
+        >
+          <Text ml={1} fontSize={0}>
+            <SelectLanguage
+              mx='auto'
+              width={'4.5rem'}
+              mb={2}
+              bg='white'
+              children={EDITORS}
+              active={editorLang}
+              onChange={editorLang => setState({ editorLang })}
+            />
+          </Text>
+          <CustomCodeCopy interactive text={serializeComponent(code)} />
+        </Flex>
+
+        <LiveProvider language={editor.language} code={code} disabled>
+          <LiveEditor
+            css={`
+              ${editor.whiteSpace
+                ? `white-space: ${editor.whiteSpace} !important`
+                : ''};
+            `}
+          />
+        </LiveProvider>
+      </Flex>
+    </Fragment>
   )
 }
 

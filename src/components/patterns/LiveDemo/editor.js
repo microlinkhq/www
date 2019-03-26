@@ -11,7 +11,8 @@ const React = ({ url }) =>
 <MicrolinkCard
   url='${url}'
   size='large'
-  video />`
+  video
+/>`
 
 React.language = 'jsx'
 
@@ -19,7 +20,7 @@ const cURL = props => `$ curl "${createApiUrl(props)}"`
 
 cURL.language = 'bash'
 
-// cURL.whiteSpace = 'pre-line'
+cURL.whiteSpace = 'pre-line'
 
 const HTML = ({ url }) =>
   `<!-- Microlink SDK Vanilla/UMD bundle -->

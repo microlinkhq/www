@@ -10,9 +10,11 @@ import Toolbar from './Toolbar'
 import Layout from './Layout'
 import Chat from './Chat'
 import Microlink from './Microlink'
+import MQLEditor from './MQLEditor'
 
 export {
   CardLink,
+  MQLEditor,
   Chat,
   CookiesPolicy,
   DemoLinks,

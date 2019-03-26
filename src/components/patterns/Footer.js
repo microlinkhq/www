@@ -82,13 +82,17 @@ export default props => (
                       fontSize={0}
                     />
                   </InputWrapper>
-                  <ButtonOutline>
+                  <ButtonOutline color='black'>
                     <Caps fontSize={0} children='Subscribe' />
                   </ButtonOutline>
                 </Flex>
               </form>
             </Flex>
-            <Text color='black50' fontSize={1} children='Early access & updates on new releases.' />
+            <Text
+              color='black50'
+              fontSize={1}
+              children='Early access & updates on new releases.'
+            />
           </Flex>
         </Flex>
       </Box>
@@ -133,7 +137,13 @@ export default props => (
             href='https://docs.microlink.io/sdk/'
             children='SDK'
           />
-          <LinkSolid fontSize={[0, 1]} mr={2} mb={[0, 3]} href='/#pricing' children='Pricing' />
+          <LinkSolid
+            fontSize={[0, 1]}
+            mr={2}
+            mb={[0, 3]}
+            href='/#pricing'
+            children='Pricing'
+          />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
@@ -176,8 +186,19 @@ export default props => (
               pb={'2px'}
               fontSize={1}
             />
-            <LinkSolid fontWeight='normal' mr={2} fontSize={0} href='/tos' children='Terms' />
-            <LinkSolid fontWeight='normal' fontSize={0} href='/privacy' children='Privacy' />
+            <LinkSolid
+              fontWeight='normal'
+              mr={2}
+              fontSize={0}
+              href='/tos'
+              children='Terms'
+            />
+            <LinkSolid
+              fontWeight='normal'
+              fontSize={0}
+              href='/privacy'
+              children='Privacy'
+            />
           </Flex>
           <Flex alignItems='center' justifyContent={['center', 'inherit']}>
             <IconWrapper

@@ -10,7 +10,7 @@ const TerminalWindow = styled('div')`
   box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
 `
 
-const TerminalHeader = styled('div')`
+const TerminalHeader = styled('header')`
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   display: flex;
@@ -18,6 +18,9 @@ const TerminalHeader = styled('div')`
   background: ${({ dark }) => (dark ? '#333' : '#fff')};
   align-items: center;
   padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `
 
 const TerminalButton = styled('div')`
@@ -102,8 +105,8 @@ const Terminal = ({ children, dark = false }) => {
   const content = Array.isArray(children)
     ? children
     : children
-      .split(/\r?\n/)
-      .map((item, index) => <span key={index}>{item}</span>)
+        .split(/\r?\n/)
+        .map((item, index) => <span key={index}>{item}</span>)
 
   return (
     <TerminalProvider dark={dark}>

@@ -109,9 +109,8 @@ const prismTheme = {
 }
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
-  margin-top: 0px;
-  padding-bottom: 12px !important;
-  margin-bottom: 12px;
+  padding: 0;
+  margin: 0;
   &::-webkit-scrollbar {
     width: 0.5em;
     height: 0.5em;
@@ -142,7 +141,7 @@ TerminalWindow.defaultProps = {
   ...Box.defaultProps
 }
 
-const TerminalHeader = styled.div`
+const TerminalHeader = styled.header`
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   display: flex;
@@ -150,6 +149,9 @@ const TerminalHeader = styled.div`
   background: #282a36;
   align-items: center;
   padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `
 
 const TerminalButton = styled.div`
@@ -208,8 +210,9 @@ const CustomCodeCopy = styled(CodeCopy)`
 class CodeEditor extends Component {
   render () {
     const {
-      language = 'javascript',
-      showLineNumbers = false,
+      language,
+      showLineNumbers,
+      interactive,
       children,
       my,
       ...props
@@ -219,25 +222,24 @@ class CodeEditor extends Component {
 
     return (
       <Terminal dark my={my}>
-        <div style={{ width: '100%' }}>
-          <CustomCodeCopy
-            theme={'dark'}
-            text={serializeComponent(this.props.children)}
-          >
-            <TerminalTextWrapper dark>
-              <CustomSyntaxHighlighter
-                highlightLines={highlightLines}
-                lineNumberStyle={{ color: '#6272A4' }}
-                showLineNumbers={showLineNumbers}
-                language={language}
-                style={prismTheme}
-                wrapLines
-                {...props}
-                children={children.trim()}
-              />
-            </TerminalTextWrapper>
-          </CustomCodeCopy>
-        </div>
+        <CustomCodeCopy
+          interactive={interactive}
+          theme={'dark'}
+          text={serializeComponent(this.props.children)}
+        >
+          <TerminalTextWrapper dark>
+            <CustomSyntaxHighlighter
+              highlightLines={highlightLines}
+              lineNumberStyle={{ color: '#6272A4' }}
+              showLineNumbers={showLineNumbers}
+              language={language}
+              style={prismTheme}
+              wrapLines
+              {...props}
+              children={children.trim()}
+            />
+          </TerminalTextWrapper>
+        </CustomCodeCopy>
       </Terminal>
     )
   }
@@ -245,5 +247,11 @@ class CodeEditor extends Component {
 
 // this is necessary for markdown
 CodeEditor.displayName = 'CodeEditor'
+
+CodeEditor.defaultProps = {
+  interactive: false,
+  showLineNumbers: false,
+  language: 'javascript'
+}
 
 export default CodeEditor

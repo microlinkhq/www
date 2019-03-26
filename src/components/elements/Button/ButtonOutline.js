@@ -20,8 +20,6 @@ const hoverStyle = createCssState({
     box-shadow: none;
     color: ${props => colors[props.bg]};
     background-color: ${props => colors[props.color]};
-    box-shadow: inset 0 0 0 2px
-      ${props => themeGet('colors.' + props.color, props.color)(props)};
   `
 })
 

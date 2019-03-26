@@ -36,7 +36,7 @@ Select.defaultProps = {
   pt: '2px',
   pb: '2px',
   pr: 1,
-  pl: '7px',
+  pl: '8px',
   m: 0,
   width: 1,
   borderColor: 'gray',

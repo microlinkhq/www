@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { Card as CardBase, Flex, Text } from 'components/elements'
+import { CodeEditor, Card as CardBase, Flex, Text } from 'components/elements'
 import { colors } from 'theme'
-import Preview from './preview'
 
 import {
   CARD_HEIGHT_DESKTOP,
   CARD_WIDTH_DESKTOP,
   CARD_WIDTH_MOBILE,
   CARD_HEIGHT_MOBILE
-} from './theme'
+} from '../LiveDemo/theme'
 
 const Card = styled(CardBase)`
   &&& {
@@ -24,6 +23,39 @@ const Card = styled(CardBase)`
     }
   }
 `
+
+const CODE = {
+  HTTP: `
+  const { status, data } = await mql('https://kikobeats.com', {
+    palette: true,
+    rules: {
+      avatar: {
+        type: 'image',
+        selectors: [
+          {
+            selector: '#avatar',
+            attr: 'href'
+          }
+        ]
+      }
+    }
+  })`,
+  GraphQL: `
+  const { status, data } = await mql('https://kikobeats.com', {
+    palette: true,
+    rules: {
+      avatar: {
+        type: 'image',
+        selectors: [
+          {
+            selector: '#avatar',
+            attr: 'href'
+          }
+        ]
+      }
+    }
+  })`
+}
 
 const CardOption = ({ children, value, ...props }) => (
   <Text
@@ -47,40 +79,32 @@ const CardOption = ({ children, value, ...props }) => (
 )
 
 export default class extends Component {
-  state = { view: 'preview' }
+  state = { view: 'HTTP' }
 
   render () {
     const { view } = this.state
-    const { children, loading } = this.props
-    const isSDK = view === 'preview'
 
     return (
       <Flex flexDirection={'column'} justifyContent='space-around'>
         <Flex id='preview' flexDirection='column' mb={[4, 0]}>
           <Card
-            px={isSDK ? 0 : 4}
-            py={isSDK ? 0 : 3}
+            bg='pinky'
             width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
             height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
-            style={{ overflow: isSDK ? 'hidden' : 'auto' }}
+            style={{ overflow: 'auto' }}
           >
-            <Preview loading={loading} view={view} children={children} />
+            <CodeEditor language='js'>{CODE[view]}</CodeEditor>
           </Card>
           <Flex justifyContent='flex-end'>
             <CardOption
-              children='preview'
+              children='HTTP'
               value={view}
-              onClick={() => this.setState({ view: 'preview' })}
+              onClick={() => this.setState({ view: 'HTTP' })}
             />
             <CardOption
-              children='json'
+              children='GraphQL'
               value={view}
-              onClick={() => this.setState({ view: 'json' })}
-            />
-            <CardOption
-              children='code'
-              value={view}
-              onClick={() => this.setState({ view: 'code' })}
+              onClick={() => this.setState({ view: 'GraphQL' })}
             />
           </Flex>
         </Flex>
