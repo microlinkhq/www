@@ -55,7 +55,15 @@ const FAQ = () => (
 const Pricing = () => (
   <Box as='article' id='pricing'>
     <Container as='section' pt={5} pb={0}>
-      <Header children={['Pricing', 'Pay as you go.']} />
+      <Header
+        children={[
+          'Pricing',
+          'From $0. ',
+          <Lead fontWeight='bold' as='span'>
+            Pay as you Grow.
+          </Lead>
+        ]}
+      />
       <PricingTable />
     </Container>
   </Box>
@@ -67,25 +75,30 @@ const Container = ({ children, maxWidth, ...props }) => (
   </Box>
 )
 
-const Header = ({ children, ...props }) => (
-  <Flex
-    as='header'
-    flexDirection='column'
-    justifyContent='center'
-    alignItems='center'
-    py={[2, 3]}
-    px={0}
-  >
-    <Heading px={0} children={children[0]} />
-    <Lead
-      px={4}
-      mt={[2, 1]}
-      color='black50'
-      textAlign='center'
-      children={children[1]}
-    />
-  </Flex>
-)
+const Header = ({ children }) => {
+  const [title, ...caption] = children
+  return (
+    <Flex
+      as='header'
+      flexDirection='column'
+      justifyContent='center'
+      alignItems='center'
+      py={[2, 3]}
+      px={0}
+    >
+      <Heading px={0} children={title} />
+      <Lead
+        px={4}
+        mt={[2, 1]}
+        color='black50'
+        textAlign='center'
+        children={caption.map((child, index) => (
+          <Fragment key={`${title}_${index}`}>{child}</Fragment>
+        ))}
+      />
+    </Flex>
+  )
+}
 
 const Hero = () => (
   <Container id='hero'>

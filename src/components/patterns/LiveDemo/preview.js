@@ -33,30 +33,31 @@ const JSON_THEME = {
   base0F: colors.secondary
 }
 
-const SelectLanguage = ({ children, active, onChange, ...props }) => (
-  <Select
-    onChange={event => {
-      event.preventDefault()
-      const language = event.target.value
-      onChange(language)
-    }}
-    {...props}
-  >
-    {children.map(language => {
-      const isActive = active === language
-      return (
-        <option
-          selected={isActive}
-          key={language}
-          children={language}
-          fontSize={0}
-          fontWeight='regular'
-          mr={2}
-        />
-      )
-    })}
-  </Select>
-)
+const SelectLanguage = ({ children, value, onChange, ...props }) => {
+  return (
+    <Select
+      value={value}
+      onChange={event => {
+        event.preventDefault()
+        const language = event.target.value
+        onChange(language)
+      }}
+      {...props}
+    >
+      {children.map(language => {
+        return (
+          <option
+            key={language}
+            children={language}
+            fontSize={0}
+            fontWeight='regular'
+            mr={2}
+          />
+        )
+      })}
+    </Select>
+  )
+}
 
 const cardCss = cardWidth => css`
   border: 0 !important;
@@ -134,22 +135,24 @@ const CodePreview = ({ children }) => {
               mb={2}
               bg='white'
               children={EDITORS}
-              active={editorLang}
+              value={editorLang}
               onChange={editorLang => setState({ editorLang })}
             />
           </Text>
           <CustomCodeCopy interactive text={serializeComponent(code)} />
         </Flex>
 
-        <LiveProvider language={editor.language} code={code} disabled>
-          <LiveEditor
-            css={`
-              ${editor.whiteSpace
-                ? `white-space: ${editor.whiteSpace} !important`
-                : ''};
-            `}
-          />
-        </LiveProvider>
+        <Box px={2}>
+          <LiveProvider language={editor.language} code={code} disabled>
+            <LiveEditor
+              css={`
+                ${editor.whiteSpace
+                  ? `white-space: ${editor.whiteSpace} !important`
+                  : ''};
+              `}
+            />
+          </LiveProvider>
+        </Box>
       </Flex>
     </Fragment>
   )

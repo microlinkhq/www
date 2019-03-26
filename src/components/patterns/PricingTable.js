@@ -190,7 +190,7 @@ function PricingTable () {
   } = useSiteMetadata()
 
   return (
-    <Box mx='auto' px={[0, 6]}>
+    <Box mx='auto' px={[0, 6]} py={[4, 5]}>
       <Box
         as='table'
         width='100%'

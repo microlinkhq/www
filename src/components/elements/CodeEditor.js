@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import CodeCopy from 'react-codecopy'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { serializeComponent } from 'helpers'
@@ -44,12 +45,13 @@ const prismTheme = {
     fontFamily: fonts.mono,
     direction: 'ltr',
     textAlign: 'left',
-    whiteSpace: 'pre',
+    whiteSpace: 'pre-wrap',
     wordSpacing: 'normal',
     wordBreak: 'normal',
     lineHeight: '1.5',
     MozTabSize: '4',
     OTabSize: '4',
+
     tabSize: '4',
     WebkitHyphens: 'none',
     MozHyphens: 'none',
@@ -59,8 +61,7 @@ const prismTheme = {
   'pre[class*="language-"]': {
     color: COLORS.PINK,
     textShadow: '0 1px rgba(0, 0, 0, 0.3)',
-    fontFamily:
-      "Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace",
+    fontFamily: fonts.mono,
     direction: 'ltr',
     textAlign: 'left',
     whiteSpace: 'pre',
@@ -74,7 +75,7 @@ const prismTheme = {
     MozHyphens: 'none',
     msHyphens: 'none',
     hyphens: 'none',
-    padding: '1em',
+    padding: '0 8px',
     margin: '.5em 0',
     overflow: 'auto',
     borderRadius: '0.3em',
@@ -178,13 +179,17 @@ const TerminalText = styled.div`
   font-size: 13px;
   font-weight: normal;
   line-height: 20px;
-  padding: 0 20px;
+  padding: 0 16px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   background: #282a36;
   color: #fff;
   display: flex;
   align-items: center;
+
+  > div {
+    width: 100%;
+  }
 `
 
 const TerminalTextWrapper = styled.div`

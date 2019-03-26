@@ -58,7 +58,7 @@ export default class extends Component {
       <Flex flexDirection={'column'} justifyContent='space-around'>
         <Flex id='preview' flexDirection='column' mb={[4, 0]}>
           <Card
-            px={isSDK ? 0 : 4}
+            px={isSDK ? 0 : 3}
             py={isSDK ? 0 : 3}
             width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
             height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
