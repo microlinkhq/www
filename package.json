@@ -52,7 +52,7 @@
     "human-number": "~1.0.2",
     "json-future": "~2.1.4",
     "lodash": "~4.17.11",
-    "mdx-scoped-runtime": "~0.5.1",
+    "mdx-scoped-runtime": "~0.6.0",
     "node-sass": "~4.11.0",
     "normalize.css": "~8.0.1",
     "p-all": "~2.0.0",
