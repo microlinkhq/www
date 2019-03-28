@@ -253,7 +253,6 @@ class CodeEditor extends Component {
             children={children.trim()}
           />
         </TerminalTextWrapper>
-        {/* </CustomCodeCopy> */}
       </Terminal>
     )
   }
