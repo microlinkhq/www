@@ -173,7 +173,6 @@ const TerminalTitle = styled.div`
 `
 
 const TerminalText = styled.div`
-  border-radius: 2px;
   overflow-x: auto;
   font-family: ${fonts.mono};
   font-size: 13px;
@@ -196,20 +195,30 @@ const TerminalTextWrapper = styled.div`
   word-break: break-all;
 `
 
-const Terminal = ({ title, children, dark, ...props }) => (
+const Terminal = ({
+  title,
+  children,
+  interactive,
+  dark,
+  text,
+  intertactive,
+  ...props
+}) => (
   <TerminalWindow dark={dark} {...props}>
     <TerminalHeader dark={dark}>
       <TerminalButton dark={dark} color='#FF5F56' />
       <TerminalButton dark={dark} color='#FFBD2E' />
       <TerminalButton dark={dark} color='#27C93F' />
       <TerminalTitle dark={dark}>{title}</TerminalTitle>
+      <CustomCodeCopy theme={'dark'} text={text} interactive={interactive} />
     </TerminalHeader>
     <TerminalText dark={dark}>{children}</TerminalText>
   </TerminalWindow>
 )
 
 const CustomCodeCopy = styled(CodeCopy)`
-  top: -4px !important;
+  top: -4px;
+  opacity: 1;
 `
 
 class CodeEditor extends Component {
@@ -226,25 +235,25 @@ class CodeEditor extends Component {
     const highlightLines = getLines(this.props.className)
 
     return (
-      <Terminal dark my={my}>
-        <CustomCodeCopy
-          interactive={interactive}
-          theme={'dark'}
-          text={serializeComponent(this.props.children)}
-        >
-          <TerminalTextWrapper dark>
-            <CustomSyntaxHighlighter
-              highlightLines={highlightLines}
-              lineNumberStyle={{ color: '#6272A4' }}
-              showLineNumbers={showLineNumbers}
-              language={language}
-              style={prismTheme}
-              wrapLines
-              {...props}
-              children={children.trim()}
-            />
-          </TerminalTextWrapper>
-        </CustomCodeCopy>
+      <Terminal
+        dark
+        my={my}
+        interactive={interactive}
+        text={serializeComponent(children)}
+      >
+        <TerminalTextWrapper dark>
+          <CustomSyntaxHighlighter
+            highlightLines={highlightLines}
+            lineNumberStyle={{ color: '#6272A4' }}
+            showLineNumbers={showLineNumbers}
+            language={language}
+            style={prismTheme}
+            wrapLines
+            {...props}
+            children={children.trim()}
+          />
+        </TerminalTextWrapper>
+        {/* </CustomCodeCopy> */}
       </Terminal>
     )
   }
