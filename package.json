@@ -77,7 +77,7 @@
     "scroll-into-view-if-needed": "~2.2.20",
     "styled-components": "~4.2.0",
     "styled-is": "~1.2.2",
-    "styled-system": "~4.0.5",
+    "styled-system": "~4.1.0",
     "title": "~3.4.1"
   },
   "devDependencies": {
