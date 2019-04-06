@@ -55,7 +55,7 @@
     "mdx-scoped-runtime": "~0.5.1",
     "node-sass": "~4.11.0",
     "normalize.css": "~8.0.1",
-    "p-all": "~2.0.0",
+    "p-all": "~2.1.0",
     "palx": "~1.0.3",
     "parse-domain": "~2.1.7",
     "polished": "~3.1.0",
