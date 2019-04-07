@@ -9,7 +9,7 @@ import {
 
 import styled from 'styled-components'
 
-import Box from './Box'
+import Box from '../Box'
 
 const Text = styled(Box)(
   fontFamily,

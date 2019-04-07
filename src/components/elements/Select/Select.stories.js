@@ -1,7 +1,7 @@
-import React, { useState, Fragment } from 'react'
-
+import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Select, CodeEditor, Subhead, Text } from 'components/elements'
+import { Select, Text } from 'components/elements'
+import { Story } from 'story'
 
 const options = ['Markup', 'CSS', 'C-like', 'JavaScript']
 
@@ -34,13 +34,7 @@ const MySelect = ({ ...props }) => {
   )
 }
 
-storiesOf('Elements', module).add('Select', () => (
-  <Fragment>
-    <Subhead textAlign='left' mb={3}>{`<Select />`}</Subhead>
-    <Text fontSize={0}>
-      <MySelect mx='auto' width={'5rem'} mb={2} bg='white' />
-    </Text>
-    <CodeEditor my={4} language='jsx'>{`
+const code = `
 import { Select } from 'components/elements'
 
 export default () => (
@@ -50,7 +44,12 @@ export default () => (
     <option>C-like</option>
     <option>JavaScript</option>
   </Select>
-)
-`}</CodeEditor>
-  </Fragment>
+)`
+
+storiesOf('Elements', module).add('Select', () => (
+  <Story name='Select' code={code}>
+    <Text fontSize={0}>
+      <MySelect mx='auto' width={'5rem'} mb={2} bg='white' />
+    </Text>
+  </Story>
 ))

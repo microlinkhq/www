@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { fontWeights, transition, colors } from 'theme'
 
-import Text from './Text'
+import Text from './Typography/Text'
 import { withLink } from 'helpers/hoc'
 
 const activeStyle = css`

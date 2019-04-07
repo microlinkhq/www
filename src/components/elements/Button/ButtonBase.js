@@ -4,7 +4,7 @@ import { createCssState } from 'helpers/style'
 import { transition } from 'theme'
 import { lighten } from 'polished'
 
-import Text from '../Text'
+import Text from '../Typography/Text'
 
 const hoverStyle = createCssState({
   selector: '&:hover:not([disabled])',

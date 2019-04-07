@@ -55,7 +55,6 @@ const TerminalText = styled('div')`
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   background: ${({ dark }) => (dark ? '#000' : 'transparent')};
-  height: 100px;
   color: ${({ dark }) => (dark ? '#fff' : '#000')};
   display: flex;
   align-items: center;
