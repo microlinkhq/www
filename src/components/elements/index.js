@@ -34,7 +34,6 @@ import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
 import Caps from './Typography/Caps'
 import Heading from './Typography/Heading'
 import Label from './Typography/Label'
-import Lead from './Typography/Lead'
 import Subhead from './Typography/Subhead'
 import Text from './Typography/Text'
 
@@ -60,7 +59,6 @@ export {
   Image,
   Input,
   Label,
-  Lead,
   Link,
   LinkSolid,
   NavLink,

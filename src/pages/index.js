@@ -15,7 +15,7 @@ import {
   Box,
   Heading,
   Container as ContainerBase,
-  Lead,
+  Subhead,
   Hide,
   Flex,
   Link,
@@ -44,9 +44,9 @@ const FAQ = () => (
         pb={[4, 5]}
       >
         <Heading mt={4} fontSize={7} children='Frequently Asked Questions' />
-        <Lead mt={[2, 3]} color='black50' textAlign='center' maxWidth={8}>
+        <Subhead mt={[2, 3]} color='black50' textAlign='center' maxWidth={8}>
           Your questions, answered
-        </Lead>
+        </Subhead>
       </Flex>
     </Container>
   </Box>
@@ -59,9 +59,9 @@ const Pricing = () => (
         children={[
           'Pricing',
           'From $0. ',
-          <Lead fontWeight='bold' as='span'>
+          <Subhead fontWeight='bold' as='span'>
             Pay as you Grow.
-          </Lead>
+          </Subhead>
         ]}
       />
       <PricingTable />
@@ -87,9 +87,8 @@ const Header = ({ children }) => {
       px={0}
     >
       <Heading px={0} children={title} />
-      <Lead
+      <Subhead
         px={4}
-        mt={[2, 1]}
         color='black50'
         textAlign='center'
         children={caption.map((child, index) => (
@@ -113,9 +112,9 @@ const Hero = () => (
 
 const Subheader = ({ children }) => (
   <Fragment>
-    <Lead fontSize={1} color='secondary'>
+    <Subhead fontSize={1} color='secondary'>
       <Caps as='span' children={children[0]} />
-    </Lead>
+    </Subhead>
     <Heading mt={1} fontSize={[3, 4]} variant={null} children={children[1]} />
   </Fragment>
 )
@@ -194,7 +193,8 @@ const SDK = ({ loading, editor, children, onClick, siteUrl }) => (
       flexDirection='column'
     >
       <Text
-        pb={[4, 5]}
+        mb={2}
+        pb={[3, 4]}
         fontSize={1}
         color='gray8'
         children='Try another link →'

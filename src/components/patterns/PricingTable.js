@@ -11,7 +11,7 @@ import {
   LinkSolid,
   Flex,
   Text,
-  Lead,
+  Subhead,
   Checkout
 } from 'components/elements'
 
@@ -44,7 +44,7 @@ const TOOLTIPS = {
     'We provide chat support to help you integrate with your services.'
 }
 
-const Price = styled(Lead)`
+const Price = styled(Subhead)`
   font-weight: bold;
   &::before {
     content: '€';
@@ -66,7 +66,7 @@ const Price = styled(Lead)`
 `
 
 Price.defaultProps = {
-  ...Lead.defaultProps,
+  ...Subhead.defaultProps,
   fontSize: 2
 }
 
@@ -292,7 +292,7 @@ function PricingTable () {
         alignItems='center'
         pt={[4, 5]}
       >
-        <Lead color='gray8' fontSize={2} children='Do you need more?' />
+        <Subhead color='gray8' fontSize={2} children='Do you need more?' />
         <Text as='div' mt={1} fontSize={1} color='gray8'>
           <LinkSolid
             fontWeight='bold'

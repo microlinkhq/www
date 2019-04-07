@@ -8,7 +8,7 @@ Subhead.defaultProps = {
   ...Heading.defaultProps,
   as: 'h3',
   lineHeight: 4,
-  fontWeight: 'regular',
+  fontWeight: 'normal',
   variant: null,
   fontSize: [2, 4]
 }

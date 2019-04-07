@@ -36,7 +36,6 @@ components/elements
 │   ├── Caps
 │   ├── Input
 │   ├── Button
-│   ├── Lead
 │   ├── NavLink
 │   └─┬ Heading
 │     │ └── SubHead

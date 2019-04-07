@@ -210,15 +210,7 @@ function Terminal ({ title, children, theme, interactive, toCopy, ...props }) {
         <TerminalButton color='#FFBD2E' />
         <TerminalButton color='#27C93F' />
         <TerminalTitle>{title}</TerminalTitle>
-        <CodeCopy
-          labels={{
-            copy: 'Click to copy',
-            copied: 'Copied!'
-          }}
-          interactive={isHover}
-          theme={theme}
-          text={toCopy}
-        />
+        <CodeCopy interactive={isHover} theme={theme} text={toCopy} />
       </TerminalHeader>
       <TerminalText>{children}</TerminalText>
     </TerminalWindow>
