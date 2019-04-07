@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-
-import CodeCopy from 'react-codecopy'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { serializeComponent } from 'helpers'
-import styled from 'styled-components'
-import { colors, fonts } from 'theme'
 import { Box } from 'components/elements'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import CodeCopy from 'react-codecopy'
+import { colors, fonts } from 'theme'
 import { range } from 'lodash'
 
 const RE_LINES = /\{\d(?:, ?\d)?\}|[\d]/
@@ -173,7 +172,6 @@ const TerminalTitle = styled.div`
 `
 
 const TerminalText = styled.div`
-  border-radius: 2px;
   overflow-x: auto;
   font-family: ${fonts.mono};
   font-size: 13px;
@@ -196,65 +194,77 @@ const TerminalTextWrapper = styled.div`
   word-break: break-all;
 `
 
-const Terminal = ({ title, children, dark, ...props }) => (
-  <TerminalWindow dark={dark} {...props}>
-    <TerminalHeader dark={dark}>
-      <TerminalButton dark={dark} color='#FF5F56' />
-      <TerminalButton dark={dark} color='#FFBD2E' />
-      <TerminalButton dark={dark} color='#27C93F' />
-      <TerminalTitle dark={dark}>{title}</TerminalTitle>
-    </TerminalHeader>
-    <TerminalText dark={dark}>{children}</TerminalText>
-  </TerminalWindow>
-)
+function Terminal ({ title, children, theme, interactive, toCopy, ...props }) {
+  const [isHover, setHover] = useState(interactive)
+  const onMouseOut = () => setHover(false)
+  const onMouseOver = () => setHover(true)
 
-const CustomCodeCopy = styled(CodeCopy)`
-  top: -4px !important;
-`
+  return (
+    <TerminalWindow
+      onMouseOut={onMouseOut}
+      onMouseOver={onMouseOver}
+      {...props}
+    >
+      <TerminalHeader>
+        <TerminalButton color='#FF5F56' />
+        <TerminalButton color='#FFBD2E' />
+        <TerminalButton color='#27C93F' />
+        <TerminalTitle>{title}</TerminalTitle>
+        <CodeCopy
+          labels={{
+            copy: 'Click to copy',
+            copied: 'Copied!'
+          }}
+          interactive={isHover}
+          theme={theme}
+          text={toCopy}
+        />
+      </TerminalHeader>
+      <TerminalText>{children}</TerminalText>
+    </TerminalWindow>
+  )
+}
 
-class CodeEditor extends Component {
-  render () {
-    const {
-      language,
-      showLineNumbers,
-      interactive,
-      children,
-      my,
-      ...props
-    } = this.props
+Terminal.defaultProps = {
+  interactive: false,
+  theme: 'dark'
+}
 
-    const highlightLines = getLines(this.props.className)
+function CodeEditor (props) {
+  const {
+    language,
+    showLineNumbers,
+    interactive,
+    children,
+    my,
+    ...restProps
+  } = props
 
-    return (
-      <Terminal dark my={my}>
-        <CustomCodeCopy
-          interactive={interactive}
-          theme={'dark'}
-          text={serializeComponent(this.props.children)}
-        >
-          <TerminalTextWrapper dark>
-            <CustomSyntaxHighlighter
-              highlightLines={highlightLines}
-              lineNumberStyle={{ color: '#6272A4' }}
-              showLineNumbers={showLineNumbers}
-              language={language}
-              style={prismTheme}
-              wrapLines
-              {...props}
-              children={children.trim()}
-            />
-          </TerminalTextWrapper>
-        </CustomCodeCopy>
-      </Terminal>
-    )
-  }
+  const highlightLines = getLines(restProps.className)
+  const text = serializeComponent(children.trim())
+
+  return (
+    <Terminal my={my} interactive={interactive} toCopy={text}>
+      <TerminalTextWrapper dark>
+        <CustomSyntaxHighlighter
+          highlightLines={highlightLines}
+          lineNumberStyle={{ color: '#6272A4' }}
+          showLineNumbers={showLineNumbers}
+          language={language}
+          style={prismTheme}
+          wrapLines
+          {...restProps}
+          children={text}
+        />
+      </TerminalTextWrapper>
+    </Terminal>
+  )
 }
 
 // this is necessary for markdown
 CodeEditor.displayName = 'CodeEditor'
 
 CodeEditor.defaultProps = {
-  interactive: false,
   showLineNumbers: false,
   language: 'javascript'
 }

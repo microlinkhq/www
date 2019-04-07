@@ -139,7 +139,14 @@ const CodePreview = ({ children }) => {
               onChange={editorLang => setState({ editorLang })}
             />
           </Text>
-          <CustomCodeCopy interactive text={serializeComponent(code)} />
+          <CustomCodeCopy
+            labels={{
+              copy: 'Click to copy',
+              copied: 'Copied!'
+            }}
+            interactive
+            text={serializeComponent(code)}
+          />
         </Flex>
 
         <Box px={2}>
