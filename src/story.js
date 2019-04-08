@@ -5,7 +5,7 @@ export function Story ({ name, children, code, ...props }) {
   return (
     <Fragment>
       <Subhead textAlign='left'>{`<${name} />`}</Subhead>
-      <Box mt={3} mb={4}>
+      <Box as='article' mt={3} mb={4} {...props}>
         <Box display={['block', 'inline']}>{children}</Box>
       </Box>
       {code && <CodeEditor language='jsx'>{code}</CodeEditor>}
