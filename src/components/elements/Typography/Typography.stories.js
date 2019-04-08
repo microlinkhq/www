@@ -28,30 +28,59 @@ const Info = ({ children }) => {
   )
 }
 
-console.log('Label', Label)
+const createCode = str => `
+import { Terminal } from 'components/elements'
+
+export default () => (${str})
+`
+
+const codeHeading = createCode(`
+  <Heading children='Turn websites into data' />
+`)
+
+const codeSubhead = createCode(`
+  <Subhead
+    color='black50'
+    children='Microlink makes easy build an API on top of any website.'
+  />
+`)
+
+const codeCaps = createCode(`
+  <Caps fontSize={0}>See More</Caps>
+`)
+
+const codeLabel = createCode(`
+  <Label display='inline' children='reqs' suffix='/day' />
+`)
+
+const codeText = createCode(`
+  <Text
+    children='Make your content attractive, engaging better your links.'
+  />
+`)
 
 storiesOf('Elements', module).add('Typography', () => (
   <Fragment>
-    <Story name='Heading'>
+    <Story name='Heading' code={codeHeading}>
       <Info>{Heading}</Info>
       <Heading children='Turn websites into data' />
     </Story>
-    <Story name='Subhead'>
+    <Story name='Subhead' code={codeSubhead}>
       <Info>{Subhead}</Info>
       <Subhead
         color='black50'
         children={'Microlink makes easy build an API on top of any website.'}
       />
     </Story>
-    <Story name='Label'>
+    <Story name='Label' code={codeLabel}>
       <Info>{Label}</Info>
       <Label display='inline' children='reqs' suffix='/day' />
     </Story>
-    <Story name='Caps'>
+    <Story name='Caps' code={codeCaps}>
       <Info>{Caps}</Info>
       <Caps fontSize={0}>See More</Caps>
     </Story>
-    <Story name={'Text'}>
+    <Story name='Text' code={codeText}>
       <Info>{Text}</Info>
       <Text
         children={'Make your content attractive, engaging better your links.'}
