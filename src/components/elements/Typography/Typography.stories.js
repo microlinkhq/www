@@ -4,51 +4,58 @@ import {
   Heading,
   ButtonSecondary,
   Caps,
-  Box,
   Text,
   Label,
   Subhead
 } from 'components/elements'
-import { fontWeights, fontSizes } from 'theme'
+import { lineHeights, fontSizes } from 'theme'
 import { Story } from 'story'
+import { isNil, castArray, last } from 'lodash'
+
+const Info = ({ children }) => {
+  const fontSize = fontSizes[last(castArray(children.defaultProps.fontSize))]
+  const fontWeight = last(castArray(children.defaultProps.fontWeight))
+  const lineHeight =
+    lineHeights[last(castArray(children.defaultProps.lineHeight))]
+
+  return (
+    <Text
+      color='black30'
+      children={`${fontSize}px ${
+        isNil(fontWeight) ? '' : fontWeight
+      } – ${lineHeight}`}
+    />
+  )
+}
+
+console.log('Label', Label)
 
 storiesOf('Elements', module).add('Typography', () => (
   <Fragment>
     <Story name='Heading'>
+      <Info>{Heading}</Info>
       <Heading children='Turn websites into data' />
     </Story>
     <Story name='Subhead'>
-      <Subhead children='From $0. Pay as you Grow.' />
+      <Info>{Subhead}</Info>
+      <Subhead
+        color='black50'
+        children={'Microlink makes easy build an API on top of any website.'}
+      />
     </Story>
     <Story name='Label'>
+      <Info>{Label}</Info>
       <Label display='inline' children='reqs' suffix='/day' />
     </Story>
     <Story name='Caps'>
-      <ButtonSecondary href='https://google.com'>
-        <Caps fontSize={0}>See More</Caps>
-      </ButtonSecondary>
+      <Info>{Caps}</Info>
+      <Caps fontSize={0}>See More</Caps>
     </Story>
     <Story name={'Text'}>
-      {fontSizes.map((fontSize, fontSizeIndex) => (
-        <Box mb={5}>
-          {Object.keys(fontWeights).map(fontWeight => {
-            return (
-              <Box mb={1}>
-                <Text
-                  color='gray'
-                  fontSize={'10px'}
-                >{`${fontSize}px — ${fontWeight}`}</Text>
-                <Text
-                  key={`${fontSize}__${fontWeight}`}
-                  fontWeight={fontWeight}
-                  fontSize={fontSizeIndex}
-                  children={'Turn web into data'}
-                />
-              </Box>
-            )
-          })}
-        </Box>
-      ))}
+      <Info>{Text}</Info>
+      <Text
+        children={'Make your content attractive, engaging better your links.'}
+      />
     </Story>
   </Fragment>
 ))
