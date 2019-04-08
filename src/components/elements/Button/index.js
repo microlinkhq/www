@@ -1,12 +1,12 @@
 import BaseButtonSecondary from './ButtonSecondary'
 import BaseButtonOutline from './ButtonOutline'
-import ButtonBase from './ButtonBase'
+import BaseButtonPrimary from './ButtonPrimary'
 import withSpinner from './with-spinner'
 import { css } from 'styled-components'
 import { rgba } from 'polished'
 
 export const ButtonPrimary = withSpinner(
-  ButtonBase,
+  BaseButtonPrimary,
   css`
     &:hover {
       background-color: ${({ theme }) => props => theme.colors[props.bg]};

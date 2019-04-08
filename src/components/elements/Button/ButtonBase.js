@@ -1,32 +1,9 @@
-import styled, { css } from 'styled-components'
 import { borders, borderColor, borderRadius, buttonStyle } from 'styled-system'
+import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
 import { transition } from 'theme'
-import { lighten } from 'polished'
 
 import Text from '../Typography/Text'
-
-const hoverStyle = createCssState({
-  selector: '&:hover:not([disabled])',
-  state: 'hover',
-  css: css`
-    background-color: ${({ theme }) => theme.colors.link};
-    box-shadow: 0 2px 15px ${({ theme }) => lighten(0.15, theme.colors.link)};
-    opacity: 0.8;
-    color: ${({ theme }) => theme.colors.white};
-    cursor: pointer;
-  `
-})
-
-const disabledStyle = createCssState({
-  selector: '&:disabled',
-  state: 'disabled',
-  css: css`
-    background-color: ${({ theme }) => theme.colors.white90};
-    color: ${({ theme }) => theme.colors.black50};
-    cursor: not-allowed;
-  `
-})
 
 const focusStyle = createCssState({
   selector: '&:focus',
@@ -46,15 +23,15 @@ const Button = styled(Text)(
     lineHeight: 16 / 14,
     textDecoration: 'none',
     verticalAlign: 'middle',
-    WebkitFontSmoothing: 'antialiased'
+    WebkitFontSmoothing: 'antialiased',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   borders,
   borderColor,
   borderRadius,
   buttonStyle,
-  // style,
-  hoverStyle,
-  disabledStyle,
   focusStyle
 )
 

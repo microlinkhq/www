@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
 import { rgba } from 'polished'
 
-import Button from './ButtonBase'
+import Button from './ButtonPrimary'
 
 const style = css`
   box-shadow: 0 2px 15px ${({ theme }) => rgba(theme.colors.link, 0.5)};
