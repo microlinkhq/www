@@ -13,10 +13,10 @@ const getLines = (className = '') => {
   const match = className.match(RE_LINES)
   return match
     ? match[0]
-        .replace('{', '')
-        .replace('}', '')
-        .split(',')
-        .map(n => Number(n.trim()))
+      .replace('{', '')
+      .replace('}', '')
+      .split(',')
+      .map(n => Number(n.trim()))
     : null
 }
 
@@ -148,7 +148,10 @@ const TerminalHeader = styled.header`
   height: 36px;
   background: #282a36;
   align-items: center;
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 0;
+  padding-left: 1rem;
   position: sticky;
   top: 0;
   z-index: 1;
