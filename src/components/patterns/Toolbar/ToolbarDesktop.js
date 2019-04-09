@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { NavLink, Toolbar, Box, Fixed } from 'components/elements'
+import { Toolbar, Box, Fixed } from 'components/elements'
 import { Microlink } from 'components/logos'
 import { smoothScroll } from 'helpers'
 
 import NavContainer from './NavContainer'
+import NavLink from './NavLink'
 
 export default class extends Component {
   render () {

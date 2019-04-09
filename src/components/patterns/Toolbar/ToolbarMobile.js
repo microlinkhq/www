@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { NavLink, Box, Fixed, Toolbar } from 'components/elements'
+import { Box, Fixed, Toolbar } from 'components/elements'
 import { Microlink } from 'components/logos'
 import { smoothScroll } from 'helpers'
 import styled from 'styled-components'
 
 import NavContainer from './NavContainer'
+import NavLink from './NavLink'
 
 const Nav = styled(NavContainer)`
   mask-image: -webkit-linear-gradient(

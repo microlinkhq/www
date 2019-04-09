@@ -1,14 +1,24 @@
-import Text from './Text'
 import styled from 'styled-components'
+import { letterSpacing } from 'styled-system'
 
-const Caps = styled(Text)({
-  letterSpacing: '0.5px',
-  textTransform: 'uppercase'
-})
+import Text from './Text'
+
+const Caps = styled(Text)(
+  {
+    textTransform: 'uppercase'
+  },
+  letterSpacing
+)
 
 Caps.defaultProps = {
   ...Text.defaultProps,
-  fontSize: [0, 1]
+  fontSize: [0, 1],
+  letterSpacing: 1
+}
+
+Caps.propTypes = {
+  ...Text.propTypes,
+  ...letterSpacing.propTypes
 }
 
 export default Caps

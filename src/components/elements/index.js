@@ -16,7 +16,6 @@ import Hide from './Hide'
 import Image from './Image'
 import Input from './Input'
 
-import NavLink from './NavLink'
 import Notification from './Notification'
 import PricePicker from './PricePicker'
 import SearchBox from './SearchBox'
@@ -61,7 +60,6 @@ export {
   Label,
   Link,
   LinkSolid,
-  NavLink,
   Notification,
   PricePicker,
   SearchBox,

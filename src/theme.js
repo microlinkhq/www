@@ -151,6 +151,8 @@ export const boxStyle = {
 
 export const layout = [1024, 1024, 1024]
 
+export const letterSpacings = [0, '0.05em', '0.1em', '0.25em']
+
 export default {
   breakpoints,
   boxStyle,
@@ -166,5 +168,6 @@ export default {
   shadows,
   space,
   textStyle,
-  transition
+  transition,
+  letterSpacings
 }

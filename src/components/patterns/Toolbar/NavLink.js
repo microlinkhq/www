@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { fontWeights, transition, colors } from 'theme'
 
-import Text from './Typography/Text'
+import { Caps } from 'components/elements'
 import { withLink } from 'helpers/hoc'
 
 const activeStyle = css`
@@ -21,10 +21,9 @@ const style = css`
   }
 `
 
-const NavLink = styled(Text)(
+const NavLink = styled(Caps)(
   {
     bg: 'transparent',
-    textTransform: 'uppercase',
     color: 'inherit',
     display: 'inline-flex',
     alignItems: 'center',
@@ -41,7 +40,7 @@ const NavLink = styled(Text)(
 )
 
 NavLink.defaultProps = {
-  ...Text.defaultProps,
+  ...Caps.defaultProps,
   p: 2,
   fontSize: 0,
   as: 'div',
@@ -49,7 +48,7 @@ NavLink.defaultProps = {
 }
 
 NavLink.propTypes = {
-  ...Text.propTypes
+  ...Caps.propTypes
 }
 
 export default withLink(NavLink)
