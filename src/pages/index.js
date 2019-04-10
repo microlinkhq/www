@@ -48,15 +48,18 @@ function Index () {
   })
 
   React.useEffect(() => {
-    const url = unmarshall(window.location.search).url
+    const { url } = unmarshall(window.location.search)
     if (url) setUrl(decodeURIComponent(url))
-  })
+  }, [])
 
   const setUrl = url => {
     if (url === state.url) return
+
+    // check if the url is a precompiled data
     const demoLink = demoLinks.find(demoLink => demoLink.data.url === url)
     if (demoLink) return setState({ url, demoLink: demoLink.data })
 
+    // setup loading until the content is fetched
     setState({ url, hasError: null, loading: true })
 
     mql(url, {

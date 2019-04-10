@@ -61,11 +61,13 @@ const JSONViewer = styled(Box)`
 `
 
 export default ({ preview, loading, children }) => {
+  const url = children ? children.url : undefined
+
   return preview === 'SDK' ? (
     <Fragment>
       <Hide breakpoints={[0, 1]}>
         <MicrolinkCardDesktop
-          url={children.url}
+          url={url}
           loading={loading}
           size='large'
           noFetch
@@ -74,7 +76,7 @@ export default ({ preview, loading, children }) => {
       </Hide>
       <Hide breakpoints={[2, 3]}>
         <MicrolinkCardMobile
-          url={children.url}
+          url={url}
           loading={loading}
           size='large'
           noFetch

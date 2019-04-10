@@ -98,7 +98,7 @@ export default class extends Component {
     const { editor: editorLang, preview } = this.state
     const { children, loading } = this.props
     const editor = EDITOR[editorLang]
-    const code = editor(children)
+    const code = loading ? 'Fetching content...' : editor(children)
     const isSDK = preview === 'SDK'
 
     return (
