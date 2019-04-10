@@ -108,7 +108,6 @@ const prismTheme = {
   namespace: { color: 'rgb(178, 204, 214)' }
 }
 
-console.log('colors', colors)
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   margin-top: 0px;
   padding-bottom: 12px !important;
