@@ -11,7 +11,12 @@ export default class extends Component {
     return (
       <Fixed zIndex={2} top={0} left={0} right={0}>
         <Box px={3} boxShadow={0} mx='auto' bg='white'>
-          <Toolbar mx='auto' justifyContent='space-between' {...this.props}>
+          <Toolbar
+            aria-label='Primary Navigation'
+            mx='auto'
+            justifyContent='space-between'
+            {...this.props}
+          >
             <NavContainer as='nav'>
               <NavLink
                 width={['32px', '48px']}
@@ -35,7 +40,7 @@ export default class extends Component {
                 href='/#pricing'
                 onClick={smoothScroll('pricing')}
               />
-              <NavLink href='/blog' children='Blog' actively />
+              <NavLink href='/blog' children='Blog' actively partiallyActive />
             </NavContainer>
             <NavContainer as='nav'>
               <NavLink
