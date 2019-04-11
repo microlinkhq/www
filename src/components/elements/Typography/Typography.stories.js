@@ -68,7 +68,7 @@ storiesOf('Elements', module).add('Typography', () => (
     <Story name='Subhead' code={codeSubhead}>
       <Info>{Subhead}</Info>
       <Subhead
-        color='black50'
+        color='gray'
         children={'Microlink makes easy build an API on top of any website.'}
       />
     </Story>
@@ -84,6 +84,11 @@ storiesOf('Elements', module).add('Typography', () => (
       <Info>{Text}</Info>
       <Text
         children={'Make your content attractive, engaging better your links.'}
+      />
+      <Text
+        fontSize={[0, 2]}
+        color='gray'
+        children={'June 30, 2018 (9 months ago)'}
       />
     </Story>
   </Fragment>
