@@ -71,16 +71,18 @@ exports.createPages = ({ graphql, actions }) => {
 
         // Create markdown pages
         return Promise.all(
-          result.data.allMarkdownRemark.edges.map(({ node }) =>
-            createPage({
+          result.data.allMarkdownRemark.edges.map(({ node }) => {
+            console.log('node.fields.slug', node.fields.slug)
+            return createPage({
               path: node.fields.slug,
-              component: path.resolve(`./src/templates/page.js`),
+              component: path.resolve(`./src/templates/index.js`),
               context: {
-                isBlogPost: node.fields.slug.startsWith('/blog/'),
+                isBlogPage: node.fields.slug.startsWith('/blog/'),
+                isDocPage: node.fields.slug.startsWith('/docs/'),
                 slug: node.fields.slug
               }
             })
-          )
+          })
         )
       })
     )

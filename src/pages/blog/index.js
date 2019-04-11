@@ -3,7 +3,7 @@ import { H1, H2Link } from 'components/markdown'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
 import { Layout } from 'components/patterns'
-import { colors, transition } from 'theme'
+import { transition } from 'theme'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import Head from 'components/Head'
@@ -12,10 +12,10 @@ import React from 'react'
 
 const borderStyle = css`
   ${is('borderTop')`
-    border-top: 1px solid ${colors.gray1};
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
   `};
   ${is('borderBottom')`
-    border-bottom: 1px solid ${colors.gray1};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   `};
 `
 
@@ -23,7 +23,7 @@ const CustomFlex = styled(Flex)`
   ${borderStyle};
   transition: background-color ${transition.short};
   &:hover {
-    background-color: ${colors.gray0};
+    background-color: ${({ theme }) => theme.colors.gray0};
   }
 `
 
@@ -63,11 +63,9 @@ export default ({ posts = useBlogIndex() }) => {
   return (
     <Layout>
       <Head title='Blog' />
-      <Container as='article' maxWidth={'inherit'}>
+      <Container px={0} as='article' maxWidth={'inherit'}>
         <Flex flexDirection='column' alignItems='center' pt={4}>
-          <H1 mt={0} mb={4} mx={0}>
-            Blog
-          </H1>
+          <H1 mt={0} mb={4} mx={0} slug={false} children='Blog' />
           {posts.map((post, index) => (
             <BlogPost
               key={post.title}

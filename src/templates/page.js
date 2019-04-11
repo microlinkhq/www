@@ -1,13 +1,11 @@
 import * as mdComponents from 'components/markdown'
 import { Chat, Layout } from 'components/patterns'
-import { useSiteMetadata } from 'components/hook'
 import { Text, Box } from 'components/elements'
 import React, { Fragment } from 'react'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import MDX from 'mdx-scoped-runtime'
 import Head from 'components/Head'
-import { graphql } from 'gatsby'
 import slug from 'remark-slug'
 import { omit } from 'lodash'
 
@@ -32,71 +30,40 @@ const PostFooter = () => (
   </Fragment>
 )
 
-export default function BlogPost ({ pageContext, data }, ...rest) {
-  const { isBlogPost } = pageContext
-  const { frontmatter, rawMarkdownBody } = data.markdownRemark
-  const metadata = useSiteMetadata()
-
-  const meta = {
-    ...metadata,
-    ...frontmatter,
-    url: `${metadata.siteUrl}${frontmatter.slug}`
-  }
-
-  const date = frontmatter.date && new Date(frontmatter.date)
-
-  return (
-    <Layout>
-      <Box px={3}>
-        <Head {...meta} />
-        <Text as='header' textAlign='center' mb={5} maxWidth='900px' mx='auto'>
-          <H1
-            textAlign='center'
-            children={meta.title}
-            slug={false}
-            variant='gradient'
-          />
-          {isBlogPost && (
-            <Text fontSize={2} color='gray'>
-              {formatDate(date)} ({<TimeAgo date={date} />})
-            </Text>
-          )}
-        </Text>
-
-        {!isBlogPost && date && (
-          <Blockquote>
-            <Paraph>
-              Las Updated: {formatDate(date)} ({<TimeAgo date={date} />})
-            </Paraph>
-          </Blockquote>
+export default ({ isBlogPage, date, meta, content }) => (
+  <Layout>
+    <Box px={3}>
+      <Head {...meta} />
+      <Text as='header' textAlign='center' mb={5} maxWidth='900px' mx='auto'>
+        <H1
+          textAlign='center'
+          children={meta.title}
+          slug={false}
+          variant='gradient'
+        />
+        {isBlogPage && (
+          <Text fontSize={2} color='gray'>
+            {formatDate(date)} ({<TimeAgo date={date} />})
+          </Text>
         )}
+      </Text>
 
-        <MDX
-          components={mdComponents.default}
-          scope={scopeComponents}
-          mdPlugins={[slug]}
-        >
-          {rawMarkdownBody}
-        </MDX>
-        {isBlogPost && <PostFooter />}
-      </Box>
-    </Layout>
-  )
-}
+      {!isBlogPage && date && (
+        <Blockquote>
+          <Paraph>
+            Las Updated: {formatDate(date)} ({<TimeAgo date={date} />})
+          </Paraph>
+        </Blockquote>
+      )}
 
-export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      rawMarkdownBody
-      timeToRead
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-      }
-      fields {
-        slug
-      }
-    }
-  }
-`
+      <MDX
+        components={mdComponents.default}
+        scope={scopeComponents}
+        mdPlugins={[slug]}
+      >
+        {content}
+      </MDX>
+      {isBlogPage && <PostFooter />}
+    </Box>
+  </Layout>
+)
