@@ -1,21 +1,18 @@
 import styled, { css } from 'styled-components'
-import { fontWeights, transition, colors } from 'theme'
+import { transition } from 'theme'
 
 import { Caps } from 'components/elements'
 import { withLink } from 'helpers/hoc'
 
 const activeStyle = css`
-  font-weight: ${fontWeights.bold};
-  color: ${colors.gray9};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  color: ${({ theme }) => theme.colors.gray9};
 `
 
 const style = css`
   transition: color ${transition.medium};
 
-  &:hover {
-    ${activeStyle};
-  }
-
+  &:hover,
   > .active {
     ${activeStyle};
   }

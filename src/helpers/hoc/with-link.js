@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { External as ExternalIcon } from 'components/icons'
 
-import PrefetchLinkBase from 'gatsby-link'
+import { Link } from 'gatsby'
 
 const linkStyle = css`
   text-decoration: inherit;
@@ -13,7 +13,12 @@ const isInternalLink = to => /^\/(?!\/)/.test(to)
 
 const ExternalLink = styled('a')(linkStyle)
 
-const PrefetchLink = styled(PrefetchLinkBase)(linkStyle)
+ExternalLink.defaultProps = {
+  rel: 'noopener noreferrer',
+  target: '_blank'
+}
+
+const GatsbyLink = styled(Link)(linkStyle)
 
 export default ChildComponent => ({
   icon = false,
@@ -22,16 +27,22 @@ export default ChildComponent => ({
   actively,
   href,
   children,
+  target,
+  rel,
+  partiallyActive,
   ...props
 }) => {
   const isInternal = isInternalLink(href)
-  const rel = isInternal ? null : 'noopener noreferrer'
-  const target = isInternal ? '_self' : '_blank'
 
   if (prefetch && isInternal) {
     return (
       <ChildComponent {...props}>
-        <PrefetchLink to={href} children={children} activeClassName={actively && 'active'} />
+        <GatsbyLink
+          to={href}
+          children={children}
+          activeClassName={actively && 'active'}
+          partiallyActive={partiallyActive}
+        />
       </ChildComponent>
     )
   } else {
@@ -40,7 +51,11 @@ export default ChildComponent => ({
         <ExternalLink href={href} target={target} rel={rel} onClick={onClick}>
           {children}
           {!isInternal && icon && (
-            <ExternalIcon width='14px' style={{ position: 'relative', top: '2px' }} ml={1} />
+            <ExternalIcon
+              width='14px'
+              style={{ position: 'relative', top: '2px' }}
+              ml={1}
+            />
           )}
         </ExternalLink>
       </ChildComponent>
