@@ -27,6 +27,7 @@ import Terminal from './Terminal'
 
 import Toolbar from './Toolbar'
 import Tooltip from './Tooltip'
+import Toggle from './Toggle'
 import Form from './Form'
 import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
 
@@ -69,6 +70,7 @@ export {
   Svg,
   Terminal,
   Text,
+  Toggle,
   Toolbar,
   Tooltip
 }

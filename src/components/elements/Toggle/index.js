@@ -11,19 +11,16 @@ const ButtonToggle = styled(ButtonBase)`
 
 ButtonToggle.defaultProps = {
   ...ButtonBase.defaultProps,
-  px: 3,
+  px: '28px',
   py: 0,
   borderRadius: 0
 }
-
-const BORDER_COLOR = 'black10'
-const BORDER = '1px solid'
 
 function Toggle ({ onChange, children, defaultValue }) {
   const [active, setActive] = useState(defaultValue || children[0])
 
   return (
-    <Box border={BORDER} borderColor={BORDER_COLOR} borderRadius={2}>
+    <Box border={'1px solid'} borderColor={'border'} borderRadius={2}>
       {children.map((value, index) => {
         const isLast = index + 1 === children.length
         const isActive = active === value
@@ -37,8 +34,8 @@ function Toggle ({ onChange, children, defaultValue }) {
         return (
           <Text
             as='span'
-            borderRight={!isLast && BORDER}
-            borderColor={!isLast && BORDER_COLOR}
+            borderRight={!isLast && '1px solid'}
+            borderColor={!isLast && 'border'}
           >
             <ButtonToggle onClick={setAsActive(value)}>
               <Caps
