@@ -3,20 +3,20 @@ import { ThemeProvider } from 'styled-components'
 
 import Head from 'components/Head'
 import { Box } from 'components/elements'
-import { TOOLBAR_SIZE } from 'components/elements/Toolbar'
+import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
 
 import theme from 'theme'
 import 'styles/main.scss'
 
-export default ({ children }) => (
+const Layout = ({ footer, children }) => (
   <ThemeProvider theme={theme}>
     <Fragment>
       <Head />
       <Toolbar />
-      <Box pt={TOOLBAR_SIZE}>{children}</Box>
+      <Box pt={TOOLBAR_HEIGHT}>{children}</Box>
       <CookiesPolicy />
-      <Footer />
+      {footer && <Footer />}
       <script
         crossOrigin='anonymous'
         src='https://polyfill.io/v3/polyfill.min.js?features=fetch-polyfill'
@@ -24,3 +24,9 @@ export default ({ children }) => (
     </Fragment>
   </ThemeProvider>
 )
+
+Layout.defaultProps = {
+  footer: true
+}
+
+export default Layout
