@@ -1,11 +1,11 @@
 import { useStaticQuery, graphql } from 'gatsby'
 import { get, chain } from 'lodash'
 
-export const useBlogIndex = () => {
+export const useDocIndex = () => {
   const { allMarkdownRemark } = useStaticQuery(
     graphql`
-      query BlogIndexData {
-        allMarkdownRemark(filter: { fields: { slug: { regex: "//blog//" } } }) {
+      query DocIndexData {
+        allMarkdownRemark(filter: { fields: { slug: { regex: "//docs//" } } }) {
           edges {
             node {
               fields {
@@ -13,7 +13,6 @@ export const useBlogIndex = () => {
               }
               frontmatter {
                 title
-                date
               }
             }
           }

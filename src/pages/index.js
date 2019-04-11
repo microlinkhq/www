@@ -89,7 +89,7 @@ const Header = ({ children }) => {
       <Heading px={0} children={title} />
       <Subhead
         px={4}
-        color='black50'
+        color='gray'
         textAlign='center'
         children={caption.map((child, index) => (
           <Fragment key={`${title}_${index}`}>{child}</Fragment>
