@@ -13,10 +13,10 @@ const getLines = (className = '') => {
   const match = className.match(RE_LINES)
   return match
     ? match[0]
-      .replace('{', '')
-      .replace('}', '')
-      .split(',')
-      .map(n => Number(n.trim()))
+        .replace('{', '')
+        .replace('}', '')
+        .split(',')
+        .map(n => Number(n.trim()))
     : null
 }
 
@@ -31,34 +31,68 @@ const generateHighlighLines = ([start, end]) => {
 const COLORS = {
   PINK: colors.pink6,
   VIOLET: colors.violet5,
+  WHITE: colors.white80,
   GRAY: colors.gray7,
   ORANGE: colors.orange4,
-  YELLOW: colors.yellow1,
+  YELLOW: colors.yellow2,
   RED: colors.red7
 }
 
-const prismTheme = {
-  'code[class*="language-"]': {
-    color: COLORS.PINK,
-    textShadow: '0 1px rgba(0, 0, 0, 0.3)',
-    fontFamily: fonts.mono,
-    direction: 'ltr',
-    textAlign: 'left',
-    whiteSpace: 'pre-wrap',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    lineHeight: '1.5',
-    MozTabSize: '4',
-    OTabSize: '4',
+const codeTheme = {
+  textShadow: '0 1px rgba(0, 0, 0, 0.3)',
+  fontFamily: fonts.mono,
+  direction: 'ltr',
+  textAlign: 'left',
+  whiteSpace: 'pre-wrap',
+  wordSpacing: 'normal',
+  wordBreak: 'normal',
+  lineHeight: '1.5',
+  MozTabSize: '4',
+  OTabSize: '4',
 
-    tabSize: '4',
-    WebkitHyphens: 'none',
-    MozHyphens: 'none',
-    msHyphens: 'none',
-    hyphens: 'none'
+  tabSize: '4',
+  WebkitHyphens: 'none',
+  MozHyphens: 'none',
+  msHyphens: 'none',
+  hyphens: 'none'
+}
+
+const langTheme = {
+  markdown: {
+    'code[class*="language-"]': {
+      ...codeTheme,
+      color: COLORS.WHITE
+    }
+  },
+  bash: {
+    'code[class*="language-"]': {
+      ...codeTheme,
+      color: COLORS.WHITE
+    },
+    function: { color: COLORS.WHITE },
+    token: { color: COLORS.WHITE },
+    operator: { color: COLORS.WHITE },
+    keyword: { color: COLORS.WHITE }
+  },
+  json: {
+    'code[class*="language-"]': {
+      ...codeTheme,
+      color: COLORS.YELLOW
+    },
+    function: { color: COLORS.YELLOW },
+    token: { color: COLORS.YELLOW },
+    operator: { color: COLORS.YELLOW },
+    keyword: { color: COLORS.YELLOW },
+    property: { color: COLORS.PINK }
+  }
+}
+
+const baseTheme = {
+  'code[class*="language-"]': {
+    ...codeTheme,
+    color: COLORS.PINK
   },
   'pre[class*="language-"]': {
-    color: COLORS.PINK,
     textShadow: '0 1px rgba(0, 0, 0, 0.3)',
     fontFamily: fonts.mono,
     direction: 'ltr',
@@ -85,7 +119,7 @@ const prismTheme = {
     padding: '.1em',
     borderRadius: '.3em'
   },
-  'attr-name': { color: COLORS.ORANGE, fontStyle: 'italic' },
+  'attr-name': { color: COLORS.ORANGE },
   comment: { color: 'rgba(101, 107, 128, 0.8)' },
   string: { color: COLORS.YELLOW },
   url: { color: COLORS.YELLOW },
@@ -226,17 +260,14 @@ Terminal.defaultProps = {
 }
 
 function CodeEditor (props) {
-  const {
-    language,
-    showLineNumbers,
-    interactive,
-    children,
-    my,
-    ...restProps
-  } = props
+  const { showLineNumbers, interactive, children, my, ...restProps } = props
 
   const highlightLines = getLines(restProps.className)
   const text = serializeComponent(children.trim())
+  const language =
+    props.language || props.className.split('-')[1] || 'javascript'
+
+  const theme = { ...baseTheme, ...langTheme[language] }
 
   return (
     <Terminal my={my} interactive={interactive} toCopy={text}>
@@ -246,10 +277,10 @@ function CodeEditor (props) {
           lineNumberStyle={{ color: '#6272A4' }}
           showLineNumbers={showLineNumbers}
           language={language}
-          style={prismTheme}
+          style={theme}
           wrapLines
-          {...restProps}
           children={text}
+          {...restProps}
         />
       </TerminalTextWrapper>
     </Terminal>
@@ -261,7 +292,7 @@ CodeEditor.displayName = 'CodeEditor'
 
 CodeEditor.defaultProps = {
   showLineNumbers: false,
-  language: 'javascript'
+  className: ''
 }
 
 export default CodeEditor

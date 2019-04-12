@@ -21,7 +21,7 @@ In the code above, we are associating microlink cards with the class name `card-
 
 So now, when we write a new jekyll post, we are going to associate `card-preview` class name with the links we want to convert into beauty preview
 
-```html
+```markdown
 [](https://www.theverge.com/2016/4/1/11342104/tesla-model-3-announcement-photos){:.card-preview}
 ```
 
@@ -31,7 +31,7 @@ Then the link will be rendered as
 
 You can pass any [API Parameter](/api-parameter) as `data-*` field
 
-```html
+```markdown
 [](https://www.theverge.com/2016/4/1/11342104/tesla-model-3-announcement-photos){:.card-preview data-size="large"}
 ```
 
