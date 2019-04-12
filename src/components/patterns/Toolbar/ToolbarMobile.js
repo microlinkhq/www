@@ -92,7 +92,9 @@ export default class extends Component {
               <NavLink
                 px={2}
                 children='Docs'
-                href='https://docs.microlink.io'
+                href='/blog/'
+                actively
+                partiallyActive
               />
               <NavLink
                 px={2}

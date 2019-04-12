@@ -72,7 +72,6 @@ exports.createPages = ({ graphql, actions }) => {
         // Create markdown pages
         return Promise.all(
           result.data.allMarkdownRemark.edges.map(({ node }) => {
-            console.log('node.fields.slug', node.fields.slug)
             return createPage({
               path: node.fields.slug,
               component: path.resolve(`./src/templates/index.js`),

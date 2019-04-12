@@ -40,14 +40,10 @@ export default class extends Component {
                 href='/#pricing'
                 onClick={smoothScroll('pricing')}
               />
+              <NavLink href='/docs/' children='Docs' actively partiallyActive />
               <NavLink href='/blog' children='Blog' actively partiallyActive />
             </NavContainer>
             <NavContainer as='nav'>
-              <NavLink
-                pr={[2, 3]}
-                children='Docs'
-                href='https://docs.microlink.io'
-              />
               <NavLink children='Chat' href='https://chat.microlink.io' />
             </NavContainer>
           </Toolbar>
