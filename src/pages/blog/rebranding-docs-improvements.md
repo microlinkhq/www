@@ -7,7 +7,7 @@ date: '2018-01-31'
 
 ![the new microlink.io swag logo!](https://cdn-images-1.medium.com/max/800/1*qnT4Rmic-FA4_Kf8LdZs_g.png)
 
-<Figcaption children='the new shiny microlink brand' />
+<Figcaption children='the new shiny microlink brand.' />
 
 We have a new fresh branding 🎉
 

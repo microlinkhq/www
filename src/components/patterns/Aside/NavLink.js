@@ -6,7 +6,7 @@ import { withLink } from 'helpers/hoc'
 
 const activeStyle = css`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.gray9};
+  color: ${({ theme }) => theme.colors.black};
 `
 
 const style = css`

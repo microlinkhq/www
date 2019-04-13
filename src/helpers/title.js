@@ -1,6 +1,17 @@
 import title from 'title'
 
 const special = [
+  'apiKey',
+  'media',
+  'direction',
+  'size',
+  'loop',
+  'url',
+  'controls',
+  'muted',
+  'autoPlay',
+  'setData',
+  'contrast',
   'SDK',
   'CLI',
   'API',

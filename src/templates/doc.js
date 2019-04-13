@@ -28,7 +28,6 @@ const docPaths = [
       }
     ]
   },
-
   {
     name: 'Integrations',
     posts: [
@@ -43,6 +42,60 @@ const docPaths = [
       {
         name: 'Jekyll',
         href: '/docs/sdk/integrations/jekyll/'
+      }
+    ]
+  },
+  {
+    name: 'API Parameters',
+    posts: [
+      {
+        name: 'url',
+        href: '/docs/sdk/api-parameters/url/'
+      },
+      {
+        name: 'apiKey',
+        href: '/docs/sdk/api-parameters/api-key/'
+      },
+      {
+        name: 'setData',
+        href: '/docs/sdk/api-parameters/set-data/'
+      },
+      {
+        name: 'contrast',
+        href: '/docs/sdk/api-parameters/contrast/'
+      },
+      {
+        name: 'media',
+        href: '/docs/sdk/api-parameters/media/'
+      },
+      {
+        name: 'direction',
+        href: '/docs/sdk/api-parameters/direction/'
+      },
+      {
+        name: 'size',
+        href: '/docs/sdk/api-parameters/size/'
+      },
+      {
+        name: 'media',
+        posts: [
+          {
+            name: 'controls',
+            href: '/docs/sdk/api-parameters/media/controls/'
+          },
+          {
+            name: 'muted',
+            href: '/docs/sdk/api-parameters/media/muted/'
+          },
+          {
+            name: 'loop',
+            href: '/docs/sdk/api-parameters/media/loop/'
+          },
+          {
+            name: 'autoPlay',
+            href: '/docs/sdk/api-parameters/media/auto-play/'
+          }
+        ]
       }
     ]
   }

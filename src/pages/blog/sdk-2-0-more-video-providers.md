@@ -19,7 +19,7 @@ But you can still extend the default style using CSS.
 
 For example, let's create a link preview for [browserless](https://browserless.js.org) project using custom `border-radius` style.
 
-<Microlink url='https://browserless.js.org' image='logo' />
+<Microlink url='https://browserless.js.org' media='logo' />
 
 **React**
 
@@ -48,7 +48,7 @@ The [vanilla](https://docs.microlink.io/sdk/getting-started/vanilla/) version ca
 }
 </style>
 
-<a href="https://browserless.js.org" data-image='logo' class="card-preview"></a>
+<a href="https://browserless.js.org" data-media='logo' class="card-preview"></a>
 
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {

@@ -204,10 +204,11 @@ Li.defaultProps = {
 }
 
 const codeStyle = css`
-  color: ${colors.secondary};
-  font-family: ${fonts.mono};
-  font-weight: ${fontWeights.regular};
+  color: ${({ theme }) => theme.colors.pink7};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   font-size: 90% !important;
+  text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
 `
 
 export const CodeInline = styled(Text)`

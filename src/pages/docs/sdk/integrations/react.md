@@ -13,14 +13,14 @@ import Microlink from '@microlink/react'
 
 export default () => (
   <Microlink
-    url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk'
+    url='https://www.instagram.com/p/Bu1-PpyHmCn/'
   />
 )
 ```
 
 that will produce the folllowing output
 
-<Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' />
+<Microlink url='https://www.instagram.com/p/Bu1-PpyHmCn/' />
 
 You can pass any [API Parameter](/api-parameter) as a prop, for example, `size`
 
@@ -29,7 +29,7 @@ import Microlink from '@microlink/react'
 
 export default () => (
   <Microlink
-    url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk'
+    url='https://www.instagram.com/p/Bu1-PpyHmCn/'
     size='large'
   />
 )
@@ -37,7 +37,7 @@ export default () => (
 
 and voilá!
 
-<Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' size='large' />
+<Microlink url='https://www.instagram.com/p/Bu1-PpyHmCn/' size='large' />
 
 The component itself accepts a `style` property
 
@@ -46,7 +46,7 @@ import Microlink from '@microlink/react'
 
 export default () => (
   <Microlink
-    url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk'
+    url='https://www.instagram.com/p/Bu1-PpyHmCn/'
     style={{fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}}
   />
 )
@@ -54,7 +54,7 @@ export default () => (
 
 You can use this to add your own inline styles
 
-<Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' style={{margin: 'auto', fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}} />
+<Microlink url='https://www.instagram.com/p/Bu1-PpyHmCn/' style={{margin: 'auto', fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}} />
 
 This is the approach used for more high level abstraction, like [fela](http://fela.js.org) or [styled components](https://www.styled-components.com)
 

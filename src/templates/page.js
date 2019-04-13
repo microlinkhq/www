@@ -40,6 +40,7 @@ export default ({ isBlogPage, date, meta, content }) => (
           children={meta.title}
           slug={false}
           variant='gradient'
+          mb={3}
         />
         {isBlogPage && (
           <Text fontSize={2} color='gray'>
