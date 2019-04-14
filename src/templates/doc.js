@@ -1,12 +1,12 @@
 import * as mdComponents from 'components/markdown'
-import React from 'react'
-import styled from 'styled-components'
-import { Layout, Aside } from 'components/patterns'
 import { Text, Flex, Container } from 'components/elements'
-import Head from 'components/Head'
+import { Layout, Aside } from 'components/patterns'
 import MDX from 'mdx-scoped-runtime'
+import Head from 'components/Head'
+import { navigate } from 'gatsby'
 import slug from 'remark-slug'
 import { omit } from 'lodash'
+import React from 'react'
 
 import { ASIDE_WIDTH } from 'components/patterns/Aside'
 
@@ -14,7 +14,7 @@ const scopeComponents = omit(mdComponents, 'default')
 
 const { H1 } = mdComponents
 
-const docPaths = [
+const PATHS_SDK = [
   {
     name: 'Getting Started',
     posts: [
@@ -101,12 +101,53 @@ const docPaths = [
   }
 ]
 
-export default ({ meta, content }) => {
+const SDK = 'SDK'
+const API = 'API'
+
+const PATHS_API = [
+  {
+    name: 'Getting Started',
+    posts: [
+      {
+        name: 'Overview',
+        href: '/docs/api/getting-started/overview'
+      }
+    ]
+  }
+]
+
+const paths = {
+  [SDK]: PATHS_SDK,
+  [API]: PATHS_API
+}
+
+const getActivePathname = pathname => {
+  if (pathname.startsWith('/docs/sdk')) return SDK
+  if (pathname.startsWith('/docs/api')) return API
+}
+
+const onChange = value => {
+  switch (value) {
+    case SDK:
+      return navigate('/docs/sdk/getting-started/overview')
+    case API:
+      return navigate('/docs/api/getting-started/overview')
+  }
+}
+
+export default ({ meta, content, ...props }) => {
+  const { pathname } = props.location
+  const activePathname = getActivePathname(pathname)
+
   return (
     <Layout footer={false}>
       <Head {...meta} />
       <Container pl={0}>
-        <Aside children={docPaths} />
+        <Aside
+          paths={paths}
+          activePathname={activePathname}
+          onChange={onChange}
+        />
         <Flex pl={ASIDE_WIDTH} flexDirection='column' as='article'>
           <Text as='header'>
             <H1 children={meta.title} variant={null} mb={0} />

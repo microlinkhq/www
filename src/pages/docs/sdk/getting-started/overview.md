@@ -21,4 +21,3 @@ into a beauty link preview
 <Microlink url='https://www.instagram.com/p/BvDTdWdnzkj/' media='video' size='large' />
 
 The following steps show you how to integrate **Microlink SDK** in your site, no matters what web stack you have.
-`

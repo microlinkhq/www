@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
@@ -24,34 +24,44 @@ const Title = ({ children, href }) => (
 
 const Subheader = props => <Text mt={3} mb={2} color='gray4' {...props} />
 
-const Aside = ({ children }) => {
+const Aside = ({ paths, activePathname, onChange }) => {
+  const pathNames = Object.keys(paths)
+  const [tree, setTree] = useState(activePathname)
+
   return (
     <AsideWrapper as='aside' pt={5} pr={'28px'} width={ASIDE_WIDTH}>
       <Flex justifyContent='center' mt={3} pb={3} mb={4}>
-        <Toggle children={['SDK', 'MQL', 'API']} defaultValue={'SDK'} />
+        <Toggle
+          children={pathNames}
+          defaultValue={activePathname}
+          onChange={value => {
+            onChange(value)
+            setTree(value)
+          }}
+        />
       </Flex>
       <Box pl={2}>
-        {children.map(path => (
-          <Box mb={4} key={path.name}>
+        {paths[tree].map(path => (
+          <Box mb={4} key={`${tree}_${path.name}`}>
             <Header>{path.name}</Header>
             {path.posts.map(post => {
               const hasSubEntries = Boolean(post.posts)
               if (!hasSubEntries) {
                 return (
                   <Title
-                    key={`title_${post.name}`}
+                    key={`${tree}_title_${post.name}`}
                     href={post.href}
                     children={post.name}
                   />
                 )
               } else {
                 return (
-                  <Fragment key={`subheader_${post.name}`}>
+                  <Fragment key={`${tree}_subheader_${post.name}`}>
                     <Subheader>{post.name}</Subheader>
                     {post.posts.map(post => (
                       <Title
                         ml={2}
-                        key={`subtitle_${post.name}`}
+                        key={`${tree}_subtitle_${post.name}`}
                         href={post.href}
                       >
                         - {post.name}

@@ -7,6 +7,10 @@ import ButtonBase from '../../elements/Button/ButtonBase'
 
 const ButtonToggle = styled(ButtonBase)`
   box-shadow: none;
+
+  &:hover {
+    cursor: ${props => (props.active ? 'auto' : 'pointer')};
+  }
 `
 
 ButtonToggle.defaultProps = {
@@ -27,17 +31,21 @@ function Toggle ({ onChange, children, defaultValue }) {
 
         const setAsActive = value => event => {
           event.preventDefault()
-          setActive(value)
-          onChange(value)
+
+          if (value !== active) {
+            setActive(value)
+            onChange(value)
+          }
         }
 
         return (
           <Text
             as='span'
+            key={value}
             borderRight={!isLast && '1px solid'}
             borderColor={!isLast && 'border'}
           >
-            <ButtonToggle onClick={setAsActive(value)}>
+            <ButtonToggle active={isActive} onClick={setAsActive(value)}>
               <Caps
                 fontWeight={!isActive && 'normal'}
                 color={isActive ? 'black80' : 'black40'}

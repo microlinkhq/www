@@ -5,7 +5,7 @@ import React from 'react'
 import PageTemplate from './page'
 import DocTemplate from './doc'
 
-export default function BlogPost ({ pageContext, data }, ...rest) {
+export default function BlogPost ({ pageContext, data, ...props }) {
   const { isDocPage, isBlogPage } = pageContext
   const { frontmatter, rawMarkdownBody } = data.markdownRemark
   const metadata = useSiteMetadata()
@@ -18,7 +18,8 @@ export default function BlogPost ({ pageContext, data }, ...rest) {
 
   const date = frontmatter.date && new Date(frontmatter.date)
 
-  if (isDocPage) return <DocTemplate meta={meta} content={rawMarkdownBody} />
+  if (isDocPage)
+    return <DocTemplate meta={meta} content={rawMarkdownBody} {...props} />
 
   return (
     <PageTemplate
@@ -26,6 +27,7 @@ export default function BlogPost ({ pageContext, data }, ...rest) {
       date={date}
       isBlogPage={isBlogPage}
       content={rawMarkdownBody}
+      {...props}
     />
   )
 }
