@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Box, CodeEditor } from 'components/elements'
+import { Text, Box, CodeEditor } from 'components/elements'
 import { Story } from 'story'
 
 const jsxCode = `
@@ -55,13 +55,15 @@ const jsonCode = `
 storiesOf('Elements', module).add('CodeEditor', () => (
   <Story name='CodeEditor'>
     <Box mb={4}>
+      <Text color='black30'>jsx</Text>
       <CodeEditor language='jsx' children={jsxCode} />
-    </Box>{' '}
-    */}
+    </Box>
     <Box mb={4}>
+      <Text color='black30'>bash</Text>
       <CodeEditor language='bash' children={bashCode} />
     </Box>
     <Box mb={4}>
+      <Text color='black30'>json</Text>
       <CodeEditor language='json' children={jsonCode} />
     </Box>
   </Story>

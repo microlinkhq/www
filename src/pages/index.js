@@ -52,7 +52,7 @@ const FAQ = () => (
   </Box>
 )
 
-const Pricing = () => (
+const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => (
   <Box as='article' id='pricing'>
     <Container as='section' pt={5} pb={0}>
       <Header
@@ -64,7 +64,11 @@ const Pricing = () => (
           </Subhead>
         ]}
       />
-      <PricingTable />
+      <PricingTable
+        apiKey={apiKey}
+        stripeKey={stripeKey}
+        apiEndpoint={apiEndpoint}
+      />
     </Container>
   </Box>
 )
@@ -338,7 +342,12 @@ function Index () {
 
   const { features, demoLink } = state
   const demoLinks = useDemoLinks()
-  const { siteUrl } = useSiteMetadata()
+  const {
+    siteUrl,
+    paymentApiKey,
+    stripeKey,
+    paymentEndpoint
+  } = useSiteMetadata()
 
   return (
     <Layout>
@@ -352,7 +361,11 @@ function Index () {
       />
       <Features children={useFeatures()} />
       <MQL />
-      <Pricing />
+      <Pricing
+        apiKey={paymentApiKey}
+        stripeKey={stripeKey}
+        apiEndpoint={paymentEndpoint}
+      />
       {/* <FAQ /> */}
     </Layout>
   )

@@ -14,13 +14,12 @@ const MySelect = ({ ...props }) => {
         const language = event.target.value
         setState(language)
       }}
+      selected={lang}
       {...props}
     >
       {options.map(language => {
-        const isActive = lang === language
         return (
           <option
-            selected={isActive}
             key={language}
             children={language}
             fontSize={0}

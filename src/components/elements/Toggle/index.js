@@ -42,12 +42,12 @@ function Toggle ({ onChange, children, defaultValue }) {
           <Text
             as='span'
             key={value}
-            borderRight={!isLast && '1px solid'}
-            borderColor={!isLast && 'border'}
+            borderRight={!isLast ? '1px solid' : null}
+            borderColor={!isLast ? 'border' : null}
           >
             <ButtonToggle active={isActive} onClick={setAsActive(value)}>
               <Caps
-                fontWeight={!isActive && 'normal'}
+                fontWeight={!isActive ? 'normal' : 'bold'}
                 color={isActive ? 'black80' : 'black40'}
                 fontSize={0}
               >

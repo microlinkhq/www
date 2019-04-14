@@ -2,7 +2,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { serializeComponent } from 'helpers'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { colors, fonts } from 'theme'
 import { range } from 'lodash'
@@ -20,13 +20,23 @@ const getLines = (className = '') => {
     : null
 }
 
-const generateHighlighLines = ([start, end]) => {
+const generateHighlighLines = linesRange => {
+  if (!linesRange) return
+
+  const [start, end] = linesRange
   const collection = end ? range(start, end + 1) : start
   return collection.map((line, index) => {
     const isLast = index + 1 === collection.length
     return `code > span:nth-child(${line})${!isLast ? ',' : ''}`
   })
 }
+
+const highlighLinesStyle = highlightLines => css`
+  ${generateHighlighLines(highlightLines)} {
+    display: block;
+    background: #464957;
+  }
+`
 
 const COLORS = {
   PINK: colors.pink6,
@@ -83,7 +93,8 @@ const langTheme = {
     token: { color: COLORS.YELLOW },
     operator: { color: COLORS.YELLOW },
     keyword: { color: COLORS.YELLOW },
-    property: { color: COLORS.PINK }
+    property: { color: COLORS.PINK },
+    number: { color: COLORS.VIOLET }
   }
 }
 
@@ -156,14 +167,6 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
       background: rgba(255, 255, 255, 0.2);
     }
   }
-
-  ${props =>
-    props.highlightLines
-      ? `${generateHighlighLines(props.highlightLines)} {
-      display: block;
-      background: #464957;
-    }`
-      : null}
 `
 
 const TerminalWindow = styled(Box)`
@@ -231,10 +234,23 @@ const TerminalTextWrapper = styled.div`
   word-break: break-all;
 `
 
-function Terminal ({ title, children, theme, interactive, toCopy, ...props }) {
+const DefaultActionComponent = ({ toCopy, isHover, theme }) => (
+  <CodeCopy interactive={isHover} theme={theme} text={toCopy} />
+)
+
+function Terminal ({
+  title,
+  children,
+  theme,
+  interactive,
+  toCopy,
+  ActionComponent,
+  ...props
+}) {
   const [isHover, setHover] = useState(interactive)
   const onMouseOut = () => setHover(false)
   const onMouseOver = () => setHover(true)
+  const ChildComponent = ActionComponent || DefaultActionComponent
 
   return (
     <TerminalWindow
@@ -247,7 +263,7 @@ function Terminal ({ title, children, theme, interactive, toCopy, ...props }) {
         <TerminalButton color='#FFBD2E' />
         <TerminalButton color='#27C93F' />
         <TerminalTitle>{title}</TerminalTitle>
-        <CodeCopy interactive={isHover} theme={theme} text={toCopy} />
+        <ChildComponent isHover={isHover} theme={theme} toCopy={toCopy} />
       </TerminalHeader>
       <TerminalText>{children}</TerminalText>
     </TerminalWindow>
@@ -260,26 +276,37 @@ Terminal.defaultProps = {
 }
 
 function CodeEditor (props) {
-  const { showLineNumbers, interactive, children, my, ...restProps } = props
-
-  const highlightLines = getLines(restProps.className)
+  const {
+    ActionComponent,
+    showLineNumbers,
+    interactive,
+    children,
+    my,
+    ...restProps
+  } = props
   const text = serializeComponent(children.trim())
   const language =
     props.language || props.className.split('-')[1] || 'javascript'
-
   const theme = { ...baseTheme, ...langTheme[language] }
+  const highlightLines = getLines(restProps.className)
+  const css = highlightLines && highlighLinesStyle(highlightLines)
 
   return (
-    <Terminal my={my} interactive={interactive} toCopy={text}>
+    <Terminal
+      my={my}
+      interactive={interactive}
+      toCopy={text}
+      ActionComponent={ActionComponent}
+    >
       <TerminalTextWrapper dark>
         <CustomSyntaxHighlighter
-          highlightLines={highlightLines}
           lineNumberStyle={{ color: '#6272A4' }}
           showLineNumbers={showLineNumbers}
           language={language}
           style={theme}
           wrapLines
           children={text}
+          css={css}
           {...restProps}
         />
       </TerminalTextWrapper>

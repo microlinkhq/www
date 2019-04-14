@@ -28,7 +28,11 @@ storiesOf('Elements', module).add('Button', () => (
   <Fragment>
     {buttons.map(({ name, Component }) => {
       return (
-        <Story name={`Button${name}`} code={createCode(name)}>
+        <Story
+          key={`Button${name}`}
+          name={`Button${name}`}
+          code={createCode(name)}
+        >
           {states.map(state => (
             <Box key={state} display={['block', 'inline']} pr={3} pb={3}>
               <Component

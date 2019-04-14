@@ -1,6 +1,5 @@
 import { formatNumber } from 'helpers'
 import React, { useState, Fragment } from 'react'
-import { useSiteMetadata } from 'components/hook'
 import styled, { keyframes } from 'styled-components'
 import { Check, HelpCircle } from 'react-feather'
 import {
@@ -159,7 +158,7 @@ PricingRow.defaultProps = {
   textAlign: 'right'
 }
 
-function PricingTable () {
+function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
   const [state, setState] = useState({
     ...DEFAULT_PLAN,
     description: getPlanDescription(DEFAULT_PLAN.reqsPerDay),
@@ -183,11 +182,6 @@ function PricingTable () {
 
   const { highlight, description, panelLabel, monthlyPrice, planId } = state
   const humanMonthlyPrice = formatNumber(monthlyPrice)
-  const {
-    paymentApiKey: apiKey,
-    stripeKey,
-    paymentEndpoint: apiEndpoint
-  } = useSiteMetadata()
 
   return (
     <Box mx='auto' px={[0, 6]} py={[4, 5]}>

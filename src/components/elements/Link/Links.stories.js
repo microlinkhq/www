@@ -21,7 +21,7 @@ export default () => (
 storiesOf('Elements', module).add('Link', () => (
   <Fragment>
     {buttons.map(({ name, Component }) => (
-      <Story name={name} code={createCode(name)}>
+      <Story key={name} name={name} code={createCode(name)}>
         {states.map(state => (
           <Box key={state} display={['block', 'inline']} pr={3} pb={3}>
             <Component

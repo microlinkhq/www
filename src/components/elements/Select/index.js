@@ -1,5 +1,6 @@
 import { themeGet } from 'styled-system'
 import styled from 'styled-components'
+import { lighten } from 'polished'
 
 import Box from '../Box'
 
@@ -25,7 +26,7 @@ const Select = styled(Box)(
   props => ({
     '&:focus': {
       outline: 'none',
-      boxShadow: `inset 0 0 0 1px ${themeGet('colors.blue')(props)}`
+      border: `1px solid ${lighten(0.15, themeGet('colors.link')(props))}`
     }
   })
 )

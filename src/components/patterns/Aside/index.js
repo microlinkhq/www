@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
+import { noop } from 'lodash'
 
 import NavLink from './NavLink'
 
@@ -76,6 +77,10 @@ const Aside = ({ paths, activePathname, onChange }) => {
       </Box>
     </AsideWrapper>
   )
+}
+
+Aside.defaultProps = {
+  onChange: noop
 }
 
 export default Aside
