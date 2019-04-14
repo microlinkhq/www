@@ -31,13 +31,10 @@ window.___navigate = pathname => {
 
 addParameters({
   options: {
-    name: 'Microlink Design',
-    url: 'https://github.com/microlinkhq/www',
-    goFullScreen: false,
-    showStoriesPanel: true,
-    showAddonPanel: true,
-    showSearchBox: false,
-    sortStoriesByKind: true,
+    theme: {
+      brandTitle: 'Microlink Design',
+      brandUrl: 'https://github.com/microlinkhq/www'
+    },
     enableShortcuts: false // true by default
   }
 })
