@@ -8,6 +8,7 @@ import Box from './Box'
 import Card from './Card'
 import Checkout from './Checkout'
 import CodeEditor from './CodeEditor'
+import MultiCodeEditor from './MultiCodeEditor'
 import Container from './Container'
 import { Fixed } from './Position'
 import Flex from './Flex'
@@ -59,6 +60,7 @@ export {
   Image,
   Input,
   Label,
+  MultiCodeEditor,
   Link,
   LinkSolid,
   Notification,
