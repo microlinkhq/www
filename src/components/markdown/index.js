@@ -2,10 +2,11 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { get } from 'helpers'
 import { withSlug } from 'helpers/hoc'
-import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
+import { space, fontSizes, colors } from 'theme'
 import {
   Terminal as TerminalBase,
   CodeEditor,
+  MultiCodeEditor as MultiCodeEditorBase,
   Box,
   Heading,
   Text,
@@ -46,6 +47,8 @@ export { Link }
 export const Microlink = withContainer(MicrolinkBase)
 
 export const Terminal = withContainer(TerminalBase)
+
+export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
 export const H1 = withSlug(styled(Heading)([]))
 

@@ -8,17 +8,26 @@ Values: `'normal'|'large'`
 
 It set the size layout of the card.
 
-```jsx
-import Microlink from '@microlink/react'
-
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
 export default () => (
   <Microlink
     url='https://microlink.io'
-    size='normal'
     media='logo'
+    size='normal'
   />
 )
-```
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a', { media: 'logo', size: 'normal' })
+  })
+</script>
+`, Jekyll: `
+[](https://microlink.io){:.card-preview data-media='logo' data-size='normal'}
+`}} 
+/>
 
 <Microlink url='https://microlink.io' media='logo' />
 
@@ -26,16 +35,25 @@ export default () => (
 
 Alternatively you can set `large`
 
-```jsx
-import Microlink from '@microlink/react'
-
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
 export default () => (
   <Microlink
     url='https://microlink.io'
-    size='large'
     media='logo'
+    size='large'
   />
 )
-```
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a', { media: 'logo', size: 'large' })
+  })
+</script>
+`, Jekyll: `
+[](https://microlink.io){:.card-preview data-media='logo' data-size='large'}
+`}} 
+/>
 
 <Microlink url='https://microlink.io' size='large' media='logo' />

@@ -7,16 +7,25 @@ Default: `undefined`
 
 The API Key associated with your plan for authenticating your requests.
 
-```jsx
-import Microlink from '@microlink/react'
-
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
 export default () => (
   <Microlink
     url='https://microlink.io'
     apiKey='MyApiKey'
   />
 )
-```
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a', { apiKey: 'MyApiKey' })
+  })
+</script>
+`, Jekyll: `
+[](https://microlink.io){:.card-preview data-apiKey='MyApiKey'}
+`}} 
+/>
 
 <Figcaption children="The free daily quota will be used if you don't provide a previously API key registered."  />
 

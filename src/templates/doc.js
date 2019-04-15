@@ -80,6 +80,10 @@ const PATHS_SDK = [
         name: 'media',
         posts: [
           {
+            name: 'autoPlay',
+            href: '/docs/sdk/api-parameters/media/auto-play/'
+          },
+          {
             name: 'controls',
             href: '/docs/sdk/api-parameters/media/controls/'
           },
@@ -90,10 +94,6 @@ const PATHS_SDK = [
           {
             name: 'loop',
             href: '/docs/sdk/api-parameters/media/loop/'
-          },
-          {
-            name: 'autoPlay',
-            href: '/docs/sdk/api-parameters/media/auto-play/'
           }
         ]
       }
@@ -129,7 +129,7 @@ const getActivePathname = pathname => {
 const onChange = value => {
   switch (value) {
     case SDK:
-      return navigate('/docs/sdk/getting-started/overview')
+      return navigate('/docs/sdk/getting-started/overview/')
     case API:
       return navigate('/docs/api/getting-started/overview')
   }

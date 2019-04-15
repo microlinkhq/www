@@ -8,16 +8,25 @@ Type: `string`
 
 The target URL for getting information based on the content.
 
-```jsx
-import Microlink from '@microlink/react'
-
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
 export default () => (
   <Microlink
     url='https://microlink.io'
-    media='logo'
   />
 )
-```
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a')
+  })
+</script>
+`, Jekyll: `
+[](https://microlink.io){:.card-preview}
+`}} 
+/>
+
 
 <Figcaption children='`url` is the only required argument.' />
 

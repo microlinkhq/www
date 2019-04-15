@@ -9,26 +9,35 @@ Display UI controls to handle playing/pausing the cards video.
 
 with `controls` enabled
 
-```jsx
-import Microlink from '@microlink/react'
-
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
 export default () => (
   <Microlink
     url='https://www.instagram.com/p/BXHj-DllyYU/'
     media='video'
     autoPlay={false}
-    controls={true}
+    controls
   />
 )
-```
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a', { media: 'video', autoPlay: false, controls: true })
+  })
+</script>
+`, Jekyll: `
+[](https://www.instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-autoPlay='false' data-controls='true'}
+`}} 
+/>
 
-<Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls={true} />
+<Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls />
 
 with `controls` disabled
 
-```jsx
-import Microlink from '@microlink/react'
-
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
 export default () => (
   <Microlink
     url='https://www.instagram.com/p/BXHj-DllyYU/'
@@ -37,6 +46,15 @@ export default () => (
     controls={false}
   />
 )
-```
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a', { media: 'video', autoPlay: false, controls: false })
+  })
+</script>
+`, Jekyll: `
+[](https://www.instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-autoPlay='false' data-controls='false'}
+`}} 
+/>
 
 <Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls={false} />

@@ -1,9 +1,9 @@
 import { Flex, Text, Box, CodeEditor } from 'components/elements'
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { serializeComponent } from 'helpers'
+import { toLower, isFunction } from 'lodash'
 import CodeCopy from 'react-codecopy'
-
 import Select from '../Select'
 
 const actionStyle = css`
@@ -46,7 +46,7 @@ const CustomBox = styled(Box)`
   border: 0;
 `
 
-const SelectLanguage = ({ children, value, onChange, ...props }) => {
+export const SelectLanguage = ({ children, value, onChange, ...props }) => {
   return (
     <CustomBox>
       <CustomSelect
@@ -74,10 +74,26 @@ const SelectLanguage = ({ children, value, onChange, ...props }) => {
   )
 }
 
+const getLanguageAlias = language => {
+  switch (language) {
+    case 'vanilla':
+      return 'html'
+    case 'react':
+      return 'jsx'
+    case 'jekyll':
+      return 'markdown'
+    default:
+      return language
+  }
+}
+
 function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
   const languagesKeys = Object.keys(languages)
   const [language, setLanguage] = useState(() => languages[languagesKeys[0]])
-  const code = language(props)
+  const code = isFunction(language) ? language(props) : language
+  const languageAlias =
+    language.language ||
+    languagesKeys.find(lang => languages[lang] === language)
 
   const ActionComponent = () => (
     <Flex>
@@ -88,7 +104,7 @@ function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
           mb={2}
           bg='white'
           children={languagesKeys}
-          value={language.language}
+          value={languageAlias}
           onChange={languageName => setLanguage(() => languages[languageName])}
         />
       </Text>
@@ -101,15 +117,11 @@ function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
   )
 
   return (
-    <Fragment>
-      <Box px={2}>
-        <CodeEditor
-          language={language.language}
-          children={code}
-          ActionComponent={ActionComponent}
-        />
-      </Box>
-    </Fragment>
+    <CodeEditor
+      language={getLanguageAlias(languageAlias.toLowerCase())}
+      children={code}
+      ActionComponent={ActionComponent}
+    />
   )
 }
 
