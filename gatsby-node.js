@@ -3,6 +3,20 @@
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require('path')
 
+const { getLastModifiedDate } = require('git-jiggy')
+
+const getLastEdited = async filepath => {
+  let date
+
+  try {
+    date = await getLastModifiedDate(filepath)
+  } catch (err) {
+    date = new Date().toISOString()
+  }
+
+  return date
+}
+
 exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
   if (stage === 'build-html') {
     actions.setWebpackConfig({
@@ -51,6 +65,7 @@ exports.createPages = ({ graphql, actions }) => {
             allMarkdownRemark {
               edges {
                 node {
+                  fileAbsolutePath
                   fields {
                     slug
                   }
@@ -71,11 +86,15 @@ exports.createPages = ({ graphql, actions }) => {
 
         // Create markdown pages
         return Promise.all(
-          result.data.allMarkdownRemark.edges.map(({ node }) => {
+          result.data.allMarkdownRemark.edges.map(async ({ node }) => {
             return createPage({
               path: node.fields.slug,
               component: path.resolve(`./src/templates/index.js`),
               context: {
+                githubUrl:
+                  `https://github.com/microlinkhq/www/blob/master` +
+                  node.fileAbsolutePath.replace(process.cwd(), ''),
+                lastEdited: await getLastEdited(node.fileAbsolutePath),
                 isBlogPage: node.fields.slug.startsWith('/blog/'),
                 isDocPage: node.fields.slug.startsWith('/docs/'),
                 slug: node.fields.slug

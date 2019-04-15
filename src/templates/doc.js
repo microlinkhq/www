@@ -1,6 +1,7 @@
 import * as mdComponents from 'components/markdown'
-import { Text, Flex, Container } from 'components/elements'
+import { Link, Text, Flex, Container } from 'components/elements'
 import { Layout, Aside } from 'components/patterns'
+import formatDate from 'date-fns/format'
 import MDX from 'mdx-scoped-runtime'
 import Head from 'components/Head'
 import { navigate } from 'gatsby'
@@ -135,7 +136,7 @@ const onChange = value => {
   }
 }
 
-export default ({ meta, content, ...props }) => {
+export default ({ meta, content, githubUrl, ...props }) => {
   const { pathname } = props.location
   const activePathname = getActivePathname(pathname)
 
@@ -159,6 +160,21 @@ export default ({ meta, content, ...props }) => {
           >
             {content}
           </MDX>
+          <Flex
+            as='footer'
+            borderTop='1px solid'
+            borderColor='border'
+            justifyContent='space-between'
+            my={4}
+            pt={4}
+          >
+            <Text color='gray5' fontSize={0}>
+              Last Edited on {formatDate(meta.date, 'MMMM Do YYYY')}
+            </Text>
+            <Link href={githubUrl} fontSize={0}>
+              Edit This Page on GitHub
+            </Link>
+          </Flex>
         </Flex>
       </Container>
     </Layout>

@@ -6,25 +6,32 @@ import PageTemplate from './page'
 import DocTemplate from './doc'
 
 export default function BlogPost ({ pageContext, data, ...props }) {
-  const { isDocPage, isBlogPage } = pageContext
+  const { isDocPage, isBlogPage, lastEdited, githubUrl } = pageContext
   const { frontmatter, rawMarkdownBody } = data.markdownRemark
   const metadata = useSiteMetadata()
 
   const meta = {
     ...metadata,
     ...frontmatter,
-    url: `${metadata.siteUrl}${frontmatter.slug}`
+    url: `${metadata.siteUrl}${frontmatter.slug}`,
+    date: lastEdited
   }
 
-  const date = frontmatter.date && new Date(frontmatter.date)
-
-  if (isDocPage)
-    return <DocTemplate meta={meta} content={rawMarkdownBody} {...props} />
+  if (isDocPage) {
+    return (
+      <DocTemplate
+        meta={meta}
+        content={rawMarkdownBody}
+        githubUrl={githubUrl}
+        {...props}
+      />
+    )
+  }
 
   return (
     <PageTemplate
       meta={meta}
-      date={date}
+      date={frontmatter.date && new Date(frontmatter.date)}
       isBlogPage={isBlogPage}
       content={rawMarkdownBody}
       {...props}
