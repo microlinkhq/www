@@ -80,8 +80,8 @@ const fetchDemoLink = async (key, { url, ...props }) => {
       apiKey: MICROLINK_API_KEY,
       video: true,
       audio: true,
-      palette: true,
-      force: true
+      palette: true
+      // force: true
     })
 
     if (!data.lang) data.lang = 'en'
