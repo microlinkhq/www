@@ -97,9 +97,11 @@
     "@storybook/addon-viewport": "latest",
     "@storybook/addons": "latest",
     "@storybook/react": "latest",
+    "ava": "latest",
     "babel-eslint": "latest",
     "babel-loader": "latest",
     "conventional-github-releaser": "latest",
+    "esm": "latest",
     "finepack": "latest",
     "git-authors-cli": "latest",
     "husky": "latest",
@@ -139,12 +141,17 @@
     "release:github": "conventional-github-releaser -p angular",
     "release:tags": "git push --follow-tags origin HEAD:master",
     "storybook": "start-storybook -p 6006",
-    "test": "exit 0",
+    "test": "ava",
     "update": "ncu -u",
     "update:check": "ncu -- --error-level 2"
   },
   "private": true,
   "license": "MIT",
+  "ava": {
+    "require": [
+      "esm"
+    ]
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
