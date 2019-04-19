@@ -82,6 +82,10 @@ const getLanguageAlias = language => {
       return 'jsx'
     case 'jekyll':
       return 'markdown'
+    case 'curl':
+      return 'bash'
+    case 'node.js':
+      return 'javascript'
     default:
       return language
   }
@@ -108,11 +112,7 @@ function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
           onChange={languageName => setLanguage(() => languages[languageName])}
         />
       </Text>
-      <CustomCodeCopy
-        theme='dark'
-        interactive
-        text={serializeComponent(code)}
-      />
+      <CustomCodeCopy theme='dark' interactive text={code} />
     </Flex>
   )
 

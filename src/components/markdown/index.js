@@ -11,6 +11,7 @@ import {
   Heading,
   Text,
   Link,
+  Label,
   Image as ImageBase
 } from 'components/elements'
 
@@ -42,7 +43,7 @@ const withContainer = (ChildComponent, containerProps = {}) => props => (
   </Box>
 )
 
-export { Link }
+export { Label, Link }
 
 export const Microlink = withContainer(MicrolinkBase)
 
@@ -166,6 +167,7 @@ export const Paraph = props => {
 }
 
 Paraph.defaultProps = {
+  as: 'div',
   mx: 'auto',
   ...CONTAINER_SPACE
 }

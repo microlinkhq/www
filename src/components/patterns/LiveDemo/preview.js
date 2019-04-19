@@ -144,13 +144,7 @@ const CodePreview = ({ children }) => {
 
         <Box px={2}>
           <LiveProvider language={editor.language} code={code} disabled>
-            <LiveEditor
-              css={`
-                ${editor.whiteSpace
-                  ? `white-space: ${editor.whiteSpace} !important`
-                  : ''};
-              `}
-            />
+            <LiveEditor />
           </LiveProvider>
         </Box>
       </Flex>

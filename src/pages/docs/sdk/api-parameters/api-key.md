@@ -5,7 +5,7 @@ title: 'apiKey'
 Type: `string`<br/>
 Default: `undefined`
 
-The API Key associated with your plan for authenticating your requests.
+The API Key associated with your plan for [authenticating](/docs/api/api-basics/authentication) your requests.
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

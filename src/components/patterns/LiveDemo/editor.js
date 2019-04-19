@@ -20,8 +20,6 @@ const cURL = props => `$ curl "${createApiUrl(props)}"`
 
 cURL.language = 'bash'
 
-cURL.whiteSpace = 'pre-line'
-
 const HTML = ({ url }) =>
   `<!-- Microlink SDK Vanilla/UMD bundle -->
 <script src="//cdn.jsdelivr.net/npm/@microlink/vanilla/umd/microlink.min.js"></script>

@@ -113,6 +113,84 @@ const PATHS_API = [
         name: 'Overview',
         href: '/docs/api/getting-started/overview'
       }
+      // {
+      //   name: 'Data Types',
+      //   href: '/docs/api/getting-started/data-types'
+      // }
+    ]
+  },
+  {
+    name: 'API Basics',
+    posts: [
+      {
+        name: 'Endpoint',
+        href: '/docs/api/api-basics/endpoint'
+      },
+      {
+        name: 'Authentication',
+        href: '/docs/api/api-basics/authentication'
+      },
+      {
+        name: 'Rate Limit',
+        href: '/docs/api/api-basics/rate-limit'
+      },
+      {
+        name: 'Format',
+        href: '/docs/api/api-basics/format'
+      },
+      {
+        name: 'Compression',
+        href: '/docs/api/api-basics/compression'
+      },
+      {
+        name: 'Cache',
+        href: '/docs/api/api-basics/cache'
+      }
+    ]
+  },
+  {
+    name: 'API Parameters',
+    posts: [
+      {
+        name: 'url',
+        href: '/docs/api/api-parameters/url'
+      },
+      {
+        name: 'prerender',
+        href: '/docs/api/api-parameters/prerender'
+      },
+      {
+        name: 'screenshot',
+        href: '/docs/api/api-parameters/screenshot'
+      },
+      {
+        name: 'palette',
+        href: '/docs/api/api-parameters/palette'
+      },
+      {
+        name: 'filter',
+        href: '/docs/api/api-parameters/filter'
+      },
+      {
+        name: 'embed',
+        href: '/docs/api/api-parameters/embed'
+      },
+      {
+        name: 'audio',
+        href: '/docs/api/api-parameters/audio'
+      },
+      {
+        name: 'video',
+        href: '/docs/api/api-parameters/video'
+      },
+      {
+        name: 'user agent',
+        href: '/docs/api/api-parameters/user-agent'
+      },
+      {
+        name: 'force',
+        href: '/docs/api/api-parameters/force'
+      }
     ]
   }
 ]
@@ -151,7 +229,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
         />
         <Flex pl={ASIDE_WIDTH} flexDirection='column' as='article'>
           <Text as='header'>
-            <H1 children={meta.title} variant={null} mb={0} />
+            <H1 children={meta.title} variant={null} mb={0} slug={false} />
           </Text>
           <MDX
             components={mdComponents.default}

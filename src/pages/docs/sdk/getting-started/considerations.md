@@ -7,8 +7,8 @@ The **Microlink SDK** is the way to consume [Microlink API](/docs/api) directly 
 Based on that premise, **Microlink SDK** has been designed with two premises on the mind.
 
 * **Common surface**: Although they may have different interface API, every specific integration has the same functionalities.
-* **Lightweight & Fast**: The bundle size tend to be equal or less than 10KB (no polyfills included).
-* **Customizable Style**: At least you can customize style using universal CSS classes present on the markup.
+* **Lightweight & fast**: The bundle size tend to be equal or less than 10KB (no polyfills included).
+* **Customizable style**: At least you can customize style using universal CSS classes present on the markup.
 
 ## Pollyfills
 
@@ -23,7 +23,7 @@ Although nowadays the [fetch browser compatibility](https://caniuse.com/#search=
 We recommend use [polyfill.io](https://polyfill.io/v3/) CDN for that purpose, it will only load polyfill if fetch is not globally detected.
 
 ```html
-<script 
+<script>
   crossorigin="anonymous" 
   src="https://polyfill.io/v3/polyfill.min.js?features=fetch">
 </script>

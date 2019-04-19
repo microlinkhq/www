@@ -1,30 +1,18 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { serializeComponent } from 'helpers'
+import { getLines, serializeComponent } from 'helpers'
+import styled, { css } from 'styled-components'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
-import styled, { css } from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { colors, fonts } from 'theme'
 import { range } from 'lodash'
-
-const RE_LINES = /\{\d(?:, ?\d)?\}|[\d]/
-
-const getLines = (className = '') => {
-  const match = className.match(RE_LINES)
-  return match
-    ? match[0]
-        .replace('{', '')
-        .replace('}', '')
-        .split(',')
-        .map(n => Number(n.trim()))
-    : null
-}
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
 
   const [start, end] = linesRange
-  const collection = end ? range(start, end + 1) : start
+  const collection = end ? range(start, end + 1) : [start]
+
   return collection.map((line, index) => {
     const isLast = index + 1 === collection.length
     return `code > span:nth-child(${line})${!isLast ? ',' : ''}`
@@ -53,13 +41,12 @@ const codeTheme = {
   fontFamily: fonts.mono,
   direction: 'ltr',
   textAlign: 'left',
-  whiteSpace: 'pre-wrap',
+  whiteSpace: 'pre',
   wordSpacing: 'normal',
   wordBreak: 'normal',
   lineHeight: '1.5',
   MozTabSize: '4',
   OTabSize: '4',
-
   tabSize: '4',
   WebkitHyphens: 'none',
   MozHyphens: 'none',
@@ -104,21 +91,7 @@ const baseTheme = {
     color: COLORS.PINK
   },
   'pre[class*="language-"]': {
-    textShadow: '0 1px rgba(0, 0, 0, 0.3)',
-    fontFamily: fonts.mono,
-    direction: 'ltr',
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    lineHeight: '1.5',
-    MozTabSize: '4',
-    OTabSize: '4',
-    tabSize: '4',
-    WebkitHyphens: 'none',
-    MozHyphens: 'none',
-    msHyphens: 'none',
-    hyphens: 'none',
+    ...codeTheme,
     padding: '0 8px',
     margin: '.5em 0',
     overflow: 'auto',
@@ -276,19 +249,21 @@ Terminal.defaultProps = {
 }
 
 function CodeEditor (props) {
-  const {
-    ActionComponent,
-    showLineNumbers,
-    interactive,
-    children,
-    my,
-    ...restProps
-  } = props
+  const { ActionComponent, showLineNumbers, interactive, children, my } = props
   const text = serializeComponent(children.trim())
-  const language =
-    props.language || props.className.split('-')[1] || 'javascript'
+  const className = props.className
+    ? props.className + (props.metastring || '')
+    : ''
+  const highlightLines = getLines(className)
+
+  const language = (() => {
+    if (props.language) return props.language
+    const languageFromClassName = className.split('-')[1]
+    if (languageFromClassName) return languageFromClassName.split('{')[0]
+    return 'javascript'
+  })()
+
   const theme = { ...baseTheme, ...langTheme[language] }
-  const highlightLines = getLines(restProps.className)
   const css = highlightLines && highlighLinesStyle(highlightLines)
 
   return (
@@ -307,7 +282,6 @@ function CodeEditor (props) {
           wrapLines
           children={text}
           css={css}
-          {...restProps}
         />
       </TerminalTextWrapper>
     </Terminal>
@@ -318,8 +292,7 @@ function CodeEditor (props) {
 CodeEditor.displayName = 'CodeEditor'
 
 CodeEditor.defaultProps = {
-  showLineNumbers: false,
-  className: ''
+  showLineNumbers: false
 }
 
 export default CodeEditor

@@ -11,19 +11,25 @@ Optionally you can link it directly from the **CDN** as well
 **UMD bundle**
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/umd/microlink.min.js"></script>
+<script 
+  src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/umd/microlink.min.js">
+</script>
 ```
 
 **AMD bundle**
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/amd/microlink.min.js"></script>
+<script 
+  src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/amd/microlink.min.js">
+</script>
 ```
 
 **CommonJS bundle**
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/cjs/microlink.min.js"></script>
+<script 
+  src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/cjs/microlink.min.js">
+</script>
 ```
 
 After that, `microlink` will available in the global scope.
