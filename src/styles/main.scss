@@ -1,5 +1,6 @@
 @import '~normalize.css';
 @import url('https://rsms.me/inter/inter.css');
+
 * {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -23,6 +24,8 @@ h4::selection,
 h5::selection,
 h6::selection,
 img::selection,
+code::selection,
+span::selection,
 b::selection {
   background-color: #ffc533;
 }
