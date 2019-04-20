@@ -9,8 +9,6 @@ import slug from 'remark-slug'
 import { omit } from 'lodash'
 import React from 'react'
 
-import { ASIDE_WIDTH } from 'components/patterns/Aside'
-
 const scopeComponents = omit(mdComponents, 'default')
 
 const { H1 } = mdComponents
@@ -220,15 +218,20 @@ export default ({ meta, content, githubUrl, ...props }) => {
   return (
     <Layout footer={false}>
       <Head {...meta} />
-      <Container pl={0}>
+      <Container>
         <Aside
           routes={routes}
           activeRouteName={activeRouteName}
           onChange={onChange}
-        />
-        <Flex pl={ASIDE_WIDTH} flexDirection='column' as='article'>
+        >
           <Text as='header'>
-            <H1 children={meta.title} variant={null} mb={0} slug={false} />
+            <H1
+              mt={[4, 4, 4, 5]}
+              children={meta.title}
+              variant={null}
+              mb={0}
+              slug={false}
+            />
           </Text>
           <MDX
             components={mdComponents.default}
@@ -244,6 +247,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
             justifyContent='space-between'
             my={4}
             pt={4}
+            px={[3, 3, 3, 0]}
           >
             <Text color='gray5' fontSize={0}>
               Last Edited on {formatDate(meta.date, 'MMMM Do YYYY')}
@@ -252,7 +256,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
               Edit This Page on GitHub
             </Link>
           </Flex>
-        </Flex>
+        </Aside>
       </Container>
     </Layout>
   )

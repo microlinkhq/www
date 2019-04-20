@@ -1,86 +1,79 @@
+import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
+import { Box, Flex, Hide } from 'components/elements'
 import React, { useState, Fragment } from 'react'
 import styled from 'styled-components'
-import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
+import { transition } from 'theme'
+
+import Aside from './Aside'
+
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
-import { noop } from 'lodash'
+import { ASIDE_WIDTH } from './constants'
 
-import NavLink from './NavLink'
-
-export const ASIDE_WIDTH = '280px'
-
-const AsideWrapper = styled(Box)`
-  position: fixed;
-  overflow-y: scroll;
-  bottom: 0;
+const MenuButton = styled('button')`
+  z-index: 3;
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
   top: ${TOOLBAR_HEIGHT};
+  outline: none;
+
+  ${props =>
+    props.isOpen &&
+    `
+    position: fixed;
+  `}
 `
 
-const Header = props => <Caps mb={2} color='gray5' {...props} />
+const AsideButton = React.forwardRef((props, ref) => (
+  <MenuButton {...props} ref={ref} title='Toggle Menu'>
+    <Box pl={props.isOpen ? 1 : 0} mt='5px' pt={3} bg='transparent'>
+      {props.isOpen ? <CloseIcon size={20} /> : <MenuIcon size={20} />}
+    </Box>
+  </MenuButton>
+))
 
-const Title = ({ children, href }) => (
-  <NavLink href={href} actively>
-    <Text fontWeight='normal' mb={2} children={children} />
-  </NavLink>
-)
+const css = `
+transition: padding-left ${transition.medium};
+`
 
-const Subheader = props => <Text mt={3} mb={2} color='gray4' {...props} />
+const AsideMobile = ({ children, ...props }) => {
+  const [isOpen, setOpen] = useState(false)
+  const toggleOpen = () => setOpen(!isOpen)
 
-const Aside = ({ routes, activeRouteName, onChange }) => {
-  const routeNames = Object.keys(routes)
-  const [tree, setTree] = useState(activeRouteName)
+  const css = `
+    background: white;
+    z-index: 2;
+    left: 0;
+  `
 
   return (
-    <AsideWrapper as='aside' pt={5} pr={'28px'} width={ASIDE_WIDTH}>
-      <Flex justifyContent='center' mt={3} pb={3} mb={4}>
-        <Toggle
-          children={routeNames}
-          defaultValue={activeRouteName}
-          onChange={value => {
-            onChange(value)
-            setTree(value)
-          }}
-        />
+    <Fragment>
+      <Aside isOpen={isOpen} css={css} {...props} />
+      <AsideButton isOpen={isOpen} onClick={toggleOpen} />
+      <Flex flexDirection='column' as='article' css={css}>
+        {children}
       </Flex>
-      <Box pl={2}>
-        {routes[tree].map(path => (
-          <Box mb={4} key={`${tree}_${path.name}`}>
-            <Header>{path.name}</Header>
-            {path.posts.map(post => {
-              const hasSubEntries = Boolean(post.posts)
-              if (!hasSubEntries) {
-                return (
-                  <Title
-                    key={`${tree}_title_${post.name}`}
-                    href={post.href}
-                    children={post.name}
-                  />
-                )
-              } else {
-                return (
-                  <Fragment key={`${tree}_subheader_${post.name}`}>
-                    <Subheader>{post.name}</Subheader>
-                    {post.posts.map(post => (
-                      <Title
-                        ml={2}
-                        key={`${tree}_subtitle_${post.name}`}
-                        href={post.href}
-                      >
-                        - {post.name}
-                      </Title>
-                    ))}
-                  </Fragment>
-                )
-              }
-            })}
-          </Box>
-        ))}
-      </Box>
-    </AsideWrapper>
+    </Fragment>
   )
 }
 
-Aside.defaultProps = {
-  onChange: noop
-}
+const AsideDesktop = ({ children, ...props }) => (
+  <Fragment>
+    <Aside isOpen {...props} />
+    <Flex pl={ASIDE_WIDTH} flexDirection='column' as='article' css={css}>
+      {children}
+    </Flex>
+  </Fragment>
+)
 
-export default Aside
+export default props => (
+  <Fragment>
+    <Hide breakpoints={[0, 1, 2]}>
+      <AsideDesktop {...props} />
+    </Hide>
+    <Hide breakpoints={[3]}>
+      <AsideMobile {...props} />
+    </Hide>
+  </Fragment>
+)
