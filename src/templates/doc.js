@@ -15,7 +15,7 @@ const scopeComponents = omit(mdComponents, 'default')
 
 const { H1 } = mdComponents
 
-const PATHS_SDK = [
+const ROUTES_SDK = [
   {
     name: 'Getting Started',
     posts: [
@@ -105,7 +105,7 @@ const PATHS_SDK = [
 const SDK = 'SDK'
 const API = 'API'
 
-const PATHS_API = [
+const ROUTES_API = [
   {
     name: 'Getting Started',
     posts: [
@@ -195,12 +195,12 @@ const PATHS_API = [
   }
 ]
 
-const paths = {
-  [SDK]: PATHS_SDK,
-  [API]: PATHS_API
+const routes = {
+  [SDK]: ROUTES_SDK,
+  [API]: ROUTES_API
 }
 
-const getActivePathname = pathname => {
+const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/sdk')) return SDK
   if (pathname.startsWith('/docs/api')) return API
 }
@@ -215,16 +215,15 @@ const onChange = value => {
 }
 
 export default ({ meta, content, githubUrl, ...props }) => {
-  const { pathname } = props.location
-  const activePathname = getActivePathname(pathname)
+  const activeRouteName = getActiveRouteName(props.location)
 
   return (
     <Layout footer={false}>
       <Head {...meta} />
       <Container pl={0}>
         <Aside
-          paths={paths}
-          activePathname={activePathname}
+          routes={routes}
+          activeRouteName={activeRouteName}
           onChange={onChange}
         />
         <Flex pl={ASIDE_WIDTH} flexDirection='column' as='article'>

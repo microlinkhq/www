@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import Aside from './'
 
-const PATHS_SDK = [
+const ROUTES_SDK = [
   {
     name: 'Getting Started',
     posts: [
@@ -93,7 +93,7 @@ const PATHS_SDK = [
 const SDK = 'SDK'
 const API = 'API'
 
-const PATHS_API = [
+const ROUTES_PATH = [
   {
     name: 'Getting Started',
     posts: [
@@ -105,13 +105,13 @@ const PATHS_API = [
   }
 ]
 
-const paths = {
-  [SDK]: PATHS_SDK,
-  [API]: PATHS_API
+const routes = {
+  [SDK]: ROUTES_SDK,
+  [API]: ROUTES_PATH
 }
 
 storiesOf('Patterns', module).add('Aside', () => (
   <Story name='Aside'>
-    <Aside paths={paths} activePathname={SDK} />
+    <Aside routes={routes} activeRouteName={SDK} />
   </Story>
 ))

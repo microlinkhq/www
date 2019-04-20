@@ -25,16 +25,16 @@ const Title = ({ children, href }) => (
 
 const Subheader = props => <Text mt={3} mb={2} color='gray4' {...props} />
 
-const Aside = ({ paths, activePathname, onChange }) => {
-  const pathNames = Object.keys(paths)
-  const [tree, setTree] = useState(activePathname)
+const Aside = ({ routes, activeRouteName, onChange }) => {
+  const routeNames = Object.keys(routes)
+  const [tree, setTree] = useState(activeRouteName)
 
   return (
     <AsideWrapper as='aside' pt={5} pr={'28px'} width={ASIDE_WIDTH}>
       <Flex justifyContent='center' mt={3} pb={3} mb={4}>
         <Toggle
-          children={pathNames}
-          defaultValue={activePathname}
+          children={routeNames}
+          defaultValue={activeRouteName}
           onChange={value => {
             onChange(value)
             setTree(value)
@@ -42,7 +42,7 @@ const Aside = ({ paths, activePathname, onChange }) => {
         />
       </Flex>
       <Box pl={2}>
-        {paths[tree].map(path => (
+        {routes[tree].map(path => (
           <Box mb={4} key={`${tree}_${path.name}`}>
             <Header>{path.name}</Header>
             {path.posts.map(post => {
