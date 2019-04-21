@@ -5,7 +5,7 @@ import React from 'react'
 import PageTemplate from './page'
 import DocTemplate from './doc'
 
-export default function BlogPost ({ pageContext, data, ...props }) {
+export default ({ pageContext, data, ...props }) => {
   const { isDocPage, isBlogPage, lastEdited, githubUrl } = pageContext
   const { frontmatter, rawMarkdownBody } = data.markdownRemark
   const metadata = useSiteMetadata()
@@ -40,7 +40,7 @@ export default function BlogPost ({ pageContext, data, ...props }) {
 }
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query PageBySlug($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       rawMarkdownBody
