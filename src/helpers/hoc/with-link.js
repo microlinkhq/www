@@ -22,7 +22,6 @@ const GatsbyLink = styled(Link)(linkStyle)
 
 export default ChildComponent => ({
   icon = false,
-  prefetch = true,
   onClick,
   actively,
   href,
@@ -34,7 +33,7 @@ export default ChildComponent => ({
 }) => {
   const isInternal = isInternalLink(href)
 
-  if (prefetch && isInternal) {
+  if (isInternal) {
     return (
       <ChildComponent {...props}>
         <GatsbyLink
@@ -45,20 +44,20 @@ export default ChildComponent => ({
         />
       </ChildComponent>
     )
-  } else {
-    return (
-      <ChildComponent {...props}>
-        <ExternalLink href={href} target={target} rel={rel} onClick={onClick}>
-          {children}
-          {!isInternal && icon && (
-            <ExternalIcon
-              width='14px'
-              style={{ position: 'relative', top: '2px' }}
-              ml={1}
-            />
-          )}
-        </ExternalLink>
-      </ChildComponent>
-    )
   }
+
+  return (
+    <ChildComponent {...props}>
+      <ExternalLink href={href} target={target} rel={rel} onClick={onClick}>
+        {children}
+        {!isInternal && icon && (
+          <ExternalIcon
+            width='14px'
+            style={{ position: 'relative', top: '2px' }}
+            ml={1}
+          />
+        )}
+      </ExternalLink>
+    </ChildComponent>
+  )
 }

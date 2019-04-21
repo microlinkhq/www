@@ -27,14 +27,12 @@ export default class extends Component {
                 <Microlink size={'100%'} />
               </NavLink>
               <NavLink
-                prefetch={false}
                 pr={[2, 3]}
                 children='Features'
                 href='/#features'
                 onClick={smoothScroll('features')}
               />
               <NavLink
-                prefetch={false}
                 pr={[2, 3]}
                 children='Pricing'
                 href='/#pricing'

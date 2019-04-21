@@ -67,16 +67,14 @@ export default class extends Component {
             >
               <Microlink />
             </NavLink>
-            <Nav as='nav'>
+            <Nav as='nav' width='240px'>
               <NavLink
-                prefetch={false}
                 px={2}
                 children='Features'
                 href='/#features'
                 onClick={smoothScroll('features')}
               />
               <NavLink
-                prefetch={false}
                 px={2}
                 children='Pricing'
                 href='/#pricing'
