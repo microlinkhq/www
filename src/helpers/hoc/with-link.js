@@ -50,7 +50,7 @@ export default ChildComponent => ({
     <ChildComponent {...props}>
       <ExternalLink href={href} target={target} rel={rel} onClick={onClick}>
         {children}
-        {!isInternal && icon && (
+        {icon && (
           <ExternalIcon
             width='14px'
             style={{ position: 'relative', top: '2px' }}
