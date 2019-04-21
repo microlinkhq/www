@@ -247,7 +247,6 @@ export default ({ meta, content, githubUrl, ...props }) => {
             justifyContent='space-between'
             my={4}
             pt={4}
-            px={[3, 3, 3, 0]}
           >
             <Text color='gray5' fontSize={0}>
               Last Edited on {formatDate(meta.date, 'MMMM Do YYYY')}

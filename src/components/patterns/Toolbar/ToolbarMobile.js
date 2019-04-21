@@ -92,7 +92,7 @@ export default class extends Component {
               <NavLink
                 px={2}
                 children='Docs'
-                href='/blog/'
+                href='/docs/sdk/getting-started/overview/'
                 actively
                 partiallyActive
               />

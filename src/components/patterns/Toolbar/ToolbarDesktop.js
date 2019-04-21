@@ -40,7 +40,12 @@ export default class extends Component {
                 href='/#pricing'
                 onClick={smoothScroll('pricing')}
               />
-              <NavLink href='/docs/' children='Docs' actively partiallyActive />
+              <NavLink
+                href='/docs/sdk/getting-started/overview/'
+                children='Docs'
+                actively
+                partiallyActive
+              />
               <NavLink href='/blog' children='Blog' actively partiallyActive />
             </NavContainer>
             <NavContainer as='nav'>

@@ -17,6 +17,7 @@ const MenuButton = styled('button')`
   padding: 0;
   top: ${TOOLBAR_HEIGHT};
   outline: none;
+  background: transparent;
 
   ${props =>
     props.isOpen &&
