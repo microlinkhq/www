@@ -39,7 +39,7 @@ export default ({ pageContext, data, ...props }) => {
   )
 }
 
-export const pageQuery = graphql`
+export const query = graphql`
   query PageBySlug($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
