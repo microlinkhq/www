@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.43"></a>
+## [2.2.43](https://github.com/microlink/microlink-www/compare/v2.2.41...v2.2.43) (2019-04-10)
+
+
+### Bug Fixes
+
+* **package:** update gatsby to version 2.3.0 ([91e1c04](https://github.com/microlink/microlink-www/commit/91e1c04))
+* **package:** update polished to version 3.1.0 ([409b237](https://github.com/microlink/microlink-www/commit/409b237))
+* **package:** update react to version 16.8.5 ([03f29a3](https://github.com/microlink/microlink-www/commit/03f29a3))
+* **package:** update react-codecopy to version 3.0.0 ([88b4fa4](https://github.com/microlink/microlink-www/commit/88b4fa4))
+* **package:** update react-dom to version 16.8.5 ([65aabd4](https://github.com/microlink/microlink-www/commit/65aabd4))
+* **package:** update rebass to version 3.1.0 ([22f03b9](https://github.com/microlink/microlink-www/commit/22f03b9))
+* **package:** update styled-components to version 4.2.0 ([39ff307](https://github.com/microlink/microlink-www/commit/39ff307))
+* fire use effect only in the first impression ([98bdb43](https://github.com/microlink/microlink-www/commit/98bdb43))
+
+
+
 <a name="2.2.42"></a>
 ## [2.2.42](https://github.com/microlink/microlink-www/compare/v2.2.41...v2.2.42) (2019-03-26)
 
