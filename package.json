@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "@microlink/mql": "~0.3.4",
-    "@microlink/react": "~3",
+    "@microlink/react": "4.0.0-alpha.0",
     "@rebass/components": "~4.0.0-1",
     "autoprefixer": "~9.5.1",
     "beauty-error": "~1.1.3",
