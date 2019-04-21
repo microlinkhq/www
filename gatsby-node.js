@@ -54,55 +54,50 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 }
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  return new Promise((resolve, reject) => {
-    resolve(
-      graphql(
-        `
-          {
-            allMarkdownRemark {
-              edges {
-                node {
-                  fileAbsolutePath
-                  fields {
-                    slug
-                  }
-                  frontmatter {
-                    title
-                    date
-                  }
-                }
+  const result = await graphql(
+    `
+      {
+        allMarkdownRemark {
+          edges {
+            node {
+              fileAbsolutePath
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+                date
               }
             }
           }
-        `
-      ).then(result => {
-        if (result.errors) {
-          console.log(result.errors)
-          reject(result.errors)
         }
+      }
+    `
+  )
 
-        // Create markdown pages
-        return Promise.all(
-          result.data.allMarkdownRemark.edges.map(async ({ node }) => {
-            return createPage({
-              path: node.fields.slug,
-              component: path.resolve(`./src/templates/index.js`),
-              context: {
-                githubUrl:
-                  `https://github.com/microlinkhq/www/blob/master` +
-                  node.fileAbsolutePath.replace(process.cwd(), ''),
-                lastEdited: await getLastEdited(node.fileAbsolutePath),
-                isBlogPage: node.fields.slug.startsWith('/blog/'),
-                isDocPage: node.fields.slug.startsWith('/docs/'),
-                slug: node.fields.slug
-              }
-            })
-          })
-        )
+  if (result.errors) {
+    console.log(result.errors)
+    throw result.errors
+  }
+
+  return Promise.all(
+    result.data.allMarkdownRemark.edges.map(async ({ node }) => {
+      return createPage({
+        path: node.fields.slug,
+        component: path.resolve(`./src/templates/index.js`),
+        context: {
+          githubUrl:
+            `https://github.com/microlinkhq/www/blob/master` +
+            node.fileAbsolutePath.replace(process.cwd(), ''),
+          lastEdited: await getLastEdited(node.fileAbsolutePath),
+          isBlogPage: node.fields.slug.startsWith('/blog/'),
+          isDocPage: node.fields.slug.startsWith('/docs/'),
+          slug: node.fields.slug
+        }
       })
-    )
-  })
+    })
+  )
 }
