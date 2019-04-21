@@ -3,6 +3,7 @@ import { Box, Flex, Hide } from 'components/elements'
 import React, { useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { transition } from 'theme'
+import is from 'styled-is'
 
 import Aside from './Aside'
 
@@ -10,6 +11,7 @@ import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { ASIDE_WIDTH } from './constants'
 
 const MenuButton = styled('button')`
+  cursor: pointer;
   z-index: 3;
   appearance: none;
   border: 0;
@@ -18,12 +20,7 @@ const MenuButton = styled('button')`
   top: ${TOOLBAR_HEIGHT};
   outline: none;
   background: transparent;
-
-  ${props =>
-    props.isOpen &&
-    `
-    position: fixed;
-  `}
+  ${is('isOpen') && `position: fixed;`}
 `
 
 const AsideButton = React.forwardRef((props, ref) => (
