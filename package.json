@@ -126,7 +126,7 @@
     "static"
   ],
   "scripts": {
-    "build": "NODE_ENV=production gatsby build",
+    "build": "NODE_ENV=production gatsby clean && gatsby build",
     "build-storybook": "npm run prebuild && NODE_ENV=production build-storybook",
     "clean": "rm -rf node_modules && npm run clean:urls",
     "clean:urls": "rm -rf data/demo-links.json",
