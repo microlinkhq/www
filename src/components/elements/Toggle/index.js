@@ -29,9 +29,7 @@ function Toggle ({ onChange, children, defaultValue }) {
         const isLast = index + 1 === children.length
         const isActive = active === value
 
-        const setAsActive = value => event => {
-          event.preventDefault()
-
+        const setAsActive = value => () => {
           if (value !== active) {
             setActive(value)
             onChange(value)

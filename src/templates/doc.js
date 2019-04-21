@@ -4,7 +4,6 @@ import { Layout, Aside } from 'components/patterns'
 import formatDate from 'date-fns/format'
 import MDX from 'mdx-scoped-runtime'
 import Head from 'components/Head'
-import { navigate } from 'gatsby'
 import slug from 'remark-slug'
 import { omit } from 'lodash'
 import React from 'react'
@@ -203,15 +202,6 @@ const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/api')) return API
 }
 
-const onChange = value => {
-  switch (value) {
-    case SDK:
-      return navigate('/docs/sdk/getting-started/overview/')
-    case API:
-      return navigate('/docs/api/getting-started/overview')
-  }
-}
-
 export default ({ meta, content, githubUrl, ...props }) => {
   const activeRouteName = getActiveRouteName(props.location)
 
@@ -219,14 +209,10 @@ export default ({ meta, content, githubUrl, ...props }) => {
     <Layout footer={false}>
       <Head {...meta} />
       <Container>
-        <Aside
-          routes={routes}
-          activeRouteName={activeRouteName}
-          onChange={onChange}
-        >
+        <Aside routes={routes} activeRouteName={activeRouteName}>
           <Text as='header'>
             <H1
-              mt={[4, 4, 4, 5]}
+              mt={5}
               children={meta.title}
               variant={null}
               mb={0}
