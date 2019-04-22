@@ -1,8 +1,11 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
-import { get } from 'helpers'
-import { withSlug } from 'helpers/hoc'
 import { space, fontSizes, colors } from 'theme'
+import styled, { css } from 'styled-components'
+import { withSlug } from 'helpers/hoc'
+import MDX from 'mdx-scoped-runtime'
+import slug from 'remark-slug'
+import { get } from 'helpers'
+import React from 'react'
+
 import {
   Terminal as TerminalBase,
   CodeEditor,
@@ -275,7 +278,7 @@ export const Blockquote = styled.blockquote`
   color: ${colors.gray8};
 `
 
-export default {
+const mdComponents = {
   p: Paraph,
   strong: Strong,
   ul: Ul,
@@ -293,3 +296,37 @@ export default {
   blockquote: Blockquote,
   img: Image
 }
+
+const ScopedComponents = {
+  Blockquote,
+  Code,
+  CodeInline,
+  Figcaption,
+  H1,
+  H2,
+  H2Link,
+  H3,
+  H4,
+  H5,
+  H6,
+  Image,
+  Label,
+  Li,
+  Link,
+  Microlink,
+  MultiCodeEditor,
+  Ol,
+  Paraph,
+  Strong,
+  Terminal,
+  Ul
+}
+
+export default props => (
+  <MDX
+    components={mdComponents}
+    scope={ScopedComponents}
+    mdPlugins={[slug]}
+    {...props}
+  />
+)

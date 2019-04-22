@@ -1,16 +1,9 @@
-import * as mdComponents from 'components/markdown'
 import { Link, Text, Flex, Container } from 'components/elements'
 import { Layout, Aside } from 'components/patterns'
+import Markdown, { H1 } from 'components/markdown'
 import formatDate from 'date-fns/format'
-import MDX from 'mdx-scoped-runtime'
 import Head from 'components/Head'
-import slug from 'remark-slug'
-import { omit } from 'lodash'
 import React from 'react'
-
-const scopeComponents = omit(mdComponents, 'default')
-
-const { H1 } = mdComponents
 
 const ROUTES_SDK = [
   {
@@ -219,13 +212,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
               slug={false}
             />
           </Text>
-          <MDX
-            components={mdComponents.default}
-            scope={scopeComponents}
-            mdPlugins={[slug]}
-          >
-            {content}
-          </MDX>
+          <Markdown children={content} />
           <Flex
             as='footer'
             borderTop='1px solid'

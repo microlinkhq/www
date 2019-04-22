@@ -1,17 +1,17 @@
-import * as mdComponents from 'components/markdown'
+import Markdown, {
+  H1,
+  H2,
+  Paraph,
+  Strong,
+  Link,
+  Blockquote
+} from 'components/markdown'
 import { Chat, Layout } from 'components/patterns'
 import { Text, Box } from 'components/elements'
 import React, { Fragment } from 'react'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-import MDX from 'mdx-scoped-runtime'
 import Head from 'components/Head'
-import slug from 'remark-slug'
-import { omit } from 'lodash'
-
-const { H1, H2, Paraph, Strong, Link, Blockquote } = mdComponents
-
-const scopeComponents = omit(mdComponents, 'default')
 
 const PostFooter = () => (
   <Fragment>
@@ -57,13 +57,8 @@ export default ({ isBlogPage, date, meta, content }) => (
         </Blockquote>
       )}
 
-      <MDX
-        components={mdComponents.default}
-        scope={scopeComponents}
-        mdPlugins={[slug]}
-      >
-        {content}
-      </MDX>
+      <Markdown children={content} />
+
       {isBlogPage && <PostFooter />}
     </Box>
   </Layout>
