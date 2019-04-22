@@ -1,9 +1,8 @@
 import { Flex, Text, Box, CodeEditor } from 'components/elements'
-import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
-import { serializeComponent } from 'helpers'
-import { toLower, isFunction } from 'lodash'
+import React, { useState } from 'react'
 import CodeCopy from 'react-codecopy'
+import { isFunction } from 'lodash'
 import Select from '../Select'
 
 const actionStyle = css`
