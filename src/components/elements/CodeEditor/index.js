@@ -190,7 +190,9 @@ const TerminalText = styled.div`
   font-size: 13px;
   font-weight: normal;
   line-height: 20px;
-  padding: 0 16px;
+  padding-bottom: 9.5px;
+  padding-left: 16px;
+  padding-right: 16px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   background: #282a36;
