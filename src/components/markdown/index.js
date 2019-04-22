@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { withSlug } from 'helpers/hoc'
 import MDX from 'mdx-scoped-runtime'
 import slug from 'remark-slug'
-import { get } from 'helpers'
+import { get } from 'lodash'
 import React from 'react'
 
 import {
