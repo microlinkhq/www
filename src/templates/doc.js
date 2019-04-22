@@ -205,7 +205,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
         <Aside routes={routes} activeRouteName={activeRouteName}>
           <Text as='header'>
             <H1
-              mt={5}
+              mt={[4, 4, 4, 5]}
               children={meta.title}
               variant={null}
               mb={0}

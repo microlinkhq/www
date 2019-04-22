@@ -32,7 +32,14 @@ const Title = ({ children, href }) => (
 
 const Subheader = props => <Text mt={3} mb={2} color='gray4' {...props} />
 
-const Aside = ({ isOpen, routes, activeRouteName, onChange, ...props }) => {
+const Aside = ({
+  CloseButton,
+  isOpen,
+  routes,
+  activeRouteName,
+  onChange,
+  ...props
+}) => {
   const routeNames = Object.keys(routes)
   const [tree, setTree] = useState(activeRouteName)
 
@@ -45,7 +52,18 @@ const Aside = ({ isOpen, routes, activeRouteName, onChange, ...props }) => {
       isOpen={isOpen}
       {...props}
     >
-      <Flex justifyContent='center' mt={3} pb={3} mb={4}>
+      <Flex
+        alignItems='center'
+        justifyContent={['flex-start', 'center']}
+        mt={3}
+        pb={3}
+        mb={4}
+      >
+        {CloseButton && (
+          <Box mt={1} mr={3}>
+            <CloseButton />
+          </Box>
+        )}
         <Toggle
           children={routeNames}
           defaultValue={activeRouteName}

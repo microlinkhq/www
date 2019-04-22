@@ -20,13 +20,12 @@ const MenuButton = styled('button')`
   top: ${TOOLBAR_HEIGHT};
   outline: none;
   background: transparent;
-  ${is('isOpen') && `position: fixed;`}
 `
 
 const AsideButton = React.forwardRef((props, ref) => (
   <MenuButton {...props} ref={ref} title='Toggle Menu'>
-    <Box pl={props.isOpen ? 1 : 0} mt='5px' pt={3} bg='transparent'>
-      {props.isOpen ? <CloseIcon size={20} /> : <MenuIcon size={20} />}
+    <Box display='inline-flex' mt={3} bg='white'>
+      <MenuIcon size={20} />
     </Box>
   </MenuButton>
 ))
@@ -39,6 +38,16 @@ const AsideMobile = ({ children, ...props }) => {
   const [isOpen, setOpen] = useState(false)
   const toggleOpen = () => setOpen(!isOpen)
 
+  const CloseButton = () => (
+    <CloseIcon
+      size={20}
+      onClick={toggleOpen}
+      css={`
+        custor: pointer;
+      `}
+    />
+  )
+
   const css = `
     background: white;
     z-index: 2;
@@ -47,7 +56,7 @@ const AsideMobile = ({ children, ...props }) => {
 
   return (
     <Fragment>
-      <Aside isOpen={isOpen} css={css} {...props} />
+      <Aside CloseButton={CloseButton} isOpen={isOpen} css={css} {...props} />
       <AsideButton isOpen={isOpen} onClick={toggleOpen} />
       <Flex flexDirection='column' as='article' css={css}>
         {children}
