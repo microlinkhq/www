@@ -1,5 +1,5 @@
 import React, { createElement } from 'react'
-import { Svg } from 'components/elements'
+import Svg from '../../components/elements/Svg'
 import styled from 'styled-components'
 import { title } from 'helpers'
 
