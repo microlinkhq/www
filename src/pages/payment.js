@@ -177,7 +177,7 @@ class _CardForm extends Component {
           </Label>
 
           <ButtonSecondary
-            children='Add Card'
+            children='Update Card'
             loading={paymentState === PAYMENT_STATE.PROCESSING}
           />
         </Form>
