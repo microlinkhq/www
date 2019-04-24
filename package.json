@@ -86,7 +86,6 @@
     "title": "~3.4.1"
   },
   "devDependencies": {
-    "@babel/core": "latest",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "@hot-loader/react-dom": "latest",
@@ -98,8 +97,6 @@
     "@storybook/addons": "latest",
     "@storybook/react": "latest",
     "ava": "latest",
-    "babel-eslint": "latest",
-    "babel-loader": "latest",
     "conventional-github-releaser": "latest",
     "esm": "latest",
     "finepack": "latest",
