@@ -94,6 +94,7 @@ const ROUTES_SDK = [
 
 const SDK = 'SDK'
 const API = 'API'
+const MQL = 'MQL'
 
 const ROUTES_API = [
   {
@@ -102,11 +103,11 @@ const ROUTES_API = [
       {
         name: 'Overview',
         href: '/docs/api/getting-started/overview'
+      },
+      {
+        name: 'Data Fields',
+        href: '/docs/api/getting-started/data-fields'
       }
-      // {
-      //   name: 'Data Types',
-      //   href: '/docs/api/getting-started/data-types'
-      // }
     ]
   },
   {
@@ -185,14 +186,79 @@ const ROUTES_API = [
   }
 ]
 
+const ROUTES_MQL = [
+  {
+    name: 'Getting Started',
+    posts: [
+      {
+        name: 'Overview',
+        href: '/docs/mql/getting-started/overview'
+      }
+    ]
+  },
+  {
+    name: 'Basics',
+    posts: [
+      {
+        name: 'Installation',
+        href: '/docs/mql/basics/installation'
+      },
+      {
+        name: 'Usage',
+        href: '/docs/mql/basics/usage'
+      }
+    ]
+  },
+  {
+    name: 'Rule definition',
+    posts: [
+      {
+        name: 'selector',
+        href: '/docs/mql/rule-definition/selector'
+      },
+      {
+        name: 'attr',
+        href: '/docs/mql/rule-definition/attr'
+      },
+      {
+        name: 'type',
+        href: '/docs/mql/rule-definition/type'
+      }
+    ]
+  }
+  // {
+  //   name: 'Examples',
+  //   posts: [
+  //     {
+  //       name: 'Twitter',
+  //       href: '/docs/mql/rule-definition/selectors'
+  //     },
+  //     {
+  //       name: 'Instagram',
+  //       href: '/docs/mql/rule-definition/attr'
+  //     },
+  //     {
+  //       name: 'Hacker News',
+  //       href: '/docs/mql/rule-definition/selector'
+  //     },
+  //     {
+  //       name: 'Reddit',
+  //       href: '/docs/mql/rule-definition/type'
+  //     }
+  //   ]
+  // }
+]
+
 const routes = {
   [SDK]: ROUTES_SDK,
+  [MQL]: ROUTES_MQL,
   [API]: ROUTES_API
 }
 
 const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/sdk')) return SDK
   if (pathname.startsWith('/docs/api')) return API
+  if (pathname.startsWith('/docs/mql')) return MQL
 }
 
 export default ({ meta, content, githubUrl, ...props }) => {

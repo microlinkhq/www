@@ -1,5 +1,7 @@
 ---
 title: 'Overview'
+redirect_from:
+  - /docs/api/
 --- 
 
 Welcome to **Microlink API**

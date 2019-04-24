@@ -61,6 +61,13 @@ const langTheme = {
       color: COLORS.WHITE
     }
   },
+  html: {
+    'code[class*="language-"]': {
+      ...codeTheme,
+      color: COLORS.WHITE
+    },
+    doctype: { color: COLORS.GRAY }
+  },
   bash: {
     'code[class*="language-"]': {
       ...codeTheme,

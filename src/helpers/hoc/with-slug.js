@@ -2,6 +2,7 @@ import React, { createElement } from 'react'
 import Svg from '../../components/elements/Svg'
 import styled from 'styled-components'
 import { title } from 'helpers'
+import { isString } from 'lodash'
 
 import { colors } from 'theme'
 
@@ -62,16 +63,7 @@ const AnchorLink = styled.a`
 
 export default ChildComponent => {
   return ({ children, slug, ...props }) => {
-    const isString = typeof children === 'string'
-
-    if (isString && slug === false) {
-      return createElement(ChildComponent, {
-        children: title(children),
-        ...props
-      })
-    }
-
-    if (!isString) {
+    if (!isString(children) || slug === false) {
       return createElement(ChildComponent, { children, ...props })
     }
 
