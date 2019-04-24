@@ -89,6 +89,7 @@
     "@babel/core": "latest",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
+    "@hot-loader/react-dom": "latest",
     "@kikobeats/jsonsort": "latest",
     "@storybook/addon-a11y": "latest",
     "@storybook/addon-actions": "latest",
