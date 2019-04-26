@@ -89,6 +89,21 @@ const ROUTES_SDK = [
         ]
       }
     ]
+  },
+  {
+    name: 'Resources',
+    posts: [
+      {
+        name: 'Storybook',
+        href: 'https://storybook.microlink.io/',
+        external: true
+      },
+      {
+        name: 'CodeSandbox',
+        href: 'https://codesandbox.io/s/n5w839zm4m',
+        external: true
+      }
+    ]
   }
 ]
 

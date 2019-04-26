@@ -6,30 +6,21 @@ It is available as [npm package](https://www.npmjs.com/package/@microlink/vanill
 
 <Terminal>npm install @microlink/vanilla --save</Terminal>
 
-Optionally you can link it directly from the **CDN** as well
+The vanilla bundle is based on the React version, but exported as Universal Module Definition (*UMD*).
 
-**UMD bundle**
+Since the bundle doesn't include the depdendencies, we recommend load it from a **CDN**
 
 ```html
-<script 
-  src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/umd/microlink.min.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/styled-components@4/dist/styled-components.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@4.0.0-alpha.3/dist/microlink.min.js"></script>
 ```
 
-**AMD bundle**
+or even better, just one line:
 
 ```html
-<script 
-  src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/amd/microlink.min.js">
-</script>
-```
-
-**CommonJS bundle**
-
-```html
-<script 
-  src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/cjs/microlink.min.js">
-</script>
+<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/@microlink/vanilla@4.0.0-alpha.3/dist/microlink.min.js"></script>
 ```
 
 After that, `microlink` will available in the global scope.
@@ -47,7 +38,7 @@ After that, `microlink` will available in the global scope.
     // Example 3
     // Replace all elements with `link-preview` class
     // for microlink cards, passing API specific options
-    microlink('.link-previews')
+    microlink('.link-previews', { size: 'large' })
   })
 </script>
 ```
@@ -68,6 +59,18 @@ You can pass any [API Parameter](/api-parameter) as a object property, for examp
     })
   })
 </script>
+```
+
+Note that the API parameters you pass there will be attached for all the links.
+
+If you want to pass specific API Parameters just for some cases, you can pass them as `data` attributes:
+
+```html
+<a 
+  src="https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk" 
+  class"link-preview" 
+  data-size="large">
+</a>
 ```
 
 <Figcaption children='Passing specific API Parameters as second argument.' />

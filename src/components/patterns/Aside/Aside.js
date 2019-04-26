@@ -25,7 +25,7 @@ const AsideWrapper = styled(Box)`
 const Header = props => <Caps mb={2} color='gray5' {...props} />
 
 const Title = ({ children, href }) => (
-  <NavLink href={href} actively>
+  <NavLink href={href} actively icon>
     <Text fontWeight='normal' mb={2} children={children} />
   </NavLink>
 )

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { External as ExternalIcon } from 'components/icons'
-
+import Flex from '../../components/elements/Flex'
 import { Link } from 'gatsby'
 
 const linkStyle = css`
@@ -19,6 +19,24 @@ ExternalLink.defaultProps = {
 }
 
 const GatsbyLink = styled(Link)(linkStyle)
+
+const Children = ({ children, icon }) => {
+  if (!icon) return children
+
+  return (
+    <Flex>
+      {children}
+      <ExternalIcon
+        width='14px'
+        css={`
+          position: relative;
+          top: 7px;
+        `}
+        ml={1}
+      />
+    </Flex>
+  )
+}
 
 export default ChildComponent => ({
   icon = false,
@@ -49,14 +67,7 @@ export default ChildComponent => ({
   return (
     <ChildComponent {...props}>
       <ExternalLink href={href} target={target} rel={rel} onClick={onClick}>
-        {children}
-        {icon && (
-          <ExternalIcon
-            width='14px'
-            style={{ position: 'relative', top: '2px' }}
-            ml={1}
-          />
-        )}
+        <Children icon={icon} children={children} />
       </ExternalLink>
     </ChildComponent>
   )

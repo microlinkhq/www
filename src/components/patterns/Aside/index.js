@@ -3,7 +3,6 @@ import { Box, Flex, Hide } from 'components/elements'
 import React, { useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { transition } from 'theme'
-import is from 'styled-is'
 
 import Aside from './Aside'
 
