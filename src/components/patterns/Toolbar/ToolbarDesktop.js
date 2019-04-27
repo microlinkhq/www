@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Toolbar, Box, Fixed } from 'components/elements'
 import { Microlink } from 'components/logos'
-import { smoothScroll } from 'helpers'
 
 import NavContainer from './NavContainer'
 import NavLink from './NavLink'
@@ -22,7 +21,7 @@ export default class extends Component {
                 width={['32px', '48px']}
                 display='flex'
                 pr={[2, 3]}
-                href='/'
+                href='/#'
               >
                 <Microlink size={'100%'} />
               </NavLink>
@@ -30,16 +29,20 @@ export default class extends Component {
                 pr={[2, 3]}
                 children='Features'
                 href='/#features'
-                onClick={smoothScroll('features')}
+                actively='observer'
               />
               <NavLink
                 pr={[2, 3]}
                 children='Pricing'
                 href='/#pricing'
-                onClick={smoothScroll('pricing')}
+                actively='observer'
               />
-              <NavLink href='/docs' children='Docs' actively partiallyActive />
-              <NavLink href='/blog' children='Blog' actively partiallyActive />
+              <NavLink
+                href='/docs/sdk/getting-started/overview/'
+                children='Docs'
+                actively='partial'
+              />
+              <NavLink href='/blog' children='Blog' actively='partial' />
             </NavContainer>
             <NavContainer as='nav'>
               <NavLink children='Chat' href='https://chat.microlink.io' />

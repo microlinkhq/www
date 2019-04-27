@@ -11,7 +11,6 @@ const activeStyle = css`
 
 const style = css`
   transition: color ${transition.medium};
-
   &:hover,
   > .active {
     ${activeStyle};

@@ -1,6 +1,10 @@
 @import '~normalize.css';
 @import url('https://rsms.me/inter/inter.css');
 
+a.active {
+  text-decoration: none;
+}
+
 * {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
