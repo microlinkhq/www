@@ -45,7 +45,7 @@ export default class extends Component {
               <NavLink href='/blog' children='Blog' actively='partial' />
             </NavContainer>
             <NavContainer as='nav'>
-              <NavLink children='Chat' href='https://chat.microlink.io' />
+              <NavLink children='Chat' href='/chat' actively />
             </NavContainer>
           </Toolbar>
         </Box>

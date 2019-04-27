@@ -76,11 +76,7 @@ export default class extends Component {
                 href='/docs/sdk/getting-started/overview/'
                 actively='partial'
               />
-              <NavLink
-                px={2}
-                children='Chat'
-                href='https://chat.microlink.io'
-              />
+              <NavLink px={2} children='Chat' href='/chat' actively />
             </Nav>
           </Toolbar>
         </Box>

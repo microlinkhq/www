@@ -39,7 +39,7 @@ export const colors = Object.assign({}, flattened, {
   pinky: 'rgb(252, 250, 255)',
   pinkest: 'rgb(246, 237, 250)',
   link: '#067df7',
-  border: 'rgba(0,0,0,.095)',
+  border: 'rgba(0,0,0,.035)',
   black: '#000',
   black90: 'rgba(0,0,0,.9)',
   black80: 'rgba(0,0,0,.8)',
