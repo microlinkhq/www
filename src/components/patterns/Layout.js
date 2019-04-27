@@ -13,7 +13,7 @@ if (global.window) {
   window.scroll = require('smooth-scroll')('a[href*="#"]')
 }
 
-const Layout = ({ footer, children }) => {
+const Layout = ({ footer, children, ...props }) => {
   useEffect(() => {
     const { hash } = window.location
     if (hash) {
@@ -27,7 +27,7 @@ const Layout = ({ footer, children }) => {
   return (
     <ThemeProvider theme={theme}>
       <Fragment>
-        <Head />
+        <Head {...props} />
         <Toolbar />
         <Box pt={TOOLBAR_HEIGHT}>{children}</Box>
         <CookiesPolicy />

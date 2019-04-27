@@ -280,8 +280,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
   const activeRouteName = getActiveRouteName(props.location)
 
   return (
-    <Layout footer={false}>
-      <Head {...meta} />
+    <Layout footer={false} {...meta} title={`${activeRouteName} ${meta.title}`}>
       <Container>
         <Aside routes={routes} activeRouteName={activeRouteName}>
           <Text as='header'>
