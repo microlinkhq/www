@@ -235,7 +235,7 @@ const MQL = () => (
       alignItems='center'
       as='header'
     >
-      <Subheader children={['MQL', 'Data Extraction']} />
+      <Subheader children={['MQL', 'Build APIs from websites']} />
 
       <Box mt={4} textAlign={['inherit', 'center']}>
         <Text>
@@ -261,12 +261,12 @@ const MQL = () => (
         <Text
           maxWidth={['inherit', 8]}
           mt={[1, 3]}
-          children='Turns any website into your API.'
+          children='Turns any website into a programmatic API.'
         />
         <List px={[3, 0]} mt={4} mb={3}>
-          <ListItem children='Target any URL, specify content should be extracted.' />
-          <ListItem children='Data validation support based on types.' />
-          <ListItem children='HTTP & GraphQL endpoints.' />
+          <ListItem children='Create data rules based on HTML markup.' />
+          <ListItem children='Target any URL for getting specific content.' />
+          <ListItem children='Builtin data validation & hydration.' />
         </List>
         <Flex
           alignItems='center'
@@ -278,7 +278,9 @@ const MQL = () => (
             <MQLEditor />
           </Hide>
 
-          <ButtonSecondary href='https://google.com'>
+          <ButtonSecondary
+            onClick={() => navigate('/docs/mql/getting-started/overview')}
+          >
             <Caps fontSize={0}>See More</Caps>
           </ButtonSecondary>
         </Flex>

@@ -25,36 +25,61 @@ const Card = styled(CardBase)`
 `
 
 const CODE = {
-  HTTP: `
-  const { status, data } = await mql('https://kikobeats.com', {
-    palette: true,
-    rules: {
-      avatar: {
-        type: 'image',
-        selectors: [
-          {
-            selector: '#avatar',
-            attr: 'href'
-          }
-        ]
-      }
+  MQL: `
+import mql from '@microlink/mql'
+
+await mql('https://twitter.com/microlinkhq', {
+ rules: {
+  stats: {
+   selector: '.user > .profile',
+    attr: {
+     tweets: {
+      selector: '.tweets',
+      attr: 'data-count'
+     },
+     followings: {
+      selector: '.following',
+      attr: 'data-count'
+     },
+     favorites: {
+      selector: '.favorites',
+      attr: 'data-count'
+     }
     }
-  })`,
-  GraphQL: `
-  const { status, data } = await mql('https://kikobeats.com', {
-    palette: true,
-    rules: {
-      avatar: {
-        type: 'image',
-        selectors: [
-          {
-            selector: '#avatar',
-            attr: 'href'
-          }
-        ]
-      }
-    }
-  })`
+   }
+  }
+})  
+`,
+  API: `{
+  "lang": "en",
+  "author": "microlinkhq",
+  "title": "microlink.io (@microlinkhq) | Twitter",
+  "publisher": "Twitter",
+  "image": {
+    "url": "https://pbs.twimg.com/profile_banners/912255209988136960/1535042358/1500x500",
+    "width": 1500,
+    "height": 500,
+    "type": "jpg",
+    "size": 10644,
+    "size_pretty": "10.6 kB"
+  },
+  "description": "The latest Tweets from microlink.io (@microlinkhq). Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews. Say to hello@microlink.io",
+  "date": "2017-09-01T00:00:00.000Z",
+  "logo": {
+    "url": "https://abs.twimg.com/icons/apple-touch-icon-192x192.png",
+    "width": 192,
+    "height": 192,
+    "type": "png",
+    "size": 2113,
+    "size_pretty": "2.11 kB"
+  },
+  "url": "https://twitter.com/microlinkhq",
+  "stats": {
+    "favorites": "3",
+    "followings": "406",
+    "tweets": "58"
+  }
+}`
 }
 
 const CardOption = ({ children, value, ...props }) => (
@@ -79,10 +104,11 @@ const CardOption = ({ children, value, ...props }) => (
 )
 
 export default class extends Component {
-  state = { view: 'HTTP' }
+  state = { view: 'MQL' }
 
   render () {
     const { view } = this.state
+    const language = view === 'MQL' ? 'js' : 'json'
 
     return (
       <Flex flexDirection={'column'} justifyContent='space-around'>
@@ -93,18 +119,18 @@ export default class extends Component {
             height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
             style={{ overflow: 'auto' }}
           >
-            <CodeEditor language='js'>{CODE[view]}</CodeEditor>
+            <CodeEditor language={language}>{CODE[view]}</CodeEditor>
           </Card>
           <Flex justifyContent='flex-end'>
             <CardOption
-              children='HTTP'
+              children='mql'
               value={view}
-              onClick={() => this.setState({ view: 'HTTP' })}
+              onClick={() => this.setState({ view: 'MQL' })}
             />
             <CardOption
-              children='GraphQL'
+              children='api'
               value={view}
-              onClick={() => this.setState({ view: 'GraphQL' })}
+              onClick={() => this.setState({ view: 'API' })}
             />
           </Flex>
         </Flex>

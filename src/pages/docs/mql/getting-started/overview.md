@@ -20,7 +20,7 @@ console.log(`My screenshot at ${data.screenshot.url}`)
 Also [MQL](https://www.npmjs.com/package/@microlink/mql) is a convenient way for defining rules to turns any website into a programmatic API
 
 ```js
-const mql = require("@microlink/mql");
+const mql = require('@microlink/mql')
  
 const twitter = username =>
   mql(`https://twitter.com/${username}`, {

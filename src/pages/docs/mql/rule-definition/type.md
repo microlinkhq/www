@@ -25,7 +25,7 @@ It defines the data shape to use for the extracted value.
 ```
 
 ```js{7}
-const mql = require("@microlink/mql");
+const mql = require('@microlink/mql')
 const {data } mql(`https://kikobeats.com`, {
   rules: {
     avatar: {
@@ -63,7 +63,7 @@ The same thing happens with `image` and [palette](/docs/api/api-parameters/palet
 Defining the `type` also makes the extraction more accurate
 
 ```js{7}
-const mql = require("@microlink/mql");
+const mql = require('@microlink/mql')
 const {data } mql(`https://kikobeats.com`, {
   rules: {
     avatar: {

@@ -26,7 +26,7 @@ It defines the HTML element you want to get from the HTML of the target [url](/d
 ```
 
 ```js{5}
-const mql = require("@microlink/mql");
+const mql = require('@microlink/mql')
 const {data } mql(`https://kikobeats.com`, {
   rules: {
     avatar: {
@@ -56,7 +56,7 @@ You can specify any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/
 You can pass a collection of selectors as well
 
 ```js{5}
-const mql = require("@microlink/mql");
+const mql = require('@microlink/mql')
 const {data } mql(`https://twitter.com/${username}`, {
   rules: {
     avatar: {
