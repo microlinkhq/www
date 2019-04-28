@@ -7,7 +7,7 @@ import {
 
 import { marshall, unmarshall } from 'helpers'
 import React, { useState, Fragment } from 'react'
-import mql from '@microlink/mql'
+import { navigate } from 'gatsby'
 
 import {
   Text,
@@ -123,7 +123,7 @@ const Subheader = ({ children }) => (
   </Fragment>
 )
 
-const SDK = ({ loading, editor, children, onClick, siteUrl }) => (
+const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
   <Container
     maxWidth='100%'
     bg='pinky'
@@ -167,7 +167,7 @@ const SDK = ({ loading, editor, children, onClick, siteUrl }) => (
         <List px={[3, 0]} mt={4} mb={3}>
           <ListItem children='Add it to an existing website or app.' />
           <ListItem children='Auto detection (image, video, audio) with media controls support.' />
-          <ListItem children='Lightweight build size.' />
+          <ListItem children='Easily customizable.' />
         </List>
         <Flex
           alignItems='center'
@@ -179,7 +179,9 @@ const SDK = ({ loading, editor, children, onClick, siteUrl }) => (
             <LiveDemo loading={loading} children={editor} />
           </Hide>
 
-          <ButtonSecondary href='https://google.com'>
+          <ButtonSecondary
+            onClick={() => navigate('/docs/sdk/getting-started/overview')}
+          >
             <Caps fontSize={0}>See More</Caps>
           </ButtonSecondary>
         </Flex>
@@ -211,11 +213,7 @@ const SDK = ({ loading, editor, children, onClick, siteUrl }) => (
             '',
             `${siteUrl}?${marshall({ url: demoLink.url })}`
           )
-          onClick({
-            url: demoLink.url,
-            demoLink,
-            hasError: false
-          })
+          setDemoLink(demoLink)
         }}
       />
     </Flex>
@@ -308,12 +306,7 @@ const Features = ({ children }) => (
 )
 
 function Index () {
-  const [state, setState] = useState({
-    features: useFeatures(),
-    demoLink: useDefaultDemoLink().data,
-    loading: false,
-    url: ''
-  })
+  const [demoLink, setDemoLink] = useState(useDefaultDemoLink().data)
 
   React.useEffect(() => {
     const { url } = unmarshall(window.location.search)
@@ -321,29 +314,10 @@ function Index () {
   }, [])
 
   const setUrl = url => {
-    if (url === state.url) return
-
-    // check if the url is a precompiled data
-    const demoLink = demoLinks.find(demoLink => demoLink.data.url === url)
-    if (demoLink) return setState({ url, demoLink: demoLink.data })
-
-    // setup loading until the content is fetched
-    setState({ url, hasError: null, loading: true })
-
-    mql(url, {
-      audio: true,
-      video: true,
-      force: true
-    }).then(({ status, data }) => {
-      if (status === 'success') {
-        setState({ loading: false, demoLink: data })
-      } else {
-        setState({ loading: false, hasError: true })
-      }
-    })
+    const newDemoLink = demoLinks.find(demoLink => demoLink.data.url === url)
+    setDemoLink(newDemoLink)
   }
 
-  const { features, demoLink } = state
   const demoLinks = useDemoLinks()
   const {
     siteUrl,
@@ -356,9 +330,8 @@ function Index () {
     <Layout>
       <Hero />
       <SDK
-        loading={state.loading}
         children={demoLinks}
-        onClick={setState}
+        setDemoLink={setDemoLink}
         siteUrl={siteUrl}
         editor={demoLink}
       />
