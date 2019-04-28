@@ -43,7 +43,8 @@ const Children = ({ children, icon }) => {
 }
 
 const onView = (node, fn) => {
-  if (!node) return
+  if ((!window.IntersectionObserver, !node)) return
+
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       const isBeingIntersecting =

@@ -34,7 +34,7 @@ const Layout = ({ footer, children, ...props }) => {
         {footer && <Footer />}
         <script
           crossOrigin='anonymous'
-          src='https://polyfill.io/v3/polyfill.min.js?features=fetch-polyfill'
+          src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch'
         />
       </Fragment>
     </ThemeProvider>
