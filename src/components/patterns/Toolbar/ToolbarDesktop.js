@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Toolbar, Box, Fixed } from 'components/elements'
 import { Microlink } from 'components/logos'
+import { navigate } from 'gatsby'
 
 import NavContainer from './NavContainer'
 import NavLink from './NavLink'
@@ -18,10 +19,14 @@ export default class extends Component {
           >
             <NavContainer as='nav'>
               <NavLink
+                onContextMenu={event => {
+                  event.preventDefault()
+                  navigate('/design')
+                }}
+                href='/#'
                 width={['32px', '48px']}
                 display='flex'
                 pr={[2, 3]}
-                href='/#'
               >
                 <Microlink size={'100%'} />
               </NavLink>
