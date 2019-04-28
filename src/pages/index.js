@@ -92,6 +92,7 @@ const Header = ({ children }) => {
     >
       <Heading px={0} children={title} />
       <Subhead
+        pt={[2, 0]}
         px={4}
         color='gray'
         textAlign='center'
