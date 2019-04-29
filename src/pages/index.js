@@ -60,7 +60,7 @@ const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => (
           'Pricing',
           'From $0. ',
           <Subhead fontWeight='bold' as='span'>
-            Pay as you Grow.
+            Pay as you grow.
           </Subhead>
         ]}
       />
@@ -109,7 +109,7 @@ const Hero = () => (
     <Header
       children={[
         'Turn websites into data',
-        'Microlink makes easy build an API on top of any website.'
+        'Microlink makes easy to build an API on top of any website.'
       ]}
     />
   </Container>
@@ -139,7 +139,7 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
       alignItems='center'
       as='header'
     >
-      <Subheader children={['SDK', 'Beautiful Links Previews']} />
+      <Subheader children={['SDK', 'Beautiful Link Previews']} />
       <Box mt={4} textAlign={['inherit', 'center']}>
         <Text>
           <Link>Microlink SDK</Link> converts your links into rich media.
@@ -163,7 +163,7 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
         <Text
           maxWidth={['inherit', 8]}
           mt={[1, 3]}
-          children='Engage your content with rich media.'
+          children='Engage your content with enriched media.'
         />
         <List px={[3, 0]} mt={4} mb={3}>
           <ListItem children='Add it to an existing website or app.' />
@@ -241,9 +241,9 @@ const MQL = () => (
       <Box mt={4} textAlign={['inherit', 'center']}>
         <Text>
           <Link>Microlink Query Language</Link> (MQL) is the most modern data
-          interface.
+          interface for the web.
         </Text>
-        <Text>Getting structured data, from any website.</Text>
+        <Text>Get structured data, from any website.</Text>
       </Box>
     </Flex>
     <Flex

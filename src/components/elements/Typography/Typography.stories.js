@@ -41,7 +41,7 @@ const codeHeading = createCode(`
 const codeSubhead = createCode(`
   <Subhead
     color='black50'
-    children='Microlink makes easy build an API on top of any website.'
+    children='Microlink makes easy to build an API on top of any website.'
   />
 `)
 
@@ -69,7 +69,7 @@ storiesOf('Elements', module).add('Typography', () => (
       <Info>{Subhead}</Info>
       <Subhead
         color='gray'
-        children={'Microlink makes easy build an API on top of any website.'}
+        children={'Microlink makes easy to build an API on top of any website.'}
       />
     </Story>
     <Story name='Label' code={codeLabel}>
