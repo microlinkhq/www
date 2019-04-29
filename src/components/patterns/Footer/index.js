@@ -54,11 +54,11 @@ export default props => (
           <Flex pb={3} justifyContent='center'>
             <Microlink />
           </Flex>
-          <Flex flexDirection='column'>
+          <Flex flexDirection='column' alignItems='center'>
             <Text
               color='black50'
               fontSize={1}
-              children='Extract structured data from any website.'
+              children='Turn websites into data'
             />
           </Flex>
           <Flex alignItems={['center', 'inherit']} flexDirection='column'>
@@ -89,6 +89,7 @@ export default props => (
               </form>
             </Flex>
             <Text
+              textAlign='center'
               color='black50'
               fontSize={1}
               children='Early access & updates on new releases.'
@@ -123,7 +124,7 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='https://chat.microlink.io'
+            href='/chat'
             children='Tech Support'
           />
         </Flex>
@@ -155,8 +156,8 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='https://debug.microlink.io/'
-            children='Debug'
+            href='/design'
+            children='Design'
           />
         </Flex>
       </Box>
@@ -201,13 +202,7 @@ export default props => (
             />
           </Flex>
           <Flex alignItems='center' justifyContent={['center', 'inherit']}>
-            <IconWrapper
-              rel='noopener noreferrer'
-              target='_blank'
-              as='a'
-              href='https://chat.microlink.io'
-              mr={3}
-            >
+            <IconWrapper as='a' href='/chat' mr={3}>
               <Slack color={colors.black80} size={20} />
             </IconWrapper>
             <IconWrapper

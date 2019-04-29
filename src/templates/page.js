@@ -25,7 +25,7 @@ const PostFooter = () => (
     <Paraph>
       Whether you are are building a product and you need fancy previews, you’re
       an indie hacker or simply you like frontend stuff, come{' '}
-      <Link href='https://chat.microlink.io/'>chat</Link> with us 🙂.
+      <Link href='https://microlink.io/chat'>chat</Link> with us 🙂.
     </Paraph>
   </Fragment>
 )
