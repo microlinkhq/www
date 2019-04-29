@@ -25,7 +25,7 @@ const Card = styled(CardBase)`
 `
 
 const CODE = {
-  MQL: `
+  mql: `
 import mql from '@microlink/mql'
 
 await mql('https://twitter.com/microlinkhq', {
@@ -48,9 +48,9 @@ await mql('https://twitter.com/microlinkhq', {
     }
    }
   }
-})  
+})
 `,
-  API: `{
+  api: `{
   "lang": "en",
   "author": "microlinkhq",
   "title": "microlink.io (@microlinkhq) | Twitter",
@@ -104,11 +104,11 @@ const CardOption = ({ children, value, ...props }) => (
 )
 
 export default class extends Component {
-  state = { view: 'MQL' }
+  state = { view: 'mql' }
 
   render () {
     const { view } = this.state
-    const language = view === 'MQL' ? 'js' : 'json'
+    const language = view === 'mql' ? 'js' : 'json'
 
     return (
       <Flex flexDirection={'column'} justifyContent='space-around'>
@@ -125,12 +125,12 @@ export default class extends Component {
             <CardOption
               children='mql'
               value={view}
-              onClick={() => this.setState({ view: 'MQL' })}
+              onClick={() => this.setState({ view: 'mql' })}
             />
             <CardOption
               children='api'
               value={view}
-              onClick={() => this.setState({ view: 'API' })}
+              onClick={() => this.setState({ view: 'api' })}
             />
           </Flex>
         </Flex>
