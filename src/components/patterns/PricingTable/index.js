@@ -31,16 +31,16 @@ const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
 const TOOLTIPS = {
   'Rate Limit':
     'Maximum number of requests you can consume until reach the quota.',
-  'Request Concurrency': 'Maximum simultaneous requests you can make.',
-  'Request Caching':
+  'Auto Caching':
     'Speed up response timing caching payload for same API calls.',
-  'Screenshot support': 'Take partial or full screenshot for any website.',
-  'Video detection':
-    'It extracts the original video source from any link provided',
+  'Media Detection':
+    'Ability to detect the original streaming source for video or audio',
   'Color Detection':
     'It extracts palette & predominant colors for any image detected',
-  'Live Support':
-    'We provide chat support to help you integrate with your services.'
+  'Tech Support':
+    'Technical assistance for resolving questions and help you integrate the service.',
+  'Contextual Hydratation':
+    'Detection of extra information based on the type of data.'
 }
 
 const Price = styled(Subhead)`
@@ -205,46 +205,18 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
               <PricePicker onChange={priceSelected} />
             ]}
           />
+          <PricingRow children={['Auto Caching', 'everything', 'standard']} />
+          <PricingRow children={['Tech Support', 'community', 'priority']} />
           <PricingRow
             children={[
-              'Request Concurrency',
-              <Fragment>
-                1 <Label display='inline' children='reqs' suffix='/sec' />
-              </Fragment>,
-              '∞'
-            ]}
-          />
-          <PricingRow
-            children={[
-              'Request Caching',
+              'Media Detection',
               <Check size={16} color='#654EA3' />,
               <Check size={16} color='#654EA3' />
             ]}
           />
           <PricingRow
             children={[
-              'Screenshot support',
-              <Check size={16} color='#654EA3' />,
-              <Check size={16} color='#654EA3' />
-            ]}
-          />
-          <PricingRow
-            children={[
-              'Video detection',
-              <Check size={16} color='#654EA3' />,
-              <Check size={16} color='#654EA3' />
-            ]}
-          />
-          <PricingRow
-            children={[
-              'Color Detection',
-              <Check size={16} color='#654EA3' />,
-              <Check size={16} color='#654EA3' />
-            ]}
-          />
-          <PricingRow
-            children={[
-              'Live Support',
+              'Contextual Hydratation',
               <Check size={16} color='#654EA3' />,
               <Check size={16} color='#654EA3' />
             ]}
