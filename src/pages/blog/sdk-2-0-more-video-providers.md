@@ -7,13 +7,13 @@ date: '2018-04-11'
 
 ### Release 2.0
 
-We are happy to introduce the [SDK 2.0](https://docs.microlink.io/sdk), the easiest way to add link previews in your website without effort.
+We are happy to introduce the [SDK 2.0](/docs/sdk), the easiest way to add link previews in your website without effort.
 
-The version 2.0 introduce a breaking change: It removes the `round` property from the [API Parameters](https://docs.microlink.io/sdk/getting-started/api-parameters) that you can pass for customize the card preview.
+The version 2.0 introduce a breaking change: It removes the `round` property from the [API Parameters](/docs/sdk/getting-started/overview/getting-started/api-parameters) that you can pass for customize the card preview.
 
 The property `round` was related with apply a `border-radius` around your preview card.
 
-We decide make this little change in order the reduce the number of configurable [API Parameters](https://docs.microlink.io/sdk/getting-started/api-parameters).
+We decide make this little change in order the reduce the number of configurable [API Parameters](/docs/sdk/getting-started/overview/getting-started/api-parameters).
 
 But you can still extend the default style using CSS.
 
@@ -23,7 +23,7 @@ For example, let's create a link preview for [browserless](https://browserless.j
 
 **React**
 
-Using [@microlink/react](https://docs.microlink.io/sdk/getting-started/react/) just pass your custom CSS as `style` property:
+Using [@microlink/react](/docs/sdk/integrations/react/) just pass your custom CSS as `style` property:
 
 ```jsx
 import Microlink from '@microlink/react'
@@ -35,11 +35,11 @@ import Microlink from '@microlink/react'
 />
 ```
 
-Read more about [styling](https://docs.microlink.io/sdk/getting-started/react/#styling) in documentation.
+Read more about [styling](/docs/sdk/integrations/react/#styling) in documentation.
 
 **Vanilla**
 
-The [vanilla](https://docs.microlink.io/sdk/getting-started/vanilla/) version can apply the custom style using the class names shipped with the component:
+The [vanilla](/docs/sdk/getting-started/overview/getting-started/vanilla/) version can apply the custom style using the class names shipped with the component:
 
 ```js
 <style>
@@ -57,13 +57,13 @@ The [vanilla](https://docs.microlink.io/sdk/getting-started/vanilla/) version ca
 </script>
 ```
 
-Read more about [styling](https://docs.microlink.io/sdk/getting-started/vanilla/#styling) at documentation.
+Read more about [styling](/docs/sdk/getting-started/overview/getting-started/vanilla/#styling) at documentation.
 
 ## Microlink API
 
 ### Video detection
 
-In this product sprint we focused on improving our `video` property added into our [API](https://docs.microlink.io/api/#introduction) in the [previous product brief](/blog/video-support-prerendering-sdk-features).
+In this product sprint we focused on improving our `video` property added into our [API](/docs/api/getting-started/overview) in the [previous product brief](/blog/video-support-prerendering-sdk-features).
 
 We extended the original idea, adding support for detecting more video providers. The most popular internet sites are covered, such as
 

@@ -18,7 +18,7 @@ module.exports = {
     siteUrl: SITE_URL,
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',
-    twitter: '@microlinkio',
+    twitter: '@microlinkhq',
     image: url.resolve(SITE_URL, '/preview.jpg'),
     logo: url.resolve(SITE_URL, '/logo-trim.png'),
     video: url.resolve(SITE_URL, '/preview.mp4'),
@@ -28,7 +28,7 @@ module.exports = {
     dataLabel1: 'API',
     dataLabel2: 'Documentation',
     dataValue1: 'api.microlink.io',
-    dataValue2: 'docs.microlink.io',
+    dataValue2: 'microlink.io/docs',
 
     // additional
     paymentApiKey: PAYMENT_API_KEY,

@@ -11,7 +11,7 @@ date: '2017-12-30'
 
 When you access into a web, normally you need to wait a few milliseconds after all the content is available: Your browser is **prerendering** all the content before you can interact with it.
 
-We use this technique in order to be sure the data we can extract is loaded, using [prerender](https://docs.microlink.io/#prerender) parameter.
+We use this technique in order to be sure the data we can extract is loaded, using [prerender](/docs/#prerender) parameter.
 
 If you wanted to apply this behavior, you had to explicitly do it. This decision was driven because prerender makes response time slow and, in order to guarantee the minimum response time, we disable it by default.
 
@@ -27,7 +27,7 @@ We have made great improvements in infrastructure and now the response time is c
 
 Our pricing now reflects different configurations based on your necessities.
 
-The [authentication](https://docs.microlink.io/#authentication) way for professional plans was updated as well.
+The [authentication](/docs/#authentication) way for professional plans was updated as well.
 
 The free plan is limited to a maximum of **500 requests per day**, with one concurrent request per second.
 

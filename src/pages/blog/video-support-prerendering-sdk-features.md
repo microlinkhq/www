@@ -20,7 +20,7 @@ date: '2018-03-02'
 
 We [finally](https://github.com/microlinkhq/metascraper/pull/56) added support for video 🎉.
 
-Now, the [Microlink API](https://docs.microlink.io/api/#introduction) provides a new field called **video** for identifying streaming sources detected from the target url.
+Now, the [Microlink API](/docs/api/getting-started/overview) provides a new field called **video** for identifying streaming sources detected from the target url.
 
 ### Added auto prerendering mode
 
@@ -43,7 +43,7 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
 ![](https://i.imgur.com/MkuOzT9.gif)
 
 <Figcaption>
-  <Link href='https://docs.microlink.io' children='Microlink SDK' /> now supports video
+  <Link href='/docs' children='Microlink SDK' /> now supports video
   previsualizations.{' '}
   <Link
     href='https://storybook.microlink.io/?selectedKind=Normal&selectedStory=with%20video%20media&full=0&addons=1&stories=1&panelRight=0&addonPanel=kadira%2Fjsx%2Fpanel'
@@ -54,20 +54,20 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
 
 ### Added video support
 
-Because [Microlink API ](https://docs.microlink.io/api/#introduction)can detect video, we use the new field to place the streaming source into our preview cards, via our [SDK](https://docs.microlink.io/sdk/).
+Because [Microlink API ](/docs/api/getting-started/overview)can detect video, we use the new field to place the streaming source into our preview cards, via our [SDK](/docs/sdk/getting-started/overview/).
 
 ![](https://cdn-images-1.medium.com/max/1440/1*PWDop7s7KmmmvccVbULiyA.gif)
 
 <Figcaption>
   video support is included for{' '}
   <Link
-    href='https://docs.microlink.io/sdk/getting-started/api-parameters/#size'
+    href='/docs/sdk/getting-started/overview/getting-started/api-parameters/#size'
     children='normal or large'
   />{' '}
   card sizes.
 </Figcaption>
 
-We added properties to control the video, like [autoplay](https://docs.microlink.io/sdk/getting-started/api-parameters/#autoplay), [muted](https://docs.microlink.io/sdk/getting-started/api-parameters/#muted) or [loop](https://docs.microlink.io/sdk/getting-started/api-parameters/#loop) options.
+We added properties to control the video, like [autoplay](/docs/sdk/getting-started/overview/getting-started/api-parameters/#autoplay), [muted](/docs/sdk/getting-started/overview/getting-started/api-parameters/#muted) or [loop](/docs/sdk/getting-started/overview/getting-started/api-parameters/#loop) options.
 
 ### Smooth image loading
 
@@ -87,17 +87,17 @@ We improved the transition between how the card looks before the content of the 
 <Figcaption>
   Using the new{' '}
   <Link
-    href='https://docs.microlink.io/sdk/getting-started/api-parameters/#reverse'
+    href='/docs/sdk/getting-started/overview/getting-started/api-parameters/#reverse'
     children='reverse'
   />{' '}
   API paramter for invert the media position in the card.
 </Figcaption>
 
-We added the possibility to invert the orientation of the content in the card using a new field called [reverse](https://docs.microlink.io/sdk/getting-started/api-parameters/#reverse).
+We added the possibility to invert the orientation of the content in the card using a new field called [reverse](/docs/sdk/getting-started/overview/getting-started/api-parameters/#reverse).
 
 ## How to update
 
-You’ll need to make sure you have version **1.7.0 or above** of the [Microlink SDK](https://docs.microlink.io).
+You’ll need to make sure you have version **1.7.0 or above** of the [Microlink SDK](/docs).
 
 ### From CDN
 
@@ -113,7 +113,7 @@ The easiest way to consume the frontend library. Just paste the corresponding sc
 <script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/cjs/microlink.min.js"></script>`}</PreCode>
 ```
 
-See more [information](https://docs.microlink.io/sdk/getting-started/vanilla/).
+See more [information](/docs/sdk/getting-started/overview/getting-started/vanilla/).
 
 ### From NPM
 
@@ -127,4 +127,4 @@ If you’re using Microlink from your \`package.json\` then you’ll need to con
 
 <Terminal>npm update @microlink/react@latest</Terminal>
 
-See more [information](https://docs.microlink.io/sdk/getting-started/react/).
+See more [information](/docs/sdk/integrations/react/).

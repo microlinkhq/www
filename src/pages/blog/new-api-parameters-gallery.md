@@ -5,16 +5,16 @@ date: '2018-05-30'
 
 ## Microlink API
 
-[![](https://i.imgur.com/2RNeKiR.png)](https://docs.microlink.io/api)
+[![](https://i.imgur.com/2RNeKiR.png)](/docs/api)
 
 <Figcaption>
-  <Link href='https://docs.microlink.io/api' children='Microlink API' /> examples was improved,
+  <Link href='/docs/api' children='Microlink API' /> examples was improved,
   highlighting the referenced term in each section.
 </Figcaption>
 
 ### User Agent API Parameter
 
-We added a new configurable [User Agent](https://docs.microlink.io/api/#api-parameters/user-agent) as API parameter.
+We added a new configurable [User Agent](/docs/api/api-parameters/user-agent) as API parameter.
 
 Normally you don't need to specify this value but some websites can have a different output based on the incoming request user agent.
 
@@ -22,13 +22,13 @@ For example, is very common websites serve images on [WebP](https://en.wikipedia
 
 ### Video API Parameter
 
-In the [previous](/blog/sdk-2-0-more-video-providers) Product Brief we introduced the first iteration of video support as part of the API supported data [types](https://docs.microlink.io/api/#introduction).
+In the [previous](/blog/sdk-2-0-more-video-providers) Product Brief we introduced the first iteration of video support as part of the API supported data [types](/docs/api/getting-started/overview).
 
-Although it is widely used when you consume the API response using our [SDK](https://docs.microlink.io/sdk/), it can degrade the general user experience, making the response times a bit heavy, specially if you are only interested in the rest of data extracted by the API.
+Although it is widely used when you consume the API response using our [SDK](/docs/sdk/getting-started/overview/), it can degrade the general user experience, making the response times a bit heavy, specially if you are only interested in the rest of data extracted by the API.
 
-We decide leverage the decision in the new [video](https://docs.microlink.io/api/#api-parameters/video) API Parameter, when the default value is \`false\`.
+We decide leverage the decision in the new [video](/docs/api/#api-parameters/video) API Parameter, when the default value is \`false\`.
 
-If you are consuming link previews over the [SDK](https://docs.microlink.io/sdk/), no breaking changes here. Otherwise, keep in mind you need to pass it to have the same effect as until now.
+If you are consuming link previews over the [SDK](/docs/sdk/getting-started/overview/), no breaking changes here. Otherwise, keep in mind you need to pass it to have the same effect as until now.
 
 ## Metascraper v3.11
 
@@ -44,7 +44,7 @@ Some significant changes since the last time have been:
 - **Add rules parameter support** doing possible load specific [rules](https://metascraper.js.org/#/?id=rules-1) out of the box.
 - **Exported core validators** making possible [reuse](https://github.com/microlinkhq/metascraper/pull/89) them and creating consistent third party rules set.
 
-This changes has been deployed at [Microlink API](https://docs.microlink.io/api), adding support for a new shiny functionality called **Custom Rules**: The ability to tell the API new rules to extract new data.
+This changes has been deployed at [Microlink API](/docs/api), adding support for a new shiny functionality called **Custom Rules**: The ability to tell the API new rules to extract new data.
 
 We are preparing a new post explaining how to do that, staty stunned 🤘.
 

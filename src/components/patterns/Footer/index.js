@@ -103,15 +103,15 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='https://docs.microlink.io/api/#introduction'
+            href='/docs/api/getting-started/overview'
             children='API'
           />
           <LinkSolid
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='https://microlinkhq.checklyhq.com'
-            children='Status Page'
+            href='https://status.microlink.io'
+            children='Status'
           />
           <LinkSolid
             fontSize={[0, 1]}
@@ -135,7 +135,7 @@ export default props => (
             fontSize={[0, 1]}
             mr={2}
             mb={[0, 3]}
-            href='https://docs.microlink.io/sdk/'
+            href='/docs/sdk/getting-started/overview/'
             children='SDK'
           />
           <LinkSolid
