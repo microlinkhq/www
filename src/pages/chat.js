@@ -7,9 +7,10 @@ import { Microlink, Slack } from 'components/logos'
 
 const LOGO_SIZE = 60
 const PLUS_SIZE = LOGO_SIZE * 0.35
+const TITLE = 'Chat'
 
 export default () => (
-  <Layout title='Chat'>
+  <Layout title={TITLE}>
     <Container width='100vh'>
       <Subhead py={5}>Come Chat with Us</Subhead>
       <Flex alignItems='center' justifyContent='center'>

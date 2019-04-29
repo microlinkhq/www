@@ -14,7 +14,7 @@ export default ({ large }) => {
   return (
     <Flex justifyContent='center' mx='auto'>
       <iframe
-        title='chat'
+        title='Chat'
         frameBorder='0'
         target='_parent'
         src={iframeUrl}
