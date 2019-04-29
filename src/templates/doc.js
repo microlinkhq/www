@@ -2,7 +2,6 @@ import { Link, Text, Flex, Container } from 'components/elements'
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import formatDate from 'date-fns/format'
-import Head from 'components/Head'
 import React from 'react'
 
 const ROUTES_SDK = [
