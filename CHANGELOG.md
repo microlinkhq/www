@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.48](https://github.com/microlink/microlink-www/compare/v2.2.47...v2.2.48) (2019-04-30)
+
+
+### Bug Fixes
+
+* add id ([342c66d](https://github.com/microlink/microlink-www/commit/342c66d))
+* add link ([48084af](https://github.com/microlink/microlink-www/commit/48084af))
+* use correct headers ([0ea0f10](https://github.com/microlink/microlink-www/commit/0ea0f10))
+
+
+
 ## [2.2.47](https://github.com/microlink/microlink-www/compare/v2.2.46...v2.2.47) (2019-04-30)
 
 
