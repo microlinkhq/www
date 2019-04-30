@@ -1,20 +1,27 @@
 import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Box, Subhead, CodeEditor, Link, LinkSolid } from 'components/elements'
+import { Box, Link, LinkSolid } from 'components/elements'
+import { Story } from 'story'
 
 const buttons = [
   { name: 'Link', Component: Link },
   { name: 'LinkSolid', Component: LinkSolid }
 ]
+
 const states = [null, 'hover']
 
-storiesOf('Elements', module).add('Links', () => (
+const createCode = name => `
+import { ${name} } from 'components/elements'
+
+export default () => (
+  <${name}>Click my site</${name}>
+)
+`
+
+storiesOf('Elements', module).add('Link', () => (
   <Fragment>
     {buttons.map(({ name, Component }) => (
-      <Box key={name} mb={5}>
-        <Subhead textAlign='left' mb={3}>
-          {`<${name} />`}
-        </Subhead>
+      <Story key={name} name={name} code={createCode(name)}>
         {states.map(state => (
           <Box key={state} display={['block', 'inline']} pr={3} pb={3}>
             <Component
@@ -27,14 +34,7 @@ storiesOf('Elements', module).add('Links', () => (
             </Component>
           </Box>
         ))}
-        <CodeEditor my={4} language='jsx'>{`
-import { ${name} } from 'components/elements'
-
-export default () => (
-  <${name}>${name}</${name}>
-)
-`}</CodeEditor>
-      </Box>
+      </Story>
     ))}
   </Fragment>
 ))

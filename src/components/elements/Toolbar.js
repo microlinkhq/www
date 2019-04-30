@@ -2,7 +2,7 @@ import { layout } from 'theme'
 import styled from 'styled-components'
 import Flex from './Flex'
 
-export const TOOLBAR_SIZE = '67px'
+export const TOOLBAR_HEIGHT = '67px'
 
 const Toolbar = styled(Flex)({
   overflowX: 'auto',
@@ -16,7 +16,7 @@ Toolbar.defaultProps = {
   bg: 'white',
   display: 'flex',
   px: 0,
-  height: TOOLBAR_SIZE,
+  height: TOOLBAR_HEIGHT,
   maxWidth: layout
 }
 

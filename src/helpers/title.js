@@ -1,26 +1,30 @@
 import title from 'title'
 
 const special = [
-  'SDK',
-  'CLI',
   'API',
+  'CDN',
+  'CI',
+  'CLI',
+  'options',
+  'cache',
+  'retry',
+  'timeout',
+  'apiKey',
+  'CSS',
+  'url',
+  'DNS',
+  'GitHub',
+  'HTML',
   'HTTP',
   'HTTPS',
-  'JSX',
-  'DNS',
-  'URL',
-  'CI',
-  'CDN',
-  'package.json',
-  'GitHub',
-  'CSS',
+  'JavaScript',
   'JS',
-  'JavaScript',
+  'JSX',
+  'Node.js',
+  'package.json',
+  'SDK',
   'TypeScript',
-  'HTML',
-  'WordPress',
-  'JavaScript',
-  'Node.js'
+  'WordPress'
 ]
 
 export default str => title(str, { special })

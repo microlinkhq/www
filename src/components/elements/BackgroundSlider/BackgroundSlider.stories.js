@@ -1,10 +1,8 @@
-import React, { Fragment } from 'react'
-
+import React from 'react'
+import { Story } from 'story'
 import { storiesOf } from '@storybook/react'
 import styled from 'styled-components'
 import {
-  CodeEditor,
-  Subhead,
   Flex,
   Box,
   BackgroundSlider,
@@ -40,37 +38,7 @@ LogoWrap.defaultProps = {
   px: 4
 }
 
-const Component = (
-  <BackgroundSliderContainer as='article' py={0} px={0} maxWidth='100%'>
-    <BackgroundSlider duration={80} animationDirection={'reverse'}>
-      {range(30).map(index => (
-        <LogoWrap key={index}>
-          <Microlink />
-        </LogoWrap>
-      ))}
-    </BackgroundSlider>
-    <BackgroundSlider duration={80} animationDirection={'normal'}>
-      {range(30).map(index => (
-        <LogoWrap key={index}>
-          <Microlink />
-        </LogoWrap>
-      ))}
-    </BackgroundSlider>
-    <BackgroundSlider duration={80} animationDirection={'reverse'}>
-      {range(30).map(index => (
-        <LogoWrap key={index}>
-          <Microlink />
-        </LogoWrap>
-      ))}
-    </BackgroundSlider>
-  </BackgroundSliderContainer>
-)
-
-storiesOf('Elements', module).add('BackgroundSlider', () => (
-  <Fragment>
-    <Subhead textAlign='left' mb={3}>{`<BackgroundSlider />`}</Subhead>
-    {Component}
-    <CodeEditor my={4} language='jsx'>{`
+const code = `
 import {
   BackgroundSliderContainer,
   BackgroundSlider,
@@ -88,7 +56,32 @@ export default () => (
       <Microlink />
     </BackgroundSlider>
   </BackgroundSliderContainer>
-)
-`}</CodeEditor>
-  </Fragment>
+)`
+
+storiesOf('Elements', module).add('BackgroundSlider', () => (
+  <Story name='BackgroundSlider' code={code}>
+    <BackgroundSliderContainer as='article' py={0} px={0} maxWidth='100%'>
+      <BackgroundSlider duration={80} animationDirection={'reverse'}>
+        {range(30).map(index => (
+          <LogoWrap key={index}>
+            <Microlink />
+          </LogoWrap>
+        ))}
+      </BackgroundSlider>
+      <BackgroundSlider duration={80} animationDirection={'normal'}>
+        {range(30).map(index => (
+          <LogoWrap key={index}>
+            <Microlink />
+          </LogoWrap>
+        ))}
+      </BackgroundSlider>
+      <BackgroundSlider duration={80} animationDirection={'reverse'}>
+        {range(30).map(index => (
+          <LogoWrap key={index}>
+            <Microlink />
+          </LogoWrap>
+        ))}
+      </BackgroundSlider>
+    </BackgroundSliderContainer>
+  </Story>
 ))

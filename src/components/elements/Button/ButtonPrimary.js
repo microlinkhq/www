@@ -1,22 +1,38 @@
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
+import { lighten } from 'polished'
 
-import Button from './ButtonBase'
+import ButtonBase from './ButtonBase'
+
+const hoverStyle = createCssState({
+  selector: '&:hover:not([disabled])',
+  state: 'hover',
+  css: css`
+    background-color: ${({ theme }) => theme.colors.link};
+    box-shadow: 0 2px 15px ${({ theme }) => lighten(0.15, theme.colors.link)};
+    opacity: 0.8;
+    color: ${({ theme }) => theme.colors.white};
+  `
+})
 
 const disabledStyle = createCssState({
   selector: '&:disabled',
   state: 'disabled',
   css: css`
-    opacity: 0.8;
+    background-color: ${({ theme }) => theme.colors.white90};
+    color: ${({ theme }) => theme.colors.black50};
+    cursor: not-allowed;
   `
 })
 
-const ButtonPrimary = styled(Button)`
-  ${disabledStyle};
-`
+const Button = styled(ButtonBase)(hoverStyle, disabledStyle)
 
-ButtonPrimary.defaultProps = {
-  ...Button.defaultProps
+Button.propTypes = {
+  ...ButtonBase.propTypes
 }
 
-export default ButtonPrimary
+Button.defaultProps = {
+  ...ButtonBase.defaultProps
+}
+
+export default Button

@@ -1,12 +1,18 @@
-import React, { Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import styled, { css } from 'styled-components'
 import Microlink from '@microlink/react'
 import ReactJson from 'react-json-view'
+import CodeCopy from 'react-codecopy'
+import { serializeComponent } from 'helpers'
 
 import { lineHeights, fontSizes, fonts, colors } from 'theme'
-import { Hide, Box } from 'components/elements'
-
 import { CARD_WIDTH_DESKTOP, CARD_WIDTH_MOBILE } from './theme'
+import { Text, Select, Flex, Hide, Box } from 'components/elements'
+
+import { LiveProvider, LiveEditor } from '../LiveCode'
+import EDITOR from './editor'
+
+const EDITORS = Object.keys(EDITOR)
 
 const JSON_THEME = {
   base00: 'white',
@@ -27,6 +33,32 @@ const JSON_THEME = {
   base0F: colors.secondary
 }
 
+const SelectLanguage = ({ children, value, onChange, ...props }) => {
+  return (
+    <Select
+      value={value}
+      onChange={event => {
+        event.preventDefault()
+        const language = event.target.value
+        onChange(language)
+      }}
+      {...props}
+    >
+      {children.map(language => {
+        return (
+          <option
+            key={language}
+            children={language}
+            fontSize={0}
+            fontWeight='regular'
+            mr={2}
+          />
+        )
+      })}
+    </Select>
+  )
+}
+
 const cardCss = cardWidth => css`
   border: 0 !important;
   .microlink_card__media,
@@ -37,7 +69,7 @@ const cardCss = cardWidth => css`
     background-repeat: no-repeat;
   }
   .microlink_card__content {
-    flex: 0 0 105px;
+    flex: 0 0 140px;
   }
 
   .microlink_card__content_description,
@@ -60,42 +92,106 @@ const JSONViewer = styled(Box)`
   line-height: ${lineHeights[3]};
 `
 
-export default ({ preview, loading, children }) => {
-  const url = children ? children.url : undefined
+const CustomCodeCopy = styled(CodeCopy)`
+  position: inherit;
+  right: 0px;
+  top: -2px;
+  margin-left: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background: white;
+  box-shadow: ${({ theme }) => theme.shadows[1]};
+  border: 0;
+`
 
-  return preview === 'SDK' ? (
+const CodePreview = ({ children }) => {
+  const [{ editorLang }, setState] = useState({ editorLang: 'React' })
+  const editor = EDITOR[editorLang]
+  const code = editor(children)
+
+  return (
     <Fragment>
-      <Hide breakpoints={[0, 1]}>
-        <MicrolinkCardDesktop
-          url={url}
-          loading={loading}
-          size='large'
-          noFetch
-          setData={children}
-        />
-      </Hide>
-      <Hide breakpoints={[2, 3]}>
-        <MicrolinkCardMobile
-          url={url}
-          loading={loading}
-          size='large'
-          noFetch
-          setData={children}
-        />
-      </Hide>
+      <Flex flexDirection='column'>
+        <Flex
+          as='header'
+          css={`
+            align-self: flex-end;
+            position: sticky;
+            top: 0;
+            right: 0;
+            z-index: 1;
+
+            div {
+              position: inherit;
+            }
+          `}
+        >
+          <Text ml={1} fontSize={0}>
+            <SelectLanguage
+              mx='auto'
+              width={'4.5rem'}
+              mb={2}
+              bg='white'
+              children={EDITORS}
+              value={editorLang}
+              onChange={editorLang => setState({ editorLang })}
+            />
+          </Text>
+          <CustomCodeCopy interactive text={serializeComponent(code)} />
+        </Flex>
+
+        <Box px={2}>
+          <LiveProvider language={editor.language} code={code} disabled>
+            <LiveEditor />
+          </LiveProvider>
+        </Box>
+      </Flex>
     </Fragment>
-  ) : (
-    <JSONViewer>
-      <ReactJson
-        theme={JSON_THEME}
-        collapseStringsAfterLength={18}
-        indentWidth={4}
-        enableClipboard={false}
-        displayDataTypes={false}
-        displayObjectSize={false}
-        name={null}
-        src={children}
-      />
-    </JSONViewer>
   )
+}
+
+const CardPreview = ({ loading, children }) => (
+  <Fragment>
+    <Hide breakpoints={[0, 1]}>
+      <MicrolinkCardDesktop
+        url={children.url}
+        loading={loading}
+        size='large'
+        noFetch
+        setData={children}
+      />
+    </Hide>
+    <Hide breakpoints={[2, 3]}>
+      <MicrolinkCardMobile
+        url={children.url}
+        loading={loading}
+        size='large'
+        noFetch
+        setData={children}
+      />
+    </Hide>
+  </Fragment>
+)
+
+const JSONPreview = ({ children }) => (
+  <JSONViewer>
+    <ReactJson
+      theme={JSON_THEME}
+      collapseStringsAfterLength={18}
+      indentWidth={4}
+      enableClipboard={false}
+      displayDataTypes={false}
+      displayObjectSize={false}
+      name={null}
+      src={children}
+    />
+  </JSONViewer>
+)
+
+export default ({ view, ...props }) => {
+  if (view === 'preview') return <CardPreview {...props} />
+  if (view === 'json') return <JSONPreview {...props} />
+  if (view === 'code') return <CodePreview {...props} />
 }

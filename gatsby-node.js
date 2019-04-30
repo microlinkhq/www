@@ -3,7 +3,21 @@
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require('path')
 
-exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
+const { getLastModifiedDate } = require('git-jiggy')
+
+const getLastEdited = async filepath => {
+  let date
+
+  try {
+    date = await getLastModifiedDate(filepath)
+  } catch (err) {
+    date = new Date().toISOString()
+  }
+
+  return date
+}
+
+exports.onCreateWebpackConfig = ({ getConfig, loaders, stage, actions }) => {
   if (stage === 'build-html') {
     actions.setWebpackConfig({
       module: {
@@ -40,49 +54,50 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 }
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  return new Promise((resolve, reject) => {
-    resolve(
-      graphql(
-        `
-          {
-            allMarkdownRemark {
-              edges {
-                node {
-                  fields {
-                    slug
-                  }
-                  frontmatter {
-                    title
-                    date
-                  }
-                }
+  const result = await graphql(
+    `
+      {
+        allMarkdownRemark {
+          edges {
+            node {
+              fileAbsolutePath
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+                date
               }
             }
           }
-        `
-      ).then(result => {
-        if (result.errors) {
-          console.log(result.errors)
-          reject(result.errors)
         }
+      }
+    `
+  )
 
-        // Create markdown pages
-        return Promise.all(
-          result.data.allMarkdownRemark.edges.map(({ node }) =>
-            createPage({
-              path: node.fields.slug,
-              component: path.resolve(`./src/templates/page.js`),
-              context: {
-                isBlogPost: node.fields.slug.startsWith('/blog/'),
-                slug: node.fields.slug
-              }
-            })
-          )
-        )
+  if (result.errors) {
+    console.log(result.errors)
+    throw result.errors
+  }
+
+  return Promise.all(
+    result.data.allMarkdownRemark.edges.map(async ({ node }) => {
+      return createPage({
+        path: node.fields.slug,
+        component: path.resolve(`./src/templates/index.js`),
+        context: {
+          githubUrl:
+            `https://github.com/microlinkhq/www/blob/master` +
+            node.fileAbsolutePath.replace(process.cwd(), ''),
+          lastEdited: await getLastEdited(node.fileAbsolutePath),
+          isBlogPage: node.fields.slug.startsWith('/blog/'),
+          isDocPage: node.fields.slug.startsWith('/docs/'),
+          slug: node.fields.slug
+        }
       })
-    )
-  })
+    })
+  )
 }

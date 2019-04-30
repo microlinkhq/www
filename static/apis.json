@@ -1,6 +1,6 @@
 {
   "name": "microlink.io",
-  "description": "Turns any link into information.",
+  "description": "Turn websites into data",
   "image": "https://microlink.io/logo.png",
   "url": "http://microlink.io/apis.json",
   "tags": [
@@ -16,9 +16,9 @@
   "apis": [
     {
 	      "name": "microlink",
-	      "description": "Turns any link into information",
+	      "description": "Turn websites into data",
 	      "image": "https://microlink.io/logo.png",
-        "humanURL": "https://docs.microlink.io",
+        "humanURL": "https://microlink.io/docs",
         "baseURL": "https://api.microlink.io",
 	      "tags": [
           "API",
@@ -37,21 +37,20 @@
 	        },
 	        {
 	          "type": "X-docs",
-	          "url": "https://docs.microlink.io"
+	          "url": "https://microlink.io/docs"
 	        }
 	      ],
 	      "contact": [
 	        {
 	          "FN": "Microlink HQ",
 	          "email": "hello@microlink.io",
-	          "X-twitter": "microlinkio"
+	          "X-twitter": "microlinkhq"
 	        }
 	      ]
 	    }
   ],
   "created": "2017-10-10",
-  "modified": "2017-10-10",
-  "url": "http://microlink.io/apis.json",
+  "modified": "2019-29-04",
   "specificationVersion": "1.0",
   "maintainers": [
     {

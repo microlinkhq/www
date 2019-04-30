@@ -4,33 +4,39 @@ import { Link, LinkSolid } from './Link'
 import Avatar from './Avatar'
 import BlockLink from './BlockLink'
 import Box from './Box'
-import Caps from './Caps'
+
 import Card from './Card'
 import Checkout from './Checkout'
 import CodeEditor from './CodeEditor'
+import MultiCodeEditor from './MultiCodeEditor'
 import Container from './Container'
 import { Fixed } from './Position'
 import Flex from './Flex'
-import Heading from './Heading'
+
 import Hide from './Hide'
 import Image from './Image'
 import Input from './Input'
-import Label from './Label'
-import Lead from './Lead'
-import NavLink from './NavLink'
+
 import Notification from './Notification'
 import PricePicker from './PricePicker'
 import SearchBox from './SearchBox'
 import Select from './Select'
 import Spinner from './Spinner'
-import Subhead from './Subhead'
+
 import Svg from './Svg'
 import Terminal from './Terminal'
-import Text from './Text'
+
 import Toolbar from './Toolbar'
 import Tooltip from './Tooltip'
+import Toggle from './Toggle'
 import Form from './Form'
 import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
+
+import Caps from './Typography/Caps'
+import Heading from './Typography/Heading'
+import Label from './Typography/Label'
+import Subhead from './Typography/Subhead'
+import Text from './Typography/Text'
 
 export {
   Avatar,
@@ -54,10 +60,9 @@ export {
   Image,
   Input,
   Label,
-  Lead,
+  MultiCodeEditor,
   Link,
   LinkSolid,
-  NavLink,
   Notification,
   PricePicker,
   SearchBox,
@@ -67,6 +72,7 @@ export {
   Svg,
   Terminal,
   Text,
+  Toggle,
   Toolbar,
   Tooltip
 }

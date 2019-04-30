@@ -1,10 +1,10 @@
-import { Flex, Toolbar } from 'components/elements'
+import { Flex } from 'components/elements'
 import styled from 'styled-components'
 
-const { TOOLBAR_SIZE } = Toolbar
+import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 
 const NavContainer = styled(Flex)`
-  height: ${TOOLBAR_SIZE};
+  height: ${TOOLBAR_HEIGHT};
   overflow-x: auto;
   overflow-y: hidden;
 `

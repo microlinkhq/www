@@ -1,17 +1,7 @@
-import ReactDOM from 'react-dom'
 import React, { Component } from 'react'
-import is from 'styled-is'
 import styled from 'styled-components'
-
-import {
-  ButtonSecondary,
-  Card as CardBase,
-  Flex,
-  Box
-} from 'components/elements'
-import { fonts, colors, transition } from 'theme'
-import { LiveProvider, LiveEditor } from '../LiveCode'
-import EDITOR from './editor'
+import { Card as CardBase, Flex, Text } from 'components/elements'
+import { colors } from 'theme'
 import Preview from './preview'
 
 import {
@@ -20,8 +10,6 @@ import {
   CARD_WIDTH_MOBILE,
   CARD_HEIGHT_MOBILE
 } from './theme'
-
-const EDITORS = Object.keys(EDITOR)
 
 const Card = styled(CardBase)`
   &&& {
@@ -36,126 +24,66 @@ const Card = styled(CardBase)`
     }
   }
 `
-const SwitchButton = styled(ButtonSecondary)`
-  &&& {
-    box-shadow: none;
-    font-family: ${fonts.mono};
-    cursor: pointer;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 100px;
-    letter-spacing: 0.25px;
-    transition: color background-color ${transition.short};
-    color: ${colors.gray9};
-    background-color: ${colors.black05};
 
-    &:focus {
-      box-shadow: none;
-    }
+const CardOption = ({ children, value, ...props }) => (
+  <Text
+    color={children === value ? 'black' : 'gray8'}
+    pt={3}
+    pr={2}
+    fontSize={0}
+    textAlign='right'
+    css={`
+      ${children !== value && 'cursor: pointer;'};
+      transition: color ${({ theme }) => theme.transition.short};
 
-    &:hover:not([disabled]) {
-      opacity: 1;
-    }
-
-    ${is('active')`
-    color: ${colors.white};
-    background-color: ${colors.link};
-  `};
-  }
-`
-
-const Switch = ({ children, active, onChange }) => (
-  <Box py={2} px={'20px'} maxWidth={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}>
-    {children.map(language => {
-      const isActive = active === language
-      return (
-        <SwitchButton
-          active={isActive}
-          key={language}
-          children={language}
-          fontSize={0}
-          fontWeight='regular'
-          mr={2}
-          mb={'12px'}
-          onClick={event => {
-            event.preventDefault()
-            onChange(language)
-          }}
-        />
-      )
-    })}
-  </Box>
+      &:hover {
+        color: ${({ theme }) => theme.colors.black};
+      }
+    `}
+    {...props}
+  >
+    {children}
+  </Text>
 )
 
 export default class extends Component {
-  state = { editor: 'React', preview: 'SDK' }
-
-  componentDidUpdate () {
-    if (this.node) ReactDOM.findDOMNode(this.node).scrollTop = 0
-  }
+  state = { view: 'preview' }
 
   render () {
-    const { editor: editorLang, preview } = this.state
+    const { view } = this.state
     const { children, loading } = this.props
-    const editor = EDITOR[editorLang]
-    const code = loading ? 'Fetching content...' : editor(children)
-    const isSDK = preview === 'SDK'
+    const isSDK = view === 'preview'
 
     return (
-      <Flex
-        flexDirection={['column', 'row']}
-        justifyContent='space-around'
-        alignItems='flex-start'
-      >
-        <LiveProvider language='json' code={code} disabled>
-          <Flex flexDirection='column'>
-            <Card
-              px={'20px'}
-              py={'25px'}
-              width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
-              height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
-            >
-              <LiveEditor
-                contentEditable={false}
-                language={editor.language || 'js'}
-                style={{
-                  wordWrap: 'break-word',
-                  whiteSpace: editor.whiteSpace || 'pre'
-                }}
-              />
-            </Card>
-            <Flex mt={3}>
-              <Switch
-                children={EDITORS}
-                active={this.state.editor}
-                onChange={editor => this.setState({ editor })}
-              />
-            </Flex>
+      <Flex flexDirection={'column'} justifyContent='space-around'>
+        <Flex id='preview' flexDirection='column' mb={[4, 0]}>
+          <Card
+            px={isSDK ? 0 : 3}
+            py={isSDK ? 0 : 3}
+            width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
+            height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
+            style={{ overflow: isSDK ? 'hidden' : 'auto' }}
+          >
+            <Preview loading={loading} view={view} children={children} />
+          </Card>
+          <Flex justifyContent='flex-end'>
+            <CardOption
+              children='preview'
+              value={view}
+              onClick={() => this.setState({ view: 'preview' })}
+            />
+            <CardOption
+              children='json'
+              value={view}
+              onClick={() => this.setState({ view: 'json' })}
+            />
+            <CardOption
+              children='code'
+              value={view}
+              onClick={() => this.setState({ view: 'code' })}
+            />
           </Flex>
-          <Flex flexDirection='column' mb={[4, 0]}>
-            <Card
-              ref={node => (this.node = node)}
-              px={isSDK ? 0 : '20px'}
-              py={isSDK ? 0 : '25px'}
-              width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
-              height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
-              style={{ overflow: isSDK ? 'hidden' : 'auto' }}
-            >
-              <Preview
-                loading={loading}
-                preview={preview}
-                children={children}
-              />
-            </Card>
-            <Flex mt={3}>
-              <Switch
-                children={['SDK', 'JSON']}
-                active={this.state.preview}
-                onChange={preview => this.setState({ preview })}
-              />
-            </Flex>
-          </Flex>
-        </LiveProvider>
+        </Flex>
       </Flex>
     )
   }

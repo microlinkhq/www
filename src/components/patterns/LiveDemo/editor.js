@@ -8,22 +8,21 @@ const createApiUrl = props => {
 const React = ({ url }) =>
   `import MicrolinkCard from '@microlink/react'
 
-  <MicrolinkCard
-    url='${url}'
-    size='large'
-    video
-  />
-`.trim()
+<MicrolinkCard
+  url='${url}'
+  size='large'
+  video
+/>`
 
 React.language = 'jsx'
 
-const cURL = props => `$ curl "${createApiUrl(props)}"`.trim()
+const cURL = props => `$ curl "${createApiUrl(props)}"`
 
-cURL.whiteSpace = 'pre-line'
+cURL.language = 'bash'
 
 const HTML = ({ url }) =>
   `<!-- Microlink SDK Vanilla/UMD bundle -->
-<script src="//cdn.jsdelivr.net/npm/@microlink/vanilla@latest/umd/microlink.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/@microlink/vanilla/umd/microlink.min.js"></script>
 
 <!-- Replace all elements with \`link-preview\` class -->
 <script>
@@ -33,29 +32,27 @@ const HTML = ({ url }) =>
       video: true
     })
   })
-</script>
-`.trim()
+</script>`
 
 HTML.language = 'html'
 
 const Nodejs = props =>
-  `
-'use strict'
-
-const mql = require('@microlink/mql')
+  `const mql = require('@microlink/mql')
 
 const url = '${props.url}'
-const { status, data } = await mql(url)
-console.log(data)
-`.trim()
+
+const { status, data } = await mql(url)`
+
+Nodejs.language = 'javascript'
 
 const Ruby = props =>
   `require('httparty')
 
 response = HTTParty.get('${createApiUrl(props)}')
 
-puts response.body
-`
+puts response.body`
+
+Ruby.language = 'ruby'
 
 const PHP = props =>
   `<?php
@@ -83,8 +80,9 @@ if ($err) {
   echo $response;
 }
 
-?>
-`
+?>`
+
+PHP.language = 'php'
 
 const Go = props =>
   `package main
@@ -143,16 +141,18 @@ type ImageURL struct {
   BackgroundColor  string   \`json:"background_color,omitempty"\`
   AlternativeColor string   \`json:"alternative_color,omitempty"\`
   Color            string   \`json:"color,omitempty"\`
-}
-`
+}`
+
+Go.language = 'go'
 
 const Python = props =>
   `import requests
 
 url = '${createApiUrl(props)}'
 response = requests.request("GET", url)
-print(response.text)
-`
+print(response.text)`
+
+Python.language = 'python'
 
 const Swift = props =>
   `import Foundation
@@ -174,13 +174,16 @@ let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, 
   }
 })
 
-dataTask.resume()
-`
+dataTask.resume()`
+
+Swift.language = 'swift'
 
 const Java = props =>
-  `HttpResponse<String> response = Unirest.get('${createApiUrl(props)}')
-.asString();
-`
+  `HttpResponse<String> response = Unirest.get('${createApiUrl(
+    props
+  )}').asString();`
+
+Java.language = 'java'
 
 export default {
   React,

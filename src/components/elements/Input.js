@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { colors } from 'theme'
-import Text from './Text'
+import Text from './Typography/Text'
 
 const Input = styled(Text)(
   {

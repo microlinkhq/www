@@ -36,7 +36,10 @@ const flattened = Object.keys(palette).reduce((a, key) => {
 export const colors = Object.assign({}, flattened, {
   secondary: '#EA407B',
   primary: '#303A52',
+  pinky: 'rgb(252, 250, 255)',
+  pinkest: 'rgb(246, 237, 250)',
   link: '#067df7',
+  border: 'rgba(0,0,0,.035)',
   black: '#000',
   black90: 'rgba(0,0,0,.9)',
   black80: 'rgba(0,0,0,.8)',
@@ -149,6 +152,8 @@ export const boxStyle = {
 
 export const layout = [1024, 1024, 1024]
 
+export const letterSpacings = [0, '0.05em', '0.1em', '0.25em']
+
 export default {
   breakpoints,
   boxStyle,
@@ -164,5 +169,6 @@ export default {
   shadows,
   space,
   textStyle,
-  transition
+  transition,
+  letterSpacings
 }

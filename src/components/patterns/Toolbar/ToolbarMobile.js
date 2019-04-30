@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { NavLink, Box, Fixed, Toolbar } from 'components/elements'
+import { Box, Fixed, Toolbar } from 'components/elements'
 import { Microlink } from 'components/logos'
-import { smoothScroll } from 'helpers'
 import styled from 'styled-components'
 
 import NavContainer from './NavContainer'
+import NavLink from './NavLink'
 
 const Nav = styled(NavContainer)`
   mask-image: -webkit-linear-gradient(
@@ -66,32 +66,17 @@ export default class extends Component {
             >
               <Microlink />
             </NavLink>
-            <Nav as='nav'>
-              <NavLink
-                prefetch={false}
-                px={2}
-                children='Features'
-                href='/#features'
-                onClick={smoothScroll('features')}
-              />
-              <NavLink
-                prefetch={false}
-                px={2}
-                children='Pricing'
-                href='/#pricing'
-                onClick={smoothScroll('pricing')}
-              />
-              <NavLink px={2} children='Blog' actively href='/blog' />
+            <Nav as='nav' width='240px'>
+              <NavLink px={2} children='Features' href='/#features' />
+              <NavLink px={2} children='Pricing' href='/#pricing' />
+              <NavLink px={2} children='Blog' href='/blog' actively='partial' />
               <NavLink
                 px={2}
                 children='Docs'
-                href='https://docs.microlink.io'
+                href='/docs/sdk/getting-started/overview/'
+                actively='partial'
               />
-              <NavLink
-                px={2}
-                children='Chat'
-                href='https://chat.microlink.io'
-              />
+              <NavLink px={2} children='Chat' href='/chat' actively />
             </Nav>
           </Toolbar>
         </Box>

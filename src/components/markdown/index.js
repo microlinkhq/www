@@ -1,15 +1,20 @@
-import React from 'react'
+import { space, fontSizes, colors } from 'theme'
 import styled, { css } from 'styled-components'
-import { get } from 'helpers'
 import { withSlug } from 'helpers/hoc'
-import { fontWeights, space, fontSizes, fonts, colors } from 'theme'
+import MDX from 'mdx-scoped-runtime'
+import slug from 'remark-slug'
+import { get } from 'lodash'
+import React from 'react'
+
 import {
   Terminal as TerminalBase,
   CodeEditor,
+  MultiCodeEditor as MultiCodeEditorBase,
   Box,
   Heading,
   Text,
   Link,
+  Label,
   Image as ImageBase
 } from 'components/elements'
 
@@ -41,11 +46,13 @@ const withContainer = (ChildComponent, containerProps = {}) => props => (
   </Box>
 )
 
-export { Link }
+export { Label, Link }
 
 export const Microlink = withContainer(MicrolinkBase)
 
 export const Terminal = withContainer(TerminalBase)
+
+export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
 export const H1 = withSlug(styled(Heading)([]))
 
@@ -163,6 +170,7 @@ export const Paraph = props => {
 }
 
 Paraph.defaultProps = {
+  as: 'div',
   mx: 'auto',
   ...CONTAINER_SPACE
 }
@@ -204,10 +212,11 @@ Li.defaultProps = {
 }
 
 const codeStyle = css`
-  color: ${colors.secondary};
-  font-family: ${fonts.mono};
-  font-weight: ${fontWeights.regular};
+  color: ${({ theme }) => theme.colors.pink7};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   font-size: 90% !important;
+  text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
 `
 
 export const CodeInline = styled(Text)`
@@ -269,7 +278,7 @@ export const Blockquote = styled.blockquote`
   color: ${colors.gray8};
 `
 
-export default {
+const mdComponents = {
   p: Paraph,
   strong: Strong,
   ul: Ul,
@@ -287,3 +296,37 @@ export default {
   blockquote: Blockquote,
   img: Image
 }
+
+const ScopedComponents = {
+  Blockquote,
+  Code,
+  CodeInline,
+  Figcaption,
+  H1,
+  H2,
+  H2Link,
+  H3,
+  H4,
+  H5,
+  H6,
+  Image,
+  Label,
+  Li,
+  Link,
+  Microlink,
+  MultiCodeEditor,
+  Ol,
+  Paraph,
+  Strong,
+  Terminal,
+  Ul
+}
+
+export default props => (
+  <MDX
+    components={mdComponents}
+    scope={ScopedComponents}
+    mdPlugins={[slug]}
+    {...props}
+  />
+)

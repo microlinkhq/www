@@ -5,6 +5,7 @@ import { createCssState } from 'helpers/style'
 import { transition } from 'theme'
 
 import Microlink from './Microlink'
+import Slack from './Slack'
 
 const style = css`
   .logo {
@@ -1171,6 +1172,7 @@ const TNW = styled(TNWBase)`
 `
 
 export { Microlink }
+export { Slack }
 
 export { Amazon }
 export { Apple }

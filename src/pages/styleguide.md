@@ -101,7 +101,7 @@ Months ago I created [Fink](http://xn--rn8h.ws/), a URL Shortener service that I
 ![](http://placekitten.com/1200/800)
 
 
-<Figcaption children='This text is the caption for the image' />
+<Figcaption children='This text is the caption for the image.' />
 
 #### **Linkable Image**
 

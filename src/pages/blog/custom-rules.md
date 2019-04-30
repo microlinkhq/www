@@ -4,7 +4,7 @@ image: 'https://i.imgur.com/3yy4kDD.png'
 date: '2018-05-31'
 --- 
 
-The [Microlink API](https://docs.microlink.io/api/#introduction) is used for extracting information from **any** link.
+The [Microlink API](/docs/api/getting-started/overview) is used for extracting information from **any** link.
 
 Just enter an URL and you will receive data.
 
@@ -24,7 +24,7 @@ Imagine you want ot interact with an Instagram profile url, like [@elonmusk](htt
 
 <Figcaption>A website is just an interface for a database, let's convert the web into real data 🤘.</Figcaption>
 
-By using [Microlink API](https://docs.microlink.io/api/#introduction) we can obtain well structured and normalized data from any Instagram URL:
+By using [Microlink API](/docs/api/getting-started/overview) we can obtain well structured and normalized data from any Instagram URL:
 
 <Terminal>curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk</Terminal>
   
@@ -59,7 +59,7 @@ The API response will look like the following:
 }
 ```
 
-Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](https://docs.microlink.io/sdk/)), you may be interested in specific information that we don't expose because it isn't generic.
+Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](/docs/sdk/getting-started/overview/)), you may be interested in specific information that we don't expose because it isn't generic.
 
 Let's define a **rule** for extracting the avatar profile.
 
@@ -91,7 +91,7 @@ E.g., if you want to extract an `img`, probably you are interested in `src` prop
 
 It defines a **check validator** to be run against the extracted value defined by `selector` and `attr`.
 
-It's possible to validate all the [basic](https://docs.microlink.io/api/#introduction) properties that can be extracted using the API:
+It's possible to validate all the [basic](/docs/api/getting-started/overview) properties that can be extracted using the API:
 
 - `author`
 - `date`
@@ -319,7 +319,7 @@ Now the value is resolved properly 👌.
 
 ## Combine it with the rest of API Parameters
 
-One thing that makes [Microlink API](https://docs.microlink.io/api/#introduction) powerful is that you can combine every [API Parameter](https://docs.microlink.io/api/#api-parameters) to work together.
+One thing that makes [Microlink API](/docs/api/getting-started/overview) powerful is that you can combine every [API Parameter](/docs/api/#api-parameters) to work together.
 
 ```json
 {
@@ -333,12 +333,12 @@ One thing that makes [Microlink API](https://docs.microlink.io/api/#introduction
 <Figcaption>
   {'Custom rule + '}
   <Link
-    href='https://docs.microlink.io/api/#api-parameters/palette'
+    href='/docs/api/#api-parameters/palette'
     children='palette'
   />
   {' + '}
   <Link
-    href='https://docs.microlink.io/api/#api-parameters/filter'
+    href='/docs/api/#api-parameters/filter'
     children='filter'
   />
   .

@@ -1,48 +1,56 @@
 import React, { Component } from 'react'
-import { NavLink, Toolbar, Box, Fixed } from 'components/elements'
+import { Toolbar, Box, Fixed } from 'components/elements'
 import { Microlink } from 'components/logos'
-import { smoothScroll } from 'helpers'
+import { navigate } from 'gatsby'
 
 import NavContainer from './NavContainer'
+import NavLink from './NavLink'
 
 export default class extends Component {
   render () {
     return (
       <Fixed zIndex={2} top={0} left={0} right={0}>
         <Box px={3} boxShadow={0} mx='auto' bg='white'>
-          <Toolbar mx='auto' justifyContent='space-between' {...this.props}>
+          <Toolbar
+            aria-label='Primary Navigation'
+            mx='auto'
+            justifyContent='space-between'
+            {...this.props}
+          >
             <NavContainer as='nav'>
               <NavLink
+                onContextMenu={event => {
+                  event.preventDefault()
+                  navigate('/design')
+                }}
+                href='/#'
                 width={['32px', '48px']}
                 display='flex'
                 pr={[2, 3]}
-                href='/'
               >
                 <Microlink size={'100%'} />
               </NavLink>
               <NavLink
-                prefetch={false}
                 pr={[2, 3]}
                 children='Features'
                 href='/#features'
-                onClick={smoothScroll('features')}
+                actively='observer'
               />
               <NavLink
-                prefetch={false}
                 pr={[2, 3]}
                 children='Pricing'
                 href='/#pricing'
-                onClick={smoothScroll('pricing')}
+                actively='observer'
               />
-              <NavLink href='/blog' children='Blog' actively />
+              <NavLink
+                href='/docs/sdk/getting-started/overview/'
+                children='Docs'
+                actively='partial'
+              />
+              <NavLink href='/blog' children='Blog' actively='partial' />
             </NavContainer>
             <NavContainer as='nav'>
-              <NavLink
-                pr={[2, 3]}
-                children='Docs'
-                href='https://docs.microlink.io'
-              />
-              <NavLink children='Chat' href='https://chat.microlink.io' />
+              <NavLink children='Chat' href='/chat' actively />
             </NavContainer>
           </Toolbar>
         </Box>

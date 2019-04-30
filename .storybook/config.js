@@ -30,14 +30,13 @@ window.___navigate = pathname => {
 }
 
 addParameters({
-  name: 'microlink design language',
-  url: 'https://github.com/microlinkhq/www',
-  goFullScreen: false,
-  showStoriesPanel: true,
-  showAddonPanel: true,
-  showSearchBox: false,
-  sortStoriesByKind: true,
-  enableShortcuts: false // true by default
+  options: {
+    theme: {
+      brandTitle: 'Microlink Design',
+      brandUrl: 'https://github.com/microlinkhq/www'
+    },
+    enableShortcuts: false // true by default
+  }
 })
 
 addDecorator(story => (

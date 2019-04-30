@@ -5,7 +5,7 @@ export const useBlogIndex = () => {
   const { allMarkdownRemark } = useStaticQuery(
     graphql`
       query BlogIndexData {
-        allMarkdownRemark(filter: { fields: { slug: { regex: "/blog/" } } }) {
+        allMarkdownRemark(filter: { fields: { slug: { regex: "//blog//" } } }) {
           edges {
             node {
               fields {

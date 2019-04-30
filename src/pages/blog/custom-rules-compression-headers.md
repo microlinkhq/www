@@ -10,7 +10,7 @@ date: '2018-06-30'
 
 <Figcaption>Custom Rules enables build custom API response based on your necessities.</Figcaption>
 
-[microlink API](https://docs.microlink.io/api/#introduction) is so powerful for extracting data. We created links previews as one of the possible use cases (actually our [SDK](https://docs.microlink.io/sdk/)), but because the API response returns generic data, it's a bit difficult use microlink API for different problems scope.
+[Microlink API](/docs/api/getting-started/overview) is so powerful for extracting data. We created links previews as one of the possible use cases (actually our [SDK](/docs/sdk/getting-started/overview/)), but because the API response returns generic data, it's a bit difficult use Microlink API for different problems scope.
 
 Now, we are introducing the concept of **Custom Rules**: The ability to setup custom API response based on user necessities.
 
@@ -22,11 +22,11 @@ We wrote a specific blog [post](https://microlink.io/blog/custom-rules) explaini
 
 ## Compression documentation
 
-[![](https://i.imgur.com/Jh7GHUP.png)](https://docs.microlink.io/api/#api-basics/compression)
+[![](https://i.imgur.com/Jh7GHUP.png)](/docs/api/api-basics/compression)
 
 <Figcaption>Ensure to use *Accept-Encoding* for enabling compression</Figcaption>
 
-Althought we support **brotli** and **gzip** from the beginning, we [added](https://docs.microlink.io/api/#api-basics/compression) a specific section into the documentation.
+Althought we support **brotli** and **gzip** from the beginning, we [added](/docs/api/api-basics/compression) a specific section into the documentation.
 
 Using it, it will **save payload size up to 70%**, so ensure you are using it!
 
@@ -52,7 +52,7 @@ It returns the total amount of time used for processing the API call.
 
 It specifies the way to content will be fetched.
 
-It could be `fetch` or `prerendering`. The value is strongly related with [prerender](https://docs.microlink.io/api/#api-parameters/prerender) API parameter.
+It could be `fetch` or `prerendering`. The value is strongly related with [prerender](/docs/api/api-parameters/prerender) API parameter.
 
 #### x-fetch-time
 
@@ -60,7 +60,7 @@ It expresses the amount of time spend just in the `x-fetch-mode` step.
 
 ## Better contextual metadata
 
-We added `size` and `duration` every time that [microlink API](https://docs.microlink.io/api/#introduction) detects you are working with `image` or `video` 🎉.
+We added `size` and `duration` every time that [Microlink API](/docs/api/getting-started/overview) detects you are working with `image` or `video` 🎉.
 
 <Terminal>curl https://api.microlink.io/?url=https://vimeo.com/188175573?v=hwMkbaS_M_c&video&filter=video</Terminal>
 

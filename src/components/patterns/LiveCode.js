@@ -1,4 +1,5 @@
 import { createElement } from 'react'
+import styled from 'styled-components'
 
 import {
   LiveProvider as LiveProviderBase,
@@ -16,6 +17,7 @@ const theme = {
     fontFamily: fonts.monospace,
     fontSize: `${fontSizes[1]}px`,
     lineHeight: `${lineHeights[3]}`,
+    whiteSpace: 'pre-wrap',
     overflow: 'auto',
     outline: 'none',
     tabSize: '2',
@@ -88,12 +90,16 @@ const theme = {
 
 export const LiveProvider = props =>
   createElement(LiveProviderBase, {
-    mountStylesheet: false,
     noInline: true,
     theme,
     ...props
   })
 
-export const LiveEditor = LiveEditorBase
+export const LiveEditor = styled(LiveEditorBase)`
+  pre,
+  textarea {
+    padding: 0 !important;
+  }
+`
 
 export const LivePreview = LivePreviewBase
