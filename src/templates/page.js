@@ -15,7 +15,7 @@ import Head from 'components/Head'
 
 const PostFooter = () => (
   <Fragment>
-    <H2>Come chat with us</H2>
+    <H2 id='chat'>Come chat with us</H2>
     <Chat />
     <Paraph>
       All of these improvements or features are{' '}
