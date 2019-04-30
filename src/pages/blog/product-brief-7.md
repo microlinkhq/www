@@ -66,7 +66,7 @@ Microlink Query Language (*MQL*) is the precessor of [Custom Rules](/blog/introd
 
 We are happy to say that **MQL is production ready** 🚀.
 
-We provide [@microlink/mql](https://github.com/microlinkhq/mql) npm package that is a convenient JavaScript HTTP client on top of Microlink API.
+We provide [@microlink/mql](https://github.com/microlinkhq/mql) npm package that is a convenient JavaScript HTTP client on top of [Microlink API](/docs/api/getting-started/overview).
 
 Also it is ready to be used directly on browser [since size is 4KB](https://bundlephobia.com/result?p=@microlink/mql).
 
