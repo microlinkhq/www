@@ -1,5 +1,5 @@
 ---
-title: 'Product Brief #2: A new branding, documentation & improvements'
+title: 'Product Brief #2: New Branding, Documentation & Improvements'
 date: '2018-01-31'
 ---
 

@@ -1,8 +1,7 @@
 ---
-title: 'Product Brief #6: Custom Rules, new metadata & improvements'
-image: 'https://i.imgur.com/3yy4kDD.png'
+title: 'Product Brief #6: Custom Rules, New Metadata & Improvements'
 date: '2018-06-30'
---- 
+---
 
 ## Custom Rules
 

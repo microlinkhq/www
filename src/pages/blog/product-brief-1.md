@@ -1,7 +1,7 @@
 ---
-title: 'Product Brief #1: Prerendering, Pricing & SDK first steps'
+title: 'Product Brief #1: Prerendering, Pricing & SDK First Steps'
 date: '2017-12-30'
---- 
+---
 
 ## Prerendering by default
 

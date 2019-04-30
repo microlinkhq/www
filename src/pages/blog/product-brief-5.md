@@ -1,7 +1,7 @@
 ---
-title: 'Product Brief #5: New API Parameters & Gallery showcase'
+title: 'Product Brief #5: New API Parameters & Gallery Showcase'
 date: '2018-05-30'
---- 
+---
 
 ## Microlink API
 

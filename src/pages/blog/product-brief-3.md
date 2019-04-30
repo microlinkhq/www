@@ -1,5 +1,5 @@
 ---
-title: 'Product Brief #3: Video support, better prerendering & SDK features'
+title: 'Product Brief #3: Video Support, Better Prerendering & SDK Features'
 date: '2018-03-02'
 ---
 

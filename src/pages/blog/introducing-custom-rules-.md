@@ -2,7 +2,7 @@
 title: 'Introducing Custom Rules'
 image: 'https://i.imgur.com/3yy4kDD.png'
 date: '2018-05-31'
---- 
+---
 
 The [Microlink API](/docs/api/getting-started/overview) is used for extracting information from **any** link.
 
@@ -27,7 +27,7 @@ Imagine you want ot interact with an Instagram profile url, like [@elonmusk](htt
 By using [Microlink API](/docs/api/getting-started/overview) we can obtain well structured and normalized data from any Instagram URL:
 
 <Terminal>curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk</Terminal>
-  
+
 
 The API response will look like the following:
 
@@ -368,7 +368,7 @@ One thing that makes [Microlink API](/docs/api/getting-started/overview) powerfu
       "alternative_color": "#4C3C24"
     }
   }
-}    
+}
 ```
 
 <Figcaption>Detecting predominant color for an image extracted using a custom rule and filtering it 🤯.</Figcaption>
