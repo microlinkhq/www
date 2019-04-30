@@ -10,7 +10,7 @@ Since then we have been learning how you use the product and what benefit it bri
 Based on that, and a lot of feedback you told us from our [chat](/chat), we elaborate a master plan of the roadmap we want to follow in the next months.
 
 
-### Microlink Query Language ([RFC](https://github.com/microlinkhq/open/issues/5))
+## Microlink Query Language ([RFC](https://github.com/microlinkhq/open/issues/5))
 
 > 
 
@@ -26,7 +26,7 @@ The **MQL** goal is build the most simple to use and developer friendly for scra
 
 This include the builtin types, caching and batching support and selectors declaration.
  
-### GraphQL Endpoint ([RFC](https://github.com/microlinkhq/open/issues/14))
+## GraphQL Endpoint ([RFC](https://github.com/microlinkhq/open/issues/14))
 
 GraphQL is a technology introduced by Facebook in 2015 as REST API alternative.
 
@@ -36,7 +36,7 @@ It has a lot of sense specially if your API is starting to grow and you are only
 
 Because our [Microlink API](/docs/api/getting-started/overview) response tends to grow (especially after [MQL](https://github.com/microlinkhq/open/issues/5) support) that's definitely a worth it thing we can to support.
 
-### Hover Preview ([RFC link](https://github.com/microlinkhq/open/issues/18))
+## Hover Preview ([RFC link](https://github.com/microlinkhq/open/issues/18))
 
 That's a thing we wanted to build from the beginning.
 
