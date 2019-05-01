@@ -13,9 +13,11 @@ const focusStyle = createCssState({
   `
 })
 
+export const BOX_SHADOW = '0 2px 15px'
+
 const Button = styled(Text)(
   {
-    boxShadow: '0 5px 10px rgba(0, 0, 0, 0.1)',
+    boxShadow: `${BOX_SHADOW} rgba(0, 0, 0, 0.1)`,
     transition: `all ${transition.medium}`,
     appearance: 'none',
     display: 'inline-block',

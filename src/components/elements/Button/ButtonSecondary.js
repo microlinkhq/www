@@ -3,9 +3,10 @@ import { createCssState } from 'helpers/style'
 import { rgba } from 'polished'
 
 import Button from './ButtonPrimary'
+import { BOX_SHADOW } from './ButtonBase'
 
 const style = css`
-  box-shadow: 0 2px 15px ${({ theme }) => rgba(theme.colors.link, 0.5)};
+  box-shadow: ${BOX_SHADOW} ${({ theme }) => rgba(theme.colors.link, 0.5)};
 `
 
 const disabledStyle = createCssState({

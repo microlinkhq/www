@@ -2,14 +2,14 @@ import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
 import { lighten } from 'polished'
 
-import ButtonBase from './ButtonBase'
+import ButtonBase, { BOX_SHADOW } from './ButtonBase'
 
 const hoverStyle = createCssState({
   selector: '&:hover:not([disabled])',
   state: 'hover',
   css: css`
     background-color: ${({ theme }) => theme.colors.link};
-    box-shadow: 0 2px 15px ${({ theme }) => lighten(0.15, theme.colors.link)};
+    box-shadow: ${BOX_SHADOW} ${({ theme }) => lighten(0.15, theme.colors.link)};
     opacity: 0.8;
     color: ${({ theme }) => theme.colors.white};
   `

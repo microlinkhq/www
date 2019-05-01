@@ -5,6 +5,8 @@ import withSpinner from './with-spinner'
 import { css } from 'styled-components'
 import { rgba } from 'polished'
 
+import { BOX_SHADOW } from './ButtonBase'
+
 export const ButtonPrimary = withSpinner(
   BaseButtonPrimary,
   css`
@@ -31,7 +33,7 @@ export const ButtonSecondary = withSpinner(
   css`
     opacity: 0.8;
     &:hover {
-      box-shadow: 0 2px 15px ${({ theme }) => rgba(theme.colors.link, 0.5)};
+      box-shadow: ${BOX_SHADOW} ${({ theme }) => rgba(theme.colors.link, 0.5)};
       background-color: ${({ theme }) => props => theme.colors[props.bg]};
     }
   `
