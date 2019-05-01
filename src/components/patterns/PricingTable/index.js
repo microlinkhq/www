@@ -101,7 +101,7 @@ const PricingHeader = ({ children }) => {
         <Text
           as='th'
           pb={'.85rem'}
-          px={[3, '5rem']}
+          px={[3, 3, 3, '5rem']}
           fontWeight='bold'
           fontSize={2}
           color='blue700'
@@ -119,7 +119,7 @@ const PricingRow = ({ children, ...props }) => {
   return (
     <Text as='tr'>
       <Text as='th' {...props}>
-        <Hide breakpoints={[2, 3]}>
+        <Hide breakpoints={[3]}>
           <Text
             fontSize={0}
             color='darkBlue400'
@@ -184,7 +184,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
   const humanMonthlyPrice = formatNumber(monthlyPrice)
 
   return (
-    <Box mx='auto' px={[0, 6]} py={[4, 5]}>
+    <Box mx='auto' px={[0, 0, 0, 6]} py={[4, 4, 4, 5]}>
       <Box
         as='table'
         width='100%'
@@ -256,7 +256,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
         justifyContent='center'
         flexDirection='column'
         alignItems='center'
-        pt={[4, 5]}
+        pt={[4, 4, 4, 5]}
       >
         <Subhead color='gray8' fontSize={2} children='Do you need more?' />
         <Text as='div' mt={1} fontSize={1} color='gray8'>
