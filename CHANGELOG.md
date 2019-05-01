@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.3.0](https://github.com/microlink/microlink-www/compare/v2.2.48...v2.3.0) (2019-05-01)
+
+
+### Features
+
+* add home banner ([05fbe0e](https://github.com/microlink/microlink-www/commit/05fbe0e))
+
+
+
 ## [2.2.48](https://github.com/microlink/microlink-www/compare/v2.2.47...v2.2.48) (2019-04-30)
 
 
