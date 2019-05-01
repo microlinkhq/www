@@ -105,8 +105,8 @@ const Header = ({ children }) => {
   )
 }
 
-const Announcement = ({ href, children }) => (
-  <Flex justifyContent='center'>
+const Announcement = ({ href, children, ...props }) => (
+  <Flex justifyContent='center' {...props}>
     <Banner href={href}>{children}</Banner>
   </Flex>
 )
@@ -123,7 +123,7 @@ const Hero = () => (
         />
         <Announcement
           href='/blog/product-brief-7/'
-          children='Microlink SDK 4.0, New Documentation Portal & MQL »'
+          children='Microlink SDK 4.0, Docs Portal & MQL »'
         />
       </Container>
     </Hide>
@@ -139,8 +139,9 @@ const Hero = () => (
           />
         </Container>
         <Announcement
+          pt={2}
           href='/blog/product-brief-7/'
-          children='Microlink SDK 4.0, New Documentation Portal & MQL »'
+          children='Microlink SDK 4.0, Docs Portal & MQL »'
         />
       </Box>
     </Hide>
