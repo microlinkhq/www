@@ -16,6 +16,7 @@ import {
   Heading,
   Container as ContainerBase,
   Subhead,
+  Banner,
   Hide,
   Flex,
   Link,
@@ -74,7 +75,7 @@ const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => (
 )
 
 const Container = ({ children, maxWidth, ...props }) => (
-  <Box as='article' px={4} py={[4, 5]} {...props}>
+  <Box as='article' px={4} pt={[4, 5]} pb={[4, 5]} {...props}>
     <ContainerBase children={children} maxWidth={maxWidth} />
   </Box>
 )
@@ -104,15 +105,46 @@ const Header = ({ children }) => {
   )
 }
 
+const Announcement = ({ href, children }) => (
+  <Flex justifyContent='center'>
+    <Banner href={href}>{children}</Banner>
+  </Flex>
+)
+
 const Hero = () => (
-  <Container id='hero'>
-    <Header
-      children={[
-        'Turn websites into data',
-        'Microlink makes easy to build an API on top of any website.'
-      ]}
-    />
-  </Container>
+  <Fragment>
+    <Hide breakpoints={[0, 1, 2]}>
+      <Container id='hero'>
+        <Header
+          children={[
+            'Turn websites into data',
+            'Microlink makes easy to build an API on top of any website.'
+          ]}
+        />
+        <Announcement
+          href='/blog/product-brief-7/'
+          children='Microlink SDK 4.0, New Documentation Portal & MQL »'
+        />
+      </Container>
+    </Hide>
+
+    <Hide breakpoints={[3]}>
+      <Box pb={[4, 5]}>
+        <Container id='hero' pb={0}>
+          <Header
+            children={[
+              'Turn websites into data',
+              'Microlink makes easy to build an API on top of any website.'
+            ]}
+          />
+        </Container>
+        <Announcement
+          href='/blog/product-brief-7/'
+          children='Microlink SDK 4.0, New Documentation Portal & MQL »'
+        />
+      </Box>
+    </Hide>
+  </Fragment>
 )
 
 const Subheader = ({ children }) => (

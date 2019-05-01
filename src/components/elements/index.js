@@ -16,6 +16,8 @@ import Flex from './Flex'
 import Hide from './Hide'
 import Image from './Image'
 import Input from './Input'
+import Banner from './Banner'
+import Badge from './Badge'
 
 import Notification from './Notification'
 import PricePicker from './PricePicker'
@@ -42,6 +44,8 @@ export {
   Avatar,
   BackgroundSlider,
   BackgroundSliderContainer,
+  Banner,
+  Badge,
   BlockLink,
   Box,
   ButtonOutline,
@@ -60,9 +64,9 @@ export {
   Image,
   Input,
   Label,
-  MultiCodeEditor,
   Link,
   LinkSolid,
+  MultiCodeEditor,
   Notification,
   PricePicker,
   SearchBox,
