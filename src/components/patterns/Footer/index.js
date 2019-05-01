@@ -38,19 +38,19 @@ const IconWrapper = styled(Box)`
 `
 
 export default props => (
-  <Container px={[2, 0]}>
+  <Container px={[2, 2, 2, 0]}>
     <Flex
       as='footer'
-      py={[4, 5]}
+      py={[4, 4, 4, 5]}
       mx='auto'
       bg='white'
-      flexDirection={['column', 'row']}
+      flexDirection={['column', 'column', 'column', 'row']}
       justifyContent='space-between'
       alignItems='center'
       {...props}
     >
-      <Box px={0} pb={[3, 0]}>
-        <Flex pb={[3, 0]} flexDirection='column'>
+      <Box px={0} pb={[3, 3, 3, 0]}>
+        <Flex pb={[3, 3, 3, 0]} flexDirection='column'>
           <Flex pb={3} justifyContent='center'>
             <Microlink />
           </Flex>
@@ -61,8 +61,11 @@ export default props => (
               children='Turn websites into data'
             />
           </Flex>
-          <Flex alignItems={['center', 'inherit']} flexDirection='column'>
-            <Flex py={['24px', 3]}>
+          <Flex
+            alignItems={['center', 'center', 'center', 'inherit']}
+            flexDirection='column'
+          >
+            <Flex py={['24px', '24px', '24px', 3]}>
               <form
                 action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
                 method='post'
@@ -97,65 +100,65 @@ export default props => (
           </Flex>
         </Flex>
       </Box>
-      <Box pt={[3, 0]} pb={[3, 0]} px={0}>
-        <Flex flexDirection={['row', 'column']}>
+      <Box pt={[3, 3, 3, 0]} pb={[3, 3, 3, 0]} px={0}>
+        <Flex flexDirection={['row', 'row', 'row', 'column']}>
           <LinkSolid
-            fontSize={[0, 1]}
+            fontSize={[0, 0, 0, 1]}
             mr={2}
-            mb={[0, 3]}
+            mb={[0, 0, 0, 3]}
             href='/docs/api/getting-started/overview'
             children='API'
           />
           <LinkSolid
-            fontSize={[0, 1]}
+            fontSize={[0, 0, 0, 1]}
             mr={2}
-            mb={[0, 3]}
+            mb={[0, 0, 0, 3]}
             href='https://status.microlink.io'
             children='Status'
           />
           <LinkSolid
-            fontSize={[0, 1]}
+            fontSize={[0, 0, 0, 1]}
             mr={2}
-            mb={[0, 3]}
+            mb={[0, 0, 0, 3]}
             href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
             children='Bug Reports'
           />
           <LinkSolid
-            fontSize={[0, 1]}
+            fontSize={[0, 0, 0, 1]}
             mr={2}
-            mb={[0, 3]}
+            mb={[0, 0, 0, 3]}
             href='/chat'
             children='Tech Support'
           />
         </Flex>
       </Box>
-      <Box pb={[3, 0]} px={0}>
-        <Flex flexDirection={['row', 'column']}>
+      <Box pb={[3, 3, 3, 0]} px={0}>
+        <Flex flexDirection={['row', 'row', 'row', 'column']}>
           <LinkSolid
-            fontSize={[0, 1]}
+            fontSize={[0, 0, 0, 1]}
             mr={2}
-            mb={[0, 3]}
+            mb={[0, 0, 0, 3]}
             href='/docs/sdk/getting-started/overview/'
             children='SDK'
           />
           <LinkSolid
-            fontSize={[0, 1]}
+            fontSize={[0, 0, 0, 1]}
             mr={2}
-            mb={[0, 3]}
+            mb={[0, 0, 0, 3]}
             href='/#pricing'
             children='Pricing'
           />
           <LinkSolid
-            fontSize={[0, 1]}
+            fontSize={[0, 0, 0, 1]}
             mr={2}
-            mb={[0, 3]}
+            mb={[0, 0, 0, 3]}
             href='https://github.com/microlinkhq/open/issues/new?template=Feature_request.md'
             children='Feature Requests'
           />
           <LinkSolid
-            fontSize={[0, 1]}
+            fontSize={[0, 0, 0, 1]}
             mr={2}
-            mb={[0, 3]}
+            mb={[0, 0, 0, 3]}
             href='/design'
             children='Design'
           />
@@ -163,7 +166,7 @@ export default props => (
       </Box>
       <Box px={0}>
         <Flex flexDirection='column'>
-          <Hide breakpoints={[0, 1]}>
+          <Hide breakpoints={[0, 1, 2]}>
             <Flex alignItems='center'>
               <Flex flexDirection='column'>
                 <Text color='black50' fontSize={1}>
@@ -178,7 +181,7 @@ export default props => (
               </Flex>
             </Flex>
           </Hide>
-          <Flex py={[3, 4]} alignItems='center'>
+          <Flex py={[3, 3, 3, 4]} alignItems='center'>
             <Text
               color='black80'
               mr={2}
@@ -201,7 +204,10 @@ export default props => (
               children='Privacy'
             />
           </Flex>
-          <Flex alignItems='center' justifyContent={['center', 'inherit']}>
+          <Flex
+            alignItems='center'
+            justifyContent={['center', 'center', 'center', 'inherit']}
+          >
             <IconWrapper as='a' href='/chat' mr={3}>
               <Slack color={colors.black80} size={20} />
             </IconWrapper>
