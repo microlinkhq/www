@@ -173,8 +173,8 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
       as='header'
     >
       <Subheader children={['SDK', 'Beautiful Link Previews']} />
-      <Box mt={4} textAlign={['inherit', 'center']}>
-        <Text>
+      <Box px={4} textAlign={['inherit', 'center']}>
+        <Text mt={4} mb={[4, 4, 4, 0]}>
           <Link>Microlink SDK</Link> converts your links into rich media.
         </Text>
         <Text>Make your content attractive, engaging better your links.</Text>
@@ -273,8 +273,8 @@ const MQL = () => (
     >
       <Subheader children={['MQL', 'Build APIs from websites']} />
 
-      <Box mt={4} textAlign={['inherit', 'center']}>
-        <Text>
+      <Box px={4} textAlign={['inherit', 'center']}>
+        <Text mt={4} mb={[4, 4, 4, 0]}>
           <Link>Microlink Query Language</Link> (MQL) is the most modern data
           interface for the web.
         </Text>
@@ -282,35 +282,37 @@ const MQL = () => (
       </Box>
     </Flex>
     <Flex
-      py={[4, 5]}
+      py={[4, 4, 4, 5]}
+      px={[5, 5, 5, 0]}
       as='section'
       justifyContent='center'
-      alignItems={['center', 'end']}
-      flexDirection={['column', 'row']}
+      alignItems={['center', 'center', 'center', 'end']}
+      flexDirection={['column', 'column', 'column', 'row']}
       mx='auto'
     >
       <Flex
-        maxWidth={['100%', '23em']}
+        maxWidth={['100%', '100%', '100%', '23em']}
         justifyContent='center'
         flexDirection='column'
       >
         <Text
-          maxWidth={['inherit', 8]}
-          mt={[1, 3]}
+          maxWidth={['inherit', 'inherit', 'inherit', 8]}
+          mt={[1, 1, 1, 3]}
+          textAlign={['center', 'center', 'center', 'inherit']}
           children='Turns any website into a programmatic API.'
         />
-        <List px={[3, 0]} mt={4} mb={3}>
+        <List px={[3, 3, 3, 0]} mt={4} mb={3}>
           <ListItem children='Create data rules based on HTML markup.' />
           <ListItem children='Target any URL for getting specific content.' />
           <ListItem children='Builtin data validation & hydration.' />
         </List>
         <Flex
           alignItems='center'
-          justifyContent={['center', 'end']}
-          pb={[4, 0]}
-          flexDirection={['column', 'row']}
+          justifyContent={['center', 'center', 'center', 'end']}
+          pb={[4, 4, 4, 0]}
+          flexDirection={['column', 'column', 'column', 'row']}
         >
-          <Hide breakpoints={[1, 2, 3]}>
+          <Hide breakpoints={[3]}>
             <MQLEditor />
           </Hide>
 
@@ -322,7 +324,7 @@ const MQL = () => (
         </Flex>
       </Flex>
       <Box mx={4} />
-      <Hide breakpoints={[0]}>
+      <Hide breakpoints={[0, 1, 2]}>
         <MQLEditor />
       </Hide>
     </Flex>
