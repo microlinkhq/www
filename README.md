@@ -2,43 +2,11 @@
   <img src="https://cdn.microlink.io/logo/banner.png" alt="microlink logo">
 </h1>
 
-### Components
+###### [Documentation](https://microlink.io/docs) | [Design System](https://microlink.io/design) | [Chat](https://microlink.io/chat)
 
+## License
 
-```
-components/elements
-├─┬ Image
-│ └─┬ Avatar
-│   └── Logo
-├── Hide
-├── Terminal
-├── BlockLink
-├── Metadata
-├── CodeEditor
-├── Checkout
-├── Svg
-├── Form
-├── SearchBox
-├── PricePicker
-├─┬ Box
-│ ├── Tooltip
-│ ├── Container
-│ ├─┬ Position
-│ │ ├─┬ Fixed
-│ │ │ └── Notification
-│ │ └── Sticky
-│ ├── Card
-│ ├── Select
-│ ├─┬ Flex
-│ │ └── Toolbar
-│ └─┬ Text
-│   ├── Label   
-│   ├── Caps
-│   ├── Input
-│   ├── Button
-│   ├── NavLink
-│   └─┬ Heading
-│     │ └── SubHead
-│     ├─┬ Link
-│       ├── LinkSolid
-```
+**microlink** © [Microlink](https://microlink.io), Released under the [MIT](https://github.com/microlinkhq/sdk/blob/master/LICENSE.md) License.<br>
+Authored and maintained by Kiko Beats with help from [contributors](https://github.com/microlinkhq/sdk/contributors).
+
+> [microlink.io](https://microlink.io) · GitHub [@MicrolinkHQ](https://github.com/microlinkhq) · Twitter [@microlinkhq](https://twitter.com/microlinkhq)
