@@ -36,7 +36,7 @@ After that, a new field `screenshot` will present int the data payload.
     "title": "Turns any website into data | Microlink",
     "publisher": "Microlink",
     "image": {
-      "url": "https://microlink.io/preview.jpg",
+      "url": "https://cdn.microlink.io/meta/preview.jpg",
       "width": 2431,
       "height": 1531,
       "type": "jpg",
@@ -46,7 +46,7 @@ After that, a new field `screenshot` will present int the data payload.
     "description": "Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.",
     "date": "2019-04-19T13:59:05.677Z",
     "logo": {
-      "url": "https://microlink.io/logo-trim.png",
+      "url": "https://cdn.microlink.io/logo/trim.png",
       "width": 500,
       "height": 500,
       "type": "png",

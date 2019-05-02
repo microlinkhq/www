@@ -1,7 +1,7 @@
 {
   "name": "microlink.io",
   "description": "Turn websites into data",
-  "image": "https://microlink.io/logo.png",
+  "image": "https://cdn.microlink.io/logo/logo.png",
   "url": "http://microlink.io/apis.json",
   "tags": [
     "API",
@@ -17,7 +17,7 @@
     {
 	      "name": "microlink",
 	      "description": "Turn websites into data",
-	      "image": "https://microlink.io/logo.png",
+	      "image": "https://cdn.microlink.io/logo/logo.png",
         "humanURL": "https://microlink.io/docs",
         "baseURL": "https://api.microlink.io",
 	      "tags": [

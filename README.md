@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://microlink.io/logo-banner.png" alt="microlink logo">
+  <img src="https://cdn.microlink.io/logo/banner.png" alt="microlink logo">
 </h1>
 
 ### Components
