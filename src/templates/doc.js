@@ -121,6 +121,10 @@ const ROUTES_API = [
       {
         name: 'Data Fields',
         href: '/docs/api/getting-started/data-fields'
+      },
+      {
+        name: 'CLI',
+        href: '/docs/api/getting-started/cli'
       }
     ]
   },
