@@ -283,7 +283,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
   const activeRouteName = getActiveRouteName(props.location)
 
   return (
-    <Layout footer={false} {...meta} title={`${activeRouteName} ${meta.title}`}>
+    <Layout footer={false} {...meta} name={`Microlink ${activeRouteName}`}>
       <Container>
         <Aside routes={routes} activeRouteName={activeRouteName}>
           <Text as='header'>

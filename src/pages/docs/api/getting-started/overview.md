@@ -9,6 +9,7 @@ Welcome to **Microlink API**
 You can use our API for getting structured data from any website.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api curl https://instagram.com/p/BeV6tOhFUor --no-headers`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -18,8 +19,7 @@ module.exports = async () => {
  
  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://instagram.com/p/BeV6tOhFUor`, 
+  `
   }} 
 />
 

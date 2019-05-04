@@ -9,6 +9,7 @@ Type: `string`
 The target URL for getting information based on the content.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api url=https://kikobeats.com`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -16,8 +17,7 @@ module.exports = async () => {
   
   console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://kikobeats.com`, 
+  `
   }} 
 />
 
@@ -28,6 +28,7 @@ For example, if you want to extract content behind a login panel, the URL provid
 If the URL provided has query strings, it should be properly escaped in order to not interfere with the rest of the API Parameters.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https%3A%2F%2Fkikobeats.com%3F%26ref%3Dmicrolink`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -37,10 +38,7 @@ module.exports = async () => {
   
   console.log(status, data)
 }
-  `,
-  cURL: `
-curl --data-urlencode "ref=microlink" \\
-https://api.microlink.io?url=https://kikobeats.com`, 
+  `
   }} 
 />
 

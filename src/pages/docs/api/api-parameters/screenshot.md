@@ -9,6 +9,7 @@ Values: `true|false|'{devideName}'`
 Take a screenshot of the website. 
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io?screenshot=true`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -19,8 +20,7 @@ module.exports = async () => {
     
   console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://microlink.io?screenshot=true`, 
+  `
   }} 
 />
 

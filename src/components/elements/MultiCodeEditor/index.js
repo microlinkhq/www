@@ -82,6 +82,7 @@ const getLanguageAlias = language => {
     case 'jekyll':
       return 'markdown'
     case 'curl':
+    case 'shell':
       return 'bash'
     case 'node.js':
       return 'javascript'

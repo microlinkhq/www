@@ -7,6 +7,7 @@ Type: `string`
 Specify the user agent to be used in the moment of extract the content of the target URL.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://news.ycombinator.com&userAgent=Googlebot`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -17,8 +18,7 @@ module.exports = async () => {
  
  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://news.ycombinator.com&userAgent=Googlebot`, 
+  `
   }} 
 />
 

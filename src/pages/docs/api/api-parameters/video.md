@@ -8,6 +8,7 @@ Default: `false`
 It enables video source detection from the target URL.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://instagram.com/p/BeV6tOhFUor&video`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -18,8 +19,7 @@ module.exports = async () => {
   
  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://instagram.com/p/BeV6tOhFUor&video`, 
+  `
   }} 
 />
 

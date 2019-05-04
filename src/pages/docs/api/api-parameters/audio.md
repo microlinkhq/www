@@ -8,6 +8,7 @@ Default: `false`
 It enables audio source detection from the target URL.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://soundcloud.com/theaipodcast/gtc-weather&audio`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -18,8 +19,7 @@ module.exports = async () => {
   
  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://soundcloud.com/theaipodcast/gtc-weather&audio`, 
+  `
   }} 
 />
 

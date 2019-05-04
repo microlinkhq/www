@@ -7,6 +7,7 @@ Type: `string`
 The embed parameter is for embedding a field directly in your HTML markup, using the properly encoding (text, images, etc).
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://news.ycombinator.com&screenshot&embed=screenshot.url`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -18,8 +19,7 @@ module.exports = async () => {
     
  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://news.ycombinator.com&screenshot&embed=screenshot.url`, 
+  `
   }} 
 />
 

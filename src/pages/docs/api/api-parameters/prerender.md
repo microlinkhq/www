@@ -21,6 +21,7 @@ But if you do not do this you will not get the data in any way.
 Ideally, you don't need to think about prerendering: The default value `auto` means that the service can determinate if a website needs or not to have prerendering enabled to retrieve the content.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -30,8 +31,7 @@ module.exports = async () => {
   
   console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://api.microlink.io/?url=https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive`, 
+  `
   }} 
 />
 
@@ -43,6 +43,7 @@ We provided to extra headers for reflecting the decision taking by the service. 
 If you know the target URL doesn't need prerender, you can disable it explicitly
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive&prerender=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -53,7 +54,6 @@ module.exports = async () => {
   
  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://api.microlink.io/?url=https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive&prerender=false`, 
+  `
   }} 
 />

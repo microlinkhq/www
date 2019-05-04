@@ -9,6 +9,7 @@ First time you query for a resource that not was previously served, we will crea
 The cache status is reflected using the response header as `x-cache-status`.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://www.reddit.com | grep -i "x-cache-status"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -16,16 +17,14 @@ module.exports = async () => {
   
   console.log(response.headers.['x-cache-status' ) // => 'MISS'
 }
-  `,
-  cURL: `
-curl -i https://api.microlink.io/?url=https://www.reddit.com \\
-| grep -i "x-cache-status`, 
+  `
   }} 
 />
 
 The successive requests for the resource will consume the cached version of the resource, what is known as cache *HIT*.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://www.reddit.com | grep -i "x-cache-status"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -33,10 +32,7 @@ module.exports = async () => {
   
   console.log(response.headers.['x-cache-status' ) // => 'HIT'
 }
-  `,
-  cURL: `
-curl -i https://api.microlink.io/?url=https://www.reddit.com \\
-| grep -i "x-cache-status`, 
+  `
   }} 
 />
 
@@ -47,6 +43,7 @@ That means, every 1 hour the cached response copy is invalidated and will genera
 You can see the TTL value in a human friendly way as `x-cache-expired-at` in the reponse headers.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://www.reddit.com | grep -i "x-cache-expired-at"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -54,10 +51,7 @@ module.exports = async () => {
   
   console.log(response.headers.['x-cache-expired-at' ) // => '3h 56m 35.2s'
 }
-  `,
-  cURL: `
-curl -i https://api.microlink.io/?url=https://www.reddit.com \\
-| grep -i "x-cache-expired-at`, 
+  `
   }} 
 />
 

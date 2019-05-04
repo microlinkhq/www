@@ -10,7 +10,7 @@ title: 'Endpoint'
 Just you need to call the endpoint with method `GET`, nothing else.
 
 ```bash
-curl https://api.microlink.io?url=https://www.instagram.com/p/BeV6tOhFUor&userAgent=Googlebot
+microlink-api https://www.instagram.com/p/BeV6tOhFUor&userAgent=Googlebot
 ```
 
 <Figcaption children='Any additional API Parameter needs to be provided as query parameter.' />
@@ -20,7 +20,7 @@ You need to use Query parameters in order to pass API Parameters.
 It does not matter if you use a camel or snake case; both are supported.
 
 ```bash
-curl https://api.microlink.io?url=https://www.instagram.com/p/BeV6tOhFUor&user_agent=Googlebot
+microlink-api https://www.instagram.com/p/BeV6tOhFUor&user_agent=Googlebot
 ```
 
 <Figcaption children='Provide the same API parameter but using snake_case has the same effect.' />

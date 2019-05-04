@@ -7,6 +7,7 @@ Type: `string`
 A comma-separated list of property paths to pick from response payload.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://news.ycombinator.com&filter=url,title`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -17,8 +18,7 @@ module.exports = async () => {
      
  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://news.ycombinator.com&filter=url,title`, 
+  `
   }} 
 />
 

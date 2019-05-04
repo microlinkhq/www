@@ -8,6 +8,7 @@ Default: `false`
 It invalidates the cache response associated with the query parameter and generates a fresh copy.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://producthunt.com&force`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -18,8 +19,7 @@ module.exports = async () => {
   
  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io?url=https://producthunt.com&force`, 
+  `
   }} 
 />
 
