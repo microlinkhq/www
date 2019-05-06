@@ -57,8 +57,6 @@ const onView = (node, fn, opts) => {
   observer.observe(node)
 }
 
-let OBSERVER_ACTIVE = false
-
 export default ChildComponent => ({
   icon = false,
   onClick,
@@ -76,18 +74,15 @@ export default ChildComponent => ({
   if (actively === 'observer') {
     useEffect(() => {
       const node = document.querySelector(getHash(href))
-      onView(node, isBeingIntersecting => {
-        console.log(`isBeingIntersecting`, isBeingIntersecting)
-        OBSERVER_ACTIVE = href
+      onView(node, isBeingIntersecting =>
         setIsIntersecting(isBeingIntersecting)
-      })
+      )
     }, [])
   }
 
   const getProps = ({ isPartiallyCurrent, isCurrent }) => {
     const isActive = partiallyActive ? isPartiallyCurrent : isCurrent
     if (!isActive && !isIntersecting) return null
-    if (isIntersecting && OBSERVER_ACTIVE !== href) return null
     return { className: 'active' }
   }
 
