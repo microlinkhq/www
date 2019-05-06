@@ -42,17 +42,19 @@ const Children = ({ children, icon }) => {
   )
 }
 
-const onView = (node, fn) => {
+const onView = (node, fn, opts) => {
   if ((!window.IntersectionObserver, !node)) return
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      const isBeingIntersecting =
-        entry.isIntersecting || entry.intersectionRatio > 0
-      fn(isBeingIntersecting)
-    })
-  })
-  observer.observe(node, { threshold: 0.25 })
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(entry => fn(entry.isIntersecting)),
+    {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.6,
+      ...opts
+    }
+  )
+  observer.observe(node)
 }
 
 let OBSERVER_ACTIVE = false
@@ -75,6 +77,7 @@ export default ChildComponent => ({
     useEffect(() => {
       const node = document.querySelector(getHash(href))
       onView(node, isBeingIntersecting => {
+        console.log(`isBeingIntersecting`, isBeingIntersecting)
         OBSERVER_ACTIVE = href
         setIsIntersecting(isBeingIntersecting)
       })

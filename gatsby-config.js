@@ -1,7 +1,5 @@
 'use strict'
 
-const url = require('url')
-
 const {
   STRIPE_KEY,
   PAYMENT_API_KEY,
