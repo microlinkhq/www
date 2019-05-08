@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.7](https://github.com/microlink/microlink-www/compare/v2.3.5...v2.3.7) (2019-05-08)
+
+
+### Bug Fixes
+
+* pass intersection observer options properly ([7831596](https://github.com/microlink/microlink-www/commit/7831596)), closes [#393](https://github.com/microlink/microlink-www/issues/393)
+
+
+### Build System
+
+* update dependencies ([e1fd701](https://github.com/microlink/microlink-www/commit/e1fd701))
+* update dependencies ([5e857b9](https://github.com/microlink/microlink-www/commit/5e857b9))
+
+
+
 ### [2.3.6](https://github.com/microlink/microlink-www/compare/v2.3.5...v2.3.6) (2019-05-06)
 
 
