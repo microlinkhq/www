@@ -27,18 +27,13 @@ The following data fields are detect for any [url](/docs/api/api-parameters/url)
 
 Additionally, for any media we add some useful contextual information.
 
-In case of any image (`image` or `logo`):
-  - `width`
-  - `height`
-  - `type`
-  - `size`
-  - `size_pretty`
+  - `width`: file width in pixels.
+  - `height`: file width in pixels.
+  - `type`: file type extension.
+  - `size`: file size in bytes.
+  - `size_pretty` file size in a human readable format.
 
-Under [video](/docs/api/api-parameters/video) or [audio](/docs/api/api-parameters/audio):
-  - `width`
-  - `height`
-  - `type`
-  - `size`
-  - `size_pretty`
-  - `duration`
-  - `duration_pretty`
+In addition, if the detected multimedia content is reproducible (such as [video](/docs/api/api-parameters/video) or [audio](/docs/api/api-parameters/audio)), the following fields will be added as well:
+
+  - `duration`: source duration in seconds.
+  - `duration_pretty` source duration in a human readable format.
