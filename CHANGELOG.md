@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.10](https://github.com/microlink/microlink-www/compare/v2.3.9...v2.3.10) (2019-05-12)
+
+
+### Build System
+
+* use crisp instead of drift ([9832f55](https://github.com/microlink/microlink-www/commit/9832f55))
+
+
+
 ### [2.3.9](https://github.com/microlink/microlink-www/compare/v2.3.8...v2.3.9) (2019-05-12)
 
 
