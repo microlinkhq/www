@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.9](https://github.com/microlink/microlink-www/compare/v2.3.8...v2.3.9) (2019-05-12)
+
+
+### Build System
+
+* add drift live chat ([167be75](https://github.com/microlink/microlink-www/commit/167be75))
+
+
+
 ### [2.3.8](https://github.com/microlink/microlink-www/compare/v2.3.7...v2.3.8) (2019-05-11)
 
 
