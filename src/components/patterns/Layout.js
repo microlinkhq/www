@@ -5,6 +5,7 @@ import Head from 'components/Head'
 import { Box } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
+import Drift from 'react-driftjs'
 
 import theme from 'theme'
 import 'styles/main.scss'
@@ -36,6 +37,7 @@ const Layout = ({ footer, children, ...props }) => {
           crossOrigin='anonymous'
           src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch'
         />
+        <Drift appId='3cf5d55cfmpu' />
       </Fragment>
     </ThemeProvider>
   )
