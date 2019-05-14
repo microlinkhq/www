@@ -29,7 +29,7 @@ import Svg from './Svg'
 import Terminal from './Terminal'
 
 import Toolbar from './Toolbar'
-import Tooltip from './Tooltip'
+import Tooltip from './Tooltip/Tooltip'
 import Toggle from './Toggle'
 import Form from './Form'
 import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
