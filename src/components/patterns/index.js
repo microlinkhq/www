@@ -1,5 +1,5 @@
 import CardLink from './CardLink'
-import CookiesPolicy from './CookiesPolicy/CookiePolicy'
+import CookiesPolicy from './CookiesPolicy/CookiesPolicy'
 import DemoLinks from './DemoLinks/DemoLinks'
 import Footer from './Footer/Footer'
 import Grid from './Grid'
