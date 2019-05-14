@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 
-import DemoLinks from '.'
+import DemoLinks from './DemoLinks'
 import demoLinks from '../../../../data/demo-links.json'
 
 storiesOf('Patterns', module).add('DemoLinks', () => (

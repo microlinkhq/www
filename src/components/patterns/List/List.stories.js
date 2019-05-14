@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import { List, ListItem } from './'
+import { List, ListItem } from './List'
 
 const code = `
 import { List } from 'components/patterns'

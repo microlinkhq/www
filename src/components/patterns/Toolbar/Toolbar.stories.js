@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import Toolbar from './'
+import Toolbar from './Toolbar'
 
 const code = `
 import { Toolbar } from 'components/patterns'

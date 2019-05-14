@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import Footer from './'
+import Footer from './Footer'
 
 const code = `
 import { Footer } from 'components/patterns'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import Aside from './'
+import Aside from './Aside'
 
 const ROUTES_SDK = [
   {

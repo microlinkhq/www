@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import Toggle from './'
+import Toggle from './Toggle'
 
 const code = `
 import { Toggle } from 'components/elements'

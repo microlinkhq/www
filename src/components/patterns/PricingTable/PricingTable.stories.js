@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import PricingTable from './'
+import PricingTable from './PricingTable'
 
 const code = `
 import { PricingTable } from 'components/patterns'
