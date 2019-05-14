@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import React, { useState } from 'react'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'lodash'
-import Select from '../Select'
+import Select from '../Select/Select'
 
 const actionStyle = css`
   color: #fff;

@@ -39,7 +39,7 @@ const TOOLTIPS = {
     'It extracts palette & predominant colors for any image detected',
   'Tech Support':
     'Technical assistance for resolving questions and help you integrate the service.',
-  'Contextual Hydratation':
+  'Contextual Information':
     'Detection of extra information based on the type of data.'
 }
 
@@ -128,8 +128,8 @@ const PricingRow = ({ children, ...props }) => {
           />
         </Hide>
         <Hide breakpoints={[0, 1]}>
-          <Tooltip text={TOOLTIPS[name]}>
-            <Flex alignItems='center' style={{ cursor: 'help' }}>
+          <Tooltip content={TOOLTIPS[name]}>
+            <Flex alignItems='center'>
               <Text mr={1} fontSize={1} color='darkBlue400' fontWeight='bold'>
                 {name}
               </Text>
@@ -205,7 +205,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
               <PricePicker onChange={priceSelected} />
             ]}
           />
-          <PricingRow children={['Auto Caching', 'everything', 'standard']} />
+          <PricingRow children={['Auto Caching', 'everything', 'optimized']} />
           <PricingRow children={['Tech Support', 'community', 'priority']} />
           <PricingRow
             children={[
@@ -216,7 +216,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
           />
           <PricingRow
             children={[
-              'Contextual Hydratation',
+              'Contextual Information',
               <Check size={16} color='#654EA3' />,
               <Check size={16} color='#654EA3' />
             ]}

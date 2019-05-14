@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { noop } from 'lodash'
 
-import ButtonBase from '../../elements/Button/ButtonBase'
+import ButtonBase from '../Button/ButtonBase'
 
 const ButtonToggle = styled(ButtonBase)`
   box-shadow: none;
