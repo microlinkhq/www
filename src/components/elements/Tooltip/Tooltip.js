@@ -1,6 +1,7 @@
 import React from 'react'
 import Tippy from '@tippy.js/react'
 import { Box, Text } from 'components/elements'
+import { speed } from 'theme'
 
 const TooltipText = props => (
   <Text fontSize={1} fontWeight='normal' {...props} />
@@ -32,7 +33,7 @@ const Tooltip = ({ content, children, ...props }) => {
 
 Tooltip.defaultProps = {
   ...Tippy.defaultProps,
-  duration: 300,
+  duration: speed.medium,
   arrow: true,
   animation: 'fade',
   hideOnClick: false

@@ -112,10 +112,16 @@ export const maxWidths = [
   96
 ].map(n => n + 'em')
 
+export const speed = {
+  quickly: 100,
+  normal: 300,
+  slowly: 450
+}
+
 export const transition = {
-  short: '.1s cubic-bezier(.25,.8,.25,1)',
-  medium: '.3s cubic-bezier(.25,.8,.25,1)',
-  long: '.45s cubic-bezier(.4, 0, .2, 1)'
+  short: `${speed.quickly}ms cubic-bezier(.25,.8,.25,1)`,
+  medium: `${speed.normal}ms cubic-bezier(.25,.8,.25,1)`,
+  long: `${speed.slowly}ms cubic-bezier(.4, 0, .2, 1)`
 }
 
 export const bgGradient = `
@@ -155,6 +161,7 @@ export const layout = [1024, 1024, 1024]
 export const letterSpacings = [0, '0.05em', '0.1em', '0.25em']
 
 export default {
+  speed,
   breakpoints,
   boxStyle,
   colors,

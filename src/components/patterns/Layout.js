@@ -5,12 +5,15 @@ import Head from 'components/Head'
 import { Box } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
+import SmoothScroll from 'smooth-scroll'
 
 import theme from 'theme'
 import 'styles/main.scss'
 
 if (global.window) {
-  window.scroll = require('smooth-scroll')('a[href*="#"]')
+  window.scroll = new SmoothScroll('a[href*="#"]', {
+    speed: theme.speed.slowly
+  })
   window.$crisp = []
   window.CRISP_WEBSITE_ID = '1ad5d211-8699-43f6-add3-578b9e47b922'
   window.CRISP_INITIALIZED = false
@@ -31,7 +34,7 @@ const scrollToHash = () => {
   if (hash) {
     const node = document.querySelector(hash)
     if (node) {
-      setTimeout(() => window.scroll.animateScroll(node), 450)
+      setTimeout(() => window.scroll.animateScroll(node))
     }
   }
 }
