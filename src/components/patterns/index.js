@@ -11,7 +11,7 @@ import Layout from './Layout'
 import Chat from './Chat/Chat'
 import Microlink from './Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
-import Aside from './Aside'
+import Aside from './Aside/Aside'
 
 export {
   CardLink,

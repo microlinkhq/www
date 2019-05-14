@@ -32,7 +32,7 @@ import {
   MQLEditor
 } from 'components/patterns'
 
-import { List, ListItem } from 'components/patterns/List'
+import { List, ListItem } from 'components/patterns/List/List'
 
 const FAQ = () => (
   <Box as='article'>
