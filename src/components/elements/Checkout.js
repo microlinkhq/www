@@ -116,7 +116,7 @@ export default class extends Component {
         )}
 
         <ButtonSecondary
-          mt={[3, 3, 3, 0]}
+          mt={[3, 3, 3, 3]}
           onClick={this.openStripe}
           onTouchStart={this.openStripe}
           loading={paymentState === PAYMENT_STATE.PROCESSING}
