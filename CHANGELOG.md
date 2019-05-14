@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.11](https://github.com/microlink/microlink-www/compare/v2.3.10...v2.3.11) (2019-05-14)
+
+
+### Bug Fixes
+
+* references ([03b3c8b](https://github.com/microlink/microlink-www/commit/03b3c8b))
+
+
+### Build System
+
+* improve tooltip ([150487f](https://github.com/microlink/microlink-www/commit/150487f))
+* update copy ([d896171](https://github.com/microlink/microlink-www/commit/d896171))
+* update dependencies ([4f23cb2](https://github.com/microlink/microlink-www/commit/4f23cb2))
+
+
+
 ### [2.3.10](https://github.com/microlink/microlink-www/compare/v2.3.9...v2.3.10) (2019-05-12)
 
 
