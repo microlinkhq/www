@@ -64,7 +64,7 @@ class SearchBox extends Component {
           style={{ paddingRight: '6px' }}
           name='url'
           fontSize={['13px', '18px']}
-          type='url'
+          type={this.props.type}
           placeholder={placeholder}
           onChange={this.handleChange}
           value={this.state.value}
@@ -75,7 +75,7 @@ class SearchBox extends Component {
         />
         <ButtonSecondary
           fontSize={[0, 1]}
-          children='Try it'
+          children={this.props.text}
           loading={loading}
         />
       </Form>
@@ -84,7 +84,9 @@ class SearchBox extends Component {
 }
 
 SearchBox.defaultProps = {
-  value: ''
+  type: 'text',
+  value: '',
+  text: 'Try it'
 }
 
 export default SearchBox

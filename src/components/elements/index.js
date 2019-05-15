@@ -21,7 +21,7 @@ import Badge from './Badge/Banner'
 
 import Notification from './Notification'
 import PricePicker from './PricePicker'
-import SearchBox from './SearchBox'
+import SearchBox from './SearchBox/SearchBox'
 import Select from './Select/Select'
 import Spinner from './Spinner'
 
