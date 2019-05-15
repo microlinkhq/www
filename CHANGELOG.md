@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.14](https://github.com/microlink/microlink-www/compare/v2.3.13...v2.3.14) (2019-05-15)
+
+
+### Build System
+
+* add SearchBox component ([db75c21](https://github.com/microlink/microlink-www/commit/db75c21))
+
+
+
 ### [2.3.13](https://github.com/microlink/microlink-www/compare/v2.3.11...v2.3.13) (2019-05-15)
 
 
