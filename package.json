@@ -1,7 +1,7 @@
 {
   "name": "microlink-www",
-  "description": "microlink website",
-  "homepage": "https://github.com/microlink/microlink-www#readme",
+  "description": "Turn any website into data",
+  "homepage": "https://microlink.io",
   "version": "2.3.16",
   "author": {
     "email": "josefrancisco.verdu@gmail.com",
@@ -10,8 +10,20 @@
   },
   "contributors": [
     {
+      "name": "Brad Adams",
+      "email": "hi@breadadams.com"
+    },
+    {
+      "name": "Aarón García Hervás",
+      "email": "aar.garc.herv@gmail.com"
+    },
+    {
       "name": "midudev",
       "email": "miduga@gmail.com"
+    },
+    {
+      "name": "Elena Torró",
+      "email": "elenatorro@gmail.com"
     }
   ],
   "repository": {
