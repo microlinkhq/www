@@ -54,7 +54,7 @@
     "gatsby-transformer-json": "~2.1.11",
     "gatsby-transformer-remark": "~2.3.12",
     "gatsby-transformer-yaml": "~2.1.12",
-    "git-jiggy": "~1.0.1",
+    "git-jiggy": "~1.1.0",
     "human-number": "~1.0.2",
     "json-future": "~2.1.4",
     "lodash": "~4.17.11",
