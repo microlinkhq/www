@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.16](https://github.com/microlink/microlink-www/compare/v2.3.15...v2.3.16) (2019-05-19)
+
+
+### Bug Fixes
+
+* **package:** update git-jiggy to version 1.1.0 ([14a0c7c](https://github.com/microlink/microlink-www/commit/14a0c7c))
+
+
+
 ### [2.3.15](https://github.com/microlink/microlink-www/compare/v2.3.14...v2.3.15) (2019-05-17)
 
 
