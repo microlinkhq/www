@@ -1,9 +1,8 @@
 'use strict'
 
+const { getCurrentBranchName, getLastModifiedDate } = require('git-jiggy')
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require('path')
-
-const { getLastModifiedDate } = require('git-jiggy')
 
 const getLastEdited = async filepath => {
   let date
@@ -16,6 +15,18 @@ const getLastEdited = async filepath => {
 
   return date
 }
+
+const getGitHubUrl = (() => {
+  let branchName
+
+  return async filepath => {
+    const branch =
+      branchName || (branchName = (await getCurrentBranchName()).stdout)
+    const basepath = `https://github.com/microlinkhq/www/blob/${branch}`
+    const relativepath = filepath.replace(process.cwd(), '')
+    return path.join(basepath, relativepath)
+  }
+})()
 
 exports.onCreateWebpackConfig = ({ getConfig, loaders, stage, actions }) => {
   if (stage === 'build-html') {
@@ -89,9 +100,7 @@ exports.createPages = async ({ graphql, actions }) => {
         path: node.fields.slug,
         component: path.resolve(`./src/templates/index.js`),
         context: {
-          githubUrl:
-            `https://github.com/microlinkhq/www/blob/master` +
-            node.fileAbsolutePath.replace(process.cwd(), ''),
+          githubUrl: getGitHubUrl(node.fileAbsolutePath),
           lastEdited: await getLastEdited(node.fileAbsolutePath),
           isBlogPage: node.fields.slug.startsWith('/blog/'),
           isDocPage: node.fields.slug.startsWith('/docs/'),
