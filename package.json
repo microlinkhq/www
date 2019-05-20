@@ -146,7 +146,7 @@
     "prebuild": "node scripts/fetch-demo-links",
     "predev": "node scripts/fetch-demo-links",
     "prerelease": "npm run update:check && git-authors-cli",
-    "release": "git add package.json && standard-version -a",
+    "release": "git-authors-cli && git add package.json && standard-version -a",
     "release:github": "conventional-github-releaser -p angular",
     "release:tags": "git push --follow-tags origin HEAD:master",
     "storybook": "start-storybook -p 6006",
@@ -203,10 +203,5 @@
       "requestAnimationFrame"
     ],
     "parser": "babel-eslint"
-  },
-  "standard-version": {
-    "scripts": {
-      "prechangelog": "git-authors-cli"
-    }
   }
 }
