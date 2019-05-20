@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.20](https://github.com/microlink/microlink-www/compare/v2.3.19...v2.3.20) (2019-05-20)
+
+
+### Build System
+
+* change git-authors-cli position ([5e0c100](https://github.com/microlink/microlink-www/commit/5e0c100))
+
+
+
 ### [2.3.19](https://github.com/microlink/microlink-www/compare/v2.3.18...v2.3.19) (2019-05-19)
 
 
