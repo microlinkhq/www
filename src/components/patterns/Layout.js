@@ -5,13 +5,12 @@ import Head from 'components/Head'
 import { Box } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
-import SmoothScroll from 'smooth-scroll'
 
 import theme from 'theme'
 import 'styles/main.scss'
 
 if (global.window) {
-  window.scroll = new SmoothScroll('a[href*="#"]', {
+  window.scroll = require('smooth-scroll')('a[href*="#"]', {
     speed: theme.speed.slowly
   })
   window.$crisp = []
