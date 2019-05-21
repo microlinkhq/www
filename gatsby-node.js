@@ -20,8 +20,7 @@ const getGitHubUrl = (() => {
   let branchName
 
   return async filepath => {
-    const branch =
-      branchName || (branchName = (await getCurrentBranchName()).stdout)
+    const branch = branchName || (branchName = await getCurrentBranchName())
     const basepath = `https://github.com/microlinkhq/www/blob/${branch}`
     const relativepath = filepath.replace(process.cwd(), '')
     return path.join(basepath, relativepath)
