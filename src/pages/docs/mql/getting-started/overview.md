@@ -4,11 +4,30 @@ redirect_from:
   - /docs/mql/
 --- 
 
-**Microlink Query Language** (*MQL*) is the way to interact with [Microlink API](/docs/api/getting-started/overview).
-
-The purpose of the library is to provide a good developer experience while you interact with [Microlink API](/docs/api/getting-started/overview), being all API Parameters supported
+**Microlink Query Language** (*MQL*) make possible get structured data from any website.
 
 ```js
+const mql = require('@microlink/mql')
+
+const { data } = await mql('https://kikobeats.com', {
+  rules: {
+    avatar: {
+      type: 'image',
+      selector: '#avatar'
+    }
+  }
+})
+
+console.log(`The avatar is ${data.avatar.url}`)
+```
+
+<Figcaption children="Just the thing you need to do is declaring the data you want to obtain." />
+
+Under the hood, it interacts with [Microlink API](/docs/api/getting-started/overview), being any API Parameter available here as well.
+
+```js
+const mql = require('@microlink/mql')
+
 const { status, data, response } = await mql('https://kikobeats.com', {
   screenshot: true,
   waitFor: 3000
@@ -17,7 +36,7 @@ const { status, data, response } = await mql('https://kikobeats.com', {
 console.log(`My screenshot at ${data.screenshot.url}`)
 ```
 
-Also [MQL](https://www.npmjs.com/package/@microlink/mql) is a convenient way for defining rules to turns any website into a programmatic API
+[MQL](https://www.npmjs.com/package/@microlink/mql) is a convenient way for defining rules to turns any website into a programmatic API.
 
 ```js
 const mql = require('@microlink/mql')
