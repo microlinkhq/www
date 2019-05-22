@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.24](https://github.com/microlink/microlink-www/compare/v2.3.23...v2.3.24) (2019-05-22)
+
+
+### Bug Fixes
+
+* wait async ([0c151fe](https://github.com/microlink/microlink-www/commit/0c151fe))
+
+
+### Build System
+
+* update dependencies ([6c9269d](https://github.com/microlink/microlink-www/commit/6c9269d))
+
+
+
 ### [2.3.23](https://github.com/microlink/microlink-www/compare/v2.3.22...v2.3.23) (2019-05-22)
 
 
