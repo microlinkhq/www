@@ -98,7 +98,7 @@ exports.createPages = async ({ graphql, actions }) => {
         path: node.fields.slug,
         component: path.resolve(`./src/templates/index.js`),
         context: {
-          githubUrl: getGitHubUrl(node.fileAbsolutePath),
+          githubUrl: await githubUrl(node.fileAbsolutePath),
           lastEdited: await getLastEdited(node.fileAbsolutePath),
           isBlogPage: node.fields.slug.startsWith('/blog/'),
           isDocPage: node.fields.slug.startsWith('/docs/'),
