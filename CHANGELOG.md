@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.27](https://github.com/microlink/microlink-www/compare/v2.3.26...v2.3.27) (2019-05-27)
+
+
+### Bug Fixes
+
+* **package:** update json-future to version 2.2.0 ([6fcfa6f](https://github.com/microlink/microlink-www/commit/6fcfa6f))
+
+
+
 ### [2.3.26](https://github.com/microlink/microlink-www/compare/v2.3.25...v2.3.26) (2019-05-26)
 
 
