@@ -20,9 +20,9 @@ const githubUrl = (() => {
   let branchName
   return async filepath => {
     const branch = branchName || (branchName = await getCurrentBranchName())
-    const basepath = `https://github.com/microlinkhq/www/blob/${branch}`
-    const relativepath = filepath.replace(process.cwd(), '')
-    return path.join(basepath, relativepath)
+    const base = `https://github.com/microlinkhq/www/blob/${branch}`
+    const relative = filepath.replace(process.cwd(), '')
+    return base + relative
   }
 })()
 
@@ -94,6 +94,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   return Promise.all(
     result.data.allMarkdownRemark.edges.map(async ({ node }) => {
+      console.log(await githubUrl(node.fileAbsolutePath))
       return createPage({
         path: node.fields.slug,
         component: path.resolve(`./src/templates/index.js`),
