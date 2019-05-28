@@ -75,7 +75,7 @@
     "normalize.css": "~8.0.1",
     "p-all": "~2.1.0",
     "palx": "~1.0.3",
-    "parse-domain": "~2.1.7",
+    "parse-domain": "~2.2.1",
     "polished": "~3.4.0",
     "postcss-focus": "~4.0.0",
     "react": "16.8.6",
