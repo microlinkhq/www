@@ -8,6 +8,10 @@ It is available as [npm package](https://www.npmjs.com/package/@microlink/cli)
 
 <Terminal>npm install @microlink/cli --global</Terminal>
 
+Alternatively, if you have [npx](https://www.npmjs.com/package/npx), you can just run it
+
+<Terminal>npx install @microlink/cli --help</Terminal>
+
 After that, `microlink-api` and `microlink-pro` commands will be available in your system.
 
 ```bash
