@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.30](https://github.com/microlink/microlink-www/compare/v2.3.27...v2.3.30) (2019-05-28)
+
+
+### Bug Fixes
+
+* **package:** update beauty-error to version 1.2.0 ([5d8af89](https://github.com/microlink/microlink-www/commit/5d8af89))
+* **package:** update parse-domain to version 2.2.1 ([854cbb2](https://github.com/microlink/microlink-www/commit/854cbb2))
+* condition ([701dbcd](https://github.com/microlink/microlink-www/commit/701dbcd))
+* url join ([38a2939](https://github.com/microlink/microlink-www/commit/38a2939))
+
+
+
 ### [2.3.29](https://github.com/microlink/microlink-www/compare/v2.3.27...v2.3.29) (2019-05-28)
 
 
