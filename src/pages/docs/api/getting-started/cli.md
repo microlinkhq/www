@@ -11,7 +11,7 @@ It is available as [npm package](https://www.npmjs.com/package/@microlink/cli)
 After that, `microlink-api` and `microlink-pro` commands will be available in your system.
 
 ```bash
-$ microlink-dev --help
+$ microlink-api --help
 
 A CLI for interacting with Microlink API.
 
@@ -19,9 +19,9 @@ Usage
   $ microlink-[api|pro] <url> [flags]
 
 Flags
-  --headers       print response headers. [default=true]
-  --body          print response body.    [default=true]
-  --colors        colorize output.        [default=true]
+  --print-resume      print response resume.  [default=true]
+  --print-body        print response body.    [default=true]
+  --colors            colorize output.        [default=true]
 
 Examples
   microlink-api https://microlink.io&palette
