@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.31](https://github.com/microlink/microlink-www/compare/v2.3.30...v2.3.31) (2019-05-29)
+
+
+### Bug Fixes
+
+* **package:** update parse-domain to version 2.3.0 ([85adb7c](https://github.com/microlink/microlink-www/commit/85adb7c))
+
+
+
 ### [2.3.30](https://github.com/microlink/microlink-www/compare/v2.3.27...v2.3.30) (2019-05-28)
 
 
