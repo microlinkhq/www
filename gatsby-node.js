@@ -94,7 +94,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
   return Promise.all(
     result.data.allMarkdownRemark.edges.map(async ({ node }) => {
-      console.log(await githubUrl(node.fileAbsolutePath))
       return createPage({
         path: node.fields.slug,
         component: path.resolve(`./src/templates/index.js`),
