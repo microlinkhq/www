@@ -5,39 +5,51 @@ import styled, { css } from 'styled-components'
 import { External as ExternalIcon } from 'components/icons'
 import Flex from '../../components/elements/Flex'
 import { Link } from 'gatsby'
+import { transition, colors } from 'theme'
+
+const isInternalLink = to => /^\/(?!\/)/.test(to)
+
+const getHash = href => href.replace('/#', '#')
 
 const linkStyle = css`
   text-decoration: inherit;
   color: inherit;
 `
 
-const isInternalLink = to => /^\/(?!\/)/.test(to)
-
-const getHash = href => href.replace('/#', '#')
-
-const ExternalLink = styled('a')(linkStyle)
+const ExternalLink = styled('a')`
+  ${linkStyle}
+`
 
 ExternalLink.defaultProps = {
   rel: 'noopener noreferrer',
   target: '_blank'
 }
 
-const GatsbyLink = styled(Link)(linkStyle)
+const GatsbyLink = styled(Link)`
+  ${linkStyle}
+`
+
+const linkIconWrapper = `
+transition: all ${transition.short};
+&:hover {
+  > svg {
+    stroke: ${colors.link};
+  }
+}
+`
+
+const externalIconStyle = `
+position: relative;
+top: 7px;
+`
 
 const Children = ({ children, icon }) => {
   if (!icon) return children
 
   return (
-    <Flex>
+    <Flex css={linkIconWrapper}>
       {children}
-      <ExternalIcon
-        width='14px'
-        css={`
-          position: relative;
-          top: 7px;
-        `}
-        ml={1}
-      />
+      <ExternalIcon width='14px' css={externalIconStyle} ml={1} />
     </Flex>
   )
 }
