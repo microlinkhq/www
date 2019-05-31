@@ -94,13 +94,11 @@ const ROUTES_SDK = [
     posts: [
       {
         name: 'Storybook',
-        href: 'https://storybook.microlink.io/',
-        external: true
+        href: 'https://storybook.microlink.io/'
       },
       {
         name: 'CodeSandbox',
-        href: 'https://codesandbox.io/s/n5w839zm4m',
-        external: true
+        href: 'https://codesandbox.io/s/n5w839zm4m'
       }
     ]
   }
@@ -249,8 +247,7 @@ const ROUTES_MQL = [
     posts: [
       {
         name: 'CodeSandbox',
-        href: 'https://codesandbox.io/s/wn2y4x4327',
-        external: true
+        href: 'https://codesandbox.io/s/wn2y4x4327'
       }
     ]
   }
