@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.33](https://github.com/microlink/microlink-www/compare/v2.3.32...v2.3.33) (2019-05-31)
+
+
+### Build System
+
+* change color on hover ([81acbf3](https://github.com/microlink/microlink-www/commit/81acbf3))
+* remove external prop ([545a29d](https://github.com/microlink/microlink-www/commit/545a29d))
+* remove font-weight for external links on hover ([f4b26c6](https://github.com/microlink/microlink-www/commit/f4b26c6))
+
+
+
 ### [2.3.32](https://github.com/microlink/microlink-www/compare/v2.3.31...v2.3.32) (2019-05-31)
 
 
