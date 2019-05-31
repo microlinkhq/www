@@ -1,13 +1,35 @@
 import React, { useState, Fragment } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
+import { withLink } from 'helpers/hoc'
 import { isNot } from 'styled-is'
 import { noop } from 'lodash'
-import { transition } from 'theme'
 
 import { ASIDE_WIDTH } from './constants'
-import NavLink from './NavLink'
+import NavLink, {
+  style as navLinkStyle,
+  activeStyle as navLinkActiveStyle
+} from './NavLink'
+
+const { isInternalLink } = withLink
+
+const titleStyle = css`
+  ${navLinkStyle};
+
+  &:hover {
+    ${navLinkActiveStyle};
+  }
+`
+
+const titleExternalStyle = css`
+  ${navLinkStyle};
+
+  &:hover {
+    ${navLinkActiveStyle};
+    font-weight: normal;
+  }
+`
 
 const AsideWrapper = styled(Box)`
   position: fixed;
@@ -15,7 +37,7 @@ const AsideWrapper = styled(Box)`
   bottom: 0;
   top: ${TOOLBAR_HEIGHT};
   width: ${ASIDE_WIDTH};
-  transition: transform ${transition.medium};
+  transition: color ${({ theme }) => theme.transition.medium};
 
   ${isNot('isOpen')`
     transform: translateX(-100%);
@@ -24,11 +46,18 @@ const AsideWrapper = styled(Box)`
 
 const Header = props => <Caps mb={2} color='gray5' {...props} />
 
-const Title = ({ children, href }) => (
-  <NavLink href={href} actively icon>
-    <Text fontWeight='normal' mb={2} children={children} />
-  </NavLink>
-)
+const Title = ({ children, href }) => {
+  return (
+    <NavLink href={href} actively icon>
+      <Text
+        fontWeight='normal'
+        mb={2}
+        children={children}
+        css={isInternalLink(href) ? titleStyle : titleExternalStyle}
+      />
+    </NavLink>
+  )
+}
 
 const Subheader = props => <Text mt={3} mb={2} color='gray4' {...props} />
 

@@ -1,19 +1,19 @@
 import styled, { css } from 'styled-components'
-import { transition } from 'theme'
-
 import { Text } from 'components/elements'
 import { withLink } from 'helpers/hoc'
 
-const activeStyle = css`
+export const style = css`
+  transition: color ${({ theme }) => theme.transition.medium};
+`
+
+export const activeStyle = css`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.black};
 `
 
-const style = css`
-  transition: color ${transition.medium};
-
-  &:hover,
-  > .active * {
+const navlinkStyle = css`
+  ${style}
+  .active * {
     ${activeStyle};
   }
 `
@@ -31,7 +31,7 @@ const NavLink = styled(Text)(
     }
   },
   props => props.css,
-  style
+  navlinkStyle
 )
 
 NavLink.defaultProps = {

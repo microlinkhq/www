@@ -29,13 +29,13 @@ const GatsbyLink = styled(Link)`
   ${linkStyle}
 `
 
-const linkIconWrapper = `
-transition: all ${transition.short};
-&:hover {
-  > svg {
-    stroke: ${colors.link};
+const linkIconWrapper = css`
+  transition: stroke ${transition.medium};
+  &:hover {
+    > svg {
+      stroke: ${colors.link};
+    }
   }
-}
 `
 
 const externalIconStyle = `
@@ -69,7 +69,7 @@ const onView = (node, fn, opts) => {
   observer.observe(node)
 }
 
-export default ChildComponent => ({
+const withlink = ChildComponent => ({
   icon = false,
   onClick,
   actively,
@@ -114,3 +114,7 @@ export default ChildComponent => ({
     </ChildComponent>
   )
 }
+
+withlink.isInternalLink = isInternalLink
+
+export default withlink
