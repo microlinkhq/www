@@ -124,7 +124,7 @@
     "svgo": "latest"
   },
   "engines": {
-    "node": "10"
+    "node": ">= 8"
   },
   "files": [
     "data",
