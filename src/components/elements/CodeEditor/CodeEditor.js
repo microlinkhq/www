@@ -71,12 +71,12 @@ const langTheme = {
   bash: {
     'code[class*="language-"]': {
       ...codeTheme,
-      color: COLORS.WHITE
+      color: COLORS.YELLOW
     },
-    function: { color: COLORS.WHITE },
-    token: { color: COLORS.WHITE },
-    operator: { color: COLORS.WHITE },
-    keyword: { color: COLORS.WHITE }
+    function: { color: COLORS.YELLOW },
+    token: { color: COLORS.YELLOW },
+    operator: { color: COLORS.YELLOW },
+    keyword: { color: COLORS.YELLOW }
   },
   json: {
     'code[class*="language-"]': {
