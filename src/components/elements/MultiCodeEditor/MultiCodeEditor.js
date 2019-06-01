@@ -44,37 +44,9 @@ const CustomBox = styled(Box)`
   ${actionStyle};
   border: 0;
 `
-
-export const SelectLanguage = ({ children, value, onChange, ...props }) => {
-  return (
-    <CustomBox>
-      <CustomSelect
-        value={value}
-        onChange={event => {
-          event.preventDefault()
-          const language = event.target.value
-          onChange(language)
-        }}
-        {...props}
-      >
-        {children.map(language => {
-          return (
-            <option
-              key={language}
-              children={language}
-              fontSize={0}
-              fontWeight='regular'
-              mr={2}
-            />
-          )
-        })}
-      </CustomSelect>
-    </CustomBox>
-  )
-}
-
-const getLanguageAlias = language => {
-  switch (language) {
+const toAlias = lang => {
+  lang = lang.toLowerCase()
+  switch (lang) {
     case 'vanilla':
       return 'html'
     case 'react':
@@ -87,17 +59,41 @@ const getLanguageAlias = language => {
     case 'node.js':
       return 'javascript'
     default:
-      return language
+      return lang
   }
 }
 
+export const SelectLanguage = ({ children, value, onChange, ...props }) => {
+  return (
+    <CustomBox>
+      <CustomSelect
+        value={value}
+        onChange={event => {
+          event.preventDefault()
+          const label = event.target.value
+          onChange(label)
+        }}
+        {...props}
+      >
+        {children.map(lang => (
+          <option
+            key={lang}
+            children={lang}
+            fontSize={0}
+            fontWeight='regular'
+            mr={2}
+          />
+        ))}
+      </CustomSelect>
+    </CustomBox>
+  )
+}
+
 function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
-  const languagesKeys = Object.keys(languages)
-  const [language, setLanguage] = useState(() => languages[languagesKeys[0]])
+  const langs = Object.keys(languages)
+  const [language, setLanguage] = useState(() => languages[langs[0]])
   const code = isFunction(language) ? language(props) : language
-  const languageAlias =
-    language.language ||
-    languagesKeys.find(lang => languages[lang] === language)
+  const lang = langs.find(lang => languages[lang] === language)
 
   const ActionComponent = () => (
     <Flex>
@@ -107,9 +103,9 @@ function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
           width={'4.5rem'}
           mb={2}
           bg='white'
-          children={languagesKeys}
-          value={languageAlias}
-          onChange={languageName => setLanguage(() => languages[languageName])}
+          children={langs}
+          value={lang}
+          onChange={lang => setLanguage(() => languages[lang])}
         />
       </Text>
       <CustomCodeCopy theme='dark' interactive text={code} />
@@ -118,7 +114,7 @@ function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
 
   return (
     <CodeEditor
-      language={getLanguageAlias(languageAlias.toLowerCase())}
+      language={toAlias(lang)}
       children={code}
       ActionComponent={ActionComponent}
     />

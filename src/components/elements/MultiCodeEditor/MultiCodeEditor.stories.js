@@ -26,8 +26,6 @@ export default () => (
 )
 `
 
-jsx.language = 'jsx'
-
 const bash = () => `
 $ curl -i -I -X GET https://api.microlink.io/?url=https%3A%2F%2Fwww.reddit.com
 
@@ -35,8 +33,6 @@ x-response-time : 21.518ms
 x-fetch-mode    : fetch
 x-fetch-time    : 618.055ms
 `
-
-bash.language = 'bash'
 
 const json = () => `
 {
@@ -56,9 +52,11 @@ const json = () => `
 }
 `
 
-json.language = 'json'
-
-const languages = { bash, json, jsx }
+const languages = {
+  Shell: bash,
+  JSON: json,
+  React: jsx
+}
 
 storiesOf('Elements', module).add('MultiCodeEditor', () => (
   <Story name='MultiCodeEditor'>
