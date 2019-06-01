@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.36](https://github.com/microlink/microlink-www/compare/v2.3.35...v2.3.36) (2019-06-01)
+
+
+### Bug Fixes
+
+* detect language properly ([b52920d](https://github.com/microlink/microlink-www/commit/b52920d))
+* detect MultiCodeEditor language properly ([#406](https://github.com/microlink/microlink-www/issues/406)) ([7497321](https://github.com/microlink/microlink-www/commit/7497321))
+
+
+### Build System
+
+* removing trailing slash ([4f25f48](https://github.com/microlink/microlink-www/commit/4f25f48))
+* update dependencies ([e073c32](https://github.com/microlink/microlink-www/commit/e073c32))
+
+
+
 ### [2.3.35](https://github.com/microlink/microlink-www/compare/v2.3.34...v2.3.35) (2019-05-31)
 
 
