@@ -44,7 +44,7 @@ const CustomBox = styled(Box)`
   ${actionStyle};
   border: 0;
 `
-const toAlias = lang => {
+const toAlias = (lang = '') => {
   lang = lang.toLowerCase()
   switch (lang) {
     case 'vanilla':
