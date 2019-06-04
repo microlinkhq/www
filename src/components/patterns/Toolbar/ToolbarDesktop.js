@@ -19,11 +19,13 @@ export default class extends Component {
           >
             <NavContainer as='nav'>
               <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Logo'
                 onContextMenu={event => {
                   event.preventDefault()
                   navigate('/design')
                 }}
-                href='/#'
+                href='/'
                 width={['32px', '48px']}
                 display='flex'
                 pr={[2, 3]}
@@ -31,26 +33,44 @@ export default class extends Component {
                 <Microlink size={'100%'} />
               </NavLink>
               <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Features'
                 pr={[2, 3]}
                 children='Features'
                 href='/#features'
                 actively='observer'
               />
               <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Pricing'
                 pr={[2, 3]}
                 children='Pricing'
                 href='/#pricing'
                 actively='observer'
               />
               <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Docs'
                 href='/docs/sdk/getting-started/overview/'
                 children='Docs'
                 actively='partial'
               />
-              <NavLink href='/blog' children='Blog' actively='partial' />
+              <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Blog'
+                href='/blog'
+                children='Blog'
+                actively='partial'
+              />
             </NavContainer>
             <NavContainer as='nav'>
-              <NavLink children='Chat' href='/chat' actively />
+              <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Chat'
+                children='Chat'
+                href='/chat'
+                actively
+              />
             </NavContainer>
           </Toolbar>
         </Box>

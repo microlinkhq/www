@@ -120,6 +120,8 @@ const Hero = () => {
 
   const announcement = (
     <Announcement
+      data-event-category='Home'
+      data-event-action='Announcement'
       href='/blog/product-brief-7/'
       children='Microlink SDK 4.0, Docs Portal & MQL »'
     />

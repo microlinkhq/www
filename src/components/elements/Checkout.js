@@ -120,6 +120,8 @@ export default class extends Component {
           onClick={this.openStripe}
           onTouchStart={this.openStripe}
           loading={paymentState === PAYMENT_STATE.PROCESSING}
+          data-event-category='Checkout'
+          data-event-action='Buy'
         >
           <Caps fontSize={0}>Buy</Caps>
         </ButtonSecondary>
