@@ -9,7 +9,7 @@ import PricingTable from './PricingTable/PricingTable'
 import Toolbar from './Toolbar/Toolbar'
 import Layout from './Layout'
 import Chat from './Chat/Chat'
-import Microlink from './Microlink'
+import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import Aside from './Aside/Aside'
 

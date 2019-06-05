@@ -53,26 +53,30 @@ const FAQ = () => (
   </Box>
 )
 
-const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => (
-  <Box as='article' id='pricing'>
-    <Container as='section' pt={5} pb={0}>
-      <Header
-        children={[
-          'Pricing',
-          'From $0. ',
-          <Subhead fontWeight='bold' as='span'>
-            Pay as you grow.
-          </Subhead>
-        ]}
-      />
-      <PricingTable
-        apiKey={apiKey}
-        stripeKey={stripeKey}
-        apiEndpoint={apiEndpoint}
-      />
-    </Container>
-  </Box>
-)
+const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => {
+  const title = 'Pricing'
+  const caption = (
+    <Fragment>
+      From $0.{' '}
+      <Subhead fontWeight='bold' as='span'>
+        Pay as you grow.
+      </Subhead>
+    </Fragment>
+  )
+
+  return (
+    <Box as='article' id='pricing'>
+      <Container as='section' pt={5} pb={0}>
+        <Header title={title} caption={caption} />
+        <PricingTable
+          apiKey={apiKey}
+          stripeKey={stripeKey}
+          apiEndpoint={apiEndpoint}
+        />
+      </Container>
+    </Box>
+  )
+}
 
 const Container = ({ children, maxWidth, ...props }) => (
   <Box as='article' px={4} pt={[4, 5]} pb={[4, 5]} {...props}>
@@ -80,8 +84,7 @@ const Container = ({ children, maxWidth, ...props }) => (
   </Box>
 )
 
-const Header = ({ children }) => {
-  const [title, ...caption] = children
+const Header = ({ title, caption }) => {
   return (
     <Flex
       as='header'
@@ -97,9 +100,7 @@ const Header = ({ children }) => {
         px={4}
         color='gray'
         textAlign='center'
-        children={caption.map((child, index) => (
-          <Fragment key={`${title}_${index}`}>{child}</Fragment>
-        ))}
+        children={caption}
       />
     </Flex>
   )
@@ -111,42 +112,39 @@ const Announcement = ({ href, children, ...props }) => (
   </Flex>
 )
 
-const Hero = () => (
-  <Fragment>
-    <Hide breakpoints={[0, 1, 2]}>
-      <Container id='hero'>
-        <Header
-          children={[
-            'Turn websites into data',
-            'Microlink makes easy to build an API on top of any website.'
-          ]}
-        />
-        <Announcement
-          href='/blog/product-brief-7/'
-          children='Microlink SDK 4.0, Docs Portal & MQL »'
-        />
-      </Container>
-    </Hide>
+const Hero = () => {
+  const title = 'Turn websites into data'
+  const caption = 'Microlink makes easy to build an API on top of any website.'
 
-    <Hide breakpoints={[3]}>
-      <Box pb={[4, 5]}>
-        <Container id='hero' pb={0}>
-          <Header
-            children={[
-              'Turn websites into data',
-              'Microlink makes easy to build an API on top of any website.'
-            ]}
-          />
+  const header = <Header title={title} caption={caption} />
+
+  const announcement = (
+    <Announcement
+      href='/blog/product-brief-7/'
+      children='Microlink SDK 4.0, Docs Portal & MQL »'
+    />
+  )
+
+  return (
+    <Fragment>
+      <Hide breakpoints={[0, 1, 2]}>
+        <Container id='hero'>
+          {header}
+          {announcement}
         </Container>
-        <Announcement
-          pt={2}
-          href='/blog/product-brief-7/'
-          children='Microlink SDK 4.0, Docs Portal & MQL »'
-        />
-      </Box>
-    </Hide>
-  </Fragment>
-)
+      </Hide>
+
+      <Hide breakpoints={[3]}>
+        <Box pb={[4, 5]}>
+          <Container id='hero' pb={0}>
+            {header}
+          </Container>
+          {announcement}
+        </Box>
+      </Hide>
+    </Fragment>
+  )
+}
 
 const Subheader = ({ children }) => (
   <Fragment>
@@ -172,16 +170,19 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
       alignItems='center'
       as='header'
     >
-      <Subheader children={['SDK', 'Beautiful Link Previews']} />
-      <Box px={4} textAlign={['inherit', 'center']}>
-        <Text mt={4} mb={[4, 4, 4, 0]}>
-          <Link>Microlink SDK</Link> converts your links into rich media.
+      <Subheader
+        children={['Microlink SDK', 'Turn websites into rich media']}
+      />
+      <Box px={4} textAlign={'center'}>
+        <Text mt={4} mb={[4, 4, 4, 0]} maxWidth={8}>
+          <Link href='/docs/sdk/getting-started/overview/'>Microlink SDK</Link>{' '}
+          converts your links into beautiful previews. Make your content
+          attractive, engaging better your links.
         </Text>
-        <Text>Make your content attractive, engaging better your links.</Text>
       </Box>
     </Flex>
     <Flex
-      py={[4, 4, 4, 5]}
+      py={[2, 3, 4, 5]}
       px={[5, 5, 5, 0]}
       as='section'
       justifyContent='center'
@@ -257,32 +258,29 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
 )
 
 const MQL = () => (
-  <Container
-    maxWidth='100%'
-    bg='pinky'
-    id='sdk'
-    borderColor='pinkest'
-    borderTop='1px solid'
-    borderBottom='1px solid'
-  >
+  <Container maxWidth='100%' id='sdk'>
     <Flex
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
       as='header'
     >
-      <Subheader children={['MQL', 'Build APIs from websites']} />
+      <Subheader
+        children={['Microlink API', 'Turns websites into structured data']}
+      />
 
-      <Box px={4} textAlign={['inherit', 'center']}>
-        <Text mt={4} mb={[4, 4, 4, 0]}>
-          <Link>Microlink Query Language</Link> (MQL) is the most modern data
-          interface for the web.
+      <Box px={4} textAlign={'center'}>
+        <Text mt={4} mb={[4, 4, 4, 0]} maxWidth={8}>
+          <Link href='/docs/mql/getting-started/overview'>
+            Microlink Query Language
+          </Link>{' '}
+          (MQL) is a programmatic way to getting content from any URL. Build
+          APIs from websites.
         </Text>
-        <Text>Get structured data, from any website.</Text>
       </Box>
     </Flex>
     <Flex
-      py={[4, 4, 4, 5]}
+      py={[2, 3, 4, 5]}
       px={[5, 5, 5, 0]}
       as='section'
       justifyContent='center'
@@ -299,7 +297,7 @@ const MQL = () => (
           maxWidth={['inherit', 'inherit', 'inherit', 8]}
           mt={[1, 1, 1, 3]}
           textAlign={['center', 'center', 'center', 'inherit']}
-          children='Turns any website into a programmatic API.'
+          children='Build APIs from websites.'
         />
         <List px={[3, 3, 3, 0]} mt={4} mb={3}>
           <ListItem children='Create data rules based on HTML markup.' />
@@ -332,8 +330,14 @@ const MQL = () => (
 )
 
 const Features = ({ children }) => (
-  <Container id='features'>
-    <Header children={['Features', 'Capabilities under the hood.']} />
+  <Container
+    id='features'
+    bg='pinky'
+    borderColor='pinkest'
+    borderTop='1px solid'
+    borderBottom='1px solid'
+  >
+    <Header title='Features' caption='Capabilities under the hood.' />
     <Box as='section' pt={[4, 5]}>
       <Hide breakpoints={[0, 1]}>
         <Grid children={children} itemsPerRow={3} />
@@ -375,8 +379,8 @@ function Index () {
         siteUrl={siteUrl}
         editor={demoLink}
       />
-      <Features children={useFeatures()} />
       <MQL />
+      <Features children={useFeatures()} />
       <Pricing
         apiKey={paymentApiKey}
         stripeKey={stripeKey}
