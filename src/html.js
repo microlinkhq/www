@@ -32,10 +32,8 @@ export default function HTML (props) {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-            <script>
               window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
               ga('require', 'eventTracker', { attributePrefix: 'data-' });
-            </script>
             `
           }}
         />
