@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.44](https://github.com/microlink/microlink-www/compare/v2.3.43...v2.3.44) (2019-06-05)
+
+
+### Build System
+
+* use my own implementation ([e9a388e](https://github.com/microlink/microlink-www/commit/e9a388e))
+
+
+
 ### [2.3.43](https://github.com/microlink/microlink-www/compare/v2.3.42...v2.3.43) (2019-06-05)
 
 
