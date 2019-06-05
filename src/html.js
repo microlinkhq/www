@@ -28,7 +28,7 @@ export default function HTML (props) {
           crossOrigin='anonymous'
           src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch'
         />
-        <script src='/js/autotrack.min.js' async />
+        <script src='https://cdn.jsdelivr.net/npm/autotrack@2.4.1/autotrack.min.js' />
         <script
           dangerouslySetInnerHTML={{
             __html: `
