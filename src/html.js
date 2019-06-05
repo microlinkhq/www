@@ -31,7 +31,12 @@ export default function HTML (props) {
         <script src='/js/autotrack.min.js' async />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.ga && window.ga('require', 'eventTracker', { attributePrefix: 'data-' })`
+            __html: `
+            <script>
+              window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+              ga('require', 'eventTracker', { attributePrefix: 'data-' });
+            </script>
+            `
           }}
         />
         <script
