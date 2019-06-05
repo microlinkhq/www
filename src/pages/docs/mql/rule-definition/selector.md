@@ -51,7 +51,7 @@ You can specify any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/
 
 - An HTML tag, e.g. `img`.
 - An CSS class or pseudo class, id or data-attribute, e.g. `#avatar`.
-- A combination of both, e.g. `first:img`.
+- A combination of both, e.g. `img:first`.
 
 You can pass a collection of selectors as well
 
@@ -60,7 +60,7 @@ const mql = require('@microlink/mql')
 const {data } mql(`https://twitter.com/${username}`, {
   rules: {
     avatar: {
-      selector: ['#avatar', 'first:img']
+      selector: ['#avatar', 'img:first']
     }
   }
 })

@@ -68,7 +68,7 @@ If you want to pass specific API Parameters just for some cases, you can pass th
 ```html
 <a 
   src="https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk" 
-  class"link-preview" 
+  class="link-preview" 
   data-size="large">
 </a>
 ```
