@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
-import { noop } from 'lodash'
 import { Link } from 'gatsby'
 
 import { External as ExternalIcon } from 'components/icons'
@@ -45,28 +44,6 @@ position: relative;
 top: 7px;
 `
 
-const createOnClick = ({
-  eventAction,
-  eventCategory,
-  onClick = noop,
-  href
-}) => {
-  if (!(eventAction && eventCategory)) return onClick
-
-  return event => {
-    if (window.ga) {
-      window.ga(`send`, `event`, {
-        eventAction,
-        eventCategory,
-        eventLabel: href,
-        transport: 'beacon'
-      })
-    }
-    onClick(event)
-    return false
-  }
-}
-
 const Children = ({ children, icon }) => {
   if (!icon) return children
 
@@ -100,14 +77,11 @@ const withlink = ChildComponent => ({
   children,
   target,
   rel,
-  'data-event-action': eventAction,
-  'data-event-category': eventCategory,
   ...props
 }) => {
   const [isIntersecting, setIsIntersecting] = useState(false)
   const isInternal = isInternalLink(href)
   const partiallyActive = actively === 'partial'
-  const onClick = createOnClick({ eventAction, eventCategory, ...props })
 
   if (actively === 'observer') {
     useEffect(() => {
@@ -126,15 +100,15 @@ const withlink = ChildComponent => ({
 
   if (isInternal) {
     return (
-      <ChildComponent {...props} onClick={onClick}>
+      <ChildComponent {...props}>
         <GatsbyLink to={href} children={children} getProps={getProps} />
       </ChildComponent>
     )
   }
 
   return (
-    <ChildComponent {...props} onClick={onClick}>
-      <ExternalLink href={href} target={target} rel={rel} onClick={onClick}>
+    <ChildComponent {...props}>
+      <ExternalLink href={href} target={target} rel={rel}>
         <Children icon={icon} children={children} />
       </ExternalLink>
     </ChildComponent>
