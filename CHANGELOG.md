@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.39](https://github.com/microlink/microlink-www/compare/v2.3.38...v2.3.39) (2019-06-05)
+
+
+### Bug Fixes
+
+* **package:** update autoprefixer to version 9.6.0 ([75ba770](https://github.com/microlink/microlink-www/commit/75ba770))
+
+
+
 ### [2.3.38](https://github.com/microlink/microlink-www/compare/v2.3.37...v2.3.38) (2019-06-05)
 
 
