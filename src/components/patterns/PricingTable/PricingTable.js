@@ -261,6 +261,8 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
         <Subhead color='gray8' fontSize={2} children='Do you need more?' />
         <Text as='div' mt={1} fontSize={1} color='gray8'>
           <LinkSolid
+            data-event-category='Checkout'
+            data-event-action='Contact'
             fontWeight='bold'
             href='mailto:hello@microlink.io?subject=About pricing'
             children='Contact us'

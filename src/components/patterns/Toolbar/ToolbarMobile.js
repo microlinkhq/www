@@ -58,6 +58,8 @@ export default class extends Component {
         <Box boxShadow={0} mx='auto' bg='white'>
           <Toolbar mx={3} justifyContent='center' {...this.props}>
             <NavLink
+              data-event-category='Toolbar'
+              data-event-action='Logo'
               width={'32px'}
               display='flex'
               px={2}
@@ -67,16 +69,44 @@ export default class extends Component {
               <Microlink />
             </NavLink>
             <Nav as='nav' width='240px'>
-              <NavLink px={2} children='Features' href='/#features' />
-              <NavLink px={2} children='Pricing' href='/#pricing' />
-              <NavLink px={2} children='Blog' href='/blog' actively='partial' />
               <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Features'
+                px={2}
+                children='Features'
+                href='/#features'
+              />
+              <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Pricing'
+                px={2}
+                children='Pricing'
+                href='/#pricing'
+              />
+              <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Blog'
+                px={2}
+                children='Blog'
+                href='/blog'
+                actively='partial'
+              />
+              <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Docs'
                 px={2}
                 children='Docs'
                 href='/docs/sdk/getting-started/overview/'
                 actively='partial'
               />
-              <NavLink px={2} children='Chat' href='/chat' actively />
+              <NavLink
+                data-event-category='Toolbar'
+                data-event-action='Chat'
+                px={2}
+                children='Chat'
+                href='/chat'
+                actively
+              />
             </Nav>
           </Toolbar>
         </Box>

@@ -85,7 +85,11 @@ export default props => (
                       fontSize={0}
                     />
                   </InputWrapper>
-                  <ButtonOutline color='black'>
+                  <ButtonOutline
+                    data-event-category='Footer'
+                    data-event-action='Subscribe'
+                    color='black'
+                  >
                     <Caps fontSize={0} children='Subscribe' />
                   </ButtonOutline>
                 </Flex>
@@ -103,6 +107,8 @@ export default props => (
       <Box pt={[3, 3, 3, 0]} pb={[3, 3, 3, 0]} px={0}>
         <Flex flexDirection={['row', 'row', 'row', 'column']}>
           <LinkSolid
+            data-event-category='Footer'
+            data-event-action='API'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
@@ -110,6 +116,8 @@ export default props => (
             children='API'
           />
           <LinkSolid
+            data-event-category='Footer'
+            data-event-action='Status'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
@@ -117,6 +125,8 @@ export default props => (
             children='Status'
           />
           <LinkSolid
+            data-event-category='Footer'
+            data-event-action='Bug Reports'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
@@ -124,6 +134,8 @@ export default props => (
             children='Bug Reports'
           />
           <LinkSolid
+            data-event-category='Footer'
+            data-event-action='Tech Support'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
@@ -135,6 +147,8 @@ export default props => (
       <Box pb={[3, 3, 3, 0]} px={0}>
         <Flex flexDirection={['row', 'row', 'row', 'column']}>
           <LinkSolid
+            data-event-category='Footer'
+            data-event-action='SDK'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
@@ -142,6 +156,8 @@ export default props => (
             children='SDK'
           />
           <LinkSolid
+            data-event-category='Footer'
+            data-event-action='Pricing'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
@@ -149,6 +165,8 @@ export default props => (
             children='Pricing'
           />
           <LinkSolid
+            data-event-category='Footer'
+            data-event-action='Feature Requests'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
@@ -156,6 +174,8 @@ export default props => (
             children='Feature Requests'
           />
           <LinkSolid
+            data-event-category='Footer'
+            data-event-action='Design'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
@@ -173,6 +193,8 @@ export default props => (
                   Questions?
                 </Text>
                 <LinkSolid
+                  data-event-category='Footer'
+                  data-event-action='Questions'
                   mt={3}
                   px={0}
                   href='mailto:hello@microlink.io'
@@ -195,11 +217,15 @@ export default props => (
               mr={2}
               fontSize={0}
               href='/tos'
+              data-event-category='Footer'
+              data-event-action='Terms'
               children='Terms'
             />
             <LinkSolid
               fontWeight='normal'
               fontSize={0}
+              data-event-category='Footer'
+              data-event-action='Privacy'
               href='/privacy'
               children='Privacy'
             />
@@ -208,10 +234,18 @@ export default props => (
             alignItems='center'
             justifyContent={['center', 'center', 'center', 'inherit']}
           >
-            <IconWrapper as='a' href='/chat' mr={3}>
+            <IconWrapper
+              data-event-category='Footer'
+              data-event-action='Slack'
+              as='a'
+              href='/chat'
+              mr={3}
+            >
               <Slack color={colors.black80} size={20} />
             </IconWrapper>
             <IconWrapper
+              data-event-category='Footer'
+              data-event-action='GitHub'
               rel='noopener noreferrer'
               target='_blank'
               as='a'
@@ -221,6 +255,8 @@ export default props => (
               <GitHub color={colors.black80} size={20} />
             </IconWrapper>
             <IconWrapper
+              data-event-category='Footer'
+              data-event-action='Email'
               rel='noopener noreferrer'
               target='_blank'
               as='a'
@@ -230,6 +266,8 @@ export default props => (
               <Mail color={colors.black80} size={20} />
             </IconWrapper>
             <IconWrapper
+              data-event-category='Footer'
+              data-event-action='Twitter'
               rel='noopener noreferrer'
               target='_blank'
               as='a'
