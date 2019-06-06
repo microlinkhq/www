@@ -87,7 +87,7 @@ const MicrolinkCardMobile = styled(Microlink)`
 `
 
 const JSONViewer = styled(Box)`
-  font-family: ${fonts.monospace};
+  font-family: ${fonts.mono};
   font-size: ${fontSizes[1]}px;
   line-height: ${lineHeights[3]};
 `

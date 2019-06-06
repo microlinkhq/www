@@ -80,14 +80,23 @@ export const cx = key => colors[key] || key
 
 export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
 
-export const shadows = [
-  '0 2px 4px rgba(0, 0, 0, 0.03)',
-  '0 1px 2px rgba(0,0,0,0.24)',
-  '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-  '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
-  '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
-  '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
+export const shadowOffsets = [
+  '0 2px 4px', // Toolbar
+  '0px 1px 3px', // Select, Input
+  '0px 2px 15px', // Button
+  '0 8px 13px 0' // Notification, CookiesPolicy, Card
 ]
+
+export const shadowColors = [
+  'rgba(0, 0, 0, 0.03)',
+  'rgba(50, 50, 93, 0.14902)',
+  'rgba(0, 0, 0, 0.1)',
+  'rgba(206, 212, 218, 0.5)'
+]
+
+export const shadows = shadowOffsets.map(
+  (shadow, index) => `${shadow} ${shadowColors[index]}`
+)
 
 export const lineHeights = [1.123, 1.25, 1.5, 1.8, 2]
 
@@ -174,6 +183,7 @@ export default {
   maxWidths,
   radii,
   shadows,
+  shadowOffsets,
   space,
   textStyle,
   transition,

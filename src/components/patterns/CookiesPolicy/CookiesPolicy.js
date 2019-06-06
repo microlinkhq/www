@@ -10,7 +10,7 @@ const ID = 'cookie_policy'
 
 const CookiesWrapper = styled(Box)`
   position: fixed;
-  bottom: 10px;
+  bottom: 0;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -33,7 +33,7 @@ export default class extends Component {
 
   render () {
     return (
-      <CookiesWrapper>
+      <CookiesWrapper m={3}>
         {this.state.show && (
           <Flex
             alignItems='center'
@@ -41,7 +41,7 @@ export default class extends Component {
             py={2}
             px={3}
             borderRadius={3}
-            boxShadow='rgba(206, 212, 218, 0.5) 0 8px 13px 0'
+            boxShadow={3}
           >
             <Text fontSize={['10px', 1]} color='black80'>
               <span>By using this website you agree to our</span>

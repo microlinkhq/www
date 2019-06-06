@@ -26,7 +26,10 @@ const Select = styled(Box)(
   props => ({
     '&:focus': {
       outline: 'none',
-      border: `1px solid ${lighten(0.15, themeGet('colors.link')(props))}`
+      boxShadow: `inset 0 0 0 1px ${lighten(
+        0.15,
+        themeGet('colors.link')(props)
+      )}`
     }
   })
 )
