@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
-import { Card as CardBase, Flex, Text } from 'components/elements'
-import { colors } from 'theme'
+
+import { Card, Flex, Text } from 'components/elements'
 import Preview from './preview'
 
 import {
@@ -10,20 +9,6 @@ import {
   CARD_WIDTH_MOBILE,
   CARD_HEIGHT_MOBILE
 } from './theme'
-
-const Card = styled(CardBase)`
-  &&& {
-    box-shadow: 0 10px 40px -10px ${colors.gray1};
-    transition: none;
-    &:hover {
-      transform: none;
-      box-shadow: 0;
-    }
-    &:focus {
-      box-shadow: none;
-    }
-  }
-`
 
 const CardOption = ({ children, value, ...props }) => (
   <Text
@@ -58,6 +43,9 @@ export default class extends Component {
       <Flex flexDirection={'column'} justifyContent='space-around'>
         <Flex id='preview' flexDirection='column' mb={[4, 0]}>
           <Card
+            css={`
+              transition: none;
+            `}
             px={isSDK ? 0 : 3}
             py={isSDK ? 0 : 3}
             width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
