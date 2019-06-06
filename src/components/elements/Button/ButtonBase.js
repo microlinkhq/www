@@ -1,7 +1,7 @@
 import { borders, borderColor, borderRadius, buttonStyle } from 'styled-system'
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
-import { transition } from 'theme'
+import { transition, shadowOffsets } from 'theme'
 
 import Text from '../Typography/Text'
 
@@ -13,7 +13,7 @@ const focusStyle = createCssState({
   `
 })
 
-export const BOX_SHADOW = '0 2px 15px'
+export const BOX_SHADOW = shadowOffsets[1]
 
 const Button = styled(Text)(
   {

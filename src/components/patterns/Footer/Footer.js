@@ -18,7 +18,6 @@ import { transition, colors } from 'theme'
 const InputWrapper = styled(Flex)`
   border: 0;
   border-color: #abb4bd;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
   border-radius: 4px;
   border: 0;
   appearance: none;
@@ -71,7 +70,7 @@ export default props => (
                 method='post'
               >
                 <Flex>
-                  <InputWrapper alignItems='center' mr={2}>
+                  <InputWrapper alignItems='center' mr={2} boxShadow={1}>
                     <Box px={2} pt={1}>
                       <Mail color={colors.black50} size={16} />
                     </Box>
