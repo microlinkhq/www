@@ -13,7 +13,7 @@ const Wrapper = styled(Flex)`
 const createNotification = notificationProps => props => (
   <Wrapper alignItems='center' justifyContent='center'>
     <Text
-      boxShadow={1}
+      boxShadow={2}
       m={3}
       p={3}
       borderRadius={2}

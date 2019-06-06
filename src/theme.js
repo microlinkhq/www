@@ -81,8 +81,9 @@ export const cx = key => colors[key] || key
 export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
 
 export const shadows = [
-  '0 2px 4px rgba(0, 0, 0, 0.03)',
-  'rgba(206, 212, 218, 0.5) 0 8px 13px 0'
+  '0 2px 4px rgba(0, 0, 0, 0.03)', // Toolbar
+  '0 1px 2px rgba(0,0,0,0.24)', // Select
+  'rgba(206, 212, 218, 0.5) 0 8px 13px 0' // Notification, CookiesPolicy
 ]
 
 export const lineHeights = [1.123, 1.25, 1.5, 1.8, 2]
