@@ -4,10 +4,9 @@ import { transition } from 'theme'
 import Box from './Box'
 
 const style = css`
-  transition: all ${transition.medium};
+  transition: all ${transition.short};
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 30px 30px -30px;
+    opacity: 0.8;
   }
 `
 
@@ -17,7 +16,7 @@ Card.defaultProps = {
   ...Box.defaultProps,
   bg: 'white',
   borderRadius: 3,
-  boxShadow: '0 10px 40px -10px rgba(0, 0, 0, 0.5)'
+  boxShadow: 2
 }
 
 export default Card
