@@ -1,16 +1,8 @@
-import styled, { css } from 'styled-components'
-import { transition } from 'theme'
+import styled from 'styled-components'
 
 import Box from './Box'
 
-const style = css`
-  transition: all ${transition.short};
-  &:hover {
-    opacity: 0.8;
-  }
-`
-
-const Card = styled(Box)({ overflow: 'auto' }, style)
+const Card = styled(Box)({ overflow: 'auto' })
 
 Card.defaultProps = {
   ...Box.defaultProps,
