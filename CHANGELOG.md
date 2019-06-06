@@ -2,6 +2,120 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.45](https://github.com/microlink/microlink-www/compare/v2.3.44...v2.3.45) (2019-06-05)
+
+
+### Build System
+
+* add analytics for buttons ([bab4b84](https://github.com/microlink/microlink-www/commit/bab4b84))
+
+
+
+### [2.3.44](https://github.com/microlink/microlink-www/compare/v2.3.43...v2.3.44) (2019-06-05)
+
+
+### Build System
+
+* use my own implementation ([e9a388e](https://github.com/microlink/microlink-www/commit/e9a388e))
+
+
+
+### [2.3.43](https://github.com/microlink/microlink-www/compare/v2.3.42...v2.3.43) (2019-06-05)
+
+
+### Build System
+
+* debug ([6dc7ab2](https://github.com/microlink/microlink-www/commit/6dc7ab2))
+
+
+
+### [2.3.42](https://github.com/microlink/microlink-www/compare/v2.3.41...v2.3.42) (2019-06-05)
+
+
+### Bug Fixes
+
+* typo ([16d9504](https://github.com/microlink/microlink-www/commit/16d9504))
+
+
+
+### [2.3.41](https://github.com/microlink/microlink-www/compare/v2.3.40...v2.3.41) (2019-06-05)
+
+
+### Build System
+
+* debug ([74f0d96](https://github.com/microlink/microlink-www/commit/74f0d96))
+
+
+
+### [2.3.40](https://github.com/microlink/microlink-www/compare/v2.3.39...v2.3.40) (2019-06-05)
+
+
+### Bug Fixes
+
+* command ([4c59623](https://github.com/microlink/microlink-www/commit/4c59623))
+* name ([d49b3f7](https://github.com/microlink/microlink-www/commit/d49b3f7))
+
+
+### Build System
+
+* setup analytics events ([f085f31](https://github.com/microlink/microlink-www/commit/f085f31))
+
+
+
+### [2.3.39](https://github.com/microlink/microlink-www/compare/v2.3.38...v2.3.39) (2019-06-05)
+
+
+### Bug Fixes
+
+* **package:** update autoprefixer to version 9.6.0 ([75ba770](https://github.com/microlink/microlink-www/commit/75ba770))
+
+
+
+### [2.3.38](https://github.com/microlink/microlink-www/compare/v2.3.37...v2.3.38) (2019-06-05)
+
+
+### Build System
+
+* add stories ([b00b274](https://github.com/microlink/microlink-www/commit/b00b274))
+* setup default value ([dba8488](https://github.com/microlink/microlink-www/commit/dba8488))
+* tweaks ([26a2482](https://github.com/microlink/microlink-www/commit/26a2482))
+* unify color ([b1b5541](https://github.com/microlink/microlink-www/commit/b1b5541))
+
+
+
+### [2.3.37](https://github.com/microlink/microlink-www/compare/v2.3.36...v2.3.37) (2019-06-01)
+
+
+
+### [2.3.36](https://github.com/microlink/microlink-www/compare/v2.3.35...v2.3.36) (2019-06-01)
+
+
+### Bug Fixes
+
+* detect language properly ([b52920d](https://github.com/microlink/microlink-www/commit/b52920d))
+* detect MultiCodeEditor language properly ([#406](https://github.com/microlink/microlink-www/issues/406)) ([7497321](https://github.com/microlink/microlink-www/commit/7497321))
+
+
+### Build System
+
+* removing trailing slash ([4f25f48](https://github.com/microlink/microlink-www/commit/4f25f48))
+* update dependencies ([e073c32](https://github.com/microlink/microlink-www/commit/e073c32))
+
+
+
+### [2.3.35](https://github.com/microlink/microlink-www/compare/v2.3.34...v2.3.35) (2019-05-31)
+
+
+
+### [2.3.34](https://github.com/microlink/microlink-www/compare/v2.3.33...v2.3.34) (2019-05-31)
+
+
+### Build System
+
+* use latest node available ([444bb2f](https://github.com/microlink/microlink-www/commit/444bb2f))
+
+
+
 ### [2.3.33](https://github.com/microlink/microlink-www/compare/v2.3.32...v2.3.33) (2019-05-31)
 
 

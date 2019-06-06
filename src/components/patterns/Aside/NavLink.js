@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { Text } from 'components/elements'
-import { withLink } from 'helpers/hoc'
+import { withAnalytics, withLink } from 'helpers/hoc'
 
 export const style = css`
   transition: color ${({ theme }) => theme.transition.medium};
@@ -45,4 +45,4 @@ NavLink.propTypes = {
   ...Text.propTypes
 }
 
-export default withLink(NavLink)
+export default withLink(withAnalytics(NavLink))

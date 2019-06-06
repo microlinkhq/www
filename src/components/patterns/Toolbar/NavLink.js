@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import { transition } from 'theme'
 
 import { Caps } from 'components/elements'
-import { withLink } from 'helpers/hoc'
+import { withLink, withAnalytics } from 'helpers/hoc'
 
 const activeStyle = css`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -47,4 +47,4 @@ NavLink.propTypes = {
   ...Caps.propTypes
 }
 
-export default withLink(NavLink)
+export default withLink(withAnalytics(NavLink))

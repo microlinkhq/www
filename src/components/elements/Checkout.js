@@ -22,6 +22,17 @@ const ERROR_MAIL_OPTS = {
     'Hello,\n\nSomething bad happens trying to pay you at microlink.io.\n\nCan you help me?'
 }
 
+const sendEvent = status => {
+  if (window.ga) {
+    window.ga('send', 'event', {
+      eventAction: 'Checkout',
+      eventCategory: 'Buy',
+      eventLabel: status,
+      transport: 'beacon'
+    })
+  }
+}
+
 export default class extends Component {
   state = { paymentState: null }
 
@@ -55,11 +66,13 @@ export default class extends Component {
           ])
         })
           .then(res => res.json())
-          .then(({ status }) =>
+          .then(({ status }) => {
+            sendEvent('success')
             this.setState({ paymentState: PAYMENT_STATE.SUCCESS })
-          )
+          })
           .catch(err => {
             console.error(err)
+            sendEvent('failed')
             this.setState({ paymentState: PAYMENT_STATE.FAILED })
           })
       }

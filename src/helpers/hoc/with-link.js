@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
+import { Link } from 'gatsby'
+
 import { External as ExternalIcon } from 'components/icons'
 import Flex from '../../components/elements/Flex'
-import { Link } from 'gatsby'
 import { transition, colors } from 'theme'
 
 const isInternalLink = to => /^\/(?!\/)/.test(to)
@@ -71,7 +72,6 @@ const onView = (node, fn, opts) => {
 
 const withlink = ChildComponent => ({
   icon = false,
-  onClick,
   actively,
   href,
   children,
@@ -108,7 +108,7 @@ const withlink = ChildComponent => ({
 
   return (
     <ChildComponent {...props}>
-      <ExternalLink href={href} target={target} rel={rel} onClick={onClick}>
+      <ExternalLink href={href} target={target} rel={rel}>
         <Children icon={icon} children={children} />
       </ExternalLink>
     </ChildComponent>
