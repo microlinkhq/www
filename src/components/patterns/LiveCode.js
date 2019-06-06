@@ -14,7 +14,7 @@ const theme = {
     height: '100%',
     margin: '0',
     boxSizing: 'border-box',
-    fontFamily: fonts.monospace,
+    fontFamily: fonts.mono,
     fontSize: `${fontSizes[1]}px`,
     lineHeight: `${lineHeights[3]}`,
     whiteSpace: 'pre-wrap',
