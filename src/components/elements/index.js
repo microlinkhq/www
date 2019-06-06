@@ -19,7 +19,7 @@ import Input from './Input'
 import Banner from './Banner/Banner'
 import Badge from './Badge/Banner'
 
-import Notification from './Notification'
+import Notification from './Notification/Notification'
 import PricePicker from './PricePicker'
 import SearchBox from './SearchBox/SearchBox'
 import Select from './Select/Select'
