@@ -9,7 +9,7 @@ const style = css`
   cursor: pointer;
   text-decoration: none;
   outline: 0;
-  transition: border-color ${transition.short};
+  transition: all ${transition.short};
   line-height: ${lineHeights[2]};
 `
 
