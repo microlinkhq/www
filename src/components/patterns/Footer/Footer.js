@@ -12,16 +12,8 @@ import {
 } from 'components/elements'
 import { Microlink } from 'components/logos'
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { transition, colors } from 'theme'
-
-const InputWrapper = styled(Flex)`
-  border: 0;
-  border-color: #abb4bd;
-  border-radius: 4px;
-  border: 0;
-  appearance: none;
-`
 
 const IconWrapper = styled(Box)`
   cursor: pointer;
@@ -33,6 +25,12 @@ const IconWrapper = styled(Box)`
     > svg {
       stroke: ${colors.black};
     }
+  }
+`
+
+const inputStyle = css`
+  &:focus {
+    box-shadow: none;
   }
 `
 
@@ -70,21 +68,17 @@ export default props => (
                 method='post'
               >
                 <Flex>
-                  <InputWrapper alignItems='center' mr={2} boxShadow={1}>
-                    <Box px={2} pt={1}>
-                      <Mail color={colors.black50} size={16} />
-                    </Box>
-                    <Input
-                      type='email'
-                      name='EMAIL'
-                      placeholder='you@domain.com'
-                      width='9rem'
-                      py={1}
-                      px={0}
-                      fontSize={0}
-                    />
-                  </InputWrapper>
+                  <Input
+                    type='email'
+                    name='EMAIL'
+                    placeholder='you@domain.com'
+                    width='8rem'
+                    fontSize={0}
+                    iconComponent={<Mail color={colors.black50} size={16} />}
+                  />
+
                   <ButtonOutline
+                    ml={2}
                     data-event-category='Footer'
                     data-event-action='Subscribe'
                     color='black'

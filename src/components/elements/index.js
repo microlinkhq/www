@@ -15,7 +15,7 @@ import Flex from './Flex'
 
 import Hide from './Hide'
 import Image from './Image'
-import Input from './Input'
+import Input from './Input/Input'
 import Banner from './Banner/Banner'
 import Badge from './Badge/Banner'
 
