@@ -144,7 +144,7 @@
     "fetch:urls": "node scripts/fetch-demo-links",
     "lint": "standard-markdown README.md && standard src/*/**.js",
     "postrelease": "npm run release:tags && npm run release:github",
-    "prebuild": "npm clean:urls && npm clean:gatsby && npm run fetch:urls",
+    "prebuild": "npm run clean:urls && npm run clean:build && npm run fetch:urls",
     "predev": "node scripts/fetch-demo-links",
     "prerelease": "npm run update:check && git-authors-cli",
     "release": "git-authors-cli && git add package.json && standard-version -a",
