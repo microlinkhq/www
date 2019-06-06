@@ -28,12 +28,6 @@ export default function HTML (props) {
           crossOrigin='anonymous'
           src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch'
         />
-        <script src='/js/autotrack.min.js' async />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ga && window.ga('require', 'eventTracker', { attributePrefix: 'data-' })`
-          }}
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.$crisp=[];window.CRISP_WEBSITE_ID="1ad5d211-8699-43f6-add3-578b9e47b922";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`
