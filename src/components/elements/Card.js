@@ -16,7 +16,7 @@ Card.defaultProps = {
   ...Box.defaultProps,
   bg: 'white',
   borderRadius: 3,
-  boxShadow: 2
+  boxShadow: 3
 }
 
 export default Card

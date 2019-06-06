@@ -13,7 +13,7 @@ const focusStyle = createCssState({
   `
 })
 
-export const BOX_SHADOW = shadowOffsets[1]
+export const BOX_SHADOW = shadowOffsets[2]
 
 const Button = styled(Text)(
   {

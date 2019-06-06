@@ -83,12 +83,14 @@ export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654
 export const shadowOffsets = [
   '0 2px 4px', // Toolbar
   '0px 1px 3px', // Select, Input
+  '0px 2px 15px', // Button
   '0 8px 13px 0' // Notification, CookiesPolicy, Card
 ]
 
 export const shadowColors = [
   'rgba(0, 0, 0, 0.03)',
   'rgba(50, 50, 93, 0.14902)',
+  'rgba(0, 0, 0, 0.1)',
   'rgba(206, 212, 218, 0.5)'
 ]
 
