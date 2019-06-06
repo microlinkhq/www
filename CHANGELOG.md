@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.46](https://github.com/microlink/microlink-www/compare/v2.3.45...v2.3.46) (2019-06-06)
+
+
+### Bug Fixes
+
+* add box-shadow ([2037de2](https://github.com/microlink/microlink-www/commit/2037de2))
+* command ([705f87f](https://github.com/microlink/microlink-www/commit/705f87f))
+* link transition ([d5bedc5](https://github.com/microlink/microlink-www/commit/d5bedc5))
+* monospace → mono ([53e79ac](https://github.com/microlink/microlink-www/commit/53e79ac))
+
+
+### Build System
+
+* remove autotrack ([0d2aaed](https://github.com/microlink/microlink-www/commit/0d2aaed))
+* remove hover effect ([4a019dd](https://github.com/microlink/microlink-www/commit/4a019dd))
+
+
+
 ### [2.3.45](https://github.com/microlink/microlink-www/compare/v2.3.44...v2.3.45) (2019-06-05)
 
 
