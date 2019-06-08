@@ -1,6 +1,8 @@
 'use strict'
 
-const { omit, compact, map, chain, isNil, get, reduce } = require('lodash')
+const { compact, map, chain, isNil, get, reduce } = require('lodash')
+const debug = require('debug-logfmt')('microlink-www')
+const demoLinks = require('@microlink/demo-links')
 const beautyError = require('beauty-error')
 const parseDomain = require('parse-domain')
 const jsonFuture = require('json-future')
@@ -65,7 +67,7 @@ const toDownload = async data => {
   const downloads = assets.map(({ propName, propValue }) => {
     const { dirname, basename } = getMediaAssetPath(data, propName)
     const dist = path.join(path.resolve('static'), dirname)
-    console.log(`fetch:${propName} url=${propValue.url} dist=${dist}`)
+    debug({ fetch: propName, url: propValue.url, dist })
     return download(propValue.url, dist, { filename: basename })
   })
 
@@ -73,8 +75,6 @@ const toDownload = async data => {
 }
 
 const fetchDemoLink = async (key, { url, ...props }) => {
-  console.log(`fetch url=${url}`)
-
   try {
     const { data } = await mql(url, {
       apiKey: MICROLINK_API_KEY,
@@ -89,6 +89,7 @@ const fetchDemoLink = async (key, { url, ...props }) => {
 
     return { brand: key, data: toMapLocalAsset(data), url, ...props }
   } catch (err) {
+    debug.error({ message: err.message, url })
     return null
   }
 }
@@ -96,21 +97,8 @@ const fetchDemoLink = async (key, { url, ...props }) => {
 const main = async () => {
   if (await existsFile(DATA_DEMO_LINKS_PATH)) return
 
-  const demoLinks = reduce(
-    require('./demo-links'),
-    (acc, demoLink, key) => {
-      const { featured, ...props } = demoLink
-      if (!featured) return acc
-      return { ...acc, [key]: props }
-    },
-    {}
-  )
-
-  const fetchDemoLinks = map(demoLinks, (value, key) => () =>
-    fetchDemoLink(key, value)
-  )
-
-  const data = await pAll(fetchDemoLinks, { concurrency: 2 })
+  const links = map(demoLinks, (value, key) => () => fetchDemoLink(key, value))
+  const data = await pAll(links, { concurrency: 2 })
   return jsonFuture.saveAsync(DATA_DEMO_LINKS_PATH, compact(data))
 }
 
