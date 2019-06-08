@@ -28,12 +28,6 @@ const IconWrapper = styled(Box)`
   }
 `
 
-const inputStyle = css`
-  &:focus {
-    box-shadow: none;
-  }
-`
-
 export default props => (
   <Container px={[2, 2, 2, 0]}>
     <Flex
