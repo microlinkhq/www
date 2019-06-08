@@ -34,24 +34,24 @@ import {
 
 import { List, ListItem } from 'components/patterns/List/List'
 
-const FAQ = () => (
-  <Box as='article'>
-    <Container as='header' py={5}>
-      <Flex
-        as='header'
-        flexDirection='column'
-        justifyContent='center'
-        alignItems='center'
-        pb={[4, 5]}
-      >
-        <Heading mt={4} fontSize={7} children='Frequently Asked Questions' />
-        <Subhead mt={[2, 3]} color='black50' textAlign='center' maxWidth={8}>
-          Your questions, answered
-        </Subhead>
-      </Flex>
-    </Container>
-  </Box>
-)
+// const FAQ = () => (
+//   <Box as='article'>
+//     <Container as='header' py={5}>
+//       <Flex
+//         as='header'
+//         flexDirection='column'
+//         justifyContent='center'
+//         alignItems='center'
+//         pb={[4, 5]}
+//       >
+//         <Heading mt={4} fontSize={7} children='Frequently Asked Questions' />
+//         <Subhead mt={[2, 3]} color='black50' textAlign='center' maxWidth={8}>
+//           Your questions, answered
+//         </Subhead>
+//       </Flex>
+//     </Container>
+//   </Box>
+// )
 
 const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => {
   const title = 'Pricing'
@@ -247,11 +247,6 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
       <DemoLinks
         children={children}
         onClick={demoLink => {
-          window.history.pushState(
-            {},
-            '',
-            `${siteUrl}?${marshall({ url: demoLink.url })}`
-          )
           setDemoLink(demoLink)
         }}
       />
@@ -358,6 +353,14 @@ function Index () {
     const { url } = unmarshall(window.location.search)
     if (url) setUrl(decodeURIComponent(url))
   }, [])
+
+  React.useEffect(() => {
+    window.history.pushState(
+      {},
+      '',
+      `${siteUrl}?${marshall({ url: demoLink.url })}`
+    )
+  }, [demoLink])
 
   const setUrl = url => {
     const newDemoLink = demoLinks.find(demoLink => demoLink.data.url === url)

@@ -12,7 +12,7 @@ import {
 } from 'components/elements'
 import { Microlink } from 'components/logos'
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { transition, colors } from 'theme'
 
 const IconWrapper = styled(Box)`
