@@ -12,7 +12,9 @@ const TITLE = 'Chat'
 export default () => (
   <Layout title={TITLE}>
     <Container width='100vh'>
-      <Subhead py={5}>Come Chat with Us</Subhead>
+      <Subhead fontSize={[4, 5]} fontWeight='regular' pt={4} pb={5}>
+        Come Chat with Us
+      </Subhead>
       <Flex alignItems='center' justifyContent='center'>
         <Microlink size={LOGO_SIZE} />
         <Box color='gray' px={3}>

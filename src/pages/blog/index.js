@@ -1,5 +1,5 @@
-import { Text, Flex, Container } from 'components/elements'
-import { H1, H2Link } from 'components/markdown'
+import { Text, Flex, Container, Subhead } from 'components/elements'
+import { H2Link } from 'components/markdown'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
 import { Layout } from 'components/patterns'
@@ -65,7 +65,15 @@ export default ({ posts = useBlogIndex() }) => {
       <Head title='Blog' />
       <Container px={0} as='article' maxWidth={'inherit'}>
         <Flex flexDirection='column' alignItems='center' pt={4}>
-          <H1 mt={0} mb={4} mx={0} slug={false} children='Blog' />
+          <Subhead
+            fontSize={[4, 5]}
+            fontWeight='regular'
+            mt={0}
+            mb={4}
+            mx={0}
+            slug={false}
+            children='Blog'
+          />
           {posts.map((post, index) => (
             <BlogPost
               key={post.title}
