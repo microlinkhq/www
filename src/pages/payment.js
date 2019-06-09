@@ -10,8 +10,7 @@ import {
   ButtonSecondary,
   Notification,
   LinkSolid,
-  Flex,
-  Heading
+  Flex
 } from 'components/elements'
 import { Layout, Header } from 'components/patterns'
 import Head from 'components/Head'
