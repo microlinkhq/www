@@ -13,7 +13,7 @@ import {
   Flex,
   Heading
 } from 'components/elements'
-import { Layout } from 'components/patterns'
+import { Layout, Header } from 'components/patterns'
 import Head from 'components/Head'
 
 import { marshall, unmarshall } from 'helpers'
@@ -226,7 +226,8 @@ function Payment () {
         />
         <StripeProvider stripe={state.stripe}>
           <Flex flexDirection='column'>
-            <Heading children='Update Payment' fontSize={[4, 5]} pb={4} />
+            <Header title='Update Payment' pb={[4, 5]} />
+            {/* <Heading children='' fontSize={[4, 5]} pb={4} /> */}
             <Elements>
               <CardForm
                 apiEndpoint={apiEndpoint}
