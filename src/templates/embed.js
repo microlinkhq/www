@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSiteMetadata } from 'components/hook'
 
-import Template from '../pages/embed/template'
+import Template from 'components/pages/embed/template'
 
 import { Layout } from 'components/patterns'
 

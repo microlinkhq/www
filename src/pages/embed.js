@@ -5,8 +5,8 @@ import { isEmpty } from 'lodash'
 import { unmarshall } from 'helpers'
 import mql from '@microlink/mql'
 
-import Examples from './examples'
-import Template from './template'
+import Examples from 'components/pages/embed/examples'
+import Template from 'components/pages/embed/template'
 
 export default () => {
   const inputEl = useRef(null)
