@@ -119,7 +119,7 @@ const PricingRow = ({ children, ...props }) => {
   return (
     <Text as='tr'>
       <Text as='th' {...props}>
-        <Hide breakpoints={[3]}>
+        <Hide breakpoints={[2, 3]}>
           <Text
             fontSize={0}
             color='darkBlue400'
