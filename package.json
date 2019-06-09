@@ -37,7 +37,7 @@
     "gatsby"
   ],
   "dependencies": {
-    "@microlink/mql": "~0.3.9",
+    "@microlink/mql": "~0.3.10",
     "@microlink/react": "~4.0.1",
     "@rebass/components": "~4.0.0-1",
     "@tippy.js/react": "~2.2.0",
@@ -69,6 +69,7 @@
     "gatsby-transformer-yaml": "~2.1.12",
     "git-jiggy": "~1.1.1",
     "human-number": "~1.0.3",
+    "humanize-url": "~2.1.0",
     "json-future": "~2.2.0",
     "lodash": "~4.17.11",
     "mdx-scoped-runtime": "~0.7.1",

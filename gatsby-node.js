@@ -67,7 +67,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  await Promise.all([
+  return Promise.all([
     createMarkdownPages({ graphql, createPage }),
     createDemoLinksPages({ createPage, demoLinksData })
   ])
@@ -76,13 +76,12 @@ exports.createPages = async ({ graphql, actions }) => {
 const createDemoLinksPages = async ({ createPage, demoLinksData }) => {
   const pages = demoLinksData.map(async demoLink => {
     const { brand, data } = demoLink
-    const provider = brand.toLowerCase()
-    const slug = `/embed/${provider}`
+    const slug = `/embed/${brand.toLowerCase()}`
 
     return createPage({
       path: slug,
       component: path.resolve(`./src/templates/embed.js`),
-      context: { provider, data, slug }
+      context: { brand, data, slug }
     })
   })
 
@@ -126,7 +125,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
         lastEdited: await getLastEdited(node.fileAbsolutePath),
         isBlogPage: node.fields.slug.startsWith('/blog/'),
         isDocPage: node.fields.slug.startsWith('/docs/'),
-        slug
+        slug: node.fields.slug
       }
     })
   })
