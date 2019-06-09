@@ -48,10 +48,9 @@ const Header = props => <Caps mb={2} color='gray5' {...props} />
 
 const Title = ({ children, href }) => {
   return (
-    <NavLink href={href} actively icon>
+    <NavLink mb={2} href={href} actively icon>
       <Text
         fontWeight='normal'
-        mb={2}
         children={children}
         css={isInternalLink(href) ? titleStyle : titleExternalStyle}
       />

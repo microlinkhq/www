@@ -16,7 +16,6 @@ import {
   Heading,
   Container as ContainerBase,
   Subhead,
-  Banner,
   Hide,
   Flex,
   Link,
@@ -24,12 +23,14 @@ import {
 } from 'components/elements'
 
 import {
+  Header,
   DemoLinks,
   LiveDemo,
   PricingTable,
   Grid,
   Layout,
-  MQLEditor
+  MQLEditor,
+  Announcement
 } from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List/List'
@@ -84,38 +85,9 @@ const Container = ({ children, maxWidth, ...props }) => (
   </Box>
 )
 
-const Header = ({ title, caption }) => {
-  return (
-    <Flex
-      as='header'
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      py={[2, 3]}
-      px={0}
-    >
-      <Heading px={0} children={title} />
-      <Subhead
-        pt={[2, 0]}
-        px={4}
-        color='gray'
-        textAlign='center'
-        children={caption}
-      />
-    </Flex>
-  )
-}
-
-const Announcement = ({ href, children, ...props }) => (
-  <Flex justifyContent='center' {...props}>
-    <Banner href={href}>{children}</Banner>
-  </Flex>
-)
-
 const Hero = () => {
   const title = 'Turn websites into data'
   const caption = 'Microlink makes easy to build an API on top of any website.'
-
   const header = <Header title={title} caption={caption} />
 
   const announcement = (
@@ -244,12 +216,7 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
         color='gray8'
         children='Try another link →'
       />
-      <DemoLinks
-        children={children}
-        onClick={demoLink => {
-          setDemoLink(demoLink)
-        }}
-      />
+      <DemoLinks children={children} onClick={setDemoLink} />
     </Flex>
   </Container>
 )
