@@ -37,6 +37,7 @@
     "gatsby"
   ],
   "dependencies": {
+    "@microlink/demo-links": "~1.0.0",
     "@microlink/mql": "~0.3.10",
     "@microlink/react": "~4.0.1",
     "@rebass/components": "~4.0.0-1",
@@ -104,7 +105,6 @@
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "@kikobeats/jsonsort": "latest",
-    "@microlink/demo-links": "latest",
     "@storybook/addon-a11y": "latest",
     "@storybook/addon-actions": "latest",
     "@storybook/addon-console": "latest",
