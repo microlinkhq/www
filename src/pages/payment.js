@@ -10,9 +10,10 @@ import {
   ButtonSecondary,
   Notification,
   LinkSolid,
+  Subhead,
   Flex
 } from 'components/elements'
-import { Layout, Header } from 'components/patterns'
+import { Layout } from 'components/patterns'
 import Head from 'components/Head'
 
 import { marshall, unmarshall } from 'helpers'
