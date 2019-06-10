@@ -28,10 +28,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/microlink/microlink-www.git"
+    "url": "git+https://github.com/microlinkhq/microlink-www.git"
   },
   "bugs": {
-    "url": "git+https://github.com/microlink/microlink-www.git"
+    "url": "git+https://github.com/microlinkhq/microlink-www.git"
   },
   "keywords": [
     "gatsby"
