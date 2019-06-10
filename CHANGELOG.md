@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.47](https://github.com/microlink/microlink-www/compare/v2.3.46...v2.3.47) (2019-06-10)
+
+
+### Build System
+
+* add class to cookies policy ([404b3de](https://github.com/microlink/microlink-www/commit/404b3de))
+
+
+
 ### [2.3.46](https://github.com/microlink/microlink-www/compare/v2.3.45...v2.3.46) (2019-06-06)
 
 
