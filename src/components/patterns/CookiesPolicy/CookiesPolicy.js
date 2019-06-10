@@ -33,7 +33,7 @@ export default class extends Component {
 
   render () {
     return (
-      <CookiesWrapper m={3}>
+      <CookiesWrapper m={3} id='cookies-policy'>
         {this.state.show && (
           <Flex
             alignItems='center'
