@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.49](https://github.com/microlink/microlink-www/compare/v2.3.48...v2.3.49) (2019-06-10)
+
+
+### Bug Fixes
+
+* breakpoints ([8e36afa](https://github.com/microlink/microlink-www/commit/8e36afa))
+* module references ([0833ea3](https://github.com/microlink/microlink-www/commit/0833ea3))
+* put into the correct section ([63f984d](https://github.com/microlink/microlink-www/commit/63f984d))
+* setup polyfill properly ([9fdaa06](https://github.com/microlink/microlink-www/commit/9fdaa06))
+* use same title style ([8f46ec2](https://github.com/microlink/microlink-www/commit/8f46ec2))
+
+
+### Build System
+
+* add embed into navbar ([9f4f737](https://github.com/microlink/microlink-www/commit/9f4f737))
+* add max width support ([292fb18](https://github.com/microlink/microlink-www/commit/292fb18))
+* add necessary polyfills ([08911c3](https://github.com/microlink/microlink-www/commit/08911c3))
+* add use query state hook ([942f4be](https://github.com/microlink/microlink-www/commit/942f4be))
+* avoid use object entries ([4c571c1](https://github.com/microlink/microlink-www/commit/4c571c1))
+* better page title ([1777b94](https://github.com/microlink/microlink-www/commit/1777b94))
+* generate embeds pages ([2675bae](https://github.com/microlink/microlink-www/commit/2675bae))
+* inherit color ([0b77c2f](https://github.com/microlink/microlink-www/commit/0b77c2f))
+* remove unnecessary components ([3e7dd0d](https://github.com/microlink/microlink-www/commit/3e7dd0d))
+* remove unnecessary style ([7de99ec](https://github.com/microlink/microlink-www/commit/7de99ec))
+* setup better metadata ([00f0821](https://github.com/microlink/microlink-www/commit/00f0821))
+* setup node version ([83331c5](https://github.com/microlink/microlink-www/commit/83331c5))
+* tweaks ([78d52d9](https://github.com/microlink/microlink-www/commit/78d52d9))
+* use not used field ([90c15e0](https://github.com/microlink/microlink-www/commit/90c15e0))
+
+
+
 ### [2.3.48](https://github.com/microlink/microlink-www/compare/v2.3.47...v2.3.48) (2019-06-10)
 
 
