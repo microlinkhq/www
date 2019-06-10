@@ -33,7 +33,7 @@ Although it's [widely supported](https://caniuse.com/#feat=fetch), we recommend 
 ```html
 <script>
   crossorigin="anonymous" 
-  src="https://polyfill.io/v3/polyfill.min.js?features=fetch">
+  src="https://polyfill.io/v3/polyfill.min.js?features=Object.entries%2Cfetch%2CIntersectionObserverEntry">
 </script>
 ```
 
