@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.48](https://github.com/microlink/microlink-www/compare/v2.3.47...v2.3.48) (2019-06-10)
+
+
+### Bug Fixes
+
+* **package:** update styled-components to version 4.3.0 ([57624b5](https://github.com/microlink/microlink-www/commit/57624b5))
+
+
+
 ### [2.3.47](https://github.com/microlink/microlink-www/compare/v2.3.46...v2.3.47) (2019-06-10)
 
 
