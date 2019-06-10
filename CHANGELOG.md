@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.51](https://github.com/microlinkhq/microlink-www/compare/v2.3.50...v2.3.51) (2019-06-10)
+
+
+### Bug Fixes
+
+* image path ([9c24a20](https://github.com/microlinkhq/microlink-www/commit/9c24a20))
+
+
+
 ### [2.3.50](https://github.com/microlinkhq/microlink-www/compare/v2.3.49...v2.3.50) (2019-06-10)
 
 
