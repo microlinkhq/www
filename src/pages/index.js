@@ -2,10 +2,10 @@ import {
   useDefaultDemoLink,
   useDemoLinks,
   useFeatures,
-  useSiteMetadata
+  useSiteMetadata,
+  useQueryState
 } from 'components/hook'
 
-import { marshall, unmarshall } from 'helpers'
 import React, { useState, Fragment } from 'react'
 import { navigate } from 'gatsby'
 
@@ -16,7 +16,6 @@ import {
   Heading,
   Container as ContainerBase,
   Subhead,
-  Banner,
   Hide,
   Flex,
   Link,
@@ -24,34 +23,36 @@ import {
 } from 'components/elements'
 
 import {
+  Header,
   DemoLinks,
   LiveDemo,
   PricingTable,
   Grid,
   Layout,
-  MQLEditor
+  MQLEditor,
+  Announcement
 } from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List/List'
 
-const FAQ = () => (
-  <Box as='article'>
-    <Container as='header' py={5}>
-      <Flex
-        as='header'
-        flexDirection='column'
-        justifyContent='center'
-        alignItems='center'
-        pb={[4, 5]}
-      >
-        <Heading mt={4} fontSize={7} children='Frequently Asked Questions' />
-        <Subhead mt={[2, 3]} color='black50' textAlign='center' maxWidth={8}>
-          Your questions, answered
-        </Subhead>
-      </Flex>
-    </Container>
-  </Box>
-)
+// const FAQ = () => (
+//   <Box as='article'>
+//     <Container as='header' py={5}>
+//       <Flex
+//         as='header'
+//         flexDirection='column'
+//         justifyContent='center'
+//         alignItems='center'
+//         pb={[4, 5]}
+//       >
+//         <Heading mt={4} fontSize={7} children='Frequently Asked Questions' />
+//         <Subhead mt={[2, 3]} color='black50' textAlign='center' maxWidth={8}>
+//           Your questions, answered
+//         </Subhead>
+//       </Flex>
+//     </Container>
+//   </Box>
+// )
 
 const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => {
   const title = 'Pricing'
@@ -84,38 +85,9 @@ const Container = ({ children, maxWidth, ...props }) => (
   </Box>
 )
 
-const Header = ({ title, caption }) => {
-  return (
-    <Flex
-      as='header'
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      py={[2, 3]}
-      px={0}
-    >
-      <Heading px={0} children={title} />
-      <Subhead
-        pt={[2, 0]}
-        px={4}
-        color='gray'
-        textAlign='center'
-        children={caption}
-      />
-    </Flex>
-  )
-}
-
-const Announcement = ({ href, children, ...props }) => (
-  <Flex justifyContent='center' {...props}>
-    <Banner href={href}>{children}</Banner>
-  </Flex>
-)
-
 const Hero = () => {
   const title = 'Turn websites into data'
   const caption = 'Microlink makes easy to build an API on top of any website.'
-
   const header = <Header title={title} caption={caption} />
 
   const announcement = (
@@ -244,17 +216,7 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
         color='gray8'
         children='Try another link →'
       />
-      <DemoLinks
-        children={children}
-        onClick={demoLink => {
-          window.history.pushState(
-            {},
-            '',
-            `${siteUrl}?${marshall({ url: demoLink.url })}`
-          )
-          setDemoLink(demoLink)
-        }}
-      />
+      <DemoLinks children={children} onClick={setDemoLink} />
     </Flex>
   </Container>
 )
@@ -353,18 +315,22 @@ const Features = ({ children }) => (
 
 function Index () {
   const [demoLink, setDemoLink] = useState(useDefaultDemoLink().data)
+  const [query, setQuery] = useQueryState()
+  const demoLinks = useDemoLinks()
+  const { url } = query
 
-  React.useEffect(() => {
-    const { url } = unmarshall(window.location.search)
-    if (url) setUrl(decodeURIComponent(url))
-  }, [])
-
-  const setUrl = url => {
-    const newDemoLink = demoLinks.find(demoLink => demoLink.data.url === url)
-    setDemoLink(newDemoLink)
+  const setDemo = demoLink => {
+    setDemoLink(demoLink)
+    setQuery({ url: demoLink.url })
   }
 
-  const demoLinks = useDemoLinks()
+  React.useEffect(() => {
+    if (url && url !== demoLink) {
+      const demoLink = demoLinks.find(demoLink => demoLink.data.url === url)
+      if (demoLink) setDemoLink(demoLink.data)
+    }
+  }, [url])
+
   const {
     siteUrl,
     paymentApiKey,
@@ -377,7 +343,7 @@ function Index () {
       <Hero />
       <SDK
         children={demoLinks}
-        setDemoLink={setDemoLink}
+        setDemoLink={setDemo}
         siteUrl={siteUrl}
         editor={demoLink}
       />

@@ -12,9 +12,13 @@ import Chat from './Chat/Chat'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import Aside from './Aside/Aside'
+import Header from './Header/Header'
+import Announcement from './Announcement/Announcement'
 
 export {
+  Announcement,
   CardLink,
+  Header,
   Aside,
   MQLEditor,
   Chat,

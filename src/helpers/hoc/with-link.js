@@ -31,6 +31,7 @@ const GatsbyLink = styled(Link)`
 `
 
 const linkIconWrapper = css`
+  display: inline-flex;
   transition: stroke ${transition.medium};
   &:hover {
     > svg {
@@ -39,18 +40,13 @@ const linkIconWrapper = css`
   }
 `
 
-const externalIconStyle = `
-position: relative;
-top: 7px;
-`
-
 const Children = ({ children, icon }) => {
   if (!icon) return children
 
   return (
-    <Flex css={linkIconWrapper}>
+    <Flex alignItems='center' css={linkIconWrapper}>
       {children}
-      <ExternalIcon width='14px' css={externalIconStyle} ml={1} />
+      <ExternalIcon width='14px' ml={1} />
     </Flex>
   )
 }

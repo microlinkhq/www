@@ -21,7 +21,6 @@ import Badge from './Badge/Banner'
 
 import Notification from './Notification/Notification'
 import PricePicker from './PricePicker'
-import SearchBox from './SearchBox/SearchBox'
 import Select from './Select/Select'
 import Spinner from './Spinner'
 
@@ -31,7 +30,6 @@ import Terminal from './Terminal/Terminal'
 import Toolbar from './Toolbar'
 import Tooltip from './Tooltip/Tooltip'
 import Toggle from './Toggle/Toggle'
-import Form from './Form'
 import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
 
 import Caps from './Typography/Caps'
@@ -58,7 +56,6 @@ export {
   Container,
   Fixed,
   Flex,
-  Form,
   Heading,
   Hide,
   Image,
@@ -69,7 +66,6 @@ export {
   MultiCodeEditor,
   Notification,
   PricePicker,
-  SearchBox,
   Select,
   Spinner,
   Subhead,

@@ -6,7 +6,7 @@ import { Flex } from 'components/elements'
 const TITLE = 'Design System'
 
 export default () => (
-  <Layout title={TITLE}>
+  <Layout title={TITLE} image='https://cdn.microlink.io/page/design.png'>
     <Flex>
       <iframe
         frameBorder='0'

@@ -4,6 +4,8 @@ const { getCurrentBranchName, getLastModifiedDate } = require('git-jiggy')
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require('path')
 
+const demoLinksData = require('./data/demo-links.json')
+
 const getLastEdited = async filepath => {
   let date
 
@@ -65,46 +67,68 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
+  return Promise.all([
+    createMarkdownPages({ graphql, createPage }),
+    createDemoLinksPages({ createPage, demoLinksData })
+  ])
+}
 
-  const result = await graphql(
-    `
-      {
-        allMarkdownRemark {
-          edges {
-            node {
-              fileAbsolutePath
-              fields {
-                slug
-              }
-              frontmatter {
-                title
-                date
-              }
-            }
+const createDemoLinksPages = async ({ createPage, demoLinksData }) => {
+  const pages = demoLinksData.map(async demoLink => {
+    const { brand, data } = demoLink
+    const slug = `/embed/${brand.toLowerCase()}`
+
+    return createPage({
+      path: slug,
+      component: path.resolve(`./src/templates/embed.js`),
+      context: { brand, data, slug }
+    })
+  })
+
+  return Promise.all(pages)
+}
+
+const createMarkdownPages = async ({ graphql, createPage }) => {
+  const query = `
+  {
+    allMarkdownRemark {
+      edges {
+        node {
+          fileAbsolutePath
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            date
           }
         }
       }
-    `
-  )
+    }
+  }
+  `
+  const result = await graphql(query)
 
   if (result.errors) {
     console.log(result.errors)
     throw result.errors
   }
 
-  return Promise.all(
-    result.data.allMarkdownRemark.edges.map(async ({ node }) => {
-      return createPage({
-        path: node.fields.slug.replace(/\/$/, ''),
-        component: path.resolve(`./src/templates/index.js`),
-        context: {
-          githubUrl: await githubUrl(node.fileAbsolutePath),
-          lastEdited: await getLastEdited(node.fileAbsolutePath),
-          isBlogPage: node.fields.slug.startsWith('/blog/'),
-          isDocPage: node.fields.slug.startsWith('/docs/'),
-          slug: node.fields.slug
-        }
-      })
+  const pages = result.data.allMarkdownRemark.edges.map(async ({ node }) => {
+    const slug = node.fields.slug.replace(/\/$/, '')
+
+    return createPage({
+      path: slug,
+      component: path.resolve(`./src/templates/index.js`),
+      context: {
+        githubUrl: await githubUrl(node.fileAbsolutePath),
+        lastEdited: await getLastEdited(node.fileAbsolutePath),
+        isBlogPage: node.fields.slug.startsWith('/blog/'),
+        isDocPage: node.fields.slug.startsWith('/docs/'),
+        slug: node.fields.slug
+      }
     })
-  )
+  })
+
+  return Promise.all(pages)
 }

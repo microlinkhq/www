@@ -10,8 +10,8 @@ import {
   ButtonSecondary,
   Notification,
   LinkSolid,
-  Flex,
-  Heading
+  Subhead,
+  Flex
 } from 'components/elements'
 import { Layout } from 'components/patterns'
 import Head from 'components/Head'
@@ -226,7 +226,15 @@ function Payment () {
         />
         <StripeProvider stripe={state.stripe}>
           <Flex flexDirection='column'>
-            <Heading children='Update Payment' fontSize={[4, 5]} pb={4} />
+            <Subhead
+              fontSize={[4, 5]}
+              fontWeight='regular'
+              mt={0}
+              mb={4}
+              mx={0}
+              slug={false}
+              children='Update Payment'
+            />
             <Elements>
               <CardForm
                 apiEndpoint={apiEndpoint}

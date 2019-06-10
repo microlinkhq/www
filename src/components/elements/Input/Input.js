@@ -55,7 +55,7 @@ const InputWrapper = styled(Flex)`
 `}
 `
 
-export default ({ iconComponent: Icon, ...props }) => {
+export default ({ innerRef, iconComponent: Icon, ...props }) => {
   const [isFocus, setFocus] = useState(false)
   const onFocus = () => setFocus(true)
   const onBlur = () => setFocus(false)
@@ -72,7 +72,7 @@ export default ({ iconComponent: Icon, ...props }) => {
           {Icon}
         </Box>
       )}
-      <Input onFocus={onFocus} onBlur={onBlur} {...props} />
+      <Input ref={innerRef} onFocus={onFocus} onBlur={onBlur} {...props} />
     </InputWrapper>
   )
 }

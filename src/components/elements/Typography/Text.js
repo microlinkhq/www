@@ -4,6 +4,7 @@ import {
   fontFamily,
   fontWeight,
   textAlign,
+  maxWidth,
   letterSpacing
 } from 'styled-system'
 
@@ -17,6 +18,7 @@ const Text = styled(Box)(
   textAlign,
   lineHeight,
   letterSpacing,
+  maxWidth,
   variant({ key: 'textStyle' }),
   props => props.css
 )
@@ -26,6 +28,7 @@ Text.propTypes = {
   ...fontFamily.propTypes,
   ...fontWeight.propTypes,
   ...textAlign.propTypes,
+  ...maxWidth.propTypes,
   ...lineHeight.propTypes,
   ...letterSpacing.propTypes
 }

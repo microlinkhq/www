@@ -13,7 +13,6 @@ export const useSiteMetadata = () => {
             headline
             description
             image
-            video
             twitter
             name
             logo
