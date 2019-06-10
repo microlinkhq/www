@@ -50,6 +50,13 @@ export default class extends Component {
               />
               <NavLink
                 data-event-category='Toolbar'
+                data-event-action='Embed'
+                href='/embed'
+                children='Embed'
+                actively='partial'
+              />
+              <NavLink
+                data-event-category='Toolbar'
                 data-event-action='Docs'
                 href='/docs/sdk/getting-started/overview/'
                 children='Docs'
