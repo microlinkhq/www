@@ -17,10 +17,8 @@ module.exports = {
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',
     twitter: '@microlinkhq',
-    image: 'https://cdn.microlink.io/meta/preview.jpg',
+    image: 'https://cdn.microlink.io/page/home.png',
     logo: 'https://cdn.microlink.io/logo/trim.png',
-    video: 'https://cdn.microlink.io/meta/preview.mp4',
-    gif: 'https://cdn.microlink.io/meta/preview.gif',
 
     // Slack previsualization
     dataLabel1: 'API',

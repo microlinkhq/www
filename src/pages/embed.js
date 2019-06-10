@@ -34,7 +34,7 @@ export default () => {
   }
 
   return (
-    <Layout>
+    <Layout image='https://cdn.microlink.io/page/embed.png'>
       {isEmpty(data) ? (
         <Examples
           demoLinks={demoLinks}

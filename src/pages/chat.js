@@ -10,7 +10,7 @@ const PLUS_SIZE = LOGO_SIZE * 0.35
 const TITLE = 'Chat'
 
 export default () => (
-  <Layout title={TITLE}>
+  <Layout title={TITLE} image='https://cdn.microlink.io/page/chat.png'>
     <Container width='100vh'>
       <Subhead fontSize={[4, 5]} fontWeight='regular' pt={4} pb={5}>
         Come Chat with Us
