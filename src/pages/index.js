@@ -2,10 +2,10 @@ import {
   useDefaultDemoLink,
   useDemoLinks,
   useFeatures,
-  useSiteMetadata
+  useSiteMetadata,
+  useQueryState
 } from 'components/hook'
 
-import { marshall, unmarshall } from 'helpers'
 import React, { useState, Fragment } from 'react'
 import { navigate } from 'gatsby'
 
@@ -315,26 +315,22 @@ const Features = ({ children }) => (
 
 function Index () {
   const [demoLink, setDemoLink] = useState(useDefaultDemoLink().data)
+  const [query, setQuery] = useQueryState()
+  const demoLinks = useDemoLinks()
+  const { url } = query
 
-  React.useEffect(() => {
-    const { url } = unmarshall(window.location.search)
-    if (url) setUrl(decodeURIComponent(url))
-  }, [])
-
-  React.useEffect(() => {
-    window.history.pushState(
-      {},
-      '',
-      `${siteUrl}?${marshall({ url: demoLink.url })}`
-    )
-  }, [demoLink])
-
-  const setUrl = url => {
-    const newDemoLink = demoLinks.find(demoLink => demoLink.data.url === url)
-    setDemoLink(newDemoLink)
+  const setDemo = demoLink => {
+    setDemoLink(demoLink)
+    setQuery({ url: demoLink.url })
   }
 
-  const demoLinks = useDemoLinks()
+  React.useEffect(() => {
+    if (url && url !== demoLink) {
+      const demoLink = demoLinks.find(demoLink => demoLink.data.url === url)
+      if (demoLink) setDemoLink(demoLink.data)
+    }
+  }, [url])
+
   const {
     siteUrl,
     paymentApiKey,
@@ -347,7 +343,7 @@ function Index () {
       <Hero />
       <SDK
         children={demoLinks}
-        setDemoLink={setDemoLink}
+        setDemoLink={setDemo}
         siteUrl={siteUrl}
         editor={demoLink}
       />

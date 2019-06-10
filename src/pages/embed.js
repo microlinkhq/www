@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react'
-import { useDemoLinks } from 'components/hook'
+import { useDemoLinks, useQueryState } from 'components/hook'
 import { Layout } from 'components/patterns'
 import { isEmpty } from 'lodash'
-import { unmarshall } from 'helpers'
 import mql from '@microlink/mql'
 
 import Examples from 'components/pages/embed/examples'
@@ -13,12 +12,8 @@ export default () => {
   const demoLinks = useDemoLinks()
   const [isLoading, setLoading] = useState(false)
   const [data, setData] = useState(null)
-  const [url, setUrl] = useState('')
-
-  React.useEffect(() => {
-    const { url: targetUrl } = unmarshall(window.location.search)
-    if (targetUrl) setUrl(targetUrl)
-  }, [])
+  const [query, setQuery] = useQueryState()
+  const { url } = query
 
   React.useEffect(() => {
     async function fetchData () {
@@ -35,7 +30,7 @@ export default () => {
     setLoading(true)
     event.preventDefault()
     const url = inputEl.current.value
-    setUrl(url)
+    setQuery({ url })
   }
 
   return (
