@@ -26,7 +26,7 @@ export default function HTML (props) {
         {props.postBodyComponents}
         <script
           crossOrigin='anonymous'
-          src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch%2CObject.entries'
+          src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch'
         />
         <script
           dangerouslySetInnerHTML={{
