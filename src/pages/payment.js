@@ -225,8 +225,15 @@ function Payment () {
         />
         <StripeProvider stripe={state.stripe}>
           <Flex flexDirection='column'>
-            <Header title='Update Payment' pb={[4, 5]} />
-            {/* <Heading children='' fontSize={[4, 5]} pb={4} /> */}
+            <Subhead
+              fontSize={[4, 5]}
+              fontWeight='regular'
+              mt={0}
+              mb={4}
+              mx={0}
+              slug={false}
+              children='Update Payment'
+            />
             <Elements>
               <CardForm
                 apiEndpoint={apiEndpoint}
