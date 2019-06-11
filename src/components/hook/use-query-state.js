@@ -8,7 +8,7 @@ export const useQueryState = () => {
     () => {
       setUrlSearchParams(new URLSearchParams(window.location.search))
     },
-    window ? [window.location.search] : []
+    global.window ? [window.location.search] : []
   )
 
   const query = fromEntries(urlSearchParams.entries())
