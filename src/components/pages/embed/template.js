@@ -23,6 +23,15 @@ import {
 
 import { Microlink } from 'components/patterns'
 
+const DEFAULT_LOGO = {
+  url: 'https://cdn.microlink.io/logo/trim.png',
+  width: 500,
+  height: 500,
+  type: 'png',
+  size: 1448,
+  size_pretty: '1.45 kB'
+}
+
 const serializeFmt = (props, { quotes = true } = {}) => {
   return Object.keys(props).reduce((acc, rawKey) => {
     const rawValue = props[rawKey]
@@ -127,20 +136,18 @@ const Hero = ({ humanizedUrl, brand, data }) => {
 
     const logoUrl = get(data, 'logo.url')
     if (logoUrl) return <Image size={72} src={logoUrl} />
-
-    const { hostname } = new URL(data.url)
-    return (
-      <Image size={72} src={`https://unavatar.now.sh/clearbit/${hostname}`} />
-    )
   })()
 
   const title = (
     <Box>
       <Flex alignItems='center' justifyContent='center'>
         <Logo.Microlink size={72} />
-        <Box mx={3}>
-          <Plus color={colors.gray5} />
-        </Box>
+        {logoProvider && (
+          <Box mx={3}>
+            <Plus color={colors.gray5} />
+          </Box>
+        )}
+
         {logoProvider}
       </Flex>
     </Box>
@@ -222,7 +229,10 @@ const SDK = ({ humanizedUrl, data }) => (
             <Link href={docLink}>documentation</Link>
             {')'}
           </Text>
-          <Microlink setData={data} {...props} />
+          <Microlink
+            setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
+            {...props}
+          />
         </Box>
         <Box mt={[3, 3, 3, 0]} width={500}>
           <MultiCodeEditor
