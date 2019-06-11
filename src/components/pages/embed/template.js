@@ -47,7 +47,8 @@ const serializeObject = props => {
     const rawValue = props[rawKey]
     const key = rawValue === true ? rawKey : `${rawKey}: `
     const value = rawValue === true ? '' : `'${rawValue}'`
-    return `${acc}${key}${value}`
+    const coma = acc === '' ? '' : ', '
+    return `${acc}${coma}${key}${value}`
   }, '')
 }
 
