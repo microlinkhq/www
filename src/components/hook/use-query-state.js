@@ -4,9 +4,12 @@ import { navigate } from 'gatsby'
 
 export const useQueryState = () => {
   const [urlSearchParams, setUrlSearchParams] = useState(new URLSearchParams())
-  useEffect(() => {
-    setUrlSearchParams(new URLSearchParams(window.location.search))
-  }, [window.location.search])
+  useEffect(
+    () => {
+      setUrlSearchParams(new URLSearchParams(window.location.search))
+    },
+    window ? [window.location.search] : []
+  )
 
   const query = fromEntries(urlSearchParams.entries())
 
