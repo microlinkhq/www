@@ -22,12 +22,12 @@ export default () => {
         setData(data)
       } catch (err) {}
     }
+    setLoading(true)
     fetchData()
     setLoading(false)
   }, [url])
 
   const onSubmit = async event => {
-    setLoading(true)
     event.preventDefault()
     const url = inputEl.current.value
     setQuery({ url })
