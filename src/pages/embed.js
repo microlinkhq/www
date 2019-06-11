@@ -1,5 +1,5 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
 import mql from '@microlink/mql'
@@ -27,6 +27,10 @@ export default () => {
     }
   }
 
+  useEffect(() => {
+    if (query.url) fetchData(query.url)
+  }, [query.url])
+
   const onSubmit = event => {
     event.preventDefault()
     fetchData(inputEl.current.value)
@@ -43,8 +47,10 @@ export default () => {
     <Layout image='https://cdn.microlink.io/page/embed.png'>
       <Location>
         {({ location }) => {
-          const hasQuery = location.search !== ''
-          if (hasQuery) return <Template data={data} />
+          if (location.search !== '' && data && status === 'fetched') {
+            return <Template data={data} />
+          }
+
           focusInput()
           return (
             <Examples
