@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.58](https://github.com/microlinkhq/microlink-www/compare/v2.3.57...v2.3.58) (2019-06-11)
+
+
+### Build System
+
+* skip ico logo ([16aa2cb](https://github.com/microlinkhq/microlink-www/commit/16aa2cb))
+
+
+
 ### [2.3.57](https://github.com/microlinkhq/microlink-www/compare/v2.3.56...v2.3.57) (2019-06-11)
 
 
