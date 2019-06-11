@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.59](https://github.com/microlinkhq/microlink-www/compare/v2.3.58...v2.3.59) (2019-06-11)
+
+
+### Bug Fixes
+
+* ensure data is available before render it ([1e85fac](https://github.com/microlinkhq/microlink-www/commit/1e85fac))
+* ensure to clear input ([597ec58](https://github.com/microlinkhq/microlink-www/commit/597ec58))
+* fixing my own code ([534055c](https://github.com/microlinkhq/microlink-www/commit/534055c))
+
+
+
 ### [2.3.58](https://github.com/microlinkhq/microlink-www/compare/v2.3.57...v2.3.58) (2019-06-11)
 
 
