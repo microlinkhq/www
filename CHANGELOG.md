@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.53](https://github.com/microlinkhq/microlink-www/compare/v2.3.52...v2.3.53) (2019-06-11)
+
+
+### Bug Fixes
+
+* ensure set loading ([fa22347](https://github.com/microlinkhq/microlink-www/commit/fa22347))
+* use a default image if it is not present ([73cde08](https://github.com/microlinkhq/microlink-www/commit/73cde08))
+
+
+
 ### [2.3.52](https://github.com/microlinkhq/microlink-www/compare/v2.3.51...v2.3.52) (2019-06-11)
 
 
