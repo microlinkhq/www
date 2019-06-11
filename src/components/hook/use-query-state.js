@@ -1,10 +1,5 @@
 import { useState, useEffect } from 'react'
-
-const fromEntries = iterable =>
-  [...iterable].reduce(
-    (obj, { 0: key, 1: val }) => ({ ...obj, [key]: val }),
-    {}
-  )
+import fromEntries from 'fromentries'
 
 export const useQueryState = () => {
   const [urlSearchParams, setUrlSearchParams] = useState(new URLSearchParams())
