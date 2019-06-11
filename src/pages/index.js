@@ -19,7 +19,8 @@ import {
   Hide,
   Flex,
   Link,
-  Caps
+  Caps,
+  Image
 } from 'components/elements'
 
 import {
@@ -29,8 +30,7 @@ import {
   PricingTable,
   Grid,
   Layout,
-  MQLEditor,
-  Announcement
+  MQLEditor
 } from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List/List'
@@ -90,13 +90,30 @@ const Hero = () => {
   const caption = 'Microlink makes easy to build an API on top of any website.'
   const header = <Header title={title} caption={caption} />
 
+  // const announcement = (
+  //   <Announcement
+  //     data-event-category='Home'
+  //     data-event-action='Announcement'
+  //     href='/blog/product-brief-7/'
+  //     children='Microlink SDK 4.0, Docs Portal & MQL »'
+  //   />
+  // )
+
   const announcement = (
-    <Announcement
-      data-event-category='Home'
-      data-event-action='Announcement'
-      href='/blog/product-brief-7/'
-      children='Microlink SDK 4.0, Docs Portal & MQL »'
-    />
+    <Flex pt={[1, 0, 0, 0]} justifyContent='center' alignItems='center'>
+      <Link
+        data-event-category='Home'
+        data-event-action='Announcement'
+        href='https://www.producthunt.com/posts/microlink-2-0?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-microlink-2-0'
+        target='_blank'
+      >
+        <Image
+          width={['10rem', '10rem', '14rem', '14rem']}
+          src='https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=136901&theme=light&period=daily'
+          alt='Microlink 2.0 - Extract structured data from any website | Product Hunt Embed'
+        />
+      </Link>
+    </Flex>
   )
 
   return (

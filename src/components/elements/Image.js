@@ -5,6 +5,7 @@ import {
   size,
   color,
   maxWidth,
+  width,
   display,
   textAlign,
   borderRadius
@@ -18,6 +19,7 @@ const Image = styled('img')(
   space,
   color,
   size,
+  width,
   maxWidth,
   display,
   textAlign,
@@ -27,6 +29,7 @@ const Image = styled('img')(
 Image.defaultProps = {
   ...space.defaultProps,
   ...color.defaultProps,
+  ...width.defaultProps,
   ...maxWidth.defaultProps,
   ...size.defaultProps,
   ...display.defaultProps,
