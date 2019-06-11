@@ -59,7 +59,7 @@ export default () => {
             return <Template data={data} />
           }
 
-          cleanInput()
+          if (!query.url && status !== 'fetching') cleanInput()
           focusInput()
 
           return (
