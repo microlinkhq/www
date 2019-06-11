@@ -1,51 +1,62 @@
-import React, { useState, useRef } from 'react'
 import { useDemoLinks, useQueryState } from 'components/hook'
+import React, { useState, useRef } from 'react'
 import { Layout } from 'components/patterns'
-import { isEmpty } from 'lodash'
+import { Location } from '@reach/router'
 import mql from '@microlink/mql'
 
 import Examples from 'components/pages/embed/examples'
 import Template from 'components/pages/embed/template'
 
 export default () => {
+  const [status, setStatus] = useState('initial')
   const inputEl = useRef(null)
   const demoLinks = useDemoLinks()
-  const [isLoading, setLoading] = useState(false)
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
-  const { url } = query
 
-  React.useEffect(() => {
-    async function fetchData () {
-      try {
-        const { data } = await mql(url)
-        setData(data)
-      } catch (err) {}
+  const fetchData = async url => {
+    try {
+      setStatus('fetching')
+      const { data } = await mql(url)
+      setData(data)
+      setQuery({ url })
+      setStatus('fetched')
+    } catch (err) {
+      setStatus('error')
+      console.error(err)
     }
-    setLoading(true)
-    fetchData()
-    setLoading(false)
-  }, [url])
+  }
 
-  const onSubmit = async event => {
+  const onSubmit = event => {
     event.preventDefault()
-    const url = inputEl.current.value
-    setQuery({ url })
+    fetchData(inputEl.current.value)
+  }
+
+  const focusInput = () => {
+    if (inputEl.current) {
+      inputEl.current.value = ''
+      inputEl.current.focus()
+    }
   }
 
   return (
     <Layout image='https://cdn.microlink.io/page/embed.png'>
-      {isEmpty(data) ? (
-        <Examples
-          demoLinks={demoLinks}
-          onSubmit={onSubmit}
-          url={url}
-          innerRef={inputEl}
-          isLoading={isLoading}
-        />
-      ) : (
-        <Template data={data} />
-      )}
+      <Location>
+        {({ location }) => {
+          const hasQuery = location.search !== ''
+          if (hasQuery) return <Template data={data} />
+          focusInput()
+          return (
+            <Examples
+              demoLinks={demoLinks}
+              onSubmit={onSubmit}
+              url={query.url}
+              innerRef={inputEl}
+              isLoading={status === 'fetching'}
+            />
+          )
+        }}
+      </Location>
     </Layout>
   )
 }
