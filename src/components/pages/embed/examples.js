@@ -43,7 +43,9 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
       <Input
         defaultValue={url}
         fontSize={2}
-        name='demourl'
+        name='url'
+        id='url'
+        autoComplete='on'
         innerRef={innerRef}
         required
         type='url'
