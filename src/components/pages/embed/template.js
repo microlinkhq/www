@@ -135,7 +135,8 @@ const Hero = ({ humanizedUrl, brand, data }) => {
     if (LogoProvider) return <LogoProvider size={72} state='hover' />
 
     const logoUrl = get(data, 'logo.url')
-    if (logoUrl) return <Image size={72} src={logoUrl} />
+    if (logoUrl && !logoUrl.endsWith('ico'))
+      return <Image size={72} src={logoUrl} />
   })()
 
   const title = (
