@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.56](https://github.com/microlinkhq/microlink-www/compare/v2.3.55...v2.3.56) (2019-06-11)
+
+
+### Bug Fixes
+
+* add a window ward ([164ba4b](https://github.com/microlinkhq/microlink-www/commit/164ba4b))
+
+
+
 ### [2.3.55](https://github.com/microlinkhq/microlink-www/compare/v2.3.54...v2.3.55) (2019-06-11)
 
 
