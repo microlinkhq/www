@@ -28,7 +28,10 @@ export default () => {
   }
 
   useEffect(() => {
-    if (query.url) fetchData(query.url)
+    if (query.url) {
+      focusInput()
+      fetchData(query.url)
+    }
   }, [query.url])
 
   const onSubmit = event => {
@@ -36,9 +39,14 @@ export default () => {
     fetchData(inputEl.current.value)
   }
 
-  const focusInput = () => {
+  const cleanInput = () => {
     if (inputEl.current) {
       inputEl.current.value = ''
+    }
+  }
+
+  const focusInput = () => {
+    if (inputEl.current) {
       inputEl.current.focus()
     }
   }
@@ -51,7 +59,9 @@ export default () => {
             return <Template data={data} />
           }
 
+          cleanInput()
           focusInput()
+
           return (
             <Examples
               demoLinks={demoLinks}
