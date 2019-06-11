@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.61](https://github.com/microlinkhq/microlink-www/compare/v2.3.60...v2.3.61) (2019-06-11)
+
+
+### Build System
+
+* add product hunt badge ([2729c84](https://github.com/microlinkhq/microlink-www/commit/2729c84))
+
+
+
 ### [2.3.60](https://github.com/microlinkhq/microlink-www/compare/v2.3.58...v2.3.60) (2019-06-11)
 
 
