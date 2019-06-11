@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.52](https://github.com/microlinkhq/microlink-www/compare/v2.3.51...v2.3.52) (2019-06-11)
+
+
+### Bug Fixes
+
+* object from entries polyfill ([da2a35e](https://github.com/microlinkhq/microlink-www/commit/da2a35e))
+
+
+
 ### [2.3.51](https://github.com/microlinkhq/microlink-www/compare/v2.3.50...v2.3.51) (2019-06-10)
 
 
