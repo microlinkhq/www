@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.63](https://github.com/microlinkhq/microlink-www/compare/v2.3.62...v2.3.63) (2019-06-12)
+
+
+### Bug Fixes
+
+* **package:** update smooth-scroll to version 16.1.0 ([da40e0e](https://github.com/microlinkhq/microlink-www/commit/da40e0e))
+
+
+
 ### [2.3.62](https://github.com/microlinkhq/microlink-www/compare/v2.3.61...v2.3.62) (2019-06-12)
 
 
