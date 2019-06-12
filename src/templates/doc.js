@@ -294,7 +294,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
       footer={false}
       {...meta}
       name={`Microlink ${activeRouteName}`}
-      image={`https://cdn.microlink.io/page/${activeRouteName.toLowerCase()}.png`}
+      image={`https://cdn.microlink.io/page/docs/${activeRouteName.toLowerCase()}.png`}
     >
       <Container>
         <Aside routes={routes} activeRouteName={activeRouteName}>
