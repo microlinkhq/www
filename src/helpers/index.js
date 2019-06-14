@@ -5,12 +5,14 @@ import unmarshall from './unmarshall'
 import getLines from './get-lines'
 import marshall from './marshall'
 import title from './title'
+import prettier from './prettier'
 
 export {
   formatDate,
   formatNumber,
   getLines,
   marshall,
+  prettier,
   serializeComponent,
   title,
   unmarshall

@@ -1,0 +1,73 @@
+import prettierStandalone from 'prettier/standalone'
+import prettierParserHtml from 'prettier/parser-html'
+import prettierParserGraphql from 'prettier/parser-graphql'
+import prettierParserMarkdown from 'prettier/parser-markdown'
+import parserBabylon from 'prettier/parser-babylon'
+
+/**
+ * https://prettier.io/docs/en/options.html
+ */
+const PRETTIER_CONFIG = {
+  semi: false,
+  singleQuote: true,
+  jsxSingleQuote: true,
+  printWidth: 80,
+  tabWidth: 2
+}
+
+const JS_OPTS = {
+  parser: 'babel',
+  plugins: [parserBabylon]
+}
+
+const JSON_OPTS = {
+  parser: 'json',
+  plugins: [parserBabylon]
+}
+
+const HTML_OPTS = {
+  parser: 'html',
+  plugins: [prettierParserHtml]
+}
+
+const GRAPHQL_OPTS = {
+  parser: 'graphql',
+  plugins: [prettierParserGraphql]
+}
+
+const MARKDOWN_OPTS = {
+  parser: 'markdown',
+  plugins: [prettierParserMarkdown]
+}
+
+export const serializeFmt = (props, { quotes = true } = {}) => {
+  return Object.keys(props).reduce((acc, rawKey) => {
+    const rawValue = props[rawKey]
+    const key = rawValue === true ? rawKey : `${rawKey}=`
+    const value =
+      rawValue === true ? '' : `${quotes ? `'${rawValue}'` : rawValue}`
+    return `${acc}${key}${value} `
+  }, '')
+}
+
+export const serializeObject = props => {
+  return Object.keys(props).reduce((acc, rawKey) => {
+    const rawValue = props[rawKey]
+    const key = rawValue === true ? rawKey : `${rawKey}: `
+    const value = rawValue === true ? '' : `'${rawValue}'`
+    const coma = acc === '' ? '' : ', '
+    return `${acc}${coma}${key}${value}`
+  }, '')
+}
+
+const prettier = (code, opts) =>
+  prettierStandalone.format(code, { ...PRETTIER_CONFIG, ...opts })
+prettier.jsx = prettier.javascript = prettier.js = (code, opts) =>
+  prettier(code, { ...JS_OPTS, ...opts })
+prettier.html = (code, opts) => prettier(code, { ...HTML_OPTS, ...opts })
+prettier.graphql = (code, opts) => prettier(code, { ...GRAPHQL_OPTS, ...opts })
+prettier.md = prettier.markdown = (code, opts) =>
+  prettier(code, { ...MARKDOWN_OPTS, ...opts })
+prettier.json = (code, opts) => prettier(code, { ...JSON_OPTS, ...opts })
+
+export default prettier

@@ -3,7 +3,6 @@ import React, { Fragment } from 'react'
 import humanizeUrl from 'humanize-url'
 import { Plus } from 'react-feather'
 import { colors } from 'theme'
-
 import { get } from 'lodash'
 
 import {
@@ -23,6 +22,8 @@ import {
 
 import { Microlink } from 'components/patterns'
 
+import prettier, { serializeObject, serializeFmt } from 'helpers/prettier'
+
 const DEFAULT_LOGO = {
   url: 'https://cdn.microlink.io/logo/trim.png',
   width: 500,
@@ -30,26 +31,6 @@ const DEFAULT_LOGO = {
   type: 'png',
   size: 1448,
   size_pretty: '1.45 kB'
-}
-
-const serializeFmt = (props, { quotes = true } = {}) => {
-  return Object.keys(props).reduce((acc, rawKey) => {
-    const rawValue = props[rawKey]
-    const key = rawValue === true ? rawKey : `${rawKey}=`
-    const value =
-      rawValue === true ? '' : `${quotes ? `'${rawValue}'` : rawValue}`
-    return `${acc}${key}${value} `
-  }, '')
-}
-
-const serializeObject = props => {
-  return Object.keys(props).reduce((acc, rawKey) => {
-    const rawValue = props[rawKey]
-    const key = rawValue === true ? rawKey : `${rawKey}: `
-    const value = rawValue === true ? '' : `'${rawValue}'`
-    const coma = acc === '' ? '' : ', '
-    return `${acc}${coma}${key}${value}`
-  }, '')
 }
 
 const generateMqlCode = props => `
@@ -64,27 +45,27 @@ console.log('data', data)
 `
 
 const generateLanguages = props => {
-  const langReact = () => `
+  const langReact = () =>
+    prettier.js(`
 import React from 'react'
 import Microlink from '@microlink/react'
 
 export default () => (
-  <Microlink
-    ${serializeFmt(props)}
-  />
+  <Microlink ${serializeFmt(props)} />
 )
-`
+`)
 
   langReact.language = 'jsx'
 
-  const langVanilla = () => `
+  const langVanilla = () =>
+    prettier.html(`
 <script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/@microlink/vanilla@4.0.0-alpha.3/dist/microlink.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function (event) {
     microlink('.link-previews', { ${serializeObject(props)} })
   })
 </script>
-`
+`)
 
   langVanilla.language = 'html'
 

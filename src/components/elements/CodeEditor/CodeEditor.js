@@ -1,11 +1,11 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { getLines, serializeComponent } from 'helpers'
+import { prettier, getLines, serializeComponent } from 'helpers'
 import styled, { css } from 'styled-components'
+import { get, identity, range } from 'lodash'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
 import CodeCopy from 'react-codecopy'
 import { colors, fonts } from 'theme'
-import { range } from 'lodash'
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
@@ -259,7 +259,6 @@ Terminal.defaultProps = {
 
 function CodeEditor (props) {
   const { ActionComponent, showLineNumbers, interactive, children, my } = props
-  const text = serializeComponent(children.trim())
   const className = props.className
     ? props.className + (props.metastring || '')
     : ''
@@ -272,6 +271,8 @@ function CodeEditor (props) {
     return 'javascript'
   })()
 
+  const pretty = get(prettier, language, identity)
+  const text = pretty(children)
   const theme = { ...baseTheme, ...langTheme[language] }
   const css = highlightLines && highlighLinesStyle(highlightLines)
 
