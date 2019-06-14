@@ -2,11 +2,10 @@ import {
   useDefaultDemoLink,
   useDemoLinks,
   useFeatures,
-  useSiteMetadata,
-  useQueryState
+  useSiteMetadata
 } from 'components/hook'
 
-import React, { useState, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { navigate } from 'gatsby'
 
 import {
@@ -146,7 +145,7 @@ const Subheader = ({ children }) => (
   </Fragment>
 )
 
-const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
+const SDK = ({ loading, editor, children }) => (
   <Container
     maxWidth='100%'
     bg='pinky'
@@ -332,39 +331,14 @@ const Features = ({ children }) => (
 )
 
 function Index () {
-  const [demoLink, setDemoLink] = useState(useDefaultDemoLink().data)
-  const [query, setQuery] = useQueryState()
+  const demoLink = useDefaultDemoLink().data
   const demoLinks = useDemoLinks()
-  const { url } = query
-
-  const setDemo = demoLink => {
-    setDemoLink(demoLink)
-    setQuery({ url: demoLink.url })
-  }
-
-  React.useEffect(() => {
-    if (url && url !== demoLink) {
-      const demoLink = demoLinks.find(demoLink => demoLink.data.url === url)
-      if (demoLink) setDemoLink(demoLink.data)
-    }
-  }, [url])
-
-  const {
-    siteUrl,
-    paymentApiKey,
-    stripeKey,
-    paymentEndpoint
-  } = useSiteMetadata()
+  const { paymentApiKey, stripeKey, paymentEndpoint } = useSiteMetadata()
 
   return (
     <Layout>
       <Hero />
-      <SDK
-        children={demoLinks}
-        setDemoLink={setDemo}
-        siteUrl={siteUrl}
-        editor={demoLink}
-      />
+      <SDK children={demoLinks} editor={demoLink} />
       <MQL />
       <Features children={useFeatures()} />
       <Pricing
