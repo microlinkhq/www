@@ -207,9 +207,7 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
             <LiveDemo loading={loading} children={editor} />
           </Hide>
 
-          <ButtonSecondary
-            onClick={() => navigate('/docs/sdk/getting-started/overview')}
-          >
+          <ButtonSecondary onClick={() => navigate('/embed')}>
             <Caps fontSize={0}>See More</Caps>
           </ButtonSecondary>
         </Flex>
@@ -233,7 +231,10 @@ const SDK = ({ loading, editor, children, setDemoLink, siteUrl }) => (
         color='gray8'
         children='Try another link →'
       />
-      <DemoLinks children={children} onClick={setDemoLink} />
+      <DemoLinks
+        children={children}
+        onClick={({ brand }) => navigate(`/embed/${brand.toLowerCase()}`)}
+      />
     </Flex>
   </Container>
 )

@@ -55,7 +55,7 @@ const DemoLinks = ({ children, chunkSize, onClick }) => (
                 {createElement(Logos[brand], {
                   key: index,
                   ratio: 0.6,
-                  onClick: () => onClick(data)
+                  onClick: () => onClick({ brand, data })
                 })}
               </LogoWrap>
             ))}
