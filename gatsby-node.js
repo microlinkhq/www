@@ -29,6 +29,17 @@ const githubUrl = (() => {
 })()
 
 exports.onCreateWebpackConfig = ({ getConfig, loaders, stage, actions }) => {
+  actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /.js.flow$/,
+          use: loaders.null()
+        }
+      ]
+    }
+  })
+
   if (stage === 'build-html') {
     actions.setWebpackConfig({
       module: {

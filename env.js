@@ -11,12 +11,14 @@ const {
   STRIPE_KEY,
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
-  GOOGLE_ANALYTICS_ID
+  GOOGLE_ANALYTICS_ID,
+  MICROLINK_API_ENDPOINT
 } = process.env
 
 if (!STRIPE_KEY) throw envError('STRIPE_KEY')
 if (!PAYMENT_API_KEY) throw envError('PAYMENT_API_KEY')
 if (!PAYMENT_ENDPOINT) throw envError('PAYMENT_ENDPOINT')
+if (!MICROLINK_API_ENDPOINT) throw envError('MICROLINK_API_ENDPOINT')
 
 const isProduction = NODE_ENV === 'production'
 
@@ -26,14 +28,15 @@ const SITE_URL = (() => {
 })()
 
 module.exports = {
-  isProduction,
-  DEPLOY_URL,
   CONTEXT,
+  DEPLOY_URL,
+  GOOGLE_ANALYTICS_ID,
+  isProduction,
+  MICROLINK_API_ENDPOINT,
   NODE_ENV,
-  URL,
-  STRIPE_KEY,
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
-  GOOGLE_ANALYTICS_ID,
-  SITE_URL
+  SITE_URL,
+  STRIPE_KEY,
+  URL
 }

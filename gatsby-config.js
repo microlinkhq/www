@@ -5,6 +5,7 @@ const {
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
   GOOGLE_ANALYTICS_ID,
+  MICROLINK_API_ENDPOINT,
   SITE_URL
 } = require('./env')
 
@@ -29,6 +30,7 @@ module.exports = {
     // additional
     paymentApiKey: PAYMENT_API_KEY,
     paymentEndpoint: PAYMENT_ENDPOINT,
+    apiEndpoint: MICROLINK_API_ENDPOINT,
     stripeKey: STRIPE_KEY
   },
   plugins: [
