@@ -1,15 +1,14 @@
 /* global fetch */
 
+import React, { useRef, useState, useEffect } from 'react'
 import { Text, Box, Flex } from 'components/elements'
 import { useSiteMetadata } from 'components/hook'
 import GraphiQLExplorer from 'graphiql-explorer'
-import React, { useRef, useState } from 'react'
 import { Layout } from 'components/patterns'
 import { buildClientSchema } from 'graphql'
 import { css } from 'styled-components'
 import fromEntries from 'fromentries'
 import { marshall } from 'helpers'
-import GraphiQL from 'graphiql'
 import { pickBy, noop } from 'lodash'
 
 import 'components/pages/mql/style.css'
@@ -28,6 +27,12 @@ const DEFAULT_QUERY = `
   }
 }
 `
+
+let GraphiQL
+
+if (global.window) {
+  GraphiQL = require('graphiql')
+}
 
 export default () => {
   const graphiqlEl = useRef(NOOP_GRAPHIQL)
@@ -49,9 +54,9 @@ export default () => {
   }
 
   // useEffect(() => {
-  //   fetcher({ query: getIntrospectionQuery() }).then(result => {
-  //     setSchema(buildClientSchema(result))
-  //   })
+  // fetcher({ query: getIntrospectionQuery() }).then(result => {
+  //   setSchema(buildClientSchema(result))
+  // })
   // }, [])
 
   const stats = [
@@ -68,6 +73,8 @@ export default () => {
       box-sizing: content-box;
     }
   `
+
+  if (!GraphiQL) return null
 
   return (
     <Layout>
