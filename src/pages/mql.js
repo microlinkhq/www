@@ -22,8 +22,14 @@ const NOOP_GRAPHIQL = {
 
 const DEFAULT_QUERY = `
 {
-  page (url: "https://kikobeats.com") {
+  home: page (url: "https://microlink.io") {
     url
+    image {
+      url
+      palette
+    }
+    resume: text(selector: "h2:first"),
+    caption: text(selector: "h3:first")
   }
 }
 `
