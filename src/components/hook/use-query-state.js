@@ -8,7 +8,9 @@ export const useQueryState = () => {
   const [query, setQuery] = useState(fromLocation())
 
   useEffect(
-    () => setQuery(fromLocation()),
+    () => {
+      setQuery(fromLocation())
+    },
     global.window ? [window.location.search] : []
   )
 
