@@ -4,6 +4,8 @@ import React, { useState, Fragment, Component } from 'react'
 import { useSiteMetadata } from 'components/hook'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
+import { encode, decode } from 'qss'
+
 import {
   Label,
   Container,
@@ -15,8 +17,6 @@ import {
 } from 'components/elements'
 import { Layout } from 'components/patterns'
 import Head from 'components/Head'
-
-import { marshall, unmarshall } from 'helpers'
 
 import {
   CardNumberElement,
@@ -96,7 +96,7 @@ class _CardForm extends Component {
           body: JSON.stringify([
             {
               command: 'payment.update',
-              customerId: unmarshall(window.location.search).id,
+              customerId: decode(window.location.search).id,
               token
             },
             { command: 'notification.email', templateId: 'payment_updated' }
@@ -132,9 +132,7 @@ class _CardForm extends Component {
                   display='inline'
                   children='Contact us'
                   color='red8'
-                  href={`mailto:hello@microlink.io?${marshall(
-                    ERROR_MAIL_OPTS
-                  )}`}
+                  href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
                 />
                 {'.'}
               </Notification.Danger>

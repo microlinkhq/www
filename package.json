@@ -86,6 +86,7 @@
     "polished": "~3.4.1",
     "postcss-focus": "~4.0.0",
     "prettier": "~1.18.2",
+    "qss": "~2.0.3",
     "react": "16.8.6",
     "react-codecopy": "~4.0.1",
     "react-dom": "16.8.6",
