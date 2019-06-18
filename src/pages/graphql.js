@@ -1,9 +1,9 @@
 /* global fetch */
 
 import { useSiteMetadata, useQueryState } from 'components/hook'
+import React, { useRef, useState, useEffect } from 'react'
 import { Text, Box, Flex } from 'components/elements'
 import GraphiQLExplorer from 'graphiql-explorer'
-import React, { useRef, useState } from 'react'
 import { Layout } from 'components/patterns'
 import { buildClientSchema } from 'graphql'
 import { css } from 'styled-components'
@@ -49,22 +49,35 @@ export default () => {
   const graphiql = graphiqlEl.current
 
   const [windowQuery, setWindowQuery] = useQueryState()
-
   const [schema] = useState(buildClientSchema(introspection))
   const [isExplorerOpen, setExplorerOpen] = useState(true)
-
   const [query, setQuery] = useState(windowQuery.query || DEFAULT_QUERY)
   const [resHeaders, setResHeaders] = useState({})
   const { apiEndpoint } = useSiteMetadata()
   const graphqlEndpoint = `${apiEndpoint}/___graphql`
+  const [response, setResponse] = useState(null)
+
+  async function fetchQuery (query) {
+    const response = await fetch(`${graphqlEndpoint}?${encode(query)}`, {
+      cache: 'no-store'
+    })
+    const headers = fromEntries(response.headers.entries())
+    const payload = await response.json()
+    return { payload, headers }
+  }
 
   async function fetcher (graphQLParams) {
     const query = pickBy(graphQLParams)
     setWindowQuery(query)
-    const response = await fetch(`${graphqlEndpoint}?${encode(query)}`)
-    setResHeaders(fromEntries(response.headers.entries()))
-    const payload = await response.json()
+    const { payload, headers } = await fetchQuery(query)
+    setResHeaders(headers)
     return payload.data
+  }
+
+  async function fetchInitialResponse (query) {
+    const { payload, headers } = await fetchQuery(query)
+    setResponse(JSON.stringify(payload.data, null, 2))
+    setResHeaders(headers)
   }
 
   const stats = [
@@ -81,6 +94,12 @@ export default () => {
       box-sizing: content-box;
     }
   `
+
+  useEffect(() => {
+    if (windowQuery.query === query && response === null) {
+      fetchInitialResponse(windowQuery)
+    }
+  }, [windowQuery.query])
 
   if (!GraphiQL) return null
 
@@ -105,6 +124,7 @@ export default () => {
           schema={schema}
           query={query}
           onEditQuery={setQuery}
+          response={response}
         >
           <GraphiQL.Logo>MQL</GraphiQL.Logo>
           <GraphiQL.Toolbar>
