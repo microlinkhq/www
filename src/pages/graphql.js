@@ -1,15 +1,15 @@
 /* global fetch */
 
-import React, { useRef, useState, useEffect } from 'react'
+import { useSiteMetadata, useQueryState } from 'components/hook'
 import { Text, Box, Flex } from 'components/elements'
-import { useSiteMetadata } from 'components/hook'
 import GraphiQLExplorer from 'graphiql-explorer'
+import React, { useRef, useState } from 'react'
 import { Layout } from 'components/patterns'
 import { buildClientSchema } from 'graphql'
 import { css } from 'styled-components'
 import fromEntries from 'fromentries'
-import { marshall } from 'helpers'
 import { pickBy, noop } from 'lodash'
+import { encode } from 'qss'
 
 import 'components/pages/mql/style.css'
 import introspection from '../../data/introspection.json'
@@ -31,6 +31,10 @@ const DEFAULT_QUERY = `
     resume: text(selector: "h2:first"),
     caption: text(selector: "h3:first")
   }
+
+  blog: page(url: "https://microlink.io/blog") {
+    url
+  }
 }
 `
 
@@ -44,26 +48,24 @@ export default () => {
   const graphiqlEl = useRef(NOOP_GRAPHIQL)
   const graphiql = graphiqlEl.current
 
+  const [windowQuery, setWindowQuery] = useQueryState()
+
   const [schema] = useState(buildClientSchema(introspection))
   const [isExplorerOpen, setExplorerOpen] = useState(true)
-  const [query, setQuery] = useState(DEFAULT_QUERY)
+
+  const [query, setQuery] = useState(windowQuery.query || DEFAULT_QUERY)
   const [resHeaders, setResHeaders] = useState({})
   const { apiEndpoint } = useSiteMetadata()
   const graphqlEndpoint = `${apiEndpoint}/___graphql`
 
   async function fetcher (graphQLParams) {
-    const query = marshall(pickBy(graphQLParams))
-    const response = await fetch(`${graphqlEndpoint}?${query}`)
+    const query = pickBy(graphQLParams)
+    setWindowQuery(query)
+    const response = await fetch(`${graphqlEndpoint}?${encode(query)}`)
     setResHeaders(fromEntries(response.headers.entries()))
     const payload = await response.json()
     return payload.data
   }
-
-  // useEffect(() => {
-  // fetcher({ query: getIntrospectionQuery() }).then(result => {
-  //   setSchema(buildClientSchema(result))
-  // })
-  // }, [])
 
   const stats = [
     { key: 'Plan', value: resHeaders['x-pricing-plan'] },
