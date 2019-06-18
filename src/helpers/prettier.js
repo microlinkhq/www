@@ -60,8 +60,14 @@ export const serializeObject = props => {
   }, '')
 }
 
-const prettier = (code, opts) =>
-  prettierStandalone.format(code, { ...PRETTIER_CONFIG, ...opts })
+const prettier = (code, opts) => {
+  try {
+    return prettierStandalone.format(code, { ...PRETTIER_CONFIG, ...opts })
+  } catch (err) {
+    return code
+  }
+}
+
 prettier.jsx = prettier.javascript = prettier.js = (code, opts) =>
   prettier(code, { ...JS_OPTS, ...opts })
 prettier.html = (code, opts) => prettier(code, { ...HTML_OPTS, ...opts })

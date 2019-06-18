@@ -1,7 +1,7 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { prettier, getLines, serializeComponent } from 'helpers'
 import styled, { css } from 'styled-components'
 import { get, identity, range } from 'lodash'
+import { prettier, getLines } from 'helpers'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
 import CodeCopy from 'react-codecopy'
