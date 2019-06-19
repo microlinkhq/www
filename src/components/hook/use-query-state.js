@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react'
 import { decode, encode } from 'qss'
 import { navigate } from 'gatsby'
 
-const fromLocation = () => decode(window.location.search.substring(1))
+let hasWindow = !!global.window
+
+const fromLocation = () =>
+  hasWindow ? decode(window.location.search.substring(1)) : {}
 
 export const useQueryState = () => {
   const [query, setQuery] = useState(fromLocation())
