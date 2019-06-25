@@ -23,7 +23,7 @@ if (!MICROLINK_API_ENDPOINT) throw envError('MICROLINK_API_ENDPOINT')
 const isProduction = NODE_ENV === 'production'
 
 const SITE_URL = (() => {
-  return 'http://localhost:8000'
+  if (!isProduction) return 'http://localhost:8000'
   return CONTEXT === 'production' ? URL : DEPLOY_URL
 })()
 
