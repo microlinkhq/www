@@ -110,7 +110,7 @@ export default () => {
   }
 
   const onCurl = () => {
-    copy(apiUrl(windowQuery))
+    copy(`curl ${apiUrl({ query })}`)
     setCurlText(TEXT.SHARED)
     setTimeout(() => setCurlText(TEXT.CURL), TEXT_ANIMATION_MS)
   }
