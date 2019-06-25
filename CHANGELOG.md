@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/microlinkhq/microlink-www/compare/v2.4.3...v2.5.0) (2019-06-25)
+
+
+### Bug Fixes
+
+* avoid SSR ([0ea4bf5](https://github.com/microlinkhq/microlink-www/commit/0ea4bf5))
+* avoid SSR ([4c1c5ca](https://github.com/microlinkhq/microlink-www/commit/4c1c5ca))
+* best effort ([4421ae2](https://github.com/microlinkhq/microlink-www/commit/4421ae2))
+* typo ([1ff56fc](https://github.com/microlinkhq/microlink-www/commit/1ff56fc))
+
+
+### Build System
+
+* add copy buttons ([f3cb992](https://github.com/microlinkhq/microlink-www/commit/f3cb992))
+* avoid return something internal ([ec87424](https://github.com/microlinkhq/microlink-www/commit/ec87424))
+* better copy handle ([6c0370b](https://github.com/microlinkhq/microlink-www/commit/6c0370b))
+* do an initial fetch when is necessary ([678e3bd](https://github.com/microlinkhq/microlink-www/commit/678e3bd))
+* encode state into url ([3edf01d](https://github.com/microlinkhq/microlink-www/commit/3edf01d))
+* improve default query ([9923fcd](https://github.com/microlinkhq/microlink-www/commit/9923fcd))
+* remove develop thing ([159aced](https://github.com/microlinkhq/microlink-www/commit/159aced))
+* tweak scripts ([2f22799](https://github.com/microlinkhq/microlink-www/commit/2f22799))
+* update dependencies ([9939672](https://github.com/microlinkhq/microlink-www/commit/9939672))
+* update dependencies ([6ab4379](https://github.com/microlinkhq/microlink-www/commit/6ab4379))
+* update travis ([58185d9](https://github.com/microlinkhq/microlink-www/commit/58185d9))
+* use qss instead of marshal/unmarshall ([4df8605](https://github.com/microlinkhq/microlink-www/commit/4df8605))
+
+
+### Features
+
+* add mql page ([3233b7d](https://github.com/microlinkhq/microlink-www/commit/3233b7d))
+
+
+
 ### [2.4.3](https://github.com/microlinkhq/microlink-www/compare/v2.4.2...v2.4.3) (2019-06-18)
 
 
