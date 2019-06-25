@@ -19,7 +19,7 @@ const main = async () => {
 
   if (NODE_ENV === 'production') return
 
-  const graphqlEndpoint = `${MICROLINK_API_ENDPOINT}/___graphql`
+  const graphqlEndpoint = `${MICROLINK_API_ENDPOINT}/graphql`
   const query = stringify({ query: getIntrospectionQuery() })
   const { body } = await got(`${graphqlEndpoint}?${query}`, { json: true })
   return jsonFuture.saveAsync(INTROSPECTION_PATH, body)

@@ -10,8 +10,10 @@ import { css } from 'styled-components'
 import fromEntries from 'fromentries'
 import { pickBy, noop } from 'lodash'
 import { encode } from 'qss'
+import copy from 'copy-to-clipboard'
 
 import 'components/pages/mql/style.css'
+
 import introspection from '../../data/introspection.json'
 
 const NOOP_GRAPHIQL = {
@@ -32,11 +34,20 @@ const DEFAULT_QUERY = `
     caption: text(selector: "h3:first")
   }
 
-  blog: page(url: "https://microlink.io/blog") {
+  blog: page(url: "https://microlink.io/blog", force:true) {
     url
+    posts: text(selector: "section a")
   }
 }
 `
+
+const TEXT = {
+  SHARE: 'Share',
+  SHARED: 'Copied!',
+  CURL: 'Copy as cURL'
+}
+
+const TEXT_ANIMATION_MS = 1000
 
 let GraphiQL
 
@@ -51,14 +62,18 @@ export default () => {
   const [windowQuery, setWindowQuery] = useQueryState()
   const [schema] = useState(buildClientSchema(introspection))
   const [isExplorerOpen, setExplorerOpen] = useState(true)
+  const [shareText, setShareText] = useState(TEXT.SHARE)
+  const [curlText, setCurlText] = useState(TEXT.CURL)
   const [query, setQuery] = useState(windowQuery.query || DEFAULT_QUERY)
   const [resHeaders, setResHeaders] = useState({})
   const { apiEndpoint } = useSiteMetadata()
-  const graphqlEndpoint = `${apiEndpoint}/___graphql`
+  const graphqlEndpoint = `${apiEndpoint}/graphql`
   const [response, setResponse] = useState(null)
 
+  const apiUrl = query => `${graphqlEndpoint}?${encode(query)}`
+
   async function fetchQuery (query) {
-    const response = await fetch(`${graphqlEndpoint}?${encode(query)}`, {
+    const response = await fetch(apiUrl(query), {
       cache: 'no-store'
     })
     const headers = fromEntries(response.headers.entries())
@@ -87,6 +102,18 @@ export default () => {
   ]
 
   const toggleExplorer = () => setExplorerOpen(!isExplorerOpen)
+
+  const onShare = () => {
+    copy(window.location.href)
+    setShareText(TEXT.SHARED)
+    setTimeout(() => setShareText(TEXT.SHARE), TEXT_ANIMATION_MS)
+  }
+
+  const onCurl = () => {
+    copy(apiUrl(windowQuery))
+    setCurlText(TEXT.SHARED)
+    setTimeout(() => setCurlText(TEXT.CURL), TEXT_ANIMATION_MS)
+  }
 
   const graphqlContainerStyle = css`
     height: 80vh !important;
@@ -142,6 +169,17 @@ export default () => {
               onClick={toggleExplorer}
               label='Explorer'
               title='Toggle Explorer'
+            />
+            <Box mx='auto' />
+            <GraphiQL.Button
+              onClick={onShare}
+              label={shareText}
+              title={shareText}
+            />
+            <GraphiQL.Button
+              onClick={onCurl}
+              label={curlText}
+              title={curlText}
             />
           </GraphiQL.Toolbar>
           <GraphiQL.Footer>

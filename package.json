@@ -45,6 +45,7 @@
     "autoprefixer": "~9.6.0",
     "beauty-error": "~1.2.0",
     "color": "~3.1.2",
+    "copy-to-clipboard": "~3.2.0",
     "cssnano": "~4.1.10",
     "cssnano-preset-advanced": "~4.0.7",
     "date-fns": "~1.30.1",
