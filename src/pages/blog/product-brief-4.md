@@ -29,7 +29,7 @@ Using [@microlink/react](/docs/sdk/integrations/react/) just pass your custom CS
 import Microlink from '@microlink/react'
 
 <Microlink
-  iamge='logo'
+  image='logo'
   url="https://browserless.js.org"
   style={{ borderRadius: '.42857em' }}
 />

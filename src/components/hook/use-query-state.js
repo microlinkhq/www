@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react'
-import fromEntries from 'fromentries'
+import { decode, encode } from 'qss'
 import { navigate } from 'gatsby'
 
+let hasWindow = !!global.window
+
+const fromLocation = () =>
+  hasWindow ? decode(window.location.search.substring(1)) : {}
+
 export const useQueryState = () => {
-  const [urlSearchParams, setUrlSearchParams] = useState(new URLSearchParams())
+  const [query, setQuery] = useState(fromLocation())
+
   useEffect(
     () => {
-      setUrlSearchParams(new URLSearchParams(window.location.search))
+      setQuery(fromLocation())
     },
     global.window ? [window.location.search] : []
   )
 
-  const query = fromEntries(urlSearchParams.entries())
-
-  const setQuery = (obj = {}) => {
-    Object.keys(obj).forEach(key => urlSearchParams.set(key, obj[key]))
-    navigate(`${window.location.pathname}?${urlSearchParams.toString()}`)
+  const set = (obj = {}, { navigate: isNavigate = true } = {}) => {
+    const newQuery = { ...query, ...obj }
+    if (isNavigate) navigate(`${window.location.pathname}?${encode(newQuery)}`)
   }
 
-  return [query, setQuery]
+  return [query, set]
 }

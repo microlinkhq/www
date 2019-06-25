@@ -8,6 +8,7 @@ export const useSiteMetadata = () => {
           siteMetadata {
             paymentEndpoint
             paymentApiKey
+            apiEndpoint
             stripeKey
             siteUrl
             headline

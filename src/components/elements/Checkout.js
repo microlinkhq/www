@@ -7,7 +7,7 @@ import {
   Notification,
   ButtonSecondary
 } from 'components/elements'
-import { marshall } from 'helpers'
+import { encode } from 'qss'
 import { Choose } from 'react-extras'
 
 const PAYMENT_STATE = {
@@ -118,9 +118,7 @@ export default class extends Component {
                   display='inline'
                   color='red8'
                   children='Contact us'
-                  href={`mailto:hello@microlink.io?${marshall(
-                    ERROR_MAIL_OPTS
-                  )}`}
+                  href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
                 />
                 {'.'}
               </Notification.Danger>
