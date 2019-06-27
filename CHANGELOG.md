@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.1](https://github.com/microlinkhq/microlink-www/compare/v2.5.0...v2.5.1) (2019-06-27)
+
+
+### Bug Fixes
+
+* **package:** update graphql to version 14.4.0 ([6291fc4](https://github.com/microlinkhq/microlink-www/commit/6291fc4))
+
+
+
 ## [2.5.0](https://github.com/microlinkhq/microlink-www/compare/v2.4.3...v2.5.0) (2019-06-25)
 
 
