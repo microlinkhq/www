@@ -73,7 +73,7 @@
     "git-jiggy": "~1.1.1",
     "graphiql": "~0.13.2",
     "graphiql-explorer": "~0.4.3",
-    "graphql": "~14.3.1",
+    "graphql": "~14.4.0",
     "human-number": "~1.0.4",
     "humanize-url": "~2.1.0",
     "json-future": "~2.2.4",
