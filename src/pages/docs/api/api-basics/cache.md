@@ -2,9 +2,9 @@
 title: Cache
 ---
 
-We have a builtin caching layer for speed up consecutive API calls with the same query parameters.
+We have a builtin caching layer for speed up consecutive API calls based on query parameters.
 
-First time you query for a resource that not was previously served, we will create it, what is known as cache *MISS*.
+The first time you query for a resource that not was previously served, it will be created, what is known as cache **MISS**.
 
 The cache status is reflected using the response header as `x-cache-status`.
 
@@ -21,7 +21,7 @@ module.exports = async () => {
   }} 
 />
 
-The successive requests for the resource will consume the cached version of the resource, what is known as cache *HIT*.
+The successive requests for the resource will consume the cached version of the resource, what is known as cache **HIT**.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.reddit.com | grep -i "x-cache-status"`,
@@ -36,11 +36,9 @@ module.exports = async () => {
   }} 
 />
 
-The period of time the resource is cached is known as *Time To Live* (TTL) and it is fixed to **1 hour**.
+The period of time the resource is cached is known as **Time To Live** ([ttl](/docs/api/api-parameters/ttl)) and it specifies the maximum quantity of time the resource will served from cache. 
 
-That means, every 1 hour the cached response copy is invalidated and will generate a new one in the next API call.
-
-You can see the TTL value in a human friendly way as `x-cache-expired-at` in the reponse headers.
+You can see the remain time before [ttl](/docs/api/api-parameters/ttl) expiration as `x-cache-expired-at` in the reponse headers.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.reddit.com | grep -i "x-cache-expired-at"`,
@@ -55,6 +53,6 @@ module.exports = async () => {
   }} 
 />
 
-It's reflected as `cache-control` as well to tell browsers how much time they can serve the same resource until cache expiration.
+Also, [ttl](/docs/api/api-parameters/ttl) is properly reflected as `cache-control` response header to tell browsers how much time they can serve the same resource until refresh it.
 
-If you want to bypass and get a fresh response, you can use [force](/docs/api/api-parameters/force) for regenerating the cache copy without waiting TTL expiration time.
+If you want to bypass and get a fresh response, you can use [force](/docs/api/api-parameters/force) for regenerating the cache copy without waiting [ttl](/docs/api/api-parameters/ttl) expiration time.

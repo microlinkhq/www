@@ -163,6 +163,10 @@ const ROUTES_API = [
         href: '/docs/api/api-parameters/url'
       },
       {
+        name: 'ttl',
+        href: '/docs/api/api-parameters/ttl'
+      },
+      {
         name: 'prerender',
         href: '/docs/api/api-parameters/prerender'
       },
