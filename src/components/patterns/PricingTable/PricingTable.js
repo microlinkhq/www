@@ -205,7 +205,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
               <PricePicker onChange={priceSelected} />
             ]}
           />
-          <PricingRow children={['Auto Caching', 'everything', 'optimized']} />
+          <PricingRow children={['Caching', 'fixed', 'customizable']} />
           <PricingRow children={['Tech Support', 'community', 'priority']} />
           <PricingRow
             children={[
