@@ -98,7 +98,7 @@
     "react-json-view": "~1.19.1",
     "react-live": "~2.1.2",
     "react-stripe-elements": "~3.0.0",
-    "react-syntax-highlighter": "~10.3.0",
+    "react-syntax-highlighter": "~11.0.0",
     "react-timeago": "~4.4.0",
     "rebass": "~3.1.1",
     "remark-slug": "~5.1.2",
