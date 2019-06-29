@@ -9,7 +9,7 @@ Type: `string`
 The target URL for getting information based on the content.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api url=https://kikobeats.com`,
+  Shell: `microlink-api https://kikobeats.com`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

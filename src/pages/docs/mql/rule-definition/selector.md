@@ -4,7 +4,7 @@ title: 'selector'
 
 **Required**<br/>
 
-Type: `string|array`<br/>
+Type: `string|string[]`<br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
 It defines the HTML element you want to get from the HTML of the target [url](/docs/api/api-parameters/url).

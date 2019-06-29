@@ -2,7 +2,7 @@
 title: 'media'
 --- 
 
-Type: `string|array`<br/>
+Type: `string|string[]`<br/>
 Default: `['image', 'logo']`<br/>
 Values: `'image'|'logo'|'screenshot'|'video'`
 

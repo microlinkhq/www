@@ -24,9 +24,7 @@ module.exports = async () => {
 You can ensure your authentication is done checking the `x-pricing-plan` header on the response, that reflects if you are using a `pro` or `free` plan.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api \\
-https://www.instagram.com/p/BvDTdWdnzkj&apiKey=MyApiToken \\
-| grep -i "x-pricing-plan"`,
+  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.instagram.com/p/BvDTdWdnzkj&apiKey=MyApiToken | grep -i "x-pricing-plan"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

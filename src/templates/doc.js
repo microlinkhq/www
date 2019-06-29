@@ -1,6 +1,5 @@
 import {
   Tooltip,
-  Box,
   Badge,
   Link,
   Text,

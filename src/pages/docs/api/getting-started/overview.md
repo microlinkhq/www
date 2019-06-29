@@ -9,7 +9,7 @@ Welcome to **Microlink API**
 You can use our API for getting structured data from any website.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api curl https://instagram.com/p/BeV6tOhFUor --no-headers`,
+  Shell: `microlink-api https://instagram.com/p/BeV6tOhFUor`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

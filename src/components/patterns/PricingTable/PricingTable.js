@@ -1,7 +1,7 @@
 import { formatNumber } from 'helpers'
 import React, { useState, Fragment } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { X, Check, HelpCircle } from 'react-feather'
+import { HelpCircle } from 'react-feather'
 import {
   Box,
   Tooltip,

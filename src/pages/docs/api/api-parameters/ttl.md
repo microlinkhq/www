@@ -9,7 +9,7 @@ Default: `3600000`<br/>
 It establishes the maximum quantity of time a resource served from cache layer is considered as valid.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api url=https://kikobeats.com&ttl=14400000`,
+  Shell: `microlink-api https://kikobeats.com&ttl=14400000`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -33,7 +33,7 @@ The idea behind exposing this API parameter is to optimize better how much time 
 The value provided will reflected as `x-cache-ttl` as part of the response headers
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://www.twitter.com/microlinkhq | grep -i "x-cache-ttl"`,
+  Shell: `curl -I -s -X GET https://microlink.io?url=https://www.twitter.com/microlinkhq | grep -i "x-cache-ttl"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
