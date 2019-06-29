@@ -4,7 +4,7 @@ import { lighten } from 'polished'
 import { BOX_SHADOW } from '../Button/ButtonBase'
 
 const Badge = styled('span')`
-  padding: 0 6px;
+  padding: 2px 6px;
   font-size: ${({ theme }) => theme.fontSizes[0]}px;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   background: ${({ theme }) => theme.colors.secondary};
@@ -14,7 +14,7 @@ const Badge = styled('span')`
   border-radius: 10px;
   color: white;
   position: relative;
-  bottom: 1px;
+  bottom: 6px;
 `
 
 export default Badge

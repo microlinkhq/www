@@ -17,7 +17,7 @@ import Hide from './Hide'
 import Image from './Image'
 import Input from './Input/Input'
 import Banner from './Banner/Banner'
-import Badge from './Badge/Banner'
+import Badge from './Badge/Badge'
 
 import Notification from './Notification/Notification'
 import PricePicker from './PricePicker'

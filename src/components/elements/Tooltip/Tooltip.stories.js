@@ -6,7 +6,7 @@ import { HelpCircle } from 'react-feather'
 import { colors } from 'theme'
 
 const code = `
-import { Tooltp, Flex, Text } from 'components/elements'
+import { Tooltip, Flex, Text } from 'components/elements'
 import { HelpCircle } from 'react-feather'
 
 export default () => (

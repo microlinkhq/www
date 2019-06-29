@@ -7,7 +7,7 @@ const TooltipText = props => (
   <Text fontSize={1} fontWeight='normal' {...props} />
 )
 
-const Tooltip = ({ content, children, ...props }) => {
+const Tooltip = ({ content, children, tooltipsOpts, ...props }) => {
   if (!content) return children
 
   return (
@@ -17,13 +17,14 @@ const Tooltip = ({ content, children, ...props }) => {
           ? TooltipText({ children: content })
           : content
       }
-      {...props}
+      {...tooltipsOpts}
     >
       <Box
         css={`
           outline: 0;
           cursor: help;
         `}
+        {...props}
       >
         {children}
       </Box>
@@ -32,11 +33,13 @@ const Tooltip = ({ content, children, ...props }) => {
 }
 
 Tooltip.defaultProps = {
-  ...Tippy.defaultProps,
-  duration: speed.medium,
-  arrow: true,
-  animation: 'fade',
-  hideOnClick: false
+  tooltipsOpts: {
+    ...Tippy.defaultProps,
+    duration: speed.medium,
+    arrow: true,
+    animation: 'fade',
+    hideOnClick: false
+  }
 }
 
 export default Tooltip
