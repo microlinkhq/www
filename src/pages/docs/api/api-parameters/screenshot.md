@@ -4,9 +4,9 @@ title: 'screenshot'
 
 Type: `boolean|string`<br/>
 Default: `false`<br/>
-Values: `true|false|'{devideName}'`
+Values: `true|false|{devideName}`
 
-Take a screenshot of the website. 
+Take a screenshot of the website.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot`,
@@ -328,19 +328,22 @@ module.exports = async () => {
   }} 
 />
 
-### Device Presets
+### Device Emulation
 
-We bundle the specific parameters necessary for emulating most of the most popular devices
+If you provide a compatible `deviceName`, the descriptor device will be used for emulating the viewport before take the screenshot.
 
 <MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot=ipad`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
- const { status, data, response } = await mql('https://microlink.io'. { screenshot: 'ipad' })
- console.log(status, data)
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: 'iPad',
+  })
+  console.log(status, data)
 }
-  `,
-  cURL: `curl https://api.microlink.io&url=https://microlink.io?screenshot`, 
+  `
   }} 
 />
 

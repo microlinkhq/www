@@ -9,7 +9,7 @@ The first time you query for a resource that not was previously served, it will 
 The cache status is reflected using the response header as `x-cache-status`.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://www.reddit.com | grep -i "x-cache-status"`,
+  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "x-cache-status"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -24,7 +24,7 @@ module.exports = async () => {
 The successive requests for the resource will consume the cached version of the resource, what is known as cache **HIT**.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://www.reddit.com | grep -i "x-cache-status"`,
+  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "x-cache-status"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -41,7 +41,7 @@ The period of time the resource is cached is known as **Time To Live** ([ttl](/d
 You can see the remain time before [ttl](/docs/api/api-parameters/ttl) expiration as `x-cache-expired-at` in the reponse headers.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://www.reddit.com | grep -i "x-cache-expired-at"`,
+  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "x-cache-expired-at"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
