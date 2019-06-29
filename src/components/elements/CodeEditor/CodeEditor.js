@@ -272,7 +272,7 @@ function CodeEditor (props) {
   })()
 
   const pretty = get(prettier, language, identity)
-  const text = pretty(children)
+  const text = pretty(children).trim()
   const theme = { ...baseTheme, ...langTheme[language] }
   const css = highlightLines && highlighLinesStyle(highlightLines)
 

@@ -1,7 +1,7 @@
 import { formatNumber } from 'helpers'
 import React, { useState, Fragment } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Check, HelpCircle } from 'react-feather'
+import { X, Check, HelpCircle } from 'react-feather'
 import {
   Box,
   Tooltip,
@@ -18,7 +18,7 @@ import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 
 import { colors, fontWeights } from 'theme'
 
-const FREE_PLAN_RATE_LIMIT = 100
+const FREE_PLAN_RATE_LIMIT = 50
 const HIGHLIGHT_DURATION = 1
 const HIGHLIGHT_STATE_TIMEOUT = HIGHLIGHT_DURATION * 1000
 
@@ -31,8 +31,7 @@ const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
 const TOOLTIPS = {
   'Rate Limit':
     'Maximum number of requests you can consume until reach the quota.',
-  'Auto Caching':
-    'Speed up response timing caching payload for same API calls.',
+  Caching: 'Speed up response timing caching payload for same API calls.',
   'Media Detection':
     'Ability to detect the original streaming source for video or audio',
   'Color Detection':
@@ -40,7 +39,8 @@ const TOOLTIPS = {
   'Tech Support':
     'Technical assistance for resolving questions and help you integrate the service.',
   'Contextual Information':
-    'Detection of extra information based on the type of data.'
+    'Detection of extra information based on the type of data.',
+  Proxy: 'Setup a proxy between API requests and target URL destination.'
 }
 
 const Price = styled(Subhead)`
@@ -205,22 +205,9 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
               <PricePicker onChange={priceSelected} />
             ]}
           />
-          <PricingRow children={['Caching', 'fixed', 'customizable']} />
-          <PricingRow children={['Tech Support', 'community', 'priority']} />
-          <PricingRow
-            children={[
-              'Media Detection',
-              <Check size={16} color='#654EA3' />,
-              <Check size={16} color='#654EA3' />
-            ]}
-          />
-          <PricingRow
-            children={[
-              'Contextual Information',
-              <Check size={16} color='#654EA3' />,
-              <Check size={16} color='#654EA3' />
-            ]}
-          />
+          <PricingRow children={['Tech Support', 'Community', 'Priority']} />
+          <PricingRow children={['Caching', 'Fixed', 'Customizable']} />
+          <PricingRow children={['Proxy', 'No', 'Yes']} />
           <PricingRow
             py={3}
             children={[
