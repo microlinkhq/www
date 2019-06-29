@@ -2,7 +2,7 @@
 title: attr
 ---
 
-Type: `string|array`<br/>
+Type: `string|string[]`<br/>
 Default: `html`<br/>
 Values: [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) or `html|val|text`<br/>
 

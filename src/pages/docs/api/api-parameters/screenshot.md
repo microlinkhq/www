@@ -9,7 +9,7 @@ Values: `true|false|'{devideName}'`
 Take a screenshot of the website. 
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io?screenshot=true`,
+  Shell: `microlink-api https://microlink.io&screenshot`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -17,7 +17,6 @@ module.exports = async () => {
     'https://microlink.io'. { 
       screenshot: true 
   })
-    
   console.log(status, data)
 }
   `
@@ -28,32 +27,9 @@ module.exports = async () => {
 
 After that, a new field `screenshot` will present int the data payload.
 
-```json{26,34}
+```json
 {
   "data": {
-    "lang": "en",
-    "author": null,
-    "title": "Turns any website into data | Microlink",
-    "publisher": "Microlink",
-    "image": {
-      "url": "https://cdn.microlink.io/meta/preview.jpg",
-      "width": 2431,
-      "height": 1531,
-      "type": "jpg",
-      "size": 136704,
-      "size_pretty": "137 kB"
-    },
-    "description": "Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.",
-    "date": "2019-04-19T13:59:05.677Z",
-    "logo": {
-      "url": "https://cdn.microlink.io/logo/trim.png",
-      "width": 500,
-      "height": 500,
-      "type": "png",
-      "size": 1448,
-      "size_pretty": "1.45 kB"
-    },
-    "url": "https://microlink.io",
     "screenshot": {
       "url": "https://i.imgur.com/rLReKBy.png",
       "width": 1280,
@@ -69,21 +45,61 @@ After that, a new field `screenshot` will present int the data payload.
 
 ### Specific Parameters
 
-You can tweak a set of additional settings related with the screenshot:
+Additionally you can setup the following parameters:
 
 #### waitFor
 
 Type: `number|string`<br/>
-Default: `0`
 
-Specify a selector or a quantity of time to wait.
+Wait a quantity of time or selector.
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://kikobeats.com&screenshot&waitFor=1500`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://kikobeats.com'. { 
+      screenshot: true
+      waitFor: 1500
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
+<Figcaption>`waitFor` is useful to wait until animation ends for taking the screenshot.</Figcaption>
 
 #### waitUntil
 
-Type: `array|string`<br/>
-Default: `['networkidle0']`
+Type: `string|string[]`<br/>
+Default: `['networkidle0']`<br/>
+Values: `'load'|'domcontentloaded'|'networkidle0'|'networkidle2'`
 
-Specify the [events](https://github.com/GoogleChrome/puppeteer/blob/v1.11.0/docs/api.md#pagegotourl-options) to wait until consider navigation succeeded.
+Specify a list of events until consider navigation succeeded:
+
+- `'load'`: Consider navigation to be finished when the load event is fired.
+- `'domcontentloaded'`: Consider navigation to be finished when the DOMContentLoaded event is fired.
+- `'networkidle0'`: Consider navigation to be finished when there are no more than 0 network connections for at least 500 ms.
+- `'networkidle2'`: Consider navigation to be finished when there are no more than 2 network connections for at least 500 ms.
+
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&waitUntil=domcontentloaded`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true
+      waitUntil: 'domcontentloaded'
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
 
 #### deviceScaleFactor
 
@@ -92,6 +108,22 @@ Default: `1`
 
 Specify device scale factor.
 
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&deviceScaleFactor=0.65`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true
+      deviceScaleFactor: 0.65
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
 #### fullPage
 
 Type: `boolean`<br/>
@@ -99,53 +131,44 @@ Default: `false`
 
 When `true`, takes a screenshot of the full scrollable page.
 
-#### hasTouch
-
-Type: `boolean|string`<br/>
-Default: `false`
-
-Specifies if viewport supports touch events.
-
-#### height
-
-Type: `number`<br/>
-Default: `false`
-
-Page height in pixels.
-
-#### width
-
-Type: `number`<br/>
-Default: `false`
-
-Page height in pixels.
-
-#### isLandscape
-
-Type: `boolean`<br/>
-Default: `false`
-
-Specifies if viewport is in landscape mode.
-
-#### isMobile
-
-Type: `boolean`<br/>
-Default: `false`
-
-Whether the meta viewport tag is taken into account
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&fullPage`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://eosrei.github.io/emojione-color-font/full-demo.html'. { 
+      screenshot: true
+      fullPage: true
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
 
 #### omitBackground
 
 Type: `boolean`<br/>
 Default: `true`
 
-Hides default white background and allows capturing screenshots with transparency
+Hides default white background and allows capturing screenshots with transparency.
 
-#### quality
-
-Type: `number`<br/>
-
-The quality of the image, between `0` to `100`. Not applicable to `'png'` images.
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&omitBackground`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true
+      omitBackground: true
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
 
 #### type
 
@@ -154,6 +177,156 @@ Default: `'png'`<br/>
 Values: `'jpeg'|'png'`
 
 Specify screenshot type.
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&type=jpeg`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true
+      type: 'jpeg'
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
+#### hide
+
+Type: `string|string[]`
+
+Hide DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&hide.0=.crisp-client&hide.1=#cookies-policy`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true,
+      hide: ['.crisp-client', '#cookies-policy']
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
+#### click
+
+Type: `string|string[]`
+
+Click the DOM element matching the given  [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&click=#features`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true,
+      click: '#features'
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
+#### disableAnimations
+
+Type: `boolean`<br/>
+Default: `false`
+
+Disable CSS [animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation) and [transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition).
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&disableAnimations`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true,
+      disableAnimations: true
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
+#### scrollTo
+
+Type: `string`
+
+Scroll to the DOM element matching the given [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&scrollTo=#pricing`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true,
+      scrollTo: '#pricing'
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
+#### browser
+
+Type: `string`
+Values: `'light'|'dark'`
+
+It sets the browser image overlay to use.
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&browser=dark`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true,
+      browser: 'dark'
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
+#### background
+
+Type: `string`<br/>
+
+It sets the background color to use. You can pass a hexadecimal/rgb/rgba or a [CSS gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient).
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&screenshot&background=linear-gradient%2843deg%2C+rgb%28247%2C+102%2C+152%29+0%25%2C+rgb%28234%2C+64%2C+123%29+29%25%2C+rgb%28101%2C+78%2C+163%29+100%25%29`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true,
+      background: 'linear-gradient(43deg, rgb(247, 102, 152) 0%, rgb(234, 64, 123) 29%, rgb(101, 78, 163) 100%)'
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
 
 ### Device Presets
 
@@ -167,7 +340,7 @@ module.exports = async () => {
  console.log(status, data)
 }
   `,
-  cURL: `curl https://api.microlink.io?url=https://microlink.io?screenshot=true`, 
+  cURL: `curl https://api.microlink.io&url=https://microlink.io?screenshot`, 
   }} 
 />
 
