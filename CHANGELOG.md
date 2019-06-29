@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.4](https://github.com/microlinkhq/microlink-www/compare/v2.5.2...v2.5.4) (2019-06-29)
+
+
+### Build System
+
+* no error, just warning ([7859316](https://github.com/microlinkhq/microlink-www/commit/7859316))
+* pro badge ([3496a82](https://github.com/microlinkhq/microlink-www/commit/3496a82))
+* reflect ttl customizable ([e9d445e](https://github.com/microlinkhq/microlink-www/commit/e9d445e))
+* tweaks ([b8f4833](https://github.com/microlinkhq/microlink-www/commit/b8f4833))
+
+
+
 ### [2.5.3](https://github.com/microlinkhq/microlink-www/compare/v2.5.2...v2.5.3) (2019-06-28)
 
 
