@@ -2,7 +2,6 @@
 
 const { getIntrospectionQuery } = require('graphql')
 const { stringify } = require('querystring')
-const beautyError = require('beauty-error')
 const jsonFuture = require('json-future')
 const existsFile = require('exists-file')
 const path = require('path')
@@ -27,7 +26,7 @@ const main = async () => {
 
 main()
   .then(() => process.exit())
-  .catch(err => {
-    console.log(beautyError(err))
-    process.exit(1)
+  .catch(() => {
+    console.log('warning: Introspection query not updated')
+    process.exit(0)
   })
