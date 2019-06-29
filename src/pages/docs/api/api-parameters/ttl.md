@@ -1,13 +1,27 @@
 ---
 title: 'ttl'
+isPro: true
 --- 
-
-> This feature is only for pro plans.
 
 Type: `number`<br/>
 Default: `3600000`<br/>
 
 It establishes the maximum quantity of time a resource served from cache layer is considered as valid.
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api url=https://kikobeats.com&ttl=14400000`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const ONE_HOUR_MS = 3600000
+  const { status, data, response } = await mql('https://kikobeats.com', {
+    ttl: ONE_HOUR_MS * 4
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
 
 The value provided need to be at least **1 hour** and not higher than **24 hours**, specified in milliseconds.
 

@@ -1,4 +1,12 @@
-import { Link, Text, Flex, Container } from 'components/elements'
+import {
+  Tooltip,
+  Box,
+  Badge,
+  Link,
+  Text,
+  Flex,
+  Container
+} from 'components/elements'
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import formatDate from 'date-fns/format'
@@ -171,6 +179,10 @@ const ROUTES_API = [
         href: '/docs/api/api-parameters/prerender'
       },
       {
+        name: 'proxy',
+        href: '/docs/api/api-parameters/proxy'
+      },
+      {
         name: 'screenshot',
         href: '/docs/api/api-parameters/screenshot'
       },
@@ -303,13 +315,18 @@ export default ({ meta, content, githubUrl, ...props }) => {
       <Container>
         <Aside routes={routes} activeRouteName={activeRouteName}>
           <Text as='header'>
-            <H1
-              mt={[4, 4, 4, 5]}
-              children={meta.title}
-              variant={null}
-              mb={0}
-              slug={false}
-            />
+            <H1 mt={[4, 4, 4, 5]} variant={null} mb={0} slug={false}>
+              <span>{meta.title}</span>
+              {meta.isPro && (
+                <Tooltip
+                  ml={2}
+                  display='inline'
+                  content='This feature is only for pro plans.'
+                >
+                  <Badge>PRO</Badge>
+                </Tooltip>
+              )}
+            </H1>
           </Text>
           <Markdown children={content} />
           <Flex
