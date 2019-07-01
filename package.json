@@ -40,7 +40,6 @@
     "@microlink/demo-links": "~1.0.2",
     "@microlink/mql": "~0.3.13",
     "@microlink/react": "~4.0.1",
-    "@rebass/components": "~4.0.0-1",
     "@tippy.js/react": "~2.2.2",
     "autoprefixer": "~9.6.0",
     "beauty-error": "~1.2.2",
