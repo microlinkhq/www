@@ -31,7 +31,8 @@ const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
 const TOOLTIPS = {
   'Rate Limit':
     'Maximum number of requests you can consume until reach the quota.',
-  Caching: 'Speed up response timing caching payload for same API calls.',
+  'Caching Layer':
+    'Speed up response timing caching payload for same API calls.',
   'Media Detection':
     'Ability to detect the original streaming source for video or audio',
   'Color Detection':
@@ -40,7 +41,8 @@ const TOOLTIPS = {
     'Technical assistance for resolving questions and help you integrate the service.',
   'Contextual Information':
     'Detection of extra information based on the type of data.',
-  Proxy: 'Setup a proxy between API requests and target URL destination.'
+  'Proxy Resolution':
+    'Setup a proxy between API requests and target URL destination.'
 }
 
 const Price = styled(Subhead)`
@@ -206,8 +208,8 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
             ]}
           />
           <PricingRow children={['Tech Support', 'Community', 'Priority']} />
-          <PricingRow children={['Caching', 'Fixed', 'Customizable']} />
-          <PricingRow children={['Proxy', 'No', 'Yes']} />
+          <PricingRow children={['Caching Layer', 'Fixed', 'Customizable']} />
+          <PricingRow children={['Proxy Resolution', 'No', 'Yes']} />
           <PricingRow
             py={3}
             children={[
@@ -245,7 +247,11 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
         alignItems='center'
         pt={[4, 4, 4, 5]}
       >
-        <Subhead color='gray8' fontSize={2} children='Do you need more?' />
+        <Subhead
+          color='gray8'
+          fontSize={2}
+          children='Do you need custom plan?'
+        />
         <Text as='div' mt={1} fontSize={1} color='gray8'>
           <LinkSolid
             data-event-category='Checkout'
