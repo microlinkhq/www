@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.6](https://github.com/microlinkhq/microlink-www/compare/v2.5.5...v2.5.6) (2019-07-01)
+
+
+### Build System
+
+* add 2K plan ([8e07209](https://github.com/microlinkhq/microlink-www/commit/8e07209))
+* remove unnecessary dependency ([59b2491](https://github.com/microlinkhq/microlink-www/commit/59b2491))
+* testing copy ([0fb3153](https://github.com/microlinkhq/microlink-www/commit/0fb3153))
+* update dependencies ([bf55549](https://github.com/microlinkhq/microlink-www/commit/bf55549))
+
+
+
 ### [2.5.5](https://github.com/microlinkhq/microlink-www/compare/v2.5.4...v2.5.5) (2019-06-29)
 
 
