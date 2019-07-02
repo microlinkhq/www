@@ -31,8 +31,7 @@ const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
 const TOOLTIPS = {
   'Rate Limit':
     'Maximum number of requests you can consume until reach the quota.',
-  'Caching Layer':
-    'Speed up response timing caching payload for same API calls.',
+  'Cache Time': 'Speed up response timing caching payload for same API calls.',
   'Media Detection':
     'Ability to detect the original streaming source for video or audio',
   'Color Detection':
@@ -208,7 +207,9 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
             ]}
           />
           <PricingRow children={['Tech Support', 'Community', 'Priority']} />
-          <PricingRow children={['Caching Layer', 'Fixed', 'Customizable']} />
+          <PricingRow
+            children={['Cache Time', 'Fixed (1h)', 'Flexible (1h to 24h)']}
+          />
           <PricingRow children={['Proxy Resolution', 'No', 'Yes']} />
           <PricingRow
             py={3}
