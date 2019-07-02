@@ -208,7 +208,7 @@ function Payment () {
 
   return (
     <Layout>
-      <Container as='section' maxWidth='350px' pt={4} pb={3}>
+      <Container as='section' maxWidth='350px' pt={5}>
         <Head
           title='Update Payment'
           script={[
@@ -224,15 +224,7 @@ function Payment () {
         />
         <StripeProvider stripe={state.stripe}>
           <Flex flexDirection='column'>
-            <Subhead
-              fontSize={[4, 5]}
-              fontWeight='regular'
-              mt={0}
-              mb={4}
-              mx={0}
-              slug={false}
-              children='Update Payment'
-            />
+            <Subhead mb={4} slug={false} children='Update Payment' />
             <Elements>
               <CardForm
                 apiEndpoint={apiEndpoint}

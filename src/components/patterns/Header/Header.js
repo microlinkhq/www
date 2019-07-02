@@ -8,15 +8,18 @@ export default ({ title, caption }) => {
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
-      py={[2, 3]}
+      pb={[2, 3]}
       px={0}
     >
       <Heading px={0} children={title} />
       <Subhead
         pt={[2, 0]}
         px={5}
+        lineHeight={[2, 4]}
         color='gray'
         textAlign='center'
+        fontWeight='normal'
+        fontSize={[2, 4]}
         children={caption}
       />
     </Flex>

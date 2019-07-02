@@ -64,16 +64,8 @@ export default ({ posts = useBlogIndex() }) => {
     <Layout image='https://cdn.microlink.io/page/blog.png'>
       <Head title='Blog' />
       <Container px={0} as='article' maxWidth={'inherit'}>
-        <Flex flexDirection='column' alignItems='center' pt={4}>
-          <Subhead
-            fontSize={[4, 5]}
-            fontWeight='regular'
-            mt={0}
-            mb={4}
-            mx={0}
-            slug={false}
-            children='Blog'
-          />
+        <Flex flexDirection='column' alignItems='center' pt={5}>
+          <Subhead mb={4} slug={false} children='Blog' />
           {posts.map((post, index) => (
             <BlogPost
               key={post.title}
