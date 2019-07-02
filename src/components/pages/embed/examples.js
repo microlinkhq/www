@@ -16,7 +16,7 @@ import { transition, colors } from 'theme'
 import * as Logos from 'components/logos'
 import styled from 'styled-components'
 
-import { Microlink } from 'components/patterns'
+import { Caption, Microlink } from 'components/patterns'
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -35,9 +35,7 @@ LogoWrap.defaultProps = {
 const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
   <Container py={5} px={4}>
     <Subhead>Turn websites into rich media</Subhead>
-    <Subhead fontSize={[3, 4]} lineHeight={4} color='gray' fontWeight='normal'>
-      Enter an URL, receive data
-    </Subhead>
+    <Caption>Enter an URL, receive data</Caption>
 
     <Flex
       py={4}

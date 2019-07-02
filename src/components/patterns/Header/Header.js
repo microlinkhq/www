@@ -1,5 +1,6 @@
 import React from 'react'
-import { Flex, Heading, Subhead } from 'components/elements'
+import { Flex, Heading } from 'components/elements'
+import { Caption } from 'components/patterns'
 
 export default ({ title, caption }) => {
   return (
@@ -12,16 +13,7 @@ export default ({ title, caption }) => {
       px={0}
     >
       <Heading px={0} children={title} />
-      <Subhead
-        pt={[2, 0]}
-        px={5}
-        lineHeight={[2, 4]}
-        color='gray'
-        textAlign='center'
-        fontWeight='normal'
-        fontSize={[2, 4]}
-        children={caption}
-      />
+      <Caption>{caption}</Caption>
     </Flex>
   )
 }

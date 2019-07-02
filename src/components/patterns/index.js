@@ -13,23 +13,25 @@ import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import Aside from './Aside/Aside'
 import Header from './Header/Header'
+import Caption from './Caption/Caption'
 import Announcement from './Announcement/Announcement'
 
 export {
   Announcement,
-  CardLink,
-  Header,
   Aside,
-  MQLEditor,
+  Caption,
+  CardLink,
   Chat,
   CookiesPolicy,
   DemoLinks,
   Footer,
   Grid,
+  Header,
   Layout,
   List,
   LiveDemo,
   Microlink,
+  MQLEditor,
   PricingTable,
   Toolbar
 }
