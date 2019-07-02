@@ -4,15 +4,19 @@ import {
   Flex,
   Input,
   Link,
+  Text,
   Box,
   ButtonSecondary,
   Container,
+  Hide,
   Caps
 } from 'components/elements'
 import React, { Fragment } from 'react'
 import { transition, colors } from 'theme'
 import * as Logos from 'components/logos'
 import styled from 'styled-components'
+
+import { Microlink } from 'components/patterns'
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -30,13 +34,15 @@ LogoWrap.defaultProps = {
 
 const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
   <Container py={5} px={4}>
-    <Subhead fontSize={[4, 5]} fontWeight='regular'>
+    <Subhead>Turn websites into rich media</Subhead>
+    <Subhead fontSize={[3, 4]} lineHeight={4} color='gray' fontWeight='normal'>
       Enter an URL, receive data
     </Subhead>
+
     <Flex
+      py={4}
       as='form'
       justifyContent='center'
-      mt={4}
       onSubmit={onSubmit}
       autoComplete='on'
     >
@@ -58,6 +64,32 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
         <Caps fontSize={1} children='Enter' />
       </ButtonSecondary>
     </Flex>
+
+    <Flex
+      flexDirection={['column', 'column', 'column', 'row']}
+      alignItems='center'
+      justifyContent='center'
+      py={4}
+    >
+      <Link href='https://www.instagram.com/p/BvDTdWdnzkj/'>
+        instagram.com/p/BvDTdWdnzkj
+      </Link>
+      <Hide breakpoints={[0, 1, 2]}>
+        <Text fontSize={[2, 2, 2, 4]} mx={4} as='span'>
+          →
+        </Text>
+      </Hide>
+      <Hide breakpoints={[3]}>
+        <Text fontSize={[2, 2, 2, 4]} py={2}>
+          into
+        </Text>
+      </Hide>
+      <Microlink
+        media={['video']}
+        style={{ margin: '0' }}
+        url='https://www.instagram.com/p/BvDTdWdnzkj/'
+      />
+    </Flex>
   </Container>
 )
 
@@ -71,9 +103,7 @@ const Examples = ({ demoLinks }) => (
     borderTop='1px solid'
     borderBottom='1px solid'
   >
-    <Subhead fontSize={[4, 5]} fontWeight='regular'>
-      Examples
-    </Subhead>
+    <Subhead>Examples</Subhead>
     <Box as='ul' p={0} m={0} textAlign='center'>
       {demoLinks.map(({ brand }) => {
         const color = colors.black
