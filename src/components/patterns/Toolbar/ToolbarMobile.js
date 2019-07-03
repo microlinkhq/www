@@ -71,10 +71,10 @@ export default class extends Component {
             <Nav as='nav' width='240px'>
               <NavLink
                 data-event-category='Toolbar'
-                data-event-action='Features'
+                data-event-action='Principles'
                 px={2}
-                children='Features'
-                href='/#features'
+                children='Principles'
+                href='/#principles'
               />
               <NavLink
                 data-event-category='Toolbar'

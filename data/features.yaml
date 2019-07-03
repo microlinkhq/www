@@ -1,15 +1,9 @@
-- title: Simple API
-  description: Fast, scalable, and reliable cloud browsing solution.
-- title: Developer First
-  description: For developers, with top notch industry tecnologies.
-- title: Fully Programable
-  description: Easy to integrate with any existing stack or cloud.
+- title: Cloud Browsing
+  description: Fast, scalable, and reliable browser automation.
 - title: High Availability
   description: Cloud based solution with superior operational performance.
 - title: Auto Caching
   description: Query caching police for improving response timing.
-- title: Scale on Time
-  description: Based on API call quotas, use just what you need.
 - title: Screenshotting
   description: Full or partial website snapshots with device support.
 - title: Data Normalization
@@ -21,4 +15,4 @@
 - title: Media Support
   description: Detect the original streaming video/audio source.
 - title: Embed Mode
-  description: Incrust content directly in your HTML markup
+  description: Incrust content directly in your HTML markup.

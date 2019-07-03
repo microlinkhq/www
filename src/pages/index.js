@@ -1,7 +1,7 @@
 import {
   useDefaultDemoLink,
   useDemoLinks,
-  useFeatures,
+  usePrinciples,
   useSiteMetadata
 } from 'components/hook'
 
@@ -55,14 +55,7 @@ import { List, ListItem } from 'components/patterns/List/List'
 
 const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => {
   const title = 'Pricing'
-  const caption = (
-    <Fragment>
-      From $0.{' '}
-      <Subhead fontWeight='bold' as='span'>
-        Pay as you grow.
-      </Subhead>
-    </Fragment>
-  )
+  const caption = 'Growing with your business.'
 
   return (
     <Box as='article' id='pricing'>
@@ -310,16 +303,16 @@ const MQL = () => (
   </Container>
 )
 
-const Features = ({ children }) => (
+const Principles = ({ children }) => (
   <Container
-    id='features'
+    id='principles'
     bg='pinky'
     borderColor='pinkest'
     borderTop='1px solid'
     borderBottom='1px solid'
   >
-    <Header title='Features' caption='Capabilities under the hood.' />
-    <Box as='section' pt={[4, 5]}>
+    <Header title='Principles' caption='How we build technical products.' />
+    <Box as='section' pt={4}>
       <Hide breakpoints={[0, 1]}>
         <Grid children={children} itemsPerRow={3} />
       </Hide>
@@ -340,7 +333,7 @@ function Index () {
       <Hero />
       <SDK children={demoLinks} editor={demoLink} />
       <MQL />
-      <Features children={useFeatures()} />
+      <Principles children={usePrinciples()} />
       <Pricing
         apiKey={paymentApiKey}
         stripeKey={stripeKey}
