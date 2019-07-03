@@ -12,7 +12,7 @@ import { pickBy, noop } from 'lodash'
 import { encode } from 'qss'
 import copy from 'copy-to-clipboard'
 
-import 'components/pages/mql/style.css'
+import 'components/pages/graphql/style.css'
 
 import introspection from '../../data/introspection.json'
 

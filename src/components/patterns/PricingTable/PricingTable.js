@@ -10,7 +10,6 @@ import {
   LinkSolid,
   Flex,
   Text,
-  Subhead,
   Checkout
 } from 'components/elements'
 
@@ -44,7 +43,7 @@ const TOOLTIPS = {
     'Setup a proxy between API requests and target URL destination.'
 }
 
-const Price = styled(Subhead)`
+const Price = styled(Text)`
   font-weight: bold;
   &::before {
     content: '€';
@@ -66,7 +65,7 @@ const Price = styled(Subhead)`
 `
 
 Price.defaultProps = {
-  ...Subhead.defaultProps,
+  ...Text.defaultProps,
   fontSize: 2
 }
 
@@ -248,12 +247,8 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
         alignItems='center'
         pt={[4, 4, 4, 5]}
       >
-        <Subhead
-          color='gray8'
-          fontSize={2}
-          children='Do you need custom plan?'
-        />
-        <Text as='div' mt={1} fontSize={1} color='gray8'>
+        <Text color='gray8' children='Do you need custom plan?' />
+        <Text as='div' mt={1} color='gray8'>
           <LinkSolid
             data-event-category='Checkout'
             data-event-action='Contact'

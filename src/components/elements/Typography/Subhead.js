@@ -7,10 +7,10 @@ const Subhead = styled(Heading)([])
 Subhead.defaultProps = {
   ...Heading.defaultProps,
   as: 'h3',
-  lineHeight: [2, 4],
-  fontWeight: 'normal',
+  lineHeight: [0, 1],
+  fontWeight: 'regular',
   variant: null,
-  fontSize: [2, 4]
+  fontSize: [4, 5]
 }
 
 export default Subhead

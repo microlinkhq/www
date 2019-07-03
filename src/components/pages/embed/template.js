@@ -12,7 +12,6 @@ import {
   Container as ContainerBase,
   Image,
   Subhead,
-  Hide,
   Flex,
   Link,
   Caps,
@@ -89,13 +88,14 @@ const Header = ({ title, caption }) => {
     >
       {title}
       <Subhead
-        lineHeight={2}
         maxWidth={5}
-        mt={4}
+        pt={4}
+        pb={3}
         px={4}
         color={colors.gray5}
         textAlign='center'
         children={caption}
+        fontWeight='normal'
       />
     </Flex>
   )
@@ -140,19 +140,18 @@ const Hero = ({ humanizedUrl, brand, data }) => {
 
   return (
     <Fragment>
-      <Hide breakpoints={[0, 1, 2]}>
-        <Container id='hero'>
-          <Header title={title} caption={caption} />
-        </Container>
-      </Hide>
-
-      <Hide breakpoints={[3]}>
-        <Box pb={[4, 5]}>
-          <Container id='hero' pb={0}>
-            <Header title={title} caption={caption} />
-          </Container>
+      <Container id='hero'>
+        <Header title={title} caption={caption} />
+        <Box textAlign='center'>
+          <Box pt={2} pb={3}>
+            <Link href={data.url}>{humanizeUrl(data.url)}</Link>
+            <Text pt={2} fontSize={2}>
+              into rich media
+            </Text>
+          </Box>
+          <Microlink url={data.url} />
         </Box>
-      </Hide>
+      </Container>
     </Fragment>
   )
 }

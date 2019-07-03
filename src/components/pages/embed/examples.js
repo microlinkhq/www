@@ -4,6 +4,7 @@ import {
   Flex,
   Input,
   Link,
+  Text,
   Box,
   ButtonSecondary,
   Container,
@@ -13,6 +14,8 @@ import React, { Fragment } from 'react'
 import { transition, colors } from 'theme'
 import * as Logos from 'components/logos'
 import styled from 'styled-components'
+
+import { Microlink } from 'components/patterns'
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -30,13 +33,13 @@ LogoWrap.defaultProps = {
 
 const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
   <Container py={5} px={4}>
-    <Subhead fontSize={[4, 5]} fontWeight='regular'>
-      Enter an URL, receive data
-    </Subhead>
+    <Subhead>Enter an URL, receive data</Subhead>
+
     <Flex
+      pt={4}
+      pb={3}
       as='form'
       justifyContent='center'
-      mt={4}
       onSubmit={onSubmit}
       autoComplete='on'
     >
@@ -58,6 +61,21 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
         <Caps fontSize={1} children='Enter' />
       </ButtonSecondary>
     </Flex>
+
+    <Box textAlign='center'>
+      <Box pt={2} pb={3}>
+        <Link href='https://www.instagram.com/p/BvDTdWdnzkj/'>
+          instagram.com/p/BvDTdWdnzkj
+        </Link>
+        <Text pt={2} fontSize={2}>
+          into rich media
+        </Text>
+      </Box>
+      <Microlink
+        media={['video']}
+        url='https://www.instagram.com/p/BvDTdWdnzkj/'
+      />
+    </Box>
   </Container>
 )
 
@@ -71,9 +89,7 @@ const Examples = ({ demoLinks }) => (
     borderTop='1px solid'
     borderBottom='1px solid'
   >
-    <Subhead fontSize={[4, 5]} fontWeight='regular'>
-      Examples
-    </Subhead>
+    <Subhead>Examples</Subhead>
     <Box as='ul' p={0} m={0} textAlign='center'>
       {demoLinks.map(({ brand }) => {
         const color = colors.black
