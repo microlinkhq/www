@@ -708,7 +708,7 @@ const NasaBase = ({ ratio, ...props }) => (
 )
 
 NasaBase.defaultProps = {
-  color: 'inherit',
+  color: 'black',
   ratio: 0.8
 }
 
