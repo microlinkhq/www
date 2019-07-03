@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.8](https://github.com/microlinkhq/microlink-www/compare/v2.5.7...v2.5.8) (2019-07-03)
+
+
+### Build System
+
+* embed page tweaks ([9189112](https://github.com/microlinkhq/microlink-www/commit/9189112))
+* tweaks embed page ([3e59130](https://github.com/microlinkhq/microlink-www/commit/3e59130))
+* tweaks layout ([d8da57e](https://github.com/microlinkhq/microlink-www/commit/d8da57e))
+
+
+
 ### [2.5.7](https://github.com/microlinkhq/microlink-www/compare/v2.5.6...v2.5.7) (2019-07-02)
 
 
