@@ -89,13 +89,13 @@ const Header = ({ title, caption }) => {
     >
       {title}
       <Subhead
-        lineHeight={2}
         maxWidth={5}
-        mt={4}
+        py={4}
         px={4}
         color={colors.gray5}
         textAlign='center'
         children={caption}
+        fontWeight='normal'
       />
     </Flex>
   )
@@ -143,6 +143,17 @@ const Hero = ({ humanizedUrl, brand, data }) => {
       <Hide breakpoints={[0, 1, 2]}>
         <Container id='hero'>
           <Header title={title} caption={caption} />
+          <Flex
+            flexDirection={['column', 'column', 'column', 'row']}
+            alignItems='center'
+            justifyContent='center'
+          >
+            <Link href={data.url}>{humanizeUrl(data.url)}</Link>
+            <Text fontSize={[2, 2, 2, 4]} mx={4} as='span'>
+              →
+            </Text>
+            <Microlink style={{ margin: '0' }} url={data.url} />
+          </Flex>
         </Container>
       </Hide>
 
@@ -150,6 +161,17 @@ const Hero = ({ humanizedUrl, brand, data }) => {
         <Box pb={[4, 5]}>
           <Container id='hero' pb={0}>
             <Header title={title} caption={caption} />
+            <Flex
+              flexDirection={['column', 'column', 'column', 'row']}
+              alignItems='center'
+              justifyContent='center'
+            >
+              <Link href={data.url}>{humanizeUrl(data.url)}</Link>
+              <Text fontSize={[2, 2, 2, 4]} py={2}>
+                into
+              </Text>
+              <Microlink style={{ margin: '0' }} url={data.url} />
+            </Flex>
           </Container>
         </Box>
       </Hide>

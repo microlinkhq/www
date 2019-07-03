@@ -16,7 +16,7 @@ import { transition, colors } from 'theme'
 import * as Logos from 'components/logos'
 import styled from 'styled-components'
 
-import { Caption, Microlink } from 'components/patterns'
+import { Microlink } from 'components/patterns'
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -35,10 +35,11 @@ LogoWrap.defaultProps = {
 const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
   <Container py={5} px={4}>
     <Subhead>Turn websites into rich media</Subhead>
-    <Caption>Enter an URL, receive data</Caption>
 
     <Flex
       py={4}
+      pb={4}
+      mb={2}
       as='form'
       justifyContent='center'
       onSubmit={onSubmit}
@@ -67,7 +68,6 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
       flexDirection={['column', 'column', 'column', 'row']}
       alignItems='center'
       justifyContent='center'
-      py={4}
     >
       <Link href='https://www.instagram.com/p/BvDTdWdnzkj/'>
         instagram.com/p/BvDTdWdnzkj
