@@ -34,10 +34,10 @@ export default class extends Component {
               </NavLink>
               <NavLink
                 data-event-category='Toolbar'
-                data-event-action='Features'
+                data-event-action='Principles'
                 pr={[2, 3]}
-                children='Features'
-                href='/#features'
+                children='Principles'
+                href='/#principles'
                 actively='observer'
               />
               <NavLink

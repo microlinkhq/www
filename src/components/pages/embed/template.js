@@ -5,6 +5,8 @@ import { Plus } from 'react-feather'
 import { colors } from 'theme'
 import { get } from 'lodash'
 
+import { useFeatures } from 'components/hook'
+
 import {
   Text,
   Box,
@@ -16,10 +18,11 @@ import {
   Link,
   Caps,
   MultiCodeEditor,
-  CodeEditor
+  CodeEditor,
+  Hide
 } from 'components/elements'
 
-import { Microlink } from 'components/patterns'
+import { Header, Grid, Microlink } from 'components/patterns'
 
 import prettier, { serializeObject, serializeFmt } from 'helpers/prettier'
 
@@ -77,7 +80,7 @@ const Container = ({ children, maxWidth, ...props }) => (
   </Box>
 )
 
-const Header = ({ title, caption }) => {
+const HeroHeader = ({ title, caption }) => {
   return (
     <Flex
       as='header'
@@ -141,7 +144,7 @@ const Hero = ({ humanizedUrl, brand, data }) => {
   return (
     <Fragment>
       <Container id='hero'>
-        <Header title={title} caption={caption} />
+        <HeroHeader title={title} caption={caption} />
         <Box textAlign='center'>
           <Box pt={2} pb={3}>
             <Link href={data.url}>{humanizeUrl(data.url)}</Link>
@@ -167,9 +170,8 @@ const Subheader = ({ children }) => (
 
 const SDK = ({ humanizedUrl, data }) => (
   <Container
-    maxWidth='100%'
-    bg='pinky'
     id='sdk'
+    maxWidth='100%'
     borderColor='pinkest'
     borderTop='1px solid'
     borderBottom='1px solid'
@@ -228,9 +230,29 @@ const SDK = ({ humanizedUrl, data }) => (
   </Container>
 )
 
+const Features = ({ children }) => (
+  <Container id='features' bg='pinky'>
+    <Header title='Features' caption='Capabilities under the hood.' />
+    <Box as='section' pt={4}>
+      <Hide breakpoints={[0, 1]}>
+        <Grid children={children} itemsPerRow={3} />
+      </Hide>
+      <Hide breakpoints={[2, 3]}>
+        <Grid children={children} itemsPerRow={1} />
+      </Hide>
+    </Box>
+  </Container>
+)
+
 const API = ({ data }) => {
   return (
-    <Container maxWidth='100%' id='api'>
+    <Container
+      id='api'
+      maxWidth='100%'
+      borderColor='pinkest'
+      borderTop='1px solid'
+      borderBottom='1px solid'
+    >
       <Flex
         flexDirection='column'
         justifyContent='center'
@@ -294,6 +316,7 @@ export default props => {
     <Fragment>
       <Hero humanizedUrl={humanizedUrl} {...props} />
       <SDK humanizedUrl={humanizedUrl} {...props} />
+      <Features children={useFeatures()} />
       <API humanizedUrl={humanizedUrl} {...props} />
     </Fragment>
   )

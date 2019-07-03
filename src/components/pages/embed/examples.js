@@ -12,10 +12,10 @@ import {
 } from 'components/elements'
 import React, { Fragment } from 'react'
 import { transition, colors } from 'theme'
-import * as Logos from 'components/logos'
 import styled from 'styled-components'
+import { navigate } from 'gatsby'
 
-import { Microlink } from 'components/patterns'
+import { Header, DemoLinks, Microlink } from 'components/patterns'
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -81,7 +81,7 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
 
 const Examples = ({ demoLinks }) => (
   <Container
-    py={4}
+    py={5}
     px={4}
     maxWidth='100%'
     bg='pinky'
@@ -89,22 +89,12 @@ const Examples = ({ demoLinks }) => (
     borderTop='1px solid'
     borderBottom='1px solid'
   >
-    <Subhead>Examples</Subhead>
-    <Box as='ul' p={0} m={0} textAlign='center'>
-      {demoLinks.map(({ brand }) => {
-        const color = colors.black
-        const LogoProvider = Logos[brand]
-
-        return (
-          <Box as='li' key={brand} color={color} display='inline-block'>
-            <Link href={`/embed/${brand.toLowerCase()}`}>
-              <LogoWrap p={3}>
-                <LogoProvider ratio={0.6} color={color} />
-              </LogoWrap>
-            </Link>
-          </Box>
-        )
-      })}
+    <Header pb={5} title='Examples' caption='click to see a real example.' />
+    <Box pt={4}>
+      <DemoLinks
+        children={demoLinks}
+        onClick={({ brand }) => navigate(`/embed/${brand.toLowerCase()}`)}
+      />
     </Box>
   </Container>
 )
