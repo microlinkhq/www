@@ -12,7 +12,6 @@ import {
   Container as ContainerBase,
   Image,
   Subhead,
-  Hide,
   Flex,
   Link,
   Caps,
@@ -90,7 +89,8 @@ const Header = ({ title, caption }) => {
       {title}
       <Subhead
         maxWidth={5}
-        py={4}
+        pt={4}
+        pb={3}
         px={4}
         color={colors.gray5}
         textAlign='center'
@@ -140,41 +140,18 @@ const Hero = ({ humanizedUrl, brand, data }) => {
 
   return (
     <Fragment>
-      <Hide breakpoints={[0, 1, 2]}>
-        <Container id='hero'>
-          <Header title={title} caption={caption} />
-          <Flex
-            flexDirection={['column', 'column', 'column', 'row']}
-            alignItems='center'
-            justifyContent='center'
-          >
+      <Container id='hero'>
+        <Header title={title} caption={caption} />
+        <Box textAlign='center'>
+          <Box pt={2} pb={3}>
             <Link href={data.url}>{humanizeUrl(data.url)}</Link>
-            <Text fontSize={[2, 2, 2, 4]} mx={4} as='span'>
-              →
+            <Text pt={2} fontSize={2}>
+              into rich media
             </Text>
-            <Microlink style={{ margin: '0' }} url={data.url} />
-          </Flex>
-        </Container>
-      </Hide>
-
-      <Hide breakpoints={[3]}>
-        <Box pb={[4, 5]}>
-          <Container id='hero' pb={0}>
-            <Header title={title} caption={caption} />
-            <Flex
-              flexDirection={['column', 'column', 'column', 'row']}
-              alignItems='center'
-              justifyContent='center'
-            >
-              <Link href={data.url}>{humanizeUrl(data.url)}</Link>
-              <Text fontSize={[2, 2, 2, 4]} py={2}>
-                into
-              </Text>
-              <Microlink style={{ margin: '0' }} url={data.url} />
-            </Flex>
-          </Container>
+          </Box>
+          <Microlink url={data.url} />
         </Box>
-      </Hide>
+      </Container>
     </Fragment>
   )
 }

@@ -8,7 +8,6 @@ import {
   Box,
   ButtonSecondary,
   Container,
-  Hide,
   Caps
 } from 'components/elements'
 import React, { Fragment } from 'react'
@@ -34,12 +33,11 @@ LogoWrap.defaultProps = {
 
 const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
   <Container py={5} px={4}>
-    <Subhead>Turn websites into rich media</Subhead>
+    <Subhead>Enter an URL, receive data</Subhead>
 
     <Flex
-      py={4}
-      pb={4}
-      mb={2}
+      pt={4}
+      pb={3}
       as='form'
       justifyContent='center'
       onSubmit={onSubmit}
@@ -64,30 +62,20 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
       </ButtonSecondary>
     </Flex>
 
-    <Flex
-      flexDirection={['column', 'column', 'column', 'row']}
-      alignItems='center'
-      justifyContent='center'
-    >
-      <Link href='https://www.instagram.com/p/BvDTdWdnzkj/'>
-        instagram.com/p/BvDTdWdnzkj
-      </Link>
-      <Hide breakpoints={[0, 1, 2]}>
-        <Text fontSize={[2, 2, 2, 4]} mx={4} as='span'>
-          →
+    <Box textAlign='center'>
+      <Box pt={2} pb={3}>
+        <Link href='https://www.instagram.com/p/BvDTdWdnzkj/'>
+          instagram.com/p/BvDTdWdnzkj
+        </Link>
+        <Text pt={2} fontSize={2}>
+          into rich media
         </Text>
-      </Hide>
-      <Hide breakpoints={[3]}>
-        <Text fontSize={[2, 2, 2, 4]} py={2}>
-          into
-        </Text>
-      </Hide>
+      </Box>
       <Microlink
         media={['video']}
-        style={{ margin: '0' }}
         url='https://www.instagram.com/p/BvDTdWdnzkj/'
       />
-    </Flex>
+    </Box>
   </Container>
 )
 
