@@ -40,7 +40,7 @@ export default class extends Component {
     return (
       <Box>
         <Select
-          mx='auto'
+          py={'2px'}
           width={['3.2rem', '3.8rem']}
           value={this.state.humanReqsPerDay}
           onChange={this.handleChange}

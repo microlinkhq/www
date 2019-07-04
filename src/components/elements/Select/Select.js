@@ -4,21 +4,25 @@ import { lighten } from 'polished'
 
 import Box from '../Box'
 
+import { fonts } from 'theme'
+
 const arrow = encodeURI(
   `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='currentcolor'> <path d='M0 6 L32 6 L16 28 z' /> </svg>`
 )
 
+const ARROW_SIZE = '7px'
+
 const Select = styled(Box)(
   {
-    fontFamily: 'inherit',
+    fontFamily: fonts.sans,
     fontSize: 'inherit',
     lineHeight: 'inherit',
     appearance: 'none',
     border: 0,
     backgroundImage: `url("${arrow}")`,
-    backgroundPosition: 'calc(100% - 8px) center',
+    backgroundPosition: `calc(100% - ${ARROW_SIZE}) center`,
     backgroundRepeat: 'no-repeat',
-    backgroundSize: '8px 8px',
+    backgroundSize: `${ARROW_SIZE} ${ARROW_SIZE}`,
     '&:disabled': {
       opacity: 1 / 4
     }
@@ -37,12 +41,11 @@ const Select = styled(Box)(
 Select.defaultProps = {
   ...Box.defaultProps,
   as: 'select',
-  pt: '2px',
-  pb: '2px',
-  pr: 1,
+  py: '12px',
   pl: '8px',
+  pr: '18px',
   m: 0,
-  width: 1,
+  width: 'inherit',
   borderColor: 'gray',
   boxShadow: 1,
   borderRadius: 2,
