@@ -1,6 +1,144 @@
 @import '~normalize.css';
 @import url('https://rsms.me/inter/inter.css');
 
+:root {
+  --sans: 'Inter', sans-serif;
+  --mono: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace;
+  --base: #449bf8;
+  --secondary: #EA407B;
+  --black: #3a3f44;
+  --gray0: #f8f9fa;
+  --gray1: #ebedef;
+  --gray2: #dde1e4;
+  --gray3: #ced3d8;
+  --gray4: #bdc4cb;
+  --gray5: #aab4bd;
+  --gray6: #95a1ac;
+  --gray7: #7f8a94;
+  --gray8: #646d75;
+  --gray9: #3a3f44;
+  --blue0: #e8f3fe;
+  --blue1: #d0e6fd;
+  --blue2: #b5d7fc;
+  --blue3: #96c6fb;
+  --blue4: #71b3f9;
+  --blue5: #449bf8;
+  --blue6: #3d8ce0;
+  --blue7: #357ac4;
+  --blue8: #2c65a2;
+  --blue9: #1f4874;
+  --indigo0: #ececfe;
+  --indigo1: #d8d7fd;
+  --indigo2: #c1c0fc;
+  --indigo3: #a5a3fb;
+  --indigo4: #817ffa;
+  --indigo5: #4744f8;
+  --indigo6: #3f3ddf;
+  --indigo7: #3735c2;
+  --indigo8: #2d2b9f;
+  --indigo9: #201e70;
+  --violet0: #f5ebfe;
+  --violet1: #ead6fd;
+  --violet2: #debdfc;
+  --violet3: #cfa0fb;
+  --violet4: #bd7bfa;
+  --violet5: #a144f8;
+  --violet6: #913ddf;
+  --violet7: #7f35c3;
+  --violet8: #682ca1;
+  --violet9: #4a1f72;
+  --fuschia0: #feecfe;
+  --fuschia1: #fdd7fc;
+  --fuschia2: #fcbffb;
+  --fuschia3: #fba3fa;
+  --fuschia4: #fa7ef8;
+  --fuschia5: #f844f5;
+  --fuschia6: #e03ddd;
+  --fuschia7: #c435c2;
+  --fuschia8: #a32ca1;
+  --fuschia9: #752074;
+  --pink0: #feecf4;
+  --pink1: #fdd6e9;
+  --pink2: #fcbedc;
+  --pink3: #fba2cd;
+  --pink4: #fa7db9;
+  --pink5: #f8449b;
+  --pink6: #e03d8c;
+  --pink7: #c4357a;
+  --pink8: #a22c65;
+  --pink9: #742049;
+  --red0: #feecec;
+  --red1: #fdd7d7;
+  --red2: #fcc0bf;
+  --red3: #fba4a2;
+  --red4: #fa807e;
+  --red5: #f84744;
+  --red6: #e0403d;
+  --red7: #c43835;
+  --red8: #a22e2c;
+  --red9: #74211f;
+  --orange0: #fef3e7;
+  --orange1: #fde6cd;
+  --orange2: #fcd7b1;
+  --orange3: #fac891;
+  --orange4: #f9b66e;
+  --orange5: #f8a144;
+  --orange6: #e0913d;
+  --orange7: #c47f35;
+  --orange8: #a36a2c;
+  --orange9: #754c20;
+  --yellow0: #fdfee8;
+  --yellow1: #fcfdce;
+  --yellow2: #fafcb3;
+  --yellow3: #f9fa93;
+  --yellow4: #f7f96f;
+  --yellow5: #f5f844;
+  --yellow6: #dee03d;
+  --yellow7: #c3c536;
+  --yellow8: #a2a42d;
+  --yellow9: #767720;
+  --lime0: #f2fee7;
+  --lime1: #e5fdce;
+  --lime2: #d6fcb2;
+  --lime3: #c5fa93;
+  --lime4: #b2f96f;
+  --lime5: #9bf844;
+  --lime6: #8ce03d;
+  --lime7: #7bc536;
+  --lime8: #66a42d;
+  --lime9: #4a7720;
+  --green0: #ebfeeb;
+  --green1: #d5fdd6;
+  --green2: #bcfcbd;
+  --green3: #9ffba0;
+  --green4: #7afa7c;
+  --green5: #44f847;
+  --green6: #3de040;
+  --green7: #36c538;
+  --green8: #2da42f;
+  --green9: #207722;
+  --teal0: #eafef4;
+  --teal1: #d3fde9;
+  --teal2: #b9fcdc;
+  --teal3: #9bfbcd;
+  --teal4: #76f9ba;
+  --teal5: #44f8a1;
+  --teal6: #3de091;
+  --teal7: #36c580;
+  --teal8: #2da46a;
+  --teal9: #20774d;
+  --cyan0: #eafdfe;
+  --cyan1: #d3fcfd;
+  --cyan2: #b9fbfc;
+  --cyan3: #9bf9fb;
+  --cyan4: #76f7f9;
+  --cyan5: #44f5f8;
+  --cyan6: #3ddde0;
+  --cyan7: #36c3c5;
+  --cyan8: #2da2a4;
+  --cyan9: #207677
+}
+
 a.active {
   text-decoration: none;
 }
@@ -32,4 +170,9 @@ code::selection,
 span::selection,
 b::selection {
   background-color: #ffc533;
+}
+
+input::placeholder,
+select:invalid {
+  color: var(--gray8);
 }
