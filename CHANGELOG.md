@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.10](https://github.com/microlinkhq/microlink-www/compare/v2.5.9...v2.5.10) (2019-07-04)
+
+
+### Bug Fixes
+
+* **package:** update react-feather to version 2.0.0 ([a6f1483](https://github.com/microlinkhq/microlink-www/commit/a6f1483))
+
+
+
 ### [2.5.9](https://github.com/microlinkhq/microlink-www/compare/v2.5.8...v2.5.9) (2019-07-03)
 
 
