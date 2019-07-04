@@ -15,6 +15,8 @@ import { transition, colors } from 'theme'
 import styled from 'styled-components'
 import { navigate } from 'gatsby'
 
+import demoLinks from '@microlink/demo-links'
+import humanizeUrl from 'humanize-url'
 import { Header, DemoLinks, Microlink } from 'components/patterns'
 
 const LogoWrap = styled(Box)`
@@ -30,6 +32,10 @@ LogoWrap.defaultProps = {
   ...Box.defaultProps,
   display: 'inline-block'
 }
+
+const DEMO_LINK_KEYWORD = 'Instagram'
+const DEMO_LINK_URL = demoLinks[DEMO_LINK_KEYWORD].url
+const HUMANIZE_DEMO_LINK = humanizeUrl(DEMO_LINK_URL)
 
 const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
   <Container py={5} px={4}>
@@ -64,17 +70,12 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => (
 
     <Box textAlign='center'>
       <Box pt={2} pb={3}>
-        <Link href='https://www.instagram.com/p/BvDTdWdnzkj/'>
-          instagram.com/p/BvDTdWdnzkj
-        </Link>
+        <Link href={DEMO_LINK_URL}>{HUMANIZE_DEMO_LINK}</Link>
         <Text pt={2} fontSize={2}>
           into rich media
         </Text>
       </Box>
-      <Microlink
-        media={['video']}
-        url='https://www.instagram.com/p/BvDTdWdnzkj/'
-      />
+      <Microlink media={['video']} url={DEMO_LINK_URL} />
     </Box>
   </Container>
 )
