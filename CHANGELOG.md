@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.11](https://github.com/microlinkhq/microlink-www/compare/v2.5.10...v2.5.11) (2019-07-05)
+
+
+### Build System
+
+* **deps:** update gatsby requirement from ~2.11.7 to ~2.13.3 ([3c76dd8](https://github.com/microlinkhq/microlink-www/commit/3c76dd8))
+* **deps:** update gatsby requirement from ~2.11.7 to ~2.13.3 ([#430](https://github.com/microlinkhq/microlink-www/issues/430)) ([7f68378](https://github.com/microlinkhq/microlink-www/commit/7f68378))
+
+
+
 ### [2.5.10](https://github.com/microlinkhq/microlink-www/compare/v2.5.9...v2.5.10) (2019-07-04)
 
 
