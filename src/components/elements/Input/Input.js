@@ -3,6 +3,7 @@ import { Box, Flex } from 'components/elements'
 import { transition, colors } from 'theme'
 import styled from 'styled-components'
 import { lighten } from 'polished'
+import { get, noop } from 'lodash'
 
 import Text from '../Typography/Text'
 
@@ -47,18 +48,31 @@ const InputWrapper = styled(Flex)`
     props.focus &&
     `
   outline: none;
+
   box-shadow: inset 0 0 0 1px ${lighten(0.15, colors.link)};
 
   svg  {
     stroke: ${lighten(0.15, colors.link)}
+    color: ${lighten(0.15, colors.link)}
   }
 `}
 `
 
-export default ({ innerRef, iconComponent: Icon, ...props }) => {
-  const [isFocus, setFocus] = useState(false)
-  const onFocus = () => setFocus(true)
-  const onBlur = () => setFocus(false)
+export default ({
+  innerRef,
+  iconComponent: Icon,
+  suggestions,
+  children,
+  onFocus = noop,
+  onBlur = noop,
+  ...props
+}) => {
+  const [isFocus, setFocus] = useState(props.autoFocus || false)
+  const list = suggestions ? `${props.id}-suggestions` : undefined
+
+  // avoid autocomplete suggestions
+  const value = get(innerRef, 'current.value')
+  const listId = value ? undefined : list
 
   return (
     <InputWrapper
@@ -72,7 +86,28 @@ export default ({ innerRef, iconComponent: Icon, ...props }) => {
           {Icon}
         </Box>
       )}
-      <Input ref={innerRef} onFocus={onFocus} onBlur={onBlur} {...props} />
+
+      <Input
+        list={listId}
+        ref={innerRef}
+        onFocus={event => {
+          setFocus(true)
+          return onFocus(event)
+        }}
+        onBlur={event => {
+          setFocus(false)
+          return onBlur(event)
+        }}
+        {...props}
+      />
+
+      {suggestions && (
+        <datalist id={listId}>
+          {suggestions.map((props, key) => (
+            <option key={`${list}_${props.value}`} {...props} />
+          ))}
+        </datalist>
+      )}
     </InputWrapper>
   )
 }
