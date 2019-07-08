@@ -311,7 +311,8 @@ const API = ({ data }) => {
 }
 
 export default props => {
-  const humanizedUrl = humanizeUrl(new URL(props.data.url).hostname)
+  const humanizedUrl = humanizeUrl(props.data.url)
+
   return (
     <Fragment>
       <Hero humanizedUrl={humanizedUrl} {...props} />
