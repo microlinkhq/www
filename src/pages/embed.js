@@ -1,4 +1,4 @@
-import { useDemoLinks, useQueryState } from 'components/hook'
+import { useSiteMetadata, useDemoLinks, useQueryState } from 'components/hook'
 import React, { useState, useRef, useEffect } from 'react'
 import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
@@ -8,6 +8,7 @@ import Examples from 'components/pages/embed/examples'
 import Template from 'components/pages/embed/template'
 
 export default () => {
+  const { apiEndpoint } = useSiteMetadata()
   const [status, setStatus] = useState('initial')
   const inputEl = useRef(null)
   const demoLinks = useDemoLinks()
@@ -17,7 +18,7 @@ export default () => {
   const fetchData = async url => {
     try {
       setStatus('fetching')
-      const { data } = await mql(url)
+      const { data } = await mql(url, { endpoint: apiEndpoint })
       setData(data)
       setQuery({ url })
       setStatus('fetched')
