@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.12](https://github.com/microlinkhq/microlink-www/compare/v2.5.11...v2.5.12) (2019-07-08)
+
+
+### Build System
+
+* **deps:** update gatsby-transformer-remark requirement ([56e3bf5](https://github.com/microlinkhq/microlink-www/commit/56e3bf5))
+* **deps:** update gatsby-transformer-remark requirement from ~… ([#433](https://github.com/microlinkhq/microlink-www/issues/433)) ([b1b0a9b](https://github.com/microlinkhq/microlink-www/commit/b1b0a9b))
+
+
+
 ### [2.5.11](https://github.com/microlinkhq/microlink-www/compare/v2.5.10...v2.5.11) (2019-07-05)
 
 
