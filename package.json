@@ -2,7 +2,7 @@
   "name": "microlink-www",
   "description": "Turn any website into data",
   "homepage": "https://microlink.io",
-  "version": "2.5.7",
+  "version": "2.5.12",
   "author": {
     "email": "josefrancisco.verdu@gmail.com",
     "name": "Kiko Beats",
@@ -67,7 +67,7 @@
     "gatsby-source-filesystem": "~2.1.2",
     "gatsby-transformer-javascript-frontmatter": "~2.1.0",
     "gatsby-transformer-json": "~2.2.0",
-    "gatsby-transformer-remark": "~2.6.0",
+    "gatsby-transformer-remark": "~2.6.1",
     "gatsby-transformer-yaml": "~2.2.0",
     "git-jiggy": "~1.1.1",
     "graphiql": "~0.13.2",

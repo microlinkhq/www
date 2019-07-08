@@ -2,6 +2,60 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.12](https://github.com/microlinkhq/microlink-www/compare/v2.5.11...v2.5.12) (2019-07-08)
+
+
+### Build System
+
+* **deps:** update gatsby-transformer-remark requirement ([56e3bf5](https://github.com/microlinkhq/microlink-www/commit/56e3bf5))
+* **deps:** update gatsby-transformer-remark requirement from ~… ([#433](https://github.com/microlinkhq/microlink-www/issues/433)) ([b1b0a9b](https://github.com/microlinkhq/microlink-www/commit/b1b0a9b))
+
+
+
+### [2.5.11](https://github.com/microlinkhq/microlink-www/compare/v2.5.10...v2.5.11) (2019-07-05)
+
+
+### Build System
+
+* **deps:** update gatsby requirement from ~2.11.7 to ~2.13.3 ([3c76dd8](https://github.com/microlinkhq/microlink-www/commit/3c76dd8))
+* **deps:** update gatsby requirement from ~2.11.7 to ~2.13.3 ([#430](https://github.com/microlinkhq/microlink-www/issues/430)) ([7f68378](https://github.com/microlinkhq/microlink-www/commit/7f68378))
+
+
+
+### [2.5.10](https://github.com/microlinkhq/microlink-www/compare/v2.5.9...v2.5.10) (2019-07-04)
+
+
+### Bug Fixes
+
+* **package:** update react-feather to version 2.0.0 ([a6f1483](https://github.com/microlinkhq/microlink-www/commit/a6f1483))
+
+
+
+### [2.5.9](https://github.com/microlinkhq/microlink-www/compare/v2.5.8...v2.5.9) (2019-07-03)
+
+
+### Bug Fixes
+
+* color ([1b6632e](https://github.com/microlinkhq/microlink-www/commit/1b6632e))
+
+
+### Build System
+
+* add principles ([abc8a4d](https://github.com/microlinkhq/microlink-www/commit/abc8a4d))
+
+
+
+### [2.5.8](https://github.com/microlinkhq/microlink-www/compare/v2.5.7...v2.5.8) (2019-07-03)
+
+
+### Build System
+
+* embed page tweaks ([9189112](https://github.com/microlinkhq/microlink-www/commit/9189112))
+* tweaks embed page ([3e59130](https://github.com/microlinkhq/microlink-www/commit/3e59130))
+* tweaks layout ([d8da57e](https://github.com/microlinkhq/microlink-www/commit/d8da57e))
+
+
+
 ### [2.5.7](https://github.com/microlinkhq/microlink-www/compare/v2.5.6...v2.5.7) (2019-07-02)
 
 
