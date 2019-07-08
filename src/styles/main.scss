@@ -176,3 +176,7 @@ input::placeholder,
 select:invalid {
   color: var(--gray8);
 }
+
+[list]::-webkit-calendar-picker-indicator {
+  display: none;
+}
