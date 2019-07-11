@@ -122,6 +122,7 @@
     "@storybook/addons": "latest",
     "@storybook/react": "latest",
     "ava": "latest",
+    "chalk": "latest",
     "conventional-github-releaser": "latest",
     "esm": "latest",
     "finepack": "latest",

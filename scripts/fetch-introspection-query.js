@@ -4,6 +4,7 @@ const { getIntrospectionQuery } = require('graphql')
 const { stringify } = require('querystring')
 const jsonFuture = require('json-future')
 const existsFile = require('exists-file')
+const chalk = require('chalk')
 const path = require('path')
 const got = require('got')
 
@@ -27,6 +28,6 @@ const main = async () => {
 main()
   .then(() => process.exit())
   .catch(() => {
-    console.log('warning: Introspection query not updated')
+    console.log(`${chalk.yellow('warning')} introspection query not updated`)
     process.exit(0)
   })
