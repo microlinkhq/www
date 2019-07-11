@@ -2,6 +2,7 @@ import { useSiteMetadata, useDemoLinks, useQueryState } from 'components/hook'
 import React, { useState, useRef, useEffect } from 'react'
 import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
+import prependHttp from 'prepend-http'
 import mql from '@microlink/mql'
 
 import Examples from 'components/pages/embed/examples'
@@ -28,16 +29,20 @@ export default () => {
     }
   }
 
-  useEffect(() => {
-    if (query.url) {
-      focusInput()
-      fetchData(query.url)
-    }
-  }, [query.url])
+  useEffect(
+    () => {
+      if (query.url) {
+        focusInput()
+        fetchData(query.url)
+      }
+    },
+    [query.url]
+  )
 
   const onSubmit = event => {
     event.preventDefault()
-    fetchData(inputEl.current.value)
+    const url = prependHttp(inputEl.current.value)
+    fetchData(url)
   }
 
   const cleanInput = () => {
