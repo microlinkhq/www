@@ -7,7 +7,7 @@ import { get, noop } from 'lodash'
 
 import Text from '../Typography/Text'
 
-const Input = styled(Text)(
+const InputBase = styled(Text)(
   {
     display: 'block',
     maxWidth: '100%'
@@ -27,7 +27,7 @@ const Input = styled(Text)(
   })
 )
 
-Input.defaultProps = {
+InputBase.defaultProps = {
   ...Text.defaultProps,
   as: 'input',
   type: 'text',
@@ -58,16 +58,16 @@ const InputWrapper = styled(Flex)`
 `}
 `
 
-export default ({
+const Input = ({
   innerRef,
   iconComponent: Icon,
   suggestions,
   children,
-  onFocus = noop,
-  onBlur = noop,
+  onFocus,
+  onBlur,
   ...props
 }) => {
-  const [isFocus, setFocus] = useState(props.autoFocus || false)
+  const [isFocus, setFocus] = useState(props.autoFocus)
   const list = suggestions ? `${props.id}-suggestions` : undefined
 
   // avoid autocomplete suggestions
@@ -87,7 +87,7 @@ export default ({
         </Box>
       )}
 
-      <Input
+      <InputBase
         list={listId}
         ref={innerRef}
         onFocus={event => {
@@ -111,3 +111,11 @@ export default ({
     </InputWrapper>
   )
 }
+
+Input.defaultProps = {
+  onFocus: noop,
+  onBlur: noop,
+  autoFocus: false
+}
+
+export default Input
