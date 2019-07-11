@@ -37,8 +37,6 @@ const DEMO_LINK_KEYWORD = 'Instagram'
 const DEMO_LINK_URL = demoLinks[DEMO_LINK_KEYWORD].url
 const HUMANIZE_DEMO_LINK = humanizeUrl(DEMO_LINK_URL)
 
-// TODO add features section there
-
 const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => {
   const [inputUrl, setInputUrl] = useState(url || HUMANIZE_DEMO_LINK)
   const hostnameUrl = getHostname(inputUrl)
@@ -65,7 +63,6 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => {
           value={inputUrl}
           onChange={event => setInputUrl(event.target.value)}
           width='12rem'
-          autoFocus
         />
 
         <ButtonSecondary ml={2} loading={isLoading}>

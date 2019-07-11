@@ -1,11 +1,11 @@
+import { useFeatures } from 'components/hook'
 import * as Logo from 'components/logos'
 import React, { Fragment } from 'react'
 import humanizeUrl from 'humanize-url'
+import { getHostname } from 'helpers'
 import { Plus } from 'react-feather'
 import { colors } from 'theme'
 import { get } from 'lodash'
-
-import { useFeatures } from 'components/hook'
 
 import {
   Text,
@@ -311,8 +311,7 @@ const API = ({ data }) => {
 }
 
 export default props => {
-  const humanizedUrl = humanizeUrl(props.data.url)
-
+  const humanizedUrl = humanizeUrl(getHostname(props.data.url))
   return (
     <Fragment>
       <Hero humanizedUrl={humanizedUrl} {...props} />
