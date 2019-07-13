@@ -16,10 +16,14 @@ export default () => {
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
 
-  const fetchData = async url => {
+  const fetchData = async (url, opts) => {
     try {
       setStatus('fetching')
-      const { data } = await mql(url, { endpoint: apiEndpoint })
+      const { data } = await mql(url, {
+        endpoint: apiEndpoint,
+        palette: true,
+        ...opts
+      })
       setData(data)
       setQuery({ url })
       setStatus('fetched')
@@ -29,15 +33,13 @@ export default () => {
     }
   }
 
-  useEffect(
-    () => {
-      if (query.url) {
-        focusInput()
-        fetchData(query.url)
-      }
-    },
-    [query.url]
-  )
+  useEffect(() => {
+    const { url, ...opts } = query
+    if (url) {
+      focusInput()
+      fetchData(url, opts)
+    }
+  }, [query.url])
 
   const onSubmit = event => {
     event.preventDefault()
