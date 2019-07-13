@@ -50,11 +50,12 @@ export const serializeFmt = (props, { quotes = true } = {}) => {
   }, '')
 }
 
-export const serializeObject = props => {
+export const serializeObject = (props, { quotes = true } = {}) => {
   return Object.keys(props).reduce((acc, rawKey) => {
     const rawValue = props[rawKey]
     const key = rawValue === true ? rawKey : `${rawKey}: `
-    const value = rawValue === true ? '' : `'${rawValue}'`
+    const value =
+      rawValue === true ? '' : `${quotes ? `'${rawValue}'` : rawValue}`
     const coma = acc === '' ? '' : ', '
     return `${acc}${coma}${key}${value}`
   }, '')
