@@ -4,6 +4,7 @@ import React, { Fragment } from 'react'
 import humanizeUrl from 'humanize-url'
 import { getHostname } from 'helpers'
 import { Plus } from 'react-feather'
+import { navigate } from 'gatsby'
 import { colors } from 'theme'
 import { get } from 'lodash'
 
@@ -19,7 +20,8 @@ import {
   Caps,
   MultiCodeEditor,
   CodeEditor,
-  Hide
+  Hide,
+  ButtonSecondary
 } from 'components/elements'
 
 import { Header, Grid, Microlink } from 'components/patterns'
@@ -93,7 +95,6 @@ const HeroHeader = ({ title, caption }) => {
       <Subhead
         maxWidth={5}
         pt={4}
-        pb={3}
         px={4}
         color={colors.gray5}
         textAlign='center'
@@ -145,7 +146,7 @@ const Hero = ({ humanizedUrl, brand, data }) => {
     <Fragment>
       <Container id='hero'>
         <HeroHeader title={title} caption={caption} />
-        <Box textAlign='center'>
+        {/* <Box textAlign='center'>
           <Box pt={2} pb={3}>
             <Link href={data.url}>{humanizeUrl(data.url)}</Link>
             <Text pt={2} fontSize={2}>
@@ -153,7 +154,7 @@ const Hero = ({ humanizedUrl, brand, data }) => {
             </Text>
           </Box>
           <Microlink url={data.url} />
-        </Box>
+        </Box> */}
       </Container>
     </Fragment>
   )
@@ -175,6 +176,7 @@ const SDK = ({ humanizedUrl, data }) => (
     borderColor='pinkest'
     borderTop='1px solid'
     borderBottom='1px solid'
+    bg='pinky'
   >
     <Flex
       flexDirection='column'
@@ -182,25 +184,36 @@ const SDK = ({ humanizedUrl, data }) => (
       alignItems='center'
       as='header'
     >
-      <Subheader
-        children={['Microlink SDK', 'Turn websites into rich media']}
-      />
-      <Box px={4} textAlign={['inherit', 'center']}>
-        <Text my={4} mb={[4, 4, 4, 0]} maxWidth={8}>
-          <Link>Microlink SDK</Link> converts{' '}
-          <Text color='black' fontWeight='bold' as='span'>
-            {humanizedUrl}
-          </Text>{' '}
-          links into beautiful previews. Make your content attractive, engaging
-          better your links.
-        </Text>
+      <Subheader children={['Microlink SDK', 'Make your content attractive']} />
+
+      <Box pb={4} px={4} textAlign={['inherit', 'center']}>
+        <Box pt={4}>
+          <Text mb={[4, 4, 4, 0]} maxWidth={8}>
+            <Link href='/docs/sdk/getting-started/overview/'>
+              Microlink SDK
+            </Link>{' '}
+            converts{' '}
+            <Text color='black' fontWeight='bold' as='span'>
+              {humanizedUrl}
+            </Text>{' '}
+            links into beautiful previews, engaging better your links.
+          </Text>
+        </Box>
+        <Box pt={4}>
+          <ButtonSecondary
+            onClick={() => navigate('/docs/sdk/getting-started/overview/')}
+          >
+            <Caps fontSize={0} children='Explore Docs' />
+          </ButtonSecondary>
+
+          <Link ml={3} href='https://storybook.microlink.io' icon>
+            <Caps fontWeight='regular' fontSize={0} children='See Examples' />
+          </Link>
+        </Box>
       </Box>
     </Flex>
 
-    {[
-      { size: 'normal', docLink: '/docs/sdk/api-parameters/size/' },
-      { size: 'large', docLink: '/docs/sdk/api-parameters/size/' }
-    ].map(({ docLink, ...props }) => (
+    {[{ size: 'normal' }, { size: 'large' }].map(({ docLink, ...props }) => (
       <Flex
         flexDirection={['column', 'column', 'column', 'row']}
         justifyContent='space-evenly'
@@ -211,9 +224,7 @@ const SDK = ({ humanizedUrl, data }) => (
       >
         <Box width={500}>
           <Text mb={1} color='gray8' fontSize={1}>
-            {serializeFmt(props, { quotes: false })} (
-            <Link href={docLink}>documentation</Link>
-            {')'}
+            {props.size}
           </Text>
           <Microlink
             setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
@@ -231,7 +242,7 @@ const SDK = ({ humanizedUrl, data }) => (
 )
 
 const Features = ({ children }) => (
-  <Container id='features' bg='pinky'>
+  <Container id='features'>
     <Header title='Features' caption='Capabilities under the hood.' />
     <Box as='section' pt={4}>
       <Hide breakpoints={[0, 1]}>
@@ -252,6 +263,7 @@ const API = ({ data }) => {
       borderColor='pinkest'
       borderTop='1px solid'
       borderBottom='1px solid'
+      bg='pinky'
     >
       <Flex
         flexDirection='column'
@@ -259,14 +271,27 @@ const API = ({ data }) => {
         alignItems='center'
         as='header'
       >
-        <Subheader
-          children={['Microlink API', 'Turns websites into structured data']}
-        />
-        <Box px={4} textAlign={['inherit', 'center']}>
-          <Text my={4} mb={[4, 4, 4, 0]} maxWidth={8}>
-            <Link>Microlink Query Language</Link> (MQL) is a programmatic way to
-            getting content from any URL. Build APIs from websites.
-          </Text>
+        <Subheader children={['Microlink API', 'Build APIs from websites']} />
+
+        <Box pb={4} px={4} textAlign={['inherit', 'center']}>
+          <Box pt={4}>
+            <Text mb={[4, 4, 4, 0]} maxWidth={8}>
+              Microlink Query Language (
+              <Link href='/docs/mql/getting-started/overview'>MQL</Link>) is a
+              programmatic way to getting content from any URL.
+            </Text>
+          </Box>
+          <Box pt={4}>
+            <ButtonSecondary
+              onClick={() => navigate('/docs/mql/getting-started/overview')}
+            >
+              <Caps fontSize={0} children='Explore Docs' />
+            </ButtonSecondary>
+
+            <Link ml={3} href='https://github.com/microlinkhq/mql-cli' icon>
+              <Caps fontWeight='regular' fontSize={0} children='See Recipes' />
+            </Link>
+          </Box>
         </Box>
       </Flex>
 
@@ -278,21 +303,15 @@ const API = ({ data }) => {
       >
         <Box width={500}>
           <Text mb={1} color='gray8' fontSize={1}>
-            Microlink Query Language (
-            <Link href={'/docs/mql/getting-started/overview'}>
-              documentation
-            </Link>
-            )
+            using MQL (
+            <Link href={'/docs/mql/getting-started/overview'}>docs</Link>)
           </Text>
           <CodeEditor language='javascript' children={generateMqlCode(data)} />
         </Box>
         <Box mt={[3, 3, 3, 0]} width={500}>
           <Text mb={1} color='gray8' fontSize={1}>
-            Microlink API (
-            <Link href={'/docs/api/getting-started/overview'}>
-              documentation
-            </Link>
-            )
+            using Microlink CLI (
+            <Link href={'/docs/api/getting-started/cli'}>docs</Link>)
           </Text>
           <Box mb={3}>
             <CodeEditor
