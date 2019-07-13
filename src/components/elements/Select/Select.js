@@ -41,9 +41,9 @@ const Select = styled(Box)(
 Select.defaultProps = {
   ...Box.defaultProps,
   as: 'select',
-  py: '12px',
+  py: '2px',
   pl: '8px',
-  pr: '18px',
+  pr: '4px',
   m: 0,
   width: 'inherit',
   borderColor: 'gray',
