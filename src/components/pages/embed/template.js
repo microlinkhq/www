@@ -204,30 +204,32 @@ const SDK = ({ humanizedUrl, data }) => (
       </Box>
     </Flex>
 
-    {[{ size: 'normal' }, { size: 'large' }].map(({ docLink, ...props }) => (
-      <Flex
-        flexDirection={['column', 'column', 'column', 'row']}
-        justifyContent='space-evenly'
-        alignItems='center'
-        key={JSON.stringify(props)}
-        mx='auto'
-      >
-        <Box width={500}>
-          <Text mb={1} color='gray8' fontSize={1}>
-            {props.size}
-          </Text>
-          <Microlink
-            setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
-            {...props}
-          />
-        </Box>
-        <Box mt={[3, 3, 3, 0]} width={500}>
-          <MultiCodeEditor
-            languages={generateLanguages({ ...props, url: data.url })}
-          />
-        </Box>
-      </Flex>
-    ))}
+    <Container maxWidth={16}>
+      {[{ size: 'normal' }, { size: 'large' }].map(({ docLink, ...props }) => (
+        <Flex
+          flexDirection={['column', 'column', 'column', 'row']}
+          justifyContent='space-evenly'
+          alignItems='center'
+          key={JSON.stringify(props)}
+          mx='auto'
+        >
+          <Box width={500}>
+            <Text mb={1} color='gray8' fontSize={1}>
+              {props.size}
+            </Text>
+            <Microlink
+              setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
+              {...props}
+            />
+          </Box>
+          <Box mt={[3, 3, 3, 0]} width={500}>
+            <MultiCodeEditor
+              languages={generateLanguages({ ...props, url: data.url })}
+            />
+          </Box>
+        </Flex>
+      ))}
+    </Container>
   </Container>
 )
 
@@ -285,36 +287,41 @@ const API = ({ data }) => {
         </Box>
       </Flex>
 
-      <Flex
-        justifyContent='space-evenly'
-        alignItems='center'
-        mx='auto'
-        flexDirection={['column', 'column', 'column', 'row']}
-      >
-        <Box width={500}>
-          <Text mb={1} color='gray8' fontSize={1}>
-            using MQL (
-            <Link href={'/docs/mql/getting-started/overview'}>docs</Link>)
-          </Text>
-          <CodeEditor language='javascript' children={generateMqlCode(data)} />
-        </Box>
-        <Box mt={[3, 3, 3, 0]} width={500}>
-          <Text mb={1} color='gray8' fontSize={1}>
-            using Microlink CLI (
-            <Link href={'/docs/api/getting-started/cli'}>docs</Link>)
-          </Text>
-          <Box mb={3}>
+      <Container maxWidth={16}>
+        <Flex
+          justifyContent='space-evenly'
+          mx='auto'
+          flexDirection={['column', 'column', 'column', 'row']}
+          alignItems={['center', 'center', 'center', 'baseline']}
+        >
+          <Box width={500}>
+            <Text mb={1} color='gray8' fontSize={1}>
+              using MQL (
+              <Link href={'/docs/mql/getting-started/overview'}>docs</Link>)
+            </Text>
             <CodeEditor
-              language='bash'
-              children={`$ microlink-api ${data.url}`}
+              language='javascript'
+              children={generateMqlCode(data)}
             />
           </Box>
-          <CodeEditor
-            language='json'
-            children={JSON.stringify(data, null, 2)}
-          />
-        </Box>
-      </Flex>
+          <Box mt={[3, 3, 3, 0]} width={500}>
+            <Text mb={1} color='gray8' fontSize={1}>
+              using Microlink CLI (
+              <Link href={'/docs/api/getting-started/cli'}>docs</Link>)
+            </Text>
+            <Box mb={3}>
+              <CodeEditor
+                language='bash'
+                children={`$ microlink-api ${data.url}`}
+              />
+            </Box>
+            <CodeEditor
+              language='json'
+              children={JSON.stringify(data, null, 2)}
+            />
+          </Box>
+        </Flex>
+      </Container>
     </Container>
   )
 }
