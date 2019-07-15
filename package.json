@@ -156,7 +156,7 @@
     "clean": "rm -rf node_modules && npm run clean:urls && npm run clean:build",
     "clean:build": "gatsby clean",
     "clean:urls": "rm -rf data/demo-links.json",
-    "dev": "gatsby develop --host localhost --port 8000",
+    "dev": "nodengine && gatsby develop --host localhost --port 8000",
     "lint": "standard-markdown README.md && standard src/*/**.js",
     "postrelease": "npm run release:tags && npm run release:github",
     "prebuild": "npm run clean:urls && npm run clean:build && npm run build:urls",

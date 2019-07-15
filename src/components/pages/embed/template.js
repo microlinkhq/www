@@ -146,15 +146,6 @@ const Hero = ({ humanizedUrl, brand, data }) => {
     <Fragment>
       <Container id='hero'>
         <HeroHeader title={title} caption={caption} />
-        {/* <Box textAlign='center'>
-          <Box pt={2} pb={3}>
-            <Link href={data.url}>{humanizeUrl(data.url)}</Link>
-            <Text pt={2} fontSize={2}>
-              into rich media
-            </Text>
-          </Box>
-          <Microlink url={data.url} />
-        </Box> */}
       </Container>
     </Fragment>
   )
@@ -186,7 +177,7 @@ const SDK = ({ humanizedUrl, data }) => (
     >
       <Subheader children={['Microlink SDK', 'Make your content attractive']} />
 
-      <Box pb={4} px={4} textAlign={['inherit', 'center']}>
+      <Box pb={5} px={4} textAlign={['inherit', 'center']}>
         <Box pt={4}>
           <Text mb={[4, 4, 4, 0]} maxWidth={8}>
             <Link href='/docs/sdk/getting-started/overview/'>
@@ -220,7 +211,6 @@ const SDK = ({ humanizedUrl, data }) => (
         alignItems='center'
         key={JSON.stringify(props)}
         mx='auto'
-        mt={4}
       >
         <Box width={500}>
           <Text mb={1} color='gray8' fontSize={1}>
@@ -273,7 +263,7 @@ const API = ({ data }) => {
       >
         <Subheader children={['Microlink API', 'Build APIs from websites']} />
 
-        <Box pb={4} px={4} textAlign={['inherit', 'center']}>
+        <Box pb={5} px={4} textAlign={['inherit', 'center']}>
           <Box pt={4}>
             <Text mb={[4, 4, 4, 0]} maxWidth={8}>
               Microlink Query Language (

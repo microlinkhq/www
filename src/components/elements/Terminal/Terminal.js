@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import React from 'react'
 import CodeCopy from 'react-codecopy'
 import { fonts } from 'theme'
@@ -54,17 +54,13 @@ const TerminalText = styled('div')`
   line-height: 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  background: ${({ dark }) => (dark ? '#000' : 'transparent')};
+  background: ${({ dark }) => (dark ? '#000' : '#fff')};
   color: ${({ dark }) => (dark ? '#fff' : '#000')};
   display: flex;
   align-items: center;
 `
 
-const TerminalTextWrapper = styled('div')`
-  word-break: break-all;
-  &::before {
-    content: '$ ';
-  }
+const blinkCursorStyle = css`
   &::after {
     content: '';
     animation-name: ${blink};
@@ -84,8 +80,17 @@ const TerminalTextWrapper = styled('div')`
   }
 `
 
-const TerminalProvider = ({ title, children, dark }) => (
-  <TerminalWindow dark={dark}>
+const TerminalTextWrapper = styled('div')`
+  word-break: break-all;
+  &::before {
+    content: '$ ';
+  }
+
+  ${props => props.blinkCursor && blinkCursorStyle}
+`
+
+const TerminalProvider = ({ style, title, children, dark }) => (
+  <TerminalWindow dark={dark} style={style}>
     <TerminalHeader dark={dark}>
       <TerminalButton dark={dark} color='#FF5F56' />
       <TerminalButton dark={dark} color='#FFBD2E' />
@@ -100,21 +105,24 @@ const CustomCodeCopy = styled(CodeCopy)`
   top: -4px !important;
 `
 
-const Terminal = ({ children, dark = false }) => {
-  const content = Array.isArray(children)
-    ? children
-    : children
-        .split(/\r?\n/)
-        .map((item, index) => <span key={index}>{item}</span>)
+const fromString = text =>
+  Array.isArray(text)
+    ? text
+    : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
+
+const Terminal = ({ style, children, blinkCursor = true, dark = false }) => {
+  const content = typeof children === 'string' ? fromString(children) : children
 
   return (
-    <TerminalProvider dark={dark}>
+    <TerminalProvider dark={dark} style={style}>
       <div style={{ width: '100%' }}>
         <CustomCodeCopy
           theme={dark ? 'dark' : 'light'}
           text={serializeComponent(children)}
         >
-          <TerminalTextWrapper dark={dark}>{content}</TerminalTextWrapper>
+          <TerminalTextWrapper blinkCursor={blinkCursor} dark={dark}>
+            {content}
+          </TerminalTextWrapper>
         </CustomCodeCopy>
       </div>
     </TerminalProvider>
