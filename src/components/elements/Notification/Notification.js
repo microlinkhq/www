@@ -54,11 +54,12 @@ const createNotification = notificationProps => ({ children, ...props }) => {
   const [isHidden, setIsHidden] = useState(false)
   const [isClosed, setIsClosed] = useState(false)
 
-  if (isClosed) return
+  if (isClosed) return null
 
   return (
     <Wrapper alignItems='center' justifyContent='center' aria-hidden={isHidden}>
       <Text
+        as='div'
         boxShadow={3}
         m={3}
         px={3}

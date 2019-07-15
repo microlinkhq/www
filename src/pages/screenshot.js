@@ -1,18 +1,36 @@
 import { useSiteMetadata, useDemoLinks, useQueryState } from 'components/hook'
+import { LinkSolid, Text, Notification } from 'components/elements'
 import React, { useState, useRef, useEffect } from 'react'
 import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
-import ms from 'ms'
 import prependHttp from 'prepend-http'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
+import ms from 'ms'
 
 import Examples from 'components/pages/screenshot/examples'
 import Template from 'components/pages/screenshot/template'
 
+const ErrorMessage = ({ more }) => {
+  const text = `The URL has something weird.`
+  const children = more ? (
+    <Text as='span'>
+      {text}{' '}
+      <LinkSolid display='inline' color='red8' href={more}>
+        Report it.
+      </LinkSolid>
+    </Text>
+  ) : (
+    <Text as='span'>{text}</Text>
+  )
+
+  return <Notification.Error>{children}</Notification.Error>
+}
+
 export default () => {
   const { apiEndpoint } = useSiteMetadata()
   const [status, setStatus] = useState('initial')
+  const [error, setError] = useState(null)
   const refUrl = useRef(null)
   const refWaitFor = useRef(null)
   const refOverlay = useRef(null)
@@ -23,6 +41,7 @@ export default () => {
 
   const fetchData = async (url, opts) => {
     try {
+      setError(null)
       setStatus('fetching')
       const { data } = await mql(url, {
         endpoint: apiEndpoint,
@@ -34,17 +53,20 @@ export default () => {
       setStatus('fetched')
     } catch (err) {
       setStatus('error')
-      console.error(err)
+      setError(err)
     }
   }
 
-  useEffect(() => {
-    const { url, ...opts } = query
-    if (url) {
-      focusInput()
-      fetchData(url, opts)
-    }
-  }, [query.url])
+  useEffect(
+    () => {
+      const { url, ...opts } = query
+      if (url) {
+        focusInput()
+        fetchData(url, opts)
+      }
+    },
+    [query.url]
+  )
 
   const onSubmit = event => {
     event.preventDefault()
@@ -77,6 +99,7 @@ export default () => {
       title='Take screenshot of any website'
       image='https://cdn.microlink.io/page/screenshot.png'
     >
+      {error && <ErrorMessage {...error} />}
       <Location>
         {({ location }) => {
           const hasContent =
