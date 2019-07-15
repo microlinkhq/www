@@ -75,7 +75,7 @@ export default () => {
   return (
     <Layout
       title='Take screenshot of any website'
-      image='https://cdn.microlink.io/page/embed.png'
+      image='https://cdn.microlink.io/page/screenshot.png'
     >
       <Location>
         {({ location }) => {
