@@ -15,7 +15,7 @@ import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
 import React, { useState, Fragment } from 'react'
 import demoLinks from '@microlink/demo-links'
-import { transition, colors } from 'theme'
+import { transition, colors, borders } from 'theme'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { getHostname } from 'helpers'
@@ -64,6 +64,8 @@ const SearchBox = ({
 
   const backgroundIconComponent = isColor(inputBg) ? (
     <Box
+      border={borders[1]}
+      borderColor={'black10'}
       borderRadius={1}
       width='14px'
       height='14px'
@@ -180,8 +182,8 @@ const Examples = ({ demoLinks }) => (
     maxWidth='100%'
     bg='pinky'
     borderColor='pinkest'
-    borderTop='1px solid'
-    borderBottom='1px solid'
+    borderTop={borders[1]}
+    borderBottom={borders[1]}
   >
     <Header pb={5} title='Examples' caption='click to see a real example.' />
     <Box pt={4}>

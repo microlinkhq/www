@@ -1,11 +1,11 @@
 import { useFeatures } from 'components/hook'
 import * as Logo from 'components/logos'
 import React, { Fragment } from 'react'
+import { borders, colors } from 'theme'
 import humanizeUrl from 'humanize-url'
 import { getHostname } from 'helpers'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import { colors } from 'theme'
 import { get } from 'lodash'
 
 import {
@@ -165,8 +165,8 @@ const SDK = ({ humanizedUrl, data }) => (
     id='sdk'
     maxWidth='100%'
     borderColor='pinkest'
-    borderTop='1px solid'
-    borderBottom='1px solid'
+    borderTop={borders[1]}
+    borderBottom={borders[1]}
     bg='pinky'
   >
     <Flex
@@ -251,8 +251,8 @@ const API = ({ data }) => {
       id='api'
       maxWidth='100%'
       borderColor='pinkest'
-      borderTop='1px solid'
-      borderBottom='1px solid'
+      borderTop={borders[1]}
+      borderBottom={borders[1]}
       bg='pinky'
     >
       <Flex

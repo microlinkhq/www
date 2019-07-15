@@ -33,6 +33,7 @@ import {
 } from 'components/patterns'
 
 import { List, ListItem } from 'components/patterns/List/List'
+import { borders } from 'theme'
 
 // const FAQ = () => (
 //   <Box as='article'>
@@ -144,8 +145,8 @@ const SDK = ({ loading, editor, children }) => (
     bg='pinky'
     id='sdk'
     borderColor='pinkest'
-    borderTop='1px solid'
-    borderBottom='1px solid'
+    borderTop={borders[1]}
+    borderBottom={borders[1]}
   >
     <Flex
       flexDirection='column'
@@ -308,8 +309,8 @@ const Principles = ({ children }) => (
     id='principles'
     bg='pinky'
     borderColor='pinkest'
-    borderTop='1px solid'
-    borderBottom='1px solid'
+    borderTop={borders[1]}
+    borderBottom={borders[1]}
   >
     <Header title='Principles' caption='How we build technical products.' />
     <Box as='section' pt={4}>

@@ -12,7 +12,7 @@ import {
 } from 'components/elements'
 import { Header, DemoLinks, Microlink } from 'components/patterns'
 import demoLinks from '@microlink/demo-links'
-import { transition, colors } from 'theme'
+import { transition, colors, borders } from 'theme'
 import React, { Fragment, useState } from 'react'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
@@ -87,8 +87,8 @@ const Examples = ({ demoLinks }) => (
     maxWidth='100%'
     bg='pinky'
     borderColor='pinkest'
-    borderTop='1px solid'
-    borderBottom='1px solid'
+    borderTop={borders[1]}
+    borderBottom={borders[1]}
   >
     <Header pb={5} title='Examples' caption='click to see a real example.' />
     <Box pt={4}>

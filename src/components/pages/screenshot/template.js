@@ -1,12 +1,12 @@
 import * as Logo from 'components/logos'
 import React, { Fragment } from 'react'
+import { borders, colors } from 'theme'
 import humanizeUrl from 'humanize-url'
+import styled from 'styled-components'
 import { getHostname } from 'helpers'
 import { Plus } from 'react-feather'
-import { colors } from 'theme'
-import { get } from 'lodash'
 import { navigate } from 'gatsby'
-import styled from 'styled-components'
+import { get } from 'lodash'
 
 import { useQueryState, useFeatures } from 'components/hook'
 
@@ -151,8 +151,8 @@ const API = ({ humanizedUrl, data }) => {
       id='sdk'
       maxWidth='100%'
       borderColor='pinkest'
-      borderTop='1px solid'
-      borderBottom='1px solid'
+      borderTop={borders[1]}
+      borderBottom={borders[1]}
       bg='pinky'
     >
       <Flex
@@ -249,8 +249,8 @@ const CLI = ({ humanizedUrl, data }) => {
       id='sdk'
       maxWidth='100%'
       borderColor='pinkest'
-      borderTop='1px solid'
-      borderBottom='1px solid'
+      borderTop={borders[1]}
+      borderBottom={borders[1]}
       bg='pinky'
     >
       <Flex
