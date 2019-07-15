@@ -20,7 +20,7 @@ import { Layout } from 'components/patterns'
 import {
   CardNumberElement,
   CardExpiryElement,
-  CardCVCElement,
+  CardCvcElement,
   StripeProvider,
   injectStripe,
   Elements
@@ -170,7 +170,7 @@ class _CardForm extends Component {
             mb={4}
           >
             CVC
-            <CardCVCElement {...createOptions(this.props.fontSize)} />
+            <CardCvcElement {...createOptions(this.props.fontSize)} />
           </Label>
 
           <ButtonSecondary
