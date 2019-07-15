@@ -46,7 +46,7 @@ const Wrapper = styled(Flex)`
 
 const CloseButton = ({ color, ...props }) => (
   <CloseButtonWrapper {...props}>
-    <X size={12} color={color} />
+    <X size={16} color={color} />
   </CloseButtonWrapper>
 )
 
@@ -68,15 +68,17 @@ const createNotification = notificationProps => ({ children, ...props }) => {
         {...notificationProps}
         {...props}
       >
-        {children}
-        <CloseButton
-          onClick={() => {
-            setIsHidden(true)
-            setTimeout(() => setIsClosed(true), 1000)
-          }}
-          color={props.color}
-          pl={3}
-        />
+        <Flex alignItems='center'>
+          {children}
+          <CloseButton
+            onClick={() => {
+              setIsHidden(true)
+              setTimeout(() => setIsClosed(true), 1000)
+            }}
+            color={props.color}
+            pl={3}
+          />
+        </Flex>
       </Text>
     </Wrapper>
   )
