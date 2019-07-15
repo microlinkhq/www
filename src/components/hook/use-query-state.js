@@ -3,15 +3,13 @@ import { useState, useEffect } from 'react'
 import { decode, encode } from 'qss'
 import { navigate } from 'gatsby'
 
-let hasWindow = !!global.window
+const hasWindow = typeof window !== `undefined`
 
 const eq = (str1, str2) => stringify(str1) === stringify(str2)
 
-const fromLocation = (() => {
-  return hasWindow
-    ? () => decode(window.location.search.substring(1))
-    : () => {}
-})()
+const fromLocation = hasWindow
+  ? () => decode(window.location.search.substring(1))
+  : () => ({})
 
 const condition = hasWindow ? [window.location.search] : []
 
