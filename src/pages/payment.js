@@ -126,7 +126,7 @@ class _CardForm extends Component {
               <Notification.Success children='Payment updated! We sent you an email.' />
             </Choose.When>
             <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-              <Notification.Danger>
+              <Notification.Error>
                 Payment not updated.{' '}
                 <LinkSolid
                   display='inline'
@@ -135,7 +135,7 @@ class _CardForm extends Component {
                   href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
                 />
                 {'.'}
-              </Notification.Danger>
+              </Notification.Error>
             </Choose.When>
           </Choose>
         )}

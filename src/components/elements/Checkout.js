@@ -112,7 +112,7 @@ export default class extends Component {
               <Notification.Success children='Payment processed! We sent you an email.' />
             </Choose.When>
             <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-              <Notification.Danger>
+              <Notification.Error>
                 Payment not processed.{' '}
                 <LinkSolid
                   display='inline'
@@ -121,7 +121,7 @@ export default class extends Component {
                   href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
                 />
                 {'.'}
-              </Notification.Danger>
+              </Notification.Error>
             </Choose.When>
           </Choose>
         )}
