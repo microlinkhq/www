@@ -77,22 +77,34 @@ const SearchBox = ({
     <Container py={5} px={4}>
       <Subhead>Take screenshot of any website</Subhead>
 
-      <Flex pt={4} pb={3} as='form' justifyContent='center' onSubmit={onSubmit}>
-        <Input
-          fontSize={2}
-          iconComponent={urlIconComponent}
-          id='screenshot-demo-url'
-          innerRef={refUrl}
-          mr='6px'
-          onChange={event => setInputUrl(event.target.value)}
-          placeholder='Visit URL'
-          suggestions={[{ value: 'microlink.io' }, { value: 'kikobeats.com' }]}
-          type='text'
-          value={inputUrl}
-          width='100px'
-        />
+      <Flex
+        pt={4}
+        pb={3}
+        as='form'
+        justifyContent='center'
+        onSubmit={onSubmit}
+        flexDirection={['column', 'row', 'row', 'row']}
+      >
+        <Box ml={2} mb={[3, 0, 0, 0]}>
+          <Input
+            fontSize={2}
+            iconComponent={urlIconComponent}
+            id='screenshot-demo-url'
+            innerRef={refUrl}
+            mr='6px'
+            onChange={event => setInputUrl(event.target.value)}
+            placeholder='Visit URL'
+            suggestions={[
+              { value: 'microlink.io' },
+              { value: 'kikobeats.com' }
+            ]}
+            type='text'
+            value={inputUrl}
+            width='100px'
+          />
+        </Box>
 
-        <Box ml={2}>
+        <Box ml={2} mb={[3, 0, 0, 0]}>
           <Input
             placeholder='Wait for'
             id='screenshot-demo-waitfor'
@@ -106,7 +118,7 @@ const SearchBox = ({
           />
         </Box>
 
-        <Box ml={2}>
+        <Box ml={2} mb={[3, 0, 0, 0]}>
           <Input
             placeholder='Overlay'
             id='screenshot-demo-overlay'
@@ -124,7 +136,7 @@ const SearchBox = ({
           />
         </Box>
 
-        <Box ml={2}>
+        <Box ml={2} mb={[3, 0, 0, 0]}>
           <Input
             placeholder='Background'
             id='screenshot-demo-background'

@@ -188,7 +188,7 @@ const API = ({ humanizedUrl, data }) => {
           </Box>
         </Box>
 
-        <Box width={[350, 700]}>
+        <Box width={[350, 500, 700]}>
           <CodeEditor language='html' children={htmlCode} prettier={false} />
         </Box>
       </Flex>
@@ -286,7 +286,7 @@ const CLI = ({ humanizedUrl, data }) => {
           </Box>
         </Box>
 
-        <Box width={[350, 700]}>
+        <Box width={[350, 500, 700]}>
           <Terminal
             style={{ margin: '0' }}
             children={cliCode}

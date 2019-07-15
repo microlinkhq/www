@@ -11,7 +11,7 @@ export default ({ children, itemsPerRow }) => (
         width='100%'
       >
         {row.map(({ title, description }, index) => (
-          <Flex mb={4} key={index} as='li' style={{ listStyle: 'none' }}>
+          <Flex mb={4} key={index} as='li' px={4} style={{ listStyle: 'none' }}>
             <Box mx={'auto'} px={[3, 0]} maxWidth={['100%', '17em']}>
               <Caps
                 as='header'
