@@ -16,7 +16,6 @@ import {
   Flex
 } from 'components/elements'
 import { Layout } from 'components/patterns'
-import Head from 'components/Head'
 
 import {
   CardNumberElement,
@@ -207,21 +206,20 @@ function Payment () {
   }
 
   return (
-    <Layout>
+    <Layout
+      title='Payment'
+      script={[
+        { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
+      ]}
+      onChangeClientState={(newState, addedTags, removedTags) => {
+        const el = addedTags.scriptTags && addedTags.scriptTags[0]
+        if (el && !state.mountOnLoad) {
+          el.onload = loadStripe
+          setState({ mountOnLoad: true })
+        }
+      }}
+    >
       <Container as='section' maxWidth='350px' pt={5}>
-        <Head
-          title='Update Payment'
-          script={[
-            { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
-          ]}
-          onChangeClientState={(newState, addedTags, removedTags) => {
-            const el = addedTags.scriptTags && addedTags.scriptTags[0]
-            if (el && !state.mountOnLoad) {
-              el.onload = loadStripe
-              setState({ mountOnLoad: true })
-            }
-          }}
-        />
         <StripeProvider stripe={state.stripe}>
           <Flex flexDirection='column'>
             <Subhead mb={4} slug={false} children='Update Payment' />

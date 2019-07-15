@@ -13,7 +13,7 @@ module.exports = {
   siteMetadata: {
     // Basic
     name: 'Microlink',
-    headline: 'Turns any website into data',
+    headline: 'Turn websites into data',
     siteUrl: SITE_URL,
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',

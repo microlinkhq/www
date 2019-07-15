@@ -73,7 +73,10 @@ export default () => {
   }
 
   return (
-    <Layout image='https://cdn.microlink.io/page/embed.png'>
+    <Layout
+      title='Take screenshot of any website'
+      image='https://cdn.microlink.io/page/embed.png'
+    >
       <Location>
         {({ location }) => {
           const hasContent =

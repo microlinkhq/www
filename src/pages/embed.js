@@ -60,7 +60,10 @@ export default () => {
   }
 
   return (
-    <Layout image='https://cdn.microlink.io/page/embed.png'>
+    <Layout
+      title='Enter an URL, receive data'
+      image='https://cdn.microlink.io/page/embed.png'
+    >
       <Location>
         {({ location }) => {
           if (location.search !== '' && data && status === 'fetched') {

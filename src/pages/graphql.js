@@ -131,7 +131,7 @@ export default () => {
   if (!GraphiQL) return null
 
   return (
-    <Layout>
+    <Layout title='GraphQL'>
       <Flex
         as='main'
         className='graphiql-container'

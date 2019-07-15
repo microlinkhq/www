@@ -6,7 +6,6 @@ import { Layout } from 'components/patterns'
 import { borders, transition } from 'theme'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-import Head from 'components/Head'
 import is from 'styled-is'
 import React from 'react'
 
@@ -61,8 +60,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
 
 export default ({ posts = useBlogIndex() }) => {
   return (
-    <Layout image='https://cdn.microlink.io/page/blog.png'>
-      <Head title='Blog' />
+    <Layout title='Blog' image='https://cdn.microlink.io/page/blog.png'>
       <Container px={0} as='article' maxWidth={'inherit'}>
         <Flex flexDirection='column' alignItems='center' pt={5}>
           <Subhead mb={4} slug={false} children='Blog' />
