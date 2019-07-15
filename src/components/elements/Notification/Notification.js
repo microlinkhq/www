@@ -1,6 +1,20 @@
-import React from 'react'
-import { Text, Flex } from 'components/elements'
+import React, { useState } from 'react'
+import { Box, Text, Flex } from 'components/elements'
 import styled from 'styled-components'
+import { X } from 'react-feather'
+import { colors } from 'theme'
+
+const CloseButtonWrapper = styled(Box)`
+  display: inline-flex;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: ${colors.lightGray900};
+
+  &:hover {
+    color: ${colors.lightGray500};
+  }
+`
 
 const Wrapper = styled(Flex)`
   z-index: 3;
@@ -10,18 +24,36 @@ const Wrapper = styled(Flex)`
   left: 0;
 `
 
-const createNotification = notificationProps => props => (
-  <Wrapper alignItems='center' justifyContent='center'>
-    <Text
-      boxShadow={3}
-      m={3}
-      p={3}
-      borderRadius={2}
-      {...notificationProps}
-      {...props}
-    />
-  </Wrapper>
+const CloseButton = ({ color, ...props }) => (
+  <CloseButtonWrapper {...props}>
+    <X size={12} color={color} />
+  </CloseButtonWrapper>
 )
+
+const createNotification = notificationProps => ({ children, ...props }) => {
+  const [isClosed, setIsClosed] = useState(false)
+  if (isClosed) return
+
+  return (
+    <Wrapper alignItems='center' justifyContent='center'>
+      <Text
+        boxShadow={3}
+        m={3}
+        p={3}
+        borderRadius={2}
+        {...notificationProps}
+        {...props}
+      >
+        {children}
+        <CloseButton
+          onClick={() => setIsClosed(true)}
+          color={props.color}
+          pl={3}
+        />
+      </Text>
+    </Wrapper>
+  )
+}
 
 const Success = createNotification({
   bg: 'green2',

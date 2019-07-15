@@ -111,6 +111,7 @@ class _CardForm extends Component {
         this.setState({ paymentState: PAYMENT_STATE.FAILED })
       })
   }
+
   render () {
     const { paymentState } = this.state
 

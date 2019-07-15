@@ -58,7 +58,7 @@ export default class extends Component {
   }
 
   componentDidMount () {
-    let show = !(localStorage && localStorage.getItem(ID))
+    const show = !(localStorage && localStorage.getItem(ID))
     this.setState({ show })
   }
 
