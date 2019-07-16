@@ -11,7 +11,7 @@ export default ({ pageContext }) => {
   const metadata = useSiteMetadata()
   const meta = {
     url: `${metadata.siteUrl}${slug}`,
-    headline: `Embed for ${data.publisher}`,
+    title: `Embed for ${data.publisher}`,
     image: `https://cdn.microlink.io/brand/${brand.toLowerCase()}.jpeg`
   }
 
