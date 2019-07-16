@@ -101,6 +101,7 @@ const DemoSlider = ({ children: slides }) => {
 
   return (
     <Flex
+      mt={[2, 0, 0, 0]}
       style={{
         position: 'relative',
         height
