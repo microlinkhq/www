@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.1](https://github.com/microlinkhq/microlink-www/compare/v2.6.0...v2.6.1) (2019-07-16)
+
+
+### Bug Fixes
+
+* meta ([635472d](https://github.com/microlinkhq/microlink-www/commit/635472d))
+
+
+### Build System
+
+* create screenshots demo pages ([e9c1d37](https://github.com/microlinkhq/microlink-www/commit/e9c1d37))
+* reduce blur ([b1cf1ae](https://github.com/microlinkhq/microlink-www/commit/b1cf1ae))
+
+
+
 ## [2.6.0](https://github.com/microlinkhq/microlink-www/compare/v2.5.12...v2.6.0) (2019-07-16)
 
 
