@@ -11,17 +11,25 @@ import {
   Image
 } from 'components/elements'
 
+import { useTransition, animated, config } from 'react-spring'
+import React, { useRef, useEffect, useState, Fragment } from 'react'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
-import React, { useState, Fragment } from 'react'
-import demoLinks from '@microlink/demo-links'
 import { transition, colors, borders } from 'theme'
+import demoLinks from '@microlink/demo-links'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { getHostname } from 'helpers'
 import { navigate } from 'gatsby'
 import isColor from 'is-color'
 import { get } from 'lodash'
+
+const DEMO_LINKS_KEYWORDS = ['Netflix', 'Apple', 'Reddit', 'Medium']
+
+const createCdnUrl = (keyword, theme = 'light') =>
+  `https://cdn.microlink.io/screenshot/browser/${
+    Math.random() >= 0.5 ? 'light' : 'dark'
+  }/${keyword.toLowerCase()}.png`
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -37,10 +45,81 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const DEMO_LINK_KEYWORD = 'Netflix'
-const DEMO_LINK_URL = demoLinks[DEMO_LINK_KEYWORD].url
-const HUMANIZE_DEMO_LINK = humanizeUrl(DEMO_LINK_URL)
-const CDN_URL = `https://cdn.microlink.io/screenshot/browser/dark/${DEMO_LINK_KEYWORD.toLowerCase()}.png`
+const INTERVAL = 5000
+
+const BLUR_IN = 'blur(35px)'
+const BLUR_OUT = 'blur(0px)'
+
+const bgStyle = `
+position: absolute;
+top: 0px;
+left: 0px;
+`
+
+const AnimatedImage = animated(Image)
+
+const DemoSlider = ({ children }) => {
+  const [height, setHeight] = useState(null)
+  const [index, set] = useState(0)
+  const imgEl = useRef(null)
+
+  const slides = children.map((keyword, index) => ({
+    url: createCdnUrl(keyword),
+    id: index
+  }))
+
+  const transitions = useTransition(slides[index], item => item.id, {
+    initial: { opacity: 0, filter: BLUR_IN },
+    from: { opacity: 0, filter: BLUR_IN },
+    enter: { opacity: 1, filter: BLUR_OUT },
+    leave: { opacity: 0, filter: BLUR_IN },
+    config: config.molasses
+  })
+
+  const handleResize = () =>
+    setHeight(document.getElementById('animated-image').clientHeight)
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  })
+
+  useEffect(
+    () =>
+      void setInterval(
+        () => set(state => (state + 1) % slides.length),
+        INTERVAL
+      ),
+    []
+  )
+
+  return (
+    <Flex
+      style={{
+        position: 'relative',
+        height
+      }}
+    >
+      {height ? (
+        transitions.map(({ item, props, key }) => (
+          <AnimatedImage
+            id='animated-image'
+            key={key}
+            src={item.url}
+            style={props}
+            css={bgStyle}
+          />
+        ))
+      ) : (
+        <Image
+          ref={imgEl}
+          src={slides[0].url}
+          onLoad={() => setHeight(imgEl.current.clientHeight)}
+        />
+      )}
+    </Flex>
+  )
+}
 
 const SearchBox = ({
   onSubmit,
@@ -52,7 +131,7 @@ const SearchBox = ({
   isLoading
 }) => {
   const [inputBg, setInputBg] = useState(get(refBackground, 'current.value'))
-  const [inputUrl, setInputUrl] = useState(url || HUMANIZE_DEMO_LINK)
+  const [inputUrl, setInputUrl] = useState(url)
   const hostnameUrl = getHostname(inputUrl)
 
   const urlIconComponent =
@@ -96,10 +175,9 @@ const SearchBox = ({
             mr='6px'
             onChange={event => setInputUrl(event.target.value)}
             placeholder='Visit URL'
-            suggestions={[
-              { value: 'microlink.io' },
-              { value: 'kikobeats.com' }
-            ]}
+            suggestions={DEMO_LINKS_KEYWORDS.map(keyword => ({
+              value: humanizeUrl(demoLinks[keyword].url)
+            }))}
             type='text'
             value={inputUrl}
             width='100px'
@@ -169,7 +247,7 @@ const SearchBox = ({
         <Box mb={'-12px'}>
           <Text fontSize={2}>into a snapshot</Text>
         </Box>
-        <Image src={CDN_URL} />
+        <DemoSlider children={DEMO_LINKS_KEYWORDS} />
       </Box>
     </Container>
   )

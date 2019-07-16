@@ -101,6 +101,7 @@
     "react-iframe": "~1.8.0",
     "react-json-view": "~1.19.1",
     "react-live": "~2.1.2",
+    "react-spring": "~8.0.27",
     "react-stripe-elements": "~4.0.0",
     "react-syntax-highlighter": "~11.0.2",
     "react-timeago": "~4.4.0",
