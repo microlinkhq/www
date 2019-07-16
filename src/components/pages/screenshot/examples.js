@@ -24,12 +24,23 @@ import { navigate } from 'gatsby'
 import isColor from 'is-color'
 import { get } from 'lodash'
 
-const DEMO_LINKS_KEYWORDS = ['Netflix', 'Apple', 'Reddit', 'Medium']
-
-const createCdnUrl = (keyword, theme = 'light') =>
-  `https://cdn.microlink.io/screenshot/browser/${
-    Math.random() >= 0.5 ? 'light' : 'dark'
-  }/${keyword.toLowerCase()}.png`
+const DEMO_LINKS = [
+  { theme: 'dark', keyword: 'Netflix' },
+  { theme: 'dark', keyword: 'Apple' },
+  { theme: 'light', keyword: 'Change' },
+  { theme: 'light', keyword: 'MDN' },
+  { theme: 'light', keyword: 'TheVerge' },
+  { theme: 'dark', keyword: 'Time' },
+  { theme: 'light', keyword: 'TechCrunch' }
+].map(item => {
+  return {
+    ...item,
+    humanizedUrl: humanizeUrl(demoLinks[item.keyword].url),
+    cdnUrl: `https://cdn.microlink.io/screenshot/browser/${
+      item.theme
+    }/${item.keyword.toLowerCase()}.png`
+  }
+})
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -58,17 +69,12 @@ left: 0px;
 
 const AnimatedImage = animated(Image)
 
-const DemoSlider = ({ children }) => {
+const DemoSlider = ({ children: slides }) => {
   const [height, setHeight] = useState(null)
   const [index, set] = useState(0)
   const imgEl = useRef(null)
 
-  const slides = children.map((keyword, index) => ({
-    url: createCdnUrl(keyword),
-    id: index
-  }))
-
-  const transitions = useTransition(slides[index], item => item.id, {
+  const transitions = useTransition(slides[index], item => item.keyword, {
     initial: { opacity: 0, filter: BLUR_IN },
     from: { opacity: 0, filter: BLUR_IN },
     enter: { opacity: 1, filter: BLUR_OUT },
@@ -105,7 +111,7 @@ const DemoSlider = ({ children }) => {
           <AnimatedImage
             id='animated-image'
             key={key}
-            src={item.url}
+            src={item.cdnUrl}
             style={props}
             css={bgStyle}
           />
@@ -113,7 +119,7 @@ const DemoSlider = ({ children }) => {
       ) : (
         <Image
           ref={imgEl}
-          src={slides[0].url}
+          src={slides[0].cdnUrl}
           onLoad={() => setHeight(imgEl.current.clientHeight)}
         />
       )}
@@ -175,8 +181,8 @@ const SearchBox = ({
             mr='6px'
             onChange={event => setInputUrl(event.target.value)}
             placeholder='Visit URL'
-            suggestions={DEMO_LINKS_KEYWORDS.map(keyword => ({
-              value: humanizeUrl(demoLinks[keyword].url)
+            suggestions={DEMO_LINKS.map(({ humanizedUrl }) => ({
+              value: humanizedUrl
             }))}
             type='text'
             value={inputUrl}
@@ -247,7 +253,7 @@ const SearchBox = ({
         <Box mb={'-12px'}>
           <Text fontSize={2}>into a snapshot</Text>
         </Box>
-        <DemoSlider children={DEMO_LINKS_KEYWORDS} />
+        <DemoSlider children={DEMO_LINKS} />
       </Box>
     </Container>
   )
