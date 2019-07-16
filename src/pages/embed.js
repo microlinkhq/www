@@ -5,6 +5,7 @@ import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
 import prependHttp from 'prepend-http'
 import mql from '@microlink/mql'
+import isUrl from 'is-url-http'
 
 import Examples from 'components/pages/embed/examples'
 import Template from 'components/pages/embed/template'
@@ -29,6 +30,7 @@ export default () => {
   const { apiEndpoint } = useSiteMetadata()
   const [status, setStatus] = useState('initial')
   const [error, setError] = useState(null)
+  const [warning, setWarning] = useState(null)
   const inputEl = useRef(null)
   const demoLinks = useDemoLinks()
   const [data, setData] = useState(null)
@@ -52,21 +54,27 @@ export default () => {
     }
   }
 
-  useEffect(
-    () => {
-      const { url, ...opts } = query
-      if (url) {
-        focusInput()
-        fetchData(url, opts)
-      }
-    },
-    [query.url]
-  )
+  useEffect(() => {
+    const { url, ...opts } = query
+    if (url) {
+      focusInput()
+      fetchData(url, opts)
+    }
+  }, [query.url])
 
   const onSubmit = event => {
     event.preventDefault()
+    setWarning(null)
     const url = prependHttp(inputEl.current.value)
-    fetchData(url)
+
+    if (!isUrl(url)) {
+      setTimeout(
+        () => setWarning({ children: 'You need to provide a valid URL.' }),
+        50
+      )
+    } else {
+      fetchData(url)
+    }
   }
 
   const cleanInput = () => {
@@ -87,6 +95,7 @@ export default () => {
       image='https://cdn.microlink.io/page/embed.png'
     >
       {error && <ErrorMessage {...error} />}
+      {!error && warning && <Notification.Warning {...warning} />}
       <Location>
         {({ location }) => {
           if (location.search !== '' && data && status === 'fetched') {

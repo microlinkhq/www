@@ -31,6 +31,7 @@ export default () => {
   const { apiEndpoint } = useSiteMetadata()
   const [status, setStatus] = useState('initial')
   const [error, setError] = useState(null)
+  const [warning, setWarning] = useState(null)
   const refUrl = useRef(null)
   const refWaitFor = useRef(null)
   const refOverlay = useRef(null)
@@ -57,29 +58,30 @@ export default () => {
     }
   }
 
-  useEffect(
-    () => {
-      const { url, ...opts } = query
-      if (url) {
-        focusInput()
-        fetchData(url, opts)
-      }
-    },
-    [query.url]
-  )
+  useEffect(() => {
+    const { url, ...opts } = query
+    if (url) {
+      focusInput()
+      fetchData(url, opts)
+    }
+  }, [query.url])
 
   const onSubmit = event => {
     event.preventDefault()
+    setWarning(null)
 
     const url = prependHttp(refUrl.current.value)
 
     if (!isUrl(url)) {
-      refUrl.current.setCustomValidity('You need to provide a valid URL.')
+      setTimeout(
+        () => setWarning({ children: 'You need to provide a valid URL.' }),
+        50
+      )
+    } else {
+      const waitFor = ms(refWaitFor.current.value || '0')
+      const browser = refOverlay.current.value
+      fetchData(url, { waitFor, browser })
     }
-
-    const waitFor = ms(refWaitFor.current.value || '0')
-    const browser = refOverlay.current.value
-    fetchData(url, { waitFor, browser })
   }
 
   const cleanInput = () => {
@@ -100,6 +102,7 @@ export default () => {
       image='https://cdn.microlink.io/page/screenshot.png'
     >
       {error && <ErrorMessage {...error} />}
+      {!error && warning && <Notification.Warning {...warning} />}
       <Location>
         {({ location }) => {
           const hasContent =
