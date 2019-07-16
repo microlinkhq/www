@@ -80,11 +80,12 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   return Promise.all([
     createMarkdownPages({ graphql, createPage }),
-    createDemoLinksPages({ createPage, demoLinksData })
+    createEmbedDemoPages({ createPage, demoLinksData }),
+    createScreenshotDemoPages({ createPage, demoLinksData })
   ])
 }
 
-const createDemoLinksPages = async ({ createPage, demoLinksData }) => {
+const createEmbedDemoPages = async ({ createPage, demoLinksData }) => {
   const pages = demoLinksData.map(async demoLink => {
     const { brand, data } = demoLink
     const slug = `/embed/${brand.toLowerCase()}`
@@ -92,6 +93,21 @@ const createDemoLinksPages = async ({ createPage, demoLinksData }) => {
     return createPage({
       path: slug,
       component: path.resolve(`./src/templates/embed.js`),
+      context: { brand, data, slug }
+    })
+  })
+
+  return Promise.all(pages)
+}
+
+const createScreenshotDemoPages = async ({ createPage, demoLinksData }) => {
+  const pages = demoLinksData.map(async demoLink => {
+    const { brand, data } = demoLink
+    const slug = `/screenshot/${brand.toLowerCase()}`
+
+    return createPage({
+      path: slug,
+      component: path.resolve(`./src/templates/screenshot.js`),
       context: { brand, data, slug }
     })
   })

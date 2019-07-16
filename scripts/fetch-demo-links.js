@@ -80,7 +80,9 @@ const fetchDemoLink = async (key, { url, ...props }) => {
       apiKey: MICROLINK_API_KEY,
       video: true,
       audio: true,
-      palette: true
+      palette: true,
+      screenshot: true,
+      browser: 'light'
       // force: true
     })
 
