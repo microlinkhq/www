@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/microlinkhq/microlink-www/compare/v2.5.12...v2.6.0) (2019-07-16)
+
+
+### Bug Fixes
+
+* don't pass props to spinner icon ([f3b79a5](https://github.com/microlinkhq/microlink-www/commit/f3b79a5))
+* export ([0b6a730](https://github.com/microlinkhq/microlink-www/commit/0b6a730))
+* padding ([2c6a99a](https://github.com/microlinkhq/microlink-www/commit/2c6a99a))
+* share image ([5d9c467](https://github.com/microlinkhq/microlink-www/commit/5d9c467))
+* ssr ([bf4079a](https://github.com/microlinkhq/microlink-www/commit/bf4079a))
+
+
+### Build System
+
+* add close buttons to notifications ([2ec1492](https://github.com/microlinkhq/microlink-www/commit/2ec1492))
+* add CTA ([0d7b992](https://github.com/microlinkhq/microlink-www/commit/0d7b992))
+* add hostname helper ([4484e3b](https://github.com/microlinkhq/microlink-www/commit/4484e3b))
+* add icons ([937f051](https://github.com/microlinkhq/microlink-www/commit/937f051))
+* add log gatsby style ([f3d72bf](https://github.com/microlinkhq/microlink-www/commit/f3d72bf))
+* add notification animation ([dcd10c3](https://github.com/microlinkhq/microlink-www/commit/dcd10c3))
+* add quotes options ([3bb000d](https://github.com/microlinkhq/microlink-www/commit/3bb000d))
+* add screenshot button into toolbar ([ec65412](https://github.com/microlinkhq/microlink-www/commit/ec65412))
+* add screenshot page ([859235e](https://github.com/microlinkhq/microlink-www/commit/859235e))
+* add suggestions support ([bc46817](https://github.com/microlinkhq/microlink-www/commit/bc46817))
+* adjust container ([956eeae](https://github.com/microlinkhq/microlink-www/commit/956eeae))
+* adjust responsive ([b762d4e](https://github.com/microlinkhq/microlink-www/commit/b762d4e))
+* adjust size ([3c5f155](https://github.com/microlinkhq/microlink-www/commit/3c5f155))
+* better screenshot showcase ([f0e952d](https://github.com/microlinkhq/microlink-www/commit/f0e952d))
+* ensure prepend value ([09d7359](https://github.com/microlinkhq/microlink-www/commit/09d7359))
+* hide arrow ([0b3ce99](https://github.com/microlinkhq/microlink-www/commit/0b3ce99))
+* improve select ([7826e43](https://github.com/microlinkhq/microlink-www/commit/7826e43))
+* only emits events when the value is different ([1e1b99f](https://github.com/microlinkhq/microlink-www/commit/1e1b99f))
+* pass url params ([6509dad](https://github.com/microlinkhq/microlink-www/commit/6509dad))
+* passing endpoint ([5c73901](https://github.com/microlinkhq/microlink-www/commit/5c73901))
+* remove unused icons ([1445fed](https://github.com/microlinkhq/microlink-www/commit/1445fed))
+* show error when something bad happens ([08e2c62](https://github.com/microlinkhq/microlink-www/commit/08e2c62))
+* tweaks ([49684fb](https://github.com/microlinkhq/microlink-www/commit/49684fb))
+* tweaks ([c3c1b3a](https://github.com/microlinkhq/microlink-www/commit/c3c1b3a))
+* unify meta ([20f5636](https://github.com/microlinkhq/microlink-www/commit/20f5636))
+* update dependencies ([b581675](https://github.com/microlinkhq/microlink-www/commit/b581675))
+* update dependencies ([d8c873e](https://github.com/microlinkhq/microlink-www/commit/d8c873e))
+* update dependencies ([dce4432](https://github.com/microlinkhq/microlink-www/commit/dce4432))
+
+
+
 ### [2.5.12](https://github.com/microlinkhq/microlink-www/compare/v2.5.11...v2.5.12) (2019-07-08)
 
 
