@@ -6,7 +6,7 @@ const envError = propName =>
 const {
   DEPLOY_URL,
   CONTEXT,
-  NODE_ENV,
+  NODE_ENV = 'development',
   URL,
   STRIPE_KEY,
   PAYMENT_API_KEY,

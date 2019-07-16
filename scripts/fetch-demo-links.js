@@ -15,7 +15,7 @@ const path = require('path')
 
 const getDomain = url => (parseDomain(url) || {}).domain
 
-const { SITE_URL } = require('../env')
+const { isProduction, SITE_URL, MICROLINK_API_ENDPOINT } = require('../env')
 const DATA_DEMO_LINKS_PATH = path.resolve(__dirname, '../data/demo-links.json')
 const { MICROLINK_API_KEY } = process.env
 
@@ -77,7 +77,8 @@ const toDownload = async data => {
 const fetchDemoLink = async (key, { url, ...props }) => {
   try {
     const { data } = await mql(url, {
-      apiKey: MICROLINK_API_KEY,
+      apiKey: isProduction ? MICROLINK_API_KEY : undefined,
+      endpoint: MICROLINK_API_ENDPOINT,
       video: true,
       audio: true,
       palette: true,
@@ -98,7 +99,6 @@ const fetchDemoLink = async (key, { url, ...props }) => {
 
 const main = async () => {
   if (await existsFile(DATA_DEMO_LINKS_PATH)) return
-
   const links = map(demoLinks, (value, key) => () => fetchDemoLink(key, value))
   const data = await pAll(links, { concurrency: 2 })
   return jsonFuture.saveAsync(DATA_DEMO_LINKS_PATH, compact(data))
