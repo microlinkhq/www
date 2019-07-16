@@ -1,21 +1,25 @@
+import stringify from 'fast-safe-stringify'
 import { useState, useEffect } from 'react'
 import { decode, encode } from 'qss'
 import { navigate } from 'gatsby'
 
-let hasWindow = !!global.window
+const hasWindow = typeof window !== `undefined`
 
-const fromLocation = () =>
-  hasWindow ? decode(window.location.search.substring(1)) : {}
+const eq = (str1, str2) => stringify(str1) === stringify(str2)
+
+const fromLocation = hasWindow
+  ? () => decode(window.location.search.substring(1))
+  : () => ({})
+
+const condition = hasWindow ? [window.location.search] : []
 
 export const useQueryState = () => {
   const [query, setQuery] = useState(fromLocation())
 
-  useEffect(
-    () => {
-      setQuery(fromLocation())
-    },
-    global.window ? [window.location.search] : []
-  )
+  useEffect(() => {
+    const newQuery = fromLocation()
+    if (!eq(query, newQuery)) setQuery(fromLocation())
+  }, condition)
 
   const set = (obj = {}, { navigate: isNavigate = true } = {}) => {
     const newQuery = { ...query, ...obj }

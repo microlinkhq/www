@@ -2,7 +2,7 @@ import React from 'react'
 
 import Svg from '../elements/Svg'
 
-export default props => (
+export const External = props => (
   <Svg
     height='100%'
     xmlns='http://www.w3.org/2000/svg'

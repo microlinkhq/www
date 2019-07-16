@@ -3,19 +3,18 @@ import { H2Link } from 'components/markdown'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
 import { Layout } from 'components/patterns'
-import { transition } from 'theme'
+import { borders, transition } from 'theme'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-import Head from 'components/Head'
 import is from 'styled-is'
 import React from 'react'
 
 const borderStyle = css`
   ${is('borderTop')`
-    border-top: 1px solid ${({ theme }) => theme.colors.border};
+    border-top: ${borders[1]} ${({ theme }) => theme.colors.border};
   `};
   ${is('borderBottom')`
-    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+    border-bottom: ${borders[1]} ${({ theme }) => theme.colors.border};
   `};
 `
 
@@ -61,8 +60,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
 
 export default ({ posts = useBlogIndex() }) => {
   return (
-    <Layout image='https://cdn.microlink.io/page/blog.png'>
-      <Head title='Blog' />
+    <Layout title='Blog' image='https://cdn.microlink.io/page/blog.png'>
       <Container px={0} as='article' maxWidth={'inherit'}>
         <Flex flexDirection='column' alignItems='center' pt={5}>
           <Subhead mb={4} slug={false} children='Blog' />

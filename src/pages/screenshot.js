@@ -5,9 +5,11 @@ import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
 import prependHttp from 'prepend-http'
 import mql from '@microlink/mql'
+import isUrl from 'is-url-http'
+import ms from 'ms'
 
-import Examples from 'components/pages/embed/examples'
-import Template from 'components/pages/embed/template'
+import Examples from 'components/pages/screenshot/examples'
+import Template from 'components/pages/screenshot/template'
 
 const ErrorMessage = ({ more }) => {
   const text = `The URL has something weird.`
@@ -29,7 +31,10 @@ export default () => {
   const { apiEndpoint } = useSiteMetadata()
   const [status, setStatus] = useState('initial')
   const [error, setError] = useState(null)
-  const inputEl = useRef(null)
+  const refUrl = useRef(null)
+  const refWaitFor = useRef(null)
+  const refOverlay = useRef(null)
+  const refBackground = useRef(null)
   const demoLinks = useDemoLinks()
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
@@ -40,11 +45,11 @@ export default () => {
       setStatus('fetching')
       const { data } = await mql(url, {
         endpoint: apiEndpoint,
-        palette: true,
+        screenshot: true,
         ...opts
       })
       setData(data)
-      setQuery({ url })
+      setQuery({ url, ...opts })
       setStatus('fetched')
     } catch (err) {
       setStatus('error')
@@ -65,31 +70,41 @@ export default () => {
 
   const onSubmit = event => {
     event.preventDefault()
-    const url = prependHttp(inputEl.current.value)
-    fetchData(url)
+
+    const url = prependHttp(refUrl.current.value)
+
+    if (!isUrl(url)) {
+      refUrl.current.setCustomValidity('You need to provide a valid URL.')
+    }
+
+    const waitFor = ms(refWaitFor.current.value || '0')
+    const browser = refOverlay.current.value
+    fetchData(url, { waitFor, browser })
   }
 
   const cleanInput = () => {
-    if (inputEl.current) {
-      inputEl.current.value = ''
+    if (refUrl.current) {
+      refUrl.current.value = ''
     }
   }
 
   const focusInput = () => {
-    if (inputEl.current) {
-      inputEl.current.focus()
+    if (refUrl.current) {
+      refUrl.current.focus()
     }
   }
 
   return (
     <Layout
-      title='Enter an URL, receive data'
-      image='https://cdn.microlink.io/page/embed.png'
+      title='Take screenshot of any website'
+      image='https://cdn.microlink.io/page/screenshot.png'
     >
       {error && <ErrorMessage {...error} />}
       <Location>
         {({ location }) => {
-          if (location.search !== '' && data && status === 'fetched') {
+          const hasContent =
+            location.search !== '' && data && status === 'fetched'
+          if (hasContent) {
             return <Template data={data} />
           }
 
@@ -101,7 +116,10 @@ export default () => {
               demoLinks={demoLinks}
               onSubmit={onSubmit}
               url={query.url}
-              innerRef={inputEl}
+              refUrl={refUrl}
+              refWaitFor={refWaitFor}
+              refOverlay={refOverlay}
+              refBackground={refBackground}
               isLoading={status === 'fetching'}
             />
           )

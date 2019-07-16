@@ -16,12 +16,11 @@ import {
   Flex
 } from 'components/elements'
 import { Layout } from 'components/patterns'
-import Head from 'components/Head'
 
 import {
   CardNumberElement,
   CardExpiryElement,
-  CardCVCElement,
+  CardCvcElement,
   StripeProvider,
   injectStripe,
   Elements
@@ -112,6 +111,7 @@ class _CardForm extends Component {
         this.setState({ paymentState: PAYMENT_STATE.FAILED })
       })
   }
+
   render () {
     const { paymentState } = this.state
 
@@ -126,7 +126,7 @@ class _CardForm extends Component {
               <Notification.Success children='Payment updated! We sent you an email.' />
             </Choose.When>
             <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-              <Notification.Danger>
+              <Notification.Error>
                 Payment not updated.{' '}
                 <LinkSolid
                   display='inline'
@@ -135,7 +135,7 @@ class _CardForm extends Component {
                   href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
                 />
                 {'.'}
-              </Notification.Danger>
+              </Notification.Error>
             </Choose.When>
           </Choose>
         )}
@@ -171,7 +171,7 @@ class _CardForm extends Component {
             mb={4}
           >
             CVC
-            <CardCVCElement {...createOptions(this.props.fontSize)} />
+            <CardCvcElement {...createOptions(this.props.fontSize)} />
           </Label>
 
           <ButtonSecondary
@@ -207,21 +207,20 @@ function Payment () {
   }
 
   return (
-    <Layout>
+    <Layout
+      title='Payment'
+      script={[
+        { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
+      ]}
+      onChangeClientState={(newState, addedTags, removedTags) => {
+        const el = addedTags.scriptTags && addedTags.scriptTags[0]
+        if (el && !state.mountOnLoad) {
+          el.onload = loadStripe
+          setState({ mountOnLoad: true })
+        }
+      }}
+    >
       <Container as='section' maxWidth='350px' pt={5}>
-        <Head
-          title='Update Payment'
-          script={[
-            { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
-          ]}
-          onChangeClientState={(newState, addedTags, removedTags) => {
-            const el = addedTags.scriptTags && addedTags.scriptTags[0]
-            if (el && !state.mountOnLoad) {
-              el.onload = loadStripe
-              setState({ mountOnLoad: true })
-            }
-          }}
-        />
         <StripeProvider stripe={state.stripe}>
           <Flex flexDirection='column'>
             <Subhead mb={4} slug={false} children='Update Payment' />

@@ -23,6 +23,7 @@ export default (ChildComponent, spinnertStyle) => {
       <Flex justify='center' textAlign='center' children={children} />
     </Spinner>
   )
+
   return class extends Component {
     componentDidMount () {
       const node = ReactDOM.findDOMNode(this.refs.button)
@@ -37,7 +38,7 @@ export default (ChildComponent, spinnertStyle) => {
       if (!loading) {
         return <ChildComponent ref='button' {...props} />
       } else {
-        const children = createElement(SpinnerIcon, props)
+        const children = createElement(SpinnerIcon)
         const width = this.state && this.state.width
         return createElement(SpinnerButton, {
           ...props,

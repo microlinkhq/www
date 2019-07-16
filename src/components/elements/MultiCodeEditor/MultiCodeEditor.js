@@ -4,11 +4,12 @@ import React, { useState } from 'react'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'lodash'
 import Select from '../Select/Select'
+import { borders } from 'theme'
 
 const actionStyle = css`
   color: #fff;
   background-color: #24292e;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: ${borders[1]} rgba(255, 255, 255, 0.05);
   background-image: linear-gradient(-180deg, #3b424a 0%, #24292e 90%);
   white-space: nowrap;
   vertical-align: middle;
@@ -34,7 +35,7 @@ const arrow = encodeURI(
 )
 
 const CustomSelect = styled(Select)`
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: ${borders[1]} rgba(255, 255, 255, 0.05);
   background-color: transparent;
   margin-bottom: 0;
   background-image: url("${arrow}");

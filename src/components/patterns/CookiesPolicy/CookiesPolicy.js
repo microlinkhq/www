@@ -48,8 +48,8 @@ export default class extends Component {
               <Link ml={1} href={'/privacy'} children='privacy' />
               <span>.</span>
             </Text>
-            <CloseButton ml={1} onClick={this.hide}>
-              <X size={12} color={colors.black80} />
+            <CloseButton ml={3} onClick={this.hide}>
+              <X size={16} color={colors.black80} />
             </CloseButton>
           </Flex>
         )}
@@ -58,7 +58,7 @@ export default class extends Component {
   }
 
   componentDidMount () {
-    let show = !(localStorage && localStorage.getItem(ID))
+    const show = !(localStorage && localStorage.getItem(ID))
     this.setState({ show })
   }
 

@@ -271,7 +271,7 @@ function CodeEditor (props) {
     return 'javascript'
   })()
 
-  const pretty = get(prettier, language, identity)
+  const pretty = props.prettier ? get(prettier, language, identity) : identity
   const text = pretty(children).trim()
   const theme = { ...baseTheme, ...langTheme[language] }
   const css = highlightLines && highlighLinesStyle(highlightLines)
@@ -302,6 +302,7 @@ function CodeEditor (props) {
 CodeEditor.displayName = 'CodeEditor'
 
 CodeEditor.defaultProps = {
+  prettier: true,
   showLineNumbers: false
 }
 

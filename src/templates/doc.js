@@ -11,6 +11,8 @@ import Markdown, { H1 } from 'components/markdown'
 import formatDate from 'date-fns/format'
 import React from 'react'
 
+import { borders } from 'theme'
+
 const ROUTES_SDK = [
   {
     name: 'Getting Started',
@@ -330,7 +332,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
           <Markdown children={content} />
           <Flex
             as='footer'
-            borderTop='1px solid'
+            borderTop={borders[1]}
             borderColor='border'
             justifyContent='space-between'
             my={4}
