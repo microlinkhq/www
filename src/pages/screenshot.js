@@ -3,6 +3,7 @@ import { LinkSolid, Text, Notification } from 'components/elements'
 import React, { useState, useRef, useEffect } from 'react'
 import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
+import { screenshotUrl } from 'helpers'
 import prependHttp from 'prepend-http'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
@@ -30,8 +31,9 @@ const ErrorMessage = ({ more }) => {
 export default () => {
   const { apiEndpoint } = useSiteMetadata()
   const [status, setStatus] = useState('initial')
-  const [error, setError] = useState(null)
   const [warning, setWarning] = useState(null)
+  const [mqlOpts, setMqlOpts] = useState({})
+  const [error, setError] = useState(null)
   const refUrl = useRef(null)
   const refWaitFor = useRef(null)
   const refOverlay = useRef(null)
@@ -78,9 +80,11 @@ export default () => {
         50
       )
     } else {
-      const waitFor = ms(refWaitFor.current.value || '0')
-      const browser = refOverlay.current.value
-      fetchData(url, { waitFor, browser })
+      setMqlOpts({
+        waitFor: ms(refWaitFor.current.value || '0'),
+        browser: refOverlay.current.value
+      })
+      fetchData(url, mqlOpts)
     }
   }
 
@@ -96,11 +100,12 @@ export default () => {
     }
   }
 
+  const image = query.url
+    ? screenshotUrl(query.url, mqlOpts)
+    : 'https://cdn.microlink.io/page/screenshot.png'
+
   return (
-    <Layout
-      title='Take a screenshot of any website'
-      image='https://cdn.microlink.io/page/screenshot.png'
-    >
+    <Layout title='Take a screenshot of any website' image={image}>
       {error && <ErrorMessage {...error} />}
       {!error && warning && <Notification.Warning {...warning} />}
       <Location>

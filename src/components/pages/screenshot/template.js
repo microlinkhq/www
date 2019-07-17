@@ -1,9 +1,9 @@
+import { screenshotUrl, getHostname } from 'helpers'
 import * as Logo from 'components/logos'
 import React, { Fragment } from 'react'
 import { borders, colors } from 'theme'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
-import { getHostname } from 'helpers'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
 import { get } from 'lodash'
@@ -132,12 +132,7 @@ const Features = ({ children }) => (
 
 const API = ({ humanizedUrl, data }) => {
   const [query] = useQueryState()
-  const browser = query.browser ? `&browser=${query.browser}` : ''
-  const waitFor = query.waitFor ? `&waitFor=${query.waitFor}` : ''
-
-  const apiUrl = `https://api.microlink.io?url=${
-    data.url
-  }&screenshot${browser}${waitFor}&embed=screenshot.url`
+  const apiUrl = screenshotUrl(data.url, query)
 
   const seoCode = `
 <!-- Meta & SEO Tags  -->
