@@ -31,8 +31,10 @@ const ErrorMessage = ({ more }) => {
 export default () => {
   const { apiEndpoint } = useSiteMetadata()
   const [status, setStatus] = useState('initial')
+  const [image, setImage] = useState(
+    'https://cdn.microlink.io/page/screenshot.png'
+  )
   const [warning, setWarning] = useState(null)
-  const [mqlOpts, setMqlOpts] = useState({})
   const [error, setError] = useState(null)
   const refUrl = useRef(null)
   const refWaitFor = useRef(null)
@@ -44,6 +46,7 @@ export default () => {
 
   const fetchData = async (url, opts) => {
     try {
+      setQuery({ url, ...opts })
       setError(null)
       setStatus('fetching')
       const { data } = await mql(url, {
@@ -52,7 +55,6 @@ export default () => {
         ...opts
       })
       setData(data)
-      setQuery({ url, ...opts })
       setStatus('fetched')
     } catch (err) {
       setStatus('error')
@@ -60,32 +62,32 @@ export default () => {
     }
   }
 
+  const doFetch = (url, opts) => {
+    setWarning(null)
+    if (isUrl(url)) return fetchData(url, opts)
+
+    setTimeout(
+      () => setWarning({ children: 'You need to provide a valid URL.' }),
+      50
+    )
+  }
+
   useEffect(() => {
     const { url, ...opts } = query
     if (url) {
       focusInput()
+      setImage(screenshotUrl(url, opts))
       fetchData(url, opts)
     }
   }, [query.url])
 
   const onSubmit = event => {
     event.preventDefault()
-    setWarning(null)
-
-    const url = prependHttp(refUrl.current.value)
-
-    if (!isUrl(url)) {
-      setTimeout(
-        () => setWarning({ children: 'You need to provide a valid URL.' }),
-        50
-      )
-    } else {
-      setMqlOpts({
-        waitFor: ms(refWaitFor.current.value || '0'),
-        browser: refOverlay.current.value
-      })
-      fetchData(url, mqlOpts)
-    }
+    doFetch(prependHttp(refUrl.current.value), {
+      waitFor: ms(refWaitFor.current.value || '0'),
+      browser: refOverlay.current.value,
+      background: refBackground.current.value
+    })
   }
 
   const cleanInput = () => {
@@ -99,10 +101,6 @@ export default () => {
       refUrl.current.focus()
     }
   }
-
-  const image = query.url
-    ? screenshotUrl(query.url, mqlOpts)
-    : 'https://cdn.microlink.io/page/screenshot.png'
 
   return (
     <Layout title='Take a screenshot of any website' image={image}>

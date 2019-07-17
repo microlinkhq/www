@@ -36,17 +36,16 @@ export default () => {
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
 
-  const fetchData = async (url, opts) => {
+  const fetchData = async url => {
     try {
+      setQuery({ url })
       setError(null)
       setStatus('fetching')
       const { data } = await mql(url, {
         endpoint: apiEndpoint,
-        palette: true,
-        ...opts
+        palette: true
       })
       setData(data)
-      setQuery({ url })
       setStatus('fetched')
     } catch (err) {
       setStatus('error')
@@ -54,27 +53,26 @@ export default () => {
     }
   }
 
+  const doFetch = url => {
+    setWarning(null)
+    if (isUrl(url)) return fetchData(url)
+    setTimeout(
+      () => setWarning({ children: 'You need to provide a valid URL.' }),
+      50
+    )
+  }
+
   useEffect(() => {
-    const { url, ...opts } = query
+    const { url } = query
     if (url) {
       focusInput()
-      fetchData(url, opts)
+      fetchData(url)
     }
   }, [query.url])
 
   const onSubmit = event => {
     event.preventDefault()
-    setWarning(null)
-    const url = prependHttp(inputEl.current.value)
-
-    if (!isUrl(url)) {
-      setTimeout(
-        () => setWarning({ children: 'You need to provide a valid URL.' }),
-        50
-      )
-    } else {
-      fetchData(url)
-    }
+    doFetch(prependHttp(inputEl.current.value))
   }
 
   const cleanInput = () => {
