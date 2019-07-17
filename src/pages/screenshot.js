@@ -7,6 +7,7 @@ import { screenshotUrl } from 'helpers'
 import prependHttp from 'prepend-http'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
+import { pickBy } from 'lodash'
 import ms from 'ms'
 
 import Examples from 'components/pages/screenshot/examples'
@@ -83,11 +84,14 @@ export default () => {
 
   const onSubmit = event => {
     event.preventDefault()
-    doFetch(prependHttp(refUrl.current.value), {
-      waitFor: ms(refWaitFor.current.value || '0'),
-      browser: refOverlay.current.value,
-      background: refBackground.current.value
-    })
+    doFetch(
+      prependHttp(refUrl.current.value),
+      pickBy({
+        waitFor: ms(refWaitFor.current.value || '0'),
+        browser: refOverlay.current.value,
+        background: refBackground.current.value
+      })
+    )
   }
 
   const cleanInput = () => {
