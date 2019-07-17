@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.3](https://github.com/microlinkhq/microlink-www/compare/v2.6.2...v2.6.3) (2019-07-17)
+
+
+### Bug Fixes
+
+* typo ([6e95750](https://github.com/microlinkhq/microlink-www/commit/6e95750))
+
+
+### Build System
+
+* add open colors ([70631f0](https://github.com/microlinkhq/microlink-www/commit/70631f0))
+* adjust colors ([52c9a08](https://github.com/microlinkhq/microlink-www/commit/52c9a08))
+* adjust space on mobile ([4f9b4e2](https://github.com/microlinkhq/microlink-www/commit/4f9b4e2))
+* update scss colors ([b720dd5](https://github.com/microlinkhq/microlink-www/commit/b720dd5))
+
+
+
 ### [2.6.2](https://github.com/microlinkhq/microlink-www/compare/v2.6.1...v2.6.2) (2019-07-16)
 
 
