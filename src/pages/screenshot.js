@@ -98,7 +98,7 @@ export default () => {
 
   return (
     <Layout
-      title='Take screenshot of any website'
+      title='Take a screenshot of any website'
       image='https://cdn.microlink.io/page/screenshot.png'
     >
       {error && <ErrorMessage {...error} />}
