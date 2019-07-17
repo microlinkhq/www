@@ -101,6 +101,7 @@ const DemoSlider = ({ children: slides }) => {
 
   return (
     <Flex
+      mt={[2, 0, 0, 0]}
       style={{
         position: 'relative',
         height
@@ -162,7 +163,7 @@ const SearchBox = ({
 
   return (
     <Container py={5} px={4}>
-      <Subhead>Take screenshot of any website</Subhead>
+      <Subhead>Take a screenshot of any website</Subhead>
 
       <Flex
         pt={4}
