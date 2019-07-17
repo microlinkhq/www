@@ -58,7 +58,7 @@ LogoWrap.defaultProps = {
 
 const INTERVAL = 5000
 
-const BLUR_IN = 'blur(25px)'
+const BLUR_IN = 'blur(15px)'
 const BLUR_OUT = 'blur(0px)'
 
 const bgStyle = `

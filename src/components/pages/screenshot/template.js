@@ -139,12 +139,22 @@ const API = ({ humanizedUrl, data }) => {
     data.url
   }&screenshot${browser}${waitFor}&embed=screenshot.url`
 
-  const htmlCode = `
-<!-- Shareable & SEO friendly screenshots  -->
+  const seoCode = `
+<!-- Meta & SEO Tags  -->
 <meta name="image" content="${apiUrl}">
 <meta itemprop="image" content="${apiUrl}">
 <meta property="og:image" content="${apiUrl}">
-<meta name="twitter:image" content="${apiUrl}">`
+<meta name="twitter:image" content="${apiUrl}">
+
+<!-- regular HTML Tags  -->
+<img src="${apiUrl}" />`
+
+  const cssCode = `
+.screenshot {
+  background-image: url(${apiUrl});
+}`
+
+  const mdCode = `![Screenshot](${apiUrl})`
 
   return (
     <Container
@@ -189,7 +199,34 @@ const API = ({ humanizedUrl, data }) => {
         </Box>
 
         <Box width={[350, 500, 700]}>
-          <CodeEditor language='html' children={htmlCode} prettier={false} />
+          <Heading
+            variant={null}
+            mb={4}
+            textAlign='left'
+            fontSize={[2, 3]}
+            children='Using HTML'
+          />
+          <CodeEditor language='html' children={seoCode} prettier={false} />
+        </Box>
+        <Box pt={5} width={[350, 500, 700]}>
+          <Heading
+            variant={null}
+            mb={4}
+            textAlign='left'
+            fontSize={[2, 3]}
+            children='Using CSS'
+          />
+          <CodeEditor language='css' children={cssCode} prettier={false} />
+        </Box>
+        <Box pt={5} width={[350, 500, 700]}>
+          <Heading
+            variant={null}
+            mb={4}
+            textAlign='left'
+            fontSize={[2, 3]}
+            children='Using Markdown'
+          />
+          <CodeEditor language='markdown' children={mdCode} prettier={false} />
         </Box>
       </Flex>
     </Container>

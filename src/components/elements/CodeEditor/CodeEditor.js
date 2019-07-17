@@ -28,7 +28,7 @@ const highlighLinesStyle = highlightLines => css`
 
 const COLORS = {
   PINK: colors.pink5,
-  VIOLET: colors.violet5,
+  VIOLET: colors.grape5,
   WHITE: colors.white80,
   GRAY: colors.gray7,
   ORANGE: colors.orange4,
