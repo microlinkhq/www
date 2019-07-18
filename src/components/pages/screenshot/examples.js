@@ -56,10 +56,7 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const INTERVAL = 5000
-
-const BLUR_IN = 'blur(15px)'
-const BLUR_OUT = 'blur(0px)'
+const INTERVAL = 3000
 
 const bgStyle = `
 position: absolute;
@@ -75,10 +72,10 @@ const DemoSlider = ({ children: slides }) => {
   const imgEl = useRef(null)
 
   const transitions = useTransition(slides[index], item => item.keyword, {
-    initial: { opacity: 0, filter: BLUR_IN },
-    from: { opacity: 0, filter: BLUR_IN },
-    enter: { opacity: 1, filter: BLUR_OUT },
-    leave: { opacity: 0, filter: BLUR_IN },
+    initial: { opacity: 0 },
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
     config: config.molasses
   })
 
