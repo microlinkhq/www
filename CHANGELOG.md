@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.9](https://github.com/microlinkhq/microlink-www/compare/v2.6.8...v2.6.9) (2019-07-18)
+
+
+### Build System
+
+* remove blur effect ([20e3cbf](https://github.com/microlinkhq/microlink-www/commit/20e3cbf))
+
+
+
 ### [2.6.8](https://github.com/microlinkhq/microlink-www/compare/v2.6.7...v2.6.8) (2019-07-17)
 
 
