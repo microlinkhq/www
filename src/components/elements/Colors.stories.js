@@ -1,18 +1,23 @@
-import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Subhead, Text, Flex, Box } from 'components/elements'
-import isHexColor from 'is-hexcolor'
+import { storiesOf } from '@storybook/react'
 import contrast from 'contrast'
 import { range } from 'lodash'
 import { colors } from 'theme'
 import { Story } from 'story'
 import rgbHex from 'rgb-hex'
+import React from 'react'
+
+const isHexColor = color => color.startsWith('#')
+
+const isLight = color => contrast(color) === 'light'
 
 const toHex = color =>
   (isHexColor(color) ? color : `#${rgbHex(color)}`).toLowerCase()
 
-const contrastColor = color =>
-  contrast(toHex(color)) === 'light' ? 'black' : 'white'
+const contrastColor = color => {
+  const hexColor = toHex(color)
+  return isLight(hexColor) ? 'black' : 'white'
+}
 
 const Palette = ({ name, keywords }) => (
   <Box as='section' pt={5}>
@@ -47,7 +52,7 @@ storiesOf('Elements', module).add('Colors', () => (
       name='others'
       keywords={['link', 'secondary', 'primary', 'pinky', 'pinkest', 'border']}
     />
-    {/* <Palette
+    <Palette
       name='white'
       keywords={[
         'white',
@@ -84,7 +89,7 @@ storiesOf('Elements', module).add('Colors', () => (
         'black025',
         'black0125'
       ]}
-    /> */}
+    />
     <PaletteRange name='gray' />
     <PaletteRange name='blue' />
     <PaletteRange name='cyan' />
