@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.10](https://github.com/microlinkhq/microlink-www/compare/v2.6.9...v2.6.10) (2019-07-19)
+
+
+### Build System
+
+* add colors story ([52c74f5](https://github.com/microlinkhq/microlink-www/commit/52c74f5))
+* add rest of colors ([ba5dd84](https://github.com/microlinkhq/microlink-www/commit/ba5dd84))
+
+
+
 ### [2.6.9](https://github.com/microlinkhq/microlink-www/compare/v2.6.8...v2.6.9) (2019-07-18)
 
 
