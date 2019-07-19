@@ -15,8 +15,12 @@ const code = `
 import { Notification } from 'components/elements'
 
 export default () => (
-  <Notification.Success children='All is fine! Have a good day.' />
-  <Notification.Error children='Ops, something is wrong.' />
+  <Fragment>
+    <Notification.Success children='payment processed' />
+    <Notification.Error children='oh no!' />
+    <Notification.Warning children='This action can be consecuences' />
+    <Notification.Info children='all the things are fine' />
+  </Fragment>
 )`
 
 const NotificationPreview = ({ type }) => {
@@ -30,9 +34,6 @@ const NotificationPreview = ({ type }) => {
       </Choose.When>
       <Choose.When condition={type === 'warning'}>
         <Notification.Warning children='This action can be consecuences' />
-      </Choose.When>
-      <Choose.When condition={type === 'error'}>
-        <Notification.Error children='oh no!' />
       </Choose.When>
       <Choose.When condition={type === 'error'}>
         <Notification.Error children='oh no!' />
