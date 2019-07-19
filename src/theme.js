@@ -14,7 +14,7 @@ export const fontWeights = {
   bold: 600
 }
 
-export const radii = [0, 2, 4, 6, 8]
+export const radii = [0, 2, 4, 6, 8, 16]
 
 export const borders = [0, '1px solid', '2px solid']
 

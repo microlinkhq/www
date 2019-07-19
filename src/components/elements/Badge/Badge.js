@@ -11,10 +11,10 @@ const Badge = styled('span')`
   box-shadow: ${BOX_SHADOW}
     ${({ theme }) => lighten(0.25, theme.colors.secondary)};
   text-transform: uppercase;
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.radii[5]}px;
   color: white;
   position: relative;
-  bottom: 6px;
+  bottom: 1px;
 `
 
 export default Badge
