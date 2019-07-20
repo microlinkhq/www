@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/microlinkhq/microlink-www/compare/v2.6.10...v2.7.0) (2019-07-20)
+
+
+### Bug Fixes
+
+* pass onLoad event ([b6d88f2](https://github.com/microlinkhq/microlink-www/commit/b6d88f2))
+
+
+### Build System
+
+* update dependencies ([55c1ce2](https://github.com/microlinkhq/microlink-www/commit/55c1ce2))
+* use lazy image ([113bc0e](https://github.com/microlinkhq/microlink-www/commit/113bc0e))
+
+
+### Features
+
+* add Lazy Image component ([9ec4721](https://github.com/microlinkhq/microlink-www/commit/9ec4721))
+* add Lazy Image component ([#437](https://github.com/microlinkhq/microlink-www/issues/437)) ([666a873](https://github.com/microlinkhq/microlink-www/commit/666a873))
+
+
+
 ### [2.6.10](https://github.com/microlinkhq/microlink-www/compare/v2.6.9...v2.6.10) (2019-07-19)
 
 
