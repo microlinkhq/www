@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import Image from './Image'
+import Image from './Image/Image'
 
 const Avatar = styled(Image)({
   display: 'inline-block',
