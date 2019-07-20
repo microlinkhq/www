@@ -100,7 +100,11 @@ const Hero = ({ humanizedUrl, brand, data }) => {
       <Container id='hero'>
         <HeroHeader title={title} caption={caption} />
         <Link href={data.screenshot.url}>
-          <Image pt={4} px={4} src={data.screenshot.url} />
+          <Image
+            lazyHeight={[270, 300, 500, 580]}
+            p={4}
+            src={data.screenshot.url}
+          />
         </Link>
       </Container>
     </Fragment>

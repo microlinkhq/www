@@ -67,9 +67,9 @@ left: 0px;
 const AnimatedImage = animated(Image)
 
 const DemoSlider = ({ children: slides }) => {
+  const [loaded, setLoaded] = useState(false)
   const [height, setHeight] = useState(null)
-  const [index, set] = useState(0)
-  const imgEl = useRef(null)
+  const [index, setIndex] = useState(0)
 
   const transitions = useTransition(slides[index], item => item.keyword, {
     initial: { opacity: 0 },
@@ -79,8 +79,10 @@ const DemoSlider = ({ children: slides }) => {
     config: config.molasses
   })
 
-  const handleResize = () =>
-    setHeight(document.getElementById('animated-image').clientHeight)
+  const handleResize = () => {
+    const el = document.getElementById('animated-screenshot-example-image')
+    if (el) setHeight(el.clientHeight)
+  }
 
   useEffect(() => {
     window.addEventListener('resize', handleResize)
@@ -90,7 +92,7 @@ const DemoSlider = ({ children: slides }) => {
   useEffect(
     () =>
       void setInterval(
-        () => set(state => (state + 1) % slides.length),
+        () => setIndex(state => (state + 1) % slides.length),
         INTERVAL
       ),
     []
@@ -104,10 +106,10 @@ const DemoSlider = ({ children: slides }) => {
         height
       }}
     >
-      {height ? (
+      {loaded ? (
         transitions.map(({ item, props, key }) => (
           <AnimatedImage
-            id='animated-image'
+            id='animated-screenshot-example-image'
             key={key}
             src={item.cdnUrl}
             style={props}
@@ -116,9 +118,15 @@ const DemoSlider = ({ children: slides }) => {
         ))
       ) : (
         <Image
-          ref={imgEl}
+          id='screenshot-example-image'
+          lazyHeight={[270, 300, 500, 580]}
           src={slides[0].cdnUrl}
-          onLoad={() => setHeight(imgEl.current.clientHeight)}
+          mt={loaded ? [2, 1, 1, 1] : 4}
+          onLoad={() => {
+            const el = document.getElementById('screenshot-example-image')
+            if (el) setHeight(el.clientHeight)
+            setLoaded(true)
+          }}
         />
       )}
     </Flex>

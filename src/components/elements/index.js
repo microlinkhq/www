@@ -14,7 +14,7 @@ import { Fixed } from './Position'
 import Flex from './Flex'
 
 import Hide from './Hide'
-import Image from './Image'
+import Image from './Image/LazyImage'
 import Input from './Input/Input'
 import Banner from './Banner/Banner'
 import Badge from './Badge/Badge'
