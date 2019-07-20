@@ -69,7 +69,7 @@ export default () => {
 
     setTimeout(
       () => setWarning({ children: 'You need to provide a valid URL.' }),
-      50
+      0
     )
   }
 

@@ -58,7 +58,7 @@ export default () => {
     if (isUrl(url)) return fetchData(url)
     setTimeout(
       () => setWarning({ children: 'You need to provide a valid URL.' }),
-      50
+      0
     )
   }
 
