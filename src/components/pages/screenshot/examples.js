@@ -22,7 +22,7 @@ import styled from 'styled-components'
 import { getHostname } from 'helpers'
 import { navigate } from 'gatsby'
 import isColor from 'is-color'
-import { get } from 'lodash'
+import { noop, get } from 'lodash'
 
 const DEMO_LINKS = [
   { theme: 'dark', keyword: 'Netflix' },
@@ -67,9 +67,9 @@ left: 0px;
 const AnimatedImage = animated(Image)
 
 const DemoSlider = ({ children: slides }) => {
-  const [loaded, setLoaded] = useState(false)
   const [height, setHeight] = useState(null)
   const [index, setIndex] = useState(0)
+  const el = useRef(null)
 
   const transitions = useTransition(slides[index], item => item.keyword, {
     initial: { opacity: 0 },
@@ -80,7 +80,12 @@ const DemoSlider = ({ children: slides }) => {
   })
 
   const handleResize = () => {
-    const el = document.getElementById('animated-screenshot-example-image')
+    const el = document.querySelector('#animated-image-container img')
+    if (el) setHeight(el.clientHeight)
+  }
+
+  const onLoad = () => {
+    const el = document.querySelector('#animated-image-container img')
     if (el) setHeight(el.clientHeight)
   }
 
@@ -100,35 +105,22 @@ const DemoSlider = ({ children: slides }) => {
 
   return (
     <Flex
-      mt={[2, 1, 1, 1]}
-      style={{
-        position: 'relative',
-        height
-      }}
+      id='animated-image-container'
+      mt={height ? [2, 1, 1, 1] : 4}
+      height={height || [270, 300, 500, 580]}
+      style={{ position: 'relative' }}
     >
-      {loaded ? (
-        transitions.map(({ item, props, key }) => (
-          <AnimatedImage
-            id='animated-screenshot-example-image'
-            key={key}
-            src={item.cdnUrl}
-            style={props}
-            css={bgStyle}
-          />
-        ))
-      ) : (
-        <Image
-          id='screenshot-example-image'
+      {transitions.map(({ item, props, key }) => (
+        <AnimatedImage
+          ref={key === 0 ? el : undefined}
+          key={key}
+          src={item.cdnUrl}
+          style={props}
+          css={bgStyle}
           lazyHeight={[270, 300, 500, 580]}
-          src={slides[0].cdnUrl}
-          mt={loaded ? [2, 1, 1, 1] : 4}
-          onLoad={() => {
-            const el = document.getElementById('screenshot-example-image')
-            if (el) setHeight(el.clientHeight)
-            setLoaded(true)
-          }}
+          onLoad={key === 0 ? onLoad : noop}
         />
-      )}
+      ))}
     </Flex>
   )
 }
