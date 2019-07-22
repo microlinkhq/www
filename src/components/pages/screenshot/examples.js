@@ -12,7 +12,7 @@ import {
 } from 'components/elements'
 
 import { useTransition, animated, config } from 'react-spring'
-import React, { useRef, useEffect, useState, Fragment } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
 import { transition, colors, borders } from 'theme'
@@ -56,12 +56,13 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const INTERVAL = 3000
+const INTERVAL = 3500
 
 const bgStyle = `
 position: absolute;
 top: 0px;
 left: 0px;
+will-change: opacity;
 `
 
 const AnimatedImage = animated(Image)
@@ -69,10 +70,8 @@ const AnimatedImage = animated(Image)
 const DemoSlider = ({ children: slides }) => {
   const [height, setHeight] = useState(null)
   const [index, setIndex] = useState(0)
-  const el = useRef(null)
 
   const transitions = useTransition(slides[index], item => item.keyword, {
-    initial: { opacity: 0 },
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -112,7 +111,6 @@ const DemoSlider = ({ children: slides }) => {
     >
       {transitions.map(({ item, props, key }) => (
         <AnimatedImage
-          ref={key === 0 ? el : undefined}
           key={key}
           src={item.cdnUrl}
           style={props}
