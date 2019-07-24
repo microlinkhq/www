@@ -147,6 +147,41 @@ module.exports = async () => {
   }} 
 />
 
+#### hasTouch
+
+Type: `boolean`<br/>
+Default: `false`
+
+Specifies if viewport supports touch events.
+
+#### height
+
+Type: `number`<br/>
+Default: `false`
+
+Page height in pixels.
+
+#### width
+
+Type: `number`<br/>
+Default: `false`
+
+Page height in pixels.
+
+#### isLandscape
+
+Type: `boolean`<br/>
+Default: `false`
+
+Specifies if viewport is in landscape mode.
+
+#### isMobile
+
+Type: `boolean`<br/>
+Default: `false`
+
+Whether the meta viewport tag is taken into account.
+
 #### omitBackground
 
 Type: `boolean`<br/>
