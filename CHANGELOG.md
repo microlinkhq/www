@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.7.3](https://github.com/microlinkhq/microlink-www/compare/v2.7.2...v2.7.3) (2019-07-24)
+
+
+### Build System
+
+* add some docs related with screenshots api parameters ([5e6eb59](https://github.com/microlinkhq/microlink-www/commit/5e6eb59))
+
+
+
 ### [2.7.2](https://github.com/microlinkhq/microlink-www/compare/v2.7.1...v2.7.2) (2019-07-22)
 
 
