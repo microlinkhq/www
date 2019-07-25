@@ -4,7 +4,7 @@ isPro: true
 --- 
 
 Type: `number`<br/>
-Default: `3600000`<br/>
+Default: `3600000` *(1hour)*<br/> 
 
 It establishes the maximum quantity of time a resource served from cache layer is considered as valid.
 
@@ -23,7 +23,7 @@ module.exports = async () => {
   }} 
 />
 
-The value provided need to be at least **1 hour** and not higher than **24 hours**, specified in milliseconds.
+The value provided need to be at least **1 minute** and not higher than **28 days**, specified in milliseconds.
 
 The idea behind exposing this API parameter is to optimize better how much time the target URL can be cached:
 
