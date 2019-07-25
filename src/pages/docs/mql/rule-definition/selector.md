@@ -2,12 +2,10 @@
 title: 'selector'
 ---
 
-**Required**<br/>
-
 Type: `string|string[]`<br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
-It defines the HTML element you want to get from the HTML of the target [url](/docs/api/api-parameters/url).
+It defines the first HTML element you want to get from the HTML of the target [url](/docs/api/api-parameters/url). It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
 
 ```html{11}
 <!DOCTYPE html>
@@ -27,7 +25,7 @@ It defines the HTML element you want to get from the HTML of the target [url](/d
 
 ```js{5}
 const mql = require('@microlink/mql')
-const {data } mql(`https://kikobeats.com`, {
+const { data } mql(`https://kikobeats.com`, {
   rules: {
     avatar: {
       selector: '#avatar',
@@ -45,7 +43,7 @@ const {data } mql(`https://kikobeats.com`, {
 }
 ```
 
-<Figcaption children='At least you need to specify the selector of the data to be extracted.' />
+<Figcaption children='`selector` should be specified for getting data.' />
 
 You can specify any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors), like:
 
@@ -53,7 +51,7 @@ You can specify any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/
 - An CSS class or pseudo class, id or data-attribute, e.g. `#avatar`.
 - A combination of both, e.g. `img:first`.
 
-You can pass a collection of selectors as well
+If you pass a collection of selectors, they are considered as fallbacks values:
 
 ```js{5}
 const mql = require('@microlink/mql')
@@ -68,4 +66,4 @@ const {data } mql(`https://twitter.com/${username}`, {
 
 <Figcaption children='Using mulitple selector makes the rule more generic.' />
 
-The position into the collection matters: The first rule that returns a truthy value after applying type will be used, not being applying the rest of the rules.
+The position into the collection matters: The first rule that returns a truthy value after applying type will be used, not being applying the rest of selectors.

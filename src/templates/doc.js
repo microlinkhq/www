@@ -250,6 +250,10 @@ const ROUTES_MQL = [
         href: '/docs/mql/rule-definition/selector'
       },
       {
+        name: 'selectorAll',
+        href: '/docs/mql/rule-definition/selector-all'
+      },
+      {
         name: 'attr',
         href: '/docs/mql/rule-definition/attr'
       },
