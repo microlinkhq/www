@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.7.8](https://github.com/microlinkhq/microlink-www/compare/v2.7.7...v2.7.8) (2019-07-26)
+
+
+### Build System
+
+* update graphql ([aa1f0d0](https://github.com/microlinkhq/microlink-www/commit/aa1f0d0))
+
+
+
 ### [2.7.7](https://github.com/microlinkhq/microlink-www/compare/v2.7.6...v2.7.7) (2019-07-26)
 
 
