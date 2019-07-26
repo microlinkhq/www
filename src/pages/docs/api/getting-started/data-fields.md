@@ -2,7 +2,7 @@
 title: 'Data Fields'
 --- 
 
-The following data fields are detect for any [url](/docs/api/api-parameters/url) provided:
+The following data fields are detected for any [url](/docs/api/api-parameters/url) provided:
 
 - `author` — eg. *SpaceX*<br/>
   A human-readable representation of the author's name.
