@@ -92,10 +92,53 @@
           {
             "name": "lang",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "attr",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "StringOrArrayOfStrings",
               "ofType": null
             },
             "isDeprecated": false,
@@ -104,10 +147,53 @@
           {
             "name": "author",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "attr",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "StringOrArrayOfStrings",
               "ofType": null
             },
             "isDeprecated": false,
@@ -116,10 +202,53 @@
           {
             "name": "publisher",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "attr",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "StringOrArrayOfStrings",
               "ofType": null
             },
             "isDeprecated": false,
@@ -128,10 +257,53 @@
           {
             "name": "title",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "attr",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "StringOrArrayOfStrings",
               "ofType": null
             },
             "isDeprecated": false,
@@ -140,10 +312,53 @@
           {
             "name": "description",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "attr",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "StringOrArrayOfStrings",
               "ofType": null
             },
             "isDeprecated": false,
@@ -152,10 +367,53 @@
           {
             "name": "logo",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "attr",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
-              "kind": "OBJECT",
-              "name": "Image",
+              "kind": "SCALAR",
+              "name": "ImageOrArrayOfImages",
               "ofType": null
             },
             "isDeprecated": false,
@@ -164,10 +422,53 @@
           {
             "name": "url",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "attr",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "StringOrArrayOfStrings",
               "ofType": null
             },
             "isDeprecated": false,
@@ -176,10 +477,53 @@
           {
             "name": "date",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "attr",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "StringOrArrayOfStrings",
               "ofType": null
             },
             "isDeprecated": false,
@@ -233,6 +577,179 @@
               }
             ],
             "type": {
+              "kind": "SCALAR",
+              "name": "ImageOrArrayOfImages",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "screenshot",
+            "description": "",
+            "args": [
+              {
+                "name": "waitFor",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "NumberOrString",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "waitUntil",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "StringOrArrayOfStrings",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "deviceScaleFactor",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "fullPage",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "hasTouch",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "height",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "width",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "isLandscape",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "isMobile",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "omitBackground",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "type",
+                "description": "",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "ImageType",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "hide",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "StringOrArrayOfStrings",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "click",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "StringOrArrayOfStrings",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "disableAnimations",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "browser",
+                "description": "",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "BrowserOverlay",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "background",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
               "kind": "OBJECT",
               "name": "Image",
               "ofType": null
@@ -280,11 +797,343 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "html",
+            "description": "",
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "StringOrArrayOfStrings",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "val",
+            "description": "",
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "StringOrArrayOfStrings",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "string",
+            "description": "",
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "StringOrArrayOfStrings",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "boolean",
+            "description": "",
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "StringOrArrayOfStrings",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "number",
+            "description": "",
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "StringOrArrayOfStrings",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "auto",
+            "description": "",
+            "args": [
+              {
+                "name": "selector",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "selectorAll",
+                "description": "",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "StringOrArrayOfStrings",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "StringOrArrayOfStrings",
+        "description": "It represents an string or an array of strings",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "ImageOrArrayOfImages",
+        "description": "It represents an image or an array of images",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "NumberOrString",
+        "description": "It represents an string or number",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Int",
+        "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ImageType",
+        "description": "",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "jpeg",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "png",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "BrowserOverlay",
+        "description": "",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "light",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dark",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -415,26 +1264,6 @@
         ],
         "inputFields": null,
         "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "Int",
-        "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "StringOrArrayOfStrings",
-        "description": "It represents an string or an array of strings",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
