@@ -62,7 +62,7 @@ The same thing happens with `image` and [palette](/docs/api/api-parameters/palet
 
 Defining the `type` also makes the extraction more accurate
 
-```js{7}
+```js{6}
 const mql = require('@microlink/mql')
 const {data } mql(`https://kikobeats.com`, {
   rules: {
