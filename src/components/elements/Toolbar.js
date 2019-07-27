@@ -1,4 +1,3 @@
-import { layout } from 'theme'
 import styled from 'styled-components'
 import Flex from './Flex'
 
@@ -17,7 +16,7 @@ Toolbar.defaultProps = {
   display: 'flex',
   px: 0,
   height: TOOLBAR_HEIGHT,
-  maxWidth: layout
+  maxWidth: 960
 }
 
 export default Toolbar
