@@ -30,7 +30,7 @@ const COLORS = {
   PINK: colors.pink5,
   VIOLET: colors.grape5,
   WHITE: colors.white80,
-  GRAY: colors.gray7,
+  GRAY: colors.gray6,
   ORANGE: colors.orange4,
   YELLOW: colors.yellow2,
   RED: colors.red7
