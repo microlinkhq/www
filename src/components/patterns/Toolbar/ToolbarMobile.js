@@ -54,7 +54,7 @@ const Nav = styled(NavContainer)`
 export default class extends Component {
   render () {
     return (
-      <Fixed zIndex={2} top={0} left={0} right={0}>
+      <Fixed zIndex={101} top={0} left={0} right={0}>
         <Box boxShadow={0} mx='auto' bg='white'>
           <Toolbar mx={3} justifyContent='center' {...this.props}>
             <NavLink

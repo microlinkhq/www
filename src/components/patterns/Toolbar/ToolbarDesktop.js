@@ -9,7 +9,7 @@ import NavLink from './NavLink'
 export default class extends Component {
   render () {
     return (
-      <Fixed zIndex={2} top={0} left={0} right={0}>
+      <Fixed zIndex={101} top={0} left={0} right={0}>
         <Box px={3} boxShadow={0} mx='auto' bg='white'>
           <Toolbar
             aria-label='Primary Navigation'
