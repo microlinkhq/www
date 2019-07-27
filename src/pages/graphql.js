@@ -9,8 +9,8 @@ import { buildClientSchema } from 'graphql'
 import { css } from 'styled-components'
 import fromEntries from 'fromentries'
 import { pickBy, noop } from 'lodash'
-import { encode } from 'qss'
 import copy from 'copy-to-clipboard'
+import { encode } from 'qss'
 
 import 'components/pages/graphql/style.css'
 
@@ -47,7 +47,9 @@ const TEXT = {
   CURL: 'Copy as cURL'
 }
 
-const TEXT_ANIMATION_MS = 1000
+const TEXT_ANIMATION_MS = 800
+
+const SCHEMA = buildClientSchema(introspection)
 
 let GraphiQL
 
@@ -59,23 +61,21 @@ export default () => {
   const graphiqlEl = useRef(NOOP_GRAPHIQL)
   const graphiql = graphiqlEl.current
 
-  const [windowQuery, setWindowQuery] = useQueryState()
-  const [schema] = useState(buildClientSchema(introspection))
+  const { apiEndpoint } = useSiteMetadata()
+  const graphqlEndpoint = `${apiEndpoint}/graphql`
+
+  const [query, setQuery] = useQueryState()
   const [isExplorerOpen, setExplorerOpen] = useState(true)
   const [shareText, setShareText] = useState(TEXT.SHARE)
   const [curlText, setCurlText] = useState(TEXT.CURL)
-  const [query, setQuery] = useState(windowQuery.query || DEFAULT_QUERY)
+  const [graphqlQuery, setGraphqlQuery] = useState(query.query || DEFAULT_QUERY)
   const [resHeaders, setResHeaders] = useState({})
-  const { apiEndpoint } = useSiteMetadata()
-  const graphqlEndpoint = `${apiEndpoint}/graphql`
   const [response, setResponse] = useState(null)
 
   const apiUrl = query => `${graphqlEndpoint}?${encode(query)}`
 
   async function fetchQuery (query) {
-    const response = await fetch(apiUrl(query), {
-      cache: 'no-store'
-    })
+    const response = await fetch(apiUrl(query), { cache: 'no-store' })
     const headers = fromEntries(response.headers.entries())
     const payload = await response.json()
     return { payload, headers }
@@ -83,7 +83,7 @@ export default () => {
 
   async function fetcher (graphQLParams) {
     const query = pickBy(graphQLParams)
-    setWindowQuery(query)
+    setQuery(query)
     const { payload, headers } = await fetchQuery(query)
     setResHeaders(headers)
     return payload.data
@@ -110,23 +110,24 @@ export default () => {
   }
 
   const onCurl = () => {
-    copy(`curl ${apiUrl({ query })}`)
+    copy(`curl ${apiUrl({ query: graphqlQuery })}`)
     setCurlText(TEXT.SHARED)
     setTimeout(() => setCurlText(TEXT.CURL), TEXT_ANIMATION_MS)
   }
 
   const graphqlContainerStyle = css`
-    height: 80vh !important;
+    height: 90vh !important;
     * {
       box-sizing: content-box;
     }
   `
 
   useEffect(() => {
-    if (windowQuery.query === query && response === null) {
-      fetchInitialResponse(windowQuery)
+    if (query.query === graphqlQuery && response === null) {
+      console.log(`fetchInitialResponse`)
+      fetchInitialResponse(query)
     }
-  }, [windowQuery.query])
+  }, [query.query])
 
   if (!GraphiQL) return null
 
@@ -138,9 +139,9 @@ export default () => {
         css={graphqlContainerStyle}
       >
         <GraphiQLExplorer
-          schema={schema}
-          query={query}
-          onEdit={setQuery}
+          schema={SCHEMA}
+          query={graphqlQuery}
+          onEdit={setGraphqlQuery}
           onRunOperation={graphiql.handleRunQuery}
           explorerIsOpen={isExplorerOpen}
           onToggleExplorer={toggleExplorer}
@@ -148,9 +149,9 @@ export default () => {
         <GraphiQL
           ref={graphiqlEl}
           fetcher={fetcher}
-          schema={schema}
-          query={query}
-          onEditQuery={setQuery}
+          schema={SCHEMA}
+          query={graphqlQuery}
+          onEditQuery={setGraphqlQuery}
           response={response}
         >
           <GraphiQL.Logo>MQL</GraphiQL.Logo>
