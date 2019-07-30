@@ -52,13 +52,12 @@ if (global.window) {
 }
 
 const graphqlContainerStyle = css`
-  height: 50vh !important;
   * {
     box-sizing: content-box;
   }
 `
 
-const GraphqlEditor = ({ graphqlEndpoint, css }) => {
+const GraphqlEditor = ({ graphqlEndpoint, css, ...props }) => {
   const graphiqlEl = useRef(NOOP_GRAPHIQL)
   const graphiql = graphiqlEl.current
 
@@ -122,7 +121,7 @@ const GraphqlEditor = ({ graphqlEndpoint, css }) => {
   if (!GraphiQL) return null
 
   return (
-    <Flex className='graphiql-container' css={css}>
+    <Flex className='graphiql-container' css={css} {...props}>
       <GraphiQLExplorer
         schema={SCHEMA}
         query={graphqlQuery}
