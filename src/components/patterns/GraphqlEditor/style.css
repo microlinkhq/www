@@ -247,6 +247,7 @@ position: relative; */
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  height: 78px;
 }
 
 .graphiql-container .codemirrorWrap {
@@ -1388,7 +1389,14 @@ span.CodeMirror-selectedtext {
 }
 
 #query-unknown {
+  height: 100%;
   border-color: var(--secondary-border-color) !important;
+}
+
+.graphiql-explorer-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .graphiql-container .doc-category-title {

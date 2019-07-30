@@ -52,7 +52,7 @@ if (global.window) {
 }
 
 const graphqlContainerStyle = css`
-  height: 80vh !important;
+  height: 50vh !important;
   * {
     box-sizing: content-box;
   }
