@@ -69,11 +69,10 @@ export default class extends Component {
           <Toolbar mx={3} justifyContent='center' {...this.props}>
             <NavLogo mobile />
             <Nav as='nav' width={300}>
-              <NavPrinciples mobile />
               <NavPricing mobile />
-              <NavGraphql mobile />
               <NavEmbed mobile />
               <NavScreenshot mobile />
+              <NavGraphql mobile />
               <NavDocs mobile />
               <NavBlog mobile />
               <NavChat mobile />

@@ -30,13 +30,13 @@ export default class extends Component {
               <NavLogo />
               <NavPrinciples />
               <NavPricing />
-              <NavGraphql />
               <NavEmbed />
               <NavScreenshot />
-              <NavDocs />
-              <NavBlog />
+              <NavGraphql />
             </NavContainer>
             <NavContainer as='nav'>
+              <NavDocs />
+              <NavBlog />
               <NavChat />
             </NavContainer>
           </Toolbar>
