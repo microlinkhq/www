@@ -46,7 +46,7 @@ const PaletteRange = ({ name: keyword }) => (
   <Palette name={keyword} keywords={range(9).map(n => `${keyword}${n}`)} />
 )
 
-storiesOf('Elements', module).add('Colors', () => (
+storiesOf('Theme', module).add('Colors', () => (
   <Story mt={0} name='Colors' width='100%'>
     <Palette
       name='others'

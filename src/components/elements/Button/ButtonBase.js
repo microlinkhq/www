@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
 import { transition, shadowOffsets } from 'theme'
 
-import Text from '../Typography/Text'
+import Text from '../Text'
 
 const focusStyle = createCssState({
   selector: '&:focus',
