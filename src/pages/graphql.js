@@ -1,33 +1,22 @@
 import { useSiteMetadata } from 'components/hook'
 import React from 'react'
 
-import { Layout, GraphqlEditor } from 'components/patterns'
-
-import {
-  Subhead,
-  Flex,
-  Input,
-  Text,
-  Box,
-  ButtonSecondary,
-  Container,
-  Caps,
-  Image
-} from 'components/elements'
+import { Layout, GraphqlEditor, Header } from 'components/patterns'
+import { Box, Container } from 'components/elements'
 
 export default () => {
   const { apiEndpoint } = useSiteMetadata()
   const graphqlEndpoint = `${apiEndpoint}/graphql`
   const title = 'Microlink for GraphQL'
-  const subtitle = 'What If the Internet Was Just One Graph?'
+  const subtitle = 'Turn interrnet into a graph'
   const image = ''
 
   return (
     <Layout title={title} image={image}>
-      <Container py={5} px={4}>
-        <Subhead>{title}</Subhead>
+      <Container px={4} pt={5}>
+        <Header subtitle={title} caption={subtitle} />
       </Container>
-      <Box as='section' mx='auto' maxWidth='80%'>
+      <Box p={0} as='section' mx='auto' maxWidth='60%'>
         <GraphqlEditor graphqlEndpoint={graphqlEndpoint} />
       </Box>
     </Layout>

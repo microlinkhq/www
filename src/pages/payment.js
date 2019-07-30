@@ -12,10 +12,9 @@ import {
   ButtonSecondary,
   Notification,
   LinkSolid,
-  Subhead,
   Flex
 } from 'components/elements'
-import { Layout } from 'components/patterns'
+import { Header, Layout } from 'components/patterns'
 
 import {
   CardNumberElement,
@@ -223,7 +222,7 @@ function Payment () {
       <Container as='section' maxWidth='350px' pt={5}>
         <StripeProvider stripe={state.stripe}>
           <Flex flexDirection='column'>
-            <Subhead mb={4} slug={false} children='Update Payment' />
+            <Header subtitle='Update Payment' />
             <Elements>
               <CardForm
                 apiEndpoint={apiEndpoint}
