@@ -1,9 +1,24 @@
+.graphiql-container {
+  --primary-border-color: var(--gray3);
+  --secondary-border-color: var(--gray2);
+}
+
 .graphiql-container,
 .graphiql-container button,
 .graphiql-container input {
   color: #141823;
   font-family: var(--sans);
   font-size: 14px;
+}
+
+.graphiql-container:first-child {
+  border: 1px solid var(--primary-border-color);
+  /* border-top: 1px solid var(--primary-border-color); */
+  /* border-top: 1px solid var(--primary-border-color);
+border-bottom: 1px solid var(--primary-border-color);
+border-left: 1px solid var(--primary-border-color);
+/* border-right: 1px solid var(--primary-border-color);
+border-right: solid 1px var(--primary-border-color);*/
 }
 
 .graphiql-container {
@@ -57,9 +72,8 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e2e2e2));
-  background: linear-gradient(#f7f7f7, #e2e2e2);
-  border-bottom: 1px solid #d0d0d0;
+  background: white;
+  border-bottom: 1px solid var(--primary-border-color);
   cursor: default;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -90,13 +104,12 @@
 
 .graphiql-container .docExplorerShow,
 .graphiql-container .historyShow {
-  background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e2e2e2));
-  background: linear-gradient(#f7f7f7, #e2e2e2);
   border-radius: 0;
-  border-bottom: 1px solid #d0d0d0;
+  border-bottom: 1px solid var(--primary-border-color);
+  border-left: 0 !important;
   border-right: none;
   border-top: none;
-  color: #3B5998;
+  color: var(--link);
   cursor: pointer;
   font-size: 14px;
   margin: 0;
@@ -114,8 +127,8 @@
 }
 
 .graphiql-container .docExplorerShow:before {
-  border-left: 2px solid #3B5998;
-  border-top: 2px solid #3B5998;
+  border-left: 2px solid var(--link);
+  border-top: 2px solid var(--link);
   content: '';
   display: inline-block;
   height: 9px;
@@ -150,10 +163,11 @@
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  /* border-left: 1px solid var(--primary-border-color); */
 }
 
 .graphiql-container .resultWrap {
-  border-left: solid 1px #e0e0e0;
+  border-left: solid 1px var(--primary-border-color);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -170,8 +184,8 @@
 .graphiql-container .docExplorerWrap,
 .graphiql-container .historyPaneWrap {
   background: white;
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.08);
   position: relative;
   z-index: 3;
 }
@@ -206,21 +220,22 @@
 }
 
 .graphiql-container .variable-editor {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  height: 30px;
-  position: relative;
+  display: none;
+  /* display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+-ms-flex-direction: column;
+flex-direction: column;
+height: 30px;
+position: relative; */
 }
 
 .graphiql-container .variable-editor-title {
-  background: #eeeeee;
-  border-bottom: 1px solid #d6d6d6;
-  border-top: 1px solid #e0e0e0;
+  background: var(--gray1);
+  border-bottom: 1px solid var(--primary-border-color);
+  border-top: 1px solid var(--primary-border-color);
   color: #777;
   font-variant: small-caps;
   font-weight: bold;
@@ -251,21 +266,22 @@
 }
 
 .graphiql-container .footer {
-  background: #f6f7f8;
-  border-left: 1px solid #e0e0e0;
-  border-top: 1px solid #e0e0e0;
+  background: var(--gray0);
+  border-left: 1px solid var(--primary-border-color);
+  border-top: 1px solid var(--primary-border-color);
   margin-left: 12px;
   position: relative;
 }
 
 .graphiql-container .footer:before {
-  background: #eeeeee;
+  background: var(--gray0);
   bottom: 0;
   content: " ";
   left: -13px;
   position: absolute;
   top: -1px;
   width: 12px;
+  height: 31px;
 }
 
 /* No `.graphiql-container` here so themes can overwrite */
@@ -274,8 +290,8 @@
 }
 
 .graphiql-container .result-window .CodeMirror-gutters {
-  background-color: #eeeeee;
-  border-color: #e0e0e0;
+  background-color: var(--gray0);
+  border-color: var(--primary-border-color);
   cursor: col-resize;
 }
 
@@ -287,8 +303,8 @@
 
 .graphiql-container .toolbar-button {
   background: #fdfdfd;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#ececec));
-  background: linear-gradient(#f9f9f9, #ececec);
+  background: -webkit-gradient(linear, left top, left bottom, from(white, to(var(--gray1))));
+  background: linear-gradient(white, var(--gray1));
   border-radius: 3px;
   -webkit-box-shadow:
     inset 0 0 0 1px rgba(0, 0, 0, 0.20),
@@ -357,8 +373,8 @@
 }
 
 .graphiql-container .execute-button {
-  background: -webkit-gradient(linear, left top, left bottom, from(#fdfdfd), to(#d2d3d6));
-  background: linear-gradient(#fdfdfd, #d2d3d6);
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(var(--gray1)));
+  background: linear-gradient(white, var(--gray1));
   border-radius: 17px;
   border: 1px solid rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: 0 1px 0 #fff;
@@ -483,13 +499,14 @@
 }
 
 .graphiql-container .CodeMirror-scroll {
-  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+  background: white;
 }
 
 .graphiql-container .CodeMirror {
   color: #141823;
   font-family: var(--mono);
-  font-size: 16px;
+  font-size: 13px;
   height: 100%;
   left: 0;
   position: absolute;
@@ -729,12 +746,10 @@ div.CodeMirror-lint-tooltip>*+* {
 /* GUTTER */
 
 .CodeMirror-gutters {
-  border-right: 1px solid #ddd;
-  background-color: #f7f7f7;
+  border-right: 1px solid var(--primary-border-color);
+  background-color: var(--gray0);
   white-space: nowrap;
 }
-
-.CodeMirror-linenumbers {}
 
 .CodeMirror-linenumber {
   color: #999;
@@ -1250,7 +1265,7 @@ span.CodeMirror-selectedtext {
 
 .CodeMirror-dialog input {
   background: transparent;
-  border: 1px solid #d3d6db;
+  border: 1px solid var(--secondary-border-color);
   color: inherit;
   font-family: monospace;
   outline: none;
@@ -1299,7 +1314,7 @@ span.CodeMirror-selectedtext {
 }
 
 .graphiql-container .doc-explorer-back {
-  color: #3B5998;
+  color: var(--link);
   cursor: pointer;
   margin: -7px 0 -6px -8px;
   overflow-x: hidden;
@@ -1313,8 +1328,8 @@ span.CodeMirror-selectedtext {
 }
 
 .graphiql-container .doc-explorer-back:before {
-  border-left: 2px solid #3B5998;
-  border-top: 2px solid #3B5998;
+  border-left: 2px solid var(--link);
+  border-top: 2px solid var(--link);
   content: '';
   display: inline-block;
   height: 9px;
@@ -1331,8 +1346,8 @@ span.CodeMirror-selectedtext {
 
 .graphiql-container .doc-explorer-contents,
 .graphiql-container .history-contents {
+  border-top: 1px solid var(--primary-border-color);
   background-color: #ffffff;
-  border-top: 1px solid #d6d6d6;
   bottom: 0;
   left: 0;
   overflow-y: auto;
@@ -1372,8 +1387,12 @@ span.CodeMirror-selectedtext {
   margin: 20px 0;
 }
 
+#query-unknown {
+  border-color: var(--secondary-border-color) !important;
+}
+
 .graphiql-container .doc-category-title {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--secondary-border-color);
   color: #777;
   cursor: default;
   font-size: 14px;
@@ -1494,7 +1513,7 @@ span.CodeMirror-selectedtext {
 }
 
 .graphiql-container .search-box {
-  border-bottom: 1px solid #d3d6db;
+  border-bottom: 1px solid var(--secondary-border-color);
   display: block;
   font-size: 14px;
   margin: -15px -15px 12px 0;
@@ -1604,7 +1623,7 @@ span.CodeMirror-selectedtext {
   white-space: nowrap;
   margin: 0;
   padding: 8px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--secondary-border-color);
 }
 
 .graphiql-container .history-contents p.editable {
@@ -1882,7 +1901,7 @@ span.CodeMirror-selectedtext {
 }
 
 .CodeMirror-hint {
-  border-top: solid 1px #f7f7f7;
+  border-top: solid 1px var(--gray0);
   color: #141823;
   cursor: pointer;
   margin: 0;

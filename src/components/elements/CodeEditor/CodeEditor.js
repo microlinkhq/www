@@ -26,14 +26,15 @@ const highlighLinesStyle = highlightLines => css`
   }
 `
 
-const COLORS = {
+export const COLORS = {
   PINK: colors.pink5,
-  VIOLET: colors.grape5,
+  VIOLET: colors.grape6,
   WHITE: colors.white80,
   GRAY: colors.gray6,
   ORANGE: colors.orange4,
   YELLOW: colors.yellow2,
-  RED: colors.red7
+  RED: colors.red7,
+  BACKGROUND: 'rgb(40, 42, 54)'
 }
 
 const codeTheme = {
@@ -103,10 +104,10 @@ const baseTheme = {
     margin: '.5em 0',
     overflow: 'auto',
     borderRadius: '0.3em',
-    background: 'rgb(40, 42, 54)'
+    background: COLORS.BACKGROUND
   },
   ':not(pre) > code[class*="language-"]': {
-    background: 'rgb(40, 42, 54)',
+    background: COLORS.BACKGROUND,
     padding: '.1em',
     borderRadius: '.3em'
   },
