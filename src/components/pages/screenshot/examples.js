@@ -158,10 +158,13 @@ const SearchBox = ({
 
   return (
     <Container py={5} px={4}>
-      <Subhead>Take a screenshot of any website</Subhead>
+      <Header
+        subtitle='Take a screenshot of any website'
+        caption='Turn websites into a snapshot'
+      />
 
       <Flex
-        pt={4}
+        pt={2}
         pb={3}
         as='form'
         justifyContent='center'
