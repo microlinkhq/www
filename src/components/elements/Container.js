@@ -10,7 +10,7 @@ Container.defaultProps = {
   pl: 3,
   pr: 3,
   mx: 'auto',
-  maxWidth: layout
+  maxWidth: layout.large
 }
 
 export default Container

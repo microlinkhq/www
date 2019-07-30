@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { layout } from 'theme'
+
 import Flex from './Flex'
 
 export const TOOLBAR_HEIGHT = '67px'
@@ -16,7 +18,7 @@ Toolbar.defaultProps = {
   display: 'flex',
   px: 0,
   height: TOOLBAR_HEIGHT,
-  maxWidth: 960
+  maxWidth: layout.medium
 }
 
 export default Toolbar

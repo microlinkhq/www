@@ -1,4 +1,5 @@
 import { useSiteMetadata } from 'components/hook'
+import { layout } from 'theme'
 import React from 'react'
 
 import { Layout, GraphqlEditor, Header } from 'components/patterns'
@@ -16,7 +17,7 @@ export default () => {
       <Container px={4} pt={5}>
         <Header subtitle={title} caption={subtitle} />
       </Container>
-      <Box p={0} as='section' mx='auto' maxWidth='60%'>
+      <Box p={0} as='section' mx='auto' maxWidth={layout.medium}>
         <GraphqlEditor graphqlEndpoint={graphqlEndpoint} />
       </Box>
     </Layout>
