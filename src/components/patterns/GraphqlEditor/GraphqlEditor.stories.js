@@ -3,8 +3,6 @@ import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import GraphqlEditor from './GraphqlEditor'
 
-import '!style-loader!css-loader!sass-loader!../../../styles/main.scss'
-
 const code = `
 import { GraphqlEditor } from 'components/patterns'
 
