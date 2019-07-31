@@ -1,14 +1,8 @@
-import { useSiteMetadata } from 'components/hook'
-import { layout } from 'theme'
-import React from 'react'
-
 import { Layout, GraphqlEditor, Header } from 'components/patterns'
 import { Box, Container } from 'components/elements'
-
-const getRatio = width => (width * 9) / 16
-
-const WIDTH = [0.4, 0.6, 0.8, 1].map(n => n * layout.medium)
-const HEIGHT = WIDTH.map(getRatio)
+import { useSiteMetadata } from 'components/hook'
+import { aspectRatio } from 'helpers'
+import React from 'react'
 
 export default () => {
   const { apiEndpoint } = useSiteMetadata()
@@ -22,7 +16,13 @@ export default () => {
       <Container px={4} pt={5}>
         <Header subtitle={title} caption={subtitle} />
       </Container>
-      <Box p={0} as='section' mx='auto' maxWidth={WIDTH} height={HEIGHT}>
+      <Box
+        p={0}
+        as='section'
+        mx='auto'
+        maxWidth={aspectRatio.widths}
+        height={aspectRatio.heights}
+      >
         <GraphqlEditor graphqlEndpoint={graphqlEndpoint} />
       </Box>
     </Layout>

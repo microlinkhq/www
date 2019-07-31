@@ -1,4 +1,4 @@
-import { screenshotUrl, getHostname } from 'helpers'
+import { aspectRatio, screenshotUrl, getHostname } from 'helpers'
 import * as Logo from 'components/logos'
 import React, { Fragment } from 'react'
 import { borders, colors } from 'theme'
@@ -101,7 +101,8 @@ const Hero = ({ humanizedUrl, brand, data }) => {
         <HeroHeader title={title} caption={caption} />
         <Link href={data.screenshot.url}>
           <Image
-            lazyHeight={[270, 300, 500, 580]}
+            lazyHeight={aspectRatio.heights}
+            lazyWidth={aspectRatio.widths}
             p={4}
             src={data.screenshot.url}
           />
