@@ -3,7 +3,7 @@ import { createCssState } from 'helpers/style'
 import { colors, transition, lineHeights } from 'theme'
 import { lighten } from 'polished'
 
-import Text from '../Typography/Text'
+import Text from '../Text'
 
 const style = css`
   cursor: pointer;

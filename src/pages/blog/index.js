@@ -1,4 +1,5 @@
-import { Text, Flex, Container, Subhead } from 'components/elements'
+import { Text, Flex, Container } from 'components/elements'
+import { Header } from 'components/patterns'
 import { H2Link } from 'components/markdown'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
@@ -63,7 +64,7 @@ export default ({ posts = useBlogIndex() }) => {
     <Layout title='Blog' image='https://cdn.microlink.io/page/blog.png'>
       <Container px={0} as='article' maxWidth={'inherit'}>
         <Flex flexDirection='column' alignItems='center' pt={5}>
-          <Subhead mb={4} slug={false} children='Blog' />
+          <Header subtitle='Blog' />
           {posts.map((post, index) => (
             <BlogPost
               key={post.title}

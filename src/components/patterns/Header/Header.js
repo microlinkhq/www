@@ -1,19 +1,22 @@
 import React from 'react'
-import { Flex, Heading } from 'components/elements'
+import { Subhead, Flex, Heading } from 'components/elements'
 import { Caption } from 'components/patterns'
 
-export default ({ title, caption }) => {
+export default ({ subtitle, title, caption, ...props }) => {
+  const TitleComponnet = title ? Heading : Subhead
+
   return (
     <Flex
       as='header'
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
-      pb={[2, 3]}
+      pb={[3, 4]}
       px={0}
+      {...props}
     >
-      <Heading px={0} children={title} />
-      <Caption>{caption}</Caption>
+      <TitleComponnet px={0} children={title || subtitle} />
+      {caption && <Caption>{caption}</Caption>}
     </Flex>
   )
 }

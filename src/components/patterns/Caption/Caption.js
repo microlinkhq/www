@@ -4,7 +4,6 @@ import { Subhead } from 'components/elements'
 export default props => (
   <Subhead
     pt={[2, 0]}
-    px={5}
     lineHeight={[2, 4]}
     color='gray'
     textAlign='center'

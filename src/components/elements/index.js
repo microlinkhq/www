@@ -32,11 +32,11 @@ import Tooltip from './Tooltip/Tooltip'
 import Toggle from './Toggle/Toggle'
 import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
 
-import Caps from './Typography/Caps'
-import Heading from './Typography/Heading'
-import Label from './Typography/Label'
-import Subhead from './Typography/Subhead'
-import Text from './Typography/Text'
+import Caps from './Caps'
+import Heading from './Heading'
+import Label from './Label'
+import Subhead from './Subhead'
+import Text from './Text'
 
 export {
   Avatar,

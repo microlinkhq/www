@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { lighten } from 'polished'
 import { get, noop } from 'lodash'
 
-import Text from '../Typography/Text'
+import Text from '../Text'
 
 const InputBase = styled(Text)(
   {

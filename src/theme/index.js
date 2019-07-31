@@ -297,7 +297,10 @@ export const boxStyle = {
   `
 }
 
-export const layout = [1024, 1024, 1024]
+export const layout = {
+  large: 1024,
+  medium: 960
+}
 
 export const letterSpacings = [0, '0.05em', '0.1em', '0.25em']
 

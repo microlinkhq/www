@@ -7,9 +7,9 @@ import {
   Flex,
   Image,
   Input,
-  Subhead,
   Text
 } from 'components/elements'
+
 import { Header, DemoLinks, Microlink } from 'components/patterns'
 import demoLinks from '@microlink/demo-links'
 import { transition, colors, borders } from 'theme'
@@ -50,9 +50,12 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => {
 
   return (
     <Container py={5} px={4}>
-      <Subhead>Enter an URL, receive data</Subhead>
+      <Header
+        subtitle='Enter an URL, receive data'
+        caption='Turn websites into rich media'
+      />
 
-      <Flex pt={4} pb={3} as='form' justifyContent='center' onSubmit={onSubmit}>
+      <Flex pt={2} pb={3} as='form' justifyContent='center' onSubmit={onSubmit}>
         <Input
           fontSize={2}
           iconComponent={urlIconComponent}

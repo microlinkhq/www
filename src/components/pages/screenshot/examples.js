@@ -1,6 +1,5 @@
 import { Image as ImageIcon, Link as LinkIcon } from 'react-feather'
 import {
-  Subhead,
   Flex,
   Input,
   Text,
@@ -13,13 +12,13 @@ import {
 
 import { useTransition, animated, config } from 'react-spring'
 import React, { useEffect, useState, Fragment } from 'react'
+import { transition, colors, borders } from 'theme'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
-import { transition, colors, borders } from 'theme'
+import { aspectRatio, getHostname } from 'helpers'
 import demoLinks from '@microlink/demo-links'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
-import { getHostname } from 'helpers'
 import { navigate } from 'gatsby'
 import isColor from 'is-color'
 import { noop, get } from 'lodash'
@@ -106,8 +105,9 @@ const DemoSlider = ({ children: slides }) => {
     <Flex
       id='animated-image-container'
       mt={height ? [2, 1, 1, 1] : 4}
-      height={height || [270, 300, 500, 580]}
+      height={height || aspectRatio.heights}
       style={{ position: 'relative' }}
+      width={aspectRatio.widths}
     >
       {transitions.map(({ item, props, key }) => (
         <AnimatedImage
@@ -115,7 +115,8 @@ const DemoSlider = ({ children: slides }) => {
           src={item.cdnUrl}
           style={props}
           css={bgStyle}
-          lazyHeight={[270, 300, 500, 580]}
+          lazyHeight={aspectRatio.heights}
+          lazyWidth={aspectRatio.widths}
           onLoad={key === 0 ? onLoad : noop}
         />
       ))}
@@ -158,10 +159,13 @@ const SearchBox = ({
 
   return (
     <Container py={5} px={4}>
-      <Subhead>Take a screenshot of any website</Subhead>
+      <Header
+        subtitle='Take a screenshot of any website'
+        caption='Turn websites into a snapshot'
+      />
 
       <Flex
-        pt={4}
+        pt={2}
         pb={3}
         as='form'
         justifyContent='center'
@@ -245,12 +249,12 @@ const SearchBox = ({
         </ButtonSecondary>
       </Flex>
 
-      <Box textAlign='center'>
+      <Flex alignItems='center' justifyContent='center' flexDirection='column'>
         <Box mb={'-12px'}>
           <Text fontSize={2}>into a snapshot</Text>
         </Box>
         <DemoSlider children={DEMO_LINKS} />
-      </Box>
+      </Flex>
     </Container>
   )
 }
