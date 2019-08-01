@@ -9,10 +9,8 @@ import {
   NavChat,
   NavDocs,
   NavEmbed,
-  NavGraphql,
   NavLogo,
   NavPricing,
-  NavPrinciples,
   NavScreenshot
 } from './ToolbarLinks'
 
@@ -72,7 +70,6 @@ export default class extends Component {
               <NavPricing mobile />
               <NavEmbed mobile />
               <NavScreenshot mobile />
-              <NavGraphql mobile />
               <NavDocs mobile />
               <NavBlog mobile />
               <NavChat mobile />

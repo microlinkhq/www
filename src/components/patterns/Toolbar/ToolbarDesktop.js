@@ -8,7 +8,6 @@ import {
   NavChat,
   NavDocs,
   NavEmbed,
-  NavGraphql,
   NavLogo,
   NavPricing,
   NavPrinciples,
@@ -32,7 +31,6 @@ export default class extends Component {
               <NavPricing />
               <NavEmbed />
               <NavScreenshot />
-              <NavGraphql />
             </NavContainer>
             <NavContainer as='nav'>
               <NavDocs />

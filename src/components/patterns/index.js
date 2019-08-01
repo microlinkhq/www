@@ -15,7 +15,6 @@ import Aside from './Aside/Aside'
 import Header from './Header/Header'
 import Caption from './Caption/Caption'
 import Announcement from './Announcement/Announcement'
-import GraphqlEditor from './GraphqlEditor/GraphqlEditor'
 
 export {
   Announcement,
@@ -26,7 +25,6 @@ export {
   CookiesPolicy,
   DemoLinks,
   Footer,
-  GraphqlEditor,
   Grid,
   Header,
   Layout,
