@@ -209,10 +209,6 @@
     ]
   },
   "standard": {
-    "globals": [
-      "React",
-      "requestAnimationFrame"
-    ],
     "parser": "babel-eslint"
   }
 }
