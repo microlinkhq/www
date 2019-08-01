@@ -72,17 +72,6 @@ NavEmbed.defaultProps = {
   actively: 'partial'
 }
 
-export const NavGraphql = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavGraphql.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'GraphQL',
-  children: 'GraphQL',
-  href: '/graphql',
-  actively: 'partial'
-}
-
 export const NavScreenshot = ({ mobile, ...props }) =>
   mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
 
