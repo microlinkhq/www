@@ -17,6 +17,7 @@ import {
 } from 'styled-system'
 
 import styled from 'styled-components'
+import propTypes from '@styled-system/prop-types'
 
 const Box = styled('div')(
   {
@@ -41,20 +42,20 @@ const Box = styled('div')(
 )
 
 Box.propTypes = {
-  ...space.propTypes,
-  ...textAlign.propTypes,
-  ...maxWidth.propTypes,
-  ...boxShadow.propTypes,
-  ...borders.propTypes,
-  ...display.propTypes,
-  ...width.propTypes,
-  ...height.propTypes,
-  ...fontSize.propTypes,
-  ...color.propTypes,
-  ...flex.propTypes,
-  ...order.propTypes,
-  ...alignSelf.propTypes,
-  ...lineHeight.propTypes
+  ...propTypes.space,
+  ...propTypes.textAlign,
+  ...propTypes.maxWidth,
+  ...propTypes.boxShadow,
+  ...propTypes.borders,
+  ...propTypes.display,
+  ...propTypes.width,
+  ...propTypes.height,
+  ...propTypes.fontSize,
+  ...propTypes.color,
+  ...propTypes.flex,
+  ...propTypes.order,
+  ...propTypes.alignSelf,
+  ...propTypes.lineHeight
 }
 
 export default Box

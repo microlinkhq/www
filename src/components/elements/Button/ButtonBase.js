@@ -2,6 +2,7 @@ import { borders, borderColor, borderRadius, buttonStyle } from 'styled-system'
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
 import { transition, shadowOffsets } from 'theme'
+import propTypes from '@styled-system/prop-types'
 
 import Text from '../Text'
 
@@ -38,11 +39,11 @@ const Button = styled(Text)(
 )
 
 Button.propTypes = {
-  ...Text.propTypes,
-  ...borders.propTypes,
-  ...borderColor.propTypes,
-  ...borderRadius.propTypes,
-  ...buttonStyle.propTypes
+  ...propTypes.Text,
+  ...propTypes.borders,
+  ...propTypes.borderColor,
+  ...propTypes.borderRadius,
+  ...propTypes.buttonStyle
 }
 
 Button.defaultProps = {

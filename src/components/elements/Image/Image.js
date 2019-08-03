@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import propTypes from '@styled-system/prop-types'
 
 import {
   space,
@@ -26,15 +27,15 @@ const Image = styled('img')(
   borderRadius
 )
 
-Image.defaultProps = {
-  ...space.defaultProps,
-  ...color.defaultProps,
-  ...width.defaultProps,
-  ...maxWidth.defaultProps,
-  ...size.defaultProps,
-  ...display.defaultProps,
-  ...textAlign.defaultProps,
-  ...borderRadius.defaultProps
+Image.propTypes = {
+  ...propTypes.space,
+  ...propTypes.color,
+  ...propTypes.width,
+  ...propTypes.maxWidth,
+  ...propTypes.size,
+  ...propTypes.display,
+  ...propTypes.textAlign,
+  ...propTypes.borderRadius
 }
 
 export default Image

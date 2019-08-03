@@ -1,36 +1,23 @@
-import {
-  variant,
-  lineHeight,
-  fontFamily,
-  fontWeight,
-  textAlign,
-  maxWidth,
-  letterSpacing
-} from 'styled-system'
+import { variant, fontFamily, fontWeight, letterSpacing } from 'styled-system'
 
 import styled from 'styled-components'
+import propTypes from '@styled-system/prop-types'
 
 import Box from './Box'
 
 const Text = styled(Box)(
   fontFamily,
   fontWeight,
-  textAlign,
-  lineHeight,
   letterSpacing,
-  maxWidth,
   variant({ key: 'textStyle' }),
   props => props.css
 )
 
 Text.propTypes = {
   ...Box.propTypes,
-  ...fontFamily.propTypes,
-  ...fontWeight.propTypes,
-  ...textAlign.propTypes,
-  ...maxWidth.propTypes,
-  ...lineHeight.propTypes,
-  ...letterSpacing.propTypes
+  ...propTypes.fontFamily,
+  ...propTypes.fontWeight,
+  ...propTypes.letterSpacing
 }
 
 Text.defaultProps = {

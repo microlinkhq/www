@@ -17,8 +17,7 @@ Caps.defaultProps = {
 }
 
 Caps.propTypes = {
-  ...Text.propTypes,
-  ...letterSpacing.propTypes
+  ...Text.propTypes
 }
 
 export default Caps

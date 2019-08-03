@@ -1,4 +1,5 @@
 import { color, space, height, width, style } from 'styled-system'
+import propTypes from '@styled-system/prop-types'
 import styled from 'styled-components'
 
 const transform = style({
@@ -13,10 +14,10 @@ Svg.defaultProps = {
 }
 
 Svg.propTypes = {
-  ...space.propTypes,
-  ...width.propTypes,
-  ...height.propTypes,
-  ...color.propTypes
+  ...propTypes.space,
+  ...propTypes.width,
+  ...propTypes.height,
+  ...propTypes.color
 }
 
 export default Svg

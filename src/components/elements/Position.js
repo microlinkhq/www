@@ -1,7 +1,6 @@
-import styled from 'styled-components'
 import { position, zIndex, top, right, bottom, left } from 'styled-system'
-
-import { Box } from 'rebass'
+import styled from 'styled-components'
+import Box from './Box'
 
 export const Position = styled(Box)(position, zIndex, top, right, bottom, left)
 

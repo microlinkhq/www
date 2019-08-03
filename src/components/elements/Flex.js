@@ -7,6 +7,7 @@ import {
 } from 'styled-system'
 
 import styled from 'styled-components'
+import propTypes from '@styled-system/prop-types'
 
 import Box from './Box'
 
@@ -23,11 +24,11 @@ const Flex = styled(Box)(
 
 Flex.propTypes = {
   ...Box.propTypes,
-  ...alignContent.propTypes,
-  ...alignItems.propTypes,
-  ...flexDirection.propTypes,
-  ...flexWrap.propTypes,
-  ...justifyContent.propTypes
+  ...propTypes.alignContent,
+  ...propTypes.alignItems,
+  ...propTypes.flexDirection,
+  ...propTypes.flexWrap,
+  ...propTypes.justifyContent
 }
 
 export default Flex
