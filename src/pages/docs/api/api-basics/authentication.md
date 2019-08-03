@@ -2,7 +2,7 @@
 title: Authentication
 ---
 
-The authentication is necessary just for paid plans and it will be done attaching your API Key as value of the `x-api-key` header on your requests
+The authentication is done passing your API token associated with your [pro plan](/#pricing) as `x-api-key` request header.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.instagram.com/p/BvDTdWdnzkj&apiKey=MyApiToken`,
@@ -21,7 +21,7 @@ module.exports = async () => {
 />
 
 
-You can ensure your authentication is done checking the `x-pricing-plan` header on the response, that reflects if you are using a `pro` or `free` plan.
+You can ensure your authentication is done correctly checking the `x-pricing-plan` header on the response.
 
 <MultiCodeEditor languages={{
   Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.instagram.com/p/BvDTdWdnzkj&apiKey=MyApiToken | grep -i "x-pricing-plan"`,
@@ -38,3 +38,5 @@ module.exports = async () => {
   `
   }} 
 />
+
+If you need to consume the API from a frontend side (eg, )

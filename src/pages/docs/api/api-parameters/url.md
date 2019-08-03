@@ -42,6 +42,6 @@ module.exports = async () => {
 
 <Figcaption>`mql` escape the URL automatically; Otherwise, you need manually do that.</Figcaption>
 
-The protocol matters: If the target URL have relative URLs inside (e.g. images or videos), then the URL provided will be used to resolved relatives URLs into absolute.
+The protocol matters: If the target URL have relative URLs inside (e.g., images or videos), then the URL provided will be used to resolved relatives URLs into absolute.
 
 This means that if you provide an HTTPS, then all relatives URLs will be resolved under SSL.
