@@ -67,7 +67,8 @@ const langTheme = {
       ...codeTheme,
       color: COLORS.WHITE
     },
-    doctype: { color: COLORS.GRAY }
+    doctype: { color: COLORS.GRAY },
+    token: { color: COLORS.ORANGE }
   },
   bash: {
     'code[class*="language-"]': {

@@ -2,7 +2,7 @@
 title: 'Usage'
 ---
 
-For using MQL, you need to provide at least a target [url](/docs/api/api-parameters/url)
+For using MQL, you need to provide at least a target [url](/docs/api/api-parameters/url).
 
 ```js
 const mql = require('@microlink/mql')
@@ -16,7 +16,7 @@ It will returns a `object` with the following properties:
   - `data`: The [data](http://localhost:8000/docs/api/api-basics/format#data) response from the API. 
   - `response`: The Node.js response object.
 
-If something does not go as expected (thas means API returns a [status](/docs/api/api-basics/format#status) different to  `success`) it will throws a `MicrolinkError`
+If something does not go as expected (thas means API returns a [status](/docs/api/api-basics/format#status) different to  `success`) it will throws a `MicrolinkError`.
 
 ```js
 const mql = require('@microlink/mql')
@@ -66,7 +66,7 @@ The target URL for getting content.
 
 Type: `object`<br/>
 
-You can pass any API Parameters from [Microlink API](/docs/api/getting-started/overview) as option
+You can pass any API Parameters from [Microlink API](/docs/api/getting-started/overview) as option.
 
 ```js
 const { status, data, response } = await mql('https://kikobeats.com', {
@@ -77,6 +77,8 @@ const { status, data, response } = await mql('https://kikobeats.com', {
 
 console.log(`My screenshot at ${data.screenshot.url}`)
 ```
+
+<br/>
 
 Additionally, you can setup:
 
@@ -94,7 +96,7 @@ When the `apiKey` is provided, the `pro.microlink.io` endpoint will used.
 Type: `string`<br/>
 Default: `undefined`
 
-You can enable cache for saving API calls if they have been previously done
+You can enable cache for saving API calls if they have been previously done.
 
 ```js
 const mql = require('@microlink/mql')
@@ -113,7 +115,8 @@ const cache = new Map()
 })()
 ```
 
-It's just available on the Node.js bundle.
+
+<Figcaption children='caching feature is only available in the Node.js bundle' />
 
 #### retry
 

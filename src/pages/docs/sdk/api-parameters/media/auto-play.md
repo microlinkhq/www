@@ -28,11 +28,11 @@ export default () => (
 `}} 
 />
 
-When a video is playing, you can stop it just clicking over the image
-
 <Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay />
 
-The default behavior is to start the video playing; You can change that passing a `autoPlay: false`
+<Figcaption children='When a video is playing, you can stop it just clicking over the image.' />
+
+The default behavior is to start the video playing; You can change that passing a `autoPlay: false`.
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

@@ -2,7 +2,9 @@
 title: 'Endpoint'
 ---
 
-**Microlink API** is shipped as a HTTP microservice exposed over SSL. It has two endpoints:
+**Microlink API** is shipped as a HTTP microservice exposed over SSL. 
+
+Two endpoints are available:
 
 - **Free** ([api.microlink.io](https://api.microlink.io)): The endpoint to be used for unauthenticated requests.
 - **Pro** ([pro.microlink.io](https://pro.microlink.io)): The endpoint to be used for authenticated requests. It needs a previously register API key.
@@ -14,8 +16,6 @@ microlink-api https://www.instagram.com/p/BeV6tOhFUor&userAgent=Googlebot
 ```
 
 <Figcaption children='Any additional API Parameter needs to be provided as query parameter.' />
-
-You need to use Query parameters in order to pass API Parameters.
 
 It does not matter if you use a camel or snake case; both are supported.
 

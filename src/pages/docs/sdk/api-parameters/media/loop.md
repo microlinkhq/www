@@ -7,7 +7,7 @@ Default: `true`
 
 It specifies that the video will start over again, every time it finishes.
 
-with `loop` enabled
+with `loop` enabled:
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
@@ -34,7 +34,7 @@ export default () => (
 
 <Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls loop />
 
-with `loop` disabled
+with `loop` disabled:
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

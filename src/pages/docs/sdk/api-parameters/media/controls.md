@@ -7,7 +7,7 @@ Default: `true`
 
 Display UI controls to handle playing/pausing the cards video.
 
-with `controls` enabled
+with `controls` enabled:
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
@@ -33,7 +33,7 @@ export default () => (
 
 <Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls />
 
-with `controls` disabled
+with `controls` disabled:
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

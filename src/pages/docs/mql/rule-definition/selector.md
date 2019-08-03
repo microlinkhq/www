@@ -51,7 +51,7 @@ You can specify any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/
 - An CSS class or pseudo class, id or data-attribute (e.g., `#avatar`).
 - A combination of both (e.g., `img:first`).
 
-If you pass a collection of selectors, they are considered as fallbacks values:
+If you pass a collection of selectors, they are considered as fallbacks values.
 
 ```js{5}
 const mql = require('@microlink/mql')

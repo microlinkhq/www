@@ -2,31 +2,29 @@
 title: 'Installation'
 ---
 
-It is available as [npm package](https://www.npmjs.com/package/@microlink/react)
+It is available as [npm package](https://www.npmjs.com/package/@microlink/react).
 
 <Terminal>npm install @microlink/mql --save</Terminal>
 
-MQL has been designed to be consumed from different ways.
-
-Probably the most used is from **Node.js** using **CommonJS**
+MQL has been designed to be consumed from different ways, being one of the most common ways from **Node.js** using **CommonJS**.
 
 ```js
 const mql = require('@microlink/mql')
 ```
 
-You can consume it from **ESM** as well
+It's ready to be consumed as **ESM**:
 
 ```js
 import mql from 'microlink/mql'
 ```
 
-Also, you can bundle it to be used in a browser environment or load it using **UMD**
+And last but not least, it can be loaded as **UMD**:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@microlink/mql@0.3.6/dist/mql.min.js"></script>
 ```
 
-In that case the UMD doesn't include [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) dependency.
+I case you need to consume it using UMD, keep in mind [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) dependency is not included with the build bundle.
 
 Although it's [widely supported](https://caniuse.com/#feat=fetch), we recommend use [polyfill.io](https://polyfill.io/v3/) CDN for that purpose, it will only load polyfill if fetch is not globally detected.
 
