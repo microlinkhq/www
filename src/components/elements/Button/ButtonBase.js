@@ -51,7 +51,6 @@ Button.defaultProps = {
   fontFamily: 'sans',
   fontSize: '1',
   fontWeight: 'bold',
-  m: 0,
   px: 3,
   py: 2,
   color: 'primary',

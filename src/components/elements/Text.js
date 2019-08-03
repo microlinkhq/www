@@ -23,7 +23,10 @@ Text.propTypes = {
 Text.defaultProps = {
   as: 'p',
   fontFamily: 'sans',
-  m: 0,
+  mt: 0,
+  mb: 0,
+  mr: 0,
+  ml: 0,
   lineHeight: 3,
   fontSize: [1, 2]
 }

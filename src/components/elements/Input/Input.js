@@ -33,7 +33,6 @@ InputBase.defaultProps = {
   lineHeight: 'inherit',
   py: '12px',
   px: 2,
-  m: 0,
   width: 1,
   border: 0,
   borderColor: 'gray',
