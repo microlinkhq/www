@@ -39,4 +39,6 @@ module.exports = async () => {
   }} 
 />
 
-If you need to consume the API from a frontend side (eg, )
+If you need to consume the API from a frontend side (e.g, from a website), don't attach your API token directly in your client code: It will easy to a visitor leak it and consume your API quota without consent.
+
+Instead, you need to setup a mechanism to just allow consume your token for a whitelist of trusted domains. Check [microlink-proxy](https://github.com/microlinkhq/proxy) for that purpose.
