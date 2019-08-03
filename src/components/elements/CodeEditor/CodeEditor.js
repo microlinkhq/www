@@ -77,7 +77,9 @@ const langTheme = {
     function: { color: COLORS.YELLOW },
     token: { color: COLORS.YELLOW },
     operator: { color: COLORS.YELLOW },
-    keyword: { color: COLORS.YELLOW }
+    keyword: { color: COLORS.YELLOW },
+    variable: { color: COLORS.YELLOW },
+    comment: { color: COLORS.YELLOW }
   },
   json: {
     'code[class*="language-"]': {
