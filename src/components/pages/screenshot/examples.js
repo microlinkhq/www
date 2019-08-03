@@ -234,11 +234,13 @@ const SearchBox = ({
             innerRef={refBackground}
             iconComponent={backgroundIconComponent}
             suggestions={[
-              { value: 'transparent' },
               { value: '#c1c1c1' },
               {
                 value:
                   'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
+              },
+              {
+                value: 'https://source.unsplash.com/random/1920x1080'
               }
             ]}
           />
