@@ -29,7 +29,6 @@ const LogoWrap = styled(Box)`
 `
 
 LogoWrap.defaultProps = {
-  ...Box.defaultProps,
   display: 'inline-block'
 }
 

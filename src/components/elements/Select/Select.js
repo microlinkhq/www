@@ -35,7 +35,6 @@ const Select = styled(Box)(
 )
 
 Select.defaultProps = {
-  ...Box.defaultProps,
   as: 'select',
   py: '2px',
   pl: '8px',

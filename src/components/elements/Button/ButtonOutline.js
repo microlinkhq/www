@@ -37,7 +37,6 @@ const ButtonOutline = styled(Button)`
 `
 
 ButtonOutline.defaultProps = {
-  ...Button.defaultProps,
   bg: 'white',
   color: 'link'
 }

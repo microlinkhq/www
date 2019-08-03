@@ -34,7 +34,6 @@ const Tooltip = ({ content, children, tooltipsOpts, ...props }) => {
 
 Tooltip.defaultProps = {
   tooltipsOpts: {
-    ...Tippy.defaultProps,
     duration: speed.medium,
     arrow: true,
     animation: 'fade',

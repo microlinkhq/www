@@ -20,7 +20,6 @@ const ImagePlaceholder = styled(Box)`
 `
 
 ImagePlaceholder.defaultProps = {
-  ...Box.defaultProps,
   display: 'inline-box'
 }
 

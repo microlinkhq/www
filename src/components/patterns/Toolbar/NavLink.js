@@ -36,15 +36,10 @@ const NavLink = styled(Caps)(
 )
 
 NavLink.defaultProps = {
-  ...Caps.defaultProps,
   p: 2,
   fontSize: 0,
   as: 'div',
   color: 'gray7'
-}
-
-NavLink.propTypes = {
-  ...Caps.propTypes
 }
 
 export default withLink(withAnalytics(NavLink))

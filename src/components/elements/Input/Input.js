@@ -28,7 +28,6 @@ const InputBase = styled(Text)(
 )
 
 InputBase.defaultProps = {
-  ...Text.defaultProps,
   as: 'input',
   type: 'text',
   lineHeight: 'inherit',

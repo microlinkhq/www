@@ -38,7 +38,6 @@ const CONTAINER_SPACE = {
 const Link = styled(LinkBase)([])
 
 Link.defaultProps = {
-  ...Link.defaultProps,
   icon: true
 }
 
@@ -64,7 +63,6 @@ export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 export const H1 = withSlug(styled(Heading)([]))
 
 H1.defaultProps = {
-  ...Heading.defaultProps,
   maxWidth: WIDTH.normal,
   mx: 'auto',
   as: 'h1',
@@ -79,7 +77,6 @@ H1.defaultProps = {
 const H2Base = styled(Heading)([])
 
 H2Base.defaultProps = {
-  ...Heading.defaultProps,
   mx: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h2',
@@ -100,7 +97,6 @@ export const H2Link = styled(H2Base)`
 `
 
 H2Link.defaultProps = {
-  ...H2Base.defaultProps,
   as: 'a'
 }
 
@@ -109,7 +105,6 @@ export const H2 = withSlug(H2Base)
 export const H3 = withSlug(styled(Heading)([]))
 
 H3.defaultProps = {
-  ...Heading.defaultProps,
   mx: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h3',
@@ -124,7 +119,6 @@ H3.defaultProps = {
 export const H4 = withSlug(styled(Heading)([]))
 
 H4.defaultProps = {
-  ...Heading.defaultProps,
   mx: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h4',
@@ -139,7 +133,6 @@ H4.defaultProps = {
 export const H5 = withSlug(styled(Heading)([]))
 
 H5.defaultProps = {
-  ...Heading.defaultProps,
   mx: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h5',
@@ -154,7 +147,6 @@ H5.defaultProps = {
 export const H6 = withSlug(styled(Heading)([]))
 
 H6.defaultProps = {
-  ...Heading.defaultProps,
   mx: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h6',
@@ -185,7 +177,6 @@ Paraph.defaultProps = {
 export const Strong = styled(Text)([])
 
 Strong.defaultProps = {
-  ...Text.defaultProps,
   as: 'b',
   display: 'inline',
   fontWeight: 'bold'
@@ -194,7 +185,6 @@ Strong.defaultProps = {
 export const Ul = styled(Text)([])
 
 Ul.defaultProps = {
-  ...Text.defaultProps,
   mx: 'auto',
   as: 'ul',
   maxWidth: WIDTH.normal,
@@ -204,14 +194,12 @@ Ul.defaultProps = {
 export const Ol = styled(Ul)([])
 
 Ol.defaultProps = {
-  ...Ul.defaultProps,
   as: 'ol'
 }
 
 export const Li = styled(Text)([])
 
 Li.defaultProps = {
-  ...Text.defaultProps,
   mx: 'auto',
   mb: 2,
   as: 'li',
@@ -239,7 +227,6 @@ export const CodeInline = styled(Text)`
 `
 
 CodeInline.defaultProps = {
-  ...Text.defaultProps,
   as: 'code'
 }
 
@@ -257,7 +244,6 @@ export const Code = props => (
 const _ImageBase = styled(ImageBase)([])
 
 _ImageBase.defaultProps = {
-  ...ImageBase.defaultProps,
   borderRadius: '3px',
   mx: 'auto',
   textAlign: 'center'
@@ -268,7 +254,6 @@ export const Image = withContainer(_ImageBase)
 const FigcaptionBase = styled(Text)([])
 
 FigcaptionBase.defaultProps = {
-  ...Text.defaultProps,
   fontSize: 0,
   color: 'gray',
   textAlign: 'center'

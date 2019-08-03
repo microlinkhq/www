@@ -28,7 +28,6 @@ const Link = styled(Text)`
 `
 
 Link.defaultProps = {
-  ...Text.defaultProps,
   as: 'span',
   fontSize: 'inherit',
   color: 'link'

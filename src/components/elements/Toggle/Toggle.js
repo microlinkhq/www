@@ -15,7 +15,6 @@ const ButtonToggle = styled(ButtonBase)`
 `
 
 ButtonToggle.defaultProps = {
-  ...ButtonBase.defaultProps,
   px: '24px',
   py: 0,
   borderRadius: 0

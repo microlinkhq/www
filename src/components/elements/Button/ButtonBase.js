@@ -47,7 +47,6 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-  ...Text.defaultProps,
   as: 'button',
   fontFamily: 'sans',
   fontSize: '1',

@@ -21,7 +21,6 @@ Text.propTypes = {
 }
 
 Text.defaultProps = {
-  ...Box.defaultProps,
   as: 'p',
   fontFamily: 'sans',
   m: 0,

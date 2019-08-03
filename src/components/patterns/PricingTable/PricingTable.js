@@ -65,7 +65,6 @@ const Price = styled(Text)`
 `
 
 Price.defaultProps = {
-  ...Text.defaultProps,
   fontSize: 2
 }
 

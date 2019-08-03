@@ -17,7 +17,6 @@ const NoWrap = styled(Flex)`
 `
 
 NoWrap.defaultProps = {
-  ...Flex.defaultProps,
   justifyContent: 'center',
   alignItems: 'center'
 }
@@ -32,7 +31,6 @@ const LogoWrap = styled(Box)`
 `
 
 LogoWrap.defaultProps = {
-  ...Box.defaultProps,
   display: 'inline-block',
   px: 4
 }

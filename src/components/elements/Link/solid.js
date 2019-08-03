@@ -30,7 +30,6 @@ const LinkSolid = styled(Link)`
 `
 
 LinkSolid.defaultProps = {
-  ...Link.defaultProps,
   fontWeight: 'bold',
   color: 'black80',
   pb: '2px'

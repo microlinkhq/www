@@ -23,7 +23,6 @@ const ButtonSecondary = styled(Button)`
 `
 
 ButtonSecondary.defaultProps = {
-  ...Button.defaultProps,
   bg: 'link',
   color: 'white'
 }

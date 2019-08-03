@@ -62,7 +62,6 @@ export const BackgroundSliderItem = styled(Flex)`
 `
 
 BackgroundSliderItem.defaultProps = {
-  ...Flex.defaultProps,
   justifyContent: 'center',
   alignItems: 'center'
 }

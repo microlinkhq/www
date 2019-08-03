@@ -11,7 +11,6 @@ const Toolbar = styled(Flex)({
 })
 
 Toolbar.defaultProps = {
-  ...Flex.defaultProps,
   as: 'header',
   color: 'black50',
   bg: 'white',
