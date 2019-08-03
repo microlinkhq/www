@@ -13,7 +13,7 @@ import {
   Box,
   Heading,
   Text,
-  Link,
+  Link as LinkBase,
   Label,
   Image as ImageBase
 } from 'components/elements'
@@ -33,6 +33,13 @@ const WIDTH = {
 const CONTAINER_SPACE = {
   mt: 3,
   mb: 4
+}
+
+const Link = styled(LinkBase)([])
+
+Link.defaultProps = {
+  ...Link.defaultProps,
+  icon: true
 }
 
 const withContainer = (ChildComponent, containerProps = {}) => props => (

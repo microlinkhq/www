@@ -8,7 +8,7 @@ It is available as [npm package](https://www.npmjs.com/package/@microlink/vanill
 
 The vanilla bundle is based on the React version, but exported as Universal Module Definition (*UMD*).
 
-Since the bundle doesn't include the depdendencies, we recommend load it from a **CDN**
+Since the bundle doesn't include the depdendencies, we recommend load it from a **CDN**.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
@@ -17,7 +17,7 @@ Since the bundle doesn't include the depdendencies, we recommend load it from a 
 <script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@4.0.0-alpha.3/dist/microlink.min.js"></script>
 ```
 
-or even better, just one line:
+or even better, just a CDN one line:
 
 ```html
 <script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/@microlink/vanilla@4.0.0-alpha.3/dist/microlink.min.js"></script>
@@ -49,7 +49,7 @@ The vanilla interface is pretty simliar to jQuery/Zepto: You need to provide a C
 
 <Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' size='large' />
 
-You can pass any [API Parameter](/api-parameter) as a object property, for example, `size`
+You can pass any [API Parameter](/api-parameter) as a object property, for example, `size`.
 
 ```html
 <script>
@@ -61,9 +61,9 @@ You can pass any [API Parameter](/api-parameter) as a object property, for examp
 </script>
 ```
 
-Note that the API parameters you pass there will be attached for all the links.
+<Figcaption children='The API parameters passed there will be attached for all the links.' />
 
-If you want to pass specific API Parameters just for some cases, you can pass them as `data` attributes:
+If you want to pass specific API Parameters just for some cases, you can pass them as `data` attributes.
 
 ```html
 <a 
@@ -75,7 +75,7 @@ If you want to pass specific API Parameters just for some cases, you can pass th
 
 <Figcaption children='Passing specific API Parameters as second argument.' />
 
-Although it is shipped with a default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
+Although it is shipped with a default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames).
 
 ```html
 <style>
@@ -93,7 +93,5 @@ Although it is shipped with a default styles, you can customize it using [CSS Cl
   })
 </script>
 ```
-
-that it will be rendered as
 
 <Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' style={{margin: 'auto', fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}} size='large' />

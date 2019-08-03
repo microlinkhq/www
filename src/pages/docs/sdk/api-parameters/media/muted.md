@@ -7,7 +7,7 @@ Default: `true`
 
 It specifies that the audio output of the video should be muted.
 
-with `muted` enabled
+with `muted` enabled:
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
@@ -34,7 +34,7 @@ export default () => (
 
 <Microlink url='https://www.instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} controls />
 
-with `muted` disabled
+with `muted` disabled:
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

@@ -77,15 +77,15 @@ It defines the HTML element you want to get from the HTML of the targeted URL.
 
 The way to specify selectors is jQuery-like, so you can specify the selector using:
 
-- An HTML tag, e.g. `img`.
-- An CSS class or pseudo class, id or data-attribute, e.g. `.avatar`.
-- A combination of both, e.g. `first:img`.
+- An HTML tag, (e.g., `img`).
+- An CSS class or pseudo class, id or data-attribute, (e.g., `.avatar`).
+- A combination of both, (e.g., `first:img`).
 
 ### attr
 
 It defines which property from the matched selector should be picked.
 
-E.g., if you want to extract an `img`, probably you are interested in `src` property.
+That means, for example, if you want to extract an `img`, probably you are interested in `src` property.
 
 ### type
 
@@ -179,8 +179,8 @@ Some scenarios need to contemplate that HTML markup can change.
 
 This is specially remarkable in the way to define your custom rules `selector`:
 
-- A very specific selector (e.g. `.avatar`) has better accuracy, but you don't have the guarantee that it's always present.
-- A more generic selector (e.g. `img`) is easier to be found in the HTML markup, but it doesn't always have the expected value.
+- A very specific selector (e.g., `.avatar`) has better accuracy, but you don't have the guarantee that it's always present.
+- A more generic selector (e.g., `img`) is easier to be found in the HTML markup, but it doesn't always have the expected value.
 
 Ideally, a good solution needs to contemplate both approaches: first, resolve with an specific selector, and second, fallback into one more generic if it can't resolve the first selector.
 

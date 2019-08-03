@@ -60,7 +60,7 @@ In that case, we have added the type `url` to our data field `avatar` and the se
 
 The same thing happens with `image` and [palette](/docs/api/api-parameters/palette).
 
-Defining the `type` also makes the extraction more accurate
+Defining the `type` also makes the extraction more accurate.
 
 ```js{6}
 const mql = require('@microlink/mql')
