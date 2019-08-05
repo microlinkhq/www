@@ -1,4 +1,10 @@
-import { borders, borderColor, borderRadius, buttonStyle } from 'styled-system'
+import {
+  compose,
+  borders,
+  borderColor,
+  borderRadius,
+  buttonStyle
+} from 'styled-system'
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
 import { transition, shadowOffsets } from 'theme'
@@ -31,11 +37,13 @@ const Button = styled(Text)(
       cursor: 'pointer'
     }
   },
-  borders,
-  borderColor,
-  borderRadius,
-  buttonStyle,
-  focusStyle
+  compose(
+    borders,
+    borderColor,
+    borderRadius,
+    buttonStyle,
+    focusStyle
+  )
 )
 
 Button.propTypes = {

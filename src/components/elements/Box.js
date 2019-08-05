@@ -1,4 +1,5 @@
 import {
+  compose,
   space,
   color,
   borders,
@@ -20,24 +21,23 @@ import styled from 'styled-components'
 import propTypes from '@styled-system/prop-types'
 
 const Box = styled('div')(
-  {
-    boxSizing: 'border-box'
-  },
-  space,
-  textAlign,
-  maxWidth,
-  boxShadow,
-  display,
-  borders,
-  lineHeight,
-  height,
-  width,
-  fontSize,
-  color,
-  flex,
-  order,
-  alignSelf,
-  variant({ key: 'boxStyles' })
+  compose(
+    space,
+    textAlign,
+    maxWidth,
+    boxShadow,
+    display,
+    borders,
+    lineHeight,
+    height,
+    width,
+    fontSize,
+    color,
+    flex,
+    order,
+    alignSelf,
+    variant({ key: 'boxStyles' })
+  )
 )
 
 Box.propTypes = {

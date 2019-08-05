@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import propTypes from '@styled-system/prop-types'
 
 import {
+  compose,
   space,
   size,
   color,
@@ -17,14 +18,16 @@ const Image = styled('img')(
     display: 'block',
     maxWidth: '100%'
   },
-  space,
-  color,
-  size,
-  width,
-  maxWidth,
-  display,
-  textAlign,
-  borderRadius
+  compose(
+    space,
+    color,
+    size,
+    width,
+    maxWidth,
+    display,
+    textAlign,
+    borderRadius
+  )
 )
 
 Image.propTypes = {

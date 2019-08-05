@@ -1,4 +1,10 @@
-import { variant, fontFamily, fontWeight, letterSpacing } from 'styled-system'
+import {
+  compose,
+  variant,
+  fontFamily,
+  fontWeight,
+  letterSpacing
+} from 'styled-system'
 
 import styled from 'styled-components'
 import propTypes from '@styled-system/prop-types'
@@ -6,10 +12,12 @@ import propTypes from '@styled-system/prop-types'
 import Box from './Box'
 
 const Text = styled(Box)(
-  fontFamily,
-  fontWeight,
-  letterSpacing,
-  variant({ key: 'textStyles' })
+  compose(
+    fontFamily,
+    fontWeight,
+    letterSpacing,
+    variant({ key: 'textStyles' })
+  )
 )
 
 Text.propTypes = {

@@ -1,4 +1,5 @@
 import {
+  compose,
   flexWrap,
   flexDirection,
   alignItems,
@@ -15,11 +16,13 @@ const Flex = styled(Box)(
   {
     display: 'flex'
   },
-  alignContent,
-  alignItems,
-  flexDirection,
-  flexWrap,
-  justifyContent
+  compose(
+    alignContent,
+    alignItems,
+    flexDirection,
+    flexWrap,
+    justifyContent
+  )
 )
 
 Flex.propTypes = {
