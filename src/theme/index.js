@@ -265,36 +265,30 @@ export const transition = {
   long: `${speed.slowly}ms cubic-bezier(.4, 0, .2, 1)`
 }
 
-export const bgGradient = `
-  background-image: ${gradient};
-`
-
-export const textGradient = `
-  ${bgGradient}
-  display: inline-block;
-  background-size: cover;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-`
-
-export const textHoverGradient = `
-transition: background-image 5s;
-&:hover {
-  ${textGradient};
+export const textGradient = {
+  backgroundImage: gradient,
+  display: 'inline-block',
+  backgroundSize: 'cover',
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  textFillColor: 'transparent'
 }
-`
 
-export const textStyle = {
+export const textHoverGradient = {
+  transition: 'background-image 5s',
+  '&:hover': textGradient
+}
+
+export const textStyles = {
   gradient: textGradient,
   hoverGradient: textHoverGradient
 }
 
-export const boxStyle = {
-  gradient: `
-    background-image: linear-gradient(to bottom, #F76698 0%, #EA407B 29%, #654EA3 100%);
-  `
+export const boxStyles = {
+  gradient: {
+    backgroundImage: gradient
+  }
 }
 
 export const layout = {
@@ -307,7 +301,7 @@ export const letterSpacings = [0, '0.05em', '0.1em', '0.25em']
 export default {
   speed,
   breakpoints,
-  boxStyle,
+  boxStyles,
   colors,
   fonts,
   fontSizes,
@@ -320,7 +314,7 @@ export default {
   shadows,
   shadowOffsets,
   space,
-  textStyle,
+  textStyles,
   transition,
   letterSpacings
 }
