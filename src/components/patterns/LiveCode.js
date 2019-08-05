@@ -19,7 +19,7 @@ const theme = {
     lineHeight: lineHeights[3],
     whiteSpace: 'pre-wrap',
     overflow: 'auto',
-    outline: 'none',
+    outline: '0',
     tabSize: '2',
     color: '#654ea3',
     backgroundColor: colors.white
