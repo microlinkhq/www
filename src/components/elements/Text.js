@@ -9,8 +9,7 @@ const Text = styled(Box)(
   fontFamily,
   fontWeight,
   letterSpacing,
-  variant({ key: 'textStyles' }),
-  props => props.css
+  variant({ key: 'textStyles' })
 )
 
 Text.propTypes = {

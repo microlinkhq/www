@@ -37,8 +37,7 @@ const Box = styled('div')(
   flex,
   order,
   alignSelf,
-  variant({ key: 'boxStyles' }),
-  props => props.css
+  variant({ key: 'boxStyles' })
 )
 
 Box.propTypes = {

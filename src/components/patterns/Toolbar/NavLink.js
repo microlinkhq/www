@@ -31,7 +31,6 @@ const NavLink = styled(Caps)(
       opacity: 1 / 4
     }
   },
-  props => props.css,
   style
 )
 
