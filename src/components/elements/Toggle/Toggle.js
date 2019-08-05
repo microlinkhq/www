@@ -2,7 +2,6 @@ import { Text, Box, Caps } from 'components/elements'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { noop } from 'lodash'
-import { borders } from 'theme'
 
 import ButtonBase from '../Button/ButtonBase'
 
@@ -24,7 +23,7 @@ function Toggle ({ onChange, children, defaultValue }) {
   const [active, setActive] = useState(defaultValue || children[0])
 
   return (
-    <Box border={borders[1]} borderColor={'border'} borderRadius={2}>
+    <Box border={1} borderColor='border' borderRadius={2}>
       {children.map((value, index) => {
         const isLast = index + 1 === children.length
         const isActive = active === value
@@ -40,7 +39,7 @@ function Toggle ({ onChange, children, defaultValue }) {
           <Text
             as='span'
             key={value}
-            borderRight={!isLast ? borders[1] : null}
+            borderRight={!isLast ? 1 : null}
             borderColor={!isLast ? 'border' : null}
           >
             <ButtonToggle active={isActive} onClick={setAsActive(value)}>

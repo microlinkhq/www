@@ -183,7 +183,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
   const humanMonthlyPrice = formatNumber(monthlyPrice)
 
   return (
-    <Box mx='auto' px={[0, 0, 0, 6]} py={[4, 4, 4, 5]}>
+    <Box ml='auto' mr='auto' px={[0, 0, 0, 6]} py={[4, 4, 4, 5]}>
       <Box
         as='table'
         width='100%'

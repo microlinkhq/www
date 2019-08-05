@@ -11,9 +11,9 @@ import {
 } from 'components/elements'
 
 import { Header, DemoLinks, Microlink } from 'components/patterns'
-import demoLinks from '@microlink/demo-links'
-import { transition, colors, borders } from 'theme'
+import { borders, transition, colors } from 'theme'
 import React, { Fragment, useState } from 'react'
+import demoLinks from '@microlink/demo-links'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { getHostname } from 'helpers'
@@ -42,9 +42,9 @@ const SearchBox = ({ onSubmit, url, innerRef, isLoading }) => {
 
   const urlIconComponent =
     inputUrl && hostnameUrl ? (
-      <Image src={`https://logo.clearbit.com/${hostnameUrl}`} size={16} />
+      <Image src={`https://logo.clearbit.com/${hostnameUrl}`} size='16px' />
     ) : (
-      <LinkIcon color={colors.black50} size={16} />
+      <LinkIcon color={colors.black50} size='16px' />
     )
 
   return (
@@ -88,9 +88,8 @@ const Examples = ({ demoLinks }) => (
     px={4}
     maxWidth='100%'
     bg='pinky'
-    borderColor='pinkest'
-    borderTop={borders[1]}
-    borderBottom={borders[1]}
+    borderTop={`${borders[1]} ${colors.pinkest}`}
+    borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
     <Header pb={5} title='Examples' caption='click to see a real example.' />
     <Box pt={4}>

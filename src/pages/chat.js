@@ -1,9 +1,8 @@
-import React from 'react'
-
 import { Layout, Chat, Header } from 'components/patterns'
 import { Container, Box, Flex } from 'components/elements'
-import { Plus } from 'react-feather'
 import { Microlink, Slack } from 'components/logos'
+import { Plus } from 'react-feather'
+import React from 'react'
 
 const LOGO_SIZE = 60
 const PLUS_SIZE = LOGO_SIZE * 0.35

@@ -12,10 +12,10 @@ import {
 
 import { useTransition, animated, config } from 'react-spring'
 import React, { useEffect, useState, Fragment } from 'react'
-import { transition, colors, borders } from 'theme'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
 import { aspectRatio, getHostname } from 'helpers'
+import { borders, transition, colors } from 'theme'
 import demoLinks from '@microlink/demo-links'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
@@ -138,14 +138,14 @@ const SearchBox = ({
 
   const urlIconComponent =
     inputUrl && hostnameUrl ? (
-      <Image src={`https://logo.clearbit.com/${hostnameUrl}`} size={16} />
+      <Image src={`https://logo.clearbit.com/${hostnameUrl}`} size='16px' />
     ) : (
-      <LinkIcon color={colors.black50} size={16} />
+      <LinkIcon color={colors.black50} size='16px' />
     )
 
   const backgroundIconComponent = isColor(inputBg) ? (
     <Box
-      border={borders[1]}
+      border={1}
       borderColor={'black10'}
       borderRadius={1}
       width='14px'
@@ -153,7 +153,7 @@ const SearchBox = ({
       style={{ top: '-2px', position: 'relative', background: inputBg }}
     />
   ) : (
-    <ImageIcon color={colors.black50} size={16} />
+    <ImageIcon color={colors.black50} size='16px' />
   )
 
   return (
@@ -266,9 +266,8 @@ const Examples = ({ demoLinks }) => (
     px={4}
     maxWidth='100%'
     bg='pinky'
-    borderColor='pinkest'
-    borderTop={borders[1]}
-    borderBottom={borders[1]}
+    borderTop={`${borders[1]} ${colors.pinkest}`}
+    borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
     <Header pb={5} title='Examples' caption='click to see a real example.' />
     <Box pt={4}>

@@ -235,7 +235,7 @@ export const shadows = shadowOffsets.map(
 
 export const lineHeights = [1.123, 1.25, 1.5, 1.8, 2]
 
-export const maxWidths = [
+export const sizes = [
   1,
   2,
   4,
@@ -302,22 +302,23 @@ export const layout = {
 export const letterSpacings = [0, 0.05, 0.1, 0.25].map(toEm)
 
 export default {
-  speed,
-  breakpoints,
+  borders,
   boxStyles,
+  breakpoints,
   colors,
   fonts,
   fontSizes,
   fontWeights,
   gradient,
   layout,
+  letterSpacings,
   lineHeights,
-  maxWidths,
   radii,
-  shadows,
   shadowOffsets,
+  shadows,
+  sizes,
   space,
+  speed,
   textStyles,
-  transition,
-  letterSpacings
+  transition
 }

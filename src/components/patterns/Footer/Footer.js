@@ -33,7 +33,8 @@ export default props => (
     <Flex
       as='footer'
       py={[4, 4, 4, 5]}
-      mx='auto'
+      mr='auto'
+      ml='auto'
       bg='white'
       flexDirection={['column', 'column', 'column', 'row']}
       justifyContent='space-between'

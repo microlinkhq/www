@@ -12,7 +12,7 @@ export default ({ large }) => {
     : { width: '250px', height: '250px' }
 
   return (
-    <Flex justifyContent='center' mx='auto'>
+    <Flex justifyContent='center' mr='auto' ml='auto'>
       <iframe
         title='Chat'
         frameBorder='0'

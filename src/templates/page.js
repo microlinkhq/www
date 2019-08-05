@@ -34,7 +34,14 @@ export default ({ isBlogPage, date, meta, content }) => (
   <Layout>
     <Box px={3}>
       <Head {...meta} />
-      <Text as='header' textAlign='center' mb={5} maxWidth='900px' mx='auto'>
+      <Text
+        as='header'
+        textAlign='center'
+        mb={5}
+        maxWidth='900px'
+        ml='auto'
+        mr='auto'
+      >
         <H1
           textAlign='center'
           children={meta.title}

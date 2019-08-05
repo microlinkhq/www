@@ -18,10 +18,11 @@ export default class extends Component {
   render () {
     return (
       <Fixed zIndex={101} top={0} left={0} right={0}>
-        <Box px={3} boxShadow={0} mx='auto' bg='white'>
+        <Box px={3} boxShadow={0} ml='auto' mr='auto' bg='white'>
           <Toolbar
             aria-label='Primary Navigation'
-            mx='auto'
+            ml='auto'
+            mr='auto'
             justifyContent='space-between'
             {...this.props}
           >

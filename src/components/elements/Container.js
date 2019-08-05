@@ -8,7 +8,8 @@ const Container = styled(Box)([])
 Container.defaultProps = {
   pl: 3,
   pr: 3,
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   maxWidth: layout.large
 }
 

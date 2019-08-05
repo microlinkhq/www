@@ -7,7 +7,7 @@ import { isString } from 'lodash'
 import { colors } from 'theme'
 
 const PermalinkIcon = props => (
-  <Svg viewBox='0 0 16 16' width={16} {...props}>
+  <Svg viewBox='0 0 16 16' width='16px' {...props}>
     <g strokeWidth='1' fill='#000000' stroke='#000000'>
       <path
         fill='none'
@@ -74,7 +74,7 @@ export default ChildComponent => {
         <PermalinkTarget id={id} />
         <AnchorLink children={title(children)} href={`#${id}`} />
         <Permalink>
-          <PermalinkIcon width={14} ml={2} />
+          <PermalinkIcon width='14px' ml={2} />
         </Permalink>
       </ChildComponent>
     )

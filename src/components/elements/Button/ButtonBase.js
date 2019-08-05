@@ -1,15 +1,8 @@
-import {
-  compose,
-  borders,
-  borderColor,
-  borderRadius,
-  buttonStyle
-} from 'styled-system'
-import styled, { css } from 'styled-components'
-import { createCssState } from 'helpers/style'
+import { compose, borders, buttonStyle } from 'styled-system'
 import { transition, shadowOffsets } from 'theme'
 import propTypes from '@styled-system/prop-types'
-
+import styled, { css } from 'styled-components'
+import { createCssState } from 'helpers/style'
 import Text from '../Text'
 
 const focusStyle = createCssState({
@@ -39,8 +32,6 @@ const Button = styled(Text)(
   },
   compose(
     borders,
-    borderColor,
-    borderRadius,
     buttonStyle,
     focusStyle
   )
@@ -48,10 +39,7 @@ const Button = styled(Text)(
 
 Button.propTypes = {
   ...propTypes.Text,
-  ...propTypes.borders,
-  ...propTypes.borderColor,
-  ...propTypes.borderRadius,
-  ...propTypes.buttonStyle
+  ...propTypes.border
 }
 
 Button.defaultProps = {
