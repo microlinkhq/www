@@ -1,10 +1,13 @@
 import palx from 'palx'
 
-export const breakpoints = [32, 48, 64, 80].map(n => n + 'em')
+const toPx = n => `${n}px`
+const toEm = n => `${n}em`
 
-export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512]
+export const breakpoints = [32, 48, 64, 80].map(toEm)
 
-export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96]
+export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512].map(toPx)
+
+export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96].map(toPx)
 
 export const fontWeights = {
   lighter: 100,
@@ -14,7 +17,7 @@ export const fontWeights = {
   bold: 600
 }
 
-export const radii = [0, 2, 4, 6, 8, 16]
+export const radii = [0, 2, 4, 6, 8, 16].map(toPx)
 
 export const borders = [0, '1px solid', '2px solid']
 
@@ -251,7 +254,7 @@ export const maxWidths = [
   72,
   82,
   96
-].map(n => n + 'em')
+].map(toEm)
 
 export const speed = {
   quickly: 100,
@@ -296,7 +299,7 @@ export const layout = {
   medium: 960
 }
 
-export const letterSpacings = [0, '0.05em', '0.1em', '0.25em']
+export const letterSpacings = [0, 0.05, 0.1, 0.25].toMap(toEm)
 
 export default {
   speed,
