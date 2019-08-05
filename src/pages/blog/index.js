@@ -1,9 +1,8 @@
 import { Text, Flex, Container } from 'components/elements'
-import { Header } from 'components/patterns'
-import { H2Link } from 'components/markdown'
+import { Layout, Header } from 'components/patterns'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
-import { Layout } from 'components/patterns'
+import { H2Link } from 'components/markdown'
 import { borders, transition } from 'theme'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
@@ -47,7 +46,8 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
         maxWidth='18em'
         mt={0}
         mb={3}
-        mx='auto'
+        ml='auto'
+        mr='auto'
         textAlign='center'
         href={slug}
         children={title}

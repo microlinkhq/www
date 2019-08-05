@@ -3,8 +3,9 @@ import styled, { css } from 'styled-components'
 import React, { useState } from 'react'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'lodash'
-import Select from '../Select/Select'
 import { borders } from 'theme'
+
+import Select from '../Select/Select'
 
 const actionStyle = css`
   color: #fff;
@@ -100,8 +101,9 @@ function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
     <Flex>
       <Text as='span' mr={2} fontSize={0}>
         <SelectLanguage
-          mx='auto'
-          width={'4.5rem'}
+          ml='auto'
+          mr='auto'
+          width='4.5rem'
           mb={2}
           bg='white'
           children={langs}

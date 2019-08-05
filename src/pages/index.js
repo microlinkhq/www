@@ -32,8 +32,9 @@ import {
   PricingTable
 } from 'components/patterns'
 
+import { borders, colors } from 'theme'
+
 import { List, ListItem } from 'components/patterns/List/List'
-import { borders } from 'theme'
 
 // const FAQ = () => (
 //   <Box as='article'>
@@ -144,9 +145,8 @@ const SDK = ({ loading, editor, children }) => (
     maxWidth='100%'
     bg='pinky'
     id='sdk'
-    borderColor='pinkest'
-    borderTop={borders[1]}
-    borderBottom={borders[1]}
+    borderTop={`${borders[1]} ${colors.pinkest}`}
+    borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
     <Flex
       flexDirection='column'
@@ -172,7 +172,8 @@ const SDK = ({ loading, editor, children }) => (
       justifyContent='center'
       alignItems={['center', 'center', 'center', 'end']}
       flexDirection={['column', 'column', 'column', 'row']}
-      mx='auto'
+      ml='auto'
+      mr='auto'
     >
       <Flex
         maxWidth={['100%', '100%', '100%', '23em']}
@@ -205,7 +206,7 @@ const SDK = ({ loading, editor, children }) => (
           </ButtonSecondary>
         </Flex>
       </Flex>
-      <Box mx={4} />
+      <Box ml={4} mr={4} />
       <Hide breakpoints={[0, 1, 2]}>
         <LiveDemo loading={loading} children={editor} />
       </Hide>
@@ -214,7 +215,8 @@ const SDK = ({ loading, editor, children }) => (
       as='section'
       justifyContent='center'
       alignItems='center'
-      mx='auto'
+      ml='auto'
+      mr='auto'
       flexDirection='column'
     >
       <Text
@@ -233,7 +235,7 @@ const SDK = ({ loading, editor, children }) => (
 )
 
 const MQL = () => (
-  <Container maxWidth='100%' id='sdk'>
+  <Container maxWidth='100%' id='mql'>
     <Flex
       flexDirection='column'
       justifyContent='center'
@@ -261,7 +263,8 @@ const MQL = () => (
       justifyContent='center'
       alignItems={['center', 'center', 'center', 'end']}
       flexDirection={['column', 'column', 'column', 'row']}
-      mx='auto'
+      ml='auto'
+      mr='auto'
     >
       <Flex
         maxWidth={['100%', '100%', '100%', '23em']}
@@ -296,7 +299,7 @@ const MQL = () => (
           </ButtonSecondary>
         </Flex>
       </Flex>
-      <Box mx={4} />
+      <Box ml={4} mr={4} />
       <Hide breakpoints={[0, 1, 2]}>
         <MQLEditor />
       </Hide>
@@ -308,9 +311,8 @@ const Principles = ({ children }) => (
   <Container
     id='principles'
     bg='pinky'
-    borderColor='pinkest'
-    borderTop={borders[1]}
-    borderBottom={borders[1]}
+    borderTop={`${borders[1]} ${colors.pinkest}`}
+    borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
     <Header title='Principles' caption='How we build technical products.' />
     <Box as='section' pt={4}>

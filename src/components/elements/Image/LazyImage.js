@@ -26,7 +26,6 @@ const LazyImage = ({ lazyWidth, lazyHeight, onLoad, loading, ...props }) => {
 }
 
 LazyImage.defaultProps = {
-  ...Image.defaultProps,
   onLoad: noop,
   lazyWidth: '100%',
   lazyHeight: '100%'

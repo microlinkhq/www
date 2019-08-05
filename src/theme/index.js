@@ -1,10 +1,13 @@
 import palx from 'palx'
 
-export const breakpoints = [32, 48, 64, 80].map(n => n + 'em')
+const toPx = n => `${n}px`
+const toEm = n => `${n}em`
 
-export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512]
+export const breakpoints = [32, 48, 64, 80].map(toEm)
 
-export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96]
+export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512].map(toPx)
+
+export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96].map(toPx)
 
 export const fontWeights = {
   lighter: 100,
@@ -14,7 +17,7 @@ export const fontWeights = {
   bold: 600
 }
 
-export const radii = [0, 2, 4, 6, 8, 16]
+export const radii = [0, 2, 4, 6, 8, 16].map(toPx)
 
 export const borders = [0, '1px solid', '2px solid']
 
@@ -232,7 +235,7 @@ export const shadows = shadowOffsets.map(
 
 export const lineHeights = [1.123, 1.25, 1.5, 1.8, 2]
 
-export const maxWidths = [
+export const sizes = [
   1,
   2,
   4,
@@ -251,7 +254,7 @@ export const maxWidths = [
   72,
   82,
   96
-].map(n => n + 'em')
+].map(toEm)
 
 export const speed = {
   quickly: 100,
@@ -265,36 +268,30 @@ export const transition = {
   long: `${speed.slowly}ms cubic-bezier(.4, 0, .2, 1)`
 }
 
-export const bgGradient = `
-  background-image: ${gradient};
-`
-
-export const textGradient = `
-  ${bgGradient}
-  display: inline-block;
-  background-size: cover;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-`
-
-export const textHoverGradient = `
-transition: background-image 5s;
-&:hover {
-  ${textGradient};
+export const textGradient = {
+  backgroundImage: gradient,
+  display: 'inline-block',
+  backgroundSize: 'cover',
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  textFillColor: 'transparent'
 }
-`
 
-export const textStyle = {
+export const textHoverGradient = {
+  transition: 'background-image 5s',
+  '&:hover': textGradient
+}
+
+export const textStyles = {
   gradient: textGradient,
   hoverGradient: textHoverGradient
 }
 
-export const boxStyle = {
-  gradient: `
-    background-image: linear-gradient(to bottom, #F76698 0%, #EA407B 29%, #654EA3 100%);
-  `
+export const boxStyles = {
+  gradient: {
+    backgroundImage: gradient
+  }
 }
 
 export const layout = {
@@ -302,25 +299,26 @@ export const layout = {
   medium: 960
 }
 
-export const letterSpacings = [0, '0.05em', '0.1em', '0.25em']
+export const letterSpacings = [0, 0.05, 0.1, 0.25].map(toEm)
 
 export default {
-  speed,
+  borders,
+  boxStyles,
   breakpoints,
-  boxStyle,
   colors,
   fonts,
   fontSizes,
   fontWeights,
   gradient,
   layout,
+  letterSpacings,
   lineHeights,
-  maxWidths,
   radii,
-  shadows,
   shadowOffsets,
+  shadows,
+  sizes,
   space,
-  textStyle,
-  transition,
-  letterSpacings
+  speed,
+  textStyles,
+  transition
 }

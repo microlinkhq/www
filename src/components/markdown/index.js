@@ -38,14 +38,14 @@ const CONTAINER_SPACE = {
 const Link = styled(LinkBase)([])
 
 Link.defaultProps = {
-  ...Link.defaultProps,
   icon: true
 }
 
 const withContainer = (ChildComponent, containerProps = {}) => props => (
   <Box
     maxWidth={['100%', WIDTH.normal]}
-    mx='auto'
+    mr='auto'
+    ml='auto'
     {...CONTAINER_SPACE}
     {...containerProps}
   >
@@ -64,11 +64,9 @@ export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 export const H1 = withSlug(styled(Heading)([]))
 
 H1.defaultProps = {
-  ...Heading.defaultProps,
   maxWidth: WIDTH.normal,
-  mx: 'auto',
   as: 'h1',
-  fontSize: [`${fontSizes[5] * 0.75}px`, 5],
+  fontSize: [`calc(${fontSizes[5]} * 0.75px)`, 5],
   lineHeight: [2, 3],
   textAlign: 'left',
   variant: null,
@@ -79,11 +77,11 @@ H1.defaultProps = {
 const H2Base = styled(Heading)([])
 
 H2Base.defaultProps = {
-  ...Heading.defaultProps,
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h2',
-  fontSize: [`${fontSizes[4] * 0.75}px`, 4],
+  fontSize: [`calc(${fontSizes[4]} * 0.75px)`, 4],
   lineHeight: [2, 3],
   textAlign: 'left',
   variant: null,
@@ -100,7 +98,6 @@ export const H2Link = styled(H2Base)`
 `
 
 H2Link.defaultProps = {
-  ...H2Base.defaultProps,
   as: 'a'
 }
 
@@ -109,8 +106,8 @@ export const H2 = withSlug(H2Base)
 export const H3 = withSlug(styled(Heading)([]))
 
 H3.defaultProps = {
-  ...Heading.defaultProps,
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h3',
   fontSize: 3,
@@ -124,8 +121,8 @@ H3.defaultProps = {
 export const H4 = withSlug(styled(Heading)([]))
 
 H4.defaultProps = {
-  ...Heading.defaultProps,
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h4',
   fontSize: 2,
@@ -139,8 +136,8 @@ H4.defaultProps = {
 export const H5 = withSlug(styled(Heading)([]))
 
 H5.defaultProps = {
-  ...Heading.defaultProps,
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h5',
   fontSize: 1,
@@ -154,8 +151,8 @@ H5.defaultProps = {
 export const H6 = withSlug(styled(Heading)([]))
 
 H6.defaultProps = {
-  ...Heading.defaultProps,
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   maxWidth: WIDTH.normal,
   as: 'h6',
   fontSize: 1,
@@ -178,14 +175,14 @@ export const Paraph = props => {
 
 Paraph.defaultProps = {
   as: 'div',
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   ...CONTAINER_SPACE
 }
 
 export const Strong = styled(Text)([])
 
 Strong.defaultProps = {
-  ...Text.defaultProps,
   as: 'b',
   display: 'inline',
   fontWeight: 'bold'
@@ -194,8 +191,8 @@ Strong.defaultProps = {
 export const Ul = styled(Text)([])
 
 Ul.defaultProps = {
-  ...Text.defaultProps,
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   as: 'ul',
   maxWidth: WIDTH.normal,
   ...CONTAINER_SPACE
@@ -204,15 +201,14 @@ Ul.defaultProps = {
 export const Ol = styled(Ul)([])
 
 Ol.defaultProps = {
-  ...Ul.defaultProps,
   as: 'ol'
 }
 
 export const Li = styled(Text)([])
 
 Li.defaultProps = {
-  ...Text.defaultProps,
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   mb: 2,
   as: 'li',
   maxWidth: WIDTH.normal
@@ -239,7 +235,6 @@ export const CodeInline = styled(Text)`
 `
 
 CodeInline.defaultProps = {
-  ...Text.defaultProps,
   as: 'code'
 }
 
@@ -249,7 +244,12 @@ const CodeWrapper = styled(Box)`
 `
 
 export const Code = props => (
-  <CodeWrapper maxWidth={['100%', WIDTH.normal]} mx='auto' {...CONTAINER_SPACE}>
+  <CodeWrapper
+    maxWidth={['100%', WIDTH.normal]}
+    ml='auto'
+    mr='auto'
+    {...CONTAINER_SPACE}
+  >
     <CodeEditor {...props} />
   </CodeWrapper>
 )
@@ -257,9 +257,9 @@ export const Code = props => (
 const _ImageBase = styled(ImageBase)([])
 
 _ImageBase.defaultProps = {
-  ...ImageBase.defaultProps,
   borderRadius: '3px',
-  mx: 'auto',
+  ml: 'auto',
+  mr: 'auto',
   textAlign: 'center'
 }
 
@@ -268,7 +268,6 @@ export const Image = withContainer(_ImageBase)
 const FigcaptionBase = styled(Text)([])
 
 FigcaptionBase.defaultProps = {
-  ...Text.defaultProps,
   fontSize: 0,
   color: 'gray',
   textAlign: 'center'

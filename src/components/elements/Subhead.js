@@ -5,7 +5,6 @@ import Heading from './Heading'
 const Subhead = styled(Heading)([])
 
 Subhead.defaultProps = {
-  ...Heading.defaultProps,
   as: 'h3',
   lineHeight: [0, 1],
   fontWeight: 'regular',

@@ -158,10 +158,6 @@ const TerminalWindow = styled(Box)`
   box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
 `
 
-TerminalWindow.defaultProps = {
-  ...Box.defaultProps
-}
-
 const TerminalHeader = styled.header`
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;

@@ -4,7 +4,6 @@ import styled from 'styled-components'
 const Microlink = styled(Image)([])
 
 Microlink.defaultProps = {
-  ...Image.defaultProps,
   src: 'https://cdn.microlink.io/logo/logo.svg',
   style: { height: 'auto' }
 }

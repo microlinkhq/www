@@ -11,14 +11,8 @@ const Caps = styled(Text)(
 )
 
 Caps.defaultProps = {
-  ...Text.defaultProps,
   fontSize: [0, 1],
   letterSpacing: 1
-}
-
-Caps.propTypes = {
-  ...Text.propTypes,
-  ...letterSpacing.propTypes
 }
 
 export default Caps

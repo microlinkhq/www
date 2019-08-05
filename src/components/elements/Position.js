@@ -1,9 +1,25 @@
+import {
+  compose,
+  position,
+  zIndex,
+  top,
+  right,
+  bottom,
+  left
+} from 'styled-system'
 import styled from 'styled-components'
-import { position, zIndex, top, right, bottom, left } from 'styled-system'
+import Box from './Box'
 
-import { Box } from 'rebass'
-
-export const Position = styled(Box)(position, zIndex, top, right, bottom, left)
+export const Position = styled(Box)(
+  compose(
+    position,
+    zIndex,
+    top,
+    right,
+    bottom,
+    left
+  )
+)
 
 Position.propTypes = {
   ...Box.propTypes,

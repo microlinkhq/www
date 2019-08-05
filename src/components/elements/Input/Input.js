@@ -18,7 +18,7 @@ const InputBase = styled(Text)(
     border: 0,
     appearance: 'none',
     '&:focus': {
-      outline: 'none',
+      outline: '0',
       boxShadow: `inset 0 0 0 1px ${colors.blue500}`
     },
     '&:disabled': {
@@ -28,13 +28,11 @@ const InputBase = styled(Text)(
 )
 
 InputBase.defaultProps = {
-  ...Text.defaultProps,
   as: 'input',
   type: 'text',
   lineHeight: 'inherit',
   py: '12px',
   px: 2,
-  m: 0,
   width: 1,
   border: 0,
   borderColor: 'gray',
@@ -47,7 +45,7 @@ const InputWrapper = styled(Flex)`
   ${props =>
     props.focus &&
     `
-  outline: none;
+  outline: 0;
 
   box-shadow: inset 0 0 0 1px ${lighten(0.15, colors.link)};
 

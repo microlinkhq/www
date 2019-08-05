@@ -17,7 +17,7 @@ const MenuButton = styled('button')`
   margin: 0;
   padding: 0;
   top: ${TOOLBAR_HEIGHT};
-  outline: none;
+  outline: 0;
   background: transparent;
 `
 

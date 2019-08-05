@@ -6,7 +6,6 @@ import logo from '../../../static/slack.svg'
 const Slack = styled(Image)([])
 
 Slack.defaultProps = {
-  ...Image.defaultProps,
   src: logo,
   style: { height: 'auto' }
 }

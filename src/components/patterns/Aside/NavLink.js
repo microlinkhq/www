@@ -30,19 +30,13 @@ const NavLink = styled(Text)(
       opacity: 1 / 4
     }
   },
-  props => props.css,
   navlinkStyle
 )
 
 NavLink.defaultProps = {
-  ...Text.defaultProps,
   fontSize: 0,
   as: 'div',
   color: 'gray7'
-}
-
-NavLink.propTypes = {
-  ...Text.propTypes
 }
 
 export default withLink(withAnalytics(NavLink))

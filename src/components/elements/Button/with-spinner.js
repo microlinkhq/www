@@ -1,10 +1,10 @@
 import React, { Component, createElement } from 'react'
-import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-import SpinnerIcon from '../Spinner'
+import ReactDOM from 'react-dom'
 import { colors } from 'theme'
 
 import Flex from '../Flex'
+import SpinnerIcon from '../Spinner'
 
 export default (ChildComponent, spinnertStyle) => {
   const Spinner = styled(ChildComponent)`

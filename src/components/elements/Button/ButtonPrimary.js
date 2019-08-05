@@ -27,12 +27,4 @@ const disabledStyle = createCssState({
 
 const Button = styled(ButtonBase)(hoverStyle, disabledStyle)
 
-Button.propTypes = {
-  ...ButtonBase.propTypes
-}
-
-Button.defaultProps = {
-  ...ButtonBase.defaultProps
-}
-
 export default Button

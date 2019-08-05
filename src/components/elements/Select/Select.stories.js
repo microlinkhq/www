@@ -48,7 +48,7 @@ export default () => (
 storiesOf('Elements', module).add('Select', () => (
   <Story name='Select' code={code}>
     <Text fontSize={0}>
-      <MySelect mx='auto' width={'5rem'} mb={2} bg='white' />
+      <MySelect ml='auto' mr='auto' width='5rem' mb={2} bg='white' />
     </Text>
   </Story>
 ))

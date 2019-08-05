@@ -2,8 +2,8 @@ import { useFeatures } from 'components/hook'
 import * as Logo from 'components/logos'
 import React, { Fragment } from 'react'
 import { borders, colors } from 'theme'
-import humanizeUrl from 'humanize-url'
 import { getHostname } from 'helpers'
+import humanizeUrl from 'humanize-url'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
 import { get } from 'lodash'
@@ -118,21 +118,21 @@ const Hero = ({ humanizedUrl, brand, data }) => {
 
   const logoProvider = (() => {
     const LogoProvider = Logo[brand]
-    if (LogoProvider) return <LogoProvider size={72} state='hover' />
+    if (LogoProvider) return <LogoProvider size='72px' state='hover' />
 
     const logoUrl = get(data, 'logo.url')
 
     if (logoUrl && !logoUrl.endsWith('ico')) {
-      return <Image size={72} src={logoUrl} />
+      return <Image size='72px' src={logoUrl} />
     }
   })()
 
   const title = (
     <Box>
       <Flex alignItems='center' justifyContent='center'>
-        <Logo.Microlink size={72} />
+        <Logo.Microlink size='72px' />
         {logoProvider && (
-          <Box mx={3}>
+          <Box ml={3} mr={3}>
             <Plus color={colors.gray5} />
           </Box>
         )}
@@ -164,9 +164,8 @@ const SDK = ({ humanizedUrl, data }) => (
   <Container
     id='sdk'
     maxWidth='100%'
-    borderColor='pinkest'
-    borderTop={borders[1]}
-    borderBottom={borders[1]}
+    borderTop={`${borders[1]} ${colors.pinkest}`}
+    borderBottom={`${borders[1]} ${colors.pinkest}`}
     bg='pinky'
   >
     <Flex
@@ -211,7 +210,8 @@ const SDK = ({ humanizedUrl, data }) => (
           justifyContent='space-evenly'
           alignItems='center'
           key={JSON.stringify(props)}
-          mx='auto'
+          mr='auto'
+          ml='auto'
         >
           <Box width={500}>
             <Text mb={1} color='gray8' fontSize={1}>
@@ -252,9 +252,8 @@ const API = ({ data }) => {
     <Container
       id='api'
       maxWidth='100%'
-      borderColor='pinkest'
-      borderTop={borders[1]}
-      borderBottom={borders[1]}
+      borderTop={`${borders[1]} ${colors.pinkest}`}
+      borderBottom={`${borders[1]} ${colors.pinkest}`}
       bg='pinky'
     >
       <Flex
@@ -290,7 +289,8 @@ const API = ({ data }) => {
       <Container maxWidth={16}>
         <Flex
           justifyContent='space-evenly'
-          mx='auto'
+          mr='auto'
+          ml='auto'
           flexDirection={['column', 'column', 'column', 'row']}
           alignItems={['center', 'center', 'center', 'baseline']}
         >

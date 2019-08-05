@@ -31,20 +31,14 @@ const NavLink = styled(Caps)(
       opacity: 1 / 4
     }
   },
-  props => props.css,
   style
 )
 
 NavLink.defaultProps = {
-  ...Caps.defaultProps,
   p: 2,
   fontSize: 0,
   as: 'div',
   color: 'gray7'
-}
-
-NavLink.propTypes = {
-  ...Caps.propTypes
 }
 
 export default withLink(withAnalytics(NavLink))
