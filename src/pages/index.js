@@ -157,7 +157,7 @@ const SDK = ({ loading, editor, children }) => (
       <Subheader
         children={['Microlink SDK', 'Turn websites into rich media']}
       />
-      <Box px={4} textAlign={'center'}>
+      <Box textAlign='center'>
         <Text mt={4} mb={[4, 4, 4, 0]} maxWidth={8}>
           <Link href='/docs/sdk/getting-started/overview/'>Microlink SDK</Link>{' '}
           converts your links into beautiful previews. Make your content
@@ -167,7 +167,6 @@ const SDK = ({ loading, editor, children }) => (
     </Flex>
     <Flex
       py={[2, 3, 4, 5]}
-      px={[5, 5, 5, 0]}
       as='section'
       justifyContent='center'
       alignItems={['center', 'center', 'center', 'end']}
@@ -246,7 +245,7 @@ const MQL = () => (
         children={['Microlink API', 'Turns websites into structured data']}
       />
 
-      <Box px={4} textAlign={'center'}>
+      <Box textAlign='center'>
         <Text mt={4} mb={[4, 4, 4, 0]} maxWidth={8}>
           <Link href='/docs/mql/getting-started/overview'>
             Microlink Query Language
@@ -258,7 +257,6 @@ const MQL = () => (
     </Flex>
     <Flex
       py={[2, 3, 4, 5]}
-      px={[5, 5, 5, 0]}
       as='section'
       justifyContent='center'
       alignItems={['center', 'center', 'center', 'end']}
