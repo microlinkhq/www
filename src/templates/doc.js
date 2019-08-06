@@ -181,7 +181,81 @@ const ROUTES_API = [
       },
       {
         name: 'screenshot',
-        href: '/docs/api/api-parameters/screenshot'
+        href: '/docs/api/api-parameters/screenshot',
+        posts: [
+          {
+            name: 'background',
+            href: '/docs/api/api-parameters/screenshot/background'
+          },
+          {
+            name: 'browser',
+            href: '/docs/api/api-parameters/screenshot/browser'
+          },
+          {
+            name: 'click',
+            href: '/docs/api/api-parameters/screenshot/click'
+          },
+          {
+            name: 'deviceScaleFactor',
+            href: '/docs/api/api-parameters/screenshot/device-scale-factor'
+          },
+          {
+            name: 'disableAnimations',
+            href: '/docs/api/api-parameters/screenshot/disable-animations'
+          },
+          {
+            name: 'emulation',
+            href: '/docs/api/api-parameters/screenshot/emulation'
+          },
+          {
+            name: 'fullPage',
+            href: '/docs/api/api-parameters/screenshot/full-page'
+          },
+          {
+            name: 'hasTouch',
+            href: '/docs/api/api-parameters/screenshot/has-touch'
+          },
+          {
+            name: 'height',
+            href: '/docs/api/api-parameters/screenshot/height'
+          },
+          {
+            name: 'hide',
+            href: '/docs/api/api-parameters/screenshot/hide'
+          },
+          {
+            name: 'isLandscape',
+            href: '/docs/api/api-parameters/screenshot/is-landscape'
+          },
+          {
+            name: 'ismMbile',
+            href: '/docs/api/api-parameters/screenshot/is-mobile'
+          },
+          {
+            name: 'omitBackground',
+            href: '/docs/api/api-parameters/screenshot/omit-background'
+          },
+          {
+            name: 'scrollTo',
+            href: '/docs/api/api-parameters/screenshot/scroll-to'
+          },
+          {
+            name: 'type',
+            href: '/docs/api/api-parameters/screenshot/type'
+          },
+          {
+            name: 'waitFor',
+            href: '/docs/api/api-parameters/screenshot/wait-for'
+          },
+          {
+            name: 'waitUntil',
+            href: '/docs/api/api-parameters/screenshot/wait-until'
+          },
+          {
+            name: 'width',
+            href: '/docs/api/api-parameters/screenshot/width'
+          }
+        ]
       },
       {
         name: 'palette',
