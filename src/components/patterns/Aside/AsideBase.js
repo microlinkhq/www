@@ -1,12 +1,14 @@
-import React, { useState, Fragment } from 'react'
-import styled, { css } from 'styled-components'
 import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
+import React, { useState, Fragment } from 'react'
+import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc'
 import { isNot } from 'styled-is'
+import { shadows } from 'theme'
 import { noop } from 'lodash'
 
 import { ASIDE_WIDTH } from './constants'
+
 import NavLink, {
   style as navLinkStyle,
   activeStyle as navLinkActiveStyle
@@ -42,6 +44,10 @@ const AsideWrapper = styled(Box)`
   ${isNot('isOpen')`
     transform: translateX(-100%);
   `};
+
+  @media only screen and (max-width: 576px) {
+    box-shadow: ${shadows[0]};
+  }
 `
 
 const Header = props => <Caps mb={2} color='gray5' {...props} />
@@ -80,18 +86,13 @@ const Aside = ({
       isOpen={isOpen}
       {...props}
     >
-      <Flex
-        alignItems='center'
-        justifyContent={['flex-start', 'center']}
-        mt={3}
-        pb={3}
-        mb={4}
-      >
-        {CloseButton && (
-          <Box mt={1} mr={3}>
-            <CloseButton />
-          </Box>
-        )}
+      {CloseButton && (
+        <Box mt={3} mr={3}>
+          <CloseButton />
+        </Box>
+      )}
+
+      <Flex mt={3} pb={3} mb={4}>
         <Toggle
           children={routeNames}
           defaultValue={activeRouteName}
