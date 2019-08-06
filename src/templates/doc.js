@@ -64,18 +64,7 @@ const ROUTES_SDK = [
       },
       {
         name: 'media',
-        href: '/docs/sdk/api-parameters/media/'
-      },
-      {
-        name: 'direction',
-        href: '/docs/sdk/api-parameters/direction/'
-      },
-      {
-        name: 'size',
-        href: '/docs/sdk/api-parameters/size/'
-      },
-      {
-        name: 'media',
+        href: '/docs/sdk/api-parameters/media/',
         posts: [
           {
             name: 'autoPlay',
@@ -94,6 +83,14 @@ const ROUTES_SDK = [
             href: '/docs/sdk/api-parameters/media/loop/'
           }
         ]
+      },
+      {
+        name: 'direction',
+        href: '/docs/sdk/api-parameters/direction/'
+      },
+      {
+        name: 'size',
+        href: '/docs/sdk/api-parameters/size/'
       }
     ]
   },
