@@ -228,12 +228,8 @@ const ROUTES_API = [
             href: '/docs/api/api-parameters/screenshot/is-landscape'
           },
           {
-            name: 'ismMbile',
+            name: 'isMobile',
             href: '/docs/api/api-parameters/screenshot/is-mobile'
-          },
-          {
-            name: 'omitBackground',
-            href: '/docs/api/api-parameters/screenshot/omit-background'
           },
           {
             name: 'scrollTo',

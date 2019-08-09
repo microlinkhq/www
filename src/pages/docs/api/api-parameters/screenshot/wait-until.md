@@ -13,7 +13,6 @@ Specify a list of events until consider navigation succeeded:
 - `'networkidle0'`: Consider navigation to be finished when there are no more than 0 network connections for at least 500 ms.
 - `'networkidle2'`: Consider navigation to be finished when there are no more than 2 network connections for at least 500 ms.
 
-
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&waitUntil=domcontentloaded`,
   'Node.js': `const mql = require('@microlink/mql')

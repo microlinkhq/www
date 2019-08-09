@@ -5,7 +5,7 @@ title: 'deviceScaleFactor'
 Type: `number`<br/>
 Default: `1`
 
-Specify device scale factor.
+It specifies the device scale factor ratio.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&deviceScaleFactor=0.65`,

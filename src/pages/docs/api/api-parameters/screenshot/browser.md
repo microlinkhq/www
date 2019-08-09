@@ -5,7 +5,9 @@ title: 'browser'
 Type: `string`
 Values: `'light'|'dark'`
 
-It sets the browser image overlay to use.
+It sets the browser overlay to use with your screenshot.
+
+![](https://api.microlink.io/?url=https://microlink.io&screenshot&browser=light&embed=screenshot.url)
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&browser=dark`,

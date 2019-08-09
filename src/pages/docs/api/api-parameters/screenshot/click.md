@@ -4,7 +4,7 @@ title: 'click'
 
 Type: `string|string[]`
 
-Click the DOM element matching the given  [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+Click DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&click=#features`,

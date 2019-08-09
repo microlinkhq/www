@@ -5,7 +5,7 @@ title: 'disableAnimations'
 Type: `boolean`<br/>
 Default: `false`
 
-Disable CSS [animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation) and [transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition).
+It disables CSS [animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation) and [transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition).
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&disableAnimations`,

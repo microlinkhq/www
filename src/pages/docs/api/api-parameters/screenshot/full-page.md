@@ -5,7 +5,7 @@ title: 'fullPage'
 Type: `boolean`<br/>
 Default: `false`
 
-When `true`, takes a screenshot of the full scrollable page.
+When `true`, it takes a screenshot of the full scrollable page.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&fullPage`,

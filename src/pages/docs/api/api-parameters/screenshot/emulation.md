@@ -2,7 +2,7 @@
 title: 'Device Emulation'
 --- 
 
-If you provide a compatible `deviceName`, the descriptor device will be used for emulating the viewport before take the screenshot.
+If you provide a compatible device name descriptor, the descriptor device will be used for emulating the viewport before take the screenshot.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot=ipad`,
@@ -19,7 +19,7 @@ module.exports = async () => {
   }} 
 />
 
-<Figcaption>You can specify a supported device name for emulating it; It does not matter if it is uppercase or lowercase.</Figcaption>
+<Figcaption>It doesn't matter if you use uppercase or lowercase.</Figcaption>
 
 The following devices names are supported:
 

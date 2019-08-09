@@ -6,7 +6,7 @@ Type: `string`<br/>
 Default: `'png'`<br/>
 Values: `'jpeg'|'png'`
 
-Specify screenshot type.
+It specifies the screenshot type file format.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&type=jpeg`,
@@ -15,7 +15,7 @@ Specify screenshot type.
 module.exports = async () => {
   const { status, data, response } = await mql(
     'https://microlink.io'. { 
-      screenshot: true
+      screenshot: true,
       type: 'jpeg'
   })
   console.log(status, data)
