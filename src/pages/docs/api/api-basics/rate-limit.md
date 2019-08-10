@@ -6,7 +6,7 @@ The API has a daily quota, just being possible to perform a certain number of re
 
 Your API quota depends on the [endpoint](/docs/api/api-basics/endpoint) you are using:
 
-- **Free**: It is the plan applied for unauthenticated requests. It has a soft limitation of 100 <Label display='inline' children='reqs' suffix='/day' />.
+- **Free**: It is the plan applied for unauthenticated requests. It has a soft limitation of 50 <Label display='inline' children='reqs' suffix='/day' />.
 - **Pro**: It is the plan applied for authenticated requests. It iss based on your plan associated with your API Key, starting from 1000 <Label display='inline' children='reqs' suffix='/day' />.
 
 After 24 hours, the API quota is reset, giving you a fresh start again. 

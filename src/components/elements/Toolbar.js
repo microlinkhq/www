@@ -13,7 +13,6 @@ const Toolbar = styled(Flex)({
 Toolbar.defaultProps = {
   as: 'header',
   color: 'black50',
-  bg: 'white',
   display: 'flex',
   px: 0,
   height: TOOLBAR_HEIGHT,

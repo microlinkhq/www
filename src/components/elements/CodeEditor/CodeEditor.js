@@ -80,7 +80,8 @@ const langTheme = {
     operator: { color: COLORS.YELLOW },
     keyword: { color: COLORS.YELLOW },
     variable: { color: COLORS.YELLOW },
-    comment: { color: COLORS.YELLOW }
+    comment: { color: COLORS.YELLOW },
+    number: { color: COLORS.YELLOW }
   },
   json: {
     'code[class*="language-"]': {

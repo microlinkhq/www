@@ -282,7 +282,7 @@ const CLI = ({ humanizedUrl, data }) => {
 
   return (
     <Container
-      id='sdk'
+      id='cli'
       maxWidth='100%'
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}

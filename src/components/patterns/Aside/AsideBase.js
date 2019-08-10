@@ -1,12 +1,14 @@
-import React, { useState, Fragment } from 'react'
-import styled, { css } from 'styled-components'
 import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
+import React, { useState, Fragment } from 'react'
+import { shadows, borders, colors } from 'theme'
+import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc'
 import { isNot } from 'styled-is'
 import { noop } from 'lodash'
 
 import { ASIDE_WIDTH } from './constants'
+
 import NavLink, {
   style as navLinkStyle,
   activeStyle as navLinkActiveStyle
@@ -42,23 +44,26 @@ const AsideWrapper = styled(Box)`
   ${isNot('isOpen')`
     transform: translateX(-100%);
   `};
+
+  @media only screen and (max-width: 576px) {
+    box-shadow: ${shadows[0]};
+  }
 `
 
 const Header = props => <Caps mb={2} color='gray5' {...props} />
 
-const Title = ({ children, href }) => {
+const Title = ({ children, href, ...props }) => {
   return (
     <NavLink mb={2} href={href} actively icon>
       <Text
         fontWeight='normal'
         children={children}
         css={isInternalLink(href) ? titleStyle : titleExternalStyle}
+        {...props}
       />
     </NavLink>
   )
 }
-
-const Subheader = props => <Text mt={3} mb={2} color='gray4' {...props} />
 
 const Aside = ({
   CloseButton,
@@ -80,18 +85,13 @@ const Aside = ({
       isOpen={isOpen}
       {...props}
     >
-      <Flex
-        alignItems='center'
-        justifyContent={['flex-start', 'center']}
-        mt={3}
-        pb={3}
-        mb={4}
-      >
-        {CloseButton && (
-          <Box mt={1} mr={3}>
-            <CloseButton />
-          </Box>
-        )}
+      {CloseButton && (
+        <Box mt={3} mr={3}>
+          <CloseButton />
+        </Box>
+      )}
+
+      <Flex mt={3} pb={3} mb={4}>
         <Toggle
           children={routeNames}
           defaultValue={activeRouteName}
@@ -118,16 +118,25 @@ const Aside = ({
               } else {
                 return (
                   <Fragment key={`${tree}_subheader_${post.name}`}>
-                    <Subheader>{post.name}</Subheader>
-                    {post.posts.map(post => (
-                      <Title
-                        ml={2}
-                        key={`${tree}_subtitle_${post.name}`}
-                        href={post.href}
-                      >
-                        - {post.name}
-                      </Title>
-                    ))}
+                    <Title
+                      key={`${tree}_title_${post.name}`}
+                      href={post.href}
+                      children={post.name}
+                    />
+                    <Box ml={2} borderLeft={`${borders[1]} ${colors.black10}`}>
+                      {post.posts.map(post => (
+                        <Title
+                          ml={2}
+                          key={`${tree}_subtitle_${post.name}`}
+                          href={post.href}
+                        >
+                          <Text px='4px' color='black10' as='span'>
+                            {' '}
+                          </Text>
+                          {post.name}
+                        </Title>
+                      ))}
+                    </Box>
                   </Fragment>
                 )
               }
