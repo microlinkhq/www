@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/microlinkhq/microlink-www/compare/v2.7.14...v2.8.0) (2019-08-11)
+
+
+### Features
+
+* add lang api parameter ([61a1c50](https://github.com/microlinkhq/microlink-www/commit/61a1c50))
+
 ### [2.7.14](https://github.com/microlinkhq/microlink-www/compare/v2.7.13...v2.7.14) (2019-08-10)
 
 
