@@ -47,20 +47,16 @@ const ROUTES_SDK = [
     name: 'API Parameters',
     posts: [
       {
-        name: 'url',
-        href: '/docs/sdk/api-parameters/url/'
-      },
-      {
         name: 'apiKey',
         href: '/docs/sdk/api-parameters/api-key/'
       },
       {
-        name: 'setData',
-        href: '/docs/sdk/api-parameters/set-data/'
-      },
-      {
         name: 'contrast',
         href: '/docs/sdk/api-parameters/contrast/'
+      },
+      {
+        name: 'direction',
+        href: '/docs/sdk/api-parameters/direction/'
       },
       {
         name: 'media',
@@ -85,12 +81,16 @@ const ROUTES_SDK = [
         ]
       },
       {
-        name: 'direction',
-        href: '/docs/sdk/api-parameters/direction/'
+        name: 'setData',
+        href: '/docs/sdk/api-parameters/set-data/'
       },
       {
         name: 'size',
         href: '/docs/sdk/api-parameters/size/'
+      },
+      {
+        name: 'url',
+        href: '/docs/sdk/api-parameters/url/'
       }
     ]
   },
@@ -164,12 +164,28 @@ const ROUTES_API = [
     name: 'API Parameters',
     posts: [
       {
-        name: 'url',
-        href: '/docs/api/api-parameters/url'
+        name: 'audio',
+        href: '/docs/api/api-parameters/audio'
       },
       {
-        name: 'ttl',
-        href: '/docs/api/api-parameters/ttl'
+        name: 'embed',
+        href: '/docs/api/api-parameters/embed'
+      },
+      {
+        name: 'filter',
+        href: '/docs/api/api-parameters/filter'
+      },
+      {
+        name: 'force',
+        href: '/docs/api/api-parameters/force'
+      },
+      {
+        name: 'lang',
+        href: '/docs/api/api-parameters/lang'
+      },
+      {
+        name: 'palette',
+        href: '/docs/api/api-parameters/palette'
       },
       {
         name: 'prerender',
@@ -254,32 +270,21 @@ const ROUTES_API = [
         ]
       },
       {
-        name: 'palette',
-        href: '/docs/api/api-parameters/palette'
+        name: 'ttl',
+        href: '/docs/api/api-parameters/ttl'
       },
+
       {
-        name: 'filter',
-        href: '/docs/api/api-parameters/filter'
-      },
-      {
-        name: 'embed',
-        href: '/docs/api/api-parameters/embed'
-      },
-      {
-        name: 'audio',
-        href: '/docs/api/api-parameters/audio'
-      },
-      {
-        name: 'video',
-        href: '/docs/api/api-parameters/video'
+        name: 'url',
+        href: '/docs/api/api-parameters/url'
       },
       {
         name: 'user agent',
         href: '/docs/api/api-parameters/user-agent'
       },
       {
-        name: 'force',
-        href: '/docs/api/api-parameters/force'
+        name: 'video',
+        href: '/docs/api/api-parameters/video'
       }
     ]
   }
@@ -312,16 +317,16 @@ const ROUTES_MQL = [
     name: 'Rule definition',
     posts: [
       {
+        name: 'attr',
+        href: '/docs/mql/rule-definition/attr'
+      },
+      {
         name: 'selector',
         href: '/docs/mql/rule-definition/selector'
       },
       {
         name: 'selectorAll',
         href: '/docs/mql/rule-definition/selector-all'
-      },
-      {
-        name: 'attr',
-        href: '/docs/mql/rule-definition/attr'
       },
       {
         name: 'type',
