@@ -103,7 +103,7 @@ const DemoSlider = ({ children: slides }) => {
   return (
     <Flex
       id='animated-image-container'
-      mt={height ? [2, 1, 1, 1] : 4}
+      mt={height ? [2, 0, 0, 0] : 4}
       height={height || aspectRatio.heights}
       style={{ position: 'relative' }}
       width={aspectRatio.widths}
