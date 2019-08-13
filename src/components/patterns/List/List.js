@@ -9,10 +9,9 @@ const CheckMark = props => (
     version='1.1'
     xmlns='http://www.w3.org/2000/svg'
   >
-    <g id='Page-1' stroke='none' strokeWidth={1} fill='none' fillRule='evenodd'>
-      <g id='Group-14'>
+    <g stroke='none' strokeWidth={1} fill='none' fillRule='evenodd'>
+      <g>
         <rect
-          id='Rectangle-3'
           fill='#654ea3'
           x={0}
           y={0}
@@ -22,14 +21,12 @@ const CheckMark = props => (
         />{' '}
         <path
           d='M4,6 L6.19988776,8.12132034'
-          id='Line'
           stroke='#f5f4f9'
           strokeWidth='1.5'
           strokeLinecap='square'
         />{' '}
         <path
           d='M6,1.75 L12.5996633,8.11396103'
-          id='Line'
           stroke='#f5f4f9'
           strokeWidth='1.5'
           strokeLinecap='square'
