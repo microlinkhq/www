@@ -53,6 +53,7 @@ export default () => {
       const { data } = await mql(url, {
         endpoint: apiEndpoint,
         screenshot: true,
+        meta: false,
         ...opts
       })
       setData(data)
