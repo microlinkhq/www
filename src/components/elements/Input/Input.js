@@ -74,6 +74,7 @@ const Input = ({
 
   return (
     <InputWrapper
+      as='label'
       alignItems='center'
       borderRadius={2}
       boxShadow={1}
