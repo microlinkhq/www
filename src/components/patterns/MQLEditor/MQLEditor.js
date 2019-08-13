@@ -112,7 +112,7 @@ export default class extends Component {
 
     return (
       <Flex flexDirection={'column'} justifyContent='space-around'>
-        <Flex id='preview' flexDirection='column' mb={[4, 0]}>
+        <Flex flexDirection='column' mb={[4, 0]}>
           <Card
             bg='pinky'
             width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
