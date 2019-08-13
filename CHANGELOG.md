@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/microlinkhq/microlink-www/compare/v2.8.1...v2.9.0) (2019-08-13)
+
+
+### Bug Fixes
+
+* every input should be have a label ([995cd60](https://github.com/microlinkhq/microlink-www/commit/995cd60))
+* li should be has a ul/ol ([fde251a](https://github.com/microlinkhq/microlink-www/commit/fde251a))
+* remove unnecessary id ([37c5744](https://github.com/microlinkhq/microlink-www/commit/37c5744))
+* remove unnecessary id ([8585667](https://github.com/microlinkhq/microlink-www/commit/8585667))
+* setup langç ([294c74c](https://github.com/microlinkhq/microlink-www/commit/294c74c))
+
+
+### Features
+
+* add meta api parameter ([fc75907](https://github.com/microlinkhq/microlink-www/commit/fc75907))
+
 ### [2.8.1](https://github.com/microlinkhq/microlink-www/compare/v2.8.0...v2.8.1) (2019-08-13)
 
 ## [2.8.0](https://github.com/microlinkhq/microlink-www/compare/v2.7.14...v2.8.0) (2019-08-11)
