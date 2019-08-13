@@ -23,7 +23,7 @@ module.exports = async () => {
   }} 
 />
 
-The value provided need to be at least **1 minute** and not higher than **28 days**, specified in milliseconds.
+The value provided need to be at least **1 minute** and not higher than **31 days**, specified in milliseconds.
 
 The idea behind exposing this API parameter is to optimize better how much time the target URL can be cached:
 

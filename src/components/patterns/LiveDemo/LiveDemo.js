@@ -41,7 +41,7 @@ export default class extends Component {
 
     return (
       <Flex flexDirection={'column'} justifyContent='space-around'>
-        <Flex id='preview' flexDirection='column' mb={[4, 0]}>
+        <Flex flexDirection='column' mb={[4, 0]}>
           <Card
             css={`
               transition: none;

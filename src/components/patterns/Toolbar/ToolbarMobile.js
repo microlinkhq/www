@@ -63,7 +63,7 @@ export default class extends Component {
   render () {
     return (
       <Fixed zIndex={101} top={0} left={0} right={0}>
-        <Box boxShadow={0} ml='auto' mr='auto' bg='white'>
+        <Box ml='auto' mr='auto' bg='white'>
           <Toolbar ml={3} mr={3} justifyContent='center' {...this.props}>
             <NavLogo mobile />
             <Nav as='nav' width={300}>
