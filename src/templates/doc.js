@@ -184,6 +184,10 @@ const ROUTES_API = [
         href: '/docs/api/api-parameters/lang'
       },
       {
+        name: 'meta',
+        href: '/docs/api/api-parameters/meta'
+      },
+      {
         name: 'palette',
         href: '/docs/api/api-parameters/palette'
       },
