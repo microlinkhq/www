@@ -46,3 +46,30 @@ When you enable it, a field `screenshot` will present as part of Microlink API r
   "status": "success"
 }
 ```
+
+The screenshot will hosted at [imagekit.io](https://imagekit.io), an specific CDN for images, supporting [image transformation on the fly](https://docs.imagekit.io/#image-transformations)
+
+```js
+const mql = require('@microlink/mql')
+
+module.exports = async () => {
+
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true ,
+      background: 'https://source.unsplash.com/random/1920x1080',
+      browser: 'dark',
+  })
+
+  // retrieve screenshot url
+  const screenshotUrl = data.screenshot.url
+
+  // apply imagekit.io transformations
+  // see https://docs.imagekit.io/#image-transformations
+  const thumbnailUrl = `${screenshotUrl}?tr=w-640,h-480,fo-top`
+}
+```
+
+<Figcaption>Generating a thumbnail from screenshot url just applying transformations.</Figcaption>
+
+This allows you to adapt the screenshot based on your use cases necessities.
