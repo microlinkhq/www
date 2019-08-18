@@ -3,19 +3,18 @@ title: 'ttl'
 isPro: true
 --- 
 
-Type: `number`<br/>
-Default: `3600000` *(1hour)*<br/> 
+Type: `string|number`<br/>
+Default: `1h`<br/> 
 
 It establishes the maximum quantity of time a resource served from cache layer is considered as valid.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://kikobeats.com&ttl=14400000`,
+  Shell: `microlink-api https://microlink.io&ttl=1d`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
-  const ONE_HOUR_MS = 3600000
-  const { status, data, response } = await mql('https://kikobeats.com', {
-    ttl: ONE_HOUR_MS * 4
+  const { status, data, response } = await mql('https://microlink.io', {
+    ttl: '1d'
   })
   console.log(status, data)
 }
@@ -23,9 +22,30 @@ module.exports = async () => {
   }} 
 />
 
-The value provided need to be at least **1 minute** and not higher than **31 days**, specified in milliseconds.
+The value provided need to be at least **1 minute** and not higher than **31 days**, being supported the following formats:
 
-The idea behind exposing this API parameter is to optimize better how much time the target URL can be cached:
+- as number in milliseconds (e.g., `86400000`).
+- as humanized representation of the number (e.g., `24h`).
+
+The following humanized number variations are supported:
+
+```bash
+https://microlink.io&ttl=1d      // 86400000
+https://microlink.io&ttl=1day    // 86400000
+https://microlink.io&ttl=1days   // 86400000
+https://microlink.io&ttl=1h      // 3600000
+https://microlink.io&ttl=1hour   // 3600000
+https://microlink.io&ttl=1hours  // 3600000
+```
+
+Additionally, `min` and `max` alias are supported:
+
+```
+https://microlink.io&ttl=min     // equivalent to `1m`
+https://microlink.io&ttl=max     // equivalent to `31d`
+```
+
+The purpose of this API parameter is to adapt our caching layer based on your necessities:
 
 - If you are targetting an URL that changes very often and response time is not critical for you, a small value will work better.
 - If you are targetting an URL that doesn't change too much or you want to maximize cache hits, getting faster response time, a higher value works better.
