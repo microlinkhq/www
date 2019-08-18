@@ -38,6 +38,13 @@ https://microlink.io&ttl=1hour   // 3600000
 https://microlink.io&ttl=1hours  // 3600000
 ```
 
+Additionally, `min` and `max` alias are supported:
+
+```
+https://microlink.io&ttl=min     // equivalent to `1m`
+https://microlink.io&ttl=max     // equivalent to `31d`
+```
+
 The purpose of this API parameter is to adapt our caching layer based on your necessities:
 
 - If you are targetting an URL that changes very often and response time is not critical for you, a small value will work better.
