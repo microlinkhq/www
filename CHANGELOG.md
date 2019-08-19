@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.4](https://github.com/microlinkhq/microlink-www/compare/v2.9.3...v2.9.4) (2019-08-19)
+
+
+### Bug Fixes
+
+* perform the check inside the hook ([c5335e7](https://github.com/microlinkhq/microlink-www/commit/c5335e7))
+* perform the check inside the hook ([#453](https://github.com/microlinkhq/microlink-www/issues/453)) ([ebff6b4](https://github.com/microlinkhq/microlink-www/commit/ebff6b4))
+
 ### [2.9.3](https://github.com/microlinkhq/microlink-www/compare/v2.9.2...v2.9.3) (2019-08-18)
 
 ### [2.9.2](https://github.com/microlinkhq/microlink-www/compare/v2.9.1...v2.9.2) (2019-08-15)
