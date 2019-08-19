@@ -19,7 +19,7 @@ Just you need to be sure to load the script. A good place to put it in `_layouts
 
 In the code above, we are associating microlink cards with the class name `card-preview`. 
 
-So now, when we write a new jekyll post, we are going to associate `card-preview` class name with the links we want to convert into beauty preview.
+So now, when we write a new jekyll post, we are going to associate `card-preview` class name with the links we want to convert into beautiful previews.
 
 ```markdown
 [](https://www.theverge.com/2016/4/1/11342104/tesla-model-3-announcement-photos){:.card-preview}
