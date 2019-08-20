@@ -78,7 +78,6 @@ const fetchDemoLink = async (key, { url, ...props }) => {
   try {
     const { data } = await mql(url, {
       apiKey: isProduction ? MICROLINK_API_KEY : undefined,
-      endpoint: MICROLINK_API_ENDPOINT,
       video: true,
       audio: true,
       palette: true,
