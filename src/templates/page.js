@@ -8,13 +8,13 @@ import Markdown, {
 } from 'components/markdown'
 import { Chat, Layout } from 'components/patterns'
 import { Text, Box } from 'components/elements'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import Head from 'components/Head'
 
 const PostFooter = () => (
-  <Fragment>
+  <>
     <H2 id='chat'>Come chat with us</H2>
     <Chat />
     <Paraph>
@@ -27,7 +27,7 @@ const PostFooter = () => (
       an indie hacker or simply you like frontend stuff, come{' '}
       <Link href='https://microlink.io/chat'>chat</Link> with us 🙂.
     </Paraph>
-  </Fragment>
+  </>
 )
 
 export default ({ isBlogPage, date, meta, content }) => (

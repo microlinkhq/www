@@ -5,7 +5,7 @@ import {
   useSiteMetadata
 } from 'components/hook'
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import { navigate } from 'gatsby'
 
 import {
@@ -111,7 +111,7 @@ const Hero = () => {
   // )
 
   return (
-    <Fragment>
+    <>
       <Hide breakpoints={[0, 1, 2]}>
         <Container id='hero'>
           {header}
@@ -127,20 +127,20 @@ const Hero = () => {
           {announcement}
         </Box>
       </Hide>
-    </Fragment>
+    </>
   )
 }
 
 const Subheader = ({ children }) => (
-  <Fragment>
+  <>
     <Subhead fontSize={1} color='secondary'>
       <Caps as='span' children={children[0]} />
     </Subhead>
     <Heading mt={1} fontSize={[3, 4]} variant={null} children={children[1]} />
-  </Fragment>
+  </>
 )
 
-const SDK = ({ loading, editor, children }) => (
+const Sdk = ({ loading, editor, children }) => (
   <Container
     maxWidth='100%'
     bg='pinky'
@@ -233,7 +233,7 @@ const SDK = ({ loading, editor, children }) => (
   </Container>
 )
 
-const MQL = () => (
+const Mql = () => (
   <Container maxWidth='100%' id='mql'>
     <Flex
       flexDirection='column'
@@ -332,8 +332,8 @@ function Index () {
   return (
     <Layout>
       <Hero />
-      <SDK children={demoLinks} editor={demoLink} />
-      <MQL />
+      <Sdk children={demoLinks} editor={demoLink} />
+      <Mql />
       <Principles children={usePrinciples()} />
       <Pricing
         apiKey={paymentApiKey}

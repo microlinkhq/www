@@ -1,6 +1,6 @@
 /* global fetch */
 
-import React, { useState, Fragment, Component } from 'react'
+import React, { useState, Component } from 'react'
 import { useSiteMetadata } from 'components/hook'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
@@ -115,7 +115,7 @@ class _CardForm extends Component {
     const { paymentState } = this.state
 
     return (
-      <Fragment>
+      <>
         {paymentState && (
           <Choose>
             <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
@@ -178,7 +178,7 @@ class _CardForm extends Component {
             loading={paymentState === PAYMENT_STATE.PROCESSING}
           />
         </Form>
-      </Fragment>
+      </>
     )
   }
 }
@@ -227,7 +227,7 @@ function Payment () {
               <CardForm
                 apiEndpoint={apiEndpoint}
                 apiKey={apiKey}
-                fontSize={'18px'}
+                fontSize='18px'
               />
             </Elements>
           </Flex>

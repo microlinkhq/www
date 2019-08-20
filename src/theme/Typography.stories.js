@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Caps, Text, Label } from 'components/elements'
 import { storiesOf } from '@storybook/react'
 import { Header } from 'components/patterns'
@@ -57,7 +57,7 @@ export default () => (
 )`
 
 storiesOf('Theme', module).add('Typography', () => (
-  <Fragment>
+  <>
     <Story name='Header title' code={codeHeader}>
       <Header pb={0} title='Turn websites into data' />
     </Story>
@@ -95,5 +95,5 @@ storiesOf('Theme', module).add('Typography', () => (
         children='June 30, 2018 (9 months ago)'
       />
     </Story>
-  </Fragment>
+  </>
 ))

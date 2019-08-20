@@ -213,7 +213,7 @@ export const fonts = {
 
 export const cx = key => colors[key] || key
 
-export const gradient = `linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)`
+export const gradient = 'linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)'
 
 export const shadowOffsets = [
   '0 2px 4px', // Toolbar
