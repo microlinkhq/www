@@ -3,15 +3,15 @@ title: 'Overview'
 redirect_from:
   - /docs/
   - /docs/sdk/
---- 
+---
 
-**Microlink SDK** enables you to create beautiful previews from any link.
+**Microlink SDK** enables you to create previews from any link.
 
 You can convert any link present in your markup
 
 [instagram.com/p/BvDTdWdnzkj/](https://www.instagram.com/p/BvDTdWdnzkj/)
 
-into a beauty link preview
+into a beautiful preview
 
 <Microlink url='https://www.instagram.com/p/BvDTdWdnzkj/' />
 

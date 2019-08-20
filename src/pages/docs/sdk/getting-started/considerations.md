@@ -12,15 +12,15 @@ Based on that premise, **Microlink SDK** has been designed with two premises on 
 
 ## Pollyfills
 
-Since **Microlink SDK** consume [Microlink API](/docs/api) and turn the raw data into a beauty preview, it needs to perform an internal request for getting from the target URL.
+Since the **Microlink SDK** consumes the [Microlink API](/docs/api) and turns the raw data into a beautiful preview, it needs to perform an internal request to obtain it from the target URL.
 
-For doing that, our integrations use standard [fetch](https://developer.mozilla.org/es/docs/Web/API/Fetch_API). However, **Microlink SDK** doesn't add it as part of the bundle: It will take it from `window`.
+To do that, our integrations use the standard [Fetch API](https://developer.mozilla.org/es/docs/Web/API/Fetch_API). However, **Microlink SDK** doesn't add it as part of the bundle: It will take it from `window`.
 
 That means that `window.fetch` should be available and accesible.
 
 Although nowadays the [fetch browser compatibility](https://caniuse.com/#search=fetch) is enough good, you need to be sure the environment under **Microlink SDK** is running have it available.
 
-We recommend use [polyfill.io](https://polyfill.io/v3/) CDN for that purpose, it will only load polyfill if fetch is not globally detected.
+We recommend using the [polyfill.io](https://polyfill.io/v3/) CDN for that purpose, it will only load the polyfill if `fetch` isn't globally detected.
 
 ```html
 <script>
@@ -29,7 +29,7 @@ We recommend use [polyfill.io](https://polyfill.io/v3/) CDN for that purpose, it
 </script>
 ```
 
-Just add it in your main markup before closing your `body` tag.
+Just add the above to your main markup before the closing `body` tag.
 
 ## CSS Classnames
 
@@ -39,7 +39,7 @@ The card previsualization is shipped with a default minimal inline style.
 
 If you need to adapt the *look and feel*, each component of the card has been assigned a [BEM](http://getbem.com/introduction) class name:
 
-* **microlink_card**: The root `div` of the card.
+* **microlink_card**: The root element of the card.
 * **microlink_card__media**: The media element, regardless of whether it's `video` or `image`.
 * **microlink_card__media_image**: The `div` holding the `background-image` of the image preview of the link.
 * **microlink_card__media_video_wrapper**: The wrapper `div` around the video preview of the link.

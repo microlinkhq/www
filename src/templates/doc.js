@@ -59,6 +59,10 @@ const ROUTES_SDK = [
         href: '/docs/sdk/api-parameters/direction/'
       },
       {
+        name: 'lazy',
+        href: '/docs/sdk/api-parameters/lazy/'
+      },
+      {
         name: 'media',
         href: '/docs/sdk/api-parameters/media/',
         posts: [

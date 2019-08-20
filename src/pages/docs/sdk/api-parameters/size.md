@@ -31,7 +31,7 @@ export default () => (
 
 <Microlink url='https://microlink.io' media='logo' />
 
-<Figcaption children="The default direction is normal."  />
+<Figcaption children='The default size is normal.'  />
 
 Alternatively you can set `large`
 

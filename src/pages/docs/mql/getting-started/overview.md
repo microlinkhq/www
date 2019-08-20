@@ -21,9 +21,9 @@ const { data } = await mql('https://kikobeats.com', {
 console.log(`The avatar is ${data.avatar.url}`)
 ```
 
-<Figcaption children="Just the thing you need to do is declaring the data you want to obtain." />
+<Figcaption children='The only thing you need to do is declare the data you wish to obtain.' />
 
-Under the hood, it interacts with [Microlink API](/docs/api/getting-started/overview), being any API Parameter available here as well.
+Under the hood, it interacts with the [Microlink API](/docs/api/getting-started/overview), meaning any API parameters are available here too.
 
 ```js
 const mql = require('@microlink/mql')
