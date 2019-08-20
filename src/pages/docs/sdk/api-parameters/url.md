@@ -36,6 +36,6 @@ It should be reachable by the service. For example, if you want to extract conte
 
 If the URL provided has query strings, it should be properly escaped in order to not interfere with the rest of the API Parameters.
 
-Also, the protocol matters: If the target URL has relative URLs inside (e.g. images or videos), then the URL provided will be used to resolve relative URLs into absolute.
+Also, the protocol matters: If the target URL has relative URLs inside (e.g., images or videos), then the URL provided will be used to resolve relative URLs into absolute.
 
 This means that if you provide an HTTPS URL, then all relative URLs will be resolved under SSL.
