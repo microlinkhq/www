@@ -5,7 +5,6 @@ const {
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
   GOOGLE_ANALYTICS_ID,
-  MICROLINK_API_ENDPOINT,
   SITE_URL
 } = require('./env')
 
@@ -30,16 +29,15 @@ module.exports = {
     // additional
     paymentApiKey: PAYMENT_API_KEY,
     paymentEndpoint: PAYMENT_ENDPOINT,
-    apiEndpoint: MICROLINK_API_ENDPOINT,
     stripeKey: STRIPE_KEY
   },
   plugins: [
-    `gatsby-plugin-styled-components`,
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-catch-links`,
-    `gatsby-transformer-javascript-frontmatter`,
+    'gatsby-plugin-styled-components',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-catch-links',
+    'gatsby-transformer-javascript-frontmatter',
     {
-      resolve: `gatsby-plugin-sass`,
+      resolve: 'gatsby-plugin-sass',
       options: {
         postCssPlugins: [
           require('postcss-focus'),
@@ -50,42 +48,42 @@ module.exports = {
         precision: 8
       }
     },
-    `gatsby-transformer-json`,
+    'gatsby-transformer-json',
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: `data`,
+        name: 'data',
         path: `${__dirname}/data/`
       }
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/src/pages/`,
         name: 'pages'
       }
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: GOOGLE_ANALYTICS_ID,
         head: false
       }
     },
     {
-      resolve: `gatsby-plugin-sitemap`
+      resolve: 'gatsby-plugin-sitemap'
     },
     {
-      resolve: `gatsby-plugin-canonical-urls`,
+      resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: SITE_URL
       }
     },
-    `gatsby-plugin-remove-trailing-slashes`,
-    `gatsby-transformer-remark`,
-    `gatsby-transformer-yaml`,
-    `gatsby-plugin-netlify`,
-    `gatsby-redirect-from`,
-    `gatsby-plugin-meta-redirect`
+    'gatsby-plugin-remove-trailing-slashes',
+    'gatsby-transformer-remark',
+    'gatsby-transformer-yaml',
+    'gatsby-plugin-netlify',
+    'gatsby-redirect-from',
+    'gatsby-plugin-meta-redirect'
   ]
 }

@@ -15,7 +15,7 @@ const path = require('path')
 
 const getDomain = url => (parseDomain(url) || {}).domain
 
-const { isProduction, SITE_URL, MICROLINK_API_ENDPOINT } = require('../env')
+const { isProduction, SITE_URL } = require('../env')
 const DATA_DEMO_LINKS_PATH = path.resolve(__dirname, '../data/demo-links.json')
 const { MICROLINK_API_KEY } = process.env
 

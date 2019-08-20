@@ -1,4 +1,4 @@
-import { useSiteMetadata, useDemoLinks, useQueryState } from 'components/hook'
+import { useDemoLinks, useQueryState } from 'components/hook'
 import { LinkSolid, Text, Notification } from 'components/elements'
 import React, { useState, useRef, useEffect } from 'react'
 import { Layout } from 'components/patterns'
@@ -11,7 +11,7 @@ import Examples from 'components/pages/embed/examples'
 import Template from 'components/pages/embed/template'
 
 const ErrorMessage = ({ more }) => {
-  const text = `The URL has something weird.`
+  const text = 'The URL has something weird.'
   const children = more ? (
     <Text as='span'>
       {text}{' '}
@@ -27,7 +27,6 @@ const ErrorMessage = ({ more }) => {
 }
 
 export default () => {
-  const { apiEndpoint } = useSiteMetadata()
   const [status, setStatus] = useState('initial')
   const [error, setError] = useState(null)
   const [warning, setWarning] = useState(null)
@@ -42,7 +41,6 @@ export default () => {
       setError(null)
       setStatus('fetching')
       const { data } = await mql(url, {
-        endpoint: apiEndpoint,
         palette: true
       })
       setData(data)
