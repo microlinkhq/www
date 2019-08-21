@@ -39,7 +39,7 @@
   "dependencies": {
     "@microlink/demo-links": "~1.0.4",
     "@microlink/mql": "~0.3.16",
-    "@microlink/react": "~4.1.0",
+    "@microlink/react": "~4.1.1",
     "@styled-system/prop-types": "~5.1.0",
     "@tippy.js/react": "~2.2.2",
     "autoprefixer": "~9.6.1",
