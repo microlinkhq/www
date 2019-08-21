@@ -8,7 +8,7 @@ import {
 } from 'components/elements'
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
-import formatDate from 'date-fns/format'
+import { formatDate } from 'helpers'
 import { colors } from 'theme'
 import React from 'react'
 
@@ -422,7 +422,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
             pt={4}
           >
             <Text color='gray5' fontSize={0}>
-              Last Edited on {formatDate(meta.date, 'MMMM Do YYYY')}
+              Last Edited on {formatDate(meta.date)}
             </Text>
             <Link href={githubUrl} fontSize={0}>
               Edit This Page on GitHub
