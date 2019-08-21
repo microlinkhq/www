@@ -279,7 +279,7 @@ export const Blockquote = styled.blockquote`
   margin: auto;
   max-width: ${WIDTH.normal}px;
   border-left: 3px solid ${colors.black};
-  padding-left: ${space[3]}px;
+  padding-left: ${space[3]};
   font-style: italic;
   color: ${colors.gray8};
 `
