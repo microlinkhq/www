@@ -2,16 +2,15 @@ import stringify from 'fast-safe-stringify'
 import { useState, useEffect } from 'react'
 import { decode, encode } from 'qss'
 import { navigate } from 'gatsby'
-
-const hasWindow = typeof window !== `undefined`
+import { isSSR } from 'helpers'
 
 const eq = (str1, str2) => stringify(str1) === stringify(str2)
 
-const fromLocation = hasWindow
-  ? () => decode(window.location.search.substring(1))
-  : () => ({})
+const fromLocation = isSSR
+  ? () => ({})
+  : () => decode(window.location.search.substring(1))
 
-const condition = hasWindow ? [window.location.search] : []
+const condition = isSSR ? [] : [window.location.search]
 
 export const useQueryState = () => {
   const [query, setQuery] = useState(fromLocation())

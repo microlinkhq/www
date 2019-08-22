@@ -1,15 +1,16 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import Head from 'components/Head'
 import { Box } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
+import { isSSR } from 'helpers'
 
 import theme from 'theme'
 import 'styles/main.scss'
 
-if (global.window) {
+if (!isSSR) {
   window.scroll = require('smooth-scroll')('a[href*="#"]', {
     speed: theme.speed.slowly
   })
@@ -30,13 +31,13 @@ const Layout = ({ footer, children, ...props }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Fragment>
+      <>
         <Head {...props} />
         <Toolbar />
         <Box pt={TOOLBAR_HEIGHT}>{children}</Box>
         <CookiesPolicy />
         {footer && <Footer />}
-      </Fragment>
+      </>
     </ThemeProvider>
   )
 }

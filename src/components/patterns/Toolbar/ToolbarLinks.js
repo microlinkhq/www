@@ -30,7 +30,7 @@ export const NavLogo = ({ mobile, ...props }) =>
       display='flex'
       {...props}
     >
-      <Microlink size={'100%'} />
+      <Microlink size='100%' />
     </NavLinkDesktop>
   )
 

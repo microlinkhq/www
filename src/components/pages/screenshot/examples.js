@@ -11,7 +11,7 @@ import {
 } from 'components/elements'
 
 import { useTransition, animated, config } from 'react-spring'
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
 import { aspectRatio, getHostname } from 'helpers'
@@ -146,7 +146,7 @@ const SearchBox = ({
   const backgroundIconComponent = isColor(inputBg) ? (
     <Box
       border={1}
-      borderColor={'black10'}
+      borderColor='black10'
       borderRadius={1}
       width='14px'
       height='14px'
@@ -251,7 +251,7 @@ const SearchBox = ({
       </Flex>
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
-        <Box mb={'-12px'}>
+        <Box mb='-12px'>
           <Text fontSize={2}>into a snapshot</Text>
         </Box>
         <DemoSlider children={DEMO_LINKS} />
@@ -289,7 +289,7 @@ export default ({
   refBackground,
   isLoading
 }) => (
-  <Fragment>
+  <>
     <SearchBox
       onSubmit={onSubmit}
       url={url}
@@ -300,5 +300,5 @@ export default ({
       isLoading={isLoading}
     />
     <Examples demoLinks={demoLinks} />
-  </Fragment>
+  </>
 )

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
 import {
   Box,
@@ -25,7 +25,7 @@ export default () => (
 `
 
 storiesOf('Elements', module).add('Button', () => (
-  <Fragment>
+  <>
     {buttons.map(({ name, Component }) => {
       return (
         <Story
@@ -48,5 +48,5 @@ storiesOf('Elements', module).add('Button', () => (
         </Story>
       )
     })}
-  </Fragment>
+  </>
 ))
