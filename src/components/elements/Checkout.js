@@ -1,6 +1,6 @@
 /* global fetch, StripeCheckout */
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import {
   Caps,
   LinkSolid,
@@ -102,7 +102,7 @@ export default class extends Component {
     const { paymentState } = this.state
 
     return (
-      <Fragment>
+      <>
         {paymentState && (
           <Choose>
             <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
@@ -136,7 +136,7 @@ export default class extends Component {
         >
           <Caps fontSize={0}>Buy</Caps>
         </ButtonSecondary>
-      </Fragment>
+      </>
     )
   }
 }

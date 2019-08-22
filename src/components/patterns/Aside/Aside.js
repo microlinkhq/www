@@ -1,6 +1,6 @@
 import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
 import { Box, Flex, Hide } from 'components/elements'
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { transition } from 'theme'
 
@@ -54,7 +54,7 @@ const AsideMobile = ({ children, ...props }) => {
   `
 
   return (
-    <Fragment>
+    <>
       <AsideBase
         CloseButton={CloseButton}
         isOpen={isOpen}
@@ -65,26 +65,26 @@ const AsideMobile = ({ children, ...props }) => {
       <Flex flexDirection='column' as='article' css={css}>
         {children}
       </Flex>
-    </Fragment>
+    </>
   )
 }
 
 const AsideDesktop = ({ children, ...props }) => (
-  <Fragment>
+  <>
     <AsideBase isOpen {...props} />
     <Flex pl={ASIDE_WIDTH} flexDirection='column' as='article' css={css}>
       {children}
     </Flex>
-  </Fragment>
+  </>
 )
 
 export default props => (
-  <Fragment>
+  <>
     <Hide breakpoints={[0, 1, 2]}>
       <AsideDesktop {...props} />
     </Hide>
     <Hide breakpoints={[3]}>
       <AsideMobile {...props} />
     </Hide>
-  </Fragment>
+  </>
 )

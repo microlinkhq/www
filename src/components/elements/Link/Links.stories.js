@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Box, Link, LinkSolid } from 'components/elements'
 import { Story } from 'story'
@@ -19,7 +19,7 @@ export default () => (
 `
 
 storiesOf('Elements', module).add('Link', () => (
-  <Fragment>
+  <>
     {buttons.map(({ name, Component }) => (
       <Story key={name} name={name} code={createCode(name)}>
         {states.map(state => (
@@ -36,5 +36,5 @@ storiesOf('Elements', module).add('Link', () => (
         ))}
       </Story>
     ))}
-  </Fragment>
+  </>
 ))

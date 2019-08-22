@@ -1,9 +1,9 @@
-import React, { useState, Fragment } from 'react'
 import styled, { css } from 'styled-components'
+import { serializeComponent } from 'helpers'
 import Microlink from '@microlink/react'
 import ReactJson from 'react-json-view'
 import CodeCopy from 'react-codecopy'
-import { serializeComponent } from 'helpers'
+import React, { useState } from 'react'
 
 import { lineHeights, fontSizes, fonts, colors } from 'theme'
 import { CARD_WIDTH_DESKTOP, CARD_WIDTH_MOBILE } from './theme'
@@ -112,7 +112,7 @@ const CodePreview = ({ children }) => {
   const code = editor(children)
 
   return (
-    <Fragment>
+    <>
       <Flex flexDirection='column'>
         <Flex
           as='header'
@@ -149,12 +149,12 @@ const CodePreview = ({ children }) => {
           </LiveProvider>
         </Box>
       </Flex>
-    </Fragment>
+    </>
   )
 }
 
 const CardPreview = ({ loading, children }) => (
-  <Fragment>
+  <>
     <Hide breakpoints={[0, 1]}>
       <MicrolinkCardDesktop
         url={children.url}
@@ -173,7 +173,7 @@ const CardPreview = ({ loading, children }) => (
         setData={children}
       />
     </Hide>
-  </Fragment>
+  </>
 )
 
 const JSONPreview = ({ children }) => (

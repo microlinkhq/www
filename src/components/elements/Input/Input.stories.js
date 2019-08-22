@@ -1,12 +1,8 @@
 import { storiesOf } from '@storybook/react'
-import React, { Fragment } from 'react'
 import { serializeFmt } from 'helpers/prettier'
-import { Mail } from 'react-feather'
-import { noop } from 'lodash'
-
 import { Input } from 'components/elements'
-import { colors } from 'theme'
 import { Story } from 'story'
+import React from 'react'
 
 const createCode = (props = '') => `
 import { Select } from 'components/elements'
@@ -33,7 +29,7 @@ const Form = props => (
 )
 
 storiesOf('Elements', module).add('Input', () => (
-  <Fragment>
+  <>
     {createStory('Input', {
       type: 'email',
       placeholder: 'you@domain.com',
@@ -56,5 +52,5 @@ storiesOf('Elements', module).add('Input', () => (
       width: '9rem',
       fontSize: 1
     })}
-  </Fragment>
+  </>
 ))

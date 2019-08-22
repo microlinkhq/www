@@ -77,7 +77,7 @@ const toDownload = async data => {
 const fetchDemoLink = async (key, { url, ...props }) => {
   try {
     const { data } = await mql(url, {
-      apiKey: isProduction ? MICROLINK_API_KEY : undefined,
+      apiKey: MICROLINK_API_KEY,
       video: true,
       audio: true,
       palette: true,

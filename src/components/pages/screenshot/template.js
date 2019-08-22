@@ -1,12 +1,12 @@
 import { aspectRatio, screenshotUrl, getHostname } from 'helpers'
 import * as Logo from 'components/logos'
-import React, { Fragment } from 'react'
 import humanizeUrl from 'humanize-url'
 import { borders, colors } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
 import { get } from 'lodash'
+import React from 'react'
 
 import { useQueryState, useFeatures } from 'components/hook'
 
@@ -60,13 +60,13 @@ const HeroHeader = ({ title, caption }) => {
 
 const Hero = ({ humanizedUrl, brand, data }) => {
   const caption = (
-    <Fragment>
+    <>
       Take{' '}
       <Subhead as='span' color='black' fontWeight='bold'>
         {humanizedUrl}
       </Subhead>{' '}
       screenshot
-    </Fragment>
+    </>
   )
 
   const logoProvider = (() => {
@@ -96,7 +96,7 @@ const Hero = ({ humanizedUrl, brand, data }) => {
   )
 
   return (
-    <Fragment>
+    <>
       <Container id='hero'>
         <HeroHeader title={title} caption={caption} />
         <Link href={data.screenshot.url}>
@@ -108,17 +108,17 @@ const Hero = ({ humanizedUrl, brand, data }) => {
           />
         </Link>
       </Container>
-    </Fragment>
+    </>
   )
 }
 
 const Subheader = ({ children }) => (
-  <Fragment>
+  <>
     <Subhead fontSize={1} color='secondary'>
       <Caps as='span' children={children[0]} />
     </Subhead>
     <Heading mt={1} fontSize={[3, 4]} variant={null} children={children[1]} />
-  </Fragment>
+  </>
 )
 
 const Features = ({ children }) => (
@@ -256,7 +256,7 @@ const CLI = ({ humanizedUrl, data }) => {
   }&screenshot${browser}${waitFor}&embed=screenshot.url`
 
   const cliCode = (
-    <Fragment>
+    <>
       <span>
         npx microlink-api {data.url}?&screenshot{browser}
         {waitFor}
@@ -277,7 +277,7 @@ const CLI = ({ humanizedUrl, data }) => {
           <SpanKey>cache</SpanKey> <Span>prerender (4654.865ms)</Span>
         </Box>
       </Box>
-    </Fragment>
+    </>
   )
 
   return (
@@ -337,11 +337,11 @@ export default props => {
   const humanizedUrl = humanizeUrl(getHostname(props.data.url))
 
   return (
-    <Fragment>
+    <>
       <Hero humanizedUrl={humanizedUrl} {...props} />
       <API humanizedUrl={humanizedUrl} {...props} />
       <Features children={useFeatures()} />
       <CLI humanizedUrl={humanizedUrl} {...props} />
-    </Fragment>
+    </>
   )
 }

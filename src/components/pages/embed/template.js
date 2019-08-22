@@ -1,12 +1,12 @@
 import { useFeatures } from 'components/hook'
 import * as Logo from 'components/logos'
-import React, { Fragment } from 'react'
 import { borders, colors } from 'theme'
 import { getHostname } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
 import { get } from 'lodash'
+import React from 'react'
 
 import {
   Text,
@@ -107,13 +107,13 @@ const HeroHeader = ({ title, caption }) => {
 
 const Hero = ({ humanizedUrl, brand, data }) => {
   const caption = (
-    <Fragment>
+    <>
       Turn any{' '}
       <Subhead as='span' color='black' fontWeight='bold'>
         {humanizedUrl}
       </Subhead>{' '}
       link into structured data
-    </Fragment>
+    </>
   )
 
   const logoProvider = (() => {
@@ -143,21 +143,21 @@ const Hero = ({ humanizedUrl, brand, data }) => {
   )
 
   return (
-    <Fragment>
+    <>
       <Container id='hero'>
         <HeroHeader title={title} caption={caption} />
       </Container>
-    </Fragment>
+    </>
   )
 }
 
 const Subheader = ({ children }) => (
-  <Fragment>
+  <>
     <Subhead fontSize={1} color='secondary'>
       <Caps as='span' children={children[0]} />
     </Subhead>
     <Heading mt={1} fontSize={[3, 4]} variant={null} children={children[1]} />
-  </Fragment>
+  </>
 )
 
 const SDK = ({ humanizedUrl, data }) => (
@@ -297,7 +297,7 @@ const API = ({ data }) => {
           <Box width={500}>
             <Text mb={1} color='gray8' fontSize={1}>
               using MQL (
-              <Link href={'/docs/mql/getting-started/overview'}>docs</Link>)
+              <Link href='/docs/mql/getting-started/overview'>docs</Link>)
             </Text>
             <CodeEditor
               language='javascript'
@@ -307,7 +307,7 @@ const API = ({ data }) => {
           <Box mt={[3, 3, 3, 0]} width={500}>
             <Text mb={1} color='gray8' fontSize={1}>
               using Microlink CLI (
-              <Link href={'/docs/api/getting-started/cli'}>docs</Link>)
+              <Link href='/docs/api/getting-started/cli'>docs</Link>)
             </Text>
             <Box mb={3}>
               <CodeEditor
@@ -329,11 +329,11 @@ const API = ({ data }) => {
 export default props => {
   const humanizedUrl = humanizeUrl(getHostname(props.data.url))
   return (
-    <Fragment>
+    <>
       <Hero humanizedUrl={humanizedUrl} {...props} />
       <SDK humanizedUrl={humanizedUrl} {...props} />
       <Features children={useFeatures()} />
       <API humanizedUrl={humanizedUrl} {...props} />
-    </Fragment>
+    </>
   )
 }

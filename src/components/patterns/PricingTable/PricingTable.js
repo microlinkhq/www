@@ -1,5 +1,5 @@
 import { formatNumber } from 'helpers'
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { HelpCircle } from 'react-feather'
 import {
@@ -99,7 +99,7 @@ const PricingHeader = ({ children }) => {
       {pricingPlans.map((children, index) => (
         <Text
           as='th'
-          pb={'.85rem'}
+          pb='.85rem'
           px={[3, 3, 3, '5rem']}
           fontWeight='bold'
           fontSize={2}
@@ -197,10 +197,10 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
           <PricingRow
             children={[
               'Rate Limit',
-              <Fragment>
+              <>
                 {FREE_PLAN_RATE_LIMIT}{' '}
                 <Label display='inline' children='reqs' suffix='/day' />
-              </Fragment>,
+              </>,
               <PricePicker onChange={priceSelected} />
             ]}
           />

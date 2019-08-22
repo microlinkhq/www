@@ -12,7 +12,7 @@ import {
 
 import { Header, DemoLinks, Microlink } from 'components/patterns'
 import { borders, transition, colors } from 'theme'
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import demoLinks from '@microlink/demo-links'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
@@ -102,7 +102,7 @@ const Examples = ({ demoLinks }) => (
 )
 
 export default ({ demoLinks, onSubmit, url, innerRef, isLoading }) => (
-  <Fragment>
+  <>
     <SearchBox
       onSubmit={onSubmit}
       url={url}
@@ -110,5 +110,5 @@ export default ({ demoLinks, onSubmit, url, innerRef, isLoading }) => (
       isLoading={isLoading}
     />
     <Examples demoLinks={demoLinks} />
-  </Fragment>
+  </>
 )
