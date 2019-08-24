@@ -31,8 +31,7 @@ const LinkSolid = styled(Link)`
 
 LinkSolid.defaultProps = {
   fontWeight: 'bold',
-  color: 'black80',
-  pb: '2px'
+  color: 'black80'
 }
 
 export default ({ fontWeight, href, children, color, ...props }) => (
