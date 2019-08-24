@@ -112,7 +112,7 @@ export default class extends Component {
             <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
               <Notification.Success>
                 <Text as='span'>Payment processed</Text>
-                <Text ml={2} mr={1} as='span'>
+                <Text role='img' aria-label='hooray' ml={2} mr={1} as='span'>
                   🎉
                 </Text>
                 <Text as='span'>We sent you an email.</Text>
