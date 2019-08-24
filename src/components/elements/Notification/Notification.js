@@ -57,13 +57,18 @@ const createNotification = notificationProps => ({ children, ...props }) => {
   if (isClosed) return null
 
   return (
-    <Wrapper alignItems='center' justifyContent='center' aria-hidden={isHidden}>
+    <Wrapper
+      alignItems='center'
+      justifyContent='center'
+      aria-hidden={isHidden}
+      my={3}
+    >
       <Text
         as='div'
         boxShadow={3}
         m={3}
         px={3}
-        py={'12px'}
+        py='12px'
         borderRadius={2}
         {...notificationProps}
         {...props}

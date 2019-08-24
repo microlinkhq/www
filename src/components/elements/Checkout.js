@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import {
   Caps,
+  Text,
   LinkSolid,
   Notification,
   ButtonSecondary
@@ -89,7 +90,7 @@ export default class extends Component {
     document.body.appendChild(s)
   }
 
-  openStripe = e => {
+  openStripe = () => {
     if (!this.handler) return
     this.configure()
     this.handler.open()
@@ -109,18 +110,28 @@ export default class extends Component {
               <Notification.Success children='Processing...' />
             </Choose.When>
             <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
-              <Notification.Success children='Payment processed! We sent you an email.' />
+              <Notification.Success>
+                <Text as='span'>Payment processed</Text>
+                <Text ml={2} mr={1} as='span'>
+                  🎉
+                </Text>
+                <Text as='span'>We sent you an email.</Text>
+              </Notification.Success>
             </Choose.When>
             <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
               <Notification.Error>
-                Payment not processed.{' '}
-                <LinkSolid
-                  display='inline'
-                  color='red8'
-                  children='Contact us'
-                  href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
-                />
-                {'.'}
+                <Text as='span'>Payment not processed.</Text>
+                <Text as='span' ml={1} mr={1}>
+                  <LinkSolid
+                    display='inline'
+                    color='red8'
+                    children='Contact us'
+                    href={`mailto:hello@microlink.io?${encode(
+                      ERROR_MAIL_OPTS
+                    )}`}
+                  />
+                </Text>
+                <Text as='span'>.</Text>
               </Notification.Error>
             </Choose.When>
           </Choose>
