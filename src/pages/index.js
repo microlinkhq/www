@@ -330,7 +330,9 @@ function Index () {
   const { paymentApiKey, stripeKey, paymentEndpoint } = useSiteMetadata()
 
   return (
-    <Layout>
+    <Layout
+      script={[{ src: 'https://checkout.stripe.com/checkout.js', async: true }]}
+    >
       <Hero />
       <Sdk children={demoLinks} editor={demoLink} />
       <Mql />
