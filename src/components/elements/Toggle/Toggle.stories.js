@@ -18,6 +18,6 @@ const children = ['SDK', 'MQL', 'API']
 
 storiesOf('Elements', module).add('Toggle', () => (
   <Story name='Toggle' code={code}>
-    <Toggle children={children} defaultValue={'MQL'} />
+    <Toggle children={children} defaultValue='MQL' />
   </Story>
 ))

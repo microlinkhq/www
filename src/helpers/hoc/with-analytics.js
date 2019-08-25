@@ -1,5 +1,6 @@
 import { createElement } from 'react'
 import { noop } from 'lodash'
+import { sendEvent } from 'helpers'
 
 const createOnClick = ({
   eventAction,
@@ -10,14 +11,11 @@ const createOnClick = ({
   if (!(eventAction && eventCategory)) return onClick
 
   return event => {
-    if (window.ga) {
-      window.ga('send', 'event', {
-        eventAction,
-        eventCategory,
-        eventLabel: href,
-        transport: 'beacon'
-      })
-    }
+    sendEvent({
+      eventAction,
+      eventCategory,
+      eventLabel: href
+    })
     onClick(event)
     return false
   }

@@ -1,7 +1,7 @@
 'use strict'
 
 const { getCurrentBranchName, getLastModifiedDate } = require('git-jiggy')
-const { createFilePath } = require(`gatsby-source-filesystem`)
+const { createFilePath } = require('gatsby-source-filesystem')
 const path = require('path')
 
 const demoLinksData = require('./data/demo-links.json')
@@ -66,11 +66,11 @@ exports.onCreateWebpackConfig = ({ getConfig, loaders, stage, actions }) => {
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
-  if (node.internal.type === `MarkdownRemark`) {
-    const slug = createFilePath({ node, getNode, basePath: `pages` })
+  if (node.internal.type === 'MarkdownRemark') {
+    const slug = createFilePath({ node, getNode, basePath: 'pages' })
     createNodeField({
       node,
-      name: `slug`,
+      name: 'slug',
       value: slug
     })
   }
@@ -92,7 +92,7 @@ const createEmbedDemoPages = async ({ createPage, demoLinksData }) => {
 
     return createPage({
       path: slug,
-      component: path.resolve(`./src/templates/embed.js`),
+      component: path.resolve('./src/templates/embed.js'),
       context: { brand, data, slug }
     })
   })
@@ -107,7 +107,7 @@ const createScreenshotDemoPages = async ({ createPage, demoLinksData }) => {
 
     return createPage({
       path: slug,
-      component: path.resolve(`./src/templates/screenshot.js`),
+      component: path.resolve('./src/templates/screenshot.js'),
       context: { brand, data, slug }
     })
   })
@@ -147,7 +147,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
 
     return createPage({
       path: slug,
-      component: path.resolve(`./src/templates/index.js`),
+      component: path.resolve('./src/templates/index.js'),
       context: {
         githubUrl: await githubUrl(node.fileAbsolutePath),
         lastEdited: await getLastEdited(node.fileAbsolutePath),

@@ -4,6 +4,7 @@ import formatNumber from './format-number'
 import aspectRatio from './aspect-ratio'
 import getHostname from './get-hostname'
 import formatDate from './format-date'
+import sendEvent from './send-event'
 import getLines from './get-lines'
 import prettier from './prettier'
 import isSSR from './is-ssr'
@@ -19,5 +20,6 @@ export {
   prettier,
   screenshotUrl,
   serializeComponent,
-  title
+  title,
+  sendEvent
 }

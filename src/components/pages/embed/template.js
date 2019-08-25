@@ -160,7 +160,7 @@ const Subheader = ({ children }) => (
   </>
 )
 
-const SDK = ({ humanizedUrl, data }) => (
+const Sdk = ({ humanizedUrl, data }) => (
   <Container
     id='sdk'
     maxWidth='100%'
@@ -247,7 +247,7 @@ const Features = ({ children }) => (
   </Container>
 )
 
-const API = ({ data }) => {
+const Api = ({ data }) => {
   return (
     <Container
       id='api'
@@ -331,9 +331,9 @@ export default props => {
   return (
     <>
       <Hero humanizedUrl={humanizedUrl} {...props} />
-      <SDK humanizedUrl={humanizedUrl} {...props} />
+      <Sdk humanizedUrl={humanizedUrl} {...props} />
       <Features children={useFeatures()} />
-      <API humanizedUrl={humanizedUrl} {...props} />
+      <Api humanizedUrl={humanizedUrl} {...props} />
     </>
   )
 }

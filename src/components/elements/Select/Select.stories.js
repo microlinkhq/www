@@ -25,7 +25,7 @@ const MySelect = ({ ...props }) => {
             fontSize={0}
             fontWeight='regular'
             mr={2}
-            mb={'12px'}
+            mb='12px'
           />
         )
       })}

@@ -78,7 +78,7 @@ const withlink = ChildComponent => ({
   const [isIntersecting, setIsIntersecting] = useState(false)
   const isInternal = isInternalLink(href)
   const partiallyActive = actively === 'partial'
-  
+
   useEffect(() => {
     if (actively === 'observer') {
       const node = document.querySelector(getHash(href))

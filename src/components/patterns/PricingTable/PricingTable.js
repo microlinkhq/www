@@ -201,7 +201,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
                 {FREE_PLAN_RATE_LIMIT}{' '}
                 <Label display='inline' children='reqs' suffix='/day' />
               </>,
-              <PricePicker onChange={priceSelected} />
+              <PricePicker key='price-picker' onChange={priceSelected} />
             ]}
           />
           <PricingRow children={['Tech Support', 'Community', 'Priority']} />
@@ -213,8 +213,8 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
             py={3}
             children={[
               '',
-              <Price children={0} />,
-              <Price>
+              <Price key='free-plan' children={0} />,
+              <Price key={`pro-plan-${humanMonthlyPrice}`}>
                 {highlight ? (
                   <Highlight>{humanMonthlyPrice}</Highlight>
                 ) : (
@@ -228,6 +228,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
               '',
               '',
               <Checkout
+                key='checkout'
                 planId={planId}
                 apiEndpoint={apiEndpoint}
                 apiKey={apiKey}

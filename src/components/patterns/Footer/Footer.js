@@ -197,7 +197,7 @@ export default props => (
               mr={2}
               children='© Microlink'
               style={{ opacity: '.75' }}
-              pb={'2px'}
+              pb='2px'
               fontSize={1}
             />
             <LinkSolid

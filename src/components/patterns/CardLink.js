@@ -36,8 +36,8 @@ const CardTitle = ({ children, hover }) => (
 
 export default class extends Component {
   state = { hover: false }
-  mouseOut = () => this.setState({ hover: false })
-  onMouseOver = () => this.setState({ hover: true })
+  handleMouseOut = () => this.setState({ hover: false })
+  handleMouseOver = () => this.setState({ hover: true })
   render () {
     const {
       iconComponent: IconComponent,
@@ -49,8 +49,8 @@ export default class extends Component {
     return (
       <BlockLink
         href={href}
-        onMouseOut={this.mouseOut}
-        onMouseOver={this.onMouseOver}
+        onMouseOut={this.handleMouseOut}
+        onMouseOver={this.handleMouseOver}
       >
         <Card py={[47.6, 56]} px={4} width={[314.5, 370]} height={[400, 420]}>
           <Flex

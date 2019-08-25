@@ -62,7 +62,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
 export default ({ posts = useBlogIndex() }) => {
   return (
     <Layout title='Blog' image='https://cdn.microlink.io/page/blog.png'>
-      <Container px={0} as='article' maxWidth={'inherit'}>
+      <Container px={0} as='article' maxWidth='inherit'>
         <Flex flexDirection='column' alignItems='center' pt={5}>
           <Header subtitle='Blog' />
           {posts.map((post, index) => (

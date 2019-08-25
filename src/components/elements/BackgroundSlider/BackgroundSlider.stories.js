@@ -59,21 +59,21 @@ export default () => (
 storiesOf('Elements', module).add('BackgroundSlider', () => (
   <Story name='BackgroundSlider' code={code}>
     <BackgroundSliderContainer as='article' py={0} px={0} maxWidth='100%'>
-      <BackgroundSlider duration={80} animationDirection={'reverse'}>
+      <BackgroundSlider duration={80} animationDirection='reverse'>
         {range(30).map(index => (
           <LogoWrap key={index}>
             <Microlink />
           </LogoWrap>
         ))}
       </BackgroundSlider>
-      <BackgroundSlider duration={80} animationDirection={'normal'}>
+      <BackgroundSlider duration={80} animationDirection='normal'>
         {range(30).map(index => (
           <LogoWrap key={index}>
             <Microlink />
           </LogoWrap>
         ))}
       </BackgroundSlider>
-      <BackgroundSlider duration={80} animationDirection={'reverse'}>
+      <BackgroundSlider duration={80} animationDirection='reverse'>
         {range(30).map(index => (
           <LogoWrap key={index}>
             <Microlink />

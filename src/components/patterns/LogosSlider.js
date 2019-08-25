@@ -79,7 +79,7 @@ const LogoSlider = props => (
         >
           <NoWrap>
             {chunkBrands.map((brand, index) => (
-              <LogoWrap>{createElement(Logos[brand], { key: index })}</LogoWrap>
+              <LogoWrap key={brand}>{createElement(Logos[brand])}</LogoWrap>
             ))}
           </NoWrap>
         </BackgroundSlider>
