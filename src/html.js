@@ -19,7 +19,7 @@ export default function HTML (props) {
           This app works best with JavaScript enabled.
         </noscript>
         <div
-          key={`body`}
+          key='body'
           id='___gatsby'
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
@@ -30,7 +30,7 @@ export default function HTML (props) {
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.$crisp=[];window.CRISP_WEBSITE_ID="1ad5d211-8699-43f6-add3-578b9e47b922";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`
+            __html: 'window.$crisp=[];window.CRISP_WEBSITE_ID="1ad5d211-8699-43f6-add3-578b9e47b922";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();'
           }}
         />
       </body>

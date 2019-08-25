@@ -45,10 +45,10 @@ export default class extends Component {
           >
             <Text fontSize={['10px', 1]} color='black80'>
               <span>By using this website you agree to our</span>
-              <Link ml={1} href={'/privacy'} children='privacy' />
+              <Link ml={1} href='/privacy' children='privacy' />
               <span>.</span>
             </Text>
-            <CloseButton ml={3} onClick={this.hide}>
+            <CloseButton ml={3} onClick={this.handleHide}>
               <X size={16} color={colors.black80} />
             </CloseButton>
           </Flex>
@@ -62,7 +62,7 @@ export default class extends Component {
     this.setState({ show })
   }
 
-  hide = event => {
+  handleHide = event => {
     event.preventDefault()
     this.setState(
       { show: false },

@@ -1,7 +1,7 @@
 import { space, fontSizes, colors } from 'theme'
 import styled, { css } from 'styled-components'
 import { withSlug } from 'helpers/hoc'
-import MDX from 'mdx-scoped-runtime'
+import Mdx from 'mdx-scoped-runtime'
 import slug from 'remark-slug'
 import { get } from 'lodash'
 import React from 'react'
@@ -329,7 +329,7 @@ const ScopedComponents = {
 }
 
 export default props => (
-  <MDX
+  <Mdx
     components={mdComponents}
     scope={ScopedComponents}
     mdPlugins={[slug]}

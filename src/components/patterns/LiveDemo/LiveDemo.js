@@ -40,7 +40,7 @@ export default class extends Component {
     const isSDK = view === 'preview'
 
     return (
-      <Flex flexDirection={'column'} justifyContent='space-around'>
+      <Flex flexDirection='column' justifyContent='space-around'>
         <Flex flexDirection='column' mb={[4, 0]}>
           <Card
             css={`

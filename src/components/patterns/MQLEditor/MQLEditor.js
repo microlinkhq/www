@@ -111,7 +111,7 @@ export default class extends Component {
     const language = view === 'mql' ? 'js' : 'json'
 
     return (
-      <Flex flexDirection={'column'} justifyContent='space-around'>
+      <Flex flexDirection='column' justifyContent='space-around'>
         <Flex flexDirection='column' mb={[4, 0]}>
           <Card
             bg='pinky'

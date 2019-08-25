@@ -4,7 +4,7 @@ import { Badge, Link, Text, Flex } from 'components/elements'
 const Banner = ({ href, children }) => (
   <Flex
     as='section'
-    px={'12px'}
+    px='12px'
     borderRadius={5}
     justifyContent='center'
     alignItems='center'

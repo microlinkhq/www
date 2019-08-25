@@ -135,7 +135,7 @@ const Features = ({ children }) => (
   </Container>
 )
 
-const API = ({ humanizedUrl, data }) => {
+const Api = ({ humanizedUrl, data }) => {
   const [query] = useQueryState()
   const apiUrl = screenshotUrl(data.url, query)
 
@@ -247,7 +247,7 @@ const Span = styled.span`
   color: ${colors.gray8};
 `
 
-const CLI = ({ humanizedUrl, data }) => {
+const Cli = ({ humanizedUrl, data }) => {
   const [query] = useQueryState()
   const browser = query.browser ? `&browser=${query.browser}` : ''
   const waitFor = query.waitFor ? `&waitFor=${query.waitFor}` : ''
@@ -339,9 +339,9 @@ export default props => {
   return (
     <>
       <Hero humanizedUrl={humanizedUrl} {...props} />
-      <API humanizedUrl={humanizedUrl} {...props} />
+      <Api humanizedUrl={humanizedUrl} {...props} />
       <Features children={useFeatures()} />
-      <CLI humanizedUrl={humanizedUrl} {...props} />
+      <Cli humanizedUrl={humanizedUrl} {...props} />
     </>
   )
 }

@@ -4,8 +4,8 @@ import { Flex } from 'components/elements'
 
 export default ({ large }) => {
   const iframeUrl = large
-    ? `https://chat.microlink.io/iframe/dialog?large=true`
-    : `https://chat.microlink.io/iframe/dialog`
+    ? 'https://chat.microlink.io/iframe/dialog?large=true'
+    : 'https://chat.microlink.io/iframe/dialog'
 
   const style = large
     ? { width: '350px', height: '350px' }

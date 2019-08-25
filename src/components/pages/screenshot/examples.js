@@ -93,10 +93,12 @@ const DemoSlider = ({ children: slides }) => {
 
   useEffect(
     () =>
+      /* eslint-disable no-void */
       void setInterval(
         () => setIndex(state => (state + 1) % slides.length),
         INTERVAL
-      ),
+      )
+      /* eslint-enable no-void */,
     []
   )
 
