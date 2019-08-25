@@ -1,6 +1,7 @@
 /* global fetch, StripeCheckout */
 
 import React, { Component } from 'react'
+
 import {
   Caps,
   Text,
@@ -10,6 +11,7 @@ import {
 } from 'components/elements'
 import { encode } from 'qss'
 import { Choose } from 'react-extras'
+import { sendEvent } from 'helpers'
 
 const PAYMENT_STATE = {
   PROCESSING: 'processing',
@@ -23,17 +25,7 @@ const ERROR_MAIL_OPTS = {
     'Hello,\n\nSomething bad happens trying to pay you at microlink.io.\n\nCan you help me?'
 }
 
-const sendEvent = status => {
-  if (window.ga) {
-    window.ga('send', 'event', {
-      eventAction: 'Checkout',
-      eventCategory: 'Buy',
-      eventLabel: status,
-      transport: 'beacon'
-    })
-  }
-}
-
+// TODO: Refactor to use hooks
 export default class extends Component {
   state = { paymentState: null }
 
@@ -68,12 +60,19 @@ export default class extends Component {
         })
           .then(res => res.json())
           .then(({ status }) => {
-            sendEvent('success')
+            sendEvent({
+              eventAction: 'Checkout',
+              eventCategory: 'Buy',
+              eventLabel: 'success'
+            })
             this.setState({ paymentState: PAYMENT_STATE.SUCCESS })
           })
           .catch(err => {
-            console.error(err)
-            sendEvent('failed')
+            sendEvent({
+              eventAction: 'Checkout',
+              eventCategory: 'Buy',
+              eventLabel: 'failed'
+            })
             this.setState({ paymentState: PAYMENT_STATE.FAILED })
           })
       }
@@ -90,7 +89,7 @@ export default class extends Component {
     document.body.appendChild(s)
   }
 
-  openStripe = () => {
+  handleStripe = () => {
     if (!this.handler) return
     this.configure()
     this.handler.open()
@@ -139,8 +138,8 @@ export default class extends Component {
 
         <ButtonSecondary
           mt={[3, 3, 3, 3]}
-          onClick={this.openStripe}
-          onTouchStart={this.openStripe}
+          onClick={this.handleStripe}
+          onTouchStart={this.handleStripe}
           loading={paymentState === PAYMENT_STATE.PROCESSING}
           data-event-category='Checkout'
           data-event-action='Buy'
