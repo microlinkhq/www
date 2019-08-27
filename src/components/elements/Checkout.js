@@ -38,6 +38,24 @@ export default props => {
       stripeKey
     } = props
 
+    const successPayment = () => {
+      sendEvent({
+        eventAction: 'Checkout',
+        eventCategory: 'Buy',
+        eventLabel: 'success'
+      })
+      setPaymentState(PAYMENT_STATE.SUCCESS)
+    }
+
+    const failedPayment = () => {
+      sendEvent({
+        eventAction: 'Checkout',
+        eventCategory: 'Buy',
+        eventLabel: 'failed'
+      })
+      setPaymentState(PAYMENT_STATE.FAILED)
+    }
+
     return StripeCheckout.configure({
       key: stripeKey,
       image: 'https://cdn.microlink.io/logo/trim.png',
@@ -62,22 +80,11 @@ export default props => {
         })
           .then(res => res.json())
           .then(({ status }) => {
-            sendEvent({
-              eventAction: 'Checkout',
-              eventCategory: 'Buy',
-              eventLabel: 'success'
-            })
-            setPaymentState(PAYMENT_STATE.SUCCESS)
+            status === 200 ? successPayment() : failedPayment()
           })
           .catch(err => {
             console.error(err)
-
-            sendEvent({
-              eventAction: 'Checkout',
-              eventCategory: 'Buy',
-              eventLabel: 'failed'
-            })
-            setPaymentState(PAYMENT_STATE.FAILED)
+            failedPayment()
           })
       }
     })
