@@ -9,11 +9,11 @@ redirect_from:
 
 You can convert any link present in your markup
 
-[instagram.com/p/BvDTdWdnzkj/](https://www.instagram.com/p/BvDTdWdnzkj/)
+[instagram.com/p/BvDTdWdnzkj](https://www.instagram.com/p/BvDTdWdnzkj)
 
 into a beautiful preview
 
-<Microlink url='https://www.instagram.com/p/BvDTdWdnzkj/' media='video' />
+<Microlink url='https://www.instagram.com/p/BvDTdWdnzkj/' />
 
 **Microlink SDK** can detect video, audio or image automagically. Also, it supports some customizable things, like [size](size).
 
