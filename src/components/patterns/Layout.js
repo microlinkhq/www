@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
 import Head from 'components/Head'
 import { Box } from 'components/elements'
@@ -26,18 +26,34 @@ const scrollToHash = () => {
   }
 }
 
-const Layout = ({ footer, children, ...props }) => {
+const Site = styled(Box)`
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+`
+
+const SiteContent = styled(Box)`
+  flex: 1;
+`
+
+const Layout = ({ footer, children, className, ...props }) => {
   useEffect(scrollToHash, [])
 
   return (
     <ThemeProvider theme={theme}>
-      <>
+      <Site>
         <Head {...props} />
         <Toolbar />
-        <Box pt={TOOLBAR_HEIGHT}>{children}</Box>
+        <SiteContent pt={TOOLBAR_HEIGHT} className={className}>
+          {children}
+        </SiteContent>
         <CookiesPolicy />
-        {footer && <Footer />}
-      </>
+        {footer && (
+          <Box>
+            <Footer />
+          </Box>
+        )}
+      </Site>
     </ThemeProvider>
   )
 }
