@@ -9,9 +9,10 @@ import {
   Label,
   LinkSolid,
   Flex,
-  Text,
-  Checkout
+  Text
 } from 'components/elements'
+
+import { Checkout } from 'components/patterns'
 
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 

@@ -15,7 +15,7 @@ import Aside from './Aside/Aside'
 import Header from './Header/Header'
 import Caption from './Caption/Caption'
 import Announcement from './Announcement/Announcement'
-import StripeLoader from './StripeLoader'
+import Checkout from './Checkout'
 
 export {
   Announcement,
@@ -23,6 +23,7 @@ export {
   Caption,
   CardLink,
   Chat,
+  Checkout,
   CookiesPolicy,
   DemoLinks,
   Footer,
@@ -34,6 +35,5 @@ export {
   Microlink,
   MQLEditor,
   PricingTable,
-  StripeLoader,
   Toolbar
 }

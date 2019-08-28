@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { Caps, ButtonSecondary } from 'components/elements'
-import { StripeLoader } from 'components/patterns'
+import { StripeLoader, Caps, ButtonSecondary } from 'components/elements'
 
 // TODO: Ensure only pass props we need
 export default ({ siteUrl, planId, stripeKey }) => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const createHandleStripe = stripe => () => {
+  const createStripeCheckout = stripe => () => {
     setIsLoading(true)
     stripe.redirectToCheckout({
       items: [
@@ -21,14 +20,14 @@ export default ({ siteUrl, planId, stripeKey }) => {
   }
 
   return (
-    <StripeLoader siteUrl={siteUrl} planId={planId} stripeKey={stripeKey}>
+    <StripeLoader stripeKey={stripeKey}>
       {stripe => {
-        const handleStripe = createHandleStripe(stripe)
+        const handleCheckout = createStripeCheckout(stripe)
         return (
           <ButtonSecondary
             mt={[3, 3, 3, 3]}
-            onClick={handleStripe}
-            onTouchStart={handleStripe}
+            onClick={handleCheckout}
+            onTouchStart={handleCheckout}
             loading={isLoading}
             data-event-category='Checkout'
             data-event-action='Buy'
