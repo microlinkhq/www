@@ -337,11 +337,7 @@ function Index () {
   } = useSiteMetadata()
 
   return (
-    <Layout
-      script={[
-        { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
-      ]}
-    >
+    <Layout>
       <Hero />
       <Sdk children={demoLinks} editor={demoLink} />
       <Mql />
