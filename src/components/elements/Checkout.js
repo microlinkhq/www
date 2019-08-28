@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { StripeProvider, Caps, ButtonSecondary } from 'components/elements'
+import { Caps, ButtonSecondary } from 'components/elements'
+import { StripeLoader } from 'components/patterns'
 
 // TODO: Ensure only pass props we need
 export default ({ siteUrl, planId, stripeKey }) => {
@@ -20,7 +21,7 @@ export default ({ siteUrl, planId, stripeKey }) => {
   }
 
   return (
-    <StripeProvider siteUrl={siteUrl} planId={planId} stripeKey={stripeKey}>
+    <StripeLoader siteUrl={siteUrl} planId={planId} stripeKey={stripeKey}>
       {stripe => {
         const handleStripe = createHandleStripe(stripe)
         return (
@@ -36,6 +37,6 @@ export default ({ siteUrl, planId, stripeKey }) => {
           </ButtonSecondary>
         )
       }}
-    </StripeProvider>
+    </StripeLoader>
   )
 }

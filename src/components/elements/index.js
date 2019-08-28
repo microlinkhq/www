@@ -37,7 +37,6 @@ import Heading from './Heading'
 import Label from './Label'
 import Subhead from './Subhead'
 import Text from './Text'
-import StripeProvider from './StripeProvider'
 
 export {
   Avatar,
@@ -69,7 +68,6 @@ export {
   PricePicker,
   Select,
   Spinner,
-  StripeProvider,
   Subhead,
   Svg,
   Terminal,
