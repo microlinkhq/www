@@ -14,7 +14,7 @@ export default ({ siteUrl, planId, stripeKey }) => {
           quantity: 1
         }
       ],
-      successUrl: `${siteUrl}/payment/success`,
+      successUrl: `${siteUrl}/payment/success?sessionId={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${siteUrl}/payment/error`
     })
   }
