@@ -96,7 +96,7 @@ class _CardForm extends Component {
           body: JSON.stringify([
             {
               command: 'payment.update',
-              customerId: decode(window.location.search).id,
+              customerId: decode(window.location.search.substring(1)).id,
               token
             },
             { command: 'notification.email', templateId: 'payment_updated' }
