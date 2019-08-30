@@ -1,6 +1,6 @@
 /* global fetch */
 
-import { useSiteMetadata, useQueryState } from 'components/hook'
+import { useQueryState } from 'components/hook'
 import { Text, LinkSolid } from 'components/elements'
 import styled, { keyframes } from 'styled-components'
 import { Header, Layout } from 'components/patterns'
@@ -89,44 +89,14 @@ const getCaption = paymentState => {
 }
 
 export default () => {
-  const { paymentApiKey, paymentEndpoint } = useSiteMetadata()
   const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
   const [query] = useQueryState()
 
-  const sendConfirmation = async sessionId => {
-    setPaymentState(PAYMENT_STATE.PROCESSING)
-    fetch(`${paymentEndpoint}/batch/series`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': paymentApiKey
-      },
-      method: 'POST',
-      body: JSON.stringify([
-        { command: 'payment.session', sessionId },
-        { command: 'notification.email', templateId: 'welcome' },
-        { command: 'notification.email', templateId: 'send_api_key' }
-      ])
-    })
-      .then(res => res.json())
-      .then(({ status }) => {
-        setPaymentState(
-          status === 200 ? PAYMENT_STATE.SUCCESS : PAYMENT_STATE.FAILED
-        )
-      })
-      .catch(err => {
-        console.error(err)
-        setPaymentState(PAYMENT_STATE.FAILED)
-      })
-  }
-
-  useEffect(
-    () => {
-      const { sessionId } = query
-      if (sessionId) sendConfirmation(query.sessionId)
-      else setPaymentState(PAYMENT_STATE.FAILED)
-    },
-    [query.sessionId]
-  )
+  useEffect(() => {
+    const { sessionId } = query
+    if (sessionId) setPaymentState(PAYMENT_STATE.SUCCESS)
+    else setPaymentState(PAYMENT_STATE.FAILED)
+  }, [query.sessionId])
 
   return (
     <Layout title='Payment' css={centerStyle}>
