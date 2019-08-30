@@ -195,7 +195,7 @@ export default () => {
   } = useSiteMetadata()
 
   return (
-    <Layout title='Payment'>
+    <Layout title='Update Payment'>
       <StripeLoader stripeKey={stripeKey}>
         {stripe => {
           return (

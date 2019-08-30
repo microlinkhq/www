@@ -1,12 +1,14 @@
 /* global fetch */
 
 import { useSiteMetadata, useQueryState } from 'components/hook'
+import { Text, LinkSolid } from 'components/elements'
 import styled, { keyframes } from 'styled-components'
 import { Header, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti'
-import { colors } from 'theme'
 import { isSSR } from 'helpers'
+import { colors } from 'theme'
+import { encode } from 'qss'
 
 const centerStyle = `
 justify-content: center;
@@ -41,6 +43,51 @@ const PAYMENT_STATE = {
   FAILED: 'failed'
 }
 
+const ERROR_MAIL_OPTS = {
+  subject: 'Payment process error',
+  body:
+    'Hello,\n\nSomething bad happens trying to pay at microlink.io.\n\nCan you help me?'
+}
+
+const getTitle = paymentState => {
+  switch (paymentState) {
+    case PAYMENT_STATE.PROCESSING:
+      return 'Just a moment'
+    case PAYMENT_STATE.SUCCESS:
+      return 'Thank you'
+    case PAYMENT_STATE.FAILED:
+      return 'Whoops'
+  }
+}
+
+const getCaption = paymentState => {
+  switch (paymentState) {
+    case PAYMENT_STATE.PROCESSING:
+      return (
+        <>
+          We're confirming your payment
+          <DotSpinner />
+        </>
+      )
+    case PAYMENT_STATE.SUCCESS:
+      return 'Payment confirmed, check your inbox.'
+    case PAYMENT_STATE.FAILED:
+      return (
+        <>
+          <Text as='span'>Payment not processed.</Text>
+          <Text as='span' ml={1} mr={1}>
+            <LinkSolid
+              display='inline'
+              children='Contact us'
+              href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
+            />
+          </Text>
+          <Text as='span'>.</Text>
+        </>
+      )
+  }
+}
+
 export default () => {
   const { paymentApiKey, paymentEndpoint } = useSiteMetadata()
   const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
@@ -72,13 +119,17 @@ export default () => {
       })
   }
 
-  useEffect(() => {
-    const { sessionId } = query
-    if (sessionId) sendConfirmation(query.sessionId)
-  }, [query.sessionId])
+  useEffect(
+    () => {
+      const { sessionId } = query
+      if (sessionId) sendConfirmation(query.sessionId)
+      else setPaymentState(PAYMENT_STATE.FAILED)
+    },
+    [query.sessionId]
+  )
 
   return (
-    <Layout title='Payment success' css={centerStyle}>
+    <Layout title='Payment' css={centerStyle}>
       {paymentState === PAYMENT_STATE.SUCCESS && (
         <Confetti
           width={!isSSR && window.innerWidth}
@@ -100,19 +151,8 @@ export default () => {
         />
       )}
       <Header
-        title={
-          paymentState === PAYMENT_STATE.SUCCESS ? 'Thank you' : 'Just a moment'
-        }
-        caption={
-          paymentState === PAYMENT_STATE.SUCCESS ? (
-            'Payment confirmed, check your inbox.'
-          ) : (
-            <>
-              We're confirming your payment
-              <DotSpinner />
-            </>
-          )
-        }
+        title={getTitle(paymentState)}
+        caption={getCaption(paymentState)}
       />
     </Layout>
   )
