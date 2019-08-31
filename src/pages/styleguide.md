@@ -94,11 +94,11 @@ microlink('.link-previews')
 
 Months ago I created [Fink](http://xn--rn8h.ws/), a URL Shortener service that I called it *for masses*.
 
-![](http://placekitten.com/450/300)
+![](https://placekitten.com/450/300)
 
-![](http://placekitten.com/1000/740)
+![](https://placekitten.com/1000/740)
 
-![](http://placekitten.com/1200/800)
+![](https://placekitten.com/1200/800)
 
 
 <Figcaption children='This text is the caption for the image.' />
