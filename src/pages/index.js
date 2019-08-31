@@ -55,7 +55,8 @@ import { List, ListItem } from 'components/patterns/List/List'
 //   </Box>
 // )
 
-const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => {
+const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
+  console.log(siteUrl)
   const title = 'Pricing'
   const caption = 'Growing with your business.'
 
@@ -64,6 +65,7 @@ const Pricing = ({ apiKey, stripeKey, apiEndpoint }) => {
       <Container as='section' pt={5} pb={0}>
         <Header title={title} caption={caption} />
         <PricingTable
+          siteUrl={siteUrl}
           apiKey={apiKey}
           stripeKey={stripeKey}
           apiEndpoint={apiEndpoint}
@@ -327,17 +329,21 @@ const Principles = ({ children }) => (
 function Index () {
   const demoLink = useDefaultDemoLink().data
   const demoLinks = useDemoLinks()
-  const { paymentApiKey, stripeKey, paymentEndpoint } = useSiteMetadata()
+  const {
+    siteUrl,
+    paymentApiKey,
+    stripeKey,
+    paymentEndpoint
+  } = useSiteMetadata()
 
   return (
-    <Layout
-      script={[{ src: 'https://checkout.stripe.com/checkout.js', async: true }]}
-    >
+    <Layout>
       <Hero />
       <Sdk children={demoLinks} editor={demoLink} />
       <Mql />
       <Principles children={usePrinciples()} />
       <Pricing
+        siteUrl={siteUrl}
         apiKey={paymentApiKey}
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}

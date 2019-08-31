@@ -6,7 +6,6 @@ import BlockLink from './BlockLink'
 import Box from './Box'
 
 import Card from './Card'
-import Checkout from './Checkout'
 import CodeEditor from './CodeEditor/CodeEditor'
 import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
 import Container from './Container'
@@ -38,12 +37,14 @@ import Label from './Label'
 import Subhead from './Subhead'
 import Text from './Text'
 
+import StripeLoader from './StripeLoader'
+
 export {
   Avatar,
   BackgroundSlider,
   BackgroundSliderContainer,
-  Banner,
   Badge,
+  Banner,
   BlockLink,
   Box,
   ButtonOutline,
@@ -51,7 +52,6 @@ export {
   ButtonSecondary,
   Caps,
   Card,
-  Checkout,
   CodeEditor,
   Container,
   Fixed,
@@ -68,6 +68,7 @@ export {
   PricePicker,
   Select,
   Spinner,
+  StripeLoader,
   Subhead,
   Svg,
   Terminal,

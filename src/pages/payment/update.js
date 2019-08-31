@@ -1,6 +1,6 @@
 /* global fetch */
 
-import React, { useState, Component } from 'react'
+import React, { Component } from 'react'
 import { useSiteMetadata } from 'components/hook'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
@@ -12,8 +12,10 @@ import {
   ButtonSecondary,
   Notification,
   LinkSolid,
-  Flex
+  Flex,
+  StripeLoader
 } from 'components/elements'
+
 import { Header, Layout } from 'components/patterns'
 
 import {
@@ -94,7 +96,7 @@ class _CardForm extends Component {
           body: JSON.stringify([
             {
               command: 'payment.update',
-              customerId: decode(window.location.search).id,
+              customerId: decode(window.location.search.substring(1)).id,
               token
             },
             { command: 'notification.email', templateId: 'payment_updated' }
@@ -185,56 +187,35 @@ class _CardForm extends Component {
 
 const CardForm = injectStripe(_CardForm)
 
-function Payment () {
-  const [state, setState] = useState({ mountOnLoad: false, stripe: null })
+export default () => {
   const {
     stripeKey,
     paymentApiKey: apiKey,
     paymentEndpoint: apiEndpoint
   } = useSiteMetadata()
 
-  const loadStripe = () => {
-    if (window.Stripe) {
-      setState({ stripe: window.Stripe(stripeKey) })
-    } else {
-      const el = document.querySelector('#stripe-js')
-      el &&
-        el.addEventListener('load', () => {
-          setState({ stripe: window.Stripe(stripeKey) })
-        })
-    }
-  }
-
   return (
-    <Layout
-      title='Payment'
-      script={[
-        { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
-      ]}
-      onChangeClientState={(newState, addedTags, removedTags) => {
-        const el = addedTags.scriptTags && addedTags.scriptTags[0]
-        if (el && !state.mountOnLoad) {
-          el.onload = loadStripe
-          setState({ mountOnLoad: true })
-        }
-      }}
-    >
-      <Container as='section' maxWidth='350px' pt={5}>
-        <StripeProvider stripe={state.stripe}>
-          <Flex flexDirection='column'>
-            <Header subtitle='Update Payment' />
-            <Elements>
-              <CardForm
-                apiEndpoint={apiEndpoint}
-                apiKey={apiKey}
-                fontSize='18px'
-              />
-            </Elements>
-          </Flex>
-        </StripeProvider>
-      </Container>
+    <Layout title='Update Payment'>
+      <StripeLoader stripeKey={stripeKey}>
+        {stripe => {
+          return (
+            <Container as='section' maxWidth='350px' pt={5}>
+              <StripeProvider stripe={stripe}>
+                <Flex flexDirection='column'>
+                  <Header subtitle='Update Payment' />
+                  <Elements>
+                    <CardForm
+                      apiEndpoint={apiEndpoint}
+                      apiKey={apiKey}
+                      fontSize='18px'
+                    />
+                  </Elements>
+                </Flex>
+              </StripeProvider>
+            </Container>
+          )
+        }}
+      </StripeLoader>
     </Layout>
   )
 }
-
-export default Payment

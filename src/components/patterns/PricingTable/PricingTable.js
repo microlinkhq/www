@@ -9,9 +9,10 @@ import {
   Label,
   LinkSolid,
   Flex,
-  Text,
-  Checkout
+  Text
 } from 'components/elements'
+
+import { Checkout } from 'components/patterns'
 
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 
@@ -157,7 +158,7 @@ PricingRow.defaultProps = {
   textAlign: 'right'
 }
 
-function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
+function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
   const [state, setState] = useState({
     ...DEFAULT_PLAN,
     description: getPlanDescription(DEFAULT_PLAN.reqsPerDay),
@@ -230,6 +231,7 @@ function PricingTable ({ apiKey, stripeKey, apiEndpoint }) {
               <Checkout
                 key='checkout'
                 planId={planId}
+                siteUrl={siteUrl}
                 apiEndpoint={apiEndpoint}
                 apiKey={apiKey}
                 stripeKey={stripeKey}
