@@ -1,16 +1,8 @@
 import { formatNumber } from 'helpers'
 import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { HelpCircle } from 'react-feather'
-import {
-  Box,
-  Tooltip,
-  Hide,
-  Label,
-  LinkSolid,
-  Flex,
-  Text
-} from 'components/elements'
+import { Check } from 'react-feather'
+import { Box, Label, LinkSolid, Flex, Text } from 'components/elements'
 
 import { Checkout } from 'components/patterns'
 
@@ -21,28 +13,6 @@ import { colors, fontWeights } from 'theme'
 const FREE_PLAN_RATE_LIMIT = 50
 const HIGHLIGHT_DURATION = 1
 const HIGHLIGHT_STATE_TIMEOUT = HIGHLIGHT_DURATION * 1000
-
-const toLocale = number => Math.round(number).toLocaleString('en-US')
-
-const getMonthlyPrice = price => `€${price}/month`
-
-const getPlanDescription = reqs => `${toLocale(reqs)} daily requests`
-
-const TOOLTIPS = {
-  'Rate Limit':
-    'Maximum number of requests you can consume until reach the quota.',
-  'Cache Time': 'Speed up response timing caching payload for same API calls.',
-  'Media Detection':
-    'Ability to detect the original streaming source for video or audio',
-  'Color Detection':
-    'It extracts palette & predominant colors for any image detected',
-  'Tech Support':
-    'Technical assistance for resolving questions and help you integrate the service.',
-  'Contextual Information':
-    'Detection of extra information based on the type of data.',
-  'Proxy Resolution':
-    'Setup a proxy between API requests and target URL destination.'
-}
 
 const Price = styled(Text)`
   font-weight: bold;
@@ -113,30 +83,23 @@ const PricingHeader = ({ children }) => {
   )
 }
 
+const CheckMark = () => (
+  <Flex justifyContent='center'>
+    <Check />
+  </Flex>
+)
+
 const PricingRow = ({ children, ...props }) => {
   const [name, ...values] = children
-
   return (
     <Text as='tr'>
       <Text as='th' {...props}>
-        <Hide breakpoints={[2, 3]}>
-          <Text
-            fontSize={0}
-            color='darkBlue400'
-            fontWeight='bold'
-            children={name}
-          />
-        </Hide>
-        <Hide breakpoints={[0, 1]}>
-          <Tooltip content={TOOLTIPS[name]}>
-            <Flex alignItems='center'>
-              <Text mr={1} fontSize={1} color='darkBlue400' fontWeight='bold'>
-                {name}
-              </Text>
-              {name && <HelpCircle size={12} color={colors.black50} />}
-            </Flex>
-          </Tooltip>
-        </Hide>
+        <Text
+          fontSize={0}
+          color='darkBlue400'
+          fontWeight='bold'
+          children={name}
+        />
       </Text>
       {values.map((children, index) => (
         <Text
@@ -153,25 +116,18 @@ const PricingRow = ({ children, ...props }) => {
 }
 
 PricingRow.defaultProps = {
-  pr: 4,
   py: 2,
-  textAlign: 'right'
+  textAlign: 'left'
 }
 
 function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
   const [state, setState] = useState({
     ...DEFAULT_PLAN,
-    description: getPlanDescription(DEFAULT_PLAN.reqsPerDay),
-    panelLabel: getMonthlyPrice(DEFAULT_PLAN.monthlyPrice),
     highlight: false
   })
 
   const priceSelected = plan => {
-    const newState = {
-      ...plan,
-      description: getPlanDescription(plan.reqsPerDay),
-      panelLabel: getMonthlyPrice(plan.monthlyPrice)
-    }
+    const newState = plan
 
     setState({ ...newState, highlight: true })
 
@@ -180,7 +136,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
     }, HIGHLIGHT_STATE_TIMEOUT)
   }
 
-  const { highlight, description, panelLabel, monthlyPrice, planId } = state
+  const { highlight, monthlyPrice, planId } = state
   const humanMonthlyPrice = formatNumber(monthlyPrice)
 
   return (
@@ -189,7 +145,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
         as='table'
         width='100%'
         textAlign='center'
-        style={{ tableLayout: 'fixed', borderCollapse: 'collapse' }}
+        style={{ tableLayout: 'auto', borderCollapse: 'collapse' }}
       >
         <thead>
           <PricingHeader children={['', 'Free', 'Pro']} />
@@ -197,7 +153,91 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
         <tbody>
           <PricingRow
             children={[
-              'Rate Limit',
+              <>
+                <Text>Unified metadata</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Normalized from Open Graph, JSON+LD or HTML markup, such as
+                  author, images, colors, dates, lang, etc.
+                </Text>
+              </>,
+              <CheckMark key='metadata-free' />,
+              <CheckMark key='metadata-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>Multimedia detection</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Detecting the original the original streaming source for any
+                  audio or video.
+                </Text>
+              </>,
+              <CheckMark key='multimedia-free' />,
+              <CheckMark key='multimedia-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>Take screenshots</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Live screenshotting support with overlay and device
+                  capabilities, reloaded on background.
+                </Text>
+              </>,
+              <CheckMark key='screenshot-free' />,
+              <CheckMark key='screenshot-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>Cloud browsering</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Preload URL content using headless browser cloud computing
+                  when is necessary.
+                </Text>
+              </>,
+              <CheckMark key='prerender-free' />,
+              <CheckMark key='prerender-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>Proxy rotation</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Gather top 500 popular sites to be never blocker or claked,
+                  auto handling retries scenarios.
+                </Text>
+              </>,
+              '',
+              <CheckMark key='proxy-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>Cache layer</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Configurable builtin response cahce for serving pre-computed
+                  content to fit high demand scenarios.
+                </Text>
+              </>,
+              '',
+              <CheckMark key='cache-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>Service usage</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Determinate how much requests you can perform in a window
+                  time.
+                </Text>
+              </>,
               <>
                 {FREE_PLAN_RATE_LIMIT}{' '}
                 <Label display='inline' children='reqs' suffix='/day' />
@@ -205,11 +245,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
               <PricePicker key='price-picker' onChange={priceSelected} />
             ]}
           />
-          <PricingRow children={['Tech Support', 'Community', 'Priority']} />
-          <PricingRow
-            children={['Cache Time', 'Fixed (1h)', 'Flexible (1h to 24h)']}
-          />
-          <PricingRow children={['Proxy Resolution', 'No', 'Yes']} />
+          <br />
           <PricingRow
             py={3}
             children={[
@@ -232,11 +268,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
                 key='checkout'
                 planId={planId}
                 siteUrl={siteUrl}
-                apiEndpoint={apiEndpoint}
-                apiKey={apiKey}
                 stripeKey={stripeKey}
-                panelLabel={panelLabel}
-                description={description}
               />
             ]}
           />
