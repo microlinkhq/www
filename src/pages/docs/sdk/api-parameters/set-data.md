@@ -2,8 +2,7 @@
 title: 'setData'
 --- 
 
-Type: `object|function`<br/>
-Default: `undefined`
+Type: `object|function`
 
 Setup the content to be rendered into the card.
 
