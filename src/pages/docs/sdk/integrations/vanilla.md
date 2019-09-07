@@ -17,7 +17,7 @@ Since the bundle doesn't include the depdendencies, we recommend load it from a 
 <script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@4.0.0-alpha.3/dist/microlink.min.js"></script>
 ```
 
-or even better, just a CDN one line:
+or even better, combine them just in one line:
 
 ```html
 <script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/@microlink/vanilla@4.0.0-alpha.3/dist/microlink.min.js"></script>
@@ -49,7 +49,7 @@ The vanilla interface is pretty simliar to jQuery/Zepto: You need to provide a C
 
 <Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' size='large' />
 
-You can pass any [API Parameter](/api-parameter) as a object property, for example, `size`.
+You can pass any [API Parameter](/api-parameter) as an object property, e.g., [size](/docs/sdk/api-parameters/size/).
 
 ```html
 <script>
@@ -63,19 +63,21 @@ You can pass any [API Parameter](/api-parameter) as a object property, for examp
 
 <Figcaption children='The API parameters passed there will be attached for all the links.' />
 
-If you want to pass specific API Parameters just for some cases, you can pass them as `data` attributes.
+If you want to pass specific API Parameters just for some cases, you need to pass them as [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
 
 ```html
 <a 
   src="https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk" 
   class="link-preview" 
-  data-size="large">
+  data-size="large"
+  data-media='["logo", "image"]'
+  data-set-data='{"title": "hello world"}'>
 </a>
 ```
 
-<Figcaption children='Passing specific API Parameters as second argument.' />
+<Figcaption children='You can pass objects, arrays, booleans or even JSON structures as data attributes.' />
 
-Although it is shipped with a default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames).
+Although it is shipped with a default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
 
 ```html
 <style>
