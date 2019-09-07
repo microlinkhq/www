@@ -34,12 +34,12 @@ Different arguments work for different pages. When neither of them work, a good 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&waitUntil=domcontentloaded&waitFor=h1`,
   'Node.js': `const mql = require('@microlink/mql')
-
+ 
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://microlink.io'. {
+    'https://microlink.io'. { 
       screenshot: true
-      waitUntil: 'domcontentloaded'
+      waitUntil: 'domcontentloaded',
       waitFor: 'h1'
   })
   console.log(status, data)
