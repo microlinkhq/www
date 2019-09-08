@@ -247,7 +247,6 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
             ]}
           />
           <PricingRow
-            // py={3}
             children={[
               '',
               <Price py={3} key='free-plan' children={0} />,
