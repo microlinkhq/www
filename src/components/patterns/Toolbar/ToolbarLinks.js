@@ -26,7 +26,7 @@ export const NavLogo = ({ mobile, ...props }) =>
         navigate('/design')
       }}
       href='/'
-      width={40}
+      width='40px'
       display='flex'
       {...props}
     >

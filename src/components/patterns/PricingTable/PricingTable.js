@@ -95,6 +95,7 @@ const PricingRow = ({ children, ...props }) => {
     <Text as='tr'>
       <Text as='th' {...props}>
         <Text
+          as='div'
           fontSize={0}
           color='darkBlue400'
           fontWeight='bold'
@@ -245,13 +246,11 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
               <PricePicker key='price-picker' onChange={priceSelected} />
             ]}
           />
-          <br />
           <PricingRow
-            py={3}
             children={[
               '',
-              <Price key='free-plan' children={0} />,
-              <Price key={`pro-plan-${humanMonthlyPrice}`}>
+              <Price py={3} key='free-plan' children={0} />,
+              <Price py={3} key={`pro-plan-${humanMonthlyPrice}`}>
                 {highlight ? (
                   <Highlight>{humanMonthlyPrice}</Highlight>
                 ) : (
