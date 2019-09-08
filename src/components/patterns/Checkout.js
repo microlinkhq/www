@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { StripeLoader, Caps, ButtonSecondary } from 'components/elements'
 
-// TODO: Ensure only pass props we need
 export default ({ siteUrl, planId, stripeKey }) => {
   const [isLoading, setIsLoading] = useState(false)
 

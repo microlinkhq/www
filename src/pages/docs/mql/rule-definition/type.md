@@ -3,7 +3,6 @@ title: 'type'
 ---
 
 Type: `string`<br/>
-Default: `undefined`<br/>
 Values: `author|date|description|image|title|url|lang|publisher`
 
 It defines the data shape to use for the extracted value.

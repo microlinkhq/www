@@ -38,7 +38,7 @@ https://microlink.io&ttl=1hour   // 3600000
 https://microlink.io&ttl=1hours  // 3600000
 ```
 
-Additionally, `min` and `max` alias are supported:
+Additionally, we provide `min` and `max` aliases:
 
 ```
 https://microlink.io&ttl=min     // equivalent to `1m`

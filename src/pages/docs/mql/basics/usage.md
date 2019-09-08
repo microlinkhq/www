@@ -84,8 +84,7 @@ Additionally, you can setup:
 
 #### apiKey
 
-Type: `string`<br/>
-Default: `undefined`
+Type: `string`
 
 The API Key used for [authenticating](/docs/api/api-basics/authentication) your requests as `x-api-key` header.
 
@@ -93,8 +92,7 @@ When the `apiKey` is provided, the `pro.microlink.io` endpoint will used.
 
 #### cache
 
-Type: `string`<br/>
-Default: `undefined`
+Type: `string`
 
 You can enable cache for saving API calls if they have been previously done.
 

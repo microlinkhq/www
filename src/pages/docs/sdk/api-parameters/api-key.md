@@ -2,8 +2,7 @@
 title: 'apiKey'
 --- 
 
-Type: `string`<br/>
-Default: `undefined`
+Type: `string`
 
 The API Key associated with your plan for [authenticating](/docs/api/api-basics/authentication) your requests.
 

@@ -56,7 +56,6 @@ import { List, ListItem } from 'components/patterns/List/List'
 // )
 
 const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
-  console.log(siteUrl)
   const title = 'Pricing'
   const caption = 'Growing with your business.'
 
