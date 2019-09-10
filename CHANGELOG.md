@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.22](https://github.com/microlinkhq/microlink-www/compare/v2.9.21...v2.9.22) (2019-09-10)
+
+
+### Bug Fixes
+
+* grammar changes ([90660aa](https://github.com/microlinkhq/microlink-www/commit/90660aa))
+* grammar changes ([#469](https://github.com/microlinkhq/microlink-www/issues/469)) ([afb2993](https://github.com/microlinkhq/microlink-www/commit/afb2993))
+
 ### [2.9.21](https://github.com/microlinkhq/microlink-www/compare/v2.9.20...v2.9.21) (2019-09-08)
 
 
