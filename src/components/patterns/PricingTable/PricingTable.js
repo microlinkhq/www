@@ -170,8 +170,8 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
               <>
                 <Text>Multimedia detection</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Detecting the original the original streaming source for any
-                  audio or video.
+                  Detecting the original streaming source for any audio or
+                  video.
                 </Text>
               </>,
               <CheckMark key='multimedia-free' />,
@@ -184,7 +184,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
                 <Text>Take screenshots</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
                   Live screenshotting support with overlay and device
-                  capabilities, reloaded on background.
+                  capabilities, reloaded in the background.
                 </Text>
               </>,
               <CheckMark key='screenshot-free' />,
@@ -197,7 +197,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
                 <Text>Cloud browsering</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
                   Preload URL content using headless browser cloud computing
-                  when is necessary.
+                  when necessary.
                 </Text>
               </>,
               <CheckMark key='prerender-free' />,
@@ -209,8 +209,8 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
               <>
                 <Text>Proxy rotation</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Gather top 500 popular sites to be never blocker or claked,
-                  auto handling retries scenarios.
+                  Gather the top 500 popular sites to never be blocked or
+                  claked, auto handling retry scenarios.
                 </Text>
               </>,
               '',
@@ -222,7 +222,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
               <>
                 <Text>Cache layer</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Configurable builtin response cahce for serving pre-computed
+                  Configurable built-in response cache for serving pre-computed
                   content to fit high demand scenarios.
                 </Text>
               </>,
@@ -235,7 +235,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
               <>
                 <Text>Service usage</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Determinate how much requests you can perform in a window
+                  Determine how many requests you can perform in a window of
                   time.
                 </Text>
               </>,

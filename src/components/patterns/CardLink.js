@@ -36,8 +36,11 @@ const CardTitle = ({ children, hover }) => (
 
 export default class extends Component {
   state = { hover: false }
+
   handleMouseOut = () => this.setState({ hover: false })
+
   handleMouseOver = () => this.setState({ hover: true })
+
   render () {
     const {
       iconComponent: IconComponent,

@@ -1,6 +1,6 @@
 ---
 title: 'prerender'
---- 
+---
 
 Type: `boolean|string`<br/>
 Default: `auto`<br/>
@@ -18,26 +18,26 @@ However, prerendering have a little trade-off: the cloud-based browser needs to 
 
 But if you do not do this you will not get the data in any way.
 
-Ideally, you don't need to think about prerendering: The default value `auto` means that the service can determinate if a website needs or not to have prerendering enabled to retrieve the content.
+Ideally, you don't need to think about prerendering: The default value `auto` means that the service can determine if a website needs to have prerendering enabled to retrieve the content or not.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive`,
   'Node.js': `const mql = require('@microlink/mql')
- 
+
 module.exports = async () => {
   const { status, data, response } = await mql(
     'https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive'
   )
-  
+
   console.log(status, data)
 }
   `
-  }} 
+  }}
 />
 
 We provided to extra headers for reflecting the decision taking by the service. They are:
 
-- `x-fetch-mode`: It determinates what fetch tecnhique has been used (being possible `prerender` or `fetch` as values).
+- `x-fetch-mode`: It determines which fetch technique has been used (being possible `prerender` or `fetch` as values).
 - `x-fetch-time`: It represents the total amount of time spent into the fetch step in a human readable format.
 
 If you know the target URL doesn't need prerender, you can disable it explicitly
@@ -45,15 +45,15 @@ If you know the target URL doesn't need prerender, you can disable it explicitly
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive&prerender=false`,
   'Node.js': `const mql = require('@microlink/mql')
- 
+
 module.exports = async () => {
   const { status, data, response } = await mql(
     'https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', {
       prerender: false
   })
-  
+
  console.log(status, data)
 }
   `
-  }} 
+  }}
 />
