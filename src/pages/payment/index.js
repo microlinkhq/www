@@ -1,5 +1,3 @@
-/* global fetch */
-
 import { useQueryState } from 'components/hook'
 import { Text, LinkSolid } from 'components/elements'
 import styled, { keyframes } from 'styled-components'
