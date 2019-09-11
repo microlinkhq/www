@@ -97,17 +97,16 @@ const DemoSlider = ({ children: slides }) => {
       void setInterval(
         () => setIndex(state => (state + 1) % slides.length),
         INTERVAL
-      )
-      /* eslint-enable no-void */,
-    []
+      ),
+    /* eslint-enable no-void */ []
   )
 
   return (
     <Flex
       id='animated-image-container'
       mt={height ? [2, 1, 1, 1] : 4}
-      height={height || aspectRatio.heights}
       style={{ position: 'relative' }}
+      height={height ? `${height}px` : aspectRatio.heights}
       width={aspectRatio.widths}
     >
       {transitions.map(({ item, props, key }) => (
@@ -127,6 +126,8 @@ const DemoSlider = ({ children: slides }) => {
 
 const SearchBox = ({
   onSubmit,
+  onChange,
+  previewUrl,
   url,
   refUrl,
   refWaitFor,
@@ -170,6 +171,7 @@ const SearchBox = ({
         pb={3}
         as='form'
         justifyContent='center'
+        onChange={onChange}
         onSubmit={onSubmit}
         flexDirection={['column', 'row', 'row', 'row']}
       >
@@ -248,7 +250,7 @@ const SearchBox = ({
         </Box>
 
         <ButtonSecondary ml={2} loading={isLoading}>
-          <Caps fontSize={1} children='GO' />
+          <Caps fontSize={1} children='Take it' />
         </ButtonSecondary>
       </Flex>
 
@@ -256,7 +258,19 @@ const SearchBox = ({
         <Box mb='-12px'>
           <Text fontSize={2}>into a snapshot</Text>
         </Box>
-        <DemoSlider children={DEMO_LINKS} />
+        {previewUrl ? (
+          <Image
+            mt={4}
+            width={aspectRatio.widths}
+            height={aspectRatio.heights}
+            lazyHeight={aspectRatio.heights}
+            lazyWidth={aspectRatio.widths}
+            src={previewUrl}
+            loading
+          />
+        ) : (
+          <DemoSlider children={DEMO_LINKS} />
+        )}
       </Flex>
     </Container>
   )
@@ -284,16 +298,20 @@ const Examples = ({ demoLinks }) => (
 export default ({
   demoLinks,
   onSubmit,
+  onChange,
   url,
   refUrl,
   refWaitFor,
   refOverlay,
   refBackground,
-  isLoading
+  isLoading,
+  previewUrl
 }) => (
   <>
     <SearchBox
+      previewUrl={previewUrl}
       onSubmit={onSubmit}
+      onChange={onChange}
       url={url}
       refUrl={refUrl}
       refWaitFor={refWaitFor}

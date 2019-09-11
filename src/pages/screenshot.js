@@ -13,6 +13,8 @@ import ms from 'ms'
 import Examples from 'components/pages/screenshot/examples'
 import Template from 'components/pages/screenshot/template'
 
+const DEFAULT_IMAGE_URL = 'https://cdn.microlink.io/page/screenshot.png'
+
 const ErrorMessage = ({ more }) => {
   const text = 'The URL has something weird.'
   const children = more ? (
@@ -31,9 +33,7 @@ const ErrorMessage = ({ more }) => {
 
 export default () => {
   const [status, setStatus] = useState('initial')
-  const [image, setImage] = useState(
-    'https://cdn.microlink.io/page/screenshot.png'
-  )
+  const [previewUrl, setPreviewUrl] = useState(DEFAULT_IMAGE_URL)
   const [warning, setWarning] = useState(null)
   const [error, setError] = useState(null)
   const refUrl = useRef(null)
@@ -76,21 +76,30 @@ export default () => {
     const { url, ...opts } = query
     if (url) {
       focusInput()
-      setImage(screenshotUrl(url, opts))
+      setPreviewUrl(screenshotUrl(url, opts))
       fetchData(url, opts)
     }
   }, [query.url])
 
+  const getValues = () => {
+    const preprendUrl = prependHttp(refUrl.current.value)
+    return pickBy({
+      url: isUrl(preprendUrl) ? preprendUrl : undefined,
+      waitFor: ms(refWaitFor.current.value || '0'),
+      browser: refOverlay.current.value,
+      background: refBackground.current.value
+    })
+  }
+
   const onSubmit = event => {
     event.preventDefault()
-    doFetch(
-      prependHttp(refUrl.current.value),
-      pickBy({
-        waitFor: ms(refWaitFor.current.value || '0'),
-        browser: refOverlay.current.value,
-        background: refBackground.current.value
-      })
-    )
+    const { url, ...opts } = getValues()
+    doFetch(url, opts)
+  }
+
+  const onChange = () => {
+    const { url, ...opts } = getValues()
+    setPreviewUrl(url ? screenshotUrl(url, opts) : '')
   }
 
   const cleanInput = () => {
@@ -106,13 +115,14 @@ export default () => {
   }
 
   return (
-    <Layout title='Take a screenshot of any website' image={image}>
+    <Layout title='Take a screenshot of any website' image={previewUrl}>
       {error && <ErrorMessage {...error} />}
       {!error && warning && <Notification.Warning {...warning} />}
       <Location>
         {({ location }) => {
           const hasContent =
             location.search !== '' && data && status === 'fetched'
+
           if (hasContent) {
             return <Template data={data} />
           }
@@ -122,8 +132,14 @@ export default () => {
 
           return (
             <Examples
+              previewUrl={
+                previewUrl && previewUrl !== DEFAULT_IMAGE_URL
+                  ? previewUrl
+                  : undefined
+              }
               demoLinks={demoLinks}
               onSubmit={onSubmit}
+              onChange={onChange}
               url={query.url}
               refUrl={refUrl}
               refWaitFor={refWaitFor}
