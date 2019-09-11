@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.23](https://github.com/microlinkhq/microlink-www/compare/v2.9.22...v2.9.23) (2019-09-11)
+
+
+### Bug Fixes
+
+* embed component ([31e6e7e](https://github.com/microlinkhq/microlink-www/commit/31e6e7e))
+* parser error ([7f379da](https://github.com/microlinkhq/microlink-www/commit/7f379da))
+
 ### [2.9.22](https://github.com/microlinkhq/microlink-www/compare/v2.9.21...v2.9.22) (2019-09-10)
 
 
