@@ -10,18 +10,23 @@ import {
   Image
 } from 'components/elements'
 
+import { aspectRatio, getHostname, screenshotUrl } from 'helpers'
 import { useTransition, animated, config } from 'react-spring'
 import React, { useEffect, useState } from 'react'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
-import { aspectRatio, getHostname } from 'helpers'
 import { borders, transition, colors } from 'theme'
+import debounceRender from 'react-debounce-render'
 import demoLinks from '@microlink/demo-links'
+import prependHttp from 'prepend-http'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
+import { pickBy, noop } from 'lodash'
 import { navigate } from 'gatsby'
+import isUrl from 'is-url-http'
 import isColor from 'is-color'
-import { noop, get } from 'lodash'
+
+import ms from 'ms'
 
 const DEMO_LINKS = [
   { theme: 'dark', keyword: 'Netflix' },
@@ -64,6 +69,8 @@ will-change: opacity;
 `
 
 const AnimatedImage = animated(Image)
+
+const ImageDebounce = debounceRender(Image, 300)
 
 const DemoSlider = ({ children: slides }) => {
   const [height, setHeight] = useState(null)
@@ -124,24 +131,19 @@ const DemoSlider = ({ children: slides }) => {
   )
 }
 
-const SearchBox = ({
-  onSubmit,
-  onChange,
-  previewUrl,
-  url,
-  refUrl,
-  refWaitFor,
-  refOverlay,
-  refBackground,
-  isLoading
-}) => {
-  const [inputBg, setInputBg] = useState(get(refBackground, 'current.value'))
-  const [inputUrl, setInputUrl] = useState(url)
+const SearchBox = ({ onSubmit, url, isLoading }) => {
+  const [inputBg, setInputBg] = useState('')
+  const [inputUrl, setInputUrl] = useState(url || '')
+  const [inputWaitFor, setInputWaitFor] = useState('')
+  const [inputOverlay, setInputOverlay] = useState('')
   const hostnameUrl = getHostname(inputUrl)
 
   const urlIconComponent =
     inputUrl && hostnameUrl ? (
-      <Image src={`https://logo.clearbit.com/${hostnameUrl}`} size='16px' />
+      <ImageDebounce
+        src={`https://logo.clearbit.com/${hostnameUrl}`}
+        size='16px'
+      />
     ) : (
       <LinkIcon color={colors.black50} size='16px' />
     )
@@ -159,6 +161,27 @@ const SearchBox = ({
     <ImageIcon color={colors.black50} size='16px' />
   )
 
+  const getValues = () => {
+    const preprendUrl = prependHttp(inputUrl)
+
+    return pickBy({
+      url: isUrl(preprendUrl) ? preprendUrl : undefined,
+      waitFor: ms(inputWaitFor || '0'),
+      browser: inputOverlay,
+      background: inputBg
+    })
+  }
+
+  const previewUrl = (() => {
+    const { url, ...opts } = getValues()
+    return url ? screenshotUrl(url, opts) : undefined
+  })()
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    return onSubmit(getValues())
+  }
+
   return (
     <Container py={5} px={4}>
       <Header
@@ -171,8 +194,7 @@ const SearchBox = ({
         pb={3}
         as='form'
         justifyContent='center'
-        onChange={onChange}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         flexDirection={['column', 'row', 'row', 'row']}
       >
         <Box ml={2} mb={[3, 0, 0, 0]}>
@@ -180,15 +202,14 @@ const SearchBox = ({
             fontSize={2}
             iconComponent={urlIconComponent}
             id='screenshot-demo-url'
-            innerRef={refUrl}
             mr='6px'
-            onChange={event => setInputUrl(event.target.value)}
             placeholder='Visit URL'
             suggestions={DEMO_LINKS.map(({ humanizedUrl }) => ({
               value: humanizedUrl
             }))}
             type='text'
             value={inputUrl}
+            onChange={event => setInputUrl(event.target.value)}
             width='100px'
           />
         </Box>
@@ -201,7 +222,8 @@ const SearchBox = ({
             fontSize={2}
             width='74px'
             mr='6px'
-            innerRef={refWaitFor}
+            value={inputWaitFor}
+            onChange={event => setInputWaitFor(event.target.value)}
             iconComponent={<HourGlass color={colors.black50} width='11px' />}
             suggestions={[{ value: '0s' }, { value: '1.5s' }, { value: '3s' }]}
           />
@@ -215,7 +237,8 @@ const SearchBox = ({
             fontSize={2}
             width='73px'
             mr='6px'
-            innerRef={refOverlay}
+            value={inputOverlay}
+            onChange={event => setInputOverlay(event.target.value)}
             iconComponent={<Safari color={colors.black50} width='16px' />}
             suggestions={[
               { value: 'none' },
@@ -233,8 +256,8 @@ const SearchBox = ({
             fontSize={2}
             width='105px'
             mr='6px'
+            value={inputBg}
             onChange={event => setInputBg(event.target.value)}
-            innerRef={refBackground}
             iconComponent={backgroundIconComponent}
             suggestions={[
               { value: '#c1c1c1' },
@@ -259,7 +282,7 @@ const SearchBox = ({
           <Text fontSize={2}>into a snapshot</Text>
         </Box>
         {previewUrl ? (
-          <Image
+          <ImageDebounce
             mt={4}
             width={aspectRatio.widths}
             lazyHeight={aspectRatio.heights}
@@ -295,21 +318,17 @@ const Examples = ({ demoLinks }) => (
 
 export default ({
   demoLinks,
-  onSubmit,
-  onChange,
   url,
   refUrl,
   refWaitFor,
   refOverlay,
   refBackground,
   isLoading,
-  previewUrl
+  onSubmit
 }) => (
   <>
     <SearchBox
-      previewUrl={previewUrl}
       onSubmit={onSubmit}
-      onChange={onChange}
       url={url}
       refUrl={refUrl}
       refWaitFor={refWaitFor}
