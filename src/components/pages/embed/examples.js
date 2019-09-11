@@ -12,6 +12,7 @@ import {
 
 import { Header, DemoLinks, Microlink } from 'components/patterns'
 import { borders, transition, colors } from 'theme'
+import debounceRender from 'react-debounce-render'
 import React, { useState } from 'react'
 import demoLinks from '@microlink/demo-links'
 import humanizeUrl from 'humanize-url'
@@ -34,6 +35,10 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
+const MicrolinkDebounce = debounceRender(Microlink, 300)
+
+const ImageDebounce = debounceRender(Image, 300)
+
 const DEMO_LINK_KEYWORD = 'Instagram'
 const DEMO_LINK_URL = demoLinks[DEMO_LINK_KEYWORD].url
 const HUMANIZE_DEMO_LINK = humanizeUrl(DEMO_LINK_URL)
@@ -44,7 +49,10 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
 
   const urlIconComponent =
     inputValue && hostnameUrl ? (
-      <Image src={`https://logo.clearbit.com/${hostnameUrl}`} size='16px' />
+      <ImageDebounce
+        src={`https://logo.clearbit.com/${hostnameUrl}`}
+        size='16px'
+      />
     ) : (
       <LinkIcon color={colors.black50} size='16px' />
     )
@@ -91,7 +99,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
           <Text fontSize={2}>into rich media</Text>
         </Box>
 
-        <Microlink
+        <MicrolinkDebounce
           url={
             isUrl(prependHttp(inputValue))
               ? prependHttp(inputValue)
