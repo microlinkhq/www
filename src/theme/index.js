@@ -1,7 +1,7 @@
 import palx from 'palx'
 
-const toPx = n => `${n}px`
-const toEm = n => `${n}em`
+export const toPx = n => `${n}px`
+export const toEm = n => `${n}em`
 
 export const breakpoints = [32, 48, 64, 80].map(toEm)
 
@@ -213,7 +213,8 @@ export const fonts = {
 
 export const cx = key => colors[key] || key
 
-export const gradient = 'linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)'
+export const gradient =
+  'linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)'
 
 export const shadowOffsets = [
   '0 2px 4px', // Toolbar
