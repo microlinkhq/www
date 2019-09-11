@@ -8,11 +8,11 @@ Default: `true`
 Determine if the video will automatically start playing as soon as it can do so without stopping.
 
 <MultiCodeEditor languages={{
-  React: `import Microlink from '@microlink/react'
-
+  React: `import Microlink from '@microlink/react' 
+  
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BXHj-DllyYU/'
+    url='https://instagram.com/p/BXHj-DllyYU'
     media='video'
     autoPlay
   />
@@ -24,22 +24,22 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-autoPlay='true'}
-`}}
+[](https://instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-auto-play='true'}
+`}} 
 />
 
-<Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay />
+<Microlink url='https://instagram.com/p/BXHj-DllyYU/' media='video' autoPlay />
 
 <Figcaption children='When a video is playing, you can stop it just clicking over the image.' />
 
 The default behavior is to start the video playing; You can change that passing a `autoPlay: false`.
 
 <MultiCodeEditor languages={{
-  React: `import Microlink from '@microlink/react'
-
+  React: `import Microlink from '@microlink/react' 
+  
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BXHj-DllyYU/'
+    url='https://instagram.com/p/BXHj-DllyYU'
     media='video'
     autoPlay={false}
   />
@@ -51,8 +51,8 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-autoPlay='false'}
-`}}
+[](https://instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-auto-play='false'}
+`}} 
 />
 
-<Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} />
+<Microlink url='https://instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} />
