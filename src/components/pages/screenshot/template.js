@@ -83,7 +83,7 @@ const Hero = ({ humanizedUrl, brand, data }) => {
   const title = (
     <Box>
       <Flex alignItems='center' justifyContent='center'>
-        <Logo.Microlink size='72px' />
+        <Logo.Microlink width='72px' />
         {logoProvider && (
           <Box ml={3} mr={3}>
             <Plus color={colors.gray5} />
