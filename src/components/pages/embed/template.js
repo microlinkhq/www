@@ -95,7 +95,7 @@ const HeroHeader = ({ title, caption }) => {
       <Subhead
         maxWidth={5}
         pt={4}
-        px={4}
+        px={5}
         color={colors.gray5}
         textAlign='center'
         children={caption}
