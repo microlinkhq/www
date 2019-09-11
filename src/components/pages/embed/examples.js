@@ -77,10 +77,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
           placeholder='Enter an URL...'
           suggestions={[{ value: HUMANIZE_DEMO_LINK }]}
           value={inputValue}
-          onChange={event => {
-            event.preventDefault()
-            setInputValue(event.target.value)
-          }}
+          onChange={event => setInputValue(event.target.value)}
           width='12rem'
         />
 
