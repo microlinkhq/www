@@ -12,7 +12,7 @@ When enabled, it will generate a high contrast card based on predominant colors 
   
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BsMKPL2nDgX/'
+    url='https://instagram.com/p/BsMKPL2nDgX/'
     contrast
   />
 )
@@ -23,11 +23,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BsMKPL2nDgX/){:.card-preview data-contrast='true'}
+[](https://instagram.com/p/BsMKPL2nDgX/){:.card-preview data-contrast='true'}
 `}} 
 />
 
 <Figcaption children="The contrast mode has better accessibility ratio."  />
 
-<Microlink url='https://www.instagram.com/p/BsMKPL2nDgX/' contrast />
-<Microlink url='https://www.instagram.com/p/BsMKPL2nDgX/' contrast size='large' />
+<Microlink url='https://instagram.com/p/BsMKPL2nDgX/' contrast />
+<Microlink url='https://instagram.com/p/BsMKPL2nDgX/' contrast size='large' />

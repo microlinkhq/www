@@ -14,7 +14,7 @@ with `controls` enabled:
   
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BXHj-DllyYU/'
+    url='https://instagram.com/p/BXHj-DllyYU/'
     media='video'
     autoPlay={false}
     controls
@@ -27,11 +27,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-autoPlay='false' data-controls='true'}
+[](https://instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-autoPlay='false' data-controls='true'}
 `}} 
 />
 
-<Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls />
+<Microlink url='https://instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls />
 
 with `controls` disabled:
 
@@ -40,7 +40,7 @@ with `controls` disabled:
   
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BXHj-DllyYU/'
+    url='https://instagram.com/p/BXHj-DllyYU/'
     media='video'
     autoPlay={false}
     controls={false}
@@ -53,8 +53,8 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-autoPlay='false' data-controls='false'}
+[](https://instagram.com/p/BXHj-DllyYU){:.card-preview data-media='video' data-autoPlay='false' data-controls='false'}
 `}} 
 />
 
-<Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls={false} />
+<Microlink url='https://instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls={false} />

@@ -26,7 +26,7 @@ Imagine you want ot interact with an Instagram profile url, like [@elonmusk](htt
 
 By using [Microlink API](/docs/api/getting-started/overview) we can obtain well structured and normalized data from any Instagram URL:
 
-<Terminal>curl https://api.microlink.io/?url=https://www.instagram.com/elonmusk</Terminal>
+<Terminal>curl https://api.microlink.io/?url=https://instagram.com/elonmusk</Terminal>
 
 
 The API response will look like the following:
@@ -52,9 +52,9 @@ The API response will look like the following:
       "width": 192,
       "height": 192,
       "type": "png",
-      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
+      "url": "https://instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
     },
-    "url": "https://www.instagram.com/elonmusk/"
+    "url": "https://instagram.com/elonmusk/"
   }
 }
 ```
@@ -156,9 +156,9 @@ After that, the API will return the new data field `avatar` as part of the respo
       "width": 192,
       "height": 192,
       "type": "png",
-      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
+      "url": "https://instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
     },
-    "url": "https://www.instagram.com/elonmusk/",
+    "url": "https://instagram.com/elonmusk/",
     "avatar": {
       "width": 150,
       "height": 150,
@@ -242,9 +242,9 @@ Can the API extract them? The answer is **yes**!
       "width": 192,
       "height": 192,
       "type": "png",
-      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
+      "url": "https://instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
     },
-    "url": "https://www.instagram.com/elonmusk/",
+    "url": "https://instagram.com/elonmusk/",
     "avatar": [
       "https://scontent-iad3-1.cdninstagram.com/vp/1ffb38c951c16879d354091a0e80c836/5BA4CE48/t51.2885-15/s640x640/sh0.08/e35/c0.134.1080.1080/32039832_1818999621729707_2373182444238012416_n.jpg",
       "https://scontent-iad3-1.cdninstagram.com/vp/9caae3887f4b707122a909ba18be9a17/5B167C40/t51.2885-15/s640x640/e15/31386504_411011476032232_463607480123916288_n.jpg",
@@ -308,9 +308,9 @@ For example, we are seeing that the API is not resolving the `author` field for 
       "width": 192,
       "height": 192,
       "type": "png",
-      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
+      "url": "https://instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png"
     },
-    "url": "https://www.instagram.com/elonmusk/"
+    "url": "https://instagram.com/elonmusk/"
   }
 }
 ```

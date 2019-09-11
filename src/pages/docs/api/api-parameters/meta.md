@@ -33,7 +33,7 @@ This will be reflected at `x-fetch-mode` response header whose value should be `
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://www.instagram.com/p/BvDTdWdnzkj/', { 
+    'https://instagram.com/p/BvDTdWdnzkj/', { 
       meta: false,
       screenshot: true
     })

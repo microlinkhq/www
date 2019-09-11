@@ -22,7 +22,7 @@ The following data fields are detected for any [url](/docs/api/api-parameters/ur
   A human-readable representation of the publisher's name.
 - `title` (e.g., *Manufactures and Launches Advanced Rockets and Spacecraft*)<br/>
   The publisher's chosen title of the article.
-- `url` (e.g., *https://www.instagram.com/p/BeV6tOhFUor*)<br/>
+- `url` (e.g., *https://instagram.com/p/BeV6tOhFUor*)<br/>
   The URL of the article.
 
 Additionally, for any media we add some useful contextual information.

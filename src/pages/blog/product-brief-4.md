@@ -77,7 +77,7 @@ We extended the original idea, adding support for detecting more video providers
 
 **Instagram**
 
-<Microlink url='https://www.instagram.com/p/BXHj-DllyYU' />
+<Microlink url='https://instagram.com/p/BXHj-DllyYU' />
 
 **Twitter**
 
