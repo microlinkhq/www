@@ -103,7 +103,10 @@ const Hero = ({ humanizedUrl, brand, data }) => {
           <Image
             lazyHeight={aspectRatio.heights}
             lazyWidth={aspectRatio.widths}
-            p={4}
+            mt={4}
+            mb={4}
+            pl={4}
+            pr={4}
             src={data.screenshot.url}
           />
         </Link>
