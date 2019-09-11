@@ -262,11 +262,9 @@ const SearchBox = ({
           <Image
             mt={4}
             width={aspectRatio.widths}
-            height={aspectRatio.heights}
             lazyHeight={aspectRatio.heights}
             lazyWidth={aspectRatio.widths}
             src={previewUrl}
-            loading
           />
         ) : (
           <DemoSlider children={DEMO_LINKS} />
