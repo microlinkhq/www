@@ -63,7 +63,8 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
         justifyContent='center'
         onSubmit={event => {
           event.preventDefault()
-          onSubmit(prependHttp(inputValue))
+          const url = prependHttp(inputValue)
+          onSubmit(isUrl(url) ? url : undefined)
         }}
       >
         <Input

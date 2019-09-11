@@ -4,9 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
 import { screenshotUrl } from 'helpers'
-import prependHttp from 'prepend-http'
 import mql from '@microlink/mql'
-import isUrl from 'is-url-http'
 
 import Examples from 'components/pages/embed/examples'
 import Template from 'components/pages/embed/template'
@@ -53,21 +51,20 @@ export default () => {
 
   const doFetch = url => {
     setWarning(null)
-    if (isUrl(url)) return fetchData(url)
+    if (url) return fetchData(url)
     setTimeout(
       () => setWarning({ children: 'You need to provide a valid URL.' }),
       0
     )
   }
 
-  useEffect(() => {
-    const { url } = query
-    if (url) fetchData(url)
-  }, [query.url])
-
-  const onSubmit = url => {
-    doFetch(prependHttp(url))
-  }
+  useEffect(
+    () => {
+      const { url } = query
+      if (url) fetchData(url)
+    },
+    [query.url]
+  )
 
   return (
     <Layout
@@ -89,7 +86,7 @@ export default () => {
           return (
             <Examples
               demoLinks={demoLinks}
-              onSubmit={onSubmit}
+              onSubmit={doFetch}
               url={query.url}
               isLoading={status === 'fetching'}
             />
