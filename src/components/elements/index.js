@@ -38,6 +38,7 @@ import Subhead from './Subhead'
 import Text from './Text'
 
 import StripeLoader from './StripeLoader'
+import ClearbitLogo from './ClearbitLogo'
 
 export {
   Avatar,
@@ -52,6 +53,7 @@ export {
   ButtonSecondary,
   Caps,
   Card,
+  ClearbitLogo,
   CodeEditor,
   Container,
   Fixed,

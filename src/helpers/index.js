@@ -9,9 +9,11 @@ import getLines from './get-lines'
 import prettier from './prettier'
 import isSSR from './is-ssr'
 import title from './title'
+import debounceComponent from './debounce-component'
 
 export {
   aspectRatio,
+  debounceComponent,
   formatDate,
   formatNumber,
   getHostname,
@@ -19,7 +21,7 @@ export {
   isSSR,
   prettier,
   screenshotUrl,
+  sendEvent,
   serializeComponent,
-  title,
-  sendEvent
+  title
 }

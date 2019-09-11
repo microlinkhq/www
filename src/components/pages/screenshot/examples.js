@@ -7,16 +7,21 @@ import {
   ButtonSecondary,
   Container,
   Caps,
-  Image
+  Image,
+  ClearbitLogo
 } from 'components/elements'
 
-import { aspectRatio, getHostname, screenshotUrl } from 'helpers'
+import {
+  debounceComponent,
+  aspectRatio,
+  getHostname,
+  screenshotUrl
+} from 'helpers'
 import { useTransition, animated, config } from 'react-spring'
 import React, { useEffect, useState } from 'react'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
 import { borders, transition, colors } from 'theme'
-import debounceRender from 'react-debounce-render'
 import demoLinks from '@microlink/demo-links'
 import prependHttp from 'prepend-http'
 import humanizeUrl from 'humanize-url'
@@ -70,7 +75,7 @@ will-change: opacity;
 
 const AnimatedImage = animated(Image)
 
-const ImageDebounce = debounceRender(Image, 300)
+const ImageDebounce = debounceComponent(Image)
 
 const DemoSlider = ({ children: slides }) => {
   const [height, setHeight] = useState(null)
@@ -140,10 +145,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
 
   const urlIconComponent =
     inputUrl && hostnameUrl ? (
-      <ImageDebounce
-        src={`https://logo.clearbit.com/${hostnameUrl}`}
-        size='16px'
-      />
+      <ClearbitLogo companyName={hostnameUrl} size='16px' />
     ) : (
       <LinkIcon color={colors.black50} size='16px' />
     )

@@ -7,18 +7,18 @@ import {
   Flex,
   Image,
   Input,
-  Text
+  Text,
+  ClearbitLogo
 } from 'components/elements'
 
 import { Header, DemoLinks, Microlink } from 'components/patterns'
 import { borders, transition, colors } from 'theme'
-import debounceRender from 'react-debounce-render'
 import React, { useState } from 'react'
 import demoLinks from '@microlink/demo-links'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import prependHttp from 'prepend-http'
-import { getHostname } from 'helpers'
+import { debounceComponent, getHostname } from 'helpers'
 import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
 
@@ -35,9 +35,7 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const MicrolinkDebounce = debounceRender(Microlink, 300)
-
-const ImageDebounce = debounceRender(Image, 300)
+const MicrolinkDebounce = debounceComponent(Microlink)
 
 const DEMO_LINK_KEYWORD = 'Instagram'
 const DEMO_LINK_URL = demoLinks[DEMO_LINK_KEYWORD].url
@@ -49,10 +47,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
 
   const urlIconComponent =
     inputValue && hostnameUrl ? (
-      <ImageDebounce
-        src={`https://logo.clearbit.com/${hostnameUrl}`}
-        size='16px'
-      />
+      <ClearbitLogo size='16px' companyName={hostnameUrl} />
     ) : (
       <LinkIcon color={colors.black50} size='16px' />
     )
