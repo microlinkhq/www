@@ -23,16 +23,14 @@ Ideally, you don't need to think about prerendering: The default value `auto` me
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive`,
   'Node.js': `const mql = require('@microlink/mql')
-
+ 
 module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive'
-  )
-
+  const { status, data, response } = await mql('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive')
+  
   console.log(status, data)
 }
   `
-  }}
+  }} 
 />
 
 We provided to extra headers for reflecting the decision taking by the service. They are:
@@ -45,15 +43,12 @@ If you know the target URL doesn't need prerender, you can disable it explicitly
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive&prerender=false`,
   'Node.js': `const mql = require('@microlink/mql')
-
+ 
 module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', {
-      prerender: false
-  })
-
- console.log(status, data)
+  const { status, data, response } = await mql('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', { prerender: false })
+  
+  console.log(status, data)
 }
   `
-  }}
+  }} 
 />
