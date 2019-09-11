@@ -47,14 +47,14 @@ The video detection introduce some human readable fields as part of the payload:
     "description": "First static fire test of Falcon Heavy complete—one step closer to first test flight!",
     "date": "2018-01-24T18:39:47.000Z",
     "logo": {
-      "url": "https://www.instagram.com/favicon.ico",
+      "url": "https://instagram.com/favicon.ico",
       "width": 16,
       "height": 16,
       "type": "ico",
       "size": 5430,
       "size_pretty": "5.43 kB"
     },
-    "url": "https://www.instagram.com/p/BeV6tOhFUor/",
+    "url": "https://instagram.com/p/BeV6tOhFUor/",
     "video": {
       "url": "https://scontent.cdninstagram.com/vp/a71b5c4feafb1875fe227ef3053c8465/5CBCDD76/t50.2886-16/24170141_458364347893985_8186084366254866432_n.mp4?_nc_ht=scontent.cdninstagram.com",
       "width": 480,

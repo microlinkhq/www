@@ -13,12 +13,12 @@ import Microlink from '@microlink/react'
 
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/Bu1-PpyHmCn/'
+    url='https://instagram.com/p/Bu1-PpyHmCn/'
   />
 )
 ```
 
-<Microlink url='https://www.instagram.com/p/Bu1-PpyHmCn/' />
+<Microlink url='https://instagram.com/p/Bu1-PpyHmCn/' />
 
 The React integration supports any [API Parameter](/api-parameter), just pass them as a `prop`.
 
@@ -27,13 +27,13 @@ import Microlink from '@microlink/react'
 
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/Bu1-PpyHmCn/'
+    url='https://instagram.com/p/Bu1-PpyHmCn/'
     size='large'
   />
 )
 ```
 
-<Microlink url='https://www.instagram.com/p/Bu1-PpyHmCn/' size='large' />
+<Microlink url='https://instagram.com/p/Bu1-PpyHmCn/' size='large' />
 
 Also, it supports rest of common things on React universy, like passing your own style using `style`.
 
@@ -42,13 +42,13 @@ import Microlink from '@microlink/react'
 
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/Bu1-PpyHmCn/'
+    url='https://instagram.com/p/Bu1-PpyHmCn/'
     style={{fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}}
   />
 )
 ```
 
-<Microlink url='https://www.instagram.com/p/Bu1-PpyHmCn/' style={{margin: 'auto', fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}} />
+<Microlink url='https://instagram.com/p/Bu1-PpyHmCn/' style={{margin: 'auto', fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}} />
 
 This is the approach used for more high level abstraction, like [fela](http://fela.js.org) or [styled components](https://www.styled-components.com).
 

@@ -11,7 +11,7 @@ Setup the content to be rendered into the card.
   
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/Bt6EMQhHHIr/'
+    url='https://instagram.com/p/Bt6EMQhHHIr/'
     setData={{
       title: 'SENTRY ACTIVATED'
     }}
@@ -30,7 +30,7 @@ export default () => (
 
 <Figcaption children='The data provided will be merged with the original data extracted.' />
 
-<Microlink url='https://www.instagram.com/p/Bt6EMQhHHIr/' setData={{title: 'SENTRY ACTIVATED' }}/>
+<Microlink url='https://instagram.com/p/Bt6EMQhHHIr/' setData={{title: 'SENTRY ACTIVATED' }}/>
 
 When an `object` is passed to `setData`, the custom data provided will merged with the original data.
 
@@ -43,7 +43,7 @@ import Microlink from '@microlink/react'
 
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/Bt6EMQhHHIr/'
+    url='https://instagram.com/p/Bt6EMQhHHIr/'
     setData={data => ({
       ...data,
       title: 'SENTRY ACTIVATED'
@@ -54,4 +54,4 @@ export default () => (
 
 <Figcaption children='Skip internal fetch providing a function as setData.' />
 
-<Microlink url='https://www.instagram.com/p/Bt6EMQhHHIr/' setData={{title: 'SENTRY ACTIVATED' }}/>
+<Microlink url='https://instagram.com/p/Bt6EMQhHHIr/' setData={{title: 'SENTRY ACTIVATED' }}/>

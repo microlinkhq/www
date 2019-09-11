@@ -14,7 +14,7 @@ You can use our API for getting structured data from any website.
  
 module.exports = async () => {
  const { status, data, response } = await mql(
-   'https://www.instagram.com/p/BvDTdWdnzkj/'
+   'https://instagram.com/p/BvDTdWdnzkj/'
   )
  
  console.log(status, data)
@@ -43,14 +43,14 @@ Just you need to provide an URL as input, outputing the structured data back.
     "description": "216.8k Likes, 1,914 Comments - Tesla (@teslamotors) on Instagram: “Introducing Model Y Order at tesla.com/y”",
     "date": null,
     "logo": {
-      "url": "https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png",
+      "url": "https://instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png",
       "width": 192,
       "height": 192,
       "type": "png",
       "size": 34715,
       "size_pretty": "34.7 kB"
     },
-    "url": "https://www.instagram.com/p/BvDTdWdnzkj/"
+    "url": "https://instagram.com/p/BvDTdWdnzkj/"
   },
   "status": "success"
 }

@@ -14,7 +14,7 @@ with `loop` enabled:
   
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BXHj-DllyYU/'
+    url='https://instagram.com/p/BXHj-DllyYU/'
     media='video'
     autoPlay={false}
     controls
@@ -28,11 +28,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BXHj-DllyYU/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-loop='true'}
+[](https://instagram.com/p/BXHj-DllyYU/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-loop='true'}
 `}} 
 />
 
-<Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls loop />
+<Microlink url='https://instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls loop />
 
 with `loop` disabled:
 
@@ -41,7 +41,7 @@ with `loop` disabled:
   
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BXHj-DllyYU/'
+    url='https://instagram.com/p/BXHj-DllyYU/'
     media='video'
     autoPlay={false}
     controls
@@ -55,8 +55,8 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BXHj-DllyYU/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-loop='false'}
+[](https://instagram.com/p/BXHj-DllyYU/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-loop='false'}
 `}} 
 />
 
-<Microlink url='https://www.instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls loop={false} />
+<Microlink url='https://instagram.com/p/BXHj-DllyYU/' media='video' autoPlay={false} controls loop={false} />

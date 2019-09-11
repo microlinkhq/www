@@ -14,7 +14,7 @@ with `muted` enabled:
   
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BvDTdWdnzkj/'
+    url='https://instagram.com/p/BvDTdWdnzkj/'
     media='video'
     autoPlay={false}
     controls
@@ -28,11 +28,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-muted='true'}
+[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-muted='true'}
 `}} 
 />
 
-<Microlink url='https://www.instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} controls />
+<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} controls />
 
 with `muted` disabled:
 
@@ -41,7 +41,7 @@ with `muted` disabled:
   
 export default () => (
   <Microlink
-    url='https://www.instagram.com/p/BvDTdWdnzkj/'
+    url='https://instagram.com/p/BvDTdWdnzkj/'
     media='video'
     autoPlay={false}
     controls
@@ -55,8 +55,8 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://www.instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-muted='false'}
+[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-muted='false'}
 `}} 
 />
 
-<Microlink url='https://www.instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} muted={false} />
+<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} muted={false} />
