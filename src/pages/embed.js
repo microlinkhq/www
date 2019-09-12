@@ -58,17 +58,14 @@ export default () => {
     )
   }
 
-  useEffect(
-    () => {
-      const { url } = query
-      if (url) fetchData(url)
-    },
-    [query.url]
-  )
+  useEffect(() => {
+    const { url } = query
+    if (url) fetchData(url)
+  }, [query.url])
 
   return (
     <Layout
-      title='Enter an URL, receive data'
+      title='Enter a URL, receive data'
       image={
         query.url
           ? screenshotUrl(`https://microlink.io/embed?url=${query.url}`)

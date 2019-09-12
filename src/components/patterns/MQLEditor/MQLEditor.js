@@ -63,7 +63,7 @@ await mql('https://twitter.com/microlinkhq', {
     "size": 10644,
     "size_pretty": "10.6 kB"
   },
-  "description": "The latest Tweets from microlink.io (@microlinkhq). Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews. Say to hello@microlink.io",
+  "description": "The latest Tweets from microlink.io (@microlinkhq). Enter a URL, receive information. Get relevant information from any link & easily create beautiful previews. Say to hello@microlink.io",
   "date": "2017-09-01T00:00:00.000Z",
   "logo": {
     "url": "https://abs.twimg.com/icons/apple-touch-icon-192x192.png",
