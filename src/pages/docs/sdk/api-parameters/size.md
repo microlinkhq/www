@@ -4,19 +4,30 @@ title: 'size'
 
 Type: `string`<br/>
 Default: `normal`<br/>
-Values: `'normal'|'large'`
+Values: `'small'|'normal'|'large'`
 
-It set the size layout of the card.
+It determines the size of the card.
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
   
 export default () => (
+  <>
   <Microlink
     url='https://microlink.io'
     media='logo'
-    size='normal'
+    size='small'
   />
+  <Microlink
+    url='https://microlink.io'
+    media='image'
+  />
+  <Microlink
+    url='https://microlink.io'
+    media='video'
+    size='large'
+  />
+  </>
 )
 `, Vanilla: `
 <script>
@@ -29,31 +40,6 @@ export default () => (
 `}} 
 />
 
+<Microlink url='https://microlink.io' media='logo' size='small' />
 <Microlink url='https://microlink.io' media='logo' />
-
-<Figcaption children='The default size is normal.'  />
-
-Alternatively you can set `large`
-
-<MultiCodeEditor languages={{
-  React: `import Microlink from '@microlink/react' 
-  
-export default () => (
-  <Microlink
-    url='https://microlink.io'
-    media='logo'
-    size='large'
-  />
-)
-`, Vanilla: `
-<script>
-  document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('a', { media: 'logo', size: 'large' })
-  })
-</script>
-`, Jekyll: `
-[](https://microlink.io){:.card-preview data-media='logo' data-size='large'}
-`}} 
-/>
-
-<Microlink url='https://microlink.io' size='large' media='logo' />
+<Microlink url='https://microlink.io' media='logo' size='large' />

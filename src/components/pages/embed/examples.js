@@ -55,7 +55,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
   return (
     <Container py={5} px={4}>
       <Header
-        subtitle='Enter an URL, receive data'
+        subtitle='Enter a URL, receive data'
         caption='Turn websites into rich media'
       />
 
@@ -74,7 +74,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
           fontSize={2}
           iconComponent={urlIconComponent}
           id='embed-demo-url'
-          placeholder='Enter an URL...'
+          placeholder='Enter a URL...'
           suggestions={[{ value: HUMANIZE_DEMO_LINK }]}
           value={inputValue}
           onChange={event => setInputValue(event.target.value)}

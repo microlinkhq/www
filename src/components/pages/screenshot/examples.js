@@ -45,7 +45,7 @@ const DEMO_LINKS = [
   return {
     ...item,
     humanizedUrl: humanizeUrl(demoLinks[item.keyword].url),
-    cdnUrl: `https://cdn.microlink.io/screenshot/browser/${
+    cdnUrl: `https://cdn.microlink.io/website/browser/${
       item.theme
     }/${item.keyword.toLowerCase()}.png`
   }
