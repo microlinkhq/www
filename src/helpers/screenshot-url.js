@@ -5,7 +5,9 @@ export default (url, opts) => {
   const [screenshotUrl] = apiUrl(url, {
     ...pickBy(opts),
     screenshot: true,
-    embed: 'screenshot.url'
+    meta: false,
+    embed: 'screenshot.url',
+    disableAnimations: true
   })
   return screenshotUrl
 }

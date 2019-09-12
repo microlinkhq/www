@@ -12,7 +12,7 @@ export default ({ pageContext }) => {
   const meta = {
     url: `${metadata.siteUrl}${slug}`,
     title: `Embed for ${data.publisher}`,
-    image: `https://cdn.microlink.io/brand/${brand.toLowerCase()}.jpeg`
+    image: `https://cdn.microlink.io/embed/browser/light/${brand.toLowerCase()}.png`
   }
 
   return (

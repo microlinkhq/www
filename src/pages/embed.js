@@ -1,11 +1,10 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
 import { LinkSolid, Text, Notification } from 'components/elements'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
-import prependHttp from 'prepend-http'
+import { screenshotUrl } from 'helpers'
 import mql from '@microlink/mql'
-import isUrl from 'is-url-http'
 
 import Examples from 'components/pages/embed/examples'
 import Template from 'components/pages/embed/template'
@@ -30,7 +29,6 @@ export default () => {
   const [status, setStatus] = useState('initial')
   const [error, setError] = useState(null)
   const [warning, setWarning] = useState(null)
-  const inputEl = useRef(null)
   const demoLinks = useDemoLinks()
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
@@ -53,42 +51,29 @@ export default () => {
 
   const doFetch = url => {
     setWarning(null)
-    if (isUrl(url)) return fetchData(url)
+    if (url) return fetchData(url)
     setTimeout(
       () => setWarning({ children: 'You need to provide a valid URL.' }),
       0
     )
   }
 
-  useEffect(() => {
-    const { url } = query
-    if (url) {
-      focusInput()
-      fetchData(url)
-    }
-  }, [query.url])
-
-  const onSubmit = event => {
-    event.preventDefault()
-    doFetch(prependHttp(inputEl.current.value))
-  }
-
-  const cleanInput = () => {
-    if (inputEl.current) {
-      inputEl.current.value = ''
-    }
-  }
-
-  const focusInput = () => {
-    if (inputEl.current) {
-      inputEl.current.focus()
-    }
-  }
+  useEffect(
+    () => {
+      const { url } = query
+      if (url) fetchData(url)
+    },
+    [query.url]
+  )
 
   return (
     <Layout
       title='Enter an URL, receive data'
-      image='https://cdn.microlink.io/page/embed.png'
+      image={
+        query.url
+          ? screenshotUrl(`https://microlink.io/embed?url=${query.url}`)
+          : 'https://cdn.microlink.io/page/embed.png'
+      }
     >
       {error && <ErrorMessage {...error} />}
       {!error && warning && <Notification.Warning {...warning} />}
@@ -98,15 +83,11 @@ export default () => {
             return <Template data={data} />
           }
 
-          if (!query.url && status !== 'fetching') cleanInput()
-          focusInput()
-
           return (
             <Examples
               demoLinks={demoLinks}
-              onSubmit={onSubmit}
+              onSubmit={doFetch}
               url={query.url}
-              innerRef={inputEl}
               isLoading={status === 'fetching'}
             />
           )

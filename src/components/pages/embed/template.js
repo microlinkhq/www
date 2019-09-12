@@ -95,7 +95,7 @@ const HeroHeader = ({ title, caption }) => {
       <Subhead
         maxWidth={5}
         pt={4}
-        px={4}
+        px={5}
         color={colors.gray5}
         textAlign='center'
         children={caption}
@@ -130,7 +130,7 @@ const Hero = ({ humanizedUrl, brand, data }) => {
   const title = (
     <Box>
       <Flex alignItems='center' justifyContent='center'>
-        <Logo.Microlink size='72px' />
+        <Logo.Microlink width='72px' />
         {logoProvider && (
           <Box ml={3} mr={3}>
             <Plus color={colors.gray5} />

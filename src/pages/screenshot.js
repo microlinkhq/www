@@ -1,14 +1,11 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
 import { LinkSolid, Text, Notification } from 'components/elements'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout } from 'components/patterns'
 import { Location } from '@reach/router'
 import { screenshotUrl } from 'helpers'
-import prependHttp from 'prepend-http'
+
 import mql from '@microlink/mql'
-import isUrl from 'is-url-http'
-import { pickBy } from 'lodash'
-import ms from 'ms'
 
 import Examples from 'components/pages/screenshot/examples'
 import Template from 'components/pages/screenshot/template'
@@ -31,15 +28,8 @@ const ErrorMessage = ({ more }) => {
 
 export default () => {
   const [status, setStatus] = useState('initial')
-  const [image, setImage] = useState(
-    'https://cdn.microlink.io/page/screenshot.png'
-  )
   const [warning, setWarning] = useState(null)
   const [error, setError] = useState(null)
-  const refUrl = useRef(null)
-  const refWaitFor = useRef(null)
-  const refOverlay = useRef(null)
-  const refBackground = useRef(null)
   const demoLinks = useDemoLinks()
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
@@ -51,7 +41,7 @@ export default () => {
       setStatus('fetching')
       const { data } = await mql(url, {
         screenshot: true,
-        meta: false,
+        disableAnimations: true,
         ...opts
       })
       setData(data)
@@ -62,9 +52,9 @@ export default () => {
     }
   }
 
-  const doFetch = (url, opts) => {
+  const doFetch = ({ url, ...opts }) => {
     setWarning(null)
-    if (isUrl(url)) return fetchData(url, opts)
+    if (url) return fetchData(url, opts)
 
     setTimeout(
       () => setWarning({ children: 'You need to provide a valid URL.' }),
@@ -74,36 +64,12 @@ export default () => {
 
   useEffect(() => {
     const { url, ...opts } = query
-    if (url) {
-      focusInput()
-      setImage(screenshotUrl(url, opts))
-      fetchData(url, opts)
-    }
+    if (url) fetchData(url, opts)
   }, [query.url])
 
-  const onSubmit = event => {
-    event.preventDefault()
-    doFetch(
-      prependHttp(refUrl.current.value),
-      pickBy({
-        waitFor: ms(refWaitFor.current.value || '0'),
-        browser: refOverlay.current.value,
-        background: refBackground.current.value
-      })
-    )
-  }
-
-  const cleanInput = () => {
-    if (refUrl.current) {
-      refUrl.current.value = ''
-    }
-  }
-
-  const focusInput = () => {
-    if (refUrl.current) {
-      refUrl.current.focus()
-    }
-  }
+  const image = query.url
+    ? screenshotUrl(`https://microlink.io/screenshot?url=${query.url}`)
+    : 'https://cdn.microlink.io/page/screenshot.png'
 
   return (
     <Layout title='Take a screenshot of any website' image={image}>
@@ -113,22 +79,16 @@ export default () => {
         {({ location }) => {
           const hasContent =
             location.search !== '' && data && status === 'fetched'
+
           if (hasContent) {
             return <Template data={data} />
           }
 
-          if (!query.url && status !== 'fetching') cleanInput()
-          focusInput()
-
           return (
             <Examples
               demoLinks={demoLinks}
-              onSubmit={onSubmit}
+              onSubmit={doFetch}
               url={query.url}
-              refUrl={refUrl}
-              refWaitFor={refWaitFor}
-              refOverlay={refOverlay}
-              refBackground={refBackground}
               isLoading={status === 'fetching'}
             />
           )
