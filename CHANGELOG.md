@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.25](https://github.com/microlinkhq/microlink-www/compare/v2.9.23...v2.9.25) (2019-09-12)
+
+
+### Bug Fixes
+
+* add px unit ([b621b3b](https://github.com/microlinkhq/microlink-www/commit/b621b3b))
+* capitalization ([555fad8](https://github.com/microlinkhq/microlink-www/commit/555fad8))
+* logo height ([551c35b](https://github.com/microlinkhq/microlink-www/commit/551c35b))
+* placeholder ([15c0007](https://github.com/microlinkhq/microlink-www/commit/15c0007))
+* space ([122933d](https://github.com/microlinkhq/microlink-www/commit/122933d))
+* typo ([1f81412](https://github.com/microlinkhq/microlink-www/commit/1f81412))
+* update image url ([b1136ca](https://github.com/microlinkhq/microlink-www/commit/b1136ca))
+
 ### [2.9.24](https://github.com/microlinkhq/microlink-www/compare/v2.9.23...v2.9.24) (2019-09-12)
 
 
