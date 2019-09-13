@@ -203,32 +203,35 @@ const Sdk = ({ humanizedUrl, data }) => (
       </Box>
     </Flex>
 
-    <Container maxWidth={16}>
-      {[{ size: 'normal' }, { size: 'large' }].map(({ docLink, ...props }) => (
-        <Flex
-          flexDirection={['column', 'column', 'column', 'row']}
-          justifyContent='space-evenly'
-          alignItems='center'
-          key={JSON.stringify(props)}
-          mr='auto'
-          ml='auto'
-        >
-          <Box width={500}>
-            <Text mb={1} color='gray8' fontSize={1}>
-              {props.size}
-            </Text>
-            <Microlink
-              setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
-              {...props}
-            />
-          </Box>
-          <Box mt={[3, 3, 3, 0]} width={500}>
-            <MultiCodeEditor
-              languages={generateLanguages({ ...props, url: data.url })}
-            />
-          </Box>
-        </Flex>
-      ))}
+    <Container maxWidth={16} pt={0} pb={0}>
+      {[{ size: 'large' }, { size: 'normal' }, { size: 'small' }].map(
+        ({ docLink, ...props }, index) => (
+          <Flex
+            flexDirection={['column', 'column', 'column', 'row']}
+            justifyContent='space-evenly'
+            alignItems='center'
+            key={JSON.stringify(props)}
+            mr='auto'
+            ml='auto'
+            pb={index === 1 ? 5 : 0}
+          >
+            <Box width={500}>
+              <Text mb={1} color='gray8' fontSize={1}>
+                {props.size}
+              </Text>
+              <Microlink
+                setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
+                {...props}
+              />
+            </Box>
+            <Box mt={[3, 3, 3, 0]} width={500}>
+              <MultiCodeEditor
+                languages={generateLanguages({ ...props, url: data.url })}
+              />
+            </Box>
+          </Flex>
+        )
+      )}
     </Container>
   </Container>
 )
@@ -286,7 +289,7 @@ const Api = ({ data }) => {
         </Box>
       </Flex>
 
-      <Container maxWidth={16}>
+      <Container maxWidth={16} pt={0} pb={0}>
         <Flex
           justifyContent='space-evenly'
           mr='auto'
