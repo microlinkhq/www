@@ -216,7 +216,7 @@ const Sdk = ({ humanizedUrl, data }) => (
             pb={index === 1 ? 5 : 0}
           >
             <Box width={500}>
-              <Text mb={1} color='gray8' fontSize={1}>
+              <Text mb={1} color='gray8' fontSize={0}>
                 {props.size}
               </Text>
               <Microlink
