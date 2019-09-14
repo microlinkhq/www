@@ -2,7 +2,7 @@ import { formatNumber } from 'helpers'
 import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Check } from 'react-feather'
-import { Box, Label, LinkSolid, Flex, Text } from 'components/elements'
+import { Box, Label, Flex, Text } from 'components/elements'
 
 import { Checkout } from 'components/patterns'
 

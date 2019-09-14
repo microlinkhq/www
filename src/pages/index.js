@@ -36,24 +36,24 @@ import { borders, colors } from 'theme'
 
 import { List, ListItem } from 'components/patterns/List/List'
 
-const Faq = () => {
-  const title = 'FAQ'
-  const caption = 'Your questions, answered.'
+// const Faq = () => {
+//   const title = 'FAQ'
+//   const caption = 'Your questions, answered.'
 
-  return (
-    <Container
-      id='faq'
-      bg='pinky'
-      borderTop={`${borders[1]} ${colors.pinkest}`}
-      borderBottom={`${borders[1]} ${colors.pinkest}`}
-    >
-      <Header title={title} caption={caption} />
-      <Box as='section' pt={4}>
-        hello world
-      </Box>
-    </Container>
-  )
-}
+//   return (
+//     <Container
+//       id='faq'
+//       bg='pinky'
+//       borderTop={`${borders[1]} ${colors.pinkest}`}
+//       borderBottom={`${borders[1]} ${colors.pinkest}`}
+//     >
+//       <Header title={title} caption={caption} />
+//       <Box as='section' pt={4}>
+//         hello world
+//       </Box>
+//     </Container>
+//   )
+// }
 
 const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
   const title = 'Pricing'

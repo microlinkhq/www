@@ -5,7 +5,6 @@ import {
   Caps,
   Container,
   Flex,
-  Image,
   Input,
   Text,
   ClearbitLogo
