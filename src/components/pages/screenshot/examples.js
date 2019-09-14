@@ -185,7 +185,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
   }
 
   return (
-    <Container py={5} px={4}>
+    <Container py={[4, 5]} px={4}>
       <Header
         subtitle='Take a screenshot of any website'
         caption='Turn websites into a snapshot'
@@ -195,6 +195,8 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
         pt={2}
         pb={3}
         as='form'
+        maxWidth={aspectRatio.widths}
+        mx='auto'
         justifyContent='center'
         onSubmit={handleSubmit}
         flexDirection={['column', 'row', 'row', 'row']}
@@ -301,14 +303,14 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
 
 const Examples = ({ demoLinks }) => (
   <Container
-    py={5}
+    py={[4, 5]}
     px={4}
     maxWidth='100%'
     bg='pinky'
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
-    <Header pb={5} title='Examples' caption='click to see a real example.' />
+    <Header pb={4} title='Examples' caption='real examples in action.' />
     <Box pt={4}>
       <DemoLinks
         children={demoLinks}

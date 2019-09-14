@@ -309,7 +309,7 @@ const Principles = ({ children }) => (
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
     <Header
-      pb={[0, 0, 0, 4]}
+      pb={[0, 0, 0, 3]}
       title='Principles'
       caption='How we build technical products.'
     />
