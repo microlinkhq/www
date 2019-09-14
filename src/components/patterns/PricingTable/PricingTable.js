@@ -141,7 +141,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
   const humanMonthlyPrice = formatNumber(monthlyPrice)
 
   return (
-    <Box ml='auto' mr='auto' px={[0, 0, 0, 6]} py={[4, 4, 4, 5]}>
+    <Box ml='auto' mr='auto' px={[0, 0, 0, 6]} pt={4} pb={5}>
       <Box
         as='table'
         width='100%'
@@ -273,25 +273,6 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
           />
         </tbody>
       </Box>
-
-      <Flex
-        justifyContent='center'
-        flexDirection='column'
-        alignItems='center'
-        pt={[4, 4, 4, 5]}
-      >
-        <Text color='gray8' children='Do you need custom plan?' />
-        <Text as='div' mt={1} color='gray8'>
-          <LinkSolid
-            data-event-category='Checkout'
-            data-event-action='Contact'
-            fontWeight='bold'
-            href='mailto:hello@microlink.io?subject=About pricing'
-            children='Contact us'
-          />
-          .
-        </Text>
-      </Flex>
     </Box>
   )
 }

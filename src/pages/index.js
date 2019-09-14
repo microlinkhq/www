@@ -36,24 +36,24 @@ import { borders, colors } from 'theme'
 
 import { List, ListItem } from 'components/patterns/List/List'
 
-// const FAQ = () => (
-//   <Box as='article'>
-//     <Container as='header' py={5}>
-//       <Flex
-//         as='header'
-//         flexDirection='column'
-//         justifyContent='center'
-//         alignItems='center'
-//         pb={[4, 5]}
-//       >
-//         <Heading mt={4} fontSize={7} children='Frequently Asked Questions' />
-//         <Subhead mt={[2, 3]} color='black50' textAlign='center' maxWidth={8}>
-//           Your questions, answered
-//         </Subhead>
-//       </Flex>
-//     </Container>
-//   </Box>
-// )
+const Faq = () => {
+  const title = 'FAQ'
+  const caption = 'Your questions, answered.'
+
+  return (
+    <Container
+      id='faq'
+      bg='pinky'
+      borderTop={`${borders[1]} ${colors.pinkest}`}
+      borderBottom={`${borders[1]} ${colors.pinkest}`}
+    >
+      <Header title={title} caption={caption} />
+      <Box as='section' pt={4}>
+        hello world
+      </Box>
+    </Container>
+  )
+}
 
 const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
   const title = 'Pricing'
@@ -159,7 +159,7 @@ const Sdk = ({ loading, editor, children }) => (
         children={['Microlink SDK', 'Turn websites into rich media']}
       />
       <Box textAlign='center'>
-        <Text mt={4} mb={[4, 4, 4, 0]} maxWidth={8}>
+        <Text py={4} maxWidth={8}>
           <Link href='/docs/sdk/getting-started/overview/'>Microlink SDK</Link>{' '}
           converts your links into beautiful previews. Make your content
           attractive, engaging better your links.
@@ -167,7 +167,7 @@ const Sdk = ({ loading, editor, children }) => (
       </Box>
     </Flex>
     <Flex
-      py={[2, 3, 4, 5]}
+      py={4}
       as='section'
       justifyContent='center'
       alignItems={['center', 'center', 'center', 'end']}
@@ -220,7 +220,6 @@ const Sdk = ({ loading, editor, children }) => (
       flexDirection='column'
     >
       <Text
-        mb={2}
         pb={[3, 4]}
         fontSize={1}
         color='gray8'
@@ -247,7 +246,7 @@ const Mql = () => (
       />
 
       <Box textAlign='center'>
-        <Text mt={4} mb={[4, 4, 4, 0]} maxWidth={8}>
+        <Text py={4} maxWidth={8}>
           <Link href='/docs/mql/getting-started/overview'>
             Microlink Query Language
           </Link>{' '}
@@ -257,7 +256,7 @@ const Mql = () => (
       </Box>
     </Flex>
     <Flex
-      py={[2, 3, 4, 5]}
+      pt={4}
       as='section'
       justifyContent='center'
       alignItems={['center', 'center', 'center', 'end']}
@@ -347,7 +346,7 @@ function Index () {
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
-      {/* <FAQ /> */}
+      {/* <Faq /> */}
     </Layout>
   )
 }
