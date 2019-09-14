@@ -3,9 +3,7 @@ import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Check } from 'react-feather'
 import { Box, Label, Flex, Text } from 'components/elements'
-
 import { Checkout } from 'components/patterns'
-
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 
 import { colors, fontWeights } from 'theme'
@@ -58,13 +56,7 @@ const PricingHeader = ({ children }) => {
   const [featureHeader, ...pricingPlans] = children
   return (
     <Text as='tr'>
-      <Text
-        as='th'
-        fontWeight='bold'
-        color='darkBlue700'
-        textAlign='right'
-        fontSize={2}
-      >
+      <Text as='th' color='darkBlue700' textAlign='right' fontSize={2}>
         {featureHeader}
       </Text>
       {pricingPlans.map((children, index) => (
@@ -72,7 +64,7 @@ const PricingHeader = ({ children }) => {
           as='th'
           pb='.85rem'
           px={[3, 3, 3, '5rem']}
-          fontWeight='bold'
+          fontWeight='regular'
           fontSize={2}
           color='blue700'
           key={`${featureHeader}_${children}_${index}`}
@@ -98,7 +90,7 @@ const PricingRow = ({ children, ...props }) => {
           as='div'
           fontSize={0}
           color='darkBlue400'
-          fontWeight='bold'
+          fontWeight='regular'
           children={name}
         />
       </Text>
