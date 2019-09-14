@@ -24,36 +24,126 @@ import {
 import {
   Announcement,
   DemoLinks,
+  Faq,
   Grid,
   Header,
   Layout,
   LiveDemo,
   MQLEditor,
-  PricingTable
+  PricingTable,
+  List
 } from 'components/patterns'
 
 import { borders, colors } from 'theme'
 
-import { List, ListItem } from 'components/patterns/List/List'
+const FaqSection = () => {
+  const title = 'FAQ'
+  const caption = 'Your questions, answered.'
 
-// const Faq = () => {
-//   const title = 'FAQ'
-//   const caption = 'Your questions, answered.'
-
-//   return (
-//     <Container
-//       id='faq'
-//       bg='pinky'
-//       borderTop={`${borders[1]} ${colors.pinkest}`}
-//       borderBottom={`${borders[1]} ${colors.pinkest}`}
-//     >
-//       <Header title={title} caption={caption} />
-//       <Box as='section' pt={4}>
-//         hello world
-//       </Box>
-//     </Container>
-//   )
-// }
+  return (
+    <Container
+      id='faq'
+      bg='pinky'
+      borderTop={`${borders[1]} ${colors.pinkest}`}
+      borderBottom={`${borders[1]} ${colors.pinkest}`}
+    >
+      <Header title={title} caption={caption} />
+      <Flex as='section' pt={4} justifyContent='center' flexDirection='column'>
+        <Box px={6}>
+          <Faq pt={0}>
+            <Faq.Question>Can I use microlink for free?</Faq.Question>
+            <Faq.Asked>
+              <>
+                Absolutely, we offer a free plan you can use indefinitely.
+                <br />
+                <br />
+                The free plan offers almost the same pro capabilities; The only
+                limitation there is the service is under IP Address limitation
+                for avoid flood the service.
+                <br />
+                <br />
+                As soon as you need more, you can jump in a pro plan.
+              </>
+            </Faq.Asked>
+          </Faq>
+          <Faq>
+            <Faq.Question>
+              How different is the freen plan compared with pro?
+            </Faq.Question>
+            <Faq.Asked>
+              Some functionalities are only available under pro plans because
+              they represent an infrastructure cost that you are paying with the
+              pro plan.
+              <br />
+              <br />
+              Also, the free plan runs under IP Address limitation, while any
+              pro plan has an API token associated for identifying where the
+              requests come from.
+            </Faq.Asked>
+          </Faq>
+          <Faq>
+            <Faq.Question>
+              What if I don't know how much API quota I need?
+            </Faq.Question>
+            <Faq.Asked>
+              No problem, just start with the smallest plan; in the moment you
+              need more, you can upgrade your plan.
+            </Faq.Asked>
+          </Faq>
+          <Faq>
+            <Faq.Question>How I can know my plan usage?</Faq.Question>
+            <Faq.Asked>
+              We notify you in an automatic way when you reach 50% or more of
+              your usage plan, offering to upgrade your current plan to one more
+              suitable based on your plan usage.
+            </Faq.Asked>
+          </Faq>
+          <Faq>
+            <Faq.Question>What if I want to change my plan?</Faq.Question>
+            <Faq.Asked>
+              You can upgrade, downgrade, or cancel your monthly account at any
+              time with no further obligation, sending an email to{' '}
+              <Link display='inline' children='hello@microlink.io' /> with the
+              email you signed up.
+            </Faq.Asked>
+          </Faq>
+          <Faq>
+            <Faq.Question>How is the payment being processed?</Faq.Question>
+            <Faq.Asked>
+              We use Stripe to process your payment. It's the same payment
+              provider used in products such as Twitter, Pinterest, and Lyft. We
+              do not handle your credit card information directly.
+            </Faq.Asked>
+          </Faq>
+          <Faq>
+            <Faq.Question>Can I update my card details?</Faq.Question>
+            <Faq.Asked>
+              Yes, send an email to{' '}
+              <Link display='inline' children='hello@microlink.io' /> requesting
+              the change. You will receive a link from where you'll be able to
+              securely update your details.
+            </Faq.Asked>
+          </Faq>
+          <Faq>
+            <Faq.Question>Can I cancel my subscription?</Faq.Question>
+            <Faq.Asked>
+              Yes, by sending an email to{' '}
+              <Link display='inline' children='hello@microlink.io' />. Your
+              request will be processed within 24hrs.
+            </Faq.Asked>
+          </Faq>
+          <Faq>
+            <Faq.Question>Other questions?</Faq.Question>
+            <Faq.Asked>
+              We're always available at{' '}
+              <Link display='inline' children='hello@microlink.io' />.
+            </Faq.Asked>
+          </Faq>
+        </Box>
+      </Flex>
+    </Container>
+  )
+}
 
 const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
   const title = 'Pricing'
@@ -188,9 +278,9 @@ const Sdk = ({ loading, editor, children }) => (
           children='Engage your content with enriched media.'
         />
         <List px={[3, 3, 3, 0]} mt={4} mb={3}>
-          <ListItem children='Add it to an existing website or app.' />
-          <ListItem children='Auto detection (image, video, audio) with media controls support.' />
-          <ListItem children='Easily customizable.' />
+          <List.Item children='Add it to an existing website or app.' />
+          <List.Item children='Auto detection (image, video, audio) with media controls support.' />
+          <List.Item children='Easily customizable.' />
         </List>
         <Flex
           alignItems='center'
@@ -272,9 +362,9 @@ const Mql = () => (
           children='Build APIs from websites.'
         />
         <List px={[3, 3, 3, 0]} mt={4} mb={3}>
-          <ListItem children='Create data rules based on HTML markup.' />
-          <ListItem children='Target any URL for getting specific content.' />
-          <ListItem children='Builtin data validation & hydration.' />
+          <List.Item children='Create data rules based on HTML markup.' />
+          <List.Item children='Target any URL for getting specific content.' />
+          <List.Item children='Builtin data validation & hydration.' />
         </List>
         <Flex
           alignItems='center'
@@ -346,7 +436,7 @@ function Index () {
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
-      {/* <Faq /> */}
+      <FaqSection />
     </Layout>
   )
 }

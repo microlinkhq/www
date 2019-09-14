@@ -16,6 +16,7 @@ import Header from './Header/Header'
 import Caption from './Caption/Caption'
 import Announcement from './Announcement/Announcement'
 import Checkout from './Checkout'
+import Faq from './Faq'
 
 export {
   Announcement,
@@ -26,6 +27,7 @@ export {
   Checkout,
   CookiesPolicy,
   DemoLinks,
+  Faq,
   Footer,
   Grid,
   Header,
