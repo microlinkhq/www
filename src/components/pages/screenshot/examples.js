@@ -214,7 +214,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
             type='text'
             value={inputUrl}
             onChange={event => setInputUrl(event.target.value)}
-            width='100px'
+            width={['100%', '100px']}
           />
         </Box>
 
@@ -224,7 +224,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
             id='screenshot-demo-waitfor'
             type='text'
             fontSize={2}
-            width='74px'
+            width={['100%', '74px']}
             mr='6px'
             value={inputWaitFor}
             onChange={event => setInputWaitFor(event.target.value)}
@@ -239,7 +239,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
             id='screenshot-demo-overlay'
             type='text'
             fontSize={2}
-            width='73px'
+            width={['100%', '73px']}
             mr='6px'
             value={inputOverlay}
             onChange={event => setInputOverlay(event.target.value)}
@@ -258,7 +258,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
             id='screenshot-demo-background'
             type='text'
             fontSize={2}
-            width='105px'
+            width={['100%', '105px']}
             mr='6px'
             value={inputBg}
             onChange={event => setInputBg(event.target.value)}
@@ -310,8 +310,12 @@ const Examples = ({ demoLinks }) => (
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
-    <Header pb={4} title='Examples' caption='real examples in action.' />
-    <Box pt={4}>
+    <Header
+      pb={[3, 4]}
+      title='Examples'
+      caption='See real examples in action.'
+    />
+    <Box pt={[3, 4]}>
       <DemoLinks
         children={demoLinks}
         onClick={({ brand }) => navigate(`/screenshot/${brand.toLowerCase()}`)}

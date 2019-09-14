@@ -6,7 +6,7 @@ const Subhead = styled(Heading)([])
 
 Subhead.defaultProps = {
   as: 'h3',
-  lineHeight: [0, 1],
+  lineHeight: 1,
   fontWeight: 'regular',
   variant: null,
   fontSize: [4, 5]

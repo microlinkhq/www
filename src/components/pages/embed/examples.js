@@ -113,7 +113,11 @@ const Examples = ({ demoLinks }) => (
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
-    <Header pb={[3, 4]} title='Examples' caption='real examples in action.' />
+    <Header
+      pb={[3, 4]}
+      title='Examples'
+      caption='See real examples in action.'
+    />
     <Box pt={[3, 4]}>
       <DemoLinks
         children={demoLinks}
