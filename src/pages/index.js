@@ -61,8 +61,8 @@ const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
 
   return (
     <Box as='article' id='pricing'>
-      <Container as='section' pt={5} pb={0}>
-        <Header title={title} caption={caption} />
+      <Container as='section' pb={0}>
+        <Header pb={[0, 4]} title={title} caption={caption} />
         <PricingTable
           siteUrl={siteUrl}
           apiKey={apiKey}
@@ -167,7 +167,8 @@ const Sdk = ({ loading, editor, children }) => (
       </Box>
     </Flex>
     <Flex
-      py={4}
+      pt={[0, 0, 0, 4]}
+      pb={[0, 0, 0, 4]}
       as='section'
       justifyContent='center'
       alignItems={['center', 'center', 'center', 'end']}
@@ -182,7 +183,7 @@ const Sdk = ({ loading, editor, children }) => (
       >
         <Text
           maxWidth={['inherit', 'inherit', 'inherit', 8]}
-          mt={[1, 1, 1, 3]}
+          mt={[0, 0, 0, 3]}
           textAlign={['center', 'center', 'center', 'inherit']}
           children='Engage your content with enriched media.'
         />
@@ -219,12 +220,7 @@ const Sdk = ({ loading, editor, children }) => (
       mr='auto'
       flexDirection='column'
     >
-      <Text
-        pb={[3, 4]}
-        fontSize={1}
-        color='gray8'
-        children='Try another link →'
-      />
+      <Text pb={4} fontSize={1} color='gray8' children='Try another link →' />
       <DemoLinks
         children={children}
         onClick={({ brand }) => navigate(`/embed/${brand.toLowerCase()}`)}
@@ -256,7 +252,7 @@ const Mql = () => (
       </Box>
     </Flex>
     <Flex
-      pt={4}
+      pt={[0, 0, 0, 4]}
       as='section'
       justifyContent='center'
       alignItems={['center', 'center', 'center', 'end']}
@@ -271,7 +267,7 @@ const Mql = () => (
       >
         <Text
           maxWidth={['inherit', 'inherit', 'inherit', 8]}
-          mt={[1, 1, 1, 3]}
+          mt={[0, 0, 0, 3]}
           textAlign={['center', 'center', 'center', 'inherit']}
           children='Build APIs from websites.'
         />
@@ -283,7 +279,6 @@ const Mql = () => (
         <Flex
           alignItems='center'
           justifyContent={['center', 'center', 'center', 'end']}
-          pb={[4, 4, 4, 0]}
           flexDirection={['column', 'column', 'column', 'row']}
         >
           <Hide breakpoints={[3]}>
@@ -307,12 +302,17 @@ const Mql = () => (
 
 const Principles = ({ children }) => (
   <Container
+    pb={[0, 0, 0, 5]}
     id='principles'
     bg='pinky'
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
-    <Header title='Principles' caption='How we build technical products.' />
+    <Header
+      pb={[0, 0, 0, 4]}
+      title='Principles'
+      caption='How we build technical products.'
+    />
     <Box as='section' pt={4}>
       <Hide breakpoints={[0, 1]}>
         <Grid children={children} itemsPerRow={3} />
