@@ -20,7 +20,7 @@ export default (ChildComponent, spinnertStyle) => {
 
   const SpinnerButton = ({ children, ...props }) => (
     <Spinner state='hover' {...props}>
-      <Flex justify='center' textAlign='center' children={children} />
+      <Flex justifyContent='center' textAlign='center' children={children} />
     </Spinner>
   )
 

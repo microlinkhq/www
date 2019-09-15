@@ -71,19 +71,21 @@ const Hero = ({ humanizedUrl, brand, data }) => {
 
   const logoProvider = (() => {
     const LogoProvider = Logo[brand]
-    if (LogoProvider) return <LogoProvider size='72px' state='hover' />
+    if (LogoProvider) {
+      return <LogoProvider size={['36px', '72px']} state='hover' />
+    }
 
     const logoUrl = get(data, 'logo.url')
 
     if (logoUrl && !logoUrl.endsWith('ico')) {
-      return <Image size='72px' src={logoUrl} />
+      return <Image size={['36px', '72px']} src={logoUrl} />
     }
   })()
 
   const title = (
     <Box>
       <Flex alignItems='center' justifyContent='center'>
-        <Logo.Microlink width='72px' />
+        <Logo.Microlink width={['36px', '72px']} />
         {logoProvider && (
           <Box ml={3} mr={3}>
             <Plus color={colors.gray5} />
@@ -104,7 +106,6 @@ const Hero = ({ humanizedUrl, brand, data }) => {
             lazyHeight={aspectRatio.heights}
             lazyWidth={aspectRatio.widths}
             mt={4}
-            mb={4}
             pl={4}
             pr={4}
             src={data.screenshot.url}
@@ -175,7 +176,7 @@ const Api = ({ humanizedUrl, data }) => {
       >
         <Subheader children={['Microlink API', 'Instant shareable content']} />
 
-        <Box pb={5} px={4} textAlign={['inherit', 'center']}>
+        <Box pb={4} px={4} textAlign={['inherit', 'center']}>
           <Box pt={4}>
             <Text mb={[4, 4, 4, 0]} maxWidth={8}>
               <Link href='/docs/api/getting-started/overview'>
@@ -185,7 +186,7 @@ const Api = ({ humanizedUrl, data }) => {
               refreshing snapshots every hour.
             </Text>
           </Box>
-          <Box pt={4}>
+          <Box pt={[0, 4]} textAlign='center'>
             <ButtonSecondary
               onClick={() => navigate('/docs/api/api-parameters/embed')}
             >
@@ -200,30 +201,33 @@ const Api = ({ humanizedUrl, data }) => {
           </Box>
         </Box>
 
-        <Box width={[350, 500, 700]}>
+        <Box width={aspectRatio.widths}>
           <Heading
             variant={null}
-            mb={4}
+            pt={[3, 4]}
+            pb={4}
             textAlign='left'
             fontSize={[2, 3]}
             children='Using HTML'
           />
           <CodeEditor language='html' children={seoCode} prettier={false} />
         </Box>
-        <Box pt={5} width={[350, 500, 700]}>
+        <Box width={aspectRatio.widths}>
           <Heading
             variant={null}
-            mb={4}
+            pt={[4, 5]}
+            pb={4}
             textAlign='left'
             fontSize={[2, 3]}
             children='Using CSS'
           />
           <CodeEditor language='css' children={cssCode} prettier={false} />
         </Box>
-        <Box pt={5} width={[350, 500, 700]}>
+        <Box width={aspectRatio.widths}>
           <Heading
             variant={null}
-            mb={4}
+            pt={[4, 5]}
+            pb={4}
             textAlign='left'
             fontSize={[2, 3]}
             children='Using Markdown'

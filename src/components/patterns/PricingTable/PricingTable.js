@@ -2,10 +2,8 @@ import { formatNumber } from 'helpers'
 import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Check } from 'react-feather'
-import { Box, Label, LinkSolid, Flex, Text } from 'components/elements'
-
+import { Box, Label, Flex, Text } from 'components/elements'
 import { Checkout } from 'components/patterns'
-
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 
 import { colors, fontWeights } from 'theme'
@@ -58,13 +56,7 @@ const PricingHeader = ({ children }) => {
   const [featureHeader, ...pricingPlans] = children
   return (
     <Text as='tr'>
-      <Text
-        as='th'
-        fontWeight='bold'
-        color='darkBlue700'
-        textAlign='right'
-        fontSize={2}
-      >
+      <Text as='th' color='darkBlue700' textAlign='right' fontSize={2}>
         {featureHeader}
       </Text>
       {pricingPlans.map((children, index) => (
@@ -72,7 +64,7 @@ const PricingHeader = ({ children }) => {
           as='th'
           pb='.85rem'
           px={[3, 3, 3, '5rem']}
-          fontWeight='bold'
+          fontWeight='regular'
           fontSize={2}
           color='blue700'
           key={`${featureHeader}_${children}_${index}`}
@@ -98,7 +90,7 @@ const PricingRow = ({ children, ...props }) => {
           as='div'
           fontSize={0}
           color='darkBlue400'
-          fontWeight='bold'
+          fontWeight='regular'
           children={name}
         />
       </Text>
@@ -141,7 +133,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
   const humanMonthlyPrice = formatNumber(monthlyPrice)
 
   return (
-    <Box ml='auto' mr='auto' px={[0, 0, 0, 6]} py={[4, 4, 4, 5]}>
+    <Box ml='auto' mr='auto' px={[0, 0, 0, 6]} pt={4} pb={5}>
       <Box
         as='table'
         width='100%'
@@ -273,25 +265,6 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
           />
         </tbody>
       </Box>
-
-      <Flex
-        justifyContent='center'
-        flexDirection='column'
-        alignItems='center'
-        pt={[4, 4, 4, 5]}
-      >
-        <Text color='gray8' children='Do you need custom plan?' />
-        <Text as='div' mt={1} color='gray8'>
-          <LinkSolid
-            data-event-category='Checkout'
-            data-event-action='Contact'
-            fontWeight='bold'
-            href='mailto:hello@microlink.io?subject=About pricing'
-            children='Contact us'
-          />
-          .
-        </Text>
-      </Flex>
     </Box>
   )
 }

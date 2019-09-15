@@ -5,7 +5,7 @@ import { getHostname } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import { get } from 'lodash'
+import { capitalize, get } from 'lodash'
 import React from 'react'
 
 import {
@@ -118,19 +118,21 @@ const Hero = ({ humanizedUrl, brand, data }) => {
 
   const logoProvider = (() => {
     const LogoProvider = Logo[brand]
-    if (LogoProvider) return <LogoProvider size='72px' state='hover' />
+    if (LogoProvider) {
+      return <LogoProvider size={['36px', '72px']} state='hover' />
+    }
 
     const logoUrl = get(data, 'logo.url')
 
     if (logoUrl && !logoUrl.endsWith('ico')) {
-      return <Image size='72px' src={logoUrl} />
+      return <Image size={['36px', '72px']} src={logoUrl} />
     }
   })()
 
   const title = (
     <Box>
       <Flex alignItems='center' justifyContent='center'>
-        <Logo.Microlink width='72px' />
+        <Logo.Microlink width={['36px', '72px']} />
         {logoProvider && (
           <Box ml={3} mr={3}>
             <Plus color={colors.gray5} />
@@ -167,6 +169,7 @@ const Sdk = ({ humanizedUrl, data }) => (
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
     bg='pinky'
+    pb={[0, 5]}
   >
     <Flex
       flexDirection='column'
@@ -176,7 +179,7 @@ const Sdk = ({ humanizedUrl, data }) => (
     >
       <Subheader children={['Microlink SDK', 'Make your content attractive']} />
 
-      <Box pb={5} px={4} textAlign={['inherit', 'center']}>
+      <Box pb={[0, 5]} px={4} textAlign={['inherit', 'center']}>
         <Box pt={4}>
           <Text mb={[4, 4, 4, 0]} maxWidth={8}>
             <Link href='/docs/sdk/getting-started/overview/'>
@@ -189,7 +192,7 @@ const Sdk = ({ humanizedUrl, data }) => (
             links into beautiful previews, engaging better your links.
           </Text>
         </Box>
-        <Box pt={4}>
+        <Box pt={[0, 4]} textAlign='center'>
           <ButtonSecondary
             onClick={() => navigate('/docs/sdk/getting-started/overview/')}
           >
@@ -203,7 +206,7 @@ const Sdk = ({ humanizedUrl, data }) => (
       </Box>
     </Flex>
 
-    <Container maxWidth={16} pt={0} pb={0}>
+    <Container maxWidth={16} pt={0} pb={[4, 0]}>
       {[{ size: 'large' }, { size: 'normal' }, { size: 'small' }].map(
         ({ docLink, ...props }, index) => (
           <Flex
@@ -213,18 +216,22 @@ const Sdk = ({ humanizedUrl, data }) => (
             key={JSON.stringify(props)}
             mr='auto'
             ml='auto'
-            pb={index === 1 ? 5 : 0}
+            py={index === 1 ? [3, 3, 5, 5] : 0}
           >
-            <Box width={500}>
-              <Text mb={1} color='gray8' fontSize={0}>
-                {props.size}
-              </Text>
+            <Box width={500} p={[4, 4, 0]}>
+              <Heading
+                variant={null}
+                pb={[4, 3]}
+                textAlign='left'
+                fontSize={[2, 3]}
+                children={capitalize(props.size)}
+              />
               <Microlink
                 setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
                 {...props}
               />
             </Box>
-            <Box mt={[3, 3, 3, 0]} width={500}>
+            <Box width={500} px={4}>
               <MultiCodeEditor
                 languages={generateLanguages({ ...props, url: data.url })}
               />
@@ -239,7 +246,7 @@ const Sdk = ({ humanizedUrl, data }) => (
 const Features = ({ children }) => (
   <Container id='features'>
     <Header title='Features' caption='Capabilities under the hood.' />
-    <Box as='section' pt={4}>
+    <Box as='section' pt={[3, 4]}>
       <Hide breakpoints={[0, 1]}>
         <Grid children={children} itemsPerRow={3} />
       </Hide>
@@ -258,6 +265,7 @@ const Api = ({ data }) => {
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}
       bg='pinky'
+      pb={[0, 5]}
     >
       <Flex
         flexDirection='column'
@@ -267,7 +275,7 @@ const Api = ({ data }) => {
       >
         <Subheader children={['Microlink API', 'Build APIs from websites']} />
 
-        <Box pb={5} px={4} textAlign={['inherit', 'center']}>
+        <Box pb={[0, 5]} px={4} textAlign={['inherit', 'center']}>
           <Box pt={4}>
             <Text mb={[4, 4, 4, 0]} maxWidth={8}>
               Microlink Query Language (
@@ -275,7 +283,7 @@ const Api = ({ data }) => {
               programmatic way to getting content from any URL.
             </Text>
           </Box>
-          <Box pt={4}>
+          <Box pt={[0, 4]} textAlign='center'>
             <ButtonSecondary
               onClick={() => navigate('/docs/mql/getting-started/overview')}
             >
@@ -297,21 +305,31 @@ const Api = ({ data }) => {
           flexDirection={['column', 'column', 'column', 'row']}
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <Box width={500}>
-            <Text mb={1} color='gray8' fontSize={1}>
-              using MQL (
+          <Box width={500} p={[4, 4, 0]}>
+            <Heading
+              variant={null}
+              pb={[4, 3]}
+              textAlign='left'
+              fontSize={[2, 3]}
+            >
+              Using MQL (
               <Link href='/docs/mql/getting-started/overview'>docs</Link>)
-            </Text>
+            </Heading>
             <CodeEditor
               language='javascript'
               children={generateMqlCode(data)}
             />
           </Box>
-          <Box mt={[3, 3, 3, 0]} width={500}>
-            <Text mb={1} color='gray8' fontSize={1}>
-              using Microlink CLI (
+          <Box width={500} p={[4, 4, 0]} pt={0}>
+            <Heading
+              variant={null}
+              pb={[4, 3]}
+              textAlign='left'
+              fontSize={[2, 3]}
+            >
+              Using Microlink CLI (
               <Link href='/docs/api/getting-started/cli'>docs</Link>)
-            </Text>
+            </Heading>
             <Box mb={3}>
               <CodeEditor
                 language='bash'
