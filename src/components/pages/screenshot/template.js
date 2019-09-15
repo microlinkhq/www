@@ -201,7 +201,7 @@ const Api = ({ humanizedUrl, data }) => {
           </Box>
         </Box>
 
-        <Box width={aspectRatio.widths}>
+        <Box width={[350, 500, 700]}>
           <Heading
             variant={null}
             pt={[3, 4]}
@@ -212,7 +212,7 @@ const Api = ({ humanizedUrl, data }) => {
           />
           <CodeEditor language='html' children={seoCode} prettier={false} />
         </Box>
-        <Box width={aspectRatio.widths}>
+        <Box width={[350, 500, 700]}>
           <Heading
             variant={null}
             pt={[4, 5]}
@@ -223,7 +223,7 @@ const Api = ({ humanizedUrl, data }) => {
           />
           <CodeEditor language='css' children={cssCode} prettier={false} />
         </Box>
-        <Box width={aspectRatio.widths}>
+        <Box width={[350, 500, 700]}>
           <Heading
             variant={null}
             pt={[4, 5]}
