@@ -91,6 +91,20 @@ const FaqSection = () => {
             </Faq.Asked>
           </Faq>
           <Faq>
+            <Faq.Question>
+              Do you have a Service-Level Agreements (SLA)?
+            </Faq.Question>
+            <Faq.Asked>
+              You can see our SLA level on{' '}
+              <Link
+                display='inline'
+                href='https://status.microlink.io'
+                children='status page'
+              />
+              .
+            </Faq.Asked>
+          </Faq>
+          <Faq>
             <Faq.Question>How I can know my plan usage?</Faq.Question>
             <Faq.Asked>
               We notify you in an automatic way when you reach 50% or more of
@@ -103,8 +117,12 @@ const FaqSection = () => {
             <Faq.Asked>
               You can upgrade, downgrade, or cancel your monthly account at any
               time with no further obligation, sending an email to{' '}
-              <Link display='inline' children='hello@microlink.io' /> with the
-              email you signed up.
+              <Link
+                display='inline'
+                href='mailto:hello@microlink.io'
+                children='hello@microlink.io'
+              />{' '}
+              with the email you signed up.
             </Faq.Asked>
           </Faq>
           <Faq>
@@ -119,24 +137,37 @@ const FaqSection = () => {
             <Faq.Question>Can I update my card details?</Faq.Question>
             <Faq.Asked>
               Yes, send an email to{' '}
-              <Link display='inline' children='hello@microlink.io' /> requesting
-              the change. You will receive a link from where you'll be able to
-              securely update your details.
+              <Link
+                display='inline'
+                href='mailto:hello@microlink.io'
+                children='hello@microlink.io'
+              />{' '}
+              requesting the change. You will receive a link from where you'll
+              be able to securely update your details.
             </Faq.Asked>
           </Faq>
           <Faq>
             <Faq.Question>Can I cancel my subscription?</Faq.Question>
             <Faq.Asked>
               Yes, by sending an email to{' '}
-              <Link display='inline' children='hello@microlink.io' />. Your
-              request will be processed within 24hrs.
+              <Link
+                display='inline'
+                href='mailto:hello@microlink.io'
+                children='hello@microlink.io'
+              />
+              . Your request will be processed within 24hrs.
             </Faq.Asked>
           </Faq>
           <Faq>
             <Faq.Question>Other questions?</Faq.Question>
             <Faq.Asked>
               We're always available at{' '}
-              <Link display='inline' children='hello@microlink.io' />.
+              <Link
+                display='inline'
+                href='mailto:hello@microlink.io'
+                children='hello@microlink.io'
+              />
+              .
             </Faq.Asked>
           </Faq>
         </Box>
