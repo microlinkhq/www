@@ -62,7 +62,7 @@ const Hero = ({ humanizedUrl, brand, data }) => {
   const caption = (
     <>
       Turn any{' '}
-      <Subhead as='span' color='black' fontWeight='bold'>
+      <Subhead as='span' color='black' fontWeight='regular'>
         {humanizedUrl}
       </Subhead>{' '}
       link into a screenshot
@@ -202,35 +202,29 @@ const Api = ({ humanizedUrl, data }) => {
         </Box>
 
         <Box width={[350, 500, 700]}>
-          <Heading
-            variant={null}
-            pt={[3, 4]}
-            pb={4}
-            textAlign='left'
-            fontSize={[2, 3]}
+          <Subhead
             children='Using HTML'
+            py={4}
+            textAlign='left'
+            fontSize={[1, 2]}
           />
           <CodeEditor language='html' children={seoCode} prettier={false} />
         </Box>
         <Box width={[350, 500, 700]}>
-          <Heading
-            variant={null}
-            pt={[4, 5]}
-            pb={4}
-            textAlign='left'
-            fontSize={[2, 3]}
+          <Subhead
             children='Using CSS'
+            py={4}
+            textAlign='left'
+            fontSize={[1, 2]}
           />
           <CodeEditor language='css' children={cssCode} prettier={false} />
         </Box>
         <Box width={[350, 500, 700]}>
-          <Heading
-            variant={null}
-            pt={[4, 5]}
-            pb={4}
-            textAlign='left'
-            fontSize={[2, 3]}
+          <Subhead
             children='Using Markdown'
+            py={4}
+            textAlign='left'
+            fontSize={[1, 2]}
           />
           <CodeEditor language='markdown' children={mdCode} prettier={false} />
         </Box>

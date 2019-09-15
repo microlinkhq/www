@@ -96,7 +96,7 @@ const HeroHeader = ({ title, caption }) => {
         maxWidth={5}
         pt={4}
         px={5}
-        color={colors.gray5}
+        color='gray'
         textAlign='center'
         children={caption}
         fontWeight='normal'
@@ -109,7 +109,7 @@ const Hero = ({ humanizedUrl, brand, data }) => {
   const caption = (
     <>
       Turn any{' '}
-      <Subhead as='span' color='black' fontWeight='bold'>
+      <Subhead as='span' color='black' fontWeight='regular'>
         {humanizedUrl}
       </Subhead>{' '}
       link into structured data
@@ -219,11 +219,10 @@ const Sdk = ({ humanizedUrl, data }) => (
             py={index === 1 ? [3, 3, 5, 5] : 0}
           >
             <Box width={500} p={[4, 4, 0]}>
-              <Heading
-                variant={null}
+              <Subhead
                 pb={[4, 3]}
                 textAlign='left'
-                fontSize={[2, 3]}
+                fontSize={[1, 2]}
                 children={capitalize(props.size)}
               />
               <Microlink
@@ -306,30 +305,20 @@ const Api = ({ data }) => {
           alignItems={['center', 'center', 'center', 'baseline']}
         >
           <Box width={500} p={[4, 4, 0]}>
-            <Heading
-              variant={null}
-              pb={[4, 3]}
-              textAlign='left'
-              fontSize={[2, 3]}
-            >
+            <Subhead pb={[4, 3]} textAlign='left' fontSize={[1, 2]}>
               Using MQL (
               <Link href='/docs/mql/getting-started/overview'>docs</Link>)
-            </Heading>
+            </Subhead>
             <CodeEditor
               language='javascript'
               children={generateMqlCode(data)}
             />
           </Box>
           <Box width={500} p={[4, 4, 0]} pt={0}>
-            <Heading
-              variant={null}
-              pb={[4, 3]}
-              textAlign='left'
-              fontSize={[2, 3]}
-            >
+            <Subhead pb={[4, 3]} textAlign='left' fontSize={[1, 2]}>
               Using Microlink CLI (
               <Link href='/docs/api/getting-started/cli'>docs</Link>)
-            </Heading>
+            </Subhead>
             <Box mb={3}>
               <CodeEditor
                 language='bash'

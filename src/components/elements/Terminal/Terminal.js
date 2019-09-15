@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from 'styled-components'
 import React from 'react'
 import CodeCopy from 'react-codecopy'
-import { fonts } from 'theme'
+import { fonts, fontWeights } from 'theme'
 import { serializeComponent } from 'helpers'
 
 const TerminalWindow = styled('div')`
@@ -45,12 +45,12 @@ const blink = keyframes`
 `
 
 const TerminalText = styled('div')`
+  font-weight: ${fontWeights.normal};
   padding: 30px;
   border-radius: 2px;
   overflow-x: auto;
   font-family: ${fonts.mono};
   font-size: 13px;
-  font-weight: 500;
   line-height: 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;

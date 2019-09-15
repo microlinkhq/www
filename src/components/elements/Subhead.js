@@ -9,7 +9,8 @@ Subhead.defaultProps = {
   lineHeight: 1,
   fontWeight: 'regular',
   variant: null,
-  fontSize: [4, 5]
+  fontSize: [4, 5],
+  color: 'black'
 }
 
 export default Subhead
