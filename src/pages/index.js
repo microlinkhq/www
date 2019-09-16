@@ -58,8 +58,8 @@ const FaqSection = () => {
                 <br />
                 <br />
                 The free plan offers almost the same pro capabilities; The only
-                limitation there is the service is under IP Address limitation
-                for avoid flood the service.
+                limitation is that the service is under IP Address limitation to
+                avoid flooding the service
                 <br />
                 <br />
                 As soon as you need more, you can jump in a pro plan.
@@ -68,7 +68,7 @@ const FaqSection = () => {
           </Faq>
           <Faq>
             <Faq.Question>
-              How different is the freen plan compared with pro?
+              How different is the free plan compared with pro?
             </Faq.Question>
             <Faq.Asked>
               Some functionalities are only available under pro plans because
