@@ -6,8 +6,7 @@ export default (url, opts) => {
     ...pickBy(opts),
     screenshot: true,
     meta: false,
-    embed: 'screenshot.url',
-    disableAnimations: true
+    embed: 'screenshot.url'
   })
   return screenshotUrl
 }
