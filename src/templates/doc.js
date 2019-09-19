@@ -184,8 +184,8 @@ const ROUTES_API = [
         href: '/docs/api/api-parameters/force'
       },
       {
-        name: 'lang',
-        href: '/docs/api/api-parameters/lang'
+        name: 'headers',
+        href: '/docs/api/api-parameters/headers'
       },
       {
         name: 'meta',
@@ -285,10 +285,6 @@ const ROUTES_API = [
       {
         name: 'url',
         href: '/docs/api/api-parameters/url'
-      },
-      {
-        name: 'user agent',
-        href: '/docs/api/api-parameters/user-agent'
       },
       {
         name: 'video',

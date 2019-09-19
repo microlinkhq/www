@@ -14,7 +14,7 @@ date: '2018-05-30'
 
 ### User Agent API Parameter
 
-We added a new configurable [User Agent](/docs/api/api-parameters/user-agent) as API parameter.
+We added a new configurable [User Agent](/docs/api/api-parameters/headers) as API parameter.
 
 Normally you don't need to specify this value but some websites can have a different output based on the incoming request user agent.
 
