@@ -41,7 +41,6 @@ export default () => {
       setStatus('fetching')
       const { data } = await mql(url, {
         screenshot: true,
-        disableAnimations: true,
         ...opts
       })
       setData(data)
