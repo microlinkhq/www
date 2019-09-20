@@ -234,3 +234,16 @@ select:invalid {
 [list]::-webkit-calendar-picker-indicator {
   display: none;
 }
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::-moz-list-bullet {
+  list-style-type: none;
+}
+
+details summary {
+  cursor: pointer;
+  outline: 0;
+}
