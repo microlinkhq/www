@@ -36,9 +36,9 @@ import {
 
 import { borders, colors } from 'theme'
 
-const FaqSection = () => {
-  const title = 'FAQ'
-  const caption = 'Your questions, answered.'
+const Questions = () => {
+  const title = 'Questions'
+  const caption = 'Frequently asked questions.'
 
   return (
     <Container
@@ -467,7 +467,7 @@ function Index () {
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
-      <FaqSection />
+      <Questions />
     </Layout>
   )
 }
