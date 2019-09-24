@@ -91,6 +91,28 @@ const Questions = () => {
             </Faq.Asked>
           </Faq>
           <Faq>
+            <Faq.Question>How I get an API key?</Faq.Question>
+            <Faq.Asked>
+              After your payment, we send you the API key associated with the
+              email you signed up.
+              <br />
+              <br />
+              The API key need to be attached to all your requests:
+              <Box as='ul'>
+                <Box as='li' mb={2}>
+                  At <Link href='/docs/sdk/'>Microlink SDK</Link>, attach it as{' '}
+                  <Link href='/docs/sdk/api-parameters/api-key/'>apiKey</Link>.
+                </Box>
+                <Box as='li' mb={2}>
+                  At <Link href='/docs/api/#introduction'>Microlink API</Link>,
+                  attach it as{' '}
+                  <Link href='/docs/api/api-basics/authentication'>header</Link>
+                  .
+                </Box>
+              </Box>
+            </Faq.Asked>
+          </Faq>
+          <Faq>
             <Faq.Question>
               Do you have a Service-Level Agreements (SLA)?
             </Faq.Question>
