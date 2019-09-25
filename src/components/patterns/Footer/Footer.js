@@ -75,10 +75,10 @@ export default props => (
                   <ButtonOutline
                     ml={2}
                     data-event-category='Footer'
-                    data-event-action='Subscribe'
+                    data-event-action='Be Notified'
                     color='black'
                   >
-                    <Caps fontSize={0} children='Subscribe' />
+                    <Caps fontSize={0} children='Be Notified' />
                   </ButtonOutline>
                 </Flex>
               </form>
