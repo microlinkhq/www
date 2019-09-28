@@ -10,7 +10,7 @@ redirect_from:
 const mql = require('@microlink/mql')
 
 const { data } = await mql('https://kikobeats.com', {
-  rules: {
+  data: {
     avatar: {
       type: 'image',
       selector: '#avatar'
@@ -43,7 +43,7 @@ const mql = require('@microlink/mql')
  
 const twitter = username =>
   mql(`https://twitter.com/${username}`, {
-    rules: {
+    data: {
       stats: {
         selector: ".ProfileNav-list",
         attr: {
