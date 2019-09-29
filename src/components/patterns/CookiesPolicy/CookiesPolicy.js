@@ -6,7 +6,7 @@ import { useLocalStorage } from 'components/hook'
 import { Flex, Text, Box, Link } from 'components/elements'
 import { colors } from 'theme'
 
-const ID = 'cookie_policy'
+const LOCALSTORAGE_KEY = 'cookie_policy'
 
 const CookiesWrapper = styled(Box)`
   position: fixed;
@@ -30,7 +30,7 @@ const CloseButton = styled(Box)`
 `
 
 export default () => {
-  const [show, setShow] = useLocalStorage(ID, true)
+  const [show, setShow] = useLocalStorage(LOCALSTORAGE_KEY, true)
 
   return (
     <CookiesWrapper m={3} id='cookies-policy'>

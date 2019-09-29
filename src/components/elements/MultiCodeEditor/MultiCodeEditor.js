@@ -1,11 +1,14 @@
 import { Flex, Text, Box, CodeEditor } from 'components/elements'
+import { useLocalStorage } from 'components/hook'
 import styled, { css } from 'styled-components'
-import React, { useState } from 'react'
+import React from 'react'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'lodash'
 import { borders } from 'theme'
 
 import Select from '../Select/Select'
+
+const LOCALSTORAGE_KEY = 'multi_code_editor'
 
 const actionStyle = css`
   color: #fff;
@@ -32,7 +35,7 @@ const CustomCodeCopy = styled(CodeCopy)`
 `
 
 const arrow = encodeURI(
-  'data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewbox=\'0 0 32 32\' fill=\'white\'> <path d=\'M0 6 L32 6 L16 28 z\' /> </svg>'
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='white'> <path d='M0 6 L32 6 L16 28 z' /> </svg>"
 )
 
 const CustomSelect = styled(Select)`
@@ -91,11 +94,14 @@ export const SelectLanguage = ({ children, value, onChange, ...props }) => {
   )
 }
 
-function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
-  const langs = Object.keys(languages)
-  const [language, setLanguage] = useState(() => languages[langs[0]])
-  const code = isFunction(language) ? language(props) : language
-  const lang = langs.find(lang => languages[lang] === language)
+export default ({ languages: codeByLanguage, ...props }) => {
+  const editorLanguages = Object.keys(codeByLanguage)
+  const [editorLanguage, setEditorLanguage] = useLocalStorage(
+    LOCALSTORAGE_KEY,
+    editorLanguages[0]
+  )
+  const codeLanguage = codeByLanguage[editorLanguage]
+  const code = isFunction(codeLanguage) ? codeLanguage(props) : codeLanguage
 
   const ActionComponent = () => (
     <Flex>
@@ -106,9 +112,9 @@ function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
           width='4.5rem'
           mb={2}
           bg='white'
-          children={langs}
-          value={lang}
-          onChange={lang => setLanguage(() => languages[lang])}
+          children={editorLanguages}
+          value={editorLanguage}
+          onChange={setEditorLanguage}
         />
       </Text>
       <CustomCodeCopy theme='dark' interactive text={code} />
@@ -117,11 +123,9 @@ function MultiCodeEditor ({ languages, defaultLanguage, ...props }) {
 
   return (
     <CodeEditor
-      language={toAlias(lang)}
+      language={toAlias(editorLanguage)}
       children={code}
       ActionComponent={ActionComponent}
     />
   )
 }
-
-export default MultiCodeEditor
