@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.38](https://github.com/microlinkhq/microlink-www/compare/v2.9.37...v2.9.38) (2019-09-29)
+
+
+### Bug Fixes
+
+* window is not defined ([69812d8](https://github.com/microlinkhq/microlink-www/commit/69812d8))
+
 ### [2.9.37](https://github.com/microlinkhq/microlink-www/compare/v2.9.36...v2.9.37) (2019-09-29)
 
 ### [2.9.36](https://github.com/microlinkhq/microlink-www/compare/v2.9.35...v2.9.36) (2019-09-25)
