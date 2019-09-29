@@ -5,7 +5,7 @@ title: 'selectorAll'
 Type: `string|string[]`<br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
-The collection version of [selector](/docs/mql/rule-definition/selector). 
+The collection version of [selector](/docs/mql/data/selector). 
 
 While `selector` returns you just the first result, `selectorAll` will returns you all results matching the value provided.
 
@@ -36,7 +36,7 @@ It's equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/e
 ```js{5}
 const mql = require('@microlink/mql')
 const { data } mql(`https://microlink.io`, {
-  rules: {
+  data: {
     links: {
       selectorAll: 'nav a',
       attr: 'href',

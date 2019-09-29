@@ -25,8 +25,8 @@ It defines the data shape to use for the extracted value.
 
 ```js{7}
 const mql = require('@microlink/mql')
-const {data } mql(`https://kikobeats.com`, {
-  rules: {
+const { data } mql(`https://kikobeats.com`, {
+  data: {
     avatar: {
       selector: '#avatar',
       attr: 'src',
@@ -64,7 +64,7 @@ Defining the `type` also makes the extraction more accurate.
 ```js{6}
 const mql = require('@microlink/mql')
 const {data } mql(`https://kikobeats.com`, {
-  rules: {
+  data: {
     avatar: {
       selector: 'span',
       type: 'date'

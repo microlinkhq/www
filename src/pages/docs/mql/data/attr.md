@@ -6,7 +6,7 @@ Type: `string|string[]`<br/>
 Default: `html`<br/>
 Values: [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) or `html|val|text`<br/>
 
-Get the value of an attribute from the matched [selector](/docs/mql/rule-definition/selector) that should be picked.
+Get the value of an attribute from the matched [selector](/docs/mql/data/selector) that should be picked.
 
 ```html{11}
 <!DOCTYPE html>
@@ -26,8 +26,8 @@ Get the value of an attribute from the matched [selector](/docs/mql/rule-definit
 
 ```js{6}
 const mql = require('@microlink/mql')
-const {data } mql(`https://kikobeats.com`, {
-  rules: {
+const { data } mql(`https://kikobeats.com`, {
+  data: {
     avatar: {
       selector: '#avatar',
       attr: 'src'
@@ -59,7 +59,7 @@ Specify a collection of attributes is supported as well, being important the pos
 ```js{6}
 const mql = require('@microlink/mql')
 const {data } mql(`https://twitter.com/${username}`, {
-  rules: {
+  data: {
     avatar: {
       selector: '#avatar'
       attr: ['src', 'data-load']
@@ -105,7 +105,7 @@ You can use `attr` for mapping nested structures, being it useful for groupoing 
 ```js{6,9}
 const mql = require('@microlink/mql')
 const {data } mql(`https://bestcookie.recipe`, {
-  rules: {
+  data: {
     ingredients: {
       selector: 'li',
       attr: {

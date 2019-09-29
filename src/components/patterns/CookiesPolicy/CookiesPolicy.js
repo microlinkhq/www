@@ -1,12 +1,12 @@
-/* global localStorage */
-
-import React, { Component } from 'react'
-import { X } from 'react-feather'
-import { Flex, Text, Box, Link } from 'components/elements'
+import React from 'react'
 import styled from 'styled-components'
+import { X } from 'react-feather'
+
+import { useLocalStorage } from 'components/hook'
+import { Flex, Text, Box, Link } from 'components/elements'
 import { colors } from 'theme'
 
-const ID = 'cookie_policy'
+const LOCALSTORAGE_KEY = 'cookie_policy'
 
 const CookiesWrapper = styled(Box)`
   position: fixed;
@@ -28,45 +28,31 @@ const CloseButton = styled(Box)`
     color: ${colors.lightGray500};
   }
 `
-export default class extends Component {
-  state = { show: false }
 
-  render () {
-    return (
-      <CookiesWrapper m={3} id='cookies-policy'>
-        {this.state.show && (
-          <Flex
-            alignItems='center'
-            bg='white95'
-            py={2}
-            px={3}
-            borderRadius={3}
-            boxShadow={3}
-          >
-            <Text fontSize={['10px', 1]} color='black80'>
-              <span>By using this website you agree to our</span>
-              <Link ml={1} href='/privacy' children='privacy' />
-              <span>.</span>
-            </Text>
-            <CloseButton ml={3} onClick={this.handleHide}>
-              <X size={16} color={colors.black80} />
-            </CloseButton>
-          </Flex>
-        )}
-      </CookiesWrapper>
-    )
-  }
+export default () => {
+  const [show, setShow] = useLocalStorage(LOCALSTORAGE_KEY, true)
 
-  componentDidMount () {
-    const show = !(localStorage && localStorage.getItem(ID))
-    this.setState({ show })
-  }
-
-  handleHide = event => {
-    event.preventDefault()
-    this.setState(
-      { show: false },
-      () => localStorage && localStorage.setItem(ID, false)
-    )
-  }
+  return (
+    <CookiesWrapper m={3} id='cookies-policy'>
+      {show && (
+        <Flex
+          alignItems='center'
+          bg='white95'
+          py={2}
+          px={3}
+          borderRadius={3}
+          boxShadow={3}
+        >
+          <Text fontSize={['10px', 1]} color='black80'>
+            <span>By using this website you agree to our</span>
+            <Link ml={1} href='/privacy' children='privacy' />
+            <span>.</span>
+          </Text>
+          <CloseButton ml={3} onClick={() => setShow(false)}>
+            <X size={16} color={colors.black80} />
+          </CloseButton>
+        </Flex>
+      )}
+    </CookiesWrapper>
+  )
 }

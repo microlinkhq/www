@@ -48,53 +48,53 @@ const ROUTES_SDK = [
     posts: [
       {
         name: 'apiKey',
-        href: '/docs/sdk/api-parameters/api-key/'
+        href: '/docs/sdk/parameters/api-key/'
       },
       {
         name: 'contrast',
-        href: '/docs/sdk/api-parameters/contrast/'
+        href: '/docs/sdk/parameters/contrast/'
       },
       {
         name: 'direction',
-        href: '/docs/sdk/api-parameters/direction/'
+        href: '/docs/sdk/parameters/direction/'
       },
       {
         name: 'lazy',
-        href: '/docs/sdk/api-parameters/lazy/'
+        href: '/docs/sdk/parameters/lazy/'
       },
       {
         name: 'media',
-        href: '/docs/sdk/api-parameters/media/',
+        href: '/docs/sdk/parameters/media/',
         posts: [
           {
             name: 'autoPlay',
-            href: '/docs/sdk/api-parameters/media/auto-play/'
+            href: '/docs/sdk/parameters/media/auto-play/'
           },
           {
             name: 'controls',
-            href: '/docs/sdk/api-parameters/media/controls/'
+            href: '/docs/sdk/parameters/media/controls/'
           },
           {
             name: 'muted',
-            href: '/docs/sdk/api-parameters/media/muted/'
+            href: '/docs/sdk/parameters/media/muted/'
           },
           {
             name: 'loop',
-            href: '/docs/sdk/api-parameters/media/loop/'
+            href: '/docs/sdk/parameters/media/loop/'
           }
         ]
       },
       {
         name: 'setData',
-        href: '/docs/sdk/api-parameters/set-data/'
+        href: '/docs/sdk/parameters/set-data/'
       },
       {
         name: 'size',
-        href: '/docs/sdk/api-parameters/size/'
+        href: '/docs/sdk/parameters/size/'
       },
       {
         name: 'url',
-        href: '/docs/sdk/api-parameters/url/'
+        href: '/docs/sdk/parameters/url/'
       }
     ]
   },
@@ -140,27 +140,27 @@ const ROUTES_API = [
     posts: [
       {
         name: 'Endpoint',
-        href: '/docs/api/api-basics/endpoint'
+        href: '/docs/api/basics/endpoint'
       },
       {
         name: 'Authentication',
-        href: '/docs/api/api-basics/authentication'
+        href: '/docs/api/basics/authentication'
       },
       {
         name: 'Rate Limit',
-        href: '/docs/api/api-basics/rate-limit'
+        href: '/docs/api/basics/rate-limit'
       },
       {
         name: 'Format',
-        href: '/docs/api/api-basics/format'
+        href: '/docs/api/basics/format'
       },
       {
         name: 'Compression',
-        href: '/docs/api/api-basics/compression'
+        href: '/docs/api/basics/compression'
       },
       {
         name: 'Cache',
-        href: '/docs/api/api-basics/cache'
+        href: '/docs/api/basics/cache'
       }
     ]
   },
@@ -169,126 +169,130 @@ const ROUTES_API = [
     posts: [
       {
         name: 'audio',
-        href: '/docs/api/api-parameters/audio'
+        href: '/docs/api/parameters/audio'
+      },
+      {
+        name: 'data',
+        href: '/docs/api/parameters/data'
       },
       {
         name: 'embed',
-        href: '/docs/api/api-parameters/embed'
+        href: '/docs/api/parameters/embed'
       },
       {
         name: 'filter',
-        href: '/docs/api/api-parameters/filter'
+        href: '/docs/api/parameters/filter'
       },
       {
         name: 'force',
-        href: '/docs/api/api-parameters/force'
+        href: '/docs/api/parameters/force'
       },
       {
         name: 'headers',
-        href: '/docs/api/api-parameters/headers'
+        href: '/docs/api/parameters/headers'
       },
       {
         name: 'meta',
-        href: '/docs/api/api-parameters/meta'
+        href: '/docs/api/parameters/meta'
       },
       {
         name: 'palette',
-        href: '/docs/api/api-parameters/palette'
+        href: '/docs/api/parameters/palette'
       },
       {
         name: 'prerender',
-        href: '/docs/api/api-parameters/prerender'
+        href: '/docs/api/parameters/prerender'
       },
       {
         name: 'proxy',
-        href: '/docs/api/api-parameters/proxy'
+        href: '/docs/api/parameters/proxy'
       },
       {
         name: 'screenshot',
-        href: '/docs/api/api-parameters/screenshot',
+        href: '/docs/api/parameters/screenshot',
         posts: [
           {
             name: 'background',
-            href: '/docs/api/api-parameters/screenshot/background'
+            href: '/docs/api/parameters/screenshot/background'
           },
           {
             name: 'browser',
-            href: '/docs/api/api-parameters/screenshot/browser'
+            href: '/docs/api/parameters/screenshot/browser'
           },
           {
             name: 'click',
-            href: '/docs/api/api-parameters/screenshot/click'
+            href: '/docs/api/parameters/screenshot/click'
           },
           {
             name: 'deviceScaleFactor',
-            href: '/docs/api/api-parameters/screenshot/device-scale-factor'
+            href: '/docs/api/parameters/screenshot/device-scale-factor'
           },
           {
             name: 'disableAnimations',
-            href: '/docs/api/api-parameters/screenshot/disable-animations'
+            href: '/docs/api/parameters/screenshot/disable-animations'
           },
           {
             name: 'emulation',
-            href: '/docs/api/api-parameters/screenshot/emulation'
+            href: '/docs/api/parameters/screenshot/emulation'
           },
           {
             name: 'fullPage',
-            href: '/docs/api/api-parameters/screenshot/full-page'
+            href: '/docs/api/parameters/screenshot/full-page'
           },
           {
             name: 'hasTouch',
-            href: '/docs/api/api-parameters/screenshot/has-touch'
+            href: '/docs/api/parameters/screenshot/has-touch'
           },
           {
             name: 'height',
-            href: '/docs/api/api-parameters/screenshot/height'
+            href: '/docs/api/parameters/screenshot/height'
           },
           {
             name: 'hide',
-            href: '/docs/api/api-parameters/screenshot/hide'
+            href: '/docs/api/parameters/screenshot/hide'
           },
           {
             name: 'isLandscape',
-            href: '/docs/api/api-parameters/screenshot/is-landscape'
+            href: '/docs/api/parameters/screenshot/is-landscape'
           },
           {
             name: 'isMobile',
-            href: '/docs/api/api-parameters/screenshot/is-mobile'
+            href: '/docs/api/parameters/screenshot/is-mobile'
           },
           {
             name: 'scrollTo',
-            href: '/docs/api/api-parameters/screenshot/scroll-to'
+            href: '/docs/api/parameters/screenshot/scroll-to'
           },
           {
             name: 'type',
-            href: '/docs/api/api-parameters/screenshot/type'
+            href: '/docs/api/parameters/screenshot/type'
           },
           {
             name: 'waitFor',
-            href: '/docs/api/api-parameters/screenshot/wait-for'
+            href: '/docs/api/parameters/screenshot/wait-for'
           },
           {
             name: 'waitUntil',
-            href: '/docs/api/api-parameters/screenshot/wait-until'
+            href: '/docs/api/parameters/screenshot/wait-until'
           },
           {
             name: 'width',
-            href: '/docs/api/api-parameters/screenshot/width'
+            href: '/docs/api/parameters/screenshot/width'
           }
         ]
       },
       {
         name: 'ttl',
-        href: '/docs/api/api-parameters/ttl'
+        href: '/docs/api/parameters/ttl'
       },
 
       {
         name: 'url',
-        href: '/docs/api/api-parameters/url'
+        href: '/docs/api/parameters/url'
       },
       {
         name: 'video',
-        href: '/docs/api/api-parameters/video'
+        href: '/docs/api/parameters/video'
       }
     ]
   }
@@ -318,23 +322,23 @@ const ROUTES_MQL = [
     ]
   },
   {
-    name: 'Rule definition',
+    name: 'Data definition',
     posts: [
       {
         name: 'attr',
-        href: '/docs/mql/rule-definition/attr'
+        href: '/docs/mql/data/attr'
       },
       {
         name: 'selector',
-        href: '/docs/mql/rule-definition/selector'
+        href: '/docs/mql/data/selector'
       },
       {
         name: 'selectorAll',
-        href: '/docs/mql/rule-definition/selector-all'
+        href: '/docs/mql/data/selector-all'
       },
       {
         name: 'type',
-        href: '/docs/mql/rule-definition/type'
+        href: '/docs/mql/data/type'
       }
     ]
   },
@@ -347,27 +351,6 @@ const ROUTES_MQL = [
       }
     ]
   }
-  // {
-  //   name: 'Examples',
-  //   posts: [
-  //     {
-  //       name: 'Twitter',
-  //       href: '/docs/mql/rule-definition/selectors'
-  //     },
-  //     {
-  //       name: 'Instagram',
-  //       href: '/docs/mql/rule-definition/attr'
-  //     },
-  //     {
-  //       name: 'Hacker News',
-  //       href: '/docs/mql/rule-definition/selector'
-  //     },
-  //     {
-  //       name: 'Reddit',
-  //       href: '/docs/mql/rule-definition/type'
-  //     }
-  //   ]
-  // }
 ]
 
 const routes = {

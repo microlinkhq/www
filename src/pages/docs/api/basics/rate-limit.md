@@ -2,14 +2,18 @@
 title: 'Rate Limit'
 ---
 
-The API has a daily quota, just being possible to perform a certain number of requests every 24 hours. 
+The API quota is the number of requests you can perform during a quantity of time.
 
 Your API quota depends on the [endpoint](/docs/api/api-basics/endpoint) you are using:
 
-- **Free**: It is the plan applied for unauthenticated requests. It has a soft limitation of 50 <Label display='inline' children='reqs' suffix='/day' />.
-- **Pro**: It is the plan applied for authenticated requests. It iss based on your plan associated with your API Key, starting from 1000 <Label display='inline' children='reqs' suffix='/day' />.
+- **Free**: It's the plan applied for unauthenticated requests. It has a soft limitation of 50 <Label display='inline' children='reqs' suffix='/day' />.
+- **Pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 28,000 <Label display='inline' children='reqs' suffix='/month' />.
 
-After 24 hours, the API quota is reset, giving you a fresh start again. 
+You can perform HTTP calls always you are under your the API quota limit.
+
+When you reach the API quota limit, you will experiment [HTTP 429 errors](https://httpstatuses.com/429), meaning you need to wait until the API quota reset (or upgrade your plan).
+
+When the API quota is reset, you have a fresh start again.
 
 Your current rate limit status is reflected as part of your response with the following headers:
 
