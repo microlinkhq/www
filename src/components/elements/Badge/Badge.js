@@ -14,7 +14,7 @@ const Badge = styled('span')`
   border-radius: ${({ theme }) => theme.radii[5]};
   color: white;
   position: relative;
-  bottom: 1px;
+  vertical-align: middle;
 `
 
 export default Badge
