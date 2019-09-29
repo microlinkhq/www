@@ -36,6 +36,7 @@ import Heading from './Heading'
 import Label from './Label'
 import Subhead from './Subhead'
 import Text from './Text'
+import Iframe from './Iframe'
 
 import StripeLoader from './StripeLoader'
 import ClearbitLogo from './ClearbitLogo'
@@ -60,6 +61,7 @@ export {
   Flex,
   Heading,
   Hide,
+  Iframe,
   Image,
   Input,
   Label,

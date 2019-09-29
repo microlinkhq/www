@@ -12,7 +12,7 @@ export default () => (
     <Container pt={5}>
       <Header subtitle='Come chat with us' caption='Be part of our community' />
       <Flex alignItems='center' justifyContent='center'>
-        <Microlink size={LOGO_SIZE} />
+        <Microlink width={LOGO_SIZE} />
         <Box color='gray' px={3}>
           <Plus size={PLUS_SIZE} />
         </Box>

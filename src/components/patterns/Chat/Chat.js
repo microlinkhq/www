@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Flex } from 'components/elements'
+import { Iframe } from 'components/elements'
 
 export default ({ large }) => {
   const iframeUrl = large
@@ -12,14 +12,13 @@ export default ({ large }) => {
     : { width: '250px', height: '250px' }
 
   return (
-    <Flex justifyContent='center' mr='auto' ml='auto'>
-      <iframe
-        title='Chat'
-        frameBorder='0'
-        target='_parent'
-        src={iframeUrl}
-        style={style}
-      />
-    </Flex>
+    <Iframe
+      justifyContent='center'
+      mr='auto'
+      ml='auto'
+      title='Chat'
+      src={iframeUrl}
+      style={style}
+    />
   )
 }
