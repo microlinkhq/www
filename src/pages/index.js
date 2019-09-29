@@ -118,12 +118,7 @@ const Questions = () => {
             </Faq.Question>
             <Faq.Asked>
               You can see our SLA level on{' '}
-              <Link
-                display='inline'
-                href='https://status.microlink.io'
-                children='status page'
-              />
-              .
+              <Link display='inline' href='/status' children='status page' />.
             </Faq.Asked>
           </Faq>
           <Faq>
