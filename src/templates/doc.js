@@ -172,6 +172,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/audio'
       },
       {
+        name: 'data',
+        href: '/docs/api/parameters/data'
+      },
+      {
         name: 'embed',
         href: '/docs/api/parameters/embed'
       },
