@@ -2,10 +2,18 @@ import React from 'react'
 import Tippy from '@tippy.js/react'
 import { Box, Text } from 'components/elements'
 import { speed } from 'theme'
+import styled from 'styled-components'
+
+import 'tippy.js/dist/tippy.css'
 
 const TooltipText = props => (
   <Text fontSize={1} fontWeight='normal' {...props} />
 )
+
+const TippyContainer = styled(Box)`
+  outline: 0;
+  cursor: help;
+`
 
 const Tooltip = ({ content, children, tooltipsOpts, ...props }) => {
   if (!content) return children
@@ -19,24 +27,16 @@ const Tooltip = ({ content, children, tooltipsOpts, ...props }) => {
       }
       {...tooltipsOpts}
     >
-      <Box
-        css={`
-          outline: 0;
-          cursor: help;
-        `}
-        {...props}
-      >
-        {children}
-      </Box>
+      <TippyContainer {...props}>{children}</TippyContainer>
     </Tippy>
   )
 }
 
 Tooltip.defaultProps = {
   tooltipsOpts: {
-    duration: speed.medium,
     arrow: true,
     animation: 'fade',
+    duration: speed.normal,
     hideOnClick: false
   }
 }
