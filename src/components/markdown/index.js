@@ -70,6 +70,8 @@ H1.defaultProps = {
   lineHeight: [2, 3],
   textAlign: 'left',
   variant: null,
+  ml: 'auto',
+  mr: 'auto',
   mt: 5,
   mb: 4
 }
