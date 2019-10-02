@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.44](https://github.com/microlinkhq/microlink-www/compare/v2.9.43...v2.9.44) (2019-10-02)
+
+
+### Bug Fixes
+
+* in href → src ([58bb1cf](https://github.com/microlinkhq/microlink-www/commit/58bb1cf))
+* use lodash.trim ([e0327d7](https://github.com/microlinkhq/microlink-www/commit/e0327d7))
+
 ### [2.9.43](https://github.com/microlinkhq/microlink-www/compare/v2.9.42...v2.9.43) (2019-09-30)
 
 ### [2.9.42](https://github.com/microlinkhq/microlink-www/compare/v2.9.41...v2.9.42) (2019-09-30)
