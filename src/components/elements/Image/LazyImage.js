@@ -4,7 +4,14 @@ import { noop, isNil } from 'lodash'
 import ImagePlaceholder from './ImagePlaceholder'
 import Image from './Image'
 
-const LazyImage = ({ lazyWidth, lazyHeight, onLoad, loading, ...props }) => {
+const LazyImage = ({
+  lazy,
+  lazyWidth,
+  lazyHeight,
+  onLoad,
+  loading,
+  ...props
+}) => {
   const [isLoaded, setLoaded] = useState(false)
 
   if (!isNil(loading) ? !loading : isLoaded) return createElement(Image, props)
@@ -12,6 +19,10 @@ const LazyImage = ({ lazyWidth, lazyHeight, onLoad, loading, ...props }) => {
   const _onLoad = event => {
     setLoaded(true)
     setTimeout(onLoad, 0)
+  }
+
+  if (!lazy) {
+    return <Image {...props} />
   }
 
   return (
@@ -27,6 +38,7 @@ const LazyImage = ({ lazyWidth, lazyHeight, onLoad, loading, ...props }) => {
 
 LazyImage.defaultProps = {
   onLoad: noop,
+  lazy: true,
   lazyWidth: '100%',
   lazyHeight: '100%'
 }
