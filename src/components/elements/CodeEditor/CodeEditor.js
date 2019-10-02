@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import styled, { css } from 'styled-components'
-import { get, identity, range } from 'lodash'
+import { trim, get, identity, range } from 'lodash'
 import { prettier, getLines } from 'helpers'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
@@ -273,7 +273,7 @@ function CodeEditor (props) {
   })()
 
   const pretty = props.prettier ? get(prettier, language, identity) : identity
-  const text = pretty(children).trim()
+  const text = trim(pretty(children))
   const theme = { ...baseTheme, ...langTheme[language] }
   const css = highlightLines && highlighLinesStyle(highlightLines)
 
