@@ -7,15 +7,15 @@ Values: `'light'|'dark'`
 
 It sets the browser overlay to use with your screenshot.
 
-![](https://api.microlink.io/?url=https://microlink.io&screenshot&browser=light&embed=screenshot.url)
+![](https://api.microlink.io/?url={{DemoLinks.Nasa.url}}&screenshot&browser=dark&embed=screenshot.url&meta=false)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot&browser=dark`,
+  Shell: `microlink-api {{DemoLinks.Nasa.url}}&screenshot&browser=dark`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://microlink.io'. { 
+    '{{DemoLinks.Nasa.url}}'. { 
       screenshot: true,
       browser: 'dark'
   })
