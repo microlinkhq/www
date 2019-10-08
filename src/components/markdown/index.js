@@ -6,6 +6,8 @@ import slug from 'remark-slug'
 import { get } from 'lodash'
 import React from 'react'
 
+import { aspectRatio } from 'helpers'
+
 import {
   Terminal as TerminalBase,
   CodeEditor,
@@ -35,7 +37,7 @@ const CONTAINER_SPACE = {
   mb: 4
 }
 
-const Link = styled(LinkBase)([])
+const Link = styled(LinkBase)``
 
 Link.defaultProps = {
   icon: true
@@ -61,7 +63,7 @@ export const Terminal = withContainer(TerminalBase)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
-export const H1 = withSlug(styled(Heading)([]))
+export const H1 = withSlug(styled(Heading)``)
 
 H1.defaultProps = {
   maxWidth: WIDTH.normal,
@@ -76,7 +78,7 @@ H1.defaultProps = {
   mb: 4
 }
 
-const H2Base = styled(Heading)([])
+const H2Base = styled(Heading)``
 
 H2Base.defaultProps = {
   ml: 'auto',
@@ -105,7 +107,7 @@ H2Link.defaultProps = {
 
 export const H2 = withSlug(H2Base)
 
-export const H3 = withSlug(styled(Heading)([]))
+export const H3 = withSlug(styled(Heading)``)
 
 H3.defaultProps = {
   ml: 'auto',
@@ -120,7 +122,7 @@ H3.defaultProps = {
   mb: 4
 }
 
-export const H4 = withSlug(styled(Heading)([]))
+export const H4 = withSlug(styled(Heading)``)
 
 H4.defaultProps = {
   ml: 'auto',
@@ -135,7 +137,7 @@ H4.defaultProps = {
   mb: 4
 }
 
-export const H5 = withSlug(styled(Heading)([]))
+export const H5 = withSlug(styled(Heading)``)
 
 H5.defaultProps = {
   ml: 'auto',
@@ -150,7 +152,7 @@ H5.defaultProps = {
   mb: 2
 }
 
-export const H6 = withSlug(styled(Heading)([]))
+export const H6 = withSlug(styled(Heading)``)
 
 H6.defaultProps = {
   ml: 'auto',
@@ -182,7 +184,7 @@ Paraph.defaultProps = {
   ...CONTAINER_SPACE
 }
 
-export const Strong = styled(Text)([])
+export const Strong = styled(Text)``
 
 Strong.defaultProps = {
   as: 'b',
@@ -190,7 +192,7 @@ Strong.defaultProps = {
   fontWeight: 'bold'
 }
 
-export const Ul = styled(Text)([])
+export const Ul = styled(Text)``
 
 Ul.defaultProps = {
   ml: 'auto',
@@ -200,13 +202,13 @@ Ul.defaultProps = {
   ...CONTAINER_SPACE
 }
 
-export const Ol = styled(Ul)([])
+export const Ol = styled(Ul)``
 
 Ol.defaultProps = {
   as: 'ol'
 }
 
-export const Li = styled(Text)([])
+export const Li = styled(Text)``
 
 Li.defaultProps = {
   ml: 'auto',
@@ -256,9 +258,12 @@ export const Code = props => (
   </CodeWrapper>
 )
 
-const _ImageBase = styled(ImageBase)([])
+const _ImageBase = styled(ImageBase)``
 
 _ImageBase.defaultProps = {
+  lazyHeight: aspectRatio.heights,
+  lazyWidth: aspectRatio.widths,
+  maxWidth: `${WIDTH.normal}px`,
   borderRadius: '3px',
   ml: 'auto',
   mr: 'auto',
@@ -267,7 +272,7 @@ _ImageBase.defaultProps = {
 
 export const Image = withContainer(_ImageBase)
 
-const FigcaptionBase = styled(Text)([])
+const FigcaptionBase = styled(Text)``
 
 FigcaptionBase.defaultProps = {
   fontSize: 0,

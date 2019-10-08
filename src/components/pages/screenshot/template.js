@@ -1,6 +1,5 @@
-import { aspectRatio, screenshotUrl, getHostname } from 'helpers'
+import { aspectRatio, screenshotUrl, getDomain } from 'helpers'
 import * as Logo from 'components/logos'
-import humanizeUrl from 'humanize-url'
 import { borders, colors } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
@@ -58,27 +57,29 @@ const HeroHeader = ({ title, caption }) => {
   )
 }
 
-const Hero = ({ humanizedUrl, brand, data }) => {
+const Hero = ({ domain, brand, data }) => {
   const caption = (
     <>
-      Turn any{' '}
+      Turn{' '}
       <Subhead as='span' color='black' fontWeight='regular'>
-        {humanizedUrl}
+        {domain}
       </Subhead>{' '}
-      link into a screenshot
+      links into a screenshot
     </>
   )
 
   const logoProvider = (() => {
     const LogoProvider = Logo[brand]
     if (LogoProvider) {
-      return <LogoProvider size={['36px', '72px']} state='hover' />
+      return (
+        <LogoProvider height='100%' width={['36px', '72px']} state='hover' />
+      )
     }
 
     const logoUrl = get(data, 'logo.url')
 
     if (logoUrl && !logoUrl.endsWith('ico')) {
-      return <Image size={['36px', '72px']} src={logoUrl} />
+      return <Image height='100%' width={['36px', '72px']} src={logoUrl} />
     }
   })()
 
@@ -139,7 +140,7 @@ const Features = ({ children }) => (
   </Container>
 )
 
-const Api = ({ humanizedUrl, data }) => {
+const Api = ({ domain, data }) => {
   const [query] = useQueryState()
   const apiUrl = screenshotUrl(data.url, query)
 
@@ -248,7 +249,7 @@ const Span = styled.span`
   color: ${colors.gray8};
 `
 
-const Cli = ({ humanizedUrl, data }) => {
+const Cli = ({ domain, data }) => {
   const [query] = useQueryState()
   const browser = query.browser ? `&browser=${query.browser}` : ''
   const waitFor = query.waitFor ? `&waitFor=${query.waitFor}` : ''
@@ -335,14 +336,14 @@ const Cli = ({ humanizedUrl, data }) => {
 }
 
 export default props => {
-  const humanizedUrl = humanizeUrl(getHostname(props.data.url))
+  const domain = getDomain(props.data.url)
 
   return (
     <>
-      <Hero humanizedUrl={humanizedUrl} {...props} />
-      <Api humanizedUrl={humanizedUrl} {...props} />
+      <Hero domain={domain} {...props} />
+      <Api domain={domain} {...props} />
       <Features children={useFeatures()} />
-      <Cli humanizedUrl={humanizedUrl} {...props} />
+      <Cli domain={domain} {...props} />
     </>
   )
 }

@@ -14,7 +14,7 @@ import {
 import {
   debounceComponent,
   aspectRatio,
-  getHostname,
+  getDomain,
   screenshotUrl
 } from 'helpers'
 import { useTransition, animated, config } from 'react-spring'
@@ -141,11 +141,11 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
   const [inputUrl, setInputUrl] = useState(url || '')
   const [inputWaitFor, setInputWaitFor] = useState('')
   const [inputOverlay, setInputOverlay] = useState('')
-  const hostnameUrl = getHostname(inputUrl)
+  const domain = getDomain(inputUrl)
 
   const urlIconComponent =
-    inputUrl && hostnameUrl ? (
-      <ClearbitLogo companyName={hostnameUrl} size='16px' />
+    inputUrl && domain ? (
+      <ClearbitLogo companyName={domain} size='16px' />
     ) : (
       <LinkIcon color={colors.black50} size='16px' />
     )

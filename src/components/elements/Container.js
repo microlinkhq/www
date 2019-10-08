@@ -3,7 +3,7 @@ import { layout } from 'theme'
 
 import Box from './Box'
 
-const Container = styled(Box)([])
+const Container = styled(Box)``
 
 Container.defaultProps = {
   pl: 3,

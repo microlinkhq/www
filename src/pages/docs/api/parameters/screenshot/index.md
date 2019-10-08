@@ -8,15 +8,15 @@ Values: `true|false|{devideName}`
 
 It takes a screenshot of a website, being possible embed it directly in your markup and asynchronous refresh it on the background (known as *stale*).
 
-![](https://api.microlink.io/?url=https://microlink.io&screenshot&browser=dark&embed=screenshot.url&background=https://source.unsplash.com/random/1920x1080)
+![](https://api.microlink.io/?url={{DemoLinks.Netflix.url}}&screenshot&browser=dark&embed=screenshot.url&background=https://source.unsplash.com/random/1920x1080&meta=false)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot&browser=dark&embed=screenshot.url&background=https://source.unsplash.com/random/1920x1080`,
+  Shell: `microlink-api {{DemoLinks.Netflix.url}}&screenshot&browser=dark&embed=screenshot.url&background=https://source.unsplash.com/random/1920x1080`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://microlink.io'. { 
+    '{{DemoLinks.Netflix.url}}'. { 
       screenshot: true ,
       background: 'https://source.unsplash.com/random/1920x1080',
       browser: 'dark',

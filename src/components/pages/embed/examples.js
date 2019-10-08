@@ -17,7 +17,7 @@ import demoLinks from '@microlink/demo-links'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import prependHttp from 'prepend-http'
-import { debounceComponent, getHostname } from 'helpers'
+import { debounceComponent, getDomain } from 'helpers'
 import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
 
@@ -42,11 +42,11 @@ const HUMANIZE_DEMO_LINK = humanizeUrl(DEMO_LINK_URL)
 
 const SearchBox = ({ onSubmit, url, isLoading }) => {
   const [inputValue, setInputValue] = useState(url || HUMANIZE_DEMO_LINK)
-  const hostnameUrl = getHostname(inputValue)
+  const domain = getDomain(inputValue)
 
   const urlIconComponent =
-    inputValue && hostnameUrl ? (
-      <ClearbitLogo size='16px' companyName={hostnameUrl} />
+    inputValue && domain ? (
+      <ClearbitLogo size='16px' companyName={domain} />
     ) : (
       <LinkIcon color={colors.black50} size='16px' />
     )

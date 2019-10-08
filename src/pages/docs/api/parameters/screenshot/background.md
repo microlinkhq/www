@@ -7,15 +7,15 @@ default: `transparent`
 
 It sets the background to use as overlay with your screenshot.
 
-![](https://api.microlink.io/?url=https://microlink.io&screenshot&browser=dark&embed=screenshot.url&background=linear-gradient%2843deg%2C+rgb%28247%2C+102%2C+152%29+0%25%2C+rgb%28234%2C+64%2C+123%29+29%25%2C+rgb%28101%2C+78%2C+163%29+100%25%29)
+![](https://api.microlink.io/?url={{DemoLinks.Apple.url}}&screenshot&meta=false&browser=dark&embed=screenshot.url&background=linear-gradient%2843deg%2C+rgb%28247%2C+102%2C+152%29+0%25%2C+rgb%28234%2C+64%2C+123%29+29%25%2C+rgb%28101%2C+78%2C+163%29+100%25%29)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot&background=linear-gradient%2843deg%2C+rgb%28247%2C+102%2C+152%29+0%25%2C+rgb%28234%2C+64%2C+123%29+29%25%2C+rgb%28101%2C+78%2C+163%29+100%25%29`,
+  Shell: `microlink-api {{DemoLinks.Apple.url}}&screenshot&background=linear-gradient%2843deg%2C+rgb%28247%2C+102%2C+152%29+0%25%2C+rgb%28234%2C+64%2C+123%29+29%25%2C+rgb%28101%2C+78%2C+163%29+100%25%29`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://microlink.io'. { 
+    '{{DemoLinks.Apple.url}}'. { 
       screenshot: true,
       background: 'linear-gradient(43deg, rgb(247, 102, 152) 0%, rgb(234, 64, 123) 29%, rgb(101, 78, 163) 100%)'
   })

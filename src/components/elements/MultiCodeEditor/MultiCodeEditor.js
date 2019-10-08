@@ -5,6 +5,7 @@ import React from 'react'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'lodash'
 import { borders } from 'theme'
+import { template } from 'helpers'
 
 import Select from '../Select/Select'
 
@@ -101,7 +102,9 @@ export default ({ languages: codeByLanguage, ...props }) => {
     editorLanguages[0]
   )
   const codeLanguage = codeByLanguage[editorLanguage]
-  const code = isFunction(codeLanguage) ? codeLanguage(props) : codeLanguage
+  const code = template(
+    isFunction(codeLanguage) ? codeLanguage(props) : codeLanguage
+  )
 
   const ActionComponent = () => (
     <Flex>
