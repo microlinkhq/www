@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.0](https://github.com/microlinkhq/microlink-www/compare/v2.9.45...v2.10.0) (2019-10-08)
+
+
+### Bug Fixes
+
+* amazon logo ([f8f3372](https://github.com/microlinkhq/microlink-www/commit/f8f3372))
+* humanized urls ([67d2383](https://github.com/microlinkhq/microlink-www/commit/67d2383))
+* logo aspect ratio ([5c56060](https://github.com/microlinkhq/microlink-www/commit/5c56060))
+* markdown lazy image ([1dc3fe0](https://github.com/microlinkhq/microlink-www/commit/1dc3fe0))
+
+
+### Features
+
+* add template support ([8d2b4e9](https://github.com/microlinkhq/microlink-www/commit/8d2b4e9))
+
 ### [2.9.45](https://github.com/microlinkhq/microlink-www/compare/v2.9.44...v2.9.45) (2019-10-08)
 
 ### [2.9.44](https://github.com/microlinkhq/microlink-www/compare/v2.9.43...v2.9.44) (2019-10-02)
