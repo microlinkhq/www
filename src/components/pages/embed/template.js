@@ -1,8 +1,7 @@
 import { useFeatures } from 'components/hook'
 import * as Logo from 'components/logos'
 import { borders, colors } from 'theme'
-import { getHostname } from 'helpers'
-import humanizeUrl from 'humanize-url'
+import { getDomain } from 'helpers'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
 import { capitalize, get } from 'lodash'
@@ -105,12 +104,12 @@ const HeroHeader = ({ title, caption }) => {
   )
 }
 
-const Hero = ({ humanizedUrl, brand, data }) => {
+const Hero = ({ domain, brand, data }) => {
   const caption = (
     <>
       Turn any{' '}
       <Subhead as='span' color='black' fontWeight='regular'>
-        {humanizedUrl}
+        {domain}
       </Subhead>{' '}
       link into structured data
     </>
@@ -162,7 +161,7 @@ const Subheader = ({ children }) => (
   </>
 )
 
-const Sdk = ({ humanizedUrl, data }) => (
+const Sdk = ({ domain, data }) => (
   <Container
     id='sdk'
     maxWidth='100%'
@@ -187,7 +186,7 @@ const Sdk = ({ humanizedUrl, data }) => (
             </Link>{' '}
             converts{' '}
             <Text color='black' fontWeight='bold' as='span'>
-              {humanizedUrl}
+              {domain}
             </Text>{' '}
             links into beautiful previews, engaging better your links.
           </Text>
@@ -337,13 +336,13 @@ const Api = ({ data }) => {
 }
 
 export default props => {
-  const humanizedUrl = humanizeUrl(getHostname(props.data.url))
+  const domain = getDomain(props.data.url)
   return (
     <>
-      <Hero humanizedUrl={humanizedUrl} {...props} />
-      <Sdk humanizedUrl={humanizedUrl} {...props} />
+      <Hero domain={domain} {...props} />
+      <Sdk domain={domain} {...props} />
       <Features children={useFeatures()} />
-      <Api humanizedUrl={humanizedUrl} {...props} />
+      <Api domain={domain} {...props} />
     </>
   )
 }

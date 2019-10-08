@@ -14,7 +14,7 @@ import {
 import {
   debounceComponent,
   aspectRatio,
-  getHostname,
+  getDomain,
   screenshotUrl
 } from 'helpers'
 import { useTransition, animated, config } from 'react-spring'
@@ -24,7 +24,6 @@ import { Safari, HourGlass } from 'components/icons'
 import { borders, transition, colors } from 'theme'
 import demoLinks from '@microlink/demo-links'
 import prependHttp from 'prepend-http'
-import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { pickBy, noop } from 'lodash'
 import { navigate } from 'gatsby'
@@ -44,7 +43,7 @@ const DEMO_LINKS = [
 ].map(item => {
   return {
     ...item,
-    humanizedUrl: humanizeUrl(demoLinks[item.keyword].url),
+    humanizedUrl: getDomain(demoLinks[item.keyword].url),
     cdnUrl: `https://cdn.microlink.io/website/browser/${
       item.theme
     }/${item.keyword.toLowerCase()}.png`
@@ -141,11 +140,11 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
   const [inputUrl, setInputUrl] = useState(url || '')
   const [inputWaitFor, setInputWaitFor] = useState('')
   const [inputOverlay, setInputOverlay] = useState('')
-  const hostnameUrl = getHostname(inputUrl)
+  const domain = getDomain(inputUrl)
 
   const urlIconComponent =
-    inputUrl && hostnameUrl ? (
-      <ClearbitLogo companyName={hostnameUrl} size='16px' />
+    inputUrl && domain ? (
+      <ClearbitLogo companyName={domain} size='16px' />
     ) : (
       <LinkIcon color={colors.black50} size='16px' />
     )

@@ -2,7 +2,7 @@ import serializeComponent from './serialize-component'
 import screenshotUrl from './screenshot-url'
 import formatNumber from './format-number'
 import aspectRatio from './aspect-ratio'
-import getHostname from './get-hostname'
+import getDomain from './get-domain'
 import formatDate from './format-date'
 import sendEvent from './send-event'
 import getLines from './get-lines'
@@ -17,7 +17,7 @@ export {
   debounceComponent,
   formatDate,
   formatNumber,
-  getHostname,
+  getDomain,
   getLines,
   isSSR,
   prettier,
