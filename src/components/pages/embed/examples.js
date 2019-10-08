@@ -14,6 +14,7 @@ import { Header, DemoLinks, Microlink } from 'components/patterns'
 import { borders, transition, colors } from 'theme'
 import React, { useState } from 'react'
 import demoLinks from '@microlink/demo-links'
+import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import prependHttp from 'prepend-http'
 import { debounceComponent, getDomain } from 'helpers'
@@ -37,7 +38,7 @@ const MicrolinkDebounce = debounceComponent(Microlink)
 
 const DEMO_LINK_KEYWORD = 'Instagram'
 const DEMO_LINK_URL = demoLinks[DEMO_LINK_KEYWORD].url
-const HUMANIZE_DEMO_LINK = getDomain(DEMO_LINK_URL)
+const HUMANIZE_DEMO_LINK = humanizeUrl(DEMO_LINK_URL)
 
 const SearchBox = ({ onSubmit, url, isLoading }) => {
   const [inputValue, setInputValue] = useState(url || HUMANIZE_DEMO_LINK)

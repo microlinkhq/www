@@ -24,6 +24,7 @@ import { Safari, HourGlass } from 'components/icons'
 import { borders, transition, colors } from 'theme'
 import demoLinks from '@microlink/demo-links'
 import prependHttp from 'prepend-http'
+import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { pickBy, noop } from 'lodash'
 import { navigate } from 'gatsby'
@@ -43,7 +44,7 @@ const DEMO_LINKS = [
 ].map(item => {
   return {
     ...item,
-    humanizedUrl: getDomain(demoLinks[item.keyword].url),
+    humanizedUrl: humanizeUrl(demoLinks[item.keyword].url),
     cdnUrl: `https://cdn.microlink.io/website/browser/${
       item.theme
     }/${item.keyword.toLowerCase()}.png`
