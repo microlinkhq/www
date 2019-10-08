@@ -71,13 +71,15 @@ const Hero = ({ domain, brand, data }) => {
   const logoProvider = (() => {
     const LogoProvider = Logo[brand]
     if (LogoProvider) {
-      return <LogoProvider size={['36px', '72px']} state='hover' />
+      return (
+        <LogoProvider height='100%' width={['36px', '72px']} state='hover' />
+      )
     }
 
     const logoUrl = get(data, 'logo.url')
 
     if (logoUrl && !logoUrl.endsWith('ico')) {
-      return <Image size={['36px', '72px']} src={logoUrl} />
+      return <Image height='100%' width={['36px', '72px']} src={logoUrl} />
     }
   })()
 
