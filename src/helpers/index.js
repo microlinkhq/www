@@ -6,6 +6,7 @@ import getHostname from './get-hostname'
 import formatDate from './format-date'
 import sendEvent from './send-event'
 import getLines from './get-lines'
+import template from './template'
 import prettier from './prettier'
 import isSSR from './is-ssr'
 import title from './title'
@@ -23,5 +24,6 @@ export {
   screenshotUrl,
   sendEvent,
   serializeComponent,
+  template,
   title
 }

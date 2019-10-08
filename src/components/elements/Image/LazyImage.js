@@ -2,6 +2,7 @@ import React, { useState, createElement } from 'react'
 import { noop, isNil } from 'lodash'
 
 import ImagePlaceholder from './ImagePlaceholder'
+import { template } from 'helpers'
 import Image from './Image'
 
 const LazyImage = ({
@@ -13,16 +14,13 @@ const LazyImage = ({
   ...props
 }) => {
   const [isLoaded, setLoaded] = useState(false)
-
+  props.src = template(props.src)
+  if (!lazy) return createElement(Image, props)
   if (!isNil(loading) ? !loading : isLoaded) return createElement(Image, props)
 
   const _onLoad = event => {
     setLoaded(true)
     setTimeout(onLoad, 0)
-  }
-
-  if (!lazy) {
-    return <Image {...props} />
   }
 
   return (

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import Heading from './Heading'
 
-const Subhead = styled(Heading)([])
+const Subhead = styled(Heading)``
 
 Subhead.defaultProps = {
   as: 'h3',
