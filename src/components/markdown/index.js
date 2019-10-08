@@ -6,6 +6,8 @@ import slug from 'remark-slug'
 import { get } from 'lodash'
 import React from 'react'
 
+import { aspectRatio } from 'helpers'
+
 import {
   Terminal as TerminalBase,
   CodeEditor,
@@ -259,6 +261,9 @@ export const Code = props => (
 const _ImageBase = styled(ImageBase)([])
 
 _ImageBase.defaultProps = {
+  lazyHeight: aspectRatio.heights,
+  lazyWidth: aspectRatio.widths,
+  maxWidth: `${WIDTH.normal}px`,
   borderRadius: '3px',
   ml: 'auto',
   mr: 'auto',
