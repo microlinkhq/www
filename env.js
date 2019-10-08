@@ -21,7 +21,7 @@ if (!PAYMENT_ENDPOINT) throw envError('PAYMENT_ENDPOINT')
 const isProduction = NODE_ENV === 'production'
 
 const SITE_URL = (() => {
-  if (!isProduction) return 'http://localhost:8000'
+  return 'http://localhost:8000'
   return CONTEXT === 'production' ? URL : DEPLOY_URL
 })()
 

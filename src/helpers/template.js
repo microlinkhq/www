@@ -5,21 +5,17 @@ const TEMPLATE_INTERPOLATE = /{{([\s\S]+?)}}/g
 
 const TEMPLATE_INTERPOLATE_ENCODED = /%7B%7B([\s\S]+?)%7D%7D/g
 
-const is = str => TEMPLATE_INTERPOLATE.test(str)
+const isTemplate = str => str.includes('DemoLinks.')
 
-const template = str => {
+const template = (str = '') => {
+  if (!isTemplate(str)) return str
+
   let isEncoded = false
-  let isTemplate = false
 
   if (TEMPLATE_INTERPOLATE_ENCODED.test(str)) {
-    isTemplate = true
     isEncoded = true
     str = decodeURI(str)
-  } else if (TEMPLATE_INTERPOLATE.test(str)) {
-    isTemplate = true
   }
-
-  if (!isTemplate) return str
 
   const compiled = tpl(str, { interpolate: TEMPLATE_INTERPOLATE })({
     DemoLinks
@@ -27,7 +23,5 @@ const template = str => {
 
   return isEncoded ? encodeURI(compiled) : compiled
 }
-
-template.is = is
 
 export default template
