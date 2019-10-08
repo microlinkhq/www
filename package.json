@@ -37,7 +37,7 @@
     "gatsby"
   ],
   "dependencies": {
-    "@microlink/demo-links": "~1.0.5",
+    "@microlink/demo-links": "~1.0.6",
     "@microlink/mql": "~0.4.4",
     "@microlink/react": "4.2.2",
     "@styled-system/prop-types": "~5.1.2",
@@ -51,12 +51,12 @@
     "download": "~7.1.0",
     "exists-file": "~3.0.2",
     "fast-safe-stringify": "~2.0.7",
-    "gatsby": "~2.15.32",
+    "gatsby": "~2.15.33",
     "gatsby-plugin-canonical-urls": "~2.1.10",
     "gatsby-plugin-catch-links": "~2.1.12",
     "gatsby-plugin-google-analytics": "~2.1.20",
     "gatsby-plugin-meta-redirect": "~1.1.1",
-    "gatsby-plugin-netlify": "~2.1.17",
+    "gatsby-plugin-netlify": "~2.1.18",
     "gatsby-plugin-react-helmet": "~3.1.10",
     "gatsby-plugin-remove-trailing-slashes": "~2.1.9",
     "gatsby-plugin-sass": "~2.1.17",
