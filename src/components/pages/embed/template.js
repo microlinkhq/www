@@ -107,11 +107,11 @@ const HeroHeader = ({ title, caption }) => {
 const Hero = ({ domain, brand, data }) => {
   const caption = (
     <>
-      Turn any{' '}
+      Turn{' '}
       <Subhead as='span' color='black' fontWeight='regular'>
         {domain}
       </Subhead>{' '}
-      link into structured data
+      links into structured data
     </>
   )
 
