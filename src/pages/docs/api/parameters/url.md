@@ -40,7 +40,7 @@ module.exports = async () => {
   }} 
 />
 
-<Figcaption>`mql` escape the URL automatically; Otherwise, you need manually do that.</Figcaption>
+[MQL](/docs/mql/getting-started/overview) or [Microlink CLI](/docs/api/getting-started/cli) will escape the URL properly; Otherwise, you need to be sure to escape it, using [encodeURI](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI) or equivalent.
 
 The protocol matters: If the target URL have relative URLs inside (e.g., images or videos), then the URL provided will be used to resolved relatives URLs into absolute.
 
