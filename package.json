@@ -38,7 +38,7 @@
   ],
   "dependencies": {
     "@microlink/demo-links": "~1.0.6",
-    "@microlink/mql": "~0.5.6",
+    "@microlink/mql": "~0.5.7",
     "@microlink/react": "4.3.0",
     "@styled-system/prop-types": "~5.1.2",
     "@tippy.js/react": "~3.1.0",
@@ -72,7 +72,7 @@
     "human-number": "~1.0.4",
     "humanize-url": "~2.1.0",
     "is-color": "~1.0.2",
-    "is-url-http": "~1.2.1",
+    "is-url-http": "~1.2.2",
     "json-future": "~2.2.4",
     "lodash": "~4.17.15",
     "mdx-scoped-runtime": "~0.7.4",
