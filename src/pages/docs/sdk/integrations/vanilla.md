@@ -14,14 +14,14 @@ Since the bundle doesn't include the dependencies, we recommend load it from a *
 <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/styled-components@4/dist/styled-components.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@microlink/mql@latest/dist/mql.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
 or even better, combine them just in one line:
 
 ```html
-<script src="https://cdn.jsdelivr.net/combine/npm/@microlink/vanilla@latest/dist/microlink.min.js,npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@4/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js"></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@4/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js,npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
 After that, `microlink` will available in the global scope.
