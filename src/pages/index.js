@@ -49,7 +49,7 @@ const Questions = () => {
     >
       <Header title={title} caption={caption} />
       <Flex as='section' pt={4} justifyContent='center' flexDirection='column'>
-        <Box px={6}>
+        <Box px={[0, 0, 4, 6]}>
           <Faq pt={0}>
             <Faq.Question>Can I use microlink for free?</Faq.Question>
             <Faq.Asked>
