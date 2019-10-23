@@ -79,11 +79,10 @@ const fetchDemoLink = async (key, { url, ...props }) => {
     const { data } = await mql(url, {
       apiKey: MICROLINK_API_KEY,
       video: true,
-      audio: true,
       palette: true,
       screenshot: true,
-      browser: 'light'
-      // force: true
+      browser: 'light',
+      retry: 0
     })
 
     if (!data.lang) data.lang = 'en'
