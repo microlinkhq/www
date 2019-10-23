@@ -3,12 +3,12 @@
 const { compact, map, chain, isNil, get, reduce } = require('lodash')
 const debug = require('debug-logfmt')('microlink-www')
 const demoLinks = require('@microlink/demo-links')
+const humanizeUrl = require('humanize-url')
 const beautyError = require('beauty-error')
 const parseDomain = require('parse-domain')
+const existsFile = require('exists-file')
 const jsonFuture = require('json-future')
 const mql = require('@microlink/mql')
-
-const existsFile = require('exists-file')
 const download = require('download')
 const pAll = require('p-all')
 const path = require('path')
@@ -75,22 +75,24 @@ const toDownload = async data => {
 }
 
 const fetchDemoLink = async (key, { url, ...props }) => {
+  const id = humanizeUrl(url)
   try {
     const { data } = await mql(url, {
       apiKey: MICROLINK_API_KEY,
-      video: true,
-      palette: true,
-      screenshot: true,
       browser: 'light',
-      retry: 0
+      force: true,
+      audio: true,
+      palette: true,
+      retry: 2,
+      screenshot: true
     })
 
     if (!data.lang) data.lang = 'en'
     await toDownload(data)
-
+    debug(id)
     return { brand: key, data: toMapLocalAsset(data), url, ...props }
   } catch (err) {
-    debug.error({ message: err.message, url })
+    console.log(err)
     return null
   }
 }
@@ -98,7 +100,7 @@ const fetchDemoLink = async (key, { url, ...props }) => {
 const main = async () => {
   if (await existsFile(DATA_DEMO_LINKS_PATH)) return
   const links = map(demoLinks, (value, key) => () => fetchDemoLink(key, value))
-  const data = await pAll(links, { concurrency: 2 })
+  const data = await pAll(links, { concurrency: 5 })
   return jsonFuture.saveAsync(DATA_DEMO_LINKS_PATH, compact(data))
 }
 
