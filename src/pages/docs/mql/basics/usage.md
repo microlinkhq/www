@@ -92,9 +92,9 @@ When the `apiKey` is provided, the `pro.microlink.io` endpoint will used.
 
 #### cache
 
-Type: `string`
+Type: `object`
 
-You can enable cache for saving API calls if they have been previously done.
+When you pass a object that follows Map API, you can enable serve response from your storage cache in order to save API if they have been previously done.
 
 ```js
 const mql = require('@microlink/mql')
@@ -113,21 +113,26 @@ const cache = new Map()
 })()
 ```
 
-
 <Figcaption children='caching feature is only available in the Node.js bundle' />
+
+Consider to pass [keyv](https://www.npmjs.com/package/keyv) for supporting [most popular databases storages](https://github.com/lukechilds/keyv#official-storage-adapters)
+
+See [got#cache](https://www.npmjs.com/package/got#cache) to know more.
 
 #### retry
 
 Type: `number`<br/>
 Default: `3`
 
-See [got#retry](https://www.npmjs.com/package/got#retry).
+It defines how much retries you can be done before consider an API call as failed.
+
+See [got#retry](https://www.npmjs.com/package/got#retry) to know more.
 
 #### timeout
 
 Type: `number`<br/>
-Default: `25000`
+Default: `30000`
 
-See [got#timeout](https://www.npmjs.com/package/got#timeout).
+It defines the maximum milliseconds to wait after consider an API call as failed.
 
-
+See [got#timeout](https://www.npmjs.com/package/got#timeout) to know more.
