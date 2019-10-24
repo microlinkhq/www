@@ -11,7 +11,6 @@ import { Text, Box } from 'components/elements'
 import React from 'react'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
-import Head from 'components/Head'
 
 const PostFooter = () => (
   <>
@@ -31,9 +30,8 @@ const PostFooter = () => (
 )
 
 export default ({ isBlogPage, date, meta, content }) => (
-  <Layout>
+  <Layout {...meta}>
     <Box px={3}>
-      <Head {...meta} />
       <Text
         as='header'
         textAlign='center'
