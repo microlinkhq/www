@@ -333,12 +333,12 @@ One thing that makes [Microlink API](/docs/api/getting-started/overview) powerfu
 <Figcaption>
   {'Custom rule + '}
   <Link
-    href='/docs/api/#api-parameters/palette'
+    href='/docs/api/parameters/palette'
     children='palette'
   />
   {' + '}
   <Link
-    href='/docs/api/#api-parameters/filter'
+    href='/docs/api/parameters/filter'
     children='filter'
   />
   .

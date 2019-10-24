@@ -101,13 +101,12 @@ const Questions = () => {
               <Box as='ul'>
                 <Box as='li' mb={2}>
                   At <Link href='/docs/sdk/'>Microlink SDK</Link>, attach it as{' '}
-                  <Link href='/docs/sdk/api-parameters/api-key/'>apiKey</Link>.
+                  <Link href='/docs/sdk/parameters/api-key/'>apiKey</Link>.
                 </Box>
                 <Box as='li' mb={2}>
                   At <Link href='/docs/api/#introduction'>Microlink API</Link>,
                   attach it as{' '}
-                  <Link href='/docs/api/api-basics/authentication'>header</Link>
-                  .
+                  <Link href='/docs/api/basics/authentication'>header</Link>.
                 </Box>
               </Box>
             </Faq.Asked>

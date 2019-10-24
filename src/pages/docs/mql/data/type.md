@@ -57,7 +57,7 @@ If you define a valid `type`, it will validate and alter the original value to s
 
 In that case, we have added the type `url` to our data field `avatar` and the service can attach more contextual related with the [data field](/docs/api/getting-started/data-fields).
 
-The same thing happens with `image` and [palette](/docs/api/api-parameters/palette).
+The same thing happens with `image` and [palette](/docs/api/parameters/palette).
 
 Defining the `type` also makes the extraction more accurate.
 

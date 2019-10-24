@@ -23,7 +23,7 @@ module.exports = async () => {
   }} 
 />
 
-Doing that you can speed up response timing for those cases you are not interested in consuming the metadata, like [screenshot](/docs/api/api-parameters/screenshot) or [video](/docs/api/api-parameters/video).
+Doing that you can speed up response timing for those cases you are not interested in consuming the metadata, like [screenshot](/docs/api/parameters/screenshot) or [video](/docs/api/parameters/video).
 
 This will be reflected at `x-fetch-mode` response header whose value should be `skipped`.
 

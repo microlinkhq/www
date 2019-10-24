@@ -11,7 +11,7 @@ date: '2019-05-01'
 
 This new major release has had two things in mind: Simplify some specific connectors parameters and provide a more smart bundle system.
 
-These changes were necessary since we are preparing the project for antoher big thing: leverage [audio](https://github.com/microlinkhq/sdk/issues/135) support (already supported on [API](/docs/api/api-parameters/audio)) at SDK level.
+These changes were necessary since we are preparing the project for antoher big thing: leverage [audio](https://github.com/microlinkhq/sdk/issues/135) support (already supported on [API](/docs/api/parameters/audio)) at SDK level.
 
 ### API Surface
 

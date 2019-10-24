@@ -36,9 +36,9 @@ module.exports = async () => {
   }} 
 />
 
-The period of time the resource is cached is known as **Time To Live** ([ttl](/docs/api/api-parameters/ttl)) and it specifies the maximum quantity of time the resource will served from cache. 
+The period of time the resource is cached is known as **Time To Live** ([ttl](/docs/api/parameters/ttl)) and it specifies the maximum quantity of time the resource will served from cache. 
 
-You can see the remain time before [ttl](/docs/api/api-parameters/ttl) expiration as `x-cache-expired-at` in the reponse headers.
+You can see the remain time before [ttl](/docs/api/parameters/ttl) expiration as `x-cache-expired-at` in the reponse headers.
 
 <MultiCodeEditor languages={{
   Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "x-cache-expired-at"`,
@@ -53,6 +53,6 @@ module.exports = async () => {
   }} 
 />
 
-Also, [ttl](/docs/api/api-parameters/ttl) is properly reflected as `cache-control` response header to tell browsers how much time they can serve the same resource until refresh it.
+Also, [ttl](/docs/api/parameters/ttl) is properly reflected as `cache-control` response header to tell browsers how much time they can serve the same resource until refresh it.
 
-If you want to bypass and get a fresh response, you can use [force](/docs/api/api-parameters/force) for regenerating the cache copy without waiting [ttl](/docs/api/api-parameters/ttl) expiration time.
+If you want to bypass and get a fresh response, you can use [force](/docs/api/parameters/force) for regenerating the cache copy without waiting [ttl](/docs/api/parameters/ttl) expiration time.

@@ -189,13 +189,13 @@ const Api = ({ domain, data }) => {
           </Box>
           <Box pt={[0, 4]} textAlign='center'>
             <ButtonSecondary
-              onClick={() => navigate('/docs/api/api-parameters/embed')}
+              onClick={() => navigate('/docs/api/parameters/embed')}
             >
               <Caps fontSize={0} children='Explore Docs' />
             </ButtonSecondary>
             <ButtonPrimary
               ml={3}
-              onClick={() => navigate('/docs/api/api-parameters/embed')}
+              onClick={() => navigate('/docs/api/parameters/embed')}
             >
               <Caps fontSize={0} children='How to Embed' />
             </ButtonPrimary>

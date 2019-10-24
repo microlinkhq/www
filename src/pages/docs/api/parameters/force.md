@@ -23,6 +23,6 @@ module.exports = async () => {
   }} 
 />
 
-By default the API will be [cache](/docs/api/api-basics/cache) consecutive API calls.
+By default the API will be [cache](/docs/api/basics/cache) consecutive API calls.
 
 Providing it, you are forcing to invalidate the current state of the cache for the response and generate a new one.

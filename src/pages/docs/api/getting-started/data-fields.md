@@ -2,7 +2,7 @@
 title: 'Data Fields'
 --- 
 
-The following data fields are detected for any [url](/docs/api/api-parameters/url) provided:
+The following data fields are detected for any [url](/docs/api/parameters/url) provided:
 
 - `author` (e.g., *SpaceX*)<br/>
   A human-readable representation of the author's name.
@@ -33,7 +33,7 @@ Additionally, for any media we add some useful contextual information.
   - `size`: file size in bytes.
   - `size_pretty` file size in a human readable format.
 
-In addition, if the detected multimedia content is reproducible (such as [video](/docs/api/api-parameters/video) or [audio](/docs/api/api-parameters/audio)), the following fields will be added as well:
+In addition, if the detected multimedia content is reproducible (such as [video](/docs/api/parameters/video) or [audio](/docs/api/parameters/audio)), the following fields will be added as well:
 
   - `duration`: source duration in seconds.
   - `duration_pretty` source duration in a human readable format.

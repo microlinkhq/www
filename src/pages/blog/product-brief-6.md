@@ -21,11 +21,11 @@ We wrote a specific blog [post](https://microlink.io/blog/custom-rules) explaini
 
 ## Compression documentation
 
-[![](https://i.imgur.com/Jh7GHUP.png)](/docs/api/api-basics/compression)
+[![](https://i.imgur.com/Jh7GHUP.png)](/docs/api/basics/compression)
 
 <Figcaption>Ensure to use *Accept-Encoding* for enabling compression</Figcaption>
 
-Althought we support **brotli** and **gzip** from the beginning, we [added](/docs/api/api-basics/compression) a specific section into the documentation.
+Althought we support **brotli** and **gzip** from the beginning, we [added](/docs/api/basics/compression) a specific section into the documentation.
 
 Using it, it will **save payload size up to 70%**, so ensure you are using it!
 
@@ -51,7 +51,7 @@ It returns the total amount of time used for processing the API call.
 
 It specifies the way to content will be fetched.
 
-It could be `fetch` or `prerendering`. The value is strongly related with [prerender](/docs/api/api-parameters/prerender) API parameter.
+It could be `fetch` or `prerendering`. The value is strongly related with [prerender](/docs/api/parameters/prerender) API parameter.
 
 #### x-fetch-time
 

@@ -4,7 +4,7 @@ title: 'Rate Limit'
 
 The API quota is the number of requests you can perform during a quantity of time.
 
-Your API quota depends on the [endpoint](/docs/api/api-basics/endpoint) you are using:
+Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are using:
 
 - **Free**: It's the plan applied for unauthenticated requests. It has a soft limitation of 50 <Label display='inline' children='reqs' suffix='/day' />.
 - **Pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 28,000 <Label display='inline' children='reqs' suffix='/month' />.

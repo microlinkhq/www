@@ -54,20 +54,20 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
 
 ### Added video support
 
-Because [Microlink API ](/docs/api/getting-started/overview)can detect video, we use the new field to place the streaming source into our preview cards, via our [SDK](/docs/sdk/getting-started/overview/).
+Because [Microlink API ](/docs/api/getting-started/overview)can detect video, we use the new field to place the streaming source into our preview cards, via our [SDK](/docs/sdk/getting-started/overview).
 
 ![](https://cdn-images-1.medium.com/max/1440/1*PWDop7s7KmmmvccVbULiyA.gif)
 
 <Figcaption>
   video support is included for{' '}
   <Link
-    href='/docs/sdk/getting-started/overview/getting-started/api-parameters/#size'
+    href='/docs/sdk/parameters/size'
     children='normal or large'
   />{' '}
   card sizes.
 </Figcaption>
 
-We added properties to control the video, like [autoplay](/docs/sdk/getting-started/overview/getting-started/api-parameters/#autoplay), [muted](/docs/sdk/getting-started/overview/getting-started/api-parameters/#muted) or [loop](/docs/sdk/getting-started/overview/getting-started/api-parameters/#loop) options.
+We added properties to control the video, like [autoplay](/docs/sdk/parameters/media/auto-play), [muted](/docs/sdk/parameters/media/muted) or [loop](/docs/sdk/parameters/media/loop) options.
 
 ### Smooth image loading
 
@@ -87,13 +87,13 @@ We improved the transition between how the card looks before the content of the 
 <Figcaption>
   Using the new{' '}
   <Link
-    href='/docs/sdk/getting-started/overview/getting-started/api-parameters/#reverse'
-    children='reverse'
+    href='/docs/sdk/parameters/direction'
+    children='direction'
   />{' '}
   API paramter for invert the media position in the card.
 </Figcaption>
 
-We added the possibility to invert the orientation of the content in the card using a new field called [reverse](/docs/sdk/getting-started/overview/getting-started/api-parameters/#reverse).
+We added the possibility to invert the orientation of the content in the card using a new field called [reverse](/docs/sdk/parameters/direction).
 
 ## How to update
 
@@ -113,7 +113,7 @@ The easiest way to consume the frontend library. Just paste the corresponding sc
 <script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/cjs/microlink.min.js"></script>`}</PreCode>
 ```
 
-See more [information](/docs/sdk/getting-started/overview/getting-started/vanilla/).
+See more [information](/docs/sdk/getting-started/overview/getting-started/vanilla).
 
 ### From NPM
 
@@ -127,4 +127,4 @@ If you’re using Microlink from your \`package.json\` then you’ll need to con
 
 <Terminal>npm update @microlink/react@latest</Terminal>
 
-See more [information](/docs/sdk/integrations/react/).
+See more [information](/docs/sdk/integrations/react).
