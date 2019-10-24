@@ -25,10 +25,16 @@ const getMediaAssetPath = (data, propName) => {
   const propValue = get(data, propName)
 
   const publisher = get(data, 'publisher') || getDomain(data.url)
-  if (!publisher) throw new TypeError(`publisher for ${propName} is empty.`)
+
+  if (!publisher) {
+    throw new TypeError(`${data.url}: publisher for ${propName} is empty.`)
+  }
 
   const type = get(propValue, 'type')
-  if (!type) throw new TypeError(`type for ${propName} is empty.`)
+
+  if (!type) {
+    throw new TypeError(`${propValue}: type for ${propName} is empty.`)
+  }
 
   const dirname = `/card/${publisher.toLowerCase()}`
   const basename = `${propName}.${type}`
