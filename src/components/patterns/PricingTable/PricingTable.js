@@ -8,7 +8,7 @@ import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 
 import { colors, fontWeights } from 'theme'
 
-const FREE_PLAN_RATE_LIMIT = 50
+const FREE_PLAN_RATE_LIMIT = 250
 const HIGHLIGHT_DURATION = 1
 const HIGHLIGHT_STATE_TIMEOUT = HIGHLIGHT_DURATION * 1000
 
