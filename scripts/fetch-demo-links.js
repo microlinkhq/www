@@ -88,6 +88,7 @@ const fetchDemoLink = async (key, { url, ...props }) => {
       browser: 'light',
       force: true,
       audio: true,
+      video: true,
       palette: true,
       retry: 2,
       screenshot: true
