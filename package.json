@@ -56,7 +56,7 @@
     "gatsby-plugin-catch-links": "~2.1.15",
     "gatsby-plugin-google-analytics": "~2.1.23",
     "gatsby-plugin-meta-redirect": "~1.1.1",
-    "gatsby-plugin-netlify": "~2.1.22",
+    "gatsby-plugin-netlify": "~2.1.23",
     "gatsby-plugin-react-helmet": "~3.1.13",
     "gatsby-plugin-remove-trailing-slashes": "~2.1.12",
     "gatsby-plugin-sass": "~2.1.20",
