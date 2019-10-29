@@ -64,7 +64,7 @@
     "gatsby-plugin-styled-components": "~3.1.11",
     "gatsby-redirect-from": "~0.2.1",
     "gatsby-source-filesystem": "~2.1.33",
-    "gatsby-transformer-javascript-frontmatter": "~2.1.15",
+    "gatsby-transformer-javascript-frontmatter": "~2.1.16",
     "gatsby-transformer-json": "~2.2.15",
     "gatsby-transformer-remark": "~2.6.30",
     "gatsby-transformer-yaml": "~2.2.15",

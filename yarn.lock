@@ -3659,7 +3659,7 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.3.5, bluebird@^3.5.1, bluebird@^3.5.3, bluebird@^3.5.5, bluebird@^3.7.0:
+bluebird@^3.3.5, bluebird@^3.5.1, bluebird@^3.5.3, bluebird@^3.5.5, bluebird@^3.7.0, bluebird@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.1.tgz#df70e302b471d7473489acf26a93d63b53f874de"
   integrity sha512-DdmyoGCleJnkbp3nkbxTLJ18rjDsE4yCggEwKNXkeV123sPNfOCYeDoeuOY+F2FrSjO1YXcTU+dsy96KMy+gcg==
@@ -8296,15 +8296,15 @@ gatsby-telemetry@^1.1.33:
     stack-utils "1.0.2"
     uuid "3.3.3"
 
-gatsby-transformer-javascript-frontmatter@~2.1.15:
-  version "2.1.15"
-  resolved "https://registry.yarnpkg.com/gatsby-transformer-javascript-frontmatter/-/gatsby-transformer-javascript-frontmatter-2.1.15.tgz#5917d947e5e74810f8f72d819a0983a5956ec5b9"
-  integrity sha512-cYtNDb6qKsguCHWibPjdV7zlVfg1k3GyeHVBkl6B3xKM2Mml7Z2k5csmVhjq7DCd65TN5JA7uvP+zSg5wk6kUg==
+gatsby-transformer-javascript-frontmatter@~2.1.16:
+  version "2.1.16"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-javascript-frontmatter/-/gatsby-transformer-javascript-frontmatter-2.1.16.tgz#13e4e062f3649eb221bc996170ed4969c6123364"
+  integrity sha512-vkCuRPGACIihp9uk71D+RgRZO3H8iwNYWyCTfCTMrB/vuT9Gw0oHXWGMRpCvsqsf6uMMbGOveOdFn3+OA6lR9w==
   dependencies:
     "@babel/parser" "^7.6.4"
     "@babel/runtime" "^7.6.3"
     "@babel/traverse" "^7.6.3"
-    bluebird "^3.7.0"
+    bluebird "^3.7.1"
 
 gatsby-transformer-json@~2.2.15:
   version "2.2.15"
