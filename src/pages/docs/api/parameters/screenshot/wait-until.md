@@ -3,7 +3,7 @@ title: 'waitUntil'
 --- 
 
 Type: `string|string[]`<br/>
-Default: `['networkidle0']`<br/>
+Default: `['load']`<br/>
 Values: `'load'|'domcontentloaded'|'networkidle0'|'networkidle2'`
 
 It specifies a list of events until consider navigation successful:
