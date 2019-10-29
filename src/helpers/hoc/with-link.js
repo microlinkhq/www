@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 
-import { External as ExternalIcon } from 'components/icons'
 import Flex from '../../components/elements/Flex'
+import { External as ExternalIcon } from 'components/icons'
 import { transition, colors } from 'theme'
+import { lighten } from 'polished'
 
 const isInternalLink = to => /^\/(?!\/)/.test(to)
 
@@ -35,7 +36,7 @@ const linkIconWrapper = css`
   transition: stroke ${transition.medium};
   &:hover {
     > svg {
-      stroke: ${colors.link};
+      stroke: ${lighten(0.1, colors.link)};
     }
   }
 `
