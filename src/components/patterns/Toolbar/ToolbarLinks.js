@@ -12,6 +12,7 @@ export const NavLogo = ({ mobile, ...props }) =>
   mobile ? (
     <NavLinkMobile
       width={32}
+      lazy={false}
       display='flex'
       href='/'
       style={{ flex: '0 0 auto' }}
