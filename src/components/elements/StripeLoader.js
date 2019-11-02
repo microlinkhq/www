@@ -16,8 +16,8 @@ export default ({ stripeKey, children }) => {
   const onChangeClientState = (newState, addedTags, removedTags) => {
     const el = addedTags.scriptTags && addedTags.scriptTags[0]
     if (el && !mountOnLoad) {
-      el.onload = loadStripe
       setMountOnLoad(true)
+      el.onload = loadStripe
     }
   }
 
