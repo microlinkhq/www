@@ -1,5 +1,4 @@
 import React, { createElement } from 'react'
-import isString from 'lodash/isstring'
 
 import Svg from '../../components/elements/Svg'
 import styled from 'styled-components'
@@ -64,7 +63,7 @@ const AnchorLink = styled.a`
 
 export default ChildComponent => {
   return ({ children, slug, ...props }) => {
-    if (!isString(children) || slug === false) {
+    if (typeof children !== 'string' || slug === false) {
       return createElement(ChildComponent, { children, ...props })
     }
 
