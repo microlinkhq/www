@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.14](https://github.com/microlinkhq/microlink-www/compare/v2.10.13...v2.10.14) (2019-11-05)
+
+
+### Bug Fixes
+
+* remove pickby ([65f80a7](https://github.com/microlinkhq/microlink-www/commit/65f80a7))
+
 ### [2.10.13](https://github.com/microlinkhq/microlink-www/compare/v2.10.11...v2.10.13) (2019-11-05)
 
 
