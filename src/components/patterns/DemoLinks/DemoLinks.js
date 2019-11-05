@@ -7,7 +7,7 @@ import {
   BackgroundSliderContainer
 } from 'components/elements'
 import { transition } from 'theme'
-import { chunk } from 'lodash'
+import chunk from 'lodash/chunk'
 
 import * as Logos from 'components/logos'
 
@@ -37,32 +37,43 @@ LogoWrap.defaultProps = {
 
 const DURATION = 60
 
-const DemoLinks = ({ children, chunkSize, onClick }) => (
-  <BackgroundSliderContainer as='article' py={0} px={0} maxWidth='100%'>
-    {chunk(children, chunkSize).map((chunkBrands, chunkIndex) => {
-      const isEven = chunkIndex % 2 === 0
-      return (
-        <BackgroundSlider
-          key={chunkIndex}
-          duration={isEven ? DURATION : DURATION * 1.3}
-          animationDirection={isEven ? 'normal' : 'normal'}
-        >
-          <NoWrap>
-            {chunkBrands.map(({ brand, data }, index) => (
-              <LogoWrap key={brand}>
-                {createElement(Logos[brand], {
-                  key: index,
-                  ratio: 0.6,
-                  onClick: () => onClick({ brand, data })
-                })}
-              </LogoWrap>
-            ))}
-          </NoWrap>
-        </BackgroundSlider>
-      )
-    })}
-  </BackgroundSliderContainer>
-)
+const LogoNames = Object.keys(Logos)
+
+const DemoLinks = ({ children, chunkSize, onClick }) => {
+  // remove missing logos
+  const links = children.filter(({ brand }) => {
+    const hasLogo = LogoNames.includes(brand)
+    if (!hasLogo) console.warn(`DemoLinks: missing ${brand} logo`)
+    return hasLogo
+  })
+
+  return (
+    <BackgroundSliderContainer as='article' py={0} px={0} maxWidth='100%'>
+      {chunk(links, chunkSize).map((chunkBrands, chunkIndex) => {
+        const isEven = chunkIndex % 2 === 0
+        return (
+          <BackgroundSlider
+            key={chunkIndex}
+            duration={isEven ? DURATION : DURATION * 1.3}
+            animationDirection={isEven ? 'normal' : 'normal'}
+          >
+            <NoWrap>
+              {chunkBrands.map(({ brand, data }, index) => (
+                <LogoWrap key={brand}>
+                  {createElement(Logos[brand], {
+                    key: brand,
+                    ratio: 0.6,
+                    onClick: () => onClick({ brand, data })
+                  })}
+                </LogoWrap>
+              ))}
+            </NoWrap>
+          </BackgroundSlider>
+        )
+      })}
+    </BackgroundSliderContainer>
+  )
+}
 
 DemoLinks.defaultProps = {
   chunkSize: 10
