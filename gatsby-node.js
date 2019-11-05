@@ -18,10 +18,13 @@ const getLastEdited = async filepath => {
   return date
 }
 
+const getBranchName = async () =>
+  (await getCurrentBranchName()).replace('HEAD', 'master')
+
 const githubUrl = (() => {
   let branchName
   return async filepath => {
-    const branch = branchName || (branchName = await getCurrentBranchName())
+    const branch = branchName || (branchName = await getBranchName())
     const base = `https://github.com/microlinkhq/www/blob/${branch}`
     const relative = filepath.replace(process.cwd(), '')
     return base + relative
