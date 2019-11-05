@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 
 export default function debounceRender (ComponentToDebounce, wait = 300) {
   return class DebouncedContainer extends Component {

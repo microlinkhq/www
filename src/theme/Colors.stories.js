@@ -1,7 +1,7 @@
 import { Subhead, Text, Flex, Box } from 'components/elements'
 import { storiesOf } from '@storybook/react'
 import contrast from 'contrast'
-import { range } from 'lodash'
+import range from 'lodash/range'
 import { colors } from 'theme'
 import { Story } from 'story'
 import rgbHex from 'rgb-hex'

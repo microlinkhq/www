@@ -1,8 +1,9 @@
 import React, { createElement } from 'react'
+import isString from 'lodash/isstring'
+
 import Svg from '../../components/elements/Svg'
 import styled from 'styled-components'
 import { title } from 'helpers'
-import { isString } from 'lodash'
 
 import { colors } from 'theme'
 

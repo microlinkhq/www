@@ -1,5 +1,5 @@
 import { getApiUrl } from '@microlink/mql'
-import { pickBy } from 'lodash'
+import pickBy from 'lodash/pickby'
 
 export default (url, opts) => {
   const [screenshotUrl] = getApiUrl(url, {

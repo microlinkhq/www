@@ -1,5 +1,5 @@
 import DemoLinks from '@microlink/demo-links'
-import { template as tpl } from 'lodash'
+import tpl from 'lodash/template'
 
 const TEMPLATE_INTERPOLATE = /{{([\s\S]+?)}}/g
 

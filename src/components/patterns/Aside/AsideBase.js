@@ -5,7 +5,7 @@ import { shadows, borders, colors } from 'theme'
 import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc'
 import { isNot } from 'styled-is'
-import { noop } from 'lodash'
+import noop from 'lodash/noop'
 
 import { ASIDE_WIDTH } from './constants'
 

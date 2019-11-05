@@ -1,5 +1,6 @@
 import { createElement } from 'react'
-import { noop } from 'lodash'
+import noop from 'lodash/noop'
+
 import { sendEvent } from 'helpers'
 
 const createOnClick = ({

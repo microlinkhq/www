@@ -1,5 +1,5 @@
 import { Caps, Flex, Text, Box } from 'components/elements'
-import { chunk } from 'lodash'
+import chunk from 'lodash/chunk'
 import React from 'react'
 
 export default ({ children, itemsPerRow, ...props }) => (

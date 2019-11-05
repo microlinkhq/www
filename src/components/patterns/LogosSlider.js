@@ -7,7 +7,7 @@ import {
   BackgroundSliderContainer
 } from 'components/elements'
 import { transition } from 'theme'
-import { chunk } from 'lodash'
+import chunk from 'lodash/chunk'
 
 import * as Logos from 'components/logos'
 
