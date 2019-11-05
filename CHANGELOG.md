@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.13](https://github.com/microlinkhq/microlink-www/compare/v2.10.11...v2.10.13) (2019-11-05)
+
+
+### Bug Fixes
+
+* add video query parameter ([ecba266](https://github.com/microlinkhq/microlink-www/commit/ecba266))
+* color on hover ([34c0a2a](https://github.com/microlinkhq/microlink-www/commit/34c0a2a))
+* ensure to exclude missing logos ([71407d4](https://github.com/microlinkhq/microlink-www/commit/71407d4))
+* links ([a197464](https://github.com/microlinkhq/microlink-www/commit/a197464))
+* load image ([0aad13c](https://github.com/microlinkhq/microlink-www/commit/0aad13c))
+* load image ([5981a06](https://github.com/microlinkhq/microlink-www/commit/5981a06))
+* log ([57d074a](https://github.com/microlinkhq/microlink-www/commit/57d074a))
+
 ### [2.10.12](https://github.com/microlinkhq/microlink-www/compare/v2.10.11...v2.10.12) (2019-11-05)
 
 
