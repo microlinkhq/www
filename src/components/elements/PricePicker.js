@@ -19,6 +19,7 @@ export const PLANS = [
   { planId: 'pro-3k-v3', ...createReqsLabels(3000), width: '4.5rem' },
   { planId: 'pro-5k-v3', ...createReqsLabels(5000), width: '4.5rem' },
   { planId: 'pro-10k-v3', ...createReqsLabels(10000), width: '5rem' },
+  { planId: 'pro-15k-v3', ...createReqsLabels(15000), width: '5rem' },
   { planId: 'pro-20k-v3', ...createReqsLabels(20000), width: '5rem' },
   { planId: 'pro-50k-v3', ...createReqsLabels(50000), width: '5.7rem' }
 ]
