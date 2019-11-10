@@ -5,7 +5,7 @@ title: 'browser'
 Type: `string`
 Values: `'light'|'dark'`
 
-It sets the browser overlay to use with your screenshot.
+Sets the browser overlay to be used with your screenshot.
 
 ![](https://api.microlink.io/?url={{DemoLinks.Nasa.url}}&screenshot&browser=dark&embed=screenshot.url&meta=false)
 

@@ -7,7 +7,7 @@ Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Sele
 
 The collection version of [selector](/docs/mql/data/selector). 
 
-While `selector` returns you just the first result, `selectorAll` will returns you all results matching the value provided.
+While `selector` returns just the first result, `selectorAll` will give you all results matching the value provided.
 
 It's equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll).
 

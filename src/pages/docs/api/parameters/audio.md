@@ -5,7 +5,7 @@ title: 'audio'
 Type: `boolean`<br/>
 Default: `false`
 
-It enables audio source detection from the target URL.
+Enables audio source detection from the target URL.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://soundcloud.com/theaipodcast/gtc-weather&audio`,

@@ -6,7 +6,7 @@ isPro: true
 Type: `string|number`<br/>
 Default: `1h`<br/> 
 
-It establishes the maximum quantity of time a resource served from cache layer is considered as valid.
+Establishes the maximum quantity of time a resource served from cache layer is considered as valid.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&ttl=1d`,

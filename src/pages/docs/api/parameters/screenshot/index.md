@@ -6,7 +6,7 @@ Type: `boolean|string`<br/>
 Default: `false`<br/>
 Values: `true|false|{devideName}`
 
-It takes a screenshot of a website, being possible embed it directly in your markup and asynchronous refresh it on the background (known as *stale*).
+Takes a screenshot of a website, making it possible to embed it directly in your markup and refresh it asynchronously in the background (known as *stale*).
 
 ![](https://api.microlink.io/?url={{DemoLinks.Netflix.url}}&screenshot&browser=dark&embed=screenshot.url&background=https://source.unsplash.com/random/1920x1080&meta=false)
 
@@ -27,7 +27,7 @@ module.exports = async () => {
   }} 
 />
 
-When you enable it, a field `screenshot` will present as part of Microlink API response payload.
+When you enable it, a `screenshot` field will be included as part of the Microlink API response payload.
 
 ```json{3, 10}
 {

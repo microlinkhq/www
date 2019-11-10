@@ -6,7 +6,7 @@ Type: `string`<br/>
 Default: `normal`<br/>
 Values: `'small'|'normal'|'large'`
 
-It determines the size of the card.
+Determines the size of the card.
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

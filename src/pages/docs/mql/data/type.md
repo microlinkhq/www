@@ -5,7 +5,7 @@ title: 'type'
 Type: `string`<br/>
 Values: `author|date|description|image|title|url|lang|publisher`
 
-It defines the data shape to use for the extracted value.
+Defines the data shape to use for the extracted value.
 
 ```html{11}
 <!DOCTYPE html>
@@ -36,6 +36,10 @@ const { data } mql(`https://kikobeats.com`, {
 })
 ```
 
+If you define a valid `type`, it will validate and alter the original value to strictly accomplish the shape.
+
+In the above case, we have added the `url` type to our `avatar` [data field](/docs/api/getting-started/data-fields), now the service can attach more contextual data.
+
 ```json{3,10}
 {
   "data": {
@@ -51,11 +55,7 @@ const { data } mql(`https://kikobeats.com`, {
 }
 ```
 
-<Figcaption children='Always that could be possible, define the `type` of your data fields.' />
-
-If you define a valid `type`, it will validate and alter the original value to strictly accomplish the shape.
-
-In that case, we have added the type `url` to our data field `avatar` and the service can attach more contextual related with the [data field](/docs/api/getting-started/data-fields).
+<Figcaption children='Always define the `type` of your data fields when possible.' />
 
 The same thing happens with `image` and [palette](/docs/api/parameters/palette).
 
@@ -73,6 +73,6 @@ const {data } mql(`https://kikobeats.com`, {
 })
 ```
 
-In this case, only an `span` will a valid `Date` will extracted, omitting the rest of possibilities.
+In this case, only a `span` with a valid `Date` will be extracted, omitting the rest of the possibilities.
 
-If you don't specify a type, then it returns the raw value extracted.
+If you don't specify a type, then it returns the raw extracted value.

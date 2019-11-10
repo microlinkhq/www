@@ -4,7 +4,7 @@ title: 'data'
 
 Type: `object`
 
-It allows extract specific content from the target URL
+Allows extraction of specific content from the target URL
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://kikobeats.com&data.avatar.selector=#avatar&data.avatar.type=image&data.avatar.attr=src`,
@@ -29,7 +29,7 @@ module.exports = async () => {
 
 <Figcaption children="The data extraction need to be defined at least with a CSS selector." />
 
-As a result, the data extracted will be part of the `data` payload on the response
+As a result, the extracted data will be part of the `data` payload in the response
 
 ```json{3, 10}
 {
@@ -46,4 +46,4 @@ As a result, the data extracted will be part of the `data` payload on the respon
 }
 ```
 
-To know more how data can be specified to be extracted, take a look to [Microlink Query Language](/docs/mql/getting-started/overview).
+To know more about how data can be specified to be extracted, take a look to [Microlink Query Language](/docs/mql/getting-started/overview).

@@ -4,7 +4,7 @@ redirect_from:
   - /docs/mql/
 --- 
 
-**Microlink Query Language** (*MQL*) make possible get structured data from any website.
+**Microlink Query Language** (*MQL*) makes it possible to get structured data from any website.
 
 ```js
 const mql = require('@microlink/mql')
@@ -36,7 +36,7 @@ const { status, data, response } = await mql('https://kikobeats.com', {
 console.log(`My screenshot at ${data.screenshot.url}`)
 ```
 
-[MQL](https://www.npmjs.com/package/@microlink/mql) is a convenient way for defining rules to turns any website into a programmatic API.
+[MQL](https://www.npmjs.com/package/@microlink/mql) is a convenient way for defining rules to turn any website into a programmatic API.
 
 ```js
 const mql = require('@microlink/mql')
@@ -105,6 +105,6 @@ console.log(data)
 }
 ```
 
-The rules will be applied and the new data field `stats` will be added as part of the payload response with the rest of generic fields.
+The rules will be applied and a new data field, `stats`, will be added as part of the payload response with the rest of generic fields.
 
 The following documentation tells you all the concepts you need to know in order to setup your custom rules for retrieveing specific URL content.

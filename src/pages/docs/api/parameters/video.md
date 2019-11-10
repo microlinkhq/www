@@ -5,7 +5,7 @@ title: 'video'
 Type: `boolean`<br/>
 Default: `false`
 
-It enables video source detection from the target URL.
+Enables video source detection from the target URL.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://instagram.com/p/BeV6tOhFUor&video`,

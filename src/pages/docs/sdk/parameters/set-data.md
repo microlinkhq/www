@@ -32,7 +32,7 @@ export default () => (
 
 <Microlink url='https://instagram.com/p/Bt6EMQhHHIr/' setData={{title: 'SENTRY ACTIVATED' }}/>
 
-When an `object` is passed to `setData`, the custom data provided will merged with the original data.
+When an `object` is passed to `setData`, the custom data provided will be merged with the original data.
 
 If you need a more granular control, you can pass a `function`.
 

@@ -28,7 +28,7 @@ export default () => (
 />
 
 
-<Figcaption children='`url` is the only api parameter.' />
+<Figcaption children='`url` is the only required api parameter.' />
 
 <Microlink url='https://microlink.io' media='logo' />
 

@@ -6,7 +6,7 @@ Type: `string`<br/>
 Default: `ltr`<br/>
 Values: `'ltr'|'rtl'`
 
-It sets the direction of the card.
+Sets the direction of the card.
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

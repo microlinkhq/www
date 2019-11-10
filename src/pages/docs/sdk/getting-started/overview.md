@@ -19,4 +19,4 @@ into a beautiful preview
 
 <Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' size='large' />
 
-The following steps show you how to integrate **Microlink SDK** in your site, no matters what web stack you have.
+The following steps show you how to integrate **Microlink SDK** in your site, no matter what web stack you have.

@@ -6,7 +6,7 @@ Type: `string|string[]`<br/>
 Default: `['image', 'logo']`<br/>
 Values: `'image'|'logo'|'screenshot'|'video'|'audio'`
 
-It determines the field to used as media of the card.
+Determines the field to use as the media of the card.
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
@@ -28,7 +28,7 @@ export default () => (
 `}} 
 />
 
-The default value is a collection of field, meaning that the first valid value will be used as the image of the card.
+The default value is a collection of fields, meaning that the first valid value will be used as the image of the card.
 
 <Microlink url='https://microlink.io' />
 
@@ -56,14 +56,14 @@ export default () => (
 
 <Microlink url='https://microlink.io' media='logo'/>
 
-The `video` detection is also supported
+The detection of `video` is also supported
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
   
 export default () => (
   <Microlink
-    url='https://microlink.io'
+    url='https://instagram.com/p/BvDTdWdnzkj/'
     media='video'
   />
 )
@@ -74,11 +74,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://microlink.io){:.card-preview data-media='video'}
+[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video'}
 `}} 
 />
 
-<Microlink url='https://microlink.io' media='video'/>
+<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video'/>
 
 And `audio` too
 

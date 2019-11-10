@@ -5,7 +5,7 @@ title: 'force'
 Type: `boolean`<br/>
 Default: `false`
 
-It invalidates the cache response associated with the query parameter and generates a fresh copy.
+Invalidates the cache response associated with the query parameter and generates a fresh copy.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://producthunt.com&force`,

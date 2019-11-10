@@ -5,7 +5,7 @@ title: 'controls'
 Type: `boolean`<br/>
 Default: `true`
 
-Display UI controls to handle playing/pausing the cards video.
+Display UI controls for the card's media.
 
 with `controls` enabled:
 

@@ -5,7 +5,7 @@ title: 'background'
 Type: `string`<br/>
 default: `transparent`
 
-It sets the background to use as overlay with your screenshot.
+Sets the background to use as an overlay with your screenshot.
 
 ![](https://api.microlink.io/?url={{DemoLinks.Apple.url}}&screenshot&meta=false&browser=dark&embed=screenshot.url&background=linear-gradient%2843deg%2C+rgb%28247%2C+102%2C+152%29+0%25%2C+rgb%28234%2C+64%2C+123%29+29%25%2C+rgb%28101%2C+78%2C+163%29+100%25%29)
 
