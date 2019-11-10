@@ -4,7 +4,7 @@ title: 'media'
 
 Type: `string|string[]`<br/>
 Default: `['image', 'logo']`<br/>
-Values: `'image'|'logo'|'screenshot'|'video'`
+Values: `'image'|'logo'|'screenshot'|'video'|'audio'`
 
 It determines the field to used as media of the card.
 
@@ -79,3 +79,27 @@ export default () => (
 />
 
 <Microlink url='https://microlink.io' media='video'/>
+
+And `audio` too
+
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
+export default () => (
+  <Microlink
+    url='https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT?si=4PcqgjH5RlWCvB5q4ukdnw'
+    media='audio'
+  />
+)
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a', { media: 'audio' })
+  })
+</script>
+`, Jekyll: `
+[](https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT?si=4PcqgjH5RlWCvB5q4ukdnw){:.card-preview data-media='audio'}
+`}} 
+/>
+
+<Microlink url='https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT?si=4PcqgjH5RlWCvB5q4ukdnw' media='audio'/>
