@@ -14,6 +14,7 @@ import Flex from './Flex'
 
 import Hide from './Hide'
 import Image from './Image/LazyImage'
+import ImagePlaceholder from './Image/ImagePlaceholder'
 import Input from './Input/Input'
 import Banner from './Banner/Banner'
 import Badge from './Badge/Badge'
@@ -63,6 +64,7 @@ export {
   Hide,
   Iframe,
   Image,
+  ImagePlaceholder,
   Input,
   Label,
   Link,
