@@ -4,7 +4,7 @@ title: 'media'
 
 Type: `string|string[]`<br/>
 Default: `['image', 'logo']`<br/>
-Values: `'image'|'logo'|'screenshot'|'video'|'audio'`
+Values: `'audio'|'image'|'logo'|'screenshot'|'video'`
 
 Determines the field to use as the media of the card.
 
@@ -13,7 +13,7 @@ Determines the field to use as the media of the card.
   
 export default () => (
   <Microlink
-    url='https://microlink.io'
+    url='{{DemoLinks.TED.url}}'
     media={['image', 'logo']}
   />
 )
@@ -24,13 +24,13 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://microlink.io){:.card-preview data-media='image,logo'}
+[]({{DemoLinks.TED.url}}){:.card-preview data-media='image,logo'}
 `}} 
 />
 
 The default value is a collection of fields, meaning that the first valid value will be used as the image of the card.
 
-<Microlink url='https://microlink.io' />
+<Microlink url='{{DemoLinks.TED.url}}' />
 
 However, you can pass a single value to be used instead, for example `logo`
 
@@ -39,7 +39,7 @@ However, you can pass a single value to be used instead, for example `logo`
   
 export default () => (
   <Microlink
-    url='https://microlink.io'
+    url='{{DemoLinks.TED.url}}'
     media='logo'
   />
 )
@@ -50,11 +50,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://microlink.io){:.card-preview data-media='logo'}
+[]({{DemoLinks.TED.url}}){:.card-preview data-media='logo'}
 `}} 
 />
 
-<Microlink url='https://microlink.io' media='logo'/>
+<Microlink url='{{DemoLinks.TED.url}}' media='logo'/>
 
 The detection of `video` is also supported
 
@@ -63,7 +63,7 @@ The detection of `video` is also supported
   
 export default () => (
   <Microlink
-    url='https://instagram.com/p/BvDTdWdnzkj/'
+    url='{{DemoLinks.Instagram.url}}'
     media='video'
   />
 )
@@ -74,11 +74,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video'}
+[]({{DemoLinks.Instagram.url}}){:.card-preview data-media='video'}
 `}} 
 />
 
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video'/>
+<Microlink url='{{DemoLinks.Instagram.url}}' media='video'/>
 
 And `audio` too
 
