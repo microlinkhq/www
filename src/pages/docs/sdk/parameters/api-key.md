@@ -30,6 +30,6 @@ export default () => (
 
 When you do not attach an API Key, you are going to use the free quota until you reach the daily rate limit.
 
-To have a better daily quota, you need to have a plan. See [pricing](/#pricing) to know the plans.
+To get a better daily quota, you'll need to have a plan. See [pricing](/#pricing) to know the plans.
 
-After paying, you going to have the API key in your mail that you need to attach here for authenticating requests.
+After payment, you'll recieve the API key (via email) that you need to attach to authenticate requests.

@@ -6,7 +6,7 @@ Type: `string|string[]`<br/>
 Default: `html`<br/>
 Values: [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) or `html|val|text`<br/>
 
-Get the value of an attribute from the matched [selector](/docs/mql/data/selector) that should be picked.
+Get the value of an attribute from the matching [selector](/docs/mql/data/selector) that should be picked.
 
 ```html{11}
 <!DOCTYPE html>
@@ -54,7 +54,7 @@ Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attribute
 
 If you don't define the attribute, `html` will be used by default.
 
-Specify a collection of attributes is supported as well, being important the position of the attribute since only the first truth and value will be got.
+Specifying a collection of attributes is supported as well, being important the position of the attribute since only the first truthy value will be taken.
 
 ```js{6}
 const mql = require('@microlink/mql')
@@ -72,7 +72,7 @@ const {data } mql(`https://twitter.com/${username}`, {
 
 ## Nested Structures
 
-You can use `attr` for mapping nested structures, being it useful for groupoing values over the same property name.
+You can use `attr` for mapping nested structures, being useful for grouping values over the same property name.
 
 ```html
 <!DOCTYPE html>

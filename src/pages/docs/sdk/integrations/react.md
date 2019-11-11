@@ -2,7 +2,7 @@
 title: 'React'
 --- 
 
-It is available as [npm package](https://www.npmjs.com/package/@microlink/react).
+It is available as an [npm package](https://www.npmjs.com/package/@microlink/react).
 
 <Terminal>npm install @microlink/react styled-components --save</Terminal>
 
@@ -35,7 +35,7 @@ export default () => (
 
 <Microlink url='https://instagram.com/p/Bu1-PpyHmCn/' size='large' />
 
-Also, it supports rest of common things on React universy, like passing your own style using `style`.
+Also, it supports the rest of common things in the React universe, like passing your own styles via the `style` prop.
 
 ```jsx
 import Microlink from '@microlink/react'

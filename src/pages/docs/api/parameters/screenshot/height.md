@@ -4,7 +4,7 @@ title: 'height'
 
 Type: `number`<br/>
 
-It specifies the page height in pixels.
+Specifies the page height in pixels.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&width=800&height=600`,

@@ -10,13 +10,13 @@ const mql = require('@microlink/mql')
 const { status, data, response } = await mql('https://microlink.io')
 ```
 
-It will returns a `object` with the following properties:
+It will return an `object` with the following properties:
   
   - `status`: The [status](/docs/api/basics/format#status) associated with the response.
   - `data`: The [data](/docs/api/basics/format#data) response from the API. 
   - `response`: The Node.js response object.
 
-If something does not go as expected (thas means API returns a [status](/docs/api/basics/format#status) different to  `success`) it will throws a `MicrolinkError`.
+If something does not go as expected (that means API returns a [status](/docs/api/basics/format#status) different to `success`) it will throw a `MicrolinkError`.
 
 ```js
 const mql = require('@microlink/mql')
@@ -43,7 +43,7 @@ const { MicrolinkError } = mql
 })()
 ```
 
-<Figcaption children="A `MicrolinkError` always have associated `status`, `message` and `code`." />
+<Figcaption children="A `MicrolinkError` always has an associated `status`, `message` and `code`." />
 
 ## API
 
@@ -66,7 +66,7 @@ The target URL for getting content.
 
 Type: `object`<br/>
 
-You can pass any API Parameters from [Microlink API](/docs/api/getting-started/overview) as option.
+You can pass any API Parameters from [Microlink API](/docs/api/getting-started/overview) as an option.
 
 ```js
 const { status, data, response } = await mql('https://kikobeats.com', {
@@ -80,7 +80,7 @@ console.log(`My screenshot at ${data.screenshot.url}`)
 
 <br/>
 
-Additionally, you can setup:
+Additionally, you can configure:
 
 #### apiKey
 
@@ -94,7 +94,7 @@ When the `apiKey` is provided, the `pro.microlink.io` endpoint will used.
 
 Type: `object`
 
-When you pass a object that follows Map API, you can enable serve response from your storage cache in order to save API if they have been previously done.
+When you pass an object that follows Map API, you can enable serve response from your storage cache in order to save API if they have been previously done.
 
 ```js
 const mql = require('@microlink/mql')
@@ -113,7 +113,7 @@ const cache = new Map()
 })()
 ```
 
-<Figcaption children='caching feature is only available in the Node.js bundle' />
+<Figcaption children='Caching feature is only available in the Node.js bundle.' />
 
 Consider to pass [keyv](https://www.npmjs.com/package/keyv) for supporting [most popular databases storages](https://github.com/lukechilds/keyv#official-storage-adapters)
 
@@ -124,7 +124,7 @@ See [got#cache](https://www.npmjs.com/package/got#cache) to know more.
 Type: `number`<br/>
 Default: `3`
 
-It defines how much retries you can be done before consider an API call as failed.
+Defines how many retries can be done before an API call is considered failed.
 
 See [got#retry](https://www.npmjs.com/package/got#retry) to know more.
 
@@ -133,6 +133,6 @@ See [got#retry](https://www.npmjs.com/package/got#retry) to know more.
 Type: `number`<br/>
 Default: `30000`
 
-It defines the maximum milliseconds to wait after consider an API call as failed.
+Defines the maximum milliseconds to wait until an API call is considered failed.
 
 See [got#timeout](https://www.npmjs.com/package/got#timeout) to know more.

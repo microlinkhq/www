@@ -5,7 +5,7 @@ isPro: true
 
 Type: `string`<br/>
 
-It establishes a proxy server to be used during the API requests, being a mediator between Microlink API and the target URL server destination. 
+Establishes a proxy server to be used during the API requests, being a mediator between Microlink API and the target URL server destination. 
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://kikobeats.com&proxy=superproxy.cool:22225:603f60f5:*****`,

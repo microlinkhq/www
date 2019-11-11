@@ -5,7 +5,7 @@ title: 'hasTouch'
 Type: `boolean`<br/>
 Default: `false`
 
-It specifies if the viewport support touch events.
+Specifies if the viewport supports touch events.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&hasTouch`,

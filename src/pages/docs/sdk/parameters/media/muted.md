@@ -5,7 +5,7 @@ title: 'muted'
 Type: `boolean`<br/>
 Default: `true`
 
-It specifies that the audio output of the video should be muted.
+Specifies if the media should be muted.
 
 with `muted` enabled:
 
@@ -17,22 +17,21 @@ export default () => (
     url='https://instagram.com/p/BvDTdWdnzkj/'
     media='video'
     autoPlay={false}
-    controls
     muted
   />
 )
 `, Vanilla: `
 <script>
   document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('a', { media: 'video', autoPlay: false, controls: true, muted: true })
+    microlink('a', { media: 'video', autoPlay: false, muted: true })
   })
 </script>
 `, Jekyll: `
-[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-muted='true'}
+[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-muted='true'}
 `}} 
 />
 
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} controls />
+<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} />
 
 with `muted` disabled:
 
@@ -44,18 +43,17 @@ export default () => (
     url='https://instagram.com/p/BvDTdWdnzkj/'
     media='video'
     autoPlay={false}
-    controls
     muted={false}
   />
 )
 `, Vanilla: `
 <script>
   document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('a', { media: 'video', autoPlay: false, controls: true, muted: false })
+    microlink('a', { media: 'video', autoPlay: false, muted: false })
   })
 </script>
 `, Jekyll: `
-[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-controls='true' data-muted='false'}
+[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-muted='false'}
 `}} 
 />
 

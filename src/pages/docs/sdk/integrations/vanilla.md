@@ -2,13 +2,13 @@
 title: 'Vanilla'
 --- 
 
-It is available as [npm package](https://www.npmjs.com/package/@microlink/vanilla)
+It is available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla)
 
 <Terminal>npm install @microlink/vanilla --save</Terminal>
 
 The vanilla bundle is based on the React version, but exported as Universal Module Definition (*UMD*).
 
-Since the bundle doesn't include the dependencies, we recommend load it from a **CDN**.
+Since the bundle doesn't include the dependencies, we recommend loading them from a **CDN**.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
@@ -18,13 +18,13 @@ Since the bundle doesn't include the dependencies, we recommend load it from a *
 <script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
-or even better, combine them just in one line:
+or even better, combine them in just one line:
 
 ```html
 <script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@4/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js,npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
-After that, `microlink` will available in the global scope.
+After that, `microlink` will be available in the global scope.
 
 ```html
   <script>
@@ -46,7 +46,7 @@ After that, `microlink` will available in the global scope.
 
 <Figcaption children='We recommend calling the `microlink` method before the DOM finishes loading.' />
 
-The vanilla interface is pretty simliar to jQuery/Zepto: You need to provide a CSS selector as target element you want to convert into beautiful preview.
+The vanilla interface is pretty simliar to jQuery/Zepto: You need to provide a CSS selector as the target element you want to convert into a preview.
 
 <Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' size='large' />
 
@@ -64,7 +64,7 @@ You can pass any API Parameter as an object property, e.g., [size](/docs/sdk/par
 
 <Figcaption children='The API parameters passed there will be attached for all the links.' />
 
-If you want to pass specific API Parameters just for some cases, you need to pass them as [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
+If you want to pass specific API Parameters just for some cases, you can pass them as [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
 
 ```html
 <a 
@@ -78,7 +78,7 @@ If you want to pass specific API Parameters just for some cases, you need to pas
 
 <Figcaption children='You can pass objects, arrays, booleans or even JSON structures as data attributes.' />
 
-Although it is shipped with a default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
+Although it is shipped with default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
 
 ```html
 <style>

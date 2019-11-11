@@ -4,16 +4,16 @@ title: 'media'
 
 Type: `string|string[]`<br/>
 Default: `['image', 'logo']`<br/>
-Values: `'image'|'logo'|'screenshot'|'video'`
+Values: `'audio'|'image'|'logo'|'screenshot'|'video'`
 
-It determines the field to used as media of the card.
+Determines the field to use as the media of the card.
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
   
 export default () => (
   <Microlink
-    url='https://microlink.io'
+    url='{{DemoLinks.TED.url}}'
     media={['image', 'logo']}
   />
 )
@@ -24,13 +24,13 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://microlink.io){:.card-preview data-media='image,logo'}
+[]({{DemoLinks.TED.url}}){:.card-preview data-media='image,logo'}
 `}} 
 />
 
-The default value is a collection of field, meaning that the first valid value will be used as the image of the card.
+The default value is a collection of fields, meaning that the first valid value will be used as the image of the card.
 
-<Microlink url='https://microlink.io' />
+<Microlink url='{{DemoLinks.TED.url}}' />
 
 However, you can pass a single value to be used instead, for example `logo`
 
@@ -39,7 +39,7 @@ However, you can pass a single value to be used instead, for example `logo`
   
 export default () => (
   <Microlink
-    url='https://microlink.io'
+    url='{{DemoLinks.TED.url}}'
     media='logo'
   />
 )
@@ -50,20 +50,20 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://microlink.io){:.card-preview data-media='logo'}
+[]({{DemoLinks.TED.url}}){:.card-preview data-media='logo'}
 `}} 
 />
 
-<Microlink url='https://microlink.io' media='logo'/>
+<Microlink url='{{DemoLinks.TED.url}}' media='logo'/>
 
-The `video` detection is also supported
+The detection of `video` is also supported
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
   
 export default () => (
   <Microlink
-    url='https://microlink.io'
+    url='{{DemoLinks.Instagram.url}}'
     media='video'
   />
 )
@@ -74,8 +74,32 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[](https://microlink.io){:.card-preview data-media='video'}
+[]({{DemoLinks.Instagram.url}}){:.card-preview data-media='video'}
 `}} 
 />
 
-<Microlink url='https://microlink.io' media='video'/>
+<Microlink url='{{DemoLinks.Instagram.url}}' media='video'/>
+
+And `audio` too
+
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
+export default () => (
+  <Microlink
+    url='https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT?si=4PcqgjH5RlWCvB5q4ukdnw'
+    media='audio'
+  />
+)
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a', { media: 'audio' })
+  })
+</script>
+`, Jekyll: `
+[](https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT?si=4PcqgjH5RlWCvB5q4ukdnw){:.card-preview data-media='audio'}
+`}} 
+/>
+
+<Microlink url='https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT?si=4PcqgjH5RlWCvB5q4ukdnw' media='audio'/>

@@ -5,15 +5,15 @@ title: 'audio'
 Type: `boolean`<br/>
 Default: `false`
 
-It enables audio source detection from the target URL.
+Enables audio source detection from the target URL.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://soundcloud.com/theaipodcast/gtc-weather&audio`,
+  Shell: `microlink-api {{DemoLinks.Spotify.url}}&audio`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://soundcloud.com/theaipodcast/gtc-weather', { 
+    '{{DemoLinks.Spotify.url}}', { 
       audio: true 
   })
   
@@ -32,36 +32,36 @@ The audio detection introduce some human readable fields as part of the payload:
 ```json{26, 34}
 {
   "data": {
+    "title": "Format",
+    "description": "Format, a song by _91nova on Spotify",
     "lang": "en",
-    "author": "The AI Podcast",
-    "title": "Ep. 51: Live at GTC - Deep Learning Can Save Lives by Predicting Severe Weather",
-    "publisher": "SoundCloud",
+    "author": "_91nova",
+    "publisher": "Spotify",
     "image": {
-      "url": "https://i1.sndcdn.com/artworks-000326780052-0h7mz1-t500x500.jpg",
-      "width": 0,
-      "height": 0,
+      "url": "https://i.scdn.co/image/ab67616d0000b27351b9595d03c3a8fb3ffe9f1a",
       "type": "jpg",
-      "size": 83581,
-      "size_pretty": "83.6 kB"
+      "size": 88064,
+      "height": 640,
+      "width": 640,
+      "size_pretty": "88.1 kB"
     },
-    "description": "One of the things that makes the weather so dangerous is that it’s so hard to predict. Tornadoes, hail, high winds and flash floods cause billions of dollars worth of property damage, and injure or ki",
-    "date": "2018-03-29T02:06:49.000Z",
-    "logo": {
-      "url": "https://a-v2.sndcdn.com/assets/images/sc-icons/ios-a62dfc8f.png",
-      "width": 114,
-      "height": 114,
-      "type": "png",
-      "size": 3144,
-      "size_pretty": "3.14 kB"
-    },
-    "url": "https://soundcloud.com/theaipodcast/gtc-weather",
     "audio": {
-      "url": "https://cf-media.sndcdn.com/clcG6IDMnbiy.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLW1lZGlhLnNuZGNkbi5jb20vY2xjRzZJRE1uYml5LjEyOC5tcDMiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE1NTU2OTcwOTN9fX1dfQ__&Signature=NoWAUhnQ0G2z~utNOzYC06hjKa5acOfj8waGu81bm93zNUsu4NS4N7-pzoj~D~3jdyncprnLqPMRjVUFAW1HpizByYysKNx9sYSDtTHhc2fxzGx2Hx41iVJHeONQtsRdCpa7SyLxtHMiK7uI~dbowrGnGh1jKb5Rd0BNdT6UZy5m0qMyY41oMDW1ZC4WPo6GjEuzq-RY9GAk1iFz86LpVskXH3LVFy035NejgMbO-Su5N64JrmdREZqTjMvaJiHlnApAGneVbCqBoDqeh7NZtQWVGtjP4IWrsqa~p3hmMxSvtKWPUPC5rM7EoME~ZcnwXcByksUjpLkwv5E9M5zsJQ__&Key-Pair-Id=APKAJAGZ7VMH2PFPW6UQ",
+      "url": "https://p.scdn.co/mp3-preview/f36438afe87418f2dc0b7497eb5e7e5fa89e6bf8?cid=162b7dc01f3a4a2ca32ed3cec83d1e02",
       "type": "mp3",
-      "size": 23061732,
-      "size_pretty": "23.1 MB",
-      "duration": 1441.332245,
-      "duration_pretty": "24m"
+      "duration": 30.040816,
+      "size": 362861,
+      "duration_pretty": "30s",
+      "size_pretty": "363 kB"
+    },
+    "url": "https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT",
+    "date": "2019-11-11T08:50:08.000Z",
+    "logo": {
+      "url": "https://open.scdn.co/static/images/favicon.png",
+      "type": "png",
+      "size": 11125,
+      "height": 196,
+      "width": 196,
+      "size_pretty": "11.1 kB"
     }
   },
   "status": "success"

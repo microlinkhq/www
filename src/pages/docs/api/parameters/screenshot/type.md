@@ -6,7 +6,7 @@ Type: `string`<br/>
 Default: `'png'`<br/>
 Values: `'jpeg'|'png'`
 
-It specifies the screenshot type file format.
+Specifies the screenshot file type.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&type=jpeg`,

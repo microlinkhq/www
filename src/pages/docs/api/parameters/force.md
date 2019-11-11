@@ -5,15 +5,15 @@ title: 'force'
 Type: `boolean`<br/>
 Default: `false`
 
-It invalidates the cache response associated with the query parameter and generates a fresh copy.
+Invalidates the cache response associated with the query parameter and generates a fresh copy.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://producthunt.com&force`,
+  Shell: `microlink-api {{DemoLinks.ProductHunt.url}}&force`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://producthunt.com', { 
+    '{{DemoLinks.ProductHunt.url}}', { 
       force: true
   })
   

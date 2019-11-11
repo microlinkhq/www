@@ -5,7 +5,7 @@ title: 'selector'
 Type: `string|string[]`<br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
-It defines the first HTML element you want to get from the HTML of the target [url](/docs/api/parameters/url). It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
+Defines the first HTML element you want to get from the HTML of the target [url](/docs/api/parameters/url). It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
 
 ```html{11}
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ const { data } mql(`https://kikobeats.com`, {
 You can specify any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors), like:
 
 - An HTML tag (e.g., `img`).
-- An CSS class or pseudo class, id or data-attribute (e.g., `#avatar`).
+- A CSS class or pseudo class, id or data-attribute (e.g., `#avatar`).
 - A combination of both (e.g., `img:first`).
 
 If you pass a collection of selectors, they are considered as fallbacks values.
@@ -64,6 +64,6 @@ const {data } mql(`https://twitter.com/${username}`, {
 })
 ```
 
-<Figcaption children='Using mulitple selector makes the data rule more generic.' />
+<Figcaption children='Using mulitple selectors makes the data rule more generic.' />
 
-The position into the collection matters: The first data rule that returns a truthy value after applying type will be used, not being applying the rest of selectors.
+The position into the collection matters: The first data rule that returns a truthy value after applying type will be used, discarding the rest of the selectors.
