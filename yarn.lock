@@ -1462,10 +1462,10 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.20.3.tgz#9e2306040b6469248c45a5f5baf44d0014db0493"
   integrity sha512-Co3gUFmNDv9z2LjuvLTpTj2NaOSHFxuoZjohcG0YK/KfECO+Ns9idzThMYjfEDe1vAf4c824rqlBYseedJdFNw==
 
-"@microlink/demo-links@~1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.7.tgz#0049f5724437703ff68aec5c80df5a4d6912b810"
-  integrity sha512-Bw5iO+U4lGJmz3JRYPV6SPq5TBuKFBmFjMTOQmizZcsrR26136nNkLu2f/bwVKzUXXYFtKJ5Gb0jHZKxRGdZhw==
+"@microlink/demo-links@~1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.8.tgz#ba7f1332701f23f43ec08e2b4b02e3cc491e3a0e"
+  integrity sha512-TIh87ATpKLCWmyX3DtaK4m3qFD/WnWOkD8TlScCKp4qYhG7p+T1U0RDwJr8bMvL85V4qZ1nNybZKxwL/bfgXnA==
 
 "@microlink/mql@~0.5.10":
   version "0.5.10"
