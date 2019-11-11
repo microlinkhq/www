@@ -52,6 +52,4 @@ export default () => (
 )
 ```
 
-<Figcaption children='Skip internal fetch providing a function as setData.' />
-
 <Microlink url='https://instagram.com/p/Bt6EMQhHHIr/' setData={{title: 'SENTRY ACTIVATED' }}/>
