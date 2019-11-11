@@ -1467,10 +1467,10 @@
   resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.7.tgz#0049f5724437703ff68aec5c80df5a4d6912b810"
   integrity sha512-Bw5iO+U4lGJmz3JRYPV6SPq5TBuKFBmFjMTOQmizZcsrR26136nNkLu2f/bwVKzUXXYFtKJ5Gb0jHZKxRGdZhw==
 
-"@microlink/mql@~0.5.10":
-  version "0.5.10"
-  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.5.10.tgz#01254834c99fb14b7e6f229270243b9073b9af1f"
-  integrity sha512-CRpnEL+ZwIghKJ9gW3C0JmxvOj8SBjvtpPyrfoEUUoIICLb+0L8QyDt2xGru/wnN83bomZxra97xkdogrDvRzA==
+"@microlink/mql@~0.5.10", "@microlink/mql@~0.5.11":
+  version "0.5.11"
+  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.5.11.tgz#ce18756554531837976a2993cdd6934f70f2752b"
+  integrity sha512-HBRn2wu2YMwV4ZSVagpajzxYTUEr+NWLc5evoLnKQTGWlk902EmBgfii51easHzw0dXSiBk0+8qpmufalFVwXg==
   dependencies:
     flat "~5.0.0"
     got "~9.6.0"
@@ -1480,12 +1480,12 @@
     qss "~2.0.3"
     whoops "~4.0.2"
 
-"@microlink/react@4.3.2":
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-4.3.2.tgz#1f50e4460b9278b9265a702c2cd65931a9fbbee3"
-  integrity sha512-YgzOSMhMSRhT8d/wxHuFV2erygFLDzIgoLSULwk/OmAUFjwI/j5pwz+IWn0qQLt3pNzgPWvSC+hX6FmkCsQB+Q==
+"@microlink/react@4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-4.4.0.tgz#fb7f41edfc4d296cc264b275fceedb3732851ff2"
+  integrity sha512-yF03Ql5PDRwEDhXEzg8vLDPC4MPZOsIRdkjIsydZqafWdImAIn4iBIbzKLBeEUAQPbfmNYZ7UGyHWoM4ieU9WA==
   dependencies:
-    "@microlink/mql" "~0.5.10"
+    "@microlink/mql" "~0.5.11"
     nanoclamp "~1.2.11"
 
 "@mikaelkristiansson/domready@^1.0.9":
