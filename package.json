@@ -51,7 +51,7 @@
     "download": "~7.1.0",
     "exists-file": "~3.0.2",
     "fast-safe-stringify": "~2.0.7",
-    "gatsby": "~2.17.10",
+    "gatsby": "~2.17.11",
     "gatsby-plugin-canonical-urls": "~2.1.13",
     "gatsby-plugin-catch-links": "~2.1.15",
     "gatsby-plugin-google-analytics": "~2.1.24",
