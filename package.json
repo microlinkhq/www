@@ -66,7 +66,7 @@
     "gatsby-source-filesystem": "~2.1.35",
     "gatsby-transformer-javascript-frontmatter": "~2.1.17",
     "gatsby-transformer-json": "~2.2.16",
-    "gatsby-transformer-remark": "~2.6.32",
+    "gatsby-transformer-remark": "~2.6.33",
     "gatsby-transformer-yaml": "~2.2.15",
     "git-jiggy": "~1.1.1",
     "human-number": "~1.0.4",
