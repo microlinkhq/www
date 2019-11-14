@@ -18,7 +18,7 @@ const Item = ({ title, description, ...props }) => (
       fontWeight='bold'
       children={title}
     />
-    <Text color='black50' children={description} />
+    <Text color='black60' children={description} />
   </Box>
 )
 
