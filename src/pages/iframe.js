@@ -12,7 +12,6 @@ import { Grid, Header, Layout } from 'components/patterns'
 import mql from '@microlink/mql'
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { title } from 'helpers'
 
 const TITLE = 'Embed makes easy'
 const DEMO_URL = 'https://www.youtube.com/watch?v=Gu8X7vM3Avw'
@@ -304,19 +303,19 @@ export default () => {
       <Container py={[4, 5]} px={4}>
         <Header subtitle={TITLE} caption='Turn links into embeddable media' />
         <Subhead
-          children={title('How it works')}
+          children='How it works'
           px={4}
           pt={4}
           pb={3}
           textAlign='left'
           fontSize={3}
         />
-        <Text as='div' px={4} ml={3}>
+        <Text px={4} ml={3}>
           Given an URL (Twitter, Instagram, Facebook, YouTube, Spotify, etc),
           Microlink API retrieves you the snippet code necessary for embedding
           the representation of the URL in your site.
         </Text>
-        <Text as='div' pt={3} px={4} ml={3}>
+        <Text pt={3} px={4} ml={3}>
           Any site that follows{' '}
           <Link href='https://oembed.com' icon>
             oembed
@@ -328,14 +327,14 @@ export default () => {
           .
         </Text>
         <Subhead
-          children={title('How to use')}
+          children='How to use'
           px={4}
           pt={4}
           pb={3}
           textAlign='left'
           fontSize={3}
         />
-        <Text as='div' px={4} ml={3}>
+        <Text px={4} ml={3}>
           Just attach `iframe` query parameter when you interact with{' '}
           <Link href='/docs/api/getting-started/overview'>Microlink API</Link>
         </Text>
@@ -343,7 +342,7 @@ export default () => {
           <MultiCodeEditor languages={languages} />
         </Box>
         <Subhead
-          children={title('Demo')}
+          children='Demo'
           px={4}
           pt={4}
           pb={3}

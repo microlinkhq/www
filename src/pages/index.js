@@ -24,7 +24,6 @@ import {
 import {
   Announcement,
   DemoLinks,
-  Faq,
   Grid,
   Header,
   Layout,
@@ -48,89 +47,147 @@ const Questions = () => {
       borderBottom={`${borders[1]} ${colors.pinkest}`}
     >
       <Header title={title} caption={caption} />
-      <Flex as='section' pt={4} justifyContent='center' flexDirection='column'>
-        <Box px={[0, 0, 4, 6]}>
-          <Faq pt={0}>
-            <Faq.Question>Can I use microlink for free?</Faq.Question>
-            <Faq.Asked>
-              <>
-                Absolutely, we offer a free plan you can use indefinitely.
-                <br />
-                <br />
-                The free plan offers almost the same pro capabilities; The only
-                limitation is that the service is under IP Address limitation to
-                avoid flooding the service
-                <br />
-                <br />
-                As soon as you need more, you can jump in a pro plan.
-              </>
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>
-              How different is the free plan compared with pro?
-            </Faq.Question>
-            <Faq.Asked>
+      <Flex
+        as='section'
+        pt={[3, 4]}
+        justifyContent='center'
+        flexDirection='column'
+        alignItems='center'
+        px={[0, 0, 4, 6]}
+      >
+        <Box>
+          <Subhead
+            textAlign='left'
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            Can I use microlink for free?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
+              Absolutely, we offer a free plan you can use indefinitely. The
+              free plan offers almost the same pro capabilities.
+            </Text>
+            <Text pt={3} color='black60'>
+              The only limitation is that the service is under IP Address
+              limitation to avoid flooding the service. As soon as you need
+              more, you can jump in a pro plan.
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            How different is the free plan compared with pro?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               Some functionalities are only available under pro plans because
               they represent an infrastructure cost that you are paying with the
               pro plan.
-              <br />
-              <br />
+            </Text>
+            <Text pt={3} color='black60'>
               Also, the free plan runs under IP Address limitation, while any
               pro plan has an API token associated for identifying where the
               requests come from.
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>
-              What if I don't know how much API quota I need?
-            </Faq.Question>
-            <Faq.Asked>
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            What if I don't know how much API quota I need?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               No problem, just start with the smallest plan; in the moment you
               need more, you can upgrade your plan.
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>How I get an API key?</Faq.Question>
-            <Faq.Asked>
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            How I get an API key?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               After your payment, we send you the API key associated with the
               email you signed up.
-              <br />
-              <br />
+            </Text>
+            <Text pt={3} color='black60'>
               The API key need to be attached to all your requests:
-              <Box as='ul'>
-                <Box as='li' mb={2}>
+              <Box as='ul' pt={3} my={0}>
+                <Box as='li'>
                   At <Link href='/docs/sdk/'>Microlink SDK</Link>, attach it as{' '}
                   <Link href='/docs/sdk/parameters/api-key/'>apiKey</Link>.
                 </Box>
-                <Box as='li' mb={2}>
+                <Box as='li' pt={3}>
                   At <Link href='/docs/api/#introduction'>Microlink API</Link>,
                   attach it as{' '}
                   <Link href='/docs/api/basics/authentication'>header</Link>.
                 </Box>
               </Box>
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>
-              Do you have a Service-Level Agreements (SLA)?
-            </Faq.Question>
-            <Faq.Asked>
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            Do you have a Service-Level Agreements (SLA)?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
+              Some functionalities are only available under pro plans because
+              they represent an infrastructure cost that you are paying with the
+              pro plan.
+            </Text>
+            <Text pt={3} color='black60'>
               You can see our SLA level on{' '}
-              <Link display='inline' href='/status' children='status page' />.
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>How I can know my plan usage?</Faq.Question>
-            <Faq.Asked>
+              <Link display='inline' href='/status' children='status' />
+              {' page.'}
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            How I can know my plan usage?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               We notify you in an automatic way when you reach 50% or more of
               your usage plan, offering to upgrade your current plan to one more
               suitable based on your plan usage.
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>What if I want to change my plan?</Faq.Question>
-            <Faq.Asked>
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            What if I want to change my plan?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               You can upgrade, downgrade, or cancel your monthly account at any
               time with no further obligation, sending an email to{' '}
               <Link
@@ -139,19 +196,35 @@ const Questions = () => {
                 children='hello@microlink.io'
               />{' '}
               with the email you signed up.
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>How is the payment being processed?</Faq.Question>
-            <Faq.Asked>
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            How is the payment being processed?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               We use Stripe to process your payment. It's the same payment
               provider used in products such as Twitter, Pinterest, and Lyft. We
               do not handle your credit card information directly.
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>Can I update my card details?</Faq.Question>
-            <Faq.Asked>
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            Can I update my card details?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               Yes, send an email to{' '}
               <Link
                 display='inline'
@@ -160,11 +233,19 @@ const Questions = () => {
               />{' '}
               requesting the change. You will receive a link from where you'll
               be able to securely update your details.
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>Can I cancel my subscription?</Faq.Question>
-            <Faq.Asked>
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            Can I cancel my subscription?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               Yes, by sending an email to{' '}
               <Link
                 display='inline'
@@ -172,11 +253,19 @@ const Questions = () => {
                 children='hello@microlink.io'
               />
               . Your request will be processed within 24hrs.
-            </Faq.Asked>
-          </Faq>
-          <Faq>
-            <Faq.Question>Other questions?</Faq.Question>
-            <Faq.Asked>
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            Other questions?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
               We're always available at{' '}
               <Link
                 display='inline'
@@ -184,8 +273,8 @@ const Questions = () => {
                 children='hello@microlink.io'
               />
               .
-            </Faq.Asked>
-          </Faq>
+            </Text>
+          </Text>
         </Box>
       </Flex>
     </Container>
