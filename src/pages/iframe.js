@@ -23,7 +23,7 @@ const IFRAME_WIDTH = 560 * SCALE_FACTOR
 const IFRAME_HEIGHT = 315 * SCALE_FACTOR
 
 const IframeWrapper = styled(Box)`
-  & > * {
+  iframe {
     width: ${IFRAME_WIDTH}px;
     height: ${IFRAME_HEIGHT}px;
     max-width: 100%;
