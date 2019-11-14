@@ -14,7 +14,7 @@ const sweep = keyframes`
 `
 
 export const Asked = props => (
-  <Text as='div' color='gray7' fontSize={[1, 2]} mt={3} ml='20px' {...props} />
+  <Text color='gray7' fontSize={[1, 2]} mt={3} ml='20px' {...props} />
 )
 
 export const Question = props => (

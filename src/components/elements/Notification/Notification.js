@@ -64,7 +64,6 @@ const createNotification = notificationProps => ({ children, ...props }) => {
       my={3}
     >
       <Text
-        as='div'
         boxShadow={3}
         m={3}
         px={3}

@@ -87,7 +87,6 @@ const PricingRow = ({ children, ...props }) => {
     <Text as='tr'>
       <Text as='th' {...props}>
         <Text
-          as='div'
           fontSize={0}
           color='darkBlue400'
           fontWeight='regular'

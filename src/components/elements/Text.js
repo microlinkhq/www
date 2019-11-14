@@ -28,7 +28,7 @@ Text.propTypes = {
 }
 
 Text.defaultProps = {
-  as: 'p',
+  as: 'div',
   fontFamily: 'sans',
   mt: 0,
   mb: 0,
