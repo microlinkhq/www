@@ -1,4 +1,4 @@
-import title from 'title'
+import { capitalize } from 'lodash'
 
 const special = [
   'API',
@@ -35,6 +35,8 @@ const special = [
   'retry',
   'scrollTo',
   'SDK',
+  'SLA',
+  'I',
   'timeout',
   'type',
   'TypeScript',
@@ -45,4 +47,13 @@ const special = [
   'WordPress'
 ]
 
-export default str => title(str, { special })
+export default str => {
+  let title = capitalize(str)
+
+  special.forEach(word => {
+    const re = new RegExp(`\\b(?:${word})\\b`, 'gi')
+    if (re.test(str)) title = title.replace(re, word)
+  })
+
+  return title
+}
