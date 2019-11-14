@@ -28,12 +28,7 @@ export default ({
   childComponent: ChildComponent = Item,
   ...props
 }) => (
-  <Flex
-    justifyContent='center'
-    alignItems='center'
-    flexDirection='column'
-    {...props}
-  >
+  <Flex justifyContent='center' alignItems='center' flexDirection='column'>
     {chunk(children, itemsPerRow).map((row, index) => (
       <Flex
         as='ul'
@@ -43,9 +38,10 @@ export default ({
         pl={0}
         mt={0}
         mb={0}
+        {...props}
       >
         {row.map((rowProps, index) => (
-          <ChildComponent key={index} {...rowProps} />
+          <ChildComponent key={JSON.stringify(rowProps)} {...rowProps} />
         ))}
       </Flex>
     ))}

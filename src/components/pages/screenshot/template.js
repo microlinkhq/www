@@ -205,7 +205,8 @@ const Api = ({ domain, data }) => {
         <Box width={[350, 500, 700]}>
           <Subhead
             children='Using HTML'
-            py={4}
+            pt={4}
+            pb={3}
             textAlign='left'
             fontSize={[1, 2]}
           />
@@ -214,7 +215,8 @@ const Api = ({ domain, data }) => {
         <Box width={[350, 500, 700]}>
           <Subhead
             children='Using CSS'
-            py={4}
+            pt={4}
+            pb={3}
             textAlign='left'
             fontSize={[1, 2]}
           />
@@ -223,7 +225,8 @@ const Api = ({ domain, data }) => {
         <Box width={[350, 500, 700]}>
           <Subhead
             children='Using Markdown'
-            py={4}
+            pt={4}
+            pb={3}
             textAlign='left'
             fontSize={[1, 2]}
           />
