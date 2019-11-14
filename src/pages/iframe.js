@@ -5,7 +5,6 @@ import {
   Flex,
   Container,
   Text,
-  Hide,
   Link,
   MultiCodeEditor
 } from 'components/elements'
@@ -352,22 +351,12 @@ export default () => {
           fontSize={3}
         />
         <Flex px={3} alignItems='center' justifyContent='center'>
-          <Hide breakpoints={[0, 1]}>
-            <Grid
-              children={links}
-              childComponent={Embed}
-              itemsPerRow={2}
-              justifyContent='center'
-            />
-          </Hide>
-          <Hide breakpoints={[2, 3]}>
-            <Grid
-              children={links}
-              childComponent={Embed}
-              itemsPerRow={1}
-              justifyContent='center'
-            />
-          </Hide>
+          <Grid
+            children={links}
+            childComponent={Embed}
+            itemsPerRow={1}
+            justifyContent='center'
+          />
         </Flex>
       </Container>
     </Layout>
