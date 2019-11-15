@@ -87,7 +87,7 @@
     "prepend-http": "~3.0.1",
     "prettier": "~1.19.1",
     "qss": "~2.0.3",
-    "react": "16.11.0",
+    "react": "16.12.0",
     "react-codecopy": "~4.0.1",
     "react-confetti": "~5.0.1",
     "react-dom": "16.11.0",
