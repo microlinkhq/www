@@ -1,10 +1,9 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
 import { LinkSolid, Text, Notification } from 'components/elements'
-import React, { useState, useEffect } from 'react'
-import { Layout } from 'components/patterns'
+import { Layout, Searchbox } from 'components/patterns'
 import { Location } from '@reach/router'
 import { screenshotUrl } from 'helpers'
-import mql from '@microlink/mql'
+import React from 'react'
 
 import Examples from 'components/pages/embed/examples'
 import Template from 'components/pages/embed/template'
@@ -26,70 +25,39 @@ const ErrorMessage = ({ more }) => {
 }
 
 export default () => {
-  const [status, setStatus] = useState('initial')
-  const [error, setError] = useState(null)
-  const [warning, setWarning] = useState(null)
   const demoLinks = useDemoLinks()
-  const [data, setData] = useState(null)
-  const [query, setQuery] = useQueryState()
-
-  const fetchData = async url => {
-    try {
-      setQuery({ url })
-      setError(null)
-      setStatus('fetching')
-      const { data } = await mql(url, {
-        palette: true
-      })
-      setData(data)
-      setStatus('fetched')
-    } catch (err) {
-      setStatus('error')
-      setError(err)
-    }
-  }
-
-  const doFetch = url => {
-    setWarning(null)
-    if (url) return fetchData(url)
-    setTimeout(
-      () => setWarning({ children: 'You need to provide a valid URL.' }),
-      0
-    )
-  }
-
-  useEffect(() => {
-    const { url } = query
-    if (url) fetchData(url)
-  }, [query.url])
+  const [query] = useQueryState()
+  const title = 'Enter a URL, receive data'
+  const image = query.url
+    ? screenshotUrl(`https://microlink.io/embed?url=${query.url}`)
+    : 'https://cdn.microlink.io/page/embed.png'
 
   return (
-    <Layout
-      title='Enter a URL, receive data'
-      image={
-        query.url
-          ? screenshotUrl(`https://microlink.io/embed?url=${query.url}`)
-          : 'https://cdn.microlink.io/page/embed.png'
-      }
-    >
-      {error && <ErrorMessage {...error} />}
-      {!error && warning && <Notification.Warning {...warning} />}
-      <Location>
-        {({ location }) => {
-          if (location.search !== '' && data && status === 'fetched') {
-            return <Template data={data} />
-          }
+    <Layout title={title} image={image}>
+      <Searchbox>
+        {({ status, doFetch, data, warning, error }) => (
+          <>
+            {error && <ErrorMessage {...error} />}
+            {error && warning && <Notification.Warning {...warning} />}
+            <Location>
+              {({ location }) => {
+                if (location.search !== '' && data && status === 'fetched') {
+                  return <Template data={data} />
+                }
 
-          return (
-            <Examples
-              demoLinks={demoLinks}
-              onSubmit={doFetch}
-              url={query.url}
-              isLoading={status === 'fetching'}
-            />
-          )
-        }}
-      </Location>
+                return (
+                  <Examples
+                    demoLinks={demoLinks}
+                    onSubmit={doFetch}
+                    url={query.url}
+                    isLoading={status === 'fetching'}
+                  />
+                )
+              }}
+            </Location>
+          </>
+        )}
+      </Searchbox>
     </Layout>
   )
 }
