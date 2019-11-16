@@ -1,4 +1,4 @@
-import { capitalize } from 'lodash'
+import { concat, capitalize } from 'lodash'
 
 const special = [
   'API',
@@ -47,10 +47,10 @@ const special = [
   'WordPress'
 ]
 
-export default str => {
+export default (str, exclude = []) => {
   let title = capitalize(str)
 
-  special.forEach(word => {
+  concat(exclude, special).forEach(word => {
     const re = new RegExp(`\\b(?:${word})\\b`, 'gi')
     if (re.test(str)) title = title.replace(re, word)
   })

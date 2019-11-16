@@ -108,7 +108,12 @@ const Hero = ({ domain, brand, data }) => {
   const caption = (
     <>
       Turn{' '}
-      <Subhead as='span' color='black' fontWeight='regular'>
+      <Subhead
+        as='span'
+        color='black'
+        fontWeight='regular'
+        titleExclude={domain}
+      >
         {domain}
       </Subhead>{' '}
       links into structured data
