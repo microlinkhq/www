@@ -17,7 +17,9 @@ export default () => {
 
   return (
     <Layout title={title} image={image}>
-      <FetchProvider>
+      <FetchProvider
+        mql={{ palette: true, audio: true, video: true, iframe: true }}
+      >
         {({ status, doFetch, data }) => (
           <>
             <Location>

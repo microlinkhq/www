@@ -19,7 +19,7 @@ const ErrorMessage = ({ more }) => {
   return <Notification.Error>{children}</Notification.Error>
 }
 
-export default ({ children }) => {
+export default ({ mql: mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
   const [error, setError] = useState(null)
   const [warning, setWarning] = useState(null)
@@ -31,9 +31,7 @@ export default ({ children }) => {
       setQuery({ url })
       setError(null)
       setStatus('fetching')
-      const { data } = await mql(url, {
-        palette: true
-      })
+      const { data } = await mql(url, mqlOpts)
       setData(data)
       setStatus('fetched')
     } catch (err) {
