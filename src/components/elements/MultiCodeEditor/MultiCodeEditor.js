@@ -1,4 +1,4 @@
-import { Flex, Text, Box, CodeEditor } from 'components/elements'
+import { Text, Box, CodeEditor } from 'components/elements'
 import { useLocalStorage } from 'components/hook'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -6,6 +6,7 @@ import CodeCopy from 'react-codecopy'
 import { isFunction } from 'lodash'
 import { borders } from 'theme'
 import { template } from 'helpers'
+import Flex from '../Flex'
 
 import Select from '../Select/Select'
 
@@ -95,6 +96,20 @@ export const SelectLanguage = ({ children, value, onChange, ...props }) => {
   )
 }
 
+const Actions = styled(Flex)`
+  position: relative;
+  overflow: visible;
+  top: 4px;
+`
+
+const CodeEditorWrapper = styled(Box)`
+  section {
+    top: 8px;
+    position: relative;
+    overflow: visible;
+  }
+`
+
 export default ({ languages: codeByLanguage, ...props }) => {
   const editorLanguages = Object.keys(codeByLanguage)
   const [editorLanguage, setEditorLanguage] = useLocalStorage(
@@ -107,7 +122,7 @@ export default ({ languages: codeByLanguage, ...props }) => {
   )
 
   const ActionComponent = () => (
-    <Flex>
+    <Actions>
       <Text as='span' mr={2} fontSize={0}>
         <SelectLanguage
           ml='auto'
@@ -121,14 +136,16 @@ export default ({ languages: codeByLanguage, ...props }) => {
         />
       </Text>
       <CustomCodeCopy theme='dark' interactive text={code} />
-    </Flex>
+    </Actions>
   )
 
   return (
-    <CodeEditor
-      language={toAlias(editorLanguage)}
-      children={code}
-      ActionComponent={ActionComponent}
-    />
+    <CodeEditorWrapper>
+      <CodeEditor
+        language={toAlias(editorLanguage)}
+        children={code}
+        ActionComponent={ActionComponent}
+      />
+    </CodeEditorWrapper>
   )
 }

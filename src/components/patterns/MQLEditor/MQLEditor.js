@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
-import { CodeEditor, Card as CardBase, Flex, Text } from 'components/elements'
-import { colors } from 'theme'
+import { CodeEditor, Card, Flex, Text } from 'components/elements'
 
 import {
   CARD_HEIGHT_DESKTOP,
@@ -9,20 +7,6 @@ import {
   CARD_WIDTH_MOBILE,
   CARD_HEIGHT_MOBILE
 } from '../LiveDemo/theme'
-
-const Card = styled(CardBase)`
-  &&& {
-    box-shadow: 0 10px 40px -10px ${colors.gray1};
-    transition: none;
-    &:hover {
-      transform: none;
-      box-shadow: 0;
-    }
-    &:focus {
-      box-shadow: none;
-    }
-  }
-`
 
 const CODE = {
   mql: `
@@ -84,7 +68,8 @@ await mql('https://twitter.com/microlinkhq', {
 
 const CardOption = ({ children, value, ...props }) => (
   <Text
-    color={children === value ? 'black' : 'gray8'}
+    color={children === value ? 'black' : 'black60'}
+    fontWeight={children === value ? 'regular' : 'normal'}
     pt={3}
     pr={2}
     fontSize={0}
@@ -114,7 +99,6 @@ export default class extends Component {
       <Flex flexDirection='column' justifyContent='space-around'>
         <Flex flexDirection='column' mb={[4, 0]}>
           <Card
-            bg='pinky'
             width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
             height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
             style={{ overflow: 'auto' }}

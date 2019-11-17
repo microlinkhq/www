@@ -166,10 +166,7 @@ const TerminalHeader = styled.header`
   height: 36px;
   background: #282a36;
   align-items: center;
-  padding-top: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 0;
-  padding-left: 1rem;
+  padding: 1rem;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -192,7 +189,7 @@ const TerminalTitle = styled.div`
   font-size: 12px;
 `
 
-const TerminalText = styled.div`
+const TerminalText = styled.section`
   overflow-x: auto;
   font-family: ${fonts.mono};
   font-size: 13px;
@@ -259,7 +256,13 @@ Terminal.defaultProps = {
 }
 
 function CodeEditor (props) {
-  const { ActionComponent, showLineNumbers, interactive, children, my } = props
+  const {
+    ActionComponent,
+    showLineNumbers,
+    interactive,
+    children,
+    ...restProps
+  } = props
   const className = props.className
     ? props.className + (props.metastring || '')
     : ''
@@ -279,10 +282,10 @@ function CodeEditor (props) {
 
   return (
     <Terminal
-      my={my}
       interactive={interactive}
       toCopy={text}
       ActionComponent={ActionComponent}
+      {...restProps}
     >
       <TerminalTextWrapper dark>
         <CustomSyntaxHighlighter

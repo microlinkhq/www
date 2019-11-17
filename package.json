@@ -95,8 +95,6 @@
     "react-feather": "~2.0.3",
     "react-helmet": "~5.2.1",
     "react-iframe": "~1.8.0",
-    "react-json-view": "~1.19.1",
-    "react-live": "~2.2.1",
     "react-spring": "~8.0.27",
     "react-stripe-elements": "~6.0.1",
     "react-syntax-highlighter": "~11.0.2",

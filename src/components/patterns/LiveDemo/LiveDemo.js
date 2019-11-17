@@ -12,7 +12,8 @@ import {
 
 const CardOption = ({ children, value, ...props }) => (
   <Text
-    color={children === value ? 'black' : 'gray8'}
+    color={children === value ? 'black' : 'black60'}
+    fontWeight={children === value ? 'regular' : 'normal'}
     pt={3}
     pr={2}
     fontSize={0}
@@ -50,7 +51,11 @@ export default class extends Component {
             py={isSDK ? 0 : 3}
             width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
             height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
-            style={{ overflow: isSDK ? 'hidden' : 'auto' }}
+            style={{
+              background: '#282a36',
+              padding: 0,
+              overflow: isSDK ? 'hidden' : 'auto'
+            }}
           >
             <Preview loading={loading} view={view} children={children} />
           </Card>
