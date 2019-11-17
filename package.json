@@ -147,7 +147,7 @@
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
     "build-storybook": "npm run prebuild && NODE_ENV=production build-storybook",
-    "build:data": "node scripts/fetch-demo-links && node scripts/fetch-embed-links",
+    "build:data": "node scripts/fetch-demo-links",
     "clean": "rm -rf node_modules && npm run clean:urls && npm run clean:build",
     "clean:build": "gatsby clean",
     "clean:data": "rm -rf data/*-links.json",
@@ -155,7 +155,7 @@
     "lint": "standard-markdown README.md && standard",
     "postrelease": "npm run release:tags && npm run release:github",
     "prebuild": "npm run clean:urls && npm run clean:build && npm run build:urls",
-    "predev": "nodengine && node scripts/fetch-demo-links",
+    "predev": "nodengine && npm run build:data",
     "prerelease": "npm run update:check",
     "preversion": "git-authors-cli && git add package.json",
     "release": "standard-version -a",
