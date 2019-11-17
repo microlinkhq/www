@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Card, Flex, Text } from 'components/elements'
+import { Card, Flex } from 'components/elements'
 import Preview from './preview'
 
 import {
@@ -9,28 +9,6 @@ import {
   CARD_WIDTH_MOBILE,
   CARD_HEIGHT_MOBILE
 } from './theme'
-
-const CardOption = ({ children, value, ...props }) => (
-  <Text
-    color={children === value ? 'black' : 'black60'}
-    fontWeight={children === value ? 'regular' : 'normal'}
-    pt={3}
-    pr={2}
-    fontSize={0}
-    textAlign='right'
-    css={`
-      ${children !== value && 'cursor: pointer;'};
-      transition: color ${({ theme }) => theme.transition.short};
-
-      &:hover {
-        color: ${({ theme }) => theme.colors.black};
-      }
-    `}
-    {...props}
-  >
-    {children}
-  </Text>
-)
 
 export default class extends Component {
   state = { view: 'preview' }
@@ -60,17 +38,17 @@ export default class extends Component {
             <Preview loading={loading} view={view} children={children} />
           </Card>
           <Flex justifyContent='flex-end'>
-            <CardOption
+            <Card.Option
               children='preview'
               value={view}
               onClick={() => this.setState({ view: 'preview' })}
             />
-            <CardOption
+            <Card.Option
               children='json'
               value={view}
               onClick={() => this.setState({ view: 'json' })}
             />
-            <CardOption
+            <Card.Option
               children='code'
               value={view}
               onClick={() => this.setState({ view: 'code' })}

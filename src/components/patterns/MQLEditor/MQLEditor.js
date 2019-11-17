@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { CodeEditor, Card, Flex, Text } from 'components/elements'
+import { CodeEditor, Card, Flex } from 'components/elements'
 
 import {
   CARD_HEIGHT_DESKTOP,
@@ -66,28 +66,6 @@ await mql('https://twitter.com/microlinkhq', {
 }`
 }
 
-const CardOption = ({ children, value, ...props }) => (
-  <Text
-    color={children === value ? 'black' : 'black60'}
-    fontWeight={children === value ? 'regular' : 'normal'}
-    pt={3}
-    pr={2}
-    fontSize={0}
-    textAlign='right'
-    css={`
-      ${children !== value && 'cursor: pointer;'};
-      transition: color ${({ theme }) => theme.transition.short};
-
-      &:hover {
-        color: ${({ theme }) => theme.colors.black};
-      }
-    `}
-    {...props}
-  >
-    {children}
-  </Text>
-)
-
 export default class extends Component {
   state = { view: 'mql' }
 
@@ -106,12 +84,12 @@ export default class extends Component {
             <CodeEditor language={language}>{CODE[view]}</CodeEditor>
           </Card>
           <Flex justifyContent='flex-end'>
-            <CardOption
+            <Card.Option
               children='mql'
               value={view}
               onClick={() => this.setState({ view: 'mql' })}
             />
-            <CardOption
+            <Card.Option
               children='api'
               value={view}
               onClick={() => this.setState({ view: 'api' })}
