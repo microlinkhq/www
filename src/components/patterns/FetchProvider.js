@@ -1,6 +1,23 @@
+import { LinkSolid, Text, Notification } from 'components/elements'
 import { useQueryState } from 'components/hook'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import mql from '@microlink/mql'
+
+const ErrorMessage = ({ more }) => {
+  const text = 'The URL has something weird.'
+  const children = more ? (
+    <Text as='span'>
+      {text}{' '}
+      <LinkSolid display='inline' color='red8' href={more}>
+        Report it.
+      </LinkSolid>
+    </Text>
+  ) : (
+    <Text as='span'>{text}</Text>
+  )
+
+  return <Notification.Error>{children}</Notification.Error>
+}
 
 export default ({ children }) => {
   const [status, setStatus] = useState('initial')
@@ -39,5 +56,11 @@ export default ({ children }) => {
     if (url) fetchData(url)
   }, [query.url])
 
-  return children({ status, doFetch, data, error, warning })
+  return (
+    <>
+      {error && <ErrorMessage {...error} />}
+      {!error && warning && <Notification.Warning {...warning} />}
+      {children({ status, doFetch, data })}
+    </>
+  )
 }

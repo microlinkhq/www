@@ -1,28 +1,11 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
-import { LinkSolid, Text, Notification } from 'components/elements'
-import { Layout, Searchbox } from 'components/patterns'
+import { Layout, FetchProvider } from 'components/patterns'
 import { Location } from '@reach/router'
 import { screenshotUrl } from 'helpers'
 import React from 'react'
 
 import Examples from 'components/pages/screenshot/examples'
 import Template from 'components/pages/screenshot/template'
-
-const ErrorMessage = ({ more }) => {
-  const text = 'The URL has something weird.'
-  const children = more ? (
-    <Text as='span'>
-      {text}{' '}
-      <LinkSolid display='inline' color='red8' href={more}>
-        Report it.
-      </LinkSolid>
-    </Text>
-  ) : (
-    <Text as='span'>{text}</Text>
-  )
-
-  return <Notification.Error>{children}</Notification.Error>
-}
 
 export default () => {
   const demoLinks = useDemoLinks()
@@ -34,11 +17,9 @@ export default () => {
 
   return (
     <Layout title={title} image={image}>
-      <Searchbox>
-        {({ status, doFetch, data, warning, error }) => (
+      <FetchProvider>
+        {({ status, doFetch, data }) => (
           <>
-            {error && <ErrorMessage {...error} />}
-            {error && warning && <Notification.Warning {...warning} />}
             <Location>
               {({ location }) => {
                 if (location.search !== '' && data && status === 'fetched') {
@@ -57,7 +38,7 @@ export default () => {
             </Location>
           </>
         )}
-      </Searchbox>
+      </FetchProvider>
     </Layout>
   )
 }

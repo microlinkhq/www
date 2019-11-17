@@ -16,7 +16,7 @@ import LiveDemo from './LiveDemo/LiveDemo'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
-import Searchbox from './Searchbox'
+import FetchProvider from './FetchProvider'
 import Toolbar from './Toolbar/Toolbar'
 
 export {
@@ -29,6 +29,7 @@ export {
   CookiesPolicy,
   DemoLinks,
   Faq,
+  FetchProvider,
   Footer,
   Grid,
   Header,
@@ -38,6 +39,5 @@ export {
   Microlink,
   MQLEditor,
   PricingTable,
-  Searchbox,
   Toolbar
 }
