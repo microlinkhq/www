@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.29](https://github.com/microlinkhq/microlink-www/compare/v2.10.28...v2.10.29) (2019-11-18)
+
+
+### Bug Fixes
+
+* avoid unnecessary network calls ([7e6de8f](https://github.com/microlinkhq/microlink-www/commit/7e6de8f))
+* don't titleize domain ([7adaa07](https://github.com/microlinkhq/microlink-www/commit/7adaa07))
+
 ### [2.10.28](https://github.com/microlinkhq/microlink-www/compare/v2.10.27...v2.10.28) (2019-11-15)
 
 ### [2.10.27](https://github.com/microlinkhq/microlink-www/compare/v2.10.26...v2.10.27) (2019-11-14)
