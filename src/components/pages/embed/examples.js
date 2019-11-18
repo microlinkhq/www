@@ -235,9 +235,9 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
                 onClick={() => setView('sdk')}
               />
               <Card.Option
-                children='native'
+                children='iframe'
                 value={view}
-                onClick={() => setView('native')}
+                onClick={() => setView('iframe')}
               />
             </Flex>
           </Flex>
