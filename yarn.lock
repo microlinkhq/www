@@ -1332,25 +1332,25 @@
   resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.8.tgz#ba7f1332701f23f43ec08e2b4b02e3cc491e3a0e"
   integrity sha512-TIh87ATpKLCWmyX3DtaK4m3qFD/WnWOkD8TlScCKp4qYhG7p+T1U0RDwJr8bMvL85V4qZ1nNybZKxwL/bfgXnA==
 
-"@microlink/mql@~0.5.11":
-  version "0.5.11"
-  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.5.11.tgz#ce18756554531837976a2993cdd6934f70f2752b"
-  integrity sha512-HBRn2wu2YMwV4ZSVagpajzxYTUEr+NWLc5evoLnKQTGWlk902EmBgfii51easHzw0dXSiBk0+8qpmufalFVwXg==
+"@microlink/mql@~0.5.12":
+  version "0.5.12"
+  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.5.12.tgz#9cd9c86c5374e206eb5ed9fc7cb1a1f432204080"
+  integrity sha512-H+VDMQ8OqsF9oVznK9V8xRmbZur0PMxpBbaXUl+zPfrWSDHoVSf9rbTVFOrYWaZLYLcBvPYB0yWrKyHDPwexxg==
   dependencies:
     flat "~5.0.0"
     got "~9.6.0"
     is-url-http "~1.2.4"
-    ky "~0.15.0"
+    ky "~0.16.0"
     ky-universal "~0.3.0"
     qss "~2.0.3"
     whoops "~4.0.2"
 
-"@microlink/react@4.4.1":
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-4.4.1.tgz#824373caf441a9f467703bdbff70a47510aa6853"
-  integrity sha512-0J4U5/zctlUA1dR4kyt6If7MNmo6COvb++JfJ3qeW5V3pBNQLAsk2bUM+73OKkrVbuao1oVdFNReyEW73j5INg==
+"@microlink/react@4.4.3":
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-4.4.3.tgz#0e8186f61d23ea9cc31ff78afd0238bd5c6fea58"
+  integrity sha512-eN+uzO2B3L2IYLaXn03BtiPRHPnVdL7zrfyuuTkIk06+xkfGRfGBDupmMNdI4UEmvtR+hqD90BMYhMIYL05N3w==
   dependencies:
-    "@microlink/mql" "~0.5.11"
+    "@microlink/mql" "~0.5.12"
     nanoclamp "~1.2.11"
 
 "@mikaelkristiansson/domready@^1.0.9":
@@ -10885,10 +10885,10 @@ ky-universal@~0.3.0:
     abort-controller "^3.0.0"
     node-fetch "^2.6.0"
 
-ky@~0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.15.0.tgz#bea059d57cc179575adadbba2d8e15610d8fd75b"
-  integrity sha512-6IlJRPFHq4ZKRRa9lyh6YqHqlmddAkfyXI9CYvZpLQtg7fQvwncPHyHrmtXAHKCqHOilINPMT88eW6FTA3HwkA==
+ky@~0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.16.0.tgz#11abdc0048a1b16c0316aa198bdf6b5426d07226"
+  integrity sha512-a3mwZwG7BTKUHfSEwcwT1zcZZy/vW2LarWswSnTkV+mddtKx95PKutIQLn/v6EbZsp4mj0YNHpw5wyjw0PcsIg==
 
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
