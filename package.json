@@ -58,7 +58,7 @@
     "gatsby-plugin-meta-redirect": "~1.1.1",
     "gatsby-plugin-netlify": "~2.1.24",
     "gatsby-plugin-react-helmet": "~3.1.14",
-    "gatsby-plugin-remove-trailing-slashes": "~2.1.13",
+    "gatsby-plugin-remove-trailing-slashes": "~2.1.14",
     "gatsby-plugin-sass": "~2.1.22",
     "gatsby-plugin-sitemap": "~2.2.20",
     "gatsby-plugin-styled-components": "~3.1.12",
