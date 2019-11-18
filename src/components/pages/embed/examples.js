@@ -6,14 +6,15 @@ import {
   ClearbitLogo,
   Container,
   Flex,
+  ImagePlaceholder,
   Input,
   Text
 } from 'components/elements'
 
 import { Header, DemoLinks, Microlink } from 'components/patterns'
+import { borders, transition, colors, toPx } from 'theme'
+import React, { useRef, useEffect, useState } from 'react'
 import { debounceComponent, getDomain } from 'helpers'
-import { borders, transition, colors } from 'theme'
-import React, { useEffect, useState } from 'react'
 import { Link as LinkIcon } from 'react-feather'
 import { findIndex, take } from 'lodash'
 import humanizeUrl from 'humanize-url'
@@ -37,7 +38,43 @@ LogoWrap.defaultProps = {
 }
 
 const MAX_SUGGESTIONS = 5
+
 const MicrolinkDebounce = debounceComponent(Microlink)
+
+const Iframe = styled(Box)`
+  iframe {
+    width: inherit;
+    height: inherit;
+  }
+`
+
+const IframeLoader = ({ lazyWidth, lazyHeight, ...props }) => {
+  const inputEl = useRef(null)
+  const [isLoading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (inputEl.current) {
+      inputEl.current.firstChild.addEventListener('load', () => {
+        setTimeout(() => {
+          setLoading(false)
+        }, 500)
+      })
+    }
+  }, [])
+
+  return (
+    <>
+      {isLoading ? (
+        <ImagePlaceholder width={lazyWidth} height={lazyHeight} />
+      ) : null}
+      <Iframe
+        style={{ display: isLoading ? 'none' : 'inherit' }}
+        ref={inputEl}
+        {...props}
+      />
+    </>
+  )
+}
 
 const SearchBox = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
   const [inputValue, setInputValue] = useState('')
@@ -114,18 +151,28 @@ const SearchBox = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
         <Flex
           flexDirection='column'
           mb={[4, 0]}
-          maxWidth={['380px', '380px', '500px', '500px']}
+          maxWidth={[380, 380, 500, 500].map(toPx)}
           mx='auto'
         >
-          <Box width={['380px', '380px', '500px', '500px']}>
-            <MicrolinkDebounce
-              loading={isLoading}
-              size='large'
-              url={prependHttp(inputValue)}
-              setData={() => data}
-              media={['video', 'image', 'logo']}
+          {view === 'sdk' ? (
+            <Box>
+              <MicrolinkDebounce
+                loading={isLoading}
+                size='large'
+                url={prependHttp(inputValue)}
+                setData={() => data}
+                media={['video', 'image', 'logo']}
+              />
+            </Box>
+          ) : (
+            <IframeLoader
+              lazyWidth={[380, 380, 500, 500].map(toPx)}
+              lazyHeight={[382 * (7 / 9), 382 * (7 / 9), 382, 382].map(toPx)}
+              width={[380, 380, 500, 500].map(toPx)}
+              height={[382 * (7 / 9), 382 * (7 / 9), 382, 382].map(toPx)}
+              dangerouslySetInnerHTML={{ __html: data.iframe }}
             />
-          </Box>
+          )}
           <Flex justifyContent='flex-end'>
             <Card.Option
               children='sdk'
