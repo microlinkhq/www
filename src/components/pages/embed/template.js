@@ -232,7 +232,7 @@ const Sdk = ({ domain, data }) => (
                 children={capitalize(props.size)}
               />
               <Microlink
-                setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
+                setData={() => ({ ...data, logo: data.logo || DEFAULT_LOGO })}
                 {...props}
               />
             </Box>
