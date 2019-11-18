@@ -1,24 +1,26 @@
-import { Link as LinkIcon } from 'react-feather'
 import {
   Box,
   ButtonSecondary,
   Caps,
+  Card,
+  ClearbitLogo,
   Container,
   Flex,
   Input,
-  Text,
-  ClearbitLogo
+  Text
 } from 'components/elements'
 
 import { Header, DemoLinks, Microlink } from 'components/patterns'
+import { debounceComponent, getDomain } from 'helpers'
 import { borders, transition, colors } from 'theme'
-import React, { useState } from 'react'
-import demoLinks from '@microlink/demo-links'
+import React, { useEffect, useState } from 'react'
+import { Link as LinkIcon } from 'react-feather'
+import { findIndex, take } from 'lodash'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import prependHttp from 'prepend-http'
-import { debounceComponent, getDomain } from 'helpers'
 import { navigate } from 'gatsby'
+import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
 
 const LogoWrap = styled(Box)`
@@ -34,17 +36,36 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
+const MAX_SUGGESTIONS = 5
 const MicrolinkDebounce = debounceComponent(Microlink)
 
-const DEMO_LINK_KEYWORD = 'Instagram'
-const DEMO_LINK_URL = demoLinks[DEMO_LINK_KEYWORD].url
-const HUMANIZE_DEMO_LINK = humanizeUrl(DEMO_LINK_URL)
-
-const SearchBox = ({ onSubmit, url, isLoading }) => {
-  const [inputValue, setInputValue] = useState(url || HUMANIZE_DEMO_LINK)
+const SearchBox = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
+  const [inputValue, setInputValue] = useState('')
+  const [data, setData] = useState(demoLink.data)
+  const [view, setView] = useState('sdk')
   const domain = getDomain(inputValue)
 
-  const urlIconComponent =
+  const suggestions = take(demoLinks, MAX_SUGGESTIONS).map(demoLink => ({
+    value: humanizeUrl(demoLink.data.url)
+  }))
+
+  const fetchAndSetData = async url => {
+    try {
+      const { data } = await mql(url, { iframe: true })
+      setData(data)
+    } catch (err) {}
+  }
+
+  useEffect(() => {
+    if (isLoading) return
+    const value = prependHttp(inputValue)
+    if (!isUrl(value)) return
+    const index = findIndex(suggestions, ({ value }) => value === inputValue)
+    if (index !== -1) return setData(demoLinks[index].data)
+    else fetchAndSetData(value)
+  }, [inputValue])
+
+  const IconComponent =
     inputValue && domain ? (
       <ClearbitLogo size='16px' companyName={domain} />
     ) : (
@@ -71,10 +92,10 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
       >
         <Input
           fontSize={2}
-          iconComponent={urlIconComponent}
+          iconComponent={IconComponent}
           id='embed-demo-url'
           placeholder='Enter a URL...'
-          suggestions={[{ value: HUMANIZE_DEMO_LINK }]}
+          suggestions={suggestions}
           value={inputValue}
           onChange={event => setInputValue(event.target.value)}
           width='12rem'
@@ -90,14 +111,29 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
           <Text fontSize={2}>into rich media</Text>
         </Box>
 
-        <MicrolinkDebounce
-          url={
-            isUrl(prependHttp(inputValue))
-              ? prependHttp(inputValue)
-              : DEMO_LINK_URL
-          }
-          media={['video', 'image', 'logo']}
-        />
+        <Flex flexDirection='column' mb={[4, 0]} maxWidth='500px' mx='auto'>
+          <Box width='500px'>
+            <MicrolinkDebounce
+              loading={isLoading}
+              size='large'
+              url={prependHttp(inputValue)}
+              setData={() => data}
+              media={['video', 'image', 'logo']}
+            />
+          </Box>
+          <Flex justifyContent='flex-end'>
+            <Card.Option
+              children='sdk'
+              value={view}
+              onClick={() => setView('sdk')}
+            />
+            <Card.Option
+              children='native'
+              value={view}
+              onClick={() => setView('native')}
+            />
+          </Flex>
+        </Flex>
       </Box>
     </Container>
   )
@@ -126,9 +162,15 @@ const Examples = ({ demoLinks }) => (
   </Container>
 )
 
-export default ({ demoLinks, onSubmit, url, isLoading }) => (
+export default ({ demoLink, demoLinks, onSubmit, url, isLoading }) => (
   <>
-    <SearchBox onSubmit={onSubmit} url={url} isLoading={isLoading} />
+    <SearchBox
+      demoLinks={demoLinks}
+      demoLink={demoLink}
+      onSubmit={onSubmit}
+      url={url}
+      isLoading={isLoading}
+    />
     <Examples demoLinks={demoLinks} />
   </>
 )

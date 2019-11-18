@@ -9,6 +9,8 @@ import Template from 'components/pages/embed/template'
 
 export default () => {
   const demoLinks = useDemoLinks()
+  const demoLink = demoLinks.find(demoLink => demoLink.brand === 'YouTube')
+
   const [query] = useQueryState()
   const title = 'Enter a URL, receive data'
   const image = query.url
@@ -30,6 +32,7 @@ export default () => {
 
                 return (
                   <Examples
+                    demoLink={demoLink}
                     demoLinks={demoLinks}
                     onSubmit={doFetch}
                     url={query.url}
