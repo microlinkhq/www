@@ -108,7 +108,12 @@ const Hero = ({ domain, brand, data }) => {
   const caption = (
     <>
       Turn{' '}
-      <Subhead as='span' color='black' fontWeight='regular'>
+      <Subhead
+        as='span'
+        color='black'
+        fontWeight='regular'
+        titleExclude={domain}
+      >
         {domain}
       </Subhead>{' '}
       links into structured data
@@ -227,7 +232,7 @@ const Sdk = ({ domain, data }) => (
                 children={capitalize(props.size)}
               />
               <Microlink
-                setData={{ ...data, logo: data.logo || DEFAULT_LOGO }}
+                setData={() => ({ ...data, logo: data.logo || DEFAULT_LOGO })}
                 {...props}
               />
             </Box>

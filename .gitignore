@@ -8,5 +8,5 @@ public/
 yarn-error.log
 .env
 .envrc
-static/card/
+static/data/
 data/demo-links.json

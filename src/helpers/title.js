@@ -1,32 +1,21 @@
-import { capitalize } from 'lodash'
+import { concat, capitalize } from 'lodash'
 
 const special = [
-  'API',
   'apiKey',
   'background',
   'browser',
   'cache',
-  'CDN',
-  'CI',
-  'CLI',
   'click',
-  'CSS',
   'deviceScaleFactor',
   'disableAnimations',
-  'DNS',
   'fullPage',
   'GitHub',
   'hasTouch',
   'height',
   'hide',
-  'HTML',
-  'HTTP',
-  'HTTPS',
   'isLandscape',
   'isMobile',
   'JavaScript',
-  'JS',
-  'JSX',
   'Node.js',
   'omitBackground',
   'options',
@@ -34,9 +23,6 @@ const special = [
   'quality',
   'retry',
   'scrollTo',
-  'SDK',
-  'SLA',
-  'I',
   'timeout',
   'type',
   'TypeScript',
@@ -47,13 +33,25 @@ const special = [
   'WordPress'
 ]
 
-export default str => {
+const isUpperCase = str =>
+  str.split('').every(letter => letter === letter.toUpperCase())
+
+export default (str, exclude = []) => {
+  // all minus unless the first world
   let title = capitalize(str)
 
-  special.forEach(word => {
+  // reset some words
+  concat(exclude, special).forEach(word => {
     const re = new RegExp(`\\b(?:${word})\\b`, 'gi')
     if (re.test(str)) title = title.replace(re, word)
   })
+
+  // respect uppercase words
+  title = title.split(' ')
+  str.split(' ').forEach((word, index) => {
+    if (isUpperCase(word)) title[index] = word
+  })
+  title = title.join(' ')
 
   return title
 }

@@ -15,8 +15,9 @@ Subhead.defaultProps = {
   color: 'black'
 }
 
-export default ({ children, ...props }) =>
+export default ({ children, titleExclude, ...props }) =>
   createElement(Subhead, {
-    children: typeof children === 'string' ? title(children) : children,
+    children:
+      typeof children === 'string' ? title(children, titleExclude) : children,
     ...props
   })

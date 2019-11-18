@@ -11,7 +11,7 @@ export default ({ subtitle, title, caption, ...props }) => {
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
-      pb={[3, 4]}
+      pb={3}
       px={0}
       {...props}
     >

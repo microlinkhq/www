@@ -19,7 +19,7 @@ export const fontWeights = {
 
 export const radii = [0, 2, 4, 6, 8, 16].map(toPx)
 
-export const borders = [0, '1px solid', '2px solid']
+export const borders = [0, '1px solid', '2px solid', '2px dashed']
 
 const palette = palx('#449bf8')
 
