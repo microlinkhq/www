@@ -1,22 +1,27 @@
 import { Text, Box, CodeEditor } from 'components/elements'
 import { useLocalStorage } from 'components/hook'
 import styled, { css } from 'styled-components'
-import React from 'react'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'lodash'
-import { borders } from 'theme'
 import { template } from 'helpers'
-import Flex from '../Flex'
+import { borders } from 'theme'
+import React from 'react'
 
 import Select from '../Select/Select'
+import { COLORS } from '../CodeEditor/CodeEditor'
+import Flex from '../Flex'
 
 const LOCALSTORAGE_KEY = 'multi_code_editor'
 
 const actionStyle = css`
   color: #fff;
-  background-color: #24292e;
+  background-color: red;
   border: ${borders[1]} rgba(255, 255, 255, 0.05);
-  background-image: linear-gradient(-180deg, #3b424a 0%, #24292e 90%);
+  background-image: linear-gradient(
+    -180deg,
+    #3b424a 0%,
+    ${COLORS.BACKGROUND} 90%
+  );
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
@@ -103,6 +108,7 @@ const Actions = styled(Flex)`
 `
 
 const CodeEditorWrapper = styled(Box)`
+  background: ${COLORS.BACKGROUND};
   section {
     top: 8px;
     position: relative;
@@ -112,11 +118,15 @@ const CodeEditorWrapper = styled(Box)`
 
 export default ({ languages: codeByLanguage, ...props }) => {
   const editorLanguages = Object.keys(codeByLanguage)
+
   const [editorLanguage, setEditorLanguage] = useLocalStorage(
     LOCALSTORAGE_KEY,
     editorLanguages[0]
   )
-  const codeLanguage = codeByLanguage[editorLanguage]
+
+  const codeLanguage =
+    codeByLanguage[editorLanguage] || codeByLanguage[editorLanguages[0]]
+
   const code = template(
     isFunction(codeLanguage) ? codeLanguage(props) : codeLanguage
   )
