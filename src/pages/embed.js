@@ -12,7 +12,7 @@ export default () => {
   const demoLink = demoLinks.find(demoLink => demoLink.brand === 'YouTube')
 
   const [query] = useQueryState()
-  const title = 'Enter a URL, receive data'
+  const title = 'Universal Embed'
   const image = query.url
     ? screenshotUrl(`https://microlink.io/embed?url=${query.url}`)
     : 'https://cdn.microlink.io/page/embed.png'

@@ -7,6 +7,7 @@ import {
   Container,
   Flex,
   ImagePlaceholder,
+  CodeEditor,
   Input,
   Text
 } from 'components/elements'
@@ -24,6 +25,13 @@ import { navigate } from 'gatsby'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
 
+const MAX_SUGGESTIONS = 5
+
+const MAX_WIDTH_IFRAME = [380, 380, 500, 500].map(toPx)
+const MAX_HEIGHT_IFRAME = [382 * (7 / 9), 382 * (7 / 9), 382, 382].map(toPx)
+
+const MicrolinkDebounce = debounceComponent(Microlink)
+
 const LogoWrap = styled(Box)`
   cursor: pointer;
   opacity: 0.5;
@@ -36,10 +44,6 @@ const LogoWrap = styled(Box)`
 LogoWrap.defaultProps = {
   display: 'inline-block'
 }
-
-const MAX_SUGGESTIONS = 5
-
-const MicrolinkDebounce = debounceComponent(Microlink)
 
 const Iframe = styled(Box)`
   iframe {
@@ -76,7 +80,30 @@ const IframeLoader = ({ lazyWidth, lazyHeight, ...props }) => {
   )
 }
 
-const SearchBox = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
+const Examples = ({ demoLinks }) => (
+  <Container
+    py={[4, 5]}
+    px={4}
+    maxWidth='100%'
+    bg='pinky'
+    borderTop={`${borders[1]} ${colors.pinkest}`}
+    borderBottom={`${borders[1]} ${colors.pinkest}`}
+  >
+    <Header
+      pb={[3, 4]}
+      title='Examples'
+      caption='See real examples in action.'
+    />
+    <Box pt={[3, 4]}>
+      <DemoLinks
+        children={demoLinks}
+        onClick={({ brand }) => navigate(`/embed/${brand.toLowerCase()}`)}
+      />
+    </Box>
+  </Container>
+)
+
+const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
   const [inputValue, setInputValue] = useState('')
   const [data, setData] = useState(demoLink.data)
   const [view, setView] = useState('sdk')
@@ -110,113 +137,119 @@ const SearchBox = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
     )
 
   return (
-    <Container py={[4, 5]} px={4}>
-      <Header
-        subtitle='Enter a URL, receive data'
-        caption='Turn websites into rich media'
-      />
-
-      <Flex
-        pt={2}
-        pb={3}
-        as='form'
-        justifyContent='center'
-        onSubmit={event => {
-          event.preventDefault()
-          const url = prependHttp(inputValue)
-          onSubmit(isUrl(url) ? url : undefined)
-        }}
-      >
-        <Input
-          fontSize={2}
-          iconComponent={IconComponent}
-          id='embed-demo-url'
-          placeholder='Enter a URL...'
-          suggestions={suggestions}
-          value={inputValue}
-          onChange={event => setInputValue(event.target.value)}
-          width='12rem'
+    <>
+      <Container py={[4, 5]} px={4}>
+        <Header
+          subtitle='Universal Embed'
+          caption='Turn websites into rich media'
         />
 
-        <ButtonSecondary ml={2} loading={isLoading}>
-          <Caps fontSize={1} children='Embed it' />
-        </ButtonSecondary>
-      </Flex>
-
-      <Box textAlign='center'>
-        <Box pb={3}>
-          <Text fontSize={2}>into rich media</Text>
-        </Box>
-
         <Flex
-          flexDirection='column'
-          mb={[4, 0]}
-          maxWidth={[380, 380, 500, 500].map(toPx)}
-          mx='auto'
+          pt={2}
+          pb={3}
+          as='form'
+          justifyContent='center'
+          onSubmit={event => {
+            event.preventDefault()
+            const url = prependHttp(inputValue)
+            onSubmit(isUrl(url) ? url : undefined)
+          }}
         >
-          {view === 'sdk' ? (
-            <Box>
-              <MicrolinkDebounce
-                loading={isLoading}
-                size='large'
-                url={prependHttp(inputValue)}
-                setData={() => data}
-                media={['video', 'image', 'logo']}
-              />
-            </Box>
-          ) : (
-            <IframeLoader
-              lazyWidth={[380, 380, 500, 500].map(toPx)}
-              lazyHeight={[382 * (7 / 9), 382 * (7 / 9), 382, 382].map(toPx)}
-              width={[380, 380, 500, 500].map(toPx)}
-              height={[382 * (7 / 9), 382 * (7 / 9), 382, 382].map(toPx)}
-              dangerouslySetInnerHTML={{ __html: data.iframe }}
-            />
-          )}
-          <Flex justifyContent='flex-end'>
-            <Card.Option
-              children='sdk'
-              value={view}
-              onClick={() => setView('sdk')}
-            />
-            <Card.Option
-              children='native'
-              value={view}
-              onClick={() => setView('native')}
-            />
-          </Flex>
+          <Input
+            fontSize={2}
+            iconComponent={IconComponent}
+            id='embed-demo-url'
+            placeholder='Enter a URL...'
+            suggestions={suggestions}
+            value={inputValue}
+            onChange={event => setInputValue(event.target.value)}
+            width='12rem'
+          />
+
+          <ButtonSecondary ml={2} loading={isLoading}>
+            <Caps fontSize={1} children='Embed it' />
+          </ButtonSecondary>
         </Flex>
-      </Box>
-    </Container>
+
+        <Box textAlign='center'>
+          <Box pb={3}>
+            <Text fontSize={2}>into rich media</Text>
+          </Box>
+
+          <Flex
+            flexDirection='column'
+            mb={[4, 0]}
+            maxWidth={MAX_WIDTH_IFRAME}
+            mx='auto'
+          >
+            {view === 'sdk' ? (
+              <Box>
+                <MicrolinkDebounce
+                  loading={isLoading}
+                  size='large'
+                  url={prependHttp(inputValue)}
+                  setData={() => data}
+                  media={['audio', 'video', 'image', 'logo']}
+                />
+                <Flex pt={3} alignItems='center' justifyContent='center'>
+                  <CodeEditor maxWidth={MAX_WIDTH_IFRAME} language='bash'>
+                    {`<Microlink size='large' url=${inputValue ||
+                      demoLink.data
+                        .url} media={['audio', 'video', 'image', 'logo']} />`}
+                  </CodeEditor>
+                </Flex>
+              </Box>
+            ) : data.iframe ? (
+              <>
+                <IframeLoader
+                  lazyWidth={MAX_WIDTH_IFRAME}
+                  lazyHeight={MAX_HEIGHT_IFRAME}
+                  width={MAX_WIDTH_IFRAME}
+                  height={MAX_HEIGHT_IFRAME}
+                  dangerouslySetInnerHTML={{ __html: data.iframe }}
+                />
+                <Flex pt={3} alignItems='center' justifyContent='center'>
+                  <CodeEditor maxWidth={MAX_WIDTH_IFRAME} language='bash'>
+                    {demoLink.data.iframe}
+                  </CodeEditor>
+                </Flex>
+              </>
+            ) : (
+              <Flex
+                border={3}
+                borderColor='black80'
+                justifyContent='center'
+                alignItems='center'
+                width={MAX_WIDTH_IFRAME}
+                height={MAX_HEIGHT_IFRAME}
+              >
+                <Text fontSize={2} color='black'>
+                  not supported
+                </Text>
+              </Flex>
+            )}
+            <Flex justifyContent='flex-end'>
+              <Card.Option
+                children='sdk'
+                value={view}
+                onClick={() => setView('sdk')}
+              />
+              <Card.Option
+                children='native'
+                value={view}
+                onClick={() => setView('native')}
+              />
+            </Flex>
+          </Flex>
+        </Box>
+      </Container>
+    </>
   )
 }
 
-const Examples = ({ demoLinks }) => (
-  <Container
-    py={[4, 5]}
-    px={4}
-    maxWidth='100%'
-    bg='pinky'
-    borderTop={`${borders[1]} ${colors.pinkest}`}
-    borderBottom={`${borders[1]} ${colors.pinkest}`}
-  >
-    <Header
-      pb={[3, 4]}
-      title='Examples'
-      caption='See real examples in action.'
-    />
-    <Box pt={[3, 4]}>
-      <DemoLinks
-        children={demoLinks}
-        onClick={({ brand }) => navigate(`/embed/${brand.toLowerCase()}`)}
-      />
-    </Box>
-  </Container>
-)
-
 export default ({ demoLink, demoLinks, onSubmit, url, isLoading }) => (
   <>
-    <SearchBox
+    <LiveDemo
       demoLinks={demoLinks}
       demoLink={demoLink}
       onSubmit={onSubmit}
