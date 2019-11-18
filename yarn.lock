@@ -8631,10 +8631,10 @@ gatsby-telemetry@^1.1.36:
     stack-utils "1.0.2"
     uuid "3.3.3"
 
-gatsby-transformer-javascript-frontmatter@~2.1.18:
-  version "2.1.18"
-  resolved "https://registry.yarnpkg.com/gatsby-transformer-javascript-frontmatter/-/gatsby-transformer-javascript-frontmatter-2.1.18.tgz#6245d4ca985859cd5349cd46e23d276d2aac12e1"
-  integrity sha512-/3m8GOnjqeguQZMp7owx5Wprc/CsQRxeCZoSHrZQxcyEXuR1zgIM2l4sKnVdc2wXLfX0jKj7nB3ktDcmGLnD3w==
+gatsby-transformer-javascript-frontmatter@~2.1.19:
+  version "2.1.19"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-javascript-frontmatter/-/gatsby-transformer-javascript-frontmatter-2.1.19.tgz#3a07bdfb14ddfc1824f0fb3aa40622262c3dc144"
+  integrity sha512-3XRIkVUrVp90jRfLqixuZBkiI7bzz8MICU8WklL4sYWPfKakOahAllsMlZMeBzXLA6Ax67Vdt6nqaaAFqyXxWA==
   dependencies:
     "@babel/parser" "^7.7.3"
     "@babel/runtime" "^7.7.2"
