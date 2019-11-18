@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Card, Flex } from 'components/elements'
+import { CodeEditor, Card, Flex } from 'components/elements'
 import Preview from './preview'
 
 import {
@@ -9,6 +9,8 @@ import {
   CARD_WIDTH_MOBILE,
   CARD_HEIGHT_MOBILE
 } from './theme'
+
+const { COLORS } = CodeEditor
 
 export default ({ children, loading }) => {
   const [view, setView] = useState('preview')
@@ -23,7 +25,7 @@ export default ({ children, loading }) => {
           width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
           height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
           style={{
-            background: '#282a36',
+            background: isSDK ? '#fff' : COLORS.BACKGROUND,
             padding: 0,
             overflow: isSDK ? 'hidden' : 'auto'
           }}

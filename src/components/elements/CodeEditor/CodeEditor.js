@@ -164,7 +164,7 @@ const TerminalHeader = styled.header`
   border-top-left-radius: 3px;
   display: flex;
   height: 36px;
-  background: #282a36;
+  background: ${COLORS.BACKGROUND};
   align-items: center;
   padding: 1rem;
   position: sticky;
@@ -200,7 +200,7 @@ const TerminalText = styled.section`
   padding-right: 16px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  background: #282a36;
+  background: ${COLORS.BACKGROUND};
   color: #fff;
   display: flex;
   align-items: center;
