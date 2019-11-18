@@ -4,6 +4,7 @@ import Microlink from '@microlink/react'
 import React from 'react'
 
 import { CARD_WIDTH_DESKTOP, CARD_WIDTH_MOBILE } from './theme'
+import { breakpoints } from 'theme'
 
 import { Box, MultiCodeEditor, CodeEditor, Hide } from 'components/elements'
 
@@ -21,6 +22,16 @@ const cardCss = cardWidth => css`
   }
   .microlink_card__content {
     flex: 0 0 105px;
+  }
+
+  @media screen and (max-width: ${breakpoints[0]}) {
+    .microlink_card__media,
+    .microlink_card__media_video_wrapper {
+      flex: 0 0 165px;
+    }
+    .microlink_card__content {
+      flex: 0 0 130px;
+    }
   }
 `
 

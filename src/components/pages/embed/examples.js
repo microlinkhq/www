@@ -111,8 +111,13 @@ const SearchBox = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
           <Text fontSize={2}>into rich media</Text>
         </Box>
 
-        <Flex flexDirection='column' mb={[4, 0]} maxWidth='500px' mx='auto'>
-          <Box width='500px'>
+        <Flex
+          flexDirection='column'
+          mb={[4, 0]}
+          maxWidth={['380px', '380px', '500px', '500px']}
+          mx='auto'
+        >
+          <Box width={['380px', '380px', '500px', '500px']}>
             <MicrolinkDebounce
               loading={isLoading}
               size='large'
