@@ -28,7 +28,7 @@ export default ({ mqlOpts, children }) => {
 
   const fetchData = async (url, opts) => {
     try {
-      setQuery({ url })
+      setQuery({ url, ...opts })
       setError(null)
       setStatus('fetching')
       const { data } = await mql(url, { ...mqlOpts, ...opts })
