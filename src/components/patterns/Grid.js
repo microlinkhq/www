@@ -9,6 +9,7 @@ const Item = ({ title, description, ...props }) => (
     px={[3, 4]}
     style={{ listStyle: 'none' }}
     maxWidth={['100%', '21em']}
+    flex={1}
     {...props}
   >
     <Caps
