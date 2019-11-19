@@ -118,7 +118,7 @@ const Questions = () => {
             fontSize={[2, 3]}
             color='black90'
           >
-            How I get an API key?
+            How do I get an API key?
           </Subhead>
           <Text maxWidth='38em'>
             <Text color='black60'>
@@ -168,7 +168,7 @@ const Questions = () => {
             fontSize={[2, 3]}
             color='black90'
           >
-            How I can know my plan usage?
+            How do I know my plan usage?
           </Subhead>
           <Text maxWidth='38em'>
             <Text color='black60'>
