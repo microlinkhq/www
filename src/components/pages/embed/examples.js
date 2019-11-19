@@ -6,16 +6,16 @@ import {
   ClearbitLogo,
   Container,
   Flex,
-  ImagePlaceholder,
+  IframeInline,
   CodeEditor,
   Input,
   Text
 } from 'components/elements'
 
 import { Header, DemoLinks, Microlink } from 'components/patterns'
-import React, { useRef, useEffect, useState } from 'react'
-import { borders, transition, colors, toPx } from 'theme'
 import { debounceComponent, getDomain } from 'helpers'
+import { borders, transition, colors } from 'theme'
+import React, { useEffect, useState } from 'react'
 import { Link as LinkIcon } from 'react-feather'
 import { findIndex, take } from 'lodash'
 import humanizeUrl from 'humanize-url'
@@ -25,10 +25,8 @@ import { navigate } from 'gatsby'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
 
+const { MAX_WIDTH_IFRAME, MAX_HEIGHT_IFRAME } = IframeInline
 const MAX_SUGGESTIONS = 5
-
-const MAX_WIDTH_IFRAME = [380, 380, 500, 500].map(toPx)
-const MAX_HEIGHT_IFRAME = [382 * (7 / 9), 382 * (7 / 9), 382, 382].map(toPx)
 
 const MicrolinkDebounce = debounceComponent(Microlink)
 
@@ -43,31 +41,6 @@ const LogoWrap = styled(Box)`
 
 LogoWrap.defaultProps = {
   display: 'inline-block'
-}
-
-const IframeLoader = ({ lazyWidth, lazyHeight, ...props }) => {
-  const inputEl = useRef(null)
-  const [isLoading, setLoading] = useState(true)
-  const setLoaded = () => setLoading(false)
-
-  useEffect(() => {
-    if (inputEl.current) {
-      const iframe = inputEl.current.querySelector('iframe')
-      if (iframe) {
-        iframe.addEventListener('load', setLoaded)
-        return () => iframe.removeEventListener('load', setLoaded)
-      }
-    }
-  }, [])
-
-  return (
-    <>
-      {isLoading ? (
-        <ImagePlaceholder width={lazyWidth} height={lazyHeight} />
-      ) : null}
-      <Box style={{ display: isLoading && 'none' }} ref={inputEl} {...props} />
-    </>
-  )
 }
 
 const Examples = ({ demoLinks }) => (
@@ -191,10 +164,7 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
               </Box>
             ) : data.iframe ? (
               <>
-                <IframeLoader
-                  lazyWidth={MAX_WIDTH_IFRAME}
-                  lazyHeight={MAX_HEIGHT_IFRAME}
-                  width={MAX_WIDTH_IFRAME}
+                <IframeInline
                   dangerouslySetInnerHTML={{ __html: data.iframe }}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>

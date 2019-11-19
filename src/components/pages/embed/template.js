@@ -4,7 +4,7 @@ import { borders, colors } from 'theme'
 import { getDomain } from 'helpers'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import { capitalize, get } from 'lodash'
+import { get } from 'lodash'
 import React from 'react'
 
 import {
@@ -229,7 +229,7 @@ const Sdk = ({ domain, data }) => (
                 pb={[4, 3]}
                 textAlign='left'
                 fontSize={[1, 2]}
-                children={capitalize(props.size)}
+                children={props.size}
               />
               <Microlink
                 setData={() => ({ ...data, logo: data.logo || DEFAULT_LOGO })}

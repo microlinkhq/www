@@ -38,6 +38,7 @@ import Label from './Label'
 import Subhead from './Subhead'
 import Text from './Text'
 import Iframe from './Iframe'
+import IframeInline from './IframeInline'
 
 import StripeLoader from './StripeLoader'
 import ClearbitLogo from './ClearbitLogo'
@@ -63,6 +64,7 @@ export {
   Heading,
   Hide,
   Iframe,
+  IframeInline,
   Image,
   ImagePlaceholder,
   Input,
