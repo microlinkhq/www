@@ -13,8 +13,8 @@ import {
 } from 'components/elements'
 
 import { Header, DemoLinks, Microlink } from 'components/patterns'
-import { borders, transition, colors, toPx } from 'theme'
 import React, { useRef, useEffect, useState } from 'react'
+import { borders, transition, colors, toPx } from 'theme'
 import { debounceComponent, getDomain } from 'helpers'
 import { Link as LinkIcon } from 'react-feather'
 import { findIndex, take } from 'lodash'
@@ -45,24 +45,18 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const Iframe = styled(Box)`
-  iframe {
-    width: inherit;
-    height: inherit;
-  }
-`
-
 const IframeLoader = ({ lazyWidth, lazyHeight, ...props }) => {
   const inputEl = useRef(null)
   const [isLoading, setLoading] = useState(true)
+  const setLoaded = () => setLoading(false)
 
   useEffect(() => {
     if (inputEl.current) {
-      inputEl.current.firstChild.addEventListener('load', () => {
-        setTimeout(() => {
-          setLoading(false)
-        }, 500)
-      })
+      const iframe = inputEl.current.querySelector('iframe')
+      if (iframe) {
+        iframe.addEventListener('load', setLoaded)
+        return () => iframe.removeEventListener('load', setLoaded)
+      }
     }
   }, [])
 
@@ -71,11 +65,7 @@ const IframeLoader = ({ lazyWidth, lazyHeight, ...props }) => {
       {isLoading ? (
         <ImagePlaceholder width={lazyWidth} height={lazyHeight} />
       ) : null}
-      <Iframe
-        style={{ display: isLoading ? 'none' : 'inherit' }}
-        ref={inputEl}
-        {...props}
-      />
+      <Box style={{ display: isLoading && 'none' }} ref={inputEl} {...props} />
     </>
   )
 }
@@ -205,7 +195,6 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
                   lazyWidth={MAX_WIDTH_IFRAME}
                   lazyHeight={MAX_HEIGHT_IFRAME}
                   width={MAX_WIDTH_IFRAME}
-                  height={MAX_HEIGHT_IFRAME}
                   dangerouslySetInnerHTML={{ __html: data.iframe }}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
