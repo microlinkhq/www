@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.37](https://github.com/microlinkhq/microlink-www/compare/v2.10.36...v2.10.37) (2019-11-19)
+
+
+### Bug Fixes
+
+* flexbox width space on firefox ([607351b](https://github.com/microlinkhq/microlink-www/commit/607351b))
+
 ### [2.10.36](https://github.com/microlinkhq/microlink-www/compare/v2.10.35...v2.10.36) (2019-11-19)
 
 ### [2.10.35](https://github.com/microlinkhq/microlink-www/compare/v2.10.34...v2.10.35) (2019-11-19)
