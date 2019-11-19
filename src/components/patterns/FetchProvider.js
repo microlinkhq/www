@@ -19,19 +19,19 @@ const ErrorMessage = ({ more }) => {
   return <Notification.Error>{children}</Notification.Error>
 }
 
-export default ({ mql: mqlOpts, children }) => {
+export default ({ mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
   const [error, setError] = useState(null)
   const [warning, setWarning] = useState(null)
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
 
-  const fetchData = async url => {
+  const fetchData = async (url, opts) => {
     try {
       setQuery({ url })
       setError(null)
       setStatus('fetching')
-      const { data } = await mql(url, mqlOpts)
+      const { data } = await mql(url, { ...mqlOpts, ...opts })
       setData(data)
       setStatus('fetched')
     } catch (err) {
@@ -40,9 +40,9 @@ export default ({ mql: mqlOpts, children }) => {
     }
   }
 
-  const doFetch = url => {
+  const doFetch = (url, opts) => {
     setWarning(null)
-    if (url) return fetchData(url)
+    if (url) return fetchData(url, opts)
     setTimeout(
       () => setWarning({ children: 'You need to provide a valid URL.' }),
       0
@@ -50,8 +50,8 @@ export default ({ mql: mqlOpts, children }) => {
   }
 
   useEffect(() => {
-    const { url } = query
-    if (url) fetchData(url)
+    const { url, ...opts } = query
+    if (url) fetchData(url, opts)
   }, [query.url])
 
   return (

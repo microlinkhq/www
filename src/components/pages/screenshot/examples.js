@@ -181,7 +181,8 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    return onSubmit(getValues())
+    const { url, ...opts } = getValues()
+    return onSubmit(url, opts)
   }
 
   return (
