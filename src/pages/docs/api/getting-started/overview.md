@@ -23,7 +23,7 @@ module.exports = async () => {
   }} 
 />
 
-Just you need to provide an URL as input, outputing the structured data back.
+You just need to provide an URL as input, outputting the structured data back.
 
 ```json
 {
@@ -59,7 +59,7 @@ Just you need to provide an URL as input, outputing the structured data back.
 The following documentation is going to teach you how to do things like:
 
 - Get structured data from any link.
-- Take a [screenshot](#screenshot) of the website (partial or full page).
-- Get a predominant color [palette](#palette) per each image detected.
-- Make easy [embed](#embed) content directly in your HTML markup.
-- [prerender](#prerender) mode, useful for getting more information from websites that use client-side frameworks.
+- Take a [screenshot](/docs/api/parameters/screenshot) of the website (partial or full page).
+- Get a predominant color [palette](/docs/api/parameters/palette) per each image detected.
+- Make easy [embed](/docs/api/parameters/embed) content directly in your HTML markup.
+- [prerender](/docs/api/parameters/prerender) mode, useful for getting more information from websites that use client-side frameworks.
