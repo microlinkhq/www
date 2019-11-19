@@ -7,7 +7,7 @@ const Item = ({ title, description, ...props }) => (
     as='li'
     mb={4}
     px={[3, 4]}
-    style={{ listStyle: 'none' }}
+    style={{ flexGrow: 1, flexBasis: 0, listStyle: 'none' }}
     maxWidth={['100%', '21em']}
     {...props}
   >
