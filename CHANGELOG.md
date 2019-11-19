@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.35](https://github.com/microlinkhq/microlink-www/compare/v2.10.34...v2.10.35) (2019-11-19)
+
+
+### Bug Fixes
+
+* ensure to setup opts as part of the query ([19c7b20](https://github.com/microlinkhq/microlink-www/commit/19c7b20))
+
 ### [2.10.34](https://github.com/microlinkhq/microlink-www/compare/v2.10.33...v2.10.34) (2019-11-19)
 
 
