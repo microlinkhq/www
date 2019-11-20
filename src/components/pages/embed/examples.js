@@ -156,9 +156,7 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
                   <CodeEditor maxWidth={MAX_WIDTH_IFRAME} language='bash'>
-                    {`<Microlink size='large' url=${inputValue ||
-                      demoLink.data
-                        .url} media={['audio', 'video', 'image', 'logo']} />`}
+                    {`<Microlink size='large' url='${inputValue || demoLink.data.url}' media={['audio', 'video', 'image', 'logo']} />`}
                   </CodeEditor>
                 </Flex>
               </Box>
