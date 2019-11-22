@@ -10,13 +10,13 @@ Enabling it will return a new `iframe` data field, allowing to insert an embedde
 <MultiCodeEditor languages={{
   Shell: `microlink-api {{DemoLinks.YouTube.url}}&iframe`,
   'Node.js': `const mql = require('@microlink/mql')
-
+ 
 module.exports = async () => {
   const { status, data, response } = await mql(
     '{{DemoLinks.YouTube.url}}', {
       iframe: true
   })
-
+    
   console.log(status, data)
 }
   `
