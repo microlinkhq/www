@@ -44,3 +44,30 @@ When you enable it, a `screenshot` field will be included as part of the Microli
   "status": "success"
 }
 ```
+
+You can complement it with the rest of the API parameters, like [embed](/docs/api/parameters/embed) for inserting the screenshot direcly in your HTML markup: 
+
+```html
+<!-- Meta & SEO Tags  -->
+<meta name="image" content="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
+<meta itemprop="image" content="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
+<meta property="og:image" content="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
+<meta name="twitter:image" content="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
+
+<!-- regular HTML Tags  -->
+<img src="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url" />
+```
+
+or in your CSS stylesheets:
+
+```css
+.screenshot {
+  background-image: url(https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url);
+}
+```
+
+even in markdown:
+
+```md
+![Screenshot](https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url)
+```
