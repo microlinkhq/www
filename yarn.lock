@@ -1345,10 +1345,10 @@
     qss "~2.0.3"
     whoops "~4.0.2"
 
-"@microlink/react@4.4.3":
-  version "4.4.3"
-  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-4.4.3.tgz#0e8186f61d23ea9cc31ff78afd0238bd5c6fea58"
-  integrity sha512-eN+uzO2B3L2IYLaXn03BtiPRHPnVdL7zrfyuuTkIk06+xkfGRfGBDupmMNdI4UEmvtR+hqD90BMYhMIYL05N3w==
+"@microlink/react@4.4.4":
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-4.4.4.tgz#935a5d70fcfd397d75694e8449557b29cf8eee3d"
+  integrity sha512-ydsEDHXuiMlr5Te2PPqy+4NSrpIYyPqI7/PqTJhALekAJSriUmc1t4ca0YfiJ2N4nDoYcbpJ0F+NuFPAuc3JFg==
   dependencies:
     "@microlink/mql" "~0.5.12"
     nanoclamp "~1.2.11"
