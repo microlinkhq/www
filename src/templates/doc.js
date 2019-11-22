@@ -192,6 +192,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/headers'
       },
       {
+        name: 'iframe',
+        href: '/docs/api/parameters/iframe'
+      },
+      {
         name: 'meta',
         href: '/docs/api/parameters/meta'
       },
