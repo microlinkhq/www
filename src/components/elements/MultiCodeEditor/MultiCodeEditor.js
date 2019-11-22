@@ -127,9 +127,7 @@ export default ({ languages: codeByLanguage, ...props }) => {
   const codeLanguage =
     codeByLanguage[editorLanguage] || codeByLanguage[editorLanguages[0]]
 
-  const code = template(
-    isFunction(codeLanguage) ? codeLanguage(props) : codeLanguage
-  )
+  const code = isFunction(codeLanguage) ? codeLanguage(props) : codeLanguage
 
   const ActionComponent = () => (
     <Actions>
