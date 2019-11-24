@@ -2,9 +2,8 @@
 title: 'screenshot'
 --- 
 
-Type: `boolean|string`<br/>
+Type: `boolean`<br/>
 Default: `false`<br/>
-Values: `true|false|{devideName}`
 
 Takes a screenshot of a website, making it possible to embed it directly in your markup and refresh it asynchronously in the background (known as *stale*).
 

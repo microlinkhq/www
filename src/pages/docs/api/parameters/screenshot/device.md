@@ -1,6 +1,8 @@
 ---
-title: 'Device Emulation'
+title: 'device'
 --- 
+
+Type: `string`<br/>
 
 If you provide a compatible device name descriptor, the descriptor device will be used for emulating the viewport before take the screenshot.
 

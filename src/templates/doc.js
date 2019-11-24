@@ -228,16 +228,16 @@ const ROUTES_API = [
             href: '/docs/api/parameters/screenshot/click'
           },
           {
+            name: 'device',
+            href: '/docs/api/parameters/screenshot/device'
+          },
+          {
             name: 'deviceScaleFactor',
             href: '/docs/api/parameters/screenshot/device-scale-factor'
           },
           {
             name: 'disableAnimations',
             href: '/docs/api/parameters/screenshot/disable-animations'
-          },
-          {
-            name: 'emulation',
-            href: '/docs/api/parameters/screenshot/emulation'
           },
           {
             name: 'fullPage',
