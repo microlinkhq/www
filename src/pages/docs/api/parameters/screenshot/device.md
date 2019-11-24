@@ -7,13 +7,14 @@ Type: `string`<br/>
 If you provide a compatible device name descriptor, the descriptor device will be used for emulating the viewport before take the screenshot.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot=ipad`,
+  Shell: `microlink-api https://microlink.io&screenshot&device=ipad`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
     'https://microlink.io'. { 
-      screenshot: 'iPad',
+      screenshot: true,
+      device: 'iPad',
   })
   console.log(status, data)
 }
