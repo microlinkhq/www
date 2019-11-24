@@ -169,8 +169,10 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
     return pickBy({
       url: isUrl(preprendUrl) ? preprendUrl : undefined,
       waitFor: ms(inputWaitFor || '0'),
-      browser: inputOverlay,
-      background: inputBg
+      overlay: {
+        browser: inputOverlay,
+        background: inputBg
+      }
     })
   }
 

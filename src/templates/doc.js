@@ -216,14 +216,6 @@ const ROUTES_API = [
         href: '/docs/api/parameters/screenshot',
         posts: [
           {
-            name: 'background',
-            href: '/docs/api/parameters/screenshot/background'
-          },
-          {
-            name: 'browser',
-            href: '/docs/api/parameters/screenshot/browser'
-          },
-          {
             name: 'click',
             href: '/docs/api/parameters/screenshot/click'
           },
@@ -262,6 +254,10 @@ const ROUTES_API = [
           {
             name: 'isMobile',
             href: '/docs/api/parameters/screenshot/is-mobile'
+          },
+          {
+            name: 'overlay',
+            href: '/docs/api/parameters/screenshot/overlay'
           },
           {
             name: 'scrollTo',

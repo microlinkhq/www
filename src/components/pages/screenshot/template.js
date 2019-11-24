@@ -259,7 +259,7 @@ const Span = styled.span`
 
 const Cli = ({ domain, data }) => {
   const [query] = useQueryState()
-  const browser = query.browser ? `&browser=${query.browser}` : ''
+  const browser = query.browser ? `&overlay.browser=${query.browser}` : ''
   const waitFor = query.waitFor ? `&waitFor=${query.waitFor}` : ''
   const apiUrl = `https://api.microlink.io?url=${
     data.url
