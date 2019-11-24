@@ -2,7 +2,7 @@
 title: 'device'
 --- 
 
-Type: `string`<br/>
+Type: `string`
 
 If you provide a compatible device name descriptor, the descriptor device will be used for emulating the viewport before take the screenshot.
 
