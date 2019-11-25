@@ -3,7 +3,6 @@ import {
   ButtonSecondary,
   Caps,
   Card,
-  ClearbitLogo,
   Container,
   Flex,
   IframeInline,
@@ -17,7 +16,6 @@ import { Header, DemoLinks, Microlink } from 'components/patterns'
 import { debounceComponent, getDomain } from 'helpers'
 import { borders, transition, colors } from 'theme'
 import React, { useEffect, useState } from 'react'
-import { Link as LinkIcon } from 'react-feather'
 import { findIndex, take } from 'lodash'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
