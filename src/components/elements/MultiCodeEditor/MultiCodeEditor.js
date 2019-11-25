@@ -3,7 +3,6 @@ import { useLocalStorage } from 'components/hook'
 import styled, { css } from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'lodash'
-import { template } from 'helpers'
 import { borders } from 'theme'
 import React from 'react'
 

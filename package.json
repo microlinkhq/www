@@ -38,7 +38,7 @@
   ],
   "dependencies": {
     "@microlink/demo-links": "~1.0.8",
-    "@microlink/mql": "~0.5.12",
+    "@microlink/mql": "~0.5.13",
     "@microlink/react": "4.4.4",
     "@styled-system/prop-types": "~5.1.2",
     "@tippy.js/react": "~3.1.1",
@@ -52,12 +52,12 @@
     "exists-file": "~3.0.2",
     "fast-safe-stringify": "~2.0.7",
     "filenamify-url": "~2.1.0",
-    "gatsby": "~2.18.1",
+    "gatsby": "~2.18.3",
     "gatsby-plugin-canonical-urls": "~2.1.15",
     "gatsby-plugin-catch-links": "~2.1.17",
     "gatsby-plugin-google-analytics": "~2.1.28",
     "gatsby-plugin-meta-redirect": "~1.1.1",
-    "gatsby-plugin-netlify": "~2.1.25",
+    "gatsby-plugin-netlify": "~2.1.26",
     "gatsby-plugin-react-helmet": "~3.1.15",
     "gatsby-plugin-remove-trailing-slashes": "~2.1.14",
     "gatsby-plugin-sass": "~2.1.23",
@@ -66,7 +66,7 @@
     "gatsby-redirect-from": "~0.2.1",
     "gatsby-source-filesystem": "~2.1.38",
     "gatsby-transformer-javascript-frontmatter": "~2.1.19",
-    "gatsby-transformer-json": "~2.2.18",
+    "gatsby-transformer-json": "~2.2.19",
     "gatsby-transformer-remark": "~2.6.37",
     "gatsby-transformer-yaml": "~2.2.17",
     "git-jiggy": "~1.1.1",
@@ -176,6 +176,12 @@
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
     ]
   },
   "husky": {

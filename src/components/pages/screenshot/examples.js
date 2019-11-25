@@ -1,4 +1,3 @@
-import { Image as ImageIcon, Link as LinkIcon } from 'react-feather'
 import {
   Flex,
   Input,
@@ -8,25 +7,27 @@ import {
   Container,
   Caps,
   Image,
-  ClearbitLogo
+  InputIcon
 } from 'components/elements'
 
 import {
-  debounceComponent,
   aspectRatio,
   getDomain,
-  screenshotUrl
+  screenshotUrl,
+  debounceComponent
 } from 'helpers'
+
 import { useTransition, animated, config } from 'react-spring'
-import React, { useEffect, useState } from 'react'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
 import { borders, transition, colors } from 'theme'
+import { Image as ImageIcon } from 'react-feather'
+import React, { useEffect, useState } from 'react'
+import { pickBy, noop, isEmpty } from 'lodash'
 import demoLinks from '@microlink/demo-links'
 import prependHttp from 'prepend-http'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
-import { pickBy, noop } from 'lodash'
 import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
 import isColor from 'is-color'
@@ -136,19 +137,12 @@ const DemoSlider = ({ children: slides }) => {
   )
 }
 
-const SearchBox = ({ onSubmit, url, isLoading }) => {
+const LiveDemo = ({ onSubmit, url, isLoading }) => {
   const [inputBg, setInputBg] = useState('')
   const [inputUrl, setInputUrl] = useState(url || '')
   const [inputWaitFor, setInputWaitFor] = useState('')
   const [inputOverlay, setInputOverlay] = useState('')
   const domain = getDomain(inputUrl)
-
-  const urlIconComponent =
-    inputUrl && domain ? (
-      <ClearbitLogo companyName={domain} size='16px' />
-    ) : (
-      <LinkIcon color={colors.black50} size='16px' />
-    )
 
   const backgroundIconComponent = isColor(inputBg) ? (
     <Box
@@ -165,19 +159,17 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
 
   const getValues = () => {
     const preprendUrl = prependHttp(inputUrl)
-
+    const overlay = pickBy({ browser: inputOverlay, background: inputBg })
     return pickBy({
       url: isUrl(preprendUrl) ? preprendUrl : undefined,
       waitFor: ms(inputWaitFor || '0'),
-      overlay: {
-        browser: inputOverlay,
-        background: inputBg
-      }
+      overlay: isEmpty(overlay) ? undefined : overlay
     })
   }
 
   const previewUrl = (() => {
-    const { url, ...opts } = getValues()
+    const values = getValues()
+    const { url, ...opts } = values
     return url ? screenshotUrl(url, opts) : undefined
   })()
 
@@ -207,7 +199,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
         <Box ml={2} mb={[3, 0, 0, 0]}>
           <Input
             fontSize={2}
-            iconComponent={urlIconComponent}
+            iconComponent={<InputIcon value={inputUrl} domain={domain} />}
             id='screenshot-demo-url'
             mr='6px'
             placeholder='Visit URL'
@@ -294,6 +286,7 @@ const SearchBox = ({ onSubmit, url, isLoading }) => {
             width={aspectRatio.widths}
             lazyHeight={aspectRatio.heights}
             lazyWidth={aspectRatio.widths}
+            key={previewUrl}
             src={previewUrl}
           />
         ) : (
@@ -338,7 +331,7 @@ export default ({
   onSubmit
 }) => (
   <>
-    <SearchBox
+    <LiveDemo
       onSubmit={onSubmit}
       url={url}
       refUrl={refUrl}
