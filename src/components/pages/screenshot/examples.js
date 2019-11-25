@@ -286,6 +286,7 @@ const LiveDemo = ({ onSubmit, url, isLoading }) => {
             width={aspectRatio.widths}
             lazyHeight={aspectRatio.heights}
             lazyWidth={aspectRatio.widths}
+            key={previewUrl}
             src={previewUrl}
           />
         ) : (
