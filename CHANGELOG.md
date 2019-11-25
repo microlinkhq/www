@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.52](https://github.com/microlinkhq/microlink-www/compare/v2.10.51...v2.10.52) (2019-11-25)
+
+
+### Bug Fixes
+
+* pass key ([2e1bc38](https://github.com/microlinkhq/microlink-www/commit/2e1bc38))
+* remove dead code ([a162688](https://github.com/microlinkhq/microlink-www/commit/a162688))
+
 ### [2.10.51](https://github.com/microlinkhq/microlink-www/compare/v2.10.50...v2.10.51) (2019-11-25)
 
 ### [2.10.50](https://github.com/microlinkhq/microlink-www/compare/v2.10.49...v2.10.50) (2019-11-24)
