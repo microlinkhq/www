@@ -16,6 +16,7 @@ import Hide from './Hide'
 import Image from './Image/LazyImage'
 import ImagePlaceholder from './Image/ImagePlaceholder'
 import Input from './Input/Input'
+import InputIcon from './Input/InputIcon'
 import Banner from './Banner/Banner'
 import Badge from './Badge/Badge'
 
@@ -68,6 +69,7 @@ export {
   Image,
   ImagePlaceholder,
   Input,
+  InputIcon,
   Label,
   Link,
   LinkSolid,

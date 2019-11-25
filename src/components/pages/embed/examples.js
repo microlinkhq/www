@@ -9,6 +9,7 @@ import {
   IframeInline,
   CodeEditor,
   Input,
+  InputIcon,
   Text
 } from 'components/elements'
 
@@ -92,13 +93,6 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
     else fetchAndSetData(value)
   }, [inputValue])
 
-  const IconComponent =
-    inputValue && domain ? (
-      <ClearbitLogo size='16px' companyName={domain} />
-    ) : (
-      <LinkIcon color={colors.black50} size='16px' />
-    )
-
   return (
     <>
       <Container py={[4, 5]} px={4}>
@@ -120,7 +114,7 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
         >
           <Input
             fontSize={2}
-            iconComponent={IconComponent}
+            iconComponent={<InputIcon value={inputValue} domain={domain} />}
             id='embed-demo-url'
             placeholder='Enter a URL...'
             suggestions={suggestions}
@@ -156,7 +150,9 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
                   <CodeEditor maxWidth={MAX_WIDTH_IFRAME} language='bash'>
-                    {`<Microlink size='large' url='${inputValue || demoLink.data.url}' media={['audio', 'video', 'image', 'logo']} />`}
+                    {`<Microlink size='large' url='${inputValue ||
+                      demoLink.data
+                        .url}' media={['audio', 'video', 'image', 'logo']} />`}
                   </CodeEditor>
                 </Flex>
               </Box>
