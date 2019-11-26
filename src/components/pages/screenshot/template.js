@@ -69,7 +69,7 @@ const Hero = ({ domain, brand, data }) => {
       >
         {domain}
       </Subhead>{' '}
-      links into a screenshot
+      into a screenshot
     </>
   )
 

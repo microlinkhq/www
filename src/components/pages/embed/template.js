@@ -116,7 +116,7 @@ const Hero = ({ domain, brand, data }) => {
       >
         {domain}
       </Subhead>{' '}
-      links into structured data
+      into structured data
     </>
   )
 
