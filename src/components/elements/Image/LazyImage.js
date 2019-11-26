@@ -15,13 +15,16 @@ const LazyImage = ({
 }) => {
   const [isLoaded, setLoaded] = useState(false)
   props.src = template(props.src)
+
   if (!lazy) return createElement(Image, props)
   if (!isNil(loading) ? !loading : isLoaded) return createElement(Image, props)
 
-  const _onLoad = event => {
+  const handleLoad = event => {
     setLoaded(true)
-    setTimeout(onLoad, 0)
+    setTimeout(onLoad, 0, event)
   }
+
+  const handleError = err => console.error('LazyImage:', err.message)
 
   return (
     <ImagePlaceholder
@@ -29,7 +32,12 @@ const LazyImage = ({
       height={isLoaded ? undefined : lazyHeight}
       {...props}
     >
-      <Image {...props} onLoad={_onLoad} style={{ display: 'none' }} />
+      <Image
+        {...props}
+        onLoad={handleLoad}
+        onError={handleError}
+        style={{ display: !isLoaded && 'none' }}
+      />
     </ImagePlaceholder>
   )
 }
