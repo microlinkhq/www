@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.56](https://github.com/microlinkhq/microlink-www/compare/v2.10.55...v2.10.56) (2019-11-26)
+
+
+### Bug Fixes
+
+* avoid lazy logo ([11dd17a](https://github.com/microlinkhq/microlink-www/commit/11dd17a))
+
 ### [2.10.55](https://github.com/microlinkhq/microlink-www/compare/v2.10.54...v2.10.55) (2019-11-26)
 
 ### [2.10.54](https://github.com/microlinkhq/microlink-www/compare/v2.10.53...v2.10.54) (2019-11-25)
