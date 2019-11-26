@@ -2,8 +2,8 @@
 title: 'type'
 ---
 
-Type: `string`<br/>
-Values: `author|date|description|image|title|url|lang|publisher`
+Type: <Type children="<string>"/><br/>
+Values: <TypeContainer><Type children="'author'"/> | <Type children="'date'"/> | <Type children="'description'"/> | <Type children="'image'"/> | <Type children="'title'"/> | <Type children="'url'"/> | <Type children="'lang'"/> | <Type children="'publisher'"/></TypeContainer>
 
 Defines the data shape to use for the extracted value.
 
@@ -38,7 +38,9 @@ const { data } mql(`https://kikobeats.com`, {
 
 If you define a valid `type`, it will validate and alter the original value to strictly accomplish the shape.
 
-In the above case, we have added the `url` type to our `avatar` [data field](/docs/api/getting-started/data-fields), now the service can attach more contextual data.
+In the above case, we have added the <Type children="'url'"/> type to our `avatar` [data field](/docs/api/getting-started/data-fields), now the service can attach more contextual data.
+
+The same thing happens with `image` and [palette](/docs/api/parameters/palette).
 
 ```json{3,10}
 {
@@ -57,9 +59,7 @@ In the above case, we have added the `url` type to our `avatar` [data field](/do
 
 <Figcaption children='Always define the `type` of your data fields when possible.' />
 
-The same thing happens with `image` and [palette](/docs/api/parameters/palette).
-
-Defining the `type` also makes the extraction more accurate.
+Defining the type also makes the extraction more accurate.
 
 ```js{6}
 const mql = require('@microlink/mql')
@@ -73,6 +73,6 @@ const {data } mql(`https://kikobeats.com`, {
 })
 ```
 
-In this case, only a `span` with a valid `Date` will be extracted, omitting the rest of the possibilities.
+In this case, only a <Type children="'span'"/> with a valid <Type children="Date"/> will be extracted, omitting the rest of the possibilities.
 
 If you don't specify a type, then it returns the raw extracted value.

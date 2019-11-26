@@ -2,7 +2,7 @@
 title: 'selector'
 ---
 
-Type: `string|string[]`<br/>
+Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
 Defines the first HTML element you want to get from the HTML of the target [url](/docs/api/parameters/url). It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
@@ -47,9 +47,9 @@ const { data } mql(`https://kikobeats.com`, {
 
 You can specify any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors), like:
 
-- An HTML tag (e.g., `img`).
-- A CSS class or pseudo class, id or data-attribute (e.g., `#avatar`).
-- A combination of both (e.g., `img:first`).
+- An HTML tag (e.g., <Type children="'img'"/>).
+- A CSS class or pseudo class, id or data-attribute (e.g., <Type children="'#avatar'"/>).
+- A combination of both (e.g., <Type children="'img:first'"/>).
 
 If you pass a collection of selectors, they are considered as fallbacks values.
 

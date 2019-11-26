@@ -2,12 +2,10 @@
 title: 'selectorAll'
 ---
 
-Type: `string|string[]`<br/>
+Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
-The collection version of [selector](/docs/mql/data/selector). 
-
-While `selector` returns just the first result, `selectorAll` will give you all results matching the value provided.
+While [selector](/docs/mql/data/selector) returns just the first result, `selectorAll` will give you all results matching the value provided.
 
 It's equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll).
 

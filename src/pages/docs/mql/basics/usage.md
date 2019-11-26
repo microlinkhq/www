@@ -10,13 +10,13 @@ const mql = require('@microlink/mql')
 const { status, data, response } = await mql('https://microlink.io')
 ```
 
-It will return an `object` with the following properties:
+It will return an <Type children='<object>'/> with the following properties:
   
   - `status`: The [status](/docs/api/basics/format#status) associated with the response.
   - `data`: The [data](/docs/api/basics/format#data) response from the API. 
   - `response`: The Node.js response object.
 
-If something does not go as expected (that means API returns a [status](/docs/api/basics/format#status) different to `success`) it will throw a `MicrolinkError`.
+If something does not go as expected (that means API returns a [status](/docs/api/basics/format#status) different to <Type children="'success'"/>) it will throw a <Type children='MicrolinkError'/>.
 
 ```js
 const mql = require('@microlink/mql')
@@ -58,13 +58,13 @@ const { status, data,response } = mql(url, [options])
 
 **Required**<br/>
 
-Type: `string`
+Type: <Type children='<string>'/>
 
 The target URL for getting content.
 
 ### options
 
-Type: `object`<br/>
+Type: <Type children='<object>'/>
 
 You can pass any API Parameters from [Microlink API](/docs/api/getting-started/overview) as an option.
 
@@ -84,15 +84,15 @@ Additionally, you can configure:
 
 #### apiKey
 
-Type: `string`
+Type: <Type children='<string>'/>
 
 The API Key used for [authenticating](/docs/api/basics/authentication) your requests as `x-api-key` header.
 
-When the `apiKey` is provided, the `pro.microlink.io` endpoint will used.
+When the `apiKey` is provided, the [pro.microlink.io](https://pro.microlink.io/) as [endpoint](/docs/api/basics/endpoint) will be used.
 
 #### cache
 
-Type: `object`
+Type: <Type children='<object>'/>
 
 When you pass an object that follows Map API, you can enable serve response from your storage cache in order to save API if they have been previously done.
 
@@ -121,8 +121,8 @@ See [got#cache](https://www.npmjs.com/package/got#cache) to know more.
 
 #### retry
 
-Type: `number`<br/>
-Default: `3`
+Type: <Type children='<number>'/><br/>
+Default: <Type children='3'/>
 
 Defines how many retries can be done before an API call is considered failed.
 
@@ -130,8 +130,8 @@ See [got#retry](https://www.npmjs.com/package/got#retry) to know more.
 
 #### timeout
 
-Type: `number`<br/>
-Default: `30000`
+Type: <Type children='<number>'/><br/>
+Default: <Type children='30000'/>
 
 Defines the maximum milliseconds to wait until an API call is considered failed.
 
