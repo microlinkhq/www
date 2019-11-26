@@ -2,8 +2,8 @@
 title: 'muted'
 --- 
 
-Type: `boolean`<br/>
-Default: `true`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='true'/>
 
 Specifies if the media should be muted.
 

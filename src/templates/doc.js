@@ -224,10 +224,6 @@ const ROUTES_API = [
             href: '/docs/api/parameters/screenshot/device'
           },
           {
-            name: 'deviceScaleFactor',
-            href: '/docs/api/parameters/screenshot/device-scale-factor'
-          },
-          {
             name: 'disableAnimations',
             href: '/docs/api/parameters/screenshot/disable-animations'
           },
@@ -236,24 +232,8 @@ const ROUTES_API = [
             href: '/docs/api/parameters/screenshot/full-page'
           },
           {
-            name: 'hasTouch',
-            href: '/docs/api/parameters/screenshot/has-touch'
-          },
-          {
-            name: 'height',
-            href: '/docs/api/parameters/screenshot/height'
-          },
-          {
             name: 'hide',
             href: '/docs/api/parameters/screenshot/hide'
-          },
-          {
-            name: 'isLandscape',
-            href: '/docs/api/parameters/screenshot/is-landscape'
-          },
-          {
-            name: 'isMobile',
-            href: '/docs/api/parameters/screenshot/is-mobile'
           },
           {
             name: 'overlay',
@@ -268,16 +248,16 @@ const ROUTES_API = [
             href: '/docs/api/parameters/screenshot/type'
           },
           {
+            name: 'viewport',
+            href: '/docs/api/parameters/screenshot/viewport'
+          },
+          {
             name: 'waitFor',
             href: '/docs/api/parameters/screenshot/wait-for'
           },
           {
             name: 'waitUntil',
             href: '/docs/api/parameters/screenshot/wait-until'
-          },
-          {
-            name: 'width',
-            href: '/docs/api/parameters/screenshot/width'
           }
         ]
       },
@@ -400,7 +380,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
             my={4}
             pt={4}
           >
-            <Text color='gray5' fontSize={0}>
+            <Text color='gray' fontSize={0}>
               Last Edited on {formatDate(meta.date)}
             </Text>
             <Link href={githubUrl} fontSize={0}>

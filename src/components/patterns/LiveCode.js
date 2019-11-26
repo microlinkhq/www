@@ -28,7 +28,7 @@ const theme = {
     {
       types: ['comment', 'prolog', 'doctype', 'cdata'],
       style: {
-        color: colors.gray5
+        color: colors.gray
       }
     },
     {

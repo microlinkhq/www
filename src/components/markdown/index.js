@@ -300,6 +300,31 @@ export const Blockquote = styled.blockquote`
   color: ${colors.gray8};
 `
 
+const Type = styled(Text)`
+  padding: 0.2em 0.4em;
+  margin: 0;
+  border-radius: 3px;
+`
+
+Type.defaultProps = {
+  as: 'span',
+  bg: 'gray1',
+  color: 'gray7',
+  fontFamily: 'mono',
+  fontSize: 0,
+  fontWeight: 'regular'
+}
+
+const TypeContainer = styled(Box)`
+  display: inline;
+`
+
+TypeContainer.defaultProps = {
+  fontFamily: 'mono',
+  fontSize: 0,
+  color: 'gray7'
+}
+
 const mdComponents = {
   a: Link,
   blockquote: Blockquote,
@@ -343,6 +368,8 @@ const ScopedComponents = {
   Paraph,
   Strong,
   Terminal,
+  Type,
+  TypeContainer,
   Ul
 }
 

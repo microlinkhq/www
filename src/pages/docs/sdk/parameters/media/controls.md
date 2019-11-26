@@ -2,8 +2,8 @@
 title: 'controls'
 --- 
 
-Type: `boolean`<br/>
-Default: `true`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='true'/>
 
 Display UI controls for the card's media.
 

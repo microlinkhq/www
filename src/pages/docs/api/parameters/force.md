@@ -2,8 +2,8 @@
 title: 'force'
 --- 
 
-Type: `boolean`<br/>
-Default: `false`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='false'/>
 
 Invalidates the cache response associated with the query parameter and generates a fresh copy.
 

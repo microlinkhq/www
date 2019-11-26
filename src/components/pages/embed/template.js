@@ -116,7 +116,7 @@ const Hero = ({ domain, brand, data }) => {
       >
         {domain}
       </Subhead>{' '}
-      links into structured data
+      into structured data
     </>
   )
 
@@ -148,7 +148,7 @@ const Hero = ({ domain, brand, data }) => {
         <Logo.Microlink width={['36px', '72px']} />
         {logoProvider && (
           <Box ml={3} mr={3}>
-            <Plus color={colors.gray5} />
+            <Plus color={colors.gray} />
           </Box>
         )}
 

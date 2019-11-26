@@ -2,8 +2,8 @@
 title: 'audio'
 --- 
 
-Type: `boolean`<br/>
-Default: `false`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='false'/>
 
 Enables audio source detection from the target URL.
 
@@ -29,7 +29,7 @@ The audio source URL detected will be in a browser-friendly format to be possibl
 
 The audio detection introduce some human readable fields as part of the payload:
 
-```json{26, 34}
+```json{26, 33}
 {
   "data": {
     "title": "Format",

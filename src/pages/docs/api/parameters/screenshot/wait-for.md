@@ -2,7 +2,7 @@
 title: 'waitFor'
 --- 
 
-Type: `number|string`<br/>
+Type: <TypeContainer><Type children='<number>'/> | <Type children='<string>'/></TypeContainer>
 
 Wait a quantity of time or selector.
 

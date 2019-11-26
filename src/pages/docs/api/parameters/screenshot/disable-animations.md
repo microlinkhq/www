@@ -2,10 +2,10 @@
 title: 'disableAnimations'
 --- 
 
-Type: `boolean`<br/>
-Default: `true`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='true'/>
 
-When it's `true`, it disabled CSS [animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation) and [transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition).
+When it's <Type children='true'/>, it disabled CSS [animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation) and [transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition).
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&disableAnimations`,

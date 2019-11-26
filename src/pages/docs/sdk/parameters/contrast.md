@@ -2,8 +2,8 @@
 title: 'contrast'
 --- 
 
-Type: `boolean`<br/>
-Default: `false`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='false'/>
 
 When enabled, it will generate a high contrast card based on predominant colors detected in the feature image from the target URL.
 

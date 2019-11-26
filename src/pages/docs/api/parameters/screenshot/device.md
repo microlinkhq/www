@@ -2,9 +2,9 @@
 title: 'device'
 --- 
 
-Type: `string`
+Default: <Type children='<string>'/><br/>
 
-If you provide a compatible device name descriptor, the descriptor device will be used for emulating the viewport before take the screenshot.
+When it is present, a [viewport](/docs/api/parameters/screenshot/viewport) preset will be load for emulating the device before taking the screenshot.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&device=ipad`,
@@ -26,79 +26,77 @@ module.exports = async () => {
 
 The following devices names are supported:
 
-- BlackBerry Z30
-- BlackBerry Z30 landscape
-- Blackberry PlayBook
-- Blackberry PlayBook landscape
-- Galaxy Note 3
-- Galaxy Note 3 landscape
-- Galaxy Note II
-- Galaxy Note II landscape
-- Galaxy S III
-- Galaxy S III landscape
-- Galaxy S5
-- Galaxy S5 landscape
-- Kindle Fire HDX
-- Kindle Fire HDX landscape
-- LG Optimus L70
-- LG Optimus L70 landscape
-- Macbook Pro 13
-- Macbook Pro 13 retina
-- Macbook Pro 15
-- Macbook Pro 15 retina
-- Macbook Pro 16
-- Microsoft Lumia 550
-- Microsoft Lumia 950
-- Microsoft Lumia 950 landscape
-- Nexus 10
-- Nexus 10 landscape
-- Nexus 4
-- Nexus 4 landscape
-- Nexus 5
-- Nexus 5 landscape
-- Nexus 5X
-- Nexus 5X landscape
-- Nexus 6
-- Nexus 6 landscape
-- Nexus 6P
-- Nexus 6P landscape
-- Nexus 7
-- Nexus 7 landscape
-- Nokia Lumia 520
-- Nokia Lumia 520 landscape
-- Nokia N9
-- Nokia N9 landscape
-- Pixel 2
-- Pixel 2 XL
-- Pixel 2 XL landscape
-- Pixel 2 landscape
-- iMac 21
-- iMac 21 4K
-- iMac 27
-- iMac 27 5K
-- iPad
-- iPad Mini
-- iPad Mini landscape
-- iPad Pro
-- iPad Pro landscape
-- iPad landscape
-- iPhone 4
-- iPhone 4 landscape
-- iPhone 5
-- iPhone 5 landscape
-- iPhone 6
-- iPhone 6 Plus
-- iPhone 6 Plus landscape
-- iPhone 6 landscape
-- iPhone 7
-- iPhone 7 Plus
-- iPhone 7 Plus landscape
-- iPhone 7 landscape
-- iPhone 8
-- iPhone 8 Plus
-- iPhone 8 Plus landscape
-- iPhone 8 landscape
-- iPhone SE
-- iPhone SE landscape
-- iPhone X
-- iPhone X landscape
+- <Type children="'BlackBerry Z30'" />
+- <Type children="'BlackBerry Z30 landscape'" />
+- <Type children="'Blackberry PlayBook'" />
+- <Type children="'Blackberry PlayBook landscape'" />
+- <Type children="'Galaxy Note 3'" />
+- <Type children="'Galaxy Note 3 landscape'" />
+- <Type children="'Galaxy Note II'" />
+- <Type children="'Galaxy Note II landscape'" />
+- <Type children="'Galaxy S III'" />
+- <Type children="'Galaxy S III landscape'" />
+- <Type children="'Galaxy S5'" />
+- <Type children="'Galaxy S5 landscape'" />
+- <Type children="'Kindle Fire HDX'" />
+- <Type children="'Kindle Fire HDX landscape'" />
+- <Type children="'LG Optimus L70'" />
+- <Type children="'LG Optimus L70 landscape'" />
+- <Type children="'Macbook Pro 13'" />
+- <Type children="'Macbook Pro 15'" />
+- <Type children="'Macbook Pro 16'" />
+- <Type children="'Microsoft Lumia 550'" />
+- <Type children="'Microsoft Lumia 950'" />
+- <Type children="'Microsoft Lumia 950 landscape'" />
+- <Type children="'Nexus 10'" />
+- <Type children="'Nexus 10 landscape'" />
+- <Type children="'Nexus 4'" />
+- <Type children="'Nexus 4 landscape'" />
+- <Type children="'Nexus 5'" />
+- <Type children="'Nexus 5 landscape'" />
+- <Type children="'Nexus 5X'" />
+- <Type children="'Nexus 5X landscape'" />
+- <Type children="'Nexus 6'" />
+- <Type children="'Nexus 6 landscape'" />
+- <Type children="'Nexus 6P'" />
+- <Type children="'Nexus 6P landscape'" />
+- <Type children="'Nexus 7'" />
+- <Type children="'Nexus 7 landscape'" />
+- <Type children="'Nokia Lumia 520'" />
+- <Type children="'Nokia Lumia 520 landscape'" />
+- <Type children="'Nokia N9'" />
+- <Type children="'Nokia N9 landscape'" />
+- <Type children="'Pixel 2'" />
+- <Type children="'Pixel 2 XL'" />
+- <Type children="'Pixel 2 XL landscape'" />
+- <Type children="'Pixel 2 landscape'" />
+- <Type children="'iMac 21'" />
+- <Type children="'iMac 21 4K'" />
+- <Type children="'iMac 27'" />
+- <Type children="'iMac 27 5K'" />
+- <Type children="'iPad'" />
+- <Type children="'iPad Mini'" />
+- <Type children="'iPad Mini landscape'" />
+- <Type children="'iPad Pro'" />
+- <Type children="'iPad Pro landscape'" />
+- <Type children="'iPad landscape'" />
+- <Type children="'iPhone 4'" />
+- <Type children="'iPhone 4 landscape'" />
+- <Type children="'iPhone 5'" />
+- <Type children="'iPhone 5 landscape'" />
+- <Type children="'iPhone 6'" />
+- <Type children="'iPhone 6 Plus'" />
+- <Type children="'iPhone 6 Plus landscape'" />
+- <Type children="'iPhone 6 landscape'" />
+- <Type children="'iPhone 7'" />
+- <Type children="'iPhone 7 Plus'" />
+- <Type children="'iPhone 7 Plus landscape'" />
+- <Type children="'iPhone 7 landscape'" />
+- <Type children="'iPhone 8'" />
+- <Type children="'iPhone 8 Plus'" />
+- <Type children="'iPhone 8 Plus landscape'" />
+- <Type children="'iPhone 8 landscape'" />
+- <Type children="'iPhone SE'" />
+- <Type children="'iPhone SE landscape'" />
+- <Type children="'iPhone X'" />
+- <Type children="'iPhone X landscape'" />

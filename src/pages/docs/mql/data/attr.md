@@ -2,9 +2,9 @@
 title: attr
 ---
 
-Type: `string|string[]`<br/>
-Default: `html`<br/>
-Values: [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) or `html|val|text`<br/>
+Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
+Default: <Type children="'html'"/><br/>
+Values: <TypeContainer><Type children="'html'"/> | <Type children="'val'"/> | <Type children="'text'"/></TypeContainer> or any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes).
 
 Get the value of an attribute from the matching [selector](/docs/mql/data/selector) that should be picked.
 
@@ -48,11 +48,11 @@ const { data } mql(`https://kikobeats.com`, {
 
 Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) is supported, keeping in mind three special values:
 
-- `text`: Get the combined text contents of the matched selector, including their descendants.
-- `html`: Get the HTML contents of the matched selector.
-- `val`: Get the current value of the matched selector.
+- <Type children="'text'"/>: Get the combined text contents of the matched selector, including their descendants.
+- <Type children="'html'"/>: Get the HTML contents of the matched selector.
+- <Type children="'val'"/>: Get the current value of the matched selector.
 
-If you don't define the attribute, `html` will be used by default.
+If you don't define the attribute, <Type children="'html'"/> will be used by default.
 
 Specifying a collection of attributes is supported as well, being important the position of the attribute since only the first truthy value will be taken.
 
@@ -104,7 +104,7 @@ You can use `attr` for mapping nested structures, being useful for grouping valu
 
 ```js{6,9}
 const mql = require('@microlink/mql')
-const {data } mql(`https://bestcookie.recipe`, {
+const { data } mql(`https://bestcookie.recipe`, {
   data: {
     ingredients: {
       selector: 'li',

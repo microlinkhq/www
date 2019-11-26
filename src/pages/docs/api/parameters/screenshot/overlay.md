@@ -2,14 +2,14 @@
 title: 'overlay'
 --- 
 
-Type: `object`
+Type: <Type children='<object>'/>
 
 It sets some aesthetic overlay settings associated with your screenshot.
 
-![](https://api.microlink.io/?url={{DemoLinks.Apple.url}}&screenshot&meta=false&overlay.browser=dark&embed=screenshot.url&overlay.background=linear-gradient%2843deg%2C+rgb%28247%2C+102%2C+152%29+0%25%2C+rgb%28234%2C+64%2C+123%29+29%25%2C+rgb%28101%2C+78%2C+163%29+100%25%29)
+![](https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fmusic&screenshot=&meta=false&overlay.browser=dark&embed=screenshot.url&overlay.background=linear-gradient(0deg%2C%20%23330867%200%25%2C%20%2330CFD0%20100%25))
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{DemoLinks.Apple.url}}&screenshot&overlay.browser=dark&overlay.background=linear-gradient%2843deg%2C+rgb%28247%2C+102%2C+152%29+0%25%2C+rgb%28234%2C+64%2C+123%29+29%25%2C+rgb%28101%2C+78%2C+163%29+100%25%29`,
+  Shell: `microlink-api {{DemoLinks.Apple.url}}&screenshot&overlay.browser=dark&overlay.background=linear-gradient(0deg%2C%20%23330867%200%25%2C%20%2330CFD0%20100%25`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -17,7 +17,7 @@ module.exports = async () => {
     '{{DemoLinks.Apple.url}}'. { 
       screenshot: true,
       overlay: {
-        background: 'linear-gradient(43deg, rgb(247, 102, 152) 0%, rgb(234, 64, 123) 29%, rgb(101, 78, 163) 100%)'
+        background: 'linear-gradient(0deg, #330867 0%, #30CFD0 100%)'
         browser: 'dark'
       }
   })
@@ -27,10 +27,10 @@ module.exports = async () => {
   }} 
 />
 
-An overlay is specified as `browser` theme, being `light` and `dark` supported.
+An overlay is specified as `browser` theme, being <Type children="'light'"/>` and <Type children="'dark'"/> supported.
 
 Additionally, you can setup a `background` color, where the color can be defined as:
  
-- An hexadecimal/rgb/rgba color code (e.g., `#F76698`).
-- A [CSS gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient) (e.g., `linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)`).
-- An image url (e.g., `https://source.unsplash.com/random/1920x1080`).
+- An hexadecimal/rgb/rgba color code (e.g., <Type children="'#F76698'"/>).
+- A [CSS gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient) (e.g., <Type children="'linear-gradient(0deg, #330867 0%, #30CFD0 100%)'"/>).
+- An image url (e.g., <Type children="'https://source.unsplash.com/random/1920x1080'"/>).

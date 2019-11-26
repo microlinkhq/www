@@ -3,7 +3,7 @@ title: 'headers'
 isPro: true
 --- 
 
-Type: `object`
+Type: <Type children='<object>'/>
 
 You can supply custom HTTP headers that will be passed along when making requests.
 

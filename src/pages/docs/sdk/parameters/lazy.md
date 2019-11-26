@@ -2,10 +2,10 @@
 title: 'lazy'
 ---
 
-Type: `boolean | object`<br/>
-Default: `true`<br/>
+Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
+Default: <Type children='true'/>
 
-When `true`, card content will be loaded lazily under the user's scroll behavior, using [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
+When <Type children='true'/>, card content will be loaded lazily under the user's scroll behavior, using [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

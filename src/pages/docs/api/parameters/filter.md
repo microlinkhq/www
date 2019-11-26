@@ -2,7 +2,7 @@
 title: 'filter'
 --- 
 
-Type: `string`
+Type: <Type children='<string>'/>
 
 A comma-separated list of property paths to pick from response payload.
 

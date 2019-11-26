@@ -2,8 +2,8 @@
 title: 'screenshot'
 --- 
 
-Type: `boolean`<br/>
-Default: `false`<br/>
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='false'/>
 
 Takes a screenshot of a website, making it possible to embed it directly in your markup and refresh it asynchronously in the background (known as *stale*).
 
