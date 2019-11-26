@@ -23,9 +23,12 @@ module.exports = async () => {
   }}
 />
 
-<div style={{marginTop: '16px', marginBottom: '32px', display: 'flex', justifyContent: 'center'}}>
-  <iframe width="480" height="270" src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+<Iframe 
+  width="480px"
+  height="270px" 
+  src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed" 
+  allowFullScreen 
+/>
 
 Any site that implements [oembed](https://oembed.com/) specification is supported.
 

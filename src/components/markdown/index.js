@@ -17,7 +17,8 @@ import {
   Text,
   Link as LinkBase,
   Label,
-  Image as ImageBase
+  Image as ImageBase,
+  Iframe as IframeBase
 } from 'components/elements'
 
 import { Microlink as MicrolinkBase } from 'components/patterns'
@@ -272,6 +273,14 @@ _ImageBase.defaultProps = {
 
 export const Image = withContainer(_ImageBase)
 
+const _IframeBase = styled(IframeBase)``
+
+_IframeBase.defaultProps = {
+  mx: 'auto'
+}
+
+export const Iframe = withContainer(_IframeBase)
+
 const FigcaptionBase = styled(Text)``
 
 FigcaptionBase.defaultProps = {
@@ -292,22 +301,23 @@ export const Blockquote = styled.blockquote`
 `
 
 const mdComponents = {
-  p: Paraph,
-  strong: Strong,
-  ul: Ul,
-  ol: Ol,
-  li: Li,
+  a: Link,
+  blockquote: Blockquote,
+  code: Code,
   h1: H1,
   h2: H2,
   h3: H3,
   h4: H4,
   h5: H5,
   h6: H6,
-  code: Code,
+  iframe: Iframe,
+  img: Image,
   inlineCode: CodeInline,
-  a: Link,
-  blockquote: Blockquote,
-  img: Image
+  li: Li,
+  ol: Ol,
+  p: Paraph,
+  strong: Strong,
+  ul: Ul
 }
 
 const ScopedComponents = {
@@ -322,6 +332,7 @@ const ScopedComponents = {
   H4,
   H5,
   H6,
+  Iframe,
   Image,
   Label,
   Li,
