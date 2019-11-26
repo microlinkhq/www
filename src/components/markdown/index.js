@@ -291,6 +291,21 @@ export const Blockquote = styled.blockquote`
   color: ${colors.gray8};
 `
 
+const Type = styled(Text)`
+  padding: 0.2em 0.2em;
+  margin: 0 2px;
+  border-radius: 3px;
+`
+
+Type.defaultProps = {
+  as: 'span',
+  fontSize: 0,
+  color: 'black80',
+  fontWeight: 'normal',
+  bg: 'gray1',
+  letterSpacing: 2
+}
+
 const mdComponents = {
   p: Paraph,
   strong: Strong,
@@ -332,6 +347,7 @@ const ScopedComponents = {
   Paraph,
   Strong,
   Terminal,
+  Type,
   Ul
 }
 
