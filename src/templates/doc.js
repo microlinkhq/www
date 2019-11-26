@@ -380,7 +380,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
             my={4}
             pt={4}
           >
-            <Text color='gray5' fontSize={0}>
+            <Text color='gray' fontSize={0}>
               Last Edited on {formatDate(meta.date)}
             </Text>
             <Link href={githubUrl} fontSize={0}>

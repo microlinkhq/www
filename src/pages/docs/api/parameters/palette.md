@@ -24,7 +24,7 @@ module.exports = async () => {
 
 The following fields will be added per each image detected in the payload:
 
-- `palette` <Type><string[]></Type>: A collection of hexadecimal colors from most dominant color to least.
-- `background_color` <Type><string></Type>: The best color with good [WCAG contrast ratio](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) that can be used as background color representation of the image.
-- `color` <Type><string></Type>: The best color overlayed over `background_color`.
-- `alternative_color` <Type><string></Type>: It will be the second best color. If there are only two colors parsed, it will default to `color`.
+- `palette` <Type children='<string[]>'/>: A collection of hexadecimal colors from most dominant color to least.
+- `background_color` <Type children='<string>'/>: The best color with good [WCAG contrast ratio](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) that can be used as background color representation of the image.
+- `color` <Type children='<string>'/>: The best color overlayed over `background_color`.
+- `alternative_color` <Type children='<string>'/>: It will be the second best color. If there are only two colors parsed, it will default to `color`.
