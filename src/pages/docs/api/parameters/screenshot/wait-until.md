@@ -3,7 +3,7 @@ title: 'waitUntil'
 --- 
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
-Default: <Type children="['load', 'networkidle2']"/><br/>
+Default: <Type children="'load'"/><br/>
 Values: <TypeContainer><Type children="'load'"/> | <Type children="'domcontentloaded'"/> | <Type children="'networkidle0'"/> | <Type children="'networkidle2'"/></TypeContainer>
 
 Specifies a list of events until considering navigation successful:
