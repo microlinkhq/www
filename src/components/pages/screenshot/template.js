@@ -116,6 +116,7 @@ const Hero = ({ domain, brand, data }) => {
         <HeroHeader title={title} caption={caption} />
         <Link href={data.screenshot.url}>
           <Image
+            lazy={false}
             key={data.screenshot.url}
             lazyHeight={aspectRatio.heights}
             lazyWidth={aspectRatio.widths}
