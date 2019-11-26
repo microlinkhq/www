@@ -2,10 +2,10 @@
 title: 'meta'
 --- 
 
-Type: `boolean`<br/>
-default: `true`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='true'/>
 
-When is `false`, it disabled the metadata extraction behavior.
+When is <Type children='false'/>, it disabled the metadata extraction behavior.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&meta=false`,
@@ -25,7 +25,7 @@ module.exports = async () => {
 
 Doing that you can speed up response timing for those cases you are not interested in consuming the metadata, like [screenshot](/docs/api/parameters/screenshot) or [video](/docs/api/parameters/video).
 
-This will be reflected at `x-fetch-mode` response header whose value should be `skipped`.
+This will be reflected at `x-fetch-mode` response header whose value should be <Type children="'skipped'"/>.
 
 <MultiCodeEditor languages={{
   Shell: `curl -I -s -X GET https://api.microlink.io?url=https://microlink.io&meta=false&screenshot | grep -i "x-fetch-mode"`,

@@ -6,10 +6,10 @@ title: 'Endpoint'
 
 Two endpoints are available:
 
-- **Free** ([api.microlink.io](https://api.microlink.io)): The endpoint to be used for unauthenticated requests.
-- **Pro** ([pro.microlink.io](https://pro.microlink.io)): The endpoint to be used for authenticated requests. It needs a previously register API key.
+- **free** ([api.microlink.io](https://api.microlink.io)): The endpoint to be used for unauthenticated requests.
+- **pro** ([pro.microlink.io](https://pro.microlink.io)): The endpoint to be used for authenticated requests. It needs a previously register API key.
 
-Just you need to call the endpoint with method `GET`, nothing else.
+Just you need to call the endpoint with method **GET**, nothing else.
 
 ```bash
 microlink-api https://instagram.com/p/BeV6tOhFUor&userAgent=Googlebot

@@ -2,7 +2,7 @@
 title: 'data'
 --- 
 
-Type: `object`
+Type: <Type children='<object>'/>
 
 Allows extraction of specific content from the target URL
 

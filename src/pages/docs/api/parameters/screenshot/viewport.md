@@ -2,7 +2,7 @@
 title: 'viewport'
 ---
 
-Type: `object`<br/>
+Type: <Type children='<object>'/>
 
 It establishes a set of properties related with the visible area and device capabilities.
 
@@ -27,11 +27,11 @@ module.exports = async () => {
 
 The viewport can be defined by:
 
-- `width` <Type><number></Type>: The page width in pixels
-- `height` <Type><number></Type>: The page height in pixels.
-- `deviceScaleFactor` <Type><number></Type>: Specify device scale factor. Defaults to <Type>1</Type>.
-- `isMobile` <Type><boolean></Type>: Whether the meta viewport tag is taken into account. Defaults to <Type>false</Type>.
-- `hasTouch` <Type><boolean></Type>: Specifies if viewport supports touch events. Defaults to <Type>false</Type>.
-- `isLandscape` <Type><boolean></Type>: Specifies if viewport is in landscape mode. Defaults to <Type>false</Type>.
+- `width` <Type children='<number>'/>: The page width in pixels
+- `height` <Type children='<number>'/>: The page height in pixels.
+- `deviceScaleFactor` <Type children='<number>'/>: Specify device scale factor. Defaults to <Type>1</Type>.
+- `isMobile` <Type><Type children='<boolean>'/></Type>: Whether the meta viewport tag is taken into account. Defaults to <Type>false</Type>.
+- `hasTouch` <Type><Type children='<boolean>'/></Type>: Specifies if viewport supports touch events. Defaults to <Type>false</Type>.
+- `isLandscape` <Type><Type children='<boolean>'/></Type>: Specifies if viewport is in landscape mode. Defaults to <Type>false</Type>.
 
 See [device](/docs/api/parameters/screenshot/device) for using viewport presets.

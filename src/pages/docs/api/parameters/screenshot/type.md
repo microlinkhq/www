@@ -2,9 +2,9 @@
 title: 'type'
 --- 
 
-Type: `string`<br/>
-Default: `'png'`<br/>
-Values: `'jpeg'|'png'`
+Type: <Type children='<string>'/><br/>
+Default: <Type children="'png'"/><br/>
+Values: <TypeContainer><Type children="'jpeg'"/> | <Type children="'png'"/></TypeContainer>
 
 Specifies the screenshot file type.
 

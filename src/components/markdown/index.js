@@ -292,18 +292,28 @@ export const Blockquote = styled.blockquote`
 `
 
 const Type = styled(Text)`
-  padding: 0.2em 0.2em;
-  margin: 0 2px;
+  padding: 0.2em 0.4em;
+  margin: 0;
   border-radius: 3px;
 `
 
 Type.defaultProps = {
   as: 'span',
-  fontSize: 0,
-  color: 'black80',
-  fontWeight: 'normal',
   bg: 'gray1',
-  letterSpacing: 2
+  color: 'gray7',
+  fontFamily: 'mono',
+  fontSize: 0,
+  fontWeight: 'regular'
+}
+
+const TypeContainer = styled(Box)`
+  display: inline;
+`
+
+TypeContainer.defaultProps = {
+  fontFamily: 'mono',
+  fontSize: 0,
+  color: 'gray7'
 }
 
 const mdComponents = {
@@ -348,6 +358,7 @@ const ScopedComponents = {
   Strong,
   Terminal,
   Type,
+  TypeContainer,
   Ul
 }
 

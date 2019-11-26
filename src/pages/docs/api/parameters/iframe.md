@@ -2,8 +2,8 @@
 title: 'iframe'
 ---
 
-Type: `boolean` <br/>
-Default: `false`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='false'/>
 
 Enabling it will return a new `iframe` data field, allowing to insert an embedded representation of the target URL.
 

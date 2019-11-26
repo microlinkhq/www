@@ -2,8 +2,8 @@
 title: 'video'
 --- 
 
-Type: `boolean`<br/>
-Default: `false`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='false'/>
 
 Enables video source detection from the target URL.
 
@@ -29,7 +29,7 @@ The video source URL detected will be in a browser-friendly format to be possibl
 
 The video detection introduce some human readable fields as part of the payload:
 
-```json{26, 36}
+```json{26, 35}
 {
   "data": {
     "lang": "en",

@@ -3,8 +3,8 @@ title: 'ttl'
 isPro: true
 --- 
 
-Type: `string|number`<br/>
-Default: `1h`<br/> 
+Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
+Default: <Type children="'1h'"/>
 
 Establishes the maximum quantity of time a resource served from cache layer is considered as valid.
 
@@ -24,8 +24,8 @@ module.exports = async () => {
 
 The value provided need to be at least **1 minute** and not higher than **31 days**, being supported the following formats:
 
-- as number in milliseconds (e.g., `86400000`).
-- as humanized representation of the number (e.g., `24h`).
+- as number in milliseconds (e.g., <Type children="86400000"/>).
+- as humanized representation of the number (e.g., <Type children="'24h'"/>).
 
 The following humanized number variations are supported:
 
@@ -38,7 +38,7 @@ https://microlink.io&ttl=1hour   // 3600000
 https://microlink.io&ttl=1hours  // 3600000
 ```
 
-Additionally, we provide `min` and `max` aliases:
+Additionally, we provide <Type children="'min'"/> and <Type children="'max'"/> aliases:
 
 ```
 https://microlink.io&ttl=min     // equivalent to `1m`

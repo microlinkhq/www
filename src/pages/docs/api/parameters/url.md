@@ -4,7 +4,7 @@ title: 'url'
 
 **Required**
 
-Type: `string`
+Type: <Type children='<string>'/>
 
 The target URL for getting information based on the content.
 

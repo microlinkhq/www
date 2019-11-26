@@ -2,8 +2,8 @@
 title: 'palette'
 --- 
 
-Type: `boolean` <br/>
-Default: `false`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='false'/>
 
 Enabling it will return you more information related with color schema of the images detected
 

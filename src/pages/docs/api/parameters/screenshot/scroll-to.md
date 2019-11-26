@@ -2,7 +2,7 @@
 title: 'scrollTo'
 ---
 
-Type: `string`
+Type: <Type children='<string>'/>
 
 Scroll to the DOM element matching the given [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
 
