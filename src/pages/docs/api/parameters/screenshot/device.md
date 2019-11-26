@@ -4,7 +4,7 @@ title: 'device'
 
 Type: `string`
 
-If you provide a compatible device name descriptor, the descriptor device will be used for emulating the viewport before take the screenshot.
+When it is present, a [viewport](/docs/api/parameters/screenshot/viewport) preset will be load for emulating the device before taking the screenshot.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&device=ipad`,
