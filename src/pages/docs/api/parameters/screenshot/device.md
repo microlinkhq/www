@@ -43,9 +43,7 @@ The following devices names are supported:
 - LG Optimus L70
 - LG Optimus L70 landscape
 - Macbook Pro 13
-- Macbook Pro 13 retina
 - Macbook Pro 15
-- Macbook Pro 15 retina
 - Macbook Pro 16
 - Microsoft Lumia 550
 - Microsoft Lumia 950
