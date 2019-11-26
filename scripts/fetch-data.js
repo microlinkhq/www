@@ -19,8 +19,9 @@ const API_MEDIA_PROPS = ['logo', 'screenshot', 'video', 'image']
 
 const getMediaAssetPath = (data, propName) => {
   const propValue = get(data, `${propName}.url`)
+  const type = get(data, `${propName}.type`)
   const dirname = `/data/${filenamifyUrl(data.url)}`
-  const basename = filenamifyUrl(propValue)
+  const basename = filenamifyUrl(type ? `${propValue}.${type}` : propValue)
   const filepath = `${dirname}/${basename}`
   return { dirname, basename, filepath }
 }
