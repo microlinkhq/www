@@ -2,9 +2,9 @@
 title: 'direction'
 --- 
 
-Type: `string`<br/>
-Default: `ltr`<br/>
-Values: `'ltr'|'rtl'`
+Type: <Type children='<string>'/><br/>
+Default: <Type children="'ltr'"/><br/>
+Values: <TypeContainer><Type children="'ltr'"/> | <Type children="'rtl'"/></TypeContainer>
 
 Sets the direction of the card.
 
@@ -33,7 +33,7 @@ export default () => (
 
 <Figcaption children="The default direction is rtl."  />
 
-Alternatively you can set `rlt` that means *right-to-left*
+Alternatively you can set <Type children="'rtl'"/> that means *right-to-left*
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

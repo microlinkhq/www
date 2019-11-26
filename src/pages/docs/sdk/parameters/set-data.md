@@ -2,7 +2,7 @@
 title: 'setData'
 --- 
 
-Type: `object|function`
+Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/></TypeContainer>
 
 Setup the content to be rendered into the card.
 
@@ -32,11 +32,9 @@ export default () => (
 
 <Microlink url='https://instagram.com/p/Bt6EMQhHHIr/' setData={{title: 'SENTRY ACTIVATED' }}/>
 
-When an `object` is passed to `setData`, the custom data provided will be merged with the original data.
+When an <Type children='<object>'/> is passed to `setData`, the custom data provided will be merged with the original data.
 
-If you need a more granular control, you can pass a `function`.
-
-In that case, the `function` receives the data fetched internally as the first argument, and you need to return the data you want to mount.
+If you need a more granular control, you can pass a <Type children='<function>'/>.
 
 ```jsx
 import Microlink from '@microlink/react'
@@ -44,14 +42,25 @@ import Microlink from '@microlink/react'
 export default () => (
   <Microlink
     url='https://instagram.com/p/Bt6EMQhHHIr/'
-    setData={data => ({
-      ...data,
-      title: 'SENTRY ACTIVATED'
-    }})
+    setData={() => ({
+      title: 'SENTRY ACTIVATED',
+      description: 'Are humans worth it?',
+      image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
+      publisher: 'HAL 9000',
+      url: 'http://thehal9000.com'
+    })}
   />
 )
 ```
 
 <Figcaption children='Skip internal fetch providing a function as setData.' />
 
-<Microlink url='https://instagram.com/p/Bt6EMQhHHIr/' setData={{title: 'SENTRY ACTIVATED' }}/>
+In that case, the function should be return all the data necessary to be mounted.
+
+<Microlink url='https://instagram.com/p/Bt6EMQhHHIr/' setData={() => ({
+  title: 'SENTRY ACTIVATED',
+  description: 'Are humans worth it?',
+  image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
+  publisher: 'HAL 9000',
+  url: 'http://thehal9000.com'
+})} />

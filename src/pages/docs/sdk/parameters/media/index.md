@@ -2,9 +2,9 @@
 title: 'media'
 --- 
 
-Type: `string|string[]`<br/>
-Default: `['image', 'logo']`<br/>
-Values: `'audio'|'image'|'logo'|'screenshot'|'video'`
+Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
+Default: <Type children="[ 'image', 'logo' ]"/><br/>
+Values: <TypeContainer><Type children="'audio'"/> | <Type children="'image'"/> | <Type children="'logo'"/> | <Type children="'screenshot'" /> | <Type children="'video'"/></TypeContainer>
 
 Determines the field to use as the media of the card.
 
@@ -32,7 +32,7 @@ The default value is a collection of fields, meaning that the first valid value 
 
 <Microlink url='{{DemoLinks.TED.url}}' />
 
-However, you can pass a single value to be used instead, for example `logo`
+However, you can pass a single value to be used instead, for example <Type children="'logo'"/>
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
@@ -56,7 +56,7 @@ export default () => (
 
 <Microlink url='{{DemoLinks.TED.url}}' media='logo'/>
 
-The detection of `video` is also supported
+The detection of <Type children="'video'"/> is also supported
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
@@ -80,7 +80,7 @@ export default () => (
 
 <Microlink url='{{DemoLinks.Instagram.url}}' media='video'/>
 
-And `audio` too
+And <Type children="'audio'"/> too!
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 

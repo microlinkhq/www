@@ -2,8 +2,8 @@
 title: 'autoPlay'
 ---
 
-Type: `boolean`<br/>
-Default: `true`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='true'/>
 
 Determine if the media will automatically start playing as soon as it can do so without stopping.
 

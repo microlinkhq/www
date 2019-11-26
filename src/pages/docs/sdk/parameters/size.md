@@ -2,9 +2,9 @@
 title: 'size'
 --- 
 
-Type: `string`<br/>
-Default: `normal`<br/>
-Values: `'small'|'normal'|'large'`
+Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>
+Default: <Type children="'normal'"/><br/>
+Values: <TypeContainer><Type children="'small'"/> | <Type children="'normal'"/> | <Type children="'large'"/></TypeContainer>
 
 Determines the size of the card.
 

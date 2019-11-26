@@ -2,8 +2,8 @@
 title: 'loop'
 --- 
 
-Type: `boolean`<br/>
-Default: `true`
+Type: <Type children='<boolean>'/><br/>
+Default: <Type children='true'/>
 
 Specifies if the media will start over again, every time it finishes.
 
