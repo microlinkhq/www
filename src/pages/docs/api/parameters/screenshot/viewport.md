@@ -6,17 +6,22 @@ Type: <Type children='<object>'/>
 
 It establishes a set of properties related with the visible area and device capabilities.
 
+![](https://api.microlink.io/?url={{DemoLinks.Wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile)
+
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&viewport.width=800&viewport.height=600`,
+  Shell: `microlink-api {{DemoLinks.Wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://eosrei.github.io/emojione-color-font/full-demo.html'. { 
+    '{{DemoLinks.Wikipedia.url}}'. {
+      meta: false,
       screenshot: true,
       viewport: {
-        width: 800,
-        height: 600
+        width: 640,
+        height: 400,
+        deviceScaleFactor: 2,
+        isMobile: true
       }
   })
   console.log(status, data)
