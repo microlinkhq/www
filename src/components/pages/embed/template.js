@@ -112,7 +112,7 @@ const Hero = ({ domain, brand, data }) => {
         as='span'
         color='black'
         fontWeight='regular'
-        titleExclude={domain}
+        titleExclude={[domain]}
       >
         {domain}
       </Subhead>{' '}

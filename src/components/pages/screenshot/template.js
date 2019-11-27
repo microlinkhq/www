@@ -65,7 +65,7 @@ const Hero = ({ domain, brand, data }) => {
         as='span'
         color='black'
         fontWeight='regular'
-        titleExclude={domain}
+        titleExclude={[domain]}
       >
         {domain}
       </Subhead>{' '}
@@ -270,9 +270,7 @@ const Cli = ({ domain, data }) => {
   const [query] = useQueryState()
   const browser = query.browser ? `&overlay.browser=${query.browser}` : ''
   const waitFor = query.waitFor ? `&waitFor=${query.waitFor}` : ''
-  const apiUrl = `https://api.microlink.io?url=${
-    data.url
-  }&screenshot${browser}${waitFor}&embed=screenshot.url`
+  const apiUrl = `https://api.microlink.io?url=${data.url}&screenshot${browser}${waitFor}&embed=screenshot.url`
 
   const cliCode = (
     <>
