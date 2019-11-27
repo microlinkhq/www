@@ -246,6 +246,10 @@ const ROUTES_API = [
             href: '/docs/api/parameters/screenshot/disable-animations'
           },
           {
+            name: 'element',
+            href: '/docs/api/parameters/screenshot/element'
+          },
+          {
             name: 'fullPage',
             href: '/docs/api/parameters/screenshot/full-page'
           },
