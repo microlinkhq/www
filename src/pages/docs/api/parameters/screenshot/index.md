@@ -15,7 +15,7 @@ Takes a screenshot of a website, making it possible to embed it directly in your
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    '{{DemoLinks.Netflix.url}}'. { 
+    '{{DemoLinks.Netflix.url}}', { 
       screenshot: true ,
       overlay: {
         background: 'https://source.unsplash.com/random/1920x1080',

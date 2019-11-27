@@ -204,6 +204,24 @@ const ROUTES_API = [
         href: '/docs/api/parameters/palette'
       },
       {
+        name: 'pdf',
+        href: '/docs/api/parameters/pdf',
+        posts: [
+          {
+            name: 'format',
+            href: '/docs/api/parameters/pdf/format'
+          },
+          {
+            name: 'margin',
+            href: '/docs/api/parameters/pdf/margin'
+          },
+          {
+            name: 'scale',
+            href: '/docs/api/parameters/pdf/scale'
+          }
+        ]
+      },
+      {
         name: 'prerender',
         href: '/docs/api/parameters/prerender'
       },
