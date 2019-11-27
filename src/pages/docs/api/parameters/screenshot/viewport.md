@@ -7,12 +7,12 @@ Type: <Type children='<object>'/>
 It establishes a set of properties related with the visible area and device capabilities.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&width=800&height=600`,
+  Shell: `microlink-api https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&viewport.width=800&viewport.height=600`,
   'Node.js': `const mql = require('@microlink/mql')
-
+ 
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://eosrei.github.io/emojione-color-font/full-demo.html'. {
+    'https://eosrei.github.io/emojione-color-font/full-demo.html'. { 
       screenshot: true,
       viewport: {
         width: 800,
@@ -22,7 +22,7 @@ module.exports = async () => {
   console.log(status, data)
 }
   `
-  }}
+  }} 
 />
 
 The viewport can be defined by:
