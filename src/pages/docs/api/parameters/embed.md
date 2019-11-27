@@ -6,7 +6,7 @@ Type: <Type children='<string>'/>
 
 The embed parameter is for embedding a field directly in your HTML markup, using the properly encoding (text, images, etc).
 
-![](https://api.microlink.io/?url=https://news.ycombinator.com&screenshot&meta=false&embed=screenshot.url)
+![]({{DemoLinks.YCombinator.screenshot.url}})
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api {{DemoLinks.YCombinator.url}}&screenshot&embed=screenshot.url`,

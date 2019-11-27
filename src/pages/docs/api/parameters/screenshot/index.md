@@ -7,20 +7,17 @@ Default: <Type children='false'/>
 
 Takes a screenshot of a website, making it possible to embed it directly in your markup and refresh it asynchronously in the background (known as *stale*).
 
-![](https://api.microlink.io/?url={{DemoLinks.Netflix.url}}&screenshot&overlay.browser=dark&embed=screenshot.url&background=https://source.unsplash.com/random/1920x1080&meta=false)
+![]({{DemoLinks.Netflix.screenshot.url}})
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{DemoLinks.Netflix.url}}&screenshot&overlay.browser=dark&embed=screenshot.url&background=https://source.unsplash.com/random/1920x1080`,
+  HTML: `<img src="https://api.microlink.io/?url={{DemoLinks.Netflix.url}}&screenshot&embed=screenshot.url">`,
+  Shell: `microlink-api {{DemoLinks.Netflix.url}}&screenshot`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
     '{{DemoLinks.Netflix.url}}', { 
-      screenshot: true ,
-      overlay: {
-        background: 'https://source.unsplash.com/random/1920x1080',
-        browser: 'dark',
-      }
+      screenshot: true
   })
   console.log(status, data)
 }
@@ -28,7 +25,7 @@ module.exports = async () => {
   }} 
 />
 
-When you enable it, a `screenshot` field will be included as part of the Microlink API response payload.
+When it is enabled, a new `screenshot` data field will be part of the Microlink API response payload.
 
 ```json{3, 10}
 {
@@ -46,7 +43,7 @@ When you enable it, a `screenshot` field will be included as part of the Microli
 }
 ```
 
-You can complement it with the rest of the API parameters, like [embed](/docs/api/parameters/embed) for inserting the screenshot direcly in your HTML markup: 
+You can combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup
 
 ```html
 <!-- Meta & SEO Tags  -->
@@ -59,7 +56,7 @@ You can complement it with the rest of the API parameters, like [embed](/docs/ap
 <img src="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url" />
 ```
 
-or in your CSS stylesheets:
+or inside CSS stylesheets:
 
 ```css
 .screenshot {
@@ -67,7 +64,7 @@ or in your CSS stylesheets:
 }
 ```
 
-even in markdown:
+even in Markdown:
 
 ```md
 ![Screenshot](https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url)
