@@ -1,5 +1,5 @@
 import { useStaticQuery, graphql } from 'gatsby'
-import { map } from 'lodash'
+import map from 'lodash/map'
 
 export const usePrinciples = () => {
   const { allPrinciplesYaml } = useStaticQuery(

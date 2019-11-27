@@ -1,11 +1,14 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import styled, { css } from 'styled-components'
-import { trim, get, identity, range } from 'lodash'
 import { prettier, getLines, template } from 'helpers'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
+import identity from 'lodash/identity'
 import CodeCopy from 'react-codecopy'
 import { colors, fonts } from 'theme'
+import range from 'lodash/range'
+import trim from 'lodash/trim'
+import get from 'lodash/get'
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return

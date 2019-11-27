@@ -16,13 +16,13 @@ import { Header, DemoLinks, Microlink } from 'components/patterns'
 import { debounceComponent, getDomain } from 'helpers'
 import { borders, transition, colors } from 'theme'
 import React, { useEffect, useState } from 'react'
-import { findIndex, take } from 'lodash'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import prependHttp from 'prepend-http'
 import { navigate } from 'gatsby'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
+import take from 'lodash/take'
 
 const { MAX_WIDTH_IFRAME, MAX_HEIGHT_IFRAME } = IframeInline
 const MAX_SUGGESTIONS = 5
@@ -86,7 +86,7 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
     if (isLoading) return
     const value = prependHttp(inputValue)
     if (!isUrl(value)) return
-    const index = findIndex(suggestions, ({ value }) => value === inputValue)
+    const index = suggestions.findIndex(({ value }) => value === inputValue)
     if (index !== -1) return setData(demoLinks[index].data)
     else fetchAndSetData(value)
   }, [inputValue])

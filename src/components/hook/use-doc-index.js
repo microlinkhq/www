@@ -1,5 +1,6 @@
 import { useStaticQuery, graphql } from 'gatsby'
-import { get, chain } from 'lodash'
+import chain from 'lodash/chain'
+import get from 'lodash/get'
 
 export const useDocIndex = () => {
   const { allMarkdownRemark } = useStaticQuery(

@@ -1,4 +1,4 @@
-import { concat, capitalize } from 'lodash'
+import capitalize from 'lodash/capitalize'
 
 const special = [
   'apiKey',
@@ -41,7 +41,7 @@ export default (str, exclude = []) => {
   let title = capitalize(str)
 
   // reset some words
-  concat(exclude, special).forEach(word => {
+  exclude.concat(special).forEach(word => {
     const re = new RegExp(`\\b(?:${word})\\b`, 'gi')
     if (re.test(str)) title = title.replace(re, word)
   })

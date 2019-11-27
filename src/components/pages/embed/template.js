@@ -4,7 +4,7 @@ import { borders, colors } from 'theme'
 import { getDomain } from 'helpers'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import { get } from 'lodash'
+import get from 'lodash/get'
 import React from 'react'
 
 import {

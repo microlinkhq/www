@@ -9,7 +9,7 @@ import {
   BackgroundSliderContainer
 } from 'components/elements'
 import { transition } from 'theme'
-import { range } from 'lodash'
+import range from 'lodash/range'
 import { Microlink } from 'components/logos'
 
 const NoWrap = styled(Flex)`

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { isSSR } from 'helpers'
-import { noop } from 'lodash'
+import noop from 'lodash/noop'
 
 const createUseLocalStorage = storage => (key, initialValue) => {
   // State to store our value

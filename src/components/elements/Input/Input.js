@@ -3,7 +3,8 @@ import { Box, Flex } from 'components/elements'
 import { transition, colors } from 'theme'
 import styled from 'styled-components'
 import { lighten } from 'polished'
-import { get, noop } from 'lodash'
+import noop from 'lodash/noop'
+import get from 'lodash/get'
 
 import Text from '../Text'
 
