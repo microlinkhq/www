@@ -18,7 +18,10 @@ import {
   Link as LinkBase,
   Label,
   Image as ImageBase,
-  Iframe as IframeBase
+  Iframe as IframeBase,
+  ButtonPrimary,
+  ButtonSecondary,
+  ButtonOutline
 } from 'components/elements'
 
 import { Microlink as MicrolinkBase } from 'components/patterns'
@@ -44,16 +47,20 @@ Link.defaultProps = {
   icon: true
 }
 
-const withContainer = (ChildComponent, containerProps = {}) => props => (
+const Container = props => (
   <Box
     maxWidth={['100%', WIDTH.normal]}
     mr='auto'
     ml='auto'
     {...CONTAINER_SPACE}
-    {...containerProps}
-  >
+    {...props}
+  />
+)
+
+const withContainer = (ChildComponent, containerProps = {}) => props => (
+  <Container {...containerProps}>
     <ChildComponent {...props} />
-  </Box>
+  </Container>
 )
 
 export { Label, Link }
@@ -342,13 +349,18 @@ const mdComponents = {
   ol: Ol,
   p: Paraph,
   strong: Strong,
-  ul: Ul
+  ul: Ul,
+  button: ButtonPrimary
 }
 
 const ScopedComponents = {
   Blockquote,
+  ButtonOutline,
+  ButtonPrimary,
+  ButtonSecondary,
   Code,
   CodeInline,
+  Container,
   Figcaption,
   H1,
   H2,
