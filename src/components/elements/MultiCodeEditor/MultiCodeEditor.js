@@ -123,8 +123,14 @@ export default ({ languages: codeByLanguage, ...props }) => {
     editorLanguages[0]
   )
 
-  const codeLanguage =
-    codeByLanguage[editorLanguage] || codeByLanguage[editorLanguages[0]]
+  let codeLanguage = codeByLanguage[editorLanguage]
+
+  // since we are memoizing the latest language used,
+  // need to be reset when the memoized language is missing
+  if (!codeLanguage) {
+    codeLanguage = codeByLanguage[editorLanguages[0]]
+    setEditorLanguage(editorLanguages[0])
+  }
 
   const code = isFunction(codeLanguage) ? codeLanguage(props) : codeLanguage
 
