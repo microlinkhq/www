@@ -1,5 +1,11 @@
-import DemoLinks from '@microlink/demo-links'
 import tpl from 'lodash/template'
+
+import DataDemoLinks from '../../data/demo-links.json'
+
+const DemoLinks = DataDemoLinks.reduce(
+  (acc, { brand, data }) => ({ ...acc, [brand]: data }),
+  {}
+)
 
 const TEMPLATE_INTERPOLATE = /{{([\s\S]+?)}}/g
 
@@ -17,9 +23,16 @@ const template = (str = '') => {
     str = decodeURI(str)
   }
 
-  const compiled = tpl(str, { interpolate: TEMPLATE_INTERPOLATE })({
-    DemoLinks
-  })
+  let compiled
+
+  try {
+    compiled = tpl(str, { interpolate: TEMPLATE_INTERPOLATE })({
+      DemoLinks
+    })
+  } catch (err) {
+    console.error(`${str}:`, err.message)
+    compiled = str
+  }
 
   return isEncoded ? encodeURI(compiled) : compiled
 }
