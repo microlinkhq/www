@@ -216,6 +216,10 @@ const ROUTES_API = [
             href: '/docs/api/parameters/pdf/margin'
           },
           {
+            name: 'media',
+            href: '/docs/api/parameters/pdf/media'
+          },
+          {
             name: 'scale',
             href: '/docs/api/parameters/pdf/scale'
           }
