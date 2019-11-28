@@ -10,7 +10,7 @@ It sets the paper margins.
 <Iframe 
   width="650px"
   height={["216px", "324px", "432px", "432px"]}
-  src="https://api.microlink.io/?url=https://basecamp.com/shapeup/0.3-chapter-01&pdf&embed=pdf.url&margin=4mm&format=A6"
+  src="https://api.microlink.io/?url=https://basecamp.com/shapeup/0.3-chapter-01&pdf&embed=pdf.url&margin=4mm&format=A6&meta=false"
 />
 
 <MultiCodeEditor languages={{
