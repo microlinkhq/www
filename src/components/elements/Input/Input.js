@@ -4,7 +4,7 @@ import { transition, colors } from 'theme'
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import noop from 'lodash/noop'
-import get from 'lodash/get'
+import get from 'dlv'
 
 import Text from '../Text'
 

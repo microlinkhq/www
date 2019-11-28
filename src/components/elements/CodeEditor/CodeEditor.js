@@ -7,8 +7,7 @@ import identity from 'lodash/identity'
 import CodeCopy from 'react-codecopy'
 import { colors, fonts } from 'theme'
 import range from 'lodash/range'
-import trim from 'lodash/trim'
-import get from 'lodash/get'
+import get from 'dlv'
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
@@ -279,7 +278,7 @@ function CodeEditor (props) {
   })()
 
   const pretty = props.prettier ? get(prettier, language, identity) : identity
-  const text = trim(pretty(template(children)))
+  const text = pretty(template(children)).trim()
   const theme = { ...baseTheme, ...langTheme[language] }
   const css = highlightLines && highlighLinesStyle(highlightLines)
 

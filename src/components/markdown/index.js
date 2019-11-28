@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { withSlug } from 'helpers/hoc'
 import Mdx from 'mdx-scoped-runtime'
 import slug from 'remark-slug'
-import get from 'lodash/get'
+import get from 'dlv'
 import React from 'react'
 
 import { aspectRatio } from 'helpers'

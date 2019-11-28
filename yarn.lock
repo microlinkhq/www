@@ -2168,7 +2168,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.8.12", "@types/react@^16.8.6":
+"@types/react@*":
   version "16.9.13"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.13.tgz#b3ea5dd443f4a680599e2abba8cc66f5e1ce0059"
   integrity sha512-LikzRslbiufJYHyzbHSW0GrAiff8QYLMBFeZmSxzCYGXKxi8m/1PHX+rsVOwhr7mJNq+VIu2Dhf7U6mjFERK6w==
@@ -2664,7 +2664,7 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-ansi-styles@^4.1.0:
+ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-4.2.0.tgz#5681f0dcf7ae5880a7841d8831c4724ed9cc0172"
   integrity sha512-7kFQgnEaMdRtwf6uSfUnVr9gSGC7faurn+J/Mv90/W+iTtN0405/nLdopfMWwchyxhbGYl6TC4Sccn9TUkGAgg==
@@ -2955,6 +2955,11 @@ astral-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
   integrity sha512-+Ryf6g3BKoRc7jfp7ad8tM4TtMiaWvbF/1/sQcZPkkS7ag3D5nMBCe2UfOTONtAkaG0tO0ij3C5Lwmf1EiyjHg==
 
+astral-regex@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-2.0.0.tgz#483143c567aeed4785759c0865786dc77d7d2e31"
+  integrity sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==
+
 async-each@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
@@ -3005,12 +3010,10 @@ atob@^2.1.1:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-auto-bind@^2.0.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-2.1.1.tgz#8ae509671ecdfbd5009fc99b0f19ae9c3a2abf50"
-  integrity sha512-NUwV1i9D3vxxY1KnfZgSZ716d6ovY7o8LfOwLhGIPFBowIb6Ln6DBW64+jCqPzUznel2hRSkQnYQqvh7/ldw8A==
-  dependencies:
-    "@types/react" "^16.8.12"
+auto-bind@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-3.0.0.tgz#67773e64899b228f6d2a841709e7e086cfed31a3"
+  integrity sha512-v0A231a/lfOo6kxQtmEkdBfTApvC21aJYukA8pkKnoTvVqh3Wmm7/Rwy4GBCHTTHVoLVA5qsBDDvf1XY1nIV2g==
 
 autoprefixer@^9.4.7, autoprefixer@^9.4.9, autoprefixer@^9.7.2, autoprefixer@~9.7.2:
   version "9.7.2"
@@ -4224,6 +4227,14 @@ chalk@2.4.2, chalk@^2.0, chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.1,
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
+chalk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
+  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 chalk@~0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-0.4.0.tgz#5199a3ddcd0c1efe23bc08c1b027b06176e0c64f"
@@ -4469,14 +4480,6 @@ cli-truncate@^0.2.1:
   dependencies:
     slice-ansi "0.0.4"
     string-width "^1.0.1"
-
-cli-truncate@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/cli-truncate/-/cli-truncate-1.1.0.tgz#2b2dfd83c53cfd3572b87fc4d430a808afb04086"
-  integrity sha512-bAtZo0u82gCfaAGfSNxUdTI9mNyza7D8w4CVCcaOsy7sgwDzvx6ekr6cuWJqY3UGzgnQ1+4wgENup5eIhgxEYA==
-  dependencies:
-    slice-ansi "^1.0.0"
-    string-width "^2.0.0"
 
 cli-truncate@^2.0.0:
   version "2.0.0"
@@ -6117,6 +6120,11 @@ dir-glob@^3.0.1:
   integrity sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==
   dependencies:
     path-type "^4.0.0"
+
+dlv@~1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.3.tgz#5c198a8a11453596e751494d49874bc7732f2e79"
+  integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
 
 dns-equal@^1.0.0:
   version "1.0.0"
@@ -8101,10 +8109,10 @@ gatsby-plugin-canonical-urls@~2.1.16:
   dependencies:
     "@babel/runtime" "^7.7.4"
 
-gatsby-plugin-catch-links@~2.1.18:
-  version "2.1.18"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.1.18.tgz#f6ab4ed148eda3350d0068bb35e423a7e16ce776"
-  integrity sha512-pM80X8MRCeLyelW0Uh9haspW6kNR7QLUFrIaFe+D5BGFDQsDYph3A2S2DQSFch/bjbmzvTnsyilXMXARjbtRGA==
+gatsby-plugin-catch-links@~2.1.19:
+  version "2.1.19"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.1.19.tgz#7f4a1a07679a810a8307fc6136223303019bd089"
+  integrity sha512-jQKEF5dpKWyN5zM8c6mLRRqdy7M+YcuvHvmdP3sKmrvBXrttnXts1Xk2cWMc9E6JkIq9KOZGUpuaTc97x+Za1Q==
   dependencies:
     "@babel/runtime" "^7.7.4"
     escape-string-regexp "^1.0.5"
@@ -8299,10 +8307,10 @@ gatsby-transformer-yaml@~2.2.18:
     lodash "^4.17.15"
     unist-util-select "^1.5.0"
 
-gatsby@~2.18.4:
-  version "2.18.4"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.18.4.tgz#0d359e83e1939df5e9e04af3a3673703900f1913"
-  integrity sha512-1bAglTeIiWFPf8+R37rlgkoiF767welv056KmM0NCvPDfis2pHjrExViM6Bnc8YnzNCOPhamiY8RCxBtawbMFg==
+gatsby@~2.18.5:
+  version "2.18.5"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.18.5.tgz#970e6b550582623fe33d1eab7160037681c00fab"
+  integrity sha512-mUoxulq7ELZ2l5dvU3Vr/Wv/zP6xPha2SRcsScjhNE4YevsmEujOk8l4AbaOPYBT+Ei8zu8wck0spN66v8oAMQ==
   dependencies:
     "@babel/code-frame" "^7.5.5"
     "@babel/core" "^7.7.4"
@@ -9792,28 +9800,27 @@ ink-spinner@^3.0.1:
     prop-types "^15.5.10"
 
 ink@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/ink/-/ink-2.5.0.tgz#66cf988b65ca06d14f00f385eb531fde29f95819"
-  integrity sha512-HUkVglJ11cXK+W1a5cKNoOCxLkDi5hbDMAWSFDcwF2kpNd0eoX+2/cpaTP9BTFaQ8RJk7O59NxKMmyPXkmxo7w==
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/ink/-/ink-2.6.0.tgz#04acefbed32f6ef9ed20512c51ec8b8e09a890c5"
+  integrity sha512-nD/wlSuB6WnFsFB0nUcOJdy28YvvDer3eo+gezjvZqojGA4Rx5sQpacvN//Aai83DRgwrRTyKBl5aciOcfP3zQ==
   dependencies:
-    "@types/react" "^16.8.6"
     ansi-escapes "^4.2.1"
-    arrify "^1.0.1"
-    auto-bind "^2.0.0"
-    chalk "^2.4.1"
-    cli-cursor "^2.1.0"
-    cli-truncate "^1.1.0"
+    arrify "^2.0.1"
+    auto-bind "^3.0.0"
+    chalk "^3.0.0"
+    cli-cursor "^3.1.0"
+    cli-truncate "^2.0.0"
     is-ci "^2.0.0"
     lodash.throttle "^4.1.1"
     log-update "^3.0.0"
     prop-types "^15.6.2"
-    react-reconciler "^0.21.0"
-    scheduler "^0.15.0"
+    react-reconciler "^0.24.0"
+    scheduler "^0.18.0"
     signal-exit "^3.0.2"
-    slice-ansi "^1.0.0"
-    string-length "^2.0.0"
-    widest-line "^2.0.0"
-    wrap-ansi "^5.0.0"
+    slice-ansi "^3.0.0"
+    string-length "^3.1.0"
+    widest-line "^3.1.0"
+    wrap-ansi "^6.2.0"
     yoga-layout-prebuilt "^1.9.3"
 
 inline-style-parser@0.1.1:
@@ -13877,9 +13884,9 @@ postcss-modules-scope@^1.1.0:
     postcss "^6.0.1"
 
 postcss-modules-scope@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/postcss-modules-scope/-/postcss-modules-scope-2.1.0.tgz#ad3f5bf7856114f6fcab901b0502e2a2bc39d4eb"
-  integrity sha512-91Rjps0JnmtUB0cujlc8KIKCsJXWjzuxGeT/+Q2i2HXKZ7nBUeF9YQTZZTNvHVoNYj1AthsjnGLtqDUE0Op79A==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/postcss-modules-scope/-/postcss-modules-scope-2.1.1.tgz#33d4fc946602eb5e9355c4165d68a10727689dba"
+  integrity sha512-OXRUPecnHCg8b9xWvldG/jUpRIGPNRka0r4D4j0ESUU2/5IOnpsjfPPmDprM3Ih8CgZ8FXjWqaniK5v4rWt3oQ==
   dependencies:
     postcss "^7.0.6"
     postcss-selector-parser "^6.0.0"
@@ -14863,15 +14870,15 @@ react-popper@^1.3.4:
     typed-styles "^0.0.7"
     warning "^4.0.2"
 
-react-reconciler@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.21.0.tgz#8180342ab3c8295f860025a86d0a03742a294ea7"
-  integrity sha512-h4Rl3L3O6G9V4Ff+F+tCXX8ElDVn0Psk/odT+NPWeA55Yk5G7+kHT8D+Q3yE+51C72LbrYcX6OfLmCZ/7Nx9cw==
+react-reconciler@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.24.0.tgz#5a396b2c2f5efe8554134a5935f49f546723f2dd"
+  integrity sha512-gAGnwWkf+NOTig9oOowqid9O0HjTDC+XVGBCAmJYYJ2A2cN/O4gDdIuuUQjv8A4v6GDwVfJkagpBBLW5OW9HSw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.15.0"
+    scheduler "^0.18.0"
 
 react-redux@^7.0.2:
   version "7.1.3"
@@ -15828,14 +15835,6 @@ sax@^1.2.4, sax@~1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-scheduler@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
-  integrity sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-
 scheduler@^0.18.0:
   version "0.18.0"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.18.0.tgz#5901ad6659bc1d8f3fdaf36eb7a67b0d6746b1c4"
@@ -16223,13 +16222,6 @@ slice-ansi@0.0.4:
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
   integrity sha1-7b+JA/ZvfOL46v1s7tZeJkyDGzU=
 
-slice-ansi@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-1.0.0.tgz#044f1a49d8842ff307aad6b505ed178bd950134d"
-  integrity sha512-POqxBK6Lb3q6s047D/XsDVNPnF9Dl8JSaqe9h9lURl0OdNqy/ujDrOiIHtsqXMGbWWTIomRzAMaTyawAU//Reg==
-  dependencies:
-    is-fullwidth-code-point "^2.0.0"
-
 slice-ansi@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-2.1.0.tgz#cacd7693461a637a5788d92a7dd4fba068e81636"
@@ -16238,6 +16230,15 @@ slice-ansi@^2.1.0:
     ansi-styles "^3.2.0"
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
+
+slice-ansi@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-3.0.0.tgz#31ddc10930a1b7e0b67b08c96c2f49b77a789787"
+  integrity sha512-pSyv7bSTC7ig9Dcgbw9AuRNUb5k5V6oDudjZoMBSr13qpLBG7tB+zgCkARjq7xIUgdz5P1Qe8u+rSGdouOOIyQ==
+  dependencies:
+    ansi-styles "^4.0.0"
+    astral-regex "^2.0.0"
+    is-fullwidth-code-point "^3.0.0"
 
 sliced@~1.0.1:
   version "1.0.1"
@@ -16800,13 +16801,13 @@ string-argv@^0.3.0:
   resolved "https://registry.yarnpkg.com/string-argv/-/string-argv-0.3.1.tgz#95e2fbec0427ae19184935f816d74aaa4c5c19da"
   integrity sha512-a1uQGz7IyVy9YwhqjZIZu1c8JO8dNIe20xBmSS6qu9kv++k3JGzCVmprbNN5Kn+BgzD5E7YYwg1CcjuJMRNsvg==
 
-string-length@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/string-length/-/string-length-2.0.0.tgz#d40dbb686a3ace960c1cffca562bf2c45f8363ed"
-  integrity sha1-1A27aGo6zpYMHP/KVivyxF+DY+0=
+string-length@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/string-length/-/string-length-3.1.0.tgz#107ef8c23456e187a8abd4a61162ff4ac6e25837"
+  integrity sha512-Ttp5YvkGm5v9Ijagtaz1BnN+k9ObpvS0eIBblPMp2YWL8FBmi9qblQ9fexc2k/CXFgrTIteU3jAw3payCnwSTA==
   dependencies:
     astral-regex "^1.0.0"
-    strip-ansi "^4.0.0"
+    strip-ansi "^5.2.0"
 
 string-similarity@^1.2.2:
   version "1.2.2"
@@ -17173,7 +17174,7 @@ supports-color@^6.1.0:
   dependencies:
     has-flag "^3.0.0"
 
-supports-color@^7.0.0:
+supports-color@^7.0.0, supports-color@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-7.1.0.tgz#68e32591df73e25ad1c4b49108a2ec507962bfd1"
   integrity sha512-oRSIpR8pxT1Wr2FquTNnGet79b3BWljqOuoW/h4oBhxJ/HUbX5nX6JSruTkvXDCFMwDPvsaTTbvMLKZWSy0R5g==
@@ -18590,6 +18591,15 @@ wrap-ansi@^5.0.0, wrap-ansi@^5.1.0:
     ansi-styles "^3.2.0"
     string-width "^3.0.0"
     strip-ansi "^5.0.0"
+
+wrap-ansi@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
+  integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
 
 wrappy@1:
   version "1.0.2"
