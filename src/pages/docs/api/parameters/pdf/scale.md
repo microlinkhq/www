@@ -20,7 +20,7 @@ It sets the scale of the webpage rendering.
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'http://www.antirez.com/news/128', { 
+    'https://varnish-cache.org/docs/6.2/phk/thatslow.html', { 
       pdf: true,
       scale: 1
   })

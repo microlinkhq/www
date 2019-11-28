@@ -18,10 +18,10 @@ Changes the CSS media type of the page.
   HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&embed=pdf.url&media=screen"></iframe>`,
   Shell: `microlink-api https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&media=screen`,
   'Node.js': `const mql = require('@microlink/mql')
-
+ 
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'http://www.antirez.com/news/128', { 
+    'https://blog.alexmaccaw.com/advice-to-my-younger-self', { 
       pdf: true,
       media: 'screen'
   })
