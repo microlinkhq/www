@@ -5,7 +5,7 @@ title: 'pdf'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-Generates a PDF version of the target website.
+Generates a PDF of the target website.
 
 <Iframe 
   width="650px"
