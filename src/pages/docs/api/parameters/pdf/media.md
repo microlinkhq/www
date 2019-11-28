@@ -21,12 +21,12 @@ Changes the CSS media type of the page.
 
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'http://www.antirez.com/news/128', {
+    'http://www.antirez.com/news/128', { 
       pdf: true,
       media: 'screen'
   })
   console.log(status, data)
 }
   `
-  }}
+  }} 
 />
