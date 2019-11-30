@@ -222,6 +222,10 @@ const ROUTES_API = [
           {
             name: 'scale',
             href: '/docs/api/parameters/pdf/scale'
+          },
+          {
+            name: 'waitUntil',
+            href: '/docs/api/parameters/pdf/wait-until'
           }
         ]
       },
