@@ -7,7 +7,6 @@ const special = [
   'cache',
   'click',
   'deviceScaleFactor',
-  'disableAnimations',
   'fullPage',
   'GitHub',
   'hasTouch',

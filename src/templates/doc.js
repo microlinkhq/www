@@ -250,10 +250,6 @@ const ROUTES_API = [
             href: '/docs/api/parameters/screenshot/device'
           },
           {
-            name: 'disableAnimations',
-            href: '/docs/api/parameters/screenshot/disable-animations'
-          },
-          {
             name: 'element',
             href: '/docs/api/parameters/screenshot/element'
           },
