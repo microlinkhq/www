@@ -33,24 +33,29 @@ import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
 import isColor from 'is-color'
 import noop from 'lodash/noop'
+import get from 'dlv'
 
 import ms from 'ms'
 
 const DEMO_LINKS = [
-  { theme: 'dark', keyword: 'Netflix' },
   { theme: 'dark', keyword: 'Apple' },
-  { theme: 'light', keyword: 'Change' },
   { theme: 'light', keyword: 'MDN' },
-  { theme: 'light', keyword: 'TheVerge' },
-  { theme: 'dark', keyword: 'Time' },
-  { theme: 'light', keyword: 'TechCrunch' }
+  { theme: 'light', keyword: 'StackOverflow' },
+  { theme: 'light', keyword: 'ProductHunt' },
+  { theme: 'dark', keyword: 'Nasa' }
 ].map(item => {
+  const { url } = demoLinks[item.keyword]
+  const humanizedUrl = humanizeUrl(url)
+  const id = item.keyword.toLowerCase()
+  const filename = `${id}.png`
+
   return {
     ...item,
-    humanizedUrl: humanizeUrl(demoLinks[item.keyword].url),
-    cdnUrl: `https://cdn.microlink.io/website/browser/${
-      item.theme
-    }/${item.keyword.toLowerCase()}.png`
+    id,
+    filename,
+    url: `https://${humanizedUrl}`,
+    humanizedUrl,
+    cdnUrl: `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
   }
 })
 
@@ -172,7 +177,23 @@ const LiveDemo = ({ onSubmit, url, isLoading }) => {
   const previewUrl = (() => {
     const values = getValues()
     const { url, ...opts } = values
-    return url ? screenshotUrl(url, opts) : undefined
+
+    if (!url) return undefined
+
+    const item = DEMO_LINKS.find(link => link.url === url)
+
+    if (item && !get(opts, 'overlay.background')) {
+      const theme = get(opts, 'overlay.browser')
+      const filename = item.filename
+      const baseUrl = 'https://cdn.microlink.io/website/'
+      return theme
+        ? `${baseUrl}/browser/${theme}/${filename}`
+        : `${baseUrl}/${filename}`
+    }
+
+    return url
+      ? screenshotUrl(url, { ...opts, waitUntil: 'networkidle2' })
+      : undefined
   })()
 
   const handleSubmit = event => {
