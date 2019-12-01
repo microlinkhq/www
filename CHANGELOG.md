@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.79](https://github.com/microlinkhq/microlink-www/compare/v2.10.78...v2.10.79) (2019-12-01)
+
+
+### Bug Fixes
+
+* export colors ([1a26910](https://github.com/microlinkhq/microlink-www/commit/1a26910))
+
 ### [2.10.78](https://github.com/microlinkhq/microlink-www/compare/v2.10.77...v2.10.78) (2019-11-30)
 
 ### [2.10.77](https://github.com/microlinkhq/microlink-www/compare/v2.10.76...v2.10.77) (2019-11-30)
