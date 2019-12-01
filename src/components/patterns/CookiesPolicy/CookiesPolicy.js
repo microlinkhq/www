@@ -1,12 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
 import { X } from 'react-feather'
-
 import { useLocalStorage } from 'components/hook'
 import { Flex, Text, Box, Link } from 'components/elements'
-import { colors } from 'theme'
+import styled, { keyframes } from 'styled-components'
+import { transition, colors } from 'theme'
 
 const LOCALSTORAGE_KEY = 'cookie_policy'
+
+const animationHide = keyframes`
+to {
+  opacity: 0;
+  transform: translateY(100%);
+}
+`
 
 const CookiesWrapper = styled(Box)`
   position: fixed;
@@ -15,44 +21,60 @@ const CookiesWrapper = styled(Box)`
   justify-content: center;
   width: 100%;
   z-index: 2;
+
+  will-change: transform;
+
+  &[aria-hidden='true'] {
+    animation: ${animationHide} ${transition.medium} forwards 1;
+  }
 `
 
 const CloseButton = styled(Box)`
   display: inline-flex;
   position: relative;
   cursor: pointer;
-  transition: all 0.15s ease;
-  color: ${colors.lightGray900};
-
-  &:hover {
-    color: ${colors.lightGray500};
+  transition: stroke ${transition.medium};
+  svg {
+    stroke: ${colors.black50};
+    &:hover {
+      stroke: ${colors.black80};
+    }
   }
 `
 
 export default () => {
-  const [show, setShow] = useLocalStorage(LOCALSTORAGE_KEY, true)
+  const [isHidden, setIsHidden] = useLocalStorage(LOCALSTORAGE_KEY, false)
+  const [isClosed, setIsClosed] = useState(false)
+
+  if (isClosed) return null
 
   return (
-    <CookiesWrapper m={3} id='cookies-policy'>
-      {show && (
+    <CookiesWrapper id='cookies-policy' aria-hidden={isHidden} m={3}>
+      {
         <Flex
           alignItems='center'
           bg='white95'
           py={2}
           px={3}
           borderRadius={3}
-          boxShadow={3}
+          boxShadow={2}
         >
           <Text fontSize={['10px', 1]} color='black80'>
             <span>By using this website you agree to our</span>
             <Link ml={1} href='/privacy' children='privacy' />
             <span>.</span>
           </Text>
-          <CloseButton ml={3} onClick={() => setShow(false)}>
+          <CloseButton
+            ml={3}
+            onClick={() => {
+              setIsHidden(true)
+              setTimeout(() => setIsClosed(true), 300)
+            }}
+          >
             <X size={16} color={colors.black80} />
           </CloseButton>
         </Flex>
-      )}
+      }
     </CookiesWrapper>
   )
 }

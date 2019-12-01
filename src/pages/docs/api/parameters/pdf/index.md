@@ -67,7 +67,7 @@ You can combine it with [embed](/docs/api/parameters/embed) for inserting it as 
 
 <Container textAlign='center'>
   <a href="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm" download="How-to-download-file.pdf">
-    <ButtonOutline color='black'>Download File</ButtonOutline>
+    <Button bg='black' color='white'>Download File</Button>
   </a>
 </Container>
 

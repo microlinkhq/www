@@ -292,14 +292,8 @@ export const textGradient = {
   textFillColor: 'transparent'
 }
 
-export const textHoverGradient = {
-  transition: 'background-image 5s',
-  '&:hover': textGradient
-}
-
 export const textStyles = {
-  gradient: textGradient,
-  hoverGradient: textHoverGradient
+  gradient: textGradient
 }
 
 export const boxStyles = {

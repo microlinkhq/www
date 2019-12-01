@@ -9,7 +9,7 @@ import { encode, decode } from 'qss'
 import {
   Label,
   Container,
-  ButtonSecondary,
+  Button,
   Notification,
   LinkSolid,
   Flex,
@@ -175,7 +175,7 @@ class _CardForm extends Component {
             <CardCvcElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <ButtonSecondary
+          <Button
             children='Update Card'
             loading={paymentState === PAYMENT_STATE.PROCESSING}
           />

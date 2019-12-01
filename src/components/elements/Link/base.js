@@ -9,7 +9,7 @@ const style = css`
   cursor: pointer;
   text-decoration: none;
   outline: 0;
-  transition: all ${transition.short};
+  transition: color ${transition.medium};
   line-height: ${lineHeights[2]};
 `
 
@@ -17,8 +17,7 @@ const hoverStyle = createCssState({
   selector: '&:hover:not([disabled])',
   state: 'hover',
   css: css`
-    opacity: 0.8;
-    color: ${lighten(0.1, colors.link)};
+    color: ${lighten(0.15, colors.link)};
   `
 })
 

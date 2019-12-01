@@ -20,7 +20,7 @@ const borderStyle = css`
 
 const CustomFlex = styled(Flex)`
   ${borderStyle};
-  transition: background-color ${transition.short};
+  transition: background-color ${transition.medium};
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray0};
   }

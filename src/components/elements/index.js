@@ -1,7 +1,6 @@
-import { ButtonPrimary, ButtonSecondary, ButtonOutline } from './Button'
+import Button from './Button'
 import { Link, LinkSolid } from './Link'
 
-import Avatar from './Avatar'
 import BlockLink from './BlockLink'
 import Box from './Box'
 
@@ -17,7 +16,6 @@ import Image from './Image/LazyImage'
 import ImagePlaceholder from './Image/ImagePlaceholder'
 import Input from './Input/Input'
 import InputIcon from './Input/InputIcon'
-import Banner from './Banner/Banner'
 import Badge from './Badge/Badge'
 
 import Notification from './Notification/Notification'
@@ -38,23 +36,19 @@ import Heading from './Heading'
 import Label from './Label'
 import Subhead from './Subhead'
 import Text from './Text'
-import Iframe from './Iframe'
-import IframeInline from './IframeInline'
+import Iframe from './Iframe/Iframe'
+import IframeInline from './IframeInline/IframeInline'
 
 import StripeLoader from './StripeLoader'
-import ClearbitLogo from './ClearbitLogo'
+import ClearbitLogo from './ClearbitLogo/ClearbitLogo'
 
 export {
-  Avatar,
   BackgroundSlider,
   BackgroundSliderContainer,
   Badge,
-  Banner,
   BlockLink,
   Box,
-  ButtonOutline,
-  ButtonPrimary,
-  ButtonSecondary,
+  Button,
   Caps,
   Card,
   ClearbitLogo,

@@ -1,52 +1,34 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-  Box,
-  ButtonPrimary,
-  ButtonSecondary,
-  ButtonOutline
-} from 'components/elements'
+import { Box, Button } from 'components/elements'
 
 import { Story } from 'story'
 
-const buttons = [
-  { name: 'Primary', Component: ButtonPrimary },
-  { name: 'Secondary', Component: ButtonSecondary },
-  { name: 'Outline', Component: ButtonOutline }
-]
 const states = [null, 'hover', 'disabled', 'loading']
 
-const createCode = name => `
-import { Button${name} } from 'components/elements'
+const text = 'Click me'
+
+const code = `
+import { Button } from 'components/elements'
 
 export default () => (
-  <Button${name}>${name}</Button${name}>
+  <Button>${text}</Button>
 )
 `
 
 storiesOf('Elements', module).add('Button', () => (
-  <>
-    {buttons.map(({ name, Component }) => {
-      return (
-        <Story
-          key={`Button${name}`}
-          name={`Button${name}`}
-          code={createCode(name)}
+  <Story name='Button' code={code}>
+    {states.map(state => (
+      <Box key={state} display={['block', 'inline']} pr={3} pb={3}>
+        <Button
+          key={state}
+          state={state}
+          disabled={state === 'disabled'}
+          loading={state === 'loading'}
         >
-          {states.map(state => (
-            <Box key={state} display={['block', 'inline']} pr={3} pb={3}>
-              <Component
-                key={`${name}:${state}`}
-                state={state}
-                disabled={state === 'disabled'}
-                loading={state === 'loading'}
-              >
-                {`${name}${state ? `:${state}` : ''}`}
-              </Component>
-            </Box>
-          ))}
-        </Story>
-      )
-    })}
-  </>
+          {text}
+        </Button>
+      </Box>
+    ))}
+  </Story>
 ))

@@ -6,14 +6,17 @@ import { colors } from 'theme'
 import Flex from '../Flex'
 import SpinnerIcon from '../Spinner'
 
-export default (ChildComponent, spinnertStyle) => {
+export default ChildComponent => {
   const Spinner = styled(ChildComponent)`
     &&& {
-      ${spinnertStyle};
+      background-color: ${props => colors[props.color]};
+      color: ${colors.black50};
+      cursor: not-allowed;
+      box-shadow: 0 0 0 1px ${props => colors[props.bg]};
     }
 
     .path {
-      stroke: ${colors[ChildComponent.defaultProps.color]};
+      stroke: ${props => colors[props.bg]};
       opacity: 1;
     }
   `

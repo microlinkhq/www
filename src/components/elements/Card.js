@@ -22,7 +22,7 @@ const CardOption = ({ children, value, ...props }) => (
     textAlign='right'
     css={`
       ${children !== value && 'cursor: pointer;'};
-      transition: color ${({ theme }) => theme.transition.short};
+      transition: color ${({ theme }) => theme.transition.medium};
 
       &:hover {
         color: ${({ theme }) => theme.colors.black};

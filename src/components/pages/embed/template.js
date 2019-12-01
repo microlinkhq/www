@@ -8,19 +8,19 @@ import get from 'dlv'
 import React from 'react'
 
 import {
-  Text,
   Box,
-  Heading,
-  Container as ContainerBase,
-  Image,
-  Subhead,
-  Flex,
-  Link,
+  Button,
   Caps,
-  MultiCodeEditor,
   CodeEditor,
+  Container as ContainerBase,
+  Flex,
+  Heading,
   Hide,
-  ButtonSecondary
+  Image,
+  Link,
+  MultiCodeEditor,
+  Subhead,
+  Text
 } from 'components/elements'
 
 import { Header, Grid, Microlink } from 'components/patterns'
@@ -206,11 +206,11 @@ const Sdk = ({ domain, data }) => (
           </Text>
         </Box>
         <Box pt={[0, 4]} textAlign='center'>
-          <ButtonSecondary
+          <Button
             onClick={() => navigate('/docs/sdk/getting-started/overview/')}
           >
             <Caps fontSize={0} children='Explore Docs' />
-          </ButtonSecondary>
+          </Button>
 
           <Link ml={3} href='https://storybook.microlink.io' icon>
             <Caps fontWeight='regular' fontSize={0} children='See Examples' />
@@ -296,11 +296,11 @@ const Api = ({ data }) => {
             </Text>
           </Box>
           <Box pt={[0, 4]} textAlign='center'>
-            <ButtonSecondary
+            <Button
               onClick={() => navigate('/docs/mql/getting-started/overview')}
             >
               <Caps fontSize={0} children='Explore Docs' />
-            </ButtonSecondary>
+            </Button>
 
             <Link ml={3} href='https://github.com/microlinkhq/mql-cli' icon>
               <Caps fontWeight='regular' fontSize={0} children='See Recipes' />

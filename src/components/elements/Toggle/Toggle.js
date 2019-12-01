@@ -14,6 +14,7 @@ const ButtonToggle = styled(ButtonBase)`
 `
 
 ButtonToggle.defaultProps = {
+  bg: 'transparent',
   px: '24px',
   py: 0,
   borderRadius: 0

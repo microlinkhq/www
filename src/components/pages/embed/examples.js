@@ -1,6 +1,6 @@
 import {
   Box,
-  ButtonSecondary,
+  Button,
   Caps,
   Card,
   Container,
@@ -32,7 +32,7 @@ const MicrolinkDebounce = debounceComponent(Microlink)
 const LogoWrap = styled(Box)`
   cursor: pointer;
   opacity: 0.5;
-  transition: opacity ${transition.short};
+  transition: opacity ${transition.medium};
   &:hover {
     opacity: 1;
   }
@@ -121,9 +121,9 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
             width='12rem'
           />
 
-          <ButtonSecondary ml={2} loading={isLoading}>
+          <Button ml={2} loading={isLoading}>
             <Caps fontSize={1} children='Embed it' />
-          </ButtonSecondary>
+          </Button>
         </Flex>
 
         <Box textAlign='center'>

@@ -1,15 +1,12 @@
 import { compose, borders, buttonStyle } from 'styled-system'
-import { transition, shadowOffsets } from 'theme'
 import propTypes from '@styled-system/prop-types'
+import { transition } from 'theme'
 import styled from 'styled-components'
 import Text from '../Text'
 
-export const BOX_SHADOW = shadowOffsets[2]
-
 const Button = styled(Text)(
   {
-    boxShadow: `${BOX_SHADOW} rgba(0, 0, 0, 0.1)`,
-    transition: `all ${transition.medium}`,
+    transition: `background-color ${transition.medium}, color ${transition.medium}, box-shadow ${transition.medium}`,
     appearance: 'none',
     display: 'inline-block',
     textAlign: 'center',
@@ -22,10 +19,7 @@ const Button = styled(Text)(
       cursor: 'pointer'
     }
   },
-  compose(
-    borders,
-    buttonStyle
-  )
+  compose(borders, buttonStyle)
 )
 
 Button.propTypes = {
@@ -40,8 +34,8 @@ Button.defaultProps = {
   fontWeight: 'bold',
   px: 3,
   py: 2,
-  color: 'primary',
-  bg: 'white',
+  color: 'white',
+  bg: 'link',
   border: 0,
   borderRadius: 2
 }

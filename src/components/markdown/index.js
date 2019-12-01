@@ -1,4 +1,4 @@
-import { space, fontSizes, colors } from 'theme'
+import { space, fontSizes, colors, transition } from 'theme'
 import styled, { css } from 'styled-components'
 import { withSlug } from 'helpers/hoc'
 import Mdx from 'mdx-scoped-runtime'
@@ -19,13 +19,11 @@ import {
   Label,
   Image as ImageBase,
   Iframe as IframeBase,
-  ButtonPrimary,
-  ButtonSecondary,
-  ButtonOutline
+  Button
 } from 'components/elements'
 
 import { Microlink as MicrolinkBase } from 'components/patterns'
-import { textHoverGradient } from '../../theme'
+import { textGradient } from '../../theme'
 
 const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
@@ -105,8 +103,10 @@ export const H2Link = styled(H2Base)`
   text-decoration: none;
   cursor: pointer;
   color: black;
-  transition: all 0.1s ease-out;
-  ${textHoverGradient}
+  transition: background-image ${transition.medium};
+  &:hover {
+    ${textGradient};
+  }
 `
 
 H2Link.defaultProps = {
@@ -350,14 +350,12 @@ const mdComponents = {
   p: Paraph,
   strong: Strong,
   ul: Ul,
-  button: ButtonPrimary
+  button: Button
 }
 
 const ScopedComponents = {
   Blockquote,
-  ButtonOutline,
-  ButtonPrimary,
-  ButtonSecondary,
+  Button,
   Code,
   CodeInline,
   Container,

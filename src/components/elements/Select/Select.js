@@ -3,10 +3,10 @@ import { lighten } from 'polished'
 
 import Box from '../Box'
 
-import { colors, fonts } from 'theme'
+import { transition, colors, fonts } from 'theme'
 
 const arrow = encodeURI(
-  'data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewbox=\'0 0 32 32\' fill=\'currentcolor\'> <path d=\'M0 6 L32 6 L16 28 z\' /> </svg>'
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='currentcolor'> <path d='M0 6 L32 6 L16 28 z' /> </svg>"
 )
 
 const ARROW_SIZE = '7px'
@@ -14,10 +14,11 @@ const ARROW_SIZE = '7px'
 const Select = styled(Box)(
   {
     fontFamily: fonts.sans,
+    transition: `border-color ${transition.medium}`,
     fontSize: 'inherit',
     lineHeight: 'inherit',
     appearance: 'none',
-    border: 0,
+    border: `1px solid ${lighten(0.15, colors.black20)}`,
     backgroundImage: `url("${arrow}")`,
     backgroundPosition: `calc(100% - ${ARROW_SIZE}) center`,
     backgroundRepeat: 'no-repeat',
@@ -29,7 +30,10 @@ const Select = styled(Box)(
   props => ({
     '&:focus': {
       outline: 'none',
-      boxShadow: `inset 0 0 0 1px ${lighten(0.15, colors.link)}`
+      border: `1px solid ${lighten(0.15, colors.link)}`
+    },
+    '&:hover': {
+      border: `1px solid ${lighten(0.15, colors.link)}`
     }
   })
 )
@@ -44,8 +48,6 @@ Select.defaultProps = {
   mr: 0,
   ml: 0,
   width: 'inherit',
-  borderColor: 'gray',
-  boxShadow: 1,
   borderRadius: 2,
   color: 'inherit',
   bg: 'transparent'

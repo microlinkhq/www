@@ -23,7 +23,7 @@ NoWrap.defaultProps = {
 
 const LogoWrap = styled(Box)`
   opacity: 0.25;
-  transition: opacity ${transition.short};
+  transition: opacity ${transition.medium};
   &:hover {
     opacity: 0.8;
   }

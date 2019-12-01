@@ -21,7 +21,7 @@ const style = css`
   opacity: 0.75;
   display: inline-block;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-  transition: border-color ${transition.short};
+  transition: border-color ${transition.medium};
 `
 
 const LinkSolid = styled(Link)`

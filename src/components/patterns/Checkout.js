@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StripeLoader, Caps, ButtonSecondary } from 'components/elements'
+import { StripeLoader, Caps, Button } from 'components/elements'
 
 export default ({ siteUrl, planId, stripeKey }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -23,7 +23,7 @@ export default ({ siteUrl, planId, stripeKey }) => {
       {stripe => {
         const handleCheckout = createStripeCheckout(stripe)
         return (
-          <ButtonSecondary
+          <Button
             mt={[3, 3, 3, 3]}
             onClick={handleCheckout}
             onTouchStart={handleCheckout}
@@ -32,7 +32,7 @@ export default ({ siteUrl, planId, stripeKey }) => {
             data-event-action='Buy'
           >
             <Caps fontSize={0}>Buy</Caps>
-          </ButtonSecondary>
+          </Button>
         )
       }}
     </StripeLoader>

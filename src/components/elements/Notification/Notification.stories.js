@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-  ButtonPrimary,
-  ButtonOutline,
-  Notification,
-  Box
-} from 'components/elements'
+import { Link, Button, Notification, Box } from 'components/elements'
 import { Choose } from 'react-extras'
 import { Story } from 'story'
 
@@ -48,21 +43,25 @@ const NotificationStory = () => {
   return (
     <Story name={storyName} code={code}>
       <Box mb={4} width={650}>
-        <ButtonOutline onClick={() => setNotificationType('success')}>
+        <Button bg='green' onClick={() => setNotificationType('success')}>
           Success
-        </ButtonOutline>
-        <ButtonOutline onClick={() => setNotificationType('error')} ml={3}>
+        </Button>
+        <Button bg='red' onClick={() => setNotificationType('error')} ml={3}>
           Error
-        </ButtonOutline>
-        <ButtonOutline onClick={() => setNotificationType('warning')} ml={3}>
+        </Button>
+        <Button
+          bg='yellow'
+          onClick={() => setNotificationType('warning')}
+          ml={3}
+        >
           Warning
-        </ButtonOutline>
-        <ButtonOutline onClick={() => setNotificationType('info')} ml={3}>
+        </Button>
+        <Button onClick={() => setNotificationType('info')} ml={3}>
           Info
-        </ButtonOutline>
-        <ButtonPrimary onClick={() => setNotificationType('')} ml={3}>
+        </Button>
+        <Link onClick={() => setNotificationType('')} ml={3}>
           clear
-        </ButtonPrimary>
+        </Link>
         <NotificationPreview type={notificationType} />
       </Box>
     </Story>
