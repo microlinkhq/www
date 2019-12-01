@@ -312,4 +312,6 @@ CodeEditor.defaultProps = {
   showLineNumbers: false
 }
 
+CodeEditor.COLORS = COLORS
+
 export default CodeEditor
