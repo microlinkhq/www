@@ -20,8 +20,7 @@ import {
   Link,
   Caps,
   Terminal,
-  ButtonSecondary,
-  ButtonPrimary,
+  Button,
   CodeEditor,
   Hide
 } from 'components/elements'
@@ -202,17 +201,15 @@ const Api = ({ domain, data }) => {
             </Text>
           </Box>
           <Box pt={[0, 4]} textAlign='center'>
-            <ButtonSecondary
-              onClick={() => navigate('/docs/api/parameters/embed')}
-            >
+            <Button onClick={() => navigate('/docs/api/parameters/embed')}>
               <Caps fontSize={0} children='Explore Docs' />
-            </ButtonSecondary>
-            <ButtonPrimary
+            </Button>
+            <Button
               ml={3}
               onClick={() => navigate('/docs/api/parameters/embed')}
             >
               <Caps fontSize={0} children='How to Embed' />
-            </ButtonPrimary>
+            </Button>
           </Box>
         </Box>
 
@@ -324,17 +321,15 @@ const Cli = ({ domain, data }) => {
             </Text>
           </Box>
           <Box pt={4}>
-            <ButtonSecondary
-              onClick={() => navigate('/docs/api/getting-started/cli')}
-            >
+            <Button onClick={() => navigate('/docs/api/getting-started/cli')}>
               <Caps fontSize={0} children='How to Use' />
-            </ButtonSecondary>
-            <ButtonPrimary
+            </Button>
+            <Button
               ml={3}
               onClick={() => navigate('/docs/api/getting-started/overview')}
             >
               <Caps fontSize={0} children='See API Parameters' />
-            </ButtonPrimary>
+            </Button>
           </Box>
         </Box>
 

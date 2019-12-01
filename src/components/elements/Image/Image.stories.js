@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import React, { useState } from 'react'
 
-import { Flex, Box, ButtonOutline } from 'components/elements'
+import { Flex, Box, Button } from 'components/elements'
 
 import LazyImage from './LazyImage'
 
@@ -29,15 +29,13 @@ const ImageStory = () => {
     <Story name={storyName} code={code}>
       <Flex flexDirection='column' justifyContent='center'>
         <Box mb={3}>
-          <ButtonOutline onClick={() => setLoading(undefined)}>
-            auto
-          </ButtonOutline>
-          <ButtonOutline ml={3} onClick={() => setLoading(true)}>
+          <Button onClick={() => setLoading(undefined)}>auto</Button>
+          <Button ml={3} onClick={() => setLoading(true)}>
             loading
-          </ButtonOutline>
-          <ButtonOutline ml={3} onClick={() => setLoading(false)}>
+          </Button>
+          <Button ml={3} onClick={() => setLoading(false)}>
             loaded
-          </ButtonOutline>
+          </Button>
         </Box>
         <LazyImage
           width={WIDTH}

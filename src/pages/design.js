@@ -6,6 +6,11 @@ const TITLE = 'Design'
 
 export default () => (
   <Layout title={TITLE} image='https://cdn.microlink.io/page/design.png'>
-    <Iframe height='920px' title={TITLE} src='https://design.microlink.io' />
+    <Iframe
+      width='100%'
+      height='920px'
+      title={TITLE}
+      src='https://design.microlink.io'
+    />
   </Layout>
 )

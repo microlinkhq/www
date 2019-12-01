@@ -3,16 +3,18 @@ import { Box, Text, Flex } from 'components/elements'
 import styled, { keyframes } from 'styled-components'
 import { X } from 'react-feather'
 import { transition, colors } from 'theme'
+import { darken } from 'polished'
 
 const CloseButtonWrapper = styled(Box)`
   display: inline-flex;
   position: relative;
   cursor: pointer;
-  transition: all 0.15s ease;
-  color: ${colors.lightGray900};
-
-  &:hover {
-    color: ${colors.lightGray500};
+  transition: stroke ${transition.medium};
+  svg {
+    stroke: ${props => colors[props.color]};
+    &:hover {
+      stroke: ${props => darken(0.15, colors[props.color])};
+    }
   }
 `
 
@@ -45,7 +47,7 @@ const Wrapper = styled(Flex)`
 `
 
 const CloseButton = ({ color, ...props }) => (
-  <CloseButtonWrapper {...props}>
+  <CloseButtonWrapper color={color} {...props}>
     <X size={16} color={color} />
   </CloseButtonWrapper>
 )
@@ -77,9 +79,9 @@ const createNotification = notificationProps => ({ children, ...props }) => {
           <CloseButton
             onClick={() => {
               setIsHidden(true)
-              setTimeout(() => setIsClosed(true), 1000)
+              setTimeout(() => setIsClosed(true), 300)
             }}
-            color={props.color}
+            {...notificationProps}
             pl={3}
           />
         </Flex>

@@ -1,13 +1,13 @@
 import {
-  Flex,
-  Input,
-  Text,
   Box,
-  ButtonSecondary,
-  Container,
+  Button,
   Caps,
+  Container,
+  Flex,
   Image,
-  InputIcon
+  Input,
+  InputIcon,
+  Text
 } from 'components/elements'
 
 import {
@@ -273,9 +273,9 @@ const LiveDemo = ({ onSubmit, url, isLoading }) => {
           />
         </Box>
 
-        <ButtonSecondary ml={2} loading={isLoading}>
+        <Button ml={2} loading={isLoading}>
           <Caps fontSize={1} children='Take it' />
-        </ButtonSecondary>
+        </Button>
       </Flex>
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>

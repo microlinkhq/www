@@ -10,7 +10,7 @@ import { navigate } from 'gatsby'
 
 import {
   Box,
-  ButtonSecondary,
+  Button,
   Caps,
   Container as ContainerBase,
   Flex,
@@ -428,9 +428,9 @@ const Sdk = ({ loading, editor, children }) => (
             <LiveDemo loading={loading} children={editor} />
           </Hide>
 
-          <ButtonSecondary onClick={() => navigate('/embed')}>
+          <Button onClick={() => navigate('/embed')}>
             <Caps fontSize={0}>See More</Caps>
-          </ButtonSecondary>
+          </Button>
         </Flex>
       </Flex>
       <Box ml={4} mr={4} />
@@ -511,11 +511,11 @@ const Mql = () => (
             <MQLEditor />
           </Hide>
 
-          <ButtonSecondary
+          <Button
             onClick={() => navigate('/docs/mql/getting-started/overview')}
           >
             <Caps fontSize={0}>See More</Caps>
-          </ButtonSecondary>
+          </Button>
         </Flex>
       </Flex>
       <Box ml={4} mr={4} />

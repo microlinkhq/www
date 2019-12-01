@@ -1,6 +1,6 @@
 import {
   Box,
-  ButtonSecondary,
+  Button,
   Caps,
   Card,
   Container,
@@ -121,9 +121,9 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
             width='12rem'
           />
 
-          <ButtonSecondary ml={2} loading={isLoading}>
+          <Button ml={2} loading={isLoading}>
             <Caps fontSize={1} children='Embed it' />
-          </ButtonSecondary>
+          </Button>
         </Flex>
 
         <Box textAlign='center'>

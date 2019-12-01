@@ -36,19 +36,20 @@ InputBase.defaultProps = {
   px: 2,
   width: 1,
   border: 0,
-  borderColor: 'gray',
   color: 'inherit',
   bg: 'transparent'
 }
 
 const InputWrapper = styled(Flex)`
-  transition: box-shadow, stroke ${transition.short};
+  border: 1px solid;
+  border-color: ${colors.black20};
+  transition: border-color ${transition.medium}, stroke ${transition.medium},
+    color ${transition.medium};
   ${props =>
     props.focus &&
     `
   outline: 0;
-
-  box-shadow: inset 0 0 0 1px ${lighten(0.15, colors.link)};
+  border-color: ${lighten(0.15, colors.link)}
 
   svg  {
     stroke: ${lighten(0.15, colors.link)}
@@ -78,7 +79,6 @@ const Input = ({
       as='label'
       alignItems='center'
       borderRadius={2}
-      boxShadow={1}
       focus={isFocus}
     >
       {Icon && (

@@ -1,4 +1,4 @@
-import { ButtonPrimary, ButtonSecondary, ButtonOutline } from './Button'
+import Button from './Button'
 import { Link, LinkSolid } from './Link'
 
 import Avatar from './Avatar'
@@ -52,9 +52,7 @@ export {
   Banner,
   BlockLink,
   Box,
-  ButtonOutline,
-  ButtonPrimary,
-  ButtonSecondary,
+  Button,
   Caps,
   Card,
   ClearbitLogo,

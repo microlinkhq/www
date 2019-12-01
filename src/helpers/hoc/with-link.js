@@ -36,7 +36,7 @@ const linkIconWrapper = css`
   transition: stroke ${transition.medium};
   &:hover {
     > svg {
-      stroke: ${lighten(0.1, colors.link)};
+      stroke: ${lighten(0.15, colors.link)};
     }
   }
 `

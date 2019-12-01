@@ -5,7 +5,7 @@ import {
   LinkSolid,
   Caps,
   Box,
-  ButtonOutline,
+  Button,
   Flex,
   Input,
   Text
@@ -69,17 +69,18 @@ export default props => (
                     placeholder='you@domain.com'
                     width='8rem'
                     fontSize={0}
-                    iconComponent={<Mail color={colors.black50} size={16} />}
+                    iconComponent={<Mail color={colors.black40} size={16} />}
                   />
 
-                  <ButtonOutline
+                  <Button
                     ml={2}
                     data-event-category='Footer'
                     data-event-action='Be Notified'
-                    color='black'
+                    bg='black'
+                    color='white'
                   >
                     <Caps fontSize={0} children='Be Notified' />
-                  </ButtonOutline>
+                  </Button>
                 </Flex>
               </form>
             </Flex>
