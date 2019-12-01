@@ -32,7 +32,7 @@ const MicrolinkDebounce = debounceComponent(Microlink)
 const LogoWrap = styled(Box)`
   cursor: pointer;
   opacity: 0.5;
-  transition: opacity ${transition.short};
+  transition: opacity ${transition.medium};
   &:hover {
     opacity: 1;
   }

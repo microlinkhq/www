@@ -18,7 +18,7 @@ import { transition, colors } from 'theme'
 const IconWrapper = styled(Box)`
   cursor: pointer;
   opacity: 0.75;
-  transition: all ${transition.short};
+  transition: all ${transition.medium};
 
   &:hover {
     opacity: 1;
