@@ -120,7 +120,7 @@ const DemoSlider = ({ children: slides }) => {
   )
 }
 
-const LiveDemo = ({ suggestions, demoLinks, onSubmit, url, isLoading }) => {
+const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
   const [inputBg, setInputBg] = useState('')
   const [inputUrl, setInputUrl] = useState(url || '')
   const [inputWaitFor, setInputWaitFor] = useState('')
@@ -156,7 +156,7 @@ const LiveDemo = ({ suggestions, demoLinks, onSubmit, url, isLoading }) => {
 
     if (!url) return undefined
 
-    const item = suggestions.find(link => link.url === url)
+    const item = suggestions.find(link => prependHttp(link.value) === url)
 
     if (item && !get(opts, 'overlay.background')) {
       const theme = get(opts, 'overlay.browser')
@@ -202,9 +202,7 @@ const LiveDemo = ({ suggestions, demoLinks, onSubmit, url, isLoading }) => {
             id='screenshot-demo-url'
             mr='6px'
             placeholder='Visit URL'
-            suggestions={suggestions.map(({ humanizedUrl }) => ({
-              value: humanizedUrl
-            }))}
+            suggestions={suggestions}
             type='text'
             value={inputUrl}
             onChange={event => setInputUrl(event.target.value)}
@@ -332,15 +330,14 @@ export default ({
 }) => (
   <>
     <LiveDemo
-      suggestions={suggestions}
-      demoLinks={demoLinks}
+      isLoading={isLoading}
       onSubmit={onSubmit}
-      url={url}
+      refBackground={refBackground}
+      refOverlay={refOverlay}
       refUrl={refUrl}
       refWaitFor={refWaitFor}
-      refOverlay={refOverlay}
-      refBackground={refBackground}
-      isLoading={isLoading}
+      suggestions={suggestions}
+      url={url}
     />
     <Examples demoLinks={demoLinks} />
   </>

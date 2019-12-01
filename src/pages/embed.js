@@ -2,6 +2,7 @@ import { useDemoLinks, useQueryState } from 'components/hook'
 import { Layout, FetchProvider } from 'components/patterns'
 import { Location } from '@reach/router'
 import { screenshotUrl } from 'helpers'
+import humanizeUrl from 'humanize-url'
 import React from 'react'
 
 import Examples from 'components/pages/embed/examples'
@@ -23,10 +24,11 @@ export default () => {
     'TechCrunch',
     'TheVerge',
     'YouTube'
-  ].map(brand => ({
-    brand,
-    value: demoLinks.find(item => item.brand === brand).data.url
-  }))
+  ].map(brand => {
+    const { data } = demoLinks.find(item => item.brand === brand)
+    const { url } = data
+    return { brand, value: humanizeUrl(url), url, data }
+  })
 
   return (
     <Layout title={title} image={image}>

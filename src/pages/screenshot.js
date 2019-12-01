@@ -24,7 +24,6 @@ export default () => {
     { theme: 'dark', brand: 'Nasa' }
   ].map(item => {
     const { url } = demoLinks.find(link => link.brand === item.brand).data
-    const humanizedUrl = humanizeUrl(url)
     const id = item.brand.toLowerCase()
     const filename = `${id}.png`
 
@@ -32,8 +31,8 @@ export default () => {
       ...item,
       id,
       filename,
-      url: `https://${humanizedUrl}`,
-      humanizedUrl,
+      url,
+      value: humanizeUrl(url),
       cdnUrl: `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
     }
   })

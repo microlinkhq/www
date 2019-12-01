@@ -62,13 +62,7 @@ const Examples = ({ demoLinks }) => (
   </Container>
 )
 
-const LiveDemo = ({
-  suggestions,
-  demoLinks,
-  demoLink,
-  onSubmit,
-  isLoading
-}) => {
+const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   const [inputValue, setInputValue] = useState('')
   const [data, setData] = useState(demoLink.data)
   const [view, setView] = useState('sdk')
@@ -85,14 +79,9 @@ const LiveDemo = ({
     if (isLoading) return
     const value = prependHttp(inputValue)
     if (!isUrl(value)) return
-    const index = suggestions.findIndex(({ value }) => value === inputValue)
-    if (index !== -1) {
-      const brand = suggestions[index].brand
-      const data = demoLinks.find(demoLink => demoLink.brand === brand).data
-      setData(data)
-    } else {
-      fetchAndSetData(value)
-    }
+    const item = suggestions.find(({ value }) => value === inputValue)
+    if (item) setData(item.data)
+    else fetchAndSetData(value)
   }, [inputValue])
 
   return (
@@ -212,12 +201,11 @@ export default ({
 }) => (
   <>
     <LiveDemo
-      suggestions={suggestions}
-      demoLinks={demoLinks}
       demoLink={demoLink}
-      onSubmit={onSubmit}
-      url={url}
       isLoading={isLoading}
+      onSubmit={onSubmit}
+      suggestions={suggestions}
+      url={url}
     />
     <Examples demoLinks={demoLinks} />
   </>
