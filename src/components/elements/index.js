@@ -1,7 +1,6 @@
 import Button from './Button'
 import { Link, LinkSolid } from './Link'
 
-import Avatar from './Avatar'
 import BlockLink from './BlockLink'
 import Box from './Box'
 
@@ -45,7 +44,6 @@ import StripeLoader from './StripeLoader'
 import ClearbitLogo from './ClearbitLogo'
 
 export {
-  Avatar,
   BackgroundSlider,
   BackgroundSliderContainer,
   Badge,
