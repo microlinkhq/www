@@ -40,7 +40,7 @@ import Iframe from './Iframe/Iframe'
 import IframeInline from './IframeInline/IframeInline'
 
 import StripeLoader from './StripeLoader'
-import ClearbitLogo from './ClearbitLogo'
+import ClearbitLogo from './ClearbitLogo/ClearbitLogo'
 
 export {
   BackgroundSlider,
