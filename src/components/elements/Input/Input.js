@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Box, Flex } from 'components/elements'
 import { transition, colors } from 'theme'
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import noop from 'lodash/noop'
-import get from 'dlv'
 
 import Text from '../Text'
 
@@ -68,11 +67,16 @@ const Input = ({
   ...props
 }) => {
   const [isFocus, setFocus] = useState(props.autoFocus)
-  const list = suggestions ? `${props.id}-suggestions` : undefined
 
-  // avoid autocomplete suggestions
-  const value = get(innerRef, 'current.value')
-  const listId = value ? undefined : list
+  const list = useMemo(() => {
+    if (!suggestions) return undefined
+    if (!props.id) {
+      throw new Error(
+        'Need to provide an id to be associated with suggestions list.'
+      )
+    }
+    return `${props.id}-suggestions`
+  }, [props.id, suggestions])
 
   return (
     <InputWrapper
@@ -81,14 +85,9 @@ const Input = ({
       borderRadius={2}
       focus={isFocus}
     >
-      {Icon && (
-        <Box pl={2} pt={1}>
-          {Icon}
-        </Box>
-      )}
-
+      {Icon && <Box pl={2} pt={1} children={Icon} />}
       <InputBase
-        list={listId}
+        list={list}
         ref={innerRef}
         onFocus={event => {
           setFocus(true)
@@ -102,8 +101,8 @@ const Input = ({
       />
 
       {suggestions && (
-        <datalist id={listId}>
-          {suggestions.map((props, key) => (
+        <datalist id={list}>
+          {suggestions.map(props => (
             <option key={`${list}_${props.value}`} {...props} />
           ))}
         </datalist>
