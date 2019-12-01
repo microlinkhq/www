@@ -2,7 +2,7 @@ import React from 'react'
 
 import { aspectRatio } from 'helpers'
 
-import Flex from './Flex'
+import Flex from '../Flex'
 
 export default props => (
   <Flex
