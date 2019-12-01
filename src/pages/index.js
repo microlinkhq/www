@@ -22,7 +22,7 @@ import {
 } from 'components/elements'
 
 import {
-  Announcement,
+  Banner,
   DemoLinks,
   Grid,
   Header,
@@ -312,7 +312,7 @@ const Hero = () => {
   const header = <Header title={title} caption={caption} />
 
   const announcement = (
-    <Announcement
+    <Banner
       data-event-category='Home'
       data-event-action='Announcement'
       href='/screenshot'

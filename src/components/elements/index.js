@@ -16,7 +16,6 @@ import Image from './Image/LazyImage'
 import ImagePlaceholder from './Image/ImagePlaceholder'
 import Input from './Input/Input'
 import InputIcon from './Input/InputIcon'
-import Banner from './Banner/Banner'
 import Badge from './Badge/Badge'
 
 import Notification from './Notification/Notification'
@@ -47,7 +46,6 @@ export {
   BackgroundSlider,
   BackgroundSliderContainer,
   Badge,
-  Banner,
   BlockLink,
   Box,
   Button,
