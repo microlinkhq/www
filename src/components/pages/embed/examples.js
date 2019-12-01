@@ -16,16 +16,13 @@ import { Header, DemoLinks, Microlink } from 'components/patterns'
 import { debounceComponent, getDomain } from 'helpers'
 import { borders, transition, colors } from 'theme'
 import React, { useEffect, useState } from 'react'
-import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import prependHttp from 'prepend-http'
 import { navigate } from 'gatsby'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
-import take from 'lodash/take'
 
 const { MAX_WIDTH_IFRAME, MAX_HEIGHT_IFRAME } = IframeInline
-const MAX_SUGGESTIONS = 5
 
 const MicrolinkDebounce = debounceComponent(Microlink)
 
@@ -71,8 +68,15 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
   const [view, setView] = useState('sdk')
   const domain = getDomain(inputValue)
 
-  const suggestions = take(demoLinks, MAX_SUGGESTIONS).map(demoLink => ({
-    value: humanizeUrl(demoLink.data.url)
+  const suggestions = [
+    'NYTimes',
+    'Spotify',
+    'TechCrunch',
+    'TheVerge',
+    'YouTube'
+  ].map(brand => ({
+    brand,
+    value: demoLinks.find(item => item.brand === brand).data.url
   }))
 
   const fetchAndSetData = async url => {
@@ -87,8 +91,13 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
     const value = prependHttp(inputValue)
     if (!isUrl(value)) return
     const index = suggestions.findIndex(({ value }) => value === inputValue)
-    if (index !== -1) return setData(demoLinks[index].data)
-    else fetchAndSetData(value)
+    if (index !== -1) {
+      const brand = suggestions[index].brand
+      const data = demoLinks.find(demoLink => demoLink.brand === brand).data
+      setData(data)
+    } else {
+      fetchAndSetData(value)
+    }
   }, [inputValue])
 
   return (
