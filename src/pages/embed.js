@@ -17,6 +17,17 @@ export default () => {
     ? screenshotUrl(`https://microlink.io/embed?url=${query.url}`)
     : 'https://cdn.microlink.io/page/embed.png'
 
+  const suggestions = [
+    'NYTimes',
+    'Spotify',
+    'TechCrunch',
+    'TheVerge',
+    'YouTube'
+  ].map(brand => ({
+    brand,
+    value: demoLinks.find(item => item.brand === brand).data.url
+  }))
+
   return (
     <Layout title={title} image={image}>
       <FetchProvider
@@ -32,6 +43,7 @@ export default () => {
 
                 return (
                   <Examples
+                    suggestions={suggestions}
                     demoLink={demoLink}
                     demoLinks={demoLinks}
                     onSubmit={doFetch}

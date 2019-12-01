@@ -23,9 +23,7 @@ import { Safari, HourGlass } from 'components/icons'
 import { borders, transition, colors } from 'theme'
 import { Image as ImageIcon } from 'react-feather'
 import React, { useEffect, useState } from 'react'
-import demoLinks from '@microlink/demo-links'
 import prependHttp from 'prepend-http'
-import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
@@ -36,28 +34,6 @@ import noop from 'lodash/noop'
 import get from 'dlv'
 
 import ms from 'ms'
-
-const DEMO_LINKS = [
-  { theme: 'dark', keyword: 'Apple' },
-  { theme: 'light', keyword: 'MDN' },
-  { theme: 'light', keyword: 'StackOverflow' },
-  { theme: 'light', keyword: 'ProductHunt' },
-  { theme: 'dark', keyword: 'Nasa' }
-].map(item => {
-  const { url } = demoLinks[item.keyword]
-  const humanizedUrl = humanizeUrl(url)
-  const id = item.keyword.toLowerCase()
-  const filename = `${id}.png`
-
-  return {
-    ...item,
-    id,
-    filename,
-    url: `https://${humanizedUrl}`,
-    humanizedUrl,
-    cdnUrl: `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
-  }
-})
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -144,7 +120,7 @@ const DemoSlider = ({ children: slides }) => {
   )
 }
 
-const LiveDemo = ({ onSubmit, url, isLoading }) => {
+const LiveDemo = ({ suggestions, demoLinks, onSubmit, url, isLoading }) => {
   const [inputBg, setInputBg] = useState('')
   const [inputUrl, setInputUrl] = useState(url || '')
   const [inputWaitFor, setInputWaitFor] = useState('')
@@ -180,7 +156,7 @@ const LiveDemo = ({ onSubmit, url, isLoading }) => {
 
     if (!url) return undefined
 
-    const item = DEMO_LINKS.find(link => link.url === url)
+    const item = suggestions.find(link => link.url === url)
 
     if (item && !get(opts, 'overlay.background')) {
       const theme = get(opts, 'overlay.browser')
@@ -226,7 +202,7 @@ const LiveDemo = ({ onSubmit, url, isLoading }) => {
             id='screenshot-demo-url'
             mr='6px'
             placeholder='Visit URL'
-            suggestions={DEMO_LINKS.map(({ humanizedUrl }) => ({
+            suggestions={suggestions.map(({ humanizedUrl }) => ({
               value: humanizedUrl
             }))}
             type='text'
@@ -313,7 +289,7 @@ const LiveDemo = ({ onSubmit, url, isLoading }) => {
             src={previewUrl}
           />
         ) : (
-          <DemoSlider children={DEMO_LINKS} />
+          <DemoSlider children={suggestions} />
         )}
       </Flex>
     </Container>
@@ -345,16 +321,19 @@ const Examples = ({ demoLinks }) => (
 
 export default ({
   demoLinks,
-  url,
+  isLoading,
+  onSubmit,
+  refBackground,
+  refOverlay,
   refUrl,
   refWaitFor,
-  refOverlay,
-  refBackground,
-  isLoading,
-  onSubmit
+  suggestions,
+  url
 }) => (
   <>
     <LiveDemo
+      suggestions={suggestions}
+      demoLinks={demoLinks}
       onSubmit={onSubmit}
       url={url}
       refUrl={refUrl}

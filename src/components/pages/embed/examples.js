@@ -62,22 +62,17 @@ const Examples = ({ demoLinks }) => (
   </Container>
 )
 
-const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
+const LiveDemo = ({
+  suggestions,
+  demoLinks,
+  demoLink,
+  onSubmit,
+  isLoading
+}) => {
   const [inputValue, setInputValue] = useState('')
   const [data, setData] = useState(demoLink.data)
   const [view, setView] = useState('sdk')
   const domain = getDomain(inputValue)
-
-  const suggestions = [
-    'NYTimes',
-    'Spotify',
-    'TechCrunch',
-    'TheVerge',
-    'YouTube'
-  ].map(brand => ({
-    brand,
-    value: demoLinks.find(item => item.brand === brand).data.url
-  }))
 
   const fetchAndSetData = async url => {
     try {
@@ -120,9 +115,9 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
           }}
         >
           <Input
+            id='embed-demo-url'
             fontSize={2}
             iconComponent={<InputIcon value={inputValue} domain={domain} />}
-            id='embed-demo-url'
             placeholder='Enter a URL...'
             suggestions={suggestions}
             value={inputValue}
@@ -207,9 +202,17 @@ const LiveDemo = ({ demoLinks, demoLink, onSubmit, isLoading }) => {
   )
 }
 
-export default ({ demoLink, demoLinks, onSubmit, url, isLoading }) => (
+export default ({
+  suggestions,
+  demoLink,
+  demoLinks,
+  onSubmit,
+  url,
+  isLoading
+}) => (
   <>
     <LiveDemo
+      suggestions={suggestions}
       demoLinks={demoLinks}
       demoLink={demoLink}
       onSubmit={onSubmit}
