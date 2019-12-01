@@ -5,4 +5,4 @@ const Clearbit = ({ companyName, ...props }) => (
   <Image src={`https://logo.clearbit.com/${companyName}`} {...props} />
 )
 
-export default React.memo(Clearbit)
+export default Clearbit
