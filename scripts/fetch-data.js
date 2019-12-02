@@ -83,7 +83,7 @@ const fetchLink = async (key, { url, ...props }, mqlProps) => {
   }
 }
 
-module.exports = async ({ name, data, mqlProps, concurrency = 5 }) => {
+module.exports = async ({ name, data, mqlProps, concurrency = 2 }) => {
   const filepath = `${path.resolve(__dirname, `../data/${name}.json`)}`
 
   try {
