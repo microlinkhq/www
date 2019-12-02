@@ -6,8 +6,6 @@ Type: <Type children='<object>'/>
 
 It establishes a set of properties related with the visible area and device capabilities.
 
-![](https://api.microlink.io/?url={{DemoLinks.Wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile)
-
 <MultiCodeEditor languages={{
   Shell: `microlink-api {{DemoLinks.Wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
   'Node.js': `const mql = require('@microlink/mql')
