@@ -53,9 +53,9 @@ function Head (props) {
 
   return (
     <Helmet
-      defaultTitle={`${headline} | ${name}`}
+      defaultTitle={`${name}: ${headline}`}
       title={title}
-      titleTemplate={`%s | ${name}`}
+      titleTemplate={`%s · ${name}`}
       meta={[
         { name: 'description', content: description },
         { name: 'date', content: date },

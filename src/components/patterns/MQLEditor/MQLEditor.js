@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import { CodeEditor, Card, Flex } from 'components/elements'
-
-import {
-  CARD_HEIGHT_DESKTOP,
-  CARD_WIDTH_DESKTOP,
-  CARD_WIDTH_MOBILE,
-  CARD_HEIGHT_MOBILE
-} from '../LiveDemo/theme'
+import { aspectRatio } from 'helpers'
+import styled from 'styled-components'
 
 const CODE = {
   mql: `
@@ -66,6 +61,8 @@ await mql('https://twitter.com/microlinkhq', {
 }`
 }
 
+const { width, height } = aspectRatio([0.58, 0.58, 0.58, 0.58])
+
 export default class extends Component {
   state = { view: 'mql' }
 
@@ -74,13 +71,16 @@ export default class extends Component {
     const language = view === 'mql' ? 'js' : 'json'
 
     return (
-      <Flex flexDirection='column' justifyContent='space-around'>
+      <Flex
+        mt={3}
+        flexDirection='column'
+        justifyContent='space-around'
+        data-tilt-startX='-10'
+        data-tilt-startY='6.7'
+        data-tilt
+      >
         <Flex flexDirection='column' mb={[4, 0]}>
-          <Card
-            width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
-            height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
-            style={{ overflow: 'auto' }}
-          >
+          <Card width={width} height={height} style={{ overflow: 'auto' }}>
             <CodeEditor language={language}>{CODE[view]}</CodeEditor>
           </Card>
           <Flex justifyContent='flex-end'>

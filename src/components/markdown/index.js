@@ -269,8 +269,8 @@ export const Code = props => (
 const _ImageBase = styled(ImageBase)``
 
 _ImageBase.defaultProps = {
-  lazyHeight: aspectRatio.heights,
-  lazyWidth: aspectRatio.widths,
+  lazyHeight: aspectRatio.height,
+  lazyWidth: aspectRatio.width,
   maxWidth: `${WIDTH.normal}px`,
   borderRadius: '3px',
   ml: 'auto',

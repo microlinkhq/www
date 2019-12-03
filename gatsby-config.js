@@ -11,8 +11,8 @@ const {
 module.exports = {
   siteMetadata: {
     // Basic
-    name: 'Microlink',
-    headline: 'Turn websites into data',
+    name: 'microlink.io',
+    headline: 'Browser as API',
     siteUrl: SITE_URL,
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',

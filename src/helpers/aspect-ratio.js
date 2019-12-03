@@ -1,12 +1,20 @@
 import { toPx, layout } from 'theme'
 
-const aspectRatio = width => (width * 9) / 16
+const getRatio = width => (width * 9) / 16
 
-const WIDTH = [0.4, 0.6, 0.8, 1].map(n => n * layout.medium)
+const aspectRatio = (ratios, base = layout.medium) => {
+  const width = ratios.map(n => n * base)
+  const height = width.map(getRatio)
 
-const HEIGHT = WIDTH.map(aspectRatio)
+  return {
+    width: width.map(toPx),
+    height: height.map(toPx)
+  }
+}
 
-aspectRatio.widths = WIDTH.map(toPx)
-aspectRatio.heights = HEIGHT.map(toPx)
+const { width, height } = aspectRatio([0.4, 0.6, 0.8, 1])
+
+aspectRatio.width = width
+aspectRatio.height = height
 
 export default aspectRatio

@@ -23,7 +23,6 @@ import {
 
 import {
   Banner,
-  DemoLinks,
   Grid,
   Header,
   Layout,
@@ -306,58 +305,6 @@ const Container = ({ children, maxWidth, ...props }) => (
   </Box>
 )
 
-const Hero = () => {
-  const title = 'Turn websites into data'
-  const caption = 'Microlink makes easy to build an API on top of any website.'
-  const header = <Header title={title} caption={caption} />
-
-  const announcement = (
-    <Banner
-      data-event-category='Home'
-      data-event-action='Announcement'
-      href='/screenshot'
-      children='Take a screenshot of any website'
-    />
-  )
-
-  // const announcement = (
-  //   <Flex pt={[1, 0, 0, 0]} justifyContent='center' alignItems='center'>
-  //     <Link
-  //       data-event-category='Home'
-  //       data-event-action='Announcement'
-  //       href='https://www.producthunt.com/posts/microlink-2-0?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-microlink-2-0'
-  //       target='_blank'
-  //     >
-  //       <Image
-  //         width={['10rem', '10rem', '14rem', '14rem']}
-  //         src='https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=136901&theme=light&period=daily'
-  //         alt='Microlink 2.0 - Extract structured data from any website | Product Hunt Embed'
-  //       />
-  //     </Link>
-  //   </Flex>
-  // )
-
-  return (
-    <>
-      <Hide breakpoints={[0, 1, 2]}>
-        <Container id='hero'>
-          {header}
-          {announcement}
-        </Container>
-      </Hide>
-
-      <Hide breakpoints={[3]}>
-        <Box pb={[4, 5]}>
-          <Container id='hero' pb={0}>
-            {header}
-          </Container>
-          {announcement}
-        </Box>
-      </Hide>
-    </>
-  )
-}
-
 const Subheader = ({ children }) => (
   <>
     <Subhead fontSize={1} color='secondary'>
@@ -438,20 +385,6 @@ const Sdk = ({ loading, editor, children }) => (
         <LiveDemo loading={loading} children={editor} />
       </Hide>
     </Flex>
-    <Flex
-      as='section'
-      justifyContent='center'
-      alignItems='center'
-      ml='auto'
-      mr='auto'
-      flexDirection='column'
-    >
-      <Text pb={4} fontSize={1} color='gray8' children='Try another link →' />
-      <DemoLinks
-        children={children}
-        onClick={({ brand }) => navigate(`/embed/${brand.toLowerCase()}`)}
-      />
-    </Flex>
   </Container>
 )
 
@@ -526,6 +459,74 @@ const Mql = () => (
   </Container>
 )
 
+const Hero = ({ title }) => {
+  return (
+    <Container maxWidth='100%' id='mql'>
+      <Flex
+        pt={[0, 0, 0, 4]}
+        as='section'
+        justifyContent='center'
+        flexDirection={['column', 'column', 'column', 'row']}
+        alignItems='center'
+        ml='auto'
+        mr='auto'
+      >
+        <Flex
+          maxWidth={['100%', '100%', '100%', '960px']}
+          justifyContent='center'
+          flexDirection='column'
+        >
+          <Subhead
+            textAlign={['center', 'center', 'center', 'inherit']}
+            children='Production ready'
+            fontSize={3}
+            fontWeight='light'
+          />
+          <Subhead
+            textAlign={['center', 'center', 'center', 'inherit']}
+            children={title}
+            fontSize={5}
+          />
+          <Text
+            maxWidth={['inherit', 'inherit', 'inherit', 8]}
+            mt={[0, 0, 0, 3]}
+            textAlign={['center', 'center', 'center', 'inherit']}
+            children='Fast, scalable, and reliable browser automation built for businesses and developers.'
+          />
+          <List px={[3, 3, 3, 0]} mt={4} mb={3}>
+            <List.Item>Get HTML or PDF from any URL.</List.Item>
+            <List.Item>Take an screenshot in ~3 seconds.</List.Item>
+            <List.Item>Turns websites into structured data.</List.Item>
+            <List.Item>Get perfomance metrics & detect bottlenecks.</List.Item>
+          </List>
+          <Flex
+            alignItems='center'
+            justifyContent={['center', 'center', 'center', 'end']}
+            flexDirection={['column', 'column', 'column', 'row']}
+          >
+            <Flex>
+              <Button onClick={() => navigate('/docs')}>
+                <Caps fontSize={0}>Read Docs</Caps>
+              </Button>
+              <Text ml={3}>No credit card required.</Text>
+            </Flex>
+          </Flex>
+        </Flex>
+        <Box ml={4} mr={4} />
+        <MQLEditor />
+      </Flex>
+      <Box pt={[4, 5]}>
+        <Banner
+          data-event-category='Home'
+          data-event-action='Announcement'
+          href='/screenshot'
+          children='Take a screenshot of any website'
+        />
+      </Box>
+    </Container>
+  )
+}
+
 const Principles = ({ children }) => (
   <Container
     pb={[0, 0, 0, 5]}
@@ -557,12 +558,13 @@ function Index () {
     siteUrl,
     paymentApiKey,
     stripeKey,
-    paymentEndpoint
+    paymentEndpoint,
+    headline
   } = useSiteMetadata()
 
   return (
     <Layout>
-      <Hero />
+      <Hero title={headline} />
       <Sdk children={demoLinks} editor={demoLink} />
       <Mql />
       <Principles children={usePrinciples()} />

@@ -20,7 +20,7 @@ import {
 import { useTransition, animated, config } from 'react-spring'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
-import { borders, transition, colors } from 'theme'
+import { borders, transition, colors, toPx } from 'theme'
 import { Image as ImageIcon } from 'react-feather'
 import React, { useEffect, useState } from 'react'
 import prependHttp from 'prepend-http'
@@ -102,8 +102,8 @@ const DemoSlider = ({ children: slides }) => {
       id='animated-image-container'
       mt={height ? [2, 1, 1, 1] : 4}
       style={{ position: 'relative' }}
-      height={height ? `${height}px` : aspectRatio.heights}
-      width={aspectRatio.widths}
+      height={height ? toPx(height) : aspectRatio.height}
+      width={aspectRatio.width}
     >
       {transitions.map(({ item, props, key }) => (
         <AnimatedImage
@@ -111,8 +111,8 @@ const DemoSlider = ({ children: slides }) => {
           src={item.cdnUrl}
           style={props}
           css={bgStyle}
-          lazyHeight={aspectRatio.heights}
-          lazyWidth={aspectRatio.widths}
+          lazyHeight={aspectRatio.height}
+          lazyWidth={aspectRatio.width}
           onLoad={key === 0 ? onLoad : noop}
         />
       ))}
@@ -189,7 +189,7 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
         pt={2}
         pb={3}
         as='form'
-        maxWidth={aspectRatio.widths}
+        maxWidth={aspectRatio.width}
         mx='auto'
         justifyContent='center'
         onSubmit={handleSubmit}
@@ -280,9 +280,9 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
         {previewUrl ? (
           <ImageDebounce
             mt={4}
-            width={aspectRatio.widths}
+            width={aspectRatio.width}
             lazyHeight={aspectRatio.heights}
-            lazyWidth={aspectRatio.widths}
+            lazyWidth={aspectRatio.width}
             key={previewUrl}
             src={previewUrl}
           />

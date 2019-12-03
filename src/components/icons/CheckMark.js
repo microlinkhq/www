@@ -13,7 +13,7 @@ export const CheckMark = props => (
     <g stroke='none' strokeWidth={1} fill='none' fillRule='evenodd'>
       <g>
         <rect
-          fill='#654ea3'
+          fill='#067df7'
           x={0}
           y={0}
           width='12.4444444'
