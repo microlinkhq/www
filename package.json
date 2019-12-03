@@ -40,7 +40,7 @@
     "@microlink/demo-links": "~1.0.8",
     "@microlink/mql": "~0.5.13",
     "@microlink/react": "4.4.7",
-    "@styled-system/prop-types": "~5.1.2",
+    "@styled-system/prop-types": "~5.1.4",
     "@tippy.js/react": "~3.1.1",
     "autoprefixer": "~9.7.3",
     "beauty-error": "~1.2.3",
