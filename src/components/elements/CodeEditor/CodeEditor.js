@@ -112,7 +112,8 @@ const baseTheme = {
     ...codeTheme,
     margin: '.5em 8px',
     overflow: 'auto',
-    borderRadius: '0.3em'
+    borderRadius: '0.3em',
+    height: 'calc(100% - 18px)'
   },
   ':not(pre) > code[class*="language-"]': {
     background: COLORS.BACKGROUND,
@@ -210,10 +211,12 @@ const TerminalText = styled.section`
   align-items: center;
   height: inherit;
   align-items: baseline;
+  height: calc(100% - ${TERMINAL_HEADER_HEIGHT});
 
   > div {
     position: relative;
     width: 100%;
+    height: 100%;
   }
 `
 

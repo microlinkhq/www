@@ -1,66 +1,84 @@
 import mql from '@microlink/mql'
 
-const createApiUrl = props => {
-  const [url] = mql.apiUrl(props.url)
-  return url
+const createApiUrl = ({ url = 'https://example.com', ...props } = {}) => {
+  const [apiUrl] = mql.getApiUrl(url, props)
+  return apiUrl
 }
 
-const React = ({ url }) =>
-  `import MicrolinkCard from '@microlink/react'
+const createDataUrl = props => (url = 'https://example.com') =>
+  createApiUrl({ url, ...props })
 
-<MicrolinkCard
-  url='${url}'
-  size='large'
-  video
-/>`
+export default (props, stringProps) => {
+  const dataUrl = createDataUrl(props)
+  const React = ({ url = '{{DemoLinks.Spotify.url}}' }) => `
 
-React.language = 'jsx'
+import Microlink from '@microlink/react'
 
-const cURL = props => `$ curl "${createApiUrl(props)}"`
+export default props => (
+  <Microlink
+    url='${url}'
+    media={['audio', 'video', 'image', 'logo']}
+    size='large'
+    {...props}
+  />
+)`
 
-cURL.language = 'bash'
+  React.language = 'jsx'
 
-const HTML = ({ url }) =>
-  `<!-- Microlink SDK Vanilla/UMD bundle -->
+  const HTML = () =>
+    `<!-- Microlink SDK Vanilla/UMD bundle -->
 <script src="//cdn.jsdelivr.net/npm/@microlink/vanilla/umd/microlink.min.js"></script>
 
 <!-- Replace all elements with \`link-preview\` class -->
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {
-    microlink('.link-preview', {
-      size: 'large',
-      video: true
-    })
+    microlink('.link-preview')
   })
 </script>`
 
-HTML.language = 'html'
+  HTML.language = 'html'
 
-const Nodejs = props =>
-  `const mql = require('@microlink/mql')
+  const Nodejs = ({ url = '{{DemoLinks.Spotify.url}}' }) => `
+const mql = require('@microlink/mql')
 
-const url = '${props.url}'
+module.exports = props => {
 
-const { status, data } = await mql(url)`
+  const { status, data } = await mql('${url}', {
+    ${stringProps},
+    ...props
+  })
+}
+`
 
-Nodejs.language = 'javascript'
+  Nodejs.language = 'javascript'
 
-const Ruby = props =>
-  `require('httparty')
+  const cURL = () => `curl -sL \\
+  ${dataUrl()} \\
+  | jq`
 
-response = HTTParty.get('${createApiUrl(props)}')
+  cURL.language = 'bash'
+
+  const Shell = () =>
+    `${dataUrl().replace('https://api.microlink.io?url=', 'microlink-api ')}`
+
+  cURL.language = 'bash'
+
+  const Ruby = props =>
+    `require('httparty')
+
+response = HTTParty.get('${dataUrl()}')
 
 puts response.body`
 
-Ruby.language = 'ruby'
+  Ruby.language = 'ruby'
 
-const PHP = props =>
-  `<?php
+  const PHP = () =>
+    `<?php
 
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => '${createApiUrl(props)}',
+  CURLOPT_URL => '${dataUrl()}',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -82,10 +100,10 @@ if ($err) {
 
 ?>`
 
-PHP.language = 'php'
+  PHP.language = 'php'
 
-const Go = props =>
-  `package main
+  const Go = () =>
+    `package main
 
 import (
   "encoding/json"
@@ -94,7 +112,7 @@ import (
 )
 
 func main() {
-  url := "${createApiUrl(props)}"
+  url := "${dataUrl()}"
 
   if res, err := http.Get(url); err == nil {
   var payload Schema
@@ -143,21 +161,34 @@ type ImageURL struct {
   Color            string   \`json:"color,omitempty"\`
 }`
 
-Go.language = 'go'
+  Go.language = 'go'
 
-const Python = props =>
-  `import requests
+  const Python = () =>
+    `import requests
 
-url = '${createApiUrl(props)}'
+url = '${dataUrl()}'
 response = requests.request("GET", url)
+
 print(response.text)`
 
-Python.language = 'python'
+  Python.language = 'python'
 
-const Swift = props =>
-  `import Foundation
+  const Java = () => `
+
+public class Main {
+  public static void main(String[] args) {
+    HttpResponse<String> response = Unirest.get('${dataUrl()}').asJson();
+    System.out.println(response);
+  }
+}
+`
+
+  Java.language = 'java'
+
+  const Swift = () =>
+    `import Foundation
 var request = NSMutableURLRequest(
-  URL: NSURL(string: '${createApiUrl(props)}')!,
+  URL: NSURL(string: '${dataUrl()}')!,
   cachePolicy: .UseProtocolCachePolicy,
   timeoutInterval: 10.0
 )
@@ -176,24 +207,46 @@ let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, 
 
 dataTask.resume()`
 
-Swift.language = 'swift'
+  Swift.language = 'swift'
 
-const Java = props =>
-  `HttpResponse<String> response = Unirest.get('${createApiUrl(
-    props
-  )}').asString();`
+  const C = () => `
+CURL *hnd = curl_easy_init();
 
-Java.language = 'java'
+curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "GET");
+curl_easy_setopt(hnd, CURLOPT_URL, "${dataUrl()}");
 
-export default {
-  React,
-  HTML,
-  'Node.js': Nodejs,
-  cURL,
-  Ruby,
-  Go,
-  Java,
-  Python,
-  PHP,
-  Swift
+CURLcode ret = curl_easy_perform(hnd)`
+
+  C.language = 'c'
+
+  const Clojure = () => `
+(require '[clj-http.client :as client])
+
+(client/get "${dataUrl()}")`
+
+  Clojure.language = 'clojure'
+
+  const CSharp = () => `
+var client = new RestClient("${dataUrl()}");
+var request = new RestRequest(Method.GET);
+IRestResponse response = client.Execute(request);`
+
+  Clojure.language = 'c#'
+
+  return {
+    'Node.js': Nodejs,
+    cURL,
+    Go,
+    HTML,
+    Java,
+    PHP,
+    Python,
+    React,
+    Clojure,
+    C,
+    'C#': CSharp,
+    Ruby,
+    Shell,
+    Swift
+  }
 }

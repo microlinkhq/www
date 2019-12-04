@@ -1,70 +1,15 @@
 import React, { Component } from 'react'
-import { CodeEditor, Card, Flex } from 'components/elements'
+import { CodeEditor, MultiCodeEditor, Card, Flex } from 'components/elements'
 
-const CODE = {
-  mql: `
-import mql from '@microlink/mql'
+import languages, { tabs } from './languages'
 
-await mql('https://twitter.com/microlinkhq', {
- rules: {
-  stats: {
-   selector: '.user > .profile',
-    attr: {
-     tweets: {
-      selector: '.tweets',
-      attr: 'data-count'
-     },
-     followings: {
-      selector: '.following',
-      attr: 'data-count'
-     },
-     favorites: {
-      selector: '.favorites',
-      attr: 'data-count'
-     }
-    }
-   }
-  }
-})
-`,
-  api: `{
-  "lang": "en",
-  "author": "microlinkhq",
-  "title": "microlink.io (@microlinkhq) | Twitter",
-  "publisher": "Twitter",
-  "image": {
-    "url": "https://pbs.twimg.com/profile_banners/912255209988136960/1535042358/1500x500",
-    "width": 1500,
-    "height": 500,
-    "type": "jpg",
-    "size": 10644,
-    "size_pretty": "10.6 kB"
-  },
-  "description": "The latest Tweets from microlink.io (@microlinkhq). Enter a URL, receive information. Get relevant information from any link & easily create beautiful previews. Say to hello@microlink.io",
-  "date": "2017-09-01T00:00:00.000Z",
-  "logo": {
-    "url": "https://abs.twimg.com/icons/apple-touch-icon-192x192.png",
-    "width": 192,
-    "height": 192,
-    "type": "png",
-    "size": 2113,
-    "size_pretty": "2.11 kB"
-  },
-  "url": "https://twitter.com/microlinkhq",
-  "stats": {
-    "favorites": "3",
-    "followings": "406",
-    "tweets": "58"
-  }
-}`
-}
+const TABS = Object.keys(tabs)
 
 export default class extends Component {
-  state = { view: 'mql' }
+  state = { view: TABS[0] }
 
   render () {
     const { view } = this.state
-    const language = view === 'mql' ? 'js' : 'json'
 
     return (
       <Flex
@@ -79,24 +24,21 @@ export default class extends Component {
             width={CodeEditor.width}
             style={{ overflow: 'auto' }}
           >
-            <CodeEditor
+            <MultiCodeEditor
               width='inherit'
               height='inherit'
-              language={language}
-              children={CODE[view]}
+              languages={languages(view)}
             />
           </Card>
           <Flex justifyContent='flex-end'>
-            <Card.Option
-              children='mql'
-              value={view}
-              onClick={() => this.setState({ view: 'mql' })}
-            />
-            <Card.Option
-              children='api'
-              value={view}
-              onClick={() => this.setState({ view: 'api' })}
-            />
+            {TABS.map(tab => (
+              <Card.Option
+                key={tab}
+                children={tab}
+                value={view}
+                onClick={() => this.setState({ view: tab })}
+              />
+            ))}
           </Flex>
         </Flex>
       </Flex>
