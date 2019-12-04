@@ -14187,9 +14187,9 @@ prepend-http@~3.0.1:
   integrity sha512-BLxfZh+m6UiAiCPZFJ4+vYoL7NrRs5XgCTRrjseATAggXhdZKKxn+JUNmuVYWY23bDHgaEHodxw8mnmtVEDtHw==
 
 prettier-standard@latest:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/prettier-standard/-/prettier-standard-16.0.0.tgz#a5951f3631536aabf1360ba61b1396ef21da1372"
-  integrity sha512-ama4EW3QDdgNF0bTapuG6M5T9cG4g95bl8CqjJXy9Cvf7faEQIFSXv4gOdzjlfWPGeMZWUmsT0am8lfwU3X7Tg==
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/prettier-standard/-/prettier-standard-16.1.0.tgz#d0b7e52fc50ac17d3618d5316300f34016539433"
+  integrity sha512-pwS2H/0EKrlvVDY4EhQ1n2cgbmA4nt9/LIO3NTxuIfhRwn2QsWiXAcjnketmMzP15miRv44BHHXWt+m/epkiDw==
   dependencies:
     chalk "^2.4.2"
     diff "^4.0.1"
