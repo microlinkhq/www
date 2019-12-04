@@ -9,7 +9,7 @@ import { colors, fonts } from 'theme'
 import range from 'lodash/range'
 import get from 'dlv'
 
-const { width, height } = aspectRatio([0.58, 0.58, 0.58, 0.58])
+const { width, height } = aspectRatio([0.42, 0.42, 0.58, 0.58])
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
@@ -111,7 +111,6 @@ const baseTheme = {
   'pre[class*="language-"]': {
     ...codeTheme,
     margin: '.5em 8px',
-    overflow: 'auto',
     borderRadius: '0.3em',
     height: 'calc(100% - 18px)'
   },
@@ -217,6 +216,7 @@ const TerminalText = styled.section`
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: auto;
   }
 `
 
