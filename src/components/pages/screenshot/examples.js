@@ -111,8 +111,6 @@ const DemoSlider = ({ children: slides }) => {
           src={item.cdnUrl}
           style={props}
           css={bgStyle}
-          lazyHeight={aspectRatio.height}
-          lazyWidth={aspectRatio.width}
           onLoad={key === 0 ? onLoad : noop}
         />
       ))}
@@ -281,8 +279,6 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
           <ImageDebounce
             mt={4}
             width={aspectRatio.width}
-            lazyHeight={aspectRatio.heights}
-            lazyWidth={aspectRatio.width}
             key={previewUrl}
             src={previewUrl}
           />

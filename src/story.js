@@ -10,11 +10,7 @@ export function Story ({ name, children, code, ...props }) {
       <Box pt={4} pb={4} pl={4} as='article' {...props}>
         <Box display={['block', 'inline']}>{children}</Box>
       </Box>
-      {code && (
-        <Box pl={4}>
-          <CodeEditor language='jsx'>{code}</CodeEditor>
-        </Box>
-      )}
+      {code && <CodeEditor ml={4} language='jsx' children={code} />}
       <Box pb={5} />
     </>
   )

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { CodeEditor, Card, Flex } from 'components/elements'
-import { aspectRatio } from 'helpers'
-import styled from 'styled-components'
 
 const CODE = {
   mql: `
@@ -61,8 +59,6 @@ await mql('https://twitter.com/microlinkhq', {
 }`
 }
 
-const { width, height } = aspectRatio([0.58, 0.58, 0.58, 0.58])
-
 export default class extends Component {
   state = { view: 'mql' }
 
@@ -75,13 +71,20 @@ export default class extends Component {
         mt={3}
         flexDirection='column'
         justifyContent='space-around'
-        data-tilt-startX='-10'
-        data-tilt-startY='6.7'
         data-tilt
       >
         <Flex flexDirection='column' mb={[4, 0]}>
-          <Card width={width} height={height} style={{ overflow: 'auto' }}>
-            <CodeEditor language={language}>{CODE[view]}</CodeEditor>
+          <Card
+            height={CodeEditor.height}
+            width={CodeEditor.width}
+            style={{ overflow: 'auto' }}
+          >
+            <CodeEditor
+              width='inherit'
+              height='inherit'
+              language={language}
+              children={CODE[view]}
+            />
           </Card>
           <Flex justifyContent='flex-end'>
             <Card.Option

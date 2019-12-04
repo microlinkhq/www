@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import styled, { css } from 'styled-components'
-import { prettier, getLines, template } from 'helpers'
+import { prettier, getLines, template, aspectRatio } from 'helpers'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
@@ -8,6 +8,8 @@ import CodeCopy from 'react-codecopy'
 import { colors, fonts } from 'theme'
 import range from 'lodash/range'
 import get from 'dlv'
+
+const { width, height } = aspectRatio([0.58, 0.58, 0.58, 0.58])
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
@@ -38,6 +40,8 @@ export const COLORS = {
   RED: colors.red7,
   BACKGROUND: 'rgb(40, 42, 54)'
 }
+
+const TERMINAL_HEADER_HEIGHT = '36px'
 
 const codeTheme = {
   textShadow: '0 1px rgba(0, 0, 0, 0.3)',
@@ -106,11 +110,9 @@ const baseTheme = {
   },
   'pre[class*="language-"]': {
     ...codeTheme,
-    padding: '0 8px',
-    margin: '.5em 0',
+    margin: '.5em 8px',
     overflow: 'auto',
-    borderRadius: '0.3em',
-    background: COLORS.BACKGROUND
+    borderRadius: '0.3em'
   },
   ':not(pre) > code[class*="language-"]': {
     background: COLORS.BACKGROUND,
@@ -165,12 +167,12 @@ const TerminalHeader = styled.header`
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   display: flex;
-  height: 36px;
+  height: ${TERMINAL_HEADER_HEIGHT};
   background: ${COLORS.BACKGROUND};
   align-items: center;
   padding: 1rem;
   position: sticky;
-  top: 1;
+  top: 1px;
   z-index: 0;
 `
 
@@ -206,8 +208,11 @@ const TerminalText = styled.section`
   color: #fff;
   display: flex;
   align-items: center;
+  height: inherit;
+  align-items: baseline;
 
   > div {
+    position: relative;
     width: 100%;
   }
 `
@@ -309,9 +314,13 @@ CodeEditor.displayName = 'CodeEditor'
 
 CodeEditor.defaultProps = {
   prettier: true,
-  showLineNumbers: false
+  showLineNumbers: false,
+  height,
+  width
 }
 
 CodeEditor.COLORS = COLORS
+CodeEditor.width = width
+CodeEditor.height = height
 
 export default CodeEditor

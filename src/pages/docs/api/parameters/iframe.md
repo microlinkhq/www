@@ -23,9 +23,7 @@ module.exports = async () => {
   }}
 />
 
-<Iframe 
-  width="480px"
-  height="270px" 
+<Iframe
   src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed" 
   allowFullScreen 
 />

@@ -1,16 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { Box, ImagePlaceholder } from 'components/elements'
-import { toPx } from 'theme'
-
-export const MAX_WIDTH_IFRAME = [380, 380, 500, 500].map(toPx)
-export const MAX_HEIGHT_IFRAME = [382 * (7 / 9), 382 * (7 / 9), 382, 382].map(
-  toPx
-)
+import { Box, ImagePlaceholder, CodeEditor } from 'components/elements'
 
 const IframeInline = ({
-  lazyWidth = MAX_WIDTH_IFRAME,
-  lazyHeight = MAX_HEIGHT_IFRAME,
-  width = MAX_WIDTH_IFRAME,
+  lazyWidth = CodeEditor.width,
+  lazyHeight = CodeEditor.height,
+  width = CodeEditor.width,
   ...props
 }) => {
   const inputEl = useRef(null)
@@ -41,8 +35,5 @@ const IframeInline = ({
     </>
   )
 }
-
-IframeInline.MAX_WIDTH_IFRAME = MAX_WIDTH_IFRAME
-IframeInline.MAX_HEIGHT_IFRAME = MAX_HEIGHT_IFRAME
 
 export default IframeInline

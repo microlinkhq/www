@@ -67,7 +67,27 @@ export const Microlink = withContainer(MicrolinkBase)
 
 export const Terminal = withContainer(TerminalBase)
 
-export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
+export const Code = withContainer(CodeEditor, {
+  width: CodeEditor.width,
+  height: CodeEditor.height
+})
+
+CodeEditor.defaultProps = {
+  width: 'inherit',
+  height: 'inherit',
+  mx: 'auto'
+}
+
+export const MultiCodeEditor = withContainer(MultiCodeEditorBase, {
+  width: CodeEditor.width,
+  height: CodeEditor.height
+})
+
+MultiCodeEditor.defaultProps = {
+  width: 'inherit',
+  height: 'inherit',
+  mx: 'auto'
+}
 
 export const H1 = withSlug(styled(Heading)``)
 
@@ -250,27 +270,9 @@ CodeInline.defaultProps = {
   as: 'code'
 }
 
-const CodeWrapper = styled(Box)`
-  ${codeStyle};
-  overflow-x: auto;
-`
-
-export const Code = props => (
-  <CodeWrapper
-    maxWidth={['100%', WIDTH.normal]}
-    ml='auto'
-    mr='auto'
-    {...CONTAINER_SPACE}
-  >
-    <CodeEditor {...props} />
-  </CodeWrapper>
-)
-
 const _ImageBase = styled(ImageBase)``
 
 _ImageBase.defaultProps = {
-  lazyHeight: aspectRatio.height,
-  lazyWidth: aspectRatio.width,
   maxWidth: `${WIDTH.normal}px`,
   borderRadius: '3px',
   ml: 'auto',

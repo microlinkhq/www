@@ -105,15 +105,6 @@ const Actions = styled(Flex)`
   top: 4px;
 `
 
-const CodeEditorWrapper = styled(Box)`
-  background: ${COLORS.BACKGROUND};
-  section {
-    top: 8px;
-    position: relative;
-    overflow: visible;
-  }
-`
-
 export default ({ languages: codeByLanguage, ...props }) => {
   const editorLanguages = Object.keys(codeByLanguage)
 
@@ -153,12 +144,11 @@ export default ({ languages: codeByLanguage, ...props }) => {
   )
 
   return (
-    <CodeEditorWrapper>
-      <CodeEditor
-        language={toAlias(editorLanguage)}
-        children={code}
-        ActionComponent={ActionComponent}
-      />
-    </CodeEditorWrapper>
+    <CodeEditor
+      language={toAlias(editorLanguage)}
+      children={code}
+      ActionComponent={ActionComponent}
+      {...props}
+    />
   )
 }

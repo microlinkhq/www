@@ -22,8 +22,6 @@ import { navigate } from 'gatsby'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
 
-const { MAX_WIDTH_IFRAME, MAX_HEIGHT_IFRAME } = IframeInline
-
 const MicrolinkDebounce = debounceComponent(Microlink)
 
 const LogoWrap = styled(Box)`
@@ -127,7 +125,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
           <Flex
             flexDirection='column'
             mb={[4, 0]}
-            maxWidth={MAX_WIDTH_IFRAME}
+            maxWidth={CodeEditor.width}
             mx='auto'
           >
             {view === 'sdk' ? (
@@ -140,7 +138,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   media={['audio', 'video', 'image', 'logo']}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
-                  <CodeEditor maxWidth={MAX_WIDTH_IFRAME} language='bash'>
+                  <CodeEditor maxWidth={CodeEditor.width} language='bash'>
                     {`<Microlink size='large' url='${inputValue ||
                       demoLink.data
                         .url}' media={['audio', 'video', 'image', 'logo']} />`}
@@ -148,26 +146,32 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                 </Flex>
               </Box>
             ) : data.iframe ? (
-              <>
+              <Flex
+                flexDirection='column'
+                alignItems='center'
+                justifyContent='center'
+              >
                 <IframeInline
                   dangerouslySetInnerHTML={{ __html: data.iframe }}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
-                  <CodeEditor maxWidth={MAX_WIDTH_IFRAME} language='bash'>
-                    {demoLink.data.iframe}
-                  </CodeEditor>
+                  <CodeEditor
+                    maxWidth={CodeEditor.width}
+                    language='bash'
+                    children={demoLink.data.iframe}
+                  />
                 </Flex>
-              </>
+              </Flex>
             ) : (
               <Flex
                 border={3}
-                borderColor='black80'
+                borderColor='gray5'
                 justifyContent='center'
                 alignItems='center'
-                width={MAX_WIDTH_IFRAME}
-                height={MAX_HEIGHT_IFRAME}
+                width={CodeEditor.width}
+                height={CodeEditor.height}
               >
-                <Text fontSize={2} color='black'>
+                <Text fontSize={2} color='gray6'>
                   not supported
                 </Text>
               </Flex>
