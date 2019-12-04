@@ -199,7 +199,7 @@ const TerminalText = styled.section`
   font-size: 13px;
   font-weight: normal;
   line-height: 20px;
-  padding-bottom: 9.5px;
+  padding-bottom: 16px;
   padding-left: 16px;
   padding-right: 16px;
   border-bottom-right-radius: 4px;
