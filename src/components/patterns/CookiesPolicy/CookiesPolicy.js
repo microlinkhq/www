@@ -45,8 +45,7 @@ const CloseButton = styled(Box)`
 export default () => {
   const [isHidden, setIsHidden] = useLocalStorage(LOCALSTORAGE_KEY, false)
   const [isClosed, setIsClosed] = useState(false)
-
-  if (isClosed) return null
+  if (isHidden || isClosed) return null
 
   return (
     <CookiesWrapper id='cookies-policy' aria-hidden={isHidden} m={3}>
