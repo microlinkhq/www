@@ -9,7 +9,7 @@ import { colors, fonts } from 'theme'
 import range from 'lodash/range'
 import get from 'dlv'
 
-const { width, height } = aspectRatio([0.42, 0.42, 0.58, 0.58])
+const { width, height } = aspectRatio([0.4, 0.4, 0.6, 0.6])
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
