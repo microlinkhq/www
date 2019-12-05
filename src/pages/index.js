@@ -5,7 +5,7 @@ import {
   useSiteMetadata
 } from 'components/hook'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { navigate } from 'gatsby'
 
 import {
@@ -15,6 +15,7 @@ import {
   Container as ContainerBase,
   Flex,
   Heading,
+  Image,
   Hide,
   Link,
   Subhead,
@@ -33,6 +34,8 @@ import {
 } from 'components/patterns'
 
 import { borders, colors } from 'theme'
+import { aspectRatio } from 'helpers'
+import get from 'dlv'
 
 const Questions = () => {
   const title = 'Questions'
@@ -299,19 +302,15 @@ const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
   )
 }
 
-const Container = ({ children, maxWidth, ...props }) => (
-  <Box as='article' px={4} pt={[4, 5]} pb={[4, 5]} {...props}>
+const Container = ({
+  children,
+  maxWidth,
+  component: Component = Box,
+  ...props
+}) => (
+  <Component as='article' px={4} pt={[4, 5]} pb={[4, 5]} {...props}>
     <ContainerBase children={children} maxWidth={maxWidth} />
-  </Box>
-)
-
-const Subheader = ({ children }) => (
-  <>
-    <Subhead fontSize={1} color='secondary'>
-      <Caps as='span' children={children[0]} />
-    </Subhead>
-    <Heading mt={1} fontSize={[3, 4]} variant={null} children={children[1]} />
-  </>
+  </Component>
 )
 
 const Sdk = ({ loading, editor, children }) => (
@@ -459,74 +458,6 @@ const Mql = () => (
   </Container>
 )
 
-const Hero = ({ title }) => {
-  return (
-    <Container maxWidth='100%' id='mql'>
-      <Flex
-        pt={[0, 0, 0, 4]}
-        as='section'
-        justifyContent='center'
-        flexDirection={['column', 'column', 'column', 'row']}
-        alignItems='center'
-        ml='auto'
-        mr='auto'
-      >
-        <Flex
-          maxWidth={['100%', '100%', '100%', '960px']}
-          justifyContent='center'
-          flexDirection='column'
-        >
-          <Subhead
-            textAlign={['center', 'center', 'center', 'inherit']}
-            children='Production ready'
-            fontSize={3}
-            fontWeight='light'
-          />
-          <Subhead
-            textAlign={['center', 'center', 'center', 'inherit']}
-            children={title}
-            fontSize={5}
-          />
-          <Text
-            maxWidth={['inherit', 'inherit', 'inherit', 8]}
-            mt={[0, 0, 0, 3]}
-            textAlign={['center', 'center', 'center', 'inherit']}
-            children='Fast, scalable, and reliable browser automation built for businesses and developers.'
-          />
-          <List px={[3, 3, 3, 0]} mt={4} mb={3}>
-            <List.Item>Get HTML or PDF from any URL.</List.Item>
-            <List.Item>Take an screenshot in ~3 seconds.</List.Item>
-            <List.Item>Turns websites into structured data.</List.Item>
-            <List.Item>Get perfomance metrics & detect bottlenecks.</List.Item>
-          </List>
-          <Flex
-            alignItems='center'
-            justifyContent={['center', 'center', 'center', 'end']}
-            flexDirection={['column', 'column', 'column', 'row']}
-          >
-            <Flex>
-              <Button onClick={() => navigate('/docs')}>
-                <Caps fontSize={0}>Read Docs</Caps>
-              </Button>
-              <Text ml={3}>No credit card required.</Text>
-            </Flex>
-          </Flex>
-        </Flex>
-        <Box ml={4} mr={4} />
-        <MQLEditor />
-      </Flex>
-      <Box pt={[4, 5]}>
-        <Banner
-          data-event-category='Home'
-          data-event-action='Announcement'
-          href='/screenshot'
-          children='Take a screenshot of any website'
-        />
-      </Box>
-    </Container>
-  )
-}
-
 const Principles = ({ children }) => (
   <Container
     pb={[0, 0, 0, 5]}
@@ -551,9 +482,322 @@ const Principles = ({ children }) => (
   </Container>
 )
 
+const Block = ({
+  blockOne,
+  blockTwo,
+  children,
+  flexDirection = 'row',
+  ...props
+}) => (
+  <Container
+    maxWidth='100%'
+    justifyContent='center'
+    alignItems='center'
+    component={Flex}
+    {...props}
+  >
+    <Flex
+      pt={[0, 0, 0, 4]}
+      pb={[0, 0, 0, 5]}
+      as='section'
+      justifyContent='center'
+      flexDirection={['column', 'column', 'column', flexDirection]}
+      alignItems='center'
+      ml='auto'
+      mr='auto'
+    >
+      {blockOne}
+      <Box ml={4} mr={4} />
+      {blockTwo}
+    </Flex>
+    {children}
+  </Container>
+)
+
+const Hero = ({ title }) => {
+  const words = ['Instant', 'Costless', 'From $0', 'Effective', 'Reliable']
+  const [word, setWord] = useState(words[0])
+  const [index, setIndex] = useState(0)
+
+  const handleClick = event => {
+    event.preventDefault()
+    setIndex((index + 1) % words.length)
+    setWord(words[index])
+  }
+
+  const blockOne = (
+    <Flex
+      maxWidth={['100%', '100%', '100%', '960px']}
+      justifyContent='center'
+      flexDirection='column'
+      pr={[0, 0, 0, 4]}
+    >
+      <Subhead
+        textAlign={['center', 'center', 'center', 'inherit']}
+        children='Production ready'
+        fontSize={3}
+        fontWeight='light'
+      />
+      <Subhead
+        textAlign={['center', 'center', 'center', 'inherit']}
+        children={title}
+        fontSize={5}
+      />
+      <Text
+        maxWidth={['inherit', 'inherit', 'inherit', 7]}
+        mt={[0, 0, 0, 3]}
+        textAlign={['center', 'center', 'center', 'inherit']}
+        children='Fast, scalable, and reliable browser automation built for businesses and developers.'
+      />
+      <List ml={2} px={[3, 3, 3, 0]} mt={4} mb={3}>
+        <List.Item>Get HTML or PDF from any URL.</List.Item>
+        <List.Item>Take an screenshot in ~3 seconds.</List.Item>
+        <List.Item>Turns websites into structured data.</List.Item>
+        <List.Item>Get perfomance metrics & detect bottlenecks.</List.Item>
+      </List>
+      <Flex
+        alignItems='center'
+        justifyContent={['center', 'center', 'center', 'end']}
+        flexDirection={['column', 'column', 'column', 'row']}
+      >
+        <Flex>
+          <Button onClick={() => navigate('/docs')}>
+            <Caps fontSize={0}>Read Docs</Caps>
+          </Button>
+          <Text ml={3}>No credit card required.</Text>
+        </Flex>
+      </Flex>
+    </Flex>
+  )
+
+  return (
+    <Block
+      id='hero'
+      title={title}
+      word={word}
+      blockOne={blockOne}
+      blockTwo={<MQLEditor />}
+      children={<Caption onClick={handleClick} word={word} />}
+      height='80vh'
+    />
+  )
+}
+
+const Caption = ({ word, ...props }) => (
+  <Flex
+    style={{ userSelect: 'none' }}
+    flexDirection='column'
+    justifyContent='center'
+    alignItems='center'
+    pt={6}
+    {...props}
+  >
+    <Flex>
+      <Subhead mr={3} fontWeight='light' fontSize={7}>
+        Blazing.
+      </Subhead>
+      <Subhead mr={3} fontWeight='light' fontSize={7}>
+        Fast.
+      </Subhead>
+      <Subhead mr={3} fontWeight='light' fontSize={7}>
+        {word}.
+      </Subhead>
+      <Subhead fontWeight='bold' fontSize={7}>
+        Cloud Browser.
+      </Subhead>
+    </Flex>
+    <Flex pt={3}>
+      <Subhead fontWeight='light' color='black80'>
+        browser automation made simple at cost pricing, full control via API.
+      </Subhead>
+    </Flex>
+  </Flex>
+)
+
+const Subheader = ({ title, subtitle, textAlign = 'center', children }) => (
+  <>
+    <Subhead
+      fontSize={2}
+      fontWeight='bold'
+      color='secondary'
+      textAlign={textAlign}
+    >
+      <Caps as='span' children={subtitle} />
+    </Subhead>
+    <Heading
+      mt={1}
+      mb={children && 1}
+      fontWeight='bold'
+      fontSize={5}
+      variant={null}
+      textAlign={textAlign}
+      children={title}
+    />
+    {children}
+  </>
+  // <Flex
+  //   justifyContent='center'
+  //   alignItems='center'
+  //   flexDirection='column'
+  //   pb={5}
+  // >
+  //   <Subhead fontSize={2} fontWeight='bold' color='secondary'>
+  //     <Caps as='span' children={children[0]} />
+  //   </Subhead>
+  //   <Heading
+  //     mt={1}
+  //     mb={1}
+  //     fontWeight='bold'
+  //     fontSize={6}
+  //     variant={null}
+  //     children='Website'
+  //   />
+  //   <Link>See docs</Link>
+  // </Flex>
+)
+
+const Screenshots = props => {
+  const screenshotsUrls = [
+    { theme: 'dark', brand: 'Apple' },
+    { theme: 'light', brand: 'MDN' },
+    { theme: 'light', brand: 'StackOverflow' },
+    { theme: 'light', brand: 'ProductHunt' },
+    { theme: 'dark', brand: 'Nasa' }
+  ].map(item => {
+    const id = item.brand.toLowerCase()
+    const filename = `${id}.png`
+    return `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
+  })
+
+  const [screenshotUrl, setScreenshotUrl] = useState(screenshotsUrls[0])
+  const [index, setIndex] = useState(0)
+
+  const handleClick = event => {
+    event.preventDefault()
+    setIndex((index + 1) % screenshotsUrls.length)
+    setScreenshotUrl(screenshotsUrls[index])
+  }
+
+  const blockOne = (
+    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+      <Subheader subtitle='screenshot' title='Turn websites into a snapshot' />
+    </Flex>
+  )
+
+  const blockTwo = (
+    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+      <Box data-tilt pt={3}>
+        <Image src={screenshotUrl} width={aspectRatio.width} />
+      </Box>
+      <Text
+        mt={[0, 0, 0, 3]}
+        mb={[0, 0, 0, 3]}
+        px={6}
+        textAlign='center'
+        maxWidth='960px'
+      >
+        Take a retina display screenshot of any URL. Export them to PNG or JPEG.
+        Automatic CDN redistribution. Overlay composition using a browser framer
+        & background. Just in time stale refresh, keeping them up to date.
+      </Text>
+      <Flex pt={3} alignItems='center' justifyContent='center'>
+        <Button onClick={() => navigate('/screenshot')}>
+          <Caps fontSize={0}>Live Demo</Caps>
+        </Button>
+        <Link
+          onClick={() => navigate('/docs/api/parameters/screenshot')}
+          ml={3}
+        >
+          Read Docs
+        </Link>
+      </Flex>
+    </Flex>
+  )
+
+  return (
+    <Block
+      id='screenshot'
+      flexDirection='column'
+      onClick={handleClick}
+      blockOne={blockOne}
+      blockTwo={blockTwo}
+      {...props}
+    />
+  )
+}
+
+const Meta = ({ demoLinks, ...props }) => {
+  const demoLinkTest = ({ brand }) => brand === 'Twitter'
+  const demoLinkIndex = demoLinks.findIndex(demoLinkTest)
+
+  const links = demoLinks.filter(
+    demoLink =>
+      !demoLinkTest(demoLink) &&
+      (!!get(demoLink, 'data.video') || !!get(demoLink, 'data.audio'))
+  )
+  const [link, setLink] = useState(demoLinks[demoLinkIndex].data)
+  const [index, setIndex] = useState(0)
+
+  const handleClick = event => {
+    if (event.target.tagName !== 'SELECT' && event.target.tagName !== 'SPAN') {
+      setIndex((index + 1) % links.length)
+      setLink(links[index].data)
+    }
+  }
+
+  const blockOne = (
+    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+      <Subheader subtitle='meta' title='Turn websites into rich media' />
+    </Flex>
+  )
+
+  const blockTwo = (
+    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+      <Box data-tilt pt={4} pb={3}>
+        <LiveDemo children={link} />
+      </Box>
+      <Text
+        mt={[0, 0, 0, 3]}
+        mb={[0, 0, 0, 3]}
+        px={6}
+        textAlign='center'
+        maxWidth='960px'
+      >
+        Engage your content with enriched media. Convert your links into
+        beautiful previews. Make your content attractive to consume. Add it to
+        an existing website or app. Auto media detection (image, video, audio).
+        Native embeds supported. Easily customizable.
+      </Text>
+      <Flex pt={3} alignItems='center' justifyContent='center'>
+        <Button onClick={() => navigate('/screenshot')}>
+          <Caps fontSize={0}>Live Demo</Caps>
+        </Button>
+        <Link
+          onClick={() => navigate('/docs/api/parameters/screenshot')}
+          ml={3}
+        >
+          Read Docs
+        </Link>
+      </Flex>
+    </Flex>
+  )
+
+  return (
+    <Block
+      id='meta'
+      flexDirection='column'
+      onClick={handleClick}
+      blockOne={blockOne}
+      blockTwo={blockTwo}
+      {...props}
+    />
+  )
+}
+
 function Index () {
   const demoLink = useDefaultDemoLink().data
   const demoLinks = useDemoLinks()
+
   const {
     siteUrl,
     paymentApiKey,
@@ -565,9 +809,29 @@ function Index () {
   return (
     <Layout>
       <Hero title={headline} />
-      <Sdk children={demoLinks} editor={demoLink} />
-      <Mql />
-      <Principles children={usePrinciples()} />
+      <Screenshots
+        bg='pinky'
+        borderTop={`${borders[1]} ${colors.pinkest}`}
+        borderBottom={`${borders[1]} ${colors.pinkest}`}
+      />
+      <Meta demoLinks={demoLinks} />
+      {/* <Screenshots id='pdf' flexDirection='row-reverse' /> */}
+      {/* <Screenshots
+        id='meta'
+        bg='pinky'
+        borderTop={`${borders[1]} ${colors.pinkest}`}
+        borderBottom={`${borders[1]} ${colors.pinkest}`}
+        image='https://i.imgur.com/rDWTmWH.png'
+      />
+      <Screenshots
+        id='metrics'
+        flexDirection='row-reverse'
+        image='https://i.imgur.com/swVgvnp.png'
+      /> */}
+      {/* <Showcase /> */}
+      {/* <Sdk children={demoLinks} editor={demoLink} /> */}
+      {/* <Mql /> */}
+      {/* <Principles children={usePrinciples()} /> */}
       <Pricing
         siteUrl={siteUrl}
         apiKey={paymentApiKey}

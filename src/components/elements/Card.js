@@ -14,6 +14,7 @@ Card.defaultProps = {
 
 const CardOption = ({ children, value, ...props }) => (
   <Text
+    as='span'
     color={children === value ? 'black' : 'black60'}
     fontWeight={children === value ? 'regular' : 'normal'}
     pt={3}

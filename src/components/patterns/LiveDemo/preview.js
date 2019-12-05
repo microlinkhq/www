@@ -1,46 +1,11 @@
-import styled, { css } from 'styled-components'
-
+import styled from 'styled-components'
 import Microlink from '@microlink/react'
+import { Choose } from 'react-extras'
 import React from 'react'
-
-import { CARD_WIDTH_DESKTOP, CARD_WIDTH_MOBILE } from './theme'
-import { breakpoints } from 'theme'
 
 import { Box, MultiCodeEditor, CodeEditor, Hide } from 'components/elements'
 
 import languages from './languages'
-
-const cardCss = cardWidth => css`
-  border: 0 !important;
-
-  .microlink_card__media,
-  .microlink_card__media_video_wrapper {
-    flex: 0 0 200px;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  .microlink_card__content {
-    flex: 0 0 105px;
-  }
-
-  @media screen and (max-width: ${breakpoints[0]}) {
-    .microlink_card__media,
-    .microlink_card__media_video_wrapper {
-      flex: 0 0 165px;
-    }
-    .microlink_card__content {
-      flex: 0 0 130px;
-    }
-  }
-`
-
-const MicrolinkCardDesktop = styled(Microlink)`
-  ${cardCss(CARD_WIDTH_DESKTOP)};
-`
-const MicrolinkCardMobile = styled(Microlink)`
-  ${cardCss(CARD_WIDTH_MOBILE)};
-`
 
 const CodeEditorWrapper = styled(Box)`
   section,
@@ -49,28 +14,30 @@ const CodeEditorWrapper = styled(Box)`
   }
 `
 
-const CodePreview = ({ children, ...props }) => {
-  return (
-    <CodeEditorWrapper>
-      <MultiCodeEditor languages={languages} />
-    </CodeEditorWrapper>
-  )
-}
+const CodePreview = ({ children }) => (
+  <CodeEditorWrapper>
+    <MultiCodeEditor languages={languages} {...children} />
+  </CodeEditorWrapper>
+)
+
+const STYLE = { border: '0', height: 'inherit', maxWidth: '100%' }
 
 const CardPreview = ({ loading, children }) => (
   <>
-    <Hide breakpoints={[0, 1]}>
-      <MicrolinkCardDesktop
+    <Hide breakpoints={[0, 1]} style={{ height: 'inherit' }}>
+      <Microlink
         url={children.url}
         loading={loading}
         size='large'
+        style={STYLE}
         setData={() => children}
       />
     </Hide>
-    <Hide breakpoints={[2, 3]}>
-      <MicrolinkCardMobile
+    <Hide breakpoints={[2, 3]} style={{ height: 'inherit' }}>
+      <Microlink
         url={children.url}
         loading={loading}
+        style={STYLE}
         size='large'
         setData={() => children}
       />
@@ -82,8 +49,16 @@ const JSONPreview = ({ children, ...props }) => (
   <CodeEditor language='json'>{JSON.stringify(children, null, 2)}</CodeEditor>
 )
 
-export default ({ view, ...props }) => {
-  if (view === 'preview') return <CardPreview {...props} />
-  if (view === 'json') return <JSONPreview {...props} />
-  if (view === 'code') return <CodePreview {...props} />
-}
+export default ({ view, ...props }) => (
+  <Choose>
+    <Choose.When condition={view === 'preview'}>
+      <CardPreview {...props} />
+    </Choose.When>
+    <Choose.When condition={view === 'json'}>
+      <JSONPreview {...props} />
+    </Choose.When>
+    <Choose.When condition={view === 'code'}>
+      <CodePreview {...props} />
+    </Choose.When>
+  </Choose>
+)

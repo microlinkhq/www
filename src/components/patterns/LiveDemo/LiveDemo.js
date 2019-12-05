@@ -32,7 +32,7 @@ export default ({ children, loading }) => {
         >
           <Preview loading={loading} view={view} children={children} />
         </Card>
-        <Flex justifyContent='flex-end'>
+        <Flex as='footer' justifyContent='flex-end'>
           <Card.Option
             children='preview'
             value={view}
