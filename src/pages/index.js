@@ -539,7 +539,7 @@ const Screenshots = props => {
   const blockTwo = (
     <Flex justifyContent='center' alignItems='center' flexDirection='column'>
       <Box data-tilt pt={3}>
-        <Image src={screenshotUrl} width={aspectRatio.width} />
+        <Image src={screenshotUrl} />
       </Box>
       <Text
         mt={[0, 0, 0, 3]}
@@ -743,9 +743,9 @@ function Index () {
     <Layout>
       <Hero title={headline} />
       <Screenshots
-        bg='pinky'
-        borderTop={`${borders[1]} ${colors.pinkest}`}
-        borderBottom={`${borders[1]} ${colors.pinkest}`}
+        bg='gray0'
+        // borderTop={`${borders[1]} ${colors.pinkest}`}
+        // borderBottom={`${borders[1]} ${colors.pinkest}`}
       />
 
       <Meta demoLinks={demoLinks} />
