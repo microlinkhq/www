@@ -1,52 +1,38 @@
-import React, { useState, createElement } from 'react'
+import { useState, createElement, useEffect } from 'react'
+import { aspectRatio, template } from 'helpers'
 import noop from 'lodash/noop'
 
 import ImagePlaceholder from './ImagePlaceholder'
-import { aspectRatio, template } from 'helpers'
 import Image from './Image'
 
-const LazyImage = ({
-  lazy,
-  lazyWidth,
-  lazyHeight,
-  onLoad,
-  loading,
-  ...props
-}) => {
-  const [isLoaded, setLoaded] = useState(false)
-  props.src = template(props.src)
+const LazyImage = ({ lazy, loading, src: rawSrc, onError, ...props }) => {
+  const src = template(rawSrc)
 
-  if (!lazy) return createElement(Image, props)
-  if (loading != null ? !loading : isLoaded) return createElement(Image, props)
+  if (!lazy) return createElement(Image, { src, ...props })
+  const [isLoading, setLoading] = useState(loading)
 
-  const handleLoad = event => {
-    setLoaded(true)
-    setTimeout(onLoad, 0, event)
-  }
+  useEffect(() => {
+    const img = document.createElement('img')
+    img.onerror = onError
+    img.onload = () => {
+      console.log('loaded!')
+      img.onload = null
+      img.onerror = null
+      setLoading(false)
+    }
+    img.src = src
+  }, [])
 
-  const handleError = err => console.error('LazyImage:', err.message)
-
-  return (
-    <ImagePlaceholder
-      width={isLoaded ? undefined : lazyWidth}
-      height={isLoaded ? undefined : lazyHeight}
-      {...props}
-    >
-      <Image
-        {...props}
-        onLoad={handleLoad}
-        onError={handleError}
-        style={{ display: !isLoaded && 'none' }}
-      />
-    </ImagePlaceholder>
-  )
+  const Component = isLoading ? ImagePlaceholder : Image
+  return createElement(Component, { src, ...props })
 }
 
 LazyImage.defaultProps = {
-  onLoad: noop,
+  onError: noop,
   lazy: true,
-  lazyWidth: aspectRatio.width,
-  lazyHeight: aspectRatio.height
+  loading: true,
+  width: aspectRatio.width,
+  height: '100%'
 }
 
 export default LazyImage

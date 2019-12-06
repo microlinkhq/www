@@ -2,9 +2,8 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Box, ImagePlaceholder, CodeEditor } from 'components/elements'
 
 const IframeInline = ({
-  lazyWidth = CodeEditor.width,
-  lazyHeight = CodeEditor.height,
   width = CodeEditor.width,
+  height = CodeEditor.height,
   ...props
 }) => {
   const inputEl = useRef(null)
@@ -23,9 +22,7 @@ const IframeInline = ({
 
   return (
     <>
-      {isLoading ? (
-        <ImagePlaceholder width={lazyWidth} height={lazyHeight} />
-      ) : null}
+      {isLoading ? <ImagePlaceholder width={width} height={height} /> : null}
       <Box
         ref={inputEl}
         style={{ display: isLoading && 'none' }}

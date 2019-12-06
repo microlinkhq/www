@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import React, { useState } from 'react'
+import React from 'react'
 
-import { Flex, Box, Button } from 'components/elements'
+import { Flex } from 'components/elements'
 
 import LazyImage from './LazyImage'
 
@@ -19,29 +19,19 @@ export default () => (
 )
 `
 
-const WIDTH = 800
-const HEIGHT = 600
+const SIZE = '350px'
 
 const ImageStory = () => {
-  const [loading, setLoading] = useState(undefined)
-
   return (
     <Story name={storyName} code={code}>
-      <Flex flexDirection='column' justifyContent='center'>
-        <Box mb={3}>
-          <Button onClick={() => setLoading(undefined)}>auto</Button>
-          <Button ml={3} onClick={() => setLoading(true)}>
-            loading
-          </Button>
-          <Button ml={3} onClick={() => setLoading(false)}>
-            loaded
-          </Button>
-        </Box>
+      <Flex flexDirection='row' justifyContent='center'>
+        <LazyImage width={SIZE} height={SIZE} src={imageUrl} />
         <LazyImage
-          width={WIDTH}
-          height={HEIGHT}
+          ml={4}
+          width={SIZE}
+          height={SIZE}
           src={imageUrl}
-          loading={loading}
+          lazy={false}
         />
       </Flex>
     </Story>

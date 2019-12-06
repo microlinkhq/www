@@ -11,7 +11,7 @@ const NavLinkMobile = props => <NavLink {...props} />
 export const NavLogo = ({ mobile, ...props }) =>
   mobile ? (
     <NavLinkMobile
-      width={32}
+      width='32px'
       display='flex'
       href='/'
       style={{ flex: '0 0 auto' }}
@@ -30,7 +30,7 @@ export const NavLogo = ({ mobile, ...props }) =>
       display='flex'
       {...props}
     >
-      <Microlink size='100%' />
+      <Microlink />
     </NavLinkDesktop>
   )
 
