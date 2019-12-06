@@ -1,9 +1,4 @@
-import {
-  useDefaultDemoLink,
-  useDemoLinks,
-  usePrinciples,
-  useSiteMetadata
-} from 'components/hook'
+import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
 
 import React, { useState } from 'react'
 import { navigate } from 'gatsby'
@@ -313,151 +308,6 @@ const Container = ({
   </Component>
 )
 
-const Sdk = ({ loading, editor, children }) => (
-  <Container
-    maxWidth='100%'
-    bg='pinky'
-    id='sdk'
-    borderTop={`${borders[1]} ${colors.pinkest}`}
-    borderBottom={`${borders[1]} ${colors.pinkest}`}
-  >
-    <Flex
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      as='header'
-    >
-      <Subheader
-        children={['Microlink SDK', 'Turn websites into rich media']}
-      />
-      <Box textAlign='center'>
-        <Text py={4} maxWidth={8}>
-          <Link href='/docs/sdk/getting-started/overview/'>Microlink SDK</Link>{' '}
-          converts your links into beautiful previews. Make your content
-          attractive, engaging better your links.
-        </Text>
-      </Box>
-    </Flex>
-    <Flex
-      pt={[0, 0, 0, 4]}
-      pb={[0, 0, 0, 4]}
-      as='section'
-      justifyContent='center'
-      alignItems={['center', 'center', 'center', 'end']}
-      flexDirection={['column', 'column', 'column', 'row']}
-      ml='auto'
-      mr='auto'
-    >
-      <Flex
-        maxWidth={['100%', '100%', '100%', '23em']}
-        justifyContent='center'
-        flexDirection='column'
-      >
-        <Text
-          maxWidth={['inherit', 'inherit', 'inherit', 8]}
-          mt={[0, 0, 0, 3]}
-          textAlign={['center', 'center', 'center', 'inherit']}
-          children='Engage your content with enriched media.'
-        />
-        <List px={[3, 3, 3, 0]} mt={4} mb={3}>
-          <List.Item children='Add it to an existing website or app.' />
-          <List.Item children='Auto detection (image, video, audio) with media controls support.' />
-          <List.Item children='Easily customizable.' />
-        </List>
-        <Flex
-          alignItems='center'
-          justifyContent={['center', 'center', 'center', 'end']}
-          pb={[4, 4, 4, 0]}
-          flexDirection={['column', 'column', 'column', 'row']}
-        >
-          <Hide breakpoints={[3]}>
-            <LiveDemo loading={loading} children={editor} />
-          </Hide>
-
-          <Button onClick={() => navigate('/embed')}>
-            <Caps fontSize={0}>See More</Caps>
-          </Button>
-        </Flex>
-      </Flex>
-      <Box ml={4} mr={4} />
-      <Hide breakpoints={[0, 1, 2]}>
-        <LiveDemo loading={loading} children={editor} />
-      </Hide>
-    </Flex>
-  </Container>
-)
-
-const Mql = () => (
-  <Container maxWidth='100%' id='mql'>
-    <Flex
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      as='header'
-    >
-      <Subheader
-        children={['Microlink API', 'Turns websites into structured data']}
-      />
-
-      <Box textAlign='center'>
-        <Text py={4} maxWidth={8}>
-          <Link href='/docs/mql/getting-started/overview'>
-            Microlink Query Language
-          </Link>{' '}
-          (MQL) is a programmatic way to getting content from any URL. Build
-          APIs from websites.
-        </Text>
-      </Box>
-    </Flex>
-    <Flex
-      pt={[0, 0, 0, 4]}
-      as='section'
-      justifyContent='center'
-      alignItems={['center', 'center', 'center', 'end']}
-      flexDirection={['column', 'column', 'column', 'row']}
-      ml='auto'
-      mr='auto'
-    >
-      <Flex
-        maxWidth={['100%', '100%', '100%', '23em']}
-        justifyContent='center'
-        flexDirection='column'
-      >
-        <Text
-          maxWidth={['inherit', 'inherit', 'inherit', 8]}
-          mt={[0, 0, 0, 3]}
-          textAlign={['center', 'center', 'center', 'inherit']}
-          children='Build APIs from websites.'
-        />
-        <List px={[3, 3, 3, 0]} mt={4} mb={3}>
-          <List.Item children='Create data rules based on HTML markup.' />
-          <List.Item children='Target any URL for getting specific content.' />
-          <List.Item children='Builtin data validation & hydration.' />
-        </List>
-        <Flex
-          alignItems='center'
-          justifyContent={['center', 'center', 'center', 'end']}
-          flexDirection={['column', 'column', 'column', 'row']}
-        >
-          <Hide breakpoints={[3]}>
-            <MQLEditor />
-          </Hide>
-
-          <Button
-            onClick={() => navigate('/docs/mql/getting-started/overview')}
-          >
-            <Caps fontSize={0}>See More</Caps>
-          </Button>
-        </Flex>
-      </Flex>
-      <Box ml={4} mr={4} />
-      <Hide breakpoints={[0, 1, 2]}>
-        <MQLEditor />
-      </Hide>
-    </Flex>
-  </Container>
-)
-
 const Principles = ({ children }) => (
   <Container
     pb={[0, 0, 0, 5]}
@@ -487,6 +337,8 @@ const Block = ({
   blockTwo,
   children,
   flexDirection = 'row',
+  pt = [0, 0, 0, 4],
+  pb = [0, 0, 0, 5],
   ...props
 }) => (
   <Container
@@ -497,8 +349,8 @@ const Block = ({
     {...props}
   >
     <Flex
-      pt={[0, 0, 0, 4]}
-      pb={[0, 0, 0, 5]}
+      pt={pt}
+      pb={pb}
       as='section'
       justifyContent='center'
       flexDirection={['column', 'column', 'column', flexDirection]}
@@ -726,6 +578,88 @@ const Screenshots = props => {
   )
 }
 
+const Pdf = () => {
+  const pdfsUrls = [
+    { theme: 'dark', brand: 'Apple' },
+    { theme: 'light', brand: 'MDN' },
+    { theme: 'light', brand: 'StackOverflow' },
+    { theme: 'light', brand: 'ProductHunt' },
+    { theme: 'dark', brand: 'Nasa' }
+  ].map(item => {
+    const id = item.brand.toLowerCase()
+    const filename = `${id}.png`
+    return `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
+  })
+
+  const [pdfUrl, setpdfUrl] = useState(pdfsUrls[0])
+  const [index, setIndex] = useState(0)
+
+  const handleClick = event => {
+    event.preventDefault()
+    setIndex((index + 1) % pdfsUrls.length)
+    setpdfUrl(pdfsUrls[index])
+  }
+
+  const blockOne = (
+    <Flex flexDirection='column' maxWidth='1100px'>
+      <Flex>
+        <Subhead fontWeight='normal' fontSize={7}>
+          Export to PDF.
+        </Subhead>
+      </Flex>
+      <Text mt={[0, 0, 0, 3]} mb={[0, 0, 0, 3]} textAlign='left' maxWidth={11}>
+        Take a retina display pdf of any URL. Export them to PNG or JPEG.
+        Automatic CDN redistribution. Overlay composition using a browser framer
+        & background. Just in time stale refresh, keeping them up to date.
+      </Text>
+      <Flex pt={3} alignItems='center' justifyContent='end'>
+        <Button onClick={() => navigate('/pdf')}>
+          <Caps fontSize={0}>Live Demo</Caps>
+        </Button>
+        <Link onClick={() => navigate('/docs/api/parameters/pdf')} ml={3}>
+          Read Docs
+        </Link>
+      </Flex>
+    </Flex>
+  )
+
+  const blockTwo = (
+    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+      <Box data-tilt pt={3}>
+        <Image src={pdfUrl} width={aspectRatio.width[1]} />
+      </Box>
+    </Flex>
+  )
+
+  return (
+    <>
+      <Block
+        id='pdf'
+        flexDirection='row'
+        onClick={handleClick}
+        blockOne={blockOne}
+        blockTwo={blockTwo}
+        pb={0}
+      />
+      <Block
+        id='pdf'
+        flexDirection='row-reverse'
+        onClick={handleClick}
+        blockOne={blockOne}
+        blockTwo={blockTwo}
+      />
+      <Block
+        pt={0}
+        id='pdf'
+        flexDirection='row'
+        onClick={handleClick}
+        blockOne={blockOne}
+        blockTwo={blockTwo}
+      />
+    </>
+  )
+}
+
 const Meta = ({ demoLinks, ...props }) => {
   const demoLinkTest = ({ brand }) => brand === 'Twitter'
   const demoLinkIndex = demoLinks.findIndex(demoLinkTest)
@@ -795,7 +729,6 @@ const Meta = ({ demoLinks, ...props }) => {
 }
 
 function Index () {
-  const demoLink = useDefaultDemoLink().data
   const demoLinks = useDemoLinks()
 
   const {
@@ -814,23 +747,9 @@ function Index () {
         borderTop={`${borders[1]} ${colors.pinkest}`}
         borderBottom={`${borders[1]} ${colors.pinkest}`}
       />
+
       <Meta demoLinks={demoLinks} />
-      {/* <Screenshots id='pdf' flexDirection='row-reverse' /> */}
-      {/* <Screenshots
-        id='meta'
-        bg='pinky'
-        borderTop={`${borders[1]} ${colors.pinkest}`}
-        borderBottom={`${borders[1]} ${colors.pinkest}`}
-        image='https://i.imgur.com/rDWTmWH.png'
-      />
-      <Screenshots
-        id='metrics'
-        flexDirection='row-reverse'
-        image='https://i.imgur.com/swVgvnp.png'
-      /> */}
-      {/* <Showcase /> */}
-      {/* <Sdk children={demoLinks} editor={demoLink} /> */}
-      {/* <Mql /> */}
+      <Pdf />
       {/* <Principles children={usePrinciples()} /> */}
       <Pricing
         siteUrl={siteUrl}
