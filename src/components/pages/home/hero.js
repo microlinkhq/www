@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { navigate } from 'gatsby'
-import { layout } from 'theme'
 
 import {
   Box,

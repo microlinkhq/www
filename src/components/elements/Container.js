@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { layout } from 'theme'
 
 import Flex from './Flex'
 
