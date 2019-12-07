@@ -19,7 +19,7 @@ import {
 
 import { Block } from 'components/patterns'
 
-const screenshotsUrls = [
+export const screenshotsUrls = [
   { theme: 'dark', brand: 'Apple' },
   { theme: 'light', brand: 'MDN' },
   { theme: 'light', brand: 'StackOverflow' },
@@ -66,9 +66,9 @@ const CustomImage = styled(Image)`
   will-change: opacity;
 `
 
-const AnimatedImage = animated(CustomImage)
+export const AnimatedImage = animated(CustomImage)
 
-const screenshotHeight = (() => {
+export const screenshotHeight = (() => {
   const width = 960
   const ratio = 1.453403141
   const height = width / ratio
@@ -98,7 +98,11 @@ const Screenshots = props => {
   const blockTwo = (
     <Flex justifyContent='center' alignItems='center' flexDirection='column'>
       <Box data-tilt pt={3}>
-        <Flex height={screenshotHeight} width={aspectRatio.width}>
+        <Flex
+          height={screenshotHeight}
+          width={aspectRatio.width}
+          style={{ position: 'relative' }}
+        >
           {transitions.map(({ item, props, key }) => {
             return (
               <AnimatedImage
@@ -110,13 +114,7 @@ const Screenshots = props => {
           })}
         </Flex>
       </Box>
-      <Text
-        mt={[0, 0, 0, 3]}
-        mb={[0, 0, 0, 3]}
-        px={6}
-        textAlign='center'
-        maxWidth='960px'
-      >
+      <Text mb={[0, 0, 0, 3]} px={6} textAlign='center' maxWidth='960px'>
         Take a retina display screenshot of any URL. Export them to PNG or JPEG.
         Automatic CDN redistribution. Overlay composition using a browser framer
         & background. Just in time stale refresh, keeping them up to date.

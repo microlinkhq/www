@@ -17,10 +17,10 @@ import {
   debounceComponent
 } from 'helpers'
 
-import { useTransition, animated, config } from 'react-spring'
+import { useTransition } from 'react-spring'
+import { speed, borders, transition, colors } from 'theme'
 import { Header, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
-import { borders, transition, colors, toPx } from 'theme'
 import { Image as ImageIcon } from 'react-feather'
 import React, { useEffect, useState } from 'react'
 import prependHttp from 'prepend-http'
@@ -32,8 +32,13 @@ import isUrl from 'is-url-http'
 import isColor from 'is-color'
 import noop from 'lodash/noop'
 import get from 'dlv'
-
 import ms from 'ms'
+
+import {
+  AnimatedImage,
+  screenshotsUrls,
+  screenshotHeight
+} from 'components/pages/home/screenshots'
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -50,41 +55,18 @@ LogoWrap.defaultProps = {
 
 const INTERVAL = 3500
 
-const bgStyle = `
-position: absolute;
-top: 0px;
-left: 0px;
-will-change: opacity;
-`
-
-const AnimatedImage = animated(Image)
-
 const ImageDebounce = debounceComponent(Image)
 
 const DemoSlider = ({ children: slides }) => {
-  const [height, setHeight] = useState(null)
   const [index, setIndex] = useState(0)
 
-  const transitions = useTransition(slides[index], item => item.keyword, {
+  const transitions = useTransition(index, p => p, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
-    config: config.molasses
-  })
-
-  const handleResize = () => {
-    const el = document.querySelector('#animated-image-container img')
-    if (el) setHeight(el.clientHeight)
-  }
-
-  const onLoad = () => {
-    const el = document.querySelector('#animated-image-container img')
-    if (el) setHeight(el.clientHeight)
-  }
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    config: {
+      duration: speed.normal
+    }
   })
 
   useEffect(
@@ -99,20 +81,14 @@ const DemoSlider = ({ children: slides }) => {
 
   return (
     <Flex
-      id='animated-image-container'
-      mt={height ? [2, 1, 1, 1] : 4}
       style={{ position: 'relative' }}
-      height={height ? toPx(height) : aspectRatio.height}
+      mt={[2, 1, 1, 1]}
+      height={screenshotHeight}
       width={aspectRatio.width}
     >
+      {/* <Image src={screenshotsUrls[item]/> */}
       {transitions.map(({ item, props, key }) => (
-        <AnimatedImage
-          key={key}
-          src={item.cdnUrl}
-          style={props}
-          css={bgStyle}
-          onLoad={key === 0 ? onLoad : noop}
-        />
+        <AnimatedImage key={key} style={props} src={screenshotsUrls[item]} />
       ))}
     </Flex>
   )
@@ -332,7 +308,7 @@ export default ({
       refOverlay={refOverlay}
       refUrl={refUrl}
       refWaitFor={refWaitFor}
-      suggestions={suggestions}
+      suggestions={screenshotsUrls}
       url={url}
     />
     <Examples demoLinks={demoLinks} />
