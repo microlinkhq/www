@@ -261,7 +261,7 @@ export const sizes = [
 ].map(toEm)
 
 export const speed = {
-  quickly: 100,
+  quickly: 150,
   normal: 300,
   slowly: 450
 }

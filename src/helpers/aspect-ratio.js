@@ -12,9 +12,11 @@ const aspectRatio = (ratios, base = layout.medium) => {
   }
 }
 
-const { width, height } = aspectRatio([0.4, 0.6, 0.8, 1])
+const ratios = [0.4, 0.6, 0.8, 1]
+const { width, height } = aspectRatio(ratios)
 
 aspectRatio.width = width
 aspectRatio.height = height
+aspectRatio.ratios = ratios
 
 export default aspectRatio

@@ -1,5 +1,9 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { navigate } from 'gatsby'
+import { useTransition, animated } from 'react-spring'
+import styled from 'styled-components'
+import { aspectRatio } from 'helpers'
+import { speed, toPx } from 'theme'
 
 import {
   Box,
@@ -55,15 +59,37 @@ const Subheader = ({ title, subtitle, textAlign = 'center', children }) => (
   </Flex>
 )
 
-const Screenshots = props => {
-  const [screenshotUrl, setScreenshotUrl] = useState(screenshotsUrls[0])
-  const [index, setIndex] = useState(0)
+const CustomImage = styled(Image)`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  will-change: opacity;
+`
 
-  const handleClick = event => {
-    event.preventDefault()
-    setIndex((index + 1) % screenshotsUrls.length)
-    setScreenshotUrl(screenshotsUrls[index])
-  }
+const AnimatedImage = animated(CustomImage)
+
+const screenshotHeight = (() => {
+  const width = 960
+  const ratio = 1.453403141
+  const height = width / ratio
+  return aspectRatio.ratios.map(n => toPx(height * n))
+})()
+
+const Screenshots = props => {
+  const [index, setIndex] = useState(0)
+  const onClick = useCallback(
+    () => setIndex(state => (state + 1) % screenshotsUrls.length),
+    []
+  )
+
+  const transitions = useTransition(index, p => p, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: {
+      duration: speed.quickly
+    }
+  })
 
   const blockOne = (
     <Subheader subtitle='screenshot' title='Turn websites into a snapshot' />
@@ -72,7 +98,17 @@ const Screenshots = props => {
   const blockTwo = (
     <Flex justifyContent='center' alignItems='center' flexDirection='column'>
       <Box data-tilt pt={3}>
-        <Image src={screenshotUrl} />
+        <Flex height={screenshotHeight} width={aspectRatio.width}>
+          {transitions.map(({ item, props, key }) => {
+            return (
+              <AnimatedImage
+                key={key}
+                style={props}
+                src={screenshotsUrls[item]}
+              />
+            )
+          })}
+        </Flex>
       </Box>
       <Text
         mt={[0, 0, 0, 3]}
@@ -103,7 +139,7 @@ const Screenshots = props => {
     <Block
       id='screenshot'
       flexDirection='column'
-      onClick={handleClick}
+      onClick={onClick}
       blockOne={blockOne}
       blockTwo={blockTwo}
       {...props}

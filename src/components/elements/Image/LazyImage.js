@@ -31,8 +31,6 @@ LazyImage.defaultProps = {
   lazy: true,
   loading: true,
   width: aspectRatio.width
-  // height: aspectRatio.height
-  // height: '100%'
 }
 
 export default LazyImage
