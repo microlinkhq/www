@@ -1,15 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
+import { toPx } from 'theme'
 
 import Box from './Box'
 import Text from './Text'
 
-const Card = styled(Box)({ overflow: 'auto' })
+const BASE_WIDTH = 500
+const BASE_RATIO = 1.4
+const BASE_HEIGHT = BASE_WIDTH / BASE_RATIO
+
+const CardBase = styled(Box)({ overflow: 'auto' })
+
+const Card = ({ ratio, ...props }) => {
+  const width = ratio.map(n => toPx(BASE_WIDTH * n))
+  const height = ratio.map(n => toPx(BASE_HEIGHT * n))
+  return <CardBase width={width} height={height} {...props} />
+}
 
 Card.defaultProps = {
   bg: 'white',
   borderRadius: 3,
-  boxShadow: 3
+  boxShadow: 0,
+  ratio: [1, 1, 1, 1]
 }
 
 const CardOption = ({ children, value, ...props }) => (
