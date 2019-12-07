@@ -2,6 +2,7 @@ import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
 
 import React, { useState } from 'react'
 import { navigate } from 'gatsby'
+import styled, { keyframes } from 'styled-components'
 
 import {
   Box,
@@ -14,7 +15,10 @@ import {
   Hide,
   Link,
   Subhead,
-  Text
+  Text,
+  Card,
+  BackgroundSlider,
+  BackgroundSliderContainer
 } from 'components/elements'
 
 import {
@@ -25,11 +29,11 @@ import {
   LiveDemo,
   MQLEditor,
   PricingTable,
+  Caption,
   List
 } from 'components/patterns'
 
 import { borders, colors } from 'theme'
-import { aspectRatio } from 'helpers'
 import get from 'dlv'
 
 const Questions = () => {
@@ -308,37 +312,13 @@ const Container = ({
   </Component>
 )
 
-const Principles = ({ children }) => (
-  <Container
-    pb={[0, 0, 0, 5]}
-    id='principles'
-    bg='pinky'
-    borderTop={`${borders[1]} ${colors.pinkest}`}
-    borderBottom={`${borders[1]} ${colors.pinkest}`}
-  >
-    <Header
-      pb={[0, 0, 0, 3]}
-      title='Principles'
-      caption='How we build technical products.'
-    />
-    <Box as='section' pt={4}>
-      <Hide breakpoints={[0, 1]}>
-        <Grid children={children} itemsPerRow={3} />
-      </Hide>
-      <Hide breakpoints={[2, 3]}>
-        <Grid children={children} itemsPerRow={1} />
-      </Hide>
-    </Box>
-  </Container>
-)
-
 const Block = ({
   blockOne,
   blockTwo,
   children,
   flexDirection = 'row',
   pt = [0, 0, 0, 4],
-  pb = [0, 0, 0, 5],
+  pb = [0, 0, 0, 4],
   ...props
 }) => (
   <Container
@@ -366,7 +346,7 @@ const Block = ({
   </Container>
 )
 
-const Hero = ({ title }) => {
+const Hero = ({ title, features }) => {
   const words = ['Instant', 'Costless', 'From $0', 'Effective', 'Reliable']
   const [word, setWord] = useState(words[0])
   const [index, setIndex] = useState(0)
@@ -429,41 +409,52 @@ const Hero = ({ title }) => {
       word={word}
       blockOne={blockOne}
       blockTwo={<MQLEditor />}
-      children={<Caption onClick={handleClick} word={word} />}
-      height='80vh'
+      children={
+        <Box>
+          <Automation pt={4} onClick={handleClick} word={word} />
+          <Features pt={5} children={features} />
+        </Box>
+      }
     />
   )
 }
 
-const Caption = ({ word, ...props }) => (
+const Automation = ({ word, ...props }) => (
   <Flex
+    as='section'
     style={{ userSelect: 'none' }}
     flexDirection='column'
     justifyContent='center'
     alignItems='center'
-    pt={6}
     {...props}
   >
     <Flex>
-      <Subhead mr={3} fontWeight='light' fontSize={7}>
+      <Heading mr={3} fontWeight='light'>
         Blazing.
-      </Subhead>
-      <Subhead mr={3} fontWeight='light' fontSize={7}>
+      </Heading>
+      <Heading mr={3} fontWeight='light'>
         Fast.
-      </Subhead>
-      <Subhead mr={3} fontWeight='light' fontSize={7}>
+      </Heading>
+      <Heading mr={3} fontWeight='light'>
         {word}.
-      </Subhead>
-      <Subhead fontWeight='bold' fontSize={7}>
-        Cloud Browser.
-      </Subhead>
+      </Heading>
+      <Heading>Cloud Browser.</Heading>
     </Flex>
-    <Flex pt={3}>
-      <Subhead fontWeight='light' color='black80'>
-        browser automation made simple at cost pricing, full control via API.
-      </Subhead>
-    </Flex>
+    <Caption>
+      browser automation made simple at cost pricing, full control via API.
+    </Caption>
   </Flex>
+)
+
+const Features = ({ children, ...props }) => (
+  <Box as='section' {...props}>
+    <Hide breakpoints={[0, 1]}>
+      <Grid children={children} itemsPerRow={3} />
+    </Hide>
+    <Hide breakpoints={[2, 3]}>
+      <Grid children={children} itemsPerRow={1} />
+    </Hide>
+  </Box>
 )
 
 const Subheader = ({ title, subtitle, textAlign = 'center', children }) => (
@@ -487,25 +478,6 @@ const Subheader = ({ title, subtitle, textAlign = 'center', children }) => (
     />
     {children}
   </>
-  // <Flex
-  //   justifyContent='center'
-  //   alignItems='center'
-  //   flexDirection='column'
-  //   pb={5}
-  // >
-  //   <Subhead fontSize={2} fontWeight='bold' color='secondary'>
-  //     <Caps as='span' children={children[0]} />
-  //   </Subhead>
-  //   <Heading
-  //     mt={1}
-  //     mb={1}
-  //     fontWeight='bold'
-  //     fontSize={6}
-  //     variant={null}
-  //     children='Website'
-  //   />
-  //   <Link>See docs</Link>
-  // </Flex>
 )
 
 const Screenshots = props => {
@@ -578,85 +550,89 @@ const Screenshots = props => {
   )
 }
 
-const Pdf = () => {
-  const pdfsUrls = [
-    { theme: 'dark', brand: 'Apple' },
-    { theme: 'light', brand: 'MDN' },
-    { theme: 'light', brand: 'StackOverflow' },
-    { theme: 'light', brand: 'ProductHunt' },
-    { theme: 'dark', brand: 'Nasa' }
-  ].map(item => {
-    const id = item.brand.toLowerCase()
-    const filename = `${id}.png`
-    return `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
-  })
+const slide = keyframes`
+from {
+  transform: translate3d(0, 0, 0);
+}
+to {
+  transform: translate3d(-50%, 0, 0);
+}
+`
 
-  const [pdfUrl, setpdfUrl] = useState(pdfsUrls[0])
-  const [index, setIndex] = useState(0)
+const Dots = styled(Flex)`
+  position: relative;
+  overflow: hidden;
 
-  const handleClick = event => {
-    event.preventDefault()
-    setIndex((index + 1) % pdfsUrls.length)
-    setpdfUrl(pdfsUrls[index])
+  &:before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    z-index: -1;
+
+    background-image: radial-gradient(#d7d7d7 1px, transparent 0),
+      radial-gradient(#d7d7d7 1px, transparent 0);
+    background-position: 0 0, 25px 25px;
+    background-size: 50px 50px;
+
+    animation: ${slide} 100s linear infinite;
+    animation-direction: reverse;
   }
+`
 
-  const blockOne = (
-    <Flex flexDirection='column' maxWidth='1100px'>
-      <Flex>
-        <Subhead fontWeight='normal' fontSize={7}>
-          Export to PDF.
-        </Subhead>
-      </Flex>
-      <Text mt={[0, 0, 0, 3]} mb={[0, 0, 0, 3]} textAlign='left' maxWidth={11}>
-        Take a retina display pdf of any URL. Export them to PNG or JPEG.
-        Automatic CDN redistribution. Overlay composition using a browser framer
-        & background. Just in time stale refresh, keeping them up to date.
-      </Text>
-      <Flex pt={3} alignItems='center' justifyContent='end'>
-        <Button onClick={() => navigate('/pdf')}>
-          <Caps fontSize={0}>Live Demo</Caps>
-        </Button>
-        <Link onClick={() => navigate('/docs/api/parameters/pdf')} ml={3}>
-          Read Docs
-        </Link>
-      </Flex>
-    </Flex>
-  )
-
-  const blockTwo = (
-    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
-      <Box data-tilt pt={3}>
-        <Image src={pdfUrl} width={aspectRatio.width[1]} />
-      </Box>
-    </Flex>
-  )
-
+const Explore = () => {
+  const ratio = [0.7, 0.7, 0.7, 0.7]
   return (
-    <>
-      <Block
-        id='pdf'
-        flexDirection='row'
-        onClick={handleClick}
-        blockOne={blockOne}
-        blockTwo={blockTwo}
-        pb={0}
-      />
-      <Block
-        id='pdf'
-        flexDirection='row-reverse'
-        onClick={handleClick}
-        blockOne={blockOne}
-        blockTwo={blockTwo}
-      />
-      <Block
-        pt={0}
-        id='pdf'
-        flexDirection='row'
-        onClick={handleClick}
-        blockOne={blockOne}
-        blockTwo={blockTwo}
-      />
-    </>
+    <Dots>
+      <Flex
+        px={4}
+        pt={[4, 5]}
+        pb={[4, 5]}
+        width='100%'
+        id='explore'
+        flexDirection='column'
+        borderTop={`${borders[1]} ${colors.gray1}`}
+        borderBottom={`${borders[1]} ${colors.gray1}`}
+        justifyContent='center'
+        alignItems='center'
+      >
+        <Flex
+          pt={4}
+          pb={4}
+          flexDirection='column'
+          justifyContent='center'
+          alignItems='center'
+        >
+          <Header
+            pb={[0, 4]}
+            title='Explore'
+            caption='discover all the things you can do'
+          />
+          <Flex>
+            <Card ratio={ratio} p={4}>
+              PDF
+            </Card>
+            <Card ratio={ratio} p={4} mx={4}>
+              Palette
+            </Card>
+            <Card ratio={ratio} p={4}>
+              HTML
+            </Card>
+          </Flex>
+          <Flex pt={4}>
+            <Card ratio={ratio} p={4}>
+              Metrics
+            </Card>
+            <Card ratio={ratio} p={4} mx={4}>
+              Screenshot
+            </Card>
+            <Card ratio={ratio} p={4}>
+              Meta
+            </Card>
+          </Flex>
+        </Flex>
+      </Flex>
+    </Dots>
   )
 }
 
@@ -741,16 +717,10 @@ function Index () {
 
   return (
     <Layout>
-      <Hero title={headline} />
-      <Screenshots
-        bg='gray0'
-        // borderTop={`${borders[1]} ${colors.pinkest}`}
-        // borderBottom={`${borders[1]} ${colors.pinkest}`}
-      />
-
+      <Hero title={headline} features={usePrinciples()} />
+      <Screenshots bg='pinky' />
       <Meta demoLinks={demoLinks} />
-      <Pdf />
-      {/* <Principles children={usePrinciples()} /> */}
+      <Explore />
       <Pricing
         siteUrl={siteUrl}
         apiKey={paymentApiKey}
