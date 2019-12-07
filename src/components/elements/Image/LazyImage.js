@@ -15,7 +15,6 @@ const LazyImage = ({ lazy, loading, src: rawSrc, onError, ...props }) => {
     const img = document.createElement('img')
     img.onerror = onError
     img.onload = () => {
-      console.log('loaded!')
       img.onload = null
       img.onerror = null
       setLoading(false)
