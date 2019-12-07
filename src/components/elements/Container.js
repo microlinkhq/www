@@ -1,16 +1,19 @@
 import styled from 'styled-components'
 import { layout } from 'theme'
 
-import Box from './Box'
+import Flex from './Flex'
 
-const Container = styled(Box)``
+const Container = styled(Flex)``
 
 Container.defaultProps = {
-  pl: 3,
-  pr: 3,
+  as: 'article',
+  flexDirection: 'column',
   ml: 'auto',
   mr: 'auto',
-  maxWidth: layout.large
+  pt: [4, 5],
+  pb: [4, 5],
+  pl: 3,
+  pr: 3
 }
 
 export default Container

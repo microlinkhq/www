@@ -16,12 +16,14 @@ import List from './List/List'
 import LiveDemo from './LiveDemo/LiveDemo'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
+import Block from './Block/Block'
 import PricingTable from './PricingTable/PricingTable'
 import Toolbar from './Toolbar/Toolbar'
 
 export {
   Aside,
   Banner,
+  Block,
   Caption,
   CardLink,
   Chat,
