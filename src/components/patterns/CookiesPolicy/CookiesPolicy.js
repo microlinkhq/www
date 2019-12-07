@@ -56,7 +56,7 @@ export default () => {
           py={2}
           px={3}
           borderRadius={3}
-          boxShadow={2}
+          boxShadow={0}
         >
           <Text fontSize={['10px', 1]} color='black80'>
             <span>By using this website you agree to our</span>
