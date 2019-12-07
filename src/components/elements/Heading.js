@@ -8,9 +8,8 @@ Heading.defaultProps = {
   as: 'h2',
   lineHeight: [0, 1],
   textAlign: 'center',
-  fontWeight: 'regular',
-  fontSize: [4, 7],
-  variant: 'gradient'
+  fontWeight: 'bold',
+  fontSize: [4, 7]
 }
 
 export default Heading

@@ -5,10 +5,10 @@ export default props => (
   <Subhead
     pt={[2, 0]}
     lineHeight={[2, 4]}
-    color='gray'
     textAlign='center'
-    fontWeight='normal'
-    fontSize={[2, 4]}
+    fontWeight='light'
+    color='black80'
+    fontSize={[4, 5]}
     {...props}
   />
 )

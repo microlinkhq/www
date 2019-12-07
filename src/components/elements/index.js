@@ -29,7 +29,10 @@ import Terminal from './Terminal/Terminal'
 import Toolbar from './Toolbar'
 import Tooltip from './Tooltip/Tooltip'
 import Toggle from './Toggle/Toggle'
-import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
+import {
+  BackgroundSlider,
+  BackgroundSliderContainer
+} from './BackgroundSlider/BackgroundSlider'
 
 import Caps from './Caps'
 import Heading from './Heading'
