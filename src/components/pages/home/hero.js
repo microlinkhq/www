@@ -15,6 +15,51 @@ import {
 
 import { Caption, Grid, Block, MQLEditor, List } from 'components/patterns'
 
+const Resume = ({ title }) => (
+  <Flex
+    maxWidth={['100%', '100%', '100%', '960px']}
+    justifyContent='center'
+    flexDirection='column'
+    pr={[0, 0, 0, 4]}
+  >
+    <Subhead
+      textAlign={['center', 'center', 'center', 'inherit']}
+      children='Production ready'
+      fontSize={3}
+      fontWeight='light'
+    />
+    <Subhead
+      textAlign={['center', 'center', 'center', 'inherit']}
+      children={title}
+      fontSize={5}
+    />
+    <Text
+      maxWidth={[7, 7, 7, 7]}
+      mr='auto'
+      ml='auto'
+      mt={3}
+      textAlign={['center', 'center', 'center', 'inherit']}
+      children='Fast, scalable, and reliable browser automation built for businesses and developers.'
+    />
+    <List ml={[3, 3, 2, 2]} px={[3, 3, 3, 0]} mt={4} mb={3}>
+      <List.Item>Get HTML or PDF from any URL.</List.Item>
+      <List.Item>Take an screenshot in ~3 seconds.</List.Item>
+      <List.Item>Turns websites into structured data.</List.Item>
+      <List.Item>Get perfomance metrics & detect bottlenecks.</List.Item>
+    </List>
+    <Flex
+      mb={[2, 2, 0, 0]}
+      alignItems='center'
+      justifyContent={['center', 'center', 'end', 'end']}
+    >
+      <Button onClick={() => navigate('/docs')}>
+        <Caps fontSize={0}>Read Docs</Caps>
+      </Button>
+      <Text ml={3}>No credit card required.</Text>
+    </Flex>
+  </Flex>
+)
+
 const Features = ({ children, ...props }) => (
   <Box as='section' mx='auto' {...props}>
     <Hide breakpoints={[0, 1]}>
@@ -42,59 +87,16 @@ const Automation = ({ word, ...props }) => (
       <Heading variant={null} mr={3} fontWeight='light'>
         Fast.
       </Heading>
-      <Heading variant={null} mr={3} fontWeight='light'>
-        {word}.
-      </Heading>
+      <Hide breakpoints={[0, 1]}>
+        <Heading variant={null} mr={3} fontWeight='light'>
+          {word}.
+        </Heading>
+      </Hide>
       <Heading variant={null}>Cloud Browser.</Heading>
     </Flex>
-    <Caption variant={null}>
+    <Caption mt={[3, 3, 0, 0]} variant={null}>
       browser automation made simple at cost pricing, full control via API.
     </Caption>
-  </Flex>
-)
-
-const Resume = ({ title }) => (
-  <Flex
-    maxWidth={['100%', '100%', '100%', '960px']}
-    justifyContent='center'
-    flexDirection='column'
-    pr={[0, 0, 0, 4]}
-  >
-    <Subhead
-      textAlign={['center', 'center', 'center', 'inherit']}
-      children='Production ready'
-      fontSize={3}
-      fontWeight='light'
-    />
-    <Subhead
-      textAlign={['center', 'center', 'center', 'inherit']}
-      children={title}
-      fontSize={5}
-    />
-    <Text
-      maxWidth={['inherit', 'inherit', 'inherit', 7]}
-      mt={[0, 0, 0, 3]}
-      textAlign={['center', 'center', 'center', 'inherit']}
-      children='Fast, scalable, and reliable browser automation built for businesses and developers.'
-    />
-    <List ml={2} px={[3, 3, 3, 0]} mt={4} mb={3}>
-      <List.Item>Get HTML or PDF from any URL.</List.Item>
-      <List.Item>Take an screenshot in ~3 seconds.</List.Item>
-      <List.Item>Turns websites into structured data.</List.Item>
-      <List.Item>Get perfomance metrics & detect bottlenecks.</List.Item>
-    </List>
-    <Flex
-      alignItems='center'
-      justifyContent={['center', 'center', 'center', 'end']}
-      flexDirection={['column', 'column', 'column', 'row']}
-    >
-      <Flex>
-        <Button onClick={() => navigate('/docs')}>
-          <Caps fontSize={0}>Read Docs</Caps>
-        </Button>
-        <Text ml={3}>No credit card required.</Text>
-      </Flex>
-    </Flex>
   </Flex>
 )
 
@@ -116,7 +118,7 @@ const Hero = ({ title, features }) => {
       blockTwo={<MQLEditor />}
       children={
         <>
-          <Automation pt={5} onClick={handleClick} word={word} />
+          <Automation pt={[0, 0, 4, 4]} onClick={handleClick} word={word} />
           <Features pt={5} children={features} />
         </>
       }
