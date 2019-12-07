@@ -3,7 +3,7 @@ import palx from 'palx'
 export const toPx = n => `${n}px`
 export const toEm = n => `${n}em`
 
-export const breakpoints = [32, 48, 64, 80].map(toEm)
+export const breakpoints = [768, 992, 1200, 1200].map(toPx)
 
 export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512].map(toPx)
 

@@ -87,14 +87,14 @@ const Automation = ({ word, ...props }) => (
       <Heading variant={null} mr={3} fontWeight='light'>
         Fast.
       </Heading>
-      <Hide breakpoints={[0, 1]}>
+      <Hide breakpoints={[0, 1, 2]}>
         <Heading variant={null} mr={3} fontWeight='light'>
           {word}.
         </Heading>
       </Hide>
       <Heading variant={null}>Cloud Browser.</Heading>
     </Flex>
-    <Caption mt={[3, 3, 0, 0]} variant={null}>
+    <Caption maxWidth={[6, 7, 7, 'inherit']} mt={[3, 3, 3, 0]} variant={null}>
       browser automation made simple at cost pricing, full control via API.
     </Caption>
   </Flex>
@@ -118,7 +118,7 @@ const Hero = ({ title, features }) => {
       blockTwo={<MQLEditor />}
       children={
         <>
-          <Automation pt={[0, 0, 4, 4]} onClick={handleClick} word={word} />
+          <Automation pt={[4, 4, 5, 5]} onClick={handleClick} word={word} />
           <Features pt={5} children={features} />
         </>
       }
