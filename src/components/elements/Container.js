@@ -9,10 +9,8 @@ Container.defaultProps = {
   flexDirection: 'column',
   ml: 'auto',
   mr: 'auto',
-  pt: [4, 5],
-  pb: [4, 5],
-  pl: 3,
-  pr: 3
+  pt: 4,
+  pb: 4
 }
 
 export default Container

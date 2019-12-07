@@ -51,7 +51,7 @@ const Resume = ({ title }) => (
       alignItems='center'
       justifyContent={['center', 'center', 'end', 'end']}
     >
-      <Button onClick={() => navigate('/docs')}>
+      <Button onClick={() => navigate('/docs/sdk/getting-started/overview')}>
         <Caps fontSize={0}>Read Docs</Caps>
       </Button>
       <Text ml={3}>No credit card required.</Text>
@@ -105,9 +105,10 @@ const Hero = ({ title, features }) => {
   const [index, setIndex] = useState(0)
 
   const handleClick = event => {
-    event.preventDefault()
-    setIndex((index + 1) % words.length)
-    setWord(words[index])
+    if (event.target.tagName !== 'SELECT' && event.target.tagName !== 'SPAN') {
+      setIndex((index + 1) % words.length)
+      setWord(words[index])
+    }
   }
 
   return (
@@ -115,9 +116,10 @@ const Hero = ({ title, features }) => {
       id='hero'
       blockOne={<Resume title={title} />}
       blockTwo={<MQLEditor />}
+      onClick={handleClick}
       children={
         <>
-          <Automation pt={[4, 4, 5, 5]} onClick={handleClick} word={word} />
+          <Automation pt={[4, 4, 5, 5]} word={word} />
           <Features pt={5} children={features} />
         </>
       }
