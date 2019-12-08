@@ -292,17 +292,19 @@ const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
   )
 }
 
+// TODO: REMOVE
 const Container = ({
   children,
   maxWidth,
   component: Component = Box,
   ...props
 }) => (
-  <Component as='article' px={3} pt={4} pb={4} {...props}>
+  <Component as='article' pt={4} pb={4} {...props}>
     <ContainerBase children={children} maxWidth={maxWidth} />
   </Component>
 )
 
+// TODO: REMOVE
 const Block = ({
   blockOne,
   blockTwo,
@@ -458,7 +460,7 @@ const Meta = ({ demoLinks, ...props }) => {
         mb={[0, 0, 0, 3]}
         px={6}
         textAlign='center'
-        maxWidth='960px'
+        maxWidth={layout.medium}
       >
         Engage your content with enriched media. Convert your links into
         beautiful previews. Make your content attractive to consume. Add it to
@@ -508,7 +510,7 @@ function Index () {
     <Layout>
       <Hero title={headline} features={usePrinciples()} />
       <Screenshots bg='pinky' />
-      <Meta demoLinks={demoLinks} />
+      {/* <Meta demoLinks={demoLinks} />
       <Explore />
       <Pricing
         siteUrl={siteUrl}
@@ -516,7 +518,7 @@ function Index () {
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
-      <Questions />
+      <Questions /> */}
     </Layout>
   )
 }

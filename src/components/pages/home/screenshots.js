@@ -85,6 +85,7 @@ const Screenshots = props => {
         </Flex>
       </Box>
       <Text
+        mt={[2, 0, 0, 0]}
         mb={[0, 0, 0, 3]}
         px={[5, 6, 6, 6]}
         textAlign='center'
