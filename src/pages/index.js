@@ -1,21 +1,9 @@
 import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
-
-import {
-  Box,
-  Container as ContainerBase,
-  Flex,
-  Link,
-  Subhead,
-  Text
-} from 'components/elements'
-
-import { layout } from 'theme'
-
-import { Headline, Layout, PricingTable } from 'components/patterns'
-
+import { Box, Container, Flex, Link, Subhead, Text } from 'components/elements'
 import { Explore, Meta, Hero, Screenshots } from 'components/pages/home'
+import { Headline, Layout, PricingTable } from 'components/patterns'
+import { layout, colors, borders } from 'theme'
+import React from 'react'
 
 const Questions = props => {
   const title = 'Questions'
@@ -241,7 +229,7 @@ const Questions = props => {
           >
             Other questions?
           </Subhead>
-          <Text maxWidth='38em'>
+          <Text pb={4} maxWidth='38em'>
             <Text color='black60'>
               We're always available at{' '}
               <Link
@@ -275,48 +263,6 @@ const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
   )
 }
 
-// TODO: REMOVE
-const Container = ({
-  children,
-  maxWidth,
-  component: Component = Box,
-  ...props
-}) => (
-  <Component as='article' pt={4} pb={4} {...props}>
-    <ContainerBase children={children} maxWidth={maxWidth} />
-  </Component>
-)
-
-const slide = keyframes`
-from {
-  transform: translate3d(0, 0, 0);
-}
-to {
-  transform: translate3d(-50%, 0, 0);
-}
-`
-
-const Dots = styled(Flex)`
-  position: relative;
-  overflow: hidden;
-
-  &:before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 100%;
-    z-index: -1;
-
-    background-image: radial-gradient(#d7d7d7 1px, transparent 0),
-      radial-gradient(#d7d7d7 1px, transparent 0);
-    background-position: 0 0, 25px 25px;
-    background-size: 50px 50px;
-
-    animation: ${slide} 100s linear infinite;
-    animation-direction: reverse;
-  }
-`
-
 function Index () {
   const demoLinks = useDemoLinks()
 
@@ -333,7 +279,10 @@ function Index () {
       <Hero title={headline} features={usePrinciples()} />
       <Screenshots bg='pinky' />
       <Meta demoLinks={demoLinks} />
-      <Explore />
+      <Explore
+        borderTop={`${borders[1]} ${colors.gray1}`}
+        borderBottom={`${borders[1]} ${colors.gray1}`}
+      />
       <Pricing
         siteUrl={siteUrl}
         apiKey={paymentApiKey}

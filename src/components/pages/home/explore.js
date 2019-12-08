@@ -3,7 +3,6 @@ import styled, { keyframes } from 'styled-components'
 
 import { Flex, Card } from 'components/elements'
 import { Headline } from 'components/patterns'
-import { colors, borders } from 'theme'
 
 const slide = keyframes`
 from {
@@ -35,19 +34,16 @@ const Dots = styled(Flex)`
   }
 `
 
-const Explore = () => {
+const Explore = props => {
   const ratio = [0.7, 0.7, 0.7, 0.7]
   return (
-    <Dots as='article' id='explore'>
+    <Dots as='article' id='explore' {...props}>
       <Flex
         px={4}
         pt={4}
         pb={4}
         width='100%'
-        id='explore'
         flexDirection='column'
-        borderTop={`${borders[1]} ${colors.gray1}`}
-        borderBottom={`${borders[1]} ${colors.gray1}`}
         justifyContent='center'
         alignItems='center'
       >
