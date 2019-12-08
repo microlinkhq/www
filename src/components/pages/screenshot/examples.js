@@ -19,7 +19,7 @@ import {
 
 import { useTransition } from 'react-spring'
 import { speed, borders, transition, colors } from 'theme'
-import { Header, DemoLinks } from 'components/patterns'
+import { Headline, SubHeadline, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
 import { Image as ImageIcon } from 'react-feather'
 import React, { useEffect, useState } from 'react'
@@ -30,7 +30,6 @@ import pickBy from 'lodash/pickBy'
 import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
 import isColor from 'is-color'
-import noop from 'lodash/noop'
 import get from 'dlv'
 import ms from 'ms'
 
@@ -154,8 +153,8 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
 
   return (
     <Container py={[4, 5]} px={4}>
-      <Header
-        subtitle='Take a screenshot of any website'
+      <SubHeadline
+        title='Take a screenshot of any website'
         caption='Turn websites into a snapshot'
       />
 
@@ -275,7 +274,7 @@ const Examples = ({ demoLinks }) => (
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
-    <Header
+    <Headline
       pb={[3, 4]}
       title='Examples'
       caption='See real examples in action.'

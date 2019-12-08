@@ -8,10 +8,12 @@ import {
   Link,
   MultiCodeEditor
 } from 'components/elements'
-import { Grid, Header, Layout } from 'components/patterns'
-import mql from '@microlink/mql'
+
+import { Grid, SubHeadline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import mql from '@microlink/mql'
+import { layout } from 'theme'
 
 const TITLE = 'Embed makes easy'
 const DEMO_URL = 'https://www.youtube.com/watch?v=Gu8X7vM3Avw'
@@ -300,8 +302,8 @@ const links = [
 export default () => {
   return (
     <Layout title={TITLE}>
-      <Container py={[4, 5]} px={4}>
-        <Header subtitle={TITLE} caption='Turn links into embeddable media' />
+      <Container py={[4, 5]} px={4} maxWidth={layout.large}>
+        <SubHeadline title={TITLE} caption='Turn links into embeddable media' />
         <Subhead
           children='How it works'
           px={4}

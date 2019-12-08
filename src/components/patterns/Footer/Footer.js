@@ -10,10 +10,11 @@ import {
   Input,
   Text
 } from 'components/elements'
-import { Microlink } from 'components/logos'
+
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
+import { layout, transition, colors } from 'theme'
+import { Microlink } from 'components/logos'
 import styled from 'styled-components'
-import { transition, colors } from 'theme'
 
 const IconWrapper = styled(Box)`
   cursor: pointer;
@@ -29,12 +30,10 @@ const IconWrapper = styled(Box)`
 `
 
 export default props => (
-  <Container px={[2, 2, 2, 0]}>
+  <Container px={[2, 2, 2, 0]} maxWidth={layout.large}>
     <Flex
       as='footer'
       py={[4, 4, 4, 5]}
-      mr='auto'
-      ml='auto'
       bg='white'
       flexDirection={['column', 'column', 'column', 'row']}
       justifyContent='space-between'

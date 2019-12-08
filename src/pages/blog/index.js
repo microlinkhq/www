@@ -1,5 +1,5 @@
 import { Text, Flex, Container } from 'components/elements'
-import { Layout, Header } from 'components/patterns'
+import { Layout, SubHeadline } from 'components/patterns'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
 import { H2Link } from 'components/markdown'
@@ -52,7 +52,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
         href={slug}
         children={title}
       />
-      <Text fontSize={[0, 2]} color='gray' textAlign={['center', 'inherit']}>
+      <Text fontSize={[0, 2]} color='black50' textAlign={['center', 'inherit']}>
         {formatDate(timestamp)} ({<TimeAgo date={date} />})
       </Text>
     </CustomFlex>
@@ -64,7 +64,7 @@ export default ({ posts = useBlogIndex() }) => {
     <Layout title='Blog' image='https://cdn.microlink.io/page/blog.png'>
       <Container px={0} as='article' maxWidth='inherit'>
         <Flex flexDirection='column' alignItems='center' pt={5}>
-          <Header subtitle='Blog' />
+          <SubHeadline title='Blog' pb={4} />
           {posts.map((post, index) => (
             <BlogPost
               key={post.title}

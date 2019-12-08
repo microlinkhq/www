@@ -12,7 +12,12 @@ import {
   Text
 } from 'components/elements'
 
-import { Header, DemoLinks, Microlink } from 'components/patterns'
+import {
+  Headline,
+  SubHeadline,
+  DemoLinks,
+  Microlink
+} from 'components/patterns'
 import { debounceComponent, getDomain } from 'helpers'
 import { borders, transition, colors } from 'theme'
 import React, { useEffect, useState } from 'react'
@@ -46,7 +51,7 @@ const Examples = ({ demoLinks }) => (
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
-    <Header
+    <Headline
       pb={[3, 4]}
       title='Examples'
       caption='See real examples in action.'
@@ -85,8 +90,8 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   return (
     <>
       <Container py={[4, 5]} px={4}>
-        <Header
-          subtitle='Universal Embed'
+        <SubHeadline
+          title='Universal Embed'
           caption='Turn websites into rich media'
         />
 

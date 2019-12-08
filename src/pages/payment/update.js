@@ -202,7 +202,7 @@ export default () => {
             <Container as='section' maxWidth='350px' pt={5}>
               <StripeProvider stripe={stripe}>
                 <Flex flexDirection='column'>
-                  <Header subtitle='Update Payment' />
+                  <Header title='Update Payment' />
                   <Elements>
                     <CardForm
                       apiEndpoint={apiEndpoint}

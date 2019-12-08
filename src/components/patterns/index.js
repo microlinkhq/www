@@ -1,5 +1,7 @@
+import { Headline, SubHeadline } from './Headline/Headline'
 import Aside from './Aside/Aside'
 import Banner from './Banner/Banner'
+import Block from './Block/Block'
 import Caption from './Caption/Caption'
 import CardLink from './CardLink'
 import Chat from './Chat/Chat'
@@ -10,14 +12,13 @@ import Faq from './Faq'
 import FetchProvider from './FetchProvider'
 import Footer from './Footer/Footer'
 import Grid from './Grid'
-import Header from './Header/Header'
 import Layout from './Layout'
 import List from './List/List'
 import LiveDemo from './LiveDemo/LiveDemo'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
-import Block from './Block/Block'
 import PricingTable from './PricingTable/PricingTable'
+import Legend from './Legend/Legend'
 import Toolbar from './Toolbar/Toolbar'
 
 export {
@@ -34,12 +35,14 @@ export {
   FetchProvider,
   Footer,
   Grid,
-  Header,
+  Headline,
   Layout,
+  Legend,
   List,
   LiveDemo,
   Microlink,
   MQLEditor,
   PricingTable,
+  SubHeadline,
   Toolbar
 }

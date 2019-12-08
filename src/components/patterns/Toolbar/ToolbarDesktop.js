@@ -10,7 +10,6 @@ import {
   NavEmbed,
   NavLogo,
   NavPricing,
-  NavPrinciples,
   NavScreenshot
 } from './ToolbarLinks'
 
@@ -28,7 +27,6 @@ export default class extends Component {
           >
             <NavContainer as='nav'>
               <NavLogo />
-              <NavPrinciples />
               <NavPricing />
               <NavEmbed />
               <NavScreenshot />

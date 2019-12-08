@@ -132,7 +132,7 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
   const humanMonthlyPrice = formatNumber(monthlyPrice)
 
   return (
-    <Box ml='auto' mr='auto' px={[0, 0, 0, 6]} pt={4} pb={5}>
+    <Box as='section' ml='auto' mr='auto' px={[0, 0, 0, 6]} pt={4}>
       <Box
         as='table'
         width='100%'

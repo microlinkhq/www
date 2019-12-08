@@ -39,17 +39,6 @@ NavLogo.defaultProps = {
   'data-event-action': 'Logo'
 }
 
-export const NavPrinciples = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavPrinciples.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Principles',
-  children: 'Principles',
-  href: '/#principles',
-  actively: 'observer'
-}
-
 export const NavPricing = ({ mobile, ...props }) =>
   mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
 

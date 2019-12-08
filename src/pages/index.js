@@ -10,18 +10,23 @@ import {
   Caps,
   Container as ContainerBase,
   Flex,
-  Heading,
   Link,
   Subhead,
   Text,
   Card
 } from 'components/elements'
 
-import { Header, Layout, LiveDemo, PricingTable } from 'components/patterns'
+import {
+  Headline,
+  Legend,
+  Layout,
+  LiveDemo,
+  PricingTable
+} from 'components/patterns'
 
 import { Hero, Screenshots } from 'components/pages/home'
 
-import { borders, colors } from 'theme'
+import { layout, borders, colors } from 'theme'
 import get from 'dlv'
 
 const Questions = () => {
@@ -35,7 +40,7 @@ const Questions = () => {
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}
     >
-      <Header title={title} caption={caption} />
+      <Headline title={title} caption={caption} />
       <Flex
         as='section'
         pt={[3, 4]}
@@ -275,17 +280,15 @@ const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
   const caption = 'Growing with your business.'
 
   return (
-    <Box as='article' id='pricing'>
-      <Container as='section' pb={0}>
-        <Header pb={[0, 4]} title={title} caption={caption} />
-        <PricingTable
-          siteUrl={siteUrl}
-          apiKey={apiKey}
-          stripeKey={stripeKey}
-          apiEndpoint={apiEndpoint}
-        />
-      </Container>
-    </Box>
+    <Container id='pricing' maxWidth={layout.medium}>
+      <Headline pb={[0, 4]} title={title} caption={caption} />
+      <PricingTable
+        siteUrl={siteUrl}
+        apiKey={apiKey}
+        stripeKey={stripeKey}
+        apiEndpoint={apiEndpoint}
+      />
+    </Container>
   )
 }
 
@@ -295,7 +298,7 @@ const Container = ({
   component: Component = Box,
   ...props
 }) => (
-  <Component as='article' px={4} pt={[4, 5]} pb={[4, 5]} {...props}>
+  <Component as='article' px={3} pt={4} pb={4} {...props}>
     <ContainerBase children={children} maxWidth={maxWidth} />
   </Component>
 )
@@ -334,29 +337,6 @@ const Block = ({
   </Container>
 )
 
-const Subheader = ({ title, subtitle, textAlign = 'center', children }) => (
-  <>
-    <Subhead
-      fontSize={2}
-      fontWeight='bold'
-      color='secondary'
-      textAlign={textAlign}
-    >
-      <Caps as='span' children={subtitle} />
-    </Subhead>
-    <Heading
-      mt={1}
-      mb={children && 1}
-      fontWeight='bold'
-      fontSize={5}
-      variant={null}
-      textAlign={textAlign}
-      children={title}
-    />
-    {children}
-  </>
-)
-
 const slide = keyframes`
 from {
   transform: translate3d(0, 0, 0);
@@ -390,11 +370,11 @@ const Dots = styled(Flex)`
 const Explore = () => {
   const ratio = [0.7, 0.7, 0.7, 0.7]
   return (
-    <Dots>
+    <Dots as='article' id='explore'>
       <Flex
         px={4}
-        pt={[4, 5]}
-        pb={[4, 5]}
+        pt={4}
+        pb={4}
         width='100%'
         id='explore'
         flexDirection='column'
@@ -410,7 +390,7 @@ const Explore = () => {
           justifyContent='center'
           alignItems='center'
         >
-          <Header
+          <Headline
             pb={[0, 4]}
             title='Explore'
             caption='discover all the things you can do'
@@ -464,7 +444,7 @@ const Meta = ({ demoLinks, ...props }) => {
 
   const blockOne = (
     <Flex justifyContent='center' alignItems='center' flexDirection='column'>
-      <Subheader subtitle='meta' title='Turn websites into rich media' />
+      <Legend sup='meta' title='Turn websites into rich media' />
     </Flex>
   )
 
@@ -501,6 +481,8 @@ const Meta = ({ demoLinks, ...props }) => {
 
   return (
     <Block
+      pt={0}
+      pb={0}
       id='meta'
       flexDirection='column'
       onClick={handleClick}

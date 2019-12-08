@@ -5,19 +5,8 @@ import styled from 'styled-components'
 import { aspectRatio } from 'helpers'
 import { speed, toPx } from 'theme'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  Subhead,
-  Text
-} from 'components/elements'
-
-import { Block } from 'components/patterns'
+import { Box, Button, Caps, Flex, Image, Link, Text } from 'components/elements'
+import { Block, Legend } from 'components/patterns'
 
 export const screenshotsUrls = [
   { theme: 'dark', brand: 'Apple' },
@@ -30,34 +19,6 @@ export const screenshotsUrls = [
   const filename = `${id}.png`
   return `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
 })
-
-const Subheader = ({ title, subtitle, textAlign = 'center', children }) => (
-  <Flex
-    as='header'
-    justifyContent='center'
-    alignItems='center'
-    flexDirection='column'
-  >
-    <Subhead
-      fontSize={2}
-      fontWeight='bold'
-      color='secondary'
-      textAlign={textAlign}
-    >
-      <Caps as='span' children={subtitle} />
-    </Subhead>
-    <Heading
-      mt={1}
-      mb={children && 1}
-      fontWeight='bold'
-      fontSize={5}
-      variant={null}
-      textAlign={textAlign}
-      children={title}
-    />
-    {children}
-  </Flex>
-)
 
 const CustomImage = styled(Image)`
   position: absolute;
@@ -92,7 +53,7 @@ const Screenshots = props => {
   })
 
   const blockOne = (
-    <Subheader subtitle='screenshot' title='Turn websites into a snapshot' />
+    <Legend sup='screenshot' title='Turn websites into a snapshot' />
   )
 
   const blockTwo = (

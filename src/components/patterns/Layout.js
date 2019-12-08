@@ -44,7 +44,7 @@ const Layout = ({ footer, children, className, ...props }) => {
       <Site>
         <Head {...props} />
         <Toolbar />
-        <SiteContent px={4} pt={TOOLBAR_HEIGHT} className={className}>
+        <SiteContent pt={TOOLBAR_HEIGHT} className={className}>
           {children}
         </SiteContent>
         <CookiesPolicy />
