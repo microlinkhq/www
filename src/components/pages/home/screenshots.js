@@ -1,11 +1,20 @@
-import React, { useCallback, useState } from 'react'
-import { navigate } from 'gatsby'
 import { useTransition, animated } from 'react-spring'
+import React, { useCallback, useState } from 'react'
+import { layout, speed, toPx } from 'theme'
 import styled from 'styled-components'
 import { aspectRatio } from 'helpers'
-import { speed, toPx } from 'theme'
+import { navigate } from 'gatsby'
 
-import { Box, Button, Caps, Flex, Image, Link, Text } from 'components/elements'
+import {
+  Hide,
+  Box,
+  Button,
+  Caps,
+  Flex,
+  Image,
+  Link,
+  Text
+} from 'components/elements'
 import { Block, Legend } from 'components/patterns'
 
 export const screenshotsUrls = [
@@ -75,10 +84,22 @@ const Screenshots = props => {
           })}
         </Flex>
       </Box>
-      <Text mb={[0, 0, 0, 3]} px={6} textAlign='center' maxWidth='960px'>
-        Take a retina display screenshot of any URL. Export them to PNG or JPEG.
-        Automatic CDN redistribution. Overlay composition using a browser framer
-        & background. Just in time stale refresh, keeping them up to date.
+      <Text
+        mb={[0, 0, 0, 3]}
+        px={[5, 6, 6, 6]}
+        textAlign='center'
+        maxWidth={layout.medium}
+      >
+        <Hide breakpoints={[1, 2, 3]}>
+          Take a retina display screenshot of any URL. Automatic CDN
+          redistribution.
+        </Hide>
+        <Hide breakpoints={[0]}>
+          Take a retina display screenshot of any URL. Export them to PNG or
+          JPEG. Automatic CDN redistribution. Overlay composition using a
+          browser framer & background. Just in time stale refresh, keeping them
+          up to date.
+        </Hide>
       </Text>
       <Flex pt={3} alignItems='center' justifyContent='center'>
         <Button onClick={() => navigate('/screenshot')}>

@@ -20,7 +20,7 @@ const Legend = ({ title, sup, textAlign = 'center', children }) => (
       mt={1}
       mb={children && 1}
       fontWeight='bold'
-      fontSize={5}
+      fontSize={[3, 5]}
       variant={null}
       textAlign={textAlign}
       children={title}

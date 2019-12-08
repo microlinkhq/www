@@ -65,7 +65,7 @@ const Features = ({ children, ...props }) => (
       <Grid children={children} itemsPerRow={3} />
     </Hide>
     <Hide breakpoints={[2, 3]}>
-      <Grid children={children} itemsPerRow={1} />
+      <Grid px={4} children={children} itemsPerRow={1} />
     </Hide>
   </Box>
 )

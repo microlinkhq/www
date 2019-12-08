@@ -10,7 +10,8 @@ Container.defaultProps = {
   ml: 'auto',
   mr: 'auto',
   pt: 4,
-  pb: 4
+  pb: 4,
+  px: 4
 }
 
 export default Container
