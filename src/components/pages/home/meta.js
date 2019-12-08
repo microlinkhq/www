@@ -61,7 +61,7 @@ const Meta = ({ demoLinks, ...props }) => {
           onClick={() => navigate('/docs/sdk/getting-started/overview/')}
           ml={3}
         >
-          Read Docs
+          See documentation
         </Link>
       </Flex>
     </Flex>

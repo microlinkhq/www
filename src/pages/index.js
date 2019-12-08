@@ -8,27 +8,21 @@ import {
   Flex,
   Link,
   Subhead,
-  Text,
-  Card
+  Text
 } from 'components/elements'
+
+import { layout } from 'theme'
 
 import { Headline, Layout, PricingTable } from 'components/patterns'
 
-import { Meta, Hero, Screenshots } from 'components/pages/home'
+import { Explore, Meta, Hero, Screenshots } from 'components/pages/home'
 
-import { layout, borders, colors } from 'theme'
-
-const Questions = () => {
+const Questions = props => {
   const title = 'Questions'
   const caption = 'Frequently asked questions.'
 
   return (
-    <Container
-      id='faq'
-      bg='pinky'
-      borderTop={`${borders[1]} ${colors.pinkest}`}
-      borderBottom={`${borders[1]} ${colors.pinkest}`}
-    >
+    <Container id='faq' {...props}>
       <Headline title={title} caption={caption} />
       <Flex
         as='section'
@@ -270,7 +264,7 @@ const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
 
   return (
     <Container id='pricing' maxWidth={layout.medium}>
-      <Headline pb={[0, 4]} title={title} caption={caption} />
+      <Headline title={title} caption={caption} />
       <PricingTable
         siteUrl={siteUrl}
         apiKey={apiKey}
@@ -323,62 +317,6 @@ const Dots = styled(Flex)`
   }
 `
 
-const Explore = () => {
-  const ratio = [0.7, 0.7, 0.7, 0.7]
-  return (
-    <Dots as='article' id='explore'>
-      <Flex
-        px={4}
-        pt={4}
-        pb={4}
-        width='100%'
-        id='explore'
-        flexDirection='column'
-        borderTop={`${borders[1]} ${colors.gray1}`}
-        borderBottom={`${borders[1]} ${colors.gray1}`}
-        justifyContent='center'
-        alignItems='center'
-      >
-        <Flex
-          pt={4}
-          pb={4}
-          flexDirection='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <Headline
-            pb={[0, 4]}
-            title='Explore'
-            caption='discover all the things you can do'
-          />
-          <Flex>
-            <Card ratio={ratio} p={4}>
-              PDF
-            </Card>
-            <Card ratio={ratio} p={4} mx={4}>
-              Palette
-            </Card>
-            <Card ratio={ratio} p={4}>
-              HTML
-            </Card>
-          </Flex>
-          <Flex pt={4}>
-            <Card ratio={ratio} p={4}>
-              Metrics
-            </Card>
-            <Card ratio={ratio} p={4} mx={4}>
-              Screenshot
-            </Card>
-            <Card ratio={ratio} p={4}>
-              Meta
-            </Card>
-          </Flex>
-        </Flex>
-      </Flex>
-    </Dots>
-  )
-}
-
 function Index () {
   const demoLinks = useDemoLinks()
 
@@ -395,14 +333,14 @@ function Index () {
       <Hero title={headline} features={usePrinciples()} />
       <Screenshots bg='pinky' />
       <Meta demoLinks={demoLinks} />
-      {/* <Explore />
+      <Explore />
       <Pricing
         siteUrl={siteUrl}
         apiKey={paymentApiKey}
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
-      <Questions /> */}
+      <Questions bg='pinky' />
     </Layout>
   )
 }

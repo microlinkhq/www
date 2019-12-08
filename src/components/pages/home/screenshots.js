@@ -110,7 +110,7 @@ const Screenshots = props => {
           onClick={() => navigate('/docs/api/parameters/screenshot')}
           ml={3}
         >
-          Read Docs
+          See documentation
         </Link>
       </Flex>
     </Flex>
