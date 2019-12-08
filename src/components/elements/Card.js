@@ -21,7 +21,7 @@ Card.defaultProps = {
   bg: 'white',
   borderRadius: 3,
   boxShadow: 0,
-  ratio: [1, 1, 1, 1]
+  ratio: [0.9, 0.9, 1, 1]
 }
 
 const CardOption = ({ children, value, ...props }) => (

@@ -1,13 +1,9 @@
 import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
-
-import React, { useState } from 'react'
-import { navigate } from 'gatsby'
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import {
   Box,
-  Button,
-  Caps,
   Container as ContainerBase,
   Flex,
   Link,
@@ -16,18 +12,11 @@ import {
   Card
 } from 'components/elements'
 
-import {
-  Headline,
-  Legend,
-  Layout,
-  LiveDemo,
-  PricingTable
-} from 'components/patterns'
+import { Headline, Layout, PricingTable } from 'components/patterns'
 
-import { Hero, Screenshots } from 'components/pages/home'
+import { Meta, Hero, Screenshots } from 'components/pages/home'
 
 import { layout, borders, colors } from 'theme'
-import get from 'dlv'
 
 const Questions = () => {
   const title = 'Questions'
@@ -304,41 +293,6 @@ const Container = ({
   </Component>
 )
 
-// TODO: REMOVE
-const Block = ({
-  blockOne,
-  blockTwo,
-  children,
-  flexDirection = 'row',
-  pt = [0, 0, 0, 4],
-  pb = [0, 0, 0, 4],
-  ...props
-}) => (
-  <Container
-    maxWidth='100%'
-    justifyContent='center'
-    alignItems='center'
-    component={Flex}
-    {...props}
-  >
-    <Flex
-      pt={pt}
-      pb={pb}
-      as='section'
-      justifyContent='center'
-      flexDirection={['column', 'column', 'column', flexDirection]}
-      alignItems='center'
-      ml='auto'
-      mr='auto'
-    >
-      {blockOne}
-      <Box ml={4} mr={4} />
-      {blockTwo}
-    </Flex>
-    {children}
-  </Container>
-)
-
 const slide = keyframes`
 from {
   transform: translate3d(0, 0, 0);
@@ -425,76 +379,6 @@ const Explore = () => {
   )
 }
 
-const Meta = ({ demoLinks, ...props }) => {
-  const demoLinkTest = ({ brand }) => brand === 'Twitter'
-  const demoLinkIndex = demoLinks.findIndex(demoLinkTest)
-
-  const links = demoLinks.filter(
-    demoLink =>
-      !demoLinkTest(demoLink) &&
-      (!!get(demoLink, 'data.video') || !!get(demoLink, 'data.audio'))
-  )
-  const [link, setLink] = useState(demoLinks[demoLinkIndex].data)
-  const [index, setIndex] = useState(0)
-
-  const handleClick = event => {
-    if (event.target.tagName !== 'SELECT' && event.target.tagName !== 'SPAN') {
-      setIndex((index + 1) % links.length)
-      setLink(links[index].data)
-    }
-  }
-
-  const blockOne = (
-    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
-      <Legend sup='meta' title='Turn websites into rich media' />
-    </Flex>
-  )
-
-  const blockTwo = (
-    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
-      <Box data-tilt pt={4} pb={3}>
-        <LiveDemo children={link} />
-      </Box>
-      <Text
-        mt={[0, 0, 0, 3]}
-        mb={[0, 0, 0, 3]}
-        px={6}
-        textAlign='center'
-        maxWidth={layout.medium}
-      >
-        Engage your content with enriched media. Convert your links into
-        beautiful previews. Make your content attractive to consume. Add it to
-        an existing website or app. Auto media detection (image, video, audio).
-        Native embeds supported. Easily customizable.
-      </Text>
-      <Flex pt={3} alignItems='center' justifyContent='center'>
-        <Button onClick={() => navigate('/screenshot')}>
-          <Caps fontSize={0}>Live Demo</Caps>
-        </Button>
-        <Link
-          onClick={() => navigate('/docs/api/parameters/screenshot')}
-          ml={3}
-        >
-          Read Docs
-        </Link>
-      </Flex>
-    </Flex>
-  )
-
-  return (
-    <Block
-      pt={0}
-      pb={0}
-      id='meta'
-      flexDirection='column'
-      onClick={handleClick}
-      blockOne={blockOne}
-      blockTwo={blockTwo}
-      {...props}
-    />
-  )
-}
-
 function Index () {
   const demoLinks = useDemoLinks()
 
@@ -510,8 +394,8 @@ function Index () {
     <Layout>
       <Hero title={headline} features={usePrinciples()} />
       <Screenshots bg='pinky' />
-      {/* <Meta demoLinks={demoLinks} />
-      <Explore />
+      <Meta demoLinks={demoLinks} />
+      {/* <Explore />
       <Pricing
         siteUrl={siteUrl}
         apiKey={paymentApiKey}

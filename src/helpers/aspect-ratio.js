@@ -12,7 +12,7 @@ const aspectRatio = (ratios, base = layout.medium) => {
   }
 }
 
-const ratios = [0.4, 0.6, 0.8, 1]
+const ratios = [0.5, 0.6, 0.8, 1]
 const { width, height } = aspectRatio(ratios)
 
 aspectRatio.width = width
