@@ -6,14 +6,12 @@ const Block = ({
   blockTwo,
   children,
   flexDirection = 'row',
-  pt = [0, 0, 0, 4],
-  pb = [0, 0, 0, 4],
   ...props
 }) => (
   <Container {...props}>
     <Flex
-      pt={pt}
-      pb={pb}
+      pt={[0, 0, 0, 4]}
+      pb={[0, 0, 0, 4]}
       as='section'
       justifyContent='center'
       flexDirection={['column', 'column', 'column', flexDirection]}

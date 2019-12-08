@@ -99,7 +99,7 @@ const Automation = ({ word, ...props }) => (
   </Flex>
 )
 
-const Hero = ({ title, features }) => {
+const Hero = ({ title, features, ...props }) => {
   const words = ['Instant', 'Costless', 'From $0', 'Effective', 'Reliable']
   const [word, setWord] = useState(words[0])
   const [index, setIndex] = useState(0)
@@ -123,6 +123,7 @@ const Hero = ({ title, features }) => {
           <Features pt={5} children={features} />
         </>
       }
+      {...props}
     />
   )
 }

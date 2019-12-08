@@ -69,8 +69,6 @@ const Meta = ({ demoLinks, ...props }) => {
 
   return (
     <Block
-      pt={0}
-      pb={0}
       id='meta'
       flexDirection='column'
       onClick={handleClick}
