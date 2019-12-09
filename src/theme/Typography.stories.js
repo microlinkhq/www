@@ -5,17 +5,17 @@ import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 
 const codeHeadline = `
-import { Header } from 'components/patterns'
+import { Headline } from 'components/patterns'
 
 export default () => (
   <Headline title='Turn websites into data' caption='Microlink makes easy to build an API on top of any website.' />
 )`
 
 const codeSubHeadline = `
-import { Header } from 'components/patterns'
+import { SubHeadline } from 'components/patterns'
 
 export default () => (
-  <Headline title='Turn websites into data' caption='enter URL, receive data' />
+  <SubHeadline title='Turn websites into data' caption='enter URL, receive data' />
 )`
 
 const codeLegend = `
