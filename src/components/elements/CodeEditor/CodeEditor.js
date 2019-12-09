@@ -265,7 +265,7 @@ Terminal.defaultProps = {
   theme: 'dark'
 }
 
-function CodeEditor (props) {
+const CodeEditor = props => {
   const {
     ActionComponent,
     showLineNumbers,
@@ -273,6 +273,7 @@ function CodeEditor (props) {
     children,
     ...restProps
   } = props
+
   const className = props.className
     ? props.className + (props.metastring || '')
     : ''
