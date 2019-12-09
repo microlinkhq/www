@@ -105,7 +105,7 @@ const Actions = styled(Flex)`
   top: 4px;
 `
 
-export default ({ languages: codeByLanguage, ...props }) => {
+const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
   const editorLanguages = Object.keys(codeByLanguage)
 
   const [editorLanguage, setEditorLanguage] = useLocalStorage(
@@ -152,3 +152,9 @@ export default ({ languages: codeByLanguage, ...props }) => {
     />
   )
 }
+
+MultiCodeEditor.defaultProps = {
+  ...CodeEditor.defaultProps
+}
+
+export default MultiCodeEditor
