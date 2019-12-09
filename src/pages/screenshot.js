@@ -1,7 +1,7 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
 import { Layout, FetchProvider } from 'components/patterns'
 import { Location } from '@reach/router'
-import { screenshotUrl } from 'helpers'
+import { cdnUrl, screenshotUrl } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import React from 'react'
 
@@ -14,7 +14,7 @@ export default () => {
   const title = 'Take a screenshot of any website'
   const image = query.url
     ? screenshotUrl(`https://microlink.io/screenshot?url=${query.url}`)
-    : 'https://cdn.microlink.io/page/screenshot.png'
+    : cdnUrl('page/screenshot.png')
 
   const suggestions = [
     { theme: 'dark', brand: 'Apple' },
@@ -33,7 +33,7 @@ export default () => {
       filename,
       url,
       value: humanizeUrl(url),
-      cdnUrl: `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
+      cdnUrl: cdnUrl(`website/browser/${item.theme}/${filename}`)
     }
   })
 

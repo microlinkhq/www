@@ -1,11 +1,11 @@
+import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
+import { mqlCode, getDomain, cdnUrl } from 'helpers'
 import { useFeatures } from 'components/hook'
-import * as Logo from 'components/logos'
 import { borders, colors } from 'theme'
-import { mqlCode, getDomain } from 'helpers'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import get from 'dlv'
 import React from 'react'
+import get from 'dlv'
 
 import {
   Box,
@@ -33,7 +33,7 @@ import {
 import prettier, { serializeObject, serializeFmt } from 'helpers/prettier'
 
 const DEFAULT_LOGO = {
-  url: 'https://cdn.microlink.io/logo/trim.png',
+  url: cdnUrl('logo/trim.png'),
   width: 500,
   height: 500,
   type: 'png',
@@ -69,7 +69,7 @@ export default () => (
   return { React: langReact, HTML: langVanilla }
 }
 
-const Hero = ({ domain, brand, data }) => {
+const Hero = ({ domain, id, data }) => {
   const caption = (
     <Box maxWidth={5} pt={[2, 2, 4, 4]} px={5}>
       Turn{' '}
@@ -86,7 +86,7 @@ const Hero = ({ domain, brand, data }) => {
   )
 
   const logoProvider = (() => {
-    const LogoProvider = Logo[brand]
+    const LogoProvider = LogoBrand[id]
     if (LogoProvider) {
       return (
         <LogoProvider height='100%' width={['36px', '72px']} state='hover' />
@@ -103,7 +103,7 @@ const Hero = ({ domain, brand, data }) => {
   return (
     <Container id='hero'>
       <Flex pt={[0, 0, 4, 4]} alignItems='center' justifyContent='center'>
-        <Logo.Microlink width={['36px', '72px']} />
+        <MicrolinkLogo width={['36px', '72px']} />
         {logoProvider && <Box ml={3} mr={3} children={<Plus />} />}
         {logoProvider}
       </Flex>

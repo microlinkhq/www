@@ -6,7 +6,7 @@ import { layout } from 'theme'
 import get from 'dlv'
 
 const Meta = ({ demoLinks, ...props }) => {
-  const demoLinkTest = ({ brand }) => brand === 'Twitter'
+  const demoLinkTest = ({ id }) => id === 'twitter'
   const demoLinkIndex = demoLinks.findIndex(demoLinkTest)
 
   const links = demoLinks.filter(

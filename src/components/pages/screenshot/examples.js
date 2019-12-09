@@ -11,6 +11,7 @@ import {
 } from 'components/elements'
 
 import {
+  cdnUrl,
   aspectRatio,
   getDomain,
   screenshotUrl,
@@ -134,10 +135,11 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
     if (item && !get(opts, 'overlay.background')) {
       const theme = get(opts, 'overlay.browser')
       const filename = item.filename
-      const baseUrl = 'https://cdn.microlink.io/website/'
-      return theme
-        ? `${baseUrl}/browser/${theme}/${filename}`
-        : `${baseUrl}/${filename}`
+      return cdnUrl(
+        theme
+          ? `screenshot/browser/${theme}/${filename}`
+          : `screenshot/${filename}`
+      )
     }
 
     return url

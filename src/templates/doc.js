@@ -8,7 +8,7 @@ import {
 } from 'components/elements'
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
-import { formatDate } from 'helpers'
+import { cdnUrl, formatDate } from 'helpers'
 import { colors, layout } from 'theme'
 import React from 'react'
 
@@ -383,7 +383,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
       footer={false}
       {...meta}
       name={`Microlink ${activeRouteName}`}
-      image={`https://cdn.microlink.io/page/docs/${activeRouteName.toLowerCase()}.png`}
+      image={cdnUrl(`page/docs/${activeRouteName.toLowerCase()}.png`)}
     >
       <Container maxWidth={layout.large}>
         <Aside routes={routes} activeRouteName={activeRouteName}>

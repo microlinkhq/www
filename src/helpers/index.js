@@ -1,4 +1,5 @@
 import serializeComponent from './serialize-component'
+import debounceComponent from './debounce-component'
 import screenshotUrl from './screenshot-url'
 import formatNumber from './format-number'
 import aspectRatio from './aspect-ratio'
@@ -11,10 +12,11 @@ import prettier from './prettier'
 import isSSR from './is-ssr'
 import title from './title'
 import mqlCode from './mql-code'
-import debounceComponent from './debounce-component'
+import cdnUrl from './cdn-url'
 
 export {
   aspectRatio,
+  cdnUrl,
   debounceComponent,
   formatDate,
   formatNumber,

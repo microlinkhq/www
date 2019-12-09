@@ -59,7 +59,7 @@ const Examples = ({ demoLinks }) => (
     <Box pt={[3, 4]}>
       <DemoLinks
         children={demoLinks}
-        onClick={({ brand }) => navigate(`/embed/${brand.toLowerCase()}`)}
+        onClick={({ id }) => navigate(`/embed/${id}`)}
       />
     </Box>
   </Container>

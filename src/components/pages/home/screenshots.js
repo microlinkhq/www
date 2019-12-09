@@ -2,7 +2,7 @@ import { useTransition, animated } from 'react-spring'
 import React, { useCallback, useState } from 'react'
 import { layout, speed, toPx } from 'theme'
 import styled from 'styled-components'
-import { aspectRatio } from 'helpers'
+import { aspectRatio, cdnUrl } from 'helpers'
 import { navigate } from 'gatsby'
 
 import {
@@ -18,16 +18,12 @@ import {
 import { Block, Legend } from 'components/patterns'
 
 export const screenshotsUrls = [
-  { theme: 'dark', brand: 'Apple' },
-  { theme: 'light', brand: 'MDN' },
-  { theme: 'light', brand: 'StackOverflow' },
-  { theme: 'light', brand: 'ProductHunt' },
-  { theme: 'dark', brand: 'Nasa' }
-].map(item => {
-  const id = item.brand.toLowerCase()
-  const filename = `${id}.png`
-  return `https://cdn.microlink.io/website/browser/${item.theme}/${filename}`
-})
+  { theme: 'dark', id: 'apple' },
+  { theme: 'light', id: 'mdn' },
+  { theme: 'light', id: 'stackoverflow' },
+  { theme: 'light', id: 'producthunt' },
+  { theme: 'dark', id: 'nasa' }
+].map(({ theme, id }) => cdnUrl(`screenshot/browser/${theme}/${id}.png`))
 
 const CustomImage = styled(Image)`
   position: absolute;

@@ -2,7 +2,7 @@ import { graphql } from 'gatsby'
 
 export const demolinkFragment = graphql`
   fragment DemoLinkFragment on DemoLinksJson {
-    brand
+    id
     data {
       lang
       author

@@ -3,7 +3,7 @@ import tpl from 'lodash/template'
 import DataDemoLinks from '../../data/demo-links.json'
 
 const DemoLinks = DataDemoLinks.reduce(
-  (acc, { brand, data }) => ({ ...acc, [brand]: data }),
+  (acc, { id, data }) => ({ ...acc, [id]: data }),
   {}
 )
 
