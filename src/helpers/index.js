@@ -10,6 +10,7 @@ import template from './template'
 import prettier from './prettier'
 import isSSR from './is-ssr'
 import title from './title'
+import mqlCode from './mql-code'
 import debounceComponent from './debounce-component'
 
 export {
@@ -20,6 +21,7 @@ export {
   getDomain,
   getLines,
   isSSR,
+  mqlCode,
   prettier,
   screenshotUrl,
   sendEvent,

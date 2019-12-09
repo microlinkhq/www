@@ -10,8 +10,9 @@ const createDataUrl = props => (url = 'https://example.com') =>
 
 export default (props, stringProps) => {
   const dataUrl = createDataUrl(props)
-  const React = ({ url = '{{DemoLinks.Spotify.url}}' }) => `
-
+  const React = args => {
+    const url = props.url || args.url || '{{DemoLinks.Spotify.url}}'
+    return `
 import Microlink from '@microlink/react'
 
 export default props => (
@@ -22,6 +23,7 @@ export default props => (
     {...props}
   />
 )`
+  }
 
   React.language = 'jsx'
 
@@ -38,7 +40,9 @@ export default props => (
 
   HTML.language = 'html'
 
-  const Nodejs = ({ url = '{{DemoLinks.Spotify.url}}' }) => `
+  const Nodejs = args => {
+    const url = props.url || args.url || '{{DemoLinks.Spotify.url}}'
+    return `
 const mql = require('@microlink/mql')
 
 module.exports = props => {
@@ -48,7 +52,8 @@ module.exports = props => {
     ...props
   })
 }
-`
+    `
+  }
 
   Nodejs.language = 'javascript'
 
@@ -231,7 +236,7 @@ var client = new RestClient("${dataUrl()}");
 var request = new RestRequest(Method.GET);
 IRestResponse response = client.Execute(request);`
 
-  Clojure.language = 'c#'
+  CSharp.language = 'c#'
 
   return {
     'Node.js': Nodejs,

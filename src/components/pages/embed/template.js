@@ -1,7 +1,7 @@
 import { useFeatures } from 'components/hook'
 import * as Logo from 'components/logos'
 import { borders, colors } from 'theme'
-import { getDomain } from 'helpers'
+import { mqlCode, getDomain } from 'helpers'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
 import get from 'dlv'
@@ -40,17 +40,6 @@ const DEFAULT_LOGO = {
   size: 1448,
   size_pretty: '1.45 kB'
 }
-
-const generateMqlCode = props => `
-const mql = require('@microlink/mql')
-const { status, response, data } = await mql(
-  '${props.url}'
-)
-
-console.log('status', status)
-console.log('headers', response.headers)
-console.log('data', data)
-`
 
 const generateLanguages = props => {
   const langReact = () =>
@@ -270,16 +259,25 @@ const Api = ({ data }) => {
           mr='auto'
           ml='auto'
         >
-          <Box
-            width={[CodeEditor.width[0], CodeEditor.width[1], '500px', '500px']}
-          >
+          <Box>
             <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
               Using MQL (
               <Link href='/docs/mql/getting-started/overview'>docs</Link>)
             </Subhead>
-            <CodeEditor
-              language='javascript'
-              children={generateMqlCode(data)}
+            <MultiCodeEditor
+              width={[
+                CodeEditor.width[0],
+                CodeEditor.width[1],
+                '500px',
+                '500px'
+              ]}
+              languages={mqlCode(
+                data,
+                `video: true,
+    audio:true,
+    palette: true,
+    iframe: true`
+              )}
             />
           </Box>
           <Box px={3} />

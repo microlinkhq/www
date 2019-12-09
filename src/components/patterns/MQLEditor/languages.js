@@ -1,6 +1,6 @@
-import generate from './generate'
+import { mqlCode } from 'helpers'
 
-const html = generate(
+const html = mqlCode(
   {
     data: {
       html: {
@@ -15,7 +15,7 @@ const html = generate(
     }`
 )
 
-const data = generate(
+const data = mqlCode(
   {
     data: {
       audio: true,
@@ -28,7 +28,7 @@ const data = generate(
     meta: true`
 )
 
-const pdf = generate(
+const pdf = mqlCode(
   {
     data: {
       pdf: true,
@@ -39,7 +39,7 @@ const pdf = generate(
     meta: false`
 )
 
-const screenshot = generate(
+const screenshot = mqlCode(
   {
     data: {
       screenshot: true,
@@ -50,7 +50,7 @@ const screenshot = generate(
     meta: false`
 )
 
-const stats = generate(
+const stats = mqlCode(
   {
     data: {
       stats: true,
