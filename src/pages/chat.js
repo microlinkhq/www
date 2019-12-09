@@ -17,7 +17,7 @@ export default () => (
       <Flex alignItems='center' justifyContent='center'>
         <Microlink width={LOGO_SIZE} />
         <Box color='black' px={3}>
-          <Plus size={PLUS_SIZE} />
+          <Plus />
         </Box>
         <Slack width={LOGO_SIZE} />
       </Flex>

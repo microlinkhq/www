@@ -277,19 +277,27 @@ function Index () {
   return (
     <Layout>
       <Hero title={headline} features={usePrinciples()} />
-      <Screenshots bg='pinky' />
-      <Meta demoLinks={demoLinks} />
-      <Explore
-        borderTop={`${borders[1]} ${colors.gray1}`}
-        borderBottom={`${borders[1]} ${colors.gray1}`}
+      <Screenshots
+        bg='pinky'
+        borderTop={`${borders[1]} ${colors.pinkest}`}
+        borderBottom={`${borders[1]} ${colors.pinkest}`}
       />
+      <Meta demoLinks={demoLinks} />
+      {/* <Explore
+        borderTop={`${borders[1]} ${colors.pinkest}`}
+        borderBottom={`${borders[1]} ${colors.pinkest}`}
+      /> */}
       <Pricing
         siteUrl={siteUrl}
         apiKey={paymentApiKey}
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
-      <Questions bg='pinky' />
+      <Questions
+        bg='pinky'
+        borderTop={`${borders[1]} ${colors.pinkest}`}
+        borderBottom={`${borders[1]} ${colors.pinkest}`}
+      />
     </Layout>
   )
 }

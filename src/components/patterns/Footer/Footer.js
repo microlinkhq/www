@@ -30,10 +30,10 @@ const IconWrapper = styled(Box)`
 `
 
 export default props => (
-  <Container px={[2, 2, 2, 0]} maxWidth={layout.large}>
+  <Container maxWidth={layout.large}>
     <Flex
       as='footer'
-      py={[4, 4, 4, 5]}
+      py={[0, 0, 4, 4]}
       bg='white'
       flexDirection={['column', 'column', 'column', 'row']}
       justifyContent='space-between'
