@@ -145,12 +145,12 @@ export default props => (
           />
           <LinkSolid
             data-event-category='Footer'
-            data-event-action='Pricing'
+            data-event-action='Blog'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
-            href='/#pricing'
-            children='Pricing'
+            href='/blog'
+            children='Blog'
           />
           <LinkSolid
             data-event-category='Footer'
@@ -163,12 +163,12 @@ export default props => (
           />
           <LinkSolid
             data-event-category='Footer'
-            data-event-action='Design'
+            data-event-action='Pricing'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
-            href='/design'
-            children='Design'
+            href='/#pricing'
+            children='Pricing'
           />
         </Flex>
       </Box>

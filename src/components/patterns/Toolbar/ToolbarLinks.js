@@ -83,17 +83,6 @@ NavDocs.defaultProps = {
   actively: 'partial'
 }
 
-export const NavBlog = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavBlog.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Blog',
-  children: 'Blog',
-  href: '/blog',
-  actively: 'partial'
-}
-
 export const NavChat = ({ mobile, ...props }) =>
   mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
 

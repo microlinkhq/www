@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import NavContainer from './NavContainer'
 
 import {
-  NavBlog,
   NavChat,
   NavDocs,
   NavEmbed,
@@ -67,11 +66,10 @@ export default class extends Component {
           <Toolbar ml={3} mr={3} justifyContent='center' {...this.props}>
             <NavLogo mobile />
             <Nav as='nav' width={300}>
-              <NavPricing mobile />
               <NavEmbed mobile />
               <NavScreenshot mobile />
+              <NavPricing mobile />
               <NavDocs mobile />
-              <NavBlog mobile />
               <NavChat mobile />
             </Nav>
           </Toolbar>

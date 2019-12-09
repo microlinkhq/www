@@ -4,7 +4,6 @@ import { Toolbar, Box, Fixed } from 'components/elements'
 import NavContainer from './NavContainer'
 
 import {
-  NavBlog,
   NavChat,
   NavDocs,
   NavEmbed,
@@ -27,13 +26,13 @@ export default class extends Component {
           >
             <NavContainer as='nav'>
               <NavLogo />
-              <NavPricing />
+
               <NavEmbed />
               <NavScreenshot />
             </NavContainer>
             <NavContainer as='nav'>
+              <NavPricing />
               <NavDocs />
-              <NavBlog />
               <NavChat />
             </NavContainer>
           </Toolbar>
