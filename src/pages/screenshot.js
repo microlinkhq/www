@@ -31,7 +31,7 @@ export default () => {
 
   return (
     <Layout title={title} image={image}>
-      <FetchProvider mqlOpts={{ screenshot: true, meta: false }}>
+      <FetchProvider mqlOpts={{ screenshot: true }}>
         {({ status, doFetch, data }) => (
           <>
             <Location>

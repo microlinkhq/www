@@ -117,7 +117,7 @@ const Screenshots = props => {
           onClick={() => navigate('/docs/api/parameters/screenshot')}
           ml={3}
         >
-          See documentation
+          <Caps fontWeight='regular' fontSize={0} children='See docs' />
         </Link>
       </Flex>
     </Flex>

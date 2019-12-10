@@ -61,7 +61,7 @@ const Meta = ({ demoLinks, ...props }) => {
           onClick={() => navigate('/docs/sdk/getting-started/overview/')}
           ml={3}
         >
-          See documentation
+          <Caps fontWeight='regular' fontSize={0} children='See docs' />
         </Link>
       </Flex>
     </Flex>
