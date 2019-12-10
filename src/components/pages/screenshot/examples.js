@@ -251,20 +251,18 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
         {previewUrl ? (
           <Image
             px={3}
-            mt={(() => {
-              const values = getValues()
-              const hasOverlay = !!get(values, 'overlay.browser')
-              const hasBackground = !!get(values, 'overlay.background')
-              const isDemo = !previewUrl.includes('api.microlink.io')
-              if (!isDemo && !hasOverlay) return '13px'
-              if (!hasOverlay) return '-39px'
-              return hasBackground ? '13px' : '-13px'
-            })()}
             style={isLoading => {
               const values = getValues()
               const hasOverlay = !!get(values, 'overlay.browser')
-              if (!isLoading) return undefined
-              return { position: 'relative', top: hasOverlay ? '26px' : '0px' }
+              const hasBackground = !!get(values, 'overlay.background')
+
+              if (isLoading) {
+                return { marginTop: '13px' }
+              } else {
+                if (hasBackground) return { marginTop: '13px' }
+                if (hasOverlay) return { marginTop: '-13px' }
+                return { marginTop: '-39px' }
+              }
             }}
             height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
             width={aspectRatio.width}
@@ -296,7 +294,7 @@ const Examples = ({ demoLinks }) => (
     <Box pt={[3, 4]}>
       <DemoLinks
         children={demoLinks}
-        onClick={({ brand }) => navigate(`/screenshot/${brand.toLowerCase()}`)}
+        onClick={({ id }) => navigate(`/screenshot/${id}`)}
       />
     </Box>
   </Container>
