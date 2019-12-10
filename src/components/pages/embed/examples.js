@@ -45,7 +45,7 @@ LogoWrap.defaultProps = {
 const Examples = ({ demoLinks }) => (
   <Container
     py={[4, 5]}
-    px={4}
+    px={0}
     maxWidth='100%'
     bg='pinky'
     borderTop={`${borders[1]} ${colors.pinkest}`}

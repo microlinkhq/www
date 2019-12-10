@@ -1,5 +1,5 @@
-import { aspectRatio, screenshotUrl, getDomain } from 'helpers'
-import * as Logo from 'components/logos'
+import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
+import { screenshotUrl, getDomain } from 'helpers'
 import { borders, colors } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
@@ -56,7 +56,7 @@ const HeroHeader = ({ title, caption }) => {
   )
 }
 
-const Hero = ({ domain, brand, data }) => {
+const Hero = ({ domain, id, data }) => {
   const caption = (
     <>
       Turn{' '}
@@ -73,7 +73,7 @@ const Hero = ({ domain, brand, data }) => {
   )
 
   const logoProvider = (() => {
-    const LogoProvider = Logo[brand]
+    const LogoProvider = LogoBrand[id]
     if (LogoProvider) {
       return (
         <LogoProvider height='100%' width={['36px', '72px']} state='hover' />
@@ -90,7 +90,7 @@ const Hero = ({ domain, brand, data }) => {
   const title = (
     <Box>
       <Flex alignItems='center' justifyContent='center'>
-        <Logo.Microlink width={['36px', '72px']} />
+        <MicrolinkLogo width={['36px', '72px']} />
         {logoProvider && (
           <Box ml={3} mr={3}>
             <Plus color={colors.gray} />

@@ -8,6 +8,8 @@ import React from 'react'
 import Examples from 'components/pages/screenshot/examples'
 import Template from 'components/pages/screenshot/template'
 
+import { screenshots } from 'components/pages/home/screenshots'
+
 export default () => {
   const demoLinks = useDemoLinks()
   const [query] = useQueryState()
@@ -16,24 +18,14 @@ export default () => {
     ? screenshotUrl(`https://microlink.io/screenshot?url=${query.url}`)
     : cdnUrl('page/screenshot.png')
 
-  const suggestions = [
-    { theme: 'dark', brand: 'Apple' },
-    { theme: 'light', brand: 'MDN' },
-    { theme: 'light', brand: 'StackOverflow' },
-    { theme: 'light', brand: 'ProductHunt' },
-    { theme: 'dark', brand: 'Nasa' }
-  ].map(item => {
-    const { url } = demoLinks.find(link => link.brand === item.brand).data
-    const id = item.brand.toLowerCase()
-    const filename = `${id}.png`
-
+  const suggestions = screenshots.map(({ id, filename, cdnUrl }) => {
+    const { url } = demoLinks.find(link => link.id === id).data
     return {
-      ...item,
-      id,
+      cdnUrl,
       filename,
+      id,
       url,
-      value: humanizeUrl(url),
-      cdnUrl: cdnUrl(`website/browser/${item.theme}/${filename}`)
+      value: humanizeUrl(url)
     }
   })
 

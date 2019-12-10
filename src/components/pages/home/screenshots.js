@@ -4,6 +4,7 @@ import { layout, speed, toPx } from 'theme'
 import styled from 'styled-components'
 import { aspectRatio, cdnUrl } from 'helpers'
 import { navigate } from 'gatsby'
+import map from 'lodash/map'
 
 import {
   Hide,
@@ -15,15 +16,25 @@ import {
   Link,
   Text
 } from 'components/elements'
+
 import { Block, Legend } from 'components/patterns'
 
-export const screenshotsUrls = [
+export const screenshots = [
   { theme: 'dark', id: 'apple' },
   { theme: 'light', id: 'mdn' },
   { theme: 'light', id: 'stackoverflow' },
   { theme: 'light', id: 'producthunt' },
   { theme: 'dark', id: 'nasa' }
-].map(({ theme, id }) => cdnUrl(`screenshot/browser/${theme}/${id}.png`))
+].map(({ theme, id }) => {
+  const filename = `${id}.png`
+  return {
+    id,
+    filename,
+    cdnUrl: cdnUrl(`screenshot/browser/${theme}/${filename}`)
+  }
+})
+
+const screenshotsUrls = map(screenshots, 'cdnUrl')
 
 const CustomImage = styled(Image)`
   position: absolute;

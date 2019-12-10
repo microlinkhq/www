@@ -36,7 +36,6 @@ import ms from 'ms'
 
 import {
   AnimatedImage,
-  screenshotsUrls,
   screenshotHeight
 } from 'components/pages/home/screenshots'
 
@@ -57,7 +56,7 @@ const INTERVAL = 3500
 
 const ImageDebounce = debounceComponent(Image)
 
-const DemoSlider = ({ children: slides }) => {
+const DemoSlider = ({ children: slides, ...props }) => {
   const [index, setIndex] = useState(0)
 
   const transitions = useTransition(index, p => p, {
@@ -82,13 +81,12 @@ const DemoSlider = ({ children: slides }) => {
   return (
     <Flex
       style={{ position: 'relative' }}
-      mt={[2, 1, 1, 1]}
       height={screenshotHeight}
       width={aspectRatio.width}
+      {...props}
     >
-      {/* <Image src={screenshotsUrls[item]/> */}
       {transitions.map(({ item, props, key }) => (
-        <AnimatedImage key={key} style={props} src={screenshotsUrls[item]} />
+        <AnimatedImage key={key} style={props} src={slides[item].cdnUrl} />
       ))}
     </Flex>
   )
@@ -154,7 +152,7 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
   }
 
   return (
-    <Container py={[4, 5]} px={4}>
+    <Container py={[4, 5]} px={4} pb={[3, 3, 4, 4]}>
       <SubHeadline
         title='Take a screenshot of any website'
         caption='Turn websites into a snapshot'
@@ -164,13 +162,13 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
         pt={2}
         pb={3}
         as='form'
+        mx={[0, 0, 'auto', 'auto']}
         maxWidth={aspectRatio.width}
-        mx='auto'
         justifyContent='center'
         onSubmit={handleSubmit}
         flexDirection={['column', 'row', 'row', 'row']}
       >
-        <Box ml={2} mb={[3, 0, 0, 0]}>
+        <Box ml={[2, 2, 0, 0]} mb={[3, 0, 0, 0]}>
           <Input
             fontSize={2}
             iconComponent={<InputIcon value={inputUrl} domain={domain} />}
@@ -249,18 +247,25 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
       </Flex>
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
-        <Box mb='-12px'>
-          <Text fontSize={2}>into a snapshot</Text>
-        </Box>
+        <Text fontSize={2}>into a snapshot</Text>
         {previewUrl ? (
           <ImageDebounce
-            mt={4}
+            px={3}
+            mt={(() => {
+              const values = getValues()
+              const hasOverlay = !!get(values, 'overlay.browser')
+              const isDemo = !previewUrl.includes('api.microlink.io')
+              if (!isDemo && !hasOverlay) return '13px'
+              if (!hasOverlay) return '-39px'
+              return '-13px'
+            })()}
+            height='inherit'
             width={aspectRatio.width}
             key={previewUrl}
             src={previewUrl}
           />
         ) : (
-          <DemoSlider children={suggestions} />
+          <DemoSlider mt={[0, 0, '-13px', '-13px']} children={suggestions} />
         )}
       </Flex>
     </Container>
@@ -270,7 +275,7 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
 const Examples = ({ demoLinks }) => (
   <Container
     py={[4, 5]}
-    px={4}
+    px={0}
     maxWidth='100%'
     bg='pinky'
     borderTop={`${borders[1]} ${colors.pinkest}`}
@@ -309,7 +314,7 @@ export default ({
       refOverlay={refOverlay}
       refUrl={refUrl}
       refWaitFor={refWaitFor}
-      suggestions={screenshotsUrls}
+      suggestions={suggestions}
       url={url}
     />
     <Examples demoLinks={demoLinks} />
