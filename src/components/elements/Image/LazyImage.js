@@ -23,7 +23,17 @@ const LazyImage = ({ lazy, loading, src: rawSrc, onError, ...props }) => {
   }, [])
 
   const Component = isLoading ? ImagePlaceholder : Image
-  return createElement(Component, { src, ...props })
+
+  const height =
+    typeof props.height === 'function' ? props.height(isLoading) : props.height
+
+  const width =
+    typeof props.width === 'function' ? props.width(isLoading) : props.width
+
+  const style =
+    typeof props.style === 'function' ? props.style(isLoading) : props.style
+
+  return createElement(Component, { src, ...props, height, width, style })
 }
 
 LazyImage.defaultProps = {

@@ -235,7 +235,7 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
                   'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
               },
               {
-                value: 'https://source.unsplash.com/random/1920x1080'
+                value: 'https://source.unsplash.com/random/2776x1910'
               }
             ]}
           />
@@ -249,17 +249,24 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
         <Text fontSize={2}>into a snapshot</Text>
         {previewUrl ? (
-          <ImageDebounce
+          <Image
             px={3}
             mt={(() => {
               const values = getValues()
               const hasOverlay = !!get(values, 'overlay.browser')
+              const hasBackground = !!get(values, 'overlay.background')
               const isDemo = !previewUrl.includes('api.microlink.io')
               if (!isDemo && !hasOverlay) return '13px'
               if (!hasOverlay) return '-39px'
-              return '-13px'
+              return hasBackground ? '13px' : '-13px'
             })()}
-            height='inherit'
+            style={isLoading => {
+              const values = getValues()
+              const hasOverlay = !!get(values, 'overlay.browser')
+              if (!isLoading) return undefined
+              return { position: 'relative', top: hasOverlay ? '26px' : '0px' }
+            }}
+            height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
             width={aspectRatio.width}
             key={previewUrl}
             src={previewUrl}
