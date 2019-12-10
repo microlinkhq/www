@@ -26,7 +26,32 @@ import {
 
 import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
 
+export const Screenshot = ({ data, query, ...props }) => {
+  return (
+    <Link href={data.screenshot.url}>
+      <Image
+        key={data.screenshot.url}
+        src={data.screenshot.url}
+        style={isLoading => {
+          const hasOverlay = !!get(query, 'overlay.browser')
+          const hasBackground = !!get(query, 'overlay.background')
+          if (isLoading) {
+            return { marginTop: '13px' }
+          } else {
+            if (hasBackground) return { marginTop: '13px' }
+            if (hasOverlay) return { marginTop: '-13px' }
+            return { marginTop: '-39px' }
+          }
+        }}
+        {...props}
+      />
+    </Link>
+  )
+}
+
 const Hero = ({ domain, id, data }) => {
+  const [query] = useQueryState()
+
   const caption = (
     <Box maxWidth={5} pt={[2, 2, 4, 4]} px={5}>
       Turn{' '}
@@ -65,21 +90,12 @@ const Hero = ({ domain, id, data }) => {
         {logoProvider}
       </Flex>
       <SubHeadline pb={0} caption={caption} />
-      <Link href={data.screenshot.url}>
-        <Image
-          key={data.screenshot.url}
-          mx='auto'
-          pl={4}
-          pr={4}
-          src={data.screenshot.url}
-        />
-      </Link>
+      <Screenshot data={data} query={query} mx='auto' pl={4} pr={4} />
     </Container>
   )
 }
 
-// TODO: merge with embed/template component
-const Features = ({ children }) => (
+export const Features = ({ children }) => (
   <Container id='features' pb={[0, 0, 4, 4]}>
     <Headline
       pt={[0, 0, 4, 4]}
@@ -97,7 +113,7 @@ const Features = ({ children }) => (
   </Container>
 )
 
-const Api = ({ domain, data }) => {
+const Api = ({ data }) => {
   const [query] = useQueryState()
   const apiUrl = screenshotUrl(data.url, query)
 
@@ -303,7 +319,7 @@ export default props => {
   return (
     <>
       <Hero domain={domain} {...props} />
-      <Api domain={domain} {...props} />
+      <Api {...props} />
       <Features children={useFeatures()} />
       <Cli domain={domain} {...props} />
     </>

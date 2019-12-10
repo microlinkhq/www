@@ -14,7 +14,6 @@ import {
   CodeEditor,
   Container,
   Flex,
-  Hide,
   Image,
   Link,
   MultiCodeEditor,
@@ -22,15 +21,9 @@ import {
   Text
 } from 'components/elements'
 
-import {
-  Legend,
-  SubHeadline,
-  Headline,
-  Grid,
-  Microlink
-} from 'components/patterns'
-
+import { Legend, SubHeadline, Microlink } from 'components/patterns'
 import prettier, { serializeObject, serializeFmt } from 'helpers/prettier'
+import { Features } from 'components/pages/screenshot/template'
 
 const DEFAULT_LOGO = {
   url: cdnUrl('logo/trim.png'),
@@ -189,24 +182,6 @@ const Sdk = ({ domain, data }) => (
           </Flex>
         )
       )}
-    </Box>
-  </Container>
-)
-
-const Features = ({ children }) => (
-  <Container id='features' pb={[0, 0, 4, 4]}>
-    <Headline
-      pt={[0, 0, 4, 4]}
-      title='Features'
-      caption='Capabilities under the hood.'
-    />
-    <Box as='section' mx='auto' pt={[3, 4]}>
-      <Hide breakpoints={[0, 1]}>
-        <Grid children={children} itemsPerRow={3} />
-      </Hide>
-      <Hide breakpoints={[2, 3]}>
-        <Grid children={children} itemsPerRow={1} />
-      </Hide>
     </Box>
   </Container>
 )

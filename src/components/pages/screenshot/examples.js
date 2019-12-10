@@ -4,7 +4,6 @@ import {
   Caps,
   Container,
   Flex,
-  Image,
   Input,
   InputIcon,
   Text
@@ -39,6 +38,8 @@ import {
   screenshotHeight
 } from 'components/pages/home/screenshots'
 
+import { Screenshot } from './template'
+
 const LogoWrap = styled(Box)`
   cursor: pointer;
   opacity: 0.5;
@@ -54,7 +55,7 @@ LogoWrap.defaultProps = {
 
 const INTERVAL = 3500
 
-const ImageDebounce = debounceComponent(Image)
+const ScreenshotDebounce = debounceComponent(Screenshot)
 
 const DemoSlider = ({ children: slides, ...props }) => {
   const [index, setIndex] = useState(0)
@@ -249,25 +250,10 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
         <Text fontSize={2}>into a snapshot</Text>
         {previewUrl ? (
-          <Image
-            px={3}
-            style={isLoading => {
-              const values = getValues()
-              const hasOverlay = !!get(values, 'overlay.browser')
-              const hasBackground = !!get(values, 'overlay.background')
-
-              if (isLoading) {
-                return { marginTop: '13px' }
-              } else {
-                if (hasBackground) return { marginTop: '13px' }
-                if (hasOverlay) return { marginTop: '-13px' }
-                return { marginTop: '-39px' }
-              }
-            }}
+          <ScreenshotDebounce
             height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
-            width={aspectRatio.width}
-            key={previewUrl}
-            src={previewUrl}
+            data={{ screenshot: { url: previewUrl } }}
+            query={getValues()}
           />
         ) : (
           <DemoSlider mt={[0, 0, '-13px', '-13px']} children={suggestions} />

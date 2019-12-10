@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react'
 import { decode, encode } from 'qss'
 import { navigate } from 'gatsby'
 import { isSSR } from 'helpers'
-import flatten from 'flat'
+import flatten, { unflatten } from 'flat'
 
 const eq = (str1, str2) => stringify(str1) === stringify(str2)
 
 const fromLocation = isSSR
   ? () => ({})
-  : () => decode(window.location.search.substring(1))
+  : () => unflatten(decode(window.location.search.substring(1)))
 
 const condition = isSSR ? [] : [window.location.search]
 
