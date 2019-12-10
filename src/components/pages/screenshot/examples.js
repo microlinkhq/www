@@ -159,92 +159,97 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
         caption='Turn websites into a snapshot'
       />
 
-      <Flex
-        pt={2}
-        pb={3}
-        as='form'
-        mx={[0, 0, 'auto', 'auto']}
-        maxWidth={aspectRatio.width}
-        justifyContent='center'
-        onSubmit={handleSubmit}
-        flexDirection={['column', 'row', 'row', 'row']}
-      >
-        <Box ml={[2, 2, 0, 0]} mb={[3, 0, 0, 0]}>
-          <Input
-            fontSize={2}
-            iconComponent={<InputIcon value={inputUrl} domain={domain} />}
-            id='screenshot-demo-url'
-            mr='6px'
-            placeholder='Visit URL'
-            suggestions={suggestions}
-            type='text'
-            value={inputUrl}
-            onChange={event => setInputUrl(event.target.value)}
-            width={['100%', '100px']}
-          />
-        </Box>
+      <Flex justifyContent='center' alignItems='center'>
+        <Flex
+          pt={2}
+          pb={3}
+          as='form'
+          mx={[0, 0, 'auto', 'auto']}
+          justifyContent='center'
+          onSubmit={handleSubmit}
+          flexDirection={['column', 'column', 'row', 'row']}
+        >
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              fontSize={2}
+              iconComponent={<InputIcon value={inputUrl} domain={domain} />}
+              id='screenshot-demo-url'
+              mr='6px'
+              placeholder='Visit URL'
+              suggestions={suggestions}
+              type='text'
+              value={inputUrl}
+              onChange={event => setInputUrl(event.target.value)}
+              width={['100%', '100%', '100px', '100px']}
+            />
+          </Box>
 
-        <Box ml={2} mb={[3, 0, 0, 0]}>
-          <Input
-            placeholder='Wait for'
-            id='screenshot-demo-waitfor'
-            type='text'
-            fontSize={2}
-            width={['100%', '74px']}
-            mr='6px'
-            value={inputWaitFor}
-            onChange={event => setInputWaitFor(event.target.value)}
-            iconComponent={<HourGlass color={colors.black50} width='11px' />}
-            suggestions={[{ value: '0s' }, { value: '1.5s' }, { value: '3s' }]}
-          />
-        </Box>
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              placeholder='Wait for'
+              id='screenshot-demo-waitfor'
+              type='text'
+              fontSize={2}
+              width={['100%', '100%', '74px', '74px']}
+              mr='6px'
+              value={inputWaitFor}
+              onChange={event => setInputWaitFor(event.target.value)}
+              iconComponent={<HourGlass color={colors.black50} width='11px' />}
+              suggestions={[
+                { value: '0s' },
+                { value: '1.5s' },
+                { value: '3s' }
+              ]}
+            />
+          </Box>
 
-        <Box ml={2} mb={[3, 0, 0, 0]}>
-          <Input
-            placeholder='Overlay'
-            id='screenshot-demo-overlay'
-            type='text'
-            fontSize={2}
-            width={['100%', '73px']}
-            mr='6px'
-            value={inputOverlay}
-            onChange={event => setInputOverlay(event.target.value)}
-            iconComponent={<Safari color={colors.black50} width='16px' />}
-            suggestions={[
-              { value: 'none' },
-              { value: 'dark' },
-              { value: 'light' }
-            ]}
-          />
-        </Box>
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              placeholder='Overlay'
+              id='screenshot-demo-overlay'
+              type='text'
+              fontSize={2}
+              width={['100%', '100%', '73px', '73px']}
+              mr='6px'
+              value={inputOverlay}
+              onChange={event => setInputOverlay(event.target.value)}
+              iconComponent={<Safari color={colors.black50} width='16px' />}
+              suggestions={[
+                { value: 'none' },
+                { value: 'dark' },
+                { value: 'light' }
+              ]}
+            />
+          </Box>
 
-        <Box ml={2} mb={[3, 0, 0, 0]}>
-          <Input
-            placeholder='Background'
-            id='screenshot-demo-background'
-            type='text'
-            fontSize={2}
-            width={['100%', '105px']}
-            mr='6px'
-            value={inputBg}
-            onChange={event => setInputBg(event.target.value)}
-            iconComponent={backgroundIconComponent}
-            suggestions={[
-              { value: '#c1c1c1' },
-              {
-                value:
-                  'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
-              },
-              {
-                value: 'https://source.unsplash.com/random/2776x1910'
-              }
-            ]}
-          />
-        </Box>
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              placeholder='Background'
+              id='screenshot-demo-background'
+              type='text'
+              fontSize={2}
+              width={['100%', '100%', '105px', '105px']}
+              mr='6px'
+              value={inputBg}
+              onChange={event => setInputBg(event.target.value)}
+              iconComponent={backgroundIconComponent}
+              suggestions={[
+                { value: '#c1c1c1' },
+                {
+                  value:
+                    'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
+                },
+                {
+                  value: 'https://source.unsplash.com/random/2776x1910'
+                }
+              ]}
+            />
+          </Box>
 
-        <Button ml={2} loading={isLoading}>
-          <Caps fontSize={1} children='Take it' />
-        </Button>
+          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
+            <Caps fontSize={1} children='Take it' />
+          </Button>
+        </Flex>
       </Flex>
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
