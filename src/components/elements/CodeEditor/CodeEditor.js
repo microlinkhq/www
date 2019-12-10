@@ -1,11 +1,11 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import styled, { css } from 'styled-components'
 import { prettier, getLines, template, aspectRatio } from 'helpers'
+import { shadowOffsets, shadowColors, colors, fonts } from 'theme'
+import styled, { css } from 'styled-components'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
 import CodeCopy from 'react-codecopy'
-import { colors, fonts } from 'theme'
 import range from 'lodash/range'
 import get from 'dlv'
 
@@ -160,7 +160,7 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const TerminalWindow = styled(Box)`
   border-radius: 5px;
-  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: ${shadowOffsets[0]} ${shadowColors[0]};
 `
 
 const TerminalHeader = styled.header`
@@ -313,13 +313,10 @@ const CodeEditor = props => {
   )
 }
 
-// this is necessary for markdown
-CodeEditor.displayName = 'CodeEditor'
-
 CodeEditor.defaultProps = {
   prettier: true,
   showLineNumbers: false,
-  height,
+  height: 'inherit',
   width
 }
 

@@ -1,14 +1,20 @@
+import { shadowOffsets, shadowColors, fonts, fontWeights } from 'theme'
 import styled, { css, keyframes } from 'styled-components'
-import React from 'react'
-import CodeCopy from 'react-codecopy'
-import { fonts, fontWeights } from 'theme'
+import { CodeEditor, Box } from 'components/elements'
 import { serializeComponent } from 'helpers'
+import CodeCopy from 'react-codecopy'
+import React from 'react'
 
-const TerminalWindow = styled('div')`
-  border-radius: 6px;
-  margin: 50px 0;
-  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+const TerminalWindow = styled(Box)`
+  border-radius: 5px;
+  box-shadow: ${shadowOffsets[0]} ${shadowColors[0]};
 `
+
+TerminalWindow.defaultProps = {
+  mt: '50px',
+  mb: '50px',
+  maxWidth: CodeEditor.width
+}
 
 const TerminalHeader = styled('header')`
   border-top-right-radius: 3px;
@@ -46,7 +52,7 @@ const blink = keyframes`
 
 const TerminalText = styled('div')`
   font-weight: ${fontWeights.normal};
-  padding: 30px;
+  padding: 16px;
   border-radius: 2px;
   overflow-x: auto;
   font-family: ${fonts.mono};
@@ -82,6 +88,7 @@ const blinkCursorStyle = css`
 
 const TerminalTextWrapper = styled('div')`
   word-break: break-all;
+  white-space: pre;
   &::before {
     content: '$ ';
   }
@@ -89,8 +96,8 @@ const TerminalTextWrapper = styled('div')`
   ${props => props.blinkCursor && blinkCursorStyle}
 `
 
-const TerminalProvider = ({ style, title, children, dark }) => (
-  <TerminalWindow dark={dark} style={style}>
+const TerminalProvider = ({ style, title, children, dark, ...props }) => (
+  <TerminalWindow dark={dark} style={style} {...props}>
     <TerminalHeader dark={dark}>
       <TerminalButton dark={dark} color='#FF5F56' />
       <TerminalButton dark={dark} color='#FFBD2E' />
@@ -110,12 +117,19 @@ const fromString = text =>
     ? text
     : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
 
-const Terminal = ({ style, children, blinkCursor = true, dark = false }) => {
+const Terminal = ({ children, blinkCursor, dark, ...props }) => {
   const content = typeof children === 'string' ? fromString(children) : children
 
   return (
-    <TerminalProvider dark={dark} style={style}>
-      <div style={{ width: '100%' }}>
+    <TerminalProvider dark={dark} {...props}>
+      <Box
+        css={`
+          width: 100%;
+          position: relative;
+          height: 100%;
+          overflow: auto;
+        `}
+      >
         <CustomCodeCopy
           theme={dark ? 'dark' : 'light'}
           text={serializeComponent(children)}
@@ -124,12 +138,14 @@ const Terminal = ({ style, children, blinkCursor = true, dark = false }) => {
             {content}
           </TerminalTextWrapper>
         </CustomCodeCopy>
-      </div>
+      </Box>
     </TerminalProvider>
   )
 }
 
-// this is necessary for markdown
-Terminal.displayName = 'Terminal'
+Terminal.defaultProps = {
+  dark: false,
+  blinkCursor: true
+}
 
 export default Terminal
