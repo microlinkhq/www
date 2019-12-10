@@ -27,14 +27,22 @@ import {
 import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
 
 export const Screenshot = ({ data, query, ...props }) => {
+  const hasOverlay = !!get(query, 'overlay.browser')
+  const hasBackground = !!get(query, 'overlay.background')
+
+  const mt = (() => {
+    if (hasBackground) return '13px !important'
+    if (hasOverlay) return '0px !important'
+    return '0px !important'
+  })()
+
   return (
     <Link href={data.screenshot.url}>
       <Image
+        mt={[mt, mt, 0, 0]}
         key={data.screenshot.url}
         src={data.screenshot.url}
         style={isLoading => {
-          const hasOverlay = !!get(query, 'overlay.browser')
-          const hasBackground = !!get(query, 'overlay.background')
           if (isLoading) {
             return { marginTop: '13px' }
           } else {
