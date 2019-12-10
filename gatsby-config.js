@@ -11,8 +11,6 @@ const {
   CDN_URL
 } = require('./env')
 
-const cdnUrl = dist => new URL(dist, CDN_URL).toString()
-
 module.exports = {
   siteMetadata: {
     // Basic
@@ -22,9 +20,8 @@ module.exports = {
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',
     twitter: '@microlinkhq',
-    image: cdnUrl('page/home.png'),
-    logo: cdnUrl('logo/trim.png'),
-
+    image: new URL('page/home.png', CDN_URL).toString(),
+    logo: new URL('logo/trim.png', CDN_URL).toString(),
     // Slack previsualization
     dataLabel1: 'API',
     dataLabel2: 'Documentation',

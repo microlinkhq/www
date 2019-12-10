@@ -309,10 +309,6 @@ const Cli = ({ domain, data }) => {
 export default props => {
   const domain = getDomain(props.data.url)
 
-  // props.data.screenshot = {
-  //   url: cdnUrl(`screenshot/${props.id}.png`)
-  // }
-
   return (
     <>
       <Hero domain={domain} {...props} />

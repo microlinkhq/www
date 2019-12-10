@@ -2,7 +2,10 @@
 
 const { getCurrentBranchName, getLastModifiedDate } = require('git-jiggy')
 const { createFilePath } = require('gatsby-source-filesystem')
+const { URL } = require('url')
 const path = require('path')
+
+const { CDN_URL } = require('./env')
 
 const demoLinksData = require('./data/demo-links.json')
 
@@ -107,6 +110,10 @@ const createScreenshotDemoPages = async ({ createPage, demoLinksData }) => {
   const pages = demoLinksData.map(async demoLink => {
     const { id, data } = demoLink
     const slug = `/screenshot/${id}`
+
+    data.screenshot = {
+      url: new URL(`screenshot/${id}.png`, CDN_URL).toString()
+    }
 
     return createPage({
       path: slug,
