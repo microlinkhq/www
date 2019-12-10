@@ -1,6 +1,6 @@
 import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
 import { cdnUrl, screenshotUrl, getDomain } from 'helpers'
-import { borders, colors } from 'theme'
+import { borders, colors, radii } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
@@ -27,28 +27,17 @@ import {
 import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
 
 export const Screenshot = ({ data, query, ...props }) => {
-  const hasOverlay = !!get(query, 'overlay.browser')
-  const hasBackground = !!get(query, 'overlay.background')
-
-  const mt = (() => {
-    if (hasBackground) return '13px !important'
-    if (hasOverlay) return '0px !important'
-    return '0px !important'
-  })()
-
   return (
-    <Link href={data.screenshot.url}>
+    <Link mt={3} href={data.screenshot.url}>
       <Image
-        mt={[mt, mt, 0, 0]}
+        id='screenshot'
         key={data.screenshot.url}
         src={data.screenshot.url}
         style={isLoading => {
-          if (isLoading) {
-            return { marginTop: '13px' }
-          } else {
-            if (hasBackground) return { marginTop: '13px' }
-            if (hasOverlay) return { marginTop: '-13px' }
-            return { marginTop: '-39px' }
+          if (isLoading) return
+          return {
+            borderRadius: radii[2],
+            border: `1px solid ${colors.black20}`
           }
         }}
         {...props}
