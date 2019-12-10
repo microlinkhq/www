@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { decode, encode } from 'qss'
 import { navigate } from 'gatsby'
 import { isSSR } from 'helpers'
+import flatten from 'flat'
 
 const eq = (str1, str2) => stringify(str1) === stringify(str2)
 
@@ -21,7 +22,7 @@ export const useQueryState = () => {
   }, condition)
 
   const set = (obj = {}, { navigate: isNavigate = true } = {}) => {
-    const newQuery = { ...query, ...obj }
+    const newQuery = flatten({ ...query, ...obj })
     if (isNavigate) navigate(`${window.location.pathname}?${encode(newQuery)}`)
   }
 
