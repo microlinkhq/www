@@ -160,7 +160,7 @@ const Api = ({ domain, data }) => {
           </Box>
         </Box>
 
-        <Box width={CodeEditor.width}>
+        <Box>
           <Subhead
             children='Using HTML'
             pt={[4, 4, 0, 0]}
@@ -170,7 +170,7 @@ const Api = ({ domain, data }) => {
           />
           <CodeEditor language='html' children={seoCode} prettier={false} />
         </Box>
-        <Box width={CodeEditor.width}>
+        <Box>
           <Subhead
             children='Using CSS'
             pt={4}
@@ -180,7 +180,7 @@ const Api = ({ domain, data }) => {
           />
           <CodeEditor language='css' children={cssCode} prettier={false} />
         </Box>
-        <Box width={CodeEditor.width} pb={4}>
+        <Box pb={4}>
           <Subhead
             children='Using Markdown'
             pt={4}

@@ -143,7 +143,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   media={['audio', 'video', 'image', 'logo']}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
-                  <CodeEditor maxWidth={CodeEditor.width} language='bash'>
+                  <CodeEditor language='bash'>
                     {`<Microlink size='large' url='${inputValue ||
                       demoLink.data
                         .url}' media={['audio', 'video', 'image', 'logo']} />`}
@@ -160,11 +160,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   dangerouslySetInnerHTML={{ __html: data.iframe }}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
-                  <CodeEditor
-                    maxWidth={CodeEditor.width}
-                    language='bash'
-                    children={demoLink.data.iframe}
-                  />
+                  <CodeEditor language='bash' children={demoLink.data.iframe} />
                 </Flex>
               </Flex>
             ) : (

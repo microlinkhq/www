@@ -281,7 +281,7 @@ const Api = ({ data }) => {
             />
           </Box>
           <Box px={3} />
-          <Box width={CodeEditor.width} pt={0}>
+          <Box pt={0}>
             <Subhead
               pt={[4, 4, 3, 3]}
               pb={[2, 2, 3, 3]}
