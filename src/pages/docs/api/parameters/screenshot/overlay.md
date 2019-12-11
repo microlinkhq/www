@@ -9,12 +9,12 @@ It sets some aesthetic overlay settings associated with your screenshot.
 ![](https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fmusic&screenshot=&meta=false&overlay.browser=dark&embed=screenshot.url&overlay.background=linear-gradient(0deg%2C%20%23330867%200%25%2C%20%2330CFD0%20100%25))
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{DemoLinks.Apple.url}}&screenshot&overlay.browser=dark&overlay.background=linear-gradient(0deg%2C%20%23330867%200%25%2C%20%2330CFD0%20100%25`,
+  Shell: `microlink-api {{demolinks.apple.url}}&screenshot&overlay.browser=dark&overlay.background=linear-gradient(0deg%2C%20%23330867%200%25%2C%20%2330CFD0%20100%25`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    '{{DemoLinks.Apple.url}}'. { 
+    '{{demolinks.apple.url}}'. { 
       screenshot: true,
       overlay: {
         background: 'linear-gradient(0deg, #330867 0%, #30CFD0 100%)'

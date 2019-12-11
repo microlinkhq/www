@@ -8,12 +8,12 @@ Default: <Type children='false'/>
 Enables audio source detection from the target URL.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{DemoLinks.Spotify.url}}&audio`,
+  Shell: `microlink-api {{demolinks.spotify.url}}&audio`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    '{{DemoLinks.Spotify.url}}', { 
+    '{{demolinks.spotify.url}}', { 
       audio: true 
   })
   

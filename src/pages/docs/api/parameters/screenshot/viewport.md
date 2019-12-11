@@ -7,12 +7,12 @@ Type: <Type children='<object>'/>
 It establishes a set of properties related with the visible area and device capabilities.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{DemoLinks.Wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
+  Shell: `microlink-api {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    '{{DemoLinks.Wikipedia.url}}'. {
+    '{{demolinks.wikipedia.url}}'. {
       meta: false,
       screenshot: true,
       viewport: {

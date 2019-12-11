@@ -6,15 +6,15 @@ Type: <Type children='<string>'/>
 
 The embed parameter is for embedding a field directly in your HTML markup, using the properly encoding (text, images, etc).
 
-![]({{DemoLinks.YCombinator.screenshot.url}})
+![]({{demolinks.ycombinator.screenshot.url}})
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{DemoLinks.YCombinator.url}}&screenshot&embed=screenshot.url`,
+  Shell: `microlink-api {{demolinks.ycombinator.url}}&screenshot&embed=screenshot.url`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    '{{DemoLinks.YCombinator.url}}', { 
+    '{{demolinks.ycombinator.url}}', { 
       screenshot: true, 
       embed: 'screenshot.url' 
   })

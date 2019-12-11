@@ -13,7 +13,7 @@ Determines the field to use as the media of the card.
   
 export default () => (
   <Microlink
-    url='{{DemoLinks.TED.url}}'
+    url='{{demolinks.ted.url}}'
     media={['image', 'logo']}
   />
 )
@@ -24,13 +24,13 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[]({{DemoLinks.TED.url}}){:.card-preview data-media='image,logo'}
+[]({{demolinks.ted.url}}){:.card-preview data-media='image,logo'}
 `}} 
 />
 
 The default value is a collection of fields, meaning that the first valid value will be used as the image of the card.
 
-<Microlink url='{{DemoLinks.TED.url}}' />
+<Microlink url='{{demolinks.ted.url}}' />
 
 However, you can pass a single value to be used instead, for example <Type children="'logo'"/>
 
@@ -39,7 +39,7 @@ However, you can pass a single value to be used instead, for example <Type child
   
 export default () => (
   <Microlink
-    url='{{DemoLinks.TED.url}}'
+    url='{{demolinks.ted.url}}'
     media='logo'
   />
 )
@@ -50,11 +50,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[]({{DemoLinks.TED.url}}){:.card-preview data-media='logo'}
+[]({{demolinks.ted.url}}){:.card-preview data-media='logo'}
 `}} 
 />
 
-<Microlink url='{{DemoLinks.TED.url}}' media='logo'/>
+<Microlink url='{{demolinks.ted.url}}' media='logo'/>
 
 The detection of <Type children="'video'"/> is also supported
 
@@ -63,7 +63,7 @@ The detection of <Type children="'video'"/> is also supported
   
 export default () => (
   <Microlink
-    url='{{DemoLinks.Instagram.url}}'
+    url='{{demolinks.instagram.url}}'
     media='video'
   />
 )
@@ -74,11 +74,11 @@ export default () => (
   })
 </script>
 `, Jekyll: `
-[]({{DemoLinks.Instagram.url}}){:.card-preview data-media='video'}
+[]({{demolinks.instagram.url}}){:.card-preview data-media='video'}
 `}} 
 />
 
-<Microlink url='{{DemoLinks.Instagram.url}}' media='video'/>
+<Microlink url='{{demolinks.instagram.url}}' media='video'/>
 
 And <Type children="'audio'"/> too!
 

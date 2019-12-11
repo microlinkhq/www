@@ -7,16 +7,16 @@ Default: <Type children='false'/>
 
 Takes a screenshot of a website, making it possible to embed it directly in your markup and refresh it asynchronously in the background (known as *stale*).
 
-![]({{DemoLinks.Netflix.screenshot.url}})
+![]({{demolinks.netflix.screenshot.url}})
 
 <MultiCodeEditor languages={{
-  HTML: `<img src="https://api.microlink.io/?url={{DemoLinks.Netflix.url}}&screenshot&embed=screenshot.url">`,
-  Shell: `microlink-api {{DemoLinks.Netflix.url}}&screenshot`,
+  HTML: `<img src="https://api.microlink.io/?url={{demolinks.netflix.url}}&screenshot&embed=screenshot.url">`,
+  Shell: `microlink-api {{demolinks.netflix.url}}&screenshot`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    '{{DemoLinks.Netflix.url}}', { 
+    '{{demolinks.netflix.url}}', { 
       screenshot: true
   })
   console.log(status, data)
@@ -47,25 +47,25 @@ You can combine it with [embed](/docs/api/parameters/embed) for inserting it as 
 
 ```html
 <!-- Meta & SEO Tags  -->
-<meta name="image" content="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
-<meta itemprop="image" content="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
-<meta property="og:image" content="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
-<meta name="twitter:image" content="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
+<meta name="image" content="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
+<meta itemprop="image" content="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
+<meta property="og:image" content="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
+<meta name="twitter:image" content="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url">
 
 <!-- regular HTML Tags  -->
-<img src="https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url" />
+<img src="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url" />
 ```
 
 or inside CSS stylesheets:
 
 ```css
 .screenshot {
-  background-image: url(https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url);
+  background-image: url(https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url);
 }
 ```
 
 even in Markdown:
 
 ```md
-![Screenshot](https://api.microlink.io?url={{DemoLinks.Netflix.url}}&screenshot=true&meta=false&embed=screenshot.url)
+![Screenshot](https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url)
 ```

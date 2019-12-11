@@ -11,7 +11,7 @@ const createDataUrl = props => (url = 'https://example.com') =>
 export default (props, stringProps) => {
   const dataUrl = createDataUrl(props)
   const React = args => {
-    const url = props.url || args.url || '{{DemoLinks.Spotify.url}}'
+    const url = props.url || args.url || '{{demolinks.spotify.url}}'
     return `
 import Microlink from '@microlink/react'
 
@@ -41,7 +41,7 @@ export default props => (
   HTML.language = 'html'
 
   const Nodejs = args => {
-    const url = props.url || args.url || '{{DemoLinks.Spotify.url}}'
+    const url = props.url || args.url || '{{demolinks.spotify.url}}'
     return `
 const mql = require('@microlink/mql')
 
