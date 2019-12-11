@@ -14,7 +14,7 @@ const Legend = ({ title, sup, textAlign = 'center', children }) => (
       color='secondary'
       textAlign={textAlign}
     >
-      <Caps as='span' children={sup} />
+      <Caps letterSpacing={3} as='span' children={sup} />
     </Subhead>
     <Heading
       mt={1}

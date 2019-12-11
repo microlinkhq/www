@@ -12,7 +12,7 @@ const Caps = styled(Text)(
 
 Caps.defaultProps = {
   fontSize: [0, 1],
-  letterSpacing: 1
+  letterSpacing: 2
 }
 
 export default Caps

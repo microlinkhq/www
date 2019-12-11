@@ -297,7 +297,7 @@ export const layout = {
   medium: 960
 }
 
-export const letterSpacings = [0, 0.05, 0.1, 0.25].map(toEm)
+export const letterSpacings = [0, -0.025, 0.025, 0.1, 0.25].map(toEm)
 
 export default {
   borders,

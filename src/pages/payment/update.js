@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { useSiteMetadata } from 'components/hook'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
+import { letterSpacings } from 'theme'
 import { encode, decode } from 'qss'
 
 import {
@@ -65,7 +66,7 @@ const createOptions = fontSize => {
       base: {
         fontSize,
         color: '#424770',
-        letterSpacing: '0.025em',
+        letterSpacing: letterSpacings[2],
         fontFamily: 'Source Code Pro, Menlo, monospace',
         '::placeholder': {
           color: '#aab7c4'

@@ -6,6 +6,7 @@ const Heading = styled(Text)``
 
 Heading.defaultProps = {
   as: 'h2',
+  letterSpacing: 1,
   lineHeight: [0, 0, 1, 1],
   textAlign: 'center',
   fontWeight: 'bold',
