@@ -1,5 +1,5 @@
 import tpl from 'lodash/template'
-import { cdnUrl } from 'helpers'
+import cdnUrl from './cdn-url'
 
 import dataDemoLinks from '../../data/demo-links.json'
 
