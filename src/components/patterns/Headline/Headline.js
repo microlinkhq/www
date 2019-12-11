@@ -2,9 +2,7 @@ import React from 'react'
 import { Subhead, Flex, Heading } from 'components/elements'
 import { Caption } from 'components/patterns'
 
-export default ({ subtitle, title, caption, ...props }) => {
-  const TitleComponnet = title ? Heading : Subhead
-
+const constructor = TitleComponnet => ({ title, caption, ...props }) => {
   return (
     <Flex
       as='header'
@@ -15,8 +13,11 @@ export default ({ subtitle, title, caption, ...props }) => {
       px={0}
       {...props}
     >
-      <TitleComponnet px={0} children={title || subtitle} />
+      <TitleComponnet px={0} children={title} />
       {caption && <Caption>{caption}</Caption>}
     </Flex>
   )
 }
+
+export const Headline = constructor(Heading)
+export const SubHeadline = constructor(Subhead)

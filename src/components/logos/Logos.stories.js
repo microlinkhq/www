@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Box, Flex, Subhead } from 'components/elements'
-import * as Logos from 'components/logos'
+import { LogoBrand } from 'components/logos'
 
-const logos = Object.entries(Logos)
+const logos = Object.entries(LogoBrand)
 
 const states = ['normal', 'hover']
 

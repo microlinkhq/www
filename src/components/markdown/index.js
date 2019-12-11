@@ -6,8 +6,6 @@ import slug from 'remark-slug'
 import get from 'dlv'
 import React from 'react'
 
-import { aspectRatio } from 'helpers'
-
 import {
   Terminal as TerminalBase,
   CodeEditor,
@@ -24,8 +22,6 @@ import {
 
 import { Microlink as MicrolinkBase } from 'components/patterns'
 import { textGradient } from '../../theme'
-
-const SPECIAL_COMPONENTS = ['Terminal', 'CodeEditor']
 
 const LAYOUT_WIDTH = 650
 
@@ -47,7 +43,7 @@ Link.defaultProps = {
 
 const Container = props => (
   <Box
-    maxWidth={['100%', WIDTH.normal]}
+    maxWidth={['100%', '100%', WIDTH.normal, WIDTH.normal]}
     mr='auto'
     ml='auto'
     {...CONTAINER_SPACE}
@@ -55,9 +51,13 @@ const Container = props => (
   />
 )
 
-const withContainer = (ChildComponent, containerProps = {}) => props => (
+const withContainer = (
+  ChildComponent,
+  containerProps = {},
+  childProps
+) => props => (
   <Container {...containerProps}>
-    <ChildComponent {...props} />
+    <ChildComponent {...childProps} {...props} />
   </Container>
 )
 
@@ -65,29 +65,26 @@ export { Label, Link }
 
 export const Microlink = withContainer(MicrolinkBase)
 
-export const Terminal = withContainer(TerminalBase)
+export const Terminal = withContainer(
+  props => <TerminalBase width='inherit' mx='auto' {...props} />,
+  {
+    width: CodeEditor.width
+  }
+)
 
-export const Code = withContainer(CodeEditor, {
-  width: CodeEditor.width,
-  height: CodeEditor.height
-})
+export const Code = withContainer(
+  props => <CodeEditor width='inherit' mx='auto' {...props} />,
+  {
+    width: CodeEditor.width
+  }
+)
 
-CodeEditor.defaultProps = {
-  width: 'inherit',
-  height: 'inherit',
-  mx: 'auto'
-}
-
-export const MultiCodeEditor = withContainer(MultiCodeEditorBase, {
-  width: CodeEditor.width,
-  height: CodeEditor.height
-})
-
-MultiCodeEditor.defaultProps = {
-  width: 'inherit',
-  height: 'inherit',
-  mx: 'auto'
-}
+export const MultiCodeEditor = withContainer(
+  props => <MultiCodeEditorBase width='inherit' mx='auto' {...props} />,
+  {
+    width: CodeEditor.width
+  }
+)
 
 export const H1 = withSlug(styled(Heading)``)
 
@@ -198,9 +195,7 @@ H6.defaultProps = {
 
 export const Paraph = props => {
   const special =
-    get(props, 'children.props.src') ||
-    get(props, 'children.props.href') ||
-    SPECIAL_COMPONENTS.includes(get(props, 'children.type.displayName'))
+    get(props, 'children.props.src') || get(props, 'children.props.href')
   const maxWidth = special ? WIDTH.large : WIDTH.normal
   return <Text maxWidth={maxWidth} {...props} />
 }

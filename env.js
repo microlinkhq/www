@@ -11,9 +11,11 @@ const {
   STRIPE_KEY,
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
-  GOOGLE_ANALYTICS_ID
+  GOOGLE_ANALYTICS_ID,
+  CDN_URL = 'https://cdn.microlink.io'
 } = process.env
 
+if (!CDN_URL) throw envError('CDN_URL')
 if (!STRIPE_KEY) throw envError('STRIPE_KEY')
 if (!PAYMENT_API_KEY) throw envError('PAYMENT_API_KEY')
 if (!PAYMENT_ENDPOINT) throw envError('PAYMENT_ENDPOINT')
@@ -26,6 +28,7 @@ const SITE_URL = (() => {
 })()
 
 module.exports = {
+  CDN_URL,
   CONTEXT,
   DEPLOY_URL,
   GOOGLE_ANALYTICS_ID,

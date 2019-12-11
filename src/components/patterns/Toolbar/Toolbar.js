@@ -5,10 +5,10 @@ import ToolbarDesktop from './ToolbarDesktop'
 
 export default () => (
   <>
-    <Hide breakpoints={[0]}>
+    <Hide breakpoints={[0, 1]}>
       <ToolbarDesktop />
     </Hide>
-    <Hide breakpoints={[1, 2, 3]}>
+    <Hide breakpoints={[2, 3]}>
       <ToolbarMobile />
     </Hide>
   </>

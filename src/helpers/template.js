@@ -1,9 +1,9 @@
 import tpl from 'lodash/template'
 
-import DataDemoLinks from '../../data/demo-links.json'
+import dataDemoLinks from '../../data/demo-links.json'
 
-const DemoLinks = DataDemoLinks.reduce(
-  (acc, { brand, data }) => ({ ...acc, [brand]: data }),
+const demolinks = dataDemoLinks.reduce(
+  (acc, { id, data }) => ({ ...acc, [id]: data }),
   {}
 )
 
@@ -11,7 +11,7 @@ const TEMPLATE_INTERPOLATE = /{{([\s\S]+?)}}/g
 
 const TEMPLATE_INTERPOLATE_ENCODED = /%7B%7B([\s\S]+?)%7D%7D/g
 
-const isTemplate = str => str.includes('DemoLinks.')
+const isTemplate = str => str.includes('demolinks.')
 
 const template = (str = '') => {
   if (!isTemplate(str)) return str
@@ -27,10 +27,10 @@ const template = (str = '') => {
 
   try {
     compiled = tpl(str, { interpolate: TEMPLATE_INTERPOLATE })({
-      DemoLinks
+      demolinks
     })
   } catch (err) {
-    console.error(`${str}:`, err.message)
+    console.error(`[helpers/template] ${str}:`, err.message)
     compiled = str
   }
 

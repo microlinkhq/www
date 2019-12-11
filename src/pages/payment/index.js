@@ -1,8 +1,8 @@
-import { useQueryState } from 'components/hook'
 import { Text, LinkSolid } from 'components/elements'
 import styled, { keyframes } from 'styled-components'
-import { Header, Layout } from 'components/patterns'
+import { Headline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
+import { useQueryState } from 'components/hook'
 import Confetti from 'react-confetti'
 import { isSSR } from 'helpers'
 import { colors } from 'theme'
@@ -118,7 +118,7 @@ export default () => {
           ]}
         />
       )}
-      <Header
+      <Headline
         title={getTitle(paymentState)}
         caption={getCaption(paymentState)}
       />

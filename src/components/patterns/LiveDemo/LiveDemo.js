@@ -3,13 +3,6 @@ import React, { useState } from 'react'
 import { CodeEditor, Card, Flex } from 'components/elements'
 import Preview from './preview'
 
-import {
-  CARD_HEIGHT_DESKTOP,
-  CARD_WIDTH_DESKTOP,
-  CARD_WIDTH_MOBILE,
-  CARD_HEIGHT_MOBILE
-} from './theme'
-
 const { COLORS } = CodeEditor
 
 export default ({ children, loading }) => {
@@ -22,8 +15,6 @@ export default ({ children, loading }) => {
         <Card
           px={isSDK ? 0 : 3}
           py={isSDK ? 0 : 3}
-          width={[CARD_WIDTH_MOBILE, CARD_WIDTH_DESKTOP]}
-          height={[CARD_HEIGHT_MOBILE, CARD_HEIGHT_DESKTOP]}
           style={{
             background: isSDK ? '#fff' : COLORS.BACKGROUND,
             padding: 0,
@@ -32,7 +23,7 @@ export default ({ children, loading }) => {
         >
           <Preview loading={loading} view={view} children={children} />
         </Card>
-        <Flex justifyContent='flex-end'>
+        <Flex as='footer' justifyContent='flex-end'>
           <Card.Option
             children='preview'
             value={view}

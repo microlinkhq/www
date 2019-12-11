@@ -8,8 +8,8 @@ import {
 } from 'components/elements'
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
-import { formatDate } from 'helpers'
-import { colors } from 'theme'
+import { cdnUrl, formatDate } from 'helpers'
+import { colors, layout } from 'theme'
 import React from 'react'
 
 const ROUTES_SDK = [
@@ -383,9 +383,9 @@ export default ({ meta, content, githubUrl, ...props }) => {
       footer={false}
       {...meta}
       name={`Microlink ${activeRouteName}`}
-      image={`https://cdn.microlink.io/page/docs/${activeRouteName.toLowerCase()}.png`}
+      image={cdnUrl(`page/docs/${activeRouteName.toLowerCase()}.png`)}
     >
-      <Container>
+      <Container maxWidth={layout.large}>
         <Aside routes={routes} activeRouteName={activeRouteName}>
           <Text as='header'>
             <H1 mt={[4, 4, 4, 5]} variant={null} mb={0} slug={false}>

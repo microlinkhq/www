@@ -1,0 +1,36 @@
+import React from 'react'
+import { storiesOf } from '@storybook/react'
+import { Story } from 'story'
+import Announcement from './Announcement'
+
+const code = `
+import { Announcement } from 'components/patterns'
+
+export default () => (
+  <Announcement
+    data-event-category='Home'
+    data-event-action='Announcement'
+    href='/blog/product-brief-7/'
+    children={
+      <>
+        Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
+      </>
+    }
+  />
+)
+`
+
+storiesOf('Elements', module).add('Announcement', () => (
+  <Story name='Announcement' code={code}>
+    <Announcement
+      data-event-category='Home'
+      data-event-action='Announcement'
+      href='/blog/product-brief-7/'
+      children={
+        <>
+          Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
+        </>
+      }
+    />
+  </Story>
+))

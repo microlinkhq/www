@@ -4,11 +4,11 @@ import { Subhead } from 'components/elements'
 export default props => (
   <Subhead
     pt={[2, 0]}
-    lineHeight={[2, 4]}
-    color='gray'
+    lineHeight={2}
     textAlign='center'
-    fontWeight='normal'
-    fontSize={[2, 4]}
+    fontWeight='light'
+    color='black80'
+    fontSize={[4, 4, 4, 5]}
     {...props}
   />
 )

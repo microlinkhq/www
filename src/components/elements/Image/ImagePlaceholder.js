@@ -19,8 +19,4 @@ const ImagePlaceholder = styled(Box)`
   animation-direction: alternate-reverse;
 `
 
-ImagePlaceholder.defaultProps = {
-  display: 'inline-box'
-}
-
 export default ImagePlaceholder

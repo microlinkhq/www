@@ -3,7 +3,7 @@ import palx from 'palx'
 export const toPx = n => `${n}px`
 export const toEm = n => `${n}em`
 
-export const breakpoints = [32, 48, 64, 80].map(toEm)
+export const breakpoints = [768, 992, 1200, 1200].map(toPx)
 
 export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512].map(toPx)
 
@@ -229,19 +229,9 @@ export const cx = key => colors[key] || key
 export const gradient =
   'linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)'
 
-export const shadowOffsets = [
-  '0 2px 4px', // Toolbar
-  '0px 1px 3px', // Select, Input
-  '0px 2px 15px', // Button
-  '0 8px 13px 0' // Notification, CookiesPolicy, Card
-]
+export const shadowOffsets = ['0px 5px 10px 0px', '0 30px 60px']
 
-export const shadowColors = [
-  'rgba(0, 0, 0, 0.03)',
-  'rgba(50, 50, 93, 0.14902)',
-  'rgba(0, 0, 0, 0.1)',
-  'rgba(206, 212, 218, 0.5)'
-]
+export const shadowColors = ['rgba(0,0,0,0.12)', 'rgba(0,0,0,0.12)']
 
 export const shadows = shadowOffsets.map(
   (shadow, index) => `${shadow} ${shadowColors[index]}`
@@ -271,7 +261,7 @@ export const sizes = [
 ].map(toEm)
 
 export const speed = {
-  quickly: 100,
+  quickly: 150,
   normal: 300,
   slowly: 450
 }
@@ -307,7 +297,7 @@ export const layout = {
   medium: 960
 }
 
-export const letterSpacings = [0, 0.05, 0.1, 0.25].map(toEm)
+export const letterSpacings = [0, -0.025, 0.025, 0.1, 0.25].map(toEm)
 
 export default {
   borders,

@@ -2,7 +2,10 @@
 
 const { getCurrentBranchName, getLastModifiedDate } = require('git-jiggy')
 const { createFilePath } = require('gatsby-source-filesystem')
+const { URL } = require('url')
 const path = require('path')
+
+const { CDN_URL } = require('./env')
 
 const demoLinksData = require('./data/demo-links.json')
 
@@ -90,13 +93,13 @@ exports.createPages = async ({ graphql, actions }) => {
 
 const createEmbedDemoPages = async ({ createPage, demoLinksData }) => {
   const pages = demoLinksData.map(async demoLink => {
-    const { brand, data } = demoLink
-    const slug = `/embed/${brand.toLowerCase()}`
+    const { id, data } = demoLink
+    const slug = `/embed/${id}`
 
     return createPage({
       path: slug,
       component: path.resolve('./src/templates/embed.js'),
-      context: { brand, data, slug }
+      context: { id, data, slug }
     })
   })
 
@@ -105,13 +108,17 @@ const createEmbedDemoPages = async ({ createPage, demoLinksData }) => {
 
 const createScreenshotDemoPages = async ({ createPage, demoLinksData }) => {
   const pages = demoLinksData.map(async demoLink => {
-    const { brand, data } = demoLink
-    const slug = `/screenshot/${brand.toLowerCase()}`
+    const { id, data } = demoLink
+    const slug = `/screenshot/${id}`
+
+    data.screenshot = {
+      url: new URL(`screenshot/${id}.png`, CDN_URL).toString()
+    }
 
     return createPage({
       path: slug,
       component: path.resolve('./src/templates/screenshot.js'),
-      context: { brand, data, slug }
+      context: { id, data, slug }
     })
   })
 

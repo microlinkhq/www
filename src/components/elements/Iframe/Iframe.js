@@ -6,8 +6,8 @@ import CodeEditor from '../CodeEditor/CodeEditor'
 export default props => (
   <Flex
     as='iframe'
+    mx='auto'
     width={CodeEditor.width}
-    height={CodeEditor.height}
     frameBorder='0'
     target='_parent'
     {...props}

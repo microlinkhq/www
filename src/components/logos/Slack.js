@@ -1,14 +1,14 @@
-import styled from 'styled-components'
-
+import React from 'react'
 import { Image } from 'components/elements'
-import logo from '../../../static/slack.svg'
 
-const Slack = styled(Image)``
+import slackLogo from '../../../static/slack.svg'
 
-Slack.defaultProps = {
-  lazy: false,
-  src: logo,
-  style: { height: 'auto' }
-}
-
-export default Slack
+export default props => (
+  <Image
+    width='inherit'
+    height='inherit'
+    lazy={false}
+    src={slackLogo}
+    {...props}
+  />
+)

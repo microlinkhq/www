@@ -4,23 +4,23 @@ import {
   Caps,
   Container,
   Flex,
-  Image,
   Input,
   InputIcon,
   Text
 } from 'components/elements'
 
 import {
+  cdnUrl,
   aspectRatio,
   getDomain,
   screenshotUrl,
   debounceComponent
 } from 'helpers'
 
-import { useTransition, animated, config } from 'react-spring'
-import { Header, DemoLinks } from 'components/patterns'
+import { useTransition } from 'react-spring'
+import { speed, borders, transition, colors } from 'theme'
+import { Headline, SubHeadline, DemoLinks } from 'components/patterns'
 import { Safari, HourGlass } from 'components/icons'
-import { borders, transition, colors, toPx } from 'theme'
 import { Image as ImageIcon } from 'react-feather'
 import React, { useEffect, useState } from 'react'
 import prependHttp from 'prepend-http'
@@ -30,10 +30,15 @@ import pickBy from 'lodash/pickBy'
 import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
 import isColor from 'is-color'
-import noop from 'lodash/noop'
 import get from 'dlv'
-
 import ms from 'ms'
+
+import {
+  AnimatedImage,
+  screenshotHeight
+} from 'components/pages/home/screenshots'
+
+import { Screenshot } from './template'
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -50,41 +55,18 @@ LogoWrap.defaultProps = {
 
 const INTERVAL = 3500
 
-const bgStyle = `
-position: absolute;
-top: 0px;
-left: 0px;
-will-change: opacity;
-`
+const ScreenshotDebounce = debounceComponent(Screenshot)
 
-const AnimatedImage = animated(Image)
-
-const ImageDebounce = debounceComponent(Image)
-
-const DemoSlider = ({ children: slides }) => {
-  const [height, setHeight] = useState(null)
+const DemoSlider = ({ children: slides, ...props }) => {
   const [index, setIndex] = useState(0)
 
-  const transitions = useTransition(slides[index], item => item.keyword, {
+  const transitions = useTransition(index, p => p, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
-    config: config.molasses
-  })
-
-  const handleResize = () => {
-    const el = document.querySelector('#animated-image-container img')
-    if (el) setHeight(el.clientHeight)
-  }
-
-  const onLoad = () => {
-    const el = document.querySelector('#animated-image-container img')
-    if (el) setHeight(el.clientHeight)
-  }
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    config: {
+      duration: speed.normal
+    }
   })
 
   useEffect(
@@ -99,20 +81,13 @@ const DemoSlider = ({ children: slides }) => {
 
   return (
     <Flex
-      id='animated-image-container'
-      mt={height ? [2, 1, 1, 1] : 4}
       style={{ position: 'relative' }}
-      height={height ? toPx(height) : aspectRatio.height}
+      height={screenshotHeight}
       width={aspectRatio.width}
+      {...props}
     >
       {transitions.map(({ item, props, key }) => (
-        <AnimatedImage
-          key={key}
-          src={item.cdnUrl}
-          style={props}
-          css={bgStyle}
-          onLoad={key === 0 ? onLoad : noop}
-        />
+        <AnimatedImage key={key} style={props} src={slides[item].cdnUrl} />
       ))}
     </Flex>
   )
@@ -159,10 +134,11 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
     if (item && !get(opts, 'overlay.background')) {
       const theme = get(opts, 'overlay.browser')
       const filename = item.filename
-      const baseUrl = 'https://cdn.microlink.io/website/'
-      return theme
-        ? `${baseUrl}/browser/${theme}/${filename}`
-        : `${baseUrl}/${filename}`
+      return cdnUrl(
+        theme
+          ? `screenshot/browser/${theme}/${filename}`
+          : `screenshot/${filename}`
+      )
     }
 
     return url
@@ -177,113 +153,115 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
   }
 
   return (
-    <Container py={[4, 5]} px={4}>
-      <Header
-        subtitle='Take a screenshot of any website'
+    <Container py={[4, 5]} px={4} pb={[3, 3, 4, 4]}>
+      <SubHeadline
+        title='Take a screenshot of any website'
         caption='Turn websites into a snapshot'
       />
 
-      <Flex
-        pt={2}
-        pb={3}
-        as='form'
-        maxWidth={aspectRatio.width}
-        mx='auto'
-        justifyContent='center'
-        onSubmit={handleSubmit}
-        flexDirection={['column', 'row', 'row', 'row']}
-      >
-        <Box ml={2} mb={[3, 0, 0, 0]}>
-          <Input
-            fontSize={2}
-            iconComponent={<InputIcon value={inputUrl} domain={domain} />}
-            id='screenshot-demo-url'
-            mr='6px'
-            placeholder='Visit URL'
-            suggestions={suggestions}
-            type='text'
-            value={inputUrl}
-            onChange={event => setInputUrl(event.target.value)}
-            width={['100%', '100px']}
-          />
-        </Box>
+      <Flex justifyContent='center' alignItems='center'>
+        <Flex
+          pt={2}
+          pb={3}
+          as='form'
+          mx={[0, 0, 'auto', 'auto']}
+          justifyContent='center'
+          onSubmit={handleSubmit}
+          flexDirection={['column', 'column', 'row', 'row']}
+        >
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              fontSize={2}
+              iconComponent={<InputIcon value={inputUrl} domain={domain} />}
+              id='screenshot-demo-url'
+              mr='6px'
+              placeholder='Visit URL'
+              suggestions={suggestions}
+              type='text'
+              value={inputUrl}
+              onChange={event => setInputUrl(event.target.value)}
+              width={['100%', '100%', '100px', '100px']}
+            />
+          </Box>
 
-        <Box ml={2} mb={[3, 0, 0, 0]}>
-          <Input
-            placeholder='Wait for'
-            id='screenshot-demo-waitfor'
-            type='text'
-            fontSize={2}
-            width={['100%', '74px']}
-            mr='6px'
-            value={inputWaitFor}
-            onChange={event => setInputWaitFor(event.target.value)}
-            iconComponent={<HourGlass color={colors.black50} width='11px' />}
-            suggestions={[{ value: '0s' }, { value: '1.5s' }, { value: '3s' }]}
-          />
-        </Box>
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              placeholder='Wait for'
+              id='screenshot-demo-waitfor'
+              type='text'
+              fontSize={2}
+              width={['100%', '100%', '74px', '74px']}
+              mr='6px'
+              value={inputWaitFor}
+              onChange={event => setInputWaitFor(event.target.value)}
+              iconComponent={<HourGlass color={colors.black50} width='11px' />}
+              suggestions={[
+                { value: '0s' },
+                { value: '1.5s' },
+                { value: '3s' }
+              ]}
+            />
+          </Box>
 
-        <Box ml={2} mb={[3, 0, 0, 0]}>
-          <Input
-            placeholder='Overlay'
-            id='screenshot-demo-overlay'
-            type='text'
-            fontSize={2}
-            width={['100%', '73px']}
-            mr='6px'
-            value={inputOverlay}
-            onChange={event => setInputOverlay(event.target.value)}
-            iconComponent={<Safari color={colors.black50} width='16px' />}
-            suggestions={[
-              { value: 'none' },
-              { value: 'dark' },
-              { value: 'light' }
-            ]}
-          />
-        </Box>
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              placeholder='Overlay'
+              id='screenshot-demo-overlay'
+              type='text'
+              fontSize={2}
+              width={['100%', '100%', '73px', '73px']}
+              mr='6px'
+              value={inputOverlay}
+              onChange={event => setInputOverlay(event.target.value)}
+              iconComponent={<Safari color={colors.black50} width='16px' />}
+              suggestions={[
+                { value: 'none' },
+                { value: 'dark' },
+                { value: 'light' }
+              ]}
+            />
+          </Box>
 
-        <Box ml={2} mb={[3, 0, 0, 0]}>
-          <Input
-            placeholder='Background'
-            id='screenshot-demo-background'
-            type='text'
-            fontSize={2}
-            width={['100%', '105px']}
-            mr='6px'
-            value={inputBg}
-            onChange={event => setInputBg(event.target.value)}
-            iconComponent={backgroundIconComponent}
-            suggestions={[
-              { value: '#c1c1c1' },
-              {
-                value:
-                  'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
-              },
-              {
-                value: 'https://source.unsplash.com/random/1920x1080'
-              }
-            ]}
-          />
-        </Box>
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              placeholder='Background'
+              id='screenshot-demo-background'
+              type='text'
+              fontSize={2}
+              width={['100%', '100%', '105px', '105px']}
+              mr='6px'
+              value={inputBg}
+              onChange={event => setInputBg(event.target.value)}
+              iconComponent={backgroundIconComponent}
+              suggestions={[
+                { value: '#c1c1c1' },
+                {
+                  value:
+                    'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
+                },
+                {
+                  value: 'https://source.unsplash.com/random/2776x1910'
+                }
+              ]}
+            />
+          </Box>
 
-        <Button ml={2} loading={isLoading}>
-          <Caps fontSize={1} children='Take it' />
-        </Button>
+          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
+            <Caps fontSize={1} children='Take it' />
+          </Button>
+        </Flex>
       </Flex>
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
-        <Box mb='-12px'>
-          <Text fontSize={2}>into a snapshot</Text>
-        </Box>
+        <Text fontSize={2}>into a snapshot</Text>
         {previewUrl ? (
-          <ImageDebounce
-            mt={4}
-            width={aspectRatio.width}
-            key={previewUrl}
-            src={previewUrl}
+          <ScreenshotDebounce
+            height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
+            data={{ screenshot: { url: previewUrl } }}
+            query={getValues()}
           />
         ) : (
-          <DemoSlider children={suggestions} />
+          <DemoSlider mt={[0, 0, '-13px', '-13px']} children={suggestions} />
         )}
       </Flex>
     </Container>
@@ -293,13 +271,13 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
 const Examples = ({ demoLinks }) => (
   <Container
     py={[4, 5]}
-    px={4}
+    px={0}
     maxWidth='100%'
     bg='pinky'
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
-    <Header
+    <Headline
       pb={[3, 4]}
       title='Examples'
       caption='See real examples in action.'
@@ -307,7 +285,7 @@ const Examples = ({ demoLinks }) => (
     <Box pt={[3, 4]}>
       <DemoLinks
         children={demoLinks}
-        onClick={({ brand }) => navigate(`/screenshot/${brand.toLowerCase()}`)}
+        onClick={({ id }) => navigate(`/screenshot/${id}`)}
       />
     </Box>
   </Container>

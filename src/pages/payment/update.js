@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { useSiteMetadata } from 'components/hook'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
+import { letterSpacings } from 'theme'
 import { encode, decode } from 'qss'
 
 import {
@@ -16,7 +17,7 @@ import {
   StripeLoader
 } from 'components/elements'
 
-import { Header, Layout } from 'components/patterns'
+import { Headline, Layout } from 'components/patterns'
 
 import {
   CardNumberElement,
@@ -65,7 +66,7 @@ const createOptions = fontSize => {
       base: {
         fontSize,
         color: '#424770',
-        letterSpacing: '0.025em',
+        letterSpacing: letterSpacings[2],
         fontFamily: 'Source Code Pro, Menlo, monospace',
         '::placeholder': {
           color: '#aab7c4'
@@ -199,17 +200,24 @@ export default () => {
       <StripeLoader stripeKey={stripeKey}>
         {stripe => {
           return (
-            <Container as='section' maxWidth='350px' pt={5}>
+            <Container as='section' pt={5}>
               <StripeProvider stripe={stripe}>
                 <Flex flexDirection='column'>
-                  <Header subtitle='Update Payment' />
-                  <Elements>
-                    <CardForm
-                      apiEndpoint={apiEndpoint}
-                      apiKey={apiKey}
-                      fontSize='18px'
-                    />
-                  </Elements>
+                  <Headline title='Update Payment' />
+                  <Flex
+                    pt={[3, 3, 4, 4]}
+                    mx='auto'
+                    flexDirection='column'
+                    width={6}
+                  >
+                    <Elements>
+                      <CardForm
+                        apiEndpoint={apiEndpoint}
+                        apiKey={apiKey}
+                        fontSize='18px'
+                      />
+                    </Elements>
+                  </Flex>
                 </Flex>
               </StripeProvider>
             </Container>

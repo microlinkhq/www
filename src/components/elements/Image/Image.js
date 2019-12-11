@@ -4,10 +4,10 @@ import propTypes from '@styled-system/prop-types'
 import {
   compose,
   space,
-  size,
   color,
   maxWidth,
   width,
+  height,
   display,
   textAlign,
   borderRadius
@@ -21,8 +21,8 @@ const Image = styled('img')(
   compose(
     space,
     color,
-    size,
     width,
+    height,
     maxWidth,
     display,
     textAlign,
@@ -34,8 +34,8 @@ Image.propTypes = {
   ...propTypes.space,
   ...propTypes.color,
   ...propTypes.width,
+  ...propTypes.height,
   ...propTypes.maxWidth,
-  ...propTypes.size,
   ...propTypes.display,
   ...propTypes.textAlign,
   ...propTypes.borderRadius

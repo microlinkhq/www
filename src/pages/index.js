@@ -1,51 +1,17 @@
-import {
-  useDefaultDemoLink,
-  useDemoLinks,
-  usePrinciples,
-  useSiteMetadata
-} from 'components/hook'
-
+import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
+import { Box, Container, Flex, Link, Subhead, Text } from 'components/elements'
+import { Headline, Layout, PricingTable } from 'components/patterns'
+import { Meta, Hero, Screenshots } from 'components/pages/home'
+import { layout, colors, borders } from 'theme'
 import React from 'react'
-import { navigate } from 'gatsby'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Container as ContainerBase,
-  Flex,
-  Heading,
-  Hide,
-  Link,
-  Subhead,
-  Text
-} from 'components/elements'
-
-import {
-  Banner,
-  Grid,
-  Header,
-  Layout,
-  LiveDemo,
-  MQLEditor,
-  PricingTable,
-  List
-} from 'components/patterns'
-
-import { borders, colors } from 'theme'
-
-const Questions = () => {
+const Questions = props => {
   const title = 'Questions'
   const caption = 'Frequently asked questions.'
 
   return (
-    <Container
-      id='faq'
-      bg='pinky'
-      borderTop={`${borders[1]} ${colors.pinkest}`}
-      borderBottom={`${borders[1]} ${colors.pinkest}`}
-    >
-      <Header title={title} caption={caption} />
+    <Container id='faq' {...props}>
+      <Headline pt={[0, 0, 4, 4]} title={title} caption={caption} />
       <Flex
         as='section'
         pt={[3, 4]}
@@ -263,7 +229,7 @@ const Questions = () => {
           >
             Other questions?
           </Subhead>
-          <Text maxWidth='38em'>
+          <Text pb={[0, 0, 4, 4]} maxWidth='38em'>
             <Text color='black60'>
               We're always available at{' '}
               <Link
@@ -280,280 +246,27 @@ const Questions = () => {
   )
 }
 
-const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
+const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
   const title = 'Pricing'
   const caption = 'Growing with your business.'
 
   return (
-    <Box as='article' id='pricing'>
-      <Container as='section' pb={0}>
-        <Header pb={[0, 4]} title={title} caption={caption} />
-        <PricingTable
-          siteUrl={siteUrl}
-          apiKey={apiKey}
-          stripeKey={stripeKey}
-          apiEndpoint={apiEndpoint}
-        />
-      </Container>
-    </Box>
-  )
-}
-
-const Container = ({ children, maxWidth, ...props }) => (
-  <Box as='article' px={4} pt={[4, 5]} pb={[4, 5]} {...props}>
-    <ContainerBase children={children} maxWidth={maxWidth} />
-  </Box>
-)
-
-const Subheader = ({ children }) => (
-  <>
-    <Subhead fontSize={1} color='secondary'>
-      <Caps as='span' children={children[0]} />
-    </Subhead>
-    <Heading mt={1} fontSize={[3, 4]} variant={null} children={children[1]} />
-  </>
-)
-
-const Sdk = ({ loading, editor, children }) => (
-  <Container
-    maxWidth='100%'
-    bg='pinky'
-    id='sdk'
-    borderTop={`${borders[1]} ${colors.pinkest}`}
-    borderBottom={`${borders[1]} ${colors.pinkest}`}
-  >
-    <Flex
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      as='header'
-    >
-      <Subheader
-        children={['Microlink SDK', 'Turn websites into rich media']}
+    <Container id='pricing' maxWidth={layout.medium} {...props}>
+      <Headline pt={[0, 0, 4, 4]} title={title} caption={caption} />
+      <PricingTable
+        siteUrl={siteUrl}
+        apiKey={apiKey}
+        stripeKey={stripeKey}
+        apiEndpoint={apiEndpoint}
+        pb={[0, 0, 4, 4]}
       />
-      <Box textAlign='center'>
-        <Text py={4} maxWidth={8}>
-          <Link href='/docs/sdk/getting-started/overview/'>Microlink SDK</Link>{' '}
-          converts your links into beautiful previews. Make your content
-          attractive, engaging better your links.
-        </Text>
-      </Box>
-    </Flex>
-    <Flex
-      pt={[0, 0, 0, 4]}
-      pb={[0, 0, 0, 4]}
-      as='section'
-      justifyContent='center'
-      alignItems={['center', 'center', 'center', 'end']}
-      flexDirection={['column', 'column', 'column', 'row']}
-      ml='auto'
-      mr='auto'
-    >
-      <Flex
-        maxWidth={['100%', '100%', '100%', '23em']}
-        justifyContent='center'
-        flexDirection='column'
-      >
-        <Text
-          maxWidth={['inherit', 'inherit', 'inherit', 8]}
-          mt={[0, 0, 0, 3]}
-          textAlign={['center', 'center', 'center', 'inherit']}
-          children='Engage your content with enriched media.'
-        />
-        <List px={[3, 3, 3, 0]} mt={4} mb={3}>
-          <List.Item children='Add it to an existing website or app.' />
-          <List.Item children='Auto detection (image, video, audio) with media controls support.' />
-          <List.Item children='Easily customizable.' />
-        </List>
-        <Flex
-          alignItems='center'
-          justifyContent={['center', 'center', 'center', 'end']}
-          pb={[4, 4, 4, 0]}
-          flexDirection={['column', 'column', 'column', 'row']}
-        >
-          <Hide breakpoints={[3]}>
-            <LiveDemo loading={loading} children={editor} />
-          </Hide>
-
-          <Button onClick={() => navigate('/embed')}>
-            <Caps fontSize={0}>See More</Caps>
-          </Button>
-        </Flex>
-      </Flex>
-      <Box ml={4} mr={4} />
-      <Hide breakpoints={[0, 1, 2]}>
-        <LiveDemo loading={loading} children={editor} />
-      </Hide>
-    </Flex>
-  </Container>
-)
-
-const Mql = () => (
-  <Container maxWidth='100%' id='mql'>
-    <Flex
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      as='header'
-    >
-      <Subheader
-        children={['Microlink API', 'Turns websites into structured data']}
-      />
-
-      <Box textAlign='center'>
-        <Text py={4} maxWidth={8}>
-          <Link href='/docs/mql/getting-started/overview'>
-            Microlink Query Language
-          </Link>{' '}
-          (MQL) is a programmatic way to getting content from any URL. Build
-          APIs from websites.
-        </Text>
-      </Box>
-    </Flex>
-    <Flex
-      pt={[0, 0, 0, 4]}
-      as='section'
-      justifyContent='center'
-      alignItems={['center', 'center', 'center', 'end']}
-      flexDirection={['column', 'column', 'column', 'row']}
-      ml='auto'
-      mr='auto'
-    >
-      <Flex
-        maxWidth={['100%', '100%', '100%', '23em']}
-        justifyContent='center'
-        flexDirection='column'
-      >
-        <Text
-          maxWidth={['inherit', 'inherit', 'inherit', 8]}
-          mt={[0, 0, 0, 3]}
-          textAlign={['center', 'center', 'center', 'inherit']}
-          children='Build APIs from websites.'
-        />
-        <List px={[3, 3, 3, 0]} mt={4} mb={3}>
-          <List.Item children='Create data rules based on HTML markup.' />
-          <List.Item children='Target any URL for getting specific content.' />
-          <List.Item children='Builtin data validation & hydration.' />
-        </List>
-        <Flex
-          alignItems='center'
-          justifyContent={['center', 'center', 'center', 'end']}
-          flexDirection={['column', 'column', 'column', 'row']}
-        >
-          <Hide breakpoints={[3]}>
-            <MQLEditor />
-          </Hide>
-
-          <Button
-            onClick={() => navigate('/docs/mql/getting-started/overview')}
-          >
-            <Caps fontSize={0}>See More</Caps>
-          </Button>
-        </Flex>
-      </Flex>
-      <Box ml={4} mr={4} />
-      <Hide breakpoints={[0, 1, 2]}>
-        <MQLEditor />
-      </Hide>
-    </Flex>
-  </Container>
-)
-
-const Hero = ({ title }) => {
-  return (
-    <Container maxWidth='100%' id='mql'>
-      <Flex
-        pt={[0, 0, 0, 4]}
-        as='section'
-        justifyContent='center'
-        flexDirection={['column', 'column', 'column', 'row']}
-        alignItems='center'
-        ml='auto'
-        mr='auto'
-      >
-        <Flex
-          maxWidth={['100%', '100%', '100%', '960px']}
-          justifyContent='center'
-          flexDirection='column'
-        >
-          <Subhead
-            textAlign={['center', 'center', 'center', 'inherit']}
-            children='Production ready'
-            fontSize={3}
-            fontWeight='light'
-          />
-          <Subhead
-            textAlign={['center', 'center', 'center', 'inherit']}
-            children={title}
-            fontSize={5}
-          />
-          <Text
-            maxWidth={['inherit', 'inherit', 'inherit', 8]}
-            mt={[0, 0, 0, 3]}
-            textAlign={['center', 'center', 'center', 'inherit']}
-            children='Fast, scalable, and reliable browser automation built for businesses and developers.'
-          />
-          <List px={[3, 3, 3, 0]} mt={4} mb={3}>
-            <List.Item>Get HTML or PDF from any URL.</List.Item>
-            <List.Item>Take an screenshot in ~3 seconds.</List.Item>
-            <List.Item>Turns websites into structured data.</List.Item>
-            <List.Item>Get perfomance metrics & detect bottlenecks.</List.Item>
-          </List>
-          <Flex
-            alignItems='center'
-            justifyContent={['center', 'center', 'center', 'end']}
-            flexDirection={['column', 'column', 'column', 'row']}
-          >
-            <Flex>
-              <Button onClick={() => navigate('/docs')}>
-                <Caps fontSize={0}>Read Docs</Caps>
-              </Button>
-              <Text ml={3}>No credit card required.</Text>
-            </Flex>
-          </Flex>
-        </Flex>
-        <Box ml={4} mr={4} />
-        <MQLEditor />
-      </Flex>
-      <Box pt={[4, 5]}>
-        <Banner
-          data-event-category='Home'
-          data-event-action='Announcement'
-          href='/screenshot'
-          children='Take a screenshot of any website'
-        />
-      </Box>
     </Container>
   )
 }
 
-const Principles = ({ children }) => (
-  <Container
-    pb={[0, 0, 0, 5]}
-    id='principles'
-    bg='pinky'
-    borderTop={`${borders[1]} ${colors.pinkest}`}
-    borderBottom={`${borders[1]} ${colors.pinkest}`}
-  >
-    <Header
-      pb={[0, 0, 0, 3]}
-      title='Principles'
-      caption='How we build technical products.'
-    />
-    <Box as='section' pt={4}>
-      <Hide breakpoints={[0, 1]}>
-        <Grid children={children} itemsPerRow={3} />
-      </Hide>
-      <Hide breakpoints={[2, 3]}>
-        <Grid children={children} itemsPerRow={1} />
-      </Hide>
-    </Box>
-  </Container>
-)
-
 function Index () {
-  const demoLink = useDefaultDemoLink().data
   const demoLinks = useDemoLinks()
+
   const {
     siteUrl,
     paymentApiKey,
@@ -564,17 +277,28 @@ function Index () {
 
   return (
     <Layout>
-      <Hero title={headline} />
-      <Sdk children={demoLinks} editor={demoLink} />
-      <Mql />
-      <Principles children={usePrinciples()} />
+      <Hero title={headline} features={usePrinciples()} />
+      <Screenshots
+        bg='pinky'
+        borderTop={`${borders[1]} ${colors.pinkest}`}
+        borderBottom={`${borders[1]} ${colors.pinkest}`}
+      />
+      <Meta demoLinks={demoLinks} />
+      {/* <Explore
+        borderTop={`${borders[1]} ${colors.pinkest}`}
+        borderBottom={`${borders[1]} ${colors.pinkest}`}
+      /> */}
       <Pricing
         siteUrl={siteUrl}
         apiKey={paymentApiKey}
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
-      <Questions />
+      <Questions
+        bg='pinky'
+        borderTop={`${borders[1]} ${colors.pinkest}`}
+        borderBottom={`${borders[1]} ${colors.pinkest}`}
+      />
     </Layout>
   )
 }

@@ -1,6 +1,6 @@
-import { aspectRatio, screenshotUrl, getDomain } from 'helpers'
-import * as Logo from 'components/logos'
-import { borders, colors } from 'theme'
+import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
+import { screenshotUrl, getDomain } from 'helpers'
+import { borders, colors, radii } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
@@ -12,8 +12,7 @@ import { useQueryState, useFeatures } from 'components/hook'
 import {
   Text,
   Box,
-  Heading,
-  Container as ContainerBase,
+  Container,
   Image,
   Subhead,
   Flex,
@@ -25,40 +24,35 @@ import {
   Hide
 } from 'components/elements'
 
-import { Header, Grid } from 'components/patterns'
+import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
 
-const Container = ({ children, maxWidth, ...props }) => (
-  <Box as='article' px={4} pt={[4, 5]} pb={[4, 5]} {...props}>
-    <ContainerBase children={children} maxWidth={maxWidth} />
-  </Box>
-)
-
-const HeroHeader = ({ title, caption }) => {
+export const Screenshot = ({ data, query, ...props }) => {
   return (
-    <Flex
-      as='header'
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      px={0}
-    >
-      {title}
-      <Subhead
-        maxWidth={5}
-        pt={4}
-        px={5}
-        color={colors.gray}
-        textAlign='center'
-        children={caption}
-        fontWeight='normal'
+    <Link px={3} mt={3} href={data.screenshot.url}>
+      <Image
+        pl={0}
+        pr={0}
+        key={data.screenshot.url}
+        src={data.screenshot.url}
+        style={isLoading => {
+          if (isLoading) return
+          return {
+            padding: 0,
+            borderRadius: radii[2],
+            border: `1px solid ${colors.black20}`
+          }
+        }}
+        {...props}
       />
-    </Flex>
+    </Link>
   )
 }
 
-const Hero = ({ domain, brand, data }) => {
+const Hero = ({ domain, id, data }) => {
+  const [query] = useQueryState()
+
   const caption = (
-    <>
+    <Box maxWidth={5} pt={[2, 2, 4, 4]} px={5}>
       Turn{' '}
       <Subhead
         as='span'
@@ -69,11 +63,11 @@ const Hero = ({ domain, brand, data }) => {
         {domain}
       </Subhead>{' '}
       into a screenshot
-    </>
+    </Box>
   )
 
   const logoProvider = (() => {
-    const LogoProvider = Logo[brand]
+    const LogoProvider = LogoBrand[id]
     if (LogoProvider) {
       return (
         <LogoProvider height='100%' width={['36px', '72px']} state='hover' />
@@ -83,64 +77,31 @@ const Hero = ({ domain, brand, data }) => {
     const logoUrl = get(data, 'logo.url')
 
     if (logoUrl && !logoUrl.endsWith('ico')) {
-      return (
-        <Image
-          height='100%'
-          width={['36px', '72px']}
-          src={logoUrl}
-          lazy={false}
-        />
-      )
+      return <Image height='100%' width={['36px', '72px']} src={logoUrl} />
     }
   })()
 
-  const title = (
-    <Box>
-      <Flex alignItems='center' justifyContent='center'>
-        <Logo.Microlink width={['36px', '72px']} />
-        {logoProvider && (
-          <Box ml={3} mr={3}>
-            <Plus color={colors.gray} />
-          </Box>
-        )}
-
+  return (
+    <Container id='hero'>
+      <Flex pt={[0, 0, 4, 4]} alignItems='center' justifyContent='center'>
+        <MicrolinkLogo width={['36px', '72px']} />
+        {logoProvider && <Box ml={3} mr={3} children={<Plus />} />}
         {logoProvider}
       </Flex>
-    </Box>
-  )
-
-  return (
-    <>
-      <Container id='hero'>
-        <HeroHeader title={title} caption={caption} />
-        <Link href={data.screenshot.url}>
-          <Image
-            lazy={false}
-            key={data.screenshot.url}
-            mt={4}
-            pl={4}
-            pr={4}
-            src={data.screenshot.url}
-          />
-        </Link>
-      </Container>
-    </>
+      <SubHeadline pb={0} caption={caption} />
+      <Screenshot data={data} query={query} mx='auto' pl={4} pr={4} />
+    </Container>
   )
 }
 
-const Subheader = ({ children }) => (
-  <>
-    <Subhead fontSize={1} color='secondary'>
-      <Caps as='span' children={children[0]} />
-    </Subhead>
-    <Heading mt={1} fontSize={[3, 4]} variant={null} children={children[1]} />
-  </>
-)
-
-const Features = ({ children }) => (
-  <Container id='features'>
-    <Header title='Features' caption='Capabilities under the hood.' />
-    <Box as='section' pt={4}>
+export const Features = ({ children }) => (
+  <Container id='features' pb={[0, 0, 4, 4]}>
+    <Headline
+      pt={[0, 0, 4, 4]}
+      title='Features'
+      caption='Capabilities under the hood.'
+    />
+    <Box as='section' mx='auto' pt={[3, 4]}>
       <Hide breakpoints={[0, 1]}>
         <Grid children={children} itemsPerRow={3} />
       </Hide>
@@ -151,7 +112,7 @@ const Features = ({ children }) => (
   </Container>
 )
 
-const Api = ({ domain, data }) => {
+const Api = ({ data }) => {
   const [query] = useQueryState()
   const apiUrl = screenshotUrl(data.url, query)
 
@@ -185,10 +146,11 @@ const Api = ({ domain, data }) => {
         justifyContent='center'
         alignItems='center'
         as='header'
+        pt={[0, 0, 4, 4]}
       >
-        <Subheader children={['Microlink API', 'Instant shareable content']} />
+        <Legend sup='Microlink API' title='Instant shareable content' />
 
-        <Box pb={4} px={4} textAlign={['inherit', 'center']}>
+        <Box pb={[0, 0, 4, 4]} px={4} textAlign='center'>
           <Box pt={4}>
             <Text mb={[4, 4, 4, 0]} maxWidth={8}>
               <Link href='/docs/api/getting-started/overview'>
@@ -202,26 +164,28 @@ const Api = ({ domain, data }) => {
             <Button onClick={() => navigate('/docs/api/parameters/embed')}>
               <Caps fontSize={0} children='Explore Docs' />
             </Button>
-            <Button
+
+            <Link
               ml={3}
               onClick={() => navigate('/docs/api/parameters/embed')}
+              display='inline-block'
             >
-              <Caps fontSize={0} children='How to Embed' />
-            </Button>
+              <Caps fontWeight='regular' fontSize={0} children='How to embed' />
+            </Link>
           </Box>
         </Box>
 
-        <Box width={[350, 500, 700]}>
+        <Box>
           <Subhead
             children='Using HTML'
-            pt={4}
+            pt={[4, 4, 0, 0]}
             pb={3}
             textAlign='left'
             fontSize={[1, 2]}
           />
           <CodeEditor language='html' children={seoCode} prettier={false} />
         </Box>
-        <Box width={[350, 500, 700]}>
+        <Box>
           <Subhead
             children='Using CSS'
             pt={4}
@@ -231,7 +195,7 @@ const Api = ({ domain, data }) => {
           />
           <CodeEditor language='css' children={cssCode} prettier={false} />
         </Box>
-        <Box width={[350, 500, 700]}>
+        <Box pb={4}>
           <Subhead
             children='Using Markdown'
             pt={4}
@@ -305,33 +269,34 @@ const Cli = ({ domain, data }) => {
         justifyContent='center'
         alignItems='center'
         as='header'
+        pt={[0, 0, 4, 4]}
       >
-        <Subheader
-          children={['Microlink CLI', 'Powerful command-line interface']}
-        />
+        <Legend sup='Microlink CLI' title='Powerful command-line interface' />
 
-        <Box pb={5} px={4} textAlign={['inherit', 'center']}>
+        <Box pb={[0, 0, 4, 4]} px={4} textAlign='center'>
           <Box pt={4}>
             <Text mb={[4, 4, 4, 0]} maxWidth={8}>
-              Explore API Parameter using{' '}
               <Link href='/docs/api/getting-started/cli'>Microlink CLI</Link>{' '}
-              from your terminal.
+              enables third party integration for any software or platform from
+              your friendly terminal.
             </Text>
           </Box>
-          <Box pt={4}>
+          <Box pt={[0, 4]} pb={[4, 4, 0, 0]} textAlign='center'>
             <Button onClick={() => navigate('/docs/api/getting-started/cli')}>
-              <Caps fontSize={0} children='How to Use' />
+              <Caps fontSize={0} children='Install CLI' />
             </Button>
-            <Button
+
+            <Link
               ml={3}
               onClick={() => navigate('/docs/api/getting-started/overview')}
+              display='inline-block'
             >
-              <Caps fontSize={0} children='See API Parameters' />
-            </Button>
+              <Caps fontWeight='regular' fontSize={0} children='Read Docs' />
+            </Link>
           </Box>
         </Box>
 
-        <Box width={[350, 500, 700]}>
+        <Box pb={4}>
           <Terminal
             style={{ margin: '0' }}
             children={cliCode}
@@ -349,7 +314,7 @@ export default props => {
   return (
     <>
       <Hero domain={domain} {...props} />
-      <Api domain={domain} {...props} />
+      <Api {...props} />
       <Features children={useFeatures()} />
       <Cli domain={domain} {...props} />
     </>

@@ -3,8 +3,7 @@ import { Image } from 'components/elements'
 
 const Clearbit = ({ companyName, ...props }) => (
   <Image
-    lazyWidth={props.size}
-    lazyHeight={props.size}
+    lazy={false}
     src={`https://logo.clearbit.com/${companyName}`}
     {...props}
   />

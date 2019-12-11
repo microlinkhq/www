@@ -1,52 +1,46 @@
-import React, { useState, createElement } from 'react'
+import { useState, createElement, useEffect } from 'react'
+import { aspectRatio, template } from 'helpers'
 import noop from 'lodash/noop'
 
 import ImagePlaceholder from './ImagePlaceholder'
-import { aspectRatio, template } from 'helpers'
 import Image from './Image'
 
-const LazyImage = ({
-  lazy,
-  lazyWidth,
-  lazyHeight,
-  onLoad,
-  loading,
-  ...props
-}) => {
-  const [isLoaded, setLoaded] = useState(false)
-  props.src = template(props.src)
+const LazyImage = ({ lazy, loading, src: rawSrc, onError, ...props }) => {
+  const src = template(rawSrc)
 
-  if (!lazy) return createElement(Image, props)
-  if (loading != null ? !loading : isLoaded) return createElement(Image, props)
+  if (!lazy) return createElement(Image, { src, ...props })
+  const [isLoading, setLoading] = useState(loading)
 
-  const handleLoad = event => {
-    setLoaded(true)
-    setTimeout(onLoad, 0, event)
-  }
+  useEffect(() => {
+    const img = document.createElement('img')
+    img.onerror = onError
+    img.onload = () => {
+      img.onload = null
+      img.onerror = null
+      setLoading(false)
+    }
+    img.src = src
+  }, [])
 
-  const handleError = err => console.error('LazyImage:', err.message)
+  const Component = isLoading ? ImagePlaceholder : Image
 
-  return (
-    <ImagePlaceholder
-      width={isLoaded ? undefined : lazyWidth}
-      height={isLoaded ? undefined : lazyHeight}
-      {...props}
-    >
-      <Image
-        {...props}
-        onLoad={handleLoad}
-        onError={handleError}
-        style={{ display: !isLoaded && 'none' }}
-      />
-    </ImagePlaceholder>
-  )
+  const height =
+    typeof props.height === 'function' ? props.height(isLoading) : props.height
+
+  const width =
+    typeof props.width === 'function' ? props.width(isLoading) : props.width
+
+  const style =
+    typeof props.style === 'function' ? props.style(isLoading) : props.style
+
+  return createElement(Component, { src, ...props, height, width, style })
 }
 
 LazyImage.defaultProps = {
-  onLoad: noop,
+  onError: noop,
   lazy: true,
-  lazyWidth: aspectRatio.width,
-  lazyHeight: aspectRatio.height
+  loading: true,
+  width: aspectRatio.width
 }
 
 export default LazyImage

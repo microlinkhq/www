@@ -7,12 +7,12 @@ const code = `
 import { ClearbitLogo } from 'components/elements'
 
 export default () => (
-  <ClearbitLogo companyName='microlink.io' />
+  <ClearbitLogo height='80px' width='80px' companyName='microlink.io' />
 )
 `
 
 storiesOf('Elements', module).add('ClearbitLogo', () => (
   <Story name='ClearbitLogo' code={code}>
-    <ClearbitLogo companyName='microlink.io' />
+    <ClearbitLogo height='80px' width='80px' companyName='microlink.io' />
   </Story>
 ))

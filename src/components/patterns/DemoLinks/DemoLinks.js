@@ -1,15 +1,15 @@
-import React, { createElement } from 'react'
-import styled from 'styled-components'
 import {
   Flex,
   Box,
   BackgroundSlider,
   BackgroundSliderContainer
 } from 'components/elements'
+
+import React, { createElement } from 'react'
+import { LogoBrand } from 'components/logos'
+import styled from 'styled-components'
 import { transition } from 'theme'
 import chunk from 'lodash/chunk'
-
-import * as Logos from 'components/logos'
 
 const NoWrap = styled(Flex)`
   white-space: nowrap;
@@ -37,13 +37,13 @@ LogoWrap.defaultProps = {
 
 const DURATION = 60
 
-const LogoNames = Object.keys(Logos)
+const logoIds = Object.keys(LogoBrand)
 
 const DemoLinks = ({ children, chunkSize, onClick }) => {
   // remove missing logos
-  const links = children.filter(({ brand }) => {
-    const hasLogo = LogoNames.includes(brand)
-    if (!hasLogo) console.warn(`DemoLinks: missing ${brand} logo`)
+  const links = children.filter(({ id }) => {
+    const hasLogo = logoIds.includes(id)
+    if (!hasLogo) console.warn(`DemoLinks: missing ${id} logo`)
     return hasLogo
   })
 
@@ -58,12 +58,12 @@ const DemoLinks = ({ children, chunkSize, onClick }) => {
             animationDirection={isEven ? 'normal' : 'normal'}
           >
             <NoWrap>
-              {chunkBrands.map(({ brand, data }, index) => (
-                <LogoWrap key={brand}>
-                  {createElement(Logos[brand], {
-                    key: brand,
+              {chunkBrands.map(({ id, data }) => (
+                <LogoWrap key={id}>
+                  {createElement(LogoBrand[id], {
+                    key: id,
                     ratio: 0.6,
-                    onClick: () => onClick({ brand, data })
+                    onClick: () => onClick({ id, data })
                   })}
                 </LogoWrap>
               ))}

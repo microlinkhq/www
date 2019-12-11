@@ -1,11 +1,14 @@
 'use strict'
 
+const { URL } = require('url')
+
 const {
   STRIPE_KEY,
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
   GOOGLE_ANALYTICS_ID,
-  SITE_URL
+  SITE_URL,
+  CDN_URL
 } = require('./env')
 
 module.exports = {
@@ -17,9 +20,8 @@ module.exports = {
     description:
       'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',
     twitter: '@microlinkhq',
-    image: 'https://cdn.microlink.io/page/home.png',
-    logo: 'https://cdn.microlink.io/logo/trim.png',
-
+    image: new URL('page/home.png', CDN_URL).toString(),
+    logo: new URL('logo/trim.png', CDN_URL).toString(),
     // Slack previsualization
     dataLabel1: 'API',
     dataLabel2: 'Documentation',
@@ -29,7 +31,8 @@ module.exports = {
     // additional
     paymentApiKey: PAYMENT_API_KEY,
     paymentEndpoint: PAYMENT_ENDPOINT,
-    stripeKey: STRIPE_KEY
+    stripeKey: STRIPE_KEY,
+    cdnUrl: CDN_URL
   },
   plugins: [
     'gatsby-plugin-styled-components',

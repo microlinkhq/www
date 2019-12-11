@@ -10,10 +10,11 @@ import {
   Input,
   Text
 } from 'components/elements'
-import { Microlink } from 'components/logos'
+
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
+import { layout, transition, colors } from 'theme'
+import { Microlink } from 'components/logos'
 import styled from 'styled-components'
-import { transition, colors } from 'theme'
 
 const IconWrapper = styled(Box)`
   cursor: pointer;
@@ -29,12 +30,10 @@ const IconWrapper = styled(Box)`
 `
 
 export default props => (
-  <Container px={[2, 2, 2, 0]}>
+  <Container maxWidth={layout.large}>
     <Flex
       as='footer'
-      py={[4, 4, 4, 5]}
-      mr='auto'
-      ml='auto'
+      py={[0, 0, 4, 4]}
       bg='white'
       flexDirection={['column', 'column', 'column', 'row']}
       justifyContent='space-between'
@@ -146,12 +145,12 @@ export default props => (
           />
           <LinkSolid
             data-event-category='Footer'
-            data-event-action='Pricing'
+            data-event-action='Blog'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
-            href='/#pricing'
-            children='Pricing'
+            href='/blog'
+            children='Blog'
           />
           <LinkSolid
             data-event-category='Footer'
@@ -164,12 +163,12 @@ export default props => (
           />
           <LinkSolid
             data-event-category='Footer'
-            data-event-action='Design'
+            data-event-action='Pricing'
             fontSize={[0, 0, 0, 1]}
             mr={2}
             mb={[0, 0, 0, 3]}
-            href='/design'
-            children='Design'
+            href='/#pricing'
+            children='Pricing'
           />
         </Flex>
       </Box>

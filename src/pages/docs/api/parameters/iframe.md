@@ -8,12 +8,12 @@ Default: <Type children='false'/>
 Enabling it will return a new `iframe` data field, allowing to insert an embedded representation of the target URL.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{DemoLinks.YouTube.url}}&iframe`,
+  Shell: `microlink-api {{demolinks.youtube.url}}&iframe`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    '{{DemoLinks.YouTube.url}}', {
+    '{{demolinks.youtube.url}}', {
       iframe: true
   })
     

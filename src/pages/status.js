@@ -1,11 +1,25 @@
+import { Container, Iframe, CodeEditor } from 'components/elements'
 import { Layout } from 'components/patterns'
-import { Iframe } from 'components/elements'
+import { cdnUrl } from 'helpers'
 import React from 'react'
+import { layout } from 'theme'
 
 const TITLE = 'Status'
 
 export default () => (
-  <Layout title={TITLE} image='https://cdn.microlink.io/page/status.png'>
-    <Iframe height='920px' title={TITLE} src='https://status.microlink.io' />
+  <Layout title={TITLE} image={cdnUrl('page/status.png')}>
+    <Container pt={5}>
+      <Iframe
+        width={[
+          CodeEditor.width[0],
+          CodeEditor.width[1],
+          layout.large,
+          layout.large
+        ]}
+        height='9833px'
+        title={TITLE}
+        src='https://status.microlink.io'
+      />
+    </Container>
   </Layout>
 )

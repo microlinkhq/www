@@ -12,7 +12,12 @@ import {
   Text
 } from 'components/elements'
 
-import { Header, DemoLinks, Microlink } from 'components/patterns'
+import {
+  Headline,
+  SubHeadline,
+  DemoLinks,
+  Microlink
+} from 'components/patterns'
 import { debounceComponent, getDomain } from 'helpers'
 import { borders, transition, colors } from 'theme'
 import React, { useEffect, useState } from 'react'
@@ -40,13 +45,13 @@ LogoWrap.defaultProps = {
 const Examples = ({ demoLinks }) => (
   <Container
     py={[4, 5]}
-    px={4}
+    px={0}
     maxWidth='100%'
     bg='pinky'
     borderTop={`${borders[1]} ${colors.pinkest}`}
     borderBottom={`${borders[1]} ${colors.pinkest}`}
   >
-    <Header
+    <Headline
       pb={[3, 4]}
       title='Examples'
       caption='See real examples in action.'
@@ -54,7 +59,7 @@ const Examples = ({ demoLinks }) => (
     <Box pt={[3, 4]}>
       <DemoLinks
         children={demoLinks}
-        onClick={({ brand }) => navigate(`/embed/${brand.toLowerCase()}`)}
+        onClick={({ id }) => navigate(`/embed/${id}`)}
       />
     </Box>
   </Container>
@@ -85,8 +90,8 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   return (
     <>
       <Container py={[4, 5]} px={4}>
-        <Header
-          subtitle='Universal Embed'
+        <SubHeadline
+          title='Universal Embed'
           caption='Turn websites into rich media'
         />
 
@@ -138,7 +143,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   media={['audio', 'video', 'image', 'logo']}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
-                  <CodeEditor maxWidth={CodeEditor.width} language='bash'>
+                  <CodeEditor language='bash'>
                     {`<Microlink size='large' url='${inputValue ||
                       demoLink.data
                         .url}' media={['audio', 'video', 'image', 'logo']} />`}
@@ -155,11 +160,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   dangerouslySetInnerHTML={{ __html: data.iframe }}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
-                  <CodeEditor
-                    maxWidth={CodeEditor.width}
-                    language='bash'
-                    children={demoLink.data.iframe}
-                  />
+                  <CodeEditor language='bash' children={demoLink.data.iframe} />
                 </Flex>
               </Flex>
             ) : (

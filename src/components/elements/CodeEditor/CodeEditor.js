@@ -1,15 +1,15 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import styled, { css } from 'styled-components'
 import { prettier, getLines, template, aspectRatio } from 'helpers'
+import { shadowOffsets, shadowColors, colors, fonts } from 'theme'
+import styled, { css } from 'styled-components'
 import { Box } from 'components/elements'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
 import CodeCopy from 'react-codecopy'
-import { colors, fonts } from 'theme'
 import range from 'lodash/range'
 import get from 'dlv'
 
-const { width, height } = aspectRatio([0.58, 0.58, 0.58, 0.58])
+const { width, height } = aspectRatio([0.4, 0.4, 0.6, 0.6])
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
@@ -111,8 +111,8 @@ const baseTheme = {
   'pre[class*="language-"]': {
     ...codeTheme,
     margin: '.5em 8px',
-    overflow: 'auto',
-    borderRadius: '0.3em'
+    borderRadius: '0.3em',
+    height: 'calc(100% - 18px)'
   },
   ':not(pre) > code[class*="language-"]': {
     background: COLORS.BACKGROUND,
@@ -160,7 +160,7 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const TerminalWindow = styled(Box)`
   border-radius: 5px;
-  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: ${shadowOffsets[0]} ${shadowColors[0]};
 `
 
 const TerminalHeader = styled.header`
@@ -199,7 +199,7 @@ const TerminalText = styled.section`
   font-size: 13px;
   font-weight: normal;
   line-height: 20px;
-  padding-bottom: 9.5px;
+  padding-bottom: 16px;
   padding-left: 16px;
   padding-right: 16px;
   border-bottom-right-radius: 4px;
@@ -210,10 +210,13 @@ const TerminalText = styled.section`
   align-items: center;
   height: inherit;
   align-items: baseline;
+  height: calc(100% - ${TERMINAL_HEADER_HEIGHT});
 
   > div {
     position: relative;
     width: 100%;
+    height: 100%;
+    overflow: auto;
   }
 `
 
@@ -262,7 +265,7 @@ Terminal.defaultProps = {
   theme: 'dark'
 }
 
-function CodeEditor (props) {
+const CodeEditor = props => {
   const {
     ActionComponent,
     showLineNumbers,
@@ -270,6 +273,7 @@ function CodeEditor (props) {
     children,
     ...restProps
   } = props
+
   const className = props.className
     ? props.className + (props.metastring || '')
     : ''
@@ -309,13 +313,10 @@ function CodeEditor (props) {
   )
 }
 
-// this is necessary for markdown
-CodeEditor.displayName = 'CodeEditor'
-
 CodeEditor.defaultProps = {
   prettier: true,
   showLineNumbers: false,
-  height,
+  height: 'inherit',
   width
 }
 

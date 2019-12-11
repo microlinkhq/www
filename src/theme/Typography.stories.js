@@ -1,35 +1,28 @@
 import React from 'react'
 import { Caps, Text, Label } from 'components/elements'
+import { Headline, SubHeadline, Legend } from 'components/patterns'
 import { storiesOf } from '@storybook/react'
-import { Header } from 'components/patterns'
 import { Story } from 'story'
 
-const codeHeader = `
-import { Header } from 'components/patterns'
+const codeHeadline = `
+import { Headline } from 'components/patterns'
 
 export default () => (
-  <Header title='Turn websites into data' />
+  <Headline title='Turn websites into data' caption='Microlink makes easy to build an API on top of any website.' />
 )`
 
-const codeHeaderWithCaption = `
-import { Header } from 'components/patterns'
+const codeSubHeadline = `
+import { SubHeadline } from 'components/patterns'
 
 export default () => (
-  <Header title='Turn websites into data' caption='Microlink makes easy to build an API on top of any website.' />
+  <SubHeadline title='Turn websites into data' caption='enter URL, receive data' />
 )`
 
-const codeHeaderWithSubtitle = `
-import { Header } from 'components/patterns'
+const codeLegend = `
+import { Legend } from 'components/patterns'
 
 export default () => (
-  <Header subtitle='Turn websites into data' />
-)`
-
-const codeHeaderWithSubtitleWithCaption = `
-import { Header } from 'components/patterns'
-
-export default () => (
-  <Header subtitle='Turn websites into data' caption='enter URL, receive data' />
+  <Legend sup='screenshot' title='Turn websites into a snapshot' />
 )`
 
 const codeLabel = `
@@ -52,33 +45,35 @@ import { Text } from 'components/elements'
 export default () => (
   <Fragment>
     <Text children='Make your content attractive, engaging better your links.' />
-    <Text fontSize={[0, 2]} color='gray' children='June 30, 2018 (9 months ago)' />
+    <Text fontSize={[0, 2]} color='black50' children='June 30, 2018 (9 months ago)' />
   </Fragment>
 )`
 
 storiesOf('Theme', module).add('Typography', () => (
   <>
-    <Story name='Header title' code={codeHeader}>
-      <Header pb={0} title='Turn websites into data' />
-    </Story>
-    <Story name='Header title caption' code={codeHeaderWithCaption}>
-      <Header
+    <Story name='Headline' code={codeHeadline}>
+      <Headline
         pb={0}
         title='Turn websites into data'
         caption='Microlink makes easy to build an API on top of any website.'
       />
     </Story>
-    <Story name='Header subtitle' code={codeHeaderWithSubtitle}>
-      <Header pb={0} subtitle='Turn websites into data' />
-    </Story>
-    <Story
-      name='Header subtitle caption'
-      code={codeHeaderWithSubtitleWithCaption}
-    >
-      <Header
+    <Story name='SubHeadline' code={codeSubHeadline}>
+      <SubHeadline
         pb={0}
-        subtitle='Turn websites into data'
+        title='Turn websites into data'
         caption='enter URL, receive data'
+      />
+    </Story>
+    <Story name='Legend' code={codeLegend}>
+      <Legend sup='screenshot' title='Turn websites into a snapshot' />
+    </Story>
+    <Story name='Text' code={codeText}>
+      <Text children='Make your content attractive, engaging better your links.' />
+      <Text
+        fontSize={[0, 2]}
+        color='black50'
+        children='June 30, 2018 (9 months ago)'
       />
     </Story>
     <Story name='Label' code={codeLabel}>
@@ -86,14 +81,6 @@ storiesOf('Theme', module).add('Typography', () => (
     </Story>
     <Story name='Caps' code={codeCaps}>
       <Caps fontSize={0}>See More</Caps>
-    </Story>
-    <Story name='Text' code={codeText}>
-      <Text children='Make your content attractive, engaging better your links.' />
-      <Text
-        fontSize={[0, 2]}
-        color='gray'
-        children='June 30, 2018 (9 months ago)'
-      />
     </Story>
   </>
 ))

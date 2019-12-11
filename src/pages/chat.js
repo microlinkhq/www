@@ -1,24 +1,27 @@
-import { Layout, Chat, Header } from 'components/patterns'
+import { Layout, Chat, SubHeadline } from 'components/patterns'
 import { Container, Box, Flex } from 'components/elements'
 import { Microlink, Slack } from 'components/logos'
+import { cdnUrl } from 'helpers'
 import { Plus } from 'react-feather'
 import React from 'react'
 
 const LOGO_SIZE = 60
-const PLUS_SIZE = LOGO_SIZE * 0.35
 
 export default () => (
-  <Layout title='Chat' image='https://cdn.microlink.io/page/chat.png'>
+  <Layout title='Chat' image={cdnUrl('page/chat.png')}>
     <Container pt={5}>
-      <Header subtitle='Come chat with us' caption='Be part of our community' />
+      <SubHeadline
+        title='Come chat with us'
+        caption='Be part of our community'
+      />
       <Flex alignItems='center' justifyContent='center'>
         <Microlink width={LOGO_SIZE} />
-        <Box color='gray' px={3}>
-          <Plus size={PLUS_SIZE} />
+        <Box color='black' px={3}>
+          <Plus />
         </Box>
-        <Slack size={LOGO_SIZE} />
+        <Slack width={LOGO_SIZE} />
       </Flex>
-      <Flex alignItems='center' justifyContent='center' py={5}>
+      <Flex alignItems='center' justifyContent='center' pt={4}>
         <Chat large />
       </Flex>
     </Container>

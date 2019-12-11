@@ -11,7 +11,7 @@ const NavLinkMobile = props => <NavLink {...props} />
 export const NavLogo = ({ mobile, ...props }) =>
   mobile ? (
     <NavLinkMobile
-      width={32}
+      width='32px'
       display='flex'
       href='/'
       style={{ flex: '0 0 auto' }}
@@ -30,24 +30,13 @@ export const NavLogo = ({ mobile, ...props }) =>
       display='flex'
       {...props}
     >
-      <Microlink size='100%' />
+      <Microlink />
     </NavLinkDesktop>
   )
 
 NavLogo.defaultProps = {
   'data-event-category': 'Toolbar',
   'data-event-action': 'Logo'
-}
-
-export const NavPrinciples = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavPrinciples.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Principles',
-  children: 'Principles',
-  href: '/#principles',
-  actively: 'observer'
 }
 
 export const NavPricing = ({ mobile, ...props }) =>
@@ -91,17 +80,6 @@ NavDocs.defaultProps = {
   'data-event-action': 'Docs',
   children: 'Docs',
   href: '/docs/sdk/getting-started/overview/',
-  actively: 'partial'
-}
-
-export const NavBlog = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavBlog.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Blog',
-  children: 'Blog',
-  href: '/blog',
   actively: 'partial'
 }
 

@@ -48,7 +48,7 @@ export default ({ isBlogPage, date, meta, content }) => (
           mb={3}
         />
         {isBlogPage && (
-          <Text fontSize={2} color='gray'>
+          <Text fontSize={2} color='black50'>
             {formatDate(date)} ({<TimeAgo date={date} />})
           </Text>
         )}
