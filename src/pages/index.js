@@ -1,7 +1,7 @@
 import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
 import { Box, Container, Flex, Link, Subhead, Text } from 'components/elements'
-import { Explore, Meta, Hero, Screenshots } from 'components/pages/home'
 import { Headline, Layout, PricingTable } from 'components/patterns'
+import { Meta, Hero, Screenshots } from 'components/pages/home'
 import { layout, colors, borders } from 'theme'
 import React from 'react'
 
@@ -11,7 +11,7 @@ const Questions = props => {
 
   return (
     <Container id='faq' {...props}>
-      <Headline title={title} caption={caption} />
+      <Headline pt={[0, 0, 4, 4]} title={title} caption={caption} />
       <Flex
         as='section'
         pt={[3, 4]}
@@ -229,7 +229,7 @@ const Questions = props => {
           >
             Other questions?
           </Subhead>
-          <Text pb={4} maxWidth='38em'>
+          <Text pb={[0, 0, 4, 4]} maxWidth='38em'>
             <Text color='black60'>
               We're always available at{' '}
               <Link
@@ -246,18 +246,19 @@ const Questions = props => {
   )
 }
 
-const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint }) => {
+const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
   const title = 'Pricing'
   const caption = 'Growing with your business.'
 
   return (
-    <Container id='pricing' maxWidth={layout.medium}>
-      <Headline title={title} caption={caption} />
+    <Container id='pricing' maxWidth={layout.medium} {...props}>
+      <Headline pt={[0, 0, 4, 4]} title={title} caption={caption} />
       <PricingTable
         siteUrl={siteUrl}
         apiKey={apiKey}
         stripeKey={stripeKey}
         apiEndpoint={apiEndpoint}
+        pb={[0, 0, 4, 4]}
       />
     </Container>
   )

@@ -112,7 +112,7 @@ PricingRow.defaultProps = {
   textAlign: 'left'
 }
 
-function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
+function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
   const [state, setState] = useState({
     ...DEFAULT_PLAN,
     highlight: false
@@ -132,7 +132,14 @@ function PricingTable ({ siteUrl, apiKey, stripeKey, apiEndpoint }) {
   const humanMonthlyPrice = formatNumber(monthlyPrice)
 
   return (
-    <Box as='section' ml='auto' mr='auto' px={[0, 0, 0, 6]} pt={4}>
+    <Box
+      as='section'
+      ml='auto'
+      mr='auto'
+      px={[0, 0, 0, 6]}
+      pt={[3, 3, 4, 4]}
+      {...props}
+    >
       <Box
         as='table'
         width='100%'
