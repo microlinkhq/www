@@ -26,12 +26,15 @@ import {
 
 import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
 
+import { screenshotHeight } from 'components/pages/home/screenshots'
+
 export const Screenshot = ({ data, query, ...props }) => {
   return (
     <Link px={3} mt={3} href={data.screenshot.url}>
       <Image
         pl={0}
         pr={0}
+        height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
         key={data.screenshot.url}
         src={data.screenshot.url}
         style={isLoading => {
