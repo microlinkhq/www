@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.90](https://github.com/microlinkhq/microlink-www/compare/v2.10.89...v2.10.90) (2019-12-11)
+
+
+### Bug Fixes
+
+* capitalization ([faaa85b](https://github.com/microlinkhq/microlink-www/commit/faaa85b))
+* ensure template use lower case values ([c09d666](https://github.com/microlinkhq/microlink-www/commit/c09d666))
+* setup color correctly ([7023a03](https://github.com/microlinkhq/microlink-www/commit/7023a03))
+* setup max width ([9730030](https://github.com/microlinkhq/microlink-www/commit/9730030))
+
 ### [2.10.89](https://github.com/microlinkhq/microlink-www/compare/v2.10.88...v2.10.89) (2019-12-06)
 
 ### [2.10.88](https://github.com/microlinkhq/microlink-www/compare/v2.10.87...v2.10.88) (2019-12-03)
