@@ -14,6 +14,7 @@ export default () => {
 
   const [query] = useQueryState()
   const title = 'Universal Embed'
+
   const image = query.url
     ? screenshotUrl(`https://microlink.io/embed?url=${query.url}`)
     : cdnUrl('page/embed.png')

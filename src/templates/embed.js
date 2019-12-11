@@ -11,7 +11,7 @@ export default ({ pageContext }) => {
   const meta = {
     url: `${metadata.siteUrl}${slug}`,
     title: `Embed for ${data.publisher}`,
-    image: cdnUrl(`embed/browser/light/${id}.png`)
+    image: cdnUrl(`embed/${id}.png`)
   }
 
   return (

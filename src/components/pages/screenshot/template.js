@@ -28,14 +28,16 @@ import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
 
 export const Screenshot = ({ data, query, ...props }) => {
   return (
-    <Link mt={3} href={data.screenshot.url}>
+    <Link px={3} mt={3} href={data.screenshot.url}>
       <Image
-        id='screenshot'
+        pl={0}
+        pr={0}
         key={data.screenshot.url}
         src={data.screenshot.url}
         style={isLoading => {
           if (isLoading) return
           return {
+            padding: 0,
             borderRadius: radii[2],
             border: `1px solid ${colors.black20}`
           }

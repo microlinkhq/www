@@ -12,7 +12,7 @@ export default ({ pageContext }) => {
   const meta = {
     url: `${metadata.siteUrl}${slug}`,
     title: `Screenshot for ${data.publisher}`,
-    image: cdnUrl(`screenshot/browser/light/${id}.png`)
+    image: cdnUrl(`screenshot/${id}.png`)
   }
 
   return (
