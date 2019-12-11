@@ -1,11 +1,12 @@
 import tpl from 'lodash/template'
+import { cdnUrl } from 'helpers'
 
 import dataDemoLinks from '../../data/demo-links.json'
 
-const demolinks = dataDemoLinks.reduce(
-  (acc, { id, data }) => ({ ...acc, [id]: data }),
-  {}
-)
+const demolinks = dataDemoLinks.reduce((acc, { id, data }) => {
+  const screenshot = { url: cdnUrl(`screenshot/${id}.png`) }
+  return { ...acc, [id]: { ...data, screenshot } }
+}, {})
 
 const TEMPLATE_INTERPOLATE = /{{([\s\S]+?)}}/g
 
