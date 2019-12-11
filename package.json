@@ -148,7 +148,7 @@
     "dev": "gatsby develop --host localhost --port 8000",
     "lint": "standard-markdown README.md && standard",
     "postrelease": "npm run release:tags && npm run release:github",
-    "posttest": "urlint",
+    "posttest": "urlint https://microlink.io/sitemap.xml",
     "prebuild": "npm run clean:data && npm run clean:build && npm run build:data",
     "predev": "nodengine && npm run build:data",
     "prerelease": "npm run update:check",
