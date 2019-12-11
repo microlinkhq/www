@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.94](https://github.com/microlinkhq/microlink-www/compare/v2.10.93...v2.10.94) (2019-12-11)
+
+
+### Bug Fixes
+
+* add sitemap url ([3bf6931](https://github.com/microlinkhq/microlink-www/commit/3bf6931))
+
 ### [2.10.93](https://github.com/microlinkhq/microlink-www/compare/v2.10.92...v2.10.93) (2019-12-11)
 
 
