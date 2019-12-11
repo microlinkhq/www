@@ -1,6 +1,6 @@
 import { Headline, SubHeadline } from './Headline/Headline'
 import Aside from './Aside/Aside'
-import Banner from './Banner/Banner'
+import Announcement from './Announcement/Announcement'
 import Block from './Block/Block'
 import Caption from './Caption/Caption'
 import CardLink from './CardLink'
@@ -23,7 +23,7 @@ import Toolbar from './Toolbar/Toolbar'
 
 export {
   Aside,
-  Banner,
+  Announcement,
   Block,
   Caption,
   CardLink,
