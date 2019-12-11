@@ -81,6 +81,17 @@ const Explore = props => {
               Meta
             </Card>
           </Flex>
+          <Flex pt={4}>
+            <Card ratio={ratio} p={4}>
+              iframe
+            </Card>
+            <Card ratio={ratio} p={4} mx={4}>
+              data
+            </Card>
+            <Card ratio={ratio} p={4}>
+              embed
+            </Card>
+          </Flex>
         </Flex>
       </Flex>
     </Dots>
