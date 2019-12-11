@@ -69,7 +69,7 @@
     "gatsby-transformer-javascript-frontmatter": "~2.1.20",
     "gatsby-transformer-json": "~2.2.20",
     "gatsby-transformer-remark": "~2.6.38",
-    "gatsby-transformer-yaml": "~2.2.18",
+    "gatsby-transformer-yaml": "~2.2.20",
     "git-jiggy": "~1.1.1",
     "human-number": "~1.0.4",
     "humanize-url": "~2.1.0",
