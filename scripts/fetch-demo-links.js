@@ -1,12 +1,8 @@
+'use strict'
+
+const path = require('path')
+
 require('./fetch-data')({
-  name: 'demo-links',
-  data: require('@microlink/demo-links'),
-  concurrency: 5,
-  mqlProps: {
-    force: true,
-    audio: true,
-    video: true,
-    palette: true,
-    iframe: true
-  }
+  dist: path.resolve(__dirname, '../data/demo-links.json'),
+  url: 'https://cdn.microlink.io/data/all.json'
 })
