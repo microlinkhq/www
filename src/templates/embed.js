@@ -2,7 +2,7 @@ import React from 'react'
 import { useSiteMetadata } from 'components/hook'
 import Template from 'components/pages/embed/template'
 import { Layout } from 'components/patterns'
-import { cdnUrl } from 'helpers'
+import { metaUrl } from 'helpers'
 
 export default ({ pageContext }) => {
   const { data, slug, id } = pageContext
@@ -11,7 +11,7 @@ export default ({ pageContext }) => {
   const meta = {
     url: `${metadata.siteUrl}${slug}`,
     title: `Embed for ${data.publisher}`,
-    image: cdnUrl(`embed/${id}.png`)
+    image: metaUrl(data.url)
   }
 
   return (

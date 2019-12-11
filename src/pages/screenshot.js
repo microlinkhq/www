@@ -1,7 +1,7 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
 import { Layout, FetchProvider } from 'components/patterns'
+import { metaUrl, cdnUrl } from 'helpers'
 import { Location } from '@reach/router'
-import { cdnUrl, screenshotUrl } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import React from 'react'
 
@@ -14,9 +14,7 @@ export default () => {
   const demoLinks = useDemoLinks()
   const [query] = useQueryState()
   const title = 'Take a screenshot of any website'
-  const image = query.url
-    ? screenshotUrl(`https://microlink.io/screenshot?url=${query.url}`)
-    : cdnUrl('page/screenshot.png')
+  const image = query.url ? metaUrl(query.url) : cdnUrl('page/screenshot.png')
 
   const suggestions = screenshots.map(({ id, filename, cdnUrl }) => {
     const { url } = demoLinks.find(link => link.id === id).data

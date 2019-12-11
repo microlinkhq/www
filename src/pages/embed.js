@@ -1,6 +1,6 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
 import { Layout, FetchProvider } from 'components/patterns'
-import { cdnUrl, screenshotUrl } from 'helpers'
+import { cdnUrl, metaUrl } from 'helpers'
 import { Location } from '@reach/router'
 import humanizeUrl from 'humanize-url'
 import React from 'react'
@@ -14,10 +14,7 @@ export default () => {
 
   const [query] = useQueryState()
   const title = 'Universal Embed'
-
-  const image = query.url
-    ? screenshotUrl(`https://microlink.io/embed?url=${query.url}`)
-    : cdnUrl('page/embed.png')
+  const image = query.url ? metaUrl(query.url) : cdnUrl('page/embed.png')
 
   const suggestions = [
     'nytimes',

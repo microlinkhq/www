@@ -9,10 +9,11 @@ import sendEvent from './send-event'
 import getLines from './get-lines'
 import template from './template'
 import prettier from './prettier'
+import mqlCode from './mql-code'
+import metaUrl from './meta-url'
+import cdnUrl from './cdn-url'
 import isSSR from './is-ssr'
 import title from './title'
-import mqlCode from './mql-code'
-import cdnUrl from './cdn-url'
 
 export {
   aspectRatio,
@@ -23,6 +24,7 @@ export {
   getDomain,
   getLines,
   isSSR,
+  metaUrl,
   mqlCode,
   prettier,
   screenshotUrl,
