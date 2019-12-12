@@ -87,7 +87,12 @@ const DemoSlider = ({ children: slides, ...props }) => {
       {...props}
     >
       {transitions.map(({ item, props, key }) => (
-        <AnimatedImage key={key} style={props} src={slides[item].cdnUrl} />
+        <AnimatedImage
+          alt='microlink screenshot example'
+          key={key}
+          style={props}
+          src={slides[item].cdnUrl}
+        />
       ))}
     </Flex>
   )
@@ -256,6 +261,7 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
         <Text fontSize={2}>into a snapshot</Text>
         {previewUrl ? (
           <ScreenshotDebounce
+            alt='microlink screenshot preview'
             height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
             data={{ screenshot: { url: previewUrl } }}
             query={getValues()}

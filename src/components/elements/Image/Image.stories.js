@@ -15,7 +15,7 @@ const code = `
 import { Image } from 'components/elements'
 
 export default () => (
-  <Image src='${imageUrl}' />
+  <Image alt='example image' src='${imageUrl}' />
 )
 `
 

@@ -89,7 +89,14 @@ const Hero = ({ domain, id, data }) => {
     const logoUrl = get(data, 'logo.url')
 
     if (logoUrl && !logoUrl.endsWith('ico')) {
-      return <Image height='100%' width={['36px', '72px']} src={logoUrl} />
+      return (
+        <Image
+          alt={`${domain} logo`}
+          height='100%'
+          width={['36px', '72px']}
+          src={logoUrl}
+        />
+      )
     }
   })()
 

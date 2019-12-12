@@ -4,6 +4,7 @@ import { cdnUrl } from 'helpers'
 
 export default props => (
   <Image
+    alt='microlink logo'
     width='inherit'
     height='inherit'
     lazy={false}

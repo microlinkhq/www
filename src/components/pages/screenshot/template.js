@@ -28,10 +28,11 @@ import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
 
 import { screenshotHeight } from 'components/pages/home/screenshots'
 
-export const Screenshot = ({ data, query, ...props }) => {
+export const Screenshot = ({ domain, data, query, ...props }) => {
   return (
     <Link px={3} mt={3} href={data.screenshot.url}>
       <Image
+        alt={`${domain} screenshot`}
         pl={0}
         pr={0}
         height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
@@ -80,7 +81,14 @@ const Hero = ({ domain, id, data }) => {
     const logoUrl = get(data, 'logo.url')
 
     if (logoUrl && !logoUrl.endsWith('ico')) {
-      return <Image height='100%' width={['36px', '72px']} src={logoUrl} />
+      return (
+        <Image
+          alt={`${domain} logo`}
+          height='100%'
+          width={['36px', '72px']}
+          src={logoUrl}
+        />
+      )
     }
   })()
 
@@ -92,7 +100,14 @@ const Hero = ({ domain, id, data }) => {
         {logoProvider}
       </Flex>
       <SubHeadline pb={0} caption={caption} />
-      <Screenshot data={data} query={query} mx='auto' pl={4} pr={4} />
+      <Screenshot
+        domain={domain}
+        data={data}
+        query={query}
+        mx='auto'
+        pl={4}
+        pr={4}
+      />
     </Container>
   )
 }
@@ -241,7 +256,12 @@ const Cli = ({ domain, data }) => {
         {waitFor}
         &embed=screenshot.url
       </span>
-      <Image pt={3} width={300} src={data.screenshot.url} />
+      <Image
+        alt={`${domain} screenshot`}
+        pt={3}
+        width={300}
+        src={data.screenshot.url}
+      />
       <Box pt={3}>
         <SpanLabel>SUCCESS</SpanLabel> <Span>57.9 kB in 13830.018ms</Span>
       </Box>

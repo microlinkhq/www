@@ -83,6 +83,7 @@ const Screenshots = props => {
           {transitions.map(({ item, props, key }) => {
             return (
               <AnimatedImage
+                alt='microlink screenshot example'
                 key={key}
                 style={props}
                 src={screenshotsUrls[item]}
