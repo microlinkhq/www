@@ -9,7 +9,7 @@ import CodeCopy from 'react-codecopy'
 import range from 'lodash/range'
 import get from 'dlv'
 
-const { width, height } = aspectRatio([0.4, 0.4, 0.6, 0.6])
+const { width, height } = aspectRatio([0.3, 0.4, 0.6, 0.6])
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
