@@ -10,7 +10,7 @@ Heading.defaultProps = {
   lineHeight: [0, 0, 1, 1],
   textAlign: 'center',
   fontWeight: 'bold',
-  fontSize: [4, 4, 5, 7],
+  fontSize: [3, 4, 5, 7],
   variant: 'gradient'
 }
 
