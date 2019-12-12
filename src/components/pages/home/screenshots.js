@@ -36,14 +36,18 @@ export const screenshots = [
 
 const screenshotsUrls = map(screenshots, 'cdnUrl')
 
-const CustomImage = styled(Image)`
+class ImageWithRef extends React.Component {
+  render () {
+    return <Image {...this.props} />
+  }
+}
+
+export const AnimatedImage = animated(styled(ImageWithRef)`
   position: absolute;
   top: 0px;
   left: 0px;
   will-change: opacity;
-`
-
-export const AnimatedImage = animated(CustomImage)
+`)
 
 export const screenshotHeight = (() => {
   const width = 960
