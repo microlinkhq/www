@@ -1,11 +1,20 @@
 import styled from 'styled-components'
 import Microlink from '@microlink/react'
 import { Choose } from 'react-extras'
+import { breakpoints } from 'theme'
 import React from 'react'
 
 import { Box, MultiCodeEditor, CodeEditor, Hide } from 'components/elements'
 
 import languages from './languages'
+
+const MicrolinkCard = styled(Microlink)`
+  @media screen and (max-width: ${breakpoints[1]}) {
+    .microlink_card__content {
+      display: none;
+    }
+  }
+`
 
 const CodeEditorWrapper = styled(Box)`
   section,
@@ -25,7 +34,7 @@ const STYLE = { border: '0', height: 'inherit', maxWidth: '100%' }
 const CardPreview = ({ loading, children }) => (
   <>
     <Hide breakpoints={[0, 1]} style={{ height: 'inherit' }}>
-      <Microlink
+      <MicrolinkCard
         url={children.url}
         loading={loading}
         size='large'
@@ -34,7 +43,7 @@ const CardPreview = ({ loading, children }) => (
       />
     </Hide>
     <Hide breakpoints={[2, 3]} style={{ height: 'inherit' }}>
-      <Microlink
+      <MicrolinkCard
         url={children.url}
         loading={loading}
         style={STYLE}
