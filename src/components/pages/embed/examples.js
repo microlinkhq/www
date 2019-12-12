@@ -140,7 +140,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   size='large'
                   url={prependHttp(inputValue)}
                   setData={() => data}
-                  media={['audio', 'video', 'image', 'logo']}
+                  media={['video', 'audio', 'image', 'logo']}
                 />
                 <Flex pt={3} alignItems='center' justifyContent='center'>
                   <CodeEditor language='bash'>
