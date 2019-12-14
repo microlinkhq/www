@@ -12,7 +12,14 @@ import {
   Text
 } from 'components/elements'
 
-import { Caption, Grid, Block, MQLEditor, List } from 'components/patterns'
+import {
+  Announcement,
+  Caption,
+  Grid,
+  Block,
+  MQLEditor,
+  List
+} from 'components/patterns'
 
 const Resume = ({ title }) => (
   <Flex
@@ -111,20 +118,46 @@ const Hero = ({ title, features, ...props }) => {
     }
   }
 
+  const top = (
+    <Hide breakpoints={[0, 1, 2]}>
+      <Flex
+        pb={3}
+        as='section'
+        justifyContent='center'
+        flexDirection='column'
+        alignItems='center'
+      >
+        <Announcement
+          data-event-category='Home'
+          data-event-action='Announcement'
+          href='/docs/api/parameters/pdf'
+          children={
+            <>
+              Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
+            </>
+          }
+        />
+      </Flex>
+    </Hide>
+  )
+
   return (
-    <Block
-      id='hero'
-      blockOne={<Resume title={title} />}
-      blockTwo={<MQLEditor />}
-      onClick={handleClick}
-      children={
-        <>
-          <Automation pt={[4, 4, 5, 5]} word={word} />
-          <Features pt={5} children={features} />
-        </>
-      }
-      {...props}
-    />
+    <>
+      <Block
+        id='hero'
+        top={top}
+        blockOne={<Resume title={title} />}
+        blockTwo={<MQLEditor />}
+        onClick={handleClick}
+        bottom={
+          <>
+            <Automation pt={[4, 4, 5, 5]} word={word} />
+            <Features pt={5} children={features} />
+          </>
+        }
+        {...props}
+      />
+    </>
   )
 }
 

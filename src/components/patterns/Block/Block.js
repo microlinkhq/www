@@ -4,11 +4,13 @@ import { Container, Flex, Box } from 'components/elements'
 const Block = ({
   blockOne,
   blockTwo,
-  children,
+  bottom = null,
+  top = null,
   flexDirection = 'row',
   ...props
 }) => (
   <Container {...props}>
+    {top}
     <Flex
       pt={[0, 0, 0, 4]}
       pb={[0, 0, 0, 4]}
@@ -23,7 +25,7 @@ const Block = ({
       <Box ml={4} mr={4} />
       {blockTwo}
     </Flex>
-    {children}
+    {bottom}
   </Container>
 )
 

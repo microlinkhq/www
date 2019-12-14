@@ -1,22 +1,17 @@
 import React from 'react'
-import { Link, Flex } from 'components/elements'
-import styled from 'styled-components'
-
-const CustomLink = styled(Link)``
+import { Link } from 'components/elements'
 
 const Announcement = ({ href, children }) => (
-  <Flex as='section' px='12px' justifyContent='center' alignItems='center'>
-    <CustomLink
-      color='black'
-      href={href}
-      children={
-        <>
-          {children}
-          {' →'}
-        </>
-      }
-    />
-  </Flex>
+  <Link
+    color='black'
+    href={href}
+    children={
+      <>
+        {children}
+        {' →'}
+      </>
+    }
+  />
 )
 
 export default Announcement
