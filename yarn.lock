@@ -15537,10 +15537,10 @@ react-syntax-highlighter@^8.0.1:
     prismjs "^1.8.4"
     refractor "^2.4.1"
 
-react-syntax-highlighter@~11.0.2:
-  version "11.0.2"
-  resolved "https://registry.yarnpkg.com/react-syntax-highlighter/-/react-syntax-highlighter-11.0.2.tgz#4e3f376e752b20d2f54e4c55652fd663149e4029"
-  integrity sha512-kqmpM2OH5OodInbEADKARwccwSQWBfZi0970l5Jhp4h39q9Q65C4frNcnd6uHE5pR00W8pOWj9HDRntj2G4Rww==
+react-syntax-highlighter@~12.0.2:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/react-syntax-highlighter/-/react-syntax-highlighter-12.0.2.tgz#953b65d18011b27e490cededd8888cc81f3b4c8e"
+  integrity sha512-T2qE0KsaY5TSb/84ghDXNH7LLfLLTyQ4Xf9SX6+DQap0s24tGqrRVOVx6j9OJXa116aqHorxnfJx5HTyBxcUjA==
   dependencies:
     "@babel/runtime" "^7.3.1"
     highlight.js "~9.13.0"
