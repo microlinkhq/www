@@ -93,7 +93,7 @@
     "react-helmet": "~5.2.1",
     "react-spring": "~8.0.27",
     "react-stripe-elements": "~6.0.1",
-    "react-syntax-highlighter": "~12.0.2",
+    "react-syntax-highlighter": "~12.2.1",
     "react-timeago": "~4.4.0",
     "remark-slug": "~5.1.2",
     "smooth-scroll": "~16.1.0",
