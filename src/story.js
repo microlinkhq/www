@@ -4,7 +4,7 @@ import React from 'react'
 export function Story ({ name, children, code, ...props }) {
   return (
     <>
-      <Subhead fontSize={3} textAlign='left' titleExclude={[name]}>
+      <Subhead fontSize={3} textAlign='left' titleExclude={name.split(' ')}>
         {`<${name} />`}
       </Subhead>
       <Box pt={4} pb={4} pl={4} as='article' {...props}>

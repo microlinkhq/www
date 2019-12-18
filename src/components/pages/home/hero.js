@@ -155,7 +155,6 @@ const Hero = ({ title, features, ...props }) => {
             <Features pt={5} children={features} />
           </>
         }
-        {...props}
       />
     </>
   )
