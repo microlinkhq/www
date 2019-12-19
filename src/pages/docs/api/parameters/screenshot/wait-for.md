@@ -2,7 +2,8 @@
 title: 'waitFor'
 --- 
 
-Type: <TypeContainer><Type children='<number>'/> | <Type children='<string>'/></TypeContainer>
+Type: <TypeContainer><Type children='<number>'/> | <Type children='<string>'/></TypeContainer><br/>
+Default: <Type children="'load'"/>
 
 Wait a quantity of time or selector.
 

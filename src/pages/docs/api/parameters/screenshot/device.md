@@ -2,7 +2,8 @@
 title: 'device'
 --- 
 
-Default: <Type children='<string>'/><br/>
+Type: <Type children='<string>'/><br/>
+Default: <Type children="'macbook pro 13'"/>
 
 When it is present, a [viewport](/docs/api/parameters/screenshot/viewport) preset will be load for emulating the device before taking the screenshot.
 

@@ -28,13 +28,41 @@ module.exports = async () => {
   }} 
 />
 
-The viewport can be defined by:
+
+<Figcaption>Establishing a custom viewport.</Figcaption>
+
+The default viewport values are provided by the default [device](/docs/api/parameters/screenshot/device). The viewport should be defined by:
 
 - `width` <Type children='<number>'/>: The page width in pixels
 - `height` <Type children='<number>'/>: The page height in pixels.
-- `deviceScaleFactor` <Type children='<number>'/>: Specify device scale factor. Defaults to <Type>1</Type>.
-- `isMobile` <Type><Type children='<boolean>'/></Type>: Whether the meta viewport tag is taken into account. Defaults to <Type>false</Type>.
-- `hasTouch` <Type><Type children='<boolean>'/></Type>: Specifies if viewport supports touch events. Defaults to <Type>false</Type>.
-- `isLandscape` <Type><Type children='<boolean>'/></Type>: Specifies if viewport is in landscape mode. Defaults to <Type>false</Type>.
+- `deviceScaleFactor` <Type children='<number>'/>: Specify device scale factor.
+- `isMobile` <Type><Type children='<boolean>'/></Type>: Whether the meta viewport tag is taken into account.
+- `hasTouch` <Type><Type children='<boolean>'/></Type>: Specifies if viewport supports touch events.
+- `isLandscape` <Type><Type children='<boolean>'/></Type>: Specifies if viewport is in landscape mode.
+
+If you just provide an incomplete set of viewport values, they will be merged with the default values
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.deviceScaleFactor=0.5&embed=screenshot.url`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    '{{demolinks.wikipedia.url}}'. {
+      meta: false,
+      screenshot: true,
+      viewport: {
+        // the rest of value ares are taken
+        // from the default \`device\`
+        deviceScaleFactor: 0.5
+      }
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
+
+<Figcaption>Using the default viewport with lower device scale factor.</Figcaption>
 
 See [device](/docs/api/parameters/screenshot/device) for using viewport presets.
