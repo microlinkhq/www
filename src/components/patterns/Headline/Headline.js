@@ -2,7 +2,12 @@ import React from 'react'
 import { Subhead, Flex, Heading } from 'components/elements'
 import { Caption } from 'components/patterns'
 
-const constructor = TitleComponnet => ({ title, caption, ...props }) => {
+const constructor = TitleComponnet => ({
+  fontSize,
+  title,
+  caption,
+  ...props
+}) => {
   return (
     <Flex
       as='header'
@@ -13,7 +18,7 @@ const constructor = TitleComponnet => ({ title, caption, ...props }) => {
       px={0}
       {...props}
     >
-      <TitleComponnet px={0} children={title} />
+      <TitleComponnet fontSize={fontSize} px={0} children={title} />
       {caption && <Caption>{caption}</Caption>}
     </Flex>
   )
