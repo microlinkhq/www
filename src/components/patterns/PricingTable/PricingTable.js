@@ -1,16 +1,13 @@
-import { formatNumber } from 'helpers'
-import React, { useState } from 'react'
-import styled, { keyframes } from 'styled-components'
-import { Check } from 'react-feather'
-import { Box, Label, Flex, Text } from 'components/elements'
-import { Checkout } from 'components/patterns'
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
-
+import { Highlight, Box, Label, Flex, Text } from 'components/elements'
+import { Checkout } from 'components/patterns'
 import { colors, fontWeights } from 'theme'
+import React, { useState } from 'react'
+import { formatNumber } from 'helpers'
+import styled from 'styled-components'
+import { Check } from 'react-feather'
 
 const FREE_PLAN_RATE_LIMIT = 250
-const HIGHLIGHT_DURATION = 1
-const HIGHLIGHT_STATE_TIMEOUT = HIGHLIGHT_DURATION * 1000
 
 const Price = styled(Text)`
   font-weight: bold;
@@ -36,21 +33,6 @@ const Price = styled(Text)`
 Price.defaultProps = {
   fontSize: 2
 }
-
-const animateHighlight = keyframes`
-  from {
-    background-color: yellow;
-  }
-  to {
-    background-color: #fff;
-  }
-`
-
-const Highlight = styled.span`
-  animation-name: ${animateHighlight};
-  animation-duration: ${HIGHLIGHT_DURATION}s;
-  animation-fill-mode: forwards;
-`
 
 const PricingHeader = ({ children }) => {
   const [featureHeader, ...pricingPlans] = children
@@ -115,20 +97,20 @@ PricingRow.defaultProps = {
 function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
   const [state, setState] = useState({
     ...DEFAULT_PLAN,
-    highlight: false
+    isHighlight: false
   })
 
   const priceSelected = plan => {
     const newState = plan
 
-    setState({ ...newState, highlight: true })
+    setState({ ...newState, isHighlight: true })
 
-    setTimeout(function () {
-      setState({ ...newState, highlight: false })
-    }, HIGHLIGHT_STATE_TIMEOUT)
+    setTimeout(() => {
+      setState({ ...newState, isHighlight: false })
+    }, Highlight.HIGHLIGHT_DURATION)
   }
 
-  const { highlight, monthlyPrice, planId } = state
+  const { isHighlight, monthlyPrice, planId } = state
   const humanMonthlyPrice = formatNumber(monthlyPrice)
 
   return (
@@ -249,11 +231,9 @@ function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
               '',
               <Price py={3} key='free-plan' children={0} />,
               <Price py={3} key={`pro-plan-${humanMonthlyPrice}`}>
-                {highlight ? (
-                  <Highlight>{humanMonthlyPrice}</Highlight>
-                ) : (
-                  <span>{humanMonthlyPrice}</span>
-                )}
+                <Highlight as='span' isHighlight={isHighlight}>
+                  {humanMonthlyPrice}
+                </Highlight>
               </Price>
             ]}
           />

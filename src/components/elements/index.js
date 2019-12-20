@@ -20,6 +20,7 @@ import Badge from './Badge/Badge'
 
 import Notification from './Notification/Notification'
 import PricePicker from './PricePicker'
+import Highlight from './Highlight'
 import Select from './Select/Select'
 import Spinner from './Spinner'
 
@@ -61,6 +62,7 @@ export {
   Flex,
   Heading,
   Hide,
+  Highlight,
   Iframe,
   IframeInline,
   Image,
