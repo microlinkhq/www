@@ -3,6 +3,7 @@ import { Subhead } from 'components/elements'
 
 export default props => (
   <Subhead
+    as='h3'
     lineHeight={2}
     textAlign='center'
     fontWeight='light'

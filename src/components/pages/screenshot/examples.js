@@ -300,7 +300,7 @@ const Average = ({ size }) => {
   if (size === 'tiny') {
     return (
       <Highlight display='inline' isHighlight={averageHighlight}>
-        <Text as='span' color='black' fontWeight='bold'>
+        <Text as='span' color='black80' fontWeight='bold'>
           ~{average}ms
         </Text>
       </Highlight>
@@ -330,6 +330,7 @@ const Timings = () => {
       id='average'
       flexDirection='column'
       bg='black'
+      pb={[0, 0, 0, 4]}
       blockOne={
         <Box>
           <Flex alignItems='center' justifyContent='center'>
@@ -359,8 +360,8 @@ const Timings = () => {
       bottom={
         <Box mx='auto'>
           <Image
-            css='transform: scale(1.2);'
-            src='https://cdn.netlify.com/18cb58dbf32d821f36009cd517213176de30395c/76e7c/img/v2/dev/screenshot-live-site.png'
+            css='transform: scale(1.2);top: 16px;position: relative;'
+            src='https://cdn.microlink.io/scenes/34.png'
           />
         </Box>
       }
@@ -439,11 +440,11 @@ const Features = props => (
           alignItems={['center', 'center', 'center', 'baseline']}
           pr={[0, 0, 4, 4]}
         >
-          <SubHeadline
-            pt={[1, 1, 1, 0]}
+          <Subhead
+            as='h3'
             fontSize={[3, 4]}
-            title='Background refresh'
-            titleExclude={['Background']}
+            children='Background refresh'
+            pb={3}
           />
           <Text
             px={[5, 5, 0, 0]}
@@ -480,10 +481,11 @@ const Features = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'end']}
         >
-          <SubHeadline
+          <Subhead
+            as='h3'
             fontSize={[3, 4]}
-            title='Fully Customizable'
-            pt={[1, 1, 1, 0]}
+            children='Fully Customizable'
+            pb={3}
           />
           <Text
             px={[5, 5, 0, 0]}
@@ -521,10 +523,11 @@ const Features = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <SubHeadline
+          <Subhead
+            as='h3'
             fontSize={[3, 4]}
-            title='Overlay Composition'
-            pt={[1, 1, 1, 0]}
+            children='Overlay Composition'
+            pb={3}
           />
           <Text
             pl={[5, 5, 0, 0]}
@@ -566,104 +569,75 @@ const Questions = props => {
         px={[0, 0, 4, 6]}
       >
         <Box>
-          <Subhead
-            textAlign='left'
-            pb={[2, 3]}
-            fontSize={[2, 3]}
-            color='black90'
-          >
+          <Subhead textAlign='left' pb={[2, 3]} fontSize={[2, 3]}>
             How does it work?
           </Subhead>
           <Text maxWidth='38em'>
-            <Text color='black60'>
+            <Text color='black80'>
               <Text as='span' fontWeight='bold' color='black'>
                 Microlink for screenshot
               </Text>{' '}
               takes any URL as an input and returns a screenshot back, hosted at
               Microlink CDN.
             </Text>
-            <Text pt={3} color='black60'>
+            <Text pt={3} color='black80'>
               It supports most of the common browser interactions, like clicks,
               wait for events, handle the scroll... but also some extra things,
               like markup injection or overlay composition, making it a more
               complete tool.
             </Text>
           </Text>
-          <Subhead
-            textAlign='left'
-            pt={4}
-            pb={[2, 3]}
-            fontSize={[2, 3]}
-            color='black90'
-          >
+          <Subhead textAlign='left' pt={4} pb={[2, 3]} fontSize={[2, 3]}>
             How is it built?
           </Subhead>
           <Text maxWidth='38em'>
-            <Text color='black60'>
+            <Text color='black80'>
               The service is built on top of{' '}
               <Link href='https://github.com/puppeteer/puppeteer'>
                 puppeteer
               </Link>{' '}
               using Chromium Headless browser.
             </Text>
-            <Text pt={3} color='black60'>
+            <Text pt={3} color='black80'>
               The browser management is handled by our own driver called{' '}
               <Link href='https://browserless.js.org'>browserless</Link>
             </Text>
-            <Text pt={3} color='black60'>
+            <Text pt={3} color='black80'>
               (yes, it's open source!).
             </Text>
           </Text>
-          <Subhead
-            textAlign='left'
-            pt={4}
-            pb={[2, 3]}
-            fontSize={[2, 3]}
-            color='black90'
-          >
+          <Subhead textAlign='left' pt={4} pb={[2, 3]} fontSize={[2, 3]}>
             Why not run my own solution?
           </Subhead>
           <Text maxWidth='38em'>
-            <Text color='black60'>
+            <Text color='black80'>
               The service aims to avoid headaches, preventing you for running
               and maintaining your own infrastructure.
             </Text>
-            <Text pt={3} color='black60'>
+            <Text pt={3} color='black80'>
               Every URL on the Internet are different and browser are a complex
               piece of software, with unpredictable resources usage.
             </Text>
-            <Text pt={3} color='black60'>
+            <Text pt={3} color='black80'>
               The fact of resolve any URL at scale in <Average size='tiny' /> is
               not a trivial thing.
             </Text>
           </Text>
-          <Subhead
-            textAlign='left'
-            pt={4}
-            pb={[2, 3]}
-            fontSize={[2, 3]}
-            color='black90'
-          >
+          <Subhead textAlign='left' pt={4} pb={[2, 3]} fontSize={[2, 3]}>
             Do you have a Service-Level Agreements (SLA)?
           </Subhead>
           <Text maxWidth='38em'>
-            <Text pt={3} color='black60'>
+            <Text pt={3} color='black80'>
               You can see our SLA level on{' '}
               <Link display='inline' href='/status' children='status' />
               {' page.'}
             </Text>
           </Text>
-          <Subhead
-            textAlign='left'
-            pt={4}
-            pb={[2, 3]}
-            fontSize={[2, 3]}
-            color='black90'
-          >
+          <Subhead textAlign='left' pt={4} pb={[2, 3]} fontSize={[2, 3]}>
             Can I ask a question?
           </Subhead>
           <Text pb={[0, 0, 4, 4]} maxWidth='38em'>
-            <Text color='black60'>
+            <Text color='black80'>
               We're always available at{' '}
               <Link
                 display='inline'
