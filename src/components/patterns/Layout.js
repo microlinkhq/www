@@ -16,15 +16,7 @@ if (!isSSR) {
   })
 }
 
-const scrollToHash = () => {
-  const { hash } = window.location
-  if (hash) {
-    const node = document.querySelector(hash)
-    if (node) {
-      setTimeout(() => window.scroll.animateScroll(node))
-    }
-  }
-}
+const scrollToHash = () => window.scroll.animateScroll(window.location)
 
 const Site = styled(Box)`
   display: flex;
