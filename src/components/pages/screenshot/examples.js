@@ -330,6 +330,7 @@ const Timings = () => {
       id='average'
       flexDirection='column'
       bg='black'
+      pb={0}
       blockOne={
         <Box>
           <Flex alignItems='center' justifyContent='center'>
