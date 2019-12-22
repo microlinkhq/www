@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.113](https://github.com/microlinkhq/microlink-www/compare/v2.10.112...v2.10.113) (2019-12-22)
+
+
+### Bug Fixes
+
+* padding ([4c5b7f0](https://github.com/microlinkhq/microlink-www/commit/4c5b7f0))
+
 ### [2.10.112](https://github.com/microlinkhq/microlink-www/compare/v2.10.111...v2.10.112) (2019-12-22)
 
 ### [2.10.111](https://github.com/microlinkhq/microlink-www/compare/v2.10.110...v2.10.111) (2019-12-22)
