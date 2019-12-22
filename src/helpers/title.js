@@ -39,8 +39,10 @@ export default (str, exclude = []) => {
   // all minus unless the first world
   let title = capitalize(str)
 
+  const difference = exclude.filter(x => !special.includes(x))
+
   // reset some words
-  exclude.concat(special).forEach(word => {
+  difference.forEach(word => {
     const re = new RegExp(`\\b(?:${word})\\b`, 'gi')
     if (re.test(str)) title = title.replace(re, word)
   })

@@ -6,7 +6,12 @@ import {
   Flex,
   Input,
   InputIcon,
-  Text
+  Highlight,
+  Text,
+  Heading,
+  Image,
+  Link,
+  Subhead
 } from 'components/elements'
 
 import {
@@ -17,17 +22,19 @@ import {
   debounceComponent
 } from 'helpers'
 
-import { useTransition } from 'react-spring'
-import { speed, borders, transition, colors } from 'theme'
-import { Headline, SubHeadline, DemoLinks } from 'components/patterns'
+import { Headline, Caption, Block, SubHeadline } from 'components/patterns'
+
+import { speed, transition, colors, borders } from 'theme'
 import { Safari, HourGlass } from 'components/icons'
 import { Image as ImageIcon } from 'react-feather'
 import React, { useEffect, useState } from 'react'
+import { useTransition } from 'react-spring'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
-import { navigate } from 'gatsby'
+import range from 'lodash/range'
+import sample from 'lodash/sample'
 import isUrl from 'is-url-http'
 import isColor from 'is-color'
 import get from 'dlv'
@@ -39,6 +46,10 @@ import {
 } from 'components/pages/home/screenshots'
 
 import { Screenshot } from './template'
+
+const TIMINGS_RANGE = range(-150, 150)
+const INTERVAL = 3500
+const AVERAGE_BASE = 924
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -52,8 +63,6 @@ const LogoWrap = styled(Box)`
 LogoWrap.defaultProps = {
   display: 'inline-block'
 }
-
-const INTERVAL = 3500
 
 const ScreenshotDebounce = debounceComponent(Screenshot)
 
@@ -82,12 +91,13 @@ const DemoSlider = ({ children: slides, ...props }) => {
   return (
     <Flex
       style={{ position: 'relative' }}
-      height={screenshotHeight}
-      width={aspectRatio.width}
+      height={screenshotHeight.map(n => `calc(${n} * 1.25)`)}
+      width={aspectRatio.width.map(n => `calc(${n} * 1.25)`)}
       {...props}
     >
       {transitions.map(({ item, props, key }) => (
         <AnimatedImage
+          width='100%'
           alt='microlink screenshot example'
           key={key}
           style={props}
@@ -98,7 +108,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
   )
 }
 
-const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
+const LiveDemo = ({ suggestions, onSubmit, url, isLoading, ...props }) => {
   const [inputBg, setInputBg] = useState('')
   const [inputUrl, setInputUrl] = useState(url || '')
   const [inputWaitFor, setInputWaitFor] = useState('')
@@ -158,7 +168,7 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
   }
 
   return (
-    <Container py={[4, 5]} px={4} pb={[3, 3, 4, 4]}>
+    <Container id='demo' py={[4, 5]} px={4}>
       <SubHeadline
         title='Take a screenshot of any website'
         caption='Turn websites into a snapshot'
@@ -274,31 +284,402 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
   )
 }
 
-const Examples = ({ demoLinks }) => (
-  <Container
-    py={[4, 5]}
-    px={0}
-    maxWidth='100%'
-    bg='pinky'
-    borderTop={`${borders[1]} ${colors.pinkest}`}
-    borderBottom={`${borders[1]} ${colors.pinkest}`}
-  >
-    <Headline
-      pb={[3, 4]}
-      title='Examples'
-      caption='See real examples in action.'
-    />
-    <Box pt={[3, 4]}>
-      <DemoLinks
-        children={demoLinks}
-        onClick={({ id }) => navigate(`/screenshot/${id}`)}
+const Average = ({ size }) => {
+  const [average, setAverage] = useState(924)
+  const [averageHighlight, setAverageHighlight] = useState(false)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAverage(sample(TIMINGS_RANGE) + AVERAGE_BASE)
+      setAverageHighlight(true)
+      setTimeout(() => setAverageHighlight(false), Highlight.HIGHLIGHT_DURATION)
+    }, INTERVAL)
+    return () => clearInterval(interval)
+  }, [])
+
+  if (size === 'tiny') {
+    return (
+      <Highlight display='inline' isHighlight={averageHighlight}>
+        <Text as='span' color='black' fontWeight='bold'>
+          ~{average}ms
+        </Text>
+      </Highlight>
+    )
+  }
+
+  return (
+    <Highlight px={3} isHighlight={averageHighlight}>
+      <span>~{average}</span>
+      <Caption
+        ml={2}
+        color='white'
+        display='inline'
+        fontWeight='bold'
+        titleExclude={['ms']}
+        children='ms'
       />
+    </Highlight>
+  )
+}
+
+const Timings = () => {
+  const p95 = 1.36
+
+  return (
+    <Block
+      id='average'
+      flexDirection='column'
+      bg='black'
+      blockOne={
+        <Box>
+          <Flex alignItems='center' justifyContent='center'>
+            <Heading
+              color='white'
+              variant={null}
+              mr={[1, 1, 3, 3]}
+              fontWeight='light'
+            >
+              Just send the URL.
+            </Heading>
+            <Heading color='white' variant={null} mr={3} fontWeight='light'>
+              We do the rest.
+            </Heading>
+          </Flex>
+          <Caption
+            color='white'
+            maxWidth={[6, 7, 7, 'inherit']}
+            mt={[3, 3, 3, 0]}
+            variant={null}
+          >
+            browser automation made simple at cost pricing, full control via
+            API.
+          </Caption>
+        </Box>
+      }
+      bottom={
+        <Box mx='auto'>
+          <Image
+            css='transform: scale(1.2);'
+            src='https://cdn.netlify.com/18cb58dbf32d821f36009cd517213176de30395c/76e7c/img/v2/dev/screenshot-live-site.png'
+          />
+        </Box>
+      }
+      blockTwo={
+        <Flex pt={[3, 3, 5, 5]} width='100%' justifyContent='space-around'>
+          <Flex
+            alignItems='center'
+            justifyContent='center'
+            flexDirection='column'
+          >
+            <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+              <Average />
+            </Heading>
+            <Caption
+              color='white'
+              variant={null}
+              mr={3}
+              fontWeight='light'
+              titleExclude={['average']}
+            >
+              average response time.
+            </Caption>
+          </Flex>
+          <Flex
+            alignItems='center'
+            justifyContent='center'
+            flexDirection='column'
+          >
+            <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+              ~{p95}
+              <Caption
+                ml={2}
+                color='white'
+                display='inline'
+                fontWeight='bold'
+                titleExclude={['seg']}
+              >
+                seg
+              </Caption>
+            </Heading>
+            <Caption
+              color='white'
+              variant={null}
+              mr={3}
+              fontWeight='light'
+              titleExclude={['p95']}
+            >
+              p95 response time.
+            </Caption>
+          </Flex>
+        </Flex>
+      }
+    />
+  )
+}
+
+const Features = props => (
+  <Container id='features' {...props}>
+    <Box pt={[0, 0, 4, 4]}>
+      <SubHeadline title='The Fastest Way for taking screenshots' />
+      <Text textAlign='center' mr='auto' ml='auto' maxWidth={[9, 9, 10, 10]}>
+        <b>Microlink for Screenshot</b> provides a set of powerful features
+        without the headaches of running your own infrastructure, bringing you
+        the power in an affordable way.
+      </Text>
     </Box>
+
+    <Block
+      as='section'
+      mt='-32px'
+      mb='-32px'
+      px={[0, 0, 6, 6]}
+      blockTwo={
+        <Flex
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'baseline']}
+          pr={[0, 0, 4, 4]}
+        >
+          <SubHeadline
+            pt={[1, 1, 1, 0]}
+            fontSize={[3, 4]}
+            title='Background refresh'
+            titleExclude={['Background']}
+          />
+          <Text
+            px={[5, 5, 0, 0]}
+            maxWidth={8}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Every screenshot has a{' '}
+            <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
+            expiration, they will be automatically refreshed, reflecting any
+            change present on the website.
+          </Text>
+        </Flex>
+      }
+      blockOne={
+        <Image
+          width={8}
+          alt='Background refresh'
+          src='https://cdn.microlink.io/scenes/31.png'
+        />
+      }
+    />
+
+    <Block
+      as='section'
+      mt='-32px'
+      mb='-32px'
+      px={[0, 0, 6, 6]}
+      pt={0}
+      pb={0}
+      flexDirection='row-reverse'
+      blockTwo={
+        <Flex
+          pl={[0, 0, 4, 4]}
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'end']}
+        >
+          <SubHeadline
+            fontSize={[3, 4]}
+            title='Fully Customizable'
+            pt={[1, 1, 1, 0]}
+          />
+          <Text
+            px={[5, 5, 0, 0]}
+            maxWidth={8}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Lot of actions supported, such as{' '}
+            <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
+            emulation, CSS/JS injection, partial or{' '}
+            <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
+            page snapshot,{' '}
+            <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
+            or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
+            events.
+          </Text>
+        </Flex>
+      }
+      blockOne={
+        <Image
+          width={8}
+          alt='Fully Customizable'
+          src='https://cdn.microlink.io/scenes/32.png'
+        />
+      }
+    />
+
+    <Block
+      as='section'
+      px={[0, 0, 6, 6]}
+      mt='-32px'
+      mb='-32px'
+      pb={0}
+      blockTwo={
+        <Flex
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'baseline']}
+        >
+          <SubHeadline
+            fontSize={[3, 4]}
+            title='Overlay Composition'
+            pt={[1, 1, 1, 0]}
+          />
+          <Text
+            pl={[5, 5, 0, 0]}
+            maxWidth={8}
+            pr={[5, 5, 4, 4]}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Create truly{' '}
+            <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
+            composition based on a browser and/or background overlay in a
+            programmatic way. background.
+          </Text>
+        </Flex>
+      }
+      blockOne={
+        <Image
+          width={8}
+          alt='Overlay Composition'
+          src='https://cdn.microlink.io/scenes/33.png'
+        />
+      }
+    />
   </Container>
 )
 
+const Questions = props => {
+  const title = 'Product Information'
+  const caption = 'All you need to know.'
+
+  return (
+    <Container id='faq' {...props}>
+      <Headline pt={[0, 0, 4, 4]} title={title} caption={caption} />
+      <Flex
+        as='section'
+        pt={[3, 4]}
+        justifyContent='center'
+        flexDirection='column'
+        alignItems='center'
+        px={[0, 0, 4, 6]}
+      >
+        <Box>
+          <Subhead
+            textAlign='left'
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            How does it work?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
+              <Text as='span' fontWeight='bold' color='black'>
+                Microlink for screenshot
+              </Text>{' '}
+              takes any URL as an input and returns a screenshot back, hosted at
+              Microlink CDN.
+            </Text>
+            <Text pt={3} color='black60'>
+              It supports most of the common browser interactions, like clicks,
+              wait for events, handle the scroll... but also some extra things,
+              like markup injection or overlay composition, making it a more
+              complete tool.
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            How is it built?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
+              The service is built on top of{' '}
+              <Link href='https://github.com/puppeteer/puppeteer'>
+                puppeteer
+              </Link>{' '}
+              using Chromium Headless browser.
+            </Text>
+            <Text pt={3} color='black60'>
+              The browser management is handled by our own driver called{' '}
+              <Link href='https://browserless.js.org'>browserless</Link>
+            </Text>
+            <Text pt={3} color='black60'>
+              (yes, it's open source!).
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            Why not run my own solution?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text color='black60'>
+              The service aims to avoid headaches, preventing you for running
+              and maintaining your own infrastructure.
+            </Text>
+            <Text pt={3} color='black60'>
+              Every URL on the Internet are different and browser are a complex
+              piece of software, with unpredictable resources usage.
+            </Text>
+            <Text pt={3} color='black60'>
+              The fact of resolve any URL at scale in <Average size='tiny' /> is
+              not a trivial thing.
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            Do you have a Service-Level Agreements (SLA)?
+          </Subhead>
+          <Text maxWidth='38em'>
+            <Text pt={3} color='black60'>
+              You can see our SLA level on{' '}
+              <Link display='inline' href='/status' children='status' />
+              {' page.'}
+            </Text>
+          </Text>
+          <Subhead
+            textAlign='left'
+            pt={4}
+            pb={[2, 3]}
+            fontSize={[2, 3]}
+            color='black90'
+          >
+            Can I ask a question?
+          </Subhead>
+          <Text pb={[0, 0, 4, 4]} maxWidth='38em'>
+            <Text color='black60'>
+              We're always available at{' '}
+              <Link
+                display='inline'
+                href='mailto:hello@microlink.io'
+                children='hello@microlink.io'
+              />
+              .
+            </Text>
+          </Text>
+        </Box>
+      </Flex>
+    </Container>
+  )
+}
+
 export default ({
-  demoLinks,
   isLoading,
   onSubmit,
   refBackground,
@@ -312,13 +693,19 @@ export default ({
     <LiveDemo
       isLoading={isLoading}
       onSubmit={onSubmit}
-      refBackground={refBackground}
+      refBackgroundthi={refBackground}
       refOverlay={refOverlay}
       refUrl={refUrl}
       refWaitFor={refWaitFor}
       suggestions={suggestions}
       url={url}
     />
-    <Examples demoLinks={demoLinks} />
+    <Timings />
+    <Features />
+    <Questions
+      bg='pinky'
+      borderTop={`${borders[1]} ${colors.pinkest}`}
+      borderBottom={`${borders[1]} ${colors.pinkest}`}
+    />
   </>
 )

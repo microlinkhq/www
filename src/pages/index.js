@@ -6,7 +6,7 @@ import { layout, colors, borders } from 'theme'
 import React from 'react'
 
 const Questions = props => {
-  const title = 'Questions'
+  const title = 'FAQ'
   const caption = 'Frequently asked questions.'
 
   return (
@@ -31,13 +31,14 @@ const Questions = props => {
           </Subhead>
           <Text maxWidth='38em'>
             <Text color='black60'>
-              Absolutely, we offer a free plan you can use indefinitely. The
-              free plan offers almost the same pro capabilities.
+              Absolutely, we offer a free{' '}
+              <Link href='/docs/api/basics/endpoint'>endpoint</Link> plan that
+              you can use indefinitely.
             </Text>
             <Text pt={3} color='black60'>
               The only limitation is that the service is under IP Address
               limitation to avoid flooding the service. As soon as you need
-              more, you can jump in a pro plan.
+              more, you can jump into the pro plan.
             </Text>
           </Text>
           <Subhead
@@ -115,11 +116,6 @@ const Questions = props => {
             Do you have a Service-Level Agreements (SLA)?
           </Subhead>
           <Text maxWidth='38em'>
-            <Text color='black60'>
-              Some functionalities are only available under pro plans because
-              they represent an infrastructure cost that you are paying with the
-              pro plan.
-            </Text>
             <Text pt={3} color='black60'>
               You can see our SLA level on{' '}
               <Link display='inline' href='/status' children='status' />

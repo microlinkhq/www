@@ -41,7 +41,6 @@ export default () => {
                 return (
                   <Examples
                     suggestions={suggestions}
-                    demoLinks={demoLinks}
                     onSubmit={doFetch}
                     url={query.url}
                     isLoading={status === 'fetching'}

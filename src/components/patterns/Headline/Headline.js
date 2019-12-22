@@ -4,6 +4,7 @@ import { Caption } from 'components/patterns'
 
 const constructor = TitleComponnet => ({
   fontSize,
+  fontWeight,
   title,
   caption,
   ...props
@@ -18,7 +19,12 @@ const constructor = TitleComponnet => ({
       px={0}
       {...props}
     >
-      <TitleComponnet fontSize={fontSize} px={0} children={title} />
+      <TitleComponnet
+        fontWeight={fontWeight}
+        fontSize={fontSize}
+        px={0}
+        children={title}
+      />
       {caption && <Caption>{caption}</Caption>}
     </Flex>
   )
