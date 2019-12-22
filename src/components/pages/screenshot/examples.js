@@ -600,7 +600,7 @@ const Questions = props => {
             </Text>
             <Text pt={3} color='black80'>
               The browser management is handled by our own driver called{' '}
-              <Link href='https://browserless.js.org'>browserless</Link>
+              <Link href='https://browserless.js.org'>browserless</Link>.
             </Text>
             <Text pt={3} color='black80'>
               (yes, it's open source!).
