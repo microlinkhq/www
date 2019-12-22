@@ -330,7 +330,6 @@ const Timings = () => {
       id='average'
       flexDirection='column'
       bg='black'
-      pb={[0, 0, 0, 4]}
       blockOne={
         <Box>
           <Flex alignItems='center' justifyContent='center'>
@@ -360,7 +359,7 @@ const Timings = () => {
       bottom={
         <Box mx='auto'>
           <Image
-            css='transform: scale(1.2);top: 16px;position: relative;'
+            css='top: 32px; position: relative;'
             src='https://cdn.microlink.io/scenes/34.png'
           />
         </Box>
