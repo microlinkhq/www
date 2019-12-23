@@ -1465,19 +1465,6 @@
   resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.8.tgz#ba7f1332701f23f43ec08e2b4b02e3cc491e3a0e"
   integrity sha512-TIh87ATpKLCWmyX3DtaK4m3qFD/WnWOkD8TlScCKp4qYhG7p+T1U0RDwJr8bMvL85V4qZ1nNybZKxwL/bfgXnA==
 
-"@microlink/mql@~0.5.13":
-  version "0.5.13"
-  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.5.13.tgz#fbda7414621144ffb24faeb7543a97a886d8e8d2"
-  integrity sha512-Tls8lAkqPmepm0/EoC3LUrZHa7ehSr5oNN7e8wYqH+krsDJbvcWWUCH240cIkJgrcAt/+UbFTFRBD+Avm7jKRA==
-  dependencies:
-    flat "~5.0.0"
-    got "~9.6.0"
-    is-url-http "~1.2.4"
-    ky "~0.16.0"
-    ky-universal "~0.3.0"
-    qss "~2.0.3"
-    whoops "~4.0.2"
-
 "@microlink/mql@~0.5.15":
   version "0.5.15"
   resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.5.15.tgz#e591042d0d9bf5947935070fe815bea71415fa38"
@@ -1491,12 +1478,12 @@
     qss "~2.0.3"
     whoops "~4.1.0"
 
-"@microlink/react@4.4.8":
-  version "4.4.8"
-  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-4.4.8.tgz#b3fb2f162a573b0816c652484f939ca14c326321"
-  integrity sha512-NGKfIPVa60yU2i/Wn25T4MpndeSAcLACSpXMzdHtIIVlJRLqpOElc1bZat10Xocfh84ND8xTW7wUR/tormzAxw==
+"@microlink/react@4.4.9":
+  version "4.4.9"
+  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-4.4.9.tgz#694b8a4aaf4cc9bbcb08fe1e31da24bc308851fb"
+  integrity sha512-WJfrjr4vPGw28bzY8YPpBTNlcM8Qg7Nnbeqitf7POV8hHoZEfQhDDZ7PeIXzoOSUuvJ6nxTu/P/R4Axs3ypwfA==
   dependencies:
-    "@microlink/mql" "~0.5.13"
+    "@microlink/mql" "~0.5.15"
     nanoclamp "~1.2.11"
 
 "@mikaelkristiansson/domready@^1.0.9":
@@ -4655,11 +4642,6 @@ clean-stack@^2.0.0, clean-stack@^2.2.0, clean-stack@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
   integrity sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==
-
-clean-stack@~2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.0.0.tgz#301bfa9e8dd2d3d984c0e542f7aa67b996f63e0a"
-  integrity sha512-VEoL9Qh7I8s8iHnV53DaeWSt8NJ0g3khMfK6NiCPB7H657juhro+cSw2O88uo3bo0c0X5usamtXk0/Of0wXa5A==
 
 clean-yaml-object@^0.1.0:
   version "0.1.0"
@@ -19324,14 +19306,6 @@ which@^2.0.1:
   integrity sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
   dependencies:
     isexe "^2.0.0"
-
-whoops@~4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/whoops/-/whoops-4.0.2.tgz#60e1281d47a1600f5f5013059afaad369d83e9d4"
-  integrity sha512-b1ofth7xMOAkukgzMhAPKBrgieGJAgKVMyu54DXAOVLmkhpQEfNKe4wS0R7LbdxIsm6FD2CFUjBOdN7Sj+zLSg==
-  dependencies:
-    clean-stack "~2.0.0"
-    mimic-fn "~2.0.0"
 
 whoops@~4.1.0:
   version "4.1.0"
