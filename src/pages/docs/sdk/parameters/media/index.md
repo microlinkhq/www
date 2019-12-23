@@ -4,7 +4,7 @@ title: 'media'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="[ 'image', 'logo' ]"/><br/>
-Values: <TypeContainer><Type children="'audio'"/> | <Type children="'image'"/> | <Type children="'logo'"/> | <Type children="'screenshot'" /> | <Type children="'video'"/></TypeContainer>
+Values: <TypeContainer><Type children="'audio'"/> | <Type children="'iframe'"/> | <Type children="'image'"/> | <Type children="'logo'"/> | <Type children="'screenshot'" /> | <Type children="'video'"/></TypeContainer>
 
 Determines the field to use as the media of the card.
 
