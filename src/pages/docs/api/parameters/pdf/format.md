@@ -7,9 +7,7 @@ Default: <Type children="'A4'"/>
 
 It sets the paper format.
 
-<Iframe 
-  width="650px"
-  height={["216px", "324px", "432px", "432px"]}
+<Iframe
   src="https://api.microlink.io/?url=https://css-tricks.com/snippets/css/a-guide-to-flexbox&pdf&embed=pdf.url&format=A6&meta=false"
 />
 

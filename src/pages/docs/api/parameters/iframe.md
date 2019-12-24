@@ -24,8 +24,8 @@ module.exports = async () => {
 />
 
 <Iframe
-  src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed" 
-  allowFullScreen 
+  src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed"
+  allowFullScreen
 />
 
 Any site that implements [oembed](https://oembed.com/) specification is supported.

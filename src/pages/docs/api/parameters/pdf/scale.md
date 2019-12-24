@@ -7,9 +7,7 @@ Default: <Type children='0.6'/>
 
 It sets the scale of the webpage rendering.
 
-<Iframe 
-  width="650px"
-  height={["216px", "324px", "432px", "432px"]}
+<Iframe
   src="https://api.microlink.io/?url=https://varnish-cache.org/docs/6.2/phk/thatslow.html&pdf&embed=pdf.url&scale=1&format=A5&meta=false"
 />
 

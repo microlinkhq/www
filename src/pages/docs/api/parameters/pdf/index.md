@@ -7,9 +7,7 @@ Default: <Type children='false'/>
 
 Generates a PDF of the target website.
 
-<Iframe 
-  width="650px"
-  height={["216px", "324px", "432px", "432px"]}
+<Iframe
   src="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm&meta=false"
 />
 

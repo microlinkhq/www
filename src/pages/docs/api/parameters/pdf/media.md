@@ -9,8 +9,6 @@ Values: <TypeContainer><Type children="'screen'"/> | <Type children="'print'"/><
 Changes the CSS media type of the page.
 
 <Iframe
-  width="650px"
-  height={["216px", "324px", "432px", "432px"]}
   src="https://api.microlink.io/?url=https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&embed=pdf.url&media=screen&meta=false&waitUntil=networkidle2"
 />
 
