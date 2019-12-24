@@ -22,7 +22,7 @@ import {
   debounceComponent
 } from 'helpers'
 
-import { Headline, Caption, Block, SubHeadline } from 'components/patterns'
+import { Faq, Headline, Caption, Block, SubHeadline } from 'components/patterns'
 
 import { speed, transition, colors, borders } from 'theme'
 import { Safari, HourGlass } from 'components/icons'
@@ -553,105 +553,89 @@ const Features = props => (
   </Container>
 )
 
-const Questions = props => {
-  const title = 'Product Information'
-  const caption = 'All you need to know.'
-
-  return (
-    <Container id='faq' {...props}>
-      <Headline pt={[0, 0, 4, 4]} title={title} caption={caption} />
-      <Flex
-        as='section'
-        pt={[3, 4]}
-        justifyContent='center'
-        flexDirection='column'
-        alignItems='center'
-        px={[0, 0, 4, 6]}
-      >
-        <Box>
-          <Subhead textAlign='left' pb={[2, 3]} fontSize={[2, 3]}>
-            How does it work?
-          </Subhead>
-          <Text maxWidth='38em'>
-            <Text color='black80'>
-              <Text as='span' fontWeight='bold' color='black'>
-                Microlink for screenshot
-              </Text>{' '}
-              takes any URL as an input and returns a screenshot back, hosted at
-              Microlink CDN.
-            </Text>
-            <Text pt={3} color='black80'>
-              It supports most of the common browser interactions, like clicks,
-              wait for events, handle the scroll... but also some extra things,
-              like markup injection or overlay composition, making it a more
-              complete tool.
-            </Text>
-          </Text>
-          <Subhead textAlign='left' pt={4} pb={[2, 3]} fontSize={[2, 3]}>
-            How is it built?
-          </Subhead>
-          <Text maxWidth='38em'>
-            <Text color='black80'>
-              The service is built on top of{' '}
-              <Link href='https://github.com/puppeteer/puppeteer'>
-                puppeteer
-              </Link>{' '}
-              using Chromium Headless browser.
-            </Text>
-            <Text pt={3} color='black80'>
-              The browser management is handled by our own driver called{' '}
-              <Link href='https://browserless.js.org'>browserless</Link>.
-            </Text>
-            <Text pt={3} color='black80'>
-              (yes, it's open source!).
-            </Text>
-          </Text>
-          <Subhead textAlign='left' pt={4} pb={[2, 3]} fontSize={[2, 3]}>
-            Why not run my own solution?
-          </Subhead>
-          <Text maxWidth='38em'>
-            <Text color='black80'>
-              The service aims to avoid headaches, preventing you for running
-              and maintaining your own infrastructure.
-            </Text>
-            <Text pt={3} color='black80'>
-              Every URL on the Internet are different and browser are a complex
-              piece of software, with unpredictable resources usage.
-            </Text>
-            <Text pt={3} color='black80'>
-              The fact of resolve any URL at scale in <Average size='tiny' /> is
-              not a trivial thing.
-            </Text>
-          </Text>
-          <Subhead textAlign='left' pt={4} pb={[2, 3]} fontSize={[2, 3]}>
-            Do you have a Service-Level Agreements (SLA)?
-          </Subhead>
-          <Text maxWidth='38em'>
-            <Text pt={3} color='black80'>
-              You can see our SLA level on{' '}
-              <Link display='inline' href='/status' children='status' />
-              {' page.'}
-            </Text>
-          </Text>
-          <Subhead textAlign='left' pt={4} pb={[2, 3]} fontSize={[2, 3]}>
-            Can I ask a question?
-          </Subhead>
-          <Text pb={[0, 0, 4, 4]} maxWidth='38em'>
-            <Text color='black80'>
-              We're always available at{' '}
-              <Link
-                display='inline'
-                href='mailto:hello@microlink.io'
-                children='hello@microlink.io'
-              />
-              .
-            </Text>
-          </Text>
-        </Box>
-      </Flex>
-    </Container>
-  )
-}
+const ProductInformation = props => (
+  <Faq
+    title='Product Information'
+    caption='All you need to know.'
+    questions={[
+      {
+        question: 'How does it work?',
+        answer: [
+          <>
+            <Text as='span' fontWeight='bold' color='black'>
+              Microlink for screenshot
+            </Text>{' '}
+            takes any URL as an input and returns a screenshot back, hosted at
+            Microlink CDN.
+          </>,
+          <>
+            It supports most of the common browser interactions, like clicks,
+            wait for events, handle the scroll... but also some extra things,
+            like markup injection or overlay composition, making it a more
+            complete tool.
+          </>
+        ]
+      },
+      {
+        question: 'How is it built?',
+        answer: [
+          <>
+            The service is built on top of{' '}
+            <Link href='https://github.com/puppeteer/puppeteer'>puppeteer</Link>{' '}
+            using Chromium Headless browser.
+          </>,
+          <>
+            The browser management is handled by our own driver called{' '}
+            <Link href='https://browserless.js.org'>browserless</Link>.
+          </>,
+          <>(yes, it's open source!).</>
+        ]
+      },
+      {
+        question: 'Why not run my own solution?',
+        answer: [
+          <>
+            The service aims to avoid headaches, preventing you for running and
+            maintaining your own infrastructure.
+          </>,
+          <>
+            Every URL on the Internet are different and browser are a complex
+            piece of software, with unpredictable resources usage.
+          </>,
+          <>
+            The fact of resolve any URL at scale in <Average size='tiny' /> is
+            not a trivial thing.
+          </>
+        ]
+      },
+      {
+        question: 'Do you have a Service-Level Agreements (SLA)?',
+        answer: [
+          <>
+            You can see our SLA level on{' '}
+            <Link display='inline' href='/status' children='status' />
+            {' page.'}
+          </>
+        ]
+      },
+      {
+        question: 'Can I ask a question?',
+        answer: [
+          <>
+            We're always available at{' '}
+            <Link
+              display='inline'
+              href='mailto:hello@microlink.io'
+              children='hello@microlink.io'
+            />
+            .
+          </>
+        ]
+      }
+    ]}
+    {...props}
+  />
+)
 
 export default ({
   isLoading,
@@ -676,7 +660,7 @@ export default ({
     />
     <Timings />
     <Features />
-    <Questions
+    <ProductInformation
       bg='pinky'
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}
