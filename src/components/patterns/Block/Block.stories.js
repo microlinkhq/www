@@ -15,7 +15,7 @@ storiesOf('Patterns', module).add('Block', () => (
           </Box>
         }
         blockOne={
-          <Box bg='blue' width={11} borderRadius={2} borderColor='gray'>
+          <Box bg='blue' width='40vw' borderRadius={2} borderColor='gray'>
             <Text
               py={3}
               textAlign='center'
@@ -25,7 +25,7 @@ storiesOf('Patterns', module).add('Block', () => (
           </Box>
         }
         blockTwo={
-          <Box bg='red' width={11} borderRadius={2} borderColor='gray'>
+          <Box bg='red' width='40vw' borderRadius={2} borderColor='gray'>
             <Text
               py={3}
               textAlign='center'
@@ -57,7 +57,7 @@ storiesOf('Patterns', module).add('Block', () => (
           </Box>
         }
         blockOne={
-          <Box bg='blue' width={11} borderRadius={2} borderColor='gray'>
+          <Box bg='blue' width='40vw' borderRadius={2} borderColor='gray'>
             <Text
               py={3}
               textAlign='center'
@@ -67,7 +67,7 @@ storiesOf('Patterns', module).add('Block', () => (
           </Box>
         }
         blockTwo={
-          <Box mt={3} bg='red' width={11} borderRadius={2} borderColor='gray'>
+          <Box mt={3} bg='red' width='40vw' borderRadius={2} borderColor='gray'>
             <Text
               py={3}
               textAlign='center'
@@ -99,7 +99,7 @@ storiesOf('Patterns', module).add('Block', () => (
           </Box>
         }
         blockOne={
-          <Box bg='blue' width={11} borderRadius={2} borderColor='gray'>
+          <Box bg='blue' width='40vw' borderRadius={2} borderColor='gray'>
             <Text
               py={3}
               textAlign='center'
@@ -109,7 +109,7 @@ storiesOf('Patterns', module).add('Block', () => (
           </Box>
         }
         blockTwo={
-          <Box mt={3} bg='red' width={11} borderRadius={2} borderColor='gray'>
+          <Box mt={3} bg='red' width='40vw' borderRadius={2} borderColor='gray'>
             <Text
               py={3}
               textAlign='center'
