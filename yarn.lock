@@ -1460,10 +1460,10 @@
     url-regex "~5.0.0"
     video-extensions "~1.1.0"
 
-"@microlink/demo-links@~1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.8.tgz#ba7f1332701f23f43ec08e2b4b02e3cc491e3a0e"
-  integrity sha512-TIh87ATpKLCWmyX3DtaK4m3qFD/WnWOkD8TlScCKp4qYhG7p+T1U0RDwJr8bMvL85V4qZ1nNybZKxwL/bfgXnA==
+"@microlink/demo-links@~1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.10.tgz#9d800c83f213f3714f713c330c662a11318a4b2e"
+  integrity sha512-9w54jr16kQ2R+rrRP0JUa2pFeSVj5MmaEgJbXON7uMbEoOUWSbKBPKvTF7wnODtWsiARe0j88iKzZCpzJCwXXA==
 
 "@microlink/mql@~0.5.15":
   version "0.5.15"
@@ -8230,7 +8230,7 @@ gatsby-cli@^2.8.21:
     ink "^2.6.0"
     ink-spinner "^3.0.1"
 
-gatsby-core-utils@^1.0.24, gatsby-core-utils@^1.0.25:
+gatsby-core-utils@^1.0.25:
   version "1.0.25"
   resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-1.0.25.tgz#8cc8e76a79063c43ac06d9b72100b7c6f1fb5b60"
   integrity sha512-Pz5xueweH9qv5TIW7wwlTxI/CbyzkiE5xvgLicbHbU+InH+lCNt4VuvGP1gQcIRuHMCIbuVKSiVCC7jnxEbtrA==

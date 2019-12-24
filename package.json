@@ -37,7 +37,7 @@
     "gatsby"
   ],
   "dependencies": {
-    "@microlink/demo-links": "~1.0.8",
+    "@microlink/demo-links": "~1.0.10",
     "@microlink/mql": "~0.5.15",
     "@microlink/react": "4.4.9",
     "@styled-system/prop-types": "~5.1.4",
