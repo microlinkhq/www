@@ -22,8 +22,7 @@ import {
   debounceComponent
 } from 'helpers'
 
-import { Faq, Headline, Caption, Block, SubHeadline } from 'components/patterns'
-
+import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
 import { speed, transition, colors, borders } from 'theme'
 import { Safari, HourGlass } from 'components/icons'
 import { Image as ImageIcon } from 'react-feather'

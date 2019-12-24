@@ -1,7 +1,7 @@
 import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
-import { Box, Container, Flex, Link, Subhead, Text } from 'components/elements'
 import { Faq, Headline, Layout, PricingTable } from 'components/patterns'
 import { Meta, Hero, Screenshots } from 'components/pages/home'
+import { Box, Container, Link } from 'components/elements'
 import { layout, colors, borders } from 'theme'
 import React from 'react'
 
