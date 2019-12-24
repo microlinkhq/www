@@ -572,6 +572,13 @@ const ProductInformation = props => (
             wait for events, handle the scroll... but also some extra things,
             like markup injection or overlay composition, making it a more
             complete tool.
+          </>,
+          <>
+            Check that in the{' '}
+            <Link icon href='http://bit.ly/saasforscreenshot'>
+              comparative table
+            </Link>
+            .
           </>
         ]
       },
@@ -580,12 +587,17 @@ const ProductInformation = props => (
         answer: [
           <>
             The service is built on top of{' '}
-            <Link href='https://github.com/puppeteer/puppeteer'>puppeteer</Link>{' '}
+            <Link icon href='https://github.com/puppeteer/puppeteer'>
+              puppeteer
+            </Link>{' '}
             using Chromium Headless browser.
           </>,
           <>
             The browser management is handled by our own driver called{' '}
-            <Link href='https://browserless.js.org'>browserless</Link>.
+            <Link icon href='https://browserless.js.org'>
+              browserless
+            </Link>
+            .
           </>,
           <>(yes, it's open source!).</>
         ]
