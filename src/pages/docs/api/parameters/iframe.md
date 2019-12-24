@@ -28,7 +28,24 @@ module.exports = async () => {
   allowFullScreen
 />
 
-Any site that implements [oembed](https://oembed.com/) specification is supported.
+Any URL that implements [oembed](https://oembed.com/) specification is supported.
+
+If the discovery process from the target URL has been done successfully, a new `iframe` data field will be added as part of the response:
+
+```json
+{
+  "iframe": {
+  "html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">our new shiny website has landed <a href=\"https://t.co/KIrhYYcTRx\">https://t.co/KIrhYYcTRx</a> <a href=\"https://t.co/cM0se2UoIg\">pic.twitter.com/cM0se2UoIg</a></p>&mdash; microlink.io (@microlinkhq) <a href=\"https://twitter.com/microlinkhq/status/1032664633960800257?ref_src=twsrc%5Etfw\">August 23, 2018</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
+  "scripts": [{
+    "async": true,
+    "src": "https://platform.twitter.com/widgets.js",
+    "charset": "utf-8"
+    }]
+  }
+}
+```
+
+Most of the most popular sites over the Internet supports oembed protocol.
 
 A non exhaustive list of supported providers are:
 
