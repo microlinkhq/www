@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Box } from 'components/elements'
+import Box from './Box'
 
 const AnimatedBox = styled(Box)`
   position: relative;
