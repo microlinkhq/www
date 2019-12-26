@@ -20,16 +20,18 @@ import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
 import Legend from './Legend/Legend'
 import Toolbar from './Toolbar/Toolbar'
+import CubeBackground from './CubeBackground/CubeBackground'
 
 export {
-  Aside,
   Announcement,
+  Aside,
   Block,
   Caption,
   CardLink,
   Chat,
   Checkout,
   CookiesPolicy,
+  CubeBackground,
   DemoLinks,
   Faq,
   FetchProvider,
