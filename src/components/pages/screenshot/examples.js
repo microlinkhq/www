@@ -1,4 +1,5 @@
 import {
+  AnimatedBox,
   Box,
   Button,
   Caps,
@@ -318,19 +319,6 @@ const Average = ({ size }) => {
     </Highlight>
   )
 }
-
-const AnimatedBox = styled(Box)`
-  position: relative;
-  overflow: hidden;
-
-  &:before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 100%;
-    z-index: -1;
-  }
-`
 
 const Timings = () => {
   const p95 = 1.36

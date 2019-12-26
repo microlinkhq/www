@@ -2,6 +2,7 @@ import Button from './Button'
 import { Link, LinkSolid } from './Link'
 
 import BlockLink from './BlockLink'
+import AnimatedBox from './AnimatedBox'
 import Box from './Box'
 
 import Card from './Card'
@@ -47,6 +48,7 @@ import StripeLoader from './StripeLoader'
 import ClearbitLogo from './ClearbitLogo/ClearbitLogo'
 
 export {
+  AnimatedBox,
   BackgroundSlider,
   BackgroundSliderContainer,
   Badge,
