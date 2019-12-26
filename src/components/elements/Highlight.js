@@ -1,23 +1,15 @@
 'use strict'
 
-import styled, { css, keyframes } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box } from 'components/elements'
+import { highlight } from 'components/keyframes'
 
 const HIGHLIGHT_DURATION = 1000
 
-const animateHighlight = keyframes`
-  from {
-    background-color: yellow;
-  }
-  to {
-    background-color: transparent;
-  }
-`
-
 const highlightCss = css`
-  animation-name: ${animateHighlight};
+  animation-name: ${highlight};
   animation-duration: ${HIGHLIGHT_DURATION}ms;
-  animation-fill-mode: forwards;
+  will-change: background-color;
 `
 
 const Highlight = styled(Box)`
@@ -25,11 +17,5 @@ const Highlight = styled(Box)`
 `
 
 Highlight.HIGHLIGHT_DURATION = HIGHLIGHT_DURATION
-
-// export default (props) => (
-//   <Highlight px={3} isHighlight={isHighlight} >
-//     {children}
-//   </Highlight>
-// )
 
 export default Highlight

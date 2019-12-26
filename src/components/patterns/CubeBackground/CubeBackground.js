@@ -1,21 +1,9 @@
-import styled, { keyframes } from 'styled-components'
-import { Box } from 'components/elements'
+import { rotation } from 'components/keyframes'
+import styled from 'styled-components'
 import sample from 'lodash/sample'
+import { radii, cx } from 'theme'
 import range from 'lodash/range'
 import React from 'react'
-import { radii, cx } from 'theme'
-
-const animate = keyframes`
-0%{
-  transform: translateY(0) rotate(0deg);
-  opacity: 1;
-}
-
-100%{
-  transform: translateY(-1000px) rotate(720deg);
-  opacity: 0;
-}
-`
 
 const CUBES_N = 30
 const CUBES_RANGE = range(1, CUBES_N)
@@ -45,7 +33,8 @@ const CubesBackground = styled('ul')`
     display: block;
     list-style: none;
     background: ${props => cx(props.bg)};
-    animation: ${animate} 25s linear infinite;
+    animation: ${rotation} 25s linear infinite;
+    will-change: transform, opacity;
     bottom: -150px;
   }
 

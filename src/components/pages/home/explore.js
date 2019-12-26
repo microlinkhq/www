@@ -1,17 +1,8 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
-
 import { Flex, Card } from 'components/elements'
 import { Headline } from 'components/patterns'
-
-const slide = keyframes`
-from {
-  transform: translate3d(0, 0, 0);
-}
-to {
-  transform: translate3d(-50%, 0, 0);
-}
-`
+import { slide } from 'components/keyframes'
+import styled from 'styled-components'
 
 const Dots = styled(Flex)`
   position: relative;
@@ -31,6 +22,7 @@ const Dots = styled(Flex)`
 
     animation: ${slide} 100s linear infinite;
     animation-direction: reverse;
+    will-change: transform;
   }
 `
 

@@ -1,6 +1,7 @@
 import { shadowOffsets, shadowColors, fonts, fontWeights } from 'theme'
-import styled, { css, keyframes } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { CodeEditor, Box } from 'components/elements'
+import { blink } from 'components/keyframes'
 import { serializeComponent } from 'helpers'
 import CodeCopy from 'react-codecopy'
 import React from 'react'
@@ -46,10 +47,6 @@ const TerminalTitle = styled('div')`
   font-size: 12px;
 `
 
-const blink = keyframes`
-  from { opacity: 1.0; } to { opacity: 0.0; }
-`
-
 const TerminalText = styled('div')`
   font-weight: ${fontWeights.normal};
   padding: 16px;
@@ -69,6 +66,7 @@ const TerminalText = styled('div')`
 const blinkCursorStyle = css`
   &::after {
     content: '';
+    will-change: opacity;
     animation-name: ${blink};
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(1, 0, 0, 1);

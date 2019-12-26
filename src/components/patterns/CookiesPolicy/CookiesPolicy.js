@@ -1,18 +1,12 @@
-import React, { useState } from 'react'
-import { X } from 'react-feather'
-import { useLocalStorage } from 'components/hook'
 import { Flex, Text, Box, Link } from 'components/elements'
-import styled, { keyframes } from 'styled-components'
+import { hideNotification } from 'components/keyframes'
+import { useLocalStorage } from 'components/hook'
 import { transition, colors } from 'theme'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { X } from 'react-feather'
 
 const LOCALSTORAGE_KEY = 'cookie_policy'
-
-const animationHide = keyframes`
-to {
-  opacity: 0;
-  transform: translateY(100%);
-}
-`
 
 const CookiesWrapper = styled(Box)`
   position: fixed;
@@ -22,10 +16,10 @@ const CookiesWrapper = styled(Box)`
   width: 100%;
   z-index: 2;
 
-  will-change: transform;
+  will-change: opacity, transform;
 
   &[aria-hidden='true'] {
-    animation: ${animationHide} ${transition.medium} forwards 1;
+    animation: ${hideNotification} ${transition.medium} forwards 1;
   }
 `
 

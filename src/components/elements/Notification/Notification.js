@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Text, Flex } from 'components/elements'
-import styled, { keyframes } from 'styled-components'
+import { hideNotification, showNotification } from 'components/keyframes'
+import styled from 'styled-components'
 import { X } from 'react-feather'
 import { transition, colors } from 'theme'
 import { darken } from 'polished'
@@ -18,31 +19,17 @@ const CloseButtonWrapper = styled(Box)`
   }
 `
 
-const animationShow = keyframes`
-from {
-  opacity: 0;
-  transform: scale(0.5);
-}
-`
-
-const animationHide = keyframes`
-to {
-  opacity: 0;
-  transform: translateY(100%);
-}
-`
-
 const Wrapper = styled(Flex)`
   z-index: 3;
   position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
-  will-change: transform;
-  animation: ${animationShow} ${transition.medium} forwards 1;
+  will-change: opacity, transform;
+  animation: ${showNotification} ${transition.medium} forwards 1;
 
   &[aria-hidden='true'] {
-    animation: ${animationHide} ${transition.medium} forwards 1;
+    animation: ${hideNotification} ${transition.medium} forwards 1;
   }
 `
 

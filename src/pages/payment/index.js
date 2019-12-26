@@ -1,8 +1,9 @@
 import { Text, LinkSolid } from 'components/elements'
-import styled, { keyframes } from 'styled-components'
 import { Headline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
+import { dots } from 'components/keyframes'
+import styled from 'styled-components'
 import Confetti from 'react-confetti'
 import { isSSR } from 'helpers'
 import { colors } from 'theme'
@@ -12,10 +13,6 @@ const centerStyle = `
 justify-content: center;
 align-items: center;
 display: flex;
-`
-
-const spinner = keyframes`
-to { transform: translateY( -6.0em); }
 `
 
 const DotSpinner = styled('span')`
@@ -31,7 +28,8 @@ const DotSpinner = styled('span')`
     white-space: pre;
     text-align: left;
     content: '\\A.\\A..\\A...';
-    animation: ${spinner} 2s steps(4) infinite;
+    animation: ${dots} 2s steps(4) infinite;
+    will-change: transform;
   }
 `
 
