@@ -108,13 +108,11 @@ const Automation = ({ word, ...props }) => (
 
 const Hero = ({ title, features, ...props }) => {
   const words = ['Instant', 'Costless', 'From $0', 'Effective', 'Reliable']
-  const [word, setWord] = useState(words[0])
   const [index, setIndex] = useState(0)
 
   const handleClick = event => {
     if (event.target.tagName !== 'SELECT' && event.target.tagName !== 'SPAN') {
       setIndex((index + 1) % words.length)
-      setWord(words[index])
     }
   }
 
@@ -151,7 +149,7 @@ const Hero = ({ title, features, ...props }) => {
         onClick={handleClick}
         bottom={
           <>
-            <Automation pt={[4, 4, 5, 5]} word={word} />
+            <Automation pt={[4, 4, 5, 5]} word={words[index]} />
             <Features pt={5} children={features} />
           </>
         }
