@@ -77,15 +77,13 @@ const DemoSlider = ({ children: slides, ...props }) => {
     }
   })
 
-  useEffect(
-    () =>
-      /* eslint-disable no-void */
-      void setInterval(
-        () => setIndex(state => (state + 1) % slides.length),
-        INTERVAL
-      ),
-    /* eslint-enable no-void */ []
-  )
+  useEffect(() => {
+    const interval = setInterval(
+      () => setIndex(state => (state + 1) % slides.length),
+      INTERVAL
+    )
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <Flex
@@ -321,99 +319,114 @@ const Average = ({ size }) => {
   )
 }
 
+const AnimatedBox = styled(Box)`
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    z-index: -1;
+  }
+`
+
 const Timings = () => {
   const p95 = 1.36
 
   return (
-    <Block
-      id='average'
-      flexDirection='column'
-      bg='black'
-      pb={0}
-      blockOne={
-        <Box>
-          <Flex alignItems='center' justifyContent='center'>
-            <Heading
-              color='white'
-              variant={null}
-              mr={[1, 1, 3, 3]}
-              fontWeight='light'
-            >
-              Just send the URL.
-            </Heading>
-            <Heading color='white' variant={null} mr={3} fontWeight='light'>
-              We do the rest.
-            </Heading>
-          </Flex>
-          <Caption
-            color='white'
-            maxWidth={[6, 7, 7, 'inherit']}
-            mt={[3, 3, 3, 0]}
-            variant={null}
-          >
-            browser automation made simple at cost pricing, full control via
-            API.
-          </Caption>
-        </Box>
-      }
-      bottom={
-        <Box mx='auto'>
-          <Image
-            css='top: 32px; position: relative;'
-            src='https://cdn.microlink.io/scenes/34.png'
-          />
-        </Box>
-      }
-      blockTwo={
-        <Flex pt={[3, 3, 5, 5]} width='100%' justifyContent='space-around'>
-          <Flex
-            alignItems='center'
-            justifyContent='center'
-            flexDirection='column'
-          >
-            <Heading color='white' variant={null} mr={3} fontWeight='bold'>
-              <Average />
-            </Heading>
-            <Caption
-              color='white'
-              variant={null}
-              mr={3}
-              fontWeight='light'
-              titleExclude={['average']}
-            >
-              average response time.
-            </Caption>
-          </Flex>
-          <Flex
-            alignItems='center'
-            justifyContent='center'
-            flexDirection='column'
-          >
-            <Heading color='white' variant={null} mr={3} fontWeight='bold'>
-              ~{p95}
-              <Caption
-                ml={2}
+    <AnimatedBox>
+      <Block
+        id='average'
+        flexDirection='column'
+        bg='black'
+        pb={0}
+        blockOne={
+          <Box>
+            <Flex alignItems='center' justifyContent='center'>
+              <Heading
                 color='white'
-                display='inline'
-                fontWeight='bold'
-                titleExclude={['seg']}
+                variant={null}
+                mr={[1, 1, 3, 3]}
+                fontWeight='light'
               >
-                seg
-              </Caption>
-            </Heading>
+                Just send the URL.
+              </Heading>
+              <Heading color='white' variant={null} mr={3} fontWeight='light'>
+                We do the rest.
+              </Heading>
+            </Flex>
             <Caption
               color='white'
+              maxWidth={[6, 7, 7, 'inherit']}
+              mt={[3, 3, 3, 0]}
               variant={null}
-              mr={3}
-              fontWeight='light'
-              titleExclude={['p95']}
             >
-              p95 response time.
+              browser automation made simple at cost pricing, full control via
+              API.
             </Caption>
+          </Box>
+        }
+        bottom={
+          <Box mx='auto'>
+            <Image
+              css='top: 32px; position: relative;'
+              src='https://cdn.microlink.io/scenes/34.png'
+            />
+          </Box>
+        }
+        blockTwo={
+          <Flex pt={[3, 3, 5, 5]} width='100%' justifyContent='space-around'>
+            <Flex
+              alignItems='center'
+              justifyContent='center'
+              flexDirection='column'
+            >
+              <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+                <Average />
+              </Heading>
+              <Caption
+                color='white'
+                variant={null}
+                mr={3}
+                fontWeight='light'
+                titleExclude={['average']}
+              >
+                average response time.
+              </Caption>
+            </Flex>
+            <Flex
+              alignItems='center'
+              justifyContent='center'
+              flexDirection='column'
+            >
+              <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+                ~{p95}
+                <Caption
+                  ml={2}
+                  color='white'
+                  display='inline'
+                  fontWeight='bold'
+                  titleExclude={['seg']}
+                >
+                  seg
+                </Caption>
+              </Heading>
+              <Caption
+                color='white'
+                variant={null}
+                mr={3}
+                fontWeight='light'
+                titleExclude={['p95']}
+              >
+                p95 response time.
+              </Caption>
+            </Flex>
           </Flex>
-        </Flex>
-      }
-    />
+        }
+      />
+    </AnimatedBox>
   )
 }
 
