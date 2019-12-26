@@ -1,4 +1,4 @@
-import { keyframes } from 'styled-components'
+import { css, keyframes } from 'styled-components'
 import { colors } from 'theme'
 
 export const slide = keyframes`
@@ -100,4 +100,10 @@ export const rotation = keyframes`
 
 export const dots = keyframes`
 to { transform: translateY( -6.0em); }
+`
+
+export const fadeIn = css`
+  will-change: opacity, transform;
+  animation: ${fadeInDown} 300ms;
+  animation-fill-mode: both;
 `

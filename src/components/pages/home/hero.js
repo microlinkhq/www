@@ -21,6 +21,8 @@ import {
   List
 } from 'components/patterns'
 
+import { fadeIn } from 'components/keyframes'
+
 const Resume = ({ title }) => (
   <Flex
     maxWidth={['100%', '100%', '100%', '960px']}
@@ -94,7 +96,13 @@ const Automation = ({ word, ...props }) => (
         Fast.
       </Heading>
       <Hide breakpoints={[0, 1, 2]}>
-        <Heading variant={null} mr={3} fontWeight='light'>
+        <Heading
+          key={word}
+          variant={null}
+          mr={3}
+          fontWeight='light'
+          css={fadeIn}
+        >
           {word}.
         </Heading>
       </Hide>
