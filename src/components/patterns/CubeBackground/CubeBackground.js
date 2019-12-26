@@ -27,6 +27,7 @@ const cubesStyle = CUBES_RANGE.reduce((acc, index) => {
 }, '')
 
 const CubesBackground = styled('ul')`
+  margin: 0;
   li {
     border-radius: ${radii[4]};
     position: absolute;

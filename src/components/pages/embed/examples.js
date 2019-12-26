@@ -1,29 +1,33 @@
 import {
+  AnimatedBox,
   Box,
   Button,
   Caps,
-  Card,
   Container,
   Flex,
-  IframeInline,
-  CodeEditor,
   Input,
   InputIcon,
-  Text
+  Text,
+  Heading,
+  CodeEditor,
+  IframeInline,
+  Card
 } from 'components/elements'
 
 import {
-  Headline,
+  Caption,
+  Block,
   SubHeadline,
-  DemoLinks,
+  CubeBackground,
   Microlink
 } from 'components/patterns'
+
+import styled, { css } from 'styled-components'
 import { debounceComponent, getDomain } from 'helpers'
-import { borders, transition, colors } from 'theme'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import { fadeInDown } from 'components/keyframes'
 import prependHttp from 'prepend-http'
-import { navigate } from 'gatsby'
+import { transition } from 'theme'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
 
@@ -42,33 +46,10 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const Examples = ({ demoLinks }) => (
-  <Container
-    py={[4, 5]}
-    px={0}
-    maxWidth='100%'
-    bg='pinky'
-    borderTop={`${borders[1]} ${colors.pinkest}`}
-    borderBottom={`${borders[1]} ${colors.pinkest}`}
-  >
-    <Headline
-      pb={[3, 4]}
-      title='Examples'
-      caption='See real examples in action.'
-    />
-    <Box pt={[3, 4]}>
-      <DemoLinks
-        children={demoLinks}
-        onClick={({ id }) => navigate(`/embed/${id}`)}
-      />
-    </Box>
-  </Container>
-)
-
 const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   const [inputValue, setInputValue] = useState('')
   const [data, setData] = useState(demoLink.data)
-  const [view, setView] = useState('sdk')
+  const [view, setView] = useState('normal')
   const domain = getDomain(inputValue)
 
   const fetchAndSetData = async url => {
@@ -91,8 +72,8 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
     <>
       <Container py={[4, 5]} px={4}>
         <SubHeadline
-          title='Universal Embed'
-          caption='Turn websites into rich media'
+          title='Get data from any website'
+          caption='Turn websites into rich content'
         />
 
         <Flex
@@ -133,7 +114,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
             maxWidth={CodeEditor.width}
             mx='auto'
           >
-            {view === 'sdk' ? (
+            {view === 'normal' ? (
               <Box>
                 <MicrolinkDebounce
                   loading={isLoading}
@@ -179,9 +160,9 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
             )}
             <Flex justifyContent='flex-end'>
               <Card.Option
-                children='sdk'
+                children='normal'
                 value={view}
-                onClick={() => setView('sdk')}
+                onClick={() => setView('normal')}
               />
               <Card.Option
                 children='iframe'
@@ -193,6 +174,146 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
         </Box>
       </Container>
     </>
+  )
+}
+
+const fadeIn = css`
+  will-change: opacity, transform;
+  animation: ${fadeInDown} 300ms;
+  animation-fill-mode: both;
+`
+
+const AnimatedHeading = styled(Heading)`
+  ${fadeIn};
+`
+
+const Resume = () => {
+  const words = [
+    'beauty link previews',
+    'native embeds',
+    'builtin media player',
+    'easily customizable',
+    'lazy fetching',
+    'mobile ready'
+  ]
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => setIndex(index => (index + 1) % words.length),
+      2500
+    )
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <AnimatedBox>
+      <Block
+        bg='#4e54c8'
+        id='average'
+        flexDirection='column'
+        pb={0}
+        blockOne={
+          <Box>
+            <Flex alignItems='center' justifyContent='center'>
+              <Heading
+                color='white'
+                variant={null}
+                mr={[1, 1, 3, 3]}
+                fontWeight='light'
+              >
+                All the data. Unified. Effortless.
+              </Heading>
+            </Flex>
+            <Caption
+              color='white'
+              maxWidth={[6, 7, 7, 'inherit']}
+              mt={[3, 3, 3, 0]}
+              variant={null}
+              titleExclude={['Oembed', 'Meta Tags']}
+            >
+              Open Graph, JSON+LD, Oembed & HTML.
+            </Caption>
+          </Box>
+        }
+        blockTwo={
+          <>
+            <Flex
+              width='100%'
+              justifyContent='space-around'
+              flexDirection='column'
+            >
+              <AnimatedHeading
+                pt={[4, 4, 5, 5]}
+                pb={[3, 3, 0, 0]}
+                key={words[index]}
+                color='white'
+                variant={null}
+                fontWeight='bold'
+                children={words[index]}
+              />
+            </Flex>
+            <Flex alignItems='baseline'>
+              <Flex
+                alignItems='center'
+                justifyContent='center'
+                flexDirection='column'
+              >
+                <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+                  {'<1'}
+                  <Caption
+                    ml={2}
+                    color='white'
+                    display='inline'
+                    fontWeight='bold'
+                    titleExclude={['seg']}
+                  >
+                    seg
+                  </Caption>
+                </Heading>
+                <Caption
+                  color='white'
+                  variant={null}
+                  mr={3}
+                  fontWeight='light'
+                  titleExclude={['p95']}
+                >
+                  response time.
+                </Caption>
+              </Flex>
+              <Box px={4} mx='auto' />
+              <Flex
+                pt={[3, 3, 5, 5]}
+                alignItems='center'
+                justifyContent='center'
+                flexDirection='column'
+              >
+                <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+                  {'99.9'}
+                  <Caption
+                    ml={2}
+                    color='white'
+                    display='inline'
+                    fontWeight='bold'
+                    children='%'
+                  />
+                </Heading>
+                <Caption
+                  color='white'
+                  variant={null}
+                  mr={3}
+                  fontWeight='light'
+                  titleExclude={['p95']}
+                >
+                  Uptime.
+                </Caption>
+              </Flex>
+            </Flex>
+          </>
+        }
+        children={<CubeBackground />}
+      />
+    </AnimatedBox>
   )
 }
 
@@ -212,6 +333,7 @@ export default ({
       suggestions={suggestions}
       url={url}
     />
-    <Examples demoLinks={demoLinks} />
+    <Resume />
+    {/* <Examples demoLinks={demoLinks} /> */}
   </>
 )

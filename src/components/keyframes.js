@@ -77,7 +77,7 @@ export const blink = keyframes`
 export const fadeInDown = keyframes`
 from {
   opacity: 0;
-  transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -50%, 0);
 }
 
 to {
