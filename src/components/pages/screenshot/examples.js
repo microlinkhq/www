@@ -422,7 +422,13 @@ const Features = props => (
   <Container id='features' {...props}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='The Fastest Way for taking screenshots' />
-      <Text textAlign='center' mr='auto' ml='auto' maxWidth={[9, 9, 10, 10]}>
+      <Text
+        textAlign='center'
+        mr='auto'
+        ml='auto'
+        maxWidth={[9, 9, 10, 10]}
+        pb={3}
+      >
         <b>Microlink for Screenshot</b> provides a set of powerful features
         without the headaches of running your own infrastructure, bringing you
         the power in an affordable way.
@@ -431,8 +437,6 @@ const Features = props => (
 
     <Block
       as='section'
-      mt='-32px'
-      mb='-32px'
       px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
@@ -460,21 +464,20 @@ const Features = props => (
       }
       blockOne={
         <Image
-          width={8}
+          width={[6, 6, 7, 8]}
+          pb={[4, 4, 4, 0]}
           alt='Background refresh'
-          src='https://cdn.microlink.io/scenes/31.png'
+          src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
     />
 
     <Block
       as='section'
-      mt='-32px'
-      mb='-32px'
       px={[0, 0, 6, 6]}
+      flexDirection='row-reverse'
       pt={0}
       pb={0}
-      flexDirection='row-reverse'
       blockTwo={
         <Flex
           pl={[0, 0, 4, 4]}
@@ -505,9 +508,10 @@ const Features = props => (
       }
       blockOne={
         <Image
-          width={8}
+          width={[6, 6, 7, 8]}
+          pb={[4, 4, 4, 0]}
           alt='Fully Customizable'
-          src='https://cdn.microlink.io/scenes/32.png'
+          src='https://cdn.microlink.io/illustrations/abstract-2.svg'
         />
       }
     />
@@ -515,8 +519,6 @@ const Features = props => (
     <Block
       as='section'
       px={[0, 0, 6, 6]}
-      mt='-32px'
-      mb='-32px'
       pb={0}
       blockTwo={
         <Flex
@@ -544,9 +546,10 @@ const Features = props => (
       }
       blockOne={
         <Image
-          width={8}
+          width={[6, 6, 7, 8]}
+          pb={[4, 4, 4, 0]}
           alt='Overlay Composition'
-          src='https://cdn.microlink.io/scenes/33.png'
+          src='https://cdn.microlink.io/illustrations/abstract-7.svg'
         />
       }
     />
