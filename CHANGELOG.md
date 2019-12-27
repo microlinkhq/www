@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.120](https://github.com/microlinkhq/microlink-www/compare/v2.10.119...v2.10.120) (2019-12-27)
+
+
+### Bug Fixes
+
+* add AnimatedBox component ([172d622](https://github.com/microlinkhq/microlink-www/commit/172d622))
+* add clear event ([de3aa5f](https://github.com/microlinkhq/microlink-www/commit/de3aa5f))
+* import ([6bf3751](https://github.com/microlinkhq/microlink-www/commit/6bf3751))
+
 ### [2.10.119](https://github.com/microlinkhq/microlink-www/compare/v2.10.118...v2.10.119) (2019-12-26)
 
 ### [2.10.118](https://github.com/microlinkhq/microlink-www/compare/v2.10.117...v2.10.118) (2019-12-24)
