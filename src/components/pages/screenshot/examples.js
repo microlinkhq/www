@@ -603,7 +603,7 @@ const ProductInformation = props => (
             </Link>
             .
           </>,
-          <>(yes, it's open source!).</>
+          <>(Yes, it's open source!).</>
         ]
       },
       {

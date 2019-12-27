@@ -55,9 +55,9 @@ export const NavEmbed = ({ mobile, ...props }) =>
 
 NavEmbed.defaultProps = {
   'data-event-category': 'Toolbar',
-  'data-event-action': 'Embed',
-  children: 'Embed',
-  href: '/embed',
+  'data-event-action': 'Meta',
+  children: 'Meta',
+  href: '/meta',
   actively: 'partial'
 }
 

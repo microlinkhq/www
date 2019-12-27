@@ -27,7 +27,7 @@ const Faq = ({ title, caption, questions, ...props }) => {
               {answer.map((paraph, index) => (
                 <Text
                   pt={index === 0 ? 0 : 3}
-                  key={question + index}
+                  key={question}
                   color='black80'
                   children={paraph}
                 />

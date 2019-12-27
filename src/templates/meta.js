@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSiteMetadata } from 'components/hook'
-import Template from 'components/pages/embed/template'
+import Template from 'components/pages/meta/template'
 import { Layout } from 'components/patterns'
 import { metaUrl } from 'helpers'
 
@@ -10,7 +10,7 @@ export default ({ pageContext }) => {
   const metadata = useSiteMetadata()
   const meta = {
     url: `${metadata.siteUrl}${slug}`,
-    title: `Embed for ${data.publisher}`,
+    title: `Meta for ${data.publisher}`,
     image: metaUrl(data.url)
   }
 

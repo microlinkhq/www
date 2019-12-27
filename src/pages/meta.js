@@ -5,8 +5,8 @@ import { Location } from '@reach/router'
 import humanizeUrl from 'humanize-url'
 import React from 'react'
 
-import Examples from 'components/pages/embed/examples'
-import Template from 'components/pages/embed/template'
+import Examples from 'components/pages/meta/examples'
+import Template from 'components/pages/meta/template'
 
 export default () => {
   const demoLinks = useDemoLinks()
