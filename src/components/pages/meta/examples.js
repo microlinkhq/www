@@ -79,16 +79,18 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   useEffect(() => {
     if (isLoading) return
     const value = prependHttp(inputValue)
-    if (!isUrl(value)) return
+    if (!isUrl(value)) return setData(demoLink.data)
     const item = suggestions.find(({ value }) => value === inputValue)
     if (item) setData(item.data)
     else fetchAndSetData(value)
   }, [inputValue])
 
-  const mediaProps =
+  const media =
     view === 'iframe'
       ? ['iframe', 'video', 'audio', 'image', 'logo']
       : ['video', 'audio', 'image', 'logo']
+
+  const targetUrlPrepend = prependHttp(demoLink.data.url)
 
   return (
     <>
@@ -138,17 +140,17 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
           >
             <Box>
               <MicrolinkDebounce
-                key={inputValue || demoLink.data.url + view}
+                key={targetUrlPrepend + view}
                 loading={isLoading}
                 size='large'
-                url={prependHttp(inputValue)}
+                url={targetUrlPrepend}
                 setData={() => data}
-                media={mediaProps}
+                media={media}
               />
               <Flex pt={3} alignItems='center' justifyContent='center'>
                 <MultiCodeEditor
-                  url={inputValue || demoLink.data.url}
-                  media={mediaProps}
+                  url={targetUrlPrepend}
+                  media={media}
                   languages={languages}
                 />
               </Flex>
