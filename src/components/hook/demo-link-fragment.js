@@ -20,7 +20,16 @@ export const demolinkFragment = graphql`
         alternative_color
       }
       description
-      iframe
+      iframe {
+        html
+        scripts {
+          async
+          defer
+          crossorigin
+          src
+          charset
+        }
+      }
       audio {
         url
         type
