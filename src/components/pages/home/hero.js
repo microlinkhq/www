@@ -102,6 +102,7 @@ const Automation = ({ word, ...props }) => (
           mr={3}
           fontWeight='light'
           css={fadeIn}
+          style={{ cursor: 'pointer' }}
         >
           {word}.
         </Heading>
