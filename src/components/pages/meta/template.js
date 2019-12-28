@@ -1,12 +1,3 @@
-import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
-import { mqlCode, getDomain, cdnUrl } from 'helpers'
-import { useFeatures } from 'components/hook'
-import { borders, colors } from 'theme'
-import { Plus } from 'react-feather'
-import { navigate } from 'gatsby'
-import React from 'react'
-import get from 'dlv'
-
 import {
   Box,
   Button,
@@ -21,9 +12,17 @@ import {
   Text
 } from 'components/elements'
 
+import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
 import { Legend, SubHeadline, Microlink } from 'components/patterns'
-import prettier, { serializeObject, serializeFmt } from 'helpers/prettier'
 import { Features } from 'components/pages/screenshot/template'
+import { mqlCode, getDomain, cdnUrl } from 'helpers'
+import { useFeatures } from 'components/hook'
+import { borders, colors } from 'theme'
+import { Plus } from 'react-feather'
+import { navigate } from 'gatsby'
+import React from 'react'
+import get from 'dlv'
+import compact from 'lodash/compact'
 
 const DEFAULT_LOGO = {
   url: cdnUrl('logo/trim.png'),
@@ -32,34 +31,6 @@ const DEFAULT_LOGO = {
   type: 'png',
   size: 1448,
   size_pretty: '1.45 kB'
-}
-
-const generateLanguages = props => {
-  const langReact = () =>
-    prettier.js(`
-import React from 'react'
-import Microlink from '@microlink/react'
-
-export default () => (
-  <Microlink ${serializeFmt(props)} />
-)
-`)
-
-  langReact.language = 'jsx'
-
-  const langVanilla = () =>
-    prettier.html(`
-<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/@microlink/vanilla@4.0.0-alpha.3/dist/microlink.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('.link-previews', { ${serializeObject(props)} })
-  })
-</script>
-`)
-
-  langVanilla.language = 'html'
-
-  return { React: langReact, HTML: langVanilla }
 }
 
 const Hero = ({ domain, id, data }) => {
@@ -112,53 +83,70 @@ const Hero = ({ domain, id, data }) => {
   )
 }
 
-const Sdk = ({ domain, data }) => (
-  <Container
-    id='sdk'
-    maxWidth='100%'
-    borderTop={`${borders[1]} ${colors.pinkest}`}
-    borderBottom={`${borders[1]} ${colors.pinkest}`}
-    bg='pinky'
-  >
-    <Flex
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      as='header'
-      pt={[0, 0, 4, 4]}
+const Sdk = ({ domain, data }) => {
+  const media = ['video', 'audio', 'image', 'logo']
+
+  const variations = compact([
+    data.iframe ? { media: ['iframe', ...media] } : null,
+    { size: 'large', media },
+    { size: 'normal', media },
+    { size: 'small', media }
+  ])
+
+  const languages = mqlCode(
+    data,
+    `video: true,
+    audio:true,
+    palette: true,
+    iframe: true`
+  )
+
+  return (
+    <Container
+      id='sdk'
+      maxWidth='100%'
+      borderTop={`${borders[1]} ${colors.pinkest}`}
+      borderBottom={`${borders[1]} ${colors.pinkest}`}
+      bg='pinky'
     >
-      <Legend sup='Microlink SDK' title='Make your content attractive' />
+      <Flex
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
+        as='header'
+        pt={[0, 0, 4, 4]}
+      >
+        <Legend sup='Microlink SDK' title='Make your content attractive' />
 
-      <Box pb={[0, 0, 4, 4]} px={4} textAlign='center'>
-        <Box pt={4}>
-          <Text mb={[4, 4, 4, 0]} maxWidth={8}>
-            <Link href='/docs/sdk/getting-started/overview/'>
-              Microlink SDK
-            </Link>{' '}
-            converts{' '}
-            <Text color='black' fontWeight='bold' as='span'>
-              {domain}
-            </Text>{' '}
-            links into beautiful previews, engaging better your links.
-          </Text>
+        <Box pb={[0, 0, 4, 4]} px={4} textAlign='center'>
+          <Box pt={4}>
+            <Text mb={[4, 4, 4, 0]} maxWidth={8}>
+              <Link href='/docs/sdk/getting-started/overview/'>
+                Microlink SDK
+              </Link>{' '}
+              converts{' '}
+              <Text color='black' fontWeight='bold' as='span'>
+                {domain}
+              </Text>{' '}
+              links into beautiful previews, engaging better your links.
+            </Text>
+          </Box>
+          <Box pt={[0, 4]} textAlign='center'>
+            <Button
+              onClick={() => navigate('/docs/sdk/getting-started/overview/')}
+            >
+              <Caps fontSize={0} children='Explore Docs' />
+            </Button>
+
+            <Link ml={3} href='https://storybook.microlink.io' icon>
+              <Caps fontWeight='regular' fontSize={0} children='See Examples' />
+            </Link>
+          </Box>
         </Box>
-        <Box pt={[0, 4]} textAlign='center'>
-          <Button
-            onClick={() => navigate('/docs/sdk/getting-started/overview/')}
-          >
-            <Caps fontSize={0} children='Explore Docs' />
-          </Button>
+      </Flex>
 
-          <Link ml={3} href='https://storybook.microlink.io' icon>
-            <Caps fontWeight='regular' fontSize={0} children='See Examples' />
-          </Link>
-        </Box>
-      </Box>
-    </Flex>
-
-    <Box as='section' pt={0} pb={[0, 0, 4, 4]}>
-      {[{ size: 'large' }, { size: 'normal' }, { size: 'small' }].map(
-        ({ docLink, ...props }, index) => (
+      <Box as='section' pt={0} pb={[0, 0, 4, 4]}>
+        {variations.map(({ docLink, ...props }, index) => (
           <Flex
             flexDirection={['column', 'column', 'column', 'row']}
             justifyContent='center'
@@ -166,14 +154,16 @@ const Sdk = ({ domain, data }) => (
             key={JSON.stringify(props)}
             mr='auto'
             ml='auto'
-            py={index === 1 ? [3, 3, 5, 5] : 0}
+            pt={[3, 3, 4, 4]}
+            pb={index === variations.length - 1 ? null : [3, 3, 4, 4]}
           >
             <Box width={['100%', '100%', '500px', '500px']} p={[4, 4, 0]}>
               <Subhead
                 pb={[2, 2, 3, 3]}
                 textAlign='left'
                 fontSize={[1, 2]}
-                children={props.size}
+                children={props.size || 'iframe'}
+                titleExclude={[props.size || 'iframe']}
               />
               <Microlink
                 setData={() => ({ ...data, logo: data.logo || DEFAULT_LOGO })}
@@ -182,18 +172,27 @@ const Sdk = ({ domain, data }) => (
             </Box>
             <Box px={3} />
             <Box>
-              <MultiCodeEditor
-                languages={generateLanguages({ ...props, url: data.url })}
-              />
+              <MultiCodeEditor languages={languages} {...props} />
             </Box>
           </Flex>
-        )
-      )}
-    </Box>
-  </Container>
-)
+        ))}
+      </Box>
+    </Container>
+  )
+}
 
 const Api = ({ data }) => {
+  const languages = mqlCode(
+    data,
+    `video: true,
+    audio:true,
+    palette: true,
+    iframe: true`
+  )
+
+  delete languages.React
+  delete languages.HTML
+
   return (
     <Container
       id='api'
@@ -253,13 +252,7 @@ const Api = ({ data }) => {
                 '500px',
                 '500px'
               ]}
-              languages={mqlCode(
-                data,
-                `video: true,
-    audio:true,
-    palette: true,
-    iframe: true`
-              )}
+              languages={languages}
             />
           </Box>
           <Box px={3} />
