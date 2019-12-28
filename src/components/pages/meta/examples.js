@@ -10,11 +10,11 @@ import {
   Text,
   Heading,
   CodeEditor,
-  IframeInline,
   Card,
   Image,
   Link,
-  Subhead
+  Subhead,
+  MultiCodeEditor
 } from 'components/elements'
 
 import {
@@ -26,14 +26,27 @@ import {
   Microlink
 } from 'components/patterns'
 
-import styled from 'styled-components'
+import { mqlCode, debounceComponent, getDomain } from 'helpers'
 import { transition, colors, borders } from 'theme'
-import { debounceComponent, getDomain } from 'helpers'
 import React, { useEffect, useState } from 'react'
 import { fadeIn } from 'components/keyframes'
 import prependHttp from 'prepend-http'
+import styled from 'styled-components'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
+
+const languages = mqlCode(
+  {
+    data: {
+      audio: true,
+      video: true,
+      meta: true
+    }
+  },
+  `audio: true,
+    video: true,
+    meta: true`
+)
 
 const MicrolinkDebounce = debounceComponent(Microlink)
 
@@ -71,6 +84,11 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
     if (item) setData(item.data)
     else fetchAndSetData(value)
   }, [inputValue])
+
+  const mediaProps =
+    view === 'iframe'
+      ? ['iframe', 'video', 'audio', 'image', 'logo']
+      : ['video', 'audio', 'image', 'logo']
 
   return (
     <>
@@ -118,50 +136,23 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
             maxWidth={CodeEditor.width}
             mx='auto'
           >
-            {view === 'normal' ? (
-              <Box>
-                <MicrolinkDebounce
-                  loading={isLoading}
-                  size='large'
-                  url={prependHttp(inputValue)}
-                  setData={() => data}
-                  media={['video', 'audio', 'image', 'logo']}
+            <Box>
+              <MicrolinkDebounce
+                key={inputValue || demoLink.data.url + view}
+                loading={isLoading}
+                size='large'
+                url={prependHttp(inputValue)}
+                setData={() => data}
+                media={mediaProps}
+              />
+              <Flex pt={3} alignItems='center' justifyContent='center'>
+                <MultiCodeEditor
+                  url={inputValue || demoLink.data.url}
+                  media={mediaProps}
+                  languages={languages}
                 />
-                <Flex pt={3} alignItems='center' justifyContent='center'>
-                  <CodeEditor language='bash'>
-                    {`<Microlink size='large' url='${inputValue ||
-                      demoLink.data
-                        .url}' media={['audio', 'video', 'image', 'logo']} />`}
-                  </CodeEditor>
-                </Flex>
-              </Box>
-            ) : data.iframe ? (
-              <Flex
-                flexDirection='column'
-                alignItems='center'
-                justifyContent='center'
-              >
-                <IframeInline
-                  dangerouslySetInnerHTML={{ __html: data.iframe }}
-                />
-                <Flex pt={3} alignItems='center' justifyContent='center'>
-                  <CodeEditor language='bash' children={demoLink.data.iframe} />
-                </Flex>
               </Flex>
-            ) : (
-              <Flex
-                border={3}
-                borderColor='gray5'
-                justifyContent='center'
-                alignItems='center'
-                width={CodeEditor.width}
-                height={CodeEditor.height}
-              >
-                <Text fontSize={2} color='gray6'>
-                  not supported
-                </Text>
-              </Flex>
-            )}
+            </Box>
             <Flex justifyContent='flex-end'>
               <Card.Option
                 children='normal'
