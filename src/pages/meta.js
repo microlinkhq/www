@@ -17,9 +17,9 @@ export default () => {
   const image = query.url ? metaUrl(query.url) : cdnUrl('page/embed.png')
 
   const suggestions = [
-    'nytimes',
+    'instagram',
+    'soundcloud',
     'spotify',
-    'techcrunch',
     'theverge',
     'youtube'
   ].map(id => {
