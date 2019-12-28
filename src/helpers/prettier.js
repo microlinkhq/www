@@ -44,8 +44,16 @@ export const serializeFmt = (props, { quotes = true } = {}) => {
   return Object.keys(props).reduce((acc, rawKey) => {
     const rawValue = props[rawKey]
     const key = rawValue === true ? rawKey : `${rawKey}=`
-    const value =
-      rawValue === true ? '' : `${quotes ? `'${rawValue}'` : rawValue}`
+    const value = (() => {
+      if (rawValue === true) return ''
+
+      if (Array.isArray(rawValue)) {
+        return `[${rawValue.map(value => `${quotes ? `'${value}'` : value}`)}]`
+      }
+
+      return `${quotes ? `'${rawValue}'` : rawValue}`
+    })()
+
     return `${acc}${key}${value} `
   }, '')
 }
