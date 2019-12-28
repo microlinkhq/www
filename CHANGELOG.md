@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.121](https://github.com/microlinkhq/microlink-www/compare/v2.10.120...v2.10.121) (2019-12-28)
+
+
+### Bug Fixes
+
+* serialize array properly ([01cf92e](https://github.com/microlinkhq/microlink-www/commit/01cf92e))
+
 ### [2.10.120](https://github.com/microlinkhq/microlink-www/compare/v2.10.119...v2.10.120) (2019-12-27)
 
 
