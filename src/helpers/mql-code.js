@@ -26,7 +26,7 @@ import Microlink from '@microlink/react'
 export default props => (
   <Microlink
     url='${url}'
-    media={${serializeArray(media)}
+    media={${serializeArray(media)}}
     size='${size}'
     {...props}
   />
