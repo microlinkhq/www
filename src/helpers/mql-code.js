@@ -5,21 +5,29 @@ const createApiUrl = ({ url = 'https://example.com', ...props } = {}) => {
   return apiUrl
 }
 
+const serializeArray = arr => `[${arr.map(value => "'" + value + "'")}]`
+
 const createDataUrl = props => (url = 'https://example.com') =>
   createApiUrl({ url, ...props })
 
 export default (props, stringProps) => {
   const dataUrl = createDataUrl(props)
+
   const React = args => {
-    const url = props.url || args.url || '{{demolinks.spotify.url}}'
+    const {
+      url = '{{demolinks.spotify.url}}',
+      media = ['audio', 'video', 'image', 'logo'],
+      size = 'large'
+    } = { ...props, ...args }
+
     return `
 import Microlink from '@microlink/react'
 
 export default props => (
   <Microlink
     url='${url}'
-    media={['audio', 'video', 'image', 'logo']}
-    size='large'
+    media={${serializeArray(media)}
+    size='${size}'
     {...props}
   />
 )`
@@ -27,21 +35,32 @@ export default props => (
 
   React.language = 'jsx'
 
-  const HTML = () =>
-    `<!-- Microlink SDK Vanilla/UMD bundle -->
+  const HTML = args => {
+    const { media = ['audio', 'video', 'image', 'logo'], size = 'large' } = {
+      ...props,
+      ...args
+    }
+
+    return `
+<!-- Microlink SDK Vanilla/UMD bundle -->
 <script src="//cdn.jsdelivr.net/npm/@microlink/vanilla/umd/microlink.min.js"></script>
 
 <!-- Replace all elements with \`link-preview\` class -->
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {
-    microlink('.link-preview')
+    microlink('.link-preview', {
+      media={${serializeArray(media)},
+      size: '${size}'
+    })
   })
 </script>`
+  }
 
   HTML.language = 'html'
 
   const Nodejs = args => {
-    const url = props.url || args.url || '{{demolinks.spotify.url}}'
+    const { url = '{{demolinks.spotify.url}}' } = { ...props, ...args }
+
     return `
 const mql = require('@microlink/mql')
 
