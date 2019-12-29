@@ -29,13 +29,13 @@ For example, when the URL is a audio provider (like **SoundCloud** or **Spotify*
 
 ```json
 {
-  audio": {
-  "url": "https://p.scdn.co/mp3-preview/4036341425a86cbe3fe0aa39a034ba7b6c5e4432?cid=6313d40896f64a2ead4f67035049a647",
-  "type": "mp3",
-  "duration": 30.040816,
-  "size": 362861,
-  "duration_pretty": "30s",
-  "size_pretty": "363 kB"
+  "audio": {
+    "url": "https://p.scdn.co/mp3-preview/4036341425a86cbe3fe0aa39a034ba7b6c5e4432?cid=6313d40896f64a2ead4f67035049a647",
+    "type": "mp3",
+    "duration": 30.040816,
+    "size": 362861,
+    "duration_pretty": "30s",
+    "size_pretty": "363 kB"
   }
 }
 ```
@@ -46,7 +46,7 @@ As the same way, in case you prefer to use provider iframes, just need to setup 
 
 ```json
 {
-  iframe": {
+  "iframe": {
     "html": "<iframe width=\"300\" height=\"380\" allowtransparency=\"true\" frameborder=\"0\" allow=\"encrypted-media\" title=\"Spotify Embed: Space Spine\" src=\"https://open.spotify.com/embed/album/49ax7HUaKuueaVtZBkEZD4?highlight=spotify:track:1W2919zs8SBCLTrOB1ftQT\"></iframe>",
     "scripts": []
   }
