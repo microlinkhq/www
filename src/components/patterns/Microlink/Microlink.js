@@ -1,6 +1,6 @@
 import React from 'react'
-import Microlink from '@microlink/react'
 import { template } from 'helpers'
+import Microlink from '@microlink/react'
 
 export default ({ url, style, ...props }) => {
   if (url) url = template(url)

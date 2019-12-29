@@ -1,5 +1,5 @@
 ---
-title: 'Product Brief #4: SDK 2.0 & More Video Providers'
+title: 'Product Brief #4: SDK v2 & More Video Providers'
 date: '2018-04-11'
 ---
 

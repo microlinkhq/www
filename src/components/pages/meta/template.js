@@ -87,7 +87,9 @@ const Sdk = ({ domain, data }) => {
   const media = ['video', 'audio', 'image', 'logo']
 
   const variations = compact([
-    data.iframe ? { media: ['iframe', ...media] } : null,
+    data.iframe
+      ? { style: { textAlign: 'center' }, media: ['iframe', ...media] }
+      : null,
     { size: 'large', media },
     { size: 'normal', media },
     { size: 'small', media }
@@ -146,7 +148,7 @@ const Sdk = ({ domain, data }) => {
       </Flex>
 
       <Box as='section' pt={0} pb={[0, 0, 4, 4]}>
-        {variations.map(({ docLink, ...props }, index) => (
+        {variations.map((props, index) => (
           <Flex
             flexDirection={['column', 'column', 'column', 'row']}
             justifyContent='center'
@@ -165,10 +167,18 @@ const Sdk = ({ domain, data }) => {
                 children={props.size || 'iframe'}
                 titleExclude={[props.size || 'iframe']}
               />
-              <Microlink
-                setData={() => ({ ...data, logo: data.logo || DEFAULT_LOGO })}
-                {...props}
-              />
+              <Box
+                css={`
+                  * {
+                    max-width: 500px;
+                  }
+                `}
+              >
+                <Microlink
+                  setData={() => ({ ...data, logo: data.logo || DEFAULT_LOGO })}
+                  {...props}
+                />
+              </Box>
             </Box>
             <Box px={3} />
             <Box>
