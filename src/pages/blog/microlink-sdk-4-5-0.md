@@ -1,5 +1,5 @@
 ---
-title: 'Microlink SDK v4.5: Introducing native embed support'
+title: 'Microlink SDK v4.5: Introducing iframe support'
 date: '2019-12-29'
 ---
 
