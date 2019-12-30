@@ -5,7 +5,7 @@ date: '2019-12-29'
 
 We released [Microlink SDK v4.5.0](https://github.com/microlinkhq/sdk/releases/tag/v4.5.0), introducing a powerful functionality: the ability to embed **native iframes** 🔥.
 
-Every time you use **Microlink SDK**, it turns any link a beauty link preview, where the card can be displayed with three [size](/docs/sdk/parameters/size/) variations: `'small'`, `'normal'` and `'large'`.
+Every time you use **Microlink SDK**, it turns any link into a beautiful link preview, where the card can be displayed with three [size](/docs/sdk/parameters/size/) variations: `'small'`, `'normal'` and `'large'`.
 
 <Microlink media={['audio']} size='small' url='{{demolinks.spotify.url}}' />
 <Microlink media={['audio']} url='{{demolinks.spotify.url}}' />
@@ -17,13 +17,13 @@ Microlink SDK <Link href='/docs/sdk/parameters/size/'>size</Link> variations.
 
 The card approach improves a lot of the URL preview experience, making it possible for you to adopt it on your own website or application.
 
-However, some domains on Internet (like **Instagram**, **SoundCloud**, **Spotify**, **Facebook**, **Twitter**,...) have their own way to embed their content, being the Microlink card displayed less recognizable than using their own way.
+However, some domains on the Internet (like **Instagram**, **SoundCloud**, **Spotify**, **Facebook**, **Twitter**,...) have their own way of embedding their content, making the Microlink card displayed less recognizable than using their own way.
 
-**Microlink SDK v4.5** introduces the ability to set `iframe` as [media](/docs/sdk/parameters/media/) property for using native embed solution always it's available.
+**Microlink SDK v4.5** introduces the ability to set `iframe` as the [media](/docs/sdk/parameters/media/) property for using a native embed solution always when it's available.
 
 <Microlink media={['iframe']} url='{{demolinks.spotify.url}}' style={{textAlign:'center'}} />
 
-The property [media](/docs/sdk/parameters/media/) takes into consideration the URL preferences, setting up the [Microlik API](/docs/api/getting-started/overview) call in order to satisfy the media requirements.
+The [media](/docs/sdk/parameters/media/) property takes into consideration the URL preferences, setting up the [Microlink API](/docs/api/getting-started/overview) call in order to satisfy the media requirements.
 
 For example, when the URL is an audio provider (like **SoundCloud** or **Spotify**) if you set `media: ['audio']` you are telling at Microlink API level that you want to detect the streaming source of audio behind the URL, enabling [audio](/docs/api/parameters/audio) for that purpose.
 
@@ -40,7 +40,7 @@ For example, when the URL is an audio provider (like **SoundCloud** or **Spotify
 }
 ```
 
-If the audio detection is done successfully, [Microlik API](/docs/api/getting-started/overview) will return an audio data field as part of the response that will be used by **Microlik SDK** for creating the audio preview.
+If the audio detection is done successfully, [Microlink API](/docs/api/getting-started/overview) will return an audio data field as part of the response that will be used by **Microlink SDK** for creating the audio preview.
 
 In the same way, in case you prefer to use provider iframes, just need to set `media: ['iframe']` for enabling [iframe](/docs/api/parameters/iframe) detection.
 
@@ -62,10 +62,10 @@ import Microlink from '@microlink/react'
 
 export default props => (
   // The card media could be:
-  // - `iframe`, if the URL provider support it.
+  // - `iframe`, if the URL provider supports it.
   // - `video`, in case `iframe` hasn't been satisfied.
   // - `audio`, in case `video` and `iframe` haven't been satisfied.
-  // - `image`, in case neither of the previous values haven't been satisfied.
+  // - `image`, in case neither of the previous values have been satisfied.
   <Microlink media={['iframe', 'video', 'audio' 'image']} {...props} />
 )
 ```

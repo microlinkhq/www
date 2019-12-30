@@ -51,8 +51,8 @@ const Resume = ({ title }) => (
     />
     <List ml={[3, 3, 2, 2]} px={[3, 3, 3, 0]} mt={4} mb={3}>
       <List.Item>Get HTML or PDF from any URL.</List.Item>
-      <List.Item>Take an screenshot in ~3 seconds.</List.Item>
-      <List.Item>Turns websites into structured data.</List.Item>
+      <List.Item>Take a screenshot in ~3 seconds.</List.Item>
+      <List.Item>Turn websites into structured data.</List.Item>
       <List.Item>Get perfomance metrics & detect bottlenecks.</List.Item>
     </List>
     <Flex
