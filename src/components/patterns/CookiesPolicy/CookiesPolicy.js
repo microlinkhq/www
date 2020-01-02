@@ -44,12 +44,12 @@ export default () => {
 
   console.log('isClosed', isClosed)
   console.log('isHidden', isHidden)
-  console.log('aria-hidden', isHidden || isClosed)
+  console.log('aria-hidden', isClosed || isHidden)
 
   return (
     <CookiesWrapper
       id='cookies-policy'
-      aria-hidden={isHidden || isClosed}
+      aria-hidden={isClosed || isHidden}
       m={3}
       isHidden={isHidden}
     >
