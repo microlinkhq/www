@@ -39,6 +39,11 @@ const CloseButton = styled(Box)`
 export default () => {
   const [isHidden, setIsHidden] = useLocalStorage(LOCALSTORAGE_KEY, false)
   const [isClosed, setIsClosed] = useState(false)
+
+  console.log('LOCALSTORAGE_KEY', LOCALSTORAGE_KEY)
+  console.log('isHidden', isHidden)
+  console.log('isClosed', isClosed)
+
   if (isHidden || isClosed) return null
 
   return (
