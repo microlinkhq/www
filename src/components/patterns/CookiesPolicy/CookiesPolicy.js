@@ -1,8 +1,8 @@
 import { Flex, Text, Box, Link } from 'components/elements'
+import React, { useState, useRef, useEffect } from 'react'
 import { hideNotification } from 'components/keyframes'
 import { useLocalStorage } from 'components/hook'
 import { speed, transition, colors } from 'theme'
-import React, { useState } from 'react'
 import styled from 'styled-components'
 import { X } from 'react-feather'
 
@@ -41,15 +41,20 @@ const CloseButton = styled(Box)`
 export default () => {
   const [isHidden, setIsHidden] = useLocalStorage(LOCALSTORAGE_KEY, false)
   const [isClosed, setIsClosed] = useState(false)
+  const ref = useRef(null)
 
-  console.log('isClosed', isClosed)
-  console.log('isHidden', isHidden)
-  console.log('aria-hidden', isClosed || isHidden)
+  const ariaHidden = isClosed || isHidden
+
+  useEffect(() => {
+    const el = ref.current
+    if (el && ariaHidden) el.setAttribute('aria-hidden', 'true')
+  }, [])
 
   return (
     <CookiesWrapper
+      ref={ref}
       id='cookies-policy'
-      aria-hidden={isClosed || isHidden}
+      aria-hidden={ariaHidden}
       m={3}
       isHidden={isHidden}
     >
