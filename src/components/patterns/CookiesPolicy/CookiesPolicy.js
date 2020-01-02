@@ -20,8 +20,7 @@ const CookiesWrapper = styled(Box)`
 
   &[aria-hidden='true'] {
     animation: ${hideNotification} ${transition.medium} forwards 1;
-    animation-duration: ${props =>
-      props.isHidden ? '0s' : `${speed.normal}ms`};
+    animation-duration: 0s !important;
   }
 `
 
