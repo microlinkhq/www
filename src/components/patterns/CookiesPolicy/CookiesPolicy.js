@@ -43,21 +43,18 @@ export default () => {
   const [isClosed, setIsClosed] = useState(false)
   const ref = useRef(null)
 
-  const ariaHidden = isClosed || isHidden
-
   useEffect(() => {
     const el = ref.current
-    if (el && ariaHidden) el.setAttribute('aria-hidden', 'true')
-  }, [])
+    if (el) el.setAttribute('aria-hidden', isClosed || isHidden)
+  }, [isClosed, isHidden])
 
   return (
     <CookiesWrapper
       ref={ref}
       id='cookies-policy'
-      aria-hidden={ariaHidden}
+      aria-hidden='true'
       m={3}
       isHidden={isHidden}
-      display={ariaHidden ? 'none' : 'inherit'}
     >
       <Flex
         alignItems='center'
