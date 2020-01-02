@@ -1,6 +1,6 @@
 import { Flex, Text, Box, Link } from 'components/elements'
 import React, { useState, useRef, useEffect } from 'react'
-import { hideNotification } from 'components/keyframes'
+import { showNotification, hideNotification } from 'components/keyframes'
 import { useLocalStorage } from 'components/hook'
 import { speed, transition, colors } from 'theme'
 import styled from 'styled-components'
@@ -15,12 +15,11 @@ const CookiesWrapper = styled(Box)`
   justify-content: center;
   width: 100%;
   z-index: 2;
-
+  animation: ${showNotification} ${transition.medium} forwards 1;
   will-change: opacity, transform;
 
   &[aria-hidden='true'] {
     animation: ${hideNotification} ${transition.medium} forwards 1;
-    animation-duration: 0s !important;
   }
 `
 
@@ -53,7 +52,7 @@ export default () => {
       id='cookies-policy'
       aria-hidden='true'
       m={3}
-      isHidden={isHidden}
+      css={isHidden && 'animation-duration: 0s !important;'}
     >
       <Flex
         alignItems='center'
