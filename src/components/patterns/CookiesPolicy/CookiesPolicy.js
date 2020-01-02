@@ -57,6 +57,7 @@ export default () => {
       aria-hidden={ariaHidden}
       m={3}
       isHidden={isHidden}
+      display={ariaHidden ? 'none' : 'inherit'}
     >
       <Flex
         alignItems='center'
