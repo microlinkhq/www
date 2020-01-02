@@ -42,6 +42,10 @@ export default () => {
   const [isHidden, setIsHidden] = useLocalStorage(LOCALSTORAGE_KEY, false)
   const [isClosed, setIsClosed] = useState(false)
 
+  console.log('isClosed', isClosed)
+  console.log('isHidden', isHidden)
+  console.log('aria-hidden', isHidden || isClosed)
+
   return (
     <CookiesWrapper
       id='cookies-policy'
