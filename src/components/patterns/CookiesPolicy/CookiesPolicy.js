@@ -1,8 +1,8 @@
 import { Flex, Text, Box, Link } from 'components/elements'
+import React, { useState, useRef, useEffect } from 'react'
 import { hideNotification } from 'components/keyframes'
 import { useLocalStorage } from 'components/hook'
-import { transition, colors } from 'theme'
-import React, { useState } from 'react'
+import { speed, transition, colors } from 'theme'
 import styled from 'styled-components'
 import { X } from 'react-feather'
 
@@ -20,6 +20,7 @@ const CookiesWrapper = styled(Box)`
 
   &[aria-hidden='true'] {
     animation: ${hideNotification} ${transition.medium} forwards 1;
+    animation-duration: 0s !important;
   }
 `
 
@@ -39,35 +40,44 @@ const CloseButton = styled(Box)`
 export default () => {
   const [isHidden, setIsHidden] = useLocalStorage(LOCALSTORAGE_KEY, false)
   const [isClosed, setIsClosed] = useState(false)
-  if (isHidden || isClosed) return null
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (el) el.setAttribute('aria-hidden', isClosed || isHidden)
+  }, [isClosed, isHidden])
 
   return (
-    <CookiesWrapper id='cookies-policy' aria-hidden={isHidden} m={3}>
-      {
-        <Flex
-          alignItems='center'
-          bg='white95'
-          py={2}
-          px={3}
-          borderRadius={3}
-          boxShadow={0}
+    <CookiesWrapper
+      ref={ref}
+      id='cookies-policy'
+      aria-hidden='true'
+      m={3}
+      isHidden={isHidden}
+    >
+      <Flex
+        alignItems='center'
+        bg='white95'
+        py={2}
+        px={3}
+        borderRadius={3}
+        boxShadow={0}
+      >
+        <Text fontSize={['10px', 1]} color='black80'>
+          <span>By using this website you agree to our</span>
+          <Link ml={1} href='/privacy' children='privacy' />
+          <span>.</span>
+        </Text>
+        <CloseButton
+          ml={3}
+          onClick={() => {
+            setIsClosed(true)
+            setTimeout(() => setIsHidden(true), 300)
+          }}
         >
-          <Text fontSize={['10px', 1]} color='black80'>
-            <span>By using this website you agree to our</span>
-            <Link ml={1} href='/privacy' children='privacy' />
-            <span>.</span>
-          </Text>
-          <CloseButton
-            ml={3}
-            onClick={() => {
-              setIsHidden(true)
-              setTimeout(() => setIsClosed(true), 300)
-            }}
-          >
-            <X size={16} color={colors.black80} />
-          </CloseButton>
-        </Flex>
-      }
+          <X size={16} color={colors.black80} />
+        </CloseButton>
+      </Flex>
     </CookiesWrapper>
   )
 }
