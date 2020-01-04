@@ -11,6 +11,7 @@ import template from './template'
 import prettier from './prettier'
 import mqlCode from './mql-code'
 import metaUrl from './meta-url'
+import pdfUrl from './pdf-url'
 import cdnUrl from './cdn-url'
 import isSSR from './is-ssr'
 import title from './title'
@@ -26,6 +27,7 @@ export {
   isSSR,
   metaUrl,
   mqlCode,
+  pdfUrl,
   prettier,
   screenshotUrl,
   sendEvent,
