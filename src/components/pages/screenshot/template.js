@@ -28,7 +28,7 @@ import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
 
 import { screenshotHeight } from 'components/pages/home/screenshots'
 
-export const Screenshot = ({ domain, data, query, ...props }) => {
+export const Screenshot = ({ domain, data, ...props }) => {
   return (
     <Link px={3} mt={3} href={data.screenshot.url}>
       <Image
@@ -53,8 +53,6 @@ export const Screenshot = ({ domain, data, query, ...props }) => {
 }
 
 const Hero = ({ domain, id, data }) => {
-  const [query] = useQueryState()
-
   const caption = (
     <Box maxWidth={5} pt={[2, 2, 4, 4]} px={5}>
       Turn{' '}
@@ -100,14 +98,7 @@ const Hero = ({ domain, id, data }) => {
         {logoProvider}
       </Flex>
       <SubHeadline pb={0} caption={caption} />
-      <Screenshot
-        domain={domain}
-        data={data}
-        query={query}
-        mx='auto'
-        pl={4}
-        pr={4}
-      />
+      <Screenshot domain={domain} data={data} mx='auto' pl={4} pr={4} />
     </Container>
   )
 }
