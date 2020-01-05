@@ -296,10 +296,9 @@ const Features = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Every screenshot has a{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
-            expiration, they will be automatically refreshed, reflecting any
-            change present on the website.
+            Every PDF has a <Link href='/docs/api/parameters/ttl'>ttl</Link>{' '}
+            associated. After expiration, they will be automatically refreshed,
+            reflecting any change present on the website.
           </Text>
         </Flex>
       }
