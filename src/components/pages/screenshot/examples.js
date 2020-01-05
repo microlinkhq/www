@@ -24,13 +24,12 @@ import {
 } from 'helpers'
 
 import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
-import { speed, transition, colors, borders } from 'theme'
 import { Safari, HourGlass } from 'components/icons'
 import { Image as ImageIcon } from 'react-feather'
 import React, { useEffect, useState } from 'react'
+import { speed, colors, borders } from 'theme'
 import { useTransition } from 'react-spring'
 import prependHttp from 'prepend-http'
-import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
 import range from 'lodash/range'
@@ -50,19 +49,6 @@ import { Screenshot } from './template'
 const TIMINGS_RANGE = range(-150, 150)
 const INTERVAL = 3500
 const AVERAGE_BASE = 924
-
-const LogoWrap = styled(Box)`
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity ${transition.medium};
-  &:hover {
-    opacity: 1;
-  }
-`
-
-LogoWrap.defaultProps = {
-  display: 'inline-block'
-}
 
 const ScreenshotDebounce = debounceComponent(Screenshot)
 
@@ -320,7 +306,7 @@ const Average = ({ size }) => {
   )
 }
 
-const Timings = () => {
+export const Timings = () => {
   const p95 = 1.36
 
   return (
@@ -418,7 +404,7 @@ const Timings = () => {
   )
 }
 
-const Features = props => (
+export const Features = props => (
   <Container id='features' {...props}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='The Fastest Way for taking screenshots' />
