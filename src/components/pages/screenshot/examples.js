@@ -23,9 +23,10 @@ import {
   debounceComponent
 } from 'helpers'
 
+import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
+
 import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
-import { Safari, HourGlass } from 'components/icons'
-import { Image as ImageIcon } from 'react-feather'
+import { HourGlass } from 'components/icons'
 import React, { useEffect, useState } from 'react'
 import { speed, colors, borders } from 'theme'
 import { useTransition } from 'react-spring'
@@ -92,7 +93,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
   )
 }
 
-const LiveDemo = ({ suggestions, onSubmit, url, isLoading, ...props }) => {
+const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
   const [inputBg, setInputBg] = useState('')
   const [inputUrl, setInputUrl] = useState(url || '')
   const [inputWaitFor, setInputWaitFor] = useState('')
@@ -179,17 +180,18 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading, ...props }) => {
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '100px', '100px']}
+              width={['100%', '100%', '84px', '84px']}
+              autoFocus
             />
           </Box>
 
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
-              placeholder='Wait for'
+              placeholder='Wait'
               id='screenshot-demo-waitfor'
               type='text'
               fontSize={2}
-              width={['100%', '100%', '74px', '74px']}
+              width={['100%', '100%', '48px', '48px']}
               mr='6px'
               value={inputWaitFor}
               onChange={event => setInputWaitFor(event.target.value)}
@@ -212,7 +214,9 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading, ...props }) => {
               mr='6px'
               value={inputOverlay}
               onChange={event => setInputOverlay(event.target.value)}
-              iconComponent={<Safari color={colors.black50} width='16px' />}
+              iconComponent={
+                <CompassIcon color={colors.black50} width='16px' />
+              }
               suggestions={[
                 { value: 'none' },
                 { value: 'dark' },

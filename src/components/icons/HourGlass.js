@@ -6,7 +6,6 @@ export const HourGlass = props => (
   <Svg
     height='100%'
     xmlns='http://www.w3.org/2000/svg'
-    aria-hidden='true'
     viewBox='0 0 384 512'
     {...props}
   >

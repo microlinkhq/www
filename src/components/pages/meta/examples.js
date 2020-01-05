@@ -120,6 +120,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
             value={inputValue}
             onChange={event => setInputValue(event.target.value)}
             width='12rem'
+            autoFocus
           />
 
           <Button ml={2} loading={isLoading}>
