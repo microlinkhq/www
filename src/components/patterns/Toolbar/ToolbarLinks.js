@@ -72,6 +72,17 @@ NavScreenshot.defaultProps = {
   actively: 'partial'
 }
 
+export const NavPdf = ({ mobile, ...props }) =>
+  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
+
+NavPdf.defaultProps = {
+  'data-event-category': 'Toolbar',
+  'data-event-action': 'PDF',
+  children: 'PDF',
+  href: '/pdf',
+  actively: 'partial'
+}
+
 export const NavDocs = ({ mobile, ...props }) =>
   mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
 

@@ -9,6 +9,7 @@ import {
   NavDocs,
   NavEmbed,
   NavLogo,
+  NavPdf,
   NavPricing,
   NavScreenshot
 } from './ToolbarLinks'
@@ -68,6 +69,7 @@ export default class extends Component {
             <Nav as='nav' width={300}>
               <NavEmbed mobile />
               <NavScreenshot mobile />
+              <NavPdf mobile />
               <NavPricing mobile />
               <NavDocs mobile />
               <NavChat mobile />
