@@ -120,6 +120,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
             value={inputValue}
             onChange={event => setInputValue(event.target.value)}
             width='12rem'
+            autoFocus
           />
 
           <Button ml={2} loading={isLoading}>
@@ -442,7 +443,7 @@ const Features = props => (
           width={[6, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
           alt='Data normalization'
-          src='https://cdn.microlink.io/illustrations/genius-idea.svg'
+          src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
         />
       }
     />

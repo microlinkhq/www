@@ -2,7 +2,7 @@ import { Flex, Text, Box, Link } from 'components/elements'
 import React, { useState, useRef, useEffect } from 'react'
 import { showNotification, hideNotification } from 'components/keyframes'
 import { useLocalStorage } from 'components/hook'
-import { speed, transition, colors } from 'theme'
+import { transition, colors } from 'theme'
 import styled from 'styled-components'
 import { X } from 'react-feather'
 

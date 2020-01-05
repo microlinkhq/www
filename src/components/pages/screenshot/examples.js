@@ -23,14 +23,14 @@ import {
   debounceComponent
 } from 'helpers'
 
+import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
+
 import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
-import { speed, transition, colors, borders } from 'theme'
-import { Safari, HourGlass } from 'components/icons'
-import { Image as ImageIcon } from 'react-feather'
+import { HourGlass } from 'components/icons'
 import React, { useEffect, useState } from 'react'
+import { speed, colors, borders } from 'theme'
 import { useTransition } from 'react-spring'
 import prependHttp from 'prepend-http'
-import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
 import range from 'lodash/range'
@@ -50,19 +50,6 @@ import { Screenshot } from './template'
 const TIMINGS_RANGE = range(-150, 150)
 const INTERVAL = 3500
 const AVERAGE_BASE = 924
-
-const LogoWrap = styled(Box)`
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity ${transition.medium};
-  &:hover {
-    opacity: 1;
-  }
-`
-
-LogoWrap.defaultProps = {
-  display: 'inline-block'
-}
 
 const ScreenshotDebounce = debounceComponent(Screenshot)
 
@@ -106,7 +93,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
   )
 }
 
-const LiveDemo = ({ suggestions, onSubmit, url, isLoading, ...props }) => {
+const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
   const [inputBg, setInputBg] = useState('')
   const [inputUrl, setInputUrl] = useState(url || '')
   const [inputWaitFor, setInputWaitFor] = useState('')
@@ -193,17 +180,18 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading, ...props }) => {
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '100px', '100px']}
+              width={['100%', '100%', '84px', '84px']}
+              autoFocus
             />
           </Box>
 
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
-              placeholder='Wait for'
+              placeholder='Wait'
               id='screenshot-demo-waitfor'
               type='text'
               fontSize={2}
-              width={['100%', '100%', '74px', '74px']}
+              width={['100%', '100%', '48px', '48px']}
               mr='6px'
               value={inputWaitFor}
               onChange={event => setInputWaitFor(event.target.value)}
@@ -226,7 +214,9 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading, ...props }) => {
               mr='6px'
               value={inputOverlay}
               onChange={event => setInputOverlay(event.target.value)}
-              iconComponent={<Safari color={colors.black50} width='16px' />}
+              iconComponent={
+                <CompassIcon color={colors.black50} width='16px' />
+              }
               suggestions={[
                 { value: 'none' },
                 { value: 'dark' },
@@ -282,7 +272,7 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading, ...props }) => {
   )
 }
 
-const Average = ({ size }) => {
+export const Average = ({ size }) => {
   const [average, setAverage] = useState(924)
   const [averageHighlight, setAverageHighlight] = useState(false)
 
@@ -320,7 +310,7 @@ const Average = ({ size }) => {
   )
 }
 
-const Timings = () => {
+export const Timings = () => {
   const p95 = 1.36
 
   return (
@@ -418,7 +408,7 @@ const Timings = () => {
   )
 }
 
-const Features = props => (
+export const Features = props => (
   <Container id='features' {...props}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='The Fastest Way for taking screenshots' />
@@ -495,14 +485,20 @@ const Features = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Lot of actions supported, such as{' '}
+            Such as{' '}
             <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
             emulation, CSS/JS injection, partial or{' '}
             <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
-            page snapshot,{' '}
+            page screenshot,{' '}
+            <Link href='/docs/api/parameters/screenshot/hide'>hide</Link>{' '}
+            elements,{' '}
             <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
             or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
-            events.
+            events, setup a custom{' '}
+            <Link href='/docs/api/parameters/screenshot/viewport'>
+              viewport
+            </Link>
+            , and a lot more.
           </Text>
         </Flex>
       }

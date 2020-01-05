@@ -6,7 +6,6 @@ export const External = props => (
   <Svg
     height='100%'
     xmlns='http://www.w3.org/2000/svg'
-    aria-hidden='true'
     viewBox='0 0 24 24'
     fill='none'
     stroke='#c0bfc0'

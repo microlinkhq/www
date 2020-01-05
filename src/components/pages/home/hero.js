@@ -137,7 +137,7 @@ const Hero = ({ title, features, ...props }) => {
         <Announcement
           data-event-category='Home'
           data-event-action='Announcement'
-          href='/docs/api/parameters/pdf'
+          href='/pdf'
           children={
             <>
               Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
