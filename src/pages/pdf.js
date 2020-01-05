@@ -1,5 +1,5 @@
+import { FetchProvider, Layout } from 'components/patterns'
 import { useQueryState } from 'components/hook'
-import { Layout } from 'components/patterns'
 import humanizeUrl from 'humanize-url'
 import { cdnUrl } from 'helpers'
 import React from 'react'
@@ -26,7 +26,19 @@ export default () => {
 
   return (
     <Layout title={title} image={image}>
-      <Examples suggestions={suggestions} url={query.url} />
+      <FetchProvider mqlOpts={{ meta: false, pdf: true }}>
+        {({ status, doFetch, data }) => {
+          return (
+            <Examples
+              data={data}
+              onSubmit={doFetch}
+              isLoading={status === 'fetching'}
+              suggestions={suggestions}
+              query={query}
+            />
+          )
+        }}
+      </FetchProvider>
     </Layout>
   )
 }
