@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.132](https://github.com/microlinkhq/microlink-www/compare/v2.10.131...v2.10.132) (2020-01-05)
+
+
+### Bug Fixes
+
+* cookies policy animation ([7439d42](https://github.com/microlinkhq/microlink-www/commit/7439d42))
+* cookies policy animation ([b95c2b2](https://github.com/microlinkhq/microlink-www/commit/b95c2b2))
+* cookies policy animation ([#625](https://github.com/microlinkhq/microlink-www/issues/625)) ([6b33172](https://github.com/microlinkhq/microlink-www/commit/6b33172))
+* ensure aria hidden value is correct ([d8a8654](https://github.com/microlinkhq/microlink-www/commit/d8a8654))
+* ensure to hidden cookies policy after close dialog ([#624](https://github.com/microlinkhq/microlink-www/issues/624)) ([d560eae](https://github.com/microlinkhq/microlink-www/commit/d560eae))
+* linter ([d6e37f7](https://github.com/microlinkhq/microlink-www/commit/d6e37f7))
+
 ### [2.10.131](https://github.com/microlinkhq/microlink-www/compare/v2.10.130...v2.10.131) (2020-01-02)
 
 ### [2.10.130](https://github.com/microlinkhq/microlink-www/compare/v2.10.129...v2.10.130) (2019-12-30)
