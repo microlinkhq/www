@@ -8,7 +8,8 @@ import ImagePlaceholder from '../Image/ImagePlaceholder'
 export default ({
   width = CodeEditor.width,
   height = CodeEditor.height,
-  onLoad = noop,
+  onLoading = noop,
+  onLoaded = noop,
   ...props
 }) => {
   const inputEl = useRef(null)
@@ -16,13 +17,14 @@ export default ({
 
   const setLoaded = () => {
     setLoading(false)
-    onLoad()
+    onLoaded()
   }
 
   useEffect(() => {
     if (inputEl.current) {
       const iframe = inputEl.current
       if (iframe) {
+        onLoading()
         iframe.addEventListener('load', setLoaded)
         return () => iframe.removeEventListener('load', setLoaded)
       }
