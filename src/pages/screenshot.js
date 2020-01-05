@@ -44,7 +44,6 @@ export default () => {
                     onSubmit={doFetch}
                     query={query}
                     isLoading={status === 'fetching'}
-                    data={data}
                   />
                 )
               }}

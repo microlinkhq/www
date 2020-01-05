@@ -93,7 +93,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
   )
 }
 
-const LiveDemo = ({ query, data, suggestions, onSubmit, isLoading }) => {
+const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
   const [inputBg, setInputBg] = useState(get(query, 'overlay.background') || '')
   const [inputUrl, setInputUrl] = useState(query.url || '')
   const [inputWaitFor, setInputWaitFor] = useState(query.waitFor || '')
@@ -656,8 +656,7 @@ export default ({
   refUrl,
   refWaitFor,
   suggestions,
-  query,
-  data
+  query
 }) => (
   <>
     <LiveDemo
@@ -669,7 +668,6 @@ export default ({
       refWaitFor={refWaitFor}
       suggestions={suggestions}
       query={query}
-      data={data}
     />
     <Timings />
     <Features />
