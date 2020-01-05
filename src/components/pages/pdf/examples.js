@@ -26,9 +26,7 @@ import { pdfUrl, aspectRatio, getDomain } from 'helpers'
 import { HourGlass } from 'components/icons'
 import { colors, borders } from 'theme'
 import React, { useState } from 'react'
-import debounce from 'lodash/debounce'
 import prependHttp from 'prepend-http'
-import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
 import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
@@ -39,28 +37,34 @@ import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Average, Timings } from 'components/pages/screenshot/examples'
 
 const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
-  const [mqlOpts, setMqlOpts] = useState(query)
+  const [inputUrl, setInputUrl] = useState(query.url || '')
+  const [inputWaitFor, setInputWaitFor] = useState(query.waitFor || '')
+  const [inputMargin, setInputMargin] = useState(query.margin || '')
+  const [inputFormat, setInputFormat] = useState(query.format || '')
+  const [inputScale, setInputScale] = useState(query.scale || '')
+  const [inputMedia, setInputMedia] = useState(query.media || '')
+  const domain = React.useMemo(() => getDomain(inputUrl), [inputUrl])
+
   const dataPdfUrl = get(data, 'pdf.url')
-  const [isIframeLoading, setIframeLoading] = useState(false)
+
+  const getValues = React.useCallback(() => {
+    const preprendUrl = prependHttp(inputUrl)
+    return pickBy({
+      url: isUrl(preprendUrl) ? preprendUrl : undefined,
+      waitFor: ms(inputWaitFor || '0'),
+      margin: inputMargin,
+      format: inputFormat,
+      scale: inputScale,
+      media: inputMedia
+    })
+  }, [inputUrl, inputWaitFor, inputMargin, inputFormat, inputScale, inputMedia])
 
   const previewUrl = React.useMemo(() => {
-    if (isEmpty(mqlOpts)) return undefined
-    const { url, ...opts } = mqlOpts
+    const { url, ...opts } = getValues() || {}
+    if (!url) return undefined
+    onSubmit(url, opts)
     return pdfUrl(url, opts)
-  }, [mqlOpts])
-
-  const handleSubmit = debounce(opts => {
-    const { url, waitFor, ...args } = { ...mqlOpts, ...opts }
-    const preprendUrl = prependHttp(url)
-    const mergedOpts = pickBy({
-      url: isUrl(preprendUrl) ? preprendUrl : undefined,
-      waitFor: ms(waitFor || '0'),
-      ...args
-    })
-    setMqlOpts(mergedOpts)
-    const { url: targetUrl, ...rest } = mergedOpts
-    if (url) onSubmit(targetUrl, rest)
-  }, 300)
+  }, [inputUrl, inputWaitFor, inputMargin, inputFormat, inputScale, inputMedia])
 
   return (
     <Container id='demo' py={[4, 5]} px={4}>
@@ -76,25 +80,20 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
           as='form'
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
-          onSubmit={handleSubmit}
+          onSubmit={event => event.preventDefault()}
           flexDirection={['column', 'column', 'row', 'row']}
         >
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={
-                <InputIcon
-                  value={mqlOpts.url}
-                  domain={getDomain(mqlOpts.url)}
-                />
-              }
+              iconComponent={<InputIcon value={inputUrl} domain={domain} />}
               id='pdf-demo-url'
               mr='6px'
               placeholder='Visit URL'
               suggestions={suggestions}
               type='text'
-              value={mqlOpts.url}
-              onChange={event => handleSubmit({ url: event.target.value })}
+              value={inputUrl}
+              onChange={event => setInputUrl(event.target.value)}
               width={['100%', '100%', '84px', '84px']}
               autoFocus
             />
@@ -108,8 +107,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               fontSize={2}
               width={['100%', '100%', '48px', '48px']}
               mr='6px'
-              value={mqlOpts.waitFor}
-              onChange={event => handleSubmit({ waitFor: event.target.value })}
+              value={inputWaitFor}
+              onChange={event => setInputWaitFor(event.target.value)}
               iconComponent={<HourGlass color={colors.black50} width='11px' />}
               suggestions={[
                 { value: '0s' },
@@ -127,8 +126,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               fontSize={2}
               width={['100%', '100%', '67px', '67px']}
               mr='6px'
-              value={mqlOpts.margin}
-              onChange={event => handleSubmit({ margin: event.target.value })}
+              value={inputMargin}
+              onChange={event => setInputMargin(event.target.value)}
               iconComponent={
                 <MinimizeIcon color={colors.black50} width='16px' />
               }
@@ -148,8 +147,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               fontSize={2}
               width={['100%', '100%', '69px', '69px']}
               mr='6px'
-              value={mqlOpts.format}
-              onChange={event => handleSubmit({ format: event.target.value })}
+              value={inputFormat}
+              onChange={event => setInputFormat(event.target.value)}
               iconComponent={<BookIcon color={colors.black50} width='16px' />}
               suggestions={[
                 { value: 'Letter' },
@@ -174,8 +173,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               fontSize={2}
               width={['100%', '100%', '57px', '57px']}
               mr='6px'
-              value={mqlOpts.scale}
-              onChange={event => handleSubmit({ scale: event.target.value })}
+              value={inputScale}
+              onChange={event => setInputScale(event.target.value)}
               iconComponent={<SearchIcon color={colors.black50} width='16px' />}
               suggestions={[
                 { value: '0.5' },
@@ -195,16 +194,15 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               fontSize={2}
               width={['100%', '100%', '61px', '61px']}
               mr='6px'
-              value={mqlOpts.media}
-              onChange={event => handleSubmit({ media: event.target.value })}
+              value={inputMedia}
+              onChange={event => setInputMedia(event.target.value)}
               iconComponent={<FileIcon color={colors.black50} width='16px' />}
               suggestions={[{ value: 'screen' }, { value: 'print' }]}
             />
           </Box>
-
-          <Button ml={[0, 0, 2, 2]} loading={isLoading || isIframeLoading}>
+          {/* <Button ml={[0, 0, 2, 2]} loading={isLoading || isIframeLoading}>
             <Caps fontSize={1} children='Get it' />
-          </Button>
+          </Button> */}
         </Flex>
       </Flex>
 
@@ -218,8 +216,6 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               height={screenshotHeight.map(n => `calc(${n} * 0.85)`)}
               width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
               src={dataPdfUrl}
-              onLoading={() => setIframeLoading(false)}
-              onLoaded={() => setIframeLoading(false)}
             />
             <Flex
               justifyContent='center
@@ -257,8 +253,9 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               style={{ opacity: 0.3, filter: 'grayscale(100%)' }}
               alt='Paste your URL'
               src='https://cdn.microlink.io/illustrations/abstract-no-messages.svg'
+              pb={[2, 2, 4, 4]}
             />
-            <Text fontSize={[2, 2, 4, 4]} pt={[2, 2, 3, 3]} color='black30'>
+            <Text fontSize={[2, 2, 4, 4]} color='black30'>
               Paste your URL
             </Text>
           </Flex>
