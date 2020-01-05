@@ -247,11 +247,20 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             border={3}
             borderColor='gray5'
             alignItems='center'
+            flexDirection='column'
             justifyContent='center'
             height={screenshotHeight.map(n => `calc(${n} * 0.85)`)}
             width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
           >
-            <Text color='gray7'>Paste your URL</Text>
+            <Image
+              width={[3, 3, '60%', '60%']}
+              style={{ opacity: 0.3, filter: 'grayscale(100%)' }}
+              alt='Paste your URL'
+              src='https://cdn.microlink.io/illustrations/abstract-no-messages.svg'
+            />
+            <Text fontSize={[2, 2, 4, 4]} pt={[2, 2, 3, 3]} color='black30'>
+              Paste your URL
+            </Text>
           </Flex>
         )}
       </Flex>
