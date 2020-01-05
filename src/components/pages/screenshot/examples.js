@@ -485,14 +485,20 @@ export const Features = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Lot of actions supported, such as{' '}
+            Such as{' '}
             <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
             emulation, CSS/JS injection, partial or{' '}
             <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
-            page snapshot,{' '}
+            page screenshot,{' '}
+            <Link href='/docs/api/parameters/screenshot/hide'>hide</Link>{' '}
+            elements,{' '}
             <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
             or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
-            events.
+            events, setup a custom{' '}
+            <Link href='/docs/api/parameters/screenshot/viewport'>
+              viewport
+            </Link>
+            , and a lot more.
           </Text>
         </Flex>
       }
