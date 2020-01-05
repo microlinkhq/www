@@ -33,8 +33,8 @@ import { useTransition } from 'react-spring'
 import prependHttp from 'prepend-http'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
-import range from 'lodash/range'
 import sample from 'lodash/sample'
+import range from 'lodash/range'
 import isUrl from 'is-url-http'
 import isColor from 'is-color'
 import get from 'dlv'
@@ -93,27 +93,16 @@ const DemoSlider = ({ children: slides, ...props }) => {
   )
 }
 
-const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
-  const [inputBg, setInputBg] = useState('')
-  const [inputUrl, setInputUrl] = useState(url || '')
-  const [inputWaitFor, setInputWaitFor] = useState('')
-  const [inputOverlay, setInputOverlay] = useState('')
-  const domain = getDomain(inputUrl)
-
-  const backgroundIconComponent = isColor(inputBg) ? (
-    <Box
-      border={1}
-      borderColor='black10'
-      borderRadius={1}
-      width='14px'
-      height='14px'
-      style={{ top: '-2px', position: 'relative', background: inputBg }}
-    />
-  ) : (
-    <ImageIcon color={colors.black50} size='16px' />
+const LiveDemo = ({ query, data, suggestions, onSubmit, isLoading }) => {
+  const [inputBg, setInputBg] = useState(get(query, 'overlay.background') || '')
+  const [inputUrl, setInputUrl] = useState(query.url || '')
+  const [inputWaitFor, setInputWaitFor] = useState(query.waitFor || '')
+  const [inputOverlay, setInputOverlay] = useState(
+    get(query, 'overlay.browser') || ''
   )
+  const domain = React.useMemo(() => getDomain(inputUrl), [inputUrl])
 
-  const getValues = () => {
+  const getValues = React.useCallback(() => {
     const preprendUrl = prependHttp(inputUrl)
     const overlay = pickBy({ browser: inputOverlay, background: inputBg })
     return pickBy({
@@ -121,12 +110,10 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
       waitFor: ms(inputWaitFor || '0'),
       overlay: isEmpty(overlay) ? undefined : overlay
     })
-  }
+  }, [inputUrl, inputOverlay, inputBg, inputWaitFor])
 
-  const previewUrl = (() => {
-    const values = getValues()
-    const { url, ...opts } = values
-
+  const previewUrl = React.useMemo(() => {
+    const { url, ...opts } = getValues() || {}
     if (!url) return undefined
 
     const item = suggestions.find(link => prependHttp(link.value) === url)
@@ -144,13 +131,26 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
     return url
       ? screenshotUrl(url, { ...opts, waitUntil: 'networkidle2' })
       : undefined
-  })()
+  }, [inputUrl, inputOverlay, inputBg, inputWaitFor])
 
   const handleSubmit = event => {
     event.preventDefault()
     const { url, ...opts } = getValues()
     return onSubmit(url, opts)
   }
+
+  const backgroundIconComponent = isColor(inputBg) ? (
+    <Box
+      border={1}
+      borderColor='black10'
+      borderRadius={1}
+      width='14px'
+      height='14px'
+      style={{ top: '-2px', position: 'relative', background: inputBg }}
+    />
+  ) : (
+    <ImageIcon color={colors.black50} size='16px' />
+  )
 
   return (
     <Container id='demo' py={[4, 5]} px={4}>
@@ -656,7 +656,8 @@ export default ({
   refUrl,
   refWaitFor,
   suggestions,
-  url
+  query,
+  data
 }) => (
   <>
     <LiveDemo
@@ -667,7 +668,8 @@ export default ({
       refUrl={refUrl}
       refWaitFor={refWaitFor}
       suggestions={suggestions}
-      url={url}
+      query={query}
+      data={data}
     />
     <Timings />
     <Features />

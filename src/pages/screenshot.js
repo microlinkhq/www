@@ -42,8 +42,9 @@ export default () => {
                   <Examples
                     suggestions={suggestions}
                     onSubmit={doFetch}
-                    url={query.url}
+                    query={query}
                     isLoading={status === 'fetching'}
+                    data={data}
                   />
                 )
               }}
