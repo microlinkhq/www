@@ -272,7 +272,7 @@ const LiveDemo = ({ suggestions, onSubmit, url, isLoading }) => {
   )
 }
 
-const Average = ({ size }) => {
+export const Average = ({ size }) => {
   const [average, setAverage] = useState(924)
   const [averageHighlight, setAverageHighlight] = useState(false)
 

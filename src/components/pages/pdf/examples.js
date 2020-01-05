@@ -21,9 +21,10 @@ import {
   File as FileIcon
 } from 'react-feather'
 
-import { Block, SubHeadline } from 'components/patterns'
+import { Faq, Block, SubHeadline } from 'components/patterns'
 import { pdfUrl, aspectRatio, getDomain } from 'helpers'
 import { HourGlass } from 'components/icons'
+import { colors, borders } from 'theme'
 import React, { useState } from 'react'
 import debounce from 'lodash/debounce'
 import prependHttp from 'prepend-http'
@@ -31,12 +32,11 @@ import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
 import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
-import { colors } from 'theme'
 import get from 'dlv'
 import ms from 'ms'
 
 import { screenshotHeight } from 'components/pages/home/screenshots'
-import { Timings } from 'components/pages/screenshot/examples'
+import { Average, Timings } from 'components/pages/screenshot/examples'
 
 const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const [mqlOpts, setMqlOpts] = useState(query)
@@ -399,6 +399,95 @@ const Features = props => (
   </Container>
 )
 
+const ProductInformation = props => (
+  <Faq
+    title='Product Information'
+    caption='All you need to know.'
+    questions={[
+      {
+        question: 'How does it work?',
+        answer: [
+          <>
+            <Text as='span' fontWeight='bold' color='black'>
+              Microlink for PDF
+            </Text>{' '}
+            takes any URL as an input and returns a PDF back, hosted at
+            Microlink CDN.
+          </>,
+          <>
+            It supports most of the common browser interactions, like clicks,
+            wait for events, handle the scroll, and also some tweaks over the
+            PDF, such as sets margins or paper size, making it a more complete
+            tool.
+          </>
+        ]
+      },
+      {
+        question: 'How is it built?',
+        answer: [
+          <>
+            The service is built on top of{' '}
+            <Link icon href='https://github.com/puppeteer/puppeteer'>
+              puppeteer
+            </Link>{' '}
+            using Chromium Headless browser.
+          </>,
+          <>
+            The browser management is handled by our own driver called{' '}
+            <Link icon href='https://browserless.js.org'>
+              browserless
+            </Link>
+            .
+          </>,
+          <>(Yes, it's open source!).</>
+        ]
+      },
+      {
+        question: 'Why not run my own solution?',
+        answer: [
+          <>
+            The service aims to avoid headaches, preventing you for running and
+            maintaining your own infrastructure.
+          </>,
+          <>
+            Every URL on the Internet are different and browser are a complex
+            piece of software, with unpredictable resources usage.
+          </>,
+          <>
+            The fact of resolve any URL at scale in <Average size='tiny' /> is
+            not a trivial thing.
+          </>
+        ]
+      },
+      {
+        question: 'Do you have a Service-Level Agreements (SLA)?',
+        answer: [
+          <>
+            You can see our SLA level on{' '}
+            <Link display='inline' href='/status' children='status' />
+            {' page.'}
+          </>
+        ]
+      },
+      {
+        question: 'Can I ask a question?',
+        answer: [
+          <>
+            We're always available at{' '}
+            <Link
+              display='inline'
+              href='mailto:hello@microlink.io'
+              children='hello@microlink.io'
+            />
+            .
+          </>
+        ]
+      }
+    ]}
+    {...props}
+  />
+)
+
 export default ({
   isLoading,
   onSubmit,
@@ -424,5 +513,10 @@ export default ({
     />
     <Timings />
     <Features />
+    <ProductInformation
+      bg='pinky'
+      borderTop={`${borders[1]} ${colors.pinkest}`}
+      borderBottom={`${borders[1]} ${colors.pinkest}`}
+    />
   </>
 )
