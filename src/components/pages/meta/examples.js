@@ -66,7 +66,8 @@ LogoWrap.defaultProps = {
 const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   const [inputValue, setInputValue] = useState('')
   const [data, setData] = useState(demoLink.data)
-  const [view, setView] = useState('normal')
+  const [previewView, setPreviewView] = useState('preview')
+  const [editorView, setEditorView] = useState('code')
   const domain = getDomain(inputValue)
 
   const fetchAndSetData = async url => {
@@ -86,7 +87,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   }, [inputValue])
 
   const media =
-    view === 'iframe'
+    previewView === 'iframe'
       ? ['iframe', 'video', 'audio', 'image', 'logo']
       : ['video', 'audio', 'image', 'logo']
 
@@ -141,34 +142,58 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
           >
             <Box>
               <MicrolinkDebounce
-                key={targetUrlPrepend + view}
+                key={targetUrlPrepend + previewView}
                 loading={isLoading}
                 size='large'
                 url={targetUrlPrepend}
                 setData={() => data}
                 media={media}
               />
+              <Flex
+                mx='auto'
+                maxWidth='500px'
+                alignItems='center'
+                justifyContent='flex-end'
+              >
+                <Card.Option
+                  children='preview'
+                  value={previewView}
+                  onClick={() => setPreviewView('preview')}
+                />
+                <Card.Option
+                  children='iframe'
+                  value={previewView}
+                  onClick={() => setPreviewView('iframe')}
+                />
+              </Flex>
               <Flex pt={3} alignItems='center' justifyContent='center'>
                 <MultiCodeEditor
                   url={targetUrlPrepend}
                   media={media}
-                  languages={{
-                    ...languages,
-                    JSON: JSON.stringify(data, null, 2)
-                  }}
+                  languages={
+                    editorView === 'data'
+                      ? {
+                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                            data,
+                            null,
+                            2
+                          )}`
+                      }
+                      : languages
+                  }
                 />
               </Flex>
             </Box>
             <Flex justifyContent='flex-end'>
               <Card.Option
-                children='normal'
-                value={view}
-                onClick={() => setView('normal')}
+                children='code'
+                value={editorView}
+                onClick={() => setEditorView('code')}
               />
               <Card.Option
-                children='iframe'
-                value={view}
-                onClick={() => setView('iframe')}
+                children='data'
+                value={editorView}
+                onClick={() => setEditorView('data')}
               />
             </Flex>
           </Flex>
