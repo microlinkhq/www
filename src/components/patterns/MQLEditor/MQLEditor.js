@@ -12,12 +12,7 @@ export default class extends Component {
     const { view } = this.state
 
     return (
-      <Flex
-        mt={3}
-        flexDirection='column'
-        justifyContent='space-around'
-        data-tilt
-      >
+      <Flex mt={3} flexDirection='column' justifyContent='space-around'>
         <Flex flexDirection='column' mb={[4, 0]}>
           <Card
             height={CodeEditor.height}

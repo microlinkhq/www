@@ -32,7 +32,7 @@ const Meta = ({ demoLinks, ...props }) => {
 
   const blockTwo = (
     <Flex justifyContent='center' alignItems='center' flexDirection='column'>
-      <Box data-tilt pt={4} pb={[0, 0, 3, 3]}>
+      <Box pt={4} pb={[0, 0, 3, 3]}>
         <LiveDemo children={link} />
       </Box>
       <Text

@@ -28,7 +28,6 @@ export default function HTML (props) {
           crossOrigin='anonymous'
           src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch'
         />
-        <script src='https://cdn.jsdelivr.net/npm/vanilla-tilt@1/dist/vanilla-tilt.min.js' />
         <script
           dangerouslySetInnerHTML={{
             __html:

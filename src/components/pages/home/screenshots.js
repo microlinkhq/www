@@ -78,7 +78,7 @@ const Screenshots = props => {
 
   const blockTwo = (
     <Flex justifyContent='center' alignItems='center' flexDirection='column'>
-      <Box data-tilt pt={3}>
+      <Box pt={3}>
         <Flex
           height={screenshotHeight}
           width={aspectRatio.width}
