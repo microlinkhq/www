@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import { useSiteMetadata } from 'components/hook'
 
 const mergeMeta = (props, metadata) => {
-  const { siteUrl: url, video, twitter, headline } = metadata
+  const { siteUrl, video, twitter, headline } = metadata
   const description = props.description || metadata.description
   const title = props.title
   const image = props.image || metadata.image
@@ -14,6 +14,7 @@ const mergeMeta = (props, metadata) => {
   const dataLabel2 = props.dataLabel2 || metadata.dataLabel2
   const dataValue2 = props.dataValue2 || metadata.dataValue2
   const date = (props.date ? new Date(props.date) : new Date()).toISOString()
+  const url = props.location ? `${siteUrl}${props.location.pathname}` : siteUrl
 
   return {
     dataLabel1,
