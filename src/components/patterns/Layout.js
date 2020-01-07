@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
+import React, { useEffect } from 'react'
+import { Location } from '@reach/router'
 
 import Head from 'components/Head'
 import { Box } from 'components/elements'
@@ -33,19 +34,25 @@ const Layout = ({ footer, children, className, ...props }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Site>
-        <Head {...props} />
-        <Toolbar />
-        <SiteContent pt={TOOLBAR_HEIGHT} className={className}>
-          {children}
-        </SiteContent>
-        <CookiesPolicy />
-        {footer && (
-          <Box>
-            <Footer />
-          </Box>
-        )}
-      </Site>
+      <Location>
+        {({ location }) => {
+          return (
+            <Site>
+              <Head location={location} {...props} />
+              <Toolbar />
+              <SiteContent pt={TOOLBAR_HEIGHT} className={className}>
+                {children}
+              </SiteContent>
+              <CookiesPolicy />
+              {footer && (
+                <Box>
+                  <Footer />
+                </Box>
+              )}
+            </Site>
+          )
+        }}
+      </Location>
     </ThemeProvider>
   )
 }
