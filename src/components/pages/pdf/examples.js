@@ -213,6 +213,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
         {dataPdfUrl ? (
           <Box>
             <Iframe
+              border={1}
+              borderColor='black20'
               height={screenshotHeight.map(n => `calc(${n} * 0.85)`)}
               width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
               src={dataPdfUrl}
@@ -241,7 +243,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
         ) : (
           <Flex
             border={3}
-            borderColor='gray5'
+            borderColor='black20'
             alignItems='center'
             flexDirection='column'
             justifyContent='center'
@@ -255,7 +257,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               src='https://cdn.microlink.io/illustrations/abstract-no-messages.svg'
               pb={[2, 2, 4, 4]}
             />
-            <Text fontSize={[2, 2, 4, 4]} color='black30'>
+            <Text fontSize={[2, 2, 4, 4]} color='black40'>
               Paste your URL
             </Text>
           </Flex>

@@ -42,7 +42,6 @@ export const Screenshot = ({ domain, data, ...props }) => {
           if (isLoading) return
           return {
             padding: 0,
-            borderRadius: radii[2],
             border: `1px solid ${colors.black20}`
           }
         }}
