@@ -8,7 +8,7 @@ import React from 'react'
 const LOGO_SIZE = 60
 
 export default () => (
-  <Layout title='Chat' image={cdnUrl('page/chat.png')}>
+  <Layout title='Chat' image={cdnUrl('www/chat.png')}>
     <Container pt={5}>
       <SubHeadline
         title='Come chat with us'

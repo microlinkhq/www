@@ -14,7 +14,7 @@ export default () => {
 
   const [query] = useQueryState()
   const title = 'Get data from any website'
-  const image = query.url ? metaUrl(query.url) : cdnUrl('page/meta.png')
+  const image = query.url ? metaUrl(query.url) : cdnUrl('www/meta.png')
 
   const suggestions = [
     'instagram',

@@ -14,7 +14,7 @@ export default () => {
   const demoLinks = useDemoLinks()
   const [query] = useQueryState()
   const title = 'Take a screenshot of any website'
-  const image = query.url ? metaUrl(query.url) : cdnUrl('page/screenshot.png')
+  const image = query.url ? metaUrl(query.url) : cdnUrl('www/screenshot.png')
 
   const suggestions = screenshots.map(({ id, filename, cdnUrl }) => {
     const { url } = demoLinks.find(link => link.id === id).data

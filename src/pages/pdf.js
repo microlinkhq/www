@@ -9,7 +9,7 @@ import Examples from 'components/pages/pdf/examples'
 export default () => {
   const [query] = useQueryState()
   const title = 'Get a PDF from any website'
-  const image = cdnUrl('page/pdf.png')
+  const image = cdnUrl('www/pdf.png')
 
   const suggestions = [
     'https://basecamp.com/shapeup/0.3-chapter-01',

@@ -7,7 +7,7 @@ import { layout } from 'theme'
 const TITLE = 'Status'
 
 export default () => (
-  <Layout title={TITLE} image={cdnUrl('page/status.png')}>
+  <Layout title={TITLE} image={cdnUrl('www/status.png')}>
     <Container pt={5}>
       <Iframe
         width={[
