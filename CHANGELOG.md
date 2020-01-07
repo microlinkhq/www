@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.139](https://github.com/microlinkhq/microlink-www/compare/v2.10.138...v2.10.139) (2020-01-07)
+
+
+### Bug Fixes
+
+* iframe loader ([1cc8c82](https://github.com/microlinkhq/microlink-www/commit/1cc8c82))
+
 ### [2.10.138](https://github.com/microlinkhq/microlink-www/compare/v2.10.137...v2.10.138) (2020-01-07)
 
 
