@@ -152,7 +152,10 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                 <MultiCodeEditor
                   url={targetUrlPrepend}
                   media={media}
-                  languages={languages}
+                  languages={{
+                    ...languages,
+                    JSON: JSON.stringify(data, null, 2)
+                  }}
                 />
               </Flex>
             </Box>
