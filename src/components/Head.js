@@ -14,7 +14,9 @@ const mergeMeta = (props, metadata) => {
   const dataLabel2 = props.dataLabel2 || metadata.dataLabel2
   const dataValue2 = props.dataValue2 || metadata.dataValue2
   const date = (props.date ? new Date(props.date) : new Date()).toISOString()
-  const url = props.location ? `${siteUrl}${props.location.pathname}` : siteUrl
+  const url = props.location
+    ? `${siteUrl}${props.location.pathname}${props.location.search}`
+    : siteUrl
 
   return {
     dataLabel1,
