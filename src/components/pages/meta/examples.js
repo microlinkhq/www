@@ -173,12 +173,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
@@ -276,13 +276,12 @@ const Resume = () => {
                 flexDirection='column'
               >
                 <Heading color='white' variant={null} mr={3} fontWeight='bold'>
-                  {'<1'}
+                  {'1'}
                   <Caption
                     ml={2}
                     color='white'
                     display='inline'
                     fontWeight='bold'
-                    titleExclude={['seg']}
                   >
                     seg
                   </Caption>
@@ -292,12 +291,39 @@ const Resume = () => {
                   variant={null}
                   mr={3}
                   fontWeight='light'
-                  titleExclude={['p95']}
+                  titleExclude={['avg']}
                 >
-                  response time.
+                  avg. response time
                 </Caption>
               </Flex>
-              <Box px={4} mx='auto' />
+              <Box px={3} mx='auto' />
+              <Flex
+                pt={[3, 3, 5, 5]}
+                alignItems='center'
+                justifyContent='center'
+                flexDirection='column'
+              >
+                <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+                  {'1.3'}
+                  <Caption
+                    ml={2}
+                    color='white'
+                    display='inline'
+                    fontWeight='bold'
+                    children='seg'
+                  />
+                </Heading>
+                <Caption
+                  color='white'
+                  variant={null}
+                  mr={3}
+                  fontWeight='light'
+                  titleExclude={['p95']}
+                >
+                  p95 response time
+                </Caption>
+              </Flex>
+              <Box px={3} mx='auto' />
               <Flex
                 pt={[3, 3, 5, 5]}
                 alignItems='center'
@@ -319,9 +345,9 @@ const Resume = () => {
                   variant={null}
                   mr={3}
                   fontWeight='light'
-                  titleExclude={['p95']}
+                  titleExclude={['Uptime']}
                 >
-                  Uptime.
+                  Uptime
                 </Caption>
               </Flex>
             </Flex>
