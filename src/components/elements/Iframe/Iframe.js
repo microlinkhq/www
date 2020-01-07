@@ -39,7 +39,9 @@ export default ({
       <Flex
         as='iframe'
         ref={inputEl}
-        style={{ display: isLoading && 'none', ...props.style }}
+        css={`
+          display: ${isLoading ? 'none' : 'inherit'};
+        `}
         mx='auto'
         frameBorder='0'
         target='_parent'
