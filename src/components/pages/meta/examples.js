@@ -481,7 +481,7 @@ const Features = props => (
             pb={3}
           />
           <Text
-            px={[5, 5, 0, 0]}
+            px={[2, 3, 0, 0]}
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
@@ -494,7 +494,7 @@ const Features = props => (
       }
       blockOne={
         <Image
-          width={[6, 6, 7, 8]}
+          width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
           alt='Data normalization'
           src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
@@ -521,7 +521,7 @@ const Features = props => (
             pb={3}
           />
           <Text
-            px={[5, 5, 0, 0]}
+            px={[2, 3, 0, 0]}
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
@@ -538,7 +538,7 @@ const Features = props => (
       }
       blockOne={
         <Image
-          width={[6, 6, 7, 8]}
+          width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
           alt='Contextual information'
           src='https://cdn.microlink.io/illustrations/robots.svg'
@@ -562,9 +562,9 @@ const Features = props => (
             pb={3}
           />
           <Text
-            pl={[5, 5, 0, 0]}
+            pl={[2, 3, 0, 0]}
+            pr={[2, 3, 4, 4]}
             maxWidth={8}
-            pr={[5, 5, 4, 4]}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
             Create truly{' '}
@@ -576,7 +576,7 @@ const Features = props => (
       }
       blockOne={
         <Image
-          width={[6, 6, 7, 8]}
+          width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
           alt='Universal Embed'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
