@@ -18,7 +18,7 @@ module.exports = {
     headline: 'Browser as API',
     siteUrl: SITE_URL,
     description:
-      'Extract structured data from any website. Enter an URL, receive information. Get relevant information from any link & easily create beautiful previews.',
+      'Enter a URL, receive information. Extract structured data from any website. Create beautiful link previews. Take a screenshot of any site. Turns any URL into a PDF.',
     twitter: '@microlinkhq',
     image: new URL('www/home.png', CDN_URL).toString(),
     logo: new URL('logo/trim.png', CDN_URL).toString(),
