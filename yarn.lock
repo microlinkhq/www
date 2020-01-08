@@ -17058,10 +17058,10 @@ smartquotes@~2.3.1:
   resolved "https://registry.yarnpkg.com/smartquotes/-/smartquotes-2.3.1.tgz#01ebb595d6c7a9e24d90e8cb95c17d0e1af49407"
   integrity sha1-Aeu1ldbHqeJNkOjLlcF9Dhr0lAc=
 
-smooth-scroll@~16.1.0:
-  version "16.1.0"
-  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-16.1.0.tgz#c811c63db67215d30847745ba0732feb3291947f"
-  integrity sha512-V5b8ekIekZ3xJ6f0sPsLgEbN5YT8gX0Q6yNjZXTKgqjH9dBGadZ0P50fhP0rLRBGifc44qfI3rnWNM+lebhJag==
+smooth-scroll@~16.1.1:
+  version "16.1.1"
+  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-16.1.1.tgz#054d696d2e6bd7fdc7c941c6b2c3b0cf7e6f5292"
+  integrity sha512-HjBehaqC7gf113z8dTiLKkWzgaVjzxnnNeUme37q0ijieB47bA5Z1LAubb11EY9hcHvsS/xzpN+kWF3eNEoifQ==
 
 snake-case@^2.1.0:
   version "2.1.0"
