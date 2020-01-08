@@ -97,8 +97,8 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
     <>
       <Container py={[4, 5]} px={4}>
         <SubHeadline
-          title='Get data from any website'
-          caption='Turn websites into content'
+          title='Make any URL embeddable'
+          caption='Turn websites into data'
         />
 
         <Flex
