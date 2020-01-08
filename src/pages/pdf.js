@@ -8,7 +8,7 @@ import Examples from 'components/pages/pdf/examples'
 
 export default () => {
   const [query] = useQueryState()
-  const title = 'Get a PDF from any website'
+  const title = 'Turn websites into a PDF'
   const image = cdnUrl('www/pdf.png')
 
   const suggestions = [

@@ -5,7 +5,7 @@ import { useSiteMetadata } from 'components/hook'
 const mergeMeta = (props, metadata) => {
   const { siteUrl, video, twitter, headline } = metadata
   const description = props.description || metadata.description
-  const title = props.title
+  const title = props.title || headline
   const image = props.image || metadata.image
   const logo = props.logo || metadata.logo
   const name = props.name || metadata.name

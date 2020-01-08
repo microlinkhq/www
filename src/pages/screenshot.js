@@ -13,7 +13,7 @@ import { screenshots } from 'components/pages/home/screenshots'
 export default () => {
   const demoLinks = useDemoLinks()
   const [query] = useQueryState()
-  const title = 'Take a screenshot of any website'
+  const title = 'Turns websites into a screenshot'
   const image = query.url ? metaUrl(query.url) : cdnUrl('www/screenshot.png')
 
   const suggestions = screenshots.map(({ id, filename, cdnUrl }) => {

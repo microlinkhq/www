@@ -13,7 +13,7 @@ export default () => {
   const demoLink = demoLinks.find(demoLink => demoLink.id === 'youtube')
 
   const [query] = useQueryState()
-  const title = 'Get data from any website'
+  const title = 'Turns websites into data'
   const image = query.url ? metaUrl(query.url) : cdnUrl('www/meta.png')
 
   const suggestions = [
