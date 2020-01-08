@@ -70,7 +70,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
     <Container id='demo' py={[4, 5]} px={4}>
       <SubHeadline
         title='Get a PDF from any website'
-        caption='Turn websites into a document'
+        caption='Turn websites into a PDF'
       />
 
       <Flex justifyContent='center' alignItems='center'>
