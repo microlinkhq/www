@@ -1,6 +1,6 @@
 import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
 import { screenshotUrl, getDomain } from 'helpers'
-import { borders, colors, radii } from 'theme'
+import { borders, colors } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
