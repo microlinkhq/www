@@ -168,6 +168,10 @@ const ROUTES_API = [
     name: 'API Parameters',
     posts: [
       {
+        name: 'adblock',
+        href: '/docs/api/parameters/adblock'
+      },
+      {
         name: 'audio',
         href: '/docs/api/parameters/audio'
       },
@@ -228,10 +232,16 @@ const ROUTES_API = [
             href: '/docs/api/parameters/pdf/format'
           },
           {
+            name: 'landscape',
+            href: '/docs/api/parameters/pdf/landscape'
+          },
+          {
             name: 'margin',
             href: '/docs/api/parameters/pdf/margin'
           },
           {
+            name: 'pageRanges',
+            href: '/docs/api/parameters/pdf/page-ranges'
           },
           {
             name: 'scale',
@@ -270,6 +280,10 @@ const ROUTES_API = [
           {
             name: 'overlay',
             href: '/docs/api/parameters/screenshot/overlay'
+          },
+          {
+            name: 'omitBackground',
+            href: '/docs/api/parameters/screenshot/omitBackground'
           },
           {
             name: 'scrollTo',
