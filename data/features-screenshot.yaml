@@ -1,0 +1,18 @@
+- title: Background Refresh
+  description: Stale revalidation, keeping things fresh and always up to date via [ttl](/docs/api/parameters/ttl), reflecting any change on the target URL.
+- title: Embed Mode
+  description: Enabling [embed](/docs/api/parameters/embed) mode for consuming content directly from your HTML markup.
+- title: Delay
+  description: Wait a quantity of time, selector or event to preload content before generate the document.
+- title: Overlay Composition
+  description: Create truly [overlay](/docs/api/parameters/screenshot/overlay) compositions.
+- title: Device Presets
+  description: Customize the [scale](/docs/api/parameters/pdf/scale) of the webpage rendering, adjusting the zoom level.
+- title: Hide Elements
+  description: Change between portrait or [landscape](/docs/api/parameters/pdf/landscape) to fit user case necessities.
+- title: CSS/JS Injection
+  description: Inject any CSS styles or JS code into the page.
+- title: Full Page
+  description: Setup between a set of different paper [format](/docs/api/parameters/pdf/format) sizes.
+- title: File Format
+  description: Adjust the paper [margin](/docs/api/parameters/pdf/margin) per every document.
