@@ -5,7 +5,7 @@ title: 'meta'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-When is <Type children='false'/>, it disabled the metadata extraction behavior.
+When is <Type children='false'/>, it disables the metadata extraction behavior.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&meta=false`,

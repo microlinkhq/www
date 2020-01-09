@@ -6,7 +6,9 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/>
 Default: <Type children="'load'"/><br/>
 Values: <TypeContainer><Type children="'load'"/> | <Type children="'domcontentloaded'"/> | <Type children="'networkidle0'"/> | <Type children="'networkidle2'"/></TypeContainer>
 
-Specifies a list of events until considering navigation successful:
+Wait until the browser emits one or more event(s) to consider navigation succeeded.
+
+The events that can be waited are:
 
 - [**load**](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event): It considers navigation successful when the whole page, including all dependent resources such as stylesheets images, have been loaded. In certain cases, it might not happen at all.
 - [**domcontentloaded**](https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event): It's fired as soon as the page DOM has been loaded, without waiting for resources to finish loading.

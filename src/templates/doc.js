@@ -176,6 +176,18 @@ const ROUTES_API = [
         href: '/docs/api/parameters/data'
       },
       {
+        name: 'device',
+        href: '/docs/api/parameters/device'
+      },
+      {
+        name: 'disableAnimations',
+        href: '/docs/api/parameters/disableAnimations'
+      },
+      {
+        name: 'disableJavaScript',
+        href: '/docs/api/parameters/disableJavaScript'
+      },
+      {
         name: 'embed',
         href: '/docs/api/parameters/embed'
       },
@@ -194,6 +206,10 @@ const ROUTES_API = [
       {
         name: 'iframe',
         href: '/docs/api/parameters/iframe'
+      },
+      {
+        name: 'media',
+        href: '/docs/api/parameters/media'
       },
       {
         name: 'meta',
@@ -216,16 +232,10 @@ const ROUTES_API = [
             href: '/docs/api/parameters/pdf/margin'
           },
           {
-            name: 'media',
-            href: '/docs/api/parameters/pdf/media'
           },
           {
             name: 'scale',
             href: '/docs/api/parameters/pdf/scale'
-          },
-          {
-            name: 'waitUntil',
-            href: '/docs/api/parameters/pdf/wait-until'
           }
         ]
       },
@@ -244,10 +254,6 @@ const ROUTES_API = [
           {
             name: 'click',
             href: '/docs/api/parameters/screenshot/click'
-          },
-          {
-            name: 'device',
-            href: '/docs/api/parameters/screenshot/device'
           },
           {
             name: 'element',
@@ -272,18 +278,6 @@ const ROUTES_API = [
           {
             name: 'type',
             href: '/docs/api/parameters/screenshot/type'
-          },
-          {
-            name: 'viewport',
-            href: '/docs/api/parameters/screenshot/viewport'
-          },
-          {
-            name: 'waitFor',
-            href: '/docs/api/parameters/screenshot/wait-for'
-          },
-          {
-            name: 'waitUntil',
-            href: '/docs/api/parameters/screenshot/wait-until'
           }
         ]
       },
@@ -303,6 +297,18 @@ const ROUTES_API = [
       {
         name: 'video',
         href: '/docs/api/parameters/video'
+      },
+      {
+        name: 'viewport',
+        href: '/docs/api/parameters/viewport'
+      },
+      {
+        name: 'waitFor',
+        href: '/docs/api/parameters/wait-for'
+      },
+      {
+        name: 'waitUntil',
+        href: '/docs/api/parameters/wait-until'
       }
     ]
   }

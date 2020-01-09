@@ -4,7 +4,7 @@ title: 'viewport'
 
 Type: <Type children='<object>'/>
 
-It establishes a set of properties related with the visible area and device capabilities.
+It establishes a set of properties related with the browser visible area and device capabilities.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
