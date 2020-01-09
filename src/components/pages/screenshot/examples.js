@@ -5,14 +5,15 @@ import {
   Caps,
   Container,
   Flex,
+  Heading,
+  Hide,
+  Highlight,
+  Image,
   Input,
   InputIcon,
-  Highlight,
-  Text,
-  Heading,
-  Image,
   Link,
-  Subhead
+  Subhead,
+  Text
 } from 'components/elements'
 
 import {
@@ -26,9 +27,10 @@ import {
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 
 import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
-import { HourGlass } from 'components/icons'
+import { useFeaturesScreenshot } from 'components/hook'
 import React, { useEffect, useState } from 'react'
 import { speed, colors, borders } from 'theme'
+import { HourGlass } from 'components/icons'
 import { useTransition } from 'react-spring'
 import prependHttp from 'prepend-http'
 import isEmpty from 'lodash/isEmpty'
@@ -45,7 +47,7 @@ import {
   screenshotHeight
 } from 'components/pages/home/screenshots'
 
-import { Screenshot } from './template'
+import { Features, Screenshot } from './template'
 
 const TIMINGS_RANGE = range(-150, 150)
 const INTERVAL = 3500
@@ -314,7 +316,7 @@ export const Timings = () => {
   const p95 = 1.36
 
   return (
-    <AnimatedBox>
+    <AnimatedBox id='timings'>
       <Block
         id='average'
         flexDirection='column'
@@ -408,8 +410,8 @@ export const Timings = () => {
   )
 }
 
-export const Features = props => (
-  <Container id='features' {...props}>
+export const Resume = props => (
+  <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='The Fastest Way for taking screenshots' />
       <Text
@@ -437,7 +439,7 @@ export const Features = props => (
           <Subhead
             as='h3'
             fontSize={[3, 4]}
-            children='Background refresh'
+            children='Always up to date'
             pb={3}
           />
           <Text
@@ -456,7 +458,7 @@ export const Features = props => (
         <Image
           width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
-          alt='Background refresh'
+          alt='Always up to date'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
@@ -552,8 +554,9 @@ export const Features = props => (
   </Container>
 )
 
-const ProductInformation = props => (
+const Information = props => (
   <Faq
+    id='information'
     title='Product Information'
     caption='All you need to know.'
     questions={[
@@ -670,8 +673,11 @@ export default ({
       query={query}
     />
     <Timings />
-    <Features />
-    <ProductInformation
+    <Hide breakpoints={[0, 1]}>
+      <Features children={useFeaturesScreenshot()} />
+    </Hide>
+    <Resume />
+    <Information
       bg='pinky'
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}

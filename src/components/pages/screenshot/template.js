@@ -1,4 +1,5 @@
 import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
+import { useQueryState, useFeaturesScreenshot } from 'components/hook'
 import { screenshotUrl, getDomain } from 'helpers'
 import { borders, colors } from 'theme'
 import styled from 'styled-components'
@@ -6,8 +7,6 @@ import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
 import get from 'dlv'
 import React from 'react'
-
-import { useQueryState, useFeatures } from 'components/hook'
 
 import {
   Text,
@@ -328,7 +327,9 @@ export default props => {
     <>
       <Hero domain={domain} {...props} />
       <Api {...props} />
-      <Features children={useFeatures()} />
+      <Hide breakpoints={[0, 1]}>
+        <Features children={useFeaturesScreenshot()} />
+      </Hide>
       <Cli domain={domain} {...props} />
     </>
   )
