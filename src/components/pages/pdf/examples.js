@@ -5,6 +5,7 @@ import {
   CodeEditor,
   Container,
   Flex,
+  Hide,
   Iframe,
   Image,
   Input,
@@ -24,6 +25,7 @@ import {
 import { Faq, Block, SubHeadline } from 'components/patterns'
 import { pdfUrl, aspectRatio, getDomain } from 'helpers'
 import { HourGlass } from 'components/icons'
+import { useFeaturesPdf } from 'components/hook'
 import { colors, borders } from 'theme'
 import React, { useState } from 'react'
 import prependHttp from 'prepend-http'
@@ -35,6 +37,7 @@ import ms from 'ms'
 
 import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Average, Timings } from 'components/pages/screenshot/examples'
+import { Features } from 'components/pages/screenshot/template'
 
 const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const [inputUrl, setInputUrl] = useState(query.url || '')
@@ -267,8 +270,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   )
 }
 
-const Features = props => (
-  <Container id='features' {...props}>
+const ProductResume = props => (
+  <Container id='features' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='Easy Peasy PDF as a service' />
       <Text
@@ -296,7 +299,7 @@ const Features = props => (
           <Subhead
             as='h3'
             fontSize={[3, 4]}
-            children='Background refresh'
+            children='Always up to date'
             pb={3}
           />
           <Text
@@ -314,7 +317,7 @@ const Features = props => (
         <Image
           width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
-          alt='Background refresh'
+          alt='Always up to date'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
@@ -345,13 +348,13 @@ const Features = props => (
           >
             Such as set the paper{' '}
             <Link href='/docs/api/parameters/pdf/format'>format</Link>,
-            establish a document{' '}
+            establish a{' '}
             <Link href='/docs/api/parameters/pdf/margin'>margin</Link>, change
-            the <Link href='/docs/api/parameters/pdf/scale'>scale</Link>, CSS/JS
-            injection,{' '}
-            <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
-            or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
-            events, and a lot more.
+            the <Link href='/docs/api/parameters/pdf/scale'>scale</Link>, set{' '}
+            <Link href='/docs/api/parameters/pdf/page-ranges'>page ranges</Link>
+            , use{' '}
+            <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link>{' '}
+            orientation, and a lot more.
           </Text>
         </Flex>
       }
@@ -390,7 +393,7 @@ const Features = props => (
             <Link href='/docs/api/getting-started/overview'>Microlik API</Link>{' '}
             directly from your HTML markup using{' '}
             <Link href='/docs/api/parameters/embed'>embed</Link> mode, creating
-            PDFs on demand without being worried about them.
+            PDFs on demand without being worried about code or infrastructure.
           </Text>
         </Flex>
       }
@@ -422,10 +425,22 @@ const ProductInformation = props => (
             Microlink CDN.
           </>,
           <>
-            It supports most of the common browser interactions, like clicks,
-            wait for events, handle the scroll, and also some tweaks over the
-            PDF, such as sets margins or paper size, making it a more complete
-            tool.
+            It supports most of the common PDF tweaks, like paper{' '}
+            <Link href='/docs/api/parameters/pdf/format'>format</Link>,
+            establish a{' '}
+            <Link href='/docs/api/parameters/pdf/margin'>margin</Link>, change
+            the <Link href='/docs/api/parameters/pdf/scale'>scale</Link>, set{' '}
+            <Link href='/docs/api/parameters/pdf/page-ranges'>page ranges</Link>
+            , use{' '}
+            <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link>{' '}
+            orientation, etc, making it a more complete tool.
+          </>,
+          <>
+            Check that in the{' '}
+            <Link icon href='http://bit.ly/saasforpdf'>
+              comparative table
+            </Link>
+            .
           </>
         ]
       },
@@ -519,7 +534,10 @@ export default ({
       query={query}
     />
     <Timings />
-    <Features />
+    <Hide breakpoints={[0, 1]}>
+      <Features children={useFeaturesPdf()} />
+    </Hide>
+    <ProductResume />
     <ProductInformation
       bg='pinky'
       borderTop={`${borders[1]} ${colors.pinkest}`}

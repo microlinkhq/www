@@ -1,4 +1,5 @@
 import { Caps, Flex, Text, Box } from 'components/elements'
+import Markdown from 'components/markdown'
 import chunk from 'lodash/chunk'
 import React from 'react'
 
@@ -19,7 +20,16 @@ const Item = ({ title, description, ...props }) => (
       fontWeight='bold'
       children={title}
     />
-    <Text color='black60' children={description} />
+    <Text
+      color='black60'
+      css={`
+        div {
+          margin: 0;
+        }
+      `}
+    >
+      <Markdown children={description} />
+    </Text>
   </Box>
 )
 
