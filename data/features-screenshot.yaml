@@ -7,7 +7,7 @@
 - title: Overlay Composition
   description: Create truly [overlay](/docs/api/parameters/screenshot/overlay) compositions combining browser skins and backgrounds.
 - title: Device Emulation
-  description: Load any of our [device](/docs/api/parameters/screenshot/device) presets to simulate different environment and scenarios.
+  description: Load any of our [device](/docs/api/parameters/device) presets to simulate different environment and scenarios.
 - title: Manipulate Elements
   description: Ability to [hide](/docs/api/parameters/screenshot/hide), [click](/docs/api/parameters/screenshot/click) or [scrollTo](/docs/api/parameters/screenshot/scroll-to) any element matching the given CSS Selector.
 - title: CSS/JS Injection
