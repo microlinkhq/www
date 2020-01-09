@@ -7,7 +7,7 @@ const Item = ({ title, description, ...props }) => (
   <Box
     as='li'
     mb={4}
-    px={[3, 4]}
+    px={[3, '38px']}
     style={{ listStyle: 'none' }}
     maxWidth={[6, 6, 7, 7]}
     flex={1}
