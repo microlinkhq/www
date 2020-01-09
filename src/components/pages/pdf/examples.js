@@ -24,8 +24,8 @@ import {
 
 import { Faq, Block, SubHeadline } from 'components/patterns'
 import { pdfUrl, aspectRatio, getDomain } from 'helpers'
-import { HourGlass } from 'components/icons'
 import { useFeaturesPdf } from 'components/hook'
+import { HourGlass } from 'components/icons'
 import { colors, borders } from 'theme'
 import React, { useState } from 'react'
 import prependHttp from 'prepend-http'
@@ -270,8 +270,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   )
 }
 
-const ProductResume = props => (
-  <Container id='features' {...props} pt={[4, 4, 0, 0]}>
+const Resume = props => (
+  <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='Easy Peasy PDF as a service' />
       <Text
@@ -409,8 +409,9 @@ const ProductResume = props => (
   </Container>
 )
 
-const ProductInformation = props => (
+const Information = props => (
   <Faq
+    id='information'
     title='Product Information'
     caption='All you need to know.'
     questions={[
@@ -537,8 +538,8 @@ export default ({
     <Hide breakpoints={[0, 1]}>
       <Features children={useFeaturesPdf()} />
     </Hide>
-    <ProductResume />
-    <ProductInformation
+    <Resume />
+    <Information
       bg='pinky'
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}
