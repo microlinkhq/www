@@ -20,7 +20,8 @@ import {
   Button
 } from 'components/elements'
 
-import { Microlink as MicrolinkBase } from 'components/patterns'
+import MicrolinkBase from '../patterns/Microlink/Microlink'
+
 import { textGradient } from '../../theme'
 
 const LAYOUT_WIDTH = 650
@@ -55,11 +56,14 @@ const withContainer = (
   ChildComponent,
   containerProps = {},
   childProps
-) => props => (
-  <Container {...containerProps}>
-    <ChildComponent {...childProps} {...props} />
-  </Container>
-)
+) => props => {
+  console.log('childComponent', ChildComponent)
+  return (
+    <Container {...containerProps}>
+      <ChildComponent {...childProps} {...props} />
+    </Container>
+  )
+}
 
 export { Label, Link }
 
