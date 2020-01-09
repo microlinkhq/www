@@ -15,4 +15,4 @@
 - title: Media Support
   description: Detect the original streaming video/audio source.
 - title: Embed Mode
-  description: Incrust content directly in your HTML markup.
+  description: Enabling [embed](/docs/api/parameters/embed) mode for consuming content directly from your HTML markup.

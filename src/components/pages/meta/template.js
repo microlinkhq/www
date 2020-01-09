@@ -16,7 +16,7 @@ import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
 import { Legend, SubHeadline, Microlink } from 'components/patterns'
 import { Features } from 'components/pages/screenshot/template'
 import { mqlCode, getDomain, cdnUrl } from 'helpers'
-import { useFeatures } from 'components/hook'
+import { useFeaturesMeta } from 'components/hook'
 import { borders, colors } from 'theme'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
@@ -299,7 +299,7 @@ export default props => {
     <>
       <Hero domain={domain} {...props} />
       <Sdk domain={domain} {...props} />
-      <Features children={useFeatures()} />
+      <Features children={useFeaturesMeta()} />
       <Api domain={domain} {...props} />
     </>
   )

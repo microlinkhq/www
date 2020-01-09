@@ -1,11 +1,11 @@
 import { useStaticQuery, graphql } from 'gatsby'
 import map from 'lodash/map'
 
-export const useFeatures = () => {
-  const { allFeaturesYaml } = useStaticQuery(
+export const useFeaturesMeta = () => {
+  const { allFeaturesMetaYaml } = useStaticQuery(
     graphql`
-      query FeaturesData {
-        allFeaturesYaml {
+      query FeaturesMetaData {
+        allFeaturesMetaYaml {
           edges {
             node {
               title
@@ -16,5 +16,5 @@ export const useFeatures = () => {
       }
     `
   )
-  return map(allFeaturesYaml.edges, 'node')
+  return map(allFeaturesMetaYaml.edges, 'node')
 }

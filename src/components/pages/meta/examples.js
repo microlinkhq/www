@@ -3,37 +3,41 @@ import {
   Box,
   Button,
   Caps,
+  Card,
+  CodeEditor,
   Container,
   Flex,
+  Heading,
+  Hide,
+  Image,
   Input,
   InputIcon,
-  Text,
-  Heading,
-  CodeEditor,
-  Card,
-  Image,
   Link,
+  MultiCodeEditor,
   Subhead,
-  MultiCodeEditor
+  Text
 } from 'components/elements'
 
 import {
-  Faq,
-  Caption,
   Block,
-  SubHeadline,
+  Caption,
   CubeBackground,
-  Microlink
+  Faq,
+  Microlink,
+  SubHeadline
 } from 'components/patterns'
 
 import { mqlCode, debounceComponent, getDomain } from 'helpers'
 import { transition, colors, borders } from 'theme'
 import React, { useEffect, useState } from 'react'
+import { useFeaturesMeta } from 'components/hook'
 import { fadeIn } from 'components/keyframes'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import mql from '@microlink/mql'
 import isUrl from 'is-url-http'
+
+import { Features } from '../screenshot/template'
 
 const languages = mqlCode(
   {
@@ -173,12 +177,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
@@ -203,7 +207,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   )
 }
 
-const Resume = () => {
+const Timings = () => {
   const words = [
     'beauty link previews',
     'native embeds',
@@ -226,7 +230,7 @@ const Resume = () => {
     <AnimatedBox>
       <Block
         bg='#4e54c8'
-        id='average'
+        id='timings'
         flexDirection='column'
         blockOne={
           <Box>
@@ -359,8 +363,9 @@ const Resume = () => {
   )
 }
 
-const ProductInformation = props => (
+const Information = props => (
   <Faq
+    id='information'
     title='Product Information'
     caption='All you need to know.'
     questions={[
@@ -454,8 +459,8 @@ const ProductInformation = props => (
   />
 )
 
-const Features = props => (
-  <Container id='features' {...props}>
+const Resume = props => (
+  <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='Universal embed made simple' />
       <Text textAlign='center' mr='auto' ml='auto' maxWidth={[9, 9, 10, 10]}>
@@ -602,10 +607,12 @@ export default ({
       suggestions={suggestions}
       url={url}
     />
+    <Timings />
+    <Hide breakpoints={[0, 1]}>
+      <Features children={useFeaturesMeta()} />
+    </Hide>
     <Resume />
-    {/* <Examples demoLinks={demoLinks} /> */}
-    <Features />
-    <ProductInformation
+    <Information
       bg='pinky'
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}
