@@ -56,14 +56,11 @@ const withContainer = (
   ChildComponent,
   containerProps = {},
   childProps
-) => props => {
-  console.log('childComponent', ChildComponent)
-  return (
-    <Container {...containerProps}>
-      <ChildComponent {...childProps} {...props} />
-    </Container>
-  )
-}
+) => props => (
+  <Container {...containerProps}>
+    <ChildComponent {...childProps} {...props} />
+  </Container>
+)
 
 export { Label, Link }
 
