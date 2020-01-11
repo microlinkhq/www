@@ -16,7 +16,7 @@ const Faq = ({ title, caption, questions, ...props }) => {
       >
         <Box pb={[0, 0, 4, 4]}>
           {questions.map(({ answer, question }, index) => (
-            <Text maxWidth='38em' key={answer}>
+            <Text maxWidth='38em' key={`question_${index}`}>
               <Subhead
                 pt={index === 0 ? 0 : 4}
                 textAlign='left'
@@ -27,7 +27,7 @@ const Faq = ({ title, caption, questions, ...props }) => {
               {answer.map((paraph, index) => (
                 <Text
                   pt={index === 0 ? 0 : 3}
-                  key={question}
+                  key={`answer_${index}`}
                   color='black80'
                   children={paraph}
                 />
