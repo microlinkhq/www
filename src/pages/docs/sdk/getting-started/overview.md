@@ -19,4 +19,8 @@ into a beautiful preview
 
 <Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' size='large' />
 
+Even better, you can get the native embed!
+
+<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='iframe' />
+
 The following steps show you how to integrate **Microlink SDK** in your site, no matter what web stack you have.
