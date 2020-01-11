@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { Box, ImagePlaceholder, CodeEditor } from 'components/elements'
 import styled from 'styled-components'
+
+import Box from '../Box'
+import CodeEditor from '../CodeEditor/CodeEditor'
+import ImagePlaceholder from '../Image/ImagePlaceholder'
 
 const IframeWrapper = styled(Box)`
   iframe {
