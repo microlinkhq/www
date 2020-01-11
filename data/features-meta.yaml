@@ -1,18 +1,18 @@
+- title: Background Refresh
+  description: Stale revalidation, keeping things fresh and always up to date via [ttl](/docs/api/parameters/ttl), reflecting any change on the target URL.
+- title: Unified Metadata
+  description: Normalized from Open Graph, JSON+LD or HTML markup, such as author, images, colors, dates, lang, etc.
+- title: Caching Level
+  description: Using Microlink CDN to deliver a different resource each time the query string changes.
+- title: Color Detection
+  description: Get predominant and complementary colors per every image detected.
+- title: Contextual Data
+  description: Get more from any data, expanding it to get extra useful information.
+- title: Media Detection
+  description: Get the original source of any image, video or audio.
+- title: Native Embeds
+  description: Using oEmbed to get the embedded representation of any URL.
+- title: Prerender Ready
+  description: Cloud based solution with superior operational performance.
 - title: Cloud Browsing
   description: Fast, scalable, and reliable browser automation.
-- title: High Availability
-  description: Cloud based solution with superior operational performance.
-- title: Auto Caching
-  description: Query caching police for improving response timing.
-- title: Screenshotting
-  description: Full or partial website snapshots with device support.
-- title: Data Normalization
-  description: Type check rules to guarantee extracted data is correct.
-- title: Color Detection
-  description: Predominant palette for each detected image.
-- title: Adblock Builtin
-  description: Faster reponsive timing avoids unnecessary requests.
-- title: Media Support
-  description: Detect the original streaming video/audio source.
-- title: Embed Mode
-  description: Enabling [embed](/docs/api/parameters/embed) mode for consuming content directly from your HTML markup.
