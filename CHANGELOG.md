@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.140](https://github.com/microlinkhq/microlink-www/compare/v2.10.139...v2.10.140) (2020-01-11)
+
+
+### Bug Fixes
+
+* linter ([698dd7c](https://github.com/microlinkhq/microlink-www/commit/698dd7c14c3283b7f939618dbc3df6b1e3af28b6))
+* question/asnwer unique key ([9b94b5b](https://github.com/microlinkhq/microlink-www/commit/9b94b5b64f92588a178b633b58c1a4870a53b216))
+* remove debug log ([8b13d16](https://github.com/microlinkhq/microlink-www/commit/8b13d1674c134c2a7432eb2ffb26e8c85f266e48))
+* status page layout ([d853b03](https://github.com/microlinkhq/microlink-www/commit/d853b036da81ccce55645ab90e996cbaebc6c9ad))
+* use absolute reference ([ed72e4a](https://github.com/microlinkhq/microlink-www/commit/ed72e4a0d3c1d02a8543dd5218986ca1d6c19a2e))
+
 ### [2.10.139](https://github.com/microlinkhq/microlink-www/compare/v2.10.138...v2.10.139) (2020-01-07)
 
 
