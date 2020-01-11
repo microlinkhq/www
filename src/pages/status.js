@@ -10,13 +10,14 @@ export default () => (
   <Layout title={TITLE} image={cdnUrl('www/status.png')}>
     <Container pt={5}>
       <Iframe
+        mx='auto'
         width={[
           CodeEditor.width[0],
           CodeEditor.width[1],
           layout.large,
           layout.large
         ]}
-        height='9833px'
+        height='650px'
         title={TITLE}
         src='https://status.microlink.io'
       />
