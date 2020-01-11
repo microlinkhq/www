@@ -7,7 +7,7 @@ import { formatNumber } from 'helpers'
 import styled from 'styled-components'
 import { Check } from 'react-feather'
 
-const FREE_PLAN_RATE_LIMIT = 250
+const FREE_PLAN_RATE_LIMIT = 100
 
 const Price = styled(Text)`
   font-weight: bold;
@@ -135,10 +135,10 @@ function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Unified metadata</Text>
+                <Text>Universal Embed</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Normalized from Open Graph, JSON+LD or HTML markup, such as
-                  author, images, colors, dates, lang, etc.
+                  Effortless metadata normalization via Open Graph, oEmbed,
+                  JSON+LD and HTML markup.
                 </Text>
               </>,
               <CheckMark key='metadata-free' />,
@@ -148,23 +148,10 @@ function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Multimedia detection</Text>
+                <Text>Take Screenshots</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Detecting the original streaming source for any audio or
-                  video.
-                </Text>
-              </>,
-              <CheckMark key='multimedia-free' />,
-              <CheckMark key='multimedia-pro' />
-            ]}
-          />
-          <PricingRow
-            children={[
-              <>
-                <Text>Take screenshots</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Live screenshotting support with overlay and device
-                  capabilities, reloaded in the background.
+                  Live screenshotting with overlay composition and stale
+                  revalidation, hosted at Microlink CDN.
                 </Text>
               </>,
               <CheckMark key='screenshot-free' />,
@@ -174,10 +161,23 @@ function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Cloud browsering</Text>
+                <Text>Export to PDF</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Preload URL content using headless browser cloud computing
-                  when necessary.
+                  On demand URL to PDF, costless effective with stale
+                  revalidation, hosted at Microlink CDN.
+                </Text>
+              </>,
+              <CheckMark key='pdf-free' />,
+              <CheckMark key='pdf-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>Cloud Browsering</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Automatic URL prerendering detection via top notch headless
+                  browser with adblock capabilities.
                 </Text>
               </>,
               <CheckMark key='prerender-free' />,
@@ -187,7 +187,20 @@ function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Proxy rotation</Text>
+                <Text>HTTP Headers</Text>
+                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                  Customize every single request specifying custom HTTP headers
+                  to fits use case scenarios.
+                </Text>
+              </>,
+              '',
+              <CheckMark key='headers-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>Proxy Rotation</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
                   Gather the top 500 popular sites to never be blocked or
                   claked, auto handling retry scenarios.
@@ -200,23 +213,23 @@ function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Cache layer</Text>
+                <Text>Configurable TTL</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
                   Configurable built-in response cache for serving pre-computed
                   content to fit high demand scenarios.
                 </Text>
               </>,
               '',
-              <CheckMark key='cache-pro' />
+              <CheckMark key='ttl-pro' />
             ]}
           />
           <PricingRow
             children={[
               <>
-                <Text>Service usage</Text>
+                <Text>Service Usage</Text>
                 <Text color='gray' fontWeight='normal' fontSize='12px'>
-                  Determine how many requests you can perform in a window of
-                  time.
+                  API quota associated with your plan that determines how many
+                  requests you can perform in a window of time.
                 </Text>
               </>,
               <>
