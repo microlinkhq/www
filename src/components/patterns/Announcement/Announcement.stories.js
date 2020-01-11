@@ -20,7 +20,7 @@ export default () => (
 )
 `
 
-storiesOf('Elements', module).add('Announcement', () => (
+storiesOf('Patterns', module).add('Announcement', () => (
   <Story name='Announcement' code={code}>
     <Announcement
       data-event-category='Home'
