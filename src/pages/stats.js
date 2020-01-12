@@ -23,6 +23,7 @@ const Value = props => (
 )
 
 const API = 'https://kubernetes-monitor-api.now.sh'
+const POLLING_INTERVAL = 12000
 
 export default () => {
   const [theme, setTheme] = useState('dark')
@@ -30,7 +31,7 @@ export default () => {
   const { data } = useSWR(
     API,
     () => window.fetch(API).then(res => res.json()),
-    { refreshInterval: 3000 }
+    { refreshInterval: POLLING_INTERVAL }
   )
 
   const toggleTheme = () =>
