@@ -6,10 +6,14 @@ import {
   Text,
   DotSpinner
 } from 'components/elements'
+
+import { useSiteMetadata } from 'components/hook'
 import { Layout } from 'components/patterns'
 import React, { useState } from 'react'
 import { layout } from 'theme'
 import useSWR from 'swr'
+
+import { screenshotUrl } from 'helpers'
 
 const Key = props => <Caps fontWeight='normal' fontSize={1} {...props} />
 
@@ -26,6 +30,13 @@ const API = 'https://kubernetes-monitor-api.now.sh'
 const POLLING_INTERVAL = 12000
 
 export default () => {
+  const { siteUrl } = useSiteMetadata()
+
+  const image = screenshotUrl(`${siteUrl}/stats`, {
+    waitUntil: 'networkidle0',
+    element: '#stats'
+  })
+
   const [theme, setTheme] = useState('dark')
 
   const { data } = useSWR(
@@ -43,80 +54,85 @@ export default () => {
       : { labelColor: 'white50', color: 'white', bg: 'black' }
 
   return (
-    <Layout onClick={toggleTheme} theme={theme} style={{ background: bg }}>
+    <Layout
+      image={image}
+      onClick={toggleTheme}
+      theme={theme}
+      style={{ background: bg }}
+    >
       <Container maxWidth={layout.medium} px={[5, 5, 4, 4]}>
-        {data ? (
-          <>
-            <Flex
-              pt={[3, 3, 5, 5]}
-              justifyContent='center'
-              flexDirection={['column', 'column', 'row', 'row']}
-            >
-              <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                <Key color={labelColor}>API</Key>
-                <Value color={color}>v{data.apiVersion}</Value>
-              </Box>
-              <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                <Key color={labelColor}>Deployed</Key>
-                <Value color={color}>{data.createdAt}</Value>
-              </Box>
-            </Flex>
-            <Flex
-              justifyContent='center'
-              pt={[2, 2, 4, 4]}
-              flexDirection={['column', 'column', 'row', 'row']}
-            >
-              <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                <Key color={labelColor}>Load</Key>
-                <Value color={color}>{data.status.load}%</Value>
-              </Box>
-              <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                <Key color={labelColor}>CPU</Key>
-                <Value color={color}>{data.status.cpuUsagePercentage}%</Value>
-              </Box>
-              <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                <Key color={labelColor}>Memory</Key>
-                <Value color={color}>
-                  {data.status.memoryUsagePercentage}%
-                </Value>
-              </Box>
-              <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                <Key color={labelColor}>Replicas</Key>
-                <Value color={color}>
-                  {data.status.currentReplicas} / {data.limits.maxReplicas}
-                </Value>
-              </Box>
-            </Flex>
-            <Flex
-              justifyContent='center'
-              pt={[2, 2, 4, 4]}
-              flexDirection={['column', 'column', 'row', 'row']}
-            >
-              <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                <Key color={labelColor}>Specs</Key>
-                <Flex>
-                  <Value color={color} mr={[3, 3, 4, 4]}>
-                    {data.specs.cpus}
+        <Box id='stats' py={[3, 3, data ? 5 : 6, data ? 5 : 6]}>
+          {data ? (
+            <>
+              <Flex
+                justifyContent='center'
+                flexDirection={['column', 'column', 'row', 'row']}
+              >
+                <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                  <Key color={labelColor}>API</Key>
+                  <Value color={color}>v{data.apiVersion}</Value>
+                </Box>
+                <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                  <Key color={labelColor}>Deployed</Key>
+                  <Value color={color}>{data.createdAt}</Value>
+                </Box>
+              </Flex>
+              <Flex
+                justifyContent='center'
+                pt={[2, 2, 4, 4]}
+                flexDirection={['column', 'column', 'row', 'row']}
+              >
+                <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                  <Key color={labelColor}>Load</Key>
+                  <Value color={color}>{data.status.load}%</Value>
+                </Box>
+                <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                  <Key color={labelColor}>CPU</Key>
+                  <Value color={color}>{data.status.cpuUsagePercentage}%</Value>
+                </Box>
+                <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                  <Key color={labelColor}>Memory</Key>
+                  <Value color={color}>
+                    {data.status.memoryUsagePercentage}%
                   </Value>
-                  <Value color={color}>{data.specs.memory}</Value>
-                </Flex>
-              </Box>
-            </Flex>
-          </>
-        ) : (
-          <>
-            <Flex
-              pt={[3, 3, 6, 6]}
-              justifyContent='center'
-              alignItems='center'
-              flexDirection={['column', 'column', 'row', 'row']}
-            >
-              <Value color={color}>
-                Loading <DotSpinner />
-              </Value>
-            </Flex>
-          </>
-        )}
+                </Box>
+                <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                  <Key color={labelColor}>Replicas</Key>
+                  <Value color={color}>
+                    {data.status.currentReplicas} / {data.limits.maxReplicas}
+                  </Value>
+                </Box>
+              </Flex>
+              <Flex
+                justifyContent='center'
+                pt={[2, 2, 4, 4]}
+                flexDirection={['column', 'column', 'row', 'row']}
+              >
+                <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                  <Key color={labelColor}>Specs</Key>
+                  <Flex>
+                    <Value color={color} mr={[3, 3, 4, 4]}>
+                      {data.specs.cpus}
+                    </Value>
+                    <Value color={color}>{data.specs.memory}</Value>
+                  </Flex>
+                </Box>
+              </Flex>
+            </>
+          ) : (
+            <>
+              <Flex
+                justifyContent='center'
+                alignItems='center'
+                flexDirection={['column', 'column', 'row', 'row']}
+              >
+                <Value color={color}>
+                  Loading <DotSpinner />
+                </Value>
+              </Flex>
+            </>
+          )}
+        </Box>
       </Container>
     </Layout>
   )
