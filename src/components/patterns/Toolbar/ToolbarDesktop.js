@@ -17,7 +17,13 @@ export default ({ theme }) => {
   const isDark = theme === 'dark'
 
   return (
-    <Fixed zIndex={101} top={0} left={0} right={0}>
+    <Fixed
+      zIndex={101}
+      top={0}
+      left={0}
+      right={0}
+      bg={isDark ? 'black' : 'white'}
+    >
       <Box px={3} ml='auto' mr='auto'>
         <Toolbar
           aria-label='Primary Navigation'

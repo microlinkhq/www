@@ -63,7 +63,13 @@ export default ({ theme }) => {
   const isDark = theme === 'dark'
 
   return (
-    <Fixed zIndex={101} top={0} left={0} right={0}>
+    <Fixed
+      zIndex={101}
+      top={0}
+      left={0}
+      right={0}
+      bg={isDark ? 'black' : 'white'}
+    >
       <Box ml='auto' mr='auto'>
         <Toolbar ml={3} mr={3} justifyContent='center'>
           <NavLogo mobile />
