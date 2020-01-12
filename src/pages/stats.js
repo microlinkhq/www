@@ -17,7 +17,7 @@ const Value = props => (
   <Text
     fontWeight='regular'
     lineHeight={0}
-    fontSize={[4, 5, 6, 7]}
+    fontSize={[4, 4, 4, 7]}
     {...props}
   />
 )
@@ -43,7 +43,7 @@ export default () => {
 
   return (
     <Layout onClick={toggleTheme} theme={theme} style={{ background: bg }}>
-      <Container maxWidth={layout.medium} px={[6, 6, 4, 4]}>
+      <Container maxWidth={layout.medium} px={[5, 5, 4, 4]}>
         {data ? (
           <>
             <Flex
@@ -94,7 +94,7 @@ export default () => {
               <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
                 <Key color={labelColor}>Specs</Key>
                 <Flex>
-                  <Value color={color} mr={[4, 4, 5, 5]}>
+                  <Value color={color} mr={[3, 3, 4, 4]}>
                     {data.specs.cpus}
                   </Value>
                   <Value color={color}>{data.specs.memory}</Value>
