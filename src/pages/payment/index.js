@@ -1,9 +1,7 @@
-import { Text, LinkSolid } from 'components/elements'
+import { Text, LinkSolid, DotSpinner } from 'components/elements'
 import { Headline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
-import { dots } from 'components/keyframes'
-import styled from 'styled-components'
 import Confetti from 'react-confetti'
 import { isSSR } from 'helpers'
 import { colors } from 'theme'
@@ -13,24 +11,6 @@ const centerStyle = `
 justify-content: center;
 align-items: center;
 display: flex;
-`
-
-const DotSpinner = styled('span')`
-  display: inline-block;
-  overflow: hidden;
-  height: 1.3em;
-  margin-top: -0.3em;
-  line-height: 1.5em;
-  vertical-align: text-bottom;
-
-  &::after {
-    display: inline-table;
-    white-space: pre;
-    text-align: left;
-    content: '\\A.\\A..\\A...';
-    animation: ${dots} 2s steps(4) infinite;
-    will-change: transform;
-  }
 `
 
 const PAYMENT_STATE = {

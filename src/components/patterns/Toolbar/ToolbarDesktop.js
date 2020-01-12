@@ -13,17 +13,11 @@ import {
   NavPdf
 } from './ToolbarLinks'
 
-export default ({ theme, ...props }) => {
+export default ({ theme }) => {
   const isDark = theme === 'dark'
 
   return (
-    <Fixed
-      zIndex={101}
-      top={0}
-      left={0}
-      right={0}
-      bg={isDark ? 'black' : 'white'}
-    >
+    <Fixed zIndex={101} top={0} left={0} right={0}>
       <Box px={3} ml='auto' mr='auto'>
         <Toolbar
           aria-label='Primary Navigation'
@@ -48,10 +42,3 @@ export default ({ theme, ...props }) => {
     </Fixed>
   )
 }
-
-// export default class extends Component {
-//   render () {
-//     console.log(this.props)
-//     // const isDark = this.props.theme === 'dark'
-//   }
-// }

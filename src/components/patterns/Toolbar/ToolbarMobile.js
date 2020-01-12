@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Box, Fixed, Toolbar } from 'components/elements'
 import styled from 'styled-components'
 
@@ -59,24 +59,24 @@ const Nav = styled(NavContainer)`
   );
 `
 
-export default class extends Component {
-  render () {
-    return (
-      <Fixed zIndex={101} top={0} left={0} right={0}>
-        <Box ml='auto' mr='auto' bg='white'>
-          <Toolbar ml={3} mr={3} justifyContent='center' {...this.props}>
-            <NavLogo mobile />
-            <Nav as='nav' width={300}>
-              <NavEmbed mobile />
-              <NavScreenshot mobile />
-              <NavPdf mobile />
-              <NavPricing mobile />
-              <NavDocs mobile />
-              <NavChat mobile />
-            </Nav>
-          </Toolbar>
-        </Box>
-      </Fixed>
-    )
-  }
+export default ({ theme }) => {
+  const isDark = theme === 'dark'
+
+  return (
+    <Fixed zIndex={101} top={0} left={0} right={0}>
+      <Box ml='auto' mr='auto'>
+        <Toolbar ml={3} mr={3} justifyContent='center'>
+          <NavLogo mobile />
+          <Nav as='nav' width={300}>
+            <NavEmbed isDark={isDark} mobile />
+            <NavScreenshot isDark={isDark} mobile />
+            <NavPdf isDark={isDark} mobile />
+            <NavPricing isDark={isDark} mobile />
+            <NavDocs isDark={isDark} mobile />
+            <NavChat isDark={isDark} mobile />
+          </Nav>
+        </Toolbar>
+      </Box>
+    </Fixed>
+  )
 }
