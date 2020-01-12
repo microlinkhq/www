@@ -7,13 +7,14 @@ import { Box } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
 import { isSSR } from 'helpers'
+import noop from 'lodash/noop'
 
-import theme from 'theme'
+import themeSpec from 'theme'
 import 'styles/main.scss'
 
 if (!isSSR) {
   window.scroll = require('smooth-scroll')('a[href*="#"]', {
-    speed: theme.speed.slowly
+    speed: themeSpec.speed.slowly
   })
 }
 
@@ -29,24 +30,32 @@ const SiteContent = styled(Box)`
   flex: 1;
 `
 
-const Layout = ({ footer, children, className, ...props }) => {
+const Layout = ({
+  footer,
+  children,
+  className,
+  onClick,
+  style,
+  theme,
+  ...props
+}) => {
   useEffect(scrollToHash, [])
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeSpec}>
       <Location>
         {({ location }) => {
           return (
-            <Site>
+            <Site onClick={onClick} style={style} className={theme}>
               <Head location={location} {...props} />
-              <Toolbar />
+              <Toolbar theme={theme} style={style} />
               <SiteContent pt={TOOLBAR_HEIGHT} className={className}>
                 {children}
               </SiteContent>
               <CookiesPolicy />
               {footer && (
                 <Box>
-                  <Footer />
+                  <Footer theme={theme} />
                 </Box>
               )}
             </Site>
@@ -58,7 +67,9 @@ const Layout = ({ footer, children, className, ...props }) => {
 }
 
 Layout.defaultProps = {
-  footer: true
+  theme: 'light',
+  footer: true,
+  onClick: noop
 }
 
 export default Layout

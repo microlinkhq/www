@@ -11,7 +11,7 @@ const hoverStyle = createCssState({
   state: 'hover',
   css: css`
     border-color: currentColor;
-    color: ${colors.black80};
+    color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
   `
 })
 
@@ -20,28 +20,33 @@ const style = css`
   outline: 0;
   opacity: 0.75;
   display: inline-block;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid
+    ${({ isDark }) =>
+      isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
+  color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
   transition: border-color ${transition.medium};
 `
 
 const LinkSolid = styled(Link)`
   ${style};
-  ${hoverStyle}
+  ${hoverStyle};
 `
 
 LinkSolid.defaultProps = {
-  fontWeight: 'bold',
-  color: 'black80'
+  fontWeight: 'bold'
 }
 
-export default ({ fontWeight, href, children, color, ...props }) => (
-  <Box display='inline'>
-    <LinkSolid
-      {...props}
-      color={color}
-      href={href}
-      children={children}
-      fontWeight={fontWeight}
-    />
-  </Box>
-)
+export default ({ fontWeight, href, children, color, theme, ...props }) => {
+  return (
+    <Box display='inline'>
+      <LinkSolid
+        {...props}
+        color={color}
+        href={href}
+        children={children}
+        fontWeight={fontWeight}
+        isDark={theme === 'dark'}
+      />
+    </Box>
+  )
+}

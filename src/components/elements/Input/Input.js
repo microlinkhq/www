@@ -41,7 +41,7 @@ InputBase.defaultProps = {
 
 const InputWrapper = styled(Flex)`
   border: 1px solid;
-  border-color: ${colors.black20};
+  border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black20)};
   transition: border-color ${transition.medium}, stroke ${transition.medium},
     color ${transition.medium};
   ${props =>
@@ -64,6 +64,7 @@ const Input = ({
   children,
   onFocus,
   onBlur,
+  theme,
   ...props
 }) => {
   const [isFocus, setFocus] = useState(props.autoFocus)
@@ -84,6 +85,7 @@ const Input = ({
       alignItems='center'
       borderRadius={2}
       focus={isFocus}
+      isDark={theme === 'dark'}
     >
       {Icon && <Box pl={2} pt={1} children={Icon} />}
       <InputBase

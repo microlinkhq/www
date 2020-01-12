@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
 import { Toolbar, Box, Fixed } from 'components/elements'
+import React from 'react'
 
 import NavContainer from './NavContainer'
 
@@ -13,33 +13,45 @@ import {
   NavPdf
 } from './ToolbarLinks'
 
-export default class extends Component {
-  render () {
-    return (
-      <Fixed zIndex={101} top={0} left={0} right={0} bg='white'>
-        <Box px={3} ml='auto' mr='auto'>
-          <Toolbar
-            aria-label='Primary Navigation'
-            ml='auto'
-            mr='auto'
-            justifyContent='space-between'
-            {...this.props}
-          >
-            <NavContainer as='nav'>
-              <NavLogo />
+export default ({ theme, ...props }) => {
+  const isDark = theme === 'dark'
 
-              <NavEmbed />
-              <NavScreenshot />
-              <NavPdf />
-            </NavContainer>
-            <NavContainer as='nav'>
-              <NavPricing />
-              <NavDocs />
-              <NavChat />
-            </NavContainer>
-          </Toolbar>
-        </Box>
-      </Fixed>
-    )
-  }
+  return (
+    <Fixed
+      zIndex={101}
+      top={0}
+      left={0}
+      right={0}
+      bg={isDark ? 'black' : 'white'}
+    >
+      <Box px={3} ml='auto' mr='auto'>
+        <Toolbar
+          aria-label='Primary Navigation'
+          ml='auto'
+          mr='auto'
+          justifyContent='space-between'
+        >
+          <NavContainer as='nav'>
+            <NavLogo />
+
+            <NavEmbed isDark={isDark} />
+            <NavScreenshot isDark={isDark} />
+            <NavPdf isDark={isDark} />
+          </NavContainer>
+          <NavContainer as='nav'>
+            <NavPricing isDark={isDark} />
+            <NavDocs isDark={isDark} />
+            <NavChat isDark={isDark} />
+          </NavContainer>
+        </Toolbar>
+      </Box>
+    </Fixed>
+  )
 }
+
+// export default class extends Component {
+//   render () {
+//     console.log(this.props)
+//     // const isDark = this.props.theme === 'dark'
+//   }
+// }

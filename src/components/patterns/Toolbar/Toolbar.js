@@ -3,13 +3,13 @@ import { Hide } from 'components/elements'
 import ToolbarMobile from './ToolbarMobile'
 import ToolbarDesktop from './ToolbarDesktop'
 
-export default () => (
+export default props => (
   <>
     <Hide breakpoints={[0, 1]}>
-      <ToolbarDesktop />
+      <ToolbarDesktop {...props} />
     </Hide>
     <Hide breakpoints={[2, 3]}>
-      <ToolbarMobile />
+      <ToolbarMobile {...props} />
     </Hide>
   </>
 )

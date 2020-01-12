@@ -1,16 +1,17 @@
 import styled, { css } from 'styled-components'
-import { transition } from 'theme'
+import { colors, fontWeights, transition } from 'theme'
 
 import { Caps } from 'components/elements'
 import { withLink, withAnalytics } from 'helpers/hoc'
 
 const activeStyle = css`
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.black};
+  font-weight: ${fontWeights.bold};
+  color: ${({ isDark }) => (isDark ? colors.white : colors.black)};
 `
 
 const style = css`
   transition: color ${transition.medium};
+  color: ${({ isDark }) => (isDark ? colors.white50 : colors.black50)};
   &:hover,
   > .active {
     ${activeStyle};
@@ -20,7 +21,6 @@ const style = css`
 const NavLink = styled(Caps)(
   {
     bg: 'transparent',
-    color: 'inherit',
     display: 'inline-flex',
     alignItems: 'center',
     alignSelf: 'stretch',
@@ -37,8 +37,7 @@ const NavLink = styled(Caps)(
 NavLink.defaultProps = {
   p: 2,
   fontSize: 0,
-  as: 'div',
-  color: 'gray7'
+  as: 'div'
 }
 
 export default withLink(withAnalytics(NavLink))
