@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Location } from '@reach/router'
 
 import Head from 'components/Head'
-import { Box } from 'components/elements'
+import { Box, Hide } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
 import { isSSR } from 'helpers'
@@ -52,7 +52,9 @@ const Layout = ({
               <SiteContent pt={TOOLBAR_HEIGHT} className={className}>
                 {children}
               </SiteContent>
-              <CookiesPolicy />
+              <Hide breakpoints={[0]}>
+                <CookiesPolicy />
+              </Hide>
               {footer && (
                 <Box>
                   <Footer theme={theme} />

@@ -53,6 +53,8 @@ export default () => {
       ? { labelColor: 'black50', color: 'black', bg: 'white' }
       : { labelColor: 'white50', color: 'white', bg: 'black' }
 
+  const hasData = !!data
+
   return (
     <Layout
       image={image}
@@ -60,9 +62,13 @@ export default () => {
       theme={theme}
       style={{ background: bg }}
     >
-      <Container maxWidth={layout.medium} px={[5, 5, 4, 4]}>
-        <Box id='stats' py={[3, 3, data ? 5 : 6, data ? 5 : 6]}>
-          {data ? (
+      <Container
+        maxWidth={layout.medium}
+        px={[5, 5, 4, 4]}
+        pt={[hasData ? 0 : 4, hasData ? 0 : 4, 4, 4]}
+      >
+        <Box id='stats' py={[3, 3, hasData ? 5 : 6, hasData ? 5 : 6]}>
+          {hasData ? (
             <>
               <Flex
                 justifyContent='center'
@@ -73,7 +79,7 @@ export default () => {
                   <Value color={color}>v{data.apiVersion}</Value>
                 </Box>
                 <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                  <Key color={labelColor}>Deployed</Key>
+                  <Key color={labelColor}>Last Deploy</Key>
                   <Value color={color}>{data.createdAt}</Value>
                 </Box>
               </Flex>
