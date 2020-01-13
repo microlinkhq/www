@@ -27,7 +27,7 @@ const Value = props => (
 )
 
 const API = 'https://kubernetes-monitor-api.now.sh'
-const POLLING_INTERVAL = 12000
+const POLLING_INTERVAL = 2000
 
 export default () => {
   const { siteUrl } = useSiteMetadata()
