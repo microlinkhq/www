@@ -87,11 +87,40 @@ function Head (props) {
         { property: 'og:logo', content: logo },
         { property: 'og:site_name', content: name },
         { property: 'og:type', content: 'website' },
-        { property: 'og:updated_time', content: date }
+        { property: 'og:updated_time', content: date },
+        { property: 'apple-mobile-web-app-capable', content: 'yes' },
+        { property: 'mobile-web-app-capable', content: 'yes' }
       ]}
       {...props}
     >
+      <link
+        rel='apple-touch-icon'
+        sizes='180x180'
+        href='/apple-touch-icon.png'
+      />
+      <link
+        rel='apple-touch-icon'
+        sizes='192x192'
+        href='/android-chrome-192x192.png'
+      />
+      <link
+        rel='apple-touch-icon'
+        sizes='512x512'
+        href='/android-chrome-512x512.png'
+      />
       <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
+      <link
+        rel='icon'
+        type='image/png'
+        sizes='32x32'
+        href='/favicon-32x32.png'
+      />
+      <link
+        rel='icon'
+        type='image/png'
+        sizes='16x16'
+        href='/favicon-16x16.png'
+      />
     </Helmet>
   )
 }
