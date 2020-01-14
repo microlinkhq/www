@@ -217,7 +217,10 @@ export default ({ theme, ...props }) => {
         </Box>
         <Box px={0}>
           <Flex flexDirection='column'>
-            <Flex alignItems='center'>
+            <Flex
+              alignItems='center'
+              justifyContent={['center', 'inherit', 'inherit', 'inherit']}
+            >
               <Flex flexDirection='column'>
                 <Stats>
                   {({ data }) => {
