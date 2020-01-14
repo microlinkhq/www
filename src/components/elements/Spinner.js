@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { dash, rotate } from 'components/keyframes'
 
-import { colors } from 'theme'
+import { cx, colors } from 'theme'
 
 import Svg from './Svg'
 
@@ -24,7 +24,7 @@ const StyledSpinner = styled(Svg)`
   will-change: transform;
 
   .path {
-    stroke: ${colors.primary};
+    stroke: ${props => cx(props.color)};
     stroke-linecap: round;
     animation: ${dash} 1.5s ease-in-out infinite;
     will-change: stroke-dasharray, stroke-dashoffset;
@@ -32,6 +32,7 @@ const StyledSpinner = styled(Svg)`
 `
 
 StyledSpinner.defaultProps = {
+  color: colors.primary,
   width: '64px',
   height: '16px'
 }
