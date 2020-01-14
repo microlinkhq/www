@@ -18,6 +18,7 @@ import ImagePlaceholder from './Image/ImagePlaceholder'
 import Input from './Input/Input'
 import InputIcon from './Input/InputIcon'
 import Badge from './Badge/Badge'
+import Dot from './Dot/Dot'
 
 import Notification from './Notification/Notification'
 import PricePicker from './PricePicker'
@@ -61,6 +62,7 @@ export {
   ClearbitLogo,
   CodeEditor,
   Container,
+  Dot,
   DotSpinner,
   Fixed,
   Flex,
