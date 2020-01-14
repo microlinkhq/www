@@ -15,7 +15,7 @@ import Grid from './Grid'
 import Layout from './Layout'
 import List from './List/List'
 import LiveDemo from './LiveDemo/LiveDemo'
-import ApiStatus from './ApiStatus/ApiStatus'
+import Stats from './Stats/Stats'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
@@ -25,7 +25,7 @@ import CubeBackground from './CubeBackground/CubeBackground'
 
 export {
   Announcement,
-  ApiStatus,
+  Stats,
   Aside,
   Block,
   Caption,

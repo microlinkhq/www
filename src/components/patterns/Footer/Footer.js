@@ -15,10 +15,11 @@ import {
 
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
 import { layout, transition, colors } from 'theme'
-import ApiStatus from '../ApiStatus/ApiStatus'
+import Stats from '../Stats/Stats'
 import { Microlink } from 'components/logos'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
+import get from 'dlv'
 
 const IconWrapper = styled(Box)`
   cursor: pointer;
@@ -218,9 +219,11 @@ export default ({ theme, ...props }) => {
           <Flex flexDirection='column'>
             <Flex alignItems='center'>
               <Flex flexDirection='column'>
-                <ApiStatus>
-                  {({ isLoading, apiStatus }) => {
-                    if (isLoading || apiStatus === 'error') {
+                <Stats>
+                  {({ data }) => {
+                    const apiStatus = get(data, 'apiStatus') || 'error'
+
+                    if (apiStatus === 'error') {
                       return (
                         <LinkSolid
                           theme={theme}
@@ -263,7 +266,7 @@ export default ({ theme, ...props }) => {
                       </Link>
                     )
                   }}
-                </ApiStatus>
+                </Stats>
               </Flex>
             </Flex>
 
