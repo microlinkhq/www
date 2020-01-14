@@ -57,6 +57,7 @@ export default () => {
 
   return (
     <Layout
+      title='stats'
       image={image}
       onClick={toggleTheme}
       theme={theme}
