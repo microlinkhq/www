@@ -2,19 +2,23 @@ import React from 'react'
 import {
   Container,
   Hide,
-  LinkSolid,
   Caps,
   Box,
   Button,
   Flex,
   Input,
-  Text
+  Text,
+  LinkSolid,
+  Link,
+  Dot
 } from 'components/elements'
 
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
 import { layout, transition, colors } from 'theme'
+import ApiStatus from '../ApiStatus/ApiStatus'
 import { Microlink } from 'components/logos'
 import styled from 'styled-components'
+import { Choose } from 'react-extras'
 
 const IconWrapper = styled(Box)`
   cursor: pointer;
@@ -69,9 +73,9 @@ export default ({ theme, ...props }) => {
         alignItems='center'
         {...props}
       >
-        <Box px={0} pb={[3, 3, 3, 0]}>
-          <Flex pb={[3, 3, 3, 0]} flexDirection='column'>
-            <Flex pb={3} justifyContent='center'>
+        <Box px={0}>
+          <Flex flexDirection='column'>
+            <Flex pb={2} justifyContent='center'>
               <Microlink />
             </Flex>
             <Flex flexDirection='column' alignItems='center'>
@@ -137,12 +141,12 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Status'
+              data-event-action='Stats'
               fontSize={[0, 0, 0, 1]}
               mr={2}
               mb={[0, 0, 0, 3]}
-              href='/status'
-              children='Status'
+              href='/stats'
+              children='Stats'
             />
             <LinkSolid
               theme={theme}
@@ -212,55 +216,93 @@ export default ({ theme, ...props }) => {
         </Box>
         <Box px={0}>
           <Flex flexDirection='column'>
+            <Flex alignItems='center'>
+              <Flex flexDirection='column'>
+                <ApiStatus>
+                  {({ isLoading, apiStatus }) => {
+                    if (isLoading || apiStatus === 'error') {
+                      return (
+                        <LinkSolid
+                          theme={theme}
+                          px={0}
+                          data-event-category='Footer'
+                          data-event-action='Status'
+                          href='/status'
+                          children='Status'
+                        >
+                          <Text fontSize={1}>Status Page</Text>
+                        </LinkSolid>
+                      )
+                    }
+                    return (
+                      <Link
+                        theme={theme}
+                        px={0}
+                        data-event-category='Footer'
+                        data-event-action='Status'
+                        href='/status'
+                        children='Status'
+                        color={colors[textColor]}
+                      >
+                        <Text fontSize={1} color='inherit'>
+                          <Choose>
+                            <Choose.When condition={apiStatus === 'good'}>
+                              <Dot.Success mr={2} />
+                              All Systems Operational
+                            </Choose.When>
+                            <Choose.When condition={apiStatus === 'degraded'}>
+                              <Dot.Warning mr={2} />
+                              Degraded System Performance
+                            </Choose.When>
+                            <Choose.When condition={apiStatus === 'failing'}>
+                              <Dot.Error mr={2} />
+                              System Perfomance Issue
+                            </Choose.When>
+                          </Choose>
+                        </Text>
+                      </Link>
+                    )
+                  }}
+                </ApiStatus>
+              </Flex>
+            </Flex>
+
             <Hide breakpoints={[0, 1, 2]}>
-              <Flex alignItems='center'>
-                <Flex flexDirection='column'>
-                  <Text color={textColor} fontSize={1}>
-                    Questions?
-                  </Text>
-                  <LinkSolid
-                    theme={theme}
-                    data-event-category='Footer'
-                    data-event-action='Questions'
-                    mt={3}
-                    px={0}
-                    href='mailto:hello@microlink.io'
-                    children='We’d love to hear from you'
-                  />
-                </Flex>
+              <Flex alignItems='center' my={[0, 0, 0, 4]}>
+                <Text
+                  color={textColor}
+                  mr={2}
+                  children='© Microlink'
+                  pb='2px'
+                  fontSize={1}
+                />
+                <LinkSolid
+                  theme={theme}
+                  fontWeight='normal'
+                  mr={2}
+                  fontSize={0}
+                  href='/tos'
+                  data-event-category='Footer'
+                  data-event-action='Terms'
+                  children='Terms'
+                />
+                <LinkSolid
+                  theme={theme}
+                  fontWeight='normal'
+                  fontSize={0}
+                  data-event-category='Footer'
+                  data-event-action='Privacy'
+                  href='/privacy'
+                  children='Privacy'
+                />
               </Flex>
             </Hide>
-            <Flex py={[3, 3, 3, 4]} alignItems='center'>
-              <Text
-                color={textColor}
-                mr={2}
-                children='© Microlink'
-                pb='2px'
-                fontSize={1}
-              />
-              <LinkSolid
-                theme={theme}
-                fontWeight='normal'
-                mr={2}
-                fontSize={0}
-                href='/tos'
-                data-event-category='Footer'
-                data-event-action='Terms'
-                children='Terms'
-              />
-              <LinkSolid
-                theme={theme}
-                fontWeight='normal'
-                fontSize={0}
-                data-event-category='Footer'
-                data-event-action='Privacy'
-                href='/privacy'
-                children='Privacy'
-              />
-            </Flex>
+
             <Flex
               alignItems='center'
               justifyContent={['center', 'center', 'center', 'inherit']}
+              mb={[0, 0, 0, 3]}
+              mt={[3, 0, 0, 0]}
             >
               <IconWrapper
                 data-event-category='Footer'

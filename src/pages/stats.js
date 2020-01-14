@@ -66,7 +66,7 @@ export default () => {
       <Container
         maxWidth={layout.medium}
         px={[5, 5, 4, 4]}
-        pt={[hasData ? 0 : 4, hasData ? 0 : 4, 4, 4]}
+        pt={[hasData ? 0 : 4, hasData ? 0 : 6, 6, 6]}
       >
         <Box id='stats' py={[3, 3, hasData ? 5 : 6, hasData ? 5 : 6]}>
           {hasData ? (
