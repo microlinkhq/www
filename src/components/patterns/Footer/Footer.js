@@ -236,7 +236,7 @@ export default ({ theme, ...props }) => {
                           href='/status'
                           children='Status'
                         >
-                          <Text fontSize={1}>Status Page</Text>
+                          <Text fontSize={[0, 0, 0, 1]}>Status Page</Text>
                         </LinkSolid>
                       )
                     }
@@ -250,7 +250,7 @@ export default ({ theme, ...props }) => {
                         children='Status'
                         color={colors[textColor]}
                       >
-                        <Text fontSize={1} color='inherit'>
+                        <Text fontSize={[0, 0, 0, 1]} color='inherit'>
                           <Choose>
                             <Choose.When condition={apiStatus === 'good'}>
                               <Dot.Success mr={2} />
