@@ -42,7 +42,7 @@
     "@microlink/react": "4.5.1",
     "@styled-system/prop-types": "~5.1.4",
     "@tippy.js/react": "~3.1.1",
-    "autoprefixer": "~9.7.3",
+    "autoprefixer": "~9.7.4",
     "beauty-error": "~1.2.3",
     "color": "~3.1.2",
     "cssnano": "~4.1.10",
