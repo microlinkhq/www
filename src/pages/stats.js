@@ -55,13 +55,11 @@ export default () => {
             onClick={toggleTheme}
             theme={theme}
             style={{ background: bg }}
+            component={Flex}
+            justifyContent='center'
+            alignItems='center'
           >
-            <Container
-              justifyContent='center'
-              alignItems='center'
-              maxWidth={layout.medium}
-              px={[5, 5, 4, 4]}
-            >
+            <Container maxWidth={layout.medium} px={[5, 5, 4, 4]}>
               <Box id='stats'>
                 {isLoading ? (
                   <>

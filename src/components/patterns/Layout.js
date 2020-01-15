@@ -1,5 +1,5 @@
-import { ThemeProvider } from 'styled-components'
-import React, { useEffect } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+import React, { createElement, useEffect } from 'react'
 import { Location } from '@reach/router'
 
 import Head from 'components/Head'
@@ -20,7 +20,19 @@ if (!isSSR) {
 
 const scrollToHash = () => window.scroll.animateScroll(window.location)
 
-const Layout = ({ footer, children, onClick, style, theme, ...props }) => {
+const Layout = ({
+  footer,
+  children,
+  onClick,
+  style,
+  theme,
+  display,
+  justifyContent,
+  alignItems,
+  flexDirection,
+  component = Box,
+  ...props
+}) => {
   useEffect(scrollToHash, [])
 
   return (
@@ -29,17 +41,25 @@ const Layout = ({ footer, children, onClick, style, theme, ...props }) => {
         {({ location }) => {
           return (
             <Flex
-              css='min-height: 100vh'
               flexDirection='column'
               onClick={onClick}
               style={style}
               className={theme}
+              css={`
+                min-height: 100vh;
+              `}
             >
               <Head location={location} {...props} />
               <Toolbar theme={theme} style={style} />
-              <Flex css='flex: 1' pt={TOOLBAR_HEIGHT}>
-                {children}
-              </Flex>
+              {createElement(component, {
+                justifyContent,
+                alignItems,
+                display,
+                flexDirection,
+                pt: TOOLBAR_HEIGHT,
+                children,
+                style: { flex: 1 }
+              })}
               <Hide breakpoints={[0]}>
                 <CookiesPolicy />
               </Hide>
