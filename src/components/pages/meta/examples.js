@@ -177,12 +177,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
@@ -279,9 +279,16 @@ const Timings = () => {
                 justifyContent='center'
                 flexDirection='column'
               >
-                <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+                <Heading
+                  as='div'
+                  color='white'
+                  variant={null}
+                  mr={3}
+                  fontWeight='bold'
+                >
                   {'1'}
                   <Caption
+                    as='div'
                     ml={2}
                     color='white'
                     display='inline'
@@ -291,6 +298,7 @@ const Timings = () => {
                   </Caption>
                 </Heading>
                 <Caption
+                  as='div'
                   color='white'
                   variant={null}
                   mr={3}
@@ -307,9 +315,16 @@ const Timings = () => {
                 justifyContent='center'
                 flexDirection='column'
               >
-                <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+                <Heading
+                  as='div'
+                  color='white'
+                  variant={null}
+                  mr={3}
+                  fontWeight='bold'
+                >
                   {'1.3'}
                   <Caption
+                    as='div'
                     ml={2}
                     color='white'
                     display='inline'
@@ -318,6 +333,7 @@ const Timings = () => {
                   />
                 </Heading>
                 <Caption
+                  as='div'
                   color='white'
                   variant={null}
                   mr={3}
@@ -334,9 +350,16 @@ const Timings = () => {
                 justifyContent='center'
                 flexDirection='column'
               >
-                <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+                <Heading
+                  as='div'
+                  color='white'
+                  variant={null}
+                  mr={3}
+                  fontWeight='bold'
+                >
                   {'99.9'}
                   <Caption
+                    as='div'
                     ml={2}
                     color='white'
                     display='inline'
@@ -345,6 +368,7 @@ const Timings = () => {
                   />
                 </Heading>
                 <Caption
+                  as='div'
                   color='white'
                   variant={null}
                   mr={3}
