@@ -258,7 +258,7 @@ export default ({ theme, ...props }) => {
                             </Choose.When>
                             <Choose.When condition={apiStatus === 'degraded'}>
                               <Dot.Warning mr={2} />
-                              Degraded System Performance
+                              System Performance Degradation
                             </Choose.When>
                             <Choose.When condition={apiStatus === 'failing'}>
                               <Dot.Error mr={2} />
