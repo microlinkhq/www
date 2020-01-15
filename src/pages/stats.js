@@ -57,11 +57,12 @@ export default () => {
             style={{ background: bg }}
           >
             <Container
+              justifyContent='center'
+              alignItems='center'
               maxWidth={layout.medium}
               px={[5, 5, 4, 4]}
-              pt={[isLoading ? 0 : 4, isLoading ? 0 : 6, 6, 6]}
             >
-              <Box id='stats' py={[3, 3, isLoading ? 5 : 6, isLoading ? 5 : 6]}>
+              <Box id='stats'>
                 {isLoading ? (
                   <>
                     <Flex

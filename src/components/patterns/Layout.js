@@ -1,9 +1,9 @@
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import React, { useEffect } from 'react'
 import { Location } from '@reach/router'
 
 import Head from 'components/Head'
-import { Box, Hide } from 'components/elements'
+import { Box, Flex, Hide } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
 import { isSSR } from 'helpers'
@@ -20,25 +20,7 @@ if (!isSSR) {
 
 const scrollToHash = () => window.scroll.animateScroll(window.location)
 
-const Site = styled(Box)`
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-`
-
-const SiteContent = styled(Box)`
-  flex: 1;
-`
-
-const Layout = ({
-  footer,
-  children,
-  className,
-  onClick,
-  style,
-  theme,
-  ...props
-}) => {
+const Layout = ({ footer, children, onClick, style, theme, ...props }) => {
   useEffect(scrollToHash, [])
 
   return (
@@ -46,12 +28,18 @@ const Layout = ({
       <Location>
         {({ location }) => {
           return (
-            <Site onClick={onClick} style={style} className={theme}>
+            <Flex
+              css='min-height: 100vh'
+              flexDirection='column'
+              onClick={onClick}
+              style={style}
+              className={theme}
+            >
               <Head location={location} {...props} />
               <Toolbar theme={theme} style={style} />
-              <SiteContent pt={TOOLBAR_HEIGHT} className={className}>
+              <Flex css='flex: 1' pt={TOOLBAR_HEIGHT}>
                 {children}
-              </SiteContent>
+              </Flex>
               <Hide breakpoints={[0]}>
                 <CookiesPolicy />
               </Hide>
@@ -60,7 +48,7 @@ const Layout = ({
                   <Footer theme={theme} />
                 </Box>
               )}
-            </Site>
+            </Flex>
           )
         }}
       </Location>
