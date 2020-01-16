@@ -48,8 +48,10 @@ import IframeInline from './IframeInline/IframeInline'
 
 import StripeLoader from './StripeLoader'
 import ClearbitLogo from './ClearbitLogo/ClearbitLogo'
+import Pie from './Pie/Pie'
 
 export {
+  Pie,
   AnimatedBox,
   BackgroundSlider,
   BackgroundSliderContainer,
