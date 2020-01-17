@@ -31,7 +31,7 @@ export default () => {
   const { siteUrl } = useSiteMetadata()
 
   const image = screenshotUrl(`${siteUrl}/stats`, {
-    waitUntil: 'networkidle0',
+    waitFor: '3000',
     element: '#stats'
   })
 
