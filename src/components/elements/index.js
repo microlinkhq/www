@@ -49,9 +49,9 @@ import IframeInline from './IframeInline/IframeInline'
 import StripeLoader from './StripeLoader'
 import ClearbitLogo from './ClearbitLogo/ClearbitLogo'
 import Pie from './Pie/Pie'
+import Stack from './Stack/Stack'
 
 export {
-  Pie,
   AnimatedBox,
   BackgroundSlider,
   BackgroundSliderContainer,
@@ -82,9 +82,11 @@ export {
   LinkSolid,
   MultiCodeEditor,
   Notification,
+  Pie,
   PricePicker,
   Select,
   Spinner,
+  Stack,
   StripeLoader,
   Subhead,
   Svg,

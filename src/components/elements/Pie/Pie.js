@@ -1,11 +1,16 @@
 import React from 'react'
-import { colors } from 'theme'
+import { fontSizes, fonts, colors } from 'theme'
 
 import { Pie } from '@nivo/pie'
 
-export default ({ data, width = 800, height = 500 }) => (
+export default ({
+  scheme = 'orange_red',
+  data,
+  animate = true,
+  width = 800,
+  height = 500
+}) => (
   <Pie
-    isInteractive={false}
     data={data}
     width={width}
     height={height}
@@ -13,7 +18,7 @@ export default ({ data, width = 800, height = 500 }) => (
     innerRadius={0.5}
     padAngle={2}
     cornerRadius={3}
-    colors={{ scheme: 'nivo' }}
+    colors={{ scheme }}
     borderWidth={1}
     borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
     radialLabel={({ label, size }) => `${label} (${size})`}
@@ -28,7 +33,16 @@ export default ({ data, width = 800, height = 500 }) => (
     sliceLabel={false}
     slicesLabelsSkipAngle={10}
     slicesLabelsTextColor={colors.black80}
-    animate
+    animate={animate}
+    theme={{
+      tooltip: {
+        container: {
+          fontFamily: fonts.sans,
+          color: colors.black80,
+          fontSize: fontSizes[1]
+        }
+      }
+    }}
     motionStiffness={90}
     motionDamping={15}
     legends={[
