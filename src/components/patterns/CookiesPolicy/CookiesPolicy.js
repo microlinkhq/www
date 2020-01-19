@@ -16,7 +16,6 @@ const CookiesWrapper = styled(Box)`
   width: 100%;
   z-index: 2;
   animation: ${showNotification} ${transition.medium} forwards 1;
-  will-change: opacity, transform;
 
   &[aria-hidden='true'] {
     animation: ${hideNotification} ${transition.medium} forwards 1;

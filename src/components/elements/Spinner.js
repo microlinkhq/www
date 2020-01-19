@@ -21,13 +21,12 @@ const Spinner = props => (
 
 const StyledSpinner = styled(Svg)`
   animation: ${rotate} 2s linear infinite;
-  will-change: transform;
+  will-change: stroke-dasharray, stroke-dashoffset;
 
   .path {
     stroke: ${props => cx(props.color)};
     stroke-linecap: round;
     animation: ${dash} 1.5s ease-in-out infinite;
-    will-change: stroke-dasharray, stroke-dashoffset;
   }
 `
 

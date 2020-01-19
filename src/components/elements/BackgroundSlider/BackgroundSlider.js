@@ -14,7 +14,6 @@ const SliderContainerWrapper = styled('div')`
   overflow: hidden;
   animation: ${slide} ${props => props.duration}s linear infinite;
   animation-direction: ${props => props.animationDirection};
-  will-change: translate3d;
 `
 
 const SliderContainerChildren = styled.div`

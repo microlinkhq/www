@@ -35,7 +35,6 @@ const CubesBackground = styled('ul')`
     list-style: none;
     background: ${props => cx(props.bg)};
     animation: ${rotation} 25s linear infinite;
-    will-change: transform, opacity;
     bottom: -150px;
   }
 

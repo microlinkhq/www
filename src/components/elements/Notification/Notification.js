@@ -25,7 +25,6 @@ const Wrapper = styled(Flex)`
   right: 0;
   bottom: 0;
   left: 0;
-  will-change: opacity, transform;
   animation: ${showNotification} ${transition.medium} forwards 1;
 
   &[aria-hidden='true'] {

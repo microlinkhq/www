@@ -22,7 +22,6 @@ const Dots = styled(Flex)`
 
     animation: ${slide} 100s linear infinite;
     animation-direction: reverse;
-    will-change: transform;
   }
 `
 

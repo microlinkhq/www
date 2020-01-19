@@ -66,7 +66,6 @@ const TerminalText = styled('div')`
 const blinkCursorStyle = css`
   &::after {
     content: '';
-    will-change: opacity;
     animation-name: ${blink};
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(1, 0, 0, 1);

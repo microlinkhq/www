@@ -15,7 +15,6 @@ const DotSpinner = styled('span')`
     text-align: left;
     content: '\\A.\\A..\\A...';
     animation: ${dots} 2s steps(4) infinite;
-    will-change: transform;
   }
 `
 export default DotSpinner

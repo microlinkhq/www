@@ -46,7 +46,6 @@ export const AnimatedImage = animated(styled(ImageWithRef)`
   position: absolute;
   top: 0px;
   left: 0px;
-  will-change: opacity;
 `)
 
 export const screenshotHeight = (() => {

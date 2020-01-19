@@ -9,7 +9,6 @@ const HIGHLIGHT_DURATION = 1000
 const highlightCss = css`
   animation-name: ${highlight};
   animation-duration: ${HIGHLIGHT_DURATION}ms;
-  will-change: background-color;
 `
 
 const Highlight = styled(Box)`

@@ -7,7 +7,6 @@ const ImagePlaceholder = styled(Box)`
   animation-name: ${shine};
   animation-iteration-count: infinite;
   animation-direction: alternate-reverse;
-  will-change: background;
 `
 
 export default ImagePlaceholder

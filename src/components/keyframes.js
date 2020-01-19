@@ -103,7 +103,6 @@ to { transform: translateY( -6.0em); }
 `
 
 export const fadeIn = css`
-  will-change: opacity, transform;
   animation: ${fadeInDown} 300ms;
   animation-fill-mode: both;
 `
