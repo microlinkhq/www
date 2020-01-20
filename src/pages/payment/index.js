@@ -1,6 +1,6 @@
 /* global fetch */
 
-import { Text, LinkSolid, DotSpinner } from 'components/elements'
+import { Flex, Text, LinkSolid, DotSpinner } from 'components/elements'
 import { useSiteMetadata, useQueryState } from 'components/hook'
 import { Headline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
@@ -9,12 +9,6 @@ import Confetti from 'react-confetti'
 import { isSSR } from 'helpers'
 import { colors } from 'theme'
 import { encode } from 'qss'
-
-const centerStyle = `
-justify-content: center;
-align-items: center;
-display: flex;
-`
 
 const PAYMENT_STATE = {
   PROCESSING: 'processing',
@@ -53,22 +47,22 @@ const getCaption = paymentState => {
     case PAYMENT_STATE.FAILED:
       return (
         <>
-          <Text as='span'>Payment not processed.</Text>
-          <Text as='span' ml={1} mr={1}>
-            <LinkSolid
-              display='inline'
-              children='Contact us'
-              href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
-            />
-          </Text>
-          <Text as='span'>.</Text>
+          Payment not processed.
+          <LinkSolid
+            ml={1}
+            mr={1}
+            display='inline'
+            children='Contact us'
+            href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
+          />
+          .
         </>
       )
   }
 }
 
 export default () => {
-  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
+  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.FAILED)
   const [query] = useQueryState()
 
   const {
@@ -91,7 +85,12 @@ export default () => {
   }, [query.sessionId])
 
   return (
-    <Layout title='Payment' css={centerStyle}>
+    <Layout
+      title='Payment'
+      component={Flex}
+      justifyContent='center'
+      alignItems='center'
+    >
       {paymentState === PAYMENT_STATE.SUCCESS && (
         <Confetti
           width={!isSSR && window.innerWidth}
