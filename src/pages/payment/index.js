@@ -1,7 +1,10 @@
+/* global fetch */
+
 import { Text, LinkSolid, DotSpinner } from 'components/elements'
+import { useSiteMetadata, useQueryState } from 'components/hook'
 import { Headline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
-import { useQueryState } from 'components/hook'
+
 import Confetti from 'react-confetti'
 import { isSSR } from 'helpers'
 import { colors } from 'theme'
@@ -68,10 +71,23 @@ export default () => {
   const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
   const [query] = useQueryState()
 
+  const {
+    paymentApiKey: apiKey,
+    paymentEndpoint: apiEndpoint
+  } = useSiteMetadata()
+
   useEffect(() => {
     const { sessionId } = query
-    if (sessionId) setPaymentState(PAYMENT_STATE.SUCCESS)
-    else setPaymentState(PAYMENT_STATE.FAILED)
+    if (sessionId) {
+      setPaymentState(PAYMENT_STATE.SUCCESS)
+      fetch(`${apiEndpoint}/payment/session`, {
+        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+        method: 'POST',
+        body: JSON.stringify({ sessionId })
+      })
+    } else {
+      setPaymentState(PAYMENT_STATE.FAILED)
+    }
   }, [query.sessionId])
 
   return (
