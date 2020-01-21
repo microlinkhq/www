@@ -7515,7 +7515,7 @@ evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
     md5.js "^1.3.4"
     safe-buffer "^5.1.1"
 
-execa@1.0.0, execa@^1.0.0, execa@~1.0.0:
+execa@1.0.0, execa@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/execa/-/execa-1.0.0.tgz#c6236a5bb4df6d6f15e88e7f017798216749ddd8"
   integrity sha512-adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA==
@@ -7595,6 +7595,21 @@ execa@^3.4.0:
     npm-run-path "^4.0.0"
     onetime "^5.1.0"
     p-finally "^2.0.0"
+    signal-exit "^3.0.2"
+    strip-final-newline "^2.0.0"
+
+execa@~4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-4.0.0.tgz#7f37d6ec17f09e6b8fc53288611695b6d12b9daf"
+  integrity sha512-JbDUxwV3BoT5ZVXQrSVbAiaXhXUkIwvbhPIwZ0N13kX+5yCzOhUNdocxB/UQRuYOHRYYwAxKYwJYc0T4D12pDA==
+  dependencies:
+    cross-spawn "^7.0.0"
+    get-stream "^5.0.0"
+    human-signals "^1.1.1"
+    is-stream "^2.0.0"
+    merge-stream "^2.0.0"
+    npm-run-path "^4.0.0"
+    onetime "^5.1.0"
     signal-exit "^3.0.2"
     strip-final-newline "^2.0.0"
 
@@ -8935,15 +8950,15 @@ gh-got@^7.0.0:
     is-plain-obj "^1.1.0"
 
 git-authors-cli@latest:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/git-authors-cli/-/git-authors-cli-1.0.18.tgz#b4148740849a8f84ea18eab172b17f3ceb07764a"
-  integrity sha512-0/5Wo3qBNiyc4RIvqL/qKnM61ctc+qPz3llHkDmAm650/0tmPM7MpoTU3dYHlFz8lD4BbkX7DvtLsoa1xo/adQ==
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/git-authors-cli/-/git-authors-cli-1.0.19.tgz#9422a4550d95c7a6495126f42dcf2655306f1e64"
+  integrity sha512-lIUYwi6ZsA7nuTMhwtQQvbruKYHcbnSPnlGkm0+gFDOGOaw/Stl2P0xc0DlUY3f4wejs18N+P1Ydq6g7XKR5Og==
   dependencies:
-    execa "~1.0.0"
+    execa "~4.0.0"
     exists-file "~3.0.2"
-    json-future "~2.2.0"
-    meow "~5.0.0"
-    update-notifier "~3.0.0"
+    json-future "~2.2.4"
+    meow "~6.0.0"
+    update-notifier "~4.0.0"
 
 git-jiggy@~1.1.1:
   version "1.1.1"
@@ -11284,7 +11299,7 @@ json-buffer@3.0.0:
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
   integrity sha1-Wx85evx11ne96Lz8Dkfh+aPZqJg=
 
-json-future@~2.2.0, json-future@~2.2.4:
+json-future@~2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/json-future/-/json-future-2.2.4.tgz#6143e5abd7be27e9cddb2ddb5cb2a8c5a6151c2f"
   integrity sha512-ntaVCVjI+BtVdO0boNvEJM6uAnP5FFRRQSKRUrZh8jX5tUogB1JGSrozS8pCiqPkKfjiNltI3rXQZeVPO6vaDQ==
@@ -12492,7 +12507,7 @@ memory-fs@^0.5.0:
     errno "^0.1.3"
     readable-stream "^2.0.1"
 
-meow@5.0.0, meow@^5.0.0, meow@~5.0.0:
+meow@5.0.0, meow@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/meow/-/meow-5.0.0.tgz#dfc73d63a9afc714a5e371760eb5c88b91078aa4"
   integrity sha512-CbTqYU17ABaLefO8vCU153ZZlprKYWDljcndKKDCFcYQITzWCXZAVk4QMFZPgvzrnUQ3uItnIE/LoUOwrT15Ig==
@@ -19186,7 +19201,7 @@ upath@^1.1.1:
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
   integrity sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
 
-update-notifier@^3.0.1, update-notifier@~3.0.0:
+update-notifier@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/update-notifier/-/update-notifier-3.0.1.tgz#78ecb68b915e2fd1be9f767f6e298ce87b736250"
   integrity sha512-grrmrB6Zb8DUiyDIaeRTBCkgISYUgETNe7NglEbVsrLWXeESnlCSP50WfRSj/GmzMPl6Uchj24S/p80nP/ZQrQ==
