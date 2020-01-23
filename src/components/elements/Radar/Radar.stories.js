@@ -8,33 +8,28 @@ const storyName = 'Radar'
 const data = [
   {
     id: 'First Contentful Paint',
-    'kikobeats.com': 96,
-    'karliky.dev': 100,
-    'elenatorro.com': 80
+    'pr-133.zeit.co': 96,
+    'zeit.co': 80
   },
   {
     id: 'First Meaningful Paint',
-    'kikobeats.com': 95,
-    'karliky.dev': 100,
-    'elenatorro.com': 75
+    'pr-133.zeit.co': 95,
+    'zeit.co': 75
   },
   {
     id: 'Speed Index',
-    'kikobeats.com': 100,
-    'karliky.dev': 100,
-    'elenatorro.com': 60
+    'pr-133.zeit.co': 100,
+    'zeit.co': 80
   },
   {
     id: 'First CPU Idle',
-    'kikobeats.com': 99,
-    'karliky.dev': 100,
-    'elenatorro.com': 90
+    'pr-133.zeit.co': 99,
+    'zeit.co': 75
   },
   {
     id: 'Time to Interactive',
-    'kikobeats.com': 99,
-    'karliky.dev': 100,
-    'elenatorro.com': 80
+    'pr-133.zeit.co': 99,
+    'zeit.co': 88
   }
 ]
 
@@ -50,11 +45,7 @@ export default () => (
 const RadarStory = () => {
   return (
     <Story name={storyName} code={code}>
-      <Radar
-        data={data}
-        indexBy='id'
-        keys={['kikobeats.com', 'elenatorro.com']}
-      />
+      <Radar data={data} indexBy='id' keys={['pr-133.zeit.co', 'zeit.co']} />
     </Story>
   )
 }

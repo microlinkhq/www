@@ -16,6 +16,7 @@ export default ({
     {defaultProps => (
       <Radar
         {...defaultProps}
+        colors={{ scheme: 'dark2' }}
         data={data}
         width={width}
         height={height}
@@ -30,14 +31,14 @@ export default ({
         gridShape='linear'
         gridLabelOffset={24}
         enableDots
-        dotSize={10}
+        dotSize={6}
         dotColor={{ theme: 'background' }}
         dotBorderWidth={2}
         dotBorderColor={{ from: 'color' }}
         enableDotLabel
         dotLabel='value'
-        dotLabelYOffset={-12}
-        fillOpacity={0.25}
+        dotLabelYOffset={-8}
+        fillOpacity={0.5}
         blendMode='multiply'
         motionStiffness={90}
         motionDamping={15}
