@@ -1,6 +1,8 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import prettyBytes from 'pretty-bytes'
 import { Story } from 'story'
+
 import Stack from './Stack'
 
 const storyName = 'Stack'
@@ -60,30 +62,45 @@ const data = [
   }
 ]
 
-// const data = [
-//   { size: '644 kB', label: 'image', value: 20 },
-//   { size: '644 kB', label: 'script', value: 6 },
-//   { size: '644 kB', label: 'stylesheet', value: 2 },
-//   { size: '644 kB', label: 'document', value: 1 },
-//   { size: '644 kB', label: 'font', value: 1 },
-//   { size: '644 kB', label: 'other', value: 1 },
-//   { size: '644 kB', label: 'media', value: 0 },
-//   { size: '644 kB', label: 'third party', value: 17 }
-// ].map(item => ({ ...item, id: item.label }))
-
 const code = `
 import { Stack } from 'components/elements'
 
 export default () => (
   <Stack
     data={${JSON.stringify(data, null, 2)}}
+    indexBy='url'
+    keys={[
+      'image',
+      'script',
+      'stylesheet',
+      'document',
+      'font',
+      'other',
+      'media',
+      'third party'
+    ]}
+    label={e => prettyBytes(e.data[\`\${e.id}Bytes\`])}
   />
 )`
 
 const StackStory = () => {
   return (
     <Story name={storyName} code={code}>
-      <Stack data={data} indexBy='url' />
+      <Stack
+        data={data}
+        indexBy='url'
+        keys={[
+          'image',
+          'script',
+          'stylesheet',
+          'document',
+          'font',
+          'other',
+          'media',
+          'third party'
+        ]}
+        label={e => prettyBytes(e.data[`${e.id}Bytes`])}
+      />
     </Story>
   )
 }

@@ -22,13 +22,17 @@ import { Pie } from 'components/elements'
 export default () => (
   <Pie
     data={${JSON.stringify(data, null, 2)}}
+    radialLabel={({ label, size }) => \`\${label} (\${size})\`}
   />
 )`
 
 const PieStory = () => {
   return (
     <Story name={storyName} code={code}>
-      <Pie data={data} />
+      <Pie
+        data={data}
+        radialLabel={({ label, size }) => `${label} (${size})`}
+      />
     </Story>
   )
 }

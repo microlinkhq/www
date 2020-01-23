@@ -4,11 +4,12 @@ import { fontSizes, fonts, colors } from 'theme'
 import { Pie } from '@nivo/pie'
 
 export default ({
-  scheme = 'orange_red',
-  data,
   animate = true,
-  width = 800,
-  height = 500
+  data,
+  height = 500,
+  radialLabel,
+  scheme = 'orange_red',
+  width = 800
 }) => (
   <Pie
     data={data}
@@ -21,7 +22,7 @@ export default ({
     colors={{ scheme }}
     borderWidth={1}
     borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-    radialLabel={({ label, size }) => `${label} (${size})`}
+    radialLabel={radialLabel}
     radialLabelsSkipAngle={0}
     radialLabelsTextXOffset={6}
     radialLabelsTextColor={colors.black80}

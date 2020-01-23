@@ -1,6 +1,5 @@
 import React from 'react'
 import { fontSizes, fonts, colors } from 'theme'
-import prettyBytes from 'pretty-bytes'
 
 import { Bar } from '@nivo/bar'
 
@@ -9,6 +8,8 @@ export default ({
   animate = true,
   data,
   indexBy,
+  keys,
+  label,
   width = 900,
   height = 500,
   groupMode = 'stacked', // grouped,
@@ -17,20 +18,11 @@ export default ({
   <Bar
     groupMode={groupMode}
     layout={layout}
-    label={e => prettyBytes(e.data[`${e.id}Bytes`])}
+    label={label}
     data={data}
     width={width}
     height={height}
-    keys={[
-      'image',
-      'script',
-      'stylesheet',
-      'document',
-      'font',
-      'other',
-      'media',
-      'third party'
-    ]}
+    keys={keys}
     minValue={0}
     indexBy={indexBy}
     margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
