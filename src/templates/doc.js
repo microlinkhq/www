@@ -296,8 +296,8 @@ const ROUTES_API = [
         ]
       },
       {
-        name: 'stats',
-        href: '/docs/api/parameters/stats'
+        name: 'insights',
+        href: '/docs/api/parameters/insights'
       },
       {
         name: 'ttl',

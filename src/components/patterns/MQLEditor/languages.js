@@ -50,17 +50,17 @@ const screenshot = mqlCode(
     meta: false`
 )
 
-const stats = mqlCode(
+const insights = mqlCode(
   {
     data: {
-      stats: true,
+      insights: true,
       meta: false
     }
   },
-  `stats: true,
+  `insights: true,
     meta: false`
 )
 
-export const tabs = { data, html, pdf, screenshot, stats }
+export const tabs = { data, html, pdf, screenshot, insights }
 
 export default tab => tabs[tab]

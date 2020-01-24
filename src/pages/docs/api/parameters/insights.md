@@ -1,5 +1,5 @@
 ---
-title: 'stats'
+title: 'insights'
 --- 
 
 Type: <Type children='<boolean>'/><br/>
@@ -8,12 +8,12 @@ Default: <Type children='false'/>
 Get perfomance metrics over the website powered by [lighthouse](https://developers.google.com/web/tools/lighthouse).
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://zeit.co&stats`,
+  Shell: `microlink-api https://zeit.co&insights`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://zeit.co', {
-    stats: true
+    insights: true
   })
   console.log(status, data)
 }
@@ -21,7 +21,7 @@ module.exports = async () => {
   }} 
 />
 
-Enabling it adds a new field  `stats` present into the data payload with a set of perfomance metrics oriented to detect bottlenecks and improve the perceive page load.
+Enabling it adds a new field  `insights` present into the data payload with a set of perfomance metrics oriented to detect bottlenecks and improve the perceive page load.
 
 These metrics are:
 
