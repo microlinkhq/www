@@ -184,12 +184,12 @@ const ROUTES_API = [
         href: '/docs/api/parameters/device'
       },
       {
-        name: 'disableAnimations',
-        href: '/docs/api/parameters/disableAnimations'
+        name: 'animations',
+        href: '/docs/api/parameters/animations'
       },
       {
-        name: 'disableJavaScript',
-        href: '/docs/api/parameters/disableJavaScript'
+        name: 'javascript',
+        href: '/docs/api/parameters/javascript'
       },
       {
         name: 'embed',
@@ -212,8 +212,8 @@ const ROUTES_API = [
         href: '/docs/api/parameters/iframe'
       },
       {
-        name: 'media',
-        href: '/docs/api/parameters/media'
+        name: 'mediaType',
+        href: '/docs/api/parameters/media-type'
       },
       {
         name: 'meta',

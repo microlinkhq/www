@@ -45,7 +45,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const [inputMargin, setInputMargin] = useState(query.margin || '')
   const [inputFormat, setInputFormat] = useState(query.format || '')
   const [inputScale, setInputScale] = useState(query.scale || '')
-  const [inputMedia, setInputMedia] = useState(query.media || '')
+  const [inputMediaType, setInputMediaType] = useState(query.media || '')
   const domain = React.useMemo(() => getDomain(inputUrl), [inputUrl])
 
   const dataPdfUrl = get(data, 'pdf.url')
@@ -58,16 +58,30 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
       margin: inputMargin,
       format: inputFormat,
       scale: inputScale,
-      media: inputMedia
+      mediaType: inputMediaType
     })
-  }, [inputUrl, inputWaitFor, inputMargin, inputFormat, inputScale, inputMedia])
+  }, [
+    inputUrl,
+    inputWaitFor,
+    inputMargin,
+    inputFormat,
+    inputScale,
+    inputMediaType
+  ])
 
   const previewUrl = React.useMemo(() => {
     const { url, ...opts } = getValues() || {}
     if (!url) return undefined
     onSubmit(url, opts)
     return pdfUrl(url, opts)
-  }, [inputUrl, inputWaitFor, inputMargin, inputFormat, inputScale, inputMedia])
+  }, [
+    inputUrl,
+    inputWaitFor,
+    inputMargin,
+    inputFormat,
+    inputScale,
+    inputMediaType
+  ])
 
   return (
     <Container id='demo' py={[4, 5]} px={4}>
@@ -197,8 +211,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               fontSize={2}
               width={['100%', '100%', '61px', '61px']}
               mr='6px'
-              value={inputMedia}
-              onChange={event => setInputMedia(event.target.value)}
+              value={inputMediaType}
+              onChange={event => setInputMediaType(event.target.value)}
               iconComponent={<FileIcon color={colors.black50} width='16px' />}
               suggestions={[{ value: 'screen' }, { value: 'print' }]}
             />
