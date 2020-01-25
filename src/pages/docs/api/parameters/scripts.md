@@ -6,6 +6,8 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/>
 
 Injects [&lt;script&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) into the browser page.
 
+It can accept:
+
 - Inline code (e.g., `"document.body.style.backgroundColor = 'red'"`).
 - Absolute URLs (e.g., `'https://cdn.jsdelivr.net/npm/@microlink/mql@0.3.12/src/browser.js'`).
 

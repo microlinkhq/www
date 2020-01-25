@@ -6,6 +6,8 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/>
 
 Injects [&lt;style&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style) into the browser page.
 
+It can accept:
+
 - Inline code (e.g., `"body { background: red; }"`).
 - Absolute URLs (e.g., `'https://cdn.jsdelivr.net/npm/hack@0.8.1/dist/dark.css'`).
 
