@@ -232,6 +232,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/meta'
       },
       {
+        name: 'modules',
+        href: '/docs/api/parameters/modules'
+      },
+      {
         name: 'palette',
         href: '/docs/api/parameters/palette'
       },
@@ -296,8 +300,16 @@ const ROUTES_API = [
         ]
       },
       {
+        name: 'scripts',
+        href: '/docs/api/parameters/scripts'
+      },
+      {
         name: 'scrollTo',
         href: '/docs/api/parameters/scroll-to'
+      },
+      {
+        name: 'styles',
+        href: '/docs/api/parameters/styles'
       },
       {
         name: 'ttl',
