@@ -172,8 +172,16 @@ const ROUTES_API = [
         href: '/docs/api/parameters/adblock'
       },
       {
+        name: 'animations',
+        href: '/docs/api/parameters/animations'
+      },
+      {
         name: 'audio',
         href: '/docs/api/parameters/audio'
+      },
+      {
+        name: 'click',
+        href: '/docs/api/parameters/click'
       },
       {
         name: 'data',
@@ -182,14 +190,6 @@ const ROUTES_API = [
       {
         name: 'device',
         href: '/docs/api/parameters/device'
-      },
-      {
-        name: 'animations',
-        href: '/docs/api/parameters/animations'
-      },
-      {
-        name: 'javascript',
-        href: '/docs/api/parameters/javascript'
       },
       {
         name: 'embed',
@@ -208,8 +208,20 @@ const ROUTES_API = [
         href: '/docs/api/parameters/headers'
       },
       {
+        name: 'hide',
+        href: '/docs/api/parameters/hide'
+      },
+      {
         name: 'iframe',
         href: '/docs/api/parameters/iframe'
+      },
+      {
+        name: 'insights',
+        href: '/docs/api/parameters/insights'
+      },
+      {
+        name: 'javascript',
+        href: '/docs/api/parameters/javascript'
       },
       {
         name: 'mediaType',
@@ -262,20 +274,12 @@ const ROUTES_API = [
         href: '/docs/api/parameters/screenshot',
         posts: [
           {
-            name: 'click',
-            href: '/docs/api/parameters/screenshot/click'
-          },
-          {
             name: 'element',
             href: '/docs/api/parameters/screenshot/element'
           },
           {
             name: 'fullPage',
             href: '/docs/api/parameters/screenshot/full-page'
-          },
-          {
-            name: 'hide',
-            href: '/docs/api/parameters/screenshot/hide'
           },
           {
             name: 'overlay',
@@ -286,24 +290,19 @@ const ROUTES_API = [
             href: '/docs/api/parameters/screenshot/omitBackground'
           },
           {
-            name: 'scrollTo',
-            href: '/docs/api/parameters/screenshot/scroll-to'
-          },
-          {
             name: 'type',
             href: '/docs/api/parameters/screenshot/type'
           }
         ]
       },
       {
-        name: 'insights',
-        href: '/docs/api/parameters/insights'
+        name: 'scrollTo',
+        href: '/docs/api/parameters/scroll-to'
       },
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl'
       },
-
       {
         name: 'url',
         href: '/docs/api/parameters/url'
