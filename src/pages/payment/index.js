@@ -1,6 +1,6 @@
 /* global fetch */
 
-import { Flex, Text, LinkSolid, DotSpinner } from 'components/elements'
+import { Flex, LinkSolid, DotSpinner } from 'components/elements'
 import { useSiteMetadata, useQueryState } from 'components/hook'
 import { Headline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
