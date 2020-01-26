@@ -21,8 +21,7 @@ const style = css`
   opacity: 0.75;
   display: inline-block;
   border-bottom: 2px solid
-    ${({ isDark }) =>
-      isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
+    ${({ isDark }) => (isDark ? colors.white10 : colors.black10)};
   color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
   transition: border-color ${transition.medium};
 `
