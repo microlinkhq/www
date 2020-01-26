@@ -4,9 +4,9 @@ title: 'hide'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
-Hide DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+Remove DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
 
-It sets [visibility: hidden](https://stackoverflow.com/a/133064/64949) on the matched elements.
+It sets [display: none](https://stackoverflow.com/a/133064/64949) on the matched elements, so it could potentially break the website layout.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&hide.0=.crisp-client&hide.1=#cookies-policy`,

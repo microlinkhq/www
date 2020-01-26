@@ -274,6 +274,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/proxy'
       },
       {
+        name: 'remove',
+        href: '/docs/api/parameters/remove'
+      },
+      {
         name: 'screenshot',
         href: '/docs/api/parameters/screenshot',
         posts: [
