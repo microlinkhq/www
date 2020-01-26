@@ -1,4 +1,4 @@
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import React, { createElement, useEffect } from 'react'
 import { Location } from '@reach/router'
 
