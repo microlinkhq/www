@@ -418,7 +418,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
       footer={false}
       {...meta}
       name={`Microlink ${activeRouteName}`}
-      image={cdnUrl(`page/docs/${activeRouteName.toLowerCase()}.png`)}
+      image={cdnUrl(`www/docs/${activeRouteName.toLowerCase()}.png`)}
     >
       <Container maxWidth={layout.large}>
         <Aside routes={routes} activeRouteName={activeRouteName}>
