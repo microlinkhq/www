@@ -18,7 +18,7 @@ However, prerendering have a little trade-off: the cloud-based browser needs to 
 
 But if you do not do this you will not get the data in any way.
 
-Ideally, you don't need to think about prerendering: The default value <Type children="'auto'"/><br/>` means that the service can determine if a website needs to have prerendering enabled to retrieve the content or not.
+Ideally, you don't need to think about prerendering: The default value <Type children="'auto'"/><br/> means that the service can determine if a website needs to have prerendering enabled to retrieve the content or not.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive`,
