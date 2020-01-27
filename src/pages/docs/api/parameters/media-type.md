@@ -6,9 +6,7 @@ Type: <Type children='<string>'/><br/>
 Default: <Type children="'screen'"/><br/>
 Values: <TypeContainer><Type children="'screen'"/> | <Type children="'print'"/></TypeContainer>
 
-Changes the CSS media type of the page.
-
-If you enable [pdf](/docs/api/parameters/pdf), the default media type will be `'print'`.
+Changes the CSS media type of the browser page.
 
 <Iframe
   src="https://api.microlink.io/?url=https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&embed=pdf.url&mediaType=screen&meta=false&waitUntil=networkidle2"
@@ -30,3 +28,5 @@ module.exports = async () => {
   `
   }} 
 />
+
+If you enable [pdf](/docs/api/parameters/pdf), the default media type will be `'print'`.
