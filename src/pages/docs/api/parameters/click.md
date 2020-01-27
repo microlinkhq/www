@@ -4,7 +4,7 @@ title: 'click'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
-Click DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+Click DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) in the browser page.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&screenshot&click=#features`,
