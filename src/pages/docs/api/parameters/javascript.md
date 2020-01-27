@@ -5,7 +5,7 @@ title: 'javascript'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-When it's <Type children='false'/>, it disables javascript on the entire browser page.
+When it's <Type children='false'/>, it disables javascript on the browser page.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://news.ycombinator.com&javascript=false`,
