@@ -4,7 +4,7 @@ title: 'hide'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
-Remove DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+Remove DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) into the browser page.
 
 It sets [display: none](https://stackoverflow.com/a/133064/64949) on the matched elements, so it could potentially break the website layout.
 
