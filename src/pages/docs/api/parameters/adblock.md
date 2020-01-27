@@ -5,7 +5,7 @@ title: 'adblock'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-When it's <Type children='true'/>, it disables builtin adblock in the current page.
+When it's <Type children='true'/>, it disables builtin adblock in the browser page.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.youtube.com&screenshot&adblock=false`,
