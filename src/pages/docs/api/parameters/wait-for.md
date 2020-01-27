@@ -4,7 +4,7 @@ title: 'waitFor'
 
 Type: <TypeContainer><Type children='<number>'/> | <Type children='<string>'/></TypeContainer><br/>
 
-Wait a quantity of time or selector before process the content of the page.
+Wait a quantity of time or selector before process the content of the browser page.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://kikobeats.com&screenshot&waitFor=1500`,
