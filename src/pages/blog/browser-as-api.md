@@ -1,5 +1,5 @@
 ---
-title: 'Browser as API'
+title: 'Microlink API: Browser as API'
 date: '2020-01-26'
 ---
 
