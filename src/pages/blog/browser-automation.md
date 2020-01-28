@@ -3,6 +3,8 @@ title: 'Microlink API: Browser automation'
 date: '2020-01-26'
 ---
 
+![](https://i.imgur.com/S2D1sZR.png)
+
 A web browser is one of the most complex pieces of software, with some internal sub-systems that work together for resolving any kind of URL on the Internet, even if the content was written with HTML tables in 1992.
 
 [Microlink API](/docs/api/getting-started/overview) is a service that provides a high-level API to control a browser instance in the simplest way possible, where the different features can be enabled or disabled using query parameters.
