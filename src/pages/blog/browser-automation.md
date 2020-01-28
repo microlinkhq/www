@@ -1,20 +1,19 @@
 ---
-title: 'Microlink API: Browser as API'
+title: 'Microlink API: Browser automation'
 date: '2020-01-26'
 ---
 
 A web browser is one of the most complex pieces of software, with some internal sub-systems that work together for resolving any kind of URL on the Internet, even if the content was written with HTML tables in 1992.
 
-[Microlink API]() is a service that provides a high-level API to control a browser instance in the simplest way possible, where the different features can be enabled or disabled using query parameters.
+[Microlink API](/docs/api/getting-started/overview) is a service that provides a high-level API to control a browser instance in the simplest way possible, where the different features can be enabled or disabled using query parameters.
 
 When we started the service, just a few things could be done. **Now, we're supporting +30 query parameters**.
 
-Just [url](/docs/api/parameters/url) is the only parameter that need to be specified, but also any of the following query parameters:
-
+Just [url](/docs/api/parameters/url) is the only parameter that needs to be specified, but also any of the following query parameters:
 
 ## Data
 
-> Enrich the response payload detecting different kind of data from the target URL.
+> Enrich the response payload for detecting data from the target URL.
 
 - [audio](/docs/api/parameters/audio): enables audio source detection from the target URL.
 - [data](/docs/api/parameters/data): gets specific content extraction from the target URL.
@@ -52,7 +51,7 @@ Just [url](/docs/api/parameters/url) is the only parameter that need to be speci
 
 > Apply some modifications over the response data for better accommodation.
 
-- [embed](/docs/api/parameters/embed): embed an specifiy response data field respecting the content type.
+- [embed](/docs/api/parameters/embed): embed a specific response data field respecting the content type.
 - [filter](/docs/api/parameters/filter): filters a list of properties from the response data for bandwidth saving.
 - [force](/docs/api/parameters/force): forces a new fresh response data bypassing the cache layer.
 - [headers](/docs/api/parameters/headers): customizes requests using custom HTTP headers.
