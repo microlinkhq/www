@@ -13,7 +13,7 @@ Since the bundle doesn't include the dependencies, we recommend loading them fro
 ```html
 <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/styled-components@4/dist/styled-components.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/styled-components@5/dist/styled-components.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@microlink/mql@latest/dist/mql.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
@@ -21,7 +21,7 @@ Since the bundle doesn't include the dependencies, we recommend loading them fro
 or even better, combine them in just one line:
 
 ```html
-<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@4/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js,npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@5/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js,npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
 After that, `microlink` will be available in the global scope.
@@ -82,7 +82,7 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 
 ```html
 <style>
-  .microlink-card {
+  .microlink_card {
     font-family: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace';
     max-width: 100%;
   }
@@ -97,4 +97,4 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 </script>
 ```
 
-<Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' style={{margin: 'auto', fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}} size='large' />
+<Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' style={{fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace', maxWidth: '100%'}} size='large' />
