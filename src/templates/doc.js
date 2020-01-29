@@ -8,6 +8,7 @@ import {
 } from 'components/elements'
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
+import { JekyllIcon, JSIcon, ReactIcon, VueIcon } from 'components/icons'
 import { cdnUrl, formatDate } from 'helpers'
 import { colors, layout } from 'theme'
 import React from 'react'
@@ -31,15 +32,23 @@ const ROUTES_SDK = [
     posts: [
       {
         name: 'React',
-        href: '/docs/sdk/integrations/react/'
+        href: '/docs/sdk/integrations/react/',
+        icon: ReactIcon
       },
       {
         name: 'Vanilla',
-        href: '/docs/sdk/integrations/vanilla/'
+        href: '/docs/sdk/integrations/vanilla/',
+        icon: JSIcon
       },
       {
         name: 'Jekyll',
-        href: '/docs/sdk/integrations/jekyll/'
+        href: '/docs/sdk/integrations/jekyll/',
+        icon: JekyllIcon
+      },
+      {
+        name: 'Vue',
+        href: '/docs/sdk/integrations/vue/',
+        icon: VueIcon
       }
     ]
   },

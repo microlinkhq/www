@@ -14,7 +14,29 @@ import NavLink, {
   activeStyle as navLinkActiveStyle
 } from './NavLink'
 
+const LINK_ICON_CLASSNAME = 'nav-link-icon'
+
 const { isInternalLink } = withLink
+
+const linkStyle = css`
+  > a {
+    display: flex;
+    align-items: center;
+
+    &:hover, &.active {
+      .${LINK_ICON_CLASSNAME} {
+        opacity: 1;
+      }
+    }
+  }
+
+  .${LINK_ICON_CLASSNAME} {
+    width: 16px;
+    opacity: 0.6;
+    margin-right: 10px;
+    transition: opacity ${({ theme }) => theme.transition.medium};
+  }
+`
 
 const titleStyle = css`
   ${navLinkStyle};
@@ -52,9 +74,10 @@ const AsideWrapper = styled(Box)`
 
 const Header = props => <Caps mb={2} color='gray5' {...props} />
 
-const Title = ({ children, href, ...props }) => {
+const Title = ({ children, href, Icon, ...props }) => {
   return (
-    <NavLink mb={2} href={href} actively icon>
+    <NavLink mb={2} href={href} actively icon css={linkStyle}>
+      {Icon && <Icon className={LINK_ICON_CLASSNAME} />}
       <Text
         fontWeight='normal'
         children={children}
@@ -113,6 +136,7 @@ const Aside = ({
                     key={`${tree}_title_${post.name}`}
                     href={post.href}
                     children={post.name}
+                    Icon={post.icon}
                   />
                 )
               } else {
