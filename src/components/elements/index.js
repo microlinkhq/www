@@ -49,6 +49,7 @@ import IframeInline from './IframeInline/IframeInline'
 import StripeLoader from './StripeLoader'
 import Unavatar from './Unavatar/Unavatar'
 import Pie from './Pie/Pie'
+import Radar from './Radar/Radar'
 import Stack from './Stack/Stack'
 
 export {
@@ -83,6 +84,7 @@ export {
   Notification,
   Pie,
   PricePicker,
+  Radar,
   Select,
   Spinner,
   Stack,
