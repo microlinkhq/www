@@ -28,16 +28,14 @@ export default ({
         borderColor={{ from: 'color' }}
         gridLevels={5}
         gridShape='linear'
-        gridLabelOffset={24}
+        gridLabelOffset={12}
         enableDots
-        dotSize={6}
-        dotColor={{ theme: 'background' }}
-        dotBorderWidth={2}
+        dotSize={10}
         dotBorderColor={{ from: 'color' }}
         enableDotLabel
-        dotLabel='value'
-        dotLabelYOffset={-8}
-        fillOpacity={0.5}
+        dotLabel={false}
+        dotLabelYOffset={-18}
+        fillOpacity={0.25}
         blendMode='multiply'
         motionStiffness={90}
         motionDamping={15}
