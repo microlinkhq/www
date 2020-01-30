@@ -134,10 +134,16 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
     [inputBaselineUrl]
   )
 
-  const [urlSuggestions, baselineSuggestions] = chunk(
-    suggestions,
-    Math.floor(suggestions.length / 2)
+  const [urlSuggestions, baselineSuggestions] = React.useMemo(
+    () => chunk(suggestions, Math.floor(suggestions.length / 2)),
+    [suggestions]
   )
+
+  const getValues = React.useCallback(() => {
+    const urlOne = prependHttp(inputUrl)
+    const urlTwo = prependHttp(inputBaselineUrl)
+    return { data: [urlOne, urlTwo], query: { theme: inputTheme } }
+  }, [inputUrl, inputBaselineUrl, inputTheme])
 
   const [insights, insightsBaseline] = map(data, data => get(data, 'insights'))
 
@@ -161,7 +167,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             const urlOne = prependHttp(inputUrl)
             const urlTwo = prependHttp(inputBaselineUrl)
             if (!isUrl(urlOne) || !isUrl(urlTwo)) return undefined
-            return onSubmit([urlOne, urlTwo])
+            const { data, query } = getValues()
+            return onSubmit(data, query)
           }}
           flexDirection={['column', 'column', 'row', 'row']}
         >
@@ -209,7 +216,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               onChange={event => {
                 event.preventDefault()
                 setInputTheme(event.target.value)
-                setQuery({ ...rawQuery, theme: event.target.value })
+                const { query } = getValues()
+                setQuery({ ...rawQuery, ...query })
               }}
               selected={inputTheme}
               value={inputTheme}
