@@ -18,7 +18,8 @@ if (!isSSR) {
   })
 }
 
-const scrollToHash = () => window.scroll.animateScroll(window.location)
+const scrollToHash = () =>
+  window.scroll && window.scroll.animateScroll(window.location)
 
 const Layout = ({
   footer,
