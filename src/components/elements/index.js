@@ -47,7 +47,7 @@ import Iframe from './Iframe/Iframe'
 import IframeInline from './IframeInline/IframeInline'
 
 import StripeLoader from './StripeLoader'
-import ClearbitLogo from './ClearbitLogo/ClearbitLogo'
+import Unavatar from './Unavatar/Unavatar'
 import Pie from './Pie/Pie'
 import Stack from './Stack/Stack'
 
@@ -61,7 +61,6 @@ export {
   Button,
   Caps,
   Card,
-  ClearbitLogo,
   CodeEditor,
   Container,
   Dot,
@@ -94,5 +93,6 @@ export {
   Text,
   Toggle,
   Toolbar,
-  Tooltip
+  Tooltip,
+  Unavatar
 }
