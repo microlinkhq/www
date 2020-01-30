@@ -9,6 +9,7 @@ import {
   Iframe,
   Image,
   Input,
+  Select,
   InputIcon,
   Link,
   Radar,
@@ -44,6 +45,46 @@ import ms from 'ms'
 import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Average, Timings } from 'components/pages/screenshot/examples'
 import { Features } from 'components/pages/screenshot/template'
+
+const NIVO_THEMES = [
+  'nivo',
+  'category10',
+  'accent',
+  'dark2',
+  'paired',
+  'pastel1',
+  'pastel2',
+  'set1',
+  'set2',
+  'set3',
+  'brown_blueGreen',
+  'purpleRed_green',
+  'pink_yellowGreen',
+  'purple_orange',
+  'red_blue',
+  'red_grey',
+  'red_yellow_blue',
+  'red_yellow_green',
+  'spectral',
+  'blues',
+  'greens',
+  'greys',
+  'oranges',
+  'purples',
+  'reds',
+  'blue_green',
+  'blue_purple',
+  'green_blue',
+  'orange_red',
+  'purple_blue_green',
+  'purple_blue',
+  'purple_red',
+  'red_purple',
+  'yellow_green_blue',
+  'yellow_green',
+  'yellow_orange_brown',
+  'yellow_orange_red'
+]
 
 const getRadarData = ({
   insights,
@@ -119,6 +160,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const [inputBaselineUrl, setInputBaselineUrl] = useState(
     get(query, 'url.1') || ''
   )
+  const [inputTheme, setInputTheme] = useState(query.theme)
 
   const inputUrlDomain = React.useMemo(() => getDomain(inputUrl), [inputUrl])
 
@@ -171,10 +213,11 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '192px', '192px']}
+              width={['100%', '100%', '128px', '128px']}
               autoFocus
             />
-            <Box py={2} />
+          </Box>
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
               iconComponent={
@@ -190,9 +233,36 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               type='text'
               value={inputBaselineUrl}
               onChange={event => setInputBaselineUrl(event.target.value)}
-              width={['100%', '100%', '192px', '192px']}
+              width={['100%', '100%', '128px', '128px']}
               autoFocus
             />
+          </Box>
+
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Select
+              py='12px'
+              onChange={event => {
+                event.preventDefault()
+                setInputTheme(event.target.value)
+              }}
+              selected={inputTheme}
+              value={inputTheme}
+              fontSize={2}
+              width={['100%', '100%', '128px', '128px']}
+              color={inputTheme === undefined ? 'black50' : 'inherit'}
+            >
+              {[
+                <option children='Theme' key='Theme' disabled selected hidden />
+              ].concat(
+                NIVO_THEMES.map(theme => (
+                  <option
+                    key={theme}
+                    value={theme}
+                    children={`${theme.replace(/_/g, ' / ')}`}
+                  />
+                ))
+              )}
+            </Select>
           </Box>
 
           <Button ml={[0, 0, 2, 2]} loading={isLoading}>
@@ -208,6 +278,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
         {insights ? (
           <Box>
             <Radar
+              colors={inputTheme ? { scheme: inputTheme } : undefined}
               indexBy='id'
               keys={[inputUrlDomain, insightsBaselineDomain]}
               data={getRadarData({
@@ -218,6 +289,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               })}
             />
             <Stack
+              colors={inputTheme ? { scheme: inputTheme } : undefined}
               {...getStackData({
                 insights,
                 inputUrlDomain,

@@ -16,7 +16,6 @@ export default ({
     {defaultProps => (
       <Radar
         {...defaultProps}
-        colors={{ scheme: 'dark2' }}
         data={data}
         width={width}
         height={height}
