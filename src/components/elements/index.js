@@ -51,9 +51,11 @@ import Unavatar from './Unavatar/Unavatar'
 import Pie from './Pie/Pie'
 import Radar from './Radar/Radar'
 import Stack from './Stack/Stack'
+import Nivo from './Nivo'
 
 export {
   AnimatedBox,
+  Nivo,
   BackgroundSlider,
   BackgroundSliderContainer,
   Badge,
