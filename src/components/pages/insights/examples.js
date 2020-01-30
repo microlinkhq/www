@@ -32,7 +32,7 @@ import { useQueryState, useFeaturesPdf } from 'components/hook'
 
 import { HourGlass } from 'components/icons'
 import { colors, borders } from 'theme'
-import React, { useState } from 'react'
+import React, { useMemo, useCallback, useState } from 'react'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import chunk from 'lodash/chunk'
@@ -127,25 +127,36 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   )
   const [inputTheme, setInputTheme] = useState(query.theme)
 
-  const inputUrlDomain = React.useMemo(() => getDomain(inputUrl), [inputUrl])
+  const inputUrlDomain = useMemo(() => getDomain(inputUrl), [inputUrl])
 
-  const insightsBaselineDomain = React.useMemo(
-    () => getDomain(inputBaselineUrl),
-    [inputBaselineUrl]
-  )
+  const insightsBaselineDomain = useMemo(() => getDomain(inputBaselineUrl), [
+    inputBaselineUrl
+  ])
 
-  const [urlSuggestions, baselineSuggestions] = React.useMemo(
+  const [urlSuggestions, baselineSuggestions] = useMemo(
     () => chunk(suggestions, Math.floor(suggestions.length / 2)),
     [suggestions]
   )
 
-  const getValues = React.useCallback(() => {
+  const getValues = useCallback(() => {
     const urlOne = prependHttp(inputUrl)
     const urlTwo = prependHttp(inputBaselineUrl)
-    return { data: [urlOne, urlTwo], query: { theme: inputTheme } }
+    return { url: [urlOne, urlTwo], query: { theme: inputTheme } }
   }, [inputUrl, inputBaselineUrl, inputTheme])
 
-  const [insights, insightsBaseline] = map(data, data => get(data, 'insights'))
+  const [insights, insightsBaseline] = useMemo(
+    () => map(data, data => get(data, 'insights')),
+    [data]
+  )
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    const urlOne = prependHttp(inputUrl)
+    const urlTwo = prependHttp(inputBaselineUrl)
+    if (!isUrl(urlOne) || !isUrl(urlTwo)) return onSubmit()
+    const { url } = getValues()
+    return onSubmit(url)
+  }
 
   return (
     <Container id='demo' py={[4, 5]} px={4}>
@@ -162,14 +173,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
           as='form'
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
-          onSubmit={event => {
-            event.preventDefault()
-            const urlOne = prependHttp(inputUrl)
-            const urlTwo = prependHttp(inputBaselineUrl)
-            if (!isUrl(urlOne) || !isUrl(urlTwo)) return undefined
-            const { data, query } = getValues()
-            return onSubmit(data, query)
-          }}
+          onSubmit={handleSubmit}
           flexDirection={['column', 'column', 'row', 'row']}
         >
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
@@ -216,26 +220,22 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               onChange={event => {
                 event.preventDefault()
                 setInputTheme(event.target.value)
-                const { query } = getValues()
-                setQuery({ ...rawQuery, ...query })
+                const { query, ...props } = getValues()
+                setQuery({ ...props, ...query })
               }}
               selected={inputTheme}
               value={inputTheme}
               fontSize={2}
               width={['100%', '100%', '128px', '128px']}
-              color={inputTheme === undefined ? 'black50' : 'inherit'}
+              color='inherit'
             >
-              {[
-                <option children='Theme' key='Theme' disabled selected hidden />
-              ].concat(
-                NIVO_THEMES.map(theme => (
-                  <option
-                    key={theme}
-                    value={theme}
-                    children={`${theme.replace(/_/g, ' / ')}`}
-                  />
-                ))
-              )}
+              {NIVO_THEMES.map(theme => (
+                <option
+                  key={theme}
+                  value={theme}
+                  children={theme.replace(/_/g, ' / ')}
+                />
+              ))}
             </Select>
           </Box>
 
