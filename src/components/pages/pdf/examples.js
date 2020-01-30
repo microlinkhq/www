@@ -272,9 +272,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               style={{ opacity: 0.3, filter: 'grayscale(100%)' }}
               alt='Paste your URL'
               src='https://cdn.microlink.io/illustrations/abstract-no-messages.svg'
-              pb={[2, 2, 4, 4]}
             />
-            <Text fontSize={[2, 2, 4, 4]} color='black40'>
+            <Text pt={[2, 2, 4, 4]} fontSize={[2, 2, 4, 4]} color='black40'>
               Paste your URL
             </Text>
           </Flex>
