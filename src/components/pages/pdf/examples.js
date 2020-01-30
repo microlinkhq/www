@@ -23,11 +23,11 @@ import {
 } from 'react-feather'
 
 import { Faq, Block, SubHeadline } from 'components/patterns'
+import React, { useCallback, useMemo, useState } from 'react'
 import { pdfUrl, aspectRatio, getDomain } from 'helpers'
 import { useFeaturesPdf } from 'components/hook'
 import { HourGlass } from 'components/icons'
 import { colors, borders } from 'theme'
-import React, { useState } from 'react'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import { navigate } from 'gatsby'
@@ -46,11 +46,11 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const [inputFormat, setInputFormat] = useState(query.format || '')
   const [inputScale, setInputScale] = useState(query.scale || '')
   const [inputMediaType, setInputMediaType] = useState(query.media || '')
-  const domain = React.useMemo(() => getDomain(inputUrl), [inputUrl])
 
-  const dataPdfUrl = get(data, 'pdf.url')
+  const domain = useMemo(() => getDomain(inputUrl), [inputUrl])
+  const dataPdfUrl = useMemo(() => get(data, 'pdf.url'), [data])
 
-  const getValues = React.useCallback(() => {
+  const getValues = useCallback(() => {
     const preprendUrl = prependHttp(inputUrl)
     return pickBy({
       url: isUrl(preprendUrl) ? preprendUrl : undefined,
@@ -69,8 +69,14 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
     inputMediaType
   ])
 
+  const handleSubmit = event => {
+    event.preventDefault()
+    const { url, ...opts } = getValues()
+    return onSubmit(url, opts)
+  }
+
   const previewUrl = React.useMemo(() => {
-    const { url, ...opts } = getValues() || {}
+    const { url, ...opts } = getValues()
     if (!url) return undefined
     onSubmit(url, opts)
     return pdfUrl(url, opts)
@@ -97,7 +103,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
           as='form'
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
-          onSubmit={event => event.preventDefault()}
+          onSubmit={handleSubmit}
           flexDirection={['column', 'column', 'row', 'row']}
         >
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
@@ -217,9 +223,9 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               suggestions={[{ value: 'screen' }, { value: 'print' }]}
             />
           </Box>
-          {/* <Button ml={[0, 0, 2, 2]} loading={isLoading || isIframeLoading}>
+          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
             <Caps fontSize={1} children='Get it' />
-          </Button> */}
+          </Button>
         </Flex>
       </Flex>
 
