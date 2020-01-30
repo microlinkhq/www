@@ -15,7 +15,8 @@ import {
   Radar,
   Stack,
   Subhead,
-  Text
+  Text,
+  Nivo
 } from 'components/elements'
 
 import {
@@ -27,7 +28,8 @@ import {
 
 import { Faq, Block, SubHeadline } from 'components/patterns'
 import { pdfUrl, aspectRatio, getDomain } from 'helpers'
-import { useFeaturesPdf } from 'components/hook'
+import { useQueryState, useFeaturesPdf } from 'components/hook'
+
 import { HourGlass } from 'components/icons'
 import { colors, borders } from 'theme'
 import React, { useState } from 'react'
@@ -46,45 +48,7 @@ import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Average, Timings } from 'components/pages/screenshot/examples'
 import { Features } from 'components/pages/screenshot/template'
 
-const NIVO_THEMES = [
-  'nivo',
-  'category10',
-  'accent',
-  'dark2',
-  'paired',
-  'pastel1',
-  'pastel2',
-  'set1',
-  'set2',
-  'set3',
-  'brown_blueGreen',
-  'purpleRed_green',
-  'pink_yellowGreen',
-  'purple_orange',
-  'red_blue',
-  'red_grey',
-  'red_yellow_blue',
-  'red_yellow_green',
-  'spectral',
-  'blues',
-  'greens',
-  'greys',
-  'oranges',
-  'purples',
-  'reds',
-  'blue_green',
-  'blue_purple',
-  'green_blue',
-  'orange_red',
-  'purple_blue_green',
-  'purple_blue',
-  'purple_red',
-  'red_purple',
-  'yellow_green_blue',
-  'yellow_green',
-  'yellow_orange_brown',
-  'yellow_orange_red'
-]
+const { THEMES: NIVO_THEMES } = Nivo
 
 const getRadarData = ({
   insights,
@@ -156,6 +120,7 @@ const getStackData = ({
 }
 
 const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
+  const [rawQuery, setQuery] = useQueryState()
   const [inputUrl, setInputUrl] = useState(get(query, 'url.0') || '')
   const [inputBaselineUrl, setInputBaselineUrl] = useState(
     get(query, 'url.1') || ''
@@ -244,6 +209,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               onChange={event => {
                 event.preventDefault()
                 setInputTheme(event.target.value)
+                setQuery({ ...rawQuery, theme: event.target.value })
               }}
               selected={inputTheme}
               value={inputTheme}
@@ -278,6 +244,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
         {insights ? (
           <Box>
             <Radar
+              url={inputUrlDomain}
+              baselineUrl={insightsBaselineDomain}
               colors={inputTheme ? { scheme: inputTheme } : undefined}
               indexBy='id'
               keys={[inputUrlDomain, insightsBaselineDomain]}
