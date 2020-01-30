@@ -34,8 +34,8 @@ export default ({ mqlOpts, children }) => {
 
       const data = Array.isArray(url)
         ? (
-            await Promise.all(url.map(url => mql(url, { ...mqlOpts, ...opts })))
-          ).map(res => res.data)
+          await Promise.all(url.map(url => mql(url, { ...mqlOpts, ...opts })))
+        ).map(res => res.data)
         : (await mql(url, { ...mqlOpts, ...opts })).data
 
       setData(data)
