@@ -139,7 +139,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
       <SubHeadline
         title='Get perfomance insights'
         caption='Powered by Lighthouse'
-        titleExclude={['Lighthouse']}
+        captionExclude={['Lighthouse']}
       />
 
       <Flex justifyContent='center' alignItems='center'>
