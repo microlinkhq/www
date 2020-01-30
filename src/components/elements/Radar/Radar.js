@@ -30,7 +30,7 @@ const LabelComponent = ({ data, url, baselineUrl }) => ({
 
   const value = data.find(({ id: dataId }) => dataId === id)
   const percentage = (1 - value[url] / value[baselineUrl]) * 100
-  const sign = percentage > 0 ? '+' : '-'
+  const sign = percentage > 0 ? '+' : ''
 
   const translateBottom = () => {
     if (id === 'First Contentful Paint') return -36
