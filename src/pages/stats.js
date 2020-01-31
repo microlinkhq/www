@@ -69,7 +69,7 @@ export default () => {
                     >
                       <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
                         <Key color={labelColor}>API</Key>
-                        <Value color={color}>v{data.apiVersion}</Value>
+                        <Value color={color}>{data.apiVersion}</Value>
                       </Box>
                       <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
                         <Key color={labelColor}>Last Deploy</Key>
@@ -78,36 +78,40 @@ export default () => {
                     </Flex>
                     <Flex
                       justifyContent='center'
-                      pt={[2, 2, 4, 4]}
+                      pt={[0, 0, 4, 4]}
                       flexDirection={['column', 'column', 'row', 'row']}
                     >
-                      <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                        <Key color={labelColor}>Load</Key>
-                        <Value color={color}>{data.status.load}%</Value>
-                      </Box>
-                      <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                        <Key color={labelColor}>CPU</Key>
-                        <Value color={color}>
-                          {data.status.cpuUsagePercentage}%
-                        </Value>
-                      </Box>
-                      <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                        <Key color={labelColor}>Memory</Key>
-                        <Value color={color}>
-                          {data.status.memoryUsagePercentage}%
-                        </Value>
-                      </Box>
-                      <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                        <Key color={labelColor}>Replicas</Key>
-                        <Value color={color}>
-                          {data.status.currentReplicas} /{' '}
-                          {data.limits.maxReplicas}
-                        </Value>
-                      </Box>
+                      <Flex>
+                        <Box mb={[3, 3, 0, 0]} mr={[5, 5, 5, 5]}>
+                          <Key color={labelColor}>CPU</Key>
+                          <Value color={color}>
+                            {data.status.cpuUsagePercentage}%
+                          </Value>
+                        </Box>
+                        <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                          <Key color={labelColor}>Memory</Key>
+                          <Value color={color}>
+                            {data.status.memoryUsagePercentage}%
+                          </Value>
+                        </Box>
+                      </Flex>
+                      <Flex>
+                        <Box mb={[3, 3, 0, 0]} mr={[5, 5, 5, 5]}>
+                          <Key color={labelColor}>Nodes</Key>
+                          <Value color={color}>{data.nodes}</Value>
+                        </Box>
+                        <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
+                          <Key color={labelColor}>Replicas</Key>
+                          <Value color={color}>
+                            {data.status.currentReplicas} /{' '}
+                            {data.limits.maxReplicas}
+                          </Value>
+                        </Box>
+                      </Flex>
                     </Flex>
                     <Flex
                       justifyContent='center'
-                      pt={[2, 2, 4, 4]}
+                      pt={[0, 0, 4, 4]}
                       flexDirection={['column', 'column', 'row', 'row']}
                     >
                       <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
