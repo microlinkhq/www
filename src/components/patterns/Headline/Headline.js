@@ -7,6 +7,7 @@ const constructor = TitleComponnet => ({
   fontWeight,
   title,
   caption,
+  captionExclude,
   ...props
 }) => {
   return (
@@ -25,7 +26,7 @@ const constructor = TitleComponnet => ({
         px={0}
         children={title}
       />
-      {caption && <Caption>{caption}</Caption>}
+      {caption && <Caption titleExclude={captionExclude}>{caption}</Caption>}
     </Flex>
   )
 }

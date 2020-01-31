@@ -29,7 +29,7 @@ Then the link will be rendered as
 
 <Microlink url='https://www.theverge.com/2016/4/1/11342104/tesla-model-3-announcement-photos' />
 
-You can pass any [API Parameter](/api-parameter) as a `data-*` field.
+You can pass any [API Parameter](/docs/api/getting-started/overview) as a `data-*` field.
 
 ```markdown
 [](https://www.theverge.com/2016/4/1/11342104/tesla-model-3-announcement-photos){:.card-preview data-size="large"}

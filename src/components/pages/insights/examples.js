@@ -9,10 +9,14 @@ import {
   Iframe,
   Image,
   Input,
+  Select,
   InputIcon,
   Link,
+  Radar,
+  Stack,
   Subhead,
-  Text
+  Text,
+  Nivo
 } from 'components/elements'
 
 import {
@@ -23,13 +27,18 @@ import {
 } from 'react-feather'
 
 import { Faq, Block, SubHeadline } from 'components/patterns'
-import React, { useCallback, useMemo, useState } from 'react'
 import { pdfUrl, aspectRatio, getDomain } from 'helpers'
-import { useFeaturesPdf } from 'components/hook'
+import { useQueryState, useFeaturesPdf } from 'components/hook'
+
 import { HourGlass } from 'components/icons'
 import { colors, borders } from 'theme'
+import React, { useMemo, useCallback, useState } from 'react'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
+import chunk from 'lodash/chunk'
+import compact from 'lodash/compact'
+import map from 'lodash/map'
+import reduce from 'lodash/reduce'
 import { navigate } from 'gatsby'
 import isUrl from 'is-url-http'
 import get from 'dlv'
@@ -39,61 +48,122 @@ import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Average, Timings } from 'components/pages/screenshot/examples'
 import { Features } from 'components/pages/screenshot/template'
 
-const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
-  const [inputUrl, setInputUrl] = useState(query.url || '')
-  const [inputWaitFor, setInputWaitFor] = useState(query.waitFor || '')
-  const [inputMargin, setInputMargin] = useState(query.margin || '')
-  const [inputFormat, setInputFormat] = useState(query.format || '')
-  const [inputScale, setInputScale] = useState(query.scale || '')
-  const [inputMediaType, setInputMediaType] = useState(query.media || '')
+const { THEMES: NIVO_THEMES } = Nivo
 
-  const domain = useMemo(() => getDomain(inputUrl), [inputUrl])
-  const dataPdfUrl = useMemo(() => get(data, 'pdf.url'), [data])
+const getRadarData = ({
+  insights,
+  inputUrlDomain,
+  insightsBaselineDomain,
+  insightsBaseline
+}) => {
+  const radarData = [
+    'first-contentful-paint',
+    'first-meaningful-paint',
+    'speed-index',
+    'first-cpu-idle',
+    'interactive'
+  ].reduce((acc, key) => {
+    return [
+      ...acc,
+      {
+        id: insights[key].title,
+        [inputUrlDomain]: insights[key].score * 100,
+        [insightsBaselineDomain]: insightsBaseline[key].score * 100
+      }
+    ]
+  }, [])
+  return radarData
+}
+
+const getStackData = ({
+  insights,
+  inputUrlDomain,
+  insightsBaselineDomain,
+  insightsBaseline
+}) => {
+  const keys = reduce(
+    get(insights, 'resource-summary'),
+    (acc, value, key) => {
+      if (typeof value === 'string') return acc
+      if (key === 'total') return acc
+      return [...acc, key]
+    },
+    []
+  )
+
+  const getData = (insights, domain) => {
+    const data = reduce(
+      keys,
+      (acc, key) => {
+        const value = get(insights, `resource-summary.${key}`)
+        return {
+          ...acc,
+          [key]: value.count,
+          [`${key}Bytes`]: value.size_pretty
+        }
+      },
+      {}
+    )
+    data.url = domain
+    return data
+  }
+
+  return {
+    keys,
+    indexBy: 'url',
+    label: e => e.data[`${e.id}Bytes`],
+    data: [
+      getData(insights, inputUrlDomain),
+      getData(insightsBaseline, insightsBaselineDomain)
+    ]
+  }
+}
+
+const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
+  const [rawQuery, setQuery] = useQueryState()
+  const [inputUrl, setInputUrl] = useState(get(query, 'url.0') || '')
+  const [inputBaselineUrl, setInputBaselineUrl] = useState(
+    get(query, 'url.1') || ''
+  )
+  const [inputTheme, setInputTheme] = useState(query.theme)
+
+  const inputUrlDomain = useMemo(() => getDomain(inputUrl), [inputUrl])
+
+  const insightsBaselineDomain = useMemo(() => getDomain(inputBaselineUrl), [
+    inputBaselineUrl
+  ])
+
+  const [urlSuggestions, baselineSuggestions] = useMemo(
+    () => chunk(suggestions, Math.floor(suggestions.length / 2)),
+    [suggestions]
+  )
 
   const getValues = useCallback(() => {
-    const preprendUrl = prependHttp(inputUrl)
-    return pickBy({
-      url: isUrl(preprendUrl) ? preprendUrl : undefined,
-      waitFor: ms(inputWaitFor || '0'),
-      margin: inputMargin,
-      format: inputFormat,
-      scale: inputScale,
-      mediaType: inputMediaType
-    })
-  }, [
-    inputUrl,
-    inputWaitFor,
-    inputMargin,
-    inputFormat,
-    inputScale,
-    inputMediaType
-  ])
+    const urlOne = prependHttp(inputUrl)
+    const urlTwo = prependHttp(inputBaselineUrl)
+    return { url: [urlOne, urlTwo], query: { theme: inputTheme } }
+  }, [inputUrl, inputBaselineUrl, inputTheme])
+
+  const [insights, insightsBaseline] = useMemo(
+    () => map(data, data => get(data, 'insights')),
+    [data]
+  )
 
   const handleSubmit = event => {
     event.preventDefault()
-    const { url, ...opts } = getValues()
-    return onSubmit(url, opts)
+    const urlOne = prependHttp(inputUrl)
+    const urlTwo = prependHttp(inputBaselineUrl)
+    if (!isUrl(urlOne) || !isUrl(urlTwo)) return onSubmit()
+    const { url } = getValues()
+    return onSubmit(url)
   }
-
-  const previewUrl = React.useMemo(() => {
-    const { url, ...opts } = getValues()
-    if (!url) return undefined
-    onSubmit(url, opts)
-    return pdfUrl(url, opts)
-  }, [
-    inputUrl,
-    inputWaitFor,
-    inputMargin,
-    inputFormat,
-    inputScale,
-    inputMediaType
-  ])
 
   return (
     <Container id='demo' py={[4, 5]} px={4}>
       <SubHeadline
-        title='Get a PDF from any website'
-        caption='Turn websites into a PDF'
+        title='Get perfomance insights'
+        caption='Powered by Lighthouse'
+        captionExclude={['Lighthouse']}
       />
 
       <Flex justifyContent='center' alignItems='center'>
@@ -109,133 +179,101 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon value={inputUrl} domain={domain} />}
-              id='pdf-demo-url'
+              iconComponent={
+                <InputIcon value={inputUrl} domain={inputUrlDomain} />
+              }
+              id='insights-demo-url'
               mr='6px'
               placeholder='Visit URL'
-              suggestions={suggestions}
+              suggestions={urlSuggestions}
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '84px', '84px']}
+              width={['100%', '100%', '128px', '128px']}
+              autoFocus
+            />
+          </Box>
+          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+            <Input
+              fontSize={2}
+              iconComponent={
+                <InputIcon
+                  value={inputBaselineUrl}
+                  domain={insightsBaselineDomain}
+                />
+              }
+              id='insights-demo-baseline-url'
+              mr='6px'
+              placeholder='Baseline URL'
+              suggestions={baselineSuggestions}
+              type='text'
+              value={inputBaselineUrl}
+              onChange={event => setInputBaselineUrl(event.target.value)}
+              width={['100%', '100%', '128px', '128px']}
               autoFocus
             />
           </Box>
 
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
-            <Input
-              placeholder='Wait'
-              id='pdf-demo-waitfor'
-              type='text'
+            <Select
+              py='12px'
+              onChange={event => {
+                event.preventDefault()
+                setInputTheme(event.target.value)
+                const { query, ...props } = getValues()
+                setQuery({ ...props, ...query })
+              }}
+              selected={inputTheme}
+              value={inputTheme}
               fontSize={2}
-              width={['100%', '100%', '48px', '48px']}
-              mr='6px'
-              value={inputWaitFor}
-              onChange={event => setInputWaitFor(event.target.value)}
-              iconComponent={<HourGlass color={colors.black50} width='11px' />}
-              suggestions={[
-                { value: '0s' },
-                { value: '1.5s' },
-                { value: '3s' }
-              ]}
-            />
+              width={['100%', '100%', '128px', '128px']}
+              color='inherit'
+            >
+              {NIVO_THEMES.map(theme => (
+                <option
+                  key={theme}
+                  value={theme}
+                  children={theme.replace(/_/g, ' / ')}
+                />
+              ))}
+            </Select>
           </Box>
 
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
-            <Input
-              placeholder='Margin'
-              id='pdf-demo-margin'
-              type='text'
-              fontSize={2}
-              width={['100%', '100%', '67px', '67px']}
-              mr='6px'
-              value={inputMargin}
-              onChange={event => setInputMargin(event.target.value)}
-              iconComponent={
-                <MinimizeIcon color={colors.black50} width='16px' />
-              }
-              suggestions={[
-                { value: '0' },
-                { value: '0.35cm' },
-                { value: '4mm' }
-              ]}
-            />
-          </Box>
-
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
-            <Input
-              placeholder='Format'
-              id='pdf-demo-paper-size'
-              type='text'
-              fontSize={2}
-              width={['100%', '100%', '69px', '69px']}
-              mr='6px'
-              value={inputFormat}
-              onChange={event => setInputFormat(event.target.value)}
-              iconComponent={<BookIcon color={colors.black50} width='16px' />}
-              suggestions={[
-                { value: 'Letter' },
-                { value: 'Legal' },
-                { value: 'Tabloid' },
-                { value: 'A0' },
-                { value: 'A1' },
-                { value: 'A2' },
-                { value: 'A3' },
-                { value: 'A4' },
-                { value: 'A5' },
-                { value: 'A6' }
-              ]}
-            />
-          </Box>
-
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
-            <Input
-              placeholder='Scale'
-              id='pdf-demo-scale'
-              type='text'
-              fontSize={2}
-              width={['100%', '100%', '57px', '57px']}
-              mr='6px'
-              value={inputScale}
-              onChange={event => setInputScale(event.target.value)}
-              iconComponent={<SearchIcon color={colors.black50} width='16px' />}
-              suggestions={[
-                { value: '0.5' },
-                { value: '1' },
-                { value: '1.5' },
-                { value: '1.5' },
-                { value: '2' }
-              ]}
-            />
-          </Box>
-
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
-            <Input
-              placeholder='Media'
-              id='pdf-demo-media'
-              type='text'
-              fontSize={2}
-              width={['100%', '100%', '61px', '61px']}
-              mr='6px'
-              value={inputMediaType}
-              onChange={event => setInputMediaType(event.target.value)}
-              iconComponent={<FileIcon color={colors.black50} width='16px' />}
-              suggestions={[{ value: 'screen' }, { value: 'print' }]}
-            />
-          </Box>
           <Button ml={[0, 0, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1} children='Get it' />
+            <Caps fontSize={1} children='Audit it' />
           </Button>
         </Flex>
       </Flex>
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
         <Text fontSize={2} pb={3}>
-          into a PDF
+          into metrics
         </Text>
-        {dataPdfUrl ? (
+        {insights ? (
           <Box>
-            <Iframe
+            <Radar
+              url={inputUrlDomain}
+              baselineUrl={insightsBaselineDomain}
+              colors={inputTheme ? { scheme: inputTheme } : undefined}
+              indexBy='id'
+              keys={[inputUrlDomain, insightsBaselineDomain]}
+              data={getRadarData({
+                insights,
+                inputUrlDomain,
+                insightsBaselineDomain,
+                insightsBaseline
+              })}
+            />
+            <Stack
+              colors={inputTheme ? { scheme: inputTheme } : undefined}
+              {...getStackData({
+                insights,
+                inputUrlDomain,
+                insightsBaselineDomain,
+                insightsBaseline
+              })}
+            />
+            {/* <Iframe
               border={1}
               borderColor='black20'
               height={screenshotHeight.map(n => `calc(${n} * 0.85)`)}
@@ -261,7 +299,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               <Link ml={3} onClick={() => navigate('/docs/api/parameters/pdf')}>
                 <Caps fontWeight='regular' fontSize={0} children='See docs' />
               </Link>
-            </Flex>
+            </Flex> */}
           </Box>
         ) : (
           <Flex
@@ -274,12 +312,13 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
           >
             <Image
-              width={[3, 3, '60%', '60%']}
+              mt='-92px'
+              width={[3, 3, '80%', '80%']}
               style={{ opacity: 0.3, filter: 'grayscale(100%)' }}
               alt='Paste your URL'
-              src='https://cdn.microlink.io/illustrations/abstract-no-messages.svg'
+              src='https://web.dev/images/collections/lighthouse-performance.svg'
             />
-            <Text pt={[2, 2, 4, 4]} fontSize={[2, 2, 4, 4]} color='black40'>
+            <Text fontSize={[2, 2, 4, 4]} color='black40'>
               Paste your URL
             </Text>
           </Flex>
@@ -553,7 +592,7 @@ export default ({
       suggestions={suggestions}
       query={query}
     />
-    <Timings />
+    {/* <Timings />
     <Hide breakpoints={[0, 1]}>
       <Features children={useFeaturesPdf()} />
     </Hide>
@@ -562,6 +601,6 @@ export default ({
       bg='pinky'
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}
-    />
+    /> */}
   </>
 )

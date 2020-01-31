@@ -47,12 +47,15 @@ import Iframe from './Iframe/Iframe'
 import IframeInline from './IframeInline/IframeInline'
 
 import StripeLoader from './StripeLoader'
-import ClearbitLogo from './ClearbitLogo/ClearbitLogo'
+import Unavatar from './Unavatar/Unavatar'
 import Pie from './Pie/Pie'
+import Radar from './Radar/Radar'
 import Stack from './Stack/Stack'
+import Nivo from './Nivo'
 
 export {
   AnimatedBox,
+  Nivo,
   BackgroundSlider,
   BackgroundSliderContainer,
   Badge,
@@ -61,7 +64,6 @@ export {
   Button,
   Caps,
   Card,
-  ClearbitLogo,
   CodeEditor,
   Container,
   Dot,
@@ -84,6 +86,7 @@ export {
   Notification,
   Pie,
   PricePicker,
+  Radar,
   Select,
   Spinner,
   Stack,
@@ -94,5 +97,6 @@ export {
   Text,
   Toggle,
   Toolbar,
-  Tooltip
+  Tooltip,
+  Unavatar
 }

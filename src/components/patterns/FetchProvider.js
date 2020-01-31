@@ -31,10 +31,17 @@ export default ({ mqlOpts, children }) => {
       setQuery({ url, ...opts })
       setError(null)
       setStatus('fetching')
-      const { data } = await mql(url, { ...mqlOpts, ...opts })
+
+      const fromMql = url => mql(url, { ...mqlOpts, ...opts })
+
+      const data = Array.isArray(url)
+        ? (await Promise.all(url.map(fromMql))).map(res => res.data)
+        : (await fromMql(url)).data
+
       setData(data)
       setStatus('fetched')
     } catch (err) {
+      console.error('FetchProvider:', err)
       setStatus('error')
       setError(err)
     }

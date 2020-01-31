@@ -4,7 +4,13 @@ import { colors } from 'theme'
 import { Pie } from '@nivo/pie'
 import Nivo from '../Nivo'
 
-export default ({ data, height = 500, radialLabel, width = 800, ...props }) => (
+export default ({
+  data,
+  height = 500,
+  radialLabel,
+  width = 1024,
+  ...props
+}) => (
   <Nivo>
     {defaultProps => (
       <Pie
