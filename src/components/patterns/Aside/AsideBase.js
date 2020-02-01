@@ -1,7 +1,7 @@
 import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
+import { shadows, borders, colors, space } from 'theme'
 import React, { useState, Fragment } from 'react'
-import { shadows, borders, colors } from 'theme'
 import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc'
 import { isNot } from 'styled-is'
@@ -23,7 +23,8 @@ const linkStyle = css`
     display: flex;
     align-items: center;
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       .${LINK_ICON_CLASSNAME} {
         opacity: 1;
       }
@@ -33,7 +34,7 @@ const linkStyle = css`
   .${LINK_ICON_CLASSNAME} {
     width: 16px;
     opacity: 0.6;
-    margin-right: 10px;
+    margin-right: ${space[1]};
     transition: opacity ${({ theme }) => theme.transition.medium};
   }
 `

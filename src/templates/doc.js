@@ -6,10 +6,11 @@ import {
   Flex,
   Container
 } from 'components/elements'
+
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
-import { JekyllIcon, JSIcon, ReactIcon, VueIcon } from 'components/icons'
 import { cdnUrl, formatDate } from 'helpers'
+import * as Icons from 'components/icons'
 import { colors, layout } from 'theme'
 import React from 'react'
 
@@ -33,22 +34,22 @@ const ROUTES_SDK = [
       {
         name: 'React',
         href: '/docs/sdk/integrations/react/',
-        icon: ReactIcon
+        icon: Icons.React
       },
       {
         name: 'Vanilla',
         href: '/docs/sdk/integrations/vanilla/',
-        icon: JSIcon
+        icon: Icons.JavaScript
       },
       {
         name: 'Jekyll',
         href: '/docs/sdk/integrations/jekyll/',
-        icon: JekyllIcon
+        icon: Icons.Jekyll
       },
       {
         name: 'Vue',
         href: '/docs/sdk/integrations/vue/',
-        icon: VueIcon
+        icon: Icons.Vue
       }
     ]
   },
