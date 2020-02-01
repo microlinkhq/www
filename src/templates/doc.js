@@ -32,6 +32,11 @@ const ROUTES_SDK = [
     name: 'Integrations',
     posts: [
       {
+        name: 'Jekyll',
+        href: '/docs/sdk/integrations/jekyll/',
+        icon: Icons.Jekyll
+      },
+      {
         name: 'React',
         href: '/docs/sdk/integrations/react/',
         icon: Icons.React
@@ -41,11 +46,7 @@ const ROUTES_SDK = [
         href: '/docs/sdk/integrations/vanilla/',
         icon: Icons.JavaScript
       },
-      {
-        name: 'Jekyll',
-        href: '/docs/sdk/integrations/jekyll/',
-        icon: Icons.Jekyll
-      },
+
       {
         name: 'Vue',
         href: '/docs/sdk/integrations/vue/',
