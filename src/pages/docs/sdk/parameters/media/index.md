@@ -80,7 +80,7 @@ export default () => (
 
 <Microlink url='{{demolinks.instagram.url}}' media='video'/>
 
-And <Type children="'audio'"/> too!
+Also for <Type children="'audio'"/>
 
 <MultiCodeEditor languages={{
   React: `import Microlink from '@microlink/react' 
@@ -103,3 +103,27 @@ export default () => (
 />
 
 <Microlink url='https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT?si=4PcqgjH5RlWCvB5q4ukdnw' media='audio'/>
+
+Even <Type children="'iframe'"/>
+
+<MultiCodeEditor languages={{
+  React: `import Microlink from '@microlink/react' 
+  
+export default () => (
+  <Microlink
+    url='https://instagram.com/p/BvDTdWdnzkj/'
+    media='iframe'
+  />
+)
+`, Vanilla: `
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    microlink('a', { media: 'iframe' })
+  })
+</script>
+`, Jekyll: `
+[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='iframe'}
+`}} 
+/>
+
+<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='iframe' />
