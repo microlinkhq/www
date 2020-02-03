@@ -51,7 +51,8 @@ If you need to adapt the *look and feel*, each component of the card has been as
 * **microlink_card__content_description**: The `p` tag of the card description.
 * **microlink_card__content_url**: The `span` tag of the card url link.
 
-For the [Vanilla](/docs/sdk/integrations/vanilla) and [Vue](/docs/sdk/integrations/vue) packages there are some specific class names:
+For each SDK package there are some specific class names too:
 
-* **microlink_vanilla_dom**: A root div used to render the React DOM.
-* **microlink_vue_dom**: A root div used to render the React DOM.
+* **microlink_vanilla_dom**: A root `div` used in [Vanilla](/docs/sdk/integrations/vanilla) to render the virtual DOM.
+* **microlink_vue_dom**: A root `div` used in [Vue](/docs/sdk/integrations/vue) to render the virtual DOM.
+* **microlink_angular_dom**: A root `div` used in [Angular](/docs/sdk/integrations/angular) to render the virtual DOM.

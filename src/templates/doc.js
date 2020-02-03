@@ -32,6 +32,11 @@ const ROUTES_SDK = [
     name: 'Integrations',
     posts: [
       {
+        name: 'Angular',
+        href: '/docs/sdk/integrations/angular/',
+        icon: Icons.Angular
+      },
+      {
         name: 'Jekyll',
         href: '/docs/sdk/integrations/jekyll/',
         icon: Icons.Jekyll

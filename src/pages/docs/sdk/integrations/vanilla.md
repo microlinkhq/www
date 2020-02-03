@@ -2,11 +2,17 @@
 title: 'Vanilla'
 --- 
 
-It is available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla)
+It is available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 
 <Terminal>npm install @microlink/vanilla --save</Terminal>
 
-The vanilla bundle is based on the React version, but exported as Universal Module Definition (*UMD*).
+Or via a CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
+```
+
+The vanilla bundle is based on the [React](/docs/sdk/integrations/react) version, but exported as Universal Module Definition (*UMD*).
 
 Since the bundle doesn't include the dependencies, we recommend loading them from a **CDN**.
 
@@ -14,14 +20,12 @@ Since the bundle doesn't include the dependencies, we recommend loading them fro
 <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/styled-components@5/dist/styled-components.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@microlink/mql@latest/dist/mql.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
 or even better, combine them in just one line:
 
 ```html
-<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@5/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js,npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@5/dist/styled-components.min.js"></script>
 ```
 
 After that, `microlink` will be available in the global scope.
@@ -98,3 +102,14 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 ```
 
 <Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' style={{fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace', maxWidth: '100%'}} size='large' />
+
+
+#### CodeSandbox
+
+<iframe
+  src="https://codesandbox.io/embed/nervous-cherry-o92r2y4q9z?fontsize=14&hidenavigation=1&theme=dark"
+  style={{width: '100%', height: 500, border: 0, borderRadius: 4, overflow: 'hidden'}}
+  title="@microlink/vanilla"
+  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>
