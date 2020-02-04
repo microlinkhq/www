@@ -21,8 +21,10 @@ const style = css`
   outline: 0;
   opacity: 0.75;
   display: inline-block;
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid;
   border-color: ${({ isDark }) => (isDark ? colors.white10 : colors.black10)};
   color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
 `
