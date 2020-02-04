@@ -48,7 +48,9 @@ export const serializeFmt = (props, { quotes = true } = {}) => {
       if (rawValue === true) return ''
 
       if (Array.isArray(rawValue)) {
-        return `[${rawValue.map(value => `${quotes ? `'${value}'` : value}`)}]`
+        return `{[${rawValue.map(
+          value => `${quotes ? `'${value}'` : value}`
+        )}]}`
       }
 
       return `${quotes ? `'${rawValue}'` : rawValue}`
