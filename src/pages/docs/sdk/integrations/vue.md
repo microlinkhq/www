@@ -17,6 +17,7 @@ After that, you're ready to import the Microlink SDK into your Vue project, eith
 #### Globally
 
 ###### App.js
+
 ```js
 import Vue from 'vue'
 import Microlink from '@microlink/vue'
@@ -25,6 +26,7 @@ Vue.use(Microlink)
 ```
 
 ###### MyComponent.vue
+
 ```vue
 <template>
   <Microlink url="https://microlink.io" />
@@ -75,10 +77,10 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 </template>
 
 <style>
-  .microlink_card {
-    font-family: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace';
-    max-width: 100%;
-  }
+.microlink_card {
+  font-family: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace';
+  max-width: 100%;
+}
 </style>
 ```
 

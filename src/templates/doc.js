@@ -25,12 +25,30 @@ const ROUTES_SDK = [
       {
         name: 'Considerations',
         href: '/docs/sdk/getting-started/considerations/'
+      },
+      {
+        name: 'Storybook',
+        href: 'https://storybook.microlink.io/'
+      },
+      {
+        name: 'CodeSandbox',
+        href: 'https://codesandbox.io/s/n5w839zm4m'
       }
     ]
   },
   {
     name: 'Integrations',
     posts: [
+      {
+        name: 'React',
+        href: '/docs/sdk/integrations/react/',
+        icon: Icons.React
+      },
+      {
+        name: 'Vue',
+        href: '/docs/sdk/integrations/vue/',
+        icon: Icons.Vue
+      },
       {
         name: 'Angular',
         href: '/docs/sdk/integrations/angular/',
@@ -42,20 +60,9 @@ const ROUTES_SDK = [
         icon: Icons.Jekyll
       },
       {
-        name: 'React',
-        href: '/docs/sdk/integrations/react/',
-        icon: Icons.React
-      },
-      {
         name: 'Vanilla',
         href: '/docs/sdk/integrations/vanilla/',
         icon: Icons.JavaScript
-      },
-
-      {
-        name: 'Vue',
-        href: '/docs/sdk/integrations/vue/',
-        icon: Icons.Vue
       }
     ]
   },
@@ -111,19 +118,6 @@ const ROUTES_SDK = [
       {
         name: 'url',
         href: '/docs/sdk/parameters/url/'
-      }
-    ]
-  },
-  {
-    name: 'Resources',
-    posts: [
-      {
-        name: 'Storybook',
-        href: 'https://storybook.microlink.io/'
-      },
-      {
-        name: 'CodeSandbox',
-        href: 'https://codesandbox.io/s/n5w839zm4m'
       }
     ]
   }

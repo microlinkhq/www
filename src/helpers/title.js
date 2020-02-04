@@ -6,6 +6,7 @@ const special = [
   'browser',
   'cache',
   'click',
+  'CodeSandbox',
   'deviceScaleFactor',
   'fullPage',
   'GitHub',

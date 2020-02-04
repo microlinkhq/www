@@ -1,6 +1,6 @@
 ---
 title: 'Vanilla'
---- 
+---
 
 It is available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 
@@ -12,7 +12,7 @@ Or via a CDN:
 <script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
-The vanilla bundle is based on the [React](/docs/sdk/integrations/react) version, but exported as Universal Module Definition (*UMD*).
+The vanilla bundle is based on the [React](/docs/sdk/integrations/react) version, but exported as Universal Module Definition (_UMD_).
 
 Since the bundle doesn't include the dependencies, we recommend loading them from a **CDN**.
 
@@ -31,7 +31,7 @@ or even better, combine them in just one line:
 After that, `microlink` will be available in the global scope.
 
 ```html
-  <script>
+<script>
   document.addEventListener('DOMContentLoaded', function (event) {
     // Example 1
     // Replace all `a` tags for microlink cards
@@ -59,7 +59,7 @@ You can pass any API Parameter as an object property, e.g., [size](/docs/sdk/par
 ```html
 <script>
   document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('.link-previews', { 
+    microlink('.link-previews', {
       size: 'large'
     })
   })
@@ -71,12 +71,13 @@ You can pass any API Parameter as an object property, e.g., [size](/docs/sdk/par
 If you want to pass specific API Parameters just for some cases, you can pass them as [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
 
 ```html
-<a 
-  src="https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk" 
-  class="link-preview" 
+<a
+  src="https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk"
+  class="link-preview"
   data-size="large"
   data-media='["logo", "image"]'
-  data-set-data='{"title": "hello world"}'>
+  data-set-data='{"title": "hello world"}'
+>
 </a>
 ```
 
@@ -94,7 +95,7 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 
 <script>
   document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('.link-previews', { 
+    microlink('.link-previews', {
       size: 'large'
     })
   })
@@ -102,14 +103,3 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 ```
 
 <Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' style={{fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace', maxWidth: '100%'}} size='large' />
-
-
-#### CodeSandbox
-
-<iframe
-  src="https://codesandbox.io/embed/nervous-cherry-o92r2y4q9z?fontsize=14&hidenavigation=1&theme=dark"
-  style={{width: '100%', height: 500, border: 0, borderRadius: 4, overflow: 'hidden'}}
-  title="@microlink/vanilla"
-  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
-  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
-></iframe>
