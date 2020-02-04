@@ -29,3 +29,6 @@
 /viewport          /docs/api/parameters/viewport
 /device            /docs/api/parameters/device
 /emulation         /docs/api/parameters/emulation
+
+# pages
+/template             /codesandbox
