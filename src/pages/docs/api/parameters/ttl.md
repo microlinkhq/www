@@ -30,12 +30,18 @@ The value provided need to be at least **1 minute** and not higher than **31 day
 The following humanized number variations are supported:
 
 ```bash
-https://microlink.io&ttl=1d      // 86400000
-https://microlink.io&ttl=1day    // 86400000
-https://microlink.io&ttl=1days   // 86400000
-https://microlink.io&ttl=1h      // 3600000
-https://microlink.io&ttl=1hour   // 3600000
-https://microlink.io&ttl=1hours  // 3600000
+https://microlink.io&ttl=1d        // 86400000
+https://microlink.io&ttl=1day      // 86400000
+https://microlink.io&ttl=1days     // 86400000
+
+https://microlink.io&ttl=1h        // 3600000
+https://microlink.io&ttl=1hour     // 3600000
+https://microlink.io&ttl=1hours    // 3600000
+
+https://microlink.io&ttl=90s       // 90000
+https://microlink.io&ttl=90secs    // 90000
+https://microlink.io&ttl=90second  // 90000
+https://microlink.io&ttl=90seconds // 90000
 ```
 
 Additionally, we provide <Type children="'min'"/> and <Type children="'max'"/> aliases:
