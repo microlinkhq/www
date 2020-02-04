@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { toPx } from 'theme'
 
-import Box from './Box'
-import Text from './Text'
+import Box from '../Box'
+import Text from '../Text'
 
 const BASE_WIDTH = 500
 const BASE_RATIO = 1.4
