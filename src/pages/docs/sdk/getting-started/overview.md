@@ -1,8 +1,5 @@
 ---
 title: 'Overview'
-redirect_from:
-  - /docs/
-  - /docs/sdk/
 ---
 
 **Microlink SDK** enables you to create previews from any link.
