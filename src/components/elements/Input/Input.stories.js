@@ -47,8 +47,9 @@ storiesOf('Elements', module).add('Input', () => (
 
     {createStory('Input suggestions', {
       type: 'email',
+      id: 'input',
       placeholder: 'you@domain.com',
-      suggestions: ['you@gmail.com'],
+      suggestions: [{ value: 'you@gmail.com' }, { value: 'you@hotmail.com' }],
       width: '9rem',
       fontSize: 1
     })}
