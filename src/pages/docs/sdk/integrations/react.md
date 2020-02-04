@@ -1,6 +1,6 @@
 ---
 title: 'React'
---- 
+---
 
 It is available as an [npm package](https://www.npmjs.com/package/@microlink/react).
 
@@ -11,11 +11,7 @@ After that, you can use it as a regular React component.
 ```jsx
 import Microlink from '@microlink/react'
 
-export default () => (
-  <Microlink
-    url='https://instagram.com/p/Bu1-PpyHmCn/'
-  />
-)
+export default () => <Microlink url='https://instagram.com/p/Bu1-PpyHmCn/' />
 ```
 
 <Microlink url='https://instagram.com/p/Bu1-PpyHmCn/' />
@@ -26,10 +22,7 @@ The React integration supports any [API Parameter](/docs/api/getting-started/ove
 import Microlink from '@microlink/react'
 
 export default () => (
-  <Microlink
-    url='https://instagram.com/p/Bu1-PpyHmCn/'
-    size='large'
-  />
+  <Microlink url='https://instagram.com/p/Bu1-PpyHmCn/' size='large' />
 )
 ```
 
@@ -43,7 +36,7 @@ import Microlink from '@microlink/react'
 export default () => (
   <Microlink
     url='https://instagram.com/p/Bu1-PpyHmCn/'
-    style={{fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}}
+    style={{ fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace' }}
   />
 )
 ```
@@ -59,6 +52,6 @@ import styled from 'styled-components'
 const MyCustomCard = styled(Microlink)`
   font-family: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace';
   max-width: 100%;
-  border-radius: .42857em;
+  border-radius: 0.42857em;
 `
 ```

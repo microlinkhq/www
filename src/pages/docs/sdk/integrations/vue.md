@@ -2,11 +2,11 @@
 title: 'Vue'
 ---
 
-It is available as an [npm package](https://www.npmjs.com/package/@microlink/vue)
+It is available as an [npm package](https://www.npmjs.com/package/@microlink/vue).
 
 <Terminal>npm install @microlink/vue --save</Terminal>
 
-The Vue bundle is based on the Vanilla version, but exported as a CommonJS Vue plugin/component.
+The Vue bundle is based on the [Vanilla](/docs/sdk/integrations/vanilla) version, but exported as a CommonJS Vue plugin/component.
 
 Since it doesn't include the peer dependencies, you'll need to install those too:
 
@@ -14,9 +14,10 @@ Since it doesn't include the peer dependencies, you'll need to install those too
 
 After that, you're ready to import the Microlink SDK into your Vue project, either globally or on-demand.
 
-### Globally
+#### Globally
 
-##### App.js
+###### App.js
+
 ```js
 import Vue from 'vue'
 import Microlink from '@microlink/vue'
@@ -24,14 +25,15 @@ import Microlink from '@microlink/vue'
 Vue.use(Microlink)
 ```
 
-##### MyComponent.vue
+###### MyComponent.vue
+
 ```vue
 <template>
   <Microlink url="https://microlink.io" />
 </template>
 ```
 
-### On demand
+#### On demand
 
 ```vue
 <template>
@@ -75,10 +77,10 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 </template>
 
 <style>
-  .microlink_card {
-    font-family: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace';
-    max-width: 100%;
-  }
+.microlink_card {
+  font-family: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace';
+  max-width: 100%;
+}
 </style>
 ```
 

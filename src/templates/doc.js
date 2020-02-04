@@ -25,6 +25,14 @@ const ROUTES_SDK = [
       {
         name: 'Considerations',
         href: '/docs/sdk/getting-started/considerations/'
+      },
+      {
+        name: 'Storybook',
+        href: 'https://storybook.microlink.io/'
+      },
+      {
+        name: 'CodeSandbox',
+        href: 'https://codesandbox.io/s/n5w839zm4m'
       }
     ]
   },
@@ -32,25 +40,29 @@ const ROUTES_SDK = [
     name: 'Integrations',
     posts: [
       {
-        name: 'Jekyll',
-        href: '/docs/sdk/integrations/jekyll/',
-        icon: Icons.Jekyll
-      },
-      {
         name: 'React',
         href: '/docs/sdk/integrations/react/',
         icon: Icons.React
       },
       {
-        name: 'Vanilla',
-        href: '/docs/sdk/integrations/vanilla/',
-        icon: Icons.JavaScript
-      },
-
-      {
         name: 'Vue',
         href: '/docs/sdk/integrations/vue/',
         icon: Icons.Vue
+      },
+      {
+        name: 'Angular',
+        href: '/docs/sdk/integrations/angular/',
+        icon: Icons.Angular
+      },
+      {
+        name: 'Jekyll',
+        href: '/docs/sdk/integrations/jekyll/',
+        icon: Icons.Jekyll
+      },
+      {
+        name: 'Vanilla',
+        href: '/docs/sdk/integrations/vanilla/',
+        icon: Icons.JavaScript
       }
     ]
   },
@@ -106,19 +118,6 @@ const ROUTES_SDK = [
       {
         name: 'url',
         href: '/docs/sdk/parameters/url/'
-      }
-    ]
-  },
-  {
-    name: 'Resources',
-    posts: [
-      {
-        name: 'Storybook',
-        href: 'https://storybook.microlink.io/'
-      },
-      {
-        name: 'CodeSandbox',
-        href: 'https://codesandbox.io/s/n5w839zm4m'
       }
     ]
   }

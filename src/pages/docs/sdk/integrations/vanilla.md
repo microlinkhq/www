@@ -1,12 +1,18 @@
 ---
 title: 'Vanilla'
---- 
+---
 
-It is available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla)
+It is available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 
 <Terminal>npm install @microlink/vanilla --save</Terminal>
 
-The vanilla bundle is based on the React version, but exported as Universal Module Definition (*UMD*).
+Or via a CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
+```
+
+The vanilla bundle is based on the [React](/docs/sdk/integrations/react) version, but exported as Universal Module Definition (_UMD_).
 
 Since the bundle doesn't include the dependencies, we recommend loading them from a **CDN**.
 
@@ -14,20 +20,18 @@ Since the bundle doesn't include the dependencies, we recommend loading them fro
 <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/styled-components@5/dist/styled-components.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@microlink/mql@latest/dist/mql.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
 or even better, combine them in just one line:
 
 ```html
-<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@5/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js,npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/styled-components@5/dist/styled-components.min.js"></script>
 ```
 
 After that, `microlink` will be available in the global scope.
 
 ```html
-  <script>
+<script>
   document.addEventListener('DOMContentLoaded', function (event) {
     // Example 1
     // Replace all `a` tags for microlink cards
@@ -55,7 +59,7 @@ You can pass any API Parameter as an object property, e.g., [size](/docs/sdk/par
 ```html
 <script>
   document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('.link-previews', { 
+    microlink('.link-previews', {
       size: 'large'
     })
   })
@@ -67,12 +71,13 @@ You can pass any API Parameter as an object property, e.g., [size](/docs/sdk/par
 If you want to pass specific API Parameters just for some cases, you can pass them as [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
 
 ```html
-<a 
-  src="https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk" 
-  class="link-preview" 
+<a
+  src="https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk"
+  class="link-preview"
   data-size="large"
   data-media='["logo", "image"]'
-  data-set-data='{"title": "hello world"}'>
+  data-set-data='{"title": "hello world"}'
+>
 </a>
 ```
 
@@ -90,7 +95,7 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 
 <script>
   document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('.link-previews', { 
+    microlink('.link-previews', {
       size: 'large'
     })
   })
