@@ -85,8 +85,6 @@ module.exports = {
     'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
-    'gatsby-plugin-netlify',
-    'gatsby-redirect-from',
-    'gatsby-plugin-meta-redirect'
+    'gatsby-plugin-netlify'
   ]
 }

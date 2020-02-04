@@ -1,7 +1,5 @@
 ---
 title: 'Overview'
-redirect_from:
-  - /docs/mql/
 --- 
 
 **Microlink Query Language** (*MQL*) makes it possible to get structured data from any website.
