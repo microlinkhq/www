@@ -72,7 +72,7 @@
     "git-jiggy": "~1.1.1",
     "humanize-url": "~2.1.0",
     "is-color": "~1.0.2",
-    "is-url-http": "~2.0.0",
+    "is-url-http": "~2.0.1",
     "json-future": "~2.2.4",
     "lodash": "~4.17.15",
     "mdx-scoped-runtime": "~0.7.4",
