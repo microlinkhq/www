@@ -2,7 +2,7 @@
 title: 'Considerations'
 ---
 
-The **Microlink SDK** is the way to consume [Microlink API](/docs/api) directly from your UI.
+The **Microlink SDK** is the way to consume [Microlink API](/docs/api/getting-started/overview) directly from your UI.
 
 Based on that premise, **Microlink SDK** has been designed with three things in mind:
 
@@ -12,7 +12,7 @@ Based on that premise, **Microlink SDK** has been designed with three things in 
 
 ## Pollyfills
 
-Since the **Microlink SDK** consumes the [Microlink API](/docs/api) and turns the raw data into a beautiful preview, it needs to perform an internal request to obtain it from the target URL.
+Since the **Microlink SDK** consumes the [Microlink API](/docs/api/getting-started/overview) and turns the raw data into a beautiful preview, it needs to perform an internal request to obtain it from the target URL.
 
 To do that, our integrations use the standard [Fetch API](https://developer.mozilla.org/es/docs/Web/API/Fetch_API). However, **Microlink SDK** doesn't add it as part of the bundle: It will take it from `window`.
 

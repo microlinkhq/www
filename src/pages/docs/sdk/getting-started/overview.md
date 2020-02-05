@@ -12,7 +12,7 @@ into a beautiful preview
 
 <Microlink url='https://instagram.com/p/BvDTdWdnzkj/' />
 
-**Microlink SDK** can detect video, audio or image automagically. Also, it supports some customizable things, like [size](size).
+**Microlink SDK** can detect video, audio or image automagically. Also, it supports some customizable things, like [size](/docs/sdk/parameters/size/).
 
 <Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' size='large' />
 

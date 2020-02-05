@@ -8,29 +8,7 @@ Type: <Type children='<string>'/>
 
 The target URL for getting information based on the content.
 
-<MultiCodeEditor languages={{
-  React: `import Microlink from '@microlink/react' 
-  
-export default () => (
-  <Microlink
-    url='https://microlink.io'
-  />
-)
-`, Vanilla: `
-<script>
-  document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('a')
-  })
-</script>
-`, Jekyll: `
-[](https://microlink.io){:.card-preview}
-`}} 
-/>
-
-
-<Figcaption children='`url` is the only required api parameter.' />
-
-<Microlink url='https://microlink.io' media='logo' />
+<DemoIntegrations caption="`url` is the only required api parameter." />
 
 It should be reachable by the service. For example, if you want to extract content behind a login panel, the URL provided should contain the authentication step as part of the query string.
 

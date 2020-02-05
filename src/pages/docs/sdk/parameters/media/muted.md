@@ -9,52 +9,8 @@ Specifies if the media should be muted.
 
 with `muted` enabled:
 
-<MultiCodeEditor languages={{
-  React: `import Microlink from '@microlink/react' 
-  
-export default () => (
-  <Microlink
-    url='https://instagram.com/p/BvDTdWdnzkj/'
-    media='video'
-    autoPlay={false}
-    muted
-  />
-)
-`, Vanilla: `
-<script>
-  document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('a', { media: 'video', autoPlay: false, muted: true })
-  })
-</script>
-`, Jekyll: `
-[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-muted='true'}
-`}} 
-/>
-
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} />
+<DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: 'video', autoPlay: false, muted: true }} urlName="youtube.com" />
 
 with `muted` disabled:
 
-<MultiCodeEditor languages={{
-  React: `import Microlink from '@microlink/react' 
-  
-export default () => (
-  <Microlink
-    url='https://instagram.com/p/BvDTdWdnzkj/'
-    media='video'
-    autoPlay={false}
-    muted={false}
-  />
-)
-`, Vanilla: `
-<script>
-  document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('a', { media: 'video', autoPlay: false, muted: false })
-  })
-</script>
-`, Jekyll: `
-[](https://instagram.com/p/BvDTdWdnzkj/){:.card-preview data-media='video' data-autoPlay='false' data-muted='false'}
-`}} 
-/>
-
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' media='video' autoPlay={false} muted={false} />
+<DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: 'video', autoPlay: false, muted: false }} urlName="youtube.com" />
