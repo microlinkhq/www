@@ -31,7 +31,7 @@ import { colors, borders } from 'theme'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import { navigate } from 'gatsby'
-import isUrl from 'is-url-http'
+import isUrl from 'is-url-http/lightweight'
 import get from 'dlv'
 import ms from 'ms'
 

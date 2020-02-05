@@ -40,7 +40,7 @@ import compact from 'lodash/compact'
 import map from 'lodash/map'
 import reduce from 'lodash/reduce'
 import { navigate } from 'gatsby'
-import isUrl from 'is-url-http'
+import isUrl from 'is-url-http/lightweight'
 import get from 'dlv'
 import ms from 'ms'
 

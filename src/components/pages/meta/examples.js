@@ -35,7 +35,7 @@ import { fadeIn } from 'components/keyframes'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import mql from '@microlink/mql'
-import isUrl from 'is-url-http'
+import isUrl from 'is-url-http/lightweight'
 
 import { Features } from '../screenshot/template'
 
@@ -177,12 +177,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
