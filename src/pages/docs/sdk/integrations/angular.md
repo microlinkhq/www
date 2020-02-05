@@ -18,14 +18,14 @@ After that, you're ready to import the Microlink SDK into your Angular project.
 
 ```ts
 import { NgModule } from '@angular/core';
-import { MicrolinkModule } from '@microlink/angular';
+import Microlink from '@microlink/angular';
 
 @NgModule({
-  imports: [MicrolinkModule]
+  imports: [Microlink.Module]
 })
 export class AppModule { }
 ```
-<Figcaption children="There's also a `MicrolinkComponent` export, for use with `declarations`."  />
+<Figcaption children="There's also a `Component` export, for use with `declarations`."  />
 
 ###### app.component.html
 
