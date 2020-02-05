@@ -5,7 +5,7 @@ import BlockLink from './BlockLink'
 import AnimatedBox from './AnimatedBox'
 import Box from './Box'
 
-import Card from './Card'
+import Card from './Card/Card'
 import CodeEditor from './CodeEditor/CodeEditor'
 import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
 import Container from './Container'
