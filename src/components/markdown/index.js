@@ -20,6 +20,8 @@ import {
   Button
 } from 'components/elements'
 
+import DemoIntegrations from './DemoIntegrations'
+
 import MicrolinkBase from '../patterns/Microlink/Microlink'
 
 import { textGradient } from '../../theme'
@@ -357,6 +359,7 @@ const ScopedComponents = {
   Code,
   CodeInline,
   Container,
+  DemoIntegrations,
   Figcaption,
   H1,
   H2,

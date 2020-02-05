@@ -6,27 +6,11 @@ Type: <Type children='<string>'/>
 
 The API Key associated with your plan for [authenticating](/docs/api/basics/authentication) your requests.
 
-<MultiCodeEditor languages={{
-  React: `import Microlink from '@microlink/react' 
-  
-export default () => (
-  <Microlink
-    url='https://microlink.io'
-    apiKey='MyApiKey'
-  />
-)
-`, Vanilla: `
-<script>
-  document.addEventListener('DOMContentLoaded', function (event) {
-    microlink('a', { apiKey: 'MyApiKey' })
-  })
-</script>
-`, Jekyll: `
-[](https://microlink.io){:.card-preview data-apiKey='MyApiKey'}
-`}} 
+<DemoIntegrations
+  parameters={{apiKey: 'MyApiKey'}}
+  caption="The free daily quota will be used if you don't provide a registered API key."
+  showCard={false}
 />
-
-<Figcaption children="The free daily quota will be used if you don't provide a previously API key registered."  />
 
 When you do not attach an API Key, you are going to use the free quota until you reach the daily rate limit.
 
