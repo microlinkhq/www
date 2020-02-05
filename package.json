@@ -37,9 +37,9 @@
     "gatsby"
   ],
   "dependencies": {
-    "@microlink/demo-links": "~1.0.11",
-    "@microlink/mql": "~0.5.18",
-    "@microlink/react": "5.0.6",
+    "@microlink/demo-links": "~1.0.12",
+    "@microlink/mql": "~0.5.19",
+    "@microlink/react": "5.0.7",
     "@nivo/bar": "~0.61.1",
     "@nivo/pie": "~0.61.1",
     "@nivo/radar": "~0.61.1",
@@ -72,7 +72,7 @@
     "git-jiggy": "~1.1.1",
     "humanize-url": "~2.1.0",
     "is-color": "~1.0.2",
-    "is-url-http": "~2.0.1",
+    "is-url-http": "~2.1.1",
     "json-future": "~2.2.4",
     "lodash": "~4.17.15",
     "mdx-scoped-runtime": "~0.7.4",
