@@ -73,11 +73,13 @@ Although it is shipped with default styles, you can customize it using [CSS Clas
 
 ```vue
 <template>
-  <Microlink url="https://instagram.com/p/Bu1-PpyHmCn/" />
+  <div id="app">
+    <Microlink url="https://instagram.com/p/Bu1-PpyHmCn/" />
+  </div>
 </template>
 
 <style>
-.microlink_card {
+#app /deep/ .microlink_card {
   font-family: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace';
   max-width: 100%;
 }
