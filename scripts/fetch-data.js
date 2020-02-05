@@ -8,7 +8,7 @@ const got = require('got')
 module.exports = async ({ dist, url }) => {
   try {
     if (await existsFile(dist)) return
-    const { body } = await got(url, { json: true })
+    const body = await got(url).json()
     return jsonFuture.saveAsync(dist, body)
   } catch (err) {
     console.log(beautyError(err))
