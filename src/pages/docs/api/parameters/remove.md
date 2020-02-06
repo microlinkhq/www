@@ -1,5 +1,5 @@
 ---
-title: 'Remove'
+title: 'remove'
 --- 
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
