@@ -155,7 +155,7 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
   )
 
   return (
-    <Container id='demo' py={[4, 5]} px={4}>
+    <Container id='demo' pt={[4, 4, 5, 5]} pb={[0, 0, 4, 4]} px={4}>
       <SubHeadline
         title='Take a screenshot of any website'
         caption='Turn websites into a snapshot'

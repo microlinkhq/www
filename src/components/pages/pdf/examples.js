@@ -90,7 +90,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   ])
 
   return (
-    <Container id='demo' py={[4, 5]} px={4}>
+    <Container id='demo' py={[4, 4, 5, 5]} px={4}>
       <SubHeadline
         title='Get a PDF from any website'
         caption='Turn websites into a PDF'

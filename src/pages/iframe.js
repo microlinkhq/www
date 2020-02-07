@@ -302,7 +302,7 @@ const links = [
 export default () => {
   return (
     <Layout title={TITLE}>
-      <Container py={[4, 5]} px={4} maxWidth={layout.large}>
+      <Container py={[4, 4, 5, 5]} px={4} maxWidth={layout.large}>
         <SubHeadline title={TITLE} caption='Turn links into embeddable media' />
         <Subhead
           children='How it works'
