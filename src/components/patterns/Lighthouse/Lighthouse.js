@@ -22,6 +22,10 @@ const Circle = styled(ProgressArc)`
   .arc-background {
     fill: ${props => props.bg};
   }
+
+  text {
+    fill ${props => props.textColor}
+  }
 `
 
 export default ({ width = CIRCLE_WIDTH, data, ...props }) => {
@@ -48,6 +52,7 @@ export default ({ width = CIRCLE_WIDTH, data, ...props }) => {
               arcBackgroundColor='transparent'
               radius={90}
               width={width}
+              textColor={color}
               rounded
             />
             <Text mt={3} fontWeight='bold'>
