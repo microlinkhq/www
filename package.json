@@ -84,6 +84,7 @@
     "postcss-focus": "~4.0.0",
     "prepend-http": "~3.0.1",
     "prettier": "~1.19.1",
+    "progress-arc-component": "~2.6.0",
     "qss": "~2.0.3",
     "react": "16.12.0",
     "react-codecopy": "~4.0.1",

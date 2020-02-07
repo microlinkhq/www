@@ -16,6 +16,7 @@ import Footer from './Footer/Footer'
 import Grid from './Grid'
 import Layout from './Layout'
 import Legend from './Legend/Legend'
+import Lighthouse from './Lighthouse/Lighthouse'
 import List from './List/List'
 import LiveDemo from './LiveDemo/LiveDemo'
 import Microlink from './Microlink/Microlink'
@@ -43,6 +44,7 @@ export {
   Headline,
   Layout,
   Legend,
+  Lighthouse,
   List,
   LiveDemo,
   Microlink,
