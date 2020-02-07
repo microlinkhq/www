@@ -35,7 +35,16 @@ const children = [
           <Link href='/docs/sdk/integrations/react/'>Documentation</Link>
         </Text>
         <Text>
-          <Link href='#'>CodeSandbox</Link> / <Link href='#'>Storybook</Link>
+          <Link
+            icon
+            href='https://codesandbox.io/s/gracious-blackburn-n5w839zm4m'
+          >
+            CodeSandbox
+          </Link>{' '}
+          /{' '}
+          <Link icon href='https://react.microlink.io'>
+            Storybook
+          </Link>
         </Text>
       </>
     )
@@ -49,7 +58,13 @@ const children = [
           <Link href='/docs/sdk/integrations/vue/'>Documentation</Link>
         </Text>
         <Text>
-          <Link href='#'>CodeSandbox</Link> / <Link href='#'>Storybook</Link>
+          <Link icon href='https://codesandbox.io/s/microlinkvue-255wg'>
+            CodeSandbox
+          </Link>{' '}
+          /{' '}
+          <Link icon href='https://vue.microlink.io'>
+            Storybook
+          </Link>
         </Text>
       </>
     )
@@ -63,21 +78,13 @@ const children = [
           <Link href='/docs/sdk/integrations/angular/'>Documentation</Link>
         </Text>
         <Text>
-          <Link href='#'>CodeSandbox</Link> / <Link href='#'>Storybook</Link>
-        </Text>
-      </>
-    )
-  },
-  {
-    blockOne: <Icons.Jekyll width={ICON_SIZE} />,
-    blockTwo: (
-      <>
-        <Text>Jekyll</Text>
-        <Text>
-          <Link href='/docs/sdk/integrations/jekyll/'>Documentation</Link>
-        </Text>
-        <Text>
-          <Link href='#'>CodeSandbox</Link> / <Link href='#'>Storybook</Link>
+          <Link icon href='https://codesandbox.io/s/microlinkangular-p0w92'>
+            CodeSandbox
+          </Link>{' '}
+          /{' '}
+          <Link icon href='https://angular.microlink.io'>
+            Storybook
+          </Link>
         </Text>
       </>
     )
@@ -91,7 +98,24 @@ const children = [
           <Link href='/docs/sdk/integrations/vanilla/'>Documentation</Link>
         </Text>
         <Text>
-          <Link href='#'>CodeSandbox</Link> / <Link href='#'>Storybook</Link>
+          <Link icon href='https://codesandbox.io/s/nervous-cherry-o92r2y4q9z'>
+            CodeSandbox
+          </Link>{' '}
+          /{' '}
+          <Link icon href='https://vanilla.microlink.io'>
+            Storybook
+          </Link>
+        </Text>
+      </>
+    )
+  },
+  {
+    blockOne: <Icons.Jekyll width={ICON_SIZE} />,
+    blockTwo: (
+      <>
+        <Text>Jekyll</Text>
+        <Text>
+          <Link href='/docs/sdk/integrations/jekyll/'>Documentation</Link>
         </Text>
       </>
     )
@@ -104,7 +128,9 @@ const children = [
     ),
     blockTwo: (
       <Text>
-        <Link href='#'>Request an integration</Link>{' '}
+        <Link href='https://github.com/microlinkhq/open/issues/new/choose'>
+          Request an integration
+        </Link>{' '}
       </Text>
     )
   }

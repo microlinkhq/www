@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { Flex } from 'components/elements'
+import { Box } from 'components/elements'
 
 import { slide } from 'components/keyframes'
 
-const Dots = styled(Flex)`
+const Dots = styled(Box)`
   position: relative;
   overflow: hidden;
 
