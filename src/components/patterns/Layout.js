@@ -66,7 +66,7 @@ const Layout = ({
               </Hide>
               {footer && (
                 <Box>
-                  <Footer theme={theme} />
+                  <Footer theme={theme} {...footer} />
                 </Box>
               )}
             </Flex>

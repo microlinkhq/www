@@ -10,7 +10,7 @@ const Dots = styled(Flex)`
   &:before {
     content: '';
     position: absolute;
-    width: 200%;
+    width: 400%;
     height: 100%;
     z-index: -1;
 

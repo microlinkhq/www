@@ -31,4 +31,6 @@
 /emulation         /docs/api/parameters/emulation
 
 # pages
-/template             /codesandbox
+/template         /integrations
+/codesandbox      /integrations
+/storybook        /integrations
