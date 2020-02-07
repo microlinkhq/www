@@ -1,3 +1,2 @@
-import { getDomain } from 'tldts'
-
-export default getDomain
+import { getHostname } from 'tldts'
+export default getHostname

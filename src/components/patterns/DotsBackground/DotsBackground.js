@@ -1,16 +1,16 @@
 import styled from 'styled-components'
-import { Flex } from 'components/elements'
+import { Box } from 'components/elements'
 
 import { slide } from 'components/keyframes'
 
-const Dots = styled(Flex)`
+const Dots = styled(Box)`
   position: relative;
   overflow: hidden;
 
   &:before {
     content: '';
     position: absolute;
-    width: 200%;
+    width: 400%;
     height: 100%;
     z-index: -1;
 

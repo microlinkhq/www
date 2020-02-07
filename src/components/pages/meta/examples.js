@@ -99,7 +99,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
 
   return (
     <>
-      <Container py={[4, 5]} px={4}>
+      <Container py={[4, 4, 5, 5]} px={4}>
         <SubHeadline
           title='Make any URL embeddable'
           caption='Turn websites into data'

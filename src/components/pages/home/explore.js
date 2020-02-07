@@ -1,91 +1,177 @@
 import React from 'react'
-import { Flex, Card } from 'components/elements'
+import { Link, Text, Flex, Card } from 'components/elements'
 import { Headline } from 'components/patterns'
-import { slide } from 'components/keyframes'
-import styled from 'styled-components'
+import * as Icons from 'components/icons'
+import chunk from 'lodash/chunk'
 
-const Dots = styled(Flex)`
-  position: relative;
-  overflow: hidden;
+const CustomCard = ({ blockOne, blockTwo, ...props }) => (
+  <Card flexDirection='column' justifyContent='center' ratio={RATIO} {...props}>
+    <Flex pb={[2, 2, 3, 3]} justifyContent='center'>
+      {blockOne}
+    </Flex>
+    <Flex
+      pt={[2, 2, 3, 3]}
+      width='100%'
+      justifyContent='center'
+      flexDirection='column'
+      alignItems='center'
+    >
+      {blockTwo}
+    </Flex>
+  </Card>
+)
 
-  &:before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 100%;
-    z-index: -1;
+const ICON_SIZE = ['60px', '60px', '80px', '80px']
 
-    background-image: radial-gradient(#d7d7d7 1px, transparent 0),
-      radial-gradient(#d7d7d7 1px, transparent 0);
-    background-position: 0 0, 25px 25px;
-    background-size: 50px 50px;
+const RATIO = [0.6, 0.6, 0.7, 0.7]
 
-    animation: ${slide} 100s linear infinite;
-    animation-direction: reverse;
+const children = [
+  {
+    blockOne: <Icons.React width={ICON_SIZE} />,
+    blockTwo: (
+      <>
+        <Text>React</Text>
+        <Text>
+          <Link href='/docs/sdk/integrations/react/'>Documentation</Link>
+        </Text>
+        <Text>
+          <Link
+            icon
+            href='https://codesandbox.io/s/gracious-blackburn-n5w839zm4m'
+          >
+            CodeSandbox
+          </Link>{' '}
+          /{' '}
+          <Link icon href='https://react.microlink.io'>
+            Storybook
+          </Link>
+        </Text>
+      </>
+    )
+  },
+  {
+    blockOne: <Icons.Vue width={ICON_SIZE} />,
+    blockTwo: (
+      <>
+        <Text>Vue</Text>
+        <Text>
+          <Link href='/docs/sdk/integrations/vue/'>Documentation</Link>
+        </Text>
+        <Text>
+          <Link icon href='https://codesandbox.io/s/microlinkvue-255wg'>
+            CodeSandbox
+          </Link>{' '}
+          /{' '}
+          <Link icon href='https://vue.microlink.io'>
+            Storybook
+          </Link>
+        </Text>
+      </>
+    )
+  },
+  {
+    blockOne: <Icons.Angular width={ICON_SIZE} />,
+    blockTwo: (
+      <>
+        <Text>Angular</Text>
+        <Text>
+          <Link href='/docs/sdk/integrations/angular/'>Documentation</Link>
+        </Text>
+        <Text>
+          <Link icon href='https://codesandbox.io/s/microlinkangular-p0w92'>
+            CodeSandbox
+          </Link>{' '}
+          /{' '}
+          <Link icon href='https://angular.microlink.io'>
+            Storybook
+          </Link>
+        </Text>
+      </>
+    )
+  },
+  {
+    blockOne: <Icons.JavaScript width={ICON_SIZE} />,
+    blockTwo: (
+      <>
+        <Text>Vanilla</Text>
+        <Text>
+          <Link href='/docs/sdk/integrations/vanilla/'>Documentation</Link>
+        </Text>
+        <Text>
+          <Link icon href='https://codesandbox.io/s/nervous-cherry-o92r2y4q9z'>
+            CodeSandbox
+          </Link>{' '}
+          /{' '}
+          <Link icon href='https://vanilla.microlink.io'>
+            Storybook
+          </Link>
+        </Text>
+      </>
+    )
+  },
+  {
+    blockOne: <Icons.Jekyll width={ICON_SIZE} />,
+    blockTwo: (
+      <>
+        <Text>Jekyll</Text>
+        <Text>
+          <Link href='/docs/sdk/integrations/jekyll/'>Documentation</Link>
+        </Text>
+      </>
+    )
+  },
+  {
+    blockOne: (
+      <Text color='gray6' fontSize={ICON_SIZE} style={{ lineHeight: 1 }}>
+        🎉
+      </Text>
+    ),
+    blockTwo: (
+      <Text>
+        <Link href='https://github.com/microlinkhq/open/issues/new/choose'>
+          Request an integration
+        </Link>{' '}
+      </Text>
+    )
   }
-`
+]
 
-const Explore = props => {
-  const ratio = [0.7, 0.7, 0.7, 0.7]
+const Explore = ({ itemsPerRow = 3, title, caption, ...props }) => {
   return (
-    <Dots as='article' id='explore' {...props}>
+    <Flex
+      px={4}
+      pt={4}
+      pb={4}
+      width='100%'
+      flexDirection='column'
+      justifyContent='center'
+      alignItems='center'
+    >
       <Flex
-        px={4}
-        pt={4}
-        pb={4}
-        width='100%'
+        pt={[0, 0, 4, 4]}
+        pb={[0, 0, 4, 4]}
         flexDirection='column'
         justifyContent='center'
         alignItems='center'
       >
-        <Flex
-          pt={4}
-          pb={4}
-          flexDirection='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <Headline
-            pb={[0, 4]}
-            title='Explore'
-            caption='discover all the things you can do'
-          />
-          <Flex>
-            <Card ratio={ratio} p={4}>
-              PDF
-            </Card>
-            <Card ratio={ratio} p={4} mx={4}>
-              Palette
-            </Card>
-            <Card ratio={ratio} p={4}>
-              HTML
-            </Card>
+        <Headline title={title} caption={caption} pb={[4, 4, 4, 4]} />
+
+        {chunk(children, itemsPerRow).map((row, chunkIndex) => (
+          <Flex
+            key={`chunk_${chunkIndex}`}
+            pt={chunkIndex === 0 ? 0 : [4, 4, 5, 5]}
+          >
+            {row.map((rowProps, rowIndex) => (
+              <CustomCard
+                key={`chunk_${chunkIndex}_row_${rowIndex}`}
+                mx={4}
+                {...rowProps}
+              />
+            ))}
           </Flex>
-          <Flex pt={4}>
-            <Card ratio={ratio} p={4}>
-              Metrics
-            </Card>
-            <Card ratio={ratio} p={4} mx={4}>
-              Screenshot
-            </Card>
-            <Card ratio={ratio} p={4}>
-              Meta
-            </Card>
-          </Flex>
-          <Flex pt={4}>
-            <Card ratio={ratio} p={4}>
-              iframe
-            </Card>
-            <Card ratio={ratio} p={4} mx={4}>
-              data
-            </Card>
-            <Card ratio={ratio} p={4}>
-              embed
-            </Card>
-          </Flex>
-        </Flex>
+        ))}
       </Flex>
-    </Dots>
+    </Flex>
   )
 }
 
