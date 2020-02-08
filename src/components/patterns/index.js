@@ -17,6 +17,7 @@ import Grid from './Grid'
 import Layout from './Layout'
 import Legend from './Legend/Legend'
 import Lighthouse from './Lighthouse/Lighthouse'
+import LighthouseScore from './LighthouseScore/LighthouseScore'
 import List from './List/List'
 import LiveDemo from './LiveDemo/LiveDemo'
 import Microlink from './Microlink/Microlink'
@@ -45,6 +46,7 @@ export {
   Layout,
   Legend,
   Lighthouse,
+  LighthouseScore,
   List,
   LiveDemo,
   Microlink,

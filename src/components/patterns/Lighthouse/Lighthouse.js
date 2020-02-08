@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { rgba } from 'polished'
 import { fonts } from 'theme'
 
-import { Text, Flex, Box } from 'components/elements'
+import { Text, Flex } from 'components/elements'
 
 import ProgressArc from 'progress-arc-component'
 
@@ -31,20 +31,20 @@ const Circle = styled(ProgressArc)`
 export default ({ width = CIRCLE_WIDTH, data, ...props }) => {
   return (
     <Flex>
-      {data.map(({ text, value }, index) => {
-        const color = getColor(value)
+      {data.map(({ text, score }, index) => {
+        const color = getColor(score)
         const backgroundColor = rgba(color, 0.1)
 
         return (
           <Flex
-            key={`${text}_${value}`}
+            key={`${text}_${score}`}
             flexDirection='column'
             alignItems='center'
             pr={index === data.length - 1 ? 0 : 5}
             {...props}
           >
             <Circle
-              value={value}
+              value={score}
               max={100}
               unit=''
               arcColor={color}
@@ -55,7 +55,7 @@ export default ({ width = CIRCLE_WIDTH, data, ...props }) => {
               textColor={color}
               rounded
             />
-            <Text mt={3} fontWeight='bold'>
+            <Text textAlign='center' fontSize={1} mt={3} fontWeight='bold'>
               {text}
             </Text>
           </Flex>
