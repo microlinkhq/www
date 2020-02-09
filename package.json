@@ -39,7 +39,7 @@
   "dependencies": {
     "@microlink/demo-links": "~1.0.12",
     "@microlink/mql": "~0.5.20",
-    "@microlink/react": "5.0.9",
+    "@microlink/react": "5.0.10",
     "@nivo/bar": "~0.61.1",
     "@nivo/pie": "~0.61.1",
     "@nivo/radar": "~0.61.1",
