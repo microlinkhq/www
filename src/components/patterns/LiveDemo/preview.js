@@ -33,7 +33,7 @@ const STYLE = { border: '0', height: 'inherit', maxWidth: '100%' }
 
 const CardPreview = ({ loading, children }) => (
   <>
-    <Hide breakpoints={[0, 1]} style={{ height: 'inherit' }}>
+    <Hide breakpoints={[0, 1]} style={{ width: '100%', height: 'inherit' }}>
       <MicrolinkCard
         url={children.url}
         loading={loading}
@@ -42,7 +42,7 @@ const CardPreview = ({ loading, children }) => (
         setData={() => children}
       />
     </Hide>
-    <Hide breakpoints={[2, 3]} style={{ height: 'inherit' }}>
+    <Hide breakpoints={[2, 3]} style={{ width: '100%', height: 'inherit' }}>
       <MicrolinkCard
         url={children.url}
         loading={loading}
