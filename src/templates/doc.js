@@ -194,6 +194,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/click'
       },
       {
+        name: 'colorScheme',
+        href: '/docs/api/parameters/color-scheme'
+      },
+      {
         name: 'data',
         href: '/docs/api/parameters/data'
       },
