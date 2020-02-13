@@ -24,7 +24,7 @@ For example, is very common websites serve images on [WebP](https://en.wikipedia
 
 In the [previous](/blog/sdk-2-0-more-video-providers) Product Brief we introduced the first iteration of video support as part of the API supported data [types](/docs/api/getting-started/overview).
 
-Although it is widely used when you consume the API response using our [SDK](/docs/sdk/getting-started/overview/), it can degrade the general user experience, making the response times a bit heavy, specially if you are only interested in the rest of data extracted by the API.
+Although it's widely used when you consume the API response using our [SDK](/docs/sdk/getting-started/overview/), it can degrade the general user experience, making the response times a bit heavy, specially if you are only interested in the rest of data extracted by the API.
 
 We decide leverage the decision in the new [video](/docs/api/parameters/video) API Parameter, when the default value is \`false\`.
 
@@ -52,6 +52,6 @@ We are preparing a new post explaining how to do that, staty stunned 🤘.
 
 [![](https://i.imgur.com/gCq6WeX.png)](https://gallery.microlink.io/)
 
-We started building a [gallery](https://gallery.microlink.io) of webs, apps or 🦄  who use microlink with some purpose.
+We started building a [gallery](https://gallery.microlink.io) of webs, apps or 🦄 who use microlink with some purpose.
 
 Please [contact with us](https://twitter.com/microlinkhq) for add your shiny project there ✨.

@@ -2,7 +2,7 @@
 title: 'Vanilla'
 ---
 
-It is available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla).
+It's available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 
 <Terminal>npm install @microlink/vanilla --save</Terminal>
 
@@ -85,7 +85,7 @@ If you want to pass specific API Parameters just for some cases, you can pass th
 
 <Figcaption children='You can pass objects, arrays, booleans or even JSON structures as data attributes.' />
 
-Although it is shipped with default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
+Although it's shipped with default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
 
 ```html
 <style>

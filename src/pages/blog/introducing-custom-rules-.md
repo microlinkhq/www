@@ -28,7 +28,6 @@ By using [Microlink API](/docs/api/getting-started/overview) we can obtain well 
 
 <Terminal>curl https://api.microlink.io/?url=https://instagram.com/elonmusk</Terminal>
 
-
 The API response will look like the following:
 
 ```json
@@ -59,7 +58,7 @@ The API response will look like the following:
 }
 ```
 
-Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](/docs/sdk/getting-started/overview/)), you may be interested in specific information that we don't expose because it isn't generic.
+Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](/docs/sdk/getting-started/overview/)), you may be interested in specific information that we don't expose because it'sn't generic.
 
 Let's define a **rule** for extracting the avatar profile.
 
@@ -327,9 +326,10 @@ One thing that makes [Microlink API](/docs/api/getting-started/overview) powerfu
   "data.photos.attr": "src",
   "data.photos.type": "image",
   "filter": "avatar",
-  "palette": true,
+  "palette": true
 }
 ```
+
 <Figcaption>
   {'Custom rule + '}
   <Link
