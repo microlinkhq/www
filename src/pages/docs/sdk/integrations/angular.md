@@ -2,7 +2,7 @@
 title: 'Angular'
 ---
 
-It's available as an [npm package](https://www.npmjs.com/package/@microlink/angular).
+It's available as [npm package](https://www.npmjs.com/package/@microlink/angular).
 
 <Terminal>npm install @microlink/angular --save</Terminal>
 

@@ -2,7 +2,7 @@
 title: 'Vanilla'
 ---
 
-It's available as an [npm package](https://www.npmjs.com/package/@microlink/vanilla).
+It's available as [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 
 <Terminal>npm install @microlink/vanilla --save</Terminal>
 

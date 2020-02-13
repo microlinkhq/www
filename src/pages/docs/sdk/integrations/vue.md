@@ -2,7 +2,7 @@
 title: 'Vue'
 ---
 
-It's available as an [npm package](https://www.npmjs.com/package/@microlink/vue).
+It's available as [npm package](https://www.npmjs.com/package/@microlink/vue).
 
 <Terminal>npm install @microlink/vue --save</Terminal>
 

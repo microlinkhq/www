@@ -2,7 +2,7 @@
 title: 'Installation'
 ---
 
-It's available as an [npm package](https://www.npmjs.com/package/@microlink/react).
+It's available as [npm package](https://www.npmjs.com/package/@microlink/react).
 
 <Terminal>npm install @microlink/mql --save</Terminal>
 
