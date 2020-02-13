@@ -9,7 +9,7 @@ import {
 
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
-import { cdnUrl, formatDate } from 'helpers'
+import { formatDate } from 'helpers'
 import * as Icons from 'components/icons'
 import { colors, layout } from 'theme'
 import React from 'react'
@@ -428,12 +428,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
   const activeRouteName = getActiveRouteName(props.location)
 
   return (
-    <Layout
-      footer={false}
-      {...meta}
-      name={`Microlink ${activeRouteName}`}
-      image={cdnUrl(`www/docs/${activeRouteName.toLowerCase()}.png`)}
-    >
+    <Layout footer={false} {...meta} name={`Microlink ${activeRouteName}`}>
       <Container maxWidth={layout.large}>
         <Aside routes={routes} activeRouteName={activeRouteName}>
           <Text as='header'>

@@ -20,7 +20,7 @@ module.exports = {
     description:
       'Enter a URL, receive information. Extract structured data from any website. Create beautiful link previews. Take a screenshot of any site. Turns any URL into a PDF.',
     twitter: '@microlinkhq',
-    image: new URL('www/home.png', CDN_URL).toString(),
+    image: new URL('logo/trim.jpeg', CDN_URL).toString(),
     logo: new URL('logo/trim.png', CDN_URL).toString(),
     // Slack previsualization
     dataLabel1: 'API',

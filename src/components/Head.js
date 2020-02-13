@@ -65,7 +65,10 @@ function Head (props) {
         { itemProp: 'name', content: title },
         { itemProp: 'description', content: description },
         { itemProp: 'image', content: image },
-        { name: 'twitter:card', content: 'summary_large_image' },
+        {
+          name: 'twitter:card',
+          content: props.image ? 'summary_large_image' : 'summary'
+        },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
         { name: 'twitter:site', content: twitter },
