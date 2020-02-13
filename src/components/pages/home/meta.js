@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { navigate } from 'gatsby'
 import { Hide, Box, Button, Caps, Flex, Link, Text } from 'components/elements'
 import { Legend, LiveDemo, Block } from 'components/patterns'
-import { layout } from 'theme'
+import * as Icons from 'components/icons'
+import { colors, layout } from 'theme'
 import get from 'dlv'
 
 const Meta = ({ demoLinks, ...props }) => {
