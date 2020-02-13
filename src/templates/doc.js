@@ -9,9 +9,9 @@ import {
 
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
-import { formatDate } from 'helpers'
 import * as Icons from 'components/icons'
 import { colors, layout } from 'theme'
+import { formatDate } from 'helpers'
 import React from 'react'
 
 const ROUTES_SDK = [
@@ -424,11 +424,36 @@ const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/mql')) return MQL
 }
 
+const getImage = ({ pathname }) => {
+  if (pathname.includes('angular')) {
+    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Fangularjs-original.svg%3Fsize%3D500&output=jpg&bg=white'
+  }
+
+  if (pathname.includes('react')) {
+    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Freact-original.svg%3Fsize%3D500&output=jpg&bg=white'
+  }
+
+  if (pathname.includes('vue')) {
+    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Fvuejs-original.svg%3Fsize%3D500&output=jpg&bg=white'
+  }
+
+  if (pathname.includes('vanilla')) {
+    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%javascript-original.svg%3Fsize%3D500&output=jpg&bg=white'
+  }
+}
+
 export default ({ meta, content, githubUrl, ...props }) => {
   const activeRouteName = getActiveRouteName(props.location)
+  const image = getImage(props.location)
 
   return (
-    <Layout footer={false} {...meta} name={`Microlink ${activeRouteName}`}>
+    <Layout
+      footer={false}
+      {...meta}
+      name={`Microlink ${activeRouteName}`}
+      image={image}
+      twitterCard='summary'
+    >
       <Container maxWidth={layout.large}>
         <Aside routes={routes} activeRouteName={activeRouteName}>
           <Text as='header'>

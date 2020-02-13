@@ -14,9 +14,16 @@ const mergeMeta = (props, metadata) => {
   const dataLabel2 = props.dataLabel2 || metadata.dataLabel2
   const dataValue2 = props.dataValue2 || metadata.dataValue2
   const date = (props.date ? new Date(props.date) : new Date()).toISOString()
+
   const url = props.location
     ? `${siteUrl}${props.location.pathname}${props.location.search}`
     : siteUrl
+
+  const twitterCard = props.twitterCard
+    ? props.twitterCard
+    : props.image
+      ? 'summary_large_image'
+      : 'summary'
 
   return {
     dataLabel1,
@@ -31,6 +38,7 @@ const mergeMeta = (props, metadata) => {
     name,
     title,
     twitter,
+    twitterCard,
     url,
     video
   }
@@ -51,7 +59,8 @@ function Head (props) {
     title,
     twitter,
     url,
-    video
+    video,
+    twitterCard
   } = mergeMeta(props, useSiteMetadata())
 
   return (
@@ -65,10 +74,7 @@ function Head (props) {
         { itemProp: 'name', content: title },
         { itemProp: 'description', content: description },
         { itemProp: 'image', content: image },
-        {
-          name: 'twitter:card',
-          content: props.image ? 'summary_large_image' : 'summary'
-        },
+        { name: 'twitter:card', content: twitterCard },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
         { name: 'twitter:site', content: twitter },
