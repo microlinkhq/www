@@ -1,7 +1,7 @@
 import React from 'react'
 import Svg from '../elements/Svg'
 
-export const Jekyll = props => (
+export const Jekyll = ({ color = '#333333', ...props }) => (
   <Svg
     version='1.1'
     xmlns='http://www.w3.org/2000/svg'
@@ -12,7 +12,7 @@ export const Jekyll = props => (
     {...props}
   >
     <g id='logo-bg-dark'>
-      <rect id='bg' fill='#333333' width='512' height='512' />
+      <rect id='bg' fill={color} width='512' height='512' />
       <g id='test-tube'>
         <path
           id='shadow_2_'
@@ -69,7 +69,7 @@ export const Jekyll = props => (
         <ellipse
           id='top'
           transform='matrix(0.9334 0.359 -0.359 0.9334 48.4129 -108.3439)'
-          fill='#333333'
+          fill={color}
           cx='315.97'
           cy='76.201'
           rx='33.648'
@@ -179,7 +179,7 @@ export const Jekyll = props => (
         <ellipse
           id='top_1_'
           transform='matrix(0.9334 0.359 -0.359 0.9334 48.4129 -108.3439)'
-          fill='#333333'
+          fill={color}
           cx='315.97'
           cy='76.201'
           rx='33.648'

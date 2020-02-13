@@ -142,12 +142,12 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Stats'
+              data-event-action='Integrations'
               fontSize={[0, 0, 0, 1]}
               mr={2}
               mb={[0, 0, 0, 3]}
-              href='/stats'
-              children='Stats'
+              href='/integrations'
+              children='Integrations'
             />
             <LinkSolid
               theme={theme}
@@ -162,12 +162,12 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Tech Support'
+              data-event-action='Stats'
               fontSize={[0, 0, 0, 1]}
               mr={2}
               mb={[0, 0, 0, 3]}
-              href='/chat'
-              children='Tech Support'
+              href='/stats'
+              children='Stats'
             />
           </Flex>
         </Box>
