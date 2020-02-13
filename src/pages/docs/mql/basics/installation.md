@@ -2,7 +2,7 @@
 title: 'Installation'
 ---
 
-It is available as an [npm package](https://www.npmjs.com/package/@microlink/react).
+It's available as an [npm package](https://www.npmjs.com/package/@microlink/react).
 
 <Terminal>npm install @microlink/mql --save</Terminal>
 
@@ -30,7 +30,7 @@ Although it's [widely supported](https://caniuse.com/#feat=fetch), we recommend 
 
 ```html
 <script>
-  crossorigin="anonymous" 
+  crossorigin="anonymous"
   src="https://polyfill.io/v3/polyfill.min.js?features=fetch">
 </script>
 ```

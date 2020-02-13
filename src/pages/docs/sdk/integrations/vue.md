@@ -2,7 +2,7 @@
 title: 'Vue'
 ---
 
-It is available as an [npm package](https://www.npmjs.com/package/@microlink/vue).
+It's available as an [npm package](https://www.npmjs.com/package/@microlink/vue).
 
 <Terminal>npm install @microlink/vue --save</Terminal>
 
@@ -69,7 +69,7 @@ The Vue integration supports any [API Parameter](/api-parameter), just pass them
 
 <Microlink url='https://instagram.com/p/Bu1-PpyHmCn/' size="large" />
 
-Although it is shipped with default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
+Although it's shipped with default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
 
 ```vue
 <template>

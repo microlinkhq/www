@@ -2,7 +2,7 @@
 title: 'React'
 ---
 
-It is available as an [npm package](https://www.npmjs.com/package/@microlink/react).
+It's available as an [npm package](https://www.npmjs.com/package/@microlink/react).
 
 <Terminal>npm install @microlink/react styled-components --save</Terminal>
 

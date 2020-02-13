@@ -1,6 +1,6 @@
 ---
 title: 'pdf'
---- 
+---
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
@@ -12,24 +12,24 @@ Generates a PDF of the target website.
 />
 
 <MultiCodeEditor languages={{
-  HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm"></iframe>`,
-  Shell: `microlink-api https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&scale=1&margin=0.4cm`,
-  'Node.js': `const mql = require('@microlink/mql')
- 
+HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm"></iframe>`,
+Shell: `microlink-api https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&scale=1&margin=0.4cm`,
+'Node.js': `const mql = require('@microlink/mql')
+
 module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://rauchg.com/2014/7-principles-of-rich-web-applications', { 
-      pdf: true,
-      scale: 1,
-      margin: '0.4cm'
-  })
-  console.log(status, data)
+const { status, data, response } = await mql(
+'https://rauchg.com/2014/7-principles-of-rich-web-applications', {
+pdf: true,
+scale: 1,
+margin: '0.4cm'
+})
+console.log(status, data)
 }
-  `
-  }} 
+`
+}}
 />
 
-When it is enabled, a new `pdf` data field will be part of the Microlink API response payload.
+When it's enabled, a new `pdf` data field will be part of the Microlink API response payload.
 
 ```json{19, 24}
 {
@@ -70,7 +70,10 @@ You can combine it with [embed](/docs/api/parameters/embed) for inserting it as 
 </Container>
 
 ```html
-<a href="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm" download="How-to-download-file.pdf">
+<a
+  href="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm"
+  download="How-to-download-file.pdf"
+>
   <button>Download File</button>
 </a>
 ```

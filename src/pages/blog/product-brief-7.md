@@ -44,7 +44,7 @@ We offer two officialy connectors: [React](/docs/sdk/integrations/react/) and [V
 
 The React connector is bundle to be consume in [CommonJS](https://github.com/microlinkhq/sdk/blob/master/packages/react/package.json#L6) and [ESM](https://github.com/microlinkhq/sdk/blob/master/packages/react/package.json#L7).
 
-After these builds are created, we use the ESM bundle to create the Vanilla conector. This new build is exported to be consumed as Universal Module Definition (*UMD*).
+After these builds are created, we use the ESM bundle to create the Vanilla conector. This new build is exported to be consumed as Universal Module Definition (_UMD_).
 
 ## New Documentation Portal
 
@@ -58,17 +58,17 @@ Also, we wanted to provide a way to anyone extend it, so every documentation sec
 
 ```jsx
 import mql from '@microlink.io/mql'
-const { status, data } = await ('https://microlink.io')
+const { status, data } = await 'https://microlink.io'
 console.log(data)
 ```
 
-Microlink Query Language (*MQL*) is the precessor of [Custom Rules](/blog/introducing-custom-rules-/) as we pointed in our [Master Plan for 2019](/blog/master-plan-2019/).
+Microlink Query Language (_MQL_) is the precessor of [Custom Rules](/blog/introducing-custom-rules-/) as we pointed in our [Master Plan for 2019](/blog/master-plan-2019/).
 
 We are happy to say that **MQL is production ready** 🚀.
 
 We provide [@microlink/mql](https://github.com/microlinkhq/mql) npm package that is a convenient JavaScript HTTP client on top of [Microlink API](/docs/api/getting-started/overview).
 
-Also it is ready to be used directly on browser [since size is 4KB](https://bundlephobia.com/result?p=@microlink/mql).
+Also it's ready to be used directly on browser [since size is 4KB](https://bundlephobia.com/result?p=@microlink/mql).
 
 We have started adding [MQL documentation](/docs/mql/getting-started/overview) and how rules need to be defined.
 
