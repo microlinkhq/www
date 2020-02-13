@@ -40,6 +40,7 @@ const CardPreview = ({ loading, children }) => (
         size='large'
         style={STYLE}
         setData={() => children}
+        media={['video', 'audio', 'image', 'logo']}
       />
     </Hide>
     <Hide breakpoints={[2, 3]} style={{ width: '100%', height: 'inherit' }}>
