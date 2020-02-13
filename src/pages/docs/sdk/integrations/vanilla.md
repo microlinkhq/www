@@ -12,22 +12,33 @@ Or via a CDN:
 <script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
-The vanilla bundle is based on the [React](/docs/sdk/integrations/react) version, but exported as Universal Module Definition (_UMD_).
+The vanilla bundle is based on the [React](/docs/sdk/integrations/react) version and exported as Universal Module Definition (_UMD_).
 
-Since the bundle doesn't include the dependencies, we recommend loading them from a **CDN**.
+Since the bundle doesn't include the dependencies, we recommend loading them from a **CDN**:
 
 ```html
+<!-- dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-is@latest/umd/react-is.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/styled-components@5/dist/styled-components.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@microlink/mql@latest/dist/mql.min.js"></script>
+<!-- Microlink SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>
 ```
 
-or even better, combine them in just one line:
+or even better, you can combine all the things in a single request:
 
 ```html
-<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/react-is@16/umd/react-is.production.min.js,npm/styled-components@5/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js"></script>
+<!-- react + styled-components + microlin -->
+<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/react-is@16/umd/react-is.production.min.js,npm/styled-components@5/dist/styled-components.min.js,npm/@microlink/mql@0.5.20/dist/mql.min.js,npm/@microlink/vanilla@5/dist/microlink.min.js"></script>
+```
+
+You can save some bytes if you use [preact](https://preactjs.com) instead of React:
+
+```html
+<!-- preact + styled-components + microlin -->
+<script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/react-is@16/umd/react-is.production.min.js,npm/styled-components@5/dist/styled-components.min.js,npm/@microlink/mql@0.5.20/dist/mql.min.js,npm/@microlink/vanilla@5/dist/microlink.min.js"></script>
 ```
 
 After that, `microlink` will be available in the global scope.
