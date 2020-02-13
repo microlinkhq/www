@@ -28,11 +28,11 @@ const ROUTES_SDK = [
       },
       {
         name: 'Storybook',
-        href: 'https://storybook.microlink.io/'
+        href: '/integrations'
       },
       {
         name: 'CodeSandbox',
-        href: 'https://codesandbox.io/s/n5w839zm4m'
+        href: '/integrations'
       }
     ]
   },
