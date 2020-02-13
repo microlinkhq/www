@@ -54,7 +54,7 @@ const Meta = ({ demoLinks, ...props }) => {
         </Hide>
       </Text>
       <Flex pt={3} alignItems='center' justifyContent='center'>
-        <Button onClick={() => navigate('/embed')}>
+        <Button onClick={() => navigate('/meta')}>
           <Caps fontSize={0}>Live Demo</Caps>
         </Button>
         <Link
