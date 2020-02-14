@@ -15,14 +15,15 @@ import {
 import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
 import { Legend, SubHeadline, Microlink } from 'components/patterns'
 import { Features } from 'components/pages/screenshot/template'
-import { mqlCode, getDomain, cdnUrl } from 'helpers'
+import { mqlCode, cdnUrl } from 'helpers'
 import { useFeaturesMeta } from 'components/hook'
 import { borders, colors } from 'theme'
 import { Plus } from 'react-feather'
+import compact from 'lodash/compact'
 import { navigate } from 'gatsby'
+import { getDomain } from 'tldts'
 import React from 'react'
 import get from 'dlv'
-import compact from 'lodash/compact'
 
 const DEFAULT_LOGO = {
   url: cdnUrl('logo/trim.png'),

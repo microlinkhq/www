@@ -16,13 +16,7 @@ import {
   Text
 } from 'components/elements'
 
-import {
-  cdnUrl,
-  aspectRatio,
-  getDomain,
-  screenshotUrl,
-  debounceComponent
-} from 'helpers'
+import { cdnUrl, aspectRatio, screenshotUrl, debounceComponent } from 'helpers'
 
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 
@@ -32,12 +26,13 @@ import React, { useEffect, useState } from 'react'
 import { speed, colors, borders } from 'theme'
 import { HourGlass } from 'components/icons'
 import { useTransition } from 'react-spring'
+import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
 import sample from 'lodash/sample'
+import { getDomain } from 'tldts'
 import range from 'lodash/range'
-import isUrl from 'is-url-http/lightweight'
 import isColor from 'is-color'
 import get from 'dlv'
 import ms from 'ms'

@@ -1,12 +1,13 @@
 import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
 import { useQueryState, useFeaturesScreenshot } from 'components/hook'
-import { screenshotUrl, getDomain } from 'helpers'
+import { screenshotUrl } from 'helpers'
 import { borders, colors } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import get from 'dlv'
+import { getDomain } from 'tldts'
 import React from 'react'
+import get from 'dlv'
 
 import {
   Text,

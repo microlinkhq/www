@@ -24,14 +24,15 @@ import {
 
 import { Faq, Block, SubHeadline } from 'components/patterns'
 import React, { useCallback, useMemo, useState } from 'react'
-import { pdfUrl, aspectRatio, getDomain } from 'helpers'
+import { pdfUrl, aspectRatio } from 'helpers'
 import { useFeaturesPdf } from 'components/hook'
 import { HourGlass } from 'components/icons'
+import isUrl from 'is-url-http/lightweight'
 import { colors, borders } from 'theme'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
+import { getDomain } from 'tldts'
 import { navigate } from 'gatsby'
-import isUrl from 'is-url-http/lightweight'
 import get from 'dlv'
 import ms from 'ms'
 
