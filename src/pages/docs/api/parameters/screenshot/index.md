@@ -10,17 +10,19 @@ Takes a screenshot of a website, making it possible to embed it directly in your
 ![]({{demolinks.netflix.screenshot.url}})
 
 <MultiCodeEditor languages={{
-  HTML: `<img src="https://api.microlink.io/?url={{demolinks.netflix.url}}&screenshot&embed=screenshot.url">`, Shell:`microlink-api {{demolinks.netflix.url}}&screenshot`, 'Node.js':`const mql = require('@microlink/mql')
-
+  HTML: `<img src="https://api.microlink.io/?url={{demolinks.netflix.url}}&screenshot&embed=screenshot.url">`,
+  Shell: `microlink-api {{demolinks.netflix.url}}&screenshot`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
 module.exports = async () => {
-const { status, data, response } = await mql(
-'{{demolinks.netflix.url}}', {
-screenshot: true
-})
-console.log(status, data)
+  const { status, data, response } = await mql(
+    '{{demolinks.netflix.url}}', { 
+      screenshot: true
+  })
+  console.log(status, data)
 }
-`
-}}
+  `
+  }} 
 />
 
 When it's enabled, a new `screenshot` data field will be part of the Microlink API response payload.
