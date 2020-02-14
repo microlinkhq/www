@@ -19,7 +19,6 @@ import { mqlCode, cdnUrl } from 'helpers'
 import { useFeaturesMeta } from 'components/hook'
 import { borders, colors } from 'theme'
 import { Plus } from 'react-feather'
-import compact from 'lodash/compact'
 import { navigate } from 'gatsby'
 import { getDomain } from 'tldts'
 import React from 'react'
@@ -87,14 +86,14 @@ const Hero = ({ domain, id, data }) => {
 const Sdk = ({ domain, data }) => {
   const media = ['video', 'audio', 'image', 'logo']
 
-  const variations = compact([
+  const variations = [
     data.iframe
       ? { style: { textAlign: 'center' }, media: ['iframe', ...media] }
       : null,
     { size: 'large', media },
     { size: 'normal', media },
     { size: 'small', media }
-  ])
+  ].filter(Boolean)
 
   const languages = mqlCode(
     data,

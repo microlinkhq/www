@@ -27,15 +27,16 @@ import {
   SubHeadline
 } from 'components/patterns'
 
-import { mqlCode, debounceComponent, getDomain } from 'helpers'
+import { mqlCode, debounceComponent } from 'helpers'
 import { transition, colors, borders } from 'theme'
 import React, { useEffect, useState } from 'react'
 import { useFeaturesMeta } from 'components/hook'
 import { fadeIn } from 'components/keyframes'
+import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
+import { getDomain } from 'tldts'
 import mql from '@microlink/mql'
-import isUrl from 'is-url-http/lightweight'
 
 import { Features } from '../screenshot/template'
 
@@ -90,10 +91,13 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
     else fetchAndSetData(value)
   }, [inputValue])
 
-  const media =
-    previewView === 'iframe'
-      ? ['iframe', 'video', 'audio', 'image', 'logo']
-      : ['video', 'audio', 'image', 'logo']
+  const media = [
+    previewView === 'iframe' && 'iframe',
+    'video',
+    'audio',
+    'image',
+    'logo'
+  ].filter(Boolean)
 
   const targetUrlPrepend = prependHttp(demoLink.data.url)
 
@@ -172,17 +176,15 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
               </Flex>
               <Flex pt={3} alignItems='center' justifyContent='center'>
                 <MultiCodeEditor
-                  url={targetUrlPrepend}
-                  media={media}
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
