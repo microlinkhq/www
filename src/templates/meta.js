@@ -10,7 +10,7 @@ export default ({ pageContext }) => {
   const metadata = useSiteMetadata()
   const meta = {
     url: `${metadata.siteUrl}${slug}`,
-    title: `Meta for ${data.publisher}`,
+    title: `meta for ${data.publisher}`,
     image: metaUrl(data.url)
   }
 
