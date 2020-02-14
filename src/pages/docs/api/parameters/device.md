@@ -8,19 +8,19 @@ Default: <Type children="'macbook pro 13'"/>
 When it's present, a [viewport](/docs/api/parameters/screenshot/viewport) preset will be load for emulating the device before taking the screenshot.
 
 <MultiCodeEditor languages={{
-Shell: `microlink-api https://microlink.io&screenshot&device=ipad`,
-'Node.js': `const mql = require('@microlink/mql')
-
+  Shell: `microlink-api https://microlink.io&screenshot&device=ipad`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
 module.exports = async () => {
-const { status, data, response } = await mql(
-'https://microlink.io'. {
-screenshot: true,
-device: 'iPad',
-})
-console.log(status, data)
+  const { status, data, response } = await mql(
+    'https://microlink.io'. { 
+      screenshot: true,
+      device: 'iPad',
+  })
+  console.log(status, data)
 }
-`
-}}
+  `
+  }} 
 />
 
 <Figcaption>It doesn't matter if you use uppercase or lowercase.</Figcaption>
