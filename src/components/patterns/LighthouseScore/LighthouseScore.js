@@ -24,7 +24,7 @@ const getColor = value => {
 export default ({ data, ...props }) => {
   const score = getScore(data)
   return (
-    <Flex flexDirection='column'>
+    <Flex flexDirection='column' {...props}>
       <Flex justifyContent='center' pb={2}>
         <Text
           fontWeight='regular'

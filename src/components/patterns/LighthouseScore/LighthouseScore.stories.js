@@ -49,7 +49,7 @@ const data = {
 }
 
 const code = `
-import { List } from 'components/patterns'
+import { LighthouseScore } from 'components/patterns'
 
 export default () => (
   <LighthouseScore data={${JSON.stringify(data, null, 2)}} />

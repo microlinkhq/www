@@ -28,20 +28,33 @@ const Circle = styled(ProgressArc)`
   }
 `
 
-export default ({ width = CIRCLE_WIDTH, data, ...props }) => {
+export default ({
+  component: Component = Flex,
+  circleRadius = 90,
+  circleWidth = CIRCLE_WIDTH,
+  mr = 5,
+  data,
+  ...props
+}) => {
   return (
-    <Flex>
-      {data.map(({ text, score }, index) => {
+    <Component {...props}>
+      {[
+        'first-contentful-paint',
+        'first-meaningful-paint',
+        'speed-index',
+        'first-cpu-idle',
+        'interactive'
+      ].map(key => {
+        const { title, score } = data[key]
         const color = getColor(score)
         const backgroundColor = rgba(color, 0.1)
 
         return (
           <Flex
-            key={`${text}_${score}`}
+            key={`${title}_${score}`}
             flexDirection='column'
             alignItems='center'
-            pr={index === data.length - 1 ? 0 : 5}
-            {...props}
+            mr={key === 'interactive' ? 0 : mr}
           >
             <Circle
               value={score}
@@ -50,17 +63,17 @@ export default ({ width = CIRCLE_WIDTH, data, ...props }) => {
               arcColor={color}
               bg={backgroundColor}
               arcBackgroundColor='transparent'
-              radius={90}
-              width={width}
+              radius={circleRadius}
+              width={circleWidth}
               textColor={color}
               rounded
             />
             <Text textAlign='center' fontSize={1} mt={3} fontWeight='bold'>
-              {text}
+              {title}
             </Text>
           </Flex>
         )
       })}
-    </Flex>
+    </Component>
   )
 }
