@@ -1,6 +1,6 @@
 ---
 title: 'setData'
---- 
+---
 
 Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/></TypeContainer>
 
@@ -34,9 +34,9 @@ export default () => (
 In that case, the function should return all the data necessary to be mounted.
 
 <Microlink url='{{demolinks.instagram.url}}' setData={() => ({
-  title: 'SENTRY ACTIVATED',
-  description: 'Are humans worth it?',
-  image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
-  publisher: 'HAL 9000',
-  url: 'http://thehal9000.com'
+title: 'SENTRY ACTIVATED',
+description: 'Are humans worth it?',
+image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
+publisher: 'HAL 9000',
+url: 'http://thehal9000.com'
 })} />
