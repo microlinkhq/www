@@ -1,6 +1,6 @@
 import { shadowOffsets, shadowColors, fonts, fontWeights } from 'theme'
+import { Text, CodeEditor, Box } from 'components/elements'
 import styled, { css } from 'styled-components'
-import { CodeEditor, Box } from 'components/elements'
 import { blink } from 'components/keyframes'
 import { serializeComponent } from 'helpers'
 import CodeCopy from 'react-codecopy'
@@ -14,7 +14,8 @@ const TerminalWindow = styled(Box)`
 TerminalWindow.defaultProps = {
   mt: '50px',
   mb: '50px',
-  maxWidth: CodeEditor.width
+  maxWidth: CodeEditor.width,
+  width: '100%'
 }
 
 const TerminalHeader = styled('header')`
@@ -22,7 +23,7 @@ const TerminalHeader = styled('header')`
   border-top-left-radius: 3px;
   display: flex;
   height: 36px;
-  background: ${({ dark }) => (dark ? '#333' : '#fff')};
+  background: ${({ theme }) => (theme === 'dark' ? '#000' : '#fff')};
   align-items: center;
   padding: 1rem;
   position: sticky;
@@ -38,27 +39,24 @@ const TerminalButton = styled('div')`
   background ${({ color }) => color};
 `
 
-const TerminalTitle = styled('div')`
+const TerminalTitleWrapper = styled('div')`
   display: flex;
   justify-content: center;
   flex: 1;
   margin-left: -3rem;
-  color: #999;
-  font-size: 12px;
 `
 
 const TerminalText = styled('div')`
   font-weight: ${fontWeights.normal};
   padding: 16px;
-  border-radius: 2px;
   overflow-x: auto;
   font-family: ${fonts.mono};
   font-size: 13px;
   line-height: 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  background: ${({ dark }) => (dark ? '#000' : '#fff')};
-  color: ${({ dark }) => (dark ? '#fff' : '#000')};
+  background: ${({ theme }) => (theme === 'dark' ? '#000' : '#fff')};
+  color: ${({ theme }) => (theme === 'dark' ? '#fff' : '#000')};
   display: flex;
   align-items: center;
 `
@@ -75,7 +73,7 @@ const blinkCursorStyle = css`
     height: 14px;
     border-radius: 3px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    background: ${props => (props.dark ? '#EA407B' : '#000')};
+    background: ${props => (props.theme === 'dark' ? '#EA407B' : '#000')};
     margin-left: 4px;
     position: relative;
     top: 3px;
@@ -87,21 +85,29 @@ const TerminalTextWrapper = styled('div')`
   word-break: break-all;
   white-space: pre;
   &::before {
-    content: '$ ';
+    content: ${props => (props.shellSymbol ? '$ ' : '')};
   }
 
   ${props => props.blinkCursor && blinkCursorStyle}
 `
 
-const TerminalProvider = ({ style, title, children, dark, ...props }) => (
-  <TerminalWindow dark={dark} style={style} {...props}>
-    <TerminalHeader dark={dark}>
-      <TerminalButton dark={dark} color='#FF5F56' />
-      <TerminalButton dark={dark} color='#FFBD2E' />
-      <TerminalButton dark={dark} color='#27C93F' />
-      <TerminalTitle dark={dark}>{title}</TerminalTitle>
+const TerminalProvider = ({ style, title, children, theme, ...props }) => (
+  <TerminalWindow theme={theme} style={style} {...props}>
+    <TerminalHeader theme={theme}>
+      <TerminalButton theme={theme} color='#FF5F56' />
+      <TerminalButton theme={theme} color='#FFBD2E' />
+      <TerminalButton theme={theme} color='#27C93F' />
+      {title && (
+        <TerminalTitleWrapper>
+          <Text
+            color={theme === 'dark' ? 'white40' : 'black40'}
+            fontSize={0}
+            children={title}
+          />
+        </TerminalTitleWrapper>
+      )}
     </TerminalHeader>
-    <TerminalText dark={dark}>{children}</TerminalText>
+    <TerminalText theme={theme}>{children}</TerminalText>
   </TerminalWindow>
 )
 
@@ -114,11 +120,11 @@ const fromString = text =>
     ? text
     : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
 
-const Terminal = ({ children, blinkCursor, dark, ...props }) => {
+const Terminal = ({ children, shellSymbol, blinkCursor, theme, ...props }) => {
   const content = typeof children === 'string' ? fromString(children) : children
 
   return (
-    <TerminalProvider dark={dark} {...props}>
+    <TerminalProvider theme={theme} {...props}>
       <Box
         css={`
           width: 100%;
@@ -127,11 +133,12 @@ const Terminal = ({ children, blinkCursor, dark, ...props }) => {
           overflow: auto;
         `}
       >
-        <CustomCodeCopy
-          theme={dark ? 'dark' : 'light'}
-          text={serializeComponent(children)}
-        >
-          <TerminalTextWrapper blinkCursor={blinkCursor} dark={dark}>
+        <CustomCodeCopy theme={theme} text={serializeComponent(children)}>
+          <TerminalTextWrapper
+            shellSymbol={shellSymbol}
+            blinkCursor={blinkCursor}
+            theme={theme}
+          >
             {content}
           </TerminalTextWrapper>
         </CustomCodeCopy>
@@ -141,8 +148,9 @@ const Terminal = ({ children, blinkCursor, dark, ...props }) => {
 }
 
 Terminal.defaultProps = {
-  dark: false,
-  blinkCursor: true
+  theme: 'light',
+  blinkCursor: true,
+  shellSymbol: true
 }
 
 export default Terminal
