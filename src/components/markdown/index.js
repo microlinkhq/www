@@ -68,19 +68,11 @@ export { Label, Link }
 
 export const Microlink = withContainer(MicrolinkBase)
 
-export const Terminal = withContainer(
-  props => <TerminalBase width='inherit' mx='auto' {...props} />,
-  {
-    width: CodeEditor.width
-  }
-)
+export const Terminal = withContainer(props => (
+  <TerminalBase mx='auto' {...props} />
+))
 
-export const Code = withContainer(
-  props => <CodeEditor width='inherit' mx='auto' {...props} />,
-  {
-    width: CodeEditor.width
-  }
-)
+export const Code = withContainer(props => <CodeEditor mx='auto' {...props} />)
 
 export const MultiCodeEditor = withContainer(
   props => <MultiCodeEditorBase width='inherit' mx='auto' {...props} />,
