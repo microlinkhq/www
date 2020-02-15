@@ -101,7 +101,7 @@ const TerminalTextWrapper = styled('div')`
   word-break: break-all;
   white-space: pre;
   &::before {
-    content: ${props => (props.shellSymbol ? '$ ' : '')};
+    content: ${props => (props.shellSymbol ? `${props.shellSymbol} ` : '')};
   }
   ${props => props.blinkCursor && blinkCursorStyle}
 `
@@ -162,7 +162,7 @@ const Terminal = ({
 Terminal.defaultProps = {
   theme: 'light',
   blinkCursor: true,
-  shellSymbol: true,
+  shellSymbol: '$',
   width: TERMINAL_WIDTH
 }
 
