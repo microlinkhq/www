@@ -1,44 +1,52 @@
 import { colors, shadowOffsets, shadowColors, fonts, fontWeights } from 'theme'
-import { Text, CodeEditor, Box } from 'components/elements'
+import { serializeComponent, aspectRatio } from 'helpers'
+import { Text, Box } from 'components/elements'
 import styled, { css } from 'styled-components'
 import { blink } from 'components/keyframes'
-import { serializeComponent } from 'helpers'
 import CodeCopy from 'react-codecopy'
 import React from 'react'
 
-const TerminalWindow = styled(Box)`
+export const TerminalWindow = styled(Box)`
   border-radius: 5px;
   box-shadow: ${shadowOffsets[0]} ${shadowColors[0]};
 `
 
-TerminalWindow.defaultProps = {
-  mt: '50px',
-  mb: '50px',
-  maxWidth: CodeEditor.width,
-  width: '100%'
-}
+const TERMINAL_WIDTH = aspectRatio([0.3, 0.4, 0.6, 0.6]).width
 
-const TerminalHeader = styled('header')`
+const fromString = text =>
+  Array.isArray(text)
+    ? text
+    : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
+
+export const styleTerminalHeader = css`
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   display: flex;
-  height: 36px;
-  background: ${({ theme }) =>
-    theme === 'dark' ? colors.black : colors.white};
   align-items: center;
   padding: 1rem;
   position: sticky;
+`
+
+const TerminalHeader = styled('header')`
+  ${styleTerminalHeader};
+  height: 36px;
+  background: ${({ theme }) =>
+    theme === 'dark' ? colors.black : colors.white};
   top: 0;
   z-index: 1;
 `
 
-const TerminalButton = styled('div')`
+export const TerminalButton = styled('div')`
   border-radius: 50px;
   width: 12px;
   height: 12px;
   margin: 0 0.2rem;
   background ${({ color }) => color};
 `
+
+TerminalButton.Green = props => <TerminalButton color='#0CCE6B' {...props} />
+TerminalButton.Yellow = props => <TerminalButton color='#FFBD2E' {...props} />
+TerminalButton.Red = props => <TerminalButton color='#FF5F56' {...props} />
 
 const TerminalTitleWrapper = styled('div')`
   display: flex;
@@ -61,6 +69,10 @@ const TerminalText = styled('div')`
   color: ${({ theme }) => (theme === 'dark' ? colors.white : colors.black)};
   display: flex;
   align-items: center;
+
+  > div {
+    width: 100%;
+  }
 `
 
 const blinkCursorStyle = css`
@@ -75,7 +87,8 @@ const blinkCursorStyle = css`
     height: 14px;
     border-radius: 3px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    background: ${props => (props.theme === 'dark' ? '#EA407B' : colors.black)};
+    background: ${({ theme }) =>
+      theme === 'dark' ? colors.secondary : colors.black};
     margin-left: 4px;
     position: relative;
     top: 3px;
@@ -84,21 +97,21 @@ const blinkCursorStyle = css`
 `
 
 const TerminalTextWrapper = styled('div')`
+  width: 100%;
   word-break: break-all;
   white-space: pre;
   &::before {
     content: ${props => (props.shellSymbol ? '$ ' : '')};
   }
-
   ${props => props.blinkCursor && blinkCursorStyle}
 `
 
-const TerminalProvider = ({ style, title, children, theme, ...props }) => (
-  <TerminalWindow theme={theme} style={style} {...props}>
+const TerminalProvider = ({ title, children, theme, ...props }) => (
+  <TerminalWindow theme={theme} {...props}>
     <TerminalHeader theme={theme}>
-      <TerminalButton theme={theme} color='#FF5F56' />
-      <TerminalButton theme={theme} color='#FFBD2E' />
-      <TerminalButton theme={theme} color='#27C93F' />
+      <TerminalButton.Red theme={theme} />
+      <TerminalButton.Yellow theme={theme} />
+      <TerminalButton.Green theme={theme} />
       {title && (
         <TerminalTitleWrapper>
           <Text
@@ -109,42 +122,39 @@ const TerminalProvider = ({ style, title, children, theme, ...props }) => (
         </TerminalTitleWrapper>
       )}
     </TerminalHeader>
-    <TerminalText theme={theme}>{children}</TerminalText>
+    <TerminalText theme={theme} children={children} />
   </TerminalWindow>
 )
 
 const CustomCodeCopy = styled(CodeCopy)`
   top: -4px !important;
+
+  &::after,
+  &::before {
+    display: none !important;
+  }
 `
 
-const fromString = text =>
-  Array.isArray(text)
-    ? text
-    : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
-
-const Terminal = ({ children, shellSymbol, blinkCursor, theme, ...props }) => {
+const Terminal = ({
+  children,
+  shellSymbol,
+  blinkCursor,
+  width,
+  theme,
+  ...props
+}) => {
   const content = typeof children === 'string' ? fromString(children) : children
 
   return (
-    <TerminalProvider theme={theme} {...props}>
-      <Box
-        css={`
-          width: 100%;
-          position: relative;
-          height: 100%;
-          overflow: auto;
-        `}
-      >
-        <CustomCodeCopy theme={theme} text={serializeComponent(children)}>
-          <TerminalTextWrapper
-            shellSymbol={shellSymbol}
-            blinkCursor={blinkCursor}
-            theme={theme}
-          >
-            {content}
-          </TerminalTextWrapper>
-        </CustomCodeCopy>
-      </Box>
+    <TerminalProvider width={width} theme={theme} {...props}>
+      <CustomCodeCopy theme={theme} text={serializeComponent(children)}>
+        <TerminalTextWrapper
+          shellSymbol={shellSymbol}
+          blinkCursor={blinkCursor}
+          theme={theme}
+          children={content}
+        />
+      </CustomCodeCopy>
     </TerminalProvider>
   )
 }
@@ -152,7 +162,8 @@ const Terminal = ({ children, shellSymbol, blinkCursor, theme, ...props }) => {
 Terminal.defaultProps = {
   theme: 'light',
   blinkCursor: true,
-  shellSymbol: true
+  shellSymbol: true,
+  width: TERMINAL_WIDTH
 }
 
 export default Terminal

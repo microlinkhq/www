@@ -1,7 +1,7 @@
 import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
 import { useQueryState, useFeaturesScreenshot } from 'components/hook'
 import { screenshotUrl } from 'helpers'
-import { borders, colors } from 'theme'
+import { borders, colors, radii } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
@@ -42,6 +42,7 @@ export const Screenshot = ({ domain, data, ...props }) => {
           if (isLoading) return
           return {
             padding: 0,
+            borderRadius: radii[2],
             border: `1px solid ${colors.black20}`
           }
         }}

@@ -15,10 +15,8 @@ export default () => (
 
 storiesOf('Elements', module).add('Terminal', () => (
   <Story name='Terminal' code={code}>
-    <Terminal children={cmd} />
-    <Box />
-    <Terminal title='microlink-api' children={cmd} />
-    <Box />
+    <Terminal mb={4} children={cmd} />
+    <Terminal mb={4} title='microlink-api' children={cmd} />
     <Terminal title='microlink-api' children={cmd} theme='dark' />
   </Story>
 ))
