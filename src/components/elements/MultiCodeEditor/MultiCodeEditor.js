@@ -1,59 +1,32 @@
 import { Text, Box, CodeEditor } from 'components/elements'
 import { useLocalStorage } from 'components/hook'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import CodeCopy from 'react-codecopy'
-import { borders } from 'theme'
 import React from 'react'
 
 import Select from '../Select/Select'
-import { COLORS } from '../CodeEditor/CodeEditor'
 import Flex from '../Flex'
 
 const LOCALSTORAGE_KEY = 'multi_code_editor'
-
-const actionStyle = css`
-  color: #fff;
-  background-color: red;
-  border: ${borders[1]} rgba(255, 255, 255, 0.05);
-  background-image: linear-gradient(
-    -180deg,
-    #3b424a 0%,
-    ${COLORS.BACKGROUND} 90%
-  );
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  user-select: none;
-  background-repeat: repeat-x;
-  background-position: -1px -1px;
-  background-size: 110% 110%;
-  transition: opacity 0.3s ease-in-out;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
-  border-radius: 4px;
-`
-
-const CustomCodeCopy = styled(CodeCopy)`
-  position: relative;
-  right: 0px;
-  top: 0px;
-  ${actionStyle};
-`
 
 const arrow = encodeURI(
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='white'> <path d='M0 6 L32 6 L16 28 z' /> </svg>"
 )
 
+const SelectWrapper = styled(Box)`
+  color: #fff;
+  background-color: #24292e;
+  background-image: linear-gradient(-180deg, #3b424a 0%, #24292e 90%);
+  border-radius: 0.25em;
+  border-color: rgba(27, 31, 35, 0.2);
+`
+
 const CustomSelect = styled(Select)`
-  border: ${borders[1]} rgba(255, 255, 255, 0.05);
   background-color: transparent;
   margin-bottom: 0;
   background-image: url("${arrow}");
 `
 
-const CustomBox = styled(Box)`
-  ${actionStyle};
-  border: 0;
-`
 const toAlias = (lang = '') => {
   lang = lang.toLowerCase()
   switch (lang) {
@@ -75,7 +48,7 @@ const toAlias = (lang = '') => {
 
 export const SelectLanguage = ({ children, value, onChange, ...props }) => {
   return (
-    <CustomBox>
+    <SelectWrapper>
       <CustomSelect
         value={value}
         onChange={event => {
@@ -95,7 +68,7 @@ export const SelectLanguage = ({ children, value, onChange, ...props }) => {
           />
         ))}
       </CustomSelect>
-    </CustomBox>
+    </SelectWrapper>
   )
 }
 
@@ -103,9 +76,42 @@ const Actions = styled(Flex)`
   position: relative;
   overflow: visible;
   top: 4px;
+
+  .codecopy_wrapper {
+    top: 0;
+  }
+  .codecopy_button {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
 `
 
-const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
+const ActionComponent = ({
+  setEditorLanguage,
+  editorLanguage,
+  editorLanguages,
+  code,
+  theme
+}) => (
+  <Actions>
+    <Text as='div' mr={2} fontSize={0}>
+      <SelectLanguage
+        ml='auto'
+        mr='auto'
+        width='4.5rem'
+        mb={2}
+        bg='white'
+        children={editorLanguages}
+        value={editorLanguage}
+        onChange={setEditorLanguage}
+      />
+    </Text>
+    <CodeCopy theme={theme} interactive text={code} />
+  </Actions>
+)
+
+const MultiCodeEditor = ({ theme, languages: codeByLanguage, ...props }) => {
   const editorLanguages = Object.keys(codeByLanguage)
 
   const [editorLanguage, setEditorLanguage] = useLocalStorage(
@@ -125,29 +131,19 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
   const code =
     typeof codeLanguage === 'function' ? codeLanguage(props) : codeLanguage
 
-  const ActionComponent = () => (
-    <Actions>
-      <Text as='span' mr={2} fontSize={0}>
-        <SelectLanguage
-          ml='auto'
-          mr='auto'
-          width='4.5rem'
-          mb={2}
-          bg='white'
-          children={editorLanguages}
-          value={editorLanguage}
-          onChange={setEditorLanguage}
-        />
-      </Text>
-      <CustomCodeCopy theme='dark' interactive text={code} />
-    </Actions>
-  )
-
   return (
     <CodeEditor
       language={toAlias(editorLanguage)}
       children={code}
-      ActionComponent={ActionComponent}
+      ActionComponent={() => (
+        <ActionComponent
+          theme={theme}
+          setEditorLanguage={setEditorLanguage}
+          editorLanguage={editorLanguage}
+          editorLanguages={editorLanguages}
+          code={code}
+        />
+      )}
       {...props}
     />
   )
