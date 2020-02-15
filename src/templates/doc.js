@@ -474,7 +474,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
           <Flex
             as='footer'
             borderTop={1}
-            borderColor={colors.border}
+            borderColor={colors.black05}
             justifyContent='space-between'
             my={4}
             pt={4}

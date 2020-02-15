@@ -11,10 +11,10 @@ import React from 'react'
 
 const borderStyle = css`
   ${is('borderTop')`
-    border-top: ${borders[1]} ${({ theme }) => theme.colors.border};
+    border-top: ${borders[1]} ${({ theme }) => theme.colors.black05};
   `};
   ${is('borderBottom')`
-    border-bottom: ${borders[1]} ${({ theme }) => theme.colors.border};
+    border-bottom: ${borders[1]} ${({ theme }) => theme.colors.black05};
   `};
 `
 

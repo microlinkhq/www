@@ -44,7 +44,6 @@ export const colors = Object.assign({}, flattened, {
   primary: '#313b53',
   pinky: 'rgb(252, 250, 255)',
   pinkest: 'rgb(246, 237, 250)',
-  border: 'rgba(0,0,0,0.035)',
   black: '#000',
   black95: 'rgba(0,0,0,0.95)',
   black90: 'rgba(0,0,0,0.9)',
