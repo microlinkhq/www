@@ -2,7 +2,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { prettier, getLines, template, aspectRatio } from 'helpers'
 import { shadowOffsets, shadowColors, colors, fonts } from 'theme'
 import styled, { css } from 'styled-components'
-import Box from '../Box'
+import { Text, Box } from 'components/elements'
+import { rgba, opacity, lighten } from 'polished'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
 import CodeCopy from 'react-codecopy'
@@ -184,13 +185,11 @@ const TerminalButton = styled.div`
   background ${({ color }) => color};
 `
 
-const TerminalTitle = styled.div`
+const TerminalTitleWrapper = styled('div')`
   display: flex;
   justify-content: center;
   flex: 1;
   margin-left: -3rem;
-  color: #999;
-  font-size: 12px;
 `
 
 const TerminalText = styled.section`
@@ -252,7 +251,15 @@ function Terminal ({
         <TerminalButton color='#FF5F56' />
         <TerminalButton color='#FFBD2E' />
         <TerminalButton color='#27C93F' />
-        <TerminalTitle>{title}</TerminalTitle>
+        {title && (
+          <TerminalTitleWrapper>
+            <Text
+              color={rgba(lighten(0.4, COLORS.BACKGROUND), 0.8)}
+              fontSize={0}
+              children={title}
+            />
+          </TerminalTitleWrapper>
+        )}
         <ChildComponent isHover={isHover} theme={theme} toCopy={toCopy} />
       </TerminalHeader>
       <TerminalText>{children}</TerminalText>

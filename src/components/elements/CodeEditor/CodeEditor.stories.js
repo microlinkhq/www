@@ -56,7 +56,7 @@ storiesOf('Elements', module).add('CodeEditor', () => (
   <Story name='CodeEditor'>
     <Box mb={4}>
       <Text color='black30'>jsx</Text>
-      <CodeEditor language='jsx' children={jsxCode} />
+      <CodeEditor title='my-code.jsx' language='jsx' children={jsxCode} />
     </Box>
     <Box mb={4}>
       <Text color='black30'>bash</Text>
