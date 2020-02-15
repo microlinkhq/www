@@ -11,7 +11,7 @@ export const TerminalWindow = styled(Box)`
   box-shadow: ${shadowOffsets[0]} ${shadowColors[0]};
 `
 
-const TERMINAL_WIDTH = aspectRatio([0.3, 0.4, 0.6, 0.6]).width
+export const TERMINAL_WIDTH = aspectRatio([0.3, 0.4, 0.6, 0.6]).width
 
 const fromString = text =>
   Array.isArray(text)
@@ -58,7 +58,7 @@ const TerminalTitleWrapper = styled('div')`
 const TerminalText = styled('div')`
   font-weight: ${fontWeights.normal};
   padding: 16px;
-  overflow-x: auto;
+  overflow: visible;
   font-family: ${fonts.mono};
   font-size: 13px;
   line-height: 20px;
@@ -72,6 +72,10 @@ const TerminalText = styled('div')`
 
   > div {
     width: 100%;
+  }
+
+  .codecopy_button {
+    top: -4px;
   }
 `
 
@@ -106,39 +110,29 @@ const TerminalTextWrapper = styled('div')`
   ${props => props.blinkCursor && blinkCursorStyle}
 `
 
-const TerminalProvider = ({ title, children, theme, ...props }) => (
+const TerminalProvider = ({ title = '', children, theme, ...props }) => (
   <TerminalWindow theme={theme} {...props}>
     <TerminalHeader theme={theme}>
       <TerminalButton.Red theme={theme} />
       <TerminalButton.Yellow theme={theme} />
       <TerminalButton.Green theme={theme} />
-      {title && (
-        <TerminalTitleWrapper>
-          <Text
-            color={theme === 'dark' ? 'white40' : 'black40'}
-            fontSize={0}
-            children={title}
-          />
-        </TerminalTitleWrapper>
-      )}
+      <TerminalTitleWrapper>
+        <Text
+          color={theme === 'dark' ? 'white40' : 'black40'}
+          fontSize={0}
+          children={title}
+        />
+      </TerminalTitleWrapper>
     </TerminalHeader>
     <TerminalText theme={theme} children={children} />
   </TerminalWindow>
 )
 
-const CustomCodeCopy = styled(CodeCopy)`
-  top: -4px !important;
-
-  &::after,
-  &::before {
-    display: none !important;
-  }
-`
-
 const Terminal = ({
   children,
   shellSymbol,
   blinkCursor,
+  interactive,
   width,
   theme,
   ...props
@@ -147,22 +141,27 @@ const Terminal = ({
 
   return (
     <TerminalProvider width={width} theme={theme} {...props}>
-      <CustomCodeCopy theme={theme} text={serializeComponent(children)}>
+      <CodeCopy
+        interactive={interactive}
+        theme={theme}
+        text={serializeComponent(children)}
+      >
         <TerminalTextWrapper
           shellSymbol={shellSymbol}
           blinkCursor={blinkCursor}
           theme={theme}
           children={content}
         />
-      </CustomCodeCopy>
+      </CodeCopy>
     </TerminalProvider>
   )
 }
 
 Terminal.defaultProps = {
-  theme: 'light',
   blinkCursor: true,
+  interactive: false,
   shellSymbol: '$',
+  theme: 'light',
   width: TERMINAL_WIDTH
 }
 
