@@ -1,4 +1,4 @@
-import { shadowOffsets, shadowColors, fonts, fontWeights } from 'theme'
+import { colors, shadowOffsets, shadowColors, fonts, fontWeights } from 'theme'
 import { Text, CodeEditor, Box } from 'components/elements'
 import styled, { css } from 'styled-components'
 import { blink } from 'components/keyframes'
@@ -23,7 +23,8 @@ const TerminalHeader = styled('header')`
   border-top-left-radius: 3px;
   display: flex;
   height: 36px;
-  background: ${({ theme }) => (theme === 'dark' ? '#000' : '#fff')};
+  background: ${({ theme }) =>
+    theme === 'dark' ? colors.black : colors.white};
   align-items: center;
   padding: 1rem;
   position: sticky;
@@ -55,8 +56,9 @@ const TerminalText = styled('div')`
   line-height: 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  background: ${({ theme }) => (theme === 'dark' ? '#000' : '#fff')};
-  color: ${({ theme }) => (theme === 'dark' ? '#fff' : '#000')};
+  background: ${({ theme }) =>
+    theme === 'dark' ? colors.black : colors.white};
+  color: ${({ theme }) => (theme === 'dark' ? colors.white : colors.black)};
   display: flex;
   align-items: center;
 `
@@ -73,7 +75,7 @@ const blinkCursorStyle = css`
     height: 14px;
     border-radius: 3px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    background: ${props => (props.theme === 'dark' ? '#EA407B' : '#000')};
+    background: ${props => (props.theme === 'dark' ? '#EA407B' : colors.black)};
     margin-left: 4px;
     position: relative;
     top: 3px;
