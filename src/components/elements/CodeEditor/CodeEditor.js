@@ -14,7 +14,8 @@ import {
   styleTerminalHeader,
   TerminalButton,
   TerminalWindow,
-  TERMINAL_WIDTH
+  TERMINAL_WIDTH,
+  TERMINAL_HEIGHT
 } from '../Terminal/Terminal'
 
 const generateHighlighLines = linesRange => {
@@ -312,6 +313,8 @@ CodeEditor.defaultProps = {
   theme: 'dark'
 }
 
-CodeEditor.COLORS = COLORS
+CodeEditor.colors = COLORS
+CodeEditor.width = TERMINAL_WIDTH
+CodeEditor.height = TERMINAL_HEIGHT
 
 export default CodeEditor
