@@ -220,18 +220,18 @@ const Api = ({ data }) => {
 }
 
 const SpanLabel = styled.span`
-  background: ${colors.green5};
+  background: ${colors.close};
   color: white;
   padding: 0 8px;
   text-transform: uppercase;
 `
 
 const SpanKey = styled.span`
-  color: ${colors.green5};
+  color: ${colors.close};
 `
 
 const Span = styled.span`
-  color: ${colors.gray8};
+  color: ${colors.black};
 `
 
 const Cli = ({ domain, data }) => {
@@ -249,7 +249,6 @@ const Cli = ({ domain, data }) => {
       </span>
       <Image
         alt={`${domain} screenshot`}
-        pt={3}
         width={300}
         src={data.screenshot.url}
       />

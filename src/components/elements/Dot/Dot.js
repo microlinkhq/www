@@ -16,9 +16,9 @@ DotIcon.defaultProps = {
 
 const createDot = dotProps => props => <DotIcon {...dotProps} {...props} />
 
-const Success = createDot({ bg: '#50E3C2' })
-const Error = createDot({ bg: '#FF0000' })
-const Warning = createDot({ bg: '#F5A623' })
+const Success = createDot({ bg: 'teal3' })
+const Error = createDot({ bg: 'red6' })
+const Warning = createDot({ bg: 'yellow6' })
 
 const Dot = createDot()
 
