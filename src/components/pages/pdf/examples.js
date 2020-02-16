@@ -204,7 +204,6 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 { value: '0.5' },
                 { value: '1' },
                 { value: '1.5' },
-                { value: '1.5' },
                 { value: '2' }
               ]}
             />
