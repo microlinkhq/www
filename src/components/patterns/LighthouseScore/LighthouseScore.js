@@ -16,10 +16,10 @@ const getScore = data => {
   return score.toFixed(0)
 }
 
-export default ({ data, ...props }) => {
+export default ({ data, component: Component = Flex, ...props }) => {
   const score = getScore(data)
   return (
-    <Flex flexDirection='column' {...props}>
+    <Component flexDirection='column' {...props}>
       <Flex justifyContent='center' pb={2}>
         <Text
           fontWeight='regular'
@@ -56,6 +56,6 @@ export default ({ data, ...props }) => {
           </Text>
         </Text>
       </Flex>
-    </Flex>
+    </Component>
   )
 }

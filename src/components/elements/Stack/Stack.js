@@ -11,7 +11,7 @@ export default ({
   width = 900,
   height = 500,
   groupMode = 'stacked', // grouped,
-  layout = 'vertical', // vertical
+  layout = 'vertical', // horizontal
   ...props
 }) => (
   <Nivo>
