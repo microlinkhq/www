@@ -106,6 +106,7 @@ const blinkCursorStyle = css`
 `
 
 const TerminalTextWrapper = styled('div')`
+  overflow: auto;
   width: 100%;
   word-break: break-all;
   white-space: pre;

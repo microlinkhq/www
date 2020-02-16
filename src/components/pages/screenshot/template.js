@@ -312,7 +312,7 @@ const Cli = ({ domain, data }) => {
 
         <Box pb={4}>
           <Terminal
-            style={{ margin: '0' }}
+            title='microlik-api'
             children={cliCode}
             blinkCursor={false}
           />
