@@ -50,7 +50,7 @@ storiesOf('Theme', module).add('Colors', () => (
   <Story mt={0} name='Colors' width='100%'>
     <Palette
       name='others'
-      keywords={['link', 'secondary', 'primary', 'pinky', 'pinkest', 'border']}
+      keywords={['link', 'secondary', 'primary', 'pinky', 'pinkest']}
     />
     <Palette
       name='white'

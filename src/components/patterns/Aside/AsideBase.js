@@ -148,16 +148,13 @@ const Aside = ({
                       href={post.href}
                       children={post.name}
                     />
-                    <Box ml={2} borderLeft={`${borders[1]} ${colors.black10}`}>
+                    <Box ml={2} borderLeft={`${borders[1]} ${colors.black05}`}>
                       {post.posts.map(post => (
                         <Title
-                          ml={2}
+                          ml={3}
                           key={`${tree}_subtitle_${post.name}`}
                           href={post.href}
                         >
-                          <Text px='4px' color='black10' as='span'>
-                            {' '}
-                          </Text>
                           {post.name}
                         </Title>
                       ))}
