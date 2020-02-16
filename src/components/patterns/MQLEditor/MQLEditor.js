@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { CodeEditor, MultiCodeEditor, Card, Flex } from 'components/elements'
+import { Terminal, MultiCodeEditor, Card, Flex } from 'components/elements'
 
 import languages, { tabs } from './languages'
 
@@ -14,17 +14,10 @@ export default class extends Component {
     return (
       <Flex mt={3} flexDirection='column' justifyContent='space-around'>
         <Flex flexDirection='column' mb={[4, 0]}>
-          <Card
-            height={CodeEditor.height}
-            width={CodeEditor.width}
-            style={{ overflow: 'auto' }}
-          >
-            <MultiCodeEditor
-              width='inherit'
-              height='inherit'
-              languages={languages(view)}
-            />
-          </Card>
+          <MultiCodeEditor
+            height={Terminal.height}
+            languages={languages(view)}
+          />
           <Flex justifyContent='flex-end'>
             {TABS.map(tab => (
               <Card.Option

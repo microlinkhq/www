@@ -11,7 +11,12 @@ export const TerminalWindow = styled(Box)`
   box-shadow: ${shadowOffsets[0]} ${shadowColors[0]};
 `
 
-export const TERMINAL_WIDTH = aspectRatio([0.3, 0.4, 0.6, 0.6]).width
+export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
+  0.3,
+  0.4,
+  0.6,
+  0.6
+])
 
 const fromString = text =>
   Array.isArray(text)
@@ -164,5 +169,8 @@ Terminal.defaultProps = {
   theme: 'light',
   width: TERMINAL_WIDTH
 }
+
+Terminal.width = TERMINAL_WIDTH
+Terminal.height = TERMINAL_HEIGHT
 
 export default Terminal
