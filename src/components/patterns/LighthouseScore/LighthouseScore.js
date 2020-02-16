@@ -2,6 +2,7 @@ import React from 'react'
 import get from 'dlv'
 
 import { Text, Flex } from 'components/elements'
+import { getColor } from '../Lighthouse/Lighthouse'
 
 // https://github.com/paulirish/lh-scorecalc/blob/master/script.js#L11
 const getScore = data => {
@@ -13,12 +14,6 @@ const getScore = data => {
     get(data, 'first-cpu-idle.score') * 0.133333
 
   return score.toFixed(0)
-}
-
-const getColor = value => {
-  if (value >= 90) return '#0CCE6B'
-  if (value >= 50) return '#FFA400'
-  return '#FF4E42'
 }
 
 export default ({ data, ...props }) => {

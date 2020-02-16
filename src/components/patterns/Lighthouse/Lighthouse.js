@@ -1,16 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 import { rgba } from 'polished'
-import { fonts } from 'theme'
+import { colors, fonts } from 'theme'
 
 import { Text, Flex } from 'components/elements'
 
 import ProgressArc from 'progress-arc-component'
 
-const getColor = value => {
-  if (value >= 90) return '#0CCE6B'
-  if (value >= 50) return '#FFA400'
-  return '#FF4E42'
+export const getColor = value => {
+  if (value >= 90) return colors.close
+  if (value >= 50) return colors.minimize
+  return colors.fullscreen
 }
 
 const CIRCLE_WIDTH = '60px'
