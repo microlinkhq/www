@@ -173,7 +173,9 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
               id='screenshot-demo-url'
               mr='6px'
               placeholder='Visit URL'
-              suggestions={suggestions}
+              suggestions={suggestions.map(
+                ({ cdnUrl, filename, ...suggestion }) => suggestion
+              )}
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
@@ -358,7 +360,13 @@ export const Timings = () => {
               justifyContent='center'
               flexDirection='column'
             >
-              <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+              <Heading
+                as='div'
+                color='white'
+                variant={null}
+                mr={3}
+                fontWeight='bold'
+              >
                 <Average />
               </Heading>
               <Caption
@@ -376,7 +384,13 @@ export const Timings = () => {
               justifyContent='center'
               flexDirection='column'
             >
-              <Heading color='white' variant={null} mr={3} fontWeight='bold'>
+              <Heading
+                as='div'
+                color='white'
+                variant={null}
+                mr={3}
+                fontWeight='bold'
+              >
                 ~{p95}
                 <Caption
                   ml={2}
