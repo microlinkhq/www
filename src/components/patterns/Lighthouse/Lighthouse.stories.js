@@ -48,20 +48,18 @@ export default () => (
 
 storiesOf('Patterns', module).add('Lighthouse', () => (
   <>
-    <Story name='Lighthouse' code={code} width='960px'>
+    <Story name='Lighthouse' code={code} width='800px'>
       <Box px={4}>
         <Lighthouse data={data} />
       </Box>
       <Box pt={4} />
-      <Card
-        justifyContent='center'
-        alignItems='center'
-        width='935px'
-        height='180px'
-        px={4}
-      >
-        <Lighthouse data={data} width='60px' />
-      </Card>
+      <Lighthouse
+        component={Card}
+        data={data}
+        width='800px'
+        height='inherit'
+        p={3}
+      />
     </Story>
   </>
 ))

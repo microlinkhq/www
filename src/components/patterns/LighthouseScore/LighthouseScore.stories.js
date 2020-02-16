@@ -66,7 +66,7 @@ storiesOf('Patterns', module).add('LighthouseScore', () => (
         height='150px'
         px={4}
       >
-        <LighthouseScore data={data} width='60px' />
+        <LighthouseScore data={data} />
       </Card>
     </Story>
   </>
