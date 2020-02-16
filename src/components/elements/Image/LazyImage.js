@@ -8,10 +8,6 @@ import Image from './Image'
 const LazyImage = ({ lazy, loading, src: rawSrc, onError, ...props }) => {
   const src = template(rawSrc)
 
-  if (!props.alt) {
-    console.warn('[image]: missing alt for', src)
-  }
-
   if (!lazy) return createElement(Image, { src, ...props })
   const [isLoading, setLoading] = useState(loading)
 
