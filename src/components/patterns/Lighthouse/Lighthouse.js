@@ -32,7 +32,7 @@ export default ({
   component: Component = Flex,
   circleRadius = 90,
   circleWidth = CIRCLE_WIDTH,
-  mr = 5,
+  mr = 4,
   data,
   ...props
 }) => {
