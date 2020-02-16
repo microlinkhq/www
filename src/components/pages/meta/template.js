@@ -20,7 +20,7 @@ import { useFeaturesMeta } from 'components/hook'
 import { borders, colors } from 'theme'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import { getDomain } from 'tldts'
+import { getHostname } from 'tldts'
 import React from 'react'
 import get from 'dlv'
 
@@ -294,7 +294,7 @@ const Api = ({ data }) => {
 }
 
 export default props => {
-  const domain = getDomain(props.data.url)
+  const domain = getHostname(props.data.url).replace('www.', '')
   return (
     <>
       <Hero domain={domain} {...props} />

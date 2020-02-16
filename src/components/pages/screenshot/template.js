@@ -5,7 +5,7 @@ import { borders, colors, radii } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import { getDomain } from 'tldts'
+import { getHostname } from 'tldts'
 import React from 'react'
 import get from 'dlv'
 
@@ -323,7 +323,7 @@ const Cli = ({ domain, data }) => {
 }
 
 export default props => {
-  const domain = getDomain(props.data.url)
+  const domain = getHostname(props.data.url).replace('www.', '')
 
   return (
     <>
