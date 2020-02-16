@@ -1,4 +1,11 @@
-import { colors, shadowOffsets, shadowColors, fonts, fontWeights } from 'theme'
+import {
+  cx,
+  colors,
+  shadowOffsets,
+  shadowColors,
+  fonts,
+  fontWeights
+} from 'theme'
 import { serializeComponent, aspectRatio } from 'helpers'
 import { Text, Box } from 'components/elements'
 import styled, { css } from 'styled-components'
@@ -45,13 +52,20 @@ export const TerminalButton = styled('div')`
   border-radius: 50px;
   width: 12px;
   height: 12px;
-  margin: 0 0.2rem;
-  background ${({ color }) => color};
+  background ${({ color }) => cx(color)};
 `
 
-TerminalButton.Green = props => <TerminalButton color='#0CCE6B' {...props} />
-TerminalButton.Yellow = props => <TerminalButton color='#FFBD2E' {...props} />
-TerminalButton.Red = props => <TerminalButton color='#FF5F56' {...props} />
+TerminalButton.Green = props => <TerminalButton color='close' {...props} />
+TerminalButton.Yellow = props => (
+  <TerminalButton
+    css={`
+      margin: 0 0.2rem;
+    `}
+    color='minimize'
+    {...props}
+  />
+)
+TerminalButton.Red = props => <TerminalButton color='fullscreen' {...props} />
 
 const TerminalTitleWrapper = styled('div')`
   display: flex;
