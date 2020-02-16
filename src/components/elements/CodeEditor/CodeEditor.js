@@ -1,7 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { prettier, getLines, template } from 'helpers'
 import styled, { css } from 'styled-components'
-import { Text } from 'components/elements'
 import { rgba, lighten } from 'polished'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
@@ -9,6 +8,8 @@ import CodeCopy from 'react-codecopy'
 import { colors, fonts } from 'theme'
 import range from 'lodash/range'
 import get from 'dlv'
+
+import Text from '../Text'
 
 import {
   styleTerminalHeader,

@@ -7,11 +7,13 @@ import {
   fontWeights
 } from 'theme'
 import { serializeComponent, aspectRatio } from 'helpers'
-import { Text, Box } from 'components/elements'
 import styled, { css } from 'styled-components'
 import { blink } from 'components/keyframes'
 import CodeCopy from 'react-codecopy'
 import React from 'react'
+
+import Text from '../Text'
+import Box from '../Box'
 
 export const TerminalWindow = styled(Box)`
   border-radius: 5px;
