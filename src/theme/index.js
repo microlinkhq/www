@@ -41,6 +41,9 @@ const flattened = Object.keys(palette).reduce((a, key) => {
 export const colors = Object.assign({}, flattened, {
   link: '#067df7',
   secondary: '#EA407B',
+  close: '#27C93F',
+  minimize: '#FFBD2E',
+  fullscreen: '#FF5F56',
   primary: '#313b53',
   pinky: 'rgb(252, 250, 255)',
   pinkest: 'rgb(246, 237, 250)',

@@ -68,9 +68,15 @@ export default ({
               textColor={color}
               rounded
             />
-            <Text textAlign='center' fontSize={1} mt={3} fontWeight='bold'>
-              {title}
-            </Text>
+            <Text
+              lineHeight={2}
+              textAlign='center'
+              fontSize={1}
+              mt={3}
+              color='black70'
+              fontWeight='regular'
+              children={title}
+            />
           </Flex>
         )
       })}

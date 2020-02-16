@@ -36,22 +36,22 @@ export default ({ data, ...props }) => {
           style={{ alignSelf: 'flex-end' }}
         />
       </Flex>
-      <Flex borderTop={2} borderColor='gray2' pt={2} flexDirection='row'>
+      <Flex borderTop={2} borderColor='gray3' pt={2} flexDirection='row'>
         <Text fontWeight='regular' mr={3} color='gray5'>
           FCP:{' '}
-          <Text as='span' color='black70'>
+          <Text as='span' fontWeight='regular' color='black70'>
             {get(data, 'first-contentful-paint.duration_pretty')}
           </Text>
         </Text>
         <Text fontWeight='regular' mr={3} color='gray5'>
           TTI:{' '}
-          <Text as='span' color='black70'>
+          <Text as='span' fontWeight='regular' color='black70'>
             {get(data, 'interactive.duration_pretty')}
           </Text>
         </Text>
         <Text fontWeight='regular' color='gray5'>
           FMP:{' '}
-          <Text as='span' color='black70'>
+          <Text as='span' fontWeight='regular' color='black70'>
             {get(data, 'first-meaningful-paint.duration_pretty')}
           </Text>
         </Text>
