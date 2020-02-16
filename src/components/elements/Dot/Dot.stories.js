@@ -13,7 +13,6 @@ export default () => (
     <Dot.Success />
     <Dot.Error />
     <Dot.Warning />
-    <Dot.Info />
   </Fragment>
 )`
 
@@ -23,8 +22,7 @@ const DotStory = () => {
       <Box mb={4} width={650}>
         <Dot.Success mr={3} />
         <Dot.Error mr={3} />
-        <Dot.Warning mr={3} />
-        <Dot.Info />
+        <Dot.Warning />
       </Box>
     </Story>
   )

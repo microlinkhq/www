@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Box, Text, Flex } from 'components/elements'
 import { hideNotification, showNotification } from 'components/keyframes'
+import { cx, transition } from 'theme'
 import styled from 'styled-components'
 import { X } from 'react-feather'
-import { transition, colors } from 'theme'
 import { darken } from 'polished'
 
 const CloseButtonWrapper = styled(Box)`
@@ -12,9 +12,9 @@ const CloseButtonWrapper = styled(Box)`
   cursor: pointer;
   transition: stroke ${transition.medium};
   svg {
-    stroke: ${props => colors[props.color]};
+    stroke: ${({ color }) => cx(color)};
     &:hover {
-      stroke: ${props => darken(0.15, colors[props.color])};
+      stroke: ${({ color }) => darken(0.15, cx(color))};
     }
   }
 `
@@ -91,16 +91,10 @@ const Warning = createNotification({
   color: 'yellow8'
 })
 
-const Info = createNotification({
-  bg: 'blue2',
-  color: 'blue8'
-})
-
 const Notification = createNotification()
 
 Notification.Success = Success
 Notification.Error = Error
 Notification.Warning = Warning
-Notification.Info = Info
 
 export default Notification

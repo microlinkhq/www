@@ -14,7 +14,6 @@ export default () => (
     <Notification.Success children='payment processed' />
     <Notification.Error children='oh no!' />
     <Notification.Warning children='This action can be consecuences' />
-    <Notification.Info children='all the things are fine' />
   </Fragment>
 )`
 
@@ -23,9 +22,6 @@ const NotificationPreview = ({ type }) => {
     <Choose>
       <Choose.When condition={type === 'success'}>
         <Notification.Success children='payment processed' />
-      </Choose.When>
-      <Choose.When condition={type === 'info'}>
-        <Notification.Info children='all the things are fine' />
       </Choose.When>
       <Choose.When condition={type === 'warning'}>
         <Notification.Warning children='This action can be consecuences' />
@@ -55,9 +51,6 @@ const NotificationStory = () => {
           ml={3}
         >
           Warning
-        </Button>
-        <Button onClick={() => setNotificationType('info')} ml={3}>
-          Info
         </Button>
         <Link onClick={() => setNotificationType('')} ml={3}>
           clear
