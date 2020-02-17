@@ -384,11 +384,9 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
           >
             <Image
-              mt='-92px'
               width={[3, 3, '80%', '80%']}
-              style={{ opacity: 0.3, filter: 'grayscale(100%)' }}
               alt='Paste your URL'
-              src='https://web.dev/images/collections/lighthouse-performance.svg'
+              src='https://cdn.microlink.io/logo/lighthouse.png'
             />
             <Text fontSize={[2, 2, 4, 4]} color='black40'>
               Paste your URL

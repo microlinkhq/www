@@ -1,15 +1,14 @@
 import { FetchProvider, Layout } from 'components/patterns'
 import { useQueryState } from 'components/hook'
 import humanizeUrl from 'humanize-url'
-import { cdnUrl } from 'helpers'
 import React from 'react'
+import { getDomain } from 'tldts'
 
 import Examples from 'components/pages/insights/examples'
 
 export default () => {
   const [query] = useQueryState()
   const title = 'Turn websites into a insights'
-  const image = cdnUrl('www/insights.png')
 
   const suggestions = [
     'https://kikobeats.com',
@@ -23,6 +22,13 @@ export default () => {
       value: humanizeUrl(url)
     }
   })
+
+  const fallbackUrl =
+    'https://images.weserv.nl/?url=https%3A%2F%2Fcdn.microlink.io%2Flogo%2Flighthouse.png%3Fsize%3D400&output=jpg&bg=white'
+
+  const image = query.url
+    ? `https://unavatar.now.sh/${getDomain(query.ur)}?fallback=${fallbackUrl}`
+    : fallbackUrl
 
   return (
     <Layout title={title} image={image}>
