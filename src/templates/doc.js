@@ -426,19 +426,19 @@ const getActiveRouteName = ({ pathname }) => {
 
 const getImage = ({ pathname }) => {
   if (pathname.includes('angular')) {
-    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Fangularjs-original.svg%3Fsize%3D500&output=jpg&bg=white'
+    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Fangularjs-original.svg%3Fsize%3D400&output=jpg&bg=white'
   }
 
   if (pathname.includes('react')) {
-    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Freact-original.svg%3Fsize%3D500&output=jpg&bg=white'
+    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Freact-original.svg%3Fsize%3D400&output=jpg&bg=white'
   }
 
   if (pathname.includes('vue')) {
-    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Fvuejs-original.svg%3Fsize%3D500&output=jpg&bg=white'
+    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Fvuejs-original.svg%3Fsize%3D400&output=jpg&bg=white'
   }
 
   if (pathname.includes('vanilla')) {
-    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%javascript-original.svg%3Fsize%3D500&output=jpg&bg=white'
+    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%javascript-original.svg%3Fsize%3D400&output=jpg&bg=white'
   }
 }
 
@@ -452,7 +452,6 @@ export default ({ meta, content, githubUrl, ...props }) => {
       {...meta}
       name={`Microlink ${activeRouteName}`}
       image={image}
-      twitterCard='summary'
     >
       <Container maxWidth={layout.large}>
         <Aside routes={routes} activeRouteName={activeRouteName}>
