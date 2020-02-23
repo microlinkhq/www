@@ -5,7 +5,7 @@ import { Text, Flex } from 'components/elements'
 import { getColor } from '../Lighthouse/Lighthouse'
 
 // https://github.com/paulirish/lh-scorecalc/blob/master/script.js#L11
-const getScore = data => {
+export const getScore = data => {
   const score =
     get(data, 'first-contentful-paint.score') * 0.2 +
     get(data, 'speed-index.score') * 0.26666 +
@@ -16,7 +16,7 @@ const getScore = data => {
   return score.toFixed(0)
 }
 
-export default ({ data, component: Component = Flex, ...props }) => {
+const LighthouseScore = ({ data, component: Component = Flex, ...props }) => {
   const score = getScore(data)
   return (
     <Component flexDirection='column' {...props}>
@@ -59,3 +59,7 @@ export default ({ data, component: Component = Flex, ...props }) => {
     </Component>
   )
 }
+
+LighthouseScore.getScore = getScore
+
+export default LighthouseScore

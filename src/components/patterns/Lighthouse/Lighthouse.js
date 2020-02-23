@@ -45,7 +45,7 @@ export default ({
         'first-cpu-idle',
         'interactive'
       ].map(key => {
-        const { title, score } = data[key]
+        const { duration_pretty: duration, title, score } = data[key]
         const color = getColor(score)
         const backgroundColor = rgba(color, 0.1)
 
@@ -73,9 +73,16 @@ export default ({
               textAlign='center'
               fontSize={1}
               mt={3}
-              color='black70'
-              fontWeight='regular'
+              color='gray7'
               children={title}
+            />
+            <Text
+              lineHeight={2}
+              textAlign='center'
+              fontSize={1}
+              mt={1}
+              color='gray7'
+              children={duration}
             />
           </Flex>
         )

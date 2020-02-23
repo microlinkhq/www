@@ -7,149 +7,98 @@ import {
   Image,
   Input,
   InputIcon,
-  // Link,
-  // Subhead,
   Text,
-  // Nivo,
-  Terminal,
-  Card
+  Pie
 } from 'components/elements'
 
-import { CheckCircle } from 'react-feather'
-
-import {
-  LighthouseScore,
-  Lighthouse,
-  // Faq,
-  // Block,
-  SubHeadline
-} from 'components/patterns'
+import { LighthouseScore, Lighthouse, SubHeadline } from 'components/patterns'
 import { aspectRatio } from 'helpers'
 
-import { colors } from 'theme'
+import { layout } from 'theme'
 import React, { useMemo, useCallback, useState } from 'react'
+import reduce from 'lodash/reduce'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import { getDomain } from 'tldts'
 import get from 'dlv'
 
 import { screenshotHeight } from 'components/pages/home/screenshots'
+import Wappalyzer from './Wappalyzer'
+import ConsoleErrors from './ConsoleErrors'
 
-// import { Average, Timings } from 'components/pages/screenshot/examples'
-// import { Features } from 'components/pages/screenshot/template'
-// const { THEMES: NIVO_THEMES } = Nivo
-
-const ConsoleText = props => (
-  <Text
-    as='span'
-    fontWeight='regular'
-    fontFamily='mono'
-    color='red8'
-    fontSize={0}
-    {...props}
-  />
-)
-
-// const getRadarData = ({
-//   insights,
-//   inputUrlDomain,
-//   insightsBaselineDomain,
-//   insightsBaseline
-// }) => {
-//   const radarData = [
-//     'first-contentful-paint',
-//     'first-meaningful-paint',
-//     'speed-index',
-//     'first-cpu-idle',
-//     'interactive'
-//   ].reduce((acc, key) => {
-//     return [
-//       ...acc,
-//       {
-//         id: insights[key].title,
-//         [inputUrlDomain]: insights[key].score * 100,
-//         [insightsBaselineDomain]: insightsBaseline[key].score * 100
-//       }
-//     ]
-//   }, [])
-//   return radarData
-// }
-
-// const getStackData = ({
-//   insights,
-//   inputUrlDomain,
-//   insightsBaselineDomain,
-//   insightsBaseline
-// }) => {
-//   const keys = reduce(
-//     get(insights, 'resource-summary'),
-//     (acc, value, key) => {
-//       if (typeof value === 'string') return acc
-//       if (key === 'total') return acc
-//       return [...acc, key]
-//     },
-//     []
-//   )
-
-//   const getData = (insights, domain) => {
-//     const data = reduce(
-//       keys,
-//       (acc, key) => {
-//         const value = get(insights, `resource-summary.${key}`)
-//         return {
-//           ...acc,
-//           [key]: value.count,
-//           [`${key}Bytes`]: value.size_pretty
-//         }
-//       },
-//       {}
-//     )
-//     data.url = domain
-//     return data
-//   }
-
-//   return {
-//     keys,
-//     indexBy: 'url',
-//     label: e => e.data[`${e.id}Bytes`],
-//     data: [
-//       getData(insights, inputUrlDomain),
-//       getData(insightsBaseline, insightsBaselineDomain)
-//     ]
-//   }
-// }
-
-const getConsoleErrors = insights => {
-  const errorsInConsole = get(insights, 'errors-in-console')
-  if (!errorsInConsole) return
-
-  const consoleErrors = get(insights, 'errors-in-console.details.items') || []
-
-  if (consoleErrors.length === 0) {
-    return (
-      <>
-        <CheckCircle size={12} color={colors.close} />
-        <Text ml={2} display='inline'>
-          No browser errors logged to the console
-        </Text>
-      </>
-    )
+const technologies = [
+  {
+    name: 'CloudFlare',
+    confidence: '100',
+    version: null,
+    icon: 'CloudFlare.svg',
+    website: 'http://www.cloudflare.com',
+    cpe: null,
+    categories: [
+      {
+        31: 'CDN'
+      }
+    ]
+  },
+  {
+    name: 'Google Analytics',
+    confidence: '100',
+    version: null,
+    icon: 'Google Analytics.svg',
+    website: 'http://google.com/analytics',
+    cpe: null,
+    categories: [
+      {
+        10: 'Analytics'
+      }
+    ]
+  },
+  {
+    name: 'Jekyll',
+    confidence: '100',
+    version: 'v3.8.6',
+    icon: 'Jekyll.png',
+    website: 'http://jekyllrb.com',
+    cpe: 'cpe:/a:jekyllrb:jekyll',
+    categories: [
+      {
+        57: 'Static Site Generator'
+      }
+    ]
+  },
+  {
+    name: 'Netlify',
+    confidence: '100',
+    version: null,
+    icon: 'Netlify.svg',
+    website: 'https://www.netlify.com/',
+    cpe: null,
+    categories: [
+      {
+        62: 'PaaS'
+      },
+      {
+        31: 'CDN'
+      }
+    ]
   }
+]
 
-  return consoleErrors.reduce((acc, { source, description, url }, index) => {
-    const item = (
-      <>
-        <ConsoleText fontWeight='bold' children={`[${source.toUpperCase()}]`} />
-        <Box />
-        <ConsoleText children={`  - ${description}`} />
-        <Box />
-        <ConsoleText children={`    ${url}`} />
-        <Box mb={acc.length - 1 === index ? 0 : 3} />
-      </>
-    )
-    return [...acc, item]
-  }, [])
-}
+const getResourceSummary = resourceSummary =>
+  reduce(
+    resourceSummary,
+    (acc, value, key) => {
+      if (key === 'total') {
+        acc.total = value
+      } else {
+        const item = { ...value, value: value.count, id: key, label: key }
+        acc.details.push(item)
+      }
+
+      return acc
+    },
+    { details: [], total: null }
+  )
 
 const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const [inputUrl, setInputUrl] = useState(get(query, 'url') || '')
@@ -161,7 +110,10 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   }, [inputUrl])
 
   const insights = get(data, 'insights')
-  const consoleErrors = getConsoleErrors(insights)
+
+  const resourceSummary = React.useMemo(() => {
+    return getResourceSummary(get(insights, 'resource-summary.details') || [])
+  }, [insights])
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -172,7 +124,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   }
 
   return (
-    <Container id='demo' py={[4, 5]} px={4}>
+    <Container id='demo' px={0}>
+      {/* <Container id='demo' py={[4, 5]} px={4}> */}
       <SubHeadline
         title='Get perfomance insights'
         caption='Powered by Lighthouse'
@@ -206,53 +159,6 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               autoFocus
             />
           </Box>
-
-          {/* <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
-            <Input
-              fontSize={2}
-              iconComponent={
-                <InputIcon
-                  value={inputBaselineUrl}
-                  domain={insightsBaselineDomain}
-                />
-              }
-              id='insights-demo-baseline-url'
-              mr='6px'
-              placeholder='Baseline URL'
-              suggestions={baselineSuggestions}
-              type='text'
-              value={inputBaselineUrl}
-              onChange={event => setInputBaselineUrl(event.target.value)}
-              width={['100%', '100%', '128px', '128px']}
-              autoFocus
-            />
-          </Box> */}
-
-          {/* <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
-            <Select
-              py='12px'
-              onChange={event => {
-                event.preventDefault()
-                setInputTheme(event.target.value)
-                const { query, ...props } = getValues()
-                setQuery({ ...props, ...query })
-              }}
-              selected={inputTheme}
-              value={inputTheme}
-              fontSize={2}
-              width={['100%', '100%', '128px', '128px']}
-              color='inherit'
-            >
-              {NIVO_THEMES.map(theme => (
-                <option
-                  key={theme}
-                  value={theme}
-                  children={theme.replace(/_/g, ' / ')}
-                />
-              ))}
-            </Select>
-          </Box> */}
-
           <Button ml={[0, 0, 2, 2]} loading={isLoading}>
             <Caps fontSize={1} children='Audit it' />
           </Button>
@@ -264,115 +170,167 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
           into metrics
         </Text>
         {insights ? (
-          <Flex
-            flexDirection='column'
-            alignItems='center'
-            justifyContent='center'
-          >
-            <Flex>
-              {get(insights, 'screenshot-thumbnails.details.items')
-                .filter((item, index) => index % 2 === 0)
-                .map((thumbnail, index) => (
-                  <Flex
-                    key={index}
-                    flexDirection='column'
-                    alignItems='center'
-                    justifyContent='center'
-                  >
-                    <Box ml={3} border={1} borderColor='black20'>
-                      <Image height='88px' width='120px' src={thumbnail.data} />
-                    </Box>
-
-                    <Text fontSize={0} pt={2}>
-                      {thumbnail.timing_pretty}
-                    </Text>
-                  </Flex>
-                ))}
-            </Flex>
-            <Text fontSize={3} py={4}>
-              Visitors to your website see content in{' '}
-              <Text as='span' fontSize={3} fontWeight='bold'>
-                {get(insights, 'first-contentful-paint.duration_pretty')}
-              </Text>
-              .
-            </Text>
-            <LighthouseScore
-              component={props => (
-                <Card alignItems='center' justifyContent='center' {...props} />
-              )}
-              data={insights}
-              p={3}
-              mb={4}
-              height='inherit'
-              width='inherit'
-            />
-            <Lighthouse
-              component={Card}
-              height='inherit'
-              p={3}
-              mb={4}
-              width='800px'
-              data={insights}
-            />
-            {consoleErrors && (
-              <Terminal
-                title='Errors in console'
-                maxWidth='800px'
-                blinkCursor={false}
-                shellSymbol={false}
-                children={consoleErrors}
-              />
-            )}
-            {/* <Radar
-              url={inputUrlDomain}
-              baselineUrl={insightsBaselineDomain}
-              colors={inputTheme ? { scheme: inputTheme } : undefined}
-              indexBy='id'
-              keys={[inputUrlDomain, insightsBaselineDomain]}
-              data={getRadarData({
-                insights,
-                inputUrlDomain,
-                insightsBaselineDomain,
-                insightsBaseline
-              })}
-            />
-            <Stack
-              colors={inputTheme ? { scheme: inputTheme } : undefined}
-              {...getStackData({
-                insights,
-                inputUrlDomain,
-                insightsBaselineDomain,
-                insightsBaseline
-              })}
-            /> */}
-            {/* <Iframe
-              border={1}
-              borderColor='black20'
-              height={screenshotHeight.map(n => `calc(${n} * 0.85)`)}
-              width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
-              src={dataPdfUrl}
-            />
+          <>
             <Flex
-              justifyContent='center
-            '
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
             >
-              <CodeEditor
-                mt={4}
-                language='html'
-                children={`<iframe src="${previewUrl}"></iframe>`}
-              />
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Technology stack' pb={1} />
+                <Text color='gray7'>
+                  Detected{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {technologies.length}
+                  </Text>{' '}
+                  technologies behind the site.
+                </Text>
+              </Flex>
+              <Flex pt={3} width='100%' justifyContent='space-around'>
+                {technologies.map((data, index) => (
+                  <Wappalyzer key={data.name} data={data} />
+                ))}
+              </Flex>
             </Flex>
-            <Flex pt={4} alignItems='center' justifyContent='center'>
-              <a href={previewUrl}>
-                <Button bg='black' color='white'>
-                  Download File
-                </Button>
-              </a>
-              <Link ml={3} onClick={() => navigate('/docs/api/parameters/pdf')}>
-                <Caps fontWeight='regular' fontSize={0} children='See docs' />
-              </Link>
-            </Flex> */}
-          </Flex>
+            <Flex
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
+            >
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Perceptible speed' pb={1} />
+                <Text color='gray7'>
+                  Visitors to your website see content in{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {get(insights, 'first-contentful-paint.duration_pretty')}
+                  </Text>
+                  .
+                </Text>
+              </Flex>
+              <Flex pt={3} width='100%' justifyContent='space-around'>
+                {get(insights, 'screenshot-thumbnails.details.items')
+                  .filter((item, index) => index % 2 === 0)
+                  .map((thumbnail, index) => (
+                    <Flex
+                      key={index}
+                      flexDirection='column'
+                      alignItems='center'
+                      justifyContent='center'
+                    >
+                      <Box ml={3} border={1} borderColor='black20'>
+                        <Image
+                          height='88px'
+                          width='120px'
+                          src={thumbnail.data}
+                        />
+                      </Box>
+
+                      <Text
+                        color='gray7'
+                        fontSize={1}
+                        lineHeight={2}
+                        pt={3}
+                        children={thumbnail.timing_pretty}
+                      />
+                    </Flex>
+                  ))}
+              </Flex>
+            </Flex>
+            <Flex
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
+            >
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Lighthouse audit' pb={1} />
+                <Text color='gray7'>
+                  Site score is{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {LighthouseScore.getScore(insights)}/100
+                  </Text>
+                  .
+                </Text>
+              </Flex>
+              <Flex pt={3} width='100%' justifyContent='space-around'>
+                <Lighthouse
+                  // component={Card}
+                  height='inherit'
+                  p={3}
+                  mb={4}
+                  data={insights}
+                />
+              </Flex>
+            </Flex>
+            <Flex
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
+            >
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Errors in console' pb={1} />
+                <Text color='gray7'>
+                  Found{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {
+                      (get(insights, 'errors-in-console.details.items') || [])
+                        .length
+                    }
+                  </Text>{' '}
+                  errors logged into the console.
+                </Text>
+              </Flex>
+              <Flex pt={3} width='100%' justifyContent='space-around'>
+                <ConsoleErrors title={inputUrl} insights={insights} />
+              </Flex>
+            </Flex>
+            <Flex
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
+            >
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Resource Summary' pb={1} />
+                <Text color='gray7'>
+                  Found{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {resourceSummary.total.count}
+                  </Text>{' '}
+                  resources with a size of{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {resourceSummary.total.size_pretty}
+                  </Text>{' '}
+                </Text>
+              </Flex>
+              <Flex pt={3} width='100%' justifyContent='space-around'>
+                <Pie
+                  data={resourceSummary.details}
+                  radialLabel={({ label, size_pretty: size }) =>
+                    `${label} (${size})`
+                  }
+                />
+              </Flex>
+            </Flex>
+          </>
         ) : (
           <Flex
             border={3}
