@@ -25,6 +25,7 @@ import get from 'dlv'
 import { screenshotHeight } from 'components/pages/home/screenshots'
 import Wappalyzer from './Wappalyzer'
 import ConsoleErrors from './ConsoleErrors'
+import BootupTime from './BootupTime'
 
 const technologies = [
   {
@@ -114,6 +115,10 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const resourceSummary = React.useMemo(() => {
     return getResourceSummary(get(insights, 'resource-summary.details') || [])
   }, [insights])
+
+  const bootupTime = React.useMemo(() => get(insights, 'bootup-time') || {}, [
+    insights
+  ])
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -256,7 +261,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Lighthouse audit' pb={1} />
                 <Text color='gray7'>
-                  Site score is{' '}
+                  Overall site score is{' '}
                   <Text as='span' fontWeight='bold'>
                     {LighthouseScore.getScore(insights)}/100
                   </Text>
@@ -315,10 +320,11 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   <Text as='span' fontWeight='bold'>
                     {resourceSummary.total.count}
                   </Text>{' '}
-                  resources with a size of{' '}
+                  resources in{' '}
                   <Text as='span' fontWeight='bold'>
                     {resourceSummary.total.size_pretty}
-                  </Text>{' '}
+                  </Text>
+                  .
                 </Text>
               </Flex>
               <Flex pt={3} width='100%' justifyContent='space-around'>
@@ -329,6 +335,31 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   }
                 />
               </Flex>
+            </Flex>
+            <Flex
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
+            >
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Bootup time' pb={1} />
+                <Text color='gray7'>
+                  JavaScript executes{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {bootupTime.details.items.length}
+                  </Text>{' '}
+                  scripts in{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {bootupTime.duration_pretty}
+                  </Text>
+                  .
+                </Text>
+              </Flex>
+              <BootupTime bootupTime={bootupTime} />
             </Flex>
           </>
         ) : (

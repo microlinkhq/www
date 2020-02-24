@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { rgba } from 'polished'
 import { colors, fonts } from 'theme'
 
-import { Text, Flex } from 'components/elements'
+import { Link, Text, Flex } from 'components/elements'
 
 import ProgressArc from 'progress-arc-component'
 
@@ -28,11 +28,19 @@ const Circle = styled(ProgressArc)`
   }
 `
 
+const LINKS = {
+  'Time to Interactive': 'https://web.dev/interactive',
+  'First CPU Idle': 'https://web.dev/first-cpu-idle',
+  'Speed Index': 'https://web.dev/speed-index',
+  'First Meaningful Paint': 'https://web.dev/first-meaningful-paint',
+  'First Contentful Paint': 'https://web.dev/first-contentful-paint'
+}
+
 export default ({
   component: Component = Flex,
   circleRadius = 90,
   circleWidth = CIRCLE_WIDTH,
-  mr = 4,
+  mr = 3,
   data,
   ...props
 }) => {
@@ -68,13 +76,14 @@ export default ({
               textColor={color}
               rounded
             />
-            <Text
+            <Link
+              icon
               lineHeight={2}
               textAlign='center'
               fontSize={1}
               mt={3}
-              color='gray7'
               children={title}
+              href={LINKS[title]}
             />
             <Text
               lineHeight={2}
