@@ -59,13 +59,7 @@ export const TerminalButton = styled('div')`
 
 TerminalButton.Green = props => <TerminalButton color='close' {...props} />
 TerminalButton.Yellow = props => (
-  <TerminalButton
-    css={`
-      margin: 0 0.2rem;
-    `}
-    color='minimize'
-    {...props}
-  />
+  <TerminalButton style={{ margin: '0 4px' }} color='minimize' {...props} />
 )
 TerminalButton.Red = props => <TerminalButton color='fullscreen' {...props} />
 
@@ -160,14 +154,11 @@ const Terminal = ({
   ...props
 }) => {
   const content = typeof children === 'string' ? fromString(children) : children
+  const text = serializeComponent(children)
 
   return (
     <TerminalProvider width={width} theme={theme} {...props}>
-      <CodeCopy
-        interactive={interactive}
-        theme={theme}
-        text={serializeComponent(children)}
-      >
+      <CodeCopy interactive={interactive} theme={theme} text={text}>
         <TerminalTextWrapper
           shellSymbol={shellSymbol}
           blinkCursor={blinkCursor}

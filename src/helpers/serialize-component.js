@@ -1,7 +1,11 @@
 import { Children } from 'react'
 
-export default children =>
-  Children.map(
-    children,
-    child => (typeof child === 'string' ? child : child.props.children)
-  ).join('')
+const serialize = children =>
+  (
+    Children.map(children, child => {
+      if (typeof child === 'string') return child
+      return serialize(child.props.children)
+    }) || []
+  ).join('\n')
+
+export default serialize
