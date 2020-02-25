@@ -34,15 +34,16 @@ const getConsoleErrors = insights => {
   }
 
   return consoleErrors.reduce((acc, { source, description, url }, index) => {
+    const key = source + description + url
     const item = (
-      <>
+      <div key={key}>
         <ConsoleText fontWeight='bold' children={`[${source.toUpperCase()}]`} />
         <Box />
         <ConsoleText children={`  - ${description}`} />
         <Box />
         <ConsoleText children={`    ${url}`} />
         <Box mb={acc.length - 1 === index ? 0 : 3} />
-      </>
+      </div>
     )
     return [...acc, item]
   }, [])

@@ -25,7 +25,9 @@ import get from 'dlv'
 import { screenshotHeight } from 'components/pages/home/screenshots'
 import Wappalyzer from './Wappalyzer'
 import ConsoleErrors from './ConsoleErrors'
-import BootupTime from './BootupTime'
+import Table from './Table'
+
+import Markdown from 'components/markdown'
 
 const technologies = [
   {
@@ -120,6 +122,25 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
     insights
   ])
 
+  const network = React.useMemo(() => {
+    const networkServerLatency = get(insights, 'network-server-latency') || {}
+    const networkRTT = get(insights, 'network-rtt') || {}
+    if (!networkRTT.details) return {}
+
+    networkServerLatency.details.items = networkRTT.details.items.reduce(
+      (acc, item) => {
+        const { origin } = item
+        const restProps = networkServerLatency.details.items.find(
+          item => item.origin === origin
+        )
+        return [...acc, { ...item, ...restProps }]
+      },
+      []
+    )
+
+    return networkServerLatency
+  }, [insights])
+
   const handleSubmit = event => {
     event.preventDefault()
     const urlOne = prependHttp(inputUrl)
@@ -171,9 +192,6 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
       </Flex>
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
-        <Text fontSize={2} pb={3}>
-          into metrics
-        </Text>
         {insights ? (
           <>
             <Flex
@@ -187,7 +205,12 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Technology stack' pb={1} />
-                <Text color='gray7'>
+                <Markdown>
+                  Software detected under the target URL after analyzing source
+                  code, response headers, script variables and several other
+                  data sources.
+                </Markdown>
+                <Text>
                   Detected{' '}
                   <Text as='span' fontWeight='bold'>
                     {technologies.length}
@@ -212,7 +235,10 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Perceptible speed' pb={1} />
-                <Text color='gray7'>
+                <Markdown>
+                  {get(insights, 'screenshot-thumbnails.description')}
+                </Markdown>
+                <Text>
                   Visitors to your website see content in{' '}
                   <Text as='span' fontWeight='bold'>
                     {get(insights, 'first-contentful-paint.duration_pretty')}
@@ -230,7 +256,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                       alignItems='center'
                       justifyContent='center'
                     >
-                      <Box ml={3} border={1} borderColor='black20'>
+                      <Box border={1} borderColor='black20'>
                         <Image
                           height='88px'
                           width='120px'
@@ -259,9 +285,13 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Lighthouse audit' pb={1} />
-                <Text color='gray7'>
-                  Overall site score is{' '}
+                <SubHeadline title='Lighthouse score' pb={1} />
+                <Markdown
+                  children={`[Lighthouse](https://developers.google.com/web/tools/lighthouse)
+                  provides easy insights for your site's performance.`}
+                />
+                <Text>
+                  In overall, the site score is{' '}
                   <Text as='span' fontWeight='bold'>
                     {LighthouseScore.getScore(insights)}/100
                   </Text>
@@ -289,7 +319,13 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Errors in console' pb={1} />
-                <Text color='gray7'>
+                <Markdown
+                  children={`${get(
+                    insights,
+                    'errors-in-console.description'
+                  )}.`}
+                />
+                <Text>
                   Found{' '}
                   <Text as='span' fontWeight='bold'>
                     {
@@ -315,7 +351,10 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Resource Summary' pb={1} />
-                <Text color='gray7'>
+                <Markdown
+                  children={`${get(insights, 'resource-summary.title')}.`}
+                />
+                <Text>
                   Found{' '}
                   <Text as='span' fontWeight='bold'>
                     {resourceSummary.total.count}
@@ -347,7 +386,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Bootup time' pb={1} />
-                <Text color='gray7'>
+                <Markdown>{bootupTime.description}</Markdown>
+                <Text>
                   JavaScript executes{' '}
                   <Text as='span' fontWeight='bold'>
                     {bootupTime.details.items.length}
@@ -359,7 +399,48 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   .
                 </Text>
               </Flex>
-              <BootupTime bootupTime={bootupTime} />
+              <Table
+                data={bootupTime}
+                headers={[
+                  'URL',
+                  'Total CPU Time',
+                  'Script Evaluation',
+                  'Script Parse'
+                ]}
+                fields={['url', 'total', 'scripting', 'scriptParseCompile']}
+              />
+            </Flex>
+            <Flex
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
+            >
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Network Perfomance' pb={1} />
+                <Markdown>
+                  {get(insights, 'network-server-latency.description')}
+                </Markdown>
+                <Text>
+                  Reached{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {network.details.items.length}
+                  </Text>{' '}
+                  origins servers in{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {network.duration_pretty}
+                  </Text>
+                  .
+                </Text>
+              </Flex>
+              <Table
+                data={network}
+                headers={['URL', 'Round Trip Time', 'Response Time']}
+                fields={['origin', 'rtt', 'serverResponseTime']}
+              />
             </Flex>
           </>
         ) : (
