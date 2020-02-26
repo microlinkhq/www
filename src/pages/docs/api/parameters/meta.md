@@ -5,16 +5,16 @@ title: 'meta'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-When is <Type children='false'/>, it disables the metadata extraction behavior.
+It detects basic normalized metadata from the target URL.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&meta=false`,
+  Shell: `microlink-api https://microlink.io&meta`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
     'https://microlink.io', { 
-      meta: false
+      meta: true
   })
   
  console.log(status, data)
@@ -22,6 +22,8 @@ module.exports = async () => {
   `
   }} 
 />
+
+You can explicitly disable this behavior passing a <Type children='false'/>.
 
 Doing that you can speed up response timing for those cases you are not interested in consuming the metadata, like [screenshot](/docs/api/parameters/screenshot) or [video](/docs/api/parameters/video).
 

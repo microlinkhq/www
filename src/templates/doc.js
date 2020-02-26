@@ -280,6 +280,10 @@ const ROUTES_API = [
         ]
       },
       {
+        name: 'ping',
+        href: '/docs/api/parameters/ping'
+      },
+      {
         name: 'prerender',
         href: '/docs/api/parameters/prerender'
       },
