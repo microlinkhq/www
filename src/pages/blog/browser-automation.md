@@ -34,16 +34,19 @@ Just [url](/docs/api/parameters/url) is the only parameter that needs to be spec
 - [adblock](/docs/api/parameters/adblock): enable/disable adblock over abusive third-party content over the browser page.
 - [animations](/docs/api/parameters/animations): enable/disable CSS animations and transitions into the browser page.
 - [click](/docs/api/parameters/click): clicks DOM elements matching the given CSS selectors.
+- [codeScheme](/docs/api/parameters/codeScheme): sets the code syntax highlighting color theme to use.
+- [colorScheme](/docs/api/parameters/colorScheme): sets preferred browser color theme preference.
 - [device](/docs/api/parameters/device): emulates an specific device (viewport, user agent, dimensions, etc).
 - [hide](/docs/api/parameters/hide): sets `visibility: hidden` on the matched elements.
 - [javascript](/docs/api/parameters/javascript): enable/disable the javascript engine on the entire browser page.
 - [mediaType](/docs/api/parameters/media-type): changes the CSS media type of the page.
 - [modules](/docs/api/parameters/modules): injects `<script type="module">` into the browser page.
+- [ping](/docs/api/parameters/ping): enable/disable to resolve all URLs present into the payload.
 - [prerender](/docs/api/parameters/prerender): enable/disable browser navigation.
 - [proxy](/docs/api/parameters/proxy): uses a proxy server as an intermediary during the requests.
 - [remove](/docs/api/parameters/remove): sets `display: none` on the matched elements.
 - [scripts](/docs/api/parameters/scripts): injects `<script>` into the browser page.
-- [scrollTo](/docs/api/parameters/scroll-to): scrolls to the DOM element matching the given CSS selector.
+- [scroll](/docs/api/parameters/scroll): scrolls to the DOM element matching the given CSS selector.
 - [styles](/docs/api/parameters/styles): injects `<style>` into the browser page.
 - [viewport](/docs/api/parameters/viewport): establishes a set of properties related with the browser visible area.
 - [waitFor](/docs/api/parameters/wait-for): waits a quantity of time or selector before processing the content of the browser page.

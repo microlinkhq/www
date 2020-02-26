@@ -194,6 +194,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/click'
       },
       {
+        name: 'codeScheme',
+        href: '/docs/api/parameters/code-scheme'
+      },
+      {
         name: 'colorScheme',
         href: '/docs/api/parameters/color-scheme'
       },
@@ -326,8 +330,8 @@ const ROUTES_API = [
         href: '/docs/api/parameters/scripts'
       },
       {
-        name: 'scrollTo',
-        href: '/docs/api/parameters/scroll-to'
+        name: 'scroll',
+        href: '/docs/api/parameters/scroll'
       },
       {
         name: 'styles',

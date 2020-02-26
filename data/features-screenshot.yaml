@@ -9,7 +9,7 @@
 - title: Device Emulation
   description: Load any of our [device](/docs/api/parameters/device) presets to simulate different environment and scenarios.
 - title: Manipulate Elements
-  description: Ability to [hide](/docs/api/parameters/screenshot/hide), [click](/docs/api/parameters/screenshot/click) or [scrollTo](/docs/api/parameters/screenshot/scroll-to) any element matching the given CSS Selector.
+  description: Ability to [hide](/docs/api/parameters/screenshot/hide), [click](/docs/api/parameters/screenshot/click) or [scroll](/docs/api/parameters/screenshot/scroll) to any element matching the given CSS Selector.
 - title: CSS/JS Injection
   description: Inject any CSS styles or JS code into the page.
 - title: Full Page

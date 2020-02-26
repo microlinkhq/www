@@ -25,7 +25,7 @@
 /headers           /docs/api/parameters/headers
 /palette           /docs/api/parameters/palette
 /proxy             /docs/api/parameters/proxy
-/scroll            /docs/api/parameters/scrollTo
+/scroll            /docs/api/parameters/scroll
 /video             /docs/api/parameters/video
 /viewport          /docs/api/parameters/viewport
 /device            /docs/api/parameters/device

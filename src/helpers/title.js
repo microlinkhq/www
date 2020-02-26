@@ -22,7 +22,7 @@ const special = [
   'package.json',
   'quality',
   'retry',
-  'scrollTo',
+  'scroll',
   'timeout',
   'type',
   'TypeScript',
