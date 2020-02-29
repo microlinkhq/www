@@ -12,7 +12,7 @@ When this happens, the response payload includes some useful information in orde
 - `more`: A link pointing this documentation.
 - `report`: A link for reporting the problem directly to us.
 
-## EBRWTIMEOUT
+## EBRWSRTIMEOUT
 
 **Message**
 

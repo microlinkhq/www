@@ -4,8 +4,8 @@
 /sdk               /docs/sdk/getting-started/overview
 /errors            /docs/api/basics/error-codes
 /codes             /docs/api/basics/error-codes
-/error-codes
-/ebrwtimeout       /docs/api/basics/error-codes#ebrwtimeout
+/error-codes       /docs/api/basics/error-codes
+/ebrwsrtimeout     /docs/api/basics/error-codes#ebrwsrtimeout
 /efatal            /docs/api/basics/error-codes#efatal
 /eheaders          /docs/api/basics/error-codes#eheaders
 /einvalurl         /docs/api/basics/error-codes#einvalurl
