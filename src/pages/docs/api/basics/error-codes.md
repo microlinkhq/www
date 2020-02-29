@@ -58,7 +58,7 @@ The target URL is considered not valid.
 
 **Solution**
 
-Ensure the URL provided has protocol, hostname and follows [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api) standard.
+Ensure the [url](/docs/api/parameters/url) provided has protocol, hostname and follows [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api) standard.
 
 ## EINVALURLCLIENT
 
@@ -68,7 +68,7 @@ The target URL is considered not valid.
 
 **Solution**
 
-Ensure the URL provided has protocol, hostname and follows [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api) standard.
+Ensure the [url](/docs/api/parameters/url) provided has protocol, hostname and follows [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api) standard.
 
 ## EMAXREDIRECTS
 
@@ -78,7 +78,7 @@ The target URL reached the maximum number of redirect after 10 times.
 
 **Solution**
 
-Ensure the URL provided reaches the destination URL in less than 10 hops.
+Ensure the [url](/docs/api/parameters/url) provided reaches the destination URL in less than 10 hops.
 
 ## EPRO
 
