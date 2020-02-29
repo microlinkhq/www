@@ -149,28 +149,32 @@ const ROUTES_API = [
     name: 'API Basics',
     posts: [
       {
-        name: 'Endpoint',
-        href: '/docs/api/basics/endpoint'
-      },
-      {
         name: 'Authentication',
         href: '/docs/api/basics/authentication'
       },
       {
-        name: 'Rate Limit',
-        href: '/docs/api/basics/rate-limit'
-      },
-      {
-        name: 'Format',
-        href: '/docs/api/basics/format'
+        name: 'Cache',
+        href: '/docs/api/basics/cache'
       },
       {
         name: 'Compression',
         href: '/docs/api/basics/compression'
       },
       {
-        name: 'Cache',
-        href: '/docs/api/basics/cache'
+        name: 'Endpoint',
+        href: '/docs/api/basics/endpoint'
+      },
+      {
+        name: 'Error Codes',
+        href: '/docs/api/basics/error-codes'
+      },
+      {
+        name: 'Format',
+        href: '/docs/api/basics/format'
+      },
+      {
+        name: 'Rate Limit',
+        href: '/docs/api/basics/rate-limit'
       }
     ]
   },

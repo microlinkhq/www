@@ -2,6 +2,9 @@
 /docs              /docs/api/getting-started/overview
 /api               /docs/api/getting-started/overview
 /sdk               /docs/sdk/getting-started/overview
+/errors             /docs/api/basics/error-codes
+/codes             /docs/api/basics/error-codes
+/error-codes       /docs/api/basics/error-codes
 
 # mql
 /mql               /docs/mql/getting-started/overview
