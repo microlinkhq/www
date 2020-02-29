@@ -2,9 +2,21 @@
 /docs              /docs/api/getting-started/overview
 /api               /docs/api/getting-started/overview
 /sdk               /docs/sdk/getting-started/overview
-/errors             /docs/api/basics/error-codes
+/errors            /docs/api/basics/error-codes
 /codes             /docs/api/basics/error-codes
-/error-codes       /docs/api/basics/error-codes
+/error-codes
+/ebrwtimeout       /docs/api/basics/error-codes#ebrwtimeout
+/efatal            /docs/api/basics/error-codes#efatal
+/eheaders          /docs/api/basics/error-codes#eheaders
+/einvalurl         /docs/api/basics/error-codes#einvalurl
+/einvalurlclient   /docs/api/basics/error-codes#einvalurlclient
+/emaxredirects     /docs/api/basics/error-codes#emaxredirects
+/epro              /docs/api/basics/error-codes#epro
+/eproxy            /docs/api/basics/error-codes#eproxy
+/erate             /docs/api/basics/error-codes#erate
+/etimeout          /docs/api/basics/error-codes#etimeout
+/ettl              /docs/api/basics/error-codes#ettl
+/ettlrange         /docs/api/basics/error-codes#ettlrange
 
 # mql
 /mql               /docs/mql/getting-started/overview
