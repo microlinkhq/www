@@ -22,7 +22,7 @@ const Questions = props => (
           <>
             The free plan runs under some limitation for avoid abusive usage of the platform, like
             burst rate, limited concurrency rate and daily rate limit.
-          </>
+          </>,
           <>
             Because of that, the free plan could be good for little project or low API quota.
           </>
