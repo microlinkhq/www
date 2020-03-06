@@ -15,29 +15,28 @@ const Questions = props => (
         question: 'Can I use microlink for free?',
         answer: [
           <>
-            Absolutely, we offer a free{' '}
-            <Link href='/docs/api/basics/endpoint'>endpoint</Link> plan that you
-            can use indefinitely.
+            Absolutely, we offer a forever free{' '}
+            <Link href='/docs/api/basics/endpoint'>endpoint</Link> you
+            can use. It's the best way for starting using the service.
           </>,
           <>
-            The only limitation is that the service is under IP Address
-            limitation to avoid flooding the service. As soon as you need more,
-            you can jump into the pro plan.
+            The free plan runs under some limitation for avoid abusive usage of the platform, like
+            burst rate, limited concurrency rate and daily rate limit.
           </>
+          <>
+            Because of that, the free plan could be good for little project or low API quota.
+          </>
+  
         ]
       },
       {
         question: 'How different is the free plan compared with pro?',
         answer: [
           <>
-            Some functionalities are only available under pro plans because they
-            represent an infrastructure cost that you are paying with the pro
-            plan.
+            The pro plan is ready to be used at scale, with better perfomance and unlocked functionalities such as <Link href='/docs/api/parameters/headers'>headers</Link>, <Link href='/docs/api/parameters/ttl'>ttl</Link> or <Link href='/docs/api/parameters/proxy'>proxy</Link>.
           </>,
           <>
-            Also, the free plan runs under IP Address limitation, while any pro
-            plan has an API token associated for identifying where the requests
-            come from.
+            A pro plan has an API key associated, with configurable quota. You only pay as you need.
           </>
         ]
       },
@@ -45,7 +44,7 @@ const Questions = props => (
         question: "What if I don't know how much API quota I need?",
         answer: [
           <>
-            No problem, just start with the smallest plan; in the moment you
+            No problem, just start with the smallest pro plan; in the moment you
             need more, you can upgrade your plan.
           </>
         ]
