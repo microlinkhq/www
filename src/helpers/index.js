@@ -4,6 +4,7 @@ import screenshotUrl from './screenshot-url'
 import formatNumber from './format-number'
 import aspectRatio from './aspect-ratio'
 import formatDate from './format-date'
+import proxyImage from './proxy-image'
 import sendEvent from './send-event'
 import getLines from './get-lines'
 import template from './template'
@@ -27,6 +28,7 @@ export {
   mqlCode,
   pdfUrl,
   prettier,
+  proxyImage,
   screenshotUrl,
   sendEvent,
   serializeComponent,

@@ -9,9 +9,9 @@ import {
 
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
+import { proxyImage, formatDate } from 'helpers'
 import * as Icons from 'components/icons'
 import { colors, layout } from 'theme'
-import { formatDate } from 'helpers'
 import React from 'react'
 
 const ROUTES_SDK = [
@@ -438,15 +438,27 @@ const getActiveRouteName = ({ pathname }) => {
 
 const getImage = ({ pathname }) => {
   if (pathname.includes('angular')) {
-    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Fangularjs-original.svg%3Fsize%3D400&output=jpg&bg=white'
+    return proxyImage('https://icongr.am/devicon/angularjs-original.svg', {
+      w: 400,
+      output: 'jpg',
+      bg: 'white'
+    })
   }
 
   if (pathname.includes('react')) {
-    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Freact-original.svg%3Fsize%3D400&output=jpg&bg=white'
+    return proxyImage('https://icongr.am/devicon/react-original.svg', {
+      w: 400,
+      output: 'jpg',
+      bg: 'white'
+    })
   }
 
   if (pathname.includes('vue')) {
-    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%2Fvuejs-original.svg%3Fsize%3D400&output=jpg&bg=white'
+    return proxyImage('https://icongr.am/devicon/vuejs-original.svg', {
+      w: 400,
+      output: 'jpg',
+      bg: 'white'
+    })
   }
 
   if (pathname.includes('vanilla')) {

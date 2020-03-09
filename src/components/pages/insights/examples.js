@@ -18,6 +18,7 @@ import { layout } from 'theme'
 import React, { useMemo, useCallback, useState } from 'react'
 import reduce from 'lodash/reduce'
 import isUrl from 'is-url-http/lightweight'
+import chunk from 'lodash/chunk'
 import prependHttp from 'prepend-http'
 import { getDomain } from 'tldts'
 import get from 'dlv'
@@ -168,11 +169,23 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   technologies behind the site.
                 </Text>
               </Flex>
-              <Flex pt={3} width='100%' justifyContent='space-around'>
-                {technologies.map(data => (
-                  <Wappalyzer key={data.name} data={data} />
+              <Box pt={3} width='100%'>
+                {chunk(technologies, 3).map((row, chunkIndex) => (
+                  <Flex
+                    key={`technologies_chunk_${chunkIndex}`}
+                    pt={chunkIndex === 0 ? 0 : 4}
+                  >
+                    {row.map(data => (
+                      <Wappalyzer
+                        width='512px'
+                        pr={4}
+                        key={data.name}
+                        data={data}
+                      />
+                    ))}
+                  </Flex>
                 ))}
-              </Flex>
+              </Box>
             </Flex>
             <Flex
               maxWidth={layout.large}

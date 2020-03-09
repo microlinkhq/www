@@ -1,8 +1,9 @@
 import { FetchProvider, Layout } from 'components/patterns'
 import { useQueryState } from 'components/hook'
 import humanizeUrl from 'humanize-url'
-import React from 'react'
+import { proxyImage } from 'helpers'
 import { getDomain } from 'tldts'
+import React from 'react'
 
 import Examples from 'components/pages/insights/examples'
 
@@ -23,8 +24,14 @@ export default () => {
     }
   })
 
-  const fallbackUrl =
-    'https://images.weserv.nl/?url=https%3A%2F%2Fcdn.microlink.io%2Flogo%2Flighthouse.png%3Fsize%3D400&output=jpg&bg=white'
+  const fallbackUrl = proxyImage(
+    'https://cdn.microlink.io/logo/lighthouse.png',
+    {
+      w: 400,
+      output: 'jpg',
+      bg: 'white'
+    }
+  )
 
   const image = query.url
     ? `https://unavatar.now.sh/${getDomain(query.ur)}?fallback=${fallbackUrl}`
