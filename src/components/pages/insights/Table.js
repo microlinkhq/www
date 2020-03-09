@@ -4,8 +4,6 @@ import isUrl from 'is-url-http/lightweight'
 import truncate from 'lodash/truncate'
 import humanizeUrl from 'humanize-url'
 
-const msecs = str => Number(str.toFixed(0)).toLocaleString()
-
 const Origin = ({ children, ...props }) => {
   return isUrl(children) ? (
     <Link icon {...props} href={children}>
@@ -73,7 +71,7 @@ export default ({ data, headers, fields, ...props }) => {
                 width={1 / 4}
                 as='span'
                 key={props[field]}
-                children={`${msecs(props[field])}ms`}
+                children={props[field]}
               />
             )
           )}

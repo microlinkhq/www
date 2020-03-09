@@ -29,64 +29,6 @@ import Table from './Table'
 
 import Markdown from 'components/markdown'
 
-const technologies = [
-  {
-    name: 'CloudFlare',
-    confidence: '100',
-    version: null,
-    icon: 'CloudFlare.svg',
-    website: 'http://www.cloudflare.com',
-    cpe: null,
-    categories: [
-      {
-        31: 'CDN'
-      }
-    ]
-  },
-  {
-    name: 'Google Analytics',
-    confidence: '100',
-    version: null,
-    icon: 'Google Analytics.svg',
-    website: 'http://google.com/analytics',
-    cpe: null,
-    categories: [
-      {
-        10: 'Analytics'
-      }
-    ]
-  },
-  {
-    name: 'Jekyll',
-    confidence: '100',
-    version: 'v3.8.6',
-    icon: 'Jekyll.png',
-    website: 'http://jekyllrb.com',
-    cpe: 'cpe:/a:jekyllrb:jekyll',
-    categories: [
-      {
-        57: 'Static Site Generator'
-      }
-    ]
-  },
-  {
-    name: 'Netlify',
-    confidence: '100',
-    version: null,
-    icon: 'Netlify.svg',
-    website: 'https://www.netlify.com/',
-    cpe: null,
-    categories: [
-      {
-        62: 'PaaS'
-      },
-      {
-        31: 'CDN'
-      }
-    ]
-  }
-]
-
 const getResourceSummary = resourceSummary =>
   reduce(
     resourceSummary,
@@ -125,20 +67,28 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const network = React.useMemo(() => {
     const networkServerLatency = get(insights, 'network-server-latency') || {}
     const networkRTT = get(insights, 'network-rtt') || {}
+
     if (!networkRTT.details) return {}
 
     networkServerLatency.details.items = networkRTT.details.items.reduce(
       (acc, item) => {
-        const { origin } = item
-        const restProps = networkServerLatency.details.items.find(
+        const { origin, duration_pretty: rtt } = item
+
+        const {
+          duration_pretty: serverResponseTime
+        } = networkServerLatency.details.items.find(
           item => item.origin === origin
         )
-        return [...acc, { ...item, ...restProps }]
+        return [...acc, { origin, rtt, serverResponseTime }]
       },
       []
     )
 
     return networkServerLatency
+  }, [insights])
+
+  const technologies = React.useMemo(() => {
+    return get(insights, 'technologies') || []
   }, [insights])
 
   const handleSubmit = event => {
@@ -219,7 +169,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 </Text>
               </Flex>
               <Flex pt={3} width='100%' justifyContent='space-around'>
-                {technologies.map((data, index) => (
+                {technologies.map(data => (
                   <Wappalyzer key={data.name} data={data} />
                 ))}
               </Flex>
@@ -407,7 +357,12 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   'Script Evaluation',
                   'Script Parse'
                 ]}
-                fields={['url', 'total', 'scripting', 'scriptParseCompile']}
+                fields={[
+                  'url',
+                  'duration_pretty',
+                  'script_pretty',
+                  'parse_pretty'
+                ]}
               />
             </Flex>
             <Flex
