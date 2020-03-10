@@ -88,6 +88,10 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
     return networkServerLatency
   }, [insights])
 
+  const httpVersion = React.useMemo(() => {
+    return get(insights, 'uses-http2') || {}
+  }, [insights])
+
   const technologies = React.useMemo(() => {
     return get(insights, 'technologies') || []
   }, [insights])
@@ -215,7 +219,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   .
                 </Text>
               </Flex>
-              <Flex pt={4} width='100%'>
+              <Flex pt={3} width='100%'>
                 {get(insights, 'screenshot-thumbnails.details.items')
                   .filter((item, index) => index % 2 === 0)
                   .map((thumbnail, index) => (
@@ -260,8 +264,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   children={`[Lighthouse](https://developers.google.com/web/tools/lighthouse)
                   provides easy insights for your site's performance.`}
                 />
-                <Text>
-                  In overall, the site score is{' '}
+                <Text style={{ marginTop: '-16px' }}>
+                  The site has in overal a score of{' '}
                   <Text as='span' fontWeight='bold'>
                     {LighthouseScore.getScore(insights)}/100
                   </Text>
@@ -295,7 +299,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                     'errors-in-console.description'
                   )}.`}
                 />
-                <Text>
+                <Text style={{ marginTop: '-16px' }}>
                   Found{' '}
                   <Text as='span' fontWeight='bold'>
                     {
@@ -324,7 +328,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <Markdown
                   children={`${get(insights, 'resource-summary.title')}.`}
                 />
-                <Text>
+                <Text style={{ marginTop: '-16px' }}>
                   Found{' '}
                   <Text as='span' fontWeight='bold'>
                     {resourceSummary.total.count}
@@ -340,7 +344,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <Pie
                   data={resourceSummary.details}
                   radialLabel={({ label, size_pretty: size }) =>
-                    `${label} (${size})`}
+                    `${label} (${size})`
+                  }
                 />
               </Flex>
             </Flex>
@@ -356,7 +361,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Bootup time' pb={1} />
                 <Markdown>{bootupTime.description}</Markdown>
-                <Text>
+                <Text style={{ marginTop: '-16px' }}>
                   JavaScript executes{' '}
                   <Text as='span' fontWeight='bold'>
                     {bootupTime.details.items.length}
@@ -398,7 +403,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <Markdown>
                   {get(insights, 'network-server-latency.description')}
                 </Markdown>
-                <Text>
+                <Text style={{ marginTop: '-16px' }}>
                   Reached{' '}
                   <Text as='span' fontWeight='bold'>
                     {network.details.items.length}
@@ -415,6 +420,32 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 headers={['URL', 'Round Trip Time', 'Response Time']}
                 fields={['origin', 'rtt', 'serverResponseTime']}
               />
+            </Flex>
+            <Flex
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
+            >
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='HTTP Version' pb={1} />
+                <Markdown>{httpVersion.description}</Markdown>
+                <Text style={{ marginTop: '-16px' }}>
+                  {httpVersion.score === 100
+                    ? 'All your requests are running under HTTP/2.'
+                    : "The site doesn't use HTTP/2 for all of its resources."}
+                </Text>
+              </Flex>
+              {httpVersion.details && (
+                <Table
+                  data={httpVersion}
+                  headers={['URL', 'Protocol']}
+                  fields={['url', 'protocol']}
+                />
+              )}
             </Flex>
           </>
         ) : (

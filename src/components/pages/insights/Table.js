@@ -42,7 +42,6 @@ const Header = ({ children, ...props }) => (
 export default ({ data, headers, fields, ...props }) => {
   return (
     <Flex
-      pt={3}
       width='100%'
       justifyContent='space-around'
       flexDirection='column'
