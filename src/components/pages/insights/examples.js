@@ -154,22 +154,24 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               px={4}
               py={4}
             >
-              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+              <Flex alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Technology stack' pb={1} />
-                <Markdown>
-                  Software detected under the target URL after analyzing source
-                  code, response headers, script variables and several other
-                  data sources.
-                </Markdown>
-                <Text>
-                  Detected{' '}
-                  <Text as='span' fontWeight='bold'>
-                    {technologies.length}
-                  </Text>{' '}
-                  technologies behind the site.
-                </Text>
+                <Box>
+                  <Markdown>
+                    Software detected under the target URL after analyzing
+                    source code, response headers, script variables and several
+                    other
+                  </Markdown>
+                  <Text style={{ marginTop: '-16px' }}>
+                    Detected{' '}
+                    <Text as='span' fontWeight='bold'>
+                      {technologies.length}
+                    </Text>{' '}
+                    technologies behind the site.
+                  </Text>
+                </Box>
               </Flex>
-              <Box pt={3} width='100%'>
+              <Box pt={4} width='100%'>
                 {chunk(technologies, 3).map((row, chunkIndex) => (
                   <Flex
                     key={`technologies_chunk_${chunkIndex}`}
@@ -201,15 +203,19 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <Markdown>
                   {get(insights, 'screenshot-thumbnails.description')}
                 </Markdown>
-                <Text>
+                <Text style={{ marginTop: '-16px' }}>
                   Visitors to your website see content in{' '}
                   <Text as='span' fontWeight='bold'>
                     {get(insights, 'first-contentful-paint.duration_pretty')}
                   </Text>
+                  , being perception{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {get(insights, 'first-contentful-paint.perception')}
+                  </Text>
                   .
                 </Text>
               </Flex>
-              <Flex pt={3} width='100%' justifyContent='space-around'>
+              <Flex pt={4} width='100%'>
                 {get(insights, 'screenshot-thumbnails.details.items')
                   .filter((item, index) => index % 2 === 0)
                   .map((thumbnail, index) => (
@@ -218,6 +224,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                       flexDirection='column'
                       alignItems='center'
                       justifyContent='center'
+                      pr={5}
                     >
                       <Box border={1} borderColor='black20'>
                         <Image
@@ -333,8 +340,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <Pie
                   data={resourceSummary.details}
                   radialLabel={({ label, size_pretty: size }) =>
-                    `${label} (${size})`
-                  }
+                    `${label} (${size})`}
                 />
               </Flex>
             </Flex>
