@@ -158,50 +158,6 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               px={4}
               py={4}
             >
-              <Flex alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Technology stack' pb={1} />
-                <Box>
-                  <Markdown>
-                    Software detected under the target URL after analyzing
-                    source code, response headers, script variables and several
-                    other
-                  </Markdown>
-                  <Text style={{ marginTop: '-16px' }}>
-                    Detected{' '}
-                    <Text as='span' fontWeight='bold'>
-                      {technologies.length}
-                    </Text>{' '}
-                    technologies behind the site.
-                  </Text>
-                </Box>
-              </Flex>
-              <Box pt={4} width='100%'>
-                {chunk(technologies, 3).map((row, chunkIndex) => (
-                  <Flex
-                    key={`technologies_chunk_${chunkIndex}`}
-                    pt={chunkIndex === 0 ? 0 : 4}
-                  >
-                    {row.map(data => (
-                      <Wappalyzer
-                        width='512px'
-                        pr={4}
-                        key={data.name}
-                        data={data}
-                      />
-                    ))}
-                  </Flex>
-                ))}
-              </Box>
-            </Flex>
-            <Flex
-              maxWidth={layout.large}
-              as='section'
-              flexDirection='column'
-              width='100%'
-              alignItems='flex-start'
-              px={4}
-              py={4}
-            >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Perceptible speed' pb={1} />
                 <Markdown>
@@ -248,6 +204,50 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                     </Flex>
                   ))}
               </Flex>
+            </Flex>
+            <Flex
+              maxWidth={layout.large}
+              as='section'
+              flexDirection='column'
+              width='100%'
+              alignItems='flex-start'
+              px={4}
+              py={4}
+            >
+              <Flex alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Technology stack' pb={1} />
+                <Box>
+                  <Markdown>
+                    Software detected under the target URL after analyzing
+                    source code, response headers, script variables and several
+                    other
+                  </Markdown>
+                  <Text style={{ marginTop: '-16px' }}>
+                    Detected{' '}
+                    <Text as='span' fontWeight='bold'>
+                      {technologies.length}
+                    </Text>{' '}
+                    technologies behind the site.
+                  </Text>
+                </Box>
+              </Flex>
+              <Box pt={4} width='100%'>
+                {chunk(technologies, 3).map((row, chunkIndex) => (
+                  <Flex
+                    key={`technologies_chunk_${chunkIndex}`}
+                    pt={chunkIndex === 0 ? 0 : 4}
+                  >
+                    {row.map(data => (
+                      <Wappalyzer
+                        width='512px'
+                        pr={4}
+                        key={data.name}
+                        data={data}
+                      />
+                    ))}
+                  </Flex>
+                ))}
+              </Box>
             </Flex>
             <Flex
               maxWidth={layout.large}
