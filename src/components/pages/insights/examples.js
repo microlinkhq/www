@@ -434,9 +434,24 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <SubHeadline title='HTTP Version' pb={1} />
                 <Markdown>{httpVersion.description}</Markdown>
                 <Text style={{ marginTop: '-16px' }}>
-                  {httpVersion.score === 100
-                    ? 'All your requests are running under HTTP/2.'
-                    : "The site doesn't use HTTP/2 for all of its resources."}
+                  {httpVersion.score === 100 ? (
+                    <>
+                      <Text as='span' fontWeight='bold'>
+                        All
+                      </Text>{' '}
+                      your requests are served via HTTP/2.
+                    </>
+                  ) : (
+                    <>
+                      <Text as='span' fontWeight='bold'>
+                        {httpVersion.details.items.length}
+                      </Text>{' '}
+                      {httpVersion.details.items.length === 1
+                        ? 'request'
+                        : 'requests'}{' '}
+                      are not served via HTTP/2.
+                    </>
+                  )}
                 </Text>
               </Flex>
               {httpVersion.details && (
