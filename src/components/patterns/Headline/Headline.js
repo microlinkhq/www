@@ -2,12 +2,15 @@ import React from 'react'
 import { Subhead, Flex, Heading } from 'components/elements'
 import { Caption } from 'components/patterns'
 
-const constructor = TitleComponnet => ({
+import { withSlug } from 'helpers/hoc'
+
+const TitleConstructor = TitleComponnet => ({
   fontSize,
   fontWeight,
   title,
   caption,
   captionExclude,
+  slug = false,
   ...props
 }) => {
   return (
@@ -25,11 +28,12 @@ const constructor = TitleComponnet => ({
         fontSize={fontSize}
         px={0}
         children={title}
+        slug={slug}
       />
       {caption && <Caption titleExclude={captionExclude}>{caption}</Caption>}
     </Flex>
   )
 }
 
-export const Headline = constructor(Heading)
-export const SubHeadline = constructor(Subhead)
+export const Headline = TitleConstructor(withSlug(Heading))
+export const SubHeadline = TitleConstructor(withSlug(Subhead))

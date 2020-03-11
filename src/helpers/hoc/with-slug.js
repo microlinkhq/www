@@ -1,4 +1,5 @@
 import React, { createElement } from 'react'
+import { slug as slugger } from 'github-slugger'
 
 import Svg from '../../components/elements/Svg'
 import styled from 'styled-components'
@@ -68,11 +69,13 @@ export default ChildComponent => {
     }
 
     const { id, ...rest } = props
+    const titledChildren = title(children)
+    const frameId = `#${id || slugger(titledChildren)}`
 
     return (
       <ChildComponent {...rest}>
         <PermalinkTarget id={id} />
-        <AnchorLink children={title(children)} href={`#${id}`} />
+        <AnchorLink children={titledChildren} href={frameId} />
         <Permalink>
           <PermalinkIcon width='14px' ml={2} />
         </Permalink>

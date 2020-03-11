@@ -159,7 +159,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Perceptible speed' pb={1} />
+                <SubHeadline title='Perceptible speed' pb={1} slug />
                 <Markdown>
                   {get(insights, 'screenshot-thumbnails.description')}
                 </Markdown>
@@ -215,7 +215,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Technology stack' pb={1} />
+                <SubHeadline title='Technology stack' pb={1} slug />
                 <Box>
                   <Markdown>
                     Software detected under the target URL after analyzing
@@ -259,7 +259,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Lighthouse score' pb={1} />
+                <SubHeadline title='Lighthouse score' pb={1} slug />
                 <Markdown
                   children={`[Lighthouse](https://developers.google.com/web/tools/lighthouse)
                   provides easy insights for your site's performance.`}
@@ -292,7 +292,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Errors in console' pb={1} />
+                <SubHeadline title='Errors in console' pb={1} slug />
                 <Markdown
                   children={`${get(
                     insights,
@@ -324,7 +324,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Resource Summary' pb={1} />
+                <SubHeadline title='Resource Summary' pb={1} slug />
                 <Markdown
                   children={`${get(insights, 'resource-summary.title')}.`}
                 />
@@ -359,7 +359,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Bootup time' pb={1} />
+                <SubHeadline title='Bootup time' pb={1} slug />
                 <Markdown>{bootupTime.description}</Markdown>
                 <Text style={{ marginTop: '-16px' }}>
                   JavaScript executes{' '}
@@ -399,7 +399,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Network Perfomance' pb={1} />
+                <SubHeadline title='Network Perfomance' pb={1} slug />
                 <Markdown>
                   {get(insights, 'network-server-latency.description')}
                 </Markdown>
@@ -431,7 +431,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='HTTP Version' pb={1} />
+                <SubHeadline title='HTTP Version' pb={1} slug />
                 <Markdown>{httpVersion.description}</Markdown>
                 <Text style={{ marginTop: '-16px' }}>
                   {httpVersion.score === 100 ? (
@@ -491,7 +491,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
 // const Resume = props => (
 //   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
 //     <Box pt={[0, 0, 4, 4]}>
-//       <SubHeadline title='Easy Peasy PDF as a service' />
+//       <SubHeadline title='Easy Peasy PDF as a service' slug/>
 //       <Text
 //         textAlign='center'
 //         mr='auto'
