@@ -434,12 +434,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <Markdown>{httpVersion.description}</Markdown>
                 <Text style={{ marginTop: '-16px' }}>
                   {httpVersion.score === 100 ? (
-                    <>
-                      <Text as='span' fontWeight='bold'>
-                        All
-                      </Text>{' '}
-                      your requests are served via HTTP/2.
-                    </>
+                    <>All your requests are served via HTTP/2.</>
                   ) : (
                     <>
                       <Text as='span' fontWeight='bold'>
