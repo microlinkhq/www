@@ -276,7 +276,6 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <Lighthouse
                   // component={Card}
                   height='inherit'
-                  p={3}
                   mb={4}
                   data={insights}
                 />

@@ -13,7 +13,7 @@ export const getColor = value => {
   return colors.fullscreen
 }
 
-const CIRCLE_WIDTH = '60px'
+const CIRCLE_WIDTH = '64px'
 
 const Circle = styled(ProgressArc)`
   font-family: ${fonts.sans};
@@ -40,7 +40,6 @@ export default ({
   component: Component = Flex,
   circleRadius = 90,
   circleWidth = CIRCLE_WIDTH,
-  mr = 3,
   data,
   ...props
 }) => {
@@ -64,7 +63,7 @@ export default ({
             key={`${title}_${score}`}
             flexDirection='column'
             alignItems='center'
-            mr={key === 'interactive' ? 0 : mr}
+            ml='-32px'
           >
             <Circle
               value={score}
