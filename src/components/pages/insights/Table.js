@@ -61,7 +61,7 @@ export default ({ data, headers, fields, ...props }) => {
               <Origin
                 width={3 / 4}
                 as='span'
-                key={props[field]}
+                key={`${props[field]}_${index}`}
                 children={props[field]}
               />
             ) : (
@@ -69,7 +69,7 @@ export default ({ data, headers, fields, ...props }) => {
                 color='gray7'
                 width={1 / 4}
                 as='span'
-                key={props[field]}
+                key={`${props[field]}_${index}`}
                 children={props[field]}
               />
             )
