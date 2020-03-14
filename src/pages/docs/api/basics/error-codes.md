@@ -12,6 +12,16 @@ When this happens, the response payload includes some useful information in orde
 - `more`: A link pointing this documentation.
 - `report`: A link for reporting the problem directly to us.
 
+## EAUTH
+
+**Message**
+
+Authentication failed. Make sure you are attaching your API key as `x-api-key` header.
+
+**Solution**
+
+Ensure your API key we send you via email and it's attached as `x-api-key` against `pro.microlink.io` endpoint.
+
 ## EBRWSRTIMEOUT
 
 **Message**
