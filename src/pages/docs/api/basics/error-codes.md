@@ -38,6 +38,18 @@ The maximum time associated with a browser navigation is 23s, considering the br
 
 In order to avoid this error, browser navigation time need to be done below the threshold.
 
+## ECNRCY
+
+**Message**
+
+Requests against `free.microlink.io` are limited to 1 concurrent requests.
+
+**Solution**
+
+The free [endpoint](/docs/api/basics/endpoint) has some soft limitations in order to prevent abusive usage.
+
+You need to [upgrade](/#pricing) your plan in order to don't have these restrictions.
+
 ## EFATAL
 
 **Message**
