@@ -5,7 +5,7 @@ title: Authentication
 The authentication is done passing your API token associated with your [pro plan](/#pricing) as `x-api-key` request header.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-pro https://instagram.com/p/BvDTdWdnzkj&apiKey=MyApiToken`,
+  Shell: `curl -H 'x-api-key: YOUR_API_TOKEN' https://instagram.com/p/BvDTdWdnzkj`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
