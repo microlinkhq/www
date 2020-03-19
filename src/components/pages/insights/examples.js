@@ -7,8 +7,8 @@ import {
   Image,
   Input,
   InputIcon,
-  Text,
-  Pie
+  Pie,
+  Text
 } from 'components/elements'
 
 import { LighthouseScore, Lighthouse, SubHeadline } from 'components/patterns'
@@ -18,14 +18,14 @@ import { layout } from 'theme'
 import React, { useMemo, useCallback, useState } from 'react'
 import reduce from 'lodash/reduce'
 import isUrl from 'is-url-http/lightweight'
-import chunk from 'lodash/chunk'
 import prependHttp from 'prepend-http'
 import { getDomain } from 'tldts'
 import get from 'dlv'
 
 import { screenshotHeight } from 'components/pages/home/screenshots'
-import Wappalyzer from './Wappalyzer'
+import ScreenshotThumbnail from './ScreenshotThumbnail'
 import ConsoleErrors from './ConsoleErrors'
+import Technologies from './Technologies'
 import Table from './Table'
 
 import Markdown from 'components/markdown'
@@ -140,7 +140,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               autoFocus
             />
           </Box>
-          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
+          <Button ml={[0, 0, 2, 2]} width='100%' loading={isLoading}>
             <Caps fontSize={1} children='Audit it' />
           </Button>
         </Flex>
@@ -159,7 +159,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Perceptible speed' pb={1} slug />
+                <SubHeadline title='Perceptible speed' pb={0} slug />
                 <Markdown>
                   {get(insights, 'screenshot-thumbnails.description')}
                 </Markdown>
@@ -175,34 +175,12 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   .
                 </Text>
               </Flex>
-              <Flex pt={3} width='100%'>
-                {get(insights, 'screenshot-thumbnails.details.items')
-                  .filter((item, index) => index % 2 === 0)
-                  .map((thumbnail, index) => (
-                    <Flex
-                      key={index}
-                      flexDirection='column'
-                      alignItems='center'
-                      justifyContent='center'
-                      pr={5}
-                    >
-                      <Box border={1} borderColor='black20'>
-                        <Image
-                          height='88px'
-                          width='120px'
-                          src={thumbnail.data}
-                        />
-                      </Box>
-
-                      <Text
-                        color='gray7'
-                        fontSize={1}
-                        lineHeight={2}
-                        pt={3}
-                        children={thumbnail.timing_pretty}
-                      />
-                    </Flex>
-                  ))}
+              <Flex
+                pt={3}
+                width='100%'
+                flexDirection={['column', 'column', 'row', 'row']}
+              >
+                <ScreenshotThumbnail insights={insights} />
               </Flex>
             </Flex>
             <Flex
@@ -214,8 +192,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               px={4}
               py={4}
             >
-              <Flex alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Technology stack' pb={1} slug />
+              <Flex pb={3} alignItems='baseline' flexDirection='column'>
+                <SubHeadline title='Technology stack' pb={0} slug />
                 <Box>
                   <Markdown>
                     Software detected under the target URL after analyzing
@@ -231,22 +209,9 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                   </Text>
                 </Box>
               </Flex>
-              <Box pt={4} width='100%'>
-                {chunk(technologies, 3).map((row, chunkIndex) => (
-                  <Flex
-                    key={`technologies_chunk_${chunkIndex}`}
-                    pt={chunkIndex === 0 ? 0 : 4}
-                  >
-                    {row.map(data => (
-                      <Wappalyzer
-                        width='512px'
-                        pr={4}
-                        key={data.name}
-                        data={data}
-                      />
-                    ))}
-                  </Flex>
-                ))}
+
+              <Box pt={3} width='100%'>
+                <Technologies technologies={technologies} />
               </Box>
             </Flex>
             <Flex
@@ -259,7 +224,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Lighthouse score' pb={1} slug />
+                <SubHeadline title='Lighthouse score' pb={0} slug />
                 <Markdown
                   children={`[Lighthouse](https://developers.google.com/web/tools/lighthouse)
                   provides easy insights for your site's performance.`}
@@ -291,7 +256,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Errors in console' pb={1} slug />
+                <SubHeadline title='Errors in console' pb={0} slug />
                 <Markdown
                   children={`${get(
                     insights,
@@ -323,7 +288,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Resource Summary' pb={1} slug />
+                <SubHeadline title='Resource Summary' pb={0} slug />
                 <Markdown
                   children={`${get(insights, 'resource-summary.title')}.`}
                 />
@@ -358,7 +323,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Bootup time' pb={1} slug />
+                <SubHeadline title='Bootup time' pb={0} slug />
                 <Markdown>{bootupTime.description}</Markdown>
                 <Text style={{ marginTop: '-16px' }}>
                   JavaScript executes{' '}
@@ -398,7 +363,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='Network Perfomance' pb={1} slug />
+                <SubHeadline title='Network Perfomance' pb={0} slug />
                 <Markdown>
                   {get(insights, 'network-server-latency.description')}
                 </Markdown>
@@ -430,7 +395,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               py={4}
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
-                <SubHeadline title='HTTP Version' pb={1} slug />
+                <SubHeadline title='HTTP Version' pb={0} slug />
                 <Markdown>{httpVersion.description}</Markdown>
                 <Text style={{ marginTop: '-16px' }}>
                   {httpVersion.score === 100 ? (
