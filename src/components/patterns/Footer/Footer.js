@@ -15,7 +15,7 @@ import {
 
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
 import { layout, transition, colors } from 'theme'
-import Stats from '../Stats/Stats'
+import ChecklyStatus from '../ChecklyStatus/ChecklyStatus'
 import { Microlink } from 'components/logos'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
@@ -222,10 +222,9 @@ export default ({ theme, ...props }) => {
               justifyContent={['center', 'inherit', 'inherit', 'inherit']}
             >
               <Flex flexDirection='column'>
-                <Stats>
+                <ChecklyStatus>
                   {({ data }) => {
-                    const apiStatus = get(data, 'apiStatus') || 'error'
-
+                    const apiStatus = data || 'error'
                     if (apiStatus === 'error') {
                       return (
                         <LinkSolid
@@ -269,7 +268,7 @@ export default ({ theme, ...props }) => {
                       </Link>
                     )
                   }}
-                </Stats>
+                </ChecklyStatus>
               </Flex>
             </Flex>
 

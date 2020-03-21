@@ -1,20 +1,8 @@
-import {
-  Caps,
-  Container,
-  Box,
-  Flex,
-  Text,
-  DotSpinner
-} from 'components/elements'
-
+import { Container, Box, Flex, Text, DotSpinner } from 'components/elements'
+import { KubernetesMonitor, Layout } from 'components/patterns'
 import { useSiteMetadata } from 'components/hook'
-import { Layout, Stats } from 'components/patterns'
 import React, { useState } from 'react'
-import { layout } from 'theme'
-
 import { screenshotUrl } from 'helpers'
-
-const Key = props => <Caps fontWeight='normal' fontSize={1} {...props} />
 
 const Value = props => (
   <Text
@@ -24,8 +12,6 @@ const Value = props => (
     {...props}
   />
 )
-
-const POLLING_INTERVAL = 2000
 
 export default () => {
   const { siteUrl } = useSiteMetadata()
@@ -40,13 +26,13 @@ export default () => {
   const toggleTheme = () =>
     setTheme(theme => (theme === 'light' ? 'dark' : 'light'))
 
-  const { labelColor, color, bg } =
+  const { color, bg } =
     theme === 'light'
       ? { labelColor: 'black50', color: 'black', bg: 'white' }
       : { labelColor: 'white50', color: 'white', bg: 'black' }
 
   return (
-    <Stats refreshInterval={POLLING_INTERVAL}>
+    <KubernetesMonitor>
       {({ isLoading, data }) => {
         return (
           <Layout
@@ -59,78 +45,15 @@ export default () => {
             justifyContent='center'
             alignItems='center'
           >
-            <Container maxWidth={layout.medium} px={[5, 5, 4, 4]}>
+            <Container maxWidth='100%' px={[5, 5, 4, 4]}>
               <Box id='stats'>
                 {isLoading ? (
-                  <>
-                    <Flex
-                      justifyContent='center'
-                      flexDirection={['column', 'column', 'row', 'row']}
-                    >
-                      <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                        <Key color={labelColor}>API</Key>
-                        <Value color={color}>{data.apiVersion}</Value>
-                      </Box>
-                      <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                        <Key color={labelColor}>Last Deploy</Key>
-                        <Value color={color}>{data.createdAt}</Value>
-                      </Box>
-                    </Flex>
-                    <Flex
-                      justifyContent='center'
-                      pt={[0, 0, 4, 4]}
-                      flexDirection={['column', 'column', 'row', 'row']}
-                    >
-                      {data.status && (
-                        <Flex>
-                          <Box mb={[3, 3, 0, 0]} mr={[5, 5, 5, 5]}>
-                            <Key color={labelColor}>CPU</Key>
-                            <Value color={color}>
-                              {data.status.cpuUsagePercentage}%
-                            </Value>
-                          </Box>
-                          <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                            <Key color={labelColor}>Memory</Key>
-                            <Value color={color}>
-                              {data.status.memoryUsagePercentage}%
-                            </Value>
-                          </Box>
-                        </Flex>
-                      )}
-                      <Flex>
-                        <Box mb={[3, 3, 0, 0]} mr={[5, 5, 5, 5]}>
-                          <Key color={labelColor}>Nodes</Key>
-                          <Value color={color}>{data.nodes}</Value>
-                        </Box>
-                        <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                          <Key color={labelColor}>Replicas</Key>
-                          <Value color={color}>
-                            {data.status && data.limits
-                              ? data.status.currentReplicas /
-                                data.limits.maxReplicas
-                              : data.pods}
-                          </Value>
-                        </Box>
-                      </Flex>
-                    </Flex>
-                    {data.specs && (
-                      <Flex
-                        justifyContent='center'
-                        pt={[0, 0, 4, 4]}
-                        flexDirection={['column', 'column', 'row', 'row']}
-                      >
-                        <Box mb={[3, 3, 0, 0]} mr={[0, 0, 5, 5]}>
-                          <Key color={labelColor}>Specs</Key>
-                          <Flex>
-                            <Value color={color} mr={[3, 3, 4, 4]}>
-                              {data.specs.cpus}
-                            </Value>
-                            <Value color={color}>{data.specs.memory}</Value>
-                          </Flex>
-                        </Box>
-                      </Flex>
-                    )}
-                  </>
+                  <Text
+                    style={{ whiteSpace: 'pre', fontFamily: 'monospace' }}
+                    color={color}
+                    fontSize={[0, 0, 1, 1]}
+                    children={`\n${data}`}
+                  />
                 ) : (
                   <>
                     <Flex
@@ -149,6 +72,6 @@ export default () => {
           </Layout>
         )
       }}
-    </Stats>
+    </KubernetesMonitor>
   )
 }

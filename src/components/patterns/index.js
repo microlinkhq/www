@@ -23,7 +23,8 @@ import LiveDemo from './LiveDemo/LiveDemo'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
-import Stats from './Stats/Stats'
+import KubernetesMonitor from './KubernetesMonitor/KubernetesMonitor'
+import ChecklyStatus from './ChecklyStatus/ChecklyStatus'
 import Toolbar from './Toolbar/Toolbar'
 
 export {
@@ -33,6 +34,7 @@ export {
   Caption,
   CardLink,
   Chat,
+  ChecklyStatus,
   Checkout,
   CookiesPolicy,
   CubeBackground,
@@ -43,6 +45,7 @@ export {
   Footer,
   Grid,
   Headline,
+  KubernetesMonitor,
   Layout,
   Legend,
   Lighthouse,
@@ -52,7 +55,6 @@ export {
   Microlink,
   MQLEditor,
   PricingTable,
-  Stats,
   SubHeadline,
   Toolbar
 }
