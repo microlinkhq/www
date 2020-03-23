@@ -81,7 +81,7 @@
     "node-sass": "~4.13.1",
     "normalize.css": "~8.0.1",
     "palx": "~1.0.3",
-    "polished": "~3.4.4",
+    "polished": "~3.5.1",
     "postcss-focus": "~4.0.0",
     "prepend-http": "~3.0.1",
     "prettier": "~1.19.1",
