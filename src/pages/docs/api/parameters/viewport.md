@@ -31,7 +31,7 @@ module.exports = async () => {
 
 <Figcaption>Establishing a custom viewport.</Figcaption>
 
-The default viewport values are provided by the default [device](/docs/api/parameters/screenshot/device). The viewport should be defined by:
+The default viewport values are provided by the default [device](/docs/api/parameters/device). The viewport should be defined by:
 
 - `width` <Type children='<number>'/>: The page width in pixels
 - `height` <Type children='<number>'/>: The page height in pixels.
@@ -65,4 +65,4 @@ module.exports = async () => {
 
 <Figcaption>Using the default viewport with lower device scale factor.</Figcaption>
 
-See [device](/docs/api/parameters/screenshot/device) for using viewport presets.
+See [device](/docs/api/parameters/device) for using viewport presets.
