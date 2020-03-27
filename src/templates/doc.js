@@ -342,6 +342,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/styles'
       },
       {
+        name: 'timeout',
+        href: '/docs/api/parameters/timeout'
+      },
+      {
         name: 'ttl',
         href: '/docs/api/parameters/ttl'
       },

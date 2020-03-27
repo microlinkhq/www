@@ -36,6 +36,7 @@
 /audio             /docs/api/parameters/audio
 /embed             /docs/api/parameters/embed
 /cache             /docs/api/parameters/force
+/timeout           /docs/api/parameters/timeout
 /ttl               /docs/api/parameters/ttl
 /headers           /docs/api/parameters/headers
 /palette           /docs/api/parameters/palette

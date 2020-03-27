@@ -60,4 +60,5 @@ Just [url](/docs/api/parameters/url) is the only parameter that needs to be spec
 - [filter](/docs/api/parameters/filter): filters a list of properties from the response data for bandwidth saving.
 - [force](/docs/api/parameters/force): forces a new fresh response data bypassing the cache layer.
 - [headers](/docs/api/parameters/headers): customizes requests using custom HTTP headers.
+- [timeout](/docs/api/parameters/timeout): defines maximum quantity of time allowed for resolving a request.
 - [ttl](/docs/api/parameters/ttl): configures the cache layer specifying the time to live.
