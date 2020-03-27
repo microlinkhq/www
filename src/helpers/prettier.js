@@ -2,7 +2,7 @@ import prettierStandalone from 'prettier/standalone'
 import prettierParserHtml from 'prettier/parser-html'
 import prettierParserGraphql from 'prettier/parser-graphql'
 import prettierParserMarkdown from 'prettier/parser-markdown'
-import parserBabylon from 'prettier/parser-babylon'
+import parserBabel from 'prettier/parser-babel'
 
 /**
  * https://prettier.io/docs/en/options.html
@@ -17,12 +17,12 @@ const PRETTIER_CONFIG = {
 
 const JS_OPTS = {
   parser: 'babel',
-  plugins: [parserBabylon]
+  plugins: [parserBabel]
 }
 
 const JSON_OPTS = {
   parser: 'json',
-  plugins: [parserBabylon]
+  plugins: [parserBabel]
 }
 
 const HTML_OPTS = {
