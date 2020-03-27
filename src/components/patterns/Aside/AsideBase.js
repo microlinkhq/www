@@ -34,7 +34,7 @@ const linkStyle = css`
   .${LINK_ICON_CLASSNAME} {
     width: 16px;
     opacity: 0.6;
-    margin-right: ${space[1]};
+    margin-right: ${space[2]};
     transition: opacity ${({ theme }) => theme.transition.medium};
   }
 `
