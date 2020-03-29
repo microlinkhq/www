@@ -2,7 +2,7 @@
 title: Cache
 ---
 
-We have a builtin caching layer for speed up consecutive API calls based on query parameters.
+Microlink API offers a builtin caching layer for speed up consecutive API calls based on query parameters.
 
 The first time you query for a resource that not was previously served, it will be created, what is known as cache **MISS**.
 
