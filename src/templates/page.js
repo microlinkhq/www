@@ -6,10 +6,11 @@ import Markdown, {
   Link,
   Blockquote
 } from 'components/markdown'
+
 import { Chat, Layout } from 'components/patterns'
 import { Text, Box } from 'components/elements'
+import { title, formatDate } from 'helpers'
 import React from 'react'
-import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 
 const PostFooter = () => (

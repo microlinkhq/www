@@ -37,12 +37,7 @@ const Hero = ({ domain, id, data }) => {
   const caption = (
     <Box maxWidth={5} pt={[2, 2, 4, 4]} px={5}>
       Turn{' '}
-      <Subhead
-        as='span'
-        color='black'
-        fontWeight='regular'
-        titleExclude={[domain]}
-      >
+      <Subhead as='span' color='black' fontWeight='regular' titleize={false}>
         {domain}
       </Subhead>{' '}
       into structured data
@@ -165,7 +160,7 @@ const Sdk = ({ domain, data }) => {
                 textAlign='left'
                 fontSize={[1, 2]}
                 children={props.size || 'iframe'}
-                titleExclude={[props.size || 'iframe']}
+                omitTitleize={[props.size || 'iframe']}
               />
               <Box
                 css={`

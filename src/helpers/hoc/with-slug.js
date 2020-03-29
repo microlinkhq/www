@@ -3,7 +3,6 @@ import { slug as slugger } from 'github-slugger'
 
 import Svg from '../../components/elements/Svg'
 import styled from 'styled-components'
-import { title } from 'helpers'
 
 import { colors } from 'theme'
 
@@ -69,13 +68,12 @@ export default ChildComponent => {
     }
 
     const { id, ...rest } = props
-    const titledChildren = title(children)
-    const frameId = `#${id || slugger(titledChildren)}`
+    const frameId = `#${id || slugger(children)}`
 
     return (
       <ChildComponent {...rest}>
         <PermalinkTarget id={id} />
-        <AnchorLink children={titledChildren} href={frameId} />
+        <AnchorLink children={children} href={frameId} />
         <Permalink>
           <PermalinkIcon width='14px' ml={2} />
         </Permalink>

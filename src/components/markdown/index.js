@@ -1,17 +1,18 @@
 import { space, fontSizes, colors, transition } from 'theme'
 import styled, { css } from 'styled-components'
-import { withSlug } from 'helpers/hoc'
+import { withTitle, withSlug } from 'helpers/hoc'
 import Mdx from 'mdx-scoped-runtime'
 import slug from 'remark-slug'
 import get from 'dlv'
 import React from 'react'
+
+import Heading from '../elements/Heading'
 
 import {
   Terminal as TerminalBase,
   CodeEditor,
   MultiCodeEditor as MultiCodeEditorBase,
   Box,
-  Heading,
   Text,
   Link as LinkBase,
   Label,
@@ -81,7 +82,7 @@ export const MultiCodeEditor = withContainer(
   }
 )
 
-export const H1 = withSlug(styled(Heading)``)
+export const H1 = withTitle(withSlug(styled(Heading)``))
 
 H1.defaultProps = {
   maxWidth: WIDTH.normal,
@@ -125,9 +126,9 @@ H2Link.defaultProps = {
   as: 'a'
 }
 
-export const H2 = withSlug(H2Base)
+export const H2 = withTitle(withSlug(H2Base))
 
-export const H3 = withSlug(styled(Heading)``)
+export const H3 = withTitle(withSlug(styled(Heading)``))
 
 H3.defaultProps = {
   ml: 'auto',
@@ -142,7 +143,7 @@ H3.defaultProps = {
   mb: 4
 }
 
-export const H4 = withSlug(styled(Heading)``)
+export const H4 = withTitle(withSlug(styled(Heading)``))
 
 H4.defaultProps = {
   ml: 'auto',
@@ -157,7 +158,7 @@ H4.defaultProps = {
   mb: 4
 }
 
-export const H5 = withSlug(styled(Heading)``)
+export const H5 = withTitle(withSlug(styled(Heading)``))
 
 H5.defaultProps = {
   ml: 'auto',
@@ -172,7 +173,7 @@ H5.defaultProps = {
   mb: 2
 }
 
-export const H6 = withSlug(styled(Heading)``)
+export const H6 = withTitle(withSlug(styled(Heading)``))
 
 H6.defaultProps = {
   ml: 'auto',

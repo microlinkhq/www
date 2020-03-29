@@ -1,3 +1,5 @@
+import { withTitle } from 'helpers/hoc'
+
 import Button from './Button'
 import { Link, LinkSolid } from './Link'
 
@@ -39,9 +41,9 @@ import {
 } from './BackgroundSlider/BackgroundSlider'
 
 import Caps from './Caps'
-import Heading from './Heading'
+import HeadingBase from './Heading'
 import Label from './Label'
-import Subhead from './Subhead'
+import SubheadBase from './Subhead'
 import Text from './Text'
 import Iframe from './Iframe/Iframe'
 import IframeInline from './IframeInline/IframeInline'
@@ -52,6 +54,9 @@ import Pie from './Pie/Pie'
 import Radar from './Radar/Radar'
 import Stack from './Stack/Stack'
 import Nivo from './Nivo'
+
+const Heading = withTitle(HeadingBase)
+const Subhead = withTitle(SubheadBase)
 
 export {
   AnimatedBox,

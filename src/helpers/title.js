@@ -16,6 +16,7 @@ const special = [
   'isLandscape',
   'isMobile',
   'JavaScript',
+  'Microlink',
   'Node.js',
   'omitBackground',
   'options',
@@ -30,28 +31,33 @@ const special = [
   'waitFor',
   'waitUntil',
   'width',
-  'WordPress'
+  'WordPress',
+  'oEmbed',
+  'Open Graph'
 ]
 
 const isUpperCase = str =>
   str.split('').every(letter => letter === letter.toUpperCase())
 
+// https://docs.microsoft.com/en-us/style-guide/capitalization
 export default (str, exclude = []) => {
   // all minus unless the first world
   let title = capitalize(str)
 
-  const difference = exclude.filter(x => !special.includes(x))
-
-  // reset some words
-  difference.forEach(word => {
+  // respect special words
+  special.concat(exclude).forEach(word => {
     const re = new RegExp(`\\b(?:${word})\\b`, 'gi')
-    if (re.test(str)) title = title.replace(re, word)
+    if (re.test(str)) {
+      title = title.replace(re, word)
+    }
   })
 
   // respect uppercase words
   title = title.split(' ')
   str.split(' ').forEach((word, index) => {
-    if (isUpperCase(word)) title[index] = word
+    if (isUpperCase(word)) {
+      title[index] = word
+    }
   })
   title = title.join(' ')
 

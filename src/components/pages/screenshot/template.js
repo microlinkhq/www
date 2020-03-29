@@ -60,7 +60,7 @@ const Hero = ({ domain, id, data }) => {
         as='span'
         color='black'
         fontWeight='regular'
-        titleExclude={[domain]}
+        omitTitleize={[domain]}
       >
         {domain}
       </Subhead>{' '}

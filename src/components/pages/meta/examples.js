@@ -179,12 +179,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
@@ -251,9 +251,8 @@ const Timings = () => {
               maxWidth={[6, 7, 7, 'inherit']}
               mt={[3, 3, 3, 0]}
               variant={null}
-              titleExclude={['Oembed', 'Meta Tags']}
             >
-              Open Graph, JSON+LD, Oembed & HTML.
+              Open Graph, JSON+LD, oEmbed & HTML.
             </Caption>
           </Box>
         }
@@ -305,7 +304,7 @@ const Timings = () => {
                   variant={null}
                   mr={3}
                   fontWeight='light'
-                  titleExclude={['avg']}
+                  titleize={false}
                 >
                   avg. response time
                 </Caption>
@@ -340,7 +339,7 @@ const Timings = () => {
                   variant={null}
                   mr={3}
                   fontWeight='light'
-                  titleExclude={['p95']}
+                  titleize={false}
                 >
                   p95 response time
                 </Caption>
@@ -375,9 +374,9 @@ const Timings = () => {
                   variant={null}
                   mr={3}
                   fontWeight='light'
-                  titleExclude={['Uptime']}
+                  titleize={false}
                 >
-                  Uptime
+                  uptime
                 </Caption>
               </Flex>
             </Flex>

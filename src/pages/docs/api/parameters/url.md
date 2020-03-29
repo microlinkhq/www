@@ -2,7 +2,7 @@
 title: 'url'
 --- 
 
-**Required**
+**required**
 
 Type: <Type children='<string>'/>
 

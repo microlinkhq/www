@@ -171,6 +171,9 @@
   "private": true,
   "license": "MIT",
   "ava": {
+    "files": [
+      "test/**/*.js"
+    ],
     "require": [
       "esm"
     ]

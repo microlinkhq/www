@@ -16,7 +16,7 @@ It will return an <Type children='<object>'/> with the following properties:
   - `data`: The [data](/docs/api/basics/format#data) response from the API. 
   - `response`: The Node.js response object.
 
-If something does not go as expected (that means API returns a [status](/docs/api/basics/format#status) different to <Type children="'success'"/>) it will throw a <Type children='MicrolinkError'/>.
+Under non succesful response it will throw a <Type children='MicrolinkError'/>:
 
 ```js
 const mql = require('@microlink/mql')
@@ -24,45 +24,36 @@ const mql = require('@microlink/mql')
 // The library exposes `MicrolinkError` constructor
 const { MicrolinkError } = mql
 
-;(async () => {
-  try {
-    mql('https://kikobeats.com', {
-      screenshot: true,
-      waitFor: 30000
-    })
-  } catch (error) {
-    console.log(error instanceof MicrolinkError) // => true
-    console.log(error.name) // => RequestError
-    console.log(error.hostname) // => api.microlink.io
-    console.log(error.status) // => fail
-    console.log(error.url) // => 'https://api.microlink.io/?url=https%3A%2F%2Fkikobeats.com&screenshot=true&video=true&waitFor=40000&force=true'
-    console.log(error.code) // => EFAILED
-    console.log(error.message) // => EFAILED, Request timed out
-    console.log(error.statusCode) // => 500
-  }
-})()
+try {
+  const { data } = mql('https://example.com', { screenshot: true, waitFor: 1000 })
+  console.log(JSON.stringify(data, null, 2))
+} catch(error) {
+  console.log(error instanceof MicrolinkError) // => true
+  console.log(error.name) // => RequestError
+  console.log(error.hostname) // => api.microlink.io
+  console.log(error.status) // => fail
+  console.log(error.url) // => 'https://api.microlink.io/?url=https%3A%2F%2Fkikobeats.com&screenshot=true&video=true&waitFor=40000&force=true'
+  console.log(error.code) // => EFAILED
+  console.log(error.message) // => EFAILED, Request timed out
+  console.log(error.statusCode) // => 500
+}
 ```
 
 <Figcaption children="A `MicrolinkError` always has an associated `status`, `message` and `code`." />
 
 ## API
 
-```js
+### mql(&lt;url&gt;, [options])
 
-const mql = require('@microlink/mql')
+#### url
 
-const { status, data,response } = mql(url, [options])
-```
-
-### url
-
-**Required**<br/>
+**required**<br/>
 
 Type: <Type children='<string>'/>
 
 The target URL for getting content.
 
-### options
+#### options
 
 Type: <Type children='<object>'/>
 
@@ -82,7 +73,7 @@ console.log(`My screenshot at ${data.screenshot.url}`)
 
 Additionally, you can configure:
 
-#### apiKey
+##### apiKey
 
 Type: <Type children='<string>'/>
 
@@ -90,7 +81,7 @@ The API Key used for [authenticating](/docs/api/basics/authentication) your requ
 
 When the `apiKey` is provided, the [pro.microlink.io](https://pro.microlink.io/) as [endpoint](/docs/api/basics/endpoint) will be used.
 
-#### cache
+##### cache
 
 Type: <Type children='<object>'/>
 
@@ -100,17 +91,15 @@ When you pass an object that follows Map API, you can enable serve response from
 const mql = require('@microlink/mql')
 const cache = new Map()
 
-;(async () => {
-  let data
+let data
 
-  data = await mql('https://kikobeats.com', { cache })
-  console.log(data.response.fromCache)
-  // => false
+data = await mql('https://example.com', { cache })
+console.log(data.response.fromCache)
+// => false
 
-  data = await mql('https://kikobeats.com', { cache })
-  console.log(data.response.fromCache)
-  // => true
-})()
+data = await mql('https://example.com', { cache })
+console.log(data.response.fromCache)
+// => true
 ```
 
 <Figcaption children='Caching feature is only available in the Node.js bundle.' />
@@ -119,20 +108,20 @@ Consider to pass [keyv](https://www.npmjs.com/package/keyv) for supporting [most
 
 See [got#cache](https://www.npmjs.com/package/got#cache) to know more.
 
-#### retry
+##### retry
 
 Type: <Type children='<number>'/><br/>
-Default: <Type children='3'/>
+Default: <Type children='2'/>
 
 Defines how many retries can be done before an API call is considered failed.
 
 See [got#retry](https://www.npmjs.com/package/got#retry) to know more.
 
-#### timeout
+### mql.stream(&lt;url&gt;, [options])
 
-Type: <Type children='<number>'/><br/>
-Default: <Type children='30000'/>
+Returns a [Stream](https://nodejs.org/api/stream.html) instead of a Promise.
 
-Defines the maximum milliseconds to wait until an API call is considered failed.
+### mql.buffer(&lt;url&gt;, [options])
 
-See [got#timeout](https://www.npmjs.com/package/got#timeout) to know more.
+Returns a [Buffer](https://nodejs.org/api/buffer.html) instead of a Promise.
+

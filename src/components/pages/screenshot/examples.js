@@ -302,7 +302,7 @@ export const Average = ({ size }) => {
         color='white'
         display='inline'
         fontWeight='bold'
-        titleExclude={['ms']}
+        titleize={false}
         children='ms'
       />
     </Highlight>
@@ -374,7 +374,7 @@ export const Timings = () => {
                 variant={null}
                 mr={3}
                 fontWeight='light'
-                titleExclude={['average']}
+                titleize={false}
               >
                 average response time.
               </Caption>
@@ -397,7 +397,7 @@ export const Timings = () => {
                   color='white'
                   display='inline'
                   fontWeight='bold'
-                  titleExclude={['seg']}
+                  titleize={false}
                 >
                   seg
                 </Caption>
@@ -407,7 +407,7 @@ export const Timings = () => {
                 variant={null}
                 mr={3}
                 fontWeight='light'
-                titleExclude={['p95']}
+                titleize={false}
               >
                 p95 response time.
               </Caption>

@@ -1,7 +1,4 @@
-import { createElement } from 'react'
 import styled from 'styled-components'
-import { title } from 'helpers'
-
 import Heading from './Heading'
 
 const Subhead = styled(Heading)``
@@ -15,9 +12,4 @@ Subhead.defaultProps = {
   color: 'black'
 }
 
-export default ({ children, titleExclude, ...props }) =>
-  createElement(Subhead, {
-    children:
-      typeof children === 'string' ? title(children, titleExclude) : children,
-    ...props
-  })
+export default Subhead
