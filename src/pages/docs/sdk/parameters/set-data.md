@@ -6,7 +6,11 @@ Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/>
 
 Setup the content to be rendered into the card.
 
-<DemoIntegrations parameters={{url: '{{demolinks.instagram.url}}', setData: { title: 'SENTRY ACTIVATED' }}} caption="The data provided will be merged with the original data extracted." urlName="instagram.com" />
+<DemoIntegrations
+  parameters="{{url: '{{demolinks.instagram.url}}', setData: { title: 'SENTRY ACTIVATED' } }}"
+  caption="The data provided will be merged with the original data extracted." 
+  urlName="instagram.com" 
+/>
 
 When an <Type children='<object>'/> is passed to `setData`, the custom data provided will be merged with the original data.
 
