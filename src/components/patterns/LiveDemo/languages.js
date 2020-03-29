@@ -1,6 +1,4 @@
-const React = ({ url }) => `
-
-import Microlink from '@microlink/react'
+const React = ({ url }) => `import Microlink from '@microlink/react'
 
 export default props => (
   <Microlink

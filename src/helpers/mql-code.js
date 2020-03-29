@@ -20,8 +20,7 @@ export default (props, stringProps) => {
       size = 'large'
     } = { ...props, ...args }
 
-    return `
-import Microlink from '@microlink/react'
+    return `import Microlink from '@microlink/react'
 
 export default props => (
   <Microlink
