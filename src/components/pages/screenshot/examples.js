@@ -21,8 +21,9 @@ import { cdnUrl, aspectRatio, screenshotUrl, debounceComponent } from 'helpers'
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 
 import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
-import { useFeaturesScreenshot } from 'components/hook'
+import { useCheckly, useFeaturesScreenshot } from 'components/hook'
 import React, { useEffect, useState } from 'react'
+import uniqueRandomArray from 'unique-random-array'
 import { speed, colors, borders } from 'theme'
 import { HourGlass } from 'components/icons'
 import { useTransition } from 'react-spring'
@@ -30,7 +31,6 @@ import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
-import sample from 'lodash/sample'
 import { getDomain } from 'tldts'
 import range from 'lodash/range'
 import isColor from 'is-color'
@@ -44,9 +44,7 @@ import {
 
 import { Features, Screenshot } from './template'
 
-const TIMINGS_RANGE = range(-150, 150)
 const INTERVAL = 3500
-const AVERAGE_BASE = 924
 
 const ScreenshotDebounce = debounceComponent(Screenshot)
 
@@ -271,13 +269,25 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
   )
 }
 
-export const Average = ({ size }) => {
-  const [average, setAverage] = useState(924)
+export const Average = ({ size, queryParam }) => {
+  const checkly = useCheckly()
+  const avg = checkly[queryParam].avg_pretty
+
+  const [average, setAverage] = useState(Number(avg.replace(/ms|s/, '')))
   const [averageHighlight, setAverageHighlight] = useState(false)
+  const [unit] = useState(avg.includes('ms') ? 'mseg' : 'seg')
+
+  const top = average * 0.3
+  const bottom = average * 0.3 * -1
+  const steps = average * 0.1
+
+  const timingsRange = range(bottom, top, steps)
+  const rand = uniqueRandomArray(timingsRange)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setAverage(sample(TIMINGS_RANGE) + AVERAGE_BASE)
+      const newAverage = average + rand(timingsRange)
+      setAverage(newAverage.toFixed(unit === 'seg' ? 2 : 0))
       setAverageHighlight(true)
       setTimeout(() => setAverageHighlight(false), Highlight.HIGHLIGHT_DURATION)
     }, INTERVAL)
@@ -288,7 +298,8 @@ export const Average = ({ size }) => {
     return (
       <Highlight display='inline' isHighlight={averageHighlight}>
         <Text as='span' color='black80' fontWeight='bold'>
-          ~{average}ms
+          ~{average}
+          {unit}
         </Text>
       </Highlight>
     )
@@ -303,14 +314,15 @@ export const Average = ({ size }) => {
         display='inline'
         fontWeight='bold'
         titleize={false}
-        children='ms'
+        children={unit}
       />
     </Highlight>
   )
 }
 
-export const Timings = () => {
-  const p95 = 1.36
+export const Timings = ({ queryParam }) => {
+  const checkly = useCheckly()
+  const p95 = checkly[queryParam].p95_pretty.replace(/ms|s/, '')
 
   return (
     <AnimatedBox id='timings'>
@@ -367,7 +379,7 @@ export const Timings = () => {
                 mr={3}
                 fontWeight='bold'
               >
-                <Average />
+                <Average queryParam={queryParam} />
               </Heading>
               <Caption
                 color='white'
@@ -376,7 +388,7 @@ export const Timings = () => {
                 fontWeight='light'
                 titleize={false}
               >
-                average response time.
+                avg. response time.
               </Caption>
             </Flex>
             <Flex
@@ -626,8 +638,9 @@ const Information = props => (
             piece of software, with unpredictable resources usage.
           </>,
           <>
-            The fact of resolve any URL at scale in <Average size='tiny' /> is
-            not a trivial thing.
+            The fact of resolve any URL at scale in{' '}
+            <Average size='tiny' queryParam='screenshot' /> is not a trivial
+            thing.
           </>
         ]
       },
@@ -681,7 +694,7 @@ export default ({
       suggestions={suggestions}
       query={query}
     />
-    <Timings />
+    <Timings queryParam='screenshot' />
     <Hide breakpoints={[0, 1]}>
       <Features children={useFeaturesScreenshot()} />
     </Hide>

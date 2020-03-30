@@ -496,8 +496,8 @@ const Information = props => (
             piece of software, with unpredictable resources usage.
           </>,
           <>
-            The fact of resolve any URL at scale in <Average size='tiny' /> is
-            not a trivial thing.
+            The fact of resolve any URL at scale in{' '}
+            <Average size='tiny' queryParam='pdf' /> is not a trivial thing.
           </>
         ]
       },
@@ -553,7 +553,7 @@ export default ({
       suggestions={suggestions}
       query={query}
     />
-    <Timings />
+    <Timings queryParam='pdf' />
     <Hide breakpoints={[0, 1]}>
       <Features children={useFeaturesPdf()} />
     </Hide>

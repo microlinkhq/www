@@ -27,10 +27,10 @@ import {
   SubHeadline
 } from 'components/patterns'
 
+import { useCheckly, useFeaturesMeta } from 'components/hook'
 import { mqlCode, debounceComponent } from 'helpers'
 import { transition, colors, borders } from 'theme'
 import React, { useEffect, useState } from 'react'
-import { useFeaturesMeta } from 'components/hook'
 import { fadeIn } from 'components/keyframes'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
@@ -220,6 +220,8 @@ const Timings = () => {
   ]
   const [index, setIndex] = useState(0)
 
+  const checkly = useCheckly()
+
   useEffect(() => {
     const interval = setInterval(
       () => setIndex(index => (index + 1) % words.length),
@@ -287,15 +289,16 @@ const Timings = () => {
                   mr={3}
                   fontWeight='bold'
                 >
-                  {'1'}
+                  {checkly.meta.avg_pretty.replace(/ms|s/, '')}
                   <Caption
+                    titleize={false}
                     as='div'
                     ml={2}
                     color='white'
                     display='inline'
                     fontWeight='bold'
                   >
-                    seg
+                    mseg
                   </Caption>
                 </Heading>
                 <Caption
@@ -323,8 +326,9 @@ const Timings = () => {
                   mr={3}
                   fontWeight='bold'
                 >
-                  {'1.3'}
+                  {checkly.meta.p95_pretty.replace(/ms|s/, '')}
                   <Caption
+                    titleize={false}
                     as='div'
                     ml={2}
                     color='white'
