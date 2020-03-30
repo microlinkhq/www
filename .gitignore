@@ -9,4 +9,4 @@ yarn-error.log
 .env
 .envrc
 static/data/
-data/demo-links.json
+data/*.json

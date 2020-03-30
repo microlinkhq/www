@@ -24,7 +24,7 @@ import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
 import KubernetesMonitor from './KubernetesMonitor/KubernetesMonitor'
-import ChecklyStatus from './ChecklyStatus/ChecklyStatus'
+import Checkly from './Checkly/Checkly'
 import Toolbar from './Toolbar/Toolbar'
 
 export {
@@ -34,7 +34,7 @@ export {
   Caption,
   CardLink,
   Chat,
-  ChecklyStatus,
+  Checkly,
   Checkout,
   CookiesPolicy,
   CubeBackground,

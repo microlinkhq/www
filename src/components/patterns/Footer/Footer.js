@@ -15,11 +15,10 @@ import {
 
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
 import { layout, transition, colors } from 'theme'
-import ChecklyStatus from '../ChecklyStatus/ChecklyStatus'
+import Checkly from '../Checkly/Checkly'
 import { Microlink } from 'components/logos'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
-import get from 'dlv'
 
 const IconWrapper = styled(Box)`
   cursor: pointer;
@@ -222,9 +221,9 @@ export default ({ theme, ...props }) => {
               justifyContent={['center', 'inherit', 'inherit', 'inherit']}
             >
               <Flex flexDirection='column'>
-                <ChecklyStatus>
+                <Checkly>
                   {({ data }) => {
-                    const apiStatus = data || 'error'
+                    const apiStatus = (data && data.status) || 'error'
                     if (apiStatus === 'error') {
                       return (
                         <LinkSolid
@@ -268,7 +267,7 @@ export default ({ theme, ...props }) => {
                       </Link>
                     )
                   }}
-                </ChecklyStatus>
+                </Checkly>
               </Flex>
             </Flex>
 
