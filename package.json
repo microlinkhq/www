@@ -80,6 +80,7 @@
     "ms": "~2.1.2",
     "node-sass": "~4.13.1",
     "normalize.css": "~8.0.1",
+    "p-retry": "~4.2.0",
     "palx": "~1.0.3",
     "polished": "~3.5.1",
     "postcss-focus": "~4.0.0",
