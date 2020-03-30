@@ -205,8 +205,8 @@ function Index () {
       <Hero title={headline} features={usePrinciples()} />
       <Analytics
         bg='black'
-        // borderTop={`${borders[1]} ${colors.pinkest}`}
-        // borderBottom={`${borders[1]} ${colors.pinkest}`}
+        borderTop={`${borders[1]} ${colors.white20}`}
+        borderBottom={`${borders[1]} ${colors.white20}`}
       />
       <Screenshots
         bg='pinky'
