@@ -1,6 +1,6 @@
 import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
 import { Faq, Headline, Layout, PricingTable } from 'components/patterns'
-import { Meta, Hero, Screenshots } from 'components/pages/home'
+import { Meta, Hero, Screenshots, Analytics } from 'components/pages/home'
 import { Box, Container, Link } from 'components/elements'
 import { layout, colors, borders } from 'theme'
 import { cdnUrl } from 'helpers'
@@ -16,27 +16,33 @@ const Questions = props => (
         answer: [
           <>
             Absolutely, we offer a forever free{' '}
-            <Link href='/docs/api/basics/endpoint'>endpoint</Link> you
-            can use. It's the best way for starting using the service.
+            <Link href='/docs/api/basics/endpoint'>endpoint</Link> you can use.
+            It's the best way for starting using the service.
           </>,
           <>
-            The free plan runs under some limitation for avoid abusive usage of the platform, like
-            burst rate, limited concurrency rate and daily rate limit.
+            The free plan runs under some limitation for avoid abusive usage of
+            the platform, like burst rate, limited concurrency rate and daily
+            rate limit.
           </>,
           <>
-            Because of that, the free plan could be good for little project or low API quota.
+            Because of that, the free plan could be good for little project or
+            low API quota.
           </>
-  
         ]
       },
       {
         question: 'How different is the free plan compared with pro?',
         answer: [
           <>
-            The pro plan is ready to be used at scale, with better perfomance and unlocked functionalities such as <Link href='/docs/api/parameters/headers'>headers</Link>, <Link href='/docs/api/parameters/ttl'>ttl</Link> or <Link href='/docs/api/parameters/proxy'>proxy</Link>.
+            The pro plan is ready to be used at scale, with better perfomance
+            and unlocked functionalities such as{' '}
+            <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
+            <Link href='/docs/api/parameters/ttl'>ttl</Link> or{' '}
+            <Link href='/docs/api/parameters/proxy'>proxy</Link>.
           </>,
           <>
-            A pro plan has an API key associated, with configurable quota. You only pay as you need.
+            A pro plan has an API key associated, with configurable quota. You
+            only pay as you need.
           </>
         ]
       },
@@ -197,6 +203,11 @@ function Index () {
   return (
     <Layout image={cdnUrl('www/home.png')}>
       <Hero title={headline} features={usePrinciples()} />
+      <Analytics
+        bg='black'
+        // borderTop={`${borders[1]} ${colors.pinkest}`}
+        // borderBottom={`${borders[1]} ${colors.pinkest}`}
+      />
       <Screenshots
         bg='pinky'
         borderTop={`${borders[1]} ${colors.pinkest}`}
