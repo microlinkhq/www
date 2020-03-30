@@ -10,6 +10,7 @@ const got = require('got')
 const fetchData = async url => {
   const body = await got(url).json()
   if (!body) throw new Error('DATA_NOT_FOUND')
+  return body
 }
 
 module.exports = async ({ dist, url, mapper = identity }) => {
@@ -20,7 +21,6 @@ module.exports = async ({ dist, url, mapper = identity }) => {
       }
     }
     const data = await pRetry(() => fetchData(url))
-    console.log({ url, data })
     const body = mapper(data)
     return jsonFuture.saveAsync(dist, castArray(body))
   } catch (err) {
