@@ -1,0 +1,71 @@
+---
+title: 'Microlink CDN: Global Edge Cache'
+image: 'https://i.imgur.com/VsS5RwW.png'
+date: '2020-03-31'
+---
+
+From the beginning, [Microlink API](/docs/api/getting-started/overview) has been shipped with a built-in cache layer for speeding up consecutive API calls, aiming for improving response time over the same resource.
+
+## How cache works
+
+When you query against [Microlink API](/docs/api/getting-started/overview), the first time you query for a resource that not was previously served, it will be created, what is known as cache *MISS*.
+
+The successive requests for the resource will consume the cached version of the resource, what is known as cache *HIT*.
+
+## What's new
+
+We revisited the cache layer and implemented some improvements, doing it more powerful than ever.
+
+## Cache saves your API quota plan
+
+<Terminal>
+  npx microlink-api https://example.com&screenshot&embed=screenshot.url
+</Terminal>
+
+**Starting from today, any response served from the cache will not count as part of your API quota plan.**
+
+This is a drastically change how users consume your API. Let me clarify with an example.
+
+One of the [Microlink API](/docs/api/getting-started/overview) use cases is [embed](/docs/api/parameters/embed) it directly in your HTML markup:
+
+```html
+<meta name="og:image" content="https://api.microlink.io?url=https://example.com&screenshot&embed=screenshot.url">
+```
+
+<Figcaption>A screenshot generated on the fly, always up to date.</Figcaption>
+
+In the past, if you do this and your website has *1000 pageviews*, means you consumed *1000 requests* from your API quota.
+
+Now, you only consume \*one request\*, serving the rest from cache and **not counting them in your API quota plan**.
+
+## Cache is served around the world
+
+![](https://blog-cloudflare-com-assets.storage.googleapis.com/2019/08/image1-3.png)
+
+<Figcaption>CloudFlare network has more than 240 edge servers over 90 countries.</Figcaption>
+
+The first time you hit [Microlink API](/docs/api/getting-started/overview), the request will reply by a server located somewhere.
+
+The successive requests over the same cached resource will served using [CloudFlare network](https://www.cloudflare.com/network), meaning the cache response will serve from the nearest edge server in the world (and they've a lot, more than 240 edge servers over 90 countries).
+
+![](https://i.imgur.com/VsS5RwW.png)
+
+<Figcaption>Cached response (blue) vs. Uncached response (gray).</Figcaption>
+
+You can see how always **cached responses have the lowest response time associated, no matter where are you**.
+
+## Cache optimizes screenshots on the fly
+
+![](https://caniuse.bitsofco.de/image/webp.png)
+
+[Microlink Screenshots]() is one of the most product features used these days: we're serving around 100K fresh screenshots every day generated in ~1.5seg on average.
+
+When you take a screenshot, the image generated is hosted by us, taking in advantages some special cache considerations.
+
+First, **the image will apply lossless compression on the fly**. The image will be the same than the original, but the size will be smaller, saving some bytes there.
+
+Second, **WebP will be served if the browser supported it**. Most modern browsers support WebP and it can [decrease up to 42% in average image size](https://www.keycdn.com/support/png-to-webp).
+
+## Conclusion
+
+We shipped these improvements under Microlink CDN because we want to make [Microlink API](/docs/api/getting-started/overview) cheap and accesible at any scale.
