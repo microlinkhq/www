@@ -1,9 +1,10 @@
 import React from 'react'
 import { Block, Caption } from 'components/patterns'
-import { Box, Caps, Flex, Heading } from 'components/elements'
+import { Hide, Box, Caps, Flex, Heading } from 'components/elements'
 import { useAnalytics } from 'components/hook'
 import styled from 'styled-components'
 import theme from 'theme'
+import take from 'lodash/take'
 
 const Separator = styled(Box)`
   border-right: 1px solid ${theme.colors.white20};
@@ -52,21 +53,40 @@ export default props => {
           color='white'
           fontWeight='normal'
           titleize={false}
-          fontSize={5}
+          fontSize={[2, 2, 5, 5]}
         >
           <Caps>{name}</Caps>
         </Caption>
       </Flex>
-      {!isLast && <Separator mx={4} />}
+      {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}
     </Flex>
   )
 
   const blockTwo = (
-    <Flex pt={[3, 3, 5, 5]} width='100%' justifyContent='space-around'>
-      {stats.map((stat, index) => (
-        <Stat key={stat.name} isLast={index === stats.length - 1} {...stat} />
-      ))}
-    </Flex>
+    <>
+      <Hide breakpoints={[0, 1]}>
+        <Flex pt={[3, 3, 5, 5]} width='100%' justifyContent='space-around'>
+          {stats.map((stat, index) => (
+            <Stat
+              key={stat.name}
+              isLast={index === stats.length - 1}
+              {...stat}
+            />
+          ))}
+        </Flex>
+      </Hide>
+      <Hide breakpoints={[2, 3]}>
+        <Flex pt={[3, 3, 5, 5]} width='100%' justifyContent='space-around'>
+          {take(stats, stats.length - 1).map((stat, index) => (
+            <Stat
+              key={stat.name}
+              isLast={index === stats.length - 2}
+              {...stat}
+            />
+          ))}
+        </Flex>
+      </Hide>
+    </>
   )
 
   return (
