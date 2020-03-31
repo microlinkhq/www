@@ -334,20 +334,19 @@ export const Timings = ({ queryParam }) => {
         blockOne={
           <Box>
             <Flex alignItems='center' justifyContent='center'>
-              <Heading
-                color='white'
-                variant={null}
-                mr={[1, 1, 3, 3]}
-                fontWeight='light'
-              >
-                Just send the URL.
-              </Heading>
-              <Heading color='white' variant={null} mr={3} fontWeight='light'>
-                We do the rest.
-              </Heading>
+              {['Just send the URL', 'We do the rest'].map(children => (
+                <Heading
+                  key={children}
+                  color='white'
+                  variant={null}
+                  mr={[1, 1, 3, 3]}
+                  fontSize={[3, 3, 5, 7]}
+                  children={children}
+                />
+              ))}
             </Flex>
             <Caption
-              color='white'
+              color='white80'
               maxWidth={[6, 7, 7, 'inherit']}
               mt={[3, 3, 3, 0]}
               variant={null}
@@ -372,22 +371,10 @@ export const Timings = ({ queryParam }) => {
               justifyContent='center'
               flexDirection='column'
             >
-              <Heading
-                as='div'
-                color='white'
-                variant={null}
-                mr={3}
-                fontWeight='bold'
-              >
+              <Heading as='div' color='white' variant={null} mr={3}>
                 <Average queryParam={queryParam} />
               </Heading>
-              <Caption
-                color='white'
-                variant={null}
-                mr={3}
-                fontWeight='light'
-                titleize={false}
-              >
+              <Caption color='white80' variant={null} mr={3} titleize={false}>
                 avg. response time.
               </Caption>
             </Flex>
@@ -396,31 +383,19 @@ export const Timings = ({ queryParam }) => {
               justifyContent='center'
               flexDirection='column'
             >
-              <Heading
-                as='div'
-                color='white'
-                variant={null}
-                mr={3}
-                fontWeight='bold'
-              >
+              <Heading as='div' color='white' variant={null} mr={3}>
                 ~{p95}
                 <Caption
                   ml={2}
                   color='white'
                   display='inline'
-                  fontWeight='bold'
                   titleize={false}
+                  fontWeight='bold'
                 >
                   seg
                 </Caption>
               </Heading>
-              <Caption
-                color='white'
-                variant={null}
-                mr={3}
-                fontWeight='light'
-                titleize={false}
-              >
+              <Caption color='white80' variant={null} mr={3} titleize={false}>
                 p95 response time.
               </Caption>
             </Flex>

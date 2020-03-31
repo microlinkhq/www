@@ -34,10 +34,10 @@ export default props => {
       justifyContent='center'
       alignItems='center'
     >
-      <Heading color='white' variant={null} fontWeight='light'>
+      <Heading color='white' variant={null}>
         Speed as a Feature
       </Heading>
-      <Caption color='white' variant={null} fontWeight='light'>
+      <Caption color='white80' variant={null}>
         Always fast. Always online. Always a hit.
       </Caption>
     </Flex>
@@ -46,16 +46,16 @@ export default props => {
   const Stat = ({ value, name, isLast }) => (
     <Flex>
       <Flex alignItems='center' flexDirection='column'>
-        <Heading as='div' color='white' variant={null} fontWeight='bold'>
+        <Heading as='div' color='white' variant={null}>
           {value}
         </Heading>
         <Caption
           color='white'
           fontWeight='normal'
           titleize={false}
-          fontSize={[2, 2, 5, 5]}
+          fontSize={[2, 2, 6, 6]}
         >
-          <Caps>{name}</Caps>
+          <Caps color='white80'>{name}</Caps>
         </Caption>
       </Flex>
       {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}
