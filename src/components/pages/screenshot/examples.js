@@ -334,7 +334,7 @@ export const Timings = ({ queryParam }) => {
         blockOne={
           <Box>
             <Flex alignItems='center' justifyContent='center'>
-              {['Just send the URL', 'We do the rest'].map(children => (
+              {['Just send the URL.', 'We do the rest.'].map(children => (
                 <Heading
                   key={children}
                   color='white'

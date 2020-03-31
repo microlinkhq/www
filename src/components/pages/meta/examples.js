@@ -179,12 +179,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                        }
+                      }
                       : languages
                   }
                 />
@@ -239,17 +239,12 @@ const Timings = () => {
         blockOne={
           <Box>
             <Flex alignItems='center' justifyContent='center'>
-              <Heading
-                color='white'
-                variant={null}
-                mr={[1, 1, 3, 3]}
-                fontWeight='light'
-              >
+              <Heading color='white' variant={null} mr={[1, 1, 3, 3]}>
                 All the data. Unified. Effortless.
               </Heading>
             </Flex>
             <Caption
-              color='white'
+              color='white80'
               maxWidth={[6, 7, 7, 'inherit']}
               mt={[3, 3, 3, 0]}
               variant={null}
@@ -303,7 +298,7 @@ const Timings = () => {
                 </Heading>
                 <Caption
                   as='div'
-                  color='white'
+                  color='white80'
                   variant={null}
                   mr={3}
                   fontWeight='light'
@@ -339,7 +334,7 @@ const Timings = () => {
                 </Heading>
                 <Caption
                   as='div'
-                  color='white'
+                  color='white80'
                   variant={null}
                   mr={3}
                   fontWeight='light'
@@ -374,7 +369,7 @@ const Timings = () => {
                 </Heading>
                 <Caption
                   as='div'
-                  color='white'
+                  color='white80'
                   variant={null}
                   mr={3}
                   fontWeight='light'
