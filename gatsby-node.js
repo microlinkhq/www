@@ -36,34 +36,6 @@ const githubUrl = (() => {
 
 exports.onCreateWebpackConfig = ({ getConfig, loaders, stage, actions }) => {
   actions.setWebpackConfig({
-    module: {
-      rules: [
-        {
-          test: /.js.flow$/,
-          use: loaders.null()
-        }
-      ]
-    }
-  })
-
-  if (stage === 'build-html') {
-    actions.setWebpackConfig({
-      module: {
-        rules: [
-          {
-            test: /^(xor|props)$/,
-            use: loaders.null()
-          },
-          {
-            test: /react-json-view/,
-            use: loaders.null()
-          }
-        ]
-      }
-    })
-  }
-
-  actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules']
     }
