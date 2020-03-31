@@ -21,7 +21,7 @@ export default props => {
   })()
 
   const stats = [
-    { value: 250, name: 'CDN Edges' },
+    { value: 240, name: 'CDN Edges' },
     { value: reqsPretty, name: 'reqs per month' },
     { value: bytes, name: 'data served' },
     { value: '99.9%', name: 'uptime' }
@@ -38,7 +38,11 @@ export default props => {
         Speed as a Feature
       </Heading>
       <Caption color='white80' variant={null}>
-        Always fast. Always online. Always a hit.
+        Always fast. Always online.
+        <Hide css='display:inline;' breakpoints={[0, 1]}>
+          {' '}
+          Always a hit.
+        </Hide>
       </Caption>
     </Flex>
   )
@@ -55,7 +59,9 @@ export default props => {
           titleize={false}
           fontSize={[2, 2, 6, 6]}
         >
-          <Caps color='white80'>{name}</Caps>
+          <Caps mt={[1, 1, 0, 0]} color='white80'>
+            {name}
+          </Caps>
         </Caption>
       </Flex>
       {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}
