@@ -31,24 +31,23 @@ export default ({
     }
   }, [])
 
+  if (isLoading) {
+    return <ImagePlaceholder width={width} height={height} {...props} />
+  }
+
   return (
-    <>
-      {isLoading ? (
-        <ImagePlaceholder width={width} height={height} {...props} />
-      ) : null}
-      <Flex
-        as='iframe'
-        ref={inputEl}
-        css={`
-          display: ${isLoading ? 'none' : 'inherit'};
-        `}
-        mx='auto'
-        frameBorder='0'
-        target='_parent'
-        height={height}
-        width={width}
-        {...props}
-      />
-    </>
+    <Flex
+      as='iframe'
+      ref={inputEl}
+      css={`
+        display: ${isLoading ? 'none' : 'inherit'};
+      `}
+      mx='auto'
+      frameBorder='0'
+      target='_parent'
+      height={height}
+      width={width}
+      {...props}
+    />
   )
 }
