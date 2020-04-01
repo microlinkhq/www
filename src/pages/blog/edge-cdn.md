@@ -58,6 +58,8 @@ You can see how cached resources **always** have the lowest response time associ
 
 ![](https://caniuse.bitsofco.de/image/webp.png)
 
+<Figcaption>WebP browser adoption.</Figcaption>
+
 [Microlink Screenshots](/screenshot) is one of the most used product features these days: we're serving around 100K fresh screenshots every day, generated in an average of ~1.5 seconds.
 
 When you take a screenshot the image generated is hosted by us, additionally taking some special cache considerations into account.
@@ -65,7 +67,3 @@ When you take a screenshot the image generated is hosted by us, additionally tak
 First, **the image will apply lossless compression on the fly**. The image will be the same as the original but the size will be smaller, saving some bytes there.
 
 Second, **WebP will be served if the browser supports it**. Most modern browsers support WebP and it can [decrease up to 42% in average image size](https://www.keycdn.com/support/png-to-webp).
-
-## Conclusion
-
-We shipped these improvements into Microlink CDN because we want to make [Microlink API](/docs/api/getting-started/overview) accesible at any scale.
