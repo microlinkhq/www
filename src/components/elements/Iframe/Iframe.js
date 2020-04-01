@@ -3,7 +3,6 @@ import noop from 'lodash/noop'
 
 import Flex from '../Flex'
 import CodeEditor from '../CodeEditor/CodeEditor'
-import ImagePlaceholder from '../Image/ImagePlaceholder'
 
 export default ({
   width = CodeEditor.width,
@@ -31,17 +30,11 @@ export default ({
     }
   }, [])
 
-  if (isLoading) {
-    return <ImagePlaceholder width={width} height={height} {...props} />
-  }
-
   return (
     <Flex
       as='iframe'
       ref={inputEl}
-      css={`
-        display: ${isLoading ? 'none' : 'inherit'};
-      `}
+      style={{ display: isLoading ? 'none' : 'inherit' }}
       mx='auto'
       frameBorder='0'
       target='_parent'
