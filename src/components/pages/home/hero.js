@@ -12,7 +12,14 @@ import {
   Text
 } from 'components/elements'
 
-import { Caption, Grid, Block, MQLEditor, List } from 'components/patterns'
+import {
+  Announcement,
+  Caption,
+  Grid,
+  Block,
+  MQLEditor,
+  List
+} from 'components/patterns'
 
 import { fadeIn } from 'components/keyframes'
 
@@ -118,34 +125,34 @@ const Hero = ({ title, features, ...props }) => {
     }
   }
 
-  // const top = (
-  //   <Hide breakpoints={[0, 1, 2]}>
-  //     <Flex
-  //       pb={3}
-  //       as='section'
-  //       justifyContent='center'
-  //       flexDirection='column'
-  //       alignItems='center'
-  //     >
-  //       <Announcement
-  //         data-event-category='Home'
-  //         data-event-action='Announcement'
-  //         href='/pdf'
-  //         children={
-  //           <>
-  //             Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
-  //           </>
-  //         }
-  //       />
-  //     </Flex>
-  //   </Hide>
-  // )
+  const top = (
+    <Hide breakpoints={[0, 1, 2]}>
+      <Flex
+        pb={3}
+        as='section'
+        justifyContent='center'
+        flexDirection='column'
+        alignItems='center'
+      >
+        <Announcement
+          data-event-category='Home'
+          data-event-action='Announcement'
+          href='/blog/edge-cdn'
+          children={
+            <>
+              Faster, better, global. Introducing <b>Microlink CDN</b>
+            </>
+          }
+        />
+      </Flex>
+    </Hide>
+  )
 
   return (
     <>
       <Block
         id='hero'
-        // top={top}
+        top={top}
         blockOne={<Resume title={title} />}
         blockTwo={<MQLEditor />}
         onClick={handleClick}
