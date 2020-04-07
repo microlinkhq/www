@@ -66,7 +66,7 @@ module.exports = {
         name: 'pages'
       }
     },
-    {
+    GOOGLE_ANALYTICS_ID && {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: GOOGLE_ANALYTICS_ID,
@@ -87,5 +87,5 @@ module.exports = {
     'gatsby-transformer-yaml',
     'gatsby-plugin-netlify',
     'gatsby-plugin-netlify-cache'
-  ]
+  ].filter(Boolean)
 }

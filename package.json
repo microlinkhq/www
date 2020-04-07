@@ -127,6 +127,7 @@
     "git-authors-cli": "latest",
     "husky": "latest",
     "lint-staged": "latest",
+    "nodengine": "latest",
     "npm-check-updates": "latest",
     "prettier-standard": "latest",
     "pretty-bytes": "latest",

@@ -1,42 +1,40 @@
 'use strict'
 
-const envError = propName =>
-  new TypeError(`Need to declare a ${propName}' env.`)
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'development'
+}
 
-const {
-  DEPLOY_URL,
-  CONTEXT,
-  NODE_ENV = 'development',
-  URL,
-  STRIPE_KEY,
-  PAYMENT_API_KEY,
-  PAYMENT_ENDPOINT,
-  GOOGLE_ANALYTICS_ID,
-  CDN_URL = 'https://cdn.microlink.io'
-} = process.env
+if (!process.env.CDN_URL) {
+  process.env.CDN_URL = 'https://cdn.microlink.io'
+}
 
-if (!CDN_URL) throw envError('CDN_URL')
-if (!STRIPE_KEY) throw envError('STRIPE_KEY')
-if (!PAYMENT_API_KEY) throw envError('PAYMENT_API_KEY')
-if (!PAYMENT_ENDPOINT) throw envError('PAYMENT_ENDPOINT')
+if (process.env.NODE_ENV === 'development') {
+  ;['STRIPE_KEY', 'PAYMENT_API_KEY', 'PAYMENT_ENDPOINT'].forEach(
+    key => (process.env[key] = process.env[key] || 'stub')
+  )
+}
 
-const isProduction = NODE_ENV === 'production'
+const required = [
+  'CDN_URL',
+  'STRIPE_KEY',
+  'PAYMENT_API_KEY',
+  'PAYMENT_ENDPOINT'
+]
+
+const missing = required.filter(key => process.env[key] == null)
+
+if (missing.length > 0) {
+  throw new Error(
+    `Missing required environment variable(s): ${missing.join(', ')}`
+  )
+}
 
 const SITE_URL = (() => {
-  if (!isProduction) return 'http://localhost:8000'
-  return CONTEXT === 'production' ? URL : DEPLOY_URL
+  if (!process.env.NETLIFY) return 'http://localhost:8000'
+  return process.env.CONTEXT === 'production' ? URL : process.env.DEPLOY_URL
 })()
 
 module.exports = {
-  CDN_URL,
-  CONTEXT,
-  DEPLOY_URL,
-  GOOGLE_ANALYTICS_ID,
-  isProduction,
-  NODE_ENV,
-  PAYMENT_API_KEY,
-  PAYMENT_ENDPOINT,
-  SITE_URL,
-  STRIPE_KEY,
-  URL
+  ...process.env,
+  SITE_URL
 }
