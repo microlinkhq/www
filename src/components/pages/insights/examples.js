@@ -157,6 +157,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               alignItems='flex-start'
               px={4}
               py={4}
+              id='perceptible-speed'
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Perceptible speed' pb={0} slug />
@@ -191,6 +192,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               alignItems='flex-start'
               px={4}
               py={4}
+              id='technology-stack'
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Technology stack' pb={0} slug />
@@ -222,6 +224,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               alignItems='flex-start'
               px={4}
               py={4}
+              id='lighthouse-score'
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Lighthouse score' pb={0} slug />
@@ -254,6 +257,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               alignItems='flex-start'
               px={4}
               py={4}
+              id='errors-in-console'
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Errors in console' pb={0} slug />
@@ -286,6 +290,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               alignItems='flex-start'
               px={4}
               py={4}
+              id='resource-summary'
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Resource Summary' pb={0} slug />
@@ -321,6 +326,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               alignItems='flex-start'
               px={4}
               py={4}
+              id='bootup-time'
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Bootup time' pb={0} slug />
@@ -361,6 +367,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               alignItems='flex-start'
               px={4}
               py={4}
+              id='network-perfomance'
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='Network Perfomance' pb={0} slug />
@@ -393,6 +400,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               alignItems='flex-start'
               px={4}
               py={4}
+              id='http-version'
             >
               <Flex pb={3} alignItems='baseline' flexDirection='column'>
                 <SubHeadline title='HTTP Version' pb={0} slug />
