@@ -31,8 +31,14 @@ if (missing.length > 0) {
 
 const SITE_URL = (() => {
   if (!process.env.NETLIFY) return 'http://localhost:8000'
-  return process.env.CONTEXT === 'production' ? URL : process.env.DEPLOY_URL
+  return process.env.DEPLOY_URL
 })()
+
+console.log('DEBUG', { SITE_URL })
+console.log('DEBUG', { NETLIFY: process.env.NETLIFY })
+console.log('DEBUG', { CONTEXT: process.env.CONTEXT })
+console.log('DEBUG', { URL: process.env.URL })
+console.log('DEBUG', { DEPLOY_URL: process.env.DEPLOY_URL })
 
 module.exports = {
   ...process.env,
