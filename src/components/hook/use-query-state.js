@@ -17,8 +17,7 @@ export const useQueryState = () => {
   const [query, setQuery] = useState(fromLocation())
 
   useEffect(() => {
-    const newQuery = fromLocation()
-    if (!eq(query, newQuery)) setQuery(fromLocation())
+    if (!eq(query, newQuery)) setQuery(newQuery)
   }, condition)
 
   const set = (obj = {}, { navigate: isNavigate = true } = {}) => {
