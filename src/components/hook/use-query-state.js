@@ -17,6 +17,7 @@ export const useQueryState = () => {
   const [query, setQuery] = useState(fromLocation())
 
   useEffect(() => {
+    const newQuery = fromLocation()
     if (!eq(query, newQuery)) setQuery(newQuery)
   }, condition)
 
