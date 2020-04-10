@@ -22,7 +22,7 @@ export const useQueryState = () => {
   }, condition)
 
   const set = (obj = {}, { navigate: isNavigate = true } = {}) => {
-    const newQuery = flatten({ ...query, ...obj })
+    const newQuery = flatten({ ...fromLocation(), ...obj })
     if (isNavigate) navigate(`${window.location.pathname}?${encode(newQuery)}`)
   }
 
