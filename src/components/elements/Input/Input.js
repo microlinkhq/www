@@ -64,7 +64,7 @@ const InputWrapper = styled(Flex)`
 `
 
 const Label = styled(Text)`
-  font-size: ${fontSizes[2]} !important; /* de donde viene esta mierda */
+  font-size: ${fontSizes[1]} !important; /* de donde viene esta mierda */
   position: absolute;
   background-color: red;
   transition: 0.15s ease-in-out;
