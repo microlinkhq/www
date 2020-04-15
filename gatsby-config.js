@@ -81,7 +81,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        deployUrl: CANONICAL_URL
+        siteUrl: CANONICAL_URL
       }
     },
     'gatsby-plugin-remove-trailing-slashes',

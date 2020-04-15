@@ -34,7 +34,10 @@ const DEPLOY_URL = (() => {
   return process.env.DEPLOY_URL
 })()
 
-const CANONICAL_URL = 'https://microlink.io'
+const CANONICAL_URL = (() => {
+  if (!process.env.NETLIFY) return DEPLOY_URL
+  return 'https://microlink.io'
+})()
 
 module.exports = {
   ...process.env,
