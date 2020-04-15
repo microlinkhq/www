@@ -1,6 +1,6 @@
 /* global fetch */
 
-import { Flex, LinkSolid, DotSpinner } from 'components/elements'
+import { Box, Flex, LinkSolid, DotSpinner } from 'components/elements'
 import { useSiteMetadata, useQueryState } from 'components/hook'
 import { Headline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
@@ -46,23 +46,21 @@ const getCaption = paymentState => {
       return 'Payment confirmed, check your inbox.'
     case PAYMENT_STATE.FAILED:
       return (
-        <>
+        <Box>
           Payment not processed.
+          <Box />
           <LinkSolid
-            ml={1}
-            mr={1}
-            display='inline'
+            fontSize={4}
             children='Contact us'
             href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
           />
-          .
-        </>
+        </Box>
       )
   }
 }
 
 export default () => {
-  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.FAILED)
+  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
   const [query] = useQueryState()
 
   const {
