@@ -31,7 +31,7 @@ if (missing.length > 0) {
 
 const SITE_URL = (() => {
   if (!process.env.NETLIFY) return 'http://localhost:8000'
-  return process.env.SITE_URL
+  return process.env.DEPLOY_URL
 })()
 
 const CANONICAL_URL = (() => {
