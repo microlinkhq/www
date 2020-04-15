@@ -313,8 +313,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
                 <Pie
                   data={resourceSummary.details}
                   radialLabel={({ label, size_pretty: size }) =>
-                    `${label} (${size})`
-                  }
+                    `${label} (${size})`}
                 />
               </Flex>
             </Flex>
