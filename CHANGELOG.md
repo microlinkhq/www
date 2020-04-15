@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 2.10.141 (2020-04-15)
+
+
+### Bug Fixes
+
+* avoid serialize two times ([cc03864](https://github.com/microlinkhq/microlink-www/commit/cc038646ef8603fde23f095286e43e77adb44f73))
+* component file name ([718c2ff](https://github.com/microlinkhq/microlink-www/commit/718c2ffe225a2baf29026de464e560f504b1f439))
+* debug ([e42609a](https://github.com/microlinkhq/microlink-www/commit/e42609ad903abadb53fe32432306aecbf480e345))
+* inherit width ([9228c44](https://github.com/microlinkhq/microlink-www/commit/9228c44bb34bb8bb0594f757d9c1d30e9b7a888d))
+* linter ([45c7416](https://github.com/microlinkhq/microlink-www/commit/45c7416bccd5e3d55bc132bda9b4ed78ff74de3c))
+* pitfalls ([51a7e1f](https://github.com/microlinkhq/microlink-www/commit/51a7e1fa70374c3244768f5280ec662b2771ad43))
+* remove null ([bbfe326](https://github.com/microlinkhq/microlink-www/commit/bbfe32682be941b280233076e304c6f616372de4))
+* return ([b4390c6](https://github.com/microlinkhq/microlink-www/commit/b4390c6f36e4d7094b674de660d6fbb858c9ec95))
+* typo ([8b631b1](https://github.com/microlinkhq/microlink-www/commit/8b631b1bdc5ae8d944edc7b39fda7338afb7f3ce))
+* use correct naming ([00fef09](https://github.com/microlinkhq/microlink-www/commit/00fef09a3871656d6bd97a9ce18aba1450098efe))
+* use processing as default payment state ([3ef5934](https://github.com/microlinkhq/microlink-www/commit/3ef5934353120a59f3922403dfbb87ffbcf4b012))
+* variable name ([98f5aa7](https://github.com/microlinkhq/microlink-www/commit/98f5aa741696202a73a9d982901d029d45f9407d))
+
 ### [2.10.140](https://github.com/microlinkhq/microlink-www/compare/v2.10.139...v2.10.140) (2020-01-11)
 
 
