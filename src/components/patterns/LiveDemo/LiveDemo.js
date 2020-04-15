@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { CodeEditor, Card, Flex } from 'components/elements'
 import Preview from './preview'
 
-const { COLORS } = CodeEditor
+const { colors: COLORS } = CodeEditor
 
 export default ({ children, loading }) => {
   const [view, setView] = useState('preview')
