@@ -29,7 +29,7 @@ if (missing.length > 0) {
   )
 }
 
-const SITE_URL = (() => {
+const DEPLOY_URL = (() => {
   if (!process.env.NETLIFY) return 'http://localhost:8000'
   return process.env.DEPLOY_URL
 })()
@@ -38,6 +38,6 @@ const CANONICAL_URL = 'https://microlink.io'
 
 module.exports = {
   ...process.env,
-  SITE_URL,
+  DEPLOY_URL,
   CANONICAL_URL
 }

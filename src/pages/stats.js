@@ -14,9 +14,9 @@ const Value = props => (
 )
 
 export default () => {
-  const { siteUrl } = useSiteMetadata()
+  const { deployUrl } = useSiteMetadata()
 
-  const image = screenshotUrl(`${siteUrl}/stats`, {
+  const image = screenshotUrl(`${deployUrl}/stats`, {
     waitFor: '3000',
     element: '#stats'
   })

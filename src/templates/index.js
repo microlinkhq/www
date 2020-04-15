@@ -13,7 +13,7 @@ export default ({ pageContext, data, ...props }) => {
   const meta = {
     ...metadata,
     ...frontmatter,
-    url: `${metadata.siteUrl}${frontmatter.slug}`,
+    url: `${metadata.deployUrl}${frontmatter.slug}`,
     date: lastEdited
   }
 
