@@ -4,7 +4,7 @@ import { Choose } from 'react-extras'
 import { breakpoints } from 'theme'
 import React from 'react'
 
-import { Box, MultiCodeEditor, CodeEditor, Hide } from 'components/elements'
+import { MultiCodeEditor, CodeEditor, Hide } from 'components/elements'
 
 import languages from './languages'
 
@@ -16,18 +16,16 @@ const MicrolinkCard = styled(Microlink)`
   }
 `
 
-const CodeEditorWrapper = styled(Box)`
-  section,
-  pre {
-    height: 260px;
-  }
-`
-
-const CodePreview = ({ children }) => (
-  <CodeEditorWrapper>
-    <MultiCodeEditor languages={languages} {...children} />
-  </CodeEditorWrapper>
-)
+const CodePreview = ({ children }) => {
+  return (
+    <MultiCodeEditor
+      width='inherit'
+      languages={languages}
+      {...children}
+      title={undefined}
+    />
+  )
+}
 
 const STYLE = { border: '0', height: 'inherit', maxWidth: '100%' }
 
