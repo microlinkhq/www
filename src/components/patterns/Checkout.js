@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StripeLoader, Caps, Button } from 'components/elements'
 
-export default ({ siteUrl, planId, stripeKey }) => {
+export default ({ canonicalUrl, planId, stripeKey }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const createStripeCheckout = stripe => () => {
@@ -13,8 +13,8 @@ export default ({ siteUrl, planId, stripeKey }) => {
           quantity: 1
         }
       ],
-      successUrl: `${siteUrl}/payment?sessionId={CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${siteUrl}/payment?state=failed`
+      successUrl: `${canonicalUrl}/payment?sessionId={CHECKOUT_SESSION_ID}`,
+      cancelUrl: `${canonicalUrl}/payment?state=failed`
     })
   }
 

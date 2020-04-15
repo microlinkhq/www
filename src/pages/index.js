@@ -171,7 +171,13 @@ const Questions = props => (
   />
 )
 
-const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
+const Pricing = ({
+  canonicalUrl,
+  apiKey,
+  stripeKey,
+  apiEndpoint,
+  ...props
+}) => {
   const title = 'Pricing'
   const caption = 'Growing with your business.'
 
@@ -179,7 +185,7 @@ const Pricing = ({ siteUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
     <Container id='pricing' maxWidth={layout.medium} {...props}>
       <Headline pt={[0, 0, 4, 4]} title={title} caption={caption} />
       <PricingTable
-        siteUrl={siteUrl}
+        canonicalUrl={canonicalUrl}
         apiKey={apiKey}
         stripeKey={stripeKey}
         apiEndpoint={apiEndpoint}
@@ -193,7 +199,7 @@ function Index () {
   const demoLinks = useDemoLinks()
 
   const {
-    siteUrl,
+    canonicalUrl,
     paymentApiKey,
     stripeKey,
     paymentEndpoint,
@@ -219,7 +225,7 @@ function Index () {
         borderBottom={`${borders[1]} ${colors.pinkest}`}
       /> */}
       <Pricing
-        siteUrl={siteUrl}
+        canonicalUrl={canonicalUrl}
         apiKey={paymentApiKey}
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}

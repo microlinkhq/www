@@ -8,6 +8,7 @@ const {
   PAYMENT_ENDPOINT,
   GOOGLE_ANALYTICS_ID,
   SITE_URL,
+  CANONICAL_URL,
   CDN_URL
 } = require('./env')
 
@@ -17,6 +18,7 @@ module.exports = {
     name: 'microlink.io',
     headline: 'Browser as API',
     siteUrl: SITE_URL,
+    canonicalUrl: CANONICAL_URL,
     description:
       'Enter a URL, receive information. Extract structured data from any website. Create beautiful link previews. Take a screenshot of any site. Turns any URL into a PDF.',
     twitter: '@microlinkhq',
@@ -79,7 +81,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: SITE_URL
+        siteUrl: CANONICAL_URL
       }
     },
     'gatsby-plugin-remove-trailing-slashes',

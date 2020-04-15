@@ -94,7 +94,7 @@ PricingRow.defaultProps = {
   textAlign: 'left'
 }
 
-function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
+function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
   const [state, setState] = useState({
     ...DEFAULT_PLAN,
     isHighlight: false
@@ -257,7 +257,7 @@ function PricingTable ({ siteUrl, stripeKey, apiEndpoint, ...props }) {
               <Checkout
                 key='checkout'
                 planId={planId}
-                siteUrl={siteUrl}
+                canonicalUrl={canonicalUrl}
                 stripeKey={stripeKey}
               />
             ]}

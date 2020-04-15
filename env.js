@@ -34,7 +34,10 @@ const SITE_URL = (() => {
   return process.env.DEPLOY_URL
 })()
 
+const CANONICAL_URL = 'https://microlink.io'
+
 module.exports = {
   ...process.env,
-  SITE_URL
+  SITE_URL,
+  CANONICAL_URL
 }
