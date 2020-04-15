@@ -9,7 +9,7 @@ export const useSiteMetadata = () => {
             paymentEndpoint
             paymentApiKey
             stripeKey
-            deployUrl
+            siteUrl
             canonicalUrl
             headline
             description

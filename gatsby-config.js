@@ -7,7 +7,7 @@ const {
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
   GOOGLE_ANALYTICS_ID,
-  DEPLOY_URL,
+  SITE_URL,
   CANONICAL_URL,
   CDN_URL
 } = require('./env')
@@ -17,7 +17,7 @@ module.exports = {
     // Basic
     name: 'microlink.io',
     headline: 'Browser as API',
-    deployUrl: DEPLOY_URL,
+    siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     description:
       'Enter a URL, receive information. Extract structured data from any website. Create beautiful link previews. Take a screenshot of any site. Turns any URL into a PDF.',
