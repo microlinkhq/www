@@ -66,7 +66,7 @@
     "gatsby-plugin-sitemap": "~2.3.2",
     "gatsby-plugin-styled-components": "~3.2.1",
     "gatsby-source-filesystem": "~2.2.2",
-    "gatsby-transformer-javascript-frontmatter": "~2.2.1",
+    "gatsby-transformer-javascript-frontmatter": "~2.2.2",
     "gatsby-transformer-json": "~2.3.1",
     "gatsby-transformer-remark": "~2.7.1",
     "gatsby-transformer-yaml": "~2.3.1",
