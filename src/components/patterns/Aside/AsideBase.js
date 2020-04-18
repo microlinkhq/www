@@ -115,7 +115,7 @@ const Aside = ({
         </Box>
       )}
 
-      <Flex mt={3} pb={3} mb={4}>
+      <Flex justifyContent='center' alignItems='center' mt={3} pb={3} mb={4}>
         <Toggle
           children={routeNames}
           defaultValue={activeRouteName}

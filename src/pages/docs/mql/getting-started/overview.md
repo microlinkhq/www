@@ -1,7 +1,3 @@
----
-title: 'Overview'
---- 
-
 **Microlink Query Language** (*MQL*) makes it possible to get structured data from any website.
 
 ```js

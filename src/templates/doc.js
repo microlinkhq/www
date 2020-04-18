@@ -4,6 +4,7 @@ import {
   Link,
   Text,
   Flex,
+  Box,
   Container
 } from 'components/elements'
 
@@ -126,6 +127,7 @@ const ROUTES_SDK = [
 const SDK = 'SDK'
 const API = 'API'
 const MQL = 'MQL'
+const CARDS = 'Cards'
 
 const ROUTES_API = [
   {
@@ -379,20 +381,15 @@ const ROUTES_MQL = [
     posts: [
       {
         name: 'Overview',
-        href: '/docs/mql/getting-started/overview'
-      }
-    ]
-  },
-  {
-    name: 'Basics',
-    posts: [
+        href: '/docs/cards/getting-started/overview'
+      },
       {
         name: 'Installation',
-        href: '/docs/mql/basics/installation'
+        href: '/docs/mql/getting-started/installation'
       },
       {
         name: 'Usage',
-        href: '/docs/mql/basics/usage'
+        href: '/docs/mql/getting-started/usage'
       }
     ]
   },
@@ -428,15 +425,29 @@ const ROUTES_MQL = [
   }
 ]
 
+const ROUTES_CARDS = [
+  {
+    name: 'Getting Started',
+    posts: [
+      {
+        name: 'Overview',
+        href: '/docs/cards/getting-started/overview'
+      }
+    ]
+  }
+]
+
 const routes = {
   [SDK]: ROUTES_SDK,
   [MQL]: ROUTES_MQL,
+  [CARDS]: ROUTES_CARDS,
   [API]: ROUTES_API
 }
 
 const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/sdk')) return SDK
   if (pathname.startsWith('/docs/api')) return API
+  if (pathname.startsWith('/docs/cards')) return CARDS
   if (pathname.startsWith('/docs/mql')) return MQL
 }
 
@@ -483,20 +494,24 @@ export default ({ meta, content, githubUrl, ...props }) => {
     >
       <Container maxWidth={layout.large}>
         <Aside routes={routes} activeRouteName={activeRouteName}>
-          <Text as='header'>
-            <H1 mt={[4, 4, 4, 5]} variant={null} mb={0} slug={false}>
-              <span>{meta.title}</span>
-              {meta.isPro && (
-                <Tooltip
-                  ml={2}
-                  display='inline'
-                  content='This feature is only for pro plans.'
-                >
-                  <Badge>PRO</Badge>
-                </Tooltip>
-              )}
-            </H1>
-          </Text>
+          {meta.title ? (
+            <Text as='header'>
+              <H1 mt={[4, 4, 4, 5]} variant={null} mb={0} slug={false}>
+                <span>{meta.title}</span>
+                {meta.isPro && (
+                  <Tooltip
+                    ml={2}
+                    display='inline'
+                    content='This feature is only for pro plans.'
+                  >
+                    <Badge>PRO</Badge>
+                  </Tooltip>
+                )}
+              </H1>
+            </Text>
+          ) : (
+            <Box mt={4} />
+          )}
           <Markdown children={content} />
           <Flex
             as='footer'
