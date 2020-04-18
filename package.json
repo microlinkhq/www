@@ -138,7 +138,7 @@
     "urlint": "latest"
   },
   "engines": {
-    "node": "13"
+    "node": "12.x"
   },
   "files": [
     "data",
