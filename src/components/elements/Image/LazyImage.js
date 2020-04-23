@@ -1,5 +1,5 @@
 import { useState, createElement, useEffect } from 'react'
-import { aspectRatio, template } from 'helpers'
+import { template } from 'helpers'
 import noop from 'lodash/noop'
 
 import ImagePlaceholder from './ImagePlaceholder'
