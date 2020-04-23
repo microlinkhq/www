@@ -40,7 +40,7 @@ LazyImage.defaultProps = {
   onError: noop,
   lazy: true,
   loading: true,
-  width: aspectRatio.width
+  width: '100%'
 }
 
 export default LazyImage

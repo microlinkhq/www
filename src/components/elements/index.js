@@ -15,6 +15,7 @@ import { Fixed } from './Position'
 import Flex from './Flex'
 
 import Hide from './Hide'
+import Tweet from './Tweet/Tweet'
 import Image from './Image/LazyImage'
 import Video from './Video/Video'
 import ImagePlaceholder from './Image/ImagePlaceholder'
@@ -61,7 +62,6 @@ const Subhead = withTitle(SubheadBase)
 
 export {
   AnimatedBox,
-  Nivo,
   BackgroundSlider,
   BackgroundSliderContainer,
   Badge,
@@ -89,6 +89,7 @@ export {
   Link,
   LinkSolid,
   MultiCodeEditor,
+  Nivo,
   Notification,
   Pie,
   PricePicker,
@@ -104,6 +105,7 @@ export {
   Toggle,
   Toolbar,
   Tooltip,
-  Unavatar
+  Tweet,
+  Unavatar,
   Video
 }
