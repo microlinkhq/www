@@ -16,6 +16,7 @@ import Flex from './Flex'
 
 import Hide from './Hide'
 import Image from './Image/LazyImage'
+import Video from './Video/Video'
 import ImagePlaceholder from './Image/ImagePlaceholder'
 import Input from './Input/Input'
 import InputIcon from './Input/InputIcon'
@@ -104,4 +105,5 @@ export {
   Toolbar,
   Tooltip,
   Unavatar
+  Video
 }
