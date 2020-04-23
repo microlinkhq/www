@@ -6,7 +6,7 @@ date: '2018-05-31'
 
 The [Microlink API](/docs/api/getting-started/overview) is used for extracting information from **any** link.
 
-Just enter an URL and you will receive data.
+Just enter a URL and you will receive data.
 
 It was designed to get generic information present in the target website, based on metadata normalization using [metascraper](https://metascraper.js.org/#/).
 

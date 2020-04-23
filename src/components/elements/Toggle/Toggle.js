@@ -15,8 +15,8 @@ const ButtonToggle = styled(ButtonBase)`
 
 ButtonToggle.defaultProps = {
   bg: 'transparent',
-  px: '24px',
   py: 0,
+  px: 0,
   borderRadius: 0
 }
 
@@ -43,7 +43,11 @@ function Toggle ({ onChange, children, defaultValue }) {
             borderRight={!isLast ? 1 : null}
             borderColor={!isLast ? 'black05' : null}
           >
-            <ButtonToggle active={isActive} onClick={setAsActive(value)}>
+            <ButtonToggle
+              style={{ minWidth: '64px' }}
+              active={isActive}
+              onClick={setAsActive(value)}
+            >
               <Caps
                 fontWeight={!isActive ? 'normal' : 'bold'}
                 color={isActive ? 'black80' : 'black40'}

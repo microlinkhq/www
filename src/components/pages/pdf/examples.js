@@ -442,7 +442,10 @@ const Information = props => (
               Microlink for PDF
             </Text>{' '}
             takes any URL as an input and returns a PDF back, hosted at
-            Microlink CDN.
+            <Link icon href='/blog/edge-cdn/'>
+              Microlink CDN
+            </Link>
+            .
           </>,
           <>
             It supports most of the common PDF tweaks, like paper{' '}

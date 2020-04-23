@@ -1,1 +1,1 @@
-export const ASIDE_WIDTH = '280px'
+export const ASIDE_WIDTH = '320px'

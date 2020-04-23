@@ -13,12 +13,15 @@ import {
   CodeEditor,
   MultiCodeEditor as MultiCodeEditorBase,
   Box,
+  Flex,
   Text,
   Link as LinkBase,
   Label,
   Image as ImageBase,
+  Video as VideoBase,
   Iframe as IframeBase,
-  Button
+  Button,
+  Tweet as TweetBase
 } from 'components/elements'
 
 import DemoIntegrations from './DemoIntegrations'
@@ -261,9 +264,7 @@ CodeInline.defaultProps = {
   as: 'code'
 }
 
-const _ImageBase = styled(ImageBase)``
-
-_ImageBase.defaultProps = {
+const mediaStyle = {
   maxWidth: `${WIDTH.normal}px`,
   borderRadius: '3px',
   ml: 'auto',
@@ -271,7 +272,22 @@ _ImageBase.defaultProps = {
   textAlign: 'center'
 }
 
+const _ImageBase = styled(ImageBase)``
+
+_ImageBase.defaultProps = {
+  ...mediaStyle
+}
+
 export const Image = withContainer(_ImageBase)
+
+const _VideoBase = styled(VideoBase)``
+
+_VideoBase.defaultProps = {
+  ...mediaStyle,
+  autoPlay: true
+}
+
+export const Video = withContainer(_VideoBase)
 
 const _IframeBase = styled(IframeBase)``
 
@@ -290,6 +306,12 @@ FigcaptionBase.defaultProps = {
 }
 
 export const Figcaption = withContainer(FigcaptionBase)
+
+export const Tweet = props => (
+  <Flex justifyContent='center'>
+    <TweetBase {...props} />
+  </Flex>
+)
 
 export const Blockquote = styled.blockquote`
   margin: auto;
@@ -328,6 +350,7 @@ TypeContainer.defaultProps = {
 const mdComponents = {
   a: Link,
   blockquote: Blockquote,
+  button: Button,
   code: Code,
   h1: H1,
   h2: H2,
@@ -343,7 +366,7 @@ const mdComponents = {
   p: Paraph,
   strong: Strong,
   ul: Ul,
-  button: Button
+  video: Video
 }
 
 const ScopedComponents = {
@@ -372,9 +395,11 @@ const ScopedComponents = {
   Paraph,
   Strong,
   Terminal,
+  Tweet,
   Type,
   TypeContainer,
-  Ul
+  Ul,
+  Video
 }
 
 export default props => (

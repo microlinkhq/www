@@ -1,5 +1,5 @@
 import { useState, createElement, useEffect } from 'react'
-import { aspectRatio, template } from 'helpers'
+import { template } from 'helpers'
 import noop from 'lodash/noop'
 
 import ImagePlaceholder from './ImagePlaceholder'
@@ -40,7 +40,7 @@ LazyImage.defaultProps = {
   onError: noop,
   lazy: true,
   loading: true,
-  width: aspectRatio.width
+  width: '100%'
 }
 
 export default LazyImage

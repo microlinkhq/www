@@ -53,8 +53,8 @@ https://microlink.io&ttl=max     // equivalent to `31d`
 
 The purpose of this API parameter is to adapt our caching layer based on your necessities:
 
-- If you are targetting an URL that changes very often and response time is not critical for you, a small value will work better.
-- If you are targetting an URL that doesn't change too much or you want to maximize cache hits, getting faster response time, a higher value works better.
+- If you are targetting a URL that changes very often and response time is not critical for you, a small value will work better.
+- If you are targetting a URL that doesn't change too much or you want to maximize cache hits, getting faster response time, a higher value works better.
 
 The value provided will reflected as `x-cache-ttl` as part of the response headers
 

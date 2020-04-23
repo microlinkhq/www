@@ -313,7 +313,7 @@ export default () => {
           fontSize={3}
         />
         <Text px={4} ml={3}>
-          Given an URL (Twitter, Instagram, Facebook, YouTube, Spotify, etc),
+          Given a URL (Twitter, Instagram, Facebook, YouTube, Spotify, etc),
           Microlink API retrieves you the snippet code necessary for embedding
           the representation of the URL in your site.
         </Text>
