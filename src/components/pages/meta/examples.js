@@ -179,12 +179,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
@@ -488,7 +488,7 @@ const Resume = props => (
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='Universal embed made simple' />
       <Text textAlign='center' mr='auto' ml='auto' maxWidth={[9, 9, 10, 10]}>
-        Microlink extracts structured data from any website. Enter an URL,
+        Microlink extracts structured data from any website. Enter a URL,
         receive information. Get relevant information from any link & easily
         create beautiful previews.
       </Text>

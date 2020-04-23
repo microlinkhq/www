@@ -1,3 +1,7 @@
+---
+title: 'Overview'
+---
+
 Welcome to **Microlink API**
 
 You can use our API for getting structured data from any website.
@@ -17,7 +21,7 @@ module.exports = async () => {
   }} 
 />
 
-You just need to provide an URL as input, outputting the structured data back.
+You just need to provide a URL as input, outputting the structured data back.
 
 ```json
 {

@@ -564,7 +564,7 @@ const Information = props => (
               Microlink for screenshot
             </Text>{' '}
             takes any URL as an input and returns a screenshot back, hosted at
-            Microlink CDN.
+            <Link href='/blog/edge-cdn/'>Microlink CDN</Link>.
           </>,
           <>
             It supports most of the common browser interactions, like clicks,
