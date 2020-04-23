@@ -432,6 +432,39 @@ const ROUTES_CARDS = [
       {
         name: 'Overview',
         href: '/docs/cards/getting-started/overview'
+      },
+      {
+        name: 'Editor',
+        href: '/docs/cards/getting-started/editor'
+      },
+      {
+        name: 'Presets',
+        href: '/docs/cards/getting-started/presets'
+      },
+      {
+        name: 'Query Variables',
+        href: '/docs/cards/getting-started/query-variables'
+      },
+      {
+        name: 'Embed',
+        href: '/docs/cards/getting-started/embed'
+      }
+    ]
+  },
+  {
+    name: 'Others',
+    posts: [
+      {
+        name: 'Authentication',
+        href: '/docs/cards/others/authentication'
+      },
+      {
+        name: 'Encoding',
+        href: '/docs/cards/others/encoding'
+      },
+      {
+        name: 'Pricing',
+        href: '/docs/cards/others/pricing'
       }
     ]
   }
