@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import IframeInline from './IframeInline'
+import { IframeInline } from 'components/elements'
 
 const __html =
   '<iframe width="480" height="270" src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'

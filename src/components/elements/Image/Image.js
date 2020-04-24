@@ -1,5 +1,6 @@
-import styled from 'styled-components'
 import propTypes from '@styled-system/prop-types'
+import styled from 'styled-components'
+import { withLazy } from 'helpers/hoc'
 
 import {
   compose,
@@ -41,4 +42,4 @@ Image.propTypes = {
   ...propTypes.borderRadius
 }
 
-export default Image
+export default withLazy(Image)

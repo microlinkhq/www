@@ -1,7 +1,7 @@
-import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { MultiCodeEditor, Box } from 'components/elements'
+import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
+import React from 'react'
 
 const jsx = () => `
 import { CodeEditor } from 'components/elements'

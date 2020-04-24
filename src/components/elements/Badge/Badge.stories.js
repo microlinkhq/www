@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import Badge from './Badge'
+import { Badge } from 'components/elements'
 
 const code = `
 import { Badge } from 'components/elements'

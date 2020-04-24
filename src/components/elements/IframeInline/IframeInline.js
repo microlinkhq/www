@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Box from '../Box'
 import CodeEditor from '../CodeEditor/CodeEditor'
-import ImagePlaceholder from '../Image/ImagePlaceholder'
+import Placeholder from '../Placeholder/Placeholder'
 
 const IframeWrapper = styled(Box)`
   iframe {
@@ -32,7 +32,7 @@ const IframeInline = ({
 
   return (
     <>
-      {isLoading ? <ImagePlaceholder width={width} height={height} /> : null}
+      {isLoading ? <Placeholder width={width} height={height} /> : null}
       <IframeWrapper
         ref={inputEl}
         style={{ display: isLoading && 'none' }}

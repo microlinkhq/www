@@ -7,18 +7,18 @@ import BlockLink from './BlockLink'
 import AnimatedBox from './AnimatedBox'
 import Box from './Box'
 
-import Card from './Card/Card'
-import CodeEditor from './CodeEditor/CodeEditor'
 import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
+import Placeholder from './Placeholder/Placeholder'
+import CodeEditor from './CodeEditor/CodeEditor'
 import Container from './Container'
 import { Fixed } from './Position'
+import Card from './Card/Card'
 import Flex from './Flex'
 
 import Hide from './Hide'
 import Tweet from './Tweet/Tweet'
-import Image from './Image/LazyImage'
+import Image from './Image/Image'
 import Video from './Video/Video'
-import ImagePlaceholder from './Image/ImagePlaceholder'
 import Input from './Input/Input'
 import InputIcon from './Input/InputIcon'
 import Badge from './Badge/Badge'
@@ -61,6 +61,7 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 
 export {
+  // MultiCodeEditor,
   AnimatedBox,
   BackgroundSlider,
   BackgroundSliderContainer,
@@ -82,7 +83,6 @@ export {
   Iframe,
   IframeInline,
   Image,
-  ImagePlaceholder,
   Input,
   InputIcon,
   Label,
@@ -92,6 +92,7 @@ export {
   Nivo,
   Notification,
   Pie,
+  Placeholder,
   PricePicker,
   Radar,
   Select,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import Unavatar from './Unavatar'
+import { Unavatar } from 'components/elements'
 
 const code = `
 import { Unavatar } from 'components/elements'

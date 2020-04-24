@@ -1,9 +1,8 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import prettyBytes from 'pretty-bytes'
+import { Stack } from 'components/elements'
 import { Story } from 'story'
-
-import Stack from './Stack'
 
 const storyName = 'Stack'
 

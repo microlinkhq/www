@@ -2,9 +2,7 @@ import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import React from 'react'
 
-import { Flex } from 'components/elements'
-
-import LazyImage from './LazyImage'
+import { Image, Flex } from 'components/elements'
 
 const storyName = 'Image'
 
@@ -19,20 +17,11 @@ export default () => (
 )
 `
 
-const SIZE = '350px'
-
 const ImageStory = () => {
   return (
     <Story name={storyName} code={code}>
       <Flex flexDirection='row' justifyContent='center'>
-        <LazyImage width={SIZE} height={SIZE} src={imageUrl} />
-        <LazyImage
-          ml={4}
-          width={SIZE}
-          height={SIZE}
-          src={imageUrl}
-          lazy={false}
-        />
+        <Image width='350px' height='350px' src={imageUrl} />
       </Flex>
     </Story>
   )

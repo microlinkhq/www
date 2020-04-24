@@ -1,6 +1,7 @@
+import withAnalytics from './with-analytics'
+import withTitle from './with-title'
 import withLink from './with-link'
 import withSlug from './with-slug'
-import withTitle from './with-title'
-import withAnalytics from './with-analytics'
+import withLazy from './with-lazy'
 
-export { withTitle, withLink, withSlug, withAnalytics }
+export { withLazy, withTitle, withLink, withSlug, withAnalytics }

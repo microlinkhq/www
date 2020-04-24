@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import Radar from './Radar'
+import { Radar } from 'components/elements'
 
 const storyName = 'Radar'
 
