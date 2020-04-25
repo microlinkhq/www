@@ -9,7 +9,7 @@ const compute = (obj, key, value) =>
 const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
   ...props,
   [attr]: compiledAttr,
-  height: compute(props, 'height', isLoading) || aspectRatio.height,
+  height: compute(props, 'height', isLoading),
   width: compute(props, 'width', isLoading) || aspectRatio.width,
   style: compute(props, 'style', isLoading)
 })
