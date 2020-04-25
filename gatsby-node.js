@@ -21,8 +21,14 @@ const getLastEdited = async filepath => {
   return date
 }
 
-const getBranchName = async () =>
-  (await getCurrentBranchName()).replace('HEAD', 'master')
+const getBranchName = async () => {
+  let result = 'master'
+  try {
+    result = await getCurrentBranchName()
+  } catch (_) {}
+
+  return result.replace('HEAD', 'master')
+}
 
 const githubUrl = (() => {
   let branchName
