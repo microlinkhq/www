@@ -29,15 +29,10 @@ if (missing.length > 0) {
   )
 }
 
-const SITE_URL = (() => {
-  if (!process.env.NETLIFY) return 'http://localhost:8000'
-  return process.env.DEPLOY_URL
-})()
-
-const CANONICAL_URL = (() => {
-  if (!process.env.NETLIFY) return SITE_URL
-  return 'https://microlink.io'
-})()
+const DEV_URL = 'http://localhost:8000'
+const ALIAS_URL = 'https://microlink.io'
+const SITE_URL = process.env.DEPLOY_URL || process.env.NOW_URL || DEV_URL
+const CANONICAL_URL = SITE_URL === DEV_URL ? DEV_URL : ALIAS_URL
 
 module.exports = {
   ...process.env,
