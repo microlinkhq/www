@@ -34,6 +34,13 @@ const ALIAS_URL = 'https://microlink.io'
 const SITE_URL = process.env.DEPLOY_URL || process.env.NOW_URL || DEV_URL
 const CANONICAL_URL = SITE_URL === DEV_URL ? DEV_URL : ALIAS_URL
 
+console.log({
+  DEV_URL,
+  ALIAS_URL,
+  SITE_URL,
+  CANONICAL_URL
+})
+
 module.exports = {
   ...process.env,
   SITE_URL,
