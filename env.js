@@ -33,9 +33,7 @@ const DEV_URL = 'http://localhost:8000'
 const ALIAS_URL = 'https://microlink.io'
 const isDev = process.env.NODE_ENV === 'development'
 
-const SITE_URL = isDev
-  ? process.env.DEPLOY_URL || process.env.NOW_URL || '/'
-  : DEV_URL
+const SITE_URL = isDev ? DEV_URL : process.env.DEPLOY_URL || process.env.NOW_URL
 
 const CANONICAL_URL = isDev ? DEV_URL : ALIAS_URL
 
