@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "public",
+      "use": "@now/static"
+    },
+    {
+      "src": "storybook-static",
+      "use": "@now/static"
+    }
+  ]
+}
