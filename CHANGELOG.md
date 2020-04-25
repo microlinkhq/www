@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.155](https://github.com/microlinkhq/microlink-www/compare/v2.10.154...v2.10.155) (2020-04-25)
+
+
+### Bug Fixes
+
+* aspect ratio ([ca9a916](https://github.com/microlinkhq/microlink-www/commit/ca9a9168922458f630c90992670c25ea532f1a50))
+
 ### [2.10.154](https://github.com/microlinkhq/microlink-www/compare/v2.10.153...v2.10.154) (2020-04-25)
 
 
