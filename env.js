@@ -31,8 +31,13 @@ if (missing.length > 0) {
 
 const DEV_URL = 'http://localhost:8000'
 const ALIAS_URL = 'https://microlink.io'
-const SITE_URL = process.env.DEPLOY_URL || process.env.NOW_URL || DEV_URL
-const CANONICAL_URL = SITE_URL === DEV_URL ? DEV_URL : ALIAS_URL
+const isDev = process.env.NODE_ENV === 'development'
+
+const SITE_URL = isDev
+  ? process.env.DEPLOY_URL || process.env.NOW_URL || '/'
+  : DEV_URL
+
+const CANONICAL_URL = isDev ? DEV_URL : ALIAS_URL
 
 console.log({
   NOW_URL: process.env.NOW_URL,
