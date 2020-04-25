@@ -61,7 +61,6 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 
 export {
-  // MultiCodeEditor,
   AnimatedBox,
   BackgroundSlider,
   BackgroundSliderContainer,

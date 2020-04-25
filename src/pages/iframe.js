@@ -1,5 +1,5 @@
 import {
-  ImagePlaceholder,
+  Placeholder,
   Subhead,
   Box,
   Flex,
@@ -90,7 +90,7 @@ const Embed = ({ title, description, url }) => {
   if (!iframe) {
     return (
       <Box mb={4} px={[3, 4]}>
-        <ImagePlaceholder width={IFRAME_WIDTH} height={IFRAME_HEIGHT} />
+        <Placeholder width={IFRAME_WIDTH} height={IFRAME_HEIGHT} />
       </Box>
     )
   }
