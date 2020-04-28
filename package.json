@@ -56,7 +56,7 @@
     "flat": "~5.0.0",
     "gatsby": "~2.20.35",
     "gatsby-cli": "2.11",
-    "gatsby-plugin-canonical-urls": "~2.2.4",
+    "gatsby-plugin-canonical-urls": "~2.3.0",
     "gatsby-plugin-catch-links": "~2.2.4",
     "gatsby-plugin-google-analytics": "~2.2.5",
     "gatsby-plugin-netlify": "~2.2.4",
