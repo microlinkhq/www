@@ -5,7 +5,7 @@ title: 'meta'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-It detects basic normalized metadata from the target URL.
+It detects normalized metadata from the target URL.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&meta`,

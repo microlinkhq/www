@@ -31,6 +31,7 @@ The audio detection introduce some human readable fields as part of the payload:
 
 ```json{26, 33}
 {
+  "status": "success",
   "data": {
     "title": "Format",
     "description": "Format, a song by _91nova on Spotify",
@@ -63,7 +64,6 @@ The audio detection introduce some human readable fields as part of the payload:
       "width": 196,
       "size_pretty": "11.1 kB"
     }
-  },
-  "status": "success"
+  }
 }
 ```

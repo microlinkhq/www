@@ -40,11 +40,11 @@ We also want to provide examples, and ways to integrate it with popular framewor
 
 Maintaining documentation is laborious and requires effort. We needed to combine **all** the documentation associated with [microlink.io](https://microlink.io) into one place.
 
-After comparing multiple approaches on the matter and seeing how other companies take on the challenge, we decided on [ZEIT documentation](https://github.com/zeit/docs) portal.
+After comparing multiple approaches on the matter and seeing how other companies take on the challenge, we decided on [Vercel documentation](https://github.com/zeit/docs) portal.
 
 <Microlink size='large' url={'https://twitter.com/Kikobeats/status/956221717319421952'} />
 
-Although it required some laborious work, the final result is impressive. We are very grateful to [ZEIT](https://zeit.co/) for making it possible.
+Although it required some laborious work, the final result is impressive. We are very grateful to [Vercel](https://vercel.com) for making it possible.
 
 ## Metascraper Improvements
 

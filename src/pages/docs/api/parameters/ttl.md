@@ -4,7 +4,7 @@ isPro: true
 --- 
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
-Default: <Type children="'1h'"/>
+Default: <Type children="'24h'"/>
 
 Establishes the maximum quantity of time a resource served from cache layer is considered as valid.
 
