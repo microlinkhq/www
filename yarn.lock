@@ -9238,12 +9238,12 @@ gatsby-plugin-canonical-urls@~2.2.4:
   dependencies:
     "@babel/runtime" "^7.8.7"
 
-gatsby-plugin-catch-links@~2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.2.4.tgz#36852eccea4c7ac737370859b33107fc0865f343"
-  integrity sha512-3gIgdVcjaSiGa+qMRDEu1yLFK5qWNPf8+/0yjIKAX/3OLR1BQb8bLicOZ4cSQkGNUER6MlFG7ddCx45X4JDNOQ==
+gatsby-plugin-catch-links@~2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.3.0.tgz#75cdee9c62c6948b0d509a83c6876cea3a54c53b"
+  integrity sha512-Neoa6ijOG0+EeMH1SudOX9s8qKimguOmtxPgbr9WvbXEbY1zjz4Pi3iE3Np1sLodXTiHdjlPuHewv3NUnaFflg==
   dependencies:
-    "@babel/runtime" "^7.8.7"
+    "@babel/runtime" "^7.9.2"
     escape-string-regexp "^1.0.5"
 
 gatsby-plugin-google-analytics@~2.2.5:
