@@ -241,7 +241,17 @@ const ROUTES_API = [
       },
       {
         name: 'insights',
-        href: '/docs/api/parameters/insights'
+        href: '/docs/api/parameters/insights',
+        posts: [
+          {
+            name: 'lighthouse',
+            href: '/docs/api/parameters/insights/lighthouse'
+          },
+          {
+            name: 'technologies',
+            href: '/docs/api/parameters/insights/technologies'
+          }
+        ]
       },
       {
         name: 'javascript',
