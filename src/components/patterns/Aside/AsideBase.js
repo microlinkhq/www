@@ -103,7 +103,6 @@ const Aside = ({
   return (
     <AsideWrapper
       as='aside'
-      pl={3}
       pt={[0, 0, 0, 5]}
       pr={[0, 0, 0, '28px']}
       isOpen={isOpen}
@@ -115,7 +114,14 @@ const Aside = ({
         </Box>
       )}
 
-      <Flex justifyContent='center' alignItems='center' mt={3} pb={3} mb={4}>
+      <Flex
+        as='header'
+        justifyContent='end'
+        alignItems='center'
+        mt={3}
+        pb={3}
+        mb={4}
+      >
         <Toggle
           children={routeNames}
           defaultValue={activeRouteName}
@@ -125,7 +131,7 @@ const Aside = ({
           }}
         />
       </Flex>
-      <Box pl={2}>
+      <Box pl={4}>
         {routes[tree].map(path => (
           <Box mb={4} key={`${tree}_${path.name}`}>
             <Header>{path.name}</Header>

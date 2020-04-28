@@ -529,7 +529,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
         <Aside routes={routes} activeRouteName={activeRouteName}>
           {meta.title ? (
             <Text as='header'>
-              <H1 mt={[4, 4, 4, 5]} variant={null} mb={0} slug={false}>
+              <H1 mt={4} variant={null} mb={0} slug={false}>
                 <span>{meta.title}</span>
                 {meta.isPro && (
                   <Tooltip

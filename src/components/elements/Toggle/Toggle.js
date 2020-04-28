@@ -24,7 +24,7 @@ function Toggle ({ onChange, children, defaultValue }) {
   const [active, setActive] = useState(defaultValue || children[0])
 
   return (
-    <Box border={1} borderColor='black05' borderRadius={2}>
+    <Box ml={2} border={1} borderColor='black05' borderRadius={2}>
       {children.map((value, index) => {
         const isLast = index + 1 === children.length
         const isActive = active === value
