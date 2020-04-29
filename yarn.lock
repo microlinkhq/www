@@ -283,7 +283,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@7.9.4", "@babel/parser@^7.2.3", "@babel/parser@^7.7.0", "@babel/parser@^7.8.6", "@babel/parser@^7.8.8", "@babel/parser@^7.9.0":
+"@babel/parser@7.9.4", "@babel/parser@^7.2.3", "@babel/parser@^7.7.0", "@babel/parser@^7.8.6", "@babel/parser@^7.8.8", "@babel/parser@^7.9.0", "@babel/parser@^7.9.4":
   version "7.9.4"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.9.4.tgz#68a35e6b0319bbc014465be43828300113f2f2e8"
   integrity sha512-bC49otXX6N0/VYhgOMh4gnP26E9xnDZK3TmbNpxYzzz9BQLBosQwfyOe9/cXUU3txYhTzLCbcqd5c8y/OmCjHA==
@@ -892,7 +892,7 @@
     "@babel/parser" "^7.8.6"
     "@babel/types" "^7.8.6"
 
-"@babel/traverse@^7.4.5", "@babel/traverse@^7.7.0", "@babel/traverse@^7.8.3", "@babel/traverse@^7.8.6", "@babel/traverse@^7.9.0":
+"@babel/traverse@^7.4.5", "@babel/traverse@^7.7.0", "@babel/traverse@^7.8.3", "@babel/traverse@^7.8.6", "@babel/traverse@^7.9.0", "@babel/traverse@^7.9.5":
   version "7.9.5"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.9.5.tgz#6e7c56b44e2ac7011a948c21e283ddd9d9db97a2"
   integrity sha512-c4gH3jsvSuGUezlP6rzSJ6jf8fYjLj3hsMZRx/nX0h+fmHN0w+ekubRrHPqnMec0meycA2nwCsJ7dC8IPem2FQ==
@@ -9445,14 +9445,14 @@ gatsby-telemetry@^1.2.6:
     stack-utils "1.0.2"
     uuid "3.4.0"
 
-gatsby-transformer-javascript-frontmatter@~2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/gatsby-transformer-javascript-frontmatter/-/gatsby-transformer-javascript-frontmatter-2.2.4.tgz#7e93aaf81c9c76a245e2bec6c6c6e2fc209be472"
-  integrity sha512-Wdhbrf1Py/1+mIHD547QrPz2JbCYUnqlXTUDpMaYmntQKmAdmRl0Nk27S/eL50EZ+Kei9FYGwWXYROKRY+YmSQ==
+gatsby-transformer-javascript-frontmatter@~2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-javascript-frontmatter/-/gatsby-transformer-javascript-frontmatter-2.3.0.tgz#aeed15aee2633e288704a4e701fe0f6d942a8d87"
+  integrity sha512-6i+YYospMs0znr7lhwgDYstIKPYOlKf0QwkL9tzpwjL+O+oigBh8HYf2lOQqJOyZ2kkabXBOAVoOG0rw/Brg4g==
   dependencies:
-    "@babel/parser" "^7.8.8"
-    "@babel/runtime" "^7.8.7"
-    "@babel/traverse" "^7.8.6"
+    "@babel/parser" "^7.9.4"
+    "@babel/runtime" "^7.9.2"
+    "@babel/traverse" "^7.9.5"
     bluebird "^3.7.2"
 
 gatsby-transformer-json@~2.3.4:
