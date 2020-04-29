@@ -62,7 +62,7 @@
     "gatsby-plugin-netlify-cache": "^1.2.0",
     "gatsby-plugin-react-helmet": "~3.2.5",
     "gatsby-plugin-remove-trailing-slashes": "~2.2.4",
-    "gatsby-plugin-sass": "~2.2.4",
+    "gatsby-plugin-sass": "~2.3.0",
     "gatsby-plugin-sitemap": "~2.3.6",
     "gatsby-plugin-styled-components": "~3.2.4",
     "gatsby-source-filesystem": "~2.2.5",
