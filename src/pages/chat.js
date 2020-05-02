@@ -1,14 +1,13 @@
 import { Layout, Chat, SubHeadline } from 'components/patterns'
 import { Container, Box, Flex } from 'components/elements'
 import { Microlink, Slack } from 'components/logos'
-import { cdnUrl } from 'helpers'
 import { Plus } from 'react-feather'
 import React from 'react'
 
 const LOGO_SIZE = 60
 
 export default () => (
-  <Layout title='Chat' image={cdnUrl('www/chat.png')}>
+  <Layout>
     <Container pt={5}>
       <SubHeadline
         title='Come chat with us'

@@ -1,20 +1,16 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
 import { Layout, FetchProvider } from 'components/patterns'
-import { metaUrl, cdnUrl } from 'helpers'
 import { Location } from '@reach/router'
 import humanizeUrl from 'humanize-url'
 import React from 'react'
 
+import { screenshots } from 'components/pages/home/screenshots'
 import Examples from 'components/pages/screenshot/examples'
 import Template from 'components/pages/screenshot/template'
-
-import { screenshots } from 'components/pages/home/screenshots'
 
 export default () => {
   const demoLinks = useDemoLinks()
   const [query] = useQueryState()
-  const title = 'Turns websites into a screenshot'
-  const image = query.url ? metaUrl(query.url) : cdnUrl('www/screenshot.png')
 
   const suggestions = screenshots.map(({ id, filename, cdnUrl }) => {
     const { url } = demoLinks.find(link => link.id === id).data
@@ -28,7 +24,7 @@ export default () => {
   })
 
   return (
-    <Layout title={title} image={image}>
+    <Layout>
       <FetchProvider mqlOpts={{ screenshot: true }}>
         {({ status, doFetch, data }) => (
           <>

@@ -1,10 +1,10 @@
 import { Text, Flex, Container } from 'components/elements'
 import { Layout, SubHeadline } from 'components/patterns'
-import { cdnUrl, formatDate } from 'helpers'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
 import { H2Link } from 'components/markdown'
 import { borders, transition } from 'theme'
+import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import is from 'styled-is'
 import React from 'react'
@@ -61,7 +61,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
 
 export default ({ posts = useBlogIndex() }) => {
   return (
-    <Layout title='Blog' image={cdnUrl('www/blog.png')}>
+    <Layout>
       <Container px={0} as='article' maxWidth='inherit'>
         <Flex flexDirection='column' alignItems='center' pt={5}>
           <SubHeadline title='Blog' pb={4} />

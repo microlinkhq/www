@@ -11,7 +11,6 @@ import getLines from './get-lines'
 import template from './template'
 import prettier from './prettier'
 import mqlCode from './mql-code'
-import metaUrl from './meta-url'
 import pdfUrl from './pdf-url'
 import cdnUrl from './cdn-url'
 import isSSR from './is-ssr'
@@ -26,7 +25,6 @@ export {
   getLines,
   isFunction,
   isSSR,
-  metaUrl,
   mqlCode,
   pdfUrl,
   prettier,

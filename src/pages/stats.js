@@ -1,8 +1,6 @@
 import { Container, Box, Flex, Text, DotSpinner } from 'components/elements'
 import { KubernetesMonitor, Layout } from 'components/patterns'
-import { useSiteMetadata } from 'components/hook'
 import React, { useState } from 'react'
-import { screenshotUrl } from 'helpers'
 
 const Value = props => (
   <Text
@@ -14,13 +12,6 @@ const Value = props => (
 )
 
 export default () => {
-  const { siteUrl } = useSiteMetadata()
-
-  const image = screenshotUrl(`${siteUrl}/stats`, {
-    waitFor: '3000',
-    element: '#stats'
-  })
-
   const [theme, setTheme] = useState('dark')
 
   const toggleTheme = () =>
@@ -36,8 +27,6 @@ export default () => {
       {({ isLoading, data }) => {
         return (
           <Layout
-            title='stats'
-            image={image}
             onClick={toggleTheme}
             theme={theme}
             style={{ background: bg }}
