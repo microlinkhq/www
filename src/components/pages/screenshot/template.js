@@ -253,17 +253,17 @@ const Cli = ({ domain, data }) => {
         src={data.screenshot.url}
       />
       <Box pt={3}>
-        <SpanLabel>SUCCESS</SpanLabel> <Span>57.9 kB in 13830.018ms</Span>
+        <SpanLabel>SUCCESS</SpanLabel> <Span>57.9 kB in 2830.018ms</Span>
       </Box>
       <Box pt={3}>
         <Box>
           <SpanKey>uri</SpanKey> <Span>{apiUrl}</Span>
         </Box>
         <Box>
-          <SpanKey>cache</SpanKey> <Span>MISS</Span>
+          <SpanKey>cache</SpanKey> <Span>HIT</Span>
         </Box>
         <Box>
-          <SpanKey>cache</SpanKey> <Span>prerender (4654.865ms)</Span>
+          <SpanKey>prerender</SpanKey> <Span>prerender (3654.865ms)</Span>
         </Box>
       </Box>
     </>
@@ -311,7 +311,7 @@ const Cli = ({ domain, data }) => {
 
         <Box pb={4}>
           <Terminal
-            title='microlik-api'
+            title='microlink-api'
             children={cliCode}
             blinkCursor={false}
           />
