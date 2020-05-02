@@ -1,13 +1,12 @@
 import { Container, Iframe, CodeEditor } from 'components/elements'
 import { Layout } from 'components/patterns'
-import { cdnUrl } from 'helpers'
 import React from 'react'
 import { layout } from 'theme'
 
 const TITLE = 'Status'
 
 export default () => (
-  <Layout title={TITLE} image={cdnUrl('www/status.png')}>
+  <Layout>
     <Container pt={5}>
       <Iframe
         mx='auto'

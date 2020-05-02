@@ -1,15 +1,12 @@
 import { FetchProvider, Layout } from 'components/patterns'
 import { useQueryState } from 'components/hook'
 import humanizeUrl from 'humanize-url'
-import { proxyImage } from 'helpers'
-import { getDomain } from 'tldts'
 import React from 'react'
 
 import Examples from 'components/pages/insights/examples'
 
 export default () => {
   const [query] = useQueryState()
-  const title = 'Turn websites into a insights'
 
   const suggestions = [
     'https://kikobeats.com',
@@ -24,21 +21,8 @@ export default () => {
     }
   })
 
-  const fallbackUrl = proxyImage(
-    'https://cdn.microlink.io/logo/lighthouse.png',
-    {
-      w: 400,
-      output: 'jpg',
-      bg: 'white'
-    }
-  )
-
-  const image = query.url
-    ? `https://unavatar.now.sh/${getDomain(query.ur)}?fallback=${fallbackUrl}`
-    : fallbackUrl
-
   return (
-    <Layout title={title} image={image}>
+    <Layout>
       <FetchProvider mqlOpts={{ meta: false, insights: true }}>
         {({ status, doFetch, data }) => {
           return (

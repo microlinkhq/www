@@ -1,3 +1,10 @@
+import { Layout, Aside } from 'components/patterns'
+import Markdown, { H1 } from 'components/markdown'
+import * as Icons from 'components/icons'
+import { colors, layout } from 'theme'
+import { formatDate } from 'helpers'
+import React from 'react'
+
 import {
   Tooltip,
   Badge,
@@ -7,13 +14,6 @@ import {
   Box,
   Container
 } from 'components/elements'
-
-import { Layout, Aside } from 'components/patterns'
-import Markdown, { H1 } from 'components/markdown'
-import { proxyImage, formatDate } from 'helpers'
-import * as Icons from 'components/icons'
-import { colors, layout } from 'theme'
-import React from 'react'
 
 const ROUTES_SDK = [
   {
@@ -41,19 +41,14 @@ const ROUTES_SDK = [
     name: 'Integrations',
     posts: [
       {
-        name: 'React',
-        href: '/docs/sdk/integrations/react/',
-        icon: Icons.React
-      },
-      {
-        name: 'Vue',
-        href: '/docs/sdk/integrations/vue/',
-        icon: Icons.Vue
-      },
-      {
         name: 'Angular',
         href: '/docs/sdk/integrations/angular/',
         icon: Icons.Angular
+      },
+      {
+        name: 'Hugo',
+        href: 'https://blog.ypertex.com/articles/useful-hugo-templating',
+        icon: Icons.Hugo
       },
       {
         name: 'Jekyll',
@@ -61,9 +56,19 @@ const ROUTES_SDK = [
         icon: Icons.Jekyll
       },
       {
+        name: 'React',
+        href: '/docs/sdk/integrations/react/',
+        icon: Icons.React
+      },
+      {
         name: 'Vanilla',
         href: '/docs/sdk/integrations/vanilla/',
         icon: Icons.JavaScript
+      },
+      {
+        name: 'Vue',
+        href: '/docs/sdk/integrations/vue/',
+        icon: Icons.Vue
       }
     ]
   },
@@ -494,46 +499,14 @@ const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/mql')) return MQL
 }
 
-const getImage = ({ pathname }) => {
-  if (pathname.includes('angular')) {
-    return proxyImage('https://icongr.am/devicon/angularjs-original.svg', {
-      w: 400,
-      output: 'jpg',
-      bg: 'white'
-    })
-  }
-
-  if (pathname.includes('react')) {
-    return proxyImage('https://icongr.am/devicon/react-original.svg', {
-      w: 400,
-      output: 'jpg',
-      bg: 'white'
-    })
-  }
-
-  if (pathname.includes('vue')) {
-    return proxyImage('https://icongr.am/devicon/vuejs-original.svg', {
-      w: 400,
-      output: 'jpg',
-      bg: 'white'
-    })
-  }
-
-  if (pathname.includes('vanilla')) {
-    return 'https://images.weserv.nl/?url=https%3A%2F%2Ficongr.am%2Fdevicon%javascript-original.svg%3Fsize%3D400&output=jpg&bg=white'
-  }
-}
-
 export default ({ meta, content, githubUrl, ...props }) => {
   const activeRouteName = getActiveRouteName(props.location)
-  const image = getImage(props.location)
 
   return (
     <Layout
       footer={false}
-      {...meta}
-      name={`Microlink ${activeRouteName}`}
-      image={image}
+      title={`${activeRouteName} ${meta.title}`}
+      name='Microlink Docs'
     >
       <Container maxWidth={layout.large}>
         <Aside routes={routes} activeRouteName={activeRouteName}>

@@ -1,6 +1,5 @@
 import { useDemoLinks, useQueryState } from 'components/hook'
 import { Layout, FetchProvider } from 'components/patterns'
-import { cdnUrl, metaUrl } from 'helpers'
 import { Location } from '@reach/router'
 import humanizeUrl from 'humanize-url'
 import React from 'react'
@@ -13,8 +12,6 @@ export default () => {
   const demoLink = demoLinks.find(demoLink => demoLink.id === 'youtube')
 
   const [query] = useQueryState()
-  const title = 'Turns websites into data'
-  const image = query.url ? metaUrl(query.url) : cdnUrl('www/meta.png')
 
   const suggestions = [
     'instagram',
@@ -29,7 +26,7 @@ export default () => {
   })
 
   return (
-    <Layout title={title} image={image}>
+    <Layout>
       <FetchProvider
         mqlOpts={{ palette: true, audio: true, video: true, iframe: true }}
       >

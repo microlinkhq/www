@@ -77,7 +77,7 @@ const Header = props => <Caps mb={2} color='gray5' {...props} />
 
 const Title = ({ children, href, Icon, ...props }) => {
   return (
-    <NavLink mb={2} href={href} actively icon css={linkStyle}>
+    <NavLink mb={2} href={href} actively css={linkStyle}>
       {Icon && <Icon className={LINK_ICON_CLASSNAME} />}
       <Text
         fontWeight='normal'

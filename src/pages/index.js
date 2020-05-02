@@ -3,7 +3,6 @@ import { Faq, Headline, Layout, PricingTable } from 'components/patterns'
 import { Meta, Hero, Screenshots, Analytics } from 'components/pages/home'
 import { Box, Container, Link } from 'components/elements'
 import { layout, colors, borders } from 'theme'
-import { cdnUrl } from 'helpers'
 import React from 'react'
 
 const Questions = props => (
@@ -207,7 +206,7 @@ function Index () {
   } = useSiteMetadata()
 
   return (
-    <Layout image={cdnUrl('www/home.png')}>
+    <Layout>
       <Hero title={headline} features={usePrinciples()} />
       <Analytics
         bg='black'
