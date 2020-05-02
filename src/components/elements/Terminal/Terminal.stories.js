@@ -67,6 +67,6 @@ storiesOf('Elements', module).add('Terminal', () => (
     <Terminal mb={4} children={cmd} />
     <Terminal mb={4} title='microlink-api' children={cmd} />
     <Terminal mb={4} title='microlink-api' children={cmd} theme='dark' />
-    <Terminal title='microlik-api' children={cliCode} blinkCursor={false} />
+    <Terminal title='microlink-api' children={cliCode} blinkCursor={false} />
   </Story>
 ))
