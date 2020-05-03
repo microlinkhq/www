@@ -20,17 +20,13 @@ export default ({ technologies }) => (
     {chunk(technologies, 3).map((row, chunkIndex) => {
       const pt = chunkIndex === 0 ? 0 : 4
       return (
-        <Flex
-          flexDirection={['column', 'column', 'row', 'row']}
-          key={`technologies_chunk_${chunkIndex}`}
-          pt={[0, 0, pt, pt]}
-        >
+        <Flex key={`technologies_chunk_${chunkIndex}`} pt={[0, 0, pt, pt]}>
           {row.map((data, dataIndex) => {
             const pt = dataIndex === 0 && chunkIndex === 0 ? 0 : 4
             return (
               <Wappalyzer
                 pt={[pt, pt, 0, 0]}
-                width={['100%', '100%', '512px', '512px']}
+                width={['100%', '100%', '256px', '256px']}
                 key={data.name}
                 data={data}
               />
