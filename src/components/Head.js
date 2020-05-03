@@ -16,11 +16,13 @@ const getTitle = (props, metadata) => {
 
   switch (page) {
     case '/meta':
-      return 'Turns websites into data'
+      return 'Websites into data'
     case '/screenshot':
-      return 'Turns websites into a screenshot'
+      return 'Websites into a screenshot'
     case '/pdf':
-      return 'Turn websites into a PDF'
+      return 'Websites into a PDF'
+    case '/insights':
+      return 'Get perfomance metrics'
     case '/blog':
       return 'Blog'
     case '/status':
@@ -31,8 +33,6 @@ const getTitle = (props, metadata) => {
       return 'Chat'
     case '/stats':
       return 'Stats'
-    case '/insights':
-      return 'Insights'
     case '/integrations':
       return 'Integrations'
     default:

@@ -128,12 +128,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
             suggestions={suggestions}
             value={inputValue}
             onChange={event => setInputValue(event.target.value)}
-            width='12rem'
+            width={['100%', '100%', '128px', '128px']}
             autoFocus
           />
 
           <Button ml={2} loading={isLoading}>
-            <Caps fontSize={1} children='Embed it' />
+            <Caps fontSize={[0, 1, 1, 1]} children='Embed it' />
           </Button>
         </Flex>
 

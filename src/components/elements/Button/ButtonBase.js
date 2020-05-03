@@ -14,6 +14,7 @@ const Button = styled(Text)(
     textDecoration: 'none',
     verticalAlign: 'middle',
     WebkitFontSmoothing: 'antialiased',
+    whiteSpace: 'nowrap',
     outline: 0,
     '&:hover': {
       cursor: 'pointer'
