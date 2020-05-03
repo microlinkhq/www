@@ -174,17 +174,17 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   onClick={() => setPreviewView('iframe')}
                 />
               </Flex>
-              <Flex pt={3} alignItems='center' justifyContent='center'>
+              <Flex pt={4} alignItems='center' justifyContent='center'>
                 <MultiCodeEditor
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />

@@ -238,19 +238,14 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
             <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
               Preview
             </Subhead>
-            <Iframe
-              border={1}
-              borderColor='black20'
-              height={screenshotHeight.map(n => `calc(${n} * 0.85)`)}
-              width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
-              src={dataPdfUrl}
-            />
+            <Iframe src={dataPdfUrl} />
             <Flex justifyContent='center'>
               <Box mt={4}>
                 <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
                   Embed
                 </Subhead>
                 <CodeEditor
+                  width={aspectRatio.width}
                   language='html'
                   children={`<iframe src="${previewUrl}"></iframe>`}
                 />

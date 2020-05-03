@@ -35,7 +35,8 @@ const special = [
   'width',
   'WordPress',
   'oEmbed',
-  'Open Graph'
+  'Open Graph',
+  'APIs'
 ]
 
 const isUpperCase = str =>
