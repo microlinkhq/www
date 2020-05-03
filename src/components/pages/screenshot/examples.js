@@ -648,24 +648,11 @@ const Information = props => (
   />
 )
 
-export default ({
-  isLoading,
-  onSubmit,
-  refBackground,
-  refOverlay,
-  refUrl,
-  refWaitFor,
-  suggestions,
-  query
-}) => (
+export default ({ isLoading, onSubmit, suggestions, query }) => (
   <>
     <LiveDemo
       isLoading={isLoading}
       onSubmit={onSubmit}
-      refBackgroundthi={refBackground}
-      refOverlay={refOverlay}
-      refUrl={refUrl}
-      refWaitFor={refWaitFor}
       suggestions={suggestions}
       query={query}
     />

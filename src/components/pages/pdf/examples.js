@@ -235,6 +235,9 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
         </Text>
         {dataPdfUrl ? (
           <Box>
+            <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
+              Preview
+            </Subhead>
             <Iframe
               border={1}
               borderColor='black20'
@@ -242,22 +245,29 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
               width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
               src={dataPdfUrl}
             />
-            <Flex
-              justifyContent='center
-            '
-            >
-              <CodeEditor
-                mt={4}
-                language='html'
-                children={`<iframe src="${previewUrl}"></iframe>`}
-              />
+            <Flex justifyContent='center'>
+              <Box mt={4}>
+                <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
+                  Embed
+                </Subhead>
+                <CodeEditor
+                  language='html'
+                  children={`<iframe src="${previewUrl}"></iframe>`}
+                />
+              </Box>
             </Flex>
             <Flex pt={4} alignItems='center' justifyContent='center'>
-              <a href={previewUrl}>
-                <Button bg='black' color='white'>
-                  Download File
-                </Button>
-              </a>
+              <Button
+                bg='black'
+                color='white'
+                children='Download file'
+                onClick={() => {
+                  const link = document.createElement('a')
+                  link.download = `${Date.now()}.pdf`
+                  link.href = previewUrl
+                  window.open(link)
+                }}
+              />
               <Link ml={3} onClick={() => navigate('/docs/api/parameters/pdf')}>
                 <Caps fontWeight='regular' fontSize={0} children='See docs' />
               </Link>
@@ -533,26 +543,12 @@ const Information = props => (
   />
 )
 
-export default ({
-  isLoading,
-  onSubmit,
-  refBackground,
-  refOverlay,
-  refUrl,
-  refWaitFor,
-  suggestions,
-  query,
-  data
-}) => (
+export default ({ isLoading, onSubmit, suggestions, query, data }) => (
   <>
     <LiveDemo
       data={data}
       isLoading={isLoading}
       onSubmit={onSubmit}
-      refBackgroundthi={refBackground}
-      refOverlay={refOverlay}
-      refUrl={refUrl}
-      refWaitFor={refWaitFor}
       suggestions={suggestions}
       query={query}
     />
