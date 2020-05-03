@@ -1,29 +1,33 @@
 import React, { useRef, useEffect, useState } from 'react'
-import noop from 'lodash/noop'
+import styled from 'styled-components'
+import { aspectRatio } from 'helpers'
 
+import Placeholder from '../Placeholder/Placeholder'
 import Flex from '../Flex'
-import CodeEditor from '../CodeEditor/CodeEditor'
+
+const AspectRatioPlaceHolder = styled(Placeholder)``
+
+AspectRatioPlaceHolder.defaultProps = {
+  width: aspectRatio.width,
+  height: aspectRatio.height
+}
 
 export default ({
-  width = CodeEditor.width,
-  height = CodeEditor.height,
-  onLoading = noop,
-  onLoaded = noop,
+  width = aspectRatio.width,
+  height = aspectRatio.height,
+  loading = true,
+  children,
   ...props
 }) => {
-  const inputEl = useRef(null)
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(loading)
 
-  const setLoaded = () => {
-    setLoading(false)
-    onLoaded()
-  }
+  const inputEl = useRef(null)
+  const setLoaded = () => setLoading(false)
 
   useEffect(() => {
     if (inputEl.current) {
       const iframe = inputEl.current
       if (iframe) {
-        onLoading()
         iframe.addEventListener('load', setLoaded)
         return () => iframe.removeEventListener('load', setLoaded)
       }
@@ -31,16 +35,18 @@ export default ({
   }, [])
 
   return (
-    <Flex
-      as='iframe'
-      ref={inputEl}
-      style={{ display: isLoading ? 'none' : 'inherit' }}
-      mx='auto'
-      frameBorder='0'
-      target='_parent'
-      height={height}
-      width={width}
-      {...props}
-    />
+    <Placeholder width={width} height={height} {...props}>
+      <Flex
+        as='iframe'
+        ref={inputEl}
+        style={{ display: isLoading ? 'none' : 'inherit' }}
+        mx='auto'
+        frameBorder='0'
+        target='_parent'
+        width={width}
+        height={height}
+        {...props}
+      />
+    </Placeholder>
   )
 }

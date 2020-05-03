@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import { Iframe } from 'components/elements'
+import { Flex, Box, CodeEditor, Iframe } from 'components/elements'
 
 const code = `
 import { Iframe } from 'components/elements'
@@ -18,11 +18,17 @@ export default () => (
 
 storiesOf('Elements', module).add('Iframe', () => (
   <Story name='Iframe' code={code}>
-    <Iframe
-      width='480px'
-      height='270px'
-      src='https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed'
-      allowFullScreen
-    />
+    <Flex flexDirection='column'>
+      <Box>
+        <Iframe
+          width={CodeEditor.width}
+          height={CodeEditor.height}
+          src='https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed'
+        />
+      </Box>
+      <Box mt={4}>
+        <Iframe src='https://lighthouse.microlink.io/?url=http%3A%2F%2Fapi.microlink.io%2F%3Furl%3Dhttps%3A%2F%2Fmicrolink.io%26insights%26embed%3Dinsights.lighthouse' />
+      </Box>
+    </Flex>
   </Story>
 ))

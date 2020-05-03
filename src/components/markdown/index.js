@@ -292,7 +292,9 @@ export const Video = withContainer(_VideoBase)
 const _IframeBase = styled(IframeBase)``
 
 _IframeBase.defaultProps = {
-  mx: 'auto'
+  mx: 'auto',
+  width: CodeEditor.width,
+  height: CodeEditor.height
 }
 
 export const Iframe = withContainer(_IframeBase)
