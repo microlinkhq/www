@@ -82,12 +82,11 @@ const LiveDemo = ({
         >
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
+              id='insights-demo-url'
               fontSize={2}
               iconComponent={
                 <InputIcon value={inputUrl} domain={inputUrlDomain} />
               }
-              id='insights-demo-url'
-              mr='6px'
               placeholder='Visit URL'
               suggestions={suggestions}
               type='text'
@@ -113,35 +112,37 @@ const LiveDemo = ({
               <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
                 Preview
               </Subhead>
-              {tab === 'json' ? (
-                <CodeEditor
-                  language='json'
-                  width={aspectRatio.width}
-                  height={aspectRatio.height}
-                  children={JSON.stringify(data, null, 2)}
-                />
-              ) : (
-                <Iframe src={lighthouseViewerUrl} />
-              )}
-              <Flex justifyContent='flex-end'>
-                <Card.Option
-                  key='html'
-                  children='html'
-                  value={tab}
-                  onClick={() => setTab('html')}
-                />
-                <Card.Option
-                  key='json'
-                  children='json'
-                  value={tab}
-                  onClick={() => setTab('json')}
-                />
-              </Flex>
+              <Box as='section' id='lighthouse' pb={4}>
+                {tab === 'json' ? (
+                  <CodeEditor
+                    language='json'
+                    width={aspectRatio.width}
+                    height={aspectRatio.height}
+                    children={JSON.stringify(data, null, 2)}
+                  />
+                ) : (
+                  <Iframe src={lighthouseViewerUrl} />
+                )}
+                <Flex width={aspectRatio.width} justifyContent='flex-end'>
+                  <Card.Option
+                    key='html'
+                    children='html'
+                    value={tab}
+                    onClick={() => setTab('html')}
+                  />
+                  <Card.Option
+                    key='json'
+                    children='json'
+                    value={tab}
+                    onClick={() => setTab('json')}
+                  />
+                </Flex>
+              </Box>
               <Flex
                 as='section'
+                id='technology-stack'
                 flexDirection='column'
                 alignItems='flex-start'
-                id='technology-stack'
               >
                 <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
                   Technology Stack
@@ -164,7 +165,7 @@ const LiveDemo = ({
                   <Technologies technologies={technologies} />
                 </Box>
               </Flex>
-              <Flex justifyContent='center'>
+              <Flex as='section' id='embed' justifyContent='center'>
                 <Box>
                   <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
                     Embed

@@ -109,32 +109,38 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
           caption='Turn websites into data'
         />
 
-        <Flex
-          pt={2}
-          pb={3}
-          as='form'
-          justifyContent='center'
-          onSubmit={event => {
-            event.preventDefault()
-            const url = prependHttp(inputValue)
-            onSubmit(isUrl(url) ? url : undefined)
-          }}
-        >
-          <Input
-            id='embed-demo-url'
-            fontSize={2}
-            iconComponent={<InputIcon value={inputValue} domain={domain} />}
-            placeholder='Enter a URL...'
-            suggestions={suggestions}
-            value={inputValue}
-            onChange={event => setInputValue(event.target.value)}
-            width={['100%', '100%', '128px', '128px']}
-            autoFocus
-          />
-
-          <Button ml={2} loading={isLoading}>
-            <Caps fontSize={[0, 1, 1, 1]} children='Embed it' />
-          </Button>
+        <Flex justifyContent='center' alignItems='center'>
+          <Flex
+            pt={2}
+            pb={3}
+            as='form'
+            mx={[0, 0, 'auto', 'auto']}
+            justifyContent='center'
+            flexDirection={['column', 'column', 'row', 'row']}
+            onSubmit={event => {
+              event.preventDefault()
+              const url = prependHttp(inputValue)
+              onSubmit(isUrl(url) ? url : undefined)
+            }}
+          >
+            <Box mb={[3, 3, 0, 0]}>
+              <Input
+                id='embed-demo-url'
+                fontSize={2}
+                iconComponent={<InputIcon value={inputValue} domain={domain} />}
+                placeholder='Enter a URL...'
+                type='text'
+                suggestions={suggestions}
+                value={inputValue}
+                onChange={event => setInputValue(event.target.value)}
+                width={['100%', '100%', '128px', '128px']}
+                autoFocus
+              />
+            </Box>
+            <Button ml={[0, 0, 2, 2]} width='100%' loading={isLoading}>
+              <Caps fontSize={1} children='Embed it' />
+            </Button>
+          </Flex>
         </Flex>
 
         <Box textAlign='center'>
