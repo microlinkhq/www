@@ -1,16 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { aspectRatio } from 'helpers'
 
 import Placeholder from '../Placeholder/Placeholder'
 import Flex from '../Flex'
-
-const AspectRatioPlaceHolder = styled(Placeholder)``
-
-AspectRatioPlaceHolder.defaultProps = {
-  width: aspectRatio.width,
-  height: aspectRatio.height
-}
 
 export default ({
   width = aspectRatio.width,
