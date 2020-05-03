@@ -9,11 +9,6 @@ const getPage = props => {
   return `/${pathname.split('/')[1]}`
 }
 
-const getTwitterCard = props => {
-  const page = getPage(props)
-  return page === '/' ? 'summary_large_image' : 'summary'
-}
-
 const getTitle = (props, metadata) => {
   if (props.title) return props.title
 
@@ -158,7 +153,7 @@ function Head (props) {
       <meta itemProp='image' content={image} />
 
       {/* <!-- Twitter --> */}
-      <meta name='twitter:card' content={getTwitterCard(props)} />
+      <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:title' content={title} />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:site' content={twitter} />
