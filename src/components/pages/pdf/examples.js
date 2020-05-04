@@ -93,8 +93,8 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   return (
     <Container id='demo' py={[4, 4, 5, 5]} px={4}>
       <SubHeadline
-        title='Get a PDF from any website'
-        caption='Turn websites into a PDF'
+        title='Get PDF from any website'
+        caption='Turn websites into PDF'
       />
 
       <Flex justifyContent='center' alignItems='center'>
@@ -231,17 +231,21 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
         <Text fontSize={2} pb={3}>
-          into a PDF
+          into PDF
         </Text>
         {dataPdfUrl ? (
           <Box>
-            <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
+            <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[2, 2, 4, 4]}>
               Preview
             </Subhead>
             <Iframe src={dataPdfUrl} />
             <Flex justifyContent='center'>
               <Box mt={4}>
-                <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
+                <Subhead
+                  pb={[2, 2, 3, 3]}
+                  textAlign='left'
+                  fontSize={[2, 2, 4, 4]}
+                >
                   Embed
                 </Subhead>
                 <CodeEditor
@@ -297,7 +301,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
 const Resume = props => (
   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
-      <SubHeadline title='Easy Peasy PDF as a service' />
+      <SubHeadline title='Easy Peasy PDF as service' />
       <Text
         textAlign='center'
         mr='auto'
@@ -305,9 +309,9 @@ const Resume = props => (
         maxWidth={[9, 9, 10, 10]}
         pb={3}
       >
-        <b>Microlink for PDF</b> turns any website into a PDF. Even if the
-        target URL hasn't been prepared to be exported, microlink can create a
-        PDF version of the URL, with a lot of customizable extra things.
+        <b>Microlink for PDF</b> turns any website into PDF. Even if the target
+        URL hasn't been prepared to be exported, microlink can create a PDF
+        version of the URL, with a lot of customizable extra things.
       </Text>
     </Box>
 

@@ -20,7 +20,7 @@ module.exports = {
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     description:
-      'Enter a URL, receive information. Extract structured data from any website. Create beautiful link previews. Take a screenshot of any site. Turns any URL into a PDF.',
+      'Enter a URL, receive information. Extract structured data from any website. Create beautiful link previews. Take a screenshot of any site. Turns any URL into PDF.',
     twitter: '@microlinkhq',
     image: new URL('logo/trim.jpeg', CDN_URL).toString(),
     logo: new URL('logo/trim.png', CDN_URL).toString(),

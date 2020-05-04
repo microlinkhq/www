@@ -65,7 +65,7 @@ const LiveDemo = ({
   return (
     <Container id='demo' py={[4, 4, 5, 5]} px={4}>
       <SubHeadline
-        title='Get perfomance insights'
+        title='Automate Web Performance'
         caption='Powered by Lighthouse'
         captionExclude={['Lighthouse']}
       />
@@ -104,13 +104,17 @@ const LiveDemo = ({
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
         <Text fontSize={2} pb={3}>
-          into perfomance metrics
+          into metrics
         </Text>
         {insights ? (
           <>
             <Box>
-              <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
-                Preview
+              <Subhead
+                pb={[2, 2, 3, 3]}
+                textAlign='left'
+                fontSize={[2, 2, 4, 4]}
+              >
+                Ligthouse Viewer
               </Subhead>
               <Box as='section' id='lighthouse' pb={4}>
                 {tab === 'json' ? (
@@ -148,7 +152,11 @@ const LiveDemo = ({
                 flexDirection='column'
                 alignItems='flex-start'
               >
-                <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
+                <Subhead
+                  pb={[2, 2, 3, 3]}
+                  textAlign='left'
+                  fontSize={[2, 2, 4, 4]}
+                >
                   Technology Stack
                 </Subhead>
                 <Box>
@@ -166,18 +174,21 @@ const LiveDemo = ({
                   </Text>
                 </Box>
                 <Flex
-                  py={4}
-                  width='100%'
-                  flexDirection={['column', 'column', 'row', 'row']}
-                  alignItems='center'
-                  justifyContent='center'
+                  pt={3}
+                  pb={4}
+                  width={['100%', 'inherit', 'inherit', 'inherit']}
+                  flexDirection='column'
                 >
                   <Technologies technologies={technologies} />
                 </Flex>
               </Flex>
               <Flex as='section' id='embed' justifyContent='center'>
                 <Box>
-                  <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[1, 2]}>
+                  <Subhead
+                    pb={[2, 2, 3, 3]}
+                    textAlign='left'
+                    fontSize={[2, 2, 4, 4]}
+                  >
                     Embed
                   </Subhead>
                   <CodeEditor

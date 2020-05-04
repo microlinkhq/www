@@ -18,9 +18,9 @@ const getTitle = (props, metadata) => {
     case '/meta':
       return 'Websites into data'
     case '/screenshot':
-      return 'Websites into a screenshot'
+      return 'Websites into screenshot'
     case '/pdf':
-      return 'Websites into a PDF'
+      return 'Websites into PDF'
     case '/insights':
       return 'Get perfomance metrics'
     case '/blog':

@@ -150,8 +150,8 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
   return (
     <Container id='demo' pt={[4, 4, 5, 5]} pb={[0, 0, 4, 4]} px={4}>
       <SubHeadline
-        title='Take a screenshot of any website'
-        caption='Turn websites into a snapshot'
+        title='Take a URL snapshot'
+        caption='Turn websites into screenshots'
       />
 
       <Flex justifyContent='center' alignItems='center'>
