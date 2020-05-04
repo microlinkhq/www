@@ -5,10 +5,11 @@ import styled from 'styled-components'
 import NavContainer from './NavContainer'
 
 import {
-  NavChat,
+  NavBlog,
   NavDocs,
-  NavEmbed,
+  NavInsights,
   NavLogo,
+  NavMeta,
   NavPdf,
   NavPricing,
   NavScreenshot
@@ -74,12 +75,13 @@ export default ({ theme }) => {
         <Toolbar ml={3} mr={3} justifyContent='center'>
           <NavLogo mobile />
           <Nav as='nav' width={300}>
-            <NavEmbed isDark={isDark} mobile />
+            <NavMeta isDark={isDark} mobile />
             <NavScreenshot isDark={isDark} mobile />
             <NavPdf isDark={isDark} mobile />
-            <NavPricing isDark={isDark} mobile />
-            <NavDocs isDark={isDark} mobile />
-            <NavChat isDark={isDark} mobile />
+            <NavInsights isDark={isDark} />
+            <NavPricing isDark={isDark} />
+            <NavDocs isDark={isDark} />
+            <NavBlog isDark={isDark} />
           </Nav>
         </Toolbar>
       </Box>

@@ -4,13 +4,14 @@ import React from 'react'
 import NavContainer from './NavContainer'
 
 import {
-  NavChat,
+  NavBlog,
   NavDocs,
-  NavEmbed,
+  NavInsights,
   NavLogo,
+  NavMeta,
+  NavPdf,
   NavPricing,
-  NavScreenshot,
-  NavPdf
+  NavScreenshot
 } from './ToolbarLinks'
 
 export default ({ theme }) => {
@@ -33,15 +34,15 @@ export default ({ theme }) => {
         >
           <NavContainer as='nav'>
             <NavLogo />
-
-            <NavEmbed isDark={isDark} />
+            <NavMeta isDark={isDark} />
             <NavScreenshot isDark={isDark} />
             <NavPdf isDark={isDark} />
+            <NavInsights isDark={isDark} />
           </NavContainer>
           <NavContainer as='nav'>
             <NavPricing isDark={isDark} />
             <NavDocs isDark={isDark} />
-            <NavChat isDark={isDark} />
+            <NavBlog isDark={isDark} />
           </NavContainer>
         </Toolbar>
       </Box>

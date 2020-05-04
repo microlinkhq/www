@@ -8,6 +8,21 @@ const NavLinkDesktop = props => <NavLink pl={0} pr={3} {...props} />
 
 const NavLinkMobile = props => <NavLink {...props} />
 
+const createNavItem = ({ name, path, ...props }) => {
+  const NavItem = ({ mobile, ...props }) =>
+    mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
+
+  NavItem.defaultProps = {
+    'data-event-category': 'Toolbar',
+    'data-event-action': name,
+    children: name,
+    href: path,
+    ...props
+  }
+
+  return NavItem
+}
+
 export const NavLogo = ({ mobile, ...props }) =>
   mobile ? (
     <NavLinkMobile
@@ -39,68 +54,50 @@ NavLogo.defaultProps = {
   'data-event-action': 'Logo'
 }
 
-export const NavPricing = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavPricing.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Pricing',
-  children: 'Pricing',
-  href: '/#pricing',
+export const NavPricing = createNavItem({
+  name: 'Pricing',
+  path: '/#pricing',
   actively: 'observer'
-}
+})
 
-export const NavEmbed = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavEmbed.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Meta',
-  children: 'Meta',
-  href: '/meta',
+export const NavMeta = createNavItem({
+  name: 'Meta',
+  path: '/meta',
   actively: 'partial'
-}
+})
 
-export const NavScreenshot = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavScreenshot.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Screenshot',
-  children: 'Screenshot',
-  href: '/screenshot',
+export const NavInsights = createNavItem({
+  name: 'Insights',
+  path: '/insights',
   actively: 'partial'
-}
+})
 
-export const NavPdf = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavPdf.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'PDF',
-  children: 'PDF',
-  href: '/pdf',
+export const NavScreenshot = createNavItem({
+  name: 'Screenshot',
+  path: '/screenshot',
   actively: 'partial'
-}
+})
 
-export const NavDocs = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-NavDocs.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Docs',
-  children: 'Docs',
-  href: '/docs/sdk/getting-started/overview/',
+export const NavPdf = createNavItem({
+  name: 'PDF',
+  path: '/pdf',
   actively: 'partial'
-}
+})
 
-export const NavChat = ({ mobile, ...props }) =>
-  mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
+export const NavDocs = createNavItem({
+  name: 'Docs',
+  path: '/docs',
+  actively: 'partial'
+})
 
-NavChat.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Chat',
-  children: 'Chat',
-  href: '/chat',
-  actively: true
-}
+export const NavChat = createNavItem({
+  name: 'Chat',
+  path: '/chat',
+  actively: 'partial'
+})
+
+export const NavBlog = createNavItem({
+  name: 'Blog',
+  path: '/blog',
+  actively: 'partial'
+})
