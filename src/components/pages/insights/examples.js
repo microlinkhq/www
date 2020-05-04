@@ -121,9 +121,13 @@ const LiveDemo = ({
                     children={JSON.stringify(data, null, 2)}
                   />
                 ) : (
-                  <Iframe src={lighthouseViewerUrl} />
+                  <Iframe mx='auto' src={lighthouseViewerUrl} />
                 )}
-                <Flex width={aspectRatio.width} justifyContent='flex-end'>
+                <Flex
+                  mx='auto'
+                  width={aspectRatio.width}
+                  justifyContent='flex-end'
+                >
                   <Card.Option
                     key='html'
                     children='html'
@@ -161,9 +165,15 @@ const LiveDemo = ({
                     technologies behind the site.
                   </Text>
                 </Box>
-                <Box py={4}>
+                <Flex
+                  py={4}
+                  width='100%'
+                  flexDirection={['column', 'column', 'row', 'row']}
+                  alignItems='center'
+                  justifyContent='center'
+                >
                   <Technologies technologies={technologies} />
-                </Box>
+                </Flex>
               </Flex>
               <Flex as='section' id='embed' justifyContent='center'>
                 <Box>

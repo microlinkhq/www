@@ -31,7 +31,6 @@ export default ({
       as='iframe'
       ref={inputEl}
       style={{ display: isLoading ? 'none' : 'inherit' }}
-      mx='auto'
       frameBorder='0'
       target='_parent'
       width={width}
