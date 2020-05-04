@@ -1,0 +1,180 @@
+{
+  "redirects": [
+    {
+      "source": "/docs",
+      "destination": "/docs/api/getting-started/overview"
+    },
+    {
+      "source": "/api",
+      "destination": "/docs/api/getting-started/overview"
+    },
+    {
+      "source": "/sdk",
+      "destination": "/docs/sdk/getting-started/overview"
+    },
+    {
+      "source": "/errors",
+      "destination": "/docs/api/basics/error-codes"
+    },
+    {
+      "source": "/codes",
+      "destination": "/docs/api/basics/error-codes"
+    },
+    {
+      "source": "/error-codes",
+      "destination": "/docs/api/basics/error-codes"
+    },
+    {
+      "source": "/ebrwsrtimeout",
+      "destination": "/docs/api/basics/error-codes#ebrwsrtimeout"
+    },
+    {
+      "source": "/efatal",
+      "destination": "/docs/api/basics/error-codes#efatal"
+    },
+    {
+      "source": "/eheaders",
+      "destination": "/docs/api/basics/error-codes#eheaders"
+    },
+    {
+      "source": "/einvalurl",
+      "destination": "/docs/api/basics/error-codes#einvalurl"
+    },
+    {
+      "source": "/einvalurlclient",
+      "destination": "/docs/api/basics/error-codes#einvalurlclient"
+    },
+    {
+      "source": "/emaxredirects",
+      "destination": "/docs/api/basics/error-codes#emaxredirects"
+    },
+    {
+      "source": "/epro",
+      "destination": "/docs/api/basics/error-codes#epro"
+    },
+    {
+      "source": "/eproxy",
+      "destination": "/docs/api/basics/error-codes#eproxy"
+    },
+    {
+      "source": "/erate",
+      "destination": "/docs/api/basics/error-codes#erate"
+    },
+    {
+      "source": "/etimeout",
+      "destination": "/docs/api/basics/error-codes#etimeout"
+    },
+    {
+      "source": "/ettl",
+      "destination": "/docs/api/basics/error-codes#ettl"
+    },
+    {
+      "source": "/ettlrange",
+      "destination": "/docs/api/basics/error-codes#ettlrange"
+    },
+    {
+      "source": "/mql",
+      "destination": "/docs/mql/getting-started/overview"
+    },
+    {
+      "source": "/scraping",
+      "destination": "/docs/mql/getting-started/overview"
+    },
+    {
+      "source": "/react",
+      "destination": "/docs/sdk/integrations/react"
+    },
+    {
+      "source": "/vue",
+      "destination": "/docs/sdk/integrations/vue"
+    },
+    {
+      "source": "/angular",
+      "destination": "/docs/sdk/integrations/angular"
+    },
+    {
+      "source": "/jekyll",
+      "destination": "/docs/sdk/integrations/jekyll"
+    },
+    {
+      "source": "/vanilla",
+      "destination": "/docs/sdk/integrations/vanilla"
+    },
+    {
+      "source": "/iframe",
+      "destination": "/docs/api/parameters/iframe"
+    },
+    {
+      "source": "/prerender",
+      "destination": "/docs/api/parameters/prerender"
+    },
+    {
+      "source": "/adblock",
+      "destination": "/docs/api/parameters/adblock"
+    },
+    {
+      "source": "/audio",
+      "destination": "/docs/api/parameters/audio"
+    },
+    {
+      "source": "/embed",
+      "destination": "/docs/api/parameters/embed"
+    },
+    {
+      "source": "/cache",
+      "destination": "/docs/api/parameters/force"
+    },
+    {
+      "source": "/timeout",
+      "destination": "/docs/api/parameters/timeout"
+    },
+    {
+      "source": "/ttl",
+      "destination": "/docs/api/parameters/ttl"
+    },
+    {
+      "source": "/headers",
+      "destination": "/docs/api/parameters/headers"
+    },
+    {
+      "source": "/palette",
+      "destination": "/docs/api/parameters/palette"
+    },
+    {
+      "source": "/proxy",
+      "destination": "/docs/api/parameters/proxy"
+    },
+    {
+      "source": "/scroll",
+      "destination": "/docs/api/parameters/scroll"
+    },
+    {
+      "source": "/video",
+      "destination": "/docs/api/parameters/video"
+    },
+    {
+      "source": "/viewport",
+      "destination": "/docs/api/parameters/viewport"
+    },
+    {
+      "source": "/device",
+      "destination": "/docs/api/parameters/device"
+    },
+    {
+      "source": "/emulation",
+      "destination": "/docs/api/parameters/emulation"
+    },
+    {
+      "source": "/template",
+      "destination": "/integrations"
+    },
+    {
+      "source": "/codesandbox",
+      "destination": "/integrations"
+    },
+    {
+      "source": "/storybook",
+      "destination": "/integrations"
+    }
+  ]
+}
