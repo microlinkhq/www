@@ -26,19 +26,25 @@ export default ({
     }
   }, [])
 
-  return (
+  const iframe = (
+    <Flex
+      as='iframe'
+      ref={inputEl}
+      style={{ display: isLoading ? 'none' : 'inherit' }}
+      mx='auto'
+      frameBorder='0'
+      target='_parent'
+      width={width}
+      height={height}
+      {...props}
+    />
+  )
+
+  return isLoading ? (
     <Placeholder width={width} height={height} {...props}>
-      <Flex
-        as='iframe'
-        ref={inputEl}
-        style={{ display: isLoading ? 'none' : 'inherit' }}
-        mx='auto'
-        frameBorder='0'
-        target='_parent'
-        width={width}
-        height={height}
-        {...props}
-      />
+      {iframe}
     </Placeholder>
+  ) : (
+    iframe
   )
 }
