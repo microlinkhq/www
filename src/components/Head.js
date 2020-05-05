@@ -130,8 +130,8 @@ function Head (props) {
 
   return (
     <Helmet
-      defaultTitle={`${name}: ${headline}`}
-      titleTemplate={`%s · ${name}`}
+      defaultTitle={`${name} — ${headline}`}
+      titleTemplate={`%s — ${name}`}
     >
       {/* <!-- Basic --> */}
       <meta charSet='utf-8' />
