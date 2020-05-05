@@ -22,7 +22,7 @@ const getTitle = (props, metadata) => {
     case '/pdf':
       return 'Websites into PDF'
     case '/insights':
-      return 'Get perfomance metrics'
+      return 'Automate Web Performance'
     case '/blog':
       return 'Blog'
     case '/status':

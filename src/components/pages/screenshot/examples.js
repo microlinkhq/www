@@ -410,13 +410,7 @@ export const Resume = props => (
   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='The Fastest Way for taking screenshots' />
-      <Text
-        textAlign='center'
-        mr='auto'
-        ml='auto'
-        maxWidth={[9, 9, 10, 10]}
-        pb={3}
-      >
+      <Text textAlign='center' mr='auto' ml='auto' maxWidth={9} pb={3}>
         <b>Microlink for Screenshot</b> provides a set of powerful features
         without the headaches of running your own infrastructure, bringing you
         the power in an affordable way.
@@ -425,6 +419,7 @@ export const Resume = props => (
 
     <Block
       as='section'
+      pt={5}
       px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
@@ -464,8 +459,6 @@ export const Resume = props => (
       as='section'
       px={[0, 0, 6, 6]}
       flexDirection='row-reverse'
-      pt={0}
-      pb={0}
       blockTwo={
         <Flex
           pl={[0, 0, 4, 4]}
@@ -561,7 +554,7 @@ const Information = props => (
         answer: [
           <>
             <Text as='span' fontWeight='bold' color='black'>
-              Microlink for screenshot
+              Microlink for Screenshot
             </Text>{' '}
             takes any URL as an input and returns a screenshot back, hosted at
             <Link href='/blog/edge-cdn/'>Microlink CDN</Link>.

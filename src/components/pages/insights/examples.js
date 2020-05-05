@@ -1,6 +1,6 @@
 import { screenshotHeight } from 'components/pages/home/screenshots'
 import React, { useMemo, useCallback, useState } from 'react'
-import { SubHeadline } from 'components/patterns'
+import { Block, SubHeadline } from 'components/patterns'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import { aspectRatio } from 'helpers'
@@ -63,7 +63,7 @@ const LiveDemo = ({
   }
 
   return (
-    <Container id='demo' py={[4, 4, 5, 5]} px={4}>
+    <Container id='demo' pt={[4, 4, 5, 5]} px={4}>
       <SubHeadline
         title='Automate Web Performance'
         caption='Powered by Lighthouse'
@@ -244,6 +244,137 @@ const LiveDemo = ({
   )
 }
 
+const Resume = props => (
+  <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
+    <Box pt={[0, 0, 4, 4]}>
+      <SubHeadline title='Monitor & audit web performance' />
+      <Text textAlign='center' mr='auto' ml='auto' maxWidth={9}>
+        Performance is a feature. <b>Microlink for Insights</b> provides
+        first-class support for web performance monitoring, easy to integrate
+        with any existing stack or cloud in just a few minutes.
+      </Text>
+    </Box>
+
+    <Block
+      as='section'
+      pt={5}
+      px={[0, 0, 6, 6]}
+      blockTwo={
+        <Flex
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'baseline']}
+          pr={[0, 0, 4, 4]}
+        >
+          <Subhead
+            as='h3'
+            fontSize={[3, 4]}
+            children='Make your site fast for everyone'
+            pb={3}
+          />
+          <Text
+            px={[2, 3, 0, 0]}
+            maxWidth={8}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Every screenshot has a{' '}
+            <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
+            expiration, they will be automatically refreshed, reflecting any
+            change present on the website.
+          </Text>
+        </Flex>
+      }
+      blockOne={
+        <Image
+          width={[5, 6, 7, 8]}
+          pb={[4, 4, 4, 0]}
+          alt='Data normalization'
+          src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
+        />
+      }
+    />
+
+    <Block
+      as='section'
+      px={[0, 0, 6, 6]}
+      flexDirection='row-reverse'
+      blockTwo={
+        <Flex
+          pl={[0, 0, 4, 4]}
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'end']}
+        >
+          <Subhead
+            as='h3'
+            fontSize={[3, 4]}
+            children='Test your site globally'
+            pb={3}
+          />
+          <Text
+            px={[2, 3, 0, 0]}
+            maxWidth={8}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Lot of actions supported, such as{' '}
+            <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
+            emulation, CSS/JS injection, partial or{' '}
+            <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
+            page snapshot,{' '}
+            <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
+            or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
+            events.
+          </Text>
+        </Flex>
+      }
+      blockOne={
+        <Image
+          width={[5, 6, 7, 8]}
+          pb={[4, 4, 4, 0]}
+          alt='Contextual information'
+          src='https://cdn.microlink.io/illustrations/robots.svg'
+        />
+      }
+    />
+
+    <Block
+      as='section'
+      px={[0, 0, 6, 6]}
+      pb={0}
+      blockTwo={
+        <Flex
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'baseline']}
+        >
+          <Subhead
+            as='h3'
+            fontSize={[3, 4]}
+            children='Universal Embed'
+            pb={3}
+          />
+          <Text
+            pl={[2, 3, 0, 0]}
+            pr={[2, 3, 4, 4]}
+            maxWidth={8}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Create truly{' '}
+            <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
+            composition based on a browser and/or background overlay in a
+            programmatic way. background.
+          </Text>
+        </Flex>
+      }
+      blockOne={
+        <Image
+          width={[5, 6, 7, 8]}
+          pb={[4, 4, 4, 0]}
+          alt='Powered by Lighthouse'
+          src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
+        />
+      }
+    />
+  </Container>
+)
+
 export default ({
   isLoading,
   onSubmit,
@@ -261,5 +392,6 @@ export default ({
       query={query}
       response={response}
     />
+    <Resume />
   </>
 )

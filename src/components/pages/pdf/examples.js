@@ -302,13 +302,7 @@ const Resume = props => (
   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='Easy Peasy PDF as service' />
-      <Text
-        textAlign='center'
-        mr='auto'
-        ml='auto'
-        maxWidth={[9, 9, 10, 10]}
-        pb={3}
-      >
+      <Text textAlign='center' mr='auto' ml='auto' maxWidth={9} pb={3}>
         <b>Microlink for PDF</b> turns any website into PDF. Even if the target
         URL hasn't been prepared to be exported, microlink can create a PDF
         version of the URL, with a lot of customizable extra things.
@@ -317,6 +311,7 @@ const Resume = props => (
 
     <Block
       as='section'
+      pt={5}
       px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
@@ -355,8 +350,6 @@ const Resume = props => (
       as='section'
       px={[0, 0, 6, 6]}
       flexDirection='row-reverse'
-      pt={0}
-      pb={0}
       blockTwo={
         <Flex
           pl={[0, 0, 4, 4]}

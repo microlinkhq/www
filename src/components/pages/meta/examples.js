@@ -185,12 +185,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
@@ -493,8 +493,8 @@ const Resume = props => (
   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='Universal embed made simple' />
-      <Text textAlign='center' mr='auto' ml='auto' maxWidth={[9, 9, 10, 10]}>
-        Microlink extracts structured data from any website. Enter a URL,
+      <Text textAlign='center' mr='auto' ml='auto' maxWidth={9}>
+        <b>Microlink</b> extracts structured data from any website. Enter a URL,
         receive information. Get relevant information from any link & easily
         create beautiful previews.
       </Text>
@@ -502,6 +502,7 @@ const Resume = props => (
 
     <Block
       as='section'
+      pt={5}
       px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
@@ -541,8 +542,6 @@ const Resume = props => (
       as='section'
       px={[0, 0, 6, 6]}
       flexDirection='row-reverse'
-      pt={0}
-      pb={0}
       blockTwo={
         <Flex
           pl={[0, 0, 4, 4]}
@@ -583,8 +582,8 @@ const Resume = props => (
 
     <Block
       as='section'
-      px={[0, 0, 6, 6]}
       pb={0}
+      px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
           flexDirection='column'

@@ -17,7 +17,7 @@ storiesOf('Patterns', module).add('Faq', () => (
             answer: [
               <>
                 <Text as='span' fontWeight='bold' color='black'>
-                  Microlink for screenshot
+                  Microlink for Screenshot
                 </Text>{' '}
                 takes any URL as an input and returns a screenshot back, hosted
                 at Microlink CDN.
