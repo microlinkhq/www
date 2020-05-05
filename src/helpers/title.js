@@ -4,9 +4,6 @@ const special = [
   'apiKey',
   'background',
   'browser',
-  'Global',
-  'Edge',
-  'Cache',
   'click',
   'CodeSandbox',
   'deviceScaleFactor',
@@ -63,7 +60,14 @@ export default (str, exclude = []) => {
       title[index] = word
     }
   })
+
   title = title.join(' ')
+
+  // uppercase after `:`
+  if (title.includes(':')) {
+    title = title.split(':')
+    title = `${title[0]}: ${capitalize(title[1].trim())}`
+  }
 
   return title
 }

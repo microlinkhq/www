@@ -115,7 +115,7 @@ H2Base.defaultProps = {
   mb: 4
 }
 
-export const H2Link = styled(H2Base)`
+export const H2Link = withTitle(styled(H2Base)`
   text-decoration: none;
   cursor: pointer;
   color: black;
@@ -123,7 +123,7 @@ export const H2Link = styled(H2Base)`
   &:hover {
     ${textGradient};
   }
-`
+`)
 
 H2Link.defaultProps = {
   as: 'a'
