@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import { Box, Flex } from 'components/elements'
 import { transition, colors } from 'theme'
+import { Flex } from 'components/elements'
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import noop from 'lodash/noop'
@@ -87,7 +87,7 @@ const Input = ({
       focus={isFocus}
       isDark={theme === 'dark'}
     >
-      {Icon && <Box pl={2} pt={1} children={Icon} />}
+      {Icon}
       <InputBase
         list={list}
         ref={innerRef}

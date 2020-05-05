@@ -127,7 +127,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
               <Input
                 id='embed-demo-url'
                 fontSize={2}
-                iconComponent={<InputIcon value={inputValue} domain={domain} />}
+                iconComponent={<InputIcon domain={domain} />}
                 placeholder='Enter a URL...'
                 type='text'
                 suggestions={suggestions}

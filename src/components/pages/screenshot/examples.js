@@ -167,7 +167,7 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon value={inputUrl} domain={domain} />}
+              iconComponent={<InputIcon domain={domain} />}
               id='screenshot-demo-url'
               mr='6px'
               placeholder='Visit URL'

@@ -84,9 +84,7 @@ const LiveDemo = ({
             <Input
               id='insights-demo-url'
               fontSize={2}
-              iconComponent={
-                <InputIcon value={inputUrl} domain={inputUrlDomain} />
-              }
+              iconComponent={<InputIcon domain={inputUrlDomain} />}
               placeholder='Visit URL'
               suggestions={suggestions}
               type='text'
