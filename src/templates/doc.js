@@ -396,7 +396,7 @@ const ROUTES_MQL = [
     posts: [
       {
         name: 'Overview',
-        href: '/docs/cards/getting-started/overview'
+        href: '/docs/mql/getting-started/overview'
       },
       {
         name: 'Installation',
