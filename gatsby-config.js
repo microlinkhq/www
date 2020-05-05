@@ -86,6 +86,7 @@ module.exports = {
     },
     'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-remark',
-    'gatsby-transformer-yaml'
+    'gatsby-transformer-yaml',
+    'gatsby-plugin-zeit-now'
   ].filter(Boolean)
 }
