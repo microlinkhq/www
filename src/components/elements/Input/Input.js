@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { transition, colors } from 'theme'
-import { Flex } from 'components/elements'
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import noop from 'lodash/noop'
 
 import Text from '../Text'
+import Flex from '../Flex'
 
 const InputBase = styled(Text)(
   {
@@ -31,8 +31,6 @@ InputBase.defaultProps = {
   as: 'input',
   type: 'text',
   lineHeight: 'inherit',
-  py: '12px',
-  px: 2,
   width: 1,
   border: 0,
   color: 'inherit',
@@ -86,8 +84,10 @@ const Input = ({
       borderRadius={2}
       focus={isFocus}
       isDark={theme === 'dark'}
+      py='12px'
+      px={2}
     >
-      {Icon}
+      {Icon && <Flex pr={1}>{Icon}</Flex>}
       <InputBase
         list={list}
         ref={innerRef}
