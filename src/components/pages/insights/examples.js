@@ -268,7 +268,7 @@ const Resume = props => (
           <Subhead
             as='h3'
             fontSize={[3, 4]}
-            children='Make your site fast for everyone'
+            children='Perfomance metrics on demand'
             pb={3}
           />
           <Text
@@ -276,10 +276,11 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Every screenshot has a{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
-            expiration, they will be automatically refreshed, reflecting any
-            change present on the website.
+            Enable <Link href='/docs/api/parameters/insights'>insights</Link> at{' '}
+            <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
+            to get a full Lighthouse report on demand. Track performance metrics
+            scores over time, keeping a perfomance budget and preventing
+            regressions.
           </Text>
         </Flex>
       }
@@ -288,7 +289,7 @@ const Resume = props => (
           width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
           alt='Data normalization'
-          src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
+          src='https://cdn.microlink.io/illustrations/popularity.svg'
         />
       }
     />
@@ -306,7 +307,7 @@ const Resume = props => (
           <Subhead
             as='h3'
             fontSize={[3, 4]}
-            children='Test your site globally'
+            children='Run directly on the edge'
             pb={3}
           />
           <Text
@@ -314,14 +315,10 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Lot of actions supported, such as{' '}
-            <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
-            emulation, CSS/JS injection, partial or{' '}
-            <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
-            page snapshot,{' '}
-            <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
-            or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
-            events.
+            Just hit{' '}
+            <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
+            for running cloud-based browsers for you. Never get worried about
+            infrastructure again. Simplicity made easy.
           </Text>
         </Flex>
       }
@@ -330,7 +327,7 @@ const Resume = props => (
           width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
           alt='Contextual information'
-          src='https://cdn.microlink.io/illustrations/robots.svg'
+          src='https://cdn.microlink.io/illustrations/networking.svg'
         />
       }
     />
@@ -347,7 +344,7 @@ const Resume = props => (
           <Subhead
             as='h3'
             fontSize={[3, 4]}
-            children='Universal Embed'
+            children='Ecosystem compatible'
             pb={3}
           />
           <Text
@@ -356,10 +353,18 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Create truly{' '}
-            <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
-            composition based on a browser and/or background overlay in a
-            programmatic way. background.
+            It works out of the box with any{' '}
+            <Link
+              icon
+              href='https://developers.google.com/web/tools/lighthouse'
+            >
+              Lighthouse
+            </Link>{' '}
+            compatible tool, such as{' '}
+            <Link icon href='https://lighthouse.microlink.io'>
+              Lighthouse Viewer
+            </Link>
+            .
           </Text>
         </Flex>
       }
@@ -368,7 +373,7 @@ const Resume = props => (
           width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
           alt='Powered by Lighthouse'
-          src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
+          src='https://cdn.microlink.io/illustrations/abstract-6.svg'
         />
       }
     />
