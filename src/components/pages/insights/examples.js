@@ -404,13 +404,25 @@ const Information = props => (
             over the URL back.
           </>,
           <>
+            Just enable it passing{' '}
+            <Link href='/docs/api/parameters/insights'>insights</Link> query
+            parameter to{' '}
+            <Link href='/docs/api/getting-started/overview'>Microlink API</Link>
+            .
+          </>,
+          <>
             The web perfomance audit is done using{' '}
             <Link
               icon
               href='https://developers.google.com/web/tools/lighthouse'
-            >
-              Lighthouse
-            </Link>
+              children='Lighthouse'
+            />
+            , while technologies detection is done via{' '}
+            <Link
+              icon
+              href='https://www.wappalyzer.com/'
+              children='Wappalyzer'
+            />
             .
           </>
         ]

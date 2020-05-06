@@ -561,8 +561,8 @@ const Information = props => (
           </>,
           <>
             Just enable it passing{' '}
-            <Link href='/docs/api/parameters/screenshot'>screenshot</Link>
-            query parameter to{' '}
+            <Link href='/docs/api/parameters/screenshot'>screenshot</Link> query
+            parameter to{' '}
             <Link href='/docs/api/getting-started/overview'>Microlink API</Link>
             . In case you need, it supports most of the common browser
             interactions.
