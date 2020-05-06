@@ -1,9 +1,9 @@
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import * as Icons from 'components/icons'
+import React, { useEffect } from 'react'
 import { colors, layout } from 'theme'
 import { formatDate } from 'helpers'
-import React from 'react'
 
 import {
   Tooltip,
@@ -505,7 +505,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
   return (
     <Layout
       footer={false}
-      title={`${activeRouteName} ${meta.title}`}
+      title={`${meta.name} ${activeRouteName}: ${meta.title}`}
       name='Microlink Docs'
     >
       <Container maxWidth={layout.large}>

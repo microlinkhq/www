@@ -1,6 +1,6 @@
 import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
 import { Box, Flex, Hide } from 'components/elements'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { transition } from 'theme'
 
@@ -78,13 +78,29 @@ const AsideDesktop = ({ children, ...props }) => (
   </>
 )
 
-export default props => (
-  <>
-    <Hide breakpoints={[0, 1, 2]}>
-      <AsideDesktop {...props} />
-    </Hide>
-    <Hide breakpoints={[3]}>
-      <AsideMobile {...props} />
-    </Hide>
-  </>
-)
+export default props => {
+  useEffect(() => {
+    const activeEl = document.querySelector('[data-aside-tree] .active')
+    if (activeEl) {
+      const elOffset = activeEl.offsetTop
+      const offset = document
+        .querySelector('[data-aside-header]')
+        .getBoundingClientRect().y
+      const top = elOffset - offset
+      document
+        .querySelector('[data-aside]')
+        .scrollTo({ top, behavior: 'instant' })
+    }
+  }, [])
+
+  return (
+    <>
+      <Hide breakpoints={[0, 1, 2]}>
+        <AsideDesktop {...props} />
+      </Hide>
+      <Hide breakpoints={[3]}>
+        <AsideMobile {...props} />
+      </Hide>
+    </>
+  )
+}

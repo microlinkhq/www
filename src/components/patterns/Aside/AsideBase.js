@@ -103,6 +103,7 @@ const Aside = ({
   return (
     <AsideWrapper
       as='aside'
+      data-aside
       pt={[0, 0, 0, 5]}
       pr={[0, 0, 0, '28px']}
       isOpen={isOpen}
@@ -115,6 +116,7 @@ const Aside = ({
       )}
 
       <Flex
+        data-aside-header
         as='header'
         justifyContent='end'
         alignItems='center'
@@ -131,7 +133,7 @@ const Aside = ({
           }}
         />
       </Flex>
-      <Box pl={4}>
+      <Box as='section' data-aside-tree pl={4}>
         {routes[tree].map(path => (
           <Box mb={4} key={`${tree}_${path.name}`}>
             <Header>{path.name}</Header>
@@ -154,7 +156,11 @@ const Aside = ({
                       href={post.href}
                       children={post.name}
                     />
-                    <Box ml={2} borderLeft={`${borders[1]} ${colors.black05}`}>
+                    <Box
+                      data-subtree
+                      ml={2}
+                      borderLeft={`${borders[1]} ${colors.black05}`}
+                    >
                       {post.posts.map(post => (
                         <Title
                           ml={3}
