@@ -2,6 +2,7 @@ import capitalize from 'lodash/capitalize'
 
 const special = [
   'apiKey',
+  'APIs',
   'background',
   'browser',
   'click',
@@ -15,9 +16,13 @@ const special = [
   'isLandscape',
   'isMobile',
   'JavaScript',
+  'Lighthouse',
+  'Ligthouse Viewer',
   'Microlink',
   'Node.js',
+  'oEmbed',
   'omitBackground',
+  'Open Graph',
   'options',
   'package.json',
   'quality',
@@ -30,11 +35,7 @@ const special = [
   'waitFor',
   'waitUntil',
   'width',
-  'WordPress',
-  'oEmbed',
-  'Open Graph',
-  'APIs',
-  'Ligthouse Viewer'
+  'WordPress'
 ]
 
 const isUpperCase = str =>
