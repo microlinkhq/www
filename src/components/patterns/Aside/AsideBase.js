@@ -105,7 +105,7 @@ const Aside = ({
       as='aside'
       data-aside
       pt={[0, 0, 0, 5]}
-      pr={[0, 0, 0, '28px']}
+      pr={[0, 0, 0, '14px']}
       isOpen={isOpen}
       {...props}
     >

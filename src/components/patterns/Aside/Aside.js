@@ -72,7 +72,12 @@ const AsideMobile = ({ children, ...props }) => {
 const AsideDesktop = ({ children, ...props }) => (
   <>
     <AsideBase isOpen {...props} />
-    <Flex pl={ASIDE_WIDTH} flexDirection='column' as='article' css={css}>
+    <Flex
+      pl={`calc(${ASIDE_WIDTH} + 14px)`}
+      flexDirection='column'
+      as='article'
+      css={css}
+    >
       {children}
     </Flex>
   </>
