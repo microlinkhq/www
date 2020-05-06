@@ -34,7 +34,7 @@ This means that the service will determine if the target URL needs to use the pr
 
 We tested that this decision **speeds up the process up to 50%.**
 
-A great merit of the improvements is related with our work improving our abstract library for interacting with Headless Chrome, [browserless](https://browserless.js.org).
+A great merit of the improvements is related with our work improving our abstract library for interacting with headless Chrome, [browserless](https://browserless.js.org).
 
 Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppeteer) for helping us address performance issues.
 

@@ -64,7 +64,7 @@ const Hero = ({ domain, id, data }) => {
       >
         {domain}
       </Subhead>{' '}
-      into a screenshot
+      into screenshots
     </Box>
   )
 

@@ -22,7 +22,7 @@ const codeLegend = `
 import { Legend } from 'components/patterns'
 
 export default () => (
-  <Legend sup='screenshot' title='Turn websites into a snapshot' />
+  <Legend sup='screenshot' title='Turn websites into screenshots' />
 )`
 
 const codeLabel = `
@@ -66,7 +66,7 @@ storiesOf('Theme', module).add('Typography', () => (
       />
     </Story>
     <Story name='Legend' code={codeLegend}>
-      <Legend sup='screenshot' title='Turn websites into a snapshot' />
+      <Legend sup='screenshot' title='Turn websites into screenshots' />
     </Story>
     <Story name='Text' code={codeText}>
       <Text children='Make your content attractive, engaging better your links.' />

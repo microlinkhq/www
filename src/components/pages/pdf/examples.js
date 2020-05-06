@@ -36,8 +36,8 @@ import { navigate } from 'gatsby'
 import get from 'dlv'
 import ms from 'ms'
 
-import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Average, Timings } from 'components/pages/screenshot/examples'
+import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Features } from 'components/pages/screenshot/template'
 
 const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
@@ -443,7 +443,7 @@ const Information = props => (
             <Text as='span' fontWeight='bold' color='black'>
               Microlink for PDF
             </Text>{' '}
-            takes any URL as an input and returns a PDF back, hosted at
+            takes any URL as an input and returns a PDF back, hosted at{' '}
             <Link icon href='/blog/edge-cdn/'>
               Microlink CDN
             </Link>
@@ -459,13 +459,6 @@ const Information = props => (
             , use{' '}
             <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link>{' '}
             orientation, etc, making it a more complete tool.
-          </>,
-          <>
-            Check that in the{' '}
-            <Link icon href='http://bit.ly/saasforpdf'>
-              comparative table
-            </Link>
-            .
           </>
         ]
       },
@@ -477,7 +470,7 @@ const Information = props => (
             <Link icon href='https://github.com/puppeteer/puppeteer'>
               puppeteer
             </Link>{' '}
-            using Chromium Headless browser.
+            using Chrome headless browser.
           </>,
           <>
             The browser management is handled by our own driver called{' '}

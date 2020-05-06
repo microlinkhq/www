@@ -150,7 +150,7 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
   return (
     <Container id='demo' pt={[4, 4, 5, 5]} pb={[0, 0, 4, 4]} px={4}>
       <SubHeadline
-        title='Capture any website as a snapshot'
+        title='Take a URL snapshot'
         caption='Turn websites into screenshots'
       />
 
@@ -556,21 +556,16 @@ const Information = props => (
             <Text as='span' fontWeight='bold' color='black'>
               Microlink for Screenshot
             </Text>{' '}
-            takes any URL as an input and returns a screenshot back, hosted at
+            takes any URL as an input and returns a screenshot back, hosted at{' '}
             <Link href='/blog/edge-cdn/'>Microlink CDN</Link>.
           </>,
           <>
-            It supports most of the common browser interactions, like clicks,
-            wait for events, handle the scroll... but also some extra things,
-            like markup injection or overlay composition, making it a more
-            complete tool.
-          </>,
-          <>
-            Check that in the{' '}
-            <Link icon href='http://bit.ly/saasforscreenshot'>
-              comparative table
-            </Link>
-            .
+            Just enable it passing{' '}
+            <Link href='/docs/api/parameters/screenshot'>screenshot</Link>
+            query parameter to{' '}
+            <Link href='/docs/api/getting-started/overview'>Microlink API</Link>
+            . In case you need, it supports most of the common browser
+            interactions.
           </>
         ]
       },
@@ -582,7 +577,7 @@ const Information = props => (
             <Link icon href='https://github.com/puppeteer/puppeteer'>
               puppeteer
             </Link>{' '}
-            using Chromium Headless browser.
+            using Chrome headless browsers.
           </>,
           <>
             The browser management is handled by our own driver called{' '}

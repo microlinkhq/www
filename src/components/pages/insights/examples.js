@@ -1,7 +1,9 @@
 import { screenshotHeight } from 'components/pages/home/screenshots'
+import { Average } from 'components/pages/screenshot/examples'
 import React, { useMemo, useCallback, useState } from 'react'
-import { Block, SubHeadline } from 'components/patterns'
+import { Faq, Block, SubHeadline } from 'components/patterns'
 import isUrl from 'is-url-http/lightweight'
+import { colors, borders } from 'theme'
 import prependHttp from 'prepend-http'
 import { aspectRatio } from 'helpers'
 import { getDomain } from 'tldts'
@@ -378,6 +380,100 @@ const Resume = props => (
   </Container>
 )
 
+const Information = props => (
+  <Faq
+    id='information'
+    title='Product Information'
+    caption='All you need to know.'
+    questions={[
+      {
+        question: 'How does it work?',
+        answer: [
+          <>
+            <Text as='span' fontWeight='bold' color='black'>
+              Microlink for Insights
+            </Text>{' '}
+            takes any URL as an input and returns a web perfomance audit report
+            over the URL back.
+          </>,
+          <>
+            The web perfomance audit is done using{' '}
+            <Link
+              icon
+              href='https://developers.google.com/web/tools/lighthouse'
+            >
+              Lighthouse
+            </Link>
+            .
+          </>
+        ]
+      },
+      {
+        question: 'How is it built?',
+        answer: [
+          <>
+            The service is built on top of{' '}
+            <Link icon href='https://github.com/puppeteer/puppeteer'>
+              puppeteer
+            </Link>{' '}
+            using Chrome headless browser.
+          </>,
+          <>
+            The browser management is handled by our own driver called{' '}
+            <Link icon href='https://browserless.js.org'>
+              browserless
+            </Link>
+            .
+          </>,
+          <>(Yes, it's open source!).</>
+        ]
+      },
+      {
+        question: 'Why not run my own solution?',
+        answer: [
+          <>
+            The service aims to avoid headaches, preventing you for running and
+            maintaining your own infrastructure.
+          </>,
+          <>
+            Every URL on the Internet are different and browser are a complex
+            piece of software, with unpredictable resources usage.
+          </>,
+          <>
+            The fact of resolve any URL at scale in{' '}
+            <Average size='tiny' queryParam='pdf' /> is not a trivial thing.
+          </>
+        ]
+      },
+      {
+        question: 'Do you have a Service-Level Agreements (SLA)?',
+        answer: [
+          <>
+            You can see our SLA level on{' '}
+            <Link display='inline' href='/status' children='status' />
+            {' page.'}
+          </>
+        ]
+      },
+      {
+        question: 'Can I ask a question?',
+        answer: [
+          <>
+            We're always available at{' '}
+            <Link
+              display='inline'
+              href='mailto:hello@microlink.io'
+              children='hello@microlink.io'
+            />
+            .
+          </>
+        ]
+      }
+    ]}
+    {...props}
+  />
+)
+
 export default ({
   isLoading,
   onSubmit,
@@ -396,5 +492,10 @@ export default ({
       response={response}
     />
     <Resume />
+    <Information
+      bg='pinky'
+      borderTop={`${borders[1]} ${colors.pinkest}`}
+      borderBottom={`${borders[1]} ${colors.pinkest}`}
+    />
   </>
 )

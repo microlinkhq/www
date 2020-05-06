@@ -72,7 +72,7 @@ const Screenshots = props => {
   })
 
   const blockOne = (
-    <Legend sup='screenshot' title='Turn websites into a snapshot' />
+    <Legend sup='screenshot' title='Turn websites into screenshots' />
   )
 
   const blockTwo = (

@@ -185,12 +185,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
@@ -439,7 +439,10 @@ const Information = props => (
           </>,
           <>
             If you are interested into interact with the API directly, check{' '}
-            <Link href='/docs/mql/getting-started/overview'>MQL</Link>.
+            <Link href='/docs/mql/getting-started/overview'>
+              Microlink Query Language (MQL)
+            </Link>
+            .
           </>
         ]
       },
@@ -492,7 +495,7 @@ const Information = props => (
 const Resume = props => (
   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
-      <SubHeadline title='Universal embed made simple' />
+      <SubHeadline title='Extract structured data from any website' />
       <Text textAlign='center' mr='auto' ml='auto' maxWidth={9}>
         <b>Microlink</b> extracts structured data from any website. Enter a URL,
         receive information. Get relevant information from any link & easily
@@ -521,10 +524,13 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Every screenshot has a{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
-            expiration, they will be automatically refreshed, reflecting any
-            change present on the website.
+            Using{' '}
+            <Link href='/docs/mql/getting-started/overview'>
+              Microlink Query Language (MQL)
+            </Link>{' '}
+            you define data rules to turn any website into a programmatic API,
+            getting <Link href='/docs/mql/data/type'>typified</Link> data back
+            as a response.
           </Text>
         </Flex>
       }
@@ -603,8 +609,7 @@ const Resume = props => (
           >
             Create truly{' '}
             <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
-            composition based on a browser and/or background overlay in a
-            programmatic way. background.
+            composition based on a browser and/or background overlay.
           </Text>
         </Flex>
       }
