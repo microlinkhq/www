@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.169](https://github.com/microlinkhq/microlink-www/compare/v2.10.167...v2.10.169) (2020-05-06)
+
+
+### Bug Fixes
+
+* avatar size ([4279c77](https://github.com/microlinkhq/microlink-www/commit/4279c7748c392ba47bfbbd42d8c98fc3a9faaaa3))
+* copy typo ([1304835](https://github.com/microlinkhq/microlink-www/commit/13048351f8b51bc9c8265ff7027b805e40047aa3))
+* copy typo ([1f123e6](https://github.com/microlinkhq/microlink-www/commit/1f123e62129c7dfc2c406a02b60be46550b4b6d2))
+* ensure to capitalize after : ([d472b9c](https://github.com/microlinkhq/microlink-www/commit/d472b9cbbd657990f92a2f177d13d220cca3ac29))
+* export ([6280192](https://github.com/microlinkhq/microlink-www/commit/6280192721eff2c810aab02c9d145d118d8efaca))
+* icon under non domain ([7245265](https://github.com/microlinkhq/microlink-www/commit/7245265093cbed88a553e26e74726665452637bc))
+* input icon ([659a7ab](https://github.com/microlinkhq/microlink-www/commit/659a7ab5edcfcef7f17ce38c3e5133993a10077c))
+* linter ([dfae2e8](https://github.com/microlinkhq/microlink-www/commit/dfae2e87e51c6e765cfe8ebfadc7820eb43330b2))
+* linter ([6090a72](https://github.com/microlinkhq/microlink-www/commit/6090a72ddae56fbbecdda847ccdee05371e3c4b3))
+* linter ([c62b5cb](https://github.com/microlinkhq/microlink-www/commit/c62b5cb44c609d8a66ffe371a20a17249aff849d))
+* reference ([92cb200](https://github.com/microlinkhq/microlink-www/commit/92cb2009adb79384aa7ec3858664fa4b2cf800a9))
+* remove placeholder if iframe is loaded ([83c5ed7](https://github.com/microlinkhq/microlink-www/commit/83c5ed7a21910118ee5d7935daa62054dcc7728a))
+
 ### [2.10.168](https://github.com/microlinkhq/microlink-www/compare/v2.10.167...v2.10.168) (2020-05-02)
 
 
