@@ -1,12 +1,12 @@
-import React from 'react'
-
 import { Unavatar } from 'components/elements'
 import { Link as LinkIcon } from 'react-feather'
-import { colors } from 'theme'
+import { toPx, colors } from 'theme'
+import React from 'react'
 
-export default ({ width = '16px', height = width, value, domain }) =>
-  value && domain ? (
-    <Unavatar query={domain} width={width} height={height} />
+export default ({ width = 24, domain }) => {
+  return domain ? (
+    <Unavatar query={domain} width={toPx(width)} />
   ) : (
-    <LinkIcon color={colors.black50} size={width} />
+    <LinkIcon color={colors.black50} size='16px' />
   )
+}

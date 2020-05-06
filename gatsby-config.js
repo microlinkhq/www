@@ -15,12 +15,12 @@ const {
 module.exports = {
   siteMetadata: {
     // Basic
-    name: 'microlink.io',
+    name: 'Microlink',
     headline: 'Browser as API',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     description:
-      'Enter a URL, receive information. Extract structured data from any website. Create beautiful link previews. Take a screenshot of any site. Turns any URL into a PDF.',
+      'Turns websites into data: Enter a URL, receive information. Make any URL embeddable. Capture any website as a snapshot. Generate PDF from any website. Automate web performance.',
     twitter: '@microlinkhq',
     image: new URL('logo/trim.jpeg', CDN_URL).toString(),
     logo: new URL('logo/trim.png', CDN_URL).toString(),
@@ -87,7 +87,6 @@ module.exports = {
     'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
-    'gatsby-plugin-netlify',
-    'gatsby-plugin-netlify-cache'
+    'gatsby-plugin-zeit-now'
   ].filter(Boolean)
 }

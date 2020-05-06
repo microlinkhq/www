@@ -150,8 +150,8 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
   return (
     <Container id='demo' pt={[4, 4, 5, 5]} pb={[0, 0, 4, 4]} px={4}>
       <SubHeadline
-        title='Take a screenshot of any website'
-        caption='Turn websites into a snapshot'
+        title='Take a URL snapshot'
+        caption='Turn websites into screenshots'
       />
 
       <Flex justifyContent='center' alignItems='center'>
@@ -167,7 +167,7 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon value={inputUrl} domain={domain} />}
+              iconComponent={<InputIcon domain={domain} />}
               id='screenshot-demo-url'
               mr='6px'
               placeholder='Visit URL'
@@ -410,13 +410,7 @@ export const Resume = props => (
   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
       <SubHeadline title='The Fastest Way for taking screenshots' />
-      <Text
-        textAlign='center'
-        mr='auto'
-        ml='auto'
-        maxWidth={[9, 9, 10, 10]}
-        pb={3}
-      >
+      <Text textAlign='center' mr='auto' ml='auto' maxWidth={9} pb={3}>
         <b>Microlink for Screenshot</b> provides a set of powerful features
         without the headaches of running your own infrastructure, bringing you
         the power in an affordable way.
@@ -425,6 +419,7 @@ export const Resume = props => (
 
     <Block
       as='section'
+      pt={5}
       px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
@@ -464,8 +459,6 @@ export const Resume = props => (
       as='section'
       px={[0, 0, 6, 6]}
       flexDirection='row-reverse'
-      pt={0}
-      pb={0}
       blockTwo={
         <Flex
           pl={[0, 0, 4, 4]}
@@ -561,23 +554,18 @@ const Information = props => (
         answer: [
           <>
             <Text as='span' fontWeight='bold' color='black'>
-              Microlink for screenshot
+              Microlink for Screenshot
             </Text>{' '}
-            takes any URL as an input and returns a screenshot back, hosted at
+            takes any URL as an input and returns a screenshot back, hosted at{' '}
             <Link href='/blog/edge-cdn/'>Microlink CDN</Link>.
           </>,
           <>
-            It supports most of the common browser interactions, like clicks,
-            wait for events, handle the scroll... but also some extra things,
-            like markup injection or overlay composition, making it a more
-            complete tool.
-          </>,
-          <>
-            Check that in the{' '}
-            <Link icon href='http://bit.ly/saasforscreenshot'>
-              comparative table
-            </Link>
-            .
+            Just enable it passing{' '}
+            <Link href='/docs/api/parameters/screenshot'>screenshot</Link>
+            query parameter to{' '}
+            <Link href='/docs/api/getting-started/overview'>Microlink API</Link>
+            . In case you need, it supports most of the common browser
+            interactions.
           </>
         ]
       },
@@ -589,7 +577,7 @@ const Information = props => (
             <Link icon href='https://github.com/puppeteer/puppeteer'>
               puppeteer
             </Link>{' '}
-            using Chromium Headless browser.
+            using Chrome headless browsers.
           </>,
           <>
             The browser management is handled by our own driver called{' '}
@@ -648,24 +636,11 @@ const Information = props => (
   />
 )
 
-export default ({
-  isLoading,
-  onSubmit,
-  refBackground,
-  refOverlay,
-  refUrl,
-  refWaitFor,
-  suggestions,
-  query
-}) => (
+export default ({ isLoading, onSubmit, suggestions, query }) => (
   <>
     <LiveDemo
       isLoading={isLoading}
       onSubmit={onSubmit}
-      refBackgroundthi={refBackground}
-      refOverlay={refOverlay}
-      refUrl={refUrl}
-      refWaitFor={refWaitFor}
       suggestions={suggestions}
       query={query}
     />

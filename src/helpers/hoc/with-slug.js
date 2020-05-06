@@ -28,14 +28,6 @@ const PermalinkIcon = props => (
   </Svg>
 )
 
-const PermalinkTarget = styled.span`
-  display: block;
-  margin-top: -128px;
-  padding-top: 128px;
-  visibility: hidden;
-  position: absolute;
-`
-
 const Permalink = styled.span`
   visibility: hidden;
   g {
@@ -71,8 +63,7 @@ export default ChildComponent => {
     const frameId = `#${id || slugger(children)}`
 
     return (
-      <ChildComponent {...rest}>
-        <PermalinkTarget id={id} />
+      <ChildComponent id={id} {...rest}>
         <AnchorLink children={children} href={frameId} />
         <Permalink>
           <PermalinkIcon width='14px' ml={2} />

@@ -109,32 +109,38 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
           caption='Turn websites into data'
         />
 
-        <Flex
-          pt={2}
-          pb={3}
-          as='form'
-          justifyContent='center'
-          onSubmit={event => {
-            event.preventDefault()
-            const url = prependHttp(inputValue)
-            onSubmit(isUrl(url) ? url : undefined)
-          }}
-        >
-          <Input
-            id='embed-demo-url'
-            fontSize={2}
-            iconComponent={<InputIcon value={inputValue} domain={domain} />}
-            placeholder='Enter a URL...'
-            suggestions={suggestions}
-            value={inputValue}
-            onChange={event => setInputValue(event.target.value)}
-            width='12rem'
-            autoFocus
-          />
-
-          <Button ml={2} loading={isLoading}>
-            <Caps fontSize={1} children='Embed it' />
-          </Button>
+        <Flex justifyContent='center' alignItems='center'>
+          <Flex
+            pt={2}
+            pb={3}
+            as='form'
+            mx={[0, 0, 'auto', 'auto']}
+            justifyContent='center'
+            flexDirection={['column', 'column', 'row', 'row']}
+            onSubmit={event => {
+              event.preventDefault()
+              const url = prependHttp(inputValue)
+              onSubmit(isUrl(url) ? url : undefined)
+            }}
+          >
+            <Box mb={[3, 3, 0, 0]}>
+              <Input
+                id='embed-demo-url'
+                fontSize={2}
+                iconComponent={<InputIcon domain={domain} />}
+                placeholder='Enter a URL...'
+                type='text'
+                suggestions={suggestions}
+                value={inputValue}
+                onChange={event => setInputValue(event.target.value)}
+                width={['100%', '100%', '128px', '128px']}
+                autoFocus
+              />
+            </Box>
+            <Button ml={[0, 0, 2, 2]} width='100%' loading={isLoading}>
+              <Caps fontSize={1} children='Embed it' />
+            </Button>
+          </Flex>
         </Flex>
 
         <Box textAlign='center'>
@@ -174,7 +180,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   onClick={() => setPreviewView('iframe')}
                 />
               </Flex>
-              <Flex pt={3} alignItems='center' justifyContent='center'>
+              <Flex pt={4} alignItems='center' justifyContent='center'>
                 <MultiCodeEditor
                   languages={
                     editorView === 'data'
@@ -433,7 +439,10 @@ const Information = props => (
           </>,
           <>
             If you are interested into interact with the API directly, check{' '}
-            <Link href='/docs/mql/getting-started/overview'>MQL</Link>.
+            <Link href='/docs/mql/getting-started/overview'>
+              Microlink Query Language (MQL)
+            </Link>
+            .
           </>
         ]
       },
@@ -486,9 +495,9 @@ const Information = props => (
 const Resume = props => (
   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
-      <SubHeadline title='Universal embed made simple' />
-      <Text textAlign='center' mr='auto' ml='auto' maxWidth={[9, 9, 10, 10]}>
-        Microlink extracts structured data from any website. Enter a URL,
+      <SubHeadline title='Extract structured data from any website' />
+      <Text textAlign='center' mr='auto' ml='auto' maxWidth={9}>
+        <b>Microlink</b> extracts structured data from any website. Enter a URL,
         receive information. Get relevant information from any link & easily
         create beautiful previews.
       </Text>
@@ -496,6 +505,7 @@ const Resume = props => (
 
     <Block
       as='section'
+      pt={5}
       px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
@@ -514,10 +524,13 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Every screenshot has a{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
-            expiration, they will be automatically refreshed, reflecting any
-            change present on the website.
+            Using{' '}
+            <Link href='/docs/mql/getting-started/overview'>
+              Microlink Query Language (MQL)
+            </Link>{' '}
+            you define data rules to turn any website into a programmatic API,
+            getting <Link href='/docs/mql/data/type'>typified</Link> data back
+            as a response.
           </Text>
         </Flex>
       }
@@ -535,8 +548,6 @@ const Resume = props => (
       as='section'
       px={[0, 0, 6, 6]}
       flexDirection='row-reverse'
-      pt={0}
-      pb={0}
       blockTwo={
         <Flex
           pl={[0, 0, 4, 4]}
@@ -577,8 +588,8 @@ const Resume = props => (
 
     <Block
       as='section'
-      px={[0, 0, 6, 6]}
       pb={0}
+      px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
           flexDirection='column'
@@ -598,8 +609,7 @@ const Resume = props => (
           >
             Create truly{' '}
             <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
-            composition based on a browser and/or background overlay in a
-            programmatic way. background.
+            composition based on a browser and/or background overlay.
           </Text>
         </Flex>
       }

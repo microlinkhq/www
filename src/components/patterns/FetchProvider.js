@@ -21,6 +21,7 @@ const ErrorMessage = ({ more }) => {
 
 export default ({ mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
+  const [response, setResponse] = useState({})
   const [error, setError] = useState(null)
   const [warning, setWarning] = useState(null)
   const [data, setData] = useState(null)
@@ -34,12 +35,13 @@ export default ({ mqlOpts, children }) => {
 
       const fromMql = url => mql(url, { ...mqlOpts, ...opts })
 
-      const data = Array.isArray(url)
-        ? (await Promise.all(url.map(fromMql))).map(res => res.data)
-        : (await fromMql(url)).data
+      const { data, response } = Array.isArray(url)
+        ? await Promise.all(url.map(fromMql))
+        : await fromMql(url)
 
-      setData(data)
       setStatus('fetched')
+      setData(data)
+      setResponse(response)
     } catch (err) {
       console.error('FetchProvider:', err)
       setStatus('error')
@@ -65,7 +67,7 @@ export default ({ mqlOpts, children }) => {
     <>
       {error && <ErrorMessage {...error} />}
       {!error && warning && <Notification.Warning {...warning} />}
-      {children({ status, doFetch, data })}
+      {children({ status, doFetch, data, response })}
     </>
   )
 }

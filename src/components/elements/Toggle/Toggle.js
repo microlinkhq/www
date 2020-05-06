@@ -1,4 +1,4 @@
-import { Text, Box, Caps } from 'components/elements'
+import { Text, Flex, Box, Caps } from 'components/elements'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import noop from 'lodash/noop'
@@ -24,42 +24,44 @@ function Toggle ({ onChange, children, defaultValue }) {
   const [active, setActive] = useState(defaultValue || children[0])
 
   return (
-    <Box ml={2} border={1} borderColor='black05' borderRadius={2}>
-      {children.map((value, index) => {
-        const isLast = index + 1 === children.length
-        const isActive = active === value
+    <Flex data-toggle width='100%'>
+      <Box ml={[0, 2, 2, 2]} border={1} borderColor='black05' borderRadius={2}>
+        {children.map((value, index) => {
+          const isLast = index + 1 === children.length
+          const isActive = active === value
 
-        const setAsActive = value => () => {
-          if (value !== active) {
-            setActive(value)
-            onChange(value)
+          const setAsActive = value => () => {
+            if (value !== active) {
+              setActive(value)
+              onChange(value)
+            }
           }
-        }
 
-        return (
-          <Text
-            as='span'
-            key={value}
-            borderRight={!isLast ? 1 : null}
-            borderColor={!isLast ? 'black05' : null}
-          >
-            <ButtonToggle
-              style={{ minWidth: '64px' }}
-              active={isActive}
-              onClick={setAsActive(value)}
+          return (
+            <Text
+              as='span'
+              key={value}
+              borderRight={!isLast ? 1 : null}
+              borderColor={!isLast ? 'black05' : null}
             >
-              <Caps
-                fontWeight={!isActive ? 'normal' : 'bold'}
-                color={isActive ? 'black80' : 'black40'}
-                fontSize={0}
+              <ButtonToggle
+                style={{ minWidth: '64px' }}
+                active={isActive}
+                onClick={setAsActive(value)}
               >
-                {value}
-              </Caps>
-            </ButtonToggle>
-          </Text>
-        )
-      })}
-    </Box>
+                <Caps
+                  fontWeight={!isActive ? 'normal' : 'bold'}
+                  color={isActive ? 'black80' : 'black40'}
+                  fontSize={0}
+                >
+                  {value}
+                </Caps>
+              </ButtonToggle>
+            </Text>
+          )
+        })}
+      </Box>
+    </Flex>
   )
 }
 

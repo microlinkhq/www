@@ -35,7 +35,7 @@ export default props => {
       alignItems='center'
     >
       <Heading color='white' variant={null}>
-        Speed as a Feature
+        Speed as a feature
       </Heading>
       <Caption color='white80' variant={null}>
         Always fast. Always online.

@@ -20,7 +20,7 @@ const navlinkStyle = css`
 
 const NavLink = styled(Text)(
   {
-    bg: 'transparent',
+    background: 'transparent',
     color: 'inherit',
     display: 'block',
     textDecoration: 'none',

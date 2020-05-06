@@ -2,11 +2,9 @@ import capitalize from 'lodash/capitalize'
 
 const special = [
   'apiKey',
+  'APIs',
   'background',
   'browser',
-  'Global',
-  'Edge',
-  'Cache',
   'click',
   'CodeSandbox',
   'deviceScaleFactor',
@@ -18,9 +16,13 @@ const special = [
   'isLandscape',
   'isMobile',
   'JavaScript',
+  'Lighthouse',
+  'Ligthouse Viewer',
   'Microlink',
   'Node.js',
+  'oEmbed',
   'omitBackground',
+  'Open Graph',
   'options',
   'package.json',
   'quality',
@@ -33,9 +35,7 @@ const special = [
   'waitFor',
   'waitUntil',
   'width',
-  'WordPress',
-  'oEmbed',
-  'Open Graph'
+  'WordPress'
 ]
 
 const isUpperCase = str =>
@@ -61,7 +61,14 @@ export default (str, exclude = []) => {
       title[index] = word
     }
   })
+
   title = title.join(' ')
+
+  // uppercase after `:`
+  if (title.includes(':')) {
+    title = title.split(':')
+    title = `${title[0]}: ${capitalize(title[1].trim())}`
+  }
 
   return title
 }

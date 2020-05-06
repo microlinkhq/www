@@ -1,10 +1,11 @@
 import { space, fontSizes, colors, transition } from 'theme'
 import styled, { css } from 'styled-components'
 import { withTitle, withSlug } from 'helpers/hoc'
+import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
 import slug from 'remark-slug'
-import get from 'dlv'
 import React from 'react'
+import get from 'dlv'
 
 import Heading from '../elements/Heading'
 
@@ -115,7 +116,7 @@ H2Base.defaultProps = {
   mb: 4
 }
 
-export const H2Link = styled(H2Base)`
+export const H2Link = withTitle(styled(H2Base)`
   text-decoration: none;
   cursor: pointer;
   color: black;
@@ -123,7 +124,7 @@ export const H2Link = styled(H2Base)`
   &:hover {
     ${textGradient};
   }
-`
+`)
 
 H2Link.defaultProps = {
   as: 'a'
@@ -250,9 +251,9 @@ const codeStyle = css`
 
 export const CodeInline = styled(Text)`
   ${codeStyle};
+  ${wordBreak};
   display: inline;
   padding: 0 4px;
-  white-space: nowrap;
 
   &::before,
   &::after {
@@ -292,7 +293,9 @@ export const Video = withContainer(_VideoBase)
 const _IframeBase = styled(IframeBase)``
 
 _IframeBase.defaultProps = {
-  mx: 'auto'
+  mx: 'auto',
+  width: CodeEditor.width,
+  height: CodeEditor.height
 }
 
 export const Iframe = withContainer(_IframeBase)

@@ -36,8 +36,8 @@ import { navigate } from 'gatsby'
 import get from 'dlv'
 import ms from 'ms'
 
-import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Average, Timings } from 'components/pages/screenshot/examples'
+import { screenshotHeight } from 'components/pages/home/screenshots'
 import { Features } from 'components/pages/screenshot/template'
 
 const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
@@ -93,7 +93,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   return (
     <Container id='demo' py={[4, 4, 5, 5]} px={4}>
       <SubHeadline
-        title='Get a PDF from any website'
+        title='Generate PDF from any website'
         caption='Turn websites into a PDF'
       />
 
@@ -110,7 +110,7 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon value={inputUrl} domain={domain} />}
+              iconComponent={<InputIcon domain={domain} />}
               id='pdf-demo-url'
               mr='6px'
               placeholder='Visit URL'
@@ -231,33 +231,42 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
         <Text fontSize={2} pb={3}>
-          into a PDF
+          into PDF
         </Text>
         {dataPdfUrl ? (
           <Box>
-            <Iframe
-              border={1}
-              borderColor='black20'
-              height={screenshotHeight.map(n => `calc(${n} * 0.85)`)}
-              width={aspectRatio.width.map(n => `calc(${n} * 0.85)`)}
-              src={dataPdfUrl}
-            />
-            <Flex
-              justifyContent='center
-            '
-            >
-              <CodeEditor
-                mt={4}
-                language='html'
-                children={`<iframe src="${previewUrl}"></iframe>`}
-              />
+            <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[2, 2, 4, 4]}>
+              Preview
+            </Subhead>
+            <Iframe src={dataPdfUrl} />
+            <Flex justifyContent='center'>
+              <Box mt={4}>
+                <Subhead
+                  pb={[2, 2, 3, 3]}
+                  textAlign='left'
+                  fontSize={[2, 2, 4, 4]}
+                >
+                  Embed
+                </Subhead>
+                <CodeEditor
+                  width={aspectRatio.width}
+                  language='html'
+                  children={`<iframe src="${previewUrl}"></iframe>`}
+                />
+              </Box>
             </Flex>
             <Flex pt={4} alignItems='center' justifyContent='center'>
-              <a href={previewUrl}>
-                <Button bg='black' color='white'>
-                  Download File
-                </Button>
-              </a>
+              <Button
+                bg='black'
+                color='white'
+                children='Download file'
+                onClick={() => {
+                  const link = document.createElement('a')
+                  link.download = `${Date.now()}.pdf`
+                  link.href = previewUrl
+                  window.open(link)
+                }}
+              />
               <Link ml={3} onClick={() => navigate('/docs/api/parameters/pdf')}>
                 <Caps fontWeight='regular' fontSize={0} children='See docs' />
               </Link>
@@ -292,22 +301,17 @@ const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
 const Resume = props => (
   <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
     <Box pt={[0, 0, 4, 4]}>
-      <SubHeadline title='Easy Peasy PDF as a service' />
-      <Text
-        textAlign='center'
-        mr='auto'
-        ml='auto'
-        maxWidth={[9, 9, 10, 10]}
-        pb={3}
-      >
-        <b>Microlink for PDF</b> turns any website into a PDF. Even if the
-        target URL hasn't been prepared to be exported, microlink can create a
-        PDF version of the URL, with a lot of customizable extra things.
+      <SubHeadline title='Easy Peasy PDF as service' />
+      <Text textAlign='center' mr='auto' ml='auto' maxWidth={9} pb={3}>
+        <b>Microlink for PDF</b> turns any website into PDF. Even if the target
+        URL hasn't been prepared to be exported, microlink can create a PDF
+        version of the URL, with a lot of customizable extra things.
       </Text>
     </Box>
 
     <Block
       as='section'
+      pt={5}
       px={[0, 0, 6, 6]}
       blockTwo={
         <Flex
@@ -346,8 +350,6 @@ const Resume = props => (
       as='section'
       px={[0, 0, 6, 6]}
       flexDirection='row-reverse'
-      pt={0}
-      pb={0}
       blockTwo={
         <Flex
           pl={[0, 0, 4, 4]}
@@ -441,7 +443,7 @@ const Information = props => (
             <Text as='span' fontWeight='bold' color='black'>
               Microlink for PDF
             </Text>{' '}
-            takes any URL as an input and returns a PDF back, hosted at
+            takes any URL as an input and returns a PDF back, hosted at{' '}
             <Link icon href='/blog/edge-cdn/'>
               Microlink CDN
             </Link>
@@ -457,13 +459,6 @@ const Information = props => (
             , use{' '}
             <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link>{' '}
             orientation, etc, making it a more complete tool.
-          </>,
-          <>
-            Check that in the{' '}
-            <Link icon href='http://bit.ly/saasforpdf'>
-              comparative table
-            </Link>
-            .
           </>
         ]
       },
@@ -475,7 +470,7 @@ const Information = props => (
             <Link icon href='https://github.com/puppeteer/puppeteer'>
               puppeteer
             </Link>{' '}
-            using Chromium Headless browser.
+            using Chrome headless browser.
           </>,
           <>
             The browser management is handled by our own driver called{' '}
@@ -533,26 +528,12 @@ const Information = props => (
   />
 )
 
-export default ({
-  isLoading,
-  onSubmit,
-  refBackground,
-  refOverlay,
-  refUrl,
-  refWaitFor,
-  suggestions,
-  query,
-  data
-}) => (
+export default ({ isLoading, onSubmit, suggestions, query, data }) => (
   <>
     <LiveDemo
       data={data}
       isLoading={isLoading}
       onSubmit={onSubmit}
-      refBackgroundthi={refBackground}
-      refOverlay={refOverlay}
-      refUrl={refUrl}
-      refWaitFor={refWaitFor}
       suggestions={suggestions}
       query={query}
     />

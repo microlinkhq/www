@@ -23,11 +23,17 @@ export default () => {
 
   return (
     <Layout>
-      <FetchProvider mqlOpts={{ meta: false, insights: true }}>
-        {({ status, doFetch, data }) => {
+      <FetchProvider
+        mqlOpts={{
+          meta: false,
+          insights: true
+        }}
+      >
+        {({ status, doFetch, data, response }) => {
           return (
             <Examples
               data={data}
+              response={response}
               onSubmit={doFetch}
               isLoading={status === 'fetching'}
               suggestions={suggestions}

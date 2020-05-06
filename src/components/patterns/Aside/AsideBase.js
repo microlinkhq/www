@@ -1,6 +1,6 @@
 import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
 import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
-import { shadows, borders, colors, space } from 'theme'
+import { transition, borders, colors, space } from 'theme'
 import React, { useState, Fragment } from 'react'
 import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc'
@@ -62,14 +62,11 @@ const AsideWrapper = styled(Box)`
   bottom: 0;
   top: ${TOOLBAR_HEIGHT};
   width: ${ASIDE_WIDTH};
-  transition: color ${({ theme }) => theme.transition.medium};
+  transition: transform ${transition.medium};
 
   ${isNot('isOpen')`
     transform: translateX(-100%);
   `};
-
-  @media only screen and (max-width: 576px) {
-    box-shadow: ${shadows[0]};
   }
 `
 
@@ -103,25 +100,29 @@ const Aside = ({
   return (
     <AsideWrapper
       as='aside'
+      data-aside
       pt={[0, 0, 0, 5]}
-      pr={[0, 0, 0, '28px']}
+      pr={[0, 0, 0, '14px']}
       isOpen={isOpen}
       {...props}
     >
-      {CloseButton && (
-        <Box mt={3} mr={3}>
-          <CloseButton />
-        </Box>
-      )}
-
       <Flex
+        data-aside-header
         as='header'
         justifyContent='end'
         alignItems='center'
-        mt={3}
+        flexDirection={['column', 'column', 'column', 'row']}
+        mt={[0, 0, 0, 3]}
         pb={3}
         mb={4}
+        ml={3}
+        pl={2}
       >
+        {CloseButton && (
+          <Box mb={4} width='100%'>
+            {CloseButton}
+          </Box>
+        )}
         <Toggle
           children={routeNames}
           defaultValue={activeRouteName}
@@ -131,7 +132,7 @@ const Aside = ({
           }}
         />
       </Flex>
-      <Box pl={4}>
+      <Box as='section' data-aside-tree pl={4}>
         {routes[tree].map(path => (
           <Box mb={4} key={`${tree}_${path.name}`}>
             <Header>{path.name}</Header>
@@ -154,7 +155,11 @@ const Aside = ({
                       href={post.href}
                       children={post.name}
                     />
-                    <Box ml={2} borderLeft={`${borders[1]} ${colors.black05}`}>
+                    <Box
+                      data-subtree
+                      ml={2}
+                      borderLeft={`${borders[1]} ${colors.black05}`}
+                    >
                       {post.posts.map(post => (
                         <Title
                           ml={3}

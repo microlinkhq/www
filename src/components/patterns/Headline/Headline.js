@@ -24,6 +24,7 @@ const TitleConstructor = TitleComponnet => ({
       {...props}
     >
       <TitleComponnet
+        maxWidth={['14rem', '100%', '100%', '100%']}
         fontWeight={fontWeight}
         fontSize={fontSize}
         px={0}

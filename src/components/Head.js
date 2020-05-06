@@ -9,11 +9,6 @@ const getPage = props => {
   return `/${pathname.split('/')[1]}`
 }
 
-const getTwitterCard = props => {
-  const page = getPage(props)
-  return page === '/' ? 'summary_large_image' : 'summary'
-}
-
 const getTitle = (props, metadata) => {
   if (props.title) return props.title
 
@@ -21,11 +16,13 @@ const getTitle = (props, metadata) => {
 
   switch (page) {
     case '/meta':
-      return 'Turns websites into data'
+      return 'Websites into data'
     case '/screenshot':
-      return 'Turns websites into a screenshot'
+      return 'Websites into screenshot'
     case '/pdf':
-      return 'Turn websites into a PDF'
+      return 'Websites into PDF'
+    case '/insights':
+      return 'Automate Web Performance'
     case '/blog':
       return 'Blog'
     case '/status':
@@ -36,8 +33,6 @@ const getTitle = (props, metadata) => {
       return 'Chat'
     case '/stats':
       return 'Stats'
-    case '/insights':
-      return 'Insights'
     case '/integrations':
       return 'Integrations'
     default:
@@ -135,8 +130,8 @@ function Head (props) {
 
   return (
     <Helmet
-      defaultTitle={`${name}: ${headline}`}
-      titleTemplate={`%s · ${name}`}
+      defaultTitle={`${name} — ${headline}`}
+      titleTemplate={`%s — ${name}`}
     >
       {/* <!-- Basic --> */}
       <meta charSet='utf-8' />
@@ -158,7 +153,7 @@ function Head (props) {
       <meta itemProp='image' content={image} />
 
       {/* <!-- Twitter --> */}
-      <meta name='twitter:card' content={getTwitterCard(props)} />
+      <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:title' content={title} />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:site' content={twitter} />

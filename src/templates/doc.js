@@ -396,7 +396,7 @@ const ROUTES_MQL = [
     posts: [
       {
         name: 'Overview',
-        href: '/docs/cards/getting-started/overview'
+        href: '/docs/mql/getting-started/overview'
       },
       {
         name: 'Installation',
@@ -505,10 +505,16 @@ export default ({ meta, content, githubUrl, ...props }) => {
   return (
     <Layout
       footer={false}
-      title={`${activeRouteName} ${meta.title}`}
+      title={`${meta.name} ${activeRouteName}: ${meta.title}`}
       name='Microlink Docs'
     >
-      <Container maxWidth={layout.large}>
+      <Container
+        pt={[0, 0, 0, 4]}
+        ml={[3, 3, 3, 'auto']}
+        mr={[3, 3, 3, 'auto']}
+        px={2}
+        maxWidth={layout.large}
+      >
         <Aside routes={routes} activeRouteName={activeRouteName}>
           {meta.title ? (
             <Text as='header'>

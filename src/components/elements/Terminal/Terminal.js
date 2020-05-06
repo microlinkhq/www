@@ -1,3 +1,10 @@
+import { serializeComponent, aspectRatio } from 'helpers'
+import styled, { css } from 'styled-components'
+import { blink } from 'components/keyframes'
+import { wordBreak } from 'helpers/style'
+import CodeCopy from 'react-codecopy'
+import React from 'react'
+
 import {
   cx,
   colors,
@@ -6,11 +13,6 @@ import {
   fonts,
   fontWeights
 } from 'theme'
-import { serializeComponent, aspectRatio } from 'helpers'
-import styled, { css } from 'styled-components'
-import { blink } from 'components/keyframes'
-import CodeCopy from 'react-codecopy'
-import React from 'react'
 
 import Text from '../Text'
 import Box from '../Box'
@@ -21,7 +23,7 @@ export const TerminalWindow = styled(Box)`
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
-  0.3,
+  0.33,
   0.4,
   0.6,
   0.6
@@ -116,9 +118,9 @@ const blinkCursorStyle = css`
 `
 
 const TerminalTextWrapper = styled('div')`
+  ${wordBreak};
   overflow: auto;
   width: 100%;
-  word-break: break-all;
   white-space: pre;
   &::before {
     content: ${props => (props.shellSymbol ? `${props.shellSymbol} ` : '')};
