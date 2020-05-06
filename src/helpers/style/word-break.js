@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-export const styleWordBreak = css`
+export const wordBreak = css`
   /* These are technically the same, but use both */
   overflow-wrap: break-word;
   word-wrap: break-word;
