@@ -1,9 +1,9 @@
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import * as Icons from 'components/icons'
-import React, { useEffect } from 'react'
 import { colors, layout } from 'theme'
 import { formatDate } from 'helpers'
+import React from 'react'
 
 import {
   Tooltip,

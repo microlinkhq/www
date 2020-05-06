@@ -363,6 +363,13 @@ const Resume = props => (
             compatible tool, such as{' '}
             <Link icon href='https://lighthouse.microlink.io'>
               Lighthouse Viewer
+            </Link>{' '}
+            or{' '}
+            <Link
+              icon
+              href='https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md'
+            >
+              Lighthouse CI
             </Link>
             .
           </Text>
