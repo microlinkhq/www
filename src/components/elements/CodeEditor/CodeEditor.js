@@ -1,11 +1,12 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { prettier, getLines, template } from 'helpers'
 import styled, { css } from 'styled-components'
+import { wordBreak } from 'helpers/style'
 import { rgba, lighten } from 'polished'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
-import CodeCopy from 'react-codecopy'
 import { colors, fonts } from 'theme'
+import CodeCopy from 'react-codecopy'
 import range from 'lodash/range'
 import get from 'dlv'
 
@@ -223,7 +224,7 @@ const TerminalText = styled.section`
 `
 
 const TerminalTextWrapper = styled.div`
-  word-break: break-all;
+  ${wordBreak};
   width: 100%;
 `
 

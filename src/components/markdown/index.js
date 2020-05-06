@@ -1,10 +1,11 @@
 import { space, fontSizes, colors, transition } from 'theme'
 import styled, { css } from 'styled-components'
 import { withTitle, withSlug } from 'helpers/hoc'
+import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
 import slug from 'remark-slug'
-import get from 'dlv'
 import React from 'react'
+import get from 'dlv'
 
 import Heading from '../elements/Heading'
 
@@ -250,9 +251,9 @@ const codeStyle = css`
 
 export const CodeInline = styled(Text)`
   ${codeStyle};
+  ${wordBreak};
   display: inline;
   padding: 0 4px;
-  white-space: nowrap;
 
   &::before,
   &::after {
