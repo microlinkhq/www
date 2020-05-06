@@ -508,7 +508,13 @@ export default ({ meta, content, githubUrl, ...props }) => {
       title={`${meta.name} ${activeRouteName}: ${meta.title}`}
       name='Microlink Docs'
     >
-      <Container maxWidth={layout.large}>
+      <Container
+        pt={[0, 0, 0, 4]}
+        ml={[3, 3, 3, 'auto']}
+        mr={[3, 3, 3, 'auto']}
+        px={2}
+        maxWidth={layout.large}
+      >
         <Aside routes={routes} activeRouteName={activeRouteName}>
           {meta.title ? (
             <Text as='header'>

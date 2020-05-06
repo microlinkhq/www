@@ -21,7 +21,7 @@ export const TerminalWindow = styled(Box)`
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
-  0.3,
+  0.33,
   0.4,
   0.6,
   0.6
