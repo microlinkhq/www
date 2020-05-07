@@ -52,7 +52,7 @@ const createNotification = notificationProps => ({ children, ...props }) => {
       my={3}
     >
       <Text
-        boxShadow={0}
+        boxShadow={1}
         m={3}
         px={3}
         py='12px'
