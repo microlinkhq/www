@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.173](https://github.com/microlinkhq/microlink-www/compare/v2.10.172...v2.10.173) (2020-05-07)
+
+
+### Bug Fixes
+
+* ensure to load react ([d2994db](https://github.com/microlinkhq/microlink-www/commit/d2994db2ab162f0271f12c6a2f2cb45835e4a69e))
+* safari bug ([3d2a1fd](https://github.com/microlinkhq/microlink-www/commit/3d2a1fd5738f0d77001ac7ec2994e4ff2157c899))
+
 ### [2.10.172](https://github.com/microlinkhq/microlink-www/compare/v2.10.171...v2.10.172) (2020-05-07)
 
 ### [2.10.171](https://github.com/microlinkhq/microlink-www/compare/v2.10.170...v2.10.171) (2020-05-07)
