@@ -276,7 +276,8 @@ const mediaStyle = {
 const _ImageBase = styled(ImageBase)``
 
 _ImageBase.defaultProps = {
-  ...mediaStyle
+  ...mediaStyle,
+  lazy: false
 }
 
 export const Image = withContainer(_ImageBase)
