@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { toPx } from 'theme'
+import { transition, toPx, shadows } from 'theme'
 
 import Flex from '../Flex'
 import Text from '../Text'
@@ -9,7 +9,14 @@ const BASE_WIDTH = 500
 const BASE_RATIO = 1.4
 const BASE_HEIGHT = BASE_WIDTH / BASE_RATIO
 
-const CardBase = styled(Flex)({ overflow: 'auto' })
+const CardBase = styled(Flex)`
+  overflow: auto;
+  transition: box-shadow ${transition.medium};
+
+  &:hover {
+    box-shadow: ${shadows[2]};
+  }
+`
 
 const Card = ({ ratio, ...props }) => {
   const width = ratio.map(n => toPx(BASE_WIDTH * n))

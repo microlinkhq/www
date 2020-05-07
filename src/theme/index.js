@@ -231,9 +231,13 @@ export const cx = key => colors[key] || key
 export const gradient =
   'linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)'
 
-export const shadowOffsets = ['0px 5px 10px 0px', '0 30px 60px']
+export const shadowOffsets = ['0px 5px 10px 0px', '0 8px 30px', '0 30px 60px']
 
-export const shadowColors = ['rgba(0,0,0,0.12)', 'rgba(0,0,0,0.12)']
+export const shadowColors = [
+  'rgba(0,0,0,0.12)',
+  'rgba(0,0,0,0.12)',
+  'rgba(0,0,0,0.12)'
+]
 
 export const shadows = shadowOffsets.map(
   (shadow, index) => `${shadow} ${shadowColors[index]}`
