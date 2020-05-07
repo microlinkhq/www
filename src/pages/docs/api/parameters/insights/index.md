@@ -23,8 +23,8 @@ module.exports = async () => {
 
 When you enabled it, a new `insights` field will be present into the data response payload. These field contain two subfields:
 
-- `technologies`: A list of web technologies identified powered by [Wappalyzer](https://www.wappalyzer.com/).
-- `lighthouse`: A full metrics report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
+- `technologies`: A list of technologies identified powered by [Wappalyzer](https://www.wappalyzer.com/).
+- `lighthouse`: A full web audit report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
 Both fields are enabled by default. They can be disabled programmatically in order to speed up the response time.
 

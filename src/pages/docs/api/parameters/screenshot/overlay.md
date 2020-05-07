@@ -31,6 +31,6 @@ An overlay is specified as `browser` theme, being <Type children="'light'"/>` an
 
 Additionally, you can setup a `background` color, where the color can be defined as:
  
-- An hexadecimal/rgb/rgba color code (e.g., <Type children="'#F76698'"/>).
-- A [CSS gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient) (e.g., <Type children="'linear-gradient(0deg, #330867 0%, #30CFD0 100%)'"/>).
-- An image url (e.g., <Type children="'https://source.unsplash.com/random/1920x1080'"/>).
+- An hexadecimal/rgb/rgba color code (e.g., `'#F76698'`).
+- A [CSS gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient) (e.g., `'linear-gradient(0deg, #330867 0%, #30CFD0 100%)'`).
+- An image url (e.g., `'https://source.unsplash.com/random/1920x1080'`).
