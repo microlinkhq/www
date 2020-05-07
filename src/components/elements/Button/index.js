@@ -1,7 +1,6 @@
 import { css } from 'styled-components'
 
-import { withAnalytics } from 'helpers/hoc'
-import withSpinner from './with-spinner'
+import { withSpinner, withAnalytics } from 'helpers/hoc'
 import Button from './Button'
 
 export default withAnalytics(

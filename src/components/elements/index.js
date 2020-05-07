@@ -52,10 +52,6 @@ import IframeInline from './IframeInline/IframeInline'
 
 import StripeLoader from './StripeLoader'
 import Unavatar from './Unavatar/Unavatar'
-import Pie from './Pie/Pie'
-import Radar from './Radar/Radar'
-import Stack from './Stack/Stack'
-import Nivo from './Nivo'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -88,15 +84,11 @@ export {
   Link,
   LinkSolid,
   MultiCodeEditor,
-  Nivo,
   Notification,
-  Pie,
   Placeholder,
   PricePicker,
-  Radar,
   Select,
   Spinner,
-  Stack,
   StripeLoader,
   Subhead,
   Svg,

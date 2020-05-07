@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import ReactDOM from 'react-dom'
 import { colors } from 'theme'
 
-import Flex from '../Flex'
-import SpinnerIcon from '../Spinner'
+import Flex from '../../components/elements/Flex'
+import SpinnerIcon from '../../components/elements/Spinner'
 
-export default ChildComponent => {
+export const withSpinner = ChildComponent => {
   const Spinner = styled(ChildComponent)`
     &&& {
       background-color: ${props => colors[props.color]};
@@ -14,7 +14,6 @@ export default ChildComponent => {
       cursor: not-allowed;
       box-shadow: 0 0 0 1px ${props => colors[props.bg]};
     }
-
     .path {
       stroke: ${props => colors[props.bg]};
       opacity: 1;

@@ -1,5 +1,5 @@
 import React from 'react'
-import Tippy from '@tippy.js/react'
+import Tippy from '@tippyjs/react'
 import { Box, Text } from 'components/elements'
 import { speed } from 'theme'
 import styled from 'styled-components'

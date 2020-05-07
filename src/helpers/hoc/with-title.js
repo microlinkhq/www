@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import { title as titleize } from 'helpers'
 
-export default Component => props => {
+export const withTitle = Component => props => {
   if (typeof props.children !== 'string') {
     return createElement(Component, props)
   }

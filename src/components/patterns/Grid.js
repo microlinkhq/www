@@ -36,7 +36,7 @@ const Item = ({ title, description, ...props }) => (
 export default ({
   children,
   itemsPerRow,
-  childComponent: ChildComponent = Item,
+  childComponent: Component = Item,
   ...props
 }) => (
   <Flex justifyContent='center' alignItems='center' flexDirection='column'>
@@ -52,7 +52,7 @@ export default ({
         {...props}
       >
         {row.map((rowProps, index) => (
-          <ChildComponent key={JSON.stringify(rowProps)} {...rowProps} />
+          <Component key={JSON.stringify(rowProps)} {...rowProps} />
         ))}
       </Flex>
     ))}
