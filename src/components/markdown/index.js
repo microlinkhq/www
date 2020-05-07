@@ -1,13 +1,11 @@
+import { withContainer, withTitle, withSlug } from 'helpers/hoc'
 import { space, fontSizes, colors, transition } from 'theme'
 import styled, { css } from 'styled-components'
-import { withTitle, withSlug } from 'helpers/hoc'
 import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
 import slug from 'remark-slug'
 import React from 'react'
 import get from 'dlv'
-
-import Heading from '../elements/Heading'
 
 import {
   Terminal as TerminalBase,
@@ -25,49 +23,18 @@ import {
   Tweet as TweetBase
 } from 'components/elements'
 
-import DemoIntegrations from './DemoIntegrations'
-
 import MicrolinkBase from '../patterns/Microlink/Microlink'
-
+import DemoIntegrations from './DemoIntegrations'
 import { textGradient } from '../../theme'
+import Heading from '../elements/Heading'
 
-const LAYOUT_WIDTH = 650
-
-const WIDTH = {
-  normal: LAYOUT_WIDTH,
-  large: LAYOUT_WIDTH * 1.2
-}
-
-const CONTAINER_SPACE = {
-  mt: 3,
-  mb: 4
-}
+const { Container, WIDTH, CONTAINER_SPACE } = withContainer
 
 const Link = styled(LinkBase)``
 
 Link.defaultProps = {
   icon: true
 }
-
-const Container = props => (
-  <Box
-    maxWidth={['100%', '100%', WIDTH.normal, WIDTH.normal]}
-    mr='auto'
-    ml='auto'
-    {...CONTAINER_SPACE}
-    {...props}
-  />
-)
-
-const withContainer = (
-  ChildComponent,
-  containerProps = {},
-  childProps
-) => props => (
-  <Container {...containerProps}>
-    <ChildComponent {...childProps} {...props} />
-  </Container>
-)
 
 export { Label, Link }
 

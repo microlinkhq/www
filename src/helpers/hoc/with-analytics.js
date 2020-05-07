@@ -22,14 +22,12 @@ const createOnClick = ({
   }
 }
 
-const withAnalytics = ChildComponent => ({
+export const withAnalytics = Component => ({
   'data-event-action': eventAction,
   'data-event-category': eventCategory,
   ...props
 }) =>
-  createElement(ChildComponent, {
+  createElement(Component, {
     ...props,
     onClick: createOnClick({ eventAction, eventCategory, ...props })
   })
-
-export default withAnalytics

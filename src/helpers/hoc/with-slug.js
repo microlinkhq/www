@@ -53,22 +53,22 @@ const AnchorLink = styled.a`
   }
 `
 
-export default ChildComponent => {
+export const withSlug = Component => {
   return ({ children, slug, ...props }) => {
     if (typeof children !== 'string' || slug === false) {
-      return createElement(ChildComponent, { children, ...props })
+      return createElement(Component, { children, ...props })
     }
 
     const { id, ...rest } = props
     const frameId = `#${id || slugger(children)}`
 
     return (
-      <ChildComponent id={id} {...rest}>
+      <Component id={id} {...rest}>
         <AnchorLink children={children} href={frameId} />
         <Permalink>
           <PermalinkIcon width='14px' ml={2} />
         </Permalink>
-      </ChildComponent>
+      </Component>
     )
   }
 }

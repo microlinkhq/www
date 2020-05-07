@@ -67,7 +67,7 @@ const onView = (node, fn, opts) => {
   observer.observe(node)
 }
 
-const withlink = ChildComponent => ({
+export const withLink = Component => ({
   icon = false,
   actively,
   href,
@@ -97,21 +97,19 @@ const withlink = ChildComponent => ({
 
   if (isInternal) {
     return (
-      <ChildComponent {...props}>
+      <Component {...props}>
         <GatsbyLink to={href} children={children} getProps={getProps} />
-      </ChildComponent>
+      </Component>
     )
   }
 
   return (
-    <ChildComponent {...props}>
+    <Component {...props}>
       <ExternalLink href={href} target={target} rel={rel}>
         <Children icon={icon} children={children} />
       </ExternalLink>
-    </ChildComponent>
+    </Component>
   )
 }
 
-withlink.isInternalLink = isInternalLink
-
-export default withlink
+withLink.isInternalLink = isInternalLink

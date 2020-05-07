@@ -5,9 +5,9 @@ import Placeholder from '../Placeholder/Placeholder'
 import Flex from '../Flex'
 
 export default ({
+  loading = true,
   width = aspectRatio.width,
   height = aspectRatio.height,
-  loading = true,
   children,
   ...props
 }) => {
