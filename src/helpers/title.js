@@ -1,4 +1,4 @@
-import capitalize from 'lodash/capitalize'
+import capitalize from 'microsoft-capitalize'
 
 const special = [
   'apiKey',
@@ -38,37 +38,5 @@ const special = [
   'WordPress'
 ]
 
-const isUpperCase = str =>
-  str.split('').every(letter => letter === letter.toUpperCase())
-
-// https://docs.microsoft.com/en-us/style-guide/capitalization
-export default (str, exclude = []) => {
-  // all minus unless the first world
-  let title = capitalize(str)
-
-  // respect special words
-  special.concat(exclude).forEach(word => {
-    const re = new RegExp(`\\b(?:${word})\\b`, 'gi')
-    if (re.test(str)) {
-      title = title.replace(re, word)
-    }
-  })
-
-  // respect uppercase words
-  title = title.split(' ')
-  str.split(' ').forEach((word, index) => {
-    if (isUpperCase(word)) {
-      title[index] = word
-    }
-  })
-
-  title = title.join(' ')
-
-  // uppercase after `:`
-  if (title.includes(':')) {
-    title = title.split(':')
-    title = `${title[0]}: ${capitalize(title[1].trim())}`
-  }
-
-  return title
-}
+export default (str, exceptionsg = []) =>
+  capitalize(str, special.concat(exceptions))
