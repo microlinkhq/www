@@ -1,3 +1,4 @@
+import React from 'react'
 import Box from '../../components/elements/Box'
 
 const LAYOUT_WIDTH = 650
