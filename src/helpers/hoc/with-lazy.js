@@ -34,11 +34,14 @@ const LazyMedia = (Component, { tagName = 'img', attr = 'src' } = {}) => ({
 
   useEffect(() => {
     const tag = document.createElement(tagName)
-    tag.onerror = onError
+    tag.onerror = err => {
+      console.error('[with-lazy', err)
+    }
     tag.onload = () => {
       tag.onload = null
       tag.onerror = null
       setLoading(false)
+      console.log('loaded', compiledAttr)
     }
     tag[attr] = compiledAttr
   }, [])
