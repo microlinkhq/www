@@ -110,7 +110,7 @@ const mergeMeta = (props, metadata) => {
   }
 }
 
-function Head (props) {
+function Head ({ onChangeClientState, script, ...props }) {
   const {
     dataLabel1,
     date,
@@ -130,8 +130,11 @@ function Head (props) {
 
   return (
     <Helmet
+      onChangeClientState={onChangeClientState}
+      script={script}
       defaultTitle={`${name} — ${headline}`}
       titleTemplate={`%s — ${name}`}
+      {...props}
     >
       {/* <!-- Basic --> */}
       <meta charSet='utf-8' />
