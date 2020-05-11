@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.179](https://github.com/microlinkhq/microlink-www/compare/v2.10.178...v2.10.179) (2020-05-11)
+
+
+### Bug Fixes
+
+* load stripe ([15077a6](https://github.com/microlinkhq/microlink-www/commit/15077a66fa7e4ffe9a01a9bd9391fbc08c022a72))
+
 ### [2.10.178](https://github.com/microlinkhq/microlink-www/compare/v2.10.177...v2.10.178) (2020-05-11)
 
 ### [2.10.177](https://github.com/microlinkhq/microlink-www/compare/v2.10.175...v2.10.177) (2020-05-11)
