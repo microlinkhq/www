@@ -1,6 +1,5 @@
 import { useState, createElement, useEffect } from 'react'
 import { isFunction, aspectRatio, template } from 'helpers'
-import noop from 'lodash/noop'
 
 import Placeholder from '../../components/elements/Placeholder/Placeholder'
 
@@ -18,13 +17,7 @@ const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
 export const withLazy = (
   Component,
   { tagName = 'img', attr = 'src' } = {}
-) => ({
-  lazy = true,
-  loading = true,
-  [attr]: rawAttribute,
-  onError = noop,
-  ...rest
-}) => {
+) => ({ lazy = true, loading = true, [attr]: rawAttribute, ...rest }) => {
   const compiledAttr = template(rawAttribute)
 
   if (!lazy) {
@@ -39,13 +32,12 @@ export const withLazy = (
   useEffect(() => {
     const tag = document.createElement(tagName)
     tag.onerror = err => {
-      console.error('[with-lazy', err)
+      console.error('[with-lazy]', err)
     }
     tag.onload = () => {
       tag.onload = null
       tag.onerror = null
       setLoading(false)
-      console.log('loaded', compiledAttr)
     }
     tag[attr] = compiledAttr
   }, [])
