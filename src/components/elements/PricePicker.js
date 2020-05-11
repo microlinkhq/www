@@ -15,8 +15,8 @@ const calculateMonthlyPrice = reqsPerDay =>
   (reqsPerDay / 1000) * BASE_PLAN_PRICE
 
 export const PLANS = [
-  { planId: 'pro-1k-v3', ...createReqsLabels(500), width: '4.5rem' },
-  { planId: 'pro-500-v3', ...createReqsLabels(1000), width: '4.5rem' },
+  { planId: 'pro-500-v3', ...createReqsLabels(500), width: '4.5rem' },
+  { planId: 'pro-1k-v3', ...createReqsLabels(1000), width: '4.5rem' },
   { planId: 'pro-3k-v3', ...createReqsLabels(3000), width: '4.5rem' },
   { planId: 'pro-5k-v3', ...createReqsLabels(5000), width: '5rem' },
   { planId: 'pro-10k-v3', ...createReqsLabels(10000), width: '5rem' },
@@ -25,7 +25,7 @@ export const PLANS = [
   { planId: 'pro-50k-v3', ...createReqsLabels(50000), width: '5.7rem' }
 ]
 
-export const DEFAULT_PLAN = PLANS[0]
+export const DEFAULT_PLAN = PLANS[1]
 
 export default props => {
   const [currentPlan, setCurrentPlan] = useState(DEFAULT_PLAN)
