@@ -25,7 +25,7 @@ export const PLANS = [
   { planId: 'pro-50k-v3', ...createReqsLabels(50000), width: '5.7rem' }
 ]
 
-export const DEFAULT_PLAN = PLANS[1]
+export const DEFAULT_PLAN = PLANS[0]
 
 export default props => {
   const [currentPlan, setCurrentPlan] = useState(DEFAULT_PLAN)
