@@ -1,13 +1,7 @@
-import React from 'react'
-import { template, isSSR } from 'helpers'
+import { isFastConnection, template } from 'helpers'
+import { useDemoLinks } from 'components/hook'
 import Microlink from '@microlink/react'
-import get from 'dlv'
-
-const effectiveType = isSSR
-  ? undefined
-  : get(window, 'navigator.connection.effectiveType')
-
-const isFastConnection = effectiveType === '4g'
+import React from 'react'
 
 const media = [
   isFastConnection && 'video',
@@ -16,13 +10,22 @@ const media = [
   'logo'
 ].filter(Boolean)
 
-export default ({ url, style, ...props }) => {
+export default ({ url, style, data, ...props }) => {
+  const demoLinks = useDemoLinks()
   if (url) url = template(url)
+
+  const { data: demolinkData } =
+    demoLinks.find(item => item.data.url === url) || {}
+
+  const mergedData = { ...demolinkData, ...data }
+
   return (
     <Microlink
       url={url}
       media={media}
       style={{ margin: 'auto', ...style }}
+      fetchData={!demolinkData && !data}
+      setData={mergedData}
       {...props}
     />
   )
