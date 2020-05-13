@@ -4,25 +4,26 @@ title: 'setData'
 
 Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/></TypeContainer>
 
-Setup the content to be rendered into the card.
+A data mapper that will be invoked before mounting the card.
+
+When an <Type children='<object>'/> is passed to `setData`, the custom data provided will be merged with the original data.
 
 <DemoIntegrations
-  parameters={{url: '{{demolinks.instagram.url}}', setData: { title: 'SENTRY ACTIVATED' } }}
+  parameters={{url: 'https://www.instagram.com/p/BeV6tOhFUor/', setData: { title: 'SENTRY ACTIVATED' } }}
   caption="The data provided will be merged with the original data extracted."
   urlName="instagram.com"
 />
 
-When an <Type children='<object>'/> is passed to `setData`, the custom data provided will be merged with the original data.
-
-If you need a more granular control, you can pass a <Type children='<function>'/>.
+Additionally you can pass a <Type children='<function>'/> where in this case the first argument that received will be the data fetched using [fetchData](/docs/sdk/parameters/fetch-data/):
 
 ```jsx
 import Microlink from '@microlink/react'
 
 export default () => (
   <Microlink
-    url='{{demolinks.instagram.url}}'
-    setData={() => ({
+    url='https://www.instagram.com/p/BeV6tOhFUor/'
+    setData={(data) => ({
+      ...data,
       title: 'SENTRY ACTIVATED',
       description: 'Are humans worth it?',
       image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
@@ -35,9 +36,9 @@ export default () => (
 
 <Figcaption children='Skip internal fetch providing a function as setData.' />
 
-In that case, the function should return all the data necessary to be mounted.
+The function should return all the data necessary to be mounted.
 
-<Microlink url='{{demolinks.instagram.url}}' setData={() => ({
+<Microlink url='https://www.instagram.com/p/BeV6tOhFUor/' setData={() => ({
 title: 'SENTRY ACTIVATED',
 description: 'Are humans worth it?',
 image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },

@@ -88,6 +88,10 @@ const ROUTES_SDK = [
         href: '/docs/sdk/parameters/direction/'
       },
       {
+        name: 'fetchData',
+        href: '/docs/sdk/parameters/fetch-data/'
+      },
+      {
         name: 'lazy',
         href: '/docs/sdk/parameters/lazy/'
       },
