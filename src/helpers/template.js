@@ -31,7 +31,7 @@ const template = (str = '') => {
       demolinks
     })
   } catch (err) {
-    console.error(`[helpers/template] ${str}:`, err.message)
+    console.error(`[helpers/template] '${str}':`, err.message)
     compiled = str
   }
 

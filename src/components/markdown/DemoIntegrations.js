@@ -40,7 +40,12 @@ const formatParam = (param, useRealJson = false) => {
   return param
 }
 
-const DemoIntegrations = ({ caption, parameters = {}, showCard = true, urlName = DEFAULT_URL_NAME }) => {
+const DemoIntegrations = ({
+  caption,
+  parameters = {},
+  showCard = true,
+  urlName = DEFAULT_URL_NAME
+}) => {
   const params = useMemo(() => ({ ...DEFAULTS, ...parameters }), [parameters])
   const paramKeys = useMemo(() => Object.keys(params), [params])
   const withoutUrl = useMemo(() => paramKeys.filter(k => k !== 'url'), [
@@ -122,8 +127,8 @@ const DemoIntegrations = ({ caption, parameters = {}, showCard = true, urlName =
     <>
       <MultiCodeEditor
         languages={{
-          React: `import Microlink from '@microlink/react' 
-      
+          React: `import Microlink from '@microlink/react'
+
 export default () => (
   <Microlink ${react} />
 )

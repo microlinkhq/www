@@ -1,4 +1,4 @@
-import { isFastConnection, template } from 'helpers'
+import { isFunction, isFastConnection, template } from 'helpers'
 import { useDemoLinks } from 'components/hook'
 import Microlink from '@microlink/react'
 import React from 'react'
@@ -10,22 +10,26 @@ const media = [
   'logo'
 ].filter(Boolean)
 
-export default ({ url, style, data, ...props }) => {
+export default ({ url, style, fetchData, setData, ...props }) => {
   const demoLinks = useDemoLinks()
   if (url) url = template(url)
 
   const { data: demolinkData } =
     demoLinks.find(item => item.data.url === url) || {}
 
-  const mergedData = { ...demolinkData, ...data }
+  const _fetchData = fetchData || !demolinkData
+
+  const _setData = isFunction(setData)
+    ? setData(demolinkData)
+    : { ...demolinkData, ...setData }
 
   return (
     <Microlink
       url={url}
       media={media}
       style={{ margin: 'auto', ...style }}
-      fetchData={!demolinkData && !data}
-      setData={mergedData}
+      fetchData={_fetchData}
+      setData={_setData}
       {...props}
     />
   )

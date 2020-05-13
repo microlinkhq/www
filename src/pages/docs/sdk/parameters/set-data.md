@@ -9,7 +9,10 @@ A data mapper that will be invoked before mounting the card.
 When an <Type children='<object>'/> is passed to `setData`, the custom data provided will be merged with the original data.
 
 <DemoIntegrations
-  parameters={{url: 'https://www.instagram.com/p/BeV6tOhFUor/', setData: { title: 'SENTRY ACTIVATED' } }}
+  parameters={{
+    url: 'https://www.instagram.com/p/BeV6tOhFUor/',
+    setData: { title: 'SENTRY ACTIVATED' } }
+  }
   caption="The data provided will be merged with the original data extracted."
   urlName="instagram.com"
 />
@@ -22,7 +25,7 @@ import Microlink from '@microlink/react'
 export default () => (
   <Microlink
     url='https://www.instagram.com/p/BeV6tOhFUor/'
-    setData={(data) => ({
+    setData={data => ({
       ...data,
       title: 'SENTRY ACTIVATED',
       description: 'Are humans worth it?',
@@ -38,10 +41,13 @@ export default () => (
 
 The function should return all the data necessary to be mounted.
 
-<Microlink url='https://www.instagram.com/p/BeV6tOhFUor/' setData={() => ({
-title: 'SENTRY ACTIVATED',
-description: 'Are humans worth it?',
-image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
-publisher: 'HAL 9000',
-url: 'http://thehal9000.com'
-})} />
+<Microlink
+  url='https://www.instagram.com/p/BeV6tOhFUor/'
+  setData={data => ({
+    title: 'SENTRY ACTIVATED',
+    description: 'Are humans worth it?',
+    image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
+    publisher: 'HAL 9000',
+    url: 'http://thehal9000.com'
+  })}
+/>
