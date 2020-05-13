@@ -25,7 +25,7 @@ Defines the first HTML element you want to get from the HTML of the target [url]
 
 ```js{5}
 const mql = require('@microlink/mql')
-const { data } mql(`https://kikobeats.com`, {
+const { data } = mql('https://kikobeats.com', {
   data: {
     avatar: {
       selector: '#avatar',
@@ -55,7 +55,7 @@ If you pass a collection of selectors, they are considered as fallbacks values.
 
 ```js{5}
 const mql = require('@microlink/mql')
-const {data } mql(`https://twitter.com/${username}`, {
+const { data } = mql(`https://twitter.com/${username}`, {
   data: {
     avatar: {
       selector: ['#avatar', 'img:first']
