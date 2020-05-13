@@ -1,5 +1,6 @@
 import serializeComponent from './serialize-component'
 import debounceComponent from './debounce-component'
+import isFastConnection from './is-fast-connection'
 import screenshotUrl from './screenshot-url'
 import formatNumber from './format-number'
 import aspectRatio from './aspect-ratio'
@@ -23,6 +24,7 @@ export {
   formatDate,
   formatNumber,
   getLines,
+  isFastConnection,
   isFunction,
   isSSR,
   mqlCode,
