@@ -9053,10 +9053,10 @@ fuse.js@^3.4.6:
   resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-3.6.1.tgz#7de85fdd6e1b3377c23ce010892656385fd9b10c"
   integrity sha512-hT9yh/tiinkmirKrlv4KWOjztdoZo1mx9Qh4KvWqC7isoXwdUY3PNWUxceF4/qO9R6riA2C29jdTOeQOIROjgw==
 
-gatsby-cli@^2.12.18:
-  version "2.12.18"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-2.12.18.tgz#e11f65ad6c8073b9115dc550c31f3e415e9bcc82"
-  integrity sha512-l7CHzHsYDs+0hPc8dt1SW7O1R7kGHs3XZhdLhLUtK3OAXQYRQitu0Wk5KnK6CrMjBeW30aAmmfQY9vkIyey14A==
+gatsby-cli@^2.12.21:
+  version "2.12.21"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-2.12.21.tgz#a8c57af428aebdb7882954eaf4d844bd012905f7"
+  integrity sha512-kJNcgMnae5m2ySWY126LT0W+pghgkzgHqUxQpqg6QCaV7FW1k0Bkf7nhKAg0uZgy9NhUpN1wb/26VeQjNFMzAg==
   dependencies:
     "@babel/code-frame" "^7.8.3"
     "@babel/runtime" "^7.9.6"
@@ -9074,7 +9074,7 @@ gatsby-cli@^2.12.18:
     fs-exists-cached "^1.0.0"
     fs-extra "^8.1.0"
     gatsby-core-utils "^1.2.2"
-    gatsby-recipes "^0.1.16"
+    gatsby-recipes "^0.1.19"
     gatsby-telemetry "^1.3.4"
     hosted-git-info "^3.0.4"
     is-valid-path "^0.1.1"
@@ -9243,10 +9243,10 @@ gatsby-react-router-scroll@^3.0.0:
     scroll-behavior "^0.9.12"
     warning "^3.0.0"
 
-gatsby-recipes@^0.1.16:
-  version "0.1.16"
-  resolved "https://registry.yarnpkg.com/gatsby-recipes/-/gatsby-recipes-0.1.16.tgz#d3a4b7e3f81767fb62d0e0a0351f41b13b964853"
-  integrity sha512-kJ3uBXdmkmUN7Y5jRBQiusBdZOOa9sH8GYJF7Z56TGJvMQVJYuxKJtS4jtqHbUcYX9gcRkA85z6h8Cp28CXRzg==
+gatsby-recipes@^0.1.19:
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/gatsby-recipes/-/gatsby-recipes-0.1.19.tgz#ac2634452c89253bd18d4f73face44db442b413d"
+  integrity sha512-N++VIje7M0N6zoShZMISyaIzMwbu9Lot7iyNDk6BblI466J8yQvceqj4uDIb9NzI6cQ82Px0yFGXapymsWGg9Q==
   dependencies:
     "@babel/core" "^7.9.6"
     "@babel/generator" "^7.9.6"
@@ -9280,6 +9280,7 @@ gatsby-recipes@^0.1.16:
     graphql-compose "^6.3.8"
     graphql-subscriptions "^1.1.0"
     graphql-type-json "^0.3.1"
+    hicat "^0.7.0"
     html-tag-names "^1.1.5"
     humanize-list "^1.0.1"
     import-jsx "^4.0.0"
@@ -9410,10 +9411,10 @@ gatsby-transformer-yaml@~2.4.1:
     lodash "^4.17.15"
     unist-util-select "^1.5.0"
 
-gatsby@~2.21.25:
-  version "2.21.25"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.21.25.tgz#9807ecece49319107018cea5654d9baeb8e00ddc"
-  integrity sha512-yCRbNEXUW8GzsmBd/pn/9RwlvkfWLsLMhRDXbvDmy3o3TTKi/FzvNXbIYNvoMNOrICZcI/yTR3nHzN4Ab7H2XQ==
+gatsby@~2.21.30:
+  version "2.21.30"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.21.30.tgz#e6d33d083afd3cb83c0ce9709ec554491d100d97"
+  integrity sha512-p/Qi9icLbCW0SZLAyPC4IAbLSWZl8ozRKqlIHsa91fkcuArIszSQXrpY5jMJ0QmWSWZAKhG4o1gSpjKSUeOxhQ==
   dependencies:
     "@babel/code-frame" "^7.8.3"
     "@babel/core" "^7.9.6"
@@ -9476,7 +9477,7 @@ gatsby@~2.21.25:
     flat "^4.1.0"
     fs-exists-cached "1.0.0"
     fs-extra "^8.1.0"
-    gatsby-cli "^2.12.18"
+    gatsby-cli "^2.12.21"
     gatsby-core-utils "^1.2.2"
     gatsby-graphiql-explorer "^0.4.1"
     gatsby-link "^2.4.2"
@@ -10471,6 +10472,19 @@ hex-to-rgb@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hex-to-rgb/-/hex-to-rgb-1.0.1.tgz#100b9df126b32f2762adf8486be68c65ef8ed2a4"
   integrity sha1-EAud8SazLydirfhIa+aMZe+O0qQ=
+
+hicat@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/hicat/-/hicat-0.7.0.tgz#a704cb3f57e49fbd7d38c2edd7aba38ff0b35263"
+  integrity sha1-pwTLP1fkn719OMLt16ujj/CzUmM=
+  dependencies:
+    highlight.js "^8.1.0"
+    minimist "^0.2.0"
+
+highlight.js@^8.1.0:
+  version "8.9.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-8.9.1.tgz#b8a9c5493212a9392f0222b649c9611497ebfb88"
+  integrity sha1-uKnFSTISqTkvAiK2SclhFJfr+4g=
 
 highlight.js@~9.13.0:
   version "9.13.1"
@@ -13629,6 +13643,11 @@ minimist@1.2.5, minimist@^1.1.0, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
+
+minimist@^0.2.0:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.2.1.tgz#827ba4e7593464e7c221e8c5bed930904ee2c455"
+  integrity sha512-GY8fANSrTMfBVfInqJAY41QkOM+upUTytK1jZ0c8+3HdHrJxBJ3rF5i9moClXTE8uUSnUo8cAsCoxDXvSY4DHg==
 
 minipass-collect@^1.0.2:
   version "1.0.2"
