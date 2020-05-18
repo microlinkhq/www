@@ -9674,10 +9674,11 @@ gh-got@^7.0.0:
     is-plain-obj "^1.1.0"
 
 git-authors-cli@latest:
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/git-authors-cli/-/git-authors-cli-1.0.25.tgz#1f9dcd9bb95c3e620dd42028cbc02e63cbabf258"
-  integrity sha512-dX3qiR+eA/G+hLEh/AL2poLIykP4QAd49NNDJI0iWK/LSOSgfHm46WOslfLRtVMd3Q2nthqGjiFsn2HerQOhng==
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/git-authors-cli/-/git-authors-cli-1.0.26.tgz#70c600f97e30497f9a75e91e0e0f85bf35c22497"
+  integrity sha512-ycmMFDT5KIvRO4ZMstYjmHQ8eEt3hEq6PaPS6zk+C213r3ZnT+TB/0n+AA4ucu0KGedhLq0EVi8z7WbF11ZSRg==
   dependencies:
+    chalk "~4.0.0"
     email-regex "~4.0.0"
     execa "~4.0.0"
     exists-file "~3.0.2"
