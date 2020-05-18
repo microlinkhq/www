@@ -8470,7 +8470,7 @@ fast-deep-equal@^3.1.1:
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
   integrity sha512-8UEa58QDLauDNfpbrX55Q9jrGHThw2ZMdOky5Gl1CDtVeJDPVrG4Jxx1N8jw2gkWaff5UUuX1KJd+9zGe2B+ZA==
 
-fast-diff@^1.1.2, fast-diff@^1.2.0:
+fast-diff@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
   integrity sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
@@ -14319,15 +14319,14 @@ npm-bundled@^1.1.1:
     npm-normalize-package-bin "^1.0.1"
 
 npm-check-updates@latest:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-6.0.0.tgz#9ea6a4c3b56c9729c7d7b02cad0f721992528438"
-  integrity sha512-nbKfHWXtQ376OeaoLvekheEqg7GMsL+ZMnXWlNdrGGAVcOJ8CNg2IE9g2q6yRMFw2JM5LEa/zF771RPPBTZPPw==
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-6.0.1.tgz#d8bcba08345b8d63b2b605d60c733714ee38d73d"
+  integrity sha512-lzoVW35KWaBn0m1O1AVr0G9/20niK13mYftoAr09WuQszoeTdlrjCNyC0pRNiTfb5ZxubZaUAi7HdVzkEihwwA==
   dependencies:
     chalk "^4.0.0"
     cint "^8.2.1"
     cli-table "^0.3.1"
     commander "^5.1.0"
-    fast-diff "^1.2.0"
     find-up "4.1.0"
     get-stdin "^8.0.0"
     json-parse-helpfulerror "^1.0.3"
