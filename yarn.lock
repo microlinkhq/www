@@ -1474,7 +1474,7 @@
   resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.13.tgz#7198976c56f6ce15f9d6718a973d80aa4bb6f0f6"
   integrity sha512-5nDPknJNyd6QqBrogeZCuO1yOZWtXxU2BYTeW+HNKeGouPtvhWPGY4GCZJ56l38Cre21UqCpXGBkboW6F7gzTQ==
 
-"@microlink/mql@~0.6.13", "@microlink/mql@~0.6.14":
+"@microlink/mql@~0.6.14":
   version "0.6.14"
   resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.6.14.tgz#1e34111828d52ea02d4ca8252bd084a08bb67dfc"
   integrity sha512-/t9wdnjvzi/pOejCP4e5xdQnN1dMNASP8sT3valwMTmRqoTVL5pPVc4Q9CIPU3w0VnD7IhSBjMzz1OP53vnSFg==
@@ -5050,11 +5050,6 @@ cacheable-lookup@^5.0.3:
   resolved "https://registry.yarnpkg.com/cacheable-lookup/-/cacheable-lookup-5.0.3.tgz#049fdc59dffdd4fc285e8f4f82936591bd59fec3"
   integrity sha512-W+JBqF9SWe18A72XFzN/V/CULFzPm7sBXzzR6ekkE+3tLG72wFZrBiBZhrZuDoYexop4PHJVdFAKb/Nj9+tm9w==
 
-cacheable-lookup@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/cacheable-lookup/-/cacheable-lookup-5.0.3.tgz#049fdc59dffdd4fc285e8f4f82936591bd59fec3"
-  integrity sha512-W+JBqF9SWe18A72XFzN/V/CULFzPm7sBXzzR6ekkE+3tLG72wFZrBiBZhrZuDoYexop4PHJVdFAKb/Nj9+tm9w==
-
 cacheable-request@^2.1.1:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/cacheable-request/-/cacheable-request-2.1.4.tgz#0d808801b6342ad33c91df9d0b44dc09b91e5c3d"
@@ -6896,13 +6891,6 @@ decompress-response@^4.2.0:
   integrity sha512-jOSne2qbyE+/r8G1VU+G/82LBs2Fs4LAsTiLSHOCOMZQl2OKZ6i8i4IyHemTe+/yIXOtTcRQMzPcgyhoFlqPkw==
   dependencies:
     mimic-response "^2.0.0"
-
-decompress-response@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/decompress-response/-/decompress-response-6.0.0.tgz#ca387612ddb7e104bd16d85aab00d5ecf09c66fc"
-  integrity sha512-aW35yZM6Bb/4oJlZncMH2LCoZtJXTRxES17vE3hoRiowU2kWHaJKFkSBDnDR+cm9J+9QhXmREyIfv0pji9ejCQ==
-  dependencies:
-    mimic-response "^3.1.0"
 
 decompress-response@^6.0.0:
   version "6.0.0"
@@ -10018,24 +10006,6 @@ got@^9.6.0:
     url-parse-lax "^3.0.0"
 
 got@~11.1.0, got@~11.1.2, got@~11.1.4:
-  version "11.1.4"
-  resolved "https://registry.yarnpkg.com/got/-/got-11.1.4.tgz#ecf0064aab26ae4b2989ab52aadd31a17e7bad63"
-  integrity sha512-z94KIXHhFSpJONuY6C6w1wC+igE7P1d0b5h3H2CvrOXn0/tum/OgFblIGUAxI5PBXukGLvKb9MJXVHW8vsYaBA==
-  dependencies:
-    "@sindresorhus/is" "^2.1.1"
-    "@szmarczak/http-timer" "^4.0.5"
-    "@types/cacheable-request" "^6.0.1"
-    "@types/responselike" "^1.0.0"
-    cacheable-lookup "^5.0.3"
-    cacheable-request "^7.0.1"
-    decompress-response "^6.0.0"
-    get-stream "^5.1.0"
-    http2-wrapper "^1.0.0-beta.4.5"
-    lowercase-keys "^2.0.0"
-    p-cancelable "^2.0.0"
-    responselike "^2.0.0"
-
-got@~11.1.4:
   version "11.1.4"
   resolved "https://registry.yarnpkg.com/got/-/got-11.1.4.tgz#ecf0064aab26ae4b2989ab52aadd31a17e7bad63"
   integrity sha512-z94KIXHhFSpJONuY6C6w1wC+igE7P1d0b5h3H2CvrOXn0/tum/OgFblIGUAxI5PBXukGLvKb9MJXVHW8vsYaBA==
@@ -14233,15 +14203,15 @@ nodeify@~1.0.1:
     promise "~1.3.0"
 
 nodengine@latest:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/nodengine/-/nodengine-3.4.4.tgz#0fd1c9bc1e01a553b5c6c04ae52ab11f78696613"
-  integrity sha512-577PUCWcv2ItaL4J5fRq55ycufzBQlooM+9mF2VDlrcBTqRwMQCnoFxlCEhvK7g12Nl/eJ2AxMcXXCYKdBxwPw==
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/nodengine/-/nodengine-3.4.5.tgz#a6385ea1bb0c74be2f1a3a46981c9badd9acb03e"
+  integrity sha512-mB9w1+BlGdHhesbifNFq+/JkqkSDr03SS+nMCDYjKCuR5QAHTk2KZSIPXHU8qQWtLJY+hBHMzQfK1leNixeVNg==
   dependencies:
     async "~3.2.0"
     configstore "~5.0.0"
     meow "~7.0.0"
     semver "~7.3.0"
-    simple-get "~3.1.0"
+    simple-get "~4.0.0"
     update-notifier "~4.1.0"
     which "~2.0.2"
 
@@ -18211,12 +18181,21 @@ simple-concat@^1.0.0:
   resolved "https://registry.yarnpkg.com/simple-concat/-/simple-concat-1.0.0.tgz#7344cbb8b6e26fb27d66b2fc86f9f6d5997521c6"
   integrity sha1-c0TLuLbib7J9ZrL8hvn21Zl1IcY=
 
-simple-get@^3.0.3, simple-get@^3.1.0, simple-get@~3.1.0:
+simple-get@^3.0.3, simple-get@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/simple-get/-/simple-get-3.1.0.tgz#b45be062435e50d159540b576202ceec40b9c6b3"
   integrity sha512-bCR6cP+aTdScaQCnQKbPKtJOKDp/hj9EDLJo3Nw4y1QksqaovlW/bnptB6/c1e+qmNIDHRK+oXFDdEqBT8WzUA==
   dependencies:
     decompress-response "^4.2.0"
+    once "^1.3.1"
+    simple-concat "^1.0.0"
+
+simple-get@~4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/simple-get/-/simple-get-4.0.0.tgz#73fa628278d21de83dadd5512d2cc1f4872bd675"
+  integrity sha512-ZalZGexYr3TA0SwySsr5HlgOOinS4Jsa8YB2GJ6lUNAazyAu4KG/VmzMTwAt2YVXzzVj8QmefmAonZIK2BSGcQ==
+  dependencies:
+    decompress-response "^6.0.0"
     once "^1.3.1"
     simple-concat "^1.0.0"
 
