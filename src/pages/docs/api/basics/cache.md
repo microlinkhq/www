@@ -6,16 +6,16 @@ Microlink API offers a builtin caching layer for speed up consecutive API calls 
 
 The first time you query for a resource that not was previously served, it will be created, what is known as cache **MISS**.
 
-The cache status is reflected using the response header as `x-cache-status`.
+The cache status is reflected using the response header as `cf-cache-status`.
 
 <MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "x-cache-status"`,
+  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "cf-cache-status"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.reddit.com')
   
-  console.log(response.headers.['x-cache-status' ) // => 'MISS'
+  console.log(response.headers.['cf-cache-status' ) // => 'MISS'
 }
   `
   }} 
@@ -24,13 +24,13 @@ module.exports = async () => {
 The successive requests for the resource will consume the cached version of the resource, what is known as cache **HIT**.
 
 <MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "x-cache-status"`,
+  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "cf-cache-status"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.reddit.com')
   
-  console.log(response.headers.['x-cache-status' ) // => 'HIT'
+  console.log(response.headers.['cf-cache-status' ) // => 'HIT'
 }
   `
   }} 
