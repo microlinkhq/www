@@ -1,36 +1,24 @@
 import React, { useState } from 'react'
-import Head from 'components/Head'
+import useScript from 'react-script-hook'
 
 const createStripe = stripeKey => window.Stripe(stripeKey, { locale: 'en' })
 
 export default ({ stripeKey, children }) => {
   const [stripe, setStripe] = useState(null)
-  const [mountOnLoad, setMountOnLoad] = useState(false)
 
-  const loadStripe = () => {
+  const onload = () => {
     if (window.Stripe) return setStripe(createStripe(stripeKey))
-    const el = document.querySelector('#stripe-js')
-    el && el.addEventListener('load', () => setStripe(createStripe(stripeKey)))
-  }
-
-  const onChangeClientState = (newState, addedTags, removedTags) => {
-    const el = addedTags.scriptTags && addedTags.scriptTags[0]
-    if (el && !mountOnLoad) {
-      setMountOnLoad(true)
-      el.onload = loadStripe
-    }
   }
 
   return (
     <>
-      <Head
-        onChangeClientState={onChangeClientState}
-        script={[
-          { id: 'stripe-js', src: 'https://js.stripe.com/v3', async: true }
-        ]}
-      />
-
-      {children(stripe)}
+      {useScript({
+        src: 'https://js.stripe.com/v3',
+        checkForExisting: true,
+        async: true,
+        onload: onload
+      })}
+      {stripe && children(stripe)}
     </>
   )
 }
