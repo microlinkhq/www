@@ -94,7 +94,6 @@
     "react-feather": "~2.0.8",
     "react-helmet": "~6.0.0",
     "react-is": "~16.13.1",
-    "react-script-hook": "^1.1.1",
     "react-spring": "~8.0.27",
     "react-stripe-elements": "~6.1.2",
     "react-syntax-highlighter": "~12.2.1",

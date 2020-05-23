@@ -1,6 +1,7 @@
 import serializeComponent from './serialize-component'
 import debounceComponent from './debounce-component'
 import isFastConnection from './is-fast-connection'
+import waitForGlobal from './wait-for-global'
 import screenshotUrl from './screenshot-url'
 import formatNumber from './format-number'
 import aspectRatio from './aspect-ratio'
@@ -37,5 +38,6 @@ export {
   sendEvent,
   serializeComponent,
   template,
-  title
+  title,
+  waitForGlobal
 }
