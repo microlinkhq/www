@@ -52,6 +52,7 @@ import IframeInline from './IframeInline/IframeInline'
 
 import StripeLoader from './StripeLoader'
 import Unavatar from './Unavatar/Unavatar'
+import Runkit from './Runkit/Runkit'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -87,6 +88,7 @@ export {
   Notification,
   Placeholder,
   PricePicker,
+  Runkit,
   Select,
   Spinner,
   StripeLoader,

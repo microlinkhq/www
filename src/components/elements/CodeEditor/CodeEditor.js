@@ -1,5 +1,5 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { prettier, getLines, template } from 'helpers'
+import { hash, prettier, getLines, template } from 'helpers'
 import styled, { css } from 'styled-components'
 import { wordBreak } from 'helpers/style'
 import { rgba, lighten } from 'polished'
@@ -9,6 +9,8 @@ import { colors, fonts } from 'theme'
 import CodeCopy from 'react-codecopy'
 import range from 'lodash/range'
 import get from 'dlv'
+
+import Runkit from '../Runkit/Runkit'
 
 import Text from '../Text'
 
@@ -43,7 +45,7 @@ const getLanguage = (className, { language }) => {
   if (language) return language
   const languageFromClassName = className.split('-')[1]
   if (languageFromClassName) return languageFromClassName.split('{')[0]
-  return 'javascript'
+  return 'js'
 }
 
 const getClassName = ({ className, metastring = '' }) =>
@@ -273,6 +275,7 @@ const CodeEditor = props => {
     ActionComponent,
     showLineNumbers,
     interactive,
+    runkit,
     children,
     theme,
     ...restProps
@@ -284,9 +287,12 @@ const CodeEditor = props => {
   const pretty = props.prettier ? get(prettier, language, identity) : identity
   const text = pretty(template(children)).trim()
   const css = highlightLines && highlighLinesStyle(highlightLines)
+  const id = `codeditor-${hash(children)}`
 
-  return (
+  const TerminalComponent = (
     <Terminal
+      data-runkit={runkit}
+      id={id}
       interactive={interactive}
       toCopy={text}
       ActionComponent={ActionComponent}
@@ -305,9 +311,20 @@ const CodeEditor = props => {
       </TerminalTextWrapper>
     </Terminal>
   )
+
+  if (runkit === false || language !== 'js') return TerminalComponent
+
+  return (
+    <Runkit
+      title={restProps.title}
+      loader={() => TerminalComponent}
+      source={text}
+    />
+  )
 }
 
 CodeEditor.defaultProps = {
+  runkit: false,
   interactive: false,
   prettier: true,
   showLineNumbers: false,
