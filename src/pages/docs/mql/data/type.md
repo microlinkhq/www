@@ -42,7 +42,7 @@ In the above case, we have added the <Type children="'url'"/> type to our `avata
 
 The same thing happens with `image` and [palette](/docs/api/parameters/palette).
 
-```json{3,10}
+```json
 {
   "data": {
     "avatar": {

@@ -29,7 +29,7 @@ The video source URL detected will be in a browser-friendly format to be possibl
 
 The video detection introduce some human readable fields as part of the payload:
 
-```json{26, 35}
+```json
 {
   "data": {
     "lang": "en",

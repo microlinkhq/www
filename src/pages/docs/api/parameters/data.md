@@ -31,7 +31,7 @@ module.exports = async () => {
 
 As a result, the extracted data will be part of the `data` payload in the response
 
-```json{3, 10}
+```json
 {
   "data": {
   "avatar": {

@@ -44,7 +44,7 @@ const { data } mql(`https://microlink.io`, {
 })
 ```
 
-```json{3, 11}
+```json
 {
   "data": {
      "links": [

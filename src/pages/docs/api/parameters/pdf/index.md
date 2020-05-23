@@ -31,7 +31,7 @@ module.exports = async () => {
 
 When it's enabled, a new `pdf` data field will be part of the Microlink API response payload.
 
-```json{19, 24}
+```json
 {
   "data": {
     "title": "7 Principles of Rich Web Applications",

@@ -35,7 +35,7 @@ const { data } = mql('https://kikobeats.com', {
 })
 ```
 
-```json{3}
+```json
 {
   "data": {
     "avatar": "https://kikobeats.com/images/avatar-glitch.jpg"

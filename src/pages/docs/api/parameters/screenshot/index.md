@@ -27,7 +27,7 @@ module.exports = async () => {
 
 When it's enabled, a new `screenshot` data field will be part of the Microlink API response payload.
 
-```json{3, 10}
+```json
 {
   "data": {
     "screenshot": {
