@@ -16,6 +16,7 @@ import pdfUrl from './pdf-url'
 import cdnUrl from './cdn-url'
 import isSSR from './is-ssr'
 import title from './title'
+import hash from './hash'
 
 export {
   aspectRatio,
@@ -24,6 +25,7 @@ export {
   formatDate,
   formatNumber,
   getLines,
+  hash,
   isFastConnection,
   isFunction,
   isSSR,
