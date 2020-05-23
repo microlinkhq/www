@@ -150,7 +150,6 @@ const Terminal = ({
   children,
   shellSymbol,
   blinkCursor,
-  interactive,
   width,
   theme,
   ...props
@@ -160,7 +159,7 @@ const Terminal = ({
 
   return (
     <TerminalProvider width={width} theme={theme} {...props}>
-      <CodeCopy interactive={interactive} theme={theme} text={text}>
+      <CodeCopy theme={theme} text={text}>
         <TerminalTextWrapper
           shellSymbol={shellSymbol}
           blinkCursor={blinkCursor}
@@ -174,7 +173,6 @@ const Terminal = ({
 
 Terminal.defaultProps = {
   blinkCursor: true,
-  interactive: false,
   shellSymbol: '$',
   theme: 'light',
   width: TERMINAL_WIDTH
