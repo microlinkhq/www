@@ -75,6 +75,10 @@ const TerminalHeader = styled.header`
   background: ${props => props.background};
   top: 1px;
   z-index: 2;
+
+  .codecopy_button {
+    background: ${props => props.background};
+  }
 `
 
 const TerminalText = styled.section`

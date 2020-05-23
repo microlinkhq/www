@@ -2,6 +2,7 @@ import { useLocalStorage } from 'components/hook'
 import styled from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'helpers'
+import { colors } from 'theme'
 import React from 'react'
 
 import CodeEditor from '../CodeEditor/CodeEditor'
@@ -26,8 +27,12 @@ const SelectWrapper = styled(Box)`
 const CustomSelect = styled(Select)`
   background-color: transparent;
   margin-bottom: 0;
-  background-image: ${props =>
-    `url('${arrow(props.theme === 'dark' ? 'white' : 'black')}')`};
+  background-image: ${props => `url('${arrow(props.color)}')`};
+
+  &:hover,
+  &:focus {
+    border-color: rgba(27, 31, 35, 0.35);
+  }
 `
 
 const toAlias = (lang = '') => {
@@ -56,12 +61,13 @@ export const SelectLanguage = ({
   onChange,
   ...props
 }) => {
+  const color = theme === 'dark' ? colors.white : colors.black
+  const background = theme === 'dark' ? colors.black : colors.white
+
   return (
-    <SelectWrapper
-      color={theme === 'dark' ? '#fff' : '#000'}
-      background={theme === 'dark' ? '#000' : '#fff'}
-    >
+    <SelectWrapper color={color} background={background}>
       <CustomSelect
+        color={color}
         value={value}
         onChange={event => {
           event.preventDefault()
@@ -89,11 +95,8 @@ const Actions = styled(Flex)`
   overflow: visible;
   top: 4px;
 
-  .codecopy_wrapper {
-    top: 0;
-  }
   .codecopy_button {
-    background: ${props => (props.theme === 'dark' ? '#000' : '#fff')};
+    background: ${props => props.background};
     position: relative;
     top: 0;
     left: 0;
@@ -106,24 +109,28 @@ const ActionComponent = ({
   editorLanguages,
   code,
   theme
-}) => (
-  <Actions theme={theme}>
-    <Text as='div' mr={2} fontSize={0}>
-      <SelectLanguage
-        theme={theme}
-        ml='auto'
-        mr='auto'
-        width='4.5rem'
-        mb={2}
-        bg='white'
-        children={editorLanguages}
-        value={editorLanguage}
-        onChange={setEditorLanguage}
-      />
-    </Text>
-    <CodeCopy theme={theme} interactive text={code} />
-  </Actions>
-)
+}) => {
+  const background = theme === 'dark' ? colors.black : colors.white
+
+  return (
+    <Actions background={background} theme={theme}>
+      <Text as='div' mr={2} fontSize={0}>
+        <SelectLanguage
+          theme={theme}
+          ml='auto'
+          mr='auto'
+          width='4.5rem'
+          mb={2}
+          bg='white'
+          children={editorLanguages}
+          value={editorLanguage}
+          onChange={setEditorLanguage}
+        />
+      </Text>
+      <CodeCopy theme={theme} interactive text={code} />
+    </Actions>
+  )
+}
 
 const MultiCodeEditor = ({ theme, languages: codeByLanguage, ...props }) => {
   const editorLanguages = Object.keys(codeByLanguage)

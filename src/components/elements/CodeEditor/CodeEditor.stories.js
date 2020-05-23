@@ -96,7 +96,7 @@ storiesOf('Elements', module).add('CodeEditor', () => (
       <CodeEditor title='my-code.js' language='js' children={jsCode} />
     </Box>
 
-    <Box mb={4}>
+    {/* <Box mb={4}>
       <Text color='black30'>js (interactive)</Text>
       <CodeEditor
         interactive
@@ -104,7 +104,7 @@ storiesOf('Elements', module).add('CodeEditor', () => (
         language='js'
         children={jsCode}
       />
-    </Box>
+    </Box> */}
     <Box mb={4}>
       <Text color='black30'>jsx</Text>
       <CodeEditor title='my-code.jsx' language='jsx' children={jsxCode} />
