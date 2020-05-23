@@ -13,7 +13,10 @@ export default ({ nodeVersion = '12', loader, children, ...props }) => {
       document.querySelectorAll('[data-runkit="true"]').forEach(el => {
         window.RunKit.createNotebook({
           element: el,
-          source: el.textContent,
+          title: el.children[0].textContent,
+          source: el.children[1].textContent,
+          nodeVersion: '14',
+          gutterStyle: 'outside',
           onLoad: () => {
             el.removeChild(el.children[0])
             el.removeChild(el.children[0])

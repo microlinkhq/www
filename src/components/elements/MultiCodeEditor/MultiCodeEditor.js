@@ -5,6 +5,7 @@ import { isFunction } from 'helpers'
 import React from 'react'
 
 import CodeEditor from '../CodeEditor/CodeEditor'
+
 import Select from '../Select/Select'
 import Flex from '../Flex'
 import Text from '../Text'
@@ -12,14 +13,12 @@ import Box from '../Box'
 
 const LOCALSTORAGE_KEY = 'multi_code_editor'
 
-const arrow = encodeURI(
-  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='white'> <path d='M0 6 L32 6 L16 28 z' /> </svg>"
-)
+const arrow = color =>
+  encodeURI(
+    `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='${color}'> <path d='M0 6 L32 6 L16 28 z' /> </svg>`
+  )
 
 const SelectWrapper = styled(Box)`
-  color: #fff;
-  background-color: #24292e;
-  background-image: linear-gradient(-180deg, #3b424a 0%, #24292e 90%);
   border-radius: 0.25em;
   border-color: rgba(27, 31, 35, 0.2);
 `
@@ -27,7 +26,8 @@ const SelectWrapper = styled(Box)`
 const CustomSelect = styled(Select)`
   background-color: transparent;
   margin-bottom: 0;
-  background-image: url("${arrow}");
+  background-image: ${props =>
+    `url('${arrow(props.theme === 'dark' ? 'white' : 'black')}')`};
 `
 
 const toAlias = (lang = '') => {
@@ -49,9 +49,18 @@ const toAlias = (lang = '') => {
   }
 }
 
-export const SelectLanguage = ({ children, value, onChange, ...props }) => {
+export const SelectLanguage = ({
+  theme,
+  children,
+  value,
+  onChange,
+  ...props
+}) => {
   return (
-    <SelectWrapper>
+    <SelectWrapper
+      color={theme === 'dark' ? '#fff' : '#000'}
+      background={theme === 'dark' ? '#000' : '#fff'}
+    >
       <CustomSelect
         value={value}
         onChange={event => {
@@ -84,6 +93,7 @@ const Actions = styled(Flex)`
     top: 0;
   }
   .codecopy_button {
+    background: ${props => (props.theme === 'dark' ? '#000' : '#fff')};
     position: relative;
     top: 0;
     left: 0;
@@ -97,9 +107,10 @@ const ActionComponent = ({
   code,
   theme
 }) => (
-  <Actions>
+  <Actions theme={theme}>
     <Text as='div' mr={2} fontSize={0}>
       <SelectLanguage
+        theme={theme}
         ml='auto'
         mr='auto'
         width='4.5rem'

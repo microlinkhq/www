@@ -3,6 +3,33 @@ import { storiesOf } from '@storybook/react'
 import { Text, Box, CodeEditor } from 'components/elements'
 import { Story } from 'story'
 
+const jsCode = `
+const mql = require('@microlink/mql')
+
+const twitter = (username) =>
+  mql(\`https://twitter.com/\${username}\`, {
+    data: {
+      stats: {
+        selector: '.ProfileNav-list',
+        attr: {
+          tweets: {
+            selector: '.ProfileNav-item--tweets .ProfileNav-value',
+            attr: 'data-count',
+          },
+          followings: {
+            selector: '.ProfileNav-item--following .ProfileNav-value',
+            attr: 'data-count',
+          },
+          favorites: {
+            selector: '.ProfileNav-item--favorites .ProfileNav-value',
+            attr: 'data-count',
+          },
+        },
+      },
+    },
+  })
+`
+
 const jsxCode = `
 import { CodeEditor } from 'components/elements'
 
@@ -54,6 +81,30 @@ const jsonCode = `
 
 storiesOf('Elements', module).add('CodeEditor', () => (
   <Story name='CodeEditor'>
+    <Box mb={4}>
+      <Text color='black30'>js</Text>
+      <CodeEditor
+        title='my-code.js'
+        theme='dark'
+        language='js'
+        children={jsCode}
+      />
+    </Box>
+
+    <Box mb={4}>
+      <Text color='black30'>js</Text>
+      <CodeEditor title='my-code.js' language='js' children={jsCode} />
+    </Box>
+
+    <Box mb={4}>
+      <Text color='black30'>js (interactive)</Text>
+      <CodeEditor
+        interactive
+        title='my-code.js'
+        language='js'
+        children={jsCode}
+      />
+    </Box>
     <Box mb={4}>
       <Text color='black30'>jsx</Text>
       <CodeEditor title='my-code.jsx' language='jsx' children={jsxCode} />

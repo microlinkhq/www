@@ -46,7 +46,7 @@ export const Terminal = withContainer(props => (
 ))
 
 export const Code = withContainer(props => (
-  <CodeEditor runkit mx='auto' {...props} />
+  <CodeEditor interactive mx='auto' {...props} />
 ))
 
 export const MultiCodeEditor = withContainer(
