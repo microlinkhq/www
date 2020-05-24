@@ -14,13 +14,14 @@ const mql = require('@microlink/mql')
 const { data } = await mql('https://kikobeats.com', {
   data: {
     avatar: {
+      selector: '#avatar',
       type: 'image',
-      selector: '#avatar'
+      attr: 'src'
     }
   }
 })
 
-console.log(`The avatar is ${data.avatar.url}`)
+console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
 ```
 
 It's ready to be consumed as **ESM**:
@@ -31,13 +32,14 @@ import mql from 'microlink/mql'
 const { data } = await mql('https://kikobeats.com', {
   data: {
     avatar: {
+      selector: '#avatar',
       type: 'image',
-      selector: '#avatar'
+      attr: 'src'
     }
   }
 })
 
-console.log(`The avatar is ${data.avatar.url}`)
+console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
 ```
 
 Last but not least, it can be loaded as **UMD** in any browser:
@@ -48,12 +50,13 @@ Last but not least, it can be loaded as **UMD** in any browser:
   mql('https://kikobeats.com', {
     data: {
       avatar: {
+        selector: '#avatar',
         type: 'image',
-        selector: '#avatar'
+        attr: 'src',
       }
     }
   }).then(({data}) => {
-    console.log(`The avatar is ${data.avatar.url}`)
+    console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
   })
 </script>
 ```

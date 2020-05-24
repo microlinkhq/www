@@ -20,7 +20,7 @@ A **rule** is defined by three primitives:
 
 - A DOM query ([selector](/docs/mql/data/selector)/[selectorAll](/docs/mql/data/selector-all)): It defines the HTML element(s) that will be used for getting the value (e.g., <Type children="'img'"/>).
 - An attribute ([attr](/docs/mql/data/attr)): It defines what field over the matched selector should be used for extracting the value (e.g., <Type children="'src'"/>).
-- A data type ([type](/docs/mql/data/type)): It defines how should be considered the value extracted (e.g., <Type children="'image'"/>).
+- A data type ([type](/docs/mql/data/type)): It defines how the value extracted should be considered (e.g., <Type children="'image'"/>).
 
 Combining these primitives, you can get any value present in any website:
 
@@ -30,9 +30,9 @@ const mql = require('@microlink/mql')
 const { data } = await mql('https://kikobeats.com', {
   data: {
     avatar: {
-      type: 'image',
-      attr: 'src',
       selector: '#avatar',
+      type: 'image',
+      attr: 'src'
     },
   },
 })

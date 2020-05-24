@@ -5,57 +5,34 @@ title: 'selectorAll'
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
-While [selector](/docs/mql/data/selector) returns just the first result, `selectorAll` will give you all results matching the value provided.
+It's the same than [selector](/docs/mql/data/selector) but it returns your a collection of results, being equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll):
 
-It's equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll).
-
-```html{10,16}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body>
-  <nav>
-    <a aria-current="page" class="active" href="/">
-    <a href="/#principles">Principles</a>  
-    <a href="/#pricing">Pricing</a>
-    <a href="/embed">Embed</a>
-    <a href="/screenshot">Screenshot</a>
-    <a href="/docs/">Docs</a>
-    <a href="/blog">Blog</a>
-  </nav>
-</body>
-</html>
-```
-
-```js{5}
+```js{8}
 const mql = require('@microlink/mql')
-const { data } mql(`https://microlink.io`, {
-  data: {
-    links: {
-      selectorAll: 'nav a',
-      attr: 'href',
-      type: 'url',
-    }
-  }
-})
-```
 
-```json
-{
-  "data": {
-     "links": [
-      "https://microlink.io/",
-      "https://microlink.io/#pricing",
-      "https://microlink.io/#principles",
-      "https://microlink.io/embed/",
-      "https://microlink.io/screenshot/",
-      "https://microlink.io/docs/",
-      "https://microlink.io/blog/",
-    ]
-  }
-}
+const hackerNews = () =>
+  mql('https://news.ycombinator.com/', {
+    prerender: false,
+    data: {
+      posts: {
+        selectorAll: '.athing',
+        attr: {
+          title: {
+            type: 'title',
+            selector: '.storylink',
+            attr: 'text'
+          },
+          url: {
+            type: 'url',
+            selector: '.storylink',
+            attr: 'href'
+          }
+        }
+      }
+    }
+  })
+
+const { data } = await hackerNews()
+
+console.log('latest hacker news posts:', data.posts)
 ```
