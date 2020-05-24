@@ -1,5 +1,4 @@
 import React from 'react'
-import { useScript } from 'components/hook'
 import { waitForGlobal } from 'helpers'
 
 export default ({ nodeVersion = '12', loader, children, ...props }) => {
@@ -25,13 +24,5 @@ export default ({ nodeVersion = '12', loader, children, ...props }) => {
     }
   })
 
-  return (
-    <>
-      {useScript({
-        src: 'https://embed.runkit.com',
-        async: true
-      })}
-      {loaderChildren}
-    </>
-  )
+  return <>{loaderChildren}</>
 }

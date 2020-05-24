@@ -511,6 +511,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
       footer={false}
       title={`${meta.name} ${activeRouteName}: ${meta.title}`}
       name='Microlink Docs'
+      script={[{ src: 'https://embed.runkit.com', async: true }]}
     >
       <Container
         pt={[0, 0, 0, 4]}
