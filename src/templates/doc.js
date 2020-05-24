@@ -409,6 +409,27 @@ const ROUTES_MQL = [
       {
         name: 'Usage',
         href: '/docs/mql/getting-started/usage'
+      },
+      {
+        name: 'API',
+        href: '/docs/mql/getting-started/api'
+      }
+    ]
+  },
+  {
+    name: 'Rules Definition',
+    posts: [
+      {
+        name: 'Basic rule',
+        href: '/docs/mql/rules/basic'
+      },
+      {
+        name: 'Nested rules',
+        href: '/docs/mql/rules/nested'
+      },
+      {
+        name: 'Rules fallbacks',
+        href: '/docs/mql/rules/fallbacks'
       }
     ]
   },
