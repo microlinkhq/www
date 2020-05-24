@@ -183,7 +183,9 @@ const CodeEditor = props => {
     </Terminal>
   )
 
-  if (interactive === false || language !== 'js') return TerminalComponent
+  if (interactive === false || language !== 'js' || text.includes('import')) {
+    return TerminalComponent
+  }
 
   return (
     <Runkit
