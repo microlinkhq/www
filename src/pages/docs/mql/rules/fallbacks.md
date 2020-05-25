@@ -9,8 +9,8 @@ const mql = require('@microlink/mql')
 
 const meetup = url =>
   mql(url, {
-    prerender: true,
-
+    adblock: false,
+    prerender: false,
     data: {
       description: [
         {
