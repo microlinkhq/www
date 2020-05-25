@@ -1,11 +1,10 @@
+import noop from 'lodash/noop'
 import isSSR from './is-ssr'
 
-const store = isSSR ? {} : window
-
 function waitForGlobal (key, cb, time = 100) {
-  return store[key]
+  return window[key]
     ? cb()
     : setTimeout(() => waitForGlobal(key, cb, time), time)
 }
 
-export default waitForGlobal
+export default isSSR ? noop : waitForGlobal

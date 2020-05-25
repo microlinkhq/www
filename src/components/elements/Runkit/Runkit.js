@@ -5,9 +5,11 @@ export default ({ nodeVersion = '12', loader, children, ...props }) => {
   const loaderChildren = loader()
 
   waitForGlobal('RunKit', () => {
+    console.log('[runkit] loaded')
     const loaderId = loaderChildren.props.id
     const el = document.getElementById(loaderId)
     if (el && !el.querySelector('iframe')) {
+      console.log('[runkit]', el.id)
       window.RunKit.createNotebook({
         element: el,
         name: el.id,
