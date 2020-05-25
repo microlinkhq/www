@@ -6,13 +6,10 @@ export default ({ nodeVersion = '12', loader, children, ...props }) => {
 
   useEffect(() => {
     waitForGlobal('RunKit', () => {
-      console.log('[runkit] loaded')
       const loaderId = loaderChildren.props.id
       const el = document.getElementById(loaderId)
-      console.log('[runkit]', !!el)
       if (el && !el.querySelector('iframe')) {
-        console.log('[runkit]', el.id)
-        const result = window.RunKit.createNotebook({
+        window.RunKit.createNotebook({
           element: el,
           name: el.id,
           title: el.children[0].textContent,
@@ -25,7 +22,6 @@ export default ({ nodeVersion = '12', loader, children, ...props }) => {
             el.style['box-shadow'] = 'none'
           }
         })
-        console.log('[runkit] result', result)
       }
     })
   }, [])
