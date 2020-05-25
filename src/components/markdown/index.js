@@ -5,6 +5,7 @@ import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
 import slug from 'remark-slug'
 import React from 'react'
+
 import get from 'dlv'
 
 import {
@@ -44,7 +45,9 @@ export const Terminal = withContainer(props => (
   <TerminalBase mx='auto' {...props} />
 ))
 
-export const Code = withContainer(props => <CodeEditor mx='auto' {...props} />)
+export const Code = withContainer(props => (
+  <CodeEditor interactive mx='auto' {...props} />
+))
 
 export const MultiCodeEditor = withContainer(
   props => <MultiCodeEditorBase width='inherit' mx='auto' {...props} />,

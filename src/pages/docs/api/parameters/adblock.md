@@ -5,7 +5,7 @@ title: 'adblock'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-When it's <Type children='true'/>, it disables builtin adblock in the browser page.
+When it's <Type children='true'/>, it enables to block third party requests coming from advertisements trackers cookies banners, coin miners, etc.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://www.youtube.com&screenshot&adblock=false`,
@@ -22,4 +22,4 @@ module.exports = async () => {
   }} 
 />
 
-If the target URL has a lot of third party requests that normally they are aborted when adlbock is enabled, could be possible that the request finishes on timeout.
+The adblock engine is provided by [Cliqz](https://github.com/cliqz-oss/adblocker). It's always up to date with the latest lists of resources to block, that generally bloat the response time of any website and they aren't essential.

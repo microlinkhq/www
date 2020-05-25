@@ -46,8 +46,7 @@ export const styleTerminalHeader = css`
 const TerminalHeader = styled('header')`
   ${styleTerminalHeader};
   height: 36px;
-  background: ${({ theme }) =>
-    theme === 'dark' ? colors.black : colors.white};
+  background: ${props => props.background};
   top: 0;
   z-index: 1;
 `
@@ -72,6 +71,16 @@ const TerminalTitleWrapper = styled('div')`
   margin-left: -3rem;
 `
 
+export const TerminalTitle = ({ theme, children }) => (
+  <TerminalTitleWrapper>
+    <Text
+      color={theme === 'dark' ? 'white40' : 'black40'}
+      fontSize={0}
+      children={children}
+    />
+  </TerminalTitleWrapper>
+)
+
 const TerminalText = styled('div')`
   font-weight: ${fontWeights.normal};
   padding: 16px;
@@ -81,9 +90,8 @@ const TerminalText = styled('div')`
   line-height: 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  background: ${({ theme }) =>
-    theme === 'dark' ? colors.black : colors.white};
-  color: ${({ theme }) => (theme === 'dark' ? colors.white : colors.black)};
+  background: ${props => props.background};
+  color: ${props => props.color};
   display: flex;
   align-items: center;
 
@@ -93,6 +101,7 @@ const TerminalText = styled('div')`
 
   .codecopy_button {
     top: -4px;
+    background: ${props => props.background};
   }
 `
 
@@ -128,29 +137,27 @@ const TerminalTextWrapper = styled('div')`
   ${props => props.blinkCursor && blinkCursorStyle}
 `
 
-const TerminalProvider = ({ title = '', children, theme, ...props }) => (
-  <TerminalWindow theme={theme} {...props}>
-    <TerminalHeader theme={theme}>
-      <TerminalButton.Red theme={theme} />
-      <TerminalButton.Yellow theme={theme} />
-      <TerminalButton.Green theme={theme} />
-      <TerminalTitleWrapper>
-        <Text
-          color={theme === 'dark' ? 'white40' : 'black40'}
-          fontSize={0}
-          children={title}
-        />
-      </TerminalTitleWrapper>
-    </TerminalHeader>
-    <TerminalText theme={theme} children={children} />
-  </TerminalWindow>
-)
+const TerminalProvider = ({ title = '', children, theme, ...props }) => {
+  const background = theme === 'dark' ? colors.black : colors.white
+  const color = theme === 'dark' ? colors.white : colors.black
+
+  return (
+    <TerminalWindow theme={theme} {...props}>
+      <TerminalHeader background={background} theme={theme}>
+        <TerminalButton.Red theme={theme} />
+        <TerminalButton.Yellow theme={theme} />
+        <TerminalButton.Green theme={theme} />
+        <TerminalTitle theme={theme} children={title} />
+      </TerminalHeader>
+      <TerminalText color={color} background={background} children={children} />
+    </TerminalWindow>
+  )
+}
 
 const Terminal = ({
   children,
   shellSymbol,
   blinkCursor,
-  interactive,
   width,
   theme,
   ...props
@@ -160,7 +167,7 @@ const Terminal = ({
 
   return (
     <TerminalProvider width={width} theme={theme} {...props}>
-      <CodeCopy interactive={interactive} theme={theme} text={text}>
+      <CodeCopy theme={theme} text={text}>
         <TerminalTextWrapper
           shellSymbol={shellSymbol}
           blinkCursor={blinkCursor}
@@ -174,7 +181,6 @@ const Terminal = ({
 
 Terminal.defaultProps = {
   blinkCursor: true,
-  interactive: false,
   shellSymbol: '$',
   theme: 'light',
   width: TERMINAL_WIDTH

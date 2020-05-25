@@ -2,9 +2,11 @@ import { useLocalStorage } from 'components/hook'
 import styled from 'styled-components'
 import CodeCopy from 'react-codecopy'
 import { isFunction } from 'helpers'
+import { colors } from 'theme'
 import React from 'react'
 
 import CodeEditor from '../CodeEditor/CodeEditor'
+
 import Select from '../Select/Select'
 import Flex from '../Flex'
 import Text from '../Text'
@@ -12,14 +14,12 @@ import Box from '../Box'
 
 const LOCALSTORAGE_KEY = 'multi_code_editor'
 
-const arrow = encodeURI(
-  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='white'> <path d='M0 6 L32 6 L16 28 z' /> </svg>"
-)
+const arrow = color =>
+  encodeURI(
+    `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32' fill='${color}'> <path d='M0 6 L32 6 L16 28 z' /> </svg>`
+  )
 
 const SelectWrapper = styled(Box)`
-  color: #fff;
-  background-color: #24292e;
-  background-image: linear-gradient(-180deg, #3b424a 0%, #24292e 90%);
   border-radius: 0.25em;
   border-color: rgba(27, 31, 35, 0.2);
 `
@@ -27,7 +27,12 @@ const SelectWrapper = styled(Box)`
 const CustomSelect = styled(Select)`
   background-color: transparent;
   margin-bottom: 0;
-  background-image: url("${arrow}");
+  background-image: ${props => `url('${arrow(props.color)}')`};
+
+  &:hover,
+  &:focus {
+    border-color: rgba(27, 31, 35, 0.35);
+  }
 `
 
 const toAlias = (lang = '') => {
@@ -49,10 +54,20 @@ const toAlias = (lang = '') => {
   }
 }
 
-export const SelectLanguage = ({ children, value, onChange, ...props }) => {
+export const SelectLanguage = ({
+  theme,
+  children,
+  value,
+  onChange,
+  ...props
+}) => {
+  const color = theme === 'dark' ? colors.white : colors.black
+  const background = theme === 'dark' ? colors.black : colors.white
+
   return (
-    <SelectWrapper>
+    <SelectWrapper color={color} background={background}>
       <CustomSelect
+        color={color}
         value={value}
         onChange={event => {
           event.preventDefault()
@@ -80,10 +95,8 @@ const Actions = styled(Flex)`
   overflow: visible;
   top: 4px;
 
-  .codecopy_wrapper {
-    top: 0;
-  }
   .codecopy_button {
+    background: ${props => props.background};
     position: relative;
     top: 0;
     left: 0;
@@ -96,23 +109,28 @@ const ActionComponent = ({
   editorLanguages,
   code,
   theme
-}) => (
-  <Actions>
-    <Text as='div' mr={2} fontSize={0}>
-      <SelectLanguage
-        ml='auto'
-        mr='auto'
-        width='4.5rem'
-        mb={2}
-        bg='white'
-        children={editorLanguages}
-        value={editorLanguage}
-        onChange={setEditorLanguage}
-      />
-    </Text>
-    <CodeCopy theme={theme} interactive text={code} />
-  </Actions>
-)
+}) => {
+  const background = theme === 'dark' ? colors.black : colors.white
+
+  return (
+    <Actions background={background} theme={theme}>
+      <Text as='div' mr={2} fontSize={0}>
+        <SelectLanguage
+          theme={theme}
+          ml='auto'
+          mr='auto'
+          width='4.5rem'
+          mb={2}
+          bg='white'
+          children={editorLanguages}
+          value={editorLanguage}
+          onChange={setEditorLanguage}
+        />
+      </Text>
+      <CodeCopy theme={theme} interactive text={code} />
+    </Actions>
+  )
+}
 
 const MultiCodeEditor = ({ theme, languages: codeByLanguage, ...props }) => {
   const editorLanguages = Object.keys(codeByLanguage)

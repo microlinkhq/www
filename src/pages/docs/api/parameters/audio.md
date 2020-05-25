@@ -29,7 +29,7 @@ The audio source URL detected will be in a browser-friendly format to be possibl
 
 The audio detection introduce some human readable fields as part of the payload:
 
-```json{26, 33}
+```json
 {
   "status": "success",
   "data": {

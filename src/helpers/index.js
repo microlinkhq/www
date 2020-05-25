@@ -1,6 +1,7 @@
 import serializeComponent from './serialize-component'
 import debounceComponent from './debounce-component'
 import isFastConnection from './is-fast-connection'
+import waitForGlobal from './wait-for-global'
 import screenshotUrl from './screenshot-url'
 import formatNumber from './format-number'
 import aspectRatio from './aspect-ratio'
@@ -16,6 +17,7 @@ import pdfUrl from './pdf-url'
 import cdnUrl from './cdn-url'
 import isSSR from './is-ssr'
 import title from './title'
+import hash from './hash'
 
 export {
   aspectRatio,
@@ -24,6 +26,7 @@ export {
   formatDate,
   formatNumber,
   getLines,
+  hash,
   isFastConnection,
   isFunction,
   isSSR,
@@ -35,5 +38,6 @@ export {
   sendEvent,
   serializeComponent,
   template,
-  title
+  title,
+  waitForGlobal
 }

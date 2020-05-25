@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Image, Box, Terminal } from 'components/elements'
+import { Image, Box, Text, Terminal } from 'components/elements'
 import styled from 'styled-components'
 import { colors } from 'theme'
 import { Story } from 'story'
@@ -64,9 +64,31 @@ const cliCode = (
 
 storiesOf('Elements', module).add('Terminal', () => (
   <Story name='Terminal' code={code}>
+    <Text color='gray6' mb={2} fontSize={0} children={'<Terminal />'} />
     <Terminal mb={4} children={cmd} />
+
+    <Text
+      color='gray6'
+      mb={2}
+      fontSize={0}
+      children={"<Terminal title='microlink-api' />"}
+    />
     <Terminal mb={4} title='microlink-api' children={cmd} />
+
+    <Text
+      color='gray6'
+      mb={2}
+      fontSize={0}
+      children={"<Terminal theme='dark' />"}
+    />
     <Terminal mb={4} title='microlink-api' children={cmd} theme='dark' />
+
+    <Text
+      color='gray6'
+      mb={2}
+      fontSize={0}
+      children={'<Terminal blinkCursor={false} />'}
+    />
     <Terminal title='microlink-api' children={cliCode} blinkCursor={false} />
   </Story>
 ))
