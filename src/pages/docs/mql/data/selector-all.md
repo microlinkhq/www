@@ -12,7 +12,6 @@ const mql = require('@microlink/mql')
 
 const hackerNews = () =>
   mql('https://news.ycombinator.com/', {
-    prerender: false,
     data: {
       posts: {
         selectorAll: '.athing',

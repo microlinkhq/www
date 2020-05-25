@@ -20,7 +20,6 @@ const mql = require('@microlink/mql')
 
 const instagram = username => 
   mql(`https://www.instagram.com/${username}`, {
-    prerender: false,
     data: {
       avatar: {
         selector: 'header img',
