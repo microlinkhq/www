@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.198](https://github.com/microlinkhq/microlink-www/compare/v2.10.197...v2.10.198) (2020-05-25)
+
+
+### Bug Fixes
+
+* only load waitForGlobal on non SSR ([e53212d](https://github.com/microlinkhq/microlink-www/commit/e53212d850209f3b67c3de3e96eb2d161113a397))
+
 ### [2.10.197](https://github.com/microlinkhq/microlink-www/compare/v2.10.196...v2.10.197) (2020-05-22)
 
 ### [2.10.196](https://github.com/microlinkhq/microlink-www/compare/v2.10.192...v2.10.196) (2020-05-22)
