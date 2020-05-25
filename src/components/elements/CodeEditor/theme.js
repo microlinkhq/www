@@ -4,7 +4,7 @@ import { fonts } from 'theme'
 import * as polished from 'polished'
 
 const FONT_SIZE = '14px'
-const LINE_HEIGHT = 1.5
+const LINE_HEIGHT = 1.75
 const TAB_SIZE = 2
 
 const GRAY0 = '#f8f9fa'

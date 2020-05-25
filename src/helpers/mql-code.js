@@ -64,13 +64,11 @@ export default props => (
 const mql = require('@microlink/mql')
 
 module.exports = props => {
-
   const { status, data } = await mql('${url}', {
     ${stringProps},
     ...props
   })
-}
-    `
+}`
   }
 
   Nodejs.language = 'javascript'
