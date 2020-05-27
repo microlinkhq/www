@@ -10,7 +10,7 @@ Depending on your implementation and requirements, the way you'd use this proper
 
 **with useRef**
 
-If you don't need the ref "on mount" (eg. for attaching callbacks), React's `useRef` hook alone will suffice:
+If you don't need the ref "on mount" (eg. for attaching callbacks), React's [useRef](https://reactjs.org/docs/hooks-reference.html#useref) hook alone will suffice:
 
 ```jsx
 const MyComponent = () => {
@@ -34,7 +34,7 @@ const MyComponent = () => {
 
 **with useCallback & useRef**
 
-If you need access to the media DOM element on mount, you would want to use the `useCallback` hook. This solution is explained briefly in the [React FAQ's](https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node), and in a bit more detail in [this](https://medium.com/@teh_builder/ref-objects-inside-useeffect-hooks-eb7c15198780) popular Medium post:
+If you need access to the media DOM element on mount, you would want to use the [useCallback](https://reactjs.org/docs/hooks-reference.html#usecallback) hook. This solution is explained briefly in the [React FAQ's](https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node), and in a bit more detail in [this](https://medium.com/@teh_builder/ref-objects-inside-useeffect-hooks-eb7c15198780) popular Medium post:
 
 ```jsx
 const MyComponent = () => {
