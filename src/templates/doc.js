@@ -118,6 +118,10 @@ const ROUTES_SDK = [
         ]
       },
       {
+        name: 'mediaRef',
+        href: '/docs/sdk/parameters/media-ref/'
+      },
+      {
         name: 'setData',
         href: '/docs/sdk/parameters/set-data/'
       },
