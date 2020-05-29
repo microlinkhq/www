@@ -114,7 +114,7 @@ const LiveDemo = ({
                 textAlign='left'
                 fontSize={[2, 2, 4, 4]}
               >
-                Ligthouse Viewer
+                Lighthouse Viewer
               </Subhead>
               <Box as='section' id='lighthouse' pb={4}>
                 {tab === 'json' ? (
