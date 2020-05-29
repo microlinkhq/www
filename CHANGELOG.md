@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.207](https://github.com/microlinkhq/microlink-www/compare/v2.10.206...v2.10.207) (2020-05-29)
+
+
+### Bug Fixes
+
+* lighthouse spelling correction ([7127d6b](https://github.com/microlinkhq/microlink-www/commit/7127d6b5e6fe86412ca4d706cbde9c162bcf5f3a))
+
 ### [2.10.206](https://github.com/microlinkhq/microlink-www/compare/v2.10.205...v2.10.206) (2020-05-27)
 
 ### [2.10.205](https://github.com/microlinkhq/microlink-www/compare/v2.10.204...v2.10.205) (2020-05-27)
