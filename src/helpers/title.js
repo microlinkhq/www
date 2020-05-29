@@ -18,7 +18,7 @@ const special = [
   'isMobile',
   'JavaScript',
   'Lighthouse',
-  'Ligthouse Viewer',
+  'Lighthouse Viewer',
   'Microlink',
   'Node.js',
   'oEmbed',
