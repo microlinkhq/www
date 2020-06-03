@@ -321,10 +321,6 @@ const ROUTES_API = [
         href: '/docs/api/parameters/prerender'
       },
       {
-        name: 'proxy',
-        href: '/docs/api/parameters/proxy'
-      },
-      {
         name: 'remove',
         href: '/docs/api/parameters/remove'
       },
