@@ -100,11 +100,6 @@ const DemoIntegrations = ({
     [params, withoutUrl]
   )
 
-  const angular = useMemo(
-    () => (jsObject.length ? ` [options]="{ ${jsObject} }"` : ''),
-    [jsObject]
-  )
-
   const jekyll = useMemo(() => {
     const jParams = withoutUrl
       .map(key => {
@@ -137,8 +132,7 @@ export default () => (
   <Microlink ${vue} />
 </template>
     `,
-          Angular: `<microlink url="${params.url}"${angular}></microlink>
-          `,
+
           Jekyll: `[](${params.url}){:.card-preview${jekyll}}`,
           Vanilla: `<a href="${params.url}">${urlName}</a>
 

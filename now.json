@@ -5,10 +5,6 @@
       "destination": "/docs/api/parameters/adblock"
     },
     {
-      "source": "/angular",
-      "destination": "/docs/sdk/integrations/angular"
-    },
-    {
       "source": "/api",
       "destination": "/docs/api/getting-started/overview"
     },

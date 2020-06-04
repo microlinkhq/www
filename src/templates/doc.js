@@ -41,11 +41,6 @@ const ROUTES_SDK = [
     name: 'Integrations',
     posts: [
       {
-        name: 'Angular',
-        href: '/docs/sdk/integrations/angular/',
-        icon: Icons.Angular
-      },
-      {
         name: 'Hugo',
         href: 'https://blog.ypertex.com/articles/useful-hugo-templating',
         icon: Icons.Hugo

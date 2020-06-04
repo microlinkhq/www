@@ -70,26 +70,6 @@ const children = [
     )
   },
   {
-    blockOne: <Icons.Angular width={ICON_SIZE} />,
-    blockTwo: (
-      <>
-        <Text>Angular</Text>
-        <Text>
-          <Link href='/docs/sdk/integrations/angular/'>Documentation</Link>
-        </Text>
-        <Text>
-          <Link icon href='https://codesandbox.io/s/microlinkangular-p0w92'>
-            CodeSandbox
-          </Link>{' '}
-          /{' '}
-          <Link icon href='https://angular.microlink.io'>
-            Storybook
-          </Link>
-        </Text>
-      </>
-    )
-  },
-  {
     blockOne: <Icons.JavaScript width={ICON_SIZE} />,
     blockTwo: (
       <>
