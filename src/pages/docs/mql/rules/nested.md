@@ -6,32 +6,32 @@ In case you need, you can use [attr](/docs/mql/data/attr) for mapping data struc
 
 ```js
 const mql = require('@microlink/mql')
- 
-const twitter = username =>
-  mql(`https://twitter.com/${username}`, {
+
+const github = (username) =>
+  mql(`https://github.com/${username}`, {
     data: {
       stats: {
-        selector: ".ProfileNav-list",
+        selector: '.user-profile-nav nav',
         attr: {
-          tweets: {
-            selector: ".ProfileNav-item--tweets .ProfileNav-value",
-            attr: "data-count",
-          },
-          followings: {
-            selector: ".ProfileNav-item--following .ProfileNav-value",
-            attr: "data-count",
+          repositories: {
+            selector: 'a:nth-child(2) > span',
+            type: 'number'
           },
           followers: {
-            selector: ".ProfileNav-item--followers .ProfileNav-value",
-            attr: "data-count",
+            selector: 'a:nth-child(4) > span',
+            type: 'number'
+          },
+          followings: {
+            selector: 'a:nth-child(5) > span',
+            type: 'number'
           }
         }
       }
     }
   })
 
-const username = 'microlinkhq'
-const { data } = await twitter(username)
+const username = 'kikobeats'
+const { response, data } = await github(username)
 
-console.log(`stats for @${username}:`, data.stats)
+console.log(`GitHub stats for @${username}:`, data.stats)
 ```

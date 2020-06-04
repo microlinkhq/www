@@ -22,9 +22,9 @@ const instagram = username =>
   mql(`https://www.instagram.com/${username}`, {
     data: {
       avatar: {
-        selector: 'header img',
-        type: 'image',
-        attr: 'src'
+        selector: 'meta[property="og:image"]',
+        attr: 'content',
+        type: 'image'
       }
     }
   })

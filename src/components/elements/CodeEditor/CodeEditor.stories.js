@@ -6,28 +6,33 @@ import { Story } from 'story'
 const jsCode = `
 const mql = require('@microlink/mql')
 
-const twitter = (username) =>
-  mql(\`https://twitter.com/\${username}\`, {
+const github = (username) =>
+  mql(\`https://github.com/\${username}\`, {
     data: {
       stats: {
-        selector: '.ProfileNav-list',
+        selector: '.user-profile-nav nav',
         attr: {
-          tweets: {
-            selector: '.ProfileNav-item--tweets .ProfileNav-value',
-            attr: 'data-count',
+          repositories: {
+            selector: 'a:nth-child(2) > span',
+            type: 'number'
+          },
+          followers: {
+            selector: 'a:nth-child(4) > span',
+            type: 'number'
           },
           followings: {
-            selector: '.ProfileNav-item--following .ProfileNav-value',
-            attr: 'data-count',
-          },
-          favorites: {
-            selector: '.ProfileNav-item--favorites .ProfileNav-value',
-            attr: 'data-count',
-          },
-        },
-      },
-    },
+            selector: 'a:nth-child(5) > span',
+            type: 'number'
+          }
+        }
+      }
+    }
   })
+
+const username = 'kikobeats'
+const { response, data } = await github(username)
+
+console.log(\`GitHub stats for @\${username}:\`, data.stats)
 `
 
 const jsxCode = `
