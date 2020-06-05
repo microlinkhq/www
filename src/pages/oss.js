@@ -36,7 +36,7 @@ export default () => {
               <Box
                 data-debug
                 key={name}
-                mb={2}
+                mb={3}
                 borderBottom={1}
                 borderColor='black05'
               >
