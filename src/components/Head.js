@@ -35,6 +35,8 @@ const getTitle = (props, metadata) => {
       return 'Stats'
     case '/integrations':
       return 'Integrations'
+    case '/oss':
+      return 'Open Source'
     default:
       return metadata.headline
   }
@@ -70,6 +72,8 @@ const getImage = (props, metadata) => {
       return cdnUrl('banner/stats.png')
     case '/insights':
       return cdnUrl('banner/insights.png')
+    case '/oss':
+      return cdnUrl('banner/oss.png')
     default:
       return metadata.image
   }
