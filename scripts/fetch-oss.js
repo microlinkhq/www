@@ -1,5 +1,6 @@
 'use strict'
 
+const { has } = require('lodash')
 const path = require('path')
 
 require('./fetch-data')({
@@ -20,6 +21,5 @@ require('./fetch-data')({
           url: item.html_url
         }
       })
-      .filter(data => !!data.description)
-      .filter(data => !!data.language)
+      .filter(item => !item.fork && has(item, ['language', 'description']))
 })
