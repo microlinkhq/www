@@ -3,6 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const debug = require('debug-logfmt')('data:providers')
+const beautyError = require('beauty-error')
 
 const providers = fs.readdirSync(path.resolve(__dirname, 'providers'))
 
@@ -19,4 +20,4 @@ const fetch = async () =>
 
 fetch()
   .then(() => process.exit(0))
-  .catch(err => console.error(err) && process.exit(1))
+  .catch(err => console.error(beautyError(err)) && process.exit(1))
