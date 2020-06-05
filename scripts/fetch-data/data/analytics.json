@@ -1,0 +1,18 @@
+[
+  {
+    "reqs": 25315345,
+    "reqs_pretty": "25M",
+    "cached_reqs": 1225739,
+    "cached_reqs_pretty": "1M",
+    "uncached_reqs": 24089606,
+    "uncached_reqs_pretty": "24M",
+    "cached_reqs_percentage": "5%",
+    "bytes": 4709487371772,
+    "bytes_pretty": "4.71 TB",
+    "cached_bytes": 202814259575,
+    "cached_bytes_pretty": "203 GB",
+    "uncached_bytes": 4506673112197,
+    "uncached_bytes_pretty": "4.51 TB",
+    "cached_bytes_percentage": "4%"
+  }
+]

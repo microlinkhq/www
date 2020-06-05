@@ -7503,7 +7503,7 @@ debug-log@^1.0.0:
   resolved "https://registry.yarnpkg.com/debug-log/-/debug-log-1.0.1.tgz#2307632d4c04382b8df8a32f70b895046d52745f"
   integrity sha1-IwdjLUwEOCuN+KMvcLiVBG1SdF8=
 
-debug-logfmt@~1.0.4:
+debug-logfmt@^1.0.4, debug-logfmt@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/debug-logfmt/-/debug-logfmt-1.0.4.tgz#e4060415542a5f231273b10802b209b6afaa3789"
   integrity sha512-csBS6w5JMMHeU8qvuvba2ManElHq+/QP7yQFy3x8esh7ARR+GVw7Kxg4P0lhT26pw3ilXuTSvl8Roer+GuH1NA==

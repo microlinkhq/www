@@ -1,0 +1,26 @@
+'use strict'
+
+const { has } = require('lodash')
+const path = require('path')
+
+module.exports = () =>
+  require('../create-provider')({
+    dist: path.resolve(__dirname, '../data/oss.json'),
+    url: 'https://oss.microlink.io',
+    mapper: data =>
+      data
+        .map(item => {
+          return {
+            description: item.description,
+            issues: item.open_issues,
+            language: item.language,
+            license: item.license && item.license.spdx_id,
+            name: item.name,
+            size: item.size,
+            slug: item.full_name,
+            stars: item.stargazers_count,
+            url: item.html_url
+          }
+        })
+        .filter(item => !item.fork && has(item, ['language', 'description']))
+  })
