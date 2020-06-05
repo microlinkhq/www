@@ -1,6 +1,5 @@
 'use strict'
 
-const { has } = require('lodash')
 const path = require('path')
 
 module.exports = () =>
@@ -22,5 +21,5 @@ module.exports = () =>
             url: item.html_url
           }
         })
-        .filter(item => !item.fork && has(item, ['language', 'description']))
+        .filter(item => !item.fork && !!item.language && !!item.description)
   })
