@@ -1,9 +1,9 @@
+import { Star as StarIcon, AlertCircle as IssueIcon } from 'react-feather'
 import { Headline, DotsBackground, Layout } from 'components/patterns'
 import { Link, Text, Flex, Box } from 'components/elements'
 import { useOss } from 'components/hook'
-import { layout } from 'theme'
 import React from 'react'
-import { Star as StarIcon } from 'react-feather'
+import { layout } from 'theme'
 
 export default () => {
   const repos = useOss()
@@ -32,8 +32,14 @@ export default () => {
             community by creating valuable, free and easy-to-use software.
           </Text>
           <Flex width='100%' maxWidth={layout.medium} flexDirection='column'>
-            {repos.map(({ name, description, stars, url }) => (
-              <Box key={name} mb={2} borderBottom={1} borderColor='black05'>
+            {repos.map(({ name, description, stars, issues, url }) => (
+              <Box
+                data-debug
+                key={name}
+                mb={2}
+                borderBottom={1}
+                borderColor='black05'
+              >
                 <Link color='black' href={url}>
                   <Text
                     fontWeight='bold'
@@ -42,9 +48,15 @@ export default () => {
                     width='150px'
                     children={name}
                   />
-                  <Flex style={{ float: 'right' }}>
-                    <Text mr={1} children={stars} />
-                    <StarIcon color='black' width='16px' />
+                  <Flex color='black' style={{ float: 'right' }}>
+                    <Flex alignItems='center' mr={3}>
+                      <Text mr={1} children={stars} />
+                      <StarIcon width='16px' />
+                    </Flex>
+                    <Flex alignItems='center'>
+                      <Text mr={1} children={issues} />
+                      <IssueIcon width='16px' />
+                    </Flex>
                   </Flex>
                   <Text color='black50' children={description} mb={2} />
                 </Link>
