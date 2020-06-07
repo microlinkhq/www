@@ -26,11 +26,8 @@ export default () => {
             mb={4}
             textAlign='center'
             maxWidth={10}
-          >
-            Because Open Source plays a major part in how we build our products,
-            we see it as a matter of course to give the same effort back to our
-            community by creating valuable, free and easy-to-use software.
-          </Text>
+            children="It's our great privilege to build our products using open source software (OSS) and we want to give the same effort back."
+          />
           <Flex width='100%' maxWidth={layout.medium} flexDirection='column'>
             {repos.map(({ name, description, stars, issues, url }) => (
               <Box
