@@ -11,7 +11,7 @@ Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are usin
 
 You can perform HTTP calls always you are under your the API quota limit.
 
-When you reach the API quota limit, you will experiment [HTTP 429 errors](https://httpstatuses.com/429), meaning you need to wait until the API quota reset (or upgrade your plan).
+When you reach the API quota limit, you will experience [HTTP 429 errors](https://httpstatuses.com/429), meaning you need to wait until the API quota reset (or upgrade your plan).
 
 When the API quota is reset, you have a fresh start again.
 
