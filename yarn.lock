@@ -20768,10 +20768,10 @@ tlds@^1.203.0:
   resolved "https://registry.yarnpkg.com/tlds/-/tlds-1.207.0.tgz#459264e644cf63ddc0965fece3898913286b1afd"
   integrity sha512-k7d7Q1LqjtAvhtEOs3yN14EabsNO8ZCoY6RESSJDB9lst3bTx3as/m1UuAeCKzYxiyhR1qq72ZPhpSf+qlqiwg==
 
-tldts-core@^5.6.29:
-  version "5.6.29"
-  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-5.6.29.tgz#7a7ef68760e80a3fdf0eac47eb91c9f825156f2f"
-  integrity sha512-MBzAXYPHoj4rvhyZpzKnDpAaW6sdJ0HiODRI9uThfNxhQU5iXgHtQiqsf/0lnYEtg17IyKLYfl7XG0QQ2K4cNg==
+tldts-core@^5.6.29, tldts-core@^5.6.30:
+  version "5.6.30"
+  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-5.6.30.tgz#d2f8061788785e1d4d9088472af1c646c6a9c4f9"
+  integrity sha512-yGMyIsDzZLRXlNWJn3jMqQGUgh2WnP3N9kJ9u+kS//lL2BiJZJwHXSENqyk7BU0Abpylz8PVUUP4FNY8hkjgnA==
 
 tldts-experimental@^5.6.21:
   version "5.6.29"
@@ -20780,12 +20780,12 @@ tldts-experimental@^5.6.21:
   dependencies:
     tldts-core "^5.6.29"
 
-tldts@~5.6.26, tldts@~5.6.29:
-  version "5.6.29"
-  resolved "https://registry.yarnpkg.com/tldts/-/tldts-5.6.29.tgz#da44c6a288ac3c76c299a56cbdae6599bd8b8478"
-  integrity sha512-Wi9xUGwWfTDbpfaA3EWuExwxnZgrc77irVeGlIDL7kAN8TKD0fgcqUxtLRPG3qyOOB528Ga9p4y842HKYkkObw==
+tldts@~5.6.26, tldts@~5.6.30:
+  version "5.6.30"
+  resolved "https://registry.yarnpkg.com/tldts/-/tldts-5.6.30.tgz#376dac6c0fee7b3cf263be54fb9281821962d4da"
+  integrity sha512-5lywtzq5ZAKfvXXHpPuPgZLJGbiBGwUKO7arTyHES1Zv0DIzUAJUHKupk3JYSSFO6XzoX+LqRTVQ3S1JMrGYyA==
   dependencies:
-    tldts-core "^5.6.29"
+    tldts-core "^5.6.30"
 
 tmp@^0.0.33:
   version "0.0.33"
