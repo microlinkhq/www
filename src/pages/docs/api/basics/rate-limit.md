@@ -18,8 +18,8 @@ When the API quota is reset, you have a fresh start again.
 Your current rate limit status is reflected as part of your response with the following headers:
 
 - `x-rate-limit-limit`: The maximum number of requests that the consumer is permitted to make per minute.
-- `x-rate-limit-reset`: The number of requests remaining in the current rate limit window.
-- `x-rate-limit-remaining`: The time at which the current rate limit window resets in UTC epoch seconds.
+- `x-rate-limit-remaining`: The number of requests remaining in the current rate limit window.
+- `x-rate-limit-reset`: The time at which the current rate limit window resets in UTC epoch seconds.
 
 We don't apply any throttling limitation: You can perform as much parallel requests as your daily quota allowed you
 
