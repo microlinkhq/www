@@ -27,7 +27,7 @@ console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})
 It's ready to be consumed as **ESM**:
 
 ```js
-import mql from 'microlink/mql'
+import mql from '@microlink/mql'
 
 const { data } = await mql('https://kikobeats.com', {
   data: {
