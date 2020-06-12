@@ -82,6 +82,16 @@ The target URL is considered not valid.
 
 Ensure the [url](/docs/api/parameters/url) provided has protocol, hostname and follows [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api) standard.
 
+## EINVALPROXY
+
+**Message**
+
+The proxy URL is considered not valid.
+
+**Solution**
+
+Ensure the [url](/docs/api/parameters/proxy) provided can be parsed as [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api).
+
 ## EINVALURLCLIENT
 
 **Message**
