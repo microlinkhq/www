@@ -20755,15 +20755,10 @@ tlds@^1.203.0:
   resolved "https://registry.yarnpkg.com/tlds/-/tlds-1.207.0.tgz#459264e644cf63ddc0965fece3898913286b1afd"
   integrity sha512-k7d7Q1LqjtAvhtEOs3yN14EabsNO8ZCoY6RESSJDB9lst3bTx3as/m1UuAeCKzYxiyhR1qq72ZPhpSf+qlqiwg==
 
-tldts-core@^5.6.29, tldts-core@^5.6.30:
-  version "5.6.30"
-  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-5.6.30.tgz#d2f8061788785e1d4d9088472af1c646c6a9c4f9"
-  integrity sha512-yGMyIsDzZLRXlNWJn3jMqQGUgh2WnP3N9kJ9u+kS//lL2BiJZJwHXSENqyk7BU0Abpylz8PVUUP4FNY8hkjgnA==
-
-tldts-core@^5.6.31:
-  version "5.6.31"
-  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-5.6.31.tgz#9bf2ea00cecc712f60561ddd339cf2c62a446bcb"
-  integrity sha512-GhX6IWla497YWeF7FLjFbR/4dfrtqQcBRA3NMcCXsR7xFa6kddUvVZj1YsQXv0ifaX+H5L0BHJ2xW4MDBQy83g==
+tldts-core@^5.6.29, tldts-core@^5.6.33:
+  version "5.6.33"
+  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-5.6.33.tgz#3cb5429881560deeb26c54540f32f5379b9cb75c"
+  integrity sha512-Sf+Kg2TVQQSa6XObeKpBs9j4FecMXzVwgWBUDCrDVNEBG93cxFGB5WxKxGpY/8liOAOcluyqkvT+9dtvAZ1LZA==
 
 tldts-experimental@^5.6.21:
   version "5.6.29"
@@ -20772,19 +20767,12 @@ tldts-experimental@^5.6.21:
   dependencies:
     tldts-core "^5.6.29"
 
-tldts@~5.6.26:
-  version "5.6.30"
-  resolved "https://registry.yarnpkg.com/tldts/-/tldts-5.6.30.tgz#376dac6c0fee7b3cf263be54fb9281821962d4da"
-  integrity sha512-5lywtzq5ZAKfvXXHpPuPgZLJGbiBGwUKO7arTyHES1Zv0DIzUAJUHKupk3JYSSFO6XzoX+LqRTVQ3S1JMrGYyA==
+tldts@~5.6.26, tldts@~5.6.33:
+  version "5.6.33"
+  resolved "https://registry.yarnpkg.com/tldts/-/tldts-5.6.33.tgz#e8c4d54852109df2e1c2539c2d7db91181bc7be7"
+  integrity sha512-5mAHCOe03ECKjgEe7nnt/YptwCBVPqsNbZifTExdSDpaKT63QxhV68xG3kf1axkxYEf9UN287ZYstN6mg9lYdg==
   dependencies:
-    tldts-core "^5.6.30"
-
-tldts@~5.6.31:
-  version "5.6.31"
-  resolved "https://registry.yarnpkg.com/tldts/-/tldts-5.6.31.tgz#70761e60b9ad5459a998a9467f2ce8e24f51ba8d"
-  integrity sha512-O3wpT9HyVOb4qulMUPBhuAFpjAUvjl9U6raUM93QknxduvFLbnymb7eyQj6cvo3lIU5eDqHES4F9l1sIyFtSCw==
-  dependencies:
-    tldts-core "^5.6.31"
+    tldts-core "^5.6.33"
 
 tmp@^0.0.33:
   version "0.0.33"
