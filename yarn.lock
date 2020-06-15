@@ -1749,10 +1749,10 @@
     qss "~2.0.3"
     whoops "~4.1.0"
 
-"@microlink/react@5.3.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-5.3.0.tgz#fb656bb032d6640ee4af58920cbf994073f2e0e2"
-  integrity sha512-SyyJE+cEgyav3EeHpeOdv+mW7fe+GE5wQu0RoreCQreM2UkTlxS0x1cTo1c99hGqtmjDqRPy4TQg+B9CM5K7SQ==
+"@microlink/react@5.3.2":
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-5.3.2.tgz#c423a25a0a68720ce266965dc87ded804672481f"
+  integrity sha512-ac3+lsrrcwENEsyDMkmcb8WQvnsNxHjZ6b6ErfUYGXUt23kY8GIVlnpVeirdJseQ3u3OHQVPkdcj1eogM32STQ==
   dependencies:
     "@microlink/mql" "~0.7.1"
     is-localhost-url "~1.0.3"
