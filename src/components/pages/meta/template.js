@@ -135,7 +135,7 @@ const Sdk = ({ domain, data }) => {
               <Caps fontSize={0} children='Explore Docs' />
             </Button>
 
-            <Link ml={3} href='https://storybook.microlink.io' icon>
+            <Link ml={3} href='https://sdk-react.microlink.io' icon>
               <Caps fontWeight='regular' fontSize={0} children='See Examples' />
             </Link>
           </Box>

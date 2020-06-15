@@ -42,7 +42,7 @@ const children = [
             CodeSandbox
           </Link>{' '}
           /{' '}
-          <Link icon href='https://react.microlink.io'>
+          <Link icon href='https://sdk-react.microlink.io'>
             Storybook
           </Link>
         </Text>
@@ -62,7 +62,7 @@ const children = [
             CodeSandbox
           </Link>{' '}
           /{' '}
-          <Link icon href='https://vue.microlink.io'>
+          <Link icon href='https://sdk-vue.microlink.io'>
             Storybook
           </Link>
         </Text>

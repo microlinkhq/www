@@ -46,7 +46,7 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
   <Link href='/docs' children='Microlink SDK' /> now supports video
   previsualizations.{' '}
   <Link
-    href='https://storybook.microlink.io/?selectedKind=Normal&selectedStory=with%20video%20media&full=0&addons=1&stories=1&panelRight=0&addonPanel=kadira%2Fjsx%2Fpanel'
+    href='https://sdk-react.microlink.io/?selectedKind=Normal&selectedStory=with%20video%20media&full=0&addons=1&stories=1&panelRight=0&addonPanel=kadira%2Fjsx%2Fpanel'
     children='Explore'
   />{' '}
   the rest!
