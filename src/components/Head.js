@@ -261,7 +261,7 @@ function Head ({ onChangeClientState, script, ...props }) {
         href='https://cdn.microlink.io/logo/favicon-128.png'
         sizes='128x128'
       />
-      <meta name='application-name' content='&nbsp;' />
+      <meta name='application-name' content='microlink.io' />
       <meta name='msapplication-TileColor' content='#FFFFFF' />
       <meta
         name='msapplication-TileImage'
