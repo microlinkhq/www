@@ -1,6 +1,8 @@
 import capitalize from 'microsoft-capitalize'
 
 const special = [
+  'Unified Cache',
+  'Edge Node Cache',
   'apiKey',
   'APIs',
   'background',
