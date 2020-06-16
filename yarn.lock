@@ -1749,10 +1749,10 @@
     qss "~2.0.3"
     whoops "~4.1.0"
 
-"@microlink/react@5.3.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-5.3.0.tgz#fb656bb032d6640ee4af58920cbf994073f2e0e2"
-  integrity sha512-SyyJE+cEgyav3EeHpeOdv+mW7fe+GE5wQu0RoreCQreM2UkTlxS0x1cTo1c99hGqtmjDqRPy4TQg+B9CM5K7SQ==
+"@microlink/react@5.3.2":
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/@microlink/react/-/react-5.3.2.tgz#c423a25a0a68720ce266965dc87ded804672481f"
+  integrity sha512-ac3+lsrrcwENEsyDMkmcb8WQvnsNxHjZ6b6ErfUYGXUt23kY8GIVlnpVeirdJseQ3u3OHQVPkdcj1eogM32STQ==
   dependencies:
     "@microlink/mql" "~0.7.1"
     is-localhost-url "~1.0.3"
@@ -5185,6 +5185,17 @@ beauty-error@~1.2.4:
     lodash "~4.17.11"
     pretty-error "~2.1.1"
 
+beauty-error@~1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/beauty-error/-/beauty-error-1.2.5.tgz#bd6f3080df78627b8dd059971e9dcc8a23ab6814"
+  integrity sha512-WT4bSiskfF23CViHvn5b0DER9xjMEE5AEWkKtW2Kjjg/8wVrlC4iOYf0KXx5U8y9mMqoKUPHyL9oZQ5XcEp8zA==
+  dependencies:
+    clean-stack "~3.0.0"
+    ensure-error "~3.0.0"
+    is-iterable "~1.1.1"
+    lodash "~4.17.11"
+    pretty-error "~2.1.1"
+
 better-assert@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/better-assert/-/better-assert-1.0.2.tgz#40866b9e1b9e0b55b481894311e68faffaebc522"
@@ -6154,6 +6165,13 @@ clean-stack@^2.0.0, clean-stack@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
   integrity sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==
+
+clean-stack@~3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-3.0.0.tgz#a7c249369fcf0f33c7888c20ea3f3dc79620211f"
+  integrity sha512-RHxtgFvXsRQ+1AM7dlozLDY7ssmvUUh0XEnfnyhYgJTO6beNZHBogiaCwGM9Q3rFrUkYxOtsZRC0zAturg5bjg==
+  dependencies:
+    escape-string-regexp "4.0.0"
 
 clean-yaml-object@^0.1.0:
   version "0.1.0"
@@ -8538,7 +8556,7 @@ escape-string-regexp@2.0.0, escape-string-regexp@^2.0.0:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
   integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
 
-escape-string-regexp@^4.0.0:
+escape-string-regexp@4.0.0, escape-string-regexp@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
@@ -20433,10 +20451,10 @@ swap-case@^1.1.0:
     lower-case "^1.1.1"
     upper-case "^1.1.1"
 
-swr@~0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-0.2.2.tgz#6e1b3e5c0e545c4fdb36ae3aa38cd94d0f9a88b7"
-  integrity sha512-D/z+PTUchZhoUA0tNC8TNJivf7Hc61WPxbUdXPi+VxRloddWYNP1ZicaEgyAph42ZnKl1L7twcZr4q6d0UMXcg==
+swr@~0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.2.3.tgz#e0fb260d27f12fafa2388312083368f45127480d"
+  integrity sha512-JhuuD5ojqgjAQpZAhoPBd8Di0Mr1+ykByVKuRJdtKaxkUX/y8kMACWKkLgLQc8pcDOKEAnbIreNjU7HfqI9nHQ==
   dependencies:
     fast-deep-equal "2.0.1"
 
@@ -20760,10 +20778,10 @@ tldts-core@^5.6.29, tldts-core@^5.6.30:
   resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-5.6.30.tgz#d2f8061788785e1d4d9088472af1c646c6a9c4f9"
   integrity sha512-yGMyIsDzZLRXlNWJn3jMqQGUgh2WnP3N9kJ9u+kS//lL2BiJZJwHXSENqyk7BU0Abpylz8PVUUP4FNY8hkjgnA==
 
-tldts-core@^5.6.31:
-  version "5.6.31"
-  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-5.6.31.tgz#9bf2ea00cecc712f60561ddd339cf2c62a446bcb"
-  integrity sha512-GhX6IWla497YWeF7FLjFbR/4dfrtqQcBRA3NMcCXsR7xFa6kddUvVZj1YsQXv0ifaX+H5L0BHJ2xW4MDBQy83g==
+tldts-core@^5.6.33:
+  version "5.6.33"
+  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-5.6.33.tgz#3cb5429881560deeb26c54540f32f5379b9cb75c"
+  integrity sha512-Sf+Kg2TVQQSa6XObeKpBs9j4FecMXzVwgWBUDCrDVNEBG93cxFGB5WxKxGpY/8liOAOcluyqkvT+9dtvAZ1LZA==
 
 tldts-experimental@^5.6.21:
   version "5.6.29"
@@ -20779,12 +20797,12 @@ tldts@~5.6.26:
   dependencies:
     tldts-core "^5.6.30"
 
-tldts@~5.6.31:
-  version "5.6.31"
-  resolved "https://registry.yarnpkg.com/tldts/-/tldts-5.6.31.tgz#70761e60b9ad5459a998a9467f2ce8e24f51ba8d"
-  integrity sha512-O3wpT9HyVOb4qulMUPBhuAFpjAUvjl9U6raUM93QknxduvFLbnymb7eyQj6cvo3lIU5eDqHES4F9l1sIyFtSCw==
+tldts@~5.6.33:
+  version "5.6.33"
+  resolved "https://registry.yarnpkg.com/tldts/-/tldts-5.6.33.tgz#e8c4d54852109df2e1c2539c2d7db91181bc7be7"
+  integrity sha512-5mAHCOe03ECKjgEe7nnt/YptwCBVPqsNbZifTExdSDpaKT63QxhV68xG3kf1axkxYEf9UN287ZYstN6mg9lYdg==
   dependencies:
-    tldts-core "^5.6.31"
+    tldts-core "^5.6.33"
 
 tmp@^0.0.33:
   version "0.0.33"
