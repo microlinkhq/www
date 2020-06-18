@@ -2,7 +2,11 @@
 title: 'Overview'
 ---
 
-**Microlink SDK** enables you to create previews from any link.
+**Microlink SDK** is the way to consume [Microlink API](/docs/api/getting-started/overview) directly from your UI, enabling beauty link previews for any link, designed with three things in mind:
+
+- **Common surface**: Although they may have different interface API, every specific integration has the same functionalities.
+- **Lightweight & fast**: The bundle size tends to be equal or less than 10KB (no polyfills included).
+- **Customizable style**: At least you can customize style using universal CSS classes present on the markup.
 
 You can convert any link present in your markup
 
