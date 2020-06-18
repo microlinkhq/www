@@ -2,13 +2,29 @@
 title: 'Styling'
 ---
 
-<!-- ## CSS Classnames -->
-
 We don't inject any CSS into your application.
 
-The card previsualization is shipped with a default minimal inline style.
+Instead, the card previsualization is shipped with a default minimal inline style.
 
-If you need to adapt the _look and feel_, each component of the card has been assigned a [BEM](http://getbem.com/introduction) class name:
+If you need to adapt the _look and feel_, two can use one of the following strategies
+
+## CSS Variables
+
+You can use [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) to overwrite the default values:
+
+**--microlink-hover-background-color**: `#f5f8fa`
+**--microlink-hover-border-color**: `#8899A680`
+**--microlink-background-color**: `#fff`
+**--microlink-border-style**: `solid`
+**--microlink-border-width**: `1px`
+**--microlink-border**: `1px solid #e1e8ed`
+**--microlink-color**: `#181919`
+**--microlink-color**: `#e1e8ed`
+**--microlink-max-width**: `500px`
+
+## CSS Classes
+
+When the microlink UI card is rendered, each subcomponent of the card has been assigned a [BEM](http://getbem.com/introduction) class name:
 
 - **microlink_card**: The root element of the card.
 - **microlink_card\_\_content_description**: The `p` tag of the card description.
