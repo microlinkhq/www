@@ -14,7 +14,7 @@
     },
     {
       "source": "/cache",
-      "destination": "/docs/api/parameters/force"
+      "destination": "/docs/api/basics/cache"
     },
     {
       "source": "/codes",
