@@ -1,11 +1,8 @@
-import stringify from 'fast-safe-stringify'
 import { useState, useEffect } from 'react'
 import { flatten, unflatten } from 'flat'
+import { isSSR, isEqual } from 'helpers'
 import { decode, encode } from 'qss'
 import { navigate } from 'gatsby'
-import { isSSR } from 'helpers'
-
-const eq = (str1, str2) => stringify(str1) === stringify(str2)
 
 const fromLocation = isSSR
   ? () => ({})
@@ -18,7 +15,7 @@ export const useQueryState = () => {
 
   useEffect(() => {
     const newQuery = fromLocation()
-    if (!eq(query, newQuery)) setQuery(newQuery)
+    if (!isEqual(query, newQuery)) setQuery(newQuery)
   }, condition)
 
   const set = (
