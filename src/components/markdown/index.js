@@ -21,7 +21,8 @@ import {
   Video as VideoBase,
   Iframe as IframeBase,
   Button,
-  Tweet as TweetBase
+  Tweet as TweetBase,
+  Color
 } from 'components/elements'
 
 import MicrolinkBase from '../patterns/Microlink/Microlink'
@@ -348,6 +349,7 @@ const ScopedComponents = {
   Button,
   Code,
   CodeInline,
+  Color,
   Container,
   DemoIntegrations,
   Figcaption,

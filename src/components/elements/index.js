@@ -16,6 +16,7 @@ import Card from './Card/Card'
 import Flex from './Flex'
 
 import Hide from './Hide'
+import Color from './Color/Color'
 import Tweet from './Tweet/Tweet'
 import Image from './Image/Image'
 import Video from './Video/Video'
@@ -68,6 +69,7 @@ export {
   Caps,
   Card,
   CodeEditor,
+  Color,
   Container,
   Dot,
   DotSpinner,
