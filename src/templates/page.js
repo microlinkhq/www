@@ -58,7 +58,7 @@ export default ({ isBlogPage, date, meta, content }) => (
       {!isBlogPage && date && (
         <Blockquote>
           <Paraph>
-            Las Updated: {formatDate(date)} ({<TimeAgo date={date} />})
+            Last Updated: {formatDate(date)} ({<TimeAgo date={date} />})
           </Paraph>
         </Blockquote>
       )}
