@@ -12,6 +12,7 @@ import sendEvent from './send-event'
 import getLines from './get-lines'
 import template from './template'
 import prettier from './prettier'
+import isEqual from './is-equal'
 import mqlCode from './mql-code'
 import pdfUrl from './pdf-url'
 import cdnUrl from './cdn-url'
@@ -27,6 +28,7 @@ export {
   formatNumber,
   getLines,
   hash,
+  isEqual,
   isFastConnection,
   isFunction,
   isSSR,

@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.240](https://github.com/microlinkhq/microlink-www/compare/v2.10.239...v2.10.240) (2020-06-27)
+
+### [2.10.239](https://github.com/microlinkhq/microlink-www/compare/v2.10.238...v2.10.239) (2020-06-25)
+
+### [2.10.238](https://github.com/microlinkhq/microlink-www/compare/v2.10.237...v2.10.238) (2020-06-25)
+
+### [2.10.237](https://github.com/microlinkhq/microlink-www/compare/v2.10.236...v2.10.237) (2020-06-23)
+
+### [2.10.236](https://github.com/microlinkhq/microlink-www/compare/v2.10.235...v2.10.236) (2020-06-21)
+
+### [2.10.235](https://github.com/microlinkhq/microlink-www/compare/v2.10.234...v2.10.235) (2020-06-20)
+
+### [2.10.234](https://github.com/microlinkhq/microlink-www/compare/v2.10.233...v2.10.234) (2020-06-19)
+
+### [2.10.233](https://github.com/microlinkhq/microlink-www/compare/v2.10.232...v2.10.233) (2020-06-19)
+
+### [2.10.232](https://github.com/microlinkhq/microlink-www/compare/v2.10.231...v2.10.232) (2020-06-18)
+
+### [2.10.231](https://github.com/microlinkhq/microlink-www/compare/v2.10.230...v2.10.231) (2020-06-16)
+
+### [2.10.230](https://github.com/microlinkhq/microlink-www/compare/v2.10.229...v2.10.230) (2020-06-16)
+
+### [2.10.229](https://github.com/microlinkhq/microlink-www/compare/v2.10.228...v2.10.229) (2020-06-15)
+
+
+### Bug Fixes
+
+* application name ([e1ecfb2](https://github.com/microlinkhq/microlink-www/commit/e1ecfb2da2c89b254d35de0ae2bfc49529611ba7))
+
 ### [2.10.228](https://github.com/microlinkhq/microlink-www/compare/v2.10.227...v2.10.228) (2020-06-15)
 
 ### [2.10.227](https://github.com/microlinkhq/microlink-www/compare/v2.10.226...v2.10.227) (2020-06-12)

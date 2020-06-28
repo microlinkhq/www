@@ -2,57 +2,37 @@
 title: Cache
 ---
 
-Microlink API offers a builtin caching layer for speed up consecutive API calls based on query parameters.
+Microlink API has a builtin cache layer to speed up consecutive API calls based on the URL, meaning:
 
-The first time you query for a resource that not was previously served, it will be created, what is known as cache **MISS**.
+- The same request performed over the time will be consumed from the same cache copy.
+- A different request or a request variation will create different cache copies.
 
-The cache status is reflected using the response header as `cf-cache-status`.
+The cache layer offers [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency) based on three concepts:
 
-<MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "cf-cache-status"`,
-  'Node.js': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://www.reddit.com')
-  
-  console.log(response.headers.['cf-cache-status' ) // => 'MISS'
-}
-  `
-  }} 
-/>
+**Unified Cache**
 
-The successive requests for the resource will consume the cached version of the resource, what is known as cache **HIT**.
+When you query for a resource against Microlink API for the first time, the request will generate a shallow cache copy.
 
-<MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "cf-cache-status"`,
-  'Node.js': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://www.reddit.com')
-  
-  console.log(response.headers.['cf-cache-status' ) // => 'HIT'
-}
-  `
-  }} 
-/>
+That known as **MISS** and it's reflect as `x-cache-status` on response headers.
 
-The period of time the resource is cached is known as **Time To Live** ([ttl](/docs/api/parameters/ttl)) and it specifies the maximum quantity of time the resource will served from cache. 
+Any successive API access based on the same URL will consume the shallow copy created, reflecting a **HIT** at `x-cache-status` response headers.
 
-You can see the remain time before [ttl](/docs/api/parameters/ttl) expiration as `x-cache-expired-at` in the reponse headers.
+**Edge Node Cache**
 
-<MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com | grep -i "x-cache-expired-at"`,
-  'Node.js': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://www.reddit.com')
-  
-  console.log(response.headers.['x-cache-expired-at' ) // => '3h 56m 35.2s'
-}
-  `
-  }} 
-/>
+Since Microlink relies on [CloudFlare CDN](https://microlink.io/blog/edge-cdn/), after the unified cache is warm, any successive API access based on the sam URL will be served from the nearest edge node over [CloudFlare Network](https://www.cloudflare.com/network).
 
-Also, [ttl](/docs/api/parameters/ttl) is properly reflected as `cache-control` response header to tell browsers how much time they can serve the same resource until refresh it.
+That means not only response will be served from cache, also it will be served from the nearest distance relative to the request origin. That's reflected under `cf-cache-status` response header as **HIT**.
 
-If you want to bypass and get a fresh response, you can use [force](/docs/api/parameters/force) for regenerating the cache copy without waiting [ttl](/docs/api/parameters/ttl) expiration time.
+Edge nodes cache is per edge location, meaning every edge node as their own cache, causing a **MISS** reflected at `cf-cache-status` response header when the access comes from a different location.
+
+When this happen, the edge node cache will fallback automatically into the unified cache, creating a new edge cache copy.
+
+**Cache Invalidation**
+
+The cached request will be considered as valid until it reached the expiration time, reflected at the cache-control response header.
+
+There is two ways to setup the expiration:
+
+- [ttl](/docs/api/parameters/ttl): It sets the maximum quantity of time the value is considered valid.
+- [force](/docs/api/parameters/force): It invalidates the cache immediately, generating a new fresh cache copy.
+

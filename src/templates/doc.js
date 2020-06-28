@@ -24,15 +24,15 @@ const ROUTES_SDK = [
         href: '/docs/sdk/getting-started/overview/'
       },
       {
-        name: 'Considerations',
-        href: '/docs/sdk/getting-started/considerations/'
+        name: 'Polyfills',
+        href: '/docs/sdk/getting-started/polyfills/'
+      },
+      {
+        name: 'Styling',
+        href: '/docs/sdk/getting-started/styling/'
       },
       {
         name: 'Storybook',
-        href: '/integrations'
-      },
-      {
-        name: 'CodeSandbox',
         href: '/integrations'
       }
     ]

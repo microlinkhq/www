@@ -1,7 +1,8 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
-import { gradient, colors } from 'theme'
+import { textGradient, colors } from 'theme'
+import { lighten } from 'polished'
 
 import Box from '../Box'
 import Link from './base'
@@ -10,23 +11,20 @@ const hoverStyle = createCssState({
   selector: '&:hover:not([disabled])',
   state: 'hover',
   css: css`
-    color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
-    border-image: ${gradient};
-    border-image-slice: 1;
+    ${textGradient};
+    opacity: 1;
   `
 })
 
 const style = css`
-  text-decoration: none;
   outline: 0;
-  opacity: 0.75;
+  opacity: 0.65;
   display: inline-block;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 2px solid;
-  border-color: ${({ isDark }) => (isDark ? colors.white10 : colors.black10)};
   color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+  text-decoration: underline;
+  text-decoration-color: ${({ isDark }) =>
+    lighten(0.8, isDark ? colors.white80 : colors.black80)};
+  text-underline-offset: 2px;
 `
 
 const LinkSolid = styled(Link)`
