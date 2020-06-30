@@ -430,7 +430,7 @@ export const Resume = props => (
           <Subhead
             as='h3'
             fontSize={[3, 4]}
-            children='Always up to date'
+            children='Live screenshots'
             pb={3}
           />
           <Text
@@ -441,7 +441,7 @@ export const Resume = props => (
             Every screenshot has a{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
             expiration, they will be automatically refreshed, reflecting any
-            change present on the website.
+            change present on the site.
           </Text>
         </Flex>
       }
@@ -468,7 +468,7 @@ export const Resume = props => (
           <Subhead
             as='h3'
             fontSize={[3, 4]}
-            children='Fully Customizable'
+            children='Fully programmable'
             pb={3}
           />
           <Text
@@ -497,7 +497,7 @@ export const Resume = props => (
         <Image
           width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
-          alt='Fully Customizable'
+          alt='Fully programmable'
           src='https://cdn.microlink.io/illustrations/abstract-2.svg'
         />
       }
@@ -526,8 +526,8 @@ export const Resume = props => (
           >
             Create truly{' '}
             <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
-            composition based on a browser and/or background overlay in a
-            programmatic way. background.
+            compositions, setting up the background, browser window, color
+            syntax highlight, and more.
           </Text>
         </Flex>
       }
