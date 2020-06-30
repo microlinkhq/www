@@ -67,7 +67,7 @@ module.exports = async () => {
 
 Keep in mind the support for this query parameters depend on every provider implementation.
 
-**Supported Providers**
+<H2>Providers supported</H2>
 
 Most of the most popular sites over the Internet supports oEmbed protocol.
 

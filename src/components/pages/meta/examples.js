@@ -185,12 +185,12 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
                   languages={
                     editorView === 'data'
                       ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
+                          JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
                             data,
                             null,
                             2
                           )}`
-                      }
+                        }
                       : languages
                   }
                 />
@@ -607,9 +607,11 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Create truly{' '}
-            <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
-            composition based on a browser and/or background overlay.
+            Add embeddable media to your site, in a simple way, with{' '}
+            <Link href='/docs/api/parameters/iframe/#providers-supported'>
+              +250 verified providers
+            </Link>{' '}
+            supported.
           </Text>
         </Flex>
       }
