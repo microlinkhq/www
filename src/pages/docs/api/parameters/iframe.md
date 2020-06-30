@@ -2,10 +2,10 @@
 title: 'iframe'
 ---
 
-Type: <Type children='<boolean>'/><br/>
+Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer>
 Default: <Type children='false'/>
 
-Enabling it will return a new `iframe` data field, allowing to insert an embedded representation of the target URL.
+Enabling it will return a new `iframe` data field, allowing to insert an embedded representation of the [url](/docs/api/parameters/url).
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api {{demolinks.youtube.url}}&iframe`,
@@ -28,22 +28,46 @@ module.exports = async () => {
   allowFullScreen
 />
 
-Any URL that implements [oEmbed](https://oembed.com/) specification is supported.
-
-If the discovery process from the target URL has been done successfully, a new `iframe` data field will be added as part of the response:
+Any URL that implements [oEmbed](https://oembed.com/) specification is supported. If the discovery has been done successfully, the `iframe` field will be now present into the response:
 
 ```json
 {
   "iframe": {
-  "html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">our new shiny website has landed <a href=\"https://t.co/KIrhYYcTRx\">https://t.co/KIrhYYcTRx</a> <a href=\"https://t.co/cM0se2UoIg\">pic.twitter.com/cM0se2UoIg</a></p>&mdash; microlink.io (@microlinkhq) <a href=\"https://twitter.com/microlinkhq/status/1032664633960800257?ref_src=twsrc%5Etfw\">August 23, 2018</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
-  "scripts": [{
-    "async": true,
-    "src": "https://platform.twitter.com/widgets.js",
-    "charset": "utf-8"
-    }]
-  }
+    "html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">our new shiny website has landed <a href=\"https://t.co/KIrhYYcTRx\">https://t.co/KIrhYYcTRx</a> <a href=\"https://t.co/cM0se2UoIg\">pic.twitter.com/cM0se2UoIg</a></p>&mdash; microlink.io (@microlinkhq) <a href=\"https://twitter.com/microlinkhq/status/1032664633960800257?ref_src=twsrc%5Etfw\">August 23, 2018</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
+    "scripts": [{
+      "async": true,
+      "src": "https://platform.twitter.com/widgets.js",
+      "charset": "utf-8"
+      }]
+    }
 }
 ```
+
+<Figcaption children='The `iframe` field has `scripts` and `html` subfields.' />
+
+Additionally, you can supply any consumer query parameter supported by [specification](https://oembed.com/), like `maxwidth` or `maxheight`:
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api {{demolinks.youtube.url}}&iframe.maxwidth=350`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    '{{demolinks.youtube.url}}', {
+      iframe: {
+        maxwidth: 350
+      }
+  })
+    
+  console.log(status, data)
+}
+  `
+  }}
+/>
+
+Keep in mind the support for this query parameters depend on every provider implementation.
+
+**Supported Providers**
 
 Most of the most popular sites over the Internet supports oEmbed protocol.
 
