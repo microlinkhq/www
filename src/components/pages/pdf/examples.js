@@ -359,7 +359,7 @@ const Resume = props => (
           <Subhead
             as='h3'
             fontSize={[3, 4]}
-            children='Fully Customizable'
+            children='Fully customizable'
             pb={3}
           />
           <Text
@@ -383,7 +383,7 @@ const Resume = props => (
         <Image
           width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
-          alt='Fully Customizable'
+          alt='Fully customizable'
           src='https://cdn.microlink.io/illustrations/abstract-2.svg'
         />
       }
@@ -398,23 +398,17 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <Subhead
-            as='h3'
-            fontSize={[3, 4]}
-            children='Universal Embed'
-            pb={3}
-          />
+          <Subhead as='h3' fontSize={[3, 4]} children='Embed directly' pb={3} />
           <Text
             pr={[2, 3, 4, 4]}
             pl={[2, 3, 0, 0]}
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Consume{' '}
-            <Link href='/docs/api/getting-started/overview'>Microlik API</Link>{' '}
-            directly from your HTML markup using{' '}
-            <Link href='/docs/api/parameters/embed'>embed</Link> mode, creating
-            PDFs on demand without being worried about code or infrastructure.
+            Create PDFs on demand and{' '}
+            <Link href='/docs/api/parameters/embed'>embed</Link> them directly
+            in your HTML markup, without being worried about code or
+            infrastructure.
           </Text>
         </Flex>
       }
@@ -422,7 +416,7 @@ const Resume = props => (
         <Image
           width={[5, 6, 7, 8]}
           pb={[4, 4, 4, 0]}
-          alt='Universal Embed'
+          alt='Embed directly'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }
