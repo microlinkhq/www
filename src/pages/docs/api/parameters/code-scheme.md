@@ -1,5 +1,5 @@
 ---
-title: 'colorScheme'
+title: 'codeScheme'
 ---
 
 Type: <Type children='<string>'/><br/>
@@ -10,14 +10,14 @@ Sets the code syntax highlighting color theme to use for beautifying HTML markup
 ![](https://i.imgur.com/5WIekwy.png)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink-stats-api.now.sh/&screenshot&colorScheme=atom-dark`,
+  Shell: `microlink-api https://microlink-stats-api.now.sh/&screenshot&codeScheme=atom-dark`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
     'https://microlink-stats-api.now.sh/'. {
       screenshot: true,
-      colorScheme: 'atom-dark'
+      codeScheme: 'atom-dark'
   })
   console.log(status, data)
 }
