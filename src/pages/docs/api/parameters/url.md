@@ -24,7 +24,9 @@ The URL provided need to be reachable by the service.
 
 For example, if you want to extract content behind a login panel, the URL provided should contain the authentication step as part of the query string.
 
-If the URL provided has query strings, it should be properly escaped in order to not interfere with the rest of the API Parameters.
+In case you need to authenticate a URL, need to provide the authentication credentials using [headers](/docs/api/parameters/headers).
+
+If the URL provided has query strings parameters, they should be properly escaped in order to not interfere with the rest of the Microlink API query parameters.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https%3A%2F%2Fkikobeats.com%3F%26ref%3Dmicrolink`,
@@ -40,7 +42,7 @@ module.exports = async () => {
   }} 
 />
 
-[MQL](/docs/mql/getting-started/overview) or [Microlink CLI](/docs/api/getting-started/cli) will escape the URL properly; Otherwise, you need to be sure to escape it, using [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) or equivalent.
+Using [MQL](/docs/mql/getting-started/overview) or [Microlink CLI](/docs/api/getting-started/cli) will escape the URL properly; Otherwise, you need to be sure to escape it, using [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) or equivalent.
 
 The protocol matters: If the target URL have relative URLs inside (e.g., images or videos), then the URL provided will be used to resolved relatives URLs into absolute.
 

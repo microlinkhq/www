@@ -26,7 +26,7 @@ module.exports = async () => {
 
 Then the data payload is going to just get these fields
 
-```
+```json
 {
   "status": "success",
   "data": {
