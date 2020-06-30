@@ -72,30 +72,6 @@ In case you are treating with sensible headers (e.g., [authorization](https://de
 In that way, they will be not publicly exposed. They should be prefixes with `x-api-header`:
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://news.ycombinator.com&headers.userAgent=googlebot&headers.acceptLanguage=en-us`,
-  'Node.js': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://news.ycombinator.com', { 
-      headers: {
-        'user-agent': 'googlebot',
-        'accept-language': 'en-US'
-      }
-  }, {
-    headers: {
-      'x-api-header-authorization': 'Basic YWRtaW46YWRtaW4='
-    }
-  })
- 
- console.log(status, data)
-}
-  `
-  }} 
-/>
-
-
-<MultiCodeEditor languages={{
   Shell: `curl -H 'x-api-header-authorization: Basic YWRtaW46YWRtaW4=' https://test-http-login.now.sh\&screenshot\&embed\=screenshot.url\&meta\=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
