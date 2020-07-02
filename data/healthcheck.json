@@ -7,12 +7,6 @@
       "p95": 5522,
       "p95_pretty": "5.5s"
     },
-    "ttl": {
-      "avg": 76,
-      "avg_pretty": "76ms",
-      "p95": 77,
-      "p95_pretty": "77ms"
-    },
     "video": {
       "avg": 796.6666666666666,
       "avg_pretty": "797ms",
