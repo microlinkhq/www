@@ -10,3 +10,4 @@ yarn-error.log
 .envrc
 static/data/
 data/*.json
+!data/healthcheck.json
