@@ -21,7 +21,7 @@ import { cdnUrl, aspectRatio, screenshotUrl, debounceComponent } from 'helpers'
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 
 import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
-import { useCheckly, useFeaturesScreenshot } from 'components/hook'
+import { useHealthcheck, useFeaturesScreenshot } from 'components/hook'
 import React, { useEffect, useState } from 'react'
 import uniqueRandomArray from 'unique-random-array'
 import { speed, colors, borders } from 'theme'
@@ -270,8 +270,8 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
 }
 
 export const Average = ({ size, queryParam }) => {
-  const checkly = useCheckly()
-  const avg = checkly[queryParam].avg_pretty
+  const healthcheck = useHealthcheck()
+  const avg = healthcheck[queryParam].avg_pretty
 
   const [average, setAverage] = useState(Number(avg.replace(/ms|s/, '')))
   const [averageHighlight, setAverageHighlight] = useState(false)
@@ -321,8 +321,8 @@ export const Average = ({ size, queryParam }) => {
 }
 
 export const Timings = ({ queryParam }) => {
-  const checkly = useCheckly()
-  const p95 = checkly[queryParam].p95_pretty.replace(/ms|s/, '')
+  const healthcheck = useHealthcheck()
+  const p95 = healthcheck[queryParam].p95_pretty.replace(/ms|s/, '')
 
   return (
     <AnimatedBox id='timings'>

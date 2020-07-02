@@ -27,7 +27,7 @@ import {
   SubHeadline
 } from 'components/patterns'
 
-import { useCheckly, useFeaturesMeta } from 'components/hook'
+import { useHealthcheck, useFeaturesMeta } from 'components/hook'
 import { mqlCode, debounceComponent } from 'helpers'
 import { transition, colors, borders } from 'theme'
 import React, { useEffect, useState } from 'react'
@@ -226,7 +226,7 @@ const Timings = () => {
   ]
   const [index, setIndex] = useState(0)
 
-  const checkly = useCheckly()
+  const healthcheck = useHealthcheck()
 
   useEffect(() => {
     const interval = setInterval(
@@ -290,7 +290,7 @@ const Timings = () => {
                   mr={3}
                   fontWeight='bold'
                 >
-                  {checkly.meta.avg_pretty.replace(/ms|s/, '')}
+                  {healthcheck.meta.avg_pretty.replace(/ms|s/, '')}
                   <Caption
                     titleize={false}
                     as='div'
@@ -327,7 +327,7 @@ const Timings = () => {
                   mr={3}
                   fontWeight='bold'
                 >
-                  {checkly.meta.p95_pretty.replace(/ms|s/, '')}
+                  {healthcheck.meta.p95_pretty.replace(/ms|s/, '')}
                   <Caption
                     titleize={false}
                     as='div'

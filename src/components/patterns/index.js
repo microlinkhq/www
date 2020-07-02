@@ -23,8 +23,8 @@ import LiveDemo from './LiveDemo/LiveDemo'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
-import KubernetesMonitor from './KubernetesMonitor/KubernetesMonitor'
-import Checkly from './Checkly/Checkly'
+import ClusterMonitor from './ClusterMonitor/ClusterMonitor'
+import Healthcheck from './Healthcheck/Healthcheck'
 import Toolbar from './Toolbar/Toolbar'
 
 export {
@@ -34,7 +34,7 @@ export {
   Caption,
   CardLink,
   Chat,
-  Checkly,
+  Healthcheck,
   Checkout,
   CookiesPolicy,
   CubeBackground,
@@ -45,7 +45,7 @@ export {
   Footer,
   Grid,
   Headline,
-  KubernetesMonitor,
+  ClusterMonitor,
   Layout,
   Legend,
   Lighthouse,

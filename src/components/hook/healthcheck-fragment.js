@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby'
 
-export const checklyFragment = graphql`
-  fragment ChecklyFragment on ChecklyJson {
+export const healthcheckFragment = graphql`
+  fragment HealthcheckFragment on HealthcheckJson {
     iframe {
       avg
       avg_pretty
