@@ -1,5 +1,5 @@
 import { Container, Box, Flex, Text, DotSpinner } from 'components/elements'
-import { KubernetesMonitor, Layout } from 'components/patterns'
+import { ClusterMonitor, Layout } from 'components/patterns'
 import React, { useState } from 'react'
 
 const Value = props => (
@@ -23,7 +23,7 @@ export default () => {
       : { labelColor: 'white50', color: 'white', bg: 'black' }
 
   return (
-    <KubernetesMonitor>
+    <ClusterMonitor>
       {({ isLoading, data }) => {
         return (
           <Layout
@@ -61,6 +61,6 @@ export default () => {
           </Layout>
         )
       }}
-    </KubernetesMonitor>
+    </ClusterMonitor>
   )
 }

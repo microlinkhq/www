@@ -2,7 +2,7 @@ import useSWR from 'swr'
 
 const API = 'https://k8s.microlink.io'
 
-const KubernetesMonitor = ({ children, ...opts }) => {
+const ClusterMonitor = ({ children, ...opts }) => {
   const { data } = useSWR(
     API,
     () => window.fetch(API).then(res => res.text()),
@@ -15,8 +15,8 @@ const KubernetesMonitor = ({ children, ...opts }) => {
   })
 }
 
-KubernetesMonitor.defaultProps = {
+ClusterMonitor.defaultProps = {
   refreshInterval: 2000
 }
 
-export default KubernetesMonitor
+export default ClusterMonitor

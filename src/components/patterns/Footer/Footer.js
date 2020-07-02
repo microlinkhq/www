@@ -15,7 +15,7 @@ import {
 
 import { Mail, Slack, GitHub, Twitter } from 'react-feather'
 import { layout, transition, colors } from 'theme'
-import Checkly from '../Checkly/Checkly'
+import Healthcheck from '../Healthcheck/Healthcheck'
 import { Microlink } from 'components/logos'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
@@ -221,10 +221,9 @@ export default ({ theme, ...props }) => {
               justifyContent={['center', 'inherit', 'inherit', 'inherit']}
             >
               <Flex flexDirection='column'>
-                <Checkly>
-                  {({ data }) => {
-                    const apiStatus = (data && data.status) || 'error'
-                    if (apiStatus === 'error') {
+                <Healthcheck>
+                  {({ isHealthy, isLoading }) => {
+                    if (isLoading) {
                       return (
                         <LinkSolid
                           theme={theme}
@@ -238,36 +237,33 @@ export default ({ theme, ...props }) => {
                         </LinkSolid>
                       )
                     }
+
                     return (
                       <Link
                         theme={theme}
                         px={0}
                         data-event-category='Footer'
                         data-event-action='Status'
-                        href='/status'
+                        href='/stats'
                         children='Status'
                         color={colors[textColor]}
                       >
                         <Text fontSize={[0, 0, 0, 1]} color='inherit'>
                           <Choose>
-                            <Choose.When condition={apiStatus === 'good'}>
+                            <Choose.When condition={isHealthy}>
                               <Dot.Success mr={2} />
                               All Systems Operational
                             </Choose.When>
-                            <Choose.When condition={apiStatus === 'degraded'}>
+                            <Choose.Otherwise>
                               <Dot.Warning mr={2} />
                               System Performance Degradation
-                            </Choose.When>
-                            <Choose.When condition={apiStatus === 'failing'}>
-                              <Dot.Error mr={2} />
-                              System Perfomance Issue
-                            </Choose.When>
+                            </Choose.Otherwise>
                           </Choose>
                         </Text>
                       </Link>
                     )
                   }}
-                </Checkly>
+                </Healthcheck>
               </Flex>
             </Flex>
 
