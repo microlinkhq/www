@@ -1,17 +1,14 @@
-import Markdown, {
-  H1,
-  H2,
-  Paraph,
-  Strong,
-  Link,
-  Blockquote
-} from 'components/markdown'
+import { withContainer } from 'helpers/hoc'
 
-import { Chat, Layout } from 'components/patterns'
+import Markdown, { H2, Paraph, Strong, Link } from 'components/markdown'
+
+import { Headline, Chat, Layout } from 'components/patterns'
 import { Text, Box } from 'components/elements'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import React from 'react'
+
+const { WIDTH } = withContainer
 
 const PostFooter = () => (
   <>
@@ -32,36 +29,15 @@ const PostFooter = () => (
 
 export default ({ isBlogPage, date, meta, content }) => (
   <Layout {...meta}>
-    <Box px={3}>
-      <Text
-        as='header'
-        textAlign='center'
-        mb={5}
-        maxWidth='900px'
-        ml='auto'
-        mr='auto'
-      >
-        <H1
-          textAlign='center'
-          children={meta.title}
-          slug={false}
-          variant='gradient'
-          mb={3}
-        />
+    <Box pt={[0, 0, 0, 3]} px={3}>
+      <Text maxWidth={isBlogPage ? WIDTH.normal : 'none'} ml='auto' mr='auto'>
+        <Headline title={meta.title} pb={3} />
         {isBlogPage && (
-          <Text fontSize={2} color='black50'>
+          <Text fontSize={[2, 2, 2, 3]} textAlign='center' mb={4}>
             {formatDate(date)} ({<TimeAgo date={date} />})
           </Text>
         )}
       </Text>
-
-      {!isBlogPage && date && (
-        <Blockquote>
-          <Paraph>
-            Last Updated: {formatDate(date)} ({<TimeAgo date={date} />})
-          </Paraph>
-        </Blockquote>
-      )}
 
       <Markdown children={content} />
 

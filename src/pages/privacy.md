@@ -3,8 +3,8 @@ title: 'Privacy Policy'
 date: '2018-08-20'
 ---
 
-<Paraph fontSize={3}>
-  Your privacy is important to us. It's Microlink HQ's policy to respect
+<Paraph mt={0} fontSize={[2, 2, 2, 3]} textAlign='center'>
+  Microlink respects
   your privacy regarding any information we may collect from you across our
   website <Link href='https://microlink.io' children='microlink.io' />, and
   other sites we own and operate, according to EU General Data Protection
