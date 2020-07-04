@@ -340,7 +340,6 @@ export const Timings = ({ queryParam }) => {
                   color='white'
                   variant={null}
                   mr={[1, 1, 3, 3]}
-                  fontSize={[3, 3, 5, 7]}
                   children={children}
                 />
               ))}
