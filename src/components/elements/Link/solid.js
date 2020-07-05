@@ -30,6 +30,10 @@ const style = css`
 const LinkSolid = styled(Link)`
   ${style};
   ${hoverStyle};
+
+  .active {
+    text-decoration: inherit;
+  }
 `
 
 LinkSolid.defaultProps = {

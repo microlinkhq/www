@@ -11,9 +11,8 @@ export default () => {
     <DotsBackground alignItems='center' justifyContent='center'>
       <Layout footer={{ bg: 'transparent' }}>
         <Flex
-          px={4}
-          pt={4}
-          pb={4}
+          pt={[0, 0, 0, 3]}
+          px={3}
           width='100%'
           flexDirection='column'
           justifyContent='center'
@@ -22,7 +21,6 @@ export default () => {
           <Headline title='Open Source Software' pb={3} />
           <Text
             fontSize={[2, 2, 2, 3]}
-            fontWeight='regular'
             mb={4}
             textAlign='center'
             maxWidth={10}

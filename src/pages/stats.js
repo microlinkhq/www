@@ -34,15 +34,25 @@ export default () => {
             justifyContent='center'
             alignItems='center'
           >
-            <Container maxWidth='100%' px={[5, 5, 4, 4]}>
+            <Container maxWidth='100%' px={3}>
               <Box id='stats'>
                 {isLoading ? (
-                  <Text
-                    style={{ whiteSpace: 'pre', fontFamily: 'monospace' }}
-                    color={color}
-                    fontSize={[0, 0, 1, 1]}
-                    children={`\n${data}`}
-                  />
+                  <>
+                    <Text
+                      pt={[0, 0, 0, 3]}
+                      color={color}
+                      textAlign='center'
+                      style={{ fontFamily: 'monospace' }}
+                    >
+                      $ watch curl -sL https://k8s.microlink.io/
+                    </Text>
+                    <Text
+                      style={{ whiteSpace: 'pre', fontFamily: 'monospace' }}
+                      color={color}
+                      fontSize={[0, 0, 1, 1]}
+                      children={`\n${data}`}
+                    />
+                  </>
                 ) : (
                   <>
                     <Flex
