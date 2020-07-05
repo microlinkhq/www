@@ -1,5 +1,5 @@
 import { Container, Box, Flex, Text, DotSpinner } from 'components/elements'
-import { SubHeadline, ClusterMonitor, Layout } from 'components/patterns'
+import { ClusterMonitor, Layout } from 'components/patterns'
 import React, { useState } from 'react'
 
 const Value = props => (
