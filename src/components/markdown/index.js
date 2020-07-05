@@ -68,8 +68,8 @@ H1.defaultProps = {
   variant: null,
   ml: 'auto',
   mr: 'auto',
-  mt: 5,
-  mb: 4
+  mt: 4,
+  mb: 3
 }
 
 const H2Base = styled(Heading)``
@@ -83,8 +83,8 @@ H2Base.defaultProps = {
   lineHeight: [2, 3],
   textAlign: 'left',
   variant: null,
-  mt: 5,
-  mb: 4
+  mt: 4,
+  mb: 3
 }
 
 export const H2Link = withTitle(styled(H2Base)`
@@ -114,8 +114,8 @@ H3.defaultProps = {
   lineHeight: 2,
   textAlign: 'left',
   variant: null,
-  mt: 5,
-  mb: 4
+  mt: 4,
+  mb: 3
 }
 
 export const H4 = withTitle(withSlug(styled(Heading)``))
@@ -129,8 +129,8 @@ H4.defaultProps = {
   lineHeight: 2,
   textAlign: 'left',
   variant: null,
-  mt: 5,
-  mb: 4
+  mt: 4,
+  mb: 3
 }
 
 export const H5 = withTitle(withSlug(styled(Heading)``))
@@ -144,7 +144,7 @@ H5.defaultProps = {
   lineHeight: 2,
   textAlign: 'left',
   variant: null,
-  mt: 4,
+  mt: 3,
   mb: 2
 }
 
@@ -160,7 +160,7 @@ H6.defaultProps = {
   lineHeight: 2,
   textAlign: 'left',
   variant: null,
-  mt: 4,
+  mt: 3,
   mb: 2
 }
 
