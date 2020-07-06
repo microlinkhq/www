@@ -12,10 +12,10 @@ import { Card } from 'components/elements'
 
 export default () => (
   <Fragment>
-    <Card.Success />
-    <Card.Error />
-    <Card.Warning />
-    <Card.Info />
+    <Card />
+    <Card />
+    <Card />
+    <Card />
   </Fragment>
 )`
 

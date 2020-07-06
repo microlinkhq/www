@@ -7,7 +7,7 @@ const code = `
 import { Unavatar } from 'components/elements'
 
 export default () => (
-  <Unavatar height='80px' width='80px' companyName='microlink.io' />
+  <Unavatar height='80px' width='80px' query='microlink.io' />
 )
 `
 
