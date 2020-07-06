@@ -6,10 +6,10 @@ const StyledImage = styled(Image)`
   max-width: inherit;
 `
 
-export default ({ from = '', query, ...props }) => (
+export default ({ query, ...props }) => (
   <StyledImage
     borderRadius={2}
-    src={`https://unavatar.now.sh/${from ? `${from}/${query}` : query}`}
+    src={`https://unavatar.now.sh/${query}`}
     height='100%'
     {...props}
   />
