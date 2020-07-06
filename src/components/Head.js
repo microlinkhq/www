@@ -15,6 +15,8 @@ const getTitle = (props, metadata) => {
   const page = getPage(props)
 
   switch (page) {
+    case '/changelog':
+      return 'Changelog'
     case '/meta':
       return 'Websites into data'
     case '/screenshot':
@@ -74,6 +76,8 @@ const getImage = (props, metadata) => {
       return cdnUrl('banner/insights.png')
     case '/oss':
       return cdnUrl('banner/oss.png')
+    case '/changelog':
+      return cdnUrl('banner/changelog.png')
     default:
       return metadata.image
   }

@@ -2,8 +2,8 @@ import { Star as StarIcon, AlertCircle as IssueIcon } from 'react-feather'
 import { Headline, DotsBackground, Layout } from 'components/patterns'
 import { Link, Text, Flex, Box } from 'components/elements'
 import { useOss } from 'components/hook'
-import React from 'react'
 import { layout } from 'theme'
+import React from 'react'
 
 export default () => {
   const repos = useOss()
