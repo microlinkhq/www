@@ -25,7 +25,7 @@ function Toggle ({ onChange, children, defaultValue }) {
 
   return (
     <Flex data-toggle width='100%'>
-      <Box ml={[0, 2, 2, 2]} border={1} borderColor='black05' borderRadius={2}>
+      <Box border={1} borderColor='black05' borderRadius={2}>
         {children.map((value, index) => {
           const isLast = index + 1 === children.length
           const isActive = active === value

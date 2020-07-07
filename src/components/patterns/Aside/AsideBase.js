@@ -115,8 +115,8 @@ const Aside = ({
         mt={[0, 0, 0, 3]}
         pb={3}
         mb={4}
-        ml={3}
-        pl={2}
+        ml={[3, 3, 3, 0]}
+        pl={[2, 2, 2, 0]}
       >
         {CloseButton && (
           <Box mb={4} width='100%'>

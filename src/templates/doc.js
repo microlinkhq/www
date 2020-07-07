@@ -537,7 +537,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
         pt={[0, 0, 0, 4]}
         ml={[3, 3, 3, 'auto']}
         mr={[3, 3, 3, 'auto']}
-        px={2}
+        px={0}
         maxWidth={layout.normal}
       >
         <Aside routes={routes} activeRouteName={activeRouteName}>
