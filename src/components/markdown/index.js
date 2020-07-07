@@ -27,10 +27,10 @@ import {
 
 import MicrolinkBase from '../patterns/Microlink/Microlink'
 import DemoIntegrations from './DemoIntegrations'
-import { textGradient } from '../../theme'
+import { layout, textGradient } from '../../theme'
 import Heading from '../elements/Heading'
 
-const { Container, WIDTH, CONTAINER_SPACE } = withContainer
+const { Container, CONTAINER_SPACE } = withContainer
 
 const Link = styled(LinkBase)``
 
@@ -60,7 +60,7 @@ export const MultiCodeEditor = withContainer(
 export const H1 = withTitle(withSlug(styled(Heading)``))
 
 H1.defaultProps = {
-  maxWidth: WIDTH.normal,
+  maxWidth: layout.small,
   as: 'h1',
   fontSize: [`calc(${fontSizes[5]} * 0.75px)`, 5],
   lineHeight: [2, 3],
@@ -77,7 +77,7 @@ const H2Base = styled(Heading)``
 H2Base.defaultProps = {
   ml: 'auto',
   mr: 'auto',
-  maxWidth: WIDTH.normal,
+  maxWidth: layout.small,
   as: 'h2',
   fontSize: [`calc(${fontSizes[4]} * 0.75px)`, 4],
   lineHeight: [2, 3],
@@ -108,7 +108,7 @@ export const H3 = withTitle(withSlug(styled(Heading)``))
 H3.defaultProps = {
   ml: 'auto',
   mr: 'auto',
-  maxWidth: WIDTH.normal,
+  maxWidth: layout.small,
   as: 'h3',
   fontSize: 3,
   lineHeight: 2,
@@ -123,7 +123,7 @@ export const H4 = withTitle(withSlug(styled(Heading)``))
 H4.defaultProps = {
   ml: 'auto',
   mr: 'auto',
-  maxWidth: WIDTH.normal,
+  maxWidth: layout.small,
   as: 'h4',
   fontSize: 2,
   lineHeight: 2,
@@ -138,7 +138,7 @@ export const H5 = withTitle(withSlug(styled(Heading)``))
 H5.defaultProps = {
   ml: 'auto',
   mr: 'auto',
-  maxWidth: WIDTH.normal,
+  maxWidth: layout.small,
   as: 'h5',
   fontSize: 1,
   lineHeight: 2,
@@ -153,7 +153,7 @@ export const H6 = withTitle(withSlug(styled(Heading)``))
 H6.defaultProps = {
   ml: 'auto',
   mr: 'auto',
-  maxWidth: WIDTH.normal,
+  maxWidth: layout.small,
   as: 'h6',
   fontSize: 1,
   color: 'gray9',
@@ -165,10 +165,11 @@ H6.defaultProps = {
 }
 
 export const Paraph = props => {
-  const special =
-    get(props, 'children.props.src') || get(props, 'children.props.href')
-  const maxWidth = special ? WIDTH.large : WIDTH.normal
-  return <Text maxWidth={maxWidth} {...props} />
+  const isMedia =
+    get(props, 'children.props.props.src') ||
+    get(props, 'children.props.props.href')
+  const maxWidth = isMedia ? layout.normal : layout.small
+  return <Text data-debug maxWidth={maxWidth} {...props} />
 }
 
 Paraph.defaultProps = {
@@ -192,7 +193,7 @@ Ul.defaultProps = {
   ml: 'auto',
   mr: 'auto',
   as: 'ul',
-  maxWidth: WIDTH.normal,
+  maxWidth: layout.small,
   ...CONTAINER_SPACE
 }
 
@@ -209,7 +210,7 @@ Li.defaultProps = {
   mr: 'auto',
   mb: 2,
   as: 'li',
-  maxWidth: WIDTH.normal
+  maxWidth: layout.small
 }
 
 const codeStyle = css`
@@ -237,7 +238,6 @@ CodeInline.defaultProps = {
 }
 
 const mediaStyle = {
-  maxWidth: `${WIDTH.normal}px`,
   borderRadius: '3px',
   ml: 'auto',
   mr: 'auto',
@@ -247,11 +247,12 @@ const mediaStyle = {
 const _ImageBase = styled(ImageBase)``
 
 _ImageBase.defaultProps = {
-  ...mediaStyle,
-  lazy: false
+  ...mediaStyle
 }
 
-export const Image = withContainer(_ImageBase)
+export const Image = withContainer(_ImageBase, {
+  maxWidth: 'inherit'
+})
 
 const _VideoBase = styled(VideoBase)``
 
@@ -290,7 +291,7 @@ export const Tweet = props => (
 
 export const Blockquote = styled.blockquote`
   margin: auto;
-  max-width: ${WIDTH.normal}px;
+  max-width: ${layout.small};
   border-left: 3px solid ${colors.black};
   padding-left: ${space[3]};
   font-style: italic;

@@ -26,7 +26,7 @@ export default () => {
             maxWidth={10}
             children="It's our great privilege to build our products using open source software (OSS) and we want to give the same effort back."
           />
-          <Flex width='100%' maxWidth={layout.medium} flexDirection='column'>
+          <Flex width='100%' maxWidth={layout.normal} flexDirection='column'>
             {repos.map(({ name, description, stars, issues, url }) => (
               <Box
                 data-debug

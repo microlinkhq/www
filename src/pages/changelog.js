@@ -26,7 +26,7 @@ export default ({ meta }) => {
           maxWidth={10}
           children='We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.'
         />
-        <Flex width='100%' maxWidth={layout.medium} flexDirection='column'>
+        <Flex width='100%' maxWidth={layout.normal} flexDirection='column'>
           {changelog.map(({ date, notes }) => {
             console.log(notes)
             return (

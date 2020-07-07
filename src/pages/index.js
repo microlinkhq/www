@@ -188,7 +188,7 @@ const Pricing = ({
   const caption = 'Growing with your business.'
 
   return (
-    <Container id='pricing' maxWidth={layout.medium} {...props}>
+    <Container id='pricing' maxWidth={layout.normal} {...props}>
       <Headline pt={[0, 0, 4, 4]} title={title} caption={caption} />
       <PricingTable
         canonicalUrl={canonicalUrl}
