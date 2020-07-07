@@ -1,12 +1,7 @@
 import React from 'react'
 import Box from '../../components/elements/Box'
 
-const LAYOUT_WIDTH = 650
-
-export const WIDTH = {
-  normal: LAYOUT_WIDTH,
-  large: LAYOUT_WIDTH * 1.2
-}
+import { layout } from 'theme'
 
 export const CONTAINER_SPACE = {
   mt: 3,
@@ -15,7 +10,7 @@ export const CONTAINER_SPACE = {
 
 export const Container = props => (
   <Box
-    maxWidth={['100%', '100%', WIDTH.normal, WIDTH.normal]}
+    maxWidth={['100%', '100%', layout.small, layout.small]}
     mr='auto'
     ml='auto'
     {...CONTAINER_SPACE}
@@ -35,4 +30,3 @@ export const withContainer = (
 
 withContainer.Container = Container
 withContainer.CONTAINER_SPACE = CONTAINER_SPACE
-withContainer.WIDTH = WIDTH

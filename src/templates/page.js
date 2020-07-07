@@ -1,14 +1,10 @@
-import { withContainer } from 'helpers/hoc'
-
 import Markdown, { H2, Paraph, Strong, Link } from 'components/markdown'
-
 import { Headline, Chat, Layout } from 'components/patterns'
 import { Text, Box } from 'components/elements'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
+import { layout } from 'theme'
 import React from 'react'
-
-const { WIDTH } = withContainer
 
 const PostFooter = () => (
   <>
@@ -30,7 +26,7 @@ const PostFooter = () => (
 export default ({ isBlogPage, date, meta, content }) => (
   <Layout {...meta}>
     <Box pt={[0, 0, 0, 3]} px={3}>
-      <Text maxWidth={isBlogPage ? WIDTH.normal : 'none'} ml='auto' mr='auto'>
+      <Text maxWidth={isBlogPage ? layout.small : 'none'} ml='auto' mr='auto'>
         <Headline title={meta.title} pb={3} />
         {isBlogPage && (
           <Text fontSize={[2, 2, 2, 3]} textAlign='center' mb={4}>

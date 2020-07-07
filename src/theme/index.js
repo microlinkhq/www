@@ -299,8 +299,9 @@ export const boxStyles = {
 }
 
 export const layout = {
-  large: 1024,
-  medium: 960
+  large: toPx(1024),
+  medium: toPx(960),
+  small: toPx(650)
 }
 
 export const letterSpacings = [0, -0.025, 0.025, 0.1, 0.25].map(toEm)

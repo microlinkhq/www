@@ -2,7 +2,9 @@ import { toPx, layout } from 'theme'
 
 const getRatio = width => (width * 9) / 16
 
-const aspectRatio = (ratios, base = layout.medium) => {
+const BASE = Number(layout.medium.replace('px', ''))
+
+const aspectRatio = (ratios, base = BASE) => {
   const width = ratios.map(n => n * base)
   const height = width.map(getRatio)
 
