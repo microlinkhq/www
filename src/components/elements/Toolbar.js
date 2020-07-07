@@ -16,7 +16,7 @@ Toolbar.defaultProps = {
   display: 'flex',
   px: 0,
   height: TOOLBAR_HEIGHT,
-  maxWidth: layout.medium
+  maxWidth: layout.normal
 }
 
 export default Toolbar

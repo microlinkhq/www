@@ -299,8 +299,7 @@ export const boxStyles = {
 }
 
 export const layout = {
-  large: toPx(1024),
-  medium: toPx(960),
+  normal: toPx(960),
   small: toPx(650)
 }
 

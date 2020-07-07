@@ -40,7 +40,7 @@ const Meta = ({ demoLinks, ...props }) => {
         mb={[0, 0, 0, 3]}
         px={[5, 6, 6, 6]}
         textAlign='center'
-        maxWidth={layout.medium}
+        maxWidth={layout.normal}
       >
         <Hide breakpoints={[1, 2, 3]}>
           Engage your content with enriched media. Convert your links into

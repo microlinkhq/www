@@ -137,7 +137,7 @@ export default ({ meta, ...props }) => (
         {...props}
       >
         <Headline title={TITLE} caption={CAPTION} pb={4} />
-        <Flex maxWidth={layout.large} justifyContent='center' flexWrap='wrap'>
+        <Flex maxWidth={layout.normal} justifyContent='center' flexWrap='wrap'>
           {INTEGRATIONS.map((integration, index) => (
             <CustomCard key={index} mb={4} mr={4} {...integration} />
           ))}
