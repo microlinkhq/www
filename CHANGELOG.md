@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.253](https://github.com/microlinkhq/microlink-www/compare/v2.10.252...v2.10.253) (2020-07-08)
+
+
+### Bug Fixes
+
+* contrast ([99fc69f](https://github.com/microlinkhq/microlink-www/commit/99fc69fc1d912868a6071cc09b1ff7454fe5420f))
+
 ### [2.10.252](https://github.com/microlinkhq/microlink-www/compare/v2.10.251...v2.10.252) (2020-07-08)
 
 ### [2.10.251](https://github.com/microlinkhq/microlink-www/compare/v2.10.250...v2.10.251) (2020-07-08)
