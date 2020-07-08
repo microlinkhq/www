@@ -1,11 +1,12 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { Highlight, Box, Label, Flex, Text } from 'components/elements'
 import { Checkout } from 'components/patterns'
-import { colors, fontWeights } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
 import { Check } from 'react-feather'
+
+import { labelStyle } from '../../elements/Label'
 
 const FREE_PLAN_RATE_LIMIT = 50
 
@@ -13,20 +14,16 @@ const Price = styled(Text)`
   font-weight: bold;
   &::before {
     content: '€';
-    font-weight: ${fontWeights.light};
-    font-size: 0.8em;
     position: relative;
     top: -5px;
     left: 0;
-    color: ${colors.black80};
+    ${labelStyle}
   }
   &::after {
     content: '/month';
-    font-weight: ${fontWeights.light};
-    font-size: 0.8em;
     position: relative;
     top: 0;
-    color: ${colors.black50};
+    ${labelStyle}
   }
 `
 
@@ -45,7 +42,7 @@ const PricingHeader = ({ children }) => {
         <Text
           as='th'
           pb='.85rem'
-          px={[3, 3, 3, '5rem']}
+          px={[3, 3, 3, 5]}
           fontWeight='regular'
           fontSize={2}
           color='blue700'
@@ -94,6 +91,10 @@ PricingRow.defaultProps = {
   textAlign: 'left'
 }
 
+const Description = props => (
+  <Text color='black60' fontWeight='normal' fontSize={1} {...props} />
+)
+
 function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
   const [state, setState] = useState({
     ...DEFAULT_PLAN,
@@ -136,10 +137,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
             children={[
               <>
                 <Text>Universal Embed</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                <Description>
                   Effortless metadata normalization via Open Graph, oEmbed,
                   JSON+LD and HTML markup.
-                </Text>
+                </Description>
               </>,
               <CheckMark key='metadata-free' />,
               <CheckMark key='metadata-pro' />
@@ -149,10 +150,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
             children={[
               <>
                 <Text>Take Screenshots</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                <Description>
                   Live screenshotting with overlay composition and stale
                   revalidation, hosted at Microlink CDN.
-                </Text>
+                </Description>
               </>,
               <CheckMark key='screenshot-free' />,
               <CheckMark key='screenshot-pro' />
@@ -162,10 +163,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
             children={[
               <>
                 <Text>Export to PDF</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                <Description>
                   On demand URL to PDF, costless effective with stale
                   revalidation, hosted at Microlink CDN.
-                </Text>
+                </Description>
               </>,
               <CheckMark key='pdf-free' />,
               <CheckMark key='pdf-pro' />
@@ -175,10 +176,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
             children={[
               <>
                 <Text>Cloud Browsering</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                <Description>
                   Automatic URL prerendering detection via top notch headless
                   browser with adblock capabilities.
-                </Text>
+                </Description>
               </>,
               <CheckMark key='prerender-free' />,
               <CheckMark key='prerender-pro' />
@@ -188,10 +189,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
             children={[
               <>
                 <Text>HTTP Headers</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                <Description>
                   Customize every single request specifying custom HTTP headers
                   to fits use case scenarios.
-                </Text>
+                </Description>
               </>,
               '',
               <CheckMark key='headers-pro' />
@@ -201,10 +202,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
             children={[
               <>
                 <Text>Proxy Rotation</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                <Description>
                   Gather the top 500 popular sites to never be blocked or
                   claked, auto handling retry scenarios.
-                </Text>
+                </Description>
               </>,
               '',
               <CheckMark key='proxy-pro' />
@@ -214,10 +215,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
             children={[
               <>
                 <Text>Configurable TTL</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                <Description>
                   Configurable built-in response cache for serving pre-computed
                   content to fit high demand scenarios.
-                </Text>
+                </Description>
               </>,
               '',
               <CheckMark key='ttl-pro' />
@@ -227,10 +228,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
             children={[
               <>
                 <Text>Service Usage</Text>
-                <Text color='gray' fontWeight='normal' fontSize='12px'>
+                <Description>
                   API quota associated with your plan that determines how many
                   requests you can perform in a window of time.
-                </Text>
+                </Description>
               </>,
               <>
                 {FREE_PLAN_RATE_LIMIT}{' '}

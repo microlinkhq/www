@@ -13,13 +13,7 @@ const Item = ({ title, description, ...props }) => (
     flex={1}
     {...props}
   >
-    <Caps
-      as='header'
-      color='black80'
-      pb={[1, 2]}
-      fontWeight='bold'
-      children={title}
-    />
+    <Caps as='header' pb={[1, 2]} fontWeight='bold' children={title} />
     <Text
       color='black60'
       css={`

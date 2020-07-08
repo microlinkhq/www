@@ -1,19 +1,24 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { colors, fontWeights } from 'theme'
 
 import Text from './Text'
+
+export const labelStyle = css`
+  font-weight: ${fontWeights.normal};
+  font-size: 80%;
+  color: ${colors.black60};
+`
 
 const Label = styled(Text)`
   ${props =>
     props.suffix &&
     `
-&::after {
-  font-weight: ${fontWeights.light};
-  font-size: 0.8em;
-  color: ${colors.black80};
-  content: '${props.suffix}';
-  }
-`}
+    &::after {
+      font-weight: ${fontWeights.normal};
+      font-size: 80%;
+      color: ${colors.black60};
+      content: '${props.suffix}';
+    }`}
 `
 
 Label.defaultProps = {
