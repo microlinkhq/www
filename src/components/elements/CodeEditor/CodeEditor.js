@@ -161,7 +161,6 @@ const CodeEditor = props => {
 
   const TerminalComponent = (
     <Terminal
-      data-runkit={interactive}
       theme={theme}
       prismTheme={prismTheme}
       id={id}
@@ -190,8 +189,8 @@ const CodeEditor = props => {
   return (
     <Runkit
       title={restProps.title}
-      loader={() => TerminalComponent}
-      source={text}
+      placeholderComponent={TerminalComponent}
+      code={text}
     />
   )
 }

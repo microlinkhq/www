@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { waitForGlobal } from 'helpers'
 
-export default ({ nodeVersion = '12', loader, children, ...props }) => {
+export default ({ placeholderComponent, title, code }) => {
+  const id = placeholderComponent.props.id
+  if (!id) throw new Error('Runkit placeholder must to have an id.')
+
   const [notebook, setNotebook] = useState(null)
-  const loaderChildren = loader()
 
   useEffect(() => {
     waitForGlobal('RunKit', () => {
-      const loaderId = loaderChildren.props.id
-      const el = document.getElementById(loaderId)
-      if (el && !el.querySelector('iframe')) {
+      const el = window.document.getElementById(id)
+
+      if (el && !el.dataset.runkit) {
+        el.dataset.runkit = true
+        const childs = Array.from(el.children)
+
         setNotebook(
           window.RunKit.createNotebook({
             element: el,
-            name: el.id,
-            title: el.children[0].textContent,
-            source: el.children[1].textContent,
+            title,
+            source: code,
             nodeVersion: '14',
             gutterStyle: 'outside',
             onLoad: () => {
-              el.children[0].style.display = 'none'
-              el.children[1].style.display = 'none'
+              childs.forEach(child => el.removeChild(child))
               el.style['box-shadow'] = 'none'
             }
           })
@@ -31,5 +34,5 @@ export default ({ nodeVersion = '12', loader, children, ...props }) => {
     })
   }, [])
 
-  return <>{loaderChildren}</>
+  return <>{placeholderComponent}</>
 }
