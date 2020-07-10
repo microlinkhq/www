@@ -169,7 +169,7 @@ export const Paraph = props => {
     get(props, 'children.props.props.src') ||
     get(props, 'children.props.props.href')
   const maxWidth = isMedia ? layout.normal : layout.small
-  return <Text data-debug maxWidth={maxWidth} {...props} />
+  return <Text maxWidth={maxWidth} {...props} />
 }
 
 Paraph.defaultProps = {

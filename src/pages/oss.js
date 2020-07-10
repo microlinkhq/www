@@ -28,13 +28,7 @@ export default () => {
           />
           <Flex width='100%' maxWidth={layout.normal} flexDirection='column'>
             {repos.map(({ name, description, stars, issues, url }) => (
-              <Box
-                data-debug
-                key={name}
-                mb={3}
-                borderBottom={1}
-                borderColor='black05'
-              >
+              <Box key={name} mb={3} borderBottom={1} borderColor='black05'>
                 <Link color='black' href={url}>
                   <Text
                     fontWeight='bold'
