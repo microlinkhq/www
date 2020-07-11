@@ -6,18 +6,19 @@ Type: <Type children='<object>'/>
 
 It sets some aesthetic overlay settings associated with your screenshot.
 
-![](https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fmusic&screenshot=&meta=false&overlay.browser=dark&embed=screenshot.url&overlay.background=linear-gradient(0deg%2C%20%23330867%200%25%2C%20%2330CFD0%20100%25))
+![](https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fmusic&meta=false&screenshot=&overlay.browser=dark&overlay.background=linear-gradient%28225deg%2C+%23FF057C+0%25%2C+%238D0B93+50%25%2C+%23321575+100%25%29&embed=screenshot.url)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{demolinks.apple.url}}&screenshot&overlay.browser=dark&overlay.background=linear-gradient(0deg%2C%20%23330867%200%25%2C%20%2330CFD0%20100%25`,
+  Shell: `microlink-api {{demolinks.apple.url}}&meta=false&screenshot=&overlay.browser=dark&overlay.background=linear-gradient%28225deg%2C+%23FF057C+0%25%2C+%238D0B93+50%25%2C+%23321575+100%25%29`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
     '{{demolinks.apple.url}}'. { 
       screenshot: true,
+      meta: false,
       overlay: {
-        background: 'linear-gradient(0deg, #330867 0%, #30CFD0 100%)'
+        background: 'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
         browser: 'dark'
       }
   })
