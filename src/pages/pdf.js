@@ -1,12 +1,17 @@
-import { FetchProvider, Layout } from 'components/patterns'
 import { useQueryState } from 'components/hook'
+import { FetchProvider, Layout } from 'components/patterns'
 import humanizeUrl from 'humanize-url'
+import { getDomain } from 'tldts'
 import React from 'react'
 
 import Examples from 'components/pages/pdf/examples'
 
 export default () => {
   const [query] = useQueryState()
+
+  const meta = {
+    title: query.url ? `Turn ${getDomain(query.url)} into PDF` : undefined
+  }
 
   const suggestions = [
     'https://basecamp.com/shapeup/0.3-chapter-01',
@@ -22,7 +27,7 @@ export default () => {
   })
 
   return (
-    <Layout>
+    <Layout {...meta}>
       <FetchProvider mqlOpts={{ meta: false, pdf: true }}>
         {({ status, doFetch, data }) => {
           return (
