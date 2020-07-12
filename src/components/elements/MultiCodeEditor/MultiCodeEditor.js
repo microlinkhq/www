@@ -107,7 +107,7 @@ const ActionComponent = ({
   setEditorLanguage,
   editorLanguage,
   editorLanguages,
-  code,
+  toCopy,
   theme
 }) => {
   const background = theme === 'dark' ? colors.black : colors.white
@@ -127,7 +127,7 @@ const ActionComponent = ({
           onChange={setEditorLanguage}
         />
       </Text>
-      <CodeCopy theme={theme} interactive text={code} />
+      <CodeCopy theme={theme} interactive text={toCopy} />
     </Actions>
   )
 }
@@ -155,13 +155,12 @@ const MultiCodeEditor = ({ theme, languages: codeByLanguage, ...props }) => {
     <CodeEditor
       language={toAlias(editorLanguage)}
       children={code}
-      ActionComponent={() => (
+      ActionComponent={props => (
         <ActionComponent
-          theme={theme}
           setEditorLanguage={setEditorLanguage}
           editorLanguage={editorLanguage}
           editorLanguages={editorLanguages}
-          code={code}
+          {...props}
         />
       )}
       {...props}

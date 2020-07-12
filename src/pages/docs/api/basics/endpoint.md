@@ -25,7 +25,7 @@ microlink-api https://instagram.com/p/BeV6tOhFUor&user_agent=Googlebot
 
 <Figcaption children='Provide the same API parameter but using snake_case has the same effect.' />
 
-If you are using [Microlink Query Language](/docs/mql), the endpoint is automatically determined in case you provide an API Key.
+If you are using [Microlink Query Language](/docs/mql/getting-started/overview), the endpoint is automatically determined in case you provide an API Key.
 
 ```js
 const { status, data, response } = await mql(
