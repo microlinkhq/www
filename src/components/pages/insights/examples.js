@@ -69,7 +69,6 @@ const LiveDemo = ({
       <SubHeadline
         title='Automate Web Performance'
         caption='Powered by Lighthouse'
-        captionExclude={['Lighthouse']}
       />
 
       <Flex justifyContent='center' alignItems='center'>

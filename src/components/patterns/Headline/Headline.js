@@ -9,7 +9,7 @@ const TitleConstructor = TitleComponnet => ({
   fontWeight,
   title,
   caption,
-  captionExclude,
+  titleize,
   slug = false,
   ...props
 }) => {
@@ -24,13 +24,14 @@ const TitleConstructor = TitleComponnet => ({
       {...props}
     >
       <TitleComponnet
+        titleize={titleize}
         fontWeight={fontWeight}
         fontSize={fontSize}
         px={0}
         children={title}
         slug={slug}
       />
-      {caption && <Caption titleExclude={captionExclude}>{caption}</Caption>}
+      {caption && <Caption titleize={titleize} children={caption} />}
     </Flex>
   )
 }

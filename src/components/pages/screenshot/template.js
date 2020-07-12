@@ -5,7 +5,7 @@ import { borders, colors, radii } from 'theme'
 import styled from 'styled-components'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import { getHostname } from 'tldts'
+import { getDomain } from 'tldts'
 import React from 'react'
 import get from 'dlv'
 
@@ -24,9 +24,11 @@ import {
   Hide
 } from 'components/elements'
 
-import { Legend, Headline, SubHeadline, Grid } from 'components/patterns'
+import { Legend, Headline, Grid } from 'components/patterns'
 
 import { screenshotHeight } from 'components/pages/home/screenshots'
+
+const LOGO_SIZE = ['40px', '40px', '40px', '60px']
 
 export const Screenshot = ({ domain, data, ...props }) => {
   return (
@@ -54,10 +56,11 @@ export const Screenshot = ({ domain, data, ...props }) => {
 
 const Hero = ({ domain, id, data }) => {
   const caption = (
-    <Box maxWidth={5} pt={[2, 2, 4, 4]} px={5}>
+    <Box maxWidth={5} pt={[3, 3, 3, 4]} pb={4} px={5}>
       Turn{' '}
       <Subhead
         as='span'
+        fontSize={[3, 4, 4, 5]}
         color='black'
         fontWeight='regular'
         omitTitleize={[domain]}
@@ -71,9 +74,7 @@ const Hero = ({ domain, id, data }) => {
   const logoProvider = (() => {
     const LogoProvider = LogoBrand[id]
     if (LogoProvider) {
-      return (
-        <LogoProvider height='100%' width={['36px', '72px']} state='hover' />
-      )
+      return <LogoProvider height='100%' width={LOGO_SIZE} state='hover' />
     }
 
     const logoUrl = get(data, 'logo.url')
@@ -83,7 +84,7 @@ const Hero = ({ domain, id, data }) => {
         <Image
           alt={`${domain} logo`}
           height='100%'
-          width={['36px', '72px']}
+          width={LOGO_SIZE}
           src={logoUrl}
         />
       )
@@ -93,11 +94,11 @@ const Hero = ({ domain, id, data }) => {
   return (
     <Container id='hero'>
       <Flex pt={[0, 0, 4, 4]} alignItems='center' justifyContent='center'>
-        <MicrolinkLogo width={['36px', '72px']} />
+        <MicrolinkLogo width={LOGO_SIZE} />
         {logoProvider && <Box ml={3} mr={3} children={<Plus />} />}
         {logoProvider}
       </Flex>
-      <SubHeadline pb={0} caption={caption} />
+      <Headline pb={0} caption={caption} />
       <Screenshot domain={domain} data={data} mx='auto' pl={4} pr={4} />
     </Container>
   )
@@ -322,7 +323,7 @@ const Cli = ({ domain, data }) => {
 }
 
 export default props => {
-  const domain = getHostname(props.data.url).replace('www.', '')
+  const domain = getDomain(props.data.url)
 
   return (
     <>

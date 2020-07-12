@@ -13,16 +13,18 @@ import {
 } from 'components/elements'
 
 import { LogoBrand, Microlink as MicrolinkLogo } from 'components/logos'
-import { Legend, SubHeadline, Microlink } from 'components/patterns'
+import { Legend, Headline, Microlink } from 'components/patterns'
 import { Features } from 'components/pages/screenshot/template'
 import { mqlCode, cdnUrl } from 'helpers'
 import { useFeaturesMeta } from 'components/hook'
 import { borders, colors } from 'theme'
 import { Plus } from 'react-feather'
 import { navigate } from 'gatsby'
-import { getHostname } from 'tldts'
+import { getDomain } from 'tldts'
 import React from 'react'
 import get from 'dlv'
+
+const LOGO_SIZE = ['40px', '40px', '40px', '60px']
 
 const DEFAULT_LOGO = {
   url: cdnUrl('logo/trim.png'),
@@ -35,9 +37,15 @@ const DEFAULT_LOGO = {
 
 const Hero = ({ domain, id, data }) => {
   const caption = (
-    <Box maxWidth={5} pt={[2, 2, 4, 4]} px={5}>
+    <Box maxWidth={5} pt={[3, 3, 3, 4]} px={5}>
       Turn{' '}
-      <Subhead as='span' color='black' fontWeight='regular' titleize={false}>
+      <Subhead
+        as='span'
+        fontSize={[3, 4, 4, 5]}
+        color='black'
+        fontWeight='regular'
+        titleize={false}
+      >
         {domain}
       </Subhead>{' '}
       into structured data
@@ -47,9 +55,7 @@ const Hero = ({ domain, id, data }) => {
   const logoProvider = (() => {
     const LogoProvider = LogoBrand[id]
     if (LogoProvider) {
-      return (
-        <LogoProvider height='100%' width={['36px', '72px']} state='hover' />
-      )
+      return <LogoProvider height='100%' width={LOGO_SIZE} state='hover' />
     }
 
     const logoUrl = get(data, 'logo.url')
@@ -59,7 +65,7 @@ const Hero = ({ domain, id, data }) => {
         <Image
           alt={`${domain} logo`}
           height='100%'
-          width={['36px', '72px']}
+          width={LOGO_SIZE}
           src={logoUrl}
         />
       )
@@ -69,11 +75,11 @@ const Hero = ({ domain, id, data }) => {
   return (
     <Container id='hero'>
       <Flex pt={[0, 0, 4, 4]} alignItems='center' justifyContent='center'>
-        <MicrolinkLogo width={['36px', '72px']} />
+        <MicrolinkLogo width={LOGO_SIZE} />
         {logoProvider && <Box ml={3} mr={3} children={<Plus />} />}
         {logoProvider}
       </Flex>
-      <SubHeadline pb={[0, 0, 3, 3]} caption={caption} />
+      <Headline pb={[0, 0, 3, 3]} caption={caption} />
     </Container>
   )
 }
@@ -289,7 +295,7 @@ const Api = ({ data }) => {
 }
 
 export default props => {
-  const domain = getHostname(props.data.url).replace('www.', '')
+  const domain = getDomain(props.data.url)
   return (
     <>
       <Hero domain={domain} {...props} />
