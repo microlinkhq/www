@@ -38,8 +38,6 @@ export default ({ pageContext: recipe }) => {
     recipe.isGeneric ? 'by-feature' : 'by-provider'
   }/${recipe.slug}.js`
 
-  console.log(recipe)
-
   return (
     <Layout
       script={[{ src: 'https://embed.runkit.com', async: true }]}
