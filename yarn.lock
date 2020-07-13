@@ -1546,7 +1546,7 @@
   resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.14.tgz#7b0d95f53efdb5d6b7c3d0d5b977dfd1a8512726"
   integrity sha512-U2uoSmw+t9jHP+0BYz334Vwwl9UvhWxrqvRkMAYAXQKH8V3p1ICLewF04yOuvy+79ZY4FKxKTLu8vARwllyxAg==
 
-"@microlink/mql@~0.7.1", "@microlink/mql@~0.7.3":
+"@microlink/mql@~0.7.1", "@microlink/mql@~0.7.2", "@microlink/mql@~0.7.3":
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.7.3.tgz#b5aeb19c1b32190beac26550fbf682c2b3830db2"
   integrity sha512-2SEwBKCcpKrqZstDfHYcavOHRyCZRc0678XQg+nQckZNf265wT9k9Qw7s3khzz4P0kTS1Wnm6F/DEA7lSkATiA==
@@ -1559,7 +1559,7 @@
     qss "~2.0.3"
     whoops "~4.1.0"
 
-"@microlink/react@5.4.1":
+"@microlink/react@~5.4.1":
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/@microlink/react/-/react-5.4.1.tgz#e06609288a56d9a662a695290e3759b2131afe26"
   integrity sha512-b2MGr4IqYzBG9CV59J8k5sHvc0Dv6MNeMll5Hxr8/2nte0+ZT8ZZa2s8LnkGoKRGObqRVeKdbJIhF3nfgpEXKg==
@@ -1567,6 +1567,13 @@
     "@microlink/mql" "~0.7.1"
     is-localhost-url "~1.0.3"
     nanoclamp "~1.3.3"
+
+"@microlink/recipes@~0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@microlink/recipes/-/recipes-0.0.14.tgz#43f2d3649b2ef4add5501e9e2a29fef5f41cc61e"
+  integrity sha512-tg6ANhPSPaN6SODpoE5UQiQR13N2L2+6LJ5xCS6/Kuh1GS0k1sZvQ/GcRALQin13tPtByTmHgp8A6TOW08gp8A==
+  dependencies:
+    "@microlink/mql" "~0.7.2"
 
 "@mikaelkristiansson/domready@^1.0.10":
   version "1.0.10"

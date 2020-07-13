@@ -572,7 +572,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
               Last Edited on {formatDate(meta.date)}
             </Text>
             <Link href={githubUrl} fontSize={0}>
-              Edit This Page on GitHub
+              Edit on GitHub
             </Link>
           </Flex>
         </Aside>
