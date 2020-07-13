@@ -1,5 +1,7 @@
 import { DotsBackground, Headline, Layout } from 'components/patterns'
-const kebabCase = require('lodash/kebabCase')
+import byFeature from '@microlink/recipes/by-feature'
+import kebabCase from 'lodash/kebabCase'
+import recipes from '@microlink/recipes'
 import styled from 'styled-components'
 import { getDomain } from 'tldts'
 import React from 'react'
@@ -13,9 +15,6 @@ import {
   Text,
   Unavatar
 } from 'components/elements'
-
-import recipes from '@microlink/recipes'
-import byFeature from '@microlink/recipes/by-feature'
 
 const LOGO_SIZE = ['40px', '40px', '60px', '60px']
 const CARD_SIZE = [0.5, 0.5, 0.6, 0.6]
