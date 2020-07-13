@@ -28,7 +28,6 @@ export default ({ meta }) => {
         />
         <Flex width='100%' maxWidth={layout.normal} flexDirection='column'>
           {changelog.map(({ date, notes }) => {
-            console.log(notes)
             return (
               <Box key={date}>
                 <H1 mb={0} children={date} />
