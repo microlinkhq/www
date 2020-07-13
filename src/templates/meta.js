@@ -10,7 +10,7 @@ export default ({ pageContext }) => {
   const metadata = useSiteMetadata()
   const meta = {
     url: `${metadata.siteUrl}${slug}`,
-    title: `Turn ${getDomain(data.url)} into structured data`
+    title: `Turn ${getDomain(data.url)} into data`
   }
 
   return (
