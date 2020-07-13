@@ -34,9 +34,9 @@ const getTitle = (props, metadata) => {
     case '/pdf':
       return 'Turn websites into a PDF'
     case '/recipes':
-      return 'Start from scratch'
+      return 'Recipes'
     case '/stats':
-      return 'Cluster Stats'
+      return 'Stats'
     case '/screenshot':
       return 'Turn websites into screenshots'
     default:

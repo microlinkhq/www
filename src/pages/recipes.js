@@ -68,7 +68,11 @@ export default ({ meta }) => {
               pb={2}
             />
             <Text>
-              Missing someting? <Link href='#'>add your own</Link>✨
+              Missing someting?{' '}
+              <Link href='https://github.com/microlinkhq/recipes'>
+                add your own
+              </Link>
+              ✨
             </Text>
           </Flex>
 

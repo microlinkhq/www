@@ -61,17 +61,18 @@ export default ({ pageContext: recipe }) => {
             pt={[0, 0, 3, 3]}
             pb={[0, 0, 1, 1]}
             caption={`Microlink Recipe for ${recipe.name}`}
+            titleize={false}
           />
-          <Text fontSize={[2, 2, 2, 3]} textAlign='center' maxWidth={10}>
+          <Text fontSize={[1, 1, 2, 2]} textAlign='center' maxWidth={10}>
             <Link href='/recipes'>View all recipes</Link>
-            <Text px={2} as='span'>
+            <Text px={[1, 1, 2, 2]} as='span'>
               {' '}
               •{' '}
             </Text>
             <Link href='/docs/mql/getting-started/overview'>
               Read documentation
             </Link>
-            <Text px={2} as='span'>
+            <Text px={[1, 1, 2, 2]} as='span'>
               {' '}
               •{' '}
             </Text>
