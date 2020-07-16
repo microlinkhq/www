@@ -8,7 +8,7 @@ import { Check } from 'react-feather'
 
 import { labelStyle } from '../../elements/Label'
 
-const FREE_PLAN_RATE_LIMIT = 50
+const FREE_PLAN_RATE_LIMIT = 100
 
 const Price = styled(Text)`
   font-weight: bold;
