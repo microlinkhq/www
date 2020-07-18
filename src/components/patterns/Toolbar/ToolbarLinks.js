@@ -101,3 +101,9 @@ export const NavBlog = createNavItem({
   path: '/blog',
   actively: 'partial'
 })
+
+export const NavRecipes = createNavItem({
+  name: 'Recipes',
+  path: '/recipes',
+  actively: 'partial'
+})

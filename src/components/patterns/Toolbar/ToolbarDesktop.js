@@ -11,6 +11,7 @@ import {
   NavMeta,
   NavPdf,
   NavPricing,
+  NavRecipes,
   NavScreenshot
 } from './ToolbarLinks'
 
@@ -38,6 +39,7 @@ export default ({ theme }) => {
             <NavScreenshot isDark={isDark} />
             <NavPdf isDark={isDark} />
             <NavInsights isDark={isDark} />
+            <NavRecipes isDark={isDark} />
           </NavContainer>
           <NavContainer as='nav'>
             <NavPricing isDark={isDark} />
