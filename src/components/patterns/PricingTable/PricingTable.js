@@ -1,5 +1,5 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
-import { Highlight, Box, Label, Flex, Text } from 'components/elements'
+import { Link, Highlight, Box, Label, Flex, Text } from 'components/elements'
 import { XCircle, CheckCircle } from 'react-feather'
 import { Checkout } from 'components/patterns'
 import React, { useState } from 'react'
@@ -141,7 +141,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Universal Embed</Text>
+                <Text>
+                  Universal Embed{' '}
+                  <Link.External href='/recipes/universal-embed' icon />
+                </Text>
                 <Description>
                   Effortless metadata normalization via Open Graph, oEmbed,
                   JSON+LD and HTML markup.
@@ -154,7 +157,9 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Take Screenshots</Text>
+                <Text>
+                  Take Screenshots <Link.External href='/screenshots' icon />
+                </Text>
                 <Description>
                   Live screenshotting with overlay composition and stale
                   revalidation, hosted at Microlink CDN.
@@ -167,7 +172,9 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Export to PDF</Text>
+                <Text>
+                  Export to PDF <Link.External href='/pdf' icon />
+                </Text>
                 <Description>
                   Convert any URL into PDF, costless effective with stale
                   revalidation, hosted at Microlink CDN.
@@ -180,7 +187,9 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Web Perfomance Audits</Text>
+                <Text>
+                  Web Perfomance Audits <Link.External href='/insights' icon />
+                </Text>
                 <Description>
                   Track performance metrics scores over time, generating
                   Lighthouse reports on demand.
@@ -193,7 +202,9 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Cloud Browsering</Text>
+                <Text>
+                  Cloud Browsering <Link.External href='/recipes' icon />
+                </Text>
                 <Description>
                   Browser automation made simple via top notch headless browser
                   running on the edge.
@@ -206,7 +217,9 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>HTTP Headers</Text>
+                <Text>
+                  HTTP Headers <Link.External href='/headers' icon />
+                </Text>
                 <Description>
                   Customize every single request specifying custom HTTP headers
                   to fits use case scenarios.
@@ -219,7 +232,9 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Proxy Rotation</Text>
+                <Text>
+                  Proxy Rotation <Link.External href='/proxy' icon />
+                </Text>
                 <Description>
                   Gather the top 500 popular sites to never be blocked or
                   claked, auto handling retry scenarios.
@@ -232,7 +247,9 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Configurable TTL</Text>
+                <Text>
+                  Configurable TTL <Link.External href='/ttl' icon />
+                </Text>
                 <Description>
                   Low response time with adaptative time-to-live cache to fit
                   high demand scenarios.

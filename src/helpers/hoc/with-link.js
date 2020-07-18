@@ -67,42 +67,14 @@ const onView = (node, fn, opts) => {
   observer.observe(node)
 }
 
-export const withLink = Component => ({
-  icon = false,
-  actively,
+const External = Component => ({
   href,
-  children,
+  icon = false,
   target,
   rel,
+  children,
   ...props
 }) => {
-  const [isIntersecting, setIsIntersecting] = useState(false)
-  const isInternal = isInternalLink(href)
-  const partiallyActive = actively === 'partial'
-
-  useEffect(() => {
-    if (actively === 'observer') {
-      const node = document.querySelector(getHash(href))
-      onView(node, isBeingIntersecting =>
-        setIsIntersecting(isBeingIntersecting)
-      )
-    }
-  }, [])
-
-  const getProps = ({ isPartiallyCurrent, isCurrent }) => {
-    const isActive = partiallyActive ? isPartiallyCurrent : isCurrent
-    if (!isActive && !isIntersecting) return null
-    return { className: 'active' }
-  }
-
-  if (isInternal) {
-    return (
-      <Component {...props}>
-        <GatsbyLink to={href} children={children} getProps={getProps} />
-      </Component>
-    )
-  }
-
   return (
     <Component {...props}>
       <ExternalLink href={href} target={target} rel={rel}>
@@ -112,4 +84,40 @@ export const withLink = Component => ({
   )
 }
 
+export const withLink = Component => {
+  const ExternalLink = External(Component)
+
+  return ({ actively, href, children, ...props }) => {
+    const [isIntersecting, setIsIntersecting] = useState(false)
+    const isInternal = isInternalLink(href)
+    const partiallyActive = actively === 'partial'
+
+    useEffect(() => {
+      if (actively === 'observer') {
+        const node = document.querySelector(getHash(href))
+        onView(node, isBeingIntersecting =>
+          setIsIntersecting(isBeingIntersecting)
+        )
+      }
+    }, [])
+
+    const getProps = ({ isPartiallyCurrent, isCurrent }) => {
+      const isActive = partiallyActive ? isPartiallyCurrent : isCurrent
+      if (!isActive && !isIntersecting) return null
+      return { className: 'active' }
+    }
+
+    if (isInternal) {
+      return (
+        <Component {...props}>
+          <GatsbyLink to={href} children={children} getProps={getProps} />
+        </Component>
+      )
+    }
+
+    return <ExternalLink href={href} children={children} {...props} />
+  }
+}
+
 withLink.isInternalLink = isInternalLink
+withLink.External = External
