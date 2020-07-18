@@ -4,6 +4,7 @@ import kebabCase from 'lodash/kebabCase'
 import recipes from '@microlink/recipes'
 import styled from 'styled-components'
 import { getDomain } from 'tldts'
+import { toPx } from 'theme'
 import React from 'react'
 
 import {
@@ -18,8 +19,12 @@ import {
 
 const LOGO_SIZE = ['40px', '40px', '60px', '60px']
 const CARD_SIZE = [0.5, 0.5, 0.6, 0.6]
-
+const CARD_ITEMS_PER_ROW = 4.5
 const RECIPES_BY_FEATURES_KEYS = Object.keys(byFeature)
+
+const CARDS_MAX_WIDTH = CARD_SIZE.map(n =>
+  toPx(Card.BASE_WIDTH * n * CARD_ITEMS_PER_ROW)
+)
 
 const CustomLink = styled(Link)`
   color: inherit;
@@ -76,7 +81,11 @@ export default ({ meta }) => {
             </Text>
           </Flex>
 
-          <Flex maxWidth='75%' justifyContent='center' flexWrap='wrap'>
+          <Flex
+            maxWidth={CARDS_MAX_WIDTH}
+            justifyContent='center'
+            flexWrap='wrap'
+          >
             {Object.keys(recipes)
               .sort()
               .map(recipeName => {

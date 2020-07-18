@@ -57,3 +57,5 @@ const CardOption = ({ children, value, ...props }) => (
 Card.Option = CardOption
 
 export default Card
+
+Card.BASE_WIDTH = 500
