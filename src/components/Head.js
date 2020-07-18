@@ -15,30 +15,30 @@ const getTitle = (props, metadata) => {
   const page = getPage(props)
 
   switch (page) {
-    case '/changelog':
-      return 'Changelog'
-    case '/meta':
-      return 'Websites into data'
-    case '/screenshot':
-      return 'Websites into screenshot'
-    case '/pdf':
-      return 'Websites into PDF'
-    case '/insights':
-      return 'Automate Web Performance'
     case '/blog':
-      return 'Blog'
-    case '/status':
-      return 'Status'
-    case '/design':
-      return 'Design'
+      return 'Engineering at Scale'
     case '/chat':
       return 'Chat'
-    case '/stats':
-      return 'Stats'
+    case '/changelog':
+      return "What's new"
+    case '/design':
+      return 'Design'
+    case '/insights':
+      return 'Automate web performance'
     case '/integrations':
       return 'Integrations'
+    case '/meta':
+      return 'Turn websites into data'
     case '/oss':
-      return 'Open Source'
+      return 'Open Source Sustainability'
+    case '/pdf':
+      return 'Turn websites into a PDF'
+    case '/recipes':
+      return 'Recipes'
+    case '/stats':
+      return 'Stats'
+    case '/screenshot':
+      return 'Turn websites into screenshots'
     default:
       return metadata.headline
   }
@@ -50,34 +50,32 @@ const getImage = (props, metadata) => {
   const page = getPage(props)
 
   switch (page) {
-    case '/':
-      return cdnUrl('www/home.png')
-    case '/meta':
-      return cdnUrl('banner/meta.png')
-    case '/screenshot':
-      return cdnUrl('banner/screenshot.png')
-    case '/pdf':
-      return cdnUrl('banner/pdf.png')
     case '/blog':
-      return cdnUrl('banner/blog.png')
-    case '/status':
-      return cdnUrl('banner/status.png')
-    case '/design':
-      return cdnUrl('banner/design.png')
+      return cdnUrl('banner/blog.jpeg')
     case '/chat':
-      return cdnUrl('banner/chat.png')
-    case '/integrations':
-      return cdnUrl('banner/integrations.png')
-    case '/docs':
-      return cdnUrl('banner/docs.png')
-    case '/stats':
-      return cdnUrl('banner/stats.png')
-    case '/insights':
-      return cdnUrl('banner/insights.png')
-    case '/oss':
-      return cdnUrl('banner/oss.png')
+      return cdnUrl('banner/chat.jpeg')
     case '/changelog':
-      return cdnUrl('banner/changelog.png')
+      return cdnUrl('banner/changelog.jpeg')
+    case '/design':
+      return cdnUrl('banner/design.jpeg')
+    case '/docs':
+      return cdnUrl('banner/docs.jpeg')
+    case '/insights':
+      return cdnUrl('banner/insights.jpeg')
+    case '/integrations':
+      return cdnUrl('banner/integrations.jpeg')
+    case '/meta':
+      return cdnUrl('banner/meta.jpeg')
+    case '/oss':
+      return cdnUrl('banner/oss.jpeg')
+    case '/pdf':
+      return cdnUrl('banner/pdf.jpeg')
+    case '/recipes':
+      return cdnUrl('banner/recipes.jpeg')
+    case '/stats':
+      return cdnUrl('banner/stats.jpeg')
+    case '/screenshot':
+      return cdnUrl('banner/screenshot.jpeg')
     default:
       return metadata.image
   }

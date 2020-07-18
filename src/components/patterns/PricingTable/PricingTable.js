@@ -1,10 +1,11 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
-import { Highlight, Box, Label, Flex, Text } from 'components/elements'
+import { Link, Highlight, Box, Label, Flex, Text } from 'components/elements'
+import { XCircle, CheckCircle } from 'react-feather'
 import { Checkout } from 'components/patterns'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
-import { Check } from 'react-feather'
+import { cx } from 'theme'
 
 import { labelStyle } from '../../elements/Label'
 
@@ -54,11 +55,15 @@ const PricingHeader = ({ children }) => {
   )
 }
 
-const CheckMark = () => (
-  <Flex justifyContent='center'>
-    <Check />
-  </Flex>
-)
+const PricingIcon = ({ type, ...props }) => {
+  const IconComponent = type === 'yes' ? CheckCircle : XCircle
+  const color = type === 'yes' ? cx('close') : cx('fullscreen')
+  return (
+    <Flex justifyContent='center' {...props}>
+      <IconComponent size={18} color={color} />
+    </Flex>
+  )
+}
 
 const PricingRow = ({ children, ...props }) => {
   const [name, ...values] = children
@@ -136,92 +141,122 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Universal Embed</Text>
+                <Text>
+                  Universal Embed{' '}
+                  <Link.External href='/recipes/universal-embed' icon />
+                </Text>
                 <Description>
                   Effortless metadata normalization via Open Graph, oEmbed,
                   JSON+LD and HTML markup.
                 </Description>
               </>,
-              <CheckMark key='metadata-free' />,
-              <CheckMark key='metadata-pro' />
+              <PricingIcon type='yes' key='metadata-free' />,
+              <PricingIcon type='yes' key='metadata-pro' />
             ]}
           />
           <PricingRow
             children={[
               <>
-                <Text>Take Screenshots</Text>
+                <Text>
+                  Take Screenshots <Link.External href='/screenshots' icon />
+                </Text>
                 <Description>
                   Live screenshotting with overlay composition and stale
                   revalidation, hosted at Microlink CDN.
                 </Description>
               </>,
-              <CheckMark key='screenshot-free' />,
-              <CheckMark key='screenshot-pro' />
+              <PricingIcon type='yes' key='screenshot-free' />,
+              <PricingIcon type='yes' key='screenshot-pro' />
             ]}
           />
           <PricingRow
             children={[
               <>
-                <Text>Export to PDF</Text>
+                <Text>
+                  Export to PDF <Link.External href='/pdf' icon />
+                </Text>
                 <Description>
-                  On demand URL to PDF, costless effective with stale
+                  Convert any URL into PDF, costless effective with stale
                   revalidation, hosted at Microlink CDN.
                 </Description>
               </>,
-              <CheckMark key='pdf-free' />,
-              <CheckMark key='pdf-pro' />
+              <PricingIcon type='yes' key='pdf-free' />,
+              <PricingIcon type='yes' key='pdf-pro' />
             ]}
           />
           <PricingRow
             children={[
               <>
-                <Text>Cloud Browsering</Text>
+                <Text>
+                  Web Perfomance Audits <Link.External href='/insights' icon />
+                </Text>
                 <Description>
-                  Automatic URL prerendering detection via top notch headless
-                  browser with adblock capabilities.
+                  Track performance metrics scores over time, generating
+                  Lighthouse reports on demand.
                 </Description>
               </>,
-              <CheckMark key='prerender-free' />,
-              <CheckMark key='prerender-pro' />
+              <PricingIcon type='yes' key='prerender-free' />,
+              <PricingIcon type='yes' key='prerender-pro' />
             ]}
           />
           <PricingRow
             children={[
               <>
-                <Text>HTTP Headers</Text>
+                <Text>
+                  Cloud Browsering <Link.External href='/recipes' icon />
+                </Text>
+                <Description>
+                  Browser automation made simple via top notch headless browser
+                  running on the edge.
+                </Description>
+              </>,
+              <PricingIcon type='yes' key='prerender-free' />,
+              <PricingIcon type='yes' key='prerender-pro' />
+            ]}
+          />
+          <PricingRow
+            children={[
+              <>
+                <Text>
+                  HTTP Headers <Link.External href='/headers' icon />
+                </Text>
                 <Description>
                   Customize every single request specifying custom HTTP headers
                   to fits use case scenarios.
                 </Description>
               </>,
-              '',
-              <CheckMark key='headers-pro' />
+              <PricingIcon type='no' key='headers-free' />,
+              <PricingIcon type='yes' key='headers-pro' />
             ]}
           />
           <PricingRow
             children={[
               <>
-                <Text>Proxy Rotation</Text>
+                <Text>
+                  Proxy Rotation <Link.External href='/proxy' icon />
+                </Text>
                 <Description>
                   Gather the top 500 popular sites to never be blocked or
                   claked, auto handling retry scenarios.
                 </Description>
               </>,
-              '',
-              <CheckMark key='proxy-pro' />
+              <PricingIcon type='no' key='proxy-free' />,
+              <PricingIcon type='yes' key='proxy-pro' />
             ]}
           />
           <PricingRow
             children={[
               <>
-                <Text>Configurable TTL</Text>
+                <Text>
+                  Configurable TTL <Link.External href='/ttl' icon />
+                </Text>
                 <Description>
-                  Configurable built-in response cache for serving pre-computed
-                  content to fit high demand scenarios.
+                  Low response time with adaptative time-to-live cache to fit
+                  high demand scenarios.
                 </Description>
               </>,
-              '',
-              <CheckMark key='ttl-pro' />
+              <PricingIcon type='no' key='ttl-free' />,
+              <PricingIcon type='yes' key='ttl-pro' />
             ]}
           />
           <PricingRow
@@ -229,8 +264,8 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
               <>
                 <Text>Service Usage</Text>
                 <Description>
-                  API quota associated with your plan that determines how many
-                  requests you can perform in a window of time.
+                  API quota limit associated with your plan that determines how
+                  many requests you can perform in a window of time.
                 </Description>
               </>,
               <>

@@ -12,6 +12,7 @@ import {
   NavMeta,
   NavPdf,
   NavPricing,
+  NavRecipes,
   NavScreenshot
 } from './ToolbarLinks'
 
@@ -79,6 +80,7 @@ export default ({ theme }) => {
             <NavScreenshot isDark={isDark} mobile />
             <NavPdf isDark={isDark} mobile />
             <NavInsights isDark={isDark} />
+            <NavRecipes isDark={isDark} />
             <NavPricing isDark={isDark} />
             <NavDocs isDark={isDark} />
             <NavBlog isDark={isDark} />

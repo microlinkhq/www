@@ -22,8 +22,8 @@ module.exports = {
     description:
       'Turns websites into data: Enter a URL, receive information. Make any URL embeddable. Capture any website as a snapshot. Generate PDF from any website. Automate web performance.',
     twitter: '@microlinkhq',
-    image: new URL('logo/trim.jpeg', CDN_URL).toString(),
-    logo: new URL('logo/trim.png', CDN_URL).toString(),
+    image: new URL('www/home.jpeg', CDN_URL).toString(),
+    logo: new URL('logo/trim.jpeg', CDN_URL).toString(),
     // Slack previsualization
     dataLabel1: 'API',
     dataLabel2: 'Documentation',

@@ -5,7 +5,11 @@ isPro: true
 
 Type: <Type children='<string>'/>
 
-Establishes a proxy server to be used during the API requests, being a mediator between Microlink API and the target URL server destination. 
+One of the most frustrating parts of automated web scraping is constantly dealing with IP blocks and CAPTCHAs.
+
+The [pro](/docs/api/basics/endpoint) plan includes handle proxies, CAPTCHAs, and other scraping shield protections in a transparent way for the [Top 500](https://moz.com/top500) most popular worldwide websites.
+
+If that isn't enough for your use case, you can specify your own proxy server to be used during the API requests, being a mediator between Microlink API and the target URL server destination. 
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://kikobeats.com&proxy=superproxy.cool:22225:603f60f5:*****`,

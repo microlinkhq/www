@@ -2,12 +2,19 @@
 
 const { getCurrentBranchName, getLastModifiedDate } = require('git-jiggy')
 const { createFilePath } = require('gatsby-source-filesystem')
+const recipes = require('@microlink/recipes')
+const { kebabCase, map } = require('lodash')
+const { getDomain } = require('tldts')
 const { URL } = require('url')
 const path = require('path')
 
-const { CDN_URL } = require('./env')
-
 const demoLinksData = require('./data/demo-links.json')
+
+const RECIPES_BY_FEATURES_KEYS = Object.keys(
+  require('@microlink/recipes/by-feature')
+)
+
+const { CDN_URL } = require('./env')
 
 const getLastEdited = async filepath => {
   let date
@@ -65,12 +72,38 @@ exports.createPages = async ({ graphql, actions }) => {
   return Promise.all([
     createMarkdownPages({ graphql, createPage }),
     createMetaDemoPages({ createPage, demoLinksData }),
-    createScreenshotDemoPages({ createPage, demoLinksData })
+    createScreenshotDemoPages({ createPage, demoLinksData }),
+    createRecipesPages({ createPage, recipes })
   ])
 }
 
+const createRecipesPages = async ({ createPage, recipes }) => {
+  const pages = map(recipes, async (recipe, key) => {
+    const slug = kebabCase(key)
+    const route = `/recipes/${slug}`
+
+    const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(key)
+    const url = isGeneric ? 'https://microlink.io' : recipe.info.examples[0]
+    const domain = getDomain(url)
+
+    const code = `const mql = require('@microlink/mql')
+
+const ${key} = ${recipe.toString()}
+
+const result = await ${key}('${recipe.info.examples[0]}')
+console.log(result)`
+
+    return createPage({
+      path: route,
+      component: path.resolve('./src/templates/recipe.js'),
+      context: { slug, code, domain, isGeneric, url, key, ...recipe.info }
+    })
+  })
+  return Promise.all(pages)
+}
+
 const createMetaDemoPages = async ({ createPage, demoLinksData }) => {
-  const pages = demoLinksData.map(async demoLink => {
+  const pages = map(demoLinksData, async demoLink => {
     const { id, data } = demoLink
     const slug = `/meta/${id}`
 
@@ -85,7 +118,7 @@ const createMetaDemoPages = async ({ createPage, demoLinksData }) => {
 }
 
 const createScreenshotDemoPages = async ({ createPage, demoLinksData }) => {
-  const pages = demoLinksData.map(async demoLink => {
+  const pages = map(demoLinksData, async demoLink => {
     const { id, data } = demoLink
     const slug = `/screenshot/${id}`
 
