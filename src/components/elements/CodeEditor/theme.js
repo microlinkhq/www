@@ -59,7 +59,9 @@ const baseTheme = ({ PRIMARY, SECONDARY, BACKGROUND }) => ({
     color: SECONDARY,
     padding: '1em',
     margin: '.5em 0',
-    overflow: 'auto'
+    overflow: 'auto',
+    paddingTop: 0,
+    paddingLeft: 0
   },
   'pre[class*="language-"]::-moz-selection': {
     textShadow: 'none',
