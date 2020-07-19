@@ -45,17 +45,17 @@ Any URL that implements [oEmbed](https://oembed.com/) specification is supported
 
 <Figcaption children='The `iframe` field has `scripts` and `html` subfields.' />
 
-Additionally, you can supply any consumer query parameter supported by [specification](https://oembed.com/), like `maxwidth` or `maxheight`:
+Additionally, you can supply any consumer query parameter supported by [specification](https://oembed.com/), like `maxWidth` or `maxHeight`:
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{demolinks.youtube.url}}&iframe.maxwidth=350`,
+  Shell: `microlink-api {{demolinks.youtube.url}}&iframe.maxWidth=350`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
     '{{demolinks.youtube.url}}', {
       iframe: {
-        maxwidth: 350
+        maxWidth: 350
       }
   })
     
