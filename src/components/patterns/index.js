@@ -19,7 +19,6 @@ import Legend from './Legend/Legend'
 import Lighthouse from './Lighthouse/Lighthouse'
 import LighthouseScore from './LighthouseScore/LighthouseScore'
 import List from './List/List'
-import LiveDemo from './LiveDemo/LiveDemo'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
@@ -51,7 +50,6 @@ export {
   Lighthouse,
   LighthouseScore,
   List,
-  LiveDemo,
   Microlink,
   MQLEditor,
   PricingTable,

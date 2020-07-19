@@ -1,6 +1,5 @@
-import Hero from './hero'
 import Screenshots from './screenshots'
-import Meta from './meta'
 import Analytics from './analytics'
+import Hero from './hero'
 
-export { Hero, Screenshots, Meta, Analytics }
+export { Hero, Screenshots, Analytics }

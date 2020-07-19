@@ -1,7 +1,7 @@
 import { useDemoLinks, usePrinciples, useSiteMetadata } from 'components/hook'
 import { Faq, Headline, Layout, PricingTable } from 'components/patterns'
-import { Meta, Hero, Screenshots, Analytics } from 'components/pages/home'
 import { Box, Container, Link } from 'components/elements'
+import { Hero, Analytics } from 'components/pages/home'
 import { layout, colors, borders } from 'theme'
 import React from 'react'
 
@@ -220,12 +220,6 @@ function Index () {
         borderTop={`${borders[1]} ${colors.white20}`}
         borderBottom={`${borders[1]} ${colors.white20}`}
       />
-      <Screenshots
-        bg='pinky'
-        borderTop={`${borders[1]} ${colors.pinkest}`}
-        borderBottom={`${borders[1]} ${colors.pinkest}`}
-      />
-      <Meta demoLinks={demoLinks} />
       {/* <Explore
         borderTop={`${borders[1]} ${colors.pinkest}`}
         borderBottom={`${borders[1]} ${colors.pinkest}`}
