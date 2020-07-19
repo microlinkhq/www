@@ -83,6 +83,7 @@ export default props => {
                 </Choose.When>
                 <Choose.When condition={type === 'meta' || type === 'iframe'}>
                   <MicrolinkCard
+                    key={type}
                     fetchData={false}
                     media={type === 'iframe' ? 'iframe' : 'video'}
                     style={{ border: '0', height: 'inherit', maxWidth: '100%' }}
