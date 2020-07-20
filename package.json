@@ -89,7 +89,7 @@
     "qss": "~2.0.3",
     "react": "16.13.1",
     "react-codecopy": "~4.2.1",
-    "react-confetti": "~5.1.0",
+    "react-confetti": "~6.0.0",
     "react-dom": "16.13.1",
     "react-extras": "~2.0.0",
     "react-feather": "~2.0.8",
