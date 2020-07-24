@@ -7,14 +7,13 @@ export const breakpoints = [768, 992, 1200, 1200].map(toPx)
 
 export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512].map(toPx)
 
-export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72, 96].map(toPx)
+export const fontSizes = [14, 16, 20, 28, 52, 64, 80, 128].map(toPx)
 
 export const fontWeights = {
-  lighter: 100,
   light: 200,
   normal: 400,
   regular: 500,
-  bold: 600
+  bold: 700
 }
 
 export const radii = [0, 2, 4, 6, 8, 16].map(toPx)
@@ -229,7 +228,7 @@ export const fonts = {
 export const cx = key => colors[key] || key
 
 export const gradient =
-  'linear-gradient(to right, #F76698 0%, #EA407B 29%, #654EA3 100%)'
+  'linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%)'
 
 export const shadowOffsets = ['0px 5px 10px 0px', '0 8px 30px', '0 30px 60px']
 
@@ -243,7 +242,7 @@ export const shadows = shadowOffsets.map(
   (shadow, index) => `${shadow} ${shadowColors[index]}`
 )
 
-export const lineHeights = [1.123, 1.25, 1.5, 1.8, 2]
+export const lineHeights = [1.123, 1.25, 1.5, 1.6, 1.65]
 
 export const sizes = [
   1,
@@ -299,7 +298,8 @@ export const boxStyles = {
 }
 
 export const layout = {
-  normal: toPx(960),
+  large: toPx(960),
+  normal: toPx(780),
   small: toPx(650)
 }
 

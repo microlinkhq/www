@@ -538,7 +538,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
         ml={[3, 3, 3, 'auto']}
         mr={[3, 3, 3, 'auto']}
         px={0}
-        maxWidth={layout.normal}
+        maxWidth={layout.large}
       >
         <Aside routes={routes} activeRouteName={activeRouteName}>
           {meta.title ? (

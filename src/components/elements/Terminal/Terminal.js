@@ -23,10 +23,10 @@ export const TerminalWindow = styled(Box)`
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
-  0.33,
-  0.4,
-  0.6,
-  0.6
+  0.41,
+  0.48,
+  0.68,
+  0.68
 ])
 
 const fromString = text =>

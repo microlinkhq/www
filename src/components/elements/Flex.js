@@ -4,7 +4,8 @@ import {
   flexDirection,
   alignItems,
   justifyContent,
-  alignContent
+  alignContent,
+  display
 } from 'styled-system'
 
 import styled from 'styled-components'
@@ -17,6 +18,7 @@ const Flex = styled(Box)(
     display: 'flex'
   },
   compose(
+    display,
     alignContent,
     alignItems,
     flexDirection,
@@ -31,7 +33,8 @@ Flex.propTypes = {
   ...propTypes.alignItems,
   ...propTypes.flexDirection,
   ...propTypes.flexWrap,
-  ...propTypes.justifyContent
+  ...propTypes.justifyContent,
+  ...propTypes.display
 }
 
 export default Flex

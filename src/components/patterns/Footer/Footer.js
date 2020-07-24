@@ -63,7 +63,7 @@ export default ({ theme, ...props }) => {
   } = isDark ? DARK_THEME : LIGHT_THEME
 
   return (
-    <Container px={0} maxWidth={layout.normal}>
+    <Container px={0} maxWidth={layout.large}>
       <Flex
         as='footer'
         py={[0, 0, 4, 4]}

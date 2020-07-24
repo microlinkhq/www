@@ -11,7 +11,7 @@ const Caps = styled(Text)(
 )
 
 Caps.defaultProps = {
-  fontSize: [0, 1],
+  fontSize: 1,
   letterSpacing: 2
 }
 

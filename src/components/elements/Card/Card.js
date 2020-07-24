@@ -5,7 +5,7 @@ import { transition, toPx, shadows } from 'theme'
 import Flex from '../Flex'
 import Text from '../Text'
 
-const BASE_WIDTH = 500
+const BASE_WIDTH = 650
 const BASE_RATIO = 1.4
 const BASE_HEIGHT = BASE_WIDTH / BASE_RATIO
 
