@@ -16,7 +16,6 @@ export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
         pt={4}
         pb={5}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
-        titleize={false}
       >
         Every plan becomes with API access & 24/7 tech support. Use the forever
         free plan for try the service, no credit-card required.

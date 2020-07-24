@@ -44,7 +44,6 @@ const Hero = () => {
       <Heading pt={4} titleize={false} children='Browser as API' />
       <Caption
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
-        titleize={false}
       >
         Fast, scalable, and reliable browser automation built for businesses and
         developers. Proudly open source.
