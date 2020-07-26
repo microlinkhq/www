@@ -1,12 +1,11 @@
 /* global fetch */
 
+import { useWindowSize, useSiteMetadata, useQueryState } from 'components/hook'
 import { Box, Flex, LinkSolid, DotSpinner } from 'components/elements'
-import { useSiteMetadata, useQueryState } from 'components/hook'
 import { Headline, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 
 import Confetti from 'react-confetti'
-import { isSSR } from 'helpers'
 import { colors } from 'theme'
 import { encode } from 'qss'
 
@@ -62,6 +61,7 @@ const getCaption = paymentState => {
 export default () => {
   const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
   const [query] = useQueryState()
+  const size = useWindowSize()
 
   const {
     paymentApiKey: apiKey,
@@ -91,8 +91,6 @@ export default () => {
     >
       {paymentState === PAYMENT_STATE.SUCCESS && (
         <Confetti
-          width={!isSSR && window.innerWidth}
-          height={!isSSR && window.innerHeight}
           colors={[
             colors.red5,
             colors.pink5,
@@ -107,6 +105,7 @@ export default () => {
             colors.yellow5,
             colors.orange5
           ]}
+          {...size}
         />
       )}
       <Headline
