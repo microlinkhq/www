@@ -1,8 +1,8 @@
 import { useTransition, animated } from 'react-spring'
 import React, { useCallback, useState } from 'react'
+import { aspectRatio, cdnUrl } from 'helpers'
 import { layout, speed, toPx } from 'theme'
 import styled from 'styled-components'
-import { aspectRatio, cdnUrl } from 'helpers'
 import { navigate } from 'gatsby'
 import map from 'lodash/map'
 

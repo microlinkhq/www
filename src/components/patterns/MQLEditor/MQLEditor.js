@@ -1,3 +1,4 @@
+import { useWindowSize } from 'components/hook'
 import { shadows, breakpoints } from 'theme'
 import Microlink from '@microlink/react'
 import React, { useState } from 'react'
@@ -19,6 +20,7 @@ import * as data from './data'
 
 const TYPES = ['meta', 'iframe', 'screenshot', 'pdf', 'insights']
 const MODES = ['preview', 'json', 'code']
+const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const MicrolinkCard = styled(Microlink)`
   --microlink-hover-background-color: white;
@@ -60,8 +62,13 @@ const MQLCard = styled(Card)`
 `
 
 export default props => {
+  const size = useWindowSize()
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
+
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
+  const cardWidth = size.width / cardBase
+  const cardHeight = cardWidth / Card.ratio
 
   return (
     <Flex
@@ -70,9 +77,20 @@ export default props => {
       justifyContent='space-around'
       {...props}
     >
-      <Flex flexDirection='column' mb={[4, 0]}>
+      <Flex
+        alignItems='center'
+        justifyContent='center'
+        flexDirection='column'
+        mb={[4, 0]}
+      >
         <Choose>
-          <MQLCard mode={mode} type={type}>
+          <MQLCard
+            data-debug
+            width={cardWidth}
+            height={cardHeight}
+            mode={mode}
+            type={type}
+          >
             <Choose.When condition={mode === 'preview'}>
               <Choose>
                 <Choose.When condition={type === 'pdf'}>
@@ -96,6 +114,7 @@ export default props => {
             </Choose.When>
             <Choose.When condition={mode === 'json'}>
               <CodeEditor
+                width='100%'
                 language='json'
                 children={JSON.stringify(data[type], null, 2)}
               />
@@ -105,8 +124,15 @@ export default props => {
             </Choose.When>
           </MQLCard>
         </Choose>
-        <Flex pl='15px' pr='7px' justifyContent='space-between'>
-          <Box pt={3}>
+        <Flex
+          width='100%'
+          pl='15px'
+          pr='7px'
+          alignItems={['center', undefined, undefined, undefined]}
+          justifyContent='space-between'
+          flexDirection={['column', 'row', 'row', 'row']}
+        >
+          <Box pt={4}>
             {MODES.map(children => (
               <Card.Option
                 key={children}
@@ -116,7 +142,7 @@ export default props => {
               />
             ))}
           </Box>
-          <Box pt={3}>
+          <Box pt={[3, 4, 4, 4]}>
             {TYPES.map(children => (
               <Card.Option
                 key={children}

@@ -2,13 +2,23 @@ import { Hide, Box, Caps, Flex, Subhead } from 'components/elements'
 import { Block, Caption } from 'components/patterns'
 import { useAnalytics } from 'components/hook'
 import { fadeIn } from 'components/keyframes'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import take from 'lodash/take'
-import theme from 'theme'
+import { colors } from 'theme'
+
+const SENTENCES = [
+  'Get HTML content',
+  'Take screenshots in ~2 seg',
+  'Turn websites into data',
+  'Run a Ligthouse audit',
+  'Detect technology stack'
+]
+
+const SENTENCES_INTERVAL = 2000
 
 const Separator = styled(Box)`
-  border-right: 1px solid ${theme.colors.white20};
+  border-right: 1px solid ${colors.white20};
   width: 1px;
 `
 
@@ -28,23 +38,18 @@ export default props => {
     { value: '99.9%', name: 'uptime' }
   ]
 
-  const sentences = [
-    'Get HTML content',
-    'Take screenshots in ~2 seg',
-    'Turn websites into data',
-    'Run a Ligthouse audit',
-    'Detect technology stack'
-  ]
-
   const [index, setIndex] = useState(0)
 
-  const handleClick = event => {
-    if (event.target.tagName !== 'SELECT' && event.target.tagName !== 'SPAN') {
-      setIndex((index + 1) % sentences.length)
-    }
-  }
+  useEffect(() => {
+    const timer = setInterval(
+      () => setIndex(index => (index + 1) % SENTENCES.length),
+      SENTENCES_INTERVAL
+    )
 
-  const sentence = sentences[index]
+    return () => clearInterval(timer)
+  }, [])
+
+  const sentence = SENTENCES[index]
 
   const blockOne = (
     <Flex
@@ -60,7 +65,6 @@ export default props => {
         color='white'
         key={sentence}
         css={fadeIn}
-        style={{ cursor: 'pointer' }}
         children={sentence}
       />
     </Flex>
@@ -114,7 +118,6 @@ export default props => {
     <Block
       id='analytics'
       flexDirection='column'
-      onClick={handleClick}
       blockOne={blockOne}
       blockTwo={blockTwo}
       {...props}

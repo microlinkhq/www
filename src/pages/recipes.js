@@ -23,7 +23,7 @@ const CARD_ITEMS_PER_ROW = 4.5
 const RECIPES_BY_FEATURES_KEYS = Object.keys(byFeature)
 
 const CARDS_MAX_WIDTH = CARD_SIZE.map(n =>
-  toPx(Card.BASE_WIDTH * n * CARD_ITEMS_PER_ROW)
+  toPx(Card.width * n * CARD_ITEMS_PER_ROW)
 )
 
 const CustomLink = styled(Link)`
