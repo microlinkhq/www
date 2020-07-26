@@ -1,0 +1,18 @@
+- title: Developer First
+  description: For developers, with top notch industry technologies, for any programming language.
+- title: Declarative Usage
+  description: Simple [documentation](/docs/api/getting-started/overview) and code examples that enable quick implementations.
+- title: Dedicated Support
+  description: Giving you exactly the information you need, when you need it.
+- title: Powerful & Scalable
+  description: Cloud based solution with superior operational performance.
+- title: Fully Programable
+  description: Easy to integrate with any existing stack or cloud in just a few minutes.
+- title: Costless Solution
+  description: Starting off from free, scaling with your business based on your necessities.
+- title: Built-in cache
+  description: Always fresh based on response payload with stale revalidation support.
+- title: Request isolation
+  description: Privacy guaranteed with not shared browsers between requests.
+- title: Global CDN
+  description: Distributed over [+240 edge nodes](/blog/edge-cdn/) backed by CloudFlare Network.
