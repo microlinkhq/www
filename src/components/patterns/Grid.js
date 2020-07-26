@@ -6,21 +6,22 @@ import React from 'react'
 const Item = ({ title, description, ...props }) => (
   <Box
     as='li'
-    mb={4}
-    px={[3, '38px']}
+    maxWidth='16rem'
     style={{ listStyle: 'none' }}
-    maxWidth={[6, 6, 7, 7]}
     flex={1}
+    pb={3}
+    pr={[0, 3, 3, 3]}
     {...props}
   >
     <Caps as='header' pb={[1, 2]} fontWeight='bold' children={title} />
     <Text
-      color='black60'
       css={`
         div {
           margin: 0;
+          font-size: inherit;
         }
       `}
+      fontSize={1}
     >
       <Markdown children={description} />
     </Text>
@@ -33,22 +34,24 @@ export default ({
   childComponent: Component = Item,
   ...props
 }) => (
-  <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+  <Box width='100%'>
     {chunk(children, itemsPerRow).map((row, index) => (
       <Flex
         as='ul'
-        justifyContent={['center', 'center', 'space-between']}
+        justifyContent={[
+          'space-around',
+          'flex-start',
+          'space-between',
+          'space-between'
+        ]}
         key={index}
-        width='100%'
         pl={0}
-        mt={0}
-        mb={0}
         {...props}
       >
-        {row.map((rowProps, index) => (
+        {row.map(rowProps => (
           <Component key={JSON.stringify(rowProps)} {...rowProps} />
         ))}
       </Flex>
     ))}
-  </Flex>
+  </Box>
 )

@@ -9,16 +9,12 @@ const Block = ({
   top = null,
   flexDirection = 'row',
   children = <Box ml={4} mr={4} />,
-  pt = [0, 0, 0, 4],
-  pb = [0, 0, 0, 4],
   ...props
 }) => (
   <Container {...props}>
     {top}
     <Flex
       as='section'
-      pt={pt}
-      pb={pb}
       justifyContent='center'
       flexDirection={['column', 'column', 'column', flexDirection]}
       alignItems='center'

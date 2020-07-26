@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Link } from 'components/elements'
+import { Link, Box, Flex, Heading } from 'components/elements'
 import { Caption, MQLEditor } from 'components/patterns'
 import { ChevronRight, ArrowRight } from 'react-feather'
 import React, { useState } from 'react'
@@ -41,12 +41,12 @@ const Hero = () => {
       alignItems='center'
       justifyContent='center'
     >
-      <Heading pt={4} titleize={false} children='Browser as API' />
+      <Heading pt={5} titleize={false} children='Browser as API' />
       <Caption
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       >
         Fast, scalable, and reliable browser automation built for businesses and
-        developers. Proudly open source.
+        developers. Proudly <Link href='/oss'>open source</Link> software.
       </Caption>
       <Flex
         alignItems={['center', undefined, undefined, undefined]}

@@ -69,14 +69,14 @@ export default props => {
   const Stat = ({ value, name, isLast }) => (
     <Flex>
       <Flex alignItems='center' flexDirection='column'>
-        <Subhead as='div' color='white20' children={value} />
+        <Subhead as='div' color='white40' titleize={false} children={value} />
         <Caption
-          color='white'
+          color='pink'
           fontWeight='bold'
           titleize={false}
           style={{ opacity: 0.8 }}
         >
-          <Caps mt={[1, 1, 0, 0]} color='pink' children={name} />
+          <Caps titleize={false} mt={[1, 1, 0, 0]} children={name} />
         </Caption>
       </Flex>
       {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}

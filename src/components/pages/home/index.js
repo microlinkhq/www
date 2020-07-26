@@ -3,5 +3,6 @@ import Analytics from './analytics'
 import Hero from './hero'
 import Pricing from './pricing'
 import Faqs from './faqs'
+import Features from './features'
 
-export { Faqs, Hero, Screenshots, Analytics, Pricing }
+export { Features, Faqs, Hero, Screenshots, Analytics, Pricing }

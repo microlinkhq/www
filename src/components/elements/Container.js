@@ -9,8 +9,7 @@ Container.defaultProps = {
   flexDirection: 'column',
   ml: 'auto',
   mr: 'auto',
-  pt: 4,
-  pb: 4,
+  pt: 6,
   px: 3
 }
 
