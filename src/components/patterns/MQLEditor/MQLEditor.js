@@ -85,7 +85,6 @@ export default props => {
       >
         <Choose>
           <MQLCard
-            data-debug
             width={cardWidth}
             height={cardHeight}
             mode={mode}
