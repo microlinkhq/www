@@ -9,7 +9,7 @@ export function useWindowSize (fallback) {
   const [windowSize, setWindowSize] = useState(getSize(fallback))
 
   useEffect(() => {
-    const handleResize = () => setWindowSize(getSize(fallback))
+    const handleResize = () => setWindowSize(getSize())
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
