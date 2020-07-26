@@ -62,7 +62,7 @@ const MQLCard = styled(Card)`
 `
 
 export default props => {
-  const size = useWindowSize()
+  const size = useWindowSize({ width: 0, height: 0 })
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
 
