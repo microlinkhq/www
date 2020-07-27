@@ -13718,10 +13718,10 @@ micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.0.5"
 
-microsoft-capitalize@~1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/microsoft-capitalize/-/microsoft-capitalize-1.0.1.tgz#2b5bbc791bfc106ce77d3515fd39cbb8faaadaa0"
-  integrity sha512-PMX01TU9zgCkfV1RbEMsW4XeT76zooyi1RMxMfNeuPwayp6t8crCVJfb5XNABg38fyx4UX4FvgycuxedPE2HJg==
+microsoft-capitalize@~1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/microsoft-capitalize/-/microsoft-capitalize-1.0.2.tgz#dfbc6178895f68f58830d8285fac0d7098af548b"
+  integrity sha512-Q/o+x7QrwcbL0av5a++m9XwxeQmTnf2XZoj/09qRWqHABGBTlpZE03I18N0lWKc7+wpS45ij+tkEi9dQ9OPD/w==
 
 miller-rabin@^4.0.0:
   version "4.0.1"
