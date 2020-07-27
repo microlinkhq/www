@@ -30,7 +30,7 @@ Since the bundle doesn't include the dependencies, we recommend loading them fro
 or even better, you can combine all the things in a single request:
 
 ```html
-<!-- react + styled-components + microlin -->
+<!-- react + styled-components + microlink -->
 <script src="https://cdn.jsdelivr.net/combine/npm/react@16/umd/react.production.min.js,npm/react-dom@16/umd/react-dom.production.min.js,npm/react-is@16/umd/react-is.production.min.js,npm/styled-components@5/dist/styled-components.min.js,npm/@microlink/mql@latest/dist/mql.min.js,npm/@microlink/vanilla@5/dist/microlink.min.js"></script>
 ```
 
