@@ -5,8 +5,6 @@ const createApiUrl = ({ url = 'https://example.com', ...props } = {}) => {
   return apiUrl
 }
 
-const serializeArray = arr => `[${arr.map(value => "'" + value + "'")}]`
-
 const createDataUrl = props => (url = 'https://example.com') =>
   createApiUrl({ url, ...props })
 
@@ -14,18 +12,16 @@ export default (props, stringProps) => {
   const dataUrl = createDataUrl(props)
 
   const React = args => {
-    const {
-      url = '{{demolinks.spotify.url}}',
-      media = ['audio', 'video', 'image', 'logo'],
-      size = 'large'
-    } = { ...props, ...args }
+    const { url = '{{demolinks.spotify.url}}', size = 'large' } = {
+      ...props,
+      ...args
+    }
 
     return `import Microlink from '@microlink/react'
 
 export default props => (
   <Microlink
     url='${url}'
-    media={${serializeArray(media)}}
     size='${size}'
     {...props}
   />
@@ -35,7 +31,7 @@ export default props => (
   React.language = 'jsx'
 
   const HTML = args => {
-    const { media = ['audio', 'video', 'image', 'logo'], size = 'large' } = {
+    const { size = 'large' } = {
       ...props,
       ...args
     }
@@ -48,7 +44,6 @@ export default props => (
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {
     microlink('.link-preview', {
-      media={${serializeArray(media)},
       size: '${size}'
     })
   })
