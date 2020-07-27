@@ -15,6 +15,7 @@ import {
   Iframe
 } from 'components/elements'
 
+import generateJSON from './json'
 import * as code from './code'
 import * as data from './data'
 
@@ -24,7 +25,6 @@ const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const MicrolinkCard = styled(Microlink)`
   --microlink-hover-background-color: white;
-
   width: 100%;
 
   @media screen and (max-width: ${breakpoints[1]}) {
@@ -45,6 +45,10 @@ const MQLCard = styled(Card)`
     background-size: cover;
     background-position: center;
     box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
     `}
   `};
 
@@ -73,86 +77,78 @@ export default props => {
 
   return (
     <Flex
-      mt={3}
+      alignItems='center'
+      justifyContent='center'
       flexDirection='column'
-      justifyContent='space-around'
+      mb={[4, 0]}
       {...props}
     >
+      <Choose>
+        <MQLCard width={cardWidth} height={cardHeight} mode={mode} type={type}>
+          <Choose.When condition={mode === 'preview'}>
+            <Choose>
+              <Choose.When condition={type === 'pdf'}>
+                <Iframe src={data.pdfUrl} />
+              </Choose.When>
+              <Choose.When condition={type === 'insights'}>
+                <Iframe src={data.insightsUrl} />
+              </Choose.When>
+              <Choose.When condition={type === 'meta' || type === 'iframe'}>
+                <MicrolinkCard
+                  key={type}
+                  fetchData={false}
+                  media={type === 'iframe' ? 'iframe' : 'video'}
+                  style={{ border: '0', height: 'inherit', maxWidth: '100%' }}
+                  url={data[type] && data[type].url}
+                  setData={data[type]}
+                  size='large'
+                />
+              </Choose.When>
+            </Choose>
+          </Choose.When>
+          <Choose.When condition={mode === 'html'}>
+            <CodeEditor width='100%' language='html' />
+          </Choose.When>
+          <Choose.When condition={mode === 'json'}>
+            <CodeEditor
+              width='100%'
+              language='json'
+              children={generateJSON(data[type])}
+            />
+          </Choose.When>
+          <Choose.When condition={mode === 'code'}>
+            <MultiCodeEditor width='100%' languages={code[type]} />
+          </Choose.When>
+        </MQLCard>
+      </Choose>
       <Flex
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
-        mb={[4, 0]}
+        width='100%'
+        pl='15px'
+        pr='7px'
+        alignItems={['center', undefined, undefined, undefined]}
+        justifyContent='space-between'
+        flexDirection={['column', 'row', 'row', 'row']}
       >
-        <Choose>
-          <MQLCard
-            width={cardWidth}
-            height={cardHeight}
-            mode={mode}
-            type={type}
-          >
-            <Choose.When condition={mode === 'preview'}>
-              <Choose>
-                <Choose.When condition={type === 'pdf'}>
-                  <Iframe src={data.pdfUrl} />
-                </Choose.When>
-                <Choose.When condition={type === 'insights'}>
-                  <Iframe src={data.insightsUrl} />
-                </Choose.When>
-                <Choose.When condition={type === 'meta' || type === 'iframe'}>
-                  <MicrolinkCard
-                    key={type}
-                    fetchData={false}
-                    media={type === 'iframe' ? 'iframe' : 'video'}
-                    style={{ border: '0', height: 'inherit', maxWidth: '100%' }}
-                    url={data[type] && data[type].url}
-                    setData={data[type]}
-                    size='large'
-                  />
-                </Choose.When>
-              </Choose>
-            </Choose.When>
-            <Choose.When condition={mode === 'json'}>
-              <CodeEditor
-                width='100%'
-                language='json'
-                children={JSON.stringify(data[type], null, 2)}
-              />
-            </Choose.When>
-            <Choose.When condition={mode === 'code'}>
-              <MultiCodeEditor width='100%' languages={code[type]} />
-            </Choose.When>
-          </MQLCard>
-        </Choose>
-        <Flex
-          width='100%'
-          pl='15px'
-          pr='7px'
-          alignItems={['center', undefined, undefined, undefined]}
-          justifyContent='space-between'
-          flexDirection={['column', 'row', 'row', 'row']}
-        >
-          <Box pt={4}>
-            {MODES.map(children => (
-              <Card.Option
-                key={children}
-                value={mode}
-                children={children}
-                onClick={() => setMode(children)}
-              />
-            ))}
-          </Box>
-          <Box pt={[3, 4, 4, 4]}>
-            {TYPES.map(children => (
-              <Card.Option
-                key={children}
-                children={children}
-                value={type}
-                onClick={() => setType(children)}
-              />
-            ))}
-          </Box>
-        </Flex>
+        <Box pt={4}>
+          {MODES.map(children => (
+            <Card.Option
+              key={children}
+              value={mode}
+              children={children}
+              onClick={() => setMode(children)}
+            />
+          ))}
+        </Box>
+        <Box pt={[3, 4, 4, 4]}>
+          {TYPES.map(children => (
+            <Card.Option
+              key={children}
+              children={children}
+              value={type}
+              onClick={() => setType(children)}
+            />
+          ))}
+        </Box>
       </Flex>
     </Flex>
   )

@@ -4,7 +4,6 @@ import { Subhead } from 'components/elements'
 const Caption = props => (
   <Subhead
     as='h3'
-    py={3}
     lineHeight={2}
     textAlign='center'
     fontWeight='normal'

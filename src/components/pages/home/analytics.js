@@ -15,7 +15,7 @@ const SENTENCES = [
   'Detect technology stack'
 ]
 
-const SENTENCES_INTERVAL = 2000
+const SENTENCES_INTERVAL = 3500
 
 const Separator = styled(Box)`
   border-right: 1px solid ${colors.white20};
@@ -75,6 +75,7 @@ export default props => {
       <Flex alignItems='center' flexDirection='column'>
         <Subhead as='div' color='white40' titleize={false} children={value} />
         <Caption
+          pt={3}
           color='pink'
           fontWeight='bold'
           titleize={false}

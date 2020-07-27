@@ -43,10 +43,11 @@ const Hero = () => {
     >
       <Heading pt={5} titleize={false} children='Browser as API' />
       <Caption
+        py={3}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       >
         Fast, scalable, and reliable browser automation built for businesses and
-        developers. Proudly <Link href='/oss'>open source</Link> software.
+        developers. Proudly open source software.
       </Caption>
       <Flex
         alignItems={['center', undefined, undefined, undefined]}
