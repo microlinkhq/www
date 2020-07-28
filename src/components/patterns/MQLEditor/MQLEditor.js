@@ -73,7 +73,7 @@ export default props => {
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
