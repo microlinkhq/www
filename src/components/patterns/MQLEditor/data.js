@@ -340,7 +340,7 @@ export const insights = {
                 transferSize: 5851
               },
               children: {
-                '196.2': {
+                196.2: {
                   request: {
                     url:
                       'https://varnish-cache.org/docs/6.2/_static/classic.css',
@@ -350,7 +350,7 @@ export const insights = {
                     transferSize: 1394
                   },
                   children: {
-                    '196.9': {
+                    196.9: {
                       request: {
                         url:
                           'https://varnish-cache.org/docs/6.2/_static/basic.css',
@@ -362,7 +362,7 @@ export const insights = {
                     }
                   }
                 },
-                '196.3': {
+                196.3: {
                   request: {
                     url:
                       'https://varnish-cache.org/docs/6.2/_static/pygments.css',
@@ -372,7 +372,7 @@ export const insights = {
                     transferSize: 1197
                   }
                 },
-                '196.4': {
+                196.4: {
                   request: {
                     url: 'https://varnish-cache.org/docs/6.2/_static/jquery.js',
                     startTime: 272095.675119,
@@ -381,7 +381,7 @@ export const insights = {
                     transferSize: 30348
                   }
                 },
-                '196.5': {
+                196.5: {
                   request: {
                     url:
                       'https://varnish-cache.org/docs/6.2/_static/underscore.js',
@@ -391,7 +391,7 @@ export const insights = {
                     transferSize: 4369
                   }
                 },
-                '196.6': {
+                196.6: {
                   request: {
                     url:
                       'https://varnish-cache.org/docs/6.2/_static/doctools.js',

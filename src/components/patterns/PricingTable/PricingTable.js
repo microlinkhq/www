@@ -1,8 +1,8 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { External as ExternalIcon } from 'components/icons'
-import { layout, cx, fontSizes } from 'theme'
+import { Caption, Checkout } from 'components/patterns'
 import { XCircle, CheckCircle } from 'react-feather'
-import { Checkout } from 'components/patterns'
+import { layout, cx, fontSizes } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
@@ -18,8 +18,6 @@ import {
   Text,
   Container
 } from 'components/elements'
-
-import { Caption } from 'components/patterns'
 
 import { labelStyle } from '../../elements/Label'
 
