@@ -15,8 +15,11 @@ import {
   Box,
   Label,
   Flex,
-  Text
+  Text,
+  Container
 } from 'components/elements'
+
+import { Caption } from 'components/patterns'
 
 import { labelStyle } from '../../elements/Label'
 
@@ -131,9 +134,9 @@ const Description = props => (
 const FeatureLink = ({ children, ...props }) => {
   return (
     <Link color='black' {...props}>
-      <Text pb={2} fontWeight='bold'>
+      <Caption textAlign='left' pb={2} fontWeight='bold'>
         {children} <ExternalIcon width={fontSizes[1]} ml={1} />
-      </Text>
+      </Caption>
     </Link>
   )
 }
@@ -163,7 +166,7 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
       ml='auto'
       mr='auto'
       px={[0, 0, 4, 4]}
-      pb={4}
+      pb={Container.defaultProps.pt}
       maxWidth={layout.normal}
       {...props}
     >
@@ -309,9 +312,14 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text pb={2} fontWeight='bold'>
+                <Caption
+                  titleize={false}
+                  textAlign='left'
+                  pb={2}
+                  fontWeight='bold'
+                >
                   Service Usage
-                </Text>
+                </Caption>
                 <Description>
                   API quota limit associated with your plan that determines how
                   many requests you can perform in a window of time.

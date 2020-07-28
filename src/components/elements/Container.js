@@ -9,8 +9,8 @@ Container.defaultProps = {
   flexDirection: 'column',
   ml: 'auto',
   mr: 'auto',
-  pt: 6,
-  px: 3
+  pt: [5, 5, 6, 6],
+  px: [3, 3, 0, 0]
 }
 
 export default Container

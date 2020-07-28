@@ -13,8 +13,8 @@ export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
     >
       <Subhead variant='gradient' pt={[0, 0, 4, 4]} children='Pricing' />
       <Caption
-        pt={4}
-        pb={5}
+        pt={[3, 4, 4, 4]}
+        pb={[4, 4, 4, 5]}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       >
         Every plan becomes with API access & 24/7 tech support. Use the forever

@@ -82,7 +82,6 @@ export default props => {
       alignItems='center'
       justifyContent='center'
       flexDirection='column'
-      mb={[4, 0]}
       {...props}
     >
       <Choose>
@@ -131,11 +130,11 @@ export default props => {
         width='100%'
         pl='15px'
         pr='7px'
-        alignItems={['center', undefined, undefined, undefined]}
+        alignItems={['center', 'center', undefined, undefined]}
         justifyContent='space-between'
-        flexDirection={['column', 'row', 'row', 'row']}
+        flexDirection={['column', 'column', 'row', 'row']}
       >
-        <Box pt={4}>
+        <Box pt={[5, 5, 4, 4]}>
           {MODES.map(children => (
             <Card.Option
               key={children}
@@ -145,7 +144,7 @@ export default props => {
             />
           ))}
         </Box>
-        <Box pt={[3, 4, 4, 4]}>
+        <Box pt={[3, 3, 4, 4]}>
           {TYPES.map(children => (
             <Card.Option
               key={children}

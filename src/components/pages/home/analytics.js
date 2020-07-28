@@ -45,7 +45,6 @@ export default props => {
       () => setIndex(index => (index + 1) % SENTENCES.length),
       SENTENCES_INTERVAL
     )
-
     return () => clearInterval(timer)
   }, [])
 
@@ -58,9 +57,16 @@ export default props => {
       justifyContent='center'
       alignItems='center'
     >
-      <Subhead color='pink' titleize={false} children='Cloud Browser for' />
       <Subhead
+        fontSize={[3, 4, 6, 6]}
+        color='pink'
+        titleize={false}
+        children='Cloud Browser for'
+      />
+      <Subhead
+        fontSize={[3, 4, 6, 6]}
         py={3}
+        px={[4, 0, 0, 0]}
         titleize={false}
         color='white'
         key={sentence}
@@ -73,15 +79,21 @@ export default props => {
   const Stat = ({ value, name, isLast }) => (
     <Flex>
       <Flex alignItems='center' flexDirection='column'>
-        <Subhead as='div' color='white40' titleize={false} children={value} />
+        <Subhead
+          as='div'
+          fontSize={[3, 4, 6, 6]}
+          color='white40'
+          titleize={false}
+          children={value}
+        />
         <Caption
-          pt={3}
+          pt={[2, 3, 3, 3]}
           color='pink'
           fontWeight='bold'
           titleize={false}
           style={{ opacity: 0.8 }}
         >
-          <Caps titleize={false} mt={[1, 1, 0, 0]} children={name} />
+          <Caps fontSize={[0, 2, 3, 3]} titleize={false} children={name} />
         </Caption>
       </Flex>
       {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}

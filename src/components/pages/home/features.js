@@ -1,14 +1,10 @@
-import { Container, Subhead, Box, Link, Hide } from 'components/elements'
+import { Container, Box, Hide } from 'components/elements'
 import { Caption, Grid } from 'components/patterns'
 import { layout } from 'theme'
 import take from 'lodash/take'
 import React from 'react'
 
-import { useFeatures } from 'components/hook'
-
-export default props => {
-  const features = useFeatures()
-
+export default ({ title, caption, features, ...props }) => {
   return (
     <Container
       id='features'
@@ -17,19 +13,16 @@ export default props => {
       {...props}
     >
       <Box textAlign='left' width='100%'>
-        <Subhead width='100%' textAlign='left'>
-          Production ready,
-        </Subhead>
-        <Subhead color='indigo' width='100%' textAlign='left' titleize={false}>
-          browser as service
-        </Subhead>
+        {title}
       </Box>
 
-      <Caption pt={4} pb={5} width='100%' textAlign='left'>
-        There are hidden costs to run your own infrastructure — give your team
-        extra boost in performance, ease of use, browser automation made simple
-        at cost pricing, full control via{' '}
-        <Link href='/docs/api/getting-started/overview'>API</Link>.
+      <Caption
+        pt={[3, 4, 4, 4]}
+        pb={[4, 4, 4, 5]}
+        width='100%'
+        textAlign='left'
+      >
+        {caption}
       </Caption>
 
       <Hide breakpoints={[1, 2, 3]} style={{ width: '100%' }}>

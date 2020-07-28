@@ -1,4 +1,4 @@
-import { Link, Box, Flex, Heading } from 'components/elements'
+import { Hide, Container, Link, Flex, Heading } from 'components/elements'
 import { Caption, MQLEditor } from 'components/patterns'
 import { ChevronRight, ArrowRight } from 'react-feather'
 import React, { useState } from 'react'
@@ -41,13 +41,23 @@ const Hero = () => {
       alignItems='center'
       justifyContent='center'
     >
-      <Heading pt={5} titleize={false} children='Browser as API' />
+      <Heading
+        fontSize={['48px', 6, 7, 7]}
+        pt={[4, 4, 5, 5]}
+        titleize={false}
+        children='Browser as API'
+      />
       <Caption
         py={3}
+        px={[4, 4, 0, 0]}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       >
         Fast, scalable, and reliable browser automation built for businesses and
-        developers. Proudly open source software.
+        developers.
+        <Hide as='span' breakpoints={[0]}>
+          {' '}
+          Proudly open source software.
+        </Hide>
       </Caption>
       <Flex
         alignItems={['center', undefined, undefined, undefined]}
@@ -58,9 +68,7 @@ const Hero = () => {
         <ArrowLink pt={[3, 0, 0, 0]} href='#' children='View on GitHub' />
       </Flex>
 
-      <Box pt={4} pb={5}>
-        <MQLEditor />
-      </Box>
+      <MQLEditor pt={4} pb={Container.defaultProps.pt} />
     </Flex>
   )
 }
