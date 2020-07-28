@@ -71,7 +71,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   return Promise.all([
     createMarkdownPages({ graphql, createPage }),
-    createMetaDemoPages({ createPage, demoLinksData }),
     createScreenshotDemoPages({ createPage, demoLinksData }),
     createRecipesPages({ createPage, recipes })
   ])
@@ -99,21 +98,6 @@ console.log(result)`
       context: { slug, code, domain, isGeneric, url, key, ...recipe.info }
     })
   })
-  return Promise.all(pages)
-}
-
-const createMetaDemoPages = async ({ createPage, demoLinksData }) => {
-  const pages = map(demoLinksData, async demoLink => {
-    const { id, data } = demoLink
-    const slug = `/meta/${id}`
-
-    return createPage({
-      path: slug,
-      component: path.resolve('./src/templates/meta.js'),
-      context: { id, data, slug }
-    })
-  })
-
   return Promise.all(pages)
 }
 
