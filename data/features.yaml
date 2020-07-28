@@ -1,7 +1,7 @@
 - title: Developer First
-  description: For developers, with top notch industry technologies, for any programming language.
+  description: For developers, with top notch industry technologies, agnostic programming language.
 - title: Declarative Usage
-  description: Simple [documentation](/docs/api/getting-started/overview) and code examples that enable quick implementations.
+  description: Simple documentation and interactive code examples that enable quick implementations.
 - title: Dedicated Support
   description: Giving you exactly the information you need, when you need it.
 - title: Powerful & Scalable
@@ -15,4 +15,4 @@
 - title: Request isolation
   description: Privacy guaranteed with not shared browsers between requests.
 - title: Global CDN
-  description: Distributed over [+240 edge nodes](/blog/edge-cdn/) backed by CloudFlare Network.
+  description: Edge storage distributed over +240 nodes backed by CloudFlare Network.

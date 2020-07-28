@@ -30,7 +30,7 @@ export default () => {
               Production ready,
             </Subhead>
             <Subhead
-              color='indigo'
+              color='#3e55ff'
               width='100%'
               textAlign='left'
               titleize={false}

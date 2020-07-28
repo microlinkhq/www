@@ -65,7 +65,7 @@ export default props => {
       />
       <Subhead
         fontSize={[3, 4, 6, 6]}
-        py={3}
+        py={[3, 4, 4, 4]}
         px={[4, 0, 0, 0]}
         titleize={false}
         color='white'
@@ -93,7 +93,7 @@ export default props => {
           titleize={false}
           style={{ opacity: 0.8 }}
         >
-          <Caps fontSize={[0, 2, 3, 3]} titleize={false} children={name} />
+          <Caps fontSize={[0, 2, 3, 3]} children={name} />
         </Caption>
       </Flex>
       {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}

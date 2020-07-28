@@ -1,21 +1,40 @@
+import { useWindowSize, useHealthcheck, useFeaturesMeta } from 'components/hook'
+import { mqlCode, debounceComponent } from 'helpers'
+import React, { useEffect, useState } from 'react'
+import { Features } from 'components/pages/home'
+import { fadeIn } from 'components/keyframes'
+import isUrl from 'is-url-http/lightweight'
+import prependHttp from 'prepend-http'
+import styled from 'styled-components'
+import { Choose } from 'react-extras'
+import { getDomain } from 'tldts'
+import mql from '@microlink/mql'
+
+import {
+  layout,
+  breakpoints,
+  transition,
+  colors,
+  borders,
+  shadows
+} from 'theme'
+
 import {
   AnimatedBox,
   Box,
   Button,
   Caps,
   Card,
-  CodeEditor,
   Container,
+  MultiCodeEditor,
   Flex,
-  Heading,
-  Hide,
   Image,
   Input,
   InputIcon,
   Link,
-  MultiCodeEditor,
   Subhead,
-  Text
+  Text,
+  Hide
 } from 'components/elements'
 
 import {
@@ -23,37 +42,43 @@ import {
   Caption,
   CubeBackground,
   Faq,
-  Microlink,
-  SubHeadline
+  Microlink
 } from 'components/patterns'
 
-import { useHealthcheck, useFeaturesMeta } from 'components/hook'
-import { mqlCode, debounceComponent } from 'helpers'
-import { transition, colors, borders } from 'theme'
-import React, { useEffect, useState } from 'react'
-import { fadeIn } from 'components/keyframes'
-import isUrl from 'is-url-http/lightweight'
-import prependHttp from 'prepend-http'
-import styled from 'styled-components'
-import { getDomain } from 'tldts'
-import mql from '@microlink/mql'
+const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
+const SENTENCES_INTERVAL = 3500
+const MODES = ['preview', 'iframe']
+const TYPES = ['render', 'code']
 
-import { Features } from '../screenshot/template'
+const SENTENCES = [
+  'beauty link previews',
+  'native embeds',
+  'builtin media player',
+  'easily customizable',
+  'lazy fetching',
+  'mobile ready'
+]
 
-const languages = mqlCode(
-  {
-    data: {
-      audio: true,
-      video: true,
-      meta: true
-    }
-  },
-  `audio: true,
-    video: true,
-    meta: true`
-)
+const COLOR = '#3e55ff'
 
-const MicrolinkDebounce = debounceComponent(Microlink)
+const getMs = str => str.replace(/ms|s/, '')
+
+const MicrolinkCard = styled(Card)`
+  &:hover {
+    box-shadow: ${shadows[0]};
+  }
+
+  .microlink_card__iframe iframe {
+    width: 100%;
+    height: 100%;
+  }
+`
+
+const MicrolinkDebounce = debounceComponent(styled(Microlink)`
+  --microlink-max-width: 100%;
+  --microlink-border-style: transparent;
+  --microlink-hover-background-color: white;
+`)
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -69,10 +94,18 @@ LogoWrap.defaultProps = {
 }
 
 const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
+  const size = useWindowSize({ width: 1440, height: 798 })
+
+  const [mode, setMode] = useState(MODES[0])
+  const [type, setType] = useState(TYPES[0])
+
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
+  const cardWidth = size.width / cardBase
+  const cardHeight = cardWidth / Card.ratio
+
   const [inputValue, setInputValue] = useState('')
   const [data, setData] = useState(demoLink.data)
-  const [previewView, setPreviewView] = useState('preview')
-  const [editorView, setEditorView] = useState('code')
+
   const domain = getDomain(inputValue)
 
   const fetchAndSetData = async url => {
@@ -92,7 +125,7 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   }, [inputValue])
 
   const media = [
-    previewView === 'iframe' && 'iframe',
+    mode === 'iframe' && 'iframe',
     'video',
     'audio',
     'image',
@@ -102,265 +135,261 @@ const LiveDemo = ({ suggestions, demoLink, onSubmit, isLoading }) => {
   const targetUrlPrepend = prependHttp(demoLink.data.url)
 
   return (
-    <>
-      <Container py={[4, 4, 5, 5]} px={4}>
-        <SubHeadline
-          title='Make any URL embeddable'
-          caption='Turn websites into data'
-        />
+    <Container pt={5} pb={Container.defaultProps.pt}>
+      <Subhead children='Make any URL' />
+      <Subhead color={COLOR} titleize={false} children='embeddable' />
+      <Caption pt={4} children='Turn websites into data' />
 
-        <Flex justifyContent='center' alignItems='center'>
-          <Flex
-            pt={2}
-            pb={3}
-            as='form'
-            mx={[0, 0, 'auto', 'auto']}
-            justifyContent='center'
-            flexDirection={['column', 'column', 'row', 'row']}
-            onSubmit={event => {
-              event.preventDefault()
-              const url = prependHttp(inputValue)
-              onSubmit(isUrl(url) ? url : undefined)
-            }}
-          >
-            <Box mb={[3, 3, 0, 0]}>
-              <Input
-                id='embed-demo-url'
-                fontSize={2}
-                iconComponent={<InputIcon domain={domain} />}
-                placeholder='Enter a URL...'
-                type='text'
-                suggestions={suggestions}
-                value={inputValue}
-                onChange={event => setInputValue(event.target.value)}
-                width={['100%', '100%', '128px', '128px']}
-                autoFocus
-              />
-            </Box>
-            <Button ml={[0, 0, 2, 2]} width='100%' loading={isLoading}>
-              <Caps fontSize={1} children='Embed it' />
-            </Button>
-          </Flex>
-        </Flex>
-
-        <Box textAlign='center'>
-          <Box pb={3}>
-            <Text fontSize={2}>into rich media</Text>
+      <Flex justifyContent='center' alignItems='center'>
+        <Flex
+          pt={4}
+          pb={4}
+          as='form'
+          mx={[0, 0, 'auto', 'auto']}
+          justifyContent='center'
+          flexDirection={['column', 'column', 'row', 'row']}
+          onSubmit={event => {
+            event.preventDefault()
+            const url = prependHttp(inputValue)
+            onSubmit(isUrl(url) ? url : undefined)
+          }}
+        >
+          <Box mb={[3, 3, 0, 0]}>
+            <Input
+              id='embed-demo-url'
+              fontSize={2}
+              iconComponent={<InputIcon domain={domain} />}
+              placeholder='Enter a URL...'
+              type='text'
+              suggestions={suggestions}
+              value={inputValue}
+              onChange={event => setInputValue(event.target.value)}
+              width={['100%', '100%', '180px', '180px']}
+              autoFocus
+            />
           </Box>
+          <Button ml={[0, 0, 2, 2]} width='100%' loading={isLoading}>
+            <Caps fontSize={1} children='Embed it' />
+          </Button>
+        </Flex>
+      </Flex>
 
-          <Flex
-            flexDirection='column'
-            mb={[4, 0]}
-            maxWidth={CodeEditor.width}
-            mx='auto'
-          >
-            <Box>
+      <Flex
+        alignItems='center'
+        justifyContent='center'
+        flexDirection='column'
+        mx='auto'
+      >
+        <MicrolinkCard
+          width={cardWidth}
+          height={cardHeight}
+          mode={mode}
+          type={type}
+        >
+          <Choose>
+            <Choose.When condition={type === 'render'}>
               <MicrolinkDebounce
-                key={targetUrlPrepend + previewView}
+                style={{ width: cardWidth, height: cardHeight }}
+                key={targetUrlPrepend + mode}
                 loading={isLoading}
                 size='large'
                 url={targetUrlPrepend}
                 setData={() => data}
                 media={media}
               />
-              <Flex
-                mx='auto'
-                maxWidth='500px'
-                alignItems='center'
-                justifyContent='flex-end'
-              >
-                <Card.Option
-                  children='preview'
-                  value={previewView}
-                  onClick={() => setPreviewView('preview')}
-                />
-                <Card.Option
-                  children='iframe'
-                  value={previewView}
-                  onClick={() => setPreviewView('iframe')}
-                />
-              </Flex>
-              <Flex pt={4} alignItems='center' justifyContent='center'>
-                <MultiCodeEditor
-                  languages={
-                    editorView === 'data'
-                      ? {
-                        JSON: `// npm install @microlink/cli --global\n// microlink-api ${targetUrlPrepend}&meta&video&audio \n${JSON.stringify(
-                            data,
-                            null,
-                            2
-                          )}`
-                      }
-                      : languages
-                  }
-                />
-              </Flex>
-            </Box>
-            <Flex justifyContent='flex-end'>
-              <Card.Option
-                children='code'
-                value={editorView}
-                onClick={() => setEditorView('code')}
+            </Choose.When>
+            <Choose.When condition={type === 'code'}>
+              <MultiCodeEditor
+                width='100%'
+                languages={mqlCode(
+                  {
+                    url: data.url,
+                    data: {
+                      audio: true,
+                      video: true,
+                      meta: true
+                    }
+                  },
+                  `audio: true,
+    video: true,
+    meta: true`
+                )}
               />
+            </Choose.When>
+          </Choose>
+        </MicrolinkCard>
+        <Flex
+          width='100%'
+          pl='15px'
+          pr='7px'
+          alignItems={['center', undefined, undefined, undefined]}
+          justifyContent='space-between'
+          flexDirection={['column', 'row', 'row', 'row']}
+        >
+          <Box pt={[5, 5, 4, 4]}>
+            {MODES.map(children => (
               <Card.Option
-                children='data'
-                value={editorView}
-                onClick={() => setEditorView('data')}
+                key={children}
+                value={mode}
+                children={children}
+                onClick={() => setMode(children)}
               />
-            </Flex>
-          </Flex>
-        </Box>
-      </Container>
-    </>
+            ))}
+          </Box>
+          <Box pt={[3, 4, 4, 4]}>
+            {TYPES.map(children => (
+              <Card.Option
+                key={children}
+                children={children}
+                value={type}
+                onClick={() => setType(children)}
+              />
+            ))}
+          </Box>
+        </Flex>
+      </Flex>
+    </Container>
   )
 }
 
 const Timings = () => {
-  const words = [
-    'beauty link previews',
-    'native embeds',
-    'builtin media player',
-    'easily customizable',
-    'lazy fetching',
-    'mobile ready'
-  ]
+  const healthcheck = useHealthcheck()
   const [index, setIndex] = useState(0)
 
-  const healthcheck = useHealthcheck()
-
   useEffect(() => {
-    const interval = setInterval(
-      () => setIndex(index => (index + 1) % words.length),
-      3500
+    const timer = setInterval(
+      () => setIndex(index => (index + 1) % SENTENCES.length),
+      SENTENCES_INTERVAL
     )
-    return () => clearInterval(interval)
+    return () => clearInterval(timer)
   }, [])
 
   return (
     <AnimatedBox>
       <Block
-        bg='#4e54c8'
+        bg={COLOR}
         id='timings'
         flexDirection='column'
+        pb={Container.defaultProps.pt}
         blockOne={
           <Box>
             <Flex alignItems='center' justifyContent='center'>
-              <Heading color='white' variant={null} mr={[1, 1, 3, 3]}>
-                All the data. Unified. Effortless.
-              </Heading>
+              <Subhead
+                px={[3, 0, 0, 0]}
+                fontSize={[3, 4, 6, 6]}
+                color='white'
+                children='All the data. Unified. Effortless.'
+              />
             </Flex>
             <Caption
+              px={[4, 0, 0, 0]}
+              pt={3}
               color='white80'
               maxWidth={[6, 7, 7, 'inherit']}
-              mt={[3, 3, 3, 0]}
-              variant={null}
-            >
-              Open Graph, JSON+LD, oEmbed & HTML.
-            </Caption>
+              fontSize={[2, 2, 4, 4]}
+              fontWeight='regular'
+              children='Open Graph, JSON+LD, oEmbed & HTML.'
+            />
           </Box>
         }
         blockTwo={
           <>
-            <Flex
-              width='100%'
-              justifyContent='space-around'
-              flexDirection='column'
-            >
-              <Heading
+            <Flex width='100%' flexDirection='column'>
+              <Subhead
+                fontSize={[3, 4, 6, 6]}
                 pt={[4, 4, 5, 5]}
-                pb={[3, 3, 0, 0]}
-                key={words[index]}
+                key={SENTENCES[index]}
                 color='white'
-                variant={null}
                 fontWeight='bold'
                 css={fadeIn}
-                children={words[index]}
+                children={SENTENCES[index]}
               />
             </Flex>
-            <Flex alignItems='baseline'>
-              <Flex
-                alignItems='center'
-                justifyContent='center'
-                flexDirection='column'
-              >
-                <Heading
-                  as='div'
-                  color='white'
-                  variant={null}
-                  mr={3}
-                  fontWeight='bold'
+            <Flex
+              pt={[4, 4, 5, 5]}
+              justifyContent={[
+                'space-around',
+                'space-between',
+                'space-between',
+                'space-between'
+              ]}
+              alignItems='baseline'
+              px={[4, 4, 4, 0]}
+              width='100%'
+              maxWidth={layout.normal}
+            >
+              <Hide breakpoints={[0]}>
+                <Flex
+                  display='inline-flex'
+                  alignItems='center'
+                  justifyContent='center'
+                  flexDirection='column'
                 >
-                  {healthcheck.meta.avg_pretty.replace(/ms|s/, '')}
+                  <Subhead as='div' color='white' fontWeight='bold'>
+                    {getMs(healthcheck.meta.avg_pretty)}
+                    <Caption
+                      titleize={false}
+                      as='div'
+                      ml={2}
+                      color='white'
+                      display='inline'
+                      fontWeight='bold'
+                    >
+                      mseg
+                    </Caption>
+                  </Subhead>
                   <Caption
-                    titleize={false}
                     as='div'
-                    ml={2}
-                    color='white'
-                    display='inline'
+                    color='white80'
                     fontWeight='bold'
+                    titleize={false}
                   >
-                    mseg
+                    <Caps fontSize={[0, 2, 3, 3]}>avg. response time</Caps>
                   </Caption>
-                </Heading>
-                <Caption
-                  as='div'
-                  color='white80'
-                  variant={null}
-                  mr={3}
-                  fontWeight='light'
-                  titleize={false}
-                >
-                  avg. response time
-                </Caption>
-              </Flex>
-              <Box px={3} mx='auto' />
+                </Flex>
+              </Hide>
               <Flex
-                pt={[3, 3, 5, 5]}
+                display='inline-flex'
                 alignItems='center'
                 justifyContent='center'
                 flexDirection='column'
               >
-                <Heading
+                <Subhead
                   as='div'
+                  fontSize={[3, 4, 6, 6]}
                   color='white'
-                  variant={null}
-                  mr={3}
                   fontWeight='bold'
                 >
-                  {healthcheck.meta.p95_pretty.replace(/ms|s/, '')}
+                  {getMs(healthcheck.meta.p95_pretty)}
                   <Caption
-                    titleize={false}
                     as='div'
                     ml={2}
                     color='white'
                     display='inline'
                     fontWeight='bold'
                     children='seg'
+                    titleize={false}
                   />
-                </Heading>
-                <Caption
-                  as='div'
-                  color='white80'
-                  variant={null}
-                  mr={3}
-                  fontWeight='light'
-                  titleize={false}
-                >
-                  p95 response time
+                </Subhead>
+                <Caption as='div' color='white80' fontWeight='bold'>
+                  <Hide breakpoints={[0]}>
+                    <Caps fontSize={[0, 2, 3, 3]}>avg. response time</Caps>
+                  </Hide>
+                  <Hide breakpoints={[1, 2, 3]}>
+                    <Caps fontSize={[0, 2, 3, 3]}>response time</Caps>
+                  </Hide>
                 </Caption>
               </Flex>
-              <Box px={3} mx='auto' />
               <Flex
-                pt={[3, 3, 5, 5]}
+                display='inline-flex'
                 alignItems='center'
                 justifyContent='center'
                 flexDirection='column'
               >
-                <Heading
+                <Subhead
                   as='div'
+                  fontSize={[3, 4, 6, 6]}
                   color='white'
-                  variant={null}
-                  mr={3}
                   fontWeight='bold'
                 >
                   {'99.9'}
@@ -368,20 +397,13 @@ const Timings = () => {
                     as='div'
                     ml={2}
                     color='white'
-                    display='inline'
                     fontWeight='bold'
+                    display='inline'
                     children='%'
                   />
-                </Heading>
-                <Caption
-                  as='div'
-                  color='white80'
-                  variant={null}
-                  mr={3}
-                  fontWeight='light'
-                  titleize={false}
-                >
-                  uptime
+                </Subhead>
+                <Caption as='div' color='white80' mr={3} fontWeight='bold'>
+                  <Caps fontSize={[0, 2, 3, 3]}>uptime</Caps>
                 </Caption>
               </Flex>
             </Flex>
@@ -393,11 +415,142 @@ const Timings = () => {
   )
 }
 
-const Information = props => (
+const Resume = props => (
+  <Container
+    id='resume'
+    alignItems='center'
+    maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
+    {...props}
+  >
+    <Subhead variant='gradient' children='Turns websites into data' />
+    <Caption
+      py={3}
+      maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
+    >
+      Microlink extracts structured data from any website. Enter a URL, receive
+      information. Get relevant information from any link & easily create
+      beautiful previews.
+    </Caption>
+
+    <Block
+      blockOne={
+        <Image
+          width={[5, 6, 7, 8]}
+          alt='Data normalization'
+          src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
+        />
+      }
+      blockTwo={
+        <Flex
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'baseline']}
+        >
+          <Subhead
+            pt={[5, 4, 4, 0]}
+            fontSize={[3, 3, 4, 4]}
+            textAlign='left'
+            children='Data normalization'
+          />
+          <Text
+            pt={4}
+            maxWidth={8}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Using{' '}
+            <Link href='/docs/mql/getting-started/overview'>
+              Microlink Query Language (MQL)
+            </Link>{' '}
+            you define data rules to turn any website into a programmatic API,
+            getting <Link href='/docs/mql/data/type'>typified</Link> data back
+            as a response.
+          </Text>
+        </Flex>
+      }
+    />
+
+    <Block
+      pt={Container.defaultProps.pt}
+      flexDirection='row-reverse'
+      blockTwo={
+        <Flex
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'end']}
+        >
+          <Subhead
+            pt={[5, 4, 4, 0]}
+            textAlign='left'
+            fontSize={[3, 3, 4, 4]}
+            children='Contextual information'
+          />
+          <Text
+            pt={4}
+            maxWidth={8}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Lot of actions supported, such as{' '}
+            <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
+            emulation, CSS/JS injection, partial or{' '}
+            <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
+            page snapshot,{' '}
+            <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
+            or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
+            events.
+          </Text>
+        </Flex>
+      }
+      blockOne={
+        <Image
+          width={[5, 6, 7, 8]}
+          alt='Contextual information'
+          src='https://cdn.microlink.io/illustrations/robots.svg'
+        />
+      }
+    />
+
+    <Block
+      pt={Container.defaultProps.pt}
+      pb={Container.defaultProps.pt}
+      blockOne={
+        <Image
+          width={[5, 6, 7, 8]}
+          alt='Universal Embed'
+          src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
+        />
+      }
+      blockTwo={
+        <Flex
+          flexDirection='column'
+          alignItems={['center', 'center', 'center', 'baseline']}
+        >
+          <Subhead
+            pt={[5, 4, 4, 0]}
+            fontSize={[3, 3, 4, 4]}
+            textAlign='left'
+            children='Universal Embed'
+          />
+          <Text
+            pt={4}
+            maxWidth={8}
+            textAlign={['center', 'center', 'center', 'inherit']}
+          >
+            Add embeddable media to your site, in a simple way, with{' '}
+            <Link href='/docs/api/parameters/iframe/#providers-supported'>
+              +250 verified providers
+            </Link>{' '}
+            supported.
+          </Text>
+        </Flex>
+      }
+    />
+  </Container>
+)
+
+const ProductInformation = props => (
   <Faq
     id='information'
     title='Product Information'
-    caption='All you need to know.'
+    caption='All the details you need to know about the product.'
+    pb={Container.defaultProps.pt}
     questions={[
       {
         question: 'How does it work?',
@@ -474,7 +627,7 @@ const Information = props => (
         ]
       },
       {
-        question: 'Can I ask a question?',
+        question: 'Other questions?',
         answer: [
           <>
             We're always available at{' '}
@@ -490,141 +643,6 @@ const Information = props => (
     ]}
     {...props}
   />
-)
-
-const Resume = props => (
-  <Container id='resume' {...props} pt={[4, 4, 0, 0]}>
-    <Box pt={[0, 0, 4, 4]}>
-      <SubHeadline title='Extract structured data from any website' />
-      <Text textAlign='center' mr='auto' ml='auto' maxWidth={9}>
-        <b>Microlink</b> extracts structured data from any website. Enter a URL,
-        receive information. Get relevant information from any link & easily
-        create beautiful previews.
-      </Text>
-    </Box>
-
-    <Block
-      as='section'
-      pt={5}
-      px={[0, 0, 6, 6]}
-      blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-          pr={[0, 0, 4, 4]}
-        >
-          <Subhead
-            as='h3'
-            fontSize={[3, 4]}
-            children='Data normalization'
-            pb={3}
-          />
-          <Text
-            px={[2, 3, 0, 0]}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
-            Using{' '}
-            <Link href='/docs/mql/getting-started/overview'>
-              Microlink Query Language (MQL)
-            </Link>{' '}
-            you define data rules to turn any website into a programmatic API,
-            getting <Link href='/docs/mql/data/type'>typified</Link> data back
-            as a response.
-          </Text>
-        </Flex>
-      }
-      blockOne={
-        <Image
-          width={[5, 6, 7, 8]}
-          pb={[4, 4, 4, 0]}
-          alt='Data normalization'
-          src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
-        />
-      }
-    />
-
-    <Block
-      as='section'
-      px={[0, 0, 6, 6]}
-      flexDirection='row-reverse'
-      blockTwo={
-        <Flex
-          pl={[0, 0, 4, 4]}
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'end']}
-        >
-          <Subhead
-            as='h3'
-            fontSize={[3, 4]}
-            children='Contextual information'
-            pb={3}
-          />
-          <Text
-            px={[2, 3, 0, 0]}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
-            Lot of actions supported, such as{' '}
-            <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
-            emulation, CSS/JS injection, partial or{' '}
-            <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
-            page snapshot,{' '}
-            <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
-            or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
-            events.
-          </Text>
-        </Flex>
-      }
-      blockOne={
-        <Image
-          width={[5, 6, 7, 8]}
-          pb={[4, 4, 4, 0]}
-          alt='Contextual information'
-          src='https://cdn.microlink.io/illustrations/robots.svg'
-        />
-      }
-    />
-
-    <Block
-      as='section'
-      pb={0}
-      px={[0, 0, 6, 6]}
-      blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead
-            as='h3'
-            fontSize={[3, 4]}
-            children='Universal Embed'
-            pb={3}
-          />
-          <Text
-            pl={[2, 3, 0, 0]}
-            pr={[2, 3, 4, 4]}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
-            Add embeddable media to your site, in a simple way, with{' '}
-            <Link href='/docs/api/parameters/iframe/#providers-supported'>
-              +250 verified providers
-            </Link>{' '}
-            supported.
-          </Text>
-        </Flex>
-      }
-      blockOne={
-        <Image
-          width={[5, 6, 7, 8]}
-          pb={[4, 4, 4, 0]}
-          alt='Universal Embed'
-          src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
-        />
-      }
-    />
-  </Container>
 )
 
 export default ({
@@ -644,11 +662,29 @@ export default ({
       url={url}
     />
     <Timings />
-    <Hide breakpoints={[0, 1]}>
-      <Features children={useFeaturesMeta()} />
-    </Hide>
+    <Features
+      title={
+        <>
+          <Subhead width='100%' textAlign='left'>
+            You call the API,
+          </Subhead>
+          <Subhead color={COLOR} width='100%' textAlign='left' titleize={false}>
+            we handle the rest.
+          </Subhead>
+        </>
+      }
+      caption={
+        <>
+          No more configuring auto-scaling, load balancers, or paying for
+          capacity you don’t use — Microlink is the fastest, cost effective
+          solution for data extraction at any scale, fully customizable via{' '}
+          <Link href='/docs/api/getting-started/overview'>API</Link>.
+        </>
+      }
+      features={useFeaturesMeta()}
+    />
     <Resume />
-    <Information
+    <ProductInformation
       bg='pinky'
       borderTop={`${borders[1]} ${colors.pinkest}`}
       borderBottom={`${borders[1]} ${colors.pinkest}`}

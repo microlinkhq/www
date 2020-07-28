@@ -1,18 +1,19 @@
-- title: Background Refresh
-  description: Stale revalidation, keeping things fresh and always up to date via [ttl](/docs/api/parameters/ttl), reflecting any change on the target URL.
 - title: Unified Metadata
-  description: Normalized from Open Graph, JSON+LD or HTML markup, such as author, images, colors, dates, lang, etc.
-- title: Caching Level
-  description: Using Microlink CDN to deliver a different resource each time the query string changes.
+  description: Metadata normalized from Open Graph, JSON+LD and HTML markup.
 - title: Color Detection
   description: Get predominant and complementary colors per every image detected.
-- title: Contextual Data
+- title: Background Refresh
+  description: Stale revalidation, with built-in cache keeping things up to date.
+- title: Contextual Info
   description: Get more from any data, expanding it to get extra useful information.
-- title: Media Detection
-  description: Get the original source of any image, video or audio.
-- title: Native Embeds
-  description: Using oEmbed to get the embedded representation of any URL.
-- title: Prerender Ready
-  description: Cloud based solution with superior operational performance.
-- title: Cloud Browsing
-  description: Fast, scalable, and reliable browser automation.
+- title: Native Iframe
+  description: Using oEmbed to get the embedded representation of any third party URL.
+- title: Media Support
+  description: Detecting the original streaming source for any video or audio.
+- title: Costless Solution
+  description: Starting off from free, scaling with your business based on your necessities.
+- title: Built-in cache
+  description: Always fresh based on response payload with stale revalidation support.
+- title: Global CDN
+  description: Edge storage distributed over +240 nodes backed by CloudFlare Network.
+
