@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
 import { match } from 'styled-is'
+import { mqlCode } from 'helpers'
 
 import {
   CodeEditor,
@@ -15,12 +16,13 @@ import {
   Iframe
 } from 'components/elements'
 
-import generateJSON from './json'
 import * as code from './code'
 import * as data from './data'
+import * as html from './html'
+import * as json from './json'
 
 const TYPES = ['meta', 'iframe', 'screenshot', 'pdf', 'insights']
-const MODES = ['preview', 'json', 'code']
+const MODES = ['preview', 'html', 'json', 'code']
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const MicrolinkCard = styled(Microlink)`
@@ -106,14 +108,18 @@ export default props => {
               </Choose.When>
             </Choose>
           </Choose.When>
-          <Choose.When condition={mode === 'html'}>
-            <CodeEditor width='100%' language='html' />
-          </Choose.When>
           <Choose.When condition={mode === 'json'}>
             <CodeEditor
               width='100%'
               language='json'
-              children={generateJSON(data[type])}
+              children={mqlCode.json(data[type], json[type])}
+            />
+          </Choose.When>
+          <Choose.When condition={mode === 'html'}>
+            <CodeEditor
+              width='100%'
+              language='html'
+              children={html[type](data[type])}
             />
           </Choose.When>
           <Choose.When condition={mode === 'code'}>

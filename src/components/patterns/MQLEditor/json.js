@@ -1,5 +1,5 @@
-export default data => `
-// npm install @microlink/cli --global
-// microlink-api ${data.url}&audio&video&iframe\n
-${JSON.stringify(data, null, 2)}
-`
+export const meta = '&audio&video&iframe'
+export const iframe = '&meta=false&iframe'
+export const screenshot = '&meta=false&screenshot&overlay.browser=dark'
+export const pdf = '&meta=false&pdf'
+export const insights = '&meta=false&insights'
