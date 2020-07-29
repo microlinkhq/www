@@ -6,6 +6,7 @@ import NavContainer from './NavContainer'
 import {
   NavBlog,
   NavDocs,
+  NavSDK,
   NavInsights,
   NavLogo,
   NavMeta,
@@ -35,6 +36,7 @@ export default ({ theme }) => {
         >
           <NavContainer as='nav'>
             <NavLogo />
+            <NavSDK isDark={isDark} />
             <NavMeta isDark={isDark} />
             <NavScreenshot isDark={isDark} />
             <NavPdf isDark={isDark} />

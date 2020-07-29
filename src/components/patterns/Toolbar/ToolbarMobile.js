@@ -8,6 +8,7 @@ import {
   NavBlog,
   NavDocs,
   NavInsights,
+  NavSDK,
   NavLogo,
   NavMeta,
   NavPdf,
@@ -76,6 +77,7 @@ export default ({ theme }) => {
         <Toolbar ml={3} mr={3} justifyContent='center'>
           <NavLogo mobile />
           <Nav as='nav'>
+            <NavSDK isDark={isDark} mobile />
             <NavMeta isDark={isDark} mobile />
             <NavScreenshot isDark={isDark} mobile />
             <NavPdf isDark={isDark} mobile />

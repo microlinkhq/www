@@ -137,10 +137,6 @@
       "destination": "/docs/api/parameters/scroll"
     },
     {
-      "source": "/sdk",
-      "destination": "/docs/sdk/getting-started/overview"
-    },
-    {
       "source": "/storybook",
       "destination": "/integrations"
     },
