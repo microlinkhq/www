@@ -474,7 +474,7 @@ const Information = props => (
         ]
       },
       {
-        question: 'Can I ask a question?',
+        question: 'Other questions?',
         answer: [
           <>
             We're always available at{' '}

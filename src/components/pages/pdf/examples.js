@@ -38,7 +38,7 @@ import ms from 'ms'
 
 import { Average, Timings } from 'components/pages/screenshot/examples'
 import { screenshotHeight } from 'components/pages/home/screenshots'
-import { Features } from 'components/pages/screenshot/template'
+// import { Features } from 'components/pages/screenshot/template'
 
 const LiveDemo = ({ isLoading, suggestions, onSubmit, query, data }) => {
   const [inputUrl, setInputUrl] = useState(query.url || '')
@@ -504,7 +504,7 @@ const Information = props => (
         ]
       },
       {
-        question: 'Can I ask a question?',
+        question: 'Other questions?',
         answer: [
           <>
             We're always available at{' '}
@@ -532,9 +532,9 @@ export default ({ isLoading, onSubmit, suggestions, query, data }) => (
       query={query}
     />
     <Timings queryParam='pdf' />
-    <Hide breakpoints={[0, 1]}>
+    {/* <Hide breakpoints={[0, 1]}>
       <Features children={useFeaturesPdf()} />
-    </Hide>
+    </Hide> */}
     <Resume />
     <Information
       bg='pinky'

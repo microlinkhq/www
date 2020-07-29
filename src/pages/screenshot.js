@@ -6,7 +6,7 @@ import React from 'react'
 
 import { screenshots } from 'components/pages/home/screenshots'
 import Examples from 'components/pages/screenshot/examples'
-import Template from 'components/pages/screenshot/template'
+// import Template from 'components/pages/screenshot/template'
 
 export default () => {
   const demoLinks = useDemoLinks()
@@ -31,7 +31,7 @@ export default () => {
             <Location>
               {({ location }) => {
                 if (location.search !== '' && data && status === 'fetched') {
-                  return <Template data={data} />
+                  return '<Template data={data} />'
                 }
 
                 return (

@@ -6,7 +6,6 @@ import {
   Container,
   Flex,
   Heading,
-  Hide,
   Highlight,
   Image,
   Input,
@@ -16,12 +15,12 @@ import {
   Text
 } from 'components/elements'
 
-import { cdnUrl, aspectRatio, screenshotUrl, debounceComponent } from 'helpers'
+import { cdnUrl, aspectRatio, screenshotUrl } from 'helpers'
 
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 
 import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
-import { useHealthcheck, useFeaturesScreenshot } from 'components/hook'
+import { useHealthcheck } from 'components/hook'
 import React, { useEffect, useState } from 'react'
 import uniqueRandomArray from 'unique-random-array'
 import { speed, colors, borders } from 'theme'
@@ -42,11 +41,11 @@ import {
   screenshotHeight
 } from 'components/pages/home/screenshots'
 
-import { Features, Screenshot } from './template'
+// import { Features, Screenshot } from './template'
 
 const INTERVAL = 3500
 
-const ScreenshotDebounce = debounceComponent(Screenshot)
+// const ScreenshotDebounce = debounceComponent(Screenshot)
 
 const DemoSlider = ({ children: slides, ...props }) => {
   const [index, setIndex] = useState(0)
@@ -254,7 +253,7 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
 
       <Flex alignItems='center' justifyContent='center' flexDirection='column'>
         <Text fontSize={2}>into a snapshot</Text>
-        {previewUrl ? (
+        {/* {previewUrl ? (
           <ScreenshotDebounce
             alt='microlink screenshot preview'
             height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
@@ -263,7 +262,7 @@ const LiveDemo = ({ query, suggestions, onSubmit, isLoading }) => {
           />
         ) : (
           <DemoSlider mt={[0, 0, '-13px', '-13px']} children={suggestions} />
-        )}
+        )} */}
       </Flex>
     </Container>
   )
@@ -617,7 +616,7 @@ const Information = props => (
         ]
       },
       {
-        question: 'Can I ask a question?',
+        question: 'Other questions?',
         answer: [
           <>
             We're always available at{' '}
@@ -644,9 +643,9 @@ export default ({ isLoading, onSubmit, suggestions, query }) => (
       query={query}
     />
     <Timings queryParam='screenshot' />
-    <Hide breakpoints={[0, 1]}>
+    {/* <Hide breakpoints={[0, 1]}>
       <Features children={useFeaturesScreenshot()} />
-    </Hide>
+    </Hide> */}
     <Resume />
     <Information
       bg='pinky'

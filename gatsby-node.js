@@ -5,16 +5,11 @@ const { createFilePath } = require('gatsby-source-filesystem')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
 const { getDomain } = require('tldts')
-const { URL } = require('url')
 const path = require('path')
-
-const demoLinksData = require('./data/demo-links.json')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
 )
-
-const { CDN_URL } = require('./env')
 
 const getLastEdited = async filepath => {
   let date
@@ -67,11 +62,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 }
 
-exports.createPages = async ({ graphql, actions }) => {
+exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   return Promise.all([
     createMarkdownPages({ graphql, createPage }),
-    createScreenshotDemoPages({ createPage, demoLinksData }),
     createRecipesPages({ createPage, recipes })
   ])
 }
@@ -98,25 +92,6 @@ console.log(result)`
       context: { slug, code, domain, isGeneric, url, key, ...recipe.info }
     })
   })
-  return Promise.all(pages)
-}
-
-const createScreenshotDemoPages = async ({ createPage, demoLinksData }) => {
-  const pages = map(demoLinksData, async demoLink => {
-    const { id, data } = demoLink
-    const slug = `/screenshot/${id}`
-
-    data.screenshot = {
-      url: new URL(`screenshot/${id}.png`, CDN_URL).toString()
-    }
-
-    return createPage({
-      path: slug,
-      component: path.resolve('./src/templates/screenshot.js'),
-      context: { id, data, slug }
-    })
-  })
-
   return Promise.all(pages)
 }
 
