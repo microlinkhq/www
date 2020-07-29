@@ -133,16 +133,11 @@ const FeatureLink = ({ children, ...props }) => {
   return (
     <Link color='black' {...props}>
       <Caption
+        color='inherit'
         textAlign='left'
         pb={2}
         fontWeight='bold'
         css={`
-          transition: color ${transition.medium};
-
-          &:hover {
-            color: ${colors.hoverLink};
-          }
-
           svg {
             position: relative;
             top: -2px;

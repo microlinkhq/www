@@ -145,7 +145,6 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
         alignItems={['center', undefined, undefined, undefined]}
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
-        pb={[3, 3, 4, 4]}
       >
         <ArrowLink
           pr={[0, 4, 4, 4]}
@@ -162,18 +161,18 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
       <Flex justifyContent='center' alignItems='center'>
         <Flex
           pt={[3, 3, 4, 4]}
-          pb={4}
+          pb={[3, 3, 4, 4]}
           as='form'
-          mx={[0, 0, 'auto', 'auto']}
+          mx={[0, 'auto', 'auto', 'auto']}
           justifyContent='center'
-          flexDirection={['column', 'column', 'row', 'row']}
+          flexDirection={['column', 'row', 'row', 'row']}
           onSubmit={event => {
             event.preventDefault()
             const url = prependHttp(inputValue)
             onSubmit(isUrl(url) ? url : undefined)
           }}
         >
-          <Box mb={[3, 3, 0, 0]}>
+          <Box>
             <Input
               id='embed-demo-url'
               fontSize={2}
@@ -183,11 +182,11 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
               suggestions={suggestions}
               value={inputValue}
               onChange={event => setInputValue(event.target.value)}
-              width={['100%', '100%', '180px', '180px']}
+              width={['100%', '180px', '180px', '180px']}
               autoFocus
             />
           </Box>
-          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
+          <Button mt={[3, 0, 0, 0]} ml={[0, 2, 2, 2]} loading={isLoading}>
             <Caps fontSize={1} children='Embed it' />
           </Button>
         </Flex>
@@ -245,7 +244,7 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
           justifyContent='space-between'
           flexDirection={['column', 'row', 'row', 'row']}
         >
-          <Box pt={[5, 5, 4, 4]}>
+          <Box pt={[3, 4, 4, 4]}>
             {MODES.map(children => (
               <Card.Option
                 key={children}
@@ -321,13 +320,8 @@ const Integrations = () => {
         alignItems={['center', undefined, undefined, undefined]}
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
-        pb={[3, 3, 4, 4]}
       >
-        <ArrowLink
-          pr={[0, 4, 4, 4]}
-          href='/docs/sdk/'
-          children='See more integrations'
-        />
+        <ArrowLink href='/docs/sdk/' children='See more integrations' />
       </Flex>
     </Container>
   )

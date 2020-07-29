@@ -8,7 +8,7 @@ export const breakpoints = [768, 992, 1200, 1200].map(toPx)
 
 export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512].map(toPx)
 
-export const fontSizes = [14, 16, 20, 28, 52, 64, 80, 128].map(toPx)
+export const fontSizes = [14, 16, 20, 28, 52, 64, 80, 96].map(toPx)
 
 export const fontWeights = {
   light: 200,
