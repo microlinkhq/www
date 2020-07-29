@@ -9,6 +9,7 @@ const Faq = ({ title, caption, questions, ...props }) => {
       <Flex flexDirection='column' alignItems='center'>
         <Subhead variant='gradient' children={title} titleize={false} />
         <Caption
+          px={[4, 0, 0, 0]}
           pt={[3, 4, 4, 4]}
           pb={[4, 4, 4, 5]}
           maxWidth={layout.normal}

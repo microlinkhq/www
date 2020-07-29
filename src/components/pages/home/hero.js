@@ -48,7 +48,7 @@ const Hero = () => {
         children='Browser as API'
       />
       <Caption
-        py={3}
+        pt={[3, 3, 4, 4]}
         px={[4, 4, 0, 0]}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       >
@@ -62,12 +62,11 @@ const Hero = () => {
       <Flex
         alignItems={['center', undefined, undefined, undefined]}
         flexDirection={['column', 'row', 'row', 'row']}
-        pt={3}
+        pt={[3, 3, 4, 4]}
       >
         <ArrowLink pr={[0, 4, 4, 4]} href='#' children='Check out the API' />
         <ArrowLink pt={[3, 0, 0, 0]} href='#' children='View on GitHub' />
       </Flex>
-
       <MQLEditor pt={4} pb={Container.defaultProps.pt} />
     </Flex>
   )

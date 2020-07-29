@@ -13,7 +13,7 @@ export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
     >
       <Subhead variant='gradient' pt={[0, 0, 4, 4]} children='Pricing' />
       <Caption
-        pt={[3, 4, 4, 4]}
+        pt={[3, 3, 4, 4]}
         pb={[4, 4, 4, 5]}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       >

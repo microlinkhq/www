@@ -17,7 +17,7 @@ export default ({ title, caption, features, ...props }) => {
       </Box>
 
       <Caption
-        pt={[3, 4, 4, 4]}
+        pt={[3, 3, 4, 4]}
         pb={[4, 4, 4, 5]}
         width='100%'
         textAlign='left'

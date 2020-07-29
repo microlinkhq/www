@@ -1,8 +1,8 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
+import { transition, layout, cx, colors, fontSizes } from 'theme'
 import { External as ExternalIcon } from 'components/icons'
 import { Caption, Checkout } from 'components/patterns'
 import { XCircle, CheckCircle } from 'react-feather'
-import { layout, cx, fontSizes } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
@@ -132,7 +132,28 @@ const Description = props => (
 const FeatureLink = ({ children, ...props }) => {
   return (
     <Link color='black' {...props}>
-      <Caption textAlign='left' pb={2} fontWeight='bold'>
+      <Caption
+        textAlign='left'
+        pb={2}
+        fontWeight='bold'
+        css={`
+          transition: color ${transition.medium};
+
+          &:hover {
+            color: ${colors.hoverLink};
+          }
+
+          svg {
+            position: relative;
+            top: -2px;
+            transition: stroke ${transition.medium};
+          }
+
+          &:hover svg {
+            stroke: ${colors.hoverLink};
+          }
+        `}
+      >
         {children} <ExternalIcon width={fontSizes[1]} ml={1} />
       </Caption>
     </Link>
