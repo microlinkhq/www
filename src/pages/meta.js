@@ -1,19 +1,18 @@
-import {
-  useQueryState,
-  useWindowSize,
-  useHealthcheck,
-  useFeaturesMeta
-} from 'components/hook'
-
 import { mqlCode, debounceComponent } from 'helpers'
 import React, { useEffect, useState } from 'react'
-import { Features } from 'components/pages/home'
 import { fadeIn } from 'components/keyframes'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
 import { getDomain } from 'tldts'
+
+import {
+  useQueryState,
+  useWindowSize,
+  useHealthcheck,
+  useFeaturesMeta
+} from 'components/hook'
 
 import {
   layout,
@@ -36,6 +35,7 @@ import {
   Image,
   Input,
   InputIcon,
+  Heading,
   Link,
   Subhead,
   Text,
@@ -43,6 +43,8 @@ import {
 } from 'components/elements'
 
 import {
+  Features,
+  ArrowLink,
   Block,
   Caption,
   CubeBackground,
@@ -142,14 +144,41 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
   const targetUrlPrepend = prependHttp(data.url)
 
   return (
-    <Container pt={5} pb={Container.defaultProps.pt}>
-      <Subhead children='Make any URL' />
-      <Subhead color={COLOR} titleize={false} children='embeddable' />
-      <Caption pt={4} children='Turn websites into data' />
+    <Container alignItems='center' pt={5} pb={Container.defaultProps.pt}>
+      <Heading titleize={false} maxWidth={layout.large}>
+        Get unified metadata
+      </Heading>
+
+      <Caption
+        pt={[3, 3, 4, 4]}
+        px={[4, 4, 0, 0]}
+        titleize={false}
+        maxWidth={[layout.small, layout.small, layout.small, layout.small]}
+      >
+        Create beauty link previews — Microlink SDK turn your content into
+        embeddable rich media.
+      </Caption>
+
+      <Flex
+        alignItems={['center', undefined, undefined, undefined]}
+        flexDirection={['column', 'row', 'row', 'row']}
+        pt={[3, 3, 4, 4]}
+      >
+        <ArrowLink
+          pr={[0, 4, 4, 4]}
+          href='/docs/sdk/getting-started/overview/'
+          children='Get Started'
+        />
+        <ArrowLink
+          pt={[3, 0, 0, 0]}
+          href='https://github.com/microlinkhq/sdk'
+          children='View the API'
+        />
+      </Flex>
 
       <Flex justifyContent='center' alignItems='center'>
         <Flex
-          pt={4}
+          pt={[3, 3, 4, 4]}
           pb={4}
           as='form'
           mx={[0, 0, 'auto', 'auto']}
@@ -175,7 +204,7 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
               autoFocus
             />
           </Box>
-          <Button ml={[0, 0, 2, 2]} width='100%' loading={isLoading}>
+          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
             <Caps fontSize={1} children='Embed it' />
           </Button>
         </Flex>
