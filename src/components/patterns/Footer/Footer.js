@@ -141,12 +141,12 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Integrations'
+              data-event-action='Blog'
               fontSize={[0, 0, 0, 1]}
               mr={2}
               mb={[0, 0, 0, 3]}
-              href='/integrations'
-              children='Integrations'
+              href='/blog'
+              children='Blog'
             />
             <LinkSolid
               theme={theme}
