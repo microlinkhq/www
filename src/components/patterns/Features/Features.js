@@ -1,8 +1,10 @@
 import { Container, Box, Hide } from 'components/elements'
-import { Caption, Grid } from 'components/patterns'
 import { layout } from 'theme'
 import take from 'lodash/take'
 import React from 'react'
+
+import Grid from '../Grid'
+import Caption from '../Caption/Caption'
 
 export default ({ title, caption, features, ...props }) => {
   return (

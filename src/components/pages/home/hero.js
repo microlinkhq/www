@@ -1,37 +1,7 @@
-import { Hide, Container, Link, Flex, Heading } from 'components/elements'
-import { Caption, MQLEditor } from 'components/patterns'
-import { ChevronRight, ArrowRight } from 'react-feather'
-import React, { useState } from 'react'
+import { Hide, Container, Flex, Heading } from 'components/elements'
+import { ArrowLink, Caption, MQLEditor } from 'components/patterns'
 import { layout } from 'theme'
-
-const ArrowLink = ({ children, ...props }) => {
-  const [isHover, setIsHover] = useState(false)
-
-  return (
-    <Flex
-      alignItems='center'
-      justifyContent='center'
-      css={`
-        a {
-          display: flex;
-        }
-      `}
-    >
-      <Link
-        style={{ display: 'inherit' }}
-        onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
-        fontSize={Caption.defaultProps.fontSize}
-        {...props}
-      >
-        {children}{' '}
-        <Flex alignItems='center' as='span'>
-          {isHover ? <ArrowRight /> : <ChevronRight />}{' '}
-        </Flex>
-      </Link>
-    </Flex>
-  )
-}
+import React from 'react'
 
 const Hero = () => {
   return (
@@ -64,8 +34,16 @@ const Hero = () => {
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
       >
-        <ArrowLink pr={[0, 4, 4, 4]} href='#' children='Check out the API' />
-        <ArrowLink pt={[3, 0, 0, 0]} href='#' children='View on GitHub' />
+        <ArrowLink
+          pr={[0, 4, 4, 4]}
+          href='/docs/api/getting-started/overview'
+          children='Check out the API'
+        />
+        <ArrowLink
+          pt={[3, 0, 0, 0]}
+          href='https://github.com/microlinkhq'
+          children='View on GitHub'
+        />
       </Flex>
       <MQLEditor pt={4} pb={Container.defaultProps.pt} />
     </Flex>

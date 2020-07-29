@@ -1,7 +1,7 @@
-import { Features, Faqs, Hero, Analytics, Pricing } from 'components/pages/home'
+import { Faqs, Hero, Analytics, Pricing } from 'components/pages/home'
 import { useFeatures, useSiteMetadata } from 'components/hook'
 import { Container, Link, Subhead } from 'components/elements'
-import { Layout } from 'components/patterns'
+import { Features, Layout } from 'components/patterns'
 import { colors, borders } from 'theme'
 import React from 'react'
 
