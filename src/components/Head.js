@@ -16,7 +16,7 @@ const getTitle = (props, metadata) => {
 
   switch (page) {
     case '/blog':
-      return 'Engineering at Scale'
+      return 'Engineering at scale'
     case '/chat':
       return 'Chat'
     case '/changelog':
@@ -25,8 +25,6 @@ const getTitle = (props, metadata) => {
       return 'Design'
     case '/insights':
       return 'Automate web performance'
-    case '/integrations':
-      return 'Integrations'
     case '/meta':
       return 'Turn websites into data'
     case '/oss':
@@ -35,6 +33,8 @@ const getTitle = (props, metadata) => {
       return 'Turn websites into a PDF'
     case '/recipes':
       return 'Recipes'
+    case '/sdk':
+      return 'Beauty link previews'
     case '/stats':
       return 'Stats'
     case '/screenshot':
@@ -62,8 +62,6 @@ const getImage = (props, metadata) => {
       return cdnUrl('banner/docs.jpeg')
     case '/insights':
       return cdnUrl('banner/insights.jpeg')
-    case '/integrations':
-      return cdnUrl('banner/integrations.jpeg')
     case '/meta':
       return cdnUrl('banner/meta.jpeg')
     case '/oss':
@@ -72,6 +70,8 @@ const getImage = (props, metadata) => {
       return cdnUrl('banner/pdf.jpeg')
     case '/recipes':
       return cdnUrl('banner/recipes.jpeg')
+    case '/sdk':
+      return cdnUrl('banner/sdk.jpeg')
     case '/stats':
       return cdnUrl('banner/stats.jpeg')
     case '/screenshot':
