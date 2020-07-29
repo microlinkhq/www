@@ -1,7 +1,6 @@
+import { colors, transition, lineHeights } from 'theme'
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
-import { colors, transition, lineHeights } from 'theme'
-import { lighten } from 'polished'
 
 import Text from '../Text'
 
@@ -17,7 +16,7 @@ const hoverStyle = createCssState({
   selector: '&:hover:not([disabled])',
   state: 'hover',
   css: css`
-    color: ${lighten(0.15, colors.link)};
+    color: ${colors.hoverLink};
   `
 })
 

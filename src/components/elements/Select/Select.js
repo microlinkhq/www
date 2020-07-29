@@ -30,10 +30,10 @@ const Select = styled(Box)(
   props => ({
     '&:focus': {
       outline: 'none',
-      border: `1px solid ${lighten(0.15, colors.link)}`
+      border: `1px solid ${colors.hoverLink}`
     },
     '&:hover': {
-      border: `1px solid ${lighten(0.15, colors.link)}`
+      border: `1px solid ${colors.hoverLink}`
     }
   })
 )

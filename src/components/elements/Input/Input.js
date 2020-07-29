@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { transition, colors } from 'theme'
 import styled from 'styled-components'
-import { lighten } from 'polished'
 import noop from 'lodash/noop'
 
 import Text from '../Text'
@@ -46,11 +45,11 @@ const InputWrapper = styled(Flex)`
     props.focus &&
     `
   outline: 0;
-  border-color: ${lighten(0.15, colors.link)}
+  border-color: ${colors.hoverLink};
 
   svg  {
-    stroke: ${lighten(0.15, colors.link)}
-    color: ${lighten(0.15, colors.link)}
+    stroke: ${colors.hoverLink};
+    color: ${colors.hoverLink};
   }
 `}
 `

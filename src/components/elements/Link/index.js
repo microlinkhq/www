@@ -13,6 +13,3 @@ Span.defaultProps = {
 
 export const LinkSolid = withLink(withAnalytics(solid))
 export const Link = withLink(withAnalytics(base))
-
-LinkSolid.External = withLink.External(Span)
-Link.External = withLink.External(Span)

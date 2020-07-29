@@ -1,4 +1,5 @@
 import palx from 'palx'
+import { lighten } from 'polished'
 
 export const toPx = n => `${n}px`
 export const toEm = n => `${n}em`
@@ -39,6 +40,7 @@ const flattened = Object.keys(palette).reduce((a, key) => {
 // https://github.com/yeun/open-color
 export const colors = Object.assign({}, flattened, {
   link: '#067df7',
+  hoverLink: lighten(0.15, '#067df7'),
   secondary: '#EA407B',
   close: '#27C93F',
   minimize: '#FFBD2E',
@@ -242,7 +244,7 @@ export const shadows = shadowOffsets.map(
   (shadow, index) => `${shadow} ${shadowColors[index]}`
 )
 
-export const lineHeights = [1.123, 1.25, 1.5, 1.6, 1.65]
+export const lineHeights = ['normal', 1.25, 1.5, 1.6, 1.65]
 
 export const sizes = [
   1,
