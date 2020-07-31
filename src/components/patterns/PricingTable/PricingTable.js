@@ -86,15 +86,14 @@ const PricingHeader = ({ children }) => {
 }
 
 const PricingIcon = ({ type, ...props }) => {
-  const IconComponent = type === 'yes' ? CheckCircle : XCircle
-  const color = type === 'yes' ? cx('close') : cx('fullscreen')
+  const color = type === 'yes' ? cx('close') : cx('gray')
   return (
     <Flex
       justifyContent='center'
       style={{ position: 'relative', top: '-14px' }}
       {...props}
     >
-      <IconComponent color={color} />
+      {type === 'yes' && <CheckCircle color={color} />}
     </Flex>
   )
 }
