@@ -3,6 +3,8 @@ import { useQueryState } from 'components/hook'
 import React, { useState, useEffect } from 'react'
 import mql from '@microlink/mql'
 
+import demoLinks from '../../../data/demo-links'
+
 const ErrorMessage = ({ more }) => {
   const text = 'The URL has something weird.'
   const children = more ? (
@@ -19,6 +21,13 @@ const ErrorMessage = ({ more }) => {
   return <Notification.Error>{children}</Notification.Error>
 }
 
+const fetch = (url, opts) => {
+  const www = `${url.replace('https://', 'https://www.')}`
+  const variations = [url, `${url}/`, www, `${www}/`]
+  const item = demoLinks.find(item => variations.includes(item.data.url))
+  return item || mql(url, opts)
+}
+
 export default ({ mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
   const [response, setResponse] = useState({})
@@ -33,11 +42,11 @@ export default ({ mqlOpts, children }) => {
       setError(null)
       setStatus('fetching')
 
-      const fromMql = url => mql(url, { ...mqlOpts, ...opts })
+      const doFetch = url => fetch(url, { ...mqlOpts, ...opts })
 
       const { data, response } = Array.isArray(url)
-        ? await Promise.all(url.map(fromMql))
-        : await fromMql(url)
+        ? await Promise.all(url.map(doFetch))
+        : await doFetch(url)
 
       setStatus('fetched')
       setData(data)
