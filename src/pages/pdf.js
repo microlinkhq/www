@@ -19,12 +19,7 @@ export default () => {
     'https://css-tricks.com/snippets/css/a-guide-to-flexbox',
     'https://rauchg.com/2014/7-principles-of-rich-web-applications',
     'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
-  ].map(url => {
-    return {
-      url,
-      value: humanizeUrl(url)
-    }
-  })
+  ].map(url => ({ value: humanizeUrl(url) }))
 
   return (
     <Layout {...meta}>

@@ -1,4 +1,4 @@
-import { useDemoLinks, useQueryState } from 'components/hook'
+import { useQueryState } from 'components/hook'
 import { Layout, FetchProvider } from 'components/patterns'
 import { Location } from '@reach/router'
 import humanizeUrl from 'humanize-url'
@@ -8,19 +8,15 @@ import { screenshots } from 'components/pages/home/screenshots'
 import Examples from 'components/pages/screenshot/examples'
 // import Template from 'components/pages/screenshot/template'
 
+import demoLinks from '../../data/demo-links'
+
 export default () => {
-  const demoLinks = useDemoLinks()
   const [query] = useQueryState()
 
-  const suggestions = screenshots.map(({ id, filename, cdnUrl }) => {
-    const { url } = demoLinks.find(link => link.id === id).data
-    return {
-      cdnUrl,
-      filename,
-      id,
-      url,
-      value: humanizeUrl(url)
-    }
+  const suggestions = screenshots.map(({ id }) => {
+    const { data } = demoLinks.find(item => item.id === id)
+    const { url } = data
+    return { value: humanizeUrl(url) }
   })
 
   return (
