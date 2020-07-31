@@ -50,7 +50,7 @@ const SUGGESTIONS = [
 ].map(id => {
   const { data } = demoLinks.find(item => item.id === id)
   const { url } = data
-  return { id, value: humanizeUrl(url), url, data }
+  return { value: humanizeUrl(url) }
 })
 
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
@@ -72,7 +72,7 @@ const INTEGRATIONS = [
   }
 ]
 
-const MicrolinkCard = styled(Card)`
+const HeroCard = styled(Card)`
   &:hover {
     box-shadow: ${shadows[0]};
   }
@@ -174,7 +174,7 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
         >
           <Box>
             <Input
-              id='embed-demo-url'
+              id='sdk-demo-url'
               fontSize={2}
               iconComponent={<InputIcon domain={domain} />}
               placeholder='Enter a URL...'
@@ -198,12 +198,7 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
         flexDirection='column'
         mx='auto'
       >
-        <MicrolinkCard
-          width={cardWidth}
-          height={cardHeight}
-          mode={mode}
-          type={type}
-        >
+        <HeroCard width={cardWidth} height={cardHeight} mode={mode} type={type}>
           <Choose>
             <Choose.When condition={type === 'render'}>
               <MicrolinkDebounce
@@ -235,7 +230,7 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
               />
             </Choose.When>
           </Choose>
-        </MicrolinkCard>
+        </HeroCard>
         <Flex
           width='100%'
           pl='15px'

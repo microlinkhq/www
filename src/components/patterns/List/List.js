@@ -1,18 +1,23 @@
-import React from 'react'
 import { Flex, Text, Box } from 'components/elements'
-import { CheckCircle } from 'react-feather'
+import { XCircle, CheckCircle } from 'react-feather'
 import { cx } from 'theme'
+import React from 'react'
 
 const List = props => <Box as='ul' {...props} />
 
-const ListItem = props => (
-  <Flex as='li' alignItems='center' mb={3}>
-    <Flex justifyContent='center' mr={2}>
-      <CheckCircle size={18} color={cx('close')} />
+const ListItem = ({ type = 'yes', ...props }) => {
+  const IconComponent = type === 'yes' ? CheckCircle : XCircle
+  const color = type === 'yes' ? cx('close') : cx('gray')
+
+  return (
+    <Flex as='li' alignItems='center' mb={3}>
+      <Flex justifyContent='center' mr={2}>
+        <IconComponent color={color} />
+      </Flex>
+      <Text {...props} />
     </Flex>
-    <Text {...props} />
-  </Flex>
-)
+  )
+}
 
 List.Item = ListItem
 

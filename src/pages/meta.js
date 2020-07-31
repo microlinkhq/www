@@ -1,41 +1,32 @@
-import { mqlCode, debounceComponent } from 'helpers'
 import React, { useEffect, useState } from 'react'
 import { fadeIn } from 'components/keyframes'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import { Choose } from 'react-extras'
 import { getDomain } from 'tldts'
 
 import {
-  useQueryState,
   useWindowSize,
+  useQueryState,
   useHealthcheck,
   useFeaturesMeta
 } from 'components/hook'
 
-import {
-  layout,
-  breakpoints,
-  transition,
-  colors,
-  borders,
-  shadows
-} from 'theme'
+import { layout, breakpoints, transition, colors, borders } from 'theme'
 
 import {
   AnimatedBox,
   Box,
   Button,
   Caps,
-  Card,
   Container,
-  MultiCodeEditor,
+  CodeEditor,
   Flex,
   Image,
   Input,
   InputIcon,
   Heading,
+  Card,
   Link,
   Subhead,
   Text,
@@ -49,9 +40,9 @@ import {
   Caption,
   CubeBackground,
   Faq,
-  Microlink,
   Layout,
-  FetchProvider
+  FetchProvider,
+  List
 } from 'components/patterns'
 
 import humanizeUrl from 'humanize-url'
@@ -59,6 +50,10 @@ import humanizeUrl from 'humanize-url'
 import demoLinks from '../../data/demo-links'
 
 const INITIAL_SUGGESTION = 'youtube'
+
+const trimPx = str => Number(str.replace('px', ''))
+
+const SMALL_BREAKPOINT = trimPx(breakpoints[0])
 
 const SUGGESTIONS = [
   'instagram',
@@ -69,13 +64,10 @@ const SUGGESTIONS = [
 ].map(id => {
   const { data } = demoLinks.find(item => item.id === id)
   const { url } = data
-  return { id, value: humanizeUrl(url), url, data }
+  return { value: humanizeUrl(url) }
 })
 
-const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 const SENTENCES_INTERVAL = 3500
-const MODES = ['preview', 'iframe']
-const TYPES = ['render', 'code']
 
 const SENTENCES = [
   'beauty link previews',
@@ -90,23 +82,6 @@ const COLOR = '#3e55ff'
 
 const getMs = str => str.replace(/ms|s/, '')
 
-const MicrolinkCard = styled(Card)`
-  &:hover {
-    box-shadow: ${shadows[0]};
-  }
-
-  .microlink_card__iframe iframe {
-    width: 100%;
-    height: 100%;
-  }
-`
-
-const MicrolinkDebounce = debounceComponent(styled(Microlink)`
-  --microlink-max-width: 100%;
-  --microlink-border-style: transparent;
-  --microlink-hover-background-color: white;
-`)
-
 const LogoWrap = styled(Box)`
   cursor: pointer;
   opacity: 0.5;
@@ -120,28 +95,28 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
+const JSONProperty = ({ property, data, ...props }) => {
+  const children = data[property]
+  const type = children !== null ? 'yes' : 'no'
+  return (
+    <List.Item
+      color={type === 'no' ? 'gray' : undefined}
+      type={type}
+      fontSize={1}
+      children={property}
+      {...props}
+    />
+  )
+}
+
 const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
   const size = useWindowSize({ width: 1440, height: 798 })
-
-  const [mode, setMode] = useState(MODES[0])
-  const [type, setType] = useState(TYPES[0])
+  const [inputValue, setInputValue] = useState(query.url || '')
+  const domain = getDomain(inputValue)
 
   const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
-
-  const [inputValue, setInputValue] = useState(query.url || '')
-  const domain = getDomain(inputValue)
-
-  const media = [
-    mode === 'iframe' && 'iframe',
-    'video',
-    'audio',
-    'image',
-    'logo'
-  ].filter(Boolean)
-
-  const targetUrlPrepend = prependHttp(data.url)
 
   return (
     <Container alignItems='center' pt={5} pb={Container.defaultProps.pt}>
@@ -155,8 +130,8 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Create beauty link previews — Microlink SDK turn your content into
-        embeddable rich media.
+        Structured data normalized from Open Graph, JSON+LD, oEmbed & HTML for
+        any website.
       </Caption>
 
       <Flex
@@ -192,7 +167,7 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
         >
           <Box mb={[3, 3, 0, 0]}>
             <Input
-              id='embed-demo-url'
+              id='meta-demo-url'
               fontSize={2}
               iconComponent={<InputIcon domain={domain} />}
               placeholder='Enter a URL...'
@@ -205,84 +180,40 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
             />
           </Box>
           <Button ml={[0, 0, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1} children='Embed it' />
+            <Caps fontSize={1} children='Get it' />
           </Button>
         </Flex>
       </Flex>
 
       <Flex
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
         mx='auto'
+        justifyContent='center'
+        alignItems='center'
+        maxWidth={layout.large}
+        style={{ position: 'relative', left: '-18px' }}
       >
-        <MicrolinkCard
+        <List pr={4} pl={0}>
+          {['author', 'audio', 'date', 'description', 'iframe', 'image'].map(
+            children => (
+              <JSONProperty key={children} property={children} data={data} />
+            )
+          )}
+        </List>
+
+        <CodeEditor
           width={cardWidth}
           height={cardHeight}
-          mode={mode}
-          type={type}
-        >
-          <Choose>
-            <Choose.When condition={type === 'render'}>
-              <MicrolinkDebounce
-                style={{ width: cardWidth, height: cardHeight }}
-                key={targetUrlPrepend + mode}
-                loading={isLoading}
-                size='large'
-                url={targetUrlPrepend}
-                setData={() => data}
-                media={media}
-              />
-            </Choose.When>
-            <Choose.When condition={type === 'code'}>
-              <MultiCodeEditor
-                width='100%'
-                languages={mqlCode(
-                  {
-                    url: data.url,
-                    data: {
-                      audio: true,
-                      video: true,
-                      meta: true
-                    }
-                  },
-                  `audio: true,
-    video: true,
-    meta: true`
-                )}
-              />
-            </Choose.When>
-          </Choose>
-        </MicrolinkCard>
-        <Flex
-          width='100%'
-          pl='15px'
-          pr='7px'
-          alignItems={['center', undefined, undefined, undefined]}
-          justifyContent='space-between'
-          flexDirection={['column', 'row', 'row', 'row']}
-        >
-          <Box pt={[5, 5, 4, 4]}>
-            {MODES.map(children => (
-              <Card.Option
-                key={children}
-                value={mode}
-                children={children}
-                onClick={() => setMode(children)}
-              />
-            ))}
-          </Box>
-          <Box pt={[3, 4, 4, 4]}>
-            {TYPES.map(children => (
-              <Card.Option
-                key={children}
-                children={children}
-                value={type}
-                onClick={() => setType(children)}
-              />
-            ))}
-          </Box>
-        </Flex>
+          language='json'
+          children={JSON.stringify(data, null, 2)}
+        />
+
+        <List pl={4}>
+          {['lang', 'logo', 'publisher', 'title', 'url', 'video'].map(
+            children => (
+              <JSONProperty key={children} property={children} data={data} />
+            )
+          )}
+        </List>
       </Flex>
     </Container>
   )
