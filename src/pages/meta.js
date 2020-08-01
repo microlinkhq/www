@@ -130,8 +130,8 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Structured data normalized from Open Graph, JSON+LD, oEmbed & HTML for
-        any website.
+        Structured data normalized from Open Graph, Twitter, JSON+LD, oEmbed &
+        HTML for any website.
       </Caption>
 
       <Flex
@@ -370,7 +370,7 @@ const Timings = () => {
                   />
                 </Subhead>
                 <Caption as='div' color='white80' mr={3} fontWeight='bold'>
-                  <Caps fontSize={[0, 2, 3, 3]}>uptime</Caps>
+                  <Caps fontSize={[0, 2, 3, 3]}>SLA guaranteed</Caps>
                 </Caption>
               </Flex>
             </Flex>
@@ -423,13 +423,8 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Using{' '}
-            <Link href='/docs/mql/getting-started/overview'>
-              Microlink Query Language (MQL)
-            </Link>{' '}
-            you define data rules to turn any website into a programmatic API,
-            getting <Link href='/docs/mql/data/type'>typified</Link> data back
-            as a response.
+            Get normalized from multiple data sources such as Open Graph,
+            JSON+LD, oEmbed or regular HTML in a unified way.
           </Text>
         </Flex>
       }
@@ -454,14 +449,8 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Lot of actions supported, such as{' '}
-            <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
-            emulation, CSS/JS injection, partial or{' '}
-            <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
-            page snapshot,{' '}
-            <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
-            or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
-            events.
+            The values detected follow a strict data schema. Additionally, extra
+            information is provided over the original data.
           </Text>
         </Flex>
       }
@@ -493,14 +482,15 @@ const Resume = props => (
             pt={[5, 4, 4, 0]}
             fontSize={[3, 3, 4, 4]}
             textAlign='left'
-            children='Universal Embed'
+            children='Easily consumable'
           />
           <Text
             pt={4}
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Add embeddable media to your site, in a simple way, with{' '}
+            Turn any link into a rich media and easily add it to your UI using{' '}
+            <Link href='/sdk'>Microlink SDK</Link>, with{' '}
             <Link href='/docs/api/parameters/iframe/#providers-supported'>
               +250 verified providers
             </Link>{' '}
@@ -520,49 +510,45 @@ const ProductInformation = props => (
     pb={Container.defaultProps.pt}
     questions={[
       {
-        question: 'How does it work?',
+        question: 'What is it?',
         answer: [
           <>
-            <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
-            turns any link into rich content, normalizing unstructured data
-            coming from HTML markup behind the URL into structured.
+            <Text as='span' color='black' fontWeight='bold'>
+              Microlink for Meta
+            </Text>{' '}
+            is a data extraction service that take a URL as input, giving you
+            structured data as output.
           </>,
           <>
-            Complementary,{' '}
-            <Link href='/docs/sdk/getting-started/overview/'>
-              Microlink SDK
-            </Link>{' '}
-            turns the data extracted in a beauty link preview, ready to be
-            consumed by end users and embedded directly in any site.
+            The data detected is unified and normalized from different data
+            source providers present on the semantic markup of the target URL,
+            such as Open Graph, JSON+LD, oEmbed, microformats or regular HTML.
           </>
         ]
       },
       {
-        question: 'How is it built?',
+        question: 'How does it work?',
         answer: [
           <>
-            The service is built on top of{' '}
+            It's a{' '}
+            <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
+              rule-based system
+            </Link>{' '}
+            called{' '}
             <Link icon href='https://metascraper.js.org'>
               metascraper
             </Link>
-            , a{' '}
-            <Link icon href='https://en.wikipedia.org/wiki/Rule-based_system'>
-              rule-based system
-            </Link>{' '}
-            for normalizing semantic markup coming from Twitter, Open Graph,
-            JSON+LD, OEmbed, microformats, etc.
+            , where the desired value (e.g., the title) will be searched over
+            the content according to a series of rules.
           </>,
           <>
-            For creating the beauty links previews, it's built using{' '}
-            <Link href='/docs/sdk/integrations/react/'>React</Link> and{' '}
-            <Link href='/docs/sdk/integrations/vanilla/'>Vanilla</Link>.
+            Also, this process ensures the value extracted follows a specific
+            data shape. So, not only the value should be present, it needs to
+            satisfy a specific data shape as well.
           </>,
           <>
-            If you are interested into interact with the API directly, check{' '}
-            <Link href='/docs/mql/getting-started/overview'>
-              Microlink Query Language (MQL)
-            </Link>
-            .
+            In this way, if the service detects the value, you can be sure that
+            is what it claims to be.
           </>
         ]
       },
@@ -570,26 +556,23 @@ const ProductInformation = props => (
         question: 'Why not run my own solution?',
         answer: [
           <>
-            Most of our pieces of software are publicly available on our{' '}
-            <Link icon href='https://github.com/microlinkhq'>
-              GitHub
+            You can always run your own solution; Most of our software is{' '}
+            <Link icon href='/oss'>
+              Open Source
             </Link>
-            , so you can take them and create your own solution.
+            , so you can take them and hosted from scratch.
           </>,
           <>
-            The value proposition we offer with our service is a costless
-            solution, without the headaches of running your own infrastructure,
-            maintained by the top notch people experts in the field.
-          </>
-        ]
-      },
-      {
-        question: 'Do you have a Service-Level Agreements (SLA)?',
-        answer: [
+            What we offer as part of our value proposition is a production ready
+            solution without the headaches of running your own infrastructure.
+          </>,
           <>
-            You can see our SLA level on{' '}
-            <Link display='inline' href='/status' children='status' />
-            {' page.'}
+            No code to maintain, no servers to scale up, no dependencies to
+            upgrade. Just an always ready{' '}
+            <Link icon href='/docs/api/getting-started/overview'>
+              API
+            </Link>{' '}
+            ready to use.
           </>
         ]
       },
