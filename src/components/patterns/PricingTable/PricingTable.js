@@ -217,7 +217,7 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
               <>
                 <FeatureLink
                   href='/recipes/universal-embed'
-                  children='Universal Embed'
+                  children='Unified metadata'
                 />
                 <Description>
                   Effortless metadata normalization via Open Graph, oEmbed,
