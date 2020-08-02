@@ -11,7 +11,7 @@ const ClusterMonitor = ({ children, ...opts }) => {
 
   return children({
     data,
-    isLoading: !!data
+    isLoading: !data
   })
 }
 
