@@ -58,7 +58,7 @@ export default () => {
                       <IssueIcon width='16px' />
                     </Flex>
                   </Flex>
-                  <Text color='black50' children={description} mt={2} mb={2} />
+                  <Text color='black60' children={description} mt={2} mb={2} />
                 </Link>
               </Box>
             ))}

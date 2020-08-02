@@ -45,7 +45,7 @@ import { Text } from 'components/elements'
 export default () => (
   <Fragment>
     <Text children='Make your content attractive, engaging better your links.' />
-    <Text fontSize={[0, 2]} color='black50' children='June 30, 2018 (9 months ago)' />
+    <Text fontSize={[0, 2]} color='black60' children='June 30, 2018 (9 months ago)' />
   </Fragment>
 )`
 
@@ -72,7 +72,7 @@ storiesOf('Theme', module).add('Typography', () => (
       <Text children='Make your content attractive, engaging better your links.' />
       <Text
         fontSize={[0, 2]}
-        color='black50'
+        color='black60'
         children='June 30, 2018 (9 months ago)'
       />
     </Story>

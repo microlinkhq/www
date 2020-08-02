@@ -19,8 +19,8 @@ export default () => {
 
   const { color, bg } =
     theme === 'light'
-      ? { labelColor: 'black50', color: 'black', bg: 'white' }
-      : { labelColor: 'white50', color: 'white', bg: 'black' }
+      ? { labelColor: 'black60', color: 'black', bg: 'white' }
+      : { labelColor: 'white60', color: 'white', bg: 'black' }
 
   return (
     <ClusterMonitor>

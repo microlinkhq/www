@@ -35,7 +35,7 @@ const IconWrapper = styled(Box)`
 
 const LIGHT_THEME = {
   bg: 'white',
-  textColor: 'black50',
+  textColor: 'black60',
   buttonColor: 'white',
   buttonBg: 'black',
   inputIconColor: colors.black40,
@@ -44,7 +44,7 @@ const LIGHT_THEME = {
 
 const DARK_THEME = {
   bg: 'black',
-  textColor: 'white50',
+  textColor: 'white60',
   buttonColor: 'black',
   buttonBg: 'white',
   inputIconColor: colors.white40,
