@@ -15,14 +15,6 @@ const getTitle = (props, metadata) => {
   const page = getPage(props)
 
   switch (page) {
-    case '/blog':
-      return 'Engineering at scale'
-    case '/chat':
-      return 'Chat'
-    case '/changelog':
-      return "What's new"
-    case '/design':
-      return 'Design'
     case '/insights':
       return 'Automate web performance'
     case '/meta':
@@ -31,16 +23,14 @@ const getTitle = (props, metadata) => {
       return 'Open Source Sustainability'
     case '/pdf':
       return 'Turn websites into a PDF'
-    case '/recipes':
-      return 'Recipes'
     case '/sdk':
       return 'Beauty link previews'
-    case '/stats':
-      return 'Stats'
     case '/screenshot':
       return 'Turn websites into screenshots'
-    default:
-      return metadata.headline
+    default: {
+      const name = page.substr(1)
+      return name.charAt(0).toUpperCase() + name.slice(1)
+    }
   }
 }
 
