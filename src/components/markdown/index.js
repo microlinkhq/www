@@ -1,5 +1,5 @@
 import { withContainer, withTitle, withSlug } from 'helpers/hoc'
-import { space, fontSizes, colors, transition } from 'theme'
+import { space, fontSizes, colors } from 'theme'
 import styled, { css } from 'styled-components'
 import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
@@ -27,8 +27,8 @@ import {
 
 import MicrolinkBase from '../patterns/Microlink/Microlink'
 import DemoIntegrations from './DemoIntegrations'
-import { layout, textGradient } from '../../theme'
 import Heading from '../elements/Heading'
+import { layout } from '../../theme'
 
 const { Container, CONTAINER_SPACE } = withContainer
 
@@ -62,14 +62,14 @@ export const H1 = withTitle(withSlug(styled(Heading)``))
 H1.defaultProps = {
   maxWidth: layout.small,
   as: 'h1',
-  fontSize: [`calc(${fontSizes[5]} * 0.75px)`, 5],
-  lineHeight: [2, 3],
+  fontSize: `calc(${fontSizes[6]} * 0.75)`,
+  lineHeight: [1, 2],
   textAlign: 'left',
   variant: null,
   ml: 'auto',
   mr: 'auto',
-  mt: 4,
-  mb: 3
+  mt: 5,
+  mb: 4
 }
 
 const H2Base = styled(Heading)``
@@ -79,26 +79,12 @@ H2Base.defaultProps = {
   mr: 'auto',
   maxWidth: layout.small,
   as: 'h2',
-  fontSize: [`calc(${fontSizes[4]} * 0.75px)`, 4],
-  lineHeight: [2, 3],
+  fontSize: `calc(${fontSizes[4]} * 0.75)`,
+  lineHeight: [1, 2],
   textAlign: 'left',
   variant: null,
-  mt: 4,
-  mb: 3
-}
-
-export const H2Link = withTitle(styled(H2Base)`
-  text-decoration: none;
-  cursor: pointer;
-  color: black;
-  transition: background-image ${transition.medium};
-  &:hover {
-    ${textGradient};
-  }
-`)
-
-H2Link.defaultProps = {
-  as: 'a'
+  mt: 5,
+  mb: 4
 }
 
 export const H2 = withTitle(withSlug(H2Base))
@@ -110,12 +96,12 @@ H3.defaultProps = {
   mr: 'auto',
   maxWidth: layout.small,
   as: 'h3',
-  fontSize: 3,
-  lineHeight: 2,
+  fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
+  lineHeight: 1,
   textAlign: 'left',
   variant: null,
-  mt: 4,
-  mb: 3
+  mt: 5,
+  mb: 4
 }
 
 export const H4 = withTitle(withSlug(styled(Heading)``))
@@ -126,7 +112,7 @@ H4.defaultProps = {
   maxWidth: layout.small,
   as: 'h4',
   fontSize: 2,
-  lineHeight: 2,
+  lineHeight: 1,
   textAlign: 'left',
   variant: null,
   mt: 4,
@@ -141,11 +127,11 @@ H5.defaultProps = {
   maxWidth: layout.small,
   as: 'h5',
   fontSize: 1,
-  lineHeight: 2,
+  lineHeight: 1,
   textAlign: 'left',
   variant: null,
-  mt: 3,
-  mb: 2
+  mt: 4,
+  mb: 3
 }
 
 export const H6 = withTitle(withSlug(styled(Heading)``))
@@ -157,11 +143,11 @@ H6.defaultProps = {
   as: 'h6',
   fontSize: 1,
   color: 'gray9',
-  lineHeight: 2,
+  lineHeight: 1,
   textAlign: 'left',
   variant: null,
-  mt: 3,
-  mb: 2
+  mt: 4,
+  mb: 3
 }
 
 export const Paraph = props => {
@@ -356,7 +342,6 @@ const ScopedComponents = {
   Figcaption,
   H1,
   H2,
-  H2Link,
   H3,
   H4,
   H5,

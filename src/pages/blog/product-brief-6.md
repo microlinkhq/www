@@ -1,5 +1,5 @@
 ---
-title: 'Product Brief #6: Custom Rules, New Metadata & Improvements'
+title: 'Product Brief #6: Custom Rules & metadata improvements'
 date: '2018-06-30'
 ---
 

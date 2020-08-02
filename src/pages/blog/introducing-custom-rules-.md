@@ -1,5 +1,5 @@
 ---
-title: 'Introducing Custom Rules'
+title: 'Microlink API: Introducing Custom Rules'
 image: 'https://i.imgur.com/3yy4kDD.png'
 date: '2018-05-31'
 ---
