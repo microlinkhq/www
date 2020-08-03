@@ -1,5 +1,5 @@
+import { Container, Heading, Flex, Box } from 'components/elements'
 import { Caption, Layout } from 'components/patterns'
-import { Heading, Flex, Box } from 'components/elements'
 import Markdown, { H2 } from 'components/markdown'
 import { useChangelog } from 'components/hook'
 import { layout } from 'theme'
@@ -10,16 +10,8 @@ export default ({ meta }) => {
 
   return (
     <Layout {...meta}>
-      <Flex
-        pt={[0, 0, 0, 3]}
-        px={3}
-        width='100%'
-        flexDirection='column'
-        justifyContent='center'
-        alignItems='center'
-      >
+      <Container pt={5} justifyContent='center' alignItems='center'>
         <Heading maxWidth={layout.large} children='Changelog' />
-
         <Caption
           pt={[3, 3, 4, 4]}
           px={[4, 4, 0, 0]}
@@ -27,7 +19,6 @@ export default ({ meta }) => {
           maxWidth={layout.small}
           children='We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.'
         />
-
         <Flex
           pt={[3, 3, 4, 4]}
           swidth='100%'
@@ -45,7 +36,7 @@ export default ({ meta }) => {
             )
           })}
         </Flex>
-      </Flex>
+      </Container>
     </Layout>
   )
 }

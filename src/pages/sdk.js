@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { Choose } from 'react-extras'
 import { getDomain } from 'tldts'
 
-import { useFeaturesMeta, useQueryState, useWindowSize } from 'components/hook'
+import { useQueryState, useWindowSize } from 'components/hook'
 import { layout, breakpoints, transition, shadows } from 'theme'
 
 import {
@@ -31,8 +31,7 @@ import {
   Caption,
   Microlink,
   Layout,
-  FetchProvider,
-  Features
+  FetchProvider
 } from 'components/patterns'
 
 import humanizeUrl from 'humanize-url'
@@ -347,33 +346,6 @@ export default () => {
                 url={query.url}
               />
               <Integrations />
-              <Features
-                title={
-                  <>
-                    <Subhead width='100%' textAlign='left'>
-                      You call the API,
-                    </Subhead>
-                    <Subhead
-                      color='secondary'
-                      width='100%'
-                      textAlign='left'
-                      titleize={false}
-                    >
-                      we handle the rest.
-                    </Subhead>
-                  </>
-                }
-                caption={
-                  <>
-                    No more configuring auto-scaling, load balancers, or paying
-                    for capacity you don’t use — Microlink is the fastest, cost
-                    effective solution for data extraction at any scale, fully
-                    customizable via{' '}
-                    <Link href='/docs/api/getting-started/overview'>API</Link>.
-                  </>
-                }
-                features={useFeaturesMeta()}
-              />
             </>
           )
         }}

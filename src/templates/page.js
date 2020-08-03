@@ -32,7 +32,7 @@ export default ({ isBlogPage, date, meta, content }) => (
         )}
       </Text>
 
-      <Box pt={[3, 3, 4, 4]}>
+      <Box pt={isBlogPage ? [3, 3, 4, 4] : undefined}>
         <Markdown children={content} />
       </Box>
 

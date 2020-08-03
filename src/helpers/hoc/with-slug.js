@@ -1,10 +1,9 @@
-import React, { createElement } from 'react'
 import { slug as slugger } from 'github-slugger'
+import React, { createElement } from 'react'
+import styled from 'styled-components'
+import { colors } from 'theme'
 
 import Svg from '../../components/elements/Svg'
-import styled from 'styled-components'
-
-import { colors } from 'theme'
 
 const PermalinkIcon = props => (
   <Svg viewBox='0 0 16 16' width='16px' {...props}>
