@@ -1541,10 +1541,10 @@
     url-regex "~5.0.0"
     video-extensions "~1.1.0"
 
-"@microlink/demo-links@~1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.14.tgz#7b0d95f53efdb5d6b7c3d0d5b977dfd1a8512726"
-  integrity sha512-U2uoSmw+t9jHP+0BYz334Vwwl9UvhWxrqvRkMAYAXQKH8V3p1ICLewF04yOuvy+79ZY4FKxKTLu8vARwllyxAg==
+"@microlink/demo-links@~1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.15.tgz#50528fc63cbed47dfcd6b0f23fe10c960af8a10f"
+  integrity sha512-pF9N/ED5UAmlGnEryooS/DrqVa9WzRTNgddqoJB/g1uYHtt27WOM8d6fsyVOetFwj6mIlbKq3QSi2Y5CJrRLxQ==
 
 "@microlink/mql@~0.7.1", "@microlink/mql@~0.7.2", "@microlink/mql@~0.7.3":
   version "0.7.3"
