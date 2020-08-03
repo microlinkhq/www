@@ -1,26 +1,24 @@
-import { Layout, Chat, SubHeadline } from 'components/patterns'
-import { Container, Box, Flex } from 'components/elements'
-import { Microlink, Slack } from 'components/logos'
-import { Plus } from 'react-feather'
+import { Heading, Container, Flex } from 'components/elements'
+import { Caption, Layout, Chat } from 'components/patterns'
+import { layout } from 'theme'
 import React from 'react'
-
-const LOGO_SIZE = 60
 
 export default () => (
   <Layout>
-    <Container pt={5}>
-      <SubHeadline
-        title='Come chat with us'
-        caption='Be part of our community'
-      />
-      <Flex alignItems='center' justifyContent='center'>
-        <Microlink width={LOGO_SIZE} />
-        <Box color='black' px={3}>
-          <Plus />
-        </Box>
-        <Slack width={LOGO_SIZE} />
-      </Flex>
-      <Flex alignItems='center' justifyContent='center' pt={4}>
+    <Container pt={5} justifyContent='center' alignItems='center'>
+      <Heading children='Chat' />
+
+      <Caption
+        pt={[3, 3, 4, 4]}
+        px={4}
+        titleize={false}
+        maxWidth={[layout.small, layout.small, layout.small, layout.small]}
+      >
+        Direct support via chat with guaranteed response from exclusive top-tier
+        engineers.
+      </Caption>
+
+      <Flex alignItems='center' justifyContent='center' pt={[0, 0, 4, 4]}>
         <Chat large />
       </Flex>
     </Container>
