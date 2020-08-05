@@ -76,14 +76,14 @@ const createRecipesPages = async ({ createPage, recipes }) => {
     const route = `/recipes/${slug}`
 
     const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(key)
-    const url = isGeneric ? 'https://microlink.io' : recipe.info.examples[0]
+    const url = isGeneric ? 'https://microlink.io' : recipe.meta.examples[0]
     const domain = getDomain(url)
 
     const code = `const mql = require('@microlink/mql')
 
 const ${key} = ${recipe.toString()}
 
-const result = await ${key}('${recipe.info.examples[0]}')
+const result = await ${key}('${recipe.meta.examples[0]}')
 console.log(result)`
 
     return createPage({

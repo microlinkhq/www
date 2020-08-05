@@ -34,8 +34,8 @@ const CustomLink = styled(Link)`
   }
 `
 
-const Logo = ({ isGeneric, info, domain }) => {
-  if (!isGeneric || !info.logo) {
+const Logo = ({ isGeneric, domain, logo }) => {
+  if (!isGeneric || !logo) {
     return (
       <Unavatar
         style={{ borderRadius: '50%' }}
@@ -46,7 +46,7 @@ const Logo = ({ isGeneric, info, domain }) => {
     )
   }
 
-  return <Image height={LOGO_SIZE} width={LOGO_SIZE} src={info.logo} />
+  return <Image height={LOGO_SIZE} width={LOGO_SIZE} src={logo} />
 }
 
 export default ({ meta }) => {
@@ -89,12 +89,11 @@ export default ({ meta }) => {
             {Object.keys(recipes)
               .sort()
               .map(recipeName => {
-                const fn = recipes[recipeName]
-                const { info } = fn
+                const { meta } = recipes[recipeName]
                 const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(recipeName)
                 const url = isGeneric
                   ? 'https://microlink.io'
-                  : info.examples[0]
+                  : meta.examples[0]
                 const domain = getDomain(url)
 
                 return (
@@ -108,19 +107,15 @@ export default ({ meta }) => {
                   >
                     <CustomLink href={`/recipes/${kebabCase(recipeName)}`}>
                       <Flex pb={[2, 2, 3, 3]} justifyContent='center'>
-                        <Logo
-                          info={info}
-                          isGeneric={isGeneric}
-                          domain={domain}
-                        />
+                        <Logo isGeneric={isGeneric} domain={domain} {...meta} />
                       </Flex>
                       <Box px={4}>
                         <Text textAlign='center' fontWeight='regular'>
-                          {info.name}
+                          {meta.name}
                         </Text>
                         <Text textAlign='center' black='60'>
                           {isGeneric
-                            ? info.description
+                            ? meta.description
                             : `Interact with ${domain}`}
                         </Text>
                       </Box>
