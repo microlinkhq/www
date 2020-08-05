@@ -4,6 +4,7 @@ import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { getDomain } from 'tldts'
+import chunk from 'lodash/chunk'
 
 import {
   useWindowSize,
@@ -78,6 +79,23 @@ const SENTENCES = [
   'mobile ready'
 ]
 
+const JSON_KEYS = [
+  'author',
+  'audio',
+  'date',
+  'description',
+  'iframe',
+  'image',
+  'lang',
+  'logo',
+  'publisher',
+  'title',
+  'url',
+  'video'
+]
+
+const [JsonKeysFirstChunk, JsonKeysSecondChunk] = chunk(JSON_KEYS, 2)
+
 const COLOR = '#3e55ff'
 
 const getMs = str => str.replace(/ms|s/, '')
@@ -100,6 +118,7 @@ const JSONProperty = ({ property, data, ...props }) => {
   const type = children !== null ? 'yes' : 'no'
   return (
     <List.Item
+      mr={[3, 3, 0, 0]}
       color={type === 'no' ? 'gray' : undefined}
       type={type}
       fontSize={1}
@@ -187,18 +206,19 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
 
       <Flex
         mx='auto'
+        flexDirection={['column', 'column', 'row', 'row']}
         justifyContent='center'
         alignItems='center'
         maxWidth={layout.large}
         style={{ position: 'relative', left: '-18px' }}
       >
-        <List pr={4} pl={0}>
-          {['author', 'audio', 'date', 'description', 'iframe', 'image'].map(
-            children => (
+        <Hide breakpoints={[0, 1]}>
+          <List pr={4} pl={0}>
+            {JsonKeysFirstChunk.map(children => (
               <JSONProperty key={children} property={children} data={data} />
-            )
-          )}
-        </List>
+            ))}
+          </List>
+        </Hide>
 
         <CodeEditor
           width={cardWidth}
@@ -206,14 +226,30 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
           language='json'
           children={JSON.stringify(data, null, 2)}
         />
-
-        <List pl={4}>
-          {['lang', 'logo', 'publisher', 'title', 'url', 'video'].map(
-            children => (
+        <Hide breakpoints={[0, 1]}>
+          <List pl={4}>
+            {JsonKeysSecondChunk.map(children => (
               <JSONProperty key={children} property={children} data={data} />
-            )
-          )}
-        </List>
+            ))}
+          </List>
+        </Hide>
+
+        <Hide breakpoints={[2, 3]}>
+          <List
+            justifyContent='center'
+            flexDirection={['row', 'row', 'column', 'column']}
+            flexWrap={['wrap', 'wrap', undefined, undefined]}
+            maxWidth={[layout.small, layout.small, undefined, undefined]}
+            pt={4}
+            m={0}
+            pr={[4, 4, 4, 4]}
+            pl={[4, 4, 0, 0]}
+          >
+            {JSON_KEYS.map(children => (
+              <JSONProperty key={children} property={children} data={data} />
+            ))}
+          </List>
+        </Hide>
       </Flex>
     </Container>
   )
@@ -389,7 +425,11 @@ const Resume = props => (
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
     {...props}
   >
-    <Subhead variant='gradient' children='Turns websites into data' />
+    <Subhead
+      px={[3, 3, 0, 0]}
+      variant='gradient'
+      children='Turns websites into data'
+    />
     <Caption
       py={3}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}

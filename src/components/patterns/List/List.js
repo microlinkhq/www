@@ -1,9 +1,9 @@
-import { Flex, Text, Box } from 'components/elements'
+import { Flex, Text } from 'components/elements'
 import { XCircle, CheckCircle } from 'react-feather'
 import { cx } from 'theme'
 import React from 'react'
 
-const List = props => <Box as='ul' {...props} />
+const List = props => <Flex as='ul' flexDirection='column' {...props} />
 
 const ListItem = ({ type = 'yes', ...props }) => {
   const IconComponent = type === 'yes' ? CheckCircle : XCircle
