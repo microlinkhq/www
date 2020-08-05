@@ -94,7 +94,10 @@ const JSON_KEYS = [
   'video'
 ]
 
-const [JsonKeysFirstChunk, JsonKeysSecondChunk] = chunk(JSON_KEYS, 2)
+const [JsonKeysFirstChunk, JsonKeysSecondChunk] = chunk(
+  JSON_KEYS,
+  JSON_KEYS.length / 2
+)
 
 const COLOR = '#3e55ff'
 
