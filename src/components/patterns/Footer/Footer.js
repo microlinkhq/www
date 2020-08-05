@@ -152,12 +152,12 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Bug Reports'
+              data-event-action='Chat'
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
-              href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
-              children='Bug Reports'
+              href='/chat'
+              children='Chat'
             />
             <LinkSolid
               theme={theme}
@@ -184,6 +184,16 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
+              data-event-action='Pricing'
+              fontSize={[0, 0, 0, 1]}
+              mr={[2, 2, 2, 0]}
+              mb={[0, 0, 0, 3]}
+              href='/#pricing'
+              children='Pricing'
+            />
+            <LinkSolid
+              theme={theme}
+              data-event-category='Footer'
               data-event-action='Open Source'
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
@@ -194,20 +204,10 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Feature Requests'
+              data-event-action='Bug Reports'
               fontSize={[0, 0, 0, 1]}
-              mr={[2, 2, 2, 0]}
-              mb={[0, 0, 0, 3]}
-              href='https://github.com/microlinkhq/open/issues/new?template=Feature_request.md'
-              children='Feature Requests'
-            />
-            <LinkSolid
-              theme={theme}
-              data-event-category='Footer'
-              data-event-action='Pricing'
-              fontSize={[0, 0, 0, 1]}
-              href='/#pricing'
-              children='Pricing'
+              href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
+              children='Bug Reports'
             />
           </Flex>
         </Box>
