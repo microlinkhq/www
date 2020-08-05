@@ -52,7 +52,7 @@
     "exists-file": "~3.0.2",
     "fast-deep-equal": "~3.1.3",
     "flat": "~5.0.0",
-    "gatsby": "~2.24.23",
+    "gatsby": "~2.24.27",
     "gatsby-plugin-canonical-urls": "~2.3.10",
     "gatsby-plugin-catch-links": "~2.3.11",
     "gatsby-plugin-google-analytics": "~2.3.13",
@@ -104,7 +104,7 @@
     "styled-is": "~1.3.0",
     "styled-system": "~5.1.5",
     "swr": "~0.3.0",
-    "tldts": "~5.6.45",
+    "tldts": "~5.6.46",
     "unique-random-array": "~2.0.0"
   },
   "devDependencies": {
