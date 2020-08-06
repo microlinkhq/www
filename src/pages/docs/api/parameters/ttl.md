@@ -22,7 +22,7 @@ module.exports = async () => {
   }} 
 />
 
-The value provided need to be at least **1 minute** and not higher than **90 days**, being supported the following formats:
+The value provided need to be at least **1 minute** and not higher than **31 days**, being supported the following formats:
 
 - as number in milliseconds (e.g., <Type children="86400000"/>).
 - as humanized representation of the number (e.g., <Type children="'24h'"/>).
@@ -48,7 +48,7 @@ Additionally, we provide <Type children="'min'"/> and <Type children="'max'"/> a
 
 ```
 https://microlink.io&ttl=min     // equivalent to `1m`
-https://microlink.io&ttl=max     // equivalent to `90d`
+https://microlink.io&ttl=max     // equivalent to `31d`
 ```
 
 The purpose of this API parameter is to adapt our caching layer based on your necessities:
