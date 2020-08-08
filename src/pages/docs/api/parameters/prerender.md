@@ -33,7 +33,7 @@ module.exports = async () => {
   }} 
 />
 
-We provided to extra headers for reflecting the decision taking by the service. They are:
+We provided two extra headers for reflecting the decision taken by the service. They are:
 
 - `x-fetch-mode`: It determines which fetch technique has been used (being possible <Type children="'prerender'"/> or <Type children="'fetch'"/> as values).
 - `x-fetch-time`: It represents the total amount of time spent into the fetch step in a human readable format.
