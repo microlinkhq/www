@@ -1546,15 +1546,15 @@
   resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.14.tgz#7b0d95f53efdb5d6b7c3d0d5b977dfd1a8512726"
   integrity sha512-U2uoSmw+t9jHP+0BYz334Vwwl9UvhWxrqvRkMAYAXQKH8V3p1ICLewF04yOuvy+79ZY4FKxKTLu8vARwllyxAg==
 
-"@microlink/mql@~0.7.1", "@microlink/mql@~0.7.2", "@microlink/mql@~0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.7.3.tgz#b5aeb19c1b32190beac26550fbf682c2b3830db2"
-  integrity sha512-2SEwBKCcpKrqZstDfHYcavOHRyCZRc0678XQg+nQckZNf265wT9k9Qw7s3khzz4P0kTS1Wnm6F/DEA7lSkATiA==
+"@microlink/mql@~0.7.1", "@microlink/mql@~0.7.3", "@microlink/mql@~0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.7.4.tgz#3e59d2a929818dc3542afd10040155e201513ce8"
+  integrity sha512-DSPne4//ND1YAIFipja+0/xvMqiqpeNCADs7i9loIHH2qnNNd37mQR2A4KjtBdDaZq4+6XFhrqRD7gC6UTOwrg==
   dependencies:
     flat "~5.0.0"
-    got "~11.5.0"
+    got "~11.5.1"
     is-url-http "~2.1.2"
-    ky "~0.20.0"
+    ky "~0.21.0"
     ky-universal "~0.8.1"
     qss "~2.0.3"
     whoops "~4.1.0"
@@ -1568,12 +1568,12 @@
     is-localhost-url "~1.0.3"
     nanoclamp "~1.3.3"
 
-"@microlink/recipes@~0.0.16":
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/@microlink/recipes/-/recipes-0.0.16.tgz#95c1963ac074429a88054d9c56ff899177739955"
-  integrity sha512-gfBuNRT97bqzJHT6D/HCIM/oCKJ2g6hhihRd8Z+RDvAYNFn34OVXDHZFwDy0CPupPs9/x8MCEwCQGaT95XwFmg==
+"@microlink/recipes@~0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@microlink/recipes/-/recipes-0.0.18.tgz#bc07c67474eb65006be90529d82af1fb74bd2f97"
+  integrity sha512-IlIKvyC0r+aebG93nf6wcXYZw7tEZK9srUNdd/U4gANcb0zdieUqYVewgFWvemmmGWoNJlPJSbIcco9420+wPg==
   dependencies:
-    "@microlink/mql" "~0.7.2"
+    "@microlink/mql" "~0.7.4"
 
 "@mikaelkristiansson/domready@^1.0.10":
   version "1.0.10"
@@ -10215,6 +10215,23 @@ got@~11.5.0:
     p-cancelable "^2.0.0"
     responselike "^2.0.0"
 
+got@~11.5.1:
+  version "11.5.2"
+  resolved "https://registry.yarnpkg.com/got/-/got-11.5.2.tgz#772e3f3a06d9c7589c7c94dc3c83cdb31ddbf742"
+  integrity sha512-yUhpEDLeuGiGJjRSzEq3kvt4zJtAcjKmhIiwNp/eUs75tRlXfWcHo5tcBaMQtnjHWC7nQYT5HkY/l0QOQTkVww==
+  dependencies:
+    "@sindresorhus/is" "^3.0.0"
+    "@szmarczak/http-timer" "^4.0.5"
+    "@types/cacheable-request" "^6.0.1"
+    "@types/responselike" "^1.0.0"
+    cacheable-lookup "^5.0.3"
+    cacheable-request "^7.0.1"
+    decompress-response "^6.0.0"
+    http2-wrapper "^1.0.0-beta.5.0"
+    lowercase-keys "^2.0.0"
+    p-cancelable "^2.0.0"
+    responselike "^2.0.0"
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3:
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
@@ -11005,7 +11022,7 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-http2-wrapper@^1.0.0-beta.4.8:
+http2-wrapper@^1.0.0-beta.4.8, http2-wrapper@^1.0.0-beta.5.0:
   version "1.0.0-beta.5.2"
   resolved "https://registry.yarnpkg.com/http2-wrapper/-/http2-wrapper-1.0.0-beta.5.2.tgz#8b923deb90144aea65cf834b016a340fc98556f3"
   integrity sha512-xYz9goEyBnC8XwXDTuC/MZ6t+MrKVQZOk4s7+PaDkwIsQd8IwqvM+0M6bA/2lvG8GHXcPdf+MejTUeO2LCPCeQ==
@@ -12557,10 +12574,10 @@ ky-universal@~0.8.1:
     abort-controller "^3.0.0"
     node-fetch "3.0.0-beta.7"
 
-ky@~0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.20.0.tgz#4cebcd208f2d0d0b5970a63523afecfd79bd9e46"
-  integrity sha512-JAfwtwj+t7WqRus88PfBj25aAjRQUgMhk7aB2ufjQ6v8faoNwMy02mfSQ0iNXWCbJGcSl2JZ5ckaiywRjbq0Uw==
+ky@~0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.21.0.tgz#341eafec690f8a314392a9869074cc4665992bfa"
+  integrity sha512-b0byZCPvuikmLj3vSH7V/LdkzBC5rpiRr75ZD9PLg9nGMO1u3o1kmzaMPvVvQolyZnNqtuvm0eq3h3nMUzg98A==
 
 language-subtag-registry@~0.3.2:
   version "0.3.20"
