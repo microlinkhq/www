@@ -1,23 +1,29 @@
-import { DotsBackground, Headline, Layout } from 'components/patterns'
+import { DotsBackground, Layout, Caption } from 'components/patterns'
 import byFeature from '@microlink/recipes/by-feature'
 import kebabCase from 'lodash/kebabCase'
 import recipes from '@microlink/recipes'
 import styled from 'styled-components'
+import { layout, toPx } from 'theme'
 import { getDomain } from 'tldts'
-import { toPx } from 'theme'
 import React from 'react'
 
 import {
+  Badge,
+  Box,
+  Button,
+  Caps,
+  Card,
+  Container,
+  Flex,
+  Heading,
   Image,
   Link,
-  Card,
-  Box,
-  Flex,
+  Subhead,
   Text,
   Unavatar
 } from 'components/elements'
 
-const LOGO_SIZE = ['40px', '40px', '60px', '60px']
+const LOGO_SIZE = ['50px', '50px', '60px', '80px']
 const CARD_SIZE = [0.5, 0.5, 0.6, 0.6]
 const CARD_ITEMS_PER_ROW = 4.5
 const RECIPES_BY_FEATURES_KEYS = Object.keys(byFeature)
@@ -54,7 +60,6 @@ export default ({ meta }) => {
     <DotsBackground alignItems='center' justifyContent='center'>
       <Layout footer={{ bg: 'transparent' }} {...meta}>
         <Flex
-          pt={[0, 0, 0, 3]}
           px={3}
           width='100%'
           flexDirection='column'
@@ -62,26 +67,32 @@ export default ({ meta }) => {
           alignItems='center'
         >
           <Flex
+            pt={5}
             flexDirection='column'
             alignItems='center'
             justifyContent='center'
-            pb={4}
           >
-            <Headline
-              title='Recipes'
-              caption='Build something with just a few of lines'
-              pb={2}
-            />
-            <Text>
-              Missing someting?{' '}
-              <Link href='https://github.com/microlinkhq/recipes'>
-                add your own
-              </Link>
-              ✨
-            </Text>
+            <Heading titleize={false} maxWidth={layout.large}>
+              Code made simple
+            </Heading>
+            <Caption
+              pt={[3, 3, 4, 4]}
+              pb={[3, 3, 4, 4]}
+              px={[4, 4, 0, 0]}
+              titleize={false}
+              maxWidth={[
+                layout.small,
+                layout.small,
+                layout.small,
+                layout.small
+              ]}
+            >
+              Everything works better together — Break the code barrier,
+              automating any site in a few lines.
+            </Caption>
           </Flex>
-
           <Flex
+            pt={[3, 3, 4, 4]}
             maxWidth={CARDS_MAX_WIDTH}
             justifyContent='center'
             flexWrap='wrap'
@@ -90,14 +101,20 @@ export default ({ meta }) => {
               .sort()
               .map(recipeName => {
                 const { meta } = recipes[recipeName]
+
                 const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(recipeName)
                 const url = isGeneric
                   ? 'https://microlink.io'
                   : meta.examples[0]
                 const domain = getDomain(url)
 
+                const description = isGeneric
+                  ? meta.description
+                  : `Interact with ${domain}`
+
                 return (
                   <Card
+                    px={4}
                     ratio={CARD_SIZE}
                     key={recipeName}
                     mb={4}
@@ -106,23 +123,60 @@ export default ({ meta }) => {
                     justifyContent='center'
                   >
                     <CustomLink href={`/recipes/${kebabCase(recipeName)}`}>
-                      <Flex pb={[2, 2, 3, 3]} justifyContent='center'>
+                      <Flex justifyContent='center'>
                         <Logo isGeneric={isGeneric} domain={domain} {...meta} />
                       </Flex>
-                      <Box px={4}>
-                        <Text textAlign='center' fontWeight='regular'>
-                          {meta.name}
-                        </Text>
-                        <Text textAlign='center' black='60'>
-                          {isGeneric
-                            ? meta.description
-                            : `Interact with ${domain}`}
-                        </Text>
+                      <Box>
+                        <Box py={3}>
+                          <Text textAlign='center' fontWeight='bold'>
+                            {meta.name}
+                          </Text>
+                          <Text
+                            px={[0, 0, 4, 4]}
+                            textAlign='center'
+                            fontSize={1}
+                            children={description}
+                          />
+                        </Box>
+                        <Flex
+                          justifyContent='center'
+                          alignItems='center'
+                          flexWrap='wrap'
+                        >
+                          {['marketing', 'ecommerce', 'live'].map(children => (
+                            <Badge
+                              border='0.5px solid'
+                              borderColor='black10'
+                              key={children}
+                              children={children}
+                              bg='gray1'
+                              fontWeight='regular'
+                              color='black'
+                              mr={2}
+                              mb={2}
+                            />
+                          ))}
+                        </Flex>
                       </Box>
                     </CustomLink>
                   </Card>
                 )
               })}
+          </Flex>
+          <Flex
+            pt={Container.defaultProps.pt}
+            justifyContent='space-between'
+            alignItems='center'
+            flexDirection={['column', 'column', 'row', 'row']}
+            width='100%'
+            maxWidth={layout.large}
+          >
+            <Subhead>Miss something?</Subhead>
+            <Box pt={[4, 4, 0, 0]}>
+              <Button href='https://github.com/microlinkhq/recipes/issues/new'>
+                <Caps>Request an Integration</Caps>
+              </Button>
+            </Box>
           </Flex>
         </Flex>
       </Layout>
