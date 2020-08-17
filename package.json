@@ -73,7 +73,7 @@
     "is-color": "~1.0.2",
     "is-url-http": "~2.1.2",
     "json-future": "~2.2.4",
-    "lodash": "~4.17.19",
+    "lodash": "~4.17.20",
     "mdx-scoped-runtime": "~0.7.4",
     "microsoft-capitalize": "~1.0.1",
     "ms": "~2.1.2",
