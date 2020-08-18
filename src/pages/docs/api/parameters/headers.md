@@ -69,7 +69,7 @@ One consideration to keep in mind is that values provided will be passed as quer
 
 In case you are treating with sensible headers (e.g., [authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) or [cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)) you can pass them as part of the request headers rather tha query parameters.
 
-In that way, they will be not publicly exposed. They should be prefixes with `x-api-header`:
+For doing that, you need to pass the values with `x-api-header-*` prefix:
 
 <MultiCodeEditor languages={{
   Shell: `curl -H 'x-api-header-authorization: Basic YWRtaW46YWRtaW4=' https://test-http-login.now.sh\&screenshot\&embed\=screenshot.url\&meta\=false`,
