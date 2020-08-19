@@ -14,7 +14,7 @@ When <Type children='true'/>, it takes a screenshot of the full scrollable page.
 module.exports = async () => {
   const { status, data, response } = await mql(
     'https://eosrei.github.io/emojione-color-font/full-demo.html'. { 
-      screenshot: true
+      screenshot: true,
       fullPage: true
   })
   console.log(status, data)
