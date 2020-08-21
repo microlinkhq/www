@@ -164,7 +164,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta name='twitter:data1' value={dataValue1} />
       <meta name='twitter:label2' value={dataLabel2} />
       <meta name='twitter:data2' value={dataValue2} />
-      <meta name='twitter:creator' content={twitter} />
 
       {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
       <meta property='og:url' content={url} />
