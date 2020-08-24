@@ -62,7 +62,7 @@
     "gatsby-plugin-sitemap": "~2.4.11",
     "gatsby-plugin-styled-components": "~3.3.10",
     "gatsby-plugin-zeit-now": "~0.3.0",
-    "gatsby-source-filesystem": "~2.3.19",
+    "gatsby-source-filesystem": "~2.3.25",
     "gatsby-transformer-javascript-frontmatter": "~2.3.11",
     "gatsby-transformer-json": "~2.4.11",
     "gatsby-transformer-remark": "~2.8.25",
