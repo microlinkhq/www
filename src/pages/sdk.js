@@ -1,14 +1,13 @@
+import { layout, breakpoints, transition, shadows } from 'theme'
 import { mqlCode, debounceComponent } from 'helpers'
+import { useWindowSize } from 'components/hook'
 import isUrl from 'is-url-http/lightweight'
 import * as Icons from 'components/icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
 import { getDomain } from 'tldts'
-
-import { useQueryState, useWindowSize } from 'components/hook'
-import { layout, breakpoints, transition, shadows } from 'theme'
 
 import {
   Box,
@@ -39,6 +38,8 @@ import humanizeUrl from 'humanize-url'
 import demoLinks from '../../data/demo-links'
 
 const INITIAL_SUGGESTION = 'youtube'
+
+const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
 
 const SUGGESTIONS = [
   'instagram',
@@ -101,9 +102,14 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
-  const size = useWindowSize({ width: 1440, height: 798 })
-
+const LiveDemo = ({
+  data,
+  isInitialData,
+  isLoading,
+  onSubmit,
+  suggestions
+}) => {
+  const size = useWindowSize()
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
 
@@ -111,8 +117,13 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
-  const [inputValue, setInputValue] = useState(query.url || '')
+  const [inputValue, setInputValue] = useState('')
+  const targetUrlPrepend = prependHttp(data.url)
   const domain = getDomain(inputValue)
+
+  useEffect(() => {
+    if (!isInitialData) setInputValue(data.url)
+  }, [isInitialData])
 
   const media = [
     mode === 'iframe' && 'iframe',
@@ -122,11 +133,9 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
     'logo'
   ].filter(Boolean)
 
-  const targetUrlPrepend = prependHttp(data.url)
-
   return (
     <Container alignItems='center' pt={5}>
-      <Heading titleize={false} maxWidth={layout.large}>
+      <Heading px={5} titleize={false} maxWidth={layout.large}>
         Embed any content
       </Heading>
 
@@ -136,7 +145,7 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Create beauty link previews — Microlink SDK turn your content into
+        Create beauty link previews — Microlink SDK turns your content into
         embeddable rich media.
       </Caption>
 
@@ -322,12 +331,6 @@ const Integrations = () => {
 }
 
 export default () => {
-  const demoLink = demoLinks.find(
-    demoLink => demoLink.id === INITIAL_SUGGESTION
-  )
-
-  const [query] = useQueryState()
-
   return (
     <Layout>
       <FetchProvider
@@ -335,15 +338,17 @@ export default () => {
       >
         {({ status, doFetch, data }) => {
           const isLoading = status === 'fetching'
+          const unifiedData = data || DEMO_LINK.data
+          const isInitialData = unifiedData.url === DEMO_LINK.data.url
+
           return (
             <>
               <LiveDemo
-                query={query}
                 isLoading={isLoading}
                 suggestions={SUGGESTIONS}
-                data={data || demoLink.data}
+                data={data || DEMO_LINK.data}
+                isInitialData={isInitialData}
                 onSubmit={doFetch}
-                url={query.url}
               />
               <Integrations />
             </>

@@ -1,3 +1,5 @@
+import { useWindowSize, useHealthcheck, useFeaturesMeta } from 'components/hook'
+import { layout, breakpoints, transition, colors, borders } from 'theme'
 import React, { useEffect, useState } from 'react'
 import { fadeIn } from 'components/keyframes'
 import isUrl from 'is-url-http/lightweight'
@@ -5,15 +7,6 @@ import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { getDomain } from 'tldts'
 import chunk from 'lodash/chunk'
-
-import {
-  useWindowSize,
-  useQueryState,
-  useHealthcheck,
-  useFeaturesMeta
-} from 'components/hook'
-
-import { layout, breakpoints, transition, colors, borders } from 'theme'
 
 import {
   AnimatedBox,
@@ -51,6 +44,8 @@ import humanizeUrl from 'humanize-url'
 import demoLinks from '../../data/demo-links'
 
 const INITIAL_SUGGESTION = 'youtube'
+
+const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
 
 const trimPx = str => Number(str.replace('px', ''))
 
@@ -131,18 +126,29 @@ const JSONProperty = ({ property, data, ...props }) => {
   )
 }
 
-const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
-  const size = useWindowSize({ width: 1440, height: 798 })
-  const [inputValue, setInputValue] = useState(query.url || '')
-  const domain = getDomain(inputValue)
+const LiveDemo = ({
+  data,
+  isInitialData,
+  isLoading,
+  onSubmit,
+  suggestions
+}) => {
+  const size = useWindowSize()
 
   const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
+  const [inputValue, setInputValue] = useState('')
+  const domain = getDomain(inputValue)
+
+  useEffect(() => {
+    if (!isInitialData) setInputValue(data.url)
+  }, [isInitialData])
+
   return (
     <Container alignItems='center' pt={5} pb={Container.defaultProps.pt}>
-      <Heading titleize={false} maxWidth={layout.large}>
+      <Heading px={5} titleize={false} maxWidth={layout.large}>
         Get unified metadata
       </Heading>
 
@@ -153,7 +159,7 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Structured data normalized from Open Graph, Twitter, JSON+LD, oEmbed &
-        HTML for any website.
+        HTML.
       </Caption>
 
       <Flex
@@ -175,9 +181,9 @@ const LiveDemo = ({ query, suggestions, data, onSubmit, isLoading }) => {
 
       <Flex justifyContent='center' alignItems='center'>
         <Flex
+          as='form'
           pt={[3, 3, 4, 4]}
           pb={4}
-          as='form'
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
@@ -639,12 +645,6 @@ const ProductInformation = props => (
 )
 
 export default () => {
-  const demoLink = demoLinks.find(
-    demoLink => demoLink.id === INITIAL_SUGGESTION
-  )
-
-  const [query] = useQueryState()
-
   return (
     <Layout>
       <FetchProvider
@@ -652,15 +652,17 @@ export default () => {
       >
         {({ status, doFetch, data }) => {
           const isLoading = status === 'fetching'
+          const unifiedData = data || DEMO_LINK.data
+          const isInitialData = unifiedData.url === DEMO_LINK.data.url
+
           return (
             <>
               <LiveDemo
-                query={query}
                 isLoading={isLoading}
                 suggestions={SUGGESTIONS}
-                data={data || demoLink.data}
+                data={unifiedData}
+                isInitialData={isInitialData}
                 onSubmit={doFetch}
-                url={query.url}
               />
               <Timings />
               <Features
