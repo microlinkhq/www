@@ -49,8 +49,7 @@ const SUGGESTIONS = [
   'youtube'
 ].map(id => {
   const { data } = demoLinks.find(item => item.id === id)
-  const { url } = data
-  return { value: humanizeUrl(url) }
+  return { value: humanizeUrl(data.url) }
 })
 
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
@@ -118,12 +117,17 @@ const LiveDemo = ({
   const cardHeight = cardWidth / Card.ratio
 
   const [inputValue, setInputValue] = useState('')
-  const targetUrlPrepend = prependHttp(data.url)
-  const domain = getDomain(inputValue)
 
   useEffect(() => {
     if (!isInitialData) setInputValue(data.url)
   }, [isInitialData])
+
+  const targetUrlPrepend = (() => {
+    const isSuggestion = SUGGESTIONS.some(({ value }) => value === inputValue)
+    return prependHttp(isSuggestion ? inputValue || data.url : data.url)
+  })()
+
+  const domain = getDomain(inputValue)
 
   const media = [
     mode === 'iframe' && 'iframe',
@@ -189,7 +193,10 @@ const LiveDemo = ({
               type='text'
               suggestions={suggestions}
               value={inputValue}
-              onChange={event => setInputValue(event.target.value)}
+              onChange={event => {
+                const url = event.target.value
+                setInputValue(url)
+              }}
               width={['100%', '180px', '180px', '180px']}
               autoFocus
             />
@@ -215,7 +222,7 @@ const LiveDemo = ({
                 loading={isLoading}
                 size='large'
                 url={targetUrlPrepend}
-                setData={() => data}
+                setData={demoLink => demoLink || data}
                 media={media}
               />
             </Choose.When>

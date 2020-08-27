@@ -59,8 +59,7 @@ const SUGGESTIONS = [
   'youtube'
 ].map(id => {
   const { data } = demoLinks.find(item => item.id === id)
-  const { url } = data
-  return { value: humanizeUrl(url) }
+  return { value: humanizeUrl(data.url), data }
 })
 
 const SENTENCES_INTERVAL = 3500
@@ -141,6 +140,11 @@ const LiveDemo = ({
 
   const [inputValue, setInputValue] = useState('')
   const domain = getDomain(inputValue)
+
+  const jsonData = (() => {
+    const suggestion = SUGGESTIONS.find(({ value }) => value === inputValue)
+    return suggestion ? suggestion.data : data
+  })()
 
   useEffect(() => {
     if (!isInitialData) setInputValue(data.url)
@@ -224,7 +228,11 @@ const LiveDemo = ({
         <Hide breakpoints={[0, 1]}>
           <List pr={4} pl={0}>
             {JsonKeysFirstChunk.map(children => (
-              <JSONProperty key={children} property={children} data={data} />
+              <JSONProperty
+                key={children}
+                property={children}
+                data={jsonData}
+              />
             ))}
           </List>
         </Hide>
@@ -233,12 +241,16 @@ const LiveDemo = ({
           width={cardWidth}
           height={cardHeight}
           language='json'
-          children={JSON.stringify(data, null, 2)}
+          children={JSON.stringify(jsonData, null, 2)}
         />
         <Hide breakpoints={[0, 1]}>
           <List pl={4}>
             {JsonKeysSecondChunk.map(children => (
-              <JSONProperty key={children} property={children} data={data} />
+              <JSONProperty
+                key={children}
+                property={children}
+                data={jsonData}
+              />
             ))}
           </List>
         </Hide>
