@@ -36,7 +36,8 @@ import {
   Faq,
   Layout,
   FetchProvider,
-  List
+  List,
+  Average
 } from 'components/patterns'
 
 import humanizeUrl from 'humanize-url'
@@ -342,38 +343,6 @@ const Timings = () => {
               width='100%'
               maxWidth={layout.normal}
             >
-              <Hide breakpoints={[0]}>
-                <Flex
-                  display='inline-flex'
-                  alignItems='center'
-                  justifyContent='center'
-                  flexDirection='column'
-                >
-                  <Subhead as='div' color='white' fontWeight='bold'>
-                    {getMs(healthcheck.meta.avg_pretty)}
-                    <Caption
-                      titleize={false}
-                      as='div'
-                      ml={2}
-                      color='white'
-                      display='inline'
-                      fontWeight='bold'
-                    >
-                      seg
-                    </Caption>
-                  </Subhead>
-                  <Caption
-                    as='div'
-                    color='white80'
-                    fontWeight='bold'
-                    titleize={false}
-                    pt={2}
-                  >
-                    <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
-                    <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
-                  </Caption>
-                </Flex>
-              </Hide>
               <Flex
                 display='inline-flex'
                 alignItems='center'
@@ -399,6 +368,26 @@ const Timings = () => {
                 </Subhead>
                 <Caption as='div' color='white80' fontWeight='bold' pt={2}>
                   <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
+                  <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
+                </Caption>
+              </Flex>
+              <Flex
+                display='inline-flex'
+                alignItems='center'
+                justifyContent='center'
+                flexDirection='column'
+              >
+                <Subhead as='div' color='white' fontWeight='bold'>
+                  <Average property='meta' />
+                </Subhead>
+                <Caption
+                  as='div'
+                  color='white80'
+                  fontWeight='bold'
+                  titleize={false}
+                  pt={2}
+                >
+                  <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
                   <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
                 </Caption>
               </Flex>

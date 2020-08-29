@@ -16,6 +16,7 @@ import Grid from './Grid'
 import Layout from './Layout'
 import Legend from './Legend/Legend'
 import List from './List/List'
+import Average from './Average/Average'
 import Microlink from './Microlink/Microlink'
 import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
@@ -29,6 +30,7 @@ export {
   Announcement,
   ArrowLink,
   Aside,
+  Average,
   Block,
   Caption,
   Chat,
