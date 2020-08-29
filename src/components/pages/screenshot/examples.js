@@ -15,7 +15,7 @@ import {
   Text
 } from 'components/elements'
 
-import { cdnUrl, aspectRatio, screenshotUrl } from 'helpers'
+import { cdnUrl, aspectRatio, screenshotUrl, debounceComponent } from 'helpers'
 
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 
@@ -23,7 +23,7 @@ import { Faq, Caption, Block, SubHeadline } from 'components/patterns'
 import { useHealthcheck } from 'components/hook'
 import React, { useEffect, useState } from 'react'
 import uniqueRandomArray from 'unique-random-array'
-import { speed, colors, borders } from 'theme'
+import { radii, speed, colors, borders } from 'theme'
 import { HourGlass } from 'components/icons'
 import { useTransition } from 'react-spring'
 import isUrl from 'is-url-http/lightweight'
@@ -41,11 +41,33 @@ import {
   screenshotHeight
 } from 'components/pages/home/screenshots'
 
-// import { Features, Screenshot } from './template'
-
 const INTERVAL = 3500
 
-// const ScreenshotDebounce = debounceComponent(Screenshot)
+const Screenshot = ({ domain, data, ...props }) => {
+  return (
+    <Link px={3} mt={3} href={data.screenshot.url}>
+      <Image
+        alt={`${domain} screenshot`}
+        pl={0}
+        pr={0}
+        height={isLoading => (isLoading ? screenshotHeight : 'inherit')}
+        key={data.screenshot.url}
+        src={data.screenshot.url}
+        style={isLoading => {
+          if (isLoading) return
+          return {
+            padding: 0,
+            borderRadius: radii[2],
+            border: `1px solid ${colors.black20}`
+          }
+        }}
+        {...props}
+      />
+    </Link>
+  )
+}
+
+const ScreenshotDebounce = debounceComponent(Screenshot)
 
 const DemoSlider = ({ children: slides, ...props }) => {
   const [index, setIndex] = useState(0)
