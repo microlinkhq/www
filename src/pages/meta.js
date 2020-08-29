@@ -307,7 +307,7 @@ const Timings = () => {
             </Flex>
             <Caption
               px={[4, 0, 0, 0]}
-              pt={3}
+              pt={2}
               color='white80'
               maxWidth={[6, 7, 7, 'inherit']}
               fontSize={[2, 2, 4, 4]}
@@ -359,7 +359,7 @@ const Timings = () => {
                       display='inline'
                       fontWeight='bold'
                     >
-                      mseg
+                      seg
                     </Caption>
                   </Subhead>
                   <Caption
@@ -367,8 +367,10 @@ const Timings = () => {
                     color='white80'
                     fontWeight='bold'
                     titleize={false}
+                    pt={2}
                   >
-                    <Caps fontSize={[0, 2, 3, 3]}>avg. response time</Caps>
+                    <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
+                    <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
                   </Caption>
                 </Flex>
               </Hide>
@@ -395,13 +397,9 @@ const Timings = () => {
                     titleize={false}
                   />
                 </Subhead>
-                <Caption as='div' color='white80' fontWeight='bold'>
-                  <Hide breakpoints={[0]}>
-                    <Caps fontSize={[0, 2, 3, 3]}>avg. response time</Caps>
-                  </Hide>
-                  <Hide breakpoints={[1, 2, 3]}>
-                    <Caps fontSize={[0, 2, 3, 3]}>response time</Caps>
-                  </Hide>
+                <Caption as='div' color='white80' fontWeight='bold' pt={2}>
+                  <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
+                  <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
                 </Caption>
               </Flex>
               <Flex
@@ -426,8 +424,15 @@ const Timings = () => {
                     children='%'
                   />
                 </Subhead>
-                <Caption as='div' color='white80' mr={3} fontWeight='bold'>
-                  <Caps fontSize={[0, 2, 3, 3]}>SLA guaranteed</Caps>
+                <Caption
+                  as='div'
+                  color='white80'
+                  mr={3}
+                  fontWeight='bold'
+                  pt={2}
+                >
+                  <Caps fontSize={[0, 2, 2, 2]}>SLA</Caps>
+                  <Caps fontSize={[0, 2, 2, 2]}>Guaranteed</Caps>
                 </Caption>
               </Flex>
             </Flex>
