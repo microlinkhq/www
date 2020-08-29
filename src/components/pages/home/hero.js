@@ -1,4 +1,4 @@
-import { Hide, Container, Flex, Heading } from 'components/elements'
+import { Container, Flex, Heading } from 'components/elements'
 import { ArrowLink, Caption, MQLEditor } from 'components/patterns'
 import { layout } from 'theme'
 import React from 'react'
@@ -24,10 +24,6 @@ const Hero = () => {
       >
         Fast, scalable, and reliable browser automation built for businesses and
         developers.
-        <Hide as='span' breakpoints={[0]}>
-          {' '}
-          Proudly open source software.
-        </Hide>
       </Caption>
       <Flex
         alignItems={['center', undefined, undefined, undefined]}
@@ -36,13 +32,13 @@ const Hero = () => {
       >
         <ArrowLink
           pr={[0, 4, 4, 4]}
-          href='/docs/api/getting-started/overview'
-          children='Check out the API'
+          href='/recipes'
+          children='Start building'
         />
         <ArrowLink
           pt={[3, 0, 0, 0]}
-          href='https://github.com/microlinkhq'
-          children='View on GitHub'
+          href='/docs/api/getting-started/overview'
+          children='Check the API'
         />
       </Flex>
       <MQLEditor pt={4} pb={Container.defaultProps.pt} />

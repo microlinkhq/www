@@ -5,7 +5,7 @@ const getSize = isSSR
   ? fallback => fallback
   : () => ({ width: window.innerWidth, height: window.innerHeight })
 
-export function useWindowSize (fallback) {
+export function useWindowSize (fallback = { width: 1440, height: 798 }) {
   const [windowSize, setWindowSize] = useState(getSize(fallback))
 
   useEffect(() => {

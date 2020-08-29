@@ -1,9 +1,9 @@
 import { layout, breakpoints, transition, shadows } from 'theme'
+import React, { useMemo, useEffect, useState } from 'react'
 import { mqlCode, debounceComponent } from 'helpers'
 import { useWindowSize } from 'components/hook'
 import isUrl from 'is-url-http/lightweight'
 import * as Icons from 'components/icons'
-import React, { useEffect, useState } from 'react'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
@@ -122,10 +122,10 @@ const LiveDemo = ({
     if (!isInitialData) setInputValue(data.url)
   }, [isInitialData])
 
-  const targetUrlPrepend = (() => {
+  const targetUrlPrepend = useMemo(() => {
     const isSuggestion = SUGGESTIONS.some(({ value }) => value === inputValue)
     return prependHttp(isSuggestion ? inputValue || data.url : data.url)
-  })()
+  }, [inputValue, data])
 
   const domain = getDomain(inputValue)
 
@@ -331,7 +331,10 @@ const Integrations = () => {
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
       >
-        <ArrowLink href='/docs/sdk/' children='See more integrations' />
+        <ArrowLink
+          href='/docs/sdk/getting-started/overview/'
+          children='See more integrations'
+        />
       </Flex>
     </Container>
   )
@@ -358,6 +361,7 @@ export default () => {
                 onSubmit={doFetch}
               />
               <Integrations />
+              {/* TODO: Add Hover banner */}
             </>
           )
         }}

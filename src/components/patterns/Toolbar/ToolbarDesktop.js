@@ -25,7 +25,10 @@ export default ({ theme }) => {
       top={0}
       left={0}
       right={0}
-      bg={isDark ? 'black' : 'white'}
+      css={`
+        backdrop-filter: blur(8px);
+        background-color: rgba(255, 255, 255, 0.5);
+      `}
     >
       <Box px={3} ml='auto' mr='auto'>
         <Toolbar

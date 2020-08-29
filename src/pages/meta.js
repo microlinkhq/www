@@ -378,7 +378,7 @@ const Timings = () => {
                 flexDirection='column'
               >
                 <Subhead as='div' color='white' fontWeight='bold'>
-                  <Average property='meta' />
+                  <Average value={healthcheck.meta.avg_pretty} />
                 </Subhead>
                 <Caption
                   as='div'
@@ -449,9 +449,9 @@ const Resume = props => (
       py={3}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
     >
-      Microlink extracts structured data from any website. Enter a URL, receive
-      information. Get relevant information from any link & easily create
-      beautiful previews.
+      <b>Microlink for Meta</b> extracts structured data from any website. Enter
+      a URL, receive information. Get relevant information from any link &
+      easily create beautiful previews.
     </Caption>
 
     <Block
@@ -524,7 +524,7 @@ const Resume = props => (
       blockOne={
         <Image
           width={[5, 6, 7, 8]}
-          alt='Universal Embed'
+          alt='Easily consumable'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }

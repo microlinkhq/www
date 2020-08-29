@@ -1,4 +1,3 @@
-import { useHealthcheck } from 'components/hook'
 import React, { useEffect, useState } from 'react'
 
 import uniqueRandomArray from 'unique-random-array'
@@ -10,13 +9,10 @@ import Caption from '../Caption/Caption'
 
 const INTERVAL = 3500
 
-export default ({ size, property }) => {
-  const healthcheck = useHealthcheck()
-  const avg = healthcheck[property].avg_pretty
-
-  const [average, setAverage] = useState(Number(avg.replace(/ms|s/, '')))
+export default ({ size, value }) => {
+  const [average, setAverage] = useState(Number(value.replace(/ms|s/, '')))
   const [averageHighlight, setAverageHighlight] = useState(false)
-  const [unit] = useState(avg.includes('ms') ? 'mseg' : 'seg')
+  const [unit] = useState(value.includes('ms') ? 'mseg' : 'seg')
 
   const top = average * 0.3
   const bottom = average * 0.3 * -1
@@ -39,8 +35,7 @@ export default ({ size, property }) => {
     return (
       <Highlight display='inline' isHighlight={averageHighlight}>
         <Text as='span' color='black80' fontWeight='bold'>
-          {average}
-          {unit}
+          {average} {unit}
         </Text>
       </Highlight>
     )
@@ -48,7 +43,7 @@ export default ({ size, property }) => {
 
   return (
     <Highlight px={3} isHighlight={averageHighlight}>
-      <span>~{average}</span>
+      <span>{average}</span>
       <Caption
         ml={2}
         color='white'

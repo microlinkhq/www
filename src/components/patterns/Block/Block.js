@@ -9,6 +9,7 @@ const Block = ({
   top = null,
   flexDirection = 'row',
   children = <Box ml={4} mr={4} />,
+  width,
   ...props
 }) => (
   <Container {...props}>
@@ -20,6 +21,7 @@ const Block = ({
       alignItems='center'
       ml='auto'
       mr='auto'
+      width={width}
     >
       {blockOne}
       {children}
