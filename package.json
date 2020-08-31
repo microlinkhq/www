@@ -38,7 +38,7 @@
   ],
   "dependencies": {
     "@microlink/demo-links": "~1.0.14",
-    "@microlink/mql": "~0.7.3",
+    "@microlink/mql": "~0.7.5",
     "@microlink/react": "~5.4.1",
     "@microlink/recipes": "~0.0.16",
     "@styled-system/prop-types": "~5.1.5",
