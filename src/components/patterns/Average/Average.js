@@ -9,8 +9,15 @@ import Caption from '../Caption/Caption'
 
 const INTERVAL = 3500
 
+const trimUnit = str => str.replace(/ms|s/, '')
+
+const prettyNumber = n => {
+  const str = String(n)
+  return str.length === 3 ? `${str}0` : str
+}
+
 export default ({ size, value }) => {
-  const [average, setAverage] = useState(Number(value.replace(/ms|s/, '')))
+  const [average, setAverage] = useState(Number(trimUnit(value)))
   const [averageHighlight, setAverageHighlight] = useState(false)
   const [unit] = useState(value.includes('ms') ? 'mseg' : 'seg')
 
@@ -35,7 +42,7 @@ export default ({ size, value }) => {
     return (
       <Highlight display='inline' isHighlight={averageHighlight}>
         <Text as='span' color='black80' fontWeight='bold'>
-          {average} {unit}
+          {prettyNumber(average)} {unit}
         </Text>
       </Highlight>
     )
@@ -43,7 +50,9 @@ export default ({ size, value }) => {
 
   return (
     <Highlight px={3} isHighlight={averageHighlight}>
-      <span>{average}</span>
+      <Text as='span' fontSize={6}>
+        {prettyNumber(average)}
+      </Text>
       <Caption
         ml={2}
         color='white'

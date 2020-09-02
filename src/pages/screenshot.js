@@ -23,6 +23,7 @@ import {
   Container,
   Flex,
   Heading,
+  Hide,
   Image,
   Input,
   InputIcon,
@@ -370,16 +371,12 @@ const Timings = props => {
   const blockTwo = (
     <Flex
       pt={[4, 4, 5, 5]}
-      justifyContent={[
-        'space-around',
-        'space-between',
-        'space-between',
-        'space-between'
-      ]}
+      justifyContent={['space-around', 'space-around', 'center', 'center']}
       alignItems='baseline'
       px={[4, 4, 4, 0]}
       width='100%'
       maxWidth={layout.normal}
+      style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       <Flex
         display='inline-flex'
@@ -389,7 +386,7 @@ const Timings = props => {
       >
         <Subhead
           as='div'
-          fontSize={[3, 4, 6, 6]}
+          fontSize={[3, 4, 4, 4]}
           color='white'
           fontWeight='bold'
         >
@@ -409,26 +406,23 @@ const Timings = props => {
           <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
         </Caption>
       </Flex>
-      <Flex
-        display='inline-flex'
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
-      >
-        <Subhead as='div' color='white' fontWeight='bold'>
-          <Average value={healthcheck.screenshot.avg_pretty} />
-        </Subhead>
-        <Caption
-          as='div'
-          color='white60'
-          fontWeight='bold'
-          titleize={false}
-          pt={2}
+      <Hide breakpoints={[0, 1]}>
+        <Flex
+          display='inline-flex'
+          px={[2, 2, 2, 5]}
+          alignItems='center'
+          justifyContent='center'
+          flexDirection='column'
         >
-          <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
-          <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
-        </Caption>
-      </Flex>
+          <Subhead as='div' color='white' fontWeight='bold'>
+            <Average value={healthcheck.screenshot.avg_pretty} />
+          </Subhead>
+          <Caption as='div' color='white60' fontWeight='bold' titleize={false}>
+            <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
+            <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
+          </Caption>
+        </Flex>
+      </Hide>
       <Flex
         display='inline-flex'
         alignItems='center'
@@ -437,7 +431,7 @@ const Timings = props => {
       >
         <Subhead
           as='div'
-          fontSize={[3, 4, 6, 6]}
+          fontSize={[3, 4, 4, 4]}
           color='white'
           fontWeight='bold'
         >
