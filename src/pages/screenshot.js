@@ -1,8 +1,9 @@
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 import React, { useMemo, useEffect, useState } from 'react'
-import { cdnUrl, debounceComponent } from 'helpers'
 import { useTransition, animated } from 'react-spring'
+import { cdnUrl, debounceComponent } from 'helpers'
 import isUrl from 'is-url-http/lightweight'
+import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -20,6 +21,7 @@ import {
   Button,
   Caps,
   Card,
+  CodeEditor,
   Container,
   Flex,
   Heading,
@@ -101,18 +103,13 @@ const AnimatedImage = animated(styled(ImageWithRef)`
   left: 0px;
 `)
 
-const Screenshot = debounceComponent(({ domain, data, ...props }) => {
-  const size = useWindowSize()
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1 : 2
-  const cardWidth = size.width / cardBase
-  const cardHeight = cardWidth / Card.ratio
-
+const Screenshot = debounceComponent(({ domain, data, height, ...props }) => {
   return (
     <Link px={3} href={data.screenshot.url}>
       <Image
         pl={0}
         pr={0}
-        height={isLoading => (isLoading ? cardHeight : 'inherit')}
+        height={isLoading => (isLoading ? height : 'inherit')}
         key={data.screenshot.url}
         src={data.screenshot.url}
         style={isLoading => {
@@ -130,7 +127,7 @@ const Screenshot = debounceComponent(({ domain, data, ...props }) => {
 const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1 : 2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
@@ -167,6 +164,18 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     }
   }, [inputUrl, inputOverlay, inputBg])
 
+  const embedUrl = useMemo(() => {
+    const { url, ...opts } = values
+    if (!url) return
+    const [embedUrl] = getApiUrl(url, {
+      ...opts,
+      screenshot: true,
+      meta: false,
+      embed: 'screenshot.url'
+    })
+    return embedUrl
+  }, [values])
+
   const handleSubmit = event => {
     event.preventDefault()
     const { url, ...opts } = values
@@ -193,11 +202,11 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 0, 0]}
+        px={[4, 4, 4, 4]}
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Say goodbye to complexity – Turn websites into screenshots, in an easy
+        Say goodbye to complexity – Turn websites into screenshots, in a simple
         way.
       </Caption>
       <Flex
@@ -295,20 +304,42 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
       <Flex>
         <Choose>
           <Choose.When condition={!!suggestionUrl}>
-            <Screenshot
-              height={isLoading => (isLoading ? cardHeight : 'inherit')}
-              width={cardWidth}
-              data={{ screenshot: { url: suggestionUrl } }}
-              query={values}
-            />
+            <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
+              <Screenshot
+                height={isLoading => (isLoading ? cardHeight : 'inherit')}
+                width={cardWidth}
+                data={{ screenshot: { url: suggestionUrl } }}
+                query={values}
+              />
+              <CodeEditor
+                width={[
+                  `calc(${cardWidth}px - 30px)`,
+                  `calc(${cardWidth}px - 30px)`,
+                  `calc(${cardWidth}px - 76px)`,
+                  `calc(${cardWidth}px - 76px)`
+                ]}
+                mx='auto'
+                language='html'
+                children={`<iframe src="${embedUrl}"></iframe>`}
+              />
+            </Flex>
           </Choose.When>
           <Choose.When condition={!!data}>
-            <Screenshot
-              height={isLoading => (isLoading ? cardHeight : 'inherit')}
-              width={cardWidth}
-              data={data}
-              query={values}
-            />
+            <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
+              <Screenshot
+                height={isLoading => (isLoading ? cardHeight : 'inherit')}
+                width={cardWidth}
+                data={data}
+                query={values}
+              />
+              <Box pt={4}>
+                <CodeEditor
+                  width={cardWidth}
+                  language='html'
+                  children={`<iframe src="${embedUrl}"></iframe>`}
+                />
+              </Box>
+            </Flex>
           </Choose.When>
           <Choose.Otherwise>
             <DemoSlider
@@ -483,8 +514,8 @@ const Resume = props => (
       titleize={false}
     >
       <b>Microlink for Screenshot</b> provides a set of powerful features
-      without the headaches of running your own infrastructure, bringing you the
-      power in an affordable way.
+      without the headaches of running your own infrastructure, giving you great
+      power, less responsabilities.
     </Caption>
 
     <Block
@@ -645,7 +676,7 @@ const ProductInformation = props => {
               own servers. Servers run the browser on top of optimized hardware
               to ensure the screenshot is taken fast as possible but also under
               security isolation condition, spawning a new browser per every new
-              request, meaning no browser are shared between requests.
+              request, meaning no browsers are shared between requests.
             </>,
             <>
               After that, the screenshot is uploaded into{' '}
@@ -668,7 +699,7 @@ const ProductInformation = props => {
             <>
               The fact of resolve any URL at scale in{' '}
               <Average size='tiny' value={healthcheck.screenshot.avg_pretty} />{' '}
-              is not a trivial thing.
+              isn't a trivial thing.
             </>
           ]
         },
@@ -697,7 +728,7 @@ export default () => {
   return (
     <Layout>
       <FetchProvider mqlOpts={{ meta: false, screenshot: true }}>
-        {({ status, doFetch, data, response }) => {
+        {({ status, doFetch, data }) => {
           const isLoading = status === 'fetching'
           return (
             <>
@@ -734,10 +765,10 @@ export default () => {
                 title={
                   <>
                     <Subhead width='100%' textAlign='left'>
-                      Perfomance as feature,
+                      High perfomance,
                     </Subhead>
                     <Subhead
-                      color='secondary'
+                      color='rgb(253, 73, 74)'
                       width='100%'
                       textAlign='left'
                       titleize={false}
@@ -750,7 +781,7 @@ export default () => {
                   <>
                     No more servers to maintain, load balancers, or paying for
                     capacity you don’t use — Microlink allows you spend more
-                    time building, less time configuring, easy to integrate via{' '}
+                    time building, less time configuring, easy integration via{' '}
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
                 }

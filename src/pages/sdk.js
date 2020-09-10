@@ -149,8 +149,8 @@ const LiveDemo = ({
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Create beauty link previews — Microlink SDK turns your content into
-        embeddable rich media.
+        Create beauty link previews — Turn your content into embeddable rich
+        media.
       </Caption>
 
       <Flex

@@ -41,7 +41,7 @@ export default () => {
         }
         caption={
           <>
-            There are hidden costs to run your own infrastructure — give your
+            There are hidden costs to run your own infrastructure — Give your
             team extra boost in performance, ease of use, browser automation
             made simple at cost pricing, full control via{' '}
             <Link href='/docs/api/getting-started/overview'>API</Link>.

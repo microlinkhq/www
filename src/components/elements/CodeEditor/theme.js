@@ -57,11 +57,9 @@ const baseTheme = ({ PRIMARY, SECONDARY, BACKGROUND }) => ({
     hyphens: 'none',
     background: BACKGROUND,
     color: SECONDARY,
-    padding: '1em',
+    padding: '0px 1em 0px 0px',
     margin: '.5em 0',
-    overflow: 'auto',
-    paddingTop: 0,
-    paddingLeft: 0
+    overflow: 'auto'
   },
   'pre[class*="language-"]::-moz-selection': {
     textShadow: 'none',

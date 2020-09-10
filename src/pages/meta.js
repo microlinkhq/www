@@ -1,8 +1,9 @@
 import { useWindowSize, useHealthcheck, useFeaturesMeta } from 'components/hook'
 import { layout, breakpoints, transition, colors, borders } from 'theme'
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { fadeIn } from 'components/keyframes'
 import isUrl from 'is-url-http/lightweight'
+import { getApiUrl } from '@microlink/mql'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { getDomain } from 'tldts'
@@ -147,6 +148,17 @@ const LiveDemo = ({
     return suggestion ? suggestion.data : data
   })()
 
+  const embedUrl = useMemo(() => {
+    if (!data || !data.url) return
+    const [embedUrl] = getApiUrl(data.url, {
+      palette: true,
+      audio: true,
+      video: true,
+      iframe: true
+    })
+    return embedUrl
+  }, [inputValue])
+
   useEffect(() => {
     if (!isInitialData) setInputValue(data.url)
   }, [isInitialData])
@@ -237,13 +249,23 @@ const LiveDemo = ({
             ))}
           </List>
         </Hide>
-
-        <CodeEditor
-          width={cardWidth}
-          height={cardHeight}
-          language='json'
-          children={JSON.stringify(jsonData, null, 2)}
-        />
+        <Flex flexDirection='column' alignItems='center'>
+          <CodeEditor
+            width={cardWidth}
+            height={cardHeight}
+            language='json'
+            children={JSON.stringify(jsonData, null, 2)}
+          />
+          {inputValue && (
+            <Box pt={4}>
+              <CodeEditor
+                width={cardWidth}
+                language='bash'
+                children={`curl -sL ${embedUrl}`}
+              />
+            </Box>
+          )}
+        </Flex>
         <Hide breakpoints={[0, 1]}>
           <List pl={4}>
             {JsonKeysSecondChunk.map(children => (
@@ -678,7 +700,7 @@ export default () => {
                 title={
                   <>
                     <Subhead width='100%' textAlign='left'>
-                      You call the API,
+                      Great power,
                     </Subhead>
                     <Subhead
                       color={COLOR}
@@ -686,7 +708,7 @@ export default () => {
                       textAlign='left'
                       titleize={false}
                     >
-                      we handle the rest.
+                      less reponsability.
                     </Subhead>
                   </>
                 }
