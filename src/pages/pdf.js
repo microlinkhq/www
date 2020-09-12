@@ -52,7 +52,7 @@ const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const getMs = str => str.replace(/ms|s/, '')
 
-const PDFPlaceholder = ({ children: slides, ...props }) => {
+const PDFPlaceholder = props => {
   return (
     <Flex
       border={3}
