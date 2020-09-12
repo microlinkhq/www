@@ -8,7 +8,8 @@ import CodeCopy from 'react-codecopy'
 import range from 'lodash/range'
 import get from 'dlv'
 
-import prismThemes from './theme'
+import { prismThemes, themes } from './theme'
+import { cx } from 'theme'
 
 import Runkit from '../Runkit/Runkit'
 
@@ -72,12 +73,18 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
 const TerminalHeader = styled.header`
   ${styleTerminalHeader};
   height: ${TERMINAL_HEADER_HEIGHT};
-  background: ${props => props.background};
+  background: ${props => themes[props.theme].background};
   top: 1px;
   z-index: 2;
 
   .codecopy_button {
-    background: ${props => props.background};
+    background: ${props => themes[props.theme].background};
+    border-color: ${({ theme }) =>
+      theme === 'light' ? cx('black80') : cx('white80')};
+    svg {
+      fill: ${({ theme }) =>
+        theme === 'light' ? cx('black80') : cx('white80')};
+    }
   }
 `
 
@@ -115,7 +122,7 @@ const Terminal = ({
   children,
   theme,
   prismTheme,
-  toCopy,
+  text,
   ActionComponent = CodeCopy,
   ...props
 }) => {
@@ -128,12 +135,12 @@ const Terminal = ({
       onMouseOver={() => setHover(true)}
       {...props}
     >
-      <TerminalHeader background={background}>
+      <TerminalHeader background={background} theme={theme}>
         <TerminalButton.Red theme={theme} />
         <TerminalButton.Yellow theme={theme} />
         <TerminalButton.Green theme={theme} />
         <TerminalTitle theme={theme} children={title} />
-        <ActionComponent isHover={isHover} theme={theme} toCopy={toCopy} />
+        <ActionComponent isHover={isHover} theme={theme} text={text} />
       </TerminalHeader>
       <TerminalText background={background} theme={theme} children={children} />
     </TerminalWindow>
@@ -164,7 +171,7 @@ const CodeEditor = props => {
       theme={theme}
       prismTheme={prismTheme}
       id={id}
-      toCopy={text}
+      text={text}
       ActionComponent={ActionComponent}
       {...restProps}
     >
