@@ -1546,15 +1546,15 @@
   resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.14.tgz#7b0d95f53efdb5d6b7c3d0d5b977dfd1a8512726"
   integrity sha512-U2uoSmw+t9jHP+0BYz334Vwwl9UvhWxrqvRkMAYAXQKH8V3p1ICLewF04yOuvy+79ZY4FKxKTLu8vARwllyxAg==
 
-"@microlink/mql@~0.7.1", "@microlink/mql@~0.7.2", "@microlink/mql@~0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.7.3.tgz#b5aeb19c1b32190beac26550fbf682c2b3830db2"
-  integrity sha512-2SEwBKCcpKrqZstDfHYcavOHRyCZRc0678XQg+nQckZNf265wT9k9Qw7s3khzz4P0kTS1Wnm6F/DEA7lSkATiA==
+"@microlink/mql@~0.7.1", "@microlink/mql@~0.7.2", "@microlink/mql@~0.7.8":
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.7.8.tgz#8a4b81cdc5ec100438fe3b798142183f1f2fbdd8"
+  integrity sha512-PNu8ODa4sXw75QwWCx3I6v5iwowXUKEWt3gn9H5H1ctIsPghLEosf4eQd9SNaQtOw5ytzfDHRU1xkLdWMqJbDQ==
   dependencies:
-    flat "~5.0.0"
-    got "~11.5.0"
+    flattie "~1.1.0"
+    got "~11.6.1"
     is-url-http "~2.1.2"
-    ky "~0.20.0"
+    ky "~0.23.0"
     ky-universal "~0.8.1"
     qss "~2.0.3"
     whoops "~4.1.0"
@@ -1771,6 +1771,11 @@
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-3.0.0.tgz#78fabc5e295adb6e1ef57eaafe4cc5d7aa35b183"
   integrity sha512-kqA5I6Yun7PBHk8WN9BBP1c7FfN2SrD05GuVSEYPqDb4nerv7HqYfgBfMIKmT/EuejURkJKLZuLyGKGs6WEG9w==
+
+"@sindresorhus/is@^3.1.1":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-3.1.2.tgz#548650de521b344e3781fbdb0ece4aa6f729afb8"
+  integrity sha512-JiX9vxoKMmu8Y3Zr2RVathBL1Cdu4Nt4MuNWemt1Nc06A0RAin9c5FArkhGsyMBWfCu4zj+9b+GxtjAnE4qqLQ==
 
 "@storybook/addon-a11y@latest":
   version "5.3.19"
@@ -9021,6 +9026,11 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
+flattie@~1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/flattie/-/flattie-1.1.0.tgz#1459504209f2001c478751b4e2fb69d6b1ee3241"
+  integrity sha512-xU99gDEnciIwJdGcBmNHnzTJ/w5AT+VFJOu6sTB6WM8diOYNA3Sa+K1DiEBQ7XH4QikQq3iFW1U+jRVcotQnBw==
+
 flow-parser@0.111.3:
   version "0.111.3"
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.111.3.tgz#4c256aa21a5dbb53d5305e3512cc120659ca08f3"
@@ -10215,6 +10225,23 @@ got@~11.5.0:
     p-cancelable "^2.0.0"
     responselike "^2.0.0"
 
+got@~11.6.1:
+  version "11.6.2"
+  resolved "https://registry.yarnpkg.com/got/-/got-11.6.2.tgz#79d7bb8c11df212b97f25565407a1f4ae73210ec"
+  integrity sha512-/21qgUePCeus29Jk7MEti8cgQUNXFSWfIevNIk4H7u1wmXNDrGPKPY6YsPY+o9CIT/a2DjCjRz0x1nM9FtS2/A==
+  dependencies:
+    "@sindresorhus/is" "^3.1.1"
+    "@szmarczak/http-timer" "^4.0.5"
+    "@types/cacheable-request" "^6.0.1"
+    "@types/responselike" "^1.0.0"
+    cacheable-lookup "^5.0.3"
+    cacheable-request "^7.0.1"
+    decompress-response "^6.0.0"
+    http2-wrapper "^1.0.0-beta.5.2"
+    lowercase-keys "^2.0.0"
+    p-cancelable "^2.0.0"
+    responselike "^2.0.0"
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3:
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
@@ -11005,7 +11032,7 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-http2-wrapper@^1.0.0-beta.4.8:
+http2-wrapper@^1.0.0-beta.4.8, http2-wrapper@^1.0.0-beta.5.2:
   version "1.0.0-beta.5.2"
   resolved "https://registry.yarnpkg.com/http2-wrapper/-/http2-wrapper-1.0.0-beta.5.2.tgz#8b923deb90144aea65cf834b016a340fc98556f3"
   integrity sha512-xYz9goEyBnC8XwXDTuC/MZ6t+MrKVQZOk4s7+PaDkwIsQd8IwqvM+0M6bA/2lvG8GHXcPdf+MejTUeO2LCPCeQ==
@@ -12557,10 +12584,10 @@ ky-universal@~0.8.1:
     abort-controller "^3.0.0"
     node-fetch "3.0.0-beta.7"
 
-ky@~0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.20.0.tgz#4cebcd208f2d0d0b5970a63523afecfd79bd9e46"
-  integrity sha512-JAfwtwj+t7WqRus88PfBj25aAjRQUgMhk7aB2ufjQ6v8faoNwMy02mfSQ0iNXWCbJGcSl2JZ5ckaiywRjbq0Uw==
+ky@~0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.23.0.tgz#54c2f3fa9003d591cb2f368384e6c84795a92e64"
+  integrity sha512-+t2CbQsLmpN3HeYPBxN+VbZqBOd86njF3cvnueC77pJKVHRjiMI0Ac+pfkB8e17Bw1dGHbMk9hrHst9Bw7ndgw==
 
 language-subtag-registry@~0.3.2:
   version "0.3.20"
