@@ -80,6 +80,7 @@
     "p-retry": "~4.2.0",
     "palx": "~1.0.3",
     "polished": "~3.6.6",
+    "postcss": "~8.0.4",
     "postcss-focus": "~5.0.0",
     "prepend-http": "~3.0.1",
     "prettier": "~2.1.2",
