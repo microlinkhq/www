@@ -1745,11 +1745,6 @@
     url-regex "~5.0.0"
     video-extensions "~1.1.0"
 
-"@microlink/demo-links@~1.0.15":
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.15.tgz#50528fc63cbed47dfcd6b0f23fe10c960af8a10f"
-  integrity sha512-pF9N/ED5UAmlGnEryooS/DrqVa9WzRTNgddqoJB/g1uYHtt27WOM8d6fsyVOetFwj6mIlbKq3QSi2Y5CJrRLxQ==
-
 "@microlink/mql@~0.7.4":
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.7.4.tgz#3e59d2a929818dc3542afd10040155e201513ce8"
@@ -5904,7 +5899,7 @@ color-string@^1.5.2:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^3.0.0, color@^3.1.2, color@~3.1.2:
+color@^3.0.0, color@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/color/-/color-3.1.2.tgz#68148e7f85d41ad7649c5fa8c8106f098d229e10"
   integrity sha512-vXTJhHebByxZn3lDvDJYw4lR5+uB3vuoHsuYA5AKuxRVn5wzzIfQKGLBmgdVRHKTJYeK5rvJcHnrd0Li49CFpg==
