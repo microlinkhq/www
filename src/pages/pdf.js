@@ -560,7 +560,7 @@ const ProductInformation = props => {
           question: 'How does it work?',
           answer: [
             <>
-              The PDF will be generated after pass{' '}
+              The PDF will be generated after passing{' '}
               <Link href='/docs/api/parameters/pdf'>pdf</Link> query parameter
               to{' '}
               <Link href='/docs/api/getting-started/overview'>
