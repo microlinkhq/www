@@ -1,14 +1,7 @@
-import {
-  Caption,
-  DotsBackground,
-  Headline,
-  ArrowLink,
-  Layout
-} from 'components/patterns'
+import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
 import { Microlink as MicrolinkLogo } from 'components/logos'
 
-import { cx, fontSizes, textGradient, layout } from 'theme'
-import { H1 } from 'components/markdown'
+import { cx, fontSizes, layout } from 'theme'
 import { Plus } from 'react-feather'
 import React from 'react'
 
@@ -18,8 +11,6 @@ import {
   Flex,
   Heading,
   Image,
-  Link,
-  Text,
   Unavatar
 } from 'components/elements'
 
