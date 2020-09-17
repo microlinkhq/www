@@ -15,7 +15,17 @@ import {
   DotSpinner
 } from 'components/elements'
 
-import { ERROR_MAIL_OPTS, PAYMENT_STATE } from './constants'
+export const PAYMENT_STATE = {
+  PROCESSING: 'processing',
+  SUCCESS: 'success',
+  FAILED: 'failed'
+}
+
+export const ERROR_MAIL_OPTS = {
+  subject: 'Payment process error',
+  body:
+    'Hello,\n\nSomething bad happens trying to pay at microlink.io.\n\nCan you help me?'
+}
 
 const getTitle = paymentState => {
   switch (paymentState) {

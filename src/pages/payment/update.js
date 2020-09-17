@@ -28,7 +28,7 @@ import {
   Elements
 } from 'react-stripe-elements'
 
-import { ERROR_MAIL_OPTS, PAYMENT_STATE } from './constants'
+import { ERROR_MAIL_OPTS, PAYMENT_STATE } from './'
 
 const Form = styled.form`
   .StripeElement {
