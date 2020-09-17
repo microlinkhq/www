@@ -6,7 +6,7 @@ import get from 'dlv'
 
 const getPage = props => {
   const pathname = get(props, 'location.pathname') || '/'
-  return `/${pathname.split('/')[1]}`
+  return pathname.replace(/\/$/, '')
 }
 
 const getTitle = (props, metadata) => {
@@ -22,6 +22,7 @@ const getTitle = (props, metadata) => {
     case '/oss':
       return 'Open Source Sustainability'
     case '/payment':
+    case '/payment/update':
       return 'Payment'
     case '/pdf':
       return 'Turn websites into a PDF'

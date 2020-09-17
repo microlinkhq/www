@@ -1,23 +1,23 @@
 /* global fetch */
 
-import React, { Component } from 'react'
 import { useSiteMetadata } from 'components/hook'
+import { layout, letterSpacings } from 'theme'
+import { Layout } from 'components/patterns'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
-import { letterSpacings } from 'theme'
 import { encode, decode } from 'qss'
 
 import {
-  Label,
-  Container,
   Button,
-  Notification,
-  LinkSolid,
+  Container,
   Flex,
+  Heading,
+  Label,
+  LinkSolid,
+  Notification,
   StripeLoader
 } from 'components/elements'
-
-import { Headline, Layout } from 'components/patterns'
 
 import {
   CardNumberElement,
@@ -28,17 +28,7 @@ import {
   Elements
 } from 'react-stripe-elements'
 
-const PAYMENT_STATE = {
-  PROCESSING: 'processing',
-  SUCCESS: 'success',
-  FAILED: 'failed'
-}
-
-const ERROR_MAIL_OPTS = {
-  subject: 'Payment update error',
-  body:
-    'Hello,\n\nSomething bad happens trying to update my payment method at microlink.io/payment.\n\nCan you help me?'
-}
+import { ERROR_MAIL_OPTS, PAYMENT_STATE } from './constants'
 
 const Form = styled.form`
   .StripeElement {
@@ -196,14 +186,20 @@ export default () => {
   } = useSiteMetadata()
 
   return (
-    <Layout title='Update Payment'>
-      <StripeLoader stripeKey={stripeKey}>
-        {stripe => {
-          return (
-            <Container as='section' pt={5}>
+    <StripeLoader stripeKey={stripeKey}>
+      {stripe => {
+        return (
+          <Layout>
+            <Container
+              alignItems='center'
+              pt={5}
+              pb={Container.defaultProps.pt}
+            >
               <StripeProvider stripe={stripe}>
                 <Flex flexDirection='column'>
-                  <Headline title='Update Payment' />
+                  <Heading px={5} titleize={false} maxWidth={layout.large}>
+                    Payment details
+                  </Heading>
                   <Flex
                     pt={[3, 3, 4, 4]}
                     mx='auto'
@@ -221,9 +217,9 @@ export default () => {
                 </Flex>
               </StripeProvider>
             </Container>
-          )
-        }}
-      </StripeLoader>
-    </Layout>
+          </Layout>
+        )
+      }}
+    </StripeLoader>
   )
 }

@@ -15,17 +15,7 @@ import {
   DotSpinner
 } from 'components/elements'
 
-const PAYMENT_STATE = {
-  PROCESSING: 'processing',
-  SUCCESS: 'success',
-  FAILED: 'failed'
-}
-
-const ERROR_MAIL_OPTS = {
-  subject: 'Payment process error',
-  body:
-    'Hello,\n\nSomething bad happens trying to pay at microlink.io.\n\nCan you help me?'
-}
+import { ERROR_MAIL_OPTS, PAYMENT_STATE } from './constants'
 
 const getTitle = paymentState => {
   switch (paymentState) {
@@ -90,7 +80,7 @@ export default () => {
 
   return (
     <Layout>
-      <Container alignItems='center' pt={5} pb={Container.defaultProps.pt}>
+      <Container alignItems='center' pt={5}>
         {paymentState === PAYMENT_STATE.SUCCESS && (
           <Confetti
             colors={[
