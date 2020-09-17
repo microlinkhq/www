@@ -1,21 +1,24 @@
 import React from 'react'
-import { Caps, Text, Label } from 'components/elements'
-import { Headline, SubHeadline, Legend } from 'components/patterns'
+import { Heading, Caps, Text, Label } from 'components/elements'
+import { Caption, Legend } from 'components/patterns'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 
-const codeHeadline = `
-import { Headline } from 'components/patterns'
+const codeHeading = `
+import { Heading } from 'components/elements'
 
 export default () => (
-  <Headline title='Turn websites into data' caption='Microlink makes easy to build an API on top of any website.' />
+  <Heading children='Browser as API' />
 )`
 
-const codeSubHeadline = `
-import { SubHeadline } from 'components/patterns'
+const codeCaption = `
+import { Caption } from 'components/patterns'
 
 export default () => (
-  <SubHeadline title='Turn websites into data' caption='enter URL, receive data' />
+  <Caption>
+    Fast, scalable, and reliable browser automation built for businesses and
+    developers.
+  </Caption>
 )`
 
 const codeLegend = `
@@ -51,19 +54,14 @@ export default () => (
 
 storiesOf('Theme', module).add('Typography', () => (
   <>
-    <Story name='Headline' code={codeHeadline}>
-      <Headline
-        pb={0}
-        title='Turn websites into data'
-        caption='Microlink makes easy to build an API on top of any website.'
-      />
+    <Story name='Heading' code={codeHeading}>
+      <Heading titleize={false} children='Browser as API' />
     </Story>
-    <Story name='SubHeadline' code={codeSubHeadline}>
-      <SubHeadline
-        pb={0}
-        title='Turn websites into data'
-        caption='enter URL, receive data'
-      />
+    <Story name='Caption' code={codeCaption}>
+      <Caption>
+        Fast, scalable, and reliable browser automation built for businesses and
+        developers.
+      </Caption>
     </Story>
     <Story name='Legend' code={codeLegend}>
       <Legend sup='screenshot' title='Turn websites into screenshots' />

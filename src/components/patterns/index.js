@@ -1,4 +1,3 @@
-import { Headline, SubHeadline } from './Headline/Headline'
 import Announcement from './Announcement/Announcement'
 import Aside from './Aside/Aside'
 import Block from './Block/Block'
@@ -45,7 +44,6 @@ export {
   FetchProvider,
   Footer,
   Grid,
-  Headline,
   Healthcheck,
   Layout,
   Legend,
@@ -53,6 +51,5 @@ export {
   Microlink,
   MQLEditor,
   PricingTable,
-  SubHeadline,
   Toolbar
 }
