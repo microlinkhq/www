@@ -21,6 +21,8 @@ const getTitle = (props, metadata) => {
       return 'Turn websites into data'
     case '/oss':
       return 'Open Source Sustainability'
+    case '/payment':
+      return 'Payment'
     case '/pdf':
       return 'Turn websites into a PDF'
     case '/sdk':

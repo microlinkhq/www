@@ -1,13 +1,19 @@
 /* global fetch */
 
 import { useWindowSize, useSiteMetadata, useQueryState } from 'components/hook'
-import { Box, Flex, LinkSolid, DotSpinner } from 'components/elements'
-import { Headline, Layout } from 'components/patterns'
+import { Caption, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
-
+import { layout, colors } from 'theme'
 import Confetti from 'react-confetti'
-import { colors } from 'theme'
 import { encode } from 'qss'
+
+import {
+  Container,
+  Heading,
+  Box,
+  LinkSolid,
+  DotSpinner
+} from 'components/elements'
 
 const PAYMENT_STATE = {
   PROCESSING: 'processing',
@@ -49,7 +55,7 @@ const getCaption = paymentState => {
           Payment not processed.
           <Box />
           <LinkSolid
-            fontSize={4}
+            pt={2}
             children='Contact us'
             href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
           />
@@ -59,7 +65,7 @@ const getCaption = paymentState => {
 }
 
 export default () => {
-  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
+  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.FAILED)
   const [query] = useQueryState()
   const size = useWindowSize()
 
@@ -83,35 +89,39 @@ export default () => {
   }, [query.sessionId])
 
   return (
-    <Layout
-      title='Payment'
-      component={Flex}
-      justifyContent='center'
-      alignItems='center'
-    >
-      {paymentState === PAYMENT_STATE.SUCCESS && (
-        <Confetti
-          colors={[
-            colors.red5,
-            colors.pink5,
-            colors.grape5,
-            colors.violet5,
-            colors.indigo5,
-            colors.blue5,
-            colors.cyan5,
-            colors.teal5,
-            colors.green5,
-            colors.lime5,
-            colors.yellow5,
-            colors.orange5
-          ]}
-          {...size}
-        />
-      )}
-      <Headline
-        title={getTitle(paymentState)}
-        caption={getCaption(paymentState)}
-      />
+    <Layout>
+      <Container alignItems='center' pt={5} pb={Container.defaultProps.pt}>
+        {paymentState === PAYMENT_STATE.SUCCESS && (
+          <Confetti
+            colors={[
+              colors.red5,
+              colors.pink5,
+              colors.grape5,
+              colors.violet5,
+              colors.indigo5,
+              colors.blue5,
+              colors.cyan5,
+              colors.teal5,
+              colors.green5,
+              colors.lime5,
+              colors.yellow5,
+              colors.orange5
+            ]}
+            {...size}
+          />
+        )}
+        <Heading px={5} titleize={false} maxWidth={layout.large}>
+          {getTitle(paymentState)}
+        </Heading>
+        <Caption
+          pt={[3, 3, 4, 4]}
+          px={[4, 4, 0, 0]}
+          titleize={false}
+          maxWidth={[layout.small, layout.small, layout.small, layout.small]}
+        >
+          {getCaption(paymentState)}
+        </Caption>
+      </Container>
     </Layout>
   )
 }
