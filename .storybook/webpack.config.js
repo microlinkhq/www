@@ -27,21 +27,6 @@ module.exports = ({ config }) => {
   ]
 
   config.module.rules.push({
-    test: /^(xor|props)$/,
-    use: 'null-loader'
-  })
-
-  config.module.rules.push({
-    test: /react-json-view/,
-    use: 'null-loader'
-  })
-
-  config.module.rules.push({
-    test: /\.flow$/,
-    use: 'null-loader'
-  })
-
-  config.module.rules.push({
     test: /\.scss$/,
     use: ['style-loader', 'css-loader', 'sass-loader'],
     include: path.resolve(__dirname, '../src/styles')

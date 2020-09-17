@@ -45,7 +45,7 @@ module.exports = {
       resolve: 'gatsby-plugin-sass',
       options: {
         postCssPlugins: [
-          require('postcss-focus'),
+          // require('postcss-focus'),
           require('cssnano')({
             preset: require('cssnano-preset-advanced')
           })
