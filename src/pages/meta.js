@@ -175,8 +175,8 @@ const LiveDemo = ({
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Structured data normalized from Open Graph, Twitter, JSON+LD, oEmbed &
-        HTML.
+        Structured and normalized data from Open Graph, Twitter, JSON+LD, oEmbed
+        & HTML.
       </Caption>
 
       <Flex
@@ -186,13 +186,13 @@ const LiveDemo = ({
       >
         <ArrowLink
           pr={[0, 4, 4, 4]}
-          href='/docs/sdk/getting-started/overview/'
+          href='/docs/api/parameters/meta'
           children='Get Started'
         />
         <ArrowLink
           pt={[3, 0, 0, 0]}
           href='https://github.com/microlinkhq/sdk'
-          children='View the API'
+          children='See on GitHub'
         />
       </Flex>
 

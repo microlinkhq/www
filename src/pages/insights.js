@@ -201,13 +201,13 @@ const LiveDemo = ({
       >
         <ArrowLink
           pr={[0, 4, 4, 4]}
-          href='/docs/sdk/getting-started/overview/'
+          href='/docs/api/parameters/insights'
           children='Get Started'
         />
         <ArrowLink
           pt={[3, 0, 0, 0]}
-          href='https://github.com/microlinkhq/sdk'
-          children='View the API'
+          href='https://github.com/microlinkhq/browserless'
+          children='See on GitHub'
         />
       </Flex>
       <Flex justifyContent='center' alignItems='center'>

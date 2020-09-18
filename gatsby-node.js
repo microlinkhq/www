@@ -43,19 +43,6 @@ const githubUrl = (() => {
 })()
 
 exports.onCreateWebpackConfig = ({ loaders, stage, actions }) => {
-  if (stage === 'build-html') {
-    actions.setWebpackConfig({
-      module: {
-        rules: [
-          {
-            test: /keyv/,
-            use: loaders.null()
-          }
-        ]
-      }
-    })
-  }
-
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules']

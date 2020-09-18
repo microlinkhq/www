@@ -135,7 +135,6 @@ const FeatureLink = ({ children, ...props }) => {
         color='inherit'
         textAlign='left'
         pb={2}
-        fontWeight='bold'
         css={`
           svg {
             position: relative;

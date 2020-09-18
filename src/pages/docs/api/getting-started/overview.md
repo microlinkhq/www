@@ -2,7 +2,7 @@
 title: 'Overview'
 ---
 
-Welcome to **Microlink API**!
+Welcome to **Microlink API**
 
 You can use our API for getting structured data from any website.
 

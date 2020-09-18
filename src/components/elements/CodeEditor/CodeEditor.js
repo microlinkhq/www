@@ -79,8 +79,7 @@ const TerminalHeader = styled.header`
 
   .codecopy_button {
     background: ${props => themes[props.theme].background};
-    border-color: ${({ theme }) =>
-      theme === 'light' ? cx('black80') : cx('white80')};
+    border-color: ${({ theme }) => theme === 'dark' && cx('black80')};
     svg {
       fill: ${({ theme }) =>
         theme === 'light' ? cx('black80') : cx('white80')};

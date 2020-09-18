@@ -21,10 +21,6 @@
       "destination": "/docs/api/basics/error-codes"
     },
     {
-      "source": "/codesandbox",
-      "destination": "/integrations"
-    },
-    {
       "source": "/device",
       "destination": "/docs/api/parameters/device"
     },

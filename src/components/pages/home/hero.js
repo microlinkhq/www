@@ -23,7 +23,7 @@ const Hero = () => {
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       >
         Fast, scalable, and reliable browser automation built for businesses and
-        developers.
+        developers. Proudly Open Source.
       </Caption>
       <Flex
         alignItems={['center', undefined, undefined, undefined]}
