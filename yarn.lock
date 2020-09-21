@@ -1541,21 +1541,21 @@
     url-regex "~5.0.0"
     video-extensions "~1.1.0"
 
-"@microlink/demo-links@~1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.14.tgz#7b0d95f53efdb5d6b7c3d0d5b977dfd1a8512726"
-  integrity sha512-U2uoSmw+t9jHP+0BYz334Vwwl9UvhWxrqvRkMAYAXQKH8V3p1ICLewF04yOuvy+79ZY4FKxKTLu8vARwllyxAg==
+"@microlink/demo-links@latest", "@microlink/demo-links@~1.0.14":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@microlink/demo-links/-/demo-links-1.0.15.tgz#50528fc63cbed47dfcd6b0f23fe10c960af8a10f"
+  integrity sha512-pF9N/ED5UAmlGnEryooS/DrqVa9WzRTNgddqoJB/g1uYHtt27WOM8d6fsyVOetFwj6mIlbKq3QSi2Y5CJrRLxQ==
 
-"@microlink/mql@~0.7.1", "@microlink/mql@~0.7.2", "@microlink/mql@~0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.7.3.tgz#b5aeb19c1b32190beac26550fbf682c2b3830db2"
-  integrity sha512-2SEwBKCcpKrqZstDfHYcavOHRyCZRc0678XQg+nQckZNf265wT9k9Qw7s3khzz4P0kTS1Wnm6F/DEA7lSkATiA==
+"@microlink/mql@latest", "@microlink/mql@~0.7.1", "@microlink/mql@~0.7.3":
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/@microlink/mql/-/mql-0.7.9.tgz#d3bc9d9316a32d618cf5c7dd06e569491392eabf"
+  integrity sha512-r0+MhmdYF999d9DVBm9qOGZQBs39qLavvYLOXvGk7qlbrBIg+F9CBQ68n5RHlU9kd567GhKPyCto8E0146vtwg==
   dependencies:
-    flat "~5.0.0"
-    got "~11.5.0"
+    flattie "~1.1.0"
+    got "~11.7.0"
     is-url-http "~2.1.2"
-    ky "~0.20.0"
-    ky-universal "~0.8.1"
+    ky "~0.23.0"
+    ky-universal "~0.8.2"
     qss "~2.0.3"
     whoops "~4.1.0"
 
@@ -1568,12 +1568,13 @@
     is-localhost-url "~1.0.3"
     nanoclamp "~1.3.3"
 
-"@microlink/recipes@~0.0.16":
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/@microlink/recipes/-/recipes-0.0.16.tgz#95c1963ac074429a88054d9c56ff899177739955"
-  integrity sha512-gfBuNRT97bqzJHT6D/HCIM/oCKJ2g6hhihRd8Z+RDvAYNFn34OVXDHZFwDy0CPupPs9/x8MCEwCQGaT95XwFmg==
+"@microlink/recipes@~0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@microlink/recipes/-/recipes-0.0.22.tgz#d20232acf0527481d0ad0cfabff447b22388741b"
+  integrity sha512-DWa30jKzKpKZlG+LPQBK4+Sfw+eTrJviXcm+AwhuMBZeMRc6PFeniE3J/24CcckKaXyWfMQdGrdihM5cinmvjQ==
   dependencies:
-    "@microlink/mql" "~0.7.2"
+    "@microlink/demo-links" latest
+    "@microlink/mql" latest
 
 "@mikaelkristiansson/domready@^1.0.10":
   version "1.0.10"
@@ -1771,6 +1772,11 @@
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-3.0.0.tgz#78fabc5e295adb6e1ef57eaafe4cc5d7aa35b183"
   integrity sha512-kqA5I6Yun7PBHk8WN9BBP1c7FfN2SrD05GuVSEYPqDb4nerv7HqYfgBfMIKmT/EuejURkJKLZuLyGKGs6WEG9w==
+
+"@sindresorhus/is@^3.1.1":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-3.1.2.tgz#548650de521b344e3781fbdb0ece4aa6f729afb8"
+  integrity sha512-JiX9vxoKMmu8Y3Zr2RVathBL1Cdu4Nt4MuNWemt1Nc06A0RAin9c5FArkhGsyMBWfCu4zj+9b+GxtjAnE4qqLQ==
 
 "@storybook/addon-a11y@latest":
   version "5.3.19"
@@ -8779,10 +8785,10 @@ fd@~0.0.2:
   resolved "https://registry.yarnpkg.com/fd/-/fd-0.0.3.tgz#b3240de86dbf5a345baae7382a07d4713566ff0c"
   integrity sha512-iAHrIslQb3U68OcMSP0kkNWabp7sSN6d2TBSb2JO3gcLJVDd4owr/hKM4SFJovFOUeeXeItjYgouEDTMWiVAnA==
 
-fetch-blob@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/fetch-blob/-/fetch-blob-2.0.1.tgz#64b583cd2bd21685b17706818b388af08cb40b9b"
-  integrity sha512-1jFpa68M4EzObtFa7XOKZoN1unsaeJ6hGSbxaWaVO+TkHmVvnyzRu1ktZAFbUvTZ9NC/qMKGKJ79dK4MzuSBiw==
+fetch-blob@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/fetch-blob/-/fetch-blob-2.1.1.tgz#a54ab0d5ed7ccdb0691db77b6674308b23fb2237"
+  integrity sha512-Uf+gxPCe1hTOFXwkxYyckn8iUSk6CFXGy5VENZKifovUTZC9eUODWSBhOBS7zICGrAetKzdwLMr85KhIcePMAQ==
 
 figgy-pudding@^3.5.1:
   version "3.5.2"
@@ -9020,6 +9026,11 @@ flatten@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
+
+flattie@~1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/flattie/-/flattie-1.1.0.tgz#1459504209f2001c478751b4e2fb69d6b1ee3241"
+  integrity sha512-xU99gDEnciIwJdGcBmNHnzTJ/w5AT+VFJOu6sTB6WM8diOYNA3Sa+K1DiEBQ7XH4QikQq3iFW1U+jRVcotQnBw==
 
 flow-parser@0.111.3:
   version "0.111.3"
@@ -10215,6 +10226,23 @@ got@~11.5.0:
     p-cancelable "^2.0.0"
     responselike "^2.0.0"
 
+got@~11.7.0:
+  version "11.7.0"
+  resolved "https://registry.yarnpkg.com/got/-/got-11.7.0.tgz#a386360305571a74548872e674932b4ef70d3b24"
+  integrity sha512-7en2XwH2MEqOsrK0xaKhbWibBoZqy+f1RSUoIeF1BLcnf+pyQdDsljWMfmOh+QKJwuvDIiKx38GtPh5wFdGGjg==
+  dependencies:
+    "@sindresorhus/is" "^3.1.1"
+    "@szmarczak/http-timer" "^4.0.5"
+    "@types/cacheable-request" "^6.0.1"
+    "@types/responselike" "^1.0.0"
+    cacheable-lookup "^5.0.3"
+    cacheable-request "^7.0.1"
+    decompress-response "^6.0.0"
+    http2-wrapper "^1.0.0-beta.5.2"
+    lowercase-keys "^2.0.0"
+    p-cancelable "^2.0.0"
+    responselike "^2.0.0"
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3:
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
@@ -11005,7 +11033,7 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-http2-wrapper@^1.0.0-beta.4.8:
+http2-wrapper@^1.0.0-beta.4.8, http2-wrapper@^1.0.0-beta.5.2:
   version "1.0.0-beta.5.2"
   resolved "https://registry.yarnpkg.com/http2-wrapper/-/http2-wrapper-1.0.0-beta.5.2.tgz#8b923deb90144aea65cf834b016a340fc98556f3"
   integrity sha512-xYz9goEyBnC8XwXDTuC/MZ6t+MrKVQZOk4s7+PaDkwIsQd8IwqvM+0M6bA/2lvG8GHXcPdf+MejTUeO2LCPCeQ==
@@ -12549,18 +12577,18 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-ky-universal@~0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/ky-universal/-/ky-universal-0.8.1.tgz#68d1bb0e914e3c41a83ed2eef5928fb04c7867d5"
-  integrity sha512-Rds/kzTaDKrvXYPG7xToOUOVJPVTV09VirJ7XDO7gKgy+NrYJjPaBjHI3IqtZL7R3t0DXEbdM5byT+HtNS49jw==
+ky-universal@~0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/ky-universal/-/ky-universal-0.8.2.tgz#edc398d54cf495d7d6830aa1ab69559a3cc7f824"
+  integrity sha512-xe0JaOH9QeYxdyGLnzUOVGK4Z6FGvDVzcXFTdrYA1f33MZdEa45sUDaMBy98xQMcsd2XIBrTXRrRYnegcSdgVQ==
   dependencies:
     abort-controller "^3.0.0"
-    node-fetch "3.0.0-beta.7"
+    node-fetch "3.0.0-beta.9"
 
-ky@~0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.20.0.tgz#4cebcd208f2d0d0b5970a63523afecfd79bd9e46"
-  integrity sha512-JAfwtwj+t7WqRus88PfBj25aAjRQUgMhk7aB2ufjQ6v8faoNwMy02mfSQ0iNXWCbJGcSl2JZ5ckaiywRjbq0Uw==
+ky@~0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.23.0.tgz#54c2f3fa9003d591cb2f368384e6c84795a92e64"
+  integrity sha512-+t2CbQsLmpN3HeYPBxN+VbZqBOd86njF3cvnueC77pJKVHRjiMI0Ac+pfkB8e17Bw1dGHbMk9hrHst9Bw7ndgw==
 
 language-subtag-registry@~0.3.2:
   version "0.3.20"
@@ -14278,13 +14306,13 @@ node-fetch@2.6.0, node-fetch@^2.6.0:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
-node-fetch@3.0.0-beta.7:
-  version "3.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.0.0-beta.7.tgz#28e122943aa8a3e4e7447d525fc138c207faa834"
-  integrity sha512-UTmmxR2RCLiGL0q61p8DgMgw1UXd10+XVB77IHG55flJ/tHqQQXloNTm5dd/mB3RNXP3+CJPf++t0nb3whKNkw==
+node-fetch@3.0.0-beta.9:
+  version "3.0.0-beta.9"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.0.0-beta.9.tgz#0a7554cfb824380dd6812864389923c783c80d9b"
+  integrity sha512-RdbZCEynH2tH46+tj0ua9caUHVWrd/RHnRfvly2EVdqGmI3ndS1Vn/xjm5KuGejDt2RNDQsVRLPNd2QPwcewVg==
   dependencies:
     data-uri-to-buffer "^3.0.1"
-    fetch-blob "^2.0.0"
+    fetch-blob "^2.1.1"
 
 node-fetch@^1.0.1:
   version "1.7.3"
