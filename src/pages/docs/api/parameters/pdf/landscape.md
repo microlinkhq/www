@@ -17,8 +17,8 @@ When it's <Type children='true'/>, it changes the paper orientation to be landsc
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://www.algolia.com'. { 
-      pdf: false,
+    'https://www.algolia.com', { 
+      pdf: true,
       landscape: true
   })
   console.log(status, data)

@@ -61,7 +61,9 @@ It expresses the amount of time spend just in the `x-fetch-mode` step.
 
 We added `size` and `duration` every time that [Microlink API](/docs/api/getting-started/overview) detects you are working with `image` or `video` 🎉.
 
-<Terminal>curl https://api.microlink.io/?url=https://vimeo.com/188175573?v=hwMkbaS_M_c&video&filter=video</Terminal>
+```bash
+curl https://api.microlink.io/?url=https://vimeo.com/188175573?v=hwMkbaS_M_c&video&filter=video
+```
 
 The API response will look like:
 

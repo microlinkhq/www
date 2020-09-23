@@ -175,7 +175,7 @@ const ROUTES_API = [
         href: '/docs/api/basics/endpoint'
       },
       {
-        name: 'Error Codes',
+        name: 'Error codes',
         href: '/docs/api/basics/error-codes'
       },
       {
@@ -183,7 +183,7 @@ const ROUTES_API = [
         href: '/docs/api/basics/format'
       },
       {
-        name: 'Rate Limit',
+        name: 'Rate limit',
         href: '/docs/api/basics/rate-limit'
       }
     ]
@@ -290,6 +290,10 @@ const ROUTES_API = [
             href: '/docs/api/parameters/pdf/format'
           },
           {
+            name: 'height',
+            href: '/docs/api/parameters/pdf/height'
+          },
+          {
             name: 'landscape',
             href: '/docs/api/parameters/pdf/landscape'
           },
@@ -304,6 +308,10 @@ const ROUTES_API = [
           {
             name: 'scale',
             href: '/docs/api/parameters/pdf/scale'
+          },
+          {
+            name: 'width',
+            href: '/docs/api/parameters/pdf/width'
           }
         ]
       },
@@ -543,7 +551,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
         <Aside routes={routes} activeRouteName={activeRouteName}>
           {meta.title ? (
             <Text as='header'>
-              <H1 mt={4} variant={null} mb={0} slug={false}>
+              <H1 mt={4} variant={null} mb={1} slug={false}>
                 <span>{meta.title}</span>
                 {meta.isPro && (
                   <Tooltip

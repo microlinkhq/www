@@ -55,6 +55,7 @@ const TERMINAL_HEADER_HEIGHT = '36px'
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   padding-right: 0px !important;
+  margin: 0 !important;
 
   &::-webkit-scrollbar {
     width: 0.5em;

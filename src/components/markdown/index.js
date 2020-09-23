@@ -62,7 +62,7 @@ export const H1 = withTitle(withSlug(styled(Heading)``))
 H1.defaultProps = {
   maxWidth: layout.small,
   as: 'h1',
-  fontSize: `calc(${fontSizes[6]} * 0.75)`,
+  fontSize: `calc(${fontSizes[5]} * 0.75)`,
   lineHeight: [1, 2],
   textAlign: 'left',
   variant: null,
@@ -194,7 +194,7 @@ export const Li = styled(Text)``
 Li.defaultProps = {
   ml: 'auto',
   mr: 'auto',
-  mb: 2,
+  mb: 3,
   as: 'li',
   maxWidth: layout.small
 }

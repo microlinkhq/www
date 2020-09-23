@@ -67,10 +67,9 @@ Hello 😁 how are you? 🤓.
 
 A `Map` is the new `ECMAScript6` data structure. You can use a `Object` as a `Map`.
 
-
-<Terminal>
-  curl https://api.microlink.io/?url=https://instagram.com/elonmusk
-</Terminal>
+```bash
+curl https://api.microlink.io/?url=https://example.com
+```
 
 ```js{3,8}
 // Example 1

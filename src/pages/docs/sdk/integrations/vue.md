@@ -4,13 +4,17 @@ title: 'Vue'
 
 It's available as [npm package](https://www.npmjs.com/package/@microlink/vue).
 
-<Terminal>npm install @microlink/vue --save</Terminal>
+```bash
+npm install @microlink/vue --save
+```
 
 The Vue bundle is based on the [Vanilla](/docs/sdk/integrations/vanilla) version, but exported as a CommonJS Vue plugin/component.
 
 Since it doesn't include the peer dependencies, you'll need to install those too:
 
-<Terminal>npm install react react-dom styled-components --save</Terminal>
+```bash
+npm install react react-dom styled-components --save
+```
 
 After that, you're ready to import the Microlink SDK into your Vue project, either globally or on-demand.
 

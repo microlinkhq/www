@@ -4,7 +4,9 @@ title: 'Installation'
 
 **MQL** is available as [npm package](https://www.npmjs.com/package/@microlink/react):
 
-<Terminal>npm install @microlink/mql --save</Terminal>
+```bash
+npm install @microlink/mql --save
+```
 
 It has been designed to be consumed in different ways, one of the most common being from **Node.js** using **CommonJS**:
 

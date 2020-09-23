@@ -2,13 +2,13 @@
 title: 'Overview'
 ---
 
-**Microlink Query Language** (*MQL*) is the official client for interacting with [Microlink API](/docs/api/getting-started/overview).
+**Microlink Query Language** (*MQL*) is the official HTTP client for interacting with [Microlink API](/docs/api/getting-started/overview).
 
 Any API parameter there is supported:
 
 ```js
 const mql = require('@microlink/mql')
-const { data } = await mql('https://www.instagram.com')
+const { data } = await mql('https://github.com')
 
 console.log(data.description)
 ```
@@ -18,21 +18,23 @@ Also, it provides you a convenient way for getting data from any website:
 ```js
 const mql = require('@microlink/mql')
 
-const instagram = username => 
-  mql(`https://www.instagram.com/${username}`, {
+const github = (username) =>
+  mql(`https://github.com/${username}`, {
     data: {
       avatar: {
-        selector: 'meta[property="og:image"]',
-        attr: 'content',
-        type: 'image'
-      }
-    }
+        selector: 'a[itemprop="image"] img',
+        attr: 'src',
+        type: 'image',
+      },
+    },
   })
 
-const username = 'teslamotors'
-const { data } = await instagram(username)
+const username = 'kikobeats'
+const { data } = await github(username)
 
-console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
+console.log(
+  `The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`
+)
 ```
 
 <Figcaption children='The only thing you need to do is declare the data you wish to obtain.' />

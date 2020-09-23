@@ -26,7 +26,9 @@ Imagine you want ot interact with an Instagram profile url, like [@elonmusk](htt
 
 By using [Microlink API](/docs/api/getting-started/overview) we can obtain well structured and normalized data from any Instagram URL:
 
-<Terminal>curl https://api.microlink.io/?url=https://instagram.com/elonmusk</Terminal>
+```bash
+curl https://api.microlink.io/?url=https://instagram.com/elonmusk
+```
 
 The API response will look like the following:
 
@@ -128,7 +130,9 @@ They need to be declared as **query parameters** using **dot notation**:
 
 Here we are defining our **custom rule** for a new data field called **avatar**.
 
-<Terminal>curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false</Terminal>
+```bash
+curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
+```
 
 <Figcaption>Encoding the custom rule as query paramter in the API request.</Figcaption>
 
@@ -216,7 +220,9 @@ What happens if you declare a `selector` that matches with more than one result?
 
 <Figcaption>Declaring a custom rule for detecting all images.</Figcaption>
 
-<Terminal>curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img&data.avatar.type=image&data.avatar.attr=src&prerender&video=false</Terminal>
+```bash
+curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
+```
 
 Can the API extract them? The answer is **yes**!
 
@@ -284,7 +290,9 @@ For example, we are seeing that the API is not resolving the `author` field for 
 
 <Figcaption>Declaring a custom rule for fallback a basic rule.</Figcaption>
 
-<Terminal>curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&prerender&video=false&data.author.selector=section%20h1%3Alast&data.author.type=author&data.author.attr=text</Terminal>
+```bash
+curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&prerender&video=false&data.author.selector=section%20h1%3Alast&data.author.type=author&data.author.attr=text
+```
 
 ```json
 {
@@ -344,7 +352,9 @@ One thing that makes [Microlink API](/docs/api/getting-started/overview) powerfu
   .
 </Figcaption>
 
-<Terminal>curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false&palette&filter=avatar</Terminal>
+```bash
+curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false&palette&filter=avatar
+```
 
 ```json
 {

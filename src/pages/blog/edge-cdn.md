@@ -18,9 +18,9 @@ We revisited the cache layer and implemented some improvements, making it more p
 
 ### Cache saves your API quota
 
-<Terminal>
-  npx microlink-api https://example.com&screenshot&embed=screenshot.url
-</Terminal>
+```bash
+npx microlink-api https://example.com&screenshot&embed=screenshot.url
+```
 
 Starting from today, any response served from the cache won't count towards your API quota.
 

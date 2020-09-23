@@ -2,55 +2,62 @@
 title: 'Overview'
 ---
 
-Welcome to **Microlink API**
+Microlink provides a powerful API for automating any browser action.
 
-You can use our API for getting structured data from any website.
+You can hit the API from any environment that allows you perform a HTTP request.
 
-<MultiCodeEditor languages={{
-  Shell: `microlink-api https://instagram.com/p/BeV6tOhFUor`,
-  'Node.js': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
- const { status, data, response } = await mql(
-   'https://instagram.com/p/BvDTdWdnzkj/'
-  )
- 
- console.log(status, data)
-}
-  `
-  }} 
-/>
+That includes any programming language:
+
+```js
+const mql = require('@microlink/mql')
+
+const { status, data } = await mql('https://github.com/microlinkhq')
+
+console.log(status, data)
+```
+
+or from your terminal:
+
+```bash
+curl https://api.microlink.io?url=https://github.com/microlinkhq
+```
+
+even using [Microlink CLI](/docs/api/getting-started/cli):
+
+```bash
+microlink-api https://github.com/microlinkhq
+```
 
 You just need to provide a URL as input, outputting the structured data back.
 
 ```json
 {
+  "status": "success",
   "data": {
+    "title": "microlink.io",
+    "description": "Turn websites into data. microlink.io has 34 repositories available. Follow their code on GitHub.",
     "lang": "en",
     "author": null,
-    "title": "Tesla on Instagram: “Introducing Model Y Order at tesla.com/y”",
-    "publisher": "Instagram",
+    "publisher": "GitHub",
     "image": {
-      "url": "https://scontent-iad3-1.cdninstagram.com/vp/2282e7a0ba5ecd54364f5289104e5105/5CB67DF2/t51.2885-15/e15/52643291_128871201513344_8032404419029138690_n.jpg?_nc_ht=scontent-iad3-1.cdninstagram.com",
-      "width": 720,
-      "height": 720,
-      "type": "jpg",
-      "size": 57720,
-      "size_pretty": "57.7 kB"
-    },
-    "description": "216.8k Likes, 1,914 Comments - Tesla (@teslamotors) on Instagram: “Introducing Model Y Order at tesla.com/y”",
-    "date": null,
-    "logo": {
-      "url": "https://instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png",
-      "width": 192,
-      "height": 192,
+      "url": "https://avatars0.githubusercontent.com/u/29799436?s=280&v=4",
       "type": "png",
-      "size": 34715,
-      "size_pretty": "34.7 kB"
+      "size": 4118,
+      "height": 280,
+      "width": 280,
+      "size_pretty": "4.12 kB"
     },
-    "url": "https://instagram.com/p/BvDTdWdnzkj/"
-  },
-  "status": "success"
+    "date": "2020-09-22T09:33:36.000Z",
+    "url": "https://github.com/microlinkhq",
+    "logo": {
+      "url": "https://logo.clearbit.com/github.com",
+      "type": "png",
+      "size": 6313,
+      "height": 128,
+      "width": 128,
+      "size_pretty": "6.31 kB"
+    }
+  }
 }
 ```
 
