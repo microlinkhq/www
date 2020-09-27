@@ -460,15 +460,6 @@ const ROUTES_MQL = [
         href: '/docs/mql/data/type'
       }
     ]
-  },
-  {
-    name: 'Resources',
-    posts: [
-      {
-        name: 'CodeSandbox',
-        href: 'https://codesandbox.io/s/wn2y4x4327'
-      }
-    ]
   }
 ]
 

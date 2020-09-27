@@ -8,24 +8,24 @@ Values: <TypeContainer><Type children="'html'"/> | <Type children="'val'"/> | <T
 
 It specifies which attribute should be picked over the matched [selector](/docs/mql/data/selector):
 
-```js{9}
+```jsx{8}
 const mql = require('@microlink/mql')
 
-const instagram = username => 
-  mql(`https://www.instagram.com/${username}`, {
+const github = username => 
+  mql(`https://github.com/${username}`, {
     data: {
       avatar: {
-        selector: 'meta[property="og:image"]',
+        selector: 'meta[property="og:image"]:not([content=""])',
         attr: 'content',
         type: 'image'
       }
     }
   })
 
-const username = 'teslamotors'
-const { data } = await instagram(username)
+const username = 'kikobeats'
+const { response, data } = await github(username)
 
-console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
+console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
 ```
 
 Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) is supported, keeping in mind three special values:
@@ -36,24 +36,31 @@ Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attribute
 
 If you specifiy more than one value, they will be used as fallback values:
 
-```js{9}
+```jsx
 const mql = require('@microlink/mql')
 
-const instagram = username => 
-  mql(`https://www.instagram.com/${username}`, {
+const github = username =>
+  mql(`https://github.com/${username}`, {
     data: {
-      avatar: {
-        selector: 'meta[property="og:image"]',
-        attr: ['value', 'content'],
-        type: 'image'
-      }
+      avatar: [
+        {
+          selector: 'meta[name="twitter:image:src"]:not([content=""])',
+          attr: 'content',
+          type: 'image'
+        },
+        {
+          selector: 'meta[property="og:image"]:not([content=""])',
+          attr: 'content',
+          type: 'image'
+        }
+      ]
     }
   })
 
-const username = 'teslamotors'
-const { data } = await instagram(username)
+const username = 'kikobeats'
+const { response, data } = await github(username)
 
-console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
+console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
 ```
 
 <Figcaption children="The first attribute that resolve the value will be used." />

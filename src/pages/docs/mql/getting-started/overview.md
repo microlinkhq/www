@@ -2,9 +2,8 @@
 title: 'Overview'
 ---
 
-**Microlink Query Language** (*MQL*) is the official HTTP client for interacting with [Microlink API](/docs/api/getting-started/overview).
+**Microlink Query Language** (*MQL*) is the official HTTP client for interacting with [Microlink API](/docs/api/getting-started/overview), being the same query parameters been supported:
 
-Any API parameter there is supported:
 
 ```js
 const mql = require('@microlink/mql')
@@ -13,7 +12,7 @@ const { data } = await mql('https://github.com')
 console.log(data.description)
 ```
 
-Also, it provides you a convenient way for getting data from any website:
+Also, it provides you a convenient way to define specific data extraction:
 
 ```js
 const mql = require('@microlink/mql')
