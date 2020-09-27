@@ -113,3 +113,9 @@ export const NavRecipes = createNavItem({
   path: '/recipes',
   actively: 'partial'
 })
+
+export const NavChangelog = createNavItem({
+  name: 'Changelog',
+  path: '/changelog',
+  actively: 'partial'
+})

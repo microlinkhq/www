@@ -6,15 +6,16 @@ import NavContainer from './NavContainer'
 
 import {
   NavBlog,
+  NavChangelog,
   NavDocs,
   NavInsights,
-  NavSDK,
   NavLogo,
   NavMeta,
   NavPdf,
   NavPricing,
   NavRecipes,
-  NavScreenshot
+  NavScreenshot,
+  NavSDK
 } from './ToolbarLinks'
 
 const Nav = styled(NavContainer)`
@@ -84,6 +85,7 @@ export default ({ theme }) => {
             <NavInsights isDark={isDark} />
             <NavRecipes isDark={isDark} />
             <NavPricing isDark={isDark} />
+            <NavChangelog isDark={isDark} />
             <NavDocs isDark={isDark} />
             <NavBlog isDark={isDark} />
           </Nav>
