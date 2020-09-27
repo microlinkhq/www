@@ -244,6 +244,7 @@ const _VideoBase = styled(VideoBase)``
 
 _VideoBase.defaultProps = {
   ...mediaStyle,
+  width: '100%',
   autoPlay: true
 }
 
