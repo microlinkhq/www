@@ -3,6 +3,7 @@
     - Add [proxy](https://microlink.io/docs/api/parameters/proxy) suport under [prerender](https://microlink.io/docs/api/parameters/prerender)
     - "[Microlink Cluster](https://microlink.io/stats) has been upgraded to [Kubernetes v1.18.8](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1187)"
     - Speed up [Microlink for Screenshots](https://microlink.io/screenshot) when [waitUntil='auto'](https://github.com/microlinkhq/browserless/pull/207)
+    - The mininum [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)
 
 - date: August 2020
   notes:
