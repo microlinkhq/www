@@ -3,15 +3,15 @@
     "status": "good",
     "insights": {
       "avg": 5153.333333333333,
-      "avg_pretty": "5.1s",
+      "avg_pretty": "5.10s",
       "p95": 5522,
-      "p95_pretty": "5.5s"
+      "p95_pretty": "5.50s"
     },
     "video": {
       "avg": 796.6666666666666,
       "avg_pretty": "797ms",
       "p95": 2233,
-      "p95_pretty": "2.2s"
+      "p95_pretty": "2.20s"
     },
     "audio": {
       "avg": 145.33333333333334,
@@ -21,13 +21,13 @@
     },
     "meta": {
       "avg": 1463.8296296296296,
-      "avg_pretty": "1.4s",
+      "avg_pretty": "1.41s",
       "p95": 2029,
-      "p95_pretty": "2s"
+      "p95_pretty": "2.0s"
     },
     "pdf": {
       "avg": 1509.6666666666667,
-      "avg_pretty": "1.5s",
+      "avg_pretty": "1.51s",
       "p95": 1655,
       "p95_pretty": "1.6s"
     },
@@ -39,7 +39,7 @@
     },
     "screenshot": {
       "avg": 2108,
-      "avg_pretty": "2.1s",
+      "avg_pretty": "2.11s",
       "p95": 2869,
       "p95_pretty": "2.8s"
     }

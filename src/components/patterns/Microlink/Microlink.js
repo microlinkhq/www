@@ -1,9 +1,11 @@
-import { isFunction, isFastConnection, template } from 'helpers'
-import { useDemoLinks } from 'components/hook'
+import { urlVariations, isFunction, isFastConnection, template } from 'helpers'
 import Microlink from '@microlink/react'
 import React from 'react'
 
+import demoLinks from '../../../../data/demo-links'
+
 const media = [
+  'iframe',
   isFastConnection && 'video',
   isFastConnection && 'audio',
   'image',
@@ -11,11 +13,11 @@ const media = [
 ].filter(Boolean)
 
 export default ({ url, style, fetchData, setData, ...props }) => {
-  const demoLinks = useDemoLinks()
   if (url) url = template(url)
 
-  const { data: demolinkData } =
-    demoLinks.find(item => item.data.url === url) || {}
+  const variations = urlVariations(url)
+  const demoLink = demoLinks.find(item => variations.includes(item.data.url))
+  const { data: demolinkData } = demoLink || {}
 
   const _fetchData = fetchData || !demolinkData
 

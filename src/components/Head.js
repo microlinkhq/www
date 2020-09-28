@@ -6,7 +6,7 @@ import get from 'dlv'
 
 const getPage = props => {
   const pathname = get(props, 'location.pathname') || '/'
-  return `/${pathname.split('/')[1]}`
+  return pathname.replace(/\/$/, '')
 }
 
 const getTitle = (props, metadata) => {
@@ -15,32 +15,25 @@ const getTitle = (props, metadata) => {
   const page = getPage(props)
 
   switch (page) {
-    case '/blog':
-      return 'Engineering at Scale'
-    case '/chat':
-      return 'Chat'
-    case '/changelog':
-      return "What's new"
-    case '/design':
-      return 'Design'
     case '/insights':
       return 'Automate web performance'
-    case '/integrations':
-      return 'Integrations'
     case '/meta':
       return 'Turn websites into data'
     case '/oss':
       return 'Open Source Sustainability'
+    case '/payment':
+    case '/payment/update':
+      return 'Payment'
     case '/pdf':
       return 'Turn websites into a PDF'
-    case '/recipes':
-      return 'Recipes'
-    case '/stats':
-      return 'Stats'
+    case '/sdk':
+      return 'Beauty link previews'
     case '/screenshot':
       return 'Turn websites into screenshots'
-    default:
-      return metadata.headline
+    default: {
+      const name = page.substr(1)
+      return name.charAt(0).toUpperCase() + name.slice(1)
+    }
   }
 }
 
@@ -62,8 +55,6 @@ const getImage = (props, metadata) => {
       return cdnUrl('banner/docs.jpeg')
     case '/insights':
       return cdnUrl('banner/insights.jpeg')
-    case '/integrations':
-      return cdnUrl('banner/integrations.jpeg')
     case '/meta':
       return cdnUrl('banner/meta.jpeg')
     case '/oss':
@@ -72,6 +63,8 @@ const getImage = (props, metadata) => {
       return cdnUrl('banner/pdf.jpeg')
     case '/recipes':
       return cdnUrl('banner/recipes.jpeg')
+    case '/sdk':
+      return cdnUrl('banner/sdk.jpeg')
     case '/stats':
       return cdnUrl('banner/stats.jpeg')
     case '/screenshot':
@@ -174,7 +167,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta name='twitter:data1' value={dataValue1} />
       <meta name='twitter:label2' value={dataLabel2} />
       <meta name='twitter:data2' value={dataValue2} />
-      <meta name='twitter:creator' content={twitter} />
 
       {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
       <meta property='og:url' content={url} />

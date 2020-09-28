@@ -21,10 +21,6 @@
       "destination": "/docs/api/basics/error-codes"
     },
     {
-      "source": "/codesandbox",
-      "destination": "/integrations"
-    },
-    {
       "source": "/device",
       "destination": "/docs/api/parameters/device"
     },
@@ -135,10 +131,6 @@
     {
       "source": "/scroll",
       "destination": "/docs/api/parameters/scroll"
-    },
-    {
-      "source": "/sdk",
-      "destination": "/docs/sdk/getting-started/overview"
     },
     {
       "source": "/storybook",

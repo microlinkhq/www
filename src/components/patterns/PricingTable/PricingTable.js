@@ -1,18 +1,31 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
-import { Link, Highlight, Box, Label, Flex, Text } from 'components/elements'
-import { XCircle, CheckCircle } from 'react-feather'
-import { Checkout } from 'components/patterns'
+import { transition, layout, cx, colors, fontSizes } from 'theme'
+import { External as ExternalIcon } from 'components/icons'
+import { Caption, Checkout } from 'components/patterns'
+import { CheckCircle } from 'react-feather'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
-import { cx } from 'theme'
+
+import {
+  Caps,
+  Link,
+  Highlight,
+  Hide,
+  Box,
+  Label,
+  Flex,
+  Text,
+  Container
+} from 'components/elements'
 
 import { labelStyle } from '../../elements/Label'
 
-const FREE_PLAN_RATE_LIMIT = 100
+const FREE_PLAN_RATE_LIMIT = 50
 
 const Price = styled(Text)`
   font-weight: bold;
+
   &::before {
     content: '€';
     position: relative;
@@ -20,33 +33,50 @@ const Price = styled(Text)`
     left: 0;
     ${labelStyle}
   }
+
   &::after {
-    content: '/month';
-    position: relative;
-    top: 0;
     ${labelStyle}
+    ${props => props.label && `content: '${props.label}';`}
   }
 `
 
 Price.defaultProps = {
-  fontSize: 2
+  fontSize: [1, 2, 2, 2]
 }
+
+const PricingPrice = props => (
+  <>
+    <Hide breakpoints={[1, 2, 3]}>
+      <Price py={3} key='free-plan' children={0} {...props} />
+      <Text css={labelStyle}>/month</Text>
+    </Hide>
+    <Hide breakpoints={[0]}>
+      <Price key='free-plan' py={3} children={0} label='/month' {...props} />
+    </Hide>
+  </>
+)
+
+const PricingRequest = () => (
+  <>
+    <Hide breakpoints={[1, 2, 3]}>
+      <Text>reqs</Text>
+      <Text css={labelStyle}>/day</Text>
+    </Hide>
+    <Hide breakpoints={[0]}>
+      <Label display='inline' children='reqs' suffix='/day' />
+    </Hide>
+  </>
+)
 
 const PricingHeader = ({ children }) => {
   const [featureHeader, ...pricingPlans] = children
   return (
     <Text as='tr'>
-      <Text as='th' color='darkBlue700' textAlign='right' fontSize={2}>
-        {featureHeader}
-      </Text>
+      <Text as='th' textAlign='right' fontSize={2} children={featureHeader} />
       {pricingPlans.map((children, index) => (
         <Text
           as='th'
-          pb='.85rem'
-          px={[3, 3, 3, 5]}
-          fontWeight='regular'
-          fontSize={2}
-          color='blue700'
+          px={['12px', 2, 4, 4]}
           key={`${featureHeader}_${children}_${index}`}
           children={children}
         />
@@ -56,11 +86,14 @@ const PricingHeader = ({ children }) => {
 }
 
 const PricingIcon = ({ type, ...props }) => {
-  const IconComponent = type === 'yes' ? CheckCircle : XCircle
-  const color = type === 'yes' ? cx('close') : cx('fullscreen')
+  const color = type === 'yes' ? cx('close') : cx('gray')
   return (
-    <Flex justifyContent='center' {...props}>
-      <IconComponent size={18} color={color} />
+    <Flex
+      justifyContent='center'
+      style={{ position: 'relative', top: '-14px' }}
+      {...props}
+    >
+      {type === 'yes' && <CheckCircle color={color} />}
     </Flex>
   )
 }
@@ -70,12 +103,7 @@ const PricingRow = ({ children, ...props }) => {
   return (
     <Text as='tr'>
       <Text as='th' {...props}>
-        <Text
-          fontSize={0}
-          color='darkBlue400'
-          fontWeight='regular'
-          children={name}
-        />
+        <Text fontSize={0} fontWeight='regular' children={name} />
       </Text>
       {values.map((children, index) => (
         <Text
@@ -92,13 +120,38 @@ const PricingRow = ({ children, ...props }) => {
 }
 
 PricingRow.defaultProps = {
-  py: 2,
+  pb: 5,
   textAlign: 'left'
 }
 
 const Description = props => (
-  <Text color='black60' fontWeight='normal' fontSize={1} {...props} />
+  <Text pr={[0, 0, 4, 4]} color='black60' fontWeight='normal' {...props} />
 )
+
+const FeatureLink = ({ children, ...props }) => {
+  return (
+    <Link color='black' {...props}>
+      <Caption
+        color='inherit'
+        textAlign='left'
+        pb={2}
+        css={`
+          svg {
+            position: relative;
+            top: -2px;
+            transition: stroke ${transition.medium};
+          }
+
+          &:hover svg {
+            stroke: ${colors.hoverLink};
+          }
+        `}
+      >
+        {children} <ExternalIcon width={fontSizes[1]} ml={1} />
+      </Caption>
+    </Link>
+  )
+}
 
 function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
   const [state, setState] = useState({
@@ -124,27 +177,47 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
       as='section'
       ml='auto'
       mr='auto'
-      px={[0, 0, 0, 6]}
-      pt={[3, 3, 4, 4]}
+      px={[0, 0, 4, 4]}
+      pb={Container.defaultProps.pt}
+      maxWidth={layout.normal}
       {...props}
     >
       <Box
         as='table'
         width='100%'
         textAlign='center'
-        style={{ tableLayout: 'auto', borderCollapse: 'collapse' }}
+        style={{
+          tableLayout: 'auto',
+          borderCollapse: 'collapse'
+        }}
       >
         <thead>
-          <PricingHeader children={['', 'Free', 'Pro']} />
+          <PricingHeader
+            children={[
+              '',
+              <Caps
+                fontWeight='bold'
+                fontSize={[0, 2, 2, 2]}
+                key='header-free'
+                children='Free'
+              />,
+              <Caps
+                fontWeight='bold'
+                fontSize={[0, 2, 2, 2]}
+                key='header-pro'
+                children='Pro'
+              />
+            ]}
+          />
         </thead>
         <tbody>
           <PricingRow
             children={[
               <>
-                <Text>
-                  Universal Embed{' '}
-                  <Link.External href='/recipes/universal-embed' icon />
-                </Text>
+                <FeatureLink
+                  href='/recipes/universal-embed'
+                  children='Unified metadata'
+                />
                 <Description>
                   Effortless metadata normalization via Open Graph, oEmbed,
                   JSON+LD and HTML markup.
@@ -157,9 +230,7 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>
-                  Take Screenshots <Link.External href='/screenshots' icon />
-                </Text>
+                <FeatureLink href='/screenshots' children='Take Screenshots' />
                 <Description>
                   Live screenshotting with overlay composition and stale
                   revalidation, hosted at Microlink CDN.
@@ -172,9 +243,7 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>
-                  Export to PDF <Link.External href='/pdf' icon />
-                </Text>
+                <FeatureLink href='/pdf' children='Export to PDF' />
                 <Description>
                   Convert any URL into PDF, costless effective with stale
                   revalidation, hosted at Microlink CDN.
@@ -187,9 +256,10 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>
-                  Web Perfomance Audits <Link.External href='/insights' icon />
-                </Text>
+                <FeatureLink
+                  href='/insights'
+                  children='Web Perfomance Audits'
+                />
                 <Description>
                   Track performance metrics scores over time, generating
                   Lighthouse reports on demand.
@@ -202,9 +272,7 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>
-                  Cloud Browsering <Link.External href='/recipes' icon />
-                </Text>
+                <FeatureLink href='/recipes' children='Web Scraping' />
                 <Description>
                   Browser automation made simple via top notch headless browser
                   running on the edge.
@@ -217,9 +285,7 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>
-                  HTTP Headers <Link.External href='/headers' icon />
-                </Text>
+                <FeatureLink href='/headers' children='HTTP Headers' />
                 <Description>
                   Customize every single request specifying custom HTTP headers
                   to fits use case scenarios.
@@ -232,9 +298,7 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>
-                  Proxy Rotation <Link.External href='/proxy' icon />
-                </Text>
+                <FeatureLink href='/proxy' children='Residential Proxies' />
                 <Description>
                   Gather the top 500 popular sites to never be blocked or
                   claked, auto handling retry scenarios.
@@ -247,9 +311,7 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>
-                  Configurable TTL <Link.External href='/ttl' icon />
-                </Text>
+                <FeatureLink href='/ttl' children='Configurable TTL' />
                 <Description>
                   Low response time with adaptative time-to-live cache to fit
                   high demand scenarios.
@@ -262,30 +324,57 @@ function PricingTable ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) {
           <PricingRow
             children={[
               <>
-                <Text>Service Usage</Text>
+                <Caption
+                  titleize={false}
+                  textAlign='left'
+                  pb={2}
+                  fontWeight='bold'
+                >
+                  Service Usage
+                </Caption>
                 <Description>
                   API quota limit associated with your plan that determines how
                   many requests you can perform in a window of time.
                 </Description>
               </>,
-              <>
-                {FREE_PLAN_RATE_LIMIT}{' '}
-                <Label display='inline' children='reqs' suffix='/day' />
-              </>,
-              <PricePicker key='price-picker' onChange={priceSelected} />
+              <Text key='price-free'>
+                <Text
+                  mb={1}
+                  children={FREE_PLAN_RATE_LIMIT}
+                  style={{
+                    border: '1px solid transparent',
+                    padding: '2px'
+                  }}
+                />
+                <PricingRequest />
+              </Text>,
+              <Text key='price-pro'>
+                <PricePicker onChange={priceSelected} />
+                <PricingRequest />
+              </Text>
             ]}
           />
           <PricingRow
             children={[
               '',
-              <Price py={3} key='free-plan' children={0} />,
-              <Price py={3} key={`pro-plan-${humanMonthlyPrice}`}>
+              <PricingPrice
+                pt={3}
+                pb={[0, 3, 3, 3]}
+                key='free-plan'
+                children={0}
+              />,
+              <PricingPrice
+                pt={3}
+                pb={[0, 3, 3, 3]}
+                key={`pro-plan-${humanMonthlyPrice}`}
+              >
                 <Highlight as='span' isHighlight={isHighlight}>
                   {humanMonthlyPrice}
                 </Highlight>
-              </Price>
+              </PricingPrice>
             ]}
           />
+
           <PricingRow
             children={[
               '',

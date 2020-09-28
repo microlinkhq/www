@@ -17,7 +17,7 @@ Specify a page range to print, e.g., `'1-5, 8, 11-13'`.
 module.exports = async () => {
   const { status, data, response } = await mql(
     'https://stripe.com'. { 
-      pdf: false,
+      pdf: true,
       landscape: true,
       pageRanges: '1-1'
   })

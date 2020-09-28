@@ -9,7 +9,7 @@ import {
   MultiCodeEditor
 } from 'components/elements'
 
-import { Grid, SubHeadline, Layout } from 'components/patterns'
+import { Grid, Caption, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import mql from '@microlink/mql'
@@ -302,8 +302,8 @@ const links = [
 export default () => {
   return (
     <Layout title={TITLE}>
-      <Container py={[4, 4, 5, 5]} px={4} maxWidth={layout.normal}>
-        <SubHeadline title={TITLE} caption='Turn links into embeddable media' />
+      <Container py={[4, 4, 5, 5]} px={4} maxWidth={layout.large}>
+        <Caption children='Turn links into embeddable media' />
         <Subhead
           children='How it works'
           px={4}

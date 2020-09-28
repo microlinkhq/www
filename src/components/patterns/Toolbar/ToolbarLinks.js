@@ -60,6 +60,12 @@ export const NavPricing = createNavItem({
   actively: 'observer'
 })
 
+export const NavSDK = createNavItem({
+  name: 'SDK',
+  path: '/sdk',
+  actively: 'partial'
+})
+
 export const NavMeta = createNavItem({
   name: 'Meta',
   path: '/meta',
@@ -105,5 +111,11 @@ export const NavBlog = createNavItem({
 export const NavRecipes = createNavItem({
   name: 'Recipes',
   path: '/recipes',
+  actively: 'partial'
+})
+
+export const NavChangelog = createNavItem({
+  name: 'Changelog',
+  path: '/changelog',
   actively: 'partial'
 })

@@ -1,9 +1,10 @@
-import { Text, Flex, Container } from 'components/elements'
-import { Layout, SubHeadline } from 'components/patterns'
+import { textGradient, layout, borders, transition } from 'theme'
+import { Link, Subhead, Flex } from 'components/elements'
+import { Layout, Caption } from 'components/patterns'
+import { PostTitle } from 'components/pages/blog'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
-import { H2Link } from 'components/markdown'
-import { borders, transition } from 'theme'
+import { H2 } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import is from 'styled-is'
@@ -26,54 +27,71 @@ const CustomFlex = styled(Flex)`
   }
 `
 
-const BlogPost = ({ title, date, slug, isLastPost }) => {
-  const timestamp = new Date(date)
+const CustomLink = styled(Link)`
+  cursor: pointer;
 
+  h2 {
+    transition: background-image ${transition.medium};
+  }
+
+  &:hover {
+    h2 {
+      ${textGradient};
+    }
+  }
+`
+
+const BlogPost = ({ title, date, slug, isLastPost }) => {
   return (
-    <CustomFlex
-      as='section'
-      py={4}
-      px={[4, 3]}
-      alignItems='center'
-      flexDirection='column'
-      width='100%'
-      borderTop
-      borderBottom={isLastPost}
-    >
-      <H2Link
-        lineHeight={[3, 2]}
-        fontSize={[2, 4]}
-        maxWidth='18em'
-        mt={0}
-        mb={3}
-        ml='auto'
-        mr='auto'
-        textAlign='center'
-        href={slug}
-        children={title}
-      />
-      <Text fontSize={[0, 2]} color='black50' textAlign={['center', 'inherit']}>
-        {formatDate(timestamp)} ({<TimeAgo date={date} />})
-      </Text>
-    </CustomFlex>
+    <CustomLink color='black' href={slug} width='100%'>
+      <CustomFlex
+        as='section'
+        py={4}
+        alignItems='center'
+        flexDirection='column'
+        borderTop
+        borderBottom={isLastPost}
+      >
+        <H2
+          mt={0}
+          key={title}
+          titleize={false}
+          fontSize={4}
+          px={5}
+          slug={false}
+          textAlign='center'
+          maxWidth={[layout.small, layout.normal, layout.normal, layout.normal]}
+        >
+          <PostTitle children={title} />
+        </H2>
+
+        <Caption
+          fontWeight='regular'
+          color='black60'
+          textAlign={['center', 'inherit']}
+        >
+          {formatDate(date)} ({<TimeAgo date={date} />})
+        </Caption>
+      </CustomFlex>
+    </CustomLink>
   )
 }
 
-export default ({ posts = useBlogIndex() }) => {
+const PageBlog = ({ posts = useBlogIndex() }) => {
   return (
     <Layout>
-      <Container px={0} as='article' maxWidth='inherit'>
-        <Flex flexDirection='column' alignItems='center' pt={5}>
-          <SubHeadline title='Blog' pb={4} />
-          {posts.map((post, index) => (
-            <BlogPost
-              key={post.title}
-              {...post}
-              isLastPost={index === posts.length - 1}
-            />
-          ))}
-        </Flex>
-      </Container>
+      <Subhead pt={[4, 4, 5, 5]} children='Blog' />
+      <Flex pt={[4, 4, 5, 5]} flexDirection='column' alignItems='center'>
+        {posts.map((post, index) => (
+          <BlogPost
+            key={post.title}
+            {...post}
+            isLastPost={index === posts.length - 1}
+          />
+        ))}
+      </Flex>
     </Layout>
   )
 }
+
+export default PageBlog

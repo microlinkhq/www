@@ -107,7 +107,7 @@ const ActionComponent = ({
   setEditorLanguage,
   editorLanguage,
   editorLanguages,
-  toCopy,
+  text,
   theme
 }) => {
   const background = theme === 'dark' ? colors.black : colors.white
@@ -119,7 +119,7 @@ const ActionComponent = ({
           theme={theme}
           ml='auto'
           mr='auto'
-          width='4.5rem'
+          width='4.8rem'
           mb={2}
           bg='white'
           children={editorLanguages}
@@ -127,7 +127,7 @@ const ActionComponent = ({
           onChange={setEditorLanguage}
         />
       </Text>
-      <CodeCopy theme={theme} interactive text={toCopy} />
+      <CodeCopy theme={theme} interactive text={text} />
     </Actions>
   )
 }

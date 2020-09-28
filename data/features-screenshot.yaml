@@ -1,18 +1,18 @@
-- title: Background Refresh
-  description: Stale revalidation, keeping things fresh and always up to date via [ttl](/docs/api/parameters/ttl), reflecting any change on the target URL.
-- title: Embed Mode
-  description: Enabling [embed](/docs/api/parameters/embed) mode for consuming content directly from your HTML markup.
-- title: Delay
-  description: Wait a quantity of time, selector or event to preload content before generate the document.
+- title: Always up to date
+  description: Stale revalidation, keeping things fresh and always up to date via [ttl](/docs/api/parameters/ttl).
 - title: Overlay Composition
-  description: Create truly [overlay](/docs/api/parameters/screenshot/overlay) compositions combining browser skins and backgrounds.
+  description: Create [overlay](/docs/api/parameters/screenshot/overlay) compositions combining browser skins and backgrounds.
+- title: Browser Events
+  description: Setup [waitUntil](/docs/api/parameters/wait-until) and [waitFor](/docs/api/parameters/wait-for) to wait any quantity of time or CSS selector.
 - title: Device Emulation
-  description: Load any of our [device](/docs/api/parameters/device) presets to simulate different environment and scenarios.
-- title: Manipulate Elements
+  description: A large list of [device](/docs/api/parameters/device) are supported for simulating scenarios and environments.
+- title: Browser Automation
   description: Ability to [hide](/docs/api/parameters/screenshot/hide), [click](/docs/api/parameters/screenshot/click) or [scroll](/docs/api/parameters/screenshot/scroll) to any element matching the given CSS Selector.
+- title: Embed Mode
+  description: Incrustate directly into Markdown, HTML or any other markup using [embed](/docs/api/parameters/embed).
 - title: CSS/JS Injection
   description: Inject any CSS styles or JS code into the page.
-- title: Full Page
+- title: Fully Sscreenshot
   description: Using [fullPage](/docs/api/parameters/screenshot/full-page) for exporting the entire page as screenshot.
 - title: File Format
-  description: Being PNG or JPEG file format supported by [type](/docs/api/parameters/screenshot/type).
+  description: Configurable [type](/docs/api/parameters/screenshot/type) support with on-fly WebP support.

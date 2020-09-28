@@ -1,0 +1,133 @@
+{
+  "alexmaccaw": [{
+    "name": "Svbtle",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/svbtle.png",
+    "url": "https://www.svbtle.com",
+    "categories": ["Blogs"]
+  }, {
+    "name": "Nginx",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/Nginx.svg",
+    "url": "http://nginx.org/en",
+    "categories": ["Web servers", "Reverse proxies"]
+  }],
+  "basecamp": [{
+    "name": "Lua",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/Lua.png",
+    "url": "http://www.lua.org",
+    "categories": ["Programming languages"]
+  }, {
+    "name": "Nginx",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/Nginx.svg",
+    "url": "http://nginx.org/en",
+    "categories": ["Web servers", "Reverse proxies"]
+  }, {
+    "name": "Stimulus",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/Stimulus.png",
+    "url": "https://stimulusjs.org/",
+    "categories": ["JavaScript frameworks"]
+  }, {
+    "name": "OpenResty",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/OpenResty.png",
+    "url": "http://openresty.org",
+    "categories": ["Web servers"]
+  }],
+  "css-tricks": [{
+    "name": "WordPress",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/WordPress.svg",
+    "url": "https://wordpress.org",
+    "categories": ["CMS", "Blogs"]
+  }, {
+    "name": "MySQL",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/MySQL.svg",
+    "url": "http://mysql.com",
+    "categories": ["Databases"]
+  }, {
+    "name": "PHP",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/PHP.svg",
+    "url": "http://php.net",
+    "categories": ["Programming languages"]
+  }, {
+    "name": "Flywheel",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/flywheel.svg",
+    "url": "https://getflywheel.com",
+    "categories": ["PaaS"]
+  }, {
+    "name": "jQuery",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/jQuery.svg",
+    "url": "https://jquery.com",
+    "categories": ["JavaScript libraries"]
+  }, {
+    "name": "MailChimp",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/mailchimp.svg",
+    "url": "http://mailchimp.com",
+    "categories": ["Marketing automation"]
+  }, {
+    "name": "Gravatar",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/Gravatar.png",
+    "url": "http://gravatar.com",
+    "categories": ["Miscellaneous"]
+  }, {
+    "name": "Cloudflare",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/CloudFlare.svg",
+    "url": "http://www.cloudflare.com",
+    "categories": ["CDN"]
+  }],
+  "rauchg": [{
+    "name": "Vercel",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/vercel.svg",
+    "url": "https://vercel.com",
+    "categories": ["Web servers"]
+  }],
+  "varnish-cache": [{
+    "name": "Sphinx",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/Sphinx.png",
+    "url": "https://www.sphinx-doc.org/",
+    "categories": ["Documentation"]
+  }, {
+    "name": "Varnish",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/Varnish.svg",
+    "url": "http://www.varnish-cache.org",
+    "categories": ["Caching"]
+  }, {
+    "name": "thttpd",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/thttpd.png",
+    "url": "https://acme.com/software/thttpd",
+    "categories": ["Web servers"]
+  }, {
+    "name": "jQuery",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/jQuery.svg",
+    "url": "https://jquery.com",
+    "categories": ["JavaScript libraries"]
+  }, {
+    "name": "Underscore.js",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/Underscore.js.png",
+    "url": "http://underscorejs.org",
+    "categories": ["JavaScript libraries"]
+  }, {
+    "name": "Pygments",
+    "confidence": 100,
+    "logo": "https://www.wappalyzer.com/images/icons/pygments.png",
+    "url": "http://pygments.org",
+    "categories": ["Miscellaneous"]
+  }]
+}

@@ -24,6 +24,7 @@ const special = [
   'Microlink',
   'Node.js',
   'oEmbed',
+  'PDFs',
   'omitBackground',
   'Open Graph',
   'options',

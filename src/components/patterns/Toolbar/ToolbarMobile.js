@@ -1,11 +1,12 @@
-import React from 'react'
 import { Box, Fixed, Toolbar } from 'components/elements'
 import styled from 'styled-components'
+import React from 'react'
 
 import NavContainer from './NavContainer'
 
 import {
   NavBlog,
+  NavChangelog,
   NavDocs,
   NavInsights,
   NavLogo,
@@ -13,7 +14,8 @@ import {
   NavPdf,
   NavPricing,
   NavRecipes,
-  NavScreenshot
+  NavScreenshot,
+  NavSDK
 } from './ToolbarLinks'
 
 const Nav = styled(NavContainer)`
@@ -75,13 +77,15 @@ export default ({ theme }) => {
       <Box ml='auto' mr='auto'>
         <Toolbar ml={3} mr={3} justifyContent='center'>
           <NavLogo mobile />
-          <Nav as='nav' width={300}>
+          <Nav as='nav'>
+            <NavSDK isDark={isDark} mobile />
             <NavMeta isDark={isDark} mobile />
             <NavScreenshot isDark={isDark} mobile />
             <NavPdf isDark={isDark} mobile />
             <NavInsights isDark={isDark} />
             <NavRecipes isDark={isDark} />
             <NavPricing isDark={isDark} />
+            <NavChangelog isDark={isDark} />
             <NavDocs isDark={isDark} />
             <NavBlog isDark={isDark} />
           </Nav>

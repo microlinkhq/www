@@ -7,39 +7,28 @@ A [data field](/docs/api/getting-started/data-fields) can be defined by more tha
 ```js
 const mql = require('@microlink/mql')
 
-const meetup = url =>
-  mql(url, {
-    adblock: false,
+const github = username =>
+  mql(`https://github.com/${username}`, {
     data: {
-      description: [
+      avatar: [
         {
-          selector: 'meta[name="description"]:not([content=""])',
+          selector: 'meta[name="twitter:image:src"]:not([content=""])',
           attr: 'content',
-          type: 'description'
+          type: 'image'
         },
         {
-          selector: 'meta[property="og:description"]:not([content=""])',
+          selector: 'meta[property="og:image"]:not([content=""])',
           attr: 'content',
-          type: 'description'
-        },
-        {
-          selector: 'meta[name="twitter:description"]:not([content=""])',
-          attr: 'content',
-          type: 'description'
-        },
-        {
-          selector: '.event-description',
-          attr: 'text',
-          type: 'description'
+          type: 'image'
         }
       ]
     }
   })
 
-const url = 'https://www.meetup.com/Marin-Mountain-Biking/events/268362491/' 
-const { data } = await meetup(url)
+const username = 'kikobeats'
+const { response, data } = await github(username)
 
-console.log(`meetup for ${data.title}`, data.description)
+console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
 ```
 
 The rules provided under the same data value will be evaluated respecting the order:

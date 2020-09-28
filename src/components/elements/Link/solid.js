@@ -37,7 +37,7 @@ const LinkSolid = styled(Link)`
 `
 
 LinkSolid.defaultProps = {
-  fontWeight: 'bold'
+  fontWeight: 'regular'
 }
 
 export default ({ fontWeight, href, children, color, theme, ...props }) => {

@@ -1,17 +1,22 @@
 import styled from 'styled-components'
-import theme from 'theme'
+import Text from '../Text'
 
-const Badge = styled('span')({
-  padding: '2px 6px',
-  fontSize: theme.fontSizes[0],
-  fontWeight: theme.fontWeights.bold,
-  background: theme.colors.secondary,
-  textTransform: 'uppercase',
-  borderRadius: theme.radii[5],
-  color: 'white',
-  position: 'relative',
-  verticalAlign: 'middle',
-  fontFamily: theme.fonts.sans
-})
+const Badge = styled(Text)`
+  padding: 2px 12px;
+  text-transform: uppercase;
+  position: relative;
+  vertical-align: middle;
+`
+
+Badge.defaultProps = {
+  border: '0.5px solid',
+  as: 'span',
+  fontSize: '12px',
+  fontWeight: 'regular',
+  bg: 'secondary',
+  borderRadius: 5,
+  fontFamily: 'sans',
+  color: 'white'
+}
 
 export default Badge

@@ -4,7 +4,9 @@ title: 'Vanilla'
 
 It's available as [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 
-<Terminal>npm install @microlink/vanilla --save</Terminal>
+```bash
+npm install @microlink/vanilla --save
+```
 
 Or via a CDN:
 

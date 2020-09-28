@@ -12,12 +12,7 @@ import propTypes from '@styled-system/prop-types'
 import Box from './Box'
 
 const Text = styled(Box)(
-  compose(
-    fontFamily,
-    fontWeight,
-    letterSpacing,
-    variant({ key: 'textStyles' })
-  )
+  compose(fontFamily, fontWeight, letterSpacing, variant({ key: 'textStyles' }))
 )
 
 Text.propTypes = {
@@ -35,7 +30,7 @@ Text.defaultProps = {
   mr: 0,
   ml: 0,
   lineHeight: 3,
-  fontSize: [1, 2]
+  fontSize: [1, 1, 2, 2]
 }
 
 export default Text

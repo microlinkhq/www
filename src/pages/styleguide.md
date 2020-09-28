@@ -2,8 +2,6 @@
 title: 'Styleguide'
 ---
 
-#### **Headers**
-
 # A Header 1
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
@@ -69,10 +67,9 @@ Hello 😁 how are you? 🤓.
 
 A `Map` is the new `ECMAScript6` data structure. You can use a `Object` as a `Map`.
 
-
-<Terminal>
-  curl https://api.microlink.io/?url=https://instagram.com/elonmusk
-</Terminal>
+```bash
+curl https://api.microlink.io/?url=https://example.com
+```
 
 ```js{3,8}
 // Example 1

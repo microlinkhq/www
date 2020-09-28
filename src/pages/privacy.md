@@ -3,13 +3,7 @@ title: 'Privacy Policy'
 date: '2018-08-20'
 ---
 
-<Paraph mt={0} fontSize={[2, 2, 2, 3]} textAlign='center'>
-  Microlink respects
-  your privacy regarding any information we may collect from you across our
-  website <Link href='https://microlink.io' children='microlink.io' />, and
-  other sites we own and operate, according to EU General Data Protection
-  Regulation (GDPR).
-</Paraph>
+Microlink respects your privacy regarding any information we may collect from you across our website <Link href='https://microlink.io' children='microlink.io' />, and other sites we own and operate, according to EU General Data Protection Regulation (GDPR).
 
 ## Information we collect
 

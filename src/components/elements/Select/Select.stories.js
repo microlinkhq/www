@@ -43,7 +43,7 @@ const MySelectWithDefault = ({ placeholder, ...props }) => {
         setState(language)
       }}
       selected={lang}
-      color={lang === placeholder ? 'black50' : 'inherit'}
+      color={lang === placeholder ? 'black60' : 'inherit'}
       {...props}
     >
       {[

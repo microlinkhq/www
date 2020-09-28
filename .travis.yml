@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - node
+  - 12
 
 after_success: npm run coverage
 
@@ -13,8 +13,7 @@ stages:
 jobs:
   include:
     - stage: Release
-      node_js: node
-      install: npm install --no-package-lock
+      install: yarn
       before_deploy:
         - git config user.email ${GITHUB_EMAIL:-"travis@travis-ci.org"}
         - git config user.name ${GITHUB_USER:-"Travis CI"}

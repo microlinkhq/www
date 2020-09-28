@@ -1,20 +1,20 @@
-import { DotsBackground, Headline, Layout } from 'components/patterns'
+import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
 import { Microlink as MicrolinkLogo } from 'components/logos'
+
+import { cx, fontSizes, layout } from 'theme'
 import { Plus } from 'react-feather'
-import { layout } from 'theme'
 import React from 'react'
 
 import {
-  Image,
   Box,
-  Link,
   CodeEditor,
-  Text,
-  Unavatar,
-  Flex
+  Flex,
+  Heading,
+  Image,
+  Unavatar
 } from 'components/elements'
 
-const LOGO_SIZE = ['40px', '40px', '60px', '60px']
+const LOGO_SIZE = ['80px', '80px', '96px', '96px']
 
 const Logo = ({ isGeneric, logo, domain }) => {
   if (!isGeneric || !logo) {
@@ -47,43 +47,46 @@ export default ({ pageContext: recipe }) => {
         {...meta}
       >
         <Flex
-          pt={[0, 0, 0, 3]}
+          pt={5}
           px={3}
           width='100%'
           flexDirection='column'
           justifyContent='center'
           alignItems='center'
         >
-          <Box pb={4}>
-            <Flex pt={[0, 0, 4, 4]} alignItems='center' justifyContent='center'>
-              <MicrolinkLogo width={LOGO_SIZE} />
-              {!recipe.isGeneric && <Box ml={3} mr={3} children={<Plus />} />}
-              {!recipe.isGeneric && <Logo {...recipe} />}
-            </Flex>
-            <Headline
-              pt={[0, 0, 3, 3]}
-              pb={[0, 0, 1, 1]}
-              caption={`Microlink Recipe for ${recipe.name}`}
-              titleize={false}
-            />
-            <Text fontSize={[1, 1, 2, 2]} textAlign='center' maxWidth={10}>
-              <Link href='/recipes'>View all recipes</Link>
-              <Text px={[1, 1, 2, 2]} as='span'>
-                {' '}
-                •{' '}
-              </Text>
-              <Link href='/docs/mql/getting-started/overview'>
-                Read documentation
-              </Link>
-              <Text px={[1, 1, 2, 2]} as='span'>
-                {' '}
-                •{' '}
-              </Text>
-              <Link href={gitHubUrl}>Edit on GitHub</Link>
-            </Text>
-          </Box>
+          <Flex pt={[3, 3, 4, 4]} alignItems='center' justifyContent='center'>
+            <MicrolinkLogo width={LOGO_SIZE} />
+            {!recipe.isGeneric && (
+              <Box
+                ml={4}
+                mr={4}
+                children={<Plus color={cx('gray8')} size={fontSizes[2]} />}
+              />
+            )}
+            {!recipe.isGeneric && <Logo {...recipe} />}
+          </Flex>
+
+          <Heading
+            pt={[3, 3, 4, 4]}
+            titleize={false}
+            children='Microlink Recipe'
+          />
+
+          <Caption
+            titleize={false}
+            pt={[3, 3, 4, 4]}
+            px={[4, 4, 0, 0]}
+            maxWidth={[
+              layout.small,
+              layout.small,
+              layout.normal,
+              layout.normal
+            ]}
+            children={recipe.description}
+          />
 
           <Flex
+            pt={4}
             width='100%'
             flexDirection='column'
             justifyContent='center'
@@ -95,6 +98,23 @@ export default ({ pageContext: recipe }) => {
               maxWidth={layout.small}
               children={recipe.code}
               interactive
+            />
+          </Flex>
+
+          <Flex
+            alignItems={['center', undefined, undefined, undefined]}
+            flexDirection={['column', 'row', 'row', 'row']}
+            pt={[3, 3, 4, 4]}
+          >
+            <ArrowLink
+              pr={[0, 4, 4, 4]}
+              href='/docs/mql/getting-started/overview'
+              children='Read docs'
+            />
+            <ArrowLink
+              pt={[3, 0, 0, 0]}
+              href={gitHubUrl}
+              children='Edit on GitHub'
             />
           </Flex>
         </Flex>

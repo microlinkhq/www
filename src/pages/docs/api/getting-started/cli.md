@@ -4,11 +4,15 @@ title: 'CLI'
 
 We provided a Command Line Interface for interacting with [Microlink API](/docs/api/getting-started/overview/) from your terminal, available as [npm package](https://www.npmjs.com/package/@microlink/cli).
 
-<Terminal>npm install @microlink/cli --global</Terminal>
+```bash
+npm install @microlink/cli --global
+```
 
 Alternatively, if you have [npx](https://www.npmjs.com/package/npx), you can just run it.
 
-<Terminal>npx install @microlink/cli --help</Terminal>
+```bash
+npx install @microlink/cli --help
+```
 
 After that, `microlink-api` and `microlink-pro` commands will be available in your system.
 
@@ -21,11 +25,14 @@ Usage
   $ microlink-[api|pro] <url> [flags]
 
 Flags
-  --print-resume      print response resume.  [default=true]
-  --print-body        print response body.    [default=true]
-  --colors            colorize output.        [default=true]
+  --api-key       authenticate using an API key (default is `$MICROLINK_API_KEY`).
+  --colors        colorize output (default is `true`).
+  --copy          copy output to clipboard (default is `false`).
+  --pretty        beauty response payload (default is `true`).
+
 
 Examples
   microlink-api https://microlink.io&palette
-  microlink-pro https://microlink.io&palette&apiKey=MyApiKey
+  microlink-api --no-pretty https://microlink.io&palette
+  microlink-pro --api-key=MyApiKey https://microlink.io&palette
 ```

@@ -1,13 +1,24 @@
-import React from 'react'
+import { Hide, Box, Caps, Flex, Subhead } from 'components/elements'
 import { Block, Caption } from 'components/patterns'
-import { Hide, Box, Caps, Flex, Heading } from 'components/elements'
 import { useAnalytics } from 'components/hook'
+import { fadeIn } from 'components/keyframes'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import theme from 'theme'
 import take from 'lodash/take'
+import { colors } from 'theme'
+
+const SENTENCES = [
+  'Get HTML content',
+  'Take screenshots in ~2 seg',
+  'Turn websites into data',
+  'Run a Ligthouse audit',
+  'Detect technology stack'
+]
+
+const SENTENCES_INTERVAL = 3500
 
 const Separator = styled(Box)`
-  border-right: 1px solid ${theme.colors.white20};
+  border-right: 1px solid ${colors.white20};
   width: 1px;
 `
 
@@ -27,6 +38,18 @@ export default props => {
     { value: '99.9%', name: 'uptime' }
   ]
 
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(
+      () => setIndex(index => (index + 1) % SENTENCES.length),
+      SENTENCES_INTERVAL
+    )
+    return () => clearInterval(timer)
+  }, [])
+
+  const sentence = SENTENCES[index]
+
   const blockOne = (
     <Flex
       as='section'
@@ -34,34 +57,43 @@ export default props => {
       justifyContent='center'
       alignItems='center'
     >
-      <Heading color='white' variant={null}>
-        Speed as a feature
-      </Heading>
-      <Caption color='white80' variant={null}>
-        Always fast. Always online.
-        <Hide css='display:inline;' breakpoints={[0, 1]}>
-          {' '}
-          Always a hit.
-        </Hide>
-      </Caption>
+      <Subhead
+        fontSize={[3, 4, 6, 6]}
+        color='pink'
+        titleize={false}
+        children='Cloud Browser for'
+      />
+      <Subhead
+        fontSize={[3, 4, 6, 6]}
+        py={[3, 4, 4, 4]}
+        px={[4, 0, 0, 0]}
+        titleize={false}
+        color='white'
+        key={sentence}
+        css={fadeIn}
+        children={sentence}
+      />
     </Flex>
   )
 
   const Stat = ({ value, name, isLast }) => (
     <Flex>
       <Flex alignItems='center' flexDirection='column'>
-        <Heading as='div' color='white' variant={null}>
-          {value}
-        </Heading>
-        <Caption
-          color='white'
-          fontWeight='normal'
+        <Subhead
+          as='div'
+          fontSize={[3, 4, 6, 6]}
+          color='white40'
           titleize={false}
-          fontSize={[2, 2, 6, 6]}
+          children={value}
+        />
+        <Caption
+          pt={[2, 3, 3, 3]}
+          color='pink'
+          fontWeight='bold'
+          titleize={false}
+          style={{ opacity: 0.8 }}
         >
-          <Caps mt={[1, 1, 0, 0]} color='white80'>
-            {name}
-          </Caps>
+          <Caps fontSize={[0, 2, 3, 3]} children={name} />
         </Caption>
       </Flex>
       {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}
@@ -71,7 +103,7 @@ export default props => {
   const blockTwo = (
     <>
       <Hide breakpoints={[0, 1]}>
-        <Flex pt={[3, 3, 5, 5]} width='100%' justifyContent='space-around'>
+        <Flex width='100%' justifyContent='space-around'>
           {stats.map((stat, index) => (
             <Stat
               key={stat.name}
@@ -82,7 +114,7 @@ export default props => {
         </Flex>
       </Hide>
       <Hide breakpoints={[2, 3]}>
-        <Flex pt={[3, 3, 5, 5]} width='100%' justifyContent='space-around'>
+        <Flex width='100%' justifyContent='space-around'>
           {take(stats, stats.length - 1).map((stat, index) => (
             <Stat
               key={stat.name}

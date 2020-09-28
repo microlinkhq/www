@@ -5,7 +5,7 @@ import { transition, toPx, shadows } from 'theme'
 import Flex from '../Flex'
 import Text from '../Text'
 
-const BASE_WIDTH = 500
+const BASE_WIDTH = 650
 const BASE_RATIO = 1.4
 const BASE_HEIGHT = BASE_WIDTH / BASE_RATIO
 
@@ -38,7 +38,7 @@ const CardOption = ({ children, value, ...props }) => (
     fontWeight={children === value ? 'regular' : 'normal'}
     pt={3}
     pr={2}
-    fontSize={0}
+    fontSize={1}
     textAlign='right'
     css={`
       ${children !== value && 'cursor: pointer;'};
@@ -55,7 +55,7 @@ const CardOption = ({ children, value, ...props }) => (
 )
 
 Card.Option = CardOption
+Card.width = BASE_WIDTH
+Card.ratio = BASE_RATIO
 
 export default Card
-
-Card.BASE_WIDTH = 500

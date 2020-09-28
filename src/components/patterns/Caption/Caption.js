@@ -1,14 +1,18 @@
 import React from 'react'
 import { Subhead } from 'components/elements'
 
-export default props => (
+const Caption = props => (
   <Subhead
     as='h3'
     lineHeight={2}
     textAlign='center'
-    fontWeight='light'
-    color='black80'
-    fontSize={[3, 4, 4, 5]}
+    fontWeight='normal'
     {...props}
   />
 )
+
+Caption.defaultProps = {
+  fontSize: [2, 2, 3, 3]
+}
+
+export default Caption

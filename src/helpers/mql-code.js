@@ -5,27 +5,23 @@ const createApiUrl = ({ url = 'https://example.com', ...props } = {}) => {
   return apiUrl
 }
 
-const serializeArray = arr => `[${arr.map(value => "'" + value + "'")}]`
-
 const createDataUrl = props => (url = 'https://example.com') =>
   createApiUrl({ url, ...props })
 
-export default (props, stringProps) => {
+const mqlCode = (props, stringProps) => {
   const dataUrl = createDataUrl(props)
 
   const React = args => {
-    const {
-      url = '{{demolinks.spotify.url}}',
-      media = ['audio', 'video', 'image', 'logo'],
-      size = 'large'
-    } = { ...props, ...args }
+    const { url = '{{demolinks.spotify.url}}', size = 'large' } = {
+      ...props,
+      ...args
+    }
 
     return `import Microlink from '@microlink/react'
 
 export default props => (
   <Microlink
     url='${url}'
-    media={${serializeArray(media)}}
     size='${size}'
     {...props}
   />
@@ -33,29 +29,6 @@ export default props => (
   }
 
   React.language = 'jsx'
-
-  const HTML = args => {
-    const { media = ['audio', 'video', 'image', 'logo'], size = 'large' } = {
-      ...props,
-      ...args
-    }
-
-    return `
-<!-- Microlink SDK Vanilla/UMD bundle -->
-<script src="//cdn.jsdelivr.net/npm/@microlink/vanilla/umd/microlink.min.js"></script>
-
-<!-- Replace all elements with \`link-preview\` class -->
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) {
-    microlink('.link-preview', {
-      media={${serializeArray(media)},
-      size: '${size}'
-    })
-  })
-</script>`
-  }
-
-  HTML.language = 'html'
 
   const Nodejs = args => {
     const { url = '{{demolinks.spotify.url}}' } = { ...props, ...args }
@@ -258,7 +231,6 @@ IRestResponse response = client.Execute(request);`
     'Node.js': Nodejs,
     cURL,
     Go,
-    HTML,
     Java,
     PHP,
     Python,
@@ -271,3 +243,28 @@ IRestResponse response = client.Execute(request);`
     Swift
   }
 }
+
+mqlCode.json = (data, props = '') => `
+// npm install @microlink/cli --global
+// microlink-api ${data.url}${props}\n
+${JSON.stringify(data, null, 2)}
+`
+
+mqlCode.html = (props = {}) => {
+  const { size = 'large' } = props
+
+  return `
+<!-- Microlink SDK Vanilla/UMD bundle -->
+<script src="//cdn.jsdelivr.net/npm/@microlink/vanilla/umd/microlink.min.js"></script>
+
+<!-- Replace all elements with \`link-preview\` class -->
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+  microlink('.link-preview', {
+    size: '${size}'
+  })
+})
+</script>`
+}
+
+export default mqlCode

@@ -2,9 +2,9 @@
 title: 'API'
 ---
 
-### mql(&lt;url&gt;, [options])
+### mql(&lt;url&gt;, [options], [httpOptions])
 
-#### url
+<H4 titleize={false}>url</H4>
 
 **required**<br/>
 
@@ -12,7 +12,7 @@ Type: <Type children='<string>'/>
 
 The target URL for getting content.
 
-#### options
+<H4 titleize={false}>options</H4>
 
 Type: <Type children='<object>'/>
 
@@ -34,7 +34,7 @@ console.log(`My screenshot at ${data.screenshot.url}`)
 
 Additionally, you can configure:
 
-##### apiKey
+<H5 titleize={false}>apiKey</H5>
 
 Type: <Type children='<string>'/>
 
@@ -42,7 +42,7 @@ The API Key used for [authenticating](/docs/api/basics/authentication) your requ
 
 When the `apiKey` is provided, the [pro.microlink.io](https://pro.microlink.io/) as [endpoint](/docs/api/basics/endpoint) will be used.
 
-##### cache
+<H5 titleize={false}>cache</H5>
 
 Type: <Type children='<object>'/>
 
@@ -71,7 +71,7 @@ Consider to pass [keyv](https://www.npmjs.com/package/keyv) for supporting [most
 
 See [got#cache](https://www.npmjs.com/package/got#cache) to know more.
 
-##### retry
+<H5 titleize={false}>retry</H5>
 
 Type: <Type children='<number>'/><br/>
 Default: <Type children='2'/>
@@ -80,11 +80,19 @@ Defines how many retries can be done before an API call is considered failed.
 
 See [got#retry](https://www.npmjs.com/package/got#retry) to know more.
 
-### mql.stream(&lt;url&gt;, [options])
+<H4 titleize={false}>httpOptions</H4>
+
+Type: <Type children='<object>'/>
+
+Any additional option will be passed to [got](http://ghub.io/got) or [ky](https://github.com/sindresorhus/ky) that are the internal HTTP clients used for Node.js and browser respectively.
+
+That's necessary for some user workflow, e.g., passing [authentication](/docs/api/parameters/headers) headers without exposing credentials.
+
+### mql.stream(&lt;url&gt;, [options], [httpOptions])
 
 Returns a [Stream](https://nodejs.org/api/stream.html) instead of a Promise.
 
-### mql.buffer(&lt;url&gt;, [options])
+### mql.buffer(&lt;url&gt;, [options], [httpOptions])
 
 Returns a [Buffer](https://nodejs.org/api/buffer.html) instead of a Promise.
 

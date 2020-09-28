@@ -8,7 +8,7 @@ Default: <Type children='false'/>
 Generates a PDF of the target website.
 
 <Iframe
-  src="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm&meta=false"
+  src="https://cdn.microlink.io/pdf/rauchg.pdf"
 />
 
 <MultiCodeEditor languages={{

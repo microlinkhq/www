@@ -4,7 +4,9 @@ title: 'React'
 
 It's available as [npm package](https://www.npmjs.com/package/@microlink/react).
 
-<Terminal>npm install @microlink/react styled-components --save</Terminal>
+```bash
+npm install @microlink/react styled-components --save
+```
 
 After that, you can use it as a regular React component.
 

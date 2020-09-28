@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { aspectRatio } from 'helpers'
+import noop from 'lodash/noop'
 
 import Placeholder from '../Placeholder/Placeholder'
 import Flex from '../Flex'
@@ -8,6 +9,7 @@ export default ({
   loading = true,
   width = aspectRatio.width,
   height = aspectRatio.height,
+  onLoad = noop,
   children,
   ...props
 }) => {
@@ -20,7 +22,10 @@ export default ({
     if (inputEl.current) {
       const iframe = inputEl.current
       if (iframe) {
-        iframe.addEventListener('load', setLoaded)
+        iframe.addEventListener('load', () => {
+          onLoad(iframe)
+          setLoaded()
+        })
         return () => iframe.removeEventListener('load', setLoaded)
       }
     }
@@ -30,7 +35,7 @@ export default ({
     <Flex
       as='iframe'
       ref={inputEl}
-      style={{ display: isLoading ? 'none' : 'inherit' }}
+      style={isLoading ? { display: 'none' } : undefined}
       frameBorder='0'
       target='_parent'
       width={width}
@@ -40,9 +45,7 @@ export default ({
   )
 
   return isLoading ? (
-    <Placeholder width={width} height={height} {...props}>
-      {iframe}
-    </Placeholder>
+    <Placeholder width={width} height={height} {...props} children={iframe} />
   ) : (
     iframe
   )

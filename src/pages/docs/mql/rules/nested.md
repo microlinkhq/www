@@ -7,22 +7,22 @@ In case you need, you can use [attr](/docs/mql/data/attr) for mapping data struc
 ```js
 const mql = require('@microlink/mql')
 
-const github = (username) =>
+const github = username =>
   mql(`https://github.com/${username}`, {
     data: {
       stats: {
-        selector: '.user-profile-nav nav',
+        selector: '.js-profile-editable-area',
         attr: {
-          repositories: {
-            selector: 'a:nth-child(2) > span',
-            type: 'number'
-          },
           followers: {
-            selector: 'a:nth-child(4) > span',
+            selector: 'a[href*="tab=followers"] span',
             type: 'number'
           },
-          followings: {
-            selector: 'a:nth-child(5) > span',
+          following: {
+            selector: 'a[href*="tab=following"] span',
+            type: 'number'
+          },
+          stars: {
+            selector: 'a[href*="tab=stars"] span',
             type: 'number'
           }
         }

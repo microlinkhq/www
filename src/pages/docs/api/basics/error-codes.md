@@ -1,5 +1,5 @@
 ---
-title: Error Codes
+title: Error codes
 ---
 
 Microlink API considers an unexpected situation any request performed on which [status](/docs/api/basics/format#status) is different from `'success'`.

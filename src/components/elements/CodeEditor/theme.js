@@ -7,23 +7,50 @@ const FONT_SIZE = '14px'
 const LINE_HEIGHT = 1.75
 const TAB_SIZE = 2
 
-const GRAY0 = '#f8f9fa'
-const GRAY1 = '#f1f3f5'
-const GRAY2 = '#e9ecef'
-const GRAY3 = '#dee2e6'
-const GRAY4 = '#ced4da'
-const GRAY5 = '#adb5bd'
-const GRAY6 = '#868e96'
-const GRAY7 = '#495057'
-const GRAY8 = '#343a40'
-const GRAY9 = '#212529'
-const GRAY10 = '#15141A'
+export const GRAY0 = '#f8f9fa'
+export const GRAY1 = '#f1f3f5'
+export const GRAY2 = '#e9ecef'
+export const GRAY3 = '#dee2e6'
+export const GRAY4 = '#ced4da'
+export const GRAY5 = '#adb5bd'
+export const GRAY6 = '#868e96'
+export const GRAY7 = '#495057'
+export const GRAY8 = '#343a40'
+export const GRAY9 = '#212529'
+export const GRAY10 = '#15141A'
 
-const baseTheme = ({ PRIMARY, SECONDARY, BACKGROUND }) => ({
+export const light = {
+  primary: GRAY10,
+  secondary: GRAY7,
+  background: '#fff',
+  fontSize: FONT_SIZE,
+  lineHeight: LINE_HEIGHT,
+  tabSize: TAB_SIZE
+}
+
+export const dark = {
+  primary: GRAY5,
+  secondary: GRAY2,
+  background: '#000',
+  fontSize: FONT_SIZE,
+  lineHeight: LINE_HEIGHT,
+  tabSize: TAB_SIZE
+}
+
+export const themes = { light, dark }
+
+const baseTheme = ({
+  primary,
+  secondary,
+  background,
+  fontSize,
+  lineHeight,
+  tabSize
+}) => ({
   'code[class*="language-"]': {
     fontFamily: fonts.mono,
-    fontSize: FONT_SIZE,
-    lineHeight: LINE_HEIGHT,
+    fontSize: fontSize,
+    lineHeight: lineHeight,
     direction: 'ltr',
     textAlign: 'left',
     whiteSpace: 'pre',
@@ -36,13 +63,13 @@ const baseTheme = ({ PRIMARY, SECONDARY, BACKGROUND }) => ({
     MozHyphens: 'none',
     msHyphens: 'none',
     hyphens: 'none',
-    background: BACKGROUND,
-    color: SECONDARY
+    background: background,
+    color: secondary
   },
   'pre[class*="language-"]': {
     fontFamily: fonts.mono,
-    fontSize: FONT_SIZE,
-    lineHeight: LINE_HEIGHT,
+    fontSize: fontSize,
+    lineHeight: lineHeight,
     direction: 'ltr',
     textAlign: 'left',
     whiteSpace: 'pre',
@@ -55,153 +82,153 @@ const baseTheme = ({ PRIMARY, SECONDARY, BACKGROUND }) => ({
     MozHyphens: 'none',
     msHyphens: 'none',
     hyphens: 'none',
-    background: BACKGROUND,
-    color: SECONDARY,
-    padding: '1em',
+    background: background,
+    color: secondary,
+    padding: '0px 1em 0px 0px',
     margin: '.5em 0',
     overflow: 'auto'
   },
   'pre[class*="language-"]::-moz-selection': {
     textShadow: 'none',
-    background: PRIMARY
+    background: primary
   },
   'pre[class*="language-"] ::-moz-selection': {
     textShadow: 'none',
-    background: PRIMARY
+    background: primary
   },
   'code[class*="language-"]::-moz-selection': {
     textShadow: 'none',
-    background: PRIMARY
+    background: primary
   },
   'code[class*="language-"] ::-moz-selection': {
     textShadow: 'none',
-    background: PRIMARY
+    background: primary
   },
   'pre[class*="language-"]::selection': {
     textShadow: 'none',
-    background: PRIMARY
+    background: primary
   },
   'pre[class*="language-"] ::selection': {
     textShadow: 'none',
-    background: PRIMARY
+    background: primary
   },
   'code[class*="language-"]::selection': {
     textShadow: 'none',
-    background: PRIMARY
+    background: primary
   },
   'code[class*="language-"] ::selection': {
     textShadow: 'none',
-    background: PRIMARY
+    background: primary
   },
   ':not(pre) > code[class*="language-"]': {
     padding: '.1em',
     borderRadius: '.3em'
   },
   comment: {
-    color: PRIMARY
+    color: primary
   },
   prolog: {
-    color: PRIMARY
+    color: primary
   },
   doctype: {
-    color: PRIMARY
+    color: primary
   },
   cdata: {
-    color: PRIMARY
+    color: primary
   },
   punctuation: {
-    color: PRIMARY
+    color: primary
   },
   namespace: {
     Opacity: '.7'
   },
   tag: {
-    color: SECONDARY
+    color: secondary
   },
   operator: {
-    color: SECONDARY
+    color: secondary
   },
   number: {
-    color: SECONDARY
+    color: secondary
   },
   property: {
-    color: SECONDARY
+    color: secondary
   },
   function: {
-    color: SECONDARY
+    color: secondary
   },
   'tag-id': {
-    color: SECONDARY
+    color: secondary
   },
   selector: {
-    color: SECONDARY
+    color: secondary
   },
   'atrule-id': {
-    color: SECONDARY
+    color: secondary
   },
   'code.language-javascript': {
-    color: SECONDARY
+    color: secondary
   },
   'attr-name': {
-    color: SECONDARY
+    color: secondary
   },
   'code.language-css': {
-    color: PRIMARY
+    color: primary
   },
   'code.language-scss': {
-    color: PRIMARY
+    color: primary
   },
   boolean: {
-    color: PRIMARY
+    color: primary
   },
   string: {
-    color: PRIMARY
+    color: primary
   },
   entity: {
-    color: PRIMARY,
+    color: primary,
     cursor: 'help'
   },
   url: {
-    color: PRIMARY
+    color: primary
   },
   '.language-css .token.string': {
-    color: PRIMARY
+    color: primary
   },
   '.language-scss .token.string': {
-    color: PRIMARY
+    color: primary
   },
   '.style .token.string': {
-    color: PRIMARY
+    color: primary
   },
   'attr-value': {
-    color: PRIMARY
+    color: primary
   },
   keyword: {
-    color: PRIMARY
+    color: primary
   },
   control: {
-    color: PRIMARY
+    color: primary
   },
   directive: {
-    color: PRIMARY
+    color: primary
   },
   unit: {
-    color: PRIMARY
+    color: primary
   },
   statement: {
-    color: PRIMARY
+    color: primary
   },
   regex: {
-    color: PRIMARY
+    color: primary
   },
   atrule: {
-    color: PRIMARY
+    color: primary
   },
   placeholder: {
-    color: PRIMARY
+    color: primary
   },
   variable: {
-    color: PRIMARY
+    color: primary
   },
   deleted: {
     textDecoration: 'line-through'
@@ -215,7 +242,7 @@ const baseTheme = ({ PRIMARY, SECONDARY, BACKGROUND }) => ({
   },
   important: {
     fontWeight: 'bold',
-    color: SECONDARY
+    color: secondary
   },
   bold: {
     fontWeight: 'bold'
@@ -231,19 +258,11 @@ const baseTheme = ({ PRIMARY, SECONDARY, BACKGROUND }) => ({
     color: '#2c3847'
   },
   '.line-highlight': {
-    background: polished.darken(0.1, BACKGROUND)
+    background: polished.darken(0.1, background)
   }
 })
 
-export default {
-  light: baseTheme({
-    PRIMARY: GRAY10,
-    SECONDARY: GRAY7,
-    BACKGROUND: '#fff'
-  }),
-  dark: baseTheme({
-    PRIMARY: GRAY5,
-    SECONDARY: GRAY2,
-    BACKGROUND: '#000'
-  })
+export const prismThemes = {
+  light: baseTheme(light),
+  dark: baseTheme(dark)
 }

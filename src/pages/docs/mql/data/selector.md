@@ -7,19 +7,24 @@ Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Sele
 
 It defines the [HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) you want to pick from the HTML markup over the [url](/docs/api/parameters/url):
 
-```js{5}
+```jsx{7}
 const mql = require('@microlink/mql')
-const { data } = mql('https://kikobeats.com', {
-  data: {
-    avatar: {
-      selector: '#avatar',
-      type: 'image',
-      attr: 'src'
-    }
-  }
-})
 
-console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
+const github = username => 
+  mql(`https://github.com/${username}`, {
+    data: {
+      avatar: {
+        selector: 'meta[property="og:image"]:not([content=""])',
+        attr: 'content',
+        type: 'image'
+      }
+    }
+  })
+
+const username = 'kikobeats'
+const { response, data } = await github(username)
+
+console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
 ```
 
 It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) and any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) can be specified, such as:
@@ -30,17 +35,31 @@ It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-U
 
 If you pass a collection of selectors, they are considered as fallbacks values:
 
-```js{5}
+```jsx
 const mql = require('@microlink/mql')
-const { data } = mql(`https://twitter.com/${username}`, {
-  data: {
-    avatar: {
-      selector: ['#avatar', 'img:first'],
-      type: 'image',
-      attr: 'src'
+
+const github = username =>
+  mql(`https://github.com/${username}`, {
+    data: {
+      avatar: [
+        {
+          selector: 'meta[name="twitter:image:src"]:not([content=""])',
+          attr: 'content',
+          type: 'image'
+        },
+        {
+          selector: 'meta[property="og:image"]:not([content=""])',
+          attr: 'content',
+          type: 'image'
+        }
+      ]
     }
-  }
-})
+  })
+
+const username = 'kikobeats'
+const { response, data } = await github(username)
+
+console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
 ```
 
 <Figcaption children='Using mulitple selectors makes the data rule more generic.' />

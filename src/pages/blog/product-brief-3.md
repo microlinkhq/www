@@ -121,10 +121,14 @@ If you’re using Microlink from your \`package.json\` then you’ll need to con
 
 **Vanilla version**
 
-<Terminal>npm install @microlink/vanilla@latest</Terminal>
+```bash
+npm install @microlink/vanilla@latest
+```
 
 **React version**
 
-<Terminal>npm update @microlink/react@latest</Terminal>
+```bash
+npm update @microlink/react@latest
+```
 
 See more [information](/docs/sdk/integrations/react).

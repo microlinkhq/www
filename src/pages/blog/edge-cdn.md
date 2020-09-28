@@ -16,13 +16,13 @@ The successive requests for the resource will consume the cached version, what i
 
 We revisited the cache layer and implemented some improvements, making it more powerful than ever.
 
-## Cache saves your API quota
+### Cache saves your API quota
 
-<Terminal>
-  npx microlink-api https://example.com&screenshot&embed=screenshot.url
-</Terminal>
+```bash
+npx microlink-api https://example.com&screenshot&embed=screenshot.url
+```
 
-**Starting from today, any response served from the cache won't count towards your API quota.**
+Starting from today, any response served from the cache won't count towards your API quota.
 
 This drastically changes how users consume the API. Let me clarify with an example.
 
@@ -38,7 +38,7 @@ In the past, if you did this and your website had *1000 pageviews*, it meant you
 
 Now, you only consume \*one request\*, serving the rest from the cache and **not counting them in your API quota plan**.
 
-## Cache is served around the world
+### Cache is served around the world
 
 ![](https://blog-cloudflare-com-assets.storage.googleapis.com/2019/08/image1-3.png)
 
@@ -54,7 +54,7 @@ Once cached, the successive requests to the same resource will be served using t
 
 You can see how cached resources **always** have the lowest response time associated, **no matter where you are**.
 
-## Cache optimizes screenshots on the fly
+### Cache optimizes screenshots on the fly
 
 ![](https://caniuse.bitsofco.de/image/webp.png)
 

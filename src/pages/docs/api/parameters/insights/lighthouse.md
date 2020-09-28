@@ -6,17 +6,17 @@ Type: <TypeContainer><Type children="boolean"/> | <Type children="object"/></Typ
 Default: <Type children='true'/>
 
 <Iframe
-  src="https://lighthouse.microlink.io/?url=http%3A%2F%2Fapi.microlink.io%2F%3Furl%3Dhttps%3A%2F%2Fmicrolink.io%26insights%26embed%3Dinsights.lighthouse"
+  src="https://lighthouse.microlink.io/?url=https://cdn.microlink.io/insights/css-tricks.json"
 />
 
 It returns a full web perfomance metrics report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&insights.lighthouse=true`,
+  Shell: `microlink-api https://css-tricks.com/nerds-guide-color-web&insights.lighthouse=true`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
-  const { status, data, response } = await mql('https://microlink.io', {
+  const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
     insights: {
       lighthouse: true
     }
@@ -51,11 +51,11 @@ The default configuration is known as [lighthouse:default](https://github.com/Go
 It's the same configuration used by Google Chrome when you perform an audit from the Developers Tools. You can extend it, for example, targeting `mobile`:
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&insights.lighthouse.device=mobile`,
+  Shell: `microlink-api https://css-tricks.com/nerds-guide-color-web&insights.lighthouse.device=mobile`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
-  const { status, data, response } = await mql('https://microlink.io', {
+  const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
     insights: {
       lighthouse: {
         device: 'mobile'

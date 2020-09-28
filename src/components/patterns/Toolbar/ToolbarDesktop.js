@@ -5,6 +5,7 @@ import NavContainer from './NavContainer'
 
 import {
   NavBlog,
+  NavChangelog,
   NavDocs,
   NavInsights,
   NavLogo,
@@ -12,7 +13,8 @@ import {
   NavPdf,
   NavPricing,
   NavRecipes,
-  NavScreenshot
+  NavScreenshot,
+  NavSDK
 } from './ToolbarLinks'
 
 export default ({ theme }) => {
@@ -24,7 +26,10 @@ export default ({ theme }) => {
       top={0}
       left={0}
       right={0}
-      bg={isDark ? 'black' : 'white'}
+      css={`
+        backdrop-filter: blur(8px);
+        background-color: rgba(255, 255, 255, 0.5);
+      `}
     >
       <Box px={3} ml='auto' mr='auto'>
         <Toolbar
@@ -35,6 +40,7 @@ export default ({ theme }) => {
         >
           <NavContainer as='nav'>
             <NavLogo />
+            <NavSDK isDark={isDark} />
             <NavMeta isDark={isDark} />
             <NavScreenshot isDark={isDark} />
             <NavPdf isDark={isDark} />
@@ -43,6 +49,7 @@ export default ({ theme }) => {
           </NavContainer>
           <NavContainer as='nav'>
             <NavPricing isDark={isDark} />
+            <NavChangelog isDark={isDark} />
             <NavDocs isDark={isDark} />
             <NavBlog isDark={isDark} />
           </NavContainer>

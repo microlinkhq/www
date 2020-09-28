@@ -1,5 +1,5 @@
 ---
-title: 'Product Brief #7: SDK v4, New Documentation Portal & MQL'
+title: 'Product Brief #7: SDK v4, Documentation Portal & MQL'
 date: '2019-05-01'
 ---
 

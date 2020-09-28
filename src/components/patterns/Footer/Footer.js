@@ -35,7 +35,7 @@ const IconWrapper = styled(Box)`
 
 const LIGHT_THEME = {
   bg: 'white',
-  textColor: 'black50',
+  textColor: 'black60',
   buttonColor: 'white',
   buttonBg: 'black',
   inputIconColor: colors.black40,
@@ -44,7 +44,7 @@ const LIGHT_THEME = {
 
 const DARK_THEME = {
   bg: 'black',
-  textColor: 'white50',
+  textColor: 'white60',
   buttonColor: 'black',
   buttonBg: 'white',
   inputIconColor: colors.white40,
@@ -63,10 +63,9 @@ export default ({ theme, ...props }) => {
   } = isDark ? DARK_THEME : LIGHT_THEME
 
   return (
-    <Container px={0} maxWidth={layout.normal}>
+    <Container px={0} maxWidth={layout.large} pb={Container.defaultProps.pt}>
       <Flex
         as='footer'
-        py={[0, 0, 4, 4]}
         bg={bg}
         flexDirection={['column', 'column', 'column', 'row']}
         justifyContent='space-between'
@@ -75,13 +74,14 @@ export default ({ theme, ...props }) => {
       >
         <Box px={0}>
           <Flex flexDirection='column'>
-            <Flex pb={2} justifyContent='center'>
+            <Flex justifyContent='center'>
               <Microlink />
             </Flex>
             <Flex flexDirection='column' alignItems='center'>
               <Text
                 color={textColor}
                 fontSize={1}
+                pt={3}
                 children='Turn websites into data'
               />
             </Flex>
@@ -89,7 +89,7 @@ export default ({ theme, ...props }) => {
               alignItems={['center', 'center', 'center', 'inherit']}
               flexDirection='column'
             >
-              <Flex py={['24px', '24px', '24px', 3]}>
+              <Flex pt={3}>
                 <form
                   action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
                   method='post'
@@ -122,18 +122,19 @@ export default ({ theme, ...props }) => {
                 color={textColor}
                 fontSize={1}
                 children='Early access & updates on new releases.'
+                pt={3}
               />
             </Flex>
           </Flex>
         </Box>
-        <Box pt={[3, 3, 3, 0]} pb={[3, 3, 3, 0]} px={0}>
+        <Box mt={[2, 0, 0, 0]} pt={[3, 3, 3, 0]} pb={[3, 3, 3, 0]} px={0}>
           <Flex flexDirection={['row', 'row', 'row', 'column']}>
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
               data-event-action='API'
               fontSize={[0, 0, 0, 1]}
-              mr={2}
+              mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/docs/api/getting-started/overview'
               children='API'
@@ -141,43 +142,41 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Integrations'
+              data-event-action='Blog'
               fontSize={[0, 0, 0, 1]}
-              mr={2}
+              mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
-              href='/integrations'
-              children='Integrations'
+              href='/blog'
+              children='Blog'
             />
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Bug Reports'
+              data-event-action='Chat'
               fontSize={[0, 0, 0, 1]}
-              mr={2}
+              mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
-              href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
-              children='Bug Reports'
+              href='/chat'
+              children='Chat'
             />
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
               data-event-action='Stats'
               fontSize={[0, 0, 0, 1]}
-              mr={2}
-              mb={[0, 0, 0, 3]}
               href='/stats'
               children='Stats'
             />
           </Flex>
         </Box>
-        <Box pb={[3, 3, 3, 0]} px={0}>
+        <Box mb={[2, 0, 0, 0]} pb={[3, 3, 3, 0]} px={0}>
           <Flex flexDirection={['row', 'row', 'row', 'column']}>
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
               data-event-action='SDK'
               fontSize={[0, 0, 0, 1]}
-              mr={2}
+              mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/docs/sdk/getting-started/overview/'
               children='SDK'
@@ -185,9 +184,19 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
+              data-event-action='Pricing'
+              fontSize={[0, 0, 0, 1]}
+              mr={[2, 2, 2, 0]}
+              mb={[0, 0, 0, 3]}
+              href='/#pricing'
+              children='Pricing'
+            />
+            <LinkSolid
+              theme={theme}
+              data-event-category='Footer'
               data-event-action='Open Source'
               fontSize={[0, 0, 0, 1]}
-              mr={2}
+              mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/oss'
               children='Open Source'
@@ -195,22 +204,10 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Feature Requests'
+              data-event-action='Bug Reports'
               fontSize={[0, 0, 0, 1]}
-              mr={2}
-              mb={[0, 0, 0, 3]}
-              href='https://github.com/microlinkhq/open/issues/new?template=Feature_request.md'
-              children='Feature Requests'
-            />
-            <LinkSolid
-              theme={theme}
-              data-event-category='Footer'
-              data-event-action='Pricing'
-              fontSize={[0, 0, 0, 1]}
-              mr={2}
-              mb={[0, 0, 0, 3]}
-              href='/#pricing'
-              children='Pricing'
+              href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
+              children='Bug Reports'
             />
           </Flex>
         </Box>
@@ -248,7 +245,11 @@ export default ({ theme, ...props }) => {
                         children='Status'
                         color={colors[textColor]}
                       >
-                        <Text fontSize={[0, 0, 0, 1]} color='inherit'>
+                        <Text
+                          pb={[3, 3, 3, 0]}
+                          fontSize={[0, 0, 0, 1]}
+                          color='inherit'
+                        >
                           <Choose>
                             <Choose.When condition={isHealthy}>
                               <Dot.Success mr={2} />
@@ -268,7 +269,7 @@ export default ({ theme, ...props }) => {
             </Flex>
 
             <Hide breakpoints={[0, 1, 2]}>
-              <Flex alignItems='center' my={[0, 0, 0, 4]}>
+              <Flex alignItems='center' py={[0, 0, 0, 4]}>
                 <Text
                   color={textColor}
                   mr={2}
@@ -301,7 +302,6 @@ export default ({ theme, ...props }) => {
             <Flex
               alignItems='center'
               justifyContent={['center', 'center', 'center', 'inherit']}
-              mb={[0, 0, 0, 3]}
               mt={[3, 0, 0, 0]}
             >
               <IconWrapper
@@ -336,6 +336,7 @@ export default ({ theme, ...props }) => {
                 <Mail color={iconColor} size={20} />
               </IconWrapper>
               <IconWrapper
+                mr={0}
                 data-event-category='Footer'
                 data-event-action='Twitter'
                 rel='noopener noreferrer'
