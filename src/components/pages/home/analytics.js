@@ -61,7 +61,7 @@ export default props => {
         fontSize={[3, 4, 6, 6]}
         color='pink'
         titleize={false}
-        children='Cloud Browser for'
+        children='Cloud Browser to'
       />
       <Subhead
         fontSize={[3, 4, 6, 6]}
