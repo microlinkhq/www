@@ -65,7 +65,7 @@ const getCaption = paymentState => {
 }
 
 export default () => {
-  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.FAILED)
+  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
   const [query] = useQueryState()
   const size = useWindowSize()
 
