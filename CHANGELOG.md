@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.262](https://github.com/microlinkhq/microlink-www/compare/v2.10.261...v2.10.262) (2020-09-28)
+
+
+### Bug Fixes
+
+* set processing as initial payment state ([1d9c7e4](https://github.com/microlinkhq/microlink-www/commit/1d9c7e43061b3f62f70abad95fd244e2592cb619))
+
 ### [2.10.261](https://github.com/microlinkhq/microlink-www/compare/v2.10.260...v2.10.261) (2020-09-28)
 
 
