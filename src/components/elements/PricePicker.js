@@ -6,10 +6,14 @@ const BASE_PLAN_PRICE = 24
 
 const MONTH_DAYS = 28
 
-const createReqsLabels = reqsPerDay => ({
-  reqsPerMonth: formatNumber(reqsPerDay * MONTH_DAYS),
-  monthlyPrice: calculateMonthlyPrice(reqsPerDay)
-})
+const createReqsLabels = reqsPerDay => {
+  const reqsPerMonth = formatNumber(reqsPerDay * MONTH_DAYS)
+  return {
+    reqsPerMonth,
+    reqsPerMonthPretty: reqsPerMonth.replace(',000', 'K'),
+    monthlyPrice: calculateMonthlyPrice(reqsPerDay)
+  }
+}
 
 const calculateMonthlyPrice = reqsPerDay =>
   (reqsPerDay / 1000) * BASE_PLAN_PRICE
@@ -31,23 +35,23 @@ export default props => {
   const [currentPlan, setCurrentPlan] = useState(DEFAULT_PLAN)
 
   const handleChange = event => {
-    const reqsPerMonth = event.target.value
-    const newPlan = PLANS.find(plan => plan.reqsPerMonth === reqsPerMonth)
+    const reqsPerMonthPretty = event.target.value
+    const newPlan = PLANS.find(
+      plan => plan.reqsPerMonthPretty === reqsPerMonthPretty
+    )
     setCurrentPlan(newPlan)
     props.onChange(newPlan)
   }
 
   return (
     <Select
-      value={currentPlan.reqsPerMonth}
+      value={currentPlan.reqsPerMonthPretty}
       onChange={handleChange}
-      selected={currentPlan.reqsPerMonth}
+      selected={currentPlan.reqsPerMonthPretty}
       mb={1}
     >
       {Object.keys(PLANS).map(plan => (
-        <option key={plan}>
-          {PLANS[plan].reqsPerMonth.replace(',000', 'K')}
-        </option>
+        <option key={plan} children={PLANS[plan].reqsPerMonthPretty} />
       ))}
     </Select>
   )
