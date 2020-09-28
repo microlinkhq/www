@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.261](https://github.com/microlinkhq/microlink-www/compare/v2.10.260...v2.10.261) (2020-09-28)
+
+
+### Bug Fixes
+
+* add missing file ([e01f2ce](https://github.com/microlinkhq/microlink-www/commit/e01f2ce44b90fd3f8b93cd4c7f571562083b0708))
+* add missing postcss dependency ([33d78d4](https://github.com/microlinkhq/microlink-www/commit/33d78d4be193fa7a2d767aa355e37dd858729fdf))
+* avoid to use lodash.chain ([9f9c70f](https://github.com/microlinkhq/microlink-www/commit/9f9c70f996af784787300ccede96bbe0cfe841b1))
+* avoid unnecessary file ([bfc848f](https://github.com/microlinkhq/microlink-www/commit/bfc848f766f74e558205723a2855cdee9c2c8863))
+* build ([636b39b](https://github.com/microlinkhq/microlink-www/commit/636b39b186ee8238f9a3a4ff5c222be5a3417c2a))
+* copy text ([e91c8f6](https://github.com/microlinkhq/microlink-www/commit/e91c8f66547da85c3028734ce8837db2cb2dfe0e))
+* copy text properly ([656dcf8](https://github.com/microlinkhq/microlink-www/commit/656dcf802a88824a053692337189db77f8a27e12))
+* use reqs per month pretty version ([6a052ae](https://github.com/microlinkhq/microlink-www/commit/6a052ae134e6f2434eebeb568a082015362ec42b))
+
 ### [2.10.260](https://github.com/microlinkhq/microlink-www/compare/v2.10.259...v2.10.260) (2020-07-19)
 
 ### [2.10.259](https://github.com/microlinkhq/microlink-www/compare/v2.10.258...v2.10.259) (2020-07-18)
