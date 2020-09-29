@@ -8,11 +8,11 @@ import take from 'lodash/take'
 import { colors } from 'theme'
 
 const SENTENCES = [
-  'Get HTML content',
-  'Take screenshots in ~2 seg',
-  'Turn websites into data',
-  'Run a Ligthouse audit',
-  'Detect technology stack'
+  'Getting HTML content',
+  'Taking screenshots in ~2 seg',
+  'Turning websites into data',
+  'Running a Ligthouse audit',
+  'Detecting technology stack'
 ]
 
 const SENTENCES_INTERVAL = 3500
@@ -61,7 +61,7 @@ export default props => {
         fontSize={[3, 4, 6, 6]}
         color='pink'
         titleize={false}
-        children='Cloud Browser to'
+        children='Cloud Browser for'
       />
       <Subhead
         fontSize={[3, 4, 6, 6]}
