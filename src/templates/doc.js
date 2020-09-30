@@ -390,8 +390,12 @@ const ROUTES_API = [
         href: '/docs/api/parameters/viewport'
       },
       {
-        name: 'waitFor',
-        href: '/docs/api/parameters/wait-for'
+        name: 'waitForSelector',
+        href: '/docs/api/parameters/wait-for-selector'
+      },
+      {
+        name: 'waitForTimeout',
+        href: '/docs/api/parameters/wait-for-timeout'
       },
       {
         name: 'waitUntil',
