@@ -1,9 +1,10 @@
 - date: September 2020
   notes:
-    - Add [proxy](https://microlink.io/docs/api/parameters/proxy) suport under [prerender](https://microlink.io/docs/api/parameters/prerender)
-    - "[Microlink Cluster](https://microlink.io/stats) has been upgraded to [Kubernetes v1.18.8](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1187)"
-    - Speed up [Microlink for Screenshots](https://microlink.io/screenshot) when [waitUntil='auto'](https://github.com/microlinkhq/browserless/pull/207)
-    - The mininum [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)
+    - Add [proxy](/docs/api/parameters/proxy) suport under [prerender](/docs/api/parameters/prerender)
+    - "[Microlink Cluster](/stats) has been upgraded to [Kubernetes v1.18.8](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1187)"
+    - Speed up [Microlink for Screenshots](/screenshot) when [waitUntil='auto'](https://github.com/microlinkhq/browserless/pull/207)
+    - The minimum [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is now [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)
+    - Deprecate `waitFor` for [Microlink API](/docs/api/getting-started/overview), use [waitForSelector](/docs/api/parameters/wait-for-selector) or [waitForTimeout](/docs/api/parameters/wait-for-timeout) instead
 
 - date: August 2020
   notes:
@@ -12,12 +13,12 @@
 
 - date: July 2020
   notes:
-    - Launch [microlink.io/changelog](https://microlink.io/changelog)
+    - Launch [microlink.io/changelog](/changelog)
     - Release [browserless v8](https://browserless.js.org)
-    - "[Microlink Cluster](https://microlink.io/stats) has been upgraded to [Kubernetes v1.18.6](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1186)"
-    - Launch [microlink.io/recipes](https://microlink.io/recipes)
+    - "[Microlink Cluster](/stats) has been upgraded to [Kubernetes v1.18.6](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1186)"
+    - Launch [microlink.io/recipes](/recipes)
 
 - date: June 2020
   notes:
-    - Launch [microlink.io/oss](https://microlink.io/oss)
-    - "[Microlink SDK](https://microlink.io/sdk) can be styled using [CSS variables](https://microlink.io/docs/sdk/getting-started/styling/#css-variables)"
+    - Launch [microlink.io/oss](/oss)
+    - "[Microlink SDK](/sdk) can be styled using [CSS variables](/docs/sdk/getting-started/styling/#css-variables)"
