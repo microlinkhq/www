@@ -13,12 +13,12 @@
 
 - date: July 2020
   notes:
-    - Launch [microlink.io/changelog](/changelog)
+    - Launch [Microlink Changelog](/changelog)
     - Release [browserless v8](https://browserless.js.org)
     - "[Microlink Cluster](/stats) has been upgraded to [Kubernetes v1.18.6](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1186)"
-    - Launch [microlink.io/recipes](/recipes)
+    - Launch [Microlink Recipes](/recipes)
 
 - date: June 2020
   notes:
-    - Launch [microlink.io/oss](/oss)
+    - Launch [Microlink OSS](/oss)
     - "[Microlink SDK](/sdk) can be styled using [CSS variables](/docs/sdk/getting-started/styling/#css-variables)"
