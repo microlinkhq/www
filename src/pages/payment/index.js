@@ -1,6 +1,4 @@
-/* global fetch */
-
-import { useWindowSize, useSiteMetadata, useQueryState } from 'components/hook'
+import { useWindowSize, useQueryState } from 'components/hook'
 import { Caption, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import { layout, colors } from 'theme'
@@ -69,24 +67,7 @@ export default () => {
   const [query] = useQueryState()
   const size = useWindowSize()
 
-  const {
-    paymentApiKey: apiKey,
-    paymentEndpoint: apiEndpoint
-  } = useSiteMetadata()
-
-  useEffect(() => {
-    const { sessionId } = query
-    if (sessionId) {
-      setPaymentState(PAYMENT_STATE.SUCCESS)
-      fetch(`${apiEndpoint}/payment/session`, {
-        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
-        method: 'POST',
-        body: JSON.stringify({ sessionId })
-      })
-    } else {
-      setPaymentState(PAYMENT_STATE.FAILED)
-    }
-  }, [query.sessionId])
+  useEffect(() => setPaymentState(query.state), [query.state])
 
   return (
     <Layout>

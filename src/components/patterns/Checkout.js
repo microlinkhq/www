@@ -1,21 +1,31 @@
-import React, { useState } from 'react'
+/* global fetch */
+
 import { StripeLoader, Caps, Button } from 'components/elements'
+import { useSiteMetadata } from 'components/hook'
+import React, { useState } from 'react'
 
 export default ({ canonicalUrl, planId, stripeKey }) => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const createStripeCheckout = stripe => () => {
+  const {
+    paymentApiKey: apiKey,
+    paymentEndpoint: apiEndpoint
+  } = useSiteMetadata()
+
+  const createStripeCheckout = stripe => async () => {
     setIsLoading(true)
-    stripe.redirectToCheckout({
-      items: [
-        {
-          plan: planId,
-          quantity: 1
-        }
-      ],
-      successUrl: `${canonicalUrl}/payment?sessionId={CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${canonicalUrl}/payment?state=failed`
-    })
+
+    const { data } = await fetch(`${apiEndpoint}/payment/session`, {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+      method: 'POST',
+      body: JSON.stringify({
+        planId,
+        successUrl: `${canonicalUrl}/payment?state=success`,
+        cancelUrl: `${canonicalUrl}/payment?state=failed`
+      })
+    }).then(res => res.json())
+
+    stripe.redirectToCheckout(data)
   }
 
   return (
