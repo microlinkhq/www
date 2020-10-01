@@ -81,23 +81,16 @@ class _CardForm extends Component {
     stripe
       .createToken()
       .then(({ token }) =>
-        fetch(`${apiEndpoint}/batch/series`, {
+        fetch(`${apiEndpoint}/payment/update`, {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
           method: 'POST',
-          body: JSON.stringify([
-            {
-              command: 'payment.update',
-              customerId: decode(window.location.search.substring(1)).id,
-              token
-            },
-            { command: 'notification.email', templateId: 'payment_updated' }
-          ])
+          body: JSON.stringify({
+            customerId: decode(window.location.search.substring(1)).id,
+            token
+          })
         })
       )
-      .then(res => res.json())
-      .then(({ status }) =>
-        this.setState({ paymentState: PAYMENT_STATE.SUCCESS })
-      )
+      .then(() => this.setState({ paymentState: PAYMENT_STATE.SUCCESS }))
       .catch(err => {
         console.error(err)
         this.setState({ paymentState: PAYMENT_STATE.FAILED })
