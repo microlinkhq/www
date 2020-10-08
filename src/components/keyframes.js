@@ -12,7 +12,7 @@ to {
 
 export const highlight = keyframes`
   from {
-    background-color: yellow;
+    background-color: ${colors.yellow3};
   }
   to {
     background-color: transparent;

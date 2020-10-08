@@ -4,7 +4,7 @@ import { StripeLoader, Caps, Button } from 'components/elements'
 import { useSiteMetadata } from 'components/hook'
 import React, { useState } from 'react'
 
-export default ({ canonicalUrl, planId, stripeKey }) => {
+export default ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const {
@@ -34,14 +34,14 @@ export default ({ canonicalUrl, planId, stripeKey }) => {
         const handleCheckout = createStripeCheckout(stripe)
         return (
           <Button
-            mt={[3, 3, 3, 3]}
             onClick={handleCheckout}
             onTouchStart={handleCheckout}
             loading={isLoading}
             data-event-category='Checkout'
             data-event-action='Buy'
+            {...props}
           >
-            <Caps fontSize={0}>Buy</Caps>
+            <Caps fontSize={2}>Buy </Caps>
           </Button>
         )
       }}

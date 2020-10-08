@@ -7,17 +7,9 @@ export default ({ children, ...props }) => {
   const [isHover, setIsHover] = useState(false)
 
   return (
-    <Flex
-      alignItems='center'
-      justifyContent='center'
-      css={`
-        a {
-          display: flex;
-        }
-      `}
-    >
+    <Flex alignItems='center' justifyContent='center'>
       <Link
-        style={{ display: 'inherit' }}
+        style={{ display: 'flex' }}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         fontSize={Caption.defaultProps.fontSize}

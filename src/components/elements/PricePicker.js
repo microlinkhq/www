@@ -45,6 +45,7 @@ export default props => {
 
   return (
     <Select
+      width='80px'
       value={currentPlan.reqsPerMonthPretty}
       onChange={handleChange}
       selected={currentPlan.reqsPerMonthPretty}

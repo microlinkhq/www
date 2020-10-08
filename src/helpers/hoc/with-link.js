@@ -109,7 +109,12 @@ export const withLink = Component => {
     if (isInternal) {
       return (
         <Component {...props}>
-          <GatsbyLink to={href} children={children} getProps={getProps} />
+          <GatsbyLink
+            to={href}
+            children={children}
+            getProps={getProps}
+            {...props}
+          />
         </Component>
       )
     }
