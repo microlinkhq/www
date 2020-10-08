@@ -1,7 +1,7 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
-import { transition, colors, fontSizes } from 'theme'
 import { Caption, ArrowLink, Checkout } from 'components/patterns'
 import { External as ExternalIcon } from 'components/icons'
+import { transition, colors, fontSizes } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
@@ -9,7 +9,6 @@ import styled from 'styled-components'
 import {
   Link,
   Highlight,
-  Hide,
   Box,
   Label,
   Flex,
@@ -43,16 +42,10 @@ Price.defaultProps = {
   fontSize: [1, 2, 2, 2]
 }
 
-const PricingPrice = props => (
-  <>
-    <Hide breakpoints={[1, 2, 3]}>
-      <Price children={0} {...props} />
-      <Text css={labelStyle}>/month</Text>
-    </Hide>
-    <Hide breakpoints={[0]}>
-      <Price children={0} label='/month' {...props} />
-    </Hide>
-  </>
+const PricingPrice = props => <Price children={0} label='/month' {...props} />
+
+const RequestsPerDay = props => (
+  <Label display='inline' children='requests' suffix='/day' {...props} />
 )
 
 const PricingLink = ({ children, ...props }) => {
@@ -66,8 +59,6 @@ const PricingLink = ({ children, ...props }) => {
         pb={2}
         css={`
           svg {
-            position: relative;
-            top: -2px;
             transition: stroke ${transition.medium};
           }
           &:hover svg {
@@ -75,24 +66,20 @@ const PricingLink = ({ children, ...props }) => {
           }
         `}
       >
-        {children} <ExternalIcon width={fontSizes[1]} ml={1} />
+        {children} <ExternalIcon width={fontSizes[1]} />
       </Caption>
     </Link>
   )
 }
 
-const PricingRequest = () => (
-  <Label display='inline' children='reqs' suffix='/day' />
-)
-
 const PricingBox = props => (
   <Box
-    as='section'
     borderRadius={5}
     textAlign='center'
-    width={8}
-    p={5}
-    border='1px solid'
+    width={['100%', '100%', 8, 8]}
+    px={[0, 0, 5, 5]}
+    py={[0, 0, 5, 5]}
+    border={[0, 0, 1, 1]}
     bg='white'
     {...props}
   />
@@ -124,6 +111,7 @@ export const createPricingTable = Checkout => ({
 
   return (
     <Flex
+      flexDirection={['column', 'column', 'row', 'row']}
       as='section'
       ml='auto'
       mr='auto'
@@ -132,9 +120,10 @@ export const createPricingTable = Checkout => ({
       {...props}
     >
       <PricingBox
-        my={5}
-        borderColor='black10'
+        my={[0, 0, 5, 5]}
+        pt={5}
         css={`
+          border-color: ${colors.black10};
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
         `}
@@ -143,12 +132,12 @@ export const createPricingTable = Checkout => ({
 
         <Box>
           <Text pt={3}>
-            {FREE_PLAN_RATE_LIMIT} <PricingRequest />
+            {FREE_PLAN_RATE_LIMIT} <RequestsPerDay />
           </Text>
           <PricingPrice pt={3}>0</PricingPrice>
         </Box>
 
-        <Box pt={4} textAlign='left'>
+        <Box pl={2} pt={4} textAlign='left'>
           <Text as='li'>
             <PricingLink href='/blog/edge-cdn/'>
               Microlink Cache layer
@@ -180,7 +169,7 @@ export const createPricingTable = Checkout => ({
       </PricingBox>
 
       <PricingBox
-        pb={6}
+        pb={[0, 0, 6, 6]}
         css={`
           display: flex;
           flex-direction: column;
@@ -197,7 +186,7 @@ export const createPricingTable = Checkout => ({
 
           <Box pt={3}>
             <Text>
-              <PricePicker onChange={priceSelected} /> <PricingRequest />
+              <PricePicker onChange={priceSelected} /> <RequestsPerDay />
             </Text>
             <Text fontSize={0}>
               <PricingPrice pt='12px'>
@@ -208,7 +197,7 @@ export const createPricingTable = Checkout => ({
             </Text>
           </Box>
 
-          <Box pt={4} textAlign='left'>
+          <Box pl={2} pt={4} textAlign='left'>
             <Text as='li'>
               Everything in Free,{' '}
               <Text as='span' fontWeight='bold'>

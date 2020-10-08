@@ -2,13 +2,15 @@ import React from 'react'
 
 import Svg from '../elements/Svg'
 
+import { colors } from 'theme'
+
 export const External = props => (
   <Svg
     height='100%'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 24 24'
     fill='none'
-    stroke='#c0bfc0'
+    stroke={colors.black20}
     strokeWidth='2'
     strokeLinecap='round'
     strokeLinejoin='round'

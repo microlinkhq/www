@@ -45,11 +45,12 @@ export default props => {
 
   return (
     <Select
-      width='80px'
+      width={['65px', '65px', '75px', '75px']}
       value={currentPlan.reqsPerMonthPretty}
       onChange={handleChange}
       selected={currentPlan.reqsPerMonthPretty}
       mb={1}
+      style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       {Object.keys(PLANS).map(plan => (
         <option key={plan} children={PLANS[plan].reqsPerMonthPretty} />

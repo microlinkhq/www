@@ -9,7 +9,7 @@ export default ({ children, ...props }) => {
   return (
     <Flex alignItems='center' justifyContent='center'>
       <Link
-        style={{ display: 'flex' }}
+        linkProps={{ style: { display: 'flex' } }}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         fontSize={Caption.defaultProps.fontSize}

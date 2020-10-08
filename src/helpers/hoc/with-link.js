@@ -86,7 +86,7 @@ const External = Component => ({
 export const withLink = Component => {
   const ExternalLink = External(Component)
 
-  return ({ actively, href, children, ...props }) => {
+  return ({ actively, href, children, linkProps, ...props }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
     const isInternal = isInternalLink(href)
     const partiallyActive = actively === 'partial'
@@ -113,7 +113,7 @@ export const withLink = Component => {
             to={href}
             children={children}
             getProps={getProps}
-            {...props}
+            {...linkProps}
           />
         </Component>
       )
