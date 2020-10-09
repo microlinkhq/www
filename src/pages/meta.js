@@ -385,7 +385,7 @@ const Timings = () => {
                     color='white'
                     display='inline'
                     fontWeight='bold'
-                    children='seg'
+                    children='secs'
                     titleize={false}
                   />
                 </Subhead>

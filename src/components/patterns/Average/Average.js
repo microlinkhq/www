@@ -19,7 +19,7 @@ const prettyNumber = n => {
 export default ({ size, value }) => {
   const [average, setAverage] = useState(Number(trimUnit(value)))
   const [averageHighlight, setAverageHighlight] = useState(false)
-  const [unit] = useState(value.includes('ms') ? 'mseg' : 'seg')
+  const [unit] = useState(value.includes('ms') ? 'msecs' : 'secs')
 
   const top = average * 0.3
   const bottom = average * 0.3 * -1
@@ -31,7 +31,7 @@ export default ({ size, value }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       const newAverage = average + rand(timingsRange)
-      setAverage(newAverage.toFixed(unit === 'seg' ? 2 : 0))
+      setAverage(newAverage.toFixed(unit === 'secs' ? 2 : 0))
       setAverageHighlight(true)
       setTimeout(() => setAverageHighlight(false), Highlight.HIGHLIGHT_DURATION)
     }, INTERVAL)
