@@ -33,7 +33,8 @@ const StyledSpinner = styled(Svg)`
 StyledSpinner.defaultProps = {
   color: colors.primary,
   width: '64px',
-  height: '16px'
+  height: '32px',
+  style: { padding: '4px' }
 }
 
 export default Spinner

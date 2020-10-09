@@ -1,12 +1,13 @@
 'use strict'
 
+import { highlight } from 'components/keyframes'
 import styled, { css } from 'styled-components'
 import { Box } from 'components/elements'
-import { highlight } from 'components/keyframes'
 
 const HIGHLIGHT_DURATION = 1000
 
 const highlightCss = css`
+  padding: 0 2px;
   animation-name: ${highlight};
   animation-duration: ${HIGHLIGHT_DURATION}ms;
 `

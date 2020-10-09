@@ -86,7 +86,7 @@ const External = Component => ({
 export const withLink = Component => {
   const ExternalLink = External(Component)
 
-  return ({ actively, href, children, ...props }) => {
+  return ({ actively, href, children, linkProps, ...props }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
     const isInternal = isInternalLink(href)
     const partiallyActive = actively === 'partial'
@@ -109,7 +109,12 @@ export const withLink = Component => {
     if (isInternal) {
       return (
         <Component {...props}>
-          <GatsbyLink to={href} children={children} getProps={getProps} />
+          <GatsbyLink
+            to={href}
+            children={children}
+            getProps={getProps}
+            {...linkProps}
+          />
         </Component>
       )
     }
