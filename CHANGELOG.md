@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.0](https://github.com/microlinkhq/microlink-www/compare/v2.10.272...v2.11.0) (2020-10-09)
+
+
+### Features
+
+* new pricing ui ([980280e](https://github.com/microlinkhq/microlink-www/commit/980280ea7b0529e121ca4aa25d75cbf567a957ca))
+
 ### [2.10.272](https://github.com/microlinkhq/microlink-www/compare/v2.10.271...v2.10.272) (2020-10-06)
 
 ### [2.10.271](https://github.com/microlinkhq/microlink-www/compare/v2.10.270...v2.10.271) (2020-10-06)
