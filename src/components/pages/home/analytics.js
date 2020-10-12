@@ -9,7 +9,7 @@ import { colors } from 'theme'
 
 const SENTENCES = [
   'Getting HTML content',
-  'Taking screenshots in ~2 seg',
+  'Taking screenshots in ~2 secs',
   'Turning websites into data',
   'Running a Ligthouse audit',
   'Detecting technology stack'

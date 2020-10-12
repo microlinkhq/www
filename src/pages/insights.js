@@ -340,7 +340,7 @@ const Timings = props => {
             color='white'
             display='inline'
             fontWeight='bold'
-            children='seg'
+            children='secs'
             titleize={false}
           />
         </Subhead>
