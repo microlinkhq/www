@@ -69,7 +69,7 @@
     "github-slugger": "~1.3.0",
     "humanize-url": "~2.1.0",
     "is-color": "~1.0.2",
-    "is-url-http": "~2.1.2",
+    "is-url-http": "~2.2.0",
     "json-future": "~2.2.4",
     "lodash": "~4.17.20",
     "mdx-scoped-runtime": "~0.7.5",
