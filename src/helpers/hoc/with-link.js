@@ -72,11 +72,12 @@ const External = Component => ({
   target,
   rel,
   children,
+  linkProps,
   ...props
 }) => {
   return (
     <Component {...props}>
-      <ExternalLink href={href} target={target} rel={rel}>
+      <ExternalLink href={href} target={target} rel={rel} {...linkProps}>
         <Children icon={icon} children={children} />
       </ExternalLink>
     </Component>
@@ -119,7 +120,14 @@ export const withLink = Component => {
       )
     }
 
-    return <ExternalLink href={href} children={children} {...props} />
+    return (
+      <ExternalLink
+        href={href}
+        children={children}
+        linkProps={linkProps}
+        {...props}
+      />
+    )
   }
 }
 
