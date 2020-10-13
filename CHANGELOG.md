@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.4](https://github.com/microlinkhq/microlink-www/compare/v2.11.3...v2.11.4) (2020-10-13)
+
+
+### Bug Fixes
+
+* pass link props to external links ([6acdf45](https://github.com/microlinkhq/microlink-www/commit/6acdf453e4913b1b2a0b484e1497d9aab5cba75c))
+
 ### [2.11.3](https://github.com/microlinkhq/microlink-www/compare/v2.11.2...v2.11.3) (2020-10-13)
 
 ### [2.11.2](https://github.com/microlinkhq/microlink-www/compare/v2.11.1...v2.11.2) (2020-10-12)
