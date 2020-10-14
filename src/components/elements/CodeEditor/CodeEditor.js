@@ -181,7 +181,6 @@ const CodeEditor = props => {
           showLineNumbers={showLineNumbers}
           language={language}
           style={prismTheme}
-          wrapLines
           children={text}
           css={css}
         />
