@@ -18,7 +18,7 @@ export default () => <Microlink url='https://instagram.com/p/BvDTdWdnzkj/' />
 
 <Microlink url='https://instagram.com/p/BvDTdWdnzkj/' />
 
-The React integration supports any [API Parameter](/docs/api/getting-started/overview), just pass them as props.
+The React integration supports any [Microlink API](/docs/api/getting-started/overview) query parameter, just pass them as props.
 
 ```jsx
 import Microlink from '@microlink/react'

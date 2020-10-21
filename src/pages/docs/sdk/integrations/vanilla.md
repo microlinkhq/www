@@ -69,7 +69,7 @@ The vanilla interface is pretty simliar to jQuery/Zepto: You need to provide a C
 
 <Microlink url='https://www.theverge.com/tldr/2018/2/7/16984284/tesla-space-falcon-heavy-launch-elon-musk' size='large' />
 
-You can pass any API Parameter as an object property, e.g., [size](/docs/sdk/parameters/size/).
+You can pass any [Microlink API](/docs/api/getting-started/overview) query parameter as an object property, e.g., [size](/docs/sdk/parameters/size/).
 
 ```html
 <script>

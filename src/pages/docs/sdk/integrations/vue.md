@@ -63,7 +63,7 @@ import Microlink from '@microlink/vue'
 Vue.use(Microlink, { apiKey: 'MyApiKey' })
 ```
 
-The Vue integration supports any [API Parameter](/api-parameter), just pass them as props.
+The Vue integration supports any [Microlink API](/docs/api/getting-started/overview) query parameter, just pass them as props.
 
 ```vue
 <template>
