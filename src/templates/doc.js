@@ -30,10 +30,6 @@ const ROUTES_SDK = [
       {
         name: 'Styling',
         href: '/docs/sdk/getting-started/styling/'
-      },
-      {
-        name: 'Storybook',
-        href: '/integrations'
       }
     ]
   },

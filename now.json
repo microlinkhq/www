@@ -133,14 +133,6 @@
       "destination": "/docs/api/parameters/scroll"
     },
     {
-      "source": "/storybook",
-      "destination": "/integrations"
-    },
-    {
-      "source": "/template",
-      "destination": "/integrations"
-    },
-    {
       "source": "/timeout",
       "destination": "/docs/api/parameters/timeout"
     },
