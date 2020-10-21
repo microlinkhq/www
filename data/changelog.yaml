@@ -1,6 +1,6 @@
 - date: Octuber 2020
   notes:
-    - [Microlink Cluster](/stats) is now using high availability Redis instances with automatic failover
+    - "[Microlink Cluster](/stats) is now using high availability Redis instances with automatic failover"
     - Refresh [pricing](https://microlink.io#pricing) plans with inclusive VAT
 
 - date: September 2020
