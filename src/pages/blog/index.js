@@ -70,7 +70,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
           color='black60'
           textAlign={['center', 'inherit']}
         >
-          {formatDate(date)} ({<TimeAgo date={date} />})
+          {formatDate(date)} (<TimeAgo date={date} />)
         </Caption>
       </CustomFlex>
     </CustomLink>

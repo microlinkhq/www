@@ -2,24 +2,31 @@ import { LinkSolid, Text, Notification } from 'components/elements'
 import React, { useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
 import { urlVariations } from 'helpers'
+import { Choose } from 'react-extras'
 import mql from '@microlink/mql'
 
 import demoLinks from '../../../data/demo-links'
 
 const ErrorMessage = ({ more }) => {
   const text = 'The URL has something weird.'
-  const children = more ? (
-    <Text as='span'>
-      {text}{' '}
-      <LinkSolid display='inline' color='red8' href={more}>
-        Report it.
-      </LinkSolid>
-    </Text>
-  ) : (
-    <Text as='span'>{text}</Text>
-  )
 
-  return <Notification.Error>{children}</Notification.Error>
+  return (
+    <Notification.Error>
+      <Choose>
+        <Choose.When condition={!!more}>
+          <Text as='span'>
+            {text}{' '}
+            <LinkSolid display='inline' color='red8' href={more}>
+              Report it.
+            </LinkSolid>
+          </Text>
+        </Choose.When>
+        <Choose.Otherwise>
+          <Text as='span'>{text}</Text>
+        </Choose.Otherwise>
+      </Choose>
+    </Notification.Error>
+  )
 }
 
 const fetch = (url, opts) => {

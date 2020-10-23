@@ -119,7 +119,7 @@ class _CardForm extends Component {
                   color='red8'
                   href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
                 />
-                {'.'}
+                .
               </Notification.Error>
             </Choose.When>
           </Choose>

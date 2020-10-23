@@ -1,6 +1,7 @@
 import { Container, Box, Flex, Text, DotSpinner } from 'components/elements'
 import { ClusterMonitor, Layout } from 'components/patterns'
 import React, { useState } from 'react'
+import { Choose } from 'react-extras'
 
 const Value = props => (
   <Text
@@ -36,8 +37,8 @@ export default () => {
             maxWidth='100%'
           >
             <Box id='stats' px={Container.defaultProps.px} pt={5}>
-              {isLoading ? (
-                <>
+              <Choose>
+                <Choose.When condition={isLoading}>
                   <Flex
                     justifyContent='center'
                     alignItems='center'
@@ -47,9 +48,8 @@ export default () => {
                       Loading <DotSpinner />
                     </Value>
                   </Flex>
-                </>
-              ) : (
-                <>
+                </Choose.When>
+                <Choose.Otherwise>
                   <Text
                     color={color}
                     textAlign='center'
@@ -64,8 +64,8 @@ export default () => {
                     fontSize={[0, 0, 1, 1]}
                     children={`\n${data}`}
                   />
-                </>
-              )}
+                </Choose.Otherwise>
+              </Choose>
             </Box>
           </Layout>
         )

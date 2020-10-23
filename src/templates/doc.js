@@ -2,6 +2,7 @@ import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import * as Icons from 'components/icons'
 import { colors, layout } from 'theme'
+import { Choose } from 'react-extras'
 import { formatDate } from 'helpers'
 import React from 'react'
 
@@ -540,24 +541,27 @@ export default ({ meta, content, githubUrl, ...props }) => {
         maxWidth={layout.large}
       >
         <Aside routes={routes} activeRouteName={activeRouteName}>
-          {meta.title ? (
-            <Text as='header'>
-              <H1 mt={4} variant={null} mb={1} slug={false}>
-                <span>{meta.title}</span>
-                {meta.isPro && (
-                  <Tooltip
-                    ml={2}
-                    display='inline'
-                    content='This feature is only for pro plans.'
-                  >
-                    <Badge>PRO</Badge>
-                  </Tooltip>
-                )}
-              </H1>
-            </Text>
-          ) : (
-            <Box mt={4} />
-          )}
+          <Choose>
+            <Choose.When condition={!!meta.title}>
+              <Text as='header'>
+                <H1 mt={4} variant={null} mb={1} slug={false}>
+                  <span>{meta.title}</span>
+                  {meta.isPro && (
+                    <Tooltip
+                      ml={2}
+                      display='inline'
+                      content='This feature is only for pro plans.'
+                    >
+                      <Badge>PRO</Badge>
+                    </Tooltip>
+                  )}
+                </H1>
+              </Text>
+            </Choose.When>
+            <Choose.Otherwise>
+              <Box mt={4} />
+            </Choose.Otherwise>
+          </Choose>
           <Markdown children={content} />
           <Flex
             as='footer'

@@ -27,7 +27,7 @@ export default ({ isBlogPage, date, meta, content }) => (
             color='black60'
             textAlign={['center', 'inherit']}
           >
-            {formatDate(date)} ({<TimeAgo date={date} />})
+            {formatDate(date)} (<TimeAgo date={date} />)
           </Caption>
         )}
       </Text>

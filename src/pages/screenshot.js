@@ -1,5 +1,5 @@
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
-import React, { useMemo, useEffect, useState } from 'react'
+import React, { createElement, useMemo, useEffect, useState } from 'react'
 import { useTransition, animated } from 'react-spring'
 import { cdnUrl, debounceComponent } from 'helpers'
 import isUrl from 'is-url-http/lightweight'
@@ -58,6 +58,17 @@ const INTERVAL = 3500
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const getMs = str => str.replace(/ms|s/, '')
+
+const ColorPreview = ({ color }) => (
+  <Box
+    border={1}
+    borderColor='black10'
+    borderRadius={1}
+    width='14px'
+    height='14px'
+    style={{ top: '-2px', position: 'relative', background: color }}
+  />
+)
 
 const DemoSlider = ({ children: slides, ...props }) => {
   const [index, setIndex] = useState(0)
@@ -182,18 +193,9 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     return onSubmit(url, opts)
   }
 
-  const backgroundIconComponent = isColor(inputBg) ? (
-    <Box
-      border={1}
-      borderColor='black10'
-      borderRadius={1}
-      width='14px'
-      height='14px'
-      style={{ top: '-2px', position: 'relative', background: inputBg }}
-    />
-  ) : (
-    <ImageIcon color={colors.black50} size='16px' />
-  )
+  const backgroundIconComponent = isColor(inputBg)
+    ? createElement(ColorPreview, { color: inputBg })
+    : createElement(ImageIcon, { color: colors.black50, size: '16px' })
 
   return (
     <Container alignItems='center' pt={5}>
@@ -466,7 +468,7 @@ const Timings = props => {
           color='white'
           fontWeight='bold'
         >
-          {'99.9'}
+          99.9
           <Caption
             as='div'
             ml={2}

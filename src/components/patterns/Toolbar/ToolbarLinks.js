@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createElement } from 'react'
 import { Microlink } from 'components/logos'
 import { navigate } from 'gatsby'
 
@@ -23,31 +23,35 @@ const createNavItem = ({ name, path, ...props }) => {
   return NavItem
 }
 
+const NavLogoMobile = props => (
+  <NavLinkMobile
+    width='32px'
+    display='flex'
+    href='/'
+    style={{ flex: '0 0 auto' }}
+    {...props}
+  >
+    <Microlink />
+  </NavLinkMobile>
+)
+
+const NavLogoDesktop = props => (
+  <NavLinkDesktop
+    onContextMenu={event => {
+      event.preventDefault()
+      navigate('/design')
+    }}
+    href='/'
+    width='40px'
+    display='flex'
+    {...props}
+  >
+    <Microlink />
+  </NavLinkDesktop>
+)
+
 export const NavLogo = ({ mobile, ...props }) =>
-  mobile ? (
-    <NavLinkMobile
-      width='32px'
-      display='flex'
-      href='/'
-      style={{ flex: '0 0 auto' }}
-      {...props}
-    >
-      <Microlink />
-    </NavLinkMobile>
-  ) : (
-    <NavLinkDesktop
-      onContextMenu={event => {
-        event.preventDefault()
-        navigate('/design')
-      }}
-      href='/'
-      width='40px'
-      display='flex'
-      {...props}
-    >
-      <Microlink />
-    </NavLinkDesktop>
-  )
+  createElement(mobile ? NavLogoMobile : NavLogoDesktop, props)
 
 NavLogo.defaultProps = {
   'data-event-category': 'Toolbar',

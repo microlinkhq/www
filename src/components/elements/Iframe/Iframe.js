@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { createElement, useRef, useEffect, useState } from 'react'
 import { aspectRatio } from 'helpers'
 import noop from 'lodash/noop'
 
@@ -44,9 +44,7 @@ export default ({
     />
   )
 
-  return isLoading ? (
-    <Placeholder width={width} height={height} {...props} children={iframe} />
-  ) : (
-    iframe
-  )
+  return isLoading
+    ? createElement(Placeholder, { width, height, ...props, children: iframe })
+    : iframe
 }

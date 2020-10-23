@@ -428,7 +428,7 @@ const Timings = () => {
                   color='white'
                   fontWeight='bold'
                 >
-                  {'99.9'}
+                  99.9
                   <Caption
                     as='div'
                     ml={2}

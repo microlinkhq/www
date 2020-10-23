@@ -21,10 +21,10 @@ const hidden = key => props => {
   const breakpoints = [].concat(props.breakpoints)
   return breakpoints.includes(key)
     ? {
-      [mediaBreakpoints[key]]: {
-        display: 'none'
+        [mediaBreakpoints[key]]: {
+          display: 'none'
+        }
       }
-    }
     : null
 }
 

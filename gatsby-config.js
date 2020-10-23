@@ -1,6 +1,7 @@
 'use strict'
 
 const { URL } = require('url')
+const path = require('path')
 
 const {
   STRIPE_KEY,
@@ -58,13 +59,13 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'data',
-        path: `${__dirname}/data/`
+        path: path.join(__dirname, 'data')
       }
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/pages/`,
+        path: path.join(__dirname, 'src/pages'),
         name: 'pages'
       }
     },

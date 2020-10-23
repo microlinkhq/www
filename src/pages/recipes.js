@@ -8,7 +8,6 @@ import { getDomain } from 'tldts'
 import React from 'react'
 
 import {
-  Badge,
   Box,
   Button,
   Caps,

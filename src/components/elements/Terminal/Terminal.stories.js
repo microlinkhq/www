@@ -64,7 +64,7 @@ const cliCode = (
 
 storiesOf('Elements', module).add('Terminal', () => (
   <Story name='Terminal' code={code}>
-    <Text color='gray6' mb={2} fontSize={0} children={'<Terminal />'} />
+    <Text color='gray6' mb={2} fontSize={0} children='<Terminal />' />
     <Terminal mb={4} children={cmd} />
 
     <Text
@@ -87,7 +87,7 @@ storiesOf('Elements', module).add('Terminal', () => (
       color='gray6'
       mb={2}
       fontSize={0}
-      children={'<Terminal blinkCursor={false} />'}
+      children='<Terminal blinkCursor={false} />'
     />
     <Terminal title='microlink-api' children={cliCode} blinkCursor={false} />
   </Story>
