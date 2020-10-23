@@ -1,5 +1,6 @@
 import { Toolbar, Box, Fixed } from 'components/elements'
 import React from 'react'
+import { rgba } from 'polished'
 
 import NavContainer from './NavContainer'
 
@@ -28,7 +29,7 @@ export default ({ theme }) => {
       right={0}
       css={`
         backdrop-filter: blur(8px);
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: ${rgba(isDark ? 'black' : 'white', 0.5)};
       `}
     >
       <Box px={3} ml='auto' mr='auto'>
