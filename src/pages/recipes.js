@@ -138,7 +138,7 @@ export default ({ meta }) => {
                             children={description}
                           />
                         </Box>
-                        <Flex
+                        {/* <Flex
                           justifyContent='center'
                           alignItems='center'
                           flexWrap='wrap'
@@ -156,7 +156,7 @@ export default ({ meta }) => {
                               mb={2}
                             />
                           ))}
-                        </Flex>
+                        </Flex> */}
                       </Box>
                     </CustomLink>
                   </Card>
