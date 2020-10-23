@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.11](https://github.com/microlinkhq/microlink-www/compare/v2.11.10...v2.11.11) (2020-10-23)
+
+
+### Bug Fixes
+
+* dark background ([bc381b4](https://github.com/microlinkhq/microlink-www/commit/bc381b4a1035cf23fc334ecbb8d3d612eac84d2d))
+* linter ([f851419](https://github.com/microlinkhq/microlink-www/commit/f851419554a725dd9d9a1ef6af676158a05d7c79))
+
 ### [2.11.10](https://github.com/microlinkhq/microlink-www/compare/v2.11.9...v2.11.10) (2020-10-21)
 
 ### [2.11.9](https://github.com/microlinkhq/microlink-www/compare/v2.11.7...v2.11.9) (2020-10-21)
