@@ -708,7 +708,7 @@ export default () => {
                       textAlign='left'
                       titleize={false}
                     >
-                      less reponsability.
+                      less responsability.
                     </Subhead>
                   </>
                 }
