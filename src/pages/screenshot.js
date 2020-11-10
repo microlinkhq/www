@@ -517,7 +517,7 @@ const Resume = props => (
     >
       <b>Microlink for Screenshot</b> provides a set of powerful features
       without the headaches of running your own infrastructure, giving you great
-      power, less responsabilities.
+      power, less responsibilities.
     </Caption>
 
     <Block
