@@ -767,7 +767,7 @@ export default () => {
                 title={
                   <>
                     <Subhead width='100%' textAlign='left'>
-                      High perfomance,
+                      High performance,
                     </Subhead>
                     <Subhead
                       color='rgb(253, 73, 74)'

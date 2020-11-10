@@ -9,7 +9,7 @@ Default: <Type children='true'/>
   src="https://lighthouse.microlink.io/?url=https://cdn.microlink.io/insights/css-tricks.json"
 />
 
-It returns a full web perfomance metrics report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
+It returns a full web performance metrics report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://css-tricks.com/nerds-guide-color-web&insights.lighthouse=true`,
@@ -27,7 +27,7 @@ module.exports = async () => {
   }} 
 />
 
-By default, the report is serialized to JSON. In this way, you can use [lighthouse.microlink.io](https://lighthouse.microlink.io) for visualizing your perfomance report.
+By default, the report is serialized to JSON. In this way, you can use [lighthouse.microlink.io](https://lighthouse.microlink.io) for visualizing your performance report.
 
 <Link icon={false} href="https://lighthouse.microlink.io">
   <Image src="https://i.imgur.com/xeC7nZk.png"/>
@@ -40,7 +40,7 @@ The default configuration is known as [lighthouse:default](https://github.com/Go
   "output": "json",
   "device": "desktop",
   "onlyCategories": [
-    "perfomance", 
+    "performance", 
     "best-practices", 
     "accessibility", 
     "seo"
@@ -90,6 +90,6 @@ How emulation (useragent, device screen metrics, touch) should be applied. 'none
 
 Type: <TypeContainer><Type children="string[]"/></TypeContainer><br/>
 Default: <Type children="['performance', 'best-practices', 'accessibility', 'seo']"/><br/>
-values: <TypeContainer><Type children="'perfomance'"/> | <Type children="'best-practices'"/> | <Type children="'accessibility'"/> | <Type children="'pwa'"/> | <Type children="'seo'"/></TypeContainer><br/>
+values: <TypeContainer><Type children="'performance'"/> | <Type children="'best-practices'"/> | <Type children="'accessibility'"/> | <Type children="'pwa'"/> | <Type children="'seo'"/></TypeContainer><br/>
 
 Includes only the specified categories in the final report

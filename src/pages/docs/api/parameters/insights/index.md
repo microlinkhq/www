@@ -5,7 +5,7 @@ title: 'insights'
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
 
-It gets web perfomance metrics over the target URL.
+It gets web performance metrics over the target URL.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://vercel.com&insights`,

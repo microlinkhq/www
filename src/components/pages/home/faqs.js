@@ -30,7 +30,7 @@ export default props => (
         question: 'How different is the free plan compared with pro?',
         answer: [
           <>
-            The pro plan is ready to be used at scale, with better perfomance
+            The pro plan is ready to be used at scale, with better performance
             and unlocked functionalities such as{' '}
             <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link> or{' '}

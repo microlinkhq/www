@@ -566,7 +566,7 @@ const ProductInformation = props => {
               <Text as='span' color='black' fontWeight='bold'>
                 Microlink for Insights
               </Text>{' '}
-              gives you web perfomance metrics in a simple way using{' '}
+              gives you web performance metrics in a simple way using{' '}
               <Link href='/docs/api/getting-started/overview'>
                 Microlink API
               </Link>

@@ -20,7 +20,7 @@ Just [url](/docs/api/parameters/url) is the only parameter that needs to be spec
 - [audio](/docs/api/parameters/audio): enables audio source detection from the target URL.
 - [data](/docs/api/parameters/data): gets specific content extraction from the target URL.
 - [iframe](/docs/api/parameters/iframe): gets, if it's possible, the embedded representation of the target URL.
-- [insights](/docs/api/parameters/insights): gets lighthouse perfomance metrics from the target URL.
+- [insights](/docs/api/parameters/insights): gets lighthouse performance metrics from the target URL.
 - [meta](/docs/api/parameters/meta): gets unified medata from the target URL.
 - [palette](/docs/api/parameters/palette): gets color information over any image present on the response data.
 - [pdf](/docs/api/parameters/pdf): gets a PDF over the target URL.

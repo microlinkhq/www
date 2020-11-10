@@ -298,7 +298,7 @@ const Timings = props => {
         px={[4, 0, 0, 0]}
         titleize={false}
         color='white60'
-        children='Perfomance matters'
+        children='Performance matters'
       />
     </Flex>
   )
