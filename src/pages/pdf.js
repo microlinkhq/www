@@ -675,8 +675,8 @@ export default () => {
                 }
                 caption={
                   <>
-                    No code to mantain, no servers to deploy, but always ready —
-                    Microlink allows you spend more time building, less time
+                    No code to maintain, no servers to deploy, but always ready
+                    — Microlink allows you spend more time building, less time
                     configuring, easy integration via{' '}
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
