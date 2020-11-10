@@ -12,7 +12,7 @@
   description: Incrustate directly into Markdown, HTML or any other markup using [embed](/docs/api/parameters/embed).
 - title: CSS/JS Injection
   description: Inject any CSS styles or JS code into the page.
-- title: Fully Sscreenshot
+- title: Fully Screenshot
   description: Using [fullPage](/docs/api/parameters/screenshot/full-page) for exporting the entire page as screenshot.
 - title: File Format
   description: Configurable [type](/docs/api/parameters/screenshot/type) support with on-fly WebP support.
