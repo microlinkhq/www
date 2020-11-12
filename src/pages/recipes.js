@@ -117,7 +117,7 @@ export default ({ meta }) => {
                     ratio={CARD_SIZE}
                     key={recipeName}
                     mb={4}
-                    mr={4}
+                    mr={[0, 0, 4, 4]}
                     flexDirection='column'
                     justifyContent='center'
                   >
