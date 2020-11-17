@@ -1,3 +1,8 @@
+- date: November 2020
+  notes:
+    - "[Microlink Cluster](/stats) is running under Node.js 14 LTS"
+    - "[Microlink Cluster](/stats) has been upgraded to use [puppeteer@5.5](https://github.com/puppeteer/puppeteer/releases/tag/v5.5.0)"
+
 - date: October 2020
   notes:
     - "[Microlink Cluster](/stats) has been upgraded to use [puppeteer@5.4](https://github.com/puppeteer/puppeteer/releases/tag/v5.4.0)"
