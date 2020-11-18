@@ -8,7 +8,7 @@ Values: <TypeContainer><Type children="'html'"/> | <Type children="'val'"/> | <T
 
 It specifies which attribute should be picked over the matched [selector](/docs/mql/data/selector):
 
-```jsx{8}
+```js
 const mql = require('@microlink/mql')
 
 const github = username => 

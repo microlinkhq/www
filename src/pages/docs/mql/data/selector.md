@@ -7,7 +7,7 @@ Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Sele
 
 It defines the [HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) you want to pick from the HTML markup over the [url](/docs/api/parameters/url):
 
-```jsx{7}
+```js
 const mql = require('@microlink/mql')
 
 const github = username => 

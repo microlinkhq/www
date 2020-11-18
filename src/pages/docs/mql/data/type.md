@@ -8,7 +8,7 @@ Values: <TypeContainer><Type children="'auto'"/> | <Type children="'regex'"/> |
 
 It defines how the value extracted should be considered.
 
-```jsx{9}
+```js
 const mql = require('@microlink/mql')
  
 const productHunt = id =>

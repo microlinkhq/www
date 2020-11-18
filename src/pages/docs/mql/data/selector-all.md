@@ -7,7 +7,7 @@ Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Sele
 
 It's the same than [selector](/docs/mql/data/selector) but it returns your a collection of results, being equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll):
 
-```js{8}
+```js
 const mql = require('@microlink/mql')
 
 const hackerNews = () =>
