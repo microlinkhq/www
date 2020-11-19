@@ -449,6 +449,10 @@ const ROUTES_MQL = [
         href: '/docs/mql/data/attr'
       },
       {
+        name: 'evaluate',
+        href: '/docs/mql/data/evaluate'
+      },
+      {
         name: 'selector',
         href: '/docs/mql/data/selector'
       },
