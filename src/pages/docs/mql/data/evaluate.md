@@ -11,19 +11,19 @@ It's quite similar to [selector](/docs/mql/data/selector), but designed to speci
 ```js
 const mql = require('@microlink/mql')
 
-const getNextJsVersion = url => 
+const jQuery = url => 
   mql(url, {
     data: {
-      nextVersion: {
-        evaluate: 'window.next.version',
+      version: {
+        evaluate: 'jQuery.fn.jquery',
         type: 'string'
       }
     }
   })
 
-const { data } = await getNextJsVersion('https://vercel.com')
+const { data } = await jQuery('https://zoom.us')
 
-console.log(`Next.js version is: ${data.nextVersion}`)
+console.log(`jQuery version is: ${data.version}`)
 ```
 
 <Figcaption children='You can combine evaluate with types for data correcteness.' />
