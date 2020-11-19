@@ -329,6 +329,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/remove'
       },
       {
+        name: 'retry',
+        href: '/docs/api/parameters/retry'
+      },
+      {
         name: 'screenshot',
         href: '/docs/api/parameters/screenshot',
         posts: [

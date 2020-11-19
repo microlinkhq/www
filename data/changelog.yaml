@@ -1,6 +1,7 @@
 - date: November 2020
   notes:
     - Add Microlink API [evaluate](/docs/mql/data/evaluate) query parameter
+    - Add Microlink API [retry](/docs/mql/data/retry) query parameter
     - "[Microlink Cluster](/stats) is running under Node.js 14 LTS"
     - "[Microlink Cluster](/stats) has been upgraded to use [puppeteer@5.5](https://github.com/puppeteer/puppeteer/releases/tag/v5.5.0)"
 
