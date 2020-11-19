@@ -11,8 +11,8 @@ It's quite similar to [selector](/docs/mql/data/selector), but designed to speci
 ```js
 const mql = require('@microlink/mql')
 
-const vercel = username => 
-  mql(`https://vercel.com`, {
+const getNextJsVersion = url => 
+  mql(url, {
     data: {
       nextVersion: {
         evaluate: 'window.next.version',
@@ -21,7 +21,7 @@ const vercel = username =>
     }
   })
 
-const { data } = await vercel()
+const { data } = await getNextJsVersion('https://vercel.com')
 
 console.log(`Next.js version is: ${data.nextVersion}`)
 ```
