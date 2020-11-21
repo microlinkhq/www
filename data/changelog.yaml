@@ -2,8 +2,8 @@
   notes:
     - Add Microlink API [evaluate](/docs/mql/data/evaluate) query parameter
     - Add Microlink API [retry](/docs/mql/data/retry) query parameter
-    - "[Microlink Cluster](/stats) has been upgraded to [Kubernetes v1.19.3](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#changelog-since-v1193)"
     - "[Microlink Cluster](/stats) is running Node.js 14 LTS"
+    - "[Microlink Cluster](/stats) has been upgraded to [Kubernetes v1.19.3](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#changelog-since-v1193)"
     - "[Microlink Cluster](/stats) has been upgraded to use [puppeteer@5.5](https://github.com/puppeteer/puppeteer/releases/tag/v5.5.0)"
 
 - date: October 2020
