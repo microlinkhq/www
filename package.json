@@ -57,7 +57,7 @@
     "gatsby-plugin-react-helmet": "~3.4.0",
     "gatsby-plugin-remove-trailing-slashes": "~2.4.0",
     "gatsby-plugin-sass": "~2.5.1",
-    "gatsby-plugin-sitemap": "~2.6.0",
+    "gatsby-plugin-sitemap": "~2.7.0",
     "gatsby-plugin-styled-components": "~3.4.0",
     "gatsby-source-filesystem": "~2.5.0",
     "gatsby-transformer-javascript-frontmatter": "~2.4.0",
