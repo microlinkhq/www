@@ -82,7 +82,7 @@
     "postcss": "~8.1.7",
     "postcss-focus": "~5.0.1",
     "prepend-http": "~3.0.1",
-    "prettier": "~2.1.2",
+    "prettier": "~2.2.0",
     "qss": "~2.0.3",
     "react": "~17.0.1",
     "react-codecopy": "~4.2.1",
