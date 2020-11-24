@@ -5,12 +5,6 @@ export default function HTML (props) {
   return (
     <html lang='en' {...props.htmlAttributes}>
       <head>
-        <meta charSet='utf-8' />
-        <meta httpEquiv='x-ua-compatible' content='ie=edge' />
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1, shrink-to-fit=no'
-        />
         <link
           href='https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400;500;600&display=swap'
           rel='stylesheet'
