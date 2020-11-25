@@ -110,12 +110,16 @@ const mergeMeta = (props, metadata) => {
 }
 
 function Head ({ onChangeClientState, script, ...props }) {
+  const siteMetadata = useSiteMetadata()
+
+  const { canonicalUrl } = siteMetadata
+
   const {
     dataLabel1,
-    date,
     dataLabel2,
     dataValue1,
     dataValue2,
+    date,
     description,
     headline,
     image,
@@ -125,7 +129,7 @@ function Head ({ onChangeClientState, script, ...props }) {
     twitter,
     url,
     video
-  } = mergeMeta(props, useSiteMetadata())
+  } = mergeMeta(props, siteMetadata)
 
   return (
     <Helmet
@@ -138,6 +142,21 @@ function Head ({ onChangeClientState, script, ...props }) {
       {/* <!-- Basic --> */}
       <meta charSet='utf-8' />
       <meta httpEquiv='x-ua-compatible' content='ie=edge' />
+      <script type='application/ld+json'>
+        {`${JSON.stringify({
+          '@context': 'http://schema.org',
+          '@type': 'Organization',
+          description: headline,
+          image,
+          logo,
+          name,
+          url: canonicalUrl,
+          sameAs: [
+            'https://twitter.com/microlinkhq',
+            'https://github.com/microlinkhq'
+          ]
+        })}`}
+      </script>
 
       {/* <!-- Search Engine --> */}
       <meta name='description' content={description} />
