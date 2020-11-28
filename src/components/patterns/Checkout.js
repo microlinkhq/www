@@ -1,8 +1,8 @@
 /* global fetch */
 
 import { Caps, Button } from 'components/elements'
-import { StripeLoader } from 'components/patterns'
 import { useSiteMetadata } from 'components/hook'
+import { loadStripe } from '@stripe/stripe-js'
 import React, { useState } from 'react'
 
 export default ({ canonicalUrl, planId, stripeKey, ...props }) => {
@@ -13,7 +13,9 @@ export default ({ canonicalUrl, planId, stripeKey, ...props }) => {
     paymentEndpoint: apiEndpoint
   } = useSiteMetadata()
 
-  const createStripeCheckout = stripe => async () => {
+  const stripePromise = loadStripe(stripeKey, { locale: 'en' })
+
+  const handleCheckout = async () => {
     setIsLoading(true)
 
     const { data } = await fetch(`${apiEndpoint}/payment/session`, {
@@ -26,26 +28,19 @@ export default ({ canonicalUrl, planId, stripeKey, ...props }) => {
       })
     }).then(res => res.json())
 
-    stripe.redirectToCheckout(data)
+    await (await stripePromise).redirectToCheckout(data)
   }
 
   return (
-    <StripeLoader stripeKey={stripeKey}>
-      {stripe => {
-        const handleCheckout = createStripeCheckout(stripe)
-        return (
-          <Button
-            onClick={handleCheckout}
-            onTouchStart={handleCheckout}
-            loading={isLoading}
-            data-event-category='Checkout'
-            data-event-action='Buy'
-            {...props}
-          >
-            <Caps fontSize={2}>Buy </Caps>
-          </Button>
-        )
-      }}
-    </StripeLoader>
+    <Button
+      onClick={handleCheckout}
+      onTouchStart={handleCheckout}
+      loading={isLoading}
+      data-event-category='Checkout'
+      data-event-action='Buy'
+      {...props}
+    >
+      <Caps fontSize={2}>Buy</Caps>
+    </Button>
   )
 }
