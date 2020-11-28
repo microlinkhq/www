@@ -1,38 +1,36 @@
 /* global fetch */
 
-import { StripeLoader, Layout } from 'components/patterns'
+import { Caption, Layout } from 'components/patterns'
 import { useSiteMetadata } from 'components/hook'
+import { loadStripe } from '@stripe/stripe-js'
 import { layout, letterSpacings } from 'theme'
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
 import { encode, decode } from 'qss'
 
 import {
+  Box,
   Button,
+  Caps,
   Container,
-  Flex,
   Heading,
-  Label,
   LinkSolid,
   Notification
 } from 'components/elements'
 
 import {
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-  StripeProvider,
-  injectStripe,
-  Elements
-} from 'react-stripe-elements'
+  Elements,
+  CardElement,
+  useStripe,
+  useElements
+} from '@stripe/react-stripe-js'
 
-import { ERROR_MAIL_OPTS, PAYMENT_STATE } from './'
+import { ERROR_MAIL_OPTS, PAYMENT_STATE } from '.'
 
 const Form = styled.form`
   .StripeElement {
     display: block;
-    margin: 10px 0 20px 0;
     max-width: 100%;
     padding: 10px 14px;
     box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,
@@ -49,36 +47,31 @@ const Form = styled.form`
   }
 `
 
-const createOptions = fontSize => {
-  return {
-    style: {
-      base: {
-        fontSize,
-        color: '#424770',
-        letterSpacing: letterSpacings[2],
-        fontFamily: 'Source Code Pro, Menlo, monospace',
-        '::placeholder': {
-          color: '#aab7c4'
-        }
-      },
-      invalid: {
-        color: '#9e2146'
-      }
-    }
-  }
-}
+const CheckoutForm = ({ apiEndpoint, apiKey }) => {
+  const [paymentState, setPaymentState] = useState(null)
 
-class _CardForm extends Component {
-  state = { paymentState: null }
+  const stripe = useStripe()
+  const elements = useElements()
 
-  handleSubmit = event => {
+  const handleSubmit = async event => {
+    // Block native form submission.
     event.preventDefault()
-    const { apiKey, apiEndpoint, stripe } = this.props
 
-    this.setState({ paymentState: PAYMENT_STATE.PROCESSING })
+    if (!stripe || !elements) {
+      // Stripe.js has not loaded yet. Make sure to disable
+      // form submission until Stripe.js has loaded.
+      return
+    }
+
+    // Get a reference to a mounted CardElement. Elements knows how
+    // to find your CardElement because there can only ever be one of
+    // each type of element.
+    const cardElement = elements.getElement(CardElement)
+
+    setPaymentState(PAYMENT_STATE.PROCESSING)
 
     stripe
-      .createToken()
+      .createToken(cardElement)
       .then(({ token }) =>
         fetch(`${apiEndpoint}/payment/update`, {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
@@ -89,88 +82,72 @@ class _CardForm extends Component {
           })
         })
       )
-      .then(() => this.setState({ paymentState: PAYMENT_STATE.SUCCESS }))
+      .then(() => setPaymentState(PAYMENT_STATE.SUCCESS))
       .catch(err => {
         console.error(err)
-        this.setState({ paymentState: PAYMENT_STATE.FAILED })
+        setPaymentState(PAYMENT_STATE.FAILED)
       })
   }
 
-  render () {
-    const { paymentState } = this.state
-
-    return (
-      <>
-        {paymentState && (
-          <Choose>
-            <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
-              <Notification.Success>Processing...</Notification.Success>
-            </Choose.When>
-            <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
-              <Notification.Success>
-                Payment updated! We sent you an email.
-              </Notification.Success>
-            </Choose.When>
-            <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-              <Notification.Error>
-                Payment not updated.{' '}
-                <LinkSolid
-                  display='inline'
-                  color='red8'
-                  href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
-                >
-                  Contact us
-                </LinkSolid>
-                .
-              </Notification.Error>
-            </Choose.When>
-          </Choose>
-        )}
-
-        <Form onSubmit={this.handleSubmit}>
-          <Label
-            textAlign='left'
-            display='block'
-            fontSize={0}
-            color='gray6'
-            mb={4}
-          >
-            Card number
-            <CardNumberElement {...createOptions(this.props.fontSize)} />
-          </Label>
-
-          <Label
-            textAlign='left'
-            display='block'
-            fontSize={0}
-            color='gray6'
-            mb={4}
-          >
-            Expiration date
-            <CardExpiryElement {...createOptions(this.props.fontSize)} />
-          </Label>
-
-          <Label
-            textAlign='left'
-            display='block'
-            fontSize={0}
-            color='gray6'
-            mb={4}
-          >
-            CVC
-            <CardCvcElement {...createOptions(this.props.fontSize)} />
-          </Label>
-
-          <Button loading={paymentState === PAYMENT_STATE.PROCESSING}>
-            Update Card
-          </Button>
-        </Form>
-      </>
-    )
-  }
+  return (
+    <>
+      {paymentState && (
+        <Choose>
+          <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
+            <Notification.Success>Processing...</Notification.Success>
+          </Choose.When>
+          <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
+            <Notification.Success>
+              Payment updated! We sent you an email.
+            </Notification.Success>
+          </Choose.When>
+          <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
+            <Notification.Error>
+              Payment not updated.{' '}
+              <LinkSolid
+                display='inline'
+                color='red8'
+                href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
+              >
+                Contact us
+              </LinkSolid>
+              .
+            </Notification.Error>
+          </Choose.When>
+        </Choose>
+      )}
+      <Form onSubmit={handleSubmit}>
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: '18px',
+                color: '#424770',
+                letterSpacing: letterSpacings[2],
+                fontFamily: 'Source Code Pro, Menlo, monospace',
+                '::placeholder': {
+                  color: '#aab7c4'
+                }
+              },
+              invalid: {
+                color: '#9e2146'
+              }
+            }
+          }}
+        />
+        <Button
+          mt={3}
+          loading={paymentState === PAYMENT_STATE.PROCESSING}
+          type='submit'
+          disabled={!stripe}
+          width='100%'
+        >
+          <Caps fontSize={1}>Update Card</Caps>
+        </Button>
+      </Form>
+    </>
+  )
 }
-
-const CardForm = injectStripe(_CardForm)
 
 export default () => {
   const {
@@ -179,41 +156,34 @@ export default () => {
     paymentEndpoint: apiEndpoint
   } = useSiteMetadata()
 
+  const stripePromise = loadStripe(stripeKey, { locale: 'en' })
+
   return (
-    <StripeLoader stripeKey={stripeKey}>
-      {stripe => {
-        return (
-          <Layout>
-            <Container
-              alignItems='center'
-              pt={5}
-              pb={Container.defaultProps.pt}
-            >
-              <StripeProvider stripe={stripe}>
-                <Flex flexDirection='column'>
-                  <Heading px={5} titleize={false} maxWidth={layout.large}>
-                    Payment details
-                  </Heading>
-                  <Flex
-                    pt={[3, 3, 4, 4]}
-                    mx='auto'
-                    flexDirection='column'
-                    width={6}
-                  >
-                    <Elements>
-                      <CardForm
-                        apiEndpoint={apiEndpoint}
-                        apiKey={apiKey}
-                        fontSize='18px'
-                      />
-                    </Elements>
-                  </Flex>
-                </Flex>
-              </StripeProvider>
-            </Container>
-          </Layout>
-        )
-      }}
-    </StripeLoader>
+    <Layout>
+      <Container
+        justifyContent='center'
+        alignItems='center'
+        pt={5}
+        pb={Container.defaultProps.pt}
+      >
+        <Heading px={5} titleize={false} maxWidth={layout.large}>
+          Payment details
+        </Heading>
+        <Caption
+          pt={[3, 3, 4, 4]}
+          px={[4, 4, 0, 0]}
+          titleize={false}
+          maxWidth={layout.small}
+        >
+          Fill the new credit card and they will be associated with your
+          customer profile.
+        </Caption>
+        <Box pt={[3, 3, 4, 4]} width={7}>
+          <Elements stripe={stripePromise}>
+            <CheckoutForm apiKey={apiKey} apiEndpoint={apiEndpoint} />
+          </Elements>
+        </Box>
+      </Container>
+    </Layout>
   )
 }

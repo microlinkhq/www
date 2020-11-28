@@ -42,11 +42,7 @@ Price.defaultProps = {
   fontSize: [1, 2, 2, 2]
 }
 
-const PricingPrice = props => (
-  <Price label='/month' {...props}>
-    0
-  </Price>
-)
+const PricingPrice = props => <Price label='/month' {...props} />
 
 const RequestsPerDay = props => (
   <Label display='inline' suffix='/day' {...props}>
