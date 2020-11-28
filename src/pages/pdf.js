@@ -142,16 +142,15 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
       >
-        <ArrowLink
-          pr={[0, 4, 4, 4]}
-          href='/docs/api/parameters/pdf'
-          children='Get Started'
-        />
+        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/pdf'>
+          Get Started
+        </ArrowLink>
         <ArrowLink
           pt={[3, 0, 0, 0]}
           href='https://github.com/microlinkhq/browserless'
-          children='See on GitHub'
-        />
+        >
+          See on GitHub
+        </ArrowLink>
       </Flex>
       <Flex justifyContent='center' alignItems='center'>
         <Flex
@@ -226,7 +225,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
           </Box>
 
           <Button ml={[0, 0, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1} children='Get it' />
+            <Caps fontSize={1}>Get it</Caps>
           </Button>
         </Flex>
       </Flex>
@@ -237,11 +236,9 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
             <Flex flexDirection='column' alignItems='center'>
               <Iframe width={cardWidth} src={suggestionUrl || dataPdfUrl} />
               <Box pt={4}>
-                <CodeEditor
-                  width={cardWidth}
-                  language='html'
-                  children={`<iframe src="${embedUrl}"></iframe>`}
-                />
+                <CodeEditor width={cardWidth} language='html'>
+                  {`<iframe src="${embedUrl}"></iframe>`}
+                </CodeEditor>
               </Box>
             </Flex>
           </Choose.When>
@@ -287,19 +284,17 @@ const Timings = props => {
       justifyContent='center'
       alignItems='center'
     >
-      <Subhead
-        fontSize={[3, 4, 6, 6]}
-        color='white'
-        titleize={false}
-        children='Speed as feature'
-      />
+      <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
+        Speed as feature
+      </Subhead>
       <Subhead
         fontSize={[3, 4, 6, 6]}
         px={[4, 0, 0, 0]}
         titleize={false}
         color='white60'
-        children='Performance matters'
-      />
+      >
+        Performance matters
+      </Subhead>
     </Flex>
   )
 
@@ -332,9 +327,10 @@ const Timings = props => {
             color='white'
             display='inline'
             fontWeight='bold'
-            children='secs'
             titleize={false}
-          />
+          >
+            secs
+          </Caption>
         </Subhead>
         <Caption as='div' color='white60' fontWeight='bold' pt={2}>
           <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
@@ -377,8 +373,9 @@ const Timings = props => {
             color='white'
             fontWeight='bold'
             display='inline'
-            children='%'
-          />
+          >
+            %
+          </Caption>
         </Subhead>
         <Caption as='div' color='white60' mr={3} fontWeight='bold' pt={2}>
           <Caps fontSize={[0, 2, 2, 2]}>SLA</Caps>
@@ -407,11 +404,9 @@ const Resume = props => (
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
     {...props}
   >
-    <Subhead
-      px={[3, 3, 6, 6]}
-      variant='gradient'
-      children='Generate PDFs from any website'
-    />
+    <Subhead px={[3, 3, 6, 6]} variant='gradient'>
+      Generate PDFs from any website
+    </Subhead>
     <Caption
       py={3}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
@@ -435,12 +430,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            fontSize={[3, 3, 4, 4]}
-            textAlign='left'
-            children='Always up to date'
-          />
+          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+            Always up to date
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -462,12 +454,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'end']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            textAlign='left'
-            fontSize={[3, 3, 4, 4]}
-            children='Fully adaptable'
-          />
+          <Subhead pt={[5, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+            Fully adaptable
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -509,12 +498,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            fontSize={[3, 3, 4, 4]}
-            textAlign='left'
-            children='Embed directly'
-          />
+          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+            Embed directly
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -544,7 +530,7 @@ const ProductInformation = props => {
         {
           question: 'What is it?',
           answer: [
-            <>
+            <div key='what-is-it'>
               <Text as='span' color='black' fontWeight='bold'>
                 Microlink for PDF
               </Text>{' '}
@@ -553,13 +539,13 @@ const ProductInformation = props => {
                 Microlink API
               </Link>
               .
-            </>
+            </div>
           ]
         },
         {
           question: 'How does it work?',
           answer: [
-            <>
+            <div key='how-does-it-work-0'>
               The PDF will be generated after passing{' '}
               <Link href='/docs/api/parameters/pdf'>pdf</Link> query parameter
               to{' '}
@@ -567,52 +553,50 @@ const ProductInformation = props => {
                 Microlink API
               </Link>
               .
-            </>,
-            <>
+            </div>,
+            <div key='how-does-it-work-1'>
               For creating the file, a chromium browser will run on our own
               servers, getting a PDF file as output. Servers run the browser on
               top of optimized hardware to ensure the PDF is created as fast as
               possible but also under security isolation condition, spawning a
               new browser per every new request, meaning no browsers are shared
               between requests.
-            </>,
-            <>
+            </div>,
+            <div key='how-does-it-work-2'>
               After that, the PDF file is uploaded into{' '}
               <Link href='/blog/edge-cdn/'>Microlink CDN</Link> and served
               across +140 edges nodes to ensure the best worldwide access time.
-            </>
+            </div>
           ]
         },
         {
           question: 'Why not run my own solution?',
           answer: [
-            <>
+            <div key='why-not-run-my-own-solution-0'>
               The service aims to avoid headaches, preventing you for running
               and maintaining your own infrastructure.
-            </>,
-            <>
+            </div>,
+            <div key='why-not-run-my-own-solution-1'>
               Every URL on the Internet are different and browser are a complex
               piece of software, with unpredictable resources usage.
-            </>,
-            <>
+            </div>,
+            <div key='why-not-run-my-own-solution-2'>
               The fact of resolve any URL at scale in{' '}
               <Average size='tiny' value={healthcheck.pdf.avg_pretty} /> isn't a
               trivial thing.
-            </>
+            </div>
           ]
         },
         {
           question: 'Other questions?',
           answer: [
-            <>
+            <div key='other-questions'>
               We're always available at{' '}
-              <Link
-                display='inline'
-                href='mailto:hello@microlink.io'
-                children='hello@microlink.io'
-              />
+              <Link display='inline' href='mailto:hello@microlink.io'>
+                hello@microlink.io
+              </Link>
               .
-            </>
+            </div>
           ]
         }
       ]}

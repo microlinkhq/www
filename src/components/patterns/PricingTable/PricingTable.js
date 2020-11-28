@@ -42,10 +42,16 @@ Price.defaultProps = {
   fontSize: [1, 2, 2, 2]
 }
 
-const PricingPrice = props => <Price children={0} label='/month' {...props} />
+const PricingPrice = props => (
+  <Price label='/month' {...props}>
+    0
+  </Price>
+)
 
 const RequestsPerDay = props => (
-  <Label display='inline' children='requests' suffix='/day' {...props} />
+  <Label display='inline' suffix='/day' {...props}>
+    requests
+  </Label>
 )
 
 const PricingLink = ({ children, ...props }) => {
@@ -161,10 +167,9 @@ export const createPricingTable = Checkout => ({
         </Box>
 
         <Box pt={4}>
-          <ArrowLink
-            href='/docs/api/getting-started/overview'
-            children='Get Started'
-          />
+          <ArrowLink href='/docs/api/getting-started/overview'>
+            Get Started
+          </ArrowLink>
         </Box>
       </PricingBox>
 

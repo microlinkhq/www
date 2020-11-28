@@ -570,7 +570,7 @@ export default ({ meta, content, githubUrl, ...props }) => {
               <Box mt={4} />
             </Choose.Otherwise>
           </Choose>
-          <Markdown children={content} />
+          <Markdown>{content}</Markdown>
           <Flex
             as='footer'
             borderTop={1}

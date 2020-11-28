@@ -57,20 +57,16 @@ export default ({ pageContext: recipe }) => {
           <Flex pt={[3, 3, 4, 4]} alignItems='center' justifyContent='center'>
             <MicrolinkLogo width={LOGO_SIZE} />
             {!recipe.isGeneric && (
-              <Box
-                ml={4}
-                mr={4}
-                children={<Plus color={cx('gray8')} size={fontSizes[2]} />}
-              />
+              <Box ml={4} mr={4}>
+                <Plus color={cx('gray8')} size={fontSizes[2]} />
+              </Box>
             )}
             {!recipe.isGeneric && <Logo {...recipe} />}
           </Flex>
 
-          <Heading
-            pt={[3, 3, 4, 4]}
-            titleize={false}
-            children='Microlink Recipe'
-          />
+          <Heading pt={[3, 3, 4, 4]} titleize={false}>
+            Microlink Recipe
+          </Heading>
 
           <Caption
             titleize={false}
@@ -82,8 +78,9 @@ export default ({ pageContext: recipe }) => {
               layout.normal,
               layout.normal
             ]}
-            children={recipe.description}
-          />
+          >
+            {recipe.description}
+          </Caption>
 
           <Flex
             pt={4}
@@ -96,9 +93,10 @@ export default ({ pageContext: recipe }) => {
               title={`${recipe.key}.js`}
               width='100%'
               maxWidth={layout.small}
-              children={recipe.code}
               interactive
-            />
+            >
+              {recipe.code}
+            </CodeEditor>
           </Flex>
 
           <Flex
@@ -109,13 +107,12 @@ export default ({ pageContext: recipe }) => {
             <ArrowLink
               pr={[0, 4, 4, 4]}
               href='/docs/mql/getting-started/overview'
-              children='Read docs'
-            />
-            <ArrowLink
-              pt={[3, 0, 0, 0]}
-              href={gitHubUrl}
-              children='Edit on GitHub'
-            />
+            >
+              Read docs
+            </ArrowLink>
+            <ArrowLink pt={[3, 0, 0, 0]} href={gitHubUrl}>
+              Edit on GitHub
+            </ArrowLink>
           </Flex>
         </Flex>
       </Layout>

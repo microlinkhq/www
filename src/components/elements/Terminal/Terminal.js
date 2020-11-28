@@ -73,11 +73,9 @@ const TerminalTitleWrapper = styled('div')`
 
 export const TerminalTitle = ({ theme, children }) => (
   <TerminalTitleWrapper>
-    <Text
-      color={theme === 'dark' ? 'white40' : 'black40'}
-      fontSize={0}
-      children={children}
-    />
+    <Text color={theme === 'dark' ? 'white40' : 'black40'} fontSize={0}>
+      {children}
+    </Text>
   </TerminalTitleWrapper>
 )
 
@@ -147,9 +145,11 @@ const TerminalProvider = ({ title = '', children, theme, ...props }) => {
         <TerminalButton.Red theme={theme} />
         <TerminalButton.Yellow theme={theme} />
         <TerminalButton.Green theme={theme} />
-        <TerminalTitle theme={theme} children={title} />
+        <TerminalTitle theme={theme}>{title}</TerminalTitle>
       </TerminalHeader>
-      <TerminalText color={color} background={background} children={children} />
+      <TerminalText color={color} background={background}>
+        {children}
+      </TerminalText>
     </TerminalWindow>
   )
 }
@@ -172,8 +172,9 @@ const Terminal = ({
           shellSymbol={shellSymbol}
           blinkCursor={blinkCursor}
           theme={theme}
-          children={content}
-        />
+        >
+          {content}
+        </TerminalTextWrapper>
       </CodeCopy>
     </TerminalProvider>
   )

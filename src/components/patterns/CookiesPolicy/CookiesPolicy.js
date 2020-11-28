@@ -63,7 +63,9 @@ export default () => {
       >
         <Text fontSize={['10px', 1]} color='black80'>
           <span>By using this website you agree to our</span>
-          <Link ml={1} href='/privacy' children='privacy' />
+          <Link ml={1} href='/privacy'>
+            privacy
+          </Link>
           <span>.</span>
         </Text>
         <CloseButton

@@ -303,15 +303,10 @@ export default () => {
   return (
     <Layout title={TITLE}>
       <Container py={[4, 4, 5, 5]} px={4} maxWidth={layout.large}>
-        <Caption children='Turn links into embeddable media' />
-        <Subhead
-          children='How it works'
-          px={4}
-          pt={4}
-          pb={3}
-          textAlign='left'
-          fontSize={3}
-        />
+        <Caption>Turn links into embeddable media</Caption>
+        <Subhead px={4} pt={4} pb={3} textAlign='left' fontSize={3}>
+          How it works
+        </Subhead>
         <Text px={4} ml={3}>
           Given a URL (Twitter, Instagram, Facebook, YouTube, Spotify, etc),
           Microlink API retrieves you the snippet code necessary for embedding
@@ -328,14 +323,9 @@ export default () => {
           </Link>{' '}
           .
         </Text>
-        <Subhead
-          children='How to use'
-          px={4}
-          pt={4}
-          pb={3}
-          textAlign='left'
-          fontSize={3}
-        />
+        <Subhead px={4} pt={4} pb={3} textAlign='left' fontSize={3}>
+          How to use
+        </Subhead>
         <Text px={4} ml={3}>
           Just attach `iframe` query parameter when you interact with{' '}
           <Link href='/docs/api/getting-started/overview'>Microlink API</Link>
@@ -343,21 +333,13 @@ export default () => {
         <Box pt={3} px={6}>
           <MultiCodeEditor languages={languages} />
         </Box>
-        <Subhead
-          children='Demo'
-          px={4}
-          pt={4}
-          pb={3}
-          textAlign='left'
-          fontSize={3}
-        />
+        <Subhead px={4} pt={4} pb={3} textAlign='left' fontSize={3}>
+          Demo
+        </Subhead>
         <Flex px={3} alignItems='center' justifyContent='center'>
-          <Grid
-            children={links}
-            childComponent={Embed}
-            itemsPerRow={1}
-            justifyContent='center'
-          />
+          <Grid childComponent={Embed} itemsPerRow={1} justifyContent='center'>
+            {links}
+          </Grid>
         </Flex>
       </Container>
     </Layout>

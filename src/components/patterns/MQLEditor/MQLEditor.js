@@ -108,18 +108,14 @@ export default props => {
             </Choose>
           </Choose.When>
           <Choose.When condition={mode === 'json'}>
-            <CodeEditor
-              width='100%'
-              language='json'
-              children={mqlCode.json(data[type], json[type])}
-            />
+            <CodeEditor width='100%' language='json'>
+              {mqlCode.json(data[type], json[type])}
+            </CodeEditor>
           </Choose.When>
           <Choose.When condition={mode === 'html'}>
-            <CodeEditor
-              width='100%'
-              language='html'
-              children={html[type](data[type])}
-            />
+            <CodeEditor width='100%' language='html'>
+              {html[type](data[type])}
+            </CodeEditor>
           </Choose.When>
           <Choose.When condition={mode === 'code'}>
             <MultiCodeEditor width='100%' languages={code[type]} />
@@ -139,19 +135,21 @@ export default props => {
             <Card.Option
               key={children}
               value={mode}
-              children={children}
               onClick={() => setMode(children)}
-            />
+            >
+              {children}
+            </Card.Option>
           ))}
         </Box>
         <Box pt={[3, 3, 4, 4]}>
           {TYPES.map(children => (
             <Card.Option
               key={children}
-              children={children}
               value={type}
               onClick={() => setType(children)}
-            />
+            >
+              {children}
+            </Card.Option>
           ))}
         </Box>
       </Flex>

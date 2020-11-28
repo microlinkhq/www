@@ -13,7 +13,9 @@ const Item = ({ title, description, ...props }) => (
     pr={[0, 3, 3, 3]}
     {...props}
   >
-    <Caps as='header' pb={[1, 2]} fontWeight='bold' children={title} />
+    <Caps as='header' pb={[1, 2]} fontWeight='bold'>
+      {title}
+    </Caps>
     <Text
       css={`
         div {
@@ -23,7 +25,7 @@ const Item = ({ title, description, ...props }) => (
       `}
       fontSize={1}
     >
-      <Markdown children={description} />
+      <Markdown>{description}</Markdown>
     </Text>
   </Box>
 )

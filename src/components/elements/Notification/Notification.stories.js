@@ -21,13 +21,15 @@ const NotificationPreview = ({ type }) => {
   return (
     <Choose>
       <Choose.When condition={type === 'success'}>
-        <Notification.Success children='payment processed' />
+        <Notification.Success>payment processed</Notification.Success>
       </Choose.When>
       <Choose.When condition={type === 'warning'}>
-        <Notification.Warning children='This action can be consecuences' />
+        <Notification.Warning>
+          This action can be consecuences
+        </Notification.Warning>
       </Choose.When>
       <Choose.When condition={type === 'error'}>
-        <Notification.Error children='oh no!' />
+        <Notification.Error>oh no!</Notification.Error>
       </Choose.When>
     </Choose>
   )

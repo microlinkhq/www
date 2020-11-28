@@ -64,31 +64,30 @@ const cliCode = (
 
 storiesOf('Elements', module).add('Terminal', () => (
   <Story name='Terminal' code={code}>
-    <Text color='gray6' mb={2} fontSize={0} children='<Terminal />' />
-    <Terminal mb={4} children={cmd} />
+    <Text color='gray6' mb={2} fontSize={0}>
+      {'<Terminal />'}
+    </Text>
+    <Terminal mb={4}>{cmd}</Terminal>
 
-    <Text
-      color='gray6'
-      mb={2}
-      fontSize={0}
-      children={"<Terminal title='microlink-api' />"}
-    />
-    <Terminal mb={4} title='microlink-api' children={cmd} />
+    <Text color='gray6' mb={2} fontSize={0}>
+      {"<Terminal title='microlink-api' />"}
+    </Text>
+    <Terminal mb={4} title='microlink-api'>
+      {cmd}
+    </Terminal>
 
-    <Text
-      color='gray6'
-      mb={2}
-      fontSize={0}
-      children={"<Terminal theme='dark' />"}
-    />
-    <Terminal mb={4} title='microlink-api' children={cmd} theme='dark' />
+    <Text color='gray6' mb={2} fontSize={0}>
+      {"<Terminal theme='dark' />"}
+    </Text>
+    <Terminal mb={4} title='microlink-api' theme='dark'>
+      {cmd}
+    </Terminal>
 
-    <Text
-      color='gray6'
-      mb={2}
-      fontSize={0}
-      children='<Terminal blinkCursor={false} />'
-    />
-    <Terminal title='microlink-api' children={cliCode} blinkCursor={false} />
+    <Text color='gray6' mb={2} fontSize={0}>
+      {'<Terminal blinkCursor={false} />'}
+    </Text>
+    <Terminal title='microlink-api' blinkCursor={false}>
+      {cliCode}
+    </Terminal>
   </Story>
 ))

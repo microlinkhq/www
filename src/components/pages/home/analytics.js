@@ -57,12 +57,9 @@ export default props => {
       justifyContent='center'
       alignItems='center'
     >
-      <Subhead
-        fontSize={[3, 4, 6, 6]}
-        color='pink'
-        titleize={false}
-        children='Cloud Browser for'
-      />
+      <Subhead fontSize={[3, 4, 6, 6]} color='pink' titleize={false}>
+        Cloud Browser for
+      </Subhead>
       <Subhead
         fontSize={[3, 4, 6, 6]}
         py={[3, 4, 4, 4]}
@@ -71,8 +68,9 @@ export default props => {
         color='white'
         key={sentence}
         css={fadeIn}
-        children={sentence}
-      />
+      >
+        {sentence}
+      </Subhead>
     </Flex>
   )
 
@@ -84,8 +82,9 @@ export default props => {
           fontSize={[3, 4, 6, 6]}
           color='white40'
           titleize={false}
-          children={value}
-        />
+        >
+          {value}
+        </Subhead>
         <Caption
           pt={[2, 3, 3, 3]}
           color='pink'
@@ -93,7 +92,7 @@ export default props => {
           titleize={false}
           style={{ opacity: 0.8 }}
         >
-          <Caps fontSize={[0, 2, 3, 3]} children={name} />
+          <Caps fontSize={[0, 2, 3, 3]}>{name}</Caps>
         </Caption>
       </Flex>
       {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}

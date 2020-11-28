@@ -62,7 +62,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
           textAlign='center'
           maxWidth={[layout.small, layout.normal, layout.normal, layout.normal]}
         >
-          <PostTitle children={title} />
+          <PostTitle>{title}</PostTitle>
         </H2>
 
         <Caption
@@ -80,7 +80,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
 const PageBlog = ({ posts = useBlogIndex() }) => {
   return (
     <Layout>
-      <Subhead pt={[4, 4, 5, 5]} children='Blog' />
+      <Subhead pt={[4, 4, 5, 5]}>Blog</Subhead>
       <Flex pt={[4, 4, 5, 5]} flexDirection='column' alignItems='center'>
         {posts.map((post, index) => (
           <BlogPost

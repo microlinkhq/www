@@ -78,7 +78,7 @@ const External = Component => ({
   return (
     <Component {...props}>
       <ExternalLink href={href} target={target} rel={rel} {...linkProps}>
-        <Children icon={icon} children={children} />
+        <Children icon={icon}>{children}</Children>
       </ExternalLink>
     </Component>
   )
@@ -110,23 +110,17 @@ export const withLink = Component => {
     if (isInternal) {
       return (
         <Component {...props}>
-          <GatsbyLink
-            to={href}
-            children={children}
-            getProps={getProps}
-            {...linkProps}
-          />
+          <GatsbyLink to={href} getProps={getProps} {...linkProps}>
+            {children}
+          </GatsbyLink>
         </Component>
       )
     }
 
     return (
-      <ExternalLink
-        href={href}
-        children={children}
-        linkProps={linkProps}
-        {...props}
-      />
+      <ExternalLink href={href} linkProps={linkProps} {...props}>
+        {children}
+      </ExternalLink>
     )
   }
 }

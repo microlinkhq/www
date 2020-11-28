@@ -134,8 +134,9 @@ export default ({ meta }) => {
                             px={[0, 0, 4, 4]}
                             textAlign='center'
                             fontSize={1}
-                            children={description}
-                          />
+                          >
+                            {description}
+                          </Text>
                         </Box>
                         {/* <Flex
                           justifyContent='center'

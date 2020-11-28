@@ -18,8 +18,8 @@ export default ({ isBlogPage, date, meta, content }) => (
         ml='auto'
         mr='auto'
       >
-        <H1 textAlign='center' mt={0} children={meta.title} css={textGradient}>
-          <PostTitle children={meta.title} />
+        <H1 textAlign='center' mt={0} css={textGradient}>
+          <PostTitle>{meta.title}</PostTitle>
         </H1>
         {isBlogPage && (
           <Caption
@@ -33,7 +33,7 @@ export default ({ isBlogPage, date, meta, content }) => (
       </Text>
 
       <Box pt={isBlogPage ? [3, 3, 4, 4] : undefined}>
-        <Markdown children={content} />
+        <Markdown>{content}</Markdown>
       </Box>
 
       {isBlogPage && <PostFooter />}

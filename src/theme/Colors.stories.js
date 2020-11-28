@@ -34,8 +34,8 @@ const Palette = ({ name, keywords }) => (
           key={keyword}
           bg={keyword}
         >
-          <Text fontSize={3} children={keyword} />
-          <Text fontSize={3} children={toHex(colors[keyword])} />
+          <Text fontSize={3}>{keyword}</Text>
+          <Text fontSize={3}>{toHex(colors[keyword])}</Text>
         </Flex>
       ))}
     </Flex>

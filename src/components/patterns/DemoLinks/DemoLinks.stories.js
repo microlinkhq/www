@@ -7,6 +7,6 @@ import demoLinks from '../../../../data/demo-links.json'
 
 storiesOf('Patterns', module).add('DemoLinks', () => (
   <Story name='DemoLinks'>
-    <DemoLinks children={demoLinks} onClick={console.log.bind(console)} />
+    <DemoLinks onClick={console.log.bind(console)}>{demoLinks}</DemoLinks>
   </Story>
 ))

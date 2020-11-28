@@ -11,7 +11,9 @@ export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
       maxWidth={layout.large}
       {...props}
     >
-      <Subhead variant='gradient' pt={[0, 0, 4, 4]} children='Pricing' />
+      <Subhead variant='gradient' pt={[0, 0, 4, 4]}>
+        Pricing
+      </Subhead>
       <Caption
         pt={[3, 3, 4, 4]}
         pb={[4, 4, 4, 5]}

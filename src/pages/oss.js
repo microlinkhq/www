@@ -18,19 +18,19 @@ export default () => {
           justifyContent='center'
           alignItems='center'
         >
-          <Heading
-            titleize={false}
-            maxWidth={layout.large}
-            children='Open Source Software'
-          />
+          <Heading titleize={false} maxWidth={layout.large}>
+            Open Source Software
+          </Heading>
 
           <Caption
             pt={[3, 3, 4, 4]}
             px={[4, 4, 0, 0]}
             titleize={false}
             maxWidth={layout.small}
-            children="It's our great privilege to build our products using open source software (OSS) and we want to give the same effort back."
-          />
+          >
+            It's our great privilege to build our products using open source
+            software (OSS) and we want to give the same effort back.
+          </Caption>
 
           <Flex
             pt={[3, 3, 4, 4]}
@@ -46,19 +46,22 @@ export default () => {
                     mr={3}
                     display='inline-block'
                     width='180px'
-                    children={name}
-                  />
+                  >
+                    {name}
+                  </Text>
                   <Flex color='black' style={{ float: 'right' }}>
                     <Flex alignItems='center' mr={3}>
-                      <Text mr={1} children={stars} />
+                      <Text mr={1}>{stars}</Text>
                       <StarIcon width='16px' />
                     </Flex>
                     <Flex alignItems='center'>
-                      <Text mr={1} children={issues} />
+                      <Text mr={1}>{issues}</Text>
                       <IssueIcon width='16px' />
                     </Flex>
                   </Flex>
-                  <Text color='black60' children={description} mt={2} mb={2} />
+                  <Text color='black60' mt={2} mb={2}>
+                    {description}
+                  </Text>
                 </Link>
               </Box>
             ))}
