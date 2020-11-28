@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Caps, Flex, Box, Button } from 'components/elements'
+import { Caps, Flex, Button } from 'components/elements'
 
 import { Story } from 'story'
 

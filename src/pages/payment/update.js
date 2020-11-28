@@ -1,8 +1,8 @@
 /* global fetch */
 
+import { StripeLoader, Layout } from 'components/patterns'
 import { useSiteMetadata } from 'components/hook'
 import { layout, letterSpacings } from 'theme'
-import { Layout } from 'components/patterns'
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
@@ -15,8 +15,7 @@ import {
   Heading,
   Label,
   LinkSolid,
-  Notification,
-  StripeLoader
+  Notification
 } from 'components/elements'
 
 import {

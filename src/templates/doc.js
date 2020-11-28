@@ -7,13 +7,14 @@ import { formatDate } from 'helpers'
 import React from 'react'
 
 import {
-  Tooltip,
   Badge,
-  Link,
-  Text,
-  Flex,
   Box,
-  Container
+  Container,
+  Flex,
+  Link,
+  Script,
+  Text,
+  Tooltip
 } from 'components/elements'
 
 const ROUTES_SDK = [
@@ -539,8 +540,8 @@ export default ({ meta, content, githubUrl, ...props }) => {
       footer={false}
       title={`${meta.name} ${activeRouteName}: ${meta.title}`}
       name='Microlink Docs'
-      script={[{ src: 'https://embed.runkit.com', async: true }]}
     >
+      <Script async src='https://embed.runkit.com' />
       <Container
         pt={[0, 0, 0, 4]}
         ml={[3, 3, 3, 'auto']}

@@ -1,6 +1,5 @@
 import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
 import { Microlink as MicrolinkLogo } from 'components/logos'
-
 import { cx, fontSizes, layout } from 'theme'
 import { Plus } from 'react-feather'
 import React from 'react'
@@ -11,6 +10,7 @@ import {
   Flex,
   Heading,
   Image,
+  Script,
   Unavatar
 } from 'components/elements'
 
@@ -41,11 +41,8 @@ export default ({ pageContext: recipe }) => {
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout
-        footer={{ bg: 'transparent' }}
-        script={[{ src: 'https://embed.runkit.com', async: true }]}
-        {...meta}
-      >
+      <Script async src='https://embed.runkit.com' />
+      <Layout footer={{ bg: 'transparent' }} {...meta}>
         <Flex
           pt={5}
           px={3}

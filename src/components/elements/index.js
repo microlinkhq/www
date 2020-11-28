@@ -16,6 +16,7 @@ import Card from './Card/Card'
 import Flex from './Flex'
 
 import Hide from './Hide'
+import Script from './Script'
 import Color from './Color/Color'
 import Tweet from './Tweet/Tweet'
 import Image from './Image/Image'
@@ -51,7 +52,6 @@ import Text from './Text'
 import Iframe from './Iframe/Iframe'
 import IframeInline from './IframeInline/IframeInline'
 
-import StripeLoader from './StripeLoader'
 import Unavatar from './Unavatar/Unavatar'
 import Runkit from './Runkit/Runkit'
 
@@ -91,9 +91,9 @@ export {
   Placeholder,
   PricePicker,
   Runkit,
+  Script,
   Select,
   Spinner,
-  StripeLoader,
   Subhead,
   Svg,
   Terminal,

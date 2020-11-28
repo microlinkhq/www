@@ -134,7 +134,6 @@ function Head ({ onChangeClientState, script, ...props }) {
   return (
     <Helmet
       onChangeClientState={onChangeClientState}
-      script={script}
       defaultTitle={`${name} — ${headline}`}
       titleTemplate={`%s — ${name}`}
       {...props}

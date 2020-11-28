@@ -12,6 +12,7 @@ import Faq from './Faq/Faq'
 import FetchProvider from './FetchProvider'
 import Footer from './Footer/Footer'
 import Grid from './Grid'
+import StripeLoader from './StripeLoader'
 import Layout from './Layout'
 import Legend from './Legend/Legend'
 import List from './List/List'
@@ -51,5 +52,6 @@ export {
   Microlink,
   MQLEditor,
   PricingTable,
+  StripeLoader,
   Toolbar
 }
