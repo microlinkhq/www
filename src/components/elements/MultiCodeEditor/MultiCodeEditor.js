@@ -77,13 +77,9 @@ export const SelectLanguage = ({
         {...props}
       >
         {children.map(lang => (
-          <option
-            key={lang}
-            children={lang}
-            fontSize={0}
-            fontWeight='regular'
-            mr={2}
-          />
+          <option key={lang} fontSize={0} fontWeight='regular' mr={2}>
+            {lang}
+          </option>
         ))}
       </CustomSelect>
     </SelectWrapper>
@@ -122,10 +118,11 @@ const ActionComponent = ({
           width='4.8rem'
           mb={2}
           bg='white'
-          children={editorLanguages}
           value={editorLanguage}
           onChange={setEditorLanguage}
-        />
+        >
+          {editorLanguages}
+        </SelectLanguage>
       </Text>
       <CodeCopy theme={theme} interactive text={text} />
     </Actions>
@@ -154,7 +151,7 @@ const MultiCodeEditor = ({ theme, languages: codeByLanguage, ...props }) => {
   return (
     <CodeEditor
       language={toAlias(editorLanguage)}
-      children={code}
+      {...props}
       ActionComponent={props => (
         <ActionComponent
           setEditorLanguage={setEditorLanguage}
@@ -163,8 +160,9 @@ const MultiCodeEditor = ({ theme, languages: codeByLanguage, ...props }) => {
           {...props}
         />
       )}
-      {...props}
-    />
+    >
+      {code}
+    </CodeEditor>
   )
 }
 

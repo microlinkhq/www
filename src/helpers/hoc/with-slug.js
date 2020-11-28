@@ -63,7 +63,7 @@ export const withSlug = Component => {
 
     return (
       <Component id={id} {...rest}>
-        <AnchorLink children={children} href={frameId} />
+        <AnchorLink href={frameId}>{children}</AnchorLink>
         <Permalink>
           <PermalinkIcon width='14px' ml={2} />
         </Permalink>

@@ -6,7 +6,7 @@ import React from 'react'
 export default () => (
   <Layout>
     <Container pt={5} justifyContent='center' alignItems='center'>
-      <Heading children='Chat' />
+      <Heading>Chat</Heading>
 
       <Caption
         pt={[3, 3, 4, 4]}

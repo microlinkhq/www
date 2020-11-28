@@ -21,12 +21,13 @@ const MySelect = ({ ...props }) => {
         return (
           <option
             key={language}
-            children={language}
             fontSize={0}
             fontWeight='regular'
             mr={2}
             mb='12px'
-          />
+          >
+            {language}
+          </option>
         )
       })}
     </Select>
@@ -47,24 +48,21 @@ const MySelectWithDefault = ({ placeholder, ...props }) => {
       {...props}
     >
       {[
-        <option
-          children={placeholder}
-          key={placeholder}
-          disabled
-          selected
-          hidden
-        />
+        <option key={placeholder} disabled selected hidden>
+          {placeholder}
+        </option>
       ].concat(
         options.map(language => {
           return (
             <option
               key={language}
-              children={language}
               fontSize={0}
               fontWeight='regular'
               mr={2}
               mb='12px'
-            />
+            >
+              {language}
+            </option>
           )
         })
       )}

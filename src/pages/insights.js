@@ -58,8 +58,10 @@ const Wappalyzer = ({ data, ...props }) => (
       <Image width='40px' src={proxyImage(data.logo)} />
     </Box>
     <Box pl={4}>
-      <Link href={data.url} children={data.name} />
-      <Text fontSize={1} color='gray7' children={data.categories.join(', ')} />
+      <Link href={data.url}>{data.name}</Link>
+      <Text fontSize={1} color='gray7'>
+        {data.categories.join(', ')}
+      </Text>
     </Box>
   </Flex>
 )
@@ -199,16 +201,15 @@ const LiveDemo = ({
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
       >
-        <ArrowLink
-          pr={[0, 4, 4, 4]}
-          href='/docs/api/parameters/insights'
-          children='Get Started'
-        />
+        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/insights'>
+          Get Started
+        </ArrowLink>
         <ArrowLink
           pt={[3, 0, 0, 0]}
           href='https://github.com/microlinkhq/browserless'
-          children='See on GitHub'
-        />
+        >
+          See on GitHub
+        </ArrowLink>
       </Flex>
       <Flex justifyContent='center' alignItems='center'>
         <Flex
@@ -238,7 +239,7 @@ const LiveDemo = ({
           </Box>
 
           <Button ml={[0, 0, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1} children='Get it' />
+            <Caps fontSize={1}>Get it</Caps>
           </Button>
         </Flex>
       </Flex>
@@ -295,19 +296,17 @@ const Timings = props => {
       justifyContent='center'
       alignItems='center'
     >
-      <Subhead
-        fontSize={[3, 4, 6, 6]}
-        color='white'
-        titleize={false}
-        children='Measure globally'
-      />
+      <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
+        Measure globally
+      </Subhead>
       <Subhead
         fontSize={[3, 4, 6, 6]}
         px={[4, 0, 0, 0]}
         titleize={false}
         color='white60'
-        children='Fast. Easy. Reliable.'
-      />
+      >
+        Fast. Easy. Reliable.
+      </Subhead>
     </Flex>
   )
 
@@ -340,9 +339,10 @@ const Timings = props => {
             color='white'
             display='inline'
             fontWeight='bold'
-            children='secs'
             titleize={false}
-          />
+          >
+            secs
+          </Caption>
         </Subhead>
         <Caption as='div' color='white60' fontWeight='bold' pt={2}>
           <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
@@ -385,8 +385,9 @@ const Timings = props => {
             color='white'
             fontWeight='bold'
             display='inline'
-            children='%'
-          />
+          >
+            %
+          </Caption>
         </Subhead>
         <Caption as='div' color='white60' mr={3} fontWeight='bold' pt={2}>
           <Caps fontSize={[0, 2, 2, 2]}>SLA</Caps>
@@ -415,11 +416,9 @@ const Resume = props => (
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
     {...props}
   >
-    <Subhead
-      px={[3, 3, 4, 4]}
-      variant='gradient'
-      children='Global performance insights on click'
-    />
+    <Subhead px={[3, 3, 4, 4]} variant='gradient'>
+      Global performance insights on click
+    </Subhead>
     <Caption
       py={3}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
@@ -443,12 +442,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            fontSize={[3, 3, 4, 4]}
-            textAlign='left'
-            children='Audit on demand'
-          />
+          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+            Audit on demand
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -478,12 +474,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'end']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            textAlign='left'
-            fontSize={[3, 3, 4, 4]}
-            children='Run on the edge'
-          />
+          <Subhead pt={[5, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+            Run on the edge
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -519,12 +512,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            fontSize={[3, 3, 4, 4]}
-            textAlign='left'
-            children='Simple integration'
-          />
+          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+            Simple integration
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -562,7 +552,7 @@ const ProductInformation = props => {
         {
           question: 'What is it?',
           answer: [
-            <>
+            <div key='what-is-it'>
               <Text as='span' color='black' fontWeight='bold'>
                 Microlink for Insights
               </Text>{' '}
@@ -571,13 +561,13 @@ const ProductInformation = props => {
                 Microlink API
               </Link>
               .
-            </>
+            </div>
           ]
         },
         {
           question: 'How does it work?',
           answer: [
-            <>
+            <div key='how-does-it-work-0'>
               The report is created after passing{' '}
               <Link href='/docs/api/parameters/insights'>insights</Link> query
               parameter to{' '}
@@ -585,8 +575,8 @@ const ProductInformation = props => {
                 Microlink API
               </Link>
               .
-            </>,
-            <>
+            </div>,
+            <div key='how-does-it-work-1'>
               For getting the report, we run{' '}
               <Link
                 icon
@@ -596,51 +586,49 @@ const ProductInformation = props => {
               </Link>{' '}
               in our cloud browser servers, giving you the report obtained from
               the target URL.
-            </>,
-            <>
+            </div>,
+            <div key='how-does-it-work-2'>
               Additionally, we can also detect the technology stack behind the
               target URL, using{' '}
               <Link icon href='https://www.wappalyzer.com/'>
                 Wappalyzer
               </Link>{' '}
               .
-            </>,
-            <>
+            </div>,
+            <div key='how-does-it-work-3'>
               The data obtained will be returned as part of the HTTP response
               payload.
-            </>
+            </div>
           ]
         },
         {
           question: 'Why not run my own solution?',
           answer: [
-            <>
+            <div key='why-not-run-my-own-solution-0'>
               The service aims to avoid headaches, preventing you for running
               and maintaining your own infrastructure.
-            </>,
-            <>
+            </div>,
+            <div key='why-not-run-my-own-solution-1'>
               Every URL on the Internet are different and browser are a complex
               piece of software, with unpredictable resources usage.
-            </>,
-            <>
+            </div>,
+            <div key='why-not-run-my-own-solution-2'>
               The fact of resolve any URL at scale in{' '}
               <Average size='tiny' value={healthcheck.insights.avg_pretty} />{' '}
               isn't a trivial thing.
-            </>
+            </div>
           ]
         },
         {
           question: 'Other questions?',
           answer: [
-            <>
+            <div key='other-questions'>
               We're always available at{' '}
-              <Link
-                display='inline'
-                href='mailto:hello@microlink.io'
-                children='hello@microlink.io'
-              />
+              <Link display='inline' href='mailto:hello@microlink.io'>
+                hello@microlink.io
+              </Link>
               .
-            </>
+            </div>
           ]
         }
       ]}

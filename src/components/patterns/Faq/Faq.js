@@ -18,15 +18,18 @@ const Faq = ({ title, caption, questions, ...props }) => {
   return (
     <Container id='faq' {...props}>
       <Flex flexDirection='column' alignItems='center'>
-        <Subhead variant='gradient' children={title} titleize={false} />
+        <Subhead variant='gradient' titleize={false}>
+          {title}
+        </Subhead>
         <Caption
           px={[4, 0, 0, 0]}
           pt={[3, 4, 4, 4]}
           pb={[4, 4, 4, 5]}
           maxWidth={layout.normal}
           titleize={false}
-          children={caption}
-        />
+        >
+          {caption}
+        </Caption>
       </Flex>
 
       <Flex
@@ -45,15 +48,16 @@ const Faq = ({ title, caption, questions, ...props }) => {
                 maxWidth={layout.normal}
                 key={question}
               >
-                <Question index={index} children={question} />
+                <Question index={index}>{question}</Question>
                 {answer.map((paraph, index) => (
                   <Text
                     pr={[3, 0, 0, 0]}
                     pt={[3, 4, 4, 4]}
                     key={`${question}${index}`}
                     color='black80'
-                    children={paraph}
-                  />
+                  >
+                    {paraph}
+                  </Text>
                 ))}
               </Text>
             )

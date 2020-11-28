@@ -1,8 +1,8 @@
 /* global fetch */
 
+import { StripeLoader, Layout } from 'components/patterns'
 import { useSiteMetadata } from 'components/hook'
 import { layout, letterSpacings } from 'theme'
-import { Layout } from 'components/patterns'
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Choose } from 'react-extras'
@@ -15,8 +15,7 @@ import {
   Heading,
   Label,
   LinkSolid,
-  Notification,
-  StripeLoader
+  Notification
 } from 'components/elements'
 
 import {
@@ -105,20 +104,23 @@ class _CardForm extends Component {
         {paymentState && (
           <Choose>
             <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
-              <Notification.Success children='Processing...' />
+              <Notification.Success>Processing...</Notification.Success>
             </Choose.When>
             <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
-              <Notification.Success children='Payment updated! We sent you an email.' />
+              <Notification.Success>
+                Payment updated! We sent you an email.
+              </Notification.Success>
             </Choose.When>
             <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
               <Notification.Error>
                 Payment not updated.{' '}
                 <LinkSolid
                   display='inline'
-                  children='Contact us'
                   color='red8'
                   href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
-                />
+                >
+                  Contact us
+                </LinkSolid>
                 .
               </Notification.Error>
             </Choose.When>
@@ -159,10 +161,9 @@ class _CardForm extends Component {
             <CardCvcElement {...createOptions(this.props.fontSize)} />
           </Label>
 
-          <Button
-            children='Update Card'
-            loading={paymentState === PAYMENT_STATE.PROCESSING}
-          />
+          <Button loading={paymentState === PAYMENT_STATE.PROCESSING}>
+            Update Card
+          </Button>
         </Form>
       </>
     )

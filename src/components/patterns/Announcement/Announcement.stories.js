@@ -26,11 +26,8 @@ storiesOf('Patterns', module).add('Announcement', () => (
       data-event-category='Home'
       data-event-action='Announcement'
       href='/blog/product-brief-7/'
-      children={
-        <>
-          Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
-        </>
-      }
-    />
+    >
+      Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
+    </Announcement>
   </Story>
 ))

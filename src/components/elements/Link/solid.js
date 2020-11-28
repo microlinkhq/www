@@ -47,10 +47,11 @@ export default ({ fontWeight, href, children, color, theme, ...props }) => {
         {...props}
         color={color}
         href={href}
-        children={children}
         fontWeight={fontWeight}
         isDark={theme === 'dark'}
-      />
+      >
+        {children}
+      </LinkSolid>
     </Box>
   )
 }

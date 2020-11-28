@@ -11,38 +11,31 @@ storiesOf('Patterns', module).add('Block', () => (
       <Block
         top={
           <Box bg='pink' borderRadius={2} borderColor='gray'>
-            <Text py={3} textAlign='center' children='<top/>' color='black80' />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<top/>'}
+            </Text>
           </Box>
         }
         blockOne={
           <Box bg='blue' width='40vw' borderRadius={2} borderColor='gray'>
-            <Text
-              py={3}
-              textAlign='center'
-              children='<blockOne />'
-              color='black80'
-            />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<blockOne />'}
+            </Text>
           </Box>
         }
         blockTwo={
           <Box bg='red' width='40vw' borderRadius={2} borderColor='gray'>
-            <Text
-              py={3}
-              textAlign='center'
-              children='<blockTwo />'
-              color='black80'
-            />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<blockTwo />'}
+            </Text>
           </Box>
         }
         bottom={
           <>
             <Box bg='violet' borderRadius={2} borderColor='gray'>
-              <Text
-                py={3}
-                textAlign='center'
-                children='<bottom />'
-                color='black80'
-              />
+              <Text py={3} textAlign='center' color='black80'>
+                {'<bottom />'}
+              </Text>
             </Box>
           </>
         }
@@ -53,38 +46,31 @@ storiesOf('Patterns', module).add('Block', () => (
         flexDirection='column'
         top={
           <Box bg='pink' borderRadius={2} borderColor='gray'>
-            <Text py={3} textAlign='center' children='<top/>' color='black80' />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<top/>'}
+            </Text>
           </Box>
         }
         blockOne={
           <Box bg='blue' width='40vw' borderRadius={2} borderColor='gray'>
-            <Text
-              py={3}
-              textAlign='center'
-              children='<blockOne />'
-              color='black80'
-            />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<blockOne />'}
+            </Text>
           </Box>
         }
         blockTwo={
           <Box mt={3} bg='red' width='40vw' borderRadius={2} borderColor='gray'>
-            <Text
-              py={3}
-              textAlign='center'
-              children='<blockTwo />'
-              color='black80'
-            />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<blockTwo />'}
+            </Text>
           </Box>
         }
         bottom={
           <>
             <Box bg='violet' borderRadius={2} borderColor='gray'>
-              <Text
-                py={3}
-                textAlign='center'
-                children='<bottom />'
-                color='black80'
-              />
+              <Text py={3} textAlign='center' color='black80'>
+                {'<bottom />'}
+              </Text>
             </Box>
           </>
         }
@@ -95,38 +81,31 @@ storiesOf('Patterns', module).add('Block', () => (
         flexDirection='row-reverse'
         top={
           <Box bg='pink' borderRadius={2} borderColor='gray'>
-            <Text py={3} textAlign='center' children='<top/>' color='black80' />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<top/>'}
+            </Text>
           </Box>
         }
         blockOne={
           <Box bg='blue' width='40vw' borderRadius={2} borderColor='gray'>
-            <Text
-              py={3}
-              textAlign='center'
-              children='<blockOne />'
-              color='black80'
-            />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<blockOne />'}
+            </Text>
           </Box>
         }
         blockTwo={
           <Box mt={3} bg='red' width='40vw' borderRadius={2} borderColor='gray'>
-            <Text
-              py={3}
-              textAlign='center'
-              children='<blockTwo />'
-              color='black80'
-            />
+            <Text py={3} textAlign='center' color='black80'>
+              {'<blockTwo />'}
+            </Text>
           </Box>
         }
         bottom={
           <>
             <Box bg='violet' borderRadius={2} borderColor='gray'>
-              <Text
-                py={3}
-                textAlign='center'
-                children='<bottom />'
-                color='black80'
-              />
+              <Text py={3} textAlign='center' color='black80'>
+                {'<bottom />'}
+              </Text>
             </Box>
           </>
         }

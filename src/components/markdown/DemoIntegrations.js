@@ -145,7 +145,7 @@ export default () => (
         }}
       />
 
-      {caption && <Figcaption children={caption} />}
+      {caption && <Figcaption>{caption}</Figcaption>}
 
       {showCard && <Microlink {...params} />}
     </>

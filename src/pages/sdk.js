@@ -158,16 +158,12 @@ const LiveDemo = ({
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
       >
-        <ArrowLink
-          pr={[0, 4, 4, 4]}
-          href='/docs/sdk/getting-started/overview/'
-          children='Get Started'
-        />
-        <ArrowLink
-          pt={[3, 0, 0, 0]}
-          href='https://github.com/microlinkhq/sdk'
-          children='View on GitHub'
-        />
+        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/sdk/getting-started/overview/'>
+          Get Started
+        </ArrowLink>
+        <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
+          View on GitHub
+        </ArrowLink>
       </Flex>
 
       <Flex justifyContent='center' alignItems='center'>
@@ -202,7 +198,7 @@ const LiveDemo = ({
             />
           </Box>
           <Button mt={[3, 0, 0, 0]} ml={[0, 2, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1} children='Embed it' />
+            <Caps fontSize={1}>Embed it</Caps>
           </Button>
         </Flex>
       </Flex>
@@ -259,19 +255,21 @@ const LiveDemo = ({
               <Card.Option
                 key={children}
                 value={mode}
-                children={children}
                 onClick={() => setMode(children)}
-              />
+              >
+                {children}
+              </Card.Option>
             ))}
           </Box>
           <Box pt={[3, 4, 4, 4]}>
             {TYPES.map(children => (
               <Card.Option
                 key={children}
-                children={children}
                 value={type}
                 onClick={() => setType(children)}
-              />
+              >
+                {children}
+              </Card.Option>
             ))}
           </Box>
         </Flex>
@@ -331,10 +329,9 @@ const Integrations = () => {
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
       >
-        <ArrowLink
-          href='/docs/sdk/getting-started/overview/'
-          children='See more integrations'
-        />
+        <ArrowLink href='/docs/sdk/getting-started/overview/'>
+          See more integrations
+        </ArrowLink>
       </Flex>
     </Container>
   )

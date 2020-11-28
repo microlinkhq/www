@@ -62,8 +62,9 @@ export default () => {
                     style={{ whiteSpace: 'pre', fontFamily: 'monospace' }}
                     color={color}
                     fontSize={[0, 0, 1, 1]}
-                    children={`\n${data}`}
-                  />
+                  >
+                    {`\n${data}`}
+                  </Text>
                 </Choose.Otherwise>
               </Choose>
             </Box>

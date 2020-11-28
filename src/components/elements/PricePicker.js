@@ -53,7 +53,7 @@ export default props => {
       style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       {Object.keys(PLANS).map(plan => (
-        <option key={plan} children={PLANS[plan].reqsPerMonthPretty} />
+        <option key={plan}>{PLANS[plan].reqsPerMonthPretty}</option>
       ))}
     </Select>
   )

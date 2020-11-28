@@ -1,6 +1,7 @@
 /* global fetch */
 
-import { StripeLoader, Caps, Button } from 'components/elements'
+import { Caps, Button } from 'components/elements'
+import { StripeLoader } from 'components/patterns'
 import { useSiteMetadata } from 'components/hook'
 import React, { useState } from 'react'
 

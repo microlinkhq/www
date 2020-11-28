@@ -59,8 +59,9 @@ export default ({ size, value }) => {
         display='inline'
         fontWeight='bold'
         titleize={false}
-        children={unit}
-      />
+      >
+        {unit}
+      </Caption>
     </Highlight>
   )
 }

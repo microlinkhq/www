@@ -139,10 +139,12 @@ const Terminal = ({
         <TerminalButton.Red theme={theme} />
         <TerminalButton.Yellow theme={theme} />
         <TerminalButton.Green theme={theme} />
-        <TerminalTitle theme={theme} children={title} />
+        <TerminalTitle theme={theme}>{title}</TerminalTitle>
         <ActionComponent isHover={isHover} theme={theme} text={text} />
       </TerminalHeader>
-      <TerminalText background={background} theme={theme} children={children} />
+      <TerminalText background={background} theme={theme}>
+        {children}
+      </TerminalText>
     </TerminalWindow>
   )
 }
@@ -181,9 +183,10 @@ const CodeEditor = props => {
           showLineNumbers={showLineNumbers}
           language={language}
           style={prismTheme}
-          children={text}
           css={css}
-        />
+        >
+          {text}
+        </CustomSyntaxHighlighter>
       </TerminalTextWrapper>
     </Terminal>
   )

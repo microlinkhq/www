@@ -88,17 +88,16 @@ storiesOf('Elements', module).add('CodeEditor', () => (
   <Story name='CodeEditor'>
     <Box mb={4}>
       <Text color='black30'>js</Text>
-      <CodeEditor
-        title='my-code.js'
-        theme='dark'
-        language='js'
-        children={jsCode}
-      />
+      <CodeEditor title='my-code.js' theme='dark' language='js'>
+        {jsCode}
+      </CodeEditor>
     </Box>
 
     <Box mb={4}>
       <Text color='black30'>js</Text>
-      <CodeEditor title='my-code.js' language='js' children={jsCode} />
+      <CodeEditor title='my-code.js' language='js'>
+        {jsCode}
+      </CodeEditor>
     </Box>
 
     {/* <Box mb={4}>
@@ -112,15 +111,17 @@ storiesOf('Elements', module).add('CodeEditor', () => (
     </Box> */}
     <Box mb={4}>
       <Text color='black30'>jsx</Text>
-      <CodeEditor title='my-code.jsx' language='jsx' children={jsxCode} />
+      <CodeEditor title='my-code.jsx' language='jsx'>
+        {jsxCode}
+      </CodeEditor>
     </Box>
     <Box mb={4}>
       <Text color='black30'>bash</Text>
-      <CodeEditor language='bash' children={bashCode} />
+      <CodeEditor language='bash'>{bashCode}</CodeEditor>
     </Box>
     <Box mb={4}>
       <Text color='black30'>json</Text>
-      <CodeEditor language='json' children={jsonCode} />
+      <CodeEditor language='json'>{jsonCode}</CodeEditor>
     </Box>
   </Story>
 ))

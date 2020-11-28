@@ -78,10 +78,11 @@ const Title = ({ children, href, Icon, ...props }) => {
       {Icon && <Icon className={LINK_ICON_CLASSNAME} />}
       <Text
         fontWeight='normal'
-        children={children}
         css={isInternalLink(href) ? titleStyle : titleExternalStyle}
         {...props}
-      />
+      >
+        {children}
+      </Text>
     </NavLink>
   )
 }
@@ -124,13 +125,14 @@ const Aside = ({
           </Box>
         )}
         <Toggle
-          children={routeNames}
           defaultValue={activeRouteName}
           onChange={value => {
             onChange(value)
             setTree(value)
           }}
-        />
+        >
+          {routeNames}
+        </Toggle>
       </Flex>
       <Box as='section' data-aside-tree pl={4}>
         {routes[tree].map(path => (
@@ -143,18 +145,17 @@ const Aside = ({
                   <Title
                     key={`${tree}_title_${post.name}`}
                     href={post.href}
-                    children={post.name}
                     Icon={post.icon}
-                  />
+                  >
+                    {post.name}
+                  </Title>
                 )
               } else {
                 return (
                   <Fragment key={`${tree}_subheader_${post.name}`}>
-                    <Title
-                      key={`${tree}_title_${post.name}`}
-                      href={post.href}
-                      children={post.name}
-                    />
+                    <Title key={`${tree}_title_${post.name}`} href={post.href}>
+                      {post.name}
+                    </Title>
                     <Box
                       data-subtree
                       ml={2}

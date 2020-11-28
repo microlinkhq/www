@@ -55,7 +55,7 @@ export default () => (
 storiesOf('Theme', module).add('Typography', () => (
   <>
     <Story name='Heading' code={codeHeading}>
-      <Heading titleize={false} children='Browser as API' />
+      <Heading titleize={false}>Browser as API</Heading>
     </Story>
     <Story name='Caption' code={codeCaption}>
       <Caption>
@@ -67,15 +67,15 @@ storiesOf('Theme', module).add('Typography', () => (
       <Legend sup='screenshot' title='Turn websites into screenshots' />
     </Story>
     <Story name='Text' code={codeText}>
-      <Text children='Make your content attractive, engaging better your links.' />
-      <Text
-        fontSize={[0, 2]}
-        color='black60'
-        children='June 30, 2018 (9 months ago)'
-      />
+      <Text>Make your content attractive, engaging better your links.</Text>
+      <Text fontSize={[0, 2]} color='black60'>
+        June 30, 2018 (9 months ago)
+      </Text>
     </Story>
     <Story name='Label' code={codeLabel}>
-      <Label display='inline' children='reqs' suffix='/day' />
+      <Label display='inline' suffix='/day'>
+        reqs
+      </Label>
     </Story>
     <Story name='Caps' code={codeCaps}>
       <Caps fontSize={0}>See More</Caps>

@@ -78,12 +78,9 @@ export default ({ theme, ...props }) => {
               <Microlink />
             </Flex>
             <Flex flexDirection='column' alignItems='center'>
-              <Text
-                color={textColor}
-                fontSize={1}
-                pt={3}
-                children='Turn websites into data'
-              />
+              <Text color={textColor} fontSize={1} pt={3}>
+                Turn websites into data
+              </Text>
             </Flex>
             <Flex
               alignItems={['center', 'center', 'center', 'inherit']}
@@ -112,18 +109,14 @@ export default ({ theme, ...props }) => {
                       bg={buttonBg}
                       color={buttonColor}
                     >
-                      <Caps fontSize={0} children='Be Notified' />
+                      <Caps fontSize={0}>Be Notified</Caps>
                     </Button>
                   </Flex>
                 </form>
               </Flex>
-              <Text
-                textAlign='center'
-                color={textColor}
-                fontSize={1}
-                children='Early access & updates on new releases.'
-                pt={3}
-              />
+              <Text textAlign='center' color={textColor} fontSize={1} pt={3}>
+                Early access & updates on new releases.
+              </Text>
             </Flex>
           </Flex>
         </Box>
@@ -137,8 +130,9 @@ export default ({ theme, ...props }) => {
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/docs/api/getting-started/overview'
-              children='API'
-            />
+            >
+              API
+            </LinkSolid>
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
@@ -147,8 +141,9 @@ export default ({ theme, ...props }) => {
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/blog'
-              children='Blog'
-            />
+            >
+              Blog
+            </LinkSolid>
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
@@ -157,16 +152,18 @@ export default ({ theme, ...props }) => {
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/chat'
-              children='Chat'
-            />
+            >
+              Chat
+            </LinkSolid>
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
               data-event-action='Stats'
               fontSize={[0, 0, 0, 1]}
               href='/stats'
-              children='Stats'
-            />
+            >
+              Stats
+            </LinkSolid>
           </Flex>
         </Box>
         <Box mb={[2, 0, 0, 0]} pb={[3, 3, 3, 0]} px={0}>
@@ -179,8 +176,9 @@ export default ({ theme, ...props }) => {
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/docs/sdk/getting-started/overview/'
-              children='SDK'
-            />
+            >
+              SDK
+            </LinkSolid>
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
@@ -189,8 +187,9 @@ export default ({ theme, ...props }) => {
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/#pricing'
-              children='Pricing'
-            />
+            >
+              Pricing
+            </LinkSolid>
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
@@ -199,16 +198,18 @@ export default ({ theme, ...props }) => {
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
               href='/oss'
-              children='Open Source'
-            />
+            >
+              Open Source
+            </LinkSolid>
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
               data-event-action='Bug Reports'
               fontSize={[0, 0, 0, 1]}
               href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
-              children='Bug Reports'
-            />
+            >
+              Bug Reports
+            </LinkSolid>
           </Flex>
         </Box>
         <Box px={0}>
@@ -228,7 +229,6 @@ export default ({ theme, ...props }) => {
                           data-event-category='Footer'
                           data-event-action='Status'
                           href='/status'
-                          children='Status'
                         >
                           <Text fontSize={[0, 0, 0, 1]}>Status Page</Text>
                         </LinkSolid>
@@ -242,7 +242,6 @@ export default ({ theme, ...props }) => {
                         data-event-category='Footer'
                         data-event-action='Status'
                         href='/stats'
-                        children='Status'
                         color={colors[textColor]}
                       >
                         <Text
@@ -270,13 +269,9 @@ export default ({ theme, ...props }) => {
 
             <Hide breakpoints={[0, 1, 2]}>
               <Flex alignItems='center' py={[0, 0, 0, 4]}>
-                <Text
-                  color={textColor}
-                  mr={2}
-                  children='© Microlink'
-                  pb='2px'
-                  fontSize={1}
-                />
+                <Text color={textColor} mr={2} pb='2px' fontSize={1}>
+                  © Microlink
+                </Text>
                 <LinkSolid
                   theme={theme}
                   fontWeight='normal'
@@ -285,8 +280,9 @@ export default ({ theme, ...props }) => {
                   href='/tos'
                   data-event-category='Footer'
                   data-event-action='Terms'
-                  children='Terms'
-                />
+                >
+                  Terms
+                </LinkSolid>
                 <LinkSolid
                   theme={theme}
                   fontWeight='normal'
@@ -294,8 +290,9 @@ export default ({ theme, ...props }) => {
                   data-event-category='Footer'
                   data-event-action='Privacy'
                   href='/privacy'
-                  children='Privacy'
-                />
+                >
+                  Privacy
+                </LinkSolid>
               </Flex>
             </Hide>
 

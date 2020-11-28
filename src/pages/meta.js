@@ -121,9 +121,10 @@ const JSONProperty = ({ property, data, ...props }) => {
       color={type === 'no' ? 'gray' : undefined}
       type={type}
       fontSize={1}
-      children={property}
       {...props}
-    />
+    >
+      {property}
+    </List.Item>
   )
 }
 
@@ -184,16 +185,12 @@ const LiveDemo = ({
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
       >
-        <ArrowLink
-          pr={[0, 4, 4, 4]}
-          href='/docs/api/parameters/meta'
-          children='Get Started'
-        />
-        <ArrowLink
-          pt={[3, 0, 0, 0]}
-          href='https://github.com/microlinkhq/sdk'
-          children='See on GitHub'
-        />
+        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/meta'>
+          Get Started
+        </ArrowLink>
+        <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
+          See on GitHub
+        </ArrowLink>
       </Flex>
 
       <Flex justifyContent='center' alignItems='center'>
@@ -225,7 +222,7 @@ const LiveDemo = ({
             />
           </Box>
           <Button ml={[0, 0, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1} children='Get it' />
+            <Caps fontSize={1}>Get it</Caps>
           </Button>
         </Flex>
       </Flex>
@@ -250,19 +247,14 @@ const LiveDemo = ({
           </List>
         </Hide>
         <Flex flexDirection='column' alignItems='center'>
-          <CodeEditor
-            width={cardWidth}
-            height={cardHeight}
-            language='json'
-            children={JSON.stringify(jsonData, null, 2)}
-          />
+          <CodeEditor width={cardWidth} height={cardHeight} language='json'>
+            {JSON.stringify(jsonData, null, 2)}
+          </CodeEditor>
           {inputValue && (
             <Box pt={4}>
-              <CodeEditor
-                width={cardWidth}
-                language='bash'
-                children={`curl -sL ${embedUrl}`}
-              />
+              <CodeEditor width={cardWidth} language='bash'>
+                {`curl -sL ${embedUrl}`}
+              </CodeEditor>
             </Box>
           )}
         </Flex>
@@ -321,12 +313,9 @@ const Timings = () => {
         blockOne={
           <Box>
             <Flex alignItems='center' justifyContent='center'>
-              <Subhead
-                px={[3, 0, 0, 0]}
-                fontSize={[3, 4, 6, 6]}
-                color='white'
-                children='All the data. Unified. Effortless.'
-              />
+              <Subhead px={[3, 0, 0, 0]} fontSize={[3, 4, 6, 6]} color='white'>
+                All the data. Unified. Effortless.
+              </Subhead>
             </Flex>
             <Caption
               px={[4, 0, 0, 0]}
@@ -335,8 +324,9 @@ const Timings = () => {
               maxWidth={[6, 7, 7, 'inherit']}
               fontSize={[2, 2, 4, 4]}
               fontWeight='regular'
-              children='Open Graph, JSON+LD, oEmbed & HTML.'
-            />
+            >
+              Open Graph, JSON+LD, oEmbed & HTML.
+            </Caption>
           </Box>
         }
         blockTwo={
@@ -349,8 +339,9 @@ const Timings = () => {
                 color='white'
                 fontWeight='bold'
                 css={fadeIn}
-                children={SENTENCES[index]}
-              />
+              >
+                {SENTENCES[index]}
+              </Subhead>
             </Flex>
             <Flex
               pt={[4, 4, 5, 5]}
@@ -385,9 +376,10 @@ const Timings = () => {
                     color='white'
                     display='inline'
                     fontWeight='bold'
-                    children='secs'
                     titleize={false}
-                  />
+                  >
+                    secs
+                  </Caption>
                 </Subhead>
                 <Caption as='div' color='white80' fontWeight='bold' pt={2}>
                   <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
@@ -435,8 +427,9 @@ const Timings = () => {
                     color='white'
                     fontWeight='bold'
                     display='inline'
-                    children='%'
-                  />
+                  >
+                    %
+                  </Caption>
                 </Subhead>
                 <Caption
                   as='div'
@@ -452,8 +445,9 @@ const Timings = () => {
             </Flex>
           </>
         }
-        children={<CubeBackground />}
-      />
+      >
+        <CubeBackground />
+      </Block>
     </AnimatedBox>
   )
 }
@@ -465,11 +459,9 @@ const Resume = props => (
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
     {...props}
   >
-    <Subhead
-      px={[3, 3, 0, 0]}
-      variant='gradient'
-      children='Turns websites into data'
-    />
+    <Subhead px={[3, 3, 0, 0]} variant='gradient'>
+      Turns websites into data
+    </Subhead>
     <Caption
       py={3}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
@@ -492,12 +484,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            fontSize={[3, 3, 4, 4]}
-            textAlign='left'
-            children='Data normalization'
-          />
+          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+            Data normalization
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -518,12 +507,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'end']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            textAlign='left'
-            fontSize={[3, 3, 4, 4]}
-            children='Contextual information'
-          />
+          <Subhead pt={[5, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+            Contextual information
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -558,12 +544,9 @@ const Resume = props => (
           flexDirection='column'
           alignItems={['center', 'center', 'center', 'baseline']}
         >
-          <Subhead
-            pt={[5, 4, 4, 0]}
-            fontSize={[3, 3, 4, 4]}
-            textAlign='left'
-            children='Easily consumable'
-          />
+          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+            Easily consumable
+          </Subhead>
           <Text
             pt={4}
             maxWidth={8}
@@ -592,24 +575,24 @@ const ProductInformation = props => (
       {
         question: 'What is it?',
         answer: [
-          <>
+          <div key='what-is-it-0'>
             <Text as='span' color='black' fontWeight='bold'>
               Microlink for Meta
             </Text>{' '}
             is a data extraction service that take a URL as input, giving you
             structured data as output.
-          </>,
-          <>
+          </div>,
+          <div key='what-is-it-1'>
             The data detected is unified and normalized from different data
             source providers present on the semantic markup of the target URL,
             such as Open Graph, JSON+LD, oEmbed, microformats or regular HTML.
-          </>
+          </div>
         ]
       },
       {
         question: 'How does it work?',
         answer: [
-          <>
+          <div key='how-does-it-work-0'>
             It's a{' '}
             <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
               rule-based system
@@ -620,54 +603,52 @@ const ProductInformation = props => (
             </Link>
             , where the desired value (e.g., the title) will be searched over
             the content according to a series of rules.
-          </>,
-          <>
+          </div>,
+          <div key='how-does-it-work-1'>
             Also, this process ensures the value extracted follows a specific
             data shape. So, not only the value should be present, it needs to
             satisfy a specific data shape as well.
-          </>,
-          <>
+          </div>,
+          <div key='how-does-it-work-2'>
             In this way, if the service detects the value, you can be sure that
             is what it claims to be.
-          </>
+          </div>
         ]
       },
       {
         question: 'Why not run my own solution?',
         answer: [
-          <>
+          <div key='why-not-run-my-own-solution-0'>
             You can always run your own solution; Most of our software is{' '}
             <Link icon href='/oss'>
               Open Source
             </Link>
             , so you can take them and hosted from scratch.
-          </>,
-          <>
+          </div>,
+          <div key='why-not-run-my-own-solution-1'>
             What we offer as part of our value proposition is a production ready
             solution without the headaches of running your own infrastructure.
-          </>,
-          <>
+          </div>,
+          <div key='why-not-run-my-own-solution-2'>
             No code to maintain, no servers to scale up, no dependencies to
             upgrade. Just an always ready{' '}
             <Link icon href='/docs/api/getting-started/overview'>
               API
             </Link>{' '}
             ready to use.
-          </>
+          </div>
         ]
       },
       {
         question: 'Other questions?',
         answer: [
-          <>
+          <div key='other-questions'>
             We're always available at{' '}
-            <Link
-              display='inline'
-              href='mailto:hello@microlink.io'
-              children='hello@microlink.io'
-            />
+            <Link display='inline' href='mailto:hello@microlink.io'>
+              hello@microlink.io
+            </Link>
             .
-          </>
+          </div>
         ]
       }
     ]}

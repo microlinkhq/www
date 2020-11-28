@@ -54,9 +54,10 @@ const getCaption = paymentState => {
           <Box />
           <LinkSolid
             pt={2}
-            children='Contact us'
             href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
-          />
+          >
+            Contact us
+          </LinkSolid>
         </Box>
       )
   }

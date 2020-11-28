@@ -28,15 +28,15 @@ export default ({ title, caption, features, ...props }) => {
       </Caption>
 
       <Hide breakpoints={[1, 2, 3]} style={{ width: '100%' }}>
-        <Grid
-          pt={3}
-          children={take(features, features.length - 1)}
-          itemsPerRow={2}
-        />
+        <Grid pt={3} itemsPerRow={2}>
+          {take(features, features.length - 1)}
+        </Grid>
       </Hide>
 
       <Hide breakpoints={[0]} style={{ width: '100%' }}>
-        <Grid pt={3} children={features} itemsPerRow={3} />
+        <Grid pt={3} itemsPerRow={3}>
+          {features}
+        </Grid>
       </Hide>
     </Container>
   )
