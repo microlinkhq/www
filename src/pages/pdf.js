@@ -162,7 +162,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
           flexDirection={['column', 'column', 'row', 'row']}
           onSubmit={handleSubmit}
         >
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+          <Box mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
               iconComponent={<InputIcon domain={domain} />}
