@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.14](https://github.com/microlinkhq/microlink-www/compare/v2.11.13...v2.11.14) (2020-11-28)
+
+
+### Bug Fixes
+
+* block codes ([2b70a3e](https://github.com/microlinkhq/microlink-www/commit/2b70a3e0db5301260d1c99ff20f8a113cdac0677))
+* linter ([883f653](https://github.com/microlinkhq/microlink-www/commit/883f653971a4411c7b442c522c0492ffee626a0b))
+* typo ([53fe717](https://github.com/microlinkhq/microlink-www/commit/53fe7170ff45b1efbb41e6ca967df94fbbd8c9f2))
+* typo ([12c81fc](https://github.com/microlinkhq/microlink-www/commit/12c81fc328346c530b8d9c6e5b68aabe9ef70980))
+* typo ([9207163](https://github.com/microlinkhq/microlink-www/commit/920716322df4a9eb9f587b326b625376497c3eed))
+* typo ([c0479cd](https://github.com/microlinkhq/microlink-www/commit/c0479cdb0da731b6d25d0127f9d54c04dc58abb4))
+* typo ([8e132e0](https://github.com/microlinkhq/microlink-www/commit/8e132e02c215657ba2ce3ed98e89f5ebdc6394c1))
+* typo ([83c312b](https://github.com/microlinkhq/microlink-www/commit/83c312bdc96fd2524947389ed51053d1401230a0))
+
 ### [2.11.13](https://github.com/microlinkhq/microlink-www/compare/v2.11.12...v2.11.13) (2020-10-27)
 
 ### [2.11.12](https://github.com/microlinkhq/microlink-www/compare/v2.11.11...v2.11.12) (2020-10-26)
