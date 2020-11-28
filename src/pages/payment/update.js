@@ -29,11 +29,7 @@ import {
 import { ERROR_MAIL_OPTS, PAYMENT_STATE } from '.'
 
 const Form = styled.form`
-  display: flex;
-  justify-content: center;
-
   .StripeElement {
-    width: 20em;
     display: block;
     max-width: 100%;
     padding: 10px 14px;
@@ -86,7 +82,7 @@ const CheckoutForm = ({ apiEndpoint, apiKey }) => {
           })
         })
       )
-      .then(() => setPaymentState(PAYMENT_STATE))
+      .then(() => setPaymentState(PAYMENT_STATE.SUCCESS))
       .catch(err => {
         console.error(err)
         setPaymentState(PAYMENT_STATE.FAILED)
@@ -140,10 +136,11 @@ const CheckoutForm = ({ apiEndpoint, apiKey }) => {
           }}
         />
         <Button
-          ml={[0, 0, 2, 2]}
+          mt={3}
           loading={paymentState === PAYMENT_STATE.PROCESSING}
           type='submit'
           disabled={!stripe}
+          width='100%'
         >
           <Caps fontSize={1}>Update Card</Caps>
         </Button>
@@ -181,7 +178,7 @@ export default () => {
           Fill the new credit card and they will be associated with your
           customer profile.
         </Caption>
-        <Box pt={[3, 3, 4, 4]} width={layout.normal}>
+        <Box pt={[3, 3, 4, 4]} width={7}>
           <Elements stripe={stripePromise}>
             <CheckoutForm apiKey={apiKey} apiEndpoint={apiEndpoint} />
           </Elements>
