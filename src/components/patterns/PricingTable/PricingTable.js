@@ -44,8 +44,8 @@ Price.defaultProps = {
 
 const PricingPrice = props => <Price label='/month' {...props} />
 
-const RequestsPerDay = props => (
-  <Label display='inline' suffix='/day' {...props}>
+const Requests = props => (
+  <Label display='inline' {...props}>
     requests
   </Label>
 )
@@ -134,7 +134,7 @@ export const createPricingTable = Checkout => ({
 
         <Box>
           <Text pt={3}>
-            {FREE_PLAN_RATE_LIMIT} <RequestsPerDay />
+            {FREE_PLAN_RATE_LIMIT} <Requests sufix='/day' />
           </Text>
           <PricingPrice pt={3}>0</PricingPrice>
         </Box>
@@ -187,7 +187,8 @@ export const createPricingTable = Checkout => ({
 
           <Box pt={3}>
             <Text>
-              <PricePicker onChange={priceSelected} /> <RequestsPerDay />
+              <PricePicker onChange={priceSelected} />{' '}
+              <Requests suffix='/month' />
             </Text>
             <Text fontSize={0}>
               <PricingPrice pt='12px'>
