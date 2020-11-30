@@ -32,7 +32,7 @@ const Logo = ({ isGeneric, logo, domain }) => {
 
 export default ({ pageContext: recipe }) => {
   const meta = {
-    title: `Recipe for ${recipe.name}`
+    title: `Microlink Recipe: ${recipe.name}`
   }
 
   const gitHubUrl = `https://github.com/microlinkhq/recipes/blob/master/recipes/${
