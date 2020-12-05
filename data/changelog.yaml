@@ -1,5 +1,6 @@
 - date: November 2020
   notes:
+    - Released [metascraper v5.15](https://github.com/microlinkhq/metascraper/releases/tag/v5.15.0) with a better Telegram integration.
     - Add Microlink API [evaluate](/docs/mql/data/evaluate) query parameter
     - Add Microlink API [retry](/docs/mql/data/retry) query parameter
     - "[Microlink Cluster](/stats) is running [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md)"
