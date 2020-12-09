@@ -41,7 +41,7 @@ export default ({ size, value }) => {
   if (size === 'tiny') {
     return (
       <Highlight display='inline' isHighlight={averageHighlight}>
-        <Text as='span' color='black80' fontWeight='bold'>
+        <Text as='span' px='2px' color='black80' fontWeight='bold'>
           {prettyNumber(average)} {unit}
         </Text>
       </Highlight>

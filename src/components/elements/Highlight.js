@@ -7,7 +7,6 @@ import { Box } from 'components/elements'
 const HIGHLIGHT_DURATION = 1000
 
 const highlightCss = css`
-  padding: 0 2px;
   animation-name: ${highlight};
   animation-duration: ${HIGHLIGHT_DURATION}ms;
 `
