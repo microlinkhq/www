@@ -158,11 +158,11 @@ export default ({ theme, ...props }) => {
             <LinkSolid
               theme={theme}
               data-event-category='Footer'
-              data-event-action='Stats'
+              data-event-action='Status'
               fontSize={[0, 0, 0, 1]}
-              href='/stats'
+              href='/Status'
             >
-              Stats
+              Status
             </LinkSolid>
           </Flex>
         </Box>

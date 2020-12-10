@@ -3,15 +3,15 @@
     - Released [metascraper v5.15](https://github.com/microlinkhq/metascraper/releases/tag/v5.15.0) with a better Telegram integration.
     - Add Microlink API [evaluate](/docs/mql/data/evaluate) query parameter
     - Add Microlink API [retry](/docs/mql/data/retry) query parameter
-    - "[Microlink Cluster](/stats) is running [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md)"
-    - "[Microlink Cluster](/stats) has been upgraded to [Kubernetes v1.19.3](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#changelog-since-v1193)"
-    - "[Microlink Cluster](/stats) has been upgraded to use [puppeteer@5.5](https://github.com/puppeteer/puppeteer/releases/tag/v5.5.0)"
+    - "[Microlink Cluster](/status) is running [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md)"
+    - "[Microlink Cluster](/status) has been upgraded to [Kubernetes v1.19.3](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#changelog-since-v1193)"
+    - "[Microlink Cluster](/status) has been upgraded to use [puppeteer@5.5](https://github.com/puppeteer/puppeteer/releases/tag/v5.5.0)"
 
 - date: October 2020
   notes:
     - Refresh [pricing](https://microlink.io#pricing) plans with inclusive VAT
-    - "[Microlink Cluster](/stats) has been upgraded to use [puppeteer@5.4](https://github.com/puppeteer/puppeteer/releases/tag/v5.4.0)"
-    - "[Microlink Cluster](/stats) is now using high availability Redis instances with automatic failover"
+    - "[Microlink Cluster](/status) has been upgraded to use [puppeteer@5.4](https://github.com/puppeteer/puppeteer/releases/tag/v5.4.0)"
+    - "[Microlink Cluster](/status) is now using high availability Redis instances with automatic failover"
 
 - date: September 2020
   notes:
@@ -19,7 +19,7 @@
     - Speed up [Microlink for Screenshots](/screenshot) when [waitUntil='auto'](https://github.com/microlinkhq/browserless/pull/207)
     - The minimum [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is now [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)
     - Deprecate `waitFor` for [Microlink API](/docs/api/getting-started/overview), use [waitForSelector](/docs/api/parameters/wait-for-selector) or [waitForTimeout](/docs/api/parameters/wait-for-timeout) instead
-    - "[Microlink Cluster](/stats) has been upgraded to [Kubernetes v1.18.8](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1187)"
+    - "[Microlink Cluster](/status) has been upgraded to [Kubernetes v1.18.8](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1187)"
 
 - date: August 2020
   notes:
@@ -31,7 +31,7 @@
     - Launch [Microlink Changelog](/changelog)
     - Release [browserless v8](https://browserless.js.org)
     - Launch [Microlink Recipes](/recipes)
-    - "[Microlink Cluster](/stats) has been upgraded to [Kubernetes v1.18.6](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1186)"
+    - "[Microlink Cluster](/status) has been upgraded to [Kubernetes v1.18.6](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1186)"
 
 - date: June 2020
   notes:

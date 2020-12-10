@@ -36,7 +36,7 @@ export default () => {
             alignItems='center'
             maxWidth='100%'
           >
-            <Box id='stats' px={Container.defaultProps.px} pt={5}>
+            <Box id='status' px={Container.defaultProps.px} pt={5}>
               <Choose>
                 <Choose.When condition={isLoading}>
                   <Flex
