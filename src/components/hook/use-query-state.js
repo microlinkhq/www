@@ -28,9 +28,12 @@ export const useQueryState = initialQuery => {
       ? flatten(obj)
       : { ...fromLocation(), ...flatten(obj) }
 
-    setQuery(newQuery)
-
-    if (isNavigate) navigate(`${window.location.pathname}?${encode(newQuery)}`)
+    if (!isEqual(query, newQuery)) {
+      setQuery(newQuery)
+      if (isNavigate) {
+        navigate(`${window.location.pathname}?${encode(newQuery)}`)
+      }
+    }
   }
 
   return [unflatten(query), set]
