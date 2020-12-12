@@ -10,8 +10,10 @@ const fromLocation = isSSR
 
 const condition = isSSR ? [] : [window.location.search]
 
-export const useQueryState = () => {
-  const [query, setQuery] = useState(unflatten(fromLocation()))
+export const useQueryState = initialQuery => {
+  const [query, setQuery] = useState(
+    initialQuery ? flatten(initialQuery) : fromLocation()
+  )
 
   useEffect(() => {
     const newQuery = fromLocation()
@@ -22,8 +24,12 @@ export const useQueryState = () => {
     obj = {},
     { replace = false, navigate: isNavigate = true } = {}
   ) => {
-    const newQuery = flatten(replace ? obj : { ...fromLocation(), ...obj })
+    const newQuery = replace
+      ? flatten(obj)
+      : { ...fromLocation(), ...flatten(obj) }
+
     setQuery(newQuery)
+
     if (isNavigate) navigate(`${window.location.pathname}?${encode(newQuery)}`)
   }
 
