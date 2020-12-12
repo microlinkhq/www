@@ -27,5 +27,5 @@ export const useQueryState = () => {
     if (isNavigate) navigate(`${window.location.pathname}?${encode(newQuery)}`)
   }
 
-  return [query, set]
+  return [unflatten(query), set]
 }
