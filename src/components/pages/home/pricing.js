@@ -19,8 +19,8 @@ export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
         pb={[4, 4, 4, 5]}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       >
-        Every plan becomes with API access & 24/7 tech support. Use the forever
-        free plan for try the service, no credit-card required.
+        Every plan comes with API access & 24/7 tech support. Use the forever
+        free plan to try the service, no credit-card required.
       </Caption>
       <PricingTable
         canonicalUrl={canonicalUrl}
