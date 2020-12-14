@@ -241,7 +241,7 @@ export default ({ theme, ...props }) => {
                         px={0}
                         data-event-category='Footer'
                         data-event-action='Status'
-                        href='/stats'
+                        href='/status'
                         color={colors[textColor]}
                       >
                         <Text
