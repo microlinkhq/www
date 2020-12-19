@@ -1,13 +1,13 @@
 - date: December 2020
   notes:
-    - Microlink API now expose requests headers as part of the payload.
+    - [Microlink API](/docs/api/getting-started/overview) now exposes request headers as part of the response payload.
     - "[Microlink Cluster](/status) infrastructure has been upgraded from Redis v5 to Redis v6 using a master + slave + sentinel cluster."  
   
 - date: November 2020
   notes:
     - Release [metascraper v5.15](https://github.com/microlinkhq/metascraper/releases/tag/v5.15.0) improving Telegram integration.
-    - Add Microlink API [evaluate](/docs/mql/data/evaluate) query parameter
-    - Add Microlink API [retry](/docs/mql/data/retry) query parameter
+    - Add [Microlink API evaluate](/docs/mql/data/evaluate) query parameter
+    - Add [Microlink API retry](/docs/mql/data/retry) query parameter
     - "[Microlink Cluster](/status) is running [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md)"
     - "[Microlink Cluster](/status) has been upgraded to [Kubernetes v1.19.3](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#changelog-since-v1193)"
     - "[Microlink Cluster](/status) has been upgraded to use [puppeteer@5.5](https://github.com/puppeteer/puppeteer/releases/tag/v5.5.0)"
