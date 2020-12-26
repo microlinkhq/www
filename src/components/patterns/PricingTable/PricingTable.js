@@ -1,6 +1,6 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { Caption, ArrowLink, Checkout } from 'components/patterns'
-import { External as ExternalIcon } from 'components/icons'
+import { ExternalLink as ExternalIcon } from 'react-feather'
 import { transition, colors, fontSizes } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
@@ -68,7 +68,11 @@ const PricingLink = ({ children, ...props }) => {
           }
         `}
       >
-        {children} <ExternalIcon width={fontSizes[1]} />
+        {children}
+
+        <Flex display='inline-flex' ml={1}>
+          <ExternalIcon size={14} color={colors.black20} />
+        </Flex>
       </Caption>
     </Link>
   )

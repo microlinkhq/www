@@ -1,11 +1,11 @@
 /* global IntersectionObserver */
 
+import { ExternalLink as ExternalIcon } from 'react-feather'
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
-import { External as ExternalIcon } from 'components/icons'
 import { transition, colors } from 'theme'
 
 const isInternalLink = to => /^\/(?!\/)/.test(to)
@@ -34,7 +34,7 @@ const linkIconWrapper = css`
   display: inline-flex;
   transition: stroke ${transition.medium};
   &:hover {
-    > svg {
+    svg {
       stroke: ${colors.hoverLink};
     }
   }
@@ -46,7 +46,9 @@ const Children = ({ children, icon }) => {
   return (
     <Flex alignItems='center' css={linkIconWrapper}>
       {children}
-      <ExternalIcon width='14px' ml={1} />
+      <Flex ml={1}>
+        <ExternalIcon size={14} color={colors.black20} />
+      </Flex>
     </Flex>
   )
 }

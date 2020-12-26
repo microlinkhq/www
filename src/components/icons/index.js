@@ -1,6 +1,5 @@
 import { _React as React } from './React'
 
-export * from './External'
 export * from './HourGlass'
 export * from './JavaScript'
 export * from './Jekyll'
