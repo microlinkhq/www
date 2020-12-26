@@ -24,7 +24,17 @@ const style = css`
   text-decoration: underline;
   text-decoration-color: ${({ isDark }) =>
     lighten(0.8, isDark ? colors.white80 : colors.black80)};
+
+  /**
+    * The text-decoration-thickness property does not work unless either
+    * text-underline-offset is set to something other than auto or text-decoration-color
+    * is set to something other than currentColor.
+    * Related:
+    *  - https://crbug.com/1154537
+    *  - https://caniuse.com/?search=text-decoration-thickness
+  */
   text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
 `
 
 const LinkSolid = styled(Link)`
