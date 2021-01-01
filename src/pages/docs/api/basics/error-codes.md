@@ -30,7 +30,7 @@ The URL provided reached the maximum browser navigation time allowed.
 
 **Solution**
 
-Any request has a maximum timeout of 28s associated, meaning that any request needs to be resolved before that umbral.
+Any request has a maximum timeout of 24s associated, meaning that any request needs to be resolved before that umbral.
 
 Additionally, some API parameters (such as [insights](/docs/api/parameters/insights), [pdf](/docs/api/parameters/pdf), [prerender](/docs/api/parameters/prerender) or [screenshot](/docs/api/parameters/screenshot)) have a browser navigation associated. During it, the target URL is resolved from the perspective of a browser.
 
