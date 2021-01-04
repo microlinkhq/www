@@ -16,7 +16,8 @@ const {
 module.exports = {
   flags: {
     FAST_DEV: true,
-    FAST_REFRESH: true
+    FAST_REFRESH: true,
+    PARALLEL_SOURCING: true
   },
   siteMetadata: {
     // Basic
