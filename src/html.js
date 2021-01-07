@@ -6,13 +6,56 @@ export default function HTML (props) {
     <html lang='en' {...props.htmlAttributes}>
       <head>
         <link
-          rel='preconnect'
-          href='https://fonts.gstatic.com'
-          crossOrigin='true'
+          rel='preload'
+          href='/fonts/inter-v2-latin-regular.woff2'
+          as='font'
+          type='font/woff2'
+          crossOrigin='anonymous'
         />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400;500;600&display=swap'
-          rel='stylesheet'
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              /* inter-200 - latin */
+              @font-face {
+                font-display: optional;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 200;
+                src: local(''),
+                     url('/fonts/inter-v2-latin-200.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+                     url('/fonts/inter-v2-latin-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+              }
+              /* inter-regular - latin */
+              @font-face {
+                font-display: optional;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                src: local(''),
+                     url('/fonts/inter-v2-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+                     url('/fonts/inter-v2-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+              }
+              /* inter-500 - latin */
+              @font-face {
+                font-display: optional;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 500;
+                src: local(''),
+                     url('/fonts/inter-v2-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+                     url('/fonts/inter-v2-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+              }
+              /* inter-700 - latin */
+              @font-face {
+                font-display: optional;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 700;
+                src: local(''),
+                     url('/fonts/inter-v2-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+                     url('/fonts/inter-v2-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+              }`
+          }}
         />
         {props.headComponents}
       </head>
