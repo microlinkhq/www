@@ -7,8 +7,13 @@ const pRetry = require('p-retry')
 const got = require('got')
 
 const fetchData = async url => {
-  const { body } = await got(url, { responseType: 'json' })
+  const body = await got(url, {
+    responseType: 'json',
+    resolveBodyOnly: true
+  })
+
   if (isEmpty(body)) throw new Error('DATA_NOT_FOUND')
+
   return body
 }
 
@@ -19,6 +24,7 @@ module.exports = async ({ dist, url, mapper = identity }) => {
     }
   }
   const data = await pRetry(() => fetchData(url))
+  console.log(url, { type: typeof data, data: !!data })
   const body = mapper(data)
   return jsonFuture.saveAsync(dist, castArray(body))
 }
