@@ -132,8 +132,7 @@
     "rgb-hex": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
-    "standard-version": "latest",
-    "urlint": "latest"
+    "standard-version": "latest"
   },
   "engines": {
     "node": "12.x"
@@ -157,7 +156,7 @@
     "lint": "standard-markdown README.md && standard",
     "postinstall": "npm run build:data",
     "postrelease": "npm run release:tags && npm run release:github",
-    "posttest": "urlint https://microlink.io/sitemap.xml",
+    "posttest": "npx urlint https://microlink.io/sitemap.xml",
     "predev": "npm run build:data",
     "prerelease": "npm run update:check",
     "pretest": "npm run lint",
