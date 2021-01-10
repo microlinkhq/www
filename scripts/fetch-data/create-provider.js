@@ -24,7 +24,11 @@ module.exports = async ({ dist, url, mapper = identity }) => {
     }
   }
   const data = await pRetry(() => fetchData(url))
-  console.log(url, { type: typeof data, data: !!data })
+  console.log(url, {
+    type: typeof data,
+    data: !!data,
+    preview: data.substring(1, 5)
+  })
   const body = mapper(data)
   return jsonFuture.saveAsync(dist, castArray(body))
 }
