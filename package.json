@@ -82,7 +82,6 @@
     "palx": "~1.0.3",
     "polished": "~4.0.5",
     "postcss": "~8.2.4",
-    "postcss-focus": "~5.0.1",
     "prepend-http": "~3.0.1",
     "prettier": "~2.2.1",
     "qss": "~2.0.3",

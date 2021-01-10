@@ -54,7 +54,7 @@ module.exports = {
           precision: 8
         },
         postCssPlugins: [
-          require('postcss-focus'),
+          // require('postcss-focus'),
           require('cssnano')({
             preset: require('cssnano-preset-advanced')
           })
