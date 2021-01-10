@@ -50,13 +50,15 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-sass',
       options: {
+        sassOptions: {
+          precision: 8
+        },
         postCssPlugins: [
-          // require('postcss-focus'),
+          require('postcss-focus'),
           require('cssnano')({
             preset: require('cssnano-preset-advanced')
           })
-        ],
-        precision: 8
+        ]
       }
     },
     'gatsby-transformer-json',
