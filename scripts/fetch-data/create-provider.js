@@ -7,8 +7,7 @@ const pRetry = require('p-retry')
 const got = require('got')
 
 const fetchData = async url => {
-  const res = await got(url)
-  const { body } = await res.json()
+  const body = await got(url).json()
   if (isEmpty(body)) throw new Error('DATA_NOT_FOUND')
   return body
 }
