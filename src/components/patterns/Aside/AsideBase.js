@@ -58,7 +58,7 @@ const titleExternalStyle = css`
 
 const AsideWrapper = styled(Box)`
   position: fixed;
-  overflow-y: scroll;
+  overflow-y: auto;
   bottom: 0;
   top: ${TOOLBAR_HEIGHT};
   width: ${ASIDE_WIDTH};
