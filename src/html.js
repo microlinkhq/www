@@ -5,13 +5,6 @@ export default function HTML (props) {
   return (
     <html lang='en' {...props.htmlAttributes}>
       <head>
-        <link
-          rel='preload'
-          href='/fonts/inter-v2-latin-regular.woff2'
-          as='font'
-          type='font/woff2'
-          crossOrigin='anonymous'
-        />
         <style
           dangerouslySetInnerHTML={{
             __html: `
