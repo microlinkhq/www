@@ -12,6 +12,13 @@ export default function HTML (props) {
           type='font/woff2'
           crossOrigin='anonymous'
         />
+        <link
+          rel='preload'
+          href='/fonts/inter-v2-latin-700.woff2'
+          as='font'
+          type='font/woff2'
+          crossOrigin='anonymous'
+        />
         <style
           dangerouslySetInnerHTML={{
             __html: `
