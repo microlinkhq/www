@@ -1,44 +1,46 @@
+- date: January 2021
+  notes:
+    - "[Microlink Cards](https://cards.microlink.io): Added [conference](https://cards.microlink.io/editor?preset=conference) template."
+    - "[Metascraper v5.16.9](https://metascraper.js.org): Improved description casuistic detection"
+    - "[Metascraper v5.16.8](https://metascraper.js.org): Improved audio detection from HTML markup."
+    - "[Browserless v8.6.0](https://browserless.js.org): Ensure to wait images on viewport before taking a screenshot."
+
 - date: December 2020
   notes:
-    - "[Microlink API](/docs/api/getting-started/overview) now exposes request headers as part of the response payload"
-    - "[Microlink Cluster](/status) infrastructure has been upgraded from Redis v5 to Redis v6 using a master + slave + sentinel cluster"
+    - "[Microlink API](/docs/api/getting-started/overview): The query parameter [meta](/docs/api/parameters/meta) will return `headers` and `statusCode` as part of the response payload."
+    - "[Microlink Cluster](/status): The infrastructure has been upgraded from Redis v5 to Redis v6 using a master + slave + sentinel cluster."
+    - "[Microlink Cluster](/status): Upgraded to [Node.js 15](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V15.md)."
 
 - date: November 2020
   notes:
-    - "Release [metascraper v5.15](https://github.com/microlinkhq/metascraper/releases/tag/v5.15.0) improving Telegram integration"
-    - "Add [Microlink API evaluate](/docs/mql/data/evaluate) query parameter"
-    - "Add [Microlink API retry](/docs/mql/data/retry) query parameter"
-    - "[Microlink Cluster](/status) is running [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md)"
-    - "[Microlink Cluster](/status) has been upgraded to [Kubernetes v1.19.3](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#changelog-since-v1193)"
-    - "[Microlink Cluster](/status) has been upgraded to use [puppeteer@5.5](https://github.com/puppeteer/puppeteer/releases/tag/v5.5.0)"
+    - "[Metascraper v5.15](https://metascraper.js.org): Improved Telegram integration."
+    - "[Microlink API](/docs/api/getting-started/overview): Added [evaluate](/docs/mql/data/evaluate) data extractor."
+    - "[Microlink API](/docs/api/getting-started/overview): Added [retry](/docs/api/parameters/retry) query parameter."
+    - "[Microlink Cluster](/status): Upgraded to [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md)."
 
 - date: October 2020
   notes:
-    - "Refresh [pricing](https://microlink.io#pricing) plans with inclusive VAT"
-    - "[Microlink Cluster](/status) has been upgraded to use [puppeteer@5.4](https://github.com/puppeteer/puppeteer/releases/tag/v5.4.0)"
-    - "[Microlink Cluster](/status) is now using high availability Redis instances with automatic failover"
+    - "[Microlink](/): Refresh [pricing](https://microlink.io#pricing) plans with inclusive VAT."
+    - "[Microlink Cluster](/status) is now using high availability Redis instances with automatic failover."
 
 - date: September 2020
   notes:
-    - "Add [proxy](/docs/api/parameters/proxy) suport under [prerender](/docs/api/parameters/prerender)"
-    - "Speed up [Microlink for Screenshots](/screenshot) when [waitUntil='auto'](https://github.com/microlinkhq/browserless/pull/207)"
-    - "The minimum [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is now [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)"
-    - "Deprecate `waitFor` for [Microlink API](/docs/api/getting-started/overview), use [waitForSelector](/docs/api/parameters/wait-for-selector) or [waitForTimeout](/docs/api/parameters/wait-for-timeout) instead"
-    - "[Microlink Cluster](/status) has been upgraded to [Kubernetes v1.18.8](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1187)"
+    - "[Microlink Cluster](/status) Setup [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is now [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)."
+    - "[Microlink API](/docs/api/getting-started/overview): Deprecate `waitFor`, use [waitForSelector](/docs/api/parameters/wait-for-selector) or [waitForTimeout](/docs/api/parameters/wait-for-timeout) instead."
 
 - date: August 2020
   notes:
-    - Refresh website design
-    - "Add [Spotify episodes](https://github.com/microlinkhq/metascraper/pull/289) support"
+    - "[Microlink](/): Refresh website design."
+    - "[Metascraper v5.14.0](https://metascraper.js.org): Improved Spotify integration."
 
 - date: July 2020
   notes:
-    - "Launch [Microlink Changelog](/changelog)"
-    - "Release [browserless v8](https://browserless.js.org)"
-    - "Launch [Microlink Recipes](/recipes)"
-    - "[Microlink Cluster](/status) has been upgraded to [Kubernetes v1.18.6](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#changelog-since-v1186)"
+    - "[Microlink](/): Launched [Microlink Changelog](/changelog)."
+    - "[Microlink](/): Launched [Microlink Recipes](/recipes)."
+    - "[Browserless v8.0.0](https://browserless.js.org): Released a new major version."
 
 - date: June 2020
   notes:
-    - "Launch [Microlink OSS](/oss)"
-    - "[Microlink SDK](/sdk) can be styled using [CSS variables](/docs/sdk/getting-started/styling/#css-variables)"
+    - "[Microlink](/): Launched [Microlink OSS](/oss)."
+    - "[Microlink SDK ](https://microlink.io): Launched [Microlink OSS](/oss)."
+    - "[Microlink SDK](/docs/sdk/getting-started/overview/) Added [CSS variables](/docs/sdk/getting-started/styling/#css-variables) support."
