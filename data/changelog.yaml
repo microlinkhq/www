@@ -3,6 +3,7 @@
     - "[Microlink Cards](https://cards.microlink.io): Added [conference](https://cards.microlink.io/editor?preset=conference) template."
     - "[Metascraper v5.16.9](https://metascraper.js.org): Improved description casuistic detection"
     - "[Metascraper v5.16.8](https://metascraper.js.org): Improved audio detection from HTML markup."
+    - "[Browserless v8.7.0](https://browserless.js.org): Upgraded to Lighthouse v7."
     - "[Browserless v8.6.0](https://browserless.js.org): Ensure to wait images on viewport before taking a screenshot."
 
 - date: December 2020
