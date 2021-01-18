@@ -40,9 +40,10 @@ The default configuration is known as [lighthouse:default](https://github.com/Go
   "output": "json",
   "device": "desktop",
   "onlyCategories": [
-    "performance", 
-    "best-practices", 
     "accessibility", 
+    "best-practices", 
+    "performance", 
+    "pwa",
     "seo"
   ]
 }
@@ -89,7 +90,7 @@ How emulation (useragent, device screen metrics, touch) should be applied. 'none
 <H2 titleize={false}>onlyCategories</H2>
 
 Type: <TypeContainer><Type children="string[]"/></TypeContainer><br/>
-Default: <Type children="['performance', 'best-practices', 'accessibility', 'seo']"/><br/>
-values: <TypeContainer><Type children="'performance'"/> | <Type children="'best-practices'"/> | <Type children="'accessibility'"/> | <Type children="'pwa'"/> | <Type children="'seo'"/></TypeContainer><br/>
+Default: <Type children="['accessibility', 'best-practices', 'performance', 'pwa', 'seo']"/><br/>
+values: <TypeContainer><Type children="'accessibility'"/> | <Type children="'best-practices'"/> | <Type children="'performance'"/> | <Type children="'pwa'"/> | <Type children="'seo'"/></TypeContainer><br/>
 
-Includes only the specified categories in the final report
+Includes only the specified categories in the final report.
