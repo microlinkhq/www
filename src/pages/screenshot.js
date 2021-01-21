@@ -322,7 +322,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
                 mx='auto'
                 language='html'
               >
-                {`<iframe src="${embedUrl}"></iframe>`}
+                {`<img src="${embedUrl}"></img>`}
               </CodeEditor>
             </Flex>
           </Choose.When>
@@ -336,7 +336,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
               />
               <Box pt={4}>
                 <CodeEditor width={cardWidth} language='html'>
-                  {`<iframe src="${embedUrl}"></iframe>`}
+                  {`<img src="${embedUrl}"></img>`}
                 </CodeEditor>
               </Box>
             </Flex>

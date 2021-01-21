@@ -15,6 +15,7 @@ import {
   Button,
   Caps,
   Card,
+  CodeEditor,
   Container,
   Flex,
   Heading,
@@ -249,6 +250,11 @@ const LiveDemo = ({
           <Choose.When condition={!!reportUrl}>
             <Flex flexDirection='column'>
               <Iframe width={cardWidth} src={reportUrl} />
+              <Box pt={4}>
+                <CodeEditor width={cardWidth} language='html'>
+                  {`<iframe src="${reportUrl}"></iframe>`}
+                </CodeEditor>
+              </Box>
               <Box pt={[3, 3, 4, 4]} maxWidth={cardWidth}>
                 <TechnologyStack technologies={technologies} />
               </Box>

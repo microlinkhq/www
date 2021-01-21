@@ -236,6 +236,7 @@ const LiveDemo = ({
                   },
                   `audio: true,
     video: true,
+    iframe: ${mode === 'iframe'}
     meta: true`
                 )}
               />

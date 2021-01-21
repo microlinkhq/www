@@ -77,7 +77,7 @@ export const SelectLanguage = ({
         {...props}
       >
         {children.map(lang => (
-          <option key={lang} fontSize={0} fontWeight='regular' mr={2}>
+          <option key={lang} fontWeight='regular' mr={2}>
             {lang}
           </option>
         ))}
@@ -113,6 +113,8 @@ const ActionComponent = ({
       <Text as='div' mr={2} fontSize={0}>
         <SelectLanguage
           theme={theme}
+          pt='2px'
+          pb='2px'
           ml='auto'
           mr='auto'
           width='4.8rem'
