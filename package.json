@@ -80,7 +80,7 @@
     "normalize.css": "~8.0.1",
     "p-retry": "~4.2.0",
     "palx": "~1.0.3",
-    "polished": "~4.0.5",
+    "polished": "~4.1.0",
     "postcss": "~8.2.4",
     "prepend-http": "~3.0.1",
     "prettier": "~2.2.1",
