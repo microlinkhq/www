@@ -160,7 +160,7 @@ export default ({ theme, ...props }) => {
               data-event-category='Footer'
               data-event-action='Status'
               fontSize={[0, 0, 0, 1]}
-              href='/Status'
+              href='/status'
             >
               Status
             </LinkSolid>
