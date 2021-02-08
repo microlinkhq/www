@@ -1,7 +1,7 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { Caption, ArrowLink, Checkout } from 'components/patterns'
 import { ExternalLink as ExternalIcon } from 'react-feather'
-import { transition, colors, fontSizes } from 'theme'
+import { transition, colors } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
