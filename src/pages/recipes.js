@@ -54,7 +54,7 @@ const Logo = ({ isGeneric, domain, logo }) => {
   return <Image height={LOGO_SIZE} width={LOGO_SIZE} src={logo} />
 }
 
-export default ({ meta }) => {
+const RecipesPage = ({ meta }) => {
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
       <Layout footer={{ bg: 'transparent' }} {...meta}>
@@ -183,3 +183,5 @@ export default ({ meta }) => {
     </DotsBackground>
   )
 }
+
+export default RecipesPage

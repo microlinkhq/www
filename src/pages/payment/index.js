@@ -13,17 +13,10 @@ import {
   DotSpinner
 } from 'components/elements'
 
-export const PAYMENT_STATE = {
-  PROCESSING: 'processing',
-  SUCCESS: 'success',
-  FAILED: 'failed'
-}
-
-export const ERROR_MAIL_OPTS = {
-  subject: 'Payment process error',
-  body:
-    'Hello,\n\nSomething bad happens trying to pay at microlink.io.\n\nCan you help me?'
-}
+import {
+  PAYMENT_STATE,
+  ERROR_MAIL_OPTS
+} from 'components/pages/payment/constants'
 
 const getTitle = paymentState => {
   switch (paymentState) {
@@ -63,7 +56,7 @@ const getCaption = paymentState => {
   }
 }
 
-export default () => {
+const PaymentPage = () => {
   const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
   const [query] = useQueryState()
   const size = useWindowSize()
@@ -107,3 +100,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default PaymentPage

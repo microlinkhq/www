@@ -5,7 +5,7 @@ import { useChangelog } from 'components/hook'
 import { layout } from 'theme'
 import React from 'react'
 
-export default ({ meta }) => {
+const ChangelogPage = ({ meta }) => {
   const changelog = useChangelog()
 
   return (
@@ -40,3 +40,5 @@ export default ({ meta }) => {
     </Layout>
   )
 }
+
+export default ChangelogPage

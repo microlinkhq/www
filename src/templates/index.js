@@ -5,7 +5,7 @@ import React from 'react'
 import PageTemplate from './page'
 import DocTemplate from './doc'
 
-export default ({ pageContext, data, ...props }) => {
+const Template = ({ pageContext, data, ...props }) => {
   const { isDocPage, isBlogPage, lastEdited, githubUrl } = pageContext
   const { frontmatter, rawMarkdownBody } = data.markdownRemark
   const metadata = useSiteMetadata()
@@ -56,3 +56,5 @@ export const query = graphql`
     }
   }
 `
+
+export default Template

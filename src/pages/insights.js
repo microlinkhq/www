@@ -643,7 +643,7 @@ const ProductInformation = props => {
   )
 }
 
-export default () => {
+const InsightsPage = () => {
   const [query] = useQueryState()
   return (
     <Layout>
@@ -725,3 +725,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default InsightsPage

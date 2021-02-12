@@ -5,7 +5,7 @@ import { Features, Layout } from 'components/patterns'
 import { colors, borders } from 'theme'
 import React from 'react'
 
-export default () => {
+const HomePage = () => {
   const {
     canonicalUrl,
     paymentApiKey,
@@ -64,3 +64,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default HomePage

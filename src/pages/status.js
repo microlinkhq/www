@@ -12,7 +12,7 @@ const Value = props => (
   />
 )
 
-export default () => {
+const StatusPage = () => {
   const [theme, setTheme] = useState('dark')
 
   const toggleTheme = () =>
@@ -74,3 +74,5 @@ export default () => {
     </ClusterMonitor>
   )
 }
+
+export default StatusPage

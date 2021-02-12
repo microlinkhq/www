@@ -656,7 +656,7 @@ const ProductInformation = props => (
   />
 )
 
-export default () => {
+const MetaPage = () => {
   return (
     <Layout>
       <FetchProvider
@@ -717,3 +717,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default MetaPage

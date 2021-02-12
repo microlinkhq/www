@@ -3,7 +3,7 @@ import React from 'react'
 import { Layout } from 'components/patterns'
 import { Iframe } from 'components/elements'
 
-export default () => (
+const DesignPage = () => (
   <Layout>
     <Iframe
       width='100%'
@@ -13,3 +13,5 @@ export default () => (
     />
   </Layout>
 )
+
+export default DesignPage

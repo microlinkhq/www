@@ -299,7 +299,7 @@ const links = [
   }
 ]
 
-export default () => {
+const IframePage = () => {
   return (
     <Layout title={TITLE}>
       <Container py={[4, 4, 5, 5]} px={4} maxWidth={layout.large}>
@@ -345,3 +345,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default IframePage

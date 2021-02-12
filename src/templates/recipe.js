@@ -30,7 +30,7 @@ const Logo = ({ isGeneric, logo, domain }) => {
   return <Image height={LOGO_SIZE} width={LOGO_SIZE} src={logo} />
 }
 
-export default ({ pageContext: recipe }) => {
+const RecipeTemplate = ({ pageContext: recipe }) => {
   const meta = {
     title: `Microlink Recipe: ${recipe.name}`
   }
@@ -116,3 +116,5 @@ export default ({ pageContext: recipe }) => {
     </DotsBackground>
   )
 }
+
+export default RecipeTemplate

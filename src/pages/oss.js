@@ -5,7 +5,7 @@ import { useOss } from 'components/hook'
 import { layout } from 'theme'
 import React from 'react'
 
-export default () => {
+const OssPage = () => {
   const repos = useOss()
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
@@ -71,3 +71,5 @@ export default () => {
     </DotsBackground>
   )
 }
+
+export default OssPage
