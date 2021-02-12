@@ -605,7 +605,7 @@ const ProductInformation = props => {
   )
 }
 
-export default () => {
+const PdfPage = () => {
   const [query] = useQueryState()
   return (
     <Layout>
@@ -680,3 +680,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default PdfPage

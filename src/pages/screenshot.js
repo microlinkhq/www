@@ -708,7 +708,7 @@ const ProductInformation = props => {
   )
 }
 
-export default () => {
+const ScreenshotPage = () => {
   const [query] = useQueryState()
   return (
     <Layout>
@@ -785,3 +785,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default ScreenshotPage

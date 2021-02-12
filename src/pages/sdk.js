@@ -338,7 +338,7 @@ const Integrations = () => {
   )
 }
 
-export default () => {
+const SdkPage = () => {
   return (
     <Layout>
       <FetchProvider
@@ -367,3 +367,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default SdkPage

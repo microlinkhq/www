@@ -26,7 +26,10 @@ import {
   useElements
 } from '@stripe/react-stripe-js'
 
-import { ERROR_MAIL_OPTS, PAYMENT_STATE } from '.'
+import {
+  PAYMENT_STATE,
+  ERROR_MAIL_OPTS
+} from 'components/pages/payment/constants'
 
 const Form = styled.form`
   .StripeElement {
@@ -149,7 +152,7 @@ const CheckoutForm = ({ apiEndpoint, apiKey }) => {
   )
 }
 
-export default () => {
+const PaymentUpdatePage = () => {
   const {
     stripeKey,
     paymentApiKey: apiKey,
@@ -187,3 +190,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default PaymentUpdatePage

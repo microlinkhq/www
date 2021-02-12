@@ -3,7 +3,7 @@ import { Caption, Layout, Chat } from 'components/patterns'
 import { layout } from 'theme'
 import React from 'react'
 
-export default () => (
+const ChatPage = () => (
   <Layout>
     <Container pt={5} justifyContent='center' alignItems='center'>
       <Heading>Chat</Heading>
@@ -24,3 +24,5 @@ export default () => (
     </Container>
   </Layout>
 )
+
+export default ChatPage
