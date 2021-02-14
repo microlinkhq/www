@@ -38,7 +38,7 @@ The default configuration is known as [lighthouse:default](https://github.com/Go
 ```json
 {
   "output": "json",
-  "device": "desktop",
+  "formFactor": "mobile",
   "onlyCategories": [
     "accessibility", 
     "best-practices", 
@@ -49,7 +49,9 @@ The default configuration is known as [lighthouse:default](https://github.com/Go
 }
 ```
 
-It's the same configuration used by Google Chrome when you perform an audit from the Developers Tools. You can extend it, for example, targeting `mobile`:
+It's the same configuration used by Google Chrome when you perform an audit from the Developers Tools.
+
+You can extend it, passing custom settings:
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://css-tricks.com/nerds-guide-color-web&insights.lighthouse.device=mobile`,
@@ -59,7 +61,7 @@ module.exports = async () => {
   const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
     insights: {
       lighthouse: {
-        device: 'mobile'
+        onlyCategories: ['accesibility']
       }
     }
   })
@@ -79,10 +81,10 @@ Values: <TypeContainer><Type children="'json'"/> | <Type children="'csv'"/> | <T
 
 The type of report output to be produced.
 
-<H2 titleize={false}>device</H2>
+<H2 titleize={false}>formFactor</H2>
 
 Type: <TypeContainer><Type children="string"/></TypeContainer><br/>
-Default: <Type children='desktop'/><br/>
+Default: <Type children='mobile'/><br/>
 values: <TypeContainer><Type children="'desktop'"/> | <Type children="'mobile'"/> | <Type children="'none'"/></TypeContainer><br/>
 
 How emulation (useragent, device screen metrics, touch) should be applied. 'none' indicates Lighthouse should leave the host browser as-is.
