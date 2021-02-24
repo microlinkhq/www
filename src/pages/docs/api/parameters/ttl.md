@@ -65,7 +65,7 @@ The value provided will reflected as `x-cache-ttl` as part of the response heade
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.reddit.com')
   
-  console.log(response.headers.['x-cache-ttl' ) // => '3h 56m 35.2s'
+  console.log(response.headers['x-cache-ttl']) // => '3h 56m 35.2s'
 }
   `
   }} 
