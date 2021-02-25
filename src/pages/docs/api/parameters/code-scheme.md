@@ -10,12 +10,12 @@ Sets the code syntax highlighting color theme to use for beautifying HTML markup
 ![](https://i.imgur.com/5WIekwy.png)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink-stats-api.now.sh/&screenshot&codeScheme=atom-dark`,
+  Shell: `microlink-api https://healthcheck.microlink.io&screenshot&codeScheme=atom-dark`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://microlink-stats-api.now.sh/'. {
+    'https://healthcheck.microlink.io'. {
       screenshot: true,
       codeScheme: 'atom-dark'
   })
