@@ -20,7 +20,6 @@
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): The query parameter [meta](/docs/api/parameters/meta) will return `headers` and `statusCode` as part of the response payload."
     - "[Microlink Cluster](/status): The infrastructure has been upgraded from Redis v5 to Redis v6 using a master + slave + sentinel cluster."
-    - "[Microlink Cluster](/status): Upgraded to [Node.js 15](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V15.md)."
 
 - date: November 2020
   notes:
