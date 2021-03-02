@@ -2,6 +2,7 @@
   notes:
     - "[Microlink Cards](https://cards.microlink.io): Added [meta](https://cards.microlink.io/editor?preset=meta) template."
     - "[Microlink API](/docs/api/getting-started/overview): The service now relies on [CloudFlare DNS](https://one.one.one.one/) for domain resolution."
+    - "[Microlink OSS](https://microlink.io/oss): Created [youtube-dl-exec](https://github.com/microlinkhq/youtube-dl-exec) repository."
 
 - date: January 2021
   notes:
