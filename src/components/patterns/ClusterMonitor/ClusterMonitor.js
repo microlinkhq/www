@@ -16,7 +16,7 @@ const ClusterMonitor = ({ children, ...opts }) => {
 }
 
 ClusterMonitor.defaultProps = {
-  refreshInterval: 2000
+  refreshInterval: 3000
 }
 
 export default ClusterMonitor
