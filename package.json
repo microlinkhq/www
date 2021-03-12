@@ -117,6 +117,7 @@
     "@storybook/addons": "latest",
     "@storybook/react": "latest",
     "ava": "latest",
+    "babel-eslint": "latest",
     "contrast": "latest",
     "conventional-github-releaser": "latest",
     "debug-logfmt": "latest",
