@@ -61,7 +61,7 @@
     "gatsby-plugin-sass": "~4.0.2",
     "gatsby-plugin-sitemap": "~3.0.0",
     "gatsby-plugin-styled-components": "~4.0.0",
-    "gatsby-source-filesystem": "~3.0.0",
+    "gatsby-source-filesystem": "~3.1.0",
     "gatsby-transformer-javascript-frontmatter": "~3.0.0",
     "gatsby-transformer-json": "~3.0.0",
     "gatsby-transformer-remark": "~3.0.0",
