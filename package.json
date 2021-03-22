@@ -38,7 +38,7 @@
   ],
   "dependencies": {
     "@kikobeats/use-query-state": "1.0.3",
-    "@microlink/mql": "~0.8.2",
+    "@microlink/mql": "~0.9.3",
     "@microlink/react": "~5.5.4",
     "@microlink/recipes": "~0.0.32",
     "@stripe/react-stripe-js": "~1.4.0",
