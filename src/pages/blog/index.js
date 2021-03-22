@@ -66,7 +66,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
         </H2>
 
         <Caption
-          fontWeight='regular'
+          fontWeight='normal'
           color='black60'
           textAlign={['center', 'inherit']}
         >
