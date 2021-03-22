@@ -156,7 +156,7 @@
     "clean:data": "rm -rf data/*.json",
     "dev": "gatsby develop --host localhost --port 8000",
     "lint": "standard-markdown README.md && standard",
-    "postinstall": "npm run build:data",
+    "postinstall": "husky install && npm run build:data",
     "postrelease": "npm run release:tags && npm run release:github",
     "posttest": "npx urlint https://microlink.io/sitemap.xml",
     "predev": "npm run build:data",
@@ -191,12 +191,6 @@
       "react": {
         "version": "detect"
       }
-    }
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
