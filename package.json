@@ -58,7 +58,7 @@
     "gatsby-plugin-google-analytics": "~3.0.0",
     "gatsby-plugin-react-helmet": "~4.0.0",
     "gatsby-plugin-remove-trailing-slashes": "~3.0.0",
-    "gatsby-plugin-sass": "~4.0.2",
+    "gatsby-plugin-sass": "~4.1.0",
     "gatsby-plugin-sitemap": "~3.0.0",
     "gatsby-plugin-styled-components": "~4.0.0",
     "gatsby-source-filesystem": "~3.0.0",
