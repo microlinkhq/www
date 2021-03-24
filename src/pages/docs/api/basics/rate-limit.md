@@ -15,7 +15,7 @@ When you reach the API quota limit, you will experience [HTTP 429 errors](https:
 
 When the API quota is reset, you have a fresh start again.
 
-Your current rate limit status is reflected as part of your response with the following headers:
+For the free endpoint, your current rate limit status is reflected as part of your response with the following headers:
 
 - `x-rate-limit-limit`: The maximum number of requests that the consumer is permitted to make per minute.
 - `x-rate-limit-remaining`: The number of requests remaining in the current rate limit window.
