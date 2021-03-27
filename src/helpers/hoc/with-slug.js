@@ -58,12 +58,11 @@ export const withSlug = Component => {
       return createElement(Component, { children, ...props })
     }
 
-    const { id, ...rest } = props
-    const frameId = `#${id || slugger(children)}`
+    const { id = slugger(children), ...rest } = props
 
     return (
       <Component id={id} {...rest}>
-        <AnchorLink href={frameId}>{children}</AnchorLink>
+        <AnchorLink href={`#${id}`}>{children}</AnchorLink>
         <Permalink>
           <PermalinkIcon width='14px' ml={2} />
         </Permalink>
