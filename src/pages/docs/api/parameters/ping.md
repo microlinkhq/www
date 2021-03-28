@@ -2,10 +2,10 @@
 title: 'ping'
 --- 
 
-Type: <Type children='<boolean>'/><br/>
+Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='true'/>
 
-It ensures any URL returned as part of the response payload is publicly reachable, meaning the URL is accessible via GET/HEAD and HTTP status code is 2xx/3xx.
+It ensures that any URL present on the response payload is publicly reachable.
 
 <MultiCodeEditor languages={{
   Shell: `microlink-api https://microlink.io&ping`,
@@ -23,4 +23,48 @@ module.exports = async () => {
   }} 
 />
 
-You can explicitly disable this behavior passing, however, we only recommend doing that if you are working with [meta](/docs/api/parameters/meta) in a very specific scenario where ping the URLs detected isn't a necessary thing.
+<Figcaption>By default, any URL present on the response payload hasve been verified as reachable.</Figcaption>
+
+You can disable this behavior in a partial way:
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&ping.audio=false`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io', { 
+      ping: {
+        audio: false
+      }
+  })
+  
+ console.log(status, data)
+}
+  `
+  }} 
+/>
+
+<Figcaption>Avoid to ping `audio` URLs extracted.</Figcaption>
+
+or in a total way:
+
+<MultiCodeEditor languages={{
+  Shell: `microlink-api https://microlink.io&ping=false`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql(
+    'https://microlink.io', { 
+      ping: false
+  })
+  
+ console.log(status, data)
+}
+  `
+  }} 
+/>
+
+<Figcaption>Keep the raw data URLs extracted, no pinging them.</Figcaption>
+
+Keep in mind if you decide to disable this behavior in a partial or total way you should handle non reachable URLs from your side.

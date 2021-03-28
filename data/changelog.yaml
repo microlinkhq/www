@@ -1,5 +1,6 @@
 - date: March 2021
   notes:
+    - "[Microlink API](/docs/api/getting-started/overview): The query parameter [ping](/docs/api/parameters/ping) now accepts an object interface."
     - "[Microlink Recipes](https://microlink.io/recipes): Added [CodePen](https://microlink.io/recipes/codepen) recipe."
     - "[Microlink Cards](https://cards.microlink.io): Added [richhaines](https://cards.microlink.io/editor?preset=richhaines) and [m1guelpf](https://cards.microlink.io/editor?preset=m1guelpf) templates."
 
