@@ -10,7 +10,7 @@ title: 'Overview'
 
 ![](https://i.imgur.com/DNqBkJt.png)
 
-As output of the process, an optimized image will generated on the fly using cloud based browsers, served via [Microlink CDN](/blog/edge-cdn/) using [Microlink API](/docs/api/getting-started/overview).
+As output of the process, an optimized image will be generated on the fly using cloud-based browsers, served via [Microlink CDN](/blog/edge-cdn/) using [Microlink API](/docs/api/getting-started/overview).
 
 **Interactive Editor**
 
