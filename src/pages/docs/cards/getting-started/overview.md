@@ -24,7 +24,7 @@ Anyone can create a preset and the tool is shipped with a good set of popular pr
 
 **Feed with data**
 
-A preset can be fed with data using query variables. Declare the preset once, reuse it forever. You can feed your preset with different query variables every time and you will a totally new mix.
+A preset can be feed with data using query variables. Declare the preset once, reuse it forever. You can feed your preset with different query variables every time and you will a totally new mix.
 
 Anything can be a query variable, meaning a color theme, a string or an external API call.
 
