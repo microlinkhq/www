@@ -200,6 +200,11 @@ function Head ({ onChangeClientState, script, ...props }) {
 
       {/* <!-- Favicon --> */}
 
+      <link
+        rel='shortcut icon'
+        href='https://cdn.microlink.io/logo/favicon.ico'
+        type='image/x-icon'
+      />
       <meta property='apple-mobile-web-app-capable' content='yes' />
       <meta property='mobile-web-app-capable' content='yes' />
 
