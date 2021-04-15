@@ -247,31 +247,6 @@ select:invalid {
   color: rgba(0, 0, 0, 0.5);
 }
 
-.dark {
-
-  input::placeholder,
-  select:invalid {
-    color: rgba(255, 255, 255, 0.5);
-  }
-}
-
-[list]::-webkit-calendar-picker-indicator {
-  display: none;
-}
-
-summary::-webkit-details-marker {
-  display: none;
-}
-
-summary::-moz-list-bullet {
-  list-style-type: none;
-}
-
-details summary {
-  cursor: pointer;
-  outline: 0;
-}
-
 b {
   font-weight: 600;
 }
