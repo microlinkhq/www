@@ -5,7 +5,6 @@ import recipes from '@microlink/recipes'
 import styled from 'styled-components'
 import { layout, toPx } from 'theme'
 import { getDomain } from 'tldts'
-import { navigate } from 'gatsby'
 import React from 'react'
 
 import {

@@ -1,5 +1,6 @@
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 import React, { createElement, useMemo, useEffect, useState } from 'react'
+import { borders, breakpoints, speed, layout, colors } from 'theme'
 import { useTransition, animated } from 'react-spring'
 import { cdnUrl, debounceComponent } from 'helpers'
 import isUrl from 'is-url-http/lightweight'
@@ -13,8 +14,6 @@ import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
 import isColor from 'is-color'
 import get from 'dlv'
-
-import { borders, breakpoints, speed, layout, colors } from 'theme'
 
 import {
   Box,
@@ -73,12 +72,17 @@ const ColorPreview = ({ color }) => (
 const DemoSlider = ({ children: slides, ...props }) => {
   const [index, setIndex] = useState(0)
 
-  const transitions = useTransition(index, p => p, {
+  const transition = useTransition(slides[index], {
+    keys: item => item.id,
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
     config: { duration: speed.normal }
   })
+
+  const animatedImage = transition((style, item) => (
+    <AnimatedImage width='100%' style={style} src={item.cdnUrl} />
+  ))
 
   useEffect(() => {
     const interval = setInterval(
@@ -90,14 +94,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
 
   return (
     <Flex style={{ position: 'relative' }} {...props}>
-      {transitions.map(({ item, props, key }) => (
-        <AnimatedImage
-          width='100%'
-          key={key}
-          style={props}
-          src={slides[item].cdnUrl}
-        />
-      ))}
+      {animatedImage}
     </Flex>
   )
 }
