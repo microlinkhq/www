@@ -5,6 +5,7 @@ import recipes from '@microlink/recipes'
 import styled from 'styled-components'
 import { layout, toPx } from 'theme'
 import { getDomain } from 'tldts'
+import { navigate } from 'gatsby'
 import React from 'react'
 
 import {
@@ -173,7 +174,16 @@ const RecipesPage = ({ meta }) => {
           >
             <Subhead>Miss something?</Subhead>
             <Box pt={[4, 4, 0, 0]}>
-              <Button href='https://github.com/microlinkhq/recipes/issues/new'>
+              <Button
+                onClick={event => {
+                  event.preventDefault()
+                  window.open(
+                    'https://github.com/microlinkhq/recipes/issues/new',
+                    '_blank',
+                    'noopener noreferrer'
+                  )
+                }}
+              >
                 <Caps>Request an Integration</Caps>
               </Button>
             </Box>

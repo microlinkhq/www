@@ -1,6 +1,6 @@
 import { Toolbar, Box, Fixed } from 'components/elements'
-import React from 'react'
 import { rgba } from 'polished'
+import React from 'react'
 
 import NavContainer from './NavContainer'
 
