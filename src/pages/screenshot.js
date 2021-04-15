@@ -73,7 +73,7 @@ const ColorPreview = ({ color }) => (
 const DemoSlider = ({ children: slides, ...props }) => {
   const [index, setIndex] = useState(0)
 
-  const transitions = useTransition(index, p => p, {
+  const transitions = useTransition(slides[index], slide => slide.id, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -91,12 +91,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
   return (
     <Flex style={{ position: 'relative' }} {...props}>
       {transitions.map(({ item, props, key }) => (
-        <AnimatedImage
-          width='100%'
-          key={key}
-          style={props}
-          src={slides[item].cdnUrl}
-        />
+        <AnimatedImage width='100%' key={key} style={props} src={item.cdnUrl} />
       ))}
     </Flex>
   )
