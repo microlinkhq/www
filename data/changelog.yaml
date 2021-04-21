@@ -1,3 +1,8 @@
+- date: April 2021
+  notes:
+    - "[Microlink CLI](https://github.com/microlinkhq/cli): Released v2.0.0."
+    - "[Microlink Function](https://github.com/microlinkhq/function): Released [@microlink/local](https://github.com/microlinkhq/local) toolin for running Microlink Function locally."
+    
 - date: March 2021
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): The query parameter [ping](/docs/api/parameters/ping) now accepts an object interface."
