@@ -1,8 +1,8 @@
 - date: April 2021
   notes:
-    - "[Microlink API](/docs/api/getting-started/overview): Added better default fonts for improving [font rendering](https://pro.microlink.io/?url=https%3A%2F%2Ffont-rendering.vercel.app&screenshot=&fullPage=&embed=screenshot.url)."
+    - "[Microlink API](/docs/api/getting-started/overview): Added better default fonts and improved [font rendering](https://pro.microlink.io/?url=https%3A%2F%2Ffont-rendering.vercel.app&screenshot=&fullPage=&embed=screenshot.url)."
     - "[Microlink CLI](https://github.com/microlinkhq/cli): Released v2.0.0."
-    - "[Microlink Function](https://github.com/microlinkhq/function): Released [@microlink/local](https://github.com/microlinkhq/local) toolin for running Microlink Function locally."
+    - "[Microlink Function](https://github.com/microlinkhq/function): Released [@microlink/local](https://github.com/microlinkhq/local) for running them locally."
     
 - date: March 2021
   notes:
