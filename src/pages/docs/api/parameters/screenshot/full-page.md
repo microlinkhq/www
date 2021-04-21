@@ -8,7 +8,7 @@ Default: <Type children='false'/>
 When <Type children='true'/>, it takes a screenshot of the full scrollable page.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&fullPage`,
+  Shell: `microlink https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&fullPage`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

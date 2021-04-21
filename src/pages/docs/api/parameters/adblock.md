@@ -8,7 +8,7 @@ Default: <Type children='true'/>
 When it's <Type children='true'/>, it enables to block third party requests coming from advertisements trackers cookies banners, coin miners, etc.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://www.youtube.com&screenshot&adblock=false`,
+  Shell: `microlink https://www.youtube.com&screenshot&adblock=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

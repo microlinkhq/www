@@ -8,7 +8,7 @@ Default: <Type children='true'/>
 It enables normalized metadata detection over the target URL.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&meta`,
+  Shell: `microlink https://microlink.io&meta`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -82,7 +82,7 @@ The normalized metadata is enabled by default, so you don't need to set it as `t
 If you don't need any of this, you can explicitly disable the default behavior 
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&meta=false`,
+  Shell: `microlink https://microlink.io&meta=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

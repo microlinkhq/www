@@ -8,7 +8,7 @@ Default: <Type children='false'/>
 Enabling it will return you more information related with color schema of the images detected
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&palette`,
+  Shell: `microlink https://microlink.io&palette`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

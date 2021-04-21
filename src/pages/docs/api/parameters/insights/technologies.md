@@ -8,7 +8,7 @@ Default: <Type children='true'/>
 It identifies technology behind the target URL powered by [Wappalyzer](https://www.wappalyzer.com).
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&insights.technologies=true`,
+  Shell: `microlink https://microlink.io&insights.technologies=true`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

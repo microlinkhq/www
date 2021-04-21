@@ -8,7 +8,7 @@ Default: <Type children='false'/>
 Enabling it will return a new `iframe` data field, allowing to insert an embedded representation of the [url](/docs/api/parameters/url).
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{demolinks.youtube.url}}&iframe`,
+  Shell: `microlink {{demolinks.youtube.url}}&iframe`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -48,7 +48,7 @@ Any URL that implements [oEmbed](https://oembed.com/) specification is supported
 Additionally, you can supply any consumer query parameter supported by [specification](https://oembed.com/), like `maxWidth` or `maxHeight`:
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{demolinks.youtube.url}}&iframe.maxWidth=350`,
+  Shell: `microlink {{demolinks.youtube.url}}&iframe.maxWidth=350`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

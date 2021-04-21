@@ -9,7 +9,7 @@ Default: <Type children="'24h'"/>
 Establishes the maximum quantity of time a resource served from cache layer is considered as valid.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&ttl=1d`,
+  Shell: `microlink https://microlink.io&ttl=1d`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

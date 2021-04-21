@@ -12,7 +12,7 @@ Default: <Type children='true'/>
 It returns a full web performance metrics report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://css-tricks.com/nerds-guide-color-web&insights.lighthouse=true`,
+  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.lighthouse=true`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -54,7 +54,7 @@ It's the same configuration used by Google Chrome when you perform an audit from
 You can extend it, passing custom settings:
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://css-tricks.com/nerds-guide-color-web&insights.lighthouse.device=mobile`,
+  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.lighthouse.device=mobile`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

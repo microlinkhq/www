@@ -25,7 +25,7 @@ curl https://api.microlink.io?url=https://github.com/microlinkhq
 even using [Microlink CLI](/docs/api/getting-started/cli):
 
 ```bash
-microlink-api https://github.com/microlinkhq
+microlink https://github.com/microlinkhq
 ```
 
 You just need to provide a URL as input, outputting the structured data back.

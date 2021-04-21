@@ -9,7 +9,7 @@ Values: <TypeContainer><Type children="'jpeg'"/> | <Type children="'png'"/></Typ
 Specifies the screenshot file type.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot&type=jpeg`,
+  Shell: `microlink https://microlink.io&screenshot&type=jpeg`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

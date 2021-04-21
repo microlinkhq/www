@@ -12,7 +12,7 @@ Two endpoints are available:
 Just you need to call the endpoint with method **GET**, nothing else.
 
 ```bash
-microlink-api https://github.io/microlinkhq&userAgent=googlebot
+microlink https://github.io/microlinkhq&userAgent=googlebot
 ```
 
 <Figcaption children='Any additional API Parameter needs to be provided as query parameter.' />
@@ -20,7 +20,7 @@ microlink-api https://github.io/microlinkhq&userAgent=googlebot
 It does not matter if you use a camel or snake case; both are supported.
 
 ```bash
-microlink-api https://github.io/microlinkhq&user_agent=googlebot
+microlink https://github.io/microlinkhq&user_agent=googlebot
 ```
 
 <Figcaption children='Provide the same API parameter but using snake_case has the same effect.' />

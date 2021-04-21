@@ -7,7 +7,7 @@ Type: <Type children='<object>'/>
 Allows extraction of specific content from the target URL
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://kikobeats.com&data.avatar.selector=#avatar&data.avatar.type=image&data.avatar.attr=src`,
+  Shell: `microlink https://kikobeats.com&data.avatar.selector=#avatar&data.avatar.type=image&data.avatar.attr=src`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

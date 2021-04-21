@@ -12,7 +12,7 @@ The [pro](/docs/api/basics/endpoint) plan includes handle proxies, CAPTCHAs, and
 If that isn't enough for your use case, you can specify your own proxy server to be used during the API requests, being a mediator between Microlink API and the target URL server destination. 
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-pro https://instagram.com/p/BvDTdWdnzkj&proxy=superproxy.cool:22225:603f60f5:***** --api-key MyApiToken`,
+  Shell: `microlink https://instagram.com/p/BvDTdWdnzkj&proxy=superproxy.cool:22225:603f60f5:***** --apiKey MY_API_KEY`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -31,7 +31,7 @@ The proxy string provided will be parsed as [WHATWG URL](https://nodejs.org/api/
 You can ensure proxy is properly used checking `x-fetch-mode` header on response, whose value should be <Type children="'proxy-*'"/>.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-pro https://instagram.com/p/BvDTdWdnzkj&proxy=superproxy.cool:22225:603f60f5:***** --api-key MyApiToken`,
+  Shell: `https://instagram.com/p/BvDTdWdnzkj&proxy=superproxy.cool:22225:603f60f5:***** --apiKey MY_API_KEY`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

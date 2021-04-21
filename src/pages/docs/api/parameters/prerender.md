@@ -21,7 +21,7 @@ But if you do not do this you will not get the data in any way.
 Ideally, you don't need to think about prerendering: The default value <Type children="'auto'"/><br/> means that the service can determine if a website needs to have prerendering enabled to retrieve the content or not.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive`,
+  Shell: `microlink https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -41,7 +41,7 @@ We provided two extra headers for reflecting the decision taken by the service. 
 If you know the target URL doesn't need prerender, you can disable it explicitly
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive&prerender=false`,
+  Shell: `microlink https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive&prerender=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

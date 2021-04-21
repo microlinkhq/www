@@ -11,7 +11,7 @@ It sets the paper height, accepts values labeled with units.
 />
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://example.com&pdf&height=480px`,
+  Shell: `microlink https://example.com&pdf&height=480px`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

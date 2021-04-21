@@ -10,7 +10,7 @@ When it's <Type children='true'/>, it enables CSS [animations](https://developer
 Also, it sets [prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) consequently.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot&animations`,
+  Shell: `microlink https://microlink.io&screenshot&animations`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

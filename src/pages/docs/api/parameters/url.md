@@ -9,7 +9,7 @@ Type: <Type children='<string>'/>
 The target URL for getting information based on the content.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://kikobeats.com`,
+  Shell: `microlink https://kikobeats.com`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -29,7 +29,7 @@ In case you need to authenticate a URL, need to provide the authentication crede
 If the URL provided has query strings parameters, they should be properly escaped in order to not interfere with the rest of the Microlink API query parameters.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https%3A%2F%2Fkikobeats.com%3F%26ref%3Dmicrolink`,
+  Shell: `microlink https%3A%2F%2Fkikobeats.com%3F%26ref%3Dmicrolink`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

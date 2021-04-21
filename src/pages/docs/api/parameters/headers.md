@@ -8,7 +8,7 @@ Type: <Type children='<object>'/>
 You can supply any custom HTTP header to be passed along over the [url](/docs/api/parameters/url).
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://news.ycombinator.com&headers.userAgent=googlebot&headers.acceptLanguage=en-us`,
+  Shell: `microlink https://news.ycombinator.com&headers.userAgent=googlebot&headers.acceptLanguage=en-us`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -29,7 +29,7 @@ module.exports = async () => {
 Passing headers must the way for authenticating a non public target URL, providing the necessary headers for making it reachable for Microlink API.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-pro https://test-http-login.now.sh\&screenshot\&embed\=screenshot.url\&headers.Authorization\="Basic+YWRtaW46YWRtaW4="\&meta\=false`,
+  Shell: `microlink https://test-http-login.now.sh\&screenshot\&embed\=screenshot.url\&headers.Authorization\="Basic+YWRtaW46YWRtaW4="\&meta\=false --apiKey MY_API_KEY`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -51,7 +51,7 @@ Also, [HTTP authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Au
 ![](https://api.microlink.io/?url=https%3A%2F%2Fadmin%3Aadmin%40test-http-login.now.sh%2F&screenshot=&embed=screenshot.url)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://admin:admin@test-http-login.now.sh&screenshot&embed=screenshot.url`,
+  Shell: `microlink https://admin:admin@test-http-login.now.sh&screenshot&embed=screenshot.url`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

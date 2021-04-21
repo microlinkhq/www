@@ -7,7 +7,7 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/>
 Injects [&lt;script&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) into the browser page.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot&scripts.0=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40microlink%2Fmql%400.3.12%2Fsrc%2Fbrowser.js&scripts.1=document.body.style.backgroundColor%20%3D%20%27red%27`,
+  Shell: `microlink https://microlink.io&screenshot&scripts.0=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40microlink%2Fmql%400.3.12%2Fsrc%2Fbrowser.js&scripts.1=document.body.style.backgroundColor%20%3D%20%27red%27`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

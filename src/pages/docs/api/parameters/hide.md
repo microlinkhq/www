@@ -9,7 +9,7 @@ Hide DOM elements matching the given [CSS selectors](https://developer.mozilla.o
 It sets [visibility: hidden](https://stackoverflow.com/a/133064/64949) on the matched elements in the browser page.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot&hide.0=.crisp-client&hide.1=#cookies-policy`,
+  Shell: `microlink https://microlink.io&screenshot&hide.0=.crisp-client&hide.1=#cookies-policy`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

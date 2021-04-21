@@ -8,7 +8,7 @@ Default: <Type children='true'/>
 It ensures that any URL present on the response payload is publicly reachable.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&ping`,
+  Shell: `microlink https://microlink.io&ping`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -28,7 +28,7 @@ module.exports = async () => {
 You can disable this behavior in a partial way:
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&ping.audio=false`,
+  Shell: `microlink https://microlink.io&ping.audio=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -50,7 +50,7 @@ module.exports = async () => {
 or in a total way:
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&ping=false`,
+  Shell: `microlink https://microlink.io&ping=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

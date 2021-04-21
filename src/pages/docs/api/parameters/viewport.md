@@ -7,7 +7,7 @@ Type: <Type children='<object>'/>
 It establishes a set of properties related with the browser visible area and device capabilities.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
+  Shell: `microlink {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -43,7 +43,7 @@ The default viewport values are provided by the default [device](/docs/api/param
 If you just provide an incomplete set of viewport values, they will be merged with the default values
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.deviceScaleFactor=0.5&embed=screenshot.url`,
+  Shell: `microlink {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.deviceScaleFactor=0.5&embed=screenshot.url`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

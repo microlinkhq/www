@@ -53,7 +53,7 @@ module.exports = props => {
   cURL.language = 'bash'
 
   const Shell = () =>
-    `${dataUrl().replace('https://api.microlink.io?url=', 'microlink-api ')}`
+    `${dataUrl().replace('https://api.microlink.io?url=', 'microlink ')}`
 
   cURL.language = 'bash'
 
@@ -246,7 +246,7 @@ IRestResponse response = client.Execute(request);`
 
 mqlCode.json = (data, props = '') => `
 // npm install @microlink/cli --global
-// microlink-api ${data.url}${props}\n
+// microlink ${data.url}${props}\n
 ${JSON.stringify(data, null, 2)}
 `
 

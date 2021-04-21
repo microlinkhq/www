@@ -10,7 +10,7 @@ Default: <Type children='false'/>
 When it's <Type children='true'/>, it hides default white background and allows capturing screenshots with transparency.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://kikobeats.com&screenshot&omitBackground`,
+  Shell: `microlink https://kikobeats.com&screenshot&omitBackground`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

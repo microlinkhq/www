@@ -8,7 +8,7 @@ Default: <Type children="'macbook pro 13'"/>
 When it's present, a [viewport](/docs/api/parameters/viewport) preset will be load for emulating the device before taking the screenshot.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://microlink.io&screenshot&device=ipad`,
+  Shell: `microlink https://microlink.io&screenshot&device=ipad`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

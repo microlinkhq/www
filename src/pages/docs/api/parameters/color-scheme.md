@@ -10,7 +10,7 @@ Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@me
 ![](https://i.imgur.com/ZnxQnkB.png)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://googlechromelabs.github.io/dark-mode-toggle/demo&screenshot&colorScheme=dark`,
+  Shell: `microlink https://googlechromelabs.github.io/dark-mode-toggle/demo&screenshot&colorScheme=dark`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

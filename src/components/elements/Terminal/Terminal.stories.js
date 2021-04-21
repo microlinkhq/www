@@ -11,7 +11,7 @@ const code = `
 import { Terminal } from 'components/elements'
 
 export default () => (
-  <Terminal title='microlink-api' children='${cmd}' theme='light' blinkCursor shellSymbol />
+  <Terminal title='microlink' children='${cmd}' theme='light' blinkCursor shellSymbol />
 )
 `
 
@@ -33,7 +33,7 @@ const SpanLabel = styled.span`
 const cliCode = (
   <>
     <span>
-      npx microlink-api
+      npx @microlink/cli
       https://kikobeats.com?&screenshot&embed=screenshot.url&border=false&force
     </span>
     <Image
@@ -70,23 +70,23 @@ storiesOf('Elements', module).add('Terminal', () => (
     <Terminal mb={4}>{cmd}</Terminal>
 
     <Text color='gray6' mb={2} fontSize={0}>
-      {"<Terminal title='microlink-api' />"}
+      {"<Terminal title='microlink' />"}
     </Text>
-    <Terminal mb={4} title='microlink-api'>
+    <Terminal mb={4} title='microlink'>
       {cmd}
     </Terminal>
 
     <Text color='gray6' mb={2} fontSize={0}>
       {"<Terminal theme='dark' />"}
     </Text>
-    <Terminal mb={4} title='microlink-api' theme='dark'>
+    <Terminal mb={4} title='microlink' theme='dark'>
       {cmd}
     </Terminal>
 
     <Text color='gray6' mb={2} fontSize={0}>
       {'<Terminal blinkCursor={false} />'}
     </Text>
-    <Terminal title='microlink-api' blinkCursor={false}>
+    <Terminal title='' blinkCursor={false}>
       {cliCode}
     </Terminal>
   </Story>

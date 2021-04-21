@@ -11,7 +11,7 @@ It sets the paper width, accepts values labeled with units.
 />
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://example.com&pdf&width=640px`,
+  Shell: `microlink https://example.com&pdf&width=640px`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

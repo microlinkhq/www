@@ -14,25 +14,21 @@ Alternatively, if you have [npx](https://www.npmjs.com/package/npx), you can jus
 npx install @microlink/cli --help
 ```
 
-After that, `microlink-api` and `microlink-pro` commands will be available in your system.
+After that, `microlink` command will be available in your system.
 
 ```bash
-$ microlink-api --help
-
-A CLI for interacting with Microlink API.
-
-Usage
-  $ microlink-[api|pro] <url> [flags]
+microlink <url> [flags]
 
 Flags
-  --api-key       authenticate using an API key (default is `$MICROLINK_API_KEY`).
-  --colors        colorize output (default is `true`).
-  --copy          copy output to clipboard (default is `false`).
-  --pretty        beauty response payload (default is `true`).
+  --api-key      authenticate using an API key (default is `$MICROLINK_API_KEY`
+  --colors       colorize output (default is `true`
+  --copy         copy output to clipboard (default is `false`).
+  --pretty       beauty response payload (default is `true`).
 
 
 Examples
-  microlink-api https://microlink.io&palette
-  microlink-api --no-pretty https://microlink.io&palette
-  microlink-pro --api-key=MyApiKey https://microlink.io&palette
+  microlink https://microlink.io&palette
+  microlink https://microlink.io&palette --no-pretty
+  microlink https://microlink.io&palette --api-key MY_API_KEY
 ```
+

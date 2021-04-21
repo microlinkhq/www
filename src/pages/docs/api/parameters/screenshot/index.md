@@ -11,7 +11,7 @@ Takes a screenshot of a website, making it possible to embed it directly in your
 
 <MultiCodeEditor languages={{
   HTML: `<img src="https://api.microlink.io/?url={{demolinks.netflix.url}}&screenshot&embed=screenshot.url">`,
-  Shell: `microlink-api {{demolinks.netflix.url}}&screenshot`,
+  Shell: `microlink {{demolinks.netflix.url}}&screenshot`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {

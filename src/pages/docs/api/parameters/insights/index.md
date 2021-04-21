@@ -8,7 +8,7 @@ Default: <Type children='false'/>
 It gets web performance metrics over the target URL.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://vercel.com&insights`,
+  Shell: `microlink https://vercel.com&insights`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
@@ -29,7 +29,7 @@ When you enabled it, a new `insights` field will be present into the data respon
 Both fields are enabled by default. They can be disabled programmatically in order to speed up the response time.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink-api https://vercel.com&insights.technologies=false`,
+  Shell: `microlink https://vercel.com&insights.technologies=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
