@@ -1,0 +1,128 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 99
+  ignore:
+  - dependency-name: gatsby-source-filesystem
+    versions:
+    - 2.11.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: gatsby-plugin-styled-components
+    versions:
+    - 4.0.0
+    - 4.1.0
+    - 4.2.0
+    - 4.3.0
+  - dependency-name: gatsby-plugin-react-helmet
+    versions:
+    - 4.0.0
+    - 4.1.0
+    - 4.2.0
+    - 4.3.0
+  - dependency-name: gatsby
+    versions:
+    - 2.32.3
+    - 3.0.3
+    - 3.1.1
+    - 3.2.1
+    - 3.3.0
+  - dependency-name: gatsby-plugin-sass
+    versions:
+    - 3.2.0
+    - 4.0.2
+    - 4.1.0
+    - 4.2.0
+    - 4.3.0
+  - dependency-name: gatsby-plugin-catch-links
+    versions:
+    - 2.10.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: gatsby-transformer-remark
+    versions:
+    - 2.16.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 4.0.0
+  - dependency-name: gatsby-transformer-json
+    versions:
+    - 2.11.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: gatsby-transformer-yaml
+    versions:
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: gatsby-plugin-remove-trailing-slashes
+    versions:
+    - 2.10.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: gatsby-plugin-canonical-urls
+    versions:
+    - 2.10.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: cssnano
+    versions:
+    - 5.0.0
+    - 5.0.1
+  - dependency-name: gatsby-transformer-javascript-frontmatter
+    versions:
+    - 2.10.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: gatsby-plugin-google-analytics
+    versions:
+    - 2.11.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: gatsby-plugin-sitemap
+    versions:
+    - 2.12.0
+    - 3.0.0
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: react-spring
+    versions:
+    - 9.0.0
+    - 9.1.0
+    - 9.1.1
+  - dependency-name: unique-random-array
+    versions:
+    - 3.0.0
+  - dependency-name: cssnano-preset-advanced
+    versions:
+    - 5.0.0
+  - dependency-name: react
+    versions:
+    - 16.14.0
+  - dependency-name: "@microlink/mql"
+    versions:
+    - 0.9.3
+  - dependency-name: "@stripe/react-stripe-js"
+    versions:
+    - 1.3.0
+    - 1.4.0
