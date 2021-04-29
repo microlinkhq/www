@@ -29,11 +29,11 @@ module.exports = async () => {
 Passing headers must the way for authenticating a non public target URL, providing the necessary headers for making it reachable for Microlink API.
 
 <MultiCodeEditor languages={{
-  Shell: `microlink https://test-http-login.now.sh\&screenshot\&embed\=screenshot.url\&headers.Authorization\="Basic+YWRtaW46YWRtaW4="\&meta\=false --apiKey MY_API_KEY`,
+  Shell: `microlink https://test-http-login.vercel.app\&screenshot\&embed\=screenshot.url\&headers.Authorization\="Basic+YWRtaW46YWRtaW4="\&meta\=false --apiKey MY_API_KEY`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
-  const { status, data, response } = await mql('https://test-http-login.now.sh', {
+  const { status, data, response } = await mql('https://test-http-login.vercel.app', {
     headers: {
       authorization: "Basic YWRtaW46YWRtaW4="
     }
@@ -48,14 +48,14 @@ module.exports = async () => {
 
 Also, [HTTP authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) is supported as part of the URL schema.
 
-![](https://api.microlink.io/?url=https%3A%2F%2Fadmin%3Aadmin%40test-http-login.now.sh%2F&screenshot=&embed=screenshot.url)
+![](https://api.microlink.io/?url=https%3A%2F%2Fadmin%3Aadmin%40test-http-login.vercel.app%2F&screenshot=&embed=screenshot.url)
 
 <MultiCodeEditor languages={{
-  Shell: `microlink https://admin:admin@test-http-login.now.sh&screenshot&embed=screenshot.url`,
+  Shell: `microlink https://admin:admin@test-http-login.vercel.app&screenshot&embed=screenshot.url`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
-  const { status, data, response } = await mql('https://admin:admin@test-http-login.now.sh', {
+  const { status, data, response } = await mql('https://admin:admin@test-http-login.vercel.app', {
     screenshot: true
   })
  
@@ -72,11 +72,11 @@ In case you are treating with sensible headers (e.g., [authorization](https://de
 For doing that, you need to pass the values with `x-api-header-*` prefix:
 
 <MultiCodeEditor languages={{
-  Shell: `curl --header 'x-api-header-authorization: Basic YWRtaW46YWRtaW4=' https://test-http-login.now.sh\&screenshot\&embed\=screenshot.url\&meta\=false`,
+  Shell: `curl --header 'x-api-header-authorization: Basic YWRtaW46YWRtaW4=' https://test-http-login.vercel.app\&screenshot\&embed\=screenshot.url\&meta\=false`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
-  const { status, data, response } = await mql('https://test-http-login.now.sh', {
+  const { status, data, response } = await mql('https://test-http-login.vercel.app', {
     headers: {
       'accept-language': 'en-US'
     }
