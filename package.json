@@ -56,7 +56,7 @@
     "gatsby-plugin-canonical-urls": "~3.4.0",
     "gatsby-plugin-catch-links": "~3.4.0",
     "gatsby-plugin-google-analytics": "~3.3.0",
-    "gatsby-plugin-react-helmet": "~4.3.0",
+    "gatsby-plugin-react-helmet": "~4.4.0",
     "gatsby-plugin-remove-trailing-slashes": "~3.4.0",
     "gatsby-plugin-sass": "~4.4.0",
     "gatsby-plugin-sitemap": "~3.3.0",
