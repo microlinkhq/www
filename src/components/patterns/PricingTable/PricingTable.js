@@ -19,7 +19,7 @@ import {
 
 import { labelStyle } from '../../elements/Label'
 
-const FREE_PLAN_RATE_LIMIT = 50
+const FREE_PLAN_RATE_LIMIT = 100
 
 const Price = styled(Text)`
   font-weight: bold;
@@ -138,7 +138,7 @@ export const createPricingTable = Checkout => ({
 
         <Box>
           <Text pt={3}>
-            {FREE_PLAN_RATE_LIMIT} <Requests sufix='/day' />
+            {FREE_PLAN_RATE_LIMIT} <Requests suffix='/day' />
           </Text>
           <PricingPrice pt={3}>0</PricingPrice>
         </Box>
