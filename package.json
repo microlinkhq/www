@@ -97,7 +97,7 @@
     "react-is": "~17.0.2",
     "react-spring": "~9.1.2",
     "react-syntax-highlighter": "~15.4.3",
-    "react-timeago": "~5.2.0",
+    "react-timeago": "~6.1.1",
     "react-twitter-embed": "~3.0.3",
     "remark-slug": "~6.0.0",
     "sass": "~1.32.12",
