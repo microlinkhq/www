@@ -82,7 +82,7 @@
     "palx": "~1.0.3",
     "path-browserify": "~1.0.1",
     "polished": "~4.1.2",
-    "postcss": "~8.2.15",
+    "postcss": "~8.3.0",
     "postcss-focus": "~5.0.1",
     "prepend-http": "~3.0.1",
     "prettier": "~2.3.0",
