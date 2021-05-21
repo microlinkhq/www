@@ -1,9 +1,16 @@
+- date: May 2021
+  notes:
+    - "[Microlink OSS](/oss) Added [spotify-url-info](https://github.com/microlinkhq/spotify-url-info)."
+    - "[Browserless v9 beta](https://github.com/microlinkhq/browserless/pull/280): A total rework improving how Chromium's process are managed."
+    - "[Microlink Function](https://github.com/microlinkhq/function): Added more [allowed](https://github.com/microlinkhq/function#npm-packages) NPM packages."
+    - "[Microlink Cluster](/status): Improve stability, better k8s autoscaling setup."
+
 - date: April 2021
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): Added better default fonts and improved [font rendering](https://pro.microlink.io/?url=https%3A%2F%2Ffont-rendering.vercel.app&screenshot=&fullPage=&embed=screenshot.url)."
     - "[Microlink CLI](https://github.com/microlinkhq/cli): Released v2.0.0."
     - "[Microlink Function](https://github.com/microlinkhq/function): Released [@microlink/local](https://github.com/microlinkhq/local) for running them locally."
-    
+
 - date: March 2021
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): The query parameter [ping](/docs/api/parameters/ping) now accepts an object interface."
