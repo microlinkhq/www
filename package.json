@@ -125,7 +125,6 @@
     "esm": "latest",
     "finepack": "latest",
     "git-authors-cli": "latest",
-    "husky": "latest",
     "lint-staged": "latest",
     "nodengine": "latest",
     "npm-check-updates": "latest",
@@ -133,6 +132,7 @@
     "pretty-bytes": "latest",
     "puppeteer": "latest",
     "rgb-hex": "latest",
+    "simple-git-hooks": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
     "standard-version": "latest"
@@ -157,7 +157,7 @@
     "clean:data": "rm -rf data/*.json",
     "dev": "gatsby develop --host localhost --port 8000",
     "lint": "standard-markdown README.md && standard",
-    "postinstall": "husky install && npm run build:data",
+    "postinstall": "npm run build:data",
     "postrelease": "npm run release:tags && npm run release:github",
     "posttest": "npx urlint https://microlink.io/sitemap.xml",
     "predev": "npm run build:data",
@@ -201,6 +201,10 @@
     "*.js": [
       "prettier-standard"
     ]
+  },
+  "simple-git-hooks": {
+    "commit-msg": "npx commitlint --edit",
+    "pre-commit": "npx lint-staged"
   },
   "standard": {
     "parser": "babel-eslint"
