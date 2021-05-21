@@ -52,12 +52,7 @@ module.exports = {
         sassOptions: {
           precision: 8
         },
-        postCssPlugins: [
-          require('postcss-focus'),
-          require('cssnano')({
-            preset: require('cssnano-preset-advanced')
-          })
-        ]
+        postCssPlugins: require('./postcss.config').plugins
       }
     },
     'gatsby-transformer-json',
