@@ -4,7 +4,6 @@ import isUrl from 'is-url-http/lightweight'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import { Choose } from 'react-extras'
-import { proxyImage } from 'helpers'
 import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
 import chunk from 'lodash/chunk'
@@ -56,7 +55,7 @@ const getMs = str => str.replace(/ms|s/, '')
 const Wappalyzer = ({ data, ...props }) => (
   <Flex width={256} pr={3} flexDirection='row' alignItems='center' {...props}>
     <Box>
-      <Image width='40px' src={proxyImage(data.logo)} />
+      <Image width='40px' src={data.logo} />
     </Box>
     <Box pl={4}>
       <Link href={data.url}>{data.name}</Link>
