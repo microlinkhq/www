@@ -22,8 +22,36 @@
       "email": "miduga@gmail.com"
     },
     {
+      "name": "Kumar Gaurav",
+      "email": "kumargaurav.jha2895@gmail.com"
+    },
+    {
+      "name": "José Manuel Rosa",
+      "email": "josemanuel.rosamoncayo+github@gmail.com"
+    },
+    {
+      "name": "Sam Robbins",
+      "email": "samrobbinsgb@gmail.com"
+    },
+    {
+      "name": "Tim Carry",
+      "email": "tim@pixelastic.com"
+    },
+    {
+      "name": "John Letey",
+      "email": "johnletey@gmail.com"
+    },
+    {
+      "name": "Jiachi Liu",
+      "email": "inbox@huozhi.im"
+    },
+    {
       "name": "Elena Torró",
       "email": "elenatorro@gmail.com"
+    },
+    {
+      "name": "Kevin Østerkilde",
+      "email": "kevin@oesterkilde.dk"
     }
   ],
   "repository": {
@@ -155,6 +183,7 @@
     "clean": "rm -rf node_modules && npm run clean:data && npm run clean:build",
     "clean:build": "gatsby clean",
     "clean:data": "rm -rf data/*.json",
+    "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
     "dev": "gatsby develop --host localhost --port 8000",
     "lint": "standard-markdown README.md && standard",
     "postinstall": "npm run build:data",
