@@ -6,11 +6,11 @@ import isUrl from 'is-url-http/lightweight'
 import * as Icons from 'components/icons'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import { Choose } from 'react-extras'
 import { getDomain } from 'tldts'
 
 import {
   Box,
+  Choose,
   Button,
   Caps,
   Card,

@@ -8,7 +8,6 @@ import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import { Choose } from 'react-extras'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
@@ -16,6 +15,7 @@ import isColor from 'is-color'
 import get from 'dlv'
 
 import {
+  Choose,
   Box,
   Button,
   Caps,

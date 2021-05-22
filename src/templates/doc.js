@@ -2,11 +2,11 @@ import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import * as Icons from 'components/icons'
 import { colors, layout } from 'theme'
-import { Choose } from 'react-extras'
 import { formatDate } from 'helpers'
 import React from 'react'
 
 import {
+  Choose,
   Badge,
   Box,
   Container,

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Link, Button, Notification, Box } from 'components/elements'
-import { Choose } from 'react-extras'
+import { Choose, Link, Button, Notification, Box } from 'components/elements'
 import { Story } from 'story'
 
 const storyName = 'Notification'

@@ -1,5 +1,12 @@
 import React from 'react'
+import { Mail, Slack, GitHub, Twitter } from 'react-feather'
+import { layout, transition, colors } from 'theme'
+import Healthcheck from '../Healthcheck/Healthcheck'
+import { Microlink } from 'components/logos'
+import styled from 'styled-components'
+
 import {
+  Choose,
   Container,
   Hide,
   Caps,
@@ -12,13 +19,6 @@ import {
   Link,
   Dot
 } from 'components/elements'
-
-import { Mail, Slack, GitHub, Twitter } from 'react-feather'
-import { layout, transition, colors } from 'theme'
-import Healthcheck from '../Healthcheck/Healthcheck'
-import { Microlink } from 'components/logos'
-import styled from 'styled-components'
-import { Choose } from 'react-extras'
 
 const IconWrapper = styled(Box)`
   cursor: pointer;

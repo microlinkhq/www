@@ -6,10 +6,10 @@ import { loadStripe } from '@stripe/stripe-js'
 import { layout, letterSpacings } from 'theme'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Choose } from 'react-extras'
 import { encode, decode } from 'qss'
 
 import {
+  Choose,
   Box,
   Button,
   Caps,

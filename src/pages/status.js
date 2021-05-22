@@ -1,7 +1,14 @@
-import { Container, Box, Flex, Text, DotSpinner } from 'components/elements'
 import { ClusterMonitor, Layout } from 'components/patterns'
 import React, { useState } from 'react'
-import { Choose } from 'react-extras'
+
+import {
+  Choose,
+  Container,
+  Box,
+  Flex,
+  Text,
+  DotSpinner
+} from 'components/elements'
 
 const Value = props => (
   <Text

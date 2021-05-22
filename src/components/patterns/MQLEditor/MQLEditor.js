@@ -3,11 +3,11 @@ import { shadows, breakpoints } from 'theme'
 import Microlink from '@microlink/react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Choose } from 'react-extras'
 import { match } from 'styled-is'
 import { mqlCode } from 'helpers'
 
 import {
+  Choose,
   CodeEditor,
   MultiCodeEditor,
   Card,

@@ -3,13 +3,13 @@ import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
-import { Choose } from 'react-extras'
 import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
 import chunk from 'lodash/chunk'
 import get from 'dlv'
 
 import {
+  Choose,
   Box,
   Button,
   Caps,

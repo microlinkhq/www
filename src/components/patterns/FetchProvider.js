@@ -1,8 +1,7 @@
-import { LinkSolid, Text, Notification } from 'components/elements'
+import { Choose, LinkSolid, Text, Notification } from 'components/elements'
 import React, { useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
 import { urlVariations } from 'helpers'
-import { Choose } from 'react-extras'
 import mql from '@microlink/mql'
 
 import demoLinks from '../../../data/demo-links'

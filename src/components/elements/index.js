@@ -13,7 +13,9 @@ import CodeEditor from './CodeEditor/CodeEditor'
 import Container from './Container'
 import { Fixed } from './Position'
 import Card from './Card/Card'
+import Choose from './Choose'
 import Flex from './Flex'
+import If from './If'
 
 import Hide from './Hide'
 import Script from './Script'
@@ -68,6 +70,7 @@ export {
   Button,
   Caps,
   Card,
+  Choose,
   CodeEditor,
   Color,
   Container,
@@ -78,6 +81,7 @@ export {
   Heading,
   Hide,
   Highlight,
+  If,
   Iframe,
   IframeInline,
   Image,

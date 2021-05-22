@@ -4,7 +4,6 @@ import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
-import { Choose } from 'react-extras'
 import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
 import get from 'dlv'
@@ -12,6 +11,7 @@ import get from 'dlv'
 import { Minimize as MinimizeIcon, Book as BookIcon } from 'react-feather'
 
 import {
+  Choose,
   Box,
   Button,
   Caps,
