@@ -1,5 +1,5 @@
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
-import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
+import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import { Box, Flex, Hide } from 'components/elements'
 import { ThemeProvider } from 'styled-components'
 import React, { useEffect, createElement } from 'react'
@@ -52,7 +52,7 @@ const Layout = ({
                 alignItems,
                 display,
                 flexDirection,
-                pt: TOOLBAR_HEIGHT,
+                pt: TOOLBAR_PRIMARY_HEIGHT,
                 children,
                 style: { flex: 1 }
               })}

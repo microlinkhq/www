@@ -1,5 +1,5 @@
 import { Flex, Toggle, Box, Text, Caps } from 'components/elements'
-import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
+import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import { transition, borders, colors, space } from 'theme'
 import React, { useState, Fragment } from 'react'
 import styled, { css } from 'styled-components'
@@ -60,7 +60,7 @@ const AsideWrapper = styled(Box)`
   position: fixed;
   overflow-y: auto;
   bottom: 0;
-  top: ${TOOLBAR_HEIGHT};
+  top: ${TOOLBAR_PRIMARY_HEIGHT};
   width: ${ASIDE_WIDTH};
   transition: transform ${transition.medium};
 
