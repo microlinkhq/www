@@ -60,7 +60,7 @@ export const NavSDK = createNavItem({
 })
 
 export const NavMeta = createNavItem({
-  children: 'metadata',
+  children: 'meta',
   href: '/meta',
   actively: 'partial'
 })
@@ -90,7 +90,7 @@ export const NavPdf = createNavItem({
 })
 
 export const NavDocs = createNavItem({
-  children: 'Documentation',
+  children: 'docs',
   href: '/docs',
   actively: 'partial'
 })
