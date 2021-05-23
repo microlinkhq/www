@@ -36,7 +36,7 @@ const NavLink = styled(Caps)(
 )
 
 NavLink.defaultProps = {
-  px: 2,
+  px: 3,
   fontSize: 0,
   as: 'div'
 }

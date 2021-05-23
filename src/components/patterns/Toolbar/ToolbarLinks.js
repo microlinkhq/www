@@ -40,7 +40,7 @@ const NavLogoDesktop = props => (
 )
 
 export const NavLogo = ({ mobile, ...props }) =>
-  createElement(mobile ? NavLogoMobile : NavLogoDesktop, props)
+  createElement(mobile ? NavLogoMobile : NavLogoDesktop, { px: 0, ...props })
 
 NavLogo.defaultProps = {
   'data-event-category': 'Toolbar',
@@ -120,6 +120,7 @@ export const NavChangelog = createNavItem({
 })
 
 export const NavProducts = createNavItem({
+  href: '/',
   children: 'Products',
   actively: ({ location }) => NavProducts.pages.includes(location.pathname)
 })
