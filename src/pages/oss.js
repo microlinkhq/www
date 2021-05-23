@@ -11,7 +11,7 @@ const OssPage = () => {
     <DotsBackground alignItems='center' justifyContent='center'>
       <Layout footer={{ bg: 'transparent' }}>
         <Flex
-          pt={[0, 0, 0, 3]}
+          pt={5}
           px={3}
           width='100%'
           flexDirection='column'

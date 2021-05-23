@@ -1,8 +1,8 @@
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
-import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
+import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
+import React, { useEffect, createElement } from 'react'
 import { Box, Flex, Hide } from 'components/elements'
 import { ThemeProvider } from 'styled-components'
-import React, { useEffect, createElement } from 'react'
 import { Location } from '@reach/router'
 import Head from 'components/Head'
 import noop from 'lodash/noop'
@@ -52,7 +52,7 @@ const Layout = ({
                 alignItems,
                 display,
                 flexDirection,
-                pt: TOOLBAR_PRIMARY_HEIGHT,
+                pt: TOOLBAR_HEIGHT,
                 children,
                 style: { flex: 1 }
               })}
