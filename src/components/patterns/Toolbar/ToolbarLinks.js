@@ -4,27 +4,16 @@ import { navigate } from 'gatsby'
 
 import NavLink from './NavLink'
 
-const NavLinkDesktop = props => <NavLink pl={0} pr={3} {...props} />
-
-const NavLinkMobile = props => <NavLink {...props} />
-
-const createNavItem = ({ name, path, ...props }) => {
-  const NavItem = ({ mobile, ...props }) =>
-    mobile ? <NavLinkMobile {...props} /> : <NavLinkDesktop {...props} />
-
-  NavItem.defaultProps = {
+const createNavItem = linkProps => props =>
+  createElement(NavLink, {
     'data-event-category': 'Toolbar',
-    'data-event-action': name,
-    children: name,
-    href: path,
+    'data-event-action': linkProps.children,
+    ...linkProps,
     ...props
-  }
-
-  return NavItem
-}
+  })
 
 const NavLogoMobile = props => (
-  <NavLinkMobile
+  <NavLink
     width='32px'
     display='flex'
     href='/'
@@ -32,11 +21,11 @@ const NavLogoMobile = props => (
     {...props}
   >
     <Microlink />
-  </NavLinkMobile>
+  </NavLink>
 )
 
 const NavLogoDesktop = props => (
-  <NavLinkDesktop
+  <NavLink
     onContextMenu={event => {
       event.preventDefault()
       navigate('/design')
@@ -47,11 +36,11 @@ const NavLogoDesktop = props => (
     {...props}
   >
     <Microlink />
-  </NavLinkDesktop>
+  </NavLink>
 )
 
 export const NavLogo = ({ mobile, ...props }) =>
-  createElement(mobile ? NavLogoMobile : NavLogoDesktop, props)
+  createElement(mobile ? NavLogoMobile : NavLogoDesktop, { px: 0, ...props })
 
 NavLogo.defaultProps = {
   'data-event-category': 'Toolbar',
@@ -59,67 +48,107 @@ NavLogo.defaultProps = {
 }
 
 export const NavPricing = createNavItem({
-  name: 'Pricing',
-  path: '/#pricing',
+  children: 'Pricing',
+  href: '/#pricing',
   actively: 'observer'
 })
 
 export const NavSDK = createNavItem({
-  name: 'SDK',
-  path: '/sdk',
+  children: 'SDK',
+  href: '/sdk',
   actively: 'partial'
 })
 
 export const NavMeta = createNavItem({
-  name: 'Meta',
-  path: '/meta',
+  children: 'meta',
+  href: '/meta',
   actively: 'partial'
 })
 
 export const NavInsights = createNavItem({
-  name: 'Insights',
-  path: '/insights',
+  children: 'Insights',
+  href: '/insights',
   actively: 'partial'
 })
 
 export const NavScreenshot = createNavItem({
-  name: 'Screenshot',
-  path: '/screenshot',
+  children: 'Screenshot',
+  href: '/screenshot',
+  actively: 'partial'
+})
+
+export const NavOpenSource = createNavItem({
+  children: 'Open Source',
+  href: '/oss',
   actively: 'partial'
 })
 
 export const NavPdf = createNavItem({
-  name: 'PDF',
-  path: '/pdf',
+  children: 'PDF',
+  href: '/pdf',
   actively: 'partial'
 })
 
 export const NavDocs = createNavItem({
-  name: 'Docs',
-  path: '/docs',
+  children: 'docs',
+  href: '/docs',
   actively: 'partial'
 })
 
 export const NavChat = createNavItem({
-  name: 'Chat',
-  path: '/chat',
+  children: 'Chat',
+  href: '/chat',
   actively: 'partial'
 })
 
 export const NavBlog = createNavItem({
-  name: 'Blog',
-  path: '/blog',
+  children: 'Blog',
+  href: '/blog',
   actively: 'partial'
 })
 
 export const NavRecipes = createNavItem({
-  name: 'Recipes',
-  path: '/recipes',
+  children: 'Recipes',
+  href: '/recipes',
   actively: 'partial'
 })
 
 export const NavChangelog = createNavItem({
-  name: 'Changelog',
-  path: '/changelog',
+  children: 'Changelog',
+  href: '/changelog',
   actively: 'partial'
+})
+
+export const NavProducts = createNavItem({
+  href: '/',
+  children: 'Products',
+  actively: ({ location }) =>
+    NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
+})
+
+NavProducts.pages = [
+  '/meta',
+  '/sdk',
+  '/pdf',
+  '/screenshot',
+  '/sdk',
+  '/insights'
+]
+
+export const NavDevelopers = createNavItem({
+  children: 'Developers',
+  actively: ({ location }) =>
+    NavDevelopers.pages.some(pagePath => location.pathname.startsWith(pagePath))
+})
+
+NavDevelopers.pages = ['/docs', '/changelog', '/recipes', '/chat', '/oss']
+
+export const NavGitHub = createNavItem({
+  children: 'GitHub',
+  href: 'https://github.com/microlinkhq'
+})
+
+export const NavTwitter = createNavItem({
+  children: 'Twitter',
+  href: 'https://twitter.com/microlinkhq'
 })

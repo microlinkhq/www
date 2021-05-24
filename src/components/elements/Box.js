@@ -8,6 +8,7 @@ import {
   flex,
   order,
   alignSelf,
+  position,
   fontSize,
   variant,
   textAlign,
@@ -36,6 +37,7 @@ const Box = styled('div')(
     flex,
     order,
     alignSelf,
+    position,
     variant({ key: 'boxStyles' })
   )
 )
@@ -54,6 +56,7 @@ Box.propTypes = {
   ...propTypes.flex,
   ...propTypes.order,
   ...propTypes.alignSelf,
+  ...propTypes.position,
   ...propTypes.lineHeight
 }
 

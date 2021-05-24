@@ -165,7 +165,11 @@ const LiveDemo = ({
   }, [isInitialData])
 
   return (
-    <Container alignItems='center' pt={5} pb={Container.defaultProps.pt}>
+    <Container
+      alignItems='center'
+      pt={[2, 2, 3, 3]}
+      pb={Container.defaultProps.pt}
+    >
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Get unified metadata
       </Heading>

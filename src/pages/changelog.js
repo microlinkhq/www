@@ -10,7 +10,7 @@ const ChangelogPage = ({ meta }) => {
 
   return (
     <Layout {...meta}>
-      <Container pt={5} justifyContent='center' alignItems='center'>
+      <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
         <Heading maxWidth={layout.large}>Changelog</Heading>
         <Caption
           pt={[3, 3, 4, 4]}

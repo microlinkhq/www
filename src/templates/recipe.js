@@ -14,7 +14,7 @@ import {
   Unavatar
 } from 'components/elements'
 
-const LOGO_SIZE = ['80px', '80px', '96px', '96px']
+const LOGO_SIZE = ['32px', '32px', '48px', '48px']
 
 const Logo = ({ isGeneric, logo, domain }) => {
   if (!isGeneric || !logo) {
@@ -44,17 +44,17 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
       <Script async src='https://embed.runkit.com' />
       <Layout footer={{ bg: 'transparent' }} {...meta}>
         <Flex
-          pt={5}
           px={3}
+          pt={[2, 2, 3, 3]}
           width='100%'
           flexDirection='column'
           justifyContent='center'
           alignItems='center'
         >
-          <Flex pt={[3, 3, 4, 4]} alignItems='center' justifyContent='center'>
+          <Flex alignItems='center' justifyContent='center'>
             <MicrolinkLogo width={LOGO_SIZE} />
             {!recipe.isGeneric && (
-              <Box ml={4} mr={4}>
+              <Box ml={3} mr={3}>
                 <Plus color={cx('gray8')} size={fontSizes[2]} />
               </Box>
             )}

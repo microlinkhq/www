@@ -3,6 +3,7 @@
 import { ExternalLink as ExternalIcon } from 'react-feather'
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
+import { useLocation } from '@reach/router'
 import { Link } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
@@ -91,6 +92,7 @@ export const withLink = Component => {
 
   return ({ actively, href, children, linkProps, ...props }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
+    const location = useLocation()
     const isInternal = isInternalLink(href)
     const partiallyActive = actively === 'partial'
 
@@ -103,16 +105,24 @@ export const withLink = Component => {
       }
     }, [])
 
-    const getProps = ({ isPartiallyCurrent, isCurrent }) => {
+    const getProps = ({ isPartiallyCurrent, isCurrent, location }) => {
+      if (typeof actively === 'function') {
+        const result = actively({ location })
+        return result ? { className: 'active' } : null
+      }
       const isActive = partiallyActive ? isPartiallyCurrent : isCurrent
       if (!isActive && !isIntersecting) return null
       return { className: 'active' }
     }
 
-    if (isInternal) {
+    if (!href || isInternal) {
       return (
         <Component {...props}>
-          <GatsbyLink to={href} getProps={getProps} {...linkProps}>
+          <GatsbyLink
+            to={href || location.pathname}
+            getProps={getProps}
+            {...linkProps}
+          >
             {children}
           </GatsbyLink>
         </Component>

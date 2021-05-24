@@ -12,7 +12,6 @@ export default ({ isBlogPage, date, meta, content }) => (
     <Box px={3}>
       <Text
         as='header'
-        pt={[4, 4, 5, 5]}
         textAlign='center'
         maxWidth={isBlogPage ? layout.normal : 'none'}
         ml='auto'
