@@ -11,7 +11,7 @@ const OssPage = () => {
     <DotsBackground alignItems='center' justifyContent='center'>
       <Layout footer={{ bg: 'transparent' }}>
         <Flex
-          pt={5}
+          pt={[2, 2, 3, 3]}
           px={3}
           width='100%'
           flexDirection='column'
@@ -45,7 +45,7 @@ const OssPage = () => {
                     fontWeight='bold'
                     mr={3}
                     display='inline-block'
-                    width='180px'
+                    width='240px'
                   >
                     {name}
                   </Text>
@@ -59,7 +59,7 @@ const OssPage = () => {
                       <IssueIcon width='16px' />
                     </Flex>
                   </Flex>
-                  <Text color='black60' mt={2} mb={2}>
+                  <Text color='black60' mt={2} mb={2} width='80%'>
                     {description}
                   </Text>
                 </Link>

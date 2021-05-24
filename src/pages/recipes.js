@@ -63,7 +63,7 @@ const RecipesPage = ({ meta }) => {
           flexDirection='column'
           justifyContent='center'
           alignItems='center'
-          pt={5}
+          pt={[2, 2, 3, 3]}
           px={3}
         >
           <Flex

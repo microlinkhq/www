@@ -3,6 +3,8 @@ import { GitHub, Twitter } from 'components/icons'
 import { useLocation } from '@reach/router'
 import React, { useState } from 'react'
 import { rgba } from 'polished'
+import { colors } from 'theme'
+import { css } from 'styled-components'
 
 import NavContainer from './NavContainer'
 
@@ -25,6 +27,20 @@ import {
   NavTwitter
 } from '../Toolbar/ToolbarLinks'
 
+const iconLight = css`
+  color: ${colors.black50};
+  &:hover {
+    color: ${colors.black80};
+  }
+`
+
+const iconDark = css`
+  color: ${colors.white50};
+  &:hover {
+    color: ${colors.white80};
+  }
+`
+
 const ToolbarSecondary = ({ isDark, children }) => (
   <Toolbar type='secondary' aria-label='Secondary Navigation'>
     <Flex as='ul' alignItems='center' justifyContent='center' m={0} p={0}>
@@ -41,8 +57,15 @@ const ToolbarDesktop = ({ theme }) => {
 
   const [secondary, setSecondary] = useState(() => {
     const { pathname } = location
-    if (NavProducts.pages.includes(pathname)) return 'products'
-    if (NavDevelopers.pages.includes(pathname)) return 'developers'
+
+    if (NavProducts.pages.some(pagePath => pathname.startsWith(pagePath))) {
+      return 'products'
+    }
+
+    if (NavDevelopers.pages.some(pagePath => pathname.startsWith(pagePath))) {
+      return 'developers'
+    }
+
     return ''
   })
 
@@ -74,24 +97,23 @@ const ToolbarDesktop = ({ theme }) => {
             >
               <NavProducts
                 as='li'
-                pr={3}
+                pl={0}
                 isDark={isDark}
                 onClick={setToolbar('products')}
               />
               <NavDevelopers
                 as='li'
-                pr={3}
                 isDark={isDark}
                 onClick={setToolbar('developers')}
               />
-              <NavPricing as='li' pr={3} isDark={isDark} />
+              <NavPricing as='li' isDark={isDark} />
             </Flex>
           </NavContainer>
           <NavContainer as='div'>
-            <NavTwitter>
+            <NavTwitter css={isDark ? iconDark : iconLight}>
               <Twitter />
             </NavTwitter>
-            <NavGitHub pl={3}>
+            <NavGitHub pl={3} css={isDark ? iconDark : iconLight}>
               <GitHub />
             </NavGitHub>
           </NavContainer>
@@ -99,7 +121,7 @@ const ToolbarDesktop = ({ theme }) => {
         <Choose>
           <Choose.When condition={secondary === 'products'}>
             <ToolbarSecondary>
-              <NavMeta fontSize='12px' />
+              <NavMeta pl={0} fontSize='12px' />
               <NavSDK fontSize='12px' />
               <NavPdf fontSize='12px' />
               <NavScreenshot fontSize='12px' />
@@ -108,7 +130,7 @@ const ToolbarDesktop = ({ theme }) => {
           </Choose.When>
           <Choose.When condition={secondary === 'developers'}>
             <ToolbarSecondary>
-              <NavDocs fontSize='12px' />
+              <NavDocs pl={0} fontSize='12px' />
               <NavRecipes fontSize='12px' />
               <NavOpenSource fontSize='12px' />
               <NavChangelog fontSize='12px' />
