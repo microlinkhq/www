@@ -1,17 +1,12 @@
 import { Caption, PricingTable } from 'components/patterns'
 import { Subhead, Container } from 'components/elements'
-import { fontSizes, layout } from 'theme'
+import { layout } from 'theme'
 import React from 'react'
 
 export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
   return (
     <Container alignItems='center' maxWidth={layout.large} {...props}>
-      <Subhead
-        id='pricing'
-        variant='gradient'
-        pt={[0, 0, 4, 4]}
-        style={{ scrollMarginTop: `calc(${fontSizes[5]} * -1)` }}
-      >
+      <Subhead id='pricing' variant='gradient' pt={[0, 0, 4, 4]}>
         Pricing
       </Subhead>
       <Caption
