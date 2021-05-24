@@ -10,7 +10,7 @@ export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
         id='pricing'
         variant='gradient'
         pt={[0, 0, 4, 4]}
-        style={{ 'scroll-margin-top': `calc(${fontSizes[5]} * -1)` }}
+        style={{ scrollMarginTop: `calc(${fontSizes[5]} * -1)` }}
       >
         Pricing
       </Subhead>
