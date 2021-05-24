@@ -20,14 +20,11 @@ ToolbarBase.defaultProps = {
   mx: 'auto',
   alignItems: 'center',
   maxWidth: layout.large,
-  px: 0,
-  pt: 3,
-  pb: 3
+  px: 0
 }
 
 const secondaryProps = {
-  justifyContent: 'center',
-  pt: 0
+  justifyContent: 'center'
 }
 
 const Toolbar = ({ type = 'primary', ...props }) => {

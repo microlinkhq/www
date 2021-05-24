@@ -83,7 +83,11 @@ const ToolbarDesktop = ({ theme }) => {
       `}
     >
       <Box px={3}>
-        <Toolbar aria-label='Primary Navigation' justifyContent='space-between'>
+        <Toolbar
+          aria-label='Primary Navigation'
+          justifyContent='space-between'
+          mb={secondary && '-16px'}
+        >
           <NavContainer as='span'>
             <NavLogo p={1} />
           </NavContainer>
@@ -99,12 +103,12 @@ const ToolbarDesktop = ({ theme }) => {
                 as='li'
                 pl={0}
                 isDark={isDark}
-                onClick={setToolbar('products')}
+                onMouseEnter={setToolbar('products')}
               />
               <NavDevelopers
                 as='li'
                 isDark={isDark}
-                onClick={setToolbar('developers')}
+                onMouseEnter={setToolbar('developers')}
               />
               <NavPricing as='li' isDark={isDark} />
             </Flex>
