@@ -80,7 +80,11 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
 const PageBlog = ({ posts = useBlogIndex() }) => {
   return (
     <Layout>
-      <Subhead pt={[4, 4, 5, 5]}>Blog</Subhead>
+      <Flex justifyContent='center'>
+        <Subhead pt={[2, 2, 3, 3]} css={textGradient}>
+          Blog
+        </Subhead>
+      </Flex>
       <Flex pt={[4, 4, 5, 5]} flexDirection='column' alignItems='center'>
         {posts.map((post, index) => (
           <BlogPost
