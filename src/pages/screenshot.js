@@ -195,7 +195,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     : createElement(ImageIcon, { color: colors.black50, size: '16px' })
 
   return (
-    <Container alignItems='center' pt={5}>
+    <Container alignItems='center' pt={[2, 2, 3, 3]}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Easy peasy screenshots
       </Heading>

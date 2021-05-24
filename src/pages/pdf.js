@@ -124,7 +124,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
   }
 
   return (
-    <Container alignItems='center' pt={5}>
+    <Container alignItems='center' pt={[2, 2, 3, 3]}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         PDF made simple
       </Heading>

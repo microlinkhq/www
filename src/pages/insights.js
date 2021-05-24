@@ -179,7 +179,7 @@ const LiveDemo = ({
     : undefined
 
   return (
-    <Container alignItems='center' pt={5}>
+    <Container alignItems='center' pt={[2, 2, 3, 3]}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Automate web performance
       </Heading>
@@ -665,21 +665,17 @@ const InsightsPage = () => {
                 css={`
                   /* https://www.gradientmagic.com/collection/radialstripes */
                   background-image: radial-gradient(
-                    circle at center right,
-                    rgb(253, 97, 39) 0%,
-                    rgb(253, 97, 39) 14.286%,
-                    rgb(251, 108, 38) 14.286%,
-                    rgb(251, 108, 38) 28.572%,
-                    rgb(249, 118, 37) 28.572%,
-                    rgb(249, 118, 37) 42.858%,
-                    rgb(247, 129, 37) 42.858%,
-                    rgb(247, 129, 37) 57.144%,
-                    rgb(245, 140, 36) 57.144%,
-                    rgb(245, 140, 36) 71.43%,
-                    rgb(243, 150, 35) 71.43%,
-                    rgb(243, 150, 35) 85.716%,
-                    rgb(241, 161, 34) 85.716%,
-                    rgb(241, 161, 34) 100.002%
+                    circle at top right,
+                    rgb(36, 9, 119) 0%,
+                    rgb(36, 9, 119) 48%,
+                    rgb(72, 7, 149) 48%,
+                    rgb(72, 7, 149) 53%,
+                    rgb(109, 5, 178) 53%,
+                    rgb(109, 5, 178) 56%,
+                    rgb(145, 2, 208) 56%,
+                    rgb(145, 2, 208) 69%,
+                    rgb(181, 0, 237) 69%,
+                    rgb(181, 0, 237) 100%
                   );
                 `}
                 borderTop={`${borders[1]} ${colors.white20}`}
@@ -692,7 +688,7 @@ const InsightsPage = () => {
                       You call the API,
                     </Subhead>
                     <Subhead
-                      color='rgb(241, 161, 34)'
+                      color='rgb(181, 0, 237)'
                       width='100%'
                       textAlign='left'
                       titleize={false}

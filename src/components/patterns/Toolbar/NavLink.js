@@ -12,6 +12,7 @@ const activeStyle = css`
 const style = css`
   transition: color ${transition.medium};
   color: ${({ isDark }) => (isDark ? colors.white50 : colors.black50)};
+  ${props => props.isActive && activeStyle};
   &:hover,
   > .active {
     ${activeStyle};
@@ -35,7 +36,7 @@ const NavLink = styled(Caps)(
 )
 
 NavLink.defaultProps = {
-  p: 2,
+  pl: 3,
   fontSize: 0,
   as: 'div'
 }

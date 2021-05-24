@@ -162,6 +162,11 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta name='image' content={image} />
       <meta name='date' content={date} />
       <title>{title}</title>
+      <link
+        rel='preconnect'
+        href='https://cdn.microlink.io'
+        crossorigin='anonymous'
+      />
       <meta
         name='viewport'
         content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'

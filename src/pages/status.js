@@ -43,7 +43,7 @@ const StatusPage = () => {
             alignItems='center'
             maxWidth='100%'
           >
-            <Box id='status' px={Container.defaultProps.px} pt={5}>
+            <Box id='status' px={Container.defaultProps.px}>
               <Choose>
                 <Choose.When condition={isLoading}>
                   <Flex
@@ -51,7 +51,7 @@ const StatusPage = () => {
                     alignItems='center'
                     flexDirection={['column', 'column', 'row', 'row']}
                   >
-                    <Value color={color}>
+                    <Value pt={[2, 2, 3, 3]} color={color}>
                       Loading <DotSpinner />
                     </Value>
                   </Flex>

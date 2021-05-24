@@ -59,14 +59,14 @@ const RecipesPage = ({ meta }) => {
     <DotsBackground alignItems='center' justifyContent='center'>
       <Layout footer={{ bg: 'transparent' }} {...meta}>
         <Flex
-          px={3}
           width='100%'
           flexDirection='column'
           justifyContent='center'
           alignItems='center'
+          pt={[2, 2, 3, 3]}
+          px={3}
         >
           <Flex
-            pt={5}
             flexDirection='column'
             alignItems='center'
             justifyContent='center'

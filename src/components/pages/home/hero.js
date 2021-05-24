@@ -11,7 +11,7 @@ const Hero = () => {
       alignItems='center'
       justifyContent='center'
     >
-      <Heading fontSize={['48px', 6, 7, 7]} pt={[4, 4, 5, 5]} titleize={false}>
+      <Heading fontSize={['48px', 6, 7, 7]} titleize={false}>
         Browser as API
       </Heading>
       <Caption

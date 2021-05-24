@@ -1,9 +1,9 @@
-import React from 'react'
-import { Mail, Slack, GitHub, Twitter } from 'react-feather'
-import { layout, transition, colors } from 'theme'
-import Healthcheck from '../Healthcheck/Healthcheck'
 import { Microlink } from 'components/logos'
-import styled from 'styled-components'
+import { layout, colors } from 'theme'
+import { Mail } from 'react-feather'
+import React from 'react'
+
+import Healthcheck from '../Healthcheck/Healthcheck'
 
 import {
   Choose,
@@ -19,19 +19,6 @@ import {
   Link,
   Dot
 } from 'components/elements'
-
-const IconWrapper = styled(Box)`
-  cursor: pointer;
-  opacity: 0.75;
-  transition: all ${transition.medium};
-
-  &:hover {
-    opacity: 1;
-    > svg {
-      stroke: ${colors.black};
-    }
-  }
-`
 
 const LIGHT_THEME = {
   bg: 'white',
@@ -53,14 +40,9 @@ const DARK_THEME = {
 
 export default ({ theme, ...props }) => {
   const isDark = theme === 'dark'
-  const {
-    bg,
-    textColor,
-    buttonColor,
-    buttonBg,
-    inputIconColor,
-    iconColor
-  } = isDark ? DARK_THEME : LIGHT_THEME
+  const { bg, textColor, buttonColor, buttonBg, inputIconColor } = isDark
+    ? DARK_THEME
+    : LIGHT_THEME
 
   return (
     <Container px={0} maxWidth={layout.large} pb={Container.defaultProps.pt}>
@@ -301,48 +283,31 @@ export default ({ theme, ...props }) => {
               justifyContent={['center', 'center', 'center', 'inherit']}
               mt={[3, 0, 0, 0]}
             >
-              <IconWrapper
-                data-event-category='Footer'
-                data-event-action='Slack'
-                as='a'
-                href='/chat'
-                mr={3}
-              >
-                <Slack color={iconColor} size={20} />
-              </IconWrapper>
-              <IconWrapper
-                data-event-category='Footer'
-                data-event-action='GitHub'
-                rel='noopener noreferrer'
-                target='_blank'
-                as='a'
-                href='https://github.com/microlinkhq'
-                mr={3}
-              >
-                <GitHub color={iconColor} size={20} />
-              </IconWrapper>
-              <IconWrapper
-                data-event-category='Footer'
-                data-event-action='Email'
-                rel='noopener noreferrer'
-                target='_blank'
-                as='a'
-                href='mailto:hello@microlink.io'
-                mr={3}
-              >
-                <Mail color={iconColor} size={20} />
-              </IconWrapper>
-              <IconWrapper
-                mr={0}
-                data-event-category='Footer'
-                data-event-action='Twitter'
-                rel='noopener noreferrer'
-                target='_blank'
-                as='a'
-                href='https://twitter.com/microlinkhq'
-              >
-                <Twitter color={iconColor} size={20} />
-              </IconWrapper>
+              {[
+                {
+                  href: 'https://github.com/microlinkhq',
+                  children: 'GitHub'
+                },
+                {
+                  href: 'https://twitter.com/microlinkhq',
+                  children: 'Twitter'
+                },
+                {
+                  href: 'mailto:hello@microlink.io',
+                  children: 'Email'
+                }
+              ].map((props, index) => (
+                <LinkSolid
+                  data-event-category='Footer'
+                  data-event-action={props.children}
+                  theme={theme}
+                  key={props.children}
+                  pl={index > 0 ? 2 : 0}
+                  fontSize={0}
+                  icon
+                  {...props}
+                />
+              ))}
             </Flex>
           </Flex>
         </Box>
