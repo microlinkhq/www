@@ -92,7 +92,8 @@ const createRecipesPages = async ({ createPage, recipes }) => {
 const ${key} = ${recipe.toString()}
 
 const result = await ${key}('${recipe.meta.examples[0]}')
-console.log(result)`
+
+mql.render(result)`
 
     return createPage({
       path: route,
