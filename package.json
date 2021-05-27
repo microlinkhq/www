@@ -88,7 +88,7 @@
     "gatsby-plugin-remove-trailing-slashes": "~3.6.0",
     "gatsby-plugin-sass": "~4.5.0",
     "gatsby-plugin-sitemap": "~4.1.0",
-    "gatsby-plugin-styled-components": "~4.5.0",
+    "gatsby-plugin-styled-components": "~4.6.0",
     "gatsby-source-filesystem": "~3.6.0",
     "gatsby-transformer-javascript-frontmatter": "~3.5.0",
     "gatsby-transformer-json": "~3.6.0",
