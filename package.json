@@ -80,7 +80,7 @@
     "dlv": "~1.1.3",
     "exists-file": "~3.0.2",
     "flat": "~5.0.2",
-    "gatsby": "~3.5.1",
+    "gatsby": "~3.6.1",
     "gatsby-plugin-canonical-urls": "~3.6.0",
     "gatsby-plugin-catch-links": "~3.6.0",
     "gatsby-plugin-google-analytics": "~3.5.0",
