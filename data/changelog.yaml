@@ -1,3 +1,7 @@
+- date: Jun 2021
+  notes:
+    - "[Metascraper v5.22.0](https://metascraper.js.org): Add Instagram integration."
+    
 - date: May 2021
   notes:
     - "[Microlink OSS](/oss) Added [spotify-url-info](https://github.com/microlinkhq/spotify-url-info)."
