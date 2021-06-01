@@ -4,11 +4,12 @@ import { navigate } from 'gatsby'
 
 import NavLink from './NavLink'
 
-const createNavItem = linkProps => props =>
+const createNavItem = opts => props =>
   createElement(NavLink, {
     'data-event-category': 'Toolbar',
-    'data-event-action': linkProps.children,
-    ...linkProps,
+    'data-event-action': opts.children,
+    linkProps: { rel: 'prefetch' },
+    ...opts,
     ...props
   })
 
