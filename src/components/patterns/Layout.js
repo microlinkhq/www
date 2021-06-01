@@ -40,7 +40,6 @@ const Layout = ({
               flexDirection='column'
               onClick={onClick}
               style={style}
-              className={theme}
               css={`
                 min-height: 100vh;
               `}

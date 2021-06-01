@@ -1,6 +1,6 @@
 import { ClusterMonitor, Layout } from 'components/patterns'
-import { useQueryState } from 'components/hook'
-import React, { useState } from 'react'
+import { useTheme, useQueryState } from 'components/hook'
+import React from 'react'
 
 import {
   Choose,
@@ -20,19 +20,17 @@ const Value = props => (
   />
 )
 
+const THEMES = {
+  light: { color: 'black', bg: 'white' },
+  dark: { color: 'white', bg: 'black' }
+}
+
 const StatusPage = () => {
-  const [theme, setTheme] = useState('dark')
-  const [{ cluster = '' }] = useQueryState()
+  const [{ theme, color, bg }, setTheme] = useTheme(THEMES, 'light')
+  const [{ cluster }] = useQueryState()
 
-  const endpoint = new URL(cluster, 'https://k8s.microlink.io').toString()
-
-  const toggleTheme = () =>
-    setTheme(theme => (theme === 'light' ? 'dark' : 'light'))
-
-  const { color, bg } =
-    theme === 'light'
-      ? { labelColor: 'black60', color: 'black', bg: 'white' }
-      : { labelColor: 'white60', color: 'white', bg: 'black' }
+  const endpoint = new URL(cluster || '', 'https://k8s.microlink.io').toString()
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light')
 
   return (
     <ClusterMonitor endpoint={endpoint}>

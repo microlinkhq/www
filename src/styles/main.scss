@@ -247,6 +247,14 @@ select:invalid {
   color: rgba(0, 0, 0, 0.5);
 }
 
+
+body[data-theme="dark"] {
+  input::placeholder,
+  select:invalid {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
 b {
   font-weight: 600;
 }
