@@ -165,7 +165,7 @@ function Head ({ onChangeClientState, script, ...props }) {
       <link
         rel='preconnect'
         href='https://cdn.microlink.io'
-        crossorigin='anonymous'
+        crossOrigin='anonymous'
       />
       <meta
         name='viewport'
