@@ -1,4 +1,5 @@
 import { ClusterMonitor, Layout } from 'components/patterns'
+import { useQueryState } from 'components/hook'
 import React, { useState } from 'react'
 
 import {
@@ -21,6 +22,9 @@ const Value = props => (
 
 const StatusPage = () => {
   const [theme, setTheme] = useState('dark')
+  const [{ cluster }] = useQueryState()
+
+  const endpoint = new URL(cluster, 'https://k8s.microlink.io').toString()
 
   const toggleTheme = () =>
     setTheme(theme => (theme === 'light' ? 'dark' : 'light'))
@@ -31,7 +35,7 @@ const StatusPage = () => {
       : { labelColor: 'white60', color: 'white', bg: 'black' }
 
   return (
-    <ClusterMonitor>
+    <ClusterMonitor endpoint={endpoint}>
       {({ isLoading, data }) => {
         return (
           <Layout
@@ -62,7 +66,7 @@ const StatusPage = () => {
                     textAlign='center'
                     style={{ fontFamily: 'monospace' }}
                   >
-                    $ watch curl -sL https://k8s.microlink.io/
+                    $ watch curl -sL {endpoint}
                   </Text>
                   <Text
                     textAlign='center'

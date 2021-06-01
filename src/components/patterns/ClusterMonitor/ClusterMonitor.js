@@ -1,11 +1,9 @@
 import useSWR from 'swr'
 
-const API = 'https://k8s.microlink.io'
-
-const ClusterMonitor = ({ children, ...opts }) => {
+const ClusterMonitor = ({ children, endpoint, ...opts }) => {
   const { data } = useSWR(
-    API,
-    () => window.fetch(API).then(res => res.text()),
+    endpoint,
+    () => window.fetch(endpoint).then(res => res.text()),
     opts
   )
 
