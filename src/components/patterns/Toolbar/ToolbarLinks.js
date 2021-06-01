@@ -8,7 +8,7 @@ const createNavItem = opts => props =>
   createElement(NavLink, {
     'data-event-category': 'Toolbar',
     'data-event-action': opts.children,
-    linkProps: { rel: 'prefetch' },
+    linkProps: { rel: 'prerender' },
     ...opts,
     ...props
   })
