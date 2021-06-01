@@ -22,7 +22,7 @@ const Value = props => (
 
 const StatusPage = () => {
   const [theme, setTheme] = useState('dark')
-  const [{ cluster }] = useQueryState()
+  const [{ cluster = '' }] = useQueryState()
 
   const endpoint = new URL(cluster, 'https://k8s.microlink.io').toString()
 
