@@ -13,28 +13,28 @@ export default ({ canonicalUrl, planId, stripeKey, ...props }) => {
     paymentEndpoint: apiEndpoint
   } = useSiteMetadata()
 
-  const stripePromise = loadStripe(stripeKey, { locale: 'en' })
-
   const handleCheckout = async () => {
     setIsLoading(true)
 
-    const { data } = await fetch(`${apiEndpoint}/payment/session`, {
-      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
-      method: 'POST',
-      body: JSON.stringify({
-        planId,
-        successUrl: `${canonicalUrl}/payment?state=success`,
-        cancelUrl: `${canonicalUrl}/payment?state=failed`
-      })
-    }).then(res => res.json())
+    const [{ data }, stripe] = await Promise.all([
+      fetch(`${apiEndpoint}/payment/session`, {
+        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+        method: 'POST',
+        body: JSON.stringify({
+          planId,
+          successUrl: `${canonicalUrl}/payment?state=success`,
+          cancelUrl: `${canonicalUrl}/payment?state=failed`
+        })
+      }).then(res => res.json()),
+      loadStripe(stripeKey, { locale: 'en' })
+    ])
 
-    await (await stripePromise).redirectToCheckout(data)
+    stripe.redirectToCheckout(data)
   }
 
   return (
     <Button
       onClick={handleCheckout}
-      onTouchStart={handleCheckout}
       loading={isLoading}
       data-event-category='Checkout'
       data-event-action='Buy'

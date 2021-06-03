@@ -1,33 +1,23 @@
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics'
 import { createElement } from 'react'
 import noop from 'lodash/noop'
 
-import { sendEvent } from 'helpers'
-
-const createOnClick = ({
-  eventAction,
-  eventCategory,
-  onClick = noop,
-  href
-}) => {
-  if (!(eventAction && eventCategory)) return onClick
+const createOnClick = ({ onClick = noop, action, category, href: label }) => {
+  if (!(action && category)) return onClick
 
   return event => {
-    sendEvent({
-      eventAction,
-      eventCategory,
-      eventLabel: href
-    })
+    trackCustomEvent({ action, category, label })
     onClick(event)
     return false
   }
 }
 
 export const withAnalytics = Component => ({
-  'data-event-action': eventAction,
-  'data-event-category': eventCategory,
+  'data-event-action': action,
+  'data-event-category': category,
   ...props
 }) =>
   createElement(Component, {
     ...props,
-    onClick: createOnClick({ eventAction, eventCategory, ...props })
+    onClick: createOnClick({ action, category, ...props })
   })
