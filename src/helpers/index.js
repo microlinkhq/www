@@ -9,7 +9,6 @@ import aspectRatio from './aspect-ratio'
 import formatDate from './format-date'
 import proxyImage from './proxy-image'
 import isFunction from './is-function'
-import sendEvent from './send-event'
 import getLines from './get-lines'
 import template from './template'
 import prettier from './prettier'
@@ -36,7 +35,6 @@ export {
   prettier,
   proxyImage,
   screenshotUrl,
-  sendEvent,
   serializeComponent,
   template,
   title,
