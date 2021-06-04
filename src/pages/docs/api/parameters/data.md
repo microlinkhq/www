@@ -14,7 +14,7 @@ module.exports = async () => {
   const { status, data, response } = await mql('https://kikobeats.com', {
     data: {
       avatar: {
-        selector: '#avatar'
+        selector: '#avatar',
         type: 'image',
         attr: 'src'
       }
