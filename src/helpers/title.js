@@ -39,7 +39,6 @@ const special = [
   'Unified Cache',
   'url',
   'URLs',
-  'Smart Proxy',
   'waitFor',
   'waitUntil',
   'width',
