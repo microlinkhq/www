@@ -27,7 +27,7 @@ You can quickly face with these problems when you send enough traffic to popular
 
 ## Resolving URLs gracefully
 
-What would happen if, every time you want to retrieve data from any URL, the URL just returns the data, handling all casuistics to be transparent for the user.
+Wouldn't it be nice if every time you want to retrieve data from any URL, the Microlink API just returns the data, all while handling any of the above problems transparently?
 
 ![](https://i.imgur.com/8uvahxZ.png)
 
