@@ -23,7 +23,7 @@ When you are surfing the net and visit a website, there are situations you can't
 - Your IP address is blacklisted (e.g., performing request from a data center).
 - You have to validate your identity (e.g., filling a CAPTCHA).
 
-You can quickly face with these problems when you send enough traffic to popular sites, like Instagram or Bloomberg, making it indeterministic to get a successful response in a consistent way.
+You can quickly face these problems when you send enough traffic to popular sites, like Instagram or Bloomberg, which, in turn, makes getting a successful response inconsistent.
 
 ## Resolving URLs gracefully
 
