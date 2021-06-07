@@ -1,6 +1,5 @@
 ---
 title: 'Microlink Proxy: How it works'
-image: 'https://i.imgur.com/Ckf9Tau.png'
 date: '2021-06-07'
 ---
 

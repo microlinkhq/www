@@ -47,7 +47,6 @@ export const query = graphql`
       timeToRead
       frontmatter {
         title
-        isPro
         date(formatString: "MMMM DD, YYYY")
       }
       fields {

@@ -120,11 +120,6 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       edges {
         node {
           fileAbsolutePath
-          frontmatter {
-            isPro
-            title
-            date
-          }
           fields {
             slug
           }
