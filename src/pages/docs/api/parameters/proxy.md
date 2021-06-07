@@ -7,9 +7,11 @@ Type: <Type children='<string>'/>
 
 One of the most frustrating parts of automated web scraping is constantly dealing with IP blocks and CAPTCHAs.
 
-The [pro](/docs/api/basics/endpoint) plan includes handle proxies, CAPTCHAs, and other scraping shield protections in a transparent way for the [Top 500](https://moz.com/top500) most popular worldwide websites.
+The [pro](/docs/api/basics/endpoint) plan includes handle proxies, CAPTCHAs, and other scraping shield protections in a transparent way for the [Top 500](https://github.com/Kikobeats/top-sites) most popular worldwide websites.
 
-If that isn't enough for your use case, you can specify your own proxy server to be used during the API requests, being a mediator between Microlink API and the target URL server destination. 
+You can [read more](/blog/proxy-capabilities) about how it works.
+
+If that isn't enough for your use case, you can always specify your own proxy server to be used during the API requests, being a mediator between Microlink API and the target URL server destination. 
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://instagram.com/p/BvDTdWdnzkj&proxy=superproxy.cool:22225:603f60f5:***** --apiKey MY_API_KEY`,
@@ -26,9 +28,13 @@ module.exports = async () => {
   }}
 />
 
-The proxy string provided will be parsed as [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api).
+The proxy string provided will be parsed as [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api), being the following protocols supported:
 
-You can ensure proxy is properly used checking `x-fetch-mode` header on response, whose value should be <Type children="'proxy-*'"/>.
+- HTTP.
+- HTTPS.
+- SOCKS (v4 and v5).
+
+You can ensure proxy is properly used checking `x-fetch-mode` header on response, whose value should be prefixed by <Type children="'proxy-*'"/>.
 
 <MultiCodeEditor languages={{
   Shell: `https://instagram.com/p/BvDTdWdnzkj&proxy=superproxy.cool:22225:603f60f5:***** --apiKey MY_API_KEY`,

@@ -38,6 +38,8 @@ const special = [
   'TypeScript',
   'Unified Cache',
   'url',
+  'URLs',
+  'Smart Proxy',
   'waitFor',
   'waitUntil',
   'width',
