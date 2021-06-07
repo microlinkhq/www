@@ -3,11 +3,11 @@ title: 'Microlink Proxy: How it works'
 date: '2021-06-07'
 ---
 
-All [Microlink Pro](#pricing) plans come with a built-in proxy layer called that does automatic proxy resolution & rotation based on the input URL.
+All [Microlink Pro](#pricing) plans come with a built-in proxy layer that does automatic proxy resolution and rotation based on the input URL.
 
 ## What's wrong with URLs
 
-The Internet is wild place, where every URL is different. That's especially an issue when you are doing things at scale.
+The Internet is a wild place where every URL is different. That's an issue especially when you are doing things at scale.
 
 ![](https://i.imgur.com/pVPDpao.png)
 
@@ -22,21 +22,21 @@ When you are surfing the net and visit a website, there are situations you can't
 - Your IP address is blacklisted (e.g., performing request from a data center).
 - You have to validate your identity (e.g., filling a CAPTCHA).
 
-You can quickly face these problems when you send enough traffic to popular sites, like Instagram or Bloomberg, which, in turn, makes getting a successful response inconsistent.
+You can quickly face these problems when sending enough traffic to popular sites, like Instagram or Bloomberg, which, in turn, makes getting a successful response inconsistent.
 
 ## Resolving URLs gracefully
 
-Wouldn't it be nice if every time you want to retrieve data from any URL, the Microlink API just returns the data, all while handling any of the above problems transparently?
+Wouldn't it be nice if every time you want to retrieve data from any URL, the Microlink API just returned the data all while handling any of the problems above transparently?
 
 ![](https://i.imgur.com/8uvahxZ.png)
 
 <Figcaption>No additional setup needed, just a Microlink Pro plan.</Figcaption>
 
-That's exactly what **Microlink Proxy** layer does. No failures. No maintaince. You don't need to do nothing additional. It just works™️. 
+That's exactly what **Microlink Proxy** layer does. No failures. No maintaince. You don't need to do anything additional. It just works™. 
 
 The **Microlink Proxy** is enabled for all [Microlink Pro](/#pricing) plans and it will handle all the situations for the [Top 500](https://github.com/Kikobeats/top-sites) most popular worldwide websites, in a transparent way, by default.
 
-Just for informational purpose, you can check if a specific request was resolved using the proxy layer checking `x-fetch-mode` response header.
+Just for informational purposes, you can check if a specific request was resolved using the proxy layer by checking `x-fetch-mode` response header.
 
 ```bash
 $ microlink https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumbles-gusto-goes-head-on-by-selling-insurance
@@ -45,7 +45,7 @@ $ microlink https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumb
 
  cache HIT (19h 20m 54.8s left)
   mode prerender-proxy (8.5s)
-   uri https://pro.microlink.io/?url=https%3A%2F%2Fwww.bloomberg.com%2Fnews%2Farticles%2F2016-05-24%2Fas-zenefits-stumbles-gusto-goes-head-on-by-selling-insurance&filter=statusCode
+   uri https://pro.microlink.io/?url=https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumbles-gusto-goes-head-on-by-selling-insurance&filter=statusCode
     id iad:paw98q36bHEIlAgsFBzy5
 ```
 
@@ -57,4 +57,4 @@ As you can see, the proxy layer respects other query parameters, such as [preren
 
 Also, you can always provide your own [proxy](/docs/api/parameters/proxy), being HTTP, HTTPS or SOCKS (v4 and v5) protocols supported.
 
-Lastly but not least, **Microlink Proxy** is a **cross-feature**: It's available for all the Microlink products.
+Last but not least, **Microlink Proxy** is a **cross-feature**: it's available for all the Microlink products.
