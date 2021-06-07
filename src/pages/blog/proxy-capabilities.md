@@ -8,7 +8,7 @@ All [Microlink Pro](#pricing) plans come with a built-in proxy layer called that
 
 ## What's wrong with URLs
 
-Internet is wild place, where every URL is different. That's specially an issue when you are doing things at scale.
+Internet is wild place, where every URL is different. That's especially an issue when you are doing things at scale.
 
 ![](https://i.imgur.com/pVPDpao.png)
 
