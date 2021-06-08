@@ -19,7 +19,7 @@ The Internet is a wild place where every URL is different. That's an issue espec
 When you are surfing the net and visit a website, there are situations you can't handle at all:
 
 - The are geographic location restrictions (e.g., visiting a site from China).
-- Your IP address is blacklisted (e.g., performing request from a data center).
+- Your IP address is blacklisted (e.g., performing a request from a data center).
 - You have to validate your identity (e.g., filling a CAPTCHA).
 
 You can quickly face these problems when sending enough traffic to popular sites, like Instagram or Bloomberg, which, in turn, makes getting a successful response inconsistent.
