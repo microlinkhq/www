@@ -4,7 +4,7 @@ import React from 'react'
 
 export default () => (
   <>
-    <H2 id='chat'>Come chat with us</H2>
+    <H2 id='chat'>Join the community</H2>
     <Chat />
     <Paraph>
       All of these improvements or features are{' '}

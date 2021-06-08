@@ -9,8 +9,9 @@ import { css } from 'styled-components'
 import NavContainer from './NavContainer'
 
 import {
+  NavBlog,
   NavChangelog,
-  NavChat,
+  NavCommunity,
   NavDevelopers,
   NavDocs,
   NavGitHub,
@@ -137,8 +138,9 @@ const ToolbarDesktop = ({ theme }) => {
               <NavDocs pl={0} fontSize='12px' />
               <NavRecipes fontSize='12px' />
               <NavOpenSource fontSize='12px' />
+              <NavBlog fontSize='12px' />
               <NavChangelog fontSize='12px' />
-              <NavChat fontSize='12px' />
+              <NavCommunity fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
         </Choose>

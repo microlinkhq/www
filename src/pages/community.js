@@ -3,10 +3,10 @@ import { Caption, Layout, Chat } from 'components/patterns'
 import { layout } from 'theme'
 import React from 'react'
 
-const ChatPage = () => (
+const CommunityPage = () => (
   <Layout>
     <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
-      <Heading>Chat</Heading>
+      <Heading>Community</Heading>
 
       <Caption
         pt={[3, 3, 4, 4]}
@@ -25,4 +25,4 @@ const ChatPage = () => (
   </Layout>
 )
 
-export default ChatPage
+export default CommunityPage
