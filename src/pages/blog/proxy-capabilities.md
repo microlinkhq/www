@@ -32,7 +32,7 @@ Wouldn't it be nice if every time you want to retrieve data from any URL, the Mi
 
 <Figcaption>No additional setup needed, just a Microlink Pro plan.</Figcaption>
 
-That's exactly what **Microlink Proxy** layer does. No failures. No maintaince. You don't need to do anything additional. It just works™. 
+That's exactly what **Microlink Proxy** layer does. No failures. No maintenance. You don't need to do anything additional. It just works™. 
 
 The **Microlink Proxy** is enabled for all [Microlink Pro](/#pricing) plans and it will handle all the situations for the [Top 500](https://github.com/Kikobeats/top-sites) most popular worldwide websites, in a transparent way, by default.
 
