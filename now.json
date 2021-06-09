@@ -159,6 +159,10 @@
     {
       "source": "/waituntil",
       "destination": "/docs/api/parameters/wait-until"
+    },
+    {
+      "source": "/chat",
+      "destination": "/community"
     }
   ]
 }
