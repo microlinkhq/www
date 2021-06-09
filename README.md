@@ -2,7 +2,7 @@
   <img src="https://cdn.microlink.io/logo/banner.png" alt="microlink logo">
 </div>
 
-###### [Documentation](https://microlink.io/docs) | [Design System](https://microlink.io/design) | [Chat](https://microlink.io/chat)
+###### [Documentation](https://microlink.io/docs) | [Design System](https://microlink.io/design) | [Community](https://microlink.io/community)
 
 ## License
 

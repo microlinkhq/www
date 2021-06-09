@@ -45,8 +45,8 @@ const getImage = (props, metadata) => {
   switch (page) {
     case '/blog':
       return cdnUrl('banner/blog.jpeg')
-    case '/chat':
-      return cdnUrl('banner/chat.jpeg')
+    case '/community':
+      return cdnUrl('banner/community.jpeg')
     case '/changelog':
       return cdnUrl('banner/changelog.jpeg')
     case '/design':

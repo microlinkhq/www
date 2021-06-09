@@ -14,7 +14,7 @@ export default () => (
     <Paraph>
       Whether you are are building a product and you need fancy previews, you’re
       an indie hacker or simply you like frontend stuff, come{' '}
-      <Link href='https://microlink.io/chat'>chat</Link> with us 🙂.
+      <Link href='https://microlink.io/community'>chat</Link> with us 🙂.
     </Paraph>
   </>
 )
