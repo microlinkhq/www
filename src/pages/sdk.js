@@ -185,7 +185,7 @@ const LiveDemo = ({
               id='sdk-demo-url'
               fontSize={2}
               iconComponent={<InputIcon domain={domain} />}
-              placeholder='Enter a URL...'
+              placeholder='Visit URL'
               type='text'
               suggestions={suggestions}
               value={inputValue}
@@ -193,7 +193,7 @@ const LiveDemo = ({
                 const url = event.target.value
                 setInputValue(url)
               }}
-              width={['100%', '180px', '180px', '180px']}
+              width={['100%', '118px', '102px', '102px']}
               autoFocus
             />
           </Box>

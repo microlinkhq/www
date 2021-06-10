@@ -32,6 +32,7 @@ InputBase.defaultProps = {
   lineHeight: 'inherit',
   width: 1,
   border: 0,
+  p: 0,
   color: 'inherit',
   bg: 'transparent'
 }
@@ -84,7 +85,8 @@ const Input = ({
       focus={isFocus}
       isDark={theme === 'dark'}
       py='12px'
-      px={2}
+      pl={2}
+      pr={suggestions ? 0 : 2}
     >
       {Icon && <Flex pr={1}>{Icon}</Flex>}
       <InputBase

@@ -264,4 +264,6 @@ b {
 */
 input::-webkit-calendar-picker-indicator {
   display: none;
+  opacity: 0;
+  width: 0;
 }

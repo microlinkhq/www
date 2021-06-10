@@ -245,7 +245,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '90px', '90px']}
+              width={['100%', '100%', '102px', '102px']}
               autoFocus
             />
           </Box>
@@ -256,7 +256,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
               id='screenshot-demo-overlay'
               type='text'
               fontSize={2}
-              width={['100%', '100%', '76px', '76px']}
+              width={['100%', '100%', '88px', '88px']}
               value={inputOverlay}
               onChange={event => setInputOverlay(event.target.value)}
               iconComponent={
@@ -276,7 +276,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
               id='screenshot-demo-background'
               type='text'
               fontSize={2}
-              width={['100%', '100%', '120px', '120px']}
+              width={['100%', '100%', '128px', '128px']}
               value={inputBg}
               onChange={event => setInputBg(event.target.value)}
               iconComponent={backgroundIconComponent}

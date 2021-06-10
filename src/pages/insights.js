@@ -233,7 +233,7 @@ const LiveDemo = ({
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '128px', '128px']}
+              width={['100%', '100%', '102px', '102px']}
               autoFocus
             />
           </Box>

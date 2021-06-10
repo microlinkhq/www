@@ -174,7 +174,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '90px', '90px']}
+              width={['100%', '100%', '102px', '102px']}
               autoFocus
             />
           </Box>
@@ -185,7 +185,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
               id='pdf-demo-margin'
               type='text'
               fontSize={2}
-              width={['100%', '100%', '76px', '76px']}
+              width={['100%', '100%', '82px', '82px']}
               value={inputMargin}
               onChange={event => setinputMargin(event.target.value)}
               iconComponent={
@@ -205,7 +205,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
               id='pdf-demo-format'
               type='text'
               fontSize={2}
-              width={['100%', '100%', '76px', '76px']}
+              width={['100%', '100%', '84px', '84px']}
               value={inputFormat}
               onChange={event => setinputFormat(event.target.value)}
               iconComponent={<BookIcon color={colors.black50} width='16px' />}

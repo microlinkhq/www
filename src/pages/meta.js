@@ -216,12 +216,12 @@ const LiveDemo = ({
               id='meta-demo-url'
               fontSize={2}
               iconComponent={<InputIcon domain={domain} />}
-              placeholder='Enter a URL...'
+              placeholder='Visit URL'
               type='text'
               suggestions={suggestions}
               value={inputValue}
               onChange={event => setInputValue(event.target.value)}
-              width={['100%', '100%', '180px', '180px']}
+              width={['100%', '100%', '102px', '102px']}
               autoFocus
             />
           </Box>
