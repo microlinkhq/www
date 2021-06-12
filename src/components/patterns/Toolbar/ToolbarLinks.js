@@ -108,6 +108,12 @@ export const NavBlog = createNavItem({
   actively: 'partial'
 })
 
+export const NavNewsletter = createNavItem({
+  children: 'Newsletter',
+  href: '/newsletter',
+  actively: 'partial'
+})
+
 export const NavRecipes = createNavItem({
   children: 'Recipes',
   href: '/recipes',
@@ -142,14 +148,15 @@ export const NavDevelopers = createNavItem({
     NavDevelopers.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
 
-NavDevelopers.pages = [
-  '/docs',
-  '/blog',
-  '/changelog',
-  '/recipes',
-  '/community',
-  '/oss'
-]
+NavDevelopers.pages = ['/docs', '/recipes', '/community', '/changelog']
+
+export const NavCompany = createNavItem({
+  children: 'Company',
+  actively: ({ location }) =>
+    NavDevelopers.pages.some(pagePath => location.pathname.startsWith(pagePath))
+})
+
+NavCompany.pages = ['/blog', '/newsletter', '/oss']
 
 export const NavGitHub = createNavItem({
   children: 'GitHub',
