@@ -6,14 +6,12 @@ import NavContainer from './NavContainer'
 
 import {
   NavBlog,
-  NavChangelog,
   NavDocs,
   NavInsights,
   NavLogo,
   NavMeta,
   NavPdf,
   NavPricing,
-  NavRecipes,
   NavScreenshot,
   NavSDK
 } from './ToolbarLinks'
@@ -83,11 +81,8 @@ export default ({ theme }) => {
             <NavScreenshot isDark={isDark} mobile />
             <NavPdf isDark={isDark} mobile />
             <NavInsights isDark={isDark} />
-            <NavRecipes isDark={isDark} />
             <NavPricing isDark={isDark} />
-            <NavChangelog isDark={isDark} />
             <NavDocs isDark={isDark} />
-            <NavBlog isDark={isDark} />
           </Nav>
         </Toolbar>
       </Box>
