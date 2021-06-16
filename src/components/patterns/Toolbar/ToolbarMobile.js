@@ -5,7 +5,6 @@ import React from 'react'
 import NavContainer from './NavContainer'
 
 import {
-  NavBlog,
   NavDocs,
   NavInsights,
   NavLogo,
