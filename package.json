@@ -189,7 +189,7 @@
     "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
     "dev": "gatsby develop --host localhost --port 8000",
     "lint": "standard-markdown README.md && standard && npm run lint:gatsby",
-    "lint:gatsby": "npx eslint --ignore-path .gitignore .",
+    "lint:gatsby": "npx eslint --ignore-path .gitignore . || true",
     "postinstall": "npm run build:data",
     "postrelease": "npm run release:tags && npm run release:github",
     "posttest": "npx urlint https://microlink.io/sitemap.xml",

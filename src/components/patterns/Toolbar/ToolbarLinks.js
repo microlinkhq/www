@@ -1,15 +1,24 @@
 import React, { createElement } from 'react'
 import { Microlink } from 'components/logos'
+import { withLink } from 'helpers/hoc'
 import { navigate } from 'gatsby'
 
 import NavLink from './NavLink'
 
+const { isInternalLink } = withLink
+
 const createNavItem = opts => {
+  const isInternal = isInternalLink(opts.href)
+
+  const linkProps = isInternal
+    ? { rel: 'prerender' }
+    : { rel: 'noopener noreferrer', target: '_blank' }
+
   const NavItemWrapper = props =>
     createElement(NavLink, {
       'data-event-category': 'Toolbar',
       'data-event-action': opts.children,
-      linkProps: { rel: 'prerender' },
+      linkProps,
       ...opts,
       ...props
     })
