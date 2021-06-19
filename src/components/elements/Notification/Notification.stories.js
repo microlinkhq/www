@@ -1,4 +1,4 @@
-import { Choose, Link, Button, Notification, Box } from 'components/elements'
+import { Choose, Button, Notification, Box } from 'components/elements'
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
