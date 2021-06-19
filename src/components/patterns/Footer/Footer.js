@@ -133,9 +133,9 @@ const Footer = ({ theme, ...props }) => {
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
-              href='/chat'
+              href='/Community'
             >
-              Chat
+              Community
             </LinkSolid>
             <LinkSolid
               theme={theme}
