@@ -1,8 +1,8 @@
 /* global fetch */
 
+import { loadStripe } from '@stripe/stripe-js/pure'
 import { Caps, Button } from 'components/elements'
 import { useSiteMetadata } from 'components/hook'
-import { loadStripe } from '@stripe/stripe-js'
 import React, { useState } from 'react'
 
 const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {

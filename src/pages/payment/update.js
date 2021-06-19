@@ -1,8 +1,8 @@
 /* global fetch */
 
 import { Caption, Layout } from 'components/patterns'
+import { loadStripe } from '@stripe/stripe-js/pure'
 import { useSiteMetadata } from 'components/hook'
-import { loadStripe } from '@stripe/stripe-js'
 import { layout, letterSpacings } from 'theme'
 import React, { useState } from 'react'
 import styled from 'styled-components'
