@@ -1,5 +1,5 @@
 import { Container, Flex, Heading } from 'components/elements'
-import { ArrowLink, Caption, MQLEditor } from 'components/patterns'
+import { ArrowLink, Caption } from 'components/patterns'
 import { layout } from 'theme'
 import React from 'react'
 
@@ -26,6 +26,7 @@ const Hero = () => {
         alignItems={['center', undefined, undefined, undefined]}
         flexDirection={['column', 'row', 'row', 'row']}
         pt={[3, 3, 4, 4]}
+        pb={Container.defaultProps.pt}
       >
         <ArrowLink pr={[0, 4, 4, 4]} href='/recipes'>
           Start building
@@ -34,7 +35,6 @@ const Hero = () => {
           Check the API
         </ArrowLink>
       </Flex>
-      <MQLEditor pt={4} pb={Container.defaultProps.pt} />
     </Flex>
   )
 }
