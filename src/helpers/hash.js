@@ -1,4 +1,4 @@
-export default str => {
+const hash = str => {
   let hash = 0
 
   if (str.length === 0) return hash.toString()
@@ -11,3 +11,5 @@ export default str => {
 
   return hash.toString()
 }
+
+export default hash

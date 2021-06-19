@@ -1,5 +1,4 @@
 import serializeComponent from './serialize-component'
-import debounceComponent from './debounce-component'
 import isFastConnection from './is-fast-connection'
 import waitForGlobal from './wait-for-global'
 import screenshotUrl from './screenshot-url'
@@ -8,7 +7,6 @@ import formatNumber from './format-number'
 import aspectRatio from './aspect-ratio'
 import formatDate from './format-date'
 import proxyImage from './proxy-image'
-import isFunction from './is-function'
 import getLines from './get-lines'
 import template from './template'
 import prettier from './prettier'
@@ -22,13 +20,11 @@ import hash from './hash'
 export {
   aspectRatio,
   cdnUrl,
-  debounceComponent,
   formatDate,
   formatNumber,
   getLines,
   hash,
   isFastConnection,
-  isFunction,
   isSSR,
   mqlCode,
   pdfUrl,

@@ -21,7 +21,12 @@ const ImageStory = () => {
   return (
     <Story name={storyName} code={code}>
       <Flex flexDirection='row' justifyContent='center'>
-        <Image width='350px' height='350px' src={imageUrl} />
+        <Image
+          alt='example image'
+          width='350px'
+          height='350px'
+          src={imageUrl}
+        />
       </Flex>
     </Story>
   )

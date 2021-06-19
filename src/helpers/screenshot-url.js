@@ -1,6 +1,6 @@
 import { getApiUrl } from '@microlink/mql'
 
-export default (url, opts) => {
+const screenshotUrl = (url, opts) => {
   const [screenshotUrl] = getApiUrl(url, {
     ...opts,
     screenshot: true,
@@ -9,3 +9,5 @@ export default (url, opts) => {
   })
   return screenshotUrl
 }
+
+export default screenshotUrl

@@ -85,7 +85,7 @@ const Embed = ({ title, description, url }) => {
       setIframe(data.iframe)
     }
     fetchData()
-  }, [])
+  }, [url])
 
   if (!iframe) {
     return (

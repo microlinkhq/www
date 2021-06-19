@@ -4,14 +4,17 @@ import { navigate } from 'gatsby'
 
 import NavLink from './NavLink'
 
-const createNavItem = opts => props =>
-  createElement(NavLink, {
-    'data-event-category': 'Toolbar',
-    'data-event-action': opts.children,
-    linkProps: { rel: 'prerender' },
-    ...opts,
-    ...props
-  })
+const createNavItem = opts => {
+  const NavItemWrapper = props =>
+    createElement(NavLink, {
+      'data-event-category': 'Toolbar',
+      'data-event-action': opts.children,
+      linkProps: { rel: 'prerender' },
+      ...opts,
+      ...props
+    })
+  return NavItemWrapper
+}
 
 const NavLogoMobile = props => (
   <NavLink

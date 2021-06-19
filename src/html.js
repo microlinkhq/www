@@ -1,56 +1,136 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Script } from 'components/elements'
 
 export default function HTML (props) {
   return (
     <html lang='en' {...props.htmlAttributes}>
       <head>
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              /* inter-200 - latin */
-              @font-face {
-                font-display: optional;
-                font-family: 'Inter';
-                font-style: normal;
-                font-weight: 200;
-                src: local(''),
-                     url('/fonts/inter-v2-latin-200.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-                     url('/fonts/inter-v2-latin-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-              }
-              /* inter-regular - latin */
-              @font-face {
-                font-display: optional;
-                font-family: 'Inter';
-                font-style: normal;
-                font-weight: 400;
-                src: local(''),
-                     url('/fonts/inter-v2-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-                     url('/fonts/inter-v2-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-              }
-              /* inter-500 - latin */
-              @font-face {
-                font-display: optional;
-                font-family: 'Inter';
-                font-style: normal;
-                font-weight: 500;
-                src: local(''),
-                     url('/fonts/inter-v2-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-                     url('/fonts/inter-v2-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-              }
-              /* inter-700 - latin */
-              @font-face {
-                font-display: optional;
-                font-family: 'Inter';
-                font-style: normal;
-                font-weight: 700;
-                src: local(''),
-                     url('/fonts/inter-v2-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-                     url('/fonts/inter-v2-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-              }`
-          }}
+        <link
+          rel='preconnect'
+          href='https://cdn.microlink.io'
+          crossOrigin='anonymous'
+        />
+        <link
+          rel='preconnect'
+          href='https://fonts.gstatic.com'
+          crossOrigin='anonymous'
+        />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;700&display=optional'
+          rel='stylesheet'
         />
         {props.headComponents}
+
+        {/* <!-- Basic --> */}
+        <meta charSet='utf-8' />
+        <meta
+          name='viewport'
+          content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
+        />
+        <meta httpEquiv='x-ua-compatible' content='ie=edge' />
+        <meta property='apple-mobile-web-app-capable' content='yes' />
+        <meta property='mobile-web-app-capable' content='yes' />
+        {/* <!-- Favicon --> */}
+
+        <link
+          rel='shortcut icon'
+          href='https://cdn.microlink.io/logo/favicon.ico'
+          type='image/x-icon'
+        />
+
+        <link
+          rel='apple-touch-icon-precomposed'
+          sizes='57x57'
+          href='https://cdn.microlink.io/logo/apple-touch-icon-57x57.png'
+        />
+        <link
+          rel='apple-touch-icon-precomposed'
+          sizes='114x114'
+          href='https://cdn.microlink.io/logo/apple-touch-icon-114x114.png'
+        />
+        <link
+          rel='apple-touch-icon-precomposed'
+          sizes='72x72'
+          href='https://cdn.microlink.io/logo/apple-touch-icon-72x72.png'
+        />
+        <link
+          rel='apple-touch-icon-precomposed'
+          sizes='144x144'
+          href='https://cdn.microlink.io/logo/apple-touch-icon-144x144.png'
+        />
+        <link
+          rel='apple-touch-icon-precomposed'
+          sizes='60x60'
+          href='https://cdn.microlink.io/logo/apple-touch-icon-60x60.png'
+        />
+        <link
+          rel='apple-touch-icon-precomposed'
+          sizes='120x120'
+          href='https://cdn.microlink.io/logo/apple-touch-icon-120x120.png'
+        />
+        <link
+          rel='apple-touch-icon-precomposed'
+          sizes='76x76'
+          href='https://cdn.microlink.io/logo/apple-touch-icon-76x76.png'
+        />
+        <link
+          rel='apple-touch-icon-precomposed'
+          sizes='152x152'
+          href='https://cdn.microlink.io/logo/apple-touch-icon-152x152.png'
+        />
+        <link
+          rel='icon'
+          type='image/png'
+          href='https://cdn.microlink.io/logo/favicon-196x196.png'
+          sizes='196x196'
+        />
+        <link
+          rel='icon'
+          type='image/png'
+          href='https://cdn.microlink.io/logo/favicon-96x96.png'
+          sizes='96x96'
+        />
+        <link
+          rel='icon'
+          type='image/png'
+          href='https://cdn.microlink.io/logo/favicon-32x32.png'
+          sizes='32x32'
+        />
+        <link
+          rel='icon'
+          type='image/png'
+          href='https://cdn.microlink.io/logo/favicon-16x16.png'
+          sizes='16x16'
+        />
+        <link
+          rel='icon'
+          type='image/png'
+          href='https://cdn.microlink.io/logo/favicon-128.png'
+          sizes='128x128'
+        />
+        <meta name='application-name' content='microlink.io' />
+        <meta name='msapplication-TileColor' content='#FFFFFF' />
+        <meta
+          name='msapplication-TileImage'
+          content='https://cdn.microlink.io/logo/mstile-144x144.png'
+        />
+        <meta
+          name='msapplication-square70x70logo'
+          content='https://cdn.microlink.io/logo/mstile-70x70.png'
+        />
+        <meta
+          name='msapplication-square150x150logo'
+          content='https://cdn.microlink.io/logo/mstile-150x150.png'
+        />
+        <meta
+          name='msapplication-wide310x150logo'
+          content='https://cdn.microlink.io/logo/mstile-310x150.png'
+        />
+        <meta
+          name='msapplication-square310x310logo'
+          content='https://cdn.microlink.io/logo/mstile-310x310.png'
+        />
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}
@@ -63,11 +143,12 @@ export default function HTML (props) {
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
         {props.postBodyComponents}
-        <script
+        <Script
+          async
           crossOrigin='anonymous'
           src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch%2Csmoothscroll'
         />
-        <script async src='https://client.crisp.chat/l.js' />
+        <Script async src='https://client.crisp.chat/l.js' />
       </body>
     </html>
   )

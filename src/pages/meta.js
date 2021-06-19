@@ -158,11 +158,11 @@ const LiveDemo = ({
       iframe: true
     })
     return embedUrl
-  }, [inputValue])
+  }, [data])
 
   useEffect(() => {
     if (!isInitialData) setInputValue(data.url)
-  }, [isInitialData])
+  }, [data.url, isInitialData])
 
   return (
     <Container
@@ -597,7 +597,7 @@ const ProductInformation = props => (
         question: 'How does it work?',
         answer: [
           <div key='how-does-it-work-0'>
-            It's a{' '}
+            It&#039;s a{' '}
             <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
               rule-based system
             </Link>{' '}
@@ -647,7 +647,7 @@ const ProductInformation = props => (
         question: 'Other questions?',
         answer: [
           <div key='other-questions'>
-            We're always available at{' '}
+            We&#039;re always available at{' '}
             <Link display='inline' href='mailto:hello@microlink.io'>
               hello@microlink.io
             </Link>
@@ -661,6 +661,8 @@ const ProductInformation = props => (
 )
 
 const MetaPage = () => {
+  const features = useFeaturesMeta()
+
   return (
     <Layout>
       <FetchProvider
@@ -706,7 +708,7 @@ const MetaPage = () => {
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
                 }
-                features={useFeaturesMeta()}
+                features={features}
               />
               <Resume />
               <ProductInformation

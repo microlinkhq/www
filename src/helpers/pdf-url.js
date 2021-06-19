@@ -1,6 +1,6 @@
 import { getApiUrl } from '@microlink/mql'
 
-export default (url, opts) => {
+const pdfUrl = (url, opts) => {
   const [pdfUrl] = getApiUrl(url, {
     ...opts,
     pdf: true,
@@ -9,3 +9,5 @@ export default (url, opts) => {
   })
   return pdfUrl
 }
+
+export default pdfUrl

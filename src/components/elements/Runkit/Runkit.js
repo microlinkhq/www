@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { waitForGlobal } from 'helpers'
 
-export default ({ placeholderComponent, title, code }) => {
+const NODE_VERSION = '14'
+
+const Runkit = ({ placeholderComponent, title, code: source }) => {
   const id = placeholderComponent.props.id
   if (!id) throw new Error('Runkit placeholder must to have an id.')
 
@@ -9,22 +11,23 @@ export default ({ placeholderComponent, title, code }) => {
 
   useEffect(() => {
     waitForGlobal('RunKit', () => {
-      const el = window.document.getElementById(id)
+      const element = window.document.getElementById(id)
 
-      if (el && !el.dataset.runkit) {
-        el.dataset.runkit = true
-        const childs = Array.from(el.children)
+      if (element && !element.dataset.runkit) {
+        element.dataset.runkit = true
+        const childs = Array.from(element.children)
 
         setNotebook(
           window.RunKit.createNotebook({
-            element: el,
+            element,
             title,
-            source: code,
-            nodeVersion: '14',
+            source,
+            nodeVersion: NODE_VERSION,
             gutterStyle: 'outside',
+            tabSize: 2,
             onLoad: () => {
-              childs.forEach(child => el.removeChild(child))
-              el.style['box-shadow'] = 'none'
+              childs.forEach(child => element.removeChild(child))
+              element.style['box-shadow'] = 'none'
             }
           })
         )
@@ -32,7 +35,9 @@ export default ({ placeholderComponent, title, code }) => {
         return () => notebook.destroy()
       }
     })
-  }, [])
+  }, [id, notebook, source, title])
 
   return <>{placeholderComponent}</>
 }
+
+export default Runkit

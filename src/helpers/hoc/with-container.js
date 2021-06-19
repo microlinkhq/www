@@ -18,15 +18,14 @@ export const Container = props => (
   />
 )
 
-export const withContainer = (
-  Component,
-  containerProps = {},
-  childProps
-) => props => (
-  <Container {...containerProps}>
-    <Component {...childProps} {...props} />
-  </Container>
-)
+export const withContainer = (Component, containerProps = {}, childProps) => {
+  const ContainerWrapper = props => (
+    <Container {...containerProps}>
+      <Component {...childProps} {...props} />
+    </Container>
+  )
+  return ContainerWrapper
+}
 
 withContainer.Container = Container
 withContainer.CONTAINER_SPACE = CONTAINER_SPACE

@@ -12,7 +12,7 @@ const TEMPLATE_INTERPOLATE = /{{([\s\S]+?)}}/g
 
 const TEMPLATE_INTERPOLATE_ENCODED = /%7B%7B([\s\S]+?)%7D%7D/g
 
-const isTemplate = str => str.includes('demolinks.')
+const isTemplate = str => typeof str === 'string' && str.includes('demolinks.')
 
 const template = (str = '') => {
   if (!isTemplate(str)) return str

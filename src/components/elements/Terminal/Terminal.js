@@ -58,11 +58,17 @@ export const TerminalButton = styled('div')`
   background ${({ color }) => cx(color)};
 `
 
-TerminalButton.Green = props => <TerminalButton color='close' {...props} />
-TerminalButton.Yellow = props => (
+const TerminalButtonGreen = props => <TerminalButton color='close' {...props} />
+const TerminalButtonYellow = props => (
   <TerminalButton style={{ margin: '0 4px' }} color='minimize' {...props} />
 )
-TerminalButton.Red = props => <TerminalButton color='fullscreen' {...props} />
+const TerminalButtonRed = props => (
+  <TerminalButton color='fullscreen' {...props} />
+)
+
+TerminalButton.Green = TerminalButtonGreen
+TerminalButton.Yellow = TerminalButtonYellow
+TerminalButton.Red = TerminalButtonRed
 
 const TerminalTitleWrapper = styled('div')`
   display: flex;

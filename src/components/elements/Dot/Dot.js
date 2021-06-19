@@ -1,29 +1,25 @@
-import React from 'react'
+import { createElement } from 'react'
 import styled from 'styled-components'
 
 import Text from '../Text'
 
-const DotIcon = styled(Text)`
+const Dot = styled(Text)`
   display: inline-block;
   width: 10px;
   height: 10px;
   border-radius: 5px;
 `
 
-DotIcon.defaultProps = {
+Dot.defaultProps = {
   as: 'span'
 }
 
-const createDot = dotProps => props => <DotIcon {...dotProps} {...props} />
+const DotSuccess = props => createElement(Dot, { bg: 'teal3', ...props })
+const DotError = props => createElement(Dot, { bg: 'red6', ...props })
+const DotWarning = props => createElement(Dot, { bg: 'yellow6', ...props })
 
-const Success = createDot({ bg: 'teal3' })
-const Error = createDot({ bg: 'red6' })
-const Warning = createDot({ bg: 'yellow6' })
-
-const Dot = createDot()
-
-Dot.Success = Success
-Dot.Error = Error
-Dot.Warning = Warning
+Dot.Success = DotSuccess
+Dot.Error = DotError
+Dot.Warning = DotWarning
 
 export default Dot

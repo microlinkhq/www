@@ -60,7 +60,7 @@ const Nav = styled(NavContainer)`
   );
 `
 
-export default ({ theme }) => {
+const ToolbarMobile = ({ theme }) => {
   const isDark = theme === 'dark'
 
   return (
@@ -88,3 +88,5 @@ export default ({ theme }) => {
     </Fixed>
   )
 }
+
+export default ToolbarMobile

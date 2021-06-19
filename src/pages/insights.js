@@ -55,7 +55,7 @@ const getMs = str => str.replace(/ms|s/, '')
 const Wappalyzer = ({ data, ...props }) => (
   <Flex width={256} pr={3} flexDirection='row' alignItems='center' {...props}>
     <Box>
-      <Image width='40px' src={data.logo} />
+      <Image width='40px' alt={`${data.name} logo`} src={data.logo} />
     </Box>
     <Box pl={4}>
       <Link href={data.url}>{data.name}</Link>
@@ -620,7 +620,7 @@ const ProductInformation = props => {
             <div key='why-not-run-my-own-solution-2'>
               The fact of resolve any URL at scale in{' '}
               <Average size='tiny' value={healthcheck.insights.avg_pretty} />{' '}
-              isn't a trivial thing.
+              isn&#039;t a trivial thing.
             </div>
           ]
         },
@@ -628,7 +628,7 @@ const ProductInformation = props => {
           question: 'Other questions?',
           answer: [
             <div key='other-questions'>
-              We're always available at{' '}
+              We&#039;re always available at{' '}
               <Link display='inline' href='mailto:hello@microlink.io'>
                 hello@microlink.io
               </Link>
@@ -644,6 +644,7 @@ const ProductInformation = props => {
 
 const InsightsPage = () => {
   const [query] = useQueryState()
+  const features = useFeatures()
   return (
     <Layout>
       <FetchProvider mqlOpts={{ meta: false, insights: true }}>
@@ -705,7 +706,7 @@ const InsightsPage = () => {
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
                 }
-                features={useFeatures()}
+                features={features}
               />
               <Resume />
               <ProductInformation

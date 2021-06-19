@@ -2,7 +2,7 @@ import { Box, Link } from 'components/elements'
 import { Faq } from 'components/patterns'
 import React from 'react'
 
-export default props => (
+const FAQs = props => (
   <Faq
     title='FAQs'
     caption='Frequently asked questions.'
@@ -13,7 +13,7 @@ export default props => (
           <div key='can-i-use-microlink-for-free-0'>
             Absolutely, we offer a forever free{' '}
             <Link href='/docs/api/basics/endpoint'>endpoint</Link> you can use.
-            It's the best way for starting using the service.
+            It&#039;s the best way for starting using the service.
           </div>,
           <div key='can-i-use-microlink-for-free-1'>
             The free plan runs under some limitation for avoid abusive usage of
@@ -120,7 +120,7 @@ export default props => (
         question: 'How is the payment being processed?',
         answer: [
           <div key='how-is-the-payment-being-processed'>
-            We use Stripe to process your payment. It's the same payment
+            We use Stripe to process your payment. It&#039;s the same payment
             provider used in products such as Twitter, Pinterest, and Lyft. We
             do not handle your credit card information directly.
           </div>
@@ -134,8 +134,8 @@ export default props => (
             <Link display='inline' href='mailto:hello@microlink.io'>
               hello@microlink.io
             </Link>{' '}
-            requesting the change. You will receive a link from where you'll be
-            able to securely update your details.
+            requesting the change. You will receive a link from where
+            you&#039;ll be able to securely update your details.
           </div>
         ]
       },
@@ -155,7 +155,7 @@ export default props => (
         question: 'Other questions?',
         answer: [
           <div key='other-questions'>
-            We're always available at{' '}
+            We&#039;re always available at{' '}
             <Link display='inline' href='mailto:hello@microlink.io'>
               hello@microlink.io
             </Link>
@@ -167,3 +167,5 @@ export default props => (
     {...props}
   />
 )
+
+export default FAQs

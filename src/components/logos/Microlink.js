@@ -2,7 +2,7 @@ import React from 'react'
 import { Image } from 'components/elements'
 import { cdnUrl } from 'helpers'
 
-export default props => (
+const Microlink = props => (
   <Image
     alt='microlink logo'
     width='inherit'
@@ -12,3 +12,5 @@ export default props => (
     {...props}
   />
 )
+
+export default Microlink

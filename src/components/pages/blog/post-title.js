@@ -5,9 +5,11 @@ const getTitle = (acc, item, index) => {
   return [...acc, item]
 }
 
-export default ({ children }) => {
+const PostTitle = ({ children }) => {
   return children
     .split(':')
     .reduce(getTitle, [])
     .map(title => <span key={title}>{title}</span>)
 }
+
+export default PostTitle

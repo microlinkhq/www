@@ -307,7 +307,7 @@ export const layout = {
 
 export const letterSpacings = [0, -0.025, 0.025, 0.1, 0.25].map(toEm)
 
-export default {
+const theme = {
   borders,
   boxStyles,
   breakpoints,
@@ -328,3 +328,5 @@ export default {
   textStyles,
   transition
 }
+
+export default theme

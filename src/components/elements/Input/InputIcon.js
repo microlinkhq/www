@@ -1,9 +1,11 @@
-import { Unavatar } from 'components/elements'
 import { Link as LinkIcon } from 'react-feather'
-import { toPx, colors } from 'theme'
+import { Unavatar } from 'components/elements'
 import { createElement } from 'react'
+import { toPx, colors } from 'theme'
 
-export default ({ width = 24, domain }) =>
+const InputIcon = ({ width = 24, domain }) =>
   domain
     ? createElement(Unavatar, { query: domain, width: toPx(width) })
     : createElement(LinkIcon, { color: colors.black50, size: '16px' })
+
+export default InputIcon

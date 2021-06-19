@@ -2,7 +2,7 @@ import { H2, Paraph, Strong, Link } from 'components/markdown'
 import { Chat } from 'components/patterns'
 import React from 'react'
 
-export default () => (
+const PostFooter = () => (
   <>
     <H2 id='chat'>Join the community</H2>
     <Chat />
@@ -18,3 +18,5 @@ export default () => (
     </Paraph>
   </>
 )
+
+export default PostFooter

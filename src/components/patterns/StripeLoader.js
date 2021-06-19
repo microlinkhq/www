@@ -3,7 +3,7 @@ import { Script } from 'components/elements'
 
 const createStripe = stripeKey => window.Stripe(stripeKey, { locale: 'en' })
 
-export default ({ stripeKey, children }) => {
+const StripeLoader = ({ stripeKey, children }) => {
   const [stripe, setStripe] = useState(null)
   return (
     <>
@@ -16,3 +16,5 @@ export default ({ stripeKey, children }) => {
     </>
   )
 }
+
+export default StripeLoader

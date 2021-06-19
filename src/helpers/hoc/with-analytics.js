@@ -12,12 +12,16 @@ const createOnClick = ({ onClick = noop, action, category, href: label }) => {
   }
 }
 
-export const withAnalytics = Component => ({
-  'data-event-action': action,
-  'data-event-category': category,
-  ...props
-}) =>
-  createElement(Component, {
-    ...props,
-    onClick: createOnClick({ action, category, ...props })
-  })
+export const withAnalytics = Component => {
+  const AnalyticsWrapper = ({
+    'data-event-action': action,
+    'data-event-category': category,
+    ...props
+  }) =>
+    createElement(Component, {
+      ...props,
+      onClick: createOnClick({ action, category, ...props })
+    })
+
+  return AnalyticsWrapper
+}

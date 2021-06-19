@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
-
-import uniqueRandomArray from 'unique-random-array'
-import range from 'lodash/range'
-
 import { Text, Highlight } from 'components/elements'
+import uniqueRandomArray from 'unique-random-array'
+import React, { useEffect, useState } from 'react'
+import range from 'lodash/range'
 
 import Caption from '../Caption/Caption'
 
@@ -11,32 +9,31 @@ const INTERVAL = 3500
 
 const trimUnit = str => str.replace(/ms|s/, '')
 
-const prettyNumber = n => {
-  const str = String(n)
-  return str.length === 3 ? `${str}0` : str
-}
+const prettyNumber = str => (str.length === 3 ? `${str}0` : str)
 
-export default ({ size, value }) => {
-  const [average, setAverage] = useState(Number(trimUnit(value)))
+const Average = ({ size, value }) => {
+  const base = Number(trimUnit(value))
+  const bottom = base - base * 0.2
+  const top = base + base * 0.15
+  const steps = base * 0.1
+
+  const unit = value.includes('ms') ? 'msecs' : 'secs'
+  const values = range(bottom, top, steps).map(value =>
+    value.toFixed(unit === 'secs' ? 2 : 0)
+  )
+
+  const rand = uniqueRandomArray(values)
+  const [average, setAverage] = useState(rand())
   const [averageHighlight, setAverageHighlight] = useState(false)
-  const [unit] = useState(value.includes('ms') ? 'msecs' : 'secs')
-
-  const top = average * 0.3
-  const bottom = average * 0.3 * -1
-  const steps = average * 0.1
-
-  const timingsRange = range(bottom, top, steps)
-  const rand = uniqueRandomArray(timingsRange)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newAverage = average + rand(timingsRange)
-      setAverage(newAverage.toFixed(unit === 'secs' ? 2 : 0))
+      setAverage(rand())
       setAverageHighlight(true)
       setTimeout(() => setAverageHighlight(false), Highlight.HIGHLIGHT_DURATION)
     }, INTERVAL)
     return () => clearInterval(interval)
-  }, [])
+  }, [rand])
 
   if (size === 'tiny') {
     return (
@@ -65,3 +62,5 @@ export default ({ size, value }) => {
     </Highlight>
   )
 }
+
+export default Average

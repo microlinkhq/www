@@ -138,9 +138,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       titleTemplate={`%s — ${name}`}
       {...props}
     >
-      {/* <!-- Basic --> */}
-      <meta charSet='utf-8' />
-      <meta httpEquiv='x-ua-compatible' content='ie=edge' />
       <script type='application/ld+json'>
         {`${JSON.stringify({
           '@context': 'http://schema.org',
@@ -162,15 +159,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta name='image' content={image} />
       <meta name='date' content={date} />
       <title>{title}</title>
-      <link
-        rel='preconnect'
-        href='https://cdn.microlink.io'
-        crossOrigin='anonymous'
-      />
-      <meta
-        name='viewport'
-        content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
-      />
 
       {/* <!-- Schema.org for Google --> */}
       <meta itemProp='name' content={title} />
@@ -202,109 +190,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta property='og:site_name' content={name} />
       <meta property='og:type' content='website' />
       <meta property='og:updated_time' content={date} />
-
-      {/* <!-- Favicon --> */}
-
-      <link
-        rel='shortcut icon'
-        href='https://cdn.microlink.io/logo/favicon.ico'
-        type='image/x-icon'
-      />
-      <meta property='apple-mobile-web-app-capable' content='yes' />
-      <meta property='mobile-web-app-capable' content='yes' />
-
-      <link
-        rel='apple-touch-icon-precomposed'
-        sizes='57x57'
-        href='https://cdn.microlink.io/logo/apple-touch-icon-57x57.png'
-      />
-      <link
-        rel='apple-touch-icon-precomposed'
-        sizes='114x114'
-        href='https://cdn.microlink.io/logo/apple-touch-icon-114x114.png'
-      />
-      <link
-        rel='apple-touch-icon-precomposed'
-        sizes='72x72'
-        href='https://cdn.microlink.io/logo/apple-touch-icon-72x72.png'
-      />
-      <link
-        rel='apple-touch-icon-precomposed'
-        sizes='144x144'
-        href='https://cdn.microlink.io/logo/apple-touch-icon-144x144.png'
-      />
-      <link
-        rel='apple-touch-icon-precomposed'
-        sizes='60x60'
-        href='https://cdn.microlink.io/logo/apple-touch-icon-60x60.png'
-      />
-      <link
-        rel='apple-touch-icon-precomposed'
-        sizes='120x120'
-        href='https://cdn.microlink.io/logo/apple-touch-icon-120x120.png'
-      />
-      <link
-        rel='apple-touch-icon-precomposed'
-        sizes='76x76'
-        href='https://cdn.microlink.io/logo/apple-touch-icon-76x76.png'
-      />
-      <link
-        rel='apple-touch-icon-precomposed'
-        sizes='152x152'
-        href='https://cdn.microlink.io/logo/apple-touch-icon-152x152.png'
-      />
-      <link
-        rel='icon'
-        type='image/png'
-        href='https://cdn.microlink.io/logo/favicon-196x196.png'
-        sizes='196x196'
-      />
-      <link
-        rel='icon'
-        type='image/png'
-        href='https://cdn.microlink.io/logo/favicon-96x96.png'
-        sizes='96x96'
-      />
-      <link
-        rel='icon'
-        type='image/png'
-        href='https://cdn.microlink.io/logo/favicon-32x32.png'
-        sizes='32x32'
-      />
-      <link
-        rel='icon'
-        type='image/png'
-        href='https://cdn.microlink.io/logo/favicon-16x16.png'
-        sizes='16x16'
-      />
-      <link
-        rel='icon'
-        type='image/png'
-        href='https://cdn.microlink.io/logo/favicon-128.png'
-        sizes='128x128'
-      />
-      <meta name='application-name' content='microlink.io' />
-      <meta name='msapplication-TileColor' content='#FFFFFF' />
-      <meta
-        name='msapplication-TileImage'
-        content='https://cdn.microlink.io/logo/mstile-144x144.png'
-      />
-      <meta
-        name='msapplication-square70x70logo'
-        content='https://cdn.microlink.io/logo/mstile-70x70.png'
-      />
-      <meta
-        name='msapplication-square150x150logo'
-        content='https://cdn.microlink.io/logo/mstile-150x150.png'
-      />
-      <meta
-        name='msapplication-wide310x150logo'
-        content='https://cdn.microlink.io/logo/mstile-310x150.png'
-      />
-      <meta
-        name='msapplication-square310x310logo'
-        content='https://cdn.microlink.io/logo/mstile-310x310.png'
-      />
     </Helmet>
   )
 }

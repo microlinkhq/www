@@ -1,7 +1,6 @@
 import { useLocalStorage } from 'components/hook'
 import styled from 'styled-components'
 import CodeCopy from 'react-codecopy'
-import { isFunction } from 'helpers'
 import { colors } from 'theme'
 import React from 'react'
 
@@ -148,7 +147,8 @@ const MultiCodeEditor = ({ theme, languages: codeByLanguage, ...props }) => {
     setEditorLanguage(editorLanguages[0])
   }
 
-  const code = isFunction(codeLanguage) ? codeLanguage(props) : codeLanguage
+  const code =
+    typeof codeLanguage === 'function' ? codeLanguage(props) : codeLanguage
 
   return (
     <CodeEditor

@@ -22,7 +22,7 @@ const Separator = styled(Box)`
   width: 1px;
 `
 
-export default props => {
+const Analytics = props => {
   const { reqs_pretty: reqsPretty, bytes_pretty: bytesPretty } = useAnalytics()
 
   const bytes = (() => {
@@ -136,3 +136,5 @@ export default props => {
     />
   )
 }
+
+export default Analytics

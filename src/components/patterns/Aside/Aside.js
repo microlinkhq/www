@@ -73,7 +73,7 @@ const AsideDesktop = ({ children, ...props }) => (
   </>
 )
 
-export default props => {
+const Aside = props => {
   useEffect(() => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
     if (activeEl) {
@@ -99,3 +99,5 @@ export default props => {
     </>
   )
 }
+
+export default Aside

@@ -27,7 +27,7 @@ export const withSpinner = ChildComponent => {
     </Spinner>
   )
 
-  return class extends Component {
+  class SpinnerWrapper extends Component {
     componentDidMount () {
       if (this.button) {
         const { width } = this.button.getBoundingClientRect()
@@ -52,4 +52,6 @@ export const withSpinner = ChildComponent => {
       }
     }
   }
+
+  return SpinnerWrapper
 }

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Iframe } from 'components/elements'
 
-export default ({ large }) => {
+const Chat = ({ large }) => {
   const iframeUrl = large
     ? 'https://chat.microlink.io/iframe/dialog?large=true'
     : 'https://chat.microlink.io/iframe/dialog'
@@ -22,3 +22,5 @@ export default ({ large }) => {
     />
   )
 }
+
+export default Chat

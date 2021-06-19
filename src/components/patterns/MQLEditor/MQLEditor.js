@@ -67,7 +67,7 @@ const MQLCard = styled(Card)`
   `};
 `
 
-export default props => {
+const MQLEditor = props => {
   const size = useWindowSize()
 
   const [mode, setMode] = useState(MODES[0])
@@ -156,3 +156,5 @@ export default props => {
     </Flex>
   )
 }
+
+export default MQLEditor
