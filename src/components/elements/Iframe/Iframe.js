@@ -5,7 +5,7 @@ import noop from 'lodash/noop'
 import Placeholder from '../Placeholder/Placeholder'
 import Flex from '../Flex'
 
-export default ({
+const Iframe = ({
   loading = true,
   width = aspectRatio.width,
   height = aspectRatio.height,
@@ -29,7 +29,7 @@ export default ({
         return () => iframe.removeEventListener('load', setLoaded)
       }
     }
-  }, [])
+  }, [onLoad])
 
   const iframe = (
     <Flex
@@ -48,3 +48,5 @@ export default ({
     ? createElement(Placeholder, { width, height, ...props, children: iframe })
     : iframe
 }
+
+export default Iframe

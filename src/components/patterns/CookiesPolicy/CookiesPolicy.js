@@ -35,7 +35,7 @@ const CloseButton = styled(Box)`
   }
 `
 
-export default () => {
+const CookiesPolicy = () => {
   const [isHidden, setIsHidden] = useLocalStorage(LOCALSTORAGE_KEY, false)
   const [isClosed, setIsClosed] = useState(false)
   const ref = useRef(null)
@@ -81,3 +81,5 @@ export default () => {
     </CookiesWrapper>
   )
 }
+
+export default CookiesPolicy

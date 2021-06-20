@@ -7,7 +7,7 @@ We launched our [initial product release on march 2018](https://www.indiehackers
 
 Since then we have been learning how you use the product and what benefit it brings to your business.
 
-Based on that, and a lot of feedback you told us from our [chat](/chat), we elaborate a master plan of the roadmap we want to follow in the next months.
+Based on that, and a lot of feedback you told us from our [community](/community), we elaborate a master plan of the roadmap we want to follow in the next months.
 
 
 ## Microlink Query Language ([RFC](https://github.com/microlinkhq/open/issues/5))

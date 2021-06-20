@@ -7,6 +7,8 @@ import { layout, toPx } from 'theme'
 import { getDomain } from 'tldts'
 import React from 'react'
 
+import { Logo } from 'components/pages/recipes'
+
 import {
   Box,
   Button,
@@ -15,11 +17,9 @@ import {
   Container,
   Flex,
   Heading,
-  Image,
   Link,
   Subhead,
-  Text,
-  Unavatar
+  Text
 } from 'components/elements'
 
 const LOGO_SIZE = ['50px', '50px', '60px', '80px']
@@ -38,21 +38,6 @@ const CustomLink = styled(Link)`
     color: inherit;
   }
 `
-
-const Logo = ({ isGeneric, domain, logo }) => {
-  if (!isGeneric || !logo) {
-    return (
-      <Unavatar
-        style={{ borderRadius: '50%' }}
-        height={LOGO_SIZE}
-        width={LOGO_SIZE}
-        query={domain}
-      />
-    )
-  }
-
-  return <Image height={LOGO_SIZE} width={LOGO_SIZE} src={logo} />
-}
 
 const RecipesPage = ({ meta }) => {
   return (
@@ -123,7 +108,13 @@ const RecipesPage = ({ meta }) => {
                   >
                     <CustomLink href={`/recipes/${kebabCase(recipeName)}`}>
                       <Flex justifyContent='center'>
-                        <Logo isGeneric={isGeneric} domain={domain} {...meta} />
+                        <Logo
+                          width={LOGO_SIZE}
+                          height={LOGO_SIZE}
+                          isGeneric={isGeneric}
+                          domain={domain}
+                          {...meta}
+                        />
                       </Flex>
                       <Box>
                         <Box py={3}>

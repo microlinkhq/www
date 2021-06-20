@@ -1,12 +1,12 @@
 import { layout, breakpoints, transition, shadows } from 'theme'
 import React, { useMemo, useEffect, useState } from 'react'
-import { mqlCode, debounceComponent } from 'helpers'
 import { useWindowSize } from 'components/hook'
 import isUrl from 'is-url-http/lightweight'
 import * as Icons from 'components/icons'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { getDomain } from 'tldts'
+import { mqlCode } from 'helpers'
 
 import {
   Box,
@@ -82,11 +82,11 @@ const HeroCard = styled(Card)`
   }
 `
 
-const MicrolinkDebounce = debounceComponent(styled(Microlink)`
+const LinkPreview = styled(Microlink)`
   --microlink-max-width: 100%;
   --microlink-border-style: transparent;
   --microlink-hover-background-color: white;
-`)
+`
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -120,7 +120,7 @@ const LiveDemo = ({
 
   useEffect(() => {
     if (!isInitialData) setInputValue(data.url)
-  }, [isInitialData])
+  }, [isInitialData, data.url])
 
   const targetUrlPrepend = useMemo(() => {
     const isSuggestion = SUGGESTIONS.some(({ value }) => value === inputValue)
@@ -212,7 +212,7 @@ const LiveDemo = ({
         <HeroCard width={cardWidth} height={cardHeight} mode={mode} type={type}>
           <Choose>
             <Choose.When condition={type === 'render'}>
-              <MicrolinkDebounce
+              <LinkPreview
                 style={{ width: cardWidth, height: cardHeight }}
                 key={targetUrlPrepend + mode}
                 loading={isLoading}

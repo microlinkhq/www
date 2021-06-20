@@ -77,7 +77,9 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
   )
 }
 
-const PageBlog = ({ posts = useBlogIndex() }) => {
+const PageBlog = () => {
+  const posts = useBlogIndex()
+
   return (
     <Layout>
       <Flex justifyContent='center'>

@@ -1,6 +1,7 @@
 import { Choose, LinkSolid, Text, Notification } from 'components/elements'
-import React, { useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
+import queueMicrotask from 'queue-microtask'
 import { urlVariations } from 'helpers'
 import mql from '@microlink/mql'
 
@@ -34,7 +35,7 @@ const fetch = (url, opts) => {
   return item || mql(url, opts)
 }
 
-export default ({ mqlOpts, children }) => {
+const FetchProvider = ({ mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
   const [response, setResponse] = useState({})
   const [error, setError] = useState(null)
@@ -42,41 +43,49 @@ export default ({ mqlOpts, children }) => {
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
 
-  const fetchData = async (url, opts) => {
-    try {
-      setQuery({ url, ...opts })
-      setError(null)
-      setStatus('fetching')
+  const fetchData = useCallback(
+    async (url, opts) => {
+      try {
+        console.log('fetching', url)
+        setQuery({ url, ...opts })
+        setError(null)
+        setStatus('fetching')
 
-      const doFetch = url => fetch(url, { ...mqlOpts, ...opts })
+        const doFetch = url => fetch(url, { ...mqlOpts, ...opts })
 
-      const { data, response } = Array.isArray(url)
-        ? await Promise.all(url.map(doFetch))
-        : await doFetch(url)
+        const { data, response } = Array.isArray(url)
+          ? await Promise.all(url.map(doFetch))
+          : await doFetch(url)
 
-      setStatus('fetched')
-      setData(data)
-      setResponse(response)
-    } catch (err) {
-      console.error('FetchProvider:', err)
-      setStatus('error')
-      setError(err)
-    }
-  }
+        setStatus('fetched')
+        setData(data)
+        setResponse(response)
+      } catch (err) {
+        console.error('FetchProvider:', err)
+        setStatus('error')
+        setError(err)
+      }
+    },
+    [mqlOpts, setQuery]
+  )
 
   const doFetch = (url, opts) => {
     setWarning(null)
     if (url) return fetchData(url, opts)
-    setTimeout(
-      () => setWarning({ children: 'You need to provide a valid URL.' }),
-      0
+    queueMicrotask(() =>
+      setWarning({ children: 'You need to provide a valid URL.' })
     )
   }
 
+  // TODO: Use React.Suspense
+  /* eslint-disable*/
   useEffect(() => {
-    const { url, ...opts } = query
-    if (url) fetchData(url, opts)
-  }, [query.url])
+    queueMicrotask(() => {
+      const { url, ...opts } = query
+      if (url) fetchData(url, opts)
+    })
+  }, [])
+  /* eslint-enable */
 
   return (
     <>
@@ -86,3 +95,5 @@ export default ({ mqlOpts, children }) => {
     </>
   )
 }
+
+export default FetchProvider

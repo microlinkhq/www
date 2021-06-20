@@ -3,7 +3,7 @@ import { Hide } from 'components/elements'
 import ToolbarMobile from './ToolbarMobile'
 import ToolbarDesktop from './ToolbarDesktop'
 
-export default props => (
+const Toolbar = props => (
   <>
     <Hide breakpoints={[0, 1]}>
       <ToolbarDesktop {...props} />
@@ -13,3 +13,5 @@ export default props => (
     </Hide>
   </>
 )
+
+export default Toolbar

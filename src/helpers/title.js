@@ -45,5 +45,7 @@ const special = [
   'WordPress'
 ]
 
-export default (str, exceptions = []) =>
+const title = (str, exceptions = []) =>
   capitalize(str, special.concat(exceptions))
+
+export default title

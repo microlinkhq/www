@@ -7,7 +7,7 @@ import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import React from 'react'
 
-export default ({ isBlogPage, date, meta, content }) => (
+const PageTemplate = ({ isBlogPage, date, meta, content }) => (
   <Layout {...meta}>
     <Box px={3}>
       <Text
@@ -39,3 +39,5 @@ export default ({ isBlogPage, date, meta, content }) => (
     </Box>
   </Layout>
 )
+
+export default PageTemplate

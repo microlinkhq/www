@@ -1,11 +1,11 @@
 /* global fetch */
 
+import { loadStripe } from '@stripe/stripe-js/pure'
 import { Caps, Button } from 'components/elements'
 import { useSiteMetadata } from 'components/hook'
-import { loadStripe } from '@stripe/stripe-js'
 import React, { useState } from 'react'
 
-export default ({ canonicalUrl, planId, stripeKey, ...props }) => {
+const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const {
@@ -44,3 +44,5 @@ export default ({ canonicalUrl, planId, stripeKey, ...props }) => {
     </Button>
   )
 }
+
+export default Checkout

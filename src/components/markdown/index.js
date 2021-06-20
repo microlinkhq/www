@@ -365,7 +365,7 @@ const ScopedComponents = {
   Video
 }
 
-export default props => (
+const Markdown = props => (
   <Mdx
     components={mdComponents}
     scope={ScopedComponents}
@@ -373,3 +373,5 @@ export default props => (
     {...props}
   />
 )
+
+export default Markdown

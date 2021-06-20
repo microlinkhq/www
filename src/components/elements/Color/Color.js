@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import Text from '../Text'
 
-const Color = styled(Text)``
+const Colored = styled(Text)``
 
-Color.defaultProps = {
+Colored.defaultProps = {
   as: 'span',
   border: 1,
   borderColor: 'gray7',
@@ -16,9 +16,11 @@ Color.defaultProps = {
   mr: '2px'
 }
 
-export default ({ children, ...props }) => (
+const Color = ({ children, ...props }) => (
   <>
-    <Color style={{ background: children }} {...props} />
+    <Colored style={{ background: children }} {...props} />
     {children}
   </>
 )
+
+export default Color

@@ -31,7 +31,7 @@ export const PLANS = [
 
 export const DEFAULT_PLAN = PLANS[1]
 
-export default props => {
+const PricePicker = props => {
   const [currentPlan, setCurrentPlan] = useState(DEFAULT_PLAN)
 
   const handleChange = event => {
@@ -58,3 +58,5 @@ export default props => {
     </Select>
   )
 }
+
+export default PricePicker

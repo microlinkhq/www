@@ -37,7 +37,7 @@ const style = css`
   text-decoration-thickness: 1px;
 `
 
-const LinkSolid = styled(Link)`
+const LinkSolidWrapper = styled(Link)`
   ${style};
   ${hoverStyle};
 
@@ -46,14 +46,14 @@ const LinkSolid = styled(Link)`
   }
 `
 
-LinkSolid.defaultProps = {
+LinkSolidWrapper.defaultProps = {
   fontWeight: 'regular'
 }
 
-export default ({ fontWeight, href, children, color, theme, ...props }) => {
+const LinkSolid = ({ fontWeight, href, children, color, theme, ...props }) => {
   return (
     <Box display='inline'>
-      <LinkSolid
+      <LinkSolidWrapper
         {...props}
         color={color}
         href={href}
@@ -61,7 +61,9 @@ export default ({ fontWeight, href, children, color, theme, ...props }) => {
         isDark={theme === 'dark'}
       >
         {children}
-      </LinkSolid>
+      </LinkSolidWrapper>
     </Box>
   )
 }
+
+export default LinkSolid

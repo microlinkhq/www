@@ -69,22 +69,26 @@ const onView = (node, fn, opts) => {
   observer.observe(node)
 }
 
-const External = Component => ({
-  href,
-  icon = false,
-  target,
-  rel,
-  children,
-  linkProps,
-  ...props
-}) => {
-  return (
-    <Component {...props}>
-      <ExternalLink href={href} target={target} rel={rel} {...linkProps}>
-        <Children icon={icon}>{children}</Children>
-      </ExternalLink>
-    </Component>
-  )
+const External = Component => {
+  const ExternalWrapper = ({
+    href,
+    icon = false,
+    target,
+    rel,
+    children,
+    linkProps,
+    ...props
+  }) => {
+    return (
+      <Component {...props}>
+        <ExternalLink href={href} target={target} rel={rel} {...linkProps}>
+          <Children icon={icon}>{children}</Children>
+        </ExternalLink>
+      </Component>
+    )
+  }
+
+  return ExternalWrapper
 }
 
 export const withLink = Component => {
@@ -103,7 +107,7 @@ export const withLink = Component => {
           setIsIntersecting(isBeingIntersecting)
         )
       }
-    }, [])
+    }, [actively, href])
 
     const getProps = ({ isPartiallyCurrent, isCurrent, location }) => {
       if (typeof actively === 'function') {

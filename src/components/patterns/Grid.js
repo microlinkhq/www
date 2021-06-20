@@ -30,7 +30,7 @@ const Item = ({ title, description, ...props }) => (
   </Box>
 )
 
-export default ({
+const Grid = ({
   children,
   itemsPerRow,
   childComponent: Component = Item,
@@ -57,3 +57,5 @@ export default ({
     ))}
   </Box>
 )
+
+export default Grid

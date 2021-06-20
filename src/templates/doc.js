@@ -532,7 +532,7 @@ const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/mql')) return MQL
 }
 
-export default ({ meta, content, githubUrl, ...props }) => {
+const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
   const activeRouteName = getActiveRouteName(props.location)
 
   return (
@@ -592,3 +592,5 @@ export default ({ meta, content, githubUrl, ...props }) => {
     </Layout>
   )
 }
+
+export default DocTemplate

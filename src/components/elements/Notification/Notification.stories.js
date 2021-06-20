@@ -1,6 +1,6 @@
+import { Choose, Button, Notification, Box } from 'components/elements'
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Choose, Link, Button, Notification, Box } from 'components/elements'
 import { Story } from 'story'
 
 const storyName = 'Notification'
@@ -53,9 +53,9 @@ const NotificationStory = () => {
         >
           Warning
         </Button>
-        <Link onClick={() => setNotificationType('')} ml={3}>
+        <Button onClick={() => setNotificationType('')} ml={3}>
           clear
-        </Link>
+        </Button>
         <NotificationPreview type={notificationType} />
       </Box>
     </Story>

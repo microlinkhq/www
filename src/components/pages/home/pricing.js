@@ -3,7 +3,13 @@ import { Subhead, Container } from 'components/elements'
 import { fontSizes, layout } from 'theme'
 import React from 'react'
 
-export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
+const Pricing = ({
+  canonicalUrl,
+  apiKey,
+  stripeKey,
+  apiEndpoint,
+  ...props
+}) => {
   return (
     <Container alignItems='center' maxWidth={layout.large} {...props}>
       <Subhead
@@ -30,3 +36,5 @@ export default ({ canonicalUrl, apiKey, stripeKey, apiEndpoint, ...props }) => {
     </Container>
   )
 }
+
+export default Pricing

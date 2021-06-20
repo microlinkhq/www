@@ -3,7 +3,7 @@ import { Link, Flex } from 'components/elements'
 import React, { useState } from 'react'
 import Caption from './Caption/Caption'
 
-export default ({ children, ...props }) => {
+const ArrowLink = ({ children, ...props }) => {
   const [isHover, setIsHover] = useState(false)
 
   return (
@@ -23,3 +23,5 @@ export default ({ children, ...props }) => {
     </Flex>
   )
 }
+
+export default ArrowLink

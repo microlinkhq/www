@@ -26,7 +26,7 @@ const cubesStyle = CUBES_RANGE.reduce((acc, index) => {
   return acc + css
 }, '')
 
-const CubesBackground = styled('ul')`
+const CubesBackgroundWrapper = styled('ul')`
   margin: 0;
   li {
     border-radius: ${radii[4]};
@@ -41,10 +41,12 @@ const CubesBackground = styled('ul')`
   ${cubesStyle};
 `
 
-export default ({ bg = 'rgba(255, 255, 255, 0.2)', ...props }) => (
-  <CubesBackground bg={bg} {...props}>
+const CubesBackground = ({ bg = 'rgba(255, 255, 255, 0.2)', ...props }) => (
+  <CubesBackgroundWrapper bg={bg} {...props}>
     {CUBES_RANGE.map(n => (
       <li key={`circles_cube_${n}`} />
     ))}
-  </CubesBackground>
+  </CubesBackgroundWrapper>
 )
+
+export default CubesBackground

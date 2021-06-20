@@ -53,7 +53,7 @@ const AnchorLink = styled.a`
 `
 
 export const withSlug = Component => {
-  return ({ children, slug, ...props }) => {
+  const SlugWrapper = ({ children, slug, ...props }) => {
     if (typeof children !== 'string' || slug === false) {
       return createElement(Component, { children, ...props })
     }
@@ -69,4 +69,6 @@ export const withSlug = Component => {
       </Component>
     )
   }
+
+  return SlugWrapper
 }

@@ -4,31 +4,10 @@ import { cx, fontSizes, layout } from 'theme'
 import { Plus } from 'react-feather'
 import React from 'react'
 
-import {
-  Box,
-  CodeEditor,
-  Flex,
-  Heading,
-  Image,
-  Script,
-  Unavatar
-} from 'components/elements'
+import { Box, CodeEditor, Flex, Heading, Script } from 'components/elements'
+import { Logo } from 'components/pages/recipes'
 
 const LOGO_SIZE = ['32px', '32px', '48px', '48px']
-
-const Logo = ({ isGeneric, logo, domain }) => {
-  if (!isGeneric || !logo) {
-    return (
-      <Unavatar
-        style={{ borderRadius: '50%' }}
-        height={LOGO_SIZE}
-        width={LOGO_SIZE}
-        query={domain}
-      />
-    )
-  }
-  return <Image height={LOGO_SIZE} width={LOGO_SIZE} src={logo} />
-}
 
 const RecipeTemplate = ({ pageContext: recipe }) => {
   const meta = {
@@ -58,7 +37,9 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
                 <Plus color={cx('gray8')} size={fontSizes[2]} />
               </Box>
             )}
-            {!recipe.isGeneric && <Logo {...recipe} />}
+            {!recipe.isGeneric && (
+              <Logo width={LOGO_SIZE} height={LOGO_SIZE} {...recipe} />
+            )}
           </Flex>
 
           <Heading pt={[3, 3, 4, 4]} titleize={false}>

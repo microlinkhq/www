@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Box, Text, Flex } from 'components/elements'
 import { hideNotification, showNotification } from 'components/keyframes'
+import React, { createElement, useState } from 'react'
+import { Box, Text, Flex } from 'components/elements'
 import { cx, transition } from 'theme'
 import styled from 'styled-components'
 import { X } from 'react-feather'
@@ -38,7 +38,7 @@ const CloseButton = ({ color, ...props }) => (
   </CloseButtonWrapper>
 )
 
-const createNotification = notificationProps => ({ children, ...props }) => {
+const Notification = ({ children, bg, color, ...props }) => {
   const [isHidden, setIsHidden] = useState(false)
   const [isClosed, setIsClosed] = useState(false)
 
@@ -57,7 +57,8 @@ const createNotification = notificationProps => ({ children, ...props }) => {
         px={3}
         py='12px'
         borderRadius={2}
-        {...notificationProps}
+        color={color}
+        bg={bg}
         {...props}
       >
         <Flex alignItems='center'>
@@ -67,7 +68,7 @@ const createNotification = notificationProps => ({ children, ...props }) => {
               setIsHidden(true)
               setTimeout(() => setIsClosed(true), 300)
             }}
-            {...notificationProps}
+            color={color}
             pl={3}
           />
         </Flex>
@@ -76,25 +77,17 @@ const createNotification = notificationProps => ({ children, ...props }) => {
   )
 }
 
-const Success = createNotification({
-  bg: 'green2',
-  color: 'green8'
-})
+const NotificationSuccess = props =>
+  createElement(Notification, { bg: 'green2', color: 'green8', ...props })
 
-const Error = createNotification({
-  bg: 'red2',
-  color: 'red8'
-})
+const NotificationError = props =>
+  createElement(Notification, { bg: 'red2', color: 'red8', ...props })
 
-const Warning = createNotification({
-  bg: 'yellow2',
-  color: 'yellow8'
-})
+const NotificationWarning = props =>
+  createElement(Notification, { bg: 'yellow2', color: 'yellow8', ...props })
 
-const Notification = createNotification()
-
-Notification.Success = Success
-Notification.Error = Error
-Notification.Warning = Warning
+Notification.Success = NotificationSuccess
+Notification.Error = NotificationError
+Notification.Warning = NotificationWarning
 
 export default Notification

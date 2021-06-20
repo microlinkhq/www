@@ -143,7 +143,7 @@ export const createPricingTable = Checkout => ({
           <PricingPrice pt={3}>0</PricingPrice>
         </Box>
 
-        <Box pl={2} pt={4} textAlign='left'>
+        <Box as='ul' m={0} pl={2} pt={4} textAlign='left'>
           <Text as='li'>
             <PricingLink href='/blog/edge-cdn/'>
               Microlink Cache layer
@@ -203,7 +203,7 @@ export const createPricingTable = Checkout => ({
             </Text>
           </Box>
 
-          <Box pl={2} pt={4} textAlign='left'>
+          <Box as='ul' m={0} pl={2} pt={4} textAlign='left'>
             <Text as='li'>
               Everything in Free,{' '}
               <Text as='span' fontWeight='bold'>

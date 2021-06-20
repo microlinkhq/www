@@ -38,7 +38,7 @@ const DARK_THEME = {
   iconColor: colors.white80
 }
 
-export default ({ theme, ...props }) => {
+const Footer = ({ theme, ...props }) => {
   const isDark = theme === 'dark'
   const { bg, textColor, buttonColor, buttonBg, inputIconColor } = isDark
     ? DARK_THEME
@@ -133,9 +133,9 @@ export default ({ theme, ...props }) => {
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
-              href='/chat'
+              href='/Community'
             >
-              Chat
+              Community
             </LinkSolid>
             <LinkSolid
               theme={theme}
@@ -234,11 +234,11 @@ export default ({ theme, ...props }) => {
                           <Choose>
                             <Choose.When condition={isHealthy}>
                               <Dot.Success mr={2} />
-                              All Systems Operational
+                              All systems operational
                             </Choose.When>
                             <Choose.Otherwise>
                               <Dot.Warning mr={2} />
-                              System Performance Degradation
+                              System performance degradation
                             </Choose.Otherwise>
                           </Choose>
                         </Text>
@@ -315,3 +315,5 @@ export default ({ theme, ...props }) => {
     </Container>
   )
 }
+
+export default Footer

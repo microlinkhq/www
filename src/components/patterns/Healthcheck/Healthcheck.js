@@ -2,7 +2,7 @@ import useSWR from 'swr'
 
 const API = 'https://healthcheck.microlink.io'
 
-export default ({ children, ...opts }) => {
+const Healthcheck = ({ children, ...opts }) => {
   const { data } = useSWR(
     API,
     () => window.fetch(API).then(res => res.json()),
@@ -14,3 +14,5 @@ export default ({ children, ...opts }) => {
 
   return children({ isLoading, isHealthy })
 }
+
+export default Healthcheck

@@ -1,10 +1,10 @@
 import { useState, createElement, useEffect } from 'react'
-import { isFunction, aspectRatio, template } from 'helpers'
+import { aspectRatio, template } from 'helpers'
 
 import Placeholder from '../../components/elements/Placeholder/Placeholder'
 
 const compute = (obj, key, value) =>
-  isFunction(obj[key]) ? obj[key](value) : obj[key]
+  typeof obj[key] === 'function' ? obj[key](value) : obj[key]
 
 const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
   ...props,
@@ -14,36 +14,36 @@ const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
   style: compute(props, 'style', isLoading)
 })
 
-export const withLazy = (
-  Component,
-  { tagName = 'img', attr = 'src' } = {}
-) => ({ lazy = true, loading = true, [attr]: rawAttribute, ...rest }) => {
-  const compiledAttr = template(rawAttribute)
+export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
+  const LazyWrapper = ({
+    lazy = true,
+    loading,
+    [attr]: rawAttribute,
+    ...rest
+  }) => {
+    const [isLoading, setLoading] = useState(loading || lazy)
+    const compiledAttr = template(rawAttribute)
 
-  if (!lazy) {
+    useEffect(() => {
+      if (lazy) {
+        const tag = document.createElement(tagName)
+        tag.onerror = err => {
+          console.error('[with-lazy]', err)
+        }
+        tag.onload = () => {
+          tag.onload = null
+          tag.onerror = null
+          setLoading(false)
+        }
+        tag[attr] = compiledAttr
+      }
+    }, [compiledAttr, lazy])
+
     return createElement(
-      Component,
-      computedProps(attr, compiledAttr, rest, { isLoading: false })
+      isLoading ? Placeholder : Component,
+      computedProps(attr, compiledAttr, rest, { isLoading })
     )
   }
 
-  const [isLoading, setLoading] = useState(loading)
-
-  useEffect(() => {
-    const tag = document.createElement(tagName)
-    tag.onerror = err => {
-      console.error('[with-lazy]', err)
-    }
-    tag.onload = () => {
-      tag.onload = null
-      tag.onerror = null
-      setLoading(false)
-    }
-    tag[attr] = compiledAttr
-  }, [])
-
-  return createElement(
-    isLoading ? Placeholder : Component,
-    computedProps(attr, compiledAttr, rest, { isLoading })
-  )
+  return LazyWrapper
 }

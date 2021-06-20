@@ -1,5 +1,5 @@
-import { urlVariations, isFunction, isFastConnection, template } from 'helpers'
-import Microlink from '@microlink/react'
+import { urlVariations, isFastConnection, template } from 'helpers'
+import LinkPreview from '@microlink/react'
 import React from 'react'
 
 import demoLinks from '../../../../data/demo-links'
@@ -12,7 +12,7 @@ const media = [
   'logo'
 ].filter(Boolean)
 
-export default ({ url, style, fetchData, setData, ...props }) => {
+const Microlink = ({ url, style, fetchData, setData, ...props }) => {
   if (url) url = template(url)
 
   const variations = urlVariations(url)
@@ -21,12 +21,13 @@ export default ({ url, style, fetchData, setData, ...props }) => {
 
   const _fetchData = fetchData || !demolinkData
 
-  const _setData = isFunction(setData)
-    ? setData(demolinkData)
-    : { ...demolinkData, ...setData }
+  const _setData =
+    typeof setData === 'function'
+      ? setData(demolinkData)
+      : { ...demolinkData, ...setData }
 
   return (
-    <Microlink
+    <LinkPreview
       url={url}
       media={media}
       style={{ margin: 'auto', ...style }}
@@ -36,3 +37,5 @@ export default ({ url, style, fetchData, setData, ...props }) => {
     />
   )
 }
+
+export default Microlink

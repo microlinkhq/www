@@ -6,7 +6,7 @@ import React from 'react'
 import Grid from '../Grid'
 import Caption from '../Caption/Caption'
 
-export default ({ title, caption, features, ...props }) => {
+const Features = ({ title, caption, features, ...props }) => {
   return (
     <Container
       id='features'
@@ -41,3 +41,5 @@ export default ({ title, caption, features, ...props }) => {
     </Container>
   )
 }
+
+export default Features

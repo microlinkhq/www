@@ -2,7 +2,6 @@ import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 import React, { createElement, useMemo, useEffect, useState } from 'react'
 import { borders, breakpoints, speed, layout, colors } from 'theme'
 import { useTransition, animated } from 'react-spring'
-import { cdnUrl, debounceComponent } from 'helpers'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
@@ -11,6 +10,7 @@ import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
+import { cdnUrl } from 'helpers'
 import isColor from 'is-color'
 import get from 'dlv'
 
@@ -81,7 +81,12 @@ const DemoSlider = ({ children: slides, ...props }) => {
   })
 
   const animatedImage = transition((style, item) => (
-    <AnimatedImage width='100%' style={style} src={item.cdnUrl} />
+    <AnimatedImage
+      alt={`${item.id} screenshot`}
+      width='100%'
+      style={style}
+      src={item.cdnUrl}
+    />
   ))
 
   useEffect(() => {
@@ -90,7 +95,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
       INTERVAL
     )
     return () => clearInterval(interval)
-  }, [])
+  }, [slides.length])
 
   return (
     <Flex style={{ position: 'relative' }} {...props}>
@@ -99,11 +104,13 @@ const DemoSlider = ({ children: slides, ...props }) => {
   )
 }
 
+/* eslint-disable */
 class ImageWithRef extends React.Component {
   render () {
     return <Image {...this.props} />
   }
 }
+/* eslint-enable */
 
 const AnimatedImage = animated(styled(ImageWithRef)`
   position: absolute;
@@ -111,26 +118,28 @@ const AnimatedImage = animated(styled(ImageWithRef)`
   left: 0px;
 `)
 
-const Screenshot = debounceComponent(({ domain, data, height, ...props }) => {
+const Screenshot = ({ domain, data, cardWidth, cardHeight, ...props }) => {
+  const imageUrl = get(data, 'screenshot.url')
+
   return (
-    <Link px={3} href={data.screenshot.url}>
+    <Link px={3} href={imageUrl}>
       <Image
+        alt={`${domain} screenshot`}
         pl={0}
         pr={0}
-        height={isLoading => (isLoading ? height : 'inherit')}
-        key={data.screenshot.url}
-        src={data.screenshot.url}
+        key={imageUrl}
+        src={imageUrl}
+        height={imageUrl ? 'inherit' : cardHeight}
+        width={cardWidth}
         style={isLoading => {
           if (isLoading) return
-          return {
-            filter: 'drop-shadow(rgba(0, 0, 0, 0.3) 0 16px 12px)'
-          }
+          return { filter: 'drop-shadow(rgba(0, 0, 0, 0.3) 0 16px 12px)' }
         }}
         {...props}
       />
     </Link>
   )
-})
+}
 
 const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
   const size = useWindowSize()
@@ -170,7 +179,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
           : `screenshot/${suggestion.filename}`
       )
     }
-  }, [inputUrl, inputOverlay, inputBg])
+  }, [inputUrl, values])
 
   const embedUrl = useMemo(() => {
     const { url, ...opts } = values
@@ -304,8 +313,9 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
           <Choose.When condition={!!suggestionUrl}>
             <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
               <Screenshot
-                height={isLoading => (isLoading ? cardHeight : 'inherit')}
-                width={cardWidth}
+                cardWidth={cardWidth}
+                cardHeight={cardHeight}
+                domain={domain}
                 data={{ screenshot: { url: suggestionUrl } }}
                 query={values}
               />
@@ -326,8 +336,9 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
           <Choose.When condition={!!data}>
             <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
               <Screenshot
-                height={isLoading => (isLoading ? cardHeight : 'inherit')}
-                width={cardWidth}
+                domain={domain}
+                cardWidth={cardWidth}
+                cardHeight={cardHeight}
                 data={data}
                 query={values}
               />
@@ -683,7 +694,7 @@ const ProductInformation = props => {
             <div key='why-not-run-my-own-solution-2'>
               The fact of resolve any URL at scale in{' '}
               <Average size='tiny' value={healthcheck.screenshot.avg_pretty} />{' '}
-              isn't a trivial thing.
+              isn&#039;t a trivial thing.
             </div>
           ]
         },
@@ -691,7 +702,7 @@ const ProductInformation = props => {
           question: 'Other questions?',
           answer: [
             <div key='other-questions'>
-              We're always available at{' '}
+              We&#039;re always available at{' '}
               <Link display='inline' href='mailto:hello@microlink.io'>
                 hello@microlink.io
               </Link>
@@ -707,6 +718,8 @@ const ProductInformation = props => {
 
 const ScreenshotPage = () => {
   const [query] = useQueryState()
+  const features = useFeaturesScreenshot()
+
   return (
     <Layout>
       <FetchProvider mqlOpts={{ meta: false, screenshot: true }}>
@@ -767,7 +780,7 @@ const ScreenshotPage = () => {
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
                 }
-                features={useFeaturesScreenshot()}
+                features={features}
               />
               <Resume />
               <ProductInformation
