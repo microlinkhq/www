@@ -19,6 +19,7 @@ const HomePage = () => {
       <Analytics
         pt={Container.defaultProps.pt}
         pb={Container.defaultProps.pt}
+        color='white80'
         bg='black'
         borderTop={`${borders[1]} ${colors.white20}`}
         borderBottom={`${borders[1]} ${colors.white20}`}
