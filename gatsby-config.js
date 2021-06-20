@@ -43,7 +43,6 @@ module.exports = {
     cdnUrl: CDN_URL
   },
   plugins: [
-    'gatsby-plugin-loadable-components-ssr',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-catch-links',
