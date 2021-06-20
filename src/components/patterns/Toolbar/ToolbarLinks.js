@@ -145,14 +145,7 @@ export const NavProducts = createNavItem({
     NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
 
-NavProducts.pages = [
-  '/meta',
-  '/sdk',
-  '/pdf',
-  '/screenshot',
-  '/sdk',
-  '/insights'
-]
+NavProducts.pages = ['/meta', '/sdk', '/pdf', '/screenshot', '/insights']
 
 export const NavDevelopers = createNavItem({
   children: 'Developers',
@@ -165,10 +158,10 @@ NavDevelopers.pages = ['/docs', '/recipes', '/community', '/changelog']
 export const NavCompany = createNavItem({
   children: 'Company',
   actively: ({ location }) =>
-    NavDevelopers.pages.some(pagePath => location.pathname.startsWith(pagePath))
+    NavCompany.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
 
-NavCompany.pages = ['/blog', '/newsletter', '/oss']
+NavCompany.pages = ['/blog', '/oss', '/newsletter']
 
 export const NavGitHub = createNavItem({
   children: 'GitHub',
