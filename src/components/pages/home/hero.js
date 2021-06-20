@@ -46,7 +46,7 @@ const Hero = props => {
       <Heading fontSize={['48px', 6, 7, 7]} titleize={false}>
         Browser as API
       </Heading>
-      <Link pt={[2, 2, 3, 3]} href={href} linkProps={{ style: { cursor } }}>
+      <Link pt={[2, 2, 3, 3]} href={href} linkProps={{ title: text }}>
         <Subhead color='black80' titleize={false} key={text} css={fadeIn}>
           {text}
         </Subhead>
