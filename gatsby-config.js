@@ -79,9 +79,6 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-sitemap'
-    },
-    {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: CANONICAL_URL
@@ -89,7 +86,7 @@ module.exports = {
     },
     'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-remark',
-    'gatsby-transformer-yaml'
-    // 'gatsby-plugin-zeit-now'
+    'gatsby-transformer-yaml',
+    'gatsby-plugin-advanced-sitemap'
   ].filter(Boolean)
 }
