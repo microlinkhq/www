@@ -6,8 +6,11 @@ import is from 'styled-is'
 const darkStyle = css`
   background: #000;
   background-color: #000;
-  background-image: radial-gradient(#d7d7d726 1px, transparent 0),
-    radial-gradient(#d7d7d726 1px, transparent 0);
+  background-image: radial-gradient(
+      rgba(215, 215, 215, 0.15) 1px,
+      transparent 0
+    ),
+    radial-gradient(rgba(215, 215, 215, 0.15) 1px, transparent 0);
 `
 
 const lightStyle = css`
