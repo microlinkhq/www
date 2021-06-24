@@ -69,6 +69,8 @@ const getImage = (props, metadata) => {
       return cdnUrl('banner/Status.jpeg')
     case '/screenshot':
       return cdnUrl('banner/screenshot.jpeg')
+    case '/enterprise':
+      return cdnUrl('banner/enterprise.jpeg')
     default:
       return metadata.image
   }
