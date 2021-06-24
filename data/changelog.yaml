@@ -1,5 +1,6 @@
 - date: Jun 2021
   notes:
+    - "[Browserless v9](https://browserless.js.org): Official release."
     - "[Microlink Blog](/blog): Add [Microlink Proxy](https://microlink.io/blog/proxy-capabilities) post."
     - "[Metascraper v5.22.0](https://metascraper.js.org): Add Instagram integration."
     
@@ -67,7 +68,7 @@
   notes:
     - "[Microlink](/): Launched [Microlink Changelog](/changelog)."
     - "[Microlink](/): Launched [Microlink Recipes](/recipes)."
-    - "[Browserless v8.0.0](https://browserless.js.org): Released a new major version."
+    - "[Browserless v8](https://browserless.js.org): Official release."
 
 - date: June 2020
   notes:
