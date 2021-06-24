@@ -67,51 +67,48 @@ const PricingBox = props => (
   />
 )
 
+const FreePricingBox = styled(PricingBox)`
+  border-color: ${colors.black10};
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+`
+
+const ProPricingBox = styled(PricingBox)`
+  border-color: ${colors.black50};
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: -1px;
+`
+
+const EnterprisePricingBox = styled(PricingBox)`
+  border-color: ${colors.black10};
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  position: relative;
+  left: -1px;
+`
+
 export const createPricingTable = Checkout => ({
   canonicalUrl,
   stripeKey,
   apiEndpoint,
   ...props
 }) => {
-  const [state, setState] = useState({
+  const [plan, setPlan] = useState({
     ...DEFAULT_PLAN,
     isHighlight: false
   })
 
   const priceSelected = plan => {
-    const newState = plan
-
-    setState({ ...newState, isHighlight: true })
-
+    setPlan({ ...plan, isHighlight: true })
     setTimeout(() => {
-      setState({ ...newState, isHighlight: false })
+      setPlan({ ...plan, isHighlight: false })
     }, Highlight.HIGHLIGHT_DURATION)
   }
 
-  const { isHighlight, monthlyPrice, planId } = state
+  const { isHighlight, monthlyPrice, id: planId } = plan
   const humanMonthlyPrice = formatNumber(monthlyPrice)
-
-  const FreePricingBox = styled(PricingBox)`
-    border-color: ${colors.black10};
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  `
-
-  const ProPricingBox = styled(PricingBox)`
-    border-color: ${colors.black50};
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: -1px;
-  `
-
-  const EnterprisePricingBox = styled(PricingBox)`
-    border-color: ${colors.black10};
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    position: relative;
-    left: -1px;
-  `
 
   return (
     <Flex
