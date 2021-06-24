@@ -11,7 +11,7 @@ const Pricing = ({
   ...props
 }) => {
   return (
-    <Container alignItems='center' maxWidth={layout.large} {...props}>
+    <Container alignItems='center' {...props}>
       <Subhead
         id='pricing'
         variant='gradient'

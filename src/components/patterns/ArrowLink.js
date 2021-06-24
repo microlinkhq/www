@@ -1,7 +1,7 @@
 import { ChevronRight, ArrowRight } from 'react-feather'
 import { Link, Flex } from 'components/elements'
+import { Caption } from 'components/patterns'
 import React, { useState } from 'react'
-import Caption from './Caption/Caption'
 
 const ArrowLink = ({ children, ...props }) => {
   const [isHover, setIsHover] = useState(false)

@@ -1,4 +1,4 @@
-import { Container, Heading, Flex, Box } from 'components/elements'
+import { Container, Heading, Box } from 'components/elements'
 import { Caption, Layout } from 'components/patterns'
 import Markdown, { H2 } from 'components/markdown'
 import { useChangelog } from 'components/hook'
@@ -21,12 +21,7 @@ const ChangelogPage = ({ meta }) => {
           We’re constantly improving the platform. See here notable changes in
           our lineup of products & improvements over the time.
         </Caption>
-        <Flex
-          pt={[3, 3, 4, 4]}
-          swidth='100%'
-          maxWidth={layout.large}
-          flexDirection='column'
-        >
+        <Box pt={[3, 3, 4, 4]}>
           {changelog.map(({ date, notes }) => {
             return (
               <Box key={date}>
@@ -35,7 +30,7 @@ const ChangelogPage = ({ meta }) => {
               </Box>
             )
           })}
-        </Flex>
+        </Box>
       </Container>
     </Layout>
   )

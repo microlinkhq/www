@@ -1,8 +1,16 @@
-import { Link, Flex, Subhead, Container, Heading } from 'components/elements'
 import { Cursor, Caption, ArrowLink } from 'components/patterns'
 import React, { useEffect, useState } from 'react'
 import { fadeIn } from 'components/keyframes'
 import { layout } from 'theme'
+
+import {
+  Hide,
+  Link,
+  Flex,
+  Subhead,
+  Container,
+  Heading
+} from 'components/elements'
 
 const SENTENCES = [
   { href: '/meta', text: 'Normalize metadata', color: '#3e55ff' },
@@ -40,12 +48,28 @@ const Hero = props => {
       <Heading fontSize={['48px', 6, 7, 7]} titleize={false}>
         Browser as API
       </Heading>
-      <Cursor bg={color} text={href}>
-        <Link
-          href={href}
-          style={{ cursor: 'inherit' }}
-          linkProps={{ style: { cursor: 'inherit' } }}
-        >
+      <Hide breakpoints={[0, 1]}>
+        <Cursor bg={color} text={href}>
+          <Link
+            href={href}
+            style={{ cursor: 'inherit' }}
+            linkProps={{ style: { cursor: 'inherit' } }}
+          >
+            <Subhead
+              pt={[2, 2, 3, 3]}
+              pb={[4, 4, 5, 5]}
+              color='black80'
+              titleize={false}
+              key={text}
+              css={fadeIn}
+            >
+              {text}
+            </Subhead>
+          </Link>
+        </Cursor>
+      </Hide>
+      <Hide breakpoints={[2, 3]}>
+        <Link href={href}>
           <Subhead
             pt={[2, 2, 3, 3]}
             pb={[4, 4, 5, 5]}
@@ -57,7 +81,7 @@ const Hero = props => {
             {text}
           </Subhead>
         </Link>
-      </Cursor>
+      </Hide>
       <Caption
         pb={[4, 4, 5, 5]}
         px={[4, 4, 0, 0]}

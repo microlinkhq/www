@@ -10,6 +10,7 @@ import Box from './Box'
 import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
 import Placeholder from './Placeholder/Placeholder'
 import CodeEditor from './CodeEditor/CodeEditor'
+import PriceMonthly from './PriceMonthly'
 import Container from './Container'
 import { Fixed } from './Position'
 import Card from './Card/Card'
@@ -93,6 +94,7 @@ export {
   MultiCodeEditor,
   Notification,
   Placeholder,
+  PriceMonthly,
   PricePicker,
   Runkit,
   Script,
