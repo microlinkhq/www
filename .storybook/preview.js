@@ -1,4 +1,6 @@
 import { ThemeProvider } from 'styled-components'
+import { LocationProvider } from '@reach/router'
+
 import Flex from 'components/elements/Flex'
 import React from 'react'
 import theme from 'theme'
@@ -23,14 +25,16 @@ window.___navigate = pathname => {
 export const decorators = [
   Story => (
     <ThemeProvider theme={theme}>
-      <Flex
-        p={3}
-        justiContent='center'
-        alignItems='baseline'
-        flexDirection='column'
-      >
-        <Story />
-      </Flex>
+      <LocationProvider>
+        <Flex
+          p={3}
+          justiContent='center'
+          alignItems='baseline'
+          flexDirection='column'
+        >
+          <Story />
+        </Flex>
+      </LocationProvider>
     </ThemeProvider>
   )
 ]
