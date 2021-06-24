@@ -14,6 +14,7 @@ const ChangelogPage = ({ meta }) => {
         <Heading maxWidth={layout.large}>Changelog</Heading>
         <Caption
           pt={[3, 3, 4, 4]}
+          mb={['-16px', '-16px', '-32px', '-32px']}
           px={[4, 4, 0, 0]}
           titleize={false}
           maxWidth={layout.small}
