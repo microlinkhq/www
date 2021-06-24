@@ -317,6 +317,7 @@ const PriceMonthly = props => (
     css={`
       label {
         font-family: inherit;
+        font-size: inherit;
       }
     `}
   >
