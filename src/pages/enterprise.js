@@ -26,9 +26,9 @@ The **Microlink Enterprise** plan is oriented for any customer that wants to max
 
 Running a **Microlink Enterprise** plan means:
 
-- Your own Microlink API endpoint, with your own dedicated pool of always-ready browsers.
-- Your own S3-like storage service for assets, with no time-to-live (TTL) restriction.
-- Your own CDN distribution (+200 nodes over the world, powered by CloudFlare).
+- Your own Microlink API endpoint, off of the rest customers, with your own dedicated pool of always-ready browsers.
+- Your own S3-like storage service for assets integration, with no time-to-live (TTL) restriction.
+- Your own worlwide CDN distribution (+200 nodes over the world, powered by CloudFlare).
 
 The physical servers associated with your own Microlink API endpoint can be chosen between 8 locations (New York, San Francisco, Amsterdam, Singapore, London, Frankfurt, Toronto, or Bangalore).
 
