@@ -4,9 +4,9 @@ import { ExternalLink as ExternalIcon } from 'react-feather'
 import { transition, colors } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
-import styled from 'styled-components'
 
 import {
+  PriceMonthly,
   Link,
   Highlight,
   Box,
@@ -17,32 +17,7 @@ import {
   Subhead
 } from 'components/elements'
 
-import { labelStyle } from '../../elements/Label'
-
 const FREE_PLAN_RATE_LIMIT = 100
-
-const Price = styled(Text)`
-  font-weight: bold;
-
-  &::before {
-    content: '€';
-    position: relative;
-    top: -5px;
-    left: 0;
-    ${labelStyle}
-  }
-
-  &::after {
-    ${labelStyle}
-    ${props => props.label && `content: '${props.label}';`}
-  }
-`
-
-Price.defaultProps = {
-  fontSize: [1, 2, 2, 2]
-}
-
-const PricingPrice = props => <Price label='/month' {...props} />
 
 const Requests = props => (
   <Label display='inline' {...props}>
@@ -140,7 +115,9 @@ export const createPricingTable = Checkout => ({
           <Text pt={3}>
             {FREE_PLAN_RATE_LIMIT} <Requests suffix='/day' />
           </Text>
-          <PricingPrice pt={3}>0</PricingPrice>
+          <Box pt={3}>
+            <PriceMonthly>0</PriceMonthly>
+          </Box>
         </Box>
 
         <Box as='ul' m={0} pl={2} pt={4} textAlign='left'>
@@ -194,13 +171,15 @@ export const createPricingTable = Checkout => ({
               <PricePicker onChange={priceSelected} />{' '}
               <Requests suffix='/month' />
             </Text>
-            <Text fontSize={0}>
-              <PricingPrice pt='12px'>
-                <Highlight as='span' isHighlight={isHighlight}>
-                  {humanMonthlyPrice}
-                </Highlight>
-              </PricingPrice>
-            </Text>
+            <Box pt='12px'>
+              <Text fontSize={0}>
+                <PriceMonthly>
+                  <Highlight as='span' isHighlight={isHighlight}>
+                    {humanMonthlyPrice}
+                  </Highlight>
+                </PriceMonthly>
+              </Text>
+            </Box>
           </Box>
 
           <Box as='ul' m={0} pl={2} pt={4} textAlign='left'>

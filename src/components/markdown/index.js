@@ -22,7 +22,8 @@ import {
   Iframe as IframeBase,
   Button,
   Tweet as TweetBase,
-  Color
+  Color,
+  PriceMonthly as PriceMonthlyBase
 } from 'components/elements'
 
 import MicrolinkBase from '../patterns/Microlink/Microlink'
@@ -310,6 +311,19 @@ TypeContainer.defaultProps = {
   color: 'gray7'
 }
 
+const PriceMonthly = props => (
+  <Text
+    as='span'
+    css={`
+      label {
+        font-family: inherit;
+      }
+    `}
+  >
+    <PriceMonthlyBase {...props} />
+  </Text>
+)
+
 const mdComponents = {
   a: Link,
   blockquote: Blockquote,
@@ -356,6 +370,7 @@ const ScopedComponents = {
   MultiCodeEditor,
   Ol,
   Paraph,
+  PriceMonthly,
   Strong,
   Terminal,
   Tweet,
