@@ -39,6 +39,7 @@ const Hero = props => {
 
   return (
     <Flex
+      id='hero'
       px={3}
       flexDirection='column'
       alignItems='center'
