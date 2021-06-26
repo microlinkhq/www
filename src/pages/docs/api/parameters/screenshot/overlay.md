@@ -14,11 +14,11 @@ It sets some aesthetic overlay settings associated with your screenshot.
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    '{{demolinks.apple.url}}'. { 
+    '{{demolinks.apple.url}}', { 
       screenshot: true,
       meta: false,
       overlay: {
-        background: 'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
+        background: 'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)',
         browser: 'dark'
       }
   })
