@@ -695,7 +695,7 @@ const MetaPage = () => {
                       textAlign='left'
                       titleize={false}
                     >
-                      less responsability.
+                      less responsibility.
                     </Subhead>
                   </>
                 }
