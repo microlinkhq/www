@@ -30,7 +30,7 @@ The normalized metadata is enabled by default, so you don't need to set it as `t
   status: "success",
   data: {
     title: "Microlink — Browser as API",
-    description: "Turns websites into data: Enter a URL, receive information. Make any URL embeddable. Capture any website as a snapshot. Generate PDF from any website. Automate web performance.",
+    description: "Enter a URL, receive information. beauty link previews, take a screenshot, generate a PDF, automate web performance. Turns websites into data.",
     lang: "en",
     author: null,
     publisher: "Microlink",
