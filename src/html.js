@@ -13,11 +13,6 @@ export default function HTML (props) {
         />
         <link
           rel='preconnect'
-          href='https://images.weserv.nl'
-          crossOrigin='anonymous'
-        />
-        <link
-          rel='preconnect'
           href='https://fonts.gstatic.com'
           crossOrigin='anonymous'
         />
