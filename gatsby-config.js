@@ -28,7 +28,7 @@ module.exports = {
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     twitter: '@microlinkhq',
-    image: new URL('www/home.jpeg', CDN_URL).toString(),
+    image: new URL('logo/banner.jpeg', CDN_URL).toString(),
     logo: new URL('logo/trim.jpeg', CDN_URL).toString(),
     // Slack previsualization
     dataLabel1: 'API',
