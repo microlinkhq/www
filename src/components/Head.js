@@ -1,6 +1,6 @@
 import { useSiteMetadata } from 'components/hook'
+import { cdnUrl, proxyImage } from 'helpers'
 import { Helmet } from 'react-helmet'
-import { cdnUrl } from 'helpers'
 import React from 'react'
 import get from 'dlv'
 
@@ -83,8 +83,8 @@ const mergeMeta = (props, metadata) => {
   const { siteUrl, video, twitter, headline } = metadata
   const description = props.description || metadata.description
   const title = getTitle(props, metadata)
-  const image = getImage(props, metadata)
-  const logo = props.logo || metadata.logo
+  const image = proxyImage(getImage(props, metadata), { w: 1200 })
+  const logo = proxyImage(props.logo || metadata.logo)
   const name = props.name || metadata.name
   const dataLabel1 = props.dataLabel1 || metadata.dataLabel1
   const dataValue1 = props.dataValue1 || metadata.dataValue1
