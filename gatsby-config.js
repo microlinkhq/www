@@ -22,13 +22,13 @@ module.exports = {
   siteMetadata: {
     // Basic
     name: 'Microlink',
-    headline: 'Browser as API',
+    headline: 'Turns websites into data',
+    description:
+      'Enter a URL, receive information. Normalize metadata. Get HTML markup. Take a screenshot. Identify tech stack. Generate a PDF. Automate web scrapping. Run Lighthouse',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
-    description:
-      'Turns websites into data: Enter a URL, receive information. Make any URL embeddable. Capture any website as a snapshot. Generate PDF from any website. Automate web performance.',
     twitter: '@microlinkhq',
-    image: new URL('www/home.jpeg', CDN_URL).toString(),
+    image: new URL('logo/banner.jpeg', CDN_URL).toString(),
     logo: new URL('logo/trim.jpeg', CDN_URL).toString(),
     // Slack previsualization
     dataLabel1: 'API',

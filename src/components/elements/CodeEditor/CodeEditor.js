@@ -191,7 +191,12 @@ const CodeEditor = props => {
     </Terminal>
   )
 
-  if (interactive === false || language !== 'js' || text.includes('import')) {
+  if (
+    interactive === false ||
+    language !== 'js' ||
+    text.includes('import') ||
+    text.startsWith('{')
+  ) {
     return TerminalComponent
   }
 

@@ -6,6 +6,7 @@ import get from 'dlv'
 
 const getPage = props => {
   const pathname = get(props, 'location.pathname') || '/'
+  if (pathname === '/') return '/'
   return pathname.replace(/\/$/, '')
 }
 
@@ -15,6 +16,8 @@ const getTitle = (props, metadata) => {
   const page = getPage(props)
 
   switch (page) {
+    case '/':
+      return metadata.headline
     case '/insights':
       return 'Automate web performance'
     case '/meta':
@@ -136,7 +139,7 @@ function Head ({ onChangeClientState, script, ...props }) {
   return (
     <Helmet
       onChangeClientState={onChangeClientState}
-      defaultTitle={`${name} — ${headline}`}
+      defaultTitle={`${headline} — ${name}`}
       titleTemplate={`%s — ${name}`}
       {...props}
     >
@@ -163,13 +166,13 @@ function Head ({ onChangeClientState, script, ...props }) {
       <title>{title}</title>
 
       {/* <!-- Schema.org for Google --> */}
-      <meta itemProp='name' content={title} />
+      <meta itemProp='name' content={`${title} — ${name}`} />
       <meta itemProp='description' content={description} />
       <meta itemProp='image' content={image} />
 
       {/* <!-- Twitter --> */}
       <meta name='twitter:card' content='summary_large_image' />
-      <meta name='twitter:title' content={title} />
+      <meta name='twitter:title' content={`${title} — ${name}`} />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:site' content={twitter} />
       <meta name='twitter:domain' content={url} />
@@ -184,7 +187,7 @@ function Head ({ onChangeClientState, script, ...props }) {
       {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
       <meta property='og:url' content={url} />
       <meta property='og:type' content='product' />
-      <meta property='og:title' content={title} />
+      <meta property='og:title' content={`${title} — ${name}`} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
       <meta property='og:video:secure_url' content={video} />
