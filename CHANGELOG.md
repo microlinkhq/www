@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.21](https://github.com/microlinkhq/www/compare/v2.11.20...v2.11.21) (2021-07-08)
+
+
+### Bug Fixes
+
+* active links toolbar ([32793ef](https://github.com/microlinkhq/www/commit/32793ef1367d04128e7793f88e89e38e7e2fe73c))
+* avoid stripe side effect ([b17690b](https://github.com/microlinkhq/www/commit/b17690b7576221ffa5a2b092a3cf51020990a256))
+* avoid to use a proxy image ([9c63808](https://github.com/microlinkhq/www/commit/9c638081f76691d183d096eb0c270a9eacfee491))
+* button navigate to external link ([98c26c6](https://github.com/microlinkhq/www/commit/98c26c6fdd9d3702c5c2612a9a7b447ac22c774e))
+* chat → community ([ae41900](https://github.com/microlinkhq/www/commit/ae41900f23e3c80d9f6b40973d0e8f3c31e80adf))
+* chat → community ([dea9e3c](https://github.com/microlinkhq/www/commit/dea9e3cabd33344866154c661ad1f5f909430a64))
+* chat references ([7c42cae](https://github.com/microlinkhq/www/commit/7c42caea14485d0b6f4e54d78386f737bb8b9ae2))
+* chromium text decoration bug ([0061322](https://github.com/microlinkhq/www/commit/006132249042d90c303797bfe4ebbaced81da840))
+* default value ([6452798](https://github.com/microlinkhq/www/commit/6452798d865ca80ee8021305072b0264c0a637ca))
+* **docs:** typo ([59a054e](https://github.com/microlinkhq/www/commit/59a054eddbd8716c2c38389032246aaff9dc00cb))
+* ensure query is unflatten ([63e98e8](https://github.com/microlinkhq/www/commit/63e98e86bc3e6212a0fe41c4fc95dcd1c6718cd4))
+* eslint Next.js issues ([9f75855](https://github.com/microlinkhq/www/commit/9f7585582fa2bfb63de4dc7acba9fe2cdb53a7b0))
+* flickr effect ([fedd54e](https://github.com/microlinkhq/www/commit/fedd54e863aac40da53d6356a7aef865c9e5d490))
+* get default slug ([828d05c](https://github.com/microlinkhq/www/commit/828d05c1a1110320877d1c7e23056bc3240d1a66))
+* hide datalist input narrow ([b8886b5](https://github.com/microlinkhq/www/commit/b8886b5a89cd312b55e2896106a50e4f66bf170c))
+* **html:** add markup ([c9d20e1](https://github.com/microlinkhq/www/commit/c9d20e17466fa10eb1c10982ed702162903f7e34))
+* link ([7025396](https://github.com/microlinkhq/www/commit/7025396106f090b1c66746d64433353141eb1c8a))
+* link props for external ([9c65ba4](https://github.com/microlinkhq/www/commit/9c65ba4b216edf6bb94272e5a77dd07d1c42207b))
+* linter ([269d9db](https://github.com/microlinkhq/www/commit/269d9db793208bc80c598a5338ef0d079f53b929))
+* linter ([9f705d8](https://github.com/microlinkhq/www/commit/9f705d851869735ab155612e0ba043194e3599b8))
+* linter ([4f7810f](https://github.com/microlinkhq/www/commit/4f7810fdd53134218e034f2de94403148985a1c4))
+* linter ([dab5120](https://github.com/microlinkhq/www/commit/dab512095816fef4acfb49d00367dcc649230df0))
+* linter configuration ([d77f650](https://github.com/microlinkhq/www/commit/d77f65028ef9b6702c4424ea8a9809aef8c491bc))
+* remove empty file ([2c0ac1e](https://github.com/microlinkhq/www/commit/2c0ac1e9459307ce3cc1899aaf2f8a2ac48fd0f9))
+* return json ([f6f45b5](https://github.com/microlinkhq/www/commit/f6f45b563f1ca1840a4ea61b145f4d0934c08314))
+* scroll → auto ([5d53932](https://github.com/microlinkhq/www/commit/5d53932f6ffe27a049184d7109aa1e357182aa22))
+* scroll property name ([7be3f7a](https://github.com/microlinkhq/www/commit/7be3f7afc5ae847015d2bab7e72cef4b97b1297f))
+* select pricing plan ([a6d344d](https://github.com/microlinkhq/www/commit/a6d344dcd97d2a600b5956fdeb52871fdfb3dff7)), closes [#1389](https://github.com/microlinkhq/www/issues/1389)
+* tweaks ([270d0cd](https://github.com/microlinkhq/www/commit/270d0cdcc4bb57f61b8323377a31d61f4b22f68b))
+* typo ([1705bdd](https://github.com/microlinkhq/www/commit/1705bdd5957ed74543d2566f7ff3613575f3ea8a))
+* typo ([65f618d](https://github.com/microlinkhq/www/commit/65f618d9fe8445d0ba35925764e473fe20bc2556))
+* typo ([0c7ad32](https://github.com/microlinkhq/www/commit/0c7ad320f141e970e74be1cac1837be78c964c93))
+* typo ([5201079](https://github.com/microlinkhq/www/commit/52010798fa157c0c28c567ba67cb521d873014bc))
+* typo ([c7762f5](https://github.com/microlinkhq/www/commit/c7762f5a8624b912ab9776ebc6d09e08e1570d44))
+* typo ([f87505b](https://github.com/microlinkhq/www/commit/f87505bbd21bce327096d1a61d06d507a6c19bba))
+* yaml indent ([db9f2d8](https://github.com/microlinkhq/www/commit/db9f2d88a761c48b9abf2c401072e0998fb73973))
+
 ### [2.11.20](https://github.com/microlinkhq/microlink-www/compare/v2.11.19...v2.11.20) (2020-11-30)
 
 ### [2.11.19](https://github.com/microlinkhq/microlink-www/compare/v2.11.18...v2.11.19) (2020-11-30)
