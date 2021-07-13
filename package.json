@@ -163,6 +163,7 @@
     "npm-check-updates": "latest",
     "prettier-standard": "latest",
     "pretty-bytes": "latest",
+    "puppeteer": "latest",
     "rgb-hex": "latest",
     "simple-git-hooks": "latest",
     "standard": "latest",
