@@ -194,7 +194,7 @@
     "lint:gatsby": "npx eslint --ignore-path .gitignore . || true",
     "postinstall": "npm run build:data",
     "postrelease": "npm run release:tags && npm run release:github",
-    "posttest": "npx urlint https://microlink.io/sitemap-pages.xml",
+    "posttest": "npx urlint https://microlink.io/sitemap.xml",
     "predev": "npm run build:data",
     "prerelease": "npm run update:check",
     "pretest": "npm run lint",
