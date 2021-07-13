@@ -1,8 +1,14 @@
+- date: Jul 2021
+  notes:
+    - "[Microlink OSS](/oss) Added [keyv.js.org](https://keyv.js.org)."
+    - "[Metascraper v5.22.0](https://metascraper.js.org): Add more heuristic cases for logo detection."
+    - "[Microlink Proxy](/blog/proxy-capabilities): Handle Wallmart URLs."
+    
 - date: Jun 2021
   notes:
     - "[Microlink](/): Add [Microlink Enterprise](/enterprise) plan."
     - "[Browserless v9](https://browserless.js.org): Official release."
-    - "[Microlink Blog](/blog): Add [Microlink Proxy](https://microlink.io/blog/proxy-capabilities) post."
+    - "[Microlink Blog](/blog): Add [Microlink Proxy](/blog/proxy-capabilities) post."
     - "[Metascraper v5.22.0](https://metascraper.js.org): Add Instagram integration."
 
 - date: May 2021
