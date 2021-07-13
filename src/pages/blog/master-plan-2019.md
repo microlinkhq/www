@@ -22,7 +22,7 @@ The thing we want to do next is a totally developer friendly client API.
 
 We called it **Microlink Query Language** (MQL) and you can see it as Custom Rules v2.0 iteration.
 
-The **MQL** goal is build the most simple to use and developer friendly for scrapping purposes.
+The **MQL** goal is build the most simple to use and developer friendly for scraping purposes.
 
 This include the builtin types, caching and batching support and selectors declaration.
  
