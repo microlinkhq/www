@@ -18,7 +18,7 @@ const SENTENCES = [
   { href: '/screenshot', text: 'Take a screenshot', color: '#FD494A' },
   { href: '/insights', text: 'Identify tech stack', color: '#A31B90' },
   { href: '/pdf', text: 'Generate a PDF', color: '#e000ac' },
-  { href: '/recipes', text: 'Automate scrapping', color: '#DF3A61' },
+  { href: '/recipes', text: 'Automate scraping', color: '#DF3A61' },
   { href: '/insights', text: 'Run Lighthouse', color: '#B500ED' }
 ]
 
