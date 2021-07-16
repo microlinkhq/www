@@ -1,10 +1,13 @@
-const proxyImage = (url, opts) => {
-  if (!url) return
-  const encodedUrl = encodeURIComponent(url)
-  const query = new URLSearchParams(opts).toString()
-  let proxyUrl = `https://images.weserv.nl/?url=${encodedUrl}&l=9&af&il&n=-1`
-  if (query) proxyUrl = `${proxyUrl}&${query}`
-  return proxyUrl
-}
+const proxyImage = (url, opts) =>
+  url
+    ? `https://images.weserv.nl/?${new URLSearchParams({
+        url,
+        l: 9,
+        af: '',
+        il: '',
+        n: -1,
+        ...opts
+      }).toString()}`
+    : undefined
 
 export default proxyImage
