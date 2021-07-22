@@ -6,6 +6,6 @@ title: 'Pricing'
 
 The [pricing](/#pricing) applied is the same: free under ocasional, paid for regular or heavy usage. Cached requests don't impact for your plan.
 
-That allows your to create around  **50 cards every day**.
+The free plan allows you to create around  **50 cards every day**.
 
 If you need more, you need to jump into a [pro](/#pricing) plan.
