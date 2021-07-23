@@ -1,10 +1,14 @@
+- date: Ago 2021
+  notes:
+    - "[Microlink OSS](/oss): Released [metatags](https://github.com/microlinkhq/metatags)."
+
 - date: Jul 2021
   notes:
     - "[Microlink OSS](/oss): Sponsored [unavatar.io](https://unavatar.io)."
     - "[Microlink Recipes](https://microlink.io/recipes): Added [Instagram](https://microlink.io/recipes/instagram) recipe."
     - "[Microlink Recipes](https://microlink.io/recipes): Added [Telegram](https://microlink.io/recipes/telegram) recipe."
     - "[Microlink Recipes](https://microlink.io/recipes): Added [Reddit](https://microlink.io/recipes/reddit) recipe."
-    - "[Microlink OSS](/oss) Initial release for [keyv.js.org](https://keyv.js.org)."
+    - "[Microlink OSS](/oss) Released [keyv.js.org](https://keyv.js.org)."
     - "[Metascraper v5.22.0](https://metascraper.js.org): Added more heuristic cases for logo detection."
     - "[Microlink Proxy](/blog/proxy-capabilities): Added Wallmart URLs support."
     
