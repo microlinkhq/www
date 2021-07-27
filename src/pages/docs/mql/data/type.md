@@ -2,7 +2,7 @@
 title: 'type'
 ---
 
-Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
+Type: <Type children="<string>"/><br/>
 Default: <Type children="'auto'"/><br/>
 Values: <TypeContainer><Type children="'auto'"/> | <Type children="'regex'"/> | <Type children="'author'"/> | <Type children="'object'"/> | <Type children="'boolean'"/> | <Type children="'date'"/> | <Type children="'description'"/> | <Type children="'video'"/> | <Type children="'audio'"/> | <Type children="'image'"/> | <Type children="'logo'"/> | <Type children="'number'"/> | <Type children="'string'"/> | <Type children="'title'"/> | <Type children="'url'"/> | <Type children="'lang'"/> | <Type children="'publisher'"/></TypeContainer>
 
