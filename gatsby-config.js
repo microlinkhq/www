@@ -24,7 +24,7 @@ module.exports = {
     name: 'Microlink',
     headline: 'Turns websites into data',
     description:
-      'Enter a URL, receive information. Normalize metadata. Get HTML markup. Take a screenshot. Identify tech stack. Generate a PDF. Automate web scraping. Run Lighthouse',
+      'Enter a URL, receive information. Normalize metadata. Get HTML markup. Take a screenshot. Identify tech stack. Generate a PDF. Automate web scraping. Run Lighthouse.',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     twitter: '@microlinkhq',
