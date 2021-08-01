@@ -89,7 +89,7 @@
     "gatsby-plugin-react-helmet": "~4.9.0",
     "gatsby-plugin-remove-trailing-slashes": "~3.9.0",
     "gatsby-plugin-sass": "~4.9.0",
-    "gatsby-plugin-styled-components": "~4.9.0",
+    "gatsby-plugin-styled-components": "~4.10.0",
     "gatsby-source-filesystem": "~3.9.0",
     "gatsby-transformer-javascript-frontmatter": "~3.9.0",
     "gatsby-transformer-json": "~3.9.0",
