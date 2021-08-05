@@ -27,16 +27,16 @@ By default the API will be [cache](/docs/api/basics/cache) consecutive API calls
 
 Providing it, you are forcing to invalidate the current state of the cache for the response and generate a new one.
 
-When `force` is enabled, `cf-cache-status` always cause a **MISS**.
+When `force` is enabled, `x-cache-status` causes a **BYPASS**.
 
 <MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com&force | grep -i "cf-cache-status"`,
+  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com&force | grep -i "x-cache-status"`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.reddit.com', { force: true })
   
-  console.log(response.headers.['cf-cache-status' ) // => 'MISS'
+  console.log(response.headers.['x-cache-status' ) // => 'BYPASS'
 }
   `
   }} 
