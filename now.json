@@ -89,8 +89,16 @@
       "destination": "/docs/api/basics/error-codes#ettl"
     },
     {
-      "source": "/ettlrange",
-      "destination": "/docs/api/basics/error-codes#ettlrange"
+      "source": "/einvalttl",
+      "destination": "/docs/api/basics/error-codes#einvalttl"
+    },
+    {
+      "source": "/estalettl",
+      "destination": "/docs/api/basics/error-codes#estalettl"
+    },
+    {
+      "source": "/einvalttl",
+      "destination": "/docs/api/basics/error-codes#einvalttl"
     },
     {
       "source": "/headers",
