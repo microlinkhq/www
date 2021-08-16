@@ -571,7 +571,7 @@ const Resume = props => (
             Such as{' '}
             <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
             emulation, CSS/JS injection, partial or{' '}
-            <Link href='/docs/api/parameters/screenshot/full-page'>full</Link>{' '}
+            <Link href='/docs/api/parameters/screenshot/fullPage'>full</Link>{' '}
             page screenshot,{' '}
             <Link href='/docs/api/parameters/screenshot/hide'>hide</Link>{' '}
             elements,{' '}

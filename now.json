@@ -158,7 +158,7 @@
     },
     {
       "source": "/waituntil",
-      "destination": "/docs/api/parameters/wait-until"
+      "destination": "/docs/api/parameters/waitUntil"
     }
   ]
 }

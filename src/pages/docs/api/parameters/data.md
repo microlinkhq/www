@@ -34,13 +34,14 @@ As a result, the extracted data will be part of the `data` payload in the respon
 ```json
 {
   "data": {
-  "avatar": {
-    "url": "https://d33wubrfki0l68.cloudfront.net/ad0e96f5e30e3c65b7ff31e5a637fea070356f0b/eaa58/images/avatar.jpg",
-    "width": 500,
-    "height": 500,
-    "type": "jpg",
-    "size": 53310,
-    "size_pretty": "53.3 kB"
+    "avatar": {
+      "url": "https://d33wubrfki0l68.cloudfront.net/ad0e96f5e30e3c65b7ff31e5a637fea070356f0b/eaa58/images/avatar.jpg",
+      "width": 500,
+      "height": 500,
+      "type": "jpg",
+      "size": 53310,
+      "size_pretty": "53.3 kB"
+    }
   },
   "status": "success"
 }

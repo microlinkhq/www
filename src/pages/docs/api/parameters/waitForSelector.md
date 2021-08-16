@@ -4,7 +4,7 @@ title: 'waitForSelector'
 
 Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>
 
-Wait for the [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to appear in page. 
+Tell the browser to wait until a specific [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) appears in the target website.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://dev.to&waitForSelector=main&screenshot`,

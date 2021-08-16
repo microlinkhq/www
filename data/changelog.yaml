@@ -11,7 +11,7 @@
     - "[Microlink OSS](/oss) Released [keyv.js.org](https://keyv.js.org)."
     - "[Metascraper v5.22.0](https://metascraper.js.org): Added more heuristic cases for logo detection."
     - "[Microlink Proxy](/blog/proxy-capabilities): Added Wallmart URLs support."
-    
+
 - date: Jun 2021
   notes:
     - "[Microlink](/): Added [Microlink Enterprise](/enterprise) plan."
@@ -72,7 +72,7 @@
 - date: September 2020
   notes:
     - "[Microlink Cluster](/status) Setup [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is now [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)."
-    - "[Microlink API](/docs/api/getting-started/overview): Deprecate `waitFor`, use [waitForSelector](/docs/api/parameters/wait-for-selector) or [waitForTimeout](/docs/api/parameters/wait-for-timeout) instead."
+    - "[Microlink API](/docs/api/getting-started/overview): Deprecate `waitFor`, use [waitForSelector](/docs/api/parameters/waitForSelector) or [waitForTimeout](/docs/api/parameters/waitForTimeout) instead."
 
 - date: August 2020
   notes:

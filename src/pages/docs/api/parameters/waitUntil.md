@@ -6,7 +6,7 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/>
 Default: <Type children="'auto'"/><br/>
 Values: <TypeContainer><Type children="'load'"/> | <Type children="'domcontentloaded'"/> | <Type children="'networkidle0'"/> | <Type children="'networkidle2'"/></TypeContainer>
 
-Wait until the browser emits one or more event(s) to consider navigation succeeded.
+Tell the browser to wait until the target website emits one or more event(s) to consider navigation succeeded.
 
 The events that can be waited are:
 

@@ -467,9 +467,8 @@ const Resume = props => (
             establish a{' '}
             <Link href='/docs/api/parameters/pdf/margin'>margin</Link>, change
             the <Link href='/docs/api/parameters/pdf/scale'>scale</Link>, set{' '}
-            <Link href='/docs/api/parameters/pdf/page-ranges'>page ranges</Link>
-            , use{' '}
-            <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link>{' '}
+            <Link href='/docs/api/parameters/pdf/pageRanges'>page ranges</Link>,
+            use <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link>{' '}
             orientation, and a lot more.
           </Text>
         </Flex>

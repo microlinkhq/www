@@ -4,7 +4,7 @@ title: 'waitForTimeout'
 
 Type: <TypeContainer><Type children='<number>'/></TypeContainer><br/>
 
-Wait a quantity of time in milliseconds before processing the content of the browser page.
+Tell the browser to wait a quantity of time in milliseconds before processing the content of the target website.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://dev.to&waitForTimeout=1500&screenshot`,

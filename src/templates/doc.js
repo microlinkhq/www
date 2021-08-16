@@ -207,11 +207,11 @@ const ROUTES_API = [
       },
       {
         name: 'codeScheme',
-        href: '/docs/api/parameters/code-scheme'
+        href: '/docs/api/parameters/codeScheme'
       },
       {
         name: 'colorScheme',
-        href: '/docs/api/parameters/color-scheme'
+        href: '/docs/api/parameters/colorScheme'
       },
       {
         name: 'data',
@@ -265,7 +265,7 @@ const ROUTES_API = [
       },
       {
         name: 'mediaType',
-        href: '/docs/api/parameters/media-type'
+        href: '/docs/api/parameters/mediaType'
       },
       {
         name: 'meta',
@@ -301,7 +301,7 @@ const ROUTES_API = [
           },
           {
             name: 'pageRanges',
-            href: '/docs/api/parameters/pdf/page-ranges'
+            href: '/docs/api/parameters/pdf/pageRanges'
           },
           {
             name: 'scale',
@@ -343,7 +343,7 @@ const ROUTES_API = [
           },
           {
             name: 'fullPage',
-            href: '/docs/api/parameters/screenshot/full-page'
+            href: '/docs/api/parameters/screenshot/fullPage'
           },
           {
             name: 'overlay',
@@ -393,11 +393,11 @@ const ROUTES_API = [
       },
       {
         name: 'waitForSelector',
-        href: '/docs/api/parameters/wait-for-selector'
+        href: '/docs/api/parameters/waitForSelector'
       },
       {
         name: 'waitForTimeout',
-        href: '/docs/api/parameters/wait-for-timeout'
+        href: '/docs/api/parameters/waitForTimeout'
       },
       {
         name: 'waitUntil',
@@ -463,7 +463,7 @@ const ROUTES_MQL = [
       },
       {
         name: 'selectorAll',
-        href: '/docs/mql/data/selector-all'
+        href: '/docs/mql/data/selectorAll'
       },
       {
         name: 'type',
