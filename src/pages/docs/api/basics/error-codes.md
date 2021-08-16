@@ -38,18 +38,6 @@ The maximum time associated with a browser navigation is 23s, considering the br
 
 In order to avoid this error, browser navigation time need to be done below the threshold.
 
-## ECNRCY
-
-**Message**
-
-Requests against `free.microlink.io` are limited to 1 concurrent requests.
-
-**Solution**
-
-The free [endpoint](/docs/api/basics/endpoint) has some soft limitations in order to prevent abusive usage.
-
-You need to [upgrade](/#pricing) your plan in order to don't have these restrictions.
-
 ## EFATAL
 
 **Message**
@@ -101,6 +89,26 @@ The target URL is considered not valid.
 **Solution**
 
 Ensure the [url](/docs/api/parameters/url) provided has protocol, hostname and follows [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api) standard.
+
+## EINVALTTL
+
+**Message**
+
+The `ttl` value is invalid.
+
+**Solution**
+
+The [ttl](/docs/api/parameters/ttl) value should be a value between `1m` to `31d` range.
+
+## EINVALSTALETTL
+
+**Message**
+
+The `staleTtl` value is invalid.
+
+**Solution**
+
+The [staleTtl](/docs/api/parameters/staleTtl) value should be a value less than the current [ttl](/docs/api/parameters/ttl) provided.
 
 ## EMAXREDIRECTS
 
@@ -162,12 +170,12 @@ You need a pro plan for using `ttl`.
 
 In order to use [ttl](/docs/api/parameters/ttl) query parameter, you need to [upgrade](/#pricing) your free plan.
 
-## ETTLRANGE
+## ESTALETTL
 
 **Message**
 
-The `ttl` range is invalid.
+You need a pro plan for using `staleTtl`.
 
 **Solution**
 
-The [ttl](/docs/api/parameters/ttl) value should be a value between `1m` to `31d` range.
+In order to use [staleTtl](/docs/api/parameters/staleTtl) query parameter, you need to [upgrade](/#pricing) your free plan.
