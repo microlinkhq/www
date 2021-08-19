@@ -4,7 +4,7 @@ title: 'embed'
 
 Type: <Type children='<string>'/>
 
-The embed parameter is for embedding a field directly in your HTML markup, using the properly encoding (text, images, etc).
+The embed parameter is for embedding a field directly in your HTML markup, using the proper encoding (text, images, etc).
 
 ![]({{demolinks.ycombinator.screenshot.url}})
 
