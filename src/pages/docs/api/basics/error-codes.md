@@ -100,7 +100,7 @@ The `ttl` value is invalid.
 
 The [ttl](/docs/api/parameters/ttl) value should be a value between `1m` to `31d` range.
 
-## EINVALSTALETTL
+## EINVALSTTL
 
 **Message**
 
@@ -170,7 +170,7 @@ You need a pro plan for using `ttl`.
 
 In order to use [ttl](/docs/api/parameters/ttl) query parameter, you need to [upgrade](/#pricing) your free plan.
 
-## ESTALETTL
+## ESTTL
 
 **Message**
 

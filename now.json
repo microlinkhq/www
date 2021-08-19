@@ -69,6 +69,10 @@
       "destination": "/docs/api/basics/error-codes#eproxy"
     },
     {
+      "source": "/einvalproxy",
+      "destination": "/docs/api/basics/error-codes#einvalproxy"
+    },
+    {
       "source": "/erate",
       "destination": "/docs/api/basics/error-codes#erate"
     },
@@ -93,12 +97,12 @@
       "destination": "/docs/api/basics/error-codes#einvalttl"
     },
     {
-      "source": "/estalettl",
-      "destination": "/docs/api/basics/error-codes#estalettl"
+      "source": "/esttl",
+      "destination": "/docs/api/basics/error-codes#esttl"
     },
     {
-      "source": "/einvalttl",
-      "destination": "/docs/api/basics/error-codes#einvalttl"
+      "source": "/einvalsttl",
+      "destination": "/docs/api/basics/error-codes#einvalsttl"
     },
     {
       "source": "/headers",
