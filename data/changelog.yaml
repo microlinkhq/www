@@ -1,6 +1,7 @@
 - date: Ago 2021
   notes:
     - "[Microlink OSS](/oss): Released [metatags](https://github.com/microlinkhq/metatags)."
+    - "[Microlink API](/docs/api/getting-started/overview): Added [staleTtl](/docs/api/parameters/staleTtl) query parameter."
 
 - date: Jul 2021
   notes:

@@ -33,6 +33,7 @@ const special = [
   'retry',
   'scroll',
   'SDK',
+  'staleTtl',
   'timeout',
   'type',
   'TypeScript',
