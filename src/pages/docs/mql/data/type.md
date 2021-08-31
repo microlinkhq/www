@@ -4,7 +4,7 @@ title: 'type'
 
 Type: <Type children="<string>"/><br/>
 Default: <Type children="'auto'"/><br/>
-Values: <TypeContainer><Type children="'auto'"/> | <Type children="'regex'"/> | <Type children="'author'"/> | <Type children="'object'"/> | <Type children="'boolean'"/> | <Type children="'date'"/> | <Type children="'description'"/> | <Type children="'video'"/> | <Type children="'audio'"/> | <Type children="'image'"/> | <Type children="'logo'"/> | <Type children="'number'"/> | <Type children="'string'"/> | <Type children="'title'"/> | <Type children="'url'"/> | <Type children="'lang'"/> | <Type children="'publisher'"/></TypeContainer>
+Values: <TypeContainer><Type children="'audio'"/> | <Type children="'author'"/> | <Type children="'auto'"/> | <Type children="'boolean'"/> | <Type children="'date'"/> | <Type children="'description'"/> | <Type children="'image'"/> | <Type children="'ip'"/> | <Type children="'lang'"/> | <Type children="'logo'"/> | <Type children="'number'"/> | <Type children="'object'"/> | <Type children="'publisher'"/> | <Type children="'regexp'"/> | <Type children="'string'"/> | <Type children="'title'"/> | <Type children="'url'"/> | <Type children="'video'"/><TypeContainer>
 
 It defines how the value extracted should be considered.
 
