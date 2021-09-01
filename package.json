@@ -85,7 +85,7 @@
     "gatsby-plugin-advanced-sitemap": "~2.0.0",
     "gatsby-plugin-canonical-urls": "~3.12.0",
     "gatsby-plugin-catch-links": "~3.12.0",
-    "gatsby-plugin-google-analytics": "~3.12.0",
+    "gatsby-plugin-google-analytics": "~3.13.0",
     "gatsby-plugin-react-helmet": "~4.12.0",
     "gatsby-plugin-remove-trailing-slashes": "~3.12.0",
     "gatsby-plugin-sass": "~4.12.0",
