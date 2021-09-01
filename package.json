@@ -88,7 +88,7 @@
     "gatsby-plugin-google-analytics": "~3.12.0",
     "gatsby-plugin-react-helmet": "~4.12.0",
     "gatsby-plugin-remove-trailing-slashes": "~3.12.0",
-    "gatsby-plugin-sass": "~4.12.0",
+    "gatsby-plugin-sass": "~4.13.0",
     "gatsby-plugin-styled-components": "~4.12.0",
     "gatsby-source-filesystem": "~3.12.0",
     "gatsby-transformer-javascript-frontmatter": "~3.12.0",
