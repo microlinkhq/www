@@ -6,17 +6,18 @@ export const useSiteMetadata = () => {
       query SiteMetaData {
         site {
           siteMetadata {
-            paymentEndpoint
-            paymentApiKey
-            stripeKey
-            siteUrl
+            author
             canonicalUrl
-            headline
             description
+            headline
             image
-            twitter
-            name
             logo
+            name
+            paymentApiKey
+            paymentEndpoint
+            siteUrl
+            stripeKey
+            twitter
           }
         }
       }

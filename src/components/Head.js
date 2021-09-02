@@ -81,15 +81,19 @@ const getImage = (props, metadata) => {
 
 const mergeMeta = (props, metadata) => {
   const { siteUrl, video, twitter, headline } = metadata
-  const description = props.description || metadata.description
   const title = getTitle(props, metadata)
   const image = getImage(props, metadata)
-  const logo = props.logo || metadata.logo
-  const name = props.name || metadata.name
-  const dataLabel1 = props.dataLabel1 || metadata.dataLabel1
-  const dataValue1 = props.dataValue1 || metadata.dataValue1
-  const dataLabel2 = props.dataLabel2 || metadata.dataLabel2
-  const dataValue2 = props.dataValue2 || metadata.dataValue2
+
+  const {
+    dataLabel1,
+    dataLabel2,
+    dataValue1,
+    dataValue2,
+    description,
+    logo,
+    name
+  } = { ...props, ...metadata }
+
   const date = (props.date ? new Date(props.date) : new Date()).toISOString()
 
   const url = props.location
@@ -117,7 +121,7 @@ const mergeMeta = (props, metadata) => {
 function Head ({ onChangeClientState, script, ...props }) {
   const siteMetadata = useSiteMetadata()
 
-  const { canonicalUrl } = siteMetadata
+  const { canonicalUrl, author } = siteMetadata
 
   const {
     dataLabel1,
@@ -162,6 +166,7 @@ function Head ({ onChangeClientState, script, ...props }) {
       {/* <!-- Search Engine --> */}
       <meta name='description' content={description} />
       <meta name='image' content={image} />
+      <meta name='author' content={author} />
       <meta name='date' content={date} />
       <title>{title}</title>
 
@@ -169,6 +174,7 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta itemProp='name' content={`${title} — ${name}`} />
       <meta itemProp='description' content={description} />
       <meta itemProp='image' content={image} />
+      <meta itemProp='author' content={author} />
 
       {/* <!-- Twitter --> */}
       <meta name='twitter:card' content='summary_large_image' />
@@ -178,6 +184,7 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta name='twitter:domain' content={url} />
       <meta name='twitter:player:stream' content={video} />
       <meta name='twitter:image' content={image} />
+      <meta name='twitter:image:alt' content={description} />
       <meta name='twitter:creator' content={twitter} />
       <meta name='twitter:label1' value={dataLabel1} />
       <meta name='twitter:data1' value={dataValue1} />
@@ -190,6 +197,7 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta property='og:title' content={`${title} — ${name}`} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
+      <meta property='og:image:alt' content={description} />
       <meta property='og:video:secure_url' content={video} />
       <meta property='og:logo' content={logo} />
       <meta property='og:site_name' content={name} />
