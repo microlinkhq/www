@@ -184,7 +184,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta name='twitter:domain' content={url} />
       <meta name='twitter:player:stream' content={video} />
       <meta name='twitter:image' content={image} />
-      <meta name='twitter:image:alt' content={description} />
       <meta name='twitter:creator' content={twitter} />
       <meta name='twitter:label1' value={dataLabel1} />
       <meta name='twitter:data1' value={dataValue1} />
@@ -197,7 +196,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta property='og:title' content={`${title} — ${name}`} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
-      <meta property='og:image:alt' content={description} />
       <meta property='og:video:secure_url' content={video} />
       <meta property='og:logo' content={logo} />
       <meta property='og:site_name' content={name} />
