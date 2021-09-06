@@ -143,12 +143,12 @@ export default function HTML (props) {
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
         {props.postBodyComponents}
-        <Script
+        <script
           async
           crossOrigin='anonymous'
           src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2Cfetch%2Csmoothscroll'
         />
-        <Script async src='https://client.crisp.chat/l.js' />
+        <script async src='https://client.crisp.chat/l.js' />
       </body>
     </html>
   )
