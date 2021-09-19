@@ -438,7 +438,7 @@ const Resume = props => (
       blockOne={
         <Image
           width={[5, 6, 7, 8]}
-          alt='Metrics on demand'
+          alt='Metrics on-demand'
           src='https://cdn.microlink.io/illustrations/popularity.svg'
         />
       }
@@ -448,7 +448,7 @@ const Resume = props => (
           alignItems={['center', 'center', 'center', 'baseline']}
         >
           <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
-            Audit on demand
+            Audit on-demand
           </Subhead>
           <Text
             pt={4}
