@@ -4,7 +4,7 @@ title: 'evaluate'
 
 Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>
 
-It evaluates the JavaScript code provided inside the browser context over the target URL, returning the result.
+It evaluates the JavaScript stringified function provided inside the browser context over the target URL, returning the result.
 
 It's quite similar to [selector](/docs/mql/data/selector), but designed to specify the value to be obtained in a JavaScript-like way.
 
@@ -15,7 +15,7 @@ const jQuery = url =>
   mql(url, {
     data: {
       version: {
-        evaluate: 'jQuery.fn.jquery',
+        evaluate: '() => jQuery.fn.jquery',
         type: 'string'
       }
     }
