@@ -505,7 +505,7 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Create PDFs on demand and{' '}
+            Create PDFs on-demand and{' '}
             <Link href='/docs/api/parameters/embed'>embed</Link> them directly
             in your HTML markup, without being worried about code or
             infrastructure.
