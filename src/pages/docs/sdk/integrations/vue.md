@@ -37,7 +37,7 @@ Vue.use(Microlink)
 </template>
 ```
 
-#### On demand
+#### On-demand
 
 ```vue
 <template>
