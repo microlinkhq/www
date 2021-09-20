@@ -104,7 +104,7 @@ export const NavPdf = createNavItem({
 
 export const NavDocs = createNavItem({
   children: 'docs',
-  href: '/docs',
+  href: '/docs/api/getting-started/overview',
   actively: 'partial'
 })
 
