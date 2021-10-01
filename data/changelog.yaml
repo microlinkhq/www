@@ -1,4 +1,9 @@
-- date: Sept 2021
+- date: October 2021
+  notes:
+    - "[Microlink API](/docs/api/getting-started/overview): Special thanks to [Daniel Wang](https://danielwang.dev) for improving service security."
+    - "[Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes."
+
+- date: September 2021
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): Added preset support for [lighthouse](/docs/api/parameters/insights/lighthouse)."
     - "[Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) template."
@@ -9,12 +14,12 @@
     - "[Keyv](https://keyv.js.org): Released [@keyvhq/compress](https://github.com/microlinkhq/keyv/tree/master/packages/compress)"
     - "[Keyv](https://keyv.js.org): Released [@keyvhq/memoize](https://github.com/microlinkhq/keyv/tree/master/packages/memoize)"
     
-- date: Ago 2021
+- date: August 2021
   notes:
     - "[Microlink OSS](/oss): Released [metatags](https://github.com/microlinkhq/metatags)."
     - "[Microlink API](/docs/api/getting-started/overview): Added [staleTtl](/docs/api/parameters/staleTtl) query parameter."
 
-- date: Jul 2021
+- date: July 2021
   notes:
     - "[Microlink OSS](/oss): Sponsored [unavatar.io](https://unavatar.io)."
     - "[Microlink Recipes](/recipes): Added [Instagram](/recipes/instagram) recipe."
@@ -24,7 +29,7 @@
     - "[Metascraper v5.22.0](https://metascraper.js.org): Added more heuristic cases for logo detection."
     - "[Microlink Proxy](/blog/proxy-capabilities): Added Wallmart URLs support."
 
-- date: Jun 2021
+- date: June 2021
   notes:
     - "[Microlink](/): Added [Microlink Enterprise](/enterprise) plan."
     - "[Browserless v9](https://browserless.js.org): Official release."
