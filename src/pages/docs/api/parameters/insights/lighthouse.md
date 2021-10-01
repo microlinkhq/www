@@ -12,12 +12,13 @@ Default: <Type children='true'/>
 It returns a full web performance metrics report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
 <MultiCodeEditor languages={{
-  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.lighthouse=true`,
+  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse=true`,
   'Node.js': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
     insights: {
+      technologies: false,
       lighthouse: true
     }
   })
@@ -27,31 +28,34 @@ module.exports = async () => {
   }} 
 />
 
-By default, the report is serialized to JSON. In this way, you can use [lighthouse.microlink.io](https://lighthouse.microlink.io) for visualizing your performance report.
+The report is serialized to JSON by default to make easy visualize it using [lighthouse.microlink.io](https://lighthouse.microlink.io).
 
 <Link icon={false} href="https://lighthouse.microlink.io">
   <Image src="https://i.imgur.com/xeC7nZk.png"/>
 </Link>
 
-The default configuration is known as [lighthouse:default](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md):
+Alternatively, you can serialize to `'html'` or `'csv'`:
 
-```json
-{
-  "output": "json",
-  "formFactor": "mobile",
-  "onlyCategories": [
-    "accessibility", 
-    "best-practices", 
-    "performance", 
-    "pwa",
-    "seo"
-  ]
+<MultiCodeEditor languages={{
+  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse.output=html`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
+    insights: {
+      technologies: false,
+      lighthouse: {
+        output: 'html'
+      }
+    }
+  })
+  console.log(status, data)
 }
-```
+  `
+  }} 
+/>
 
-It's the same configuration used by Google Chrome when you perform an audit from the Developers Tools.
-
-You can extend it, passing custom settings:
+Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) setting is supported:
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.lighthouse.device=mobile`,
@@ -60,6 +64,7 @@ You can extend it, passing custom settings:
 module.exports = async () => {
   const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
     insights: {
+      technologies: false,
       lighthouse: {
         onlyCategories: ['accesibility']
       }
@@ -71,28 +76,33 @@ module.exports = async () => {
   }} 
 />
 
-The most common [lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) parameters are:
+Using `'preset'` it will load a set of specific Lighthouse settings at once:
 
-<H2 titleize={false}>output</H2>
+<MultiCodeEditor languages={{
+  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse.preset=mobile`,
+  'Node.js': `const mql = require('@microlink/mql')
+ 
+module.exports = async () => {
+  const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
+    insights: {
+      technologies: false,
+      lighthouse: {
+        preset: 'desktop'
+      }
+    }
+  })
+  console.log(status, data)
+}
+  `
+  }} 
+/>
 
-Type: <TypeContainer><Type children="string"/></TypeContainer><br/>
-Default: <Type children='json'/><br/>
-Values: <TypeContainer><Type children="'json'"/> | <Type children="'csv'"/> | <Type children="'html'"/></TypeContainer>
+The following presets are supported:
 
-The type of report output to be produced.
-
-<H2 titleize={false}>formFactor</H2>
-
-Type: <TypeContainer><Type children="string"/></TypeContainer><br/>
-Default: <Type children='mobile'/><br/>
-values: <TypeContainer><Type children="'desktop'"/> | <Type children="'mobile'"/> | <Type children="'none'"/></TypeContainer><br/>
-
-How emulation (useragent, device screen metrics, touch) should be applied. 'none' indicates Lighthouse should leave the host browser as-is.
-
-<H2 titleize={false}>onlyCategories</H2>
-
-Type: <TypeContainer><Type children="string[]"/></TypeContainer><br/>
-Default: <Type children="['accessibility', 'best-practices', 'performance', 'pwa', 'seo']"/><br/>
-values: <TypeContainer><Type children="'accessibility'"/> | <Type children="'best-practices'"/> | <Type children="'performance'"/> | <Type children="'pwa'"/> | <Type children="'seo'"/></TypeContainer><br/>
-
-Includes only the specified categories in the final report.
+- [default](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/default-config.js)
+- [desktop](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/desktop-config.js)
+- [experimental](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/experimental-config.js)
+- [full](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/full-config.js)
+- [lr-desktop](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/lr-desktop-config.js)
+- [lr-mobile](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/lr-mobile-config.js)
+- [perf](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/perf-config.js)
