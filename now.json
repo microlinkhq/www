@@ -37,6 +37,14 @@
       "destination": "/docs/api/basics/error-codes#efatal"
     },
     {
+      "source": "/efatalclient",
+      "destination": "/docs/api/basics/error-codes#efatalclient"
+    },
+    {
+      "source": "/eforbiddenurl",
+      "destination": "/docs/api/basics/error-codes#eforbiddenurl"
+    },
+    {
       "source": "/eheaders",
       "destination": "/docs/api/basics/error-codes#eheaders"
     },

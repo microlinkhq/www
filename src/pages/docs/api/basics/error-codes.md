@@ -42,13 +42,35 @@ In order to avoid this error, browser navigation time need to be done below the 
 
 **Message**
 
-Resolves the target URL failed.
+Resolves the target URL failed. Make sure your URL is valid and it has HTML content.
 
 **Solution**
 
 This is the generic error used when it wasn't possible to determine the root cause of the problem.
 
-If you are experimenting with this error, please contact us, reporting the request `id` to make it possible to reproduce the original request.
+If you are experimenting with this error, please [contact us](mailto:hello@microlink.io), reporting the request `id` to make it possible to reproduce the original request.
+
+## EFATALCLIENT
+
+**Message**
+
+(no message)
+
+**Solution**
+
+There is a network problem trying to reach the API endpoint.
+
+If you are experimenting with this error, please [contact us](mailto:hello@microlink.io).
+
+## EFORBIDDENURL
+
+**Message**
+
+The URL is being resolved into an IP address whose range is not allowed.
+
+**Solution**
+
+The service will only resolve URLs that point to unicast IP addresses.
 
 ## EHEADERS
 
