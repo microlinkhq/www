@@ -25,4 +25,4 @@ module.exports = async () => {
 
 The value provided can't be higher than [ttl](/docs/api/parameters/ttl).
 
-A good pattern there is to sets `staleTtl=0` to always revalidate in the background, maximizing the cache usage serving the last cache copy generated while the revalidation will refresh it.
+A good pattern there is to sets `staleTtl=0` to always revalidate in the background under expiration, maximizing the cache usage serving the last cache copy generated while the revalidation will refresh it.
