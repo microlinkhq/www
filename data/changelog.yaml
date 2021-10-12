@@ -1,5 +1,7 @@
 - date: October 2021
   notes:
+    - "[Microlink Recipes](/recipes): Added [emails](/recipes/get-emails) recipe."
+    - "[Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) type."
     - "[Microlink API](/docs/api/getting-started/overview): Special thanks to [Daniel Wang](https://danielwang.dev) for improving service security."
     - "[Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes."
 
