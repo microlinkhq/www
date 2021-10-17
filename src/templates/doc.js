@@ -405,7 +405,7 @@ const ROUTES_API = [
       },
       {
         name: 'waitUntil',
-        href: '/docs/api/parameters/wait-until'
+        href: '/docs/api/parameters/waitUntil'
       }
     ]
   }
