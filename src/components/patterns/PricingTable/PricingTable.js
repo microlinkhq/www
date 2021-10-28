@@ -172,7 +172,7 @@ export const createPricingTable = Checkout => ({
         </Box>
       </FreePricingBox>
 
-      <ProPricingBoxGradient data-debug pb={[0, 0, 6, 6]}>
+      <ProPricingBoxGradient pb={[0, 0, 6, 6]}>
         <ProPricingBox flex={1} px={[0, 0, 5, 5]} py={[0, 0, 5, 5]}>
           <Box>
             <Subhead fontSize={[3, 3, 4, 4]} pt={5}>

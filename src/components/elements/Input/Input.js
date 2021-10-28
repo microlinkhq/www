@@ -1,6 +1,6 @@
+import { transition, colors, borders } from 'theme'
 import React, { useMemo, useState } from 'react'
-import { transition, colors } from 'theme'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import noop from 'lodash/noop'
 
 import Text from '../Text'
@@ -36,22 +36,25 @@ InputBase.defaultProps = {
   bg: 'transparent'
 }
 
+const focusStyle = css`
+  outline: 0;
+  border-color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+  svg {
+    stroke: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+    color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+  }
+`
+
 const InputWrapper = styled(Flex)`
-  border: 1px solid;
+  border: ${borders[1]};
   border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black20)};
+  color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
   transition: border-color ${transition.medium}, stroke ${transition.medium},
     color ${transition.medium};
-  ${props =>
-    props.focus &&
-    `
-  outline: 0;
-  border-color: ${colors.black80};
-
-  svg  {
-    stroke: ${colors.black80};
-    color: ${colors.black80};
+  ${props => props.focus && focusStyle}
+  &:hover {
+    ${focusStyle};
   }
-`}
 `
 
 const Input = ({
@@ -65,6 +68,7 @@ const Input = ({
   ...props
 }) => {
   const [isFocus, setFocus] = useState(props.autoFocus)
+  const isDark = theme === 'dark'
 
   const list = useMemo(() => {
     if (!suggestions) return undefined
@@ -82,7 +86,7 @@ const Input = ({
       alignItems='center'
       borderRadius={2}
       focus={isFocus}
-      isDark={theme === 'dark'}
+      isDark={isDark}
       py='12px'
       pl={2}
       pr={suggestions ? 0 : 2}

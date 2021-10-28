@@ -12,8 +12,7 @@ import Box from '../Box'
 export const TerminalWindow = styled(Box)`
   border-radius: ${radii[3]};
   border: ${borders[1]};
-  border-color: ${({ theme }) =>
-    theme === 'dark' ? cx('white10') : cx('black10')};
+  border-color: ${({ theme }) => cx(theme === 'dark' ? 'white10' : 'black10')};
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
@@ -29,8 +28,8 @@ const fromString = text =>
     : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
 
 export const styleTerminalHeader = css`
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  border-top-right-radius: ${radii[3]};
+  border-top-left-radius: ${radii[3]};
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -113,7 +112,6 @@ const blinkCursorStyle = css`
     display: inline-block;
     width: 1px;
     height: 14px;
-    border-radius: 3px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     background: ${({ theme }) =>
       theme === 'dark' ? colors.secondary : colors.black};

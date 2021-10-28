@@ -9,7 +9,7 @@ import range from 'lodash/range'
 import get from 'dlv'
 
 import { prismThemes, themes } from './theme'
-import { cx, radii } from 'theme'
+import { cx } from 'theme'
 
 import Runkit from '../Runkit/Runkit'
 
@@ -73,19 +73,21 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const TerminalHeader = styled.header`
   ${styleTerminalHeader};
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
   height: ${TERMINAL_HEADER_HEIGHT};
   background: ${props => themes[props.theme].background};
   top: 1px;
   z-index: 2;
-  border-radius: ${radii[3]};
 
   .codecopy_button {
     background: ${props => themes[props.theme].background};
-    border-color: ${({ theme }) => theme === 'dark' && cx('black80')};
+    border-color: ${({ theme }) =>
+      theme === 'dark' ? cx('white80') : cx('black80')};
 
     svg {
-      fill: ${({ theme }) => (theme === 'light' ? cx('black') : cx('white'))};
-      /* theme === 'light' ? 'rgba(27,31,35,0.2)' : cx('white80')}; */
+      fill: ${({ theme }) => cx(theme === 'dark' ? 'white' : 'black')};
     }
   }
 `

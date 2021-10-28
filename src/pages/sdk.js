@@ -1,5 +1,5 @@
-import { layout, breakpoints, transition, shadows } from 'theme'
 import React, { useMemo, useEffect, useState } from 'react'
+import { layout, breakpoints, transition } from 'theme'
 import { useWindowSize } from 'components/hook'
 import isUrl from 'is-url-http/lightweight'
 import * as Icons from 'components/icons'
