@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { lighten } from 'polished'
 
 import Box from '../Box'
 
@@ -14,11 +13,12 @@ const ARROW_SIZE = '7px'
 const Select = styled(Box)(
   {
     fontFamily: fonts.sans,
+    cursor: 'pointer',
     transition: `border-color ${transition.medium}`,
     fontSize: 'inherit',
     lineHeight: 'inherit',
     appearance: 'none',
-    border: `1px solid ${lighten(0.15, colors.black20)}`,
+    border: `1px solid ${colors.black20}`,
     backgroundImage: `url("${arrow}")`,
     backgroundPosition: `calc(100% - ${ARROW_SIZE}) center`,
     backgroundRepeat: 'no-repeat',
@@ -30,10 +30,10 @@ const Select = styled(Box)(
   props => ({
     '&:focus': {
       outline: 'none',
-      border: `1px solid ${colors.hoverLink}`
+      border: `1px solid ${colors.black80}`
     },
     '&:hover': {
-      border: `1px solid ${colors.hoverLink}`
+      border: `1px solid ${colors.black80}`
     }
   })
 )

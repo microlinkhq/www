@@ -9,7 +9,7 @@ import range from 'lodash/range'
 import get from 'dlv'
 
 import { prismThemes, themes } from './theme'
-import { cx } from 'theme'
+import { cx, radii } from 'theme'
 
 import Runkit from '../Runkit/Runkit'
 
@@ -77,13 +77,15 @@ const TerminalHeader = styled.header`
   background: ${props => themes[props.theme].background};
   top: 1px;
   z-index: 2;
+  border-radius: ${radii[3]};
 
   .codecopy_button {
     background: ${props => themes[props.theme].background};
     border-color: ${({ theme }) => theme === 'dark' && cx('black80')};
+
     svg {
-      fill: ${({ theme }) =>
-        theme === 'light' ? cx('black80') : cx('white80')};
+      fill: ${({ theme }) => (theme === 'light' ? cx('black') : cx('white'))};
+      /* theme === 'light' ? 'rgba(27,31,35,0.2)' : cx('white80')}; */
     }
   }
 `
@@ -133,6 +135,7 @@ const Terminal = ({
     <TerminalWindow
       onMouseOut={() => setHover(false)}
       onMouseOver={() => setHover(true)}
+      theme={theme}
       {...props}
     >
       <TerminalHeader background={background} theme={theme}>

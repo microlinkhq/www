@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { transition, toPx, shadows } from 'theme'
+import { transition, toPx, colors } from 'theme'
 
 import Flex from '../Flex'
 import Text from '../Text'
@@ -11,10 +11,10 @@ const BASE_HEIGHT = BASE_WIDTH / BASE_RATIO
 
 const CardBase = styled(Flex)`
   overflow: auto;
-  transition: box-shadow ${transition.medium};
+  transition: border-color ${transition.medium};
 
   &:hover {
-    box-shadow: ${shadows[2]};
+    border-color: ${colors.black80};
   }
 `
 
@@ -26,8 +26,9 @@ const Card = ({ ratio, ...props }) => {
 
 Card.defaultProps = {
   bg: 'white',
+  border: 1,
+  borderColor: 'black10',
   borderRadius: 3,
-  boxShadow: 0,
   ratio: [0.55, 0.75, 1, 1]
 }
 

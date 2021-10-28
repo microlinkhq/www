@@ -1,3 +1,4 @@
+import { cx, colors, radii, borders, fonts, fontWeights } from 'theme'
 import { serializeComponent, aspectRatio } from 'helpers'
 import styled, { css } from 'styled-components'
 import { blink } from 'components/keyframes'
@@ -5,21 +6,14 @@ import { wordBreak } from 'helpers/style'
 import CodeCopy from 'react-codecopy'
 import React from 'react'
 
-import {
-  cx,
-  colors,
-  shadowOffsets,
-  shadowColors,
-  fonts,
-  fontWeights
-} from 'theme'
-
 import Text from '../Text'
 import Box from '../Box'
 
 export const TerminalWindow = styled(Box)`
-  border-radius: 5px;
-  box-shadow: ${shadowOffsets[0]} ${shadowColors[0]};
+  border-radius: ${radii[3]};
+  border: ${borders[1]};
+  border-color: ${({ theme }) =>
+    theme === 'dark' ? cx('white10') : cx('black10')};
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
@@ -142,11 +136,12 @@ const TerminalTextWrapper = styled('div')`
 `
 
 const TerminalProvider = ({ title = '', children, theme, ...props }) => {
-  const background = theme === 'dark' ? colors.black : colors.white
-  const color = theme === 'dark' ? colors.white : colors.black
+  const isDark = theme === 'dark'
+  const background = isDark ? colors.black : colors.white
+  const color = isDark ? colors.white : colors.black
 
   return (
-    <TerminalWindow theme={theme} {...props}>
+    <TerminalWindow {...props} theme={theme}>
       <TerminalHeader background={background} theme={theme}>
         <TerminalButton.Red theme={theme} />
         <TerminalButton.Yellow theme={theme} />

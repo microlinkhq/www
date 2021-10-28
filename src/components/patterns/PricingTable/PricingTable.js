@@ -68,24 +68,34 @@ const PricingBox = props => (
 )
 
 const FreePricingBox = styled(PricingBox)`
-  border-color: ${colors.black10};
+  border-color: ${colors.black20};
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  border-right: 0;
 `
 
-const ProPricingBox = styled(PricingBox)`
-  border-color: ${colors.black50};
+const ProPricingBoxGradient = styled(PricingBox)`
   display: flex;
   flex-direction: column;
   position: relative;
   left: -1px;
+  border none;
+  background: linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%);
+  border-radius: 7px;
+  padding: 2px;
+  `
+
+const ProPricingBox = styled(Box)`
+  background: #fff;
+  border-radius: 6px;
 `
 
 const EnterprisePricingBox = styled(PricingBox)`
-  border-color: ${colors.black10};
+  border-color: ${colors.black20};
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   position: relative;
+  border-left: 0;
   left: -1px;
 `
 
@@ -162,64 +172,65 @@ export const createPricingTable = Checkout => ({
         </Box>
       </FreePricingBox>
 
-      <ProPricingBox pb={[0, 0, 6, 6]}>
-        <Box flex={1}>
-          <Subhead fontSize={[3, 3, 4, 4]} pt={5}>
-            Pro
-          </Subhead>
+      <ProPricingBoxGradient data-debug pb={[0, 0, 6, 6]}>
+        <ProPricingBox flex={1} px={[0, 0, 5, 5]} py={[0, 0, 5, 5]}>
+          <Box>
+            <Subhead fontSize={[3, 3, 4, 4]} pt={5}>
+              Pro
+            </Subhead>
 
-          <Box pt={4}>
-            <Text>
-              <PricePicker onChange={priceSelected} />{' '}
-              <Requests suffix='/month' />
-            </Text>
-            <Box pt='26px'>
-              <Text fontSize={0}>
-                <PriceMonthly>
-                  <Highlight as='span' isHighlight={isHighlight}>
-                    {humanMonthlyPrice}
-                  </Highlight>
-                </PriceMonthly>
+            <Box pt={4}>
+              <Text>
+                <PricePicker onChange={priceSelected} />{' '}
+                <Requests suffix='/month' />
               </Text>
+              <Box pt='26px'>
+                <Text fontSize={0}>
+                  <PriceMonthly>
+                    <Highlight as='span' isHighlight={isHighlight}>
+                      {humanMonthlyPrice}
+                    </Highlight>
+                  </PriceMonthly>
+                </Text>
+              </Box>
+            </Box>
+
+            <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
+              <Text as='li'>
+                Everything in Free,{' '}
+                <Text as='span' fontWeight='bold'>
+                  plus
+                </Text>
+                :
+              </Text>
+              <Text as='li' pt={1}>
+                <PricingLink href='/docs/api/parameters/headers'>
+                  Custom HTTP headers
+                </PricingLink>
+              </Text>
+              <Text as='li' pt={1}>
+                <PricingLink href='/docs/api/parameters/proxy'>
+                  Automatic proxy rotation
+                </PricingLink>
+              </Text>
+              <Text as='li' pt={1}>
+                <PricingLink href='/docs/api/parameters/ttl'>
+                  Configurable TTL
+                </PricingLink>
+              </Text>
+              <Text as='li' style={{ opacity: 0 }} />
+              <Text as='li' style={{ opacity: 0 }} />
             </Box>
           </Box>
-
-          <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
-            <Text as='li'>
-              Everything in Free,{' '}
-              <Text as='span' fontWeight='bold'>
-                plus
-              </Text>
-              :
-            </Text>
-            <Text as='li' pt={1}>
-              <PricingLink href='/docs/api/parameters/headers'>
-                Custom HTTP headers
-              </PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
-              <PricingLink href='/docs/api/parameters/proxy'>
-                Automatic proxy rotation
-              </PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
-              <PricingLink href='/docs/api/parameters/ttl'>
-                Configurable TTL
-              </PricingLink>
-            </Text>
-            <Text as='li' style={{ opacity: 0 }} />
-            <Text as='li' style={{ opacity: 0 }} />
+          <Box>
+            <Checkout
+              planId={planId}
+              canonicalUrl={canonicalUrl}
+              stripeKey={stripeKey}
+            />
           </Box>
-        </Box>
-
-        <Box>
-          <Checkout
-            planId={planId}
-            canonicalUrl={canonicalUrl}
-            stripeKey={stripeKey}
-          />
-        </Box>
-      </ProPricingBox>
+        </ProPricingBox>
+      </ProPricingBoxGradient>
 
       <EnterprisePricingBox my={[0, 0, 5, 5]} pt={5}>
         <Subhead fontSize={[3, 3, 4, 4]}>Enterprise</Subhead>

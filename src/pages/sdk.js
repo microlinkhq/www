@@ -72,10 +72,6 @@ const INTEGRATIONS = [
 ]
 
 const HeroCard = styled(Card)`
-  &:hover {
-    box-shadow: ${shadows[0]};
-  }
-
   .microlink_card__iframe iframe {
     width: 100%;
     height: 100%;
@@ -209,7 +205,13 @@ const LiveDemo = ({
         flexDirection='column'
         mx='auto'
       >
-        <HeroCard width={cardWidth} height={cardHeight} mode={mode} type={type}>
+        <HeroCard
+          width={cardWidth}
+          height={cardHeight}
+          mode={mode}
+          type={type}
+          border={type === 'code' ? 'none' : 1}
+        >
           <Choose>
             <Choose.When condition={type === 'render'}>
               <LinkPreview

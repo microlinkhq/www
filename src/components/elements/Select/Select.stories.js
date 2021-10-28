@@ -97,7 +97,7 @@ storiesOf('Elements', module).add('Select', () => (
         placeholder='Language'
         ml={3}
         mr='auto'
-        width='5.5rem'
+        width='6rem'
         mb={2}
         bg='white'
       />

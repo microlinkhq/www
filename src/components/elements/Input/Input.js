@@ -17,8 +17,7 @@ const InputBase = styled(Text)(
     border: 0,
     appearance: 'none',
     '&:focus': {
-      outline: '0',
-      boxShadow: `inset 0 0 0 1px ${colors.blue500}`
+      outline: '0'
     },
     '&:disabled': {
       opacity: 1 / 4
@@ -46,11 +45,11 @@ const InputWrapper = styled(Flex)`
     props.focus &&
     `
   outline: 0;
-  border-color: ${colors.hoverLink};
+  border-color: ${colors.black80};
 
   svg  {
-    stroke: ${colors.hoverLink};
-    color: ${colors.hoverLink};
+    stroke: ${colors.black80};
+    color: ${colors.black80};
   }
 `}
 `
