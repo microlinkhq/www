@@ -1,3 +1,7 @@
+- date: November 2021
+  notes:
+    - "[Microlink](/): Special thanks to [Haaris B](mailto:haaris.blacktech@gmail.com) for improving service security."
+
 - date: October 2021
   notes:
     - "[Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration."
