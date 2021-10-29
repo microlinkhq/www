@@ -3,6 +3,7 @@ import { lighten } from 'polished'
 
 export const toPx = n => `${n}px`
 export const toEm = n => `${n}em`
+export const toRaw = n => Number(n.replace(/px|em/, ''))
 
 export const breakpoints = [768, 992, 1200, 1200].map(toPx)
 

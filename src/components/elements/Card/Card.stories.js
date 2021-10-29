@@ -8,15 +8,16 @@ const RATIO = [0.7, 0.7, 0.7, 0.7]
 const storyName = 'Card'
 
 const code = `
-import { Card } from 'components/elements'
+import { Card, Box, Flex } from 'components/elements'
 
 export default () => (
-  <Fragment>
-    <Card />
-    <Card />
-    <Card />
-    <Card />
-  </Fragment>
+  <Flex>
+    <Card ratio={RATIO} p={4} />
+    <Box px={3} />
+    <Card ratio={RATIO} p={4} />
+    <Box px={3} />
+    <Card ratio={RATIO} p={4} />
+  </Flex>
 )`
 
 const CardStory = () => {

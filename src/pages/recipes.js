@@ -1,11 +1,13 @@
 import { DotsBackground, Layout, Caption } from 'components/patterns'
+import { colors, space, layout, toPx, toRaw } from 'theme'
 import byFeature from '@microlink/recipes/by-feature'
+import React, { useState, useEffect } from 'react'
 import kebabCase from 'lodash/kebabCase'
 import recipes from '@microlink/recipes'
+import { formatNumber } from 'helpers'
 import styled from 'styled-components'
-import { layout, toPx } from 'theme'
+import { Eye } from 'react-feather'
 import { getDomain } from 'tldts'
-import React from 'react'
 
 import { Logo } from 'components/pages/recipes'
 
@@ -22,24 +24,34 @@ import {
   Text
 } from 'components/elements'
 
-const LOGO_SIZE = ['50px', '50px', '60px', '80px']
-const CARD_SIZE = [0.5, 0.5, 0.6, 0.6]
-const CARD_ITEMS_PER_ROW = 4.5
 const RECIPES_BY_FEATURES_KEYS = Object.keys(byFeature)
 
-const CARDS_MAX_WIDTH = CARD_SIZE.map(n =>
-  toPx(Card.width * n * CARD_ITEMS_PER_ROW)
-)
+const CARD_WIDTH = 300
+const CARDS_PER_ROW = 3
+
+const width = [...Array(4).keys()].map(() => CARD_WIDTH)
+
+const maxWidth = width.map(w => toPx(toRaw(space[3]) * 4 + w * CARDS_PER_ROW))
 
 const CustomLink = styled(Link)`
   color: inherit;
-
   :hover:not([disabled]) {
     color: inherit;
   }
 `
 
 const RecipesPage = ({ meta }) => {
+  const allRecipes = Object.keys(recipes).sort()
+  const [counters, setCounters] = useState(null)
+  const isLoading = counters === null
+
+  useEffect(() => {
+    window
+      .fetch(`https://count.vercel.app/recipes/${allRecipes.join(',')}`)
+      .then(response => response.json())
+      .then(data => setCounters(data))
+  }, [])
+
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
       <Layout footer={{ bg: 'transparent' }} {...meta}>
@@ -57,7 +69,7 @@ const RecipesPage = ({ meta }) => {
             justifyContent='center'
           >
             <Heading titleize={false} maxWidth={layout.large}>
-              Code made simple
+              Recipes
             </Heading>
             <Caption
               pt={[3, 3, 4, 4]}
@@ -71,88 +83,74 @@ const RecipesPage = ({ meta }) => {
                 layout.small
               ]}
             >
-              Everything works better together — Break the code barrier,
-              automating any site in a few lines.
+              Just start with code — Instant integration, automating any site in
+              a few lines.
             </Caption>
           </Flex>
           <Flex
             pt={[3, 3, 4, 4]}
-            maxWidth={CARDS_MAX_WIDTH}
+            maxWidth={maxWidth}
             justifyContent='center'
             flexWrap='wrap'
           >
-            {Object.keys(recipes)
-              .sort()
-              .map(recipeName => {
-                const { meta } = recipes[recipeName]
+            {allRecipes.map((recipeName, index) => {
+              const { meta } = recipes[recipeName]
+              const count = isLoading ? '…' : counters[index]
 
-                const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(recipeName)
-                const url = isGeneric
-                  ? 'https://microlink.io'
-                  : meta.examples[0]
-                const domain = getDomain(url)
+              const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(recipeName)
+              const url = isGeneric ? 'https://microlink.io' : meta.examples[0]
+              const domain = getDomain(url)
 
-                const description = isGeneric
-                  ? meta.description
-                  : `Interact with ${domain}`
+              const description = isGeneric
+                ? meta.description
+                : `Interact with ${domain}`
 
-                return (
-                  <Card
-                    px={4}
-                    ratio={CARD_SIZE}
-                    key={recipeName}
-                    mb={4}
-                    mr={[0, 0, 4, 4]}
-                    flexDirection='column'
-                    justifyContent='center'
-                  >
-                    <CustomLink href={`/recipes/${kebabCase(recipeName)}`}>
-                      <Flex justifyContent='center'>
+              return (
+                <Card
+                  key={recipeName}
+                  flexDirection='column'
+                  p={3}
+                  width={width}
+                  height='inherit'
+                  mb={3}
+                  mr={[0, 3, 3, 3]}
+                >
+                  <CustomLink href={`/recipes/${kebabCase(recipeName)}`}>
+                    <Flex alignItems='center'>
+                      <Box pr={2}>
                         <Logo
-                          width={LOGO_SIZE}
-                          height={LOGO_SIZE}
+                          width='24px'
+                          height='24px'
                           isGeneric={isGeneric}
                           domain={domain}
                           {...meta}
                         />
-                      </Flex>
-                      <Box>
-                        <Box py={3}>
-                          <Text textAlign='center' fontWeight='bold'>
-                            {meta.name}
-                          </Text>
-                          <Text
-                            px={[0, 0, 4, 4]}
-                            textAlign='center'
-                            fontSize={1}
-                          >
-                            {description}
-                          </Text>
-                        </Box>
-                        {/* <Flex
-                          justifyContent='center'
-                          alignItems='center'
-                          flexWrap='wrap'
-                        >
-                          {['marketing', 'ecommerce', 'live'].map(children => (
-                            <Badge
-                              border='0.5px solid'
-                              borderColor='black10'
-                              key={children}
-                              children={children}
-                              bg='gray1'
-                              fontWeight='regular'
-                              color='black'
-                              mr={2}
-                              mb={2}
-                            />
-                          ))}
-                        </Flex> */}
                       </Box>
-                    </CustomLink>
-                  </Card>
-                )
-              })}
+                      <Text fontSize={1} fontWeight='bold'>
+                        {meta.name}
+                      </Text>
+                    </Flex>
+                    <Flex>
+                      <Text
+                        mt={2}
+                        fontSize={0}
+                        css={`
+                          min-height: 56px;
+                        `}
+                      >
+                        {description}
+                      </Text>
+                    </Flex>
+                    <Flex>
+                      <Text color={colors.black50} fontSize={0}>
+                        <Eye size={12} color={colors.black50} />{' '}
+                        {formatNumber(count)}
+                      </Text>
+                    </Flex>
+                  </CustomLink>
+                </Card>
+              )
+            })}
           </Flex>
           <Flex
             pt={Container.defaultProps.pt}
