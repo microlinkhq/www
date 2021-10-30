@@ -1,5 +1,5 @@
 import { DotsBackground, Layout, Caption } from 'components/patterns'
-import { colors, space, layout, toPx, toRaw } from 'theme'
+import { colors, space, layout, toPx, toRaw, fontSizes } from 'theme'
 import byFeature from '@microlink/recipes/by-feature'
 import React, { useState, useEffect } from 'react'
 import kebabCase from 'lodash/kebabCase'
@@ -43,15 +43,15 @@ const CustomLink = styled(Link)`
 const RecipesPage = ({ meta }) => {
   const allRecipes = Object.keys(recipes).sort()
   const [counters, setCounters] = useState(null)
-  const isLoading = counters === null
+  const isLoaded = counters !== null
 
   useEffect(() => {
     window
       .fetch(`https://count.vercel.app/recipes/${allRecipes.join(',')}`)
       .then(response => response.json())
-      .then(data => setCounters(data))
+      .then(setCounters)
       .catch(() => undefined)
-  }, [])
+  }, [allRecipes])
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
@@ -96,7 +96,7 @@ const RecipesPage = ({ meta }) => {
           >
             {allRecipes.map((recipeName, index) => {
               const { meta } = recipes[recipeName]
-              const count = !isLoading && counters[index]
+              const count = isLoaded && counters[index]
 
               const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(recipeName)
               const url = isGeneric ? 'https://microlink.io' : meta.examples[0]
@@ -133,7 +133,7 @@ const RecipesPage = ({ meta }) => {
                     </Flex>
                     <Flex>
                       <Text
-                        mt={2}
+                        mt={3}
                         fontSize={0}
                         css={`
                           min-height: 56px;
@@ -142,10 +142,10 @@ const RecipesPage = ({ meta }) => {
                         {description}
                       </Text>
                     </Flex>
-                    {count && (
-                      <Flex>
-                        <Text color={colors.black50} fontSize={0}>
-                          <Eye size={12} color={colors.black50} />{' '}
+                    {isLoaded && (
+                      <Flex alignItems='center'>
+                        <Eye size={fontSizes[0]} color={colors.black50} />
+                        <Text pl={1} color={colors.black50} fontSize={0}>
                           {formatNumber(count)}
                         </Text>
                       </Flex>

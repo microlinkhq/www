@@ -1,15 +1,53 @@
 import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
-import { Microlink as MicrolinkLogo } from 'components/logos'
-import { cx, fontSizes, layout } from 'theme'
-import { Plus } from 'react-feather'
-import React from 'react'
-
-import { Box, CodeEditor, Flex, Heading, Script } from 'components/elements'
+import React, { useState, useEffect } from 'react'
+import { fontSizes, colors, layout } from 'theme'
 import { Logo } from 'components/pages/recipes'
+import { formatNumber } from 'helpers'
+import { Eye } from 'react-feather'
 
-const LOGO_SIZE = ['32px', '32px', '48px', '48px']
+import {
+  Text,
+  Box,
+  CodeEditor,
+  Flex,
+  Heading,
+  Script
+} from 'components/elements'
+
+const Description = recipe => {
+  const { description, domain } = recipe
+  const children = []
+
+  for (const str of description.split(domain)) {
+    if (str !== '') {
+      children.push(str.trim())
+    } else {
+      children.push(
+        <Box ml={2} mr={1}>
+          <Logo width='24px' height='24px' {...recipe} />
+        </Box>
+      )
+      children.push(domain)
+    }
+  }
+
+  return children
+}
+
+const Name = ({ isGeneric, name }) => (isGeneric ? name : `Microlink × ${name}`)
 
 const RecipeTemplate = ({ pageContext: recipe }) => {
+  const [count, setCount] = useState(null)
+  const isLoaded = count !== null
+
+  useEffect(() => {
+    window
+      .fetch(`https://count.vercel.app/recipes/${recipe.key}?incr`)
+      .then(response => response.json())
+      .then(setCount)
+      .catch(() => undefined)
+  }, [recipe.key])
+
   const meta = {
     title: `Microlink Recipe: ${recipe.name}`
   }
@@ -30,25 +68,13 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
           justifyContent='center'
           alignItems='center'
         >
-          <Flex alignItems='center' justifyContent='center'>
-            <MicrolinkLogo width={LOGO_SIZE} />
-            {!recipe.isGeneric && (
-              <Box ml={3} mr={3}>
-                <Plus color={cx('gray8')} size={fontSizes[2]} />
-              </Box>
-            )}
-            {!recipe.isGeneric && (
-              <Logo width={LOGO_SIZE} height={LOGO_SIZE} {...recipe} />
-            )}
-          </Flex>
-
-          <Heading pt={[3, 3, 4, 4]} titleize={false}>
-            Microlink Recipe
+          <Heading fontSize={4} pt={[3, 3, 4, 4]} titleize={false}>
+            <Name {...recipe} />
           </Heading>
 
           <Caption
             titleize={false}
-            pt={[3, 3, 4, 4]}
+            pt={[3, 3, 3, 3]}
             px={[4, 4, 0, 0]}
             maxWidth={[
               layout.small,
@@ -56,9 +82,22 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
               layout.normal,
               layout.normal
             ]}
+            style={{
+              display: 'flex',
+              alignItems: 'center'
+            }}
           >
-            {recipe.description}
+            <Description {...recipe} />
           </Caption>
+
+          {isLoaded && (
+            <Flex pt={[2, 2, 2, 2]} alignItems='center'>
+              <Eye size={fontSizes[2]} color={colors.black50} />
+              <Text pl={2} color={colors.black50}>
+                {formatNumber(count)}
+              </Text>
+            </Flex>
+          )}
 
           <Flex
             pt={4}
