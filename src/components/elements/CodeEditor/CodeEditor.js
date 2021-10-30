@@ -123,6 +123,7 @@ const TerminalTextWrapper = styled.div`
 
 const Terminal = ({
   title = '',
+  loading = false,
   children,
   theme,
   prismTheme,
@@ -141,9 +142,9 @@ const Terminal = ({
       {...props}
     >
       <TerminalHeader background={background} theme={theme}>
-        <TerminalButton.Red theme={theme} />
-        <TerminalButton.Yellow theme={theme} />
-        <TerminalButton.Green theme={theme} />
+        <TerminalButton.Red loading={loading} theme={theme} />
+        <TerminalButton.Yellow loading={loading} theme={theme} />
+        <TerminalButton.Green loading={loading} theme={theme} />
         <TerminalTitle theme={theme}>{title}</TerminalTitle>
         <ActionComponent isHover={isHover} theme={theme} text={text} />
       </TerminalHeader>
@@ -175,6 +176,7 @@ const CodeEditor = props => {
 
   const TerminalComponent = (
     <Terminal
+      loading={interactive}
       theme={theme}
       prismTheme={prismTheme}
       id={id}

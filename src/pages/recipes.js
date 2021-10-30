@@ -50,6 +50,7 @@ const RecipesPage = ({ meta }) => {
       .fetch(`https://count.vercel.app/recipes/${allRecipes.join(',')}`)
       .then(response => response.json())
       .then(data => setCounters(data))
+      .catch(() => undefined)
   }, [])
 
   return (
@@ -95,7 +96,7 @@ const RecipesPage = ({ meta }) => {
           >
             {allRecipes.map((recipeName, index) => {
               const { meta } = recipes[recipeName]
-              const count = isLoading ? '…' : counters[index]
+              const count = !isLoading && counters[index]
 
               const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(recipeName)
               const url = isGeneric ? 'https://microlink.io' : meta.examples[0]
@@ -141,12 +142,14 @@ const RecipesPage = ({ meta }) => {
                         {description}
                       </Text>
                     </Flex>
-                    <Flex>
-                      <Text color={colors.black50} fontSize={0}>
-                        <Eye size={12} color={colors.black50} />{' '}
-                        {formatNumber(count)}
-                      </Text>
-                    </Flex>
+                    {count && (
+                      <Flex>
+                        <Text color={colors.black50} fontSize={0}>
+                          <Eye size={12} color={colors.black50} />{' '}
+                          {formatNumber(count)}
+                        </Text>
+                      </Flex>
+                    )}
                   </CustomLink>
                 </Card>
               )

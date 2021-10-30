@@ -3,6 +3,7 @@ import { lighten } from 'polished'
 
 export const toPx = n => `${n}px`
 export const toEm = n => `${n}em`
+export const toMs = n => `${n}ms`
 export const toRaw = n => Number(n.replace(/px|em/, ''))
 
 export const breakpoints = [768, 992, 1200, 1200].map(toPx)
@@ -274,10 +275,16 @@ export const speed = {
   slowly: 450
 }
 
+export const timings = {
+  short: 'cubic-bezier(.25,.8,.25,1)',
+  medium: 'cubic-bezier(.25,.8,.25,1)',
+  long: 'cubic-bezier(.4, 0, .2, 1)'
+}
+
 export const transition = {
-  short: `${speed.quickly}ms cubic-bezier(.25,.8,.25,1)`,
-  medium: `${speed.normal}ms cubic-bezier(.25,.8,.25,1)`,
-  long: `${speed.slowly}ms cubic-bezier(.4, 0, .2, 1)`
+  short: `${speed.quickly}ms ${timings.short}`,
+  medium: `${speed.normal}ms ${timings.medium}`,
+  long: `${speed.slowly}ms ${timings.long}`
 }
 
 export const textGradient = {
@@ -327,6 +334,7 @@ const theme = {
   space,
   speed,
   textStyles,
+  timings,
   transition
 }
 
