@@ -23,7 +23,7 @@ const Description = recipe => {
       children.push(str.trim())
     } else {
       children.push(
-        <Box ml={2} mr={1}>
+        <Box key={domain} ml={2} mr={1}>
           <Logo width='24px' height='24px' {...recipe} />
         </Box>
       )

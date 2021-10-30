@@ -81,18 +81,18 @@ export const TerminalButton = styled('div')`
   border: 1px solid;
   border-color: ${colors.black10};
   background: ${props => cx(props.color)};
-  ${props => props.loading && animationStyle}
+  ${({ loading }) => loading && animationStyle}
 `
 
 const animationSpeed = speed.slowly
 const animationDuration = toMs(animationSpeed)
 const animationDelay = (n = 1) => `${(animationSpeed / 2) * n}ms`
 
-const TerminalButtonRed = props => (
+const TerminalButtonRed = ({ loading, ...props }) => (
   <TerminalButton
     color='fullscreen'
     style={
-      props.loading
+      loading
         ? {
             animationDelay: animationDelay(1),
             animationDuration
@@ -103,22 +103,22 @@ const TerminalButtonRed = props => (
   />
 )
 
-const TerminalButtonYellow = props => (
+const TerminalButtonYellow = ({ loading, ...props }) => (
   <TerminalButton
     style={Object.assign(
       { margin: '0 4px' },
-      props.loading && { animationDelay: animationDelay(2), animationDuration }
+      loading && { animationDelay: animationDelay(2), animationDuration }
     )}
     color='minimize'
     {...props}
   />
 )
 
-const TerminalButtonGreen = props => (
+const TerminalButtonGreen = ({ loading, ...props }) => (
   <TerminalButton
     color='close'
     style={
-      props.loading
+      loading
         ? {
             animationDelay: animationDelay(3),
             animationDuration
