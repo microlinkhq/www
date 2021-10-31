@@ -27,7 +27,7 @@ const Runkit = ({ placeholderComponent, title, code: source }) => {
             tabSize: 2,
             onLoad: () => {
               childs.forEach(child => element.removeChild(child))
-              element.style['box-shadow'] = 'none'
+              element.style.border = 'none'
             }
           })
         )

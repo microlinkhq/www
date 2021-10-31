@@ -13,13 +13,11 @@ const RECIPES_BY_FEATURES_KEYS = Object.keys(
 
 const getLastEdited = async filepath => {
   let date
-
   try {
     date = await getLastModifiedDate(filepath)
   } catch (err) {
     date = new Date().toISOString()
   }
-
   return date
 }
 
@@ -28,7 +26,6 @@ const getBranchName = async () => {
   try {
     result = await getCurrentBranchName()
   } catch (_) {}
-
   return result.replace('HEAD', 'master')
 }
 
@@ -73,27 +70,43 @@ exports.createPages = ({ graphql, actions }) => {
   ])
 }
 
-const createRecipesPages = async ({ createPage, recipes }) => {
-  const pages = map(recipes, async (recipe, key) => {
-    const slug = kebabCase(key)
-    const route = `/recipes/${slug}`
+const getDescription = (recipe, { domain, isGeneric }) =>
+  isGeneric ? recipe.meta.description : `Interact with ${domain}`
 
-    const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(key)
-    const url = isGeneric ? 'https://microlink.io' : recipe.meta.examples[0]
+const getMqlCode = (recipe, { name }) => `const mql = require('@microlink/mql')
 
-    const domain = getDomain(url)
+const ${name} = ${recipe.toString()}
 
-    const description = isGeneric
-      ? recipe.meta.description
-      : `Interact with ${domain}`
-
-    const code = `const mql = require('@microlink/mql')
-
-const ${key} = ${recipe.toString()}
-
-const result = await ${key}('${recipe.meta.examples[0]}')
+const result = await ${name}('${recipe.meta.examples[0]}')
 
 mql.render(result)`
+
+const getFunctionCode = (
+  recipe,
+  { name }
+) => `const microlink = require('@microlink/function')
+const mql = require('@microlink/mql')
+
+
+const ${name} = microlink(${recipe.code})
+
+const result = await ${name}('${recipe.meta.examples[0]}')
+
+mql.render(result)`
+
+const getCode = (recipe, { name }) =>
+  (recipe.code ? getFunctionCode : getMqlCode)(recipe, { name })
+
+const createRecipesPages = async ({ createPage, recipes }) => {
+  const pages = map(recipes, async (recipe, name) => {
+    const slug = kebabCase(name)
+    const route = `/recipes/${slug}`
+
+    const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(name)
+    const url = isGeneric ? 'https://microlink.io' : recipe.meta.examples[0]
+    const domain = getDomain(url)
+    const description = getDescription(recipe, { domain, isGeneric })
+    const code = getCode(recipe, { name })
 
     return createPage({
       path: route,
@@ -105,7 +118,7 @@ mql.render(result)`
         domain,
         isGeneric,
         url,
-        key,
+        key: name,
         description
       }
     })

@@ -1,6 +1,6 @@
+import { transition, colors, borders } from 'theme'
 import React, { useMemo, useState } from 'react'
-import { transition, colors } from 'theme'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import noop from 'lodash/noop'
 
 import Text from '../Text'
@@ -17,8 +17,7 @@ const InputBase = styled(Text)(
     border: 0,
     appearance: 'none',
     '&:focus': {
-      outline: '0',
-      boxShadow: `inset 0 0 0 1px ${colors.blue500}`
+      outline: '0'
     },
     '&:disabled': {
       opacity: 1 / 4
@@ -37,22 +36,26 @@ InputBase.defaultProps = {
   bg: 'transparent'
 }
 
+const focusStyle = css`
+  outline: 0;
+  border-color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+  svg {
+    stroke: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+    color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+  }
+`
+
 const InputWrapper = styled(Flex)`
-  border: 1px solid;
-  border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black20)};
+  background: ${({ isDark }) => (isDark ? colors.black : colors.white)};
+  border: ${borders[1]};
+  border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black10)};
+  color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
   transition: border-color ${transition.medium}, stroke ${transition.medium},
     color ${transition.medium};
-  ${props =>
-    props.focus &&
-    `
-  outline: 0;
-  border-color: ${colors.hoverLink};
-
-  svg  {
-    stroke: ${colors.hoverLink};
-    color: ${colors.hoverLink};
+  ${props => props.focus && focusStyle}
+  &:hover {
+    ${focusStyle};
   }
-`}
 `
 
 const Input = ({
@@ -66,6 +69,7 @@ const Input = ({
   ...props
 }) => {
   const [isFocus, setFocus] = useState(props.autoFocus)
+  const isDark = theme === 'dark'
 
   const list = useMemo(() => {
     if (!suggestions) return undefined
@@ -83,7 +87,7 @@ const Input = ({
       alignItems='center'
       borderRadius={2}
       focus={isFocus}
-      isDark={theme === 'dark'}
+      isDark={isDark}
       py='12px'
       pl={2}
       pr={suggestions ? 0 : 2}

@@ -1,13 +1,14 @@
 import { Hide, Box, Caps, Flex, Subhead } from 'components/elements'
 import { Block, Caption } from 'components/patterns'
 import { useAnalytics } from 'components/hook'
+import { colors, borders } from 'theme'
 import styled from 'styled-components'
 import take from 'lodash/take'
-import { colors } from 'theme'
 import React from 'react'
 
 const Separator = styled(Box)`
-  border-right: 1px solid ${colors.white20};
+  border-right: ${borders[1]};
+  border-color: ${colors.white20};
   width: 1px;
 `
 

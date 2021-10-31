@@ -73,6 +73,9 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const TerminalHeader = styled.header`
   ${styleTerminalHeader};
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
   height: ${TERMINAL_HEADER_HEIGHT};
   background: ${props => themes[props.theme].background};
   top: 1px;
@@ -80,10 +83,11 @@ const TerminalHeader = styled.header`
 
   .codecopy_button {
     background: ${props => themes[props.theme].background};
-    border-color: ${({ theme }) => theme === 'dark' && cx('black80')};
+    border-color: ${({ theme }) =>
+      theme === 'dark' ? cx('white80') : cx('black80')};
+
     svg {
-      fill: ${({ theme }) =>
-        theme === 'light' ? cx('black80') : cx('white80')};
+      fill: ${({ theme }) => cx(theme === 'dark' ? 'white' : 'black')};
     }
   }
 `
@@ -119,6 +123,7 @@ const TerminalTextWrapper = styled.div`
 
 const Terminal = ({
   title = '',
+  loading = false,
   children,
   theme,
   prismTheme,
@@ -133,12 +138,13 @@ const Terminal = ({
     <TerminalWindow
       onMouseOut={() => setHover(false)}
       onMouseOver={() => setHover(true)}
+      theme={theme}
       {...props}
     >
       <TerminalHeader background={background} theme={theme}>
-        <TerminalButton.Red theme={theme} />
-        <TerminalButton.Yellow theme={theme} />
-        <TerminalButton.Green theme={theme} />
+        <TerminalButton.Red loading={loading} theme={theme} />
+        <TerminalButton.Yellow loading={loading} theme={theme} />
+        <TerminalButton.Green loading={loading} theme={theme} />
         <TerminalTitle theme={theme}>{title}</TerminalTitle>
         <ActionComponent isHover={isHover} theme={theme} text={text} />
       </TerminalHeader>
@@ -170,6 +176,7 @@ const CodeEditor = props => {
 
   const TerminalComponent = (
     <Terminal
+      loading={interactive}
       theme={theme}
       prismTheme={prismTheme}
       id={id}

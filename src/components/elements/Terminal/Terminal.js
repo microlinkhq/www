@@ -1,15 +1,18 @@
+import styled, { css, keyframes } from 'styled-components'
 import { serializeComponent, aspectRatio } from 'helpers'
-import styled, { css } from 'styled-components'
 import { blink } from 'components/keyframes'
 import { wordBreak } from 'helpers/style'
 import CodeCopy from 'react-codecopy'
 import React from 'react'
 
 import {
+  speed,
+  toMs,
+  timings,
   cx,
   colors,
-  shadowOffsets,
-  shadowColors,
+  radii,
+  borders,
   fonts,
   fontWeights
 } from 'theme'
@@ -18,8 +21,9 @@ import Text from '../Text'
 import Box from '../Box'
 
 export const TerminalWindow = styled(Box)`
-  border-radius: 5px;
-  box-shadow: ${shadowOffsets[0]} ${shadowColors[0]};
+  border-radius: ${radii[3]};
+  border: ${borders[1]};
+  border-color: ${({ theme }) => cx(theme === 'dark' ? 'white10' : 'black10')};
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
@@ -29,14 +33,23 @@ export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
   0.68
 ])
 
+const createBgAnimation = color => keyframes`
+from {
+  background: transparent;
+}
+to {
+  background: ${color};
+}
+`
+
 const fromString = text =>
   Array.isArray(text)
     ? text
     : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
 
 export const styleTerminalHeader = css`
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  border-top-right-radius: ${radii[3]};
+  border-top-left-radius: ${radii[3]};
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -51,19 +64,69 @@ const TerminalHeader = styled('header')`
   z-index: 1;
 `
 
+const animationStyle = css`
+  background: transparent;
+  animation-name: ${props => createBgAnimation(cx(props.color))};
+  animation-timing-function: ${timings.long};
+  animation-fill-mode: both;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+`
+
 export const TerminalButton = styled('div')`
   border-radius: 50px;
   width: 12px;
   height: 12px;
-  background ${({ color }) => cx(color)};
+
+  border: 1px solid;
+  border-color: ${colors.black10};
+  background: ${props => cx(props.color)};
+  ${({ loading }) => loading && animationStyle}
 `
 
-const TerminalButtonGreen = props => <TerminalButton color='close' {...props} />
-const TerminalButtonYellow = props => (
-  <TerminalButton style={{ margin: '0 4px' }} color='minimize' {...props} />
+const animationSpeed = speed.slowly
+const animationDuration = toMs(animationSpeed)
+const animationDelay = (n = 1) => `${(animationSpeed / 2) * n}ms`
+
+const TerminalButtonRed = ({ loading, ...props }) => (
+  <TerminalButton
+    color='fullscreen'
+    style={
+      loading
+        ? {
+            animationDelay: animationDelay(1),
+            animationDuration
+          }
+        : undefined
+    }
+    {...props}
+  />
 )
-const TerminalButtonRed = props => (
-  <TerminalButton color='fullscreen' {...props} />
+
+const TerminalButtonYellow = ({ loading, ...props }) => (
+  <TerminalButton
+    style={Object.assign(
+      { margin: '0 4px' },
+      loading && { animationDelay: animationDelay(2), animationDuration }
+    )}
+    color='minimize'
+    {...props}
+  />
+)
+
+const TerminalButtonGreen = ({ loading, ...props }) => (
+  <TerminalButton
+    color='close'
+    style={
+      loading
+        ? {
+            animationDelay: animationDelay(3),
+            animationDuration
+          }
+        : undefined
+    }
+    {...props}
+  />
 )
 
 TerminalButton.Green = TerminalButtonGreen
@@ -119,7 +182,6 @@ const blinkCursorStyle = css`
     display: inline-block;
     width: 1px;
     height: 14px;
-    border-radius: 3px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     background: ${({ theme }) =>
       theme === 'dark' ? colors.secondary : colors.black};
@@ -142,11 +204,12 @@ const TerminalTextWrapper = styled('div')`
 `
 
 const TerminalProvider = ({ title = '', children, theme, ...props }) => {
-  const background = theme === 'dark' ? colors.black : colors.white
-  const color = theme === 'dark' ? colors.white : colors.black
+  const isDark = theme === 'dark'
+  const background = isDark ? colors.black : colors.white
+  const color = isDark ? colors.white : colors.black
 
   return (
-    <TerminalWindow theme={theme} {...props}>
+    <TerminalWindow {...props} theme={theme}>
       <TerminalHeader background={background} theme={theme}>
         <TerminalButton.Red theme={theme} />
         <TerminalButton.Yellow theme={theme} />
