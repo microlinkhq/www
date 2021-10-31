@@ -46,8 +46,9 @@ const focusStyle = css`
 `
 
 const InputWrapper = styled(Flex)`
+  background: ${({ isDark }) => (isDark ? colors.black : colors.white)};
   border: ${borders[1]};
-  border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black20)};
+  border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black10)};
   color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
   transition: border-color ${transition.medium}, stroke ${transition.medium},
     color ${transition.medium};
