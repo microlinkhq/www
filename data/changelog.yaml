@@ -1,12 +1,13 @@
 - date: November 2021
   notes:
+    - "[Microlink API](/docs/api/getting-started/overview): Added BMP, WebP & AVIF support for [palette](//docs/api/parameters/palette)."
     - "[Microlink](/): Special thanks to [Haaris B](mailto:haaris.blacktech@gmail.com) for improving service security."
 
 - date: October 2021
   notes:
     - "[Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration."
     - "[Microlink Recipes](/recipes): Added [emails](/recipes/get-emails) recipe."
-    - "[Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) type."
+    - "[Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) as type."
     - "[Microlink API](/docs/api/getting-started/overview): Special thanks to [Daniel Wang](https://danielwang.dev) for improving service security."
     - "[Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes."
 
