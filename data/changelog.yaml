@@ -1,5 +1,6 @@
 - date: November 2021
   notes:
+    - "[Microlink](/): Revamped [recipes](/recipes)."
     - "[Microlink API](/docs/api/getting-started/overview): Added BMP, WebP & AVIF support for [palette](/docs/api/parameters/palette)."
     - "[Microlink](/): Special thanks to [Haaris B](mailto:haaris.blacktech@gmail.com) for improving service security."
 
