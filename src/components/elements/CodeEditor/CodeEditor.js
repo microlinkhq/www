@@ -174,14 +174,20 @@ const CodeEditor = props => {
   const css = highlightLines && highlighLinesStyle(highlightLines, prismTheme)
   const id = `codeditor-${hash(children)}`
 
+  const isInteractive =
+    interactive &&
+    language === 'js' &&
+    !text.includes('import') &&
+    !text.startsWith('{')
+
   const TerminalComponent = (
     <Terminal
-      loading={interactive}
       theme={theme}
       prismTheme={prismTheme}
       id={id}
       text={text}
       ActionComponent={ActionComponent}
+      loading={isInteractive}
       {...restProps}
     >
       <TerminalTextWrapper theme={theme}>
@@ -198,14 +204,7 @@ const CodeEditor = props => {
     </Terminal>
   )
 
-  if (
-    interactive === false ||
-    language !== 'js' ||
-    text.includes('import') ||
-    text.startsWith('{')
-  ) {
-    return TerminalComponent
-  }
+  if (!isInteractive) return TerminalComponent
 
   return (
     <Runkit
