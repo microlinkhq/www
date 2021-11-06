@@ -142,14 +142,15 @@ const RecipesPage = ({ meta }) => {
                         {description}
                       </Text>
                     </Flex>
-                    {isLoaded && (
-                      <Flex alignItems='center'>
-                        <Eye size={fontSizes[0]} color={colors.black50} />
-                        <Text pl={1} color={colors.black50} fontSize={0}>
-                          {formatNumber(count)}
-                        </Text>
-                      </Flex>
-                    )}
+                    <Flex
+                      alignItems='center'
+                      style={{ visibility: isLoaded ? 'inherit' : 'hidden' }}
+                    >
+                      <Eye size={fontSizes[0]} color={colors.black50} />
+                      <Text pl={1} color={colors.black50} fontSize={0}>
+                        {formatNumber(count)}
+                      </Text>
+                    </Flex>
                   </CustomLink>
                 </Card>
               )
