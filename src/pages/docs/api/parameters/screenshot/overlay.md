@@ -6,7 +6,7 @@ Type: <Type children='<object>'/>
 
 It sets some aesthetic overlay settings associated with your screenshot.
 
-![](https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fmusic&meta=false&screenshot=&overlay.browser=dark&overlay.background=linear-gradient%28225deg%2C+%23FF057C+0%25%2C+%238D0B93+50%25%2C+%23321575+100%25%29&embed=screenshot.url)
+![](https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fmusic&meta=false&screenshot=&overlay.browser=dark&overlay.background=linear-gradient%28225deg%2C+%23FF057C+0%25%2C+%238D0B93+50%25%2C+%23321575+100%25%29&embed=screenshot.url&waitForTimeout=1000)
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.apple.url}}&meta=false&screenshot=&overlay.browser=dark&overlay.background=linear-gradient%28225deg%2C+%23FF057C+0%25%2C+%238D0B93+50%25%2C+%23321575+100%25%29`,
@@ -16,6 +16,7 @@ module.exports = async () => {
   const { status, data, response } = await mql(
     '{{demolinks.apple.url}}', { 
       screenshot: true,
+      waitForTimeout: 1000,
       meta: false,
       overlay: {
         background: 'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)',
