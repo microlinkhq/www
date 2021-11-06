@@ -77,3 +77,5 @@ You can combine it with [embed](/docs/api/parameters/embed) for inserting it as 
   <button>Download File</button>
 </a>
 ```
+
+When you generate a PDF the [mediaType](/docs/api/parameters/mediaType) is automatically set as `'print'`.
