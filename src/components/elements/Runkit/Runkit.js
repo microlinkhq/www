@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { waitForGlobal } from 'helpers'
 
-const NODE_VERSION = '14'
+const NODE_VERSION = '16'
 
 const Runkit = ({ placeholderComponent, title, code: source }) => {
   const id = placeholderComponent.props.id
