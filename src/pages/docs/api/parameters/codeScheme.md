@@ -7,7 +7,7 @@ Default: <Type children='atom-dark'/>
 
 Sets the code syntax highlighting color theme to use for beautifying HTML markup.
 
-![](https://i.imgur.com/5WIekwy.png)
+![](https://api.microlink.io/?url=https%3A%2F%2Femojipedia-api.vercel.app&meta=false&screenshot=&embed=screenshot.url&codeScheme=atom-dark)
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://healthcheck.microlink.io&screenshot&codeScheme=atom-dark`,
@@ -15,7 +15,8 @@ Sets the code syntax highlighting color theme to use for beautifying HTML markup
  
 module.exports = async () => {
   const { status, data, response } = await mql(
-    'https://healthcheck.microlink.io'. {
+    'https://emojipedia-api.vercel.app', {
+      meta: false,
       screenshot: true,
       codeScheme: 'atom-dark'
   })
