@@ -42,7 +42,7 @@ const CustomLink = styled(Link)`
 
 const allRecipes = Object.keys(recipes).sort()
 
-const RecipesPage = ({ meta }) => {
+const RecipesPage = () => {
   const [counters, setCounters] = useState(null)
   const isLoaded = counters !== null
 
@@ -56,7 +56,7 @@ const RecipesPage = ({ meta }) => {
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout footer={{ bg: 'transparent' }} {...meta}>
+      <Layout footer={{ bg: 'transparent' }}>
         <Flex
           width='100%'
           flexDirection='column'

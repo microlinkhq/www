@@ -5,11 +5,11 @@ import { useChangelog } from 'components/hook'
 import { layout } from 'theme'
 import React from 'react'
 
-const ChangelogPage = ({ meta }) => {
+const ChangelogPage = () => {
   const changelog = useChangelog()
 
   return (
-    <Layout {...meta}>
+    <Layout>
       <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
         <Heading maxWidth={layout.large}>Changelog</Heading>
         <Caption
