@@ -40,8 +40,9 @@ const CustomLink = styled(Link)`
   }
 `
 
+const allRecipes = Object.keys(recipes).sort()
+
 const RecipesPage = ({ meta }) => {
-  const allRecipes = Object.keys(recipes).sort()
   const [counters, setCounters] = useState(null)
   const isLoaded = counters !== null
 
