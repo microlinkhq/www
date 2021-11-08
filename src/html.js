@@ -5,6 +5,7 @@ export default function HTML (props) {
   return (
     <html lang='en' {...props.htmlAttributes}>
       <head>
+        <meta charSet='utf-8' />
         <link
           rel='preconnect'
           href='https://cdn.microlink.io'
@@ -22,7 +23,6 @@ export default function HTML (props) {
         {props.headComponents}
 
         {/* <!-- Basic --> */}
-        <meta charSet='utf-8' />
         <meta
           name='viewport'
           content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
