@@ -42,4 +42,4 @@ If you need to consume the API from a frontend side (e.g, from a website), don't
 
 Instead, you need to setup a mechanism to just allow consume your token for a allowed list of trusted domains. 
 
-Check [microlink-proxy](https://github.com/microlinkhq/proxy) for that.
+Check our repositories [proxy](https://github.com/microlinkhq/proxy) and [edge-proxy](https://github.com/microlinkhq/edge-proxy) to accomplish that.
