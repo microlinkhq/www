@@ -20,7 +20,7 @@ module.exports = async () => {
       }
   })
  
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 
@@ -39,7 +39,7 @@ module.exports = async () => {
     }
   })
  
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 
@@ -59,7 +59,7 @@ module.exports = async () => {
     screenshot: true
   })
  
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 
@@ -86,7 +86,7 @@ module.exports = async () => {
     }
   })
  
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

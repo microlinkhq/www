@@ -20,7 +20,7 @@ module.exports = async () => {
       screenshot: true,
       codeScheme: 'atom-dark'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }}

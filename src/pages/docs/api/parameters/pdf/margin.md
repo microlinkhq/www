@@ -22,7 +22,7 @@ module.exports = async () => {
       pdf: true,
       margin: '4mm'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

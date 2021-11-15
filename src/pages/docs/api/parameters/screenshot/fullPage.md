@@ -17,7 +17,7 @@ module.exports = async () => {
       screenshot: true,
       fullPage: true
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

@@ -22,7 +22,7 @@ module.exports = async () => {
     apiKey: 'MyApiToken',
     proxy: 'https://user:password@host:1337'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }}

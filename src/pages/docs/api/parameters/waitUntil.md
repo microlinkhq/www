@@ -26,7 +26,7 @@ module.exports = async () => {
       screenshot: true
       waitUntil: 'domcontentloaded'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 
@@ -45,7 +45,7 @@ module.exports = async () => {
       waitUntil: 'domcontentloaded',
       waitFor: 'h1'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

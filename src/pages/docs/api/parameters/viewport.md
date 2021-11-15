@@ -22,7 +22,7 @@ module.exports = async () => {
         isMobile: true
       }
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 
@@ -57,7 +57,7 @@ module.exports = async () => {
         deviceScaleFactor: 0.5
       }
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

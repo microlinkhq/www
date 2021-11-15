@@ -19,7 +19,7 @@ module.exports = async () => {
       embed: 'screenshot.url' 
   })
     
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

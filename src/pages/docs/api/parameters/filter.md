@@ -16,7 +16,7 @@ module.exports = async () => {
       filter: 'url,title'
   })
      
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

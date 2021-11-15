@@ -17,7 +17,7 @@ module.exports = async () => {
       video: true 
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

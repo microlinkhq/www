@@ -20,7 +20,7 @@ module.exports = async () => {
       pdf: true,
       height: '480px'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

@@ -16,7 +16,7 @@ module.exports = async () => {
       screenshot: true,
       waitForTimeout: '1500'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

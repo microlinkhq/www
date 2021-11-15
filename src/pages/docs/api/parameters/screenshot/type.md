@@ -18,7 +18,7 @@ module.exports = async () => {
       screenshot: true,
       type: 'jpeg'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

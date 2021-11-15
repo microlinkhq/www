@@ -17,7 +17,7 @@ module.exports = async () => {
       ping: true
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 
@@ -39,7 +39,7 @@ module.exports = async () => {
       }
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 
@@ -59,7 +59,7 @@ module.exports = async () => {
       ping: false
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

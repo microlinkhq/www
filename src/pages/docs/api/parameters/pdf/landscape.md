@@ -21,7 +21,7 @@ module.exports = async () => {
       pdf: true,
       landscape: true
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

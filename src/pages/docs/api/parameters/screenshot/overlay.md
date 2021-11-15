@@ -23,7 +23,7 @@ module.exports = async () => {
         browser: 'dark'
       }
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

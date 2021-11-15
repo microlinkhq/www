@@ -16,7 +16,7 @@ module.exports = async () => {
     'https://www.youtube.com'. { 
       adblock: false
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

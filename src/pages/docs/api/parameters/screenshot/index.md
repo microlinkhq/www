@@ -19,7 +19,7 @@ module.exports = async () => {
     '{{demolinks.netflix.url}}', { 
       screenshot: true
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

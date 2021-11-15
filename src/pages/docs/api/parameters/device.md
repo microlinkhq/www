@@ -17,7 +17,7 @@ module.exports = async () => {
       screenshot: true,
       device: 'iPad',
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

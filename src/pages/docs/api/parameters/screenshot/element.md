@@ -16,7 +16,7 @@ module.exports = async () => {
       screenshot: true,
       element: '#ipw_main_area'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

@@ -23,7 +23,7 @@ module.exports = async () => {
       pdf: true,
       mediaType: 'screen'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

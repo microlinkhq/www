@@ -17,7 +17,7 @@ module.exports = async () => {
       timeout: 25000
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

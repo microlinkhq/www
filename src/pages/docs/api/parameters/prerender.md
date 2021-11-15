@@ -27,7 +27,7 @@ Ideally, you don't need to think about prerendering: The default value <Type chi
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive')
   
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 
@@ -47,7 +47,7 @@ If you know the target URL doesn't need prerender, you can disable it explicitly
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', { prerender: false })
   
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

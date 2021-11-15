@@ -19,7 +19,7 @@ module.exports = async () => {
       screenshot: true,
       animations: true
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

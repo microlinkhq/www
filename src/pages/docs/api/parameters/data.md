@@ -21,7 +21,7 @@ module.exports = async () => {
     }
   })
     
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

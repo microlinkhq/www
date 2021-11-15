@@ -13,7 +13,7 @@ const mql = require('@microlink/mql')
 
 const { status, data } = await mql('https://github.com/microlinkhq')
 
-console.log(status, data)
+console.log(data)
 ```
 
 or from your terminal:

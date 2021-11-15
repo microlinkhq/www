@@ -17,7 +17,7 @@ module.exports = async () => {
       meta: true
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 
@@ -91,7 +91,7 @@ module.exports = async () => {
       meta: false
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

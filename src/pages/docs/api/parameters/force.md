@@ -17,7 +17,7 @@ module.exports = async () => {
       force: true
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

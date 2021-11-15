@@ -17,7 +17,7 @@ module.exports = async () => {
     ttl: '1d',
     staleTtl: '1h',
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

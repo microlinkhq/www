@@ -19,7 +19,7 @@ module.exports = async () => {
       screenshot: true,
       omitBackground: true
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

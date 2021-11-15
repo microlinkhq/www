@@ -17,7 +17,7 @@ module.exports = async () => {
     pdf: true,
     filename: 'solar system'
   })
-  mql.render(status, data)
+  console.log(data)
 }
   `
   }}

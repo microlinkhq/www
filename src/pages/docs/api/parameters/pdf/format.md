@@ -22,7 +22,7 @@ module.exports = async () => {
       pdf: true,
       format: 'A6'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

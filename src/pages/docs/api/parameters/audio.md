@@ -17,7 +17,7 @@ module.exports = async () => {
       audio: true 
   })
   
- console.log(status, data)
+ console.log(data)
 }
   `
   }} 

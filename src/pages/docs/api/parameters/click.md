@@ -16,7 +16,7 @@ module.exports = async () => {
       screenshot: true,
       click: '#features'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

@@ -14,7 +14,7 @@ The target URL for getting information based on the content.
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://kikobeats.com')
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 
@@ -36,7 +36,7 @@ module.exports = async () => {
   const { status, data, response } = await mql(
     'https://kikobeats.com?ref=microlink'
   )
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

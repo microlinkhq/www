@@ -23,7 +23,7 @@ module.exports = async () => {
       scale: 1,
       margin: '0.4cm'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

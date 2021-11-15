@@ -16,7 +16,7 @@ module.exports = async () => {
       screenshot: true,
       waitForSelector: 'main'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

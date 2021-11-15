@@ -16,7 +16,7 @@ module.exports = async () => {
       screenshot: true,
       scroll: '#pricing'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }}

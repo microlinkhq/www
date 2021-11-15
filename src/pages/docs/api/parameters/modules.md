@@ -19,7 +19,7 @@ module.exports = async () => {
         "document.body.style.backgroundColor = 'red'"
       ]
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

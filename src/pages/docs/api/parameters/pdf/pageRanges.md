@@ -21,7 +21,7 @@ module.exports = async () => {
       landscape: true,
       pageRanges: '1-1'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

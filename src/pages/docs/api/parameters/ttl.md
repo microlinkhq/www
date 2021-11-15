@@ -16,7 +16,7 @@ module.exports = async () => {
   const { status, data, response } = await mql('https://microlink.io', {
     ttl: '1d'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

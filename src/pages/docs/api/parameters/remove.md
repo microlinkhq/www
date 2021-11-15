@@ -18,7 +18,7 @@ module.exports = async () => {
       screenshot: true,
       hide: ['.crisp-client', '#cookies-policy']
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

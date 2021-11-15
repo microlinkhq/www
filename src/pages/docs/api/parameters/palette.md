@@ -16,7 +16,7 @@ module.exports = async () => {
     'https://microlink.io', { 
       palette: true 
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

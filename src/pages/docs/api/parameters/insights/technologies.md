@@ -17,7 +17,7 @@ module.exports = async () => {
       technologies: true
     }
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

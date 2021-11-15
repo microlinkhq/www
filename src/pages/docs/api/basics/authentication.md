@@ -14,7 +14,7 @@ module.exports = async () => {
       apiKey: 'MyApiToken' 
     })
   
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

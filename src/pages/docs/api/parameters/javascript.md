@@ -16,7 +16,7 @@ module.exports = async () => {
     'https://news.ycombinator.com'. { 
       javascript: false
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

@@ -19,7 +19,7 @@ module.exports = async () => {
       screenshot: true,
       colorScheme: 'dark'
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }}

@@ -15,7 +15,7 @@ module.exports = async () => {
   const { status, data, response } = await mql('https://vercel.com', {
     insights: true
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 
@@ -39,7 +39,7 @@ module.exports = async () => {
       technologies: false
     }
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 

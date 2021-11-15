@@ -19,7 +19,7 @@ module.exports = async () => {
         "body { background: red; }"
       ]
   })
-  console.log(status, data)
+  console.log(data)
 }
   `
   }} 
