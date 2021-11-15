@@ -1,5 +1,6 @@
 - date: November 2021
   notes:
+    - "[Microlink API](/docs/api/getting-started/overview): Added [filename](/docs/api/parameters/filename) query parameter."
     - "[Microlink](/): Revamped [recipes](/recipes)."
     - "[Microlink API](/docs/api/getting-started/overview): Added BMP, WebP & AVIF support for [palette](/docs/api/parameters/palette)."
     - "[Microlink](/): Special thanks to [Haaris B](mailto:haaris.blacktech@gmail.com) for improving service security."
@@ -22,7 +23,7 @@
     - "[Keyv](https://keyv.js.org): Released [@keyvhq/offline](https://github.com/microlinkhq/keyv/tree/master/packages/offline)"
     - "[Keyv](https://keyv.js.org): Released [@keyvhq/compress](https://github.com/microlinkhq/keyv/tree/master/packages/compress)"
     - "[Keyv](https://keyv.js.org): Released [@keyvhq/memoize](https://github.com/microlinkhq/keyv/tree/master/packages/memoize)"
-    
+
 - date: August 2021
   notes:
     - "[Microlink OSS](/oss): Released [metatags](https://github.com/microlinkhq/metatags)."

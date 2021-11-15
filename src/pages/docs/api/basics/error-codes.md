@@ -50,6 +50,16 @@ This is the generic error used when it wasn't possible to determine the root cau
 
 If you are experimenting with this error, please [contact us](mailto:hello@microlink.io), reporting the request `id` to make it possible to reproduce the original request.
 
+## EFILENAME
+
+**Message**
+
+You need a PRO plan for using [filename](/docs/api/parameters/filename) query parameter.
+
+**Solution**
+
+See [pricing](/#pricing) for upgrading your plan.
+
 ## EFATALCLIENT
 
 **Message**
@@ -76,11 +86,11 @@ The service will only resolve URLs that point to unicast IP addresses.
 
 **Message**
 
-You need a pro plan for using `headers`.
+You need a PRO plan for using [headers](/docs/api/parameters/headers) query parameters.
 
 **Solution**
 
-In order to use [headers](/docs/api/parameters/headers) query parameter, you need to [upgrade](/#pricing) your free plan.
+See [pricing](/#pricing) for upgrading your plan.
 
 ## EINVALURL
 
@@ -156,11 +166,11 @@ In order to [authenticate](/docs/api/basics/authentication/) your requests, you 
 
 **Message**
 
-You need a pro plan for using `proxy`.
+You need a PRO plan for using [proxy](/docs/api/parameters/proxy) query parameter.
 
 **Solution**
 
-In order to use [proxy](/docs/api/parameters/proxy) query parameter, you need to [upgrade](/#pricing) your free plan.
+See [pricing](/#pricing) for upgrading your plan.
 
 ## ERATE
 
@@ -186,18 +196,18 @@ Any request has a maximum timeout of 28s associated, meaning that any request ne
 
 **Message**
 
-You need a pro plan for using `ttl`.
+You need a PRO plan for using [ttl](/docs/api/parameters/ttl) query parameter.
 
 **Solution**
 
-In order to use [ttl](/docs/api/parameters/ttl) query parameter, you need to [upgrade](/#pricing) your free plan.
+See [pricing](/#pricing) for upgrading your plan.
 
 ## ESTTL
 
 **Message**
 
-You need a pro plan for using `staleTtl`.
+You need a PRO plan for using [staleTtl](/docs/api/parameters/staleTtl) query parameter.
 
 **Solution**
 
-In order to use [staleTtl](/docs/api/parameters/staleTtl) query parameter, you need to [upgrade](/#pricing) your free plan.
+See [pricing](/#pricing) for upgrading your plan.

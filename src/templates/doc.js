@@ -226,6 +226,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/embed'
       },
       {
+        name: 'filename',
+        href: '/docs/api/parameters/filename'
+      },
+      {
         name: 'filter',
         href: '/docs/api/parameters/filter'
       },
