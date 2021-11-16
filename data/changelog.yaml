@@ -1,5 +1,7 @@
 - date: November 2021
   notes:
+    - "[Microlink Functions](https://functions.microlink.io): Added HTML markup of the target website as function parameter."
+    - "[Microlink Recipes](/recipes): Added [healthcheck](/recipes/healthcheck) recipe."
     - "[Microlink API](/docs/api/getting-started/overview): Added [filename](/docs/api/parameters/filename) query parameter."
     - "[Microlink](/): Revamped [recipes](/recipes)."
     - "[Microlink API](/docs/api/getting-started/overview): Added BMP, WebP & AVIF support for [palette](/docs/api/parameters/palette)."
@@ -8,7 +10,7 @@
 - date: October 2021
   notes:
     - "[Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration."
-    - "[Microlink Recipes](/recipes): Added [emails](/recipes/get-emails) recipe."
+    - "[Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe."
     - "[Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) as type."
     - "[Microlink API](/docs/api/getting-started/overview): Special thanks to [Daniel Wang](https://danielwang.dev) for improving service security."
     - "[Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes."
@@ -17,7 +19,7 @@
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): Added preset support for [lighthouse](/docs/api/parameters/insights/lighthouse)."
     - "[Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) template."
-    - "[Microlink Recipes](/recipes): Added [excerption](/recipes/get-excerpt) recipe."
+    - "[Microlink Recipes](/recipes): Added [excerption](/recipes/excerpt) recipe."
     - "[Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/mql/data/evaluate) performance."
     - "[Keyv](https://keyv.js.org): Released [@keyvhq/multi](https://github.com/microlinkhq/keyv/tree/master/packages/multi)"
     - "[Keyv](https://keyv.js.org): Released [@keyvhq/offline](https://github.com/microlinkhq/keyv/tree/master/packages/offline)"
