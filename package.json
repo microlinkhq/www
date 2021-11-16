@@ -96,7 +96,7 @@
     "@kikobeats/use-query-state": "~1.0.6",
     "@microlink/mql": "~0.10.4",
     "@microlink/react": "~5.5.7",
-    "@microlink/recipes": "~1.2.4",
+    "@microlink/recipes": "~1.2.5",
     "@radix-ui/react-popper": "0.1.1",
     "@stripe/react-stripe-js": "~1.6.0",
     "@stripe/stripe-js": "~1.20.3",
