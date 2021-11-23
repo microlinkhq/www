@@ -7,12 +7,17 @@ import { withLink } from 'helpers/hoc'
 import { isNot } from 'styled-is'
 import noop from 'lodash/noop'
 
-import { ASIDE_WIDTH } from './constants'
-
 import NavLink, {
   style as navLinkStyle,
   activeStyle as navLinkActiveStyle
 } from './NavLink'
+
+import {
+  DEFAULT_ACTIVE_ROUTE_NAME,
+  ALL_ROUTES_NAMES,
+  ASIDE_WIDTH,
+  ROUTES
+} from './constants'
 
 const LINK_ICON_CLASSNAME = 'nav-link-icon'
 
@@ -88,14 +93,12 @@ const Title = ({ children, href, Icon, ...props }) => {
 }
 
 const Aside = ({
+  activeRouteName = DEFAULT_ACTIVE_ROUTE_NAME,
   CloseButton,
   isOpen,
-  routes,
-  activeRouteName,
   onChange,
   ...props
 }) => {
-  const routeNames = Object.keys(routes)
   const [tree, setTree] = useState(activeRouteName)
 
   return (
@@ -131,11 +134,11 @@ const Aside = ({
             setTree(value)
           }}
         >
-          {routeNames}
+          {ALL_ROUTES_NAMES}
         </Toggle>
       </Flex>
       <Box as='section' data-aside-tree pl={4}>
-        {routes[tree].map(path => (
+        {ROUTES[tree].map(path => (
           <Box mb={4} key={`${tree}_${path.name}`}>
             <Header>{path.name}</Header>
             {path.posts.map(post => {
