@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.22](https://github.com/microlinkhq/www/compare/v2.11.21...v2.11.22) (2021-11-23)
+
+
+### Bug Fixes
+
+* add missing dot ([d534e66](https://github.com/microlinkhq/www/commit/d534e6666f50c56879c136b66b96b55a92dbdcab))
+* avoid infinite loop ([abe0984](https://github.com/microlinkhq/www/commit/abe09848c52be51a707d53a4feec18da9f064c2e))
+* avoid script components on html ([ac1309d](https://github.com/microlinkhq/www/commit/ac1309d185c64b26df8308c045fe39b259da3cd2))
+* avoid to pass loading to DOM ([0399ae4](https://github.com/microlinkhq/www/commit/0399ae4f9126187b491352be3dbdfc567bdd4515))
+* charset should be appear as early as possible ([c0186a5](https://github.com/microlinkhq/www/commit/c0186a511f73ee46d1c289c40c2b46bcade7fcd4))
+* close tag ([588b166](https://github.com/microlinkhq/www/commit/588b166283156c06e50d9183335c59ebe0cd6561))
+* docs path alias ([e06beeb](https://github.com/microlinkhq/www/commit/e06beeb0e6f7c1f871ef417afc7cb85dc3eafce9))
+* **docs:** path ([2005a52](https://github.com/microlinkhq/www/commit/2005a5222166ef453251027adf142b228dc93ff9))
+* href should be lower case ([f28f9e5](https://github.com/microlinkhq/www/commit/f28f9e5d8b2757b1fca7ee7d5c7be760d3c2b3a0))
+* linter ([a07590a](https://github.com/microlinkhq/www/commit/a07590a8dd643803e169d696c72eed2d2ab7e679))
+* preserve space while loading ([4bec823](https://github.com/microlinkhq/www/commit/4bec823711b265e44b24c85720a55ce9d26c69a4))
+* show loader just for interactive shells ([12e87c7](https://github.com/microlinkhq/www/commit/12e87c771b0de1605ffa1470e2b8b2979ee58ea0))
+* show pro badge ([7dedfc7](https://github.com/microlinkhq/www/commit/7dedfc70163107581f3d54eab70c39014d1b0f19))
+* **typo:** scrapping → scraping ([779d5ef](https://github.com/microlinkhq/www/commit/779d5effdc9638f9c19402fec4bfa8a558383ee5))
+* warnings ([2dbc9bd](https://github.com/microlinkhq/www/commit/2dbc9bd6cb503f5cf481d88dde03e2f4c35d446f))
+
 ### [2.11.21](https://github.com/microlinkhq/www/compare/v2.11.20...v2.11.21) (2021-07-08)
 
 
