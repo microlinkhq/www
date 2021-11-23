@@ -85,6 +85,11 @@ module.exports = {
       ]
     })
 
+    config.resolve.alias['@reach/router'] = path.resolve(
+      __dirname,
+      '../node_modules/@gatsbyjs/reach-router'
+    )
+
     // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
     config.resolve.mainFields = ['browser', 'module', 'main']
 
