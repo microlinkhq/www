@@ -1,5 +1,6 @@
 - date: November 2021
   notes:
+    - "[Microlink API](/docs/api/getting-started/overview): Added [iframe](/docs/api/parameters/iframe) Twitter player detection."
     - "[Microlink Functions](https://functions.microlink.io): Added HTML markup of the target website as function parameter."
     - "[Microlink Recipes](/recipes): Added [healthcheck](/recipes/healthcheck) recipe."
     - "[Microlink API](/docs/api/getting-started/overview): Added [filename](/docs/api/parameters/filename) query parameter."
