@@ -175,7 +175,7 @@
     "@storybook/addon-links": "latest",
     "@storybook/addon-viewport": "latest",
     "@storybook/builder-webpack5": "~6.3.12",
-    "@storybook/manager-webpack5": "~6.3.12",
+    "@storybook/manager-webpack5": "~6.4.1",
     "@storybook/react": "latest",
     "ava": "latest",
     "contrast": "latest",
