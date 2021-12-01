@@ -7,7 +7,7 @@ Type: <Type children='<string>'/><br/>
 It sets the paper width, accepts values labeled with units.
 
 <Iframe
-  src="https://api.microlink.io/?url=https://example.com&pdf&width=640px"
+  src="https://api.microlink.io/?url=https://example.com&pdf&width=640px&embed=pdf.url"
 />
 
 <MultiCodeEditor languages={{
