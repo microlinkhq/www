@@ -17,6 +17,10 @@
       "destination": "/docs/api/basics/cache"
     },
     {
+      "source": "/cli",
+      "destination": "/docs/api/getting-started/cli"
+    },
+    {
       "source": "/codes",
       "destination": "/docs/api/basics/error-codes"
     },
