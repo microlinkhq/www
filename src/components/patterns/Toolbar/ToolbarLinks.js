@@ -102,6 +102,12 @@ export const NavPdf = createNavItem({
   actively: 'partial'
 })
 
+export const NavLogoPage = createNavItem({
+  children: 'Logo',
+  href: '/logo',
+  actively: 'partial'
+})
+
 export const NavDocs = createNavItem({
   children: 'docs',
   href: '/docs/api/getting-started/overview',
@@ -145,7 +151,14 @@ export const NavProducts = createNavItem({
     NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
 
-NavProducts.pages = ['/meta', '/sdk', '/pdf', '/screenshot', '/insights']
+NavProducts.pages = [
+  '/meta',
+  '/sdk',
+  '/pdf',
+  '/screenshot',
+  '/insights',
+  '/logo'
+]
 
 export const NavDevelopers = createNavItem({
   children: 'Developers',

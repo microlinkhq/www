@@ -18,6 +18,7 @@ import {
   NavGitHub,
   NavInsights,
   NavLogo,
+  NavLogoPage,
   NavMeta,
   NavNewsletter,
   NavOpenSource,
@@ -140,6 +141,7 @@ const ToolbarDesktop = ({ theme }) => {
               <NavMeta pl={0} isDark={isDark} fontSize='12px' />
               <NavSDK isDark={isDark} fontSize='12px' />
               <NavPdf isDark={isDark} fontSize='12px' />
+              <NavLogoPage isDark={isDark} fontSize='12px' />
               <NavScreenshot isDark={isDark} fontSize='12px' />
               <NavInsights isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
