@@ -294,7 +294,11 @@ export const textGradient = {
   WebkitBackgroundClip: 'text',
   backgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  textFillColor: 'transparent'
+  textFillColor: 'transparent',
+  '&::selection': {
+    WebkitTextFillColor: colors.black,
+    textFillColor: colors.black
+  }
 }
 
 export const textStyles = {
