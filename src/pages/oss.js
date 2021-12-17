@@ -2,6 +2,7 @@ import { Star as StarIcon, AlertCircle as IssueIcon } from 'react-feather'
 import { Caption, DotsBackground, Layout } from 'components/patterns'
 import { Heading, Link, Text, Flex, Box } from 'components/elements'
 import { useOss } from 'components/hook'
+import { formatNumber } from 'helpers'
 import { layout } from 'theme'
 import React from 'react'
 
@@ -51,7 +52,7 @@ const OssPage = () => {
                   </Text>
                   <Flex color='black' style={{ float: 'right' }}>
                     <Flex alignItems='center' mr={3}>
-                      <Text mr={1}>{stars}</Text>
+                      <Text mr={1}>{formatNumber(stars)}</Text>
                       <StarIcon width='16px' />
                     </Flex>
                     <Flex alignItems='center'>
