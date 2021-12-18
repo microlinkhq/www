@@ -13,37 +13,40 @@ After that, you can use it as a regular React component.
 ```jsx
 import Microlink from '@microlink/react'
 
-export default () => <Microlink url='https://instagram.com/p/BvDTdWdnzkj/' />
+<Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' />
 ```
 
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' />
+<Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' />
 
 The React integration supports any [Microlink API](/docs/api/getting-started/overview) query parameter, just pass them as props.
 
 ```jsx
 import Microlink from '@microlink/react'
 
-export default () => (
-  <Microlink url='https://instagram.com/p/BvDTdWdnzkj/' size='large' />
-)
+<Microlink 
+  url='https://www.youtube.com/watch?v=9P6rdqiybaw' 
+  size='large' 
+/>
 ```
 
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' size='large' />
+<Microlink 
+  url='https://www.youtube.com/watch?v=9P6rdqiybaw' 
+  size='large' 
+/>
 
 Also, it supports the rest of common things in the React universe, like passing your own styles via the `style` prop.
 
 ```jsx
 import Microlink from '@microlink/react'
 
-export default () => (
-  <Microlink
-    url='https://instagram.com/p/BvDTdWdnzkj/'
-    style={{ fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace' }}
-  />
-)
+<Microlink
+  url='https://www.youtube.com/watch?v=9P6rdqiybaw'
+  style={{ fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace' }}
+  {...props}
+/>
 ```
 
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' style={{margin: 'auto', fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}} />
+<Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' style={{margin: 'auto', fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace'}} />
 
 This is the approach used for more high level abstraction, like [fela](http://fela.js.org) or [styled components](https://www.styled-components.com).
 

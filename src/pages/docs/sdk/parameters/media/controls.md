@@ -9,8 +9,8 @@ Display UI controls for the card's media.
 
 with `controls` enabled:
 
-<DemoIntegrations parameters={{url: '{{demolinks.instagram.url}}', media: 'video', controls: true}} urlName="instagram.com" />
+<DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: 'video', controls: true}} />
 
 with `controls` disabled:
 
-<DemoIntegrations parameters={{url: '{{demolinks.instagram.url}}', media: 'video', controls: false}} urlName="instagram.com" />
+<DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: 'video', controls: false}} />
