@@ -7,6 +7,12 @@ Default: <Type children='false'/>
 
 When enabled, it will generate a high contrast card based on predominant colors detected in the feature image from the target URL.
 
-<DemoIntegrations parameters={{url: '{{demolinks.instagram.url}}', contrast: true}} caption="The contrast mode has better accessibility ratio." urlName="instagram.com" />
+<DemoIntegrations 
+  parameters={{url: '{{demolinks.github.url}}', contrast: true}} caption="The contrast mode has better accessibility ratio."
+/>
 
-<Microlink url='{{demolinks.instagram.url}}' contrast size='large' />
+<Microlink 
+  url='{{demolinks.github.url}}'
+  size='large'
+  contrast  
+/>

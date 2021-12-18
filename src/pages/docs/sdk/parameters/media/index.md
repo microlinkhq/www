@@ -8,20 +8,22 @@ Values: <TypeContainer><Type children="'audio'"/> | <Type children="'iframe'"/> 
 
 Determines the field to use as the media of the card.
 
-<DemoIntegrations parameters={{url: '{{demolinks.ted.url}}', media: ['image', 'logo']}} caption="The default value is a collection of fields, meaning that the first valid value will be used as the image of the card." urlName="ted.com" />
+<DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: ['image', 'logo']}} caption="The default value is a collection of fields, meaning that the first valid value will be used as the image of the card." />
 
 You can also pass a single value to be used instead, for example <Type children="'logo'"/>
 
-<DemoIntegrations parameters={{url: '{{demolinks.ted.url}}', media: 'logo'}} urlName="ted.com" />
+<DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: 'logo'}} />
 
 The detection of <Type children="'video'"/> is also supported
 
-<DemoIntegrations parameters={{url: '{{demolinks.instagram.url}}', media: 'video'}} urlName="instagram.com" />
+<DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: 'video'}} />
 
 Also for <Type children="'audio'"/>
 
-<DemoIntegrations parameters={{url: '{{demolinks.spotify.url}}', media: 'audio'}} urlName="spotify.com" />
+<DemoIntegrations parameters={{url: '{{demolinks.spotify.url}}', media: 'audio'}} />
 
 Even <Type children="'iframe'"/>
 
-<DemoIntegrations parameters={{url: '{{demolinks.instagram.url}}', media: 'iframe'}} urlName="instagram.com" />
+<p align="center">
+  <DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: 'iframe'}}/>
+</p>

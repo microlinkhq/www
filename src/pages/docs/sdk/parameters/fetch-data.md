@@ -12,7 +12,6 @@ When it's `true`, an internal network call will be performed for getting the dat
 <DemoIntegrations
   parameters={{url: '{{demolinks.netflix.url}}', fetchData: true}}
   caption="A network call will be performed internally for getting the data."
-  urlName="netflix.com"
 />
 
 Passing a `false` disables this behavior. You can combine it with [setData](/docs/sdk/parameters/set-data/).
