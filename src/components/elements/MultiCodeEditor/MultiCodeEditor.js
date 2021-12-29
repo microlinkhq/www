@@ -1,21 +1,16 @@
 import { useLocalStorage } from 'components/hook'
 import styled from 'styled-components'
 import CodeCopy from 'react-codecopy'
-import { colors } from 'theme'
+import { cx } from 'theme'
 import React from 'react'
 
 import CodeEditor from '../CodeEditor/CodeEditor'
 
+import Tabs from '../Tabs'
 import Flex from '../Flex'
-import Text from '../Text'
 import Box from '../Box'
-import Tabs from '../Tabs.js'
 
 const LOCALSTORAGE_KEY = 'multi_code_editor'
-
-const TabWrapper = styled(Box)`
-  width: 100%;
-`
 
 const toAlias = (lang = '') => {
   lang = lang.toLowerCase()
@@ -36,31 +31,20 @@ const toAlias = (lang = '') => {
   }
 }
 
-export const SelectLanguage = ({
-  theme,
-  children,
-  value,
-  onClick,
-  ...props
-}) => {
-  const color = theme === 'dark' ? colors.white : colors.black
-  const background = theme === 'dark' ? colors.black : colors.white
+export const SelectLanguage = ({ theme, value, onClick, ...props }) => {
+  const color = cx(theme === 'dark' ? 'white' : 'black')
 
   return (
-    <TabWrapper>
-      <Tabs
-        color={color}
-        background={background}
-        value={value}
-        tabs={children}
-        onClick={event => {
-          event.preventDefault()
-          const label = event.target.textContent
-          onClick(label)
-        }}
-        {...props}
-      />
-    </TabWrapper>
+    <Tabs
+      color={color}
+      value={value}
+      onClick={event => {
+        event.preventDefault()
+        const label = event.target.textContent
+        onClick(label)
+      }}
+      {...props}
+    />
   )
 }
 
@@ -71,15 +55,26 @@ const Actions = styled(Flex)`
   width: 85%;
 
   .codecopy_button {
-    background: ${props => props.background};
-    position: relative;
-    top: 0;
-    left: 0;
-  }
-`
+    &:hover {
+      box-shadow: none;
+    }
 
-const StyledText = styled(Text)`
-  width: 100%;
+    svg {
+      fill: ${({ theme }) => cx(theme === 'dark' ? 'white50' : 'black20')};
+
+      &:hover {
+        fill: ${({ theme }) => cx(theme === 'dark' ? 'white' : 'black')};
+      }
+    }
+
+    background: ${props => props.background};
+    border: 0;
+    padding: 0;
+    position: relative;
+    top: -0.15rem;
+    left: 0.25rem;
+    right: 0;
+  }
 `
 
 const ActionComponent = ({
@@ -89,11 +84,9 @@ const ActionComponent = ({
   text,
   theme
 }) => {
-  const background = theme === 'dark' ? colors.black : colors.white
-
   return (
-    <Actions background={background} theme={theme}>
-      <StyledText as='div' mr={2} fontSize={0}>
+    <Actions theme={theme}>
+      <Box width='100%'>
         <SelectLanguage
           theme={theme}
           pt='2px'
@@ -102,19 +95,19 @@ const ActionComponent = ({
           mr='auto'
           width='4.8rem'
           mb={2}
-          bg='white'
+          them={theme}
           value={editorLanguage}
           onClick={setEditorLanguage}
         >
           {editorLanguages}
         </SelectLanguage>
-      </StyledText>
+      </Box>
       <CodeCopy theme={theme} interactive text={text} />
     </Actions>
   )
 }
 
-const MultiCodeEditor = ({ theme, languages: codeByLanguage, ...props }) => {
+const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
   const editorLanguages = Object.keys(codeByLanguage)
 
   const [editorLanguage, setEditorLanguage] = useLocalStorage(

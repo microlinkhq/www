@@ -1,43 +1,51 @@
-import React from 'react'
 import styled from 'styled-components'
+import { space } from 'theme'
+import is from 'styled-is'
+import React from 'react'
 
-const Tabs = props => (
-  <StyledTabs {...props}>
-    {props.tabs.map(lang => (
+import Text from './Text'
+import Flex from './Flex'
+import Box from './Box'
+
+const Tabs = ({ children, ...props }) => (
+  <Flex
+    as='ul'
+    justifyContent='space-between'
+    style={{
+      margin: 0,
+      padding: 0,
+      width: '100%',
+      position: 'relative'
+    }}
+    {...props}
+  >
+    {children.map(lang => (
       <StyledTab
+        as='li'
         active={lang === props.value}
         key={lang}
         color={props.color}
         background={props.background}
       >
-        {lang}
+        <Text lineHeight={0} fontSize='12px'>
+          {lang}
+        </Text>
       </StyledTab>
     ))}
-  </StyledTabs>
+  </Flex>
 )
 
-const StyledTabs = styled('div')`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`
-
-const StyledTab = styled('div')`
+const StyledTab = styled(Box)`
+  list-style: none;
   width: 100%;
   text-align: center;
   cursor: pointer;
-  transition: .4s;
-  padding: 3px;
-  /* color: ${props => props.color}; */
-  /* background-color: ${props => props.background}; */
-  color: white;
-  background: ${props =>
-    props.active
-      ? 'radial-gradient(136.36% 136.36% at 50.24% -36.36%, #3d434c 0%, #2d333b 100%);'
-      : 'rgba(27,31,35,.6)'};
-  &:hover {
-    background-color: #24292e;
-  }
+  margin: 0 48px;
+  padding-bottom: ${space[2]};
+
+  ${is('active')`
+    border-bottom: 1px solid ${props => props.background};
+  `};
 `
 
 export default Tabs

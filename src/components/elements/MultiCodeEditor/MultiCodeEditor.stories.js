@@ -1,4 +1,4 @@
-import { MultiCodeEditor, Box } from 'components/elements'
+import { MultiCodeEditor, Box, Text } from 'components/elements'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import React from 'react'
@@ -61,7 +61,15 @@ const languages = {
 storiesOf('Elements', module).add('MultiCodeEditor', () => (
   <Story name='MultiCodeEditor'>
     <Box mb={4} width={650}>
+      <Text color='gray6' mb={2} fontSize={0}>
+        {'<MultiCodeEditor />'}
+      </Text>
       <MultiCodeEditor languages={languages} />
+      <Box py={3} />
+      <Text color='gray6' mb={2} fontSize={0}>
+        {"<MultiCodeEditor theme='dark' />"}
+      </Text>
+      <MultiCodeEditor languages={languages} theme='dark' />
     </Box>
   </Story>
 ))
