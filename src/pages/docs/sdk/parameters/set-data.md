@@ -14,7 +14,6 @@ When an <Type children='<object>'/> is passed to `setData`, the custom data prov
     setData: { title: 'SENTRY ACTIVATED' } }
   }
   caption="The data provided will be merged with the original data extracted."
-  urlName="instagram.com"
 />
 
 Additionally you can pass a <Type children='<function>'/> where in this case the first argument that received will be the data fetched using [fetchData](/docs/sdk/parameters/fetch-data/):
@@ -22,19 +21,17 @@ Additionally you can pass a <Type children='<function>'/> where in this case the
 ```jsx
 import Microlink from '@microlink/react'
 
-export default () => (
-  <Microlink
-    url='https://www.instagram.com/p/BeV6tOhFUor/'
-    setData={data => ({
-      ...data,
-      title: 'SENTRY ACTIVATED',
-      description: 'Are humans worth it?',
-      image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
-      publisher: 'HAL 9000',
-      url: 'http://thehal9000.com'
-    })}
-  />
-)
+<Microlink
+  url='https://www.instagram.com/p/BeV6tOhFUor/'
+  setData={data => ({
+    ...data,
+    title: 'SENTRY ACTIVATED',
+    description: 'Are humans worth it?',
+    image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
+    publisher: 'HAL 9000',
+    url: 'http://thehal9000.com'
+  })}
+/>
 ```
 
 <Figcaption children='Skip internal fetch providing a function as setData.' />

@@ -67,18 +67,18 @@ The Vue integration supports any [Microlink API](/docs/api/getting-started/overv
 
 ```vue
 <template>
-  <Microlink url="https://instagram.com/p/BvDTdWdnzkj/" size="large" />
+  <Microlink url="https://www.youtube.com/watch?v=9P6rdqiybaw" size="large" />
 </template>
 ```
 
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' size="large" />
+<Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' size="large" media='video' />
 
 Although it's shipped with default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
 
 ```vue
 <template>
   <div id="app">
-    <Microlink url="https://instagram.com/p/BvDTdWdnzkj/" />
+    <Microlink url="https://www.youtube.com/watch?v=9P6rdqiybaw" />
   </div>
 </template>
 
@@ -90,4 +90,4 @@ Although it's shipped with default styles, you can customize it using [CSS Class
 </style>
 ```
 
-<Microlink url='https://instagram.com/p/BvDTdWdnzkj/' style={{fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace', maxWidth: '100%'}} />
+<Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' media='video' style={{fontFamily: 'Nitti, "Microsoft YaHei", 微软雅黑, monospace', maxWidth: '100%'}} />

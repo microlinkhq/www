@@ -73,7 +73,9 @@ export const serializeObject = (props, { quotes = true } = {}) => {
 
 const prettier = (code, opts) => {
   try {
-    return prettierStandalone.format(code, { ...PRETTIER_CONFIG, ...opts })
+    return prettierStandalone
+      .format(code, { ...PRETTIER_CONFIG, ...opts })
+      .replace(';<', '<')
   } catch (err) {
     return code
   }

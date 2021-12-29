@@ -10,6 +10,7 @@ import {
   PriceMonthly,
   Link,
   Highlight,
+  Hide,
   Box,
   Label,
   Flex,
@@ -61,6 +62,7 @@ const PricingBox = props => (
     width={['100%', '100%', 8, 8]}
     px={[0, 0, 5, 5]}
     py={[0, 0, 5, 5]}
+    my={[4, 0, 0, 0]}
     border={[0, 0, 1, 1]}
     bg='white'
     {...props}
@@ -130,7 +132,7 @@ export const createPricingTable = Checkout => ({
       pb={Container.defaultProps.pt}
       {...props}
     >
-      <FreePricingBox my={[0, 0, 5, 5]} pt={5}>
+      <FreePricingBox my={[0, 0, 5, 5]} pt={[3, 3, 5, 5]}>
         <Subhead fontSize={[3, 3, 4, 4]}>Free</Subhead>
 
         <Box pt={4}>
@@ -172,10 +174,10 @@ export const createPricingTable = Checkout => ({
         </Box>
       </FreePricingBox>
 
-      <ProPricingBoxGradient pb={[0, 0, 6, 6]}>
+      <ProPricingBoxGradient>
         <ProPricingBox flex={1} px={[0, 0, 5, 5]} py={[0, 0, 5, 5]}>
           <Box>
-            <Subhead fontSize={[3, 3, 4, 4]} pt={5}>
+            <Subhead fontSize={[3, 3, 4, 4]} pt={[3, 3, 5, 5]}>
               Pro
             </Subhead>
 
@@ -218,7 +220,9 @@ export const createPricingTable = Checkout => ({
                   Configurable TTL
                 </PricingLink>
               </Text>
-              <Text as='li' style={{ opacity: 0 }} />
+              <Hide breakpoints={[0, 1]}>
+                <Text as='li' style={{ opacity: 0 }} />
+              </Hide>
               <Text as='li' style={{ opacity: 0 }} />
             </Box>
           </Box>
@@ -232,7 +236,7 @@ export const createPricingTable = Checkout => ({
         </ProPricingBox>
       </ProPricingBoxGradient>
 
-      <EnterprisePricingBox my={[0, 0, 5, 5]} pt={5}>
+      <EnterprisePricingBox my={[0, 0, 5, 5]} pt={[3, 3, 5, 5]}>
         <Subhead fontSize={[3, 3, 4, 4]}>Enterprise</Subhead>
 
         <Box pt={4}>
@@ -263,8 +267,10 @@ export const createPricingTable = Checkout => ({
               S3 like storage integration
             </PricingLink>
           </Text>
-          <Text as='li' style={{ opacity: 0 }} />
-          <Text as='li' style={{ opacity: 0 }} />
+          <Hide breakpoints={[0, 1]}>
+            <Text as='li' style={{ opacity: 0 }} />
+            <Text as='li' style={{ opacity: 0 }} />
+          </Hide>
         </Box>
 
         <Box pt={4}>

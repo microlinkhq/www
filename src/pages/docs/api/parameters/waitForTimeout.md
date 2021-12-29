@@ -14,7 +14,7 @@ module.exports = async () => {
   const { status, data, response } = await mql(
     'https://dev.to', { 
       screenshot: true,
-      waitForTimeout: '1500'
+      waitForTimeout: 1500
   })
   console.log(data)
 }

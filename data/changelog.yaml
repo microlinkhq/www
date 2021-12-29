@@ -1,3 +1,7 @@
+- date: December 2021
+  notes:
+    - "[Microlink OSS](/oss): Released [ffprobe](https://github.com/microlinkhq/ffprobe)."
+    
 - date: November 2021
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): Added [iframe](/docs/api/parameters/iframe) Twitter player detection."

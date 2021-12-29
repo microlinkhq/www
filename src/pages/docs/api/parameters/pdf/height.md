@@ -7,7 +7,7 @@ Type: <Type children='<string>'/><br/>
 It sets the paper height, accepts values labeled with units.
 
 <Iframe
-  src="https://api.microlink.io/?url=https://example.com&pdf&height=480px"
+  src="https://api.microlink.io/?url=https://example.com&pdf&height=480px&embed=pdf.url"
 />
 
 <MultiCodeEditor languages={{
