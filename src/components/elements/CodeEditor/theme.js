@@ -5,7 +5,7 @@ import * as polished from 'polished'
 
 const FONT_SIZE = '14px'
 const LINE_HEIGHT = 1.75
-const TAB_SIZE = 2
+const tabSize = 2
 
 export const GRAY0 = '#f8f9fa'
 export const GRAY1 = '#f1f3f5'
@@ -25,7 +25,7 @@ export const light = {
   background: '#fff',
   fontSize: FONT_SIZE,
   lineHeight: LINE_HEIGHT,
-  tabSize: TAB_SIZE
+  tabSize: tabSize
 }
 
 export const dark = {
@@ -34,7 +34,7 @@ export const dark = {
   background: '#000',
   fontSize: FONT_SIZE,
   lineHeight: LINE_HEIGHT,
-  tabSize: TAB_SIZE
+  tabSize: tabSize
 }
 
 export const themes = { light, dark }
@@ -56,9 +56,9 @@ const baseTheme = ({
     whiteSpace: 'pre',
     wordSpacing: 'normal',
     wordBreak: 'normal',
-    MozTabSize: TAB_SIZE,
-    OTabSize: TAB_SIZE,
-    tabSize: TAB_SIZE,
+    MozTabSize: tabSize,
+    OTabSize: tabSize,
+    tabSize: tabSize,
     WebkitHyphens: 'none',
     MozHyphens: 'none',
     msHyphens: 'none',
@@ -75,9 +75,9 @@ const baseTheme = ({
     whiteSpace: 'pre',
     wordSpacing: 'normal',
     wordBreak: 'normal',
-    MozTabSize: TAB_SIZE,
-    OTabSize: TAB_SIZE,
-    tabSize: TAB_SIZE,
+    MozTabSize: tabSize,
+    OTabSize: tabSize,
+    tabSize: tabSize,
     WebkitHyphens: 'none',
     MozHyphens: 'none',
     msHyphens: 'none',

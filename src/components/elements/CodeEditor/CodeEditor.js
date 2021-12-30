@@ -95,6 +95,7 @@ const TerminalHeader = styled.header`
 const TerminalText = styled.section`
   overflow: visible;
   hyphens: none;
+  padding-top: 16px;
   padding-bottom: 16px;
   padding-left: 16px;
   padding-right: 32px;
