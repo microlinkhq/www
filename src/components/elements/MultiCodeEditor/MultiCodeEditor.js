@@ -53,7 +53,10 @@ const Actions = styled(Flex)`
   overflow: visible;
   top: 4px;
   width: 85%;
+  margin-left: auto;
+`
 
+const CodeCopyWrapper = styled('div')`
   .codecopy_button {
     &:hover {
       box-shadow: none;
@@ -71,8 +74,8 @@ const Actions = styled(Flex)`
     border: 0;
     padding: 0;
     position: relative;
-    top: -0.15rem;
-    left: 0.25rem;
+    top: -2px;
+    left: 0;
     right: 0;
   }
 `
@@ -85,25 +88,29 @@ const ActionComponent = ({
   theme
 }) => {
   return (
-    <Actions theme={theme}>
-      <Box width='100%'>
-        <SelectLanguage
-          theme={theme}
-          pt='2px'
-          pb='2px'
-          ml='auto'
-          mr='auto'
-          width='4.8rem'
-          mb={2}
-          them={theme}
-          value={editorLanguage}
-          onClick={setEditorLanguage}
-        >
-          {editorLanguages}
-        </SelectLanguage>
-      </Box>
-      <CodeCopy theme={theme} interactive text={text} />
-    </Actions>
+    <>
+      <Actions theme={theme}>
+        <Box width='100%'>
+          <SelectLanguage
+            theme={theme}
+            pt='2px'
+            pb='2px'
+            ml='auto'
+            mr='auto'
+            width='4.8rem'
+            mb={2}
+            them={theme}
+            value={editorLanguage}
+            onClick={setEditorLanguage}
+          >
+            {editorLanguages}
+          </SelectLanguage>
+        </Box>
+      </Actions>
+      <CodeCopyWrapper>
+        <CodeCopy theme={theme} interactive text={text} />
+      </CodeCopyWrapper>
+    </>
   )
 }
 

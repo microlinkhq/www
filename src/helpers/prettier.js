@@ -8,11 +8,13 @@ import parserBabel from 'prettier/parser-babel'
  * https://prettier.io/docs/en/options.html
  */
 const PRETTIER_CONFIG = {
-  semi: false,
-  singleQuote: true,
+  arrowParens: 'avoid',
   jsxSingleQuote: true,
   printWidth: 80,
-  tabWidth: 2
+  semi: false,
+  singleQuote: true,
+  tabWidth: 2,
+  trailingComma: 'none'
 }
 
 const JS_OPTS = {
@@ -76,7 +78,8 @@ const prettier = (code, opts) => {
     return prettierStandalone
       .format(code, { ...PRETTIER_CONFIG, ...opts })
       .replace(';<', '<')
-  } catch (err) {
+  } catch (error) {
+    console.error('[prettier]', error)
     return code
   }
 }
