@@ -63,7 +63,7 @@ puts response.body`
     `import requests
 
 url = '${url()}'
-response = requests.request("GET", url)
+response = requests.get(url)
 
 print(response.text)`
 
