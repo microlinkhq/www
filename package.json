@@ -30,12 +30,8 @@
       "email": "kumargaurav.jha2895@gmail.com"
     },
     {
-      "name": "José Manuel Rosa",
-      "email": "josemanuel.rosamoncayo+github@gmail.com"
-    },
-    {
-      "name": "John Letey",
-      "email": "johnletey@gmail.com"
+      "name": "Kevin Østerkilde",
+      "email": "kevin@oesterkilde.dk"
     },
     {
       "name": "Jiachi Liu",
@@ -66,6 +62,10 @@
       "email": "tim@pixelastic.com"
     },
     {
+      "name": "Germán Rodríguez",
+      "email": "germanrodrickson@gmail.com"
+    },
+    {
       "name": "Elena Torró",
       "email": "elenatorro@gmail.com"
     },
@@ -74,12 +74,16 @@
       "email": "bentsai@gmail.com"
     },
     {
+      "name": "John Letey",
+      "email": "johnletey@gmail.com"
+    },
+    {
       "name": "Alexander González",
       "email": "alexfertel97@gmail.com"
     },
     {
-      "name": "Kevin Østerkilde",
-      "email": "kevin@oesterkilde.dk"
+      "name": "José Manuel Rosa",
+      "email": "josemanuel.rosamoncayo+github@gmail.com"
     }
   ],
   "repository": {
