@@ -25,15 +25,13 @@ const mqlCode = (input, props) => {
 
   const JavaScript = args => {
     const { url = '{{demolinks.spotify.url}}' } = { ...props, ...args }
+    const opts = props ? `{ ${stringProps(props.data)} ...opts }` : 'opts'
 
     return `
 const mql = require('@microlink/mql')
 
-module.exports = props => {
-  const { status, data } = await mql('${url}', {
-    ${stringProps(props.data)}
-    ...props
-  })
+module.exports = opts => {
+  const { status, data } = await mql('${url}', ${opts})
 }`
   }
 
