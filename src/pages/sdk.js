@@ -228,13 +228,11 @@ const LiveDemo = ({
               <MultiCodeEditor
                 width='100%'
                 languages={mqlCode(
+                  data.url,
                   {
-                    url: data.url,
-                    data: {
-                      audio: true,
-                      video: true,
-                      meta: true
-                    }
+                    audio: true,
+                    video: true,
+                    meta: true
                   },
                   `audio: true,
     video: true,

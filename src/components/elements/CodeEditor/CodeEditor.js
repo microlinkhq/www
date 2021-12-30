@@ -146,7 +146,7 @@ const Terminal = ({
         <TerminalButton.Red loading={loading} theme={theme} />
         <TerminalButton.Yellow loading={loading} theme={theme} />
         <TerminalButton.Green loading={loading} theme={theme} />
-        <TerminalTitle theme={theme}>{title}</TerminalTitle>
+        {title && <TerminalTitle theme={theme}>{title}</TerminalTitle>}
         <ActionComponent isHover={isHover} theme={theme} text={text} />
       </TerminalHeader>
       <TerminalText background={background} theme={theme}>

@@ -2,75 +2,41 @@ import { mqlCode } from 'helpers'
 
 import * as data from './data'
 
-export const meta = mqlCode(
-  {
-    url: data.meta.url,
-    data: {
-      audio: true,
-      video: true,
-      meta: true
-    }
-  },
-  `audio: true,
+export const meta = mqlCode(data.meta.url, {
+  data: {
+    audio: true,
     video: true,
-    meta: true`
-)
+    meta: true
+  }
+})
 
-export const iframe = mqlCode(
-  {
-    url: data.iframe.url,
-    data: {
-      iframe: true
-    }
-  },
-  `iframe: {
+export const iframe = mqlCode(data.iframe.url, {
+  data: {
+    iframe: {
       maxWidth: 350
-    }`
-)
-
-export const pdf = mqlCode(
-  {
-    url: data.pdf.url,
-    data: {
-      pdf: true,
-      meta: false
     }
-  },
-  `pdf: {
-      format: 'A4',
-      margin: '0.35cm',
-      scale: 0.6
-    }`
-)
+  }
+})
 
-export const screenshot = mqlCode(
-  {
-    url: data.screenshot.url,
-    data: {
-      screenshot: {
-        overlay: {
-          browser: 'dark'
-        }
-      }
-    }
+export const pdf = mqlCode(data.pdf.url, {
+  pdf: {
+    format: 'A4',
+    margin: '0.35cm',
+    scale: 0.6
   },
-  `screenshot: {
-      overlay: {
-        browser: 'dark'
-      }
-    }`
-)
+  meta: false
+})
 
-export const insights = mqlCode(
-  {
-    url: data.insights.url,
-    data: {
-      insights: {
-        lighthouse: true
-      }
+export const screenshot = mqlCode(data.screenshot.url, {
+  screenshot: {
+    overlay: {
+      browser: 'dark'
     }
-  },
-  `insights: {
-      lighthouse: true
-    }`
-)
+  }
+})
+
+export const insights = mqlCode(data.insights.url, {
+  insights: {
+    lighthouse: true
+  }
+})
