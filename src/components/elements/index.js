@@ -13,6 +13,7 @@ import CodeEditor from './CodeEditor/CodeEditor'
 import PriceMonthly from './PriceMonthly'
 import Container from './Container'
 import { Fixed } from './Position'
+import CodeCopy from './Codecopy'
 import Card from './Card/Card'
 import Choose from './Choose'
 import Flex from './Flex'
@@ -72,6 +73,7 @@ export {
   Caps,
   Card,
   Choose,
+  CodeCopy,
   CodeEditor,
   Color,
   Container,

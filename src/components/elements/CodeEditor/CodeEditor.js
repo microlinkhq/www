@@ -2,16 +2,14 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { hash, prettier, getLines, template } from 'helpers'
 import styled, { css } from 'styled-components'
 import { wordBreak } from 'helpers/style'
-import React, { useState } from 'react'
 import identity from 'lodash/identity'
-import CodeCopy from 'react-codecopy'
 import range from 'lodash/range'
 import get from 'dlv'
+import React from 'react'
 
 import { prismThemes, themes } from './theme'
-import { cx } from 'theme'
-
 import Runkit from '../Runkit/Runkit'
+import CodeCopy from '../Codecopy'
 
 import {
   styleTerminalHeader,
@@ -80,16 +78,6 @@ const TerminalHeader = styled.header`
   background: ${props => themes[props.theme].background};
   top: 1px;
   z-index: 2;
-
-  .codecopy_button {
-    background: ${props => themes[props.theme].background};
-    border-color: ${({ theme }) =>
-      theme === 'dark' ? cx('white80') : cx('black80')};
-
-    svg {
-      fill: ${({ theme }) => cx(theme === 'dark' ? 'white' : 'black')};
-    }
-  }
 `
 
 const TerminalText = styled.section`
@@ -132,22 +120,16 @@ const Terminal = ({
   ActionComponent = CodeCopy,
   ...props
 }) => {
-  const [isHover, setHover] = useState(false)
   const background = prismTheme['code[class*="language-"]'].background
 
   return (
-    <TerminalWindow
-      onMouseOut={() => setHover(false)}
-      onMouseOver={() => setHover(true)}
-      theme={theme}
-      {...props}
-    >
+    <TerminalWindow theme={theme} {...props}>
       <TerminalHeader background={background} theme={theme}>
         <TerminalButton.Red loading={loading} theme={theme} />
         <TerminalButton.Yellow loading={loading} theme={theme} />
         <TerminalButton.Green loading={loading} theme={theme} />
         {title && <TerminalTitle theme={theme}>{title}</TerminalTitle>}
-        <ActionComponent isHover={isHover} theme={theme} text={text} />
+        <ActionComponent theme={theme} text={text} interactive />
       </TerminalHeader>
       <TerminalText background={background} theme={theme}>
         {children}

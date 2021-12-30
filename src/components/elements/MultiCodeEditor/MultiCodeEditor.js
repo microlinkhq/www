@@ -1,11 +1,10 @@
 import { useLocalStorage } from 'components/hook'
 import styled from 'styled-components'
-import CodeCopy from 'react-codecopy'
 import { cx } from 'theme'
 import React from 'react'
 
 import CodeEditor from '../CodeEditor/CodeEditor'
-
+import CodeCopy from '../Codecopy'
 import Tabs from '../Tabs'
 import Flex from '../Flex'
 import Box from '../Box'
@@ -56,30 +55,6 @@ const Actions = styled(Flex)`
   margin-left: auto;
 `
 
-const CodeCopyWrapper = styled('div')`
-  .codecopy_button {
-    &:hover {
-      box-shadow: none;
-    }
-
-    svg {
-      fill: ${({ theme }) => cx(theme === 'dark' ? 'white50' : 'black20')};
-
-      &:hover {
-        fill: ${({ theme }) => cx(theme === 'dark' ? 'white' : 'black')};
-      }
-    }
-
-    background: ${props => props.background};
-    border: 0;
-    padding: 0;
-    position: relative;
-    top: -2px;
-    left: 0;
-    right: 0;
-  }
-`
-
 const ActionComponent = ({
   setEditorLanguage,
   editorLanguage,
@@ -107,9 +82,7 @@ const ActionComponent = ({
           </SelectLanguage>
         </Box>
       </Actions>
-      <CodeCopyWrapper>
-        <CodeCopy theme={theme} interactive text={text} />
-      </CodeCopyWrapper>
+      <CodeCopy theme={theme} interactive text={text} />
     </>
   )
 }
