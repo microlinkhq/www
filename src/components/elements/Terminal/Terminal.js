@@ -23,7 +23,7 @@ import Box from '../Box'
 export const TerminalWindow = styled(Box)`
   border-radius: ${radii[3]};
   border: ${borders[1]};
-  border-color: ${({ theme }) => cx(theme === 'dark' ? 'white10' : 'black10')};
+  border-color: ${({ isDark }) => cx(isDark ? 'white10' : 'black10')};
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
@@ -143,9 +143,9 @@ const TerminalTitleWrapper = styled('div')`
   margin-left: -3rem;
 `
 
-export const TerminalTitle = ({ theme, children }) => (
+export const TerminalTitle = ({ isDark, children }) => (
   <TerminalTitleWrapper>
-    <Text color={theme === 'dark' ? 'white40' : 'black40'} fontSize={0}>
+    <Text color={isDark ? 'white40' : 'black40'} fontSize={0}>
       {children}
     </Text>
   </TerminalTitleWrapper>
@@ -201,11 +201,12 @@ const TerminalTextWrapper = styled('div')`
 `
 
 const TerminalProvider = ({
-  ActionComponent = CodeCopy,
+  ActionComponent,
   text,
   children,
+  loading,
   theme,
-  title = '',
+  title,
   ...props
 }) => {
   const isDark = theme === 'dark'
@@ -213,13 +214,13 @@ const TerminalProvider = ({
   const color = isDark ? colors.white : colors.black
 
   return (
-    <TerminalWindow theme={theme} {...props}>
-      <TerminalHeader background={background} theme={theme}>
-        <TerminalButton.Red theme={theme} />
-        <TerminalButton.Yellow theme={theme} />
-        <TerminalButton.Green theme={theme} />
-        <TerminalTitle theme={theme}>{title}</TerminalTitle>
-        <ActionComponent theme={theme} text={text} interactive />
+    <TerminalWindow isDark={isDark} {...props}>
+      <TerminalHeader background={background}>
+        <TerminalButton.Red loading={loading} />
+        <TerminalButton.Yellow loading={loading} />
+        <TerminalButton.Green loading={loading} />
+        <TerminalTitle isDark={isDark}>{title}</TerminalTitle>
+        <ActionComponent isDark={isDark} text={text} />
       </TerminalHeader>
       <TerminalText color={color} background={background}>
         {children}
@@ -228,24 +229,13 @@ const TerminalProvider = ({
   )
 }
 
-const Terminal = ({
-  children,
-  shellSymbol,
-  blinkCursor,
-  width,
-  theme,
-  ...props
-}) => {
+const Terminal = ({ children, shellSymbol, blinkCursor, ...props }) => {
   const content = typeof children === 'string' ? fromString(children) : children
   const text = serializeComponent(children)
 
   return (
-    <TerminalProvider text={text} width={width} theme={theme} {...props}>
-      <TerminalTextWrapper
-        shellSymbol={shellSymbol}
-        blinkCursor={blinkCursor}
-        theme={theme}
-      >
+    <TerminalProvider text={text} {...props}>
+      <TerminalTextWrapper shellSymbol={shellSymbol} blinkCursor={blinkCursor}>
         {content}
       </TerminalTextWrapper>
     </TerminalProvider>
@@ -253,7 +243,9 @@ const Terminal = ({
 }
 
 Terminal.defaultProps = {
+  ActionComponent: CodeCopy,
   blinkCursor: true,
+  loading: false,
   shellSymbol: false,
   theme: 'light',
   width: TERMINAL_WIDTH

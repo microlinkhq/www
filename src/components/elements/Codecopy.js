@@ -10,10 +10,10 @@ const CodeCopyWrapper = styled('div')`
     }
 
     svg {
-      fill: ${({ theme }) => cx(theme === 'dark' ? 'white50' : 'black20')};
+      fill: ${({ isDark }) => cx(isDark ? 'white50' : 'black20')};
 
       &:hover {
-        fill: ${({ theme }) => cx(theme === 'dark' ? 'white' : 'black')};
+        fill: ${({ isDark }) => cx(isDark ? 'white' : 'black')};
       }
     }
 
@@ -29,7 +29,7 @@ const CodeCopyWrapper = styled('div')`
 
 const CodeCopy = props => (
   <CodeCopyWrapper {...props}>
-    <CodeCopyBase {...props} />
+    <CodeCopyBase interactive {...props} />
   </CodeCopyWrapper>
 )
 
