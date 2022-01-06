@@ -71,17 +71,17 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
     }
   }
 
-  ${props => `
+  ${({ $prismTheme, $highlightLines }) => `
     .linenumber {
       color: ${
-        props.prismTheme['.line-numbers-rows > span:before'].color
+        $prismTheme['.line-numbers-rows > span:before'].color
       } !important;
     }
 
-    ${generateHighlighLines(props.highlightLines)} {
+    ${generateHighlighLines($highlightLines)} {
       display: block;
-      background: ${props.prismTheme['.line-highlight'].background};
-      border-radius: ${props.prismTheme['.line-highlight']['border-radius']};
+      background: ${$prismTheme['.line-highlight'].background};
+      border-radius: ${$prismTheme['.line-highlight']['border-radius']};
     }
   `}
 `
@@ -117,7 +117,6 @@ const CodeEditor = ({
     <Terminal
       title={title}
       theme={theme}
-      prismTheme={prismTheme}
       id={id}
       text={text}
       loading={isInteractive}
@@ -125,8 +124,8 @@ const CodeEditor = ({
     >
       <TerminalTextWrapper>
         <CustomSyntaxHighlighter
-          prismTheme={prismTheme}
-          highlightLines={highlightLines}
+          $prismTheme={prismTheme}
+          $highlightLines={highlightLines}
           showLineNumbers={showLineNumbers}
           language={language}
           style={prismTheme}
