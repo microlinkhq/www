@@ -1,38 +1,16 @@
 import { useLocalStorage } from 'components/hook'
 import styled from 'styled-components'
-import CodeCopy from 'react-codecopy'
+import React, { useMemo } from 'react'
 import { cx } from 'theme'
-import React from 'react'
 
 import CodeEditor from '../CodeEditor/CodeEditor'
-
+import CodeCopy from '../Codecopy'
 import Tabs from '../Tabs'
 import Flex from '../Flex'
 import Box from '../Box'
 
-const LOCALSTORAGE_KEY = 'multi_code_editor'
-
-const toAlias = (lang = '') => {
-  lang = lang.toLowerCase()
-  switch (lang) {
-    case 'vanilla':
-      return 'html'
-    case 'react':
-      return 'jsx'
-    case 'jekyll':
-      return 'markdown'
-    case 'curl':
-    case 'shell':
-      return 'bash'
-    case 'node.js':
-      return 'javascript'
-    default:
-      return lang
-  }
-}
-
-export const SelectLanguage = ({ theme, value, onClick, ...props }) => {
-  const color = cx(theme === 'dark' ? 'white' : 'black')
+export const SelectLanguage = ({ isDark, value, onClick, ...props }) => {
+  const color = cx(isDark ? 'white' : 'black')
 
   return (
     <Tabs
@@ -56,98 +34,81 @@ const Actions = styled(Flex)`
   margin-left: auto;
 `
 
-const CodeCopyWrapper = styled('div')`
-  .codecopy_button {
-    &:hover {
-      box-shadow: none;
-    }
-
-    svg {
-      fill: ${({ theme }) => cx(theme === 'dark' ? 'white50' : 'black20')};
-
-      &:hover {
-        fill: ${({ theme }) => cx(theme === 'dark' ? 'white' : 'black')};
-      }
-    }
-
-    background: ${props => props.background};
-    border: 0;
-    padding: 0;
-    position: relative;
-    top: -2px;
-    left: 0;
-    right: 0;
-  }
-`
-
 const ActionComponent = ({
-  setEditorLanguage,
-  editorLanguage,
-  editorLanguages,
+  setLanguage,
+  language,
+  languages,
   text,
-  theme
+  isDark
 }) => {
   return (
     <>
-      <Actions theme={theme}>
+      <Actions>
         <Box width='100%'>
           <SelectLanguage
-            theme={theme}
+            isDark={isDark}
             pt='2px'
             pb='2px'
             ml='auto'
             mr='auto'
             width='4.8rem'
             mb={2}
-            them={theme}
-            value={editorLanguage}
-            onClick={setEditorLanguage}
+            value={language}
+            onClick={setLanguage}
           >
-            {editorLanguages}
+            {languages}
           </SelectLanguage>
         </Box>
       </Actions>
-      <CodeCopyWrapper>
-        <CodeCopy theme={theme} interactive text={text} />
-      </CodeCopyWrapper>
+      <CodeCopy isDark={isDark} text={text} />
     </>
   )
 }
 
-const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
-  const editorLanguages = Object.keys(codeByLanguage)
+const DEFAULT_LANGUAGE_INDEX = 0
+const LOCALSTORAGE_KEY = 'multi_code_editor_index'
 
-  const [editorLanguage, setEditorLanguage] = useLocalStorage(
+const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
+  const [languageIndex, setLanguageIndex] = useLocalStorage(
     LOCALSTORAGE_KEY,
-    editorLanguages[0]
+    DEFAULT_LANGUAGE_INDEX
   )
 
-  let codeLanguage = codeByLanguage[editorLanguage]
+  const languages = useMemo(() => Object.keys(codeByLanguage), [codeByLanguage])
+  const language = languages[languageIndex]
+  const code = codeByLanguage[language]
 
-  // since we are memoizing the latest language used,
-  // need to be reset when the memoized language is missing
-  if (!codeLanguage) {
-    codeLanguage = codeByLanguage[editorLanguages[0]]
-    setEditorLanguage(editorLanguages[0])
+  const setLanguage = language => {
+    const languageIndex = languages.findIndex(lang => lang === language)
+    if (languageIndex < 0) return
+    const event = new window.CustomEvent(LOCALSTORAGE_KEY, {
+      detail: languageIndex
+    })
+    document.dispatchEvent(event)
   }
 
-  const code =
-    typeof codeLanguage === 'function' ? codeLanguage(props) : codeLanguage
+  const updateLanguageIndex = event => setLanguageIndex(event.detail)
+
+  React.useEffect(() => {
+    document.addEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
+    return () =>
+      document.removeEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
+  })
 
   return (
     <CodeEditor
-      language={toAlias(editorLanguage)}
+      language={language}
       {...props}
       ActionComponent={props => (
         <ActionComponent
-          setEditorLanguage={setEditorLanguage}
-          editorLanguage={editorLanguage}
-          editorLanguages={editorLanguages}
+          setLanguage={setLanguage}
+          language={language}
+          languages={languages}
           {...props}
         />
       )}
     >
-      {code}
+      {typeof code === 'function' ? code(props) : code}
     </CodeEditor>
   )
 }

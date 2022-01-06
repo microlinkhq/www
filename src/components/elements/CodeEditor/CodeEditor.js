@@ -1,26 +1,36 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { hash, prettier, getLines, template } from 'helpers'
-import styled, { css } from 'styled-components'
 import { wordBreak } from 'helpers/style'
-import React, { useState } from 'react'
 import identity from 'lodash/identity'
-import CodeCopy from 'react-codecopy'
+import styled from 'styled-components'
 import range from 'lodash/range'
+import React from 'react'
 import get from 'dlv'
 
-import { prismThemes, themes } from './theme'
-import { cx } from 'theme'
-
+import { prismThemes } from './theme'
 import Runkit from '../Runkit/Runkit'
 
-import {
-  styleTerminalHeader,
-  TerminalButton,
-  TerminalWindow,
-  TERMINAL_WIDTH,
-  TERMINAL_HEIGHT,
-  TerminalTitle
-} from '../Terminal/Terminal'
+import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
+
+const toAlias = (lang = '') => {
+  lang = lang.toLowerCase()
+  switch (lang) {
+    case 'vanilla':
+      return 'html'
+    case 'react':
+      return 'jsx'
+    case 'jekyll':
+      return 'markdown'
+    case 'curl':
+    case 'shell':
+      return 'bash'
+    case 'node.js':
+    case 'js':
+      return 'javascript'
+    default:
+      return lang
+  }
+}
 
 const generateHighlighLines = linesRange => {
   if (!linesRange) return
@@ -34,24 +44,15 @@ const generateHighlighLines = linesRange => {
   })
 }
 
-const highlighLinesStyle = (highlightLines, prismTheme) => css`
-  ${generateHighlighLines(highlightLines)} {
-    display: block;
-    background: ${prismTheme['.line-highlight'].background};
-  }
-`
-
 const getLanguage = (className, { language }) => {
   if (language) return language
   const languageFromClassName = className.split('-')[1]
   if (languageFromClassName) return languageFromClassName.split('{')[0]
-  return 'js'
+  return 'javascript'
 }
 
 const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
-
-const TERMINAL_HEADER_HEIGHT = '36px'
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   padding-right: 0px !important;
@@ -69,52 +70,20 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
       background: rgba(255, 255, 255, 0.2);
     }
   }
-`
 
-const TerminalHeader = styled.header`
-  ${styleTerminalHeader};
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-
-  height: ${TERMINAL_HEADER_HEIGHT};
-  background: ${props => themes[props.theme].background};
-  top: 1px;
-  z-index: 2;
-
-  .codecopy_button {
-    background: ${props => themes[props.theme].background};
-    border-color: ${({ theme }) =>
-      theme === 'dark' ? cx('white80') : cx('black80')};
-
-    svg {
-      fill: ${({ theme }) => cx(theme === 'dark' ? 'white' : 'black')};
+  ${({ $prismTheme, $highlightLines }) => `
+    .linenumber {
+      color: ${
+        $prismTheme['.line-numbers-rows > span:before'].color
+      } !important;
     }
-  }
-`
 
-const TerminalText = styled.section`
-  overflow: visible;
-  hyphens: none;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  padding-left: 16px;
-  padding-right: 32px;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  background: ${props => props.background};
-  color: #fff;
-  display: flex;
-  align-items: center;
-  height: inherit;
-  align-items: baseline;
-  height: calc(100% - ${TERMINAL_HEADER_HEIGHT});
-
-  > div {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-  }
+    ${generateHighlighLines($highlightLines)} {
+      display: block;
+      background: ${$prismTheme['.line-highlight'].background};
+      border-radius: ${$prismTheme['.line-highlight']['border-radius']};
+    }
+  `}
 `
 
 const TerminalTextWrapper = styled.div`
@@ -122,57 +91,20 @@ const TerminalTextWrapper = styled.div`
   width: 100%;
 `
 
-const Terminal = ({
-  title = '',
-  loading = false,
+const CodeEditor = ({
+  showLineNumbers,
+  interactive,
   children,
   theme,
-  prismTheme,
-  text,
-  ActionComponent = CodeCopy,
+  title,
   ...props
 }) => {
-  const [isHover, setHover] = useState(false)
-  const background = prismTheme['code[class*="language-"]'].background
-
-  return (
-    <TerminalWindow
-      onMouseOut={() => setHover(false)}
-      onMouseOver={() => setHover(true)}
-      theme={theme}
-      {...props}
-    >
-      <TerminalHeader background={background} theme={theme}>
-        <TerminalButton.Red loading={loading} theme={theme} />
-        <TerminalButton.Yellow loading={loading} theme={theme} />
-        <TerminalButton.Green loading={loading} theme={theme} />
-        {title && <TerminalTitle theme={theme}>{title}</TerminalTitle>}
-        <ActionComponent isHover={isHover} theme={theme} text={text} />
-      </TerminalHeader>
-      <TerminalText background={background} theme={theme}>
-        {children}
-      </TerminalText>
-    </TerminalWindow>
-  )
-}
-
-const CodeEditor = props => {
-  const {
-    ActionComponent,
-    showLineNumbers,
-    interactive,
-    children,
-    theme,
-    ...restProps
-  } = props
-
   const className = getClassName(props)
   const highlightLines = getLines(className)
-  const language = getLanguage(className, props)
+  const language = toAlias(getLanguage(className, props))
   const pretty = props.prettier ? get(prettier, language, identity) : identity
   const text = pretty(template(children)).trim()
   const prismTheme = prismThemes[theme]
-  const css = highlightLines && highlighLinesStyle(highlightLines, prismTheme)
   const id = `codeditor-${hash(children)}`
 
   const isInteractive =
@@ -183,21 +115,21 @@ const CodeEditor = props => {
 
   const TerminalComponent = (
     <Terminal
+      title={title}
       theme={theme}
-      prismTheme={prismTheme}
       id={id}
       text={text}
-      ActionComponent={ActionComponent}
       loading={isInteractive}
-      {...restProps}
+      {...props}
     >
-      <TerminalTextWrapper theme={theme}>
+      <TerminalTextWrapper>
         <CustomSyntaxHighlighter
-          lineNumberStyle={{ color: '#6272A4' }}
+          $prismTheme={prismTheme}
+          $highlightLines={highlightLines}
           showLineNumbers={showLineNumbers}
           language={language}
           style={prismTheme}
-          css={css}
+          wrapLines
         >
           {text}
         </CustomSyntaxHighlighter>
@@ -209,7 +141,7 @@ const CodeEditor = props => {
 
   return (
     <Runkit
-      title={restProps.title}
+      title={title}
       placeholderComponent={TerminalComponent}
       code={text}
     />
@@ -217,11 +149,12 @@ const CodeEditor = props => {
 }
 
 CodeEditor.defaultProps = {
+  blinkCursor: false,
   interactive: false,
   prettier: true,
   showLineNumbers: false,
-  width: TERMINAL_WIDTH,
-  theme: 'light'
+  theme: 'light',
+  width: TERMINAL_WIDTH
 }
 
 CodeEditor.width = TERMINAL_WIDTH
