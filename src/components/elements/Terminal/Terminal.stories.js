@@ -86,8 +86,6 @@ storiesOf('Elements', module).add('Terminal', () => (
     <Text color='gray6' mb={2} fontSize={0}>
       {'<Terminal blinkCursor={false} />'}
     </Text>
-    <Terminal title='' blinkCursor={false}>
-      {cliCode}
-    </Terminal>
+    <Terminal blinkCursor={false}>{cliCode}</Terminal>
   </Story>
 ))

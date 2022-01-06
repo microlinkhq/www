@@ -110,14 +110,14 @@ const TerminalTextWrapper = styled.div`
   width: 100%;
 `
 
-const Terminal = ({
-  title = '',
-  loading = false,
+const TerminalProvider = ({
+  ActionComponent = CodeCopy,
   children,
-  theme,
+  loading = false,
   prismTheme,
   text,
-  ActionComponent = CodeCopy,
+  theme,
+  title = '',
   ...props
 }) => {
   const background = prismTheme['code[class*="language-"]'].background
@@ -164,7 +164,7 @@ const CodeEditor = props => {
     !text.startsWith('{')
 
   const TerminalComponent = (
-    <Terminal
+    <TerminalProvider
       theme={theme}
       prismTheme={prismTheme}
       id={id}
@@ -184,7 +184,7 @@ const CodeEditor = props => {
           {text}
         </CustomSyntaxHighlighter>
       </TerminalTextWrapper>
-    </Terminal>
+    </TerminalProvider>
   )
 
   if (!isInteractive) return TerminalComponent

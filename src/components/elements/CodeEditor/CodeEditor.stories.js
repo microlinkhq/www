@@ -87,41 +87,48 @@ const jsonCode = `
 storiesOf('Elements', module).add('CodeEditor', () => (
   <Story name='CodeEditor'>
     <Box mb={4}>
-      <Text color='black30'>js</Text>
+      <Text color='gray6' mb={2} fontSize={0}>
+        {"<CodeEditor title='my-code.js' theme='dark' language='js'>"}
+      </Text>
       <CodeEditor title='my-code.js' theme='dark' language='js'>
         {jsCode}
       </CodeEditor>
     </Box>
 
     <Box mb={4}>
-      <Text color='black30'>js</Text>
+      <Text color='gray6' mb={2} fontSize={0}>
+        {"<CodeEditor title='my-code.js' language='js'>"}
+      </Text>
       <CodeEditor title='my-code.js' language='js'>
         {jsCode}
       </CodeEditor>
     </Box>
 
-    {/* <Box mb={4}>
-      <Text color='black30'>js (interactive)</Text>
-      <CodeEditor
-        interactive
-        title='my-code.js'
-        language='js'
-        children={jsCode}
-      />
-    </Box> */}
     <Box mb={4}>
-      <Text color='black30'>jsx</Text>
+      <Text color='gray6' mb={2} fontSize={0}>
+        {"<CodeEditor title='my-code.js' language='jsx'>"}
+      </Text>
       <CodeEditor title='my-code.jsx' language='jsx'>
         {jsxCode}
       </CodeEditor>
     </Box>
+
     <Box mb={4}>
-      <Text color='black30'>bash</Text>
-      <CodeEditor language='bash'>{bashCode}</CodeEditor>
+      <Text color='gray6' mb={2} fontSize={0}>
+        {"<CodeEditor title='my-code.js' language='json'>"}
+      </Text>
+      <CodeEditor title='my-code.jsx' language='json'>
+        {jsonCode}
+      </CodeEditor>
     </Box>
+
     <Box mb={4}>
-      <Text color='black30'>json</Text>
-      <CodeEditor language='json'>{jsonCode}</CodeEditor>
+      <Text color='gray6' mb={2} fontSize={0}>
+        {"<CodeEditor title='my-code.js' language='bash'>"}
+      </Text>
+      <CodeEditor title='my-code.jsx' language='bash'>
+        {bashCode}
+      </CodeEditor>
     </Box>
   </Story>
 ))
