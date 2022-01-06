@@ -9,8 +9,6 @@ import Tabs from '../Tabs'
 import Flex from '../Flex'
 import Box from '../Box'
 
-const LOCALSTORAGE_KEY = 'multi_code_editor_index'
-
 export const SelectLanguage = ({ isDark, value, onClick, ...props }) => {
   const color = cx(isDark ? 'white' : 'black')
 
@@ -68,6 +66,7 @@ const ActionComponent = ({
 }
 
 const DEFAULT_LANGUAGE_INDEX = 0
+const LOCALSTORAGE_KEY = 'multi_code_editor_index'
 
 const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
   const [languageIndex, setLanguageIndex] = useLocalStorage(
@@ -81,8 +80,20 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
 
   const setLanguage = language => {
     const languageIndex = languages.findIndex(lang => lang === language)
-    if (languageIndex >= 0) setLanguageIndex(languageIndex)
+    if (languageIndex < 0) return
+    const event = new window.CustomEvent(LOCALSTORAGE_KEY, {
+      detail: languageIndex
+    })
+    document.dispatchEvent(event)
   }
+
+  const updateLanguageIndex = event => setLanguageIndex(event.detail)
+
+  React.useEffect(() => {
+    document.addEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
+    return () =>
+      document.removeEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
+  })
 
   return (
     <CodeEditor
