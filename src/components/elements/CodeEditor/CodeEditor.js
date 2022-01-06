@@ -109,7 +109,7 @@ const CodeEditor = ({
 
   const isInteractive =
     interactive &&
-    language === 'js' &&
+    language === 'javascript' &&
     !text.includes('import') &&
     !text.startsWith('{')
 
@@ -150,7 +150,7 @@ const CodeEditor = ({
 
 CodeEditor.defaultProps = {
   blinkCursor: false,
-  interactive: false,
+  interactive: true,
   prettier: true,
   showLineNumbers: false,
   theme: 'light',

@@ -79,7 +79,7 @@ const prettier = (code, opts) => {
       .format(code, { ...PRETTIER_CONFIG, ...opts })
       .replace(';<', '<')
   } catch (error) {
-    console.error('[prettier]', error)
+    if (error.name !== 'SyntaxError') console.error('[prettier]', error)
     return code
   }
 }
