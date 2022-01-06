@@ -11,6 +11,7 @@ const PRETTIER_CONFIG = {
   arrowParens: 'avoid',
   jsxSingleQuote: true,
   printWidth: 80,
+  requirePragma: true,
   semi: false,
   singleQuote: true,
   tabWidth: 2,
