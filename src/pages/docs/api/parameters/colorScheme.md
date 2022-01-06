@@ -11,7 +11,7 @@ Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@me
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://googlechromelabs.github.io/dark-mode-toggle/demo&screenshot&colorScheme=dark`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

@@ -9,7 +9,7 @@ It ensures that any URL present on the response payload is publicly reachable.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&ping`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -29,7 +29,7 @@ You can disable this behavior in a partial way:
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&ping.audio=false`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -51,7 +51,7 @@ or in a total way:
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&ping=false`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

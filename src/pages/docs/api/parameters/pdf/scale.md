@@ -14,7 +14,7 @@ It sets the scale of the webpage rendering.
 <MultiCodeEditor languages={{
   HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://varnish-cache.org/docs/6.2/phk/thatslow.html&pdf&embed=pdf.url&scale=1"></iframe>`,
   Shell: `microlink https://varnish-cache.org/docs/6.2/phk/thatslow.html&pdf&margin=4mm`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

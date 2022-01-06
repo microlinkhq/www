@@ -8,7 +8,7 @@ Scroll to the DOM element matching the given [CSS selector](https://developer.mo
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&screenshot&scroll=#pricing`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

@@ -11,7 +11,7 @@ When it's <Type children='true'/>, it hides default white background and allows 
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://kikobeats.com&screenshot&omitBackground`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

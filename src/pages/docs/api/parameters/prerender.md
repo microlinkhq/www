@@ -22,7 +22,7 @@ Ideally, you don't need to think about prerendering: The default value <Type chi
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive')
@@ -42,7 +42,7 @@ If you know the target URL doesn't need prerender, you can disable it explicitly
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive&prerender=false`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', { prerender: false })

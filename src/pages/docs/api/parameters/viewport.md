@@ -8,7 +8,7 @@ It establishes a set of properties related with the browser visible area and dev
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -44,7 +44,7 @@ If you just provide an incomplete set of viewport values, they will be merged wi
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.deviceScaleFactor=0.5&embed=screenshot.url`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

@@ -11,7 +11,7 @@ Sets the code syntax highlighting color theme to use for beautifying HTML markup
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://healthcheck.microlink.io&screenshot&codeScheme=atom-dark`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

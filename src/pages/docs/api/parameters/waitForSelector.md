@@ -8,7 +8,7 @@ Tell the browser to wait until a specific [CSS selector](https://developer.mozil
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://dev.to&waitForSelector=main&screenshot`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

@@ -9,7 +9,7 @@ Enables video source detection from the target URL.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://instagram.com/p/BeV6tOhFUor&video`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

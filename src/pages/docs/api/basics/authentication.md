@@ -6,7 +6,7 @@ The authentication is done passing your API token associated with your [pro plan
 
 <MultiCodeEditor languages={{
   Shell: `curl --header 'x-api-key: YOUR_API_TOKEN' https://pro.microlink.io?url=https://github.com/microlinkhq`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -24,7 +24,7 @@ You can ensure your authentication is done correctly checking the `x-pricing-pla
 
 <MultiCodeEditor languages={{
   Shell: `curl --head --silent --header 'x-api-key: YOUR_API_TOKEN' https://pro.microlink.io?url=https://github.com/microlinkhq | grep -i "x-pricing-plan:"`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

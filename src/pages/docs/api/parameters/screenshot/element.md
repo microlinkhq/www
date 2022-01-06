@@ -8,7 +8,7 @@ Capture the DOM element matching the given [CSS selector](https://developer.mozi
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://ipinfo.io&screenshot&element=#ipw_main_area`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

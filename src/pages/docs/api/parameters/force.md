@@ -9,7 +9,7 @@ Invalidates the cache response associated with the query parameter and generates
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.producthunt.url}}&force`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -31,7 +31,7 @@ When `force` is enabled, `x-cache-status` causes a **BYPASS**.
 
 <MultiCodeEditor languages={{
   Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com&force | grep -i "x-cache-status"`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.reddit.com', { force: true })

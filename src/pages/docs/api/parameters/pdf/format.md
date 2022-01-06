@@ -14,7 +14,7 @@ It sets the paper format.
 <MultiCodeEditor languages={{
   HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://css-tricks.com/snippets/css/a-guide-to-flexbox&pdf&embed=pdf.url&format=A6"></iframe>`,
   Shell: `microlink https://css-tricks.com/snippets/css/a-guide-to-flexbox&pdf&format=A6`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

@@ -9,7 +9,7 @@ It defines the maximum quantity of time allowed for resolving a request successf
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&ping`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

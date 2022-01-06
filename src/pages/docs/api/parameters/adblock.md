@@ -9,7 +9,7 @@ When it's <Type children='true'/>, it enables to block third party requests comi
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://www.youtube.com&screenshot&adblock=false`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

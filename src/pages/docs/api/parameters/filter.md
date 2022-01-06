@@ -8,7 +8,7 @@ A comma-separated list of property paths to pick from response payload.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://news.ycombinator.com&filter=url,title`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

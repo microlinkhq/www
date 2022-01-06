@@ -14,7 +14,7 @@ It sets the paper margins.
 <MultiCodeEditor languages={{
   HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://basecamp.com/shapeup/0.3-chapter-01&pdf&embed=pdf.url&margin=4mm"></iframe>`,
   Shell: `microlink https://basecamp.com/shapeup/0.3-chapter-01&pdf&margin=4mm`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

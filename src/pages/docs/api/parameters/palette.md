@@ -9,7 +9,7 @@ Enabling it will return you more information related with color schema of the im
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&palette`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

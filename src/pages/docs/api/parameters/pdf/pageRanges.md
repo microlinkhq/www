@@ -12,7 +12,7 @@ Specify a page range to print, e.g., `'1-5, 8, 11-13'`.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://stripe.com&pdf&landscape`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

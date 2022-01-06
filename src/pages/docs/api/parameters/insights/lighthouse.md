@@ -13,7 +13,7 @@ It returns a full web performance metrics report powered by [Lighthouse](https:/
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse=true`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
@@ -38,7 +38,7 @@ Alternatively, you can serialize to `'html'` or `'csv'`:
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse.output=html`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
@@ -59,7 +59,7 @@ Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/m
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.lighthouse.device=mobile`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
@@ -80,7 +80,7 @@ Using `'preset'` it will load a set of specific Lighthouse settings at once:
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse.preset=mobile`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {

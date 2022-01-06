@@ -15,7 +15,7 @@ If that isn't enough for your use case, you can always specify your own proxy se
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://instagram.com/p/BvDTdWdnzkj&proxy=superproxy.cool:22225:603f60f5:***** --apiKey MY_API_KEY`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://kikobeats.com', {
@@ -38,7 +38,7 @@ You can ensure proxy is properly used checking `x-fetch-mode` header on response
 
 <MultiCodeEditor languages={{
   Shell: `https://instagram.com/p/BvDTdWdnzkj&proxy=superproxy.cool:22225:603f60f5:***** --apiKey MY_API_KEY`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

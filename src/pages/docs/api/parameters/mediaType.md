@@ -15,7 +15,7 @@ Changes the CSS media type of the browser page.
 <MultiCodeEditor languages={{
   HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&embed=pdf.url&mediaType=screen"></iframe>`,
   Shell: `microlink https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&mediaType=screen`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

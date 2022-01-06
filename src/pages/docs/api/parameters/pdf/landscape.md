@@ -13,7 +13,7 @@ When it's <Type children='true'/>, it changes the paper orientation to be landsc
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://www.algolia.com&pdf&landscape`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

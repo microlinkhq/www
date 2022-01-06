@@ -9,7 +9,7 @@ Enables audio source detection from the target URL.
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.spotify.url}}&audio`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

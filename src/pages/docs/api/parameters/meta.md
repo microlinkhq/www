@@ -9,7 +9,7 @@ It enables normalized metadata detection over the target URL.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://www.youtube.com/watch?v=9P6rdqiybaw&meta`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -88,7 +88,7 @@ If you don't need any of this, you can explicitly disable the default behavior
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://www.youtube.com/watch?v=9P6rdqiybaw&meta=false`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -108,7 +108,7 @@ This will be reflected at `x-fetch-mode` response header whose value should be <
 
 <MultiCodeEditor languages={{
   Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.youtube.com/watch?v=9P6rdqiybaw&meta=false&screenshot | grep -i "x-fetch-mode"`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

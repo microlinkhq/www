@@ -18,7 +18,7 @@ The events that can be waited are:
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&screenshot&waitUntil=domcontentloaded`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -36,7 +36,7 @@ Different arguments work for different pages. When neither of them work, a good 
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&screenshot&waitUntil=domcontentloaded&waitFor=h1`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

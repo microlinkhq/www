@@ -10,7 +10,7 @@ It sets [display: none](https://stackoverflow.com/a/133064/64949) on the matched
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&screenshot&remove.0=.crisp-client&remove.1=#cookies-policy`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

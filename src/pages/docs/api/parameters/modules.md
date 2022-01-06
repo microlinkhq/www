@@ -8,7 +8,7 @@ Injects [&lt;script type="module"&gt;](https://v8.dev/features/modules) into the
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&screenshot&modules.0=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40microlink%2Fmql%400.3.12%2Fsrc%2Fbrowser.js&modules.1=document.body.style.backgroundColor%20%3D%20%27red%27`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

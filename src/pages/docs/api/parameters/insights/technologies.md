@@ -9,7 +9,7 @@ It identifies technology behind the target URL powered by [Wappalyzer](https://w
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&insights.technologies=true`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://microlink.io', {

@@ -10,7 +10,7 @@ When it's provided, it enables the ability to serve a stale response while a bac
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&ttl=1d&staleTtl=1h`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://microlink.io', {
