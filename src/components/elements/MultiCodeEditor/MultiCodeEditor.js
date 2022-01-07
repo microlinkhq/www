@@ -101,6 +101,7 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
 
   return (
     <CodeEditor
+      header={{ style: { 'margin-bottom': '8px' } }}
       language={language}
       {...props}
       ActionComponent={props => (

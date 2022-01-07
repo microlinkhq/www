@@ -258,7 +258,6 @@ const baseTheme = theme => {
     },
     '.line-highlight': {
       border: '1px solid red',
-      'border-radius': radii[3],
       background:
         theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
     },
