@@ -10,7 +10,7 @@ Specifies the screenshot file type.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&screenshot&type=jpeg`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

@@ -153,7 +153,7 @@ export const TerminalTitle = ({ isDark, children }) => (
 
 const TerminalText = styled('div')`
   font-weight: ${fontWeights.normal};
-  padding: 16px;
+  padding: 8px 8px 16px 8px;
   overflow: visible;
   font-family: ${fonts.mono};
   font-size: 13px;
@@ -164,6 +164,11 @@ const TerminalText = styled('div')`
   color: ${props => props.color};
   display: flex;
   align-items: center;
+
+  div > span,
+  code > span {
+    padding: 0 8px;
+  }
 
   > div {
     width: 100%;
@@ -207,6 +212,7 @@ const TerminalProvider = ({
   loading,
   theme,
   title,
+  header,
   ...props
 }) => {
   const isDark = theme === 'dark'
@@ -215,7 +221,7 @@ const TerminalProvider = ({
 
   return (
     <TerminalWindow isDark={isDark} {...props}>
-      <TerminalHeader background={background}>
+      <TerminalHeader background={background} {...header}>
         <TerminalButton.Red loading={loading} />
         <TerminalButton.Yellow loading={loading} />
         <TerminalButton.Green loading={loading} />

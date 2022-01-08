@@ -14,7 +14,7 @@ Generates a PDF of the target website.
 <MultiCodeEditor languages={{
   HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm"></iframe>`,
   Shell: `microlink https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&scale=1&margin=0.4cm`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

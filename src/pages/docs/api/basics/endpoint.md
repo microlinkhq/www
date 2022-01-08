@@ -2,14 +2,12 @@
 title: 'Endpoint'
 ---
 
-**Microlink API** is shipped as a HTTP microservice exposed over SSL. 
+Microlink API is exposed from two endpoints:
 
-Two endpoints are available:
-
-- **free** ([api.microlink.io](https://api.microlink.io)): The endpoint to be used for unauthenticated requests.
+- **free** ([api.microlink.io](https://api.microlink.io)): The endpoint to be used for unauthenticated requests. It has daily rate limit.
 - **pro** ([pro.microlink.io](https://pro.microlink.io)): The endpoint to be used for authenticated requests. It needs a previously register API key.
 
-Just you need to call the endpoint with method **GET**, nothing else.
+All you need to do for accessing any of these endpoints it to hit them using HTTP GET method, nothing else.
 
 ```bash
 microlink https://github.io/microlinkhq&userAgent=googlebot
@@ -17,7 +15,7 @@ microlink https://github.io/microlinkhq&userAgent=googlebot
 
 <Figcaption children='Any additional API Parameter needs to be provided as query parameter.' />
 
-It does not matter if you use a camel or snake case; both are supported.
+The endpoint accepts multiple query parameters. It doesn't matter if they are camel or snake case, both styles are supported.
 
 ```bash
 microlink https://github.io/microlinkhq&user_agent=googlebot

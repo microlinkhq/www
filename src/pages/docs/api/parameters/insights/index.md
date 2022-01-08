@@ -9,7 +9,7 @@ It gets web performance metrics over the target URL.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://vercel.com&insights`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://vercel.com', {
@@ -30,7 +30,7 @@ Both fields are enabled by default. They can be disabled programmatically in ord
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://vercel.com&insights.technologies=false`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://vercel.com', {

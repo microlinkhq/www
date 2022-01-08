@@ -9,7 +9,7 @@ When it's present, a [viewport](/docs/api/parameters/viewport) preset will be lo
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&screenshot&device=ipad`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

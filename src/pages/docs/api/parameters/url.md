@@ -10,7 +10,7 @@ The target URL for getting information based on the content.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://kikobeats.com`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://kikobeats.com')
@@ -30,7 +30,7 @@ If the URL provided has query strings parameters, they should be properly escape
 
 <MultiCodeEditor languages={{
   Shell: `microlink https%3A%2F%2Fkikobeats.com%3F%26ref%3Dmicrolink`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

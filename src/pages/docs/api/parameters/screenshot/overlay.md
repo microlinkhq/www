@@ -10,7 +10,7 @@ It sets some aesthetic overlay settings associated with your screenshot.
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.apple.url}}&meta=false&screenshot=&overlay.browser=dark&overlay.background=linear-gradient%28225deg%2C+%23FF057C+0%25%2C+%238D0B93+50%25%2C+%23321575+100%25%29`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

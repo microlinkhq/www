@@ -11,6 +11,7 @@ const PRETTIER_CONFIG = {
   arrowParens: 'avoid',
   jsxSingleQuote: true,
   printWidth: 80,
+  requirePragma: true,
   semi: false,
   singleQuote: true,
   tabWidth: 2,
@@ -79,7 +80,7 @@ const prettier = (code, opts) => {
       .format(code, { ...PRETTIER_CONFIG, ...opts })
       .replace(';<', '<')
   } catch (error) {
-    console.error('[prettier]', error)
+    if (error.name !== 'SyntaxError') console.error('[prettier]', error)
     return code
   }
 }

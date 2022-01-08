@@ -10,7 +10,7 @@ The embed parameter is for embedding a field directly in your HTML markup, using
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.ycombinator.url}}&screenshot&embed=screenshot.url`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

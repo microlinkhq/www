@@ -10,7 +10,7 @@ Establishes the maximum quantity of time a resource served from cache layer is c
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&ttl=1d`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://microlink.io', {
@@ -60,7 +60,7 @@ The value provided will reflected as `x-cache-ttl` as part of the response heade
 
 <MultiCodeEditor languages={{
   Shell: `curl -I -s -X GET https://microlink.io?url=https://www.twitter.com/microlinkhq | grep -i "x-cache-ttl"`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://www.reddit.com')

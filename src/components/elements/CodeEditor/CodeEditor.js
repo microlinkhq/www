@@ -4,6 +4,7 @@ import { wordBreak } from 'helpers/style'
 import identity from 'lodash/identity'
 import styled from 'styled-components'
 import range from 'lodash/range'
+import { radii } from 'theme'
 import React from 'react'
 import get from 'dlv'
 
@@ -81,7 +82,7 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
     ${generateHighlighLines($highlightLines)} {
       display: block;
       background: ${$prismTheme['.line-highlight'].background};
-      border-radius: ${$prismTheme['.line-highlight']['border-radius']};
+      border-radius: ${radii[2]};
     }
   `}
 `
@@ -109,7 +110,7 @@ const CodeEditor = ({
 
   const isInteractive =
     interactive &&
-    language === 'js' &&
+    language === 'javascript' &&
     !text.includes('import') &&
     !text.startsWith('{')
 

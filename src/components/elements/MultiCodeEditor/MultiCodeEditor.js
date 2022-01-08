@@ -78,6 +78,10 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
   const language = languages[languageIndex]
   const code = codeByLanguage[language]
 
+  // since we are memoizing the latest language used,
+  // need to be reset when the memoized language is missing
+  if (!code) setLanguageIndex(DEFAULT_LANGUAGE_INDEX)
+
   const setLanguage = language => {
     const languageIndex = languages.findIndex(lang => lang === language)
     if (languageIndex < 0) return
@@ -97,6 +101,7 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
 
   return (
     <CodeEditor
+      header={{ style: { 'margin-bottom': '8px' } }}
       language={language}
       {...props}
       ActionComponent={props => (
@@ -114,7 +119,8 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
 }
 
 MultiCodeEditor.defaultProps = {
-  ...CodeEditor.defaultProps
+  ...CodeEditor.defaultProps,
+  interactive: false
 }
 
 export default MultiCodeEditor

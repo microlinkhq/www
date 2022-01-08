@@ -8,7 +8,7 @@ Click DOM elements matching the given [CSS selectors](https://developer.mozilla.
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://microlink.io&screenshot&click=#features`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(

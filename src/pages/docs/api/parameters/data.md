@@ -8,7 +8,7 @@ Allows extraction of specific content from the target URL
 
 <MultiCodeEditor languages={{
   Shell: `microlink https://kikobeats.com&data.avatar.selector=#avatar&data.avatar.type=image&data.avatar.attr=src`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql('https://kikobeats.com', {

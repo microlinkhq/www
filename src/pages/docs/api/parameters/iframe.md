@@ -9,7 +9,7 @@ Enabling it will return a new `iframe` data field, allowing to insert an embedde
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.youtube.url}}&iframe`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
@@ -49,7 +49,7 @@ Additionally, you can supply any consumer query parameter supported by [specific
 
 <MultiCodeEditor languages={{
   Shell: `microlink {{demolinks.youtube.url}}&iframe.maxWidth=350`,
-  'Node.js': `const mql = require('@microlink/mql')
+  'JavaScript': `const mql = require('@microlink/mql')
  
 module.exports = async () => {
   const { status, data, response } = await mql(
