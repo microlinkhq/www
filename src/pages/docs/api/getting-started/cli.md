@@ -2,17 +2,13 @@
 title: 'CLI'
 ---
 
-We provided a Command Line Interface for interacting with [Microlink API](/docs/api/getting-started/overview/) from your terminal, available as [npm package](https://www.npmjs.com/package/@microlink/cli).
+We provide a command-line interface for interacting with [Microlink API](/docs/api/getting-started/overview/) from your terminal, available as an [npm package](https://www.npmjs.com/package/@microlink/cli).
 
-```bash
-npm install @microlink/cli --global
-```
+<Terminal>npm install @microlink/cli --global</Terminal>
 
 Alternatively, if you have [npx](https://www.npmjs.com/package/npx), you can just run it.
 
-```bash
-npx install @microlink/cli --help
-```
+<Terminal>npx install @microlink/cli --help</Terminal>
 
 After that, `microlink` command will be available in your system.
 

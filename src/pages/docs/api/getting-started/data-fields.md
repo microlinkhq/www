@@ -2,7 +2,7 @@
 title: 'Data Fields'
 --- 
 
-The following data fields are detected for any [url](/docs/api/parameters/url) provided:
+When you send a [url](/docs/api/parameters/url) to Microlink API, the following data fields are detected by default:
 
 - `author` (e.g., <Type children="'SpaceX'"/>)<br/>
   A human-readable representation of the author's name.
@@ -25,7 +25,7 @@ The following data fields are detected for any [url](/docs/api/parameters/url) p
 - `url` (e.g.,<Type children="'https://instagram.com/p/BeV6tOhFUor'"/>)<br/>
   The URL of the article.
 
-Additionally, for any media we add some useful contextual information.
+When a data field is media content, the following contextual data will be also returned:
 
   - `width`: file width in pixels.
   - `height`: file width in pixels.
@@ -33,7 +33,16 @@ Additionally, for any media we add some useful contextual information.
   - `size`: file size in bytes.
   - `size_pretty` file size in a human readable format.
 
-In addition, if the detected multimedia content is reproducible (such as [video](/docs/api/parameters/video) or [audio](/docs/api/parameters/audio)), the following fields will be added as well:
+Moreover, if the media content is playable (such as [video](/docs/api/parameters/video) or [audio](/docs/api/parameters/audio)), the following fields will be added as well:
 
   - `duration`: source duration in seconds.
   - `duration_pretty` source duration in a human readable format.
+
+You can customize this behavior via [meta](/docs/api/parameters/meta) and/or [data](/docs/api/parameters/data) in order to add specific data rules over the target URL.
+
+Additionally, Microlink gives you some HTTP information over the target URL, such as:
+
+  - `statusCode`: The HTTP status code associated with the url response.
+  - `headers`: The HTTP response headers associated with the url response.
+
+The service also returns a `status` field to represent the stage of the current transaction. See [format](/docs/api/basics/format) to know more.

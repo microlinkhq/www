@@ -2,11 +2,7 @@
 title: 'Overview'
 ---
 
-Microlink provides a powerful API for automating any browser action.
-
-You can hit the API from any environment that allows you perform a HTTP request.
-
-That includes any programming language:
+Microlink API provides a powerful API for automating any browser action.
 
 ```js
 const mql = require('@microlink/mql')
@@ -16,19 +12,13 @@ const { status, data } = await mql('https://github.com/microlinkhq')
 console.log(data)
 ```
 
-or from your terminal:
+You can hit the API directly from your browser or any environment that allows you to perform a simple HTTP GET request.
 
-```bash
-curl https://api.microlink.io?url=https://github.com/microlinkhq
-```
+<MultiCodeEditor languages={mqlCode('https://example.com')} />
 
-even using [Microlink CLI](/docs/api/getting-started/cli):
+<Figcaption>The <Link href='/docs/api/getting-started/cli' children='Microlink CLI' /> is helpful to explore the API under local development.</Figcaption>
 
-```bash
-microlink https://github.com/microlinkhq
-```
-
-You just need to provide a URL as input, outputting the structured data back.
+Just you need to provide a URL as an input, outputting the structured data back.
 
 ```json
 {
@@ -61,10 +51,13 @@ You just need to provide a URL as input, outputting the structured data back.
 }
 ```
 
-The following documentation is going to teach you how to do things like:
+There are some of the most common workflow you can do with Microlink API:
 
-- Get structured data from any link.
-- Take a [screenshot](/docs/api/parameters/screenshot) of the website (partial or full page).
+- Retrieve [meta](/docs/api/parameters/screenshot) data from any link.
+- Take a [screenshot](/docs/api/parameters/screenshot) or generate a [pdf](/docs/api/parameters/pdf) of the target website.
 - Get a predominant color [palette](/docs/api/parameters/palette) per each image detected.
 - Make easy [embed](/docs/api/parameters/embed) content directly in your HTML markup.
+- Identify [technologies](/docs/api/parameters/insights/technologies) behind a target URL.
 - [prerender](/docs/api/parameters/prerender) mode, useful for getting more information from websites that use client-side frameworks.
+
+The following documentation is going to teach you all these things and more.

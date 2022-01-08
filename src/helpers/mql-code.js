@@ -5,7 +5,7 @@ const createApiUrl = ({ url = 'https://example.com', ...props } = {}) => {
   return decodeURIComponent(apiUrl)
 }
 
-const stringProps = props =>
+const stringProps = (props = {}) =>
   Object.keys(props).reduce(
     (acc, key) =>
       acc +
@@ -17,22 +17,20 @@ const stringProps = props =>
     ''
   )
 
-const composeUrl = props => (url = 'https://example.com') =>
+const composeUrl = ({ headers, ...props }) => (url = 'https://example.com') =>
   createApiUrl({ url, ...props })
 
-const mqlCode = (input, props) => {
+const mqlCode = (input, props = {}) => {
   const url = composeUrl({ url: input, ...props })
 
   const JavaScript = args => {
-    const { url = '{{demolinks.spotify.url}}' } = { ...props, ...args }
-    const opts = props ? `{ ${stringProps(props.data)} ...opts }` : 'opts'
+    const { url = input || '{{demolinks.spotify.url}}' } = { ...props, ...args }
+    const opts = props.data ? `{ ${stringProps(props.data)} }` : ''
 
     return `
 const mql = require('@microlink/mql')
 
-module.exports = opts => {
-  const { status, data } = await mql('${url}', ${opts})
-}`
+const { status, data } = await mql('${url}'${opts ? `, ${opts}` : ''})`
   }
 
   JavaScript.language = 'javascript'
@@ -48,57 +46,64 @@ module.exports = opts => {
 
   Shell.language = 'bash'
 
-  const Ruby = props =>
-    `require('httparty')
+  const Ruby = () => {
+    const sanetizedUrl = url().replace(`?url=${input}`, '')
 
-response = HTTParty.get('${url()}')
+    const headers =
+      props.headers &&
+      Object.keys(props.headers).reduce(
+        (acc, key) => acc + `:${key} => '${props.headers[key]}'`,
+        ''
+      )
+
+    return `require('httparty')
+
+url = '${sanetizedUrl}'
+query = {:url => "${url().replace('https://api.microlink.io?url=', '')}"}
+${headers ? `headers = {${headers}}\n` : ''}
+${
+  headers
+    ? 'response = HTTParty.get(url, :query => query, :headers => headers)'
+    : 'response = HTTParty.get(url, :query => query)'
+}
 
 puts response.body`
+  }
 
   Ruby.language = 'ruby'
 
-  const Python = () =>
-    `import requests
+  const Python = () => {
+    const sanetizedUrl = url().replace(`?url=${input}`, '')
 
-url = '${url()}'
-response = requests.get(url)
+    const headers =
+      props.headers &&
+      JSON.stringify(props.headers, null)
+        .replaceAll('"', "'")
+        .replaceAll(':', ': ')
+
+    return `
+import requests
+
+url = '${sanetizedUrl}'
+params = {'url': '${input}'}
+${headers ? `headers = ${headers}\n` : ''}
+${
+  headers
+    ? 'response = requests.get(url, params=params headers=headers)'
+    : 'response = requests.get(url, params=params)'
+}
 
 print(response.text)`
+  }
 
   Python.language = 'python'
-
-  const Swift = () =>
-    `import Foundation
-
-var request = NSMutableURLRequest(
-  URL: NSURL(string: '${url()}')!,
-  cachePolicy: .UseProtocolCachePolicy,
-  timeoutInterval: 10.0
-)
-
-request.HTTPMethod = "GET"
-
-let session = NSURLSession.sharedSession()
-let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-  if (error != nil) {
-    println(error)
-  } else {
-    let httpResponse = response as? NSHTTPURLResponse
-    println(httpResponse)
-  }
-})
-
-dataTask.resume()`
-
-  Swift.language = 'swift'
 
   return {
     CLI,
     JavaScript: JavaScript,
     Shell,
     Python,
-    Ruby,
-    Swift
+    Ruby
   }
 }
 
