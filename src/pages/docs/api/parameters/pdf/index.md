@@ -5,31 +5,15 @@ title: 'pdf'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-Generates a PDF of the target website.
+It generates a PDF over the target [url](/docs/api/parameters/url).
 
 <Iframe
   src="https://cdn.microlink.io/pdf/rauchg.pdf"
 />
 
-<MultiCodeEditor languages={{
-  HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm"></iframe>`,
-  Shell: `microlink https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&scale=1&margin=0.4cm`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://rauchg.com/2014/7-principles-of-rich-web-applications', { 
-      pdf: true,
-      scale: 1,
-      margin: '0.4cm'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://rauchg.com/2014/7-principles-of-rich-web-applications', { pdf: true })} />
 
-When it's enabled, a new `pdf` data field will be part of the Microlink API response payload.
+When it's enabled, a new `pdf` data field will be part of the response payload.
 
 ```json
 {
@@ -61,7 +45,11 @@ When it's enabled, a new `pdf` data field will be part of the Microlink API resp
 }
 ```
 
-You can combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup
+You can configure different specific options, such as [scale](/docs/api/parameters/pdf/scale) or [margin](/docs/api/parameters/pdf/margin):
+
+<MultiCodeEditor languages={mqlCode('https://rauchg.com/2014/7-principles-of-rich-web-applications', { pdf: true, scale: 1, margin: '0.4cm' })} />
+
+Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup:
 
 <Container textAlign='center'>
   <a href="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm" download="How-to-download-file.pdf">
@@ -78,4 +66,4 @@ You can combine it with [embed](/docs/api/parameters/embed) for inserting it as 
 </a>
 ```
 
-When you generate a PDF the [mediaType](/docs/api/parameters/mediaType) is automatically set as `'print'`.
+When you generate a PDF, the default [mediaType](/docs/api/parameters/mediaType) is `'print'`.

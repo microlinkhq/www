@@ -5,44 +5,24 @@ title: 'insights'
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
 
-It gets web performance metrics over the target URL.
+It gets a web performance metrics of the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://vercel.com&insights`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://vercel.com', {
-    insights: true
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://vercel.com', { 
+  insights: true
+})} />
 
-When you enabled it, a new `insights` field will be present into the data response payload. These field contain two subfields:
+When is presnet, a new `insights` data field will be returned. These field contain two subfields:
 
 - `technologies`: A list of technologies identified powered by [Wappalyzer](https://www.wappalyzer.com/).
 - `lighthouse`: A full web audit report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
-Both fields are enabled by default. They can be disabled programmatically in order to speed up the response time.
+By default, both subfield are enabled. You can disable them individually to speed up the response time:
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://vercel.com&insights.technologies=false`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://vercel.com', {
-    insights: {
-      lighthouse: true,
-      technologies: false
-    }
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://vercel.com', { 
+  insights: {
+    lighthouse: true,
+    technologies: false
+  }
+})} />
 
 <Figcaption children='Enabling insights but only the lighthouse report' />

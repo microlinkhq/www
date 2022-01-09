@@ -5,25 +5,11 @@ title: 'device'
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'macbook pro 13'"/>
 
-When it's present, a [viewport](/docs/api/parameters/viewport) preset will be load for emulating the device before taking the screenshot.
+It loads a set of options (such as [viewport](/docs/api/parameters/viewport), user agent, etc) to emulate the specified device.
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&screenshot&device=ipad`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://microlink.io'. { 
-      screenshot: true,
-      device: 'iPad',
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://microlink.io', { screenshot: true, device: 'iPad' })} />
 
-<Figcaption>It doesn't matter if you use uppercase or lowercase.</Figcaption>
+When the divide is defined, it will affect the whole request lifecycle. It doesn't matter if you use uppercase or lowercase.
 
 The following devices names are supported:
 

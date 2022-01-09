@@ -5,25 +5,13 @@ title: 'meta'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-It enables normalized metadata detection over the target URL.
+It enables normalized metadata detection over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://www.youtube.com/watch?v=9P6rdqiybaw&meta`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://www.youtube.com/watch?v=9P6rdqiybaw', { 
-      meta: true
-  })
-  
- console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
+  meta: true
+})} />
 
-The normalized metadata is enabled by default, so you don't need to set it as `true` explicitly.
+The normalized data fields is enabled by default, so you don't need to set it as `true` explicitly.
 
 ```json
 
@@ -86,21 +74,9 @@ The normalized metadata is enabled by default, so you don't need to set it as `t
 
 If you don't need any of this, you can explicitly disable the default behavior 
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://www.youtube.com/watch?v=9P6rdqiybaw&meta=false`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://www.youtube.com/watch?v=9P6rdqiybaw', { 
-      meta: false
-  })
-  
- console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
+  meta: false
+})} />
 
 Doing that you can speed up response timing for those cases you are not interested in consuming the metadata, like [screenshot](/docs/api/parameters/screenshot) or [video](/docs/api/parameters/video).
 

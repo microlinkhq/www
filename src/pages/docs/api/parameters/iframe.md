@@ -2,33 +2,23 @@
 title: 'iframe'
 ---
 
-Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer>
+Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
 
-Enabling it will return a new `iframe` data field, allowing to insert an embedded representation of the [url](/docs/api/parameters/url).
+It enables embedded detection over the target [url](/docs/api/parameters/url). 
 
-<MultiCodeEditor languages={{
-  Shell: `microlink {{demolinks.youtube.url}}&iframe`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    '{{demolinks.youtube.url}}', {
-      iframe: true
-  })
-    
-  console.log(data)
-}
-  `
-  }}
-/>
+When is present, a new `iframe` data field will be returned when is possible. Any URL that implements [oEmbed](https://oembed.com/) specification is supported.
+
+<MultiCodeEditor languages={mqlCode('{{demolinks.youtube.url}}', { 
+  iframe: true
+})} />
 
 <Iframe
   src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed"
   allowFullScreen
 />
 
-Any URL that implements [oEmbed](https://oembed.com/) specification is supported. If the discovery has been done successfully, the `iframe` field will be now present into the response:
+If the discovery has been done successfully, the `iframe` field will be now present into the response:
 
 ```json
 {
@@ -47,23 +37,11 @@ Any URL that implements [oEmbed](https://oembed.com/) specification is supported
 
 Additionally, you can supply any consumer query parameter supported by [specification](https://oembed.com/), like `maxWidth` or `maxHeight`:
 
-<MultiCodeEditor languages={{
-  Shell: `microlink {{demolinks.youtube.url}}&iframe.maxWidth=350`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    '{{demolinks.youtube.url}}', {
-      iframe: {
-        maxWidth: 350
-      }
-  })
-    
-  console.log(data)
-}
-  `
-  }}
-/>
+<MultiCodeEditor languages={mqlCode('{{demolinks.youtube.url}}', { 
+  iframe: {
+    maxWidth: 350
+  }
+})} />
 
 Keep in mind the support for this query parameters depend on every provider implementation.
 

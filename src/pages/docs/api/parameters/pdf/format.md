@@ -8,25 +8,10 @@ Default: <Type children="'A4'"/>
 It sets the paper format.
 
 <Iframe
-  src="https://api.microlink.io/?url=https://css-tricks.com/snippets/css/a-guide-to-flexbox&pdf&embed=pdf.url&format=A6&meta=false"
+  src="https://api.microlink.io/?url=https://raw.githubusercontent.com/jamiebuilds/itsy-bitsy-data-structures/master/itsy-bitsy-data-structures.js&pdf&embed=pdf.url&format=A4&meta=false"
 />
 
-<MultiCodeEditor languages={{
-  HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://css-tricks.com/snippets/css/a-guide-to-flexbox&pdf&embed=pdf.url&format=A6"></iframe>`,
-  Shell: `microlink https://css-tricks.com/snippets/css/a-guide-to-flexbox&pdf&format=A6`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://css-tricks.com/snippets/css/a-guide-to-flexbox', { 
-      pdf: true,
-      format: 'A6'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://raw.githubusercontent.com/jamiebuilds/itsy-bitsy-data-structures/master/itsy-bitsy-data-structures.js', { pdf: true, format: 'A4' })} />
 
 The format options are:
 

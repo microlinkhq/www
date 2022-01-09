@@ -5,39 +5,8 @@ title: 'force'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-Invalidates the cache response associated with the query parameter and generates a fresh copy.
+It invalidates the [cache](/docs/api/basics/cache) copy associated with the resource requested, returning a new fresh copy.
 
-<MultiCodeEditor languages={{
-  Shell: `microlink {{demolinks.producthunt.url}}&force`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    '{{demolinks.producthunt.url}}', { 
-      force: true
-  })
-  
- console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://time-is.vercel.app', { force: true })} />
 
-By default the API will be [cache](/docs/api/basics/cache) consecutive API calls.
-
-Providing it, you are forcing to invalidate the current state of the cache for the response and generate a new one.
-
-When `force` is enabled, `x-cache-status` causes a **BYPASS**.
-
-<MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com&force | grep -i "x-cache-status"`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://www.reddit.com', { force: true })
-  
-  console.log(response.headers.['x-cache-status' ) // => 'BYPASS'
-}
-  `
-  }} 
-/>
+When `force=true` is provided, `x-cache-status` will return **BYPASS**.

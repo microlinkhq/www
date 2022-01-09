@@ -1,36 +1,58 @@
 import mql from '@microlink/mql'
 
+const ENDPOINT = {
+  FREE: 'https://api.microlink.io',
+  PRO: 'https://pro.microlink.io'
+}
+
+const stringify = (input = '') => JSON.stringify(input).replaceAll('"', "'")
+
+stringify.python = input =>
+  stringify(input)
+    .replaceAll('true', 'True')
+    .replaceAll('false', 'False')
+
+const endpoint = ({ endpoint, headers }) => {
+  const apiKey = headers && headers['x-api-key']
+  const isPro = !!apiKey
+  return endpoint || ENDPOINT[isPro ? 'PRO' : 'FREE']
+}
+
 const createApiUrl = ({ url = 'https://example.com', ...props } = {}) => {
   const [apiUrl] = mql.getApiUrl(url, props)
   return decodeURIComponent(apiUrl)
 }
 
-const stringProps = (props = {}) =>
-  Object.keys(props).reduce(
+const stringProps = (props = {}) => {
+  const keys = Object.keys(props)
+  return keys.reduce(
     (acc, key) =>
       acc +
-      `${key}: ${
+      `${stringify(key)}: ${
         typeof props[key] === 'object'
           ? `{${stringProps(props[key])}}`
-          : JSON.stringify(props[key])
-      },`,
+          : stringify(props[key])
+      }${keys.length === 1 ? '' : ','}`,
     ''
   )
+}
 
 const composeUrl = ({ headers, ...props }) => (url = 'https://example.com') =>
   createApiUrl({ url, ...props })
 
-const mqlCode = (input, props = {}) => {
+const mqlCode = (input, props) => {
   const url = composeUrl({ url: input, ...props })
 
   const JavaScript = args => {
     const { url = input || '{{demolinks.spotify.url}}' } = { ...props, ...args }
-    const opts = props.data ? `{ ${stringProps(props.data)} }` : ''
+    const opts = props ? `{ ${stringProps(props)} }` : ''
 
     return `
 const mql = require('@microlink/mql')
 
-const { status, data } = await mql('${url}'${opts ? `, ${opts}` : ''})`
+const { status, data } = await mql('${url}'${opts ? `, ${opts}` : ''})
+
+console.log(data)`
   }
 
   JavaScript.language = 'javascript'
@@ -40,31 +62,41 @@ const { status, data } = await mql('${url}'${opts ? `, ${opts}` : ''})`
   Shell.language = 'bash'
 
   const CLI = () => {
-    const input = `${url().replace('https://api.microlink.io?url=', '')}`
-    return `microlink '${input}'`
+    return `microlink '${url().replace('https://api.microlink.io?url=', '')}'`
   }
 
   Shell.language = 'bash'
 
   const Ruby = () => {
-    const sanetizedUrl = url().replace(`?url=${input}`, '')
+    const { headers: rawHeaders, ...restProps } = props || {}
+    const keys = Object.keys(restProps)
+    const size = keys.length
+
+    const serialiedProps = keys.reduce((acc, key, index) => {
+      return (
+        acc +
+        `:${key} => ${stringify(restProps[key])}${
+          size > 1 ? `${index + 1 === size ? '' : ', '}` : ''
+        }`
+      )
+    }, '')
 
     const headers =
-      props.headers &&
-      Object.keys(props.headers).reduce(
-        (acc, key) => acc + `:${key} => '${props.headers[key]}'`,
+      rawHeaders &&
+      Object.keys(rawHeaders).reduce(
+        (acc, key) => acc + `:${key} => '${rawHeaders[key]}'`,
         ''
       )
 
     return `require('httparty')
 
-url = '${sanetizedUrl}'
-query = {:url => "${url().replace('https://api.microlink.io?url=', '')}"}
+url = '${endpoint(props)}'
+query = {:url => "${input}"${serialiedProps ? `, ${serialiedProps}` : ''}}
 ${headers ? `headers = {${headers}}\n` : ''}
 ${
   headers
-    ? 'response = HTTParty.get(url, :query => query, :headers => headers)'
-    : 'response = HTTParty.get(url, :query => query)'
+    ? 'response = HTTParty.get(url, query, headers)'
+    : 'response = HTTParty.get(url, query)'
 }
 
 puts response.body`
@@ -73,34 +105,40 @@ puts response.body`
   Ruby.language = 'ruby'
 
   const Python = () => {
-    const sanetizedUrl = url().replace(`?url=${input}`, '')
+    const { headers: rawHeaders, ...restProps } = props || {}
+    const keys = Object.keys(restProps)
+    const size = keys.length
+    const serialiedProps = keys.reduce((acc, key, index) => {
+      return (
+        acc +
+        `'${key}': ${stringify.python(restProps[key])}${
+          size > 1 ? `${index + 1 === size ? '' : ', '}` : ''
+        }`
+      )
+    }, '')
 
-    const headers =
-      props.headers &&
-      JSON.stringify(props.headers, null)
-        .replaceAll('"', "'")
-        .replaceAll(':', ': ')
+    const headers = rawHeaders && stringify(rawHeaders).replaceAll(':', ': ')
 
     return `
 import requests
 
-url = '${sanetizedUrl}'
-params = {'url': '${input}'}
+url = '${endpoint(props)}'
+params = {'url': '${input}'${serialiedProps ? `, ${serialiedProps}` : ''}}
 ${headers ? `headers = ${headers}\n` : ''}
 ${
   headers
-    ? 'response = requests.get(url, params=params headers=headers)'
-    : 'response = requests.get(url, params=params)'
+    ? 'response = requests.get(url, params headers)'
+    : 'response = requests.get(url, params)'
 }
 
-print(response.text)`
+print(response.json())`
   }
 
   Python.language = 'python'
 
   return {
     CLI,
-    JavaScript: JavaScript,
+    JavaScript,
     Shell,
     Python,
     Ruby

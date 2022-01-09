@@ -5,19 +5,8 @@ title: 'javascript'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-When it's <Type children='false'/>, it disables the javascript engine on the browser page.
+It enables/disables JavaScript execution into the browser page over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://news.ycombinator.com&javascript=false`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://news.ycombinator.com'. { 
-      javascript: false
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://news.ycombinator.com', { 
+  javascript: true
+})} />
