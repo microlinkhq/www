@@ -1,3 +1,7 @@
+- date: January 2022
+  notes:
+    - "[Microlink Cards](https://cards.microlink.io): Added [netlify](https://cards.microlink.io/editor?preset=netlify) template."
+
 - date: December 2021
   notes:
     - "[Microlink OSS](/oss): Released [ffprobe](https://github.com/microlinkhq/ffprobe)."
