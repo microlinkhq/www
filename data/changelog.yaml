@@ -1,5 +1,6 @@
 - date: January 2022
   notes:
+    - "[unavatar.io](https://unavatar.io) crossed 50 millions requests per month"
     - "[Microlink Cards](https://cards.microlink.io): Added [netlify](https://cards.microlink.io/editor?preset=netlify) template."
 
 - date: December 2021
@@ -8,6 +9,7 @@
     
 - date: November 2021
   notes:
+    - "[unavatar.io](https://unavatar.io) crossed 30 millions requests per month"
     - "[Microlink API](/docs/api/getting-started/overview): Added [iframe](/docs/api/parameters/iframe) Twitter player detection."
     - "[Microlink Functions](https://functions.microlink.io): Added HTML markup of the target website as function parameter."
     - "[Microlink Recipes](/recipes): Added [healthcheck](/recipes/healthcheck) recipe."
@@ -37,11 +39,13 @@
 
 - date: August 2021
   notes:
+    - "[unavatar.io](https://unavatar.io) crossed 20 millions requests per month"
     - "[Microlink OSS](/oss): Released [metatags](https://github.com/microlinkhq/metatags)."
     - "[Microlink API](/docs/api/getting-started/overview): Added [staleTtl](/docs/api/parameters/staleTtl) query parameter."
 
 - date: July 2021
   notes:
+
     - "[Microlink OSS](/oss): Sponsored [unavatar.io](https://unavatar.io)."
     - "[Microlink Recipes](/recipes): Added [Instagram](/recipes/instagram) recipe."
     - "[Microlink Recipes](/recipes): Added [Telegram](/recipes/telegram) recipe."
