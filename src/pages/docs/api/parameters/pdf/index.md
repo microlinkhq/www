@@ -7,9 +7,7 @@ Default: <Type children='false'/>
 
 It generates a PDF over the target [url](/docs/api/parameters/url).
 
-<Iframe
-  src="https://cdn.microlink.io/pdf/rauchg.pdf"
-/>
+<Iframe src="https://cdn.microlink.io/pdf/rauchg.pdf" />
 
 <MultiCodeEditor languages={mqlCode('https://rauchg.com/2014/7-principles-of-rich-web-applications', { pdf: true })} />
 

@@ -34,7 +34,7 @@ These query parameters are specially helpful when the target URL is not actually
 
 Another thing worth mentioning is the ability to consume the PDF directly from HTML markup using [embed](/docs/api/parameters/embed) mode:
 
-<Iframe src='https://api.microlink.io/?url=https://basecamp.com/shapeup/0.3-chapter-01&pdf&embed=pdf.url' />
+<Iframe src='https://cdn.microlink.io/pdf/basecamp.pdf' />
 
 ```html
 <iframe frameborder='0'	target='_parent' src='https://api.microlink.io/?url=https://basecamp.com/shapeup/0.3-chapter-01&pdf&embed=pdf.url'

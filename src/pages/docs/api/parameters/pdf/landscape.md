@@ -7,22 +7,6 @@ Default: <Type children='true'/>
 
 When it's <Type children='true'/>, it changes the paper orientation to be landscape.
 
-<Iframe
-  src="https://api.microlink.io/?url=https://www.algolia.com&pdf&landscape&embed=pdf.url"
-/>
+<Iframe src="https://cdn.microlink.io/docs/algolia.pdf" />
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://www.algolia.com&pdf&landscape`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://www.algolia.com', { 
-      pdf: true,
-      landscape: true
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://www.algolia.com', { pdf: true, landscape: true })} />

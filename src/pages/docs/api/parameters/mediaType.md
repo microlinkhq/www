@@ -8,9 +8,7 @@ Values: <TypeContainer><Type children="'screen'"/> | <Type children="'print'"/><
 
 It sets the CSS media type into the browser page over the target [url](/docs/api/parameters/url).
 
-<Iframe
-  src="https://api.microlink.io/?url=https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&embed=pdf.url&mediaType=screen&meta=false&waitUntil=networkidle2"
-/>
+<Iframe src="https://cdn.microlink.io/pdf/alexmaccaw.pdf" />
 
 <MultiCodeEditor languages={mqlCode('https://blog.alexmaccaw.com/advice-to-my-younger-self', {  pdf: true, mediaType: 'screen' })} />
 

@@ -7,11 +7,9 @@ Default: <Type children="'A4'"/>
 
 It sets the paper format.
 
-<Iframe
-  src="https://api.microlink.io/?url=https://raw.githubusercontent.com/jamiebuilds/itsy-bitsy-data-structures/master/itsy-bitsy-data-structures.js&pdf&embed=pdf.url&format=A4&meta=false"
-/>
+<Iframe src="https://cdn.microlink.io/docs/caffeine.pdf" />
 
-<MultiCodeEditor languages={mqlCode('https://raw.githubusercontent.com/jamiebuilds/itsy-bitsy-data-structures/master/itsy-bitsy-data-structures.js', { pdf: true, format: 'A4' })} />
+<MultiCodeEditor languages={mqlCode('https://keygen.sh/blog/i-quit/', { pdf: true, format: 'A4' })} />
 
 The format options are:
 

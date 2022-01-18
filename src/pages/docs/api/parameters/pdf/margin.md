@@ -7,26 +7,9 @@ Default: <Type children="'0.35cm'"/>
 
 It sets the paper margins.
 
-<Iframe
-  src="https://api.microlink.io/?url=https://basecamp.com/shapeup/0.3-chapter-01&pdf&embed=pdf.url&margin=4mm&format=A6&meta=false"
-/>
+<Iframe src="https://cdn.microlink.io/pdf/basecamp.pdf" />
 
-<MultiCodeEditor languages={{
-  HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://basecamp.com/shapeup/0.3-chapter-01&pdf&embed=pdf.url&margin=4mm"></iframe>`,
-  Shell: `microlink https://basecamp.com/shapeup/0.3-chapter-01&pdf&margin=4mm`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'http://www.antirez.com/news/128', { 
-      pdf: true,
-      margin: '4mm'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://basecamp.com/shapeup/0.3-chapter-01', { pdf: true, margin: '4mm' })} />
 
 All possible units are:
 

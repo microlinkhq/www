@@ -7,7 +7,7 @@ Default: <Type children="'atom-dark'"/>
 
 Ii enables code syntax highlighting to beautify HTML markup under JSON/Text content type.
 
-![](https://api.microlink.io/?url=https%3A%2F%2Femojipedia-api.vercel.app&meta=false&screenshot=&embed=screenshot.url&codeScheme=atom-dark)
+![](https://cdn.microlink.io/docs/code-scheme.png)
 
 <MultiCodeEditor languages={mqlCode('https://emojipedia-api.vercel.app', { screenshot: true, codeScheme: 'atom-dark' })} />
 
