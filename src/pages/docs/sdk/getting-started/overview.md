@@ -10,7 +10,7 @@ title: 'Overview'
 
 You can convert any link present in your markup
 
-[{{youtube.com/watch?v=9P6rdqiybaw}}](https://www.{{youtube.com/watch?v=9P6rdqiybaw}})
+[youtube.com/watch?v=9P6rdqiybaw](https://www.youtube.com/watch?v=9P6rdqiybaw)
 
 into a beautiful preview
 
