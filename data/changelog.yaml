@@ -1,7 +1,10 @@
 - date: January 2022
   notes:
-    - "[unavatar.io](https://unavatar.io) crossed 50 millions requests per month"
+    - "[unavatar.io](https://unavatar.io) Crossed 50 millions requests per month"
     - "[Microlink Cards](https://cards.microlink.io): Added [netlify](https://cards.microlink.io/editor?preset=netlify) template."
+    - "[Microlink Cards](https://cards.microlink.io): Added [draculashop](https://cards.microlink.io/editor?preset=draculashop) template."
+    - "[Microlink Cards](https://cards.microlink.io): Added [apple](https://cards.microlink.io/editor?preset=apple) template."
+    - "[Microlink Cards](https://cards.microlink.io): Added [thebootstrappedfounder](https://cards.microlink.io/editor?preset=thebootstrappedfounder) template."
 
 - date: December 2021
   notes:
@@ -9,7 +12,7 @@
     
 - date: November 2021
   notes:
-    - "[unavatar.io](https://unavatar.io) crossed 30 millions requests per month"
+    - "[unavatar.io](https://unavatar.io) Crossed 30 millions requests per month"
     - "[Microlink API](/docs/api/getting-started/overview): Added [iframe](/docs/api/parameters/iframe) Twitter player detection."
     - "[Microlink Functions](https://functions.microlink.io): Added HTML markup of the target website as function parameter."
     - "[Microlink Recipes](/recipes): Added [healthcheck](/recipes/healthcheck) recipe."
