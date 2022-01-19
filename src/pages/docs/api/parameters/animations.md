@@ -5,7 +5,7 @@ title: 'animations'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-It enables/disables CSS [animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation) and [transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition).
+It enables/disables CSS [animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation) and [transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition) over the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditor languages={mqlCode('https://microlink.io', { screenshot: true, animations: false })} />
 

@@ -4,22 +4,10 @@ title: 'element'
 
 Type: <Type children='<string>'/>
 
-Capture the DOM element matching the given [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+It captures the DOM element matching the given [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) for the [screenshot](/docs/api/parameters/screenshot) over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://ipinfo.io&screenshot&element=#ipw_main_area`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://ipinfo.io'. { 
-      screenshot: true,
-      element: '#ipw_main_area'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+![](https://cdn.microlink.io/docs/codepen.png)
+
+<MultiCodeEditor languages={mqlCode('https://codepen.io/fossheim/full/oNjxrZa', { screenshot: true, element: '#result-iframe-wrap' })} />
 
 It will wait for the element to appear in the page and to be visible.

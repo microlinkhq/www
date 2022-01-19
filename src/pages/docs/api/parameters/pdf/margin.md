@@ -5,7 +5,7 @@ title: 'margin'
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<object'/></TypeContainer><br/>
 Default: <Type children="'0.35cm'"/>
 
-It sets the paper margins.
+It sets the paper margins for the [pdf](/docs/api/parameters/pdf) over the target [url](/docs/api/parameters/url).
 
 <Iframe src="https://cdn.microlink.io/pdf/basecamp.pdf" />
 

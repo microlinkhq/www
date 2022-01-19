@@ -5,7 +5,7 @@ title: 'codeScheme'
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'atom-dark'"/>
 
-Ii enables code syntax highlighting to beautify HTML markup under JSON/Text content type.
+It enables code syntax highlighting to beautify HTML markup under JSON/Text content type over the target [url](/docs/api/parameters/url).
 
 ![](https://cdn.microlink.io/docs/code-scheme.png)
 

@@ -47,7 +47,7 @@ You can configure different specific options, such as [scale](/docs/api/paramete
 
 <MultiCodeEditor languages={mqlCode('https://rauchg.com/2014/7-principles-of-rich-web-applications', { pdf: true, scale: 1, margin: '0.4cm' })} />
 
-Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup:
+Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup and refresh it asynchronously in the background (known as _stale_).
 
 <Container textAlign='center'>
   <a href="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm" download="How-to-download-file.pdf">

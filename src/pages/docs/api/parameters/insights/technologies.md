@@ -5,7 +5,7 @@ title: 'technologies'
 Type: <TypeContainer><Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children='true'/>
 
-It identifies technology behind the target URL powered by [Wappalyzer](https://www.wappalyzer.com).
+It identifies technology behind target [url](/docs/api/parameters/url), powered by [Wappalyzer](https://www.wappalyzer.com).
 
 <MultiCodeEditor languages={mqlCode('https://microlink.io', { 
   insights: {

@@ -4,7 +4,7 @@ title: 'embed'
 
 Type: <Type children='<string>'/>
 
-It returns the specified data field as response, mimic the same headers and body.
+It returns the specified data field as response over the target [url](/docs/api/parameters/url), mimic the same headers and body.
 
 ![](https://cdn.microlink.io/docs/embed.png)
 

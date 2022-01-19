@@ -5,7 +5,7 @@ title: 'scale'
 Type: <Type children='<number>'/><br/>
 Default: <Type children='0.6'/>
 
-It sets the scale of the webpage rendering.
+It sets the scale for the [pdf](/docs/api/parameters/pdf) over the target [url](/docs/api/parameters/url).
 
 <Iframe src="https://cdn.microlink.io/pdf/varnis-cache.pdf" />
 

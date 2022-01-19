@@ -6,20 +6,10 @@ Type: <Type children='<string>'/><br/>
 Default: <Type children="'png'"/><br/>
 Values: <TypeContainer><Type children="'jpeg'"/> | <Type children="'png'"/></TypeContainer>
 
-Specifies the screenshot file type.
+It specifies the screenshot file type for the [screenshot](/docs/api/parameters/screenshot) over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&screenshot&type=jpeg`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://microlink.io'. { 
-      screenshot: true,
-      type: 'jpeg'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://microlink.io', { screenshot: true, type: 'jpeg' })} />
+
+This query parameter just defines the file format to be used at asset generation. 
+
+When you consume the asset thought [Microlink CDN](/blog/edge-cdn/), it automatically optimizes the assets to serve the best format possible (like WebP) based on your device (it's determining via `user-agent` header).

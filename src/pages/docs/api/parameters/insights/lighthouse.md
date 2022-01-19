@@ -9,7 +9,7 @@ Default: <Type children='true'/>
   src="https://lighthouse.microlink.io/?url=https://cdn.microlink.io/insights/css-tricks.json"
 />
 
-It returns a web performance report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
+It returns a web performance report over the target [url](/docs/api/parameters/url), powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
 <MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
   insights: {

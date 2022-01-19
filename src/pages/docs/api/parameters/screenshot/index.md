@@ -5,25 +5,11 @@ title: 'screenshot'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-Takes a screenshot of a website, making it possible to embed it directly in your markup and refresh it asynchronously in the background (known as _stale_).
+It generates a screenshot over the target [url](/docs/api/parameters/url).
 
-![]({{demolinks.netflix.screenshot.url}})
+![](https://cdn.microlink.io/docs/netflix.png)
 
-<MultiCodeEditor languages={{
-  HTML: `<img src="https://api.microlink.io/?url={{demolinks.netflix.url}}&screenshot&embed=screenshot.url">`,
-  Shell: `microlink {{demolinks.netflix.url}}&screenshot`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    '{{demolinks.netflix.url}}', { 
-      screenshot: true
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('{{demolinks.netflix.url}}', { screenshot: true })} />
 
 When it's enabled, a new `screenshot` data field will be part of the response payload.
 
@@ -43,7 +29,11 @@ When it's enabled, a new `screenshot` data field will be part of the response pa
 }
 ```
 
-You can combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup
+You can configure different specific options, such as [element](/docs/api/parameters/pdf/element) or [overlay](/docs/api/parameters/pdf/overlay):
+
+<MultiCodeEditor languages={mqlCode('{{demolinks.netflix.url}}', { screenshot: true, element: "#section-hero" })} />
+
+Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup and refresh it asynchronously in the background (known as _stale_).
 
 ```html
 <!-- Meta & SEO Tags  -->

@@ -5,7 +5,7 @@ title: 'landscape'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 
-When it's <Type children='true'/>, it changes the paper orientation to be landscape.
+It sets landscape orientation for the [pdf](/docs/api/parameters/pdf) over the target [url](/docs/api/parameters/url).
 
 <Iframe src="https://cdn.microlink.io/docs/algolia.pdf" />
 

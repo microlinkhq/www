@@ -4,7 +4,7 @@ title: 'filter'
 
 Type: <Type children='<string>'/>
 
-A comma-separated list of data fields to pick from the response payload.
+A comma-separated list of data fields to pick from the response payload over the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditor languages={mqlCode('https://news.ycombinator.com', { filter: 'url,title' })} />
 

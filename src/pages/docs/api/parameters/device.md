@@ -5,7 +5,7 @@ title: 'device'
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'macbook pro 13'"/>
 
-It loads a set of options (such as [viewport](/docs/api/parameters/viewport), user agent, etc) to emulate the specified device.
+It loads a set of options (such as [viewport](/docs/api/parameters/viewport), user agent, etc) to emulate the specified device over the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditor languages={mqlCode('https://microlink.io', { screenshot: true, device: 'iPad' })} />
 

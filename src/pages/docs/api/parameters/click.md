@@ -4,7 +4,7 @@ title: 'click'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
-It clicks the DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+It clicks the DOM elements matching the given [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) over the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditor languages={mqlCode('https://microlink.io', { screenshot: true, click: '#features' })} />
 

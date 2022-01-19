@@ -5,20 +5,11 @@ title: 'fullPage'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-When <Type children='true'/>, it takes a screenshot of the full scrollable page.
+It takes a full scrollable page [screenshot](/docs/api/parameters/screenshot) over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://eosrei.github.io/emojione-color-font/full-demo.html&screenshot&fullPage`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://eosrei.github.io/emojione-color-font/full-demo.html'. { 
-      screenshot: true,
-      fullPage: true
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<Image maxWidth='40%' src="https://cdn.microlink.io/docs/recipes.png" />
+
+<MultiCodeEditor languages={mqlCode('https://microlink.io/recipes', { screenshot: true, fullPage: true })} />
+
+The response time could be slower since the browser has to wait more elements before taking the screenshot.
+

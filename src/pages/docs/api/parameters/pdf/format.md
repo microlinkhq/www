@@ -5,7 +5,7 @@ title: 'format'
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'A4'"/>
 
-It sets the paper format.
+It sets the paper format for the [pdf](/docs/api/parameters/pdf) over the target [url](/docs/api/parameters/url).
 
 <Iframe src="https://cdn.microlink.io/docs/caffeine.pdf" />
 

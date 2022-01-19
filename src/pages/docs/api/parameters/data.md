@@ -4,7 +4,7 @@ title: 'data'
 
 Type: <Type children='<object>'/>
 
-it enables specific data extraction over the target [url](/docs/api/parameters/url) content.
+it enables specific data extraction over the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditor languages={mqlCode('https://kikobeats.com', {
   data: {
