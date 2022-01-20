@@ -4,24 +4,10 @@ isPro: true
 --- 
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
-Default: <Type children="undefined"/>
 
-When it's provided, it enables the ability to serve a stale response while a background refresh cache copy is being generated.
+It enables serve a stale response while a background refresh cache copy is being generated over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&ttl=1d&staleTtl=1h`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://microlink.io', {
-    ttl: '1d',
-    staleTtl: '1h',
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://microlink.io', { ttl: '1d', staleTtl: 0 })} />
 
 The value provided can't be higher than [ttl](/docs/api/parameters/ttl).
 

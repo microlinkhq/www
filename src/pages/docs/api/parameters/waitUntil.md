@@ -16,37 +16,12 @@ The events that can be waited are:
 - **networkidle0**: It considers navigation successful when the page has had no network activity for half a second. This might never happen if the page is constantly loading multiple resources.
 - **networkidle2**: It considers navigation successful when the page has no more then 2 network requests for half a second. This is useful if page runs a long polling in the background.
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&screenshot&waitUntil=domcontentloaded`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://microlink.io'. { 
-      screenshot: true
-      waitUntil: 'domcontentloaded'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://dev.to', { screenshot: true, waitUntil: 'domcontentloaded' })} />
 
 Different arguments work for different pages. When neither of them work, a good solution would be to navigate with <Type children="'domcontentloaded'"/> argument and then simply wait for the needed element to appear on page.
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&screenshot&waitUntil=domcontentloaded&waitFor=h1`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://microlink.io'. { 
-      screenshot: true
-      waitUntil: 'domcontentloaded',
-      waitFor: 'h1'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://dev.to', { 
+  screenshot: true,
+  waitUntil: 'domcontentloaded',
+  waitForSelector: 'h1'
+})} />

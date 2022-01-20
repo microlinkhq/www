@@ -1,18 +1,22 @@
 import mql from '@microlink/mql'
+import get from 'dlv'
 
 const ENDPOINT = {
   FREE: 'https://api.microlink.io',
   PRO: 'https://pro.microlink.io'
 }
 
-const stringify = (input = '') => JSON.stringify(input).replaceAll('"', "'")
+const stringify = (input = '') => {
+  console.log('input', input)
+  return JSON.stringify(input).replaceAll('"', "'")
+}
 
 stringify.python = input =>
   stringify(input)
     .replaceAll('true', 'True')
     .replaceAll('false', 'False')
 
-const endpoint = ({ endpoint, headers }) => {
+const endpoint = ({ endpoint, headers } = {}) => {
   const apiKey = headers && headers['x-api-key']
   const isPro = !!apiKey
   return endpoint || ENDPOINT[isPro ? 'PRO' : 'FREE']
@@ -29,7 +33,9 @@ const stringProps = (props = {}) => {
     (acc, key) =>
       acc +
       `${stringify(key)}: ${
-        typeof props[key] === 'object'
+        Array.isArray(props[key])
+          ? stringify(props[key])
+          : typeof props[key] === 'object'
           ? `{${stringProps(props[key])}}`
           : stringify(props[key])
       }${keys.length === 1 ? '' : ','}`,
@@ -37,12 +43,9 @@ const stringProps = (props = {}) => {
   )
 }
 
-const composeUrl = ({ headers, ...props }) => (url = 'https://example.com') =>
-  createApiUrl({ url, ...props })
+const composeUrl = ({ headers, ...props }) => createApiUrl(props)
 
 const mqlCode = (input, props) => {
-  const url = composeUrl({ url: input, ...props })
-
   const JavaScript = args => {
     const { url = input || '{{demolinks.spotify.url}}' } = { ...props, ...args }
     const opts = props ? `{ ${stringProps(props)} }` : ''
@@ -57,12 +60,33 @@ console.log(data)`
 
   JavaScript.language = 'javascript'
 
-  const Shell = () => `curl -sL '${url()}' | jq`
+  const Shell = () => {
+    const rawStyles = get(props, 'styles')
+    const rawScripts = get(props, 'scripts')
+
+    const styles = Array.isArray(rawStyles)
+      ? rawStyles.map(style => encodeURIComponent(style))
+      : rawStyles
+
+    const scripts = Array.isArray(rawScripts)
+      ? rawScripts.map(script => encodeURIComponent(script))
+      : rawScripts
+
+    const url = composeUrl({
+      url: input,
+      ...props,
+      styles,
+      scripts
+    }).replaceAll('=true', '')
+
+    return `curl -sL '${url}' | jq`
+  }
 
   Shell.language = 'bash'
 
   const CLI = () => {
-    return `microlink '${url().replace('https://api.microlink.io?url=', '')}'`
+    const url = composeUrl({ url: input, ...props })
+    return `microlink '${url.replace('https://api.microlink.io?url=', '')}'`
   }
 
   Shell.language = 'bash'

@@ -5,23 +5,9 @@ title: 'video'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-Enables video source detection from the target URL.
+Enables video source detection over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://instagram.com/p/BeV6tOhFUor&video`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://instagram.com/p/BeV6tOhFUor', { 
-      video: true 
-  })
-  
- console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('{{demolinks.youtube.url}}', {video: true })} />
 
 <Figcaption children="Some websites can be different output based on User Agent." />
 
@@ -31,41 +17,41 @@ The video detection introduce some human readable fields as part of the payload:
 
 ```json
 {
+  "status": "success",
   "data": {
+    "title": "Wormholes Explained – Breaking Spacetime",
+    "description": "Are wormholes real or are they just magic…",
     "lang": "en",
-    "author": "SpaceX",
-    "title": "Video by spacex",
-    "publisher": "Instagram",
+    "author": "Kurzgesagt – In a Nutshell",
+    "publisher": "YouTube",
     "image": {
-      "url": "https://scontent-lga3-1.cdninstagram.com/vp/04b0abb726b8b2531ec073a0a5ef57c6/5CBCD779/t51.2885-15/fr/e15/s1080x1080/26867070_171196260320789_7698587573655961600_n.jpg?_nc_ht=scontent-lga3-1.cdninstagram.com",
-      "width": 1080,
-      "height": 607,
+      "url": "https://img.youtube.com/vi/9P6rdqiybaw/maxresdefault.jpg",
       "type": "jpg",
-      "size": 46439,
-      "size_pretty": "46.4 kB"
+      "size": 120116,
+      "height": 720,
+      "width": 1280,
+      "size_pretty": "120 kB"
     },
-    "description": "First static fire test of Falcon Heavy complete—one step closer to first test flight!",
-    "date": "2018-01-24T18:39:47.000Z",
+    "date": "2022-01-20T22:57:11.000Z",
+    "url": "https://www.youtube.com/watch?v=9P6rdqiybaw",
     "logo": {
-      "url": "https://instagram.com/favicon.ico",
-      "width": 16,
-      "height": 16,
-      "type": "ico",
-      "size": 5430,
-      "size_pretty": "5.43 kB"
+      "url": "https://www.youtube.com/s/desktop/3f35b67c/img/favicon_144x144.png",
+      "type": "png",
+      "size": 2783,
+      "height": 144,
+      "width": 144,
+      "size_pretty": "2.78 kB"
     },
-    "url": "https://instagram.com/p/BeV6tOhFUor/",
     "video": {
-      "url": "https://scontent.cdninstagram.com/vp/a71b5c4feafb1875fe227ef3053c8465/5CBCDD76/t50.2886-16/24170141_458364347893985_8186084366254866432_n.mp4?_nc_ht=scontent.cdninstagram.com",
-      "width": 480,
-      "height": 270,
+      "url": "https://rr3---sn-ab5l6n6e.googlevideo.com/videoplayback?expire=1642741040&ei=0OjpYfCJ…",
       "type": "mp4",
-      "size": 799826,
-      "size_pretty": "800 kB",
-      "duration": 21.633333,
-      "duration_pretty": "22s"
+      "duration": 552.007,
+      "size": 98183318,
+      "height": 720,
+      "width": 1280,
+      "duration_pretty": "9m",
+      "size_pretty": "98.2 MB"
     }
-  },
-  "status": "success"
+  }
 }
 ```
