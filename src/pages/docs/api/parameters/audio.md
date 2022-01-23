@@ -54,4 +54,4 @@ The audio detection introduce some human readable fields as part of the payload:
 }
 ```
 
-You can read more about the data returned at [data fields](/api/getting-started/data-fields/) section.
+You can read [data fields](/api/getting-started/data-fields/) section to know more about the data returned.
