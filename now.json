@@ -37,6 +37,14 @@
       "destination": "/docs/api/basics/error-codes#ebrwsrtimeout"
     },
     {
+      "source": "/eauth",
+      "destination": "/docs/api/basics/error-codes#eauth"
+    },
+    {
+      "source": "/efilename",
+      "destination": "/docs/api/basics/error-codes#efilename"
+    },
+    {
       "source": "/efatal",
       "destination": "/docs/api/basics/error-codes#efatal"
     },
