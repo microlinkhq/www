@@ -3,30 +3,17 @@ title: 'codeScheme'
 ---
 
 Type: <Type children='<string>'/><br/>
-Default: <Type children='atom-dark'/>
+Default: <Type children="'atom-dark'"/>
 
-Sets the code syntax highlighting color theme to use for beautifying HTML markup.
+It enables code syntax highlighting to beautify HTML markup under JSON/Text content type over the target [url](/docs/api/parameters/url).
 
-![](https://api.microlink.io/?url=https%3A%2F%2Femojipedia-api.vercel.app&meta=false&screenshot=&embed=screenshot.url&codeScheme=atom-dark)
+![](https://cdn.microlink.io/docs/code-scheme.png)
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://healthcheck.microlink.io&screenshot&codeScheme=atom-dark`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://emojipedia-api.vercel.app', {
-      meta: false,
-      screenshot: true,
-      codeScheme: 'atom-dark'
-  })
-  console.log(data)
-}
-  `
-  }}
-/>
+<MultiCodeEditor languages={mqlCode('https://emojipedia-api.vercel.app', { screenshot: true, codeScheme: 'atom-dark' })} />
 
-The theme to use can be defined as:
+The theme can be defined as:
 
 - A [prism-themes](https://github.com/PrismJS/prism-themes/tree/master/themes) identifier (e.g., <Type children="'dracula'"/>).
 - A remote URL (e.g., <Type children="'https://unpkg.com/prism-theme-night-owl'"/>).
+
+You can also customize any theme passing your own [styles](/docs/api/parameters/styles) rules.

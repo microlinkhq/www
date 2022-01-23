@@ -4,27 +4,13 @@ title: 'filter'
 
 Type: <Type children='<string>'/>
 
-A comma-separated list of property paths to pick from response payload.
+A comma-separated list of data fields to pick from the response payload over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://news.ycombinator.com&filter=url,title`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://news.ycombinator.com', { 
-      filter: 'url,title'
-  })
-     
- console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://news.ycombinator.com', { filter: 'url,title' })} />
 
-<Figcaption children='You can use dot notation to reference a nested data field of the payload.' />
+<Figcaption children='You can use dot notation to reference a nested data field of the response payload.' />
 
-Then the data payload is going to just get these fields
+Then the data payload is going to just get these data fields.
 
 ```json
 {

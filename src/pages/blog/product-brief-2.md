@@ -50,7 +50,7 @@ Although it required some laborious work, the final result is impressive. We are
 
 ![](https://cdn-images-1.medium.com/max/800/1*ns3f8OrzX3xOaPiS81Lc_w.png)
 
-[metascraper](http://metascraper.js.org/) is our metadata extractor and we improve it every week.
+[metascraper](https://metascraper.js.org/) is our metadata extractor and we improve it every week.
 
 Our current target is improving the data accuracy related with **video** content.
 

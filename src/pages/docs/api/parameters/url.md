@@ -8,17 +8,7 @@ Type: <Type children='<string>'/>
 
 The target URL for getting information based on the content.
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://kikobeats.com`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://kikobeats.com')
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://kikobeats.com')} />
 
 The URL provided need to be reachable by the service. 
 

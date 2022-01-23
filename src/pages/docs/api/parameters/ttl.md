@@ -6,21 +6,9 @@ isPro: true
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
 Default: <Type children="'24h'"/>
 
-Establishes the maximum quantity of time a resource served from cache layer is considered as valid.
+It sets the maximum quantity of time a resource can be cached before be considered as expired over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&ttl=1d`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://microlink.io', {
-    ttl: '1d'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://microlink.io', { ttl: '1d' })} />
 
 The value provided need to be at least **1 minute** and not higher than **31 days**, being supported the following formats:
 
@@ -56,17 +44,4 @@ The purpose of this API parameter is to adapt our caching layer based on your ne
 - If you are targetting a URL that changes very often and response time is not critical for you, a small value will work better.
 - If you are targetting a URL that doesn't change too much or you want to maximize cache hits, getting faster response time, a higher value works better.
 
-The value provided will reflected as `x-cache-ttl` as part of the response headers
-
-<MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://microlink.io?url=https://www.twitter.com/microlinkhq | grep -i "x-cache-ttl"`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://www.reddit.com')
-  
-  console.log(response.headers['x-cache-ttl']) // => '3h 56m 35.2s'
-}
-  `
-  }} 
-/>
+The value provided will reflected as `x-cache-ttl` as part of the response headers.

@@ -9,24 +9,13 @@ Default: <Type children='true'/>
   src="https://lighthouse.microlink.io/?url=https://cdn.microlink.io/insights/css-tricks.json"
 />
 
-It returns a full web performance metrics report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
+It returns a web performance report over the target [url](/docs/api/parameters/url), powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse=true`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
-    insights: {
-      technologies: false,
-      lighthouse: true
-    }
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
+  insights: {
+    lighthouse: true
+  }
+})} />
 
 The report is serialized to JSON by default to make easy visualize it using [lighthouse.microlink.io](https://lighthouse.microlink.io).
 
@@ -36,66 +25,27 @@ The report is serialized to JSON by default to make easy visualize it using [lig
 
 Alternatively, you can serialize to `'html'` or `'csv'`:
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse.output=html`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
-    insights: {
-      technologies: false,
-      lighthouse: {
-        output: 'html'
-      }
-    }
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
+  insights: {
+    lighthouse: { output: 'html' }
+  }
+})} />
 
 Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) setting is supported:
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.lighthouse.device=mobile`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
-    insights: {
-      technologies: false,
-      lighthouse: {
-        onlyCategories: ['accesibility']
-      }
-    }
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
+  insights: {
+    lighthouse: { onlyCategories: ['accesibility'] }
+  }
+})} />
 
-Using `'preset'` it will load a set of specific Lighthouse settings at once:
+You can use `'preset'` to load a set of specific Lighthouse settings at once:
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://css-tricks.com/nerds-guide-color-web&insights.technologies=false&insights.lighthouse.preset=mobile`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://css-tricks.com/nerds-guide-color-web', {
-    insights: {
-      technologies: false,
-      lighthouse: {
-        preset: 'desktop'
-      }
-    }
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
+  insights: {
+    lighthouse: { preset: 'desktop' }
+  }
+})} />
 
 The following presets are supported:
 

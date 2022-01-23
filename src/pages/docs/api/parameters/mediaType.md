@@ -6,27 +6,10 @@ Type: <Type children='<string>'/><br/>
 Default: <Type children="'screen'"/><br/>
 Values: <TypeContainer><Type children="'screen'"/> | <Type children="'print'"/></TypeContainer>
 
-Changes the CSS media type of the browser page.
+It sets the CSS media type into the browser page over the target [url](/docs/api/parameters/url).
 
-<Iframe
-  src="https://api.microlink.io/?url=https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&embed=pdf.url&mediaType=screen&meta=false&waitUntil=networkidle2"
-/>
+<Iframe src="https://cdn.microlink.io/pdf/alexmaccaw.pdf" />
 
-<MultiCodeEditor languages={{
-  HTML: `<iframe width="650px" src="https://api.microlink.io/?url=https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&embed=pdf.url&mediaType=screen"></iframe>`,
-  Shell: `microlink https://blog.alexmaccaw.com/advice-to-my-younger-self&pdf&mediaType=screen`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://blog.alexmaccaw.com/advice-to-my-younger-self', { 
-      pdf: true,
-      mediaType: 'screen'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://blog.alexmaccaw.com/advice-to-my-younger-self', { pdf: true, mediaType: 'screen' })} />
 
-If you enable [pdf](/docs/api/parameters/pdf), the default media type will be `'print'`.
+Normally you will combine this query parameter with [screenshot](/docs/api/parameters/screenshot) or [pdf](/docs/api/parameters/pdf).  If you are using [pdf](/docs/api/parameters/pdf), the default media type will be `'print'`.

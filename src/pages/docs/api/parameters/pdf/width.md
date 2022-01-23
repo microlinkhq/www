@@ -4,24 +4,10 @@ title: 'width'
 
 Type: <Type children='<string>'/><br/>
 
-It sets the paper width, accepts values labeled with units.
+It sets the paper width for the [pdf](/docs/api/parameters/pdf) over the target [url](/docs/api/parameters/url).
 
-<Iframe
-  src="https://api.microlink.io/?url=https://example.com&pdf&width=640px&embed=pdf.url"
-/>
+<Iframe src="https://cdn.microlink.io/docs/raycast.pdf" />
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://example.com&pdf&width=640px`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://example.com', { 
-      pdf: true,
-      width: '640px'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://www.raycast.com/', { pdf: true, width: '640px' })} />
+
+The value accepts values labeled with units.

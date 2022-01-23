@@ -5,22 +5,11 @@ title: 'palette'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-Enabling it will return you more information related with color schema of the images detected
+It enables color schema information over the images data field detected over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&palette`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://microlink.io', { 
-      palette: true 
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://microlink.io', { 
+  palette: true
+})} />
 
 The following fields will be added per each image detected in the payload:
 

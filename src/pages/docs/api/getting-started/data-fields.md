@@ -45,4 +45,6 @@ Additionally, Microlink gives you some HTTP information over the target URL, suc
   - `statusCode`: The HTTP status code associated with the url response.
   - `headers`: The HTTP response headers associated with the url response.
 
-The service also returns a `status` field to represent the stage of the current transaction. See [format](/docs/api/basics/format) to know more.
+The service also returns a `status` field to represent the stage of the current transaction. 
+
+You can read [format](/docs/api/basics/format) section to know more about that.

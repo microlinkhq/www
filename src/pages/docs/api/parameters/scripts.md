@@ -4,26 +4,16 @@ title: 'scripts'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
-Injects [&lt;script&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) into the browser page.
+It injects [&lt;script&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) into the browser page over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&screenshot&scripts.0=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40microlink%2Fmql%400.3.12%2Fsrc%2Fbrowser.js&scripts.1=document.body.style.backgroundColor%20%3D%20%27red%27`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://microlink.io'. { 
-      screenshot: true,
-      scripts: [
-        'https://cdn.jsdelivr.net/npm/@microlink/mql@0.3.12/src/browser.js', 
-        "document.body.style.backgroundColor = 'red'"
-      ]
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+![](https://cdn.microlink.io/docs/scripts.png)
+
+<MultiCodeEditor languages={mqlCode('https://microlink.io', { 
+  screenshot: true, 
+  scripts: [
+    '%5B%5D.forEach.call(document.querySelectorAll(%22*%22)%2Cfunction(a)%7Ba.style.outline%3D%221px%20solid%20%23%22%2B(~~(Math.random()*(1%3C%3C24))).toString(16)%7D)'
+  ]
+})} />
 
 The code to be injected can be defined as:
 

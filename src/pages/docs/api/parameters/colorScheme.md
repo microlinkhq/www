@@ -3,24 +3,10 @@ title: 'colorScheme'
 ---
 
 Type: <Type children='<string>'/><br/>
-Default: <Type children='no-preference'/>
+Default: <Type children="'no-preference'"/>
 
-Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) CSS media feature, indicating user preference to use `'light'` or `'dark'` color theme.
+Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) CSS media feature, indicating user preference to use `'light'` or `'dark'` color theme over the target [url](/docs/api/parameters/url).
 
-![](https://i.imgur.com/ZnxQnkB.png)
+![](https://cdn.microlink.io/docs/color-scheme.png)
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://googlechromelabs.github.io/dark-mode-toggle/demo&screenshot&colorScheme=dark`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://googlechromelabs.github.io/dark-mode-toggle/demo'. {
-      screenshot: true,
-      colorScheme: 'dark'
-  })
-  console.log(data)
-}
-  `
-  }}
-/>
+<MultiCodeEditor languages={mqlCode('https://googlechromelabs.github.io/dark-mode-toggle/demo/', { screenshot: true, colorScheme: 'dark' })} />

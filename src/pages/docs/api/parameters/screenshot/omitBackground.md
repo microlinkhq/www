@@ -5,22 +5,6 @@ title: 'omitBackground'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
+It omits the white background for the [screenshot](/docs/api/parameters/screenshot) over the target [url](/docs/api/parameters/url).
 
-
-When it's <Type children='true'/>, it hides default white background and allows capturing screenshots with transparency.
-
-<MultiCodeEditor languages={{
-  Shell: `microlink https://kikobeats.com&screenshot&omitBackground`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://kikobeats.com'. { 
-      screenshot: true,
-      omitBackground: true
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://kikobeats.com', { screenshot: true, omitBackground: true })} />

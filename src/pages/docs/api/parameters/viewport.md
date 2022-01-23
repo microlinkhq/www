@@ -4,30 +4,19 @@ title: 'viewport'
 
 Type: <Type children='<object>'/>
 
-It establishes a set of properties related with the browser visible area and device capabilities.
+It sets browser visible area settings and device capabilities over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.width=640&viewport.height=400&viewport.deviceScaleFactor=2&embed=screenshot.url&viewport.isMobile`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    '{{demolinks.wikipedia.url}}'. {
-      meta: false,
-      screenshot: true,
-      viewport: {
-        width: 640,
-        height: 400,
-        deviceScaleFactor: 2,
-        isMobile: true
-      }
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+![](https://cdn.microlink.io/docs/viewport.png)
 
+<MultiCodeEditor languages={mqlCode('{{demolinks.wikipedia.url}}', {
+  screenshot: true,
+  viewport: {
+    width: 640,
+    height: 400,
+    deviceScaleFactor: 2,
+    isMobile: true
+  }
+})} />
 
 <Figcaption>Establishing a custom viewport.</Figcaption>
 
@@ -40,28 +29,14 @@ The default viewport values are provided by the default [device](/docs/api/param
 - `hasTouch` <Type><Type children='<boolean>'/></Type>: Specifies if viewport supports touch events.
 - `isLandscape` <Type><Type children='<boolean>'/></Type>: Specifies if viewport is in landscape mode.
 
-If you just provide an incomplete set of viewport values, they will be merged with the default values
+If you just provide an incomplete set of viewport values, they will be merged with the default values:
 
-<MultiCodeEditor languages={{
-  Shell: `microlink {{demolinks.wikipedia.url}}&meta=false&screenshot&viewport.deviceScaleFactor=0.5&embed=screenshot.url`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    '{{demolinks.wikipedia.url}}'. {
-      meta: false,
-      screenshot: true,
-      viewport: {
-        // the rest of value ares are taken
-        // from the default \`device\`
-        deviceScaleFactor: 0.5
-      }
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('{{demolinks.wikipedia.url}}', {
+  screenshot: true,
+  viewport: {
+    deviceScaleFactor: 0.5
+  }
+})} />
 
 <Figcaption>Using the default viewport with lower device scale factor.</Figcaption>
 

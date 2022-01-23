@@ -5,23 +5,13 @@ title: 'technologies'
 Type: <TypeContainer><Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children='true'/>
 
-It identifies technology behind the target URL powered by [Wappalyzer](https://www.wappalyzer.com).
+It identifies technology behind target [url](/docs/api/parameters/url), powered by [Wappalyzer](https://www.wappalyzer.com).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://microlink.io&insights.technologies=true`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://microlink.io', {
-    insights: {
-      technologies: true
-    }
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://microlink.io', { 
+  insights: {
+    technologies: true
+  }
+})} />
 
 A detected technology is defined by:
 

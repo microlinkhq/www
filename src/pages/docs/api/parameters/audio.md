@@ -5,23 +5,9 @@ title: 'audio'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-Enables audio source detection from the target URL.
+It enables audio source detection over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink {{demolinks.spotify.url}}&audio`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    '{{demolinks.spotify.url}}', { 
-      audio: true 
-  })
-  
- console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('{{demolinks.spotify.url}}', { audio: true })} />
 
 <Figcaption children="Some websites can be different output based on User Agent." />
 
@@ -67,3 +53,5 @@ The audio detection introduce some human readable fields as part of the payload:
   }
 }
 ```
+
+You can read more about the data returned at [data fields](/api/getting-started/data-fields/) section.

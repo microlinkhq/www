@@ -4,20 +4,6 @@ title: 'waitForSelector'
 
 Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>
 
-Tell the browser to wait until a specific [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) appears in the target website.
+It tells the browser to wait until a specific [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) appears over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https://dev.to&waitForSelector=main&screenshot`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://dev.to', { 
-      screenshot: true,
-      waitForSelector: 'main'
-  })
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://dev.to', { screenshot: true, waitForSelector: 'main' })} />

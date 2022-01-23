@@ -5,39 +5,22 @@ title: 'force'
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
-Invalidates the cache response associated with the query parameter and generates a fresh copy.
+It invalidates the [cache](/docs/api/basics/cache) copy associated with the resource requested, returning a new fresh copy over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={{
-  Shell: `microlink {{demolinks.producthunt.url}}&force`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    '{{demolinks.producthunt.url}}', { 
-      force: true
-  })
-  
- console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://time-is.vercel.app', { force: true })} />
 
-By default the API will be [cache](/docs/api/basics/cache) consecutive API calls.
+When it's provided, the header `x-cache-status` on the response will return **BYPASS**.
 
-Providing it, you are forcing to invalidate the current state of the cache for the response and generate a new one.
+```bash{7}
+HTTP/2 200
+content-type: application/json; charset=utf-8
+x-response-time: 1.7s
+x-pricing-plan: free
+x-cache-ttl: 86400000
+x-request-id: iad:2eb66538-0a16-4c56-b613-511d99507c9f
+x-cache-status: BYPASS
+cache-control: public, must-revalidate, max-age=0
+```
 
-When `force` is enabled, `x-cache-status` causes a **BYPASS**.
+You can read [cache](/docs/api/basics/cache) section to know more about that.
 
-<MultiCodeEditor languages={{
-  Shell: `curl -I -s -X GET https://api.microlink.io?url=https://www.reddit.com&force | grep -i "x-cache-status"`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://www.reddit.com', { force: true })
-  
-  console.log(response.headers.['x-cache-status' ) // => 'BYPASS'
-}
-  `
-  }} 
-/>

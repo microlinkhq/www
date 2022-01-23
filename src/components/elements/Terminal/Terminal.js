@@ -177,6 +177,7 @@ const TerminalText = styled('div')`
 
 const blinkCursorStyle = css`
   &::after {
+    left: -8px;
     content: '';
     animation-name: ${blink};
     animation-iteration-count: infinite;
@@ -185,11 +186,10 @@ const blinkCursorStyle = css`
     display: inline-block;
     width: 1px;
     height: 14px;
-    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     background: ${colors.secondary};
     margin-left: 4px;
     position: relative;
-    top: 3px;
+    top: 2px;
     margin-right: 1px;
   }
 `
