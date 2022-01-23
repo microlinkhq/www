@@ -12,15 +12,17 @@ When this happens, the response payload includes some useful information in orde
 - `more`: A link pointing this documentation.
 - `report`: A link for reporting the problem directly to us.
 
+If you are experience any of these errors are you not sure how to proceed, please feel free to [reach us](mailto:hello@microlink.io).
+
 ## EAUTH
 
 **Message**
 
-Authentication failed. Make sure you are attaching your API key as `x-api-key` header.
+Invalid API key. Make sure you are attaching your API key as `x-api-key` header.
 
 **Solution**
 
-Ensure your API key we send you via email and it's attached as `x-api-key` against `pro.microlink.io` endpoint.
+Ensure to [authenticate](/docs/api/basics/authentication/) your requests providing an API key attached as `x-api-key` against `pro.microlink.io` [endpoint](/docs/api/basics/endpoint).
 
 ## EBRWSRTIMEOUT
 
@@ -30,19 +32,15 @@ The URL provided reached the maximum browser navigation time allowed.
 
 **Solution**
 
-Any request has a maximum timeout of 24s associated, meaning that any request needs to be resolved before that umbral.
+When the target [url](/docs/api/parameters/url) reached the [timeout](/docs/api/parameters/timeout) associated with the request lifecycle, this error is thrown.
 
-Additionally, some API parameters (such as [insights](/docs/api/parameters/insights), [pdf](/docs/api/parameters/pdf), [prerender](/docs/api/parameters/prerender) or [screenshot](/docs/api/parameters/screenshot)) have a browser navigation associated. During it, the target URL is resolved from the perspective of a browser.
-
-The maximum time associated with a browser navigation is 23s, considering the browser hangs if navigation isn't resolved after this time.
-
-In order to avoid this error, browser navigation time need to be done below the threshold.
+In order to avoid this error, the request should be resolved before timeout.
 
 ## EFATAL
 
 **Message**
 
-Resolves the target URL failed. Make sure your URL is valid and it has HTML content.
+Resolved the target URL failed. Make sure your URL is valid and it has HTML content.
 
 **Solution**
 
@@ -68,7 +66,7 @@ See [pricing](/#pricing) for upgrading your plan.
 
 **Solution**
 
-There is a network problem trying to reach the API endpoint.
+There is a network problem trying to reach the API [endpoint](/docs/api/basics/endpoint).
 
 If you are experimenting with this error, please [contact us](mailto:hello@microlink.io).
 
@@ -160,7 +158,7 @@ The request has `x-api-key` header present and it has been performed against `ap
 
 **Solution**
 
-In order to [authenticate](/docs/api/basics/authentication/) your requests, you need to perform them against `pro.microlink.io` endpoint.
+In order to [authenticate](/docs/api/basics/authentication/) your requests, you need to perform them against `pro.microlink.io` [endpoint](/docs/api/basics/endpoint).
 
 ## EPROXY
 
@@ -190,7 +188,9 @@ The request reached maximum timeout.
 
 **Solution**
 
-Any request has a maximum timeout of 28s associated, meaning that any request needs to be resolved before that umbral.
+When the target [url](/docs/api/parameters/url) reached the [timeout](/docs/api/parameters/timeout) associated with the request lifecycle, this error is thrown.
+
+In order to avoid this error, the request should be resolved before timeout.
 
 ## ETTL
 
