@@ -84,7 +84,7 @@ See [got#retry](https://www.npmjs.com/package/got#retry) to know more.
 
 Type: <Type children='<object>'/>
 
-Any additional option will be passed to [got](http://ghub.io/got) or [ky](https://github.com/sindresorhus/ky) that are the internal HTTP clients used for Node.js and browser respectively.
+Any additional option will be passed to [got](https://ghub.io/got) or [ky](https://github.com/sindresorhus/ky) that are the internal HTTP clients used for Node.js and browser respectively.
 
 That's necessary for some user workflow, e.g., passing [authentication](/docs/api/parameters/headers) headers without exposing credentials.
 
