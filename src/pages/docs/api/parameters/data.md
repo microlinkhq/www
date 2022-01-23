@@ -36,4 +36,4 @@ As a result, the extracted data will be part of the `data` payload in the respon
 }
 ```
 
-You can read more about how data extraction can be defined at [Microlink Query Language](/docs/mql/getting-started/overview) documentation.
+You can read [Microlink Query Language](/docs/mql/getting-started/overview) section to know more about how to define data extraction.
