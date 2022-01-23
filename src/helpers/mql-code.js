@@ -43,8 +43,6 @@ const stringProps = (props = {}) => {
   )
 }
 
-const composeUrl = ({ headers, ...props }) => createApiUrl(props)
-
 const mqlCode = (input, props) => {
   const JavaScript = args => {
     const { url = input || '{{demolinks.spotify.url}}' } = { ...props, ...args }
@@ -72,7 +70,7 @@ console.log(data)`
       ? rawScripts.map(script => encodeURIComponent(script))
       : rawScripts
 
-    const url = composeUrl({
+    const url = createApiUrl({
       url: input,
       ...props,
       styles,
@@ -85,7 +83,7 @@ console.log(data)`
   Shell.language = 'bash'
 
   const CLI = () => {
-    const url = composeUrl({ url: input, ...props })
+    const url = createApiUrl({ url: input, ...props })
     return `microlink '${url.replace('https://api.microlink.io?url=', '')}'`
   }
 

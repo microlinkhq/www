@@ -22,25 +22,11 @@ In case you are treating with sensible headers (e.g., [authorization](https://de
 
 For doing that, you need to pass the values with `x-api-header-*` prefix:
 
-<MultiCodeEditor languages={{
-  Shell: `curl --header 'x-api-header-authorization: Basic YWRtaW46YWRtaW4=' https://test-http-login.vercel.app\&screenshot\&embed\=screenshot.url\&meta\=false`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql('https://test-http-login.vercel.app', {
-    headers: {
-      'accept-language': 'en-US'
-    }
-  }, {
-    headers: {
-      'x-api-header-authorization': 'Basic YWRtaW46YWRtaW4='
-    }
-  })
- 
- console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditor languages={mqlCode('https://test-http-login.vercel.app', { 
+  headers: {
+    'accept-language': 'en-US',
+    'x-api-header-authorization': 'Basic YWRtaW46YWRtaW4='
+  } 
+})} />
 
 In that way, they will be not publicly exposed.

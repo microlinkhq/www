@@ -9,4 +9,18 @@ It invalidates the [cache](/docs/api/basics/cache) copy associated with the reso
 
 <MultiCodeEditor languages={mqlCode('https://time-is.vercel.app', { force: true })} />
 
-When `force=true` is provided, `x-cache-status` will return **BYPASS**.
+When it's provided, the header `x-cache-status` on the response will return **BYPASS**.
+
+```bash{7}
+HTTP/2 200
+content-type: application/json; charset=utf-8
+x-response-time: 1.7s
+x-pricing-plan: free
+x-cache-ttl: 86400000
+x-request-id: iad:2eb66538-0a16-4c56-b613-511d99507c9f
+x-cache-status: BYPASS
+cache-control: public, must-revalidate, max-age=0
+```
+
+You can read [cache](/docs/api/basics/cache) section to know more about that.
+

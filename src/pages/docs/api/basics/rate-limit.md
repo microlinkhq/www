@@ -21,7 +21,7 @@ For the free endpoint, your current rate limit status is reflected as part of yo
 - `x-rate-limit-remaining`: The number of requests remaining in the current rate limit window.
 - `x-rate-limit-reset`: The time at which the current rate limit window resets in UTC epoch seconds.
 
-We don't apply any throttling limitation: You can perform as much parallel requests as your daily quota allowed you
+We don't apply any throttling limitation: You can perform as much parallel requests as your daily quota allowed you.
 
 If you are hitting the daily quota very often and you want to upgrade your plan, just [contact us](mailto:hello@microlink.io?subject=Rate%20Limit%3A%20Increment%20Quota&body=Hello%2C%20I%20want%20to%20upgrade%20my%20plan.%20Can%20you%20suggest%20me%20the%20plan%20that%20fit%20better%20my%20user%20case%3F%0A%0AThanks%20for%20all.).
 
