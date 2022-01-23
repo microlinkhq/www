@@ -21,6 +21,7 @@ import Text from '../Text'
 import Box from '../Box'
 
 export const TerminalWindow = styled(Box)`
+  overflow: auto;
   border-radius: ${radii[3]};
   border: ${borders[1]};
   border-color: ${({ isDark }) => cx(isDark ? 'white10' : 'black10')};
