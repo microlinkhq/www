@@ -30,7 +30,7 @@ const Layout = ({
 }) => {
   const toolbarHeight = useBreakpoint([
     TOOLBAR_PRIMARY_HEIGHT,
-    TOOLBAR_PRIMARY_HEIGHT,
+    `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
     `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
     `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
   ])

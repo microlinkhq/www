@@ -1,6 +1,7 @@
 import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
 import React, { useEffect, useState } from 'react'
-import { Flex, Hide } from 'components/elements'
+import { Box, Flex } from 'components/elements'
+import { useBreakpoint } from 'components/hook'
 import styled from 'styled-components'
 import { shadows } from 'theme'
 
@@ -39,7 +40,7 @@ const AsideMobile = ({ children, ...props }) => {
   `
 
   return (
-    <>
+    <Box>
       <AsideBase
         CloseButton={
           <AsideButton
@@ -56,7 +57,7 @@ const AsideMobile = ({ children, ...props }) => {
       <Flex flexDirection='column' as='article'>
         {children}
       </Flex>
-    </>
+    </Box>
   )
 }
 
@@ -74,6 +75,13 @@ const AsideDesktop = ({ children, ...props }) => (
 )
 
 const Aside = props => {
+  const component = useBreakpoint([
+    AsideMobile,
+    AsideDesktop,
+    AsideDesktop,
+    AsideDesktop
+  ])
+
   useEffect(() => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
     if (activeEl) {
@@ -95,16 +103,7 @@ const Aside = props => {
     }
   }, [])
 
-  return (
-    <>
-      <Hide breakpoints={[0, 1, 2]}>
-        <AsideDesktop {...props} />
-      </Hide>
-      <Hide breakpoints={[3]}>
-        <AsideMobile {...props} />
-      </Hide>
-    </>
-  )
+  return React.createElement(component, props)
 }
 
 export default Aside
