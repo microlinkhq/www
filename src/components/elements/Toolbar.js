@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { layout, toPx } from 'theme'
+import { layout } from 'theme'
 import React from 'react'
 
 import Flex from './Flex'

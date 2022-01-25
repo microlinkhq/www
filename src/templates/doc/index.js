@@ -1,7 +1,7 @@
 import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { Layout, Aside } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
-import { colors, layout } from 'theme'
+import { fontSizes, colors, layout } from 'theme'
 import { formatDate } from 'helpers'
 import React from 'react'
 
@@ -38,7 +38,12 @@ const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
           <Choose>
             <Choose.When condition={!!meta.title}>
               <Text as='header'>
-                <H1 mt={4} variant={null} mb={1} slug={false}>
+                <H1
+                  mt={[0, 0, 0, `calc(-1 * ${fontSizes[2]})`]}
+                  variant={null}
+                  mb={1}
+                  slug={false}
+                >
                   <span>{meta.title}</span>
                   {meta.isPro && (
                     <Tooltip
