@@ -78,13 +78,20 @@ const Aside = props => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
     if (activeEl) {
       const elOffset = activeEl.offsetTop
+
       const offset = document
         .querySelector('[data-aside-header]')
         .getBoundingClientRect().y
-      const top = elOffset - offset
-      document
-        .querySelector('[data-aside]')
-        .scrollTo({ top, behavior: 'instant' })
+
+      const minOffset = offset * 2
+
+      if (elOffset > minOffset) {
+        const top = elOffset - offset
+
+        document
+          .querySelector('[data-aside]')
+          .scrollTo({ top, behavior: 'instant' })
+      }
     }
   }, [])
 
