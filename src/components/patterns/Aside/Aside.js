@@ -1,5 +1,5 @@
+import React, { createElement, useEffect, useState } from 'react'
 import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
-import React, { useEffect, useState } from 'react'
 import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
 import styled from 'styled-components'
@@ -61,18 +61,21 @@ const AsideMobile = ({ children, ...props }) => {
   )
 }
 
-const AsideDesktop = ({ children, ...props }) => (
-  <>
-    <AsideBase isOpen {...props} />
-    <Flex
-      pl={`calc(${ASIDE_WIDTH} + 14px)`}
-      flexDirection='column'
-      as='article'
-    >
-      {children}
-    </Flex>
-  </>
-)
+const AsideDesktop = ({ children, ...props }) => {
+  console.log(Date.now())
+  return (
+    <>
+      <AsideBase isOpen {...props} />
+      <Flex
+        pl={`calc(${ASIDE_WIDTH} + 14px)`}
+        flexDirection='column'
+        as='article'
+      >
+        {children}
+      </Flex>
+    </>
+  )
+}
 
 const Aside = props => {
   const component = useBreakpoint([
@@ -103,7 +106,7 @@ const Aside = props => {
     }
   }, [])
 
-  return React.createElement(component, props)
+  return createElement(component, props)
 }
 
 export default Aside

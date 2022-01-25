@@ -101,184 +101,183 @@ const EnterprisePricingBox = styled(PricingBox)`
   left: -1px;
 `
 
-export const createPricingTable = Checkout => ({
-  canonicalUrl,
-  stripeKey,
-  apiEndpoint,
-  ...props
-}) => {
-  const [plan, setPlan] = useState({
-    ...DEFAULT_PLAN,
-    isHighlight: false
-  })
+export const createPricingTable = Checkout => {
+  const PricingTable = ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) => {
+    const [plan, setPlan] = useState({
+      ...DEFAULT_PLAN,
+      isHighlight: false
+    })
 
-  const priceSelected = plan => {
-    setPlan({ ...plan, isHighlight: true })
-    setTimeout(() => {
-      setPlan({ ...plan, isHighlight: false })
-    }, Highlight.HIGHLIGHT_DURATION)
-  }
+    const priceSelected = plan => {
+      setPlan({ ...plan, isHighlight: true })
+      setTimeout(() => {
+        setPlan({ ...plan, isHighlight: false })
+      }, Highlight.HIGHLIGHT_DURATION)
+    }
 
-  const { isHighlight, monthlyPrice, id: planId } = plan
-  const humanMonthlyPrice = formatNumber(monthlyPrice)
+    const { isHighlight, monthlyPrice, id: planId } = plan
+    const humanMonthlyPrice = formatNumber(monthlyPrice)
 
-  return (
-    <Flex
-      flexDirection={['column', 'column', 'row', 'row']}
-      as='section'
-      ml='auto'
-      mr='auto'
-      px={[0, 0, 4, 4]}
-      pb={Container.defaultProps.pt}
-      {...props}
-    >
-      <FreePricingBox my={[0, 0, 5, 5]} pt={[3, 3, 5, 5]}>
-        <Subhead fontSize={[3, 3, 4, 4]}>Free</Subhead>
+    return (
+      <Flex
+        flexDirection={['column', 'column', 'row', 'row']}
+        as='section'
+        ml='auto'
+        mr='auto'
+        px={[0, 0, 4, 4]}
+        pb={Container.defaultProps.pt}
+        {...props}
+      >
+        <FreePricingBox my={[0, 0, 5, 5]} pt={[3, 3, 5, 5]}>
+          <Subhead fontSize={[3, 3, 4, 4]}>Free</Subhead>
 
-        <Box pt={4}>
-          <Text>
-            {FREE_PLAN_RATE_LIMIT} <Requests suffix='/day' />
-          </Text>
           <Box pt={4}>
-            <PriceMonthly>0</PriceMonthly>
-          </Box>
-        </Box>
-
-        <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
-          <Text as='li'>
-            <PricingLink href='/blog/edge-cdn/'>
-              Microlink Cache layer
-            </PricingLink>
-          </Text>
-          <Text as='li'>
-            <PricingLink href='/meta'>Unified metadata</PricingLink>
-          </Text>
-          <Text as='li' pt={1}>
-            <PricingLink href='/screenshot'>Take screenshots</PricingLink>
-          </Text>
-          <Text as='li' pt={1}>
-            <PricingLink href='/pdf'>Export to PDF</PricingLink>
-          </Text>
-          <Text as='li' pt={1}>
-            <PricingLink href='/insights'>Insights reports</PricingLink>
-          </Text>
-          <Text as='li' pt={1}>
-            <PricingLink href='/recipes'>Web Scraping</PricingLink>
-          </Text>
-        </Box>
-
-        <Box pt={4}>
-          <ArrowLink href='/docs/api/getting-started/overview'>
-            Get Started
-          </ArrowLink>
-        </Box>
-      </FreePricingBox>
-
-      <ProPricingBoxGradient>
-        <ProPricingBox flex={1} px={[0, 0, 5, 5]} py={[0, 0, 5, 5]}>
-          <Box>
-            <Subhead fontSize={[3, 3, 4, 4]} pt={[3, 3, 5, 5]}>
-              Pro
-            </Subhead>
-
+            <Text>
+              {FREE_PLAN_RATE_LIMIT} <Requests suffix='/day' />
+            </Text>
             <Box pt={4}>
-              <Text>
-                <PricePicker onChange={priceSelected} />{' '}
-                <Requests suffix='/month' />
-              </Text>
-              <Box pt='26px'>
-                <Text fontSize={0}>
-                  <PriceMonthly>
-                    <Highlight as='span' isHighlight={isHighlight}>
-                      {humanMonthlyPrice}
-                    </Highlight>
-                  </PriceMonthly>
+              <PriceMonthly>0</PriceMonthly>
+            </Box>
+          </Box>
+
+          <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
+            <Text as='li'>
+              <PricingLink href='/blog/edge-cdn/'>
+                Microlink Cache layer
+              </PricingLink>
+            </Text>
+            <Text as='li'>
+              <PricingLink href='/meta'>Unified metadata</PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/screenshot'>Take screenshots</PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/pdf'>Export to PDF</PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/insights'>Insights reports</PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/recipes'>Web Scraping</PricingLink>
+            </Text>
+          </Box>
+
+          <Box pt={4}>
+            <ArrowLink href='/docs/api/getting-started/overview'>
+              Get Started
+            </ArrowLink>
+          </Box>
+        </FreePricingBox>
+
+        <ProPricingBoxGradient>
+          <ProPricingBox flex={1} px={[0, 0, 5, 5]} py={[0, 0, 5, 5]}>
+            <Box>
+              <Subhead fontSize={[3, 3, 4, 4]} pt={[3, 3, 5, 5]}>
+                Pro
+              </Subhead>
+
+              <Box pt={4}>
+                <Text>
+                  <PricePicker onChange={priceSelected} />{' '}
+                  <Requests suffix='/month' />
                 </Text>
+                <Box pt='26px'>
+                  <Text fontSize={0}>
+                    <PriceMonthly>
+                      <Highlight as='span' isHighlight={isHighlight}>
+                        {humanMonthlyPrice}
+                      </Highlight>
+                    </PriceMonthly>
+                  </Text>
+                </Box>
+              </Box>
+
+              <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
+                <Text as='li'>
+                  Everything in Free,{' '}
+                  <Text as='span' fontWeight='bold'>
+                    plus
+                  </Text>
+                  :
+                </Text>
+                <Text as='li' pt={1}>
+                  <PricingLink href='/docs/api/parameters/headers'>
+                    Custom HTTP headers
+                  </PricingLink>
+                </Text>
+                <Text as='li' pt={1}>
+                  <PricingLink href='/docs/api/parameters/proxy'>
+                    Automatic proxy rotation
+                  </PricingLink>
+                </Text>
+                <Text as='li' pt={1}>
+                  <PricingLink href='/docs/api/parameters/ttl'>
+                    Configurable TTL
+                  </PricingLink>
+                </Text>
+                <Hide breakpoints={[0, 1]}>
+                  <Text as='li' style={{ opacity: 0 }} />
+                </Hide>
+                <Text as='li' style={{ opacity: 0 }} />
               </Box>
             </Box>
+            <Box>
+              <Checkout
+                planId={planId}
+                canonicalUrl={canonicalUrl}
+                stripeKey={stripeKey}
+              />
+            </Box>
+          </ProPricingBox>
+        </ProPricingBoxGradient>
 
-            <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
-              <Text as='li'>
-                Everything in Free,{' '}
-                <Text as='span' fontWeight='bold'>
-                  plus
-                </Text>
-                :
-              </Text>
-              <Text as='li' pt={1}>
-                <PricingLink href='/docs/api/parameters/headers'>
-                  Custom HTTP headers
-                </PricingLink>
-              </Text>
-              <Text as='li' pt={1}>
-                <PricingLink href='/docs/api/parameters/proxy'>
-                  Automatic proxy rotation
-                </PricingLink>
-              </Text>
-              <Text as='li' pt={1}>
-                <PricingLink href='/docs/api/parameters/ttl'>
-                  Configurable TTL
-                </PricingLink>
-              </Text>
-              <Hide breakpoints={[0, 1]}>
-                <Text as='li' style={{ opacity: 0 }} />
-              </Hide>
-              <Text as='li' style={{ opacity: 0 }} />
+        <EnterprisePricingBox my={[0, 0, 5, 5]} pt={[3, 3, 5, 5]}>
+          <Subhead fontSize={[3, 3, 4, 4]}>Enterprise</Subhead>
+
+          <Box pt={4}>
+            <Text>Starts from</Text>
+            <Box pt={4}>
+              <PriceMonthly>500</PriceMonthly>
             </Box>
           </Box>
-          <Box>
-            <Checkout
-              planId={planId}
-              canonicalUrl={canonicalUrl}
-              stripeKey={stripeKey}
-            />
-          </Box>
-        </ProPricingBox>
-      </ProPricingBoxGradient>
 
-      <EnterprisePricingBox my={[0, 0, 5, 5]} pt={[3, 3, 5, 5]}>
-        <Subhead fontSize={[3, 3, 4, 4]}>Enterprise</Subhead>
-
-        <Box pt={4}>
-          <Text>Starts from</Text>
-          <Box pt={4}>
-            <PriceMonthly>500</PriceMonthly>
-          </Box>
-        </Box>
-
-        <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
-          <Text as='li'>
-            Everything in Pro,{' '}
-            <Text as='span' fontWeight='bold'>
-              plus
+          <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
+            <Text as='li'>
+              Everything in Pro,{' '}
+              <Text as='span' fontWeight='bold'>
+                plus
+              </Text>
+              :
             </Text>
-            :
-          </Text>
-          <Text as='li' pt={1}>
-            <PricingLink href='/enterprise'>Custom API endpoint</PricingLink>
-          </Text>
-          <Text as='li' pt={1}>
-            <PricingLink href='/enterprise'>
-              Dedicated CDN distribution
-            </PricingLink>
-          </Text>
-          <Text as='li' pt={1}>
-            <PricingLink href='/enterprise'>
-              S3 like storage integration
-            </PricingLink>
-          </Text>
-          <Hide breakpoints={[0, 1]}>
-            <Text as='li' style={{ opacity: 0 }} />
-            <Text as='li' style={{ opacity: 0 }} />
-          </Hide>
-        </Box>
+            <Text as='li' pt={1}>
+              <PricingLink href='/enterprise'>Custom API endpoint</PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/enterprise'>
+                Dedicated CDN distribution
+              </PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/enterprise'>
+                S3 like storage integration
+              </PricingLink>
+            </Text>
+            <Hide breakpoints={[0, 1]}>
+              <Text as='li' style={{ opacity: 0 }} />
+              <Text as='li' style={{ opacity: 0 }} />
+            </Hide>
+          </Box>
 
-        <Box pt={4}>
-          <ArrowLink href='/enterprise'>Read More</ArrowLink>
-        </Box>
-      </EnterprisePricingBox>
-    </Flex>
-  )
+          <Box pt={4}>
+            <ArrowLink href='/enterprise'>Read More</ArrowLink>
+          </Box>
+        </EnterprisePricingBox>
+      </Flex>
+    )
+  }
+
+  return PricingTable
 }
 
 export default createPricingTable(Checkout)

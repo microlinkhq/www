@@ -52,7 +52,7 @@ const RecipesPage = () => {
       .then(response => response.json())
       .then(setCounters)
       .catch(() => undefined)
-  }, [allRecipes])
+  }, [])
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
