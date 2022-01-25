@@ -1,14 +1,19 @@
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
-import { TOOLBAR_HEIGHT } from 'components/elements/Toolbar'
 import React, { useEffect, createElement } from 'react'
 import { Box, Flex, Hide } from 'components/elements'
 import { ThemeProvider } from 'styled-components'
+import { useBreakpoint } from 'components/hook'
 import { Location } from '@reach/router'
 import Head from 'components/Head'
 import noop from 'lodash/noop'
 
 import themeSpec from 'theme'
 import 'styles/main.scss'
+
+import {
+  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_SECONDARY_HEIGHT
+} from 'components/elements/Toolbar'
 
 const Layout = ({
   footer,
@@ -23,6 +28,13 @@ const Layout = ({
   component = Box,
   ...props
 }) => {
+  const toolbarHeight = useBreakpoint([
+    TOOLBAR_PRIMARY_HEIGHT,
+    TOOLBAR_PRIMARY_HEIGHT,
+    `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
+    `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
+  ])
+
   useEffect(() => {
     const slug = window.location.hash
     if (slug) {
@@ -51,7 +63,7 @@ const Layout = ({
                 alignItems,
                 display,
                 flexDirection,
-                pt: TOOLBAR_HEIGHT,
+                pt: toolbarHeight,
                 children,
                 style: { flex: 1 }
               })}
