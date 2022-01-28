@@ -192,7 +192,6 @@ function Head ({ onChangeClientState, script, ...props }) {
 
       {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
       <meta property='og:url' content={url} />
-      <meta property='og:type' content='product' />
       <meta property='og:title' content={`${title} — ${name}`} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
