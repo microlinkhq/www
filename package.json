@@ -122,7 +122,6 @@
     "gatsby-plugin-remove-trailing-slashes": "~4.6.0",
     "gatsby-plugin-sass": "~5.6.0",
     "gatsby-plugin-styled-components": "~5.6.0",
-    "gatsby-plugin-vercel": "~1.0.3",
     "gatsby-source-filesystem": "~4.6.0",
     "gatsby-transformer-javascript-frontmatter": "~4.6.0",
     "gatsby-transformer-json": "~4.6.0",
