@@ -86,7 +86,6 @@ module.exports = {
     'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
-    'gatsby-plugin-advanced-sitemap',
-    'gatsby-plugin-vercel'
+    'gatsby-plugin-advanced-sitemap'
   ].filter(Boolean)
 }
