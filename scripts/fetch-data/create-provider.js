@@ -3,7 +3,6 @@
 const { identity, castArray, isEmpty } = require('lodash')
 const existsFile = require('exists-file')
 const jsonFuture = require('json-future')
-const pRetry = require('p-retry')
 const got = require('got')
 
 const fetchData = async url => {
@@ -18,7 +17,7 @@ module.exports = async ({ dist, url, mapper = identity }) => {
       return
     }
   }
-  const data = await pRetry(() => fetchData(url))
+  const data = await fetchData(url)
   const body = mapper(data)
   return jsonFuture.saveAsync(dist, castArray(body))
 }

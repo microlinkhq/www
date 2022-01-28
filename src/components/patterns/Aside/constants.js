@@ -37,6 +37,11 @@ const ROUTES_SDK = [
     name: 'Integrations',
     posts: [
       {
+        name: 'Eleventy',
+        href: 'https://github.com/daviddarnes/eleventy-plugin-unfurl',
+        icon: Icons.Eleventy
+      },
+      {
         name: 'Hugo',
         href: 'https://blog.ypertex.com/articles/useful-hugo-templating',
         icon: Icons.Hugo

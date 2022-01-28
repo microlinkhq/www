@@ -1,6 +1,7 @@
+import React, { createElement, useEffect, useState } from 'react'
 import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
-import React, { useEffect, useState } from 'react'
-import { Flex, Hide } from 'components/elements'
+import { Box, Flex } from 'components/elements'
+import { useBreakpoint } from 'components/hook'
 import styled from 'styled-components'
 import { shadows } from 'theme'
 
@@ -39,7 +40,7 @@ const AsideMobile = ({ children, ...props }) => {
   `
 
   return (
-    <>
+    <Box>
       <AsideBase
         CloseButton={
           <AsideButton
@@ -56,48 +57,56 @@ const AsideMobile = ({ children, ...props }) => {
       <Flex flexDirection='column' as='article'>
         {children}
       </Flex>
+    </Box>
+  )
+}
+
+const AsideDesktop = ({ children, ...props }) => {
+  console.log(Date.now())
+  return (
+    <>
+      <AsideBase isOpen {...props} />
+      <Flex
+        pl={`calc(${ASIDE_WIDTH} + 14px)`}
+        flexDirection='column'
+        as='article'
+      >
+        {children}
+      </Flex>
     </>
   )
 }
 
-const AsideDesktop = ({ children, ...props }) => (
-  <>
-    <AsideBase isOpen {...props} />
-    <Flex
-      pl={`calc(${ASIDE_WIDTH} + 14px)`}
-      flexDirection='column'
-      as='article'
-    >
-      {children}
-    </Flex>
-  </>
-)
-
 const Aside = props => {
+  const component = useBreakpoint([
+    AsideMobile,
+    AsideDesktop,
+    AsideDesktop,
+    AsideDesktop
+  ])
+
   useEffect(() => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
     if (activeEl) {
       const elOffset = activeEl.offsetTop
+
       const offset = document
         .querySelector('[data-aside-header]')
         .getBoundingClientRect().y
-      const top = elOffset - offset
-      document
-        .querySelector('[data-aside]')
-        .scrollTo({ top, behavior: 'instant' })
+
+      const minOffset = offset * 2
+
+      if (elOffset > minOffset) {
+        const top = elOffset - offset
+
+        document
+          .querySelector('[data-aside]')
+          .scrollTo({ top, behavior: 'instant' })
+      }
     }
   }, [])
 
-  return (
-    <>
-      <Hide breakpoints={[0, 1, 2]}>
-        <AsideDesktop {...props} />
-      </Hide>
-      <Hide breakpoints={[3]}>
-        <AsideMobile {...props} />
-      </Hide>
-    </>
-  )
+  return createElement(component, props)
 }
 
 export default Aside
