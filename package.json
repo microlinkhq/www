@@ -222,7 +222,7 @@
     "clean:build": "gatsby clean",
     "clean:data": "rm -rf data/*.json",
     "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
-    "dev": "gatsby develop --host localhost --port 8000",
+    "dev": "gatsby develop --host 0.0.0.0 --port 8000",
     "lint": "standard-markdown README.md && standard && npm run lint:gatsby",
     "lint:gatsby": "npx eslint",
     "postinstall": "npm run build:data",
