@@ -180,7 +180,7 @@
     "@storybook/builder-webpack5": "~6.4.15",
     "@storybook/manager-webpack5": "~6.4.15",
     "@storybook/react": "latest",
-    "ava": "3",
+    "ava": "4",
     "contrast": "latest",
     "conventional-github-releaser": "latest",
     "debug-logfmt": "latest",
