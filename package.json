@@ -158,7 +158,7 @@
     "react-spring": "~9.4.2",
     "react-syntax-highlighter": "~15.4.5",
     "react-timeago": "~6.2.1",
-    "react-twitter-embed": "~3.0.3",
+    "react-twitter-embed": "~4.0.4",
     "remark-slug": "~7.0.1",
     "sass": "~1.49.0",
     "styled-components": "~5.3.3",
