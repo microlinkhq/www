@@ -19,7 +19,7 @@ import {
   Subhead
 } from 'components/elements'
 
-const FREE_PLAN_RATE_LIMIT = 100
+const FREE_PLAN_RATE_LIMIT = 50
 
 const Requests = props => (
   <Label display='inline' {...props}>
