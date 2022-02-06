@@ -100,7 +100,7 @@
     "@kikobeats/use-query-state": "~1.0.6",
     "@microlink/mql": "~0.10.13",
     "@microlink/react": "~5.5.7",
-    "@microlink/recipes": "~1.3.4",
+    "@microlink/recipes": "~1.3.5",
     "@radix-ui/react-popper": "0.1.3",
     "@stripe/react-stripe-js": "~1.7.0",
     "@stripe/stripe-js": "~1.22.0",
@@ -113,7 +113,7 @@
     "dlv": "~1.1.3",
     "exists-file": "~3.0.2",
     "flat": "~5.0.2",
-    "gatsby": "~4.6.1",
+    "gatsby": "~4.6.2",
     "gatsby-plugin-advanced-sitemap": "~2.0.0",
     "gatsby-plugin-canonical-urls": "~4.6.0",
     "gatsby-plugin-catch-links": "~4.6.0",
@@ -165,7 +165,7 @@
     "styled-is": "~1.3.0",
     "styled-system": "~5.1.5",
     "swr": "~1.2.1",
-    "tldts": "~5.7.60",
+    "tldts": "~5.7.61",
     "unique-random-array": "~3.0.0"
   },
   "devDependencies": {
