@@ -16,6 +16,7 @@ import cdnUrl from './cdn-url'
 import isSSR from './is-ssr'
 import title from './title'
 import hash from './hash'
+import noop from './noop'
 
 export {
   aspectRatio,
@@ -27,6 +28,7 @@ export {
   isFastConnection,
   isSSR,
   mqlCode,
+  noop,
   pdfUrl,
   prettier,
   proxyImage,

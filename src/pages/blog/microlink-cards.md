@@ -7,7 +7,6 @@ date: '2021-04-06'
 
 Even some [early adopters](https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452) knew about this service almost one year ago [one year ago](https://mailchi.mp/4273d2f40705/introducing-microlink-cards), [Microlink Cards](https://cards.microlink.io) has been officially [launched](https://www.producthunt.com/posts/microlink-cards) today.
 
-
 During this time, **Microlink Cards** has been refined until reaching its final form, taking some engineering decisions under the hood.
 
 There are some decisions worth to mention, specially when you're building things at scale.
@@ -30,7 +29,7 @@ We combined it with [react-live](https://github.com/FormidableLabs/react-live) f
 
 ## State without database
 
-We wanted to avoid any database interaction since it will introduce a failure point and extra cost in terms of money and maintenance. 
+We wanted to avoid any database interaction since it will introduce a failure point and extra cost in terms of money and maintenance.
 
 If you don't have a database, you don't need to maintain it.
 
@@ -50,26 +49,18 @@ https://cards.microlink.io/editor?code=%3C%3E%0A++%3CBox%0A++++as%3D%27header%27
 
 We didn't find an official [URL length limitation](https://stackoverflow.com/a/417184) but looks like it could be around 2,000 characters. Also, we are not particularly interested in long URLs, they look terrible.
 
-In order to minimize the size of the URLs, we apply a compression algorithm, being [MessagePack](https://msgpack.org) one of the best for JSON payloads.
+In order to minimize the size of the URLs, we apply [lz-string](https://pieroxy.net/blog/pages/lz-string/index.html) compression algorithm.
 
 ```js
-import createMsgpack from 'msgpack5'
-import URLSafeBase64 from 'urlsafe-base64'
+import LZString from 'lz-string'
 
-const msgpack = createMsgpack()
+export const marshall = value => LZString.compressToEncodedURIComponent(value)
 
-export const marshall = value => URLSafeBase64.encode(msgpack.encode(value))
-
-export const unmarshall = value => msgpack.decode(URLSafeBase64.decode(value))
+export const unmarshall = value =>
+  LZString.decompressFromEncodedURIComponent(value)
 ```
 
-MessagePack will take the query parameters object as input, generating a compressed buffer representation as output.
-
-It's important to note that MessagePack will produce a buffer of binary data as output and it isn't safe to encode it directly as part of the URL payload.
-
-Instead, it should be encoded into [safe base64](https://twitter.com/Kikobeats/status/1375175916003995659) in order to retrieve the state with no data mutations.
-
-The Base64 representation will increase the size ~33%, but even with that, MessagePack is still worth it.
+In this way, the output will be an ASCII string representing the original string encoded in Base64 in a URL friendly way, saving bandwidth and CPU in the process.
 
 ## The image generation
 
