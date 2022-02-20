@@ -19,7 +19,7 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
     lazy = true,
     loading,
     [attr]: rawAttribute,
-    ...rest
+    ...props
   }) => {
     const [isLoading, setLoading] = useState(loading || lazy)
     const compiledAttr = template(rawAttribute)
@@ -27,21 +27,27 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
     useEffect(() => {
       if (lazy) {
         const tag = document.createElement(tagName)
-        tag.onerror = err => {
-          console.error('[with-lazy]', err)
-        }
-        tag.onload = () => {
+        const cleanup = () => {
           tag.onload = null
           tag.onerror = null
+        }
+
+        tag.onerror = err => console.error('[with-lazy]', err)
+        tag.onload = () => {
+          cleanup()
           setLoading(false)
         }
+
         tag[attr] = compiledAttr
+        Object.keys(props).forEach(key => (tag[key] = props[key]))
+
+        return cleanup
       }
-    }, [compiledAttr, lazy])
+    }, [compiledAttr, lazy, props])
 
     return createElement(
       isLoading ? Placeholder : Component,
-      computedProps(attr, compiledAttr, rest, { isLoading })
+      computedProps(attr, compiledAttr, props, { isLoading })
     )
   }
 

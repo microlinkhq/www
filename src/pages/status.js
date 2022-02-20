@@ -25,6 +25,21 @@ const THEMES = {
   dark: { color: 'white', bg: 'black' }
 }
 
+const Monospace = ({ style, ...props }) => (
+  <Text
+    fontFamily='monospace'
+    textAlign='center'
+    maxWidth={['95vw', '95vw', '100%', '100%']}
+    style={{
+      whiteSpace: 'pre',
+      overflowY: 'scroll',
+      margin: 'auto',
+      ...style
+    }}
+    {...props}
+  />
+)
+
 const StatusPage = () => {
   const [{ theme, color, bg }, setTheme] = useTheme(THEMES, 'light')
   const [{ cluster }] = useQueryState()
@@ -34,7 +49,7 @@ const StatusPage = () => {
 
   return (
     <ClusterMonitor endpoint={endpoint}>
-      {({ isLoading, data }) => {
+      {({ isLoading, resume, info }) => {
         return (
           <Layout
             onClick={toggleTheme}
@@ -59,21 +74,13 @@ const StatusPage = () => {
                   </Flex>
                 </Choose.When>
                 <Choose.Otherwise>
-                  <Text
-                    color={color}
-                    textAlign='center'
-                    style={{ fontFamily: 'monospace' }}
-                  >
+                  <Monospace color={color}>
                     $ watch curl -sL {endpoint}
-                  </Text>
-                  <Text
-                    textAlign='center'
-                    style={{ whiteSpace: 'pre', fontFamily: 'monospace' }}
-                    color={color}
-                    fontSize={[0, 0, 1, 1]}
-                  >
-                    {`\n${data}`}
-                  </Text>
+                  </Monospace>
+                  <Monospace color={color}>{`\n${resume}`}</Monospace>
+                  <Monospace color={color} fontSize={[0, 0, 1, 1]}>
+                    {`\n${info}`}
+                  </Monospace>
                 </Choose.Otherwise>
               </Choose>
             </Box>

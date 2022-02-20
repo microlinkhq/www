@@ -1,5 +1,13 @@
 import useSWR from 'swr'
 
+const SEPARATOR = '┌'
+
+const parseData = (data, isLoading) => {
+  if (isLoading) return { resume: '', info: '' }
+  const [resume, info] = data.split(`\n${SEPARATOR}`)
+  return { resume, info: `${SEPARATOR}${info}` }
+}
+
 const ClusterMonitor = ({ children, endpoint, ...opts }) => {
   const { data } = useSWR(
     endpoint,
@@ -7,10 +15,8 @@ const ClusterMonitor = ({ children, endpoint, ...opts }) => {
     opts
   )
 
-  return children({
-    data,
-    isLoading: !data
-  })
+  const isLoading = !data
+  return children({ ...parseData(data, isLoading), isLoading })
 }
 
 ClusterMonitor.defaultProps = {
