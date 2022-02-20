@@ -22,7 +22,7 @@ const SENTENCES = [
   { href: '/insights', text: 'Run Lighthouse', color: '#B500ED' }
 ]
 
-const SENTENCES_INTERVAL = 3500
+const SENTENCES_INTERVAL = 1500
 
 const Hero = props => {
   const [index, setIndex] = useState(0)
