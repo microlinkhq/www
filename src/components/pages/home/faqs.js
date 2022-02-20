@@ -11,18 +11,17 @@ const FAQs = props => (
         question: 'Can I use microlink for free?',
         answer: [
           <div key='can-i-use-microlink-for-free-0'>
-            Absolutely, we offer a forever free{' '}
+            Absolutely. We have a forever free{' '}
             <Link href='/docs/api/basics/endpoint'>endpoint</Link> you can use.
-            It&#039;s the best way for starting using the service.
+            It&#039;s the best way to start using the service.
           </div>,
           <div key='can-i-use-microlink-for-free-1'>
-            The free plan runs under some limitation for avoid abusive usage of
+            The free plan runs under some limitation to avoid abusive usage of
             the platform, like burst rate, limited concurrency rate and daily
             rate limit.
           </div>,
           <div key='can-i-use-microlink-for-free-2'>
-            Because of that, the free plan could be good for little project or
-            low API quota.
+            The free plan should be enough for little projects or low API quota.
           </div>
         ]
       },
@@ -46,8 +45,8 @@ const FAQs = props => (
         question: "What if I don't know how much API quota I need?",
         answer: [
           <div key='what-if-i-dont-know-how-much-api-quota-i-need'>
-            No problem, just start with the smallest pro plan; in the moment you
-            need more, you can upgrade your plan.
+            No problem, just start with the smallest pro plan, and at the moment
+            you need more, you can upgrade your plan.
           </div>
         ]
       },
@@ -82,14 +81,15 @@ const FAQs = props => (
         ]
       },
       {
-        question: 'Do you have a Service-Level Agreements (SLA)?',
+        question: "What's your SLA level?",
         answer: [
           <div key='Do-you-have-a-Service-Level-Agreements-sla'>
-            You can see our SLA level on{' '}
+            Our Service-Level Agreements commitment is 99.9% (three nines).{' '}
+            {'\n'}You can see the live{' '}
             <Link display='inline' href='/status'>
               status
-            </Link>
-            {' page.'}
+            </Link>{' '}
+            of the service.
           </div>
         ]
       },
@@ -97,9 +97,9 @@ const FAQs = props => (
         question: 'How do I know my plan usage?',
         answer: [
           <div key='how-do-i-know-my-plan-usage'>
-            We notify you in an automatic way when you reach 50% or more of your
-            usage plan, offering to upgrade your current plan to one more
-            suitable based on your plan usage.
+            We notify you automatically when you reach 80% or more of your usage
+            plan, offering you to upgrade your plan to one more suitable based
+            on your plan usage.
           </div>
         ]
       },

@@ -42,12 +42,7 @@ const Faq = ({ title, caption, questions, ...props }) => {
         <Box pb={[0, 0, 4, 4]}>
           {questions.map(({ answer, question }, index) => {
             return (
-              <Text
-                pl={[0, 0, 4, 4]}
-                pt={[3, 4, 4, 4]}
-                maxWidth={layout.normal}
-                key={question}
-              >
+              <Text px={4} maxWidth={layout.small} key={question}>
                 <Question index={index}>{question}</Question>
                 {answer.map((paraph, index) => (
                   <Text
