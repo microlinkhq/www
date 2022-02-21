@@ -46,7 +46,6 @@ const FetchProvider = ({ mqlOpts, children }) => {
   const fetchData = useCallback(
     async (url, opts) => {
       try {
-        console.log('fetching', url)
         setQuery({ url, ...opts })
         setError(null)
         setStatus('fetching')

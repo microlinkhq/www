@@ -62,7 +62,6 @@ const AsideMobile = ({ children, ...props }) => {
 }
 
 const AsideDesktop = ({ children, ...props }) => {
-  console.log(Date.now())
   return (
     <>
       <AsideBase isOpen {...props} />

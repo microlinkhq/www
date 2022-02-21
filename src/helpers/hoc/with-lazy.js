@@ -37,9 +37,7 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
           cleanup()
           setLoading(false)
         }
-
         tag[attr] = compiledAttr
-        Object.keys(props).forEach(key => (tag[key] = props[key]))
 
         return cleanup
       }
