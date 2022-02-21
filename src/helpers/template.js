@@ -5,7 +5,8 @@ import dataDemoLinks from '../../data/demo-links.json'
 
 const demolinks = dataDemoLinks.reduce((acc, { id, data }) => {
   const screenshot = { url: cdnUrl(`screenshot/${id}.png`) }
-  return { ...acc, [id]: { ...data, screenshot } }
+  acc[id] = { ...data, screenshot }
+  return acc
 }, {})
 
 const TEMPLATE_INTERPOLATE = /{{([\s\S]+?)}}/g
