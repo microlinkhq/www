@@ -14,6 +14,7 @@ const {
 } = require('./env')
 
 module.exports = {
+  trailingSlash: 'never',
   flags: {
     FAST_DEV: true
   },
@@ -83,7 +84,6 @@ module.exports = {
         siteUrl: CANONICAL_URL
       }
     },
-    'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
     'gatsby-plugin-advanced-sitemap'

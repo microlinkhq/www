@@ -1,6 +1,6 @@
 import { Choose, Toolbar, Flex, Box, Fixed } from 'components/elements'
 import { GitHub, Twitter } from 'components/icons'
-import { useLocation } from '@reach/router'
+import { useLocation } from '@gatsbyjs/reach-router'
 import React, { useState } from 'react'
 import { rgba } from 'polished'
 import { colors } from 'theme'
