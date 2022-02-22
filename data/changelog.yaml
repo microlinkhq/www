@@ -1,18 +1,19 @@
 - date: February 2022
   notes:
-    - "[Microlink Cards](https://cards.microlink.io): Added [github-org](https://cards.microlink.io/editor?preset=github-org) template."
-    - "[Microlink Cards](https://cards.microlink.io): Added [just-javascript](https://cards.microlink.io/editor?preset=just-javascript) template."
+    - "[Microlink Cards](https://cards.microlink.io): Added [dashboard](https://cards.microlink.io/editor?preset=dashboard) preset."
+    - "[Microlink Cards](https://cards.microlink.io): Added [github-org](https://cards.microlink.io/editor?preset=github-org) preset."
+    - "[Microlink Cards](https://cards.microlink.io): Added [just-javascript](https://cards.microlink.io/editor?preset=just-javascript) preset."
 
 - date: January 2022
   notes:
     - "[unavatar.io](https://unavatar.io) Crossed 50 millions requests per month."
-    - "[Microlink Cards](https://cards.microlink.io): Added [github-repo](https://cards.microlink.io/editor?preset=github-repo) template."
-    - "[Microlink Cards](https://cards.microlink.io): Added [accesibility](https://cards.microlink.io/editor?preset=accesibility) template."
-    - "[Microlink Cards](https://cards.microlink.io): Added [mikesanroman](https://cards.microlink.io/editor?preset=mikesanroman) template."
-    - "[Microlink Cards](https://cards.microlink.io): Added [netlify](https://cards.microlink.io/editor?preset=netlify) template."
-    - "[Microlink Cards](https://cards.microlink.io): Added [draculashop](https://cards.microlink.io/editor?preset=draculashop) template."
-    - "[Microlink Cards](https://cards.microlink.io): Added [apple](https://cards.microlink.io/editor?preset=apple) template."
-    - "[Microlink Cards](https://cards.microlink.io): Added [thebootstrappedfounder](https://cards.microlink.io/editor?preset=thebootstrappedfounder) template."
+    - "[Microlink Cards](https://cards.microlink.io): Added [github-repo](https://cards.microlink.io/editor?preset=github-repo) preset."
+    - "[Microlink Cards](https://cards.microlink.io): Added [accesibility](https://cards.microlink.io/editor?preset=accesibility) preset."
+    - "[Microlink Cards](https://cards.microlink.io): Added [mikesanroman](https://cards.microlink.io/editor?preset=mikesanroman) preset."
+    - "[Microlink Cards](https://cards.microlink.io): Added [netlify](https://cards.microlink.io/editor?preset=netlify) preset."
+    - "[Microlink Cards](https://cards.microlink.io): Added [draculashop](https://cards.microlink.io/editor?preset=draculashop) preset."
+    - "[Microlink Cards](https://cards.microlink.io): Added [apple](https://cards.microlink.io/editor?preset=apple) preset."
+    - "[Microlink Cards](https://cards.microlink.io): Added [thebootstrappedfounder](https://cards.microlink.io/editor?preset=thebootstrappedfounder) preset."
 
 - date: December 2021
   notes:
@@ -40,7 +41,7 @@
 - date: September 2021
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): Added preset support for [lighthouse](/docs/api/parameters/insights/lighthouse)."
-    - "[Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) template."
+    - "[Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) preset."
     - "[Microlink Recipes](/recipes): Added [excerption](/recipes/excerpt) recipe."
     - "[Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/mql/data/evaluate) performance."
     - "[Keyv](https://keyv.js.org): Released [@keyvhq/multi](https://github.com/microlinkhq/keyv/tree/master/packages/multi)"
@@ -89,17 +90,17 @@
   notes:
     - "[Microlink API](/docs/api/getting-started/overview): The query parameter [ping](/docs/api/parameters/ping) now accepts an object interface."
     - "[Microlink Recipes](/recipes): Added [CodePen](/recipes/codepen) recipe."
-    - "[Microlink Cards](https://cards.microlink.io): Added [richhaines](https://cards.microlink.io/editor?preset=richhaines) and [m1guelpf](https://cards.microlink.io/editor?preset=m1guelpf) templates."
+    - "[Microlink Cards](https://cards.microlink.io): Added [richhaines](https://cards.microlink.io/editor?preset=richhaines) and [m1guelpf](https://cards.microlink.io/editor?preset=m1guelpf) presets."
 
 - date: February 2021
   notes:
-    - "[Microlink Cards](https://cards.microlink.io): Added [meta](https://cards.microlink.io/editor?preset=meta) template."
+    - "[Microlink Cards](https://cards.microlink.io): Added [meta](https://cards.microlink.io/editor?preset=meta) preset."
     - "[Microlink API](/docs/api/getting-started/overview): The service now relies on [CloudFlare DNS](https://one.one.one.one/) for domain resolution."
     - "[Microlink OSS](/oss): Created [youtube-dl-exec](https://github.com/microlinkhq/youtube-dl-exec) repository."
 
 - date: January 2021
   notes:
-    - "[Microlink Cards](https://cards.microlink.io): Added [conference](https://cards.microlink.io/editor?preset=conference), [frame](https://cards.microlink.io/editor?preset=frame) and [twitter](https://cards.microlink.io/editor?preset=twitter) template."
+    - "[Microlink Cards](https://cards.microlink.io): Added [conference](https://cards.microlink.io/editor?preset=conference), [frame](https://cards.microlink.io/editor?preset=frame) and [twitter](https://cards.microlink.io/editor?preset=twitter) presets."
     - "[Metascraper v5.16.17](https://metascraper.js.org): Improved audio detection from HTML and JSON+LD markup."
     - "[Metascraper v5.16.9](https://metascraper.js.org): Improved description casuistic detection."
     - "[Browserless v8.7.0](https://browserless.js.org): Upgraded to Lighthouse v7."
