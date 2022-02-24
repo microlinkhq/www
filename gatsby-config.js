@@ -86,6 +86,6 @@ module.exports = {
     },
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
-    'gatsby-plugin-advanced-sitemap'
+    'gatsby-plugin-complex-sitemap-tree'
   ].filter(Boolean)
 }
