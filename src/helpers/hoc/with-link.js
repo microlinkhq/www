@@ -94,7 +94,7 @@ const External = Component => {
 export const withLink = Component => {
   const ExternalLink = External(Component)
 
-  return ({ actively, href, children, linkProps, ...props }) => {
+  const LinkWrapper = ({ actively, href, children, linkProps, ...props }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
     const location = useLocation()
     const isInternal = isInternalLink(href)
@@ -139,6 +139,8 @@ export const withLink = Component => {
       </ExternalLink>
     )
   }
+
+  return LinkWrapper
 }
 
 withLink.isInternalLink = isInternalLink

@@ -14,7 +14,7 @@ If you don't need the ref "on mount" (eg. for attaching callbacks), React's [use
 
 ```jsx
 const MyComponent = () => {
-  const mediaRef = useRef();
+  const mediaRef = useRef()
 
   return (
     <div>
@@ -26,8 +26,8 @@ const MyComponent = () => {
       <button onClick={() => mediaRef.current.play()}>Play</button>
       <button onClick={() => mediaRef.current.pause()}>Pause</button>
     </div>
-  );
-};
+  )
+}
 ```
 
 <br/>
@@ -38,8 +38,8 @@ If you need access to the media DOM element on mount, you would want to use the 
 
 ```jsx
 const MyComponent = () => {
-  const mediaRef = useRef();
-  const getMediaRef = useCallback((node) => {
+  const mediaRef = useRef()
+  const getMediaRef = useCallback(node => {
     const onPlay = () => alert('video playing!')
 
     // Listener cleanup, like the return function on `useEffect`
@@ -61,6 +61,6 @@ const MyComponent = () => {
       /* ...your props */
       mediaRef={getMediaRef}
     />
-  );
-};
+  )
+}
 ```

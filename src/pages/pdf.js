@@ -99,7 +99,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     })
   }, [inputUrl, inputMargin, inputFormat])
 
-  const suggestionUrl = React.useMemo(() => {
+  const suggestionUrl = useMemo(() => {
     const { url } = values
     const item = SUGGESTIONS.find(item => item.url === url)
     return item ? item.cdnUrl : undefined

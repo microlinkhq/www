@@ -1,6 +1,6 @@
 import { useLocalStorage } from 'components/hook'
 import styled from 'styled-components'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { cx } from 'theme'
 
 import CodeEditor from '../CodeEditor/CodeEditor'
@@ -93,7 +93,7 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
 
   const updateLanguageIndex = event => setLanguageIndex(event.detail)
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
     return () =>
       document.removeEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
