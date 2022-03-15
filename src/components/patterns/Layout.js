@@ -71,7 +71,7 @@ const Layout = ({
                 <CookiesPolicy />
               </Hide>
               {footer && (
-                <Box>
+                <Box className='hidden-print'>
                   <Footer theme={theme} {...footer} />
                 </Box>
               )}

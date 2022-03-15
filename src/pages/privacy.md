@@ -3,7 +3,7 @@ title: 'Privacy Policy'
 date: '2018-08-20'
 ---
 
-Microlink respects your privacy regarding any information we may collect from you across our website <Link href='https://microlink.io' children='microlink.io' />, and other sites we own and operate, according to EU General Data Protection Regulation (GDPR).
+Microlink respects your privacy regarding any information we may collect from you across our website <Link href='https://microlink.io' children='microlink.io' />, and other sites we own and operate, according to EU General Data Protection Regulation (GDPR). See our [Data Processing Agreement](/dpa).
 
 ## Information we collect
 
