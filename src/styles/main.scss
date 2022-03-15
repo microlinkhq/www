@@ -207,6 +207,12 @@ html {
   }
 }
 
+@media print {
+  .hidden-print {
+    display: none;
+  }
+}
+
 a.active {
   text-decoration: none;
   color: inherit;

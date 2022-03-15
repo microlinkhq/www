@@ -288,6 +288,7 @@ export const transition = {
 }
 
 export const textGradient = {
+  WebkitPrintColorAdjust: 'exact',
   backgroundImage: gradient,
   display: 'inline-block',
   backgroundSize: 'cover',

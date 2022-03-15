@@ -84,6 +84,7 @@ const ToolbarDesktop = ({ theme }) => {
       top={0}
       left={0}
       right={0}
+      className='hidden-print'
       css={`
         backdrop-filter: blur(8px);
         background-color: ${rgba(isDark ? 'black' : 'white', 0.5)};
