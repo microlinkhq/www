@@ -49,6 +49,7 @@ const CookiesPolicy = () => {
     <CookiesWrapper
       ref={ref}
       id='cookies-policy'
+      className='hidden-print'
       aria-hidden='true'
       m={3}
       css={isHidden && 'animation-duration: 0s !important;'}
