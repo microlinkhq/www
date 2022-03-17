@@ -149,7 +149,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   }
 
   const pages = result.data.allMarkdownRemark.edges.map(async ({ node }) => {
-    const slug = node.fields.slug.replace(/\/$/, '')
+    const slug = node.fields.slug.replace(/\/+$/, '')
 
     return createPage({
       path: slug,

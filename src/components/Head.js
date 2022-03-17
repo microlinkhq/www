@@ -7,7 +7,7 @@ import get from 'dlv'
 const getPage = props => {
   const pathname = get(props, 'location.pathname') || '/'
   if (pathname === '/') return '/'
-  return pathname.replace(/\/$/, '')
+  return pathname.replace(/\/+$/, '')
 }
 
 const getTitle = (props, metadata) => {
