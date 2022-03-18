@@ -5,7 +5,7 @@ import { textGradient, colors } from 'theme'
 import { lighten } from 'polished'
 
 import Box from '../Box'
-import Link from './base'
+import { LinkBase } from './base'
 
 const hoverStyle = createCssState({
   selector: '&:hover:not([disabled])',
@@ -37,7 +37,7 @@ const style = css`
   text-decoration-thickness: 1px;
 `
 
-const LinkSolidWrapper = styled(Link)`
+const LinkSolidWrapper = styled(LinkBase)`
   ${style};
   ${hoverStyle};
 

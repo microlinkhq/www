@@ -20,8 +20,11 @@ const hoverStyle = createCssState({
   `
 })
 
-const Link = styled(Text)`
+export const LinkBase = styled(Text)`
   ${style};
+`
+
+const Link = styled(LinkBase)`
   ${hoverStyle};
 `
 
