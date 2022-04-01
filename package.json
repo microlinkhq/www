@@ -123,7 +123,7 @@
     "gatsby-plugin-styled-components": "~5.8.0",
     "gatsby-source-filesystem": "~4.8.0",
     "gatsby-transformer-javascript-frontmatter": "~4.8.0",
-    "gatsby-transformer-json": "~4.8.0",
+    "gatsby-transformer-json": "~4.11.0",
     "gatsby-transformer-remark": "~5.8.0",
     "gatsby-transformer-yaml": "~4.8.0",
     "git-jiggy": "~1.1.1",
