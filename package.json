@@ -108,7 +108,7 @@
     "@tippyjs/react": "~4.2.6",
     "autoprefixer": "~10.4.2",
     "beauty-error": "~1.2.9",
-    "cssnano": "~5.0.17",
+    "cssnano": "~5.1.5",
     "cssnano-preset-advanced": "~5.1.12",
     "dlv": "~1.1.3",
     "exists-file": "~3.0.2",
