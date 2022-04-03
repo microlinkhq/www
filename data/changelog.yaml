@@ -1,150 +1,153 @@
 - date: March 2022
   notes:
-    - "[Microlink Cards](https://cards.microlink.io): Added [saraostech](https://cards.microlink.io/editor?preset=saraostech) preset."
-    
+    - '[Microlink API](/docs/api/getting-started/overview): Improved palette detection for more image formats, such as ICO, BMP, HEIC, PSD.'
+    - '[Metascraper v5.29.0](https://metascraper.js.org): Added support for graph detection for JSON+LD markup.'
+    - '[Metascraper v5.28.0](https://metascraper.js.org): Fallbacking favicon detection to root domain in case URL provided is a subdomain.'
+    - '[Metascraper v5.27.0](https://metascraper.js.org): General performance improvements dealing with network calls.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [saraostech](https://cards.microlink.io/editor?preset=saraostech) preset.'
+
 - date: February 2022
   notes:
-    - "[Microlink Cards](https://cards.microlink.io): Added [dashboard](https://cards.microlink.io/editor?preset=dashboard) preset."
-    - "[Microlink Cards](https://cards.microlink.io): Added [github-org](https://cards.microlink.io/editor?preset=github-org) preset."
-    - "[Microlink Cards](https://cards.microlink.io): Added [just-javascript](https://cards.microlink.io/editor?preset=just-javascript) preset."
+    - '[Microlink Cards](https://cards.microlink.io): Added [dashboard](https://cards.microlink.io/editor?preset=dashboard) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [github-org](https://cards.microlink.io/editor?preset=github-org) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [just-javascript](https://cards.microlink.io/editor?preset=just-javascript) preset.'
 
 - date: January 2022
   notes:
-    - "[unavatar.io](https://unavatar.io) Crossed 50 millions requests per month."
-    - "[Microlink Cards](https://cards.microlink.io): Added [github-repo](https://cards.microlink.io/editor?preset=github-repo) preset."
-    - "[Microlink Cards](https://cards.microlink.io): Added [accesibility](https://cards.microlink.io/editor?preset=accesibility) preset."
-    - "[Microlink Cards](https://cards.microlink.io): Added [mikesanroman](https://cards.microlink.io/editor?preset=mikesanroman) preset."
-    - "[Microlink Cards](https://cards.microlink.io): Added [netlify](https://cards.microlink.io/editor?preset=netlify) preset."
-    - "[Microlink Cards](https://cards.microlink.io): Added [draculashop](https://cards.microlink.io/editor?preset=draculashop) preset."
-    - "[Microlink Cards](https://cards.microlink.io): Added [apple](https://cards.microlink.io/editor?preset=apple) preset."
-    - "[Microlink Cards](https://cards.microlink.io): Added [thebootstrappedfounder](https://cards.microlink.io/editor?preset=thebootstrappedfounder) preset."
+    - '[unavatar.io](https://unavatar.io) Crossed 50 millions requests per month.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [github-repo](https://cards.microlink.io/editor?preset=github-repo) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [accesibility](https://cards.microlink.io/editor?preset=accesibility) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [mikesanroman](https://cards.microlink.io/editor?preset=mikesanroman) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [netlify](https://cards.microlink.io/editor?preset=netlify) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [draculashop](https://cards.microlink.io/editor?preset=draculashop) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [apple](https://cards.microlink.io/editor?preset=apple) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [thebootstrappedfounder](https://cards.microlink.io/editor?preset=thebootstrappedfounder) preset.'
 
 - date: December 2021
   notes:
-    - "[Microlink OSS](/oss): Released [ffprobe](https://github.com/microlinkhq/ffprobe)."
-    
+    - '[Microlink OSS](/oss): Released [ffprobe](https://github.com/microlinkhq/ffprobe).'
+
 - date: November 2021
   notes:
-    - "[unavatar.io](https://unavatar.io) Crossed 30 millions requests per month"
-    - "[Microlink API](/docs/api/getting-started/overview): Added [iframe](/docs/api/parameters/iframe) Twitter player detection."
-    - "[Microlink Functions](https://functions.microlink.io): Added HTML markup of the target website as function parameter."
-    - "[Microlink Recipes](/recipes): Added [healthcheck](/recipes/healthcheck) recipe."
-    - "[Microlink API](/docs/api/getting-started/overview): Added [filename](/docs/api/parameters/filename) query parameter."
-    - "[Microlink](/): Revamped [recipes](/recipes)."
-    - "[Microlink API](/docs/api/getting-started/overview): Added BMP, WebP & AVIF support for [palette](/docs/api/parameters/palette)."
-    - "[Microlink](/): Special thanks to [Haaris B](mailto:haaris.blacktech@gmail.com) for improving service security."
+    - '[unavatar.io](https://unavatar.io) Crossed 30 millions requests per month'
+    - '[Microlink API](/docs/api/getting-started/overview): Added [iframe](/docs/api/parameters/iframe) Twitter player detection.'
+    - '[Microlink Functions](https://functions.microlink.io): Added HTML markup of the target website as function parameter.'
+    - '[Microlink Recipes](/recipes): Added [healthcheck](/recipes/healthcheck) recipe.'
+    - '[Microlink API](/docs/api/getting-started/overview): Added [filename](/docs/api/parameters/filename) query parameter.'
+    - '[Microlink](/): Revamped [recipes](/recipes).'
+    - '[Microlink API](/docs/api/getting-started/overview): Added BMP, WebP & AVIF support for [palette](/docs/api/parameters/palette).'
+    - '[Microlink](/): Special thanks to [Haaris B](mailto:haaris.blacktech@gmail.com) for improving service security.'
 
 - date: October 2021
   notes:
-    - "[Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration."
-    - "[Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe."
-    - "[Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) as type."
-    - "[Microlink API](/docs/api/getting-started/overview): Special thanks to [Daniel Wang](https://danielwang.dev) for improving service security."
-    - "[Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes."
+    - '[Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration.'
+    - '[Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe.'
+    - '[Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) as type.'
+    - '[Microlink API](/docs/api/getting-started/overview): Special thanks to [Daniel Wang](https://danielwang.dev) for improving service security.'
+    - '[Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes.'
 
 - date: September 2021
   notes:
-    - "[Microlink API](/docs/api/getting-started/overview): Added preset support for [lighthouse](/docs/api/parameters/insights/lighthouse)."
-    - "[Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) preset."
-    - "[Microlink Recipes](/recipes): Added [excerption](/recipes/excerpt) recipe."
-    - "[Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/mql/data/evaluate) performance."
-    - "[Keyv](https://keyv.js.org): Released [@keyvhq/multi](https://github.com/microlinkhq/keyv/tree/master/packages/multi)"
-    - "[Keyv](https://keyv.js.org): Released [@keyvhq/offline](https://github.com/microlinkhq/keyv/tree/master/packages/offline)"
-    - "[Keyv](https://keyv.js.org): Released [@keyvhq/compress](https://github.com/microlinkhq/keyv/tree/master/packages/compress)"
-    - "[Keyv](https://keyv.js.org): Released [@keyvhq/memoize](https://github.com/microlinkhq/keyv/tree/master/packages/memoize)"
+    - '[Microlink API](/docs/api/getting-started/overview): Added preset support for [lighthouse](/docs/api/parameters/insights/lighthouse).'
+    - '[Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) preset.'
+    - '[Microlink Recipes](/recipes): Added [excerption](/recipes/excerpt) recipe.'
+    - '[Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/mql/data/evaluate) performance.'
+    - '[Keyv](https://keyv.js.org): Released [@keyvhq/multi](https://github.com/microlinkhq/keyv/tree/master/packages/multi)'
+    - '[Keyv](https://keyv.js.org): Released [@keyvhq/offline](https://github.com/microlinkhq/keyv/tree/master/packages/offline)'
+    - '[Keyv](https://keyv.js.org): Released [@keyvhq/compress](https://github.com/microlinkhq/keyv/tree/master/packages/compress)'
+    - '[Keyv](https://keyv.js.org): Released [@keyvhq/memoize](https://github.com/microlinkhq/keyv/tree/master/packages/memoize)'
 
 - date: August 2021
   notes:
-    - "[unavatar.io](https://unavatar.io) crossed 20 millions requests per month"
-    - "[Microlink OSS](/oss): Released [metatags](https://github.com/microlinkhq/metatags)."
-    - "[Microlink API](/docs/api/getting-started/overview): Added [staleTtl](/docs/api/parameters/staleTtl) query parameter."
+    - '[unavatar.io](https://unavatar.io) crossed 20 millions requests per month'
+    - '[Microlink OSS](/oss): Released [metatags](https://github.com/microlinkhq/metatags).'
+    - '[Microlink API](/docs/api/getting-started/overview): Added [staleTtl](/docs/api/parameters/staleTtl) query parameter.'
 
 - date: July 2021
   notes:
-
-    - "[Microlink OSS](/oss): Sponsored [unavatar.io](https://unavatar.io)."
-    - "[Microlink Recipes](/recipes): Added [Instagram](/recipes/instagram) recipe."
-    - "[Microlink Recipes](/recipes): Added [Telegram](/recipes/telegram) recipe."
-    - "[Microlink Recipes](/recipes): Added [Reddit](/recipes/reddit) recipe."
-    - "[Microlink OSS](/oss) Released [keyv.js.org](https://keyv.js.org)."
-    - "[Metascraper v5.22.0](https://metascraper.js.org): Added more heuristic cases for logo detection."
-    - "[Microlink Proxy](/blog/proxy-capabilities): Added Wallmart URLs support."
+    - '[Microlink OSS](/oss): Sponsored [unavatar.io](https://unavatar.io).'
+    - '[Microlink Recipes](/recipes): Added [Instagram](/recipes/instagram) recipe.'
+    - '[Microlink Recipes](/recipes): Added [Telegram](/recipes/telegram) recipe.'
+    - '[Microlink Recipes](/recipes): Added [Reddit](/recipes/reddit) recipe.'
+    - '[Microlink OSS](/oss) Released [keyv.js.org](https://keyv.js.org).'
+    - '[Metascraper v5.22.0](https://metascraper.js.org): Added more heuristic cases for logo detection.'
+    - '[Microlink Proxy](/blog/proxy-capabilities): Added Wallmart URLs support.'
 
 - date: June 2021
   notes:
-    - "[Microlink](/): Added [Microlink Enterprise](/enterprise) plan."
-    - "[Browserless v9](https://browserless.js.org): Official release."
-    - "[Microlink Blog](/blog): Added [Microlink Proxy](/blog/proxy-capabilities) post."
-    - "[Metascraper v5.22.0](https://metascraper.js.org): Added Instagram integration."
+    - '[Microlink](/): Added [Microlink Enterprise](/enterprise) plan.'
+    - '[Browserless v9](https://browserless.js.org): Official release.'
+    - '[Microlink Blog](/blog): Added [Microlink Proxy](/blog/proxy-capabilities) post.'
+    - '[Metascraper v5.22.0](https://metascraper.js.org): Added Instagram integration.'
 
 - date: May 2021
   notes:
-    - "[Microlink OSS](/oss) Added [spotify-url-info](https://github.com/microlinkhq/spotify-url-info)."
+    - '[Microlink OSS](/oss) Added [spotify-url-info](https://github.com/microlinkhq/spotify-url-info).'
     - "[Browserless v9 beta](https://github.com/microlinkhq/browserless/pull/280): A total rework improving how Chromium's process are managed."
-    - "[Microlink Function](https://github.com/microlinkhq/function): Added more [allowed](https://github.com/microlinkhq/function#npm-packages) NPM packages."
-    - "[Microlink Cluster](/status): Improve stability, better k8s autoscaling setup."
+    - '[Microlink Function](https://github.com/microlinkhq/function): Added more [allowed](https://github.com/microlinkhq/function#npm-packages) NPM packages.'
+    - '[Microlink Cluster](/status): Improve stability, better k8s autoscaling setup.'
 
 - date: April 2021
   notes:
-    - "[Microlink API](/docs/api/getting-started/overview): Added better default fonts and improved [font rendering](https://pro.microlink.io/?url=https%3A%2F%2Ffont-rendering.vercel.app&screenshot=&fullPage=&embed=screenshot.url)."
-    - "[Microlink CLI](https://github.com/microlinkhq/cli): Released v2.0.0."
-    - "[Microlink Function](https://github.com/microlinkhq/function): Released [@microlink/local](https://github.com/microlinkhq/local) for running them locally."
+    - '[Microlink API](/docs/api/getting-started/overview): Added better default fonts and improved [font rendering](https://pro.microlink.io/?url=https%3A%2F%2Ffont-rendering.vercel.app&screenshot=&fullPage=&embed=screenshot.url).'
+    - '[Microlink CLI](https://github.com/microlinkhq/cli): Released v2.0.0.'
+    - '[Microlink Function](https://github.com/microlinkhq/function): Released [@microlink/local](https://github.com/microlinkhq/local) for running them locally.'
 
 - date: March 2021
   notes:
-    - "[Microlink API](/docs/api/getting-started/overview): The query parameter [ping](/docs/api/parameters/ping) now accepts an object interface."
-    - "[Microlink Recipes](/recipes): Added [CodePen](/recipes/codepen) recipe."
-    - "[Microlink Cards](https://cards.microlink.io): Added [richhaines](https://cards.microlink.io/editor?preset=richhaines) and [m1guelpf](https://cards.microlink.io/editor?preset=m1guelpf) presets."
+    - '[Microlink API](/docs/api/getting-started/overview): The query parameter [ping](/docs/api/parameters/ping) now accepts an object interface.'
+    - '[Microlink Recipes](/recipes): Added [CodePen](/recipes/codepen) recipe.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [richhaines](https://cards.microlink.io/editor?preset=richhaines) and [m1guelpf](https://cards.microlink.io/editor?preset=m1guelpf) presets.'
 
 - date: February 2021
   notes:
-    - "[Microlink Cards](https://cards.microlink.io): Added [meta](https://cards.microlink.io/editor?preset=meta) preset."
-    - "[Microlink API](/docs/api/getting-started/overview): The service now relies on [CloudFlare DNS](https://one.one.one.one/) for domain resolution."
-    - "[Microlink OSS](/oss): Created [youtube-dl-exec](https://github.com/microlinkhq/youtube-dl-exec) repository."
+    - '[Microlink Cards](https://cards.microlink.io): Added [meta](https://cards.microlink.io/editor?preset=meta) preset.'
+    - '[Microlink API](/docs/api/getting-started/overview): The service now relies on [CloudFlare DNS](https://one.one.one.one/) for domain resolution.'
+    - '[Microlink OSS](/oss): Created [youtube-dl-exec](https://github.com/microlinkhq/youtube-dl-exec) repository.'
 
 - date: January 2021
   notes:
-    - "[Microlink Cards](https://cards.microlink.io): Added [conference](https://cards.microlink.io/editor?preset=conference), [frame](https://cards.microlink.io/editor?preset=frame) and [twitter](https://cards.microlink.io/editor?preset=twitter) presets."
-    - "[Metascraper v5.16.17](https://metascraper.js.org): Improved audio detection from HTML and JSON+LD markup."
-    - "[Metascraper v5.16.9](https://metascraper.js.org): Improved description casuistic detection."
-    - "[Browserless v8.7.0](https://browserless.js.org): Upgraded to Lighthouse v7."
-    - "[Browserless v8.6.0](https://browserless.js.org): Ensure to wait images on viewport before taking a screenshot."
+    - '[Microlink Cards](https://cards.microlink.io): Added [conference](https://cards.microlink.io/editor?preset=conference), [frame](https://cards.microlink.io/editor?preset=frame) and [twitter](https://cards.microlink.io/editor?preset=twitter) presets.'
+    - '[Metascraper v5.16.17](https://metascraper.js.org): Improved audio detection from HTML and JSON+LD markup.'
+    - '[Metascraper v5.16.9](https://metascraper.js.org): Improved description casuistic detection.'
+    - '[Browserless v8.7.0](https://browserless.js.org): Upgraded to Lighthouse v7.'
+    - '[Browserless v8.6.0](https://browserless.js.org): Ensure to wait images on viewport before taking a screenshot.'
 
 - date: December 2020
   notes:
-    - "[Microlink API](/docs/api/getting-started/overview): The query parameter [meta](/docs/api/parameters/meta) will return `headers` and `statusCode` as part of the response payload."
-    - "[Microlink Cluster](/status): The infrastructure has been upgraded from Redis v5 to Redis v6 using a master + slave + sentinel cluster."
+    - '[Microlink API](/docs/api/getting-started/overview): The query parameter [meta](/docs/api/parameters/meta) will return `headers` and `statusCode` as part of the response payload.'
+    - '[Microlink Cluster](/status): The infrastructure has been upgraded from Redis v5 to Redis v6 using a master + slave + sentinel cluster.'
 
 - date: November 2020
   notes:
-    - "[Metascraper v5.15](https://metascraper.js.org): Improved Telegram integration."
-    - "[Microlink API](/docs/api/getting-started/overview): Added [evaluate](/docs/mql/data/evaluate) data extractor."
-    - "[Microlink API](/docs/api/getting-started/overview): Added [retry](/docs/api/parameters/retry) query parameter."
-    - "[Microlink Cluster](/status): Upgraded to [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md)."
+    - '[Metascraper v5.15](https://metascraper.js.org): Improved Telegram integration.'
+    - '[Microlink API](/docs/api/getting-started/overview): Added [evaluate](/docs/mql/data/evaluate) data extractor.'
+    - '[Microlink API](/docs/api/getting-started/overview): Added [retry](/docs/api/parameters/retry) query parameter.'
+    - '[Microlink Cluster](/status): Upgraded to [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md).'
 
 - date: October 2020
   notes:
-    - "[Microlink](/): Refreshed [pricing](https://microlink.io#pricing) plans with inclusive VAT."
-    - "[Microlink Cluster](/status) is now using high availability Redis instances with automatic failover."
+    - '[Microlink](/): Refreshed [pricing](https://microlink.io#pricing) plans with inclusive VAT.'
+    - '[Microlink Cluster](/status) is now using high availability Redis instances with automatic failover.'
 
 - date: September 2020
   notes:
-    - "[Microlink Cluster](/status) Setup [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is now [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)."
-    - "[Microlink API](/docs/api/getting-started/overview): Deprecate `waitFor`, use [waitForSelector](/docs/api/parameters/waitForSelector) or [waitForTimeout](/docs/api/parameters/waitForTimeout) instead."
+    - '[Microlink Cluster](/status) Setup [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) version for `*.microlink.io` is now [TLS 1.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2).'
+    - '[Microlink API](/docs/api/getting-started/overview): Deprecate `waitFor`, use [waitForSelector](/docs/api/parameters/waitForSelector) or [waitForTimeout](/docs/api/parameters/waitForTimeout) instead.'
 
 - date: August 2020
   notes:
-    - "[Microlink](/): Refreshed website design."
-    - "[Metascraper v5.14.0](https://metascraper.js.org): Improved Spotify integration."
+    - '[Microlink](/): Refreshed website design.'
+    - '[Metascraper v5.14.0](https://metascraper.js.org): Improved Spotify integration.'
 
 - date: July 2020
   notes:
-    - "[Microlink](/): Launched [Microlink Changelog](/changelog)."
-    - "[Microlink](/): Launched [Microlink Recipes](/recipes)."
-    - "[Browserless v8](https://browserless.js.org): Official release."
+    - '[Microlink](/): Launched [Microlink Changelog](/changelog).'
+    - '[Microlink](/): Launched [Microlink Recipes](/recipes).'
+    - '[Browserless v8](https://browserless.js.org): Official release.'
 
 - date: June 2020
   notes:
-    - "[Microlink](/): Launched [Microlink OSS](/oss)."
-    - "[Microlink SDK ](https://microlink.io): Launched [Microlink OSS](/oss)."
-    - "[Microlink SDK](/docs/sdk/getting-started/overview/) Added [CSS variables](/docs/sdk/getting-started/styling/#css-variables) support."
+    - '[Microlink](/): Launched [Microlink OSS](/oss).'
+    - '[Microlink SDK ](https://microlink.io): Launched [Microlink OSS](/oss).'
+    - '[Microlink SDK](/docs/sdk/getting-started/overview/) Added [CSS variables](/docs/sdk/getting-started/styling/#css-variables) support.'
