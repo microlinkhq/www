@@ -7,13 +7,10 @@ Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<string>'/><
 
 It sets the proxy HTTP server for resolving any internal sub-requests over the target [url](/docs/api/parameters/url).
 
-One of the most frustrating parts of automated web scraping is constantly dealing with IP blocks and CAPTCHAs.
 
-The [pro](/docs/api/basics/endpoint) plan includes handle proxies, CAPTCHAs, and other scraping shield protections in a transparent way for the [Top 500](https://github.com/Kikobeats/top-sites) most popular worldwide websites.
+We provide an **automatic proxy** included for any [pro](/docs/api/basics/endpoint) plans to handle IP blocking, CAPTCHAs, banners, and any other scraping shield for the [Top 500](/blog/proxy-capabilities) most popular worldwide websites.
 
-You can [read more](/blog/proxy-capabilities) about how it works.
-
-Additionally, you can proxy your own proxy server:
+Additionally, you can provide your own proxy server:
 
 <MultiCodeEditor languages={mqlCode('https://kikobeats.com', { apiKey: 'MyApiToken', proxy: 'http://myproxy:603f60f5@superproxy.cool:8001' })} />
 

@@ -202,18 +202,18 @@ export const createPricingTable = Checkout => {
                   :
                 </Text>
                 <Text as='li' pt={1}>
+                  <PricingLink href='/docs/api/parameters/ttl'>
+                    Configurable TTL
+                  </PricingLink>
+                </Text>
+                <Text as='li' pt={1}>
                   <PricingLink href='/docs/api/parameters/headers'>
                     Custom HTTP headers
                   </PricingLink>
                 </Text>
                 <Text as='li' pt={1}>
                   <PricingLink href='/docs/api/parameters/proxy'>
-                    Automatic proxy rotation
-                  </PricingLink>
-                </Text>
-                <Text as='li' pt={1}>
-                  <PricingLink href='/docs/api/parameters/ttl'>
-                    Configurable TTL
+                    Automatic proxy resolution
                   </PricingLink>
                 </Text>
                 <Hide breakpoints={[0, 1]}>
