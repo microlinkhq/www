@@ -55,7 +55,7 @@ const AnchorLink = styled.a`
 export const withSlug = Component => {
   const SlugWrapper = ({ children, slug, ...props }) => {
     if (typeof children !== 'string' || slug === false) {
-      return createElement(Component, { children, ...props })
+      return createElement(Component, props, children)
     }
 
     const { id = slugger(children), ...rest } = props

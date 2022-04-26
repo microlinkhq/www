@@ -44,11 +44,14 @@ export const withSpinner = ChildComponent => {
       } else {
         const children = createElement(SpinnerIcon)
         const width = this.state && this.state.width
-        return createElement(SpinnerButton, {
-          ...props,
-          style: { width, cursor: 'wait' },
+        return createElement(
+          SpinnerButton,
+          {
+            ...props,
+            style: { width, cursor: 'wait' }
+          },
           children
-        })
+        )
       }
     }
   }
