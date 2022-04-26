@@ -220,8 +220,8 @@
     "clean:data": "rm -rf data/*.json",
     "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
     "dev": "gatsby develop --host 0.0.0.0 --port 8000",
-    "lint": "standard-markdown README.md && standard && npm run lint:gatsby",
-    "lint:gatsby": "npx eslint",
+    "lint": "standard-markdown README.md && standard && npm run lint:next",
+    "lint:next": "npx next lint",
     "postinstall": "npm run build:data",
     "postrelease": "npm run release:tags && npm run release:github",
     "posttest": "npx urlint https://microlink.io/sitemap.xml",
@@ -263,5 +263,13 @@
   "simple-git-hooks": {
     "commit-msg": "npx commitlint --edit",
     "pre-commit": "npx nano-staged"
+  },
+  "standard": {
+    "ignore": [
+      "src/components/hook/index.js",
+      "src/components/icons/index.js",
+      "src/helpers/hoc/index.js",
+      "src/helpers/style/index.js"
+    ]
   }
 }
