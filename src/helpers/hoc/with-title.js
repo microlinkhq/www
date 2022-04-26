@@ -9,11 +9,14 @@ export const withTitle = Component => {
 
     const title = titleize(props.children, props.omitTitleize)
 
-    return createElement(Component, {
-      ...props,
-      children: title,
-      'data-title': title
-    })
+    return createElement(
+      Component,
+      {
+        ...props,
+        'data-title': title
+      },
+      title
+    )
   }
 
   return TitleWrapper

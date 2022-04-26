@@ -19,7 +19,7 @@ export const GRAY9 = '#212529'
 export const GRAY10 = '#15141A'
 
 const BASE = {
-  tabSize: tabSize,
+  tabSize,
   fontSize: FONT_SIZE,
   lineHeight: LINE_HEIGHT,
   accent: cx('secondary')
@@ -54,8 +54,8 @@ const baseTheme = theme => {
   return {
     'code[class*="language-"]': {
       fontFamily: fonts.mono,
-      fontSize: fontSize,
-      lineHeight: lineHeight,
+      fontSize,
+      lineHeight,
       direction: 'ltr',
       textAlign: 'left',
       whiteSpace: 'pre',
@@ -63,18 +63,18 @@ const baseTheme = theme => {
       wordBreak: 'normal',
       MozTabSize: tabSize,
       OTabSize: tabSize,
-      tabSize: tabSize,
+      tabSize,
       WebkitHyphens: 'none',
       MozHyphens: 'none',
       msHyphens: 'none',
       hyphens: 'none',
-      background: background,
+      background,
       color: secondary
     },
     'pre[class*="language-"]': {
       fontFamily: fonts.mono,
-      fontSize: fontSize,
-      lineHeight: lineHeight,
+      fontSize,
+      lineHeight,
       direction: 'ltr',
       textAlign: 'left',
       whiteSpace: 'pre',
@@ -82,12 +82,12 @@ const baseTheme = theme => {
       wordBreak: 'normal',
       MozTabSize: tabSize,
       OTabSize: tabSize,
-      tabSize: tabSize,
+      tabSize,
       WebkitHyphens: 'none',
       MozHyphens: 'none',
       msHyphens: 'none',
       hyphens: 'none',
-      background: background,
+      background,
       color: secondary,
       padding: '0px 1em 0px 0px',
       margin: '.5em 0',

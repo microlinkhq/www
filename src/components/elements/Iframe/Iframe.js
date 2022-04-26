@@ -45,7 +45,7 @@ const Iframe = ({
   )
 
   return isLoading
-    ? createElement(Placeholder, { width, height, ...props, children: iframe })
+    ? createElement(Placeholder, { width, height, ...props }, iframe)
     : iframe
 }
 

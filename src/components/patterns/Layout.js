@@ -58,15 +58,18 @@ const Layout = ({
             >
               <Head location={location} {...props} />
               <Toolbar theme={theme} style={style} />
-              {createElement(component, {
-                justifyContent,
-                alignItems,
-                display,
-                flexDirection,
-                pt: toolbarHeight,
-                children,
-                style: { flex: 1 }
-              })}
+              {createElement(
+                component,
+                {
+                  justifyContent,
+                  alignItems,
+                  display,
+                  flexDirection,
+                  pt: toolbarHeight,
+                  style: { flex: 1 }
+                },
+                children
+              )}
               <Hide breakpoints={[0]}>
                 <CookiesPolicy />
               </Hide>
