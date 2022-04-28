@@ -305,7 +305,7 @@ const Integrations = () => {
             >
               <Link href={url}>
                 <Flex justifyContent='center'>
-                  <LogoComponent width={['40px', '40px', '40px', '40px']} />
+                  <LogoComponent width='40px' />
                 </Flex>
                 <Flex
                   pt={4}

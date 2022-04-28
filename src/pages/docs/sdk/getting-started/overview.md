@@ -27,13 +27,13 @@ into a beautiful preview
   size='large' 
 />
 
-or resolve into embed when is possible
+or resolve into embed when is possible:
 
-<p align="center">
+<div align="center">
   <Microlink 
     url='https://www.youtube.com/watch?v=9P6rdqiybaw' 
     media='iframe' 
   />
-</p>
+</div>
 
 The following steps show you how to integrate **Microlink SDK** in your site, no matter what web stack you have.
