@@ -24,6 +24,6 @@ Also for <Type children="'audio'"/>
 
 Even <Type children="'iframe'"/>
 
-<p align="center">
+<div align="center">
   <DemoIntegrations parameters={{url: '{{demolinks.youtube.url}}', media: 'iframe'}}/>
-</p>
+</div>
