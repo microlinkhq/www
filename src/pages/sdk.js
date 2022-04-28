@@ -1,10 +1,11 @@
+import { useWindowSize, useMountedRef } from 'components/hook'
 import React, { useMemo, useEffect, useState } from 'react'
 import { layout, breakpoints, transition } from 'theme'
-import { useWindowSize } from 'components/hook'
 import isUrl from 'is-url-http/lightweight'
 import * as Icons from 'components/icons'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
+import humanizeUrl from 'humanize-url'
 import { getDomain } from 'tldts'
 import { mqlCode } from 'helpers'
 
@@ -32,8 +33,6 @@ import {
   Layout,
   FetchProvider
 } from 'components/patterns'
-
-import humanizeUrl from 'humanize-url'
 
 import demoLinks from '../../data/demo-links'
 
@@ -72,7 +71,8 @@ const INTEGRATIONS = [
 ]
 
 const HeroCard = styled(Card)`
-  .microlink_card__iframe iframe {
+  .microlink_card__iframe iframe,
+  .microlink_card {
     width: 100%;
     height: 100%;
   }
@@ -104,6 +104,7 @@ const LiveDemo = ({
   onSubmit,
   suggestions
 }) => {
+  const isMounted = useMountedRef()
   const size = useWindowSize()
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
@@ -206,17 +207,15 @@ const LiveDemo = ({
         mx='auto'
       >
         <HeroCard
+          key={`${mode}_${isMounted.current}`}
           width={cardWidth}
           height={cardHeight}
-          mode={mode}
-          type={type}
           border={type === 'code' ? 'none' : 1}
         >
           <Choose>
             <Choose.When condition={type === 'render'}>
               <LinkPreview
-                style={{ width: cardWidth, height: cardHeight }}
-                key={targetUrlPrepend + mode}
+                key={`${targetUrlPrepend}_${mode}`}
                 loading={isLoading}
                 size='large'
                 url={targetUrlPrepend}
