@@ -7,7 +7,6 @@ const ENDPOINT = {
 }
 
 const stringify = (input = '') => {
-  console.log('input', input)
   return JSON.stringify(input).replaceAll('"', "'")
 }
 
