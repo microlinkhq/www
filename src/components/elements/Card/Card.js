@@ -18,9 +18,12 @@ const CardBase = styled(Flex)`
   }
 `
 
-const Card = ({ ratio, ...props }) => {
-  const width = ratio.map(n => toPx(BASE_WIDTH * n))
-  const height = ratio.map(n => toPx(BASE_HEIGHT * n))
+const Card = ({
+  ratio,
+  width = ratio.map(n => toPx(BASE_WIDTH * n)),
+  height = ratio.map(n => toPx(BASE_HEIGHT * n)),
+  ...props
+}) => {
   return <CardBase width={width} height={height} {...props} />
 }
 
