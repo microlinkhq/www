@@ -97,7 +97,7 @@
     "gatsby"
   ],
   "dependencies": {
-    "@kikobeats/use-query-state": "1.2.0-beta.1",
+    "@kikobeats/use-query-state": "1.2.0",
     "@microlink/mql": "~0.10.19",
     "@microlink/react": "~5.5.8",
     "@microlink/recipes": "~1.4.0",
