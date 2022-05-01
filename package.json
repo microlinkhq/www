@@ -122,7 +122,7 @@
     "gatsby-plugin-styled-components": "~5.13.0",
     "gatsby-source-filesystem": "~4.12.1",
     "gatsby-transformer-javascript-frontmatter": "~4.13.0",
-    "gatsby-transformer-json": "~4.12.1",
+    "gatsby-transformer-json": "~4.13.0",
     "gatsby-transformer-remark": "~5.12.1",
     "gatsby-transformer-yaml": "~4.13.0",
     "git-jiggy": "~1.1.1",
