@@ -3,6 +3,14 @@ import { Link, Flex } from 'components/elements'
 import { Caption } from 'components/patterns'
 import React, { useState } from 'react'
 
+const ArrowIcon = React.memo(function ArrowIcon ({ isHover }) {
+  return (
+    <Flex alignItems='center' as='span'>
+      {isHover ? <ArrowRight /> : <ChevronRight />}{' '}
+    </Flex>
+  )
+})
+
 const ArrowLink = ({ children, ...props }) => {
   const [isHover, setIsHover] = useState(false)
 
@@ -15,10 +23,7 @@ const ArrowLink = ({ children, ...props }) => {
         fontSize={Caption.defaultProps.fontSize}
         {...props}
       >
-        {children}{' '}
-        <Flex alignItems='center' as='span'>
-          {isHover ? <ArrowRight /> : <ChevronRight />}{' '}
-        </Flex>
+        {children} <ArrowIcon isHover={isHover} />
       </Link>
     </Flex>
   )
