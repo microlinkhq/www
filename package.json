@@ -124,7 +124,7 @@
     "gatsby-transformer-javascript-frontmatter": "~4.13.0",
     "gatsby-transformer-json": "~4.12.1",
     "gatsby-transformer-remark": "~5.12.1",
-    "gatsby-transformer-yaml": "~4.12.1",
+    "gatsby-transformer-yaml": "~4.13.0",
     "git-jiggy": "~1.1.1",
     "github-slugger": "~1.4.0",
     "got": "~11.8.3",
