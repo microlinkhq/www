@@ -119,7 +119,7 @@
     "gatsby-plugin-google-analytics": "~4.12.1",
     "gatsby-plugin-react-helmet": "~5.12.1",
     "gatsby-plugin-sass": "~5.12.1",
-    "gatsby-plugin-styled-components": "~5.12.1",
+    "gatsby-plugin-styled-components": "~5.13.0",
     "gatsby-source-filesystem": "~4.12.1",
     "gatsby-transformer-javascript-frontmatter": "~4.12.1",
     "gatsby-transformer-json": "~4.12.1",
