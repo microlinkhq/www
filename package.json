@@ -114,7 +114,7 @@
     "exists-file": "~3.0.2",
     "gatsby": "~4.13.1",
     "gatsby-plugin-advanced-sitemap": "~2.1.0",
-    "gatsby-plugin-canonical-urls": "~4.12.1",
+    "gatsby-plugin-canonical-urls": "~4.13.0",
     "gatsby-plugin-catch-links": "~4.12.1",
     "gatsby-plugin-google-analytics": "~4.13.0",
     "gatsby-plugin-react-helmet": "~5.13.0",
