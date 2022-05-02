@@ -1,7 +1,16 @@
+- date: May 2022
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Rewrite relative non root URLs into absolutes.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [workos](https://cards.microlink.io/editor?preset=workos) preset.'
+
+- date: April 2022
+  notes:
+    - '[Metascraper v5.29.0](https://metascraper.js.org): Added support for graph detection for JSON+LD markup.'
+    - '[Browserless v9.3.14](https://browserless.js.org): Performance improvements for spawning & kill a process group.'
+
 - date: March 2022
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): Improved palette detection for more image formats, such as ICO, BMP, HEIC, PSD.'
-    - '[Metascraper v5.29.0](https://metascraper.js.org): Added support for graph detection for JSON+LD markup.'
     - '[Metascraper v5.28.0](https://metascraper.js.org): Fallbacking favicon detection to root domain in case URL provided is a subdomain.'
     - '[Metascraper v5.27.0](https://metascraper.js.org): General performance improvements dealing with network calls.'
     - '[Microlink Cards](https://cards.microlink.io): Added [saraostech](https://cards.microlink.io/editor?preset=saraostech) preset.'
@@ -37,6 +46,7 @@
     - '[Microlink](/): Revamped [recipes](/recipes).'
     - '[Microlink API](/docs/api/getting-started/overview): Added BMP, WebP & AVIF support for [palette](/docs/api/parameters/palette).'
     - '[Microlink](/): Special thanks to [Haaris B](mailto:haaris.blacktech@gmail.com) for improving service security.'
+    - '[Browserless v9.3.0](https://browserless.js.org): Upgraded to Lighthouse v9.'
 
 - date: October 2021
   notes:
