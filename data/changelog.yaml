@@ -2,6 +2,7 @@
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): Rewrite relative non root URLs into absolutes.'
     - '[Microlink Cards](https://cards.microlink.io): Added [workos](https://cards.microlink.io/editor?preset=workos) preset.'
+    - '[Microlink Cards](https://cards.microlink.io): Added [workos-changelog](https://cards.microlink.io/editor?preset=workos-changelog) preset.'
 
 - date: April 2022
   notes:
