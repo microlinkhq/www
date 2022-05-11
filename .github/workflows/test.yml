@@ -23,4 +23,4 @@ jobs:
       - name: Install
         run: npm install --no-package-lock
       - name: Test
-        run: npm test
+        run: npm install react react-dom next && npm test
