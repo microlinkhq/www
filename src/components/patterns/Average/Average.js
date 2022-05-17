@@ -24,20 +24,15 @@ const Average = ({ size, value }) => {
 
   const rand = uniqueRandomArray(values)
   const [average, setAverage] = useState(rand())
-  const [averageHighlight, setAverageHighlight] = useState(false)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setAverage(rand())
-      setAverageHighlight(true)
-      setTimeout(() => setAverageHighlight(false), Highlight.HIGHLIGHT_DURATION)
-    }, INTERVAL)
+    const interval = setInterval(() => setAverage(rand()), INTERVAL)
     return () => clearInterval(interval)
   }, [rand])
 
   if (size === 'tiny') {
     return (
-      <Highlight display='inline' isHighlight={averageHighlight}>
+      <Highlight display='inline'>
         <Text as='span' px='2px' color='black80' fontWeight='bold'>
           {prettyNumber(average)} {unit}
         </Text>
@@ -46,7 +41,7 @@ const Average = ({ size, value }) => {
   }
 
   return (
-    <Highlight px={3} isHighlight={averageHighlight}>
+    <Highlight px={3}>
       <Text as='span' fontSize={6}>
         {prettyNumber(average)}
       </Text>

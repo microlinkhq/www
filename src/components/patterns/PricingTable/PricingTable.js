@@ -103,19 +103,8 @@ const EnterprisePricingBox = styled(PricingBox)`
 
 export const createPricingTable = Checkout => {
   const PricingTable = ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) => {
-    const [plan, setPlan] = useState({
-      ...DEFAULT_PLAN,
-      isHighlight: false
-    })
-
-    const priceSelected = plan => {
-      setPlan({ ...plan, isHighlight: true })
-      setTimeout(() => {
-        setPlan({ ...plan, isHighlight: false })
-      }, Highlight.HIGHLIGHT_DURATION)
-    }
-
-    const { isHighlight, monthlyPrice, id: planId } = plan
+    const [plan, setPlan] = useState(DEFAULT_PLAN)
+    const { monthlyPrice, id: planId } = plan
     const humanMonthlyPrice = formatNumber(monthlyPrice)
 
     return (
@@ -179,15 +168,13 @@ export const createPricingTable = Checkout => {
 
               <Box pt={4}>
                 <Text>
-                  <PricePicker onChange={priceSelected} />{' '}
+                  <PricePicker onChange={setPlan} />{' '}
                   <Requests suffix='/month' />
                 </Text>
                 <Box pt='26px'>
                   <Text fontSize={0}>
                     <PriceMonthly>
-                      <Highlight as='span' isHighlight={isHighlight}>
-                        {humanMonthlyPrice}
-                      </Highlight>
+                      <Highlight as='span'>{humanMonthlyPrice}</Highlight>
                     </PriceMonthly>
                   </Text>
                 </Box>

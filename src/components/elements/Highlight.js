@@ -2,7 +2,9 @@
 
 import { highlight } from 'components/keyframes'
 import styled, { css } from 'styled-components'
+import { usePrevious } from 'components/hook'
 import { Box } from 'components/elements'
+import React from 'react'
 
 const HIGHLIGHT_DURATION = 1000
 
@@ -11,10 +13,19 @@ const highlightCss = css`
   animation-duration: ${HIGHLIGHT_DURATION}ms;
 `
 
-const Highlight = styled(Box)`
+const HighlightBase = styled(Box)`
   ${props => props.isHighlight && highlightCss};
 `
 
-Highlight.HIGHLIGHT_DURATION = HIGHLIGHT_DURATION
+const Highlight = ({ sx, ...props }) => {
+  const [, updateState] = React.useState()
+  const previous = usePrevious(props.children)
+  const forceUpdate = React.useCallback(() => updateState({}), [])
+
+  const isHighlight = previous ? props.children !== previous : false
+  if (isHighlight) setTimeout(forceUpdate, HIGHLIGHT_DURATION)
+
+  return <HighlightBase isHighlight={isHighlight} {...props} />
+}
 
 export default Highlight
