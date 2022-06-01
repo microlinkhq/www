@@ -148,7 +148,7 @@
     "queue-microtask": "~1.2.3",
     "react": "18",
     "react-codecopy": "~4.2.1",
-    "react-confetti": "~6.0.1",
+    "react-confetti": "~6.1.0",
     "react-dom": "18",
     "react-feather": "~2.0.9",
     "react-helmet": "~6.1.0",
