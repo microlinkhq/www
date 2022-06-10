@@ -1,3 +1,7 @@
+- date: Jun 2022
+  notes:
+    - "[Browserless v9.4](https://browserless.js.org): Better management for killing browser process groups."
+    
 - date: May 2022
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): Rewrite relative non root URLs into absolutes.'
