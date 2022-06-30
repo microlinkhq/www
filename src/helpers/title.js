@@ -14,7 +14,6 @@ const special = [
   'GitHub',
   'hasTouch',
   'height',
-  'hide',
   'isLandscape',
   'isMobile',
   'JavaScript',
