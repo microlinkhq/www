@@ -240,10 +240,6 @@ const ROUTES_API = [
         href: '/docs/api/parameters/headers'
       },
       {
-        name: 'hide',
-        href: '/docs/api/parameters/hide'
-      },
-      {
         name: 'iframe',
         href: '/docs/api/parameters/iframe'
       },
@@ -326,10 +322,6 @@ const ROUTES_API = [
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy'
-      },
-      {
-        name: 'remove',
-        href: '/docs/api/parameters/remove'
       },
       {
         name: 'retry',
