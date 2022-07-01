@@ -103,7 +103,7 @@
     "@microlink/recipes": "~1.4.0",
     "@radix-ui/react-popper": "0.1.4",
     "@stripe/react-stripe-js": "~1.8.1",
-    "@stripe/stripe-js": "~1.31.0",
+    "@stripe/stripe-js": "~1.32.0",
     "@styled-system/prop-types": "~5.1.5",
     "@tippyjs/react": "~4.2.6",
     "autoprefixer": "~10.4.7",
