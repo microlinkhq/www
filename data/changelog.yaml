@@ -1,3 +1,7 @@
+- date: Jul 2022
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Implemented [Server-Timing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) response header.'
+
 - date: Jun 2022
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): The query parameters [remove](https://33fa1ur95-6nr6arcam-microlink.vercel.app/docs/api/parameters/remove) and [hide](https://33fa1ur95-6nr6arcam-microlink.vercel.app/docs/api/parameters/hide) has been removed; use [styles](/docs/api/parameters/styles) instead.'
