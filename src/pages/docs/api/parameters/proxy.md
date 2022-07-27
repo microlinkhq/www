@@ -3,7 +3,7 @@ title: 'proxy'
 isPro: true
 ---
 
-Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<string>'/></TypeContainer><br/>
+Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>
 
 It sets the proxy HTTP server for resolving any internal sub-requests over the target [url](/docs/api/parameters/url).
 
