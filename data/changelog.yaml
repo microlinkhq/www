@@ -1,5 +1,6 @@
 - date: Jul 2022
   notes:
+    - '[Microlink](/): Released [geolocation.microlink.io](Added https://geolocatio.microlink.io).'
     - '[Microlink API](/docs/api/getting-started/overview): Implemented [Server-Timing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) response header.'
     - '[Metascraper v5.30.0](https://metascraper.js.org): Added data URI detection for web app manifests.'
 
