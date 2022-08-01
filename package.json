@@ -117,7 +117,7 @@
     "gatsby-plugin-canonical-urls": "~4.18.0",
     "gatsby-plugin-catch-links": "~4.18.0",
     "gatsby-plugin-google-analytics": "~4.18.0",
-    "gatsby-plugin-react-helmet": "~5.18.0",
+    "gatsby-plugin-react-helmet": "~5.19.0",
     "gatsby-plugin-sass": "~5.18.0",
     "gatsby-plugin-styled-components": "~5.18.0",
     "gatsby-source-filesystem": "~4.18.0",
