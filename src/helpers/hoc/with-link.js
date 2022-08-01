@@ -3,7 +3,7 @@
 import { ExternalLink as ExternalIcon } from 'react-feather'
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
-import { useLocation } from '@reach/router'
+import { useLocation } from '@gatsbyjs/reach-router'
 import { Link } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
