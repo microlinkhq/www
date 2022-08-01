@@ -101,7 +101,7 @@
     "@microlink/mql": "~0.10.26",
     "@microlink/react": "~5.5.9",
     "@microlink/recipes": "~1.5.0",
-    "@radix-ui/react-popper": "0.1.4",
+    "@radix-ui/react-popper": "1.0.0",
     "@stripe/react-stripe-js": "~1.9.0",
     "@stripe/stripe-js": "~1.32.0",
     "@styled-system/prop-types": "~5.1.5",
