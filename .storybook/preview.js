@@ -1,5 +1,5 @@
 import { ThemeProvider } from 'styled-components'
-import { LocationProvider } from '@reach/router'
+import { LocationProvider } from '@gatsbyjs/reach-router'
 
 import Flex from 'components/elements/Flex'
 import React from 'react'
