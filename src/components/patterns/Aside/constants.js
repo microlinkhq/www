@@ -321,7 +321,13 @@ const ROUTES_API = [
       },
       {
         name: 'proxy',
-        href: '/docs/api/parameters/proxy'
+        href: '/docs/api/parameters/proxy',
+        posts: [
+          {
+            name: 'countryCode',
+            href: '/docs/api/parameters/proxy/countryCode'
+          }
+        ]
       },
       {
         name: 'retry',
