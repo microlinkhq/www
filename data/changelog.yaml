@@ -1,5 +1,6 @@
 - date: August 2022
   notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Added [countryCode](/docs/api/parameters/proxy/countryCode) support.'
     - '[Browserless v9.6](https://browserless.js.org): Improved evasion techniques.'
     
 - date: July 2022
