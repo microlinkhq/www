@@ -55,6 +55,6 @@ $ microlink https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumb
 
 As you can see, the proxy layer respects other query parameters, such as [prerender](/docs/api/parameters/prerender) or [ttl](/docs/api/parameters/ttl).
 
-Also, you can always provide your own [proxy](/docs/api/parameters/proxy), being HTTP, HTTPS, or SOCKS (v4 and v5) protocols supported.
+Also, you can always provide your own [proxy](/docs/api/parameters/proxy).
 
 Last but not least, **Microlink Proxy** is a **cross-feature**: it's available for all the Microlink products.

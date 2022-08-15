@@ -8,7 +8,7 @@ Default: <Type children="'us'"/><br/>
 
 It sets the location for the automatic [proxy](/docs/api/parameters/proxy) resolution.
 
-<MultiCodeEditor languages={mqlCode('https://www.bloomberg.com/news/articles/2022-07-22/ukraine-latest-deal-to-resume-grain-exports-to-be-signed-friday', { apiKey: 'MyApiToken', proxy: { countryCode: 'uk'} })} />
+<MultiCodeEditor languages={mqlCode('https://geolocation.microlink.io', { apiKey: 'MyApiToken', proxy: { countryCode: 'uk'} })} />
 
 The following country codes are supported:
 
