@@ -25,6 +25,8 @@ export const TerminalWindow = styled(Box)`
   border-radius: ${radii[3]};
   border: ${borders[1]};
   border-color: ${({ isDark }) => cx(isDark ? 'white10' : 'black10')};
+  background: ${({ isDark }) => cx(isDark ? 'black' : 'white')};
+  color: ${({ isDark }) => cx(isDark ? 'white' : 'black')};
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
@@ -60,7 +62,6 @@ export const styleTerminalHeader = css`
 const TerminalHeader = styled('header')`
   ${styleTerminalHeader};
   height: 36px;
-  background: ${props => props.background};
   top: 0;
   z-index: 1;
 `
@@ -161,8 +162,6 @@ const TerminalText = styled('div')`
   line-height: 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  background: ${props => props.background};
-  color: ${props => props.color};
   display: flex;
   align-items: center;
 
@@ -217,21 +216,17 @@ const TerminalProvider = ({
   ...props
 }) => {
   const isDark = theme === 'dark'
-  const background = isDark ? colors.black : colors.white
-  const color = isDark ? colors.white : colors.black
 
   return (
     <TerminalWindow isDark={isDark} {...props}>
-      <TerminalHeader background={background} {...header}>
+      <TerminalHeader {...header}>
         <TerminalButton.Red loading={loading} />
         <TerminalButton.Yellow loading={loading} />
         <TerminalButton.Green loading={loading} />
         <TerminalTitle isDark={isDark}>{title}</TerminalTitle>
         <ActionComponent isDark={isDark} text={text} />
       </TerminalHeader>
-      <TerminalText color={color} background={background}>
-        {children}
-      </TerminalText>
+      <TerminalText>{children}</TerminalText>
     </TerminalWindow>
   )
 }
