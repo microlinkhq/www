@@ -4,7 +4,7 @@ title: 'Editor'
 
 The editor lets you design in the browser, allowing visualize your composition before the screenshot will be finally taken. The code is written using JSX markup that will be transformed into HTML.
 
-![](https://i.imgur.com/fBj9uco.png)
+![](https://cdn.microlink.io/docs/cards-editor.png)
 
 <Figcaption>See live demo at <Link href='https://cards.microlink.io/editor/?preset=simple&p=2gE1PD4KICA8c3R5bGUgY2hpbGRyZW49e2AgICAgCiAgICAuY29udGVudCB7CiAgICAgIGRpc3BsYXk6IGZsZXg7CiAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyOwogICAgICBhbGlnbi1pdGVtczogY2VudGVyOwogICAgICBiYWNrZ3JvdW5kOiBibGFjazsKICAgICAgY29sb3I6IHdoaXRlOwogICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uOwogICAgfQogIGB9Lz4KICA8ZGl2IGNsYXNzTmFtZT0iY29udGVudCI-CiAgICA8aDE-e3F1ZXJ5LmhlYWRsaW5lfTwvaDE-CiAgICA8aDM-e3F1ZXJ5LmNhcHRpb259PC9oMz4KICA8L2Rpdj4KPC8-' children='Microlink Cards' />.</Figcaption>
 

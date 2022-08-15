@@ -7,7 +7,7 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<object>'/></
 
 It sets the proxy HTTP server for resolving any internal sub-requests over the target [url](/docs/api/parameters/url).
 
-![](https://i.imgur.com/08AXaA3.png)
+![](https://cdn.microlink.io/docs/proxy.png)
 
 We provide an **automatic proxy resolution** included for any [pro plan](/docs/api/basics/endpoint) to handle IP blocking, CAPTCHAs, banners, or any other scraping shield protection. 
 

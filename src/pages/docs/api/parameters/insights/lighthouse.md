@@ -20,7 +20,7 @@ It returns a web performance report over the target [url](/docs/api/parameters/u
 The report is serialized to JSON by default to make easy visualize it using [lighthouse.microlink.io](https://lighthouse.microlink.io).
 
 <Link icon={false} href="https://lighthouse.microlink.io">
-  <Image src="https://i.imgur.com/xeC7nZk.png"/>
+  <Image src="https://cdn.microlink.io/docs/lighthouse-viewer.png"/>
 </Link>
 
 Alternatively, you can serialize to `'html'` or `'csv'`:
