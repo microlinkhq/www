@@ -2,13 +2,13 @@
 title: 'Overview'
 ---
 
-![](https://i.imgur.com/6lrEH7V.png)
+![](https://cdn.microlink.io/docs/cards-overview.png)
 
 <Figcaption>See live demo at <Link href='https://cards.microlink.io/editor/?preset=simple&p=2gE1PD4KICA8c3R5bGUgY2hpbGRyZW49e2AgICAgCiAgICAuY29udGVudCB7CiAgICAgIGRpc3BsYXk6IGZsZXg7CiAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyOwogICAgICBhbGlnbi1pdGVtczogY2VudGVyOwogICAgICBiYWNrZ3JvdW5kOiBibGFjazsKICAgICAgY29sb3I6IHdoaXRlOwogICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uOwogICAgfQogIGB9Lz4KICA8ZGl2IGNsYXNzTmFtZT0iY29udGVudCI-CiAgICA8aDE-e3F1ZXJ5LmhlYWRsaW5lfTwvaDE-CiAgICA8aDM-e3F1ZXJ5LmNhcHRpb259PC9oMz4KICA8L2Rpdj4KPC8-' children='Microlink Cards' />.</Figcaption>
 
 [Microlink Cards](https://cards.microlink.io) is the easiest way to create and share dynamic images at scale. It's an interactive editor for mixing code and data, used for automatizing marketing and design departments in just one tool. You can see the [source code on GitHub](https://github.com/microlinkhq/cards).
 
-![](https://i.imgur.com/DNqBkJt.png)
+![](https://cdn.microlink.io/docs/cards-embed.png)
 
 As output of the process, an optimized image will be generated on the fly using cloud-based browsers, served via [Microlink CDN](/blog/edge-cdn/) using [Microlink API](/docs/api/getting-started/overview).
 
