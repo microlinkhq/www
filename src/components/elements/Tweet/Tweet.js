@@ -1,3 +1,13 @@
-import { TwitterTweetEmbed } from 'react-twitter-embed'
+import { Tweet as TweetBase } from 'react-twitter-widgets'
+import React from 'react'
 
-export default TwitterTweetEmbed
+const Tweet = props => (
+  <TweetBase
+    options={{
+      align: 'center'
+    }}
+    {...props}
+  />
+)
+
+export default Tweet

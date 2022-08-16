@@ -14,7 +14,6 @@ import {
   CodeEditor,
   MultiCodeEditor as MultiCodeEditorBase,
   Box,
-  Flex,
   Text,
   Link as LinkBase,
   Label,
@@ -22,7 +21,7 @@ import {
   Video as VideoBase,
   Iframe as IframeBase,
   Button,
-  Tweet as TweetBase,
+  Tweet,
   Color,
   PriceMonthly as PriceMonthlyBase
 } from 'components/elements'
@@ -40,7 +39,7 @@ Link.defaultProps = {
   icon: true
 }
 
-export { Label, Link }
+export { Tweet, Label, Link }
 
 export const Microlink = withContainer(MicrolinkBase)
 
@@ -235,8 +234,6 @@ const mediaStyle = {
 const _ImageBase = styled(ImageBase.Component)``
 
 _ImageBase.defaultProps = {
-  decoding: 'async',
-  loading: 'lazy',
   ...mediaStyle
 }
 
@@ -273,12 +270,6 @@ FigcaptionBase.defaultProps = {
 }
 
 export const Figcaption = withContainer(FigcaptionBase)
-
-export const Tweet = props => (
-  <Flex justifyContent='center'>
-    <TweetBase {...props} />
-  </Flex>
-)
 
 export const Blockquote = styled.blockquote`
   margin: auto;
