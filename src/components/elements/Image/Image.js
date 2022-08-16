@@ -42,4 +42,9 @@ Image.propTypes = {
   ...propTypes.borderRadius
 }
 
+Image.defaultProps = {
+  decoding: 'async',
+  loading: 'lazy'
+}
+
 export default withLazy(Image)

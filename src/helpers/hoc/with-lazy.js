@@ -14,6 +14,8 @@ const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
   style: compute(props, 'style', isLoading)
 })
 
+const CACHE = Object.create(null)
+
 export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
   const LazyWrapper = ({
     lazy = true,
@@ -26,20 +28,23 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
 
     useEffect(() => {
       if (lazy) {
-        const tag = document.createElement(tagName)
-        const cleanup = () => {
-          tag.onload = null
-          tag.onerror = null
-        }
+        CACHE[compiledAttr] ||
+          (CACHE[compiledAttr] = (() => {
+            const tag = document.createElement(tagName)
+            const cleanup = () => {
+              tag.onload = null
+              tag.onerror = null
+            }
 
-        tag.onerror = err => console.error('[with-lazy]', err)
-        tag.onload = () => {
-          cleanup()
-          setLoading(false)
-        }
-        tag[attr] = compiledAttr
+            tag.onerror = err => console.error('[with-lazy]', err)
+            tag.onload = () => {
+              cleanup()
+              setLoading(false)
+            }
+            tag[attr] = compiledAttr
 
-        return cleanup
+            return cleanup
+          })())
       }
     }, [compiledAttr, lazy, props])
 
@@ -48,6 +53,8 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
       computedProps(attr, compiledAttr, props, { isLoading })
     )
   }
+
+  LazyWrapper.Component = Component
 
   return LazyWrapper
 }

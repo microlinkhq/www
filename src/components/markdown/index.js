@@ -232,9 +232,11 @@ const mediaStyle = {
   textAlign: 'center'
 }
 
-const _ImageBase = styled(ImageBase)``
+const _ImageBase = styled(ImageBase.Component)``
 
 _ImageBase.defaultProps = {
+  decoding: 'async',
+  loading: 'lazy',
   ...mediaStyle
 }
 
