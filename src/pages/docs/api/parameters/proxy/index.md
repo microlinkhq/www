@@ -15,7 +15,7 @@ Our automatic proxy resolution is well-tested against [Top 500](/blog/proxy-capa
 
 Additionally, you can provide your own proxy server:
 
-<MultiCodeEditor languages={mqlCode('https://geolocation.microlink.io', { apiKey: 'MyApiToken', proxy: 'http://myproxy:603f60f5@superproxy.cool:8001' })} />
+<MultiCodeEditor languages={mqlCode('https://geolocation.microlink.io', { apiKey: 'MyApiToken', proxy: 'https://myproxy:603f60f5@superproxy.cool:8001' })} />
 
 The proxy server string provided should be [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api).
 
