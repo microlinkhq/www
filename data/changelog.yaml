@@ -1,12 +1,14 @@
 - date: August 2022
   notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Added integrity verification for assets.'
+    - '[Microlink](/): Released [Microlink Edge Proxy](https://github.com/microlinkhq/edge-proxy).'
     - '[Microlink API](/docs/api/getting-started/overview): Added [countryCode](/docs/api/parameters/proxy/countryCode) support.'
     - '[Browserless v9.6](https://browserless.js.org): Improved evasion techniques.'
     - '[Microlink Cards](https://cards.microlink.io): Added [workos-docs](https://cards.microlink.io/editor?preset=workos-docs) preset.'
-    
+
 - date: July 2022
   notes:
-    - '[Microlink](/): Released [geolocation.microlink.io](Added https://geolocatio.microlink.io).'
+    - '[Microlink](/): Released [geolocation.microlink.io](https://geolocation.microlink.io).'
     - '[Microlink API](/docs/api/getting-started/overview): Implemented [Server-Timing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) response header.'
     - '[Metascraper v5.30.0](https://metascraper.js.org): Added data URI detection for web app manifests.'
 
