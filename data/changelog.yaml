@@ -1,5 +1,6 @@
 - date: August 2022
   notes:
+    - '[Microlink Recipes](/recipes): Added [youtube-dl](/recipes/youtube-dl) recipe.'
     - '[Microlink API](/docs/api/getting-started/overview): Added integrity verification for assets.'
     - '[Microlink](/): Released [Microlink Edge Proxy](https://github.com/microlinkhq/edge-proxy).'
     - '[Microlink API](/docs/api/getting-started/overview): Added [countryCode](/docs/api/parameters/proxy/countryCode) support.'

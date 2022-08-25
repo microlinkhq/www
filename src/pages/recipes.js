@@ -99,13 +99,12 @@ const RecipesPage = () => {
               const { meta } = recipes[recipeName]
               const count = isLoaded && counters[index]
 
-              const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(recipeName)
-              const url = isGeneric ? 'https://microlink.io' : meta.examples[0]
-              const domain = getDomain(url)
-
-              const description = isGeneric
-                ? meta.description
-                : `Interact with ${domain}`
+              const isProvider = !RECIPES_BY_FEATURES_KEYS.includes(recipeName)
+              const url = isProvider && meta.examples[0]
+              const domain = url ? getDomain(url) : 'microlink.io'
+              const description = isProvider
+                ? `Interact with ${domain}`
+                : meta.description
 
               return (
                 <Card
@@ -122,8 +121,8 @@ const RecipesPage = () => {
                       <Box pr={2}>
                         <Logo
                           width='24px'
-                          height='24px'
-                          isGeneric={isGeneric}
+                          height='100%'
+                          isProvider={isProvider}
                           domain={domain}
                           {...meta}
                         />
