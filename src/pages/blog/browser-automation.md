@@ -19,6 +19,7 @@ Just [url](/docs/api/parameters/url) is the only parameter that needs to be spec
 
 - [audio](/docs/api/parameters/audio): enables audio source detection from the target URL.
 - [data](/docs/api/parameters/data): gets specific content extraction from the target URL.
+- [filename](/docs/api/parameters/filename): defines the filename asset generated.
 - [iframe](/docs/api/parameters/iframe): gets, if it's possible, the embedded representation of the target URL.
 - [insights](/docs/api/parameters/insights): gets lighthouse performance metrics from the target URL.
 - [meta](/docs/api/parameters/meta): gets unified medata from the target URL.
@@ -37,14 +38,12 @@ Just [url](/docs/api/parameters/url) is the only parameter that needs to be spec
 - [codeScheme](/docs/api/parameters/codeScheme): sets the code syntax highlighting color theme to use.
 - [colorScheme](/docs/api/parameters/colorScheme): sets preferred browser color theme preference.
 - [device](/docs/api/parameters/device): emulates an specific device (viewport, user agent, dimensions, etc).
-- [hide](/docs/api/parameters/hide): sets `visibility: hidden` on the matched elements.
 - [javascript](/docs/api/parameters/javascript): enable/disable the javascript engine on the entire browser page.
 - [mediaType](/docs/api/parameters/media-type): changes the CSS media type of the page.
 - [modules](/docs/api/parameters/modules): injects `<script type="module">` into the browser page.
 - [ping](/docs/api/parameters/ping): enable/disable to resolve all URLs present into the payload.
 - [prerender](/docs/api/parameters/prerender): enable/disable browser navigation.
 - [proxy](/docs/api/parameters/proxy): uses a proxy server as an intermediary during the requests.
-- [remove](/docs/api/parameters/remove): sets `display: none` on the matched elements.
 - [retry](/docs/api/parameters/retry): sets the number of exponential backoff retries to perform under an unexpected browser error.
 - [scripts](/docs/api/parameters/scripts): injects `<script>` into the browser page.
 - [scroll](/docs/api/parameters/scroll): scrolls to the DOM element matching the given CSS selector.
