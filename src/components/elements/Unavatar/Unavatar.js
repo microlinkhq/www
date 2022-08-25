@@ -2,7 +2,7 @@ import React from 'react'
 import { Image } from 'components/elements'
 import styled from 'styled-components'
 
-const StyledImage = styled(Image)`
+const StyledImage = styled(Image.Component)`
   max-width: inherit;
 `
 

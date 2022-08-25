@@ -1,12 +1,20 @@
 import { Image, Unavatar } from 'components/elements'
+import { Microlink } from 'components/logos'
+
 import React from 'react'
 
-export const Logo = ({ height, width, isGeneric, domain, logo }) => {
+export const Logo = ({ height, width, domain, logo }) => {
   const sizeProps = { height, width }
 
-  if (!isGeneric || !logo) {
-    return <Unavatar query={`microlink/${domain}`} {...sizeProps} />
+  if (domain === 'microlink.io' || logo) {
+    return (
+      <Image.Component
+        alt={`${domain} logo`}
+        src={logo || Microlink.logoUri}
+        {...sizeProps}
+      />
+    )
   }
 
-  return <Image alt={`${domain} logo`} src={logo} {...sizeProps} />
+  return <Unavatar query={`microlink/${domain}`} {...sizeProps} />
 }

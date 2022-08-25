@@ -70,9 +70,6 @@ exports.createPages = ({ graphql, actions }) => {
   ])
 }
 
-const getDescription = (recipe, { domain, isGeneric }) =>
-  isGeneric ? recipe.meta.description : `Interact with ${domain}`
-
 const getMqlCode = (recipe, { name }) => `const mql = require('@microlink/mql')
 
 const ${name} = ${recipe.toString()}
@@ -98,15 +95,18 @@ const getCode = (recipe, { name }) =>
   (recipe.code ? getFunctionCode : getMqlCode)(recipe, { name })
 
 const createRecipesPages = async ({ createPage, recipes }) => {
-  const pages = map(recipes, async (recipe, name) => {
-    const slug = kebabCase(name)
+  const pages = map(recipes, async (recipe, recipeName) => {
+    const slug = kebabCase(recipeName)
     const route = `/recipes/${slug}`
 
-    const isGeneric = RECIPES_BY_FEATURES_KEYS.includes(name)
-    const url = isGeneric ? 'https://microlink.io' : recipe.meta.examples[0]
-    const domain = getDomain(url)
-    const description = getDescription(recipe, { domain, isGeneric })
-    const code = getCode(recipe, { name })
+    const isProvider = !RECIPES_BY_FEATURES_KEYS.includes(recipeName)
+    const url = isProvider && recipe.meta.examples[0]
+    const domain = url ? getDomain(url) : 'microlink.io'
+    const description = isProvider
+      ? `Interact with ${domain}`
+      : recipe.meta.description
+
+    const code = getCode(recipe, { name: recipeName })
 
     return createPage({
       path: route,
@@ -116,9 +116,9 @@ const createRecipesPages = async ({ createPage, recipes }) => {
         slug,
         code,
         domain,
-        isGeneric,
+        isProvider,
         url,
-        key: name,
+        key: recipeName,
         description
       }
     })

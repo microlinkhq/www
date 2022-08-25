@@ -12,3 +12,4 @@ static/data/
 data/*.json
 !data/healthcheck.json
 !data/technologies.json
+static/logo.svg

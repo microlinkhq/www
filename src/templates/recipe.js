@@ -34,7 +34,8 @@ const Description = recipe => {
   return children
 }
 
-const Name = ({ isGeneric, name }) => (isGeneric ? name : `Microlink × ${name}`)
+const Name = ({ isProvider, name }) =>
+  isProvider ? `Microlink × ${name}` : name
 
 const RecipeTemplate = ({ pageContext: recipe }) => {
   const [count, setCount] = useState(null)
@@ -53,7 +54,7 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
   }
 
   const gitHubUrl = `https://github.com/microlinkhq/recipes/blob/master/recipes/${
-    recipe.isGeneric ? 'by-feature' : 'by-provider'
+    recipe.isProvider ? 'by-provider' : 'by-feature'
   }/${recipe.slug}.js`
 
   return (

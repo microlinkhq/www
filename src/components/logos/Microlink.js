@@ -1,16 +1,20 @@
-import React from 'react'
 import { Image } from 'components/elements'
-import { cdnUrl } from 'helpers'
+import React from 'react'
 
-const Microlink = props => (
-  <Image
-    alt='microlink logo'
-    width='inherit'
-    height='inherit'
-    lazy={false}
-    src={cdnUrl('logo/logo.svg')}
-    {...props}
-  />
-)
+import logoUri from '../../../static/logo.svg'
+
+const Microlink = props => {
+  return (
+    <Image.Component
+      alt='microlink logo'
+      width='inherit'
+      height='inherit'
+      src={logoUri}
+      {...props}
+    />
+  )
+}
+
+Microlink.logoUri = logoUri
 
 export default Microlink
