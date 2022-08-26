@@ -10,33 +10,29 @@ const arrow = encodeURI(
 
 const ARROW_SIZE = '7px'
 
-const Select = styled(Box)(
-  {
-    fontFamily: fonts.sans,
-    cursor: 'pointer',
-    transition: `border-color ${transition.medium}`,
-    fontSize: 'inherit',
-    lineHeight: 'inherit',
-    appearance: 'none',
-    border: `1px solid ${colors.black20}`,
-    backgroundImage: `url("${arrow}")`,
-    backgroundPosition: `calc(100% - ${ARROW_SIZE}) center`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: `${ARROW_SIZE} ${ARROW_SIZE}`,
-    '&:disabled': {
-      opacity: 1 / 4
-    }
+const Select = styled(Box)({
+  fontFamily: fonts.sans,
+  cursor: 'pointer',
+  transition: `border-color ${transition.medium}`,
+  fontSize: 'inherit',
+  lineHeight: 'inherit',
+  appearance: 'none',
+  border: `1px solid ${colors.black20}`,
+  backgroundImage: `url("${arrow}")`,
+  backgroundPosition: `calc(100% - ${ARROW_SIZE}) center`,
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: `${ARROW_SIZE} ${ARROW_SIZE}`,
+  '&:disabled': {
+    opacity: 1 / 4
   },
-  props => ({
-    '&:focus': {
-      outline: 'none',
-      border: `1px solid ${colors.black80}`
-    },
-    '&:hover': {
-      border: `1px solid ${colors.black80}`
-    }
-  })
-)
+  '&:focus': {
+    outline: 'none',
+    border: `1px solid ${colors.black80}`
+  },
+  '&:hover': {
+    border: `1px solid ${colors.black80}`
+  }
+})
 
 Select.defaultProps = {
   as: 'select',

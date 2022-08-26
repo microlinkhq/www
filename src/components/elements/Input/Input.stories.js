@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react'
 import { serializeFmt } from 'helpers/prettier'
-import { Input } from 'components/elements'
+import { Input, InputIcon } from 'components/elements'
 import { Story } from 'story'
 import React from 'react'
 
@@ -13,7 +13,7 @@ export default () => (<form><Input ${serializeFmt(props)} /></form>)
 const createStory = (name, props) => (
   <Story name={name} code={createCode(props)}>
     <Form>
-      <Input {...props} />
+      <Input iconComponent={<InputIcon query='microlink.io' />} {...props} />
     </Form>
   </Story>
 )

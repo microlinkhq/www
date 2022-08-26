@@ -120,8 +120,6 @@ const RecipesPage = () => {
                     <Flex alignItems='center'>
                       <Box pr={2}>
                         <Logo
-                          width='24px'
-                          height='100%'
                           isProvider={isProvider}
                           domain={domain}
                           {...meta}

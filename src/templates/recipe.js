@@ -24,7 +24,7 @@ const Description = recipe => {
     } else {
       children.push(
         <Box key={domain} ml={2} mr={1}>
-          <Logo width='24px' height='24px' {...recipe} />
+          <Logo {...recipe} />
         </Box>
       )
       children.push(domain)
