@@ -10,7 +10,7 @@ import parserBabel from 'prettier/parser-babel'
 const PRETTIER_CONFIG = {
   arrowParens: 'avoid',
   jsxSingleQuote: true,
-  printWidth: 80,
+  printWidth: 60,
   semi: false,
   singleQuote: true,
   tabWidth: 2,
@@ -84,7 +84,7 @@ const prettier = (code, opts) => {
   }
 }
 
-prettier.jsx = prettier.javascript = prettier.js = (code, opts) =>
+prettier.jsx = prettier.js = (code, opts) =>
   prettier(code, { ...JS_OPTS, ...opts })
 prettier.html = (code, opts) => prettier(code, { ...HTML_OPTS, ...opts })
 prettier.graphql = (code, opts) => prettier(code, { ...GRAPHQL_OPTS, ...opts })

@@ -6,9 +6,7 @@ const ENDPOINT = {
   PRO: 'https://pro.microlink.io'
 }
 
-const stringify = (input = '') => {
-  return JSON.stringify(input).replaceAll('"', "'")
-}
+const stringify = input => `'${input.toString()}'`
 
 stringify.python = input =>
   stringify(input)
@@ -29,15 +27,15 @@ const createApiUrl = ({ url = 'https://example.com', ...props } = {}) => {
 const stringProps = (props = {}) => {
   const keys = Object.keys(props)
   return keys.reduce(
-    (acc, key) =>
+    (acc, key, index) =>
       acc +
-      `${stringify(key)}: ${
+      `${typeof key === 'string' ? key : stringify(key)}: ${
         Array.isArray(props[key])
           ? stringify(props[key])
           : typeof props[key] === 'object'
           ? `{${stringProps(props[key])}}`
           : stringify(props[key])
-      }${keys.length === 1 ? '' : ','}`,
+      }${keys.length === 1 || keys.length - 1 === index ? '' : ', '}`,
     ''
   )
 }
@@ -55,7 +53,7 @@ const { status, data } = await mql('${url}'${opts ? `, ${opts}` : ''})
 console.log(data)`
   }
 
-  JavaScript.language = 'javascript'
+  JavaScript.language = 'js'
 
   const Shell = () => {
     const rawStyles = get(props, 'styles')
