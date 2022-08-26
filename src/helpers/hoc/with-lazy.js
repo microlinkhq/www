@@ -29,7 +29,7 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
           return tag
             .decode()
             .then(() => setLoading(false))
-            .catch(err => console.error('[with-lazy]', err))
+            .catch(error => console.error('[with-lazy]', error))
         })())
     }, [])
 

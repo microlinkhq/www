@@ -13,7 +13,7 @@ export default () => (<form><Input ${serializeFmt(props)} /></form>)
 const createStory = (name, props) => (
   <Story name={name} code={createCode(props)}>
     <Form>
-      <Input iconComponent={<InputIcon domain='microlink.io' />} {...props} />
+      <Input iconComponent={<InputIcon query='microlink.io' />} {...props} />
     </Form>
   </Story>
 )

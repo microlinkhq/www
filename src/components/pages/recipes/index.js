@@ -8,7 +8,7 @@ export const Logo = ({ height = '24px', width = height, domain, logo }) => {
 
   if (domain === 'microlink.io' || logo) {
     return (
-      <Image.Component
+      <Image
         alt={`${domain} logo`}
         src={logo || Microlink.logoUri}
         style={{ objectFit: 'contain' }}

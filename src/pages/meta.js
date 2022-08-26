@@ -215,7 +215,7 @@ const LiveDemo = ({
             <Input
               id='meta-demo-url'
               fontSize={2}
-              iconComponent={<InputIcon domain={domain} />}
+              iconComponent={<InputIcon query={domain} />}
               placeholder='Visit URL'
               type='text'
               suggestions={suggestions}

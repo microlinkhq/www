@@ -1,29 +1,23 @@
 import { transition, colors, borders } from 'theme'
 import React, { useMemo, useState } from 'react'
 import styled, { css } from 'styled-components'
-import noop from 'lodash/noop'
 
 import Text from '../Text'
 import Flex from '../Flex'
 
-const InputBase = styled(Text)(
-  {
-    display: 'block',
-    maxWidth: '100%'
+const InputBase = styled(Text)({
+  maxWidth: '100%',
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  border: 0,
+  appearance: 'none',
+  '&:focus': {
+    outline: '0'
   },
-  prop => ({
-    display: 'inline-block',
-    verticalAlign: 'middle',
-    border: 0,
-    appearance: 'none',
-    '&:focus': {
-      outline: '0'
-    },
-    '&:disabled': {
-      opacity: 1 / 4
-    }
-  })
-)
+  '&:disabled': {
+    opacity: 1 / 4
+  }
+})
 
 InputBase.defaultProps = {
   as: 'input',
@@ -63,8 +57,6 @@ const Input = ({
   iconComponent: Icon,
   suggestions,
   children,
-  onFocus,
-  onBlur,
   theme,
   ...props
 }) => {
@@ -96,14 +88,8 @@ const Input = ({
       <InputBase
         list={list}
         ref={innerRef}
-        onFocus={event => {
-          setFocus(true)
-          return onFocus(event)
-        }}
-        onBlur={event => {
-          setFocus(false)
-          return onBlur(event)
-        }}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
         {...props}
       />
 
@@ -119,8 +105,6 @@ const Input = ({
 }
 
 Input.defaultProps = {
-  onFocus: noop,
-  onBlur: noop,
   autoFocus: false
 }
 

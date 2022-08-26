@@ -224,7 +224,7 @@ const LiveDemo = ({
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon domain={domain} />}
+              iconComponent={<InputIcon query={domain} />}
               id='pdf-demo-url'
               placeholder='Visit URL'
               suggestions={suggestions.map(
