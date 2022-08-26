@@ -231,7 +231,7 @@ const mediaStyle = {
   textAlign: 'center'
 }
 
-const _ImageBase = styled(ImageBase.Component)``
+const _ImageBase = styled(ImageBase)``
 
 _ImageBase.defaultProps = {
   ...mediaStyle

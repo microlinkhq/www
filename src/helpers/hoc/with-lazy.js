@@ -17,36 +17,21 @@ const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
 const CACHE = Object.create(null)
 
 export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
-  const LazyWrapper = ({
-    lazy = true,
-    loading,
-    [attr]: rawAttribute,
-    ...props
-  }) => {
-    const [isLoading, setLoading] = useState(loading || lazy)
+  const LazyWrapper = ({ [attr]: rawAttribute, ...props }) => {
+    const [isLoading, setLoading] = useState(true)
     const compiledAttr = template(rawAttribute)
 
     useEffect(() => {
-      if (lazy) {
-        CACHE[compiledAttr] ||
-          (CACHE[compiledAttr] = (() => {
-            const tag = document.createElement(tagName)
-            const cleanup = () => {
-              tag.onload = null
-              tag.onerror = null
-            }
-
-            tag.onerror = err => console.error('[with-lazy]', err)
-            tag.onload = () => {
-              cleanup()
-              setLoading(false)
-            }
-            tag[attr] = compiledAttr
-
-            return cleanup
-          })())
-      }
-    }, [compiledAttr, lazy, props])
+      CACHE[compiledAttr] ||
+        (CACHE[compiledAttr] = (() => {
+          const tag = document.createElement(tagName)
+          tag[attr] = compiledAttr
+          return tag
+            .decode()
+            .then(() => setLoading(false))
+            .catch(err => console.error('[with-lazy]', err))
+        })())
+    }, [])
 
     return createElement(
       isLoading ? Placeholder : Component,
