@@ -27,7 +27,7 @@ const toAlias = (lang = '') => {
       return 'bash'
     case 'node.js':
     case 'js':
-      return 'javascript'
+      return 'js'
     default:
       return lang
   }
@@ -49,7 +49,7 @@ const getLanguage = (className, { language }) => {
   if (language) return language
   const languageFromClassName = className.split('-')[1]
   if (languageFromClassName) return languageFromClassName.split('{')[0]
-  return 'javascript'
+  return 'js'
 }
 
 const getClassName = ({ className, metastring = '' }) =>
@@ -110,7 +110,7 @@ const CodeEditor = ({
 
   const isInteractive =
     interactive &&
-    language === 'javascript' &&
+    language === 'js' &&
     !text.includes('import') &&
     !text.startsWith('{')
 
