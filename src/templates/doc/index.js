@@ -1,20 +1,18 @@
 import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { Layout, Aside } from 'components/patterns'
-import Markdown, { H1 } from 'components/markdown'
+import Markdown, { H1, ProBadge } from 'components/markdown'
 import { fontSizes, colors, layout } from 'theme'
 import { formatDate } from 'helpers'
 import React from 'react'
 
 import {
   Choose,
-  Badge,
   Box,
   Container,
   Flex,
   Link,
   Script,
-  Text,
-  Tooltip
+  Text
 } from 'components/elements'
 
 const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
@@ -45,15 +43,7 @@ const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
                   slug={false}
                 >
                   <span>{meta.title}</span>
-                  {meta.isPro && (
-                    <Tooltip
-                      ml={2}
-                      display='inline'
-                      content='This feature is only for pro plans.'
-                    >
-                      <Badge>PRO</Badge>
-                    </Tooltip>
-                  )}
+                  {meta.isPro && <ProBadge top='12px' ml={2} />}
                 </H1>
               </Text>
             </Choose.When>

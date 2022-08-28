@@ -18,7 +18,7 @@ You can hit the API directly from your browser or any environment that allows yo
 
 <Figcaption>The <Link href='/docs/api/getting-started/cli' children='Microlink CLI' /> is helpful to explore the API under local development.</Figcaption>
 
-Just you need to provide a URL as an input, outputting the structured data back.
+Just you need to provide a [url](/docs/api/parameters/url) as an input, outputting the structured data back.
 
 ```json
 {

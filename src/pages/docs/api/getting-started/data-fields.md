@@ -1,28 +1,28 @@
 ---
-title: 'Data Fields'
+title: 'Data fields'
 --- 
 
 When you send a [url](/docs/api/parameters/url) to Microlink API, the following data fields are detected by default:
 
-- `author` (e.g., <Type children="'SpaceX'"/>)<br/>
+- `author` <small>(e.g., <Type children="'SpaceX'"/>)</small><br/>
   A human-readable representation of the author's name.
-- `date` (e.g., <Type children='2018-01-24T18:39:47.000Z'/>)<br/>
+- `date` <small>(e.g., <Type children='2018-01-24T18:39:47.000Z'/>)</small><br/>
   An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) representation of the date the article was published.
-- `description` (e.g., <Type children="'First static fire test of Falcon Heavy…'"/>* )<br/>
+- `description` <small>(e.g., <Type children="'First static fire test of Falcon Heavy…'"/>)</small><br/>
   The publisher's chosen description of the article.
-- `image` (e.g., <Type children="https://cdn.instagram.com/…/171196260320789.jpg"/>*)<br/>
+- `image` <small>x(e.g., <Type children="https://cdn.instagram.com/…/171196260320789.jpg"/>)</small><br/>
   An image URL that best represents the article.
-- `video` (e.g., <Type children="'https://cdn.instagram.com/…/26867070.mp4'"/>)<br/>
+- `video` <small>(e.g., <Type children="'https://cdn.instagram.com/…/26867070.mp4'"/>)</small><br/>
   A video URL that best represents the article.
-- `lang` (e.g., <Type children="en"/>)<br/>
+- `lang` <small>(e.g., <Type children="en"/>)</small><br/>
   An [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) representation of the url content language.
-- `logo` (e.g., <Type children="'https://logo.clearbit.com/instagram.com'"/>)<br/>
+- `logo` <small>(e.g., <Type children="'https://logo.clearbit.com/instagram.com'"/>)</small><br/>
   An image URL that best represents the publisher brand.
-- `publisher` (e.g., <Type children="'Instagram'"/>)<br/>
+- `publisher` <small>(e.g., <Type children="'Instagram'"/>)</small><br/>
   A human-readable representation of the publisher's name.
-- `title` (e.g., <Type children="'Manufactures and Launches Advanced Rockets and Spacecraft'"/>)<br/>
+- `title` <small>(e.g., <Type children="'Manufactures Advanced Rockets & Spacecraft'"/>)</small><br/>
   The publisher's chosen title of the article.
-- `url` (e.g.,<Type children="'https://instagram.com/p/BeV6tOhFUor'"/>)<br/>
+- `url` <small>(e.g., <Type children="'https://instagram.com/p/BeV6tOhFUor'"/>)</small><br/>
   The URL of the article.
 
 When a data field is media content, the following contextual data will be also returned:

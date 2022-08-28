@@ -2,7 +2,7 @@
 title: Error codes
 ---
 
-Microlink API considers an unexpected situation any request performed on which [status](/docs/api/basics/format#status) is different from `'success'`.
+Microlink API considers an unexpected situation any request performed on which [status](/docs/api/basics/format#status) is different from <Type children="'success'"/>.
 
 When this happens, the response payload includes some useful information in order to determine the root cause of the problem:
 
@@ -22,7 +22,7 @@ Invalid API key. Make sure you are attaching your API key as `x-api-key` header.
 
 **Solution**
 
-Ensure to [authenticate](/docs/api/basics/authentication/) your requests providing an API key attached as `x-api-key` against `pro.microlink.io` [endpoint](/docs/api/basics/endpoint).
+Ensure to [authenticate](/docs/api/basics/authentication/) your requests providing an API key attached as `x-api-key`.
 
 ## EBRWSRTIMEOUT
 
@@ -52,7 +52,7 @@ If you are experimenting with this error, please [contact us](mailto:hello@micro
 
 **Message**
 
-You need a PRO plan for using [filename](/docs/api/parameters/filename) query parameter.
+You need a <ProBadge/> plan for using [filename](/docs/api/parameters/filename) query parameter.
 
 **Solution**
 
@@ -84,7 +84,7 @@ The service will only resolve URLs that point to unicast IP addresses.
 
 **Message**
 
-You need a PRO plan for using [headers](/docs/api/parameters/headers) query parameters.
+You need a <ProBadge/> plan for using [headers](/docs/api/parameters/headers) query parameters.
 
 **Solution**
 
@@ -128,7 +128,7 @@ The `ttl` value is invalid.
 
 **Solution**
 
-The [ttl](/docs/api/parameters/ttl) value should be a value between `1m` to `31d` range.
+The [ttl](/docs/api/parameters/ttl) value should be a value between <Type children="'1m'"/> to <Type children="'31d'"/> range.
 
 ## EINVALSTTL
 
@@ -154,17 +154,17 @@ Ensure the [url](/docs/api/parameters/url) provided reaches the destination URL 
 
 **Message**
 
-The request has `x-api-key` header present and it has been performed against `api.microlink.io` endpoint.
+The request has `x-api-key` header present and it has been performed against [api.microlink.io](https://api.microlink.io) endpoint.
 
 **Solution**
 
-In order to [authenticate](/docs/api/basics/authentication/) your requests, you need to perform them against `pro.microlink.io` [endpoint](/docs/api/basics/endpoint).
+In order to [authenticate](/docs/api/basics/authentication/) your requests, you need to perform them against [pro.microlink.io](https://pro.microlink.io). Check [endpoint](/docs/api/basics/endpoint) to know more.
 
 ## EPROXY
 
 **Message**
 
-You need a PRO plan for using [proxy](/docs/api/parameters/proxy) query parameter.
+You need a <ProBadge/> plan for using [proxy](/docs/api/parameters/proxy) query parameter.
 
 **Solution**
 
@@ -196,7 +196,7 @@ In order to avoid this error, the request should be resolved before timeout.
 
 **Message**
 
-You need a PRO plan for using [ttl](/docs/api/parameters/ttl) query parameter.
+You need a <ProBadge/> plan for using [ttl](/docs/api/parameters/ttl) query parameter.
 
 **Solution**
 
@@ -206,7 +206,7 @@ See [pricing](/#pricing) for upgrading your plan.
 
 **Message**
 
-You need a PRO plan for using [staleTtl](/docs/api/parameters/staleTtl) query parameter.
+You need a <ProBadge/> plan for using [staleTtl](/docs/api/parameters/staleTtl) query parameter.
 
 **Solution**
 

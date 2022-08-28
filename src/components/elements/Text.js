@@ -23,6 +23,8 @@ Text.propTypes = {
 }
 
 Text.defaultProps = {
+  fontWeight: 'normal',
+  letterSpacing: 0,
   as: 'div',
   fontFamily: 'sans',
   mt: 0,
