@@ -15,17 +15,17 @@ The cache layer is a combination of a unified cache and edge node cache. The com
 
 When you query for a resource against Microlink API for the first time, the request will generate a shallow cache copy.
 
-That known as **MISS** and it's reflect as `x-cache-status` on response headers.
+That known as <Type children="'MISS'"/> and it's reflect as `x-cache-status` on response headers.
 
-Any successive API access based on the same URL will consume the shallow copy created, reflecting a **HIT** at `x-cache-status` response headers.
+Any successive API access based on the same URL will consume the shallow copy created, reflecting a <Type children="'HIT'"/> at `x-cache-status` response headers.
 
 **Edge node cache**
 
 Since Microlink relies on [CloudFlare CDN](https://microlink.io/blog/edge-cdn/), after the unified cache is warm, any successive API access based on the sam URL will be served from the nearest edge node over [CloudFlare Network](https://www.cloudflare.com/network).
 
-That means not only response will be served from cache, also it will be served from the nearest distance relative to the request origin. That's reflected under `cf-cache-status` response header as **HIT**.
+That means not only response will be served from cache, also it will be served from the nearest distance relative to the request origin. That's reflected under `cf-cache-status` response header as <Type children="'HIT'"/>.
 
-Edge nodes cache is per edge location, meaning every edge node as their own cache, causing a **MISS** reflected at `cf-cache-status` response header when the access comes from a different location.
+Edge nodes cache is per edge location, meaning every edge node as their own cache, causing a <Type children="'MISS'"/> reflected at `cf-cache-status` response header when the access comes from a different location.
 
 When this happen, the edge node cache will fallback automatically into the unified cache, creating a new edge cache copy.
 

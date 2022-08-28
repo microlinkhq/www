@@ -6,23 +6,24 @@ import Mdx from 'mdx-scoped-runtime'
 import { mqlCode } from 'helpers'
 import slug from 'remark-slug'
 import React from 'react'
-
 import get from 'dlv'
 
 import {
-  Terminal as TerminalBase,
-  CodeEditor,
-  MultiCodeEditor as MultiCodeEditorBase,
+  Badge,
   Box,
-  Text,
-  Link as LinkBase,
-  Label,
-  Image as ImageBase,
-  Video as VideoBase,
-  Iframe as IframeBase,
   Button,
-  Tweet,
+  CodeEditor,
   Color,
+  Iframe as IframeBase,
+  Image as ImageBase,
+  Label,
+  Link as LinkBase,
+  MultiCodeEditor as MultiCodeEditorBase,
+  Terminal as TerminalBase,
+  Text,
+  Tooltip,
+  Tweet,
+  Video as VideoBase,
   PriceMonthly as PriceMonthlyBase
 } from 'components/elements'
 
@@ -39,7 +40,26 @@ Link.defaultProps = {
   icon: true
 }
 
-export { Tweet, Label, Link }
+const ProBadge = ({ top, ...props }) => (
+  <Tooltip
+    display='inline'
+    top={top}
+    content={
+      <Tooltip.Content tabIndex='0'>
+        You have to buy{' '}
+        <Link display='inline-block' href='https://microlink.io#pricing'>
+          pro
+        </Link>{' '}
+        plan to use this feature.
+      </Tooltip.Content>
+    }
+    {...props}
+  >
+    <Badge>PRO</Badge>
+  </Tooltip>
+)
+
+export { ProBadge, Tweet, Label, Link }
 
 export const Microlink = withContainer(MicrolinkBase)
 
@@ -373,7 +393,8 @@ const ScopedComponents = {
   Type,
   TypeContainer,
   Ul,
-  Video
+  Video,
+  ProBadge
 }
 
 const Markdown = props => (

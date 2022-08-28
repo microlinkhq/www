@@ -9,10 +9,11 @@ const Badge = styled(Text)`
 `
 
 Badge.defaultProps = {
+  letterSpacing: 2,
   border: '0.5px solid',
   as: 'span',
   fontSize: '12px',
-  fontWeight: 'regular',
+  fontWeight: 'bold',
   bg: 'secondary',
   borderRadius: 5,
   fontFamily: 'sans',

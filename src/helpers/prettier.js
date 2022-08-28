@@ -10,7 +10,7 @@ import parserBabel from 'prettier/parser-babel'
 const PRETTIER_CONFIG = {
   arrowParens: 'avoid',
   jsxSingleQuote: true,
-  printWidth: 60,
+  printWidth: 80,
   semi: false,
   singleQuote: true,
   tabWidth: 2,

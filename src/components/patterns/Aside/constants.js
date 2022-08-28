@@ -142,7 +142,7 @@ const ROUTES_API = [
         href: '/docs/api/getting-started/overview'
       },
       {
-        name: 'Data Fields',
+        name: 'Data fields',
         href: '/docs/api/getting-started/data-fields'
       },
       {
