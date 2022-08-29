@@ -162,7 +162,6 @@ const TerminalText = styled('div')`
   line-height: 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  display: flex;
   align-items: center;
 
   div > span,

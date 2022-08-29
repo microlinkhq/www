@@ -50,7 +50,7 @@ const mql = require('@microlink/mql')
 
 const { status, data } = await mql('${url}'${opts ? `, ${opts}` : ''})
 
-console.log(data)`
+mql.render(data)`
   }
 
   JavaScript.language = 'js'

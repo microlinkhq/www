@@ -118,9 +118,4 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
   )
 }
 
-MultiCodeEditor.defaultProps = {
-  ...CodeEditor.defaultProps,
-  interactive: false
-}
-
 export default MultiCodeEditor

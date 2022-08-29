@@ -1,19 +1,10 @@
 import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { Layout, Aside } from 'components/patterns'
+import { Choose, Box, Container, Flex, Link, Text } from 'components/elements'
 import Markdown, { H1, ProBadge } from 'components/markdown'
 import { fontSizes, colors, layout } from 'theme'
 import { formatDate } from 'helpers'
 import React from 'react'
-
-import {
-  Choose,
-  Box,
-  Container,
-  Flex,
-  Link,
-  Script,
-  Text
-} from 'components/elements'
 
 const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
   const activeRouteName = getActiveRouteName(props.location)
@@ -24,7 +15,6 @@ const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
       title={`${meta.name} ${activeRouteName}: ${meta.title}`}
       name='Microlink Docs'
     >
-      <Script async src='https://embed.runkit.com' />
       <Container
         pt={[0, 0, 0, 4]}
         ml={[3, 3, 3, 'auto']}

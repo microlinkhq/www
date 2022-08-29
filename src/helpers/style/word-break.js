@@ -17,3 +17,21 @@ export const wordBreak = css`
   -webkit-hyphens: auto;
   hyphens: auto;
 `
+
+export const hideScrollbar = css`
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
+export const fadeText = css`
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 1%,
+    black 98%,
+    transparent
+  );
+`

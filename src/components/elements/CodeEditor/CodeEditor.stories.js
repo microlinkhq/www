@@ -1,7 +1,7 @@
-import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Text, Box, CodeEditor } from 'components/elements'
+import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
+import React from 'react'
 
 const jsCode = `
 const mql = require('@microlink/mql')
@@ -47,29 +47,21 @@ storiesOf('Elements', module).add('CodeEditor', () => (
   <Story name='CodeEditor'>
     <Box mb={4}>
       <Text color='gray6' mb={2} fontSize={0}>
-        {"<CodeEditor title='mql.js' language='js' showLineNumbers>"}
+        {"<CodeEditor title='mql.js' language='js'>"}
       </Text>
-      <CodeEditor
-        className='language-js{3}'
-        title='mql.js'
-        language='js'
-        showLineNumbers
-      >
+      <CodeEditor className='language-js{3}' title='mql.js' language='js'>
         {jsCode}
       </CodeEditor>
     </Box>
 
     <Box mb={4}>
       <Text color='gray6' mb={2} fontSize={0}>
-        {
-          "<CodeEditor title='mql.js' language='js' theme='dark' showLineNumbers>"
-        }
+        {"<CodeEditor title='mql.js' language='js' theme='dark'>"}
       </Text>
       <CodeEditor
         className='language-sh{1}'
         title='mql.sh'
         language='bash'
-        showLineNumbers
         theme='dark'
       >
         {bashCode}
