@@ -17,7 +17,7 @@ const TippyTheme = styled(Tippy)`
   border-radius: ${radii[2]};
   background-color: ${colors.white};
   position: relative;
-  top: ${({ top }) => top};
+  top: ${({ $top }) => $top};
 
   .tippy-arrow {
     width: 16px;
@@ -72,7 +72,7 @@ const Tooltip = ({
 }) => {
   return (
     <TippyTheme
-      top={top}
+      $top={top}
       content={content}
       {...Object.assign(TOOLTIPS_OPTS, tooltipsOpts)}
     >
