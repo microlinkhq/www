@@ -26,7 +26,7 @@ const toAlias = (lang = '') => {
     case 'shell':
       return 'bash'
     case 'node.js':
-    case 'js':
+    case 'javascript':
       return 'js'
     default:
       return lang
