@@ -112,7 +112,7 @@
     "cssnano-preset-advanced": "~5.3.8",
     "dlv": "~1.1.3",
     "exists-file": "~3.0.2",
-    "gatsby": "~4.21.1",
+    "gatsby": "~4.22.0",
     "gatsby-plugin-advanced-sitemap": "~2.1.0",
     "gatsby-plugin-canonical-urls": "~4.21.0",
     "gatsby-plugin-catch-links": "~4.21.0",
