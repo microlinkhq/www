@@ -1,11 +1,11 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { fadeText, hideScrollbar, wordBreak } from 'helpers/style'
 import { hash, prettier, getLines, template } from 'helpers'
-import { wordBreak } from 'helpers/style'
+import React, { useState } from 'react'
 import identity from 'lodash/identity'
 import styled from 'styled-components'
 import range from 'lodash/range'
 import { radii } from 'theme'
-import React from 'react'
 import get from 'dlv'
 
 import { prismThemes } from './theme'
@@ -58,19 +58,7 @@ const getClassName = ({ className, metastring = '' }) =>
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   padding-right: 0px !important;
   margin: 0 !important;
-
-  &::-webkit-scrollbar {
-    width: 0.5em;
-    height: 0.5em;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    &:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-  }
+  ${hideScrollbar};
 
   ${({ $prismTheme, $highlightLines }) => `
     .linenumber {
@@ -89,6 +77,7 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const TerminalTextWrapper = styled.div`
   ${wordBreak};
+  ${fadeText};
   width: 100%;
 `
 
@@ -100,19 +89,15 @@ const CodeEditor = ({
   title,
   ...props
 }) => {
+  const [isLoaded, setIsLoaded] = useState(false)
   const className = getClassName(props)
   const highlightLines = getLines(className)
   const language = toAlias(getLanguage(className, props))
   const pretty = props.prettier ? get(prettier, language, identity) : identity
   const text = pretty(template(children)).trim()
   const prismTheme = prismThemes[theme]
-  const id = `codeditor-${hash(children)}`
-
-  const isInteractive =
-    interactive &&
-    language === 'js' &&
-    !text.includes('import') &&
-    !text.startsWith('{')
+  const id = `codeditor-${hash(children)}-${theme}`
+  const isInteractive = Runkit.isSupported({ language, text })
 
   const TerminalComponent = (
     <Terminal
@@ -120,7 +105,7 @@ const CodeEditor = ({
       theme={theme}
       id={id}
       text={text}
-      loading={isInteractive}
+      loading={!isLoaded && isInteractive}
       {...props}
     >
       <TerminalTextWrapper>
@@ -142,16 +127,22 @@ const CodeEditor = ({
 
   return (
     <Runkit
+      theme={theme}
       title={title}
       placeholderComponent={TerminalComponent}
       code={text}
+      onLoad={element => {
+        setIsLoaded(true)
+        element.style['padding-top'] = '4px'
+        element.style['padding-bottom'] = 0
+        element.style['overflow-x'] = 'hidden'
+      }}
     />
   )
 }
 
 CodeEditor.defaultProps = {
   blinkCursor: false,
-  interactive: false,
   prettier: true,
   showLineNumbers: false,
   theme: 'light',

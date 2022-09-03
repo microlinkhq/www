@@ -1,18 +1,10 @@
 import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
+import { Text, Box, CodeEditor, Flex, Heading } from 'components/elements'
 import React, { useState, useEffect } from 'react'
 import { fontSizes, colors, layout } from 'theme'
 import { Logo } from 'components/pages/recipes'
 import { formatNumber } from 'helpers'
 import { Eye } from 'react-feather'
-
-import {
-  Text,
-  Box,
-  CodeEditor,
-  Flex,
-  Heading,
-  Script
-} from 'components/elements'
 
 const Description = recipe => {
   const { description, domain } = recipe
@@ -59,7 +51,6 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
-      <Script async src='https://embed.runkit.com' />
       <Layout footer={{ bg: 'transparent' }} {...meta}>
         <Flex
           px={3}

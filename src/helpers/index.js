@@ -1,6 +1,5 @@
 import serializeComponent from './serialize-component'
 import isFastConnection from './is-fast-connection'
-import waitForGlobal from './wait-for-global'
 import screenshotUrl from './screenshot-url'
 import urlVariations from './url-variations'
 import formatNumber from './format-number'
@@ -36,6 +35,5 @@ export {
   serializeComponent,
   template,
   title,
-  urlVariations,
-  waitForGlobal
+  urlVariations
 }

@@ -1,4 +1,4 @@
-import { Script, CodeEditor } from 'components/elements'
+import { CodeEditor } from 'components/elements'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import React from 'react'
@@ -13,7 +13,6 @@ console.log(data)
 
 const code = `
 <>
-  <Script async src='https://embed.runkit.com' />
   <CodeEditor interactive mx='auto'>
     ${jsCode
       .split('\n')
@@ -26,7 +25,6 @@ const code = `
 
 storiesOf('Elements', module).add('Runkit', () => (
   <Story name='Runkit' code={code}>
-    <Script async src='https://embed.runkit.com' />
     <CodeEditor interactive mx='auto'>
       {jsCode}
     </CodeEditor>

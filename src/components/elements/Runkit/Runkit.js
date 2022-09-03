@@ -1,43 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import { waitForGlobal } from 'helpers'
+import React, { useState } from 'react'
+
+import Script from '../Script'
 
 const NODE_VERSION = '16'
 
-const Runkit = ({ placeholderComponent, title, code: source }) => {
-  const id = placeholderComponent.props.id
-  if (!id) throw new Error('Runkit placeholder must to have an id.')
+const THEME = {
+  light: 'untilted-3iiuludkfm6r',
+  dark: 'untilted-0iw2lny2mmwa'
+}
 
+const Runkit = ({
+  onLoad,
+  placeholderComponent,
+  title,
+  code: source,
+  theme
+}) => {
+  if (!placeholderComponent.props.id) {
+    throw new Error('Runkit placeholder must to have an id.')
+  }
+
+  const selector = `#${placeholderComponent.props.id} > div`
   const [notebook, setNotebook] = useState(null)
 
-  useEffect(() => {
-    waitForGlobal('RunKit', () => {
-      const element = window.document.getElementById(id)
+  const createNotebook = () => {
+    const element = window.document.querySelector(selector)
+    if (element && !element.dataset.runkit) {
+      element.dataset.runkit = true
+      setNotebook(
+        window.RunKit.createNotebook({
+          clearParentContents: true,
+          evaluateOnLoad: false,
+          getShareableURL: false,
+          element,
+          title,
+          source,
+          nodeVersion: NODE_VERSION,
+          theme: THEME[theme],
+          gutterStyle: 'outside',
+          tabSize: 2,
+          onLoad: () => onLoad(element)
+        })
+      )
+      return () => notebook.destroy()
+    }
+  }
 
-      if (element && !element.dataset.runkit) {
-        element.dataset.runkit = true
-        const childs = Array.from(element.children)
-
-        setNotebook(
-          window.RunKit.createNotebook({
-            element,
-            title,
-            source,
-            nodeVersion: NODE_VERSION,
-            gutterStyle: 'outside',
-            tabSize: 2,
-            onLoad: () => {
-              childs.forEach(child => element.removeChild(child))
-              element.style.border = 'none'
-            }
-          })
-        )
-
-        return () => notebook.destroy()
-      }
-    })
-  }, [id, notebook, source, title])
-
-  return <>{placeholderComponent}</>
+  return (
+    <>
+      <Script async src='https://embed.runkit.com' onload={createNotebook} />
+      {placeholderComponent}
+    </>
+  )
 }
+
+Runkit.defaultProps = {
+  theme: 'light'
+}
+
+Runkit.isSupported = ({ language, text }) =>
+  language === 'js' && !text.includes('import') && !text.startsWith('{')
 
 export default Runkit
