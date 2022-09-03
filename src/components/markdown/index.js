@@ -19,12 +19,12 @@ import {
   Label,
   Link as LinkBase,
   MultiCodeEditor as MultiCodeEditorBase,
+  PriceMonthly as PriceMonthlyBase,
   Terminal as TerminalBase,
   Text,
   Tooltip,
   Tweet,
-  Video as VideoBase,
-  PriceMonthly as PriceMonthlyBase
+  Video as VideoBase
 } from 'components/elements'
 
 import MicrolinkBase from '../patterns/Microlink/Microlink'
@@ -63,20 +63,11 @@ export { ProBadge, Tweet, Label, Link }
 
 export const Microlink = withContainer(MicrolinkBase)
 
-export const Terminal = withContainer(props => (
-  <TerminalBase mx='auto' {...props} />
-))
+export const Terminal = withContainer(TerminalBase)
 
-export const Code = withContainer(props => (
-  <CodeEditor interactive mx='auto' {...props} />
-))
+export const Code = withContainer(CodeEditor)
 
-export const MultiCodeEditor = withContainer(
-  props => <MultiCodeEditorBase width='inherit' mx='auto' {...props} />,
-  {
-    width: CodeEditor.width
-  }
-)
+export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
 export const H1 = withTitle(withSlug(styled(Heading)``))
 
@@ -172,9 +163,7 @@ H6.defaultProps = {
 }
 
 export const Paraph = props => {
-  const isMedia =
-    get(props, 'children.props.props.src') ||
-    get(props, 'children.props.props.href')
+  const isMedia = get(props, 'children.props.name') === 'img'
   const maxWidth = isMedia ? layout.large : layout.small
   return <Text maxWidth={maxWidth} {...props} />
 }

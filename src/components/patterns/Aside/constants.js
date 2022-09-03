@@ -236,6 +236,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/force'
       },
       {
+        name: 'function',
+        href: '/docs/api/parameters/function'
+      },
+      {
         name: 'headers',
         href: '/docs/api/parameters/headers'
       },
