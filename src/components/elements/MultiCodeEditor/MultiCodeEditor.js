@@ -65,7 +65,7 @@ const ActionComponent = ({
   )
 }
 
-const DEFAULT_LANGUAGE_INDEX = 0
+const DEFAULT_LANGUAGE_INDEX = 1
 const LOCALSTORAGE_KEY = 'multi_code_editor_index'
 
 const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {

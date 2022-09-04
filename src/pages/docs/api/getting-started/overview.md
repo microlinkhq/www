@@ -4,21 +4,13 @@ title: 'Overview'
 
 Microlink API provides a powerful API for automating any browser action.
 
-```js
-const mql = require('@microlink/mql')
-
-const { status, data } = await mql('https://github.com/microlinkhq')
-
-console.log(data)
-```
+<MultiCodeEditor languages={mqlCode('https://github.com/microlinkhq')} />
 
 You can hit the API directly from your browser or any environment that allows you to perform a simple HTTP GET request.
 
-<MultiCodeEditor languages={mqlCode('https://example.com')} />
-
 <Figcaption>The <Link href='/docs/api/getting-started/cli' children='Microlink CLI' /> is helpful to explore the API under local development.</Figcaption>
 
-Just you need to provide a [url](/docs/api/parameters/url) as an input, outputting the structured data back.
+Giving a [url](/docs/api/parameters/url) as input, you get structured data as output.
 
 ```json
 {
