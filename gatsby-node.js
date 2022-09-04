@@ -89,7 +89,10 @@ const ${name} = (url, props) =>
   mql(url, { function: code.toString(), meta: false, ...props })
   .then(({ data }) => data.function)
 
-await ${name}('${recipe.meta.examples[0]}')`
+const result = await ${name}('${recipe.meta.examples[0]}')
+
+mql.render(result)
+`
 
 const getCode = (recipe, { name }) =>
   (recipe.code ? getFunctionCode : getMqlCode)(recipe, { name })
