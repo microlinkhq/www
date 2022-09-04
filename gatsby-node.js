@@ -81,13 +81,15 @@ mql.render(result)`
 const getFunctionCode = (
   recipe,
   { name }
-) => `const microlink = require('@microlink/function')
+) => `const mql = require('@microlink/mql')
 
-const ${name} = microlink(${recipe.code})
+const code = ${recipe.code}
 
-const result = await ${name}('${recipe.meta.examples[0]}')
+const ${name} = (url, props) =>
+  mql(url, { function: code.toString(), meta: false, ...props })
+  .then(({ data }) => data.function)
 
-microlink.render(result)`
+await ${name}('${recipe.meta.examples[0]}')`
 
 const getCode = (recipe, { name }) =>
   (recipe.code ? getFunctionCode : getMqlCode)(recipe, { name })

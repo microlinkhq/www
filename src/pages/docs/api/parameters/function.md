@@ -13,7 +13,7 @@ It runs JavaScript code with runtime access to a headless browser.
   }, { output: 'data.function' })}
 />
 
-The function will receive three arguments:
+The function will receive any query parameter provided, plus:
 
 - `html`: The target [url](/docs/api/parameters/url) HTML markup.
 - `page`: The [puppeteer#page](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#class-page) to interact with the headless browser.
@@ -27,10 +27,11 @@ Since the function body can be large, you can compress it:
 const { compressToURI } = require('lz-ts') 
 const mql = require('@microlink/mql')
 
-const code = compressToURI('({ page }) => page.evaluate("jQuery.fn.jquery")')
+const code = ({ page }) => page.evaluate("jQuery.fn.jquery")
 
 const { status, data } = await mql('https://microlink.io', {
-  function: `lz#${code}`,
+  function: `lz#${compressToURI(code.toString())}`,
+  meta: false,
   scripts: 'https://code.jquery.com/jquery-3.5.0.min.js'
 })
 
@@ -52,13 +53,21 @@ Read [how to compress](/blog/compress) to know more.
 Require NPM packages on runtime is supported.
 
 ```js
-const microlink = require('@microlink/function')
+const mql = require('@microlink/mql')
 
-const ping = microlink(({ statusCode, response }) => {
+const code = ({ statusCode, response }) => {
   const { result } = require('lodash')
-  return result(response, statusCode ? 'status' : 'statusText')
-})
+  return result(
+    response,
+    statusCode ? 'status' : 'statusText'
+  )
+}
 
+const ping = (url, props) => 
+  mql(url, { function: code.toString(), meta: false, ...props })
+  .then(({ data }) => data.function)
+
+// try passing `statusCode: false`
 await ping('https://example.com', { statusCode: true })
 ```
 

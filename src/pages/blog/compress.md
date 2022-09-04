@@ -1,6 +1,5 @@
 ---
 title: 'Microlink Function: How to compress'
-image: 'https://i.imgur.com/VsS5RwW.png'
 date: '2022-09-03'
 ---
 
@@ -9,6 +8,7 @@ The query parameter [function](/docs/api/parameters/function) allows you dynamic
 <MultiCodeEditor 
   languages={mqlCode('https://microlink.io', {
     function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
+    meta: false,
     scripts: ['https://code.jquery.com/jquery-3.5.0.min.js']
   }, { output: 'data.function' })}
 />
@@ -35,6 +35,7 @@ const code = '({ page }) => page.evaluate("jQuery.fn.jquery")'
 
 const { status, data } = await mql('https://microlink.io', {
   function: `br#${await toBrotli(code)}`,
+  meta: false,
   scripts: 'https://code.jquery.com/jquery-3.5.0.min.js'
 })
 
@@ -55,6 +56,7 @@ const code = compressToURI('({ page }) => page.evaluate("jQuery.fn.jquery")')
 
 const { status, data } = await mql('https://microlink.io', {
   function: `lz#${code}`,
+  meta: false,
   scripts: 'https://code.jquery.com/jquery-3.5.0.min.js'
 })
 
@@ -83,6 +85,7 @@ const code = '({ page }) => page.evaluate("jQuery.fn.jquery")'
 
 const { status, data } = await mql('https://microlink.io', {
   function: `gz#${await toGzip(code)}`,
+  meta: false,
   scripts: 'https://code.jquery.com/jquery-3.5.0.min.js'
 })
 
