@@ -42,11 +42,12 @@ const Analytics = ({ color, ...props }) => {
         <Caption
           pt={[2, 3, 3, 3]}
           color='pink'
-          fontWeight='bold'
           titleize={false}
           style={{ opacity: 0.8 }}
         >
-          <Caps fontSize={[0, 2, 3, 3]}>{name}</Caps>
+          <Caps fontWeight='bold' fontSize={[0, 2, 3, 3]}>
+            {name}
+          </Caps>
         </Caption>
       </Flex>
       {!isLast && <Separator mt={[1, 1, 0, 0]} mx={[3, 3, 4, 4]} />}
