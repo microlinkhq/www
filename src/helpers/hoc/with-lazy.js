@@ -17,7 +17,12 @@ const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
 const CACHE = Object.create(null)
 
 export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
-  const LazyWrapper = ({ [attr]: rawAttribute, ...props }) => {
+  const LazyWrapper = componentProps => {
+    if (componentProps[attr].startsWith('data:')) {
+      return createElement(Component, componentProps)
+    }
+
+    const { [attr]: rawAttribute, ...props } = componentProps
     const [isLoading, setLoading] = useState(true)
     const compiledAttr = template(rawAttribute)
 
@@ -31,7 +36,7 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
             .then(() => setLoading(false))
             .catch(error => console.error('[with-lazy]', error))
         })())
-    }, [])
+    }, [compiledAttr])
 
     return createElement(
       isLoading ? Placeholder : Component,
