@@ -1,3 +1,7 @@
+- date: September 2022
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Improved file detection.'
+    
 - date: August 2022
   notes:
     - '[Microlink Recipes](/recipes): Added [youtube-dl](/recipes/youtube-dl) recipe.'
