@@ -1,7 +1,7 @@
 import tpl from 'lodash/template'
 import cdnUrl from './cdn-url'
 
-import dataDemoLinks from '../../data/demo-links.json'
+import dataDemoLinks from '../../data/demo-links'
 
 const demolinks = dataDemoLinks.reduce((acc, { id, data }) => {
   const screenshot = { url: cdnUrl(`screenshot/${id}.png`) }
