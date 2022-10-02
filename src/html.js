@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -17,8 +19,9 @@ export default function HTML (props) {
           crossOrigin='anonymous'
         />
         <link
+          as='font'
           href='https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;700&display=optional'
-          rel='stylesheet'
+          rel='preload'
         />
         {props.headComponents}
 
