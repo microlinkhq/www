@@ -31,3 +31,6 @@ module.exports.fromUrl = async (url, { dist, mapper = identity }) => {
     ? jsonFuture.saveAsync(dist, castArray(mapper(data)))
     : fs.writeFile(dist, data)
 }
+
+module.exports.fromCode = async (fn, { dist }) =>
+  !(await exists(dist)) && jsonFuture.saveAsync(dist, castArray(await fn()))
