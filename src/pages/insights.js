@@ -191,7 +191,7 @@ const LiveDemo = ({
       >
         Track site speed & website quality over time – Get performance insights
         powered by{' '}
-        <Link icon href='https://developers.google.com/web/tools/lighthouse'>
+        <Link href='https://developers.google.com/web/tools/lighthouse'>
           Lighthouse
         </Link>
         .
@@ -526,7 +526,7 @@ const Resume = props => (
             textAlign={['center', 'center', 'center', 'inherit']}
           >
             Connect it with{' '}
-            <Link icon href='https://lighthouse.microlink.io'>
+            <Link href='https://lighthouse.microlink.io'>
               Lighthouse Viewer
             </Link>{' '}
             or{' '}

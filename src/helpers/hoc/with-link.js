@@ -72,7 +72,7 @@ const onView = (node, fn, opts) => {
 const External = Component => {
   const ExternalWrapper = ({
     href,
-    icon = false,
+    icon = true,
     target,
     rel,
     children,

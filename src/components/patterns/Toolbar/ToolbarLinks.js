@@ -18,6 +18,7 @@ const createNavItem = opts => {
     createElement(NavLink, {
       'data-event-category': 'Toolbar',
       'data-event-action': opts.children,
+      icon: false,
       linkProps,
       ...opts,
       ...props

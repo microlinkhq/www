@@ -17,7 +17,7 @@ import {
   Iframe as IframeBase,
   Image as ImageBase,
   Label,
-  Link as LinkBase,
+  Link,
   MultiCodeEditor as MultiCodeEditorBase,
   PriceMonthly as PriceMonthlyBase,
   Terminal as TerminalBase,
@@ -33,12 +33,6 @@ import Heading from '../elements/Heading'
 import { layout } from '../../theme'
 
 const { Container, CONTAINER_SPACE } = withContainer
-
-const Link = styled(LinkBase)``
-
-Link.defaultProps = {
-  icon: true
-}
 
 const ProBadge = ({ top, ...props }) => (
   <Tooltip
