@@ -578,82 +578,84 @@ const ProductInformation = props => (
     questions={[
       {
         question: 'What is it?',
-        answer: [
-          <div key='what-is-it-0'>
-            <Text as='span' color='black' fontWeight='bold'>
-              Microlink for Meta
-            </Text>{' '}
-            is a data extraction service that take a URL as input, giving you
-            structured data as output.
-          </div>,
-          <div key='what-is-it-1'>
-            The data detected is unified and normalized from different data
-            source providers present on the semantic markup of the target URL,
-            such as Open Graph, JSON+LD, oEmbed, microformats or regular HTML.
-          </div>
-        ]
+        answer: (
+          <>
+            <div>
+              <Text as='span' color='black' fontWeight='bold'>
+                Microlink for Meta
+              </Text>{' '}
+              is a data extraction service that take a URL as input, giving you
+              structured data as output.
+            </div>
+            <div>
+              The data detected is unified and normalized from different data
+              source providers present on the semantic markup of the target URL,
+              such as Open Graph, JSON+LD, oEmbed, microformats or regular HTML.
+            </div>
+          </>
+        )
       },
       {
         question: 'How does it work?',
-        answer: [
-          <div key='how-does-it-work-0'>
-            It&#039;s a{' '}
-            <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
-              rule-based system
-            </Link>{' '}
-            called{' '}
-            <Link icon href='https://metascraper.js.org'>
-              metascraper
-            </Link>
-            , where the desired value (e.g., the title) will be searched over
-            the content according to a series of rules.
-          </div>,
-          <div key='how-does-it-work-1'>
-            Also, this process ensures the value extracted follows a specific
-            data shape. So, not only the value should be present, it needs to
-            satisfy a specific data shape as well.
-          </div>,
-          <div key='how-does-it-work-2'>
-            In this way, if the service detects the value, you can be sure that
-            is what it claims to be.
-          </div>
-        ]
+        answer: (
+          <>
+            <div>
+              It&#039;s a{' '}
+              <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
+                rule-based system
+              </Link>{' '}
+              called <Link href='https://metascraper.js.org'>metascraper</Link>,
+              where the desired value (e.g., the title) will be searched over
+              the content according to a series of rules.
+            </div>
+            <div>
+              Also, this process ensures the value extracted follows a specific
+              data shape. So, not only the value should be present, it needs to
+              satisfy a specific data shape as well.
+            </div>
+            <div>
+              In this way, if the service detects the value, you can be sure
+              that is what it claims to be.
+            </div>
+          </>
+        )
       },
       {
         question: 'Why not run my own solution?',
-        answer: [
-          <div key='why-not-run-my-own-solution-0'>
-            You can always run your own solution; Most of our software is{' '}
-            <Link icon href='/oss'>
-              Open Source
-            </Link>
-            , so you can take them and hosted from scratch.
-          </div>,
-          <div key='why-not-run-my-own-solution-1'>
-            What we offer as part of our value proposition is a production ready
-            solution without the headaches of running your own infrastructure.
-          </div>,
-          <div key='why-not-run-my-own-solution-2'>
-            No code to maintain, no servers to scale up, no dependencies to
-            upgrade. Just an always ready{' '}
-            <Link icon href='/docs/api/getting-started/overview'>
-              API
-            </Link>{' '}
-            ready to use.
-          </div>
-        ]
+        answer: (
+          <>
+            <div>
+              You can always run your own solution; Most of our software is{' '}
+              <Link href='/oss'>Open Source</Link>, so you can take them and
+              hosted from scratch.
+            </div>
+            <div>
+              What we offer as part of our value proposition is a production
+              ready solution without the headaches of running your own
+              infrastructure.
+            </div>
+            <div>
+              No code to maintain, no servers to scale up, no dependencies to
+              upgrade. Just an always ready{' '}
+              <Link href='/docs/api/getting-started/overview'>API</Link> ready
+              to use.
+            </div>
+          </>
+        )
       },
       {
         question: 'Other questions?',
-        answer: [
-          <div key='other-questions'>
-            We&#039;re always available at{' '}
-            <Link display='inline' href='mailto:hello@microlink.io'>
-              hello@microlink.io
-            </Link>
-            .
-          </div>
-        ]
+        answer: (
+          <>
+            <div>
+              We&#039;re always available at{' '}
+              <Link display='inline' href='mailto:hello@microlink.io'>
+                hello@microlink.io
+              </Link>
+              .
+            </div>
+          </>
+        )
       }
     ]}
     {...props}

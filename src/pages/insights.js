@@ -556,85 +556,90 @@ const ProductInformation = props => {
       questions={[
         {
           question: 'What is it?',
-          answer: [
-            <div key='what-is-it'>
-              <Text as='span' color='black' fontWeight='bold'>
-                Microlink for Insights
-              </Text>{' '}
-              gives you web performance metrics in a simple way using{' '}
-              <Link href='/docs/api/getting-started/overview'>
-                Microlink API
-              </Link>
-              .
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                <Text as='span' color='black' fontWeight='bold'>
+                  Microlink for Insights
+                </Text>{' '}
+                gives you web performance metrics in a simple way using{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                .
+              </div>
+            </>
+          )
         },
         {
           question: 'How does it work?',
-          answer: [
-            <div key='how-does-it-work-0'>
-              The report is created after passing{' '}
-              <Link href='/docs/api/parameters/insights'>insights</Link> query
-              parameter to{' '}
-              <Link href='/docs/api/getting-started/overview'>
-                Microlink API
-              </Link>
-              .
-            </div>,
-            <div key='how-does-it-work-1'>
-              For getting the report, we run{' '}
-              <Link
-                icon
-                href='https://developers.google.com/web/tools/lighthouse'
-              >
-                Lighthouse
-              </Link>{' '}
-              in our cloud browser servers, giving you the report obtained from
-              the target URL.
-            </div>,
-            <div key='how-does-it-work-2'>
-              Additionally, we can also detect the technology stack behind the
-              target URL, using{' '}
-              <Link icon href='https://www.wappalyzer.com/'>
-                Wappalyzer
-              </Link>{' '}
-              .
-            </div>,
-            <div key='how-does-it-work-3'>
-              The data obtained will be returned as part of the HTTP response
-              payload.
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                The report is created after passing{' '}
+                <Link href='/docs/api/parameters/insights'>insights</Link> query
+                parameter to{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                .
+              </div>
+              <div>
+                For getting the report, we run{' '}
+                <Link
+                  icon
+                  href='https://developers.google.com/web/tools/lighthouse'
+                >
+                  Lighthouse
+                </Link>{' '}
+                in our cloud browser servers, giving you the report obtained
+                from the target URL.
+              </div>
+              <div>
+                Additionally, we can also detect the technology stack behind the
+                target URL, using{' '}
+                <Link href='https://www.wappalyzer.com/'>Wappalyzer</Link> .
+              </div>
+              <div>
+                The data obtained will be returned as part of the HTTP response
+                payload.
+              </div>
+            </>
+          )
         },
         {
           question: 'Why not run my own solution?',
-          answer: [
-            <div key='why-not-run-my-own-solution-0'>
-              The service aims to avoid headaches, preventing you for running
-              and maintaining your own infrastructure.
-            </div>,
-            <div key='why-not-run-my-own-solution-1'>
-              Every URL on the Internet are different and browser are a complex
-              piece of software, with unpredictable resources usage.
-            </div>,
-            <div key='why-not-run-my-own-solution-2'>
-              The fact of resolve any URL at scale in{' '}
-              <Average size='tiny' value={healthcheck.insights.avg_pretty} />{' '}
-              isn&#039;t a trivial thing.
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                The service aims to avoid headaches, preventing you for running
+                and maintaining your own infrastructure.
+              </div>
+              <div>
+                Every URL on the Internet are different and browser are a
+                complex piece of software, with unpredictable resources usage.
+              </div>
+              <div>
+                The fact of resolve any URL at scale in{' '}
+                <Average size='tiny' value={healthcheck.insights.avg_pretty} />{' '}
+                isn&#039;t a trivial thing.
+              </div>
+            </>
+          )
         },
         {
           question: 'Other questions?',
-          answer: [
-            <div key='other-questions'>
-              We&#039;re always available at{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>
-              .
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                We&#039;re always available at{' '}
+                <Link display='inline' href='mailto:hello@microlink.io'>
+                  hello@microlink.io
+                </Link>
+                .
+              </div>
+            </>
+          )
         }
       ]}
       {...props}

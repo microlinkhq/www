@@ -14,21 +14,23 @@ storiesOf('Patterns', module).add('Faq', () => (
         questions={[
           {
             question: 'How does it work?',
-            answer: [
-              <div key='how-does-it-work-0'>
-                <Text as='span' fontWeight='bold' color='black'>
-                  Microlink for Screenshot
-                </Text>{' '}
-                takes any URL as an input and returns a screenshot back, hosted
-                at Microlink CDN.
-              </div>,
-              <div key='how-does-it-work-1'>
-                It supports most of the common browser interactions, like
-                clicks, wait for events, handle the scroll... but also some
-                extra things, like markup injection or overlay composition,
-                making it a more complete tool.
-              </div>
-            ]
+            answer: (
+              <>
+                <div>
+                  <Text as='span' fontWeight='bold' color='black'>
+                    Microlink for Screenshot
+                  </Text>{' '}
+                  takes any URL as an input and returns a screenshot back,
+                  hosted at Microlink CDN.
+                </div>
+                <div>
+                  It supports most of the common browser interactions, like
+                  clicks, wait for events, handle the scroll... but also some
+                  extra things, like markup injection or overlay composition,
+                  making it a more complete tool.
+                </div>
+              </>
+            )
           }
         ]}
       />

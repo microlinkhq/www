@@ -528,75 +528,86 @@ const ProductInformation = props => {
       questions={[
         {
           question: 'What is it?',
-          answer: [
-            <div key='what-is-it'>
-              <Text as='span' color='black' fontWeight='bold'>
-                Microlink for PDF
-              </Text>{' '}
-              is a simple way to generate a PDF from any website using{' '}
-              <Link href='/docs/api/getting-started/overview'>
-                Microlink API
-              </Link>
-              .
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                <Text as='span' color='black' fontWeight='bold'>
+                  Microlink for PDF
+                </Text>{' '}
+                is a simple way to generate a PDF from any website using{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                .
+              </div>
+            </>
+          )
         },
         {
           question: 'How does it work?',
-          answer: [
-            <div key='how-does-it-work-0'>
-              The PDF will be generated after passing{' '}
-              <Link href='/docs/api/parameters/pdf'>pdf</Link> query parameter
-              to{' '}
-              <Link href='/docs/api/getting-started/overview'>
-                Microlink API
-              </Link>
-              .
-            </div>,
-            <div key='how-does-it-work-1'>
-              For creating the file, a chromium browser will run on our own
-              servers, getting a PDF file as output. Servers run the browser on
-              top of optimized hardware to ensure the PDF is created as fast as
-              possible but also under security isolation condition, spawning a
-              new browser per every new request, meaning no browsers are shared
-              between requests.
-            </div>,
-            <div key='how-does-it-work-2'>
-              After that, the PDF file is uploaded into{' '}
-              <Link href='/blog/edge-cdn/'>Microlink CDN</Link> and served
-              across +140 edges nodes to ensure the best worldwide access time.
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                The PDF will be generated after passing{' '}
+                <Link href='/docs/api/parameters/pdf'>pdf</Link> query parameter
+                to{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                .
+              </div>
+              <div>
+                For creating the file, a chromium browser will run on our own
+                servers, getting a PDF file as output. Servers run the browser
+                on top of optimized hardware to ensure the PDF is created as
+                fast as possible but also under security isolation condition,
+                spawning a new browser per every new request, meaning no
+                browsers are shared between requests.
+              </div>
+              <div>
+                After that, the PDF file is uploaded into{' '}
+                <Link href='/blog/edge-cdn/'>Microlink CDN</Link> and served
+                across +140 edges nodes to ensure the best worldwide access
+                time.
+              </div>
+            </>
+          )
         },
         {
           question: 'Why not run my own solution?',
-          answer: [
-            <div key='why-not-run-my-own-solution-0'>
-              The service aims to avoid headaches, preventing you for running
-              and maintaining your own infrastructure.
-            </div>,
-            <div key='why-not-run-my-own-solution-1'>
-              Every URL on the Internet are different and browser are a complex
-              piece of software, with unpredictable resources usage.
-            </div>,
-            <div key='why-not-run-my-own-solution-2'>
-              The fact of resolve any URL at scale in{' '}
-              <Average size='tiny' value={healthcheck.pdf.avg_pretty} />{' '}
-              isn&#039;t a trivial thing.
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                The service aims to avoid headaches, preventing you for running
+                and maintaining your own infrastructure.
+              </div>
+              ,
+              <div>
+                Every URL on the Internet are different and browser are a
+                complex piece of software, with unpredictable resources usage.
+              </div>
+              ,
+              <div>
+                The fact of resolve any URL at scale in{' '}
+                <Average size='tiny' value={healthcheck.pdf.avg_pretty} />{' '}
+                isn&#039;t a trivial thing.
+              </div>
+            </>
+          )
         },
         {
           question: 'Other questions?',
-          answer: [
-            <div key='other-questions'>
-              We&#039;re always available at{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>
-              .
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                We&#039;re always available at{' '}
+                <Link display='inline' href='mailto:hello@microlink.io'>
+                  hello@microlink.io
+                </Link>
+                .
+              </div>
+            </>
+          )
         }
       ]}
       {...props}
