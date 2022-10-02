@@ -39,11 +39,13 @@ const Hero = props => {
 
   return (
     <Flex
+      as='article'
       id='hero'
       px={3}
       flexDirection='column'
       alignItems='center'
       justifyContent='center'
+      pt={[2, 2, 3, 3]}
       {...props}
     >
       <Heading fontSize={['48px', 6, 7, 7]} titleize={false}>
