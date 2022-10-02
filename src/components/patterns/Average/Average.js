@@ -42,7 +42,7 @@ const Average = ({ size, value }) => {
 
   return (
     <Highlight px={3}>
-      <Text as='span' fontSize={6}>
+      <Text as='span' fontSize={6} fontWeight='bold'>
         {prettyNumber(average)}
       </Text>
       <Caption
