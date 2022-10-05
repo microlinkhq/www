@@ -157,7 +157,7 @@ const FormatsPage = () => {
         alignItems='center'
       >
         <Heading px={5} maxWidth={layout.large}>
-          File format detection
+          Formats supported
         </Heading>
         <Caption
           pt={[3, 3, 4, 4]}
