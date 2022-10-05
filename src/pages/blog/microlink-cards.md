@@ -52,12 +52,9 @@ We didn't find an official [URL length limitation](https://stackoverflow.com/a/4
 In order to minimize the size of the URLs, we apply [lz-string](https://pieroxy.net/blog/pages/lz-string/index.html) compression algorithm.
 
 ```js
-import LZString from 'lz-string'
-
-export const marshall = value => LZString.compressToEncodedURIComponent(value)
-
-export const unmarshall = value =>
-  LZString.decompressFromEncodedURIComponent(value)
+import { compressToURI, decompressFromURI } from 'lz-ts'
+export const marshall = compressToURI
+export const unmarshall = decompressFromURI
 ```
 
 In this way, the output will be an ASCII string representing the original string encoded in Base64 in a URL friendly way, saving bandwidth and CPU in the process.

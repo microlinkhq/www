@@ -103,5 +103,5 @@ const fn = async () => {
 
 module.exports = () =>
   require('../create-provider').fromCode(fn, {
-    dist: path.resolve(__dirname, '../../../data/formats-supported.json')
+    dist: path.resolve(__dirname, '../../../data/file-formats.json')
   })

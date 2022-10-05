@@ -15,8 +15,8 @@ import {
   Text
 } from 'components/elements'
 
-import allFormats from '../../data/formats.json'
-const [{ score }, formats] = allFormats
+import fileFormats from '../../data/file-formats.json'
+const [{ score }, formats] = fileFormats
 
 const SPACE = {
   SHORT: '82px',
