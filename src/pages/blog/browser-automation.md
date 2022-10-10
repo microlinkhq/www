@@ -9,7 +9,7 @@ A web browser is one of the most complex pieces of software, with some internal 
 
 [Microlink API](/docs/api/getting-started/overview) is a service that provides a high-level API to control a browser instance in the simplest way possible, where the different features can be enabled or disabled using query parameters.
 
-When we started the service, just a few things could be done. **Now, we're supporting +30 query parameters**.
+When we started the service, just a few things could be done. **Now, we’re supporting +30 query parameters**.
 
 Just [url](/docs/api/parameters/url) is the only parameter that needs to be specified, but also any of the following query parameters:
 

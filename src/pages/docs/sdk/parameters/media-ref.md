@@ -19,7 +19,7 @@ const MyComponent = () => {
   return (
     <div>
       <Microlink
-        /* ...your props */
+        /* passing your props */
         mediaRef={mediaRef}
       />
 
@@ -58,7 +58,7 @@ const MyComponent = () => {
 
   return (
     <Microlink
-      /* ...your props */
+      /* passing your props */
       mediaRef={getMediaRef}
     />
   )

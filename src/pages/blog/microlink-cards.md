@@ -9,7 +9,7 @@ Even some [early adopters](https://microlink.us17.list-manage.com/subscribe/post
 
 During this time, **Microlink Cards** has been refined until reaching its final form, taking some engineering decisions under the hood.
 
-There are some decisions worth to mention, specially when you're building things at scale.
+There are some decisions worth to mention, specially when you’re building things at scale.
 
 ## The online editor
 

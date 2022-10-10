@@ -60,7 +60,7 @@ You can see how cached resources **always** have the lowest response time associ
 
 <Figcaption>WebP browser adoption.</Figcaption>
 
-[Microlink for Screenshot](/screenshot) is one of the most used product features these days: we're serving around 100K fresh screenshots every day, generated in an average of ~1.5 seconds.
+[Microlink for Screenshot](/screenshot) is one of the most used product features these days: we’re serving around 100K fresh screenshots every day, generated in an average of ~1.5 seconds.
 
 When you take a screenshot the image generated is hosted by us, additionally taking some special cache considerations into account.
 
