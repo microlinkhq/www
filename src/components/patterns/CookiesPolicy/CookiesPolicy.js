@@ -35,7 +35,7 @@ const CloseButton = styled(Box)`
   }
 `
 
-const CookiesPolicy = () => {
+const CookiesPolicy = props => {
   const [isHidden, setIsHidden] = useLocalStorage(LOCALSTORAGE_KEY, false)
   const [isClosed, setIsClosed] = useState(false)
   const ref = useRef(null)
@@ -45,14 +45,17 @@ const CookiesPolicy = () => {
     if (el) el.setAttribute('aria-hidden', isClosed || isHidden)
   }, [isClosed, isHidden])
 
+  if (isHidden) return
+
   return (
     <CookiesWrapper
+      role='dialog'
+      aria-modal='false'
+      aria-label='cookie banner'
       ref={ref}
       id='cookies-policy'
-      className='hidden-print'
-      aria-hidden='true'
       m={3}
-      css={isHidden && 'animation-duration: 0s !important;'}
+      {...props}
     >
       <Flex
         alignItems='center'

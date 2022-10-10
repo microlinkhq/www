@@ -7,7 +7,7 @@ export function Story ({ name, children, code, ...props }) {
       <Subhead fontSize={3} textAlign='left' titleize={false}>
         {`<${name} />`}
       </Subhead>
-      <Box pt={4} pb={4} pl={4} as='article' {...props}>
+      <Box pt={4} pb={4} pl={4} {...props}>
         <Box display={['block', 'inline']}>{children}</Box>
       </Box>
       {code && (

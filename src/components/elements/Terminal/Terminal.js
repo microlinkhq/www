@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from 'styled-components'
-import { serializeComponent, aspectRatio } from 'helpers'
+import { childrenTextAll, aspectRatio } from 'helpers'
 import { blink } from 'components/keyframes'
 import { wordBreak } from 'helpers/style'
 import React from 'react'
@@ -59,7 +59,7 @@ export const styleTerminalHeader = css`
   position: sticky;
 `
 
-const TerminalHeader = styled('header')`
+const TerminalHeader = styled('div')`
   ${styleTerminalHeader};
   height: 36px;
   top: 0;
@@ -232,7 +232,7 @@ const TerminalProvider = ({
 
 const Terminal = ({ children, shellSymbol, blinkCursor, ...props }) => {
   const content = typeof children === 'string' ? fromString(children) : children
-  const text = serializeComponent(children)
+  const text = childrenTextAll(children)
 
   return (
     <TerminalProvider text={text} {...props}>

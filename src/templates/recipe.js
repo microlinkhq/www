@@ -65,6 +65,7 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
           </Heading>
 
           <Caption
+            as='h2'
             titleize={false}
             pt={[3, 3, 3, 3]}
             px={[4, 4, 0, 0]}

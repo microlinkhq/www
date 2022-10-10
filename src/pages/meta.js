@@ -175,6 +175,7 @@ const LiveDemo = ({
       </Heading>
 
       <Caption
+        as='h2'
         pt={[3, 3, 4, 4]}
         px={[4, 4, 0, 0]}
         titleize={false}
@@ -192,7 +193,11 @@ const LiveDemo = ({
         <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/meta'>
           Get Started
         </ArrowLink>
-        <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
+        <ArrowLink
+          pt={[3, 0, 0, 0]}
+          href='https://github.com/microlinkhq/sdk'
+          icon={false}
+        >
           See on GitHub
         </ArrowLink>
       </Flex>
@@ -458,6 +463,7 @@ const Timings = () => {
 
 const Resume = props => (
   <Container
+    as='section'
     id='resume'
     alignItems='center'
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
@@ -534,7 +540,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
@@ -571,6 +576,7 @@ const Resume = props => (
 
 const ProductInformation = props => (
   <Faq
+    as='section'
     id='information'
     title='Product Information'
     caption='All the details you need to know about the product.'

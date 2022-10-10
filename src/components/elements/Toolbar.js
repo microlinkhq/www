@@ -13,8 +13,8 @@ const ToolbarBase = styled(Flex)({
 })
 
 ToolbarBase.defaultProps = {
+  as: 'nav',
   justifyContent: 'center',
-  as: 'header',
   color: 'black60',
   mx: 'auto',
   alignItems: 'center',

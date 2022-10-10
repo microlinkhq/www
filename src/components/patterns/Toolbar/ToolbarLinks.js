@@ -7,12 +7,12 @@ import NavLink from './NavLink'
 
 const { isInternalLink } = withLink
 
-const createNavItem = opts => {
+const createNavItem = ({ title, ...opts }) => {
   const isInternal = isInternalLink(opts.href)
 
   const linkProps = isInternal
-    ? { rel: 'prerender' }
-    : { rel: 'noopener noreferrer', target: '_blank' }
+    ? { rel: 'prerender', title }
+    : { rel: 'noopener noreferrer', target: '_blank', title }
 
   const NavItemWrapper = props =>
     createElement(NavLink, {
@@ -166,10 +166,12 @@ NavCompany.pages = ['/blog', '/oss', '/newsletter']
 
 export const NavGitHub = createNavItem({
   children: 'GitHub',
-  href: 'https://github.com/microlinkhq'
+  href: 'https://github.com/microlinkhq',
+  title: '@microlinkhq on GitHub'
 })
 
 export const NavTwitter = createNavItem({
   children: 'Twitter',
-  href: 'https://twitter.com/microlinkhq'
+  href: 'https://twitter.com/microlinkhq',
+  title: '@microlinkhq on Twitter'
 })

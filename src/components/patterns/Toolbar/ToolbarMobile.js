@@ -65,6 +65,7 @@ const ToolbarMobile = ({ theme }) => {
 
   return (
     <Fixed
+      as='header'
       zIndex={101}
       top={0}
       left={0}
@@ -74,7 +75,7 @@ const ToolbarMobile = ({ theme }) => {
       <Box ml='auto' mr='auto'>
         <Toolbar ml={3} mr={3} justifyContent='center'>
           <NavLogo mobile />
-          <Nav as='nav'>
+          <Nav>
             <NavSDK isDark={isDark} mobile />
             <NavMeta isDark={isDark} mobile />
             <NavScreenshot isDark={isDark} mobile />

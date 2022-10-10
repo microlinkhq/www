@@ -22,8 +22,8 @@ const MenuButton = styled('button')`
   background: transparent;
 `
 
-const AsideButton = ({ iconComponent, ...props }) => (
-  <MenuButton title='Toggle Menu' {...props}>
+const AsideButton = ({ title, iconComponent, ...props }) => (
+  <MenuButton aria-label={title} title={title} {...props}>
     {iconComponent}
   </MenuButton>
 )
@@ -44,6 +44,7 @@ const AsideMobile = ({ children, ...props }) => {
       <AsideBase
         CloseButton={
           <AsideButton
+            title='close aside menu'
             iconComponent={<CloseIcon size={ICON_SIZE} onClick={toggleOpen} />}
           />
         }
@@ -52,9 +53,10 @@ const AsideMobile = ({ children, ...props }) => {
         {...props}
       />
       <AsideButton
+        title='open aside menu'
         iconComponent={<MenuIcon size={ICON_SIZE} onClick={toggleOpen} />}
       />
-      <Flex flexDirection='column' as='article'>
+      <Flex flexDirection='column' as='section'>
         {children}
       </Flex>
     </Box>
@@ -68,7 +70,7 @@ const AsideDesktop = ({ children, ...props }) => {
       <Flex
         pl={`calc(${ASIDE_WIDTH} + 14px)`}
         flexDirection='column'
-        as='article'
+        as='section'
       >
         {children}
       </Flex>

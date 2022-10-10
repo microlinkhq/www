@@ -25,7 +25,7 @@ function LogoStories () {
         {states.map((state, index) => (
           <Flex
             mr={index + 1 === states.length ? 0 : 5}
-            as='article'
+            as='section'
             flexDirection='column'
             alignItems='baseline'
             key={state}

@@ -9,6 +9,7 @@ import Caption from '../Caption/Caption'
 const Features = ({ title, caption, features, ...props }) => {
   return (
     <Container
+      as='section'
       id='features'
       alignItems='center'
       maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}

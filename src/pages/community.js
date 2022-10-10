@@ -9,6 +9,7 @@ const CommunityPage = () => (
       <Heading>Community</Heading>
 
       <Caption
+        as='h2'
         pt={[3, 3, 4, 4]}
         px={4}
         titleize={false}

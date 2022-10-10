@@ -204,7 +204,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     : createElement(ImageIcon, { color: colors.black50, size: '16px' })
 
   return (
-    <Container alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Easy peasy screenshots
       </Heading>
@@ -228,6 +228,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         <ArrowLink
           pt={[3, 0, 0, 0]}
           href='https://github.com/microlinkhq/browserless'
+          icon={false}
         >
           See on GitHub
         </ArrowLink>
@@ -383,12 +384,7 @@ const Timings = props => {
   const healthcheck = useHealthcheck()
 
   const blockOne = (
-    <Flex
-      as='section'
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-    >
+    <Flex flexDirection='column' justifyContent='center' alignItems='center'>
       <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
         Send the URL
       </Subhead>
@@ -504,6 +500,7 @@ const Timings = props => {
 
 const Resume = props => (
   <Container
+    as='section'
     id='resume'
     alignItems='center'
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
@@ -553,7 +550,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       flexDirection='row-reverse'
       blockTwo={
         <Flex
@@ -595,7 +591,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
@@ -633,6 +628,7 @@ const ProductInformation = props => {
 
   return (
     <Faq
+      as='section'
       id='information'
       title='Product Information'
       caption='All the details you need to know about the product.'
@@ -748,7 +744,6 @@ const ScreenshotPage = () => {
                 data={data}
               />
               <Timings
-                pt={Container.defaultProps.pt}
                 pb={Container.defaultProps.pt}
                 css={`
                   /* https://www.gradientmagic.com/collection/radialstripes */

@@ -124,7 +124,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
   }
 
   return (
-    <Container alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         PDF made simple
       </Heading>
@@ -278,12 +278,7 @@ const Timings = props => {
   const healthcheck = useHealthcheck()
 
   const blockOne = (
-    <Flex
-      as='section'
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-    >
+    <Flex flexDirection='column' justifyContent='center' alignItems='center'>
       <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
         Speed as feature
       </Subhead>
@@ -387,6 +382,7 @@ const Timings = props => {
 
   return (
     <Block
+      as='section'
       id='timings'
       width='100%'
       flexDirection='column'
@@ -399,6 +395,7 @@ const Timings = props => {
 
 const Resume = props => (
   <Container
+    as='section'
     id='resume'
     alignItems='center'
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
@@ -447,7 +444,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       flexDirection='row-reverse'
       blockTwo={
         <Flex
@@ -483,7 +479,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
@@ -521,6 +516,7 @@ const ProductInformation = props => {
 
   return (
     <Faq
+      as='section'
       id='information'
       title='Product Information'
       caption='All the details you need to know about the product.'
@@ -634,7 +630,6 @@ const PdfPage = () => {
                 data={data}
               />
               <Timings
-                pt={Container.defaultProps.pt}
                 pb={Container.defaultProps.pt}
                 css={`
                   /* https://www.gradientmagic.com/collection/radialstripes */

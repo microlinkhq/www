@@ -21,8 +21,13 @@ import {
 
 const FREE_PLAN_RATE_LIMIT = 50
 
-const Requests = props => (
-  <Label display='inline' {...props}>
+const Requests = ({ suffix, ...props }) => (
+  <Label
+    display='inline'
+    aria-label={`requests per ${suffix}`}
+    suffix={`/${suffix}`}
+    {...props}
+  >
     requests
   </Label>
 )
@@ -110,7 +115,6 @@ export const createPricingTable = Checkout => {
     return (
       <Flex
         flexDirection={['column', 'column', 'row', 'row']}
-        as='section'
         ml='auto'
         mr='auto'
         px={[0, 0, 4, 4]}
@@ -122,7 +126,7 @@ export const createPricingTable = Checkout => {
 
           <Box pt={4}>
             <Text>
-              {FREE_PLAN_RATE_LIMIT} <Requests suffix='/day' />
+              {FREE_PLAN_RATE_LIMIT} <Requests suffix='day' />
             </Text>
             <Box pt={4}>
               <PriceMonthly>0</PriceMonthly>
@@ -168,8 +172,7 @@ export const createPricingTable = Checkout => {
 
               <Box pt={4}>
                 <Text>
-                  <PricePicker onChange={setPlan} />{' '}
-                  <Requests suffix='/month' />
+                  <PricePicker onChange={setPlan} /> <Requests suffix='month' />
                 </Text>
                 <Box pt='26px'>
                   <Text fontSize={0}>

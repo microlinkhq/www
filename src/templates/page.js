@@ -17,15 +17,11 @@ const PageTemplate = ({ isBlogPage, date, meta, content }) => (
         ml='auto'
         mr='auto'
       >
-        <H1 textAlign='center' mt={0}>
-          <PostTitle css={textGradient}>{meta.title}</PostTitle>
+        <H1 textAlign='center' mt={0} css={textGradient}>
+          <PostTitle>{meta.title}</PostTitle>
         </H1>
         {isBlogPage && (
-          <Caption
-            fontWeight='regular'
-            color='black60'
-            textAlign={['center', 'inherit']}
-          >
+          <Caption as='h2' color='black60' textAlign={['center', 'inherit']}>
             {formatDate(date)} (<TimeAgo date={date} />)
           </Caption>
         )}

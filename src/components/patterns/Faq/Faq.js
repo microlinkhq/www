@@ -1,5 +1,6 @@
 import React from 'react'
 import { Subhead, Text, Box, Container, Flex } from 'components/elements'
+import { slug as slugger } from 'github-slugger'
 import { Caption } from 'components/patterns'
 import { withSlug } from 'helpers/hoc'
 import { layout } from 'theme'
@@ -33,7 +34,6 @@ const Faq = ({ title, caption, questions, ...props }) => {
       </Flex>
 
       <Flex
-        as='section'
         justifyContent='center'
         flexDirection='column'
         alignItems='center'
@@ -44,11 +44,11 @@ const Faq = ({ title, caption, questions, ...props }) => {
             return (
               <Text px={4} maxWidth={layout.small} key={question}>
                 <Question index={index}>{question}</Question>
-                {[].concat(answer.props.children).map((paraph, index) => (
+                {React.Children.map(answer.props.children, (paraph, index) => (
                   <Text
                     pr={[3, 0, 0, 0]}
                     pt={[3, 4, 4, 4]}
-                    key={`${question}${index}`}
+                    key={`${slugger(question)}-${index}`}
                     color='black80'
                   >
                     {paraph}

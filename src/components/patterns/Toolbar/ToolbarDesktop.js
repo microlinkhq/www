@@ -80,6 +80,7 @@ const ToolbarDesktop = ({ theme }) => {
 
   return (
     <Fixed
+      as='header'
       zIndex={101}
       top={0}
       left={0}
@@ -99,7 +100,7 @@ const ToolbarDesktop = ({ theme }) => {
           <NavContainer as='span'>
             <NavLogo p={1} />
           </NavContainer>
-          <NavContainer as='nav'>
+          <NavContainer>
             <Flex
               as='ul'
               alignItems='center'

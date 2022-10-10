@@ -4,12 +4,13 @@ import { fadeIn } from 'components/keyframes'
 import { layout } from 'theme'
 
 import {
+  Box,
+  Container,
+  Flex,
+  Heading,
   Hide,
   Link,
-  Flex,
-  Subhead,
-  Container,
-  Heading
+  Subhead
 } from 'components/elements'
 
 const SENTENCES = [
@@ -39,7 +40,7 @@ const Hero = props => {
 
   return (
     <Flex
-      as='article'
+      as='section'
       id='hero'
       px={3}
       flexDirection='column'
@@ -86,6 +87,7 @@ const Hero = props => {
         </Link>
       </Hide>
       <Caption
+        as='h2'
         pb={[4, 4, 5, 5]}
         px={[4, 4, 0, 0]}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}

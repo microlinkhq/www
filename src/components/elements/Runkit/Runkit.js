@@ -20,7 +20,7 @@ const Runkit = ({
     throw new Error('Runkit placeholder must to have an id.')
   }
 
-  const selector = `#${placeholderComponent.props.id} > div`
+  const selector = `#${placeholderComponent.props.id} > div:nth-child(2)`
   const [notebook, setNotebook] = useState(null)
 
   const createNotebook = () => {

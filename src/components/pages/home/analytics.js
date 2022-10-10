@@ -83,6 +83,7 @@ const Analytics = ({ color, ...props }) => {
 
   return (
     <Block
+      as='section'
       id='analytics'
       flexDirection='column'
       blockOne={blockOne}

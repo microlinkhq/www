@@ -1,9 +1,11 @@
-import serializeComponent from './serialize-component'
 import isFastConnection from './is-fast-connection'
+import childrenTextAll from './children-text-all'
 import screenshotUrl from './screenshot-url'
 import urlVariations from './url-variations'
 import formatNumber from './format-number'
+import childrenText from './children-text'
 import aspectRatio from './aspect-ratio'
+import hasChildren from './has-children'
 import formatDate from './format-date'
 import proxyImage from './proxy-image'
 import getLines from './get-lines'
@@ -20,9 +22,12 @@ import noop from './noop'
 export {
   aspectRatio,
   cdnUrl,
+  childrenText,
+  childrenTextAll,
   formatDate,
   formatNumber,
   getLines,
+  hasChildren,
   hash,
   isFastConnection,
   isSSR,
@@ -32,7 +37,6 @@ export {
   prettier,
   proxyImage,
   screenshotUrl,
-  serializeComponent,
   template,
   title,
   urlVariations

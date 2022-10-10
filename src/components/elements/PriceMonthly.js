@@ -1,3 +1,4 @@
+import { childrenText } from 'helpers'
 import styled from 'styled-components'
 import React from 'react'
 
@@ -19,6 +20,14 @@ Price.defaultProps = {
   fontSize: [1, 2, 2, 2]
 }
 
-const PriceMonthly = props => <Price suffix='/month' {...props} />
+const PriceMonthly = props => {
+  return (
+    <Price
+      aria-label={`${childrenText(props.children)} euros per month`}
+      suffix='/month'
+      {...props}
+    />
+  )
+}
 
 export default PriceMonthly

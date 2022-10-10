@@ -105,6 +105,7 @@ const Aside = ({
     <AsideWrapper
       as='aside'
       data-aside
+      aria-hidden={!isOpen}
       pt={[0, 0, 0, 5]}
       pr={[0, 0, 0, '14px']}
       isOpen={isOpen}

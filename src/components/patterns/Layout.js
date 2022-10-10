@@ -57,10 +57,11 @@ const Layout = ({
               `}
             >
               <Head location={location} {...props} />
-              <Toolbar theme={theme} style={style} />
+              <Toolbar as='header' theme={theme} style={style} />
               {createElement(
                 component,
                 {
+                  as: 'main',
                   justifyContent,
                   alignItems,
                   display,
@@ -71,10 +72,10 @@ const Layout = ({
                 children
               )}
               <Hide breakpoints={[0]}>
-                <CookiesPolicy />
+                <CookiesPolicy className='hidden-print' />
               </Hide>
               {footer && (
-                <Box className='hidden-print'>
+                <Box as='footer' className='hidden-print'>
                   <Footer theme={theme} {...footer} />
                 </Box>
               )}
