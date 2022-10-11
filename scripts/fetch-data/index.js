@@ -19,5 +19,5 @@ const fetch = async () =>
   )
 
 fetch()
-  .then(() => process.exit(0))
+  .then(() => console.log() && process.exit(0))
   .catch(err => console.error(beautyError(err)) && process.exit(1))
