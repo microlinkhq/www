@@ -1,22 +1,21 @@
 'use strict'
 
 const { identity, castArray, isEmpty } = require('lodash')
+const { readFile, writeFile } = require('fs/promises')
 const jsonFuture = require('json-future')
-const fs = require('fs/promises')
 const got = require('got')
 
 const exists = async filepath => {
   try {
-    return (await fs.readFile(filepath)).byteLength !== 0
+    return (await readFile(filepath)).byteLength !== 0
   } catch (_) {
     return false
   }
 }
 
 const fetchData = async url => {
-  const { headers, body } = await got(url)
+  const { headers, body } = await got(url, { responseType: 'buffer' })
   if (isEmpty(body)) throw new Error('DATA_NOT_FOUND')
-
   const contentType = headers['content-type']
   const isJSON = contentType.includes('application/json')
   const data = isJSON ? JSON.parse(body) : body
@@ -29,7 +28,7 @@ module.exports.fromUrl = async (url, { dist, mapper = identity }) => {
   const { data, isJSON } = await fetchData(url)
   return isJSON
     ? jsonFuture.saveAsync(dist, castArray(mapper(data)))
-    : fs.writeFile(dist, data)
+    : writeFile(dist, data)
 }
 
 module.exports.fromCode = async (fn, { dist }) =>

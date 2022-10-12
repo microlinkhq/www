@@ -1,7 +1,7 @@
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
-import React, { createElement, useMemo, useEffect, useState } from 'react'
-import { borders, breakpoints, speed, layout, colors } from 'theme'
-import { useTransition, animated } from 'react-spring'
+import React, { createElement, useMemo, useState } from 'react'
+import { borders, breakpoints, layout, colors } from 'theme'
+import { useTransition, animated } from '@react-spring/web'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
@@ -15,11 +15,11 @@ import isColor from 'is-color'
 import get from 'dlv'
 
 import {
-  Choose,
   Box,
   Button,
   Caps,
   Card,
+  Choose,
   CodeEditor,
   Container,
   Flex,
@@ -53,7 +53,6 @@ import {
 
 import demoLinks from '../../data/demo-links'
 
-const INTERVAL = 3500
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const getMs = str => str.replace(/ms|s/, '')
@@ -69,60 +68,73 @@ const ColorPreview = ({ color }) => (
   />
 )
 
-const DemoSlider = ({ children: slides, ...props }) => {
-  const [index, setIndex] = useState(0)
-
-  const transition = useTransition(slides[index], {
-    keys: item => item.id,
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: { duration: speed.normal }
-  })
-
-  const animatedImage = transition((style, item) => (
-    <AnimatedImage
-      alt={`${item.id} screenshot`}
-      width='100%'
-      style={style}
-      src={item.cdnUrl}
-    />
-  ))
-
-  useEffect(() => {
-    const interval = setInterval(
-      () => setIndex(state => (state + 1) % slides.length),
-      INTERVAL
-    )
-    return () => clearInterval(interval)
-  }, [slides.length])
-
-  return (
-    <Flex style={{ position: 'relative' }} {...props}>
-      {animatedImage}
-    </Flex>
-  )
-}
-
-/* eslint-disable */
-class ImageWithRef extends React.Component {
-  render () {
-    return <Image {...this.props} />
-  }
-}
-/* eslint-enable */
-
-const AnimatedImage = animated(styled(ImageWithRef)`
+const AnimatedImage = styled(animated.img)`
+  width: 100%;
   position: absolute;
   top: 0px;
   left: 0px;
-`)
+`
+
+const INTERVAL = 1500
+
+const SUGGESTIONS = [
+  { theme: 'dark', id: 'apple' },
+  { theme: 'light', id: 'mdn' },
+  { theme: 'light', id: 'stackoverflow' },
+  { theme: 'light', id: 'producthunt' },
+  { theme: 'dark', id: 'nasa' }
+].map(({ theme, id }) => {
+  const filename = `${id}.png`
+  const { url } = demoLinks.find(item => item.id === id).data
+
+  return {
+    cdnUrl: cdnUrl(`screenshot/browser/${theme}/${filename}`),
+    filename,
+    id,
+    url,
+    value: humanizeUrl(url)
+  }
+})
+
+const DemoSlider = ({ children: slides, ...props }) => {
+  const [index, setIndex] = useState(0)
+  const next = index => ++index % slides.length
+
+  const transitions = useTransition(index, {
+    key: index,
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: INTERVAL, mass: 1, tension: 120, friction: 14 },
+    onRest: (_a, _b, item) => {
+      if (index === item) setTimeout(() => setIndex(next), 1500)
+    }
+  })
+
+  return (
+    <Flex style={{ position: 'relative' }} {...props}>
+      {transitions((style, index) => {
+        const url = slides[index].cdnUrl
+        const src = url
+        return (
+          <AnimatedImage
+            key={src}
+            decoding='async'
+            style={style}
+            src={src}
+            alt={`${slides[index].id} screenshot`}
+          />
+        )
+      })}
+    </Flex>
+  )
+}
 
 const Screenshot = ({ domain, data, cardWidth, cardHeight, ...props }) => {
   const imageUrl = get(data, 'screenshot.url')
 
   return (
-    <Link px={3} href={imageUrl}>
+    <Link px={3} href={imageUrl} icon={false}>
       <Image
         alt={`${domain} screenshot`}
         pl={0}
@@ -360,25 +372,6 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     </Container>
   )
 }
-
-const SUGGESTIONS = [
-  { theme: 'dark', id: 'apple' },
-  { theme: 'light', id: 'mdn' },
-  { theme: 'light', id: 'stackoverflow' },
-  { theme: 'light', id: 'producthunt' },
-  { theme: 'dark', id: 'nasa' }
-].map(({ theme, id }) => {
-  const filename = `${id}.png`
-  const { url } = demoLinks.find(item => item.id === id).data
-
-  return {
-    cdnUrl: cdnUrl(`screenshot/browser/${theme}/${filename}`),
-    filename,
-    id,
-    url,
-    value: humanizeUrl(url)
-  }
-})
 
 const Timings = props => {
   const healthcheck = useHealthcheck()
