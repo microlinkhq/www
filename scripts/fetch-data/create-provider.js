@@ -5,7 +5,7 @@ const { readFile, writeFile } = require('fs/promises')
 const jsonFuture = require('json-future')
 const got = require('got')
 
-const exists = async filepath => {
+const existsFile = async filepath => {
   try {
     return (await readFile(filepath)).byteLength !== 0
   } catch (_) {
@@ -24,7 +24,7 @@ const fetchData = async url => {
 }
 
 module.exports.fromUrl = async (url, { dist, mapper = identity }) => {
-  if (await exists(dist)) return
+  if (await existsFile(dist)) return
   const { data, isJSON } = await fetchData(url)
   return isJSON
     ? jsonFuture.saveAsync(dist, castArray(mapper(data)))
@@ -32,4 +32,4 @@ module.exports.fromUrl = async (url, { dist, mapper = identity }) => {
 }
 
 module.exports.fromCode = async (fn, { dist }) =>
-  !(await exists(dist)) && jsonFuture.saveAsync(dist, castArray(await fn()))
+  !(await existsFile(dist)) && jsonFuture.saveAsync(dist, castArray(await fn()))

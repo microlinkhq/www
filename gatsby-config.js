@@ -15,9 +15,6 @@ const {
 
 module.exports = {
   trailingSlash: 'never',
-  flags: {
-    FAST_DEV: true
-  },
   siteMetadata: {
     // Basic
     name: 'Microlink',

@@ -4,7 +4,6 @@ import { fadeIn } from 'components/keyframes'
 import { layout } from 'theme'
 
 import {
-  Box,
   Container,
   Flex,
   Heading,

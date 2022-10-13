@@ -1,4 +1,4 @@
-import { Box, Subhead, Container } from 'components/elements'
+import { Subhead, Container } from 'components/elements'
 import { Caption, PricingTable } from 'components/patterns'
 import { fontSizes, layout } from 'theme'
 import React from 'react'

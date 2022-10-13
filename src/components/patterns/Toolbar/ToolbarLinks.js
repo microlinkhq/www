@@ -85,6 +85,12 @@ export const NavInsights = createNavItem({
   actively: 'partial'
 })
 
+export const NavFormatsSupported = createNavItem({
+  children: 'Formats Supported',
+  href: '/formats-supported',
+  actively: 'partial'
+})
+
 export const NavScreenshot = createNavItem({
   children: 'Screenshot',
   href: '/screenshot',
