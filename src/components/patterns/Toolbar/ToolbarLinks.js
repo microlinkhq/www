@@ -87,7 +87,7 @@ export const NavInsights = createNavItem({
 
 export const NavFormats = createNavItem({
   children: 'Formats',
-  href: '/formats-supported',
+  href: '/formats',
   actively: 'partial'
 })
 
