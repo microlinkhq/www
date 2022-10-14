@@ -15,7 +15,7 @@ import {
   Text
 } from 'components/elements'
 
-import fileFormats from '../../data/file-formats.json'
+import fileFormats from '../../data/formats'
 const [{ score }, formats] = fileFormats
 
 const SPACE = {
@@ -157,7 +157,7 @@ const FormatsPage = () => {
         alignItems='center'
       >
         <Heading px={5} maxWidth={layout.large}>
-          Formats supported
+          Supported formats
         </Heading>
         <Caption
           pt={[3, 3, 4, 4]}
