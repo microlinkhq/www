@@ -17,7 +17,7 @@ import {
   NavDocs,
   NavGitHub,
   NavInsights,
-  NavFormatsSupported,
+  NavFormats,
   NavLogo,
   NavMeta,
   NavNewsletter,
@@ -145,7 +145,7 @@ const ToolbarDesktop = ({ theme }) => {
               <NavPdf isDark={isDark} fontSize='12px' />
               <NavScreenshot isDark={isDark} fontSize='12px' />
               <NavInsights isDark={isDark} fontSize='12px' />
-              <NavFormatsSupported isDark={isDark} fontSize='12px' />
+              <NavFormats isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'developers'}>

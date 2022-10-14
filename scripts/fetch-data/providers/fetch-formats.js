@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('debug-logfmt')('data:providers:formats-supported')
+const debug = require('debug-logfmt')('data:providers:formats')
 const mql = require('@microlink/mql')
 const { sortBy } = require('lodash')
 const { getType } = require('mime')
@@ -103,5 +103,5 @@ const fn = async () => {
 
 module.exports = () =>
   require('../create-provider').fromCode(fn, {
-    dist: path.resolve(__dirname, '../../../data/file-formats.json')
+    dist: path.resolve(__dirname, '../../../data/formats.json')
   })
