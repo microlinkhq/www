@@ -1,6 +1,6 @@
 import { Container, Heading, Box } from 'components/elements'
 import { Caption, Layout } from 'components/patterns'
-import Markdown, { H2 } from 'components/markdown'
+import Markdown, { H1 } from 'components/markdown'
 import { useChangelog } from 'components/hook'
 import { layout } from 'theme'
 import React from 'react'
@@ -13,6 +13,7 @@ const ChangelogPage = () => {
       <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
         <Heading maxWidth={layout.large}>Changelog</Heading>
         <Caption
+          as='h2'
           pt={[3, 3, 4, 4]}
           mb={['-16px', '-16px', '-32px', '-32px']}
           px={[4, 4, 0, 0]}
@@ -26,7 +27,7 @@ const ChangelogPage = () => {
           {changelog.map(({ date, notes }) => {
             return (
               <Box key={date}>
-                <H2>{date}</H2>
+                <H1 as='h3'>{date}</H1>
                 <Markdown>{notes.map(note => `- ${note}`).join('\n')}</Markdown>
               </Box>
             )

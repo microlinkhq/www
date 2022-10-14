@@ -1,10 +1,10 @@
 import { textGradient, layout, borders, transition } from 'theme'
-import { Link, Subhead, Flex } from 'components/elements'
+import { Heading, Link, Flex } from 'components/elements'
 import { Layout, Caption } from 'components/patterns'
 import { PostTitle } from 'components/pages/blog'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
-import { H2 } from 'components/markdown'
+import { H1 } from 'components/markdown'
 import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import is from 'styled-is'
@@ -30,12 +30,12 @@ const CustomFlex = styled(Flex)`
 const CustomLink = styled(Link)`
   cursor: pointer;
 
-  h2 {
-    transition: background-image ${transition.medium};
+  h3 {
+    color: black;
   }
 
   &:hover {
-    h2 {
+    h3 {
       ${textGradient};
     }
   }
@@ -43,33 +43,28 @@ const CustomLink = styled(Link)`
 
 const BlogPost = ({ title, date, slug, isLastPost }) => {
   return (
-    <CustomLink color='black' href={slug} width='100%'>
+    <CustomLink href={slug} width='100%'>
       <CustomFlex
-        as='section'
         py={4}
         alignItems='center'
         flexDirection='column'
         borderTop
         borderBottom={isLastPost}
       >
-        <H2
+        <H1
+          as='h3'
           mt={0}
           key={title}
           titleize={false}
-          fontSize={4}
           px={5}
           slug={false}
           textAlign='center'
           maxWidth={[layout.small, layout.normal, layout.normal, layout.normal]}
         >
           <PostTitle>{title}</PostTitle>
-        </H2>
+        </H1>
 
-        <Caption
-          fontWeight='normal'
-          color='black60'
-          textAlign={['center', 'inherit']}
-        >
+        <Caption as='h4' color='black60' textAlign={['center', 'inherit']}>
           {formatDate(date)} (<TimeAgo date={date} />)
         </Caption>
       </CustomFlex>
@@ -82,10 +77,20 @@ const PageBlog = () => {
 
   return (
     <Layout>
-      <Flex justifyContent='center'>
-        <Subhead pt={[2, 2, 3, 3]} css={textGradient}>
-          Blog
-        </Subhead>
+      <Flex pt={[2, 2, 3, 3]} justifyContent='center'>
+        <Flex flexDirection='column' align-items='center'>
+          <Heading maxWidth={layout.large}>Blog</Heading>
+          <Caption
+            as='h2'
+            pt={[3, 3, 4, 4]}
+            mb={['-16px', '-16px', '-32px', '-32px']}
+            px={[4, 4, 0, 0]}
+            titleize={false}
+            maxWidth={layout.small}
+          >
+            Engineering details through Microlink.
+          </Caption>
+        </Flex>
       </Flex>
       <Flex pt={[4, 4, 5, 5]} flexDirection='column' alignItems='center'>
         {posts.map((post, index) => (

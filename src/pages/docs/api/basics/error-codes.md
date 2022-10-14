@@ -178,7 +178,7 @@ Your daily rate limit has been reached. You need to wait or extend your plan.
 
 **Solution**
 
-You need to extend your [rate limit](/docs/api/basics/rate-limit/) quota or wait until you're quota reset.
+You need to extend your [rate limit](/docs/api/basics/rate-limit/) quota or wait until you’re quota reset.
 
 ## ETIMEOUT
 

@@ -16,7 +16,7 @@ Since it doesn't include the peer dependencies, you'll need to install those too
 npm install react react-dom styled-components --save
 ```
 
-After that, you're ready to import the Microlink SDK into your Vue project, either globally or on-demand.
+After that, you’re ready to import the Microlink SDK into your Vue project, either globally or on-demand.
 
 #### Globally
 

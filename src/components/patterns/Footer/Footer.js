@@ -47,7 +47,6 @@ const Footer = ({ theme, ...props }) => {
   return (
     <Container px={0} maxWidth={layout.large} pb={Container.defaultProps.pt}>
       <Flex
-        as='footer'
         bg={bg}
         flexDirection={['column', 'column', 'column', 'row']}
         justifyContent='space-between'
@@ -286,15 +285,18 @@ const Footer = ({ theme, ...props }) => {
               {[
                 {
                   href: 'https://github.com/microlinkhq',
-                  children: 'GitHub'
+                  children: 'GitHub',
+                  title: '@microlinkhq on GitHub'
                 },
                 {
                   href: 'https://twitter.com/microlinkhq',
-                  children: 'Twitter'
+                  children: 'Twitter',
+                  title: '@microlinkhq on Twitter'
                 },
                 {
                   href: 'mailto:hello@microlink.io',
-                  children: 'Email'
+                  children: 'Email',
+                  title: 'hello@microlink.io'
                 }
               ].map((props, index) => (
                 <LinkSolid

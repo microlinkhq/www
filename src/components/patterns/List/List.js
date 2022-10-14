@@ -1,5 +1,5 @@
-import { Flex, Text } from 'components/elements'
 import { XCircle, CheckCircle } from 'react-feather'
+import { Flex, Text } from 'components/elements'
 import { cx } from 'theme'
 import React from 'react'
 

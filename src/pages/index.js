@@ -17,7 +17,6 @@ const HomePage = () => {
     <Layout>
       <Hero />
       <Analytics
-        pt={Container.defaultProps.pt}
         pb={Container.defaultProps.pt}
         color='white80'
         bg='black'

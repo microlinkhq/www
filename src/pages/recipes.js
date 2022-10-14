@@ -74,6 +74,7 @@ const RecipesPage = () => {
               Recipes
             </Heading>
             <Caption
+              as='h2'
               pt={[3, 3, 4, 4]}
               pb={[3, 3, 4, 4]}
               px={[4, 4, 0, 0]}

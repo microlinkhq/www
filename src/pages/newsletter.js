@@ -50,8 +50,6 @@ const NewsletterPage = () => (
                   data-event-category='Footer'
                   data-event-action='Be Notified'
                   ml={2}
-                  bg='black'
-                  color='white'
                 >
                   <Caps fontSize={0}>Be Notified</Caps>
                 </Button>

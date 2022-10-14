@@ -3,9 +3,8 @@
 const path = require('path')
 
 module.exports = () =>
-  require('../create-provider')({
+  require('../create-provider').fromUrl('https://oss.microlink.io', {
     dist: path.resolve(__dirname, '../../../data/oss.json'),
-    url: 'https://oss.microlink.io',
     mapper: data =>
       data
         .map(item => {

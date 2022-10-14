@@ -135,7 +135,7 @@ const LiveDemo = ({
   ].filter(Boolean)
 
   return (
-    <Container alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Embed any content
       </Heading>
@@ -281,6 +281,7 @@ const LiveDemo = ({
 const Integrations = () => {
   return (
     <Container
+      as='section'
       id='integrations'
       flexDirection='column'
       justifyContent='center'

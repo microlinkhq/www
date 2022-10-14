@@ -179,7 +179,7 @@ const LiveDemo = ({
     : undefined
 
   return (
-    <Container alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Automate web performance
       </Heading>
@@ -189,9 +189,9 @@ const LiveDemo = ({
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Track site speed and website quality over time – Get performance
-        insights powered by{' '}
-        <Link icon href='https://developers.google.com/web/tools/lighthouse'>
+        Track site speed & website quality over time – Get performance insights
+        powered by{' '}
+        <Link href='https://developers.google.com/web/tools/lighthouse'>
           Lighthouse
         </Link>
         .
@@ -295,12 +295,7 @@ const Timings = props => {
   const healthcheck = useHealthcheck()
 
   const blockOne = (
-    <Flex
-      as='section'
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-    >
+    <Flex flexDirection='column' justifyContent='center' alignItems='center'>
       <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
         Measure globally
       </Subhead>
@@ -404,6 +399,7 @@ const Timings = props => {
 
   return (
     <Block
+      as='section'
       id='timings'
       width='100%'
       flexDirection='column'
@@ -416,6 +412,7 @@ const Timings = props => {
 
 const Resume = props => (
   <Container
+    as='section'
     id='resume'
     alignItems='center'
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
@@ -472,7 +469,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       flexDirection='row-reverse'
       blockTwo={
         <Flex
@@ -503,7 +499,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
@@ -526,7 +521,7 @@ const Resume = props => (
             textAlign={['center', 'center', 'center', 'inherit']}
           >
             Connect it with{' '}
-            <Link icon href='https://lighthouse.microlink.io'>
+            <Link href='https://lighthouse.microlink.io'>
               Lighthouse Viewer
             </Link>{' '}
             or{' '}
@@ -549,6 +544,7 @@ const ProductInformation = props => {
 
   return (
     <Faq
+      as='section'
       id='information'
       title='Product Information'
       caption='All the details you need to know about the product.'
@@ -556,85 +552,90 @@ const ProductInformation = props => {
       questions={[
         {
           question: 'What is it?',
-          answer: [
-            <div key='what-is-it'>
-              <Text as='span' color='black' fontWeight='bold'>
-                Microlink for Insights
-              </Text>{' '}
-              gives you web performance metrics in a simple way using{' '}
-              <Link href='/docs/api/getting-started/overview'>
-                Microlink API
-              </Link>
-              .
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                <Text as='span' color='black' fontWeight='bold'>
+                  Microlink for Insights
+                </Text>{' '}
+                gives you web performance metrics in a simple way using{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                .
+              </div>
+            </>
+          )
         },
         {
           question: 'How does it work?',
-          answer: [
-            <div key='how-does-it-work-0'>
-              The report is created after passing{' '}
-              <Link href='/docs/api/parameters/insights'>insights</Link> query
-              parameter to{' '}
-              <Link href='/docs/api/getting-started/overview'>
-                Microlink API
-              </Link>
-              .
-            </div>,
-            <div key='how-does-it-work-1'>
-              For getting the report, we run{' '}
-              <Link
-                icon
-                href='https://developers.google.com/web/tools/lighthouse'
-              >
-                Lighthouse
-              </Link>{' '}
-              in our cloud browser servers, giving you the report obtained from
-              the target URL.
-            </div>,
-            <div key='how-does-it-work-2'>
-              Additionally, we can also detect the technology stack behind the
-              target URL, using{' '}
-              <Link icon href='https://www.wappalyzer.com/'>
-                Wappalyzer
-              </Link>{' '}
-              .
-            </div>,
-            <div key='how-does-it-work-3'>
-              The data obtained will be returned as part of the HTTP response
-              payload.
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                The report is created after passing{' '}
+                <Link href='/docs/api/parameters/insights'>insights</Link> query
+                parameter to{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                .
+              </div>
+              <div>
+                For getting the report, we run{' '}
+                <Link
+                  icon
+                  href='https://developers.google.com/web/tools/lighthouse'
+                >
+                  Lighthouse
+                </Link>{' '}
+                in our cloud browser servers, giving you the report obtained
+                from the target URL.
+              </div>
+              <div>
+                Additionally, we can also detect the technology stack behind the
+                target URL, using{' '}
+                <Link href='https://www.wappalyzer.com/'>Wappalyzer</Link> .
+              </div>
+              <div>
+                The data obtained will be returned as part of the HTTP response
+                payload.
+              </div>
+            </>
+          )
         },
         {
           question: 'Why not run my own solution?',
-          answer: [
-            <div key='why-not-run-my-own-solution-0'>
-              The service aims to avoid headaches, preventing you for running
-              and maintaining your own infrastructure.
-            </div>,
-            <div key='why-not-run-my-own-solution-1'>
-              Every URL on the Internet are different and browser are a complex
-              piece of software, with unpredictable resources usage.
-            </div>,
-            <div key='why-not-run-my-own-solution-2'>
-              The fact of resolve any URL at scale in{' '}
-              <Average size='tiny' value={healthcheck.insights.avg_pretty} />{' '}
-              isn&#039;t a trivial thing.
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                The service aims to avoid headaches, preventing you for running
+                and maintaining your own infrastructure.
+              </div>
+              <div>
+                Every URL on the Internet are different and browser are a
+                complex piece of software, with unpredictable resources usage.
+              </div>
+              <div>
+                The fact of resolve any URL at scale in{' '}
+                <Average size='tiny' value={healthcheck.insights.avg_pretty} />{' '}
+                isn&#039;t a trivial thing.
+              </div>
+            </>
+          )
         },
         {
           question: 'Other questions?',
-          answer: [
-            <div key='other-questions'>
-              We&#039;re always available at{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>
-              .
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                We&#039;re always available at{' '}
+                <Link display='inline' href='mailto:hello@microlink.io'>
+                  hello@microlink.io
+                </Link>
+                .
+              </div>
+            </>
+          )
         }
       ]}
       {...props}
@@ -661,7 +662,6 @@ const InsightsPage = () => {
                 response={response}
               />
               <Timings
-                pt={Container.defaultProps.pt}
                 pb={Container.defaultProps.pt}
                 css={`
                   /* https://www.gradientmagic.com/collection/radialstripes */

@@ -24,6 +24,7 @@ const OssPage = () => {
           </Heading>
 
           <Caption
+            as='h2'
             pt={[3, 3, 4, 4]}
             px={[4, 4, 0, 0]}
             titleize={false}
@@ -41,8 +42,9 @@ const OssPage = () => {
           >
             {repos.map(({ name, description, stars, issues, url }) => (
               <Box key={name} mb={3} borderBottom={1} borderColor='black05'>
-                <Link color='black' href={url}>
+                <Link color='black' href={url} icon={false}>
                   <Text
+                    as='h3'
                     fontWeight='bold'
                     mr={3}
                     display='inline-block'

@@ -17,7 +17,7 @@ Microlink SDK <Link href='/docs/sdk/parameters/size/'>size</Link> variations.
 
 The card approach improves a lot of the URL preview experience, making it possible for you to adopt it on your own website or application.
 
-However, some domains on the Internet (like **Instagram**, **SoundCloud**, **Spotify**, **Facebook**, **Twitter**,...) have their own way of embedding their content, making the Microlink card displayed less recognizable than using their own way.
+However, some domains on the Internet (like **Instagram**, **SoundCloud**, **Spotify**, **Facebook**, **Twitter**,…) have their own way of embedding their content, making the Microlink card displayed less recognizable than using their own way.
 
 **Microlink SDK v4.5** introduces the ability to set `iframe` as the [media](/docs/sdk/parameters/media/) property for using a native embed solution always when it's available.
 

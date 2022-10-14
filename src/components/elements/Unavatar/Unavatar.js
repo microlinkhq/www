@@ -8,6 +8,7 @@ const StyledImage = styled(Image)`
 
 const Unavatar = ({ query, ...props }) => (
   <StyledImage
+    alt={`${query} logo`}
     borderRadius={2}
     src={`https://unavatar.io/microlink/${query}`}
     height='100%'

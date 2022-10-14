@@ -1,5 +1,5 @@
-import { Caption, PricingTable } from 'components/patterns'
 import { Subhead, Container } from 'components/elements'
+import { Caption, PricingTable } from 'components/patterns'
 import { fontSizes, layout } from 'theme'
 import React from 'react'
 
@@ -11,7 +11,7 @@ const Pricing = ({
   ...props
 }) => {
   return (
-    <Container alignItems='center' {...props}>
+    <Container as='section' alignItems='center' {...props}>
       <Subhead
         id='pricing'
         variant='gradient'
@@ -27,6 +27,7 @@ const Pricing = ({
         Every plan comes with API access & 24/7 tech support. Use the forever
         free plan to try the service, no credit-card required.
       </Caption>
+
       <PricingTable
         canonicalUrl={canonicalUrl}
         apiKey={apiKey}

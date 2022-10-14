@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 
 import DemoLinks from './DemoLinks'
-import demoLinks from '../../../../data/demo-links.json'
+import demoLinks from '../../../../data/demo-links'
 
 storiesOf('Patterns', module).add('DemoLinks', () => (
   <Story name='DemoLinks'>

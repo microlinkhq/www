@@ -9,7 +9,7 @@ Even some [early adopters](https://microlink.us17.list-manage.com/subscribe/post
 
 During this time, **Microlink Cards** has been refined until reaching its final form, taking some engineering decisions under the hood.
 
-There are some decisions worth to mention, specially when you're building things at scale.
+There are some decisions worth to mention, specially when you’re building things at scale.
 
 ## The online editor
 
@@ -52,12 +52,9 @@ We didn't find an official [URL length limitation](https://stackoverflow.com/a/4
 In order to minimize the size of the URLs, we apply [lz-string](https://pieroxy.net/blog/pages/lz-string/index.html) compression algorithm.
 
 ```js
-import LZString from 'lz-string'
-
-export const marshall = value => LZString.compressToEncodedURIComponent(value)
-
-export const unmarshall = value =>
-  LZString.decompressFromEncodedURIComponent(value)
+import { compressToURI, decompressFromURI } from 'lz-ts'
+export const marshall = compressToURI
+export const unmarshall = decompressFromURI
 ```
 
 In this way, the output will be an ASCII string representing the original string encoded in Base64 in a URL friendly way, saving bandwidth and CPU in the process.

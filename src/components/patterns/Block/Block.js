@@ -15,7 +15,6 @@ const Block = ({
   <Container {...props}>
     {top}
     <Flex
-      as='section'
       justifyContent='center'
       flexDirection={['column', 'column', 'column', flexDirection]}
       alignItems='center'

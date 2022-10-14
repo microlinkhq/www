@@ -1,7 +1,7 @@
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
-import React, { createElement, useMemo, useEffect, useState } from 'react'
-import { borders, breakpoints, speed, layout, colors } from 'theme'
-import { useTransition, animated } from 'react-spring'
+import React, { createElement, useMemo, useState } from 'react'
+import { borders, breakpoints, layout, colors } from 'theme'
+import { useTransition, animated } from '@react-spring/web'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
@@ -15,11 +15,11 @@ import isColor from 'is-color'
 import get from 'dlv'
 
 import {
-  Choose,
   Box,
   Button,
   Caps,
   Card,
+  Choose,
   CodeEditor,
   Container,
   Flex,
@@ -53,7 +53,6 @@ import {
 
 import demoLinks from '../../data/demo-links'
 
-const INTERVAL = 3500
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const getMs = str => str.replace(/ms|s/, '')
@@ -69,60 +68,73 @@ const ColorPreview = ({ color }) => (
   />
 )
 
-const DemoSlider = ({ children: slides, ...props }) => {
-  const [index, setIndex] = useState(0)
-
-  const transition = useTransition(slides[index], {
-    keys: item => item.id,
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: { duration: speed.normal }
-  })
-
-  const animatedImage = transition((style, item) => (
-    <AnimatedImage
-      alt={`${item.id} screenshot`}
-      width='100%'
-      style={style}
-      src={item.cdnUrl}
-    />
-  ))
-
-  useEffect(() => {
-    const interval = setInterval(
-      () => setIndex(state => (state + 1) % slides.length),
-      INTERVAL
-    )
-    return () => clearInterval(interval)
-  }, [slides.length])
-
-  return (
-    <Flex style={{ position: 'relative' }} {...props}>
-      {animatedImage}
-    </Flex>
-  )
-}
-
-/* eslint-disable */
-class ImageWithRef extends React.Component {
-  render () {
-    return <Image {...this.props} />
-  }
-}
-/* eslint-enable */
-
-const AnimatedImage = animated(styled(ImageWithRef)`
+const AnimatedImage = styled(animated.img)`
+  width: 100%;
   position: absolute;
   top: 0px;
   left: 0px;
-`)
+`
+
+const INTERVAL = 1500
+
+const SUGGESTIONS = [
+  { theme: 'dark', id: 'apple' },
+  { theme: 'light', id: 'mdn' },
+  { theme: 'light', id: 'stackoverflow' },
+  { theme: 'light', id: 'producthunt' },
+  { theme: 'dark', id: 'nasa' }
+].map(({ theme, id }) => {
+  const filename = `${id}.png`
+  const { url } = demoLinks.find(item => item.id === id).data
+
+  return {
+    cdnUrl: cdnUrl(`screenshot/browser/${theme}/${filename}`),
+    filename,
+    id,
+    url,
+    value: humanizeUrl(url)
+  }
+})
+
+const DemoSlider = ({ children: slides, ...props }) => {
+  const [index, setIndex] = useState(0)
+  const next = index => ++index % slides.length
+
+  const transitions = useTransition(index, {
+    key: index,
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: INTERVAL, mass: 1, tension: 120, friction: 14 },
+    onRest: (_a, _b, item) => {
+      if (index === item) setTimeout(() => setIndex(next), 1500)
+    }
+  })
+
+  return (
+    <Flex style={{ position: 'relative' }} {...props}>
+      {transitions((style, index) => {
+        const url = slides[index].cdnUrl
+        const src = url
+        return (
+          <AnimatedImage
+            key={src}
+            decoding='async'
+            style={style}
+            src={src}
+            alt={`${slides[index].id} screenshot`}
+          />
+        )
+      })}
+    </Flex>
+  )
+}
 
 const Screenshot = ({ domain, data, cardWidth, cardHeight, ...props }) => {
   const imageUrl = get(data, 'screenshot.url')
 
   return (
-    <Link px={3} href={imageUrl}>
+    <Link px={3} href={imageUrl} icon={false}>
       <Image
         alt={`${domain} screenshot`}
         pl={0}
@@ -204,7 +216,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     : createElement(ImageIcon, { color: colors.black50, size: '16px' })
 
   return (
-    <Container alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Easy peasy screenshots
       </Heading>
@@ -228,6 +240,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         <ArrowLink
           pt={[3, 0, 0, 0]}
           href='https://github.com/microlinkhq/browserless'
+          icon={false}
         >
           See on GitHub
         </ArrowLink>
@@ -360,35 +373,11 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
   )
 }
 
-const SUGGESTIONS = [
-  { theme: 'dark', id: 'apple' },
-  { theme: 'light', id: 'mdn' },
-  { theme: 'light', id: 'stackoverflow' },
-  { theme: 'light', id: 'producthunt' },
-  { theme: 'dark', id: 'nasa' }
-].map(({ theme, id }) => {
-  const filename = `${id}.png`
-  const { url } = demoLinks.find(item => item.id === id).data
-
-  return {
-    cdnUrl: cdnUrl(`screenshot/browser/${theme}/${filename}`),
-    filename,
-    id,
-    url,
-    value: humanizeUrl(url)
-  }
-})
-
 const Timings = props => {
   const healthcheck = useHealthcheck()
 
   const blockOne = (
-    <Flex
-      as='section'
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-    >
+    <Flex flexDirection='column' justifyContent='center' alignItems='center'>
       <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
         Send the URL
       </Subhead>
@@ -504,6 +493,7 @@ const Timings = props => {
 
 const Resume = props => (
   <Container
+    as='section'
     id='resume'
     alignItems='center'
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
@@ -553,7 +543,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       flexDirection='row-reverse'
       blockTwo={
         <Flex
@@ -595,7 +584,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
@@ -633,6 +621,7 @@ const ProductInformation = props => {
 
   return (
     <Faq
+      as='section'
       id='information'
       title='Product Information'
       caption='All the details you need to know about the product.'
@@ -640,75 +629,88 @@ const ProductInformation = props => {
       questions={[
         {
           question: 'What is it?',
-          answer: [
-            <div key='what-is-it'>
-              <Text as='span' color='black' fontWeight='bold'>
-                Microlink for Screenshot
-              </Text>{' '}
-              is an easy way for taking an screenshot of any website in a
-              programmatic way using{' '}
-              <Link href='/docs/api/getting-started/overview'>
-                Microlink API
-              </Link>
-              .
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                <Text as='span' color='black' fontWeight='bold'>
+                  Microlink for Screenshot
+                </Text>{' '}
+                is an easy way for taking an screenshot of any website in a
+                programmatic way using{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                .
+              </div>
+            </>
+          )
         },
         {
           question: 'How does it work?',
-          answer: [
-            <div key='how-does-it-work-0'>
-              For taking a screenshot, just you have to pass{' '}
-              <Link href='/docs/api/parameters/screenshot'>screenshot</Link>{' '}
-              query parameter against{' '}
-              <Link href='/docs/api/getting-started/overview'>
-                Microlink API
-              </Link>
-              .
-            </div>,
-            <div key='how-does-it-work-1'>
-              The screenshot is taken running a chromium browser hosted on our
-              own servers. Servers run the browser on top of optimized hardware
-              to ensure the screenshot is taken fast as possible but also under
-              security isolation condition, spawning a new browser per every new
-              request, meaning no browsers are shared between requests.
-            </div>,
-            <div key='how-does-it-work-2'>
-              After that, the screenshot is uploaded into{' '}
-              <Link href='/blog/edge-cdn/'>Microlink CDN</Link> and served
-              across +140 edges nodes to ensure the best worldwide access time.
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                For taking a screenshot, just you have to pass{' '}
+                <Link href='/docs/api/parameters/screenshot'>screenshot</Link>{' '}
+                query parameter against{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                .
+              </div>
+              <div>
+                The screenshot is taken running a chromium browser hosted on our
+                own servers. Servers run the browser on top of optimized
+                hardware to ensure the screenshot is taken fast as possible but
+                also under security isolation condition, spawning a new browser
+                per every new request, meaning no browsers are shared between
+                requests.
+              </div>
+              <div>
+                After that, the screenshot is uploaded into{' '}
+                <Link href='/blog/edge-cdn/'>Microlink CDN</Link> and served
+                across +140 edges nodes to ensure the best worldwide access
+                time.
+              </div>
+            </>
+          )
         },
         {
           question: 'Why not run my own solution?',
-          answer: [
-            <div key='why-not-run-my-own-solution-0'>
-              The service aims to avoid headaches, preventing you for running
-              and maintaining your own infrastructure.
-            </div>,
-            <div key='why-not-run-my-own-solution-1'>
-              Every URL on the Internet are different and browser are a complex
-              piece of software, with unpredictable resources usage.
-            </div>,
-            <div key='why-not-run-my-own-solution-2'>
-              The fact of resolve any URL at scale in{' '}
-              <Average size='tiny' value={healthcheck.screenshot.avg_pretty} />{' '}
-              isn&#039;t a trivial thing.
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                The service aims to avoid headaches, preventing you for running
+                and maintaining your own infrastructure.
+              </div>
+              <div>
+                Every URL on the Internet are different and browser are a
+                complex piece of software, with unpredictable resources usage.
+              </div>
+              <div>
+                The fact of resolve any URL at scale in{' '}
+                <Average
+                  size='tiny'
+                  value={healthcheck.screenshot.avg_pretty}
+                />{' '}
+                isn&#039;t a trivial thing.
+              </div>
+            </>
+          )
         },
         {
           question: 'Other questions?',
-          answer: [
-            <div key='other-questions'>
-              We&#039;re always available at{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>
-              .
-            </div>
-          ]
+          answer: (
+            <>
+              <div>
+                We&#039;re always available at{' '}
+                <Link display='inline' href='mailto:hello@microlink.io'>
+                  hello@microlink.io
+                </Link>
+                .
+              </div>
+            </>
+          )
         }
       ]}
       {...props}
@@ -735,7 +737,6 @@ const ScreenshotPage = () => {
                 data={data}
               />
               <Timings
-                pt={Container.defaultProps.pt}
                 pb={Container.defaultProps.pt}
                 css={`
                   /* https://www.gradientmagic.com/collection/radialstripes */

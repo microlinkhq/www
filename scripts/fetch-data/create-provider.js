@@ -1,23 +1,35 @@
 'use strict'
 
 const { identity, castArray, isEmpty } = require('lodash')
-const existsFile = require('exists-file')
+const { readFile, writeFile } = require('fs/promises')
 const jsonFuture = require('json-future')
 const got = require('got')
 
-const fetchData = async url => {
-  const body = await got(url).json()
-  if (isEmpty(body)) throw new Error('DATA_NOT_FOUND')
-  return body
+const existsFile = async filepath => {
+  try {
+    return (await readFile(filepath)).byteLength !== 0
+  } catch (_) {
+    return false
+  }
 }
 
-module.exports = async ({ dist, url, mapper = identity }) => {
-  if (await existsFile(dist)) {
-    if (!isEmpty(require(dist))) {
-      return
-    }
-  }
-  const data = await fetchData(url)
-  const body = mapper(data)
-  return jsonFuture.saveAsync(dist, castArray(body))
+const fetchData = async url => {
+  const { headers, body } = await got(url, { responseType: 'buffer' })
+  if (isEmpty(body)) throw new Error('DATA_NOT_FOUND')
+  const contentType = headers['content-type']
+  const isJSON = contentType.includes('application/json')
+  const data = isJSON ? JSON.parse(body) : body
+
+  return { data, isJSON }
 }
+
+module.exports.fromUrl = async (url, { dist, mapper = identity }) => {
+  if (await existsFile(dist)) return
+  const { data, isJSON } = await fetchData(url)
+  return isJSON
+    ? jsonFuture.saveAsync(dist, castArray(mapper(data)))
+    : writeFile(dist, data)
+}
+
+module.exports.fromCode = async (fn, { dist }) =>
+  !(await existsFile(dist)) && jsonFuture.saveAsync(dist, castArray(await fn()))

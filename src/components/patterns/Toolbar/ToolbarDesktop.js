@@ -17,6 +17,7 @@ import {
   NavDocs,
   NavGitHub,
   NavInsights,
+  NavFormatsSupported,
   NavLogo,
   NavMeta,
   NavNewsletter,
@@ -80,6 +81,7 @@ const ToolbarDesktop = ({ theme }) => {
 
   return (
     <Fixed
+      as='header'
       zIndex={101}
       top={0}
       left={0}
@@ -99,7 +101,7 @@ const ToolbarDesktop = ({ theme }) => {
           <NavContainer as='span'>
             <NavLogo p={1} />
           </NavContainer>
-          <NavContainer as='nav'>
+          <NavContainer>
             <Flex
               as='ul'
               alignItems='center'
@@ -143,6 +145,7 @@ const ToolbarDesktop = ({ theme }) => {
               <NavPdf isDark={isDark} fontSize='12px' />
               <NavScreenshot isDark={isDark} fontSize='12px' />
               <NavInsights isDark={isDark} fontSize='12px' />
+              <NavFormatsSupported isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'developers'}>

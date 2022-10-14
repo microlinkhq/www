@@ -97,7 +97,7 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
     document.addEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
     return () =>
       document.removeEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
-  })
+  }, [])
 
   return (
     <CodeEditor

@@ -4,12 +4,12 @@ import { fadeIn } from 'components/keyframes'
 import { layout } from 'theme'
 
 import {
+  Container,
+  Flex,
+  Heading,
   Hide,
   Link,
-  Flex,
-  Subhead,
-  Container,
-  Heading
+  Subhead
 } from 'components/elements'
 
 const SENTENCES = [
@@ -39,11 +39,13 @@ const Hero = props => {
 
   return (
     <Flex
+      as='section'
       id='hero'
       px={3}
       flexDirection='column'
       alignItems='center'
       justifyContent='center'
+      pt={[2, 2, 3, 3]}
       {...props}
     >
       <Heading fontSize={['48px', 6, 7, 7]} titleize={false}>
@@ -84,6 +86,7 @@ const Hero = props => {
         </Link>
       </Hide>
       <Caption
+        as='h2'
         pb={[4, 4, 5, 5]}
         px={[4, 4, 0, 0]}
         maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}

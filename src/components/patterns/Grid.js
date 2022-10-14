@@ -13,7 +13,7 @@ const Item = ({ title, description, ...props }) => (
     pr={[0, 3, 3, 3]}
     {...props}
   >
-    <Caps as='header' pb={[1, 2]} fontWeight='bold'>
+    <Caps as='h4' pb={[1, 2]} fontWeight='bold'>
       {title}
     </Caps>
     <Text

@@ -12,7 +12,7 @@ It was designed to get generic information present in the target website, based 
 
 Although this is expected, many use cases are left out of the scope if we need to get specific data information.
 
-Today we're happy to introduce a new core functionality called **Custom Rules** 🎉.
+Today we’re happy to introduce a new core functionality called **Custom Rules** 🎉.
 
 ## Leveraging Custom Rules
 
@@ -66,7 +66,7 @@ Let's define a **rule** for extracting the avatar profile.
 
 ## Defining rules
 
-A **rule** is a way to interact with the API. You've to declare the type of data you want to extract through **properties**. These properties are:
+A **rule** is a way to interact with the API. You’ve to declare the type of data you want to extract through **properties**. These properties are:
 
 ### selector
 

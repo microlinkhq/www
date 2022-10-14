@@ -45,6 +45,10 @@ const PricePicker = ({ onChange }) => {
 
   return (
     <Select
+      aria-label={`${plan.reqsPerMonthPretty.replace(
+        'K',
+        '000'
+      )} requests per month`}
       width={['65px', '65px', '75px', '75px']}
       value={plan.reqsPerMonthPretty}
       onChange={handleChange}

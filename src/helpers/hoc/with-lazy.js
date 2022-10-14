@@ -6,6 +6,8 @@ import Placeholder from '../../components/elements/Placeholder/Placeholder'
 const compute = (obj, key, value) =>
   typeof obj[key] === 'function' ? obj[key](value) : obj[key]
 
+const isDataURI = str => str.startsWith('data:')
+
 const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
   ...props,
   [attr]: compiledAttr,
@@ -18,12 +20,8 @@ const CACHE = Object.create(null)
 
 export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
   const LazyWrapper = componentProps => {
-    if (componentProps[attr].startsWith('data:')) {
-      return createElement(Component, componentProps)
-    }
-
     const { [attr]: rawAttribute, ...props } = componentProps
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(!isDataURI(componentProps[attr]))
     const compiledAttr = template(rawAttribute)
 
     useEffect(() => {

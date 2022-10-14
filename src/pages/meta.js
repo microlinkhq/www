@@ -175,6 +175,7 @@ const LiveDemo = ({
       </Heading>
 
       <Caption
+        as='h2'
         pt={[3, 3, 4, 4]}
         px={[4, 4, 0, 0]}
         titleize={false}
@@ -192,7 +193,11 @@ const LiveDemo = ({
         <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/meta'>
           Get Started
         </ArrowLink>
-        <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
+        <ArrowLink
+          pt={[3, 0, 0, 0]}
+          href='https://github.com/microlinkhq/sdk'
+          icon={false}
+        >
           See on GitHub
         </ArrowLink>
       </Flex>
@@ -458,6 +463,7 @@ const Timings = () => {
 
 const Resume = props => (
   <Container
+    as='section'
     id='resume'
     alignItems='center'
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
@@ -534,7 +540,6 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
@@ -571,6 +576,7 @@ const Resume = props => (
 
 const ProductInformation = props => (
   <Faq
+    as='section'
     id='information'
     title='Product Information'
     caption='All the details you need to know about the product.'
@@ -578,82 +584,84 @@ const ProductInformation = props => (
     questions={[
       {
         question: 'What is it?',
-        answer: [
-          <div key='what-is-it-0'>
-            <Text as='span' color='black' fontWeight='bold'>
-              Microlink for Meta
-            </Text>{' '}
-            is a data extraction service that take a URL as input, giving you
-            structured data as output.
-          </div>,
-          <div key='what-is-it-1'>
-            The data detected is unified and normalized from different data
-            source providers present on the semantic markup of the target URL,
-            such as Open Graph, JSON+LD, oEmbed, microformats or regular HTML.
-          </div>
-        ]
+        answer: (
+          <>
+            <div>
+              <Text as='span' color='black' fontWeight='bold'>
+                Microlink for Meta
+              </Text>{' '}
+              is a data extraction service that take a URL as input, giving you
+              structured data as output.
+            </div>
+            <div>
+              The data detected is unified and normalized from different data
+              source providers present on the semantic markup of the target URL,
+              such as Open Graph, JSON+LD, oEmbed, microformats or regular HTML.
+            </div>
+          </>
+        )
       },
       {
         question: 'How does it work?',
-        answer: [
-          <div key='how-does-it-work-0'>
-            It&#039;s a{' '}
-            <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
-              rule-based system
-            </Link>{' '}
-            called{' '}
-            <Link icon href='https://metascraper.js.org'>
-              metascraper
-            </Link>
-            , where the desired value (e.g., the title) will be searched over
-            the content according to a series of rules.
-          </div>,
-          <div key='how-does-it-work-1'>
-            Also, this process ensures the value extracted follows a specific
-            data shape. So, not only the value should be present, it needs to
-            satisfy a specific data shape as well.
-          </div>,
-          <div key='how-does-it-work-2'>
-            In this way, if the service detects the value, you can be sure that
-            is what it claims to be.
-          </div>
-        ]
+        answer: (
+          <>
+            <div>
+              It&#039;s a{' '}
+              <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
+                rule-based system
+              </Link>{' '}
+              called <Link href='https://metascraper.js.org'>metascraper</Link>,
+              where the desired value (e.g., the title) will be searched over
+              the content according to a series of rules.
+            </div>
+            <div>
+              Also, this process ensures the value extracted follows a specific
+              data shape. So, not only the value should be present, it needs to
+              satisfy a specific data shape as well.
+            </div>
+            <div>
+              In this way, if the service detects the value, you can be sure
+              that is what it claims to be.
+            </div>
+          </>
+        )
       },
       {
         question: 'Why not run my own solution?',
-        answer: [
-          <div key='why-not-run-my-own-solution-0'>
-            You can always run your own solution; Most of our software is{' '}
-            <Link icon href='/oss'>
-              Open Source
-            </Link>
-            , so you can take them and hosted from scratch.
-          </div>,
-          <div key='why-not-run-my-own-solution-1'>
-            What we offer as part of our value proposition is a production ready
-            solution without the headaches of running your own infrastructure.
-          </div>,
-          <div key='why-not-run-my-own-solution-2'>
-            No code to maintain, no servers to scale up, no dependencies to
-            upgrade. Just an always ready{' '}
-            <Link icon href='/docs/api/getting-started/overview'>
-              API
-            </Link>{' '}
-            ready to use.
-          </div>
-        ]
+        answer: (
+          <>
+            <div>
+              You can always run your own solution; Most of our software is{' '}
+              <Link href='/oss'>Open Source</Link>, so you can take them and
+              hosted from scratch.
+            </div>
+            <div>
+              What we offer as part of our value proposition is a production
+              ready solution without the headaches of running your own
+              infrastructure.
+            </div>
+            <div>
+              No code to maintain, no servers to scale up, no dependencies to
+              upgrade. Just an always ready{' '}
+              <Link href='/docs/api/getting-started/overview'>API</Link> ready
+              to use.
+            </div>
+          </>
+        )
       },
       {
         question: 'Other questions?',
-        answer: [
-          <div key='other-questions'>
-            We&#039;re always available at{' '}
-            <Link display='inline' href='mailto:hello@microlink.io'>
-              hello@microlink.io
-            </Link>
-            .
-          </div>
-        ]
+        answer: (
+          <>
+            <div>
+              We&#039;re always available at{' '}
+              <Link display='inline' href='mailto:hello@microlink.io'>
+                hello@microlink.io
+              </Link>
+              .
+            </div>
+          </>
+        )
       }
     ]}
     {...props}
