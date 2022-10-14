@@ -232,7 +232,7 @@ const FormatsPage = () => {
               onClick={event => {
                 event.preventDefault()
                 window.open(
-                  'https://github.com/microlinkhq/recipes/issues/new',
+                  'https://github.com/microlinkhq/open/issues/new',
                   '_blank',
                   'noopener noreferrer'
                 )
