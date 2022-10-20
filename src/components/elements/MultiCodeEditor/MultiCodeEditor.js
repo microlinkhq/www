@@ -1,6 +1,6 @@
 import { useLocalStorage } from 'components/hook'
-import styled from 'styled-components'
 import React, { useEffect, useMemo } from 'react'
+import styled from 'styled-components'
 import { cx } from 'theme'
 
 import CodeEditor from '../CodeEditor/CodeEditor'

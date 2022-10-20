@@ -29,7 +29,9 @@ const stringProps = (props = {}) => {
   return keys.reduce(
     (acc, key, index) =>
       acc +
-      `${typeof key === 'string' ? key : stringify(key)}: ${
+      `${
+        typeof key === 'string' && !key.includes('-') ? key : stringify(key)
+      }: ${
         Array.isArray(props[key])
           ? stringify(props[key])
           : typeof props[key] === 'object'
