@@ -20,13 +20,14 @@ One consideration to keep in mind is that values provided will be passed as quer
 
 In case you are treating with sensible headers (e.g., [authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) or [cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)) you can pass them as part of the request headers rather than query parameters.
 
-For doing that, you need to pass the values with `x-api-header-*` prefix:
+For doing that, pass the header with `x-api-header-*` key prefix:
 
-<MultiCodeEditor languages={mqlCode('https://test-http-login.vercel.app', { 
-  headers: {
-    'accept-language': 'en-US',
-    'x-api-header-authorization': 'Basic YWRtaW46YWRtaW4='
-  } 
-})} />
+```bash
+curl -G https://api.microlink.io \
+  -d url=https://test-http-login.vercel.app \
+  -d screenshot=true \
+  -d embed=screenshot.url \
+  -H 'x-api-header-authorization: Basic YWRtaW46YWRtaW4='
+```
 
 In that way, they will be not publicly exposed.
