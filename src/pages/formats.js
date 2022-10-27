@@ -226,7 +226,7 @@ const FormatsPage = () => {
           maxWidth={layout.large}
           px={4}
         >
-          <Subhead>Something else?</Subhead>
+          <Subhead>Anything else?</Subhead>
           <Box p={[4, 4, 0, 0]}>
             <Button
               onClick={event => {
