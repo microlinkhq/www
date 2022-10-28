@@ -24,16 +24,17 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
     const [isLoading, setLoading] = useState(!isDataURI(componentProps[attr]))
     const compiledAttr = template(rawAttribute)
 
+    function createTag () {
+      const tag = document.createElement(tagName)
+      tag[attr] = compiledAttr
+      return tag.decode()
+    }
+
     useEffect(() => {
-      CACHE[compiledAttr] ||
-        (CACHE[compiledAttr] = (() => {
-          const tag = document.createElement(tagName)
-          tag[attr] = compiledAttr
-          return tag
-            .decode()
-            .then(() => setLoading(false))
-            .catch(error => console.error('[with-lazy]', error))
-        })())
+      const promise = CACHE[compiledAttr] || (CACHE[compiledAttr] = createTag())
+      promise
+        .then(() => setLoading(false))
+        .catch(error => console.error('[with-lazy]', error))
     }, [compiledAttr])
 
     return createElement(
