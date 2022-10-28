@@ -193,11 +193,7 @@ const LiveDemo = ({
         <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/meta'>
           Get Started
         </ArrowLink>
-        <ArrowLink
-          pt={[3, 0, 0, 0]}
-          href='https://github.com/microlinkhq/sdk'
-          icon={false}
-        >
+        <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
           See on GitHub
         </ArrowLink>
       </Flex>

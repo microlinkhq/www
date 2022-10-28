@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { fadeText, hideScrollbar, wordBreak } from 'helpers/style'
 import { hash, prettier, getLines, template } from 'helpers'
+import { hideScrollbar, wordBreak } from 'helpers/style'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
 import styled from 'styled-components'
@@ -77,14 +77,13 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const TerminalTextWrapper = styled.div`
   ${wordBreak};
-  ${fadeText};
   width: 100%;
 `
 
 const CodeEditor = ({
-  showLineNumbers,
-  interactive,
   children,
+  interactive: runkitProps,
+  showLineNumbers,
   theme,
   title,
   ...props
@@ -127,10 +126,11 @@ const CodeEditor = ({
 
   return (
     <Runkit
+      {...runkitProps}
       theme={theme}
       title={title}
       placeholderComponent={TerminalComponent}
-      code={text}
+      source={text}
       onLoad={element => {
         setIsLoaded(true)
         element.style['padding-top'] = '4px'

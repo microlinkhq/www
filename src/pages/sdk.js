@@ -112,6 +112,7 @@ const LiveDemo = ({
   const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
+  const runkitHeight = cardHeight - 36 * 2 - 8 * 2
 
   const [inputValue, setInputValue] = useState('')
 
@@ -159,7 +160,7 @@ const LiveDemo = ({
           Get Started
         </ArrowLink>
         <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
-          View on GitHub
+          See on GitHub
         </ArrowLink>
       </Flex>
 
@@ -207,7 +208,7 @@ const LiveDemo = ({
         mx='auto'
       >
         <HeroCard
-          key={`${mode}_${isMounted.current}`}
+          key={`${mode}_${type}_${isMounted.current}`}
           width={cardWidth}
           height={cardHeight}
           border={type === 'code' ? 'none' : 1}
@@ -226,6 +227,7 @@ const LiveDemo = ({
             <Choose.When condition={type === 'code'}>
               <MultiCodeEditor
                 width='100%'
+                interactive={{ minHeight: runkitHeight }}
                 languages={mqlCode(
                   data.url,
                   {

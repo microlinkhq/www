@@ -21,6 +21,7 @@ const ArrowLink = ({ children, ...props }) => {
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         fontSize={Caption.defaultProps.fontSize}
+        icon={props.href.startsWith('/')}
         {...props}
       >
         {children} <ArrowIcon isHover={isHover} />

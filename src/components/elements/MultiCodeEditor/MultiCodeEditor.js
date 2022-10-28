@@ -68,7 +68,11 @@ const ActionComponent = ({
 const DEFAULT_LANGUAGE_INDEX = 1
 const LOCALSTORAGE_KEY = 'multi_code_editor_index'
 
-const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
+const MultiCodeEditor = ({
+  interactive,
+  languages: codeByLanguage,
+  ...props
+}) => {
   const [languageIndex, setLanguageIndex] = useLocalStorage(
     LOCALSTORAGE_KEY,
     DEFAULT_LANGUAGE_INDEX
@@ -101,6 +105,7 @@ const MultiCodeEditor = ({ languages: codeByLanguage, ...props }) => {
 
   return (
     <CodeEditor
+      interactive={interactive}
       header={{ style: { marginBottom: '8px' } }}
       language={language}
       {...props}
