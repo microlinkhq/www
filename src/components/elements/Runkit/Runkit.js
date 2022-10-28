@@ -9,13 +9,7 @@ const THEME = {
   dark: 'untilted-0iw2lny2mmwa'
 }
 
-const Runkit = ({
-  onLoad,
-  placeholderComponent,
-  title,
-  code: source,
-  theme
-}) => {
+const Runkit = ({ onLoad, placeholderComponent, theme, ...opts }) => {
   if (!placeholderComponent.props.id) {
     throw new Error('Runkit placeholder must to have an id.')
   }
@@ -33,13 +27,12 @@ const Runkit = ({
           evaluateOnLoad: false,
           getShareableURL: false,
           element,
-          title,
-          source,
           nodeVersion: NODE_VERSION,
           theme: THEME[theme],
           gutterStyle: 'outside',
           tabSize: 2,
-          onLoad: () => onLoad(element)
+          onLoad: () => onLoad(element),
+          ...opts
         })
       )
       return () => notebook.destroy()

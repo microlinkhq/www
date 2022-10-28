@@ -81,9 +81,9 @@ const TerminalTextWrapper = styled.div`
 `
 
 const CodeEditor = ({
-  showLineNumbers,
-  interactive,
   children,
+  interactive: runkitProps,
+  showLineNumbers,
   theme,
   title,
   ...props
@@ -126,10 +126,11 @@ const CodeEditor = ({
 
   return (
     <Runkit
+      {...runkitProps}
       theme={theme}
       title={title}
       placeholderComponent={TerminalComponent}
-      code={text}
+      source={text}
       onLoad={element => {
         setIsLoaded(true)
         element.style['padding-top'] = '4px'
