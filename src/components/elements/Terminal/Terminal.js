@@ -50,17 +50,17 @@ const fromString = text =>
     ? text
     : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
 
-export const styleTerminalHeader = css`
+const TerminalHeader = styled('div')`
+  background: linear-gradient(
+    ${props => (props.isDark ? 'black' : 'white')} 75%,
+    transparent
+  );
   border-top-right-radius: ${radii[3]};
   border-top-left-radius: ${radii[3]};
   display: flex;
   align-items: center;
   padding: 1rem;
   position: sticky;
-`
-
-const TerminalHeader = styled('div')`
-  ${styleTerminalHeader};
   height: 36px;
   top: 0;
   z-index: 1;
@@ -155,7 +155,7 @@ export const TerminalTitle = ({ isDark, children }) => (
 
 const TerminalText = styled('div')`
   font-weight: ${fontWeights.normal};
-  padding: 8px 8px 16px 8px;
+  padding: 0 8px 16px 8px;
   overflow: visible;
   font-family: ${fonts.mono};
   font-size: 13px;
@@ -218,7 +218,7 @@ const TerminalProvider = ({
 
   return (
     <TerminalWindow isDark={isDark} {...props}>
-      <TerminalHeader {...header}>
+      <TerminalHeader isDark={isDark} {...header}>
         <TerminalButton.Red loading={loading} />
         <TerminalButton.Yellow loading={loading} />
         <TerminalButton.Green loading={loading} />
