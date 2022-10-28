@@ -240,7 +240,6 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         <ArrowLink
           pt={[3, 0, 0, 0]}
           href='https://github.com/microlinkhq/browserless'
-          icon={false}
         >
           See on GitHub
         </ArrowLink>

@@ -159,7 +159,7 @@ const LiveDemo = ({
           Get Started
         </ArrowLink>
         <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
-          View on GitHub
+          See on GitHub
         </ArrowLink>
       </Flex>
 
