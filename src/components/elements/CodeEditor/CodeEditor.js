@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { fadeText, hideScrollbar, wordBreak } from 'helpers/style'
 import { hash, prettier, getLines, template } from 'helpers'
+import { hideScrollbar, wordBreak } from 'helpers/style'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
 import styled from 'styled-components'
@@ -77,7 +77,6 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const TerminalTextWrapper = styled.div`
   ${wordBreak};
-  ${fadeText};
   width: 100%;
 `
 
