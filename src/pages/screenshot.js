@@ -226,7 +226,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Say goodbye to complexity – Turn websites into screenshots, in a simple
+        Say goodbye to complexity — Turn websites into screenshots, in a simple
         way.
       </Caption>
       <Flex

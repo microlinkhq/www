@@ -189,7 +189,7 @@ const LiveDemo = ({
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Track site speed & website quality over time – Get performance insights
+        Track site speed & website quality over time — Get performance insights
         powered by{' '}
         <Link href='https://developers.google.com/web/tools/lighthouse'>
           Lighthouse
