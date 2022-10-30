@@ -1,7 +1,6 @@
 import { Choose, LinkSolid, Text, Notification } from 'components/elements'
 import React, { useCallback, useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
-import queueMicrotask from 'queue-microtask'
 import { urlVariations } from 'helpers'
 import mql from '@microlink/mql'
 
