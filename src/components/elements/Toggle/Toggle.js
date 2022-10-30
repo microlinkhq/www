@@ -1,7 +1,7 @@
 import { Text, Flex, Box, Caps } from 'components/elements'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import noop from 'lodash/noop'
+import { noop } from 'helpers'
 
 import ButtonBase from '../Button/ButtonBase'
 
