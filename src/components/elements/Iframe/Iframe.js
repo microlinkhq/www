@@ -1,6 +1,5 @@
 import React, { createElement, useRef, useEffect, useState } from 'react'
-import { aspectRatio } from 'helpers'
-import noop from 'lodash/noop'
+import { aspectRatio, noop } from 'helpers'
 
 import Placeholder from '../Placeholder/Placeholder'
 import Flex from '../Flex'

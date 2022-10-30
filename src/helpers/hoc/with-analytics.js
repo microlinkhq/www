@@ -1,6 +1,6 @@
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics'
 import { createElement } from 'react'
-import noop from 'lodash/noop'
+import { noop } from 'helpers'
 
 const createOnClick = ({ onClick = noop, action, category, href: label }) => {
   if (!(action && category)) return onClick

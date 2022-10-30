@@ -134,7 +134,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Simplify your workflow, use less to get – Turn websites into PDF, in an
+        Simplify your workflow, use less to get — Turn websites into PDF, in an
         easy way.
       </Caption>
       <Flex

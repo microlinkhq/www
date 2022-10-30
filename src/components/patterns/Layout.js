@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import { Location } from '@gatsbyjs/reach-router'
 import { useBreakpoint } from 'components/hook'
 import Head from 'components/Head'
-import noop from 'lodash/noop'
+import { noop } from 'helpers'
 
 import themeSpec from 'theme'
 import 'styles/main.scss'
