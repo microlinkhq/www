@@ -52,10 +52,11 @@ const Notification = ({ children, bg, color, ...props }) => {
       my={3}
     >
       <Text
-        boxShadow={1}
+        fontSize={1}
+        boxShadow={0}
         m={3}
         px={3}
-        py='12px'
+        py='10px'
         borderRadius={2}
         color={color}
         bg={bg}
