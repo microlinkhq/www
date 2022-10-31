@@ -1,0 +1,28 @@
+import { Notification } from 'components/elements'
+import React, { useState } from 'react'
+
+export const useClipboard = () => {
+  const [isCopied, setIsCopied] = useState(false)
+  const [pendingTimer, setPendingTimer] = useState(null)
+  const [text, setText] = useState('')
+
+  const toClipboard = ({ copy, text }) => {
+    clearTimeout(pendingTimer)
+    setIsCopied(false)
+    setText(text)
+
+    queueMicrotask(() => {
+      navigator.clipboard.writeText(copy)
+      setIsCopied(true)
+      setPendingTimer(setTimeout(setIsCopied, 1500, false))
+    })
+  }
+
+  const ClipboardComponent = () => {
+    if (isCopied) {
+      return <Notification.Success>{text}</Notification.Success>
+    }
+  }
+
+  return [ClipboardComponent, toClipboard]
+}
