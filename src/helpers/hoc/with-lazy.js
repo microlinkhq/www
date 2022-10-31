@@ -16,23 +16,17 @@ const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
   style: compute(props, 'style', isLoading)
 })
 
-const CACHE = Object.create(null)
-
 export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
   const LazyWrapper = componentProps => {
     const { [attr]: rawAttribute, ...props } = componentProps
     const [isLoading, setLoading] = useState(!isDataURI(componentProps[attr]))
     const compiledAttr = template(rawAttribute)
 
-    function createTag () {
+    useEffect(() => {
       const tag = document.createElement(tagName)
       tag[attr] = compiledAttr
-      return tag.decode()
-    }
-
-    useEffect(() => {
-      const promise = CACHE[compiledAttr] || (CACHE[compiledAttr] = createTag())
-      promise
+      tag
+        .decode()
         .then(() => setLoading(false))
         .catch(error => console.error('[with-lazy]', error))
     }, [compiledAttr])
