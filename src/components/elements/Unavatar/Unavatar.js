@@ -24,7 +24,7 @@ const Unavatar = ({ query, ...props }) => {
   )
 }
 
-Unavatar.Microlink = ({ embedUrl, url, ...props }) => {
+const UnavatarMicrolink = ({ embedUrl, url, ...props }) => {
   const domain = useMemo(() => getDomain(url), [url])
   const demoLink = demoLinks.find(({ data }) => getDomain(data.url) === domain)
 
@@ -36,6 +36,8 @@ Unavatar.Microlink = ({ embedUrl, url, ...props }) => {
     />
   )
 }
+
+Unavatar.Microlink = UnavatarMicrolink
 
 const UnavatarBase = ({ provider, ...props }) =>
   createElement(provider === 'microlink' ? Unavatar.Microlink : Unavatar, props)

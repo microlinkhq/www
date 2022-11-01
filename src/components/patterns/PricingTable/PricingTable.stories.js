@@ -25,7 +25,7 @@ export default () => ( <PricingTable />)
 `
 
 storiesOf('Patterns', module).add('PricingTable', () => (
-  <Story name='PricingTable' code={code}>
+  <Story name='PricingTable' code={code} style={{ zoom: 0.8 }}>
     <PricingTable />
   </Story>
 ))
