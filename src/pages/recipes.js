@@ -168,11 +168,7 @@ const RecipesPage = () => {
               <Button
                 onClick={event => {
                   event.preventDefault()
-                  window.open(
-                    'https://github.com/microlinkhq/recipes/issues/new',
-                    '_blank',
-                    'noopener noreferrer'
-                  )
+                  window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
                 }}
               >
                 <Caps>Request an Integration</Caps>

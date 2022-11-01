@@ -1,6 +1,7 @@
 import { Microlink } from 'components/logos'
 import { layout, colors } from 'theme'
 import { Mail } from 'react-feather'
+import { issueUrl } from 'helpers'
 import React from 'react'
 
 import Healthcheck from '../Healthcheck/Healthcheck'
@@ -187,7 +188,7 @@ const Footer = ({ theme, ...props }) => {
               data-event-category='Footer'
               data-event-action='Bug Reports'
               fontSize={[0, 0, 0, 1]}
-              href='https://github.com/microlinkhq/open/issues/new?template=Bug_report.md'
+              href={issueUrl.bug()}
             >
               Bug Reports
             </LinkSolid>

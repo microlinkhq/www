@@ -2,6 +2,7 @@ import { Faq, Caption, Layout } from 'components/patterns'
 import { XCircle, CheckCircle } from 'react-feather'
 import { cx, colors, borders, layout } from 'theme'
 import React, { createElement } from 'react'
+import { issueUrl } from 'helpers'
 
 import {
   Box,
@@ -231,11 +232,7 @@ const FormatsPage = () => {
             <Button
               onClick={event => {
                 event.preventDefault()
-                window.open(
-                  'https://github.com/microlinkhq/open/issues/new',
-                  '_blank',
-                  'noopener noreferrer'
-                )
+                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
               }}
             >
               <Caps>Request a format</Caps>
