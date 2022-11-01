@@ -1,8 +1,9 @@
-import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Story } from 'story'
-import Microlink from './Microlink'
 import { Box } from 'components/elements'
+import { Story } from 'story'
+import React from 'react'
+
+import Microlink from './Microlink'
 
 const code = `
 import { Microlink } from 'components/patterns'
@@ -47,9 +48,13 @@ const DATA = {
 }
 
 storiesOf('Patterns', module).add('Microlink', () => (
-  <Story name='Microlink' code={code} style={{ width: '100%' }}>
-    <Microlink setData={DATA} />
+  <Story
+    name='Microlink'
+    code={code}
+    style={{ display: 'flex', width: '100%' }}
+  >
+    <Microlink url={DATA.url} setData={DATA} media='image' />
     <Box my={3} />
-    <Microlink size='large' setData={DATA} />
+    <Microlink url={DATA.url} size='large' setData={DATA} media='image' />
   </Story>
 ))

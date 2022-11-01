@@ -4,10 +4,15 @@ import React from 'react'
 export function Story ({ name, children, code, ...props }) {
   return (
     <>
-      <Subhead fontSize={3} textAlign='left' titleize={false}>
+      <Subhead
+        data-story='title'
+        fontSize={3}
+        textAlign='left'
+        titleize={false}
+      >
         {`<${name} />`}
       </Subhead>
-      <Box pt={4} pb={4} pl={4} {...props}>
+      <Box data-story='content' py={4} {...props}>
         <Box display={['block', 'inline']}>{children}</Box>
       </Box>
       {code && (
