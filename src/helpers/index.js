@@ -9,6 +9,7 @@ import hasChildren from './has-children'
 import formatDate from './format-date'
 import proxyImage from './proxy-image'
 import getLines from './get-lines'
+import issueUrl from './issue-url'
 import template from './template'
 import prettier from './prettier'
 import mqlCode from './mql-code'
@@ -31,6 +32,7 @@ export {
   hash,
   isFastConnection,
   isSSR,
+  issueUrl,
   mqlCode,
   noop,
   pdfUrl,
