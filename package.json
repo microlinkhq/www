@@ -125,7 +125,7 @@
     "gatsby-transformer-remark": "~5.24.0",
     "gatsby-transformer-yaml": "~4.24.0",
     "git-jiggy": "~1.1.1",
-    "github-slugger": "~1.5.0",
+    "github-slugger": "~2.0.0",
     "got": "~11.8.5",
     "humanize-url": "~3.0.0",
     "is-color": "~1.0.2",
