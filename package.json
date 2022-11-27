@@ -98,8 +98,8 @@
   ],
   "dependencies": {
     "@kikobeats/use-query-state": "1.2.1",
-    "@microlink/mql": "~0.10.28",
-    "@microlink/react": "~5.5.9",
+    "@microlink/mql": "~0.10.30",
+    "@microlink/react": "~5.5.11",
     "@microlink/recipes": "1.6.0",
     "@radix-ui/react-popper": "0.1.4",
     "@react-spring/web": "~9.5.5",
