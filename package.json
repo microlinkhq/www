@@ -119,7 +119,7 @@
     "gatsby-plugin-react-helmet": "~5.24.0",
     "gatsby-plugin-sass": "~5.24.0",
     "gatsby-plugin-styled-components": "~5.24.0",
-    "gatsby-source-filesystem": "~4.24.0",
+    "gatsby-source-filesystem": "~5.2.0",
     "gatsby-transformer-javascript-frontmatter": "~4.24.0",
     "gatsby-transformer-json": "~4.24.0",
     "gatsby-transformer-remark": "~5.24.0",
