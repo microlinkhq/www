@@ -741,16 +741,16 @@ const ScreenshotPage = () => {
                   /* https://www.gradientmagic.com/collection/radialstripes */
                   background-image: radial-gradient(
                     circle at center right,
-                    rgb(133, 11, 167) 0%,
-                    rgb(133, 11, 167) 48%,
-                    rgb(163, 27, 144) 48%,
-                    rgb(163, 27, 144) 52%,
-                    rgb(193, 42, 121) 52%,
-                    rgb(193, 42, 121) 65%,
-                    rgb(223, 58, 97) 65%,
-                    rgb(223, 58, 97) 79%,
-                    rgb(253, 73, 74) 79%,
-                    rgb(253, 73, 74) 100%
+                    #850ba7 0%,
+                    #850ba7 48%,
+                    #a31b91 48%,
+                    #a31b91 52%,
+                    #c12a78 52%,
+                    #c12a78 65%,
+                    #df3a61 65%,
+                    #df3a61 79%,
+                    #fd494a 79%,
+                    #fd494a 100%
                   );
                 `}
                 borderTop={`${borders[1]} ${colors.white20}`}
@@ -763,7 +763,7 @@ const ScreenshotPage = () => {
                       High performance,
                     </Subhead>
                     <Subhead
-                      color='rgb(253, 73, 74)'
+                      color='#e03a61'
                       width='100%'
                       textAlign='left'
                       titleize={false}
