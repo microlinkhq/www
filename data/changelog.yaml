@@ -1,3 +1,10 @@
+- date: November 2022
+  notes:
+    - '[Microlink MQL](/docs/mql/getting-started/overview): Added nested selectorAll support.'
+    - '[Microlink API](/docs/api/getting-started/overview): Improved logo detection.'
+    - '[Microlink OSS](/oss): Released [nanoclamp](https://nanoclamp.microlink.io) 2.0'
+    - '[Microlink MQL](/docs/mql/getting-started/overview): Added ESM bundle and [demo](https://mql.microlink.io) site.'
+
 - date: October 2022
   notes:
     - '[Microlink](/): Improved website accessibility.'
