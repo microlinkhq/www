@@ -297,7 +297,7 @@ const Timings = props => {
   const blockOne = (
     <Flex flexDirection='column' justifyContent='center' alignItems='center'>
       <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
-        Measure globally
+        Measure at scale
       </Subhead>
       <Subhead
         fontSize={[3, 4, 6, 6]}
@@ -305,7 +305,7 @@ const Timings = props => {
         titleize={false}
         color='white60'
       >
-        Fast. Easy. Reliable.
+        without compromises
       </Subhead>
     </Flex>
   )
