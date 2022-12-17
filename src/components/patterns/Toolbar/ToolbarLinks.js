@@ -53,10 +53,10 @@ const NavLogoDesktop = props => (
   </NavLink>
 )
 
-export const NavLogo = ({ mobile, ...props }) =>
+export const NavMicrolinkLogo = ({ mobile, ...props }) =>
   createElement(mobile ? NavLogoMobile : NavLogoDesktop, { px: 0, ...props })
 
-NavLogo.defaultProps = {
+NavMicrolinkLogo.defaultProps = {
   'data-event-category': 'Toolbar',
   'data-event-action': 'Logo'
 }
@@ -106,6 +106,12 @@ export const NavOpenSource = createNavItem({
 export const NavPdf = createNavItem({
   children: 'PDF',
   href: '/pdf',
+  actively: 'partial'
+})
+
+export const NavLogo = createNavItem({
+  children: 'Logo',
+  href: '/logo',
   actively: 'partial'
 })
 

@@ -7,8 +7,8 @@ import NavContainer from './NavContainer'
 import {
   NavDocs,
   NavInsights,
-  NavLogo,
   NavMeta,
+  NavMicrolinkLogo,
   NavPdf,
   NavPricing,
   NavScreenshot,
@@ -39,7 +39,7 @@ const ToolbarMobile = ({ theme }) => {
     >
       <Box ml='auto' mr='auto'>
         <Toolbar ml={3} mr={3} justifyContent='center'>
-          <NavLogo mobile />
+          <NavMicrolinkLogo mobile />
           <Nav>
             <NavSDK isDark={isDark} mobile />
             <NavMeta isDark={isDark} mobile />

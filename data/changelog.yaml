@@ -1,3 +1,7 @@
+- date: December 2022
+  notes:
+    - '[Microlink](/): Added [logo](/logo) page.'
+
 - date: November 2022
   notes:
     - '[Microlink MQL](/docs/mql/getting-started/overview): Added nested selectorAll support.'

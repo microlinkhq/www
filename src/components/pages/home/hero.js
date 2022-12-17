@@ -1,4 +1,4 @@
-import { Cursor, Caption, ArrowLink } from 'components/patterns'
+import { Announcement, Cursor, Caption, ArrowLink } from 'components/patterns'
 import React, { useEffect, useState } from 'react'
 import { fadeIn } from 'components/keyframes'
 import { layout } from 'theme'
@@ -48,6 +48,24 @@ const Hero = props => {
       pt={[2, 2, 3, 3]}
       {...props}
     >
+      <Hide breakpoints={[0, 1, 2]}>
+        <Flex
+          pb={3}
+          as='section'
+          justifyContent='center'
+          flexDirection='column'
+          alignItems='center'
+        >
+          <Announcement
+            data-event-category='Home'
+            data-event-action='Announcement'
+            href='/logo'
+          >
+            Embed logo from any web site. Introducing <b>Microlink for logo</b>
+          </Announcement>
+        </Flex>
+      </Hide>
+
       <Heading fontSize={['48px', 6, 7, 7]} titleize={false}>
         Browser as API
       </Heading>
