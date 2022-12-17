@@ -443,8 +443,8 @@ const Resume = props => (
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       titleize={false}
     >
-      <b>Microlink for Logo</b> brings logo detection from any web, including
-      file extension, dimensions, size, and colors. It has been designed to be
+      <b>Microlink logo</b> brings logo detection from any web, including file
+      extension, dimensions, size, and colors. It has been designed to be
       exceptionally affordable at scale.
     </Caption>
     <Block

@@ -472,16 +472,16 @@ const Resume = props => (
       py={3}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
     >
-      <b>Microlink for Meta</b> extracts structured data from any website. Enter
-      a URL, receive information. Get relevant information from any link &
-      easily create beautiful previews.
+      <b>Microlink meta</b> extracts structured data from any website. Enter a
+      URL, receive information. Get relevant information from any link & easily
+      create beautiful previews.
     </Caption>
 
     <Block
       blockOne={
         <Image
           width={[5, 6, 7, 8]}
-          alt='Data normalization'
+          alt='Unified metadata'
           src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
         />
       }
@@ -491,15 +491,15 @@ const Resume = props => (
           alignItems={['center', 'center', 'center', 'baseline']}
         >
           <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
-            Data normalization
+            Unified metadata
           </Subhead>
           <Text
             pt={4}
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            Get normalized from multiple data sources such as Open Graph,
-            JSON+LD, oEmbed or regular HTML in a unified way.
+            Get normalized data from multiple sources usingOpen Graph,
+            Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.
           </Text>
         </Flex>
       }
@@ -521,8 +521,8 @@ const Resume = props => (
             maxWidth={8}
             textAlign={['center', 'center', 'center', 'inherit']}
           >
-            The values detected follow a strict data schema. Additionally, extra
-            information is provided over the original data.
+            Whenever is possible data is expanded to bring you more, like file
+            extension, dimensions, size, duration, etc.
           </Text>
         </Flex>
       }
@@ -584,7 +584,7 @@ const ProductInformation = props => (
           <>
             <div>
               <Text as='span' color='black' fontWeight='bold'>
-                Microlink for Meta
+                Microlink meta
               </Text>{' '}
               is a data extraction service that take a URL as input, giving you
               structured data as output.

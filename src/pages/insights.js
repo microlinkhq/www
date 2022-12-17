@@ -426,9 +426,9 @@ const Resume = props => (
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       titleize={false}
     >
-      <b>Microlink for Insights</b> provides first-class support for web
-      performance monitoring, easy to integrate with any existing stack or cloud
-      in just a few minutes.
+      <b>Microlink insights</b> provides first-class support for web performance
+      monitoring, easy to integrate with any existing stack or cloud in just a
+      few minutes.
     </Caption>
 
     <Block
@@ -556,7 +556,7 @@ const ProductInformation = props => {
             <>
               <div>
                 <Text as='span' color='black' fontWeight='bold'>
-                  Microlink for Insights
+                  Microlink insights
                 </Text>{' '}
                 gives you web performance metrics in a simple way using{' '}
                 <Link href='/docs/api/getting-started/overview'>

@@ -506,9 +506,9 @@ const Resume = props => (
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       titleize={false}
     >
-      <b>Microlink for Screenshot</b> provides a set of powerful features
-      without the headaches of running your own infrastructure, giving you great
-      power, less responsibilities.
+      <b>Microlink screenshot</b> provides a set of powerful features without
+      the headaches of running your own infrastructure, giving you great power,
+      less responsibilities.
     </Caption>
 
     <Block
@@ -632,7 +632,7 @@ const ProductInformation = props => {
             <>
               <div>
                 <Text as='span' color='black' fontWeight='bold'>
-                  Microlink for Screenshot
+                  Microlink screenshot
                 </Text>{' '}
                 is an easy way for taking an screenshot of any website in a
                 programmatic way using{' '}

@@ -409,7 +409,7 @@ const Resume = props => (
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
       titleize={false}
     >
-      <b>Microlink for PDF</b> provides a set of powerful features without the
+      <b>Microlink PDF</b> provides a set of powerful features without the
       headaches of running your own infrastructure, giving you great power, less
       responsibilities.
     </Caption>
@@ -528,7 +528,7 @@ const ProductInformation = props => {
             <>
               <div>
                 <Text as='span' color='black' fontWeight='bold'>
-                  Microlink for PDF
+                  Microlink PDF
                 </Text>{' '}
                 is a simple way to generate a PDF from any website using{' '}
                 <Link href='/docs/api/getting-started/overview'>

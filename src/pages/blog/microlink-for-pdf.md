@@ -1,17 +1,17 @@
 ---
-title: 'Microlink API: Introducing Microlink for PDF'
+title: 'Microlink API: Introducing Microlink PDF'
 date: '2020-01-08'
 ---
 
-Six months ago we launched [Microlink for Screenshot](https://www.producthunt.com/posts/microlink-screenshot) as part of our product iteration to offer browser capabilities ready to be used directly consuming our [API](/docs/api/getting-started/overview).
+Six months ago we launched [Microlink screenshot](https://www.producthunt.com/posts/microlink-screenshot) as part of our product iteration to offer browser capabilities ready to be used directly consuming our [API](/docs/api/getting-started/overview).
 
-Today, we’re thrilled to announce [Microlink for PDF](/pdf) 🔥.
+Today, we’re thrilled to announce [Microlink PDF](/pdf) 🔥.
 
 [![](https://i.imgur.com/owPghHJ.png)](/pdf)
 
 <Figcaption>See live demo at <Link href='/pdf' children='microlink.io/pdf' />.</Figcaption>
 
-**Microlink for PDF**  is based on the same engineering principles as the rest of the functionality behind [Microlink API](/docs/api/getting-started/overview): making it trivial to get something back from any URL.
+**Microlink PDF**  is based on the same engineering principles as the rest of the functionality behind [Microlink API](/docs/api/getting-started/overview): making it trivial to get something back from any URL.
 
 Enabling the new [pdf](/docs/api/parameters/pdf) query parameter will add a `pdf` data field as part of the response payload:
 

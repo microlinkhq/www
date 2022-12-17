@@ -61,7 +61,7 @@ const Hero = props => {
             data-event-action='Announcement'
             href='/logo'
           >
-            Embed logo from any web site. Introducing <b>Microlink for logo</b>
+            Embed logo from any web site. Introducing <b>Microlink logo</b>
           </Announcement>
         </Flex>
       </Hide>
