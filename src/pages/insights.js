@@ -9,11 +9,11 @@ import chunk from 'lodash/chunk'
 import get from 'dlv'
 
 import {
-  Choose,
   Box,
   Button,
   Caps,
   Card,
+  Choose,
   CodeEditor,
   Container,
   Flex,
@@ -180,13 +180,12 @@ const LiveDemo = ({
 
   return (
     <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
-      <Heading px={5} titleize={false} maxWidth={layout.large}>
+      <Heading px={5} maxWidth={layout.large}>
         Automate web performance
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
         px={[4, 4, 0, 0]}
-        titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Track site speed & website quality over time — Get performance insights
@@ -196,18 +195,11 @@ const LiveDemo = ({
         </Link>
         .
       </Caption>
-      <Flex
-        alignItems={['center', undefined, undefined, undefined]}
-        flexDirection={['column', 'row', 'row', 'row']}
-        pt={[3, 3, 4, 4]}
-      >
-        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/insights'>
+      <Flex pt={[3, 3, 4, 4]}>
+        <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/insights'>
           Get Started
         </ArrowLink>
-        <ArrowLink
-          pt={[3, 0, 0, 0]}
-          href='https://github.com/microlinkhq/browserless'
-        >
+        <ArrowLink href='https://github.com/microlinkhq/browserless'>
           See on GitHub
         </ArrowLink>
       </Flex>
@@ -296,15 +288,10 @@ const Timings = props => {
 
   const blockOne = (
     <Flex flexDirection='column' justifyContent='center' alignItems='center'>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
+      <Subhead fontSize={[3, 4, 6, 6]} color='white'>
         Measure at scale
       </Subhead>
-      <Subhead
-        fontSize={[3, 4, 6, 6]}
-        px={[4, 0, 0, 0]}
-        titleize={false}
-        color='white60'
-      >
+      <Subhead fontSize={[3, 4, 6, 6]} color='white60'>
         without compromises
       </Subhead>
     </Flex>
@@ -344,9 +331,12 @@ const Timings = props => {
             secs
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' fontWeight='bold' pt={2}>
-          <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
-          <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
+        <Caption as='div' color='white60' pt={2}>
+          {['P95', 'response time'].map(children => (
+            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              {children}
+            </Caps>
+          ))}
         </Caption>
       </Flex>
       <Hide breakpoints={[0, 1]}>
@@ -360,9 +350,12 @@ const Timings = props => {
           <Subhead as='div' color='white' fontWeight='bold'>
             <Average value={healthcheck.insights.avg_pretty} />
           </Subhead>
-          <Caption as='div' color='white60' fontWeight='bold' titleize={false}>
-            <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
-            <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
+          <Caption as='div' color='white60'>
+            {['average', 'response time'].map(children => (
+              <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+                {children}
+              </Caps>
+            ))}
           </Caption>
         </Flex>
       </Hide>
@@ -389,9 +382,12 @@ const Timings = props => {
             %
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' mr={3} fontWeight='bold' pt={2}>
-          <Caps fontSize={[0, 2, 2, 2]}>SLA</Caps>
-          <Caps fontSize={[0, 2, 2, 2]}>Guaranteed</Caps>
+        <Caption as='div' color='white60' mr={3} pt={2}>
+          {['SLA', 'Guaranteed'].map(children => (
+            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              {children}
+            </Caps>
+          ))}
         </Caption>
       </Flex>
     </Flex>
@@ -422,9 +418,9 @@ const Resume = props => (
       Global performance insights on click
     </Subhead>
     <Caption
-      py={3}
+      pt={[3, 3, 4, 4]}
+      px={[3, 3, 0, 0]}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
-      titleize={false}
     >
       <b>Microlink insights</b> provides first-class support for web performance
       monitoring, easy to integrate with any existing stack or cloud in just a
@@ -434,24 +430,18 @@ const Resume = props => (
     <Block
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
-          alt='Metrics on-demand'
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
+          alt='Audit on-demand'
           src='https://cdn.microlink.io/illustrations/popularity.svg'
         />
       }
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
             Audit on-demand
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Enable <Link href='/docs/api/parameters/insights'>insights</Link>{' '}
             query parameter at{' '}
             <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
@@ -471,18 +461,11 @@ const Resume = props => (
     <Block
       flexDirection='row-reverse'
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'end']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
             Run on the edge
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Never get worried about infrastructure again. Just hit{' '}
             <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
             and we will run a cloud-based browsers for you.
@@ -491,7 +474,8 @@ const Resume = props => (
       }
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
           alt='Run on the edge'
           src='https://cdn.microlink.io/illustrations/networking.svg'
         />
@@ -502,24 +486,18 @@ const Resume = props => (
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
           alt='Simple integration'
           src='https://cdn.microlink.io/illustrations/abstract-6.svg'
         />
       }
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
             Simple integration
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Connect it with{' '}
             <Link href='https://lighthouse.microlink.io'>
               Lighthouse Viewer
@@ -683,6 +661,7 @@ const InsightsPage = () => {
                 borderBottom={`${borders[1]} ${colors.white20}`}
               />
               <Features
+                px={4}
                 title={
                   <>
                     <Subhead width='100%' textAlign='left'>

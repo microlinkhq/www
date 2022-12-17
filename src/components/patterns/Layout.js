@@ -53,6 +53,7 @@ const Layout = ({
               onClick={onClick}
               style={style}
               css={`
+                overflow-x: hidden;
                 min-height: 100vh;
               `}
             >

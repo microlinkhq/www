@@ -1,18 +1,24 @@
 import { XCircle, CheckCircle } from 'react-feather'
 import { Flex, Text } from 'components/elements'
-import { cx } from 'theme'
-import React from 'react'
+import React, { createElement } from 'react'
+import { fontSizes, cx } from 'theme'
 
 const List = props => <Flex as='ul' flexDirection='column' {...props} />
 
 const ListItem = ({ type = 'yes', ...props }) => {
-  const IconComponent = type === 'yes' ? CheckCircle : XCircle
-  const color = type === 'yes' ? cx('close') : cx('gray')
-
+  const isYes = type === 'yes'
   return (
     <Flex as='li' alignItems='center' mb={3}>
-      <Flex justifyContent='center' mr={2}>
-        <IconComponent color={color} />
+      <Flex
+        justifyContent='center'
+        mr={2}
+        width={[fontSizes[1], fontSizes[1], fontSizes[2], fontSizes[2]]}
+        height='100%'
+        as='span'
+      >
+        {createElement(isYes ? CheckCircle : XCircle, {
+          color: isYes ? cx('close') : cx('gray')
+        })}
       </Flex>
       <Text {...props} />
     </Flex>

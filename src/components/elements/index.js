@@ -43,6 +43,8 @@ import Toolbar from './Toolbar'
 import DotSpinner from './DotSpinner'
 import Tooltip from './Tooltip/Tooltip'
 import Toggle from './Toggle/Toggle'
+import LineBreak from './LineBreak'
+
 import {
   BackgroundSlider,
   BackgroundSliderContainer
@@ -91,6 +93,7 @@ export {
   Input,
   InputIcon,
   Label,
+  LineBreak,
   Link,
   LinkSolid,
   MultiCodeEditor,

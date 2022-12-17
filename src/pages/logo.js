@@ -175,8 +175,7 @@ const Preview = React.memo(({ toClipboard, data }) => {
                     borderColor='black10'
                     style={{ cursor: 'pointer', background: color }}
                     onClick={() =>
-                      toClipboard({ copy: color, text: COPIED.COLOR(color) })
-                    }
+                      toClipboard({ copy: color, text: COPIED.COLOR(color) })}
                   />
                 )
               })}
@@ -219,29 +218,21 @@ const LiveDemo = React.memo(({ data, query, onSubmit, isLoading }) => {
 
   return (
     <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
-      <Heading px={5} titleize={false} maxWidth={layout.large}>
+      <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Hey, oh, logos!
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
         px={[4, 4, 4, 4]}
-        titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Get and embed logo from any web site with one simple, reliable API.
       </Caption>
-      <Flex
-        alignItems={['center', undefined, undefined, undefined]}
-        flexDirection={['column', 'row', 'row', 'row']}
-        pt={[3, 3, 4, 4]}
-      >
-        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/screenshot'>
+      <Flex pt={[3, 3, 4, 4]}>
+        <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/meta'>
           Get Started
         </ArrowLink>
-        <ArrowLink
-          pt={[3, 0, 0, 0]}
-          href='https://github.com/microlinkhq/browserless'
-        >
+        <ArrowLink href='https://github.com/microlinkhq/metascraper'>
           See on GitHub
         </ArrowLink>
       </Flex>
@@ -312,15 +303,10 @@ const Timings = props => {
 
   const blockOne = (
     <Flex flexDirection='column' justifyContent='center' alignItems='center'>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
+      <Subhead fontSize={[3, 4, 6, 6]} color='white'>
         Ready to use.
       </Subhead>
-      <Subhead
-        fontSize={[3, 4, 6, 6]}
-        px={[4, 0, 0, 0]}
-        titleize={false}
-        color='white60'
-      >
+      <Subhead fontSize={[3, 4, 6, 6]} px={[4, 0, 0, 0]} color='white60'>
         Fast. Easy. Reliable.
       </Subhead>
     </Flex>
@@ -329,9 +315,8 @@ const Timings = props => {
   const blockTwo = (
     <Flex
       pt={[4, 4, 5, 5]}
-      justifyContent={['space-around', 'space-around', 'center', 'center']}
+      justifyContent='center'
       alignItems='baseline'
-      px={[4, 4, 4, 0]}
       width='100%'
       maxWidth={layout.normal}
       style={{ fontVariantNumeric: 'tabular-nums' }}
@@ -360,9 +345,12 @@ const Timings = props => {
             secs
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' fontWeight='bold' pt={2}>
-          <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
-          <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
+        <Caption as='div' color='white60' pt={2}>
+          {['P95', 'response time'].map(children => (
+            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              {children}
+            </Caps>
+          ))}
         </Caption>
       </Flex>
       <Hide breakpoints={[0, 1]}>
@@ -376,9 +364,12 @@ const Timings = props => {
           <Subhead as='div' color='white' fontWeight='bold'>
             <Average value={healthcheck.meta.avg_pretty} />
           </Subhead>
-          <Caption as='div' color='white60' fontWeight='bold' titleize={false}>
-            <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
-            <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
+          <Caption as='div' color='white60'>
+            {['average', 'response time'].map(children => (
+              <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+                {children}
+              </Caps>
+            ))}
           </Caption>
         </Flex>
       </Hide>
@@ -405,9 +396,12 @@ const Timings = props => {
             %
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' mr={3} fontWeight='bold' pt={2}>
-          <Caps fontSize={[0, 2, 2, 2]}>SLA</Caps>
-          <Caps fontSize={[0, 2, 2, 2]}>Guaranteed</Caps>
+        <Caption as='div' color='white60' mr={3} pt={2}>
+          {['SLA', 'Guaranteed'].map(children => (
+            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              {children}
+            </Caps>
+          ))}
         </Caption>
       </Flex>
     </Flex>
@@ -438,10 +432,9 @@ const Resume = props => (
       made simple
     </Subhead>
     <Caption
-      px={3}
       pt={[3, 3, 4, 4]}
+      px={[3, 3, 0, 0]}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
-      titleize={false}
     >
       <b>Microlink logo</b> brings logo detection from any web, including file
       extension, dimensions, size, and colors. It has been designed to be
@@ -450,24 +443,18 @@ const Resume = props => (
     <Block
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
           alt='Palette detection'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
             Always fresh
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Consecutive requests will be cached on the edge, respecting{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
             responses doesn't affect your plan.
@@ -478,18 +465,11 @@ const Resume = props => (
     <Block
       flexDirection='row-reverse'
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'start']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
             Colors detection
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Enable <Link href='/docs/api/parameters/palette'>palette</Link> to
             detect dominant colors as part of the logo data properties.
           </Text>
@@ -497,7 +477,8 @@ const Resume = props => (
       }
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
           alt='Colors detection'
           src='https://cdn.microlink.io/illustrations/workshop.svg'
         />
@@ -507,24 +488,18 @@ const Resume = props => (
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
           alt='Contextual information'
           src='https://cdn.microlink.io/illustrations/robots.svg'
         />
       }
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
             Contextual information
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Whenever is possible data is expanded to bring you more, like file
             extension, dimensions, size, duration, etc.
           </Text>
@@ -693,10 +668,11 @@ const LogoPage = () => {
                 borderBottom={`${borders[1]} ${colors.white20}`}
               />
               <Features
+                px={[4, 4, 0, 0]}
                 title={
                   <>
                     <Subhead width='100%' textAlign='left'>
-                      Powerfully simple.
+                      Effortless API,
                     </Subhead>
                     <Subhead
                       color='#d306aa'
@@ -704,7 +680,7 @@ const LogoPage = () => {
                       textAlign='left'
                       titleize={false}
                     >
-                      Embracing the simplicity.
+                      ready to be used.
                     </Subhead>
                   </>
                 }
