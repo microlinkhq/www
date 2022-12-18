@@ -543,7 +543,7 @@ const ProductInformation = props => (
         answer: (
           <>
             <div>
-              It&#039;s a{' '}
+              It’s a{' '}
               <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
                 rule-based system
               </Link>{' '}
@@ -591,7 +591,7 @@ const ProductInformation = props => (
         answer: (
           <>
             <div>
-              We&#039;re always available at{' '}
+              We’re always available at{' '}
               <Link display='inline' href='mailto:hello@microlink.io'>
                 hello@microlink.io
               </Link>

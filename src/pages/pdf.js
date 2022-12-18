@@ -560,8 +560,8 @@ const ProductInformation = props => {
               </div>
               <div>
                 The fact of resolve any URL at scale in{' '}
-                <Average size='tiny' value={healthcheck.pdf.avg_pretty} />{' '}
-                isn&#039;t a trivial thing.
+                <Average size='tiny' value={healthcheck.pdf.avg_pretty} /> isn’t
+                a trivial thing.
               </div>
             </>
           )
@@ -571,7 +571,7 @@ const ProductInformation = props => {
           answer: (
             <>
               <div>
-                We&#039;re always available at{' '}
+                We’re always available at{' '}
                 <Link display='inline' href='mailto:hello@microlink.io'>
                   hello@microlink.io
                 </Link>

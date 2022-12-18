@@ -65,7 +65,7 @@ const FAQs = props => (
         answer: (
           <>
             <div>
-              It&#039;s a benchmark for measuring{' '}
+              It’s a benchmark for measuring{' '}
               <Link href='/docs/api/getting-started/overview'>
                 Microlink API
               </Link>{' '}
@@ -134,7 +134,7 @@ const FAQs = props => (
         answer: (
           <>
             <div>
-              We&#039;re always available at{' '}
+              We’re always available at{' '}
               <Link display='inline' href='mailto:hello@microlink.io'>
                 hello@microlink.io
               </Link>

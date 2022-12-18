@@ -674,7 +674,7 @@ const ProductInformation = props => {
                   size='tiny'
                   value={healthcheck.screenshot.avg_pretty}
                 />{' '}
-                isn&#039;t a trivial thing.
+                isn’t a trivial thing.
               </div>
             </>
           )
@@ -684,7 +684,7 @@ const ProductInformation = props => {
           answer: (
             <>
               <div>
-                We&#039;re always available at{' '}
+                We’re always available at{' '}
                 <Link display='inline' href='mailto:hello@microlink.io'>
                   hello@microlink.io
                 </Link>

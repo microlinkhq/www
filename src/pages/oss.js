@@ -30,8 +30,8 @@ const OssPage = () => {
             titleize={false}
             maxWidth={layout.small}
           >
-            It&#039;s our great privilege to build our products using open
-            source software (OSS) and we want to give the same effort back.
+            It’s our great privilege to build our products using open source
+            software (OSS) and we want to give the same effort back.
           </Caption>
 
           <Flex

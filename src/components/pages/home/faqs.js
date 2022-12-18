@@ -15,7 +15,7 @@ const FAQs = props => (
             <div>
               Absolutely. We have a forever free{' '}
               <Link href='/docs/api/basics/endpoint'>endpoint</Link> you can
-              use. It&#039;s the best way to start using the service.
+              use. It’s the best way to start using the service.
             </div>
             <div>
               The free plan runs under some limitation to avoid abusive usage of
@@ -137,7 +137,7 @@ const FAQs = props => (
         answer: (
           <>
             <div>
-              We use Stripe to process your payment. It&#039;s the same payment
+              We use Stripe to process your payment. It’s the same payment
               provider used in products such as Twitter, Pinterest, and Lyft. We
               do not handle your credit card information directly.
             </div>
@@ -153,8 +153,8 @@ const FAQs = props => (
               <Link display='inline' href='mailto:hello@microlink.io'>
                 hello@microlink.io
               </Link>{' '}
-              requesting the change. You will receive a link from where
-              you&#039;ll be able to securely update your details.
+              requesting the change. You will receive a link from where you’ll
+              be able to securely update your details.
             </div>
           </>
         )
@@ -178,7 +178,7 @@ const FAQs = props => (
         answer: (
           <>
             <div key='other-questions'>
-              We&#039;re always available at{' '}
+              We’re always available at{' '}
               <Link display='inline' href='mailto:hello@microlink.io'>
                 hello@microlink.io
               </Link>

@@ -175,7 +175,8 @@ const Preview = React.memo(({ toClipboard, data }) => {
                     borderColor='black10'
                     style={{ cursor: 'pointer', background: color }}
                     onClick={() =>
-                      toClipboard({ copy: color, text: COPIED.COLOR(color) })}
+                      toClipboard({ copy: color, text: COPIED.COLOR(color) })
+                    }
                   />
                 )
               })}
@@ -457,7 +458,7 @@ const Resume = props => (
           <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Consecutive requests will be cached on the edge, respecting{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
-            responses doesn't affect your plan.
+            responses doesn’t affect your plan.
           </Text>
         </Flex>
       }
@@ -583,7 +584,7 @@ const ProductInformation = props => {
               <div>
                 The fact of resolve any URL at scale in{' '}
                 <Average size='tiny' value={healthcheck.meta.avg_pretty} />{' '}
-                isn&#039;t a trivial thing.
+                isn’t a trivial thing.
               </div>
             </>
           )
@@ -593,7 +594,7 @@ const ProductInformation = props => {
           answer: (
             <>
               <div>
-                We&#039;re always available at{' '}
+                We’re always available at{' '}
                 <Link display='inline' href='mailto:hello@microlink.io'>
                   hello@microlink.io
                 </Link>
