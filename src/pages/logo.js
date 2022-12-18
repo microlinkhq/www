@@ -28,7 +28,8 @@ import {
   InputIcon,
   Link,
   Subhead,
-  Text
+  Text,
+  Tooltip
 } from 'components/elements'
 
 import {
@@ -98,16 +99,27 @@ const DEFAULT_DATA = {
   }
 }
 
-const COPIED = {
-  URL: 'copied URL to clipboard!',
-  COLOR: color => `copied ${color} to clipboard!`,
-  HTML: 'copied HTML to clipboard!'
+const TOOLTIP = {
+  OPTIONS: {
+    interactive: false,
+    hideOnClick: true
+  },
+  COPY: {
+    URL: 'Click to copy URL',
+    COLOR: color => `Click to copy ${color}`,
+    HTML: 'Click to copy HTML'
+  },
+  COPIED: {
+    URL: 'Copied URL to clipboard!',
+    COLOR: color => `Copied ${color} to clipboard!`,
+    HTML: 'Copied HTML to clipboard!'
+  }
 }
 
 const LogoPreview = ({ toClipboard, logo, style, ...props }) => (
   <LogoBox
     style={{ cursor: 'pointer' }}
-    onClick={() => toClipboard({ copy: logo.url, text: COPIED.URL })}
+    onClick={() => toClipboard({ copy: logo.url, text: TOOLTIP.COPIED.URL })}
     {...props}
   >
     <Image
@@ -146,40 +158,56 @@ const PreviewComponent = ({ toClipboard, data }) => {
     <>
       <Flex pb={4}>
         {IMAGE_PREVIEW_STYLE.map((imagePreviewStyle, index) => (
-          <LogoComponent
+          <Tooltip
             key={`${data.url}_${index}`}
-            ml={index === 0 ? 0 : 3}
-            index={index}
-            toClipboard={toClipboard}
-            logo={logo}
-            style={imagePreviewStyle}
-          />
+            tooltipsOpts={TOOLTIP.OPTIONS}
+            content={<Tooltip.Content>{TOOLTIP.COPY.URL}</Tooltip.Content>}
+          >
+            <LogoComponent
+              ml={index === 0 ? 0 : 3}
+              index={index}
+              toClipboard={toClipboard}
+              logo={logo}
+              style={imagePreviewStyle}
+            />
+          </Tooltip>
         ))}
       </Flex>
       <Flex justifyContent='center' alignItems='center' pb={4}>
         <Choose>
           <Choose.When condition={colors.length > 0}>
-            <Flex
-              style={{
-                height: toPx(LOGO_SIZE / 3)
-              }}
-            >
-              {colors.map((color, index) => {
-                return (
+            {colors.map((color, index) => {
+              return (
+                <Tooltip
+                  key={color}
+                  tooltipsOpts={{
+                    interactive: false,
+                    hideOnClick: true
+                  }}
+                  content={
+                    <Tooltip.Content>
+                      {TOOLTIP.COPY.COLOR(color)}
+                    </Tooltip.Content>
+                  }
+                >
                   <Box
                     ml={index !== 0 ? 1 : 0}
-                    key={color}
+                    height={toPx(LOGO_SIZE / 3)}
                     title={color}
                     width={toPx((LOGO_SIZE * 3 * 1) / colors.length)}
                     border={1}
                     borderColor='black10'
                     style={{ cursor: 'pointer', background: color }}
                     onClick={() =>
-                      toClipboard({ copy: color, text: COPIED.COLOR(color) })}
+                      toClipboard({
+                        copy: color,
+                        text: TOOLTIP.COPIED.COLOR(color)
+                      })
+                    }
                   />
-                )
-              })}
-            </Flex>
+                </Tooltip>
+              )
+            })}
           </Choose.When>
           <Choose.Otherwise>
             <Text>
@@ -283,16 +311,21 @@ const LiveDemoComponent = ({ data, query, onSubmit, isLoading }) => {
           data={data || suggestionData || DEFAULT_DATA}
         />
         <Box px={4} width='100%'>
-          <Input
-            readOnly
-            onClick={event => {
-              event.target.select()
-              toClipboard({ copy: snippetText, text: COPIED.HTML })
-            }}
-            width='100%'
-            color='black60'
-            value={snippetText}
-          />
+          <Tooltip
+            tooltipsOpts={TOOLTIP.OPTIONS}
+            content={<Tooltip.Content>{TOOLTIP.COPY.HTML}</Tooltip.Content>}
+          >
+            <Input
+              readOnly
+              onClick={event => {
+                event.target.select()
+                toClipboard({ copy: snippetText, text: TOOLTIP.COPIED.HTML })
+              }}
+              width='100%'
+              color='black60'
+              value={snippetText}
+            />
+          </Tooltip>
         </Box>
       </Flex>
       <ClipboardComponent />
