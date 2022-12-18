@@ -124,7 +124,7 @@ const LogoEmpty = ({ style, ...props }) => (
   </LogoBox>
 )
 
-const Preview = React.memo(({ toClipboard, data }) => {
+const PreviewComponent = ({ toClipboard, data }) => {
   const logo = data.logo || {}
 
   const colors = [
@@ -175,8 +175,7 @@ const Preview = React.memo(({ toClipboard, data }) => {
                     borderColor='black10'
                     style={{ cursor: 'pointer', background: color }}
                     onClick={() =>
-                      toClipboard({ copy: color, text: COPIED.COLOR(color) })
-                    }
+                      toClipboard({ copy: color, text: COPIED.COLOR(color) })}
                   />
                 )
               })}
@@ -192,9 +191,11 @@ const Preview = React.memo(({ toClipboard, data }) => {
       </Flex>
     </>
   )
-})
+}
 
-const LiveDemo = React.memo(({ data, query, onSubmit, isLoading }) => {
+const Preview = React.memo(PreviewComponent)
+
+const LiveDemoComponent = ({ data, query, onSubmit, isLoading }) => {
   const [inputUrl, setInputUrl] = useState(query.url || '')
   const [ClipboardComponent, toClipboard] = useClipboard()
 
@@ -297,7 +298,9 @@ const LiveDemo = React.memo(({ data, query, onSubmit, isLoading }) => {
       <ClipboardComponent />
     </Container>
   )
-})
+}
+
+const LiveDemo = React.memo(LiveDemoComponent)
 
 const Timings = props => {
   const healthcheck = useHealthcheck()
