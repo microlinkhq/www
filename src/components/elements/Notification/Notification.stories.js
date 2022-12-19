@@ -1,6 +1,13 @@
-import { Choose, Button, Notification, Box } from 'components/elements'
-import React, { useState } from 'react'
+import {
+  Caps,
+  Choose,
+  Button,
+  Notification,
+  Box,
+  Flex
+} from 'components/elements'
 import { storiesOf } from '@storybook/react'
+import React, { useState } from 'react'
 import { Story } from 'story'
 
 const storyName = 'Notification'
@@ -20,15 +27,17 @@ const NotificationPreview = ({ type }) => {
   return (
     <Choose>
       <Choose.When condition={type === 'success'}>
-        <Notification.Success>payment processed</Notification.Success>
+        <Notification.Success>
+          Payment updated! We sent you an email.
+        </Notification.Success>
       </Choose.When>
       <Choose.When condition={type === 'warning'}>
         <Notification.Warning>
-          This action can be consecuences
+          This action cannot be undone.
         </Notification.Warning>
       </Choose.When>
       <Choose.When condition={type === 'error'}>
-        <Notification.Error>oh no!</Notification.Error>
+        <Notification.Error>Payment not updated.</Notification.Error>
       </Choose.When>
     </Choose>
   )
@@ -37,27 +46,27 @@ const NotificationPreview = ({ type }) => {
 const NotificationStory = () => {
   const [notificationType, setNotificationType] = useState('')
 
+  const triggerNotification = type => () => {
+    setNotificationType('')
+    queueMicrotask(() => setNotificationType(type))
+  }
+
   return (
     <Story name={storyName} code={code}>
-      <Box mb={4} width={650}>
-        <Button bg='green' onClick={() => setNotificationType('success')}>
-          Success
+      <Flex mb={4} width={650}>
+        <Button onClick={triggerNotification('success')}>
+          <Caps fontSize={0}>Success</Caps>
         </Button>
-        <Button bg='red' onClick={() => setNotificationType('error')} ml={3}>
-          Error
+        <Box px={1} />
+        <Button onClick={triggerNotification('warning')}>
+          <Caps fontSize={0}>Warning</Caps>
         </Button>
-        <Button
-          bg='yellow'
-          onClick={() => setNotificationType('warning')}
-          ml={3}
-        >
-          Warning
-        </Button>
-        <Button onClick={() => setNotificationType('')} ml={3}>
-          clear
+        <Box px={1} />
+        <Button onClick={triggerNotification('error')}>
+          <Caps fontSize={0}>Error</Caps>
         </Button>
         <NotificationPreview type={notificationType} />
-      </Box>
+      </Flex>
     </Story>
   )
 }

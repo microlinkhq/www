@@ -1,30 +1,16 @@
 import { hideNotification, showNotification } from 'components/keyframes'
 import React, { createElement, useState } from 'react'
-import { Box, Text, Flex } from 'components/elements'
-import { cx, transition } from 'theme'
+import FeatherIcon from 'components/icons/Feather'
+import { Text, Flex } from 'components/elements'
 import styled from 'styled-components'
-import { X } from 'react-feather'
-import { darken } from 'polished'
-
-const CloseButtonWrapper = styled(Box)`
-  display: inline-flex;
-  position: relative;
-  cursor: pointer;
-  transition: stroke ${transition.medium};
-  svg {
-    stroke: ${({ color }) => cx(color)};
-    &:hover {
-      stroke: ${({ color }) => darken(0.15, cx(color))};
-    }
-  }
-`
+import { transition } from 'theme'
 
 const Wrapper = styled(Flex)`
-  z-index: 3;
-  position: fixed;
-  right: 0;
   bottom: 0;
   left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 3;
   animation: ${showNotification} ${transition.medium} forwards 1;
 
   &[aria-hidden='true'] {
@@ -32,13 +18,7 @@ const Wrapper = styled(Flex)`
   }
 `
 
-const CloseButton = ({ color, ...props }) => (
-  <CloseButtonWrapper color={color} {...props}>
-    <X size={16} color={color} />
-  </CloseButtonWrapper>
-)
-
-const Notification = ({ children, bg, color, ...props }) => {
+const Notification = ({ icon, iconColor, children, ...props }) => {
   const [isHidden, setIsHidden] = useState(false)
   const [isClosed, setIsClosed] = useState(false)
 
@@ -58,19 +38,25 @@ const Notification = ({ children, bg, color, ...props }) => {
         px={3}
         py='10px'
         borderRadius={2}
-        color={color}
-        bg={bg}
+        border={1}
+        borderColor='black10'
+        color='black80'
+        bg='white'
         {...props}
       >
         <Flex alignItems='center'>
+          <FeatherIcon mr={3} icon={icon} color={iconColor} />
           {children}
-          <CloseButton
+          <FeatherIcon
+            ml={3}
+            icon='X'
+            size='16px'
+            color='black'
+            style={{ cursor: 'pointer' }}
             onClick={() => {
               setIsHidden(true)
               setTimeout(() => setIsClosed(true), 300)
             }}
-            color={color}
-            pl={3}
           />
         </Flex>
       </Text>
@@ -79,13 +65,25 @@ const Notification = ({ children, bg, color, ...props }) => {
 }
 
 const NotificationSuccess = props =>
-  createElement(Notification, { bg: 'green2', color: 'green8', ...props })
+  createElement(Notification, {
+    icon: 'CheckCircle',
+    iconColor: 'close',
+    ...props
+  })
 
 const NotificationError = props =>
-  createElement(Notification, { bg: 'red2', color: 'red8', ...props })
+  createElement(Notification, {
+    icon: 'XCircle',
+    iconColor: 'fullscreen',
+    ...props
+  })
 
 const NotificationWarning = props =>
-  createElement(Notification, { bg: 'yellow2', color: 'yellow8', ...props })
+  createElement(Notification, {
+    icon: 'AlertTriangle',
+    iconColor: 'minimize',
+    ...props
+  })
 
 Notification.Success = NotificationSuccess
 Notification.Error = NotificationError

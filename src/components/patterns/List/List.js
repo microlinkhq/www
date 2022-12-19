@@ -1,7 +1,7 @@
-import { XCircle, CheckCircle } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import { Flex, Text } from 'components/elements'
-import React, { createElement } from 'react'
-import { fontSizes, cx } from 'theme'
+import { fontSizes } from 'theme'
+import React from 'react'
 
 const List = props => <Flex as='ul' flexDirection='column' {...props} />
 
@@ -16,9 +16,10 @@ const ListItem = ({ type = 'yes', ...props }) => {
         height='100%'
         as='span'
       >
-        {createElement(isYes ? CheckCircle : XCircle, {
-          color: isYes ? cx('close') : cx('gray')
-        })}
+        <FeatherIcon
+          icon={isYes ? 'CheckCircle' : 'XCircle'}
+          color={isYes ? 'close' : 'gray'}
+        />
       </Flex>
       <Text {...props} />
     </Flex>
