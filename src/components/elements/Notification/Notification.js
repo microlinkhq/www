@@ -32,7 +32,6 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
       my={3}
     >
       <Text
-        fontSize={1}
         boxShadow={0}
         m={3}
         px={3}
@@ -40,13 +39,14 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
         borderRadius={2}
         border={1}
         borderColor='black10'
-        color='black80'
         bg='white'
         {...props}
       >
         <Flex alignItems='center'>
           <FeatherIcon mr={3} icon={icon} color={iconColor} />
-          {children}
+          <Text color='black80' fontSize={['10px', 1]}>
+            {children}
+          </Text>
           <FeatherIcon
             ml={3}
             icon='X'
