@@ -116,19 +116,21 @@ const TOOLTIP = {
   }
 }
 
-const LogoPreview = ({ toClipboard, logo, style, ...props }) => (
-  <LogoBox
-    style={{ cursor: 'pointer' }}
-    onClick={() => toClipboard({ copy: logo.url, text: TOOLTIP.COPIED.URL })}
-    {...props}
-  >
-    <Image
-      alt={`logo preview for ${Math.round(style.width)}px`}
-      style={style}
-      src={logo.url}
-    />
-  </LogoBox>
-)
+const LogoPreview = ({ toClipboard, logo, style, ...props }) => {
+  return (
+    <LogoBox
+      style={{ cursor: 'pointer' }}
+      onClick={() => toClipboard({ copy: logo.url, text: TOOLTIP.COPIED.URL })}
+      {...props}
+    >
+      <Image
+        alt={`logo preview for ${Math.round(style.width)}px`}
+        style={style}
+        src={logo.url}
+      />
+    </LogoBox>
+  )
+}
 
 const LogoEmpty = ({ style, ...props }) => (
   <LogoBox {...props}>
@@ -136,23 +138,29 @@ const LogoEmpty = ({ style, ...props }) => (
   </LogoBox>
 )
 
-const Preview = React.memo(function Preview ({ toClipboard, data }) {
+const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
   const logo = data.logo || {}
 
-  const colors = [
-    ...new Set(
-      []
-        .concat(
-          logo.palette,
-          logo.background_color,
-          logo.color,
-          logo.alternative_color
+  const colors = isLoading
+    ? Array.from({ length: 6 }, () => '#fff')
+    : [
+        ...new Set(
+          []
+            .concat(
+              logo.palette,
+              logo.background_color,
+              logo.color,
+              logo.alternative_color
+            )
+            .filter(Boolean)
         )
-        .filter(Boolean)
-    )
-  ]
+      ]
 
-  const LogoComponent = logo.url ? LogoPreview : LogoEmpty
+  const LogoComponent = isLoading
+    ? LogoEmpty
+    : logo.url
+    ? LogoPreview
+    : LogoEmpty
 
   return (
     <>
@@ -179,7 +187,7 @@ const Preview = React.memo(function Preview ({ toClipboard, data }) {
             {colors.map((color, index) => {
               return (
                 <Tooltip
-                  key={color}
+                  key={`${color}_${index}`}
                   tooltipsOpts={{
                     interactive: false,
                     hideOnClick: true
@@ -202,7 +210,8 @@ const Preview = React.memo(function Preview ({ toClipboard, data }) {
                       toClipboard({
                         copy: color,
                         text: TOOLTIP.COPIED.COLOR(color)
-                      })}
+                      })
+                    }
                   />
                 </Tooltip>
               )
@@ -309,6 +318,7 @@ const LiveDemo = React.memo(function LiveDemo ({
 
       <Flex flexDirection='column' alignItems='center' pb={4}>
         <Preview
+          isLoading={isLoading}
           toClipboard={toClipboard}
           data={data || suggestionData || DEFAULT_DATA}
         />
@@ -645,15 +655,17 @@ const ProductInformation = props => {
   )
 }
 
-const LogoPage = () => {
+const LogoPage = ({ serverData }) => {
   const [query] = useQueryState()
   const features = useFeaturesMeta()
+  const { hasQuery } = serverData
 
   return (
     <Layout>
       <FetchProvider mqlOpts={{ palette: true }}>
         {({ status, doFetch, data }) => {
-          const isLoading = status === 'fetching'
+          const isLoading =
+            (hasQuery && status === 'initial') || status === 'fetching'
           return (
             <>
               <LiveDemo
@@ -743,6 +755,13 @@ const LogoPage = () => {
       </FetchProvider>
     </Layout>
   )
+}
+
+export async function getServerData ({ query }) {
+  const hasQuery = !!query.url
+  return {
+    props: { hasQuery }
+  }
 }
 
 export default LogoPage
