@@ -11,7 +11,7 @@ const createNavItem = ({ title, ...opts }) => {
   const isInternal = isInternalLink(opts.href)
 
   const linkProps = isInternal
-    ? { rel: 'prerender', title }
+    ? { title }
     : { rel: 'noopener noreferrer', target: '_blank', title }
 
   const NavItemWrapper = props =>
