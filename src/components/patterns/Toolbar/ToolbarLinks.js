@@ -158,7 +158,15 @@ export const NavProducts = createNavItem({
     NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
 
-NavProducts.pages = ['/meta', '/sdk', '/pdf', '/screenshot', '/insights']
+NavProducts.pages = [
+  '/formats',
+  '/insights',
+  '/logo',
+  '/meta',
+  '/pdf',
+  '/screenshot',
+  '/sdk'
+]
 
 export const NavDevelopers = createNavItem({
   children: 'Developers',
