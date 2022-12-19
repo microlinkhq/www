@@ -6,6 +6,7 @@ import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { issueUrl } from 'helpers'
+import get from 'dlv'
 
 import {
   useClipboard,
@@ -255,6 +256,7 @@ const LiveDemo = React.memo(function LiveDemo ({
 
   const snippetText = `<img src="${embedUrl}"></img>`
   const isDefault = DEFAULT_DATA.url === url
+  const logoUrl = get(data, 'logo.url')
 
   return (
     <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
@@ -291,7 +293,8 @@ const LiveDemo = React.memo(function LiveDemo ({
               fontSize={2}
               iconComponent={
                 <InputIcon
-                  url={isDefault ? undefined : url}
+                  url={isDefault ? undefined : logoUrl ? url : undefined}
+                  iconUrl={logoUrl}
                   provider={isDefault ? undefined : 'microlink'}
                   embedUrl={embedUrl}
                 />
