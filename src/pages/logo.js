@@ -159,8 +159,8 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-    ? LogoPreview
-    : LogoEmpty
+      ? LogoPreview
+      : LogoEmpty
 
   return (
     <>
@@ -210,8 +210,7 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
                       toClipboard({
                         copy: color,
                         text: TOOLTIP.COPIED.COLOR(color)
-                      })
-                    }
+                      })}
                   />
                 </Tooltip>
               )
@@ -655,10 +654,10 @@ const ProductInformation = props => {
   )
 }
 
-const LogoPage = ({ serverData }) => {
+const LogoPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesMeta()
-  const { hasQuery } = serverData
+  const hasQuery = query && !!query.url
 
   return (
     <Layout>
@@ -755,13 +754,6 @@ const LogoPage = ({ serverData }) => {
       </FetchProvider>
     </Layout>
   )
-}
-
-export async function getServerData ({ query }) {
-  const hasQuery = !!query.url
-  return {
-    props: { hasQuery }
-  }
 }
 
 export default LogoPage
