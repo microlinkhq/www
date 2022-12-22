@@ -27,6 +27,7 @@ import {
   Image,
   Input,
   InputIcon,
+  LineBreak,
   Link,
   Subhead,
   Text,
@@ -121,7 +122,9 @@ const LogoPreview = ({ toClipboard, logo, style, ...props }) => {
   return (
     <LogoBox
       style={{ cursor: 'pointer' }}
-      onClick={() => toClipboard({ copy: logo.url, text: TOOLTIP.COPIED.URL })}
+      onClick={() => {
+        toClipboard({ copy: logo.url, text: TOOLTIP.COPIED.URL })
+      }}
       {...props}
     >
       <Image
@@ -160,8 +163,8 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-      ? LogoPreview
-      : LogoEmpty
+    ? LogoPreview
+    : LogoEmpty
 
   return (
     <>
@@ -211,7 +214,8 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
                       toClipboard({
                         copy: color,
                         text: TOOLTIP.COPIED.COLOR(color)
-                      })}
+                      })
+                    }
                   />
                 </Tooltip>
               )
@@ -265,10 +269,10 @@ const LiveDemo = React.memo(function LiveDemo ({
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 4, 4]}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Get and embed logo from any web site with one simple, reliable API.
+        Get and embed logo from any website <LineBreak /> with one simple,
+        reliable API.
       </Caption>
       <Flex pt={[3, 3, 4, 4]}>
         <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/meta'>
@@ -402,6 +406,9 @@ const Timings = props => {
           ))}
         </Caption>
       </Flex>
+      <Hide breakpoints={[2, 3]}>
+        <Box px={3} />
+      </Hide>
       <Hide breakpoints={[0, 1]}>
         <Flex
           display='inline-flex'
@@ -482,7 +489,7 @@ const Resume = props => (
     </Subhead>
     <Caption
       pt={[3, 3, 4, 4]}
-      px={[3, 3, 0, 0]}
+      px={[4, 4, 4, 0]}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
     >
       <b>Microlink logo</b> brings logo detection from any web, including file
@@ -719,7 +726,7 @@ const LogoPage = () => {
                 borderBottom={`${borders[1]} ${colors.white20}`}
               />
               <Features
-                px={[4, 4, 0, 0]}
+                px={4}
                 title={
                   <>
                     <Subhead width='100%' textAlign='left'>

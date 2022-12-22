@@ -7,6 +7,11 @@ export const useClipboard = () => {
   const [text, setText] = useState('')
 
   const toClipboard = ({ copy, text }) => {
+    if (!navigator.clipboard) {
+      console.warn("[hook/use-clipboard]: 'navigator.clipboard' is undefined")
+      return
+    }
+
     clearTimeout(pendingTimer)
     setIsCopied(false)
     setText(text)

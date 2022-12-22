@@ -339,6 +339,9 @@ const Timings = props => {
           ))}
         </Caption>
       </Flex>
+      <Hide breakpoints={[2, 3]}>
+        <Box px={3} />
+      </Hide>
       <Hide breakpoints={[0, 1]}>
         <Flex
           display='inline-flex'
@@ -419,7 +422,7 @@ const Resume = props => (
     </Subhead>
     <Caption
       pt={[3, 3, 4, 4]}
-      px={[3, 3, 0, 0]}
+      px={[4, 4, 4, 0]}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
     >
       <b>Microlink insights</b> provides first-class support for web performance

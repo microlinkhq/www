@@ -258,7 +258,6 @@ const LiveDemo = ({
             ))}
           </List>
         </Hide>
-
         <Hide breakpoints={[2, 3]}>
           <List
             justifyContent='center'
@@ -429,7 +428,7 @@ const Resume = props => (
     </Subhead>
     <Caption
       pt={[3, 3, 4, 4]}
-      px={[3, 3, 0, 0]}
+      px={[4, 4, 4, 0]}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
     >
       <b>Microlink meta</b> extracts structured data from any website. Enter a
