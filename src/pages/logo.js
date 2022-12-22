@@ -5,10 +5,11 @@ import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import { issueUrl } from 'helpers'
+import { issueUrl, noop } from 'helpers'
 import get from 'dlv'
 
 import {
+  useBreakpoint,
   useClipboard,
   useFeaturesMeta,
   useHealthcheck,
@@ -118,10 +119,9 @@ const TOOLTIP = {
   }
 }
 
-const LogoPreview = ({ toClipboard, logo, style, ...props }) => {
+const LogoPreview = ({ toClipboard = noop, logo, style, ...props }) => {
   return (
     <LogoBox
-      style={{ cursor: 'pointer' }}
       onClick={() => {
         toClipboard({ copy: logo.url, text: TOOLTIP.COPIED.URL })
       }}
@@ -143,6 +143,8 @@ const LogoEmpty = ({ style, ...props }) => (
 )
 
 const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
+  const device = useBreakpoint(['mobile', 'desktop', 'desktop', 'desktop'])
+
   const logo = data.logo || {}
 
   const colors = isLoading
@@ -163,73 +165,117 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-    ? LogoPreview
-    : LogoEmpty
+      ? LogoPreview
+      : LogoEmpty
 
   return (
-    <>
-      <Flex pb={4}>
-        {IMAGE_PREVIEW_STYLE.map((imagePreviewStyle, index) => (
-          <Tooltip
-            key={`${data.url}_${index}`}
-            tooltipsOpts={TOOLTIP.OPTIONS}
-            content={<Tooltip.Content>{TOOLTIP.COPY.URL}</Tooltip.Content>}
-          >
-            <LogoComponent
-              ml={index === 0 ? 0 : 3}
-              index={index}
-              toClipboard={toClipboard}
-              logo={logo}
-              style={imagePreviewStyle}
-            />
-          </Tooltip>
-        ))}
-      </Flex>
-      <Flex justifyContent='center' alignItems='center' pb={4}>
-        <Choose>
-          <Choose.When condition={colors.length > 0}>
-            {colors.map((color, index) => {
-              return (
-                <Tooltip
-                  key={`${color}_${index}`}
-                  tooltipsOpts={{
-                    interactive: false,
-                    hideOnClick: true
-                  }}
-                  content={
-                    <Tooltip.Content>
-                      {TOOLTIP.COPY.COLOR(color)}
-                    </Tooltip.Content>
-                  }
-                >
+    <Choose>
+      <Choose.When condition={device === 'mobile'}>
+        <Flex pb={4}>
+          <LogoComponent logo={logo} style={IMAGE_PREVIEW_STYLE[0]} />
+        </Flex>
+        <Flex
+          flexWrap='wrap'
+          justifyContent='center'
+          alignItems='center'
+          maxWidth={IMAGE_PREVIEW_STYLE[0].width * 2}
+          pb={4}
+        >
+          <Choose>
+            <Choose.When condition={colors.length > 0}>
+              {colors.slice(0, 6).map((color, index) => {
+                return (
                   <Box
-                    ml={index !== 0 ? 1 : 0}
+                    key={`${color}_${index}`}
+                    m={1}
                     height={toPx(LOGO_SIZE / 3)}
                     title={color}
                     width={toPx((LOGO_SIZE * 3 * 1) / colors.length)}
                     border={1}
                     borderColor='black10'
-                    style={{ cursor: 'pointer', background: color }}
-                    onClick={() =>
-                      toClipboard({
-                        copy: color,
-                        text: TOOLTIP.COPIED.COLOR(color)
-                      })
-                    }
+                    style={{ background: color }}
+                  />
+                )
+              })}
+            </Choose.When>
+            <Choose.Otherwise>
+              <Text>
+                No logo/color detected.{' '}
+                <Link href={issueUrl.bug()}>Report it</Link>.
+              </Text>
+            </Choose.Otherwise>
+          </Choose>
+        </Flex>
+      </Choose.When>
+      <Choose.Otherwise>
+        <>
+          <Flex pb={4}>
+            {IMAGE_PREVIEW_STYLE.map((imagePreviewStyle, index) => {
+              return (
+                <Tooltip
+                  key={`${data.url}_${index}`}
+                  tooltipsOpts={TOOLTIP.OPTIONS}
+                  content={
+                    <Tooltip.Content>{TOOLTIP.COPY.URL}</Tooltip.Content>
+                  }
+                >
+                  <LogoComponent
+                    ml={index === 0 ? 0 : 3}
+                    index={index}
+                    toClipboard={toClipboard}
+                    logo={logo}
+                    style={{ ...imagePreviewStyle, cursor: 'pointer' }}
                   />
                 </Tooltip>
               )
             })}
-          </Choose.When>
-          <Choose.Otherwise>
-            <Text>
-              No logo/color detected.{' '}
-              <Link href={issueUrl.bug()}>Report it</Link>.
-            </Text>
-          </Choose.Otherwise>
-        </Choose>
-      </Flex>
-    </>
+          </Flex>
+          <Flex justifyContent='center' alignItems='center' pb={4}>
+            <Choose>
+              <Choose.When condition={colors.length > 0}>
+                {colors.map((color, index) => {
+                  return (
+                    <Tooltip
+                      key={`${color}_${index}`}
+                      tooltipsOpts={{
+                        interactive: false,
+                        hideOnClick: true
+                      }}
+                      content={
+                        <Tooltip.Content>
+                          {TOOLTIP.COPY.COLOR(color)}
+                        </Tooltip.Content>
+                      }
+                    >
+                      <Box
+                        ml={index !== 0 ? 1 : 0}
+                        height={toPx(LOGO_SIZE / 3)}
+                        title={color}
+                        width={toPx((LOGO_SIZE * 3 * 1) / colors.length)}
+                        border={1}
+                        borderColor='black10'
+                        style={{ cursor: 'pointer', background: color }}
+                        onClick={() =>
+                          toClipboard({
+                            copy: color,
+                            text: TOOLTIP.COPIED.COLOR(color)
+                          })}
+                      />
+                    </Tooltip>
+                  )
+                })}
+              </Choose.When>
+              <Choose.Otherwise>
+                <Text>
+                  No logo/color detected.{' '}
+                  <Link href={issueUrl.bug()}>Report it</Link>.
+                </Text>
+              </Choose.Otherwise>
+            </Choose>
+          </Flex>
+        </>
+      </Choose.Otherwise>
+    </Choose>
   )
 })
 
@@ -247,9 +293,10 @@ const LiveDemo = React.memo(function LiveDemo ({
     return isUrl(input) ? input : DEFAULT_DATA.url
   }, [inputUrl])
 
-  const suggestionData = useMemo(() => (data ? undefined : DEFAULT_DATA), [
-    data
-  ])
+  const suggestionData = useMemo(
+    () => (data ? undefined : DEFAULT_DATA),
+    [data]
+  )
 
   const embedUrl = useMemo(() => getEmbedUrl(url), [url])
 
@@ -406,10 +453,10 @@ const Timings = props => {
           ))}
         </Caption>
       </Flex>
-      <Hide breakpoints={[2, 3]}>
+      <Hide breakpoints={[1, 2, 3]}>
         <Box px={3} />
       </Hide>
-      <Hide breakpoints={[0, 1]}>
+      <Hide breakpoints={[0]}>
         <Flex
           display='inline-flex'
           px={[2, 2, 2, 5]}
@@ -466,6 +513,7 @@ const Timings = props => {
   return (
     <Block
       id='timings'
+      px={4}
       width='100%'
       flexDirection='column'
       blockOne={blockOne}
@@ -484,8 +532,7 @@ const Resume = props => (
     {...props}
   >
     <Subhead px={[3, 3, 0, 0]} variant='gradient'>
-      Logo for the web <br />
-      made simple
+      Logo for the web
     </Subhead>
     <Caption
       pt={[3, 3, 4, 4]}

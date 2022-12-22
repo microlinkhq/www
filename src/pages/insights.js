@@ -339,10 +339,10 @@ const Timings = props => {
           ))}
         </Caption>
       </Flex>
-      <Hide breakpoints={[2, 3]}>
+      <Hide breakpoints={[1, 2, 3]}>
         <Box px={3} />
       </Hide>
-      <Hide breakpoints={[0, 1]}>
+      <Hide breakpoints={[0]}>
         <Flex
           display='inline-flex'
           px={[2, 2, 2, 5]}
@@ -400,6 +400,7 @@ const Timings = props => {
     <Block
       as='section'
       id='timings'
+      px={4}
       width='100%'
       flexDirection='column'
       blockOne={blockOne}

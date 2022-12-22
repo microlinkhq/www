@@ -287,6 +287,7 @@ const Timings = () => {
       <Block
         bg={COLOR}
         id='timings'
+        px={4}
         flexDirection='column'
         pb={Container.defaultProps.pt}
         blockOne={
@@ -344,10 +345,10 @@ const Timings = () => {
                 ))}
               </Caption>
             </Flex>
-            <Hide breakpoints={[2, 3]}>
+            <Hide breakpoints={[1, 2, 3]}>
               <Box px={3} />
             </Hide>
-            <Hide breakpoints={[0, 1]}>
+            <Hide breakpoints={[0]}>
               <Flex
                 display='inline-flex'
                 px={[2, 2, 2, 5]}

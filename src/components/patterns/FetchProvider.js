@@ -1,4 +1,4 @@
-import { Choose, Link, Text, Notification } from 'components/elements'
+import { Choose, Link, Notification } from 'components/elements'
 import React, { useCallback, useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
 import { urlVariations } from 'helpers'
