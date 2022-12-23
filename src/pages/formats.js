@@ -172,7 +172,7 @@ const FormatsPage = () => {
           pt={[3, 3, 4, 4]}
           flexDirection='column'
           maxWidth={['95vw', '95vw', undefined, undefined]}
-          style={{ 'overflow-x': 'auto' }}
+          style={{ overflowX: 'auto' }}
         >
           <Flex as='header'>
             {HEADER.map(({ children, ...props }) => (
