@@ -166,8 +166,8 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-      ? LogoPreview
-      : LogoEmpty
+    ? LogoPreview
+    : LogoEmpty
 
   return (
     <Choose>
@@ -260,7 +260,8 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
                           toClipboard({
                             copy: color,
                             text: TOOLTIP.COPIED.COLOR(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -318,8 +319,8 @@ const LiveDemo = React.memo(function LiveDemo ({
         pt={[3, 3, 4, 4]}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Easily get and embed logos from any website <LineBreak /> with our
-        simple, reliable API.
+        Easily get and embed logos from any website{' '}
+        <LineBreak breakpoints={[1, 2, 3]} /> with our simple, reliable API.
       </Caption>
       <Flex pt={[3, 3, 4, 4]}>
         <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/meta'>
