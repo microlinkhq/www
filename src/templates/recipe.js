@@ -54,10 +54,10 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
       <Layout
         head={{
           description: recipe.description,
-          image: cdnUrl('banner/recipes.jpeg')
+          image: cdnUrl('banner/recipes.jpeg'),
+          ...meta
         }}
         footer={{ bg: 'transparent' }}
-        {...meta}
       >
         <Flex
           px={3}

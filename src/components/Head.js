@@ -1,6 +1,5 @@
 import { useSiteMetadata } from 'components/hook'
-import { Helmet } from 'react-helmet'
-import React from 'react'
+import React, { useMemo } from 'react'
 import get from 'dlv'
 
 const getPage = props => {
@@ -17,7 +16,7 @@ const mergeMeta = ({ head = {}, ...props }, metadata) => {
   const { siteUrl, video, twitter, headline } = metadata
 
   const description = head.description || metadata.description
-  const title = head.title || getTitle(props, metadata)
+  const title = head.title || getTitle(props, metadata) || metadata.headline
   const image = head.image || metadata.image
 
   const { dataLabel1, dataLabel2, dataValue1, dataValue2, logo, name } = {
@@ -69,17 +68,12 @@ function Head ({ onChangeClientState, script, ...props }) {
     twitter,
     url,
     video
-  } = mergeMeta(props, siteMetadata)
+  } = useMemo(() => mergeMeta(props, siteMetadata), [props, siteMetadata])
 
   const fullTitle = `${title} — ${name}`
 
   return (
-    <Helmet
-      onChangeClientState={onChangeClientState}
-      defaultTitle={`${headline} — ${name}`}
-      titleTemplate={`%s — ${name}`}
-      {...props}
-    >
+    <>
       <script type='application/ld+json'>
         {`${JSON.stringify({
           '@context': 'http://schema.org',
@@ -134,7 +128,7 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta property='og:site_name' content={name} />
       <meta property='og:type' content='website' />
       <meta property='og:updated_time' content={date} />
-    </Helmet>
+    </>
   )
 }
 
