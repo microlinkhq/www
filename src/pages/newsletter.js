@@ -13,7 +13,11 @@ import {
 } from 'components/elements'
 
 const NewsletterPage = () => (
-  <Layout>
+  <Layout
+    head={{
+      description: 'Early access & updates on new releases.'
+    }}
+  >
     <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
       <Heading>Newsletter</Heading>
 

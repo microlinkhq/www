@@ -1,102 +1,29 @@
 import { useSiteMetadata } from 'components/hook'
 import { Helmet } from 'react-helmet'
-import { cdnUrl } from 'helpers'
 import React from 'react'
 import get from 'dlv'
 
 const getPage = props => {
-  const pathname = get(props, 'location.pathname') || '/'
-  if (pathname === '/') return '/'
-  return pathname.replace(/\/+$/, '')
+  const pathname = get(props, 'location.pathname') || ''
+  return pathname ? pathname.replace(/\/+$/, '').substring(1) : pathname
 }
 
-const getTitle = (props, metadata) => {
-  if (props.title) return props.title
-
+const getTitle = props => {
   const page = getPage(props)
-
-  switch (page) {
-    case '/':
-      return metadata.headline
-    case '/insights':
-      return 'Automate web performance'
-    case '/logo':
-      return 'Get and embed logo from any website'
-    case '/meta':
-      return 'Turn websites into data'
-    case '/oss':
-      return 'Open Source Sustainability'
-    case '/payment':
-    case '/payment/update':
-      return 'Payment'
-    case '/pdf':
-      return 'Turn websites into a PDF'
-    case '/sdk':
-      return 'Beauty link previews'
-    case '/screenshot':
-      return 'Turn websites into screenshots'
-    default: {
-      const name = page.substr(1)
-      return name.charAt(0).toUpperCase() + name.slice(1)
-    }
-  }
+  return page.charAt(0).toUpperCase() + page.slice(1)
 }
 
-const getImage = (props, metadata) => {
-  if (props.image) return props.image
-
-  const page = getPage(props)
-
-  switch (page) {
-    case '/blog':
-      return cdnUrl('banner/blog.jpeg')
-    case '/community':
-      return cdnUrl('banner/community.jpeg')
-    case '/changelog':
-      return cdnUrl('banner/changelog.jpeg')
-    case '/design':
-      return cdnUrl('banner/design.jpeg')
-    case '/docs':
-      return cdnUrl('banner/docs.jpeg')
-    case '/insights':
-      return cdnUrl('banner/insights.jpeg')
-    case '/logo':
-      return cdnUrl('banner/logo.jpeg')
-    case '/meta':
-      return cdnUrl('banner/meta.jpeg')
-    case '/oss':
-      return cdnUrl('banner/oss.jpeg')
-    case '/pdf':
-      return cdnUrl('banner/pdf.jpeg')
-    case '/recipes':
-      return cdnUrl('banner/recipes.jpeg')
-    case '/sdk':
-      return cdnUrl('banner/sdk.jpeg')
-    case '/Status':
-      return cdnUrl('banner/Status.jpeg')
-    case '/screenshot':
-      return cdnUrl('banner/screenshot.jpeg')
-    case '/enterprise':
-      return cdnUrl('banner/enterprise.jpeg')
-    default:
-      return metadata.image
-  }
-}
-
-const mergeMeta = (props, metadata) => {
+const mergeMeta = ({ head = {}, ...props }, metadata) => {
   const { siteUrl, video, twitter, headline } = metadata
-  const title = getTitle(props, metadata)
-  const image = getImage(props, metadata)
 
-  const {
-    dataLabel1,
-    dataLabel2,
-    dataValue1,
-    dataValue2,
-    description,
-    logo,
-    name
-  } = { ...props, ...metadata }
+  const description = head.description || metadata.description
+  const title = head.title || getTitle(props, metadata)
+  const image = head.image || metadata.image
+
+  const { dataLabel1, dataLabel2, dataValue1, dataValue2, logo, name } = {
+    ...props,
+    ...metadata
+  }
 
   const date = (props.date ? new Date(props.date) : new Date()).toISOString()
 
@@ -144,6 +71,8 @@ function Head ({ onChangeClientState, script, ...props }) {
     video
   } = mergeMeta(props, siteMetadata)
 
+  const fullTitle = `${title} — ${name}`
+
   return (
     <Helmet
       onChangeClientState={onChangeClientState}
@@ -172,17 +101,18 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta name='image' content={image} />
       <meta name='author' content={author} />
       <meta name='date' content={date} />
-      <title>{title}</title>
+
+      <title>{fullTitle}</title>
 
       {/* <!-- Schema.org for Google --> */}
-      <meta itemProp='name' content={`${title} — ${name}`} />
+      <meta itemProp='name' content={fullTitle} />
       <meta itemProp='description' content={description} />
       <meta itemProp='image' content={image} />
       <meta itemProp='author' content={author} />
 
       {/* <!-- Twitter --> */}
       <meta name='twitter:card' content='summary_large_image' />
-      <meta name='twitter:title' content={`${title} — ${name}`} />
+      <meta name='twitter:title' content={fullTitle} />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:site' content={twitter} />
       <meta name='twitter:domain' content={url} />
@@ -196,7 +126,7 @@ function Head ({ onChangeClientState, script, ...props }) {
 
       {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
       <meta property='og:url' content={url} />
-      <meta property='og:title' content={`${title} — ${name}`} />
+      <meta property='og:title' content={fullTitle} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
       <meta property='og:video:secure_url' content={video} />

@@ -7,6 +7,7 @@ import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
+import { cdnUrl } from 'helpers'
 import get from 'dlv'
 
 import {
@@ -595,7 +596,13 @@ const PdfPage = () => {
   const features = useFeaturesPdf()
 
   return (
-    <Layout>
+    <Layout
+      head={{
+        image: cdnUrl('banner/pdf.jpeg'),
+        description:
+          'PDF made simple. Simplify your workflow, use less to get. Turn websites into PDF, in an easy way.'
+      }}
+    >
       <FetchProvider mqlOpts={{ meta: false, pdf: true }}>
         {({ status, doFetch, data }) => {
           const isLoading = status === 'fetching'

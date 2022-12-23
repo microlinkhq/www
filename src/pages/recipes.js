@@ -1,8 +1,8 @@
 import { DotsBackground, Layout, Caption } from 'components/patterns'
 import { colors, space, layout, toPx, toRaw, fontSizes } from 'theme'
+import { cdnUrl, issueUrl, formatNumber } from 'helpers'
 import byFeature from '@microlink/recipes/by-feature'
 import React, { useState, useEffect } from 'react'
-import { issueUrl, formatNumber } from 'helpers'
 import kebabCase from 'lodash/kebabCase'
 import recipes from '@microlink/recipes'
 import styled from 'styled-components'
@@ -56,7 +56,14 @@ const RecipesPage = () => {
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout footer={{ bg: 'transparent' }}>
+      <Layout
+        head={{
+          image: cdnUrl('banner/recipes.jpeg'),
+          description:
+            'Just start with code. Instant integration, automating any site in a few lines.'
+        }}
+        footer={{ bg: 'transparent' }}
+      >
         <Flex
           width='100%'
           flexDirection='column'

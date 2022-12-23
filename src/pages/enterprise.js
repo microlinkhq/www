@@ -3,6 +3,7 @@ import { transition, space, gradient, layout } from 'theme'
 import Markdown from 'components/markdown'
 import { useTheme } from 'components/hook'
 import styled from 'styled-components'
+import { cdnUrl } from 'helpers'
 import React from 'react'
 
 import {
@@ -53,7 +54,15 @@ const EnterprisePage = () => {
 
   return (
     <DotsBackground theme={theme}>
-      <Layout theme={theme} footer={{ bg: 'transparent' }}>
+      <Layout
+        head={{
+          image: cdnUrl('banner/enterprise.jpeg'),
+          description:
+            'Unleash the maximum performance. Hardware, with the software baked in.'
+        }}
+        theme={theme}
+        footer={{ bg: 'transparent' }}
+      >
         <Container
           pt={[2, 2, 3, 3]}
           justifyContent='center'

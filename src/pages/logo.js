@@ -1,8 +1,8 @@
 import { toPx, cx, borders, layout, colors } from 'theme'
 import React, { useMemo, useState } from 'react'
+import { cdnUrl, issueUrl, noop } from 'helpers'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
-import { issueUrl, noop } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -169,8 +169,8 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-    ? LogoPreview
-    : LogoEmpty
+      ? LogoPreview
+      : LogoEmpty
 
   return (
     <Choose>
@@ -263,8 +263,7 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
                           toClipboard({
                             copy: color,
                             text: TOOLTIP.COPIED.COLOR(color)
-                          })
-                        }
+                          })}
                       />
                     </Tooltip>
                   )
@@ -721,7 +720,13 @@ const LogoPage = () => {
   const hasQuery = query && !!query.url
 
   return (
-    <Layout>
+    <Layout
+      head={{
+        image: cdnUrl('banner/logo.jpeg'),
+        description:
+          'Easily get and embed logos from any website with our simple, reliable API.'
+      }}
+    >
       <FetchProvider mqlOpts={{ palette: true }}>
         {({ status, doFetch, data }) => {
           const isLoading =

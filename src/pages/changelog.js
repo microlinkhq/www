@@ -2,6 +2,7 @@ import { Container, Heading, Box } from 'components/elements'
 import { Caption, Layout } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import { useChangelog } from 'components/hook'
+import { cdnUrl } from 'helpers'
 import { layout } from 'theme'
 import React from 'react'
 
@@ -9,7 +10,13 @@ const ChangelogPage = () => {
   const changelog = useChangelog()
 
   return (
-    <Layout>
+    <Layout
+      head={{
+        image: cdnUrl('banner/changelog.jpeg'),
+        description:
+          'We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.'
+      }}
+    >
       <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
         <Heading maxWidth={layout.large}>Changelog</Heading>
         <Caption

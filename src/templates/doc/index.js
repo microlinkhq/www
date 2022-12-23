@@ -1,9 +1,9 @@
-import { getActiveRouteName } from 'components/patterns/Aside/constants'
-import { Layout, Aside } from 'components/patterns'
 import { Choose, Box, Container, Flex, Link, Text } from 'components/elements'
+import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import Markdown, { H1, ProBadge } from 'components/markdown'
+import { Layout, Aside } from 'components/patterns'
 import { fontSizes, colors, layout } from 'theme'
-import { formatDate } from 'helpers'
+import { cdnUrl, formatDate } from 'helpers'
 import React from 'react'
 
 const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
@@ -11,9 +11,12 @@ const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
 
   return (
     <Layout
+      head={{
+        image: cdnUrl('banner/docs.jpeg'),
+        name: 'Microlink Docs',
+        title: `${meta.name} ${activeRouteName}: ${meta.title}`
+      }}
       footer={false}
-      title={`${meta.name} ${activeRouteName}: ${meta.title}`}
-      name='Microlink Docs'
     >
       <Container
         pt={[0, 0, 0, 4]}

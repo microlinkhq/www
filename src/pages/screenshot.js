@@ -704,7 +704,13 @@ const ScreenshotPage = () => {
   const features = useFeaturesScreenshot()
 
   return (
-    <Layout>
+    <Layout
+      head={{
+        image: cdnUrl('banner/screenshot.jpeg'),
+        description:
+          'Easy peasy screenshots. Say goodbye to complexity. Turn websites into screenshots.'
+      }}
+    >
       <FetchProvider mqlOpts={{ meta: false, screenshot: true }}>
         {({ status, doFetch, data }) => {
           const isLoading = status === 'fetching'
