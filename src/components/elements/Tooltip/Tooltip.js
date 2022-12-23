@@ -5,6 +5,7 @@ import React from 'react'
 
 import { space, radii, colors, shadows, speed } from 'theme'
 
+/* https://atomiks.github.io/tippyjs/v6/all-props/ */
 const TOOLTIPS_OPTS = {
   arrow: true,
   duration: [speed.normal, speed.quickly],

@@ -17,10 +17,10 @@ const mediaBreakpoints = breakpoints.reduce((acc, breakpoint, index) => {
   return acc
 }, {})
 
-function createHide (key) {
+function createBreakpoint (key, fn) {
   return props => {
-    const breakpoints = [].concat(props.breakpoints)
-    return breakpoints.includes(key)
+    const breakpoints = props.breakpoints ? [].concat(props.breakpoints) : []
+    return fn(breakpoints, key)
       ? {
           [mediaBreakpoints[key]]: {
             display: 'none'
@@ -30,9 +30,15 @@ function createHide (key) {
   }
 }
 
-const Hide = styled.div(
-  [],
-  ...Object.keys(mediaBreakpoints).map(i => createHide(Number(i)))
-)
+export function createRule (tagname, condition) {
+  return styled[tagname](
+    [],
+    ...Object.keys(mediaBreakpoints).map(i =>
+      createBreakpoint(Number(i), condition)
+    )
+  )
+}
+
+const Hide = createRule('div', (breakpoints, key) => breakpoints.includes(key))
 
 export default Hide

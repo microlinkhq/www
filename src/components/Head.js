@@ -20,6 +20,8 @@ const getTitle = (props, metadata) => {
       return metadata.headline
     case '/insights':
       return 'Automate web performance'
+    case '/logo':
+      return 'Get and embed logo from any website'
     case '/meta':
       return 'Turn websites into data'
     case '/oss':
@@ -58,6 +60,8 @@ const getImage = (props, metadata) => {
       return cdnUrl('banner/docs.jpeg')
     case '/insights':
       return cdnUrl('banner/insights.jpeg')
+    case '/logo':
+      return cdnUrl('banner/logo.jpeg')
     case '/meta':
       return cdnUrl('banner/meta.jpeg')
     case '/oss':

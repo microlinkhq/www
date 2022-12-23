@@ -13,7 +13,7 @@ export default () => (
     href='/blog/product-brief-7/'
     children={
       <>
-        Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
+        Speed, meet simplicity. Introducing <b>Microlink PDF</b>
       </>
     }
   />
@@ -27,7 +27,7 @@ storiesOf('Patterns', module).add('Announcement', () => (
       data-event-action='Announcement'
       href='/blog/product-brief-7/'
     >
-      Speed, meet simplicity. Introducing <b>Microlink for PDF</b>
+      Speed, meet simplicity. Introducing <b>Microlink PDF</b>
     </Announcement>
   </Story>
 ))

@@ -26,6 +26,7 @@ InputBase.defaultProps = {
   width: 1,
   border: 0,
   p: 0,
+  mx: 2,
   color: 'inherit',
   bg: 'transparent'
 }
@@ -84,7 +85,7 @@ const Input = ({
       pl={2}
       pr={suggestions ? 0 : 2}
     >
-      {Icon && <Flex pr={1}>{Icon}</Flex>}
+      {Icon && <Flex>{Icon}</Flex>}
       <InputBase
         list={list}
         ref={innerRef}

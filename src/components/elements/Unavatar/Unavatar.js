@@ -24,17 +24,17 @@ const Unavatar = ({ query, ...props }) => {
   )
 }
 
-const UnavatarMicrolink = ({ embedUrl, url, ...props }) => {
+const UnavatarMicrolink = ({ iconUrl, embedUrl, url, ...props }) => {
   const domain = useMemo(() => getDomain(url), [url])
-  const demoLink = demoLinks.find(({ data }) => getDomain(data.url) === domain)
+  const src = useMemo(() => {
+    if (iconUrl) return iconUrl
+    const demoLink = demoLinks.find(
+      ({ data }) => getDomain(data.url) === domain
+    )
+    return demoLink ? demoLink.data.logo.url : embedUrl
+  }, [domain, iconUrl, embedUrl])
 
-  return (
-    <StyledImage
-      alt={`${domain} logo`}
-      src={demoLink ? demoLink.data.logo.url : embedUrl}
-      {...props}
-    />
-  )
+  return <StyledImage alt={`${domain} logo`} src={src} {...props} />
 }
 
 Unavatar.Microlink = UnavatarMicrolink

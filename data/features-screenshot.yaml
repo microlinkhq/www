@@ -1,7 +1,7 @@
-- title: Always up to date
-  description: Stale revalidation, keeping things fresh and always up to date via [ttl](/docs/api/parameters/ttl).
+- title: Always fresh
+  description: Content cached on the edge to serve data as fast as possible, respecting [ttl](/docs/api/parameters/ttl).
 - title: Overlay Composition
-  description: Create [overlay](/docs/api/parameters/screenshot/overlay) compositions combining browser skins and backgrounds.
+  description: Create [overlay](/docs/api/parameters/screenshot/overlay) compositions combining layers and backgrounds.
 - title: Browser Events
   description: Setup [waitUntil](/docs/api/parameters/waitUntil) and [waitFor](/docs/api/parameters/wait-for) to wait any quantity of time or CSS selector.
 - title: Device Emulation
@@ -11,7 +11,7 @@
 - title: Embed Mode
   description: Incrustate directly into Markdown, HTML or any other markup using [embed](/docs/api/parameters/embed).
 - title: CSS/JS Injection
-  description: Inject any CSS styles or JS code into the page.
+  description: Inject any CSS or JavaScript code into the page.
 - title: Fully Screenshot
   description: Using [fullPage](/docs/api/parameters/screenshot/fullPage) for exporting the entire page as screenshot.
 - title: File Format

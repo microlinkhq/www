@@ -2,7 +2,7 @@
   description: Metadata normalized from Open Graph, JSON+LD and HTML markup.
 - title: Color Detection
   description: Get predominant and complementary colors per every image detected.
-- title: Background Refresh
+- title: Always fresh
   description: Stale revalidation, with built-in cache keeping things up to date.
 - title: Contextual Info
   description: Get more from any data, expanding it to get extra useful information.
@@ -11,9 +11,8 @@
 - title: Media Support
   description: Detecting the original streaming source for any video or audio.
 - title: Costless Solution
-  description: Starting off from free, scaling with your business based on your necessities.
+  description: Starts free. No upfront costs, scalable pricing as you go, growing with your business.
 - title: Built-in cache
   description: Always fresh based on response payload with stale revalidation support.
 - title: Global CDN
   description: Edge storage distributed over +240 nodes backed by CloudFlare Network.
-

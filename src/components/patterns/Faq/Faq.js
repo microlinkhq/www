@@ -19,7 +19,7 @@ const Faq = ({ title, caption, questions, ...props }) => {
   return (
     <Container id='faq' {...props}>
       <Flex flexDirection='column' alignItems='center'>
-        <Subhead variant='gradient' titleize={false}>
+        <Subhead px={4} variant='gradient' titleize={false}>
           {title}
         </Subhead>
         <Caption

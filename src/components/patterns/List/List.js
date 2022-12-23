@@ -1,18 +1,25 @@
-import { XCircle, CheckCircle } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import { Flex, Text } from 'components/elements'
-import { cx } from 'theme'
+import { fontSizes } from 'theme'
 import React from 'react'
 
 const List = props => <Flex as='ul' flexDirection='column' {...props} />
 
 const ListItem = ({ type = 'yes', ...props }) => {
-  const IconComponent = type === 'yes' ? CheckCircle : XCircle
-  const color = type === 'yes' ? cx('close') : cx('gray')
-
+  const isYes = type === 'yes'
   return (
     <Flex as='li' alignItems='center' mb={3}>
-      <Flex justifyContent='center' mr={2}>
-        <IconComponent color={color} />
+      <Flex
+        justifyContent='center'
+        mr={2}
+        width={[fontSizes[1], fontSizes[1], fontSizes[2], fontSizes[2]]}
+        height='100%'
+        as='span'
+      >
+        <FeatherIcon
+          icon={isYes ? 'CheckCircle' : 'XCircle'}
+          color={isYes ? 'close' : 'gray'}
+        />
       </Flex>
       <Text {...props} />
     </Flex>

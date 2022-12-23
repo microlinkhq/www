@@ -1,4 +1,4 @@
-import { Choose, LinkSolid, Text, Notification } from 'components/elements'
+import { Choose, Link, Notification } from 'components/elements'
 import React, { useCallback, useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
 import { urlVariations } from 'helpers'
@@ -13,16 +13,12 @@ const ErrorMessage = ({ more }) => {
     <Notification.Error>
       <Choose>
         <Choose.When condition={!!more}>
-          <Text as='span'>
-            {text}{' '}
-            <LinkSolid display='inline' color='red8' href={more}>
-              Report it.
-            </LinkSolid>
-          </Text>
+          {text}{' '}
+          <Link display='inline' href={more}>
+            Report it.
+          </Link>
         </Choose.When>
-        <Choose.Otherwise>
-          <Text as='span'>{text}</Text>
-        </Choose.Otherwise>
+        <Choose.Otherwise>{text}</Choose.Otherwise>
       </Choose>
     </Notification.Error>
   )

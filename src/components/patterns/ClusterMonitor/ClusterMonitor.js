@@ -9,13 +9,12 @@ const parseData = (data, isLoading) => {
 }
 
 const ClusterMonitor = ({ children, endpoint, ...opts }) => {
-  const { data } = useSWR(
+  const { data, isLoading } = useSWR(
     endpoint,
     () => window.fetch(endpoint).then(res => res.text()),
     opts
   )
 
-  const isLoading = !data
   return children({ ...parseData(data, isLoading), isLoading })
 }
 

@@ -1,30 +1,23 @@
-import { ChevronRight, ArrowRight } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import { Link, Flex } from 'components/elements'
 import { Caption } from 'components/patterns'
 import React, { useState } from 'react'
 
-const ArrowIcon = React.memo(function ArrowIcon ({ isHover }) {
-  return (
-    <Flex alignItems='center' as='span'>
-      {isHover ? <ArrowRight /> : <ChevronRight />}{' '}
-    </Flex>
-  )
-})
-
 const ArrowLink = ({ children, ...props }) => {
   const [isHover, setIsHover] = useState(false)
+  const icon = isHover ? 'ArrowRight' : 'ChevronRight'
 
   return (
-    <Flex alignItems='center' justifyContent='center'>
+    <Flex>
       <Link
-        linkProps={{ style: { display: 'flex' } }}
+        linkProps={{ style: { display: 'flex', alignItems: 'center' } }}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         fontSize={Caption.defaultProps.fontSize}
         icon={props.href.startsWith('/')}
         {...props}
       >
-        {children} <ArrowIcon isHover={isHover} />
+        {children} <FeatherIcon icon={icon} />
       </Link>
     </Flex>
   )

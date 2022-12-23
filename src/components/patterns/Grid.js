@@ -9,7 +9,7 @@ const Item = ({ title, description, ...props }) => (
     maxWidth='16rem'
     style={{ listStyle: 'none' }}
     flex={1}
-    pb={3}
+    pt={4}
     pr={[0, 3, 3, 3]}
     {...props}
   >

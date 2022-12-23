@@ -11,7 +11,7 @@ const createNavItem = ({ title, ...opts }) => {
   const isInternal = isInternalLink(opts.href)
 
   const linkProps = isInternal
-    ? { rel: 'prerender', title }
+    ? { title }
     : { rel: 'noopener noreferrer', target: '_blank', title }
 
   const NavItemWrapper = props =>
@@ -53,10 +53,10 @@ const NavLogoDesktop = props => (
   </NavLink>
 )
 
-export const NavLogo = ({ mobile, ...props }) =>
+export const NavMicrolinkLogo = ({ mobile, ...props }) =>
   createElement(mobile ? NavLogoMobile : NavLogoDesktop, { px: 0, ...props })
 
-NavLogo.defaultProps = {
+NavMicrolinkLogo.defaultProps = {
   'data-event-category': 'Toolbar',
   'data-event-action': 'Logo'
 }
@@ -109,6 +109,12 @@ export const NavPdf = createNavItem({
   actively: 'partial'
 })
 
+export const NavLogo = createNavItem({
+  children: 'Logo',
+  href: '/logo',
+  actively: 'partial'
+})
+
 export const NavDocs = createNavItem({
   children: 'docs',
   href: '/docs/api/getting-started/overview',
@@ -152,7 +158,15 @@ export const NavProducts = createNavItem({
     NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
 
-NavProducts.pages = ['/meta', '/sdk', '/pdf', '/screenshot', '/insights']
+NavProducts.pages = [
+  '/formats',
+  '/insights',
+  '/logo',
+  '/meta',
+  '/pdf',
+  '/screenshot',
+  '/sdk'
+]
 
 export const NavDevelopers = createNavItem({
   children: 'Developers',

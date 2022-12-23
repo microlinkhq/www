@@ -6,7 +6,7 @@ export const toEm = n => `${n}em`
 export const toMs = n => `${n}ms`
 export const toRaw = n => Number(n.replace(/px|em/, ''))
 
-export const breakpoints = [768, 992, 1200, 1200].map(toPx)
+export const breakpoints = [600, 768, 1200, 1200].map(toPx)
 
 export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512].map(toPx)
 

@@ -1,6 +1,5 @@
 import { Container, Box, Hide } from 'components/elements'
 import { layout } from 'theme'
-import take from 'lodash/take'
 import React from 'react'
 
 import Grid from '../Grid'
@@ -19,23 +18,26 @@ const Features = ({ title, caption, features, ...props }) => {
         {title}
       </Box>
 
-      <Caption
-        pt={[3, 3, 4, 4]}
-        pb={[4, 4, 4, 5]}
-        width='100%'
-        textAlign='left'
-      >
+      <Caption pt={[3, 3, 4, 4]} pb={3} width='100%' textAlign='left'>
         {caption}
       </Caption>
 
-      <Hide breakpoints={[1, 2, 3]} style={{ width: '100%' }}>
-        <Grid pt={3} itemsPerRow={2}>
-          {take(features, features.length - 1)}
+      <Hide
+        as='ul'
+        breakpoints={[1, 2, 3]}
+        style={{ margin: 0, width: '100%', paddingLeft: 0 }}
+      >
+        <Grid as='div' itemsPerRow={1}>
+          {features}
         </Grid>
       </Hide>
 
-      <Hide breakpoints={[0]} style={{ width: '100%' }}>
-        <Grid pt={3} itemsPerRow={3}>
+      <Hide
+        as='ul'
+        breakpoints={[0]}
+        style={{ margin: 0, width: '100%', paddingLeft: 0 }}
+      >
+        <Grid as='div' pt={3} itemsPerRow={3}>
           {features}
         </Grid>
       </Hide>

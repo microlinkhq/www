@@ -11,15 +11,6 @@ import {
   DotSpinner
 } from 'components/elements'
 
-const Value = props => (
-  <Text
-    fontWeight='regular'
-    lineHeight={0}
-    fontSize={[4, 4, 4, 7]}
-    {...props}
-  />
-)
-
 const THEMES = {
   light: { color: 'black', bg: 'white' },
   dark: { color: 'white', bg: 'black' }
@@ -68,9 +59,16 @@ const StatusPage = () => {
                     alignItems='center'
                     flexDirection={['column', 'column', 'row', 'row']}
                   >
-                    <Value pt={[2, 2, 3, 3]} color={color}>
+                    <Text
+                      fontWeight='regular'
+                      fontFamily='mono'
+                      lineHeight={0}
+                      fontSize={[4, 4, 4, 7]}
+                      pt={[2, 2, 3, 3]}
+                      color={color}
+                    >
                       Loading <DotSpinner />
-                    </Value>
+                    </Text>
                   </Flex>
                 </Choose.When>
                 <Choose.Otherwise>

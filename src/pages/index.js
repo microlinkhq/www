@@ -24,6 +24,7 @@ const HomePage = () => {
         borderBottom={`${borders[1]} ${colors.white20}`}
       />
       <Features
+        px={4}
         title={
           <>
             <Subhead width='100%' textAlign='left'>

@@ -15,11 +15,12 @@ import {
   NavCompany,
   NavDevelopers,
   NavDocs,
+  NavFormats,
   NavGitHub,
   NavInsights,
-  NavFormats,
   NavLogo,
   NavMeta,
+  NavMicrolinkLogo,
   NavNewsletter,
   NavOpenSource,
   NavPdf,
@@ -99,7 +100,7 @@ const ToolbarDesktop = ({ theme }) => {
           mb={secondary && '-16px'}
         >
           <NavContainer as='span'>
-            <NavLogo p={1} />
+            <NavMicrolinkLogo p={1} />
           </NavContainer>
           <NavContainer>
             <Flex
@@ -140,27 +141,28 @@ const ToolbarDesktop = ({ theme }) => {
         <Choose>
           <Choose.When condition={secondary === 'products'}>
             <ToolbarSecondary>
-              <NavMeta pl={0} isDark={isDark} fontSize='12px' />
-              <NavSDK isDark={isDark} fontSize='12px' />
+              <NavFormats pl={0} isDark={isDark} fontSize='12px' />
+              <NavInsights isDark={isDark} fontSize='12px' />
+              <NavLogo isDark={isDark} fontSize='12px' />
+              <NavMeta isDark={isDark} fontSize='12px' />
               <NavPdf isDark={isDark} fontSize='12px' />
               <NavScreenshot isDark={isDark} fontSize='12px' />
-              <NavInsights isDark={isDark} fontSize='12px' />
-              <NavFormats isDark={isDark} fontSize='12px' />
+              <NavSDK isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'developers'}>
             <ToolbarSecondary>
-              <NavDocs pl={0} isDark={isDark} fontSize='12px' />
-              <NavRecipes isDark={isDark} fontSize='12px' />
+              <NavChangelog pl={0} isDark={isDark} fontSize='12px' />
               <NavCommunity isDark={isDark} fontSize='12px' />
-              <NavChangelog isDark={isDark} fontSize='12px' />
+              <NavDocs isDark={isDark} fontSize='12px' />
+              <NavRecipes isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'company'}>
             <ToolbarSecondary>
-              <NavBlog isDark={isDark} fontSize='12px' />
-              <NavOpenSource isDark={isDark} fontSize='12px' />
+              <NavBlog pl={0} isDark={isDark} fontSize='12px' />
               <NavNewsletter isDark={isDark} fontSize='12px' />
+              <NavOpenSource isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
         </Choose>

@@ -1,7 +1,6 @@
 import { useWindowSize, useHealthcheck, useFeaturesMeta } from 'components/hook'
 import { layout, breakpoints, transition, colors, borders } from 'theme'
 import React, { useMemo, useEffect, useState } from 'react'
-import { fadeIn } from 'components/keyframes'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import prependHttp from 'prepend-http'
@@ -23,22 +22,23 @@ import {
   Image,
   Input,
   InputIcon,
+  LineBreak,
   Link,
   Subhead,
   Text
 } from 'components/elements'
 
 import {
-  Features,
   ArrowLink,
+  Average,
   Block,
   Caption,
   CubeBackground,
   Faq,
-  Layout,
+  Features,
   FetchProvider,
-  List,
-  Average
+  Layout,
+  List
 } from 'components/patterns'
 
 import humanizeUrl from 'humanize-url'
@@ -63,17 +63,6 @@ const SUGGESTIONS = [
   const { data } = demoLinks.find(item => item.id === id)
   return { value: humanizeUrl(data.url), data }
 })
-
-const SENTENCES_INTERVAL = 3500
-
-const SENTENCES = [
-  'beauty link previews',
-  'native embeds',
-  'builtin media player',
-  'easily customizable',
-  'lazy fetching',
-  'mobile ready'
-]
 
 const JSON_KEYS = [
   'author',
@@ -117,7 +106,7 @@ const JSONProperty = ({ property, data, ...props }) => {
   const type = children !== null ? 'yes' : 'no'
   return (
     <List.Item
-      mr={[3, 3, 0, 0]}
+      width='100px'
       color={type === 'no' ? 'gray' : undefined}
       type={type}
       fontSize={1}
@@ -170,7 +159,7 @@ const LiveDemo = ({
       pt={[2, 2, 3, 3]}
       pb={Container.defaultProps.pt}
     >
-      <Heading px={5} titleize={false} maxWidth={layout.large}>
+      <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Get unified metadata
       </Heading>
 
@@ -178,22 +167,18 @@ const LiveDemo = ({
         as='h2'
         pt={[3, 3, 4, 4]}
         px={[4, 4, 0, 0]}
-        titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Structured and normalized data from Open Graph, Twitter, JSON+LD, oEmbed
-        & HTML.
+        Structured and normalized data <LineBreak breakpoints={[0, 1]} /> from{' '}
+        <LineBreak breakpoints={[2, 3]} />
+        Open Graph, Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.
       </Caption>
 
-      <Flex
-        alignItems={['center', undefined, undefined, undefined]}
-        flexDirection={['column', 'row', 'row', 'row']}
-        pt={[3, 3, 4, 4]}
-      >
-        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/meta'>
+      <Flex pt={[3, 3, 4, 4]}>
+        <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/meta'>
           Get Started
         </ArrowLink>
-        <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
+        <ArrowLink href='https://github.com/microlinkhq/sdk'>
           See on GitHub
         </ArrowLink>
       </Flex>
@@ -238,7 +223,6 @@ const LiveDemo = ({
         justifyContent='center'
         alignItems='center'
         maxWidth={layout.large}
-        style={{ position: 'relative', left: '-18px' }}
       >
         <Hide breakpoints={[0, 1]}>
           <List pr={4} pl={0}>
@@ -274,7 +258,6 @@ const LiveDemo = ({
             ))}
           </List>
         </Hide>
-
         <Hide breakpoints={[2, 3]}>
           <List
             justifyContent='center'
@@ -298,157 +281,133 @@ const LiveDemo = ({
 
 const Timings = () => {
   const healthcheck = useHealthcheck()
-  const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    const timer = setInterval(
-      () => setIndex(index => (index + 1) % SENTENCES.length),
-      SENTENCES_INTERVAL
-    )
-    return () => clearInterval(timer)
-  }, [])
 
   return (
     <AnimatedBox>
       <Block
         bg={COLOR}
         id='timings'
+        px={4}
         flexDirection='column'
         pb={Container.defaultProps.pt}
         blockOne={
           <Box>
-            <Flex alignItems='center' justifyContent='center'>
-              <Subhead px={[3, 0, 0, 0]} fontSize={[3, 4, 6, 6]} color='white'>
-                All the data. Unified. Effortless.
-              </Subhead>
-            </Flex>
-            <Caption
-              px={[4, 0, 0, 0]}
-              pt={2}
-              color='white80'
-              maxWidth={[6, 7, 7, 'inherit']}
-              fontSize={[2, 2, 4, 4]}
-              fontWeight='regular'
-            >
-              Open Graph, JSON+LD, oEmbed & HTML.
-            </Caption>
+            <Subhead fontSize={[3, 4, 6, 6]} color='white'>
+              On a built-in reliable,
+            </Subhead>
+            <Subhead fontSize={[3, 4, 6, 6]} color='white60'>
+              high performance API.
+            </Subhead>
           </Box>
         }
         blockTwo={
-          <>
-            <Flex width='100%' flexDirection='column'>
+          <Flex
+            pt={[4, 4, 5, 5]}
+            justifyContent='center'
+            alignItems='baseline'
+            width='100%'
+            maxWidth={layout.normal}
+            style={{ fontVariantNumeric: 'tabular-nums' }}
+          >
+            <Flex
+              display='inline-flex'
+              alignItems='center'
+              justifyContent='center'
+              flexDirection='column'
+            >
               <Subhead
-                fontSize={[3, 4, 6, 6]}
-                pt={[4, 4, 5, 5]}
-                key={SENTENCES[index]}
+                as='div'
+                fontSize={[3, 4, 4, 4]}
                 color='white'
                 fontWeight='bold'
-                css={fadeIn}
               >
-                {SENTENCES[index]}
-              </Subhead>
-            </Flex>
-            <Flex
-              pt={[4, 4, 5, 5]}
-              justifyContent={[
-                'space-around',
-                'space-around',
-                'center',
-                'center'
-              ]}
-              alignItems='baseline'
-              px={[4, 4, 4, 0]}
-              width='100%'
-              maxWidth={layout.normal}
-              style={{ fontVariantNumeric: 'tabular-nums' }}
-            >
-              <Flex
-                display='inline-flex'
-                alignItems='center'
-                justifyContent='center'
-                flexDirection='column'
-              >
-                <Subhead
-                  as='div'
-                  fontSize={[3, 4, 4, 4]}
-                  color='white'
-                  fontWeight='bold'
-                >
-                  {getMs(healthcheck.meta.p95_pretty)}
-                  <Caption
-                    as='div'
-                    ml={2}
-                    color='white'
-                    display='inline'
-                    fontWeight='bold'
-                    titleize={false}
-                  >
-                    secs
-                  </Caption>
-                </Subhead>
-                <Caption as='div' color='white80' fontWeight='bold' pt={2}>
-                  <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
-                  <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
-                </Caption>
-              </Flex>
-              <Hide breakpoints={[0, 1]}>
-                <Flex
-                  display='inline-flex'
-                  px={[2, 2, 2, 5]}
-                  alignItems='center'
-                  justifyContent='center'
-                  flexDirection='column'
-                >
-                  <Subhead as='div' color='white' fontWeight='bold'>
-                    <Average value={healthcheck.meta.avg_pretty} />
-                  </Subhead>
-                  <Caption
-                    as='div'
-                    color='white80'
-                    fontWeight='bold'
-                    titleize={false}
-                  >
-                    <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
-                    <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
-                  </Caption>
-                </Flex>
-              </Hide>
-              <Flex
-                display='inline-flex'
-                alignItems='center'
-                justifyContent='center'
-                flexDirection='column'
-              >
-                <Subhead
-                  as='div'
-                  fontSize={[3, 4, 4, 4]}
-                  color='white'
-                  fontWeight='bold'
-                >
-                  99.9
-                  <Caption
-                    as='div'
-                    ml={2}
-                    color='white'
-                    fontWeight='bold'
-                    display='inline'
-                  >
-                    %
-                  </Caption>
-                </Subhead>
+                {getMs(healthcheck.meta.p95_pretty)}
                 <Caption
                   as='div'
-                  color='white80'
-                  mr={3}
+                  ml={2}
+                  color='white'
+                  display='inline'
                   fontWeight='bold'
-                  pt={2}
+                  titleize={false}
                 >
-                  <Caps fontSize={[0, 2, 2, 2]}>SLA</Caps>
-                  <Caps fontSize={[0, 2, 2, 2]}>Guaranteed</Caps>
+                  secs
+                </Caption>
+              </Subhead>
+              <Caption as='div' color='white60' pt={2}>
+                {['P95', 'response time'].map(children => (
+                  <Caps
+                    key={children}
+                    fontWeight='bold'
+                    fontSize={[0, 2, 2, 2]}
+                  >
+                    {children}
+                  </Caps>
+                ))}
+              </Caption>
+            </Flex>
+            <Hide breakpoints={[1, 2, 3]}>
+              <Box px={3} />
+            </Hide>
+            <Hide breakpoints={[0]}>
+              <Flex
+                display='inline-flex'
+                px={[2, 2, 2, 5]}
+                alignItems='center'
+                justifyContent='center'
+                flexDirection='column'
+              >
+                <Subhead as='div' color='white' fontWeight='bold'>
+                  <Average value={healthcheck.meta.avg_pretty} />
+                </Subhead>
+                <Caption as='div' color='white60'>
+                  {['average', 'response time'].map(children => (
+                    <Caps
+                      key={children}
+                      fontWeight='bold'
+                      fontSize={[0, 2, 2, 2]}
+                    >
+                      {children}
+                    </Caps>
+                  ))}
                 </Caption>
               </Flex>
+            </Hide>
+            <Flex
+              display='inline-flex'
+              alignItems='center'
+              justifyContent='center'
+              flexDirection='column'
+            >
+              <Subhead
+                as='div'
+                fontSize={[3, 4, 4, 4]}
+                color='white'
+                fontWeight='bold'
+              >
+                99.9
+                <Caption
+                  as='div'
+                  ml={2}
+                  color='white'
+                  fontWeight='bold'
+                  display='inline'
+                >
+                  %
+                </Caption>
+              </Subhead>
+              <Caption as='div' color='white60' pt={2}>
+                {['SLA', 'Guaranteed'].map(children => (
+                  <Caps
+                    key={children}
+                    fontWeight='bold'
+                    fontSize={[0, 2, 2, 2]}
+                  >
+                    {children}
+                  </Caps>
+                ))}
+              </Caption>
             </Flex>
-          </>
+          </Flex>
         }
       >
         <CubeBackground />
@@ -469,37 +428,32 @@ const Resume = props => (
       Turns websites into data
     </Subhead>
     <Caption
-      py={3}
+      pt={[3, 3, 4, 4]}
+      px={[4, 4, 4, 0]}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
     >
-      <b>Microlink for Meta</b> extracts structured data from any website. Enter
-      a URL, receive information. Get relevant information from any link &
-      easily create beautiful previews.
+      <b>Microlink meta</b> extracts structured data from any website. Enter a
+      URL, receive information. Get relevant information from any link & easily
+      create beautiful previews.
     </Caption>
 
     <Block
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
-          alt='Data normalization'
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
+          alt='Unified metadata'
           src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
         />
       }
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
-            Data normalization
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
+            Unified metadata
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
-            Get normalized from multiple data sources such as Open Graph,
-            JSON+LD, oEmbed or regular HTML in a unified way.
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+            Get normalized data from multiple sources using Open Graph,
+            Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.
           </Text>
         </Flex>
       }
@@ -509,26 +463,19 @@ const Resume = props => (
       pt={Container.defaultProps.pt}
       flexDirection='row-reverse'
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'end']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
             Contextual information
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
-            The values detected follow a strict data schema. Additionally, extra
-            information is provided over the original data.
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+            Whenever is possible data is expanded to bring you more, like file
+            extension, dimensions, size, duration, etc.
           </Text>
         </Flex>
       }
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          width={['100%', 6, 7, 8]}
           alt='Contextual information'
           src='https://cdn.microlink.io/illustrations/robots.svg'
         />
@@ -539,24 +486,18 @@ const Resume = props => (
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
           alt='Easily consumable'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
             Easily consumable
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Turn any link into a rich media and easily add it to your UI using{' '}
             <Link href='/sdk'>Microlink SDK</Link>, with{' '}
             <Link href='/docs/api/parameters/iframe/#providers-supported'>
@@ -584,7 +525,7 @@ const ProductInformation = props => (
           <>
             <div>
               <Text as='span' color='black' fontWeight='bold'>
-                Microlink for Meta
+                Microlink meta
               </Text>{' '}
               is a data extraction service that take a URL as input, giving you
               structured data as output.
@@ -602,7 +543,7 @@ const ProductInformation = props => (
         answer: (
           <>
             <div>
-              It&#039;s a{' '}
+              It’s a{' '}
               <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
                 rule-based system
               </Link>{' '}
@@ -650,7 +591,7 @@ const ProductInformation = props => (
         answer: (
           <>
             <div>
-              We&#039;re always available at{' '}
+              We’re always available at{' '}
               <Link display='inline' href='mailto:hello@microlink.io'>
                 hello@microlink.io
               </Link>
@@ -688,6 +629,7 @@ const MetaPage = () => {
               />
               <Timings />
               <Features
+                px={4}
                 title={
                   <>
                     <Subhead width='100%' textAlign='left'>

@@ -34,7 +34,7 @@ const getCaption = paymentState => {
     case PAYMENT_STATE.PROCESSING:
       return (
         <>
-          We&#039;re confirming your payment
+          We’re confirming your payment
           <DotSpinner />
         </>
       )

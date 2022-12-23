@@ -28,6 +28,7 @@ import {
   Image,
   Input,
   InputIcon,
+  LineBreak,
   Link,
   Subhead,
   Text
@@ -217,30 +218,23 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
 
   return (
     <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
-      <Heading px={5} titleize={false} maxWidth={layout.large}>
+      <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Easy peasy screenshots
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
         px={[4, 4, 4, 4]}
-        titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Say goodbye to complexity — Turn websites into screenshots, in a simple
-        way.
+        Say goodbye to complexity.
+        <LineBreak />
+        Turn websites into screenshots.
       </Caption>
-      <Flex
-        alignItems={['center', undefined, undefined, undefined]}
-        flexDirection={['column', 'row', 'row', 'row']}
-        pt={[3, 3, 4, 4]}
-      >
-        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/api/parameters/screenshot'>
+      <Flex pt={[3, 3, 4, 4]}>
+        <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/screenshot'>
           Get Started
         </ArrowLink>
-        <ArrowLink
-          pt={[3, 0, 0, 0]}
-          href='https://github.com/microlinkhq/browserless'
-        >
+        <ArrowLink href='https://github.com/microlinkhq/browserless'>
           See on GitHub
         </ArrowLink>
       </Flex>
@@ -377,15 +371,10 @@ const Timings = props => {
 
   const blockOne = (
     <Flex flexDirection='column' justifyContent='center' alignItems='center'>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white' titleize={false}>
+      <Subhead fontSize={[3, 4, 6, 6]} color='white'>
         Send the URL
       </Subhead>
-      <Subhead
-        fontSize={[3, 4, 6, 6]}
-        px={[4, 0, 0, 0]}
-        titleize={false}
-        color='white60'
-      >
+      <Subhead fontSize={[3, 4, 6, 6]} color='white60'>
         We do the rest
       </Subhead>
     </Flex>
@@ -394,9 +383,8 @@ const Timings = props => {
   const blockTwo = (
     <Flex
       pt={[4, 4, 5, 5]}
-      justifyContent={['space-around', 'space-around', 'center', 'center']}
+      justifyContent='center'
       alignItems='baseline'
-      px={[4, 4, 4, 0]}
       width='100%'
       maxWidth={layout.normal}
       style={{ fontVariantNumeric: 'tabular-nums' }}
@@ -425,12 +413,18 @@ const Timings = props => {
             secs
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' fontWeight='bold' pt={2}>
-          <Caps fontSize={[0, 2, 2, 2]}>P95</Caps>
-          <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
+        <Caption as='div' color='white60' pt={2}>
+          {['P95', 'response time'].map(children => (
+            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              {children}
+            </Caps>
+          ))}
         </Caption>
       </Flex>
-      <Hide breakpoints={[0, 1]}>
+      <Hide breakpoints={[1, 2, 3]}>
+        <Box px={3} />
+      </Hide>
+      <Hide breakpoints={[0]}>
         <Flex
           display='inline-flex'
           px={[2, 2, 2, 5]}
@@ -441,9 +435,12 @@ const Timings = props => {
           <Subhead as='div' color='white' fontWeight='bold'>
             <Average value={healthcheck.screenshot.avg_pretty} />
           </Subhead>
-          <Caption as='div' color='white60' fontWeight='bold' titleize={false}>
-            <Caps fontSize={[0, 2, 2, 2]}>average</Caps>
-            <Caps fontSize={[0, 2, 2, 2]}>response time</Caps>
+          <Caption as='div' color='white60'>
+            {['average', 'response time'].map(children => (
+              <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+                {children}
+              </Caps>
+            ))}
           </Caption>
         </Flex>
       </Hide>
@@ -470,9 +467,12 @@ const Timings = props => {
             %
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' mr={3} fontWeight='bold' pt={2}>
-          <Caps fontSize={[0, 2, 2, 2]}>SLA</Caps>
-          <Caps fontSize={[0, 2, 2, 2]}>Guaranteed</Caps>
+        <Caption as='div' color='white60' mr={3} pt={2}>
+          {['SLA', 'Guaranteed'].map(children => (
+            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              {children}
+            </Caps>
+          ))}
         </Caption>
       </Flex>
     </Flex>
@@ -481,7 +481,7 @@ const Timings = props => {
   return (
     <Block
       id='timings'
-      width='100%'
+      px={4}
       flexDirection='column'
       blockOne={blockOne}
       blockTwo={blockTwo}
@@ -498,44 +498,38 @@ const Resume = props => (
     maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
     {...props}
   >
-    <Subhead px={[3, 3, 0, 0]} variant='gradient'>
-      The fastest way for taking screenshots
+    <Subhead variant='gradient'>
+      The fastest way for
+      <LineBreak breakpoints={[1, 2]} /> taking screenshots
     </Subhead>
     <Caption
-      py={3}
+      pt={[3, 3, 4, 4]}
+      px={[4, 4, 4, 0]}
       maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
-      titleize={false}
     >
-      <b>Microlink for Screenshot</b> provides a set of powerful features
-      without the headaches of running your own infrastructure, giving you great
-      power, less responsibilities.
+      <b>Microlink screenshot</b> provides a set of powerful features without
+      the headaches of running your own infrastructure, giving you great power,
+      less responsibilities.
     </Caption>
 
     <Block
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
-          alt='Live screenshots'
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
+          alt='Always fresh'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
-            Live screenshots
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
+            Always fresh
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
-            Every screenshot has a{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
-            expiration, they will be automatically refreshed, reflecting any
-            change present on the site.
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+            Consecutive requests will be cached on the edge, respecting{' '}
+            <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
+            responses doesn’t affect your plan.
           </Text>
         </Flex>
       }
@@ -544,18 +538,11 @@ const Resume = props => (
     <Block
       flexDirection='row-reverse'
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'end']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
             Browse automation
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Such as{' '}
             <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
             emulation, CSS/JS injection, partial or{' '}
@@ -575,7 +562,8 @@ const Resume = props => (
       }
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
           alt='Browse automation'
           src='https://cdn.microlink.io/illustrations/robots.svg'
         />
@@ -586,24 +574,18 @@ const Resume = props => (
       pb={Container.defaultProps.pt}
       blockOne={
         <Image
-          width={[5, 6, 7, 8]}
+          px={[4, 0, 0, 0]}
+          width={['100%', 6, 7, 8]}
           alt='Overlay composition'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }
       blockTwo={
-        <Flex
-          flexDirection='column'
-          alignItems={['center', 'center', 'center', 'baseline']}
-        >
-          <Subhead pt={[5, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
+          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
             Overlay composition
           </Subhead>
-          <Text
-            pt={4}
-            maxWidth={8}
-            textAlign={['center', 'center', 'center', 'inherit']}
-          >
+          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Create truly{' '}
             <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
             compositions, setting up the background, browser window, color
@@ -632,7 +614,7 @@ const ProductInformation = props => {
             <>
               <div>
                 <Text as='span' color='black' fontWeight='bold'>
-                  Microlink for Screenshot
+                  Microlink screenshot
                 </Text>{' '}
                 is an easy way for taking an screenshot of any website in a
                 programmatic way using{' '}
@@ -692,7 +674,7 @@ const ProductInformation = props => {
                   size='tiny'
                   value={healthcheck.screenshot.avg_pretty}
                 />{' '}
-                isn&#039;t a trivial thing.
+                isn’t a trivial thing.
               </div>
             </>
           )
@@ -702,7 +684,7 @@ const ProductInformation = props => {
           answer: (
             <>
               <div>
-                We&#039;re always available at{' '}
+                We’re always available at{' '}
                 <Link display='inline' href='mailto:hello@microlink.io'>
                   hello@microlink.io
                 </Link>
@@ -741,29 +723,30 @@ const ScreenshotPage = () => {
                   /* https://www.gradientmagic.com/collection/radialstripes */
                   background-image: radial-gradient(
                     circle at center right,
-                    rgb(133, 11, 167) 0%,
-                    rgb(133, 11, 167) 48%,
-                    rgb(163, 27, 144) 48%,
-                    rgb(163, 27, 144) 52%,
-                    rgb(193, 42, 121) 52%,
-                    rgb(193, 42, 121) 65%,
-                    rgb(223, 58, 97) 65%,
-                    rgb(223, 58, 97) 79%,
-                    rgb(253, 73, 74) 79%,
-                    rgb(253, 73, 74) 100%
+                    #850ba7 0%,
+                    #850ba7 48%,
+                    #a31b91 48%,
+                    #a31b91 52%,
+                    #c12a78 52%,
+                    #c12a78 65%,
+                    #df3a61 65%,
+                    #df3a61 79%,
+                    #fd494a 79%,
+                    #fd494a 100%
                   );
                 `}
                 borderTop={`${borders[1]} ${colors.white20}`}
                 borderBottom={`${borders[1]} ${colors.white20}`}
               />
               <Features
+                px={4}
                 title={
                   <>
                     <Subhead width='100%' textAlign='left'>
                       High performance,
                     </Subhead>
                     <Subhead
-                      color='rgb(253, 73, 74)'
+                      color='#fd494a'
                       width='100%'
                       textAlign='left'
                       titleize={false}
