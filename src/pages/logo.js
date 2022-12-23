@@ -125,6 +125,7 @@ const LogoPreview = ({ toClipboard = noop, logo, style, ...props }) => {
       onClick={() => {
         toClipboard({ copy: logo.url, text: TOOLTIP.COPIED.URL })
       }}
+      style={{ cursor: style.cursor }}
       {...props}
     >
       <Image
@@ -293,10 +294,9 @@ const LiveDemo = React.memo(function LiveDemo ({
     return isUrl(input) ? input : DEFAULT_DATA.url
   }, [inputUrl])
 
-  const suggestionData = useMemo(
-    () => (data ? undefined : DEFAULT_DATA),
-    [data]
-  )
+  const suggestionData = useMemo(() => (data ? undefined : DEFAULT_DATA), [
+    data
+  ])
 
   const embedUrl = useMemo(() => getEmbedUrl(url), [url])
 
@@ -318,8 +318,8 @@ const LiveDemo = React.memo(function LiveDemo ({
         pt={[3, 3, 4, 4]}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Get and embed logo from any website <LineBreak /> with one simple,
-        reliable API.
+        Easily get and embed logos from any website <LineBreak /> with our
+        simple, reliable API.
       </Caption>
       <Flex pt={[3, 3, 4, 4]}>
         <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/meta'>
@@ -548,7 +548,7 @@ const Resume = props => (
         <Image
           px={[4, 0, 0, 0]}
           width={['100%', 6, 7, 8]}
-          alt='Palette detection'
+          alt='Always fresh'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
@@ -629,14 +629,18 @@ const ProductInformation = props => {
             <>
               <div>
                 <Text as='span' color='black' fontWeight='bold'>
-                  Microlink screenshot
+                  Microlink logo
                 </Text>{' '}
-                is an easy way for taking an screenshot of any website in a
-                programmatic way using{' '}
-                <Link href='/docs/api/getting-started/overview'>
-                  Microlink API
-                </Link>
-                .
+                is one of features shipped by{' '}
+                <Link href='/meta'>Microlink meta</Link>, a data extraction
+                service that take a URL as input, giving you structured data as
+                output.
+              </div>
+              <div>
+                The data detected is unified and normalized from different data
+                source providers present on the semantic markup of the target
+                URL, such as Open Graph, JSON+LD, oEmbed, microformats or
+                regular HTML.
               </div>
             </>
           )
@@ -646,27 +650,23 @@ const ProductInformation = props => {
           answer: (
             <>
               <div>
-                For taking a screenshot, just you have to pass{' '}
-                <Link href='/docs/api/parameters/screenshot'>screenshot</Link>{' '}
-                query parameter against{' '}
-                <Link href='/docs/api/getting-started/overview'>
-                  Microlink API
-                </Link>
-                .
+                It’s a{' '}
+                <Link href='https://en.wikipedia.org/wiki/Rule-based_system'>
+                  rule-based system
+                </Link>{' '}
+                called{' '}
+                <Link href='https://metascraper.js.org'>metascraper</Link>,
+                where the desired value (in this case, the logo) will be
+                searched over the content according to a series of rules.
               </div>
               <div>
-                The screenshot is taken running a chromium browser hosted on our
-                own servers. Servers run the browser on top of optimized
-                hardware to ensure the screenshot is taken fast as possible but
-                also under security isolation condition, spawning a new browser
-                per every new request, meaning no browsers are shared between
-                requests.
+                Also, this process ensures the value extracted follows a
+                specific data shape. So, not only the value should be present,
+                it needs to satisfy a specific data shape as well.
               </div>
               <div>
-                After that, the screenshot is uploaded into{' '}
-                <Link href='/blog/edge-cdn/'>Microlink CDN</Link> and served
-                across +140 edges nodes to ensure the best worldwide access
-                time.
+                In this way, if the service detects the value, you can be sure
+                that is what it claims to be.
               </div>
             </>
           )

@@ -1,4 +1,4 @@
-- title: Background Refresh
+- title: Always fresh
   description: Stale revalidation, keeping things fresh and always up to date via [staleTtl](/docs/api/parameters/staleTtl), reflecting any change on the target URL.
 - title: Embed Mode
   description: Enabling [embed](/docs/api/parameters/embed) mode for consuming content directly from your HTML markup.

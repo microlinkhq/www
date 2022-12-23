@@ -517,20 +517,19 @@ const Resume = props => (
         <Image
           px={[4, 0, 0, 0]}
           width={['100%', 6, 7, 8]}
-          alt='Live screenshots'
+          alt='Always fresh'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
       blockTwo={
         <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
           <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
-            Live screenshots
+            Always fresh
           </Subhead>
           <Text pt={[3, 3, 4, 4]} maxWidth={8}>
-            Every screenshot has a{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link> associated. After
-            expiration, they will be automatically refreshed, reflecting any
-            change present on the site.
+            Consecutive requests will be cached on the edge, respecting{' '}
+            <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
+            responses doesn’t affect your plan.
           </Text>
         </Flex>
       }
