@@ -2,11 +2,13 @@ import { toPx, cx, borders, layout, colors } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
+import { issueUrl, noop } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import { issueUrl, noop } from 'helpers'
 import get from 'dlv'
+
+import logoUri from '../../static/logo.svg'
 
 import {
   useBreakpoint,
@@ -131,7 +133,8 @@ const LogoPreview = ({ toClipboard = noop, logo, style, ...props }) => {
       <Image
         alt={`logo preview for ${Math.round(style.width)}px`}
         style={style}
-        src={logo.url}
+        src={logo.url === DEFAULT_DATA.logo.url ? logoUri : logo.url}
+        m={logo.url === DEFAULT_DATA.logo.url ? '2rem' : 0}
       />
     </LogoBox>
   )
