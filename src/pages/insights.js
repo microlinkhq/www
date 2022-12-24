@@ -6,6 +6,7 @@ import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
 import chunk from 'lodash/chunk'
+import { cdnUrl } from 'helpers'
 import get from 'dlv'
 
 import {
@@ -629,7 +630,13 @@ const InsightsPage = () => {
   const [query] = useQueryState()
   const features = useFeatures()
   return (
-    <Layout>
+    <Layout
+      head={{
+        image: cdnUrl('banner/insights.jpeg'),
+        description:
+          'Automate web performance. Track site speed & website quality over time. Get performance insights powered by Lighthouse'
+      }}
+    >
       <FetchProvider mqlOpts={{ meta: false, insights: true }}>
         {({ status, doFetch, data, response }) => {
           const isLoading = status === 'fetching'

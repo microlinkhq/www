@@ -1,5 +1,6 @@
 import { ClusterMonitor, Layout } from 'components/patterns'
 import { useTheme, useQueryState } from 'components/hook'
+import { cdnUrl } from 'helpers'
 import React from 'react'
 
 import {
@@ -43,6 +44,11 @@ const StatusPage = () => {
       {({ isLoading, resume, info }) => {
         return (
           <Layout
+            head={{
+              description:
+                'Real-time data of the Microlink systems performance.',
+              image: cdnUrl('banner/status.jpeg')
+            }}
             onClick={toggleTheme}
             theme={theme}
             style={{ background: bg }}

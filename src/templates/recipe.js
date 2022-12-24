@@ -3,7 +3,7 @@ import { Text, Box, CodeEditor, Flex, Heading } from 'components/elements'
 import React, { useState, useEffect } from 'react'
 import { fontSizes, colors, layout } from 'theme'
 import { Logo } from 'components/pages/recipes'
-import { formatNumber } from 'helpers'
+import { cdnUrl, formatNumber } from 'helpers'
 import { Eye } from 'react-feather'
 
 const Description = recipe => {
@@ -51,7 +51,14 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout footer={{ bg: 'transparent' }} {...meta}>
+      <Layout
+        head={{
+          description: recipe.description,
+          image: cdnUrl('banner/recipes.jpeg'),
+          ...meta
+        }}
+        footer={{ bg: 'transparent' }}
+      >
         <Flex
           px={3}
           pt={[2, 2, 3, 3]}

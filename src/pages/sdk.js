@@ -2,12 +2,12 @@ import { useWindowSize, useMountedRef } from 'components/hook'
 import React, { useMemo, useEffect, useState } from 'react'
 import { layout, breakpoints, transition } from 'theme'
 import isUrl from 'is-url-http/lightweight'
+import { cdnUrl, mqlCode } from 'helpers'
 import * as Icons from 'components/icons'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import humanizeUrl from 'humanize-url'
 import { getDomain } from 'tldts'
-import { mqlCode } from 'helpers'
 
 import {
   Box,
@@ -342,7 +342,14 @@ const Integrations = () => {
 
 const SdkPage = () => {
   return (
-    <Layout>
+    <Layout
+      head={{
+        title: 'SDK',
+        image: cdnUrl('banner/sdk.jpeg'),
+        description:
+          'Embed any content. Create beauty link previews. Turn your content into embeddable rich media.'
+      }}
+    >
       <FetchProvider
         mqlOpts={{ palette: true, audio: true, video: true, iframe: true }}
       >

@@ -1,12 +1,14 @@
 import { toPx, cx, borders, layout, colors } from 'theme'
 import React, { useMemo, useState } from 'react'
+import { cdnUrl, issueUrl, noop } from 'helpers'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import { issueUrl, noop } from 'helpers'
 import get from 'dlv'
+
+import logoUri from '../../static/logo.svg'
 
 import {
   useBreakpoint,
@@ -131,7 +133,8 @@ const LogoPreview = ({ toClipboard = noop, logo, style, ...props }) => {
       <Image
         alt={`logo preview for ${Math.round(style.width)}px`}
         style={style}
-        src={logo.url}
+        src={logo.url === DEFAULT_DATA.logo.url ? logoUri : logo.url}
+        m={logo.url === DEFAULT_DATA.logo.url ? '2rem' : 0}
       />
     </LogoBox>
   )
@@ -318,8 +321,8 @@ const LiveDemo = React.memo(function LiveDemo ({
         pt={[3, 3, 4, 4]}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Easily get and embed logos from any website <LineBreak /> with our
-        simple, reliable API.
+        Easily get and embed logos from any website{' '}
+        <LineBreak breakpoints={[1, 2, 3]} /> with our simple, reliable API.
       </Caption>
       <Flex pt={[3, 3, 4, 4]}>
         <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/meta'>
@@ -717,7 +720,13 @@ const LogoPage = () => {
   const hasQuery = query && !!query.url
 
   return (
-    <Layout>
+    <Layout
+      head={{
+        image: cdnUrl('banner/logo.jpeg'),
+        description:
+          'Easily get and embed logos from any website with our simple, reliable API.'
+      }}
+    >
       <FetchProvider mqlOpts={{ palette: true }}>
         {({ status, doFetch, data }) => {
           const isLoading =

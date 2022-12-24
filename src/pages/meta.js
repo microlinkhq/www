@@ -6,6 +6,7 @@ import { getApiUrl } from '@microlink/mql'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { getDomain } from 'tldts'
+import { cdnUrl } from 'helpers'
 import chunk from 'lodash/chunk'
 
 import {
@@ -609,7 +610,13 @@ const MetaPage = () => {
   const features = useFeaturesMeta()
 
   return (
-    <Layout>
+    <Layout
+      head={{
+        image: cdnUrl('banner/meta.jpeg'),
+        description:
+          'Structured and normalized data from Open Graph, Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.'
+      }}
+    >
       <FetchProvider
         mqlOpts={{ palette: true, audio: true, video: true, iframe: true }}
       >

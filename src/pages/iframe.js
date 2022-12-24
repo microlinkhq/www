@@ -15,7 +15,6 @@ import styled from 'styled-components'
 import mql from '@microlink/mql'
 import { layout } from 'theme'
 
-const TITLE = 'Embed makes easy'
 const DEMO_URL = 'https://www.youtube.com/watch?v=Gu8X7vM3Avw'
 
 const SCALE_FACTOR = 0.85
@@ -301,7 +300,7 @@ const links = [
 
 const IframePage = () => {
   return (
-    <Layout title={TITLE}>
+    <Layout head={{ title: 'Embed makes easy' }}>
       <Container py={[4, 4, 5, 5]} px={4} maxWidth={layout.large}>
         <Caption>Turn links into embeddable media</Caption>
         <Subhead px={4} pt={4} pb={3} textAlign='left' fontSize={3}>

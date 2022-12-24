@@ -4,8 +4,8 @@ import { Layout, Caption } from 'components/patterns'
 import { PostTitle } from 'components/pages/blog'
 import styled, { css } from 'styled-components'
 import { useBlogIndex } from 'components/hook'
+import { cdnUrl, formatDate } from 'helpers'
 import { H1 } from 'components/markdown'
-import { formatDate } from 'helpers'
 import TimeAgo from 'react-timeago'
 import is from 'styled-is'
 import React from 'react'
@@ -76,7 +76,12 @@ const PageBlog = () => {
   const posts = useBlogIndex()
 
   return (
-    <Layout>
+    <Layout
+      head={{
+        image: cdnUrl('banner/blog.jpeg'),
+        description: 'Engineering details through Microlink.'
+      }}
+    >
       <Flex pt={[2, 2, 3, 3]} justifyContent='center'>
         <Flex flexDirection='column' align-items='center'>
           <Heading maxWidth={layout.large}>Blog</Heading>
