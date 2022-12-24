@@ -1,18 +1,20 @@
-import { useBreakpoint } from 'components/hook'
+import { Hide } from 'components/elements'
 import React from 'react'
 
 import ToolbarDesktop from './ToolbarDesktop'
 import ToolbarMobile from './ToolbarMobile'
 
 const Toolbar = props => {
-  const component = useBreakpoint([
-    ToolbarMobile,
-    ToolbarDesktop,
-    ToolbarDesktop,
-    ToolbarDesktop
-  ])
-
-  return React.createElement(component, props)
+  return (
+    <>
+      <Hide breakpoints={[1, 2, 3]}>
+        <ToolbarMobile {...props} />
+      </Hide>
+      <Hide breakpoints={[0]}>
+        <ToolbarDesktop {...props} />
+      </Hide>
+    </>
+  )
 }
 
 export default Toolbar

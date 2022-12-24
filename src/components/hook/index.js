@@ -1,6 +1,5 @@
 export * from './use-analytics'
 export * from './use-blog-index'
-export * from './use-breakpoint'
 export * from './use-changelog'
 export * from './use-clipboard'
 export * from './use-doc-index'

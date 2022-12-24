@@ -3,7 +3,6 @@ import React, { useEffect, createElement } from 'react'
 import { Box, Flex, Hide } from 'components/elements'
 import { ThemeProvider } from 'styled-components'
 import { Location } from '@gatsbyjs/reach-router'
-import { useBreakpoint } from 'components/hook'
 import Head from 'components/Head'
 import { noop } from 'helpers'
 
@@ -16,6 +15,7 @@ import {
 } from 'components/elements/Toolbar'
 
 const Layout = ({
+  toolbar,
   footer,
   children,
   onClick,
@@ -28,13 +28,6 @@ const Layout = ({
   component = Box,
   ...props
 }) => {
-  const toolbarHeight = useBreakpoint([
-    TOOLBAR_PRIMARY_HEIGHT,
-    `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
-    `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
-    `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
-  ])
-
   useEffect(() => {
     const slug = window.location.hash
     if (slug) {
@@ -67,7 +60,7 @@ const Layout = ({
                   alignItems,
                   display,
                   flexDirection,
-                  pt: toolbarHeight,
+                  pt: toolbar.height,
                   style: { flex: 1 }
                 },
                 children
@@ -94,4 +87,20 @@ Layout.defaultProps = {
   onClick: noop
 }
 
-export default Layout
+const LayoutResponsive = props => (
+  <>
+    <Hide breakpoints={[1, 2, 3]}>
+      <Layout toolbar={{ height: TOOLBAR_PRIMARY_HEIGHT }} {...props} />
+    </Hide>
+    <Hide breakpoints={[0]}>
+      <Layout
+        toolbar={{
+          height: `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
+        }}
+        {...props}
+      />
+    </Hide>
+  </>
+)
+
+export default LayoutResponsive

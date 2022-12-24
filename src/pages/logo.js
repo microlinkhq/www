@@ -11,7 +11,6 @@ import get from 'dlv'
 import logoUri from '../../static/logo.svg'
 
 import {
-  useBreakpoint,
   useClipboard,
   useFeaturesMeta,
   useHealthcheck,
@@ -146,9 +145,11 @@ const LogoEmpty = ({ style, ...props }) => (
   </LogoBox>
 )
 
-const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
-  const device = useBreakpoint(['mobile', 'desktop', 'desktop', 'desktop'])
-
+const PreviewResponsive = React.memo(function PreviewResponsive ({
+  isLoading,
+  toClipboard,
+  data
+}) {
   const logo = data.logo || {}
 
   const colors = isLoading
@@ -173,9 +174,9 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
       : LogoEmpty
 
   return (
-    <Choose>
-      <Choose.When condition={device === 'mobile'}>
-        <Flex pb={4}>
+    <>
+      <Hide breakpoints={[1, 2, 3]}>
+        <Flex justifyContent='center' pb={4}>
           <LogoComponent logo={logo} style={IMAGE_PREVIEW_STYLE[0]} />
         </Flex>
         <Flex
@@ -210,8 +211,8 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
             </Choose.Otherwise>
           </Choose>
         </Flex>
-      </Choose.When>
-      <Choose.Otherwise>
+      </Hide>
+      <Hide breakpoints={[0]}>
         <>
           <Flex pb={4}>
             {IMAGE_PREVIEW_STYLE.map((imagePreviewStyle, index) => {
@@ -278,8 +279,8 @@ const Preview = React.memo(function Preview ({ isLoading, toClipboard, data }) {
             </Choose>
           </Flex>
         </>
-      </Choose.Otherwise>
-    </Choose>
+      </Hide>
+    </>
   )
 })
 
@@ -373,7 +374,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       </Flex>
 
       <Flex flexDirection='column' alignItems='center' pb={4}>
-        <Preview
+        <PreviewResponsive
           isLoading={isLoading}
           toClipboard={toClipboard}
           data={data || suggestionData || DEFAULT_DATA}
