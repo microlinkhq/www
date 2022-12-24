@@ -24,8 +24,6 @@ const mergeMeta = ({ head = {}, ...props }, metadata) => {
     ...metadata
   }
 
-  const date = (props.date ? new Date(props.date) : new Date()).toISOString()
-
   const url = props.location
     ? `${siteUrl}${props.location.pathname}${props.location.search}`
     : siteUrl
@@ -35,7 +33,6 @@ const mergeMeta = ({ head = {}, ...props }, metadata) => {
     dataLabel2,
     dataValue1,
     dataValue2,
-    date,
     description,
     headline,
     image,
@@ -51,16 +48,14 @@ const mergeMeta = ({ head = {}, ...props }, metadata) => {
 function Head ({ onChangeClientState, script, ...props }) {
   const siteMetadata = useSiteMetadata()
 
-  const { canonicalUrl, author } = siteMetadata
+  const { author } = siteMetadata
 
   const {
     dataLabel1,
     dataLabel2,
     dataValue1,
     dataValue2,
-    date,
     description,
-    headline,
     image,
     logo,
     name,
@@ -74,36 +69,16 @@ function Head ({ onChangeClientState, script, ...props }) {
 
   return (
     <>
-      <script type='application/ld+json'>
-        {`${JSON.stringify({
-          '@context': 'http://schema.org',
-          '@type': 'Organization',
-          description: headline,
-          image,
-          logo,
-          name,
-          url: canonicalUrl,
-          sameAs: [
-            'https://twitter.com/microlinkhq',
-            'https://github.com/microlinkhq'
-          ]
-        })}`}
-      </script>
-
       {/* <!-- Search Engine --> */}
       <meta name='description' content={description} />
       <meta name='image' content={image} />
       <meta name='author' content={author} />
-      <meta name='date' content={date} />
-
       <title>{fullTitle}</title>
-
       {/* <!-- Schema.org for Google --> */}
       <meta itemProp='name' content={fullTitle} />
       <meta itemProp='description' content={description} />
       <meta itemProp='image' content={image} />
       <meta itemProp='author' content={author} />
-
       {/* <!-- Twitter --> */}
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:title' content={fullTitle} />
@@ -117,7 +92,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta name='twitter:data1' value={dataValue1} />
       <meta name='twitter:label2' value={dataLabel2} />
       <meta name='twitter:data2' value={dataValue2} />
-
       {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
       <meta property='og:url' content={url} />
       <meta property='og:title' content={fullTitle} />
@@ -127,7 +101,6 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta property='og:logo' content={logo} />
       <meta property='og:site_name' content={name} />
       <meta property='og:type' content='website' />
-      <meta property='og:updated_time' content={date} />
     </>
   )
 }
