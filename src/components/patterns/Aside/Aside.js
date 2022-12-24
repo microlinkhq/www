@@ -1,7 +1,6 @@
-import React, { createElement, useEffect, useState } from 'react'
 import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
-import { Box, Flex } from 'components/elements'
-import { useBreakpoint } from 'components/hook'
+import { Hide, Box, Flex } from 'components/elements'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { shadows } from 'theme'
 
@@ -78,14 +77,20 @@ const AsideDesktop = ({ children, ...props }) => {
   )
 }
 
-const Aside = props => {
-  const component = useBreakpoint([
-    AsideMobile,
-    AsideDesktop,
-    AsideDesktop,
-    AsideDesktop
-  ])
+const AsideResponsive = props => {
+  return (
+    <>
+      <Hide breakpoints={[1, 2, 3]}>
+        <AsideMobile {...props} />
+      </Hide>
+      <Hide breakpoints={[0]}>
+        <AsideDesktop {...props} />
+      </Hide>
+    </>
+  )
+}
 
+const Aside = props => {
   useEffect(() => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
     if (activeEl) {
@@ -107,7 +112,7 @@ const Aside = props => {
     }
   }, [])
 
-  return createElement(component, props)
+  return <AsideResponsive {...props} />
 }
 
 export default Aside

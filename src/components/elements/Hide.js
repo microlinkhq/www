@@ -21,11 +21,7 @@ function createBreakpoint (key, fn) {
   return props => {
     const breakpoints = props.breakpoints ? [].concat(props.breakpoints) : []
     return fn(breakpoints, key)
-      ? {
-          [mediaBreakpoints[key]]: {
-            display: 'none'
-          }
-        }
+      ? { [mediaBreakpoints[key]]: { display: 'none' } }
       : null
   }
 }
