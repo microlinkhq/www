@@ -15,7 +15,7 @@ export default function HTML (props) {
         />
         <link
           rel='preconnect'
-          href='https://fonts.gstatic.com'
+          href='https://fonts.googleapis.com'
           crossOrigin='anonymous'
         />
         <link

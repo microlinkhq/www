@@ -1,10 +1,10 @@
 import { Choose, Toolbar, Flex, Box, Fixed } from 'components/elements'
-import { GitHub, Twitter } from 'components/icons'
 import { useLocation } from '@gatsbyjs/reach-router'
+import { GitHub, Twitter } from 'components/icons'
 import React, { useState } from 'react'
+import { css } from 'styled-components'
 import { rgba } from 'polished'
 import { colors } from 'theme'
-import { css } from 'styled-components'
 
 import NavContainer from './NavContainer'
 

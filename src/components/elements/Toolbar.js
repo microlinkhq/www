@@ -1,3 +1,4 @@
+import { hideScrollbar } from 'helpers/style'
 import styled from 'styled-components'
 import { layout } from 'theme'
 import React from 'react'
@@ -7,10 +8,11 @@ import Flex from './Flex'
 export const TOOLBAR_PRIMARY_HEIGHT = '64px'
 export const TOOLBAR_SECONDARY_HEIGHT = '48px'
 
-const ToolbarBase = styled(Flex)({
-  overflowX: 'auto',
-  overflowY: 'hidden'
-})
+const ToolbarBase = styled(Flex)`
+  overflow-x: auto;
+  overflow-y: hidden;
+  ${hideScrollbar};
+`
 
 ToolbarBase.defaultProps = {
   as: 'nav',

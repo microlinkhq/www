@@ -7,6 +7,7 @@ import NavContainer from './NavContainer'
 import {
   NavDocs,
   NavInsights,
+  NavLogo,
   NavMeta,
   NavMicrolinkLogo,
   NavPdf,
@@ -41,13 +42,14 @@ const ToolbarMobile = ({ theme }) => {
         <Toolbar ml={3} mr={3} justifyContent='center'>
           <NavMicrolinkLogo mobile />
           <Nav>
-            <NavSDK isDark={isDark} mobile />
-            <NavMeta isDark={isDark} mobile />
-            <NavScreenshot isDark={isDark} mobile />
-            <NavPdf isDark={isDark} mobile />
-            <NavInsights isDark={isDark} />
-            <NavPricing isDark={isDark} />
             <NavDocs isDark={isDark} />
+            <NavInsights isDark={isDark} />
+            <NavLogo isDark={isDark} mobile />
+            <NavMeta isDark={isDark} mobile />
+            <NavPdf isDark={isDark} mobile />
+            <NavPricing isDark={isDark} />
+            <NavScreenshot isDark={isDark} mobile />
+            <NavSDK isDark={isDark} mobile pr={4} />
           </Nav>
         </Toolbar>
       </Box>
