@@ -19,6 +19,11 @@ export default function HTML (props) {
           crossOrigin='anonymous'
         />
         <link
+          rel='preconnect'
+          href='https://fonts.googleapis.com'
+          crossOrigin='anonymous'
+        />
+        <link
           as='font'
           href='https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;700&display=optional'
           rel='preload'
