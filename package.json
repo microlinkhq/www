@@ -138,7 +138,7 @@
     "path-browserify": "~1.0.1",
     "polished": "~4.2.2",
     "postcss": "~8.4.20",
-    "postcss-focus": "~5.0.1",
+    "postcss-focus": "~6.0.0",
     "prepend-http": "~4.0.0",
     "prettier": "~2.8.1",
     "qss": "~2.0.3",
