@@ -14,76 +14,76 @@
       "email": "hi@breadadams.com"
     },
     {
-      "name": "Jose M. Perez",
-      "email": "JMPerez@users.noreply.github.com"
-    },
-    {
       "name": "Aarón García Hervás",
       "email": "aar.garc.herv@gmail.com"
     },
     {
-      "name": "midudev",
-      "email": "miduga@gmail.com"
+      "name": "Jose M. Perez",
+      "email": "JMPerez@users.noreply.github.com"
     },
     {
       "name": "Kumar Gaurav",
       "email": "kumargaurav.jha2895@gmail.com"
     },
     {
-      "name": "Kevin Østerkilde",
-      "email": "kevin@oesterkilde.dk"
-    },
-    {
-      "name": "Jiachi Liu",
-      "email": "inbox@huozhi.im"
-    },
-    {
-      "name": "Nico Domino",
-      "email": "yo@ndo.dev"
-    },
-    {
-      "name": "Rich Halliwell",
-      "email": "richhalliwell@users.noreply.github.com"
+      "name": "midudev",
+      "email": "miduga@gmail.com"
     },
     {
       "name": "Rinat Kirimov",
       "email": "37680855+HighWatersDev@users.noreply.github.com"
     },
     {
-      "name": "Sam Robbins",
-      "email": "samrobbinsgb@gmail.com"
-    },
-    {
-      "name": "Stephane Mensah",
-      "email": "waptik@users.noreply.github.com"
-    },
-    {
-      "name": "Tim Carry",
-      "email": "tim@pixelastic.com"
-    },
-    {
-      "name": "Germán Rodríguez",
-      "email": "germanrodrickson@gmail.com"
-    },
-    {
-      "name": "Elena Torró",
-      "email": "elenatorro@gmail.com"
+      "name": "Alexander González",
+      "email": "alexfertel97@gmail.com"
     },
     {
       "name": "Ben Tsai",
       "email": "bentsai@gmail.com"
     },
     {
+      "name": "Elena Torró",
+      "email": "elenatorro@gmail.com"
+    },
+    {
+      "name": "Germán Rodríguez",
+      "email": "germanrodrickson@gmail.com"
+    },
+    {
+      "name": "Jiachi Liu",
+      "email": "inbox@huozhi.im"
+    },
+    {
       "name": "John Letey",
       "email": "johnletey@gmail.com"
     },
     {
-      "name": "Alexander González",
-      "email": "alexfertel97@gmail.com"
-    },
-    {
       "name": "José Manuel Rosa",
       "email": "josemanuel.rosamoncayo+github@gmail.com"
+    },
+    {
+      "name": "Kevin Østerkilde",
+      "email": "kevin@oesterkilde.dk"
+    },
+    {
+      "name": "Rich Halliwell",
+      "email": "richhalliwell@users.noreply.github.com"
+    },
+    {
+      "name": "Sam Robbins",
+      "email": "samrobbinsgb@gmail.com"
+    },
+    {
+      "name": "Tim Carry",
+      "email": "tim@pixelastic.com"
+    },
+    {
+      "name": "Stephane Mensah",
+      "email": "waptik@users.noreply.github.com"
+    },
+    {
+      "name": "Nico Domino",
+      "email": "yo@ndo.dev"
     }
   ],
   "repository": {
