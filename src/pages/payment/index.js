@@ -3,7 +3,7 @@ import { Caption, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import { layout, colors } from 'theme'
 import Confetti from 'react-confetti'
-import { encode } from 'qss'
+import { encode } from 'helpers'
 
 import {
   Container,

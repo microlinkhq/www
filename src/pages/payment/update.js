@@ -4,9 +4,9 @@ import { Caption, Layout } from 'components/patterns'
 import { loadStripe } from '@stripe/stripe-js/pure'
 import { useSiteMetadata } from 'components/hook'
 import { layout, letterSpacings } from 'theme'
+import { encode, decode } from 'helpers'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { encode, decode } from 'qss'
 
 import {
   Choose,
@@ -80,7 +80,7 @@ const CheckoutForm = ({ apiEndpoint, apiKey }) => {
           headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
           method: 'POST',
           body: JSON.stringify({
-            customerId: decode(window.location.search.substring(1)).id,
+            customerId: decode(window.location.search).id,
             token
           })
         })
