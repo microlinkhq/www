@@ -15,6 +15,8 @@ import prettier from './prettier'
 import mqlCode from './mql-code'
 import pdfUrl from './pdf-url'
 import cdnUrl from './cdn-url'
+import decode from './decode'
+import encode from './encode'
 import isSSR from './is-ssr'
 import title from './title'
 import hash from './hash'
@@ -25,6 +27,8 @@ export {
   cdnUrl,
   childrenText,
   childrenTextAll,
+  decode,
+  encode,
   formatDate,
   formatNumber,
   getLines,
