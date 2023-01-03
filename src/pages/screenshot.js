@@ -31,7 +31,8 @@ import {
   LineBreak,
   Link,
   Subhead,
-  Text
+  Text,
+  Tooltip
 } from 'components/elements'
 
 import {
@@ -46,6 +47,7 @@ import {
 } from 'components/patterns'
 
 import {
+  useClipboard,
   useFeaturesScreenshot,
   useHealthcheck,
   useQueryState,
@@ -97,9 +99,9 @@ const SUGGESTIONS = [
   }
 })
 
-const DemoSlider = ({ children: slides, ...props }) => {
+const DemoSlider = props => {
   const [index, setIndex] = useState(0)
-  const next = index => ++index % slides.length
+  const next = index => ++index % SUGGESTIONS.length
 
   const transitions = useTransition(index, {
     key: index,
@@ -115,7 +117,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
   return (
     <Flex style={{ position: 'relative' }} {...props}>
       {transitions((style, index) => {
-        const url = slides[index].cdnUrl
+        const url = SUGGESTIONS[index].cdnUrl
         const src = url
         return (
           <AnimatedImage
@@ -123,7 +125,7 @@ const DemoSlider = ({ children: slides, ...props }) => {
             decoding='async'
             style={style}
             src={src}
-            alt={`${slides[index].id} screenshot`}
+            alt={`${SUGGESTIONS[index].id} screenshot`}
           />
         )
       })}
@@ -154,10 +156,17 @@ const Screenshot = ({ domain, data, cardWidth, cardHeight, ...props }) => {
   )
 }
 
-const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
+const LiveDemo = React.memo(function LiveDemo ({
+  data,
+  isInitialData,
+  isLoading,
+  onSubmit,
+  query
+}) {
+  const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.5
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
@@ -206,6 +215,8 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     return embedUrl
   }, [values])
 
+  const snippetText = `<img src="${embedUrl}"></img>`
+
   const handleSubmit = event => {
     event.preventDefault()
     const { url, ...opts } = values
@@ -217,7 +228,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     : createElement(ImageIcon, { color: colors.black50, size: '16px' })
 
   return (
-    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={[0, 0, 4, 4]} pb={0}>
       <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Easy peasy screenshots
       </Heading>
@@ -242,7 +253,6 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         <Flex
           as='form'
           pt={[3, 3, 4, 4]}
-          pb={4}
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
@@ -251,10 +261,16 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
           <Box mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon query={domain} />}
+              iconComponent={
+                <InputIcon
+                  iconUrl={data?.logo?.url}
+                  provider={!isInitialData && 'microlink'}
+                  url={!isInitialData && values.url}
+                />
+              }
               id='screenshot-demo-url'
               placeholder='Visit URL'
-              suggestions={suggestions.map(
+              suggestions={SUGGESTIONS.map(
                 ({ cdnUrl, filename, ...suggestion }) => suggestion
               )}
               type='text'
@@ -325,18 +341,28 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
                 data={{ screenshot: { url: suggestionUrl } }}
                 query={values}
               />
-              <CodeEditor
-                width={[
-                  `calc(${cardWidth}px - 30px)`,
-                  `calc(${cardWidth}px - 30px)`,
-                  `calc(${cardWidth}px - 76px)`,
-                  `calc(${cardWidth}px - 76px)`
-                ]}
-                mx='auto'
-                language='html'
-              >
-                {`<img src="${embedUrl}"></img>`}
-              </CodeEditor>
+              <Box px={4} width={cardWidth / 1.5}>
+                <Tooltip
+                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                  content={
+                    <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                  }
+                >
+                  <Input
+                    readOnly
+                    onClick={event => {
+                      event.target.select()
+                      toClipboard({
+                        copy: snippetText,
+                        text: Tooltip.TEXT.COPIED.HTML
+                      })
+                    }}
+                    width='100%'
+                    color='black60'
+                    value={snippetText}
+                  />
+                </Tooltip>
+              </Box>
             </Flex>
           </Choose.When>
           <Choose.When condition={!!data}>
@@ -356,15 +382,14 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
             </Flex>
           </Choose.When>
           <Choose.Otherwise>
-            <DemoSlider height={cardHeight} width={cardWidth}>
-              {suggestions}
-            </DemoSlider>
+            <DemoSlider height={cardHeight} width={cardWidth} />
           </Choose.Otherwise>
         </Choose>
       </Flex>
+      <ClipboardComponent />
     </Container>
   )
-}
+})
 
 const Timings = props => {
   const healthcheck = useHealthcheck()
@@ -702,6 +727,7 @@ const ProductInformation = props => {
 const ScreenshotPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesScreenshot()
+  const hasQuery = query && !!query.url
 
   return (
     <Layout
@@ -713,15 +739,18 @@ const ScreenshotPage = () => {
     >
       <FetchProvider mqlOpts={{ meta: false, screenshot: true }}>
         {({ status, doFetch, data }) => {
-          const isLoading = status === 'fetching'
+          const isLoading =
+            (hasQuery && status === 'initial') || status === 'fetching'
+          const isInitialData = data === null
+
           return (
             <>
               <LiveDemo
-                query={query}
-                onSubmit={doFetch}
-                isLoading={isLoading}
-                suggestions={SUGGESTIONS}
                 data={data}
+                isInitialData={isInitialData}
+                isLoading={isLoading}
+                onSubmit={doFetch}
+                query={query}
               />
               <Timings
                 pb={Container.defaultProps.pt}
