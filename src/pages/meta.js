@@ -1,13 +1,19 @@
-import { useWindowSize, useHealthcheck, useFeaturesMeta } from 'components/hook'
 import { layout, breakpoints, transition, colors, borders } from 'theme'
-import React, { useMemo, useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import { getDomain } from 'tldts'
 import { cdnUrl } from 'helpers'
 import chunk from 'lodash/chunk'
+
+import {
+  useClipboard,
+  useFeaturesMeta,
+  useHealthcheck,
+  useQueryState,
+  useWindowSize
+} from 'components/hook'
 
 import {
   AnimatedBox,
@@ -15,6 +21,7 @@ import {
   Button,
   Caps,
   Card,
+  Choose,
   CodeEditor,
   Container,
   Flex,
@@ -26,7 +33,8 @@ import {
   LineBreak,
   Link,
   Subhead,
-  Text
+  Text,
+  Tooltip
 } from 'components/elements'
 
 import {
@@ -118,24 +126,29 @@ const JSONProperty = ({ property, data, ...props }) => {
   )
 }
 
-const LiveDemo = ({
+const LiveDemo = React.memo(function LiveDemo ({
   data,
   isInitialData,
   isLoading,
   onSubmit,
-  suggestions
-}) => {
+  query
+}) {
+  const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 3
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
-  const [inputValue, setInputValue] = useState('')
-  const domain = getDomain(inputValue)
+  const [inputUrl, setInputUrl] = useState(query.url || '')
+
+  const url = useMemo(() => {
+    const input = prependHttp(inputUrl)
+    return isUrl(input) ? input : data.url
+  }, [inputUrl, data])
 
   const jsonData = (() => {
-    const suggestion = SUGGESTIONS.find(({ value }) => value === inputValue)
+    const suggestion = SUGGESTIONS.find(({ value }) => value === inputUrl)
     return suggestion ? suggestion.data : data
   })()
 
@@ -150,9 +163,7 @@ const LiveDemo = ({
     return embedUrl
   }, [data])
 
-  useEffect(() => {
-    if (!isInitialData) setInputValue(data.url)
-  }, [data.url, isInitialData])
+  const snippetText = `curl -sL ${embedUrl}`
 
   return (
     <Container alignItems='center' pt={[0, 0, 4, 4]} pb={[4, 4, 5, 5]}>
@@ -190,7 +201,7 @@ const LiveDemo = ({
           flexDirection={['column', 'column', 'row', 'row']}
           onSubmit={event => {
             event.preventDefault()
-            const url = prependHttp(inputValue)
+            const url = prependHttp(inputUrl)
             onSubmit(isUrl(url) ? url : undefined)
           }}
         >
@@ -198,12 +209,18 @@ const LiveDemo = ({
             <Input
               id='meta-demo-url'
               fontSize={2}
-              iconComponent={<InputIcon query={domain} />}
+              iconComponent={
+                <InputIcon
+                  iconUrl={data?.logo?.url}
+                  provider={!isInitialData && 'microlink'}
+                  url={!isInitialData && url}
+                />
+              }
               placeholder='Visit URL'
               type='text'
-              suggestions={suggestions}
-              value={inputValue}
-              onChange={event => setInputValue(event.target.value)}
+              suggestions={SUGGESTIONS}
+              value={inputUrl}
+              onChange={event => setInputUrl(event.target.value)}
               width={['100%', '100%', '102px', '102px']}
               autoFocus
             />
@@ -233,16 +250,40 @@ const LiveDemo = ({
           </List>
         </Hide>
         <Flex flexDirection='column' alignItems='center'>
-          <CodeEditor width={cardWidth} height={cardHeight} language='json'>
+          <CodeEditor
+            pb={4}
+            width={cardWidth}
+            height={cardHeight}
+            language='json'
+          >
             {JSON.stringify(jsonData, null, 2)}
           </CodeEditor>
-          {inputValue && (
-            <Box pt={4}>
-              <CodeEditor width={cardWidth} language='bash'>
-                {`curl -sL ${embedUrl}`}
-              </CodeEditor>
-            </Box>
-          )}
+          <Choose>
+            <Choose.When condition={!!inputUrl}>
+              <Box pt={4} px={4} width={cardWidth}>
+                <Tooltip
+                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                  content={
+                    <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                  }
+                >
+                  <Input
+                    readOnly
+                    onClick={event => {
+                      event.target.select()
+                      toClipboard({
+                        copy: snippetText,
+                        text: Tooltip.TEXT.COPIED.HTML
+                      })
+                    }}
+                    width='100%'
+                    color='black60'
+                    value={snippetText}
+                  />
+                </Tooltip>
+              </Box>
+            </Choose.When>
+          </Choose>
         </Flex>
         <Hide breakpoints={[0, 1]}>
           <List pl={4}>
@@ -272,9 +313,10 @@ const LiveDemo = ({
           </List>
         </Hide>
       </Flex>
+      <ClipboardComponent />
     </Container>
   )
-}
+})
 
 const Timings = () => {
   const healthcheck = useHealthcheck()
@@ -603,7 +645,9 @@ const ProductInformation = props => (
 )
 
 const MetaPage = () => {
+  const [query] = useQueryState()
   const features = useFeaturesMeta()
+  const hasQuery = !!query?.url
 
   return (
     <Layout
@@ -617,18 +661,19 @@ const MetaPage = () => {
         mqlOpts={{ palette: true, audio: true, video: true, iframe: true }}
       >
         {({ status, doFetch, data }) => {
-          const isLoading = status === 'fetching'
+          const isLoading =
+            (hasQuery && status === 'initial') || status === 'fetching'
           const unifiedData = data || DEMO_LINK.data
           const isInitialData = unifiedData.url === DEMO_LINK.data.url
 
           return (
             <>
               <LiveDemo
-                isLoading={isLoading}
-                suggestions={SUGGESTIONS}
                 data={unifiedData}
                 isInitialData={isInitialData}
+                isLoading={isLoading}
                 onSubmit={doFetch}
+                query={query}
               />
               <Timings />
               <Features
