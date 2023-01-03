@@ -1,13 +1,12 @@
-import { useWindowSize, useMountedRef } from 'components/hook'
-import React, { useMemo, useEffect, useState } from 'react'
+import { useQueryState, useWindowSize, useMountedRef } from 'components/hook'
 import { layout, breakpoints, transition } from 'theme'
+import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { cdnUrl, mqlCode } from 'helpers'
 import * as Icons from 'components/icons'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import humanizeUrl from 'humanize-url'
-import { getDomain } from 'tldts'
 
 import {
   Box,
@@ -71,6 +70,7 @@ const INTEGRATIONS = [
 ]
 
 const HeroCard = styled(Card)`
+  .microlink_card__iframe,
   .microlink_card__iframe iframe,
   .microlink_card {
     width: 100%;
@@ -97,13 +97,13 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const LiveDemo = ({
+const LiveDemo = React.memo(function LiveDemo ({
   data,
   isInitialData,
   isLoading,
   onSubmit,
-  suggestions
-}) => {
+  query
+}) {
   const isMounted = useMountedRef()
   const size = useWindowSize()
   const [mode, setMode] = useState(MODES[0])
@@ -114,18 +114,12 @@ const LiveDemo = ({
   const cardHeight = cardWidth / Card.ratio
   const runkitHeight = cardHeight - 36 * 2 - 8 * 2
 
-  const [inputValue, setInputValue] = useState('')
+  const [inputUrl, setInputUrl] = useState(query.url || '')
 
-  useEffect(() => {
-    if (!isInitialData) setInputValue(data.url)
-  }, [isInitialData, data.url])
-
-  const targetUrlPrepend = useMemo(() => {
-    const isSuggestion = SUGGESTIONS.some(({ value }) => value === inputValue)
-    return prependHttp(isSuggestion ? inputValue || data.url : data.url)
-  }, [inputValue, data])
-
-  const domain = getDomain(inputValue)
+  const url = useMemo(() => {
+    const input = prependHttp(inputUrl)
+    return isUrl(input) ? input : data.url
+  }, [inputUrl, data])
 
   const media = [
     mode === 'iframe' && 'iframe',
@@ -174,7 +168,7 @@ const LiveDemo = ({
           flexDirection={['column', 'row', 'row', 'row']}
           onSubmit={event => {
             event.preventDefault()
-            const url = prependHttp(inputValue)
+            const url = prependHttp(inputUrl)
             onSubmit(isUrl(url) ? url : undefined)
           }}
         >
@@ -182,14 +176,20 @@ const LiveDemo = ({
             <Input
               id='sdk-demo-url'
               fontSize={2}
-              iconComponent={<InputIcon query={domain} />}
+              iconComponent={
+                <InputIcon
+                  iconUrl={data.logo.url}
+                  provider={!isInitialData && 'microlink'}
+                  url={!isInitialData && url}
+                />
+              }
               placeholder='Visit URL'
               type='text'
-              suggestions={suggestions}
-              value={inputValue}
+              suggestions={SUGGESTIONS}
+              value={inputUrl}
               onChange={event => {
                 const url = event.target.value
-                setInputValue(url)
+                setInputUrl(url)
               }}
               width={['100%', '118px', '102px', '102px']}
               autoFocus
@@ -216,10 +216,10 @@ const LiveDemo = ({
           <Choose>
             <Choose.When condition={type === 'render'}>
               <LinkPreview
-                key={`${targetUrlPrepend}_${mode}`}
+                key={`${url}_${mode}`}
                 loading={isLoading}
                 size='large'
-                url={targetUrlPrepend}
+                url={url}
                 setData={demoLink => demoLink || data}
                 media={media}
               />
@@ -278,7 +278,7 @@ const LiveDemo = ({
       </Flex>
     </Container>
   )
-}
+})
 
 const Integrations = () => {
   return (
@@ -341,6 +341,9 @@ const Integrations = () => {
 }
 
 const SdkPage = () => {
+  const [query] = useQueryState()
+  const hasQuery = query && !!query.url
+
   return (
     <Layout
       head={{
@@ -354,18 +357,19 @@ const SdkPage = () => {
         mqlOpts={{ palette: true, audio: true, video: true, iframe: true }}
       >
         {({ status, doFetch, data }) => {
-          const isLoading = status === 'fetching'
+          const isLoading =
+            (hasQuery && status === 'initial') || status === 'fetching'
           const unifiedData = data || DEMO_LINK.data
           const isInitialData = unifiedData.url === DEMO_LINK.data.url
 
           return (
             <>
               <LiveDemo
-                isLoading={isLoading}
-                suggestions={SUGGESTIONS}
-                data={data || DEMO_LINK.data}
+                data={unifiedData}
                 isInitialData={isInitialData}
+                isLoading={isLoading}
                 onSubmit={doFetch}
+                query={query}
               />
               <Integrations />
               {/* TODO: Add Hover banner */}
