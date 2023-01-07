@@ -51,27 +51,14 @@ import {
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const SUGGESTIONS = [
-  { id: 'basecamp', url: 'https://basecamp.com/shapeup/0.3-chapter-01' },
-  {
-    id: 'alexmaccaw',
-    url: 'https://blog.alexmaccaw.com/advice-to-my-younger-self'
-  },
-  {
-    id: 'css-tricks',
-    url: 'https://css-tricks.com/snippets/css/a-guide-to-flexbox'
-  },
-  {
-    id: 'rauchg',
-    url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications'
-  },
-  {
-    id: 'varnish-cache',
-    url: 'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
-  }
-].map(({ id, url }) => {
-  const cdnUrl = `https://cdn.microlink.io/pdf/${id}.pdf`
-  return { cdnUrl, url, id, value: humanizeUrl(url) }
-})
+  'https://basecamp.com/shapeup/0.3-chapter-01',
+  'https://blog.alexmaccaw.com/advice-to-my-younger-self/',
+  'https://css-tricks.com/nerds-guide-color-web/',
+  'https://rauchg.com/2014/7-principles-of-rich-web-applications',
+  'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
+].map(url => ({ url, value: humanizeUrl(url) }))
+
+const getEmbedUrl = (url, embed) => getApiUrl(url, { pdf: true, embed })[0]
 
 const PDFPlaceholder = props => {
   return (
@@ -125,25 +112,8 @@ const LiveDemo = React.memo(function LiveDemo ({
     })
   }, [inputUrl, inputMargin, inputFormat])
 
-  const suggestionUrl = useMemo(() => {
-    const { url } = values
-    const item = SUGGESTIONS.find(item => item.url === url)
-    return item ? item.cdnUrl : undefined
-  }, [values])
-
-  const embedUrl = useMemo(() => {
-    const { url, ...opts } = values
-    if (!url) return
-    const [embedUrl] = getApiUrl(url, {
-      ...opts,
-      pdf: true,
-      meta: false,
-      embed: 'pdf.url'
-    })
-    return embedUrl
-  }, [values])
-
-  const snippetText = `<iframe src="${embedUrl}"></iframe>`
+  const embedUrl = useMemo(() => getEmbedUrl(values.url, 'pdf.url'), [values])
+  const snippetText = `curl -sL ${embedUrl}`
 
   return (
     <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
@@ -254,14 +224,13 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Flex>
       </Flex>
       <Choose>
-        <Choose.When condition={!!suggestionUrl || !!dataPdfUrl}>
+        <Choose.When condition={!!dataPdfUrl}>
           <Flex flexDirection='column' alignItems='center'>
             <Iframe
               pb={4}
               width={cardWidth}
               height={cardHeight}
-              src={`https://docs.google.com/viewer?url=${suggestionUrl ||
-                dataPdfUrl}&embedded=true`}
+              src={`https://docs.google.com/viewer?url=${dataPdfUrl}&embedded=true`}
             />
             <Box px={4} width={cardWidth}>
               <Tooltip
