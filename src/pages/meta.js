@@ -2,9 +2,9 @@ import { layout, breakpoints, transition, colors, borders } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
+import { cdnUrl, trimMs } from 'helpers'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import { cdnUrl } from 'helpers'
 import chunk from 'lodash/chunk'
 
 import {
@@ -93,8 +93,6 @@ const [JsonKeysFirstChunk, JsonKeysSecondChunk] = chunk(
 )
 
 const COLOR = '#3e55ff'
-
-const getMs = str => str.replace(/ms|s/, '')
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -355,7 +353,7 @@ const Timings = () => {
                 color='white'
                 fontWeight='bold'
               >
-                {getMs(healthcheck.meta.p95_pretty)}
+                {trimMs(healthcheck.meta.p95_pretty)}
                 <Caption
                   as='div'
                   ml={2}

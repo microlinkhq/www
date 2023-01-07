@@ -1,6 +1,6 @@
 import { toPx, cx, borders, layout, colors } from 'theme'
+import { cdnUrl, issueUrl, noop, trimMs } from 'helpers'
 import React, { useMemo, useState } from 'react'
-import { cdnUrl, issueUrl, noop } from 'helpers'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
@@ -71,8 +71,6 @@ const IMAGE_PREVIEW_STYLE = [
   (LOGO_SIZE * 0.8) / 2,
   (LOGO_SIZE * 0.8) / 4
 ].map(width => ({ width }))
-
-const getMs = str => str.replace(/ms|s/, '')
 
 const getEmbedUrl = url =>
   getApiUrl(url, { palette: true, embed: 'logo.url' })[0]
@@ -152,8 +150,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-      ? LogoPreview
-      : LogoEmpty
+    ? LogoPreview
+    : LogoEmpty
 
   return (
     <>
@@ -246,7 +244,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED.COLOR(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -418,7 +417,7 @@ const Timings = props => {
           color='white'
           fontWeight='bold'
         >
-          {getMs(healthcheck.meta.p95_pretty)}
+          {trimMs(healthcheck.meta.p95_pretty)}
           <Caption
             as='div'
             ml={2}

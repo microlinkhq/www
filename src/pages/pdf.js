@@ -3,10 +3,10 @@ import { borders, breakpoints, layout, colors } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
+import { cdnUrl, trimMs } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
-import { cdnUrl } from 'helpers'
 import get from 'dlv'
 
 import {
@@ -72,8 +72,6 @@ const SUGGESTIONS = [
   const cdnUrl = `https://cdn.microlink.io/pdf/${id}.pdf`
   return { cdnUrl, url, id, value: humanizeUrl(url) }
 })
-
-const getMs = str => str.replace(/ms|s/, '')
 
 const PDFPlaceholder = props => {
   return (
@@ -262,9 +260,8 @@ const LiveDemo = React.memo(function LiveDemo ({
               pb={4}
               width={cardWidth}
               height={cardHeight}
-              src={`https://docs.google.com/viewer?url=${
-                suggestionUrl || dataPdfUrl
-              }&embedded=true`}
+              src={`https://docs.google.com/viewer?url=${suggestionUrl ||
+                dataPdfUrl}&embedded=true`}
             />
             <Box px={4} width={cardWidth}>
               <Tooltip
@@ -335,7 +332,7 @@ const Timings = props => {
           color='white'
           fontWeight='bold'
         >
-          {getMs(healthcheck.pdf.p95_pretty)}
+          {trimMs(healthcheck.pdf.p95_pretty)}
           <Caption
             as='div'
             ml={2}

@@ -4,13 +4,13 @@ import { borders, breakpoints, layout, colors } from 'theme'
 import { useTransition, animated } from '@react-spring/web'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
+import { cdnUrl, trimMs } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
 import { getDomain } from 'tldts'
-import { cdnUrl } from 'helpers'
 import isColor from 'is-color'
 import get from 'dlv'
 
@@ -57,8 +57,6 @@ import {
 import demoLinks from '../../data/demo-links'
 
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
-
-const getMs = str => str.replace(/ms|s/, '')
 
 const ColorPreview = ({ color }) => (
   <Box
@@ -423,7 +421,7 @@ const Timings = props => {
           color='white'
           fontWeight='bold'
         >
-          {getMs(healthcheck.screenshot.p95_pretty)}
+          {trimMs(healthcheck.screenshot.p95_pretty)}
           <Caption
             as='div'
             ml={2}

@@ -14,6 +14,7 @@ import template from './template'
 import prettier from './prettier'
 import mqlCode from './mql-code'
 import pdfUrl from './pdf-url'
+import trimMs from './trim-ms'
 import cdnUrl from './cdn-url'
 import decode from './decode'
 import encode from './encode'
@@ -45,5 +46,6 @@ export {
   screenshotUrl,
   template,
   title,
+  trimMs,
   urlVariations
 }

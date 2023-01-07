@@ -2,10 +2,10 @@ import { borders, breakpoints, layout, colors } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
+import { cdnUrl, trimMs } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
-import { cdnUrl } from 'helpers'
 import get from 'dlv'
 
 import {
@@ -71,8 +71,6 @@ const SUGGESTIONS = [
   const cdnUrl = `https://cdn.microlink.io/insights/${id}.json`
   return { cdnUrl, url, id, value: humanizeUrl(url) }
 })
-
-const getMs = str => str.replace(/ms|s/, '')
 
 const getEmbedUrl = (url, embed) => getApiUrl(url, { insights: true, embed })[0]
 
@@ -401,7 +399,7 @@ const Timings = props => {
           color='white'
           fontWeight='bold'
         >
-          {getMs(healthcheck.insights.p95_pretty)}
+          {trimMs(healthcheck.insights.p95_pretty)}
           <Caption
             as='div'
             ml={2}
