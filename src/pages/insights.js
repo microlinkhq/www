@@ -53,11 +53,11 @@ const SUGGESTIONS = [
   { id: 'basecamp', url: 'https://basecamp.com/shapeup/0.3-chapter-01' },
   {
     id: 'alexmaccaw',
-    url: 'https://blog.alexmaccaw.com/advice-to-my-younger-self'
+    url: 'https://blog.alexmaccaw.com/advice-to-my-younger-self/'
   },
   {
     id: 'css-tricks',
-    url: 'https://css-tricks.com/nerds-guide-color-web'
+    url: 'https://css-tricks.com/nerds-guide-color-web/'
   },
   {
     id: 'rauchg',
@@ -67,10 +67,7 @@ const SUGGESTIONS = [
     id: 'varnish-cache',
     url: 'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
   }
-].map(({ id, url }) => {
-  const cdnUrl = `https://cdn.microlink.io/insights/${id}.json`
-  return { cdnUrl, url, id, value: humanizeUrl(url) }
-})
+].map(item => ({ ...item, value: humanizeUrl(item.url) }))
 
 const getEmbedUrl = (url, embed) => getApiUrl(url, { insights: true, embed })[0]
 
@@ -185,8 +182,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   isInitialData,
   isLoading,
   onSubmit,
-  query,
-  response
+  query
 }) {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
@@ -203,19 +199,13 @@ const LiveDemo = React.memo(function LiveDemo ({
     return pickBy({ url: isUrl(preprendUrl) ? preprendUrl : undefined })
   }, [inputUrl])
 
-  const suggestionUrl = useMemo(() => {
-    const { url } = values
-    const item = SUGGESTIONS.find(item => item.url === url)
-    return item ? item.cdnUrl : undefined
-  }, [values])
-
   const embedTechnologiesUrl = useMemo(
     () => getEmbedUrl(values.url, 'insights.technologies'),
     [values]
   )
 
   const embedInsightsUrl = useMemo(
-    () => getEmbedUrl(values.url, 'insights.technologies'),
+    () => getEmbedUrl(values.url, 'insights.lighthouse'),
     [values]
   )
 
@@ -223,7 +213,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetInsightsText = `curl -sL ${embedInsightsUrl}`
 
   const reportUrl = `https://lighthouse.microlink.io/?url=${encodeURIComponent(
-    suggestionUrl || getApiUrl(values.url, { insights: true })[0]
+    embedInsightsUrl
   )}`
 
   return (
@@ -277,9 +267,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               }
               id='pdf-demo-url'
               placeholder='Visit URL'
-              suggestions={SUGGESTIONS.map(
-                ({ cdnUrl, filename, ...suggestion }) => suggestion
-              )}
+              suggestions={SUGGESTIONS}
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
@@ -716,7 +704,7 @@ const InsightsPage = () => {
       }}
     >
       <FetchProvider mqlOpts={{ insights: true }}>
-        {({ status, doFetch, data, response }) => {
+        {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
           const isInitialData = data === null
@@ -729,7 +717,6 @@ const InsightsPage = () => {
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={query}
-                response={response}
               />
               <Timings
                 pb={Container.defaultProps.pt}
