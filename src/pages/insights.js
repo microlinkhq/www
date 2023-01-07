@@ -50,24 +50,12 @@ import {
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const SUGGESTIONS = [
-  { id: 'basecamp', url: 'https://basecamp.com/shapeup/0.3-chapter-01' },
-  {
-    id: 'alexmaccaw',
-    url: 'https://blog.alexmaccaw.com/advice-to-my-younger-self/'
-  },
-  {
-    id: 'css-tricks',
-    url: 'https://css-tricks.com/nerds-guide-color-web/'
-  },
-  {
-    id: 'rauchg',
-    url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications'
-  },
-  {
-    id: 'varnish-cache',
-    url: 'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
-  }
-].map(item => ({ ...item, value: humanizeUrl(item.url) }))
+  'https://basecamp.com/shapeup/0.3-chapter-01',
+  'https://blog.alexmaccaw.com/advice-to-my-younger-self/',
+  'https://css-tricks.com/nerds-guide-color-web/',
+  'https://rauchg.com/2014/7-principles-of-rich-web-applications',
+  'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
+].map(url => ({ url, value: humanizeUrl(url) }))
 
 const getEmbedUrl = (url, embed) => getApiUrl(url, { insights: true, embed })[0]
 
