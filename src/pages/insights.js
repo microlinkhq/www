@@ -1,11 +1,10 @@
 import { borders, breakpoints, layout, colors } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
+import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
-import { getDomain } from 'tldts'
-import chunk from 'lodash/chunk'
 import { cdnUrl } from 'helpers'
 import get from 'dlv'
 
@@ -15,7 +14,6 @@ import {
   Caps,
   Card,
   Choose,
-  CodeEditor,
   Container,
   Flex,
   Heading,
@@ -26,7 +24,8 @@ import {
   InputIcon,
   Link,
   Subhead,
-  Text
+  Text,
+  Tooltip
 } from 'components/elements'
 
 import {
@@ -41,24 +40,64 @@ import {
 } from 'components/patterns'
 
 import {
+  useClipboard,
   useFeatures,
   useHealthcheck,
   useQueryState,
   useWindowSize
 } from 'components/hook'
 
-import TECHNOLOGIES from '../../data/technologies.json'
-
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
+
+const SUGGESTIONS = [
+  { id: 'basecamp', url: 'https://basecamp.com/shapeup/0.3-chapter-01' },
+  {
+    id: 'alexmaccaw',
+    url: 'https://blog.alexmaccaw.com/advice-to-my-younger-self'
+  },
+  {
+    id: 'css-tricks',
+    url: 'https://css-tricks.com/nerds-guide-color-web'
+  },
+  {
+    id: 'rauchg',
+    url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications'
+  },
+  {
+    id: 'varnish-cache',
+    url: 'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
+  }
+].map(({ id, url }) => {
+  const cdnUrl = `https://cdn.microlink.io/insights/${id}.json`
+  return { cdnUrl, url, id, value: humanizeUrl(url) }
+})
 
 const getMs = str => str.replace(/ms|s/, '')
 
+const getEmbedUrl = (url, embed) => getApiUrl(url, { insights: true, embed })[0]
+
 const Wappalyzer = ({ data, ...props }) => (
-  <Flex width={256} pr={3} flexDirection='row' alignItems='center' {...props}>
+  <Flex
+    borderRadius={2}
+    border={1}
+    borderColor='black10'
+    width={256}
+    height={96}
+    m={[1, 1, 2, 2]}
+    py={3}
+    px={3}
+    flexDirection='row'
+    alignItems='center'
+    {...props}
+  >
     <Box>
-      <Image width='40px' alt={`${data.name} logo`} src={data.logo} />
+      <Image
+        width={[30, 30, 40, 40]}
+        alt={`${data.name} logo`}
+        src={data.logo}
+      />
     </Box>
-    <Box pl={4}>
+    <Box pl={3}>
       <Link href={data.url}>{data.name}</Link>
       <Text fontSize={1} color='gray7'>
         {data.categories.join(', ')}
@@ -67,23 +106,37 @@ const Wappalyzer = ({ data, ...props }) => (
   </Flex>
 )
 
+const LighthouseReport = props => (
+  <Flex flexDirection='column' alignItems='flex-start'>
+    <Subhead textAlign='left' fontSize={3}>
+      Lighthouse report
+    </Subhead>
+    <Box pt={3}>
+      <Text maxWidth={layout.normal}>
+        <Link href='https://github.com/GoogleChrome/lighthouse'>
+          Lighthouse
+        </Link>{' '}
+        is an open-source, automated tool for improving the quality of web
+        pages.
+      </Text>
+    </Box>
+    <Flex justifyContent='center' pt={4} width='100%'>
+      <Iframe {...props} />
+    </Flex>
+  </Flex>
+)
+
 const TechnologyStack = ({ technologies, ...props }) => (
-  <Flex
-    as='section'
-    id='technology-stack'
-    flexDirection='column'
-    alignItems='flex-start'
-    {...props}
-  >
-    <Subhead pb={[2, 2, 3, 3]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+  <Flex as='section' flexDirection='column' alignItems='flex-start' {...props}>
+    <Subhead textAlign='left' fontSize={3}>
       Technology Stack
     </Subhead>
-    <Box>
+    <Box pt={3}>
       <Text maxWidth={layout.small}>
         Software detected under the target URL after analyzing source code,
         response headers, script variables and several other
       </Text>
-      <Text mt={3}>
+      <Text pt={3}>
         Detected{' '}
         <Text as='span' fontWeight='bold'>
           {technologies.length}
@@ -92,24 +145,17 @@ const TechnologyStack = ({ technologies, ...props }) => (
       </Text>
     </Box>
     <Flex
-      pt={3}
-      pl={4}
-      width={['100%', 'inherit', 'inherit', 'inherit']}
-      flexDirection='column'
+      pt={4}
+      mx='auto'
+      justifyContent='center'
+      flexDirection='row'
+      flexWrap='wrap'
+      width={props.width}
     >
-      {chunk(technologies, 3).map((row, chunkIndex) => {
-        return (
-          <Flex
-            flexDirection={['column', 'column', 'row', 'row']}
-            key={`technologies_chunk_${chunkIndex}`}
-          >
-            {row.map((data, dataIndex) => {
-              const pt = dataIndex === 0 && chunkIndex === 0 ? 0 : 3
-              return <Wappalyzer pt={pt} key={data.name} data={data} />
-            })}
-          </Flex>
-        )
-      })}
+      {technologies.map(data => (
+        <Wappalyzer key={data.name} data={data} />
+      ))}
+      {technologies.length % 2 === 1 && <Box m={2} width={256} />}
     </Flex>
   </Flex>
 )
@@ -136,36 +182,47 @@ const LighthousePlaceholder = props => {
   )
 }
 
-const LiveDemo = ({
-  response,
+const LiveDemo = React.memo(function LiveDemo ({
   data,
-  query,
-  suggestions,
+  isInitialData,
+  isLoading,
   onSubmit,
-  isLoading
-}) => {
+  query,
+  response
+}) {
+  const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
+  const technologies = get(data, 'insights.technologies')
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 3
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
   const [inputUrl, setInputUrl] = useState(query.url || '')
-
-  const domain = useMemo(() => getDomain(inputUrl), [inputUrl])
 
   const values = useMemo(() => {
     const preprendUrl = prependHttp(inputUrl)
     return pickBy({ url: isUrl(preprendUrl) ? preprendUrl : undefined })
   }, [inputUrl])
 
-  const [suggestionUrl, technologies] = React.useMemo(() => {
+  const suggestionUrl = useMemo(() => {
     const { url } = values
     const item = SUGGESTIONS.find(item => item.url === url)
-    if (item) return [item.cdnUrl, TECHNOLOGIES[item.id]]
-    if (data) return [response.url, get(data, 'insights.technologies')]
-    return [undefined, undefined]
-  }, [response, data, values])
+    return item ? item.cdnUrl : undefined
+  }, [values])
+
+  const embedTechnologiesUrl = useMemo(
+    () => getEmbedUrl(values.url, 'insights.technologies'),
+    [values]
+  )
+
+  const embedInsightsUrl = useMemo(
+    () => getEmbedUrl(values.url, 'insights.technologies'),
+    [values]
+  )
+
+  const snippetTechnologiesText = `curl -sL ${embedTechnologiesUrl}`
+  const snippetInsightsText = `curl -sL ${embedInsightsUrl}`
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -173,20 +230,18 @@ const LiveDemo = ({
     return onSubmit(url, opts)
   }
 
-  const reportUrl = suggestionUrl
-    ? `https://lighthouse.microlink.io/?url=${encodeURIComponent(
-        suggestionUrl
-      )}`
-    : undefined
+  const reportUrl = `https://lighthouse.microlink.io/?url=${encodeURIComponent(
+    suggestionUrl || getApiUrl(values.url, { insights: true })[0]
+  )}`
 
   return (
-    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
       <Heading px={5} maxWidth={layout.large}>
         Automate web performance
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 0, 0]}
+        px={4}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Track site speed & website quality over time — Get performance insights
@@ -217,10 +272,16 @@ const LiveDemo = ({
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon query={domain} />}
+              iconComponent={
+                <InputIcon
+                  iconUrl={data?.logo?.url}
+                  provider={!isInitialData && 'microlink'}
+                  url={!isInitialData && values.url}
+                />
+              }
               id='pdf-demo-url'
               placeholder='Visit URL'
-              suggestions={suggestions.map(
+              suggestions={SUGGESTIONS.map(
                 ({ cdnUrl, filename, ...suggestion }) => suggestion
               )}
               type='text'
@@ -237,51 +298,73 @@ const LiveDemo = ({
         </Flex>
       </Flex>
 
-      <Flex pb={[4, 4, 5, 5]}>
-        <Choose>
-          <Choose.When condition={!!reportUrl}>
-            <Flex flexDirection='column'>
-              <Iframe width={cardWidth} src={reportUrl} />
-              <Box pt={4}>
-                <CodeEditor width={cardWidth} language='html'>
-                  {`<iframe src="${reportUrl}"></iframe>`}
-                </CodeEditor>
-              </Box>
-              <Box pt={[3, 3, 4, 4]} maxWidth={cardWidth}>
-                <TechnologyStack technologies={technologies} />
-              </Box>
-            </Flex>
-          </Choose.When>
-          <Choose.Otherwise>
-            <LighthousePlaceholder height={cardHeight} width={cardWidth} />
-          </Choose.Otherwise>
-        </Choose>
-      </Flex>
+      <Choose>
+        <Choose.When condition={!!reportUrl && !!technologies}>
+          <Box
+            as='section'
+            id='technology-stack'
+            width={cardWidth}
+            flexDirection='column'
+          >
+            <Box pt={4}>
+              <TechnologyStack technologies={technologies} />
+            </Box>
+            <Box pt={[1, 1, 2, 2]} width={[256, 256, 528, 528]} mx='auto'>
+              <Tooltip
+                tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                content={
+                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                }
+              >
+                <Input
+                  readOnly
+                  onClick={event => {
+                    event.target.select()
+                    toClipboard({
+                      copy: snippetTechnologiesText,
+                      text: Tooltip.TEXT.COPIED.HTML
+                    })
+                  }}
+                  width='100%'
+                  color='black60'
+                  value={snippetTechnologiesText}
+                />
+              </Tooltip>
+            </Box>
+          </Box>
+          <Box as='section' id='lighthouse-report' width={cardWidth} pt={5}>
+            <LighthouseReport width={528} src={reportUrl} />
+            <Box pt={[2, 2, 3, 3]} mx='auto'>
+              <Tooltip
+                tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                content={
+                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                }
+              >
+                <Input
+                  width='100%'
+                  readOnly
+                  onClick={event => {
+                    event.target.select()
+                    toClipboard({
+                      copy: snippetInsightsText,
+                      text: Tooltip.TEXT.COPIED.HTML
+                    })
+                  }}
+                  color='black60'
+                  value={snippetInsightsText}
+                />
+              </Tooltip>
+            </Box>
+          </Box>
+        </Choose.When>
+        <Choose.Otherwise>
+          <LighthousePlaceholder height={cardHeight} width={cardWidth} />
+        </Choose.Otherwise>
+      </Choose>
+      <ClipboardComponent />
     </Container>
   )
-}
-
-const SUGGESTIONS = [
-  { id: 'basecamp', url: 'https://basecamp.com/shapeup/0.3-chapter-01' },
-  {
-    id: 'alexmaccaw',
-    url: 'https://blog.alexmaccaw.com/advice-to-my-younger-self'
-  },
-  {
-    id: 'css-tricks',
-    url: 'https://css-tricks.com/nerds-guide-color-web'
-  },
-  {
-    id: 'rauchg',
-    url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications'
-  },
-  {
-    id: 'varnish-cache',
-    url: 'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
-  }
-].map(({ id, url }) => {
-  const cdnUrl = `https://cdn.microlink.io/insights/${id}.json`
-  return { cdnUrl, url, id, value: humanizeUrl(url) }
 })
 
 const Timings = props => {
@@ -504,10 +587,7 @@ const Resume = props => (
           </Subhead>
           <Text pt={[3, 3, 4, 4]} maxWidth={8}>
             Connect it with{' '}
-            <Link href='https://lighthouse.microlink.io'>
-              Lighthouse Viewer
-            </Link>{' '}
-            or{' '}
+            <Link href='https://lighthouse.microlink.io'>Lighthouse</Link> or{' '}
             <Link
               icon
               href='https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md'
@@ -629,6 +709,8 @@ const ProductInformation = props => {
 const InsightsPage = () => {
   const [query] = useQueryState()
   const features = useFeatures()
+  const hasQuery = !!query?.url
+
   return (
     <Layout
       head={{
@@ -637,17 +719,20 @@ const InsightsPage = () => {
           'Automate web performance. Track site speed & website quality over time. Get performance insights powered by Lighthouse'
       }}
     >
-      <FetchProvider mqlOpts={{ meta: false, insights: true }}>
+      <FetchProvider mqlOpts={{ insights: true }}>
         {({ status, doFetch, data, response }) => {
-          const isLoading = status === 'fetching'
+          const isLoading =
+            (hasQuery && status === 'initial') || status === 'fetching'
+          const isInitialData = data === null
+
           return (
             <>
               <LiveDemo
-                query={query}
-                onSubmit={doFetch}
-                isLoading={isLoading}
-                suggestions={SUGGESTIONS}
                 data={data}
+                isInitialData={isInitialData}
+                isLoading={isLoading}
+                onSubmit={doFetch}
+                query={query}
                 response={response}
               />
               <Timings
