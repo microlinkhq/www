@@ -217,12 +217,6 @@ const LiveDemo = React.memo(function LiveDemo ({
 
   const snippetText = `<img src="${embedUrl}"></img>`
 
-  const handleSubmit = event => {
-    event.preventDefault()
-    const { url, ...opts } = values
-    return onSubmit(url, opts)
-  }
-
   const backgroundIconComponent = isColor(inputBg)
     ? createElement(ColorPreview, { color: inputBg })
     : createElement(ImageIcon, { color: colors.black50, size: '16px' })
@@ -256,7 +250,11 @@ const LiveDemo = React.memo(function LiveDemo ({
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
-          onSubmit={handleSubmit}
+          onSubmit={event => {
+            event.preventDefault()
+            const { url, ...opts } = values
+            return onSubmit(url, opts)
+          }}
         >
           <Box mb={[3, 3, 0, 0]}>
             <Input

@@ -224,12 +224,6 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetTechnologiesText = `curl -sL ${embedTechnologiesUrl}`
   const snippetInsightsText = `curl -sL ${embedInsightsUrl}`
 
-  const handleSubmit = event => {
-    event.preventDefault()
-    const { url, ...opts } = values
-    return onSubmit(url, opts)
-  }
-
   const reportUrl = `https://lighthouse.microlink.io/?url=${encodeURIComponent(
     suggestionUrl || getApiUrl(values.url, { insights: true })[0]
   )}`
@@ -267,7 +261,11 @@ const LiveDemo = React.memo(function LiveDemo ({
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
-          onSubmit={handleSubmit}
+          onSubmit={event => {
+            event.preventDefault()
+            const { url, ...opts } = values
+            return onSubmit(url, opts)
+          }}
         >
           <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
             <Input

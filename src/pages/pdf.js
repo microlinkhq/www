@@ -147,12 +147,6 @@ const LiveDemo = React.memo(function LiveDemo ({
 
   const snippetText = `<iframe src="${embedUrl}"></iframe>`
 
-  const handleSubmit = event => {
-    event.preventDefault()
-    const { url, ...opts } = values
-    return onSubmit(url, opts)
-  }
-
   return (
     <Container
       as='section'
@@ -187,7 +181,11 @@ const LiveDemo = React.memo(function LiveDemo ({
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
-          onSubmit={handleSubmit}
+          onSubmit={event => {
+            event.preventDefault()
+            const { url, ...opts } = values
+            return onSubmit(url, opts)
+          }}
         >
           <Box mb={[3, 3, 0, 0]}>
             <Input
@@ -271,9 +269,8 @@ const LiveDemo = React.memo(function LiveDemo ({
                 pb={4}
                 width={cardWidth}
                 height={cardHeight}
-                src={`https://docs.google.com/viewer?url=${
-                  suggestionUrl || dataPdfUrl
-                }&embedded=true`}
+                src={`https://docs.google.com/viewer?url=${suggestionUrl ||
+                  dataPdfUrl}&embedded=true`}
               />
               <Box px={4} width={cardWidth}>
                 <Tooltip
