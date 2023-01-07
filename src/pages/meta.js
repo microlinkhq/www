@@ -21,7 +21,6 @@ import {
   Button,
   Caps,
   Card,
-  Choose,
   CodeEditor,
   Container,
   Flex,
@@ -166,7 +165,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetText = `curl -sL ${embedUrl}`
 
   return (
-    <Container alignItems='center' pt={[0, 0, 4, 4]} pb={[4, 4, 5, 5]}>
+    <Container alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
       <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Get unified metadata
       </Heading>
@@ -174,7 +173,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       <Caption
         as='h2'
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 0, 0]}
+        px={4}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Structured and normalized data <LineBreak breakpoints={[0, 1]} /> from{' '}
@@ -258,32 +257,28 @@ const LiveDemo = React.memo(function LiveDemo ({
           >
             {JSON.stringify(jsonData, null, 2)}
           </CodeEditor>
-          <Choose>
-            <Choose.When condition={!!inputUrl}>
-              <Box pt={4} px={4} width={cardWidth}>
-                <Tooltip
-                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
-                  content={
-                    <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
-                  }
-                >
-                  <Input
-                    readOnly
-                    onClick={event => {
-                      event.target.select()
-                      toClipboard({
-                        copy: snippetText,
-                        text: Tooltip.TEXT.COPIED.HTML
-                      })
-                    }}
-                    width='100%'
-                    color='black60'
-                    value={snippetText}
-                  />
-                </Tooltip>
-              </Box>
-            </Choose.When>
-          </Choose>
+          <Box pt={4} px={4} width={cardWidth}>
+            <Tooltip
+              tooltipsOpts={Tooltip.TEXT.OPTIONS}
+              content={
+                <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+              }
+            >
+              <Input
+                readOnly
+                onClick={event => {
+                  event.target.select()
+                  toClipboard({
+                    copy: snippetText,
+                    text: Tooltip.TEXT.COPIED.HTML
+                  })
+                }}
+                width='100%'
+                color='black60'
+                value={snippetText}
+              />
+            </Tooltip>
+          </Box>
         </Flex>
         <Hide breakpoints={[0, 1]}>
           <List pl={4}>

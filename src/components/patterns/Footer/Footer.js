@@ -82,6 +82,7 @@ const Footer = ({ theme, ...props }) => {
                       fontSize={0}
                       iconComponent={<Mail color={inputIconColor} size={16} />}
                       theme={theme}
+                      required
                     />
 
                     <Button

@@ -109,7 +109,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 3
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
   const runkitHeight = cardHeight - 36 * 2 - 8 * 2
@@ -130,14 +130,14 @@ const LiveDemo = React.memo(function LiveDemo ({
   ].filter(Boolean)
 
   return (
-    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={2}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Embed any content
       </Heading>
 
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 0, 0]}
+        px={4}
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
@@ -178,7 +178,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               fontSize={2}
               iconComponent={
                 <InputIcon
-                  iconUrl={data.logo.url}
+                  iconUrl={data?.logo?.url}
                   provider={!isInitialData && 'microlink'}
                   url={!isInitialData && url}
                 />
@@ -342,7 +342,7 @@ const Integrations = () => {
 
 const SdkPage = () => {
   const [query] = useQueryState()
-  const hasQuery = query && !!query.url
+  const hasQuery = !!query?.url
 
   return (
     <Layout

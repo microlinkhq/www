@@ -18,7 +18,7 @@ const OssPage = () => {
         footer={{ bg: 'transparent' }}
       >
         <Flex
-          pt={[2, 2, 3, 3]}
+          pt={2}
           px={3}
           width='100%'
           flexDirection='column'
@@ -32,7 +32,7 @@ const OssPage = () => {
           <Caption
             as='h2'
             pt={[3, 3, 4, 4]}
-            px={[4, 4, 0, 0]}
+            px={4}
             titleize={false}
             maxWidth={layout.small}
           >
@@ -42,12 +42,19 @@ const OssPage = () => {
 
           <Flex
             pt={[3, 3, 4, 4]}
+            px={[2, 2, 4, 4]}
             width='100%'
-            maxWidth={layout.large}
+            maxWidth={layout.normal}
             flexDirection='column'
           >
             {repos.map(({ name, description, stars, issues, url }) => (
-              <Box key={name} mb={3} borderBottom={1} borderColor='black05'>
+              <Box
+                key={name}
+                mb={3}
+                borderBottom={1}
+                borderColor='black05'
+                data-debug
+              >
                 <Link color='black' href={url} icon={false}>
                   <Text
                     as='h3'

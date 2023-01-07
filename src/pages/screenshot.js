@@ -222,13 +222,13 @@ const LiveDemo = React.memo(function LiveDemo ({
     : createElement(ImageIcon, { color: colors.black50, size: '16px' })
 
   return (
-    <Container as='section' alignItems='center' pt={[0, 0, 4, 4]} pb={0}>
+    <Container as='section' alignItems='center' pt={2} pb={0}>
       <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Easy peasy screenshots
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 4, 4]}
+        px={4}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Say goodbye to complexity.
@@ -247,6 +247,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         <Flex
           as='form'
           pt={[3, 3, 4, 4]}
+          pb={2}
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
@@ -328,62 +329,60 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Flex>
       </Flex>
 
-      <Flex>
-        <Choose>
-          <Choose.When condition={!!suggestionUrl}>
-            <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
-              <Screenshot
-                cardWidth={cardWidth}
-                cardHeight={cardHeight}
-                domain={domain}
-                data={{ screenshot: { url: suggestionUrl } }}
-                query={values}
-              />
-              <Box px={4} width={cardWidth / 1.5}>
-                <Tooltip
-                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
-                  content={
-                    <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
-                  }
-                >
-                  <Input
-                    readOnly
-                    onClick={event => {
-                      event.target.select()
-                      toClipboard({
-                        copy: snippetText,
-                        text: Tooltip.TEXT.COPIED.HTML
-                      })
-                    }}
-                    width='100%'
-                    color='black60'
-                    value={snippetText}
-                  />
-                </Tooltip>
-              </Box>
-            </Flex>
-          </Choose.When>
-          <Choose.When condition={!!data}>
-            <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
-              <Screenshot
-                domain={domain}
-                cardWidth={cardWidth}
-                cardHeight={cardHeight}
-                data={data}
-                query={values}
-              />
-              <Box pt={4}>
-                <CodeEditor width={cardWidth} language='html'>
-                  {`<img src="${embedUrl}"></img>`}
-                </CodeEditor>
-              </Box>
-            </Flex>
-          </Choose.When>
-          <Choose.Otherwise>
-            <DemoSlider height={cardHeight} width={cardWidth} />
-          </Choose.Otherwise>
-        </Choose>
-      </Flex>
+      <Choose>
+        <Choose.When condition={!!suggestionUrl}>
+          <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
+            <Screenshot
+              cardWidth={cardWidth}
+              cardHeight={cardHeight}
+              domain={domain}
+              data={{ screenshot: { url: suggestionUrl } }}
+              query={values}
+            />
+            <Box px={4} width={cardWidth / 1.5}>
+              <Tooltip
+                tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                content={
+                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                }
+              >
+                <Input
+                  readOnly
+                  onClick={event => {
+                    event.target.select()
+                    toClipboard({
+                      copy: snippetText,
+                      text: Tooltip.TEXT.COPIED.HTML
+                    })
+                  }}
+                  width='100%'
+                  color='black60'
+                  value={snippetText}
+                />
+              </Tooltip>
+            </Box>
+          </Flex>
+        </Choose.When>
+        <Choose.When condition={!!data}>
+          <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
+            <Screenshot
+              domain={domain}
+              cardWidth={cardWidth}
+              cardHeight={cardHeight}
+              data={data}
+              query={values}
+            />
+            <Box pt={4}>
+              <CodeEditor width={cardWidth} language='html'>
+                {`<img src="${embedUrl}"></img>`}
+              </CodeEditor>
+            </Box>
+          </Flex>
+        </Choose.When>
+        <Choose.Otherwise>
+          <DemoSlider height={cardHeight} width={cardWidth} />
+        </Choose.Otherwise>
+      </Choose>
       <ClipboardComponent />
     </Container>
   )
@@ -725,7 +724,7 @@ const ProductInformation = props => {
 const ScreenshotPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesScreenshot()
-  const hasQuery = query && !!query.url
+  const hasQuery = !!query?.url
 
   return (
     <Layout

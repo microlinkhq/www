@@ -286,17 +286,13 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetText = `<img src="${embedUrl}"></img>`
 
   return (
-    <Container
-      as='section'
-      alignItems='center'
-      pt={[0, 0, 4, 4]}
-      pb={[4, 4, 5, 5]}
-    >
+    <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
       <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Hey, oh, logos!
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
+        px={4}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Easily get and embed logos from any website{' '}
@@ -329,7 +325,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               fontSize={2}
               iconComponent={
                 <InputIcon
-                  iconUrl={data.logo.url}
+                  iconUrl={data.logo?.url}
                   provider={!isInitialData && 'microlink'}
                   url={!isInitialData && url}
                 />
@@ -703,7 +699,7 @@ const ProductInformation = props => {
 const LogoPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesMeta()
-  const hasQuery = query && !!query.url
+  const hasQuery = !!query?.url
 
   return (
     <Layout

@@ -151,12 +151,7 @@ const FAQs = props => (
 const FormatsPage = () => {
   return (
     <Layout>
-      <Container
-        px={3}
-        pt={[2, 2, 3, 3]}
-        justifyContent='center'
-        alignItems='center'
-      >
+      <Container px={3} pt={2} justifyContent='center' alignItems='center'>
         <Heading px={5} maxWidth={layout.large}>
           Supported formats
         </Heading>

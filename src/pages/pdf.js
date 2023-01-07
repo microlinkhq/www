@@ -148,18 +148,13 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetText = `<iframe src="${embedUrl}"></iframe>`
 
   return (
-    <Container
-      as='section'
-      alignItems='center'
-      pt={[0, 0, 4, 4]}
-      pb={[4, 4, 5, 5]}
-    >
+    <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
       <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         PDF made simple
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 4, 4]}
+        px={4}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Simplify your workflow, use less to get — Turn websites into PDF, in an
@@ -260,47 +255,45 @@ const LiveDemo = React.memo(function LiveDemo ({
           </Button>
         </Flex>
       </Flex>
-
-      <Flex>
-        <Choose>
-          <Choose.When condition={!!suggestionUrl || !!dataPdfUrl}>
-            <Flex flexDirection='column' alignItems='center'>
-              <Iframe
-                pb={4}
-                width={cardWidth}
-                height={cardHeight}
-                src={`https://docs.google.com/viewer?url=${suggestionUrl ||
-                  dataPdfUrl}&embedded=true`}
-              />
-              <Box px={4} width={cardWidth}>
-                <Tooltip
-                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
-                  content={
-                    <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
-                  }
-                >
-                  <Input
-                    readOnly
-                    onClick={event => {
-                      event.target.select()
-                      toClipboard({
-                        copy: snippetText,
-                        text: Tooltip.TEXT.COPIED.HTML
-                      })
-                    }}
-                    width='100%'
-                    color='black60'
-                    value={snippetText}
-                  />
-                </Tooltip>
-              </Box>
-            </Flex>
-          </Choose.When>
-          <Choose.Otherwise>
-            <PDFPlaceholder height={cardHeight} width={cardWidth} />
-          </Choose.Otherwise>
-        </Choose>
-      </Flex>
+      <Choose>
+        <Choose.When condition={!!suggestionUrl || !!dataPdfUrl}>
+          <Flex flexDirection='column' alignItems='center'>
+            <Iframe
+              pb={4}
+              width={cardWidth}
+              height={cardHeight}
+              src={`https://docs.google.com/viewer?url=${
+                suggestionUrl || dataPdfUrl
+              }&embedded=true`}
+            />
+            <Box px={4} width={cardWidth}>
+              <Tooltip
+                tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                content={
+                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                }
+              >
+                <Input
+                  readOnly
+                  onClick={event => {
+                    event.target.select()
+                    toClipboard({
+                      copy: snippetText,
+                      text: Tooltip.TEXT.COPIED.HTML
+                    })
+                  }}
+                  width='100%'
+                  color='black60'
+                  value={snippetText}
+                />
+              </Tooltip>
+            </Box>
+          </Flex>
+        </Choose.When>
+        <Choose.Otherwise>
+          <PDFPlaceholder height={cardHeight} width={cardWidth} />
+        </Choose.Otherwise>
+      </Choose>
       <ClipboardComponent />
     </Container>
   )
@@ -634,7 +627,7 @@ const ProductInformation = props => {
 const PdfPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesPdf()
-  const hasQuery = query && !!query.url
+  const hasQuery = !!query?.url
 
   return (
     <Layout
