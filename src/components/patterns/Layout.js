@@ -1,8 +1,10 @@
 import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
 import React, { useEffect, createElement } from 'react'
+import { BreakpointProvider } from 'context/breakpoint'
 import { Box, Flex, Hide } from 'components/elements'
 import { ThemeProvider } from 'styled-components'
 import { Location } from '@gatsbyjs/reach-router'
+import { useBreakpoint } from 'components/hook'
 import Head from 'components/Head'
 import { noop } from 'helpers'
 
@@ -14,8 +16,14 @@ import {
   TOOLBAR_SECONDARY_HEIGHT
 } from 'components/elements/Toolbar'
 
+const TOOLBAR_HEIGHTS = [
+  TOOLBAR_PRIMARY_HEIGHT,
+  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
+  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
+  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
+]
+
 const Layout = ({
-  toolbar,
   footer,
   children,
   onClick,
@@ -28,6 +36,9 @@ const Layout = ({
   component = Box,
   ...props
 }) => {
+  const breakpoint = useBreakpoint([0, 1, 2, 3])
+  const toolbarHeight = TOOLBAR_HEIGHTS[breakpoint]
+
   useEffect(() => {
     const slug = window.location.hash
     if (slug) {
@@ -37,47 +48,50 @@ const Layout = ({
   }, [])
 
   return (
-    <ThemeProvider theme={themeSpec}>
-      <Location>
-        {({ location }) => {
-          return (
-            <Flex
-              flexDirection='column'
-              onClick={onClick}
-              style={style}
-              css={`
-                overflow-x: hidden;
-                min-height: 100vh;
-              `}
-            >
-              <Head location={location} {...props} />
-              <Toolbar as='header' theme={theme} style={style} />
-              {createElement(
-                component,
-                {
-                  as: 'main',
-                  justifyContent,
-                  alignItems,
-                  display,
-                  flexDirection,
-                  pt: toolbar.height,
-                  style: { flex: 1 }
-                },
-                children
-              )}
-              <Hide breakpoints={[0]}>
-                <CookiesPolicy className='hidden-print' />
-              </Hide>
-              {footer && (
-                <Box as='footer' className='hidden-print'>
-                  <Footer theme={theme} {...footer} />
-                </Box>
-              )}
-            </Flex>
-          )
-        }}
-      </Location>
-    </ThemeProvider>
+    <BreakpointProvider value={breakpoint}>
+      <ThemeProvider theme={themeSpec}>
+        <Location>
+          {({ location }) => {
+            return (
+              <Flex
+                data-breakpoint={breakpoint}
+                flexDirection='column'
+                onClick={onClick}
+                style={style}
+                css={`
+                  overflow-x: hidden;
+                  min-height: 100vh;
+                `}
+              >
+                <Head location={location} {...props} />
+                <Toolbar as='header' theme={theme} style={style} />
+                {createElement(
+                  component,
+                  {
+                    as: 'main',
+                    justifyContent,
+                    alignItems,
+                    display,
+                    flexDirection,
+                    pt: toolbarHeight,
+                    style: { flex: 1 }
+                  },
+                  children
+                )}
+                <Hide breakpoints={[0]}>
+                  <CookiesPolicy className='hidden-print' />
+                </Hide>
+                {footer && (
+                  <Box as='footer' className='hidden-print'>
+                    <Footer theme={theme} {...footer} />
+                  </Box>
+                )}
+              </Flex>
+            )
+          }}
+        </Location>
+      </ThemeProvider>
+    </BreakpointProvider>
   )
 }
 
@@ -87,20 +101,4 @@ Layout.defaultProps = {
   onClick: noop
 }
 
-const LayoutResponsive = props => (
-  <>
-    <Hide breakpoints={[1, 2, 3]}>
-      <Layout toolbar={{ height: TOOLBAR_PRIMARY_HEIGHT }} {...props} />
-    </Hide>
-    <Hide breakpoints={[0]}>
-      <Layout
-        toolbar={{
-          height: `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
-        }}
-        {...props}
-      />
-    </Hide>
-  </>
-)
-
-export default LayoutResponsive
+export default Layout

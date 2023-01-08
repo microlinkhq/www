@@ -1,20 +1,11 @@
-import { Hide } from 'components/elements'
-import React from 'react'
-
+import { useBreakpoint } from 'context/breakpoint'
 import ToolbarDesktop from './ToolbarDesktop'
 import ToolbarMobile from './ToolbarMobile'
+import { createElement } from 'react'
 
 const Toolbar = props => {
-  return (
-    <>
-      <Hide breakpoints={[1, 2, 3]}>
-        <ToolbarMobile {...props} />
-      </Hide>
-      <Hide breakpoints={[0]}>
-        <ToolbarDesktop {...props} />
-      </Hide>
-    </>
-  )
+  const breakpoint = useBreakpoint()
+  return createElement(breakpoint === 0 ? ToolbarMobile : ToolbarDesktop, props)
 }
 
 export default Toolbar
