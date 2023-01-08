@@ -1,4 +1,4 @@
-import { useQueryState, useWindowSize, useMountedRef } from 'components/hook'
+import { useQueryState, useWindowSize } from 'components/hook'
 import { layout, breakpoints, transition } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
@@ -104,7 +104,6 @@ const LiveDemo = React.memo(function LiveDemo ({
   onSubmit,
   query
 }) {
-  const isMounted = useMountedRef()
   const size = useWindowSize()
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
@@ -208,7 +207,6 @@ const LiveDemo = React.memo(function LiveDemo ({
         mx='auto'
       >
         <HeroCard
-          key={`${mode}_${type}_${isMounted.current}`}
           width={cardWidth}
           height={cardHeight}
           border={type === 'code' ? 'none' : 1}
@@ -216,11 +214,11 @@ const LiveDemo = React.memo(function LiveDemo ({
           <Choose>
             <Choose.When condition={type === 'render'}>
               <LinkPreview
-                key={`${url}_${mode}`}
-                loading={isLoading}
+                loading={isLoading ? true : undefined}
                 size='large'
-                url={url}
-                setData={demoLink => demoLink || data}
+                url={data.url}
+                fetchData={false}
+                setData={() => data}
                 media={media}
               />
             </Choose.When>
@@ -353,9 +351,7 @@ const SdkPage = () => {
           'Embed any content. Create beauty link previews. Turn your content into embeddable rich media.'
       }}
     >
-      <FetchProvider
-        mqlOpts={{ palette: true, audio: true, video: true, iframe: true }}
-      >
+      <FetchProvider>
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
