@@ -58,7 +58,7 @@ const SUGGESTIONS = [
   'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
 ].map(url => ({ url, value: humanizeUrl(url) }))
 
-const getEmbedUrl = (url, embed) => getApiUrl(url, { pdf: true, embed })[0]
+const getEmbedUrl = url => getApiUrl(url, { pdf: true, embed: 'pdf.url' })[0]
 
 const PDFPlaceholder = props => {
   return (
@@ -112,7 +112,7 @@ const LiveDemo = React.memo(function LiveDemo ({
     })
   }, [inputUrl, inputMargin, inputFormat])
 
-  const embedUrl = useMemo(() => getEmbedUrl(values.url, 'pdf.url'), [values])
+  const embedUrl = useMemo(() => getEmbedUrl(values.url), [values])
   const snippetText = `curl -sL ${embedUrl}`
 
   return (
