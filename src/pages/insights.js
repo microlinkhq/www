@@ -243,7 +243,7 @@ const LiveDemo = React.memo(function LiveDemo ({
             return onSubmit(url, opts)
           }}
         >
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+          <Box>
             <Input
               fontSize={2}
               iconComponent={
@@ -259,12 +259,12 @@ const LiveDemo = React.memo(function LiveDemo ({
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '102px', '102px']}
+              width={['100%', '100%', 128, 128]}
               autoFocus
             />
           </Box>
 
-          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
+          <Button mt={[3, 0, 0, 0]} ml={[0, 2, 2, 2]} loading={isLoading}>
             <Caps fontSize={1}>Get it</Caps>
           </Button>
         </Flex>

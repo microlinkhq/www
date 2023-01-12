@@ -150,8 +150,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-    ? LogoPreview
-    : LogoEmpty
+      ? LogoPreview
+      : LogoEmpty
 
   return (
     <>
@@ -244,8 +244,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED.COLOR(color)
-                          })
-                        }
+                          })}
                       />
                     </Tooltip>
                   )
@@ -282,7 +281,7 @@ const LiveDemo = React.memo(function LiveDemo ({
 
   const embedUrl = useMemo(() => getEmbedUrl(url), [url])
 
-  const snippetText = `<img src="${embedUrl}"></img>`
+  const snippetText = `curl -sL ${embedUrl}`
 
   return (
     <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
@@ -319,7 +318,7 @@ const LiveDemo = React.memo(function LiveDemo ({
             onSubmit(isUrl(url) ? url : undefined)
           }}
         >
-          <Box mb={[3, 3, 0, 0]}>
+          <Box>
             <Input
               fontSize={2}
               iconComponent={
@@ -337,12 +336,12 @@ const LiveDemo = React.memo(function LiveDemo ({
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', LOGO_SIZE * 1.5, LOGO_SIZE * 1.5]}
+              width={['100%', '100%', 128, 128]}
               autoFocus
             />
           </Box>
 
-          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
+          <Button mt={[3, 0, 0, 0]} ml={[0, 2, 2, 2]} loading={isLoading}>
             <Caps fontSize={1}>Get it</Caps>
           </Button>
         </Flex>

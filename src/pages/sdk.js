@@ -190,7 +190,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 const url = event.target.value
                 setInputUrl(url)
               }}
-              width={['100%', '118px', '102px', '102px']}
+              width={['100%', '100%', 128, 128]}
               autoFocus
             />
           </Box>
