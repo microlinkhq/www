@@ -38,7 +38,7 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
         py='10px'
         borderRadius={2}
         border={1}
-        borderColor='black10'
+        borderColor='black05'
         bg='white'
         {...props}
       >
@@ -51,7 +51,7 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
             ml={3}
             icon='X'
             size='16px'
-            color='black'
+            color='black50'
             style={{ cursor: 'pointer' }}
             onClick={() => {
               setIsHidden(true)

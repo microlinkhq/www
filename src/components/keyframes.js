@@ -33,11 +33,15 @@ export const showNotification = keyframes`
 from {
   opacity: 0;
   transform: scale(0.5);
+} to {
+  opacity: 1;
 }
 `
 
 export const hideNotification = keyframes`
-to {
+from {
+  opacity: 1;
+} to {
   opacity: 0;
   transform: translateY(100%);
 }

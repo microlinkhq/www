@@ -18,7 +18,7 @@ const NewsletterPage = () => (
       description: 'Early access & updates on new releases.'
     }}
   >
-    <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
+    <Container pt={2} justifyContent='center' alignItems='center'>
       <Heading>Newsletter</Heading>
 
       <Caption
@@ -48,6 +48,7 @@ const NewsletterPage = () => (
                   width='8rem'
                   fontSize={0}
                   iconComponent={<Mail color={colors.black40} size={16} />}
+                  required
                 />
 
                 <Button

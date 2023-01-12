@@ -3,11 +3,10 @@ import { borders, breakpoints, layout, colors } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
+import { cdnUrl, trimMs } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
-import { getDomain } from 'tldts'
-import { cdnUrl } from 'helpers'
 import get from 'dlv'
 
 import {
@@ -16,7 +15,6 @@ import {
   Caps,
   Card,
   Choose,
-  CodeEditor,
   Container,
   Flex,
   Heading,
@@ -27,7 +25,8 @@ import {
   InputIcon,
   Link,
   Subhead,
-  Text
+  Text,
+  Tooltip
 } from 'components/elements'
 
 import {
@@ -42,6 +41,7 @@ import {
 } from 'components/patterns'
 
 import {
+  useClipboard,
   useFeaturesPdf,
   useHealthcheck,
   useQueryState,
@@ -50,7 +50,15 @@ import {
 
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
-const getMs = str => str.replace(/ms|s/, '')
+const SUGGESTIONS = [
+  'https://basecamp.com/shapeup/0.3-chapter-01',
+  'https://blog.alexmaccaw.com/advice-to-my-younger-self/',
+  'https://css-tricks.com/nerds-guide-color-web/',
+  'https://rauchg.com/2014/7-principles-of-rich-web-applications',
+  'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
+].map(url => ({ url, value: humanizeUrl(url) }))
+
+const getEmbedUrl = url => getApiUrl(url, { pdf: true, embed: 'pdf.url' })[0]
 
 const PDFPlaceholder = props => {
   return (
@@ -75,19 +83,24 @@ const PDFPlaceholder = props => {
   )
 }
 
-const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
+const LiveDemo = React.memo(function LiveDemo ({
+  data,
+  isInitialData,
+  isLoading,
+  onSubmit,
+  query
+}) {
+  const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
   const dataPdfUrl = get(data, 'pdf.url')
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 3
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
   const [inputFormat, setinputFormat] = useState(get(query, 'format'))
   const [inputUrl, setInputUrl] = useState(query.url || '')
   const [inputMargin, setinputMargin] = useState(get(query, 'margin'))
-
-  const domain = useMemo(() => getDomain(inputUrl), [inputUrl])
 
   const values = useMemo(() => {
     const preprendUrl = prependHttp(inputUrl)
@@ -99,38 +112,17 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     })
   }, [inputUrl, inputMargin, inputFormat])
 
-  const suggestionUrl = useMemo(() => {
-    const { url } = values
-    const item = SUGGESTIONS.find(item => item.url === url)
-    return item ? item.cdnUrl : undefined
-  }, [values])
-
-  const embedUrl = useMemo(() => {
-    const { url, ...opts } = values
-    if (!url) return
-    const [embedUrl] = getApiUrl(url, {
-      ...opts,
-      pdf: true,
-      meta: false,
-      embed: 'pdf.url'
-    })
-    return embedUrl
-  }, [values])
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    const { url, ...opts } = values
-    return onSubmit(url, opts)
-  }
+  const embedUrl = useMemo(() => getEmbedUrl(values.url), [values])
+  const snippetText = `curl -sL ${embedUrl}`
 
   return (
-    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
       <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         PDF made simple
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 4, 4]}
+        px={4}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Simplify your workflow, use less to get — Turn websites into PDF, in an
@@ -152,15 +144,25 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
-          onSubmit={handleSubmit}
+          onSubmit={event => {
+            event.preventDefault()
+            const { url, ...opts } = values
+            return onSubmit(url, opts)
+          }}
         >
           <Box mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon query={domain} />}
+              iconComponent={
+                <InputIcon
+                  src={data?.logo?.url}
+                  provider={!isInitialData && 'microlink'}
+                  url={!isInitialData && values.url}
+                />
+              }
               id='pdf-demo-url'
               placeholder='Visit URL'
-              suggestions={suggestions.map(
+              suggestions={SUGGESTIONS.map(
                 ({ cdnUrl, filename, ...suggestion }) => suggestion
               )}
               type='text'
@@ -221,49 +223,46 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
           </Button>
         </Flex>
       </Flex>
-
-      <Flex pb={[4, 4, 5, 5]}>
-        <Choose>
-          <Choose.When condition={!!suggestionUrl || !!dataPdfUrl}>
-            <Flex flexDirection='column' alignItems='center'>
-              <Iframe width={cardWidth} src={suggestionUrl || dataPdfUrl} />
-              <Box pt={4}>
-                <CodeEditor width={cardWidth} language='html'>
-                  {`<iframe src="${embedUrl}"></iframe>`}
-                </CodeEditor>
-              </Box>
-            </Flex>
-          </Choose.When>
-          <Choose.Otherwise>
-            <PDFPlaceholder height={cardHeight} width={cardWidth} />
-          </Choose.Otherwise>
-        </Choose>
-      </Flex>
+      <Choose>
+        <Choose.When condition={!!dataPdfUrl}>
+          <Flex flexDirection='column' alignItems='center'>
+            <Iframe
+              pb={4}
+              width={cardWidth}
+              height={cardHeight}
+              src={`https://docs.google.com/viewer?url=${dataPdfUrl}&embedded=true`}
+            />
+            <Box px={4} width={cardWidth}>
+              <Tooltip
+                tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                content={
+                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                }
+              >
+                <Input
+                  readOnly
+                  onClick={event => {
+                    event.target.select()
+                    toClipboard({
+                      copy: snippetText,
+                      text: Tooltip.TEXT.COPIED.HTML
+                    })
+                  }}
+                  width='100%'
+                  color='black60'
+                  value={snippetText}
+                />
+              </Tooltip>
+            </Box>
+          </Flex>
+        </Choose.When>
+        <Choose.Otherwise>
+          <PDFPlaceholder height={cardHeight} width={cardWidth} />
+        </Choose.Otherwise>
+      </Choose>
+      <ClipboardComponent />
     </Container>
   )
-}
-
-const SUGGESTIONS = [
-  { id: 'basecamp', url: 'https://basecamp.com/shapeup/0.3-chapter-01' },
-  {
-    id: 'alexmaccaw',
-    url: 'https://blog.alexmaccaw.com/advice-to-my-younger-self'
-  },
-  {
-    id: 'css-tricks',
-    url: 'https://css-tricks.com/snippets/css/a-guide-to-flexbox'
-  },
-  {
-    id: 'rauchg',
-    url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications'
-  },
-  {
-    id: 'varnish-cache',
-    url: 'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
-  }
-].map(({ id, url }) => {
-  const cdnUrl = `https://cdn.microlink.io/pdf/${id}.pdf`
-  return { cdnUrl, url, id, value: humanizeUrl(url) }
 })
 
 const Timings = props => {
@@ -302,7 +301,7 @@ const Timings = props => {
           color='white'
           fontWeight='bold'
         >
-          {getMs(healthcheck.pdf.p95_pretty)}
+          {trimMs(healthcheck.pdf.p95_pretty)}
           <Caption
             as='div'
             ml={2}
@@ -594,26 +593,31 @@ const ProductInformation = props => {
 const PdfPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesPdf()
+  const hasQuery = !!query?.url
 
   return (
     <Layout
       head={{
+        title: 'PDF',
         image: cdnUrl('banner/pdf.jpeg'),
         description:
           'PDF made simple. Simplify your workflow, use less to get. Turn websites into PDF, in an easy way.'
       }}
     >
-      <FetchProvider mqlOpts={{ meta: false, pdf: true }}>
+      <FetchProvider mqlOpts={{ pdf: true }}>
         {({ status, doFetch, data }) => {
-          const isLoading = status === 'fetching'
+          const isLoading =
+            (hasQuery && status === 'initial') || status === 'fetching'
+          const isInitialData = data === null
+
           return (
             <>
               <LiveDemo
-                query={query}
-                onSubmit={doFetch}
-                isLoading={isLoading}
-                suggestions={SUGGESTIONS}
                 data={data}
+                isInitialData={isInitialData}
+                isLoading={isLoading}
+                onSubmit={doFetch}
+                query={query}
               />
               <Timings
                 pb={Container.defaultProps.pt}

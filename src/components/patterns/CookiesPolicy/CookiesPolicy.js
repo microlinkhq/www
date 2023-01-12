@@ -15,7 +15,9 @@ const CookiesWrapper = styled(Box)`
   justify-content: center;
   width: 100%;
   z-index: 2;
+  opacity: 0;
   animation: ${showNotification} ${transition.medium} forwards 1;
+  animation-delay: 1s;
 
   &[aria-hidden='true'] {
     animation: ${hideNotification} ${transition.medium} forwards 1;
@@ -58,12 +60,14 @@ const CookiesPolicy = props => {
       {...props}
     >
       <Flex
-        alignItems='center'
-        bg='white95'
-        py={2}
-        px={3}
-        borderRadius={3}
         boxShadow={0}
+        m={3}
+        px={3}
+        py='10px'
+        borderRadius={2}
+        border={1}
+        borderColor='black05'
+        bg='white'
       >
         <Text fontSize={['10px', 1]} color='black80'>
           <span>By using this website you agree to our</span>

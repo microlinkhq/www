@@ -84,4 +84,21 @@ const Tooltip = ({
 
 Tooltip.Content = TooltipContent
 
+Tooltip.TEXT = {
+  OPTIONS: {
+    interactive: false,
+    hideOnClick: true
+  },
+  COPY: {
+    URL: 'Click to copy URL',
+    COLOR: color => `Click to copy ${color}`,
+    HTML: 'Click to copy HTML'
+  },
+  COPIED: {
+    URL: 'Copied URL to clipboard!',
+    COLOR: color => `Copied ${color} to clipboard!`,
+    HTML: 'Copied HTML to clipboard!'
+  }
+}
+
 export default Tooltip

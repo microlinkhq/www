@@ -1,12 +1,11 @@
 import { toPx, cx, borders, layout, colors } from 'theme'
+import { cdnUrl, issueUrl, noop, trimMs } from 'helpers'
 import React, { useMemo, useState } from 'react'
-import { cdnUrl, issueUrl, noop } from 'helpers'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import get from 'dlv'
 
 import logoUri from '../../static/logo.svg'
 
@@ -73,8 +72,6 @@ const IMAGE_PREVIEW_STYLE = [
   (LOGO_SIZE * 0.8) / 4
 ].map(width => ({ width }))
 
-const getMs = str => str.replace(/ms|s/, '')
-
 const getEmbedUrl = url =>
   getApiUrl(url, { palette: true, embed: 'logo.url' })[0]
 
@@ -103,28 +100,11 @@ const DEFAULT_DATA = {
   }
 }
 
-const TOOLTIP = {
-  OPTIONS: {
-    interactive: false,
-    hideOnClick: true
-  },
-  COPY: {
-    URL: 'Click to copy URL',
-    COLOR: color => `Click to copy ${color}`,
-    HTML: 'Click to copy HTML'
-  },
-  COPIED: {
-    URL: 'Copied URL to clipboard!',
-    COLOR: color => `Copied ${color} to clipboard!`,
-    HTML: 'Copied HTML to clipboard!'
-  }
-}
-
 const LogoPreview = ({ toClipboard = noop, logo, style, ...props }) => {
   return (
     <LogoBox
       onClick={() => {
-        toClipboard({ copy: logo.url, text: TOOLTIP.COPIED.URL })
+        toClipboard({ copy: logo.url, text: Tooltip.TEXT.COPIED.URL })
       }}
       style={{ cursor: style.cursor }}
       {...props}
@@ -170,8 +150,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-      ? LogoPreview
-      : LogoEmpty
+    ? LogoPreview
+    : LogoEmpty
 
   return (
     <>
@@ -219,9 +199,9 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
               return (
                 <Tooltip
                   key={`${data.url}_${index}`}
-                  tooltipsOpts={TOOLTIP.OPTIONS}
+                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
                   content={
-                    <Tooltip.Content>{TOOLTIP.COPY.URL}</Tooltip.Content>
+                    <Tooltip.Content>{Tooltip.TEXT.COPY.URL}</Tooltip.Content>
                   }
                 >
                   <LogoComponent
@@ -248,7 +228,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                       }}
                       content={
                         <Tooltip.Content>
-                          {TOOLTIP.COPY.COLOR(color)}
+                          {Tooltip.TEXT.COPY.COLOR(color)}
                         </Tooltip.Content>
                       }
                     >
@@ -263,8 +243,9 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                         onClick={() =>
                           toClipboard({
                             copy: color,
-                            text: TOOLTIP.COPIED.COLOR(color)
-                          })}
+                            text: Tooltip.TEXT.COPIED.COLOR(color)
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -286,40 +267,31 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  query,
+  isInitialData,
+  isLoading,
   onSubmit,
-  isLoading
+  query
 }) {
   const [inputUrl, setInputUrl] = useState(query.url || '')
   const [ClipboardComponent, toClipboard] = useClipboard()
 
   const url = useMemo(() => {
     const input = prependHttp(inputUrl)
-    return isUrl(input) ? input : DEFAULT_DATA.url
-  }, [inputUrl])
-
-  const suggestionData = useMemo(() => (data ? undefined : DEFAULT_DATA), [
-    data
-  ])
+    return isUrl(input) ? input : data.url
+  }, [inputUrl, data])
 
   const embedUrl = useMemo(() => getEmbedUrl(url), [url])
 
-  const handleSubmit = event => {
-    event.preventDefault()
-    return onSubmit(url)
-  }
-
-  const snippetText = `<img src="${embedUrl}"></img>`
-  const isDefault = DEFAULT_DATA.url === url
-  const logoUrl = get(data, 'logo.url')
+  const snippetText = `curl -sL ${embedUrl}`
 
   return (
-    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
       <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Hey, oh, logos!
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
+        px={4}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Easily get and embed logos from any website{' '}
@@ -341,17 +313,20 @@ const LiveDemo = React.memo(function LiveDemo ({
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
-          onSubmit={handleSubmit}
+          onSubmit={event => {
+            event.preventDefault()
+            const url = prependHttp(inputUrl)
+            onSubmit(isUrl(url) ? url : undefined)
+          }}
         >
-          <Box mb={[3, 3, 0, 0]}>
+          <Box>
             <Input
               fontSize={2}
               iconComponent={
                 <InputIcon
-                  url={isDefault ? undefined : logoUrl ? url : undefined}
-                  iconUrl={logoUrl}
-                  provider={isDefault ? undefined : 'microlink'}
-                  embedUrl={embedUrl}
+                  src={data.logo?.url}
+                  provider={!isInitialData && 'microlink'}
+                  url={!isInitialData && url}
                 />
               }
               id='screenshot-demo-url'
@@ -362,33 +337,38 @@ const LiveDemo = React.memo(function LiveDemo ({
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', LOGO_SIZE * 1.5, LOGO_SIZE * 1.5]}
+              width={['100%', '100%', 128, 128]}
               autoFocus
             />
           </Box>
 
-          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
+          <Button mt={[3, 0, 0, 0]} ml={[0, 2, 2, 2]} loading={isLoading}>
             <Caps fontSize={1}>Get it</Caps>
           </Button>
         </Flex>
       </Flex>
 
-      <Flex flexDirection='column' alignItems='center' pb={4}>
+      <Flex flexDirection='column' alignItems='center'>
         <PreviewResponsive
           isLoading={isLoading}
           toClipboard={toClipboard}
-          data={data || suggestionData || DEFAULT_DATA}
+          data={data}
         />
         <Box px={4} width='100%'>
           <Tooltip
-            tooltipsOpts={TOOLTIP.OPTIONS}
-            content={<Tooltip.Content>{TOOLTIP.COPY.HTML}</Tooltip.Content>}
+            tooltipsOpts={Tooltip.TEXT.OPTIONS}
+            content={
+              <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+            }
           >
             <Input
               readOnly
               onClick={event => {
                 event.target.select()
-                toClipboard({ copy: snippetText, text: TOOLTIP.COPIED.HTML })
+                toClipboard({
+                  copy: snippetText,
+                  text: Tooltip.TEXT.COPIED.HTML
+                })
               }}
               width='100%'
               color='black60'
@@ -437,7 +417,7 @@ const Timings = props => {
           color='white'
           fontWeight='bold'
         >
-          {getMs(healthcheck.meta.p95_pretty)}
+          {trimMs(healthcheck.meta.p95_pretty)}
           <Caption
             as='div'
             ml={2}
@@ -718,7 +698,7 @@ const ProductInformation = props => {
 const LogoPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesMeta()
-  const hasQuery = query && !!query.url
+  const hasQuery = !!query?.url
 
   return (
     <Layout
@@ -732,13 +712,17 @@ const LogoPage = () => {
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
+          const unifiedData = data || DEFAULT_DATA
+          const isInitialData = unifiedData.url === DEFAULT_DATA.url
+
           return (
             <>
               <LiveDemo
-                query={query}
-                onSubmit={doFetch}
+                data={unifiedData}
+                isInitialData={isInitialData}
                 isLoading={isLoading}
-                data={data}
+                onSubmit={doFetch}
+                query={query}
               />
               <Timings
                 pb={Container.defaultProps.pt}

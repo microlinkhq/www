@@ -82,7 +82,7 @@ const PageBlog = () => {
         description: 'Engineering details through Microlink.'
       }}
     >
-      <Flex pt={[2, 2, 3, 3]} justifyContent='center'>
+      <Flex pt={2} justifyContent='center'>
         <Flex flexDirection='column' align-items='center'>
           <Heading maxWidth={layout.large}>Blog</Heading>
           <Caption

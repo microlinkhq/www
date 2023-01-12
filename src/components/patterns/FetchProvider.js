@@ -24,13 +24,12 @@ const ErrorMessage = ({ more }) => {
   )
 }
 
-const fetch = (url, opts) => {
+const fetch = (url, fromCache, opts) => {
   const variations = urlVariations(url)
-  const item = demoLinks.find(item => variations.includes(item.data.url))
-  return item || mql(url, opts)
+  return fromCache(variations, opts) || mql(url, opts)
 }
 
-const FetchProvider = ({ mqlOpts, children }) => {
+const FetchProvider = ({ fromCache, mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
   const [response, setResponse] = useState({})
   const [error, setError] = useState(null)
@@ -45,7 +44,7 @@ const FetchProvider = ({ mqlOpts, children }) => {
         setError(null)
         setStatus('fetching')
 
-        const doFetch = url => fetch(url, { ...mqlOpts, ...opts })
+        const doFetch = url => fetch(url, fromCache, { ...mqlOpts, ...opts })
 
         const { data, response } = Array.isArray(url)
           ? await Promise.all(url.map(doFetch))
@@ -88,6 +87,11 @@ const FetchProvider = ({ mqlOpts, children }) => {
       {children({ status, doFetch, data, response })}
     </>
   )
+}
+
+FetchProvider.defaultProps = {
+  fromCache: variations =>
+    demoLinks.find(item => variations.includes(item.data.url))
 }
 
 export default FetchProvider

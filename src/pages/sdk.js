@@ -1,13 +1,12 @@
-import { useWindowSize, useMountedRef } from 'components/hook'
-import React, { useMemo, useEffect, useState } from 'react'
+import { useQueryState, useWindowSize } from 'components/hook'
 import { layout, breakpoints, transition } from 'theme'
+import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { cdnUrl, mqlCode } from 'helpers'
 import * as Icons from 'components/icons'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import humanizeUrl from 'humanize-url'
-import { getDomain } from 'tldts'
 
 import {
   Box,
@@ -71,6 +70,7 @@ const INTEGRATIONS = [
 ]
 
 const HeroCard = styled(Card)`
+  .microlink_card__iframe,
   .microlink_card__iframe iframe,
   .microlink_card {
     width: 100%;
@@ -97,35 +97,28 @@ LogoWrap.defaultProps = {
   display: 'inline-block'
 }
 
-const LiveDemo = ({
+const LiveDemo = React.memo(function LiveDemo ({
   data,
   isInitialData,
   isLoading,
   onSubmit,
-  suggestions
-}) => {
-  const isMounted = useMountedRef()
+  query
+}) {
   const size = useWindowSize()
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 3
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
   const runkitHeight = cardHeight - 36 * 2 - 8 * 2
 
-  const [inputValue, setInputValue] = useState('')
+  const [inputUrl, setInputUrl] = useState(query.url || '')
 
-  useEffect(() => {
-    if (!isInitialData) setInputValue(data.url)
-  }, [isInitialData, data.url])
-
-  const targetUrlPrepend = useMemo(() => {
-    const isSuggestion = SUGGESTIONS.some(({ value }) => value === inputValue)
-    return prependHttp(isSuggestion ? inputValue || data.url : data.url)
-  }, [inputValue, data])
-
-  const domain = getDomain(inputValue)
+  const url = useMemo(() => {
+    const input = prependHttp(inputUrl)
+    return isUrl(input) ? input : data.url
+  }, [inputUrl, data])
 
   const media = [
     mode === 'iframe' && 'iframe',
@@ -136,14 +129,14 @@ const LiveDemo = ({
   ].filter(Boolean)
 
   return (
-    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={2}>
       <Heading px={5} titleize={false} maxWidth={layout.large}>
         Embed any content
       </Heading>
 
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 0, 0]}
+        px={4}
         titleize={false}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
@@ -174,7 +167,7 @@ const LiveDemo = ({
           flexDirection={['column', 'row', 'row', 'row']}
           onSubmit={event => {
             event.preventDefault()
-            const url = prependHttp(inputValue)
+            const url = prependHttp(inputUrl)
             onSubmit(isUrl(url) ? url : undefined)
           }}
         >
@@ -182,16 +175,22 @@ const LiveDemo = ({
             <Input
               id='sdk-demo-url'
               fontSize={2}
-              iconComponent={<InputIcon query={domain} />}
+              iconComponent={
+                <InputIcon
+                  src={data?.logo?.url}
+                  provider={!isInitialData && 'microlink'}
+                  url={!isInitialData && url}
+                />
+              }
               placeholder='Visit URL'
               type='text'
-              suggestions={suggestions}
-              value={inputValue}
+              suggestions={SUGGESTIONS}
+              value={inputUrl}
               onChange={event => {
                 const url = event.target.value
-                setInputValue(url)
+                setInputUrl(url)
               }}
-              width={['100%', '118px', '102px', '102px']}
+              width={['100%', '100%', 128, 128]}
               autoFocus
             />
           </Box>
@@ -208,7 +207,6 @@ const LiveDemo = ({
         mx='auto'
       >
         <HeroCard
-          key={`${mode}_${type}_${isMounted.current}`}
           width={cardWidth}
           height={cardHeight}
           border={type === 'code' ? 'none' : 1}
@@ -216,11 +214,11 @@ const LiveDemo = ({
           <Choose>
             <Choose.When condition={type === 'render'}>
               <LinkPreview
-                key={`${targetUrlPrepend}_${mode}`}
-                loading={isLoading}
+                loading={isLoading ? true : undefined}
                 size='large'
-                url={targetUrlPrepend}
-                setData={demoLink => demoLink || data}
+                url={data.url}
+                fetchData={false}
+                setData={() => data}
                 media={media}
               />
             </Choose.When>
@@ -278,7 +276,7 @@ const LiveDemo = ({
       </Flex>
     </Container>
   )
-}
+})
 
 const Integrations = () => {
   return (
@@ -341,6 +339,9 @@ const Integrations = () => {
 }
 
 const SdkPage = () => {
+  const [query] = useQueryState()
+  const hasQuery = !!query?.url
+
   return (
     <Layout
       head={{
@@ -350,22 +351,21 @@ const SdkPage = () => {
           'Embed any content. Create beauty link previews. Turn your content into embeddable rich media.'
       }}
     >
-      <FetchProvider
-        mqlOpts={{ palette: true, audio: true, video: true, iframe: true }}
-      >
+      <FetchProvider>
         {({ status, doFetch, data }) => {
-          const isLoading = status === 'fetching'
+          const isLoading =
+            (hasQuery && status === 'initial') || status === 'fetching'
           const unifiedData = data || DEMO_LINK.data
           const isInitialData = unifiedData.url === DEMO_LINK.data.url
 
           return (
             <>
               <LiveDemo
-                isLoading={isLoading}
-                suggestions={SUGGESTIONS}
-                data={data || DEMO_LINK.data}
+                data={unifiedData}
                 isInitialData={isInitialData}
+                isLoading={isLoading}
                 onSubmit={doFetch}
+                query={query}
               />
               <Integrations />
               {/* TODO: Add Hover banner */}

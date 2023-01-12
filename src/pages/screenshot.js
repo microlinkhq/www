@@ -4,13 +4,12 @@ import { borders, breakpoints, layout, colors } from 'theme'
 import { useTransition, animated } from '@react-spring/web'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
+import { cdnUrl, trimMs } from 'helpers'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
-import { getDomain } from 'tldts'
-import { cdnUrl } from 'helpers'
 import isColor from 'is-color'
 import get from 'dlv'
 
@@ -20,7 +19,6 @@ import {
   Caps,
   Card,
   Choose,
-  CodeEditor,
   Container,
   Flex,
   Heading,
@@ -31,7 +29,8 @@ import {
   LineBreak,
   Link,
   Subhead,
-  Text
+  Text,
+  Tooltip
 } from 'components/elements'
 
 import {
@@ -46,6 +45,7 @@ import {
 } from 'components/patterns'
 
 import {
+  useClipboard,
   useFeaturesScreenshot,
   useHealthcheck,
   useQueryState,
@@ -55,8 +55,6 @@ import {
 import demoLinks from '../../data/demo-links'
 
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
-
-const getMs = str => str.replace(/ms|s/, '')
 
 const ColorPreview = ({ color }) => (
   <Box
@@ -97,9 +95,28 @@ const SUGGESTIONS = [
   }
 })
 
-const DemoSlider = ({ children: slides, ...props }) => {
+const fromCache = (variations, opts) => {
+  const suggestion = SUGGESTIONS.find(({ url }) => variations.includes(url))
+  if (!suggestion) return
+
+  const { data } = demoLinks.find(item => item.id === suggestion.id)
+  const theme = get(opts, 'overlay.browser')
+
+  const screenshotUrl = cdnUrl(
+    theme
+      ? `screenshot/browser/${theme}/${suggestion.filename}`
+      : `screenshot/${suggestion.filename}`
+  )
+
+  return { data: { ...data, screenshot: { url: screenshotUrl } } }
+}
+
+const getEmbedUrl = ({ url, ...opts }) =>
+  getApiUrl(url, { ...opts, screenshot: true, embed: 'screenshot.url' })[0]
+
+const DemoSlider = props => {
   const [index, setIndex] = useState(0)
-  const next = index => ++index % slides.length
+  const next = index => ++index % SUGGESTIONS.length
 
   const transitions = useTransition(index, {
     key: index,
@@ -113,51 +130,66 @@ const DemoSlider = ({ children: slides, ...props }) => {
   })
 
   return (
-    <Flex style={{ position: 'relative' }} {...props}>
-      {transitions((style, index) => {
-        const url = slides[index].cdnUrl
-        const src = url
-        return (
-          <AnimatedImage
-            key={src}
-            decoding='async'
-            style={style}
-            src={src}
-            alt={`${slides[index].id} screenshot`}
-          />
-        )
-      })}
-    </Flex>
+    <Box pt={2}>
+      <Flex style={{ position: 'relative' }} {...props}>
+        {transitions((style, index) => {
+          const url = SUGGESTIONS[index].cdnUrl
+          const src = url
+          return (
+            <AnimatedImage
+              key={src}
+              decoding='async'
+              style={style}
+              src={src}
+              alt={`${SUGGESTIONS[index].id} screenshot`}
+            />
+          )
+        })}
+      </Flex>
+    </Box>
   )
 }
 
-const Screenshot = ({ domain, data, cardWidth, cardHeight, ...props }) => {
+const Screenshot = ({ data, cardWidth, cardHeight, ...props }) => {
   const imageUrl = get(data, 'screenshot.url')
 
   return (
     <Link px={3} href={imageUrl} icon={false}>
       <Image
-        alt={`${domain} screenshot`}
+        alt={`Microlink screenshot for ${data.url}`}
         pl={0}
         pr={0}
         key={imageUrl}
         src={imageUrl}
-        height={imageUrl ? 'inherit' : cardHeight}
+        height={cardHeight}
         width={cardWidth}
-        style={isLoading => {
-          if (isLoading) return
-          return { filter: 'drop-shadow(rgba(0, 0, 0, 0.3) 0 16px 12px)' }
-        }}
+        style={isLoading =>
+          isLoading
+            ? undefined
+            : {
+                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+              }
+        }
+        border={1}
+        borderColor='black05'
+        borderRadius={3}
         {...props}
       />
     </Link>
   )
 }
 
-const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
+const LiveDemo = React.memo(function LiveDemo ({
+  data,
+  isInitialData,
+  isLoading,
+  onSubmit,
+  query
+}) {
+  const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.5
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
@@ -166,8 +198,6 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
   const [inputOverlay, setInputOverlay] = useState(
     get(query, 'overlay.browser') || ''
   )
-
-  const domain = useMemo(() => getDomain(inputUrl), [inputUrl])
 
   const values = useMemo(() => {
     const preprendUrl = prependHttp(inputUrl)
@@ -178,52 +208,21 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
     })
   }, [inputUrl, inputOverlay, inputBg])
 
-  const suggestionUrl = useMemo(() => {
-    const suggestion = SUGGESTIONS.find(
-      ({ value }) => humanizeUrl(value) === inputUrl
-    )
-
-    if (suggestion) {
-      const theme = get(values, 'overlay.browser')
-
-      return cdnUrl(
-        theme
-          ? `screenshot/browser/${theme}/${suggestion.filename}`
-          : `screenshot/${suggestion.filename}`
-      )
-    }
-  }, [inputUrl, values])
-
-  const embedUrl = useMemo(() => {
-    const { url, ...opts } = values
-    if (!url) return
-    const [embedUrl] = getApiUrl(url, {
-      ...opts,
-      screenshot: true,
-      meta: false,
-      embed: 'screenshot.url'
-    })
-    return embedUrl
-  }, [values])
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    const { url, ...opts } = values
-    return onSubmit(url, opts)
-  }
+  const embedUrl = useMemo(() => getEmbedUrl(values), [values])
+  const snippetText = `curl -sL ${embedUrl}`
 
   const backgroundIconComponent = isColor(inputBg)
     ? createElement(ColorPreview, { color: inputBg })
     : createElement(ImageIcon, { color: colors.black50, size: '16px' })
 
   return (
-    <Container as='section' alignItems='center' pt={[2, 2, 3, 3]}>
+    <Container as='section' alignItems='center' pt={2} pb={0}>
       <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
         Easy peasy screenshots
       </Heading>
       <Caption
         pt={[3, 3, 4, 4]}
-        px={[4, 4, 4, 4]}
+        px={4}
         maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Say goodbye to complexity.
@@ -242,19 +241,28 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         <Flex
           as='form'
           pt={[3, 3, 4, 4]}
-          pb={4}
           mx={[0, 0, 'auto', 'auto']}
           justifyContent='center'
           flexDirection={['column', 'column', 'row', 'row']}
-          onSubmit={handleSubmit}
+          onSubmit={event => {
+            event.preventDefault()
+            const { url, ...opts } = values
+            return onSubmit(url, opts)
+          }}
         >
           <Box mb={[3, 3, 0, 0]}>
             <Input
               fontSize={2}
-              iconComponent={<InputIcon query={domain} />}
+              iconComponent={
+                <InputIcon
+                  src={data?.logo?.url}
+                  provider={!isInitialData && 'microlink'}
+                  url={!isInitialData && values.url}
+                />
+              }
               id='screenshot-demo-url'
               placeholder='Visit URL'
-              suggestions={suggestions.map(
+              suggestions={SUGGESTIONS.map(
                 ({ cdnUrl, filename, ...suggestion }) => suggestion
               )}
               type='text'
@@ -277,11 +285,7 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
               iconComponent={
                 <CompassIcon color={colors.black50} width='16px' />
               }
-              suggestions={[
-                { value: 'none' },
-                { value: 'dark' },
-                { value: 'light' }
-              ]}
+              suggestions={[{ value: 'dark' }, { value: 'light' }]}
             />
           </Box>
 
@@ -314,57 +318,48 @@ const LiveDemo = ({ data, query, suggestions, onSubmit, isLoading }) => {
         </Flex>
       </Flex>
 
-      <Flex>
-        <Choose>
-          <Choose.When condition={!!suggestionUrl}>
-            <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
-              <Screenshot
-                cardWidth={cardWidth}
-                cardHeight={cardHeight}
-                domain={domain}
-                data={{ screenshot: { url: suggestionUrl } }}
-                query={values}
-              />
-              <CodeEditor
-                width={[
-                  `calc(${cardWidth}px - 30px)`,
-                  `calc(${cardWidth}px - 30px)`,
-                  `calc(${cardWidth}px - 76px)`,
-                  `calc(${cardWidth}px - 76px)`
-                ]}
-                mx='auto'
-                language='html'
+      <Choose>
+        <Choose.When condition={!!data}>
+          <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
+            <Screenshot
+              my={4}
+              cardWidth={cardWidth}
+              cardHeight={cardHeight}
+              data={data}
+              query={values}
+            />
+            <Box px={4} width={cardWidth / 1.5}>
+              <Tooltip
+                tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                content={
+                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                }
               >
-                {`<img src="${embedUrl}"></img>`}
-              </CodeEditor>
-            </Flex>
-          </Choose.When>
-          <Choose.When condition={!!data}>
-            <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
-              <Screenshot
-                domain={domain}
-                cardWidth={cardWidth}
-                cardHeight={cardHeight}
-                data={data}
-                query={values}
-              />
-              <Box pt={4}>
-                <CodeEditor width={cardWidth} language='html'>
-                  {`<img src="${embedUrl}"></img>`}
-                </CodeEditor>
-              </Box>
-            </Flex>
-          </Choose.When>
-          <Choose.Otherwise>
-            <DemoSlider height={cardHeight} width={cardWidth}>
-              {suggestions}
-            </DemoSlider>
-          </Choose.Otherwise>
-        </Choose>
-      </Flex>
+                <Input
+                  readOnly
+                  onClick={event => {
+                    event.target.select()
+                    toClipboard({
+                      copy: snippetText,
+                      text: Tooltip.TEXT.COPIED.HTML
+                    })
+                  }}
+                  width='100%'
+                  color='black60'
+                  value={snippetText}
+                />
+              </Tooltip>
+            </Box>
+          </Flex>
+        </Choose.When>
+        <Choose.Otherwise>
+          <DemoSlider height={cardHeight} width={cardWidth} />
+        </Choose.Otherwise>
+      </Choose>
+      <ClipboardComponent />
     </Container>
   )
-}
+})
 
 const Timings = props => {
   const healthcheck = useHealthcheck()
@@ -401,7 +396,7 @@ const Timings = props => {
           color='white'
           fontWeight='bold'
         >
-          {getMs(healthcheck.screenshot.p95_pretty)}
+          {trimMs(healthcheck.screenshot.p95_pretty)}
           <Caption
             as='div'
             ml={2}
@@ -702,6 +697,7 @@ const ProductInformation = props => {
 const ScreenshotPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesScreenshot()
+  const hasQuery = !!query?.url
 
   return (
     <Layout
@@ -711,17 +707,20 @@ const ScreenshotPage = () => {
           'Easy peasy screenshots. Say goodbye to complexity. Turn websites into screenshots.'
       }}
     >
-      <FetchProvider mqlOpts={{ meta: false, screenshot: true }}>
+      <FetchProvider fromCache={fromCache} mqlOpts={{ screenshot: true }}>
         {({ status, doFetch, data }) => {
-          const isLoading = status === 'fetching'
+          const isLoading =
+            (hasQuery && status === 'initial') || status === 'fetching'
+          const isInitialData = data === null
+
           return (
             <>
               <LiveDemo
-                query={query}
-                onSubmit={doFetch}
-                isLoading={isLoading}
-                suggestions={SUGGESTIONS}
                 data={data}
+                isInitialData={isInitialData}
+                isLoading={isLoading}
+                onSubmit={doFetch}
+                query={query}
               />
               <Timings
                 pb={Container.defaultProps.pt}
