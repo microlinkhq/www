@@ -150,8 +150,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-      ? LogoPreview
-      : LogoEmpty
+    ? LogoPreview
+    : LogoEmpty
 
   return (
     <>
@@ -244,7 +244,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED.COLOR(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -323,7 +324,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               fontSize={2}
               iconComponent={
                 <InputIcon
-                  iconUrl={data.logo?.url}
+                  src={data.logo?.url}
                   provider={!isInitialData && 'microlink'}
                   url={!isInitialData && url}
                 />

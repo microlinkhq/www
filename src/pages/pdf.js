@@ -155,7 +155,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               fontSize={2}
               iconComponent={
                 <InputIcon
-                  iconUrl={data?.logo?.url}
+                  src={data?.logo?.url}
                   provider={!isInitialData && 'microlink'}
                   url={!isInitialData && values.url}
                 />
