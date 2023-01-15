@@ -9,11 +9,14 @@ const FlexLink = styled(Flex)`
   cursor: pointer;
   position: relative;
   text-decoration: none;
-  transition: transform ${transition.medium}, border-color ${transition.medium};
+  transition: box-shadow ${transition.medium}, transform ${transition.medium},
+    border-color ${transition.medium};
 
   &:hover {
     border-color: ${props => props.$color};
     transform: matrix(1.01, 0, 0, 1.01, 0, 0);
+    box-shadow: 0 0 0 ${props => props.$color},
+      0 0 32px -24px ${props => props.$color};
   }
 `
 
@@ -24,7 +27,7 @@ const GridLink = ({ children, color, ...props }) => {
   return (
     <FlexLink
       as='a'
-      bg='white80'
+      bg='white90'
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       flexDirection='column'
@@ -83,7 +86,7 @@ const Grid = styled(Box)`
   }
 `
 
-const Hero = props => {
+const Hero = ({ children, ...props }) => {
   return (
     <Flex
       as='section'
@@ -95,6 +98,7 @@ const Hero = props => {
       pt={[2, 2, 3, 3]}
       {...props}
     >
+      {children}
       <Heading fontSize={['48px', 6, 7, 7]} titleize={false}>
         Browser as API
       </Heading>
