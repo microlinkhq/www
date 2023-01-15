@@ -150,8 +150,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const LogoComponent = isLoading
     ? LogoEmpty
     : logo.url
-    ? LogoPreview
-    : LogoEmpty
+      ? LogoPreview
+      : LogoEmpty
 
   return (
     <>
@@ -244,8 +244,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED.COLOR(color)
-                          })
-                        }
+                          })}
                       />
                     </Tooltip>
                   )

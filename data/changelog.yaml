@@ -1,6 +1,8 @@
 - date: December 2022
   notes:
     - '[Microlink](/): Added [logo](/logo) page.'
+    - '[Metascraper v5.33](https://metascraper.js.org): Improved Twitter integration.'
+    - '[Metascraper v5.32.4](https://metascraper.js.org): Improved Spotify integration.'
 
 - date: November 2022
   notes:
@@ -202,5 +204,4 @@
 - date: June 2020
   notes:
     - '[Microlink](/): Launched [Microlink OSS](/oss).'
-    - '[Microlink SDK ](https://microlink.io): Launched [Microlink OSS](/oss).'
     - '[Microlink SDK](/docs/sdk/getting-started/overview/) Added [CSS variables](/docs/sdk/getting-started/styling/#css-variables) support.'
