@@ -2,6 +2,7 @@ import { Subhead, Box, Flex, Heading } from 'components/elements'
 import FeatherIcon from 'components/icons/Feather'
 import { Caption } from 'components/patterns'
 import { transition, layout } from 'theme'
+import { setSaturation } from 'polished'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
@@ -13,19 +14,10 @@ const FlexLink = styled(Flex)`
     border-color ${transition.medium};
 
   &:hover {
-    border-color: ${props => props.$color};
+    border-color: ${props => setSaturation(0.8, props.$color)};
     transform: matrix(1.01, 0, 0, 1.01, 0, 0);
     box-shadow: 0 0 0 ${props => props.$color},
-      0 0 24px -14px ${props => props.$color};
-
-    #animation-overlay {
-      background-image: linear-gradient(
-        to right,
-        #e08300 45%,
-        transparent 50%,
-        #e08300 55%
-      );
-    }
+      0 0 24px -18px ${props => props.$color};
   }
 `
 
