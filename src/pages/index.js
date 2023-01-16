@@ -20,7 +20,7 @@ const HomePage = () => {
           position: relative;
         `}
       >
-        <Overlay />
+        {({ color }) => <Overlay color={color} />}
       </Hero>
       <Analytics
         pb={Container.defaultProps.pt}

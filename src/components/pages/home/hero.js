@@ -16,20 +16,35 @@ const FlexLink = styled(Flex)`
     border-color: ${props => props.$color};
     transform: matrix(1.01, 0, 0, 1.01, 0, 0);
     box-shadow: 0 0 0 ${props => props.$color},
-      0 0 32px -24px ${props => props.$color};
+      0 0 24px -14px ${props => props.$color};
+
+    #animation-overlay {
+      background-image: linear-gradient(
+        to right,
+        #e08300 45%,
+        transparent 50%,
+        #e08300 55%
+      );
+    }
   }
 `
 
-const GridLink = ({ children, color, ...props }) => {
+const GridLink = ({ children, setColor, color, ...props }) => {
   const [isHover, setIsHover] = useState(false)
   const icon = isHover ? 'ArrowRight' : 'ArrowUpRight'
 
   return (
     <FlexLink
       as='a'
-      bg='white90'
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
+      bg='white'
+      onMouseEnter={() => {
+        setColor(color)
+        setIsHover(true)
+      }}
+      onMouseLeave={() => {
+        setColor('')
+        setIsHover(false)
+      }}
       flexDirection='column'
       alignItems='center'
       justifyContent='center'
@@ -87,6 +102,8 @@ const Grid = styled(Box)`
 `
 
 const Hero = ({ children, ...props }) => {
+  const [color, setColor] = useState('')
+
   return (
     <Flex
       as='section'
@@ -98,7 +115,7 @@ const Hero = ({ children, ...props }) => {
       pt={[2, 2, 3, 3]}
       {...props}
     >
-      {children}
+      {children({ color })}
       <Heading fontSize={['48px', 6, 7, 7]} titleize={false}>
         Browser as API
       </Heading>
@@ -116,26 +133,42 @@ const Hero = ({ children, ...props }) => {
       </Caption>
       <Box>
         <Grid pb={[4, 4, 5, 5]}>
-          <GridLink color='#d306aa' href='/logo' className='grid-1'>
+          <GridLink
+            setColor={setColor}
+            color='#d306aa'
+            href='/logo'
+            className='grid-1'
+          >
             <Subhead fontSize={3}>Logo</Subhead>
             <Caption pt={3} fontSize={2}>
               Get and embed Favicons from any web
             </Caption>
           </GridLink>
 
-          <GridLink color='#fd494a' href='/screenshot' className='grid-2'>
+          <GridLink
+            setColor={setColor}
+            color='#fd494a'
+            href='/screenshot'
+            className='grid-2'
+          >
             <Subhead fontSize={3}>Screenshot</Subhead>
             <Caption pt={3} fontSize={2}>
               Turn websites into screenshots
             </Caption>
           </GridLink>
-          <GridLink color='#8c1bab' href='/sdk' className='grid-3'>
+          <GridLink
+            setColor={setColor}
+            color='#449bf8'
+            href='/sdk'
+            className='grid-3'
+          >
             <Subhead fontSize={3}>SDK</Subhead>
             <Caption pt={3} fontSize={2}>
               Create beauty link previews
             </Caption>
           </GridLink>
           <GridLink
+            setColor={setColor}
             color='rgb(181, 0, 237)'
             href='/insights'
             className='grid-4'
@@ -145,16 +178,26 @@ const Hero = ({ children, ...props }) => {
               Performance metrics powered by Lighthouse
             </Caption>
           </GridLink>
-          <GridLink color='#e000ac' href='/pdf' className='grid-5'>
-            <Subhead fontSize={3}>PDF</Subhead>
-            <Caption pt={3} fontSize={2}>
-              Create beauty link previews
-            </Caption>
-          </GridLink>
-          <GridLink color='#3e55ff' href='/meta' className='grid-6'>
+          <GridLink
+            setColor={setColor}
+            color='#3e55ff'
+            href='/meta'
+            className='grid-6'
+          >
             <Subhead fontSize={3}>Meta</Subhead>
             <Caption pt={3} fontSize={2}>
-              Performance metrics powered by Lighthouse
+              Get unified metadata
+            </Caption>
+          </GridLink>
+          <GridLink
+            setColor={setColor}
+            color='#e000ac'
+            href='/pdf'
+            className='grid-5'
+          >
+            <Subhead fontSize={3}>PDF</Subhead>
+            <Caption pt={3} fontSize={2}>
+              PDF made simple
             </Caption>
           </GridLink>
         </Grid>
