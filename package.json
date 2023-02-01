@@ -116,7 +116,7 @@
     "gatsby-plugin-canonical-urls": "~5.3.0",
     "gatsby-plugin-catch-links": "~5.3.0",
     "gatsby-plugin-google-analytics": "~5.3.0",
-    "gatsby-plugin-sass": "~6.3.1",
+    "gatsby-plugin-sass": "~6.5.0",
     "gatsby-plugin-styled-components": "~6.3.0",
     "gatsby-source-filesystem": "~5.3.1",
     "gatsby-transformer-javascript-frontmatter": "~5.3.0",
