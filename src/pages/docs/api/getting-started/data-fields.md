@@ -10,7 +10,7 @@ When you send a [url](/docs/api/parameters/url) to Microlink API, the following 
   An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) representation of the date the article was published.
 - `description` <small>(e.g., <Type children="'First static fire test of Falcon Heavy…'"/>)</small><br/>
   The publisher's chosen description of the article.
-- `image` <small>x(e.g., <Type children="https://cdn.instagram.com/…/171196260320789.jpg"/>)</small><br/>
+- `image` <small>(e.g., <Type children="https://cdn.instagram.com/…/171196260320789.jpg"/>)</small><br/>
   An image URL that best represents the article.
 - `video` <small>(e.g., <Type children="'https://cdn.instagram.com/…/26867070.mp4'"/>)</small><br/>
   A video URL that best represents the article.
