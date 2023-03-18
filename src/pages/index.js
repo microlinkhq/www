@@ -1,4 +1,4 @@
-import { Faqs, Hero, Analytics, Pricing } from 'components/pages/home'
+import { Analytics, Faqs, Hero, Overlay, Pricing } from 'components/pages/home'
 import { useFeatures, useSiteMetadata } from 'components/hook'
 import { Container, Link, Subhead } from 'components/elements'
 import { Features, Layout } from 'components/patterns'
@@ -15,7 +15,13 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <Hero />
+      <Hero
+        css={`
+          position: relative;
+        `}
+      >
+        {({ color }) => <Overlay color={color} />}
+      </Hero>
       <Analytics
         pb={Container.defaultProps.pt}
         color='white80'

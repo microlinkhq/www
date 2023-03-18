@@ -1,6 +1,7 @@
 import Analytics from './analytics'
-import Hero from './hero'
-import Pricing from './pricing'
 import Faqs from './faqs'
+import Hero from './hero'
+import Overlay from './overlay'
+import Pricing from './pricing'
 
-export { Faqs, Hero, Analytics, Pricing }
+export { Analytics, Faqs, Hero, Overlay, Pricing }

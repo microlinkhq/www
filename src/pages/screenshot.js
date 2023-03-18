@@ -168,8 +168,7 @@ const Screenshot = ({ data, cardWidth, cardHeight, ...props }) => {
             ? undefined
             : {
                 filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-              }
-        }
+              }}
         border={1}
         borderColor='black05'
         borderRadius={3}
@@ -189,7 +188,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.5
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 

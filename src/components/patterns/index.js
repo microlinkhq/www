@@ -14,7 +14,6 @@ import Footer from './Footer/Footer'
 import Grid from './Grid'
 import Layout from './Layout'
 import Legend from './Legend/Legend'
-import Cursor from './Cursor/Cursor'
 import List from './List/List'
 import Average from './Average/Average'
 import Microlink from './Microlink/Microlink'
@@ -38,7 +37,6 @@ export {
   ClusterMonitor,
   CookiesPolicy,
   CubeBackground,
-  Cursor,
   DemoLinks,
   DotsBackground,
   Faq,

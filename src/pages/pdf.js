@@ -94,7 +94,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const size = useWindowSize()
   const dataPdfUrl = get(data, 'pdf.url')
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 3
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.16
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
