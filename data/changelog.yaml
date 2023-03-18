@@ -1,3 +1,12 @@
+- date: February 2023
+  notes:
+    - '[Browserless v9.9](https://browserless.js.org): Upgraded to Lighthouse v10.'
+
+- date: January 2023
+  notes:
+    - '[Metascraper](https://metascraper.js.org): Crossed 2,000 stars on GitHub.'
+    - '[Metascraper v5.33.7](https://metascraper.js.org): Improved YouTube integration.'
+
 - date: December 2022
   notes:
     - '[Microlink](/): Added [logo](/logo) page.'
