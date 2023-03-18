@@ -40,6 +40,7 @@ const GridLink = ({ children, setColor, color, ...props }) => {
       flexDirection='column'
       alignItems='center'
       justifyContent='center'
+      m={2}
       p={4}
       border={1}
       borderColor='black10'
@@ -63,34 +64,10 @@ const GridLink = ({ children, setColor, color, ...props }) => {
   )
 }
 
-const Grid = styled(Box)`
-  display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-
-  grid-template-areas:
-    'grid-1 grid-2 grid-3'
-    'grid-4 grid-5 grid-6';
-
-  .grid-1 {
-    grid-area: grid-1;
-  }
-  .grid-2 {
-    grid-area: grid-2;
-  }
-  .grid-3 {
-    grid-area: grid-3;
-  }
-  .grid-4 {
-    grid-area: grid-4;
-  }
-  .grid-5 {
-    grid-area: grid-5;
-  }
-  .grid-6 {
-    grid-area: grid-6;
-  }
+const Grid = styled(Flex)`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `
 
 const Hero = ({ children, ...props }) => {
@@ -124,14 +101,14 @@ const Hero = ({ children, ...props }) => {
         Source.
       </Caption>
       <Box>
-        <Grid pb={[4, 4, 5, 5]}>
+        <Grid maxWidth={layout.large} pb={[4, 4, 5, 5]}>
           <GridLink
             setColor={setColor}
             color='#d306aa'
             href='/logo'
             className='grid-1'
           >
-            <Subhead fontSize={3}>Logo</Subhead>
+            <Subhead fontSize={[2, 2, 3, 3]}>Logo</Subhead>
             <Caption pt={3} fontSize={2}>
               Get and embed Favicons from any web
             </Caption>
@@ -143,7 +120,7 @@ const Hero = ({ children, ...props }) => {
             href='/screenshot'
             className='grid-2'
           >
-            <Subhead fontSize={3}>Screenshot</Subhead>
+            <Subhead fontSize={[2, 2, 3, 3]}>Screenshot</Subhead>
             <Caption pt={3} fontSize={2}>
               Turn websites into screenshots
             </Caption>
@@ -154,7 +131,7 @@ const Hero = ({ children, ...props }) => {
             href='/sdk'
             className='grid-3'
           >
-            <Subhead fontSize={3}>SDK</Subhead>
+            <Subhead fontSize={[2, 2, 3, 3]}>SDK</Subhead>
             <Caption pt={3} fontSize={2}>
               Create beauty link previews
             </Caption>
@@ -165,7 +142,7 @@ const Hero = ({ children, ...props }) => {
             href='/insights'
             className='grid-4'
           >
-            <Subhead fontSize={3}>Insights</Subhead>
+            <Subhead fontSize={[2, 2, 3, 3]}>Insights</Subhead>
             <Caption pt={3} fontSize={2}>
               Performance metrics powered by Lighthouse
             </Caption>
@@ -176,7 +153,7 @@ const Hero = ({ children, ...props }) => {
             href='/meta'
             className='grid-6'
           >
-            <Subhead fontSize={3}>Meta</Subhead>
+            <Subhead fontSize={[2, 2, 3, 3]}>Meta</Subhead>
             <Caption pt={3} fontSize={2}>
               Get unified metadata
             </Caption>
@@ -187,7 +164,7 @@ const Hero = ({ children, ...props }) => {
             href='/pdf'
             className='grid-5'
           >
-            <Subhead fontSize={3}>PDF</Subhead>
+            <Subhead fontSize={[2, 2, 3, 3]}>PDF</Subhead>
             <Caption pt={3} fontSize={2}>
               PDF made simple
             </Caption>

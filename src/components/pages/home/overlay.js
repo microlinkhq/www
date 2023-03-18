@@ -28,9 +28,11 @@ const Overlay = ({ color }) => {
 
   return (
     <Box
+      id='overlay'
       css={`
-        ${absolute};
-        overflow: hidden;
+        ${absolute}
+        overflow:hidden;
+        z-index: -1;
       `}
     >
       <Box
@@ -146,7 +148,7 @@ const Overlay = ({ color }) => {
           css={`
             background: linear-gradient(to top, rgba(0, 0, 0, 0) 0px, #fff 50%);
             ${absolute};
-            z-index: 100;
+            z-index: 1;
           `}
         />
         <Box
