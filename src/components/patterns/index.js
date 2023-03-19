@@ -4,7 +4,6 @@ import Block from './Block/Block'
 import Caption from './Caption/Caption'
 import Chat from './Chat/Chat'
 import Checkout from './Checkout'
-import CookiesPolicy from './CookiesPolicy/CookiesPolicy'
 import CubeBackground from './CubeBackground/CubeBackground'
 import DemoLinks from './DemoLinks/DemoLinks'
 import DotsBackground from './DotsBackground/DotsBackground'
@@ -35,7 +34,6 @@ export {
   Chat,
   Checkout,
   ClusterMonitor,
-  CookiesPolicy,
   CubeBackground,
   DemoLinks,
   DotsBackground,

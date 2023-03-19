@@ -8,8 +8,8 @@ import { Announcement } from 'components/patterns'
 
 export default () => (
   <Announcement
-    data-event-category='Home'
-    data-event-action='Announcement'
+    data-event-location='Home'
+    data-event-name='Announcement'
     href='/blog/product-brief-7/'
     children={
       <>
@@ -23,8 +23,8 @@ export default () => (
 storiesOf('Patterns', module).add('Announcement', () => (
   <Story name='Announcement' code={code}>
     <Announcement
-      data-event-category='Home'
-      data-event-action='Announcement'
+      data-event-location='Home'
+      data-event-name='Announcement'
       href='/blog/product-brief-7/'
     >
       Speed, meet simplicity. Introducing <b>Microlink PDF</b>

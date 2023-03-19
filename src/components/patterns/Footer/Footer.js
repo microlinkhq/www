@@ -87,8 +87,8 @@ const Footer = ({ theme, ...props }) => {
 
                     <Button
                       ml={2}
-                      data-event-category='Footer'
-                      data-event-action='Be Notified'
+                      data-event-location='Footer'
+                      data-event-name='Be Notified'
                       bg={buttonBg}
                       color={buttonColor}
                     >
@@ -107,8 +107,8 @@ const Footer = ({ theme, ...props }) => {
           <Flex flexDirection={['row', 'row', 'row', 'column']}>
             <LinkSolid
               theme={theme}
-              data-event-category='Footer'
-              data-event-action='API'
+              data-event-location='Footer'
+              data-event-name='API'
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
@@ -118,8 +118,8 @@ const Footer = ({ theme, ...props }) => {
             </LinkSolid>
             <LinkSolid
               theme={theme}
-              data-event-category='Footer'
-              data-event-action='Blog'
+              data-event-location='Footer'
+              data-event-name='Blog'
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
@@ -129,8 +129,8 @@ const Footer = ({ theme, ...props }) => {
             </LinkSolid>
             <LinkSolid
               theme={theme}
-              data-event-category='Footer'
-              data-event-action='Chat'
+              data-event-location='Footer'
+              data-event-name='Chat'
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
@@ -140,8 +140,8 @@ const Footer = ({ theme, ...props }) => {
             </LinkSolid>
             <LinkSolid
               theme={theme}
-              data-event-category='Footer'
-              data-event-action='Status'
+              data-event-location='Footer'
+              data-event-name='Status'
               fontSize={[0, 0, 0, 1]}
               href='/status'
             >
@@ -153,8 +153,8 @@ const Footer = ({ theme, ...props }) => {
           <Flex flexDirection={['row', 'row', 'row', 'column']}>
             <LinkSolid
               theme={theme}
-              data-event-category='Footer'
-              data-event-action='SDK'
+              data-event-location='Footer'
+              data-event-name='SDK'
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
@@ -164,8 +164,8 @@ const Footer = ({ theme, ...props }) => {
             </LinkSolid>
             <LinkSolid
               theme={theme}
-              data-event-category='Footer'
-              data-event-action='Pricing'
+              data-event-location='Footer'
+              data-event-name='Pricing'
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
@@ -175,8 +175,8 @@ const Footer = ({ theme, ...props }) => {
             </LinkSolid>
             <LinkSolid
               theme={theme}
-              data-event-category='Footer'
-              data-event-action='Open Source'
+              data-event-location='Footer'
+              data-event-name='Open Source'
               fontSize={[0, 0, 0, 1]}
               mr={[2, 2, 2, 0]}
               mb={[0, 0, 0, 3]}
@@ -186,8 +186,8 @@ const Footer = ({ theme, ...props }) => {
             </LinkSolid>
             <LinkSolid
               theme={theme}
-              data-event-category='Footer'
-              data-event-action='Bug Reports'
+              data-event-location='Footer'
+              data-event-name='Bug Reports'
               fontSize={[0, 0, 0, 1]}
               href={issueUrl.bug()}
             >
@@ -209,8 +209,8 @@ const Footer = ({ theme, ...props }) => {
                         <LinkSolid
                           theme={theme}
                           px={0}
-                          data-event-category='Footer'
-                          data-event-action='Status'
+                          data-event-location='Footer'
+                          data-event-name='Status'
                           href='/status'
                         >
                           <Text fontSize={[0, 0, 0, 1]}>Status Page</Text>
@@ -222,8 +222,8 @@ const Footer = ({ theme, ...props }) => {
                       <Link
                         theme={theme}
                         px={0}
-                        data-event-category='Footer'
-                        data-event-action='Status'
+                        data-event-location='Footer'
+                        data-event-name='Status'
                         href='/status'
                         color={colors[textColor]}
                       >
@@ -261,8 +261,8 @@ const Footer = ({ theme, ...props }) => {
                   mr={2}
                   fontSize={0}
                   href='/tos'
-                  data-event-category='Footer'
-                  data-event-action='Terms'
+                  data-event-location='Footer'
+                  data-event-name='Terms'
                 >
                   Terms
                 </LinkSolid>
@@ -270,8 +270,8 @@ const Footer = ({ theme, ...props }) => {
                   theme={theme}
                   fontWeight='normal'
                   fontSize={0}
-                  data-event-category='Footer'
-                  data-event-action='Privacy'
+                  data-event-location='Footer'
+                  data-event-name='Privacy'
                   href='/privacy'
                 >
                   Privacy
@@ -302,8 +302,8 @@ const Footer = ({ theme, ...props }) => {
                 }
               ].map((props, index) => (
                 <LinkSolid
-                  data-event-category='Footer'
-                  data-event-action={props.children}
+                  data-event-location='Footer'
+                  data-event-name={props.children}
                   theme={theme}
                   key={props.children}
                   pl={index > 0 ? 2 : 0}

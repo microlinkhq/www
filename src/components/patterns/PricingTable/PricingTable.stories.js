@@ -9,8 +9,8 @@ import Button from '../../elements/Button'
 const Checkout = () => (
   <Button
     mt={[3, 3, 3, 3]}
-    data-event-category='Checkout'
-    data-event-action='Buy'
+    data-event-location='Checkout'
+    data-event-name='Buy'
   >
     <Caps fontSize={0}>Buy</Caps>
   </Button>

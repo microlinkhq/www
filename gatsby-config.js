@@ -7,7 +7,6 @@ const {
   STRIPE_KEY,
   PAYMENT_API_KEY,
   PAYMENT_ENDPOINT,
-  GOOGLE_ANALYTICS_ID,
   SITE_URL,
   CANONICAL_URL,
   CDN_URL
@@ -65,13 +64,6 @@ module.exports = {
       options: {
         path: path.join(__dirname, 'src/pages'),
         name: 'pages'
-      }
-    },
-    GOOGLE_ANALYTICS_ID && {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        trackingId: GOOGLE_ANALYTICS_ID,
-        head: false
       }
     },
     {

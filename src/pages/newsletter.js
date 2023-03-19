@@ -52,8 +52,8 @@ const NewsletterPage = () => (
                 />
 
                 <Button
-                  data-event-category='Footer'
-                  data-event-action='Be Notified'
+                  data-event-location='Footer'
+                  data-event-name='Be Notified'
                   ml={2}
                 >
                   <Caps fontSize={0}>Be Notified</Caps>

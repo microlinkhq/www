@@ -1,9 +1,10 @@
-import { Toolbar, Footer, CookiesPolicy } from 'components/patterns'
+import { Toolbar, Footer } from 'components/patterns'
 import React, { useEffect, createElement } from 'react'
 import { BreakpointProvider } from 'context/breakpoint'
-import { Box, Flex, Hide } from 'components/elements'
+import { Analytics } from '@vercel/analytics/react'
 import { ThemeProvider } from 'styled-components'
 import { Location } from '@gatsbyjs/reach-router'
+import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
 import Head from 'components/Head'
 import { noop } from 'helpers'
@@ -78,14 +79,12 @@ const Layout = ({
                   },
                   children
                 )}
-                <Hide breakpoints={[0]}>
-                  <CookiesPolicy className='hidden-print' />
-                </Hide>
                 {footer && (
                   <Box as='footer' className='hidden-print'>
                     <Footer theme={theme} {...footer} />
                   </Box>
                 )}
+                <Analytics />
               </Flex>
             )
           }}

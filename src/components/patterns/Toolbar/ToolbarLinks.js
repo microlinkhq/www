@@ -16,8 +16,8 @@ const createNavItem = ({ title, ...opts }) => {
 
   const NavItemWrapper = props =>
     createElement(NavLink, {
-      'data-event-category': 'Toolbar',
-      'data-event-action': opts.children,
+      'data-event-location': 'Toolbar',
+      'data-event-name': opts.children,
       icon: false,
       linkProps,
       ...opts,
@@ -57,8 +57,8 @@ export const NavMicrolinkLogo = ({ mobile, ...props }) =>
   createElement(mobile ? NavLogoMobile : NavLogoDesktop, { px: 0, ...props })
 
 NavMicrolinkLogo.defaultProps = {
-  'data-event-category': 'Toolbar',
-  'data-event-action': 'Logo'
+  'data-event-location': 'Toolbar',
+  'data-event-name': 'Logo'
 }
 
 export const NavPricing = createNavItem({
