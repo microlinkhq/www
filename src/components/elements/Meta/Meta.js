@@ -10,8 +10,7 @@ const getTitle = location => {
   return page.charAt(0).toUpperCase() + page.slice(1)
 }
 
-const mergeMeta = (props, metadata) => {
-  const location = useLocation()
+const mergeMeta = (props, location, metadata) => {
   const { siteUrl, video, twitter, headline } = metadata
   const title = props.title || getTitle(location) || metadata.headline
 
@@ -34,10 +33,8 @@ const mergeMeta = (props, metadata) => {
     ? `${siteUrl}${location.pathname}${location.search}`
     : siteUrl
 
-  console.log({ date })
-
   return {
-    date: new Date(date),
+    date: date === undefined ? new Date() : new Date(date),
     dataLabel1,
     dataLabel2,
     dataValue1,
@@ -56,6 +53,7 @@ const mergeMeta = (props, metadata) => {
 
 function Meta ({ script, ...props }) {
   const siteMetadata = useSiteMetadata()
+  const location = useLocation()
   const { author } = siteMetadata
 
   const {
@@ -72,7 +70,11 @@ function Meta ({ script, ...props }) {
     twitter,
     url,
     video
-  } = useMemo(() => mergeMeta(props, siteMetadata), [props, siteMetadata])
+  } = useMemo(() => mergeMeta(props, location, siteMetadata), [
+    props,
+    location,
+    siteMetadata
+  ])
 
   const fullTitle = `${title} — ${name}`
 
