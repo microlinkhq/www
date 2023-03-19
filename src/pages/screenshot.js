@@ -28,6 +28,7 @@ import {
   InputIcon,
   LineBreak,
   Link,
+  Meta,
   Subhead,
   Text,
   Tooltip
@@ -693,19 +694,20 @@ const ProductInformation = props => {
   )
 }
 
+export const Head = () => (
+  <Meta
+    description='Easy peasy screenshots. Say goodbye to complexity. Turn websites into screenshots.'
+    image={cdnUrl('banner/screenshot.jpeg')}
+  />
+)
+
 const ScreenshotPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesScreenshot()
   const hasQuery = !!query?.url
 
   return (
-    <Layout
-      head={{
-        image: cdnUrl('banner/screenshot.jpeg'),
-        description:
-          'Easy peasy screenshots. Say goodbye to complexity. Turn websites into screenshots.'
-      }}
-    >
+    <Layout>
       <FetchProvider fromCache={fromCache} mqlOpts={{ screenshot: true }}>
         {({ status, doFetch, data }) => {
           const isLoading =

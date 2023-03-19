@@ -24,6 +24,7 @@ import {
   Input,
   InputIcon,
   Link,
+  Meta,
   Subhead,
   Text,
   Tooltip
@@ -590,20 +591,21 @@ const ProductInformation = props => {
   )
 }
 
+export const Head = () => (
+  <Meta
+    title='PDF'
+    description='PDF made simple. Simplify your workflow, use less to get. Turn websites into PDF, in an easy way.'
+    image={cdnUrl('banner/pdf.jpeg')}
+  />
+)
+
 const PdfPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesPdf()
   const hasQuery = !!query?.url
 
   return (
-    <Layout
-      head={{
-        title: 'PDF',
-        image: cdnUrl('banner/pdf.jpeg'),
-        description:
-          'PDF made simple. Simplify your workflow, use less to get. Turn websites into PDF, in an easy way.'
-      }}
-    >
+    <Layout>
       <FetchProvider mqlOpts={{ pdf: true }}>
         {({ status, doFetch, data }) => {
           const isLoading =

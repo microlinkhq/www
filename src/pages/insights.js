@@ -23,6 +23,7 @@ import {
   Input,
   InputIcon,
   Link,
+  Meta,
   Subhead,
   Text,
   Tooltip
@@ -678,19 +679,20 @@ const ProductInformation = props => {
   )
 }
 
+export const Head = () => (
+  <Meta
+    description='Automate web performance. Track site speed & website quality over time. Get performance insights powered by Lighthouse.'
+    image={cdnUrl('banner/insights.jpeg')}
+  />
+)
+
 const InsightsPage = () => {
   const [query] = useQueryState()
   const features = useFeatures()
   const hasQuery = !!query?.url
 
   return (
-    <Layout
-      head={{
-        image: cdnUrl('banner/insights.jpeg'),
-        description:
-          'Automate web performance. Track site speed & website quality over time. Get performance insights powered by Lighthouse'
-      }}
-    >
+    <Layout>
       <FetchProvider mqlOpts={{ insights: true }}>
         {({ status, doFetch, data }) => {
           const isLoading =

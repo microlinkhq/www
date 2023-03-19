@@ -8,6 +8,7 @@ import AnimatedBox from './AnimatedBox'
 import Box from './Box'
 
 import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
+import Meta from './Meta/Meta'
 import Placeholder from './Placeholder/Placeholder'
 import CodeEditor from './CodeEditor/CodeEditor'
 import PriceMonthly from './PriceMonthly'
@@ -96,6 +97,7 @@ export {
   LineBreak,
   Link,
   LinkSolid,
+  Meta,
   MultiCodeEditor,
   Notification,
   Placeholder,

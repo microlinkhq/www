@@ -1,5 +1,5 @@
 import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
-import { Text, Box, CodeEditor, Flex, Heading } from 'components/elements'
+import { Meta, Text, Box, CodeEditor, Flex, Heading } from 'components/elements'
 import React, { useState, useEffect } from 'react'
 import { fontSizes, colors, layout } from 'theme'
 import { Logo } from 'components/pages/recipes'
@@ -29,6 +29,14 @@ const Description = recipe => {
 const Name = ({ isProvider, name }) =>
   isProvider ? `Microlink × ${name}` : name
 
+export const Head = ({ pageContext }) => (
+  <Meta
+    title={`Microlink Recipe: ${pageContext.name}`}
+    description={pageContext.description}
+    image={cdnUrl('banner/recipes.jpeg')}
+  />
+)
+
 const RecipeTemplate = ({ pageContext: recipe }) => {
   const [count, setCount] = useState(null)
   const isLoaded = count !== null
@@ -41,24 +49,13 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
       .catch(() => undefined)
   }, [recipe.key])
 
-  const meta = {
-    title: `Microlink Recipe: ${recipe.name}`
-  }
-
   const gitHubUrl = `https://github.com/microlinkhq/recipes/blob/master/recipes/${
     recipe.isProvider ? 'by-provider' : 'by-feature'
   }/${recipe.slug}.js`
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout
-        head={{
-          description: recipe.description,
-          image: cdnUrl('banner/recipes.jpeg'),
-          ...meta
-        }}
-        footer={{ bg: 'transparent' }}
-      >
+      <Layout footer={{ bg: 'transparent' }}>
         <Flex
           px={3}
           pt={[2, 2, 3, 3]}

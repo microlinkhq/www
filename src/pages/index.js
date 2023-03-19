@@ -1,9 +1,11 @@
 import { Analytics, Faqs, Hero, Overlay, Pricing } from 'components/pages/home'
+import { Meta, Container, Link, Subhead } from 'components/elements'
 import { useFeatures, useSiteMetadata } from 'components/hook'
-import { Container, Link, Subhead } from 'components/elements'
 import { Features, Layout } from 'components/patterns'
 import { colors, borders } from 'theme'
 import React from 'react'
+
+export const Head = () => <Meta />
 
 const HomePage = () => {
   const {

@@ -20,6 +20,7 @@ import {
   Flex,
   Heading,
   Link,
+  Meta,
   Subhead,
   Text
 } from 'components/elements'
@@ -42,6 +43,13 @@ const CustomLink = styled(Link)`
 
 const allRecipes = Object.keys(recipes).sort()
 
+export const Head = () => (
+  <Meta
+    description='Just start with code. Instant integration, automating any site in a few lines.'
+    image={cdnUrl('banner/recipes.jpeg')}
+  />
+)
+
 const RecipesPage = () => {
   const [counters, setCounters] = useState(null)
   const isLoaded = counters !== null
@@ -56,14 +64,7 @@ const RecipesPage = () => {
 
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout
-        head={{
-          image: cdnUrl('banner/recipes.jpeg'),
-          description:
-            'Just start with code. Instant integration, automating any site in a few lines.'
-        }}
-        footer={{ bg: 'transparent' }}
-      >
+      <Layout footer={{ bg: 'transparent' }}>
         <Flex
           width='100%'
           flexDirection='column'

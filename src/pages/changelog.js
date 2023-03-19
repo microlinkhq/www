@@ -1,4 +1,4 @@
-import { Container, Heading, Box } from 'components/elements'
+import { Meta, Container, Heading, Box } from 'components/elements'
 import { Caption, Layout } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import { useChangelog } from 'components/hook'
@@ -6,17 +6,18 @@ import { cdnUrl } from 'helpers'
 import { layout } from 'theme'
 import React from 'react'
 
+export const Head = () => (
+  <Meta
+    description='We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.'
+    image={cdnUrl('banner/changelog.jpeg')}
+  />
+)
+
 const ChangelogPage = () => {
   const changelog = useChangelog()
 
   return (
-    <Layout
-      head={{
-        image: cdnUrl('banner/changelog.jpeg'),
-        description:
-          'We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.'
-      }}
-    >
+    <Layout>
       <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
         <Heading maxWidth={layout.large}>Changelog</Heading>
         <Caption

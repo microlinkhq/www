@@ -1,22 +1,23 @@
 import { Star as StarIcon, AlertCircle as IssueIcon } from 'react-feather'
+import { Meta, Heading, Link, Text, Flex, Box } from 'components/elements'
 import { Caption, DotsBackground, Layout } from 'components/patterns'
-import { Heading, Link, Text, Flex, Box } from 'components/elements'
-import { useOss } from 'components/hook'
 import { cdnUrl, formatNumber } from 'helpers'
+import { useOss } from 'components/hook'
 import { layout } from 'theme'
 import React from 'react'
+
+export const Head = () => (
+  <Meta
+    description='Open Source Sustainability.'
+    image={cdnUrl('banner/oss.jpeg')}
+  />
+)
 
 const OssPage = () => {
   const repos = useOss()
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout
-        head={{
-          image: cdnUrl('banner/oss.jpeg'),
-          title: 'Open Source Sustainability'
-        }}
-        footer={{ bg: 'transparent' }}
-      >
+      <Layout footer={{ bg: 'transparent' }}>
         <Flex
           pt={2}
           px={3}

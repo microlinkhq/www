@@ -7,12 +7,13 @@ import { cdnUrl } from 'helpers'
 import React from 'react'
 
 import {
-  Caps,
-  Button,
-  Subhead,
-  Heading,
   Box,
-  Container
+  Button,
+  Caps,
+  Container,
+  Heading,
+  Meta,
+  Subhead
 } from 'components/elements'
 
 const THEMES = {
@@ -49,20 +50,19 @@ const GradientButton = styled(Button)`
   }
 `
 
+export const Head = () => (
+  <Meta
+    description='Unleash the maximum performance. Hardware, with the software baked in.'
+    image={cdnUrl('banner/enterprise.jpeg')}
+  />
+)
+
 const EnterprisePage = () => {
   const [{ theme, primary, secondary }] = useTheme(THEMES, 'dark')
 
   return (
     <DotsBackground theme={theme}>
-      <Layout
-        head={{
-          image: cdnUrl('banner/enterprise.jpeg'),
-          description:
-            'Unleash the maximum performance. Hardware, with the software baked in.'
-        }}
-        theme={theme}
-        footer={{ bg: 'transparent' }}
-      >
+      <Layout theme={theme} footer={{ bg: 'transparent' }}>
         <Container
           pt={[2, 2, 3, 3]}
           justifyContent='center'
