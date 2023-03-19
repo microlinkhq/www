@@ -1,34 +1,40 @@
+import { useLocation } from '@gatsbyjs/reach-router'
 import { useSiteMetadata } from 'components/hook'
 import React, { useMemo } from 'react'
-import get from 'dlv'
 
-const getPage = props => {
-  const pathname = get(props, 'location.pathname') || ''
-  return pathname ? pathname.replace(/\/+$/, '').substring(1) : pathname
-}
+const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
 
-const getTitle = props => {
-  const page = getPage(props)
+const getTitle = location => {
+  if (!location) return
+  const page = getPage(location)
   return page.charAt(0).toUpperCase() + page.slice(1)
 }
 
-const mergeMeta = ({ head = {}, ...props }, metadata) => {
+const mergeMeta = (props, location, metadata) => {
   const { siteUrl, video, twitter, headline } = metadata
+  const title = props.title || getTitle(location) || metadata.headline
 
-  const description = head.description || metadata.description
-  const title = head.title || getTitle(props, metadata) || metadata.headline
-  const image = head.image || metadata.image
-
-  const { dataLabel1, dataLabel2, dataValue1, dataValue2, logo, name } = {
-    ...props,
-    ...metadata
+  const {
+    dataLabel1,
+    dataLabel2,
+    dataValue1,
+    dataValue2,
+    date,
+    description,
+    image,
+    logo,
+    name
+  } = {
+    ...metadata,
+    ...props
   }
 
-  const url = props.location
-    ? `${siteUrl}${props.location.pathname}${props.location.search}`
+  const url = location
+    ? `${siteUrl}${location.pathname}${location.search}`
     : siteUrl
 
   return {
+    date: date === undefined ? new Date() : new Date(date),
     dataLabel1,
     dataLabel2,
     dataValue1,
@@ -45,9 +51,9 @@ const mergeMeta = ({ head = {}, ...props }, metadata) => {
   }
 }
 
-function Head ({ onChangeClientState, script, ...props }) {
+function Meta ({ script, ...props }) {
   const siteMetadata = useSiteMetadata()
-
+  const location = useLocation()
   const { author } = siteMetadata
 
   const {
@@ -55,6 +61,7 @@ function Head ({ onChangeClientState, script, ...props }) {
     dataLabel2,
     dataValue1,
     dataValue2,
+    date,
     description,
     image,
     logo,
@@ -63,7 +70,11 @@ function Head ({ onChangeClientState, script, ...props }) {
     twitter,
     url,
     video
-  } = useMemo(() => mergeMeta(props, siteMetadata), [props, siteMetadata])
+  } = useMemo(() => mergeMeta(props, location, siteMetadata), [
+    props,
+    location,
+    siteMetadata
+  ])
 
   const fullTitle = `${title} — ${name}`
 
@@ -101,8 +112,9 @@ function Head ({ onChangeClientState, script, ...props }) {
       <meta property='og:logo' content={logo} />
       <meta property='og:site_name' content={name} />
       <meta property='og:type' content='website' />
+      <meta name='article:modified_time' content={date.toISOString()} />
     </>
   )
 }
 
-export default Head
+export default Meta

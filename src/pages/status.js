@@ -4,12 +4,13 @@ import { cdnUrl } from 'helpers'
 import React from 'react'
 
 import {
+  Box,
   Choose,
   Container,
-  Box,
+  DotSpinner,
   Flex,
-  Text,
-  DotSpinner
+  Meta,
+  Text
 } from 'components/elements'
 
 const THEMES = {
@@ -32,6 +33,13 @@ const Monospace = ({ style, ...props }) => (
   />
 )
 
+export const Head = () => (
+  <Meta
+    description='Real-time data of the Microlink systems performance.'
+    image={cdnUrl('banner/status.jpeg')}
+  />
+)
+
 const StatusPage = () => {
   const [{ theme, color, bg }, setTheme] = useTheme(THEMES, 'light')
   const [{ cluster }] = useQueryState()
@@ -44,11 +52,6 @@ const StatusPage = () => {
       {({ isLoading, resume, info }) => {
         return (
           <Layout
-            head={{
-              description:
-                'Real-time data of the Microlink systems performance.',
-              image: cdnUrl('banner/status.jpeg')
-            }}
             onClick={toggleTheme}
             theme={theme}
             style={{ background: bg }}

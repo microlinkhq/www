@@ -1,9 +1,30 @@
+import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { useSiteMetadata } from 'components/hook'
+import { Meta } from 'components/elements'
+import { cdnUrl } from 'helpers'
 import { graphql } from 'gatsby'
 import React from 'react'
 
 import PageTemplate from './page'
 import DocTemplate from './doc'
+
+export const Head = ({ pageContext, location, data }) => {
+  const metadata = useSiteMetadata()
+
+  if (!pageContext.isDocPage) {
+    return <Meta {...data.markdownRemark.frontmatter} />
+  }
+
+  const activeRouteName = getActiveRouteName(location)
+  return (
+    <Meta
+      name='Microlink Docs'
+      image={cdnUrl('banner/docs.jpeg')}
+      title={`${metadata.name} ${activeRouteName}: ${data.markdownRemark.frontmatter.title}`}
+      date={pageContext.lastEdited}
+    />
+  )
+}
 
 const Template = ({ pageContext, data, ...props }) => {
   const { isDocPage, isBlogPage, lastEdited, githubUrl } = pageContext
@@ -17,23 +38,23 @@ const Template = ({ pageContext, data, ...props }) => {
     date: lastEdited
   }
 
-  if (isDocPage) {
+  if (!isDocPage) {
     return (
-      <DocTemplate
+      <PageTemplate
         meta={meta}
+        date={frontmatter.date && new Date(frontmatter.date)}
+        isBlogPage={isBlogPage}
         content={rawMarkdownBody}
-        githubUrl={githubUrl}
         {...props}
       />
     )
   }
 
   return (
-    <PageTemplate
+    <DocTemplate
       meta={meta}
-      date={frontmatter.date && new Date(frontmatter.date)}
-      isBlogPage={isBlogPage}
       content={rawMarkdownBody}
+      githubUrl={githubUrl}
       {...props}
     />
   )

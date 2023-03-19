@@ -3,10 +3,8 @@ import React, { useEffect, createElement } from 'react'
 import { BreakpointProvider } from 'context/breakpoint'
 import { Analytics } from '@vercel/analytics/react'
 import { ThemeProvider } from 'styled-components'
-import { Location } from '@gatsbyjs/reach-router'
 import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
-import Head from 'components/Head'
 import { noop } from 'helpers'
 
 import themeSpec from 'theme'
@@ -51,44 +49,37 @@ const Layout = ({
   return (
     <BreakpointProvider value={breakpoint}>
       <ThemeProvider theme={themeSpec}>
-        <Location>
-          {({ location }) => {
-            return (
-              <Flex
-                data-breakpoint={breakpoint}
-                flexDirection='column'
-                onClick={onClick}
-                style={style}
-                css={`
-                  overflow-x: hidden;
-                  min-height: 100vh;
-                `}
-              >
-                <Head location={location} {...props} />
-                <Toolbar as='header' theme={theme} style={style} />
-                {createElement(
-                  component,
-                  {
-                    as: 'main',
-                    justifyContent,
-                    alignItems,
-                    display,
-                    flexDirection,
-                    pt: toolbarHeight,
-                    style: { flex: 1 }
-                  },
-                  children
-                )}
-                {footer && (
-                  <Box as='footer' className='hidden-print'>
-                    <Footer theme={theme} {...footer} />
-                  </Box>
-                )}
-                <Analytics />
-              </Flex>
-            )
-          }}
-        </Location>
+        <Flex
+          data-breakpoint={breakpoint}
+          flexDirection='column'
+          onClick={onClick}
+          style={style}
+          css={`
+            overflow-x: hidden;
+            min-height: 100vh;
+          `}
+        >
+          <Toolbar as='header' theme={theme} style={style} />
+          {createElement(
+            component,
+            {
+              as: 'main',
+              justifyContent,
+              alignItems,
+              display,
+              flexDirection,
+              pt: toolbarHeight,
+              style: { flex: 1 }
+            },
+            children
+          )}
+          {footer && (
+            <Box as='footer' className='hidden-print'>
+              <Footer theme={theme} {...footer} />
+            </Box>
+          )}
+          <Analytics />
+        </Flex>
       </ThemeProvider>
     </BreakpointProvider>
   )

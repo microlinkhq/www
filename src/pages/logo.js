@@ -30,6 +30,7 @@ import {
   InputIcon,
   LineBreak,
   Link,
+  Meta,
   Subhead,
   Text,
   Tooltip
@@ -693,6 +694,12 @@ const ProductInformation = props => {
     />
   )
 }
+export const Head = () => (
+  <Meta
+    description='Easily get and embed logos from any website with our simple, reliable API.'
+    image={cdnUrl('banner/logo.jpeg')}
+  />
+)
 
 const LogoPage = () => {
   const [query] = useQueryState()
@@ -700,13 +707,7 @@ const LogoPage = () => {
   const hasQuery = !!query?.url
 
   return (
-    <Layout
-      head={{
-        image: cdnUrl('banner/logo.jpeg'),
-        description:
-          'Easily get and embed logos from any website with our simple, reliable API.'
-      }}
-    >
+    <Layout>
       <FetchProvider mqlOpts={{ palette: true }}>
         {({ status, doFetch, data }) => {
           const isLoading =

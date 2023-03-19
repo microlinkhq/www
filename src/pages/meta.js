@@ -31,6 +31,7 @@ import {
   InputIcon,
   LineBreak,
   Link,
+  Meta,
   Subhead,
   Text,
   Tooltip
@@ -637,19 +638,20 @@ const ProductInformation = props => (
   />
 )
 
+export const Head = () => (
+  <Meta
+    description='Structured and normalized data from Open Graph, Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.'
+    image={cdnUrl('banner/meta.jpeg')}
+  />
+)
+
 const MetaPage = () => {
   const [query] = useQueryState()
   const features = useFeaturesMeta()
   const hasQuery = !!query?.url
 
   return (
-    <Layout
-      head={{
-        image: cdnUrl('banner/meta.jpeg'),
-        description:
-          'Structured and normalized data from Open Graph, Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.'
-      }}
-    >
+    <Layout>
       <FetchProvider
         mqlOpts={{ palette: true, audio: true, video: true, iframe: true }}
       >

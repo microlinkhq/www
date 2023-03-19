@@ -1,17 +1,18 @@
-import { Heading, Container, Flex } from 'components/elements'
+import { Meta, Heading, Container, Flex } from 'components/elements'
 import { Caption, Layout, Chat } from 'components/patterns'
 import { cdnUrl } from 'helpers'
 import { layout } from 'theme'
 import React from 'react'
 
+export const Head = () => (
+  <Meta
+    description='Direct support via chat with guaranteed response from exclusive top-tier engineers.'
+    image={cdnUrl('banner/community.jpeg')}
+  />
+)
+
 const CommunityPage = () => (
-  <Layout
-    head={{
-      image: cdnUrl('banner/community.jpeg'),
-      description:
-        'Direct support via chat with guaranteed response from exclusive top-tier engineers.'
-    }}
-  >
+  <Layout>
     <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
       <Heading>Community</Heading>
 

@@ -1,23 +1,24 @@
 import { Caption, Layout } from 'components/patterns'
-import { Mail } from 'react-feather'
 import { layout, colors } from 'theme'
+import { Mail } from 'react-feather'
 import React from 'react'
 
 import {
-  Heading,
-  Container,
-  Flex,
   Button,
   Caps,
-  Input
+  Container,
+  Flex,
+  Heading,
+  Input,
+  Meta
 } from 'components/elements'
 
+export const Head = () => (
+  <Meta description='Early access & updates on new releases.' />
+)
+
 const NewsletterPage = () => (
-  <Layout
-    head={{
-      description: 'Early access & updates on new releases.'
-    }}
-  >
+  <Layout>
     <Container pt={2} justifyContent='center' alignItems='center'>
       <Heading>Newsletter</Heading>
 

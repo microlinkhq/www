@@ -10,17 +10,18 @@ import humanizeUrl from 'humanize-url'
 
 import {
   Box,
-  Choose,
   Button,
   Caps,
   Card,
+  Choose,
   Container,
-  MultiCodeEditor,
   Flex,
+  Heading,
   Input,
   InputIcon,
-  Heading,
   Link,
+  Meta,
+  MultiCodeEditor,
   Subhead,
   Text
 } from 'components/elements'
@@ -338,19 +339,20 @@ const Integrations = () => {
   )
 }
 
+export const Head = () => (
+  <Meta
+    title='SDK'
+    description='Embed any content. Create beauty link previews. Turn your content into embeddable rich media.'
+    image={cdnUrl('banner/sdk.jpeg')}
+  />
+)
+
 const SdkPage = () => {
   const [query] = useQueryState()
   const hasQuery = !!query?.url
 
   return (
-    <Layout
-      head={{
-        title: 'SDK',
-        image: cdnUrl('banner/sdk.jpeg'),
-        description:
-          'Embed any content. Create beauty link previews. Turn your content into embeddable rich media.'
-      }}
-    >
+    <Layout>
       <FetchProvider>
         {({ status, doFetch, data }) => {
           const isLoading =

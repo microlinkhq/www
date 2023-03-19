@@ -1,5 +1,5 @@
 import { textGradient, layout, borders, transition } from 'theme'
-import { Heading, Link, Flex } from 'components/elements'
+import { Meta, Heading, Link, Flex } from 'components/elements'
 import { Layout, Caption } from 'components/patterns'
 import { PostTitle } from 'components/pages/blog'
 import styled, { css } from 'styled-components'
@@ -72,16 +72,18 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
   )
 }
 
+export const Head = () => (
+  <Meta
+    description='Engineering details through Microlink.'
+    image={cdnUrl('banner/blog.jpeg')}
+  />
+)
+
 const PageBlog = () => {
   const posts = useBlogIndex()
 
   return (
-    <Layout
-      head={{
-        image: cdnUrl('banner/blog.jpeg'),
-        description: 'Engineering details through Microlink.'
-      }}
-    >
+    <Layout>
       <Flex pt={2} justifyContent='center'>
         <Flex flexDirection='column' align-items='center'>
           <Heading maxWidth={layout.large}>Blog</Heading>

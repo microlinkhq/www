@@ -59,7 +59,7 @@ const FetchProvider = ({ fromCache, mqlOpts, children }) => {
         setError(err)
       }
     },
-    [mqlOpts, setQuery]
+    [setQuery, fromCache, mqlOpts]
   )
 
   const doFetch = (url, opts) => {
