@@ -36,8 +36,8 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
     <Button
       onClick={handleCheckout}
       loading={isLoading}
-      data-event-category='Checkout'
-      data-event-action='Buy'
+      data-event-location='Checkout'
+      data-event-name='Buy'
       mb={[4, 4, 0, 0]}
       {...props}
     >

@@ -1,12 +1,12 @@
-import { trackCustomEvent } from 'gatsby-plugin-google-analytics'
+import { track } from '@vercel/analytics'
 import { createElement } from 'react'
 import { noop } from 'helpers'
 
-const createOnClick = ({ onClick = noop, action, category, href: label }) => {
-  if (!(action && category)) return onClick
+const createOnClick = ({ onClick = noop, name, location }) => {
+  if (!(name && location)) return onClick
 
   return event => {
-    trackCustomEvent({ action, category, label })
+    track(name, { location })
     onClick(event)
     return false
   }
@@ -14,13 +14,13 @@ const createOnClick = ({ onClick = noop, action, category, href: label }) => {
 
 export const withAnalytics = Component => {
   const AnalyticsWrapper = ({
-    'data-event-action': action,
-    'data-event-category': category,
+    'data-event-name': name,
+    'data-event-location': location,
     ...props
   }) =>
     createElement(Component, {
       ...props,
-      onClick: createOnClick({ action, category, ...props })
+      onClick: createOnClick({ name, location, ...props })
     })
 
   return AnalyticsWrapper
