@@ -2,7 +2,7 @@
 
 const React = require('react')
 
-const { NODE_ENV = 'development' } = process.env
+const NODE_ENV = process.env.NODE_ENV || 'development'
 
 const isDevelopment = NODE_ENV === 'development'
 
