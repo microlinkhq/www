@@ -21,7 +21,6 @@ import Flex from './Flex'
 import If from './If'
 
 import Hide from './Hide'
-import Script from './Script'
 import Color from './Color/Color'
 import Tweet from './Tweet/Tweet'
 import Image from './Image/Image'
@@ -104,7 +103,6 @@ export {
   PriceMonthly,
   PricePicker,
   Runkit,
-  Script,
   Select,
   Spinner,
   Subhead,

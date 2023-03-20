@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import Script from '../Script'
+import { Script } from 'gatsby'
 
 const NODE_VERSION = '16'
 
@@ -41,7 +41,7 @@ const Runkit = ({ onLoad, placeholderComponent, theme, ...opts }) => {
 
   return (
     <>
-      <Script async src='https://embed.runkit.com' onload={createNotebook} />
+      <Script async src='https://embed.runkit.com' onLoad={createNotebook} />
       {placeholderComponent}
     </>
   )
