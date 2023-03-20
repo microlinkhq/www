@@ -1,7 +1,6 @@
 import { Toolbar, Footer } from 'components/patterns'
 import React, { useEffect, createElement } from 'react'
 import { BreakpointProvider } from 'context/breakpoint'
-import { Analytics } from '@vercel/analytics/react'
 import { ThemeProvider } from 'styled-components'
 import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
@@ -78,7 +77,6 @@ const Layout = ({
               <Footer theme={theme} {...footer} />
             </Box>
           )}
-          <Analytics />
         </Flex>
       </ThemeProvider>
     </BreakpointProvider>
