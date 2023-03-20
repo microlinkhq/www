@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-
-import Script from '../Script'
+import { Script } from 'gatsby'
 
 const NODE_VERSION = '16'
 
