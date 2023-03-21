@@ -38,7 +38,6 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
       loading={isLoading}
       data-event-location='Checkout'
       data-event-name='Buy'
-      mb={[4, 4, 0, 0]}
       {...props}
     >
       <Caps fontSize={[0, 0, 2, 2]}>Buy</Caps>
