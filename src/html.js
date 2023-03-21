@@ -28,8 +28,9 @@ export default function HTML (props) {
         {/* <!-- Basic --> */}
         <meta
           name='viewport'
-          content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
+          content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0'
         />
+
         <meta httpEquiv='x-ua-compatible' content='ie=edge' />
         <meta property='apple-mobile-web-app-capable' content='yes' />
         <meta property='mobile-web-app-capable' content='yes' />
