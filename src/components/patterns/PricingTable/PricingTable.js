@@ -1,16 +1,14 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { Caption, ArrowLink, Checkout } from 'components/patterns'
-import { ExternalLink as ExternalIcon } from 'react-feather'
-import { transition, colors } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
+import { colors } from 'theme'
 
 import {
   PriceMonthly,
   Link,
   Highlight,
-  Hide,
   Box,
   Label,
   Flex,
@@ -34,29 +32,16 @@ const Requests = ({ suffix, ...props }) => (
 
 const PricingLink = ({ children, ...props }) => {
   return (
-    <Link color='black' {...props}>
+    <Link.External color='black' {...props}>
       <Caption
         fontSize={[1, 1, 2, 2]}
         display='inline'
         color='inherit'
         textAlign='left'
-        pb={2}
-        css={`
-          svg {
-            transition: stroke ${transition.medium};
-          }
-          &:hover svg {
-            stroke: ${colors.hoverLink};
-          }
-        `}
       >
         {children}
-
-        <Flex display='inline-flex' ml={1}>
-          <ExternalIcon size={14} color={colors.black20} />
-        </Flex>
       </Caption>
-    </Link>
+    </Link.External>
   )
 }
 
@@ -134,31 +119,29 @@ export const createPricingTable = Checkout => {
           </Box>
 
           <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
+            <Text as='li' pt={1}>
+              <PricingLink href='/sdk'>Microlink SDK</PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/pdf'>Microlink PDF</PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/insights'>Microlink insights</PricingLink>
+            </Text>
+            <Text as='li' pt={1}>
+              <PricingLink href='/recipes'>Microlink recipes</PricingLink>
+            </Text>
             <Text as='li'>
-              <PricingLink href='/blog/edge-cdn/'>
-                Microlink Cache layer
-              </PricingLink>
-            </Text>
-            <Text as='li'>
-              <PricingLink href='/meta'>Unified metadata</PricingLink>
+              <PricingLink href='/meta'>Microlink metadata</PricingLink>
             </Text>
             <Text as='li' pt={1}>
-              <PricingLink href='/screenshot'>Take screenshots</PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
-              <PricingLink href='/pdf'>Export to PDF</PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
-              <PricingLink href='/insights'>Insights reports</PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
-              <PricingLink href='/recipes'>Web Scraping</PricingLink>
+              <PricingLink href='/screenshot'>Microlink screenshot</PricingLink>
             </Text>
           </Box>
 
           <Box pt={4}>
-            <ArrowLink href='/docs/api/getting-started/overview'>
-              Get Started
+            <ArrowLink href='/docs/api/getting-started/overview' fontSize={2}>
+              Get started
             </ArrowLink>
           </Box>
         </FreePricingBox>
@@ -206,13 +189,9 @@ export const createPricingTable = Checkout => {
                     Automatic proxy resolution
                   </PricingLink>
                 </Text>
-                <Hide breakpoints={[0, 1]}>
-                  <Text as='li' style={{ opacity: 0 }} />
-                </Hide>
-                <Text as='li' style={{ opacity: 0 }} />
               </Box>
             </Box>
-            <Box>
+            <Box pt={4}>
               <Checkout
                 planId={planId}
                 canonicalUrl={canonicalUrl}
@@ -253,14 +232,12 @@ export const createPricingTable = Checkout => {
                 S3 like storage integration
               </PricingLink>
             </Text>
-            <Hide breakpoints={[0, 1]}>
-              <Text as='li' style={{ opacity: 0 }} />
-              <Text as='li' style={{ opacity: 0 }} />
-            </Hide>
           </Box>
 
           <Box pt={4}>
-            <ArrowLink href='/enterprise'>Read More</ArrowLink>
+            <ArrowLink href='/enterprise' fontSize={2}>
+              Read more
+            </ArrowLink>
           </Box>
         </EnterprisePricingBox>
       </Flex>

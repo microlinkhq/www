@@ -2,8 +2,8 @@
 
 import { ExternalLink as ExternalIcon } from 'react-feather'
 import React, { useState, useEffect } from 'react'
-import styled, { css } from 'styled-components'
 import { useLocation } from '@gatsbyjs/reach-router'
+import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
@@ -33,7 +33,11 @@ const GatsbyLink = styled(Link)`
 
 const linkIconWrapper = css`
   display: inline-flex;
-  transition: stroke ${transition.medium};
+
+  svg {
+    transition: stroke ${transition.medium};
+  }
+
   &:hover {
     svg {
       stroke: ${colors.hoverLink};
@@ -139,6 +143,8 @@ export const withLink = Component => {
       </ExternalLink>
     )
   }
+
+  LinkWrapper.External = ExternalLink
 
   return LinkWrapper
 }
