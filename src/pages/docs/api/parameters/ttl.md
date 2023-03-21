@@ -1,6 +1,5 @@
 ---
 title: 'ttl'
-isPro: true
 --- 
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
