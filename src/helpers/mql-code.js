@@ -6,12 +6,13 @@ const ENDPOINT = {
   PRO: 'https://pro.microlink.io'
 }
 
-const stringify = input => `'${input.toString()}'`
+const stringify = input => {
+  const escape = typeof input === 'string' ? "'" : ''
+  return `${escape}${input.toString()}${escape}`
+}
 
 stringify.python = input =>
-  stringify(input)
-    .replaceAll('true', 'True')
-    .replaceAll('false', 'False')
+  stringify(input).replaceAll('true', 'True').replaceAll('false', 'False')
 
 const endpoint = ({ endpoint, headers } = {}) => {
   const apiKey = headers && headers['x-api-key']
