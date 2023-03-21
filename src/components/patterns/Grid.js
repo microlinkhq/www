@@ -36,7 +36,7 @@ const Grid = ({
   childComponent: Component = Item,
   ...props
 }) => (
-  <Box width='100%'>
+  <>
     {chunk(children, itemsPerRow).map((row, index) => (
       <Flex
         as='ul'
@@ -55,7 +55,7 @@ const Grid = ({
         ))}
       </Flex>
     ))}
-  </Box>
+  </>
 )
 
 export default Grid

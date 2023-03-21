@@ -23,21 +23,17 @@ const Features = ({ title, caption, features, ...props }) => {
       </Caption>
 
       <Hide
-        as='ul'
         breakpoints={[1, 2, 3]}
         style={{ margin: 0, width: '100%', paddingLeft: 0 }}
       >
-        <Grid as='div' itemsPerRow={1}>
-          {features}
-        </Grid>
+        <Grid itemsPerRow={1}>{features}</Grid>
       </Hide>
 
       <Hide
-        as='ul'
         breakpoints={[0]}
         style={{ margin: 0, width: '100%', paddingLeft: 0 }}
       >
-        <Grid as='div' pt={3} itemsPerRow={3}>
+        <Grid pt={3} itemsPerRow={3}>
           {features}
         </Grid>
       </Hide>
