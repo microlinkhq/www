@@ -1,9 +1,9 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { Caption, ArrowLink, Checkout } from 'components/patterns'
+import { breakpoints, colors } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
-import { colors } from 'theme'
 
 import {
   PriceMonthly,
@@ -47,13 +47,13 @@ const PricingLink = ({ children, ...props }) => {
 
 const PricingBox = props => (
   <Box
-    borderRadius={5}
+    borderRadius={3}
     textAlign='center'
     width={['100%', '100%', 8, 8]}
-    px={[0, 0, 5, 5]}
-    py={[0, 0, 5, 5]}
-    my={[4, 0, 0, 0]}
-    border={[0, 0, 1, 1]}
+    px={[3, 3, 5, 5]}
+    py={[4, 4, 5, 5]}
+    my={[4, 4, 0, 0]}
+    border={1}
     bg='white'
     {...props}
   />
@@ -61,9 +61,11 @@ const PricingBox = props => (
 
 const FreePricingBox = styled(PricingBox)`
   border-color: ${colors.black20};
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-right: 0;
+  @media screen and (min-width: ${breakpoints[1]}) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+  }
 `
 
 const ProPricingBoxGradient = styled(PricingBox)`
@@ -84,11 +86,13 @@ const ProPricingBox = styled(Box)`
 
 const EnterprisePricingBox = styled(PricingBox)`
   border-color: ${colors.black20};
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  position: relative;
-  border-left: 0;
-  left: -1px;
+  @media screen and (min-width: ${breakpoints[1]}) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    position: relative;
+    border-left: 0;
+    left: -1px;
+  }
 `
 
 export const createPricingTable = Checkout => {
@@ -106,7 +110,7 @@ export const createPricingTable = Checkout => {
         pb={Container.defaultProps.pt}
         {...props}
       >
-        <FreePricingBox my={[0, 0, 5, 5]} pt={[3, 3, 5, 5]}>
+        <FreePricingBox my={[0, 0, 5, 5]}>
           <Subhead fontSize={[3, 3, 4, 4]}>Free</Subhead>
 
           <Box pt={4}>
@@ -139,58 +143,55 @@ export const createPricingTable = Checkout => {
             </Text>
           </Box>
 
-          <Box pt={4}>
+          <Flex justifyContent='center' pt={4}>
             <ArrowLink href='/docs/api/getting-started/overview' fontSize={2}>
               Get started
             </ArrowLink>
-          </Box>
+          </Flex>
         </FreePricingBox>
 
         <ProPricingBoxGradient>
-          <ProPricingBox flex={1} px={[0, 0, 5, 5]} py={[0, 0, 5, 5]}>
-            <Box>
-              <Subhead fontSize={[3, 3, 4, 4]} pt={[3, 3, 5, 5]}>
-                Pro
-              </Subhead>
+          <ProPricingBox flex={1} px={[3, 3, 5, 5]} py={[4, 4, 6, 6]}>
+            <Subhead fontSize={[3, 3, 4, 4]}>Pro</Subhead>
 
-              <Box pt={4}>
-                <Text>
-                  <PricePicker onChange={setPlan} /> <Requests suffix='month' />
-                </Text>
-                <Box pt='26px'>
-                  <Text fontSize={0}>
-                    <PriceMonthly>
-                      <Highlight as='span'>{humanMonthlyPrice}</Highlight>
-                    </PriceMonthly>
-                  </Text>
-                </Box>
-              </Box>
-
-              <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
-                <Text as='li'>
-                  Everything in Free,{' '}
-                  <Text as='span' fontWeight='bold'>
-                    plus
-                  </Text>
-                  :
-                </Text>
-                <Text as='li' pt={1}>
-                  <PricingLink href='/docs/api/parameters/ttl'>
-                    Configurable TTL
-                  </PricingLink>
-                </Text>
-                <Text as='li' pt={1}>
-                  <PricingLink href='/docs/api/parameters/headers'>
-                    Custom HTTP headers
-                  </PricingLink>
-                </Text>
-                <Text as='li' pt={1}>
-                  <PricingLink href='/docs/api/parameters/proxy'>
-                    Automatic proxy resolution
-                  </PricingLink>
+            <Box pt={4}>
+              <Text>
+                <PricePicker onChange={setPlan} /> <Requests suffix='month' />
+              </Text>
+              <Box pt='26px'>
+                <Text fontSize={0}>
+                  <PriceMonthly>
+                    <Highlight as='span'>{humanMonthlyPrice}</Highlight>
+                  </PriceMonthly>
                 </Text>
               </Box>
             </Box>
+
+            <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
+              <Text as='li'>
+                Everything in Free,{' '}
+                <Text as='span' fontWeight='bold'>
+                  plus
+                </Text>
+                :
+              </Text>
+              <Text as='li' pt={1}>
+                <PricingLink href='/docs/api/parameters/ttl'>
+                  Configurable TTL
+                </PricingLink>
+              </Text>
+              <Text as='li' pt={1}>
+                <PricingLink href='/docs/api/parameters/headers'>
+                  Custom HTTP headers
+                </PricingLink>
+              </Text>
+              <Text as='li' pt={1}>
+                <PricingLink href='/docs/api/parameters/proxy'>
+                  Automatic proxy resolution
+                </PricingLink>
+              </Text>
+            </Box>
+
             <Box pt={4}>
               <Checkout
                 planId={planId}
@@ -201,7 +202,7 @@ export const createPricingTable = Checkout => {
           </ProPricingBox>
         </ProPricingBoxGradient>
 
-        <EnterprisePricingBox my={[0, 0, 5, 5]} pt={[3, 3, 5, 5]}>
+        <EnterprisePricingBox my={[0, 0, 5, 5]}>
           <Subhead fontSize={[3, 3, 4, 4]}>Enterprise</Subhead>
 
           <Box pt={4}>
@@ -234,11 +235,11 @@ export const createPricingTable = Checkout => {
             </Text>
           </Box>
 
-          <Box pt={4}>
+          <Flex justifyContent='center' pt={4}>
             <ArrowLink href='/enterprise' fontSize={2}>
-              Read more
+              See details
             </ArrowLink>
-          </Box>
+          </Flex>
         </EnterprisePricingBox>
       </Flex>
     )
