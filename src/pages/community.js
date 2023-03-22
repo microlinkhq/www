@@ -28,7 +28,7 @@ const CommunityPage = () => (
       </Caption>
 
       <Flex alignItems='center' justifyContent='center' pt={[0, 0, 4, 4]}>
-        <Chat large />
+        <Chat />
       </Flex>
     </Container>
   </Layout>

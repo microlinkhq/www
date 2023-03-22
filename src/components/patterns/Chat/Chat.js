@@ -1,25 +1,25 @@
 import React from 'react'
 
-import { Iframe } from 'components/elements'
+import { Button, Flex, Caps } from 'components/elements'
 
-const Chat = ({ large }) => {
-  const iframeUrl = large
-    ? 'https://chat.microlink.io/iframe/dialog?large=true'
-    : 'https://chat.microlink.io/iframe/dialog'
-
-  const style = large
-    ? { width: '350px', height: '350px' }
-    : { width: '250px', height: '250px' }
-
+const Chat = () => {
   return (
-    <Iframe
-      justifyContent='center'
-      mr='auto'
-      ml='auto'
-      title='Chat'
-      src={iframeUrl}
-      style={style}
-    />
+    <Flex justifyContent='center' alignItems='center'>
+      <Button
+        onClick={event => {
+          event.preventDefault()
+          window.open(
+            'https://join.slack.com/t/microlinkhq/shared_invite/zt-3oe805om-HzexWW5yQNcF6cJs3dFM_A',
+            '_blank',
+            'noopener noreferrer'
+          )
+        }}
+      >
+        <Caps px={3} py={2}>
+          Join in the community
+        </Caps>
+      </Button>
+    </Flex>
   )
 }
 
