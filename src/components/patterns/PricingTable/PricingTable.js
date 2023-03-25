@@ -1,20 +1,21 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { Caption, ArrowLink, Checkout } from 'components/patterns'
+import FeatherIcon from 'components/icons/Feather'
 import { breakpoints, colors } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
 
 import {
-  PriceMonthly,
-  Link,
-  Highlight,
   Box,
-  Label,
-  Flex,
-  Text,
   Container,
-  Subhead
+  Flex,
+  Highlight,
+  Label,
+  Link,
+  PriceMonthly,
+  Subhead,
+  Text
 } from 'components/elements'
 
 const FREE_PLAN_RATE_LIMIT = 50
@@ -32,7 +33,7 @@ const Requests = ({ suffix, ...props }) => (
 
 const PricingLink = ({ children, ...props }) => {
   return (
-    <Link.External color='black' {...props}>
+    <Link.Base color='black' {...props}>
       <Caption
         fontSize={[1, 1, 2, 2]}
         display='inline'
@@ -41,7 +42,7 @@ const PricingLink = ({ children, ...props }) => {
       >
         {children}
       </Caption>
-    </Link.External>
+    </Link.Base>
   )
 }
 
@@ -95,6 +96,25 @@ const EnterprisePricingBox = styled(PricingBox)`
   }
 `
 
+const Check = ({ children, ...props }) => (
+  <Text
+    as='li'
+    css={`
+      list-style-type: none;
+    `}
+    {...props}
+  >
+    <Flex alignItems='center'>
+      <FeatherIcon display='inline-flex' pr={2} icon='Check' />
+      <Text as='span'>{children}</Text>
+    </Flex>
+  </Text>
+)
+
+Check.defaultProps = {
+  as: 'li'
+}
+
 export const createPricingTable = Checkout => {
   const PricingTable = ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) => {
     const [plan, setPlan] = useState(DEFAULT_PLAN)
@@ -122,25 +142,25 @@ export const createPricingTable = Checkout => {
             </Box>
           </Box>
 
-          <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
-            <Text as='li' pt={1}>
+          <Box as='ul' m={0} pl={[3, 3, 4, 4]} pt={4} textAlign='left'>
+            <Check pt={2}>
               <PricingLink href='/sdk'>Microlink SDK</PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
+            </Check>
+            <Check pt={2}>
               <PricingLink href='/pdf'>Microlink PDF</PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
+            </Check>
+            <Check pt={2}>
               <PricingLink href='/insights'>Microlink insights</PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
+            </Check>
+            <Check pt={2}>
               <PricingLink href='/recipes'>Microlink recipes</PricingLink>
-            </Text>
-            <Text as='li'>
+            </Check>
+            <Check pt={2}>
               <PricingLink href='/meta'>Microlink metadata</PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
+            </Check>
+            <Check pt={2}>
               <PricingLink href='/screenshot'>Microlink screenshot</PricingLink>
-            </Text>
+            </Check>
           </Box>
 
           <Flex justifyContent='center' pt={4}>
@@ -167,29 +187,23 @@ export const createPricingTable = Checkout => {
               </Box>
             </Box>
 
-            <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
-              <Text as='li'>
-                Everything in Free,{' '}
-                <Text as='span' fontWeight='bold'>
-                  plus
-                </Text>
-                :
-              </Text>
-              <Text as='li' pt={1}>
+            <Box as='ul' m={0} pl={[3, 3, 4, 4]} pt={4} textAlign='left'>
+              <Check>Everything in Free</Check>
+              <Check pt={2}>
                 <PricingLink href='/docs/api/parameters/ttl'>
                   Configurable TTL
                 </PricingLink>
-              </Text>
-              <Text as='li' pt={1}>
+              </Check>
+              <Check pt={2}>
                 <PricingLink href='/docs/api/parameters/headers'>
                   Custom HTTP headers
                 </PricingLink>
-              </Text>
-              <Text as='li' pt={1}>
+              </Check>
+              <Check pt={2}>
                 <PricingLink href='/docs/api/parameters/proxy'>
                   Automatic proxy resolution
                 </PricingLink>
-              </Text>
+              </Check>
             </Box>
 
             <Box pt={4}>
@@ -212,27 +226,21 @@ export const createPricingTable = Checkout => {
             </Box>
           </Box>
 
-          <Box as='ul' m={0} pl={4} pt={4} textAlign='left'>
-            <Text as='li'>
-              Everything in Pro,{' '}
-              <Text as='span' fontWeight='bold'>
-                plus
-              </Text>
-              :
-            </Text>
-            <Text as='li' pt={1}>
+          <Box as='ul' m={0} pl={[3, 3, 4, 4]} pt={4} textAlign='left'>
+            <Check>Everything in Pro</Check>
+            <Check pt={2}>
               <PricingLink href='/enterprise'>Custom API endpoint</PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
+            </Check>
+            <Check pt={2}>
               <PricingLink href='/enterprise'>
                 Dedicated CDN distribution
               </PricingLink>
-            </Text>
-            <Text as='li' pt={1}>
+            </Check>
+            <Check pt={2}>
               <PricingLink href='/enterprise'>
                 S3 like storage integration
               </PricingLink>
-            </Text>
+            </Check>
           </Box>
 
           <Flex justifyContent='center' pt={4}>

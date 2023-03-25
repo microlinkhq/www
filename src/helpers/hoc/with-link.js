@@ -1,15 +1,15 @@
 /* global IntersectionObserver */
 
 import { ExternalLink as ExternalIcon } from 'react-feather'
-import React, { useState, useEffect } from 'react'
 import { useLocation } from '@gatsbyjs/reach-router'
+import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
-import { Link } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
 import { transition, colors } from 'theme'
 
-const isInternalLink = to => /^\/(?!\/)/.test(to)
+const isInternalLink = (to = '/') => /^\/(?!\/)/.test(to)
 
 const getHash = href => href.replace('/#', '#')
 
@@ -18,16 +18,11 @@ const linkStyle = css`
   color: inherit;
 `
 
-const ExternalLink = styled('a')`
+const LinkBase = styled('a')`
   ${linkStyle}
 `
 
-ExternalLink.defaultProps = {
-  rel: 'noopener noreferrer',
-  target: '_blank'
-}
-
-const GatsbyLink = styled(Link)`
+const PrefetchLink = styled(GatsbyLink)`
   ${linkStyle}
 `
 
@@ -73,32 +68,41 @@ const onView = (node, fn, opts) => {
   observer.observe(node)
 }
 
-const External = Component => {
-  const ExternalWrapper = ({
+const withBaseLink = Component => {
+  const BaseLinkWrapper = ({
+    children,
     href,
     icon = true,
-    target,
-    rel,
-    children,
-    linkProps,
+    isInternal = isInternalLink(href),
+    title,
     ...props
   }) => {
+    const rel = isInternal ? undefined : 'noopener noreferrer'
+    const target = isInternal ? undefined : '_blank'
+
     return (
       <Component {...props}>
-        <ExternalLink href={href} target={target} rel={rel} {...linkProps}>
+        <LinkBase title={title} href rel={rel} target={target}>
           <Children icon={icon}>{children}</Children>
-        </ExternalLink>
+        </LinkBase>
       </Component>
     )
   }
 
-  return ExternalWrapper
+  return BaseLinkWrapper
 }
 
 export const withLink = Component => {
-  const ExternalLink = External(Component)
+  const BaseLink = withBaseLink(Component)
 
-  const LinkWrapper = ({ actively, href, children, linkProps, ...props }) => {
+  const LinkWrapper = ({
+    actively,
+    children,
+    href = '/',
+    title,
+    prefetch = true,
+    ...props
+  }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
     const location = useLocation()
     const isInternal = isInternalLink(href)
@@ -123,31 +127,31 @@ export const withLink = Component => {
       return { className: 'active' }
     }
 
-    if (!href || isInternal) {
+    if (prefetch && (!href || isInternal)) {
       return (
         <Component {...props}>
-          <GatsbyLink
+          <PrefetchLink
             to={href || location.pathname}
             getProps={getProps}
-            {...linkProps}
+            title={title}
           >
             {children}
-          </GatsbyLink>
+          </PrefetchLink>
         </Component>
       )
     }
 
     return (
-      <ExternalLink href={href} linkProps={linkProps} {...props}>
+      <BaseLink href={href} isInternal={isInternal} title={title} {...props}>
         {children}
-      </ExternalLink>
+      </BaseLink>
     )
   }
 
-  LinkWrapper.External = ExternalLink
+  LinkWrapper.Base = BaseLink
 
   return LinkWrapper
 }
 
 withLink.isInternalLink = isInternalLink
-withLink.External = External
+withLink.External = withBaseLink

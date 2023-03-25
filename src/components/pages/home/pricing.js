@@ -1,5 +1,5 @@
-import { Subhead, Container } from 'components/elements'
 import { Caption, PricingTable } from 'components/patterns'
+import { Subhead, Container } from 'components/elements'
 import { fontSizes, layout } from 'theme'
 import React from 'react'
 

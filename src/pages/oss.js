@@ -49,13 +49,7 @@ const OssPage = () => {
             flexDirection='column'
           >
             {repos.map(({ name, description, stars, issues, url }) => (
-              <Box
-                key={name}
-                mb={3}
-                borderBottom={1}
-                borderColor='black05'
-                data-debug
-              >
+              <Box key={name} mb={3} borderBottom={1} borderColor='black05'>
                 <Link color='black' href={url} icon={false}>
                   <Text
                     as='h3'

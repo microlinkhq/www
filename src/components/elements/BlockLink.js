@@ -8,4 +8,4 @@ const BlockLink = styled(Box)({
   textDecoration: 'none'
 })
 
-export default withLink(withAnalytics(BlockLink))
+export default withAnalytics(withLink(BlockLink))

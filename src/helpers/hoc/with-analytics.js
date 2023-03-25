@@ -23,5 +23,9 @@ export const withAnalytics = Component => {
       onClick: createOnClick({ name, location, ...props })
     })
 
+  Object.keys(Component).forEach(
+    key => (AnalyticsWrapper[key] = Component[key])
+  )
+
   return AnalyticsWrapper
 }
