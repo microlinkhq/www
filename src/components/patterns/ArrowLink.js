@@ -10,11 +10,16 @@ const ArrowLink = ({ children, ...props }) => {
   return (
     <Flex>
       <Link
-        linkProps={{ style: { display: 'flex', alignItems: 'center' } }}
+        css={`
+          > a {
+            display: flex;
+            align-items: center;
+          }
+        `}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         fontSize={Caption.defaultProps.fontSize}
-        icon={props.href.startsWith('/')}
+        icon={false}
         {...props}
       >
         {children} <FeatherIcon icon={icon} />

@@ -48,8 +48,8 @@ const iconDark = css`
 
 const ToolbarSecondary = ({ isDark, children }) => (
   <Toolbar type='secondary' aria-label='Secondary Navigation'>
-    <Flex as='ul' alignItems='center' justifyContent='center' m={0} p={0}>
-      <NavContainer as='li' py={2} pr={3} isDark={isDark}>
+    <Flex alignItems='center' justifyContent='center' m={0} p={0}>
+      <NavContainer as='ul' pl={0} py={2} isDark={isDark}>
         {children}
       </NavContainer>
     </Flex>
@@ -141,28 +141,28 @@ const ToolbarDesktop = ({ theme }) => {
         <Choose>
           <Choose.When condition={secondary === 'products'}>
             <ToolbarSecondary>
-              <NavFormats pl={0} isDark={isDark} fontSize='12px' />
-              <NavInsights isDark={isDark} fontSize='12px' />
-              <NavLogo isDark={isDark} fontSize='12px' />
-              <NavMeta isDark={isDark} fontSize='12px' />
-              <NavPdf isDark={isDark} fontSize='12px' />
-              <NavScreenshot isDark={isDark} fontSize='12px' />
-              <NavSDK isDark={isDark} fontSize='12px' />
+              <NavFormats as='li' pl={0} isDark={isDark} fontSize='12px' />
+              <NavInsights as='li' isDark={isDark} fontSize='12px' />
+              <NavLogo as='li' isDark={isDark} fontSize='12px' />
+              <NavMeta as='li' isDark={isDark} fontSize='12px' />
+              <NavPdf as='li' isDark={isDark} fontSize='12px' />
+              <NavScreenshot as='li' isDark={isDark} fontSize='12px' />
+              <NavSDK as='li' isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'developers'}>
             <ToolbarSecondary>
-              <NavChangelog pl={0} isDark={isDark} fontSize='12px' />
-              <NavCommunity isDark={isDark} fontSize='12px' />
-              <NavDocs isDark={isDark} fontSize='12px' />
-              <NavRecipes isDark={isDark} fontSize='12px' />
+              <NavChangelog as='li' pl={0} isDark={isDark} fontSize='12px' />
+              <NavCommunity as='li' isDark={isDark} fontSize='12px' />
+              <NavDocs as='li' isDark={isDark} fontSize='12px' />
+              <NavRecipes as='li' isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'company'}>
             <ToolbarSecondary>
-              <NavBlog pl={0} isDark={isDark} fontSize='12px' />
-              <NavNewsletter isDark={isDark} fontSize='12px' />
-              <NavOpenSource isDark={isDark} fontSize='12px' />
+              <NavBlog as='li' pl={0} isDark={isDark} fontSize='12px' />
+              <NavNewsletter as='li' isDark={isDark} fontSize='12px' />
+              <NavOpenSource as='li' isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
         </Choose>
