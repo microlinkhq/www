@@ -9,6 +9,7 @@ const createNavItem = opts => {
     createElement(NavLink, {
       'data-event-location': 'Toolbar',
       'data-event-name': opts.children,
+      prefetch: false,
       icon: false,
       ...opts,
       ...props
@@ -142,7 +143,6 @@ export const NavChangelog = createNavItem({
 })
 
 export const NavProducts = createNavItem({
-  prefetch: false,
   children: 'Products',
   actively: ({ location }) =>
     NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
@@ -160,7 +160,6 @@ NavProducts.pages = [
 
 export const NavDevelopers = createNavItem({
   children: 'Developers',
-  prefetch: false,
   actively: ({ location }) =>
     NavDevelopers.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
@@ -169,7 +168,6 @@ NavDevelopers.pages = ['/docs', '/recipes', '/community', '/changelog']
 
 export const NavCompany = createNavItem({
   children: 'Company',
-  prefetch: false,
   actively: ({ location }) =>
     NavCompany.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
