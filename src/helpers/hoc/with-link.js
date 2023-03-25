@@ -2,6 +2,7 @@
 
 import { ExternalLink as ExternalIcon } from 'react-feather'
 import { useLocation } from '@gatsbyjs/reach-router'
+import { Link as ReachLink } from '@reach/router'
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { Link as GatsbyLink } from 'gatsby'
@@ -18,7 +19,7 @@ const linkStyle = css`
   color: inherit;
 `
 
-const LinkBase = styled('a')`
+const LinkBase = styled(ReachLink)`
   ${linkStyle}
 `
 
@@ -70,10 +71,11 @@ const onView = (node, fn, opts) => {
 
 const withBaseLink = Component => {
   const BaseLinkWrapper = ({
-    href,
+    children,
+    getProps,
+    href = '/',
     icon = true,
     isInternal = isInternalLink(href),
-    children,
     title,
     ...props
   }) => {
@@ -82,7 +84,7 @@ const withBaseLink = Component => {
 
     return (
       <Component {...props}>
-        <LinkBase title={title} href={href} rel={rel} target={target}>
+        <LinkBase title={title} to={href} rel={rel} target={target}>
           <Children icon={icon}>{children}</Children>
         </LinkBase>
       </Component>
@@ -142,7 +144,13 @@ export const withLink = Component => {
     }
 
     return (
-      <BaseLink isInternal={isInternal} href={href} title={title} {...props}>
+      <BaseLink
+        getProps={getProps}
+        href={href}
+        isInternal={isInternal}
+        title={title}
+        {...props}
+      >
         {children}
       </BaseLink>
     )
