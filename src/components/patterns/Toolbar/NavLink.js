@@ -41,4 +41,4 @@ NavLink.defaultProps = {
   as: 'div'
 }
 
-export default withLink(withAnalytics(NavLink))
+export default withAnalytics(withLink(NavLink))

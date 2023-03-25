@@ -39,4 +39,4 @@ NavLink.defaultProps = {
   color: 'gray7'
 }
 
-export default withLink(withAnalytics(NavLink))
+export default withAnalytics(withLink(NavLink))

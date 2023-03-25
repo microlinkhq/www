@@ -1,25 +1,15 @@
 import React, { createElement } from 'react'
 import { Microlink } from 'components/logos'
-import { withLink } from 'helpers/hoc'
 import { navigate } from 'gatsby'
 
 import NavLink from './NavLink'
 
-const { isInternalLink } = withLink
-
-const createNavItem = ({ title, ...opts }) => {
-  const isInternal = isInternalLink(opts.href)
-
-  const linkProps = isInternal
-    ? { title }
-    : { rel: 'noopener noreferrer', target: '_blank', title }
-
+const createNavItem = opts => {
   const NavItemWrapper = props =>
     createElement(NavLink, {
       'data-event-location': 'Toolbar',
       'data-event-name': opts.children,
       icon: false,
-      linkProps,
       ...opts,
       ...props
     })
@@ -152,7 +142,7 @@ export const NavChangelog = createNavItem({
 })
 
 export const NavProducts = createNavItem({
-  href: '/',
+  prefetch: false,
   children: 'Products',
   actively: ({ location }) =>
     NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
@@ -170,6 +160,7 @@ NavProducts.pages = [
 
 export const NavDevelopers = createNavItem({
   children: 'Developers',
+  prefetch: false,
   actively: ({ location }) =>
     NavDevelopers.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
@@ -178,6 +169,7 @@ NavDevelopers.pages = ['/docs', '/recipes', '/community', '/changelog']
 
 export const NavCompany = createNavItem({
   children: 'Company',
+  prefetch: false,
   actively: ({ location }) =>
     NavCompany.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })

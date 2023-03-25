@@ -11,5 +11,5 @@ Span.defaultProps = {
   as: 'span'
 }
 
-export const LinkSolid = withLink(withAnalytics(solid))
-export const Link = withLink(withAnalytics(base))
+export const LinkSolid = withAnalytics(withLink(solid))
+export const Link = withAnalytics(withLink(base))

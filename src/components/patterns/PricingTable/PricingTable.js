@@ -6,15 +6,15 @@ import { formatNumber } from 'helpers'
 import styled from 'styled-components'
 
 import {
-  PriceMonthly,
-  Link,
-  Highlight,
   Box,
-  Label,
-  Flex,
-  Text,
   Container,
-  Subhead
+  Flex,
+  Highlight,
+  Label,
+  Link,
+  PriceMonthly,
+  Subhead,
+  Text
 } from 'components/elements'
 
 const FREE_PLAN_RATE_LIMIT = 50
@@ -32,7 +32,7 @@ const Requests = ({ suffix, ...props }) => (
 
 const PricingLink = ({ children, ...props }) => {
   return (
-    <Link.External color='black' {...props}>
+    <Link.Base color='black' {...props}>
       <Caption
         fontSize={[1, 1, 2, 2]}
         display='inline'
@@ -41,7 +41,7 @@ const PricingLink = ({ children, ...props }) => {
       >
         {children}
       </Caption>
-    </Link.External>
+    </Link.Base>
   )
 }
 
