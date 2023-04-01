@@ -106,7 +106,7 @@
     "@stripe/stripe-js": "~1.50.0",
     "@styled-system/prop-types": "~5.1.5",
     "@tippyjs/react": "~4.2.6",
-    "@vercel/analytics": "0.1.9-beta.6",
+    "@vercel/analytics": "0.1.11",
     "beauty-error": "~1.2.15",
     "cssnano": "~5.1.15",
     "cssnano-preset-advanced": "~5.3.10",
