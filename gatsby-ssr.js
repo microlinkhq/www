@@ -16,7 +16,7 @@ exports.onRenderBody = ({ setPostBodyComponents }) => {
       key='crisp'
       dangerouslySetInnerHTML={{
         __html:
-          'window.$crisp=[];window.$crisp.push(["safe", true]);window.CRISP_WEBSITE_ID="1ad5d211-8699-43f6-add3-578b9e47b922";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();'
+          'window.$crisp=[];window.$crisp.push(["safe", true]);window.CRISP_WEBSITE_ID="94b59a37-2915-40fe-aacd-5e5301d746a5";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();'
       }}
     />,
     <script
