@@ -18,6 +18,4 @@ const fetch = async () =>
     })
   )
 
-fetch()
-  .then(() => process.exit(0))
-  .catch(err => console.error(beautyError(err)) && process.exit(1))
+fetch().catch(error => console.error(beautyError(error)) || process.exit(1))
