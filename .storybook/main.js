@@ -3,11 +3,15 @@ const path = require('path')
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: ['@storybook/addon-a11y', '@storybook/addon-essentials'],
+  framework: '@storybook/react',
   core: {
     builder: 'webpack5'
   },
   webpackFinal: async config => {
-    // https://www.gatsbyjs.com/docs/how-to/testing/visual-testing-with-storybook/
+    // Remove core-js to prevent issues with Storybook
+    config.module.rules[0].exclude = /core-js/
+
+    // Transpile Gatsby module because Gatsby includes un-transpiled ES6 code.
     config.module.rules.push({
       test: /\.(js)$/,
       use: [
@@ -30,7 +34,7 @@ module.exports = {
           }
         }
       ],
-      exclude: [/node_modules\/(?!(gatsby)\/)/]
+      exclude: /node_modules\/(?!(gatsby|gatsby-script)\/)/
     })
 
     config.module.rules.push({
