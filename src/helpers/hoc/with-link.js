@@ -82,7 +82,7 @@ const withBaseLink = Component => {
 
     return (
       <Component {...props}>
-        <LinkBase title={title} href rel={rel} target={target}>
+        <LinkBase title={title} href={href} rel={rel} target={target}>
           <Children icon={icon}>{children}</Children>
         </LinkBase>
       </Component>
