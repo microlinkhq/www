@@ -3,7 +3,6 @@
 import { Caption, Layout } from 'components/patterns'
 import { loadStripe } from '@stripe/stripe-js/pure'
 import { useSiteMetadata } from 'components/hook'
-import { layout, letterSpacings } from 'theme'
 import { encode, decode } from 'helpers'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -27,26 +26,36 @@ import {
 } from '@stripe/react-stripe-js'
 
 import {
+  fontSizes,
+  fonts,
+  transition,
+  layout,
+  letterSpacings,
+  colors
+} from 'theme'
+
+import {
   PAYMENT_STATE,
   ERROR_MAIL_OPTS
 } from 'components/pages/payment/constants'
 
 const Form = styled.form`
   .StripeElement {
+    background: white;
+    border-radius: 4px;
+    border: 1px solid ${colors.gray2};
     display: block;
     max-width: 100%;
     padding: 10px 14px;
-    box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,
-      rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
-    border-radius: 4px;
-    background: white;
+    transition: border-color ${transition.short}, color ${transition.short};
+  }
+  .StripeElement--focus {
+    border-color: ${colors.black50};
   }
 
-  .StripeElement--focus {
-    box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px,
-      rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
-    -webkit-transition: all 150ms ease;
-    transition: all 150ms ease;
+  .StripeElement--invalid {
+    color: ${colors.red8};
+    border-color: ${colors.red8};
   }
 `
 
@@ -124,16 +133,16 @@ const CheckoutForm = ({ apiEndpoint, apiKey }) => {
           options={{
             style: {
               base: {
-                fontSize: '18px',
-                color: '#424770',
+                fontSize: fontSizes[1],
+                color: colors.black,
                 letterSpacing: letterSpacings[2],
-                fontFamily: 'Source Code Pro, Menlo, monospace',
+                fontFamily: fonts.sans,
                 '::placeholder': {
-                  color: '#aab7c4'
+                  color: colors.gray5
                 }
               },
               invalid: {
-                color: '#9e2146'
+                color: colors.red8
               }
             }
           }}
@@ -145,7 +154,7 @@ const CheckoutForm = ({ apiEndpoint, apiKey }) => {
           disabled={!stripe}
           width='100%'
         >
-          <Caps fontSize={1}>Update Card</Caps>
+          <Caps fontSize={1}>{!stripe ? 'Loading' : 'Update Card'}</Caps>
         </Button>
       </Form>
     </>
