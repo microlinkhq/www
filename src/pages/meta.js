@@ -272,6 +272,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                     text: Tooltip.TEXT.COPIED.HTML
                   })
                 }}
+                style={{ cursor: 'copy' }}
                 width='100%'
                 color='black60'
                 value={snippetText}
