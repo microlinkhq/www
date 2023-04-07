@@ -19,19 +19,22 @@ const Tabs = ({ children, ...props }) => (
     }}
     {...props}
   >
-    {children.map(lang => (
-      <StyledTab
-        as='li'
-        active={lang === props.value}
-        key={lang}
-        color={props.color}
-        background={props.background}
-      >
-        <Text lineHeight={0} fontSize='12px'>
-          {lang}
-        </Text>
-      </StyledTab>
-    ))}
+    {children.map(lang => {
+      const isActive = lang === props.value
+      return (
+        <StyledTab
+          as='li'
+          active={isActive}
+          key={lang}
+          color={props.color(isActive)}
+          background={props.background}
+        >
+          <Text lineHeight={0} fontSize='12px'>
+            {lang}
+          </Text>
+        </StyledTab>
+      )
+    })}
   </Flex>
 )
 

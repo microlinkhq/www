@@ -75,7 +75,7 @@ const AsideWrapper = styled(Box)`
   }
 `
 
-const Header = props => <Caps mb={2} color='gray5' {...props} />
+const Header = props => <Caps mb={2} color='black50' {...props} />
 
 const Title = ({ children, href, Icon, ...props }) => {
   return (

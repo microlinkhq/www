@@ -268,7 +268,7 @@ const FigcaptionBase = styled(Text)``
 
 FigcaptionBase.defaultProps = {
   fontSize: 0,
-  color: 'gray',
+  color: 'black50',
   textAlign: 'center'
 }
 

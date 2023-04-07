@@ -4,11 +4,11 @@ import { hideScrollbar, wordBreak } from 'helpers/style'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
 import styled from 'styled-components'
+import { cx, radii } from 'theme'
 import range from 'lodash/range'
-import { radii } from 'theme'
 import get from 'dlv'
 
-import { prismThemes } from './theme'
+import codeTheme from './theme'
 import Runkit from '../Runkit/Runkit'
 
 import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
@@ -56,23 +56,18 @@ const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
-  padding-right: 0px !important;
-  margin: 0 !important;
   ${hideScrollbar};
-
-  ${({ $prismTheme, $highlightLines }) => `
-    .linenumber {
-      color: ${
-        $prismTheme['.line-numbers-rows > span:before'].color
-      } !important;
-    }
-
+  ${props => codeTheme[props.$theme]};
+  ${({ $highlightLines, $theme }) => {
+    const isLight = $theme === 'light'
+    return `
     ${generateHighlighLines($highlightLines)} {
       display: block;
-      background: ${$prismTheme['.line-highlight'].background};
+      background: ${cx(isLight ? 'black05' : 'whitek05')};
       border-radius: ${radii[2]};
     }
-  `}
+    `
+  }}
 `
 
 const TerminalTextWrapper = styled.div`
@@ -94,7 +89,6 @@ const CodeEditor = ({
   const language = toAlias(getLanguage(className, props))
   const pretty = props.prettier ? get(prettier, language, identity) : identity
   const text = pretty(template(children)).trim()
-  const prismTheme = prismThemes[theme]
   const id = `codeditor-${hash(children)}-${theme}`
   const isInteractive = Runkit.isSupported({ language, text })
 
@@ -109,11 +103,12 @@ const CodeEditor = ({
     >
       <TerminalTextWrapper>
         <CustomSyntaxHighlighter
-          $prismTheme={prismTheme}
+          useInlineStyles={false}
+          $theme={theme}
           $highlightLines={highlightLines}
           showLineNumbers={showLineNumbers}
           language={language}
-          style={prismTheme}
+          style={{}}
           wrapLines
         >
           {text}

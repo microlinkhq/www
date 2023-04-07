@@ -9,22 +9,21 @@ import Tabs from '../Tabs'
 import Flex from '../Flex'
 import Box from '../Box'
 
-export const SelectLanguage = ({ isDark, value, onClick, ...props }) => {
-  const color = cx(isDark ? 'white' : 'black')
-
-  return (
-    <Tabs
-      color={color}
-      value={value}
-      onClick={event => {
-        event.preventDefault()
-        const label = event.target.textContent
-        onClick(label)
-      }}
-      {...props}
-    />
-  )
-}
+export const SelectLanguage = ({ isDark, value, onClick, ...props }) => (
+  <Tabs
+    color={isActive => {
+      const id = isDark ? 'white' : 'black'
+      return cx(isActive ? id : `${id}50`)
+    }}
+    value={value}
+    onClick={event => {
+      event.preventDefault()
+      const label = event.target.textContent
+      onClick(label)
+    }}
+    {...props}
+  />
+)
 
 const Actions = styled(Flex)`
   position: relative;

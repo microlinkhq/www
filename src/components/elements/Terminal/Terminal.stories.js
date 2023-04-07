@@ -47,16 +47,20 @@ const cliCode = (
     </Box>
     <Box pt={3}>
       <Box>
-        <SpanKey>uri</SpanKey>{' '}
+        {'  '}
+        <SpanKey>uri</SpanKey>
         <Span>
           https://api.microlink.io?url=https://kikobeats.com?&screenshot&embed=screenshot.url
         </Span>
       </Box>
       <Box>
-        <SpanKey>cache</SpanKey> <Span>MISS</Span>
+        <SpanKey>cache</SpanKey>
+        <Span>MISS</Span>
       </Box>
       <Box>
-        <SpanKey>cache</SpanKey> <Span>prerender (4654.865ms)</Span>
+        {' '}
+        <SpanKey>mode</SpanKey>
+        <Span>prerender (4654.865ms)</Span>
       </Box>
     </Box>
   </>
