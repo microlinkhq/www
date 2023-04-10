@@ -20,27 +20,27 @@ import {
 
 const getTitle = paymentState => {
   switch (paymentState) {
-    case PAYMENT_STATE.PROCESSING:
+    case PAYMENT_STATE.processing:
       return 'Just a moment'
-    case PAYMENT_STATE.SUCCESS:
+    case PAYMENT_STATE.success:
       return 'Thank you'
-    case PAYMENT_STATE.FAILED:
+    case PAYMENT_STATE.failed:
       return 'Whoops'
   }
 }
 
 const getCaption = paymentState => {
   switch (paymentState) {
-    case PAYMENT_STATE.PROCESSING:
+    case PAYMENT_STATE.processing:
       return (
         <>
           We’re confirming your payment
           <DotSpinner />
         </>
       )
-    case PAYMENT_STATE.SUCCESS:
+    case PAYMENT_STATE.success:
       return 'Payment confirmed, check your inbox.'
-    case PAYMENT_STATE.FAILED:
+    case PAYMENT_STATE.failed:
       return (
         <Box>
           Payment not processed.
@@ -57,7 +57,7 @@ const getCaption = paymentState => {
 }
 
 const PaymentPage = () => {
-  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.PROCESSING)
+  const [paymentState, setPaymentState] = useState(PAYMENT_STATE.processing)
   const [query] = useQueryState()
   const size = useWindowSize()
 
@@ -66,7 +66,7 @@ const PaymentPage = () => {
   return (
     <Layout>
       <Container alignItems='center' pt={5}>
-        {paymentState === PAYMENT_STATE.SUCCESS && (
+        {paymentState === PAYMENT_STATE.success && (
           <Confetti
             colors={[
               colors.red5,

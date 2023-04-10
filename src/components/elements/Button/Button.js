@@ -18,6 +18,8 @@ export const disabledStyle = createCssState({
   selector: '&:disabled',
   state: 'disabled',
   css: css`
+    opacity: 0.8;
+    cursor: not-allowed;
     background-color: ${colors.black05};
     color: ${colors.black50};
     cursor: not-allowed;
