@@ -1,30 +1,15 @@
 import React, { Component, createElement } from 'react'
-import styled from 'styled-components'
-import { colors } from 'theme'
 
-import Flex from '../../components/elements/Flex'
 import SpinnerIcon from '../../components/elements/Spinner'
+import Flex from '../../components/elements/Flex'
 
 export const withSpinner = ChildComponent => {
-  const Spinner = styled(ChildComponent)`
-    &&& {
-      background-color: ${props => colors[props.color]};
-      color: ${colors.black50};
-      cursor: not-allowed;
-      box-shadow: 0 0 0 1px ${props => colors[props.bg]};
-    }
-    .path {
-      stroke: ${props => colors[props.bg]};
-      opacity: 1;
-    }
-  `
-
   const SpinnerButton = ({ children, ...props }) => (
-    <Spinner state='hover' {...props}>
+    <ChildComponent state='hover' {...props}>
       <Flex justifyContent='center' textAlign='center'>
         {children}
       </Flex>
-    </Spinner>
+    </ChildComponent>
   )
 
   class SpinnerWrapper extends Component {
@@ -48,6 +33,7 @@ export const withSpinner = ChildComponent => {
           SpinnerButton,
           {
             ...props,
+            disabled: true,
             style: { width, cursor: 'wait' }
           },
           children

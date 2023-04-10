@@ -8,10 +8,8 @@ import React, { useState } from 'react'
 const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const {
-    paymentApiKey: apiKey,
-    paymentEndpoint: apiEndpoint
-  } = useSiteMetadata()
+  const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } =
+    useSiteMetadata()
 
   const handleCheckout = async () => {
     setIsLoading(true)

@@ -130,13 +130,12 @@ const CheckoutForm = ({
         }}
       />
       <Button
+        loading={!stripe || paymentState === PAYMENT_STATE.processing}
         mt={3}
-        loading={paymentState === PAYMENT_STATE.processing}
         type='submit'
-        disabled={!stripe}
         width='100%'
       >
-        <Caps fontSize={1}>{!stripe ? 'Loading' : 'Update Card'}</Caps>
+        <Caps fontSize={1}>Update Card</Caps>
       </Button>
     </form>
   )
