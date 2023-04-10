@@ -1,200 +1,234 @@
 /* global fetch */
 
+import { useFingerprint, useSiteMetadata, useQueryState } from 'components/hook'
+import { colors, fonts, fontWeights, layout, radii, transition } from 'theme'
 import { Caption, Layout } from 'components/patterns'
 import { loadStripe } from '@stripe/stripe-js/pure'
-import { useSiteMetadata } from 'components/hook'
-import { encode, decode } from 'helpers'
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
+import { encode } from 'helpers'
 
 import {
-  Choose,
   Box,
   Button,
   Caps,
+  Confetti,
   Container,
+  DotSpinner,
   Heading,
-  LinkSolid,
-  Notification
+  Link,
+  Meta
 } from 'components/elements'
 
 import {
   Elements,
-  CardElement,
+  PaymentElement,
   useStripe,
   useElements
 } from '@stripe/react-stripe-js'
-
-import {
-  fontSizes,
-  fonts,
-  transition,
-  layout,
-  letterSpacings,
-  colors
-} from 'theme'
 
 import {
   PAYMENT_STATE,
   ERROR_MAIL_OPTS
 } from 'components/pages/payment/constants'
 
-const Form = styled.form`
-  .StripeElement {
-    background: white;
-    border-radius: 4px;
-    border: 1px solid ${colors.gray2};
-    display: block;
-    max-width: 100%;
-    padding: 10px 14px;
-    transition: border-color ${transition.short}, color ${transition.short};
-  }
-  .StripeElement--focus {
-    border-color: ${colors.black50};
-  }
+const redirectUrl = (paymentState, id) => {
+  const url = window.location.origin + window.location.pathname
+  return paymentState === 'callback'
+    ? `${url}?id=${id}&status=redirected`
+    : `${url}?status=${paymentState}`
+}
 
-  .StripeElement--invalid {
-    color: ${colors.red8};
-    border-color: ${colors.red8};
+const getTitle = paymentState => {
+  switch (paymentState) {
+    case PAYMENT_STATE.success:
+      return 'Thank you'
+    case PAYMENT_STATE.failed:
+      return 'Whoops'
+    default:
+      return 'Payment details'
   }
-`
+}
 
-const CheckoutForm = ({ apiEndpoint, apiKey }) => {
-  const [paymentState, setPaymentState] = useState(null)
+const getCaption = paymentState => {
+  switch (paymentState) {
+    case PAYMENT_STATE.redirected:
+      return (
+        <>
+          Don’t close the window
+          <DotSpinner />
+        </>
+      )
+    case PAYMENT_STATE.success:
+      return 'Payment updated, check your inbox.'
+    case PAYMENT_STATE.failed:
+      return (
+        <>
+          Payment not updated.{' '}
+          <Link href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}>
+            Contact us
+          </Link>
+          .
+        </>
+      )
+    default:
+      return 'Fill the new credit card and they will be associated with your customer profile.'
+  }
+}
 
-  const stripe = useStripe()
+const CheckoutForm = ({
+  fingerprint,
+  id,
+  paymentState,
+  setPaymentState,
+  token
+}) => {
   const elements = useElements()
+  const stripe = useStripe()
 
   const handleSubmit = async event => {
-    // Block native form submission.
     event.preventDefault()
-
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return
-    }
-
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const cardElement = elements.getElement(CardElement)
-
-    setPaymentState(PAYMENT_STATE.PROCESSING)
-
-    stripe
-      .createToken(cardElement)
-      .then(({ token }) =>
-        fetch(`${apiEndpoint}/payment/update`, {
-          headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
-          method: 'POST',
-          body: JSON.stringify({
-            customerId: decode(window.location.search).id,
-            token
-          })
-        })
-      )
-      .then(() => setPaymentState(PAYMENT_STATE.SUCCESS))
-      .catch(err => {
-        console.error(err)
-        setPaymentState(PAYMENT_STATE.FAILED)
+    if ((await elements.submit()).error) return
+    setPaymentState(PAYMENT_STATE.processing)
+    const returnUrl = redirectUrl('callback', id)
+    try {
+      const { error } = await stripe.confirmSetup({
+        clientSecret: token,
+        elements,
+        confirmParams: {
+          return_url: returnUrl,
+          payment_method_data: {
+            billing_details: {
+              address: {
+                country: fingerprint.country,
+                postal_code: 'never'
+              }
+            }
+          }
+        }
       })
+      if (error) throw error
+      setPaymentState(PAYMENT_STATE.success)
+    } catch (error) {
+      console.error(error)
+      setPaymentState(PAYMENT_STATE.failed)
+    }
   }
 
   return (
-    <>
-      {paymentState && (
-        <Choose>
-          <Choose.When condition={paymentState === PAYMENT_STATE.PROCESSING}>
-            <Notification.Success>Processing...</Notification.Success>
-          </Choose.When>
-          <Choose.When condition={paymentState === PAYMENT_STATE.SUCCESS}>
-            <Notification.Success>
-              Payment updated! We sent you an email.
-            </Notification.Success>
-          </Choose.When>
-          <Choose.When condition={paymentState === PAYMENT_STATE.FAILED}>
-            <Notification.Error>
-              Payment not updated.{' '}
-              <LinkSolid
-                display='inline'
-                color='red8'
-                href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
-              >
-                Contact us
-              </LinkSolid>
-              .
-            </Notification.Error>
-          </Choose.When>
-        </Choose>
-      )}
-      <Form onSubmit={handleSubmit}>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: fontSizes[1],
-                color: colors.black,
-                letterSpacing: letterSpacings[2],
-                fontFamily: fonts.sans,
-                '::placeholder': {
-                  color: colors.gray5
-                }
-              },
-              invalid: {
-                color: colors.red8
+    <form onSubmit={handleSubmit}>
+      <PaymentElement
+        options={{
+          fields: {
+            billingDetails: {
+              address: {
+                country: 'never',
+                postalCode: 'never'
               }
             }
-          }}
-        />
-        <Button
-          mt={3}
-          loading={paymentState === PAYMENT_STATE.PROCESSING}
-          type='submit'
-          disabled={!stripe}
-          width='100%'
-        >
-          <Caps fontSize={1}>{!stripe ? 'Loading' : 'Update Card'}</Caps>
-        </Button>
-      </Form>
-    </>
+          }
+        }}
+      />
+      <Button
+        loading={!stripe || paymentState === PAYMENT_STATE.processing}
+        mt={3}
+        type='submit'
+        width='100%'
+      >
+        <Caps fontSize={1}>Update Card</Caps>
+      </Button>
+    </form>
   )
 }
 
+export const Head = () => <Meta title='Payment' />
+
 const PaymentUpdatePage = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [query] = useQueryState()
   const {
     stripeKey,
     paymentApiKey: apiKey,
     paymentEndpoint: apiEndpoint
   } = useSiteMetadata()
-
   const stripePromise = loadStripe(stripeKey, { locale: 'en' })
+  const fingerprint = useFingerprint()
+
+  const [paymentState, setPaymentState] = useState(
+    query.status ?? PAYMENT_STATE.initial
+  )
+
+  useEffect(() => {
+    if (paymentState === PAYMENT_STATE.redirected && fingerprint) {
+      fetch(`${apiEndpoint}/payment/update`, {
+        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+        method: 'POST',
+        body: JSON.stringify({
+          ipAddress: fingerprint.ip,
+          customerId: query.id
+        })
+      })
+        .then(() => (window.location = redirectUrl(PAYMENT_STATE.success)))
+        .catch(() => (window.location = redirectUrl(PAYMENT_STATE.failed)))
+    }
+  }, [apiEndpoint, apiKey, paymentState, fingerprint, query.id])
+
+  useEffect(() => setIsLoading(false), [])
 
   return (
     <Layout>
-      <Container
-        justifyContent='center'
-        alignItems='center'
-        pt={5}
-        pb={Container.defaultProps.pt}
-      >
+      <Container pt={2} justifyContent='center' alignItems='center'>
+        {paymentState === PAYMENT_STATE.success && <Confetti />}
         <Heading px={5} titleize={false} maxWidth={layout.large}>
-          Payment details
+          {getTitle(isLoading ? PAYMENT_STATE.redirected : paymentState)}
         </Heading>
+
         <Caption
           pt={[3, 3, 4, 4]}
           px={[4, 4, 0, 0]}
           titleize={false}
           maxWidth={layout.small}
         >
-          Fill the new credit card and they will be associated with your
-          customer profile.
+          {getCaption(isLoading ? PAYMENT_STATE.redirected : paymentState)}
         </Caption>
-        <Box pt={[3, 3, 4, 4]} width={7}>
-          <Elements stripe={stripePromise}>
-            <CheckoutForm apiKey={apiKey} apiEndpoint={apiEndpoint} />
-          </Elements>
-        </Box>
+        {!isLoading && !query.status && (
+          <Box pt={[3, 3, 4, 4]} width={7}>
+            <Elements
+              stripe={stripePromise}
+              options={{
+                mode: 'setup',
+                currency: 'eur',
+                appearance: {
+                  theme: 'stripe',
+                  variables: {
+                    borderRadius: radii[2],
+                    colorDanger: colors.fullscreen,
+                    colorTextPlaceholder: colors.black30,
+                    colorTextSecondary: colors.black50,
+                    fontFamily: fonts.sans,
+                    fontWeightNormal: fontWeights.normal
+                  },
+                  rules: {
+                    '.Input': {
+                      transition: `all ${transition.medium}`
+                    },
+                    '.Label': {
+                      margin: '-18px 0 0 0',
+                      color: 'transparent'
+                    }
+                  }
+                }
+              }}
+            >
+              <CheckoutForm
+                fingerprint={fingerprint}
+                id={query.id}
+                paymentState={paymentState}
+                setPaymentState={setPaymentState}
+                token={query.token}
+              />
+            </Elements>
+          </Box>
+        )}
       </Container>
     </Layout>
   )

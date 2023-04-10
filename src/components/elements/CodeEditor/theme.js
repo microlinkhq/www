@@ -49,8 +49,10 @@ const theme = {
   }
 }
 
-export default {
+const codeTheme = {
   theme,
   light: base(theme.light),
   dark: base(theme.dark)
 }
+
+export default codeTheme

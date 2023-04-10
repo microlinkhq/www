@@ -18,10 +18,17 @@ export const disabledStyle = createCssState({
   selector: '&:disabled',
   state: 'disabled',
   css: css`
-    background-color: ${colors.black05};
-    color: ${colors.black50};
-    cursor: not-allowed;
-    box-shadow: 0 0 0 1px ${colors.black20};
+    &&& {
+      opacity: 0.8;
+      cursor: not-allowed;
+      background-color: ${colors.black05};
+      color: ${colors.black50};
+      cursor: not-allowed;
+      box-shadow: 0 0 0 1px ${colors.black20};
+      .path {
+        stroke: ${colors.black30};
+      }
+    }
   `
 })
 

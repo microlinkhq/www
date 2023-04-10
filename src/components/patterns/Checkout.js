@@ -8,10 +8,8 @@ import React, { useState } from 'react'
 const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const {
-    paymentApiKey: apiKey,
-    paymentEndpoint: apiEndpoint
-  } = useSiteMetadata()
+  const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } =
+    useSiteMetadata()
 
   const handleCheckout = async () => {
     setIsLoading(true)
@@ -22,8 +20,8 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
         method: 'POST',
         body: JSON.stringify({
           planId,
-          successUrl: `${canonicalUrl}/payment?state=success`,
-          cancelUrl: `${canonicalUrl}/payment?state=failed`
+          successUrl: `${canonicalUrl}/payment?status=success`,
+          cancelUrl: `${canonicalUrl}/payment?status=failed`
         })
       }).then(res => res.json()),
       loadStripe(stripeKey, { locale: 'en' })

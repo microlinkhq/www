@@ -1,7 +1,9 @@
 export const PAYMENT_STATE = {
-  PROCESSING: 'processing',
-  SUCCESS: 'success',
-  FAILED: 'failed'
+  initial: 'initial',
+  processing: 'processing',
+  redirected: 'redirected',
+  success: 'success',
+  failed: 'failed'
 }
 
 export const ERROR_MAIL_OPTS = {
