@@ -11,6 +11,7 @@ import {
   Box,
   Button,
   Caps,
+  Confetti,
   Container,
   DotSpinner,
   Heading,
@@ -54,7 +55,7 @@ const getCaption = paymentState => {
     case PAYMENT_STATE.redirected:
       return (
         <>
-          We’re confirming it
+          We’re processing the changes
           <DotSpinner />
         </>
       )
@@ -169,11 +170,12 @@ const PaymentUpdatePage = () => {
         .then(() => (window.location = redirectUrl(PAYMENT_STATE.success)))
         .catch(() => (window.location = redirectUrl(PAYMENT_STATE.failed)))
     }
-  }, [fingerprint])
+  }, [apiEndpoint, apiKey, paymentState, fingerprint, query.id])
 
   return (
     <Layout>
       <Container pt={2} justifyContent='center' alignItems='center'>
+        {paymentState === PAYMENT_STATE.success && <Confetti />}
         <Heading px={5} titleize={false} maxWidth={layout.large}>
           {getTitle(paymentState)}
         </Heading>

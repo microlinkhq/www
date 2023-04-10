@@ -1,16 +1,16 @@
-import { useWindowSize, useQueryState } from 'components/hook'
 import { Caption, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
-import { layout, colors } from 'theme'
-import Confetti from 'react-confetti'
+import { useQueryState } from 'components/hook'
 import { encode } from 'helpers'
+import { layout } from 'theme'
 
 import {
-  Container,
-  Heading,
   Box,
-  LinkSolid,
-  DotSpinner
+  Confetti,
+  Container,
+  DotSpinner,
+  Heading,
+  LinkSolid
 } from 'components/elements'
 
 import {
@@ -59,32 +59,13 @@ const getCaption = paymentState => {
 const PaymentPage = () => {
   const [paymentState, setPaymentState] = useState(PAYMENT_STATE.processing)
   const [query] = useQueryState()
-  const size = useWindowSize()
 
   useEffect(() => setPaymentState(query.state), [query.state])
 
   return (
     <Layout>
       <Container alignItems='center' pt={5}>
-        {paymentState === PAYMENT_STATE.success && (
-          <Confetti
-            colors={[
-              colors.red5,
-              colors.pink5,
-              colors.grape5,
-              colors.violet5,
-              colors.indigo5,
-              colors.blue5,
-              colors.cyan5,
-              colors.teal5,
-              colors.green5,
-              colors.lime5,
-              colors.yellow5,
-              colors.orange5
-            ]}
-            {...size}
-          />
-        )}
+        {paymentState === PAYMENT_STATE.success && <Confetti />}
         <Heading px={5} titleize={false} maxWidth={layout.large}>
           {getTitle(paymentState)}
         </Heading>

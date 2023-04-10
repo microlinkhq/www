@@ -1,65 +1,58 @@
 import { withTitle } from 'helpers/hoc'
 
-import Button from './Button'
-import { Link, LinkSolid } from './Link'
-
-import BlockLink from './BlockLink'
-import AnimatedBox from './AnimatedBox'
-import Box from './Box'
-
-import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
-import Meta from './Meta/Meta'
-import Placeholder from './Placeholder/Placeholder'
-import CodeEditor from './CodeEditor/CodeEditor'
-import PriceMonthly from './PriceMonthly'
-import Container from './Container'
 import { Fixed } from './Position'
-import CodeCopy from './Codecopy'
+import { Link, LinkSolid } from './Link'
+import AnimatedBox from './AnimatedBox'
+import Badge from './Badge/Badge'
+import BlockLink from './BlockLink'
+import Box from './Box'
+import Button from './Button'
+import Caps from './Caps'
 import Card from './Card/Card'
 import Choose from './Choose'
-import Flex from './Flex'
-import If from './If'
-
-import Hide from './Hide'
+import CodeCopy from './Codecopy'
+import CodeEditor from './CodeEditor/CodeEditor'
 import Color from './Color/Color'
-import Tweet from './Tweet/Tweet'
+import Confetti from './Confetti'
+import Container from './Container'
+import Dot from './Dot/Dot'
+import DotSpinner from './DotSpinner'
+import Flex from './Flex'
+import HeadingBase from './Heading'
+import Hide from './Hide'
+import Highlight from './Highlight'
+import If from './If'
+import Iframe from './Iframe/Iframe'
+import IframeInline from './IframeInline/IframeInline'
 import Image from './Image/Image'
-import Video from './Video/Video'
 import Input from './Input/Input'
 import InputIcon from './Input/InputIcon'
-import Badge from './Badge/Badge'
-import Dot from './Dot/Dot'
-
+import Label from './Label'
+import LineBreak from './LineBreak'
+import Meta from './Meta/Meta'
+import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
 import Notification from './Notification/Notification'
+import Placeholder from './Placeholder/Placeholder'
+import PriceMonthly from './PriceMonthly'
 import PricePicker from './PricePicker'
-import Highlight from './Highlight'
+import Runkit from './Runkit/Runkit'
 import Select from './Select/Select'
 import Spinner from './Spinner'
-
+import SubheadBase from './Subhead'
 import Svg from './Svg'
 import Terminal from './Terminal/Terminal'
-
-import Toolbar from './Toolbar'
-import DotSpinner from './DotSpinner'
-import Tooltip from './Tooltip/Tooltip'
+import Text from './Text'
 import Toggle from './Toggle/Toggle'
-import LineBreak from './LineBreak'
+import Toolbar from './Toolbar'
+import Tooltip from './Tooltip/Tooltip'
+import Tweet from './Tweet/Tweet'
+import Unavatar from './Unavatar/Unavatar'
+import Video from './Video/Video'
 
 import {
   BackgroundSlider,
   BackgroundSliderContainer
 } from './BackgroundSlider/BackgroundSlider'
-
-import Caps from './Caps'
-import HeadingBase from './Heading'
-import Label from './Label'
-import SubheadBase from './Subhead'
-import Text from './Text'
-import Iframe from './Iframe/Iframe'
-import IframeInline from './IframeInline/IframeInline'
-
-import Unavatar from './Unavatar/Unavatar'
-import Runkit from './Runkit/Runkit'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -78,6 +71,7 @@ export {
   CodeCopy,
   CodeEditor,
   Color,
+  Confetti,
   Container,
   Dot,
   DotSpinner,
