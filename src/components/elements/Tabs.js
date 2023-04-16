@@ -7,6 +7,19 @@ import Text from './Text'
 import Flex from './Flex'
 import Box from './Box'
 
+const StyledTab = styled(Box)`
+  list-style: none;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 12px;
+  padding-bottom: ${space[2]};
+
+  ${is('active')`
+    border-bottom: 1px solid ${props => props.background};
+  `};
+`
+
 const Tabs = ({ children, ...props }) => (
   <Flex
     as='ul'
@@ -26,7 +39,7 @@ const Tabs = ({ children, ...props }) => (
           as='li'
           active={isActive}
           key={lang}
-          color={props.color(isActive)}
+          color={props.$color(isActive)}
           background={props.background}
         >
           <Text lineHeight={0} fontSize='12px'>
@@ -37,18 +50,5 @@ const Tabs = ({ children, ...props }) => (
     })}
   </Flex>
 )
-
-const StyledTab = styled(Box)`
-  list-style: none;
-  width: 100%;
-  text-align: center;
-  cursor: pointer;
-  margin-right: 12px;
-  padding-bottom: ${space[2]};
-
-  ${is('active')`
-    border-bottom: 1px solid ${props => props.background};
-  `};
-`
 
 export default Tabs

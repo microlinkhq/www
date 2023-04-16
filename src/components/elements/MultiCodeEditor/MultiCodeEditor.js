@@ -11,7 +11,7 @@ import Box from '../Box'
 
 export const SelectLanguage = ({ isDark, value, onClick, ...props }) => (
   <Tabs
-    color={isActive => {
+    $color={isActive => {
       const id = isDark ? 'white' : 'black'
       return cx(isActive ? id : `${id}50`)
     }}
