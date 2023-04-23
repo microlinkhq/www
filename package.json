@@ -122,7 +122,6 @@
     "gatsby-transformer-json": "~5.8.0",
     "gatsby-transformer-remark": "~6.8.0",
     "gatsby-transformer-yaml": "~5.8.0",
-    "git-jiggy": "~1.1.1",
     "github-slugger": "~2.0.0",
     "got": "~11.8.6",
     "humanize-url": "~3.0.0",
