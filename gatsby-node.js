@@ -1,39 +1,27 @@
 'use strict'
 
-const { getCurrentBranchName, getLastModifiedDate } = require('git-jiggy')
 const { createFilePath } = require('gatsby-source-filesystem')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
 const { getDomain } = require('tldts')
+const { promisify } = require('util')
 const path = require('path')
+
+const exec = promisify(require('child_process').exec)
+exec.stdout = (...args) => exec(...args).then(({ stdout }) => stdout.trim())
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
 )
 
-const getLastEdited = async filepath => {
-  let date
-  try {
-    date = await getLastModifiedDate(filepath)
-  } catch (err) {
-    date = new Date().toISOString()
-  }
-  return date
-}
+const getLastModifiedDate = filepath =>
+  exec.stdout(`git log --max-count=1 --format="%cI" -- ${filepath}`)
 
-const getBranchName = async () => {
-  let result = 'master'
-  try {
-    result = await getCurrentBranchName()
-  } catch (_) {}
-  return result.replace('HEAD', 'master')
-}
+const branchName = exec.stdout('git rev-parse --abbrev-ref HEAD')
 
 const githubUrl = (() => {
-  let branchName
   return async filepath => {
-    const branch = branchName || (branchName = await getBranchName())
-    const base = `https://github.com/microlinkhq/www/blob/${branch}`
+    const base = `https://github.com/microlinkhq/www/blob/${await branchName}`
     const relative = filepath.replace(process.cwd(), '')
     return base + relative
   }
@@ -159,7 +147,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       component: path.resolve('./src/templates/index.js'),
       context: {
         githubUrl: await githubUrl(node.fileAbsolutePath),
-        lastEdited: await getLastEdited(node.fileAbsolutePath),
+        lastEdited: await getLastModifiedDate(node.fileAbsolutePath),
         isBlogPage: node.fields.slug.startsWith('/blog/'),
         isDocPage: node.fields.slug.startsWith('/docs/'),
         slug: node.fields.slug
