@@ -1,5 +1,5 @@
-import { toPx, cx, borders, layout, colors } from 'theme'
 import { cdnUrl, issueUrl, noop, trimMs } from 'helpers'
+import { toPx, borders, layout, colors } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -31,6 +31,7 @@ import {
   LineBreak,
   Link,
   Meta,
+  Placeholder,
   Subhead,
   Text,
   Tooltip
@@ -76,11 +77,10 @@ const IMAGE_PREVIEW_STYLE = [
 const getEmbedUrl = url =>
   getApiUrl(url, { palette: true, embed: 'logo.url' })[0]
 
-const LogoBox = styled(Box)`
+const LogoBox = styled(Placeholder.Empty)`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${cx('black10')};
   height: ${toPx(LOGO_SIZE + 2)};
   width: ${toPx(LOGO_SIZE + 2)};
 `
