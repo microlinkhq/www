@@ -6,7 +6,7 @@ import Placeholder from '../../components/elements/Placeholder/Placeholder'
 const compute = (obj, key, value) =>
   typeof obj[key] === 'function' ? obj[key](value) : obj[key]
 
-const isDataURI = str => str.startsWith('data:')
+const isDataURI = (str = '') => str.startsWith('data:')
 
 const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
   ...props,
@@ -18,8 +18,8 @@ const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
 
 export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
   const LazyWrapper = componentProps => {
-    const { [attr]: rawAttribute, ...props } = componentProps
     const [isLoading, setLoading] = useState(!isDataURI(componentProps[attr]))
+    const { [attr]: rawAttribute, ...props } = componentProps
     const compiledAttr = template(rawAttribute)
 
     useEffect(() => {
@@ -30,6 +30,10 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
         .then(() => setLoading(false))
         .catch(error => console.error('[hook/with-lazy]', error))
     }, [compiledAttr])
+
+    if (!componentProps[attr]) {
+      return createElement(Placeholder.Empty, componentProps)
+    }
 
     return createElement(
       isLoading ? Placeholder : Component,
