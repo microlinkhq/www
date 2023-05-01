@@ -13,13 +13,6 @@ const VA_SCRIPT = isDevelopment
 exports.onRenderBody = ({ setPostBodyComponents }) => {
   setPostBodyComponents([
     <script
-      key='crisp'
-      dangerouslySetInnerHTML={{
-        __html:
-          'window.$crisp=[];window.$crisp.push(["safe", true]);window.CRISP_WEBSITE_ID="94b59a37-2915-40fe-aacd-5e5301d746a5";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();'
-      }}
-    />,
-    <script
       key='va'
       dangerouslySetInnerHTML={{
         __html: `
