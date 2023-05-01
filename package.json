@@ -116,7 +116,7 @@
     "gatsby-plugin-canonical-urls": "~5.8.0",
     "gatsby-plugin-catch-links": "~5.8.0",
     "gatsby-plugin-sass": "~6.8.0",
-    "gatsby-plugin-styled-components": "~6.8.0",
+    "gatsby-plugin-styled-components": "~6.9.0",
     "gatsby-source-filesystem": "~5.8.0",
     "gatsby-transformer-javascript-frontmatter": "~5.8.0",
     "gatsby-transformer-json": "~5.8.0",
