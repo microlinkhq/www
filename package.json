@@ -121,7 +121,7 @@
     "gatsby-transformer-javascript-frontmatter": "~5.8.0",
     "gatsby-transformer-json": "~5.8.0",
     "gatsby-transformer-remark": "~6.8.0",
-    "gatsby-transformer-yaml": "~5.8.0",
+    "gatsby-transformer-yaml": "~5.9.0",
     "github-slugger": "~2.0.0",
     "got": "~11.8.6",
     "humanize-url": "~3.0.0",
