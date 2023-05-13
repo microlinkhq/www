@@ -1,8 +1,7 @@
 <div align="center">
-  <img src="https://cdn.microlink.io/logo/banner.png" alt="microlink logo">
+  <img src="https://github.com/microlinkhq/cdn/raw/master/dist/banner/cdn.png#gh-light-mode-only" alt="microlink logo">
+  <img src="https://github.com/microlinkhq/cdn/raw/master/dist/banner/cdn-dark.png#gh-dark-mode-only" alt="microlink logo">
 </div>
-
-###### [Documentation](https://microlink.io/docs) | [Design System](https://microlink.io/design) | [Community](https://microlink.io/community)
 
 ## License
 
