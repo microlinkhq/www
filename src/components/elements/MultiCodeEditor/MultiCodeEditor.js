@@ -17,7 +17,6 @@ export const SelectLanguage = ({ isDark, value, onClick, ...props }) => (
     }}
     value={value}
     onClick={event => {
-      event.preventDefault()
       const label = event.target.textContent
       onClick(label)
     }}

@@ -93,14 +93,13 @@ const EnterprisePage = () => {
           </Box>
           <Box pt={[2, 2, 3, 3]} color={secondary}>
             <GradientButton
-              onClick={event => {
-                event.preventDefault()
+              onClick={() =>
                 window.open(
                   'mailto:hello@microlink.io?subject=Microlink%20Enterprise&body=Hello%2C%20I%20want%20to%20upgrade%20my%20customer%20plan%20to%20Microlink%20Enterprise.%0D%0A%0D%0ACan%20you%20tell%20me%20more%20about%20the%20details%3F%0D%0A%0D%0AThank%20you!%0D%0A',
                   '_blank',
                   'noopener noreferrer'
                 )
-              }}
+              }
             >
               <Caps bg='black' px={3} py={2} color={primary}>
                 Get in touch

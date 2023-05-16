@@ -174,10 +174,9 @@ const RecipesPage = () => {
             <Subhead>Miss something?</Subhead>
             <Box pt={[4, 4, 0, 0]}>
               <Button
-                onClick={event => {
-                  event.preventDefault()
+                onClick={() =>
                   window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
-                }}
+                }
               >
                 <Caps>Request an Integration</Caps>
               </Button>
