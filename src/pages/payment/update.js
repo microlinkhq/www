@@ -34,7 +34,7 @@ import {
 const redirectUrl = (paymentState, id) => {
   const url = window.location.origin + window.location.pathname
   return paymentState === 'callback'
-    ? `${url}?id=${id}&status=redirected`
+    ? `${url}?id=${id}&status=${PAYMENT_STATE.redirected}`
     : `${url}?status=${paymentState}`
 }
 
@@ -89,13 +89,12 @@ const CheckoutForm = ({
     event.preventDefault()
     if ((await elements.submit()).error) return
     setPaymentState(PAYMENT_STATE.processing)
-    const returnUrl = redirectUrl('callback', id)
     try {
       const { error } = await stripe.confirmSetup({
         clientSecret: token,
         elements,
         confirmParams: {
-          return_url: returnUrl,
+          return_url: redirectUrl('callback', id),
           payment_method_data: {
             billing_details: {
               address: {
@@ -163,8 +162,9 @@ const PaymentUpdatePage = () => {
         headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
         method: 'POST',
         body: JSON.stringify({
+          customerId: query.id,
           ipAddress: fingerprint.ip,
-          customerId: query.id
+          setupIntentId: query.setup_intent
         })
       })
         .then(() => (window.location = redirectUrl(PAYMENT_STATE.success)))
