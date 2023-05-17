@@ -225,10 +225,8 @@ const FormatsPage = () => {
           <Subhead>Anything else?</Subhead>
           <Box p={[4, 4, 0, 0]}>
             <Button
-              onClick={event => {
-                event.preventDefault()
-                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
-              }}
+              onClick={event =>
+                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
             >
               <Caps>Request a format</Caps>
             </Button>
