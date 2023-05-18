@@ -163,7 +163,7 @@ const PaymentUpdatePage = () => {
         method: 'POST',
         body: JSON.stringify({
           customerId: query.id,
-          ipAddress: fingerprint.ip,
+          ipAddress: fingerprint.ipAddress,
           setupIntentId: query.setup_intent
         })
       })

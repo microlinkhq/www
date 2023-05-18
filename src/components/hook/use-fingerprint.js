@@ -9,7 +9,7 @@ const getFinterprint = once(() =>
     .then(res => res.json())
     .then(data => ({
       country: data.country.alpha2.toLowerCase(),
-      ip: data.ip.address
+      ipAddress: data.ip.address
     }))
 )
 
@@ -20,7 +20,6 @@ export const useFingerprint = () => {
     const data = localStorage.getItem('fingerprint')
     if (data) return setFingerprint(JSON.parse(data))
     getFinterprint().then(data => {
-      console.log(data)
       localStorage.setItem('fingerprint', JSON.stringify(data))
       setFingerprint(data)
     })
