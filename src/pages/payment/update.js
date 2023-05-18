@@ -106,7 +106,6 @@ const CheckoutForm = ({
         }
       })
       if (error) throw error
-      setPaymentState(PAYMENT_STATE.success)
     } catch (error) {
       console.error(error)
       setPaymentState(PAYMENT_STATE.failed)
@@ -181,7 +180,6 @@ const PaymentUpdatePage = () => {
         <Heading px={5} titleize={false} maxWidth={layout.large}>
           {getTitle(isLoading ? PAYMENT_STATE.redirected : paymentState)}
         </Heading>
-
         <Caption
           pt={[3, 3, 4, 4]}
           px={[4, 4, 0, 0]}
