@@ -6,6 +6,7 @@ import { Caption, Layout } from 'components/patterns'
 import { loadStripe } from '@stripe/stripe-js/pure'
 import React, { useEffect, useState } from 'react'
 import { encode } from 'helpers'
+import once from 'helpers/once'
 
 import {
   Box,
@@ -31,11 +32,15 @@ import {
   ERROR_MAIL_OPTS
 } from 'components/pages/payment/constants'
 
+const fetchOnce = once(fetch)
+
 const redirectUrl = (paymentState, id) => {
   const url = window.location.origin + window.location.pathname
-  return paymentState === 'callback'
-    ? `${url}?id=${id}&status=${PAYMENT_STATE.redirected}`
-    : `${url}?status=${paymentState}`
+  const query =
+    paymentState === 'callback'
+      ? { id, status: PAYMENT_STATE.redirected }
+      : { status: paymentState }
+  return `${url}?${new URLSearchParams(query).toString()}`
 }
 
 const getTitle = paymentState => {
@@ -157,7 +162,7 @@ const PaymentUpdatePage = () => {
 
   useEffect(() => {
     if (paymentState === PAYMENT_STATE.redirected && fingerprint) {
-      fetch(`${apiEndpoint}/payment/update`, {
+      fetchOnce(`${apiEndpoint}/payment/update`, {
         headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
         method: 'POST',
         body: JSON.stringify({

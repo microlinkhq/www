@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 
-const once = (fn, value) => () => value || (value = fn())
+import once from 'helpers/once'
 
 const getFinterprint = once(() =>
   fetch('https://geolocation.microlink.io')
@@ -13,8 +13,8 @@ const getFinterprint = once(() =>
     }))
 )
 
-export const useFingerprint = () => {
-  const [fingerprint, setFingerprint] = useState(null)
+export const useFingerprint = initialState => {
+  const [fingerprint, setFingerprint] = useState(initialState)
 
   useEffect(() => {
     const data = localStorage.getItem('fingerprint')

@@ -22,6 +22,7 @@ import isSSR from './is-ssr'
 import title from './title'
 import hash from './hash'
 import noop from './noop'
+import once from './once'
 
 export {
   aspectRatio,
@@ -40,6 +41,7 @@ export {
   issueUrl,
   mqlCode,
   noop,
+  once,
   pdfUrl,
   prettier,
   proxyImage,
