@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Script } from 'gatsby'
 
-const NODE_VERSION = '16'
+const NODE_VERSION = '18'
 
 const THEME = {
   light: 'untilted-3iiuludkfm6r',
