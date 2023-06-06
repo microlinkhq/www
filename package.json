@@ -100,7 +100,7 @@
     "@kikobeats/use-query-state": "1.2.2",
     "@microlink/mql": "~0.10.33",
     "@microlink/react": "~5.5.15",
-    "@microlink/recipes": "~1.7.0",
+    "@microlink/recipes": "~1.8.0",
     "@react-spring/web": "~9.7.2",
     "@stripe/react-stripe-js": "~2.1.0",
     "@stripe/stripe-js": "~1.54.0",
