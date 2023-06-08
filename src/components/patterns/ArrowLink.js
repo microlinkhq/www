@@ -1,14 +1,15 @@
 import FeatherIcon from 'components/icons/Feather'
 import { Link, Flex } from 'components/elements'
 import { Caption } from 'components/patterns'
-import React, { useState } from 'react'
+import { useHover } from 'components/hook'
+import React from 'react'
 
 const ArrowLink = ({ children, ...props }) => {
-  const [isHover, setIsHover] = useState(false)
+  const [ref, isHover] = useHover()
   const icon = isHover ? 'ArrowRight' : 'ChevronRight'
 
   return (
-    <Flex>
+    <Flex ref={ref}>
       <Link
         css={`
           > a {
@@ -16,8 +17,6 @@ const ArrowLink = ({ children, ...props }) => {
             align-items: center;
           }
         `}
-        onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
         fontSize={Caption.defaultProps.fontSize}
         icon={false}
         {...props}

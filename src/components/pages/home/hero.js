@@ -1,6 +1,7 @@
 import { Subhead, Box, Flex, Heading } from 'components/elements'
 import FeatherIcon from 'components/icons/Feather'
 import { Caption } from 'components/patterns'
+import { useHover } from 'components/hook'
 import { transition, layout } from 'theme'
 import { setSaturation } from 'polished'
 import React, { useState } from 'react'
@@ -22,21 +23,16 @@ const FlexLink = styled(Flex)`
 `
 
 const GridLink = ({ children, setColor, color, ...props }) => {
-  const [isHover, setIsHover] = useState(false)
+  const [ref, isHover] = useHover()
   const icon = isHover ? 'ArrowRight' : 'ArrowUpRight'
 
   return (
     <FlexLink
+      ref={ref}
       as='a'
       bg='white'
-      onMouseEnter={() => {
-        setColor(color)
-        setIsHover(true)
-      }}
-      onMouseLeave={() => {
-        setColor('')
-        setIsHover(false)
-      }}
+      onMouseEnter={() => setColor(color)}
+      onMouseLeave={() => setColor('')}
       flexDirection='column'
       alignItems='center'
       justifyContent='center'
