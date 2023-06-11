@@ -81,10 +81,10 @@ function Meta ({ script, ...props }) {
   return (
     <>
       {/* <!-- Search Engine --> */}
+      <title>{fullTitle}</title>
       <meta name='description' content={description} />
       <meta name='image' content={image} />
       <meta name='author' content={author} />
-      <title>{fullTitle}</title>
       {/* <!-- Schema.org for Google --> */}
       <meta itemProp='name' content={fullTitle} />
       <meta itemProp='description' content={description} />

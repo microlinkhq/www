@@ -3,11 +3,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function HTML (props) {
+export default function HTML(props) {
   return (
     <html lang='en' {...props.htmlAttributes}>
       <head>
+        {/* <!-- Basic --> */}
         <meta charSet='utf-8' />
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0'
+        />
+
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link
           rel='preconnect'
@@ -19,21 +25,17 @@ export default function HTML (props) {
           href='https://cdn.microlink.io'
           crossOrigin='anonymous'
         />
+
+        {props.headComponents}
+
         <link
           as='font'
           href='https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;700&display=swap'
         />
-        {props.headComponents}
 
-        {/* <!-- Basic --> */}
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0'
-        />
-
-        <meta httpEquiv='x-ua-compatible' content='ie=edge' />
         <meta property='apple-mobile-web-app-capable' content='yes' />
         <meta property='mobile-web-app-capable' content='yes' />
+
         {/* <!-- Favicon --> */}
 
         <link
