@@ -9,7 +9,7 @@ It sets the paper format for the [pdf](/docs/api/parameters/pdf) over the target
 
 <Iframe src="https://cdn.microlink.io/docs/caffeine.pdf" />
 
-<MultiCodeEditor languages={mqlCode('https://keygen.sh/blog/i-quit/', { pdf: true, format: 'A4' })} />
+<MultiCodeEditor languages={mqlCode('https://keygen.sh/blog/i-quit/', { pdf: { format: 'A4' } })} />
 
 The format options are:
 

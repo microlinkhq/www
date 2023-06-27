@@ -8,7 +8,7 @@ Values: <TypeContainer><Type children="'jpeg'"/> | <Type children="'png'"/></Typ
 
 It specifies the screenshot file type for the [screenshot](/docs/api/parameters/screenshot) over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { screenshot: true, type: 'jpeg' })} />
+<MultiCodeEditor languages={mqlCode('https://microlink.io', { screenshot: { type: 'jpeg' } })} />
 
 This query parameter just defines the file format to be used at asset generation. 
 

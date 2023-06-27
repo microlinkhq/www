@@ -9,4 +9,4 @@ It sets landscape orientation for the [pdf](/docs/api/parameters/pdf) over the t
 
 <Iframe src="https://cdn.microlink.io/docs/algolia.pdf" />
 
-<MultiCodeEditor languages={mqlCode('https://www.algolia.com', { pdf: true, landscape: true })} />
+<MultiCodeEditor languages={mqlCode('https://www.algolia.com', { pdf: { landscape: true } })} />
