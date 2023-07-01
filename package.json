@@ -123,7 +123,7 @@
     "gatsby-transformer-remark": "~6.11.0",
     "gatsby-transformer-yaml": "~5.11.0",
     "github-slugger": "~2.0.0",
-    "got": "~11.8.6",
+    "got": "~13.0.0",
     "humanize-url": "~3.0.0",
     "is-color": "~1.0.2",
     "is-url-http": "~2.3.5",
