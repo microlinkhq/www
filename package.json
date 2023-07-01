@@ -159,7 +159,7 @@
   "devDependencies": {
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
-    "@storybook/addon-a11y": "~6.5.16",
+    "@storybook/addon-a11y": "~7.0.24",
     "@storybook/addon-console": "1.2.3",
     "@storybook/addon-essentials": "~6.5.16",
     "@storybook/builder-webpack5": "~6.5.16",
