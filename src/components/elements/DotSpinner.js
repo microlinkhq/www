@@ -13,7 +13,7 @@ const DotSpinner = styled('span')`
     display: inline-table;
     white-space: pre;
     text-align: left;
-    content: '\\A.\\A..\\A...';
+    content: '${'\\A.\\A..\\A...'}';
     animation: ${dots} 2s steps(4) infinite;
   }
 `
