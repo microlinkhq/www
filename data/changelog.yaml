@@ -1,3 +1,14 @@
+- date: July 2023
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Upgraded to use the [new Chrome Headless engine](https://developer.chrome.com/articles/new-headless/).'
+    - '[Microlink Geolocation](https://geolocation.microlink.io): Added [asn](https://geolocation.microlink.io/?asn) support.'
+    - '[Browserless v10](https://browserless.js.org): new headless by default & better error handling.'
+
+- date: June 2023
+  notes:
+    - '[Browserless v9.12](https://browserless.js.org): Added [screencast](https://github.com/microlinkhq/browserless/tree/master/packages/screencast) package.'
+    - '[html-get](https://github.com/microlinkhq/html-get): Added cancelable support.'
+
 - date: February 2023
   notes:
     - '[Browserless v9.9](https://browserless.js.org): Upgraded to Lighthouse v10.'
