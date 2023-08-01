@@ -160,7 +160,7 @@
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "@ksmithut/prettier-standard": "latest",
-    "@storybook/addon-a11y": "~6.5.16",
+    "@storybook/addon-a11y": "~7.1.1",
     "@storybook/addon-console": "1.2.3",
     "@storybook/addon-essentials": "~6.5.16",
     "@storybook/builder-webpack5": "~6.5.16",
