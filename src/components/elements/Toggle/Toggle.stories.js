@@ -7,9 +7,8 @@ const code = `
 import { Toggle } from 'components/elements'
 
 export default () => (
-  <Toggle
-    children={['SDK', 'MQL', 'API']}>
-    defaultValue={'MQL'}
+  <Toggle defaultValue={'MQL'}>
+    {['SDK', 'MQL', 'API']}
   </Toggle>
 )
 `

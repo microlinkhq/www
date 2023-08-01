@@ -1,8 +1,6 @@
-import prettierStandalone from 'prettier/standalone'
-import prettierParserHtml from 'prettier/parser-html'
-import prettierParserGraphql from 'prettier/parser-graphql'
-import prettierParserMarkdown from 'prettier/parser-markdown'
-import parserBabel from 'prettier/parser-babel'
+import { format } from 'prettier/standalone'
+import estree from 'prettier/plugins/estree'
+import babel from 'prettier/plugins/babel'
 
 /**
  * https://prettier.io/docs/en/options.html
@@ -19,50 +17,49 @@ const PRETTIER_CONFIG = {
 
 const JS_OPTS = {
   parser: 'babel',
-  plugins: [parserBabel]
+  plugins: [babel, estree]
 }
 
 const JSON_OPTS = {
   parser: 'json',
-  plugins: [parserBabel]
+  plugins: [babel, estree]
 }
 
-const HTML_OPTS = {
-  parser: 'html',
-  plugins: [prettierParserHtml]
-}
-
-const GRAPHQL_OPTS = {
-  parser: 'graphql',
-  plugins: [prettierParserGraphql]
-}
-
-const MARKDOWN_OPTS = {
-  parser: 'markdown',
-  plugins: [prettierParserMarkdown]
-}
-
-export const serializeFmt = (props, { quotes = true } = {}) => {
+/**
+ * It turns an JS object:
+ *
+ * { foo: 'bar', apiKey: true }
+ *
+ * into fmt representation:
+ *
+ * `foo='bar' apiKey`
+ *
+ */
+export const serializeFmt = props => {
   return Object.keys(props).reduce((acc, rawKey) => {
     const rawValue = props[rawKey]
     const key = rawValue === true ? rawKey : `${rawKey}=`
     const value = (() => {
       if (rawValue === true) return ''
-
       if (Array.isArray(rawValue)) {
-        return `{[${rawValue.map(
-          value => `${quotes ? `'${value}'` : value}`
-        )}]}`
+        return `{[${rawValue.map(serializePrimitive).join(', ')}]}`
       }
-
-      return `${quotes ? `'${rawValue}'` : rawValue}`
+      return serializeValue(rawValue)
     })()
 
     return `${acc}${key}${value} `
   }, '')
 }
 
-export const serializeObject = (props, { quotes = true } = {}) => {
+const serializePrimitive = value =>
+  typeof value === 'object'
+    ? `{ ${serializeObject(value)} }`
+    : serializeValue(value)
+
+const serializeValue = value =>
+  typeof value === 'number' ? `{${value}}` : `'${value}'`
+
+const serializeObject = (props, { quotes = true } = {}) => {
   return Object.keys(props).reduce((acc, rawKey) => {
     const rawValue = props[rawKey]
     const key = rawValue === true ? rawKey : `${rawKey}: `
@@ -73,11 +70,10 @@ export const serializeObject = (props, { quotes = true } = {}) => {
   }, '')
 }
 
-const prettier = (code, opts) => {
+const prettier = async (code, opts) => {
   try {
-    return prettierStandalone
-      .format(code, { ...PRETTIER_CONFIG, ...opts })
-      .replace(';<', '<')
+    const pretty = await format(code, { ...PRETTIER_CONFIG, ...opts })
+    return pretty.replace(';<', '<')
   } catch (error) {
     if (error.name !== 'SyntaxError') console.error('[prettier]', error)
     return code
@@ -86,10 +82,7 @@ const prettier = (code, opts) => {
 
 prettier.jsx = prettier.js = (code, opts) =>
   prettier(code, { ...JS_OPTS, ...opts })
-prettier.html = (code, opts) => prettier(code, { ...HTML_OPTS, ...opts })
-prettier.graphql = (code, opts) => prettier(code, { ...GRAPHQL_OPTS, ...opts })
-prettier.md = prettier.markdown = (code, opts) =>
-  prettier(code, { ...MARKDOWN_OPTS, ...opts })
+
 prettier.json = (code, opts) => prettier(code, { ...JSON_OPTS, ...opts })
 
 export default prettier

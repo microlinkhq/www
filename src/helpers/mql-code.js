@@ -19,9 +19,7 @@ const stringify = input => {
 }
 
 stringify.python = input =>
-  stringify(input)
-    .replaceAll('true', 'True')
-    .replaceAll('false', 'False')
+  stringify(input).replaceAll('true', 'True').replaceAll('false', 'False')
 
 const endpoint = ({ endpoint, headers } = {}) => {
   const apiKey = headers && headers['x-api-key']
@@ -45,8 +43,8 @@ const stringProps = (props = {}) => {
         Array.isArray(props[key])
           ? stringify(props[key])
           : typeof props[key] === 'object'
-          ? `{${stringProps(props[key])}}`
-          : stringify(props[key])
+            ? `{${stringProps(props[key])}}`
+            : stringify(props[key])
       }${keys.length === 1 || keys.length - 1 === index ? '' : ', '}`,
     ''
   )
