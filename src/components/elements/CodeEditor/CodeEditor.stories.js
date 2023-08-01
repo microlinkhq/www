@@ -1,4 +1,4 @@
-import { Text, Box, CodeEditor } from 'components/elements'
+import { Text, Box, CodeEditor, Toggle } from 'components/elements'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import React from 'react'
@@ -120,6 +120,12 @@ const jsonCode = JSON.stringify(
 
 storiesOf('Elements', module).add('CodeEditor', () => (
   <Story name='CodeEditor'>
+    <Box mb={4}>
+      <Toggle defaultValue='Interactive'>
+        {['Interactive', 'Non Interactive']}
+      </Toggle>
+    </Box>
+
     <Box mb={4}>
       <Text color='gray6' mb={2} fontSize={0}>
         {"<CodeEditor title='mql.js' language='js'>"}

@@ -43,12 +43,10 @@ function Toggle ({ onChange, children, defaultValue }) {
               key={value}
               borderRight={!isLast ? 1 : null}
               borderColor={!isLast ? 'black05' : null}
+              pl={3}
+              pr={3}
             >
-              <ButtonToggle
-                style={{ minWidth: '64px' }}
-                active={isActive}
-                onClick={setAsActive(value)}
-              >
+              <ButtonToggle active={isActive} onClick={setAsActive(value)}>
                 <Caps
                   fontWeight={!isActive ? 'normal' : 'bold'}
                   color={isActive ? 'black80' : 'black40'}

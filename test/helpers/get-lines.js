@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import getLines from '../../src/helpers/get-lines'
+import getLines from '../../src/helpers/get-lines.js'
 
 const values = [
   ['', null],
