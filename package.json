@@ -182,7 +182,8 @@
     "simple-git-hooks": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
-    "standard-version": "latest"
+    "standard-version": "latest",
+    "zx": "latest"
   },
   "engines": {
     "node": ">= 18"
