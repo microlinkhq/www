@@ -114,7 +114,7 @@
     "gatsby": "~5.11.0",
     "gatsby-plugin-advanced-sitemap": "~2.1.0",
     "gatsby-plugin-canonical-urls": "~5.11.0",
-    "gatsby-plugin-catch-links": "~5.11.0",
+    "gatsby-plugin-catch-links": "~5.12.0",
     "gatsby-plugin-sass": "~6.11.0",
     "gatsby-plugin-styled-components": "~6.11.0",
     "gatsby-source-filesystem": "~5.11.0",
