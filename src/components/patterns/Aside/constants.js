@@ -204,10 +204,6 @@ const ROUTES_API = [
         href: '/docs/api/parameters/click'
       },
       {
-        name: 'codeScheme',
-        href: '/docs/api/parameters/codeScheme'
-      },
-      {
         name: 'colorScheme',
         href: '/docs/api/parameters/colorScheme'
       },
@@ -341,6 +337,10 @@ const ROUTES_API = [
         name: 'screenshot',
         href: '/docs/api/parameters/screenshot',
         posts: [
+          {
+            name: 'codeScheme',
+            href: '/docs/api/parameters/codeScheme'
+          },
           {
             name: 'element',
             href: '/docs/api/parameters/screenshot/element'
