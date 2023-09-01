@@ -15,7 +15,11 @@ It creates a beauty [screenshot](/docs/api/parameters/screenshot) composition us
   }
 } })} />
 
+<H5 titleize={false}>browser</H5>
+
 An overlay is specified as `browser` theme, being <Type children="'light'"/>` and <Type children="'dark'"/> supported.
+
+<H5 titleize={false}>background</H5>
 
 Additionally, you can setup a `background` color, where the color can be defined as:
  
