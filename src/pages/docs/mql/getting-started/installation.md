@@ -8,7 +8,13 @@ title: 'Installation'
 npm install @microlink/mql --save
 ```
 
-It has been designed to be consumed in different ways, one of the most common being from **Node.js** using **CommonJS**:
+The package is fully typed and it has been designed for being consumed in different environments and ways.
+
+<H3 titleize={false}>From Node.js</H3>
+
+Any Node.js above v16.14 is supported. We recommend to run using the active TLS. Check [Node.js releases](https://nodejs.dev/en/about/releases/) to know more.
+
+Just require `@microlink/mql` dependency from your code:
 
 ```js
 const mql = require('@microlink/mql')
@@ -26,10 +32,16 @@ const { data } = await mql('https://kikobeats.com', {
 console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
 ```
 
-It's ready to be consumed as **ESM**:
+The same build is available for CommonJS and ESM.
+
+<H3 titleize={false}>From Edge</H3>
+
+If you are using [CloudFlare Workers](https://workers.cloudflare.com/), [Vercel Edge Functions](https://vercel.com/features/edge-functions), [Deno](https://deno.com/), or any other provider that supports [WinterCG](https://wintercg.org/), there is an special build takes advantage of Web Standard APIs.
+
+Just import `@microlink/mql/lightweight` from your code:
 
 ```js
-import mql from '@microlink/mql'
+import mql from '@microlink/mql/lightweight'
 
 const { data } = await mql('https://kikobeats.com', {
   data: {
@@ -44,12 +56,17 @@ const { data } = await mql('https://kikobeats.com', {
 console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
 ```
 
-Last but not least, it can be loaded as **UMD** in any browser:
+The same build is available for CommonJS and ESM.
+
+<H3 titleize={false}>From Browser</H3>
+
+Last but not least, MQL can be loaded from any browser directly from HTML markup:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@microlink/mql@latest/dist/mql.min.js"></script>
-<script>
-  mql('https://kikobeats.com', {
+<script type="module">
+  import mql from 'https://esm.sh/@microlink/mql'
+
+  const { data } = await mql('https://kikobeats.com', {
     data: {
       avatar: {
         selector: '#avatar',
@@ -57,19 +74,7 @@ Last but not least, it can be loaded as **UMD** in any browser:
         attr: 'src',
       }
     }
-  }).then(({data}) => {
-    console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
   })
+
+  console.log(`The avatar URL is '${data.avatar.url}' (${data.avatar.size_pretty})`)
 </script>
-```
-
-I case you need to consume it using UMD, keep in mind the [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) dependency is not included with the build bundle.
-
-Although it's [widely supported](https://caniuse.com/#feat=fetch), we recommend use [polyfill.io](https://polyfill.io/v3/) CDN for that purpose, it will only load polyfill if fetch is not globally detected.
-
-```html
-<script>
-  crossorigin="anonymous"
-  src="https://polyfill.io/v3/polyfill.min.js?features=fetch">
-</script>
-```
