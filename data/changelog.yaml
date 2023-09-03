@@ -1,3 +1,7 @@
+- date: August 2023
+  notes:
+    - '[Microlink MQL](/docs/mql/getting-started/overview): Fully typed; Added edge installation details.'
+
 - date: July 2023
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): Upgraded to use the [new Chrome Headless engine](https://developer.chrome.com/articles/new-headless/).'
