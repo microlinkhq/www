@@ -17,11 +17,11 @@ const RECIPES_BY_FEATURES_KEYS = Object.keys(
 const getLastModifiedDate = filepath =>
   exec.stdout(`git log --max-count=1 --format="%cI" -- ${filepath}`)
 
-const branchName = exec.stdout('git rev-parse --abbrev-ref HEAD')
+const branchName = () => exec.stdout('git rev-parse --abbrev-ref HEAD')
 
 const githubUrl = (() => {
   return async filepath => {
-    const base = `https://github.com/microlinkhq/www/blob/${await branchName}`
+    const base = `https://github.com/microlinkhq/www/blob/${await branchName()}`
     const relative = filepath.replace(process.cwd(), '')
     return base + relative
   }
