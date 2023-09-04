@@ -3,7 +3,6 @@
 const { identity, castArray, isEmpty } = require('lodash')
 const { readFile, writeFile } = require('fs/promises')
 const jsonFuture = require('json-future')
-const got = require('got')
 
 const existsFile = async filepath => {
   try {
@@ -14,12 +13,12 @@ const existsFile = async filepath => {
 }
 
 const fetchData = async url => {
-  const { headers, body } = await got(url, { responseType: 'buffer' })
+  const res = await fetch(url)
+  const body = Buffer.from(await res.arrayBuffer())
   if (isEmpty(body)) throw new Error('DATA_NOT_FOUND')
-  const contentType = headers['content-type']
+  const contentType = res.headers.get('content-type')
   const isJSON = contentType.includes('application/json')
   const data = isJSON ? JSON.parse(body) : body
-
   return { data, isJSON }
 }
 

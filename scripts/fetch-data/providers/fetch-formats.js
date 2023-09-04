@@ -5,7 +5,6 @@ const mql = require('@microlink/mql')
 const { sortBy } = require('lodash')
 const { getType } = require('mime')
 const path = require('path')
-const got = require('got')
 
 /* We avoid cdn.microlink.io explicity since it
   runs on top of CloudFlare and the compression
@@ -15,11 +14,13 @@ const MICROLINK_CDN_URL =
 
 const fileUrls = async () =>
   (
-    await got(`${MICROLINK_CDN_URL}/index.json`, {
+    await fetch(`${MICROLINK_CDN_URL}/index.json`, {
       responseType: 'json',
       resolveBodyOnly: true
     })
-  ).map(file => `${MICROLINK_CDN_URL}/${file}`)
+  )
+    .then(res => res.json())
+    .map(file => `${MICROLINK_CDN_URL}/${file}`)
 
 const getConfidence = formats => {
   const total =
