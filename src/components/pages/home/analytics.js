@@ -1,6 +1,5 @@
 import { Hide, Box, Caps, Flex, Subhead } from 'components/elements'
 import { Block, Caption } from 'components/patterns'
-import { useAnalytics } from 'components/hook'
 import { colors, borders } from 'theme'
 import styled from 'styled-components'
 import take from 'lodash/take'
@@ -12,9 +11,10 @@ const Separator = styled(Box)`
   width: 1px;
 `
 
-const Analytics = ({ color, ...props }) => {
-  const { reqs_pretty: reqsPretty, bytes_pretty: bytesPretty } = useAnalytics()
+import analyticsData from '../../../../data/analytics.json'
+const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
 
+const Analytics = ({ color, ...props }) => {
   const bytes = (() => {
     const [value, unit] = bytesPretty.split(' ')
     const fixedValue = Number(value).toFixed(0)
