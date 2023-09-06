@@ -1,10 +1,8 @@
 import { DotsBackground, Layout, Caption } from 'components/patterns'
 import { colors, space, layout, toPx, toRaw, fontSizes } from 'theme'
 import { cdnUrl, issueUrl, formatNumber } from 'helpers'
-import byFeature from '@microlink/recipes/by-feature'
 import React, { useState, useEffect } from 'react'
 import kebabCase from 'lodash/kebabCase'
-import recipes from '@microlink/recipes'
 import styled from 'styled-components'
 import { Eye } from 'react-feather'
 import { getDomain } from 'tldts'
@@ -25,7 +23,9 @@ import {
   Text
 } from 'components/elements'
 
-const RECIPES_BY_FEATURES_KEYS = Object.keys(byFeature)
+import recipes from '../../data/recipes.json'
+
+const allRecipesKeys = recipes.map(([key]) => key)
 
 const CARD_WIDTH = 300
 const CARDS_PER_ROW = 3
@@ -41,8 +41,6 @@ const CustomLink = styled(Link)`
   }
 `
 
-const allRecipes = Object.keys(recipes).sort()
-
 export const Head = () => (
   <Meta
     description='Just start with code. Instant integration, automating any site in a few lines.'
@@ -56,7 +54,7 @@ const RecipesPage = () => {
 
   useEffect(() => {
     window
-      .fetch(`https://count.vercel.app/recipes/${allRecipes.join(',')}`)
+      .fetch(`https://count.vercel.app/recipes/${allRecipesKeys.join(',')}`)
       .then(response => response.json())
       .then(setCounters)
       .catch(() => undefined)
@@ -104,11 +102,9 @@ const RecipesPage = () => {
             justifyContent='center'
             flexWrap='wrap'
           >
-            {allRecipes.map((recipeName, index) => {
-              const { meta } = recipes[recipeName]
+            {recipes.map(([recipeName, meta], index) => {
               const count = isLoaded && counters[index]
-
-              const isProvider = !RECIPES_BY_FEATURES_KEYS.includes(recipeName)
+              const isProvider = meta.type === 'provider'
               const url = isProvider && meta.examples[0]
               const domain = url ? getDomain(url) : 'microlink.io'
               const description = isProvider
