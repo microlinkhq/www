@@ -13,14 +13,9 @@ const MICROLINK_CDN_URL =
   'https://cdn-e6etw8l60-microlink.vercel.app/file-examples'
 
 const fileUrls = async () =>
-  (
-    await fetch(`${MICROLINK_CDN_URL}/index.json`, {
-      responseType: 'json',
-      resolveBodyOnly: true
-    })
+  (await fetch(`${MICROLINK_CDN_URL}/index.json`).then(res => res.json())).map(
+    file => `${MICROLINK_CDN_URL}/${file}`
   )
-    .then(res => res.json())
-    .map(file => `${MICROLINK_CDN_URL}/${file}`)
 
 const getConfidence = formats => {
   const total =

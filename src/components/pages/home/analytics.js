@@ -5,14 +5,15 @@ import styled from 'styled-components'
 import take from 'lodash/take'
 import React from 'react'
 
+import analyticsData from '../../../../data/analytics.json'
+
+const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
+
 const Separator = styled(Box)`
   border-right: ${borders[1]};
   border-color: ${colors.white20};
   width: 1px;
 `
-
-import analyticsData from '../../../../data/analytics.json'
-const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
 
 const Analytics = ({ color, ...props }) => {
   const bytes = (() => {
