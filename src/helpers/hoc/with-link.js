@@ -1,8 +1,8 @@
 /* global IntersectionObserver */
 
-import { ExternalLink as ExternalIcon } from 'react-feather'
+import { ArrowUpRight as ExternalIcon } from 'react-feather'
+import React, { useRef, useState, useEffect } from 'react'
 import { useLocation } from '@gatsbyjs/reach-router'
-import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { Link as GatsbyLink } from 'gatsby'
 
@@ -42,13 +42,19 @@ const linkIconWrapper = css`
 
 const Children = ({ children, icon }) => {
   if (!icon) return children
+  const [size, setSize] = useState(12)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const computedStyle = window.getComputedStyle(ref.current)
+    console.log(computedStyle['font-size'])
+    setSize(`calc(${computedStyle['font-size']} * 0.8)`)
+  }, [])
 
   return (
     <Flex alignItems='center' css={linkIconWrapper}>
       {children}
-      <Flex ml={1}>
-        <ExternalIcon size={14} color={colors.black20} />
-      </Flex>
+      <ExternalIcon ref={ref} size={size} />
     </Flex>
   )
 }

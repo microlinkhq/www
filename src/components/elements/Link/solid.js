@@ -41,6 +41,12 @@ const LinkSolidWrapper = styled(LinkBase)`
   ${style};
   ${hoverStyle};
 
+  &:hover {
+    svg {
+      stroke: #8c1bab;
+    }
+  }
+
   .active {
     text-decoration: inherit;
   }
