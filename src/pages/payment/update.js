@@ -174,7 +174,14 @@ const PaymentUpdatePage = () => {
         .then(() => (window.location = redirectUrl(PAYMENT_STATE.success)))
         .catch(() => (window.location = redirectUrl(PAYMENT_STATE.failed)))
     }
-  }, [apiEndpoint, apiKey, paymentState, fingerprint, query.id])
+  }, [
+    apiEndpoint,
+    apiKey,
+    paymentState,
+    fingerprint,
+    query.id,
+    query.setup_intent
+  ])
 
   useEffect(() => setIsLoading(false), [])
 

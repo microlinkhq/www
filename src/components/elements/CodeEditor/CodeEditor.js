@@ -103,7 +103,7 @@ const CodeEditor = ({
       setContent({ text: prettyText.trim(), isPretty: true })
     }
     asyncPretty()
-  }, [])
+  }, [content.text, language])
 
   const TerminalComponent = (
     <Terminal

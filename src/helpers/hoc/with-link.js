@@ -40,14 +40,12 @@ const linkIconWrapper = css`
   }
 `
 
-const Children = ({ children, icon }) => {
-  if (!icon) return children
+const Icon = ({ children }) => {
   const [size, setSize] = useState(12)
   const ref = useRef(null)
 
   useEffect(() => {
     const computedStyle = window.getComputedStyle(ref.current)
-    console.log(computedStyle['font-size'])
     setSize(`calc(${computedStyle['font-size']} * 0.8)`)
   }, [])
 
@@ -89,7 +87,7 @@ const withBaseLink = Component => {
     return (
       <Component {...props}>
         <LinkBase title={title} href={href} rel={rel} target={target}>
-          <Children icon={icon}>{children}</Children>
+          {icon ? <Icon>{children}</Icon> : children}
         </LinkBase>
       </Component>
     )
