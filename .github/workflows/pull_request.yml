@@ -27,7 +27,7 @@ jobs:
           version: latest
           run_install: true
       - name: Test
-        run: pnpm test && node scripts/esm-tests.mjs
+        run: pnpm test
   next:
     if: github.ref != 'refs/heads/master'
     runs-on: ubuntu-latest

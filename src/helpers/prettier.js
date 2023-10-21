@@ -1,6 +1,5 @@
 import { format } from 'prettier/standalone'
-import estree from 'prettier/plugins/estree'
-import babel from 'prettier/plugins/babel'
+import babel from 'prettier/parser-babel'
 
 /**
  * https://prettier.io/docs/en/options.html
@@ -17,12 +16,12 @@ const PRETTIER_CONFIG = {
 
 const JS_OPTS = {
   parser: 'babel',
-  plugins: [babel, estree]
+  plugins: [babel]
 }
 
 const JSON_OPTS = {
   parser: 'json',
-  plugins: [babel, estree]
+  plugins: [babel]
 }
 
 /**
@@ -70,9 +69,9 @@ const serializeObject = (props, { quotes = true } = {}) => {
   }, '')
 }
 
-const prettier = async (code, opts) => {
+const prettier = (code, opts) => {
   try {
-    const pretty = await format(code, { ...PRETTIER_CONFIG, ...opts })
+    const pretty = format(code, { ...PRETTIER_CONFIG, ...opts })
     return pretty.replace(';<', '<')
   } catch (error) {
     if (error.name !== 'SyntaxError') console.error('[prettier]', error)
