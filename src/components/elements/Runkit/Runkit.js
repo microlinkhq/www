@@ -25,7 +25,6 @@ const Runkit = ({ onLoad, placeholderComponent, theme, ...opts }) => {
         window.RunKit.createNotebook({
           clearParentContents: true,
           evaluateOnLoad: false,
-          getShareableURL: false,
           element,
           nodeVersion: NODE_VERSION,
           theme: THEME[theme],
