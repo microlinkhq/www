@@ -5,7 +5,7 @@
 
 - date: September 2023
   notes:
-    - '[Microlink MQL](/docs/mql/getting-started/overview): Added ESM support. Edge bundle isn't necessary anymore.'
+    - "[Microlink MQL](/docs/mql/getting-started/overview): Added ESM support. Edge bundle isn't necessary anymore."
     - '[Microlink API](/docs/api/getting-started/overview): All `logos` are square.'
     - '[Microlink API](/docs/api/getting-started/overview): Improved iframe resolution.'
 
