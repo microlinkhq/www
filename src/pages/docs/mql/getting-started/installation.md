@@ -8,11 +8,11 @@ title: 'Installation'
 npm install @microlink/mql --save
 ```
 
-The package is fully typed and it has been designed for being consumed in different environments and ways.
+The package is fully typed, and it has been designed for being consumed in different environments and ways.
 
 <H3 titleize={false}>From Node.js</H3>
 
-Any Node.js above v16.14 is supported. We recommend to run using the active TLS. Check [Node.js releases](https://nodejs.dev/en/about/releases/) to know more.
+Any Node.js above v16.14 is supported. We recommend running it using the active TLS. Check [Node.js releases](https://nodejs.dev/en/about/releases/) to know more.
 
 Just require `@microlink/mql` dependency from your code:
 
@@ -36,7 +36,7 @@ The same build is available for CommonJS and ESM.
 
 <H3 titleize={false}>From Edge</H3>
 
-If you are using [CloudFlare Workers](https://workers.cloudflare.com/), [Vercel Edge Functions](https://vercel.com/features/edge-functions), [Deno](https://deno.com/), or any other provider that supports [WinterCG](https://wintercg.org/), there is an special build takes advantage of Web Standard APIs.
+If you are using [CloudFlare Workers](https://workers.cloudflare.com/), [Vercel Edge Functions](https://vercel.com/features/edge-functions), [Deno](https://deno.com/), or any other provider that supports [WinterCG](https://wintercg.org/), the Node.js ESM build is implemented on top of Web Standard APIs, nothing extra should be done.
 
 Just import `@microlink/mql/lightweight` from your code:
 
