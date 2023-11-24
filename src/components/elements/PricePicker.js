@@ -38,7 +38,6 @@ const PricePicker = ({ onChange }) => {
     const selectedPlan = PLANS.find(
       ({ reqsPerMonthPretty }) => reqsPerMonthPretty === event.target.value
     )
-
     setPlan(selectedPlan)
     onChange(selectedPlan)
   }
