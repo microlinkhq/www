@@ -10,7 +10,6 @@ const MySelect = ({ ...props }) => {
   return (
     <Select
       onChange={event => {
-        event.preventDefault()
         const language = event.target.value
         setState(language)
       }}
@@ -39,16 +38,15 @@ const MySelectWithDefault = ({ placeholder, ...props }) => {
   return (
     <Select
       onChange={event => {
-        event.preventDefault()
         const language = event.target.value
         setState(language)
       }}
-      selected={lang}
+      value={placeholder}
       color={lang === placeholder ? 'black60' : 'inherit'}
       {...props}
     >
       {[
-        <option key={placeholder} disabled selected hidden>
+        <option key={placeholder} disabled hidden>
           {placeholder}
         </option>
       ].concat(
