@@ -141,6 +141,12 @@ export const NavChangelog = createNavItem({
   actively: 'partial'
 })
 
+export const NavUserAgents = createNavItem({
+  children: 'User Agents',
+  href: '/user-agents',
+  actively: 'partial'
+})
+
 export const NavProducts = createNavItem({
   children: 'Products',
   actively: ({ location }) =>

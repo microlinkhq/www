@@ -153,6 +153,8 @@
     "styled-system": "~5.1.5",
     "swr": "~2.2.2",
     "tldts": "~6.0.14",
+    "top-crawler-agents": "~1.0.20",
+    "top-user-agents": "~1.0.66",
     "unique-random-array": "~3.0.0"
   },
   "devDependencies": {
