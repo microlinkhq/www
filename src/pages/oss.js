@@ -8,13 +8,14 @@ import React from 'react'
 
 export const Head = () => (
   <Meta
+    title='Open Source Software'
     description='Open Source Sustainability.'
     image={cdnUrl('banner/oss.jpeg')}
   />
 )
 
 const OssPage = () => {
-  const repos = useOss()
+  const repositories = useOss()
   return (
     <DotsBackground alignItems='center' justifyContent='center'>
       <Layout footer={{ bg: 'transparent' }}>
@@ -48,34 +49,41 @@ const OssPage = () => {
             maxWidth={layout.normal}
             flexDirection='column'
           >
-            {repos.map(({ name, description, stars, issues, url }) => (
-              <Box key={name} mb={3} borderBottom={1} borderColor='black05'>
-                <Link color='black' href={url} icon={false}>
-                  <Text
-                    as='h3'
-                    fontWeight='bold'
-                    mr={3}
-                    display='inline-block'
-                    width='240px'
-                  >
-                    {name}
-                  </Text>
-                  <Flex color='black' style={{ float: 'right' }}>
-                    <Flex alignItems='center' mr={3}>
-                      <Text mr={1}>{formatNumber(stars)}</Text>
-                      <StarIcon width='16px' />
+            {repositories.map(
+              ({ name, description, stars, issues, url }, index) => (
+                <Box
+                  key={name}
+                  mb={index !== repositories.length - 1 ? 3 : 0}
+                  borderBottom={1}
+                  borderColor='black05'
+                >
+                  <Link color='black' href={url} icon={false}>
+                    <Text
+                      as='h3'
+                      fontWeight='bold'
+                      mr={3}
+                      display='inline-block'
+                      width='240px'
+                    >
+                      {name}
+                    </Text>
+                    <Flex color='black' style={{ float: 'right' }}>
+                      <Flex alignItems='center' mr={3}>
+                        <Text mr={1}>{formatNumber(stars)}</Text>
+                        <StarIcon width='16px' />
+                      </Flex>
+                      <Flex alignItems='center'>
+                        <Text mr={1}>{issues}</Text>
+                        <IssueIcon width='16px' />
+                      </Flex>
                     </Flex>
-                    <Flex alignItems='center'>
-                      <Text mr={1}>{issues}</Text>
-                      <IssueIcon width='16px' />
-                    </Flex>
-                  </Flex>
-                  <Text color='black60' mt={2} mb={2} width='80%'>
-                    {description}
-                  </Text>
-                </Link>
-              </Box>
-            ))}
+                    <Text color='black60' mt={2} mb={2} width='80%'>
+                      {description}
+                    </Text>
+                  </Link>
+                </Box>
+              )
+            )}
           </Flex>
         </Flex>
       </Layout>
