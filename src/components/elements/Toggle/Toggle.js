@@ -20,11 +20,11 @@ ButtonToggle.defaultProps = {
   borderRadius: 0
 }
 
-function Toggle ({ onChange, children, defaultValue }) {
+function Toggle ({ onChange, children, defaultValue, ...props }) {
   const [active, setActive] = useState(defaultValue || children[0])
 
   return (
-    <Flex data-toggle width='100%'>
+    <Flex data-toggle width='100%' {...props}>
       <Box border={1} borderColor='black05' borderRadius={2}>
         {children.map((value, index) => {
           const isLast = index + 1 === children.length

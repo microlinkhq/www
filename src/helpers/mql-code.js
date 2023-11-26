@@ -1,4 +1,4 @@
-import mql from '@microlink/mql'
+import { getApiUrl } from './get-api-url'
 import get from 'dlv'
 
 const ENDPOINT = {
@@ -28,7 +28,7 @@ const endpoint = ({ endpoint, headers } = {}) => {
 }
 
 const createApiUrl = ({ url = 'https://example.com', ...props } = {}) => {
-  const [apiUrl] = mql.getApiUrl(url, props)
+  const [apiUrl] = getApiUrl(url, props)
   return decodeURIComponent(apiUrl)
 }
 

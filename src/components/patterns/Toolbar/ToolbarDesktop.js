@@ -29,7 +29,8 @@ import {
   NavRecipes,
   NavScreenshot,
   NavSDK,
-  NavTwitter
+  NavTwitter,
+  NavUserAgents
 } from '../Toolbar/ToolbarLinks'
 
 const iconLight = css`
@@ -156,6 +157,7 @@ const ToolbarDesktop = ({ theme }) => {
               <NavCommunity as='li' isDark={isDark} fontSize='12px' />
               <NavDocs as='li' isDark={isDark} fontSize='12px' />
               <NavRecipes as='li' isDark={isDark} fontSize='12px' />
+              <NavUserAgents as='li' isDark={isDark} fontSize='12px' />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'company'}>

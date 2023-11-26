@@ -151,7 +151,7 @@ const FAQs = props => (
 const FormatsPage = () => {
   return (
     <Layout>
-      <Container px={3} pt={2} justifyContent='center' alignItems='center'>
+      <Container pt={2} pb={3} justifyContent='center' alignItems='center'>
         <Heading px={5} maxWidth={layout.large}>
           Supported formats
         </Heading>
@@ -225,7 +225,7 @@ const FormatsPage = () => {
           <Subhead>Anything else?</Subhead>
           <Box p={[4, 4, 0, 0]}>
             <Button
-              onClick={event =>
+              onClick={() =>
                 window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
             >
               <Caps>Request a format</Caps>

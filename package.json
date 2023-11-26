@@ -153,6 +153,8 @@
     "styled-system": "~5.1.5",
     "swr": "~2.2.2",
     "tldts": "~6.0.14",
+    "top-crawler-agents": "~1.0.20",
+    "top-user-agents": "~1.0.66",
     "unique-random-array": "~3.0.0"
   },
   "devDependencies": {
@@ -169,6 +171,7 @@
     "contrast": "latest",
     "conventional-github-releaser": "latest",
     "debug-logfmt": "latest",
+    "esbuild": "latest",
     "eslint-config-next": "latest",
     "esm": "latest",
     "finepack": "latest",
@@ -204,6 +207,7 @@
     "contributors": "(npx git-authors-cli && npx finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
     "dev": "gatsby develop --host 0.0.0.0 --port 8000",
     "lint": "standard-markdown README.md && standard",
+    "postinstall": "npm run transpile",
     "postrelease": "npm run release:tags && npm run release:github",
     "prebuild": "npm run build:data",
     "predev": "npm run build:data",
@@ -215,6 +219,7 @@
     "release:tags": "git push --follow-tags origin HEAD:master",
     "storybook": "start-storybook -p 6006",
     "test": "ava",
+    "transpile": "echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
     "update": "ncu -i",
     "update:check": "ncu -- --error-level 2"
   },
@@ -247,10 +252,7 @@
   },
   "standard": {
     "ignore": [
-      "src/components/hook/index.js",
-      "src/components/icons/index.js",
-      "src/helpers/hoc/index.js",
-      "src/helpers/style/index.js"
+      "src/helpers/get-api-url.js"
     ]
   }
 }
