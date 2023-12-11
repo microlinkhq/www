@@ -29,7 +29,7 @@ When it's enabled, a new `screenshot` data field will be part of the response pa
 }
 ```
 
-You can configure different specific options, such as [element](/docs/api/parameters/pdf/element) or [overlay](/docs/api/parameters/pdf/overlay):
+You can configure different specific options, such as [element](/docs/api/parameters/screenshot/element) or [overlay](/docs/api/parameters/screenshot/overlay):
 
 <MultiCodeEditor languages={mqlCode('{{demolinks.netflix.url}}', { screenshot: true, element: "#section-hero" })} />
 
