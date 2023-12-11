@@ -74,7 +74,7 @@
 - date: June 2022
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): The query parameters [remove](https://33fa1ur95-6nr6arcam-microlink.vercel.app/docs/api/parameters/remove) and [hide](https://33fa1ur95-6nr6arcam-microlink.vercel.app/docs/api/parameters/hide) has been removed; use [styles](/docs/api/parameters/styles) instead.'
-    - '[Microlink API](/docs/api/getting-started/overview): All DNS queries are now resolved via [DNS-over-HTTPS](https://github.com/Kikobeats/doh-resolver).'
+    - '[Microlink API](/docs/api/getting-started/overview): All DNS queries are now resolved via [DNS-over-HTTPS](https://github.com/forwardemail/nodejs-dns-over-https-tangerine).'
     - '[Browserless v9.4](https://browserless.js.org): Better management for killing browser process groups.'
 
 - date: May 2022
