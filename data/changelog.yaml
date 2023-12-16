@@ -1,3 +1,8 @@
+- date: December 2023
+  notes:
+    - '[Microlink OSS](/oss): Released [tinyspawn](https://github.com/microlinkhq/tinyspawn).'
+    - '[Microlink API](/docs/api/getting-started/overview): Add m3u8 audio support.'
+
 - date: October 2023
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): Improved protection against SSRF attacks.'
