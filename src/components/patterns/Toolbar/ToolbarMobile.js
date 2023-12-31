@@ -30,7 +30,8 @@ const ToolbarMobile = ({ theme }) => {
   const isDark = theme === 'dark'
 
   return (
-    <Fixed
+    <Box
+      position='fixed'
       as='header'
       zIndex={101}
       top={0}
@@ -53,7 +54,7 @@ const ToolbarMobile = ({ theme }) => {
           </Nav>
         </Toolbar>
       </Box>
-    </Fixed>
+    </Box>
   )
 }
 

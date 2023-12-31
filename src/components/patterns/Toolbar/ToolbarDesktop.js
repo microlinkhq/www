@@ -82,7 +82,8 @@ const ToolbarDesktop = ({ theme }) => {
   const setToolbar = name => () => setSecondary(name)
 
   return (
-    <Fixed
+    <Box
+      position='fixed'
       as='header'
       zIndex={101}
       top={0}
@@ -169,7 +170,7 @@ const ToolbarDesktop = ({ theme }) => {
           </Choose.When>
         </Choose>
       </Box>
-    </Fixed>
+    </Box>
   )
 }
 

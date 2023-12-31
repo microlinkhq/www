@@ -1,6 +1,5 @@
 import { withTitle } from 'helpers/hoc'
 
-import { Fixed } from './Position'
 import { Link, LinkSolid } from './Link'
 import AnimatedBox from './AnimatedBox'
 import Badge from './Badge/Badge'
@@ -75,7 +74,6 @@ export {
   Container,
   Dot,
   DotSpinner,
-  Fixed,
   Flex,
   Heading,
   Hide,
