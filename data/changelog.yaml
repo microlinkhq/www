@@ -1,7 +1,15 @@
+- date: January 2024
+  notes:
+    - '[Microlink OSS](/oss): Released [top-user-agents](https://github.com/microlinkhq/top-user-agents).'
+
 - date: December 2023
   notes:
+    - '[unavatar.io](https://unavatar.io) Crossed 1,000 stars on GitHub.'
     - '[Microlink OSS](/oss): Released [tinyspawn](https://github.com/microlinkhq/tinyspawn).'
-    - '[Microlink API](/docs/api/getting-started/overview): Add m3u8 audio support.'
+    - '[Metascraper v5.43](https://github.com/microlinkhq/metascraper/pull/683): Added video detection inside iframes.'
+    - '[Metascraper v5.43](https://github.com/microlinkhq/metascraper/pull/678): Improved audio detection inside iframes.'
+    - '[Metascraper v5.42](https://github.com/microlinkhq/metascraper/pull/677): Added TypeScript types.'
+    - '[Metascraper v5.40](https://github.com/microlinkhq/metascraper/pull/671): Added m3u8 support.'
 
 - date: October 2023
   notes:
@@ -16,7 +24,7 @@
 
 - date: August 2023
   notes:
-    - '[Microlink MQL](/docs/mql/getting-started/overview): Fully typed; Added edge installation details.'
+    - '[Microlink MQL](/docs/mql/getting-started/overview): Added TypeScript types; Added edge installation details.'
 
 - date: July 2023
   notes:
