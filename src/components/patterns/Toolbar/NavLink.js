@@ -21,7 +21,6 @@ const style = css`
 
 const NavLink = styled(Caps)(
   {
-    bg: 'transparent',
     display: 'inline-flex',
     alignItems: 'center',
     alignSelf: 'stretch',
@@ -36,9 +35,10 @@ const NavLink = styled(Caps)(
 )
 
 NavLink.defaultProps = {
-  pl: 3,
-  fontSize: 0,
-  as: 'div'
+  // TODO: this seems like a bug
+  // https://github.com/The-Code-Monkey/styled-system/issues/640
+  fontSize: [0, 0, 0, 0],
+  pl: 3
 }
 
 export default withAnalytics(withLink(NavLink))

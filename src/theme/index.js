@@ -225,8 +225,7 @@ export const colors = Object.assign({}, flattened, {
 
 export const fonts = {
   sans: "'Inter', sans-serif",
-  mono:
-    '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace'
+  mono: '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace'
 }
 
 export const cx = key => colors[key] || key
@@ -249,24 +248,7 @@ export const shadows = shadowOffsets.map(
 export const lineHeights = ['normal', 1.25, 1.5, 1.6, 1.65]
 
 export const sizes = [
-  1,
-  2,
-  4,
-  8,
-  12,
-  16,
-  20,
-  24,
-  28,
-  32,
-  36,
-  40,
-  44,
-  48,
-  64,
-  72,
-  82,
-  96
+  1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 64, 72, 82, 96
 ].map(toEm)
 
 export const speed = {
@@ -301,13 +283,12 @@ export const textGradient = {
   }
 }
 
-export const textStyles = {
-  gradient: textGradient
-}
-
-export const boxStyles = {
-  gradient: {
-    backgroundImage: gradient
+export const variants = {
+  text: {
+    gradient: textGradient
+  },
+  button: {
+    gradient
   }
 }
 
@@ -321,7 +302,6 @@ export const letterSpacings = [0, -0.025, 0.025, 0.1, 0.25].map(toEm)
 
 const theme = {
   borders,
-  boxStyles,
   breakpoints,
   colors,
   fonts,
@@ -337,9 +317,9 @@ const theme = {
   sizes,
   space,
   speed,
-  textStyles,
   timings,
-  transition
+  transition,
+  variants
 }
 
 export default theme

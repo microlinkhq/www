@@ -1,37 +1,27 @@
-import { compose, borders, buttonStyle } from 'styled-system'
-import propTypes from '@styled-system/prop-types'
-import { transition } from 'theme'
 import styled from 'styled-components'
+import { transition } from 'theme'
 import Text from '../Text'
 
-const Button = styled(Text)(
-  {
-    transition: `background-color ${transition.medium}, color ${transition.medium}, box-shadow ${transition.medium}`,
-    appearance: 'none',
-    display: 'inline-block',
-    textAlign: 'center',
-    lineHeight: 16 / 14,
-    textDecoration: 'none',
-    verticalAlign: 'middle',
-    WebkitFontSmoothing: 'antialiased',
-    whiteSpace: 'nowrap',
-    outline: 0,
-    '&:hover': {
-      cursor: 'pointer'
-    }
-  },
-  compose(borders, buttonStyle)
-)
-
-Button.propTypes = {
-  ...propTypes.Text,
-  ...propTypes.border
-}
+const Button = styled(Text)({
+  transition: `background-color ${transition.medium}, color ${transition.medium}, box-shadow ${transition.medium}`,
+  appearance: 'none',
+  display: 'inline-block',
+  textAlign: 'center',
+  lineHeight: 16 / 14,
+  textDecoration: 'none',
+  verticalAlign: 'middle',
+  WebkitFontSmoothing: 'antialiased',
+  whiteSpace: 'nowrap',
+  outline: 0,
+  '&:hover': {
+    cursor: 'pointer'
+  }
+})
 
 Button.defaultProps = {
   as: 'button',
   fontFamily: 'sans',
-  fontSize: '1',
+  fontSize: 1,
   fontWeight: 'bold',
   px: 3,
   py: 2,
