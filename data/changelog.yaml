@@ -1,6 +1,11 @@
+- date: February 2024
+  notes:
+    - '[Microlink CDN](https://cdn.microlink.io/): Released new UI.'
+
 - date: January 2024
   notes:
     - '[Microlink OSS](/oss): Released [top-user-agents](https://github.com/microlinkhq/top-user-agents).'
+    - '[Microlink OSS](/oss): Released [@microlink/ua](https://github.com/microlinkhq/ua).'
 
 - date: December 2023
   notes:
