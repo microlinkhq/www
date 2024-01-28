@@ -10,7 +10,7 @@ That means that `window.fetch` should be available and accesible.
 
 Although nowadays the [fetch browser compatibility](https://caniuse.com/#search=fetch) is good enough, you need to be sure that the environment **Microlink SDK** is running on has it available.
 
-We recommend using the [polyfill.io](https://polyfill.io/v3/) CDN for that purpose, it will only load the polyfill if `window.fetch` isn't globally detected.
+We recommend using the [polyfill.io](https://polyfill.io/) CDN for that purpose, it will only load the polyfill if `window.fetch` isn't globally detected.
 
 ```html
 <script>

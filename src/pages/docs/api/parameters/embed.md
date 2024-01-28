@@ -21,4 +21,4 @@ In this way, you can embed any data field directly as part of your HTML markup.
 
 In order to authenticate your requests, you should use [proxy](https://github.com/microlinkhq/proxy) and [edge-proxy](https://github.com/microlinkhq/edge-proxy) to don't expose your credentials. 
 
-Read more about that at [authentication](/docs/api/parameters/authentication) section.
+Read more about that at [authentication](/docs/api/basics/authentication) section.

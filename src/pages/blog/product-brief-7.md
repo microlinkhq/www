@@ -62,7 +62,7 @@ const { status, data } = await 'https://microlink.io'
 console.log(data)
 ```
 
-Microlink Query Language (_MQL_) is the precessor of [Custom Rules](/blog/introducing-custom-rules-/) as we pointed in our [Master Plan for 2019](/blog/master-plan-2019/).
+Microlink Query Language (_MQL_) is the precessor of [Custom Rules](/blog/custom-rules) as we pointed in our [Master Plan for 2019](/blog/master-plan-2019/).
 
 We are happy to say that **MQL is production ready** 🚀.
 

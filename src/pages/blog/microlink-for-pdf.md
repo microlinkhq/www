@@ -28,7 +28,7 @@ Enabling the new [pdf](/docs/api/parameters/pdf) query parameter will add a `pdf
 
 The PDF file created as output of the process is hosted on [Microlink CDN](/blog/edge-cdn/) and it can be combined with [ttl](/docs/api/parameters/ttl) to automatically refresh in the background, providing an updated PDF representation of the target URL.
 
-Additionally, a set of new query parameters have been added for better PDF accommodation, such as [scale](/docs/api/parameters/pdf/scale), [margin](/docs/api/parameters/pdf/margin) and [media](/docs/api/parameters/pdf/media).
+Additionally, a set of new query parameters have been added for better PDF accommodation, such as [scale](/docs/api/parameters/pdf/scale), [margin](/docs/api/parameters/pdf/margin) and [mediaType](/docs/api/parameters/mediaType).
 
 These query parameters are specially helpful when the target URL is not actually prepared to be properly exported as PDF.
 

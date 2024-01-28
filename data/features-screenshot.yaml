@@ -3,16 +3,16 @@
 - title: Overlay Composition
   description: Create [overlay](/docs/api/parameters/screenshot/overlay) compositions combining layers and backgrounds.
 - title: Browser Events
-  description: Setup [waitUntil](/docs/api/parameters/waitUntil) and [waitFor](/docs/api/parameters/wait-for) to wait any quantity of time or CSS selector.
+  description: Using [waitUntil](/docs/api/parameters/waitUntil), [waitForSelector](/docs/api/parameters/waitForSelector), or [waitForTimeout](/docs/api/parameters/waitForTimeout) to await certain events.
 - title: Device Emulation
   description: A large list of [device](/docs/api/parameters/device) are supported for simulating scenarios and environments.
 - title: Browser Automation
-  description: Ability to [hide](/docs/api/parameters/screenshot/hide), [click](/docs/api/parameters/screenshot/click) or [scroll](/docs/api/parameters/screenshot/scroll) to any element matching the given CSS Selector.
+  description: Ability to [click](/docs/api/parameters/click) or [scroll](/docs/api/parameters/scroll) to any element matching the given CSS Selector.
 - title: Embed Mode
   description: Incrustate directly into Markdown, HTML or any other markup using [embed](/docs/api/parameters/embed).
 - title: CSS/JS Injection
-  description: Inject any CSS or JavaScript code into the page.
-- title: Fully Screenshot
+  description: Inject [styles](/docs/api/parameters/styles), [javascript](/docs/api/parameters/javascript) or [modules](/docs/api/parameters/modules) into the page.
+- title: Full Screenshot
   description: Using [fullPage](/docs/api/parameters/screenshot/fullPage) for exporting the entire page as screenshot.
 - title: File Format
   description: Configurable [type](/docs/api/parameters/screenshot/type) support with on-fly WebP support.

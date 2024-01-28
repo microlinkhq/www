@@ -73,7 +73,7 @@ The Vue integration supports any [Microlink API](/docs/api/getting-started/overv
 
 <Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' size="large" media='video' />
 
-Although it's shipped with default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
+Although it's shipped with default styles, you can customize it using [CSS variables](https://microlink.io/docs/sdk/getting-started/styling#css-variables) or [CSS classes](/docs/sdk/getting-started/styling#css-classes).
 
 ```vue
 <template>

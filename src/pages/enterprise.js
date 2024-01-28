@@ -32,7 +32,7 @@ Running a **Microlink Enterprise** plan means:
 - Your own S3-like storage service for assets integration, with no time-to-live (TTL) restriction.
 - Your own worlwide CDN distribution (+240 nodes over the world, powered by CloudFlare).
 
-The physical servers associated with your own Microlink API endpoint can be chosen between 8 locations (<img src="https://cdn.microlink.io/flags/S/US.svg" /> New York, <img src="https://cdn.microlink.io/flags/S/US.svg" /> San Francisco, <img src="https://cdn.microlink.io/flags/S/NL.svg" /> Amsterdam, <img src="https://cdn.microlink.io/flags/S/SG.svg" /> Singapore, <img src="https://cdn.microlink.io/flags/S/GB.svg" /> London, <img src="https://cdn.microlink.io/flags/S/DE.svg" /> Frankfurt, <img src="https://cdn.microlink.io/flags/S/CA.svg" /> Toronto, or <img src="https://cdn.microlink.io/flags/S/IN.svg" /> Bangalore).
+The physical servers associated with your own Microlink API endpoint can be chosen between 8 locations (🇺🇸 New York, 🇺🇸 San Francisco, 🇳🇱 Amsterdam, 🇸🇬 Singapore, 🇬🇧 London, 🇩🇪 Frankfurt, 🇨🇦 Toronto, or 🇮🇳 Bangalore).
 
 The price model is the same as you Microlink Pro plan, plus <PriceMonthly theme='dark'>500</PriceMonthly> for the extra cost of keeping the dedicated infrastructure running.`.trim()
 
