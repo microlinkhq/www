@@ -5,7 +5,7 @@ date: '2018-06-30'
 
 ## Custom Rules
 
-[![](https://i.imgur.com/subDjQ1.png)](https://microlink.io/blog/custom-rules)
+[![](https://i.imgur.com/subDjQ1.png)](/blog/custom-rules)
 
 <Figcaption>Custom Rules enables build custom API response based on your necessities.</Figcaption>
 
@@ -17,7 +17,7 @@ Now, we are introducing the concept of **Custom Rules**: The ability to setup cu
 
 In other words, you can use it as a scraper as service 🤯.
 
-We wrote a specific blog [post](https://microlink.io/blog/custom-rules) explaining how to use custom rules, taking an Instagram profile as an example.
+We wrote a specific blog [post](/blog/custom-rules) explaining how to use custom rules, taking an Instagram profile as an example.
 
 ## Compression documentation
 

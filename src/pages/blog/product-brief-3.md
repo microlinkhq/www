@@ -113,7 +113,7 @@ The easiest way to consume the frontend library. Just paste the corresponding sc
 <script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/cjs/microlink.min.js"></script>`}</PreCode>
 ```
 
-See more [information](/docs/sdk/getting-started/overview/getting-started/vanilla).
+See more [information](/docs/sdk/integrations/vanilla).
 
 ### From NPM
 

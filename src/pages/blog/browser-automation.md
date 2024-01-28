@@ -20,6 +20,7 @@ Just [url](/docs/api/parameters/url) is the only parameter that needs to be spec
 - [audio](/docs/api/parameters/audio): enables audio source detection from the target URL.
 - [data](/docs/api/parameters/data): gets specific content extraction from the target URL.
 - [filename](/docs/api/parameters/filename): defines the filename asset generated.
+- [function](/docs/api/parameters/function): runs JavaScript code with runtime access to a headless browser.
 - [iframe](/docs/api/parameters/iframe): gets, if it's possible, the embedded representation of the target URL.
 - [insights](/docs/api/parameters/insights): gets lighthouse performance metrics from the target URL.
 - [meta](/docs/api/parameters/meta): gets unified medata from the target URL.
@@ -39,7 +40,7 @@ Just [url](/docs/api/parameters/url) is the only parameter that needs to be spec
 - [colorScheme](/docs/api/parameters/colorScheme): sets preferred browser color theme preference.
 - [device](/docs/api/parameters/device): emulates an specific device (viewport, user agent, dimensions, etc).
 - [javascript](/docs/api/parameters/javascript): enable/disable the javascript engine on the entire browser page.
-- [mediaType](/docs/api/parameters/media-type): changes the CSS media type of the page.
+- [mediaType](/docs/api/parameters/mediaType): changes the CSS media type of the page.
 - [modules](/docs/api/parameters/modules): injects `<script type="module">` into the browser page.
 - [ping](/docs/api/parameters/ping): enable/disable to resolve all URLs present into the payload.
 - [prerender](/docs/api/parameters/prerender): enable/disable browser navigation.
@@ -50,7 +51,7 @@ Just [url](/docs/api/parameters/url) is the only parameter that needs to be spec
 - [styles](/docs/api/parameters/styles): injects `<style>` into the browser page.
 - [viewport](/docs/api/parameters/viewport): establishes a set of properties related with the browser visible area.
 - [waitForSelector](/docs/api/parameters/waitForSelector): waits for a CSS selector(s) to appear in page.
-- [waitForTimeout](/docs/api/parameters/wait-for): waits a quantity of time in milliseconds before processing the content of the browser page.
+- [waitForTimeout](/docs/api/parameters/waitForTimeout): waits a quantity of time in milliseconds before processing the content of the browser page.
 - [waitUntil](/docs/api/parameters/waitUntil): waits browser event(s) before considering navigation succeeded.
 
 ## Response

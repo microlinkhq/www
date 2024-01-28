@@ -38,4 +38,4 @@ It's the equivalent to passing `{size: 'large'}` with the [Vanilla](/docs/sdk/in
 
 <Microlink url='https://www.theverge.com/2016/4/1/11342104/tesla-model-3-announcement-photos' size='large' />
 
-If you want to customize the style, it can be done using [CSS Classnames](/docs/sdk/getting-started/considerations/#css-classnames).
+If you want to customize the style, it can be done using [CSS variables](https://microlink.io/docs/sdk/getting-started/styling#css-variables) or [CSS classes](/docs/sdk/getting-started/styling#css-classes).

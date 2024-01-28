@@ -7,13 +7,13 @@ date: '2018-04-11'
 
 ### Release 2.0
 
-We are happy to introduce the [SDK 2.0](/docs/sdk), the easiest way to add link previews in your website without effort.
+We are happy to introduce the [SDK 2.0](/docs/sdk/getting-started/overview), the easiest way to add link previews in your website without effort.
 
-The version 2.0 introduce a breaking change: It removes the `round` property from the [API Parameters](/docs/sdk/getting-started/overview/getting-started/api-parameters) that you can pass for customize the card preview.
+The version 2.0 introduce a breaking change: It removes the `round` property from the [API Parameters](/docs/sdk/getting-started/overview) that you can pass for customize the card preview.
 
 The property `round` was related with apply a `border-radius` around your preview card.
 
-We decide make this little change in order the reduce the number of configurable [API Parameters](/docs/sdk/getting-started/overview/getting-started/api-parameters).
+We decide make this little change in order the reduce the number of configurable [API Parameters](/docs/sdk/getting-started/overview).
 
 But you can still extend the default style using CSS.
 
@@ -63,7 +63,7 @@ Read more about [styling](/docs/sdk/getting-started/overview/getting-started/van
 
 ### Video detection
 
-In this product sprint we focused on improving our `video` property added into our [API](/docs/api/getting-started/overview) in the [previous product brief](/blog/video-support-prerendering-sdk-features).
+In this product sprint we focused on improving our `video` property added into our [API](/docs/api/getting-started/overview) in the [previous product brief](/blog/product-brief-3).
 
 We extended the original idea, adding support for detecting more video providers. The most popular internet sites are covered, such as
 

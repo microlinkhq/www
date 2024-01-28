@@ -168,8 +168,9 @@ const Screenshot = ({ data, cardWidth, cardHeight, ...props }) => {
           isLoading
             ? undefined
             : {
-                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-              }}
+              filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+            }
+        }
         border={1}
         borderColor='black05'
         borderRadius={3}
@@ -539,20 +540,17 @@ const Resume = props => (
             Browse automation
           </Subhead>
           <Text pt={[3, 3, 4, 4]} maxWidth={8}>
-            Such as{' '}
-            <Link href='/docs/api/parameters/screenshot/device'>device</Link>{' '}
-            emulation, CSS/JS injection, partial or{' '}
+            Such as <Link href='/docs/api/parameters/device'>device</Link>{' '}
+            emulation, <Link href='/docs/api/parameters/styles'>styles</Link>,{' '}
+            <Link href='/docs/api/parameters/javascript'>javascript</Link> or{' '}
+            <Link href='/docs/api/parameters/modules'>modules</Link> injection,
+            partial or{' '}
             <Link href='/docs/api/parameters/screenshot/fullPage'>full</Link>{' '}
             page screenshot,{' '}
-            <Link href='/docs/api/parameters/screenshot/hide'>hide</Link>{' '}
-            elements,{' '}
-            <Link href='/docs/api/parameters/screenshot/scroll-to'>scroll</Link>{' '}
-            or <Link href='/docs/api/parameters/screenshot/click'>click</Link>{' '}
-            events, setup a custom{' '}
-            <Link href='/docs/api/parameters/screenshot/viewport'>
-              viewport
-            </Link>
-            , and a lot more.
+            <Link href='/docs/api/parameters/scroll'>scroll</Link> or{' '}
+            <Link href='/docs/api/parameters/click'>click</Link> events, custom{' '}
+            <Link href='/docs/api/parameters/viewport'>viewport</Link>, and
+            more.
           </Text>
         </Flex>
       }

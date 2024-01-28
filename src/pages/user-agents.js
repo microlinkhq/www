@@ -14,9 +14,18 @@ export const Head = () => (
 
 const UserAgentsPage = () => {
   const [type, setType] = useState('user')
-  const list = type === 'user' ? userAgents : crawlerAgents
-  const githubUrl = `https://github.com/Kikobeats/top-${type}-agents`
-  const downloadUrl = `https://raw.githubusercontent.com/Kikobeats/top-${type}-agents/master/index.json`
+  const isUserType = type === 'user'
+
+  const list = isUserType ? userAgents : crawlerAgents
+
+  const githubUrl = isUserType
+    ? 'https://github.com/microlinkhq/top-user-agents'
+    : 'https://github.com/Kikobeats/top-crawler-agents'
+
+  const downloadUrl = isUserType
+    ? 'https://raw.githubusercontent.com/microlinkhq/top-user-agents/master/src/index.json'
+    : 'https://raw.githubusercontent.com/Kikobeats/top-crawler-agents/master/index.json'
+
   const content = list.map(userAgent => `* ${userAgent}`).join('\n')
 
   return (
@@ -44,7 +53,8 @@ const UserAgentsPage = () => {
             justifyContent='center'
             defaultValue='User Agent'
             onChange={value =>
-              setType(value === 'User Agent' ? 'user' : 'crawler')}
+              setType(value === 'User Agent' ? 'user' : 'crawler')
+            }
           >
             {['User Agent', 'Crawler Agent']}
           </Toggle>

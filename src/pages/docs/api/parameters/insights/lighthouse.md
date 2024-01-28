@@ -49,10 +49,10 @@ You can use `'preset'` to load a set of specific Lighthouse settings at once:
 
 The following presets are supported:
 
-- [default](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/default-config.js)
-- [desktop](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/desktop-config.js)
-- [experimental](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/experimental-config.js)
-- [full](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/full-config.js)
-- [lr-desktop](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/lr-desktop-config.js)
-- [lr-mobile](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/lr-mobile-config.js)
-- [perf](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/perf-config.js)
+- [default](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/default-config.js)
+- [desktop](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/desktop-config.js)
+- [experimental](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/experimental-config.js)
+- [full](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/full-config.js)
+- [lr-desktop](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/lr-desktop-config.js)
+- [lr-mobile](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/lr-mobile-config.js)
+- [perf](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/perf-config.js)

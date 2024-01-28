@@ -98,7 +98,7 @@ If you want to pass specific API Parameters just for some cases, you can pass th
 
 <Figcaption children='You can pass objects, arrays, booleans or even JSON structures as data attributes.' />
 
-Although it's shipped with default styles, you can customize it using [CSS Classnames](docs/sdk/getting-started/considerations/#css-classnames)
+Although it's shipped with default styles, you can customize it using [CSS variables](https://microlink.io/docs/sdk/getting-started/styling#css-variables) or [CSS classes](/docs/sdk/getting-started/styling#css-classes).
 
 ```html
 <style>

@@ -16,8 +16,8 @@ It runs JavaScript code with runtime access to a headless browser.
 The function will receive any query parameter provided, plus:
 
 - `html`: The target [url](/docs/api/parameters/url) HTML markup.
-- `page`: The [puppeteer#page](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#class-page) to interact with the headless browser.
-- `response`: The [puppeteer#response](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#class-httpresponse) as result of the implicit [page.goto](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#pagegotourl-options).
+- `page`: The [puppeteer#page](https://pptr.dev/api/puppeteer.page/) to interact with the headless browser.
+- `response`: The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse/) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto/).
 
 ## Compression
 
