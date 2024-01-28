@@ -326,7 +326,7 @@ Now the value is resolved properly 👌.
 
 ## Combine it with the rest of API Parameters
 
-One thing that makes [Microlink API](/docs/api/getting-started/overview) powerful is that you can combine every [API Parameter](/docs/api/#api-parameters) to work together.
+One thing that makes [Microlink API](/docs/api/getting-started/overview) powerful is that you can combine every [API Parameter](/docs/api/getting-started/overview) to work together.
 
 ```json
 {
