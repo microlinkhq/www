@@ -53,8 +53,7 @@ const UserAgentsPage = () => {
             justifyContent='center'
             defaultValue='User Agent'
             onChange={value =>
-              setType(value === 'User Agent' ? 'user' : 'crawler')
-            }
+              setType(value === 'User Agent' ? 'user' : 'crawler')}
           >
             {['User Agent', 'Crawler Agent']}
           </Toggle>

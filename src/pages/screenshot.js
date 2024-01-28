@@ -168,9 +168,8 @@ const Screenshot = ({ data, cardWidth, cardHeight, ...props }) => {
           isLoading
             ? undefined
             : {
-              filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-            }
-        }
+                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+              }}
         border={1}
         borderColor='black05'
         borderRadius={3}
