@@ -166,7 +166,7 @@
     "@commitlint/config-conventional": "latest",
     "@ksmithut/prettier-standard": "latest",
     "@storybook/addon-a11y": "~6.5.16",
-    "@storybook/addon-console": "1.2.3",
+    "@storybook/addon-console": "3.0.0",
     "@storybook/addon-essentials": "~6.5.16",
     "@storybook/builder-webpack5": "~6.5.16",
     "@storybook/manager-webpack5": "~6.5.16",
