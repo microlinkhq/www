@@ -141,7 +141,7 @@
     "postcss": "~8.4.32",
     "postcss-focus": "~7.0.0",
     "prepend-http": "~4.0.0",
-    "prettier": "2",
+    "prettier": "3",
     "react": "18",
     "react-codecopy": "~5.0.3",
     "react-confetti": "~6.1.0",
