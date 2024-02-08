@@ -1,8 +1,7 @@
-import styled, { css } from 'styled-components'
-import { colors, fontWeights, transition } from 'theme'
-
-import { Caps } from 'components/elements'
+import { colors, fontWeights, transition, themeCss } from 'theme'
 import { withLink, withAnalytics } from 'helpers/hoc'
+import styled, { css } from 'styled-components'
+import { Caps } from 'components/elements'
 
 const activeStyle = css`
   font-weight: ${fontWeights.bold};
@@ -19,8 +18,12 @@ const style = css`
   }
 `
 
-const NavLink = styled(Caps)(
-  {
+const NavLink = styled(Caps).withConfig({
+  shouldForwardProp: prop => !['isDark'].includes(prop)
+})(
+  themeCss({
+    fontSize: 0,
+    pl: 3,
     display: 'inline-flex',
     alignItems: 'center',
     alignSelf: 'stretch',
@@ -30,15 +33,8 @@ const NavLink = styled(Caps)(
     '&:disabled': {
       opacity: 1 / 4
     }
-  },
+  }),
   style
 )
-
-NavLink.defaultProps = {
-  // TODO: this seems like a bug
-  // https://github.com/The-Code-Monkey/styled-system/issues/640
-  fontSize: [0, 0, 0, 0],
-  pl: 3
-}
 
 export default withAnalytics(withLink(NavLink))

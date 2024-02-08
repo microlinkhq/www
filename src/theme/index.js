@@ -1,10 +1,20 @@
-import palx from 'palx'
 import { lighten } from 'polished'
+
+export { css as themeCss } from '@techstack/styled-system'
 
 export const toPx = n => `${n}px`
 export const toEm = n => `${n}em`
 export const toMs = n => `${n}ms`
 export const toRaw = n => Number(n.replace(/px|em/, ''))
+
+export const defaultProps = obj => props => {
+  return Object.keys(obj).reduce((acc, key) => {
+    if (props[key] === undefined) {
+      acc[key] = obj[key]
+    }
+    return acc
+  }, {})
+}
 
 export const breakpoints = [600, 768, 1200, 1200].map(toPx)
 
@@ -23,24 +33,9 @@ export const radii = [0, 2, 4, 6, 8, 16].map(toPx)
 
 export const borders = [0, '1px solid', '2px solid', '2px dashed']
 
-const palette = palx('#449bf8')
-
-const flattened = Object.keys(palette).reduce((a, key) => {
-  const value = palette[key]
-  if (Array.isArray(value)) {
-    a[key] = value[5]
-    value.forEach((val, i) => {
-      a[key + i] = val
-    })
-  } else {
-    a[key] = value
-  }
-  return a
-}, {})
-
 // https://palx.jxnblk.com/067df7
 // https://github.com/yeun/open-color
-export const colors = Object.assign({}, flattened, {
+export const colors = {
   link: '#067df7',
   hoverLink: lighten(0.15, '#067df7'),
   secondary: '#EA407B',
@@ -221,7 +216,7 @@ export const colors = Object.assign({}, flattened, {
   orange7: '#f76707',
   orange8: '#e8590c',
   orange9: '#d9480f'
-})
+}
 
 export const fonts = {
   sans: "'Inter', sans-serif",

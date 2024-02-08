@@ -6,7 +6,8 @@ import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
 import { noop } from 'helpers'
 
-import themeSpec from 'theme'
+import themeSpec, { themeCss } from 'theme'
+
 import 'styles/main.scss'
 
 import {
@@ -50,16 +51,16 @@ const Layout = ({
       <ThemeProvider theme={themeSpec}>
         <Flex
           data-breakpoint={breakpoint}
-          flexDirection='column'
           onClick={onClick}
           style={style}
-          css={`
-            overflow-x: hidden;
-            min-height: 100vh;
-          `}
+          css={themeCss({
+            flexDirection: 'column',
+            'overflow-x': 'hidden',
+            'min-height': '100vh'
+          })}
         >
           <Toolbar as='header' theme={theme} style={style} />
-          {createElement(
+          {/* {createElement(
             component,
             {
               as: 'main',
@@ -71,12 +72,12 @@ const Layout = ({
               style: { flex: 1 }
             },
             children
-          )}
-          {footer && (
+          )} */}
+          {/* {footer && (
             <Box as='footer' className='hidden-print'>
               <Footer theme={theme} {...footer} />
             </Box>
-          )}
+          )} */}
         </Flex>
       </ThemeProvider>
     </BreakpointProvider>

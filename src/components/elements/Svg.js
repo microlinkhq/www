@@ -6,7 +6,7 @@ const transform = system({
   cssProperty: 'transform'
 })
 
-const Svg = styled('svg')(color, space, layout, transform)
+const Svg = styled('svg')(compose(color, space, layout, transform))
 
 Svg.defaultProps = {
   fill: 'currentColor'

@@ -136,7 +136,6 @@
     "mdx-scoped-runtime": "~0.8.0",
     "microsoft-capitalize": "~1.0.5",
     "normalize.css": "~8.0.1",
-    "palx": "~1.0.3",
     "path-browserify": "~1.0.1",
     "polished": "~4.3.1",
     "postcss": "~8.4.32",

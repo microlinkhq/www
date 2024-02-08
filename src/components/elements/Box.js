@@ -1,21 +1,17 @@
 import {
-  color,
-  space,
-  variant,
   border,
+  color,
+  compose,
+  layout,
   position,
-  layout
+  space,
+  variant
 } from '@techstack/styled-system'
 
 import styled from 'styled-components'
 
 const Box = styled('div')(
-  border,
-  color,
-  layout,
-  position,
-  space,
-  variant({ key: 'button' })
+  compose(border, color, layout, position, space, variant({ key: 'button' }))
 )
 
 export default Box

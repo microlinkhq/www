@@ -1,6 +1,6 @@
+import { defaultProps, layout, themeCss } from 'theme'
 import { hideScrollbar } from 'helpers/style'
 import styled from 'styled-components'
-import { layout } from 'theme'
 import React from 'react'
 
 import Flex from './Flex'
@@ -8,21 +8,19 @@ import Flex from './Flex'
 export const TOOLBAR_PRIMARY_HEIGHT = '64px'
 export const TOOLBAR_SECONDARY_HEIGHT = '48px'
 
-const ToolbarBase = styled(Flex)`
-  overflow-x: auto;
-  overflow-y: hidden;
+const ToolbarBase = styled(Flex).attrs(defaultProps({ as: 'nav' }))`
+  ${themeCss({
+    justifyContent: 'center',
+    color: 'black60',
+    mx: 'auto',
+    alignItems: 'center',
+    maxWidth: layout.large,
+    px: 0,
+    'overflow-x': 'auto',
+    'overflow-y': 'hidden'
+  })})}
   ${hideScrollbar};
 `
-
-ToolbarBase.defaultProps = {
-  as: 'nav',
-  justifyContent: 'center',
-  color: 'black60',
-  mx: 'auto',
-  alignItems: 'center',
-  maxWidth: layout.large,
-  px: 0
-}
 
 const secondaryProps = {
   justifyContent: 'center'
@@ -34,8 +32,10 @@ const Toolbar = ({ type = 'primary', ...props }) => {
   return (
     <ToolbarBase
       data-toolbar={type}
-      height={isSecondary ? TOOLBAR_SECONDARY_HEIGHT : TOOLBAR_PRIMARY_HEIGHT}
-      {...(isSecondary ? secondaryProps : {})}
+      css={{
+        height: isSecondary ? TOOLBAR_SECONDARY_HEIGHT : TOOLBAR_PRIMARY_HEIGHT,
+        ...(isSecondary ? secondaryProps : {})
+      }}
       {...props}
     />
   )
