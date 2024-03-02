@@ -137,7 +137,7 @@
     "normalize.css": "~8.0.1",
     "palx": "~1.0.3",
     "path-browserify": "~1.0.1",
-    "polished": "~4.2.2",
+    "polished": "~4.3.1",
     "postcss": "~8.4.32",
     "postcss-focus": "~7.0.0",
     "prepend-http": "~4.0.0",
