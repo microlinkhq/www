@@ -158,7 +158,7 @@
     "swr": "~2.2.4",
     "tldts": "~6.1.1",
     "top-crawler-agents": "~1.0.21",
-    "top-user-agents": "~1.0.66",
+    "top-user-agents": "~2.1.12",
     "unique-random-array": "~3.0.0"
   },
   "devDependencies": {
