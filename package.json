@@ -112,6 +112,7 @@
     "@techstack/styled-system": "~1.0.341",
     "@tippyjs/react": "~4.2.6",
     "@vercel/analytics": "~1.2.2",
+    "babel-plugin-styled-components": "~2.1.4",
     "beauty-error": "~1.2.18",
     "cssnano": "~6.0.2",
     "cssnano-preset-advanced": "~6.0.2",

@@ -1,5 +1,5 @@
+import { layout, colors, themeCss } from 'theme'
 import { Microlink } from 'components/logos'
-import { layout, colors } from 'theme'
 import { Mail } from 'react-feather'
 import { issueUrl } from 'helpers'
 import React from 'react'
@@ -24,8 +24,6 @@ import {
 const LIGHT_THEME = {
   bg: 'white',
   textColor: 'black60',
-  buttonColor: 'white',
-  buttonBg: 'black',
   inputIconColor: colors.black40,
   iconColor: colors.black80
 }
@@ -33,42 +31,54 @@ const LIGHT_THEME = {
 const DARK_THEME = {
   bg: 'black',
   textColor: 'white60',
-  buttonColor: 'black',
-  buttonBg: 'white',
   inputIconColor: colors.white40,
   iconColor: colors.white80
 }
 
 const Footer = ({ theme, ...props }) => {
   const isDark = theme === 'dark'
-  const { bg, textColor, buttonColor, buttonBg, inputIconColor } = isDark
-    ? DARK_THEME
-    : LIGHT_THEME
+  const { bg, textColor, inputIconColor } = isDark ? DARK_THEME : LIGHT_THEME
 
   return (
-    <Container px={0} maxWidth={layout.large} pb={Container.defaultProps.pt}>
+    <Container
+      css={themeCss({
+        px: 0,
+        maxWidth: layout.large,
+        pb: Container.defaultProps.pt
+      })}
+    >
       <Flex
-        bg={bg}
-        flexDirection={['column', 'column', 'column', 'row']}
-        justifyContent='space-between'
-        alignItems='center'
+        css={themeCss({
+          bg,
+          flexDirection: ['column', 'column', 'column', 'row'],
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        })}
         {...props}
       >
-        <Box px={0}>
-          <Flex flexDirection='column'>
-            <Flex justifyContent='center'>
+        <Box css={themeCss({ px: 0 })}>
+          <Flex css={themeCss({ flexDirection: 'column' })}>
+            <Flex css={themeCss({ justifyContent: 'center' })}>
               <Microlink />
             </Flex>
-            <Flex flexDirection='column' alignItems='center'>
-              <Text color={textColor} fontSize={1} pt={3}>
+            <Flex
+              css={themeCss({ flexDirection: 'column', alignItems: 'center' })}
+            >
+              <Text css={themeCss({ color: textColor, fontSize: 1, pt: 3 })}>
                 Turn websites into data
               </Text>
             </Flex>
             <Flex
-              alignItems={['center', 'center', 'center', 'inherit']}
-              flexDirection='column'
+              css={themeCss({
+                alignItems: ['center', 'center', 'center', 'inherit'],
+                flexDirection: 'column'
+              })}
             >
-              <Flex pt={3}>
+              <Flex
+                css={themeCss({
+                  pt: 3
+                })}
+              >
                 <form
                   action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
                   method='post'
@@ -78,167 +88,182 @@ const Footer = ({ theme, ...props }) => {
                       type='email'
                       name='EMAIL'
                       placeholder='you@domain.com'
-                      width='8rem'
-                      fontSize={0}
                       iconComponent={<Mail color={inputIconColor} size={16} />}
-                      theme={theme}
+                      isDark={isDark}
+                      css={themeCss({ fontSize: 1, width: '8rem' })}
                       required
                     />
 
                     <Button
-                      ml={2}
                       data-event-location='Footer'
                       data-event-name='Be Notified'
-                      bg={buttonBg}
-                      color={buttonColor}
+                      variant={isDark ? 'white' : 'black'}
+                      css={themeCss({ ml: 2 })}
                     >
-                      <Caps fontSize={0}>Be Notified</Caps>
+                      <Caps
+                        css={themeCss({
+                          fontSize: 0
+                        })}
+                      >
+                        Be Notified
+                      </Caps>
                     </Button>
                   </Flex>
                 </form>
               </Flex>
-              <Text textAlign='center' color={textColor} fontSize={1} pt={3}>
+              <Text
+                css={themeCss({
+                  textAlign: 'center',
+                  color: textColor,
+                  fontSize: 1,
+                  pt: 3
+                })}
+              >
                 Early access & updates on new releases.
               </Text>
             </Flex>
           </Flex>
         </Box>
-        <Box mt={[2, 0, 0, 0]} pt={[3, 3, 3, 0]} pb={[3, 3, 3, 0]} px={0}>
-          <Flex flexDirection={['row', 'row', 'row', 'column']}>
-            <LinkSolid
-              theme={theme}
-              data-event-location='Footer'
-              data-event-name='API'
-              fontSize={[0, 0, 0, 1]}
-              mr={[2, 2, 2, 0]}
-              mb={[0, 0, 0, 3]}
-              href='/docs/api/getting-started/overview'
-            >
-              API
-            </LinkSolid>
-            <LinkSolid
-              theme={theme}
-              data-event-location='Footer'
-              data-event-name='Blog'
-              fontSize={[0, 0, 0, 1]}
-              mr={[2, 2, 2, 0]}
-              mb={[0, 0, 0, 3]}
-              href='/blog'
-            >
-              Blog
-            </LinkSolid>
-            <LinkSolid
-              theme={theme}
-              data-event-location='Footer'
-              data-event-name='Chat'
-              fontSize={[0, 0, 0, 1]}
-              mr={[2, 2, 2, 0]}
-              mb={[0, 0, 0, 3]}
-              href='/community'
-            >
-              Community
-            </LinkSolid>
-            <LinkSolid
-              theme={theme}
-              data-event-location='Footer'
-              data-event-name='Status'
-              fontSize={[0, 0, 0, 1]}
-              href='/status'
-            >
-              Status
-            </LinkSolid>
+        <Box
+          css={themeCss({
+            mt: [2, 0, 0, 0],
+            pt: [3, 3, 3, 0],
+            pb: [3, 3, 3, 0],
+            px: 0
+          })}
+        >
+          <Flex
+            css={themeCss({
+              flexDirection: ['row', 'row', 'row', 'column']
+            })}
+          >
+            {[
+              { children: 'API', href: '/docs/api/getting-started/overview' },
+              { children: 'Blog', href: '/blog' },
+              { children: 'Chat', href: '/community' },
+              { children: 'Status', href: '/status' }
+            ].map(({ href, children }) => (
+              <LinkSolid
+                key={href}
+                isDark={isDark}
+                href={href}
+                data-event-name='Footer'
+                data-event-location={children}
+                css={themeCss({
+                  fontSize: [0, 0, 0, 1],
+                  mr: [2, 2, 2, 0],
+                  mb: [0, 0, 0, 3]
+                })}
+              >
+                {children}
+              </LinkSolid>
+            ))}
           </Flex>
         </Box>
-        <Box mb={[2, 0, 0, 0]} pb={[3, 3, 3, 0]} px={0}>
-          <Flex flexDirection={['row', 'row', 'row', 'column']}>
-            <LinkSolid
-              theme={theme}
-              data-event-location='Footer'
-              data-event-name='SDK'
-              fontSize={[0, 0, 0, 1]}
-              mr={[2, 2, 2, 0]}
-              mb={[0, 0, 0, 3]}
-              href='/docs/sdk/getting-started/overview/'
-            >
-              SDK
-            </LinkSolid>
-            <LinkSolid
-              theme={theme}
-              data-event-location='Footer'
-              data-event-name='Pricing'
-              fontSize={[0, 0, 0, 1]}
-              mr={[2, 2, 2, 0]}
-              mb={[0, 0, 0, 3]}
-              href='/#pricing'
-            >
-              Pricing
-            </LinkSolid>
-            <LinkSolid
-              theme={theme}
-              data-event-location='Footer'
-              data-event-name='Open Source'
-              fontSize={[0, 0, 0, 1]}
-              mr={[2, 2, 2, 0]}
-              mb={[0, 0, 0, 3]}
-              href='/oss'
-            >
-              Open Source
-            </LinkSolid>
-            <LinkSolid
-              theme={theme}
-              data-event-location='Footer'
-              data-event-name='Bug Reports'
-              fontSize={[0, 0, 0, 1]}
-              href={issueUrl.bug()}
-            >
-              Bug Reports
-            </LinkSolid>
+        <Box
+          css={themeCss({
+            mb: [2, 0, 0, 0],
+            pb: [3, 3, 3, 0],
+            px: 0
+          })}
+        >
+          <Flex
+            css={themeCss({
+              flexDirection: ['row', 'row', 'row', 'column']
+            })}
+          >
+            {[
+              { children: 'SDK', href: '/docs/sdk/getting-started/overview/' },
+              { children: 'Pricing', href: '/#pricing' },
+              { children: 'Open Source', href: '/oss' },
+              { children: 'Bug Reports', href: issueUrl.bug() }
+            ].map(({ href, children }) => (
+              <LinkSolid
+                key={href}
+                isDark={isDark}
+                href={href}
+                data-event-name='Footer'
+                data-event-location={children}
+                css={themeCss({
+                  fontSize: [0, 0, 0, 1],
+                  mr: [2, 2, 2, 0],
+                  mb: [0, 0, 0, 3]
+                })}
+              >
+                {children}
+              </LinkSolid>
+            ))}
           </Flex>
         </Box>
-        <Box px={0}>
-          <Flex flexDirection='column'>
+        <Box css={themeCss({ px: 0 })}>
+          <Flex css={themeCss({ flexDirection: 'column' })}>
             <Flex
-              alignItems='center'
-              justifyContent={['center', 'inherit', 'inherit', 'inherit']}
+              css={themeCss({
+                alignItems: 'center',
+                justifyContent: ['center', 'inherit', 'inherit', 'inherit']
+              })}
             >
-              <Flex flexDirection='column'>
+              <Flex
+                css={themeCss({
+                  flexDirection: 'column'
+                })}
+              >
                 <Healthcheck>
                   {({ isHealthy, isLoading }) => {
                     if (isLoading) {
                       return (
                         <LinkSolid
-                          theme={theme}
-                          px={0}
+                          isDark={isDark}
                           data-event-location='Footer'
                           data-event-name='Status'
                           href='/status'
+                          css={themeCss({
+                            px: 0
+                          })}
                         >
-                          <Text fontSize={[0, 0, 0, 1]}>Status Page</Text>
+                          <Text
+                            css={themeCss({
+                              fontSize: [0, 0, 0, 1]
+                            })}
+                          >
+                            Status Page
+                          </Text>
                         </LinkSolid>
                       )
                     }
 
                     return (
                       <Link
-                        theme={theme}
-                        px={0}
                         data-event-location='Footer'
                         data-event-name='Status'
                         href='/status'
-                        color={colors[textColor]}
+                        css={themeCss({
+                          color: colors[textColor],
+                          px: 0
+                        })}
                       >
                         <Text
-                          pb={[3, 3, 3, 0]}
-                          fontSize={[0, 0, 0, 1]}
-                          color='inherit'
+                          css={themeCss({
+                            pb: [3, 3, 3, 0],
+                            fontSize: [0, 0, 0, 1],
+                            color: 'inherit'
+                          })}
                         >
                           <Choose>
                             <Choose.When condition={isHealthy}>
-                              <Dot.Success mr={2} />
+                              <Dot.Success
+                                css={themeCss({
+                                  mr: 2
+                                })}
+                              />
                               All systems operational
                             </Choose.When>
                             <Choose.Otherwise>
-                              <Dot.Warning mr={2} />
+                              <Dot.Warning
+                                css={themeCss({
+                                  mr: 2
+                                })}
+                              />
                               System performance degradation
                             </Choose.Otherwise>
                           </Choose>
@@ -251,38 +276,56 @@ const Footer = ({ theme, ...props }) => {
             </Flex>
 
             <Hide breakpoints={[0, 1, 2]}>
-              <Flex alignItems='center' py={[0, 0, 0, 4]}>
-                <Text color={textColor} mr={2} pb='2px' fontSize={1}>
+              <Flex
+                css={themeCss({
+                  alignItems: 'center',
+                  py: [0, 0, 0, 4]
+                })}
+              >
+                <Text
+                  css={themeCss({
+                    color: textColor,
+                    mr: 2,
+                    pb: '2px',
+                    fontSize: 1
+                  })}
+                >
                   © Microlink
                 </Text>
-                <LinkSolid
-                  theme={theme}
-                  fontWeight='normal'
-                  mr={2}
-                  fontSize={0}
-                  href='/tos'
-                  data-event-location='Footer'
-                  data-event-name='Terms'
-                >
-                  Terms
-                </LinkSolid>
-                <LinkSolid
-                  theme={theme}
-                  fontWeight='normal'
-                  fontSize={0}
-                  data-event-location='Footer'
-                  data-event-name='Privacy'
-                  href='/privacy'
-                >
-                  Privacy
-                </LinkSolid>
+                {[
+                  {
+                    href: '/tos',
+                    children: 'Terms'
+                  },
+                  {
+                    href: '/privacy',
+                    children: 'Privacy'
+                  }
+                ].map(({ href, children }) => (
+                  <LinkSolid
+                    key={href}
+                    isDark={isDark}
+                    href={href}
+                    data-event-name='Footer'
+                    data-event-location={children}
+                    css={themeCss({
+                      fontWeight: 'normal',
+                      mr: 2,
+                      fontSize: 1
+                    })}
+                  >
+                    {children}
+                  </LinkSolid>
+                ))}
               </Flex>
             </Hide>
 
             <Flex
-              alignItems='center'
-              justifyContent={['center', 'center', 'center', 'inherit']}
-              mt={[3, 0, 0, 0]}
+              css={themeCss({
+                alignItems: 'center',
+                justifyContent: ['center', 'center', 'center', 'inherit'],
+                mt: [3, 0, 0, 0]
+              })}
             >
               {[
                 {
@@ -304,10 +347,12 @@ const Footer = ({ theme, ...props }) => {
                 <LinkSolid
                   data-event-location='Footer'
                   data-event-name={props.children}
-                  theme={theme}
+                  isDark={isDark}
                   key={props.children}
-                  pl={index > 0 ? 2 : 0}
-                  fontSize={0}
+                  css={themeCss({
+                    pl: index > 0 ? 2 : 0,
+                    fontSize: 1
+                  })}
                   icon
                   {...props}
                 />

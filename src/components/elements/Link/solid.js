@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
-import { textGradient, colors } from 'theme'
+import { textGradient, colors, themeCss } from 'theme'
 import { lighten } from 'polished'
 
 import Box from '../Box'
@@ -56,18 +56,10 @@ LinkSolidWrapper.defaultProps = {
   fontWeight: 'regular'
 }
 
-const LinkSolid = ({ fontWeight, href, children, color, theme, ...props }) => {
+const LinkSolid = props => {
   return (
     <Box display='inline'>
-      <LinkSolidWrapper
-        {...props}
-        color={color}
-        href={href}
-        fontWeight={fontWeight}
-        isDark={theme === 'dark'}
-      >
-        {children}
-      </LinkSolidWrapper>
+      <LinkSolidWrapper css={themeCss({ fontWeight: 'regular' })} {...props} />
     </Box>
   )
 }

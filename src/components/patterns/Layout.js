@@ -1,7 +1,7 @@
+import { ThemeProvider } from 'styled-components'
 import { Toolbar, Footer } from 'components/patterns'
 import React, { useEffect, createElement } from 'react'
 import { BreakpointProvider } from 'context/breakpoint'
-import { ThemeProvider } from 'styled-components'
 import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
 import { noop } from 'helpers'
@@ -73,11 +73,11 @@ const Layout = ({
             },
             children
           )} */}
-          {/* {footer && (
+          {footer && (
             <Box as='footer' className='hidden-print'>
               <Footer theme={theme} {...footer} />
             </Box>
-          )} */}
+          )}
         </Flex>
       </ThemeProvider>
     </BreakpointProvider>

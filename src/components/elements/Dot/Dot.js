@@ -1,5 +1,6 @@
-import { createElement } from 'react'
 import styled from 'styled-components'
+import { colors } from 'theme'
+import React from 'react'
 
 import Text from '../Text'
 
@@ -14,9 +15,20 @@ Dot.defaultProps = {
   as: 'span'
 }
 
-const DotSuccess = props => createElement(Dot, { bg: 'teal3', ...props })
-const DotError = props => createElement(Dot, { bg: 'red6', ...props })
-const DotWarning = props => createElement(Dot, { bg: 'yellow6', ...props })
+const createDot = color => props =>
+  (
+    <Dot
+      css={{
+        background: color,
+        boxShadow: `0 0 12px 0 ${color}`
+      }}
+      {...props}
+    />
+  )
+
+const DotSuccess = createDot(colors.teal3)
+const DotError = createDot(colors.red6)
+const DotWarning = createDot(colors.yellow6)
 
 Dot.Success = DotSuccess
 Dot.Error = DotError

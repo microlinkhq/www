@@ -1,9 +1,8 @@
-import { ThemeProvider } from 'styled-components'
 import { LocationProvider } from '@gatsbyjs/reach-router'
-
+import { ThemeProvider } from 'styled-components'
 import Flex from 'components/elements/Flex'
+import themeSpec, { themeCss } from 'theme'
 import React from 'react'
-import theme from 'theme'
 
 import '@storybook/addon-console'
 
@@ -24,13 +23,15 @@ window.___navigate = pathname => {
 
 export const decorators = [
   Story => (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeSpec}>
       <LocationProvider>
         <Flex
-          p={3}
-          justiContent='center'
-          alignItems='baseline'
-          flexDirection='column'
+          css={themeCss({
+            p: 3,
+            justifyContent: 'center',
+            alignItems: 'baseline',
+            flexDirection: 'column'
+          })}
         >
           <Story />
         </Flex>

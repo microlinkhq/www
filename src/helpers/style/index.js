@@ -1,12 +1,14 @@
 import { css } from 'styled-components'
 
-export const createCssState = ({ selector, state, css: cssStyle }) => props =>
-  css`
-    ${props => props.state === state && cssStyle}
-    ${selector} {
-      ${cssStyle};
-    }
-  `
+export const createCssState =
+  ({ selector, state, css: cssStyle }) =>
+  () =>
+    css`
+      ${props => props.state === state && cssStyle}
+      ${selector} {
+        ${cssStyle};
+      }
+    `
 
 export const wordBreak = css`
   /* These are technically the same, but use both */

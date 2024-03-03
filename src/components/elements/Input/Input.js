@@ -1,34 +1,35 @@
-import { transition, colors, borders } from 'theme'
+import { transition, colors, borders, themeCss } from 'theme'
 import React, { useMemo, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import Text from '../Text'
 import Flex from '../Flex'
 
-const InputBase = styled(Text)({
-  maxWidth: '100%',
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  border: 0,
-  appearance: 'none',
-  '&:focus': {
-    outline: '0'
+const InputBase = styled(Text)(
+  {
+    lineHeight: 'inherit',
+    background: 'transparent',
+    maxWidth: '100%',
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    appearance: 'none',
+    '&:focus': {
+      outline: '0'
+    },
+    '&:disabled': {
+      opacity: 1 / 4
+    }
   },
-  '&:disabled': {
-    opacity: 1 / 4
-  }
-})
+  themeCss({
+    border: 0,
+    p: 0,
+    mx: 2
+  })
+)
 
 InputBase.defaultProps = {
   as: 'input',
-  type: 'text',
-  lineHeight: 'inherit',
-  width: 1,
-  border: 0,
-  p: 0,
-  mx: 2,
-  color: 'inherit',
-  bg: 'transparent'
+  type: 'text'
 }
 
 const focusStyle = css`
@@ -58,11 +59,10 @@ const Input = ({
   iconComponent: Icon,
   suggestions,
   children,
-  theme,
+  isDark,
   ...props
 }) => {
   const [isFocus, setFocus] = useState(props.autoFocus)
-  const isDark = theme === 'dark'
 
   const list = useMemo(() => {
     if (!suggestions) return undefined
@@ -77,13 +77,15 @@ const Input = ({
   return (
     <InputWrapper
       as='label'
-      alignItems='center'
-      borderRadius={2}
       focus={isFocus}
       isDark={isDark}
-      py='12px'
-      pl={2}
-      pr={suggestions ? 0 : 2}
+      css={themeCss({
+        pr: suggestions ? 0 : 2,
+        py: '12px',
+        pl: 2,
+        alignItems: 'center',
+        borderRadius: 2
+      })}
     >
       {Icon && <Flex>{Icon}</Flex>}
       <InputBase

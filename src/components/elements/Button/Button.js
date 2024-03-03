@@ -2,15 +2,15 @@ import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
 import { colors } from 'theme'
 
-import ButtonBase from './ButtonBase'
+import ButtonBase, { getColorVariant } from './ButtonBase'
 
 export const hoverStyle = createCssState({
   selector: '&:hover:not([disabled])',
   state: 'hover',
   css: css`
-    background-color: ${({ color }) => colors[color]};
-    color: ${({ bg }) => colors[bg]};
-    box-shadow: 0 0 0 1px ${({ bg }) => colors[bg]};
+    background: ${getColorVariant('color')};
+    color: ${getColorVariant('background')};
+    box-shadow: 0 0 0 1px ${getColorVariant('background')};
   `
 })
 
