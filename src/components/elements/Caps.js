@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { themeCss } from 'theme'
+import { theme } from 'theme'
 
 import Text from './Text'
 
 const Caps = styled(Text)(
-  themeCss({
+  theme({
     textTransform: 'uppercase',
     fontSize: 1,
     letterSpacing: 2

@@ -1,6 +1,6 @@
 import { Box, Toolbar } from 'components/elements'
 import styled from 'styled-components'
-import { themeCss } from 'theme'
+import { theme } from 'theme'
 import React from 'react'
 
 import NavContainer from './NavContainer'
@@ -27,19 +27,17 @@ const Nav = styled(NavContainer)`
   );
 `
 
-const ToolbarMobile = ({ theme }) => {
-  const isDark = theme === 'dark'
-
+const ToolbarMobile = ({ isDark }) => {
   return (
     <Box
       as='header'
-      css={themeCss({
+      css={theme({
         position: 'fixed',
         zIndex: 101,
         top: 0,
         left: 0,
         right: 0,
-        bg: isDark ? 'black' : 'white'
+        background: isDark ? 'black' : 'white'
       })}
     >
       <Box>

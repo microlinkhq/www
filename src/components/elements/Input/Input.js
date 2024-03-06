@@ -1,4 +1,4 @@
-import { transition, colors, borders, themeCss } from 'theme'
+import { transition, colors, borders, theme } from 'theme'
 import React, { useMemo, useState } from 'react'
 import styled, { css } from 'styled-components'
 
@@ -20,7 +20,7 @@ const InputBase = styled(Text)(
       opacity: 1 / 4
     }
   },
-  themeCss({
+  theme({
     border: 0,
     p: 0,
     mx: 2
@@ -41,7 +41,9 @@ const focusStyle = css`
   }
 `
 
-const InputWrapper = styled(Flex)`
+const InputWrapper = styled(Flex).withConfig({
+  shouldForwardProp: prop => !['focus'].includes(prop)
+})`
   background: ${({ isDark }) => (isDark ? colors.black : colors.white)};
   border: ${borders[1]};
   border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black10)};
@@ -79,7 +81,7 @@ const Input = ({
       as='label'
       focus={isFocus}
       isDark={isDark}
-      css={themeCss({
+      css={theme({
         pr: suggestions ? 0 : 2,
         py: '12px',
         pl: 2,

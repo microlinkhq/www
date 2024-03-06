@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Caps, Flex, Button } from 'components/elements'
-import { themeCss } from 'theme'
+import { theme } from 'theme'
 
 import { Story } from 'story'
 
@@ -32,11 +32,11 @@ const BuyButton = ({ children, loading: initialLoading, ...props }) => {
     <Button
       loading={isLoading}
       onClick={onClick}
-      css={themeCss({ mx: 3 })}
+      css={theme({ mx: 3 })}
       {...props}
     >
       <Caps
-        css={themeCss({
+        css={theme({
           fontSize: 1
         })}
       >
@@ -48,12 +48,12 @@ const BuyButton = ({ children, loading: initialLoading, ...props }) => {
 
 storiesOf('Elements', module).add('Button', () => (
   <Story name='Button' code={code}>
-    <Flex css={themeCss({ pb: 4 })}>
+    <Flex css={theme({ pb: 4 })}>
       <BuyButton>BUY</BuyButton>
       <BuyButton variant='black'>BUY NOW</BuyButton>
     </Flex>
     {variants.map((variant, index) => (
-      <Flex css={themeCss({ pt: index > 0 ? 4 : 0 })} key={variant}>
+      <Flex css={theme({ pt: index > 0 ? 4 : 0 })} key={variant}>
         {states.map(state => (
           <BuyButton
             key={state}

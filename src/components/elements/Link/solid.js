@@ -1,8 +1,8 @@
-import React from 'react'
+import { textGradient, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
-import { textGradient, colors, themeCss } from 'theme'
 import { lighten } from 'polished'
+import React from 'react'
 
 import Box from '../Box'
 import { LinkBase } from './base'
@@ -37,7 +37,9 @@ const style = css`
   text-decoration-thickness: 1px;
 `
 
-const LinkSolidWrapper = styled(LinkBase)`
+const LinkSolidWrapper = styled(LinkBase).withConfig({
+  shouldForwardProp: prop => !['isDark'].includes(prop)
+})`
   ${style};
   ${hoverStyle};
 
@@ -52,14 +54,10 @@ const LinkSolidWrapper = styled(LinkBase)`
   }
 `
 
-LinkSolidWrapper.defaultProps = {
-  fontWeight: 'regular'
-}
-
 const LinkSolid = props => {
   return (
-    <Box display='inline'>
-      <LinkSolidWrapper css={themeCss({ fontWeight: 'regular' })} {...props} />
+    <Box css={{ display: 'inline' }}>
+      <LinkSolidWrapper css={theme({ fontWeight: 'regular' })} {...props} />
     </Box>
   )
 }

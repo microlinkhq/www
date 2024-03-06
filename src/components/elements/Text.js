@@ -1,12 +1,12 @@
 import { compose, variant, typography } from '@techstack/styled-system'
-import { themeCss, defaultProps } from 'theme'
 import styled from 'styled-components'
+import { theme } from 'theme'
 
 import Box from './Box'
 
-const Text = styled(Box).attrs(defaultProps({ as: 'div' }))(
+const Text = styled(Box)(
   compose(typography, variant({ key: 'text' })),
-  themeCss({
+  theme({
     fontWeight: 'normal',
     letterSpacing: 0,
     fontFamily: 'sans',
@@ -15,5 +15,9 @@ const Text = styled(Box).attrs(defaultProps({ as: 'div' }))(
     fontSize: [1, 1, 2, 2]
   })
 )
+
+Text.defaultProps = {
+  as: 'div'
+}
 
 export default Text

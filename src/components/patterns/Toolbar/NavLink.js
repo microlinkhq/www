@@ -1,4 +1,4 @@
-import { colors, fontWeights, transition, themeCss } from 'theme'
+import { colors, fontWeights, transition, theme } from 'theme'
 import { withLink, withAnalytics } from 'helpers/hoc'
 import styled, { css } from 'styled-components'
 import { Caps } from 'components/elements'
@@ -21,7 +21,7 @@ const style = css`
 const NavLink = styled(Caps).withConfig({
   shouldForwardProp: prop => !['isDark'].includes(prop)
 })(
-  themeCss({
+  theme({
     fontSize: 0,
     pl: 3,
     display: 'inline-flex',

@@ -1,4 +1,4 @@
-import { transition, themeCss } from 'theme'
+import { transition, theme } from 'theme'
 import styled from 'styled-components'
 import Text from '../Text'
 
@@ -7,7 +7,9 @@ const getColor = ({ theme, variant }, propName) =>
 
 export const getColorVariant = propName => props => getColor(props, propName)
 
-const Button = styled(Text)(
+const Button = styled(Text).withConfig({
+  shouldForwardProp: prop => !['variant'].includes(prop)
+})(
   props => {
     return {
       transition: `background-color ${transition.medium}, color ${transition.medium}, box-shadow ${transition.medium}`,
@@ -28,7 +30,7 @@ const Button = styled(Text)(
       boxShadow: props.variant === 'white' ? '0 0 0 1px black' : undefined
     }
   },
-  themeCss({
+  theme({
     fontFamily: 'sans',
     fontSize: 1,
     fontWeight: 'bold',

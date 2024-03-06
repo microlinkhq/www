@@ -6,7 +6,7 @@ import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
 import { noop } from 'helpers'
 
-import themeSpec, { themeCss } from 'theme'
+import themeSpec, { theme as themeProp } from 'theme'
 
 import 'styles/main.scss'
 
@@ -35,6 +35,7 @@ const Layout = ({
   component = Box,
   ...props
 }) => {
+  const isDark = theme === 'dark'
   const breakpoint = useBreakpoint([0, 1, 2, 3])
   const toolbarHeight = TOOLBAR_HEIGHTS[breakpoint]
 
@@ -53,13 +54,13 @@ const Layout = ({
           data-breakpoint={breakpoint}
           onClick={onClick}
           style={style}
-          css={themeCss({
+          css={themeProp({
             flexDirection: 'column',
             'overflow-x': 'hidden',
             'min-height': '100vh'
           })}
         >
-          <Toolbar as='header' theme={theme} style={style} />
+          <Toolbar as='header' isDark={isDark} style={style} />
           {/* {createElement(
             component,
             {
@@ -75,7 +76,7 @@ const Layout = ({
           )} */}
           {footer && (
             <Box as='footer' className='hidden-print'>
-              <Footer theme={theme} {...footer} />
+              <Footer isDark={isDark} {...footer} />
             </Box>
           )}
         </Flex>

@@ -1,4 +1,4 @@
-import { colors, transition, lineHeights } from 'theme'
+import { colors, transition, lineHeights, theme } from 'theme'
 import styled, { css } from 'styled-components'
 import { createCssState } from 'helpers/style'
 
@@ -26,12 +26,11 @@ export const LinkBase = styled(Text)`
 
 const Link = styled(LinkBase)`
   ${hoverStyle};
+  ${theme({ color: 'link' })}
 `
 
 Link.defaultProps = {
-  as: 'span',
-  fontSize: 'inherit',
-  color: 'link'
+  as: 'span'
 }
 
 export default Link

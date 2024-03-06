@@ -1,7 +1,7 @@
 import { Choose, Toolbar, Flex, Box } from 'components/elements'
 import { useLocation } from '@gatsbyjs/reach-router'
 import { GitHub, Twitter } from 'components/icons'
-import { colors, themeCss } from 'theme'
+import { colors, theme } from 'theme'
 import React, { useState } from 'react'
 import { css } from 'styled-components'
 import { rgba } from 'polished'
@@ -50,22 +50,21 @@ const iconDark = css`
 const ToolbarSecondary = ({ isDark, children }) => (
   <Toolbar type='secondary' aria-label='Secondary Navigation'>
     <Flex
-      css={themeCss({
+      css={theme({
         alignItems: 'center',
         justifyContent: 'center',
         m: 0,
         p: 0
       })}
     >
-      <NavContainer as='ul' css={themeCss({ pl: 0, py: 2 })} isDark={isDark}>
+      <NavContainer as='ul' css={theme({ pl: 0, py: 2 })} isDark={isDark}>
         {children}
       </NavContainer>
     </Flex>
   </Toolbar>
 )
 
-const ToolbarDesktop = ({ theme }) => {
-  const isDark = theme === 'dark'
+const ToolbarDesktop = ({ isDark }) => {
   const location = useLocation()
 
   const [secondary, setSecondary] = useState(() => {
@@ -92,7 +91,7 @@ const ToolbarDesktop = ({ theme }) => {
     <Box
       as='header'
       className='hidden-print'
-      css={themeCss({
+      css={theme({
         position: 'fixed',
         zIndex: 101,
         top: 0,
@@ -102,21 +101,21 @@ const ToolbarDesktop = ({ theme }) => {
         'background-color': rgba(isDark ? 'black' : 'white', 0.5)
       })}
     >
-      <Box css={themeCss({ px: 3 })}>
+      <Box css={theme({ px: 3 })}>
         <Toolbar
           aria-label='Primary Navigation'
-          css={themeCss({
+          css={theme({
             justifyContent: 'space-between',
             mb: secondary ? '-16px' : 'inherit'
           })}
         >
           <NavContainer as='span'>
-            <NavMicrolinkLogo css={themeCss({ p: 2 })} />
+            <NavMicrolinkLogo css={theme({ p: 2 })} />
           </NavContainer>
           <NavContainer>
             <Flex
               as='ul'
-              css={themeCss({
+              css={theme({
                 alignItems: 'center',
                 justifyContent: 'center',
                 p: 0,
@@ -125,7 +124,7 @@ const ToolbarDesktop = ({ theme }) => {
             >
               <NavProducts
                 isDark={isDark}
-                css={themeCss({ pl: 0 })}
+                css={theme({ pl: 0 })}
                 onMouseEnter={setToolbar('products')}
               >
                 Products
@@ -144,7 +143,7 @@ const ToolbarDesktop = ({ theme }) => {
           <NavContainer as='div'>
             <NavTwitter
               css={`
-                ${themeCss({ pl: 0 })};
+                ${theme({ pl: 0 })};
                 ${isDark ? iconDark : iconLight};
               `}
             >
@@ -152,7 +151,7 @@ const ToolbarDesktop = ({ theme }) => {
             </NavTwitter>
             <NavGitHub
               css={`
-                ${themeCss({ pl: 3 })};
+                ${theme({ pl: 3 })};
                 ${isDark ? iconDark : iconLight};
               `}
             >
@@ -164,57 +163,48 @@ const ToolbarDesktop = ({ theme }) => {
           <Choose.When condition={secondary === 'products'}>
             <ToolbarSecondary>
               <NavFormats
-                css={themeCss({ pl: 0, fontSize: '12px' })}
+                css={theme({ pl: 0, fontSize: '12px' })}
                 isDark={isDark}
               />
-              <NavInsights
-                isDark={isDark}
-                css={themeCss({ fontSize: '12px' })}
-              />
-              <NavLogo isDark={isDark} css={themeCss({ fontSize: '12px' })} />
-              <NavMeta isDark={isDark} css={themeCss({ fontSize: '12px' })} />
-              <NavPdf isDark={isDark} css={themeCss({ fontSize: '12px' })} />
+              <NavInsights isDark={isDark} css={theme({ fontSize: '12px' })} />
+              <NavLogo isDark={isDark} css={theme({ fontSize: '12px' })} />
+              <NavMeta isDark={isDark} css={theme({ fontSize: '12px' })} />
+              <NavPdf isDark={isDark} css={theme({ fontSize: '12px' })} />
               <NavScreenshot
                 isDark={isDark}
-                css={themeCss({ fontSize: '12px' })}
+                css={theme({ fontSize: '12px' })}
               />
-              <NavSDK isDark={isDark} css={themeCss({ fontSize: '12px' })} />
+              <NavSDK isDark={isDark} css={theme({ fontSize: '12px' })} />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'developers'}>
             <ToolbarSecondary>
               <NavChangelog
-                css={themeCss({ pl: 0, fontSize: '12px' })}
+                css={theme({ pl: 0, fontSize: '12px' })}
                 isDark={isDark}
               />
-              <NavCommunity
-                isDark={isDark}
-                css={themeCss({ fontSize: '12px' })}
-              />
-              <NavDocs isDark={isDark} css={themeCss({ fontSize: '12px' })} />
-              <NavRecipes
-                isDark={isDark}
-                css={themeCss({ fontSize: '12px' })}
-              />
+              <NavCommunity isDark={isDark} css={theme({ fontSize: '12px' })} />
+              <NavDocs isDark={isDark} css={theme({ fontSize: '12px' })} />
+              <NavRecipes isDark={isDark} css={theme({ fontSize: '12px' })} />
               <NavUserAgents
                 isDark={isDark}
-                css={themeCss({ fontSize: '12px' })}
+                css={theme({ fontSize: '12px' })}
               />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'company'}>
             <ToolbarSecondary>
               <NavBlog
-                css={themeCss({ pl: 0, fontSize: '12px' })}
+                css={theme({ pl: 0, fontSize: '12px' })}
                 isDark={isDark}
               />
               <NavNewsletter
                 isDark={isDark}
-                css={themeCss({ fontSize: '12px' })}
+                css={theme({ fontSize: '12px' })}
               />
               <NavOpenSource
                 isDark={isDark}
-                css={themeCss({ fontSize: '12px' })}
+                css={theme({ fontSize: '12px' })}
               />
             </ToolbarSecondary>
           </Choose.When>

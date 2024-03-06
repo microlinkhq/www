@@ -1,4 +1,4 @@
-import { layout, colors, themeCss } from 'theme'
+import { layout, colors, theme } from 'theme'
 import { Microlink } from 'components/logos'
 import { Mail } from 'react-feather'
 import { issueUrl } from 'helpers'
@@ -22,60 +22,61 @@ import {
 } from 'components/elements'
 
 const LIGHT_THEME = {
-  bg: 'white',
+  background: 'white',
   textColor: 'black60',
   inputIconColor: colors.black40,
   iconColor: colors.black80
 }
 
 const DARK_THEME = {
-  bg: 'black',
+  background: 'black',
   textColor: 'white60',
   inputIconColor: colors.white40,
   iconColor: colors.white80
 }
 
-const Footer = ({ theme, ...props }) => {
-  const isDark = theme === 'dark'
-  const { bg, textColor, inputIconColor } = isDark ? DARK_THEME : LIGHT_THEME
+const Footer = ({ isDark, ...props }) => {
+  const { background, textColor, inputIconColor } = isDark
+    ? DARK_THEME
+    : LIGHT_THEME
 
   return (
     <Container
-      css={themeCss({
+      css={theme({
         px: 0,
         maxWidth: layout.large,
         pb: Container.defaultProps.pt
       })}
     >
       <Flex
-        css={themeCss({
-          bg,
+        css={theme({
+          background,
           flexDirection: ['column', 'column', 'column', 'row'],
           justifyContent: 'space-between',
           alignItems: 'center'
         })}
         {...props}
       >
-        <Box css={themeCss({ px: 0 })}>
-          <Flex css={themeCss({ flexDirection: 'column' })}>
-            <Flex css={themeCss({ justifyContent: 'center' })}>
+        <Box css={theme({ px: 0 })}>
+          <Flex css={theme({ flexDirection: 'column' })}>
+            <Flex css={theme({ justifyContent: 'center' })}>
               <Microlink />
             </Flex>
             <Flex
-              css={themeCss({ flexDirection: 'column', alignItems: 'center' })}
+              css={theme({ flexDirection: 'column', alignItems: 'center' })}
             >
-              <Text css={themeCss({ color: textColor, fontSize: 1, pt: 3 })}>
+              <Text css={theme({ color: textColor, fontSize: 1, pt: 3 })}>
                 Turn websites into data
               </Text>
             </Flex>
             <Flex
-              css={themeCss({
+              css={theme({
                 alignItems: ['center', 'center', 'center', 'inherit'],
                 flexDirection: 'column'
               })}
             >
               <Flex
-                css={themeCss({
+                css={theme({
                   pt: 3
                 })}
               >
@@ -90,7 +91,7 @@ const Footer = ({ theme, ...props }) => {
                       placeholder='you@domain.com'
                       iconComponent={<Mail color={inputIconColor} size={16} />}
                       isDark={isDark}
-                      css={themeCss({ fontSize: 1, width: '8rem' })}
+                      css={theme({ fontSize: 1, width: '8rem' })}
                       required
                     />
 
@@ -98,10 +99,10 @@ const Footer = ({ theme, ...props }) => {
                       data-event-location='Footer'
                       data-event-name='Be Notified'
                       variant={isDark ? 'white' : 'black'}
-                      css={themeCss({ ml: 2 })}
+                      css={theme({ ml: 2 })}
                     >
                       <Caps
-                        css={themeCss({
+                        css={theme({
                           fontSize: 0
                         })}
                       >
@@ -112,7 +113,7 @@ const Footer = ({ theme, ...props }) => {
                 </form>
               </Flex>
               <Text
-                css={themeCss({
+                css={theme({
                   textAlign: 'center',
                   color: textColor,
                   fontSize: 1,
@@ -125,7 +126,7 @@ const Footer = ({ theme, ...props }) => {
           </Flex>
         </Box>
         <Box
-          css={themeCss({
+          css={theme({
             mt: [2, 0, 0, 0],
             pt: [3, 3, 3, 0],
             pb: [3, 3, 3, 0],
@@ -133,7 +134,7 @@ const Footer = ({ theme, ...props }) => {
           })}
         >
           <Flex
-            css={themeCss({
+            css={theme({
               flexDirection: ['row', 'row', 'row', 'column']
             })}
           >
@@ -149,7 +150,7 @@ const Footer = ({ theme, ...props }) => {
                 href={href}
                 data-event-name='Footer'
                 data-event-location={children}
-                css={themeCss({
+                css={theme({
                   fontSize: [0, 0, 0, 1],
                   mr: [2, 2, 2, 0],
                   mb: [0, 0, 0, 3]
@@ -161,14 +162,14 @@ const Footer = ({ theme, ...props }) => {
           </Flex>
         </Box>
         <Box
-          css={themeCss({
+          css={theme({
             mb: [2, 0, 0, 0],
             pb: [3, 3, 3, 0],
             px: 0
           })}
         >
           <Flex
-            css={themeCss({
+            css={theme({
               flexDirection: ['row', 'row', 'row', 'column']
             })}
           >
@@ -184,7 +185,7 @@ const Footer = ({ theme, ...props }) => {
                 href={href}
                 data-event-name='Footer'
                 data-event-location={children}
-                css={themeCss({
+                css={theme({
                   fontSize: [0, 0, 0, 1],
                   mr: [2, 2, 2, 0],
                   mb: [0, 0, 0, 3]
@@ -195,16 +196,16 @@ const Footer = ({ theme, ...props }) => {
             ))}
           </Flex>
         </Box>
-        <Box css={themeCss({ px: 0 })}>
-          <Flex css={themeCss({ flexDirection: 'column' })}>
+        <Box css={theme({ px: 0 })}>
+          <Flex css={theme({ flexDirection: 'column' })}>
             <Flex
-              css={themeCss({
+              css={theme({
                 alignItems: 'center',
                 justifyContent: ['center', 'inherit', 'inherit', 'inherit']
               })}
             >
               <Flex
-                css={themeCss({
+                css={theme({
                   flexDirection: 'column'
                 })}
               >
@@ -217,12 +218,12 @@ const Footer = ({ theme, ...props }) => {
                           data-event-location='Footer'
                           data-event-name='Status'
                           href='/status'
-                          css={themeCss({
+                          css={theme({
                             px: 0
                           })}
                         >
                           <Text
-                            css={themeCss({
+                            css={theme({
                               fontSize: [0, 0, 0, 1]
                             })}
                           >
@@ -237,22 +238,21 @@ const Footer = ({ theme, ...props }) => {
                         data-event-location='Footer'
                         data-event-name='Status'
                         href='/status'
-                        css={themeCss({
-                          color: colors[textColor],
-                          px: 0
+                        css={theme({
+                          px: 0,
+                          color: colors[textColor]
                         })}
                       >
                         <Text
-                          css={themeCss({
-                            pb: [3, 3, 3, 0],
+                          css={theme({
                             fontSize: [0, 0, 0, 1],
-                            color: 'inherit'
+                            pb: [3, 3, 3, 0]
                           })}
                         >
                           <Choose>
                             <Choose.When condition={isHealthy}>
                               <Dot.Success
-                                css={themeCss({
+                                css={theme({
                                   mr: 2
                                 })}
                               />
@@ -260,7 +260,7 @@ const Footer = ({ theme, ...props }) => {
                             </Choose.When>
                             <Choose.Otherwise>
                               <Dot.Warning
-                                css={themeCss({
+                                css={theme({
                                   mr: 2
                                 })}
                               />
@@ -277,13 +277,13 @@ const Footer = ({ theme, ...props }) => {
 
             <Hide breakpoints={[0, 1, 2]}>
               <Flex
-                css={themeCss({
+                css={theme({
                   alignItems: 'center',
                   py: [0, 0, 0, 4]
                 })}
               >
                 <Text
-                  css={themeCss({
+                  css={theme({
                     color: textColor,
                     mr: 2,
                     pb: '2px',
@@ -308,7 +308,7 @@ const Footer = ({ theme, ...props }) => {
                     href={href}
                     data-event-name='Footer'
                     data-event-location={children}
-                    css={themeCss({
+                    css={theme({
                       fontWeight: 'normal',
                       mr: 2,
                       fontSize: 1
@@ -321,7 +321,7 @@ const Footer = ({ theme, ...props }) => {
             </Hide>
 
             <Flex
-              css={themeCss({
+              css={theme({
                 alignItems: 'center',
                 justifyContent: ['center', 'center', 'center', 'inherit'],
                 mt: [3, 0, 0, 0]
@@ -349,7 +349,7 @@ const Footer = ({ theme, ...props }) => {
                   data-event-name={props.children}
                   isDark={isDark}
                   key={props.children}
-                  css={themeCss({
+                  css={theme({
                     pl: index > 0 ? 2 : 0,
                     fontSize: 1
                   })}

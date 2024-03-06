@@ -1,6 +1,6 @@
 import { lighten } from 'polished'
 
-export { css as themeCss } from '@techstack/styled-system'
+export { css as theme } from '@techstack/styled-system'
 
 export const toPx = n => `${n}px`
 export const toEm = n => `${n}em`

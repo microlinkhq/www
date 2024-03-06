@@ -1,6 +1,6 @@
-import { defaultProps, layout, themeCss } from 'theme'
 import { hideScrollbar } from 'helpers/style'
 import styled from 'styled-components'
+import { layout, theme } from 'theme'
 import React from 'react'
 
 import Flex from './Flex'
@@ -8,8 +8,8 @@ import Flex from './Flex'
 export const TOOLBAR_PRIMARY_HEIGHT = '64px'
 export const TOOLBAR_SECONDARY_HEIGHT = '48px'
 
-const ToolbarBase = styled(Flex).attrs(defaultProps({ as: 'nav' }))`
-  ${themeCss({
+const ToolbarBase = styled(Flex)`
+  ${theme({
     justifyContent: 'center',
     color: 'black60',
     mx: 'auto',
@@ -21,6 +21,10 @@ const ToolbarBase = styled(Flex).attrs(defaultProps({ as: 'nav' }))`
   })})}
   ${hideScrollbar};
 `
+
+ToolbarBase.defaultProps = {
+  as: 'nav'
+}
 
 const secondaryProps = {
   justifyContent: 'center'
