@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { noop } from 'helpers'
 
-import ButtonBase from '../Button/ButtonBase'
+import Button from '../Button/Button'
 
-const ButtonToggle = styled(ButtonBase)`
+const ButtonToggle = styled(Button)`
   box-shadow: none;
 
   &:hover {

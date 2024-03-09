@@ -1,20 +1,10 @@
 import { textGradient, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
-import { createCssState } from 'helpers/style'
 import { lighten } from 'polished'
 import React from 'react'
 
 import Box from '../Box'
 import { LinkBase } from './base'
-
-const hoverStyle = createCssState({
-  selector: '&:hover:not([disabled])',
-  state: 'hover',
-  css: css`
-    ${textGradient};
-    opacity: 1;
-  `
-})
 
 const style = css`
   outline: 0;
@@ -41,7 +31,13 @@ const LinkSolidWrapper = styled(LinkBase).withConfig({
   shouldForwardProp: prop => !['isDark'].includes(prop)
 })`
   ${style};
-  ${hoverStyle};
+
+  ${theme({
+    _hover: {
+      ...textGradient,
+      opacity: 1
+    }
+  })}
 
   &:hover {
     svg {

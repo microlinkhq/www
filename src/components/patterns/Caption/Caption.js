@@ -1,18 +1,18 @@
-import React from 'react'
 import { Subhead } from 'components/elements'
+import styled from 'styled-components'
+import { theme } from 'theme'
 
-const Caption = props => (
-  <Subhead
-    as='h3'
-    lineHeight={2}
-    textAlign='center'
-    fontWeight='normal'
-    {...props}
-  />
+const Caption = styled(Subhead)(
+  theme({
+    lineHeight: 2,
+    textAlign: 'center',
+    fontWeight: 'normal',
+    fontSize: [2, 2, 3, 3]
+  })
 )
 
 Caption.defaultProps = {
-  fontSize: [2, 2, 3, 3]
+  forwardedAs: 'h3'
 }
 
 export default Caption

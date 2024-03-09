@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { storiesOf } from '@storybook/react'
+import React, { useState, createElement } from 'react'
 import { Caps, Flex, Button } from 'components/elements'
-import { theme } from 'theme'
+import { transition, space, gradient, theme } from 'theme'
+import { storiesOf } from '@storybook/react'
+import styled from 'styled-components'
 
 import { Story } from 'story'
 
@@ -19,7 +20,12 @@ export default () => (
 )
 `
 
-const BuyButton = ({ children, loading: initialLoading, ...props }) => {
+const BuyButton = ({
+  children,
+  loading: initialLoading,
+  variant,
+  ...props
+}) => {
   const [isLoading, setIsLoading] = useState(initialLoading)
 
   const onClick = async () => {
@@ -31,6 +37,7 @@ const BuyButton = ({ children, loading: initialLoading, ...props }) => {
   return (
     <Button
       loading={isLoading}
+      variant={variant}
       onClick={onClick}
       css={theme({ mx: 3 })}
       {...props}
@@ -49,22 +56,38 @@ const BuyButton = ({ children, loading: initialLoading, ...props }) => {
 storiesOf('Elements', module).add('Button', () => (
   <Story name='Button' code={code}>
     <Flex css={theme({ pb: 4 })}>
+      <Button variant='gradient' css={theme({ mx: 3 })}>
+        <Caps
+          css={theme({
+            background: 'white',
+            px: 3,
+            py: 2,
+            color: 'black'
+          })}
+        >
+          Get in touch
+        </Caps>
+      </Button>
       <BuyButton>BUY</BuyButton>
       <BuyButton variant='black'>BUY NOW</BuyButton>
+      <BuyButton variant='white'>BUY NOW</BuyButton>
     </Flex>
     {variants.map((variant, index) => (
       <Flex css={theme({ pt: index > 0 ? 4 : 0 })} key={variant}>
-        {states.map(state => (
-          <BuyButton
-            key={state}
-            variant={variant}
-            state={state}
-            disabled={state === 'disabled'}
-            loading={state === 'loading'}
-          >
-            BUY
-          </BuyButton>
-        ))}
+        {states.map(state => {
+          return createElement(
+            BuyButton,
+            {
+              key: state,
+              variant,
+              state,
+              [`data-${state}`]: true,
+              disabled: state === 'disabled',
+              loading: state === 'loading'
+            },
+            'BUY'
+          )
+        })}
       </Flex>
     ))}
   </Story>

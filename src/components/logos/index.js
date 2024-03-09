@@ -1,8 +1,7 @@
 import React from 'react'
 import { Svg } from 'components/elements'
 import styled, { css } from 'styled-components'
-import { createCssState } from 'helpers/style'
-import { transition } from 'theme'
+import { transition, theme } from 'theme'
 
 import Microlink from './Microlink'
 import Slack from './Slack'
@@ -36,15 +35,7 @@ FacebookBase.defaultProps = {
 
 export const Facebook = styled(FacebookBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #3b5998;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#3b5998' } } })};
 `
 
 const GitHubBase = ({ ratio, ...props }) => (
@@ -70,15 +61,7 @@ GitHubBase.defaultProps = {
 
 export const GitHub = styled(GitHubBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #151013;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#151013' } } })};
 `
 
 const MediumBase = ({ ratio, ...props }) => (
@@ -103,15 +86,7 @@ MediumBase.defaultProps = {
 
 export const Medium = styled(MediumBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #1c1b1a;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#1c1b1a' } } })};
 `
 
 const SoundCloudBase = ({ ratio, ...props }) => (
@@ -129,15 +104,7 @@ SoundCloudBase.defaultProps = {
 
 export const SoundCloud = styled(SoundCloudBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #ff8800;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#ff8800' } } })};
 `
 
 const GizmodoBase = ({ ratio, ...props }) => (
@@ -163,15 +130,7 @@ GizmodoBase.defaultProps = {
 
 export const Gizmodo = styled(GizmodoBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #100f0d;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#100f0d' } } })};
 `
 
 const TwitterBase = ({ ratio, ...props }) => (
@@ -194,15 +153,7 @@ TwitterBase.defaultProps = {
 
 export const Twitter = styled(TwitterBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #1da1f2;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#1da1f2' } } })};
 `
 
 const YouTubeBase = ({ ratio, ...props }) => (
@@ -230,15 +181,7 @@ YouTubeBase.defaultProps = {
 
 export const YouTube = styled(YouTubeBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #ff0000;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#ff0000' } } })};
 `
 
 const InstagramBase = ({ ratio, ...props }) => (
@@ -262,15 +205,7 @@ InstagramBase.defaultProps = {
 
 export const Instagram = styled(InstagramBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #30618a;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#30618a' } } })};
 `
 
 export const Wikipedia = ({ ratio, ...props }) => (
@@ -350,15 +285,7 @@ AmazonBase.defaultProps = {
 
 export const Amazon = styled(AmazonBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #f90;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#f90' } } })};
 `
 
 const YCombinatorBase = ({ ratio, ...props }) => (
@@ -403,15 +330,7 @@ YCombinatorBase.defaultProps = {
 
 export const YCombinator = styled(YCombinatorBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #fc6723;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#fc6723' } } })};
 `
 
 const VimeoBase = ({ ratio, ...props }) => (
@@ -474,31 +393,17 @@ FlickrBase.defaultProps = {
 
 export const Flickr = styled(FlickrBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo:nth-child(1) {
-        fill: #0063db;
-      }
-      .logo:nth-child(2) {
-        fill: #ff0084;
-      }
-    `
+  ${theme({
+    _hover: {
+      '.logo:nth-child(1)': { fill: '#0063db' },
+      '.logo:nth-child(2)': { fill: '#ff0084' }
+    }
   })};
 `
 
 export const Vimeo = styled(VimeoBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #1ab7ea;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#1ab7ea' } } })};
 `
 
 const RedditBase = ({ ratio, ...props }) => (
@@ -540,15 +445,7 @@ RedditBase.defaultProps = {
 
 export const Reddit = styled(RedditBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #ff4500;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#ff4500' } } })};
 `
 
 export const NYTimes = ({ ratio, ...props }) => (
@@ -594,15 +491,7 @@ CNNBase.defaultProps = {
 
 export const CNN = styled(CNNBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #c00;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#c00' } } })};
 `
 
 export const TheWashingtonPost = ({ ratio, ...props }) => (
@@ -630,15 +519,7 @@ EtsyBase.defaultProps = {
 
 export const Etsy = styled(EtsyBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #f45800;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#f45800' } } })};
 `
 
 const EvenBriteBase = ({ ratio, ...props }) => (
@@ -657,15 +538,7 @@ EvenBriteBase.defaultProps = {
 
 export const EventBrite = styled(EvenBriteBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #f5662e;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#f5662e' } } })};
 `
 
 const TimeBase = ({ ratio, ...props }) => (
@@ -683,15 +556,7 @@ TimeBase.defaultProps = {
 
 export const Time = styled(TimeBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #e90606;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#e90606' } } })};
 `
 
 export const BBC = ({ ratio, ...props }) => (
@@ -760,15 +625,7 @@ NasaBase.defaultProps = {
 
 export const Nasa = styled(NasaBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        stroke: #f00;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { stroke: '#f00' } } })};
 `
 
 const TEDBase = ({ ratio, ...props }) => (
@@ -786,15 +643,7 @@ TEDBase.defaultProps = {
 
 export const TED = styled(TEDBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #e62b1e;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#e62b1e' } } })};
 `
 
 const BuzzFeedBase = ({ ratio, ...props }) => (
@@ -812,15 +661,7 @@ BuzzFeedBase.defaultProps = {
 
 export const BuzzFeed = styled(BuzzFeedBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #ee3322;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#ee3322' } } })};
 `
 
 const FoxBase = ({ ratio, ...props }) => (
@@ -847,15 +688,7 @@ FoxBase.defaultProps = {
 
 export const Fox = styled(FoxBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #002885;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#002885' } } })};
 `
 
 const TechCrunchBase = ({ ratio, ...props }) => (
@@ -877,17 +710,11 @@ TechCrunchBase.defaultProps = {
 
 export const TechCrunch = styled(TechCrunchBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo:nth-child(1) {
-        fill: #0a9e01;
-      }
-      .logo:nth-child(2) {
-        fill: #343c34;
-      }
-    `
+  ${theme({
+    _hover: {
+      '.logo:nth-child(1)': { fill: '#0a9e01' },
+      '.logo:nth-child(2)': { fill: '#343c34' }
+    }
   })};
 `
 
@@ -916,15 +743,7 @@ ChangeBase.defaultProps = {
 
 export const Change = styled(ChangeBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #ec2c22;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#ec2c22' } } })};
 `
 
 const NetflixBase = ({ ratio, ...props }) => (
@@ -942,15 +761,7 @@ NetflixBase.defaultProps = {
 
 export const Netflix = styled(NetflixBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #b81d24;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#b81d24' } } })};
 `
 
 const LifeHackerBase = ({ ratio, ...props }) => (
@@ -968,15 +779,7 @@ LifeHackerBase.defaultProps = {
 
 export const LifeHacker = styled(LifeHackerBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #87b827;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#87b827' } } })};
 `
 
 const TwitchBase = ({ ratio, ...props }) => (
@@ -995,15 +798,7 @@ TwitchBase.defaultProps = {
 
 export const Twitch = styled(TwitchBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #6441a5;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#6441a5' } } })};
 `
 
 const GfycatBase = ({ ratio, ...props }) => (
@@ -1022,15 +817,7 @@ GfycatBase.defaultProps = {
 
 export const Gfycat = styled(GfycatBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #3073ff;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#3073ff' } } })};
 `
 
 const StackOverflowBase = ({ ratio, ...props }) => (
@@ -1053,20 +840,12 @@ StackOverflowBase.defaultProps = {
 
 export const StackOverflow = styled(StackOverflowBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo:nth-child(1) {
-        fill: #222426;
-      }
-      .logo:nth-child(2) {
-        fill: #bcbbbb;
-      }
-      .logo:nth-child(3) {
-        fill: #f48024;
-      }
-    `
+  ${theme({
+    _hover: {
+      '.logo:nth-child(1)': { fill: '#222426' },
+      '.logo:nth-child(2)': { fill: '#bcbbbb' },
+      '.logo:nth-child(3)': { fill: '#f48024' }
+    }
   })};
 `
 
@@ -1114,17 +893,11 @@ ArsBase.defaultProps = {
 
 export const Ars = styled(ArsBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo:nth-child(1) {
-        fill: #ff4e00;
-      }
-      .logo:nth-child(2) {
-        fill: #fff;
-      }
-    `
+  ${theme({
+    _hover: {
+      'logo:nth-child(1)': { fill: '#ff4e00' },
+      'logo:nth-child(2)': { fill: '#87fffb827' }
+    }
   })};
 `
 
@@ -1151,15 +924,7 @@ ProductHuntBase.defaultProps = {
 
 export const ProductHunt = styled(ProductHuntBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #da552f;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#da552f' } } })};
 `
 
 const TheVergeBase = ({ ratio, ...props }) => (
@@ -1177,15 +942,7 @@ TheVergeBase.defaultProps = {
 
 export const TheVerge = styled(TheVergeBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #f94a2b;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#f94a2b' } } })};
 `
 
 const TNWBase = ({ ratio, ...props }) => (
@@ -1203,15 +960,7 @@ TNWBase.defaultProps = {
 
 export const TNW = styled(TNWBase)`
   ${style};
-  ${createCssState({
-    selector: '&:hover:not([disabled])',
-    state: 'hover',
-    css: css`
-      .logo {
-        fill: #f42;
-      }
-    `
-  })};
+  ${theme({ _hover: { '.logo': { fill: '#f42' } } })};
 `
 
 export { Microlink }

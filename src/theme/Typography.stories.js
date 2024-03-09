@@ -3,6 +3,7 @@ import { Heading, Caps, Text, Label } from 'components/elements'
 import { Caption, Legend } from 'components/patterns'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
+import { theme } from 'theme'
 
 const codeHeading = `
 import { Heading } from 'components/elements'
@@ -68,7 +69,7 @@ storiesOf('Theme', module).add('Typography', () => (
     </Story>
     <Story name='Text' code={codeText}>
       <Text>Make your content attractive, engaging better your links.</Text>
-      <Text fontSize={[0, 2]} color='black60'>
+      <Text css={theme({ fontSize: [0, 2], color: 'black60' })}>
         June 30, 2018 (9 months ago)
       </Text>
     </Story>
@@ -78,7 +79,7 @@ storiesOf('Theme', module).add('Typography', () => (
       </Label>
     </Story>
     <Story name='Caps' code={codeCaps}>
-      <Caps fontSize={0}>See More</Caps>
+      <Caps css={theme({ fontSize: 0 })}>See More</Caps>
     </Story>
   </>
 ))

@@ -7,15 +7,6 @@ export const toEm = n => `${n}em`
 export const toMs = n => `${n}ms`
 export const toRaw = n => Number(n.replace(/px|em/, ''))
 
-export const defaultProps = obj => props => {
-  return Object.keys(obj).reduce((acc, key) => {
-    if (props[key] === undefined) {
-      acc[key] = obj[key]
-    }
-    return acc
-  }, {})
-}
-
 export const breakpoints = [600, 768, 1200, 1200].map(toPx)
 
 export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512].map(toPx)
@@ -282,11 +273,9 @@ export const variants = {
   text: {
     gradient: textGradient
   },
-  button: {
-    gradient,
-    base: {
-      color: 'white',
-      background: 'link'
+  buttons: {
+    gradient: {
+      background: 'red'
     },
     black: {
       background: 'black',
