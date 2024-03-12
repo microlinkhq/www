@@ -5,8 +5,8 @@ const base = ({ background, primary, secondary }) => css`
   margin: 0;
   code {
     font-family: ${fonts.mono};
-    font-size ${fontSizes[0]};
-    line-height ${lineHeights[2]};
+    font-size: ${fontSizes[0]};
+    line-height: ${lineHeights[2]};
     direction: ltr;
     text-align: left;
     white-space: pre;
@@ -51,8 +51,8 @@ const theme = {
 
 const codeTheme = {
   theme,
-  light: base(theme.light),
-  dark: base(theme.dark)
+  false: base(theme.light),
+  true: base(theme.dark)
 }
 
 export default codeTheme

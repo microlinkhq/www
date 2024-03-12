@@ -5,7 +5,7 @@ export const GitHub = ({ width = 18, ...props }) => (
   <Svg
     width={width}
     height='100%'
-    ariaLabel='github'
+    aria-label='github'
     viewBox='0 0 14 14'
     {...props}
   >

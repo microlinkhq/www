@@ -1,5 +1,5 @@
 import { withContainer, withTitle, withSlug } from 'helpers/hoc'
-import { space, fontSizes, colors } from 'theme'
+import { space, fontSizes, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
 import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
@@ -36,12 +36,14 @@ const { Container, CONTAINER_SPACE } = withContainer
 
 const ProBadge = ({ top, ...props }) => (
   <Tooltip
-    display='inline'
-    top={top}
+    css={theme({ display: 'inline', top: 0 })}
     content={
       <Tooltip.Content tabIndex='0'>
         You have to buy{' '}
-        <Link display='inline-block' href='https://microlink.io#pricing'>
+        <Link
+          css={{ display: 'inline-block' }}
+          href='https://microlink.io#pricing'
+        >
           pro
         </Link>{' '}
         plan to use this feature.

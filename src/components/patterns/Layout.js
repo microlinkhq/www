@@ -1,12 +1,13 @@
+import { ThemeProvider } from 'styled-components'
 import { Toolbar, Footer } from 'components/patterns'
 import React, { useEffect, createElement } from 'react'
 import { BreakpointProvider } from 'context/breakpoint'
-import { ThemeProvider } from 'styled-components'
 import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
 import { noop } from 'helpers'
 
-import themeSpec from 'theme'
+import themeSpec, { theme as themeProp } from 'theme'
+
 import 'styles/main.scss'
 
 import {
@@ -34,6 +35,7 @@ const Layout = ({
   component = Box,
   ...props
 }) => {
+  const isDark = theme === 'dark'
   const breakpoint = useBreakpoint([0, 1, 2, 3])
   const toolbarHeight = TOOLBAR_HEIGHTS[breakpoint]
 
@@ -50,16 +52,16 @@ const Layout = ({
       <ThemeProvider theme={themeSpec}>
         <Flex
           data-breakpoint={breakpoint}
-          flexDirection='column'
           onClick={onClick}
           style={style}
-          css={`
-            overflow-x: hidden;
-            min-height: 100vh;
-          `}
+          css={themeProp({
+            flexDirection: 'column',
+            'overflow-x': 'hidden',
+            'min-height': '100vh'
+          })}
         >
-          <Toolbar as='header' theme={theme} style={style} />
-          {createElement(
+          <Toolbar as='header' isDark={isDark} style={style} />
+          {/* {createElement(
             component,
             {
               as: 'main',
@@ -71,10 +73,10 @@ const Layout = ({
               style: { flex: 1 }
             },
             children
-          )}
+          )} */}
           {footer && (
             <Box as='footer' className='hidden-print'>
-              <Footer theme={theme} {...footer} />
+              <Footer isDark={isDark} {...footer} />
             </Box>
           )}
         </Flex>

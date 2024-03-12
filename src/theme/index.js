@@ -1,5 +1,6 @@
-import palx from 'palx'
 import { lighten } from 'polished'
+
+export { css as theme } from '@techstack/styled-system'
 
 export const toPx = n => `${n}px`
 export const toEm = n => `${n}em`
@@ -23,24 +24,9 @@ export const radii = [0, 2, 4, 6, 8, 16].map(toPx)
 
 export const borders = [0, '1px solid', '2px solid', '2px dashed']
 
-const palette = palx('#449bf8')
-
-const flattened = Object.keys(palette).reduce((a, key) => {
-  const value = palette[key]
-  if (Array.isArray(value)) {
-    a[key] = value[5]
-    value.forEach((val, i) => {
-      a[key + i] = val
-    })
-  } else {
-    a[key] = value
-  }
-  return a
-}, {})
-
 // https://palx.jxnblk.com/067df7
 // https://github.com/yeun/open-color
-export const colors = Object.assign({}, flattened, {
+export const colors = {
   link: '#067df7',
   hoverLink: lighten(0.15, '#067df7'),
   secondary: '#EA407B',
@@ -221,12 +207,11 @@ export const colors = Object.assign({}, flattened, {
   orange7: '#f76707',
   orange8: '#e8590c',
   orange9: '#d9480f'
-})
+}
 
 export const fonts = {
   sans: "'Inter', sans-serif",
-  mono:
-    '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace'
+  mono: '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace'
 }
 
 export const cx = key => colors[key] || key
@@ -249,24 +234,7 @@ export const shadows = shadowOffsets.map(
 export const lineHeights = ['normal', 1.25, 1.5, 1.6, 1.65]
 
 export const sizes = [
-  1,
-  2,
-  4,
-  8,
-  12,
-  16,
-  20,
-  24,
-  28,
-  32,
-  36,
-  40,
-  44,
-  48,
-  64,
-  72,
-  82,
-  96
+  1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 64, 72, 82, 96
 ].map(toEm)
 
 export const speed = {
@@ -301,13 +269,22 @@ export const textGradient = {
   }
 }
 
-export const textStyles = {
-  gradient: textGradient
-}
-
-export const boxStyles = {
-  gradient: {
-    backgroundImage: gradient
+export const variants = {
+  text: {
+    gradient: textGradient
+  },
+  buttons: {
+    gradient: {
+      background: 'red'
+    },
+    black: {
+      background: 'black',
+      color: 'white'
+    },
+    white: {
+      background: 'white',
+      color: 'black'
+    }
   }
 }
 
@@ -321,7 +298,6 @@ export const letterSpacings = [0, -0.025, 0.025, 0.1, 0.25].map(toEm)
 
 const theme = {
   borders,
-  boxStyles,
   breakpoints,
   colors,
   fonts,
@@ -337,9 +313,9 @@ const theme = {
   sizes,
   space,
   speed,
-  textStyles,
   timings,
-  transition
+  transition,
+  variants
 }
 
 export default theme

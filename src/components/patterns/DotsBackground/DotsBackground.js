@@ -6,11 +6,8 @@ import is from 'styled-is'
 const darkStyle = css`
   background: #000;
   background-color: #000;
-  background-image: radial-gradient(
-      rgba(215, 215, 215, 0.15) 1px,
-      transparent 0
-    ),
-    radial-gradient(rgba(215, 215, 215, 0.15) 1px, transparent 0);
+  background-image: radial-gradient(rgba(215, 215, 215, 0.3) 1px, transparent 0),
+    radial-gradient(rgba(215, 215, 215, 0.3) 1px, transparent 0);
 `
 
 const lightStyle = css`
@@ -23,9 +20,16 @@ const animateStyle = css`
   animation-direction: reverse;
 `
 
-const Dots = styled(Box)`
-  position: relative;
-  overflow: hidden;
+const Dots = styled(Box).withConfig({
+  shouldForwardProp: prop => !['animate'].includes(prop)
+})`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100vh;
+  z-index: -1;
 
   &:before {
     content: '';

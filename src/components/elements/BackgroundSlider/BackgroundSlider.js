@@ -16,7 +16,7 @@ const SliderContainerWrapper = styled('div')`
   animation-direction: ${props => props.animationDirection};
 `
 
-const SliderContainerChildren = styled.div`
+const SliderContainerChildren = styled('div')`
   display: inline-block;
 `
 

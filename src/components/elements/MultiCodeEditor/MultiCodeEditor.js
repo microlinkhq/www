@@ -1,7 +1,7 @@
 import { useLocalStorage } from 'components/hook'
 import React, { useEffect, useMemo } from 'react'
 import styled from 'styled-components'
-import { cx } from 'theme'
+import { theme } from 'theme'
 
 import CodeEditor from '../CodeEditor/CodeEditor'
 import CodeCopy from '../Codecopy'
@@ -11,10 +11,6 @@ import Box from '../Box'
 
 export const SelectLanguage = ({ isDark, value, onClick, ...props }) => (
   <Tabs
-    $color={isActive => {
-      const id = isDark ? 'white' : 'black'
-      return cx(isActive ? id : `${id}50`)
-    }}
     value={value}
     onClick={event => {
       const label = event.target.textContent
@@ -42,15 +38,17 @@ const ActionComponent = ({
   return (
     <>
       <Actions>
-        <Box width='100%'>
+        <Box css={{ width: '100%' }}>
           <SelectLanguage
             isDark={isDark}
-            pt='2px'
-            pb='2px'
-            ml='auto'
-            mr='auto'
-            width='4.8rem'
-            mb={2}
+            css={theme({
+              pt: '2px',
+              pb: '2px',
+              ml: 'auto',
+              mr: 'auto',
+              width: '4.8rem',
+              mb: 2
+            })}
             value={language}
             onClick={setLanguage}
           >

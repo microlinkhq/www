@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { storiesOf } from '@storybook/react'
 import { Select, Text } from 'components/elements'
+import { storiesOf } from '@storybook/react'
+import React, { useState } from 'react'
 import { Story } from 'story'
+import { theme } from 'theme'
 
 const options = ['Markup', 'CSS', 'C-like', 'JavaScript']
 
@@ -20,10 +21,12 @@ const MySelect = ({ ...props }) => {
         return (
           <option
             key={language}
-            fontSize={0}
-            fontWeight='regular'
-            mr={2}
-            mb='12px'
+            css={theme({
+              fontSize: 0,
+              fontWeight: 'regular',
+              mr: 2,
+              mb: '12px'
+            })}
           >
             {language}
           </option>
@@ -42,7 +45,9 @@ const MySelectWithDefault = ({ placeholder, ...props }) => {
         setState(language)
       }}
       value={placeholder}
-      color={lang === placeholder ? 'black60' : 'inherit'}
+      css={theme({
+        color: lang === placeholder ? 'black60' : 'inherit'
+      })}
       {...props}
     >
       {[
@@ -54,10 +59,12 @@ const MySelectWithDefault = ({ placeholder, ...props }) => {
           return (
             <option
               key={language}
-              fontSize={0}
-              fontWeight='regular'
-              mr={2}
-              mb='12px'
+              css={theme({
+                fontSize: 0,
+                fontWeight: 'regular',
+                mr: 2,
+                mb: '12px'
+              })}
             >
               {language}
             </option>
@@ -89,15 +96,29 @@ export default () => (
 
 storiesOf('Elements', module).add('Select', () => (
   <Story name='Select' code={code}>
-    <Text fontSize={0}>
-      <MySelect ml='auto' mr='auto' width='5rem' mb={2} bg='white' />
+    <Text
+      css={theme({
+        fontSize: 0
+      })}
+    >
+      <MySelect
+        css={theme({
+          ml: 'auto',
+          mr: 'auto',
+          width: '5rem',
+          mb: 2,
+          bg: 'white'
+        })}
+      />
       <MySelectWithDefault
         placeholder='Language'
-        ml={3}
-        mr='auto'
-        width='6rem'
-        mb={2}
-        bg='white'
+        css={theme({
+          ml: 3,
+          mr: 'auto',
+          width: '6rem',
+          mb: 2,
+          bg: 'white'
+        })}
       />
     </Text>
   </Story>

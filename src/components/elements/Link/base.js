@@ -1,6 +1,5 @@
-import { colors, transition, lineHeights } from 'theme'
+import { colors, transition, lineHeights, theme } from 'theme'
 import styled, { css } from 'styled-components'
-import { createCssState } from 'helpers/style'
 
 import Text from '../Text'
 
@@ -12,26 +11,21 @@ const style = css`
   line-height: ${lineHeights[2]};
 `
 
-const hoverStyle = createCssState({
-  selector: '&:hover:not([disabled])',
-  state: 'hover',
-  css: css`
-    color: ${colors.hoverLink};
-  `
-})
-
 export const LinkBase = styled(Text)`
   ${style};
 `
 
 const Link = styled(LinkBase)`
-  ${hoverStyle};
+  ${theme({
+    color: 'link',
+    _hover: {
+      color: colors.hoverLink
+    }
+  })}
 `
 
 Link.defaultProps = {
-  as: 'span',
-  fontSize: 'inherit',
-  color: 'link'
+  as: 'span'
 }
 
 export default Link

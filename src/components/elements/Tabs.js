@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { space } from 'theme'
+import { cx, theme } from 'theme'
 import is from 'styled-is'
 import React from 'react'
 
@@ -7,15 +7,20 @@ import Text from './Text'
 import Flex from './Flex'
 import Box from './Box'
 
+const getColor = ({ isActive, isDark }) => {
+  const id = isDark ? 'white' : 'red'
+  return cx(isActive ? id : `${id}50`)
+}
+
 const StyledTab = styled(Box)`
   list-style: none;
   width: 100%;
   text-align: center;
   cursor: pointer;
   margin-right: 12px;
-  padding-bottom: ${space[2]};
-
+  ${theme({ pb: 2 })}
   ${is('active')`
+    color: ${props => getColor(props)};
     border-bottom: 1px solid ${props => props.background};
   `};
 `
@@ -23,8 +28,8 @@ const StyledTab = styled(Box)`
 const Tabs = ({ children, ...props }) => (
   <Flex
     as='ul'
-    justifyContent='space-between'
-    style={{
+    css={{
+      justifyContent: 'space-between',
       margin: 0,
       padding: 0,
       width: '100%',
@@ -35,14 +40,13 @@ const Tabs = ({ children, ...props }) => (
     {children.map(lang => {
       const isActive = lang === props.value
       return (
-        <StyledTab
-          as='li'
-          active={isActive}
-          key={lang}
-          color={props.$color(isActive)}
-          background={props.background}
-        >
-          <Text lineHeight={0} fontSize='12px'>
+        <StyledTab key={lang} as='li' active={isActive}>
+          <Text
+            css={theme({
+              lineHeight: 0,
+              fontSize: '12px'
+            })}
+          >
             {lang}
           </Text>
         </StyledTab>

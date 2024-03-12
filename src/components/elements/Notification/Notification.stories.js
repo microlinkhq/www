@@ -1,3 +1,8 @@
+import { storiesOf } from '@storybook/react'
+import React, { useState } from 'react'
+import { Story } from 'story'
+import { theme } from 'theme'
+
 import {
   Caps,
   Choose,
@@ -6,9 +11,6 @@ import {
   Box,
   Flex
 } from 'components/elements'
-import { storiesOf } from '@storybook/react'
-import React, { useState } from 'react'
-import { Story } from 'story'
 
 const storyName = 'Notification'
 
@@ -53,17 +55,17 @@ const NotificationStory = () => {
 
   return (
     <Story name={storyName} code={code}>
-      <Flex mb={4} width={650}>
+      <Flex css={theme({ mb: 4, width: 650 })}>
         <Button onClick={triggerNotification('success')}>
-          <Caps fontSize={0}>Success</Caps>
+          <Caps css={theme({ fontSize: 0 })}>Success</Caps>
         </Button>
-        <Box px={1} />
+        <Box css={theme({ px: 1 })} />
         <Button onClick={triggerNotification('warning')}>
-          <Caps fontSize={0}>Warning</Caps>
+          <Caps css={theme({ fontSize: 0 })}>Warning</Caps>
         </Button>
-        <Box px={1} />
+        <Box css={theme({ px: 1 })} />
         <Button onClick={triggerNotification('error')}>
-          <Caps fontSize={0}>Error</Caps>
+          <Caps css={theme({ fontSize: 0 })}>Error</Caps>
         </Button>
         <NotificationPreview type={notificationType} />
       </Flex>

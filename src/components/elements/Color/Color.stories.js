@@ -1,7 +1,7 @@
-import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Text, Color } from 'components/elements'
 import { Story } from 'story'
+import React from 'react'
 
 const code = `
 import { Color, Text } from 'components/elements'
