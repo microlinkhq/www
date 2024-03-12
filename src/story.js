@@ -6,7 +6,6 @@ export function Story ({ name, children, code, ...props }) {
   return (
     <>
       <Subhead
-        data-story='title'
         titleize={false}
         css={theme({
           fontSize: 3,
@@ -31,20 +30,11 @@ export function Story ({ name, children, code, ...props }) {
         </Box>
       </Box>
       {code && (
-        <CodeEditor
-          css={theme({
-            ml: 4
-          })}
-          language='jsx'
-        >
+        <CodeEditor language='jsx' css={theme({ ml: 4 })}>
           {code}
         </CodeEditor>
       )}
-      <Box
-        css={theme({
-          pb: 5
-        })}
-      />
+      <Box css={theme({ pb: 5 })} />
     </>
   )
 }

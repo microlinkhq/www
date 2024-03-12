@@ -1,9 +1,10 @@
-import { Box, Text } from 'components/elements'
+import { theme, space, radii, colors, shadows, speed } from 'theme'
 import styled from 'styled-components'
 import Tippy from '@tippyjs/react'
 import React from 'react'
 
-import { space, radii, colors, shadows, speed } from 'theme'
+import Text from '../Text'
+import Box from '../Box'
 
 /* https://atomiks.github.io/tippyjs/v6/all-props/ */
 const TOOLTIPS_OPTS = {
@@ -61,7 +62,12 @@ const TippyContainer = styled(Box)`
   cursor: help;
 `
 
-const TooltipContent = props => <Text fontSize={0} {...props} />
+const TooltipContent = styled(Text)`
+  ${theme({ fontSize: 0 })}
+  > * {
+    font-size: inherit;
+  }
+`
 
 const Tooltip = ({
   content,

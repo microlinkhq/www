@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components'
 import { slide } from 'components/keyframes'
 import { Box } from 'components/elements'
-import { defaultProps } from 'theme'
 import is from 'styled-is'
 
 const darkStyle = css`

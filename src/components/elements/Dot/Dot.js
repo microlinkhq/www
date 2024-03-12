@@ -15,8 +15,8 @@ Dot.defaultProps = {
   as: 'span'
 }
 
-const createDot = color => props =>
-  (
+const createDot = color => {
+  const ColoredDot = props => (
     <Dot
       css={{
         background: color,
@@ -25,6 +25,9 @@ const createDot = color => props =>
       {...props}
     />
   )
+
+  return ColoredDot
+}
 
 const DotSuccess = createDot(colors.teal3)
 const DotError = createDot(colors.red6)

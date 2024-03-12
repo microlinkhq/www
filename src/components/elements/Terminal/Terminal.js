@@ -4,17 +4,7 @@ import { blink } from 'components/keyframes'
 import { wordBreak } from 'helpers/style'
 import React from 'react'
 
-import {
-  speed,
-  toMs,
-  timings,
-  cx,
-  colors,
-  radii,
-  borders,
-  fonts,
-  fontWeights
-} from 'theme'
+import { theme, speed, toMs, timings, cx, colors, radii, borders } from 'theme'
 
 import CodeCopy from '../Codecopy'
 import Text from '../Text'
@@ -30,10 +20,7 @@ export const TerminalWindow = styled(Box)`
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
-  0.41,
-  0.48,
-  0.68,
-  0.68
+  0.41, 0.48, 0.68, 0.68
 ])
 
 const createBgAnimation = color => keyframes`
@@ -147,17 +134,20 @@ const TerminalTitleWrapper = styled('div')`
 
 export const TerminalTitle = ({ isDark, children }) => (
   <TerminalTitleWrapper>
-    <Text color={isDark ? 'white40' : 'black40'} fontSize={0}>
+    <Text
+      css={theme({
+        color: isDark ? 'white40' : 'black40',
+        fontSize: 0
+      })}
+    >
       {children}
     </Text>
   </TerminalTitleWrapper>
 )
 
 const TerminalText = styled('div')`
-  font-weight: ${fontWeights.normal};
   padding: 0 8px 16px 8px;
   overflow: visible;
-  font-family: ${fonts.mono};
   font-size: 13px;
   line-height: 20px;
   border-bottom-right-radius: 4px;
@@ -172,6 +162,11 @@ const TerminalText = styled('div')`
   > div {
     width: 100%;
   }
+
+  ${theme({
+    fontWeight: 'normal',
+    fontFamily: 'mono'
+  })}
 `
 
 const blinkCursorStyle = css`
@@ -209,13 +204,11 @@ const TerminalProvider = ({
   text,
   children,
   loading,
-  theme,
+  isDark,
   title,
   header,
   ...props
 }) => {
-  const isDark = theme === 'dark'
-
   return (
     <TerminalWindow isDark={isDark} {...props}>
       <TerminalHeader isDark={isDark} {...header}>
@@ -248,7 +241,7 @@ Terminal.defaultProps = {
   blinkCursor: true,
   loading: false,
   shellSymbol: false,
-  theme: 'light',
+  isDark: false,
   width: TERMINAL_WIDTH
 }
 

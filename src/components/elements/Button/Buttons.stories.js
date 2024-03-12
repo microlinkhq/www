@@ -1,8 +1,7 @@
-import React, { useState, createElement } from 'react'
 import { Caps, Flex, Button } from 'components/elements'
-import { transition, space, gradient, theme } from 'theme'
+import React, { useState, createElement } from 'react'
 import { storiesOf } from '@storybook/react'
-import styled from 'styled-components'
+import { theme } from 'theme'
 
 import { Story } from 'story'
 
@@ -74,8 +73,8 @@ storiesOf('Elements', module).add('Button', () => (
     </Flex>
     {variants.map((variant, index) => (
       <Flex css={theme({ pt: index > 0 ? 4 : 0 })} key={variant}>
-        {states.map(state => {
-          return createElement(
+        {states.map(state =>
+          createElement(
             BuyButton,
             {
               key: state,
@@ -87,7 +86,7 @@ storiesOf('Elements', module).add('Button', () => (
             },
             'BUY'
           )
-        })}
+        )}
       </Flex>
     ))}
   </Story>

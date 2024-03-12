@@ -4,12 +4,7 @@ import { Script } from 'gatsby'
 
 const NODE_VERSION = '18'
 
-const THEME = {
-  light: 'untilted-3iiuludkfm6r',
-  dark: 'untilted-0iw2lny2mmwa'
-}
-
-const Runkit = ({ onLoad, placeholderComponent, theme, ...opts }) => {
+const Runkit = ({ onLoad, placeholderComponent, isDark, ...opts }) => {
   if (!placeholderComponent.props.id) {
     throw new Error('Runkit placeholder must to have an id.')
   }
@@ -27,7 +22,7 @@ const Runkit = ({ onLoad, placeholderComponent, theme, ...opts }) => {
           evaluateOnLoad: false,
           element,
           nodeVersion: NODE_VERSION,
-          theme: THEME[theme],
+          theme: isDark ? 'untilted-0iw2lny2mmwa' : 'untilted-3iiuludkfm6r',
           gutterStyle: 'outside',
           tabSize: 2,
           onLoad: () => onLoad(element),
@@ -47,10 +42,13 @@ const Runkit = ({ onLoad, placeholderComponent, theme, ...opts }) => {
 }
 
 Runkit.defaultProps = {
-  theme: 'light'
+  isDark: false
 }
 
-Runkit.isSupported = ({ language, text }) =>
-  language === 'js' && !text.includes('import') && !text.startsWith('{')
+Runkit.isSupported = ({ language, text }) => {
+  const isSupported =
+    language === 'js' && !text.includes('import') && !text.startsWith('{')
+  return isSupported
+}
 
 export default Runkit

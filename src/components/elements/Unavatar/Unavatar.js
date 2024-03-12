@@ -1,15 +1,15 @@
 import React, { createElement } from 'react'
 import { Image } from 'components/elements'
 import styled from 'styled-components'
+import { theme } from 'theme'
 
 const StyledImage = styled(Image)`
   max-width: inherit;
-`
-
-StyledImage.defaultProps = {
-  borderRadius: 2,
   height: '100%'
-}
+    ${theme({
+      borderRadius: 2
+    })};
+`
 
 const Unavatar = ({ query, ...props }) => {
   return (

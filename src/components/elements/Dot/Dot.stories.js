@@ -2,6 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Dot, Box } from 'components/elements'
 import { Story } from 'story'
+import { theme } from 'theme'
 
 const storyName = 'Dot'
 
@@ -19,9 +20,9 @@ export default () => (
 const DotStory = () => {
   return (
     <Story name={storyName} code={code}>
-      <Box mb={4} width={650}>
-        <Dot.Success mr={3} />
-        <Dot.Error mr={3} />
+      <Box css={theme({ mb: 4, width: 650 })}>
+        <Dot.Success css={theme({ mr: 3 })} />
+        <Dot.Error css={theme({ mr: 3 })} />
         <Dot.Warning />
       </Box>
     </Story>

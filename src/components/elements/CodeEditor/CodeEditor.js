@@ -45,50 +45,43 @@ const generateHighlighLines = linesRange => {
   })
 }
 
-const getLanguage = (className, { language }) => {
-  if (language) return language
-  const languageFromClassName = className.split('-')[1]
-  if (languageFromClassName) return languageFromClassName.split('{')[0]
-  return 'js'
-}
-
 const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   ${hideScrollbar};
-  ${props => codeTheme[props.$theme]};
-  ${({ $highlightLines, $theme }) => {
-    const isLight = $theme === 'light'
+  ${props => codeTheme[props.isDark]};
+  ${({ highlightLines, isDark }) => {
     return `
-    ${generateHighlighLines($highlightLines)} {
+    ${generateHighlighLines(highlightLines)} {
       display: block;
-      background: ${cx(isLight ? 'black05' : 'whitek05')};
+      background: ${cx(isDark ? 'whitek05' : 'black05')};
       border-radius: ${radii[2]};
     }
     `
   }}
 `
 
-const TerminalTextWrapper = styled.div`
+const TerminalTextWrapper = styled('div')`
   ${wordBreak};
   width: 100%;
+  font-size: 14px;
 `
 
 const CodeEditor = ({
   children,
   interactive: runkitProps,
   showLineNumbers,
-  theme,
+  isDark,
   title,
   ...props
 }) => {
   const className = getClassName(props)
   const highlightLines = getLines(className)
-  const language = toAlias(getLanguage(className, props))
+  const language = toAlias(props.language)
   const pretty = get(prettier, language, identity)
   const text = pretty(template(children)).trim()
-  const id = `codeditor-${hash(children)}-${theme}`
+  const id = `codeditor-${hash(children)}-${isDark ? 'dark' : 'light'}`
 
   const isInteractive =
     runkitProps !== false && Runkit.isSupported({ language, text })
@@ -98,7 +91,7 @@ const CodeEditor = ({
   const TerminalComponent = (
     <Terminal
       title={title}
-      theme={theme}
+      isDark={isDark}
       id={id}
       text={text}
       loading={!isLoaded}
@@ -107,8 +100,8 @@ const CodeEditor = ({
       <TerminalTextWrapper>
         <CustomSyntaxHighlighter
           useInlineStyles={false}
-          $theme={theme}
-          $highlightLines={highlightLines}
+          isDark={isDark}
+          highlightLines={highlightLines}
           showLineNumbers={showLineNumbers}
           language={language}
           style={{}}
@@ -125,7 +118,7 @@ const CodeEditor = ({
   return (
     <Runkit
       {...runkitProps}
-      theme={theme}
+      isDark={isDark}
       title={title}
       placeholderComponent={TerminalComponent}
       source={text}
@@ -143,7 +136,7 @@ CodeEditor.defaultProps = {
   blinkCursor: false,
   interactive: {},
   showLineNumbers: false,
-  theme: 'light',
+  isDark: false,
   width: TERMINAL_WIDTH
 }
 
