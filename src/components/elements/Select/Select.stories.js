@@ -77,6 +77,7 @@ const MySelectWithDefault = ({ placeholder, ...props }) => {
 
 const code = `
 import { Select } from 'components/elements'
+import { theme } from 'theme'
 
 export default () => (
   <Select aria-label="Select one programming language">
@@ -86,8 +87,8 @@ export default () => (
     <option>JavaScript</option>
   </Select>
 
-  <Select ml={3} aria-label="Select one programming language">
-    <optiondisabled selected hidden>Language</option>
+  <Select css={theme({ ml:3 })} aria-label="Select one programming language">
+    <option disabled selected hidden>Language</option>
     <option>CSS</option>
     <option>C-like</option>
     <option>JavaScript</option>
