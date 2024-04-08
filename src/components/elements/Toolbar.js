@@ -18,7 +18,7 @@ const ToolbarBase = styled(Flex)`
     px: 0,
     'overflow-x': 'auto',
     'overflow-y': 'hidden'
-  })})}
+  })}
   ${hideScrollbar};
 `
 
