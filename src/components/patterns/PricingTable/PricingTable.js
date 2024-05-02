@@ -1,7 +1,7 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { Caption, ArrowLink, Checkout } from 'components/patterns'
 import FeatherIcon from 'components/icons/Feather'
-import { breakpoints, colors } from 'theme'
+import { breakpoints, colors, theme } from 'theme'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
 import styled from 'styled-components'
@@ -22,7 +22,7 @@ const FREE_PLAN_RATE_LIMIT = 50
 
 const Requests = ({ suffix, ...props }) => (
   <Label
-    display='inline'
+    css={theme({ display: 'inline' })}
     aria-label={`requests per ${suffix}`}
     suffix={`/${suffix}`}
     {...props}
@@ -33,12 +33,14 @@ const Requests = ({ suffix, ...props }) => (
 
 const PricingLink = ({ children, ...props }) => {
   return (
-    <Link.Base color='black' {...props}>
+    <Link.Base css={theme({ color: 'black' })} {...props}>
       <Caption
-        fontSize={[1, 1, 2, 2]}
-        display='inline'
-        color='inherit'
-        textAlign='left'
+        css={theme({
+          fontSize: [1, 1, 2, 2],
+          display: 'inline',
+          color: 'inherit',
+          textAlign: 'left'
+        })}
       >
         {children}
       </Caption>
@@ -48,15 +50,22 @@ const PricingLink = ({ children, ...props }) => {
 
 const PricingBox = props => (
   <Box
-    borderRadius={3}
-    textAlign='center'
-    width={['100%', '100%', 8, 8]}
-    px={[3, 3, 5, 5]}
-    py={[4, 4, 5, 5]}
-    my={[4, 4, 0, 0]}
-    border={1}
-    bg='white'
     {...props}
+    css={`
+      ${theme({
+        borderRadius: 3,
+        textAlign: 'center',
+        width: ['100%', '100%', 8, 8],
+        px: [3, 3, 5, 5],
+        py: [4, 4, 5, 5],
+        my: [4, 4, 0, 0],
+        border: 1,
+        bg: 'white'
+      })}
+
+      /* TODO: How do we pass styles in? This doesn't seem to work... */
+    ${props.css}
+    `}
   />
 )
 
@@ -104,8 +113,11 @@ const Check = ({ children, ...props }) => (
     `}
     {...props}
   >
-    <Flex alignItems='center'>
-      <FeatherIcon display='inline-flex' pr={2} icon='Check' />
+    <Flex css={theme({ alignItems: 'center' })}>
+      <FeatherIcon
+        css={theme({ display: 'inline-flex', pr: 2 })}
+        icon='Check'
+      />
       <Text as='span'>{children}</Text>
     </Flex>
   </Text>
@@ -123,62 +135,72 @@ export const createPricingTable = Checkout => {
 
     return (
       <Flex
-        flexDirection={['column', 'column', 'row', 'row']}
-        ml='auto'
-        mr='auto'
-        px={[0, 0, 4, 4]}
-        pb={Container.defaultProps.pt}
+        css={theme({
+          flexDirection: ['column', 'column', 'row', 'row'],
+          ml: 'auto',
+          mr: 'auto',
+          px: [0, 0, 4, 4],
+          pb: Container.defaultProps.pt
+        })}
         {...props}
       >
-        <FreePricingBox my={[0, 0, 5, 5]}>
-          <Subhead fontSize={[3, 3, 4, 4]}>Free</Subhead>
+        <FreePricingBox css={theme({ my: [0, 0, 5, 5] })}>
+          <Subhead css={theme({ fontSize: [3, 3, 4, 4] })}>Free</Subhead>
 
-          <Box pt={4}>
+          <Box css={theme({ pt: 4 })}>
             <Text>
               {FREE_PLAN_RATE_LIMIT} <Requests suffix='day' />
             </Text>
-            <Box pt={4}>
+            <Box css={theme({ pt: 4 })}>
               <PriceMonthly>0</PriceMonthly>
             </Box>
           </Box>
 
-          <Box as='ul' m={0} pl={[3, 3, 4, 4]} pt={4} textAlign='left'>
-            <Check pt={2}>
+          <Box
+            as='ul'
+            css={theme({ m: 0, pl: [3, 3, 4, 4], pt: 4, textAlign: 'left' })}
+          >
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/sdk'>Microlink SDK</PricingLink>
             </Check>
-            <Check pt={2}>
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/pdf'>Microlink PDF</PricingLink>
             </Check>
-            <Check pt={2}>
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/insights'>Microlink insights</PricingLink>
             </Check>
-            <Check pt={2}>
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/recipes'>Microlink recipes</PricingLink>
             </Check>
-            <Check pt={2}>
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/meta'>Microlink metadata</PricingLink>
             </Check>
-            <Check pt={2}>
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/screenshot'>Microlink screenshot</PricingLink>
             </Check>
           </Box>
 
-          <Flex justifyContent='center' pt={4}>
-            <ArrowLink href='/docs/api/getting-started/overview' fontSize={2}>
+          <Flex css={theme({ justifyContent: 'center', pt: 4 })}>
+            <ArrowLink
+              href='/docs/api/getting-started/overview'
+              css={theme({ fontSize: 2 })}
+            >
               Get started
             </ArrowLink>
           </Flex>
         </FreePricingBox>
 
         <ProPricingBoxGradient>
-          <ProPricingBox flex={1} px={[3, 3, 5, 5]} py={[4, 4, 6, 6]}>
-            <Subhead fontSize={[3, 3, 4, 4]}>Pro</Subhead>
+          <ProPricingBox
+            css={theme({ flex: 1, px: [3, 3, 5, 5], py: [4, 4, 6, 6] })}
+          >
+            <Subhead css={theme({ fontSize: [3, 3, 4, 4] })}>Pro</Subhead>
 
-            <Box pt={4}>
+            <Box css={theme({ pt: 4 })}>
               <Text>
                 <PricePicker onChange={setPlan} /> <Requests suffix='month' />
               </Text>
-              <Box pt='26px'>
+              <Box css={theme({ pt: '26px' })}>
                 <Text fontSize={0}>
                   <PriceMonthly>
                     <Highlight as='span'>{humanMonthlyPrice}</Highlight>
@@ -187,26 +209,29 @@ export const createPricingTable = Checkout => {
               </Box>
             </Box>
 
-            <Box as='ul' m={0} pl={[3, 3, 4, 4]} pt={4} textAlign='left'>
+            <Box
+              as='ul'
+              css={theme({ m: 0, pl: [3, 3, 4, 4], pt: 4, textAlign: 'left' })}
+            >
               <Check>Everything in Free</Check>
-              <Check pt={2}>
+              <Check css={theme({ pt: 2 })}>
                 <PricingLink href='/docs/api/parameters/ttl'>
                   Configurable TTL
                 </PricingLink>
               </Check>
-              <Check pt={2}>
+              <Check css={theme({ pt: 2 })}>
                 <PricingLink href='/docs/api/parameters/headers'>
                   Custom HTTP headers
                 </PricingLink>
               </Check>
-              <Check pt={2}>
+              <Check css={theme({ pt: 2 })}>
                 <PricingLink href='/docs/api/parameters/proxy'>
                   Automatic proxy resolution
                 </PricingLink>
               </Check>
             </Box>
 
-            <Box pt={4}>
+            <Box css={theme({ pt: 4 })}>
               <Checkout
                 planId={planId}
                 canonicalUrl={canonicalUrl}
@@ -216,35 +241,35 @@ export const createPricingTable = Checkout => {
           </ProPricingBox>
         </ProPricingBoxGradient>
 
-        <EnterprisePricingBox my={[0, 0, 5, 5]}>
-          <Subhead fontSize={[3, 3, 4, 4]}>Enterprise</Subhead>
+        <EnterprisePricingBox css={theme({ my: [0, 0, 5, 5] })}>
+          <Subhead css={theme({ fontSize: [3, 3, 4, 4] })}>Enterprise</Subhead>
 
-          <Box pt={4}>
+          <Box css={theme({ pt: 4 })}>
             <Text>Starts from</Text>
-            <Box pt={4}>
+            <Box css={theme({ pt: 4 })}>
               <PriceMonthly>500</PriceMonthly>
             </Box>
           </Box>
 
           <Box as='ul' m={0} pl={[3, 3, 4, 4]} pt={4} textAlign='left'>
             <Check>Everything in Pro</Check>
-            <Check pt={2}>
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/enterprise'>Custom API endpoint</PricingLink>
             </Check>
-            <Check pt={2}>
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/enterprise'>
                 Dedicated CDN distribution
               </PricingLink>
             </Check>
-            <Check pt={2}>
+            <Check css={theme({ pt: 2 })}>
               <PricingLink href='/enterprise'>
                 S3 like storage integration
               </PricingLink>
             </Check>
           </Box>
 
-          <Flex justifyContent='center' pt={4}>
-            <ArrowLink href='/enterprise' fontSize={2}>
+          <Flex css={theme({ justifyContent: 'center', pt: 4 })}>
+            <ArrowLink href='/enterprise' css={theme({ fontSize: 2 })}>
               See details
             </ArrowLink>
           </Flex>

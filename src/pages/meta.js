@@ -1,4 +1,4 @@
-import { layout, breakpoints, transition, colors, borders } from 'theme'
+import { layout, breakpoints, transition, colors, borders, theme } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -293,14 +293,16 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Hide>
         <Hide breakpoints={[2, 3]}>
           <List
-            justifyContent='center'
-            flexDirection={['row', 'row', 'column', 'column']}
-            flexWrap={['wrap', 'wrap', undefined, undefined]}
-            maxWidth={[layout.small, layout.small, undefined, undefined]}
-            pt={4}
-            m={0}
-            pr={[4, 4, 4, 4]}
-            pl={[4, 4, 0, 0]}
+            css={theme({
+              justifyContent: 'center',
+              flexDirection: ['row', 'row', 'column', 'column'],
+              flexWrap: ['wrap', 'wrap', undefined, undefined],
+              maxWidth: [layout.small, layout.small, undefined, undefined],
+              pt: 4,
+              m: 0,
+              pr: [4, 4, 4, 4],
+              pl: [4, 4, 0, 0]
+            })}
           >
             {JSON_KEYS.map(children => (
               <JSONProperty key={children} property={children} data={data} />

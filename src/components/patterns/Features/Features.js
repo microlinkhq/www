@@ -1,5 +1,5 @@
 import { Container, Box, Hide } from 'components/elements'
-import { layout } from 'theme'
+import { layout, theme } from 'theme'
 import React from 'react'
 
 import Grid from '../Grid'
@@ -10,15 +10,22 @@ const Features = ({ title, caption, features, ...props }) => {
     <Container
       as='section'
       id='features'
-      alignItems='center'
-      maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
+      css={theme({
+        alignItems: 'center',
+        maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
+      })}
       {...props}
     >
-      <Box textAlign='left' width='100%'>
-        {title}
-      </Box>
+      <Box css={theme({ textAlign: 'left', width: '100%' })}>{title}</Box>
 
-      <Caption pt={[3, 3, 4, 4]} pb={3} width='100%' textAlign='left'>
+      <Caption
+        css={theme({
+          pt: [3, 3, 4, 4],
+          pb: 3,
+          width: '100%',
+          textAlign: 'left'
+        })}
+      >
         {caption}
       </Caption>
 

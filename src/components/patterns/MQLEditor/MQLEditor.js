@@ -1,5 +1,5 @@
 import { useWindowSize } from 'components/hook'
-import { shadows, breakpoints } from 'theme'
+import { shadows, breakpoints, theme } from 'theme'
 import Microlink from '@microlink/react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -123,14 +123,16 @@ const MQLEditor = props => {
         </MQLCard>
       </Choose>
       <Flex
-        width='100%'
-        pl='15px'
-        pr='7px'
-        alignItems={['center', 'center', undefined, undefined]}
-        justifyContent='space-between'
-        flexDirection={['column', 'column', 'row', 'row']}
+        css={theme({
+          width: '100%',
+          pl: '15px',
+          pr: '7px',
+          alignItems: ['center', 'center', undefined, undefined],
+          justifyContent: 'space-between',
+          flexDirection: ['column', 'column', 'row', 'row']
+        })}
       >
-        <Box pt={[5, 5, 4, 4]}>
+        <Box css={theme({ pt: [5, 5, 4, 4] })}>
           {MODES.map(children => (
             <Card.Option
               key={children}
@@ -141,7 +143,7 @@ const MQLEditor = props => {
             </Card.Option>
           ))}
         </Box>
-        <Box pt={[3, 3, 4, 4]}>
+        <Box css={theme({ pt: [3, 3, 4, 4] })}>
           {TYPES.map(children => (
             <Card.Option
               key={children}

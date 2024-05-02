@@ -87,7 +87,7 @@ export default () => (
     <option>JavaScript</option>
   </Select>
 
-  <Select css={theme({ ml:3 })} aria-label="Select one programming language">
+  <Select css={theme({ ml: 3 })} aria-label="Select one programming language">
     <option disabled selected hidden>Language</option>
     <option>CSS</option>
     <option>C-like</option>

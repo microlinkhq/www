@@ -8,7 +8,7 @@ import {
 import React, { createElement } from 'react'
 import { LogoBrand } from 'components/logos'
 import styled from 'styled-components'
-import { transition } from 'theme'
+import { transition, theme } from 'theme'
 import chunk from 'lodash/chunk'
 
 const NoWrap = styled(Flex)`
@@ -48,7 +48,10 @@ const DemoLinks = ({ children, chunkSize, onClick }) => {
   })
 
   return (
-    <BackgroundSliderContainer as='section' py={0} px={0} maxWidth='100%'>
+    <BackgroundSliderContainer
+      as='section'
+      css={theme({ py: 0, px: 0, maxWidth: '100%' })}
+    >
       {chunk(links, chunkSize).map((chunkBrands, chunkIndex) => {
         const isEven = chunkIndex % 2 === 0
         return (

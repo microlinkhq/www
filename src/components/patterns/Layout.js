@@ -61,7 +61,7 @@ const Layout = ({
           })}
         >
           <Toolbar as='header' isDark={isDark} style={style} />
-          {/* {createElement(
+          {createElement(
             component,
             {
               as: 'main',
@@ -73,7 +73,7 @@ const Layout = ({
               style: { flex: 1 }
             },
             children
-          )} */}
+          )}
           {footer && (
             <Box as='footer' className='hidden-print'>
               <Footer isDark={isDark} {...footer} />

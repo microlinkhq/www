@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'components/elements'
+import { theme } from 'theme'
 
 const Announcement = ({ href, children }) => (
-  <Link color='black' href={href}>
+  <Link css={theme({ color: 'black' })} href={href}>
     <>
       {children}
       {' →'}

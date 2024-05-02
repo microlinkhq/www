@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Container, Flex, Box } from 'components/elements'
+import { theme } from 'theme'
 
 const Block = ({
   blockOne,
@@ -15,12 +16,14 @@ const Block = ({
   <Container {...props}>
     {top}
     <Flex
-      justifyContent='center'
-      flexDirection={['column', 'column', 'column', flexDirection]}
-      alignItems='center'
-      ml='auto'
-      mr='auto'
-      width={width}
+      css={theme({
+        justifyContent: 'center',
+        flexDirection: ['column', 'column', 'column', flexDirection],
+        alignItems: 'center',
+        ml: 'auto',
+        mr: 'auto',
+        width
+      })}
     >
       {blockOne}
       {children}
