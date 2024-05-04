@@ -4,7 +4,9 @@ import { theme } from 'theme'
 
 import Box from './Box'
 
-const Text = styled(Box)(
+const Text = styled(Box).withConfig({
+  shouldForwardProp: prop => !['variant'].includes(prop)
+})(
   compose(typography, variant({ key: 'text' })),
   theme({
     fontWeight: 'normal',

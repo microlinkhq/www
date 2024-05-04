@@ -15,7 +15,7 @@ const HomePage = () => {
       <Hero>{({ color }) => <Overlay color={color} />}</Hero>
       <Analytics />
       <Features
-        px={4}
+        css={theme({ px: 4 })}
         title={
           <Subhead css={{ textAlign: 'left' }}>
             Production ready,{' '}

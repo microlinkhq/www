@@ -40,7 +40,7 @@ const Features = ({ title, caption, features, ...props }) => {
         breakpoints={[0]}
         style={{ margin: 0, width: '100%', paddingLeft: 0 }}
       >
-        <Grid pt={3} itemsPerRow={3}>
+        <Grid css={theme({ pt: 3 })} itemsPerRow={3}>
           {features}
         </Grid>
       </Hide>

@@ -21,16 +21,12 @@ const Stat = ({ value, name, isLast }) => (
   <Flex>
     <Flex css={theme({ alignItems: 'center', flexDirection: 'column' })}>
       <Subhead
-        as='div'
+        forwardedAs='div'
         css={theme({ fontSize: [3, 4, 6, 6], color: 'white80' })}
-        titleize={false}
       >
         {value}
       </Subhead>
-      <Caption
-        css={theme({ pt: [2, 3, 3, 3], color: 'pink', opacity: 0.8 })}
-        titleize={false}
-      >
+      <Caption css={theme({ pt: [2, 3, 3, 3], color: 'pink', opacity: 0.8 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: [0, 2, 3, 3] })}>
           {name}
         </Caps>
@@ -56,8 +52,7 @@ const stats = [
 const Analytics = () => {
   return (
     <Block
-      // @todo: check why the `as` prop breaks the layout
-      // as='section'
+      forwardedAs='section'
       id='analytics'
       css={theme({
         flexDirection: 'column',

@@ -30,18 +30,20 @@ const GridLink = ({ children, setColor, color, ...props }) => {
     <FlexLink
       ref={ref}
       as='a'
-      bg='white'
       onMouseEnter={() => setColor(color)}
       onMouseLeave={() => setColor('')}
-      flexDirection='column'
-      alignItems='center'
-      justifyContent='center'
-      m={2}
-      p={4}
-      border={1}
-      borderColor='black10'
-      borderRadius={3}
-      width='300px'
+      css={theme({
+        bg: 'white',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        m: 2,
+        p: 4,
+        border: 1,
+        borderColor: 'black10',
+        borderRadius: 3,
+        width: '300px'
+      })}
       $color={color}
       {...props}
     >
@@ -127,7 +129,7 @@ const Hero = ({ children }) => {
       </Heading>
 
       <Caption
-        as='h2'
+        forwardedAs='h2'
         css={theme({
           pt: [2, 2, 3, 3],
           pb: [4, 4, 5, 5],

@@ -9,7 +9,7 @@ const Block = ({
   bottom = null,
   top = null,
   flexDirection = 'row',
-  children = <Box ml={4} mr={4} />,
+  children = <Box css={theme({ ml: 4, mr: 4 })} />,
   width,
   ...props
 }) => (

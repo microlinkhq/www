@@ -8,7 +8,6 @@ import styled from 'styled-components'
 
 import {
   Box,
-  Container,
   Flex,
   Highlight,
   Label,
@@ -240,7 +239,10 @@ export const createPricingTable = Checkout => {
             </Box>
           </Box>
 
-          <Box as='ul' m={0} pl={[3, 3, 4, 4]} pt={4} textAlign='left'>
+          <Box
+            as='ul'
+            css={theme({ m: 0, pl: [3, 3, 4, 4], pt: 4, textAlign: 'left' })}
+          >
             <Check>Everything in Pro</Check>
             <Check css={theme({ pt: 2 })}>
               <PricingLink href='/enterprise'>Custom API endpoint</PricingLink>

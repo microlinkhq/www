@@ -13,7 +13,9 @@ export const labelStyle = css`
   color: ${props => getColor(props)};
 `
 
-const Label = styled(Text)`
+const Label = styled(Text).withConfig({
+  shouldForwardProp: prop => !['suffix'].includes(prop)
+})`
   ${theme({ fontSize: 1 })};
 
   ${is('suffix')`

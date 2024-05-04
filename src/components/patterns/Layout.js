@@ -69,8 +69,7 @@ const Layout = ({
               alignItems,
               display,
               flexDirection,
-              pt: toolbarHeight,
-              style: { flex: 1 }
+              style: { flex: 1, paddingTop: toolbarHeight }
             },
             children
           )}

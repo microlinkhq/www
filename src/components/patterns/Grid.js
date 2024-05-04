@@ -28,7 +28,6 @@ const Item = ({ title, description, ...props }) => (
           font-size: inherit;
         }
       `}
-      fontSize={1}
     >
       <Markdown>{description}</Markdown>
     </Text>
