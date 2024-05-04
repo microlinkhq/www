@@ -48,26 +48,18 @@ const PricingLink = ({ children, ...props }) => {
   )
 }
 
-const PricingBox = props => (
-  <Box
-    {...props}
-    css={`
-      ${theme({
-        borderRadius: 3,
-        textAlign: 'center',
-        width: ['100%', '100%', 8, 8],
-        px: [3, 3, 5, 5],
-        py: [4, 4, 5, 5],
-        my: [4, 4, 0, 0],
-        border: 1,
-        bg: 'white'
-      })}
-
-      /* TODO: How do we pass styles in? This doesn't seem to work... */
-    ${props.css}
-    `}
-  />
-)
+const PricingBox = styled(Box)`
+  ${theme({
+    borderRadius: 3,
+    textAlign: 'center',
+    width: ['100%', '100%', 8, 8],
+    px: [3, 3, 5, 5],
+    py: [4, 4, 5, 5],
+    my: [4, 4, 0, 0],
+    border: 1,
+    bg: 'white'
+  })}
+`
 
 const FreePricingBox = styled(PricingBox)`
   border-color: ${colors.black20};
@@ -83,11 +75,11 @@ const ProPricingBoxGradient = styled(PricingBox)`
   flex-direction: column;
   position: relative;
   left: -1px;
-  border none;
+  border: none;
   background: linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%);
   border-radius: 7px;
   padding: 2px;
-  `
+`
 
 const ProPricingBox = styled(Box)`
   background: #fff;
@@ -180,11 +172,8 @@ export const createPricingTable = Checkout => {
             </Check>
           </Box>
 
-          <Flex css={theme({ justifyContent: 'center', pt: 4 })}>
-            <ArrowLink
-              href='/docs/api/getting-started/overview'
-              css={theme({ fontSize: 2 })}
-            >
+          <Flex css={theme({ justifyContent: 'center', pt: 4, fontSize: 2 })}>
+            <ArrowLink href='/docs/api/getting-started/overview'>
               Get started
             </ArrowLink>
           </Flex>
@@ -268,10 +257,8 @@ export const createPricingTable = Checkout => {
             </Check>
           </Box>
 
-          <Flex css={theme({ justifyContent: 'center', pt: 4 })}>
-            <ArrowLink href='/enterprise' css={theme({ fontSize: 2 })}>
-              See details
-            </ArrowLink>
+          <Flex css={theme({ justifyContent: 'center', pt: 4, fontSize: 2 })}>
+            <ArrowLink href='/enterprise'>See details</ArrowLink>
           </Flex>
         </EnterprisePricingBox>
       </Flex>

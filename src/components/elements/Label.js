@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { colors, fontWeights } from 'theme'
+import { colors, fontWeights, theme } from 'theme'
 import is from 'styled-is'
 
 import Text from './Text'
@@ -14,6 +14,8 @@ export const labelStyle = css`
 `
 
 const Label = styled(Text)`
+  ${theme({ fontSize: 1 })};
+
   ${is('suffix')`
   &::after {
       content: '${props => props.suffix}';
@@ -23,9 +25,7 @@ const Label = styled(Text)`
 `
 
 Label.defaultProps = {
-  as: 'label',
-  fontSize: 1,
-  mb: 1
+  as: 'label'
 }
 
 export default Label
