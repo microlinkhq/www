@@ -45,7 +45,7 @@ const Footer = ({ isDark, ...props }) => {
       css={theme({
         px: 0,
         maxWidth: layout.large,
-        pb: Container.defaultProps.pt
+        pb: [5, 5, 6, 6]
       })}
     >
       <Flex
@@ -91,7 +91,7 @@ const Footer = ({ isDark, ...props }) => {
                       placeholder='you@domain.com'
                       iconComponent={<Mail color={inputIconColor} size={16} />}
                       isDark={isDark}
-                      css={theme({ fontSize: 1, width: '8rem' })}
+                      css={theme({ fontSize: 0, width: '8rem' })}
                       required
                     />
 
