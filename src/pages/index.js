@@ -17,7 +17,7 @@ const HomePage = () => {
       <Features
         px={4}
         title={
-          <Subhead>
+          <Subhead css={{ textAlign: 'left' }}>
             Production ready,{' '}
             <span css={{ display: 'block', color: '#3e55ff' }}>
               browser as service
