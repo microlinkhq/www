@@ -1,6 +1,7 @@
 import { Box, Link } from 'components/elements'
 import { Faq } from 'components/patterns'
 import React from 'react'
+import { theme } from 'theme'
 
 const FAQs = props => (
   <Faq
@@ -68,7 +69,7 @@ const FAQs = props => (
             </div>
             <div>
               The API key need to be attached to all your requests:
-              <Box as='ul' pt={3} my={0}>
+              <Box as='ul' css={theme({ pt: 3, my: 0 })}>
                 <Box as='li'>
                   At{' '}
                   <Link href='/docs/sdk/getting-started/overview'>
@@ -77,7 +78,7 @@ const FAQs = props => (
                   , attach it as{' '}
                   <Link href='/docs/sdk/parameters/api-key/'>apiKey</Link>.
                 </Box>
-                <Box as='li' pt={3}>
+                <Box as='li' css={theme({ pt: 3 })}>
                   At{' '}
                   <Link href='/docs/api/getting-started/overview'>
                     Microlink API
@@ -96,11 +97,8 @@ const FAQs = props => (
           <>
             <div>
               Our Service-Level Agreements commitment is 99.9% (three nines).{' '}
-              {'\n'}You can see the live{' '}
-              <Link display='inline' href='/status'>
-                status
-              </Link>{' '}
-              of the service.
+              {'\n'}You can see the live <Link href='/status'>status</Link> of
+              the service.
             </div>
           </>
         )
@@ -124,9 +122,7 @@ const FAQs = props => (
             <div>
               You can upgrade, downgrade, or cancel your monthly account at any
               time with no further obligation, sending an email to{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>{' '}
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
               with the email you signed up.
             </div>
           </>
@@ -150,9 +146,7 @@ const FAQs = props => (
           <>
             <div>
               Yes, send an email to{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>{' '}
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
               requesting the change. You will receive a link from where you’ll
               be able to securely update your details.
             </div>
@@ -165,10 +159,8 @@ const FAQs = props => (
           <>
             <div>
               Yes, by sending an email to{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>
-              . Your request will be processed within 24hrs.
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
+              Your request will be processed within 24hrs.
             </div>
           </>
         )
@@ -179,10 +171,7 @@ const FAQs = props => (
           <>
             <div key='other-questions'>
               We’re always available at{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>
-              .
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>
           </>
         )

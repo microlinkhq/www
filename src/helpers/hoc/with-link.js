@@ -28,6 +28,7 @@ const PrefetchLink = styled(GatsbyLink)`
 
 const linkIconWrapper = css`
   display: inline-flex;
+  align-items: center;
 
   svg {
     transition: stroke ${transition.medium};
@@ -51,7 +52,7 @@ const Icon = ({ children }) => {
   }, [])
 
   return (
-    <Flex css={{ alignItems: 'center', ...linkIconWrapper }}>
+    <Flex css={linkIconWrapper}>
       {children}
       <ExternalIcon ref={ref} size={size} />
     </Flex>

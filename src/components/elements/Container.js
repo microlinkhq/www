@@ -16,6 +16,7 @@ const Container = styled(Flex).withConfig({
 `
 
 Container.defaultProps = {
+  // @todo: can we remove this?
   px: [3, 3, 0, 0]
 }
 

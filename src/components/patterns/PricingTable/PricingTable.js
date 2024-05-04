@@ -132,7 +132,7 @@ export const createPricingTable = Checkout => {
           ml: 'auto',
           mr: 'auto',
           px: [0, 0, 4, 4],
-          pb: Container.defaultProps.pt
+          pb: [5, 5, 6, 6]
         })}
         {...props}
       >
