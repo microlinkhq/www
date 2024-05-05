@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { transition, toPx, colors } from 'theme'
+import { transition, toPx, colors, theme } from 'theme'
 
 import Flex from '../Flex'
 import Text from '../Text'
@@ -24,34 +24,41 @@ const Card = ({
   height = ratio.map(n => toPx(BASE_HEIGHT * n)),
   ...props
 }) => {
-  return <CardBase width={width} height={height} {...props} />
+  return (
+    <CardBase
+      css={theme({
+        width,
+        height,
+        bg: 'white',
+        border: 1,
+        borderColor: 'black10',
+        borderRadius: 3
+      })}
+      {...props}
+    />
+  )
 }
 
 Card.defaultProps = {
-  bg: 'white',
-  border: 1,
-  borderColor: 'black10',
-  borderRadius: 3,
   ratio: [0.55, 0.75, 1, 1]
 }
 
 const CardOption = ({ children, value, ...props }) => (
   <Text
     as='span'
-    color={children === value ? 'black' : 'black60'}
-    fontWeight={children === value ? 'regular' : 'normal'}
-    pt={3}
-    pr={2}
-    fontSize={1}
-    textAlign='right'
-    css={`
-      ${children !== value && 'cursor: pointer;'};
-      transition: color ${({ theme }) => theme.transition.medium};
-
-      &:hover {
-        color: ${({ theme }) => theme.colors.black};
+    css={theme({
+      color: children === value ? 'black' : 'black60',
+      fontWeight: children === value ? 'regular' : 'normal',
+      pt: 3,
+      pr: 2,
+      fontSize: 1,
+      textAlign: 'right',
+      cursor: children !== value ? 'pointer' : 'default',
+      transition: `color ${transition.medium}`,
+      _hover: {
+        color: 'black'
       }
-    `}
+    })}
     {...props}
   >
     {children}

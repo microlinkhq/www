@@ -252,7 +252,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           See on GitHub
         </ArrowLink>
       </Flex>
-      <Flex justifyContent='center' alignItems='center'>
+      <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
         <Flex
           as='form'
           css={theme({

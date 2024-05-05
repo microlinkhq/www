@@ -4,7 +4,7 @@ import { hideScrollbar, wordBreak } from 'helpers/style'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'
 import styled from 'styled-components'
-import { cx, radii } from 'theme'
+import { cx, radii, theme } from 'theme'
 import range from 'lodash/range'
 import get from 'dlv'
 
@@ -33,7 +33,7 @@ const toAlias = (lang = '') => {
   }
 }
 
-const generateHighlighLines = linesRange => {
+const generateHighlightLines = linesRange => {
   if (!linesRange) return
 
   const [start, end] = linesRange
@@ -53,7 +53,7 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   ${props => codeTheme[props.$isDark]};
   ${({ $highlightLines, $isDark }) => {
     return `
-    ${generateHighlighLines($highlightLines)} {
+    ${generateHighlightLines($highlightLines)} {
       display: block;
       background: ${cx($isDark ? 'white05' : 'black05')};
       border-radius: ${radii[2]};
@@ -96,6 +96,7 @@ const CodeEditor = ({
       id={id}
       text={text}
       loading={!isLoaded}
+      css={theme({ width: TERMINAL_WIDTH })}
       {...props}
     >
       <TerminalTextWrapper>
@@ -137,8 +138,7 @@ CodeEditor.defaultProps = {
   blinkCursor: false,
   interactive: {},
   showLineNumbers: false,
-  isDark: false,
-  width: TERMINAL_WIDTH
+  isDark: false
 }
 
 CodeEditor.width = TERMINAL_WIDTH

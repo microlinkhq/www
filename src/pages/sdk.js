@@ -1,5 +1,5 @@
 import { useQueryState, useWindowSize } from 'components/hook'
-import { layout, breakpoints, transition } from 'theme'
+import { layout, breakpoints, transition, theme, toPx } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { cdnUrl, mqlCode } from 'helpers'
@@ -130,42 +130,51 @@ const LiveDemo = React.memo(function LiveDemo ({
   ].filter(Boolean)
 
   return (
-    <Container as='section' alignItems='center' pt={2}>
-      <Heading px={5} titleize={false} maxWidth={layout.large}>
+    <Container as='section' css={theme({ alignItems: 'center', pt: 2 })}>
+      <Heading css={theme({ px: 5, maxWidth: layout.large })} titleize={false}>
         Embed any content
       </Heading>
 
       <Caption
-        pt={[3, 3, 4, 4]}
-        px={4}
+        forwardedAs='h2'
+        css={theme({
+          pt: [3, 3, 4, 4],
+          px: 4,
+          maxWidth: layout.small
+        })}
         titleize={false}
-        maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
-        Create beauty link previews — Turn your content into embeddable rich
+        Create beautiful link previews — Turn your content into embeddable rich
         media.
       </Caption>
 
       <Flex
-        alignItems={['center', undefined, undefined, undefined]}
-        flexDirection={['column', 'row', 'row', 'row']}
-        pt={[3, 3, 4, 4]}
+        css={theme({
+          alignItems: ['center', null],
+          flexDirection: ['column', 'row'],
+          pt: [3, 3, 4, 4],
+          fontSize: [2, 2, 3, 3],
+          gap: [3, 4]
+        })}
       >
-        <ArrowLink pr={[0, 4, 4, 4]} href='/docs/sdk/getting-started/overview/'>
+        <ArrowLink href='/docs/sdk/getting-started/overview/'>
           Get Started
         </ArrowLink>
-        <ArrowLink pt={[3, 0, 0, 0]} href='https://github.com/microlinkhq/sdk'>
+        <ArrowLink href='https://github.com/microlinkhq/sdk'>
           See on GitHub
         </ArrowLink>
       </Flex>
 
-      <Flex justifyContent='center' alignItems='center'>
+      <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
         <Flex
-          pt={[3, 3, 4, 4]}
-          pb={[3, 3, 4, 4]}
           as='form'
-          mx={[0, 'auto', 'auto', 'auto']}
-          justifyContent='center'
-          flexDirection={['column', 'row', 'row', 'row']}
+          css={theme({
+            py: [3, 3, 4, 4],
+            mx: [0, 'auto'],
+            justifyContent: 'center',
+            flexDirection: ['column', 'row', 'row', 'row'],
+            gap: [3, 2]
+          })}
           onSubmit={event => {
             event.preventDefault()
             const url = prependHttp(inputUrl)
@@ -175,7 +184,10 @@ const LiveDemo = React.memo(function LiveDemo ({
           <Box>
             <Input
               id='sdk-demo-url'
-              fontSize={2}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', 128, 128]
+              })}
               iconComponent={
                 <InputIcon
                   src={data?.logo?.url}
@@ -191,26 +203,29 @@ const LiveDemo = React.memo(function LiveDemo ({
                 const url = event.target.value
                 setInputUrl(url)
               }}
-              width={['100%', '100%', 128, 128]}
               autoFocus
             />
           </Box>
-          <Button mt={[3, 0, 0, 0]} ml={[0, 2, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1}>Embed it</Caps>
+          <Button loading={isLoading}>
+            <Caps css={theme({ fontSize: 1 })}>Embed it</Caps>
           </Button>
         </Flex>
       </Flex>
 
       <Flex
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
-        mx='auto'
+        css={theme({
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          mx: 'auto'
+        })}
       >
         <HeroCard
-          width={cardWidth}
-          height={cardHeight}
-          border={type === 'code' ? 'none' : 1}
+          css={theme({
+            width: cardWidth,
+            height: cardHeight,
+            border: type === 'code' ? 'none' : 1
+          })}
         >
           <Choose>
             <Choose.When condition={type === 'render'}>
@@ -225,8 +240,8 @@ const LiveDemo = React.memo(function LiveDemo ({
             </Choose.When>
             <Choose.When condition={type === 'code'}>
               <MultiCodeEditor
-                width='100%'
-                interactive={{ minHeight: runkitHeight }}
+                css={{ width: '100%' }}
+                interactive={{ minHeight: toPx(runkitHeight) }}
                 languages={mqlCode(
                   data.url,
                   {
@@ -244,14 +259,16 @@ const LiveDemo = React.memo(function LiveDemo ({
           </Choose>
         </HeroCard>
         <Flex
-          width='100%'
-          pl='15px'
-          pr='7px'
-          alignItems={['center', undefined, undefined, undefined]}
-          justifyContent='space-between'
-          flexDirection={['column', 'row', 'row', 'row']}
+          css={theme({
+            width: '100%',
+            pl: '15px',
+            pr: '7px',
+            alignItems: ['center', undefined, undefined, undefined],
+            justifyContent: 'space-between',
+            flexDirection: ['column', 'row', 'row', 'row']
+          })}
         >
-          <Box pt={[3, 4, 4, 4]}>
+          <Box css={theme({ pt: [3, 4] })}>
             {MODES.map(children => (
               <Card.Option
                 key={children}
@@ -262,7 +279,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               </Card.Option>
             ))}
           </Box>
-          <Box pt={[3, 4, 4, 4]}>
+          <Box css={theme({ pt: [3, 4] })}>
             {TYPES.map(children => (
               <Card.Option
                 key={children}
@@ -284,41 +301,49 @@ const Integrations = () => {
     <Container
       as='section'
       id='integrations'
-      flexDirection='column'
-      justifyContent='center'
-      alignItems='center'
-      pt={5}
+      css={theme({
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        pt: 5
+      })}
     >
-      <Subhead width='100%'>Built for developers</Subhead>
+      <Subhead css={{ width: '100%' }}>Built for developers</Subhead>
 
-      <Flex pt={5} justifyContent='center' flexWrap='wrap'>
+      <Flex
+        css={theme({
+          pt: 5,
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          gap: 4
+        })}
+      >
         {INTEGRATIONS.map(({ url, logo }) => {
           const LogoComponent = Icons[logo]
 
           return (
             <Card
               key={logo}
-              flexDirection='column'
-              justifyContent='center'
+              css={{ flexDirection: 'column', justifyContent: 'center' }}
               ratio={[0.45, 0.45, 0.45, 0.45]}
-              mb={4}
-              mr={4}
             >
               <Link href={url}>
-                <Flex justifyContent='center'>
+                <Flex css={{ justifyContent: 'center' }}>
                   <LogoComponent width='40px' />
                 </Flex>
                 <Flex
-                  pt={4}
-                  width='100%'
-                  justifyContent='center'
-                  flexDirection='column'
-                  alignItems='center'
+                  css={theme({
+                    pt: 4,
+                    width: '100%',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  })}
                 >
-                  <Text color='black' fontWeight='bold'>
+                  <Text css={theme({ color: 'black', fontWeight: 'bold' })}>
                     Microlink SDK
                   </Text>
-                  <Text color='black'>for {logo}</Text>
+                  <Text css={theme({ color: 'black' })}>for {logo}</Text>
                 </Flex>
               </Link>
             </Card>
@@ -326,15 +351,11 @@ const Integrations = () => {
         })}
       </Flex>
 
-      <Flex
-        alignItems={['center', undefined, undefined, undefined]}
-        flexDirection={['column', 'row', 'row', 'row']}
-        pt={[3, 3, 4, 4]}
-      >
+      <Box css={theme({ fontSize: [2, 2, 3], pt: [3, 3, 4] })}>
         <ArrowLink href='/docs/sdk/getting-started/overview/'>
           See more integrations
         </ArrowLink>
-      </Flex>
+      </Box>
     </Container>
   )
 }
