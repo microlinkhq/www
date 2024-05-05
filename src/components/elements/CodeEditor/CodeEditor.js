@@ -55,7 +55,7 @@ const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
     return `
     ${generateHighlighLines($highlightLines)} {
       display: block;
-      background: ${cx($isDark ? 'whitek05' : 'black05')};
+      background: ${cx($isDark ? 'white05' : 'black05')};
       border-radius: ${radii[2]};
     }
     `
