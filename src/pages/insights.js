@@ -621,7 +621,13 @@ const Resume = () => (
             alignItems: 'baseline'
           })}
         >
-          <Subhead css={theme({ pt: [4, 4, 4, 0], fontSize: [3, 3, 4, 4] })}>
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Audit on-demand
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
@@ -648,7 +654,13 @@ const Resume = () => (
             alignItems: 'baseline'
           })}
         >
-          <Subhead css={theme({ pt: [4, 4, 4, 0], fontSize: [3, 3, 4, 4] })}>
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Run on the edge
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
@@ -671,7 +683,6 @@ const Resume = () => (
     />
 
     <Block
-      pb={Container.defaultProps.pt}
       blockOne={
         <Image
           css={theme({
@@ -690,7 +701,13 @@ const Resume = () => (
             alignItems: 'baseline'
           })}
         >
-          <Subhead css={theme({ pt: [4, 4, 4, 0], fontSize: [3, 3, 4, 4] })}>
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Simple integration
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
