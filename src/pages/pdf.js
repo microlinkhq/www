@@ -192,7 +192,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              // autoFocus
+              autoFocus
             />
           </Box>
 

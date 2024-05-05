@@ -1,6 +1,6 @@
 import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
 import React, { createElement, useMemo, useState } from 'react'
-import { borders, breakpoints, layout, colors } from 'theme'
+import { borders, breakpoints, layout, colors, theme } from 'theme'
 import { useTransition, animated } from '@react-spring/web'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -59,12 +59,16 @@ const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
 const ColorPreview = ({ color }) => (
   <Box
-    border={1}
-    borderColor='black10'
-    borderRadius={1}
-    width='14px'
-    height='14px'
-    style={{ top: '-2px', position: 'relative', background: color }}
+    css={theme({
+      border: 1,
+      borderColor: 'black10',
+      borderRadius: 1,
+      width: '14px',
+      height: '14px',
+      top: '-2px',
+      position: 'relative'
+    })}
+    style={{ background: color }}
   />
 )
 
@@ -115,7 +119,7 @@ const fromCache = (variations, opts) => {
 const getEmbedUrl = ({ url, ...opts }) =>
   getApiUrl(url, { ...opts, screenshot: true, embed: 'screenshot.url' })[0]
 
-const DemoSlider = props => {
+const DemoSlider = ({ height, width }) => {
   const [index, setIndex] = useState(0)
   const next = index => ++index % SUGGESTIONS.length
 
@@ -131,8 +135,8 @@ const DemoSlider = props => {
   })
 
   return (
-    <Box pt={2}>
-      <Flex style={{ position: 'relative' }} {...props}>
+    <Box css={theme({ pt: 2 })}>
+      <Flex css={{ position: 'relative', height, width }}>
         {transitions((style, index) => {
           const url = SUGGESTIONS[index].cdnUrl
           const src = url
@@ -151,15 +155,23 @@ const DemoSlider = props => {
   )
 }
 
-const Screenshot = ({ data, cardWidth, cardHeight, ...props }) => {
+const Screenshot = ({ data, cardWidth, cardHeight }) => {
   const imageUrl = get(data, 'screenshot.url')
 
   return (
     <Link px={3} href={imageUrl} icon={false}>
       <Image
         alt={`Microlink screenshot for ${data.url}`}
-        pl={0}
-        pr={0}
+        css={theme({
+          my: 4,
+          pl: 0,
+          pr: 0,
+          height: cardHeight,
+          width: cardWidth,
+          border: 1,
+          borderColor: 'black05',
+          borderRadius: 3
+        })}
         key={imageUrl}
         src={imageUrl}
         height={cardHeight}
@@ -168,12 +180,9 @@ const Screenshot = ({ data, cardWidth, cardHeight, ...props }) => {
           isLoading
             ? undefined
             : {
-                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-              }}
-        border={1}
-        borderColor='black05'
-        borderRadius={3}
-        {...props}
+              filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+            }
+        }
       />
     </Link>
   )
@@ -216,21 +225,27 @@ const LiveDemo = React.memo(function LiveDemo ({
     : createElement(ImageIcon, { color: colors.black50, size: '16px' })
 
   return (
-    <Container as='section' alignItems='center' pt={2} pb={0}>
-      <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
+    <Container as='section' css={theme({ alignItems: 'center', pt: 2 })}>
+      <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
         Easy peasy screenshots
       </Heading>
       <Caption
-        pt={[3, 3, 4, 4]}
-        px={4}
-        maxWidth={[layout.small, layout.small, layout.small, layout.small]}
+        forwardedAs='h2'
+        css={theme({
+          pt: [3, 3, 4, 4],
+          px: 4,
+          maxWidth: layout.small
+        })}
       >
         Say goodbye to complexity.
         <LineBreak />
         Turn websites into screenshots.
       </Caption>
-      <Flex pt={[3, 3, 4, 4]}>
-        <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/screenshot'>
+      <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
+        <ArrowLink
+          css={theme({ pr: [2, 4, 4, 4] })}
+          href='/docs/api/parameters/screenshot'
+        >
           Get Started
         </ArrowLink>
         <ArrowLink href='https://github.com/microlinkhq/browserless'>
@@ -240,19 +255,24 @@ const LiveDemo = React.memo(function LiveDemo ({
       <Flex justifyContent='center' alignItems='center'>
         <Flex
           as='form'
-          pt={[3, 3, 4, 4]}
-          mx={[0, 0, 'auto', 'auto']}
-          justifyContent='center'
-          flexDirection={['column', 'column', 'row', 'row']}
+          css={theme({
+            pt: [3, 3, 4, 4],
+            mx: [0, 0, 'auto', 'auto'],
+            justifyContent: 'center',
+            flexDirection: ['column', 'column', 'row', 'row']
+          })}
           onSubmit={event => {
             event.preventDefault()
             const { url, ...opts } = values
             return onSubmit(url, opts)
           }}
         >
-          <Box mb={[3, 3, 0, 0]}>
+          <Box css={theme({ mb: [3, 3, 0, 0] })}>
             <Input
-              fontSize={2}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', '102px', '102px']
+              })}
               iconComponent={
                 <InputIcon
                   src={data?.logo?.url}
@@ -268,18 +288,19 @@ const LiveDemo = React.memo(function LiveDemo ({
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '102px', '102px']}
               autoFocus
             />
           </Box>
 
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+          <Box css={theme({ ml: [0, 0, 2, 2], mb: [3, 3, 0, 0] })}>
             <Input
               placeholder='Overlay'
               id='screenshot-demo-overlay'
               type='text'
-              fontSize={2}
-              width={['100%', '100%', '88px', '88px']}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', '88px', '88px']
+              })}
               value={inputOverlay}
               onChange={event => setInputOverlay(event.target.value)}
               iconComponent={
@@ -289,13 +310,15 @@ const LiveDemo = React.memo(function LiveDemo ({
             />
           </Box>
 
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+          <Box css={theme({ ml: [0, 0, 2, 2], mb: [3, 3, 0, 0] })}>
             <Input
               placeholder='Background'
               id='screenshot-demo-background'
               type='text'
-              fontSize={2}
-              width={['100%', '100%', '128px', '128px']}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', '128px', '128px']
+              })}
               value={inputBg}
               onChange={event => setInputBg(event.target.value)}
               iconComponent={backgroundIconComponent}
@@ -312,23 +335,27 @@ const LiveDemo = React.memo(function LiveDemo ({
             />
           </Box>
 
-          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1}>Take it</Caps>
+          <Button css={theme({ ml: [0, 0, 2, 2] })} loading={isLoading}>
+            <Caps css={theme({ fontSize: 1 })}>Take it</Caps>
           </Button>
         </Flex>
       </Flex>
 
       <Choose>
         <Choose.When condition={!!data}>
-          <Flex flexDirection='column' alignItems='center' pb={[4, 4, 5, 5]}>
+          <Flex
+            css={theme({
+              flexDirection: 'column',
+              alignItems: 'center',
+              pb: [4, 4, 5, 5]
+            })}
+          >
             <Screenshot
-              my={4}
               cardWidth={cardWidth}
               cardHeight={cardHeight}
               data={data}
-              query={values}
             />
-            <Box px={4} width={cardWidth / 1.5}>
+            <Box css={theme({ px: 4 })} style={{ width: cardWidth / 1.5 }}>
               <Tooltip
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
                 content={
@@ -345,8 +372,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                     })
                   }}
                   style={{ cursor: 'copy' }}
-                  width='100%'
-                  color='black60'
+                  css={theme({ width: '100%', color: 'black60' })}
                   value={snippetText}
                 />
               </Tooltip>
@@ -362,78 +388,103 @@ const LiveDemo = React.memo(function LiveDemo ({
   )
 })
 
-const Timings = props => {
+const Timings = () => {
   const healthcheck = useHealthcheck()
 
   const blockOne = (
-    <Flex flexDirection='column' justifyContent='center' alignItems='center'>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white'>
-        Send the URL
-      </Subhead>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white60'>
-        We do the rest
+    <Flex
+      css={{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
+      <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        Send the URL{' '}
+        <span css={theme({ display: 'block', color: 'white60' })}>
+          We do the rest
+        </span>
       </Subhead>
     </Flex>
   )
 
   const blockTwo = (
     <Flex
-      pt={[4, 4, 5, 5]}
-      justifyContent='center'
-      alignItems='baseline'
-      width='100%'
-      maxWidth={layout.normal}
+      css={theme({
+        pt: [4, 4, 5, 5],
+        justifyContent: 'center',
+        alignItems: 'baseline',
+        width: '100%',
+        maxWidth: layout.normal
+      })}
       style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       <Flex
-        display='inline-flex'
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        css={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        }}
       >
         <Subhead
-          as='div'
-          fontSize={[3, 4, 4, 4]}
-          color='white'
-          fontWeight='bold'
+          forwardedAs='div'
+          css={theme({
+            fontSize: [3, 4, 4, 4],
+            color: 'white',
+            fontWeight: 'bold'
+          })}
         >
           {trimMs(healthcheck.screenshot.p95_pretty)}
           <Caption
-            as='div'
-            ml={2}
-            color='white'
-            display='inline'
-            fontWeight='bold'
+            forwardedAs='div'
+            css={theme({
+              ml: 2,
+              color: 'white',
+              display: 'inline',
+              fontWeight: 'bold'
+            })}
             titleize={false}
           >
             secs
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' pt={2}>
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
           {['P95', 'response time'].map(children => (
-            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+            <Caps
+              key={children}
+              css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+            >
               {children}
             </Caps>
           ))}
         </Caption>
       </Flex>
       <Hide breakpoints={[1, 2, 3]}>
-        <Box px={3} />
+        <Box css={theme({ px: 3 })} />
       </Hide>
       <Hide breakpoints={[0]}>
         <Flex
-          display='inline-flex'
-          px={[2, 2, 2, 5]}
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
+          css={theme({
+            display: 'inline-flex',
+            px: [2, 2, 2, 5],
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column'
+          })}
         >
-          <Subhead as='div' color='white' fontWeight='bold'>
+          <Subhead
+            forwardedAs='div'
+            css={theme({ color: 'white', fontWeight: 'bold' })}
+          >
             <Average value={healthcheck.screenshot.avg_pretty} />
           </Subhead>
-          <Caption as='div' color='white60'>
+          <Caption forwardedAs='div' css={theme({ color: 'white60' })}>
             {['average', 'response time'].map(children => (
-              <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              <Caps
+                key={children}
+                css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+              >
                 {children}
               </Caps>
             ))}
@@ -441,31 +492,40 @@ const Timings = props => {
         </Flex>
       </Hide>
       <Flex
-        display='inline-flex'
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        css={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        }}
       >
         <Subhead
-          as='div'
-          fontSize={[3, 4, 4, 4]}
-          color='white'
-          fontWeight='bold'
+          forwardedAs='div'
+          css={theme({
+            fontSize: [3, 4, 4, 4],
+            color: 'white',
+            fontWeight: 'bold'
+          })}
         >
           99.9
           <Caption
-            as='div'
-            ml={2}
-            color='white'
-            fontWeight='bold'
-            display='inline'
+            forwardedAs='div'
+            css={theme({
+              ml: 2,
+              color: 'white',
+              display: 'inline',
+              fontWeight: 'bold'
+            })}
           >
             %
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' mr={3} pt={2}>
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
           {['SLA', 'Guaranteed'].map(children => (
-            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+            <Caps
+              key={children}
+              css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+            >
               {children}
             </Caps>
           ))}
@@ -476,32 +536,56 @@ const Timings = props => {
 
   return (
     <Block
+      forwardedAs='section'
       id='timings'
-      px={4}
       flexDirection='column'
+      css={theme({
+        px: 4,
+        pb: [5, 5, 6, 6],
+        width: '100%',
+        // https://www.gradientmagic.com/collection/radialstripes
+        backgroundImage: `radial-gradient(
+          circle at center right,
+          #850ba7 0%,
+          #850ba7 48%,
+          #a31b91 48%,
+          #a31b91 52%,
+          #c12a78 52%,
+          #c12a78 65%,
+          #df3a61 65%,
+          #df3a61 79%,
+          #fd494a 79%,
+          #fd494a 100%
+        )`,
+        borderTop: `${borders[1]} ${colors.white20}`,
+        borderBottom: `${borders[1]} ${colors.white20}`
+      })}
       blockOne={blockOne}
       blockTwo={blockTwo}
-      {...props}
     />
   )
 }
 
-const Resume = props => (
+const Resume = () => (
   <Container
     as='section'
     id='resume'
-    alignItems='center'
-    maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
-    {...props}
+    css={theme({
+      alignItems: 'center',
+      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
+      pb: [5, 5, 6, 6]
+    })}
   >
     <Subhead variant='gradient'>
       The fastest way for
       <LineBreak breakpoints={[1, 2]} /> taking screenshots
     </Subhead>
     <Caption
-      pt={[3, 3, 4, 4]}
-      px={[4, 4, 4, 0]}
-      maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
+      css={theme({
+        pt: [3, 3, 4, 4],
+        px: [4, 4, 4, 0],
+        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+      })}
     >
       <b>Microlink screenshot</b> provides a set of powerful features without
       the headaches of running your own infrastructure, giving you great power,
@@ -511,18 +595,32 @@ const Resume = props => (
     <Block
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Always fresh'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Always fresh
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Consecutive requests will be cached on the edge, respecting{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
             responses doesn’t affect your plan.
@@ -534,11 +632,23 @@ const Resume = props => (
     <Block
       flexDirection='row-reverse'
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Browse automation
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Such as <Link href='/docs/api/parameters/device'>device</Link>{' '}
             emulation, <Link href='/docs/api/parameters/styles'>styles</Link>,{' '}
             <Link href='/docs/api/parameters/javascript'>javascript</Link> or{' '}
@@ -555,8 +665,10 @@ const Resume = props => (
       }
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Browse automation'
           src='https://cdn.microlink.io/illustrations/robots.svg'
         />
@@ -564,21 +676,34 @@ const Resume = props => (
     />
 
     <Block
-      pb={Container.defaultProps.pt}
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Overlay composition'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Overlay composition
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Create truly{' '}
             <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
             compositions, setting up the background, browser window, color
@@ -590,23 +715,31 @@ const Resume = props => (
   </Container>
 )
 
-const ProductInformation = props => {
+const ProductInformation = () => {
   const healthcheck = useHealthcheck()
 
   return (
     <Faq
-      as='section'
+      forwardedAs='section'
       id='information'
       title='Product Information'
       caption='All the details you need to know about the product.'
-      pb={Container.defaultProps.pt}
+      css={theme({
+        pb: [5, 5, 6, 6],
+        bg: 'pinky',
+        borderTop: `${borders[1]} ${colors.pinkest}`,
+        borderBottom: `${borders[1]} ${colors.pinkest}`
+      })}
       questions={[
         {
           question: 'What is it?',
           answer: (
             <>
               <div>
-                <Text as='span' color='black' fontWeight='bold'>
+                <Text
+                  as='span'
+                  css={theme({ color: 'black', fontWeight: 'bold' })}
+                >
                   Microlink screenshot
                 </Text>{' '}
                 is an easy way for taking an screenshot of any website in a
@@ -678,16 +811,13 @@ const ProductInformation = props => {
             <>
               <div>
                 We’re always available at{' '}
-                <Link display='inline' href='mailto:hello@microlink.io'>
-                  hello@microlink.io
-                </Link>
+                <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .
               </div>
             </>
           )
         }
       ]}
-      {...props}
     />
   )
 }
@@ -721,43 +851,23 @@ const ScreenshotPage = () => {
                 onSubmit={doFetch}
                 query={query}
               />
-              <Timings
-                pb={Container.defaultProps.pt}
-                css={`
-                  /* https://www.gradientmagic.com/collection/radialstripes */
-                  background-image: radial-gradient(
-                    circle at center right,
-                    #850ba7 0%,
-                    #850ba7 48%,
-                    #a31b91 48%,
-                    #a31b91 52%,
-                    #c12a78 52%,
-                    #c12a78 65%,
-                    #df3a61 65%,
-                    #df3a61 79%,
-                    #fd494a 79%,
-                    #fd494a 100%
-                  );
-                `}
-                borderTop={`${borders[1]} ${colors.white20}`}
-                borderBottom={`${borders[1]} ${colors.white20}`}
-              />
+              <Timings />
               <Features
-                px={4}
+                css={theme({ px: 4 })}
                 title={
-                  <>
-                    <Subhead width='100%' textAlign='left'>
-                      High performance,
-                    </Subhead>
-                    <Subhead
-                      color='#fd494a'
-                      width='100%'
-                      textAlign='left'
-                      titleize={false}
+                  <Subhead css={{ width: '100%', textAlign: 'left' }}>
+                    High performance,{' '}
+                    <span
+                      css={{
+                        display: 'block',
+                        color: '#fd494a',
+                        width: '100%',
+                        textAlign: 'left'
+                      }}
                     >
                       with no compromises.
-                    </Subhead>
-                  </>
+                    </span>
+                  </Subhead>
                 }
                 caption={
                   <>
@@ -770,11 +880,7 @@ const ScreenshotPage = () => {
                 features={features}
               />
               <Resume />
-              <ProductInformation
-                bg='pinky'
-                borderTop={`${borders[1]} ${colors.pinkest}`}
-                borderBottom={`${borders[1]} ${colors.pinkest}`}
-              />
+              <ProductInformation />
             </>
           )
         }}
