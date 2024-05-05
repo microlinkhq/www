@@ -107,6 +107,7 @@ export const withLink = Component => {
     href = '/',
     title,
     prefetch = true,
+    icon,
     ...props
   }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
@@ -148,7 +149,13 @@ export const withLink = Component => {
     }
 
     return (
-      <BaseLink href={href} isInternal={isInternal} title={title} {...props}>
+      <BaseLink
+        href={href}
+        icon={icon}
+        isInternal={isInternal}
+        title={title}
+        {...props}
+      >
         {children}
       </BaseLink>
     )

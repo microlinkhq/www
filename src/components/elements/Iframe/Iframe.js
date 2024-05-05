@@ -1,5 +1,6 @@
 import React, { createElement, useRef, useEffect, useState } from 'react'
 import { aspectRatio, noop } from 'helpers'
+import { theme } from 'theme'
 
 import Placeholder from '../Placeholder/Placeholder'
 import Flex from '../Flex'
@@ -37,8 +38,7 @@ const Iframe = ({
       style={isLoading ? { display: 'none' } : undefined}
       frameBorder='0'
       target='_parent'
-      width={width}
-      height={height}
+      css={theme({ width, height })}
       {...props}
     />
   )

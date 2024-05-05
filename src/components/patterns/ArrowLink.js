@@ -16,6 +16,7 @@ const ArrowLink = ({ children, ...props }) => {
             align-items: center;
           }
         `}
+        icon={false}
         {...props}
       >
         {children} <FeatherIcon icon={icon} />
