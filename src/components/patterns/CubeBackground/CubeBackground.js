@@ -26,14 +26,14 @@ const cubesStyle = CUBES_RANGE.reduce((acc, index) => {
   return acc + css
 }, '')
 
-const CubesBackgroundWrapper = styled('ul')`
+const CubeBackgroundWrapper = styled('ul')`
   margin: 0;
   li {
     border-radius: ${radii[4]};
     position: absolute;
     display: block;
     list-style: none;
-    background: ${props => cx(props.bg)};
+    background: ${props => cx(props.$bg)};
     animation: ${rotation} 25s linear infinite;
     bottom: -150px;
   }
@@ -41,12 +41,12 @@ const CubesBackgroundWrapper = styled('ul')`
   ${cubesStyle};
 `
 
-const CubesBackground = ({ bg = 'rgba(255, 255, 255, 0.2)', ...props }) => (
-  <CubesBackgroundWrapper bg={bg} {...props}>
+const CubeBackground = ({ bg = 'rgba(255, 255, 255, 0.2)', ...props }) => (
+  <CubeBackgroundWrapper $bg={bg} {...props}>
     {CUBES_RANGE.map(n => (
       <li key={`circles_cube_${n}`} />
     ))}
-  </CubesBackgroundWrapper>
+  </CubeBackgroundWrapper>
 )
 
-export default CubesBackground
+export default CubeBackground

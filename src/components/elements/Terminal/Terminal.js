@@ -14,9 +14,9 @@ export const TerminalWindow = styled(Box)`
   overflow: auto;
   border-radius: ${radii[3]};
   border: ${borders[1]};
-  border-color: ${({ isDark }) => cx(isDark ? 'white10' : 'black10')};
-  background: ${({ isDark }) => cx(isDark ? 'black' : 'white')};
-  color: ${({ isDark }) => cx(isDark ? 'white' : 'black')};
+  border-color: ${({ $isDark }) => cx($isDark ? 'white10' : 'black10')};
+  background: ${({ $isDark }) => cx($isDark ? 'black' : 'white')};
+  color: ${({ $isDark }) => cx($isDark ? 'white' : 'black')};
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
@@ -39,7 +39,7 @@ const fromString = text =>
 
 const TerminalHeader = styled('div')`
   background: linear-gradient(
-    ${props => (props.isDark ? 'black' : 'white')} 75%,
+    ${props => (props.$isDark ? 'black' : 'white')} 75%,
     transparent
   );
   border-top-right-radius: ${radii[3]};
@@ -84,9 +84,9 @@ const TerminalButtonRed = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(1),
-            animationDuration
-          }
+          animationDelay: animationDelay(1),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -112,9 +112,9 @@ const TerminalButtonGreen = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(3),
-            animationDuration
-          }
+          animationDelay: animationDelay(3),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -194,9 +194,9 @@ const TerminalTextWrapper = styled('div')`
   width: 100%;
   white-space: pre;
   &::before {
-    content: ${props => (props.shellSymbol ? `'${props.shellSymbol} '` : '')};
+    content: ${props => (props.$shellSymbol ? `'${props.$shellSymbol} '` : '')};
   }
-  ${props => props.blinkCursor && blinkCursorStyle}
+  ${props => props.$blinkCursor && blinkCursorStyle}
 `
 
 const TerminalProvider = ({
@@ -210,8 +210,8 @@ const TerminalProvider = ({
   ...props
 }) => {
   return (
-    <TerminalWindow isDark={isDark} {...props}>
-      <TerminalHeader isDark={isDark} {...header}>
+    <TerminalWindow $isDark={isDark} {...props}>
+      <TerminalHeader $isDark={isDark} {...header}>
         <TerminalButton.Red loading={loading} />
         <TerminalButton.Yellow loading={loading} />
         <TerminalButton.Green loading={loading} />
@@ -229,7 +229,10 @@ const Terminal = ({ children, shellSymbol, blinkCursor, ...props }) => {
 
   return (
     <TerminalProvider text={text} {...props}>
-      <TerminalTextWrapper shellSymbol={shellSymbol} blinkCursor={blinkCursor}>
+      <TerminalTextWrapper
+        $shellSymbol={shellSymbol}
+        $blinkCursor={blinkCursor}
+      >
         {content}
       </TerminalTextWrapper>
     </TerminalProvider>

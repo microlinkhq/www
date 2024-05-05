@@ -50,12 +50,12 @@ const getClassName = ({ className, metastring = '' }) =>
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   ${hideScrollbar};
-  ${props => codeTheme[props.isDark]};
-  ${({ highlightLines, isDark }) => {
+  ${props => codeTheme[props.$isDark]};
+  ${({ $highlightLines, $isDark }) => {
     return `
-    ${generateHighlighLines(highlightLines)} {
+    ${generateHighlighLines($highlightLines)} {
       display: block;
-      background: ${cx(isDark ? 'whitek05' : 'black05')};
+      background: ${cx($isDark ? 'whitek05' : 'black05')};
       border-radius: ${radii[2]};
     }
     `
@@ -73,12 +73,13 @@ const CodeEditor = ({
   interactive: runkitProps,
   showLineNumbers,
   isDark,
+  language: languageProp,
   title,
   ...props
 }) => {
   const className = getClassName(props)
   const highlightLines = getLines(className)
-  const language = toAlias(props.language)
+  const language = toAlias(languageProp)
   const pretty = get(prettier, language, identity)
   const text = pretty(template(children)).trim()
   const id = `codeditor-${hash(children)}-${isDark ? 'dark' : 'light'}`
@@ -100,8 +101,8 @@ const CodeEditor = ({
       <TerminalTextWrapper>
         <CustomSyntaxHighlighter
           useInlineStyles={false}
-          isDark={isDark}
-          highlightLines={highlightLines}
+          $isDark={isDark}
+          $highlightLines={highlightLines}
           showLineNumbers={showLineNumbers}
           language={language}
           style={{}}

@@ -505,7 +505,7 @@ const Timings = () => {
           >
             <Average value={healthcheck.meta.avg_pretty} />
           </Subhead>
-          <Caption as='div' css={theme({ color: 'white60' })}>
+          <Caption forwardedAs='div' css={theme({ color: 'white60' })}>
             {['average', 'response time'].map(children => (
               <Caps
                 key={children}
@@ -886,21 +886,19 @@ const LogoPage = () => {
               <Features
                 css={theme({ px: 4 })}
                 title={
-                  <>
-                    <Subhead css={{ width: '100%', textAlign: 'left' }}>
-                      Effortless API,{' '}
-                      <span
-                        css={{
-                          display: 'block',
-                          color: '#d306aa',
-                          width: '100%',
-                          textAlign: 'left'
-                        }}
-                      >
-                        ready to be used.
-                      </span>
-                    </Subhead>
-                  </>
+                  <Subhead css={{ width: '100%', textAlign: 'left' }}>
+                    Effortless API,{' '}
+                    <span
+                      css={{
+                        display: 'block',
+                        color: '#d306aa',
+                        width: '100%',
+                        textAlign: 'left'
+                      }}
+                    >
+                      ready to be used.
+                    </span>
+                  </Subhead>
                 }
                 caption={
                   <>
