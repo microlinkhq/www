@@ -20,16 +20,11 @@ const animateStyle = css`
   animation-direction: reverse;
 `
 
-const Dots = styled(Box).withConfig({
+const DotsBackground = styled(Box).withConfig({
   shouldForwardProp: prop => !['animate'].includes(prop)
 })`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
   min-height: 100vh;
-  z-index: -1;
 
   &:before {
     content: '';
@@ -46,9 +41,9 @@ const Dots = styled(Box).withConfig({
   }
 `
 
-Dots.defaultProps = {
+DotsBackground.defaultProps = {
   theme: 'light',
   animate: true
 }
 
-export default Dots
+export default DotsBackground
