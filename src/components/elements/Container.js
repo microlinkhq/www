@@ -3,21 +3,14 @@ import { theme } from 'theme'
 
 import Flex from './Flex'
 
-const Container = styled(Flex).withConfig({
-  shouldForwardProp: prop => !['px'].includes(prop)
-})`
+const Container = styled(Flex)`
   ${theme({
     flexDirection: 'column',
     ml: 'auto',
     mr: 'auto',
-    pt: [5, 5, 6, 6],
-    px: [3, 3, 0, 0]
+    pt: [5, null, 6],
+    px: [3, null, 0]
   })}
 `
-
-Container.defaultProps = {
-  // @todo: can we remove this?
-  px: [3, 3, 0, 0]
-}
 
 export default Container
