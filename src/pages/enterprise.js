@@ -1,5 +1,5 @@
 import { DotsBackground, Caption, Layout } from 'components/patterns'
-import { transition, space, gradient, layout } from 'theme'
+import { transition, space, gradient, layout, theme as themeProp } from 'theme'
 import Markdown from 'components/markdown'
 import { useTheme } from 'components/hook'
 import styled from 'styled-components'
@@ -62,28 +62,35 @@ const EnterprisePage = () => {
 
   return (
     <DotsBackground theme={theme}>
-      <Layout theme={theme} footer={{ bg: 'transparent' }}>
+      <Layout theme={theme} footer={{ style: { background: 'transparent' } }}>
         <Container
-          pt={[2, 2, 3, 3]}
-          justifyContent='center'
-          alignItems='center'
+          css={themeProp({
+            pt: [2, null, 3],
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
         >
-          <Subhead color={primary}>Microlink for</Subhead>
+          <Subhead css={{ color: primary }}>Microlink for</Subhead>
           <Heading>Enterprise</Heading>
           <Caption
-            color={primary}
-            pt={[3, 3, 4, 4]}
-            px={4}
+            css={themeProp({
+              color: primary,
+              pt: [3, null, 4],
+              px: 4,
+              maxWidth: layout.small
+            })}
             titleize={false}
-            maxWidth={[layout.small, layout.small, layout.small, layout.small]}
           >
             Unleash the maximum performance. Hardware, with the software baked
             in.
           </Caption>
           <Box
-            pt={[3, 3, 4, 4]}
-            color={secondary}
             css={`
+              ${themeProp({
+                pt: [3, null, 4],
+                color: secondary
+              })}
+
               b {
                 color: white;
               }
@@ -91,16 +98,19 @@ const EnterprisePage = () => {
           >
             <Markdown>{content}</Markdown>
           </Box>
-          <Box pt={[2, 2, 3, 3]} color={secondary}>
+          <Box css={themeProp({ pt: [2, null, 3], color: secondary })}>
             <GradientButton
               onClick={() =>
                 window.open(
                   'mailto:hello@microlink.io?subject=Microlink%20Enterprise&body=Hello%2C%20I%20want%20to%20upgrade%20my%20customer%20plan%20to%20Microlink%20Enterprise.%0D%0A%0D%0ACan%20you%20tell%20me%20more%20about%20the%20details%3F%0D%0A%0D%0AThank%20you!%0D%0A',
                   '_blank',
                   'noopener noreferrer'
-                )}
+                )
+              }
             >
-              <Caps bg='black' px={3} py={2} color={primary}>
+              <Caps
+                css={themeProp({ bg: 'black', px: 3, py: 2, color: primary })}
+              >
                 Get in touch
               </Caps>
             </GradientButton>
