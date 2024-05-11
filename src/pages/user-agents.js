@@ -1,7 +1,7 @@
 import { ArrowLink, Caption, Layout } from 'components/patterns'
 import Markdown from 'components/markdown'
 import React, { useState } from 'react'
-import { layout } from 'theme'
+import { layout, theme } from 'theme'
 
 import { Toggle, Container, Flex, Heading, Meta } from 'components/elements'
 
@@ -30,44 +30,57 @@ const UserAgentsPage = () => {
 
   return (
     <Layout>
-      <Container pt={2} pb={3} justifyContent='center' alignItems='center'>
-        <Heading px={5} maxWidth={layout.large}>
+      <Container
+        css={theme({
+          pt: 2,
+          pb: 3,
+          justifyContent: 'center',
+          alignItems: 'center'
+        })}
+      >
+        <Heading css={theme({ px: 5, maxWidth: layout.large })}>
           User Agents
         </Heading>
         <Caption
-          pt={[3, 3, 4, 4]}
-          px={['48px', 4, 4, 4]}
+          forwardedAs='h2'
+          css={theme({
+            pt: [3, null, 4],
+            px: ['48px', 4],
+            maxWidth: layout.small
+          })}
           titleize={false}
-          maxWidth={[layout.small, layout.small, layout.small, layout.small]}
         >
           Most common `user-agent` used on Internet.
         </Caption>
         <Flex
-          py={[3, 3, 4, 4]}
-          flexDirection='column'
-          justifyContent='center'
-          alignItems='center'
+          css={theme({
+            py: [3, null, 4],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
         >
           <Toggle
-            alignItems='center'
-            justifyContent='center'
+            css={theme({ alignItems: 'center', justifyContent: 'center' })}
             defaultValue='User Agent'
             onChange={value =>
-              setType(value === 'User Agent' ? 'user' : 'crawler')}
+              setType(value === 'User Agent' ? 'user' : 'crawler')
+            }
           >
             {['User Agent', 'Crawler Agent']}
           </Toggle>
-          <Flex pt={[3, 3, 4, 4]}>
-            <ArrowLink pr={[2, 4, 4, 4]} href={downloadUrl}>
-              Download
-            </ArrowLink>
+          <Flex
+            css={theme({
+              pt: [3, null, 4],
+              gap: [2, 4],
+              fontSize: [2, null, 3]
+            })}
+          >
+            <ArrowLink href={downloadUrl}>Download</ArrowLink>
             <ArrowLink href={githubUrl}>See on GitHub</ArrowLink>
           </Flex>
         </Flex>
-        <Flex
-          flexDirection='column'
-          maxWidth={['95vw', '95vw', undefined, undefined]}
-        >
+        <Flex css={theme({ flexDirection: 'column', maxWidth: '95vw' })}>
           <Markdown>{content}</Markdown>
         </Flex>
       </Container>
