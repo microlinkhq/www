@@ -18,7 +18,7 @@ const Block = ({
     <Flex
       css={theme({
         justifyContent: 'center',
-        flexDirection: ['column', 'column', 'column', flexDirection],
+        flexDirection: ['column', null, null, flexDirection],
         alignItems: 'center',
         mx: 'auto',
         width

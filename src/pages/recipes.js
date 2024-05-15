@@ -41,7 +41,7 @@ export const Head = () => (
 
 const RecipesPage = () => {
   const [counters, setCounters] = useState()
-  const isLoaded = counters !== null
+  const isLoaded = counters !== undefined
 
   useEffect(() => {
     window

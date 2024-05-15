@@ -28,10 +28,6 @@ const Layout = ({
   onClick,
   style,
   theme,
-  display,
-  justifyContent,
-  alignItems,
-  flexDirection,
   component = Box,
   ...props
 }) => {
@@ -65,11 +61,8 @@ const Layout = ({
             component,
             {
               as: 'main',
-              justifyContent,
-              alignItems,
-              display,
-              flexDirection,
-              style: { flex: 1, paddingTop: toolbarHeight }
+              style: { flex: 1, paddingTop: toolbarHeight },
+              ...props
             },
             children
           )}
