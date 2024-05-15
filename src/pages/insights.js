@@ -1,4 +1,4 @@
-import { borders, breakpoints, layout, colors } from 'theme'
+import { borders, breakpoints, layout, colors, theme } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -60,30 +60,41 @@ const SUGGESTIONS = [
 
 const getEmbedUrl = (url, embed) => getApiUrl(url, { insights: true, embed })[0]
 
-const Wappalyzer = ({ data, ...props }) => (
+const Wappalyzer = ({ data }) => (
   <Flex
-    borderRadius={2}
-    border={1}
-    borderColor='black10'
-    width={256}
-    height={96}
-    m={[1, 1, 2, 2]}
-    py={3}
-    px={3}
-    flexDirection='row'
-    alignItems='center'
-    {...props}
+    css={theme({
+      borderRadius: 2,
+      border: 1,
+      borderColor: 'black10',
+      width: 256,
+      height: 96,
+      m: [1, 1, 2, 2],
+      p: 3,
+      flexDirection: 'row',
+      alignItems: 'center'
+    })}
   >
-    <Box>
+    <Box css={{ flexShrink: 0 }}>
       <Image
-        width={[30, 30, 40, 40]}
+        css={theme({ width: [30, 30, 40, 40] })}
         alt={`${data.name} logo`}
         src={data.logo}
       />
     </Box>
-    <Box pl={3}>
+    <Box css={theme({ pl: 3 })}>
       <Link href={data.url}>{data.name}</Link>
-      <Text fontSize={1} color='gray7'>
+      <Text
+        css={theme({
+          fontSize: 1,
+          color: 'gray7',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+          display: '-webkit-box',
+          '-webkit-line-clamp': '2',
+          '-webkit-box-orient': 'vertical'
+        })}
+        title={data.categories.join(', ')}
+      >
         {data.categories.join(', ')}
       </Text>
     </Box>
@@ -91,12 +102,12 @@ const Wappalyzer = ({ data, ...props }) => (
 )
 
 const LighthouseReport = props => (
-  <Flex flexDirection='column' alignItems='flex-start'>
-    <Subhead textAlign='left' fontSize={3}>
+  <Flex css={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+    <Subhead css={theme({ textAlign: 'left', fontSize: 3 })}>
       Lighthouse report
     </Subhead>
-    <Box pt={3}>
-      <Text maxWidth={layout.normal}>
+    <Box css={theme({ pt: 3 })}>
+      <Text css={{ maxWidth: layout.normal }}>
         <Link href='https://github.com/GoogleChrome/lighthouse'>
           Lighthouse
         </Link>{' '}
@@ -104,62 +115,77 @@ const LighthouseReport = props => (
         pages.
       </Text>
     </Box>
-    <Flex justifyContent='center' pt={4} width='100%'>
+    <Flex css={theme({ justifyContent: 'center', pt: 4, width: '100%' })}>
       <Iframe {...props} />
     </Flex>
   </Flex>
 )
 
-const TechnologyStack = ({ technologies, ...props }) => (
-  <Flex as='section' flexDirection='column' alignItems='flex-start' {...props}>
-    <Subhead textAlign='left' fontSize={3}>
+const TechnologyStack = ({ technologies }) => (
+  <Flex
+    as='section'
+    css={{ flexDirection: 'column', alignItems: 'flex-start' }}
+  >
+    <Subhead css={theme({ textAlign: 'left', fontSize: 3 })}>
       Technology Stack
     </Subhead>
-    <Box pt={3}>
-      <Text maxWidth={layout.small}>
+    <Box css={theme({ pt: 3 })}>
+      <Text css={{ maxWidth: layout.small }}>
         Software detected under the target URL after analyzing source code,
         response headers, script variables and several other
       </Text>
-      <Text pt={3}>
+      <Text css={theme({ pt: 3 })}>
         Detected{' '}
-        <Text as='span' fontWeight='bold'>
+        <Text as='span' css={{ fontWeight: 'bold' }}>
           {technologies.length}
         </Text>{' '}
         technologies behind the site.
       </Text>
     </Box>
     <Flex
-      pt={4}
-      mx='auto'
-      justifyContent='center'
-      flexDirection='row'
-      flexWrap='wrap'
-      width={props.width}
+      css={theme({
+        pt: 4,
+        mx: 'auto',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+      })}
     >
       {technologies.map(data => (
         <Wappalyzer key={data.name} data={data} />
       ))}
-      {technologies.length % 2 === 1 && <Box m={2} width={256} />}
+      {technologies.length % 2 === 1 && (
+        <Box css={theme({ m: 2, width: 256 })} />
+      )}
     </Flex>
   </Flex>
 )
 
-const LighthousePlaceholder = props => {
+const LighthousePlaceholder = ({ height, width }) => {
   return (
     <Flex
-      border={3}
-      borderColor='black20'
-      alignItems='center'
-      flexDirection='column'
-      justifyContent='center'
-      {...props}
+      css={theme({
+        border: 3,
+        borderColor: 'black20',
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        height,
+        width
+      })}
     >
       <Image
-        width={[3, 3, '80%', '80%']}
+        css={theme({ width: [3, 3, '80%', '80%'] })}
         alt='Paste your URL'
         src='https://cdn.microlink.io/logo/lighthouse.png'
       />
-      <Text pt={[2, 2, 4, 4]} fontSize={[2, 2, 4, 4]} color='black40'>
+      <Text
+        css={theme({
+          pt: [2, 2, 4, 4],
+          fontSize: [2, 2, 4, 4],
+          color: 'black40'
+        })}
+      >
         Paste your URL
       </Text>
     </Flex>
@@ -206,14 +232,20 @@ const LiveDemo = React.memo(function LiveDemo ({
   )}`
 
   return (
-    <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
-      <Heading px={5} maxWidth={layout.large}>
+    <Container
+      as='section'
+      css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+    >
+      <Heading css={theme({ px: 5, maxWidth: layout.large })}>
         Automate web performance
       </Heading>
       <Caption
-        pt={[3, 3, 4, 4]}
-        px={4}
-        maxWidth={[layout.small, layout.small, layout.small, layout.small]}
+        forwardedAs='h2'
+        css={theme({
+          pt: [3, 3, 4, 4],
+          px: 4,
+          maxWidth: [layout.small, layout.small, layout.small, layout.small]
+        })}
       >
         Track site speed & website quality over time — Get performance insights
         powered by{' '}
@@ -222,22 +254,27 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Link>
         .
       </Caption>
-      <Flex pt={[3, 3, 4, 4]}>
-        <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/insights'>
+      <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
+        <ArrowLink
+          css={theme({ pr: [2, 4, 4, 4] })}
+          href='/docs/api/parameters/insights'
+        >
           Get Started
         </ArrowLink>
         <ArrowLink href='https://github.com/microlinkhq/browserless'>
           See on GitHub
         </ArrowLink>
       </Flex>
-      <Flex justifyContent='center' alignItems='center'>
+      <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
         <Flex
           as='form'
-          pt={[3, 3, 4, 4]}
-          pb={4}
-          mx={[0, 0, 'auto', 'auto']}
-          justifyContent='center'
-          flexDirection={['column', 'column', 'row', 'row']}
+          css={theme({
+            pt: [3, 3, 4, 4],
+            pb: 4,
+            mx: [0, 0, 'auto', 'auto'],
+            justifyContent: 'center',
+            flexDirection: ['column', 'column', 'row', 'row']
+          })}
           onSubmit={event => {
             event.preventDefault()
             const { url, ...opts } = values
@@ -246,7 +283,10 @@ const LiveDemo = React.memo(function LiveDemo ({
         >
           <Box>
             <Input
-              fontSize={2}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', 128, 128]
+              })}
               iconComponent={
                 <InputIcon
                   src={data?.logo?.url}
@@ -260,13 +300,15 @@ const LiveDemo = React.memo(function LiveDemo ({
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', 128, 128]}
               autoFocus
             />
           </Box>
 
-          <Button mt={[3, 0, 0, 0]} ml={[0, 2, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1}>Get it</Caps>
+          <Button
+            css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
+            loading={isLoading}
+          >
+            <Caps css={theme({ fontSize: 1 })}>Get it</Caps>
           </Button>
         </Flex>
       </Flex>
@@ -276,13 +318,18 @@ const LiveDemo = React.memo(function LiveDemo ({
           <Box
             as='section'
             id='technology-stack'
-            width={cardWidth}
-            flexDirection='column'
+            css={{ width: cardWidth, flexDirection: 'column' }}
           >
-            <Box pt={4}>
+            <Box css={theme({ pt: 4 })}>
               <TechnologyStack technologies={technologies} />
             </Box>
-            <Box pt={[1, 1, 2, 2]} width={[256, 256, 528, 528]} mx='auto'>
+            <Box
+              css={theme({
+                pt: [1, 1, 2, 2],
+                width: [256, 256, 528, 528],
+                mx: 'auto'
+              })}
+            >
               <Tooltip
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
                 content={
@@ -298,16 +345,23 @@ const LiveDemo = React.memo(function LiveDemo ({
                       text: Tooltip.TEXT.COPIED.HTML
                     })
                   }}
-                  width='100%'
-                  color='black60'
+                  css={theme({
+                    width: '100%',
+                    color: 'black60',
+                    cursor: 'copy'
+                  })}
                   value={snippetTechnologiesText}
                 />
               </Tooltip>
             </Box>
           </Box>
-          <Box as='section' id='lighthouse-report' width={cardWidth} pt={5}>
+          <Box
+            as='section'
+            id='lighthouse-report'
+            css={theme({ width: cardWidth, pt: 5 })}
+          >
             <LighthouseReport width={528} src={reportUrl} />
-            <Box pt={[2, 2, 3, 3]} mx='auto'>
+            <Box css={theme({ pt: [2, 2, 3, 3], mx: 'auto' })}>
               <Tooltip
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
                 content={
@@ -315,7 +369,6 @@ const LiveDemo = React.memo(function LiveDemo ({
                 }
               >
                 <Input
-                  width='100%'
                   readOnly
                   onClick={event => {
                     event.target.select()
@@ -324,8 +377,11 @@ const LiveDemo = React.memo(function LiveDemo ({
                       text: Tooltip.TEXT.COPIED.HTML
                     })
                   }}
-                  style={{ cursor: 'copy' }}
-                  color='black60'
+                  css={theme({
+                    width: '100%',
+                    color: 'black60',
+                    cursor: 'copy'
+                  })}
                   value={snippetInsightsText}
                 />
               </Tooltip>
@@ -341,79 +397,104 @@ const LiveDemo = React.memo(function LiveDemo ({
   )
 })
 
-const Timings = props => {
+const Timings = () => {
   const healthcheck = useHealthcheck()
 
   const blockOne = (
-    <Flex flexDirection='column' justifyContent='center' alignItems='center'>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white'>
-        Measure at scale
-      </Subhead>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white60'>
-        without compromises
+    <Flex
+      css={{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
+      <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        Measure at scale{' '}
+        <span css={theme({ color: 'white60', display: 'block' })}>
+          without compromises
+        </span>
       </Subhead>
     </Flex>
   )
 
   const blockTwo = (
     <Flex
-      pt={[4, 4, 5, 5]}
-      justifyContent={['space-around', 'space-around', 'center', 'center']}
-      alignItems='baseline'
-      px={[4, 4, 4, 0]}
-      width='100%'
-      maxWidth={layout.normal}
+      css={theme({
+        pt: [4, 4, 5, 5],
+        justifyContent: ['space-around', 'space-around', 'center', 'center'],
+        alignItems: 'baseline',
+        px: [4, 4, 4, 0],
+        width: '100%',
+        maxWidth: layout.normal
+      })}
       style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       <Flex
-        display='inline-flex'
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        css={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        }}
       >
         <Subhead
-          as='div'
-          fontSize={[3, 4, 4, 4]}
-          color='white'
-          fontWeight='bold'
+          forwardedAs='div'
+          css={theme({
+            fontSize: [3, 4, 4, 4],
+            color: 'white',
+            fontWeight: 'bold'
+          })}
         >
           {trimMs(healthcheck.insights.p95_pretty)}
           <Caption
-            as='div'
-            ml={2}
-            color='white'
-            display='inline'
-            fontWeight='bold'
+            forwardedAs='div'
+            css={theme({
+              ml: 2,
+              color: 'white',
+              display: 'inline',
+              fontWeight: 'bold'
+            })}
             titleize={false}
           >
             secs
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' pt={2}>
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
           {['P95', 'response time'].map(children => (
-            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+            <Caps
+              key={children}
+              css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+            >
               {children}
             </Caps>
           ))}
         </Caption>
       </Flex>
       <Hide breakpoints={[1, 2, 3]}>
-        <Box px={3} />
+        <Box css={theme({ px: 3 })} />
       </Hide>
       <Hide breakpoints={[0]}>
         <Flex
-          display='inline-flex'
-          px={[2, 2, 2, 5]}
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
+          css={theme({
+            display: 'inline-flex',
+            px: [2, 2, 2, 5],
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column'
+          })}
         >
-          <Subhead as='div' color='white' fontWeight='bold'>
+          <Subhead
+            forwardedAs='div'
+            css={theme({ color: 'white', fontWeight: 'bold' })}
+          >
             <Average value={healthcheck.insights.avg_pretty} />
           </Subhead>
-          <Caption as='div' color='white60'>
+          <Caption forwardedAs='div' css={theme({ color: 'white60' })}>
             {['average', 'response time'].map(children => (
-              <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              <Caps
+                key={children}
+                css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+              >
                 {children}
               </Caps>
             ))}
@@ -421,31 +502,40 @@ const Timings = props => {
         </Flex>
       </Hide>
       <Flex
-        display='inline-flex'
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        css={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        }}
       >
         <Subhead
-          as='div'
-          fontSize={[3, 4, 4, 4]}
-          color='white'
-          fontWeight='bold'
+          forwardedAs='div'
+          css={theme({
+            fontSize: [3, 4, 4, 4],
+            color: 'white',
+            fontWeight: 'bold'
+          })}
         >
           99.9
           <Caption
-            as='div'
-            ml={2}
-            color='white'
-            fontWeight='bold'
-            display='inline'
+            forwardedAs='div'
+            css={theme({
+              ml: 2,
+              color: 'white',
+              display: 'inline',
+              fontWeight: 'bold'
+            })}
           >
             %
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' mr={3} pt={2}>
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
           {['SLA', 'Guaranteed'].map(children => (
-            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+            <Caps
+              key={children}
+              css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+            >
               {children}
             </Caps>
           ))}
@@ -456,33 +546,55 @@ const Timings = props => {
 
   return (
     <Block
-      as='section'
+      forwardedAs='section'
       id='timings'
-      px={4}
-      width='100%'
       flexDirection='column'
       blockOne={blockOne}
       blockTwo={blockTwo}
-      {...props}
+      css={theme({
+        pb: [5, 5, 6, 6],
+        px: 4,
+        width: '100%',
+        borderTop: `${borders[1]} ${colors.white20}`,
+        borderBottom: `${borders[1]} ${colors.white20}`,
+        // https://www.gradientmagic.com/collection/radialstripes
+        backgroundImage: `radial-gradient(
+          circle at top right,
+          rgb(36, 9, 119) 0%,
+          rgb(36, 9, 119) 48%,
+          rgb(72, 7, 149) 48%,
+          rgb(72, 7, 149) 53%,
+          rgb(109, 5, 178) 53%,
+          rgb(109, 5, 178) 56%,
+          rgb(145, 2, 208) 56%,
+          rgb(145, 2, 208) 69%,
+          rgb(181, 0, 237) 69%,
+          rgb(181, 0, 237) 100%
+        )`
+      })}
     />
   )
 }
 
-const Resume = props => (
+const Resume = () => (
   <Container
     as='section'
     id='resume'
-    alignItems='center'
-    maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
-    {...props}
+    css={theme({
+      alignItems: 'center',
+      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
+      pb: [5, 5, 6, 6]
+    })}
   >
-    <Subhead px={[3, 3, 4, 4]} variant='gradient'>
+    <Subhead css={theme({ px: [3, 3, 4, 4] })} variant='gradient'>
       Global performance insights on click
     </Subhead>
     <Caption
-      pt={[3, 3, 4, 4]}
-      px={[4, 4, 4, 0]}
-      maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
+      css={theme({
+        pt: [3, 3, 4, 4],
+        px: [4, 4, 4, 0],
+        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+      })}
     >
       <b>Microlink insights</b> provides first-class support for web performance
       monitoring, easy to integrate with any existing stack or cloud in just a
@@ -492,26 +604,37 @@ const Resume = props => (
     <Block
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Audit on-demand'
           src='https://cdn.microlink.io/illustrations/popularity.svg'
         />
       }
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Audit on-demand
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Enable <Link href='/docs/api/parameters/insights'>insights</Link>{' '}
             query parameter at{' '}
             <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
             for getting a{' '}
-            <Link
-              icon
-              href='https://developers.google.com/web/tools/lighthouse'
-            >
+            <Link href='https://developers.google.com/web/tools/lighthouse'>
               Lighthouse
             </Link>{' '}
             report and technologies detected over the target URL.
@@ -523,11 +646,23 @@ const Resume = props => (
     <Block
       flexDirection='row-reverse'
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Run on the edge
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Never get worried about infrastructure again. Just hit{' '}
             <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
             and we will run a cloud-based browsers for you.
@@ -536,8 +671,10 @@ const Resume = props => (
       }
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Run on the edge'
           src='https://cdn.microlink.io/illustrations/networking.svg'
         />
@@ -545,27 +682,37 @@ const Resume = props => (
     />
 
     <Block
-      pb={Container.defaultProps.pt}
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Simple integration'
           src='https://cdn.microlink.io/illustrations/abstract-6.svg'
         />
       }
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Simple integration
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Connect it with{' '}
             <Link href='https://lighthouse.microlink.io'>Lighthouse</Link> or{' '}
-            <Link
-              icon
-              href='https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md'
-            >
+            <Link href='https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md'>
               Lighthouse CI
             </Link>{' '}
             for unleashing all the power without compromise.
@@ -576,23 +723,31 @@ const Resume = props => (
   </Container>
 )
 
-const ProductInformation = props => {
+const ProductInformation = () => {
   const healthcheck = useHealthcheck()
 
   return (
     <Faq
-      as='section'
+      forwardedAs='section'
       id='information'
       title='Product Information'
       caption='All the details you need to know about the product.'
-      pb={Container.defaultProps.pt}
+      css={theme({
+        pb: [5, 5, 6, 6],
+        bg: 'pinky',
+        borderTop: `${borders[1]} ${colors.pinkest}`,
+        borderBottom: `${borders[1]} ${colors.pinkest}`
+      })}
       questions={[
         {
           question: 'What is it?',
           answer: (
             <>
               <div>
-                <Text as='span' color='black' fontWeight='bold'>
+                <Text
+                  as='span'
+                  css={theme({ color: 'black', fontWeight: 'bold' })}
+                >
                   Microlink insights
                 </Text>{' '}
                 gives you web performance metrics in a simple way using{' '}
@@ -619,10 +774,7 @@ const ProductInformation = props => {
               </div>
               <div>
                 For getting the report, we run{' '}
-                <Link
-                  icon
-                  href='https://developers.google.com/web/tools/lighthouse'
-                >
+                <Link href='https://developers.google.com/web/tools/lighthouse'>
                   Lighthouse
                 </Link>{' '}
                 in our cloud browser servers, giving you the report obtained
@@ -666,16 +818,13 @@ const ProductInformation = props => {
             <>
               <div>
                 We’re always available at{' '}
-                <Link display='inline' href='mailto:hello@microlink.io'>
-                  hello@microlink.io
-                </Link>
+                <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .
               </div>
             </>
           )
         }
       ]}
-      {...props}
     />
   )
 }
@@ -709,43 +858,23 @@ const InsightsPage = () => {
                 onSubmit={doFetch}
                 query={query}
               />
-              <Timings
-                pb={Container.defaultProps.pt}
-                css={`
-                  /* https://www.gradientmagic.com/collection/radialstripes */
-                  background-image: radial-gradient(
-                    circle at top right,
-                    rgb(36, 9, 119) 0%,
-                    rgb(36, 9, 119) 48%,
-                    rgb(72, 7, 149) 48%,
-                    rgb(72, 7, 149) 53%,
-                    rgb(109, 5, 178) 53%,
-                    rgb(109, 5, 178) 56%,
-                    rgb(145, 2, 208) 56%,
-                    rgb(145, 2, 208) 69%,
-                    rgb(181, 0, 237) 69%,
-                    rgb(181, 0, 237) 100%
-                  );
-                `}
-                borderTop={`${borders[1]} ${colors.white20}`}
-                borderBottom={`${borders[1]} ${colors.white20}`}
-              />
+              <Timings />
               <Features
-                px={4}
+                css={theme({ px: 4 })}
                 title={
-                  <>
-                    <Subhead width='100%' textAlign='left'>
-                      You call the API,
-                    </Subhead>
-                    <Subhead
-                      color='rgb(181, 0, 237)'
-                      width='100%'
-                      textAlign='left'
-                      titleize={false}
+                  <Subhead css={{ width: '100%', textAlign: 'left' }}>
+                    You call the API,{' '}
+                    <span
+                      css={{
+                        display: 'block',
+                        color: 'rgb(181, 0, 237)',
+                        width: '100%',
+                        textAlign: 'left'
+                      }}
                     >
                       we handle the rest.
-                    </Subhead>
-                  </>
+                    </span>
+                  </Subhead>
                 }
                 caption={
                   <>
@@ -758,11 +887,7 @@ const InsightsPage = () => {
                 features={features}
               />
               <Resume />
-              <ProductInformation
-                bg='pinky'
-                borderTop={`${borders[1]} ${colors.pinkest}`}
-                borderBottom={`${borders[1]} ${colors.pinkest}`}
-              />
+              <ProductInformation />
             </>
           )
         }}

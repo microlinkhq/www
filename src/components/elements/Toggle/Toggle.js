@@ -43,8 +43,7 @@ function Toggle ({ onChange, children, defaultValue, ...props }) {
               css={theme({
                 borderRight: !isLast ? 1 : undefined,
                 borderColor: !isLast ? 'black05' : undefined,
-                pl: 3,
-                pr: 3
+                px: 3
               })}
             >
               <ButtonToggle active={isActive} onClick={setAsActive(value)}>

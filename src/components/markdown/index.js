@@ -65,128 +65,153 @@ export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
-export const H1 = withTitle(withSlug(styled(Heading)``))
+export const H1 = withTitle(
+  withSlug(styled(Heading)`
+    ${theme({
+      maxWidth: layout.small,
+      fontSize: `calc(${fontSizes[5]} * 0.75)`,
+      lineHeight: [1, 2],
+      textAlign: 'left',
+      mx: 'auto',
+      mt: 5,
+      mb: 4
+    })}
+  `)
+)
 
 H1.defaultProps = {
-  maxWidth: layout.small,
   as: 'h1',
-  fontSize: `calc(${fontSizes[5]} * 0.75)`,
-  lineHeight: [1, 2],
-  textAlign: 'left',
-  variant: null,
-  ml: 'auto',
-  mr: 'auto',
-  mt: 5,
-  mb: 4
+  variant: null
 }
 
-const H2Base = styled(Heading)``
+const H2Base = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: `calc(${fontSizes[4]} * 0.75)`,
+    lineHeight: [1, 2],
+    textAlign: 'left',
+    mt: 5,
+    mb: 4
+  })}
+`
 
 H2Base.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
   as: 'h2',
-  fontSize: `calc(${fontSizes[4]} * 0.75)`,
-  lineHeight: [1, 2],
-  textAlign: 'left',
-  variant: null,
-  mt: 5,
-  mb: 4
+  variant: null
 }
 
 export const H2 = withTitle(withSlug(H2Base))
 
-export const H3 = withTitle(withSlug(styled(Heading)``))
+export const H3 = withTitle(
+  withSlug(styled(Heading)`
+    ${theme({
+      mx: 'auto',
+      maxWidth: layout.small,
+      fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
+      lineHeight: 1,
+      textAlign: 'left',
+      mt: 5,
+      mb: 4
+    })}
+  `)
+)
 
 H3.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
   as: 'h3',
-  fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
-  lineHeight: 1,
-  textAlign: 'left',
-  variant: null,
-  mt: 5,
-  mb: 4
+  variant: null
 }
 
-export const H4 = withTitle(withSlug(styled(Heading)``))
+export const H4 = withTitle(
+  withSlug(styled(Heading)`
+    ${theme({
+      mx: 'auto',
+      maxWidth: layout.small,
+      fontSize: 2,
+      lineHeight: 1,
+      textAlign: 'left',
+      mt: 4,
+      mb: 3
+    })}
+  `)
+)
 
 H4.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
   as: 'h4',
-  fontSize: 2,
-  lineHeight: 1,
-  textAlign: 'left',
-  variant: null,
-  mt: 4,
-  mb: 3
+  variant: null
 }
 
-export const H5 = withTitle(withSlug(styled(Heading)``))
+export const H5 = withTitle(
+  withSlug(styled(Heading)`
+    ${theme({
+      mx: 'auto',
+      maxWidth: layout.small,
+      fontSize: 1,
+      lineHeight: 1,
+      textAlign: 'left',
+      mt: 4,
+      mb: 3
+    })}
+  `)
+)
 
 H5.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
   as: 'h5',
-  fontSize: 1,
-  lineHeight: 1,
-  textAlign: 'left',
-  variant: null,
-  mt: 4,
-  mb: 3
+  variant: null
 }
 
-export const H6 = withTitle(withSlug(styled(Heading)``))
+export const H6 = withTitle(
+  withSlug(styled(Heading)`
+    ${theme({
+      mx: 'auto',
+      maxWidth: layout.small,
+      fontSize: 1,
+      color: 'gray9',
+      lineHeight: 1,
+      textAlign: 'left',
+      mt: 4,
+      mb: 3
+    })}
+  `)
+)
 
 H6.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
   as: 'h6',
-  fontSize: 1,
-  color: 'gray9',
-  lineHeight: 1,
-  textAlign: 'left',
-  variant: null,
-  mt: 4,
-  mb: 3
+  variant: null
 }
 
 export const Paraph = props => {
   const isMedia = get(props, 'children.props.name') === 'img'
   const maxWidth = isMedia ? layout.large : layout.small
-  return <Text maxWidth={maxWidth} {...props} />
+  return (
+    <Text
+      as='div'
+      css={theme({ mx: 'auto', ...CONTAINER_SPACE, maxWidth })}
+      {...props}
+    />
+  )
 }
 
-Paraph.defaultProps = {
-  as: 'div',
-  ml: 'auto',
-  mr: 'auto',
-  ...CONTAINER_SPACE
-}
-
-export const Strong = styled(Text)``
+export const Strong = styled(Text)`
+  display: inline;
+  font-weight: bold;
+`
 
 Strong.defaultProps = {
-  as: 'b',
-  display: 'inline',
-  fontWeight: 'bold'
+  as: 'b'
 }
 
-export const Ul = styled(Text)``
+export const Ul = styled(Text)`
+  max-width: ${layout.small};
+
+  ${theme({
+    mx: 'auto',
+    ...CONTAINER_SPACE
+  })}
+`
 
 Ul.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  as: 'ul',
-  maxWidth: layout.small,
-  ...CONTAINER_SPACE
+  as: 'ul'
 }
 
 export const Ol = styled(Ul)``
@@ -195,14 +220,17 @@ Ol.defaultProps = {
   as: 'ol'
 }
 
-export const Li = styled(Text)``
+export const Li = styled(Text)`
+  max-width: ${layout.small};
+
+  ${theme({
+    mx: 'auto',
+    mb: 3
+  })}
+`
 
 Li.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  mb: 3,
-  as: 'li',
-  maxWidth: layout.small
+  as: 'li'
 }
 
 const codeStyle = css`
@@ -231,48 +259,44 @@ CodeInline.defaultProps = {
 
 const mediaStyle = {
   borderRadius: '3px',
-  ml: 'auto',
-  mr: 'auto',
+  mx: 'auto',
   textAlign: 'center'
 }
 
-const _ImageBase = styled(ImageBase)``
-
-_ImageBase.defaultProps = {
-  ...mediaStyle
-}
+const _ImageBase = styled(ImageBase)`
+  ${theme(mediaStyle)}
+`
 
 export const Image = withContainer(_ImageBase, {
   maxWidth: 'inherit'
 })
 
-const _VideoBase = styled(VideoBase)``
+const _VideoBase = styled(VideoBase)`
+  ${theme(mediaStyle)}
+
+  width: 100%,
+`
 
 _VideoBase.defaultProps = {
-  ...mediaStyle,
-  width: '100%',
   autoPlay: true
 }
 
 export const Video = withContainer(_VideoBase)
 
-const _IframeBase = styled(IframeBase)``
+const _IframeBase = styled(IframeBase)`
+  ${theme({ mx: 'auto' })}
 
-_IframeBase.defaultProps = {
-  mx: 'auto',
-  width: CodeEditor.width,
-  height: CodeEditor.height
-}
+  width: ${CodeEditor.width};
+  height: ${CodeEditor.height};
+`
 
 export const Iframe = withContainer(_IframeBase)
 
-const FigcaptionBase = styled(Text)``
+const FigcaptionBase = styled(Text)`
+  ${theme({ fontSize: 0, color: 'black50' })}
 
-FigcaptionBase.defaultProps = {
-  fontSize: 0,
-  color: 'black50',
-  textAlign: 'center'
-}
+  text-align: center;
+`
 
 export const Figcaption = withContainer(FigcaptionBase)
 
@@ -286,29 +310,32 @@ export const Blockquote = styled.blockquote`
 `
 
 const Type = styled(Text)`
+  ${theme({
+    bg: 'gray1',
+    color: 'gray7',
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'regular'
+  })}
+
   padding: 0.2em 0.4em;
   margin: 0;
   border-radius: 3px;
 `
 
 Type.defaultProps = {
-  as: 'span',
-  bg: 'gray1',
-  color: 'gray7',
-  fontFamily: 'mono',
-  fontSize: 0,
-  fontWeight: 'regular'
+  as: 'span'
 }
 
 const TypeContainer = styled(Box)`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    color: 'gray7'
+  })}
+
   display: inline;
 `
-
-TypeContainer.defaultProps = {
-  fontFamily: 'mono',
-  fontSize: 0,
-  color: 'gray7'
-}
 
 const PriceMonthly = props => (
   <Text

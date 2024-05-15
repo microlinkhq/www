@@ -18,7 +18,9 @@ export const hoverStyle = ({ theme, variant }) => {
   }
 }
 
-const Button = styled(Box)`
+const Button = styled(Box).withConfig({
+  shouldForwardProp: prop => !['variant'].includes(prop)
+})`
   transition: background-color ${transition.medium}, color ${transition.medium},
     box-shadow ${transition.medium};
   appearance: none;

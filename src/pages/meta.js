@@ -1,4 +1,4 @@
-import { layout, breakpoints, transition, colors, borders } from 'theme'
+import { layout, breakpoints, transition, colors, borders, theme } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -113,10 +113,12 @@ const JSONProperty = ({ property, data, ...props }) => {
   const type = children !== null ? 'yes' : 'no'
   return (
     <List.Item
-      width='100px'
-      color={type === 'no' ? 'gray' : undefined}
+      css={theme({
+        width: '100px',
+        color: type === 'no' ? 'gray' : undefined,
+        fontSize: 1
+      })}
       type={type}
-      fontSize={1}
       {...props}
     >
       {property}
@@ -164,24 +166,32 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetText = `curl -sL ${embedUrl}`
 
   return (
-    <Container alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
-      <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
+    <Container
+      as='section'
+      css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+    >
+      <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
         Get unified metadata
       </Heading>
 
       <Caption
-        as='h2'
-        pt={[3, 3, 4, 4]}
-        px={4}
-        maxWidth={[layout.small, layout.small, layout.small, layout.small]}
+        forwardedAs='h2'
+        css={theme({
+          pt: [3, 3, 4, 4],
+          px: 4,
+          maxWidth: layout.small
+        })}
       >
         Structured and normalized data <LineBreak breakpoints={[0, 1]} /> from{' '}
         <LineBreak breakpoints={[2, 3]} />
         Open Graph, Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.
       </Caption>
 
-      <Flex pt={[3, 3, 4, 4]}>
-        <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/meta'>
+      <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
+        <ArrowLink
+          css={theme({ pr: [2, 4, 4, 4] })}
+          href='/docs/api/parameters/meta'
+        >
           Get Started
         </ArrowLink>
         <ArrowLink href='https://github.com/microlinkhq/sdk'>
@@ -189,14 +199,16 @@ const LiveDemo = React.memo(function LiveDemo ({
         </ArrowLink>
       </Flex>
 
-      <Flex justifyContent='center' alignItems='center'>
+      <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
         <Flex
           as='form'
-          pt={[3, 3, 4, 4]}
-          pb={4}
-          mx={[0, 0, 'auto', 'auto']}
-          justifyContent='center'
-          flexDirection={['column', 'column', 'row', 'row']}
+          css={theme({
+            pt: [3, 3, 4, 4],
+            pb: 4,
+            mx: [0, 0, 'auto', 'auto'],
+            justifyContent: 'center',
+            flexDirection: ['column', 'column', 'row', 'row']
+          })}
           onSubmit={event => {
             event.preventDefault()
             const url = prependHttp(inputUrl)
@@ -206,7 +218,10 @@ const LiveDemo = React.memo(function LiveDemo ({
           <Box>
             <Input
               id='meta-demo-url'
-              fontSize={2}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', 128, 128]
+              })}
               iconComponent={
                 <InputIcon
                   src={data?.logo?.url}
@@ -219,25 +234,29 @@ const LiveDemo = React.memo(function LiveDemo ({
               suggestions={SUGGESTIONS}
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', 128, 128]}
               autoFocus
             />
           </Box>
-          <Button mt={[3, 0, 0, 0]} ml={[0, 2, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1}>Get it</Caps>
+          <Button
+            css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
+            loading={isLoading}
+          >
+            <Caps css={theme({ fontSize: 1 })}>Get it</Caps>
           </Button>
         </Flex>
       </Flex>
 
       <Flex
-        mx='auto'
-        flexDirection={['column', 'column', 'row', 'row']}
-        justifyContent='center'
-        alignItems='center'
-        maxWidth={layout.large}
+        css={theme({
+          mx: 'auto',
+          flexDirection: ['column', 'column', 'row', 'row'],
+          justifyContent: 'center',
+          alignItems: 'center',
+          maxWidth: layout.large
+        })}
       >
         <Hide breakpoints={[0, 1]}>
-          <List pr={4} pl={0}>
+          <List css={theme({ pr: 4, pl: 0 })}>
             {JsonKeysFirstChunk.map(children => (
               <JSONProperty
                 key={children}
@@ -247,16 +266,14 @@ const LiveDemo = React.memo(function LiveDemo ({
             ))}
           </List>
         </Hide>
-        <Flex flexDirection='column' alignItems='center'>
+        <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
           <CodeEditor
-            pb={4}
-            width={cardWidth}
-            height={cardHeight}
+            css={theme({ pb: 4, width: cardWidth, height: cardHeight })}
             language='json'
           >
             {JSON.stringify(jsonData, null, 2)}
           </CodeEditor>
-          <Box pt={4} px={4} width={cardWidth}>
+          <Box css={theme({ pt: 4, px: 4, width: cardWidth })}>
             <Tooltip
               tooltipsOpts={Tooltip.TEXT.OPTIONS}
               content={
@@ -272,16 +289,14 @@ const LiveDemo = React.memo(function LiveDemo ({
                     text: Tooltip.TEXT.COPIED.HTML
                   })
                 }}
-                style={{ cursor: 'copy' }}
-                width='100%'
-                color='black60'
+                css={theme({ cursor: 'copy', width: '100%', color: 'black60' })}
                 value={snippetText}
               />
             </Tooltip>
           </Box>
         </Flex>
         <Hide breakpoints={[0, 1]}>
-          <List pl={4}>
+          <List css={theme({ pl: 4 })}>
             {JsonKeysSecondChunk.map(children => (
               <JSONProperty
                 key={children}
@@ -293,14 +308,16 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Hide>
         <Hide breakpoints={[2, 3]}>
           <List
-            justifyContent='center'
-            flexDirection={['row', 'row', 'column', 'column']}
-            flexWrap={['wrap', 'wrap', undefined, undefined]}
-            maxWidth={[layout.small, layout.small, undefined, undefined]}
-            pt={4}
-            m={0}
-            pr={[4, 4, 4, 4]}
-            pl={[4, 4, 0, 0]}
+            css={theme({
+              justifyContent: 'center',
+              flexDirection: ['row', 'row', 'column', 'column'],
+              flexWrap: ['wrap', 'wrap', undefined, undefined],
+              maxWidth: [layout.small, layout.small, undefined, undefined],
+              pt: 4,
+              m: 0,
+              pr: [4, 4, 4, 4],
+              pl: [4, 4, 0, 0]
+            })}
           >
             {JSON_KEYS.map(children => (
               <JSONProperty key={children} property={children} data={data} />
@@ -317,62 +334,72 @@ const Timings = () => {
   const healthcheck = useHealthcheck()
 
   return (
-    <AnimatedBox>
+    <AnimatedBox as='section'>
       <Block
-        bg={COLOR}
         id='timings'
-        px={4}
         flexDirection='column'
-        pb={Container.defaultProps.pt}
+        css={theme({
+          bg: COLOR,
+          px: 4,
+          pb: [5, 5, 6, 6]
+        })}
         blockOne={
-          <Box>
-            <Subhead fontSize={[3, 4, 6, 6]} color='white'>
-              On a built-in reliable,
-            </Subhead>
-            <Subhead fontSize={[3, 4, 6, 6]} color='white60'>
-              high performance API.
-            </Subhead>
-          </Box>
+          <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+            On a built-in reliable,{' '}
+            <span css={theme({ display: 'block', color: 'white60' })}>
+              High performance API.
+            </span>
+          </Subhead>
         }
         blockTwo={
           <Flex
-            pt={[4, 4, 5, 5]}
-            justifyContent='center'
-            alignItems='baseline'
-            width='100%'
-            maxWidth={layout.normal}
+            css={theme({
+              pt: [4, 4, 5, 5],
+              justifyContent: 'center',
+              alignItems: 'baseline',
+              width: '100%',
+              maxWidth: layout.normal
+            })}
             style={{ fontVariantNumeric: 'tabular-nums' }}
           >
             <Flex
-              display='inline-flex'
-              alignItems='center'
-              justifyContent='center'
-              flexDirection='column'
+              css={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column'
+              }}
             >
               <Subhead
-                as='div'
-                fontSize={[3, 4, 4, 4]}
-                color='white'
-                fontWeight='bold'
+                forwardedAs='div'
+                css={theme({
+                  fontSize: [3, 4, 4, 4],
+                  color: 'white',
+                  fontWeight: 'bold'
+                })}
               >
                 {trimMs(healthcheck.meta.p95_pretty)}
                 <Caption
-                  as='div'
-                  ml={2}
-                  color='white'
-                  display='inline'
-                  fontWeight='bold'
+                  forwardedAs='div'
+                  css={theme({
+                    ml: 2,
+                    color: 'white',
+                    display: 'inline',
+                    fontWeight: 'bold'
+                  })}
                   titleize={false}
                 >
                   secs
                 </Caption>
               </Subhead>
-              <Caption as='div' color='white60' pt={2}>
+              <Caption
+                forwardedAs='div'
+                css={theme({ color: 'white60', pt: 2 })}
+              >
                 {['P95', 'response time'].map(children => (
                   <Caps
                     key={children}
-                    fontWeight='bold'
-                    fontSize={[0, 2, 2, 2]}
+                    css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
                   >
                     {children}
                   </Caps>
@@ -380,25 +407,32 @@ const Timings = () => {
               </Caption>
             </Flex>
             <Hide breakpoints={[1, 2, 3]}>
-              <Box px={3} />
+              <Box css={theme({ px: 3 })} />
             </Hide>
             <Hide breakpoints={[0]}>
               <Flex
-                display='inline-flex'
-                px={[2, 2, 2, 5]}
-                alignItems='center'
-                justifyContent='center'
-                flexDirection='column'
+                css={theme({
+                  display: 'inline-flex',
+                  px: [2, 2, 2, 5],
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column'
+                })}
               >
-                <Subhead as='div' color='white' fontWeight='bold'>
+                <Subhead
+                  forwardedAs='div'
+                  css={theme({ color: 'white', fontWeight: 'bold' })}
+                >
                   <Average value={healthcheck.meta.avg_pretty} />
                 </Subhead>
-                <Caption as='div' color='white60'>
+                <Caption forwardedAs='div' css={theme({ color: 'white60' })}>
                   {['average', 'response time'].map(children => (
                     <Caps
                       key={children}
-                      fontWeight='bold'
-                      fontSize={[0, 2, 2, 2]}
+                      css={theme({
+                        fontWeight: 'bold',
+                        fontSize: [0, 2, 2, 2]
+                      })}
                     >
                       {children}
                     </Caps>
@@ -407,34 +441,42 @@ const Timings = () => {
               </Flex>
             </Hide>
             <Flex
-              display='inline-flex'
-              alignItems='center'
-              justifyContent='center'
-              flexDirection='column'
+              css={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column'
+              }}
             >
               <Subhead
-                as='div'
-                fontSize={[3, 4, 4, 4]}
-                color='white'
-                fontWeight='bold'
+                forwardedAs='div'
+                css={theme({
+                  fontSize: [3, 4, 4, 4],
+                  color: 'white',
+                  fontWeight: 'bold'
+                })}
               >
                 99.9
                 <Caption
-                  as='div'
-                  ml={2}
-                  color='white'
-                  fontWeight='bold'
-                  display='inline'
+                  forwardedAs='div'
+                  css={theme({
+                    ml: 2,
+                    color: 'white',
+                    display: 'inline',
+                    fontWeight: 'bold'
+                  })}
                 >
                   %
                 </Caption>
               </Subhead>
-              <Caption as='div' color='white60' pt={2}>
+              <Caption
+                forwardedAs='div'
+                css={theme({ color: 'white60', pt: 2 })}
+              >
                 {['SLA', 'Guaranteed'].map(children => (
                   <Caps
                     key={children}
-                    fontWeight='bold'
-                    fontSize={[0, 2, 2, 2]}
+                    css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
                   >
                     {children}
                   </Caps>
@@ -450,21 +492,25 @@ const Timings = () => {
   )
 }
 
-const Resume = props => (
+const Resume = () => (
   <Container
     as='section'
     id='resume'
-    alignItems='center'
-    maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
-    {...props}
+    css={theme({
+      alignItems: 'center',
+      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
+      pb: [5, 5, 6, 6]
+    })}
   >
-    <Subhead px={[3, 3, 0, 0]} variant='gradient'>
+    <Subhead css={theme({ px: [3, 3, 0, 0] })} variant='gradient'>
       Turns websites into data
     </Subhead>
     <Caption
-      pt={[3, 3, 4, 4]}
-      px={[4, 4, 4, 0]}
-      maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
+      css={theme({
+        pt: [3, 3, 4, 4],
+        px: [4, 4, 4, 0],
+        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+      })}
     >
       <b>Microlink meta</b> extracts structured data from any website. Enter a
       URL, receive information. Get relevant information from any link & easily
@@ -474,18 +520,32 @@ const Resume = props => (
     <Block
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Unified metadata'
           src='https://cdn.microlink.io/illustrations/abstract-delivery.svg'
         />
       }
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Unified metadata
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Get normalized data from multiple sources using Open Graph,
             Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.
           </Text>
@@ -494,14 +554,25 @@ const Resume = props => (
     />
 
     <Block
-      pt={Container.defaultProps.pt}
       flexDirection='row-reverse'
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Contextual information
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Whenever is possible data is expanded to bring you more, like file
             extension, dimensions, size, duration, etc.
           </Text>
@@ -509,7 +580,10 @@ const Resume = props => (
       }
       blockOne={
         <Image
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Contextual information'
           src='https://cdn.microlink.io/illustrations/robots.svg'
         />
@@ -517,21 +591,34 @@ const Resume = props => (
     />
 
     <Block
-      pb={Container.defaultProps.pt}
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Easily consumable'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Easily consumable
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Turn any link into a rich media and easily add it to your UI using{' '}
             <Link href='/sdk'>Microlink SDK</Link>, with{' '}
             <Link href='/docs/api/parameters/iframe/#providers-supported'>
@@ -545,20 +632,28 @@ const Resume = props => (
   </Container>
 )
 
-const ProductInformation = props => (
+const ProductInformation = () => (
   <Faq
-    as='section'
+    forwardedAs='section'
     id='information'
     title='Product Information'
     caption='All the details you need to know about the product.'
-    pb={Container.defaultProps.pt}
+    css={theme({
+      pb: [5, 5, 6, 6],
+      bg: 'pinky',
+      borderTop: `${borders[1]} ${colors.pinkest}`,
+      borderBottom: `${borders[1]} ${colors.pinkest}`
+    })}
     questions={[
       {
         question: 'What is it?',
         answer: (
           <>
             <div>
-              <Text as='span' color='black' fontWeight='bold'>
+              <Text
+                as='span'
+                css={theme({ color: 'black', fontWeight: 'bold' })}
+              >
                 Microlink meta
               </Text>{' '}
               is a data extraction service that take a URL as input, giving you
@@ -626,16 +721,12 @@ const ProductInformation = props => (
           <>
             <div>
               We’re always available at{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>
-              .
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>
           </>
         )
       }
     ]}
-    {...props}
   />
 )
 
@@ -673,21 +764,21 @@ const MetaPage = () => {
               />
               <Timings />
               <Features
-                px={4}
+                css={theme({ px: 4 })}
                 title={
-                  <>
-                    <Subhead width='100%' textAlign='left'>
-                      Great power,
-                    </Subhead>
-                    <Subhead
-                      color={COLOR}
-                      width='100%'
-                      textAlign='left'
-                      titleize={false}
+                  <Subhead css={{ width: '100%', textAlign: 'left' }}>
+                    Great power,{' '}
+                    <span
+                      css={{
+                        display: 'block',
+                        color: COLOR,
+                        width: '100%',
+                        textAlign: 'left'
+                      }}
                     >
                       less responsibility.
-                    </Subhead>
-                  </>
+                    </span>
+                  </Subhead>
                 }
                 caption={
                   <>
@@ -701,11 +792,7 @@ const MetaPage = () => {
                 features={features}
               />
               <Resume />
-              <ProductInformation
-                bg='pinky'
-                borderTop={`${borders[1]} ${colors.pinkest}`}
-                borderBottom={`${borders[1]} ${colors.pinkest}`}
-              />
+              <ProductInformation />
             </>
           )
         }}

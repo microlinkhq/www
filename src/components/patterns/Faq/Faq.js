@@ -3,14 +3,16 @@ import { Subhead, Text, Box, Container, Flex } from 'components/elements'
 import { slug as slugger } from 'github-slugger'
 import { Caption } from 'components/patterns'
 import { withSlug } from 'helpers/hoc'
-import { layout } from 'theme'
+import { layout, theme } from 'theme'
 
 const Question = withSlug(({ index, ...props }) => (
   <Caption
-    fontWeight='bold'
-    pt={index === 0 ? 0 : 5}
-    pr={[3, 0, 0, 0]}
-    textAlign='left'
+    css={theme({
+      fontWeight: 'bold',
+      pt: index === 0 ? 0 : 5,
+      pr: [3, 0, 0, 0],
+      textAlign: 'left'
+    })}
     {...props}
   />
 ))
@@ -18,15 +20,17 @@ const Question = withSlug(({ index, ...props }) => (
 const Faq = ({ title, caption, questions, ...props }) => {
   return (
     <Container id='faq' {...props}>
-      <Flex flexDirection='column' alignItems='center'>
-        <Subhead px={4} variant='gradient' titleize={false}>
+      <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
+        <Subhead css={theme({ px: 4 })} variant='gradient' titleize={false}>
           {title}
         </Subhead>
         <Caption
-          px={[4, 0, 0, 0]}
-          pt={[3, 4, 4, 4]}
-          pb={[4, 4, 4, 5]}
-          maxWidth={layout.normal}
+          css={theme({
+            px: [4, 0, 0, 0],
+            pt: [3, 4, 4, 4],
+            pb: [4, 4, 4, 5],
+            maxWidth: layout.normal
+          })}
           titleize={false}
         >
           {caption}
@@ -34,22 +38,29 @@ const Faq = ({ title, caption, questions, ...props }) => {
       </Flex>
 
       <Flex
-        justifyContent='center'
-        flexDirection='column'
-        alignItems='center'
-        px={[0, 0, 4, 6]}
+        css={theme({
+          justifyContent: 'center',
+          flexDirection: 'column',
+          alignItems: 'center',
+          px: [0, 0, 4, 6]
+        })}
       >
-        <Box pb={[0, 0, 4, 4]}>
+        <Box css={theme({ pb: [0, 0, 4, 4] })}>
           {questions.map(({ answer, question }, index) => {
             return (
-              <Text px={4} maxWidth={layout.small} key={question}>
+              <Text
+                css={theme({ px: 4, maxWidth: layout.small })}
+                key={question}
+              >
                 <Question index={index}>{question}</Question>
                 {React.Children.map(answer.props.children, (paraph, index) => (
                   <Text
-                    pr={[3, 0, 0, 0]}
-                    pt={[3, 4, 4, 4]}
+                    css={theme({
+                      pr: [3, 0, 0, 0],
+                      pt: [3, 4, 4, 4],
+                      color: 'black80'
+                    })}
                     key={`${slugger(question)}-${index}`}
-                    color='black80'
                   >
                     {paraph}
                   </Text>

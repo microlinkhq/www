@@ -52,7 +52,7 @@ const ToolbarSecondary = ({ isDark, children }) => (
     <Flex
       css={theme({
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         m: 0,
         p: 0
       })}

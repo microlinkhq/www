@@ -18,6 +18,7 @@ export const LinkBase = styled(Text)`
 const Link = styled(LinkBase)`
   ${theme({
     color: 'link',
+    fontSize: 'inherit',
     _hover: {
       color: colors.hoverLink
     }

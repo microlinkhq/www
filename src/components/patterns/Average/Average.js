@@ -2,6 +2,7 @@ import { Text, Highlight } from 'components/elements'
 import uniqueRandomArray from 'unique-random-array'
 import React, { useEffect, useState } from 'react'
 import range from 'lodash/range'
+import { theme } from 'theme'
 
 import Caption from '../Caption/Caption'
 
@@ -33,7 +34,10 @@ const Average = ({ size, value }) => {
   if (size === 'tiny') {
     return (
       <Highlight display='inline'>
-        <Text as='span' px='2px' color='black80' fontWeight='bold'>
+        <Text
+          as='span'
+          css={theme({ px: '2px', color: 'black80', fontWeight: 'bold' })}
+        >
           {prettyNumber(average)} {unit}
         </Text>
       </Highlight>
@@ -41,15 +45,17 @@ const Average = ({ size, value }) => {
   }
 
   return (
-    <Highlight px={3}>
-      <Text as='span' fontSize={6} fontWeight='bold'>
+    <Highlight css={theme({ px: 3 })}>
+      <Text as='span' css={theme({ fontSize: 6, fontWeight: 'bold' })}>
         {prettyNumber(average)}
       </Text>
       <Caption
-        ml={2}
-        color='white'
-        display='inline'
-        fontWeight='bold'
+        css={theme({
+          ml: 2,
+          color: 'white',
+          display: 'inline',
+          fontWeight: 'bold'
+        })}
         titleize={false}
       >
         {unit}

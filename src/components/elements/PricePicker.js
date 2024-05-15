@@ -1,6 +1,7 @@
-import { Select } from 'components/elements'
+import { Box, Select } from 'components/elements'
 import React, { useState } from 'react'
 import { formatNumber } from 'helpers'
+import { theme } from 'theme'
 
 const BASE_PLAN_PRICE = 24
 
@@ -43,22 +44,28 @@ const PricePicker = ({ onChange }) => {
   }
 
   return (
-    <Select
-      aria-label={`${plan.reqsPerMonthPretty.replace(
-        'K',
-        '000'
-      )} requests per month`}
-      width={['65px', '65px', '75px', '75px']}
-      value={plan.reqsPerMonthPretty}
-      onChange={handleChange}
-      selected={plan.reqsPerMonthPretty}
-      style={{ fontVariantNumeric: 'tabular-nums' }}
-      mb={1}
+    <Box
+      css={theme({
+        display: 'inline-block',
+        width: ['65px', '65px', '75px', '75px'],
+        mb: 1
+      })}
     >
-      {Object.keys(PLANS).map(plan => (
-        <option key={plan}>{PLANS[plan].reqsPerMonthPretty}</option>
-      ))}
-    </Select>
+      <Select
+        aria-label={`${plan.reqsPerMonthPretty.replace(
+          'K',
+          '000'
+        )} requests per month`}
+        value={plan.reqsPerMonthPretty}
+        onChange={handleChange}
+        selected={plan.reqsPerMonthPretty}
+        style={{ fontVariantNumeric: 'tabular-nums' }}
+      >
+        {Object.keys(PLANS).map(plan => (
+          <option key={plan}>{PLANS[plan].reqsPerMonthPretty}</option>
+        ))}
+      </Select>
+    </Box>
   )
 }
 

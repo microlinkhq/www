@@ -5,7 +5,7 @@ import Flex from '../../components/elements/Flex'
 export const withSpinner = ChildComponent => {
   const SpinnerButton = ({ children, ...props }) => (
     <ChildComponent state='hover' {...props}>
-      <Flex justifyContent='center' textAlign='center'>
+      <Flex css={{ justifyContent: 'center', textAlign: 'center' }}>
         {children}
       </Flex>
     </ChildComponent>

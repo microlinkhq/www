@@ -19,7 +19,7 @@ const StyledTab = styled(Box)`
   cursor: pointer;
   margin-right: 12px;
   ${theme({ pb: 2 })}
-  ${is('active')`
+  ${is('$active')`
     color: ${props => getColor(props)};
     border-bottom: 1px solid ${props => props.background};
   `};
@@ -40,7 +40,7 @@ const Tabs = ({ children, ...props }) => (
     {children.map(lang => {
       const isActive = lang === props.value
       return (
-        <StyledTab key={lang} as='li' active={isActive}>
+        <StyledTab key={lang} as='li' $active={isActive}>
           <Text
             css={theme({
               lineHeight: 0,

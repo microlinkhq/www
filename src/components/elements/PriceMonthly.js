@@ -1,11 +1,15 @@
 import { childrenText } from 'helpers'
 import styled from 'styled-components'
 import React from 'react'
+import { theme } from 'theme'
 
 import Label, { labelStyle } from './Label'
 
 const Price = styled(Label)`
   font-weight: bold;
+
+  // TODO: it could be [1, 2]
+  ${theme({ fontSize: [1, 2, 2, 2] })}
 
   &::before {
     content: '€';
@@ -15,10 +19,6 @@ const Price = styled(Label)`
     left: 0;
   }
 `
-
-Price.defaultProps = {
-  fontSize: [1, 2, 2, 2]
-}
 
 const PriceMonthly = props => {
   return (

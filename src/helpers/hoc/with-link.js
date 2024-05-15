@@ -28,6 +28,7 @@ const PrefetchLink = styled(GatsbyLink)`
 
 const linkIconWrapper = css`
   display: inline-flex;
+  align-items: center;
 
   svg {
     transition: stroke ${transition.medium};
@@ -51,7 +52,7 @@ const Icon = ({ children }) => {
   }, [])
 
   return (
-    <Flex css={{ alignItems: 'center', ...linkIconWrapper }}>
+    <Flex css={linkIconWrapper}>
       {children}
       <ExternalIcon ref={ref} size={size} />
     </Flex>
@@ -106,6 +107,7 @@ export const withLink = Component => {
     href = '/',
     title,
     prefetch = true,
+    icon,
     ...props
   }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
@@ -147,7 +149,13 @@ export const withLink = Component => {
     }
 
     return (
-      <BaseLink href={href} isInternal={isInternal} title={title} {...props}>
+      <BaseLink
+        href={href}
+        icon={icon}
+        isInternal={isInternal}
+        title={title}
+        {...props}
+      >
         {children}
       </BaseLink>
     )

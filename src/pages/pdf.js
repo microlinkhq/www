@@ -1,5 +1,5 @@
 import { Minimize as MinimizeIcon, Book as BookIcon } from 'react-feather'
-import { borders, breakpoints, layout, colors } from 'theme'
+import { borders, breakpoints, layout, colors, theme } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -61,23 +61,32 @@ const SUGGESTIONS = [
 
 const getEmbedUrl = url => getApiUrl(url, { pdf: true, embed: 'pdf.url' })[0]
 
-const PDFPlaceholder = props => {
+const PDFPlaceholder = ({ height, width }) => {
   return (
     <Flex
-      border={3}
-      borderColor='black20'
-      alignItems='center'
-      flexDirection='column'
-      justifyContent='center'
-      {...props}
+      css={theme({
+        border: 3,
+        borderColor: 'black20',
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        height,
+        width
+      })}
     >
       <Image
-        width={[3, 3, '60%', '60%']}
+        css={theme({ width: [3, 3, '60%', '60%'] })}
         style={{ opacity: 0.3, filter: 'grayscale(100%)' }}
         alt='Paste your URL'
         src='https://cdn.microlink.io/illustrations/abstract-no-messages.svg'
       />
-      <Text pt={[2, 2, 4, 4]} fontSize={[2, 2, 4, 4]} color='black40'>
+      <Text
+        css={theme({
+          pt: [2, 2, 4, 4],
+          fontSize: [2, 2, 4, 4],
+          color: 'black40'
+        })}
+      >
         Paste your URL
       </Text>
     </Flex>
@@ -117,43 +126,57 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetText = `curl -sL ${embedUrl}`
 
   return (
-    <Container as='section' alignItems='center' pt={2} pb={[4, 4, 5, 5]}>
-      <Heading px={[4, 5, 5, 5]} maxWidth={layout.large}>
+    <Container
+      as='section'
+      css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+    >
+      <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
         PDF made simple
       </Heading>
       <Caption
-        pt={[3, 3, 4, 4]}
-        px={4}
-        maxWidth={[layout.small, layout.small, layout.small, layout.small]}
+        forwardedAs='h2'
+        css={theme({
+          pt: [3, 3, 4, 4],
+          px: 4,
+          maxWidth: layout.small
+        })}
       >
         Simplify your workflow, use less to get — Turn websites into PDF, in an
         easy way.
       </Caption>
-      <Flex pt={[3, 3, 4, 4]}>
-        <ArrowLink pr={[2, 4, 4, 4]} href='/docs/api/parameters/pdf'>
+      <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
+        <ArrowLink
+          css={theme({ pr: [2, 4, 4, 4] })}
+          href='/docs/api/parameters/pdf'
+        >
           Get Started
         </ArrowLink>
         <ArrowLink href='https://github.com/microlinkhq/browserless'>
           See on GitHub
         </ArrowLink>
       </Flex>
-      <Flex justifyContent='center' alignItems='center'>
+      <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
         <Flex
           as='form'
-          pt={[3, 3, 4, 4]}
-          pb={4}
-          mx={[0, 0, 'auto', 'auto']}
-          justifyContent='center'
-          flexDirection={['column', 'column', 'row', 'row']}
+          css={theme({
+            pt: [3, 3, 4, 4],
+            pb: 4,
+            mx: [0, 0, 'auto', 'auto'],
+            justifyContent: 'center',
+            flexDirection: ['column', 'column', 'row', 'row']
+          })}
           onSubmit={event => {
             event.preventDefault()
             const { url, ...opts } = values
             return onSubmit(url, opts)
           }}
         >
-          <Box mb={[3, 3, 0, 0]}>
+          <Box css={theme({ mb: [3, 3, 0, 0] })}>
             <Input
-              fontSize={2}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', '102px', '102px']
+              })}
               iconComponent={
                 <InputIcon
                   src={data?.logo?.url}
@@ -169,18 +192,19 @@ const LiveDemo = React.memo(function LiveDemo ({
               type='text'
               value={inputUrl}
               onChange={event => setInputUrl(event.target.value)}
-              width={['100%', '100%', '102px', '102px']}
               autoFocus
             />
           </Box>
 
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+          <Box css={theme({ ml: [0, 0, 2, 2], mb: [3, 3, 0, 0] })}>
             <Input
               placeholder='Margin'
               id='pdf-demo-margin'
               type='text'
-              fontSize={2}
-              width={['100%', '100%', '82px', '82px']}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', '82px', '82px']
+              })}
               value={inputMargin}
               onChange={event => setinputMargin(event.target.value)}
               iconComponent={
@@ -194,13 +218,15 @@ const LiveDemo = React.memo(function LiveDemo ({
             />
           </Box>
 
-          <Box ml={[0, 0, 2, 2]} mb={[3, 3, 0, 0]}>
+          <Box css={theme({ ml: [0, 0, 2, 2], mb: [3, 3, 0, 0] })}>
             <Input
               placeholder='Format'
               id='pdf-demo-format'
               type='text'
-              fontSize={2}
-              width={['100%', '100%', '84px', '84px']}
+              css={theme({
+                fontSize: 2,
+                width: ['100%', '100%', '84px', '84px']
+              })}
               value={inputFormat}
               onChange={event => setinputFormat(event.target.value)}
               iconComponent={<BookIcon color={colors.black50} width='16px' />}
@@ -219,21 +245,20 @@ const LiveDemo = React.memo(function LiveDemo ({
             />
           </Box>
 
-          <Button ml={[0, 0, 2, 2]} loading={isLoading}>
-            <Caps fontSize={1}>Get it</Caps>
+          <Button css={theme({ ml: [0, 0, 2, 2] })} loading={isLoading}>
+            <Caps css={theme({ fontSize: 1 })}>Get it</Caps>
           </Button>
         </Flex>
       </Flex>
       <Choose>
         <Choose.When condition={!!dataPdfUrl}>
-          <Flex flexDirection='column' alignItems='center'>
+          <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
             <Iframe
-              pb={4}
               width={cardWidth}
               height={cardHeight}
               src={`https://docs.google.com/viewer?url=${dataPdfUrl}&embedded=true`}
             />
-            <Box px={4} width={cardWidth}>
+            <Box css={theme({ mt: 4, px: 4, width: cardWidth })}>
               <Tooltip
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
                 content={
@@ -250,8 +275,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                     })
                   }}
                   style={{ cursor: 'copy' }}
-                  width='100%'
-                  color='black60'
+                  css={theme({ width: '100%', color: 'black60' })}
                   value={snippetText}
                 />
               </Tooltip>
@@ -267,79 +291,104 @@ const LiveDemo = React.memo(function LiveDemo ({
   )
 })
 
-const Timings = props => {
+const Timings = () => {
   const healthcheck = useHealthcheck()
 
   const blockOne = (
-    <Flex flexDirection='column' justifyContent='center' alignItems='center'>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white'>
-        Speed as feature
-      </Subhead>
-      <Subhead fontSize={[3, 4, 6, 6]} color='white60'>
-        Performance matters
+    <Flex
+      css={{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
+      <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        Speed as feature{' '}
+        <span css={theme({ display: 'block', color: 'white60' })}>
+          Performance matters
+        </span>
       </Subhead>
     </Flex>
   )
 
   const blockTwo = (
     <Flex
-      pt={[4, 4, 5, 5]}
-      justifyContent={['space-around', 'space-around', 'center', 'center']}
-      alignItems='baseline'
-      px={[4, 4, 4, 0]}
-      width='100%'
-      maxWidth={layout.normal}
+      css={theme({
+        pt: [4, 4, 5, 5],
+        px: [4, 4, 4, 0],
+        justifyContent: ['space-around', 'space-around', 'center', 'center'],
+        alignItems: 'baseline',
+        width: '100%',
+        maxWidth: layout.normal
+      })}
       style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       <Flex
-        display='inline-flex'
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        css={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        }}
       >
         <Subhead
-          as='div'
-          fontSize={[3, 4, 4, 4]}
-          color='white'
-          fontWeight='bold'
+          forwardedAs='div'
+          css={theme({
+            fontSize: [3, 4, 4, 4],
+            color: 'white',
+            fontWeight: 'bold'
+          })}
         >
           {trimMs(healthcheck.pdf.p95_pretty)}
           <Caption
-            as='div'
-            ml={2}
-            color='white'
-            display='inline'
-            fontWeight='bold'
+            forwardedAs='div'
+            css={theme({
+              ml: 2,
+              color: 'white',
+              display: 'inline',
+              fontWeight: 'bold'
+            })}
             titleize={false}
           >
             secs
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' pt={2}>
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
           {['P95', 'response time'].map(children => (
-            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+            <Caps
+              key={children}
+              css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+            >
               {children}
             </Caps>
           ))}
         </Caption>
       </Flex>
       <Hide breakpoints={[1, 2, 3]}>
-        <Box px={3} />
+        <Box css={theme({ px: 3 })} />
       </Hide>
       <Hide breakpoints={[0]}>
         <Flex
-          display='inline-flex'
-          px={[2, 2, 2, 5]}
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
+          css={theme({
+            display: 'inline-flex',
+            px: [2, 2, 2, 5],
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column'
+          })}
         >
-          <Subhead as='div' color='white' fontWeight='bold'>
+          <Subhead
+            forwardedAs='div'
+            css={theme({ color: 'white', fontWeight: 'bold' })}
+          >
             <Average value={healthcheck.pdf.avg_pretty} />
           </Subhead>
-          <Caption as='div' color='white60'>
+          <Caption forwardedAs='div' css={theme({ color: 'white60' })}>
             {['average', 'response time'].map(children => (
-              <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+              <Caps
+                key={children}
+                css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+              >
                 {children}
               </Caps>
             ))}
@@ -347,31 +396,40 @@ const Timings = props => {
         </Flex>
       </Hide>
       <Flex
-        display='inline-flex'
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        css={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        }}
       >
         <Subhead
-          as='div'
-          fontSize={[3, 4, 4, 4]}
-          color='white'
-          fontWeight='bold'
+          forwardedAs='div'
+          css={theme({
+            fontSize: [3, 4, 4, 4],
+            color: 'white',
+            fontWeight: 'bold'
+          })}
         >
           99.9
           <Caption
-            as='div'
-            ml={2}
-            color='white'
-            fontWeight='bold'
-            display='inline'
+            forwardedAs='div'
+            css={theme({
+              ml: 2,
+              color: 'white',
+              display: 'inline',
+              fontWeight: 'bold'
+            })}
           >
             %
           </Caption>
         </Subhead>
-        <Caption as='div' color='white60' mr={3} pt={2}>
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
           {['SLA', 'Guaranteed'].map(children => (
-            <Caps key={children} fontWeight='bold' fontSize={[0, 2, 2, 2]}>
+            <Caps
+              key={children}
+              css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
+            >
               {children}
             </Caps>
           ))}
@@ -382,33 +440,53 @@ const Timings = props => {
 
   return (
     <Block
-      as='section'
+      forwardedAs='section'
       id='timings'
-      px={4}
-      width='100%'
       flexDirection='column'
+      css={theme({
+        px: 4,
+        pb: [5, 5, 6, 6],
+        width: '100%',
+        // https://www.gradientmagic.com/collection/radialstripes
+        backgroundImage: `radial-gradient(
+          circle at top right,
+          rgb(62, 41, 84) 0%,
+          rgb(62, 41, 84) 50%,
+          rgb(108, 28, 108) 50%,
+          rgb(108, 28, 108) 60%,
+          rgb(155, 14, 131) 60%,
+          rgb(155, 14, 131) 63%,
+          rgb(201, 1, 155) 63%,
+          rgb(201, 1, 155) 100%
+        )`,
+        borderTop: `${borders[1]} ${colors.white20}`,
+        borderBottom: `${borders[1]} ${colors.white20}`
+      })}
       blockOne={blockOne}
       blockTwo={blockTwo}
-      {...props}
     />
   )
 }
 
-const Resume = props => (
+const Resume = () => (
   <Container
     as='section'
     id='resume'
-    alignItems='center'
-    maxWidth={[layout.normal, layout.normal, layout.large, layout.large]}
-    {...props}
+    css={theme({
+      alignItems: 'center',
+      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
+      pb: [5, 5, 6, 6]
+    })}
   >
-    <Subhead px={[3, 3, 6, 6]} variant='gradient'>
+    <Subhead css={theme({ px: [3, 3, 6, 6] })} variant='gradient'>
       Generate PDFs from any website
     </Subhead>
     <Caption
-      pt={[3, 3, 4, 4]}
-      px={[4, 4, 4, 0]}
-      maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
+      css={theme({
+        pt: [3, 3, 4, 4],
+        px: [4, 4, 4, 0],
+        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+      })}
     >
       <b>Microlink PDF</b> provides a set of powerful features without the
       headaches of running your own infrastructure, giving you great power, less
@@ -418,18 +496,32 @@ const Resume = props => (
     <Block
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Always fresh'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]}>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Always fresh
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Consecutive requests will be cached on the edge, respecting{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
             responses doesn’t affect your plan.
@@ -441,11 +533,23 @@ const Resume = props => (
     <Block
       flexDirection='row-reverse'
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} textAlign='left' fontSize={[3, 3, 4, 4]}>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Fully adaptable
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Such as set the paper{' '}
             <Link href='/docs/api/parameters/pdf/format'>format</Link>,
             establish a{' '}
@@ -459,8 +563,10 @@ const Resume = props => (
       }
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Browse automation'
           src='https://cdn.microlink.io/illustrations/abstract-2.svg'
         />
@@ -468,21 +574,34 @@ const Resume = props => (
     />
 
     <Block
-      pb={Container.defaultProps.pt}
       blockOne={
         <Image
-          px={[4, 0, 0, 0]}
-          width={['100%', 6, 7, 8]}
+          css={theme({
+            px: [4, 0, 0, 0],
+            width: ['100%', 6, 7, 8]
+          })}
           alt='Overlay composition'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }
       blockTwo={
-        <Flex px={[4, 0, 0, 0]} flexDirection='column' alignItems='baseline'>
-          <Subhead pt={[4, 4, 4, 0]} fontSize={[3, 3, 4, 4]} textAlign='left'>
+        <Flex
+          css={theme({
+            px: [4, 0, 0, 0],
+            flexDirection: 'column',
+            alignItems: 'baseline'
+          })}
+        >
+          <Subhead
+            css={theme({
+              pt: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'left'
+            })}
+          >
             Embed directly
           </Subhead>
-          <Text pt={[3, 3, 4, 4]} maxWidth={8}>
+          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Create PDFs on-demand and{' '}
             <Link href='/docs/api/parameters/embed'>embed</Link> them directly
             in your HTML markup, without being worried about code or
@@ -494,23 +613,31 @@ const Resume = props => (
   </Container>
 )
 
-const ProductInformation = props => {
+const ProductInformation = () => {
   const healthcheck = useHealthcheck()
 
   return (
     <Faq
-      as='section'
+      forwardedAs='section'
       id='information'
       title='Product Information'
       caption='All the details you need to know about the product.'
-      pb={Container.defaultProps.pt}
+      css={theme({
+        pb: [5, 5, 6, 6],
+        bg: 'pinky',
+        borderTop: `${borders[1]} ${colors.pinkest}`,
+        borderBottom: `${borders[1]} ${colors.pinkest}`
+      })}
       questions={[
         {
           question: 'What is it?',
           answer: (
             <>
               <div>
-                <Text as='span' color='black' fontWeight='bold'>
+                <Text
+                  as='span'
+                  css={theme({ color: 'black', fontWeight: 'bold' })}
+                >
                   Microlink PDF
                 </Text>{' '}
                 is a simple way to generate a PDF from any website using{' '}
@@ -578,16 +705,13 @@ const ProductInformation = props => {
             <>
               <div>
                 We’re always available at{' '}
-                <Link display='inline' href='mailto:hello@microlink.io'>
-                  hello@microlink.io
-                </Link>
+                <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .
               </div>
             </>
           )
         }
       ]}
-      {...props}
     />
   )
 }
@@ -622,41 +746,23 @@ const PdfPage = () => {
                 onSubmit={doFetch}
                 query={query}
               />
-              <Timings
-                pb={Container.defaultProps.pt}
-                css={`
-                  /* https://www.gradientmagic.com/collection/radialstripes */
-                  background-image: radial-gradient(
-                    circle at top right,
-                    rgb(62, 41, 84) 0%,
-                    rgb(62, 41, 84) 50%,
-                    rgb(108, 28, 108) 50%,
-                    rgb(108, 28, 108) 60%,
-                    rgb(155, 14, 131) 60%,
-                    rgb(155, 14, 131) 63%,
-                    rgb(201, 1, 155) 63%,
-                    rgb(201, 1, 155) 100%
-                  );
-                `}
-                borderTop={`${borders[1]} ${colors.white20}`}
-                borderBottom={`${borders[1]} ${colors.white20}`}
-              />
+              <Timings />
               <Features
-                px={4}
+                css={theme({ px: 4 })}
                 title={
-                  <>
-                    <Subhead width='100%' textAlign='left'>
-                      You call the API,
-                    </Subhead>
-                    <Subhead
-                      color='#e000ac'
-                      width='100%'
-                      textAlign='left'
-                      titleize={false}
+                  <Subhead css={{ width: '100%', textAlign: 'left' }}>
+                    You call the API,{' '}
+                    <span
+                      css={{
+                        display: 'block',
+                        color: '#e000ac',
+                        width: '100%',
+                        textAlign: 'left'
+                      }}
                     >
                       we handle the rest.
-                    </Subhead>
-                  </>
+                    </span>
+                  </Subhead>
                 }
                 caption={
                   <>
@@ -669,11 +775,7 @@ const PdfPage = () => {
                 features={features}
               />
               <Resume />
-              <ProductInformation
-                bg='pinky'
-                borderTop={`${borders[1]} ${colors.pinkest}`}
-                borderBottom={`${borders[1]} ${colors.pinkest}`}
-              />
+              <ProductInformation />
             </>
           )
         }}

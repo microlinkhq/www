@@ -13,6 +13,7 @@ const InputBase = styled(Text)(
     display: 'inline-block',
     verticalAlign: 'middle',
     appearance: 'none',
+    color: 'inherit',
     '&:focus': {
       outline: '0'
     },
@@ -42,7 +43,7 @@ const focusStyle = css`
 `
 
 const InputWrapper = styled(Flex).withConfig({
-  shouldForwardProp: prop => !['focus'].includes(prop)
+  shouldForwardProp: prop => !['focus', 'isDark'].includes(prop)
 })`
   background: ${({ isDark }) => (isDark ? colors.black : colors.white)};
   border: ${borders[1]};

@@ -21,8 +21,8 @@ const Unavatar = ({ query, ...props }) => {
   )
 }
 
-const UnavatarMicrolink = props => (
-  <StyledImage alt={`Logo for ${props.url}`} {...props} />
+const UnavatarMicrolink = ({ url, ...props }) => (
+  <StyledImage alt={`Logo for ${url}`} {...props} />
 )
 
 Unavatar.Microlink = UnavatarMicrolink

@@ -144,7 +144,7 @@
     "prepend-http": "~4.0.0",
     "prettier": "2",
     "react": "18",
-    "react-codecopy": "~5.0.3",
+    "react-codecopy": "5.0.3",
     "react-confetti": "~6.1.0",
     "react-dom": "18",
     "react-feather": "~2.0.10",
@@ -241,7 +241,12 @@
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
-    ]
+    ],
+    "rules": {
+      "body-max-line-length": [
+        0
+      ]
+    }
   },
   "nano-staged": {
     "*.js": [
