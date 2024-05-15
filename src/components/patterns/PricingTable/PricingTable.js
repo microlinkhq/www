@@ -128,8 +128,7 @@ export const createPricingTable = Checkout => {
       <Flex
         css={theme({
           flexDirection: ['column', 'column', 'row', 'row'],
-          ml: 'auto',
-          mr: 'auto',
+          mx: 'auto',
           px: [0, 0, 4, 4],
           pb: [5, 5, 6, 6]
         })}

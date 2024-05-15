@@ -8,7 +8,7 @@ import Label, { labelStyle } from './Label'
 const Price = styled(Label)`
   font-weight: bold;
 
-  ${theme({ fontSize: [1, 2, 2, 2] })}
+  ${theme({ fontSize: [1, 2] })}
 
   &::before {
     content: '€';
