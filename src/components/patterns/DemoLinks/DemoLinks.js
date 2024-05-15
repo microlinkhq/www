@@ -50,7 +50,7 @@ const DemoLinks = ({ children, chunkSize, onClick }) => {
   return (
     <BackgroundSliderContainer
       as='section'
-      css={theme({ py: 0, px: 0, maxWidth: '100%' })}
+      css={theme({ p: 0, maxWidth: '100%' })}
     >
       {chunk(links, chunkSize).map((chunkBrands, chunkIndex) => {
         const isEven = chunkIndex % 2 === 0

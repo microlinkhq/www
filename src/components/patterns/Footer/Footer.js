@@ -141,15 +141,15 @@ const Footer = ({ isDark, ...props }) => {
             {[
               { children: 'API', href: '/docs/api/getting-started/overview' },
               { children: 'Blog', href: '/blog' },
-              { children: 'Chat', href: '/community' },
+              { children: 'Community', href: '/community' },
               { children: 'Status', href: '/status' }
             ].map(({ href, children }) => (
               <LinkSolid
                 key={href}
                 isDark={isDark}
                 href={href}
-                data-event-name='Footer'
-                data-event-location={children}
+                data-event-name={children}
+                data-event-location='Footer'
                 css={theme({
                   fontSize: [0, 0, 0, 1],
                   mr: [2, 2, 2, 0],
@@ -183,8 +183,8 @@ const Footer = ({ isDark, ...props }) => {
                 key={href}
                 isDark={isDark}
                 href={href}
-                data-event-name='Footer'
-                data-event-location={children}
+                data-event-name={children}
+                data-event-location='Footer'
                 css={theme({
                   fontSize: [0, 0, 0, 1],
                   mr: [2, 2, 2, 0],
@@ -306,8 +306,8 @@ const Footer = ({ isDark, ...props }) => {
                     key={href}
                     isDark={isDark}
                     href={href}
-                    data-event-name='Footer'
-                    data-event-location={children}
+                    data-event-name={children}
+                    data-event-location='Footer'
                     css={theme({
                       fontWeight: 'normal',
                       mr: 2,

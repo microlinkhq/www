@@ -8,15 +8,14 @@ const Container = styled(Flex).withConfig({
 })`
   ${theme({
     flexDirection: 'column',
-    ml: 'auto',
-    mr: 'auto',
+    mx: 'auto',
     pt: [5, 5, 6, 6],
     px: [3, 3, 0, 0]
   })}
 `
 
 Container.defaultProps = {
-  // @todo: can we remove this?
+  // TODO: can we remove this?
   px: [3, 3, 0, 0]
 }
 
