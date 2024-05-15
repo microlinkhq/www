@@ -42,8 +42,7 @@ const ActionComponent = ({
           <SelectLanguage
             isDark={isDark}
             css={theme({
-              pt: '2px',
-              pb: '2px',
+              py: '2px',
               mx: 'auto',
               width: '4.8rem',
               mb: 2

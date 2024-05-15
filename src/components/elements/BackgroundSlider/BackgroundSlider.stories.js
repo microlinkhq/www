@@ -55,7 +55,7 @@ export default () => (
 
 storiesOf('Elements', module).add('BackgroundSlider', () => (
   <Story name='BackgroundSlider' code={code}>
-    <BackgroundSliderContainer css={theme({ py: 0, px: 0, maxWidth: '100%' })}>
+    <BackgroundSliderContainer css={theme({ p: 0, maxWidth: '100%' })}>
       <BackgroundSlider duration={80} animationDirection='reverse'>
         {range(30).map(index => (
           <LogoWrap key={index}>

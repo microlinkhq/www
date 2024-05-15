@@ -69,8 +69,7 @@ const Wappalyzer = ({ data }) => (
       width: 256,
       height: 96,
       m: [1, 1, 2, 2],
-      py: 3,
-      px: 3,
+      p: 3,
       flexDirection: 'row',
       alignItems: 'center'
     })}
