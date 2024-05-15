@@ -73,8 +73,8 @@ export const H1 = withTitle(
       lineHeight: [1, 2],
       textAlign: 'left',
       mt: 5,
-      mb: 4
-      mx: 'auto',
+      mb: 4,
+      mx: 'auto'
     })}
   `)
 )
