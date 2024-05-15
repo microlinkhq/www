@@ -72,8 +72,7 @@ export const H1 = withTitle(
       fontSize: `calc(${fontSizes[5]} * 0.75)`,
       lineHeight: [1, 2],
       textAlign: 'left',
-      ml: 'auto',
-      mr: 'auto',
+      mx: 'auto',
       mt: 5,
       mb: 4
     })}
@@ -87,8 +86,7 @@ H1.defaultProps = {
 
 const H2Base = styled(Heading)`
   ${theme({
-    ml: 'auto',
-    mr: 'auto',
+    mx: 'auto',
     maxWidth: layout.small,
     fontSize: `calc(${fontSizes[4]} * 0.75)`,
     lineHeight: [1, 2],
@@ -108,8 +106,7 @@ export const H2 = withTitle(withSlug(H2Base))
 export const H3 = withTitle(
   withSlug(styled(Heading)`
     ${theme({
-      ml: 'auto',
-      mr: 'auto',
+      mx: 'auto',
       maxWidth: layout.small,
       fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
       lineHeight: 1,
@@ -128,8 +125,7 @@ H3.defaultProps = {
 export const H4 = withTitle(
   withSlug(styled(Heading)`
     ${theme({
-      ml: 'auto',
-      mr: 'auto',
+      mx: 'auto',
       maxWidth: layout.small,
       fontSize: 2,
       lineHeight: 1,
@@ -148,8 +144,7 @@ H4.defaultProps = {
 export const H5 = withTitle(
   withSlug(styled(Heading)`
     ${theme({
-      ml: 'auto',
-      mr: 'auto',
+      mx: 'auto',
       maxWidth: layout.small,
       fontSize: 1,
       lineHeight: 1,
@@ -168,8 +163,7 @@ H5.defaultProps = {
 export const H6 = withTitle(
   withSlug(styled(Heading)`
     ${theme({
-      ml: 'auto',
-      mr: 'auto',
+      mx: 'auto',
       maxWidth: layout.small,
       fontSize: 1,
       color: 'gray9',
@@ -192,7 +186,7 @@ export const Paraph = props => {
   return (
     <Text
       as='div'
-      css={theme({ ml: 'auto', mr: 'auto', ...CONTAINER_SPACE, maxWidth })}
+      css={theme({ mx: 'auto', ...CONTAINER_SPACE, maxWidth })}
       {...props}
     />
   )
@@ -211,8 +205,7 @@ export const Ul = styled(Text)`
   max-width: ${layout.small};
 
   ${theme({
-    ml: 'auto',
-    mr: 'auto',
+    mx: 'auto',
     ...CONTAINER_SPACE
   })}
 `
@@ -231,8 +224,7 @@ export const Li = styled(Text)`
   max-width: ${layout.small};
 
   ${theme({
-    ml: 'auto',
-    mr: 'auto',
+    mx: 'auto',
     mb: 3
   })}
 `
@@ -267,8 +259,7 @@ CodeInline.defaultProps = {
 
 const mediaStyle = {
   borderRadius: '3px',
-  ml: 'auto',
-  mr: 'auto',
+  mx: 'auto',
   textAlign: 'center'
 }
 

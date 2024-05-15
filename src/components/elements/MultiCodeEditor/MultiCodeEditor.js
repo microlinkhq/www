@@ -44,8 +44,7 @@ const ActionComponent = ({
             css={theme({
               pt: '2px',
               pb: '2px',
-              ml: 'auto',
-              mr: 'auto',
+              mx: 'auto',
               width: '4.8rem',
               mb: 2
             })}

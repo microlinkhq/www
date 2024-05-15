@@ -104,8 +104,7 @@ storiesOf('Elements', module).add('Select', () => (
     >
       <MySelect
         css={theme({
-          ml: 'auto',
-          mr: 'auto',
+          mx: 'auto',
           width: '5rem',
           mb: 2,
           bg: 'white'
