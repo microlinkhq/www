@@ -72,7 +72,9 @@ export const H1 = withTitle(
       fontSize: `calc(${fontSizes[5]} * 0.75)`,
       lineHeight: [1, 2],
       textAlign: 'left',
-      mx: 'auto',
+      mt: 5,
+      mb: 4,
+      mx: 'auto'
     })}
   `)
 )

@@ -18,7 +18,7 @@ const OssPage = () => {
   const repositories = useOss()
   return (
     <DotsBackground>
-      <Layout footer={{ bg: 'transparent' }}>
+      <Layout footer={{ style: { background: 'transparent' } }}>
         <Flex
           css={theme({
             pt: 2,

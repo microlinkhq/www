@@ -41,12 +41,7 @@ const ActionComponent = ({
         <Box css={{ width: '100%' }}>
           <SelectLanguage
             isDark={isDark}
-            css={theme({
-              py: '2px',
-              mx: 'auto',
-              width: '4.8rem',
-              mb: 2
-            })}
+            css={theme({ py: '2px' })}
             value={language}
             onClick={setLanguage}
           >

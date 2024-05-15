@@ -13,7 +13,7 @@ const ButtonToggle = styled(Button)`
     px: 0,
     borderRadius: 0,
     _hover: {
-      cursor: props => (props.active ? 'auto' : 'pointer'),
+      cursor: props => (props.$active ? 'auto' : 'pointer'),
       boxShadow: 'none'
     }
   })}
@@ -46,7 +46,7 @@ function Toggle ({ onChange, children, defaultValue, ...props }) {
                 px: 3
               })}
             >
-              <ButtonToggle active={isActive} onClick={setAsActive(value)}>
+              <ButtonToggle $active={isActive} onClick={setAsActive(value)}>
                 <Caps
                   css={theme({
                     fontWeight: !isActive ? 'normal' : 'bold',
