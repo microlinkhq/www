@@ -9,8 +9,7 @@ const path = require('path')
 /* We avoid cdn.microlink.io explicity since it
   runs on top of CloudFlare and the compression
   removes 'content-length' header */
-const MICROLINK_CDN_URL =
-  'https://cdn-e6etw8l60-microlink.vercel.app/file-examples'
+const MICROLINK_CDN_URL = 'https://cdn.microlink.io/file-examples'
 
 const fileUrls = async () =>
   (await fetch(`${MICROLINK_CDN_URL}/index.json`).then(res => res.json())).map(

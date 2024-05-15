@@ -9,7 +9,7 @@ const Block = ({
   bottom = null,
   top = null,
   flexDirection = 'row',
-  children = <Box css={theme({ ml: 4, mr: 4 })} />,
+  children = <Box css={theme({ mx: 4 })} />,
   width,
   ...props
 }) => (
@@ -20,8 +20,7 @@ const Block = ({
         justifyContent: 'center',
         flexDirection: ['column', 'column', 'column', flexDirection],
         alignItems: 'center',
-        ml: 'auto',
-        mr: 'auto',
+        mx: 'auto',
         width
       })}
     >
