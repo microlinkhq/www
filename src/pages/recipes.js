@@ -180,8 +180,7 @@ const RecipesPage = () => {
             <Box css={theme({ pt: [4, null, 0] })}>
               <Button
                 onClick={() =>
-                  window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
-                }
+                  window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
               >
                 <Caps>Request an Integration</Caps>
               </Button>

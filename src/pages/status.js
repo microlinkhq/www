@@ -80,7 +80,8 @@ const StatusPage = () => {
                   </Monospace>
                   <Monospace
                     css={themeProp({ color })}
-                  >{`\n${resume}`}</Monospace>
+                  >{`\n${resume}`}
+                  </Monospace>
                   <Monospace css={themeProp({ color, fontSize: [0, null, 1] })}>
                     {`\n${info}`}
                   </Monospace>
