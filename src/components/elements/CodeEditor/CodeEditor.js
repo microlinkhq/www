@@ -35,14 +35,9 @@ const toAlias = (lang = '') => {
 
 const generateHighlightLines = linesRange => {
   if (!linesRange) return
-
   const [start, end] = linesRange
   const collection = end ? range(start, end + 1) : [start]
-
-  return collection.map((line, index) => {
-    const isLast = index + 1 === collection.length
-    return `code > span:nth-child(${line})${!isLast ? ',' : ''}`
-  })
+  return collection.map(line => `code > span:nth-child(${line})`)
 }
 
 const getClassName = ({ className, metastring = '' }) =>
@@ -51,15 +46,6 @@ const getClassName = ({ className, metastring = '' }) =>
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   ${hideScrollbar};
   ${props => codeTheme[props.$isDark]};
-  ${({ $highlightLines, $isDark }) => {
-    return `
-    ${generateHighlightLines($highlightLines)} {
-      display: block;
-      background: ${cx($isDark ? 'white05' : 'black05')};
-      border-radius: ${radii[2]};
-    }
-    `
-  }}
 `
 
 const TerminalTextWrapper = styled('div')`
@@ -89,6 +75,12 @@ const CodeEditor = ({
 
   const [isLoaded, setIsLoaded] = useState(!isInteractive)
 
+  const highLightLinesSelector = generateHighlightLines(highlightLines)
+  const firstHighlightLine = highLightLinesSelector && highLightLinesSelector[0]
+  const lastHighlightLine =
+    highLightLinesSelector &&
+    highLightLinesSelector[highLightLinesSelector.length - 1]
+
   const TerminalComponent = (
     <Terminal
       title={title}
@@ -101,6 +93,20 @@ const CodeEditor = ({
     >
       <TerminalTextWrapper>
         <CustomSyntaxHighlighter
+          css={`
+            ${String(highLightLinesSelector)} {
+              display: block;
+              background: ${cx(isDark ? 'white05' : 'black05')};
+            }
+            ${String(firstHighlightLine)} {
+              border-top-left-radius: ${radii[2]};
+              border-top-right-radius: ${radii[2]};
+            }
+            ${String(lastHighlightLine)} {
+              border-bottom-left-radius: ${radii[2]};
+              border-bottom-right-radius: ${radii[2]};
+            }
+          `}
           useInlineStyles={false}
           $isDark={isDark}
           $highlightLines={highlightLines}
