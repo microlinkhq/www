@@ -12,10 +12,7 @@ import Box from '../Box'
 export const SelectLanguage = ({ isDark, value, onClick, ...props }) => (
   <Tabs
     value={value}
-    onClick={event => {
-      const label = event.target.textContent
-      onClick(label)
-    }}
+    onClick={event => onClick(event.target.textContent)}
     {...props}
   />
 )
@@ -90,7 +87,6 @@ const MultiCodeEditor = ({
     document.addEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
     return () =>
       document.removeEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
-    // eslint-disable-next-line
   }, [])
 
   return (

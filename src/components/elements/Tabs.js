@@ -7,8 +7,8 @@ import Text from './Text'
 import Flex from './Flex'
 import Box from './Box'
 
-const getColor = ({ isActive, isDark }) => {
-  const id = isDark ? 'white' : 'red'
+const getColor = ({ $active: isActive, isDark }) => {
+  const id = isDark ? 'white' : 'black'
   return cx(isActive ? id : `${id}50`)
 }
 
@@ -19,8 +19,8 @@ const StyledTab = styled(Box)`
   cursor: pointer;
   margin-right: 12px;
   ${theme({ pb: 2 })}
+  color: ${props => getColor(props)};
   ${is('$active')`
-    color: ${props => getColor(props)};
     border-bottom: 1px solid ${props => props.background};
   `};
 `
