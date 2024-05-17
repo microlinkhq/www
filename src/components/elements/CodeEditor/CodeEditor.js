@@ -65,7 +65,9 @@ const CodeEditor = ({
 }) => {
   const className = getClassName(props)
   const highlightLines = getLines(className)
-  const language = toAlias(languageProp || title.split('.').pop())
+  const language = toAlias(
+    getLanguage({ className, language: languageProp, title })
+  )
   const pretty = get(prettier, language, identity)
   const text = pretty(template(children)).trim()
   const id = `codeditor-${hash(children)}-${isDark ? 'dark' : 'light'}`
