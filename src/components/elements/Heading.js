@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { theme } from 'theme'
+import React from 'react'
 
 import Text from './Text'
 
@@ -13,9 +14,4 @@ const Heading = styled(Text)(
   })
 )
 
-Heading.defaultProps = {
-  as: 'h1',
-  variant: 'gradient'
-}
-
-export default Heading
+export default props => <Heading as='h1' variant='gradient' {...props} />

@@ -18,8 +18,4 @@ const Text = styled(Box).withConfig({
   })
 )
 
-Text.defaultProps = {
-  as: 'div'
-}
-
 export default Text

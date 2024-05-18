@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Heading from './Heading'
 import { theme } from 'theme'
+import React from 'react'
 
 const Subhead = styled(Heading)(
   theme({
@@ -9,9 +10,4 @@ const Subhead = styled(Heading)(
   })
 )
 
-Subhead.defaultProps = {
-  as: 'h2',
-  variant: null
-}
-
-export default Subhead
+export default props => <Subhead as='h2' variant={null} {...props} />
