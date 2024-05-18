@@ -1,15 +1,31 @@
-const path = require('path')
+import path from 'path'
+// import React from 'react'
 
-module.exports = {
-  stories: ['../src/**/*.stories.js'],
-  addons: ['@storybook/addon-a11y', '@storybook/addon-essentials'],
-  framework: '@storybook/react',
-  core: {
-    builder: 'webpack5'
-  },
+/** @type { import('@storybook/react-webpack5').StorybookConfig } */
+const storybookConfig = {
+  stories: [
+    // '../src/**/*.stories.js',
+    '../src/Simple.stories.js'
+    // '../src/components/elements/BackgroundSlider/BackgroundSlider.stories.js'
+  ],
+  addons: [
+    '@storybook/addon-a11y',
+    '@storybook/addon-essentials',
+    '@storybook/addon-webpack5-compiler-babel'
+  ],
+  framework: '@storybook/react-webpack5',
+
   webpackFinal: async config => {
-    // Remove core-js to prevent issues with Storybook
-    config.module.rules[0].exclude = /core-js/
+    // https://github.com/storybookjs/storybook/issues/21958#issuecomment-1969184065
+    const babelLoader = config.module?.rules?.find(rule =>
+      rule.use?.some(use =>
+        (typeof use === 'string' ? use : use.loader).includes('/babel-loader/')
+      )
+    )
+
+    if (babelLoader?.exclude) {
+      babelLoader.exclude[0] = /node_modules\/(?!gatsby|gatsby-script)/
+    }
 
     // Transpile Gatsby module because Gatsby includes un-transpiled ES6 code.
     config.module.rules.push({
@@ -100,3 +116,5 @@ module.exports = {
     return config
   }
 }
+
+export default storybookConfig

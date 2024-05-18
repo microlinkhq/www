@@ -1,5 +1,4 @@
 import { Microlink } from 'components/logos'
-import { storiesOf } from '@storybook/react'
 import { theme, transition } from 'theme'
 import styled from 'styled-components'
 import range from 'lodash/range'
@@ -53,30 +52,35 @@ export default () => (
   </BackgroundSliderContainer>
 )`
 
-storiesOf('Elements', module).add('BackgroundSlider', () => (
-  <Story name='BackgroundSlider' code={code}>
-    <BackgroundSliderContainer css={theme({ p: 0, maxWidth: '100%' })}>
-      <BackgroundSlider duration={80} animationDirection='reverse'>
-        {range(30).map(index => (
-          <LogoWrap key={index}>
-            <Microlink />
-          </LogoWrap>
-        ))}
-      </BackgroundSlider>
-      <BackgroundSlider duration={80} animationDirection='normal'>
-        {range(30).map(index => (
-          <LogoWrap key={index}>
-            <Microlink />
-          </LogoWrap>
-        ))}
-      </BackgroundSlider>
-      <BackgroundSlider duration={80} animationDirection='reverse'>
-        {range(30).map(index => (
-          <LogoWrap key={index}>
-            <Microlink />
-          </LogoWrap>
-        ))}
-      </BackgroundSlider>
-    </BackgroundSliderContainer>
-  </Story>
-))
+export default {
+  component: BackgroundSlider,
+  render: () => (
+    <Story name='BackgroundSlider' code={code}>
+      <BackgroundSliderContainer css={theme({ p: 0, maxWidth: '100%' })}>
+        <BackgroundSlider duration={80} animationDirection='reverse'>
+          {range(30).map(index => (
+            <LogoWrap key={index}>
+              <Microlink />
+            </LogoWrap>
+          ))}
+        </BackgroundSlider>
+        <BackgroundSlider duration={80} animationDirection='normal'>
+          {range(30).map(index => (
+            <LogoWrap key={index}>
+              <Microlink />
+            </LogoWrap>
+          ))}
+        </BackgroundSlider>
+        <BackgroundSlider duration={80} animationDirection='reverse'>
+          {range(30).map(index => (
+            <LogoWrap key={index}>
+              <Microlink />
+            </LogoWrap>
+          ))}
+        </BackgroundSlider>
+      </BackgroundSliderContainer>
+    </Story>
+  )
+}
+
+export const defaultStory = {}
