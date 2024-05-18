@@ -23,11 +23,11 @@ const TOOLBAR_HEIGHTS = [
 ]
 
 const Layout = ({
-  footer,
+  footer = true,
   children,
-  onClick,
+  onClick = noop,
   style,
-  theme,
+  theme = 'light',
   component = Box,
   ...props
 }) => {
@@ -75,12 +75,6 @@ const Layout = ({
       </ThemeProvider>
     </BreakpointProvider>
   )
-}
-
-Layout.defaultProps = {
-  theme: 'light',
-  footer: true,
-  onClick: noop
 }
 
 export default Layout

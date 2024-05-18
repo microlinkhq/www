@@ -65,7 +65,7 @@ const Input = ({
   isDark,
   ...props
 }) => {
-  const [isFocus, setFocus] = useState(props.autoFocus)
+  const [isFocus, setFocus] = useState(Boolean(props.autoFocus))
 
   const list = useMemo(() => {
     if (!suggestions) return undefined
@@ -108,10 +108,6 @@ const Input = ({
       )}
     </InputWrapper>
   )
-}
-
-Input.defaultProps = {
-  autoFocus: false
 }
 
 export default Input

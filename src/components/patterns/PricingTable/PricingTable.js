@@ -114,10 +114,6 @@ const Check = ({ children, ...props }) => (
   </Text>
 )
 
-Check.defaultProps = {
-  as: 'li'
-}
-
 export const createPricingTable = Checkout => {
   const PricingTable = ({ canonicalUrl, stripeKey, apiEndpoint, ...props }) => {
     const [plan, setPlan] = useState(DEFAULT_PLAN)
