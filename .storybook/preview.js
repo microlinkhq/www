@@ -21,7 +21,7 @@ window.___navigate = pathname => {
   action('NavigateTo:')(pathname)
 }
 
-export const decorators = [
+const decorators = [
   Story => (
     <ThemeProvider theme={themeSpec}>
       <LocationProvider>
@@ -39,3 +39,9 @@ export const decorators = [
     </ThemeProvider>
   )
 ]
+
+const preview = {
+  decorators
+}
+
+export default preview

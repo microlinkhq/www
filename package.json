@@ -166,13 +166,14 @@
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "@ksmithut/prettier-standard": "latest",
-    "@storybook/addon-a11y": "~6.5.16",
+    "@storybook/addon-a11y": "^8.1.1",
     "@storybook/addon-console": "3.0.0",
-    "@storybook/addon-essentials": "~6.5.16",
-    "@storybook/builder-webpack5": "~6.5.16",
-    "@storybook/manager-webpack5": "~6.5.16",
-    "@storybook/react": "~6.5.16",
+    "@storybook/addon-essentials": "^8.1.1",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
+    "@storybook/react": "^8.1.1",
+    "@storybook/react-webpack5": "^8.1.1",
     "ava": "3",
+    "babel-plugin-react-docgen": "~4.2.1",
     "contrast": "latest",
     "debug-logfmt": "latest",
     "esbuild": "latest",
@@ -189,7 +190,8 @@
     "simple-git-hooks": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
-    "standard-version": "latest"
+    "standard-version": "latest",
+    "storybook": "^8.1.1"
   },
   "engines": {
     "node": ">= 18"
@@ -204,7 +206,7 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
-    "build-storybook": "NODE_ENV=production build-storybook",
+    "build-storybook": "storybook build",
     "build:data": "DEBUG=data:providers* node scripts/fetch-data",
     "clean": "npm run clean:build && npm run clean:data && rm -rf node_modules",
     "clean:build": "gatsby clean",
@@ -222,7 +224,7 @@
     "release": "standard-version -a",
     "release:github": "github-generate-release",
     "release:tags": "git push --follow-tags origin HEAD:master",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "storybook dev -p 6006",
     "test": "ava",
     "transpile": "echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
     "update": "ncu -i",
