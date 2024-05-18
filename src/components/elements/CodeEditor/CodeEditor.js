@@ -45,7 +45,7 @@ const getClassName = ({ className, metastring = '' }) =>
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   ${hideScrollbar};
-  ${props => codeTheme[props.$isDark]};
+  ${props => codeTheme[props.$theme]};
 `
 
 const TerminalTextWrapper = styled('div')`
@@ -53,6 +53,14 @@ const TerminalTextWrapper = styled('div')`
   width: 100%;
   font-size: 14px;
 `
+
+const getLanguage = ({ className, language, title }) => {
+  if (language) return language
+  if (title) return title.split('.').pop()
+  const languageFromClassName = className.split('-')[1]
+  if (languageFromClassName) return languageFromClassName.split('{')[0]
+  return 'js'
+}
 
 const CodeEditor = ({
   children,
@@ -63,6 +71,7 @@ const CodeEditor = ({
   title = '',
   ...props
 }) => {
+  const themeKey = isDark ? 'dark' : 'light'
   const className = getClassName(props)
   const highlightLines = getLines(className)
   const language = toAlias(
@@ -70,7 +79,7 @@ const CodeEditor = ({
   )
   const pretty = get(prettier, language, identity)
   const text = pretty(template(children)).trim()
-  const id = `codeditor-${hash(children)}-${isDark ? 'dark' : 'light'}`
+  const id = `codeditor-${hash(children)}-${themeKey}`
 
   const isInteractive =
     runkitProps !== false && Runkit.isSupported({ language, text })
@@ -110,7 +119,7 @@ const CodeEditor = ({
             }
           `}
           useInlineStyles={false}
-          $isDark={isDark}
+          $theme={themeKey}
           $highlightLines={highlightLines}
           showLineNumbers={showLineNumbers}
           language={language}

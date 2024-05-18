@@ -51,8 +51,8 @@ const theme = {
 
 const codeTheme = {
   theme,
-  false: base(theme.light),
-  true: base(theme.dark)
+  dark: base(theme.dark),
+  light: base(theme.light)
 }
 
 export default codeTheme
