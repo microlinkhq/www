@@ -48,7 +48,7 @@ const iconDark = css`
 `
 
 const ToolbarSecondary = ({ isDark, children }) => (
-  <Toolbar type='secondary' aria-label='Secondary Navigation'>
+  <Toolbar as='nav' type='secondary' aria-label='Secondary Navigation'>
     <Flex
       css={theme({
         alignItems: 'center',
@@ -103,6 +103,7 @@ const ToolbarDesktop = ({ isDark }) => {
     >
       <Box css={theme({ px: 3 })}>
         <Toolbar
+          forwardedAs='nav'
           aria-label='Primary Navigation'
           css={theme({
             justifyContent: 'space-between',

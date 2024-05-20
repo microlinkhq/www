@@ -22,10 +22,6 @@ const ToolbarBase = styled(Flex)`
   ${hideScrollbar};
 `
 
-ToolbarBase.defaultProps = {
-  as: 'nav'
-}
-
 const secondaryProps = {
   justifyContent: 'center'
 }

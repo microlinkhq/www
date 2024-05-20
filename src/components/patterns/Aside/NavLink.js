@@ -33,10 +33,4 @@ const NavLink = styled(Text)(
   navlinkStyle
 )
 
-NavLink.defaultProps = {
-  fontSize: 0,
-  as: 'div',
-  color: 'gray7'
-}
-
 export default withAnalytics(withLink(NavLink))

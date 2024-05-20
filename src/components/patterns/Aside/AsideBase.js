@@ -100,7 +100,7 @@ const Aside = ({
   activeRouteName = DEFAULT_ACTIVE_ROUTE_NAME,
   CloseButton,
   isOpen,
-  onChange,
+  onChange = noop,
   ...props
 }) => {
   const [tree, setTree] = useState(activeRouteName)
@@ -192,10 +192,6 @@ const Aside = ({
       </Box>
     </AsideWrapper>
   )
-}
-
-Aside.defaultProps = {
-  onChange: noop
 }
 
 export default Aside

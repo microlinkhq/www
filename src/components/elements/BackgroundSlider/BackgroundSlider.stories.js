@@ -7,21 +7,10 @@ import { Story } from 'story'
 import React from 'react'
 
 import {
-  Flex,
   Box,
   BackgroundSlider,
   BackgroundSliderContainer
 } from 'components/elements'
-
-const NoWrap = styled(Flex)`
-  white-space: nowrap;
-  overflow: hidden;
-`
-
-NoWrap.defaultProps = {
-  justifyContent: 'center',
-  alignItems: 'center'
-}
 
 const LogoWrap = styled(Box)`
   cursor: pointer;

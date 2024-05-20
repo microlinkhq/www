@@ -14,14 +14,14 @@ import chunk from 'lodash/chunk'
 const NoWrap = styled(Flex)`
   white-space: nowrap;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
 `
 
-NoWrap.defaultProps = {
-  justifyContent: 'center',
-  alignItems: 'center'
-}
-
 const LogoWrap = styled(Box)`
+  ${theme({ px: 4 })}
+
+  display: 'inline-block';
   cursor: pointer;
   opacity: 0.25;
   transition: opacity ${transition.medium};
@@ -30,16 +30,11 @@ const LogoWrap = styled(Box)`
   }
 `
 
-LogoWrap.defaultProps = {
-  display: 'inline-block',
-  px: 4
-}
-
 const DURATION = 60
 
 const logoIds = Object.keys(LogoBrand)
 
-const DemoLinks = ({ children, chunkSize, onClick }) => {
+const DemoLinks = ({ children, chunkSize = 10, onClick }) => {
   // remove missing logos
   const links = children.filter(({ id }) => {
     const hasLogo = logoIds.includes(id)
@@ -76,10 +71,6 @@ const DemoLinks = ({ children, chunkSize, onClick }) => {
       })}
     </BackgroundSliderContainer>
   )
-}
-
-DemoLinks.defaultProps = {
-  chunkSize: 10
 }
 
 export default DemoLinks

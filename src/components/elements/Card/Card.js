@@ -19,7 +19,7 @@ const CardBase = styled(Flex)`
 `
 
 const Card = ({
-  ratio,
+  ratio = [0.55, 0.75, 1, 1],
   width = ratio.map(n => toPx(BASE_WIDTH * n)),
   height = ratio.map(n => toPx(BASE_HEIGHT * n)),
   ...props
@@ -37,10 +37,6 @@ const Card = ({
       {...props}
     />
   )
-}
-
-Card.defaultProps = {
-  ratio: [0.55, 0.75, 1, 1]
 }
 
 const CardOption = ({ children, value, ...props }) => (

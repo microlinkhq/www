@@ -16,13 +16,9 @@ const Colored = styled(Text)(
   })
 )
 
-Colored.defaultProps = {
-  as: 'span'
-}
-
 const Color = ({ children, ...props }) => (
   <>
-    <Colored style={{ background: children }} {...props} />
+    <Colored as='span' style={{ background: children }} {...props} />
     {children}
   </>
 )
