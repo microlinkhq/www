@@ -1,5 +1,14 @@
+- date: May 2024
+  notes:
+    - '[Metascraper v5.45.7](https://github.com/microlinkhq/metascraper/pull/704): Improved x.com support.'
+
+- date: April 2024
+  notes:
+    - '[Openkey](https://openkey.js.org/): Draft release.'
+
 - date: February 2024
   notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Improved favicon detection.'
     - '[Microlink CDN](https://cdn.microlink.io/): Released new UI.'
 
 - date: January 2024
