@@ -4,7 +4,7 @@ import { Script } from 'gatsby'
 
 const NODE_VERSION = '18'
 
-const Runkit = ({ onLoad, placeholderComponent, isDark, ...opts }) => {
+const Runkit = ({ onLoad, placeholderComponent, isDark = false, ...opts }) => {
   if (!placeholderComponent.props.id) {
     throw new Error('Runkit placeholder must to have an id.')
   }
@@ -39,10 +39,6 @@ const Runkit = ({ onLoad, placeholderComponent, isDark, ...opts }) => {
       {placeholderComponent}
     </>
   )
-}
-
-Runkit.defaultProps = {
-  isDark: false
 }
 
 Runkit.isSupported = ({ language, text }) => {
