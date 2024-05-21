@@ -4,7 +4,7 @@ import React from 'react'
 
 import Text from '../Text'
 
-const Badge = styled(props => <Text as='span' {...props} />)`
+const StyledBadge = styled(Text)`
   padding: 2px 12px;
   text-transform: uppercase;
   position: relative;
@@ -21,5 +21,7 @@ const Badge = styled(props => <Text as='span' {...props} />)`
     color: 'white'
   })}
 `
+
+const Badge = props => <StyledBadge as='span' {...props} />
 
 export default Badge

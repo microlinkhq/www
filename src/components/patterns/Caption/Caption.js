@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { theme } from 'theme'
 import React from 'react'
 
-const Caption = styled(props => <Text as='h3' {...props} />)(
+const StyledCaption = styled(Text)(
   theme({
     ...commonHeadingStyles,
     lineHeight: 2,
@@ -12,5 +12,7 @@ const Caption = styled(props => <Text as='h3' {...props} />)(
     fontSize: [2, 2, 3, 3]
   })
 )
+
+const Caption = props => <StyledCaption as='h3' {...props} />
 
 export default Caption

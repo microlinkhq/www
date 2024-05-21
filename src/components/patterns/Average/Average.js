@@ -56,7 +56,6 @@ const Average = ({ size, value }) => {
           display: 'inline',
           fontWeight: 'bold'
         })}
-        titleize={false}
       >
         {unit}
       </Caption>

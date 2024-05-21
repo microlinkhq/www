@@ -11,11 +11,13 @@ export const commonHeadingStyles = {
   fontWeight: 'bold'
 }
 
-const Heading = styled(props => <Text as='h1' variant='gradient' {...props} />)(
+const StyledHeading = styled(Text)(
   theme({
     ...commonHeadingStyles,
     fontSize: [4, 6, 7, 7]
   })
 )
+
+const Heading = props => <StyledHeading as='h1' variant='gradient' {...props} />
 
 export default Heading

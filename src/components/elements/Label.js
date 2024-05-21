@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 import { colors, fontWeights, theme } from 'theme'
 import is from 'styled-is'
+import React from 'react'
 
 import Text from './Text'
 
@@ -13,7 +14,7 @@ export const labelStyle = css`
   color: ${props => getColor(props)};
 `
 
-const Label = styled(Text).withConfig({
+const StyledLabel = styled(Text).withConfig({
   shouldForwardProp: prop => !['suffix'].includes(prop)
 })`
   ${theme({ fontSize: 1 })};
@@ -26,8 +27,6 @@ const Label = styled(Text).withConfig({
   `};
 `
 
-Label.defaultProps = {
-  as: 'label'
-}
+const Label = props => <StyledLabel as='label' {...props} />
 
 export default Label

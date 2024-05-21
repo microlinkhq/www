@@ -4,11 +4,13 @@ import Text from './Text'
 import { theme } from 'theme'
 import React from 'react'
 
-const Subhead = styled(props => <Text as='h2' {...props} />)(
+const StyledSubhead = styled(Text)(
   theme({
     ...commonHeadingStyles,
     fontSize: [4, 4, 6, 6]
   })
 )
+
+const Subhead = props => <StyledSubhead as='h2' {...props} />
 
 export default Subhead

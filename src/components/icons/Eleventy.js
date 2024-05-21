@@ -1,12 +1,13 @@
 import React from 'react'
 import Svg from '../elements/Svg'
+import { theme } from 'theme'
 
 export const Eleventy = props => (
   <Svg
     xmlns='http://www.w3.org/2000/svg'
     aria-hidden='true'
     viewBox='0 0 15694 21860'
-    bg='#292929'
+    css={theme({ bg: '#292929' })}
     {...props}
   >
     <path

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 import { slide } from 'components/keyframes'
 import { Box } from 'components/elements'
 import is from 'styled-is'
+import React from 'react'
 
 const darkStyle = css`
   background: #000;
@@ -20,7 +21,7 @@ const animateStyle = css`
   animation-direction: reverse;
 `
 
-const DotsBackground = styled(Box).withConfig({
+const StyledDotsBackground = styled(Box).withConfig({
   shouldForwardProp: prop => !['animate'].includes(prop)
 })`
   position: relative;
@@ -41,9 +42,8 @@ const DotsBackground = styled(Box).withConfig({
   }
 `
 
-DotsBackground.defaultProps = {
-  theme: 'light',
-  animate: true
-}
+const DotsBackground = props => (
+  <StyledDotsBackground theme='light' animate {...props} />
+)
 
 export default DotsBackground

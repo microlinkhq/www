@@ -19,7 +19,7 @@ const ButtonToggle = styled(Button)`
   })}
 `
 
-function Toggle ({ onChange, children, defaultValue, ...props }) {
+function Toggle ({ onChange = noop, children, defaultValue, ...props }) {
   const [active, setActive] = useState(defaultValue || children[0])
 
   return (
@@ -63,10 +63,6 @@ function Toggle ({ onChange, children, defaultValue, ...props }) {
       </Box>
     </Flex>
   )
-}
-
-Toggle.defaultProps = {
-  onChange: noop
 }
 
 export default Toggle

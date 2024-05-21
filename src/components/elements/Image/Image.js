@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { withLazy } from 'helpers/hoc'
+import React from 'react'
 
 import {
   space,
@@ -9,7 +10,7 @@ import {
   border
 } from '@techstack/styled-system'
 
-const Image = styled('img')(
+const StyledImage = styled('img')(
   {
     display: 'block',
     maxWidth: '100%'
@@ -21,9 +22,8 @@ const Image = styled('img')(
   border
 )
 
-Image.defaultProps = {
-  decoding: 'async',
-  loading: 'lazy'
-}
+const Image = props => (
+  <StyledImage decoding='async' loading='lazy' {...props} />
+)
 
 export default withLazy(Image)

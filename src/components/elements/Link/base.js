@@ -1,5 +1,6 @@
 import { colors, transition, lineHeights, theme } from 'theme'
 import styled, { css } from 'styled-components'
+import React from 'react'
 
 import Text from '../Text'
 
@@ -15,7 +16,7 @@ export const LinkBase = styled(Text)`
   ${style};
 `
 
-const Link = styled(LinkBase)`
+const StyledLink = styled(LinkBase)`
   ${theme({
     color: 'link',
     fontSize: 'inherit',
@@ -25,8 +26,6 @@ const Link = styled(LinkBase)`
   })}
 `
 
-Link.defaultProps = {
-  as: 'span'
-}
+const Link = props => <StyledLink as='span' {...props} />
 
 export default Link
