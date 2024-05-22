@@ -41,9 +41,9 @@ const ToolbarMobile = ({ isDark }) => {
       })}
     >
       <Box>
-        <Toolbar>
+        <Toolbar as='nav'>
           <NavMicrolinkLogo isMobile />
-          <Nav>
+          <Nav as='ul'>
             <NavDocs isDark={isDark} />
             <NavInsights isDark={isDark} />
             <NavLogo isDark={isDark} isMobile />

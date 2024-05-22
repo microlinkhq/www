@@ -65,26 +65,23 @@ export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
-export const H1 = withTitle(
-  withSlug(styled(Heading)`
-    ${theme({
-      maxWidth: layout.small,
-      fontSize: `calc(${fontSizes[5]} * 0.75)`,
-      lineHeight: [1, 2],
-      textAlign: 'left',
-      mt: 5,
-      mb: 4,
-      mx: 'auto'
-    })}
-  `)
-)
+const StyledH1 = styled(Heading)`
+  ${theme({
+    maxWidth: layout.small,
+    fontSize: `calc(${fontSizes[5]} * 0.75)`,
+    lineHeight: [1, 2],
+    textAlign: 'left',
+    mt: 5,
+    mb: 4,
+    mx: 'auto'
+  })}
+`
 
-H1.defaultProps = {
-  as: 'h1',
-  variant: null
-}
+const H1Base = props => <StyledH1 forwardedAs='h1' variant={null} {...props} />
 
-const H2Base = styled(Heading)`
+export const H1 = withTitle(withSlug(H1Base))
+
+const StyledH2 = styled(Heading)`
   ${theme({
     mx: 'auto',
     maxWidth: layout.small,
@@ -96,89 +93,74 @@ const H2Base = styled(Heading)`
   })}
 `
 
-H2Base.defaultProps = {
-  as: 'h2',
-  variant: null
-}
+const H2Base = props => <StyledH2 forwardedAs='h2' variant={null} {...props} />
 
 export const H2 = withTitle(withSlug(H2Base))
 
-export const H3 = withTitle(
-  withSlug(styled(Heading)`
-    ${theme({
-      mx: 'auto',
-      maxWidth: layout.small,
-      fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
-      lineHeight: 1,
-      textAlign: 'left',
-      mt: 5,
-      mb: 4
-    })}
-  `)
-)
+const StyledH3 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
+    lineHeight: 1,
+    textAlign: 'left',
+    mt: 5,
+    mb: 4
+  })}
+`
 
-H3.defaultProps = {
-  as: 'h3',
-  variant: null
-}
+const H3Base = props => <StyledH3 forwardedAs='h3' variant={null} {...props} />
 
-export const H4 = withTitle(
-  withSlug(styled(Heading)`
-    ${theme({
-      mx: 'auto',
-      maxWidth: layout.small,
-      fontSize: 2,
-      lineHeight: 1,
-      textAlign: 'left',
-      mt: 4,
-      mb: 3
-    })}
-  `)
-)
+export const H3 = withTitle(withSlug(H3Base))
 
-H4.defaultProps = {
-  as: 'h4',
-  variant: null
-}
+const StyledH4 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: 2,
+    lineHeight: 1,
+    textAlign: 'left',
+    mt: 4,
+    mb: 3
+  })}
+`
 
-export const H5 = withTitle(
-  withSlug(styled(Heading)`
-    ${theme({
-      mx: 'auto',
-      maxWidth: layout.small,
-      fontSize: 1,
-      lineHeight: 1,
-      textAlign: 'left',
-      mt: 4,
-      mb: 3
-    })}
-  `)
-)
+const H4Base = props => <StyledH4 forwardedAs='h4' variant={null} {...props} />
 
-H5.defaultProps = {
-  as: 'h5',
-  variant: null
-}
+export const H4 = withTitle(withSlug(H4Base))
 
-export const H6 = withTitle(
-  withSlug(styled(Heading)`
-    ${theme({
-      mx: 'auto',
-      maxWidth: layout.small,
-      fontSize: 1,
-      color: 'gray9',
-      lineHeight: 1,
-      textAlign: 'left',
-      mt: 4,
-      mb: 3
-    })}
-  `)
-)
+const StyledH5 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: 1,
+    lineHeight: 1,
+    textAlign: 'left',
+    mt: 4,
+    mb: 3
+  })}
+`
 
-H6.defaultProps = {
-  as: 'h6',
-  variant: null
-}
+const H5Base = props => <StyledH5 forwardedAs='h5' variant={null} {...props} />
+
+export const H5 = withTitle(withSlug(H5Base))
+
+const StyledH6 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: 1,
+    color: 'gray9',
+    lineHeight: 1,
+    textAlign: 'left',
+    mt: 4,
+    mb: 3
+  })}
+`
+
+const H6Base = props => <StyledH6 forwardedAs='h6' variant={null} {...props} />
+
+export const H6 = withTitle(withSlug(H6Base))
 
 export const Paraph = props => {
   const isMedia = get(props, 'children.props.name') === 'img'
@@ -192,16 +174,14 @@ export const Paraph = props => {
   )
 }
 
-export const Strong = styled(Text)`
+const StyledStrong = styled(Text)`
   display: inline;
   font-weight: bold;
 `
 
-Strong.defaultProps = {
-  as: 'b'
-}
+export const Strong = props => <StyledStrong as='b' {...props} />
 
-export const Ul = styled(Text)`
+const StyledUl = styled(Text)`
   max-width: ${layout.small};
 
   ${theme({
@@ -210,17 +190,11 @@ export const Ul = styled(Text)`
   })}
 `
 
-Ul.defaultProps = {
-  as: 'ul'
-}
+export const Ul = props => <StyledUl as='ul' {...props} />
 
-export const Ol = styled(Ul)``
+export const Ol = props => <StyledUl as='ol' {...props} />
 
-Ol.defaultProps = {
-  as: 'ol'
-}
-
-export const Li = styled(Text)`
+const StyledLi = styled(Text)`
   max-width: ${layout.small};
 
   ${theme({
@@ -229,9 +203,7 @@ export const Li = styled(Text)`
   })}
 `
 
-Li.defaultProps = {
-  as: 'li'
-}
+export const Li = props => <StyledLi as='li' {...props} />
 
 const codeStyle = css`
   color: ${({ theme }) => theme.colors.pink7};
@@ -241,7 +213,7 @@ const codeStyle = css`
   text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
 `
 
-export const CodeInline = styled(Text)`
+export const StyledCodeInline = styled(Text)`
   ${codeStyle};
   ${wordBreak};
   display: inline;
@@ -253,9 +225,7 @@ export const CodeInline = styled(Text)`
   }
 `
 
-CodeInline.defaultProps = {
-  as: 'code'
-}
+export const CodeInline = props => <StyledCodeInline as='code' {...props} />
 
 const mediaStyle = {
   borderRadius: '3px',
@@ -271,15 +241,13 @@ export const Image = withContainer(_ImageBase, {
   maxWidth: 'inherit'
 })
 
-const _VideoBase = styled(VideoBase)`
+const StyledVideoBase = styled(VideoBase)`
   ${theme(mediaStyle)}
 
-  width: 100%,
+  width: 100%;
 `
 
-_VideoBase.defaultProps = {
-  autoPlay: true
-}
+const _VideoBase = props => <StyledVideoBase autoPlay {...props} />
 
 export const Video = withContainer(_VideoBase)
 
@@ -309,7 +277,7 @@ export const Blockquote = styled.blockquote`
   color: ${colors.gray8};
 `
 
-const Type = styled(Text)`
+const StyledType = styled(Text)`
   ${theme({
     bg: 'gray1',
     color: 'gray7',
@@ -323,9 +291,7 @@ const Type = styled(Text)`
   border-radius: 3px;
 `
 
-Type.defaultProps = {
-  as: 'span'
-}
+const Type = props => <StyledType as='span' {...props} />
 
 const TypeContainer = styled(Box)`
   ${theme({

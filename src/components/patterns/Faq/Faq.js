@@ -1,7 +1,7 @@
 import React from 'react'
 import { Subhead, Text, Box, Container, Flex } from 'components/elements'
 import { slug as slugger } from 'github-slugger'
-import { Caption } from 'components/patterns'
+import Caption from '../Caption/Caption'
 import { withSlug } from 'helpers/hoc'
 import { layout, theme } from 'theme'
 
@@ -31,7 +31,6 @@ const Faq = ({ title, caption, questions, ...props }) => {
             pb: [4, 4, 4, 5],
             maxWidth: layout.normal
           })}
-          titleize={false}
         >
           {caption}
         </Caption>

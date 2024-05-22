@@ -64,11 +64,12 @@ const getLanguage = ({ className, language, title }) => {
 
 const CodeEditor = ({
   children,
-  interactive: runkitProps,
-  showLineNumbers,
-  isDark,
+  interactive: runkitProps = {},
+  showLineNumbers = false,
+  isDark = false,
   language: languageProp,
   title = '',
+  blinkCursor = false,
   ...props
 }) => {
   const themeKey = isDark ? 'dark' : 'light'
@@ -100,6 +101,7 @@ const CodeEditor = ({
       text={text}
       loading={!isLoaded}
       css={theme({ width: TERMINAL_WIDTH })}
+      blinkCursor={blinkCursor}
       {...props}
     >
       <TerminalTextWrapper>
@@ -149,13 +151,6 @@ const CodeEditor = ({
       }}
     />
   )
-}
-
-CodeEditor.defaultProps = {
-  blinkCursor: false,
-  interactive: {},
-  showLineNumbers: false,
-  isDark: false
 }
 
 CodeEditor.width = TERMINAL_WIDTH

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { theme, transition, fonts } from 'theme'
+import React from 'react'
 
 import Box from '../Box'
 
@@ -9,7 +10,7 @@ const arrow = encodeURI(
 
 const ARROW_SIZE = '7px'
 
-const Select = styled(Box)(
+const StyledSelect = styled(Box)(
   {
     background: 'transparent',
     color: 'inherit',
@@ -47,8 +48,6 @@ const Select = styled(Box)(
   })
 )
 
-Select.defaultProps = {
-  as: 'select'
-}
+const Select = props => <StyledSelect as='select' {...props} />
 
 export default Select

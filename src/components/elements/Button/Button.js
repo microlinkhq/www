@@ -1,6 +1,7 @@
 import { transition, theme as themeProp, colors, space, gradient } from 'theme'
 import styled from 'styled-components'
 import Box from '../Box'
+import React, { forwardRef } from 'react'
 
 const getVariant = ({ theme, variant }) => {
   const { background = 'link', color = 'white' } =
@@ -18,7 +19,7 @@ export const hoverStyle = ({ theme, variant }) => {
   }
 }
 
-const Button = styled(Box).withConfig({
+const StyledButton = styled(Box).withConfig({
   shouldForwardProp: prop => !['variant'].includes(prop)
 })`
   transition: background-color ${transition.medium}, color ${transition.medium},
@@ -73,8 +74,10 @@ const Button = styled(Box).withConfig({
   }}
 `
 
-Button.defaultProps = {
-  as: 'button'
-}
+const Button = forwardRef((props, ref) => (
+  <StyledButton as='button' ref={ref} {...props} />
+))
+
+Button.displayName = 'Button'
 
 export default Button

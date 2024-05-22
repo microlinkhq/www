@@ -4,16 +4,14 @@ import React from 'react'
 
 import Text from '../Text'
 
-const Dot = styled(Text)`
+const StyledDot = styled(Text)`
   display: inline-block;
   width: 10px;
   height: 10px;
   border-radius: 5px;
 `
 
-Dot.defaultProps = {
-  as: 'span'
-}
+const Dot = props => <StyledDot as='span' {...props} />
 
 const createDot = color => {
   const ColoredDot = props => (

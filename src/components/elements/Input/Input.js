@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import Text from '../Text'
 import Flex from '../Flex'
 
-const InputBase = styled(Text)(
+const StyledInputBase = styled(Text)(
   {
     lineHeight: 'inherit',
     background: 'transparent',
@@ -28,10 +28,7 @@ const InputBase = styled(Text)(
   })
 )
 
-InputBase.defaultProps = {
-  as: 'input',
-  type: 'text'
-}
+const InputBase = props => <StyledInputBase as='input' type='text' {...props} />
 
 const focusStyle = css`
   outline: 0;

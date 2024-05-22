@@ -4,14 +4,20 @@ import React from 'react'
 
 import Text from './Text'
 
-const Heading = styled(Text)(
+export const commonHeadingStyles = {
+  letterSpacing: 1,
+  lineHeight: 0,
+  textAlign: 'center',
+  fontWeight: 'bold'
+}
+
+const StyledHeading = styled(Text)(
   theme({
-    letterSpacing: 1,
-    lineHeight: 0,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    ...commonHeadingStyles,
     fontSize: [4, 6, 7, 7]
   })
 )
 
-export default props => <Heading as='h1' variant='gradient' {...props} />
+const Heading = props => <StyledHeading as='h1' variant='gradient' {...props} />
+
+export default Heading

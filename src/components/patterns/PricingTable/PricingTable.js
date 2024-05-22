@@ -1,5 +1,6 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
-import { Caption, ArrowLink, Checkout } from 'components/patterns'
+import { ArrowLink, Checkout } from 'components/patterns'
+import Caption from '../Caption/Caption'
 import FeatherIcon from 'components/icons/Feather'
 import { breakpoints, colors, theme } from 'theme'
 import React, { useState } from 'react'

@@ -84,9 +84,9 @@ const TerminalButtonRed = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(1),
-            animationDuration
-          }
+          animationDelay: animationDelay(1),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -112,9 +112,9 @@ const TerminalButtonGreen = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(3),
-            animationDuration
-          }
+          animationDelay: animationDelay(3),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -200,17 +200,18 @@ const TerminalTextWrapper = styled('div')`
 `
 
 const TerminalProvider = ({
-  ActionComponent,
+  ActionComponent = CodeCopy,
   text,
   children,
-  loading,
-  isDark,
+  loading = false,
+  isDark = false,
   title,
   header,
+  width = TERMINAL_WIDTH,
   ...props
 }) => {
   return (
-    <TerminalWindow $isDark={isDark} {...props}>
+    <TerminalWindow $isDark={isDark} css={theme({ width })} {...props}>
       <TerminalHeader $isDark={isDark} {...header}>
         <TerminalButton.Red loading={loading} />
         <TerminalButton.Yellow loading={loading} />
@@ -223,7 +224,12 @@ const TerminalProvider = ({
   )
 }
 
-const Terminal = ({ children, shellSymbol, blinkCursor, ...props }) => {
+const Terminal = ({
+  children,
+  shellSymbol = false,
+  blinkCursor = true,
+  ...props
+}) => {
   const content = typeof children === 'string' ? fromString(children) : children
   const text = childrenTextAll(children)
 
@@ -237,15 +243,6 @@ const Terminal = ({ children, shellSymbol, blinkCursor, ...props }) => {
       </TerminalTextWrapper>
     </TerminalProvider>
   )
-}
-
-Terminal.defaultProps = {
-  ActionComponent: CodeCopy,
-  blinkCursor: true,
-  loading: false,
-  shellSymbol: false,
-  isDark: false,
-  width: TERMINAL_WIDTH
 }
 
 Terminal.width = TERMINAL_WIDTH

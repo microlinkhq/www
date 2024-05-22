@@ -1,5 +1,5 @@
 import { useQueryState, useWindowSize } from 'components/hook'
-import { layout, breakpoints, transition, theme, toPx } from 'theme'
+import { layout, breakpoints, theme, toPx } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { cdnUrl, mqlCode } from 'helpers'
@@ -84,19 +84,6 @@ const LinkPreview = styled(Microlink)`
   --microlink-border-style: transparent;
   --microlink-hover-background-color: white;
 `
-
-const LogoWrap = styled(Box)`
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity ${transition.medium};
-  &:hover {
-    opacity: 1;
-  }
-`
-
-LogoWrap.defaultProps = {
-  display: 'inline-block'
-}
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
