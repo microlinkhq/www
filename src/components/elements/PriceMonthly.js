@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import React from 'react'
 import { theme } from 'theme'
 
-import Label, { labelStyle } from './Label'
+import Label, { labelStyle, getColor } from './Label'
 
 const Price = styled(Label)`
   font-weight: bold;
@@ -17,16 +17,18 @@ const Price = styled(Label)`
     top: -5px;
     left: 0;
   }
+
+  &::after {
+    color: ${props => getColor(props)};
+  }
 `
 
-const PriceMonthly = props => {
-  return (
-    <Price
-      aria-label={`${childrenText(props.children)} euros per month`}
-      suffix='/month'
-      {...props}
-    />
-  )
-}
+const PriceMonthly = props => (
+  <Price
+    aria-label={`${childrenText(props.children)} euros per month`}
+    suffix='/month'
+    {...props}
+  />
+)
 
 export default PriceMonthly

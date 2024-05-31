@@ -5,7 +5,7 @@ import React from 'react'
 
 import Text from './Text'
 
-const getColor = ({ theme }) =>
+export const getColor = ({ theme }) =>
   theme === 'dark' ? colors.white60 : colors.black60
 
 export const labelStyle = css`
