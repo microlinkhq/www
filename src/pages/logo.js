@@ -38,6 +38,7 @@ import {
 } from 'components/elements'
 
 import {
+  Announcement,
   ArrowLink,
   Average,
   Block,
@@ -219,7 +220,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
           </Flex>
           <Flex
             css={theme({
-              justifyContent: 'center',
+              justifyContent: 'space-between',
               alignItems: 'center',
               pb: 4
             })}
@@ -301,6 +302,15 @@ const LiveDemo = React.memo(function LiveDemo ({
       as='section'
       css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
     >
+      <Announcement
+        data-event-location='Home'
+        data-event-name='Announcement'
+        href='https://logo.microlink.io/'
+        css={theme({ pb: 3 })}
+      >
+        <span>Add logo to any website with </span>
+        <b>Microlink for Logo</b>
+      </Announcement>
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
         Hey, oh, logos!
       </Heading>
@@ -382,7 +392,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           toClipboard={toClipboard}
           data={data}
         />
-        <Box css={theme({ px: 4, width: '100%' })}>
+        <Box css={theme({ width: '100%' })}>
           <Tooltip
             tooltipsOpts={Tooltip.TEXT.OPTIONS}
             content={
