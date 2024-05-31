@@ -1,6 +1,6 @@
-import { Faq, Caption, Layout } from 'components/patterns'
-import { XCircle, CheckCircle } from 'react-feather'
+import { DotsBackground, Faq, Caption, Layout } from 'components/patterns'
 import { cx, colors, borders, layout, theme } from 'theme'
+import { XCircle, CheckCircle } from 'react-feather'
 import React, { createElement } from 'react'
 import { issueUrl } from 'helpers'
 
@@ -144,8 +144,8 @@ const FAQs = props => (
   />
 )
 
-const FormatsPage = () => {
-  return (
+const FormatsPage = () => (
+  <DotsBackground>
     <Layout>
       <Container
         css={theme({
@@ -240,7 +240,8 @@ const FormatsPage = () => {
           <Box css={theme({ p: [4, 4, 0, 0] })}>
             <Button
               onClick={() =>
-                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
+                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
+              }
             >
               <Caps>Request a format</Caps>
             </Button>
@@ -256,7 +257,7 @@ const FormatsPage = () => {
         })}
       />
     </Layout>
-  )
-}
+  </DotsBackground>
+)
 
 export default FormatsPage
