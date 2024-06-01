@@ -137,17 +137,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-      ...new Set(
-        []
-          .concat(
-            logo.palette,
-            logo.background_color,
-            logo.color,
-            logo.alternative_color
-          )
-          .filter(Boolean)
-      )
-    ]
+        ...new Set(
+          []
+            .concat(
+              logo.palette,
+              logo.background_color,
+              logo.color,
+              logo.alternative_color
+            )
+            .filter(Boolean)
+        )
+      ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -262,8 +262,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })
-                        }
+                          })}
                       />
                     </Tooltip>
                   )
