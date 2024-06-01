@@ -24,7 +24,14 @@ function Toggle ({ onChange = noop, children, defaultValue, ...props }) {
 
   return (
     <Flex css={{ width: '100%' }} {...props}>
-      <Box css={theme({ border: 1, borderColor: 'black05', borderRadius: 2 })}>
+      <Box
+        css={theme({
+          bg: 'white',
+          border: 1,
+          borderColor: 'black05',
+          borderRadius: 2
+        })}
+      >
         {children.map((value, index) => {
           const isLast = index + 1 === children.length
           const isActive = active === value

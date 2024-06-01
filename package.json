@@ -189,7 +189,8 @@
     "simple-git-hooks": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
-    "standard-version": "latest"
+    "standard-version": "latest",
+    "tinyspawn": "latest"
   },
   "engines": {
     "node": ">= 18"
