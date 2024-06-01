@@ -331,9 +331,10 @@ const LiveDemo = React.memo(function LiveDemo ({
               })}
             >
               <Tooltip
+                type='copy'
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
                 content={
-                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                  <Tooltip.Content>{Tooltip.TEXT.COPY('HTML')}</Tooltip.Content>
                 }
               >
                 <Input
@@ -342,7 +343,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                     event.target.select()
                     toClipboard({
                       copy: snippetTechnologiesText,
-                      text: Tooltip.TEXT.COPIED.HTML
+                      text: Tooltip.TEXT.COPIED('HTML')
                     })
                   }}
                   css={theme({
@@ -363,9 +364,10 @@ const LiveDemo = React.memo(function LiveDemo ({
             <LighthouseReport width={528} src={reportUrl} />
             <Box css={theme({ pt: [2, 2, 3, 3], mx: 'auto' })}>
               <Tooltip
+                type='copy'
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
                 content={
-                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                  <Tooltip.Content>{Tooltip.TEXT.COPY('HTML')}</Tooltip.Content>
                 }
               >
                 <Input
@@ -374,7 +376,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                     event.target.select()
                     toClipboard({
                       copy: snippetInsightsText,
-                      text: Tooltip.TEXT.COPIED.HTML
+                      text: Tooltip.TEXT.COPIED('HTML')
                     })
                   }}
                   css={theme({

@@ -59,7 +59,7 @@ const TippyTheme = styled(Tippy)`
 
 const TippyContainer = styled(Box)`
   outline: 0;
-  cursor: help;
+  cursor: ${({ $type }) => $type};
 `
 
 const TooltipContent = styled(Text)`
@@ -74,6 +74,7 @@ const Tooltip = ({
   children,
   tooltipsOpts,
   containerProps,
+  type = 'help',
   top,
   ...props
 }) => {
@@ -83,7 +84,9 @@ const Tooltip = ({
       content={content}
       {...Object.assign(TOOLTIPS_OPTS, tooltipsOpts)}
     >
-      <TippyContainer {...props}>{children}</TippyContainer>
+      <TippyContainer $type={type} {...props}>
+        {children}
+      </TippyContainer>
     </TippyTheme>
   )
 }
@@ -91,20 +94,9 @@ const Tooltip = ({
 Tooltip.Content = TooltipContent
 
 Tooltip.TEXT = {
-  OPTIONS: {
-    interactive: false,
-    hideOnClick: true
-  },
-  COPY: {
-    URL: 'Click to copy URL',
-    COLOR: color => `Click to copy ${color}`,
-    HTML: 'Click to copy HTML'
-  },
-  COPIED: {
-    URL: 'Copied URL to clipboard!',
-    COLOR: color => `Copied ${color} to clipboard!`,
-    HTML: 'Copied HTML to clipboard!'
-  }
+  OPTIONS: { interactive: false, hideOnClick: true },
+  COPY: word => `Click to copy ${word}`,
+  COPIED: word => `Copied ${word} to clipboard!`
 }
 
 export default Tooltip

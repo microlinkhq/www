@@ -260,9 +260,10 @@ const LiveDemo = React.memo(function LiveDemo ({
             />
             <Box css={theme({ mt: 4, px: 4, width: cardWidth })}>
               <Tooltip
+                type='copy'
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
                 content={
-                  <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                  <Tooltip.Content>{Tooltip.TEXT.COPY('HTML')}</Tooltip.Content>
                 }
               >
                 <Input
@@ -271,7 +272,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                     event.target.select()
                     toClipboard({
                       copy: snippetText,
-                      text: Tooltip.TEXT.COPIED.HTML
+                      text: Tooltip.TEXT.COPIED('HTML')
                     })
                   }}
                   style={{ cursor: 'copy' }}

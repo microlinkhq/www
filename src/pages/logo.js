@@ -1,5 +1,5 @@
-import { cdnUrl, issueUrl, noop, trimMs } from 'helpers'
 import { toPx, borders, layout, colors, theme } from 'theme'
+import { cdnUrl, issueUrl, noop, trimMs } from 'helpers'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -106,7 +106,7 @@ const LogoPreview = ({ toClipboard = noop, logo, style, ...props }) => {
   return (
     <LogoBox
       onClick={() => {
-        toClipboard({ copy: logo.url, text: Tooltip.TEXT.COPIED.URL })
+        toClipboard({ copy: logo.url, text: Tooltip.TEXT.COPIED('URL') })
       }}
       style={{ cursor: style.cursor }}
       {...props}
@@ -137,17 +137,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-        ...new Set(
-          []
-            .concat(
-              logo.palette,
-              logo.background_color,
-              logo.color,
-              logo.alternative_color
-            )
-            .filter(Boolean)
-        )
-      ]
+      ...new Set(
+        []
+          .concat(
+            logo.palette,
+            logo.background_color,
+            logo.color,
+            logo.alternative_color
+          )
+          .filter(Boolean)
+      )
+    ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -203,16 +203,19 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
             {IMAGE_PREVIEW_STYLE.map((imagePreviewStyle, index) => {
               return (
                 <Tooltip
+                  type='copy'
                   key={`${data.url}_${index}`}
                   tooltipsOpts={Tooltip.TEXT.OPTIONS}
                   content={
-                    <Tooltip.Content>{Tooltip.TEXT.COPY.URL}</Tooltip.Content>
+                    <Tooltip.Content>
+                      {Tooltip.TEXT.COPY('URL')}
+                    </Tooltip.Content>
                   }
                 >
                   <LogoComponent
                     toClipboard={toClipboard}
                     logo={logo}
-                    style={{ ...imagePreviewStyle, cursor: 'pointer' }}
+                    style={{ ...imagePreviewStyle }}
                   />
                 </Tooltip>
               )
@@ -230,6 +233,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                 {colors.map((color, index) => {
                   return (
                     <Tooltip
+                      type='copy'
                       key={`${color}_${index}`}
                       tooltipsOpts={{
                         interactive: false,
@@ -237,7 +241,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                       }}
                       content={
                         <Tooltip.Content>
-                          {Tooltip.TEXT.COPY.COLOR(color)}
+                          {Tooltip.TEXT.COPY(color)}
                         </Tooltip.Content>
                       }
                       css={theme({
@@ -253,12 +257,13 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           borderColor: 'black10'
                         })}
                         title={color}
-                        style={{ cursor: 'pointer', background: color }}
+                        style={{ background: color }}
                         onClick={() =>
                           toClipboard({
                             copy: color,
-                            text: Tooltip.TEXT.COPIED.COLOR(color)
-                          })}
+                            text: Tooltip.TEXT.COPIED(color)
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -394,9 +399,10 @@ const LiveDemo = React.memo(function LiveDemo ({
         />
         <Box css={theme({ width: '100%' })}>
           <Tooltip
+            type='copy'
             tooltipsOpts={Tooltip.TEXT.OPTIONS}
             content={
-              <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+              <Tooltip.Content>{Tooltip.TEXT.COPY('HTML')}</Tooltip.Content>
             }
           >
             <Input
@@ -405,7 +411,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 event.target.select()
                 toClipboard({
                   copy: snippetText,
-                  text: Tooltip.TEXT.COPIED.HTML
+                  text: Tooltip.TEXT.COPIED('HTML')
                 })
               }}
               css={theme({

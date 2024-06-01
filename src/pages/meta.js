@@ -122,7 +122,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.16
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.9
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
@@ -259,11 +259,12 @@ const LiveDemo = React.memo(function LiveDemo ({
           >
             {JSON.stringify(jsonData, null, 2)}
           </CodeEditor>
-          <Box css={theme({ pt: 4, px: 4, width: cardWidth })}>
+          <Box css={theme({ pt: 4, width: cardWidth })}>
             <Tooltip
+              type='copy'
               tooltipsOpts={Tooltip.TEXT.OPTIONS}
               content={
-                <Tooltip.Content>{Tooltip.TEXT.COPY.HTML}</Tooltip.Content>
+                <Tooltip.Content>{Tooltip.TEXT.COPY('HTML')}</Tooltip.Content>
               }
             >
               <Input
@@ -272,7 +273,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                   event.target.select()
                   toClipboard({
                     copy: snippetText,
-                    text: Tooltip.TEXT.COPIED.HTML
+                    text: Tooltip.TEXT.COPIED('HTML')
                   })
                 }}
                 css={theme({ cursor: 'copy', width: '100%', color: 'black60' })}
