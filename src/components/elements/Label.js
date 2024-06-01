@@ -5,8 +5,7 @@ import React from 'react'
 
 import Text from './Text'
 
-export const getColor = ({ theme }) =>
-  theme === 'dark' ? colors.white60 : colors.black60
+const getColor = ({ isDark }) => (isDark ? colors.white60 : colors.black60)
 
 export const labelStyle = css`
   font-weight: ${fontWeights.normal};
@@ -15,7 +14,7 @@ export const labelStyle = css`
 `
 
 const StyledLabel = styled(Text).withConfig({
-  shouldForwardProp: prop => !['suffix'].includes(prop)
+  shouldForwardProp: prop => !['isDark', 'suffix'].includes(prop)
 })`
   ${theme({ fontSize: 1 })};
 

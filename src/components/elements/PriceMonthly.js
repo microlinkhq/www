@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import React from 'react'
 import { theme } from 'theme'
 
-import Label, { labelStyle, getColor } from './Label'
+import Label, { labelStyle } from './Label'
 
 const Price = styled(Label)`
   font-weight: bold;
@@ -16,10 +16,6 @@ const Price = styled(Label)`
     position: relative;
     top: -5px;
     left: 0;
-  }
-
-  &::after {
-    color: ${props => getColor(props)};
   }
 `
 

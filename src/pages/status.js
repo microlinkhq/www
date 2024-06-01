@@ -45,7 +45,7 @@ const StatusPage = () => {
         return (
           <Layout
             onClick={toggleTheme}
-            theme={theme}
+            isDark={theme === 'dark'}
             style={{ background: bg }}
             component={Flex}
             css={{ justifyContent: 'center', alignItems: 'center' }}
@@ -65,12 +65,13 @@ const StatusPage = () => {
                         fontWeight: 'regular',
                         fontFamily: 'mono',
                         lineHeight: 0,
-                        fontSize: [4, null, null, 7],
+                        fontSize: 4,
                         pt: [2, null, 3],
                         color
                       })}
                     >
-                      Loading <DotSpinner />
+                      Please wait
+                      <DotSpinner />
                     </Text>
                   </Flex>
                 </Choose.When>
@@ -78,9 +79,8 @@ const StatusPage = () => {
                   <Monospace css={themeProp({ color })}>
                     $ watch curl -sL {endpoint}
                   </Monospace>
-                  <Monospace
-                    css={themeProp({ color })}
-                  >{`\n${resume}`}
+                  <Monospace css={themeProp({ color })}>
+                    {`\n${resume}`}
                   </Monospace>
                   <Monospace css={themeProp({ color, fontSize: [0, null, 1] })}>
                     {`\n${info}`}

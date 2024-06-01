@@ -27,11 +27,10 @@ const Layout = ({
   children,
   onClick = noop,
   style,
-  theme = 'light',
+  isDark = false,
   component = Box,
   ...props
 }) => {
-  const isDark = theme === 'dark'
   const breakpoint = useBreakpoint([0, 1, 2, 3])
   const toolbarHeight = TOOLBAR_HEIGHTS[breakpoint]
 

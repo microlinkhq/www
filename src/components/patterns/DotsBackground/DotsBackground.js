@@ -22,7 +22,7 @@ const animateStyle = css`
 `
 
 const StyledDotsBackground = styled(Box).withConfig({
-  shouldForwardProp: prop => !['animate'].includes(prop)
+  shouldForwardProp: prop => !['isDark', 'animate'].includes(prop)
 })`
   position: relative;
   min-height: 100vh;
@@ -34,7 +34,7 @@ const StyledDotsBackground = styled(Box).withConfig({
     height: 100%;
     z-index: -1;
 
-    ${props => (props.theme === 'dark' ? darkStyle : lightStyle)}
+    ${({ isDark }) => (isDark ? darkStyle : lightStyle)}
     background-position: 0 0, 25px 25px;
     background-size: 50px 50px;
 
@@ -42,8 +42,6 @@ const StyledDotsBackground = styled(Box).withConfig({
   }
 `
 
-const DotsBackground = props => (
-  <StyledDotsBackground theme='light' animate {...props} />
-)
+const DotsBackground = props => <StyledDotsBackground animate {...props} />
 
 export default DotsBackground
