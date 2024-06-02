@@ -1,7 +1,9 @@
+import { withTitle } from 'helpers/hoc'
+
 import Announcement from './Announcement/Announcement'
 import Aside from './Aside/Aside'
 import Block from './Block/Block'
-import Caption from './Caption/Caption'
+import CaptionBase from './Caption/Caption'
 import Chat from './Chat/Chat'
 import Checkout from './Checkout'
 import CubeBackground from './CubeBackground/CubeBackground'
@@ -23,6 +25,8 @@ import Healthcheck from './Healthcheck/Healthcheck'
 import Toolbar from './Toolbar/Toolbar'
 import ArrowLink from './ArrowLink'
 import Features from './Features/Features'
+
+const Caption = withTitle(CaptionBase)
 
 export {
   Announcement,

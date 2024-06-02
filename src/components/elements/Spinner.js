@@ -6,8 +6,20 @@ import { cx, colors } from 'theme'
 
 import Svg from './Svg'
 
-const Spinner = props => (
-  <StyledSpinner viewBox='0 0 50 50' {...props}>
+const Spinner = ({
+  color = colors.primary,
+  width = '64px',
+  height = '32px',
+  style = { padding: '4px' },
+  ...props
+}) => (
+  <StyledSpinner
+    viewBox='0 0 50 50'
+    $color={color}
+    css={{ width, height }}
+    style={style}
+    {...props}
+  >
     <circle
       className='path'
       cx='25'
@@ -24,17 +36,10 @@ const StyledSpinner = styled(Svg)`
   will-change: stroke-dasharray, stroke-dashoffset;
 
   .path {
-    stroke: ${props => cx(props.color)};
+    stroke: ${props => cx(props.$color)};
     stroke-linecap: round;
     animation: ${dash} 1.5s ease-in-out infinite;
   }
 `
-
-StyledSpinner.defaultProps = {
-  color: colors.primary,
-  width: '64px',
-  height: '32px',
-  style: { padding: '4px' }
-}
 
 export default Spinner

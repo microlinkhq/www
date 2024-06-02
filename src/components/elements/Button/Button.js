@@ -1,37 +1,83 @@
-import styled, { css } from 'styled-components'
-import { createCssState } from 'helpers/style'
-import { colors } from 'theme'
+import { transition, theme as themeProp, colors, space, gradient } from 'theme'
+import styled from 'styled-components'
+import Box from '../Box'
+import React, { forwardRef } from 'react'
 
-import ButtonBase from './ButtonBase'
+const getVariant = ({ theme, variant }) => {
+  const { background = 'link', color = 'white' } =
+    theme.variants.buttons[variant] || {}
+  return { background, color }
+}
 
-export const hoverStyle = createCssState({
-  selector: '&:hover:not([disabled])',
-  state: 'hover',
-  css: css`
-    background-color: ${({ color }) => colors[color]};
-    color: ${({ bg }) => colors[bg]};
-    box-shadow: 0 0 0 1px ${({ bg }) => colors[bg]};
-  `
-})
+export const hoverStyle = ({ theme, variant }) => {
+  const { background, color } = getVariant({ theme, variant })
+  return {
+    cursor: 'pointer',
+    background: color,
+    color: background,
+    boxShadow: `0 0 0 1px ${colors[background]}`
+  }
+}
 
-export const disabledStyle = createCssState({
-  selector: '&:disabled',
-  state: 'disabled',
-  css: css`
+const StyledButton = styled(Box).withConfig({
+  shouldForwardProp: prop => !['variant'].includes(prop)
+})`
+  transition: background-color ${transition.medium}, color ${transition.medium},
+    box-shadow ${transition.medium};
+  appearance: none;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  outline: 0;
+
+  ${({ variant }) =>
+    variant === 'gradient' &&
+    `
     &&& {
-      opacity: 0.8;
-      cursor: not-allowed;
-      background-color: ${colors.black05};
-      color: ${colors.black50};
-      cursor: not-allowed;
-      box-shadow: 0 0 0 1px ${colors.black20};
-      .path {
-        stroke: ${colors.black30};
+      transition: filter ${transition.medium};
+      background: ${gradient};
+      padding: ${space[1]};
+      &:hover {
+        box-shadow: none;
+        filter: hue-rotate(40deg);
       }
     }
-  `
-})
+  `}
 
-const Button = styled(ButtonBase)(hoverStyle, disabledStyle)
+  ${({ theme, variant }) => {
+    const { background, color } = getVariant({ theme, variant })
+    return themeProp({
+      fontFamily: 'sans',
+      fontSize: 1,
+      fontWeight: 'bold',
+      px: 3,
+      py: 2,
+      border: 0,
+      borderRadius: 2,
+      background,
+      color,
+      boxShadow: variant === 'white' ? `0 0 0 1px ${color}` : undefined,
+      _hover: hoverStyle({ theme, variant }),
+      _disabled: {
+        opacity: 0.8,
+        cursor: 'not-allowed',
+        background: colors.black05,
+        color: colors.black50,
+        boxShadow: `0 0 0 1px ${colors.black20}`,
+        '.path': {
+          stroke: colors.black30
+        }
+      }
+    })
+  }}
+`
+
+const Button = forwardRef((props, ref) => (
+  <StyledButton as='button' ref={ref} {...props} />
+))
+
+Button.displayName = 'Button'
 
 export default Button

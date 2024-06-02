@@ -255,6 +255,8 @@ select:invalid {
 
 
 body[data-theme="dark"] {
+  background: var(--black);
+
   input::placeholder,
   select:invalid {
     color: rgba(255, 255, 255, 0.5);

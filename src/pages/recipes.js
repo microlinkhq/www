@@ -1,9 +1,8 @@
 import { DotsBackground, Layout, Caption } from 'components/patterns'
-import { colors, space, layout, toPx, toRaw, fontSizes } from 'theme'
+import { colors, space, layout, toPx, toRaw, fontSizes, theme } from 'theme'
 import { cdnUrl, issueUrl, formatNumber } from 'helpers'
 import React, { useState, useEffect } from 'react'
 import kebabCase from 'lodash/kebabCase'
-import styled from 'styled-components'
 import { Eye } from 'react-feather'
 import { getDomain } from 'tldts'
 
@@ -14,7 +13,6 @@ import {
   Button,
   Caps,
   Card,
-  Container,
   Flex,
   Heading,
   Link,
@@ -34,13 +32,6 @@ const width = [...Array(4).keys()].map(() => CARD_WIDTH)
 
 const maxWidth = width.map(w => toPx(toRaw(space[3]) * 4 + w * CARDS_PER_ROW))
 
-const CustomLink = styled(Link)`
-  color: inherit;
-  :hover:not([disabled]) {
-    color: inherit;
-  }
-`
-
 export const Head = () => (
   <Meta
     description='Just start with code. Instant integration, automating any site in a few lines.'
@@ -49,8 +40,8 @@ export const Head = () => (
 )
 
 const RecipesPage = () => {
-  const [counters, setCounters] = useState(null)
-  const isLoaded = counters !== null
+  const [counters, setCounters] = useState()
+  const isLoaded = counters !== undefined
 
   useEffect(() => {
     window
@@ -61,46 +52,48 @@ const RecipesPage = () => {
   }, [])
 
   return (
-    <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout footer={{ bg: 'transparent' }}>
+    <DotsBackground>
+      <Layout footer={{ style: { background: 'transparent' } }}>
         <Flex
-          width='100%'
-          flexDirection='column'
-          justifyContent='center'
-          alignItems='center'
-          pt={2}
-          px={3}
+          css={theme({
+            width: '100%',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            pt: 2,
+            px: 3
+          })}
         >
           <Flex
-            flexDirection='column'
-            alignItems='center'
-            justifyContent='center'
+            css={{
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
           >
-            <Heading titleize={false} maxWidth={layout.large}>
+            <Heading titleize={false} css={{ maxWidth: layout.large }}>
               Recipes
             </Heading>
             <Caption
-              as='h2'
-              pt={[3, 3, 4, 4]}
-              pb={[3, 3, 4, 4]}
-              px={[4, 4, 0, 0]}
+              forwardedAs='h2'
+              css={theme({
+                py: [3, null, 4],
+                px: [4, null, 0],
+                maxWidth: layout.small
+              })}
               titleize={false}
-              maxWidth={[
-                layout.small,
-                layout.small,
-                layout.small,
-                layout.small
-              ]}
             >
               Just start with code — Instant integration, automating any site in
               a few lines.
             </Caption>
           </Flex>
           <Flex
-            pt={[3, 3, 4, 4]}
-            maxWidth={maxWidth}
-            justifyContent='center'
-            flexWrap='wrap'
+            css={theme({
+              pt: [3, null, 4],
+              maxWidth,
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            })}
           >
             {recipes.map(([recipeName, meta], index) => {
               const count = isLoaded && counters[index]
@@ -114,61 +107,77 @@ const RecipesPage = () => {
               return (
                 <Card
                   key={recipeName}
-                  flexDirection='column'
-                  p={3}
-                  width={width}
-                  height='inherit'
-                  mb={3}
-                  mr={[0, 3, 3, 3]}
+                  css={theme({
+                    flexDirection: 'column',
+                    p: 3,
+                    width,
+                    height: 'inherit',
+                    mb: 3,
+                    mr: [0, 3],
+                    color: 'black',
+                    _hover: {
+                      color: 'black'
+                    }
+                  })}
                 >
-                  <CustomLink href={`/recipes/${kebabCase(recipeName)}`}>
-                    <Flex alignItems='center'>
-                      <Box pr={2}>
+                  <Link
+                    css={theme({
+                      color: 'inherit',
+                      _hover: { color: 'inherit' }
+                    })}
+                    href={`/recipes/${kebabCase(recipeName)}`}
+                  >
+                    <Flex css={{ alignItems: 'center' }}>
+                      <Box css={theme({ pr: 2 })}>
                         <Logo
                           isProvider={isProvider}
                           domain={domain}
                           {...meta}
                         />
                       </Box>
-                      <Text fontSize={1} fontWeight='bold'>
+                      <Text css={theme({ fontSize: 1, fontWeight: 'bold' })}>
                         {meta.name}
                       </Text>
                     </Flex>
                     <Flex>
                       <Text
-                        mt={3}
-                        fontSize={0}
-                        css={`
-                          min-height: 56px;
-                        `}
+                        css={theme({
+                          mt: 3,
+                          fontSize: 0,
+                          minHeight: '56px'
+                        })}
                       >
                         {description}
                       </Text>
                     </Flex>
                     <Flex
-                      alignItems='center'
+                      css={{ alignItems: 'center' }}
                       style={{ visibility: isLoaded ? 'inherit' : 'hidden' }}
                     >
                       <Eye size={fontSizes[0]} color={colors.black50} />
-                      <Text pl={1} color={colors.black50} fontSize={0}>
+                      <Text
+                        css={theme({ pl: 1, color: 'black50', fontSize: 0 })}
+                      >
                         {formatNumber(count)}
                       </Text>
                     </Flex>
-                  </CustomLink>
+                  </Link>
                 </Card>
               )
             })}
           </Flex>
           <Flex
-            pt={Container.defaultProps.pt}
-            justifyContent='space-between'
-            alignItems='center'
-            flexDirection={['column', 'column', 'row', 'row']}
-            width='100%'
-            maxWidth={layout.large}
+            css={theme({
+              pt: [5, null, 6],
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexDirection: ['column', null, 'row'],
+              width: '100%',
+              maxWidth: layout.large
+            })}
           >
             <Subhead>Miss something?</Subhead>
-            <Box pt={[4, 4, 0, 0]}>
+            <Box css={theme({ pt: [4, null, 0] })}>
               <Button
                 onClick={() =>
                   window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}

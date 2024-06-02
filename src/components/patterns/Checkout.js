@@ -4,6 +4,7 @@ import { loadStripe } from '@stripe/stripe-js/pure'
 import { Caps, Button } from 'components/elements'
 import { useSiteMetadata } from 'components/hook'
 import React, { useState } from 'react'
+import { theme } from 'theme'
 
 const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -38,7 +39,7 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
       data-event-name='Buy'
       {...props}
     >
-      <Caps fontSize={[0, 0, 2, 2]}>Buy</Caps>
+      <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
     </Button>
   )
 }

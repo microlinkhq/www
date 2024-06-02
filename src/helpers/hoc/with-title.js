@@ -1,13 +1,13 @@
 import { createElement } from 'react'
-import { title as titleize } from 'helpers'
+import { title as titleizeFn } from 'helpers'
 
 export const withTitle = Component => {
-  const TitleWrapper = props => {
-    if (typeof props.children !== 'string' || props.titleize === false) {
+  const TitleWrapper = ({ titleize, omitTitleize, ...props }) => {
+    if (typeof props.children !== 'string' || titleize === false) {
       return createElement(Component, props)
     }
 
-    const title = titleize(props.children, props.omitTitleize)
+    const title = titleizeFn(props.children, omitTitleize)
 
     return createElement(
       Component,

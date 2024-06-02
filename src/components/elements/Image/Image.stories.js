@@ -6,8 +6,7 @@ import { Image, Flex } from 'components/elements'
 
 const storyName = 'Image'
 
-const imageUrl =
-  'http://www.effigis.com/wp-content/uploads/2015/02/DigitalGlobe_WorldView1_50cm_8bit_BW_DRA_Bangkok_Thailand_2009JAN06_8bits_sub_r_1.jpg'
+const imageUrl = 'https://cdn.microlink.io/file-examples/sample-big.jpg'
 
 const code = `
 import { Image } from 'components/elements'
@@ -23,8 +22,10 @@ const ImageStory = () => {
       <Flex flexDirection='row' justifyContent='center'>
         <Image
           alt='example image'
-          width='350px'
-          height='350px'
+          css={{
+            width: '350px',
+            height: '350px'
+          }}
           src={imageUrl}
         />
       </Flex>

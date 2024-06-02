@@ -2,7 +2,7 @@ import { Caption, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
 import { encode } from 'helpers'
-import { layout } from 'theme'
+import { layout, theme } from 'theme'
 
 import {
   Confetti,
@@ -45,7 +45,7 @@ const getCaption = paymentState => {
         <>
           Payment not processed.{' '}
           <Link
-            pt={2}
+            css={theme({ pt: 2 })}
             href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
           >
             Contact us
@@ -65,16 +65,21 @@ const PaymentPage = () => {
 
   return (
     <Layout>
-      <Container alignItems='center' pt={2}>
+      <Container css={theme({ alignItems: 'center', pt: 2 })}>
         {paymentState === PAYMENT_STATE.success && <Confetti />}
-        <Heading px={5} titleize={false} maxWidth={layout.large}>
+        <Heading
+          css={theme({ px: 5, maxWidth: layout.large })}
+          titleize={false}
+        >
           {getTitle(paymentState)}
         </Heading>
         <Caption
-          pt={[3, 3, 4, 4]}
-          px={[4, 4, 0, 0]}
+          css={theme({
+            pt: [3, null, 4],
+            px: [4, null, 0],
+            maxWidth: layout.small
+          })}
           titleize={false}
-          maxWidth={[layout.small, layout.small, layout.small, layout.small]}
         >
           {getCaption(paymentState)}
         </Caption>

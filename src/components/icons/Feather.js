@@ -1,23 +1,25 @@
 import * as FeatherIcons from 'react-feather'
 import React, { createElement } from 'react'
 import { Flex } from 'components/elements'
-import { fontSizes, cx } from 'theme'
+import { fontSizes, cx, theme } from 'theme'
 
 const getWidth = size => {
   if (Array.isArray(size)) return size.map(index => fontSizes[index])
   return fontSizes[size]
 }
 
-const FeatherIcon = ({ icon, size = [1, 1, 2, 2], ...props }) => (
+const FeatherIcon = ({ color, icon, size = [1, 1, 2, 2], ...props }) => (
   <Flex
-    justifyContent='center'
-    width={getWidth(size)}
-    height='100%'
+    css={theme({
+      justifyContent: 'center',
+      width: getWidth(size),
+      height: '100%'
+    })}
     as='span'
     {...props}
   >
     {createElement(FeatherIcons[icon], {
-      color: props.color ? cx(props.color) : undefined
+      color: color ? cx(color) : undefined
     })}
   </Flex>
 )

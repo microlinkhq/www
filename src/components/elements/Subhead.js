@@ -1,13 +1,16 @@
 import styled from 'styled-components'
-import Heading from './Heading'
+import { commonHeadingStyles } from './Heading'
+import Text from './Text'
+import { theme } from 'theme'
+import React from 'react'
 
-const Subhead = styled(Heading)``
+const StyledSubhead = styled(Text)(
+  theme({
+    ...commonHeadingStyles,
+    fontSize: [4, 4, 6, 6]
+  })
+)
 
-Subhead.defaultProps = {
-  as: 'h2',
-  variant: null,
-  fontSize: [4, 4, 6, 6],
-  color: 'black'
-}
+const Subhead = props => <StyledSubhead as='h2' {...props} />
 
 export default Subhead

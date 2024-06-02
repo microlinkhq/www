@@ -12,14 +12,13 @@ const ClusterMonitor = ({ children, endpoint, ...opts }) => {
   const { data, isLoading } = useSWR(
     endpoint,
     () => window.fetch(endpoint).then(res => res.text()),
-    opts
+    {
+      refreshInterval: 3000,
+      ...opts
+    }
   )
 
   return children({ ...parseData(data, isLoading), isLoading })
-}
-
-ClusterMonitor.defaultProps = {
-  refreshInterval: 3000
 }
 
 export default ClusterMonitor

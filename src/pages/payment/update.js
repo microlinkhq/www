@@ -1,7 +1,15 @@
 /* global fetch */
 
 import { useFingerprint, useSiteMetadata, useQueryState } from 'components/hook'
-import { colors, fonts, fontWeights, layout, radii, transition } from 'theme'
+import {
+  colors,
+  fonts,
+  fontWeights,
+  layout,
+  radii,
+  transition,
+  theme
+} from 'theme'
 import { Caption, Layout } from 'components/patterns'
 import { loadStripe } from '@stripe/stripe-js/pure'
 import React, { useEffect, useState } from 'react'
@@ -69,7 +77,10 @@ const getCaption = paymentState => {
       return (
         <>
           Payment not updated.{' '}
-          <Link href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}>
+          <Link
+            css={theme({ pt: 2 })}
+            href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
+          >
             Contact us
           </Link>
           .
@@ -133,11 +144,10 @@ const CheckoutForm = ({
       />
       <Button
         loading={!stripe || paymentState === PAYMENT_STATE.processing}
-        mt={3}
+        css={theme({ mt: 3, width: '100%' })}
         type='submit'
-        width='100%'
       >
-        <Caps fontSize={1}>Update Card</Caps>
+        <Caps css={theme({ fontSize: 1 })}>Update Card</Caps>
       </Button>
     </form>
   )
@@ -187,21 +197,28 @@ const PaymentUpdatePage = () => {
 
   return (
     <Layout>
-      <Container pt={2} justifyContent='center' alignItems='center'>
+      <Container
+        css={theme({ alignItems: 'center', justifyContent: 'center', pt: 2 })}
+      >
         {paymentState === PAYMENT_STATE.success && <Confetti />}
-        <Heading px={5} titleize={false} maxWidth={layout.large}>
+        <Heading
+          css={theme({ px: 5, maxWidth: layout.large })}
+          titleize={false}
+        >
           {getTitle(isLoading ? PAYMENT_STATE.redirected : paymentState)}
         </Heading>
         <Caption
-          pt={[3, 3, 4, 4]}
-          px={[4, 4, 0, 0]}
+          css={theme({
+            pt: [3, null, 4],
+            px: [4, null, 0],
+            maxWidth: layout.small
+          })}
           titleize={false}
-          maxWidth={layout.small}
         >
           {getCaption(isLoading ? PAYMENT_STATE.redirected : paymentState)}
         </Caption>
         {!isLoading && !query.status && (
-          <Box pt={[3, 3, 4, 4]} width={7}>
+          <Box css={theme({ pt: [3, null, 4], width: 7 })}>
             <Elements
               stripe={stripePromise}
               options={{

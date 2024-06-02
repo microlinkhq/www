@@ -3,7 +3,7 @@ import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
 import { useBreakpoint } from 'context/breakpoint'
 import { Box, Flex } from 'components/elements'
 import styled from 'styled-components'
-import { shadows } from 'theme'
+import { shadows, theme } from 'theme'
 
 import AsideBase from './AsideBase'
 
@@ -28,16 +28,16 @@ const AsideButton = ({ title, iconComponent, ...props }) => (
   </MenuButton>
 )
 
+const css = `
+  box-shadow: ${shadows[0]};
+  background: white;
+  z-index: 3;
+  left: 0;
+`
+
 const AsideMobile = ({ children, ...props }) => {
   const [isOpen, setOpen] = useState(false)
   const toggleOpen = () => setOpen(!isOpen)
-
-  const css = `
-  box-shadow: ${shadows[0]};
-    background: white;
-    z-index: 3;
-    left: 0;
-  `
 
   return (
     <Box>
@@ -68,8 +68,10 @@ const AsideDesktop = ({ children, ...props }) => {
     <>
       <AsideBase isOpen {...props} />
       <Flex
-        pl={`calc(${ASIDE_WIDTH} + 14px)`}
-        flexDirection='column'
+        css={theme({
+          pl: `calc(${ASIDE_WIDTH} + 14px)`,
+          flexDirection: 'column'
+        })}
         as='section'
       >
         {children}

@@ -1,45 +1,44 @@
-import React, { Component, createElement } from 'react'
-
+import React, { createElement, useState, useEffect, useRef } from 'react'
 import SpinnerIcon from '../../components/elements/Spinner'
 import Flex from '../../components/elements/Flex'
 
 export const withSpinner = ChildComponent => {
   const SpinnerButton = ({ children, ...props }) => (
     <ChildComponent state='hover' {...props}>
-      <Flex justifyContent='center' textAlign='center'>
+      <Flex css={{ justifyContent: 'center', textAlign: 'center' }}>
         {children}
       </Flex>
     </ChildComponent>
   )
 
-  class SpinnerWrapper extends Component {
-    componentDidMount () {
-      if (this.button) {
-        const { width } = this.button.getBoundingClientRect()
-        this.setState({ width })
+  const SpinnerWrapper = ({ loading, ...props }) => {
+    const [width, setWidth] = useState(undefined)
+    const [height, setHeight] = useState(undefined)
+    const ref = useRef(null)
+
+    useEffect(() => {
+      if (ref.current) {
+        const computed = window.getComputedStyle(ref.current)
+        setWidth(parseInt(computed.getPropertyValue('width')))
+        setHeight(parseInt(computed.getPropertyValue('height')))
       }
+    }, [])
+
+    if (!loading) {
+      return <ChildComponent ref={ref} {...props} />
     }
 
-    render () {
-      const { loading, ...props } = this.props
-      if (!loading) {
-        return (
-          <ChildComponent ref={button => (this.button = button)} {...props} />
-        )
-      } else {
-        const children = createElement(SpinnerIcon)
-        const width = this.state && this.state.width
-        return createElement(
-          SpinnerButton,
-          {
-            ...props,
-            disabled: true,
-            style: { width, cursor: 'wait' }
-          },
-          children
-        )
-      }
-    }
+    const children = createElement(SpinnerIcon)
+
+    return createElement(
+      SpinnerButton,
+      {
+        ...props,
+        disabled: true,
+        style: { width, height, cursor: 'wait' }
+      },
+      children
+    )
   }
 
   return SpinnerWrapper

@@ -1,9 +1,10 @@
 import { hideNotification, showNotification } from 'components/keyframes'
 import React, { createElement, useState } from 'react'
 import FeatherIcon from 'components/icons/Feather'
-import { Text, Flex } from 'components/elements'
+import { theme, transition } from 'theme'
 import styled from 'styled-components'
-import { transition } from 'theme'
+import Text from '../Text'
+import Flex from '../Flex'
 
 const Wrapper = styled(Flex)`
   bottom: 0;
@@ -21,45 +22,50 @@ const Wrapper = styled(Flex)`
 const Notification = ({ icon, iconColor, children, ...props }) => {
   const [isHidden, setIsHidden] = useState(false)
   const [isClosed, setIsClosed] = useState(false)
-
   if (isClosed) return null
 
   return (
     <Wrapper
-      alignItems='center'
-      justifyContent='center'
       aria-hidden={isHidden}
-      my={3}
+      css={theme({
+        alignItems: 'center',
+        justifyContent: 'center',
+        my: 3
+      })}
     >
-      <Text
-        boxShadow={0}
-        m={3}
-        px={3}
-        py='10px'
-        borderRadius={2}
-        border={1}
-        borderColor='black05'
-        bg='white'
+      <Flex
+        css={theme({
+          boxShadow: 0,
+          m: 3,
+          px: 3,
+          py: '10px',
+          borderRadius: 2,
+          border: 1,
+          borderColor: 'black05',
+          bg: 'white'
+        })}
         {...props}
       >
-        <Flex alignItems='center'>
-          <FeatherIcon mr={3} icon={icon} color={iconColor} />
-          <Text color='black80' fontSize={['10px', 1]}>
+        <Flex css={theme({ alignItems: 'center' })}>
+          <FeatherIcon css={theme({ mr: 3, color: iconColor })} icon={icon} />
+          <Text css={theme({ color: 'black80', fontSize: ['10px', 1] })}>
             {children}
           </Text>
           <FeatherIcon
-            ml={3}
             icon='X'
             size='16px'
-            color='black50'
-            style={{ cursor: 'pointer' }}
+            css={theme({
+              ml: 3,
+              color: 'black50',
+              cursor: 'pointer'
+            })}
             onClick={() => {
               setIsHidden(true)
               setTimeout(() => setIsClosed(true), 300)
             }}
           />
         </Flex>
-      </Text>
+      </Flex>
     </Wrapper>
   )
 }

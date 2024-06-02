@@ -14,7 +14,7 @@ const highlightCss = css`
 `
 
 const HighlightBase = styled(Box)`
-  ${props => props.isHighlight && highlightCss};
+  ${props => props.$isHighlight && highlightCss};
 `
 
 const Highlight = ({ sx, ...props }) => {
@@ -25,7 +25,7 @@ const Highlight = ({ sx, ...props }) => {
   const isHighlight = previous ? props.children !== previous : false
   if (isHighlight) setTimeout(forceUpdate, HIGHLIGHT_DURATION)
 
-  return <HighlightBase isHighlight={isHighlight} {...props} />
+  return <HighlightBase $isHighlight={isHighlight} {...props} />
 }
 
 export default Highlight

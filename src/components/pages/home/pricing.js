@@ -1,17 +1,11 @@
 import { Caption, PricingTable } from 'components/patterns'
 import { Subhead, Container } from 'components/elements'
-import { fontSizes, layout } from 'theme'
+import { fontSizes, layout, theme } from 'theme'
 import React from 'react'
 
-const Pricing = ({
-  canonicalUrl,
-  apiKey,
-  stripeKey,
-  apiEndpoint,
-  ...props
-}) => {
+const Pricing = ({ canonicalUrl, stripeKey, apiEndpoint }) => {
   return (
-    <Container as='section' alignItems='center' {...props}>
+    <Container as='section' css={{ alignItems: 'center' }}>
       <Subhead
         id='pricing'
         variant='gradient'
@@ -20,9 +14,11 @@ const Pricing = ({
         Pricing
       </Subhead>
       <Caption
-        pt={[3, 3, 4, 4]}
-        pb={[4, 4, 4, 5]}
-        maxWidth={[layout.small, layout.small, layout.normal, layout.normal]}
+        css={theme({
+          pt: [3, 3, 4, 4],
+          pb: [4, 4, 4, 5],
+          maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+        })}
       >
         Every plan comes with API access & 24/7 tech support. Use the forever
         free plan to try the service, no credit-card required.
@@ -30,7 +26,6 @@ const Pricing = ({
 
       <PricingTable
         canonicalUrl={canonicalUrl}
-        apiKey={apiKey}
         stripeKey={stripeKey}
         apiEndpoint={apiEndpoint}
       />

@@ -29,7 +29,12 @@ const fetch = (url, fromCache, opts) => {
   return fromCache(variations, opts) || mql(url, opts)
 }
 
-const FetchProvider = ({ fromCache, mqlOpts, children }) => {
+const FetchProvider = ({
+  fromCache = variations =>
+    demoLinks.find(item => variations.includes(item.data.url)),
+  mqlOpts,
+  children
+}) => {
   const [status, setStatus] = useState('initial')
   const [response, setResponse] = useState({})
   const [error, setError] = useState(null)
@@ -87,11 +92,6 @@ const FetchProvider = ({ fromCache, mqlOpts, children }) => {
       {children({ status, doFetch, data, response })}
     </>
   )
-}
-
-FetchProvider.defaultProps = {
-  fromCache: variations =>
-    demoLinks.find(item => variations.includes(item.data.url))
 }
 
 export default FetchProvider

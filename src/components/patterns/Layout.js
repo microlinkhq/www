@@ -1,12 +1,13 @@
+import { ThemeProvider } from 'styled-components'
 import { Toolbar, Footer } from 'components/patterns'
 import React, { useEffect, createElement } from 'react'
 import { BreakpointProvider } from 'context/breakpoint'
-import { ThemeProvider } from 'styled-components'
 import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
 import { noop } from 'helpers'
 
-import themeSpec from 'theme'
+import themeSpec, { theme as themeProp } from 'theme'
+
 import 'styles/main.scss'
 
 import {
@@ -22,15 +23,11 @@ const TOOLBAR_HEIGHTS = [
 ]
 
 const Layout = ({
-  footer,
+  footer = true,
   children,
-  onClick,
+  onClick = noop,
   style,
-  theme,
-  display,
-  justifyContent,
-  alignItems,
-  flexDirection,
+  isDark = false,
   component = Box,
   ...props
 }) => {
@@ -50,43 +47,33 @@ const Layout = ({
       <ThemeProvider theme={themeSpec}>
         <Flex
           data-breakpoint={breakpoint}
-          flexDirection='column'
           onClick={onClick}
           style={style}
-          css={`
-            overflow-x: hidden;
-            min-height: 100vh;
-          `}
+          css={themeProp({
+            flexDirection: 'column',
+            'overflow-x': 'hidden',
+            'min-height': '100vh'
+          })}
         >
-          <Toolbar as='header' theme={theme} style={style} />
+          <Toolbar as='header' isDark={isDark} style={style} />
           {createElement(
             component,
             {
               as: 'main',
-              justifyContent,
-              alignItems,
-              display,
-              flexDirection,
-              pt: toolbarHeight,
-              style: { flex: 1 }
+              style: { flex: 1, paddingTop: toolbarHeight },
+              ...props
             },
             children
           )}
           {footer && (
             <Box as='footer' className='hidden-print'>
-              <Footer theme={theme} {...footer} />
+              <Footer isDark={isDark} {...footer} />
             </Box>
           )}
         </Flex>
       </ThemeProvider>
     </BreakpointProvider>
   )
-}
-
-Layout.defaultProps = {
-  theme: 'light',
-  footer: true,
-  onClick: noop
 }
 
 export default Layout

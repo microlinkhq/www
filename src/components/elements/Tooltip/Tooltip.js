@@ -1,9 +1,10 @@
-import { Box, Text } from 'components/elements'
+import { theme, space, radii, colors, shadows, speed } from 'theme'
 import styled from 'styled-components'
 import Tippy from '@tippyjs/react'
 import React from 'react'
 
-import { space, radii, colors, shadows, speed } from 'theme'
+import Text from '../Text'
+import Box from '../Box'
 
 /* https://atomiks.github.io/tippyjs/v6/all-props/ */
 const TOOLTIPS_OPTS = {
@@ -58,16 +59,22 @@ const TippyTheme = styled(Tippy)`
 
 const TippyContainer = styled(Box)`
   outline: 0;
-  cursor: help;
+  cursor: ${({ $type }) => $type};
 `
 
-const TooltipContent = props => <Text fontSize={0} {...props} />
+const TooltipContent = styled(Text)`
+  ${theme({ fontSize: 0 })}
+  > * {
+    font-size: inherit;
+  }
+`
 
 const Tooltip = ({
   content,
   children,
   tooltipsOpts,
   containerProps,
+  type = 'help',
   top,
   ...props
 }) => {
@@ -77,7 +84,9 @@ const Tooltip = ({
       content={content}
       {...Object.assign(TOOLTIPS_OPTS, tooltipsOpts)}
     >
-      <TippyContainer {...props}>{children}</TippyContainer>
+      <TippyContainer $type={type} {...props}>
+        {children}
+      </TippyContainer>
     </TippyTheme>
   )
 }
@@ -85,20 +94,9 @@ const Tooltip = ({
 Tooltip.Content = TooltipContent
 
 Tooltip.TEXT = {
-  OPTIONS: {
-    interactive: false,
-    hideOnClick: true
-  },
-  COPY: {
-    URL: 'Click to copy URL',
-    COLOR: color => `Click to copy ${color}`,
-    HTML: 'Click to copy HTML'
-  },
-  COPIED: {
-    URL: 'Copied URL to clipboard!',
-    COLOR: color => `Copied ${color} to clipboard!`,
-    HTML: 'Copied HTML to clipboard!'
-  }
+  OPTIONS: { interactive: false, hideOnClick: true },
+  COPY: word => `Click to copy ${word}`,
+  COPIED: word => `Copied ${word} to clipboard!`
 }
 
 export default Tooltip

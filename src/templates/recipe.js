@@ -1,7 +1,7 @@
 import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
 import { Meta, Text, Box, CodeEditor, Flex, Heading } from 'components/elements'
 import React, { useState, useEffect } from 'react'
-import { fontSizes, colors, layout } from 'theme'
+import { fontSizes, colors, layout, theme } from 'theme'
 import { Logo } from 'components/pages/recipes'
 import { cdnUrl, formatNumber } from 'helpers'
 import { Eye } from 'react-feather'
@@ -15,7 +15,7 @@ const Description = recipe => {
       children.push(str.trim())
     } else {
       children.push(
-        <Box key={domain} ml={2} mr={1}>
+        <Box key={domain} css={theme({ ml: 2, mr: 1 })}>
           <Logo {...recipe} />
         </Box>
       )
@@ -54,59 +54,60 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
   }/${recipe.slug}.js`
 
   return (
-    <DotsBackground alignItems='center' justifyContent='center'>
-      <Layout footer={{ bg: 'transparent' }}>
+    <DotsBackground>
+      <Layout footer={{ style: { background: 'transparent' } }}>
         <Flex
-          px={3}
-          pt={[2, 2, 3, 3]}
-          width='100%'
-          flexDirection='column'
-          justifyContent='center'
-          alignItems='center'
+          css={theme({
+            px: 3,
+            pt: [2, null, 3],
+            width: '100%',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
         >
-          <Heading fontSize={4} pt={[3, 3, 4, 4]} titleize={false}>
+          <Heading
+            css={theme({ fontSize: 4, pt: [3, null, 4] })}
+            titleize={false}
+          >
             <Name {...recipe} />
           </Heading>
 
           <Caption
-            as='h2'
+            forwardedAs='h2'
             titleize={false}
-            pt={[3, 3, 3, 3]}
-            px={[4, 4, 0, 0]}
-            maxWidth={[
-              layout.small,
-              layout.small,
-              layout.normal,
-              layout.normal
-            ]}
-            style={{
+            css={theme({
+              pt: 3,
+              px: [4, null, 0],
+              maxWidth: [layout.small, null, layout.normal],
               display: 'flex',
               alignItems: 'center'
-            }}
+            })}
           >
             <Description {...recipe} />
           </Caption>
 
           {isLoaded && (
-            <Flex pt={[2, 2, 2, 2]} alignItems='center'>
+            <Flex css={theme({ pt: 2, alignItems: 'center' })}>
               <Eye size={fontSizes[2]} color={colors.black50} />
-              <Text pl={2} color={colors.black50}>
+              <Text css={theme({ pl: 2, color: 'black50' })}>
                 {formatNumber(count)}
               </Text>
             </Flex>
           )}
 
           <Flex
-            pt={4}
-            width='100%'
-            flexDirection='column'
-            justifyContent='center'
-            alignItems='center'
+            css={theme({
+              pt: 4,
+              width: '100%',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            })}
           >
             <CodeEditor
               title={`${recipe.key}.js`}
-              width='100%'
-              maxWidth={layout.small}
+              css={{ width: '100%', maxWidth: layout.small }}
               interactive
             >
               {recipe.code}
@@ -114,19 +115,18 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
           </Flex>
 
           <Flex
-            alignItems={['center', undefined, undefined, undefined]}
-            flexDirection={['column', 'row', 'row', 'row']}
-            pt={[3, 3, 4, 4]}
+            css={theme({
+              alignItems: 'center',
+              flexDirection: ['column', 'row'],
+              pt: [3, null, 4],
+              fontSize: [2, null, 3],
+              gap: [3, 4]
+            })}
           >
-            <ArrowLink
-              pr={[0, 4, 4, 4]}
-              href='/docs/mql/getting-started/overview'
-            >
+            <ArrowLink href='/docs/mql/getting-started/overview'>
               Read docs
             </ArrowLink>
-            <ArrowLink pt={[3, 0, 0, 0]} href={gitHubUrl}>
-              Edit on GitHub
-            </ArrowLink>
+            <ArrowLink href={gitHubUrl}>Edit on GitHub</ArrowLink>
           </Flex>
         </Flex>
       </Layout>

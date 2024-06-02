@@ -1,6 +1,5 @@
 import FeatherIcon from 'components/icons/Feather'
 import { Link, Flex } from 'components/elements'
-import { Caption } from 'components/patterns'
 import { useHover } from 'components/hook'
 import React from 'react'
 
@@ -17,7 +16,6 @@ const ArrowLink = ({ children, ...props }) => {
             align-items: center;
           }
         `}
-        fontSize={Caption.defaultProps.fontSize}
         icon={false}
         {...props}
       >

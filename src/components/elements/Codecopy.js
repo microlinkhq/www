@@ -43,17 +43,17 @@ const CodeCopyWrapper = styled('div')`
   }
 
   .codecopy__icon {
-    fill: ${({ isDark }) => cx(isDark ? 'white50' : 'black20')};
+    fill: ${({ $isDark }) => cx($isDark ? 'white50' : 'black20')};
 
     &:hover {
-      fill: ${({ isDark }) => cx(isDark ? 'white' : 'black')};
+      fill: ${({ $isDark }) => cx($isDark ? 'white' : 'black')};
     }
   }
 `
 
-const CodeCopy = ({ isDark, ...props }) => (
-  <CodeCopyWrapper isDark={isDark} {...props}>
-    <CodeCopyBase theme={isDark ? 'dark' : 'light'} interactive {...props} />
+const CodeCopy = ({ isDark, text }) => (
+  <CodeCopyWrapper $isDark={isDark}>
+    <CodeCopyBase theme={isDark ? 'dark' : 'light'} interactive text={text} />
   </CodeCopyWrapper>
 )
 

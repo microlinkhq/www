@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../../components/elements/Box'
 
-import { layout } from 'theme'
+import { layout, theme } from 'theme'
 
 export const CONTAINER_SPACE = {
   mt: 3,
@@ -10,10 +10,11 @@ export const CONTAINER_SPACE = {
 
 export const Container = props => (
   <Box
-    maxWidth={['100%', '100%', layout.small, layout.small]}
-    mr='auto'
-    ml='auto'
-    {...CONTAINER_SPACE}
+    css={theme({
+      maxWidth: ['100%', '100%', layout.small, layout.small],
+      mx: 'auto',
+      ...CONTAINER_SPACE
+    })}
     {...props}
   />
 )

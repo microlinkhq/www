@@ -2,33 +2,25 @@ import { ClusterMonitor, Layout } from 'components/patterns'
 import { useTheme, useQueryState } from 'components/hook'
 import { cdnUrl } from 'helpers'
 import React from 'react'
+import { theme as themeProp } from 'theme'
 
-import {
-  Box,
-  Choose,
-  Container,
-  DotSpinner,
-  Flex,
-  Meta,
-  Text
-} from 'components/elements'
+import { Box, Choose, DotSpinner, Flex, Meta, Text } from 'components/elements'
 
 const THEMES = {
   light: { color: 'black', bg: 'white' },
   dark: { color: 'white', bg: 'black' }
 }
 
-const Monospace = ({ style, ...props }) => (
+const Monospace = props => (
   <Text
-    fontFamily='monospace'
-    textAlign='center'
-    maxWidth={['95vw', '95vw', '100%', '100%']}
-    style={{
+    css={themeProp({
+      fontFamily: 'monospace',
+      textAlign: 'center',
+      maxWidth: ['95vw', '95vw', '100%', '100%'],
       whiteSpace: 'pre',
       overflowY: 'scroll',
-      margin: 'auto',
-      ...style
-    }}
+      m: 'auto'
+    })}
     {...props}
   />
 )
@@ -53,39 +45,44 @@ const StatusPage = () => {
         return (
           <Layout
             onClick={toggleTheme}
-            theme={theme}
+            isDark={theme === 'dark'}
             style={{ background: bg }}
             component={Flex}
-            justifyContent='center'
-            alignItems='center'
-            maxWidth='100%'
+            css={{ justifyContent: 'center', alignItems: 'center' }}
           >
-            <Box id='status' px={Container.defaultProps.px}>
+            <Box id='status' css={themeProp({ px: [3, null, 0] })}>
               <Choose>
                 <Choose.When condition={isLoading}>
                   <Flex
-                    justifyContent='center'
-                    alignItems='center'
-                    flexDirection={['column', 'column', 'row', 'row']}
+                    css={themeProp({
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: ['column', null, 'row']
+                    })}
                   >
                     <Text
-                      fontWeight='regular'
-                      fontFamily='mono'
-                      lineHeight={0}
-                      fontSize={[4, 4, 4, 7]}
-                      pt={[2, 2, 3, 3]}
-                      color={color}
+                      css={themeProp({
+                        fontWeight: 'regular',
+                        fontFamily: 'mono',
+                        lineHeight: 0,
+                        fontSize: 4,
+                        pt: [2, null, 3],
+                        color
+                      })}
                     >
-                      Loading <DotSpinner />
+                      Please wait
+                      <DotSpinner />
                     </Text>
                   </Flex>
                 </Choose.When>
                 <Choose.Otherwise>
-                  <Monospace color={color}>
+                  <Monospace css={themeProp({ color })}>
                     $ watch curl -sL {endpoint}
                   </Monospace>
-                  <Monospace color={color}>{`\n${resume}`}</Monospace>
-                  <Monospace color={color} fontSize={[0, 0, 1, 1]}>
+                  <Monospace css={themeProp({ color })}>
+                    {`\n${resume}`}
+                  </Monospace>
+                  <Monospace css={themeProp({ color, fontSize: [0, null, 1] })}>
                     {`\n${info}`}
                   </Monospace>
                 </Choose.Otherwise>

@@ -1,12 +1,12 @@
 import { slug as slugger } from 'github-slugger'
 import React, { createElement } from 'react'
 import styled from 'styled-components'
-import { colors } from 'theme'
+import { colors, theme } from 'theme'
 
 import Svg from '../../components/elements/Svg'
 
 const PermalinkIcon = props => (
-  <Svg viewBox='0 0 16 16' width='16px' {...props}>
+  <Svg viewBox='0 0 16 16' width='14px' {...props} css={theme({ ml: 2 })}>
     <g strokeWidth='1' fill='#000000' stroke='#000000'>
       <path
         fill='none'
@@ -64,7 +64,7 @@ export const withSlug = Component => {
       <Component id={id} {...rest}>
         <AnchorLink href={`#${id}`}>{children}</AnchorLink>
         <Permalink>
-          <PermalinkIcon width='14px' ml={2} />
+          <PermalinkIcon />
         </Permalink>
       </Component>
     )

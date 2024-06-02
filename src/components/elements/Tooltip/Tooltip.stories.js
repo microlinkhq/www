@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from 'components/elements'
 import { ProBadge } from 'components/markdown'
 import { storiesOf } from '@storybook/react'
+import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
 
@@ -34,8 +35,8 @@ const tooltipsOpts = {
 
 storiesOf('Elements', module).add('Tooltip', () => (
   <Story name='Tooltip' code={code}>
-    <Box pl={5}>
-      <Flex pt={5}>
+    <Box css={theme({ pl: 5 })}>
+      <Flex css={theme({ pt: 5 })}>
         <Text>
           This is a <ProBadge tooltipsOpts={tooltipsOpts} /> feature.
         </Text>

@@ -6,9 +6,6 @@ const { sortBy } = require('lodash')
 const { getType } = require('mime')
 const path = require('path')
 
-/* We avoid cdn.microlink.io explicity since it
-  runs on top of CloudFlare and the compression
-  removes 'content-length' header */
 const MICROLINK_CDN_URL = 'https://cdn.microlink.io/file-examples'
 
 const fileUrls = async () =>
