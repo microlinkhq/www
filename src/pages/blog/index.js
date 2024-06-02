@@ -1,4 +1,4 @@
-import { textGradient, layout, transition, theme } from 'theme'
+import { textGradient, layout, transition, theme, letterSpacings } from 'theme'
 import { Meta, Heading, Link, Flex } from 'components/elements'
 import { Layout, Caption } from 'components/patterns'
 import { PostTitle } from 'components/pages/blog'
@@ -9,7 +9,7 @@ import { H1 } from 'components/markdown'
 import TimeAgo from 'react-timeago'
 import React from 'react'
 
-const CustomFlex = styled(Flex)`
+const BlogSeparator = styled(Flex)`
   ${({ $isLastPost }) =>
     theme({
       py: 4,
@@ -28,7 +28,7 @@ const CustomFlex = styled(Flex)`
     })}
 `
 
-const CustomLink = styled(Link)`
+const BlogLink = styled(Link)`
   cursor: pointer;
 
   h3 {
@@ -44,8 +44,11 @@ const CustomLink = styled(Link)`
 
 const BlogPost = ({ title, date, slug, isLastPost }) => {
   return (
-    <CustomLink href={slug} css={{ width: '100%' }}>
-      <CustomFlex $isLastPost={isLastPost}>
+    <BlogLink
+      href={slug}
+      css={{ width: '100%', letterSpacing: letterSpacings[1] }}
+    >
+      <BlogSeparator $isLastPost={isLastPost}>
         <H1
           forwardedAs='h3'
           css={theme({
@@ -71,8 +74,8 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
         >
           {formatDate(date)} (<TimeAgo date={date} />)
         </Caption>
-      </CustomFlex>
-    </CustomLink>
+      </BlogSeparator>
+    </BlogLink>
   )
 }
 
