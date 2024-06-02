@@ -1,12 +1,12 @@
-import { useQueryState, useWindowSize } from 'components/hook'
-import { layout, breakpoints, theme, toPx } from 'theme'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
+import { useQueryState } from 'components/hook'
 import isUrl from 'is-url-http/lightweight'
 import { cdnUrl, mqlCode } from 'helpers'
 import * as Icons from 'components/icons'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import humanizeUrl from 'humanize-url'
+import { layout, theme } from 'theme'
 
 import {
   Box,
@@ -51,7 +51,6 @@ const SUGGESTIONS = [
   return { value: humanizeUrl(data.url) }
 })
 
-const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 const MODES = ['preview', 'iframe']
 const TYPES = ['render', 'code']
 
@@ -76,6 +75,7 @@ const HeroCard = styled(Card)`
   .microlink_card {
     width: 100%;
     height: 100%;
+    maxw-width: 650px;
   }
 `
 
@@ -92,14 +92,16 @@ const LiveDemo = React.memo(function LiveDemo ({
   onSubmit,
   query
 }) {
-  const size = useWindowSize()
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
+  const [minHeight, setMinHeight] = useState(0)
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.16
-  const cardWidth = size.width / cardBase
-  const cardHeight = cardWidth / Card.ratio
-  const runkitHeight = cardHeight - 36 * 2 - 8 * 2
+  useEffect(() => {
+    const card = document.querySelector('.microlink_card')
+    if (card) {
+      setMinHeight(card.getBoundingClientRect().height - 36 * 2 - 8 * 2)
+    }
+  })
 
   const [inputUrl, setInputUrl] = useState(query.url || '')
 
@@ -209,14 +211,14 @@ const LiveDemo = React.memo(function LiveDemo ({
       >
         <HeroCard
           css={theme({
-            width: cardWidth,
-            height: cardHeight,
-            border: type === 'code' ? 'none' : 1
+            maxWidth: layout.small,
+            border: type === 'code' ? 'inherit' : undefined
           })}
         >
           <Choose>
             <Choose.When condition={type === 'render'}>
               <LinkPreview
+                key={`${url}_${media.join('_')}`}
                 loading={isLoading ? true : undefined}
                 size='large'
                 url={data.url}
@@ -228,7 +230,7 @@ const LiveDemo = React.memo(function LiveDemo ({
             <Choose.When condition={type === 'code'}>
               <MultiCodeEditor
                 css={{ width: '100%' }}
-                interactive={{ minHeight: toPx(runkitHeight) }}
+                interactive={{ minHeight }}
                 languages={mqlCode(
                   data.url,
                   {
@@ -252,7 +254,7 @@ const LiveDemo = React.memo(function LiveDemo ({
             pr: '7px',
             alignItems: ['center', undefined, undefined, undefined],
             justifyContent: 'space-between',
-            flexDirection: ['column', 'row', 'row', 'row']
+            flexDirection: 'row'
           })}
         >
           <Box css={theme({ pt: [3, 4] })}>

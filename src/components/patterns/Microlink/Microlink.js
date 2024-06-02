@@ -4,7 +4,7 @@ import React from 'react'
 
 import demoLinks from '../../../../data/demo-links'
 
-const media = [
+const defaultMedia = [
   'iframe',
   isFastConnection && 'video',
   isFastConnection && 'audio',
@@ -12,7 +12,14 @@ const media = [
   'logo'
 ].filter(Boolean)
 
-const Microlink = ({ url, style, fetchData, setData, ...props }) => {
+const Microlink = ({
+  url,
+  style,
+  fetchData,
+  setData,
+  media = defaultMedia,
+  ...props
+}) => {
   if (url) url = template(url)
 
   const variations = urlVariations(url)
