@@ -18,7 +18,10 @@ import { useClipboard } from 'components/hook'
 import userAgents from '../../data/user-agents.json'
 
 export const Head = () => (
-  <Meta description='Most common user-agents used on Internet' />
+  <Meta
+    title='User Agents'
+    description='Most common user-agents used on Internet'
+  />
 )
 
 const formatYYYMMDDDate = (date = new Date()) => {
@@ -84,7 +87,8 @@ const UserAgentsPage = () => {
               onChange={value =>
                 setType(
                   `top-${value === 'User Agent' ? 'user' : 'crawler'}-agents`
-                )}
+                )
+              }
             >
               {['User Agent', 'Crawler Agent']}
             </Toggle>
