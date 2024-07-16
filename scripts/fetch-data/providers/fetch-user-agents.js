@@ -17,16 +17,19 @@ const fn = async () => {
     pkgInfo('top-user-agents'),
     pkgInfo('top-crawler-agents')
   ])
-  return {
-    'top-user-agents': {
+
+  return [
+    {
+      name: 'top-user-agents',
       ...npm[0],
       data: userAgents
     },
-    'top-crawler-agents': {
+    {
+      name: 'top-crawler-agents',
       ...npm[1],
       data: crawlerAgents
     }
-  }
+  ]
 }
 
 module.exports = () =>

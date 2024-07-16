@@ -36,7 +36,7 @@ const UserAgentsPage = () => {
   const [type, setType] = useState('top-user-agents')
   const isUserType = type === 'top-user-agents'
 
-  const { data, updatedAt, version } = userAgents[type]
+  const { data, updatedAt, version } = userAgents[isUserType ? 0 : 1]
 
   const githubUrl = isUserType
     ? 'https://github.com/microlinkhq/top-user-agents'
