@@ -164,8 +164,7 @@ const Screenshot = ({ data, cardWidth, cardHeight }) => {
         alt={`Microlink screenshot for ${data.url}`}
         css={theme({
           my: 4,
-          pl: 0,
-          pr: 0,
+          px: 0,
           height: cardHeight,
           width: cardWidth,
           border: 1,
@@ -180,8 +179,9 @@ const Screenshot = ({ data, cardWidth, cardHeight }) => {
           isLoading
             ? undefined
             : {
-                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-              }}
+              filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+            }
+        }
       />
     </Link>
   )
