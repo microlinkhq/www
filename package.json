@@ -144,7 +144,7 @@
     "prepend-http": "~4.0.0",
     "prettier": "2",
     "react": "18",
-    "react-codecopy": "5.0.13",
+    "react-codecopy": "5.0.14",
     "react-confetti": "~6.1.0",
     "react-dom": "18",
     "react-feather": "~2.0.10",
