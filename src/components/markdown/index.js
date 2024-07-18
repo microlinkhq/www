@@ -238,7 +238,7 @@ const _ImageBase = styled(ImageBase)`
 `
 
 export const Image = withContainer(_ImageBase, {
-  maxWidth: 'inherit'
+  style: { maxWidth: 'inherit' }
 })
 
 const StyledVideoBase = styled(VideoBase)`
