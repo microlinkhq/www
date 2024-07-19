@@ -9,18 +9,18 @@ import PageTemplate from './page'
 import DocTemplate from './doc'
 
 export const Head = ({ pageContext, location, data }) => {
-  const metadata = useSiteMetadata()
-
   if (!pageContext.isDocPage) {
     return <Meta {...data.markdownRemark.frontmatter} />
   }
 
+  const { name } = useSiteMetadata()
   const activeRouteName = getActiveRouteName(location)
+
   return (
     <Meta
       name='Microlink Docs'
       image={cdnUrl('banner/docs.jpeg')}
-      title={`${metadata.name} ${activeRouteName}: ${data.markdownRemark.frontmatter.title}`}
+      title={`${name} ${activeRouteName}: ${data.markdownRemark.frontmatter.title}`}
       date={pageContext.lastEdited}
     />
   )
@@ -29,20 +29,13 @@ export const Head = ({ pageContext, location, data }) => {
 const Template = ({ pageContext, data, ...props }) => {
   const { isDocPage, isBlogPage, lastEdited, githubUrl } = pageContext
   const { frontmatter, rawMarkdownBody } = data.markdownRemark
-  const metadata = useSiteMetadata()
-
-  const meta = {
-    ...metadata,
-    ...frontmatter,
-    url: `${metadata.siteUrl}${frontmatter.slug}`,
-    date: lastEdited
-  }
+  const date = frontmatter.date ?? lastEdited
 
   if (!isDocPage) {
     return (
       <PageTemplate
-        meta={meta}
-        date={frontmatter.date && new Date(frontmatter.date)}
+        title={frontmatter.title}
+        date={date && new Date(date)}
         isBlogPage={isBlogPage}
         content={rawMarkdownBody}
         {...props}
@@ -52,7 +45,9 @@ const Template = ({ pageContext, data, ...props }) => {
 
   return (
     <DocTemplate
-      meta={meta}
+      title={frontmatter.title}
+      isPro={frontmatter.isPro}
+      date={date}
       content={rawMarkdownBody}
       githubUrl={githubUrl}
       {...props}

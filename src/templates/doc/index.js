@@ -7,7 +7,15 @@ import React from 'react'
 
 import { Box, Choose, Container, Flex, Link, Text } from 'components/elements'
 
-const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
+const DocTemplate = ({
+  title,
+  date,
+  isPro,
+  meta,
+  content,
+  githubUrl,
+  ...props
+}) => {
   const activeRouteName = getActiveRouteName(props.location)
 
   return (
@@ -22,7 +30,7 @@ const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
       >
         <Aside activeRouteName={activeRouteName}>
           <Choose>
-            <Choose.When condition={!!meta.title}>
+            <Choose.When condition={!!title}>
               <Text as='header'>
                 <H1
                   css={theme({
@@ -32,10 +40,8 @@ const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
                   variant={null}
                   slug={false}
                 >
-                  <span>{meta.title}</span>
-                  {meta.isPro && (
-                    <ProBadge css={theme({ top: '12px', ml: 2 })} />
-                  )}
+                  <span>{title}</span>
+                  {isPro && <ProBadge css={theme({ top: '12px', ml: 2 })} />}
                 </H1>
               </Text>
             </Choose.When>
@@ -55,7 +61,7 @@ const DocTemplate = ({ meta, content, githubUrl, ...props }) => {
             })}
           >
             <Text css={theme({ color: 'gray', fontSize: 0 })}>
-              Last edited on {formatDate(meta.date)}
+              Last edited on {formatDate(date)}
             </Text>
             <Link href={githubUrl} css={theme({ fontSize: 0 })}>
               Edit on GitHub
