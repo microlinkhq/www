@@ -43,7 +43,7 @@ const ChangelogPage = () => {
           {changelog.map(({ date, notes }) => {
             return (
               <Box key={date}>
-                <H1 as='h3'>{date}</H1>
+                <H1 forwardedAs='h3'>{date}</H1>
                 <Markdown>{notes.map(note => `- ${note}`).join('\n')}</Markdown>
               </Box>
             )
