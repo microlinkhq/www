@@ -257,9 +257,9 @@ export const Video = withContainer(_VideoBase)
 
 const _IframeBase = styled(IframeBase)`
   ${theme({ mx: 'auto' })}
-
   width: ${CodeEditor.width};
   height: ${CodeEditor.height};
+  max-width: ${layout.small};
 `
 
 export const Iframe = withContainer(_IframeBase)
