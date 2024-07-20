@@ -8,7 +8,7 @@ export const Jekyll = ({ color = '#333333', ...props }) => (
     x='0px'
     y='0px'
     viewBox='0 0 512 512'
-    enable-background='new 0 0 512 512'
+    enableBackground='new 0 0 512 512'
     {...props}
   >
     <g id='logo-bg-dark'>

@@ -71,7 +71,7 @@ const AsideWrapper = styled(Box)`
   width: ${ASIDE_WIDTH};
   transition: transform ${transition.medium};
 
-  ${isNot('isOpen')`
+  ${isNot('$isOpen')`
     transform: translateX(-100%);
   `};
   }
@@ -114,7 +114,7 @@ const Aside = ({
         pt: [0, 0, 0, 5],
         pr: [0, 0, 0, '14px']
       })}
-      isOpen={isOpen}
+      $isOpen={isOpen}
       {...props}
     >
       <Flex
