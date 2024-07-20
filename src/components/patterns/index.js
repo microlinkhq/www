@@ -18,7 +18,6 @@ import Legend from './Legend/Legend'
 import List from './List/List'
 import Average from './Average/Average'
 import Microlink from './Microlink/Microlink'
-import MQLEditor from './MQLEditor/MQLEditor'
 import PricingTable from './PricingTable/PricingTable'
 import ClusterMonitor from './ClusterMonitor/ClusterMonitor'
 import Healthcheck from './Healthcheck/Healthcheck'
@@ -51,7 +50,6 @@ export {
   Legend,
   List,
   Microlink,
-  MQLEditor,
   PricingTable,
   Toolbar
 }
