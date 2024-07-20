@@ -5,10 +5,8 @@ import { theme } from 'theme'
 
 const StyledImage = styled(Image)`
   max-width: inherit;
-  height: '100%'
-    ${theme({
-      borderRadius: 2
-    })};
+  height: 100%;
+  ${theme({ borderRadius: 2 })};
 `
 
 const Unavatar = ({ query, ...props }) => {
