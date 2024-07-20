@@ -5,7 +5,7 @@ import { PostTitle } from 'components/pages/blog'
 import styled from 'styled-components'
 import { useBlogIndex } from 'components/hook'
 import { cdnUrl, formatDate } from 'helpers'
-import { H1 } from 'components/markdown'
+import { H1Base } from 'components/markdown'
 import TimeAgo from 'react-timeago'
 import React from 'react'
 
@@ -49,7 +49,7 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
       css={{ width: '100%', letterSpacing: letterSpacings[1] }}
     >
       <BlogSeparator $isLastPost={isLastPost}>
-        <H1
+        <H1Base
           forwardedAs='h3'
           css={theme({
             mt: 0,
@@ -62,11 +62,9 @@ const BlogPost = ({ title, date, slug, isLastPost }) => {
               layout.normal
             ]
           })}
-          titleize={false}
-          slug={false}
         >
           <PostTitle>{title}</PostTitle>
-        </H1>
+        </H1Base>
 
         <Caption
           forwardedAs='h4'

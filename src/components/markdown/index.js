@@ -1,3 +1,4 @@
+import { commonHeadingStyles } from 'components/elements/Heading'
 import { withContainer, withTitle, withSlug } from 'helpers/hoc'
 import { space, fontSizes, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
@@ -65,8 +66,9 @@ export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
-const StyledH1 = styled(Heading)`
-  ${theme({
+const StyledH1 = styled(Heading)(
+  theme({
+    ...commonHeadingStyles,
     maxWidth: layout.small,
     fontSize: `calc(${fontSizes[5]} * 0.75)`,
     lineHeight: [1, 2],
@@ -74,10 +76,12 @@ const StyledH1 = styled(Heading)`
     mt: 5,
     mb: 4,
     mx: 'auto'
-  })}
-`
+  })
+)
 
-const H1Base = props => <StyledH1 forwardedAs='h1' variant={null} {...props} />
+export const H1Base = props => (
+  <StyledH1 forwardedAs='h1' variant={null} {...props} />
+)
 
 export const H1 = withTitle(withSlug(H1Base))
 
