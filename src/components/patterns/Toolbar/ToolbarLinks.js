@@ -1,30 +1,33 @@
 import React, { createElement } from 'react'
 import { Microlink } from 'components/logos'
 import { navigate } from 'gatsby'
+import { fontSizes } from 'theme'
 
 import NavLink from './NavLink'
 
 const createNavItem = opts => {
-  const NavItemWrapper = props =>
+  const NavItemWrapper = ({ isMobile, ...props }) =>
     createElement(NavLink, {
       'data-event-location': 'Toolbar',
       'data-event-name': opts.children,
-      icon: false,
       ...opts,
-      ...props
+      ...props,
+      as: 'li'
     })
+
   return NavItemWrapper
 }
 
 const NavLogoMobile = props => (
-  <NavLink
-    width='32px'
-    display='flex'
-    href='/'
-    style={{ flex: '0 0 auto' }}
-    {...props}
-  >
-    <Microlink />
+  <NavLink href='/' {...props}>
+    <Microlink
+      css={{
+        'max-height': fontSizes[2],
+        'object-fit': 'cover',
+        width: '100%',
+        height: 'auto'
+      }}
+    />
   </NavLink>
 )
 
@@ -34,22 +37,23 @@ const NavLogoDesktop = props => (
       event.preventDefault()
       navigate('/design')
     }}
+    css={{
+      display: 'flex',
+      width: '52px'
+    }}
     href='/'
-    width='40px'
-    display='flex'
     {...props}
   >
     <Microlink />
   </NavLink>
 )
 
-export const NavMicrolinkLogo = ({ mobile, ...props }) =>
-  createElement(mobile ? NavLogoMobile : NavLogoDesktop, { px: 0, ...props })
-
-NavMicrolinkLogo.defaultProps = {
-  'data-event-location': 'Toolbar',
-  'data-event-name': 'Logo'
-}
+export const NavMicrolinkLogo = ({ isMobile, ...props }) =>
+  createElement(isMobile ? NavLogoMobile : NavLogoDesktop, {
+    'data-event-location': 'Toolbar',
+    'data-event-name': 'Logo',
+    ...props
+  })
 
 export const NavPricing = createNavItem({
   children: 'Pricing',
@@ -182,11 +186,13 @@ NavCompany.pages = ['/blog', '/oss', '/newsletter']
 export const NavGitHub = createNavItem({
   children: 'GitHub',
   href: 'https://github.com/microlinkhq',
-  title: '@microlinkhq on GitHub'
+  title: '@microlinkhq on GitHub',
+  icon: false
 })
 
 export const NavTwitter = createNavItem({
   children: 'Twitter',
   href: 'https://twitter.com/microlinkhq',
-  title: '@microlinkhq on Twitter'
+  title: '@microlinkhq on Twitter',
+  icon: false
 })

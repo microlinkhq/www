@@ -1,9 +1,4 @@
-import { Faq, Caption, Layout } from 'components/patterns'
-import { XCircle, CheckCircle } from 'react-feather'
-import { cx, colors, borders, layout } from 'theme'
-import React, { createElement } from 'react'
-import { issueUrl } from 'helpers'
-
+import { DotsBackground, Faq, Caption, Layout } from 'components/patterns'
 import {
   Box,
   Button,
@@ -15,6 +10,11 @@ import {
   Subhead,
   Text
 } from 'components/elements'
+
+import { cx, colors, borders, layout, theme } from 'theme'
+import { XCircle, CheckCircle } from 'react-feather'
+import React, { createElement } from 'react'
+import { issueUrl } from 'helpers'
 
 import fileFormats from '../../data/formats'
 const [{ score }, formats] = fileFormats
@@ -35,7 +35,7 @@ const StatusIcon = value => {
   const color = isPresent ? cx('close') : cx('gray')
   return createElement(
     props => (
-      <Box pl={2}>
+      <Box css={theme({ pl: 2 })}>
         <Icon {...props} />
       </Box>
     ),
@@ -58,7 +58,6 @@ const FAQs = props => (
     id='information'
     title='FAQs'
     caption='Frequently asked questions.'
-    pb={Container.defaultProps.pt}
     questions={[
       {
         question: 'What is it?',
@@ -97,7 +96,7 @@ const FAQs = props => (
             </div>
             <div>
               These techniques use tools like{' '}
-              <Link href='https://ffmpeg.org/'>ffmpeg</Link> or
+              <Link href='https://ffmpeg.org/'>ffmpeg</Link> or{' '}
               <Link href='https://github.com/Kikobeats/reachable-url'>
                 reachable-url
               </Link>
@@ -135,10 +134,7 @@ const FAQs = props => (
           <>
             <div>
               We’re always available at{' '}
-              <Link display='inline' href='mailto:hello@microlink.io'>
-                hello@microlink.io
-              </Link>
-              .
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>
           </>
         )
@@ -148,30 +144,45 @@ const FAQs = props => (
   />
 )
 
-const FormatsPage = () => {
-  return (
+const FormatsPage = () => (
+  <DotsBackground>
     <Layout>
-      <Container pt={2} pb={3} justifyContent='center' alignItems='center'>
-        <Heading px={5} maxWidth={layout.large}>
+      <Container
+        css={theme({
+          pt: 2,
+          pb: 3,
+          justifyContent: 'center',
+          alignItems: 'center'
+        })}
+      >
+        <Heading css={theme({ px: 5, maxWidth: layout.large })}>
           Supported formats
         </Heading>
         <Caption
-          pt={[3, 3, 4, 4]}
-          px={4}
+          css={theme({
+            pt: [3, 3, 4, 4],
+            px: 4,
+            maxWidth: [layout.small, layout.small, layout.small, layout.small]
+          })}
           titleize={false}
-          maxWidth={[layout.small, layout.small, layout.small, layout.small]}
         >
           Tested {formats.length} files, {score} resolved
         </Caption>
         <Flex
-          pt={[3, 3, 4, 4]}
-          flexDirection='column'
-          maxWidth={['95vw', '95vw', undefined, undefined]}
-          style={{ overflowX: 'auto' }}
+          css={theme({
+            pt: [3, 3, 4, 4],
+            flexDirection: 'column',
+            maxWidth: ['95vw', '95vw', undefined, undefined],
+            overflowX: 'auto'
+          })}
         >
           <Flex as='header'>
             {HEADER.map(({ children, ...props }) => (
-              <Text key={children} fontWeight='bold' p={2} {...props}>
+              <Text
+                key={children}
+                css={theme({ fontWeight: 'bold', p: 2 })}
+                {...props}
+              >
                 {children}
               </Text>
             ))}
@@ -180,33 +191,34 @@ const FormatsPage = () => {
             return (
               <Flex
                 key={file.url}
-                borderTop={`${borders[1]} ${colors.black05}`}
-                py={2}
-                css={`
-                  &:hover {
-                    background: ${cx('black025')};
+                css={theme({
+                  borderTop: `${borders[1]} ${colors.black05}`,
+                  py: 2,
+                  _hover: {
+                    bg: 'black025',
+                    color: 'black'
                   }
-                `}
+                })}
               >
-                <Text style={HEADER[0].style} p={2}>
+                <Text style={HEADER[0].style} css={theme({ p: 2 })}>
                   <Link href={file.url}>{file.extension}</Link>{' '}
                 </Text>
-                <Text style={HEADER[1].style} p={2}>
+                <Text style={HEADER[1].style} css={theme({ p: 2 })}>
                   {file.type}
                 </Text>
-                <Flex style={HEADER[2].style} p={2}>
+                <Flex style={HEADER[2].style} css={theme({ p: 2 })}>
                   {StatusIcon(file.size)}
                 </Flex>
-                <Text style={HEADER[3].style} p={2}>
+                <Text style={HEADER[3].style} css={theme({ p: 2 })}>
                   <Flex>{StatusIcon(file.height)}</Flex>
                 </Text>
-                <Text style={HEADER[4].style} p={2}>
+                <Text style={HEADER[4].style} css={theme({ p: 2 })}>
                   <Flex>{StatusIcon(file.width)}</Flex>
                 </Text>
-                <Text style={HEADER[5].style} p={2}>
+                <Text style={HEADER[5].style} css={theme({ p: 2 })}>
                   <Flex>{StatusIcon(file.duration)}</Flex>
                 </Text>
-                <Text style={HEADER[6].style} p={2}>
+                <Text style={HEADER[6].style} css={theme({ p: 2 })}>
                   <Flex>{StatusIcon(file.palette)}</Flex>
                 </Text>
               </Flex>
@@ -214,16 +226,18 @@ const FormatsPage = () => {
           })}
         </Flex>
         <Flex
-          py={Container.defaultProps.pt}
-          justifyContent='space-between'
-          alignItems='center'
-          flexDirection={['column', 'column', 'row', 'row']}
-          width='100%'
-          maxWidth={layout.large}
-          px={4}
+          css={theme({
+            py: [5, 5, 6, 6],
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: ['column', 'column', 'row', 'row'],
+            width: '100%',
+            maxWidth: layout.large,
+            px: 4
+          })}
         >
           <Subhead>Anything else?</Subhead>
-          <Box p={[4, 4, 0, 0]}>
+          <Box css={theme({ p: [4, 4, 0, 0] })}>
             <Button
               onClick={() =>
                 window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
@@ -234,12 +248,15 @@ const FormatsPage = () => {
         </Flex>
       </Container>
       <FAQs
-        bg='pinky'
-        borderTop={`${borders[1]} ${colors.pinkest}`}
-        borderBottom={`${borders[1]} ${colors.pinkest}`}
+        css={theme({
+          pb: [5, 5, 6, 6],
+          bg: 'pinky',
+          borderTop: `${borders[1]} ${colors.pinkest}`,
+          borderBottom: `${borders[1]} ${colors.pinkest}`
+        })}
       />
     </Layout>
-  )
-}
+  </DotsBackground>
+)
 
 export default FormatsPage

@@ -3,11 +3,11 @@
 import { ArrowUpRight as ExternalIcon } from 'react-feather'
 import React, { useRef, useState, useEffect } from 'react'
 import { useLocation } from '@gatsbyjs/reach-router'
+import { toRaw, transition, colors } from 'theme'
 import styled, { css } from 'styled-components'
 import { Link as GatsbyLink } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
-import { transition, colors } from 'theme'
 
 const isInternalLink = (to = '/') => /^\/(?!\/)/.test(to)
 
@@ -28,6 +28,7 @@ const PrefetchLink = styled(GatsbyLink)`
 
 const linkIconWrapper = css`
   display: inline-flex;
+  align-items: center;
 
   svg {
     transition: stroke ${transition.medium};
@@ -46,11 +47,12 @@ const Icon = ({ children }) => {
 
   useEffect(() => {
     const computedStyle = window.getComputedStyle(ref.current)
-    setSize(`calc(${computedStyle['font-size']} * 0.8)`)
+    const size = toRaw(computedStyle['font-size']) * 0.8
+    setSize(size)
   }, [])
 
   return (
-    <Flex alignItems='center' css={linkIconWrapper}>
+    <Flex css={linkIconWrapper}>
       {children}
       <ExternalIcon ref={ref} size={size} />
     </Flex>
@@ -105,6 +107,7 @@ export const withLink = Component => {
     href = '/',
     title,
     prefetch = true,
+    icon,
     ...props
   }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
@@ -146,7 +149,13 @@ export const withLink = Component => {
     }
 
     return (
-      <BaseLink href={href} isInternal={isInternal} title={title} {...props}>
+      <BaseLink
+        href={href}
+        icon={icon}
+        isInternal={isInternal}
+        title={title}
+        {...props}
+      >
         {children}
       </BaseLink>
     )

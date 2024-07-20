@@ -1,10 +1,11 @@
 import React from 'react'
 
 import { Button, Flex, Caps } from 'components/elements'
+import { theme } from 'theme'
 
 const Chat = () => {
   return (
-    <Flex justifyContent='center' alignItems='center'>
+    <Flex css={theme({ justifyContent: 'center', alignItems: 'center' })}>
       <Button
         onClick={() =>
           window.open(
@@ -13,7 +14,7 @@ const Chat = () => {
             'noopener noreferrer'
           )}
       >
-        <Caps px={3} py={2}>
+        <Caps css={theme({ fontSize: 0, px: 3, py: 2 })}>
           Join in the community
         </Caps>
       </Button>

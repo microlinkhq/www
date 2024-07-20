@@ -27,7 +27,9 @@ function createBreakpoint (key, fn) {
 }
 
 export function createRule (tagname, condition) {
-  return styled[tagname](
+  return styled(tagname).withConfig({
+    shouldForwardProp: prop => !['breakpoints'].includes(prop)
+  })(
     [],
     ...Object.keys(mediaBreakpoints).map(i =>
       createBreakpoint(Number(i), condition)

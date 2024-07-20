@@ -8,13 +8,12 @@ const compute = (obj, key, value) =>
 
 const isDataURI = (str = '') => str.startsWith('data:')
 
-const computedProps = (attr, compiledAttr, props, { isLoading }) => ({
-  ...props,
-  [attr]: compiledAttr,
-  height: compute(props, 'height', isLoading),
-  width: compute(props, 'width', isLoading) || aspectRatio.width,
-  style: compute(props, 'style', isLoading)
-})
+const computedProps = (attr, compiledAttr, props, { isLoading }) => {
+  const style = compute(props, 'style', isLoading)
+  const height = compute(props, 'height', isLoading)
+  const width = compute(props, 'width', isLoading) || aspectRatio.width
+  return { ...props, [attr]: compiledAttr, style: { height, width, ...style } }
+}
 
 export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
   const LazyWrapper = componentProps => {

@@ -1,5 +1,6 @@
-import { Text, Box, CodeEditor, Toggle } from 'components/elements'
+import { Text, Box, CodeEditor } from 'components/elements'
 import { storiesOf } from '@storybook/react'
+import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
 
@@ -120,14 +121,8 @@ const jsonCode = JSON.stringify(
 
 storiesOf('Elements', module).add('CodeEditor', () => (
   <Story name='CodeEditor'>
-    <Box mb={4}>
-      <Toggle defaultValue='Interactive'>
-        {['Interactive', 'Non Interactive']}
-      </Toggle>
-    </Box>
-
-    <Box mb={4}>
-      <Text color='gray6' mb={2} fontSize={0}>
+    <Box css={theme({ mb: 4 })}>
+      <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
         {"<CodeEditor title='mql.js' language='js'>"}
       </Text>
       <CodeEditor className='language-js{10}' title='mql.js' language='js'>
@@ -135,8 +130,8 @@ storiesOf('Elements', module).add('CodeEditor', () => (
       </CodeEditor>
     </Box>
 
-    <Box mb={4}>
-      <Text color='gray6' mb={2} fontSize={0}>
+    <Box css={theme({ mb: 4 })}>
+      <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
         {"<CodeEditor title='meta.json' language='json'>"}
       </Text>
       <CodeEditor title='meta.json' language='json'>
@@ -144,15 +139,15 @@ storiesOf('Elements', module).add('CodeEditor', () => (
       </CodeEditor>
     </Box>
 
-    <Box mb={4}>
-      <Text color='gray6' mb={2} fontSize={0}>
-        {"<CodeEditor title='mql.js' language='js' theme='dark'>"}
+    <Box css={theme({ mb: 4 })}>
+      <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
+        {"<CodeEditor title='mql.js' language='js' isDark>"}
       </Text>
       <CodeEditor
         className='language-sh{1}'
         title='mql.sh'
         language='bash'
-        theme='dark'
+        isDark
       >
         {bashCode}
       </CodeEditor>

@@ -1,19 +1,27 @@
 import { storiesOf } from '@storybook/react'
 import { serializeFmt } from 'helpers/prettier'
 import { Input, InputIcon } from 'components/elements'
+import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
 
 const createCode = (props = '') => `
-import { Select } from 'components/elements'
+  import { Select } from 'components/elements'
 
-export default () => (<form><Input ${serializeFmt(props)} /></form>)
-`
+  export default () => (<form><Input ${serializeFmt(props)} /></form>)
+  `
 
 const createStory = (name, props) => (
   <Story name={name} code={createCode(props)}>
     <Form>
-      <Input iconComponent={<InputIcon query='microlink.io' />} {...props} />
+      <Input
+        iconComponent={<InputIcon query='microlink.io' />}
+        css={theme({
+          width: '9rem',
+          fontSize: 1
+        })}
+        {...props}
+      />
     </Form>
   </Story>
 )
@@ -31,16 +39,12 @@ storiesOf('Elements', module).add('Input', () => (
   <>
     {createStory('Input', {
       type: 'email',
-      placeholder: 'you@domain.com',
-      width: '9rem',
-      fontSize: 1
+      placeholder: 'you@domain.com'
     })}
 
     {createStory('Input required', {
       type: 'email',
       placeholder: 'you@domain.com',
-      width: '9rem',
-      fontSize: 1,
       required: true
     })}
 
@@ -48,9 +52,7 @@ storiesOf('Elements', module).add('Input', () => (
       type: 'email',
       id: 'input',
       placeholder: 'you@domain.com',
-      suggestions: [{ value: 'you@gmail.com' }, { value: 'you@hotmail.com' }],
-      width: '9rem',
-      fontSize: 1
+      suggestions: [{ value: 'you@gmail.com' }, { value: 'you@hotmail.com' }]
     })}
   </>
 ))

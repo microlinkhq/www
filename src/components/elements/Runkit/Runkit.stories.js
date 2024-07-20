@@ -1,6 +1,7 @@
-import { CodeEditor } from 'components/elements'
+import { CodeEditor, Box } from 'components/elements'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
+import { theme } from 'theme'
 import React from 'react'
 
 const jsCode = `
@@ -13,11 +14,8 @@ console.log(data)
 
 const code = `
 <>
-  <CodeEditor interactive mx='auto'>
-    ${jsCode
-      .split('\n')
-      .filter(Boolean)
-      .join('\n')}
+  <CodeEditor css={theme({mx: 'auto'})} language='js' interactive>
+    ${jsCode.split('\n').filter(Boolean).join('\n')}
   </CodeEditor>
 </>
 
@@ -25,7 +23,11 @@ const code = `
 
 storiesOf('Elements', module).add('Runkit', () => (
   <Story name='Runkit' code={code}>
-    <CodeEditor interactive mx='auto'>
+    <CodeEditor css={theme({ mx: 'auto' })} language='js' interactive>
+      {jsCode}
+    </CodeEditor>
+    <Box css={theme({ pt: 3 })} />
+    <CodeEditor css={theme({ mx: 'auto' })} language='js' isDark interactive>
       {jsCode}
     </CodeEditor>
   </Story>

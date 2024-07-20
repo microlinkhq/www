@@ -1,26 +1,16 @@
-import React from 'react'
-import { Story } from 'story'
+import { Microlink } from 'components/logos'
 import { storiesOf } from '@storybook/react'
+import { theme, transition } from 'theme'
 import styled from 'styled-components'
+import range from 'lodash/range'
+import { Story } from 'story'
+import React from 'react'
+
 import {
-  Flex,
   Box,
   BackgroundSlider,
   BackgroundSliderContainer
 } from 'components/elements'
-import { transition } from 'theme'
-import range from 'lodash/range'
-import { Microlink } from 'components/logos'
-
-const NoWrap = styled(Flex)`
-  white-space: nowrap;
-  overflow: hidden;
-`
-
-NoWrap.defaultProps = {
-  justifyContent: 'center',
-  alignItems: 'center'
-}
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -29,12 +19,8 @@ const LogoWrap = styled(Box)`
   &:hover {
     opacity: 0.8;
   }
+  ${theme({ px: 4, display: 'inline-block' })}
 `
-
-LogoWrap.defaultProps = {
-  display: 'inline-block',
-  px: 4
-}
 
 const code = `
 import {
@@ -58,7 +44,7 @@ export default () => (
 
 storiesOf('Elements', module).add('BackgroundSlider', () => (
   <Story name='BackgroundSlider' code={code}>
-    <BackgroundSliderContainer py={0} px={0} maxWidth='100%'>
+    <BackgroundSliderContainer css={theme({ p: 0, maxWidth: '100%' })}>
       <BackgroundSlider duration={80} animationDirection='reverse'>
         {range(30).map(index => (
           <LogoWrap key={index}>

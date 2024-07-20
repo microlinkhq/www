@@ -6,10 +6,11 @@ import { colors } from 'theme'
 const InputIcon = React.memo(function InputIcon ({
   height = '24px',
   width = height,
+  style,
   ...props
 }) {
   return props.query || props.url
-    ? createElement(Unavatar, { height, width, ...props })
+    ? createElement(Unavatar, { style: { ...style, height, width }, ...props })
     : createElement(LinkIcon, { color: colors.black50, size: '16px' })
 })
 

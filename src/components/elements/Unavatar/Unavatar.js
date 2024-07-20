@@ -1,15 +1,13 @@
 import React, { createElement } from 'react'
 import { Image } from 'components/elements'
 import styled from 'styled-components'
+import { theme } from 'theme'
 
 const StyledImage = styled(Image)`
   max-width: inherit;
+  height: 100%;
+  ${theme({ borderRadius: 2 })};
 `
-
-StyledImage.defaultProps = {
-  borderRadius: 2,
-  height: '100%'
-}
 
 const Unavatar = ({ query, ...props }) => {
   return (
@@ -21,8 +19,8 @@ const Unavatar = ({ query, ...props }) => {
   )
 }
 
-const UnavatarMicrolink = props => (
-  <StyledImage alt={`Logo for ${props.url}`} {...props} />
+const UnavatarMicrolink = ({ url, ...props }) => (
+  <StyledImage alt={`Logo for ${url}`} {...props} />
 )
 
 Unavatar.Microlink = UnavatarMicrolink

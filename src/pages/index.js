@@ -1,52 +1,28 @@
 import { Analytics, Faqs, Hero, Overlay, Pricing } from 'components/pages/home'
-import { Meta, Container, Link, Subhead } from 'components/elements'
+import { Meta, Link, Subhead } from 'components/elements'
 import { useFeatures, useSiteMetadata } from 'components/hook'
 import { Features, Layout } from 'components/patterns'
-import { colors, borders } from 'theme'
+import { colors, borders, theme } from 'theme'
 import React from 'react'
 
 export const Head = () => <Meta />
 
 const HomePage = () => {
-  const {
-    canonicalUrl,
-    paymentApiKey,
-    stripeKey,
-    paymentEndpoint
-  } = useSiteMetadata()
+  const { canonicalUrl, stripeKey, paymentEndpoint } = useSiteMetadata()
 
   return (
     <Layout>
-      <Hero
-        css={`
-          position: relative;
-        `}
-      >
-        {({ color }) => <Overlay color={color} />}
-      </Hero>
-      <Analytics
-        pb={Container.defaultProps.pt}
-        color='white80'
-        bg='black'
-        borderTop={`${borders[1]} ${colors.white20}`}
-        borderBottom={`${borders[1]} ${colors.white20}`}
-      />
+      <Hero>{({ color }) => <Overlay color={color} />}</Hero>
+      <Analytics />
       <Features
-        px={4}
+        css={theme({ px: 4 })}
         title={
-          <>
-            <Subhead width='100%' textAlign='left'>
-              Production ready,
-            </Subhead>
-            <Subhead
-              color='#3e55ff'
-              width='100%'
-              textAlign='left'
-              titleize={false}
-            >
+          <Subhead css={{ textAlign: 'left' }}>
+            Production ready,{' '}
+            <span css={{ display: 'block', color: '#3e55ff' }}>
               browser as service
-            </Subhead>
-          </>
+            </span>
+          </Subhead>
         }
         caption={
           <>
@@ -60,15 +36,16 @@ const HomePage = () => {
       />
       <Pricing
         canonicalUrl={canonicalUrl}
-        apiKey={paymentApiKey}
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
       <Faqs
-        bg='pinky'
-        borderTop={`${borders[1]} ${colors.pinkest}`}
-        borderBottom={`${borders[1]} ${colors.pinkest}`}
-        pb={Container.defaultProps.pt}
+        css={theme({
+          bg: 'pinky',
+          borderTop: `${borders[1]} ${colors.pinkest}`,
+          borderBottom: `${borders[1]} ${colors.pinkest}`,
+          pb: [5, 5, 6, 6]
+        })}
       />
     </Layout>
   )

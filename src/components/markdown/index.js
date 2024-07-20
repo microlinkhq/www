@@ -1,5 +1,6 @@
+import { commonHeadingStyles } from 'components/elements/Heading'
 import { withContainer, withTitle, withSlug } from 'helpers/hoc'
-import { space, fontSizes, colors } from 'theme'
+import { space, fontSizes, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
 import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
@@ -36,12 +37,14 @@ const { Container, CONTAINER_SPACE } = withContainer
 
 const ProBadge = ({ top, ...props }) => (
   <Tooltip
-    display='inline'
-    top={top}
+    css={theme({ display: 'inline', top: 0 })}
     content={
       <Tooltip.Content tabIndex='0'>
         You have to buy{' '}
-        <Link display='inline-block' href='https://microlink.io#pricing'>
+        <Link
+          css={{ display: 'inline-block' }}
+          href='https://microlink.io#pricing'
+        >
           pro
         </Link>{' '}
         plan to use this feature.
@@ -63,145 +66,148 @@ export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
-export const H1 = withTitle(withSlug(styled(Heading)``))
+const StyledH1 = styled(Heading)(
+  theme({
+    ...commonHeadingStyles,
+    maxWidth: layout.small,
+    fontSize: `calc(${fontSizes[5]} * 0.75)`,
+    lineHeight: [1, 2],
+    textAlign: 'left',
+    mt: 5,
+    mb: 4,
+    mx: 'auto'
+  })
+)
 
-H1.defaultProps = {
-  maxWidth: layout.small,
-  as: 'h1',
-  fontSize: `calc(${fontSizes[5]} * 0.75)`,
-  lineHeight: [1, 2],
-  textAlign: 'left',
-  variant: null,
-  ml: 'auto',
-  mr: 'auto',
-  mt: 5,
-  mb: 4
-}
+export const H1Base = props => (
+  <StyledH1 forwardedAs='h1' variant={null} {...props} />
+)
 
-const H2Base = styled(Heading)``
+export const H1 = withTitle(withSlug(H1Base))
 
-H2Base.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
-  as: 'h2',
-  fontSize: `calc(${fontSizes[4]} * 0.75)`,
-  lineHeight: [1, 2],
-  textAlign: 'left',
-  variant: null,
-  mt: 5,
-  mb: 4
-}
+const StyledH2 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: `calc(${fontSizes[4]} * 0.75)`,
+    lineHeight: [1, 2],
+    textAlign: 'left',
+    mt: 5,
+    mb: 4
+  })}
+`
+
+const H2Base = props => <StyledH2 forwardedAs='h2' variant={null} {...props} />
 
 export const H2 = withTitle(withSlug(H2Base))
 
-export const H3 = withTitle(withSlug(styled(Heading)``))
+const StyledH3 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
+    lineHeight: 1,
+    textAlign: 'left',
+    mt: 5,
+    mb: 4
+  })}
+`
 
-H3.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
-  as: 'h3',
-  fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
-  lineHeight: 1,
-  textAlign: 'left',
-  variant: null,
-  mt: 5,
-  mb: 4
-}
+const H3Base = props => <StyledH3 forwardedAs='h3' variant={null} {...props} />
 
-export const H4 = withTitle(withSlug(styled(Heading)``))
+export const H3 = withTitle(withSlug(H3Base))
 
-H4.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
-  as: 'h4',
-  fontSize: 2,
-  lineHeight: 1,
-  textAlign: 'left',
-  variant: null,
-  mt: 4,
-  mb: 3
-}
+const StyledH4 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: 2,
+    lineHeight: 1,
+    textAlign: 'left',
+    mt: 4,
+    mb: 3
+  })}
+`
 
-export const H5 = withTitle(withSlug(styled(Heading)``))
+const H4Base = props => <StyledH4 forwardedAs='h4' variant={null} {...props} />
 
-H5.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
-  as: 'h5',
-  fontSize: 1,
-  lineHeight: 1,
-  textAlign: 'left',
-  variant: null,
-  mt: 4,
-  mb: 3
-}
+export const H4 = withTitle(withSlug(H4Base))
 
-export const H6 = withTitle(withSlug(styled(Heading)``))
+const StyledH5 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: 1,
+    lineHeight: 1,
+    textAlign: 'left',
+    mt: 4,
+    mb: 3
+  })}
+`
 
-H6.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  maxWidth: layout.small,
-  as: 'h6',
-  fontSize: 1,
-  color: 'gray9',
-  lineHeight: 1,
-  textAlign: 'left',
-  variant: null,
-  mt: 4,
-  mb: 3
-}
+const H5Base = props => <StyledH5 forwardedAs='h5' variant={null} {...props} />
+
+export const H5 = withTitle(withSlug(H5Base))
+
+const StyledH6 = styled(Heading)`
+  ${theme({
+    mx: 'auto',
+    maxWidth: layout.small,
+    fontSize: 1,
+    color: 'gray9',
+    lineHeight: 1,
+    textAlign: 'left',
+    mt: 4,
+    mb: 3
+  })}
+`
+
+const H6Base = props => <StyledH6 forwardedAs='h6' variant={null} {...props} />
+
+export const H6 = withTitle(withSlug(H6Base))
 
 export const Paraph = props => {
   const isMedia = get(props, 'children.props.name') === 'img'
   const maxWidth = isMedia ? layout.large : layout.small
-  return <Text maxWidth={maxWidth} {...props} />
+  return (
+    <Text
+      as='div'
+      css={theme({ mx: 'auto', ...CONTAINER_SPACE, maxWidth })}
+      {...props}
+    />
+  )
 }
 
-Paraph.defaultProps = {
-  as: 'div',
-  ml: 'auto',
-  mr: 'auto',
-  ...CONTAINER_SPACE
-}
+const StyledStrong = styled(Text)`
+  display: inline;
+  font-weight: bold;
+`
 
-export const Strong = styled(Text)``
+export const Strong = props => <StyledStrong as='b' {...props} />
 
-Strong.defaultProps = {
-  as: 'b',
-  display: 'inline',
-  fontWeight: 'bold'
-}
+const StyledUl = styled(Text)`
+  max-width: ${layout.small};
 
-export const Ul = styled(Text)``
+  ${theme({
+    mx: 'auto',
+    ...CONTAINER_SPACE
+  })}
+`
 
-Ul.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  as: 'ul',
-  maxWidth: layout.small,
-  ...CONTAINER_SPACE
-}
+export const Ul = props => <StyledUl as='ul' {...props} />
 
-export const Ol = styled(Ul)``
+export const Ol = props => <StyledUl as='ol' {...props} />
 
-Ol.defaultProps = {
-  as: 'ol'
-}
+const StyledLi = styled(Text)`
+  max-width: ${layout.small};
 
-export const Li = styled(Text)``
+  ${theme({
+    mx: 'auto',
+    mb: 3
+  })}
+`
 
-Li.defaultProps = {
-  ml: 'auto',
-  mr: 'auto',
-  mb: 3,
-  as: 'li',
-  maxWidth: layout.small
-}
+export const Li = props => <StyledLi as='li' {...props} />
 
 const codeStyle = css`
   color: ${({ theme }) => theme.colors.pink7};
@@ -211,7 +217,7 @@ const codeStyle = css`
   text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
 `
 
-export const CodeInline = styled(Text)`
+export const StyledCodeInline = styled(Text)`
   ${codeStyle};
   ${wordBreak};
   display: inline;
@@ -223,54 +229,46 @@ export const CodeInline = styled(Text)`
   }
 `
 
-CodeInline.defaultProps = {
-  as: 'code'
-}
+export const CodeInline = props => <StyledCodeInline as='code' {...props} />
 
 const mediaStyle = {
   borderRadius: '3px',
-  ml: 'auto',
-  mr: 'auto',
+  mx: 'auto',
   textAlign: 'center'
 }
 
-const _ImageBase = styled(ImageBase)``
-
-_ImageBase.defaultProps = {
-  ...mediaStyle
-}
+const _ImageBase = styled(ImageBase)`
+  ${theme(mediaStyle)}
+`
 
 export const Image = withContainer(_ImageBase, {
-  maxWidth: 'inherit'
+  style: { maxWidth: 'inherit' }
 })
 
-const _VideoBase = styled(VideoBase)``
+const StyledVideoBase = styled(VideoBase)`
+  ${theme(mediaStyle)}
 
-_VideoBase.defaultProps = {
-  ...mediaStyle,
-  width: '100%',
-  autoPlay: true
-}
+  width: 100%;
+`
+
+const _VideoBase = props => <StyledVideoBase autoPlay {...props} />
 
 export const Video = withContainer(_VideoBase)
 
-const _IframeBase = styled(IframeBase)``
-
-_IframeBase.defaultProps = {
-  mx: 'auto',
-  width: CodeEditor.width,
-  height: CodeEditor.height
-}
+const _IframeBase = styled(IframeBase)`
+  ${theme({ mx: 'auto' })}
+  width: ${CodeEditor.width};
+  height: ${CodeEditor.height};
+  max-width: ${layout.small};
+`
 
 export const Iframe = withContainer(_IframeBase)
 
-const FigcaptionBase = styled(Text)``
+const FigcaptionBase = styled(Text)`
+  ${theme({ fontSize: 0, color: 'black50' })}
 
-FigcaptionBase.defaultProps = {
-  fontSize: 0,
-  color: 'black50',
-  textAlign: 'center'
-}
+  text-align: center;
+`
 
 export const Figcaption = withContainer(FigcaptionBase)
 
@@ -283,30 +281,31 @@ export const Blockquote = styled.blockquote`
   color: ${colors.gray8};
 `
 
-const Type = styled(Text)`
+const StyledType = styled(Text)`
+  ${theme({
+    bg: 'gray1',
+    color: 'gray7',
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'regular'
+  })}
+
   padding: 0.2em 0.4em;
   margin: 0;
   border-radius: 3px;
 `
 
-Type.defaultProps = {
-  as: 'span',
-  bg: 'gray1',
-  color: 'gray7',
-  fontFamily: 'mono',
-  fontSize: 0,
-  fontWeight: 'regular'
-}
+const Type = props => <StyledType as='span' {...props} />
 
 const TypeContainer = styled(Box)`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    color: 'gray7'
+  })}
+
   display: inline;
 `
-
-TypeContainer.defaultProps = {
-  fontFamily: 'mono',
-  fontSize: 0,
-  color: 'gray7'
-}
 
 const PriceMonthly = props => (
   <Text

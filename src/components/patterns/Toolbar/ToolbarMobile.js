@@ -1,5 +1,6 @@
-import { Box, Fixed, Toolbar } from 'components/elements'
+import { Box, Toolbar } from 'components/elements'
 import styled from 'styled-components'
+import { theme } from 'theme'
 import React from 'react'
 
 import NavContainer from './NavContainer'
@@ -26,34 +27,35 @@ const Nav = styled(NavContainer)`
   );
 `
 
-const ToolbarMobile = ({ theme }) => {
-  const isDark = theme === 'dark'
-
+const ToolbarMobile = ({ isDark }) => {
   return (
-    <Fixed
+    <Box
       as='header'
-      zIndex={101}
-      top={0}
-      left={0}
-      right={0}
-      bg={isDark ? 'black' : 'white'}
+      css={theme({
+        position: 'fixed',
+        zIndex: 101,
+        top: 0,
+        left: 0,
+        right: 0,
+        background: isDark ? 'black' : 'white'
+      })}
     >
-      <Box ml='auto' mr='auto'>
-        <Toolbar ml={3} mr={3} justifyContent='center'>
-          <NavMicrolinkLogo mobile />
-          <Nav>
+      <Box>
+        <Toolbar as='nav'>
+          <NavMicrolinkLogo isMobile />
+          <Nav as='ul'>
             <NavDocs isDark={isDark} />
             <NavInsights isDark={isDark} />
-            <NavLogo isDark={isDark} mobile />
-            <NavMeta isDark={isDark} mobile />
-            <NavPdf isDark={isDark} mobile />
+            <NavLogo isDark={isDark} isMobile />
+            <NavMeta isDark={isDark} isMobile />
+            <NavPdf isDark={isDark} isMobile />
             <NavPricing isDark={isDark} />
-            <NavScreenshot isDark={isDark} mobile />
-            <NavSDK isDark={isDark} mobile pr={4} />
+            <NavScreenshot isDark={isDark} isMobile />
+            <NavSDK isDark={isDark} isMobile pr={4} />
           </Nav>
         </Toolbar>
       </Box>
-    </Fixed>
+    </Box>
   )
 }
 

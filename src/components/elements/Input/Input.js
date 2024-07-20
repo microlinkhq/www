@@ -1,35 +1,34 @@
-import { transition, colors, borders } from 'theme'
+import { transition, colors, borders, theme } from 'theme'
 import React, { useMemo, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import Text from '../Text'
 import Flex from '../Flex'
 
-const InputBase = styled(Text)({
-  maxWidth: '100%',
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  border: 0,
-  appearance: 'none',
-  '&:focus': {
-    outline: '0'
+const StyledInputBase = styled(Text)(
+  {
+    lineHeight: 'inherit',
+    background: 'transparent',
+    maxWidth: '100%',
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    appearance: 'none',
+    color: 'inherit',
+    '&:focus': {
+      outline: '0'
+    },
+    '&:disabled': {
+      opacity: 1 / 4
+    }
   },
-  '&:disabled': {
-    opacity: 1 / 4
-  }
-})
+  theme({
+    border: 0,
+    p: 0,
+    mx: 2
+  })
+)
 
-InputBase.defaultProps = {
-  as: 'input',
-  type: 'text',
-  lineHeight: 'inherit',
-  width: 1,
-  border: 0,
-  p: 0,
-  mx: 2,
-  color: 'inherit',
-  bg: 'transparent'
-}
+const InputBase = props => <StyledInputBase as='input' type='text' {...props} />
 
 const focusStyle = css`
   outline: 0;
@@ -40,7 +39,9 @@ const focusStyle = css`
   }
 `
 
-const InputWrapper = styled(Flex)`
+const InputWrapper = styled(Flex).withConfig({
+  shouldForwardProp: prop => !['focus', 'isDark'].includes(prop)
+})`
   background: ${({ isDark }) => (isDark ? colors.black : colors.white)};
   border: ${borders[1]};
   border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black10)};
@@ -58,11 +59,10 @@ const Input = ({
   iconComponent: Icon,
   suggestions,
   children,
-  theme,
+  isDark,
   ...props
 }) => {
-  const [isFocus, setFocus] = useState(props.autoFocus)
-  const isDark = theme === 'dark'
+  const [isFocus, setFocus] = useState(Boolean(props.autoFocus))
 
   const list = useMemo(() => {
     if (!suggestions) return undefined
@@ -77,13 +77,15 @@ const Input = ({
   return (
     <InputWrapper
       as='label'
-      alignItems='center'
-      borderRadius={2}
       focus={isFocus}
       isDark={isDark}
-      py='12px'
-      pl={2}
-      pr={suggestions ? 0 : 2}
+      css={theme({
+        pr: suggestions ? 0 : 2,
+        py: '12px',
+        pl: 2,
+        alignItems: 'center',
+        borderRadius: 2
+      })}
     >
       {Icon && <Flex>{Icon}</Flex>}
       <InputBase
@@ -103,10 +105,6 @@ const Input = ({
       )}
     </InputWrapper>
   )
-}
-
-Input.defaultProps = {
-  autoFocus: false
 }
 
 export default Input

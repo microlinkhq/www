@@ -1,31 +1,14 @@
-import { compose, color, space, height, width, style } from 'styled-system'
-import propTypes from '@styled-system/prop-types'
+import { compose, color, space, layout, system } from '@techstack/styled-system'
 import styled from 'styled-components'
+import React from 'react'
 
-const transform = style({
+const transform = system({
   prop: 'transform',
   cssProperty: 'transform'
 })
 
-const Svg = styled('svg')(
-  compose(
-    color,
-    space,
-    height,
-    width,
-    transform
-  )
-)
+const StyledSvg = styled('svg')(compose(color, space, layout, transform))
 
-Svg.defaultProps = {
-  fill: 'currentColor'
-}
-
-Svg.propTypes = {
-  ...propTypes.space,
-  ...propTypes.width,
-  ...propTypes.height,
-  ...propTypes.color
-}
+const Svg = props => <StyledSvg fill='currentColor' {...props} />
 
 export default Svg

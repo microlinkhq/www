@@ -1,18 +1,18 @@
+import { Text } from 'components/elements'
+import { commonHeadingStyles } from 'components/elements/Heading'
+import styled from 'styled-components'
+import { theme } from 'theme'
 import React from 'react'
-import { Subhead } from 'components/elements'
 
-const Caption = props => (
-  <Subhead
-    as='h3'
-    lineHeight={2}
-    textAlign='center'
-    fontWeight='normal'
-    {...props}
-  />
+const StyledCaption = styled(Text)(
+  theme({
+    ...commonHeadingStyles,
+    lineHeight: 2,
+    fontWeight: 'normal',
+    fontSize: [2, 2, 3, 3]
+  })
 )
 
-Caption.defaultProps = {
-  fontSize: [2, 2, 3, 3]
-}
+const Caption = props => <StyledCaption as='h3' {...props} />
 
 export default Caption

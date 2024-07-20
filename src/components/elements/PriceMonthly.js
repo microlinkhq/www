@@ -1,11 +1,14 @@
 import { childrenText } from 'helpers'
 import styled from 'styled-components'
 import React from 'react'
+import { theme } from 'theme'
 
 import Label, { labelStyle } from './Label'
 
 const Price = styled(Label)`
   font-weight: bold;
+
+  ${theme({ fontSize: [1, 2] })}
 
   &::before {
     content: '€';
@@ -16,18 +19,12 @@ const Price = styled(Label)`
   }
 `
 
-Price.defaultProps = {
-  fontSize: [1, 2, 2, 2]
-}
-
-const PriceMonthly = props => {
-  return (
-    <Price
-      aria-label={`${childrenText(props.children)} euros per month`}
-      suffix='/month'
-      {...props}
-    />
-  )
-}
+const PriceMonthly = props => (
+  <Price
+    aria-label={`${childrenText(props.children)} euros per month`}
+    suffix='/month'
+    {...props}
+  />
+)
 
 export default PriceMonthly

@@ -1,7 +1,7 @@
 import { Meta, Heading, Container, Flex } from 'components/elements'
 import { Caption, Layout, Chat } from 'components/patterns'
 import { cdnUrl } from 'helpers'
-import { layout } from 'theme'
+import { layout, theme } from 'theme'
 import React from 'react'
 
 export const Head = () => (
@@ -13,21 +13,36 @@ export const Head = () => (
 
 const CommunityPage = () => (
   <Layout>
-    <Container pt={[2, 2, 3, 3]} justifyContent='center' alignItems='center'>
+    <Container
+      css={theme({
+        pt: [2, null, 3],
+        justifyContent: 'center',
+        alignItems: 'center'
+      })}
+    >
       <Heading>Community</Heading>
 
       <Caption
-        as='h2'
-        pt={[3, 3, 4, 4]}
-        px={4}
+        forwardedAs='h2'
+        css={theme({
+          pt: [3, null, 4],
+          px: 4,
+          maxWidth: layout.small
+        })}
         titleize={false}
-        maxWidth={[layout.small, layout.small, layout.small, layout.small]}
       >
         Direct support via chat with guaranteed response from exclusive top-tier
         engineers.
       </Caption>
 
-      <Flex alignItems='center' justifyContent='center' pt={[0, 0, 4, 4]}>
+      <Flex
+        css={theme({
+          alignItems: 'center',
+          justifyContent: 'center',
+          pt: [3, null, 4],
+          mt: 3
+        })}
+      >
         <Chat />
       </Flex>
     </Container>

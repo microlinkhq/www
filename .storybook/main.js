@@ -5,7 +5,8 @@ module.exports = {
   addons: ['@storybook/addon-a11y', '@storybook/addon-essentials'],
   framework: '@storybook/react',
   core: {
-    builder: 'webpack5'
+    builder: 'webpack5',
+    disableTelemetry: true
   },
   webpackFinal: async config => {
     // Remove core-js to prevent issues with Storybook
@@ -29,7 +30,8 @@ module.exports = {
               // use babel-plugin-remove-graphql-queries to remove static queries from components when rendering in storybook
               require.resolve('babel-plugin-remove-graphql-queries'),
               // use babel-plugin-react-docgen to ensure PropTables still appear
-              require.resolve('babel-plugin-react-docgen')
+              require.resolve('babel-plugin-react-docgen'),
+              require.resolve('babel-plugin-styled-components')
             ]
           }
         }

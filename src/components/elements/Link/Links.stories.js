@@ -1,7 +1,8 @@
-import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Box, Link, LinkSolid } from 'components/elements'
+import React, { createElement } from 'react'
+import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
+import { theme } from 'theme'
 
 const buttons = [
   { name: 'Link', Component: Link },
@@ -23,15 +24,24 @@ storiesOf('Elements', module).add('Link', () => (
     {buttons.map(({ name, Component }) => (
       <Story key={name} name={name} code={createCode(name)}>
         {states.map(state => (
-          <Box key={state} display={['block', 'inline']} pr={3} pb={3}>
-            <Component
-              key={`${name}:${state}`}
-              state={state}
-              disabled={state === 'disabled'}
-              loading={state === 'loading'}
-            >
-              {`${name}${state ? `:${state}` : ''}`}
-            </Component>
+          <Box
+            key={state}
+            css={theme({
+              display: ['block', 'inline'],
+              pr: 3,
+              pb: 3
+            })}
+          >
+            {createElement(
+              Component,
+              {
+                key: `${name}:${state}`,
+                [`data-${state}`]: true,
+                disabled: state === 'disabled',
+                loading: state === 'loading'
+              },
+              `${name}${state ? `:${state}` : ''}`
+            )}
           </Box>
         ))}
       </Story>

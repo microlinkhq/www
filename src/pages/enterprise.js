@@ -1,5 +1,5 @@
 import { DotsBackground, Caption, Layout } from 'components/patterns'
-import { transition, space, gradient, layout } from 'theme'
+import { transition, space, gradient, layout, theme as themeProp } from 'theme'
 import Markdown from 'components/markdown'
 import { useTheme } from 'components/hook'
 import styled from 'styled-components'
@@ -34,7 +34,7 @@ Running a **Microlink Enterprise** plan means:
 
 The physical servers associated with your own Microlink API endpoint can be chosen between 8 locations (🇺🇸 New York, 🇺🇸 San Francisco, 🇳🇱 Amsterdam, 🇸🇬 Singapore, 🇬🇧 London, 🇩🇪 Frankfurt, 🇨🇦 Toronto, or 🇮🇳 Bangalore).
 
-The price model is the same as you Microlink Pro plan, plus <PriceMonthly theme='dark'>500</PriceMonthly> for the extra cost of keeping the dedicated infrastructure running.`.trim()
+The price model is the same as you Microlink Pro plan, plus <PriceMonthly isDark>500</PriceMonthly> for the extra cost of keeping the dedicated infrastructure running.`.trim()
 
 const GradientButton = styled(Button)`
   transition: filter ${transition.medium};
@@ -59,31 +59,39 @@ export const Head = () => (
 
 const EnterprisePage = () => {
   const [{ theme, primary, secondary }] = useTheme(THEMES, 'dark')
+  const isDark = theme === 'dark'
 
   return (
-    <DotsBackground theme={theme}>
-      <Layout theme={theme} footer={{ bg: 'transparent' }}>
+    <DotsBackground isDark={isDark}>
+      <Layout footer={{ style: { background: 'transparent' } }} isDark={isDark}>
         <Container
-          pt={[2, 2, 3, 3]}
-          justifyContent='center'
-          alignItems='center'
+          css={themeProp({
+            pt: [2, null, 3],
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
         >
-          <Subhead color={primary}>Microlink for</Subhead>
+          <Subhead css={{ color: primary }}>Microlink for</Subhead>
           <Heading>Enterprise</Heading>
           <Caption
-            color={primary}
-            pt={[3, 3, 4, 4]}
-            px={4}
+            css={themeProp({
+              color: primary,
+              pt: [3, null, 4],
+              px: 4,
+              maxWidth: layout.small
+            })}
             titleize={false}
-            maxWidth={[layout.small, layout.small, layout.small, layout.small]}
           >
             Unleash the maximum performance. Hardware, with the software baked
             in.
           </Caption>
           <Box
-            pt={[3, 3, 4, 4]}
-            color={secondary}
             css={`
+              ${themeProp({
+                pt: [3, null, 4],
+                color: secondary
+              })}
+
               b {
                 color: white;
               }
@@ -91,7 +99,7 @@ const EnterprisePage = () => {
           >
             <Markdown>{content}</Markdown>
           </Box>
-          <Box pt={[2, 2, 3, 3]} color={secondary}>
+          <Box css={themeProp({ pt: [2, null, 3], color: secondary })}>
             <GradientButton
               onClick={() =>
                 window.open(
@@ -100,7 +108,9 @@ const EnterprisePage = () => {
                   'noopener noreferrer'
                 )}
             >
-              <Caps bg='black' px={3} py={2} color={primary}>
+              <Caps
+                css={themeProp({ bg: 'black', px: 3, py: 2, color: primary })}
+              >
                 Get in touch
               </Caps>
             </GradientButton>

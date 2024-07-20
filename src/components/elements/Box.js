@@ -1,63 +1,17 @@
 import {
-  compose,
-  space,
+  border,
   color,
-  borders,
-  lineHeight,
-  width,
-  flex,
-  order,
-  alignSelf,
+  compose,
+  layout,
   position,
-  fontSize,
-  variant,
-  textAlign,
-  maxWidth,
-  boxShadow,
-  display,
-  height
-} from 'styled-system'
+  space,
+  variant
+} from '@techstack/styled-system'
 
 import styled from 'styled-components'
-import propTypes from '@styled-system/prop-types'
 
 const Box = styled('div')(
-  compose(
-    space,
-    textAlign,
-    maxWidth,
-    boxShadow,
-    display,
-    borders,
-    lineHeight,
-    height,
-    width,
-    fontSize,
-    color,
-    flex,
-    order,
-    alignSelf,
-    position,
-    variant({ key: 'boxStyles' })
-  )
+  compose(border, color, layout, position, space, variant({ key: 'button' }))
 )
-
-Box.propTypes = {
-  ...propTypes.space,
-  ...propTypes.textAlign,
-  ...propTypes.maxWidth,
-  ...propTypes.boxShadow,
-  ...propTypes.border,
-  ...propTypes.display,
-  ...propTypes.width,
-  ...propTypes.height,
-  ...propTypes.fontSize,
-  ...propTypes.color,
-  ...propTypes.flex,
-  ...propTypes.order,
-  ...propTypes.alignSelf,
-  ...propTypes.position,
-  ...propTypes.lineHeight
-}
 
 export default Box

@@ -7,8 +7,7 @@ const Microlink = props => {
   return (
     <Image.Component
       alt='microlink logo'
-      width='inherit'
-      height='inherit'
+      css={{ width: 'inherit', height: 'inherit' }}
       src={logoUri}
       {...props}
     />

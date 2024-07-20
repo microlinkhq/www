@@ -16,11 +16,15 @@ const SliderContainerWrapper = styled('div')`
   animation-direction: ${props => props.animationDirection};
 `
 
-const SliderContainerChildren = styled.div`
+const SliderContainerChildren = styled('div')`
   display: inline-block;
 `
 
-const BackgroundSlider = ({ animationDirection, duration, children }) => (
+const BackgroundSlider = ({
+  animationDirection = 'normal',
+  duration,
+  children
+}) => (
   <SliderContainer>
     <SliderContainerWrapper
       animationDirection={animationDirection}
@@ -31,10 +35,6 @@ const BackgroundSlider = ({ animationDirection, duration, children }) => (
     </SliderContainerWrapper>
   </SliderContainer>
 )
-
-BackgroundSlider.defaultProps = {
-  animationDirection: 'normal'
-}
 
 const BackgroundSliderContainer = styled(Box)`
   &:hover {

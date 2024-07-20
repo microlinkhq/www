@@ -2,15 +2,13 @@ import styled, { css } from 'styled-components'
 import { slide } from 'components/keyframes'
 import { Box } from 'components/elements'
 import is from 'styled-is'
+import React from 'react'
 
 const darkStyle = css`
   background: #000;
   background-color: #000;
-  background-image: radial-gradient(
-      rgba(215, 215, 215, 0.15) 1px,
-      transparent 0
-    ),
-    radial-gradient(rgba(215, 215, 215, 0.15) 1px, transparent 0);
+  background-image: radial-gradient(rgba(215, 215, 215, 0.3) 1px, transparent 0),
+    radial-gradient(rgba(215, 215, 215, 0.3) 1px, transparent 0);
 `
 
 const lightStyle = css`
@@ -23,9 +21,11 @@ const animateStyle = css`
   animation-direction: reverse;
 `
 
-const Dots = styled(Box)`
+const StyledDotsBackground = styled(Box).withConfig({
+  shouldForwardProp: prop => !['isDark', 'animate'].includes(prop)
+})`
   position: relative;
-  overflow: hidden;
+  min-height: 100vh;
 
   &:before {
     content: '';
@@ -34,7 +34,7 @@ const Dots = styled(Box)`
     height: 100%;
     z-index: -1;
 
-    ${props => (props.theme === 'dark' ? darkStyle : lightStyle)}
+    ${({ isDark }) => (isDark ? darkStyle : lightStyle)}
     background-position: 0 0, 25px 25px;
     background-size: 50px 50px;
 
@@ -42,9 +42,6 @@ const Dots = styled(Box)`
   }
 `
 
-Dots.defaultProps = {
-  theme: 'light',
-  animate: true
-}
+const DotsBackground = props => <StyledDotsBackground animate {...props} />
 
-export default Dots
+export default DotsBackground

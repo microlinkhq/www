@@ -1,30 +1,42 @@
 import React from 'react'
 import { Caps, Flex, Heading, Subhead } from 'components/elements'
+import { theme } from 'theme'
 
 const Legend = ({ title, sup, textAlign = 'center', children }) => (
   <Flex
     as='header'
-    justifyContent='center'
-    alignItems='center'
-    flexDirection='column'
+    css={theme({
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column'
+    })}
   >
     <Subhead
-      fontSize={2}
-      fontWeight='bold'
-      color='secondary'
-      textAlign={textAlign}
+      css={theme({
+        fontSize: 2,
+        fontWeight: 'bold',
+        color: 'secondary',
+        textAlign
+      })}
     >
-      <Caps letterSpacing={3} as='span'>
+      <Caps
+        as='span'
+        css={theme({
+          letterSpacing: 3
+        })}
+      >
         {sup}
       </Caps>
     </Subhead>
     <Heading
-      mt={1}
-      mb={children && 1}
-      fontWeight='bold'
-      fontSize={[3, 5]}
       variant={null}
-      textAlign={textAlign}
+      css={theme({
+        mt: 1,
+        mb: children && 1,
+        fontWeight: 'bold',
+        fontSize: [3, 5],
+        textAlign
+      })}
     >
       {title}
     </Heading>

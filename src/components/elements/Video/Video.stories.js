@@ -19,8 +19,8 @@ export default () => (
 const VideoStory = () => {
   return (
     <Story name={storyName} code={code}>
-      <Flex flexDirection='row' justifyContent='center'>
-        <Video width='600px' src={videoUrl} />
+      <Flex css={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <Video css={{ width: '600px' }} src={videoUrl} />
       </Flex>
     </Story>
   )

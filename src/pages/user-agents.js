@@ -1,77 +1,147 @@
-import { ArrowLink, Caption, Layout } from 'components/patterns'
-import Markdown from 'components/markdown'
+import { DotsBackground, ArrowLink, Caption, Layout } from 'components/patterns'
+import { Li, Ul } from 'components/markdown'
 import React, { useState } from 'react'
-import { layout } from 'theme'
+import { layout, theme } from 'theme'
 
-import { Toggle, Container, Flex, Heading, Meta } from 'components/elements'
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Meta,
+  Toggle,
+  Tooltip
+} from 'components/elements'
 
-import userAgents from 'top-user-agents'
-import crawlerAgents from 'top-crawler-agents'
+import { useClipboard } from 'components/hook'
+
+import userAgents from '../../data/user-agents.json'
 
 export const Head = () => (
-  <Meta description='Most common user-agents used on Internet' />
+  <Meta
+    title='User Agents'
+    description='Most common user-agents used on Internet'
+  />
 )
 
-const UserAgentsPage = () => {
-  const [type, setType] = useState('user')
-  const isUserType = type === 'user'
+const formatYYYMMDDDate = (date = new Date()) => {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
 
-  const list = isUserType ? userAgents : crawlerAgents
+const UserAgentsPage = () => {
+  const [ClipboardComponent, toClipboard] = useClipboard()
+  const [type, setType] = useState('top-user-agents')
+  const isUserType = type === 'top-user-agents'
+
+  const { data, updatedAt, version } = userAgents[isUserType ? 0 : 1]
 
   const githubUrl = isUserType
     ? 'https://github.com/microlinkhq/top-user-agents'
     : 'https://github.com/Kikobeats/top-crawler-agents'
 
   const downloadUrl = isUserType
-    ? 'https://raw.githubusercontent.com/microlinkhq/top-user-agents/master/src/index.json'
-    : 'https://raw.githubusercontent.com/Kikobeats/top-crawler-agents/master/index.json'
-
-  const content = list.map(userAgent => `* ${userAgent}`).join('\n')
+    ? `https://raw.githubusercontent.com/microlinkhq/top-user-agents/v${version}/src/index.json`
+    : `https://raw.githubusercontent.com/Kikobeats/top-crawler-agents/v${version}/index.json`
 
   return (
-    <Layout>
-      <Container pt={2} pb={3} justifyContent='center' alignItems='center'>
-        <Heading px={5} maxWidth={layout.large}>
-          User Agents
-        </Heading>
-        <Caption
-          pt={[3, 3, 4, 4]}
-          px={['48px', 4, 4, 4]}
-          titleize={false}
-          maxWidth={[layout.small, layout.small, layout.small, layout.small]}
+    <DotsBackground>
+      <Layout>
+        <Container
+          css={theme({
+            pt: 2,
+            pb: 3,
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
         >
-          Most common `user-agent` used on Internet.
-        </Caption>
-        <Flex
-          py={[3, 3, 4, 4]}
-          flexDirection='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <Toggle
-            alignItems='center'
-            justifyContent='center'
-            defaultValue='User Agent'
-            onChange={value =>
-              setType(value === 'User Agent' ? 'user' : 'crawler')}
+          <Heading css={theme({ px: 5, maxWidth: layout.large })}>
+            User Agents
+          </Heading>
+          <Caption
+            forwardedAs='h2'
+            css={theme({
+              pt: [3, null, 4],
+              maxWidth: layout.small
+            })}
+            titleize={false}
           >
-            {['User Agent', 'Crawler Agent']}
-          </Toggle>
-          <Flex pt={[3, 3, 4, 4]}>
-            <ArrowLink pr={[2, 4, 4, 4]} href={downloadUrl}>
-              Download
-            </ArrowLink>
-            <ArrowLink href={githubUrl}>See on GitHub</ArrowLink>
+            Most common HTTP User-Agent on the Internet.
+            <br />
+            Weekly updated. Last update:{' '}
+            {formatYYYMMDDDate(new Date(updatedAt))}.
+          </Caption>
+          <Flex
+            css={theme({
+              py: [3, null, 4],
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            })}
+          >
+            <Toggle
+              css={theme({ alignItems: 'center', justifyContent: 'center' })}
+              defaultValue='User Agent'
+              onChange={value =>
+                setType(
+                  `top-${value === 'User Agent' ? 'user' : 'crawler'}-agents`
+                )}
+            >
+              {['User Agent', 'Crawler Agent']}
+            </Toggle>
+            <Flex
+              css={theme({
+                pt: [3, null, 4],
+                gap: [2, 4],
+                fontSize: [2, null, 3]
+              })}
+            >
+              <ArrowLink href={downloadUrl}>Download</ArrowLink>
+              <ArrowLink href={githubUrl}>See on GitHub</ArrowLink>
+            </Flex>
           </Flex>
-        </Flex>
-        <Flex
-          flexDirection='column'
-          maxWidth={['95vw', '95vw', undefined, undefined]}
-        >
-          <Markdown>{content}</Markdown>
-        </Flex>
-      </Container>
-    </Layout>
+          <Flex css={theme({ flexDirection: 'column', maxWidth: '95vw' })}>
+            <Ul>
+              {data.map((userAgent, index) => (
+                <Tooltip
+                  type='copy'
+                  key={`${userAgent}_${index}`}
+                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                  content={
+                    <Tooltip.Content>
+                      {Tooltip.TEXT.COPY('user agent')}
+                    </Tooltip.Content>
+                  }
+                >
+                  <Li
+                    key={userAgent}
+                    onClick={() => {
+                      toClipboard({
+                        copy: userAgent,
+                        text: Tooltip.TEXT.COPIED('HTML')
+                      })
+                    }}
+                  >
+                    <Box
+                      css={`
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                      `}
+                    >
+                      {userAgent}
+                    </Box>
+                  </Li>
+                </Tooltip>
+              ))}
+            </Ul>
+          </Flex>
+          <ClipboardComponent />
+        </Container>
+      </Layout>
+    </DotsBackground>
   )
 }
 

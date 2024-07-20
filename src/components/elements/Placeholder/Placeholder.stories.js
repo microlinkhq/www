@@ -1,4 +1,5 @@
 import { storiesOf } from '@storybook/react'
+import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
 
@@ -18,8 +19,13 @@ export default () => (
 const PlaceholderStory = () => {
   return (
     <Story name={storyName} code={code}>
-      <Flex flexDirection='row' justifyContent='center'>
-        <Placeholder width={aspectRatio.width} height={aspectRatio.height} />
+      <Flex css={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <Placeholder
+          css={theme({
+            width: aspectRatio.width,
+            height: aspectRatio.height
+          })}
+        />
       </Flex>
     </Story>
   )

@@ -1,8 +1,7 @@
-import styled, { css } from 'styled-components'
-import { colors, fontWeights, transition } from 'theme'
-
-import { Caps } from 'components/elements'
+import { colors, fontWeights, transition, theme } from 'theme'
 import { withLink, withAnalytics } from 'helpers/hoc'
+import styled, { css } from 'styled-components'
+import { Caps } from 'components/elements'
 
 const activeStyle = css`
   font-weight: ${fontWeights.bold};
@@ -19,9 +18,12 @@ const style = css`
   }
 `
 
-const NavLink = styled(Caps)(
-  {
-    bg: 'transparent',
+const NavLink = styled(Caps).withConfig({
+  shouldForwardProp: prop => !['isDark'].includes(prop)
+})(
+  theme({
+    fontSize: 0,
+    pl: 3,
     display: 'inline-flex',
     alignItems: 'center',
     alignSelf: 'stretch',
@@ -31,14 +33,8 @@ const NavLink = styled(Caps)(
     '&:disabled': {
       opacity: 1 / 4
     }
-  },
+  }),
   style
 )
-
-NavLink.defaultProps = {
-  pl: 3,
-  fontSize: 0,
-  as: 'div'
-}
 
 export default withAnalytics(withLink(NavLink))

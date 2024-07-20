@@ -31,11 +31,17 @@ function LogoStories () {
             key={state}
           >
             <Subhead>{state}</Subhead>
-            {logos.map(([logoName, LogoComponent], index) => (
-              <Flex py={3} alignItems='center' key={`${logoName}_${state}`}>
-                <LogoComponent ratio={ratio} state={state} />
-              </Flex>
-            ))}
+            {logos.map(([logoName, LogoComponent], index) => {
+              const props = {}
+              if (state === 'hover') {
+                props['data-hover'] = true
+              }
+              return (
+                <Flex py={3} alignItems='center' key={`${logoName}_${state}`}>
+                  <LogoComponent ratio={ratio} {...props} />
+                </Flex>
+              )
+            })}
           </Flex>
         ))}
       </Flex>
