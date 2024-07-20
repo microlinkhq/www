@@ -178,10 +178,9 @@ const Screenshot = ({ data, style }) => {
             isLoading
               ? imageStyle
               : {
-                ...imageStyle,
-                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-              }
-          }
+                  ...imageStyle,
+                  filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+                }}
         />
       </Box>
     </Link>
