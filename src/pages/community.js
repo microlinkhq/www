@@ -39,7 +39,8 @@ const CommunityPage = () => (
         css={theme({
           alignItems: 'center',
           justifyContent: 'center',
-          pt: 4
+          pt: [3, null, 4],
+          mt: 3
         })}
       >
         <Chat />
