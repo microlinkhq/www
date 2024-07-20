@@ -5,7 +5,8 @@ module.exports = {
   addons: ['@storybook/addon-a11y', '@storybook/addon-essentials'],
   framework: '@storybook/react',
   core: {
-    builder: 'webpack5'
+    builder: 'webpack5',
+    disableTelemetry: true
   },
   webpackFinal: async config => {
     // Remove core-js to prevent issues with Storybook
