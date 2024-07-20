@@ -122,7 +122,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 3
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
@@ -254,12 +254,19 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Hide>
         <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
           <CodeEditor
-            css={theme({ pb: 4, width: cardWidth, height: cardHeight })}
+            css={theme({
+              pb: 4,
+              width: cardWidth,
+              height: cardHeight,
+              maxWidth: layout.normal
+            })}
             language='json'
           >
             {JSON.stringify(jsonData, null, 2)}
           </CodeEditor>
-          <Box css={theme({ pt: 4, width: cardWidth })}>
+          <Box
+            css={theme({ pt: 4, width: cardWidth, maxWidth: layout.normal })}
+          >
             <Tooltip
               type='copy'
               tooltipsOpts={Tooltip.TEXT.OPTIONS}

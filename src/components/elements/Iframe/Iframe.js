@@ -7,6 +7,7 @@ import Flex from '../Flex'
 
 const Iframe = ({
   loading = true,
+  maxWidth,
   width = aspectRatio.width,
   height = aspectRatio.height,
   onLoad = noop,
@@ -38,13 +39,13 @@ const Iframe = ({
       style={isLoading ? { display: 'none' } : undefined}
       frameBorder='0'
       target='_parent'
-      css={theme({ width, height })}
+      css={theme({ maxWidth, width, height })}
       {...props}
     />
   )
 
   return isLoading
-    ? createElement(Placeholder, { width, height, ...props }, iframe)
+    ? createElement(Placeholder, { width, height, maxWidth, ...props }, iframe)
     : iframe
 }
 

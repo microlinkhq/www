@@ -161,7 +161,7 @@ const TechnologyStack = ({ technologies }) => (
   </Flex>
 )
 
-const LighthousePlaceholder = ({ height, width }) => {
+const LighthousePlaceholder = props => {
   return (
     <Flex
       css={theme({
@@ -169,10 +169,9 @@ const LighthousePlaceholder = ({ height, width }) => {
         borderColor: 'black20',
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: 'center',
-        height,
-        width
+        justifyContent: 'center'
       })}
+      {...props}
     >
       <Image
         css={theme({ width: [3, 3, '80%', '80%'] })}
@@ -203,7 +202,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const size = useWindowSize()
   const technologies = get(data, 'insights.technologies')
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.16
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
@@ -318,7 +317,11 @@ const LiveDemo = React.memo(function LiveDemo ({
           <Box
             as='section'
             id='technology-stack'
-            css={{ width: cardWidth, flexDirection: 'column' }}
+            css={{
+              width: cardWidth,
+              maxWidth: layout.normal,
+              flexDirection: 'column'
+            }}
           >
             <Box css={theme({ pt: 4 })}>
               <TechnologyStack technologies={technologies} />
@@ -359,9 +362,14 @@ const LiveDemo = React.memo(function LiveDemo ({
           <Box
             as='section'
             id='lighthouse-report'
-            css={theme({ width: cardWidth, pt: 5 })}
+            css={theme({ width: cardWidth, maxWidth: layout.normal, pt: 5 })}
           >
-            <LighthouseReport width={528} src={reportUrl} />
+            <LighthouseReport
+              maxWidth={layout.normal}
+              width={cardWidth}
+              height={cardHeight}
+              src={reportUrl}
+            />
             <Box css={theme({ pt: [2, 2, 3, 3], mx: 'auto' })}>
               <Tooltip
                 type='copy'
@@ -391,7 +399,13 @@ const LiveDemo = React.memo(function LiveDemo ({
           </Box>
         </Choose.When>
         <Choose.Otherwise>
-          <LighthousePlaceholder height={cardHeight} width={cardWidth} />
+          <LighthousePlaceholder
+            style={{
+              height: cardHeight,
+              width: cardWidth,
+              maxWidth: layout.normal
+            }}
+          />
         </Choose.Otherwise>
       </Choose>
       <ClipboardComponent />

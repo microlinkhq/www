@@ -119,7 +119,7 @@ const fromCache = (variations, opts) => {
 const getEmbedUrl = ({ url, ...opts }) =>
   getApiUrl(url, { ...opts, screenshot: true, embed: 'screenshot.url' })[0]
 
-const DemoSlider = ({ height, width }) => {
+const DemoSlider = props => {
   const [index, setIndex] = useState(0)
   const next = index => ++index % SUGGESTIONS.length
 
@@ -135,8 +135,8 @@ const DemoSlider = ({ height, width }) => {
   })
 
   return (
-    <Box css={theme({ pt: 2 })}>
-      <Flex css={{ position: 'relative', height, width }}>
+    <Box css={theme({ pt: 3 })}>
+      <Flex css={{ position: 'relative' }} {...props}>
         {transitions((style, index) => {
           const url = SUGGESTIONS[index].cdnUrl
           const src = url
@@ -155,33 +155,35 @@ const DemoSlider = ({ height, width }) => {
   )
 }
 
-const Screenshot = ({ data, cardWidth, cardHeight }) => {
+const Screenshot = ({ data, style }) => {
   const imageUrl = get(data, 'screenshot.url')
+  const imageStyle = { objectFit: 'contain', ...style }
 
   return (
     <Link px={3} href={imageUrl} icon={false}>
-      <Image
-        alt={`Microlink screenshot for ${data.url}`}
+      <Box
         css={theme({
           my: 4,
           px: 0,
-          height: cardHeight,
-          width: cardWidth,
           border: 1,
           borderColor: 'black05',
           borderRadius: 3
         })}
-        key={imageUrl}
-        src={imageUrl}
-        height={cardHeight}
-        width={cardWidth}
-        style={isLoading =>
-          isLoading
-            ? undefined
-            : {
+      >
+        <Image
+          alt={`Microlink screenshot for ${data.url}`}
+          key={imageUrl}
+          src={imageUrl}
+          style={isLoading =>
+            isLoading
+              ? imageStyle
+              : {
+                ...imageStyle,
                 filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-              }}
-      />
+              }
+          }
+        />
+      </Box>
     </Link>
   )
 }
@@ -196,7 +198,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
@@ -349,11 +351,14 @@ const LiveDemo = React.memo(function LiveDemo ({
             })}
           >
             <Screenshot
-              cardWidth={cardWidth}
-              cardHeight={cardHeight}
+              style={{
+                maxWidth: layout.normal,
+                width: cardWidth,
+                height: cardHeight
+              }}
               data={data}
             />
-            <Box css={theme({ px: 4 })} style={{ width: cardWidth / 1.5 }}>
+            <Box css={theme({ width: cardWidth, maxWidth: layout.normal })}>
               <Tooltip
                 type='copy'
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
@@ -379,7 +384,13 @@ const LiveDemo = React.memo(function LiveDemo ({
           </Flex>
         </Choose.When>
         <Choose.Otherwise>
-          <DemoSlider height={cardHeight} width={cardWidth} />
+          <DemoSlider
+            css={{
+              height: cardHeight,
+              width: cardWidth,
+              maxWidth: layout.normal
+            }}
+          />
         </Choose.Otherwise>
       </Choose>
       <ClipboardComponent />

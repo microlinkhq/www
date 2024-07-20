@@ -61,7 +61,7 @@ const SUGGESTIONS = [
 
 const getEmbedUrl = url => getApiUrl(url, { pdf: true, embed: 'pdf.url' })[0]
 
-const PDFPlaceholder = ({ height, width }) => {
+const PDFPlaceholder = props => {
   return (
     <Flex
       css={theme({
@@ -69,10 +69,9 @@ const PDFPlaceholder = ({ height, width }) => {
         borderColor: 'black20',
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: 'center',
-        height,
-        width
+        justifyContent: 'center'
       })}
+      {...props}
     >
       <Image
         css={theme({ width: [3, 3, '60%', '60%'] })}
@@ -104,7 +103,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const size = useWindowSize()
   const dataPdfUrl = get(data, 'pdf.url')
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.16
+  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
@@ -134,6 +133,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         PDF made simple
       </Heading>
       <Caption
+        titleize={false}
         forwardedAs='h2'
         css={theme({
           pt: [3, 3, 4, 4],
@@ -254,11 +254,14 @@ const LiveDemo = React.memo(function LiveDemo ({
         <Choose.When condition={!!dataPdfUrl}>
           <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
             <Iframe
+              maxWidth={layout.normal}
               width={cardWidth}
               height={cardHeight}
               src={`https://docs.google.com/viewer?url=${dataPdfUrl}&embedded=true`}
             />
-            <Box css={theme({ mt: 4, px: 4, width: cardWidth })}>
+            <Box
+              css={theme({ pt: 4, width: cardWidth, maxWidth: layout.normal })}
+            >
               <Tooltip
                 type='copy'
                 tooltipsOpts={Tooltip.TEXT.OPTIONS}
@@ -284,7 +287,13 @@ const LiveDemo = React.memo(function LiveDemo ({
           </Flex>
         </Choose.When>
         <Choose.Otherwise>
-          <PDFPlaceholder height={cardHeight} width={cardWidth} />
+          <PDFPlaceholder
+            style={{
+              height: cardHeight,
+              width: cardWidth,
+              maxWidth: layout.normal
+            }}
+          />
         </Choose.Otherwise>
       </Choose>
       <ClipboardComponent />
