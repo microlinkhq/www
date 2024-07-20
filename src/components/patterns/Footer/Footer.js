@@ -334,9 +334,9 @@ const Footer = ({ isDark, ...props }) => {
                   title: '@microlinkhq on GitHub'
                 },
                 {
-                  href: 'https://twitter.com/microlinkhq',
-                  children: 'Twitter',
-                  title: '@microlinkhq on Twitter'
+                  href: 'https://x.com/microlinkhq',
+                  children: 'X',
+                  title: '@microlinkhq on x.com'
                 },
                 {
                   href: 'mailto:hello@microlink.io',

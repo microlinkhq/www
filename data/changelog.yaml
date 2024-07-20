@@ -1,3 +1,8 @@
+- date: Jul 2024
+  notes:
+    - '[Microlink](/): Released [website](https://github.com/microlinkhq/www/pull/1679) refactor.'
+    - '[Microlink API](/docs/api/getting-started/overview): Improved favicon.ico detection.'
+
 - date: May 2024
   notes:
     - '[Metascraper v5.45.7](https://github.com/microlinkhq/metascraper/pull/704): Improved x.com support.'
@@ -13,6 +18,7 @@
 
 - date: January 2024
   notes:
+    - '[Microlink](/): Released [logo.microlink.io](https://logo.microlink.io).'
     - '[Microlink OSS](/oss): Released [top-user-agents](https://github.com/microlinkhq/top-user-agents).'
     - '[Microlink OSS](/oss): Released [@microlink/ua](https://github.com/microlinkhq/ua).'
 
