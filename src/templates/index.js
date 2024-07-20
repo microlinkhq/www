@@ -8,11 +8,7 @@ import React from 'react'
 import PageTemplate from './page'
 import DocTemplate from './doc'
 
-export const Head = ({ pageContext, location, data }) => {
-  if (!pageContext.isDocPage) {
-    return <Meta {...data.markdownRemark.frontmatter} />
-  }
-
+const HeadDoc = ({ data, location, pageContext }) => {
   const { name } = useSiteMetadata()
   const activeRouteName = getActiveRouteName(location)
 
@@ -25,6 +21,15 @@ export const Head = ({ pageContext, location, data }) => {
     />
   )
 }
+
+export const Head = ({ pageContext, location, data }) =>
+  pageContext.isDocPage
+    ? (
+        HeadDoc({ location, pageContext, data })
+      )
+    : (
+      <Meta {...data.markdownRemark.frontmatter} />
+      )
 
 const Template = ({ pageContext, data, ...props }) => {
   const { isDocPage, isBlogPage, lastEdited, githubUrl } = pageContext

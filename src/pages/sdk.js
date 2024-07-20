@@ -101,7 +101,7 @@ const LiveDemo = React.memo(function LiveDemo ({
     if (card) {
       setMinHeight(card.getBoundingClientRect().height - 36 * 2 - 8 * 2)
     }
-  })
+  }, [])
 
   const [inputUrl, setInputUrl] = useState(query.url || '')
 

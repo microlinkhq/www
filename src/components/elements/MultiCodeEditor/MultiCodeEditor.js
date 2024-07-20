@@ -81,13 +81,12 @@ const MultiCodeEditor = ({
     document.dispatchEvent(event)
   }
 
-  const updateLanguageIndex = event => setLanguageIndex(event.detail)
-
   useEffect(() => {
+    const updateLanguageIndex = event => setLanguageIndex(event.detail)
     document.addEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
     return () =>
       document.removeEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
-  }, [])
+  }, [setLanguageIndex])
 
   return (
     <CodeEditor
