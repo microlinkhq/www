@@ -134,7 +134,13 @@ export const withLink = Component => {
       return { className: 'active' }
     }
 
-    if (prefetch && (!href || isInternal)) {
+    const isPrefetch =
+      prefetch &&
+      href !== '/' &&
+      !href.startsWith('/docs') &&
+      (!href || isInternal)
+
+    if (isPrefetch) {
       return (
         <Component {...props}>
           <PrefetchLink
