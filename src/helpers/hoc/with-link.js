@@ -1,5 +1,6 @@
 /* global IntersectionObserver */
 
+import { useBreakpoint } from '../../components/hook/use-breakpoint'
 import { ArrowUpRight as ExternalIcon } from 'react-feather'
 import React, { useRef, useState, useEffect } from 'react'
 import { useLocation } from '@gatsbyjs/reach-router'
@@ -135,6 +136,7 @@ export const withLink = Component => {
     }
 
     const isPrefetch =
+      useBreakpoint() > 1 &&
       prefetch &&
       href !== '/' &&
       !href.startsWith('/docs') &&

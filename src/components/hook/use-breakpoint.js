@@ -5,7 +5,7 @@ import { useWindowSize } from './use-window-size'
 
 const rawBreakpoints = breakpoints.map(toRaw)
 
-export function useBreakpoint (mediaBreakpoints) {
+export function useBreakpoint (mediaBreakpoints = [0, 1, 2, 3]) {
   const { width } = useWindowSize()
 
   const index = useMemo(() => {

@@ -31,7 +31,7 @@ const Layout = ({
   component = Box,
   ...props
 }) => {
-  const breakpoint = useBreakpoint([0, 1, 2, 3])
+  const breakpoint = useBreakpoint()
   const toolbarHeight = TOOLBAR_HEIGHTS[breakpoint]
 
   useEffect(() => {
