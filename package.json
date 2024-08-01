@@ -160,7 +160,7 @@
     "tldts": "~6.1.32",
     "top-crawler-agents": "~1.0.27",
     "top-user-agents": "~2.1.22",
-    "unique-random-array": "~3.0.0"
+    "unique-random-array": "~4.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
