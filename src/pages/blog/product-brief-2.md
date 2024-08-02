@@ -42,7 +42,7 @@ Maintaining documentation is laborious and requires effort. We needed to combine
 
 After comparing multiple approaches on the matter and seeing how other companies take on the challenge, we decided on [Vercel documentation](https://github.com/vercel/docs) portal.
 
-<Microlink size='large' url={'https://twitter.com/Kikobeats/status/956221717319421952'} />
+<Microlink size='large' url={'https://x.com/Kikobeats/status/956221717319421952'} />
 
 Although it required some laborious work, the final result is impressive. We are very grateful to [Vercel](https://vercel.com) for making it possible.
 
@@ -56,7 +56,7 @@ Our current target is improving the data accuracy related with **video** content
 
 On this period, we did a lot of internal improvements and developed [metascraper-youtube](https://www.npmjs.com/package/metascraper-youtube) for enhancing the results when you want to get information from a YouTube url.
 
-Under the hood, we’re testing something pretty exciting: Adding a new **video property** ([spoiler](https://api.microlink.io/?url=https://twitter.com/verge/status/957383241714970624)) into the [Microlink API](/docs/api).
+Under the hood, we’re testing something pretty exciting: Adding a new **video property** ([spoiler](https://api.microlink.io/?url=https://x.com/verge/status/957383241714970624)) into the [Microlink API](/docs/api).
 
 It would return any video detected in the target URL. This also allowing us to build a richer content preview (with the [Microlink SDK](/docs/sdk/getting-started/overview/)).
 

@@ -75,7 +75,7 @@ We added properties to control the video, like [autoplay](/docs/sdk/parameters/m
 
 <Figcaption>
   Our fancy loading animation, claps to{' '}
-  <Link href='https://twitter.com/breadadams' children='@breadadamas' /> 👏.
+  <Link href='https://x.com/breadadams' children='@breadadamas' /> 👏.
 </Figcaption>
 
 We improved the transition between how the card looks before the content of the card is loaded, to give it a more *natural* look.

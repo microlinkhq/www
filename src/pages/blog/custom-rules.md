@@ -18,7 +18,7 @@ Today we’re happy to introduce a new core functionality called **Custom Rules*
 
 **Custom Rules** provide you an interface to interact with the API, specifying new data fields that can be extracted from an specific URL.
 
-Imagine you want ot interact with an Instagram profile url, like [@elonmusk](https://twitter.com/elonmusk)'s profile.
+Imagine you want ot interact with an Instagram profile url, like [@elonmusk](https://x.com/elonmusk)'s profile.
 
 ![](https://i.imgur.com/subDjQ1.png)
 

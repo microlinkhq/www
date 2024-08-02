@@ -9,7 +9,7 @@ const code = `
 import { Microlink } from 'components/patterns'
 import { Fragment } from 'react'
 
-const url = 'https://twitter.com/futurism/status/882987478541533189'
+const url = 'https://x.com/futurism/status/882987478541533189'
 
 export default () => (
   <Fragment>
@@ -26,8 +26,7 @@ const DATA = {
   title: 'Futurism on Twitter',
   publisher: 'Twitter',
   image: {
-    url:
-      'https://pbs.twimg.com/amplify_video_thumb/882986340605939712/img/k-NlEfo7z0Xvo9ab.jpg',
+    url: 'https://pbs.twimg.com/amplify_video_thumb/882986340605939712/img/k-NlEfo7z0Xvo9ab.jpg',
     width: 720,
     height: 720,
     type: 'jpg',
@@ -44,7 +43,7 @@ const DATA = {
     size: 2113,
     size_pretty: '2.11 kB'
   },
-  url: 'https://twitter.com/futurism/status/882987478541533189'
+  url: 'https://x.com/futurism/status/882987478541533189'
 }
 
 storiesOf('Patterns', module).add('Microlink', () => (
