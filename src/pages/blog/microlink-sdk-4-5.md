@@ -17,7 +17,7 @@ Microlink SDK <Link href='/docs/sdk/parameters/size/'>size</Link> variations.
 
 The card approach improves a lot of the URL preview experience, making it possible for you to adopt it on your own website or application.
 
-However, some domains on the Internet (like **Instagram**, **SoundCloud**, **Spotify**, **Facebook**, **Twitter**,…) have their own way of embedding their content, making the Microlink card displayed less recognizable than using their own way.
+However, some domains on the Internet (like **Instagram**, **SoundCloud**, **Spotify**, **Facebook**, **X**,…) have their own way of embedding their content, making the Microlink card displayed less recognizable than using their own way.
 
 **Microlink SDK v4.5** introduces the ability to set `iframe` as the [media](/docs/sdk/parameters/media/) property for using a native embed solution always when it's available.
 
@@ -90,6 +90,6 @@ A non exhaustive list of the most common providers could be:
 - [Spotify](/meta?url=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F1W2919zs8SBCLTrOB1ftQT)
 - [TED](/meta?url=https%3A%2F%2Fwww.ted.com%2Ftalks%2Fmonique_w_morris_why_black_girls_are_targeted_for_punishment_at_school_and_how_to_change_that%3Futm_campaign%3Dtedspread%26utm_medium%3Dreferral%26utm_source%3Dtedcomshare)
 - [Twitch](/meta?url=https%3A%2F%2Fwww.twitch.tv%2Fshroud%2Fclip%2FAuspiciousTubularBunnyFUNgineer)
-- [Twitter](/meta?url=https%3A%2F%2Ftwitter.com%2Ffuturism%2Fstatus%2F882987478541533189)
 - [Vimeo](/meta?url=https%3A%2F%2Fvimeo.com%2F186386161)
+- [X](/meta?url=https%3A%2F%2Fx.com%2Ffuturism%2Fstatus%2F882987478541533189)
 - [YouTube](/meta?url=https%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3D9P6rdqiybaw)

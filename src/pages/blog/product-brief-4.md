@@ -79,13 +79,13 @@ We extended the original idea, adding support for detecting more video providers
 
 <Microlink url='https://instagram.com/p/BXHj-DllyYU' />
 
-**Twitter**
-
-<Microlink url='https://twitter.com/verge/status/957383241714970624' />
-
 **Vimeo**
 
 <Microlink url='https://vimeo.com/188175573' />
+
+**X**
+
+<Microlink url='https://x.com/verge/status/957383241714970624' />
 
 **YouTube**
 
