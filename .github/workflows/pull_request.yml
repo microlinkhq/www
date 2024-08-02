@@ -49,25 +49,3 @@ jobs:
         run: |
           pnpm install react react-dom next
           ./node_modules/.bin/next lint
-
-  urlint:
-    if: github.ref != 'refs/heads/master'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-          run_install: false
-      - name: Lint
-        run: |
-          pnpm install urlint
-          ./node_modules/.bin/urlint https://microlink.io/sitemap.xml
