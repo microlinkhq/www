@@ -112,17 +112,17 @@ export const withLink = Component => {
   }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
     const location = useLocation()
-    const isInternal = isInternalLink(href)
+    const isInternal = !href || isInternalLink(href)
     const partiallyActive = actively === 'partial'
 
     useEffect(() => {
-      if (actively === 'observer') {
+      if (isInternal && actively === 'observer') {
         const node = document.querySelector(getHash(href))
         onView(node, isBeingIntersecting =>
           setIsIntersecting(isBeingIntersecting)
         )
       }
-    }, [actively, href])
+    }, [isInternal, actively, href])
 
     const getProps = ({ isPartiallyCurrent, isCurrent, location }) => {
       if (typeof actively === 'function') {
@@ -134,7 +134,8 @@ export const withLink = Component => {
       return { className: 'active' }
     }
 
-    if (prefetch && (!href || isInternal)) {
+    if (prefetch && isInternal) {
+      // console.log('prefetching', href)
       return (
         <Component {...props}>
           <PrefetchLink
