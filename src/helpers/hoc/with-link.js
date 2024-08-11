@@ -9,6 +9,8 @@ import { Link as GatsbyLink } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
 
+const addActiveClass = isActive => (isActive ? { className: 'active' } : null)
+
 const isInternalLink = (to = '/') => /^\/(?!\/)/.test(to)
 
 const getHash = href => href.replace('/#', '#')
@@ -124,18 +126,14 @@ export const withLink = Component => {
       }
     }, [isInternal, actively, href])
 
-    const getProps = ({ isPartiallyCurrent, isCurrent, location }) => {
-      if (typeof actively === 'function') {
-        const result = actively({ location })
-        return result ? { className: 'active' } : null
-      }
-      const isActive = partiallyActive ? isPartiallyCurrent : isCurrent
-      if (!isActive && !isIntersecting) return null
-      return { className: 'active' }
-    }
+    const getProps = ({ isPartiallyCurrent, isCurrent, location }) =>
+      typeof actively === 'function'
+        ? addActiveClass(actively({ location }))
+        : addActiveClass(
+          isIntersecting || partiallyActive ? isPartiallyCurrent : isCurrent
+        )
 
     if (prefetch && isInternal) {
-      // console.log('prefetching', href)
       return (
         <Component {...props}>
           <PrefetchLink
