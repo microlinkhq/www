@@ -4,6 +4,7 @@ import { Mail } from 'react-feather'
 import { issueUrl } from 'helpers'
 import React from 'react'
 
+import IntersectionObserver from '../../elements/IntersectionObserver'
 import Healthcheck from '../Healthcheck/Healthcheck'
 
 import {
@@ -34,6 +35,73 @@ const DARK_THEME = {
   inputIconColor: colors.white40,
   iconColor: colors.white80
 }
+
+const StatusPage = ({ isDark }) => {
+  return (
+    <LinkSolid
+      isDark={isDark}
+      data-event-location='Footer'
+      data-event-name='Status'
+      href='/status'
+      css={theme({
+        px: 0
+      })}
+    >
+      <Text
+        css={theme({
+          fontSize: [0, 0, 0, 1]
+        })}
+      >
+        Status Page
+      </Text>
+    </LinkSolid>
+  )
+}
+
+const Health = ({ isDark, textColor }) => (
+  <Healthcheck>
+    {({ isHealthy, isLoading }) => {
+      if (isLoading) return <StatusPage isDark={isDark} />
+      return (
+        <Link
+          data-event-location='Footer'
+          data-event-name='Status'
+          href='/status'
+          css={theme({
+            px: 0,
+            color: colors[textColor]
+          })}
+        >
+          <Text
+            css={theme({
+              fontSize: [0, 0, 0, 1],
+              pb: [3, 3, 3, 0]
+            })}
+          >
+            <Choose>
+              <Choose.When condition={isHealthy}>
+                <Dot.Success
+                  css={theme({
+                    mr: 2
+                  })}
+                />
+                All systems operational
+              </Choose.When>
+              <Choose.Otherwise>
+                <Dot.Warning
+                  css={theme({
+                    mr: 2
+                  })}
+                />
+                System performance degradation
+              </Choose.Otherwise>
+            </Choose>
+          </Text>
+        </Link>
+      )
+    }}
+  </Healthcheck>
+)
 
 const Footer = ({ isDark, ...props }) => {
   const { background, textColor, inputIconColor } = isDark
@@ -209,69 +277,12 @@ const Footer = ({ isDark, ...props }) => {
                   flexDirection: 'column'
                 })}
               >
-                <Healthcheck>
-                  {({ isHealthy, isLoading }) => {
-                    if (isLoading) {
-                      return (
-                        <LinkSolid
-                          isDark={isDark}
-                          data-event-location='Footer'
-                          data-event-name='Status'
-                          href='/status'
-                          css={theme({
-                            px: 0
-                          })}
-                        >
-                          <Text
-                            css={theme({
-                              fontSize: [0, 0, 0, 1]
-                            })}
-                          >
-                            Status Page
-                          </Text>
-                        </LinkSolid>
-                      )
-                    }
-
-                    return (
-                      <Link
-                        data-event-location='Footer'
-                        data-event-name='Status'
-                        href='/status'
-                        css={theme({
-                          px: 0,
-                          color: colors[textColor]
-                        })}
-                      >
-                        <Text
-                          css={theme({
-                            fontSize: [0, 0, 0, 1],
-                            pb: [3, 3, 3, 0]
-                          })}
-                        >
-                          <Choose>
-                            <Choose.When condition={isHealthy}>
-                              <Dot.Success
-                                css={theme({
-                                  mr: 2
-                                })}
-                              />
-                              All systems operational
-                            </Choose.When>
-                            <Choose.Otherwise>
-                              <Dot.Warning
-                                css={theme({
-                                  mr: 2
-                                })}
-                              />
-                              System performance degradation
-                            </Choose.Otherwise>
-                          </Choose>
-                        </Text>
-                      </Link>
-                    )
-                  }}
-                </Healthcheck>
+                <IntersectionObserver
+                  placeholder={() => <StatusPage isDark={isDark} />}
+                  onView={() => (
+                    <Health isDark={isDark} textColor={textColor} />
+                  )}
+                />
               </Flex>
             </Flex>
 
@@ -329,14 +340,14 @@ const Footer = ({ isDark, ...props }) => {
             >
               {[
                 {
-                  href: 'https://github.com/microlinkhq',
-                  children: 'GitHub',
-                  title: '@microlinkhq on GitHub'
-                },
-                {
                   href: 'https://x.com/microlinkhq',
                   children: 'X',
                   title: '@microlinkhq on x.com'
+                },
+                {
+                  href: 'https://github.com/microlinkhq',
+                  children: 'GitHub',
+                  title: '@microlinkhq on GitHub'
                 },
                 {
                   href: 'mailto:hello@microlink.io',

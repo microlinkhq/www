@@ -9,6 +9,8 @@ import { Link as GatsbyLink } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
 
+const addActiveClass = isActive => (isActive ? { className: 'active' } : null)
+
 const isInternalLink = (to = '/') => /^\/(?!\/)/.test(to)
 
 const getHash = href => href.replace('/#', '#')
@@ -112,29 +114,26 @@ export const withLink = Component => {
   }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
     const location = useLocation()
-    const isInternal = isInternalLink(href)
+    const isInternal = !href || isInternalLink(href)
     const partiallyActive = actively === 'partial'
 
     useEffect(() => {
-      if (actively === 'observer') {
+      if (isInternal && actively === 'observer') {
         const node = document.querySelector(getHash(href))
         onView(node, isBeingIntersecting =>
           setIsIntersecting(isBeingIntersecting)
         )
       }
-    }, [actively, href])
+    }, [isInternal, actively, href])
 
-    const getProps = ({ isPartiallyCurrent, isCurrent, location }) => {
-      if (typeof actively === 'function') {
-        const result = actively({ location })
-        return result ? { className: 'active' } : null
-      }
-      const isActive = partiallyActive ? isPartiallyCurrent : isCurrent
-      if (!isActive && !isIntersecting) return null
-      return { className: 'active' }
-    }
+    const getProps = ({ isPartiallyCurrent, isCurrent, location }) =>
+      typeof actively === 'function'
+        ? addActiveClass(actively({ location }))
+        : addActiveClass(
+          isIntersecting || partiallyActive ? isPartiallyCurrent : isCurrent
+        )
 
-    if (prefetch && (!href || isInternal)) {
+    if (prefetch && isInternal) {
       return (
         <Component {...props}>
           <PrefetchLink
