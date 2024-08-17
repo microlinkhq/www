@@ -4,7 +4,7 @@ title: attr
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="'html'"/><br/>
-Values: <TypeContainer><Type children="'html'"/> | <Type children="'val'"/> | <Type children="'text'"/></TypeContainer> or any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes)
+Values: <TypeContainer><Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Element/tagName">tagName</Link></Type> | <Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName">nodeName</Link></Type> | <Type children="'html'"/> | <Type children="'innerHTML'"/> | <Type children="'outerHTML'"/> | <Type children="'text'"/> | <Type children="'textContent'"/> | <Type children="'innerText'"/> | <Type children="'val'"/></TypeContainer>
 
 It specifies which attribute should be picked over the matched [selector](/docs/mql/data/selector):
 
@@ -28,11 +28,11 @@ const { response, data } = await github(username)
 console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
 ```
 
-Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) is supported, keeping in mind three special values:
+Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) is supported, plus the following special cases:
 
-- <Type children="'text'"/>: Get the combined text content, including their descendants.
-- <Type children="'val'"/>: Get the current value of the matched selector.
-- <Type children="'html'"/>: Get the HTML content of the matched selector.
+- <Type children="'text'"/>: Returns the combined text content, including its descendants, by removing leading, trailing, and repeated whitespace from a string.
+- <Type children="'html'"/>: Get the HTML content of the matched selector. (Same as <Type children="'innerHTML'"/>).
+- <Type children="'val'"/>: Get the current value of the matched selector, oriented for select or input fields.
 
 If you specifiy more than one value, they will be used as fallback values:
 
