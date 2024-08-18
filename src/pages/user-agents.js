@@ -2,6 +2,7 @@ import { DotsBackground, ArrowLink, Caption, Layout } from 'components/patterns'
 import { Li, Ul } from 'components/markdown'
 import React, { useState } from 'react'
 import { layout, theme } from 'theme'
+import { formatDate } from 'helpers'
 
 import {
   Box,
@@ -23,13 +24,6 @@ export const Head = () => (
     description='Most common user-agents used on Internet'
   />
 )
-
-const formatYYYMMDDDate = (date = new Date()) => {
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
-}
 
 const UserAgentsPage = () => {
   const [ClipboardComponent, toClipboard] = useClipboard()
@@ -68,10 +62,11 @@ const UserAgentsPage = () => {
             })}
             titleize={false}
           >
-            Most common HTTP User-Agent on the Internet.
-            <br />
-            Weekly updated. Last update:{' '}
-            {formatYYYMMDDDate(new Date(updatedAt))}.
+            A self-updating list of the latest
+            <br />& most common browser agents.
+          </Caption>
+          <Caption css={theme({ fontSize: 2, py: 3 })}>
+            Last Updated: {formatDate(new Date(updatedAt))}.
           </Caption>
           <Flex
             css={theme({
@@ -87,7 +82,8 @@ const UserAgentsPage = () => {
               onChange={value =>
                 setType(
                   `top-${value === 'User Agent' ? 'user' : 'crawler'}-agents`
-                )}
+                )
+              }
             >
               {['User Agent', 'Crawler Agent']}
             </Toggle>
