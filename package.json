@@ -107,7 +107,7 @@
     "@microlink/recipes": "~1.8.1",
     "@react-spring/web": "~9.7.4",
     "@stripe/react-stripe-js": "~2.8.0",
-    "@stripe/stripe-js": "~4.3.0",
+    "@stripe/stripe-js": "~4.4.0",
     "@styled-system/prop-types": "~5.1.5",
     "@techstack/styled-system": "~1.0.483",
     "@tippyjs/react": "~4.2.6",
