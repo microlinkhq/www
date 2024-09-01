@@ -182,7 +182,6 @@
     "git-authors-cli": "latest",
     "github-generate-release": "latest",
     "nano-staged": "latest",
-    "npm-check-updates": "latest",
     "pretty-bytes": "latest",
     "puppeteer": "latest",
     "rgb-hex": "latest",
@@ -217,7 +216,6 @@
     "postrelease": "npm run release:tags && npm run release:github",
     "prebuild": "npm run build:data",
     "predev": "npm run build:data",
-    "prerelease": "npm run update:check",
     "pretest": "npm run lint",
     "preversion": "git-authors-cli && git add package.json",
     "release": "standard-version -a",
@@ -226,8 +224,7 @@
     "storybook": "start-storybook -p 6006",
     "test": "ava",
     "transpile": "echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
-    "update": "ncu -i",
-    "update:check": "ncu -- --error-level 2"
+    "update": "ncu -i"
   },
   "private": true,
   "license": "MIT",

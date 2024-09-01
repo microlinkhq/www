@@ -75,7 +75,7 @@ const FAQs = props => (
                   <Link href='/docs/sdk/getting-started/overview'>
                     Microlink SDK
                   </Link>
-                  , attach it as{' '}
+                  attach it as{' '}
                   <Link href='/docs/sdk/parameters/api-key/'>apiKey</Link>.
                 </Box>
                 <Box as='li' css={theme({ pt: 3 })}>
@@ -83,7 +83,7 @@ const FAQs = props => (
                   <Link href='/docs/api/getting-started/overview'>
                     Microlink API
                   </Link>
-                  , attach it as{' '}
+                  attach it as{' '}
                   <Link href='/docs/api/basics/authentication'>header</Link>.
                 </Box>
               </Box>

@@ -82,8 +82,7 @@ const UserAgentsPage = () => {
               onChange={value =>
                 setType(
                   `top-${value === 'User Agent' ? 'user' : 'crawler'}-agents`
-                )
-              }
+                )}
             >
               {['User Agent', 'Crawler Agent']}
             </Toggle>
