@@ -42,9 +42,10 @@ const formatParam = (param, useRealJson = false) => {
 const DemoIntegrations = ({ caption, parameters = {}, showCard = true }) => {
   const params = useMemo(() => ({ ...DEFAULTS, ...parameters }), [parameters])
   const paramKeys = useMemo(() => Object.keys(params), [params])
-  const withoutUrl = useMemo(() => paramKeys.filter(k => k !== 'url'), [
-    paramKeys
-  ])
+  const withoutUrl = useMemo(
+    () => paramKeys.filter(k => k !== 'url'),
+    [paramKeys]
+  )
 
   const react = useMemo(
     () =>
@@ -73,7 +74,7 @@ const DemoIntegrations = ({ caption, parameters = {}, showCard = true }) => {
           const param = params[key]
           const prefix = typeof param === 'string' ? '' : ':'
           const attr = `${prefix}${kebabCase(key)}`
-          return `\n\t\t${attr}="${formatParam(param)}"`
+          return `\n    ${attr}="${formatParam(param)}"`
         })
         .join(' '),
     [params, paramKeys]
@@ -107,9 +108,10 @@ const DemoIntegrations = ({ caption, parameters = {}, showCard = true }) => {
     return jParams.length ? ` ${jParams}` : ''
   }, [params, withoutUrl])
 
-  const vanilla = useMemo(() => (jsObject.length ? `, { ${jsObject} }` : ''), [
-    jsObject
-  ])
+  const vanilla = useMemo(
+    () => (jsObject.length ? `, { ${jsObject} }` : ''),
+    [jsObject]
+  )
 
   return (
     <>
@@ -120,7 +122,8 @@ const DemoIntegrations = ({ caption, parameters = {}, showCard = true }) => {
   <Microlink ${react} />
     `,
           Vue: `<template>
-  <Microlink ${vue} />
+  <Microlink ${vue}
+  />
 </template>
     `,
 
