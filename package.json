@@ -148,7 +148,7 @@
     "react-confetti": "~6.1.0",
     "react-dom": "18",
     "react-feather": "~2.0.10",
-    "react-syntax-highlighter": "~15.5.0",
+    "react-syntax-highlighter": "~15.6.1",
     "react-timeago": "~7.2.0",
     "react-twitter-widgets": "~1.11.0",
     "remark-slug": "~7.0.1",
