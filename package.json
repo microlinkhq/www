@@ -123,7 +123,7 @@
     "gatsby-plugin-catch-links": "~5.13.1",
     "gatsby-plugin-sass": "~6.13.1",
     "gatsby-plugin-styled-components": "~6.13.1",
-    "gatsby-source-filesystem": "~5.13.1",
+    "gatsby-source-filesystem": "~5.14.0",
     "gatsby-transformer-javascript-frontmatter": "~5.13.1",
     "gatsby-transformer-json": "~5.13.1",
     "gatsby-transformer-remark": "~6.13.1",
