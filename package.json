@@ -119,7 +119,7 @@
     "dlv": "~1.1.3",
     "gatsby": "~5.13.7",
     "gatsby-plugin-advanced-sitemap": "~2.1.0",
-    "gatsby-plugin-canonical-urls": "~5.13.1",
+    "gatsby-plugin-canonical-urls": "~5.14.0",
     "gatsby-plugin-catch-links": "~5.13.1",
     "gatsby-plugin-sass": "~6.13.1",
     "gatsby-plugin-styled-components": "~6.13.1",
