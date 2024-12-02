@@ -1,4 +1,4 @@
-import test from 'ava'
+import { describe, it, expect } from 'vitest'
 
 import getLines from '../../src/helpers/get-lines.js'
 
@@ -12,8 +12,10 @@ const values = [
   ['language-json{33,55}', [33, 55]]
 ]
 
-values.forEach(([str, result]) => {
-  test(`${str} → ${result}`, t => {
-    t.deepEqual(getLines(str), result)
+describe('getLines', () => {
+  values.forEach(([str, result]) => {
+    it(`${str} → ${result}`, () => {
+      expect(getLines(str)).toEqual(result)
+    })
   })
 })
