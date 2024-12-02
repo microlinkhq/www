@@ -172,12 +172,10 @@
     "@storybook/builder-webpack5": "~6.5.16",
     "@storybook/manager-webpack5": "~6.5.16",
     "@storybook/react": "~6.5.16",
-    "ava": "3",
     "contrast": "latest",
     "debug-logfmt": "latest",
     "esbuild": "latest",
     "eslint-config-next": "latest",
-    "esm": "latest",
     "finepack": "latest",
     "git-authors-cli": "latest",
     "github-generate-release": "latest",
@@ -189,7 +187,8 @@
     "standard": "latest",
     "standard-markdown": "latest",
     "standard-version": "latest",
-    "tinyspawn": "latest"
+    "tinyspawn": "latest",
+    "vitest": "latest"
   },
   "engines": {
     "node": ">= 18"
@@ -222,20 +221,12 @@
     "release:github": "github-generate-release",
     "release:tags": "git push --follow-tags origin HEAD:master",
     "storybook": "start-storybook -p 6006",
-    "test": "ava",
+    "test": "vitest",
     "transpile": "echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
     "update": "ncu -i"
   },
   "private": true,
   "license": "MIT",
-  "ava": {
-    "files": [
-      "test/**/*.js"
-    ],
-    "require": [
-      "esm"
-    ]
-  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

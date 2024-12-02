@@ -1,8 +1,8 @@
-import test from 'ava'
+import { test, expect } from 'vitest'
 
 import mqlCode from '../../src/helpers/mql-code'
 
-test('JavaScript with inline code', t => {
+test('JavaScript with inline code', () => {
   const output = mqlCode('https://microlink.io', {
     function: "({ page }) => page.evaluate('jQuery.fn.jquery')",
     number: 3000,
@@ -16,5 +16,5 @@ test('JavaScript with inline code', t => {
     ]
   })
 
-  t.snapshot(output.JavaScript())
+  expect(output.JavaScript()).toMatchSnapshot()
 })

@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`JavaScript with inline code 1`] = `
+"
+const mql = require('@microlink/mql')
+
+const { status, data } = await mql('https://myproxy:603f60f5@superproxy.cool:8001', { function: '({ page }) => page.evaluate('jQuery.fn.jquery')', number: 3000, boolean: true, string: 'MyApiToken', url: 'https://myproxy:603f60f5@superproxy.cool:8001', scripts: ['https://code.jquery.com/jquery-3.5.0.min.js'], multipleScripts: ['https://code.jquery.com/jquery-3.5.0.min.js','https://code.jquery.com/jquery-3.5.0.min.js'] })
+
+mql.render(data)"
+`;
