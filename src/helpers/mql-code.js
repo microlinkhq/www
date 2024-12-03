@@ -91,7 +91,10 @@ mql.render(${output})`
 
   const CLI = () => {
     const url = createApiUrl({ url: input, ...props })
-    return `microlink '${url.replace('https://api.microlink.io?url=', '')}'`
+    return `microlink '${url.replace(
+      /https:\/\/api\.microlink\.io\/?\?url=/,
+      ''
+    )}'`
   }
 
   Shell.language = 'bash'
