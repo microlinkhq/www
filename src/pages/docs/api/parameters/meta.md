@@ -42,6 +42,7 @@ The normalized data fields is enabled by default, so you don't need to set it as
     }
   },
   "statusCode": 200,
+  "redirects": [],
   "headers": {
     "content-type": "text/html; charset=utf-8",
     "x-content-type-options": "nosniff",

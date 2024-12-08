@@ -44,6 +44,7 @@ Additionally, Microlink gives you some HTTP information over the target URL, suc
 
   - `statusCode`: The HTTP status code associated with the url response.
   - `headers`: The HTTP response headers associated with the url response.
+  - `redirects`: A collection of HTTP redirects, where each entry contains the status code and URL for redirects followed from the original URL.
 
 The service also returns a `status` field to represent the stage of the current transaction. 
 

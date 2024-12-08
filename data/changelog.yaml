@@ -1,8 +1,14 @@
-- date: Ago 2024
+- date: December 2024
   notes:
-    - '[Microlink MQL](/docs/mql/getting-started/overview): Added outerHTML and innerText as [attr](https://microlink.io/docs/mql/data/attr).'
+    - '[Microlink API](/docs/api/getting-started/overview): The query parameter [meta](/docs/api/parameters/meta) returns `redirects` as part of the response payload.'
 
-- date: Jul 2024
+- date: October 2024
+  notes:
+    - '[Microlink OSS](/oss): Added rewriting capabilities to [html-get](https://github.com/microlinkhq/html-get).'
+    - '[react-json-view](https://react-json-view.microlink.io/): Project revamp.'
+    - '[unavatar.io](https://unavatar.io) Added OnlyFans as provider.'
+
+- date: July 2024
   notes:
     - '[Microlink](/): Released [website](https://github.com/microlinkhq/www/pull/1679) refactor.'
     - '[Microlink API](/docs/api/getting-started/overview): Improved favicon.ico detection.'
