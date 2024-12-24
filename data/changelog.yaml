@@ -1,5 +1,6 @@
 - date: December 2024
   notes:
+    - '[Microlink OSS](/oss): Released [splashy v6](https://splashy.microlink.io/).'
     - '[Microlink API](/docs/api/getting-started/overview): The query parameter [meta](/docs/api/parameters/meta) returns `redirects` as part of the response payload.'
 
 - date: October 2024
