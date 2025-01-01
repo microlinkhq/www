@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
 import { mqlCode } from 'helpers'
-import slug from 'remark-slug'
+import slug from 'rehype-slug'
 import React from 'react'
 import get from 'dlv'
 
