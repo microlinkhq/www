@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import getLines from '../../src/helpers/get-lines.js'
+import { getLines } from '../../src/helpers/get-lines.js'
 
 const values = [
   ['', null],

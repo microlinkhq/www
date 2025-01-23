@@ -1,4 +1,5 @@
-import { noop, isSSR } from 'helpers'
+import { isSSR } from 'helpers/is-ssr'
+import { noop } from 'helpers/noop'
 import { useState } from 'react'
 
 const createUseLocalStorage = storage => (key, initialValue) => {

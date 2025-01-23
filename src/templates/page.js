@@ -3,7 +3,7 @@ import { PostFooter, PostTitle } from 'components/pages/blog'
 import { Caption, Layout } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import { textGradient, layout, theme } from 'theme'
-import { formatDate } from 'helpers'
+import { formatDate } from 'helpers/format-date'
 import TimeAgo from 'react-timeago'
 import React from 'react'
 

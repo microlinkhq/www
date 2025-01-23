@@ -1,7 +1,7 @@
-import { childrenText } from 'helpers'
+import { childrenText } from 'helpers/children-text'
 import styled from 'styled-components'
-import React from 'react'
 import { theme } from 'theme'
+import React from 'react'
 
 import Label, { labelStyle } from './Label'
 

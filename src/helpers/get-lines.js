@@ -1,7 +1,7 @@
 const REGEX_ONE_LINE = /\{\d\d?\}/
 const REGEX_LINE_RANGE = /\{\d\d?,\d\d?\}/
 
-const getLines = str => {
+export const getLines = str => {
   if (!str) return null
 
   let strMatch
@@ -16,5 +16,3 @@ const getLines = str => {
     .split(',')
     .map(n => Number(n.trim()))
 }
-
-export default getLines

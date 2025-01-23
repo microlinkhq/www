@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
 
-import mqlCode from '../../src/helpers/mql-code'
+import { mqlCode } from '../../src/helpers/mql-code'
 
 test('JavaScript with inline code', () => {
   const output = mqlCode('https://microlink.io', {

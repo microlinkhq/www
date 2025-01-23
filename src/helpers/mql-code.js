@@ -50,7 +50,7 @@ const stringProps = (props = {}) => {
   )
 }
 
-const mqlCode = (input, props, { output = 'data' } = {}) => {
+export const mqlCode = (input, props, { output = 'data' } = {}) => {
   const JavaScript = args => {
     const { url = input || '{{demolinks.spotify.url}}' } = { ...props, ...args }
     const opts = props ? `{ ${stringProps(props)} }` : ''
@@ -199,5 +199,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
 })
 </script>`
 }
-
-export default mqlCode

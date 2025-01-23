@@ -2,7 +2,7 @@ import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import Markdown, { H1, ProBadge } from 'components/markdown'
 import { Layout, Aside } from 'components/patterns'
 import { fontSizes, layout, theme } from 'theme'
-import { formatDate } from 'helpers'
+import { formatDate } from 'helpers/format-date'
 import React from 'react'
 
 import { Box, Choose, Container, Flex, Link, Text } from 'components/elements'

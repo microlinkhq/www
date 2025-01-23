@@ -1,6 +1,6 @@
-import { Layout } from 'components/patterns'
 import { Meta, Iframe } from 'components/elements'
-import { cdnUrl } from 'helpers'
+import { Layout } from 'components/patterns'
+import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
 
 export const Head = () => (

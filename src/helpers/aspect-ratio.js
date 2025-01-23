@@ -4,7 +4,7 @@ const getRatio = width => (width * 9) / 16
 
 const BASE = Number(layout.large.replace('px', ''))
 
-const aspectRatio = (ratios, base = BASE) => {
+export const aspectRatio = (ratios, base = BASE) => {
   const width = ratios.map(n => n * base)
   const height = width.map(getRatio)
 
@@ -20,5 +20,3 @@ const { width, height } = aspectRatio(ratios)
 aspectRatio.width = width
 aspectRatio.height = height
 aspectRatio.ratios = ratios
-
-export default aspectRatio

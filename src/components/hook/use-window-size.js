@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { isSSR } from 'helpers'
+import { isSSR } from 'helpers/is-ssr'
 
 const getSize = isSSR
   ? fallback => fallback

@@ -1,5 +1,5 @@
 import tpl from 'lodash/template'
-import cdnUrl from './cdn-url'
+import { cdnUrl } from './cdn-url'
 
 import dataDemoLinks from '../../data/demo-links'
 
@@ -15,7 +15,7 @@ const TEMPLATE_INTERPOLATE_ENCODED = /%7B%7B([\s\S]+?)%7D%7D/g
 
 const isTemplate = str => typeof str === 'string' && str.includes('demolinks.')
 
-const template = (str = '') => {
+export const template = (str = '') => {
   if (!isTemplate(str)) return str
 
   let isEncoded = false
@@ -38,5 +38,3 @@ const template = (str = '') => {
 
   return isEncoded ? encodeURI(compiled) : compiled
 }
-
-export default template

@@ -1,5 +1,6 @@
 import { useState, createElement, useEffect } from 'react'
-import { aspectRatio, template } from 'helpers'
+import { aspectRatio } from 'helpers/aspect-ratio'
+import { template } from 'helpers/template'
 
 import Placeholder from '../../components/elements/Placeholder/Placeholder'
 

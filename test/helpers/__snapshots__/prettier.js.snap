@@ -1,5 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`.serializeFmt 1`] = `"type='email' id='input' placeholder='you@domain.com' suggestions={[{ value: 'you@gmail.com' }, { value: 'you@hotmail.com' }]} width='9rem' fontSize={1} required "`;
+
 exports[`js 1`] = `
 "const mql = require('@microlink/mql')
 const { status, data } = await mql('https://geolocation.microlink.io', {

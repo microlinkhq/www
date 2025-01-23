@@ -1,10 +1,10 @@
-import { ThemeProvider } from 'styled-components'
-import { Toolbar, Footer } from 'components/patterns'
 import React, { useEffect, createElement } from 'react'
 import { BreakpointProvider } from 'context/breakpoint'
+import { Toolbar, Footer } from 'components/patterns'
+import { ThemeProvider } from 'styled-components'
 import { Box, Flex } from 'components/elements'
 import { useBreakpoint } from 'components/hook'
-import { noop } from 'helpers'
+import { noop } from 'helpers/noop'
 
 import themeSpec, { theme as themeProp } from 'theme'
 

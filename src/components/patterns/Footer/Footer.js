@@ -1,7 +1,7 @@
 import { layout, colors, theme } from 'theme'
 import { Microlink } from 'components/logos'
+import { issueUrl } from 'helpers/issue-url'
 import { Mail } from 'react-feather'
-import { issueUrl } from 'helpers'
 import React from 'react'
 
 import IntersectionObserver from '../../elements/IntersectionObserver'

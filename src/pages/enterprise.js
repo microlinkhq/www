@@ -2,8 +2,8 @@ import { DotsBackground, Caption, Layout } from 'components/patterns'
 import { transition, space, gradient, layout, theme as themeProp } from 'theme'
 import Markdown from 'components/markdown'
 import { useTheme } from 'components/hook'
+import { cdnUrl } from 'helpers/cdn-url'
 import styled from 'styled-components'
-import { cdnUrl } from 'helpers'
 import React from 'react'
 
 import {

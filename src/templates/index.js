@@ -1,7 +1,7 @@
 import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { useSiteMetadata } from 'components/hook'
 import { Meta } from 'components/elements'
-import { cdnUrl } from 'helpers'
+import { cdnUrl } from 'helpers/cdn-url'
 import { graphql } from 'gatsby'
 import React from 'react'
 

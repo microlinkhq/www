@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
 
-import prettier, { serializeFmt } from '../../src/helpers/prettier'
+import { prettier, serializeFmt } from '../../src/helpers/prettier'
 
 test('js', () => {
   const code = `const mql = require('@microlink/mql')
@@ -21,7 +21,7 @@ test('json', () => {
   expect(output).toMatchSnapshot()
 })
 
-test('serializeFmt', () => {
+test('.serializeFmt', () => {
   const output = serializeFmt({
     type: 'email',
     id: 'input',

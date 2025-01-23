@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 
-import once from 'helpers/once'
+import { once } from 'helpers/once'
 
 const getFinterprint = once(() =>
   fetch('https://geolocation.microlink.io')

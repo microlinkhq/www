@@ -1,5 +1,5 @@
 import { createElement } from 'react'
-import { title as titleizeFn } from 'helpers'
+import { title as titleizeFn } from 'helpers/title'
 
 export const withTitle = Component => {
   const TitleWrapper = ({ titleize, omitTitleize, ...props }) => {

@@ -1,7 +1,7 @@
 import { Text, Flex, Box, Caps } from 'components/elements'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { noop } from 'helpers'
+import { noop } from 'helpers/noop'
 import { theme } from 'theme'
 
 import Button from '../Button/Button'

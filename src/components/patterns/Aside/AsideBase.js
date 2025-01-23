@@ -4,8 +4,8 @@ import { transition, borders, colors, space, theme } from 'theme'
 import React, { useState, Fragment } from 'react'
 import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc'
+import { noop } from 'helpers/noop'
 import { isNot } from 'styled-is'
-import { noop } from 'helpers'
 
 import NavLink, {
   style as navLinkStyle,

@@ -1,6 +1,6 @@
 import get from 'dlv'
-import isSSR from './is-ssr'
+import { isSSR } from './is-ssr'
 
-export default isSSR
+export const isFastConnection = isSSR
   ? undefined
   : get(window, 'navigator.connection.effectiveType') === '4g'

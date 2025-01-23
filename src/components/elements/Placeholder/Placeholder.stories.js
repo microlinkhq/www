@@ -1,11 +1,9 @@
+import { Placeholder, Flex } from 'components/elements'
+import { aspectRatio } from 'helpers/aspect-ratio'
 import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
-
-import { Placeholder, Flex } from 'components/elements'
-
-import { aspectRatio } from 'helpers'
 
 const storyName = 'Placeholder'
 

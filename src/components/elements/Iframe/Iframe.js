@@ -1,5 +1,6 @@
 import React, { createElement, useRef, useEffect, useState } from 'react'
-import { aspectRatio, noop } from 'helpers'
+import { aspectRatio } from 'helpers/aspect-ratio'
+import { noop } from 'helpers/noop'
 import { theme } from 'theme'
 
 import Placeholder from '../Placeholder/Placeholder'

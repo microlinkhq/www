@@ -5,8 +5,8 @@ import { PAYMENT_STATE } from 'components/pages/payment/constants'
 import { Caption, Layout } from 'components/patterns'
 import { loadStripe } from '@stripe/stripe-js/pure'
 import React, { useEffect, useState } from 'react'
-import emailUrl from 'helpers/email-url'
-import once from 'helpers/once'
+import { emailUrl } from 'helpers/email-url'
+import { once } from 'helpers/once'
 
 import {
   colors,
