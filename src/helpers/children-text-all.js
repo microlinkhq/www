@@ -1,11 +1,9 @@
 import { Children } from 'react'
 
-import hasChildren from './has-children'
+import { hasChildren } from './has-children'
 
-const serialize = children =>
+export const childrenTextAll = children =>
   Children.toArray(children).reduce((acc, child) => {
-    if (hasChildren(children)) return serialize(child.props.children)
+    if (hasChildren(children)) return childrenTextAll(child.props.children)
     else return acc + child
   }, '')
-
-export default serialize

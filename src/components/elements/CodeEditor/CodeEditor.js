@@ -1,5 +1,9 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { hash, prettier, getLines, template } from 'helpers'
+import { getLines } from 'helpers/get-lines'
+import { prettier } from 'helpers/prettier'
+import { template } from 'helpers/template'
+import { hash } from 'helpers/hash'
+
 import { hideScrollbar, wordBreak } from 'helpers/style'
 import React, { useState } from 'react'
 import identity from 'lodash/identity'

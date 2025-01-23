@@ -1,6 +1,6 @@
 import { track } from '@vercel/analytics'
 import { createElement } from 'react'
-import { noop } from 'helpers'
+import { noop } from 'helpers/noop'
 
 const createOnClick = ({ onClick = noop, name, location }) => {
   if (!(name && location)) return onClick

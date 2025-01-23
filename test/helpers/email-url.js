@@ -1,6 +1,6 @@
 import { expect, describe, it } from 'vitest'
 
-import emailUrl from '../../src/helpers/email-url.js'
+import { emailUrl } from '../../src/helpers/email-url.js'
 
 describe('emailUrl', () => {
   describe('.paymentError', () => {

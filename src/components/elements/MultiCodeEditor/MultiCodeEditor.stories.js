@@ -1,6 +1,6 @@
 import { MultiCodeEditor, Box, Text } from 'components/elements'
 import { storiesOf } from '@storybook/react'
-import { mqlCode } from 'helpers'
+import { mqlCode } from 'helpers/mql-code'
 import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'

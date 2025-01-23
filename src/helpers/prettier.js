@@ -69,7 +69,7 @@ const serializeObject = (props, { quotes = true } = {}) => {
   }, '')
 }
 
-const prettier = (code, opts) => {
+export const prettier = (code, opts) => {
   try {
     const pretty = format(code, { ...PRETTIER_CONFIG, ...opts })
     return pretty.replace(';<', '<')
@@ -83,5 +83,3 @@ prettier.jsx = prettier.js = (code, opts) =>
   prettier(code, { ...JS_OPTS, ...opts })
 
 prettier.json = (code, opts) => prettier(code, { ...JSON_OPTS, ...opts })
-
-export default prettier

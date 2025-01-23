@@ -1,4 +1,4 @@
-const newGithubIssueUrl = (options = {}) => {
+export const issueUrl = (options = {}) => {
   let repoUrl
   if (options.repoUrl) {
     repoUrl = options.repoUrl
@@ -42,12 +42,10 @@ const newGithubIssueUrl = (options = {}) => {
   return url.toString()
 }
 
-newGithubIssueUrl.bug = opts =>
-  newGithubIssueUrl({
+issueUrl.bug = opts =>
+  issueUrl({
     user: 'microlinkhq',
     repo: 'open',
     template: 'Bug_report.md',
     ...opts
   })
-
-export default newGithubIssueUrl

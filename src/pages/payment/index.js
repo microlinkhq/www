@@ -1,7 +1,7 @@
 import { Caption, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
-import emailUrl from 'helpers/email-url'
+import { emailUrl } from 'helpers/email-url'
 import { layout, theme } from 'theme'
 
 import {

@@ -1,11 +1,14 @@
 import { toPx, borders, layout, colors, theme } from 'theme'
-import { cdnUrl, issueUrl, noop, trimMs } from 'helpers'
 import React, { useMemo, useState } from 'react'
+import { issueUrl } from 'helpers/issue-url'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
+import { cdnUrl } from 'helpers/cdn-url'
+import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
+import { noop } from 'helpers/noop'
 
 import logoUri from '../../static/logo.svg'
 

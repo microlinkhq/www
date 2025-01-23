@@ -21,9 +21,7 @@ const paymentError = ({ subject, error }) => {
   })
 }
 
-const emailUrl = {
+export const emailUrl = {
   encode,
   paymentError
 }
-
-export default emailUrl

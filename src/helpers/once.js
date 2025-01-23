@@ -1,3 +1,4 @@
-const once = (fn, value) => (...args) => value || (value = fn(...args))
-
-export default once
+export const once =
+  (fn, value) =>
+    (...args) =>
+      value || (value = fn(...args))

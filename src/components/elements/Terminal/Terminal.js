@@ -1,5 +1,6 @@
+import { childrenTextAll } from 'helpers/children-text-all'
 import styled, { css, keyframes } from 'styled-components'
-import { childrenTextAll, aspectRatio } from 'helpers'
+import { aspectRatio } from 'helpers/aspect-ratio'
 import { blink } from 'components/keyframes'
 import { wordBreak } from 'helpers/style'
 import React from 'react'

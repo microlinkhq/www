@@ -1,10 +1,10 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import { ArrowLink, Checkout } from 'components/patterns'
-import Caption from '../Caption/Caption'
+import { formatNumber } from 'helpers/format-number'
 import FeatherIcon from 'components/icons/Feather'
 import { breakpoints, colors, theme } from 'theme'
+import Caption from '../Caption/Caption'
 import React, { useState } from 'react'
-import { formatNumber } from 'helpers'
 import styled from 'styled-components'
 
 import {

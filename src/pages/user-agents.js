@@ -1,8 +1,9 @@
 import { DotsBackground, ArrowLink, Caption, Layout } from 'components/patterns'
+import { formatDate } from 'helpers/format-date'
+import { useClipboard } from 'components/hook'
 import { Li, Ul } from 'components/markdown'
 import React, { useState } from 'react'
 import { layout, theme } from 'theme'
-import { formatDate } from 'helpers'
 
 import {
   Box,
@@ -13,8 +14,6 @@ import {
   Toggle,
   Tooltip
 } from 'components/elements'
-
-import { useClipboard } from 'components/hook'
 
 import userAgents from '../../data/user-agents.json'
 

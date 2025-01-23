@@ -1,9 +1,10 @@
 import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
 import { Meta, Text, Box, CodeEditor, Flex, Heading } from 'components/elements'
-import React, { useState, useEffect } from 'react'
 import { fontSizes, colors, layout, theme } from 'theme'
+import { formatNumber } from 'helpers/format-number'
+import React, { useState, useEffect } from 'react'
 import { Logo } from 'components/pages/recipes'
-import { cdnUrl, formatNumber } from 'helpers'
+import { cdnUrl } from 'helpers/cdn-url'
 import { Eye } from 'react-feather'
 
 const Description = recipe => {

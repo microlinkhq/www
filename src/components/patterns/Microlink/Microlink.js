@@ -1,4 +1,6 @@
-import { urlVariations, isFastConnection, template } from 'helpers'
+import { isFastConnection } from 'helpers/is-fast-connection'
+import { urlVariations } from 'helpers/url-variations'
+import { template } from 'helpers/template'
 import LinkPreview from '@microlink/react'
 import React from 'react'
 

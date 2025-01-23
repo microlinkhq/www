@@ -2,7 +2,7 @@ import { Meta, Container, Heading, Box } from 'components/elements'
 import { Caption, Layout } from 'components/patterns'
 import Markdown, { H1 } from 'components/markdown'
 import { useChangelog } from 'components/hook'
-import { cdnUrl } from 'helpers'
+import { cdnUrl } from 'helpers/cdn-url'
 import { layout, theme } from 'theme'
 import React from 'react'
 

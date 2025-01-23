@@ -1,2 +1,1 @@
-const formatNumber = n => Number(n).toLocaleString('en-US')
-export default formatNumber
+export const formatNumber = n => Number(n).toLocaleString('en-US')

@@ -1,6 +1,6 @@
 import { ClusterMonitor, Layout } from 'components/patterns'
 import { useTheme, useQueryState } from 'components/hook'
-import { cdnUrl } from 'helpers'
+import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
 import { theme as themeProp } from 'theme'
 

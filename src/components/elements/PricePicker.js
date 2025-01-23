@@ -1,6 +1,6 @@
+import { formatNumber } from 'helpers/format-number'
 import { Box, Select } from 'components/elements'
 import React, { useState } from 'react'
-import { formatNumber } from 'helpers'
 import { theme } from 'theme'
 
 const BASE_PLAN_PRICE = 24

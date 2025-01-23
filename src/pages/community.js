@@ -1,6 +1,6 @@
 import { Meta, Heading, Container, Flex } from 'components/elements'
 import { Caption, Layout, Chat } from 'components/patterns'
-import { cdnUrl } from 'helpers'
+import { cdnUrl } from 'helpers/cdn-url'
 import { layout, theme } from 'theme'
 import React from 'react'
 
