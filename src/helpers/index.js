@@ -8,6 +8,7 @@ import aspectRatio from './aspect-ratio'
 import hasChildren from './has-children'
 import formatDate from './format-date'
 import proxyImage from './proxy-image'
+import emailUrl from './email-url'
 import getLines from './get-lines'
 import issueUrl from './issue-url'
 import template from './template'
@@ -17,7 +18,6 @@ import pdfUrl from './pdf-url'
 import trimMs from './trim-ms'
 import cdnUrl from './cdn-url'
 import decode from './decode'
-import encode from './encode'
 import isSSR from './is-ssr'
 import title from './title'
 import hash from './hash'
@@ -30,7 +30,7 @@ export {
   childrenText,
   childrenTextAll,
   decode,
-  encode,
+  emailUrl,
   formatDate,
   formatNumber,
   getLines,

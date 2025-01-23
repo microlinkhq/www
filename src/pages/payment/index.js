@@ -1,7 +1,7 @@
 import { Caption, Layout } from 'components/patterns'
 import React, { useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook'
-import { encode } from 'helpers'
+import emailUrl from 'helpers/email-url'
 import { layout, theme } from 'theme'
 
 import {
@@ -13,10 +13,7 @@ import {
   Meta
 } from 'components/elements'
 
-import {
-  PAYMENT_STATE,
-  ERROR_MAIL_OPTS
-} from 'components/pages/payment/constants'
+import { PAYMENT_STATE } from 'components/pages/payment/constants'
 
 const getTitle = paymentState => {
   switch (paymentState) {
@@ -46,9 +43,9 @@ const getCaption = paymentState => {
           Payment not processed.{' '}
           <Link
             css={theme({ pt: 2 })}
-            href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
+            href={emailUrl.paymentError({ subject: 'Error during checkout' })}
           >
-            Contact us
+            Click to request assistance.
           </Link>
         </>
       )
