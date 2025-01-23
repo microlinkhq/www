@@ -1,6 +1,13 @@
 /* global fetch */
 
 import { useFingerprint, useSiteMetadata, useQueryState } from 'components/hook'
+import { PAYMENT_STATE } from 'components/pages/payment/constants'
+import { Caption, Layout } from 'components/patterns'
+import { loadStripe } from '@stripe/stripe-js/pure'
+import React, { useEffect, useState } from 'react'
+import emailUrl from 'helpers/email-url'
+import once from 'helpers/once'
+
 import {
   colors,
   fonts,
@@ -10,11 +17,6 @@ import {
   transition,
   theme
 } from 'theme'
-import { Caption, Layout } from 'components/patterns'
-import { loadStripe } from '@stripe/stripe-js/pure'
-import React, { useEffect, useState } from 'react'
-import { encode } from 'helpers'
-import once from 'helpers/once'
 
 import {
   Box,
@@ -34,11 +36,6 @@ import {
   useStripe,
   useElements
 } from '@stripe/react-stripe-js'
-
-import {
-  PAYMENT_STATE,
-  ERROR_MAIL_OPTS
-} from 'components/pages/payment/constants'
 
 const fetchOnce = once(fetch)
 
@@ -62,7 +59,7 @@ const getTitle = paymentState => {
   }
 }
 
-const getCaption = paymentState => {
+const getCaption = (paymentState, error) => {
   switch (paymentState) {
     case PAYMENT_STATE.redirected:
       return (
@@ -79,9 +76,12 @@ const getCaption = paymentState => {
           Payment not updated.{' '}
           <Link
             css={theme({ pt: 2 })}
-            href={`mailto:hello@microlink.io?${encode(ERROR_MAIL_OPTS)}`}
+            href={emailUrl.paymentError({
+              subject: 'Error updating my payment details',
+              error
+            })}
           >
-            Contact us
+            Click to request assistance.
           </Link>
           .
         </>
@@ -96,6 +96,7 @@ const CheckoutForm = ({
   id,
   paymentState,
   setPaymentState,
+  setError,
   token
 }) => {
   const elements = useElements()
@@ -124,6 +125,7 @@ const CheckoutForm = ({
       if (error) throw error
     } catch (error) {
       console.error(error)
+      setError(error)
       setPaymentState(PAYMENT_STATE.failed)
     }
   }
@@ -157,6 +159,7 @@ export const Head = () => <Meta title='Payment' />
 
 const PaymentUpdatePage = () => {
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [query] = useQueryState()
   const {
     stripeKey,
@@ -215,7 +218,10 @@ const PaymentUpdatePage = () => {
           })}
           titleize={false}
         >
-          {getCaption(isLoading ? PAYMENT_STATE.redirected : paymentState)}
+          {getCaption(
+            isLoading ? PAYMENT_STATE.redirected : paymentState,
+            error
+          )}
         </Caption>
         {!isLoading && !query.status && (
           <Box css={theme({ pt: [3, null, 4], width: 7 })}>
@@ -251,6 +257,7 @@ const PaymentUpdatePage = () => {
                 id={query.id}
                 paymentState={paymentState}
                 setPaymentState={setPaymentState}
+                setError={setError}
                 token={query.token}
               />
             </Elements>

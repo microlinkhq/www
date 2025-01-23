@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`emailUrl > .paymentError > with error 1`] = `"mailto:hello%40microlink.io?subject=Error%20during%20checkout&body=Hello%2C%0A%0ASomething%20didn't%20work%20while%20updating%20my%20payment%20details.%0A%0AThe%20error%20is%3A%0A%0A%60Error%3A%20oh%20no%0A%20%20%20%20at%20Context.%3Canonymous%3E%20(%2Fpath%2Fto%2Ftest%2Fhelpers%2Femail-url.js%3A10%3A19)%0A%20%20%20%20at%20processImmediate%20(internal%2Ftimers.js%3A456%3A21)%60%0A%0AMy%20browser%20is%3A%0A%0A%60Node.js%2F22%60%0A%0ACan%20you%20assist%20me%3F"`;
+
+exports[`emailUrl > .paymentError > without error 1`] = `"mailto:hello%40microlink.io?subject=Error%20during%20checkout&body=Hello%2C%0A%0ASomething%20didn't%20work%20while%20updating%20my%20payment%20details.%0A%0ACan%20you%20assist%20me%3F"`;
