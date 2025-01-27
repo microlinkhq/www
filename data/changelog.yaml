@@ -1,3 +1,7 @@
+- date: January 2025
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): When [proxy](/docs/api/parameters/proxy) is provided it takes preference.'
+
 - date: December 2024
   notes:
     - '[Microlink OSS](/oss): Released [splashy v6](https://splashy.microlink.io/).'

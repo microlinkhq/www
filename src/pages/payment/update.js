@@ -92,7 +92,6 @@ const getCaption = (paymentState, error) => {
 }
 
 const CheckoutForm = ({
-  fingerprint,
   id,
   paymentState,
   setPaymentState,
@@ -111,15 +110,7 @@ const CheckoutForm = ({
         clientSecret: token,
         elements,
         confirmParams: {
-          return_url: redirectUrl('callback', id),
-          payment_method_data: {
-            billing_details: {
-              address: {
-                country: fingerprint.country,
-                postal_code: 'never'
-              }
-            }
-          }
+          return_url: redirectUrl('callback', id)
         }
       })
       if (error) throw error
@@ -253,7 +244,6 @@ const PaymentUpdatePage = () => {
               }}
             >
               <CheckoutForm
-                fingerprint={fingerprint}
                 id={query.id}
                 paymentState={paymentState}
                 setPaymentState={setPaymentState}
