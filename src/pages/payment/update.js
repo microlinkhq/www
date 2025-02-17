@@ -123,18 +123,7 @@ const CheckoutForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <PaymentElement
-        options={{
-          fields: {
-            billingDetails: {
-              address: {
-                country: 'never',
-                postalCode: 'never'
-              }
-            }
-          }
-        }}
-      />
+      <PaymentElement />
       <Button
         loading={!stripe || paymentState === PAYMENT_STATE.processing}
         css={theme({ mt: 3, width: '100%' })}
