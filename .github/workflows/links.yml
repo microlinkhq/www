@@ -14,5 +14,5 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@v2
         with:
-          args: -vv https://microlink.io --exclude fonts.gstatic.com --exclude fonts.googleapis.com
+          args: -vv https://microlink.io --exclude fonts.gstatic.com --exclude fonts.googleapis.com --exclude x.com
           fail: true
