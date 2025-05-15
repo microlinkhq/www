@@ -45,7 +45,7 @@ Giving a [url](/docs/api/parameters/url) as input, you get structured data as ou
 
 There are some of the most common workflow you can do with Microlink API:
 
-- Retrieve [meta](/docs/api/parameters/screenshot) data from any link.
+- Retrieve [meta](/docs/api/parameters/meta) data from any link.
 - Take a [screenshot](/docs/api/parameters/screenshot) or generate a [pdf](/docs/api/parameters/pdf) of the target website.
 - Get a predominant color [palette](/docs/api/parameters/palette) per each image detected.
 - Make easy [embed](/docs/api/parameters/embed) content directly in your HTML markup.
