@@ -162,7 +162,7 @@
     "styled-system": "~5.1.5",
     "swr": "~2.3.3",
     "tldts": "~6.1.85",
-    "top-crawler-agents": "~1.0.28",
+    "top-crawler-agents": "~1.0.31",
     "top-user-agents": "~2.1.42",
     "unique-random-array": "~4.0.0"
   },
