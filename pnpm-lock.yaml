@@ -24,8 +24,8 @@ importers:
         specifier: ~9.7.5
         version: 9.7.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@stripe/react-stripe-js':
-        specifier: ~3.6.0
-        version: 3.6.0(@stripe/stripe-js@7.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ~3.7.0
+        version: 3.7.0(@stripe/stripe-js@7.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@stripe/stripe-js':
         specifier: ~7.0.0
         version: 7.0.0
@@ -2710,8 +2710,8 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@stripe/react-stripe-js@3.6.0':
-    resolution: {integrity: sha512-zEnaUmTOsu7zhl3RWbZ0l1dRiad+QIbcAYzQfF+yYelURJowhAwesRHKWH+qGAIBEpkO6/VCLFHhVLH9DtPlnw==}
+  '@stripe/react-stripe-js@3.7.0':
+    resolution: {integrity: sha512-PYls/2S9l0FF+2n0wHaEJsEU8x7CmBagiH7zYOsxbBlLIHEsqUIQ4MlIAbV9Zg6xwT8jlYdlRIyBTHmO3yM7kQ==}
     peerDependencies:
       '@stripe/stripe-js': '>=1.44.1 <8.0.0'
       react: '>=16.8.0 <20.0.0'
@@ -15591,7 +15591,7 @@ snapshots:
       regenerator-runtime: 0.13.11
       resolve-from: 5.0.0
 
-  '@stripe/react-stripe-js@3.6.0(@stripe/stripe-js@7.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@stripe/react-stripe-js@3.7.0(@stripe/stripe-js@7.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@stripe/stripe-js': 7.0.0
       prop-types: 15.8.1
