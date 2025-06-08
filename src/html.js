@@ -35,6 +35,8 @@ export default function HTML (props) {
 
         <meta property='apple-mobile-web-app-capable' content='yes' />
         <meta property='mobile-web-app-capable' content='yes' />
+        <meta name='apple-mobile-web-app-title' content='Microlink' />
+        <meta name='apple-mobile-web-app-status-bar-style' content='default' />
 
         {/* <!-- Favicon --> */}
 
