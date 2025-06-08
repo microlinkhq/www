@@ -92,7 +92,7 @@ const LogoBox = styled(Placeholder.Empty)`
 const DEFAULT_DATA = {
   url: 'https://microlink.io',
   logo: {
-    url: 'https://cdn.microlink.io/logo/trim.png',
+    url: 'https://cdn.microlink.io/logo/logo.png',
     type: 'png',
     size: 5050,
     height: 500,

@@ -1,3 +1,15 @@
+- date: May 2025
+  notes:
+    - '[Microlink Geolocation](https://geolocation.microlink.io): Revamped UI.'
+
+- date: April 2025
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Added [text.microlink.io](http://text.microlink.io/https://example.com) alias.'
+
+- date: March 2025
+  notes:
+    - '[Microlink OSS](/oss): Improved [html-get](https://github.com/microlinkhq/html-get) for PDF.'
+
 - date: January 2025
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): When [proxy](/docs/api/parameters/proxy) is provided it takes preference.'
