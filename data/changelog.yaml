@@ -1,3 +1,10 @@
+- date: Jun 2025
+  notes:
+    - '[Microlink](/): Released [fonts.microlink.io](https://fonts.microlink.io).'
+    - '[Microlink API](/docs/api/getting-started/overview): Improved font rendering.'
+    - '[Microlink API](/docs/api/getting-started/overview): Minor improvements for extension detection.'
+    - '[Microlink API](/docs/api/getting-started/overview): Added [text.microlink.io](http://text.microlink.io/https://example.com) alias.'
+
 - date: May 2025
   notes:
     - '[Microlink Geolocation](https://geolocation.microlink.io): Revamped UI.'
