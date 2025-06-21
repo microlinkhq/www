@@ -275,3 +275,16 @@ input::-webkit-calendar-picker-indicator {
   opacity: 0;
   width: 0;
 }
+
+
+:root {
+  --sh-class: var(--black);
+  --sh-identifier: var(--black);
+  --sh-sign: var(--black50);
+  --sh-property: var(--black);
+  --sh-entity: var(--black);
+  --sh-jsxliterals: var(--black);
+  --sh-string: var(--black);
+  --sh-keyword: var(--black);
+  --sh-comment: var(--black);
+}
