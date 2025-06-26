@@ -2,7 +2,7 @@ import { commonHeadingStyles } from 'components/elements/Heading'
 import { withContainer, withTitle, withSlug } from 'helpers/hoc'
 import { space, fontSizes, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
-import { mqlCode } from 'helpers/mql-code'
+import { mqlCode } from 'helpers/mql-code-v2/index.js'
 import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
 import slug from 'rehype-slug'
@@ -27,6 +27,8 @@ import {
   Tweet,
   Video as VideoBase
 } from 'components/elements'
+
+import MultiCodeEditorV2Base from '../elements/MultiCodeEditor/MultiCodeEditorV2'
 
 import MicrolinkBase from '../patterns/Microlink/Microlink'
 import DemoIntegrations from './DemoIntegrations'
@@ -65,6 +67,8 @@ export const Terminal = withContainer(TerminalBase)
 export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
+
+export const MultiCodeEditorV2 = withContainer(MultiCodeEditorV2Base)
 
 const StyledH1 = styled(Heading)(
   theme({
@@ -366,6 +370,7 @@ const ScopedComponents = {
   Link,
   Microlink,
   MultiCodeEditor,
+  MultiCodeEditorV2,
   Ol,
   Paraph,
   PriceMonthly,

@@ -4,7 +4,9 @@ title: 'Overview'
 
 Microlink API provides a powerful API for automating any browser action.
 
-<MultiCodeEditor languages={mqlCode('https://github.com/microlinkhq')} />
+<MultiCodeEditorV2 
+  mqlCode='https://github.com/microlinkhq'
+/>
 
 You can hit the API directly from your browser or any environment that allows you to perform a simple HTTP GET request.
 
