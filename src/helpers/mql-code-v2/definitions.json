@@ -1,0 +1,11 @@
+{
+  "9hf6n3": {
+    "CLI": "microlink https://github.com/microlinkhq",
+    "cURL": "curl \"https://api.microlink.io?url=https%3A%2F%2Fgithub.com%2Fmicrolinkhq\"",
+    "JavaScript": "import mql from '@microlink/mql'\n\nconst { data } = await mql('https://github.com/microlinkhq')",
+    "Python": "import requests\n\nurl = \"https://api.microlink.io/\"\n\nquerystring = {\"url\":\"https://github.com/microlinkhq\"}\n\nresponse = requests.get(url, params=querystring)\n\nprint(response.json())",
+    "Ruby": "require 'uri'\nrequire 'net/http'\n\nurl = URI(\"https://api.microlink.io/?url=https%3A%2F%2Fgithub.com%2Fmicrolinkhq\")\n\nhttp = Net::HTTP.new(url.host, url.port)\nhttp.use_ssl = true\n\nrequest = Net::HTTP::Get.new(url)\n\nresponse = http.request(request)\nputs response.read_body",
+    "PHP": "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, [\n  CURLOPT_URL => \"https://api.microlink.io/?url=https%3A%2F%2Fgithub.com%2Fmicrolinkhq\",\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => \"\",\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 30,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => \"GET\",\n]);\n\n$response = curl_exec($curl);\n$err = curl_error($curl);\n\ncurl_close($curl);\n\nif ($err) {\n  echo \"cURL Error #:\" . $err;\n} else {\n  echo $response;\n}",
+    "Golang": "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io\"\n)\n\nfunc main() {\n\n\turl := \"https://api.microlink.io/?url=https%3A%2F%2Fgithub.com%2Fmicrolinkhq\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := io.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+  }
+}

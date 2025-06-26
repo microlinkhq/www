@@ -1,7 +1,9 @@
 import { Spinner, Button, Select, Choose } from 'components/elements'
-import React, { useState, useRef, useEffect } from 'react'
+import { useLocalStorage } from 'components/hook'
+import React, { useState, useRef } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { highlight } from 'sugar-high'
+import { mqlCode } from 'helpers/mql-code-v2'
 import {
   space,
   fonts,
@@ -18,24 +20,45 @@ import Terminal, {
   TerminalText
 } from 'components/elements/Terminal/Terminal'
 
+import CodeCopy from 'components/elements/Codecopy'
 import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
 
+const loadMql = async () => {
+  if (window.mql) return window.mql
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src =
+      'https://cdn.jsdelivr.net/npm/@microlink/mql@latest/dist/mql.min.js'
+    script.onload = () => {
+      resolve(window.mql)
+    }
+    script.onerror = () => {
+      reject(new Error('Failed to load mql library'))
+    }
+    document.head.appendChild(script)
+  })
+}
+
 const FadeOverlay = styled(Box)`
+  height: ${({ position }) => (position === 'top' ? '20px' : '28px')};
   position: absolute;
   left: 0;
   right: 0;
   width: 100%;
-  height: ${({ position }) => (position === 'top' ? '2rem' : '3rem')};
-  pointer-events: none;
-  z-index: 5;
-  transition: opacity 0.2s ease;
-  ${({ position }) => `
-    ${position}: 0;
-    background: linear-gradient(to ${
-      position === 'top' ? 'bottom' : 'top'
-    }, rgba(255, 255, 255, 1) 0%, transparent 100%);
-  `}
+  top: ${({ position }) => (position === 'top' ? '-4px' : 'auto')};
+  bottom: ${({ position }) => (position === 'bottom' ? '-6px' : 'auto')};
+
+  &:before {
+    background: white;
+    bottom: 0px;
+    content: '';
+    filter: blur(4px);
+    height: ${({ position }) => (position === 'top' ? '20px' : '28px')};
+    left: 0px;
+    position: absolute;
+    width: 100%;
+  }
 `
 
 const Content = styled(TerminalText)`
@@ -50,63 +73,6 @@ const fontStyles = {
   letterSpacing: '0px',
   fontWeight: '400',
   tabSize: 2
-}
-
-const CODE = {
-  javascript:
-    "const url = 'https://api.microlink.io/?url=https://kikobeats.com';\n" +
-    "const options = {method: 'GET', headers: {'Content-Type': 'application/json'}};\n" +
-    'const response = await fetch(url, options);\n',
-  python:
-    'import requests\n' +
-    '\n' +
-    'url = "https://api.microlink.io/"\n' +
-    '\n' +
-    'headers = {"Content-Type": "application/json"}\n' +
-    '\n' +
-    'response = requests.get(url, headers=headers)\n' +
-    '\n' +
-    'print(response.json())',
-  ruby:
-    "require 'uri'\n" +
-    "require 'net/http'\n" +
-    '\n' +
-    'url = URI("https://api.microlink.io/")\n' +
-    '\n' +
-    'http = Net::HTTP.new(url.host, url.port)\n' +
-    'http.use_ssl = true\n' +
-    '\n' +
-    'request = Net::HTTP::Get.new(url)\n' +
-    'request["Content-Type"] = \'application/json\'\n' +
-    '\n' +
-    'response = http.request(request)\n' +
-    'puts response.read_body',
-  go:
-    'package main\n' +
-    '\n' +
-    'import (\n' +
-    '\t"fmt"\n' +
-    '\t"net/http"\n' +
-    '\t"io"\n' +
-    ')\n' +
-    '\n' +
-    'func main() {\n' +
-    '\n' +
-    '\turl := "https://api.microlink.io/"\n' +
-    '\n' +
-    '\treq, _ := http.NewRequest("GET", url, nil)\n' +
-    '\n' +
-    '\treq.Header.Add("Content-Type", "application/json")\n' +
-    '\n' +
-    '\tres, _ := http.DefaultClient.Do(req)\n' +
-    '\n' +
-    '\tdefer res.Body.Close()\n' +
-    '\tbody, _ := io.ReadAll(res.Body)\n' +
-    '\n' +
-    '\tfmt.Println(res)\n' +
-    '\tfmt.Println(string(body))\n' +
-    '\n' +
-    '}'
 }
 
 function ViewButton ({ view, activeView, onClick, isExpanded }) {
@@ -145,17 +111,9 @@ function ViewButton ({ view, activeView, onClick, isExpanded }) {
   )
 }
 
-// Custom code editor component with sugar-high syntax highlighting
 function CodeEditor ({ value, onChange, onKeyDown, style, editable = false }) {
   const textareaRef = useRef(null)
   const preRef = useRef(null)
-  const [highlightedCode, setHighlightedCode] = useState('')
-
-  useEffect(() => {
-    // Highlight the code using sugar-high
-    const highlighted = highlight(value)
-    setHighlightedCode(highlighted)
-  }, [value])
 
   const handleScroll = () => {
     if (editable && textareaRef.current && preRef.current) {
@@ -187,7 +145,7 @@ function CodeEditor ({ value, onChange, onKeyDown, style, editable = false }) {
           ...fontStyles,
           ...style
         }}
-        dangerouslySetInnerHTML={{ __html: highlightedCode }}
+        dangerouslySetInnerHTML={{ __html: highlight(value) }}
       />
 
       {editable && (
@@ -226,53 +184,6 @@ function CodeEditor ({ value, onChange, onKeyDown, style, editable = false }) {
   )
 }
 
-// Extract toolbar components for better organization
-const ToolbarButton = ({ onClick, title, children, variant = 'secondary' }) => (
-  <button
-    onClick={onClick}
-    title={title}
-    style={{
-      backgroundColor: `var(--${variant})`,
-      color: `var(--${variant}-foreground)`,
-      borderRadius: '6px',
-      boxShadow:
-        '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      border: 'none',
-      cursor: 'pointer',
-      transition: 'opacity 0.2s',
-      width: '2rem',
-      height: '2rem',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}
-    onMouseEnter={e => {
-      e.target.style.opacity = '0.8'
-    }}
-    onMouseLeave={e => {
-      e.target.style.opacity = '1'
-    }}
-  >
-    {children}
-  </button>
-)
-
-const ExternalLinkIcon = () => (
-  <svg
-    style={{ width: '12px', height: '12px' }}
-    fill='none'
-    stroke='currentColor'
-    viewBox='0 0 24 24'
-  >
-    <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      strokeWidth={2}
-      d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
-    />
-  </svg>
-)
-
 const PlayIcon = () => (
   <svg
     style={{ width: '12px', height: '12px' }}
@@ -288,7 +199,8 @@ const Toolbar = ({
   onLanguageChange,
   onOpenInBrowser,
   onExecute,
-  isLoading
+  isLoading,
+  availableLanguages
 }) => (
   <div
     style={{
@@ -305,23 +217,17 @@ const Toolbar = ({
       value={currentLanguage}
       onChange={onLanguageChange}
       style={{
-        background: 'white',
+        backgroundColor: 'white',
         width: '6rem',
         height: '2rem'
       }}
     >
-      <option value='javascript'>JavaScript</option>
-      <option value='python'>Python</option>
-      <option value='ruby'>Ruby</option>
-      <option value='golang'>Go</option>
+      {availableLanguages.map(lang => (
+        <option key={lang} value={lang}>
+          {lang}
+        </option>
+      ))}
     </Select>
-
-    <ToolbarButton
-      onClick={onOpenInBrowser}
-      title='Open in Browser (GET requests only)'
-    >
-      <ExternalLinkIcon />
-    </ToolbarButton>
 
     <Button
       onClick={onExecute}
@@ -423,111 +329,87 @@ const ContentArea = ({
           ...fontStyles
         }}
       >
-        {responseData && Object.keys(responseData.headers || {}).length > 0 ? (
-          <div>
-            {(() => {
-              const headers = responseData?.headers || {}
-              const maxKeyLength = Math.max(
-                ...Object.keys(headers).map(key => key.length)
-              )
-              return Object.entries(headers).map(([key, value], index) => (
-                <Box key={key} css={theme({ mb: index > 0 ? 1 : 0 })}>
-                  <span>{key.padEnd(maxKeyLength, ' ')}</span>
-                  <span>:</span>
-                  <span>{value}</span>
-                </Box>
-              ))
-            })()}
-          </div>
-        ) : (
-          <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
-            No headers available
-          </div>
-        )}
+        <Box css={theme({ p: 3 })}>
+          {(() => {
+            const headers = responseData?.headers || {}
+            const maxKeyLength = Math.max(
+              ...Object.keys(headers).map(key => key.length)
+            )
+            const sortedHeaders = Object.entries(headers).sort(([a], [b]) =>
+              a.localeCompare(b)
+            )
+            return sortedHeaders.map(([key, value], index) => (
+              <Box key={key} css={theme({ mb: index > 0 ? 1 : 0 })}>
+                <span>{key.padEnd(maxKeyLength, ' ')}</span>
+                <span>:</span>
+                <span>{value}</span>
+              </Box>
+            ))
+          })()}
+        </Box>
       </TerminalText>
     </Choose.When>
   </Choose>
 )
 
 function MultiCodeEditorV2 ({
-  defaultMethod = 'GET',
-  height = 192,
+  mqlCode: mqlCodeInput,
+  height = 180,
   editable = false
 }) {
-  const [code, setCode] = useState(CODE.javascript)
+  const codeSnippets = mqlCode(mqlCodeInput)
+  const availableLanguages = Object.keys(codeSnippets)
+  const [currentLanguage, setCurrentLanguage] = useLocalStorage(
+    'mql-code-editor-language',
+    'javascript'
+  )
+
+  // Ensure saved language is available, fallback to first available language
+  const validLanguage = availableLanguages.includes(currentLanguage)
+    ? currentLanguage
+    : availableLanguages[0]
+
+  const [code, setCode] = useState(codeSnippets[validLanguage])
   const [responseData, setResponseData] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [activeView, setActiveView] = useState('code')
-  const [currentLanguage, setCurrentLanguage] = useState('javascript')
-  const [results, setResults] = useState({})
   const [isExpanded, setIsExpanded] = useState(false)
 
   const parseCodeAndExecute = async () => {
     setIsLoading(true)
     try {
-      const startTime = Date.now()
-      let response
-      let data
+      await loadMql()
 
-      // Only JavaScript can be executed in the browser
-      if (currentLanguage === 'javascript') {
-        // Wrap the code in an async function and evaluate it
-        const wrappedCode = `
-        (async () => {
-          ${CODE.javascript}
-          return response;
-        })()
-      `
-
-        // Evaluate the code in the browser
-        response = await eval(wrappedCode)
-        console.log('response', wrappedCode)
-        data = await response.json()
-      } else {
-        // For other languages, we can't execute them in the browser
-        // But we can simulate a response structure
-        throw new Error(
-          `Cannot execute ${currentLanguage} code in browser environment`
+      const browserCode = codeSnippets.JavaScript.replace(
+        /import\s+.*?from\s+['"]@microlink\/mql['"].*?\n?/g,
+        ''
+      )
+        .replace(
+          /const\s+{\s*data\s*}\s*=\s*await\s+mql\(/g,
+          'const response = await window.mql('
         )
-      }
+        .replace(/await\s+mql\(/g, 'await window.mql(')
 
-      const endTime = Date.now()
+      const wrappedCode = `
+      (async () => {
+        ${browserCode}
+        return response;
+      })()
+    `
+      // eslint-disable-next-line no-eval
+      const mqlResult = await eval(wrappedCode)
 
-      // Convert headers to object
-      const responseHeaders = {}
-      response.headers.forEach((value, key) => {
-        responseHeaders[key] = value
+      setResponseData({
+        status: mqlResult.status,
+        headers: Object.fromEntries(mqlResult.response.headers),
+        body: mqlResult.data
       })
-
-      const result = {
-        status: `${response.status} ${response.statusText}`,
-        headers: responseHeaders,
-        body: data,
-        timing: endTime - startTime
-      }
-
-      // Store result for current language
-      setResults(prev => ({
-        ...prev,
-        [currentLanguage]: result
-      }))
-
-      setResponseData(result)
     } catch (error) {
-      const errorResult = {
+      setResponseData({
         status: 'Error',
         headers: {},
-        body: error instanceof Error ? error.message : 'Unknown error occurred',
-        timing: 0
-      }
-
-      // Store error result for current language
-      setResults(prev => ({
-        ...prev,
-        [currentLanguage]: errorResult
-      }))
-
-      setResponseData(errorResult)
+        body: error.message
+      })
     } finally {
       setIsLoading(false)
     }
@@ -538,60 +420,84 @@ function MultiCodeEditorV2 ({
       parseCodeAndExecute().then(() => {
         setActiveView('body')
         setIsExpanded(false)
-        console.log('Collected results by language:', results)
       })
     }
   }
 
   const handleViewClick = view => {
     if (activeView === view && !isExpanded) {
-      // Second click on same view - expand to full height
       setIsExpanded(true)
     } else if (activeView === view && isExpanded) {
-      // Third click on same view - collapse back to normal
       setIsExpanded(false)
     } else {
-      // First click or different view - switch view and reset expansion
       setActiveView(view)
-      setIsExpanded(false)
     }
   }
 
   const handleOpenInBrowser = () => {
-    try {
-      // Extract URL from JavaScript fetch code
-      const fetchMatch = code.match(/fetch\(['"`]([^'"`]+)['"`]/)
-      const url = fetchMatch ? fetchMatch[1] : 'https://api.microlink.io/'
-
-      // Extract method
-      const methodMatch = code.match(/method:\s*['"`]([^'"`]+)['"`]/)
-      const method = methodMatch ? methodMatch[1].toUpperCase() : 'GET'
-
-      if (method === 'GET') {
-        window.open(url, '_blank')
-      } else {
-        window.alert(
-          `Cannot open ${method} requests in browser. Only GET requests are supported.`
-        )
-      }
-    } catch (error) {
-      window.alert('Could not extract URL from the request')
-    }
+    const curlCode = codeSnippets.cURL
+    const url = curlCode.split(' ')[1].replace(/^"|"$/g, '')
+    console.log({ url })
+    window.open(url, '_blank')
   }
 
   const handleLanguageChange = e => {
-    setCurrentLanguage(e.target.value)
-    setCode(CODE[e.target.value])
+    const newLanguage = e.target.value
+    setCurrentLanguage(newLanguage)
+    setCode(codeSnippets[newLanguage])
     setActiveView('code')
   }
 
-  const componentHeight = isExpanded ? 'calc(100vh - 200px)' : `${height}px`
+  const getCurrentViewText = () => {
+    if (activeView === 'code') {
+      return code
+    } else if (activeView === 'body') {
+      if (!responseData) return ''
+      return typeof responseData.body === 'string'
+        ? responseData.body
+        : JSON.stringify(responseData.body, null, 2)
+    } else if (activeView === 'headers') {
+      return Object.entries(responseData.headers || {})
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n')
+    }
+    return ''
+  }
+
+  const TerminalActions = () => (
+    <>
+      <button
+        onClick={handleOpenInBrowser}
+        title='Open in Browser'
+        style={{
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer'
+        }}
+        onMouseEnter={e => {
+          const icon = e.target.querySelector('svg')
+          if (icon) icon.style.stroke = colors.black
+        }}
+        onMouseLeave={e => {
+          const icon = e.target.querySelector('svg')
+          if (icon) icon.style.stroke = colors.black20
+        }}
+      >
+        <FeatherIcon icon='Globe' color={colors.black20} size={[0, 0, 0, 0]} />
+      </button>
+      <CodeCopy text={getCurrentViewText()} />
+    </>
+  )
+
+  const componentHeight = isExpanded ? `${height * 2}px` : `${height}px`
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <Terminal
-        showHeader={false}
-        css={theme({ width: TERMINAL_WIDTH })}
+        text={getCurrentViewText()}
+        ActionComponent={TerminalActions}
+        css={theme({ width: TERMINAL_WIDTH, pl: 0 })}
         style={{ position: 'relative' }}
       >
         <div style={{ height: componentHeight }}>
@@ -610,11 +516,12 @@ function MultiCodeEditorV2 ({
         </div>
 
         <Toolbar
-          currentLanguage={currentLanguage}
+          currentLanguage={validLanguage}
           onLanguageChange={handleLanguageChange}
           onOpenInBrowser={handleOpenInBrowser}
           onExecute={executeRequest}
           isLoading={isLoading}
+          availableLanguages={availableLanguages}
         />
       </Terminal>
 

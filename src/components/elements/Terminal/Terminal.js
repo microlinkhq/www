@@ -85,9 +85,9 @@ const TerminalButtonRed = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(1),
-            animationDuration
-          }
+          animationDelay: animationDelay(1),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -113,9 +113,9 @@ const TerminalButtonGreen = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(3),
-            animationDuration
-          }
+          animationDelay: animationDelay(3),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -146,8 +146,7 @@ export const TerminalTitle = ({ isDark, children }) => (
   </TerminalTitleWrapper>
 )
 
-const TerminalText = styled('div')`
-  padding: 0 8px 16px 8px;
+export const TerminalText = styled('div')`
   overflow: visible;
   font-size: 13px;
   line-height: 20px;
@@ -220,7 +219,11 @@ const TerminalProvider = ({
         <TerminalTitle isDark={isDark}>{title}</TerminalTitle>
         <ActionComponent isDark={isDark} text={text} />
       </TerminalHeader>
-      <TerminalText>{children}</TerminalText>
+      <TerminalText>
+        {/* <FadeBackground position='top' /> */}
+        {children}
+        {/* <FadeBackground position='bottom' /> */}
+      </TerminalText>
     </TerminalWindow>
   )
 }
