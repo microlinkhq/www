@@ -1,58 +1,50 @@
-import { fontSizes, lineHeights, fonts, cx } from 'theme'
-import { css } from 'styled-components'
+// Function to get CSS custom properties for specific language
+export const getLanguageTheme = (language, themeKey) => {
+  const normalizedLang = language?.toLowerCase()
 
-const base = ({ background, primary, secondary }) => css`
-  margin: 0;
-  code {
-    font-family: ${fonts.mono};
-    font-size: ${fontSizes[0]};
-    line-height: ${lineHeights[2]};
-    direction: ltr;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    tab-size 2;
-    hyphens: none;
-    background ${background};
-    color: ${primary};
+  // Map language aliases to main language keys
+  const languageMap = {
+    js: 'javascript',
+    jsx: 'javascript',
+    ts: 'javascript',
+    tsx: 'javascript',
+    'node.js': 'javascript',
+    shell: 'bash',
+    sh: 'bash',
+    curl: 'bash'
   }
-  pre {
-    padding: 0px 1em 0px 0px;
-    margin: .5em 0;
-    overflow: auto;
-  };
 
-  .keyword,
-  .attr-name,
-  .arrow,
-  .punctuation,
-  .operator {
-    color: ${secondary};
-  }
-  .keyword,
-  .template-string {
-    color: ${primary};
-  }
-`
+  const mappedLang = languageMap[normalizedLang] || normalizedLang
 
-const theme = {
-  light: {
-    background: cx('white'),
-    primary: cx('black'),
-    secondary: cx('black50')
-  },
-  dark: {
-    background: cx('black'),
-    primary: cx('white'),
-    secondary: cx('white50')
-  }
+  console.log(mappedLang)
+
+  return languageColors[mappedLang]?.[themeKey]
 }
 
-const codeTheme = {
-  theme,
-  dark: base(theme.dark),
-  light: base(theme.light)
+// Language-specific CSS custom properties for sugar-high tokens
+const languageColors = {
+  json: {
+    light: `
+      --sh-class: var(--black);
+      --sh-identifier: var(--black);
+      --sh-sign: var(--black50);
+      --sh-property: var(--black);
+      --sh-entity: var(--black);
+      --sh-jsxliterals: var(--black);
+      --sh-string: var(--black);
+      --sh-keyword: var(--black);
+      --sh-comment: var(--black);
+    `,
+    dark: `
+      --sh-class: var(--black);
+      --sh-identifier: var(--black);
+      --sh-sign: var(--black50);
+      --sh-property: var(--black);
+      --sh-entity: var(--black);
+      --sh-jsxliterals: var(--black);
+      --sh-string: var(--black);
+      --sh-keyword: var(--black);
+      --sh-comment: var(--black);
+    `
+  }
 }
-
-export default codeTheme
