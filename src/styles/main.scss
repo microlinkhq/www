@@ -278,13 +278,13 @@ input::-webkit-calendar-picker-indicator {
 
 
 :root {
-  --sh-class: var(--black);
-  --sh-identifier: var(--black);
-  --sh-sign: var(--black50);
-  --sh-property: var(--black);
-  --sh-entity: var(--black);
-  --sh-jsxliterals: var(--black);
-  --sh-string: var(--black);
-  --sh-keyword: var(--black);
-  --sh-comment: var(--black);
+  --sh-class: #067df7;
+  --sh-identifier: #067df7;
+  --sh-sign: #067df7;
+  --sh-property: #067df7;
+  --sh-entity: #067df7;
+  --sh-jsxliterals: #067df7;
+  --sh-string: #212529;
+  --sh-keyword: #EA407B;
+  --sh-comment: #067df7;
 }

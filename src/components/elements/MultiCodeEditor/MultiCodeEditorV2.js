@@ -3,7 +3,6 @@ import { useLocalStorage } from 'components/hook'
 import React, { useState, useRef } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { highlight } from 'sugar-high'
-import { mqlCode } from 'helpers/mql-code-v2'
 import {
   space,
   fonts,
@@ -14,6 +13,7 @@ import {
   lineHeights
 } from 'theme'
 import styled from 'styled-components'
+import mql from '@microlink/mql'
 
 import Terminal, {
   TERMINAL_WIDTH,
@@ -24,37 +24,24 @@ import CodeCopy from 'components/elements/Codecopy'
 import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
 
-const loadMql = async () => {
-  if (window.mql) return window.mql
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script')
-    script.src =
-      'https://cdn.jsdelivr.net/npm/@microlink/mql@latest/dist/mql.min.js'
-    script.onload = () => {
-      resolve(window.mql)
-    }
-    script.onerror = () => {
-      reject(new Error('Failed to load mql library'))
-    }
-    document.head.appendChild(script)
-  })
-}
-
 const FadeOverlay = styled(Box)`
-  height: ${({ position }) => (position === 'top' ? '20px' : '28px')};
+  height: ${({ position }) => (position === 'bottom' ? '34px' : '34px')};
   position: absolute;
   left: 0;
   right: 0;
   width: 100%;
-  top: ${({ position }) => (position === 'top' ? '-4px' : 'auto')};
-  bottom: ${({ position }) => (position === 'bottom' ? '-6px' : 'auto')};
+  top: ${({ position }) => (position === 'top' ? '34px' : 'auto')};
+  bottom: ${({ position }) => (position === 'bottom' ? '0' : 'auto')};
 
   &:before {
-    background: white;
+    background: linear-gradient(
+      to ${({ position }) => (position === 'bottom' ? 'top' : 'bottom')},
+      white ${({ position }) => (position === 'top' ? '50%' : '50%')},
+      transparent 100%
+    );
     bottom: 0px;
     content: '';
-    filter: blur(4px);
-    height: ${({ position }) => (position === 'top' ? '20px' : '28px')};
+    height: ${({ position }) => (position === 'bottom' ? '34px' : '34px')};
     left: 0px;
     position: absolute;
     width: 100%;
@@ -62,7 +49,7 @@ const FadeOverlay = styled(Box)`
 `
 
 const Content = styled(TerminalText)`
-  padding: ${space[3]};
+  padding: 0 ${space[2]};
 `
 
 // Common font styles to ensure perfect alignment between textarea and pre
@@ -324,12 +311,8 @@ const ContentArea = ({
     </Choose.When>
 
     <Choose.When condition={activeView === 'headers'}>
-      <TerminalText
-        style={{
-          ...fontStyles
-        }}
-      >
-        <Box css={theme({ p: 3 })}>
+      <TerminalText style={{ padding: 0, ...fontStyles }}>
+        <div>
           {(() => {
             const headers = responseData?.headers || {}
             const maxKeyLength = Math.max(
@@ -346,22 +329,21 @@ const ContentArea = ({
               </Box>
             ))
           })()}
-        </Box>
+        </div>
       </TerminalText>
     </Choose.When>
   </Choose>
 )
 
 function MultiCodeEditorV2 ({
-  mqlCode: mqlCodeInput,
+  mqlCode: codeSnippets,
   height = 180,
   editable = false
 }) {
-  const codeSnippets = mqlCode(mqlCodeInput)
   const availableLanguages = Object.keys(codeSnippets)
   const [currentLanguage, setCurrentLanguage] = useLocalStorage(
     'mql-code-editor-language',
-    'javascript'
+    'JavaScript'
   )
 
   // Ensure saved language is available, fallback to first available language
@@ -377,42 +359,36 @@ function MultiCodeEditorV2 ({
 
   const parseCodeAndExecute = async () => {
     setIsLoading(true)
-    try {
-      await loadMql()
 
-      const browserCode = codeSnippets.JavaScript.replace(
-        /import\s+.*?from\s+['"]@microlink\/mql['"].*?\n?/g,
-        ''
-      )
-        .replace(
-          /const\s+{\s*data\s*}\s*=\s*await\s+mql\(/g,
-          'const response = await window.mql('
-        )
-        .replace(/await\s+mql\(/g, 'await window.mql(')
+    // Extract parameters from the JavaScript code
+    const jsCode = codeSnippets.JavaScript
+    const urlMatch = jsCode.match(/mql\(['"`]([^'"`]+)['"`]/)
+    const optionsMatch = jsCode.match(/mql\(['"`][^'"`]+['"`],\s*({[^}]+})/)
 
-      const wrappedCode = `
-      (async () => {
-        ${browserCode}
-        return response;
-      })()
-    `
-      // eslint-disable-next-line no-eval
-      const mqlResult = await eval(wrappedCode)
+    const url = urlMatch ? urlMatch[1] : ''
+    let options = {}
 
-      setResponseData({
-        status: mqlResult.status,
-        headers: Object.fromEntries(mqlResult.response.headers),
-        body: mqlResult.data
-      })
-    } catch (error) {
-      setResponseData({
-        status: 'Error',
-        headers: {},
-        body: error.message
-      })
-    } finally {
-      setIsLoading(false)
+    if (optionsMatch) {
+      try {
+        // eslint-disable-next-line no-eval
+        options = eval(`(${optionsMatch[1]})`)
+      } catch (e) {
+        console.warn('Could not parse options:', e)
+      }
     }
+
+    const result = await (async () => {
+      try {
+        const value = await mql(url, options)
+        return { status: 'fulfilled', headers: value.headers, body: value.data }
+      } catch (error) {
+        const { headers, name, statusCode, message, url, ...body } = error
+        return { status: 'rejected', headers, body }
+      }
+    })()
+
+    setResponseData(result)
+    setIsLoading(false)
   }
 
   const executeRequest = () => {
@@ -437,7 +413,6 @@ function MultiCodeEditorV2 ({
   const handleOpenInBrowser = () => {
     const curlCode = codeSnippets.cURL
     const url = curlCode.split(' ')[1].replace(/^"|"$/g, '')
-    console.log({ url })
     window.open(url, '_blank')
   }
 
@@ -497,7 +472,7 @@ function MultiCodeEditorV2 ({
       <Terminal
         text={getCurrentViewText()}
         ActionComponent={TerminalActions}
-        css={theme({ width: TERMINAL_WIDTH, pl: 0 })}
+        css={theme({ width: TERMINAL_WIDTH })}
         style={{ position: 'relative' }}
       >
         <div style={{ height: componentHeight }}>

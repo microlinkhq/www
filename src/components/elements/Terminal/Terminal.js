@@ -147,6 +147,7 @@ export const TerminalTitle = ({ isDark, children }) => (
 )
 
 export const TerminalText = styled('div')`
+  padding: 16px 8px 16px 8px;
   overflow: visible;
   font-size: 13px;
   line-height: 20px;
@@ -178,7 +179,7 @@ const blinkCursorStyle = css`
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
     animation-duration: 1s;
     display: inline-block;
-    width: 1px;
+    width: 2px;
     height: 14px;
     background: ${colors.secondary};
     margin-left: 4px;
@@ -219,11 +220,7 @@ const TerminalProvider = ({
         <TerminalTitle isDark={isDark}>{title}</TerminalTitle>
         <ActionComponent isDark={isDark} text={text} />
       </TerminalHeader>
-      <TerminalText>
-        {/* <FadeBackground position='top' /> */}
-        {children}
-        {/* <FadeBackground position='bottom' /> */}
-      </TerminalText>
+      <TerminalText>{children}</TerminalText>
     </TerminalWindow>
   )
 }
