@@ -1,11 +1,10 @@
+import { theme, speed, toMs, timings, cx, colors, radii, borders } from 'theme'
 import { childrenTextAll } from 'helpers/children-text-all'
 import styled, { css, keyframes } from 'styled-components'
 import { aspectRatio } from 'helpers/aspect-ratio'
 import { blink } from 'components/keyframes'
 import { wordBreak } from 'helpers/style'
 import React from 'react'
-
-import { theme, speed, toMs, timings, cx, colors, radii, borders } from 'theme'
 
 import CodeCopy from '../Codecopy'
 import Text from '../Text'
