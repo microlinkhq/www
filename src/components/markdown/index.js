@@ -2,7 +2,7 @@ import { commonHeadingStyles } from 'components/elements/Heading'
 import { withContainer, withTitle, withSlug } from 'helpers/hoc'
 import { space, fontSizes, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
-import { mqlCode } from 'helpers/mql-code-v2/index.js'
+import { mqlCode } from 'helpers/mql-code-v2'
 import { wordBreak } from 'helpers/style'
 import Mdx from 'mdx-scoped-runtime'
 import slug from 'rehype-slug'
@@ -68,7 +68,7 @@ export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
-export const MultiCodeEditorV2 = withContainer(MultiCodeEditorV2Base)
+export const MultiCodeEditorNew = withContainer(MultiCodeEditorV2Base)
 
 const StyledH1 = styled(Heading)(
   theme({
@@ -214,10 +214,10 @@ const StyledLi = styled(Text)`
 export const Li = props => <StyledLi as='li' {...props} />
 
 const codeStyle = css`
-  color: ${({ theme }) => theme.colors.pink7};
+  color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.mono};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-size: 90% !important;
+  font-size: 0.9rem;
   text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
 `
 
@@ -370,7 +370,7 @@ const ScopedComponents = {
   Link,
   Microlink,
   MultiCodeEditor,
-  MultiCodeEditorV2,
+  MultiCodeEditorNew,
   Ol,
   Paraph,
   PriceMonthly,

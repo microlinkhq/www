@@ -184,7 +184,6 @@ const PlayIcon = () => (
 const Toolbar = ({
   currentLanguage,
   onLanguageChange,
-  onOpenInBrowser,
   onExecute,
   isLoading,
   availableLanguages
@@ -493,7 +492,6 @@ function MultiCodeEditorV2 ({
         <Toolbar
           currentLanguage={validLanguage}
           onLanguageChange={handleLanguageChange}
-          onOpenInBrowser={handleOpenInBrowser}
           onExecute={executeRequest}
           isLoading={isLoading}
           availableLanguages={availableLanguages}
