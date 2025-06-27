@@ -13,8 +13,11 @@ export const mqlCode = (url, options = {}) => {
     throw new Error('URL parameter is required and must be a string')
   }
 
+  // Extract apiKey for special handling
+  const { apiKey, ...restOptions } = options
+
   // Flatten nested objects for consistent handling across most formats
-  const flattenedOptions = flattenObject(options)
+  const flattenedOptions = flattenObject(restOptions)
 
   // Build query parameters for HTTPSnippet (other languages)
   const queryParams = {
@@ -29,7 +32,16 @@ export const mqlCode = (url, options = {}) => {
     queryString: Object.entries(queryParams).map(([key, value]) => ({
       name: key,
       value: String(value)
-    }))
+    })),
+    // Add x-api-key header if apiKey is provided
+    ...(apiKey && {
+      headers: [
+        {
+          name: 'x-api-key',
+          value: apiKey
+        }
+      ]
+    })
   }
 
   const snippet = new HTTPSnippet(requestObject)
@@ -101,8 +113,11 @@ const flattenObject = (obj, prefix = '') => {
  * @returns {string} CLI command string
  */
 const generateCliCommand = (url, options = {}) => {
+  // Extract apiKey for special handling
+  const { apiKey, ...restOptions } = options
+
   // Flatten nested objects
-  const flattenedOptions = flattenObject(options)
+  const flattenedOptions = flattenObject(restOptions)
 
   const optionsString = Object.entries(flattenedOptions)
     .map(([key, value]) => {
@@ -114,7 +129,10 @@ const generateCliCommand = (url, options = {}) => {
     .filter(Boolean)
     .join('')
 
-  return `microlink ${url}${optionsString}`
+  // Add apiKey as a flag if present
+  const apiKeyFlag = apiKey ? ` --api-key ${apiKey}` : ''
+
+  return `microlink ${url}${optionsString}${apiKeyFlag}`
 }
 
 /**
@@ -124,15 +142,38 @@ const generateCliCommand = (url, options = {}) => {
  * @returns {string} Curl command string
  */
 const generateCurlCommand = (url, options = {}) => {
-  // Flatten nested objects
-  const flattenedOptions = flattenObject(options)
+  // Extract apiKey for special handling
+  const { apiKey, ...restOptions } = options
 
-  const queryParams = new URLSearchParams({
+  // Flatten nested objects
+  const flattenedOptions = flattenObject(restOptions)
+
+  // Build all query parameters
+  const allParams = {
     url,
     ...flattenedOptions
+  }
+
+  // Build the curl command with proper formatting
+  const parts = [`curl -G "${MICROLINK_API_URL}"`]
+
+  // Add API key header if present
+  if (apiKey) {
+    parts.push(`  -H "x-api-key: ${apiKey}"`)
+  }
+
+  // Add each parameter as separate -d option
+  Object.entries(allParams).forEach(([key, value]) => {
+    parts.push(`  -d "${key}=${value}"`)
   })
 
-  return `curl "${MICROLINK_API_URL}?${queryParams.toString()}"`
+  // Join with line continuation if we have multiple parts
+  if (parts.length > 1) {
+    return parts.join(' \\\n')
+  } else {
+    // Simple case - just the URL with no params
+    return `curl "${MICROLINK_API_URL}?url=${encodeURIComponent(url)}"`
+  }
 }
 
 export default mqlCode
