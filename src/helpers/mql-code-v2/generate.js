@@ -7,9 +7,12 @@ import { mqlCode } from './script.js'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-const CASES = [{ url: 'https://github.com/microlinkhq' }]
+const CASES = [
+  ['https://github.com/microlinkhq'],
+  ['https://github.com/microlinkhq', { apiKey: 'YOUR_API_TOKEN' }]
+]
 
-const output = CASES.reduce((acc, { url, options }) => {
+const output = CASES.reduce((acc, [url, options]) => {
   acc[hash(url, options)] = mqlCode(url, options)
   return acc
 }, {})
