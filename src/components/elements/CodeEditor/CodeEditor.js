@@ -1,19 +1,17 @@
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { cx, radii, theme, fontSizes, lineHeights, fonts } from 'theme'
+import { hideScrollbar, wordBreak } from 'helpers/style'
 import { getLines } from 'helpers/get-lines'
 import { prettier } from 'helpers/prettier'
 import { template } from 'helpers/template'
-import { hash } from 'helpers/hash'
-
-import { hideScrollbar, wordBreak } from 'helpers/style'
-import React, { useState } from 'react'
+import React from 'react'
 import identity from 'lodash/identity'
+import { highlight } from 'sugar-high'
 import styled from 'styled-components'
-import { cx, radii, theme } from 'theme'
+import { hash } from 'helpers/hash'
 import range from 'lodash/range'
 import get from 'dlv'
 
-import codeTheme from './theme'
-import Runkit from '../Runkit/Runkit'
+import { getLanguageTheme } from './theme'
 
 import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
@@ -47,10 +45,53 @@ const generateHighlightLines = linesRange => {
 const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
 
-const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
+const CustomCodeBlock = styled.pre`
   ${hideScrollbar};
-  ${props => codeTheme[props.$theme]};
+
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  position: relative;
+  background: ${props => (props.$theme === 'dark' ? cx('black') : cx('white'))};
+  color: ${props => (props.$theme === 'dark' ? cx('white') : cx('black'))};
+
+  code {
+    display: block;
+    white-space: pre;
+    overflow-x: auto;
+    padding-left: ${props => (props.$showLineNumbers ? '3rem' : '0')};
+    font-family: ${fonts.mono};
+    font-size: ${fontSizes[0]};
+    line-height: ${lineHeights[2]};
+    tab-size: 2;
+  }
+
+  .line-numbers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3rem;
+    padding: 0;
+    margin: 0;
+    color: ${props =>
+      props.$theme === 'dark' ? cx('white50') : cx('black50')};
+    background: ${props =>
+      props.$theme === 'dark' ? cx('black') : cx('white')};
+    border-right: 1px solid
+      ${props => (props.$theme === 'dark' ? cx('white10') : cx('black10'))};
+    text-align: right;
+    padding-right: 0.5rem;
+    font-size: ${fontSizes[0]};
+    line-height: ${lineHeights[2]};
+    user-select: none;
+    pointer-events: none;
+  }
 `
+
+const generateLineNumbers = text => {
+  const lines = text.split('\n')
+  return lines.map((_, index) => index + 1).join('\n')
+}
 
 const TerminalTextWrapper = styled('div')`
   ${wordBreak};
@@ -68,7 +109,6 @@ const getLanguage = ({ className, language, title }) => {
 
 const CodeEditor = ({
   children,
-  interactive: runkitProps = {},
   showLineNumbers = false,
   isDark = false,
   language: languageProp,
@@ -86,30 +126,24 @@ const CodeEditor = ({
   const text = pretty(template(children)).trim()
   const id = `codeditor-${hash(children)}-${themeKey}`
 
-  const isInteractive =
-    runkitProps !== false && Runkit.isSupported({ language, text })
-
-  const [isLoaded, setIsLoaded] = useState(!isInteractive)
-
   const highLightLinesSelector = generateHighlightLines(highlightLines)
   const firstHighlightLine = highLightLinesSelector && highLightLinesSelector[0]
   const lastHighlightLine =
     highLightLinesSelector &&
     highLightLinesSelector[highLightLinesSelector.length - 1]
 
-  const TerminalComponent = (
+  return (
     <Terminal
       title={title}
       isDark={isDark}
       id={id}
       text={text}
-      loading={!isLoaded}
       css={theme({ width: TERMINAL_WIDTH })}
       blinkCursor={blinkCursor}
       {...props}
     >
       <TerminalTextWrapper>
-        <CustomSyntaxHighlighter
+        <CustomCodeBlock
           css={`
             ${String(highLightLinesSelector)} {
               display: block;
@@ -123,37 +157,22 @@ const CodeEditor = ({
               border-bottom-left-radius: ${radii[2]};
               border-bottom-right-radius: ${radii[2]};
             }
+
+            /* Apply language-specific CSS custom properties */
+            ${getLanguageTheme(language, themeKey) || ''}
           `}
-          useInlineStyles={false}
           $theme={themeKey}
+          $language={language}
           $highlightLines={highlightLines}
-          showLineNumbers={showLineNumbers}
-          language={language}
-          style={{}}
-          wrapLines
+          $showLineNumbers={showLineNumbers}
         >
-          {text}
-        </CustomSyntaxHighlighter>
+          {showLineNumbers && (
+            <pre className='line-numbers'>{generateLineNumbers(text)}</pre>
+          )}
+          <code dangerouslySetInnerHTML={{ __html: highlight(text) }} />
+        </CustomCodeBlock>
       </TerminalTextWrapper>
     </Terminal>
-  )
-
-  if (!isInteractive) return TerminalComponent
-
-  return (
-    <Runkit
-      {...runkitProps}
-      isDark={isDark}
-      title={title}
-      placeholderComponent={TerminalComponent}
-      source={text}
-      onLoad={element => {
-        setIsLoaded(true)
-        element.style['padding-top'] = '4px'
-        element.style['padding-bottom'] = 0
-        element.style['overflow-x'] = 'hidden'
-      }}
-    />
   )
 }
 
