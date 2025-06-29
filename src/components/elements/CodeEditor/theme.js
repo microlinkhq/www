@@ -15,9 +15,6 @@ export const getLanguageTheme = (language, themeKey) => {
   }
 
   const mappedLang = languageMap[normalizedLang] || normalizedLang
-
-  console.log(mappedLang)
-
   return languageColors[mappedLang]?.[themeKey]
 }
 

@@ -356,29 +356,103 @@ function MultiCodeEditorV2 ({
   const [activeView, setActiveView] = useState('code')
   const [isExpanded, setIsExpanded] = useState(false)
 
+  // Listen for localStorage changes from other component instances
+  React.useEffect(() => {
+    const handleStorageChange = e => {
+      if (
+        e.key === 'mql-code-editor-language' &&
+        e.newValue &&
+        availableLanguages.includes(e.newValue)
+      ) {
+        setCurrentLanguage(e.newValue)
+        setCode(codeSnippets[e.newValue])
+        setActiveView('code')
+      }
+    }
+
+    const handleCustomEvent = e => {
+      if (
+        e.detail?.key === 'mql-code-editor-language' &&
+        e.detail?.newValue &&
+        availableLanguages.includes(e.detail.newValue)
+      ) {
+        setCurrentLanguage(e.detail.newValue)
+        setCode(codeSnippets[e.detail.newValue])
+        setActiveView('code')
+      }
+    }
+
+    // Listen for storage events (changes from other tabs/windows)
+    window.addEventListener('storage', handleStorageChange)
+
+    // Listen for custom events (changes from same page)
+    window.addEventListener('mql-language-change', handleCustomEvent)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('mql-language-change', handleCustomEvent)
+    }
+  }, [
+    setCurrentLanguage,
+    availableLanguages,
+    codeSnippets,
+    setCode,
+    setActiveView
+  ])
+
   const parseCodeParameters = () => {
     const jsCode = codeSnippets.JavaScript
     const urlMatch = jsCode.match(/mql\(['"`]([^'"`]+)['"`]/)
-    const optionsMatch = jsCode.match(/mql\(['"`][^'"`]+['"`],\s*({[^}]+})/)
     const url = urlMatch ? urlMatch[1] : ''
     let options = {}
 
-    if (optionsMatch) {
-      try {
-        // eslint-disable-next-line no-eval
-        options = eval(`(${optionsMatch[1]})`)
-      } catch (e) {
-        console.warn('Could not parse options:', e)
+    // Find the start of the options object after the URL
+    const afterUrlMatch = jsCode.match(/mql\(['"`][^'"`]+['"`],\s*/)
+    if (afterUrlMatch) {
+      const startIndex = afterUrlMatch.index + afterUrlMatch[0].length
+      const optionsString = extractBalancedBraces(jsCode, startIndex)
+
+      if (optionsString) {
+        try {
+          // eslint-disable-next-line no-eval
+          options = eval(`(${optionsString})`)
+        } catch (e) {
+          console.warn('Could not parse options:', e)
+        }
       }
     }
 
     return [url, options]
   }
 
+  // Helper function to extract balanced braces content
+  const extractBalancedBraces = (str, startIndex) => {
+    if (str[startIndex] !== '{') return null
+
+    let braceCount = 0
+    let i = startIndex
+
+    while (i < str.length) {
+      if (str[i] === '{') {
+        braceCount++
+      } else if (str[i] === '}') {
+        braceCount--
+        if (braceCount === 0) {
+          // Found the matching closing brace
+          return str.substring(startIndex, i + 1)
+        }
+      }
+      i++
+    }
+
+    return null // No matching closing brace found
+  }
+
   const parseCodeAndExecute = async () => {
     setIsLoading(true)
     const result = await (async () => {
       try {
+        console.log(parseCodeParameters())
         const value = await mql(...parseCodeParameters())
         return {
           status: 'fulfilled',
@@ -435,6 +509,13 @@ function MultiCodeEditorV2 ({
     setCurrentLanguage(newLanguage)
     setCode(codeSnippets[newLanguage])
     setActiveView('code')
+
+    // Dispatch custom event to notify other components on the same page
+    window.dispatchEvent(
+      new CustomEvent('mql-language-change', {
+        detail: { key: 'mql-code-editor-language', newValue: newLanguage }
+      })
+    )
   }
 
   const getCurrentViewText = () => {
