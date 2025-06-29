@@ -70,8 +70,8 @@ const generateJavaScriptCode = (url, options = {}) => {
   const hasOptions = Object.keys(options).length > 0
 
   if (hasOptions) {
-    // Format options object with proper 2-space indentation
-    const optionsString = JSON.stringify(options, null, 2)
+    // Format options object with proper 2-space indentation and unquoted keys
+    const optionsString = formatJavaScriptObject(options, 0)
 
     return `import mql from '@microlink/mql'
 
@@ -81,6 +81,43 @@ const { data } = await mql('${url}', ${optionsString})`
 
 const { data } = await mql('${url}')`
   }
+}
+
+/**
+ * Format JavaScript object literal with proper indentation and unquoted keys
+ * @param {*} obj - Object to format
+ * @param {number} indent - Current indentation level
+ * @returns {string} Formatted JavaScript object string
+ */
+const formatJavaScriptObject = (obj, indent = 0) => {
+  if (obj === null) return 'null'
+  if (obj === undefined) return 'undefined'
+  if (typeof obj === 'string') return `"${obj}"`
+  if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj)
+  if (Array.isArray(obj)) {
+    if (obj.length === 0) return '[]'
+    const items = obj.map(item => formatJavaScriptObject(item, indent + 2))
+    return `[\n${' '.repeat(indent + 2)}${items.join(
+      `,\n${' '.repeat(indent + 2)}`
+    )}\n${' '.repeat(indent)}]`
+  }
+
+  if (typeof obj === 'object') {
+    const entries = Object.entries(obj)
+    if (entries.length === 0) return '{}'
+
+    const formattedEntries = entries.map(([key, value]) => {
+      // Check if key needs quotes (contains special characters or starts with number)
+      const needsQuotes = !/^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key)
+      const formattedKey = needsQuotes ? `"${key}"` : key
+      const formattedValue = formatJavaScriptObject(value, indent + 2)
+      return `${' '.repeat(indent + 2)}${formattedKey}: ${formattedValue}`
+    })
+
+    return `{\n${formattedEntries.join(',\n')}\n${' '.repeat(indent)}}`
+  }
+
+  return String(obj)
 }
 
 /**
