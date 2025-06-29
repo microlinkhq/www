@@ -1,4 +1,4 @@
-import { cx, radii, theme, fontSizes, lineHeights, fonts } from 'theme'
+import { cx, radii, theme, fontSizes, lineHeights, fonts, space } from 'theme'
 import { hideScrollbar, wordBreak } from 'helpers/style'
 import { getLines } from 'helpers/get-lines'
 import { prettier } from 'helpers/prettier'
@@ -39,7 +39,7 @@ const generateHighlightLines = linesRange => {
   if (!linesRange) return
   const [start, end] = linesRange
   const collection = end ? range(start, end + 1) : [start]
-  return collection.map(line => `code > span:nth-child(${line})`)
+  return collection.map(line => `.line-${line}`)
 }
 
 const getClassName = ({ className, metastring = '' }) =>
@@ -62,8 +62,14 @@ const CustomCodeBlock = styled.pre`
     padding-left: ${props => (props.$showLineNumbers ? '3rem' : '0')};
     font-family: ${fonts.mono};
     font-size: ${fontSizes[0]};
-    line-height: ${lineHeights[2]};
+    line-height: ${lineHeights[4]};
     tab-size: 2;
+  }
+
+  .code-line {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: ${space[1]};
   }
 
   .line-numbers {
@@ -91,6 +97,31 @@ const CustomCodeBlock = styled.pre`
 const generateLineNumbers = text => {
   const lines = text.split('\n')
   return lines.map((_, index) => index + 1).join('\n')
+}
+
+const wrapLinesWithHighlight = (highlightedHtml, highlightLines) => {
+  const lines = highlightedHtml.split('\n')
+
+  if (!highlightLines) {
+    // No highlighting, but still wrap each line for consistent spacing
+    return lines
+      .map((line, index) => `<span class="code-line">${line}</span>`)
+      .join('\n')
+  }
+
+  const [start, end] = highlightLines
+  const highlightStart = start - 1 // Convert to 0-based index
+  const highlightEnd = end ? end - 1 : highlightStart
+
+  return lines
+    .map((line, index) => {
+      const isHighlighted = index >= highlightStart && index <= highlightEnd
+      if (isHighlighted) {
+        return `<span class="code-line line-${index + 1}">${line}</span>`
+      }
+      return `<span class="code-line">${line}</span>`
+    })
+    .join('\n')
 }
 
 const TerminalTextWrapper = styled('div')`
@@ -132,6 +163,9 @@ const CodeEditor = ({
     highLightLinesSelector &&
     highLightLinesSelector[highLightLinesSelector.length - 1]
 
+  const highlightedHtml = highlight(text)
+  const finalHtml = wrapLinesWithHighlight(highlightedHtml, highlightLines)
+
   return (
     <Terminal
       title={title}
@@ -146,7 +180,6 @@ const CodeEditor = ({
         <CustomCodeBlock
           css={`
             ${String(highLightLinesSelector)} {
-              display: block;
               background: ${cx(isDark ? 'white05' : 'black05')};
             }
             ${String(firstHighlightLine)} {
@@ -157,8 +190,6 @@ const CodeEditor = ({
               border-bottom-left-radius: ${radii[2]};
               border-bottom-right-radius: ${radii[2]};
             }
-
-            /* Apply language-specific CSS custom properties */
             ${getLanguageTheme(language, themeKey) || ''}
           `}
           $theme={themeKey}
@@ -169,7 +200,7 @@ const CodeEditor = ({
           {showLineNumbers && (
             <pre className='line-numbers'>{generateLineNumbers(text)}</pre>
           )}
-          <code dangerouslySetInnerHTML={{ __html: highlight(text) }} />
+          <code dangerouslySetInnerHTML={{ __html: finalHtml }} />
         </CustomCodeBlock>
       </TerminalTextWrapper>
     </Terminal>

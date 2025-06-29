@@ -58,7 +58,7 @@ const fontStyles = {
   fontSize: fontSizes[0],
   lineHeight: lineHeights[4],
   letterSpacing: '0px',
-  fontWeight: '400',
+  fontWeight: fontWeights.normal,
   tabSize: 2
 }
 
@@ -356,14 +356,10 @@ function MultiCodeEditorV2 ({
   const [activeView, setActiveView] = useState('code')
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const parseCodeAndExecute = async () => {
-    setIsLoading(true)
-
-    // Extract parameters from the JavaScript code
+  const parseCodeParameters = () => {
     const jsCode = codeSnippets.JavaScript
     const urlMatch = jsCode.match(/mql\(['"`]([^'"`]+)['"`]/)
     const optionsMatch = jsCode.match(/mql\(['"`][^'"`]+['"`],\s*({[^}]+})/)
-
     const url = urlMatch ? urlMatch[1] : ''
     let options = {}
 
@@ -376,10 +372,19 @@ function MultiCodeEditorV2 ({
       }
     }
 
+    return [url, options]
+  }
+
+  const parseCodeAndExecute = async () => {
+    setIsLoading(true)
     const result = await (async () => {
       try {
-        const value = await mql(url, options)
-        return { status: 'fulfilled', headers: value.headers, body: value.data }
+        const value = await mql(...parseCodeParameters())
+        return {
+          status: 'fulfilled',
+          headers: Object.fromEntries(value.response.headers),
+          body: value.data
+        }
       } catch (error) {
         const { headers, name, statusCode, message, url, ...body } = error
         return { status: 'rejected', headers, body }
@@ -410,9 +415,19 @@ function MultiCodeEditorV2 ({
   }
 
   const handleOpenInBrowser = () => {
-    const curlCode = codeSnippets.cURL
-    const url = curlCode.split(' ')[1].replace(/^"|"$/g, '')
-    window.open(url, '_blank')
+    const [url, options] = parseCodeParameters()
+    const queryParams = new URLSearchParams()
+    queryParams.set('url', url)
+    Object.entries(options).forEach(([key, value]) => {
+      if (key === 'apiKey') return
+      if (typeof value === 'object' && value !== null) {
+        queryParams.set(key, JSON.stringify(value))
+      } else {
+        queryParams.set(key, String(value))
+      }
+    })
+    const apiUrl = `https://api.microlink.io?${queryParams.toString()}`
+    window.open(apiUrl, '_blank')
   }
 
   const handleLanguageChange = e => {

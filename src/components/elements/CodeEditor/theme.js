@@ -25,26 +25,29 @@ export const getLanguageTheme = (language, themeKey) => {
 const languageColors = {
   json: {
     light: `
-      --sh-class: var(--black);
-      --sh-identifier: var(--black);
-      --sh-sign: var(--black50);
-      --sh-property: var(--black);
-      --sh-entity: var(--black);
-      --sh-jsxliterals: var(--black);
-      --sh-string: var(--black);
-      --sh-keyword: var(--black);
-      --sh-comment: var(--black);
+      --sh-class: var(--gray9);
+      --sh-identifier: var(--gray9);
+      --sh-sign: var(--gray);
+      --sh-property: var(--gray9);
+      --sh-entity: var(--gray9);
+      --sh-jsxliterals: var(--gray9);
+      --sh-string: var(--gray9);
+      --sh-keyword: var(--gray9);
+      --sh-comment: var(--gray9);
     `,
     dark: `
-      --sh-class: var(--black);
-      --sh-identifier: var(--black);
-      --sh-sign: var(--black50);
-      --sh-property: var(--black);
-      --sh-entity: var(--black);
-      --sh-jsxliterals: var(--black);
-      --sh-string: var(--black);
-      --sh-keyword: var(--black);
-      --sh-comment: var(--black);
+      --sh-class: var(--gray9);
+      --sh-identifier: var(--gray9);
+      --sh-sign: var(--gray);
+      --sh-property: var(--gray9);
+      --sh-entity: var(--gray9);
+      --sh-jsxliterals: var(--gray9);
+      --sh-string: var(--gray9);
+      --sh-keyword: var(--gray9);
+      --sh-comment: var(--gray9);
     `
   }
 }
+
+languageColors.bash = languageColors.json
+languageColors.headers = languageColors.json
