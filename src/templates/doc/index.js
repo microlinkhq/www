@@ -61,7 +61,7 @@ const DocTemplate = ({
             })}
           >
             <Text css={theme({ color: 'gray', fontSize: 0 })}>
-              Last edited on {formatDate(date)}
+              Last updated on {formatDate(date)}
             </Text>
             <Link href={githubUrl} css={theme({ fontSize: 0 })}>
               Edit on GitHub

@@ -41,6 +41,7 @@ const Template = ({ pageContext, data, ...props }) => {
       <PageTemplate
         title={frontmatter.title}
         date={date && new Date(date)}
+        lastEdited={frontmatter.lastEdited ? lastEdited : null}
         isBlogPage={isBlogPage}
         content={rawMarkdownBody}
         {...props}
@@ -69,6 +70,7 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        lastEdited
         isPro
       }
       fields {

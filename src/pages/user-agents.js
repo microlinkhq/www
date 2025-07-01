@@ -65,7 +65,7 @@ const UserAgentsPage = () => {
             <br />& most common browser agents.
           </Caption>
           <Caption css={theme({ fontSize: 2, py: 3 })}>
-            Last Updated: {formatDate(new Date(updatedAt))}.
+            Last updated on {formatDate(new Date(updatedAt))}
           </Caption>
           <Flex
             css={theme({
