@@ -7,7 +7,7 @@ import { formatDate } from 'helpers/format-date'
 import TimeAgo from 'react-timeago'
 import React from 'react'
 
-const PageTemplate = ({ isBlogPage, date, title, content }) => {
+const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
   return (
     <Layout>
       <Box css={theme({ px: 3 })}>
@@ -50,6 +50,11 @@ const PageTemplate = ({ isBlogPage, date, title, content }) => {
                 >
                   <PostTitle>{title}</PostTitle>
                 </Heading>
+                {lastEdited && (
+                  <Caption forwardedAs='h2' css={theme({ fontSize: 2, pt: 4 })}>
+                    Last updated on {formatDate(new Date(lastEdited))}
+                  </Caption>
+                )}
               </Choose.Otherwise>
             </Choose>
           </Flex>

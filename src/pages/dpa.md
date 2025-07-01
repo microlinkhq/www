@@ -1,6 +1,6 @@
 ---
-title: 'Data Processing Agreement'
-date: '2018-08-20'
+title: 'Data processing agreement'
+lastEdited: true
 ---
 
 This Data Processing Agreement (“**Agreement**”) forms part of the Contract for Services under the Microlink Terms and Conditions (the “**Principal Agreement**”). 
@@ -76,6 +76,8 @@ Processor shall take reasonable steps to ensure the reliability of any employee,
 **5. Subprocessing**
 
 5.1 Processor shall not appoint (or disclose any Company Personal Data to) any Subprocessor unless required or authorized by the Company.
+
+5.2 For transparency, a current list of authorized Subprocessors is maintained and available at [microlink.io/subprocessors](/subprocessors). The Company will be notified of any changes to this list in accordance with applicable data protection requirements.
 
 **6. Data Subject Rights**
 
