@@ -65,10 +65,20 @@ const fontStyles = {
 
 function ViewButton ({ view, activeView, onClick, isExpanded }) {
   const isActive = activeView === view
+  const buttonId = `view-button-${view}`
+  const ariaLabel = `View ${view} content${
+    isActive ? ' (currently active)' : ''
+  }`
 
   return (
     <button
+      id={buttonId}
       onClick={onClick}
+      aria-label={ariaLabel}
+      aria-pressed={isActive}
+      role='tab'
+      aria-selected={isActive}
+      aria-controls={`tabpanel-${view}`}
       style={{
         outline: 'none',
         background: 'none',
@@ -86,6 +96,12 @@ function ViewButton ({ view, activeView, onClick, isExpanded }) {
       onMouseLeave={e => {
         e.target.style.textDecoration = 'none'
       }}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick()
+        }
+      }}
     >
       {view}
       {isActive && (
@@ -93,13 +109,21 @@ function ViewButton ({ view, activeView, onClick, isExpanded }) {
           icon={isExpanded ? 'ChevronUp' : 'ChevronDown'}
           color='black'
           size={[0, 0, 0, 0]}
+          aria-hidden='true'
         />
       )}
     </button>
   )
 }
 
-function CodeEditor ({ value, onChange, onKeyDown, style, editable = false }) {
+function CodeEditor ({
+  value,
+  onChange,
+  onKeyDown,
+  style,
+  editable = false,
+  ...props
+}) {
   const textareaRef = useRef(null)
   const preRef = useRef(null)
 
@@ -111,10 +135,18 @@ function CodeEditor ({ value, onChange, onKeyDown, style, editable = false }) {
   }
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+    <div
+      style={{ position: 'relative', width: '100%', height: '100%' }}
+      role='group'
+      aria-label='Code editor'
+      aria-labelledby='aria-labelledby'
+      {...props}
+    >
       <Content
         as='pre'
         ref={preRef}
+        role='presentation'
+        aria-hidden={editable}
         style={{
           position: 'absolute',
           top: 0,
@@ -144,6 +176,8 @@ function CodeEditor ({ value, onChange, onKeyDown, style, editable = false }) {
           onChange={e => onChange && onChange(e.target.value)}
           onKeyDown={onKeyDown}
           onScroll={handleScroll}
+          aria-label='Edit code'
+          aria-describedby='code-editor-help'
           style={{
             position: 'absolute',
             padding: 0,
@@ -168,6 +202,12 @@ function CodeEditor ({ value, onChange, onKeyDown, style, editable = false }) {
           autoCapitalize='off'
         />
       )}
+      {editable && (
+        <span id='code-editor-help' style={{ display: 'none' }}>
+          Use Tab to indent, Shift+Tab to outdent. Press Ctrl+Enter to execute
+          code.
+        </span>
+      )}
     </div>
   )
 }
@@ -177,6 +217,7 @@ const PlayIcon = () => (
     style={{ width: '12px', height: '12px' }}
     fill='currentColor'
     viewBox='0 0 24 24'
+    aria-hidden='true'
   >
     <path d='M8 5v14l11-7z' />
   </svg>
@@ -199,14 +240,19 @@ const Toolbar = ({
       gap: '0.5rem',
       zIndex: 10
     }}
+    role='toolbar'
+    aria-label='Code editor actions'
   >
     <Select
       value={currentLanguage}
       onChange={onLanguageChange}
+      aria-label='Select programming language'
       style={{
         backgroundColor: 'white',
         width: '6rem',
-        height: '2rem'
+        height: '2rem',
+        display: 'flex',
+        alignItems: 'center'
       }}
     >
       {availableLanguages.map(lang => (
@@ -219,6 +265,8 @@ const Toolbar = ({
     <Button
       onClick={onExecute}
       disabled={isLoading}
+      aria-label={isLoading ? 'Executing code...' : 'Execute code'}
+      aria-describedby='execute-button-help'
       style={{
         cursor: isLoading ? 'not-allowed' : 'pointer',
         opacity: isLoading ? 0.5 : 1,
@@ -240,47 +288,60 @@ const Toolbar = ({
             height='16px'
             color={colors.white}
             style={{ padding: '0' }}
+            aria-label='Loading'
           />
           )
         : (
           <PlayIcon />
           )}
     </Button>
+    <span id='execute-button-help' style={{ display: 'none' }}>
+      Click to run the code and see the API response
+    </span>
   </div>
 )
 
 const ViewNavigation = ({ activeView, onViewClick, isExpanded }) => (
-  <Text
+  <nav
+    role='tablist'
+    aria-label='Response view options'
     style={{
       display: 'flex',
       justifyContent: 'flex-end'
     }}
-    css={theme({
-      fontSize: 0,
-      color: 'black50'
-    })}
   >
-    <ViewButton
-      view='code'
-      activeView={activeView}
-      onClick={() => onViewClick('code')}
-      isExpanded={isExpanded}
-    />
-    <span>|</span>
-    <ViewButton
-      view='body'
-      activeView={activeView}
-      onClick={() => onViewClick('body')}
-      isExpanded={isExpanded}
-    />
-    <span>|</span>
-    <ViewButton
-      view='headers'
-      activeView={activeView}
-      onClick={() => onViewClick('headers')}
-      isExpanded={isExpanded}
-    />
-  </Text>
+    <Text
+      style={{
+        display: 'flex',
+        justifyContent: 'flex-end'
+      }}
+      css={theme({
+        fontSize: 0,
+        color: 'black50'
+      })}
+    >
+      <ViewButton
+        view='code'
+        activeView={activeView}
+        onClick={() => onViewClick('code')}
+        isExpanded={isExpanded}
+      />
+      <span aria-hidden='true'>|</span>
+      <ViewButton
+        view='body'
+        activeView={activeView}
+        onClick={() => onViewClick('body')}
+        isExpanded={isExpanded}
+      />
+      <span aria-hidden='true'>|</span>
+      <ViewButton
+        view='headers'
+        activeView={activeView}
+        onClick={() => onViewClick('headers')}
+        isExpanded={isExpanded}
+      />
+    </Text>
+  </nav>
 )
 
 const ContentArea = ({
@@ -295,7 +356,15 @@ const ContentArea = ({
     <Choose.When
       condition={activeView === 'code'}
       render={() => (
-        <CodeEditor value={code} onChange={setCode} editable={editable} />
+        <CodeEditor
+          value={code}
+          onChange={setCode}
+          editable={editable}
+          role='tabpanel'
+          id={`tabpanel-${activeView}`}
+          aria-labelledby={`view-button-${activeView}`}
+          aria-label='Code editor'
+        />
       )}
     />
 
@@ -304,10 +373,15 @@ const ContentArea = ({
       render={() => {
         const { body, headers } = responseData
         const contentType = headers['content-type']
+
         if (contentType.includes('application/json')) {
           return (
             <Content
               as='pre'
+              role='code'
+              aria-label='JSON response data'
+              id={`tabpanel-${activeView}`}
+              aria-labelledby={`view-button-${activeView}`}
               style={{
                 margin: 0,
                 whiteSpace: 'pre-wrap',
@@ -335,6 +409,13 @@ const ContentArea = ({
             window.open(imageUrl, '_blank')
           }
 
+          const handleKeyDown = e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              handleImageClick()
+            }
+          }
+
           return (
             <div
               style={{
@@ -345,6 +426,12 @@ const ContentArea = ({
                 position: 'relative'
               }}
               onClick={handleImageClick}
+              onKeyDown={handleKeyDown}
+              role='button'
+              tabIndex={0}
+              aria-label='Click to open image in new tab'
+              id={`tabpanel-${activeView}`}
+              aria-labelledby={`view-button-${activeView}`}
               onMouseEnter={e => {
                 const overlay = e.currentTarget.querySelector('.image-overlay')
                 if (overlay) overlay.style.opacity = '1'
@@ -356,7 +443,7 @@ const ContentArea = ({
             >
               <Image
                 src={imageUrl}
-                alt='Response image'
+                alt='API response image - click to view full size'
                 style={{
                   maxWidth: '100%',
                   maxHeight: '100%',
@@ -386,6 +473,7 @@ const ContentArea = ({
                   textAlign: 'center'
                 }}
                 className='image-overlay'
+                aria-hidden='true'
               >
                 Click to expand
               </div>
@@ -396,6 +484,10 @@ const ContentArea = ({
         return (
           <Content
             as='pre'
+            role='code'
+            aria-label='Response content'
+            id={`tabpanel-${activeView}`}
+            aria-labelledby={`view-button-${activeView}`}
             style={{
               margin: 0,
               whiteSpace: 'pre-wrap',
@@ -414,8 +506,14 @@ const ContentArea = ({
     <Choose.When
       condition={activeView === 'headers'}
       render={() => (
-        <TerminalText style={{ padding: 0, ...fontStyles }}>
-          <div>
+        <TerminalText
+          style={{ padding: 0, ...fontStyles }}
+          role='tabpanel'
+          id={`tabpanel-${activeView}`}
+          aria-labelledby={`view-button-${activeView}`}
+          aria-label='Response headers'
+        >
+          <div role='table' aria-label='HTTP response headers'>
             {(() => {
               const headers = responseData?.headers || {}
               const maxKeyLength = Math.max(
@@ -425,10 +523,20 @@ const ContentArea = ({
                 a.localeCompare(b)
               )
               return sortedHeaders.map(([key, value], index) => (
-                <Box key={key} css={theme({ mb: index > 0 ? 1 : 0 })}>
-                  <span>{key.padEnd(maxKeyLength, ' ')}</span>
-                  <span>:</span>
-                  <span>{value}</span>
+                <Box
+                  key={key}
+                  css={theme({ mb: index > 0 ? 1 : 0 })}
+                  role='row'
+                >
+                  <span role='cell' aria-label={`Header name: ${key}`}>
+                    {key.padEnd(maxKeyLength, ' ')}
+                  </span>
+                  <span role='cell' aria-hidden='true'>
+                    :
+                  </span>
+                  <span role='cell' aria-label={`Header value: ${value}`}>
+                    {value}
+                  </span>
                 </Box>
               ))
             })()}
@@ -666,72 +774,139 @@ function MultiCodeEditorInteractive ({
   }
 
   const TerminalActions = () => (
-    <>
+    <div
+      role='group'
+      aria-label='Terminal actions'
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem'
+      }}
+    >
       <button
         onClick={handleOpenInBrowser}
-        title='Open in Browser'
+        title='Open API request in browser'
+        aria-label='Open API request in browser'
         style={{
+          padding: 0,
           background: 'none',
           border: 'none',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          position: 'relative',
+          top: '-1px'
         }}
         onMouseEnter={e => {
-          const icon = e.target.querySelector('svg')
+          const icon = e.currentTarget.querySelector('svg')
           if (icon) icon.style.stroke = colors.black
         }}
         onMouseLeave={e => {
-          const icon = e.target.querySelector('svg')
+          const icon = e.currentTarget.querySelector('svg')
           if (icon) icon.style.stroke = colors.black20
         }}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            handleOpenInBrowser()
+          }
+        }}
       >
-        <FeatherIcon icon='Globe' color={colors.black20} size={[0, 0, 0, 0]} />
+        <FeatherIcon
+          icon='Globe'
+          color={colors.black20}
+          size={[1, 1, 1, 1]}
+          aria-hidden='true'
+        />
       </button>
       <CodeCopy text={getCurrentViewText()} />
-    </>
+    </div>
   )
 
   const componentHeight = isExpanded ? `${height * 2}px` : `${height}px`
 
+  // Generate structured data for SEO
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Interactive Code Editor',
+    description:
+      'An interactive code editor for testing API requests with multiple programming languages',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Web Browser',
+    programmingLanguage: availableLanguages,
+    featureList: [
+      'Multi-language code editing',
+      'Real-time API testing',
+      'Response visualization',
+      'Code execution',
+      'Syntax highlighting'
+    ]
+  }
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <Terminal
-        text={getCurrentViewText()}
-        ActionComponent={TerminalActions}
-        css={theme({ width: TERMINAL_WIDTH })}
-        style={{ position: 'relative' }}
-      >
-        <div style={{ height: componentHeight }}>
-          <FadeOverlay $position='top' />
+    <article
+      itemScope
+      itemType='https://schema.org/SoftwareApplication'
+      style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+    >
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
-          <ContentArea
-            activeView={activeView}
-            code={code}
-            setCode={setCode}
-            editable={editable}
-            responseData={responseData}
-            fontStyles={fontStyles}
+      <header style={{ display: 'none' }}>
+        <h2 itemProp='name'>Interactive Code Editor</h2>
+        <p itemProp='description'>
+          Test API requests with multiple programming languages. Edit code,
+          execute requests, and view responses in real-time.
+        </p>
+      </header>
+
+      <main>
+        <Terminal
+          text={getCurrentViewText()}
+          ActionComponent={TerminalActions}
+          css={theme({ width: TERMINAL_WIDTH })}
+          style={{ position: 'relative' }}
+          role='application'
+          aria-label='Interactive code editor and API testing tool'
+        >
+          <div
+            style={{ height: componentHeight }}
+            aria-live='polite'
+            aria-busy={isLoading}
+          >
+            <FadeOverlay $position='top' aria-hidden='true' />
+
+            <ContentArea
+              activeView={activeView}
+              code={code}
+              setCode={setCode}
+              editable={editable}
+              responseData={responseData}
+              fontStyles={fontStyles}
+            />
+
+            <FadeOverlay $position='bottom' aria-hidden='true' />
+          </div>
+
+          <Toolbar
+            currentLanguage={validLanguage}
+            onLanguageChange={handleLanguageChange}
+            onExecute={executeRequest}
+            isLoading={isLoading}
+            availableLanguages={availableLanguages}
           />
+        </Terminal>
 
-          <FadeOverlay $position='bottom' />
-        </div>
-
-        <Toolbar
-          currentLanguage={validLanguage}
-          onLanguageChange={handleLanguageChange}
-          onExecute={executeRequest}
-          isLoading={isLoading}
-          availableLanguages={availableLanguages}
-        />
-      </Terminal>
-
-      {responseData && (
-        <ViewNavigation
-          activeView={activeView}
-          onViewClick={handleViewClick}
-          isExpanded={isExpanded}
-        />
-      )}
-    </div>
+        {responseData && (
+          <ViewNavigation
+            activeView={activeView}
+            onViewClick={handleViewClick}
+            isExpanded={isExpanded}
+          />
+        )}
+      </main>
+    </article>
   )
 }
 
