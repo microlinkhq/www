@@ -7,7 +7,7 @@ Default: <Type children='false'/>
 
 Enables video source detection over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.youtube.url}}', {video: true })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', {video: true })} />
 
 <Figcaption children="Some websites can be different output based on User Agent." />
 

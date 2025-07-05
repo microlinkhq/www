@@ -11,7 +11,7 @@ Default: <Type children='true'/>
 
 It returns a web performance report over the target [url](/docs/api/parameters/url), powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
-<MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
   insights: {
     lighthouse: true
   }
@@ -25,7 +25,7 @@ The report is serialized to JSON by default to make easy visualize it using [lig
 
 Alternatively, you can serialize to `'html'` or `'csv'`:
 
-<MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
   insights: {
     lighthouse: { output: 'html' }
   }
@@ -33,7 +33,7 @@ Alternatively, you can serialize to `'html'` or `'csv'`:
 
 Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) setting is supported:
 
-<MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
   insights: {
     lighthouse: { onlyCategories: ['accesibility'] }
   }
@@ -41,7 +41,7 @@ Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/m
 
 You can use `'preset'` to load a set of specific Lighthouse settings at once:
 
-<MultiCodeEditor languages={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
   insights: {
     lighthouse: { preset: 'desktop' }
   }

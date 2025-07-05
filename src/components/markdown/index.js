@@ -28,6 +28,8 @@ import {
   Video as VideoBase
 } from 'components/elements'
 
+import MultiCodeEditorInteractiveBase from '../elements/MultiCodeEditor/MultiCodeEditorInteractive'
+
 import MicrolinkBase from '../patterns/Microlink/Microlink'
 import DemoIntegrations from './DemoIntegrations'
 import Heading from '../elements/Heading'
@@ -65,6 +67,10 @@ export const Terminal = withContainer(TerminalBase)
 export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
+
+export const MultiCodeEditorInteractive = withContainer(
+  MultiCodeEditorInteractiveBase
+)
 
 const StyledH1 = styled(Heading)(
   theme({
@@ -203,17 +209,17 @@ const StyledLi = styled(Text)`
 
   ${theme({
     mx: 'auto',
-    mb: 3
+    mb: 2
   })}
 `
 
 export const Li = props => <StyledLi as='li' {...props} />
 
 const codeStyle = css`
-  color: ${({ theme }) => theme.colors.pink7};
+  color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.mono};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-size: 90% !important;
+  font-weight: ${({ theme }) => theme.fontWeights.normal};
+  font-size: 0.9rem;
   text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
 `
 
@@ -298,12 +304,6 @@ const StyledType = styled(Text)`
 const Type = props => <StyledType as='span' {...props} />
 
 const TypeContainer = styled(Box)`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    color: 'gray7'
-  })}
-
   display: inline;
 `
 
@@ -365,7 +365,7 @@ const ScopedComponents = {
   Li,
   Link,
   Microlink,
-  MultiCodeEditor,
+  MultiCodeEditorInteractive,
   Ol,
   Paraph,
   PriceMonthly,

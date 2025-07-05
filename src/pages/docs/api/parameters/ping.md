@@ -7,19 +7,19 @@ Default: <Type children='true'/>
 
 It ensures that any URL present on the response payload is publicly reachable.
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { ping: true })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { ping: true })} />
 
 <Figcaption>By default, any URL present on the response payload hasve been verified as reachable.</Figcaption>
 
 You can disable this behavior in a partial way:
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { ping: { audio: false } })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { ping: { audio: false } })} />
 
 <Figcaption>Avoid to ping `audio` URLs extracted.</Figcaption>
 
 or in a total way:
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { ping: false })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { ping: false })} />
 
 <Figcaption>Keep the raw data URLs extracted, no pinging them.</Figcaption>
 

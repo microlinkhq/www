@@ -8,6 +8,6 @@ It captures the DOM element matching the given [CSS selector](https://developer.
 
 ![](https://cdn.microlink.io/docs/codepen.png)
 
-<MultiCodeEditor languages={mqlCode('https://codepen.io/fossheim/full/oNjxrZa', { screenshot: { element: '#result-iframe-wrap' } })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://codepen.io/fossheim/full/oNjxrZa', { screenshot: { element: '#result-iframe-wrap' } })} />
 
 It will wait for the element to appear in the page and to be visible.

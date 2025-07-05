@@ -9,7 +9,7 @@ It enables code syntax highlighting to beautify HTML markup under JSON/Text cont
 
 ![](https://cdn.microlink.io/docs/code-scheme.png)
 
-<MultiCodeEditor languages={mqlCode('https://emojipedia-api.vercel.app', { screenshot: true, codeScheme: 'atom-dark' })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://emojipedia-api.vercel.app', { screenshot: { codeScheme: 'atom-dark' }})} />
 
 The theme can be defined as:
 

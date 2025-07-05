@@ -7,7 +7,7 @@ Default: <Type children='false'/>
 
 It gets a web performance metrics of the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://vercel.com', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://vercel.com', { 
   insights: true
 })} />
 
@@ -18,7 +18,7 @@ When is presnet, a new `insights` data field will be returned. These field conta
 
 By default, both subfield are enabled. You can disable them individually to speed up the response time:
 
-<MultiCodeEditor languages={mqlCode('https://vercel.com', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://vercel.com', { 
   insights: {
     lighthouse: true,
     technologies: false

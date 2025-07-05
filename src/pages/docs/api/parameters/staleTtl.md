@@ -8,7 +8,7 @@ Default: <Type children="false"/>
 
 It enables serve a stale response while a background refresh cache copy is being generated over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { ttl: '1d', staleTtl: 0 })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { ttl: '1d', staleTtl: 0 })} />
 
 The value provided can't be higher than [ttl](/docs/api/parameters/ttl), being supported the following formats:
 
