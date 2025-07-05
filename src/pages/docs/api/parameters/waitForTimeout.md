@@ -6,7 +6,7 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></
 
 It tells the browser to wait a quantity of time in milliseconds before processing the content over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://dev.to', { screenshot: true, waitForTimeout: 3000 })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://dev.to', { screenshot: true, waitForTimeout: 3000 })} />
 
 The value provided in the following formats:
 

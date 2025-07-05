@@ -5,7 +5,7 @@ date: '2022-09-03'
 
 The query parameter [function](/docs/api/parameters/function) allows you dynamic code execution with remote headless browser access on runtime:
 
-<MultiCodeEditor 
+<MultiCodeEditorInteractive 
   languages={mqlCode('https://microlink.io', {
     function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
     meta: false,

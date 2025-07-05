@@ -7,7 +7,7 @@ Default: <Type children='false'/>
 
 It enables color schema information over the images data field detected over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { 
   palette: true
 })} />
 

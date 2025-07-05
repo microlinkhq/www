@@ -10,6 +10,6 @@ It sets the CSS media type into the browser page over the target [url](/docs/api
 
 <Iframe src="https://cdn.microlink.io/pdf/alexmaccaw.pdf" />
 
-<MultiCodeEditor languages={mqlCode('https://blog.alexmaccaw.com/advice-to-my-younger-self', { pdf: true, mediaType: 'screen' })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://blog.alexmaccaw.com/advice-to-my-younger-self', { pdf: true, mediaType: 'screen' })} />
 
 Normally you will combine this query parameter with [screenshot](/docs/api/parameters/screenshot) or [pdf](/docs/api/parameters/pdf).  If you are using [pdf](/docs/api/parameters/pdf), the default media type will be `'print'`.

@@ -9,4 +9,6 @@ Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@me
 
 ![](https://cdn.microlink.io/docs/color-scheme.png)
 
-<MultiCodeEditor languages={mqlCode('https://googlechromelabs.github.io/dark-mode-toggle/demo/', { screenshot: true, colorScheme: 'dark' })} />
+<MultiCodeEditorInteractive 
+  mqlCode={mqlCode('https://googlechromelabs.github.io/dark-mode-toggle/demo', { screenshot: true, colorScheme: 'dark' })} 
+/>

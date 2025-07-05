@@ -7,7 +7,12 @@ Default: <Type children="'macbook pro 13'"/>
 
 It loads a set of options (such as [viewport](/docs/api/parameters/viewport), user agent, etc) to emulate the specified device over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { screenshot: true, device: 'iPad' })} />
+<MultiCodeEditorInteractive 
+  mqlCode={mqlCode('https://microlink.io', {
+    screenshot: true, 
+    device: 'iPad'
+  })}
+/>
 
 When the divide is defined, it will affect the whole request lifecycle. It doesn't matter if you use uppercase or lowercase.
 

@@ -9,7 +9,7 @@ It generates a screenshot over the target [url](/docs/api/parameters/url).
 
 ![](https://cdn.microlink.io/docs/netflix.png)
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.netflix.url}}', { screenshot: true })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.netflix.com/title/80057281', { screenshot: true })} />
 
 When it's enabled, a new `screenshot` data field will be part of the response payload.
 
@@ -31,7 +31,7 @@ When it's enabled, a new `screenshot` data field will be part of the response pa
 
 You can configure different specific options, such as [element](/docs/api/parameters/screenshot/element) or [overlay](/docs/api/parameters/screenshot/overlay):
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.netflix.url}}', { screenshot: true, element: "#section-hero" })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.netflix.com/title/80057281', { screenshot: true, element: "#section-hero" })} />
 
 Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup and refresh it asynchronously in the background (known as _stale_).
 
@@ -39,24 +39,24 @@ Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HT
 <!-- Meta & SEO Tags  -->
 <meta
   name="image"
-  content="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url"
+  content="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
 />
 <meta
   itemprop="image"
-  content="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url"
+  content="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
 />
 <meta
   property="og:image"
-  content="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url"
+  content="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
 />
 <meta
   name="twitter:image"
-  content="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url"
+  content="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
 />
 
 <!-- regular HTML Tags  -->
 <img
-  src="https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url"
+  src="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
 />
 ```
 
@@ -64,12 +64,12 @@ or inside CSS stylesheets:
 
 ```css
 .screenshot {
-  background-image: url(https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url);
+  background-image: url(https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url);
 }
 ```
 
 even in Markdown:
 
 ```md
-![Screenshot](https://api.microlink.io?url={{demolinks.netflix.url}}&screenshot=true&meta=false&embed=screenshot.url)
+![Screenshot](https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url)
 ```

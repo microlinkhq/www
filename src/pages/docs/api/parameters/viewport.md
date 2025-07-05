@@ -8,7 +8,7 @@ It sets browser visible area settings and device capabilities over the target [u
 
 ![](https://cdn.microlink.io/docs/viewport.png)
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.wikipedia.url}}', {
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://en.wikipedia.org/wiki/Bob_Dylan', {
   screenshot: true,
   viewport: {
     width: 640,
@@ -31,7 +31,7 @@ The default viewport values are provided by the default [device](/docs/api/param
 
 If you just provide an incomplete set of viewport values, they will be merged with the default values:
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.wikipedia.url}}', {
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://en.wikipedia.org/wiki/Bob_Dylan', {
   screenshot: true,
   viewport: {
     deviceScaleFactor: 0.5
