@@ -233,16 +233,18 @@ const Toolbar = ({
         if (!isLoading) e.target.style.opacity = '1'
       }}
     >
-      {isLoading ? (
-        <Spinner
-          width='12px'
-          height='16px'
-          color={colors.white}
-          style={{ padding: '0' }}
-        />
-      ) : (
-        <PlayIcon />
-      )}
+      {isLoading
+        ? (
+          <Spinner
+            width='12px'
+            height='16px'
+            color={colors.white}
+            style={{ padding: '0' }}
+          />
+          )
+        : (
+          <PlayIcon />
+          )}
     </Button>
   </div>
 )
