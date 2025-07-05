@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest'
-import { mqlCode } from '../../src/helpers/mql-code/script.js'
+import { mqlCode } from '../../src/helpers/mql-code'
 
 describe('mql-code', () => {
   const testUrl = 'https://github.com'
