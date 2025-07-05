@@ -1,4 +1,4 @@
-import MultiCodeEditorV2 from './MultiCodeEditorV2'
+import MultiCodeEditorInteractive from './MultiCodeEditorInteractive'
 import { Box, Text } from 'components/elements'
 import { storiesOf } from '@storybook/react'
 import { mqlCode } from 'helpers/mql-code-v2'
@@ -12,7 +12,29 @@ storiesOf('Elements', module).add('MultiCodeEditor', () => (
       <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
         {'<MultiCodeEditor />'}
       </Text>
-      <MultiCodeEditorV2 mqlCode={mqlCode('https://github.com/microlinkhq')} />
+      <MultiCodeEditorInteractive
+        mqlCode={mqlCode('https://github.com/microlinkhq')}
+      />
+      <Box css={theme({ py: 3 })} />
+      <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
+        {'<MultiCodeEditor /> (embed image)'}
+      </Text>
+      <MultiCodeEditorInteractive
+        mqlCode={mqlCode('https://news.ycombinator.com/item?id=13713480', {
+          screenshot: true,
+          embed: 'screenshot.url'
+        })}
+      />
+      <Box css={theme({ py: 3 })} />
+      <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
+        {'<MultiCodeEditor /> (embed text)'}
+      </Text>
+      <MultiCodeEditorInteractive
+        mqlCode={mqlCode('https://news.ycombinator.com/item?id=13713480', {
+          screenshot: true,
+          embed: 'title'
+        })}
+      />
     </Box>
   </Story>
 ))

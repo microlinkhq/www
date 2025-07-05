@@ -30,7 +30,7 @@ import Label from './Label'
 import LineBreak from './LineBreak'
 import Meta from './Meta/Meta'
 import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
-import MultiCodeEditorV2 from './MultiCodeEditor/MultiCodeEditorV2'
+import MultiCodeEditorInteractive from './MultiCodeEditor/MultiCodeEditorInteractive'
 import Notification from './Notification/Notification'
 import Placeholder from './Placeholder/Placeholder'
 import PriceMonthly from './PriceMonthly'
@@ -90,7 +90,7 @@ export {
   LinkSolid,
   Meta,
   MultiCodeEditor,
-  MultiCodeEditorV2,
+  MultiCodeEditorInteractive,
   Notification,
   Placeholder,
   PriceMonthly,

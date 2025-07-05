@@ -8,7 +8,7 @@ It creates a beauty [screenshot](/docs/api/parameters/screenshot) composition us
 
 <Image src="https://cdn.microlink.io/docs/overlay.png" />
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.apple.url}}', { screenshot: {
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.apple.com/music', { screenshot: {
   overlay: {
     background: 'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)',
     browser: 'dark'

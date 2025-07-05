@@ -1,16 +1,17 @@
-import { Spinner, Button, Select, Choose } from 'components/elements'
+import { Spinner, Button, Select, Choose, Image } from 'components/elements'
 import { useLocalStorage } from 'components/hook'
 import React, { useState, useRef } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { highlight } from 'sugar-high'
 import {
-  space,
+  colors,
   fonts,
   fontSizes,
-  colors,
-  theme,
   fontWeights,
-  lineHeights
+  lineHeights,
+  space,
+  theme,
+  transition
 } from 'theme'
 import styled from 'styled-components'
 import mql from '@microlink/mql'
@@ -25,23 +26,23 @@ import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
 
 const FadeOverlay = styled(Box)`
-  height: ${({ position }) => (position === 'bottom' ? '34px' : '34px')};
+  height: ${({ $position }) => ($position === 'top' ? '30px' : '34px')};
   position: absolute;
   left: 0;
   right: 0;
   width: 100%;
-  top: ${({ position }) => (position === 'top' ? '34px' : 'auto')};
-  bottom: ${({ position }) => (position === 'bottom' ? '0' : 'auto')};
+  top: ${({ $position }) => ($position === 'top' ? '34px' : 'auto')};
+  bottom: ${({ $position }) => ($position === 'bottom' ? '0' : 'auto')};
 
   &:before {
     background: linear-gradient(
-      to ${({ position }) => (position === 'bottom' ? 'top' : 'bottom')},
-      white ${({ position }) => (position === 'top' ? '50%' : '50%')},
+      to ${({ $position }) => ($position === 'bottom' ? 'top' : 'bottom')},
+      white ${({ $position }) => ($position === 'top' ? '50%' : '50%')},
       transparent 100%
     );
     bottom: 0px;
     content: '';
-    height: ${({ position }) => (position === 'bottom' ? '34px' : '34px')};
+    height: ${({ $position }) => ($position === 'top' ? '30px' : '34px')};
     left: 0px;
     position: absolute;
     width: 100%;
@@ -289,52 +290,154 @@ const ContentArea = ({
   fontStyles
 }) => (
   <Choose>
-    <Choose.When condition={activeView === 'code'}>
-      <CodeEditor value={code} onChange={setCode} editable={editable} />
-    </Choose.When>
+    <Choose.When
+      condition={activeView === 'code'}
+      render={() => (
+        <CodeEditor value={code} onChange={setCode} editable={editable} />
+      )}
+    />
 
-    <Choose.When condition={activeView === 'body'}>
-      <Content
-        as='pre'
-        style={{
-          margin: 0,
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-words',
-          ...fontStyles
-        }}
-      >
-        {responseData && typeof responseData.body === 'string'
-          ? responseData.body
-          : responseData && JSON.stringify(responseData.body, null, 2)}
-      </Content>
-    </Choose.When>
+    <Choose.When
+      condition={activeView === 'body'}
+      render={() => {
+        const { body, headers } = responseData
+        const contentType = headers['content-type']
+        if (contentType.includes('application/json')) {
+          return (
+            <Content
+              as='pre'
+              style={{
+                margin: 0,
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-words',
+                ...fontStyles
+              }}
+            >
+              {(() => {
+                const text = new TextDecoder().decode(body)
+                const payload =
+                  responseData.status === 'rejected'
+                    ? JSON.parse(text)
+                    : JSON.parse(text).data
+                return JSON.stringify(payload, null, 2)
+              })()}
+            </Content>
+          )
+        }
 
-    <Choose.When condition={activeView === 'headers'}>
-      <TerminalText style={{ padding: 0, ...fontStyles }}>
-        <div>
-          {(() => {
-            const headers = responseData?.headers || {}
-            const maxKeyLength = Math.max(
-              ...Object.keys(headers).map(key => key.length)
-            )
-            const sortedHeaders = Object.entries(headers).sort(([a], [b]) =>
-              a.localeCompare(b)
-            )
-            return sortedHeaders.map(([key, value], index) => (
-              <Box key={key} css={theme({ mb: index > 0 ? 1 : 0 })}>
-                <span>{key.padEnd(maxKeyLength, ' ')}</span>
-                <span>:</span>
-                <span>{value}</span>
-              </Box>
-            ))
-          })()}
-        </div>
-      </TerminalText>
-    </Choose.When>
+        if (contentType.startsWith('image/')) {
+          const blob = new Blob([body], { type: contentType })
+          const imageUrl = URL.createObjectURL(blob)
+
+          const handleImageClick = () => {
+            window.open(imageUrl, '_blank')
+          }
+
+          return (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+                position: 'relative'
+              }}
+              onClick={handleImageClick}
+              onMouseEnter={e => {
+                const overlay = e.currentTarget.querySelector('.image-overlay')
+                if (overlay) overlay.style.opacity = '1'
+              }}
+              onMouseLeave={e => {
+                const overlay = e.currentTarget.querySelector('.image-overlay')
+                if (overlay) overlay.style.opacity = '0'
+              }}
+            >
+              <Image
+                src={imageUrl}
+                alt='Response image'
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  objectFit: 'contain',
+                  cursor: 'pointer',
+                  transition: `opacity ${transition.normal}`
+                }}
+                title='Click to open image in new tab'
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: colors.white70,
+                  color: colors.black50,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  opacity: 0,
+                  transition: `opacity ${transition.normal}`,
+                  cursor: 'pointer',
+                  fontSize: fontSizes[0],
+                  fontWeight: fontWeights.bold,
+                  textAlign: 'center'
+                }}
+                className='image-overlay'
+              >
+                Click to expand
+              </div>
+            </div>
+          )
+        }
+
+        return (
+          <Content
+            as='pre'
+            style={{
+              margin: 0,
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-words',
+              ...fontStyles
+            }}
+          >
+            {contentType && contentType.includes('text/')
+              ? new TextDecoder().decode(body)
+              : `Binary content (${contentType})\nSize: ${body.byteLength} bytes`}
+          </Content>
+        )
+      }}
+    />
+
+    <Choose.When
+      condition={activeView === 'headers'}
+      render={() => (
+        <TerminalText style={{ padding: 0, ...fontStyles }}>
+          <div>
+            {(() => {
+              const headers = responseData?.headers || {}
+              const maxKeyLength = Math.max(
+                ...Object.keys(headers).map(key => key.length)
+              )
+              const sortedHeaders = Object.entries(headers).sort(([a], [b]) =>
+                a.localeCompare(b)
+              )
+              return sortedHeaders.map(([key, value], index) => (
+                <Box key={key} css={theme({ mb: index > 0 ? 1 : 0 })}>
+                  <span>{key.padEnd(maxKeyLength, ' ')}</span>
+                  <span>:</span>
+                  <span>{value}</span>
+                </Box>
+              ))
+            })()}
+          </div>
+        </TerminalText>
+      )}
+    />
   </Choose>
 )
 
-function MultiCodeEditorV2 ({
+function MultiCodeEditorInteractive ({
   mqlCode: codeSnippets,
   height = 180,
   editable = false
@@ -452,16 +555,26 @@ function MultiCodeEditorV2 ({
     setIsLoading(true)
     const result = await (async () => {
       try {
-        console.log(parseCodeParameters())
-        const value = await mql(...parseCodeParameters())
+        const [targetUrl, query] = parseCodeParameters()
+        const raw = await mql.arrayBuffer(targetUrl, {
+          endpoint: 'http://localhost:3000/',
+          ...query
+        })
+
+        const { body, headers } = raw
         return {
           status: 'fulfilled',
-          headers: Object.fromEntries(value.response.headers),
-          body: value.data
+          headers: Object.fromEntries(headers),
+          body
         }
       } catch (error) {
         const { headers, name, statusCode, message, url, ...body } = error
-        return { status: 'rejected', headers, body }
+        const encoder = new TextEncoder()
+        return {
+          status: 'rejected',
+          headers,
+          body: encoder.encode(JSON.stringify(body))
+        }
       }
     })()
 
@@ -523,9 +636,24 @@ function MultiCodeEditorV2 ({
       return code
     } else if (activeView === 'body') {
       if (!responseData) return ''
-      return typeof responseData.body === 'string'
-        ? responseData.body
-        : JSON.stringify(responseData.body, null, 2)
+      const { body, headers } = responseData
+      const contentType = headers['content-type']
+      if (contentType.includes('application/json')) {
+        const text = new TextDecoder().decode(body)
+        const { data } = JSON.parse(text)
+        return JSON.stringify(data, null, 2)
+      }
+
+      if (contentType.startsWith('image/')) {
+        return `Image content (${contentType})\nSize: ${body.byteLength} bytes`
+      }
+
+      if (contentType && contentType.includes('text/')) {
+        return 'test'
+        // return new TextDecoder().decode(body)
+      }
+
+      throw new Error(`Unsupported content type: ${contentType}`)
     } else if (activeView === 'headers') {
       return Object.entries(responseData.headers || {})
         .sort(([a], [b]) => a.localeCompare(b))
@@ -571,7 +699,7 @@ function MultiCodeEditorV2 ({
         style={{ position: 'relative' }}
       >
         <div style={{ height: componentHeight }}>
-          <FadeOverlay position='top' />
+          <FadeOverlay $position='top' />
 
           <ContentArea
             activeView={activeView}
@@ -582,7 +710,7 @@ function MultiCodeEditorV2 ({
             fontStyles={fontStyles}
           />
 
-          <FadeOverlay position='bottom' />
+          <FadeOverlay $position='bottom' />
         </div>
 
         <Toolbar
@@ -605,4 +733,4 @@ function MultiCodeEditorV2 ({
   )
 }
 
-export default MultiCodeEditorV2
+export default MultiCodeEditorInteractive

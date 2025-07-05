@@ -8,7 +8,7 @@ Values: <TypeContainer><Type children="'auto'"/> | <Type children='true'/> | <Ty
 
 It sets how the content over the target [url](/docs/api/parameters/url) should be fetched.
 
-<MultiCodeEditor languages={mqlCode('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', { prerender: 'auto' })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', { prerender: 'auto' })} />
 
 The prerendering is a technique that consists of preloading all the elements of the page as a previous step before a web crawler can see the page correctly. Three values be used there:
 
@@ -31,4 +31,4 @@ We provided two extra headers for reflecting the decision taken by the service. 
 
 We just recommend to disable prerendering explicitly if you know the target url doesn't need it.
 
-<MultiCodeEditor languages={mqlCode('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', { prerender: false })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.sportsnet.ca/hockey/nhl/leafs-john-tavares-return-new-york-hope-positive', { prerender: false })} />

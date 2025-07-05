@@ -2,15 +2,15 @@
 title: 'function'
 --- 
 
-Type: <TypeContainer><Type children='<string>'/></TypeContainer>
+Type: <Type children='<string>'/>
 
 It runs JavaScript code with runtime access to a headless browser.
 
-<MultiCodeEditor 
-  languages={mqlCode('https://microlink.io', {
+<MultiCodeEditorInteractive 
+  mqlCode={mqlCode('https://microlink.io', {
     function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
     scripts: ['https://code.jquery.com/jquery-3.5.0.min.js']
-  }, { output: 'data.function' })}
+  })}
 />
 
 The function will receive any query parameter provided, plus:

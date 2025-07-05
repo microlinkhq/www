@@ -7,7 +7,7 @@ Default: <Type children="'24h'"/>
 
 It sets the maximum quantity of time a resource can be cached before be considered as expired over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { ttl: '1d' })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { ttl: '1d' })} />
 
 The value provided need to be at least **1 minute** and not higher than **31 days**, being supported the following formats:
 

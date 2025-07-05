@@ -8,7 +8,7 @@ It injects [&lt;script&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/El
 
 ![](https://cdn.microlink.io/docs/scripts.png)
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', {
   screenshot: true, 
   scripts: [
     '%5B%5D.forEach.call(document.querySelectorAll(%22*%22)%2Cfunction(a)%7Ba.style.outline%3D%221px%20solid%20%23%22%2B(~~(Math.random()*(1%3C%3C24))).toString(16)%7D)'

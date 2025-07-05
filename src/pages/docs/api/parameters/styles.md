@@ -8,7 +8,7 @@ It injects [&lt;style&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Ele
 
 ![](https://cdn.microlink.io/docs/styles.png)
 
-<MultiCodeEditor languages={mqlCode('https://example.com', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://example.com', { 
   screenshot: true, 
   styles: [
     'body { background: white; }',

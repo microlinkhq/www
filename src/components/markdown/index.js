@@ -28,7 +28,7 @@ import {
   Video as VideoBase
 } from 'components/elements'
 
-import MultiCodeEditorV2Base from '../elements/MultiCodeEditor/MultiCodeEditorV2'
+import MultiCodeEditorInteractiveBase from '../elements/MultiCodeEditor/MultiCodeEditorInteractive'
 
 import MicrolinkBase from '../patterns/Microlink/Microlink'
 import DemoIntegrations from './DemoIntegrations'
@@ -68,7 +68,9 @@ export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
 
-export const MultiCodeEditorNew = withContainer(MultiCodeEditorV2Base)
+export const MultiCodeEditorInteractive = withContainer(
+  MultiCodeEditorInteractiveBase
+)
 
 const StyledH1 = styled(Heading)(
   theme({
@@ -301,7 +303,9 @@ const StyledType = styled(Text)`
 
 const Type = props => <StyledType as='span' {...props} />
 
-const TypeContainer = Box
+const TypeContainer = styled(Box)`
+  display: inline;
+`
 
 const PriceMonthly = props => (
   <Text
@@ -361,8 +365,7 @@ const ScopedComponents = {
   Li,
   Link,
   Microlink,
-  MultiCodeEditor,
-  MultiCodeEditorNew,
+  MultiCodeEditorInteractive,
   Ol,
   Paraph,
   PriceMonthly,

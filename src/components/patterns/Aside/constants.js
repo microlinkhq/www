@@ -333,7 +333,7 @@ const ROUTES_API = [
         posts: [
           {
             name: 'codeScheme',
-            href: '/docs/api/parameters/codeScheme'
+            href: '/docs/api/parameters/screenshot/codeScheme'
           },
           {
             name: 'element',

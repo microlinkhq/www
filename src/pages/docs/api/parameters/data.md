@@ -6,7 +6,8 @@ Type: <Type children='<object>'/>
 
 it enables specific data extraction over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://kikobeats.com', {
+<MultiCodeEditorInteractive 
+  mqlCode={mqlCode('https://kikobeats.com', {
   data: {
     avatar: {
       selector: '#avatar',
@@ -14,7 +15,8 @@ it enables specific data extraction over the target [url](/docs/api/parameters/u
       attr: 'src'
     }
   }
-})} />
+})} 
+/>
 
 <Figcaption children="The data extraction need to be defined at least with a CSS selector." />
 
