@@ -106,7 +106,7 @@
   ],
   "dependencies": {
     "@kikobeats/use-query-state": "1.2.2",
-    "@microlink/mql": "~0.13.14",
+    "@microlink/mql": "~0.14.0",
     "@microlink/react": "5.5.23",
     "@microlink/recipes": "~1.8.1",
     "@react-spring/web": "~9.7.5",
