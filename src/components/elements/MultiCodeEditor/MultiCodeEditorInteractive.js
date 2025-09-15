@@ -1,8 +1,17 @@
-import { Spinner, Button, Select, Choose, Image } from 'components/elements'
+import {
+  Flex,
+  Caps,
+  Spinner,
+  Button,
+  Select,
+  Choose,
+  Image
+} from 'components/elements'
 import { useLocalStorage } from 'components/hook'
 import React, { useState, useRef } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { highlight } from 'sugar-high'
+import { ProBadge } from 'components/markdown'
 import {
   colors,
   fonts,
@@ -24,36 +33,12 @@ import Terminal, {
 import CodeCopy from 'components/elements/Codecopy'
 import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
-
-const FadeOverlay = styled(Box)`
-  height: ${({ $position }) => ($position === 'top' ? '30px' : '34px')};
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  top: ${({ $position }) => ($position === 'top' ? '34px' : 'auto')};
-  bottom: ${({ $position }) => ($position === 'bottom' ? '0' : 'auto')};
-
-  &:before {
-    background: linear-gradient(
-      to ${({ $position }) => ($position === 'bottom' ? 'top' : 'bottom')},
-      white ${({ $position }) => ($position === 'top' ? '50%' : '50%')},
-      transparent 100%
-    );
-    bottom: 0px;
-    content: '';
-    height: ${({ $position }) => ($position === 'top' ? '30px' : '34px')};
-    left: 0px;
-    position: absolute;
-    width: 100%;
-  }
-`
+import Input from '../Input/Input'
 
 const Content = styled(TerminalText)`
   padding: 0 ${space[2]};
 `
 
-// Common font styles to ensure perfect alignment between textarea and pre
 const fontStyles = {
   fontFamily: fonts.mono,
   fontSize: fontSizes[0],
@@ -281,19 +266,17 @@ const Toolbar = ({
         if (!isLoading) e.target.style.opacity = '1'
       }}
     >
-      {isLoading
-        ? (
-          <Spinner
-            width='12px'
-            height='16px'
-            color={colors.white}
-            style={{ padding: '0' }}
-            aria-label='Loading'
-          />
-          )
-        : (
-          <PlayIcon />
-          )}
+      {isLoading ? (
+        <Spinner
+          width='12px'
+          height='16px'
+          color={colors.white}
+          style={{ padding: '0' }}
+          aria-label='Loading'
+        />
+      ) : (
+        <PlayIcon />
+      )}
     </Button>
     <span id='execute-button-help' style={{ display: 'none' }}>
       Click to run the code and see the API response
@@ -302,13 +285,14 @@ const Toolbar = ({
 )
 
 const ViewNavigation = ({ activeView, onViewClick, isExpanded }) => (
-  <nav
+  <Flex
+    as='nav'
     role='tablist'
     aria-label='Response view options'
-    style={{
-      display: 'flex',
+    css={theme({
+      pt: 2,
       justifyContent: 'flex-end'
-    }}
+    })}
   >
     <Text
       style={{
@@ -341,7 +325,7 @@ const ViewNavigation = ({ activeView, onViewClick, isExpanded }) => (
         isExpanded={isExpanded}
       />
     </Text>
-  </nav>
+  </Flex>
 )
 
 const ContentArea = ({
@@ -350,27 +334,130 @@ const ContentArea = ({
   setCode,
   editable,
   responseData,
-  fontStyles
+  fontStyles,
+  apiKey,
+  tempApiKey,
+  setTempApiKey,
+  handleApiKeySubmit,
+  setApiKey,
+  showApiKeyInput,
+  setShowApiKeyInput
 }) => (
   <Choose>
-    <Choose.When
-      condition={activeView === 'code'}
-      render={() => (
-        <CodeEditor
-          value={code}
-          onChange={setCode}
-          editable={editable}
-          role='tabpanel'
-          id={`tabpanel-${activeView}`}
-          aria-labelledby={`view-button-${activeView}`}
-          aria-label='Code editor'
-        />
-      )}
-    />
-
+    <Choose.When condition={activeView === 'code'}>
+      <CodeEditor
+        value={code}
+        onChange={setCode}
+        editable={editable}
+        style={fontStyles}
+        aria-label='Code editor'
+        aria-describedby='code-editor-help'
+        id='tabpanel-code'
+        aria-labelledby='view-button-code'
+      />
+    </Choose.When>
     <Choose.When
       condition={activeView === 'body'}
       render={() => {
+        if (showApiKeyInput) {
+          return (
+            <Content
+              as='div'
+              data-debug
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <div style={{ width: '100%', textAlign: 'center' }}>
+                <Text as='h3' css={theme({ fontSize: 2, fontWeight: 'bold' })}>
+                  {apiKey ? 'Ready to Execute' : 'API Key Setup'}
+                </Text>
+
+                {!apiKey ? (
+                  <>
+                    <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
+                      Some requests require a <ProBadge /> plan.
+                      <br />
+                      Enter your Microlink API key to unlock all features.
+                    </Text>
+                    <Flex css={theme({ justifyContent: 'center' })}>
+                      <Input
+                        type='text'
+                        placeholder='Enter your API key…'
+                        css={theme({ width: '8rem', fontSize: '12px' })}
+                        labelCss={{ py: '4px' }}
+                        value={tempApiKey}
+                        onChange={e => setTempApiKey(e.target.value)}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter' && tempApiKey.trim()) {
+                            handleApiKeySubmit()
+                          }
+                        }}
+                        required
+                      />
+                      <Button
+                        css={theme({ ml: 2 })}
+                        disabled={!tempApiKey.trim()}
+                        onClick={handleApiKeySubmit}
+                        variant='black'
+                      >
+                        <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
+                      </Button>
+                    </Flex>
+                  </>
+                ) : (
+                  <>
+                    <p
+                      style={{
+                        margin: 0,
+                        marginBottom: '1rem',
+                        color: colors.black60,
+                        fontSize: '0.9rem'
+                      }}
+                    >
+                      API key configured. <br />
+                      Execute a request to see the response here.
+                    </p>
+                    <Button
+                      onClick={() => {
+                        setApiKey('')
+                        setTempApiKey('')
+                        setShowApiKeyInput(false)
+                      }}
+                      variant='white'
+                      style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
+                    >
+                      Clear API Key
+                    </Button>
+                  </>
+                )}
+              </div>
+            </Content>
+          )
+        }
+
+        if (!responseData) {
+          return (
+            <Content
+              as='div'
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                color: colors.black50,
+                fontStyle: 'italic',
+                ...fontStyles
+              }}
+            >
+              No response data available. Execute a request to see the response.
+            </Content>
+          )
+        }
+
         const { body, headers } = responseData
         const contentType = headers['content-type']
 
@@ -513,34 +600,51 @@ const ContentArea = ({
           aria-labelledby={`view-button-${activeView}`}
           aria-label='Response headers'
         >
-          <div role='table' aria-label='HTTP response headers'>
-            {(() => {
-              const headers = responseData?.headers || {}
-              const maxKeyLength = Math.max(
-                ...Object.keys(headers).map(key => key.length)
-              )
-              const sortedHeaders = Object.entries(headers).sort(([a], [b]) =>
-                a.localeCompare(b)
-              )
-              return sortedHeaders.map(([key, value], index) => (
-                <Box
-                  key={key}
-                  css={theme({ mb: index > 0 ? 1 : 0 })}
-                  role='row'
-                >
-                  <span role='cell' aria-label={`Header name: ${key}`}>
-                    {key.padEnd(maxKeyLength, ' ')}
-                  </span>
-                  <span role='cell' aria-hidden='true'>
-                    :
-                  </span>
-                  <span role='cell' aria-label={`Header value: ${value}`}>
-                    {value}
-                  </span>
-                </Box>
-              ))
-            })()}
-          </div>
+          {!responseData ? (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                color: colors.black50,
+                fontStyle: 'italic',
+                padding: '2rem'
+              }}
+            >
+              No response headers available. Execute a request to see the
+              headers.
+            </div>
+          ) : (
+            <div role='table' aria-label='HTTP response headers'>
+              {(() => {
+                const headers = responseData?.headers || {}
+                const maxKeyLength = Math.max(
+                  ...Object.keys(headers).map(key => key.length)
+                )
+                const sortedHeaders = Object.entries(headers).sort(([a], [b]) =>
+                  a.localeCompare(b)
+                )
+                return sortedHeaders.map(([key, value], index) => (
+                  <Box
+                    key={key}
+                    css={theme({ mb: index > 0 ? 1 : 0 })}
+                    role='row'
+                  >
+                    <span role='cell' aria-label={`Header name: ${key}`}>
+                      {key.padEnd(maxKeyLength, ' ')}
+                    </span>
+                    <span role='cell' aria-hidden='true'>
+                      :
+                    </span>
+                    <span role='cell' aria-label={`Header value: ${value}`}>
+                      {value}
+                    </span>
+                  </Box>
+                ))
+              })()}
+            </div>
+          )}
         </TerminalText>
       )}
     />
@@ -553,10 +657,7 @@ function MultiCodeEditorInteractive ({
   editable = false
 }) {
   const availableLanguages = Object.keys(codeSnippets)
-  const [currentLanguage, setCurrentLanguage] = useLocalStorage(
-    'mql-code-editor-language',
-    'JavaScript'
-  )
+  const [currentLanguage, setCurrentLanguage] = useState('JavaScript')
 
   // Ensure saved language is available, fallback to first available language
   const validLanguage = availableLanguages.includes(currentLanguage)
@@ -569,7 +670,11 @@ function MultiCodeEditorInteractive ({
   const [activeView, setActiveView] = useState('code')
   const [isExpanded, setIsExpanded] = useState(false)
 
-  // Listen for localStorage changes from other component instances
+  // API key management
+  const [apiKey, setApiKey] = useLocalStorage('mql-api-key', '')
+  const [tempApiKey, setTempApiKey] = useState('')
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false)
+
   React.useEffect(() => {
     const handleStorageChange = e => {
       if (
@@ -661,15 +766,26 @@ function MultiCodeEditorInteractive ({
     return null // No matching closing brace found
   }
 
+  const checkForProPlanRequired = responseText => {
+    return responseText && responseText.includes('You need a pro plan')
+  }
+
   const parseCodeAndExecute = async () => {
     setIsLoading(true)
     const result = await (async () => {
       try {
         const [targetUrl, query] = parseCodeParameters()
-        const raw = await mql.arrayBuffer(targetUrl, {
+        const requestOptions = {
           endpoint: 'http://localhost:3000/',
           ...query
-        })
+        }
+
+        // Add API key if available
+        if (apiKey) {
+          requestOptions.apiKey = apiKey
+        }
+
+        const raw = await mql.arrayBuffer(targetUrl, requestOptions)
 
         const { body, headers } = raw
         return {
@@ -680,23 +796,45 @@ function MultiCodeEditorInteractive ({
       } catch (error) {
         const { headers, name, statusCode, message, url, ...body } = error
         const encoder = new TextEncoder()
+        const errorBody = encoder.encode(JSON.stringify(body))
+
         return {
           status: 'rejected',
-          headers,
-          body: encoder.encode(JSON.stringify(body))
+          headers: headers || {},
+          body: errorBody
         }
       }
     })()
+
+    if (result.status === 'rejected') {
+      const errorText = new TextDecoder().decode(result.body)
+      if (checkForProPlanRequired(errorText) && !apiKey) {
+        setIsLoading(false)
+        return
+      }
+    }
 
     setResponseData(result)
     setIsLoading(false)
   }
 
+  const handleApiKeySubmit = () => {
+    if (tempApiKey.trim()) {
+      setApiKey(tempApiKey.trim())
+      setTempApiKey('')
+      setShowApiKeyInput(false)
+      // Retry the request with the new API key
+      parseCodeAndExecute()
+    }
+  }
+
   const executeRequest = () => {
     if (!isLoading) {
       parseCodeAndExecute().then(() => {
+        // if (!showApiKeyOverlay) { // Removed overlay state
         setActiveView('body')
         setIsExpanded(false)
+        // }
       })
     }
   }
@@ -758,11 +896,6 @@ function MultiCodeEditorInteractive ({
         return `Image content (${contentType})\nSize: ${body.byteLength} bytes`
       }
 
-      if (contentType && contentType.includes('text/')) {
-        return 'test'
-        // return new TextDecoder().decode(body)
-      }
-
       throw new Error(`Unsupported content type: ${contentType}`)
     } else if (activeView === 'headers') {
       return Object.entries(responseData.headers || {})
@@ -773,7 +906,7 @@ function MultiCodeEditorInteractive ({
     return ''
   }
 
-  const TerminalActions = () => (
+  const TerminalActions = ({ setActiveView }) => (
     <div
       role='group'
       aria-label='Terminal actions'
@@ -783,6 +916,57 @@ function MultiCodeEditorInteractive ({
         gap: '0.5rem'
       }}
     >
+      <button
+        onClick={() => {
+          const newShowApiKeyInput = !showApiKeyInput
+          setShowApiKeyInput(newShowApiKeyInput)
+          if (newShowApiKeyInput) {
+            setActiveView('body')
+          } else {
+            setActiveView('code')
+          }
+        }}
+        title={showApiKeyInput ? 'Hide API key input' : 'Show API key input'}
+        aria-label={
+          showApiKeyInput ? 'Hide API key input' : 'Show API key input'
+        }
+        style={{
+          padding: 0,
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          position: 'relative',
+          top: '-1px'
+        }}
+        onMouseEnter={e => {
+          const icon = e.currentTarget.querySelector('svg')
+          if (icon) icon.style.stroke = colors.black
+        }}
+        onMouseLeave={e => {
+          const icon = e.currentTarget.querySelector('svg')
+          if (icon)
+            icon.style.stroke = showApiKeyInput ? colors.black : colors.black20
+        }}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            const newShowApiKeyInput = !showApiKeyInput
+            setShowApiKeyInput(newShowApiKeyInput)
+            if (newShowApiKeyInput) {
+              setActiveView('body')
+            } else {
+              setActiveView('code')
+            }
+          }
+        }}
+      >
+        <FeatherIcon
+          icon='Key'
+          color={showApiKeyInput ? colors.black : colors.black20}
+          size={[1, 1, 1, 1]}
+          aria-hidden='true'
+        />
+      </button>
       <button
         onClick={handleOpenInBrowser}
         title='Open API request in browser'
@@ -823,25 +1007,6 @@ function MultiCodeEditorInteractive ({
 
   const componentHeight = isExpanded ? `${height * 2}px` : `${height}px`
 
-  // Generate structured data for SEO
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Interactive Code Editor',
-    description:
-      'An interactive code editor for testing API requests with multiple programming languages',
-    applicationCategory: 'DeveloperApplication',
-    operatingSystem: 'Web Browser',
-    programmingLanguage: availableLanguages,
-    featureList: [
-      'Multi-language code editing',
-      'Real-time API testing',
-      'Response visualization',
-      'Code execution',
-      'Syntax highlighting'
-    ]
-  }
-
   return (
     <article
       itemScope
@@ -850,7 +1015,25 @@ function MultiCodeEditorInteractive ({
     >
       <script
         type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'Interactive Code Editor',
+            description:
+              'An interactive code editor for testing API requests with multiple programming languages',
+            applicationCategory: 'DeveloperApplication',
+            operatingSystem: 'Web Browser',
+            programmingLanguage: availableLanguages,
+            featureList: [
+              'Multi-language code editing',
+              'Real-time API testing',
+              'Response visualization',
+              'Code execution',
+              'Syntax highlighting'
+            ]
+          })
+        }}
       />
 
       <header style={{ display: 'none' }}>
@@ -864,7 +1047,9 @@ function MultiCodeEditorInteractive ({
       <main>
         <Terminal
           text={getCurrentViewText()}
-          ActionComponent={TerminalActions}
+          ActionComponent={() => (
+            <TerminalActions setActiveView={setActiveView} />
+          )}
           css={theme({ width: TERMINAL_WIDTH })}
           style={{ position: 'relative' }}
           role='application'
@@ -875,7 +1060,7 @@ function MultiCodeEditorInteractive ({
             aria-live='polite'
             aria-busy={isLoading}
           >
-            <FadeOverlay $position='top' aria-hidden='true' />
+            {/* FadeOverlay $position='top' aria-hidden='true' */}
 
             <ContentArea
               activeView={activeView}
@@ -884,9 +1069,16 @@ function MultiCodeEditorInteractive ({
               editable={editable}
               responseData={responseData}
               fontStyles={fontStyles}
+              apiKey={apiKey}
+              tempApiKey={tempApiKey}
+              setTempApiKey={setTempApiKey}
+              handleApiKeySubmit={handleApiKeySubmit}
+              setApiKey={setApiKey}
+              showApiKeyInput={showApiKeyInput}
+              setShowApiKeyInput={setShowApiKeyInput}
             />
 
-            <FadeOverlay $position='bottom' aria-hidden='true' />
+            {/* FadeOverlay $position='bottom' aria-hidden='true' */}
           </div>
 
           <Toolbar
