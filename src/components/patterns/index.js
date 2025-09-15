@@ -24,6 +24,7 @@ import Healthcheck from './Healthcheck/Healthcheck'
 import Toolbar from './Toolbar/Toolbar'
 import ArrowLink from './ArrowLink'
 import Features from './Features/Features'
+import ProBadge from './ProBadge/ProBadge'
 
 const Caption = withTitle(CaptionBase)
 
@@ -51,5 +52,6 @@ export {
   List,
   Microlink,
   PricingTable,
+  ProBadge,
   Toolbar
 }

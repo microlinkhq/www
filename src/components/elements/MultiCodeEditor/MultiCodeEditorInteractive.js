@@ -266,17 +266,19 @@ const Toolbar = ({
         if (!isLoading) e.target.style.opacity = '1'
       }}
     >
-      {isLoading ? (
-        <Spinner
-          width='12px'
-          height='16px'
-          color={colors.white}
-          style={{ padding: '0' }}
-          aria-label='Loading'
-        />
-      ) : (
-        <PlayIcon />
-      )}
+      {isLoading
+        ? (
+          <Spinner
+            width='12px'
+            height='16px'
+            color={colors.white}
+            style={{ padding: '0' }}
+            aria-label='Loading'
+          />
+          )
+        : (
+          <PlayIcon />
+          )}
     </Button>
     <span id='execute-button-help' style={{ display: 'none' }}>
       Click to run the code and see the API response
@@ -376,64 +378,66 @@ const ContentArea = ({
                   {apiKey ? 'Ready to Execute' : 'API Key Setup'}
                 </Text>
 
-                {!apiKey ? (
-                  <>
-                    <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
-                      Some requests require a <ProBadge /> plan.
-                      <br />
-                      Enter your Microlink API key to unlock all features.
-                    </Text>
-                    <Flex css={theme({ justifyContent: 'center' })}>
-                      <Input
-                        type='text'
-                        placeholder='Enter your API key…'
-                        css={theme({ width: '8rem', fontSize: '12px' })}
-                        labelCss={{ py: '4px' }}
-                        value={tempApiKey}
-                        onChange={e => setTempApiKey(e.target.value)}
-                        onKeyDown={e => {
-                          if (e.key === 'Enter' && tempApiKey.trim()) {
-                            handleApiKeySubmit()
-                          }
+                {!apiKey
+                  ? (
+                    <>
+                      <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
+                        Some requests require a <ProBadge /> plan.
+                        <br />
+                        Enter your Microlink API key to unlock all features.
+                      </Text>
+                      <Flex css={theme({ justifyContent: 'center' })}>
+                        <Input
+                          type='text'
+                          placeholder='Enter your API key…'
+                          css={theme({ width: '8rem', fontSize: '12px' })}
+                          labelCss={{ py: '4px' }}
+                          value={tempApiKey}
+                          onChange={e => setTempApiKey(e.target.value)}
+                          onKeyDown={e => {
+                            if (e.key === 'Enter' && tempApiKey.trim()) {
+                              handleApiKeySubmit()
+                            }
+                          }}
+                          required
+                        />
+                        <Button
+                          css={theme({ ml: 2 })}
+                          disabled={!tempApiKey.trim()}
+                          onClick={handleApiKeySubmit}
+                          variant='black'
+                        >
+                          <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
+                        </Button>
+                      </Flex>
+                    </>
+                    )
+                  : (
+                    <>
+                      <p
+                        style={{
+                          margin: 0,
+                          marginBottom: '1rem',
+                          color: colors.black60,
+                          fontSize: '0.9rem'
                         }}
-                        required
-                      />
-                      <Button
-                        css={theme({ ml: 2 })}
-                        disabled={!tempApiKey.trim()}
-                        onClick={handleApiKeySubmit}
-                        variant='black'
                       >
-                        <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
+                        API key configured. <br />
+                        Execute a request to see the response here.
+                      </p>
+                      <Button
+                        onClick={() => {
+                          setApiKey('')
+                          setTempApiKey('')
+                          setShowApiKeyInput(false)
+                        }}
+                        variant='white'
+                        style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
+                      >
+                        Clear API Key
                       </Button>
-                    </Flex>
-                  </>
-                ) : (
-                  <>
-                    <p
-                      style={{
-                        margin: 0,
-                        marginBottom: '1rem',
-                        color: colors.black60,
-                        fontSize: '0.9rem'
-                      }}
-                    >
-                      API key configured. <br />
-                      Execute a request to see the response here.
-                    </p>
-                    <Button
-                      onClick={() => {
-                        setApiKey('')
-                        setTempApiKey('')
-                        setShowApiKeyInput(false)
-                      }}
-                      variant='white'
-                      style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
-                    >
-                      Clear API Key
-                    </Button>
-                  </>
-                )}
+                    </>
+                    )}
               </div>
             </Content>
           )
@@ -600,51 +604,53 @@ const ContentArea = ({
           aria-labelledby={`view-button-${activeView}`}
           aria-label='Response headers'
         >
-          {!responseData ? (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
-                color: colors.black50,
-                fontStyle: 'italic',
-                padding: '2rem'
-              }}
-            >
-              No response headers available. Execute a request to see the
-              headers.
-            </div>
-          ) : (
-            <div role='table' aria-label='HTTP response headers'>
-              {(() => {
-                const headers = responseData?.headers || {}
-                const maxKeyLength = Math.max(
-                  ...Object.keys(headers).map(key => key.length)
-                )
-                const sortedHeaders = Object.entries(headers).sort(([a], [b]) =>
-                  a.localeCompare(b)
-                )
-                return sortedHeaders.map(([key, value], index) => (
-                  <Box
-                    key={key}
-                    css={theme({ mb: index > 0 ? 1 : 0 })}
-                    role='row'
-                  >
-                    <span role='cell' aria-label={`Header name: ${key}`}>
-                      {key.padEnd(maxKeyLength, ' ')}
-                    </span>
-                    <span role='cell' aria-hidden='true'>
-                      :
-                    </span>
-                    <span role='cell' aria-label={`Header value: ${value}`}>
-                      {value}
-                    </span>
-                  </Box>
-                ))
-              })()}
-            </div>
-          )}
+          {!responseData
+            ? (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  color: colors.black50,
+                  fontStyle: 'italic',
+                  padding: '2rem'
+                }}
+              >
+                No response headers available. Execute a request to see the
+                headers.
+              </div>
+              )
+            : (
+              <div role='table' aria-label='HTTP response headers'>
+                {(() => {
+                  const headers = responseData?.headers || {}
+                  const maxKeyLength = Math.max(
+                    ...Object.keys(headers).map(key => key.length)
+                  )
+                  const sortedHeaders = Object.entries(headers).sort(([a], [b]) =>
+                    a.localeCompare(b)
+                  )
+                  return sortedHeaders.map(([key, value], index) => (
+                    <Box
+                      key={key}
+                      css={theme({ mb: index > 0 ? 1 : 0 })}
+                      role='row'
+                    >
+                      <span role='cell' aria-label={`Header name: ${key}`}>
+                        {key.padEnd(maxKeyLength, ' ')}
+                      </span>
+                      <span role='cell' aria-hidden='true'>
+                        :
+                      </span>
+                      <span role='cell' aria-label={`Header value: ${value}`}>
+                        {value}
+                      </span>
+                    </Box>
+                  ))
+                })()}
+              </div>
+              )}
         </TerminalText>
       )}
     />
@@ -944,8 +950,7 @@ function MultiCodeEditorInteractive ({
         }}
         onMouseLeave={e => {
           const icon = e.currentTarget.querySelector('svg')
-          if (icon)
-            icon.style.stroke = showApiKeyInput ? colors.black : colors.black20
+          if (icon) { icon.style.stroke = showApiKeyInput ? colors.black : colors.black20 }
         }}
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
