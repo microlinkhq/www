@@ -24,9 +24,9 @@ import {
   transition
 } from 'theme'
 
+import React, { useState, useRef, useCallback } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocalStorage } from 'components/hook'
-import React, { useState, useRef } from 'react'
 import { ProBadge } from 'components/patterns'
 import { highlight } from 'sugar-high'
 import styled from 'styled-components'
@@ -232,248 +232,271 @@ const PlayIcon = () => (
   </svg>
 )
 
-const Toolbar = ({
-  currentLanguage,
-  onLanguageChange,
-  onExecute,
-  isLoading,
-  availableLanguages
-}) => (
-  <div
-    style={{
-      position: 'absolute',
-      bottom: '1rem',
-      right: '1rem',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      zIndex: 10
-    }}
-    role='toolbar'
-    aria-label='Code editor actions'
-  >
-    <Select
-      value={currentLanguage}
-      onChange={onLanguageChange}
-      aria-label='Select programming language'
+const Toolbar = React.memo(
+  ({
+    currentLanguage,
+    onLanguageChange,
+    onExecute,
+    isLoading,
+    availableLanguages
+  }) => (
+    <div
       style={{
-        backgroundColor: 'white',
-        width: '6rem',
-        height: '2rem',
+        position: 'absolute',
+        bottom: '1rem',
+        right: '1rem',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        gap: '0.5rem',
+        zIndex: 10
       }}
+      role='toolbar'
+      aria-label='Code editor actions'
     >
-      {availableLanguages.map(lang => (
-        <option key={lang} value={lang}>
-          {lang}
-        </option>
-      ))}
-    </Select>
-
-    <Button
-      onClick={onExecute}
-      disabled={isLoading}
-      aria-label={isLoading ? 'Executing code...' : 'Execute code'}
-      aria-describedby='execute-button-help'
-      style={{
-        cursor: isLoading ? 'not-allowed' : 'pointer',
-        opacity: isLoading ? 0.5 : 1,
-        transition: 'opacity 0.2s',
-        height: '2rem'
-      }}
-      variant='black'
-      onMouseEnter={e => {
-        if (!isLoading) e.target.style.opacity = '0.8'
-      }}
-      onMouseLeave={e => {
-        if (!isLoading) e.target.style.opacity = '1'
-      }}
-    >
-      {isLoading ? (
-        <Spinner
-          width='12px'
-          height='16px'
-          color={colors.white}
-          style={{ padding: '0' }}
-          aria-label='Loading'
-        />
-      ) : (
-        <PlayIcon />
-      )}
-    </Button>
-    <span id='execute-button-help' style={{ display: 'none' }}>
-      Click to run the code and see the API response
-    </span>
-  </div>
-)
-
-const ViewNavigation = ({
-  activeView,
-  onViewClick,
-  isExpanded,
-  showApiKeyInput
-}) => (
-  <Flex
-    as='nav'
-    role='tablist'
-    aria-label='Response view options'
-    css={theme({
-      pt: 2,
-      justifyContent: 'flex-end'
-    })}
-  >
-    <Text
-      style={{
-        display: 'flex',
-        justifyContent: 'flex-end'
-      }}
-      css={theme({
-        fontSize: 0,
-        color: 'black50'
-      })}
-    >
-      <ViewButton
-        disabled={showApiKeyInput}
-        view='code'
-        activeView={activeView}
-        onClick={() => onViewClick('code')}
-        isExpanded={isExpanded}
-      />
-      <span aria-hidden='true'>|</span>
-      <ViewButton
-        disabled={showApiKeyInput}
-        view='body'
-        activeView={activeView}
-        onClick={() => onViewClick('body')}
-        isExpanded={isExpanded}
-      />
-      <span aria-hidden='true'>|</span>
-      <ViewButton
-        disabled={showApiKeyInput}
-        view='headers'
-        activeView={activeView}
-        onClick={() => onViewClick('headers')}
-        isExpanded={isExpanded}
-      />
-    </Text>
-  </Flex>
-)
-
-const ContentArea = ({
-  activeView,
-  code,
-  setCode,
-  editable,
-  responseData,
-  fontStyles,
-  apiKey,
-  tempApiKey,
-  setTempApiKey,
-  handleApiKeySubmit,
-  setApiKey,
-  showApiKeyInput,
-  setShowApiKeyInput
-}) => {
-  if (showApiKeyInput) {
-    return (
-      <Content
-        as='div'
-        data-debug
+      <Select
+        value={currentLanguage}
+        onChange={onLanguageChange}
+        aria-label='Select programming language'
         style={{
+          backgroundColor: 'white',
+          width: '6rem',
+          height: '2rem',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center'
+          alignItems: 'center'
         }}
       >
-        <div style={{ width: '100%', textAlign: 'center' }}>
-          <Text as='h3' css={theme({ fontSize: 2, fontWeight: 'bold' })}>
-            API key setup
-          </Text>
+        {availableLanguages.map(lang => (
+          <option key={lang} value={lang}>
+            {lang}
+          </option>
+        ))}
+      </Select>
 
-          <>
-            <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
-              <Choose>
-                <Choose.When
-                  condition={!apiKey}
-                  render={() => (
-                    <>
-                      Some requests require a <ProBadge /> plan.
-                      <br />
-                      Enter your Microlink API key to unlock all features.
-                    </>
-                  )}
-                />
-                <Choose.Otherwise
-                  render={() => (
-                    <>
-                      API key already configured. <br />
-                      You can access to <ProBadge /> features now.
-                    </>
-                  )}
-                />
-              </Choose>
-            </Text>
-            <Flex css={theme({ justifyContent: 'center' })}>
-              <Choose>
-                <Choose.When
-                  condition={!apiKey}
-                  render={() => (
-                    <>
-                      <Input
-                        required
-                        type='text'
-                        placeholder='Enter your API key…'
-                        css={theme({ width: '8rem', fontSize: '12px' })}
-                        labelCss={{ py: '4px' }}
-                        value={tempApiKey}
-                        onChange={e => setTempApiKey(e.target.value)}
-                        onKeyDown={e => {
-                          if (e.key === 'Enter' && tempApiKey.trim()) {
-                            handleApiKeySubmit()
-                          }
-                        }}
-                      />
-                      <Button
-                        css={theme({ ml: 2 })}
-                        disabled={!tempApiKey.trim()}
-                        onClick={handleApiKeySubmit}
-                        variant='black'
-                      >
-                        <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
-                      </Button>
-                    </>
-                  )}
-                />
-                <Choose.Otherwise
-                  render={() => (
-                    <Button
-                      css={theme({ ml: 2 })}
-                      onClick={() => {
-                        setApiKey('')
-                        setTempApiKey('')
-                        setShowApiKeyInput(false)
-                      }}
-                      variant='white'
-                    >
-                      <Caps css={theme({ fontSize: '12px' })}>clear it</Caps>
-                    </Button>
-                  )}
-                />
-              </Choose>
-            </Flex>
-          </>
-        </div>
-      </Content>
-    )
-  }
+      <Button
+        onClick={onExecute}
+        disabled={isLoading}
+        aria-label={isLoading ? 'Executing code...' : 'Execute code'}
+        aria-describedby='execute-button-help'
+        style={{
+          cursor: isLoading ? 'not-allowed' : 'pointer',
+          opacity: isLoading ? 0.5 : 1,
+          transition: 'opacity 0.2s',
+          height: '2rem'
+        }}
+        variant='black'
+        onMouseEnter={e => {
+          if (!isLoading) e.target.style.opacity = '0.8'
+        }}
+        onMouseLeave={e => {
+          if (!isLoading) e.target.style.opacity = '1'
+        }}
+      >
+        {isLoading ? (
+          <Spinner
+            width='12px'
+            height='16px'
+            color={colors.white}
+            style={{ padding: '0' }}
+            aria-label='Loading'
+          />
+        ) : (
+          <PlayIcon />
+        )}
+      </Button>
+      <span id='execute-button-help' style={{ display: 'none' }}>
+        Click to run the code and see the API response
+      </span>
+    </div>
+  )
+)
+
+const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
+  const [tempApiKey, setTempApiKey] = useState('')
+
+  const handleSubmit = useCallback(() => {
+    if (tempApiKey.trim()) {
+      const newApiKey = tempApiKey.trim()
+      onApiKeySubmit(newApiKey)
+      setTempApiKey('')
+    }
+  }, [tempApiKey, onApiKeySubmit])
 
   return (
-    <Choose>
-      <Choose.When
-        condition={activeView === 'code'}
-        render={() => (
+    <Flex css={theme({ justifyContent: 'center' })}>
+      <Choose>
+        <Choose.When
+          condition={!apiKey}
+          render={() => (
+            <>
+              <Input
+                required
+                type='text'
+                placeholder='Enter your API key…'
+                css={theme({ width: '8rem', fontSize: '12px' })}
+                labelCss={{ py: '4px' }}
+                value={tempApiKey}
+                onChange={e => setTempApiKey(e.target.value)}
+              />
+              <Button
+                css={theme({ ml: 2 })}
+                disabled={!tempApiKey.trim()}
+                onClick={handleSubmit}
+                variant='black'
+              >
+                <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
+              </Button>
+            </>
+          )}
+        />
+        <Choose.Otherwise
+          render={() => (
+            <Button
+              css={theme({ ml: 2 })}
+              onClick={() => {
+                setApiKey('')
+                setTempApiKey('')
+              }}
+              variant='white'
+            >
+              <Caps css={theme({ fontSize: '12px' })}>clear it</Caps>
+            </Button>
+          )}
+        />
+      </Choose>
+    </Flex>
+  )
+})
+
+const ViewNavigation = React.memo(
+  ({ activeView, onViewClick, isExpanded, showApiKeyInput }) => (
+    <Flex
+      as='nav'
+      role='tablist'
+      aria-label='Response view options'
+      css={theme({
+        pt: 2,
+        justifyContent: 'flex-end'
+      })}
+    >
+      <Text
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end'
+        }}
+        css={theme({
+          fontSize: 0,
+          color: 'black50'
+        })}
+      >
+        <ViewButton
+          disabled={showApiKeyInput}
+          view='code'
+          activeView={activeView}
+          onClick={() => onViewClick('code')}
+          isExpanded={isExpanded}
+        />
+        <span aria-hidden='true'>|</span>
+        <ViewButton
+          disabled={showApiKeyInput}
+          view='body'
+          activeView={activeView}
+          onClick={() => onViewClick('body')}
+          isExpanded={isExpanded}
+        />
+        <span aria-hidden='true'>|</span>
+        <ViewButton
+          disabled={showApiKeyInput}
+          view='headers'
+          activeView={activeView}
+          onClick={() => onViewClick('headers')}
+          isExpanded={isExpanded}
+        />
+      </Text>
+    </Flex>
+  )
+)
+
+const ContentArea = React.memo(
+  ({
+    activeView,
+    code,
+    setCode,
+    editable,
+    responseData,
+    fontStyles,
+    apiKey,
+    onApiKeySubmit,
+    setApiKey,
+    showApiKeyInput
+  }) => {
+    if (showApiKeyInput) {
+      return (
+        <Content
+          as='div'
+          data-debug
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <Text as='h3' css={theme({ fontSize: 2, fontWeight: 'bold' })}>
+              API key setup
+            </Text>
+
+            <>
+              <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
+                <Choose>
+                  <Choose.When
+                    condition={!apiKey}
+                    render={() => (
+                      <>
+                        Some requests require a <ProBadge /> plan.
+                        <br />
+                        Enter your Microlink API key to unlock all features.
+                      </>
+                    )}
+                  />
+                  <Choose.Otherwise
+                    render={() => (
+                      <>
+                        API key already configured. <br />
+                        You can access to <ProBadge /> features now.
+                      </>
+                    )}
+                  />
+                </Choose>
+              </Text>
+              <ApiKeyInput
+                apiKey={apiKey}
+                onApiKeySubmit={onApiKeySubmit}
+                setApiKey={setApiKey}
+              />
+            </>
+          </div>
+        </Content>
+      )
+    }
+
+    return (
+      <Choose>
+        <Choose.When
+          condition={activeView === 'code'}
+          render={() => (
+            <CodeEditor
+              value={code}
+              onChange={setCode}
+              editable={editable}
+              style={fontStyles}
+              aria-label='Code editor'
+              aria-describedby='code-editor-help'
+              id='tabpanel-code'
+              aria-labelledby='view-button-code'
+            />
+          )}
+        >
           <CodeEditor
             value={code}
             onChange={setCode}
@@ -484,51 +507,140 @@ const ContentArea = ({
             id='tabpanel-code'
             aria-labelledby='view-button-code'
           />
-        )}
-      >
-        <CodeEditor
-          value={code}
-          onChange={setCode}
-          editable={editable}
-          style={fontStyles}
-          aria-label='Code editor'
-          aria-describedby='code-editor-help'
-          id='tabpanel-code'
-          aria-labelledby='view-button-code'
-        />
-      </Choose.When>
-      <Choose.When
-        condition={activeView === 'body'}
-        render={() => {
-          if (!responseData) {
-            return (
-              <Content
-                as='div'
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  color: colors.black50,
-                  fontStyle: 'italic',
-                  ...fontStyles
-                }}
-              >
-                No response data available. Execute a request to see the
-                response.
-              </Content>
-            )
-          }
+        </Choose.When>
+        <Choose.When
+          condition={activeView === 'body'}
+          render={() => {
+            if (!responseData) {
+              return (
+                <Content
+                  as='div'
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    color: colors.black50,
+                    fontStyle: 'italic',
+                    ...fontStyles
+                  }}
+                >
+                  No response data available. Execute a request to see the
+                  response.
+                </Content>
+              )
+            }
 
-          const { body, headers } = responseData
-          const contentType = headers['content-type']
+            const { body, headers } = responseData
+            const contentType = headers['content-type']
 
-          if (contentType.includes('application/json')) {
+            if (contentType.includes('application/json')) {
+              return (
+                <Content
+                  as='pre'
+                  role='code'
+                  aria-label='JSON response data'
+                  id={`tabpanel-${activeView}`}
+                  aria-labelledby={`view-button-${activeView}`}
+                  style={{
+                    margin: 0,
+                    whiteSpace: 'pre-wrap',
+                    wordBreak: 'break-words',
+                    ...fontStyles
+                  }}
+                >
+                  {(() => {
+                    const text = new TextDecoder().decode(body)
+                    const payload =
+                      responseData.status === 'rejected'
+                        ? JSON.parse(text)
+                        : JSON.parse(text).data
+                    return JSON.stringify(payload, null, 2)
+                  })()}
+                </Content>
+              )
+            }
+
+            if (contentType.startsWith('image/')) {
+              const blob = new Blob([body], { type: contentType })
+              const imageUrl = URL.createObjectURL(blob)
+
+              const handleImageClick = () => {
+                window.open(imageUrl, '_blank')
+              }
+
+              const handleKeyDown = e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  handleImageClick()
+                }
+              }
+
+              return (
+                <Flex
+                  onClick={handleImageClick}
+                  onKeyDown={handleKeyDown}
+                  role='button'
+                  tabIndex={0}
+                  aria-label='Click to open image in new tab'
+                  id={`tabpanel-${activeView}`}
+                  aria-labelledby={`view-button-${activeView}`}
+                  onMouseEnter={e => {
+                    const overlay =
+                      e.currentTarget.querySelector('.image-overlay')
+                    if (overlay) overlay.style.opacity = '1'
+                  }}
+                  onMouseLeave={e => {
+                    const overlay =
+                      e.currentTarget.querySelector('.image-overlay')
+                    if (overlay) overlay.style.opacity = '0'
+                  }}
+                >
+                  <Image
+                    src={imageUrl}
+                    alt='API response image - click to view full size'
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'contain',
+                      cursor: 'pointer',
+                      transition: `opacity ${transition.normal}`
+                    }}
+                    title='Click to open image in new tab'
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      backgroundColor: colors.white70,
+                      color: colors.black50,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      opacity: 0,
+                      transition: `opacity ${transition.normal}`,
+                      cursor: 'pointer',
+                      fontSize: fontSizes[0],
+                      fontWeight: fontWeights.bold,
+                      textAlign: 'center'
+                    }}
+                    className='image-overlay'
+                    aria-hidden='true'
+                  >
+                    Click to open
+                  </div>
+                </Flex>
+              )
+            }
+
             return (
               <Content
                 as='pre'
                 role='code'
-                aria-label='JSON response data'
+                aria-label='Response content'
                 id={`tabpanel-${activeView}`}
                 aria-labelledby={`view-button-${activeView}`}
                 style={{
@@ -538,176 +650,76 @@ const ContentArea = ({
                   ...fontStyles
                 }}
               >
-                {(() => {
-                  const text = new TextDecoder().decode(body)
-                  const payload =
-                    responseData.status === 'rejected'
-                      ? JSON.parse(text)
-                      : JSON.parse(text).data
-                  return JSON.stringify(payload, null, 2)
-                })()}
+                {contentType && contentType.includes('text/')
+                  ? new TextDecoder().decode(body)
+                  : `Binary content (${contentType})\nSize: ${body.byteLength} bytes`}
               </Content>
             )
-          }
+          }}
+        />
 
-          if (contentType.startsWith('image/')) {
-            const blob = new Blob([body], { type: contentType })
-            const imageUrl = URL.createObjectURL(blob)
-
-            const handleImageClick = () => {
-              window.open(imageUrl, '_blank')
-            }
-
-            const handleKeyDown = e => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                handleImageClick()
-              }
-            }
-
-            return (
-              <Flex
-                onClick={handleImageClick}
-                onKeyDown={handleKeyDown}
-                role='button'
-                tabIndex={0}
-                aria-label='Click to open image in new tab'
-                id={`tabpanel-${activeView}`}
-                aria-labelledby={`view-button-${activeView}`}
-                onMouseEnter={e => {
-                  const overlay =
-                    e.currentTarget.querySelector('.image-overlay')
-                  if (overlay) overlay.style.opacity = '1'
-                }}
-                onMouseLeave={e => {
-                  const overlay =
-                    e.currentTarget.querySelector('.image-overlay')
-                  if (overlay) overlay.style.opacity = '0'
-                }}
-              >
-                <Image
-                  src={imageUrl}
-                  alt='API response image - click to view full size'
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    cursor: 'pointer',
-                    transition: `opacity ${transition.normal}`
-                  }}
-                  title='Click to open image in new tab'
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: colors.white70,
-                    color: colors.black50,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    opacity: 0,
-                    transition: `opacity ${transition.normal}`,
-                    cursor: 'pointer',
-                    fontSize: fontSizes[0],
-                    fontWeight: fontWeights.bold,
-                    textAlign: 'center'
-                  }}
-                  className='image-overlay'
-                  aria-hidden='true'
-                >
-                  Click to open
-                </div>
-              </Flex>
-            )
-          }
-
-          return (
-            <Content
-              as='pre'
-              role='code'
-              aria-label='Response content'
+        <Choose.When
+          condition={activeView === 'headers'}
+          render={() => (
+            <TerminalText
+              style={{ padding: 0, ...fontStyles }}
+              role='tabpanel'
               id={`tabpanel-${activeView}`}
               aria-labelledby={`view-button-${activeView}`}
-              style={{
-                margin: 0,
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-words',
-                ...fontStyles
-              }}
+              aria-label='Response headers'
             >
-              {contentType && contentType.includes('text/')
-                ? new TextDecoder().decode(body)
-                : `Binary content (${contentType})\nSize: ${body.byteLength} bytes`}
-            </Content>
-          )
-        }}
-      />
-
-      <Choose.When
-        condition={activeView === 'headers'}
-        render={() => (
-          <TerminalText
-            style={{ padding: 0, ...fontStyles }}
-            role='tabpanel'
-            id={`tabpanel-${activeView}`}
-            aria-labelledby={`view-button-${activeView}`}
-            aria-label='Response headers'
-          >
-            {!responseData ? (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  color: colors.black50,
-                  fontStyle: 'italic',
-                  padding: '2rem'
-                }}
-              >
-                No response headers available. Execute a request to see the
-                headers.
-              </div>
-            ) : (
-              <div role='table' aria-label='HTTP response headers'>
-                {(() => {
-                  const headers = responseData?.headers || {}
-                  const maxKeyLength = Math.max(
-                    ...Object.keys(headers).map(key => key.length)
-                  )
-                  const sortedHeaders = Object.entries(headers).sort(
-                    ([a], [b]) => a.localeCompare(b)
-                  )
-                  return sortedHeaders.map(([key, value], index) => (
-                    <Box
-                      key={key}
-                      css={theme({ mb: index > 0 ? 1 : 0 })}
-                      role='row'
-                    >
-                      <span role='cell' aria-label={`Header name: ${key}`}>
-                        {key.padEnd(maxKeyLength, ' ')}
-                      </span>
-                      <span role='cell' aria-hidden='true'>
-                        :
-                      </span>
-                      <span role='cell' aria-label={`Header value: ${value}`}>
-                        {value}
-                      </span>
-                    </Box>
-                  ))
-                })()}
-              </div>
-            )}
-          </TerminalText>
-        )}
-      />
-    </Choose>
-  )
-}
+              {!responseData ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    color: colors.black50,
+                    fontStyle: 'italic',
+                    padding: '2rem'
+                  }}
+                >
+                  No response headers available. Execute a request to see the
+                  headers.
+                </div>
+              ) : (
+                <div role='table' aria-label='HTTP response headers'>
+                  {(() => {
+                    const headers = responseData?.headers || {}
+                    const maxKeyLength = Math.max(
+                      ...Object.keys(headers).map(key => key.length)
+                    )
+                    const sortedHeaders = Object.entries(headers).sort(
+                      ([a], [b]) => a.localeCompare(b)
+                    )
+                    return sortedHeaders.map(([key, value], index) => (
+                      <Box
+                        key={key}
+                        css={theme({ mb: index > 0 ? 1 : 0 })}
+                        role='row'
+                      >
+                        <span role='cell' aria-label={`Header name: ${key}`}>
+                          {key.padEnd(maxKeyLength, ' ')}
+                        </span>
+                        <span role='cell' aria-hidden='true'>
+                          :
+                        </span>
+                        <span role='cell' aria-label={`Header value: ${value}`}>
+                          {value}
+                        </span>
+                      </Box>
+                    ))
+                  })()}
+                </div>
+              )}
+            </TerminalText>
+          )}
+        />
+      </Choose>
+    )
+  }
+)
 
 function MultiCodeEditorInteractive ({
   mqlCode: codeSnippets,
@@ -730,7 +742,6 @@ function MultiCodeEditorInteractive ({
 
   // API key management
   const [apiKey, setApiKey] = useLocalStorage('mql-api-key', '')
-  const [tempApiKey, setTempApiKey] = useState('')
   const [showApiKeyInput, setShowApiKeyInput] = useState(false)
 
   React.useEffect(() => {
@@ -827,7 +838,7 @@ function MultiCodeEditorInteractive ({
   const checkForProPlanRequired = responseText =>
     responseText && responseText.includes('You need a pro plan')
 
-  const parseCodeAndExecute = async () => {
+  const parseCodeAndExecute = async apiKey => {
     setIsLoading(true)
     const result = await (async () => {
       try {
@@ -838,7 +849,7 @@ function MultiCodeEditorInteractive ({
         }
 
         // Add API key if available
-        console.log({ apiKey })
+        console.log('parseCodeAndExecute', { apiKey })
         if (apiKey) {
           mqlOpts.apiKey = apiKey
         }
@@ -877,34 +888,36 @@ function MultiCodeEditorInteractive ({
     setIsLoading(false)
   }
 
-  const handleApiKeySubmit = () => {
-    if (tempApiKey.trim()) {
-      setApiKey(tempApiKey.trim())
-      setTempApiKey('')
+  const handleApiKeySubmit = useCallback(
+    newApiKey => {
+      setApiKey(newApiKey)
       setShowApiKeyInput(false)
-      // Retry the request with the new API key
-      parseCodeAndExecute()
-    }
-  }
+      parseCodeAndExecute(newApiKey)
+    },
+    [setApiKey, parseCodeAndExecute]
+  )
 
-  const executeRequest = () => {
+  const executeRequest = useCallback(() => {
     if (!isLoading) {
-      parseCodeAndExecute().then(() => {
+      parseCodeAndExecute(apiKey).then(() => {
         setActiveView('body')
         setIsExpanded(false)
       })
     }
-  }
+  }, [isLoading, parseCodeAndExecute, apiKey])
 
-  const handleViewClick = view => {
-    if (activeView === view && !isExpanded) {
-      setIsExpanded(true)
-    } else if (activeView === view && isExpanded) {
-      setIsExpanded(false)
-    } else {
-      setActiveView(view)
-    }
-  }
+  const handleViewClick = useCallback(
+    view => {
+      if (activeView === view && !isExpanded) {
+        setIsExpanded(true)
+      } else if (activeView === view && isExpanded) {
+        setIsExpanded(false)
+      } else {
+        setActiveView(view)
+      }
+    },
+    [activeView, isExpanded]
+  )
 
   const handleOpenInBrowser = () => {
     const [url, options] = parseCodeParameters()
@@ -922,19 +935,22 @@ function MultiCodeEditorInteractive ({
     window.open(apiUrl, '_blank')
   }
 
-  const handleLanguageChange = e => {
-    const newLanguage = e.target.value
-    setCurrentLanguage(newLanguage)
-    setCode(codeSnippets[newLanguage])
-    setActiveView('code')
+  const handleLanguageChange = useCallback(
+    e => {
+      const newLanguage = e.target.value
+      setCurrentLanguage(newLanguage)
+      setCode(codeSnippets[newLanguage])
+      setActiveView('code')
 
-    // Dispatch custom event to notify other components on the same page
-    window.dispatchEvent(
-      new CustomEvent('mql-language-change', {
-        detail: { key: 'mql-code-editor-language', newValue: newLanguage }
-      })
-    )
-  }
+      // Dispatch custom event to notify other components on the same page
+      window.dispatchEvent(
+        new CustomEvent('mql-language-change', {
+          detail: { key: 'mql-code-editor-language', newValue: newLanguage }
+        })
+      )
+    },
+    [codeSnippets]
+  )
 
   const getCurrentViewText = () => {
     if (activeView === 'code') {
@@ -1126,12 +1142,9 @@ function MultiCodeEditorInteractive ({
               responseData={responseData}
               fontStyles={fontStyles}
               apiKey={apiKey}
-              tempApiKey={tempApiKey}
-              setTempApiKey={setTempApiKey}
-              handleApiKeySubmit={handleApiKeySubmit}
+              onApiKeySubmit={handleApiKeySubmit}
               setApiKey={setApiKey}
               showApiKeyInput={showApiKeyInput}
-              setShowApiKeyInput={setShowApiKeyInput}
             />
 
             <If
