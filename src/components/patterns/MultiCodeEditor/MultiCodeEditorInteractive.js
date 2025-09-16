@@ -37,8 +37,21 @@ import Terminal, {
   TerminalText
 } from 'components/elements/Terminal/Terminal'
 
+const fontStyles = {
+  fontFamily: fonts.mono,
+  fontSize: fontSizes[0],
+  lineHeight: lineHeights[4],
+  letterSpacing: '0px',
+  fontWeight: fontWeights.normal,
+  tabSize: 2
+}
+
 const Content = styled(TerminalText)`
   padding: 0 ${space[2]};
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-words;
+  ${theme(fontStyles)}
 `
 
 const FadeOverlay = styled(Box)`
@@ -64,15 +77,6 @@ const FadeOverlay = styled(Box)`
     width: 100%;
   }
 `
-
-const fontStyles = {
-  fontFamily: fonts.mono,
-  fontSize: fontSizes[0],
-  lineHeight: lineHeights[4],
-  letterSpacing: '0px',
-  fontWeight: fontWeights.normal,
-  tabSize: 2
-}
 
 function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
   const isActive = activeView === view
@@ -129,7 +133,6 @@ function CodeEditor ({
   value,
   onChange,
   onKeyDown,
-  style,
   editable = false,
   ...props
 }) {
@@ -144,8 +147,12 @@ function CodeEditor ({
   }
 
   return (
-    <div
-      style={{ position: 'relative', width: '100%', height: '100%' }}
+    <Box
+      css={{
+        position: 'relative',
+        width: '100%',
+        height: '100%'
+      }}
       role='group'
       aria-label='Code editor'
       aria-labelledby='aria-labelledby'
@@ -165,14 +172,7 @@ function CodeEditor ({
           margin: 0,
           color: editable ? 'transparent' : 'inherit',
           background: 'transparent',
-          border: 'none',
-          outline: 'none',
-          overflow: 'auto',
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-words',
-          pointerEvents: editable ? 'none' : 'auto',
-          ...fontStyles,
-          ...style
+          pointerEvents: editable ? 'none' : 'auto'
         }}
         dangerouslySetInnerHTML={{ __html: highlight(value) }}
       />
@@ -201,9 +201,7 @@ function CodeEditor ({
             resize: 'none',
             outline: 'none',
             border: 'none',
-            caretColor: 'blue',
-            ...fontStyles,
-            ...style
+            caretColor: 'blue'
           }}
           spellCheck={false}
           autoComplete='off'
@@ -217,7 +215,7 @@ function CodeEditor ({
           code.
         </span>
       )}
-    </div>
+    </Box>
   )
 }
 
@@ -291,17 +289,19 @@ const Toolbar = React.memo(
           if (!isLoading) e.target.style.opacity = '1'
         }}
       >
-        {isLoading ? (
-          <Spinner
-            width='12px'
-            height='16px'
-            color={colors.white}
-            style={{ padding: '0' }}
-            aria-label='Loading'
-          />
-        ) : (
-          <PlayIcon />
-        )}
+        {isLoading
+          ? (
+            <Spinner
+              width='12px'
+              height='16px'
+              color={colors.white}
+              style={{ padding: '0' }}
+              aria-label='Loading'
+            />
+            )
+          : (
+            <PlayIcon />
+            )}
       </Button>
       <span id='execute-button-help' style={{ display: 'none' }}>
         Click to run the code and see the API response
@@ -423,7 +423,6 @@ const ContentArea = React.memo(
     setCode,
     editable,
     responseData,
-    fontStyles,
     apiKey,
     onApiKeySubmit,
     setApiKey,
@@ -433,7 +432,6 @@ const ContentArea = React.memo(
       return (
         <Content
           as='div'
-          data-debug
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -489,7 +487,6 @@ const ContentArea = React.memo(
               value={code}
               onChange={setCode}
               editable={editable}
-              style={fontStyles}
               aria-label='Code editor'
               aria-describedby='code-editor-help'
               id='tabpanel-code'
@@ -501,7 +498,6 @@ const ContentArea = React.memo(
             value={code}
             onChange={setCode}
             editable={editable}
-            style={fontStyles}
             aria-label='Code editor'
             aria-describedby='code-editor-help'
             id='tabpanel-code'
@@ -521,8 +517,7 @@ const ContentArea = React.memo(
                     justifyContent: 'center',
                     height: '100%',
                     color: colors.black50,
-                    fontStyle: 'italic',
-                    ...fontStyles
+                    fontStyle: 'italic'
                   }}
                 >
                   No response data available. Execute a request to see the
@@ -542,12 +537,9 @@ const ContentArea = React.memo(
                   aria-label='JSON response data'
                   id={`tabpanel-${activeView}`}
                   aria-labelledby={`view-button-${activeView}`}
-                  style={{
-                    margin: 0,
-                    whiteSpace: 'pre-wrap',
-                    wordBreak: 'break-words',
-                    ...fontStyles
-                  }}
+                  css={theme({
+                    color: responseData.status === 'rejected' ? 'fullscreen' : 'inherit'
+                  })}
                 >
                   {(() => {
                     const text = new TextDecoder().decode(body)
@@ -643,12 +635,6 @@ const ContentArea = React.memo(
                 aria-label='Response content'
                 id={`tabpanel-${activeView}`}
                 aria-labelledby={`view-button-${activeView}`}
-                style={{
-                  margin: 0,
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-words',
-                  ...fontStyles
-                }}
               >
                 {contentType && contentType.includes('text/')
                   ? new TextDecoder().decode(body)
@@ -668,51 +654,53 @@ const ContentArea = React.memo(
               aria-labelledby={`view-button-${activeView}`}
               aria-label='Response headers'
             >
-              {!responseData ? (
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100%',
-                    color: colors.black50,
-                    fontStyle: 'italic',
-                    padding: '2rem'
-                  }}
-                >
-                  No response headers available. Execute a request to see the
-                  headers.
-                </div>
-              ) : (
-                <div role='table' aria-label='HTTP response headers'>
-                  {(() => {
-                    const headers = responseData?.headers || {}
-                    const maxKeyLength = Math.max(
-                      ...Object.keys(headers).map(key => key.length)
-                    )
-                    const sortedHeaders = Object.entries(headers).sort(
-                      ([a], [b]) => a.localeCompare(b)
-                    )
-                    return sortedHeaders.map(([key, value], index) => (
-                      <Box
-                        key={key}
-                        css={theme({ mb: index > 0 ? 1 : 0 })}
-                        role='row'
-                      >
-                        <span role='cell' aria-label={`Header name: ${key}`}>
-                          {key.padEnd(maxKeyLength, ' ')}
-                        </span>
-                        <span role='cell' aria-hidden='true'>
-                          :
-                        </span>
-                        <span role='cell' aria-label={`Header value: ${value}`}>
-                          {value}
-                        </span>
-                      </Box>
-                    ))
-                  })()}
-                </div>
-              )}
+              {!responseData
+                ? (
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      color: colors.black50,
+                      fontStyle: 'italic',
+                      padding: '2rem'
+                    }}
+                  >
+                    No response headers available. Execute a request to see the
+                    headers.
+                  </div>
+                  )
+                : (
+                  <div role='table' aria-label='HTTP response headers'>
+                    {(() => {
+                      const headers = responseData?.headers || {}
+                      const maxKeyLength = Math.max(
+                        ...Object.keys(headers).map(key => key.length)
+                      )
+                      const sortedHeaders = Object.entries(headers).sort(
+                        ([a], [b]) => a.localeCompare(b)
+                      )
+                      return sortedHeaders.map(([key, value], index) => (
+                        <Box
+                          key={key}
+                          css={theme({ mb: index > 0 ? 1 : 0 })}
+                          role='row'
+                        >
+                          <span role='cell' aria-label={`Header name: ${key}`}>
+                            {key.padEnd(maxKeyLength, ' ')}
+                          </span>
+                          <span role='cell' aria-hidden='true'>
+                            :
+                          </span>
+                          <span role='cell' aria-label={`Header value: ${value}`}>
+                            {value}
+                          </span>
+                        </Box>
+                      ))
+                    })()}
+                  </div>
+                  )}
             </TerminalText>
           )}
         />
@@ -849,12 +837,8 @@ function MultiCodeEditorInteractive ({
         }
 
         // Add API key if available
-        console.log('parseCodeAndExecute', { apiKey })
-        if (apiKey) {
-          mqlOpts.apiKey = apiKey
-        }
+        if (apiKey) mqlOpts.apiKey = apiKey
 
-        console.log(targetUrl, mqlOpts)
         const raw = await mql.arrayBuffer(targetUrl, mqlOpts)
         const { body, headers } = raw
 
@@ -1140,7 +1124,6 @@ function MultiCodeEditorInteractive ({
               setCode={setCode}
               editable={editable}
               responseData={responseData}
-              fontStyles={fontStyles}
               apiKey={apiKey}
               onApiKeySubmit={handleApiKeySubmit}
               setApiKey={setApiKey}
