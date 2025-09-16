@@ -91,7 +91,6 @@ function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
       disabled={disabled}
       onClick={onClick}
       aria-label={ariaLabel}
-      aria-pressed={isActive}
       role='tab'
       aria-selected={isActive}
       aria-controls={`tabpanel-${view}`}
@@ -230,6 +229,8 @@ const PlayIcon = () => (
   </svg>
 )
 
+PlayIcon.displayName = 'PlayIcon'
+
 const Toolbar = React.memo(
   ({
     currentLanguage,
@@ -310,6 +311,8 @@ const Toolbar = React.memo(
   )
 )
 
+Toolbar.displayName = 'Toolbar'
+
 const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
   const [tempApiKey, setTempApiKey] = useState('')
 
@@ -367,6 +370,8 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
   )
 })
 
+ApiKeyInput.displayName = 'ApiKeyInput'
+
 const ViewNavigation = React.memo(
   ({ activeView, onViewClick, isExpanded, showApiKeyInput }) => (
     <Flex
@@ -415,6 +420,8 @@ const ViewNavigation = React.memo(
     </Flex>
   )
 )
+
+ViewNavigation.displayName = 'ViewNavigation'
 
 const ContentArea = React.memo(
   ({
@@ -709,6 +716,8 @@ const ContentArea = React.memo(
   }
 )
 
+ContentArea.displayName = 'ContentArea'
+
 function MultiCodeEditorInteractive ({
   mqlCode: codeSnippets,
   height = 180,
@@ -775,7 +784,7 @@ function MultiCodeEditorInteractive ({
     setActiveView
   ])
 
-  const parseCodeParameters = () => {
+  const parseCodeParameters = useCallback(() => {
     const jsCode = codeSnippets.JavaScript
     const urlMatch = jsCode.match(/mql\(['"`]([^'"`]+)['"`]/)
     const url = urlMatch ? urlMatch[1] : ''
@@ -798,7 +807,7 @@ function MultiCodeEditorInteractive ({
     }
 
     return [url, options]
-  }
+  }, [codeSnippets.JavaScript])
 
   // Helper function to extract balanced braces content
   const extractBalancedBraces = (str, startIndex) => {
@@ -826,7 +835,7 @@ function MultiCodeEditorInteractive ({
   const checkForProPlanRequired = responseText =>
     responseText && responseText.includes('You need a pro plan')
 
-  const parseCodeAndExecute = async apiKey => {
+  const parseCodeAndExecute = useCallback(async apiKey => {
     setIsLoading(true)
     const result = await (async () => {
       try {
@@ -870,7 +879,7 @@ function MultiCodeEditorInteractive ({
     }
 
     setIsLoading(false)
-  }
+  }, [parseCodeParameters])
 
   const handleApiKeySubmit = useCallback(
     newApiKey => {
