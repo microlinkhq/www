@@ -11,7 +11,7 @@ import { useLocalStorage } from 'components/hook'
 import React, { useState, useRef } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { highlight } from 'sugar-high'
-import { ProBadge } from 'components/markdown'
+import ProBadge from '../../patterns/ProBadge/ProBadge'
 import {
   colors,
   fonts,
@@ -48,7 +48,7 @@ const fontStyles = {
   tabSize: 2
 }
 
-function ViewButton ({ view, activeView, onClick, isExpanded }) {
+function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
   const isActive = activeView === view
   const buttonId = `view-button-${view}`
   const ariaLabel = `View ${view} content${
@@ -58,29 +58,27 @@ function ViewButton ({ view, activeView, onClick, isExpanded }) {
   return (
     <button
       id={buttonId}
+      disabled={disabled}
       onClick={onClick}
       aria-label={ariaLabel}
       aria-pressed={isActive}
       role='tab'
       aria-selected={isActive}
       aria-controls={`tabpanel-${view}`}
-      style={{
+      css={theme({
         outline: 'none',
         background: 'none',
         border: 'none',
         cursor: 'pointer',
-        color: isActive ? colors.black : colors.black50,
+        color: isActive ? 'black' : 'black50',
         fontWeight: isActive ? fontWeights.bold : fontWeights.normal,
         display: 'flex',
         alignItems: 'center',
-        gap: '0.25rem'
-      }}
-      onMouseEnter={e => {
-        e.target.style.textDecoration = 'underline'
-      }}
-      onMouseLeave={e => {
-        e.target.style.textDecoration = 'none'
-      }}
+        gap: '0.25rem',
+        '&:hover': {
+          textDecoration: 'underline'
+        }
+      })}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
@@ -286,7 +284,12 @@ const Toolbar = ({
   </div>
 )
 
-const ViewNavigation = ({ activeView, onViewClick, isExpanded }) => (
+const ViewNavigation = ({
+  activeView,
+  onViewClick,
+  isExpanded,
+  showApiKeyInput
+}) => (
   <Flex
     as='nav'
     role='tablist'
@@ -307,6 +310,7 @@ const ViewNavigation = ({ activeView, onViewClick, isExpanded }) => (
       })}
     >
       <ViewButton
+        disabled={showApiKeyInput}
         view='code'
         activeView={activeView}
         onClick={() => onViewClick('code')}
@@ -314,6 +318,7 @@ const ViewNavigation = ({ activeView, onViewClick, isExpanded }) => (
       />
       <span aria-hidden='true'>|</span>
       <ViewButton
+        disabled={showApiKeyInput}
         view='body'
         activeView={activeView}
         onClick={() => onViewClick('body')}
@@ -321,6 +326,7 @@ const ViewNavigation = ({ activeView, onViewClick, isExpanded }) => (
       />
       <span aria-hidden='true'>|</span>
       <ViewButton
+        disabled={showApiKeyInput}
         view='headers'
         activeView={activeView}
         onClick={() => onViewClick('headers')}
@@ -344,133 +350,243 @@ const ContentArea = ({
   setApiKey,
   showApiKeyInput,
   setShowApiKeyInput
-}) => (
-  <Choose>
-    <Choose.When condition={activeView === 'code'}>
-      <CodeEditor
-        value={code}
-        onChange={setCode}
-        editable={editable}
-        style={fontStyles}
-        aria-label='Code editor'
-        aria-describedby='code-editor-help'
-        id='tabpanel-code'
-        aria-labelledby='view-button-code'
-      />
-    </Choose.When>
-    <Choose.When
-      condition={activeView === 'body'}
-      render={() => {
-        if (showApiKeyInput) {
-          return (
-            <Content
-              as='div'
-              data-debug
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <div style={{ width: '100%', textAlign: 'center' }}>
-                <Text as='h3' css={theme({ fontSize: 2, fontWeight: 'bold' })}>
-                  {apiKey ? 'Ready to Execute' : 'API Key Setup'}
+}) => {
+  if (showApiKeyInput) {
+    return (
+      <Content
+        as='div'
+        data-debug
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <div style={{ width: '100%', textAlign: 'center' }}>
+          <Text as='h3' css={theme({ fontSize: 2, fontWeight: 'bold' })}>
+            {apiKey ? 'Ready to Execute' : 'API Key Setup'}
+          </Text>
+
+          {!apiKey
+            ? (
+              <>
+                <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
+                  Some requests require a <ProBadge /> plan.
+                  <br />
+                  Enter your Microlink API key to unlock all features.
                 </Text>
+                <Flex css={theme({ justifyContent: 'center' })}>
+                  <Input
+                    type='text'
+                    placeholder='Enter your API key…'
+                    css={theme({ width: '8rem', fontSize: '12px' })}
+                    labelCss={{ py: '4px' }}
+                    value={tempApiKey}
+                    onChange={e => setTempApiKey(e.target.value)}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter' && tempApiKey.trim()) {
+                        handleApiKeySubmit()
+                      }
+                    }}
+                    required
+                  />
+                  <Button
+                    css={theme({ ml: 2 })}
+                    disabled={!tempApiKey.trim()}
+                    onClick={handleApiKeySubmit}
+                    variant='black'
+                  >
+                    <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
+                  </Button>
+                </Flex>
+              </>
+              )
+            : (
+              <>
+                <p
+                  style={{
+                    margin: 0,
+                    marginBottom: '1rem',
+                    color: colors.black60,
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  API key configured. <br />
+                  Execute a request to see the response here.
+                </p>
+                <Button
+                  onClick={() => {
+                    setApiKey('')
+                    setTempApiKey('')
+                    setShowApiKeyInput(false)
+                  }}
+                  variant='white'
+                  style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
+                >
+                  Clear API Key
+                </Button>
+              </>
+              )}
+        </div>
+      </Content>
+    )
+  }
 
-                {!apiKey
-                  ? (
-                    <>
-                      <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
-                        Some requests require a <ProBadge /> plan.
-                        <br />
-                        Enter your Microlink API key to unlock all features.
-                      </Text>
-                      <Flex css={theme({ justifyContent: 'center' })}>
-                        <Input
-                          type='text'
-                          placeholder='Enter your API key…'
-                          css={theme({ width: '8rem', fontSize: '12px' })}
-                          labelCss={{ py: '4px' }}
-                          value={tempApiKey}
-                          onChange={e => setTempApiKey(e.target.value)}
-                          onKeyDown={e => {
-                            if (e.key === 'Enter' && tempApiKey.trim()) {
-                              handleApiKeySubmit()
-                            }
-                          }}
-                          required
-                        />
-                        <Button
-                          css={theme({ ml: 2 })}
-                          disabled={!tempApiKey.trim()}
-                          onClick={handleApiKeySubmit}
-                          variant='black'
-                        >
-                          <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
-                        </Button>
-                      </Flex>
-                    </>
-                    )
-                  : (
-                    <>
-                      <p
-                        style={{
-                          margin: 0,
-                          marginBottom: '1rem',
-                          color: colors.black60,
-                          fontSize: '0.9rem'
-                        }}
-                      >
-                        API key configured. <br />
-                        Execute a request to see the response here.
-                      </p>
-                      <Button
-                        onClick={() => {
-                          setApiKey('')
-                          setTempApiKey('')
-                          setShowApiKeyInput(false)
-                        }}
-                        variant='white'
-                        style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
-                      >
-                        Clear API Key
-                      </Button>
-                    </>
-                    )}
+  return (
+    <Choose>
+      <Choose.When condition={activeView === 'code'}>
+        <CodeEditor
+          value={code}
+          onChange={setCode}
+          editable={editable}
+          style={fontStyles}
+          aria-label='Code editor'
+          aria-describedby='code-editor-help'
+          id='tabpanel-code'
+          aria-labelledby='view-button-code'
+        />
+      </Choose.When>
+      <Choose.When
+        condition={activeView === 'body'}
+        render={() => {
+          if (!responseData) {
+            return (
+              <Content
+                as='div'
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  color: colors.black50,
+                  fontStyle: 'italic',
+                  ...fontStyles
+                }}
+              >
+                No response data available. Execute a request to see the
+                response.
+              </Content>
+            )
+          }
+
+          const { body, headers } = responseData
+          const contentType = headers['content-type']
+
+          if (contentType.includes('application/json')) {
+            return (
+              <Content
+                as='pre'
+                role='code'
+                aria-label='JSON response data'
+                id={`tabpanel-${activeView}`}
+                aria-labelledby={`view-button-${activeView}`}
+                style={{
+                  margin: 0,
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-words',
+                  ...fontStyles
+                }}
+              >
+                {(() => {
+                  const text = new TextDecoder().decode(body)
+                  const payload =
+                    responseData.status === 'rejected'
+                      ? JSON.parse(text)
+                      : JSON.parse(text).data
+                  return JSON.stringify(payload, null, 2)
+                })()}
+              </Content>
+            )
+          }
+
+          if (contentType.startsWith('image/')) {
+            const blob = new Blob([body], { type: contentType })
+            const imageUrl = URL.createObjectURL(blob)
+
+            const handleImageClick = () => {
+              window.open(imageUrl, '_blank')
+            }
+
+            const handleKeyDown = e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleImageClick()
+              }
+            }
+
+            return (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100%',
+                  position: 'relative'
+                }}
+                onClick={handleImageClick}
+                onKeyDown={handleKeyDown}
+                role='button'
+                tabIndex={0}
+                aria-label='Click to open image in new tab'
+                id={`tabpanel-${activeView}`}
+                aria-labelledby={`view-button-${activeView}`}
+                onMouseEnter={e => {
+                  const overlay =
+                    e.currentTarget.querySelector('.image-overlay')
+                  if (overlay) overlay.style.opacity = '1'
+                }}
+                onMouseLeave={e => {
+                  const overlay =
+                    e.currentTarget.querySelector('.image-overlay')
+                  if (overlay) overlay.style.opacity = '0'
+                }}
+              >
+                <Image
+                  src={imageUrl}
+                  alt='API response image - click to view full size'
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                    cursor: 'pointer',
+                    transition: `opacity ${transition.normal}`
+                  }}
+                  title='Click to open image in new tab'
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: colors.white70,
+                    color: colors.black50,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    opacity: 0,
+                    transition: `opacity ${transition.normal}`,
+                    cursor: 'pointer',
+                    fontSize: fontSizes[0],
+                    fontWeight: fontWeights.bold,
+                    textAlign: 'center'
+                  }}
+                  className='image-overlay'
+                  aria-hidden='true'
+                >
+                  Click to expand
+                </div>
               </div>
-            </Content>
-          )
-        }
+            )
+          }
 
-        if (!responseData) {
-          return (
-            <Content
-              as='div'
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
-                color: colors.black50,
-                fontStyle: 'italic',
-                ...fontStyles
-              }}
-            >
-              No response data available. Execute a request to see the response.
-            </Content>
-          )
-        }
-
-        const { body, headers } = responseData
-        const contentType = headers['content-type']
-
-        if (contentType.includes('application/json')) {
           return (
             <Content
               as='pre'
               role='code'
-              aria-label='JSON response data'
+              aria-label='Response content'
               id={`tabpanel-${activeView}`}
               aria-labelledby={`view-button-${activeView}`}
               style={{
@@ -480,182 +596,77 @@ const ContentArea = ({
                 ...fontStyles
               }}
             >
-              {(() => {
-                const text = new TextDecoder().decode(body)
-                const payload =
-                  responseData.status === 'rejected'
-                    ? JSON.parse(text)
-                    : JSON.parse(text).data
-                return JSON.stringify(payload, null, 2)
-              })()}
+              {contentType && contentType.includes('text/')
+                ? new TextDecoder().decode(body)
+                : `Binary content (${contentType})\nSize: ${body.byteLength} bytes`}
             </Content>
           )
-        }
+        }}
+      />
 
-        if (contentType.startsWith('image/')) {
-          const blob = new Blob([body], { type: contentType })
-          const imageUrl = URL.createObjectURL(blob)
-
-          const handleImageClick = () => {
-            window.open(imageUrl, '_blank')
-          }
-
-          const handleKeyDown = e => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault()
-              handleImageClick()
-            }
-          }
-
-          return (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100%',
-                position: 'relative'
-              }}
-              onClick={handleImageClick}
-              onKeyDown={handleKeyDown}
-              role='button'
-              tabIndex={0}
-              aria-label='Click to open image in new tab'
-              id={`tabpanel-${activeView}`}
-              aria-labelledby={`view-button-${activeView}`}
-              onMouseEnter={e => {
-                const overlay = e.currentTarget.querySelector('.image-overlay')
-                if (overlay) overlay.style.opacity = '1'
-              }}
-              onMouseLeave={e => {
-                const overlay = e.currentTarget.querySelector('.image-overlay')
-                if (overlay) overlay.style.opacity = '0'
-              }}
-            >
-              <Image
-                src={imageUrl}
-                alt='API response image - click to view full size'
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  objectFit: 'contain',
-                  cursor: 'pointer',
-                  transition: `opacity ${transition.normal}`
-                }}
-                title='Click to open image in new tab'
-              />
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  backgroundColor: colors.white70,
-                  color: colors.black50,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  opacity: 0,
-                  transition: `opacity ${transition.normal}`,
-                  cursor: 'pointer',
-                  fontSize: fontSizes[0],
-                  fontWeight: fontWeights.bold,
-                  textAlign: 'center'
-                }}
-                className='image-overlay'
-                aria-hidden='true'
-              >
-                Click to expand
-              </div>
-            </div>
-          )
-        }
-
-        return (
-          <Content
-            as='pre'
-            role='code'
-            aria-label='Response content'
+      <Choose.When
+        condition={activeView === 'headers'}
+        render={() => (
+          <TerminalText
+            style={{ padding: 0, ...fontStyles }}
+            role='tabpanel'
             id={`tabpanel-${activeView}`}
             aria-labelledby={`view-button-${activeView}`}
-            style={{
-              margin: 0,
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'break-words',
-              ...fontStyles
-            }}
+            aria-label='Response headers'
           >
-            {contentType && contentType.includes('text/')
-              ? new TextDecoder().decode(body)
-              : `Binary content (${contentType})\nSize: ${body.byteLength} bytes`}
-          </Content>
-        )
-      }}
-    />
-
-    <Choose.When
-      condition={activeView === 'headers'}
-      render={() => (
-        <TerminalText
-          style={{ padding: 0, ...fontStyles }}
-          role='tabpanel'
-          id={`tabpanel-${activeView}`}
-          aria-labelledby={`view-button-${activeView}`}
-          aria-label='Response headers'
-        >
-          {!responseData
-            ? (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  color: colors.black50,
-                  fontStyle: 'italic',
-                  padding: '2rem'
-                }}
-              >
-                No response headers available. Execute a request to see the
-                headers.
-              </div>
-              )
-            : (
-              <div role='table' aria-label='HTTP response headers'>
-                {(() => {
-                  const headers = responseData?.headers || {}
-                  const maxKeyLength = Math.max(
-                    ...Object.keys(headers).map(key => key.length)
-                  )
-                  const sortedHeaders = Object.entries(headers).sort(([a], [b]) =>
-                    a.localeCompare(b)
-                  )
-                  return sortedHeaders.map(([key, value], index) => (
-                    <Box
-                      key={key}
-                      css={theme({ mb: index > 0 ? 1 : 0 })}
-                      role='row'
-                    >
-                      <span role='cell' aria-label={`Header name: ${key}`}>
-                        {key.padEnd(maxKeyLength, ' ')}
-                      </span>
-                      <span role='cell' aria-hidden='true'>
-                        :
-                      </span>
-                      <span role='cell' aria-label={`Header value: ${value}`}>
-                        {value}
-                      </span>
-                    </Box>
-                  ))
-                })()}
-              </div>
-              )}
-        </TerminalText>
-      )}
-    />
-  </Choose>
-)
+            {!responseData
+              ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    color: colors.black50,
+                    fontStyle: 'italic',
+                    padding: '2rem'
+                  }}
+                >
+                  No response headers available. Execute a request to see the
+                  headers.
+                </div>
+                )
+              : (
+                <div role='table' aria-label='HTTP response headers'>
+                  {(() => {
+                    const headers = responseData?.headers || {}
+                    const maxKeyLength = Math.max(
+                      ...Object.keys(headers).map(key => key.length)
+                    )
+                    const sortedHeaders = Object.entries(headers).sort(
+                      ([a], [b]) => a.localeCompare(b)
+                    )
+                    return sortedHeaders.map(([key, value], index) => (
+                      <Box
+                        key={key}
+                        css={theme({ mb: index > 0 ? 1 : 0 })}
+                        role='row'
+                      >
+                        <span role='cell' aria-label={`Header name: ${key}`}>
+                          {key.padEnd(maxKeyLength, ' ')}
+                        </span>
+                        <span role='cell' aria-hidden='true'>
+                          :
+                        </span>
+                        <span role='cell' aria-label={`Header value: ${value}`}>
+                          {value}
+                        </span>
+                      </Box>
+                    ))
+                  })()}
+                </div>
+                )}
+          </TerminalText>
+        )}
+      />
+    </Choose>
+  )
+}
 
 function MultiCodeEditorInteractive ({
   mqlCode: codeSnippets,
@@ -923,15 +934,7 @@ function MultiCodeEditorInteractive ({
       }}
     >
       <button
-        onClick={() => {
-          const newShowApiKeyInput = !showApiKeyInput
-          setShowApiKeyInput(newShowApiKeyInput)
-          if (newShowApiKeyInput) {
-            setActiveView('body')
-          } else {
-            setActiveView('code')
-          }
-        }}
+        onClick={() => setShowApiKeyInput(!showApiKeyInput)}
         title={showApiKeyInput ? 'Hide API key input' : 'Show API key input'}
         aria-label={
           showApiKeyInput ? 'Hide API key input' : 'Show API key input'
@@ -950,7 +953,9 @@ function MultiCodeEditorInteractive ({
         }}
         onMouseLeave={e => {
           const icon = e.currentTarget.querySelector('svg')
-          if (icon) { icon.style.stroke = showApiKeyInput ? colors.black : colors.black20 }
+          if (icon) {
+            icon.style.stroke = showApiKeyInput ? colors.black : colors.black20
+          }
         }}
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -1100,6 +1105,7 @@ function MultiCodeEditorInteractive ({
             activeView={activeView}
             onViewClick={handleViewClick}
             isExpanded={isExpanded}
+            showApiKeyInput={showApiKeyInput}
           />
         )}
       </main>
