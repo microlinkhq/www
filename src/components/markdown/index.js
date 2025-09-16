@@ -18,7 +18,6 @@ import {
   Image as ImageBase,
   Label,
   Link,
-  MultiCodeEditor as MultiCodeEditorBase,
   PriceMonthly as PriceMonthlyBase,
   Terminal as TerminalBase,
   Text,
@@ -26,7 +25,8 @@ import {
   Video as VideoBase
 } from 'components/elements'
 
-import MultiCodeEditorInteractiveBase from '../elements/MultiCodeEditor/MultiCodeEditorInteractive'
+import MultiCodeEditorBase from '../patterns/MultiCodeEditor/MultiCodeEditor'
+import MultiCodeEditorInteractiveBase from '../patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 
 import MicrolinkBase from '../patterns/Microlink/Microlink'
 import ProBadge from '../patterns/ProBadge/ProBadge'

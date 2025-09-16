@@ -29,8 +29,6 @@ import InputIcon from './Input/InputIcon'
 import Label from './Label'
 import LineBreak from './LineBreak'
 import Meta from './Meta/Meta'
-import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
-import MultiCodeEditorInteractive from './MultiCodeEditor/MultiCodeEditorInteractive'
 import Notification from './Notification/Notification'
 import Placeholder from './Placeholder/Placeholder'
 import PriceMonthly from './PriceMonthly'
@@ -89,8 +87,6 @@ export {
   Link,
   LinkSolid,
   Meta,
-  MultiCodeEditor,
-  MultiCodeEditorInteractive,
   Notification,
   Placeholder,
   PriceMonthly,

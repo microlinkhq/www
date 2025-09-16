@@ -1,13 +1,9 @@
+import { CodeEditor, CodeCopy, Tabs, Flex, Box } from 'components/elements'
+
 import { useLocalStorage } from 'components/hook'
 import React, { useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import { theme } from 'theme'
-
-import CodeEditor from '../CodeEditor/CodeEditor'
-import CodeCopy from '../Codecopy'
-import Tabs from '../Tabs'
-import Flex from '../Flex'
-import Box from '../Box'
 
 export const SelectLanguage = ({ isDark, value, onClick, ...props }) => (
   <Tabs

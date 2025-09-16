@@ -22,7 +22,6 @@ import {
   InputIcon,
   Link,
   Meta,
-  MultiCodeEditor,
   Subhead,
   Text
 } from 'components/elements'
@@ -30,9 +29,10 @@ import {
 import {
   ArrowLink,
   Caption,
-  Microlink,
+  FetchProvider,
   Layout,
-  FetchProvider
+  Microlink,
+  MultiCodeEditor
 } from 'components/patterns'
 
 import demoLinks from '../../data/demo-links'
