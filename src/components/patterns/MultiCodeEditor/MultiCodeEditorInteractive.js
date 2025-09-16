@@ -5,6 +5,7 @@ import {
   Button,
   Select,
   Choose,
+  If,
   Image,
   CodeCopy,
   Text,
@@ -100,7 +101,7 @@ function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
         display: 'flex',
         alignItems: 'center',
         gap: '0.25rem',
-        '&:hover': {
+        _hover: {
           textDecoration: 'underline'
         }
       })}
@@ -388,67 +389,81 @@ const ContentArea = ({
       >
         <div style={{ width: '100%', textAlign: 'center' }}>
           <Text as='h3' css={theme({ fontSize: 2, fontWeight: 'bold' })}>
-            {apiKey ? 'Ready to Execute' : 'API Key Setup'}
+            API key setup
           </Text>
 
-          {!apiKey ? (
-            <>
-              <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
-                Some requests require a <ProBadge /> plan.
-                <br />
-                Enter your Microlink API key to unlock all features.
-              </Text>
-              <Flex css={theme({ justifyContent: 'center' })}>
-                <Input
-                  type='text'
-                  placeholder='Enter your API key…'
-                  css={theme({ width: '8rem', fontSize: '12px' })}
-                  labelCss={{ py: '4px' }}
-                  value={tempApiKey}
-                  onChange={e => setTempApiKey(e.target.value)}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter' && tempApiKey.trim()) {
-                      handleApiKeySubmit()
-                    }
-                  }}
-                  required
+          <>
+            <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
+              <Choose>
+                <Choose.When
+                  condition={!apiKey}
+                  render={() => (
+                    <>
+                      Some requests require a <ProBadge /> plan.
+                      <br />
+                      Enter your Microlink API key to unlock all features.
+                    </>
+                  )}
                 />
-                <Button
-                  css={theme({ ml: 2 })}
-                  disabled={!tempApiKey.trim()}
-                  onClick={handleApiKeySubmit}
-                  variant='black'
-                >
-                  <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
-                </Button>
-              </Flex>
-            </>
-          ) : (
-            <>
-              <p
-                style={{
-                  margin: 0,
-                  marginBottom: '1rem',
-                  color: colors.black60,
-                  fontSize: '0.9rem'
-                }}
-              >
-                API key configured. <br />
-                Execute a request to see the response here.
-              </p>
-              <Button
-                onClick={() => {
-                  setApiKey('')
-                  setTempApiKey('')
-                  setShowApiKeyInput(false)
-                }}
-                variant='white'
-                style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
-              >
-                Clear API Key
-              </Button>
-            </>
-          )}
+                <Choose.Otherwise
+                  render={() => (
+                    <>
+                      API key already configured. <br />
+                      You can access to <ProBadge /> features now.
+                    </>
+                  )}
+                />
+              </Choose>
+            </Text>
+            <Flex css={theme({ justifyContent: 'center' })}>
+              <Choose>
+                <Choose.When
+                  condition={!apiKey}
+                  render={() => (
+                    <>
+                      <Input
+                        required
+                        type='text'
+                        placeholder='Enter your API key…'
+                        css={theme({ width: '8rem', fontSize: '12px' })}
+                        labelCss={{ py: '4px' }}
+                        value={tempApiKey}
+                        onChange={e => setTempApiKey(e.target.value)}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter' && tempApiKey.trim()) {
+                            handleApiKeySubmit()
+                          }
+                        }}
+                      />
+                      <Button
+                        css={theme({ ml: 2 })}
+                        disabled={!tempApiKey.trim()}
+                        onClick={handleApiKeySubmit}
+                        variant='black'
+                      >
+                        <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
+                      </Button>
+                    </>
+                  )}
+                />
+                <Choose.Otherwise
+                  render={() => (
+                    <Button
+                      css={theme({ ml: 2 })}
+                      onClick={() => {
+                        setApiKey('')
+                        setTempApiKey('')
+                        setShowApiKeyInput(false)
+                      }}
+                      variant='white'
+                    >
+                      <Caps css={theme({ fontSize: '12px' })}>clear it</Caps>
+                    </Button>
+                  )}
+                />
+              </Choose>
+            </Flex>
+          </>
         </div>
       </Content>
     )
@@ -456,7 +471,21 @@ const ContentArea = ({
 
   return (
     <Choose>
-      <Choose.When condition={activeView === 'code'}>
+      <Choose.When
+        condition={activeView === 'code'}
+        render={() => (
+          <CodeEditor
+            value={code}
+            onChange={setCode}
+            editable={editable}
+            style={fontStyles}
+            aria-label='Code editor'
+            aria-describedby='code-editor-help'
+            id='tabpanel-code'
+            aria-labelledby='view-button-code'
+          />
+        )}
+      >
         <CodeEditor
           value={code}
           onChange={setCode}
@@ -537,14 +566,7 @@ const ContentArea = ({
             }
 
             return (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100%',
-                  position: 'relative'
-                }}
+              <Flex
                 onClick={handleImageClick}
                 onKeyDown={handleKeyDown}
                 role='button'
@@ -597,9 +619,9 @@ const ContentArea = ({
                   className='image-overlay'
                   aria-hidden='true'
                 >
-                  Click to expand
+                  Click to open
                 </div>
-              </div>
+              </Flex>
             )
           }
 
@@ -802,28 +824,29 @@ function MultiCodeEditorInteractive ({
     return null // No matching closing brace found
   }
 
-  const checkForProPlanRequired = responseText => {
-    return responseText && responseText.includes('You need a pro plan')
-  }
+  const checkForProPlanRequired = responseText =>
+    responseText && responseText.includes('You need a pro plan')
 
   const parseCodeAndExecute = async () => {
     setIsLoading(true)
     const result = await (async () => {
       try {
         const [targetUrl, query] = parseCodeParameters()
-        const requestOptions = {
+        const mqlOpts = {
           endpoint: 'http://localhost:3000/',
           ...query
         }
 
         // Add API key if available
+        console.log({ apiKey })
         if (apiKey) {
-          requestOptions.apiKey = apiKey
+          mqlOpts.apiKey = apiKey
         }
 
-        const raw = await mql.arrayBuffer(targetUrl, requestOptions)
-
+        console.log(targetUrl, mqlOpts)
+        const raw = await mql.arrayBuffer(targetUrl, mqlOpts)
         const { body, headers } = raw
+
         return {
           status: 'fulfilled',
           headers: Object.fromEntries(headers),
@@ -842,15 +865,15 @@ function MultiCodeEditorInteractive ({
       }
     })()
 
+    setResponseData(result)
+
     if (result.status === 'rejected') {
       const errorText = new TextDecoder().decode(result.body)
       if (checkForProPlanRequired(errorText) && !apiKey) {
-        setIsLoading(false)
-        return
+        setShowApiKeyInput(true)
       }
     }
 
-    setResponseData(result)
     setIsLoading(false)
   }
 
@@ -867,10 +890,8 @@ function MultiCodeEditorInteractive ({
   const executeRequest = () => {
     if (!isLoading) {
       parseCodeAndExecute().then(() => {
-        // if (!showApiKeyOverlay) { // Removed overlay state
         setActiveView('body')
         setIsExpanded(false)
-        // }
       })
     }
   }
@@ -1089,7 +1110,13 @@ function MultiCodeEditorInteractive ({
             aria-live='polite'
             aria-busy={isLoading}
           >
-            <FadeOverlay $position='top' aria-hidden='true' />
+            <If
+              condition={
+                showApiKeyInput ||
+                !responseData?.headers['content-type'].includes('image/')
+              }
+              render={() => <FadeOverlay $position='top' aria-hidden='true' />}
+            />
 
             <ContentArea
               activeView={activeView}
@@ -1107,7 +1134,15 @@ function MultiCodeEditorInteractive ({
               setShowApiKeyInput={setShowApiKeyInput}
             />
 
-            <FadeOverlay $position='bottom' aria-hidden='true' />
+            <If
+              condition={
+                showApiKeyInput ||
+                !responseData?.headers['content-type'].includes('image/')
+              }
+              render={() => (
+                <FadeOverlay $position='bottom' aria-hidden='true' />
+              )}
+            />
           </div>
 
           <Toolbar
