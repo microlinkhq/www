@@ -40,6 +40,30 @@ const Content = styled(TerminalText)`
   padding: 0 ${space[2]};
 `
 
+const FadeOverlay = styled(Box)`
+  height: ${({ $position }) => ($position === 'top' ? '30px' : '34px')};
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  top: ${({ $position }) => ($position === 'top' ? '34px' : 'auto')};
+  bottom: ${({ $position }) => ($position === 'bottom' ? '0' : 'auto')};
+
+  &:before {
+    background: linear-gradient(
+      to ${({ $position }) => ($position === 'bottom' ? 'top' : 'bottom')},
+      white ${({ $position }) => ($position === 'top' ? '50%' : '50%')},
+      transparent 100%
+    );
+    bottom: 0px;
+    content: '';
+    height: ${({ $position }) => ($position === 'top' ? '30px' : '34px')};
+    left: 0px;
+    position: absolute;
+    width: 100%;
+  }
+`
+
 const fontStyles = {
   fontFamily: fonts.mono,
   fontSize: fontSizes[0],
@@ -1065,7 +1089,7 @@ function MultiCodeEditorInteractive ({
             aria-live='polite'
             aria-busy={isLoading}
           >
-            {/* FadeOverlay $position='top' aria-hidden='true' */}
+            <FadeOverlay $position='top' aria-hidden='true' />
 
             <ContentArea
               activeView={activeView}
@@ -1083,7 +1107,7 @@ function MultiCodeEditorInteractive ({
               setShowApiKeyInput={setShowApiKeyInput}
             />
 
-            {/* FadeOverlay $position='bottom' aria-hidden='true' */}
+            <FadeOverlay $position='bottom' aria-hidden='true' />
           </div>
 
           <Toolbar
