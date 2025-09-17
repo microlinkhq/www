@@ -545,7 +545,10 @@ const ContentArea = React.memo(
                   id={`tabpanel-${activeView}`}
                   aria-labelledby={`view-button-${activeView}`}
                   css={theme({
-                    color: responseData.status === 'rejected' ? 'fullscreen' : 'inherit'
+                    color:
+                      responseData.status === 'rejected'
+                        ? 'fullscreen'
+                        : 'inherit'
                   })}
                 >
                   {(() => {
@@ -835,51 +838,46 @@ function MultiCodeEditorInteractive ({
   const checkForProPlanRequired = responseText =>
     responseText && responseText.includes('You need a pro plan')
 
-  const parseCodeAndExecute = useCallback(async apiKey => {
-    setIsLoading(true)
-    const result = await (async () => {
-      try {
-        const [targetUrl, query] = parseCodeParameters()
-        const mqlOpts = {
-          endpoint: 'http://localhost:3000/',
-          ...query
+  const parseCodeAndExecute = useCallback(
+    async apiKey => {
+      setIsLoading(true)
+      const result = await (async () => {
+        try {
+          const [targetUrl, mqlOpts] = parseCodeParameters()
+          if (apiKey) mqlOpts.apiKey = apiKey
+          const raw = await mql.arrayBuffer(targetUrl, mqlOpts)
+          const { body, headers } = raw
+          return {
+            status: 'fulfilled',
+            headers: Object.fromEntries(headers),
+            body
+          }
+        } catch (error) {
+          const { headers, name, statusCode, message, url, ...body } = error
+          const encoder = new TextEncoder()
+          const errorBody = encoder.encode(JSON.stringify(body))
+
+          return {
+            status: 'rejected',
+            headers: headers || {},
+            body: errorBody
+          }
         }
+      })()
 
-        // Add API key if available
-        if (apiKey) mqlOpts.apiKey = apiKey
+      setResponseData(result)
 
-        const raw = await mql.arrayBuffer(targetUrl, mqlOpts)
-        const { body, headers } = raw
-
-        return {
-          status: 'fulfilled',
-          headers: Object.fromEntries(headers),
-          body
-        }
-      } catch (error) {
-        const { headers, name, statusCode, message, url, ...body } = error
-        const encoder = new TextEncoder()
-        const errorBody = encoder.encode(JSON.stringify(body))
-
-        return {
-          status: 'rejected',
-          headers: headers || {},
-          body: errorBody
+      if (result.status === 'rejected') {
+        const errorText = new TextDecoder().decode(result.body)
+        if (checkForProPlanRequired(errorText) && !apiKey) {
+          setShowApiKeyInput(true)
         }
       }
-    })()
 
-    setResponseData(result)
-
-    if (result.status === 'rejected') {
-      const errorText = new TextDecoder().decode(result.body)
-      if (checkForProPlanRequired(errorText) && !apiKey) {
-        setShowApiKeyInput(true)
-      }
-    }
-
-    setIsLoading(false)
-  }, [parseCodeParameters])
+      setIsLoading(false)
+    },
+    [parseCodeParameters]
+  )
 
   const handleApiKeySubmit = useCallback(
     newApiKey => {

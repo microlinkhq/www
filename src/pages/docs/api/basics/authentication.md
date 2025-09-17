@@ -8,7 +8,7 @@ The authentication is done passing your API token associated with your [pro plan
 
 You can ensure your authentication is done correctly checking the `x-pricing-plan` header on the response.
 
-```bash{3}
+```headers{3}
 content-type    : application/json; charset=utf-8
 x-response-time : 1.7s
 x-pricing-plan  : pro

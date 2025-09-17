@@ -153,6 +153,7 @@ const CodeEditor = ({
   const language = toAlias(
     getLanguage({ className, language: languageProp, title })
   )
+
   const pretty = get(prettier, language, identity)
   const text = pretty(template(children)).trim()
   const id = `codeditor-${hash(children)}-${themeKey}`
