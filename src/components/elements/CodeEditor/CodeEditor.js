@@ -94,6 +94,44 @@ const CustomCodeBlock = styled.pre`
   }
 `
 
+export const Code = ({
+  children,
+  highlightLines,
+  highLightLinesSelector,
+  isDark,
+  showLineNumbers,
+  firstHighlightLine,
+  lastHighlightLine,
+  language
+}) => {
+  const highlightedHtml = highlight(children)
+  const textHtml = wrapLinesWithHighlight(highlightedHtml, highlightLines)
+
+  return (
+    <CustomCodeBlock
+      css={`
+        ${String(highLightLinesSelector)} {
+          background: ${cx(isDark ? 'white05' : 'black05')};
+        }
+        ${String(firstHighlightLine)} {
+          border-top-left-radius: ${radii[2]};
+          border-top-right-radius: ${radii[2]};
+        }
+        ${String(lastHighlightLine)} {
+          border-bottom-left-radius: ${radii[2]};
+          border-bottom-right-radius: ${radii[2]};
+        }
+        ${getLanguageTheme(language, isDark ? 'dark' : 'light') || ''}
+      `}
+    >
+      {showLineNumbers && (
+        <pre className='line-numbers'>{generateLineNumbers(children)}</pre>
+      )}
+      <code dangerouslySetInnerHTML={{ __html: textHtml }} />
+    </CustomCodeBlock>
+  )
+}
+
 const generateLineNumbers = text => {
   const lines = text.split('\n')
   return lines.map((_, index) => index + 1).join('\n')
@@ -147,7 +185,6 @@ const CodeEditor = ({
   blinkCursor = false,
   ...props
 }) => {
-  const themeKey = isDark ? 'dark' : 'light'
   const className = getClassName(props)
   const highlightLines = getLines(className)
   const language = toAlias(
@@ -156,7 +193,6 @@ const CodeEditor = ({
 
   const pretty = get(prettier, language, identity)
   const text = pretty(template(children)).trim()
-  const id = `codeditor-${hash(children)}-${themeKey}`
 
   const highLightLinesSelector = generateHighlightLines(highlightLines)
   const firstHighlightLine = highLightLinesSelector && highLightLinesSelector[0]
@@ -164,45 +200,28 @@ const CodeEditor = ({
     highLightLinesSelector &&
     highLightLinesSelector[highLightLinesSelector.length - 1]
 
-  const highlightedHtml = highlight(text)
-  const finalHtml = wrapLinesWithHighlight(highlightedHtml, highlightLines)
-
   return (
     <Terminal
+      id={`codeditor-${hash(children)}-${isDark ? 'dark' : 'light'}`}
       title={title}
       isDark={isDark}
-      id={id}
       text={text}
       css={theme({ width: TERMINAL_WIDTH })}
       blinkCursor={blinkCursor}
       {...props}
     >
       <TerminalTextWrapper>
-        <CustomCodeBlock
-          css={`
-            ${String(highLightLinesSelector)} {
-              background: ${cx(isDark ? 'white05' : 'black05')};
-            }
-            ${String(firstHighlightLine)} {
-              border-top-left-radius: ${radii[2]};
-              border-top-right-radius: ${radii[2]};
-            }
-            ${String(lastHighlightLine)} {
-              border-bottom-left-radius: ${radii[2]};
-              border-bottom-right-radius: ${radii[2]};
-            }
-            ${getLanguageTheme(language, themeKey) || ''}
-          `}
-          $theme={themeKey}
-          $language={language}
-          $highlightLines={highlightLines}
-          $showLineNumbers={showLineNumbers}
+        <Code
+          firstHighlightLine={firstHighlightLine}
+          highlightLines={highlightLines}
+          highLightLinesSelector={highLightLinesSelector}
+          isDark={isDark}
+          language={language}
+          lastHighlightLine={lastHighlightLine}
+          showLineNumbers={showLineNumbers}
         >
-          {showLineNumbers && (
-            <pre className='line-numbers'>{generateLineNumbers(text)}</pre>
-          )}
-          <code dangerouslySetInnerHTML={{ __html: finalHtml }} />
-        </CustomCodeBlock>
+          {text}
+        </Code>
       </TerminalTextWrapper>
     </Terminal>
   )

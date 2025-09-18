@@ -10,7 +10,7 @@ import Caps from './Caps'
 import Card from './Card/Card'
 import Choose from './Choose'
 import CodeCopy from './Codecopy'
-import CodeEditor from './CodeEditor/CodeEditor'
+import CodeEditor, { Code } from './CodeEditor/CodeEditor'
 import Color from './Color/Color'
 import Confetti from './Confetti'
 import Container from './Container'
@@ -65,6 +65,7 @@ export {
   Caps,
   Card,
   Choose,
+  Code,
   CodeCopy,
   CodeEditor,
   Color,

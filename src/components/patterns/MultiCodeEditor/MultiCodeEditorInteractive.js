@@ -1,16 +1,17 @@
 import {
-  Flex,
-  Caps,
-  Spinner,
+  Box,
   Button,
-  Select,
+  Caps,
   Choose,
+  Code,
+  CodeCopy,
+  Flex,
   If,
   Image,
-  CodeCopy,
-  Text,
-  Box,
-  Input
+  Input,
+  Select,
+  Spinner,
+  Text
 } from 'components/elements'
 
 import {
@@ -50,7 +51,7 @@ const Content = styled(TerminalText)`
   padding: 0 ${space[2]};
   margin: 0;
   white-space: pre-wrap;
-  word-break: break-words;
+  word-break: break-word;
   ${theme(fontStyles)}
 `
 
@@ -537,30 +538,14 @@ const ContentArea = React.memo(
             const contentType = headers['content-type']
 
             if (contentType.includes('application/json')) {
-              return (
-                <Content
-                  as='pre'
-                  role='code'
-                  aria-label='JSON response data'
-                  id={`tabpanel-${activeView}`}
-                  aria-labelledby={`view-button-${activeView}`}
-                  css={theme({
-                    color:
-                      responseData.status === 'rejected'
-                        ? 'fullscreen'
-                        : 'inherit'
-                  })}
-                >
-                  {(() => {
-                    const text = new TextDecoder().decode(body)
-                    const payload =
-                      responseData.status === 'rejected'
-                        ? JSON.parse(text)
-                        : JSON.parse(text).data
-                    return JSON.stringify(payload, null, 2)
-                  })()}
-                </Content>
+              const jsonText = new TextDecoder().decode(body)
+              const formattedJson = JSON.stringify(
+                JSON.parse(jsonText),
+                null,
+                2
               )
+
+              return <Code language='json'>{formattedJson}</Code>
             }
 
             if (contentType.startsWith('image/')) {
