@@ -29,7 +29,6 @@ import React, { useState, useRef, useCallback } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocalStorage } from 'components/hook'
 import { ProBadge } from 'components/patterns'
-import { highlight } from 'sugar-high'
 import styled from 'styled-components'
 import mql from '@microlink/mql'
 
@@ -133,16 +132,17 @@ function CodeEditor ({
   value,
   onChange,
   onKeyDown,
-  editable = false,
+  editable,
+  language,
   ...props
 }) {
   const textareaRef = useRef(null)
-  const preRef = useRef(null)
+  const codeRef = useRef(null)
 
   const handleScroll = () => {
-    if (editable && textareaRef.current && preRef.current) {
-      preRef.current.scrollTop = textareaRef.current.scrollTop
-      preRef.current.scrollLeft = textareaRef.current.scrollLeft
+    if (editable && textareaRef.current && codeRef.current) {
+      codeRef.current.scrollTop = textareaRef.current.scrollTop
+      codeRef.current.scrollLeft = textareaRef.current.scrollLeft
     }
   }
 
@@ -158,9 +158,8 @@ function CodeEditor ({
       aria-labelledby='aria-labelledby'
       {...props}
     >
-      <Content
-        as='pre'
-        ref={preRef}
+      <Box
+        ref={codeRef}
         role='presentation'
         aria-hidden={editable}
         style={{
@@ -170,12 +169,13 @@ function CodeEditor ({
           right: 0,
           bottom: 0,
           margin: 0,
-          color: editable ? 'transparent' : 'inherit',
-          background: 'transparent',
-          pointerEvents: editable ? 'none' : 'auto'
+          padding: `0 ${space[2]}`,
+          pointerEvents: editable ? 'none' : 'auto',
+          overflow: 'auto'
         }}
-        dangerouslySetInnerHTML={{ __html: highlight(value) }}
-      />
+      >
+        <Code language={language}>{value}</Code>
+      </Box>
 
       {editable && (
         <Content
@@ -189,15 +189,13 @@ function CodeEditor ({
           aria-describedby='code-editor-help'
           style={{
             position: 'absolute',
-            padding: 0,
+            padding: `0 ${space[2]}`,
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            width: '100%',
-            height: '100%',
             background: 'transparent',
-            color: 'red',
+            color: 'transparent',
             resize: 'none',
             outline: 'none',
             border: 'none',
@@ -234,27 +232,25 @@ PlayIcon.displayName = 'PlayIcon'
 
 const Toolbar = React.memo(
   ({
-    currentLanguage,
+    language,
     onLanguageChange,
     onExecute,
     isLoading,
     availableLanguages
   }) => (
-    <div
+    <Flex
       style={{
         position: 'absolute',
         bottom: '1rem',
         right: '1rem',
-        display: 'flex',
         alignItems: 'center',
-        gap: '0.5rem',
-        zIndex: 10
+        gap: '0.5rem'
       }}
       role='toolbar'
       aria-label='Code editor actions'
     >
       <Select
-        value={currentLanguage}
+        value={language}
         onChange={onLanguageChange}
         aria-label='Select programming language'
         style={{
@@ -291,24 +287,22 @@ const Toolbar = React.memo(
           if (!isLoading) e.target.style.opacity = '1'
         }}
       >
-        {isLoading
-          ? (
-            <Spinner
-              width='12px'
-              height='16px'
-              color={colors.white}
-              style={{ padding: '0' }}
-              aria-label='Loading'
-            />
-            )
-          : (
-            <PlayIcon />
-            )}
+        {isLoading ? (
+          <Spinner
+            width='12px'
+            height='16px'
+            color={colors.white}
+            style={{ padding: '0' }}
+            aria-label='Loading'
+          />
+        ) : (
+          <PlayIcon />
+        )}
       </Button>
       <span id='execute-button-help' style={{ display: 'none' }}>
         Click to run the code and see the API response
       </span>
-    </div>
+    </Flex>
   )
 )
 
@@ -434,7 +428,8 @@ const ContentArea = React.memo(
     apiKey,
     onApiKeySubmit,
     setApiKey,
-    showApiKeyInput
+    showApiKeyInput,
+    language
   }) => {
     if (showApiKeyInput) {
       return (
@@ -495,23 +490,14 @@ const ContentArea = React.memo(
               value={code}
               onChange={setCode}
               editable={editable}
+              language={language}
               aria-label='Code editor'
               aria-describedby='code-editor-help'
               id='tabpanel-code'
               aria-labelledby='view-button-code'
             />
           )}
-        >
-          <CodeEditor
-            value={code}
-            onChange={setCode}
-            editable={editable}
-            aria-label='Code editor'
-            aria-describedby='code-editor-help'
-            id='tabpanel-code'
-            aria-labelledby='view-button-code'
-          />
-        </Choose.When>
+        />
         <Choose.When
           condition={activeView === 'body'}
           render={() => {
@@ -649,53 +635,51 @@ const ContentArea = React.memo(
               aria-labelledby={`view-button-${activeView}`}
               aria-label='Response headers'
             >
-              {!responseData
-                ? (
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '100%',
-                      color: colors.black50,
-                      fontStyle: 'italic',
-                      padding: '2rem'
-                    }}
-                  >
-                    No response headers available. Execute a request to see the
-                    headers.
-                  </div>
-                  )
-                : (
-                  <div role='table' aria-label='HTTP response headers'>
-                    {(() => {
-                      const headers = responseData?.headers || {}
-                      const maxKeyLength = Math.max(
-                        ...Object.keys(headers).map(key => key.length)
-                      )
-                      const sortedHeaders = Object.entries(headers).sort(
-                        ([a], [b]) => a.localeCompare(b)
-                      )
-                      return sortedHeaders.map(([key, value], index) => (
-                        <Box
-                          key={key}
-                          css={theme({ mb: index > 0 ? 1 : 0 })}
-                          role='row'
-                        >
-                          <span role='cell' aria-label={`Header name: ${key}`}>
-                            {key.padEnd(maxKeyLength, ' ')}
-                          </span>
-                          <span role='cell' aria-hidden='true'>
-                            :
-                          </span>
-                          <span role='cell' aria-label={`Header value: ${value}`}>
-                            {value}
-                          </span>
-                        </Box>
-                      ))
-                    })()}
-                  </div>
-                  )}
+              {!responseData ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    color: colors.black50,
+                    fontStyle: 'italic',
+                    padding: '2rem'
+                  }}
+                >
+                  No response headers available. Execute a request to see the
+                  headers.
+                </div>
+              ) : (
+                <div role='table' aria-label='HTTP response headers'>
+                  {(() => {
+                    const headers = responseData?.headers || {}
+                    const maxKeyLength = Math.max(
+                      ...Object.keys(headers).map(key => key.length)
+                    )
+                    const sortedHeaders = Object.entries(headers).sort(
+                      ([a], [b]) => a.localeCompare(b)
+                    )
+                    return sortedHeaders.map(([key, value], index) => (
+                      <Box
+                        key={key}
+                        css={theme({ mb: index > 0 ? 1 : 0 })}
+                        role='row'
+                      >
+                        <span role='cell' aria-label={`Header name: ${key}`}>
+                          {key.padEnd(maxKeyLength, ' ')}
+                        </span>
+                        <span role='cell' aria-hidden='true'>
+                          :
+                        </span>
+                        <span role='cell' aria-label={`Header value: ${value}`}>
+                          {value}
+                        </span>
+                      </Box>
+                    ))
+                  })()}
+                </div>
+              )}
             </TerminalText>
           )}
         />
@@ -712,11 +696,11 @@ function MultiCodeEditorInteractive ({
   editable = false
 }) {
   const availableLanguages = Object.keys(codeSnippets)
-  const [currentLanguage, setCurrentLanguage] = useState('JavaScript')
+  const [language, setLanguage] = useState('JavaScript')
 
   // Ensure saved language is available, fallback to first available language
-  const validLanguage = availableLanguages.includes(currentLanguage)
-    ? currentLanguage
+  const validLanguage = availableLanguages.includes(language)
+    ? language
     : availableLanguages[0]
 
   const [code, setCode] = useState(codeSnippets[validLanguage])
@@ -736,7 +720,7 @@ function MultiCodeEditorInteractive ({
         e.newValue &&
         availableLanguages.includes(e.newValue)
       ) {
-        setCurrentLanguage(e.newValue)
+        setLanguage(e.newValue)
         setCode(codeSnippets[e.newValue])
         setActiveView('code')
       }
@@ -748,7 +732,7 @@ function MultiCodeEditorInteractive ({
         e.detail?.newValue &&
         availableLanguages.includes(e.detail.newValue)
       ) {
-        setCurrentLanguage(e.detail.newValue)
+        setLanguage(e.detail.newValue)
         setCode(codeSnippets[e.detail.newValue])
         setActiveView('code')
       }
@@ -764,13 +748,7 @@ function MultiCodeEditorInteractive ({
       window.removeEventListener('storage', handleStorageChange)
       window.removeEventListener('mql-language-change', handleCustomEvent)
     }
-  }, [
-    setCurrentLanguage,
-    availableLanguages,
-    codeSnippets,
-    setCode,
-    setActiveView
-  ])
+  }, [setLanguage, availableLanguages, codeSnippets, setCode, setActiveView])
 
   const parseCodeParameters = useCallback(() => {
     const jsCode = codeSnippets.JavaScript
@@ -914,7 +892,7 @@ function MultiCodeEditorInteractive ({
   const handleLanguageChange = useCallback(
     e => {
       const newLanguage = e.target.value
-      setCurrentLanguage(newLanguage)
+      setLanguage(newLanguage)
       setCode(codeSnippets[newLanguage])
       setActiveView('code')
 
@@ -1120,6 +1098,7 @@ function MultiCodeEditorInteractive ({
               onApiKeySubmit={handleApiKeySubmit}
               setApiKey={setApiKey}
               showApiKeyInput={showApiKeyInput}
+              language={language}
             />
 
             <If
