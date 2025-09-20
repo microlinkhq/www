@@ -20,6 +20,23 @@ export const getLanguageTheme = (language, themeKey) => {
 
 // Language-specific CSS custom properties for sugar-high tokens
 const languageColors = {
+  bash: {
+    light: `
+      --sh-class: var(--gray9);
+      --sh-identifier: var(--gray9);
+      --sh-sign: var(--gray9);
+      --sh-property: var(--gray9);
+      --sh-entity: var(--gray9);
+      --sh-jsxliterals: var(--gray9);
+      --sh-string: var(--gray9);
+      --sh-keyword: var(--gray9);
+      --sh-comment: var(--gray9);
+       .sh__token--identifier:first-of-type {
+         color: var(--link) !important;
+       }
+    `,
+    dark: ''
+  },
   json: {
     light: `
       --sh-class: var(--gray9);
@@ -32,19 +49,9 @@ const languageColors = {
       --sh-keyword: var(--gray9);
       --sh-comment: var(--gray9);
     `,
-    dark: `
-      --sh-class: var(--gray9);
-      --sh-identifier: var(--gray9);
-      --sh-sign: var(--gray);
-      --sh-property: var(--gray9);
-      --sh-entity: var(--gray9);
-      --sh-jsxliterals: var(--gray9);
-      --sh-string: var(--gray9);
-      --sh-keyword: var(--gray9);
-      --sh-comment: var(--gray9);
-    `
+    dark: ''
   }
 }
 
-languageColors.bash = languageColors.json
 languageColors.headers = languageColors.json
+languageColors.cli = languageColors.bash
