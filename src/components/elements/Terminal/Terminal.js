@@ -84,9 +84,9 @@ const TerminalButtonRed = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(1),
-            animationDuration
-          }
+          animationDelay: animationDelay(1),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -112,9 +112,9 @@ const TerminalButtonGreen = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(3),
-            animationDuration
-          }
+          animationDelay: animationDelay(3),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -178,7 +178,7 @@ const blinkCursorStyle = css`
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
     animation-duration: 1s;
     display: inline-block;
-    width: 2px;
+    width: 1px;
     height: 14px;
     background: ${colors.secondary};
     margin-left: 4px;

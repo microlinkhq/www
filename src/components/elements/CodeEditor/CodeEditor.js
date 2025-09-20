@@ -137,7 +137,7 @@ const generateLineNumbers = text => {
   return lines.map((_, index) => index + 1).join('\n')
 }
 
-const wrapLinesWithHighlight = (highlightedHtml, highlightLines) => {
+export const wrapLinesWithHighlight = (highlightedHtml, highlightLines) => {
   const lines = highlightedHtml.split('\n')
 
   if (!highlightLines) {
