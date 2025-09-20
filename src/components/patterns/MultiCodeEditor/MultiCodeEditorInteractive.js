@@ -149,27 +149,6 @@ function CodeEditor ({
     }
   }
 
-  // Focus textarea when editable becomes true
-  React.useEffect(() => {
-    if (editable && textareaRef.current) {
-      // Try with a small delay to ensure the textarea is fully rendered
-      if (textareaRef.current) {
-        textareaRef.current.focus()
-        // Set cursor to the end of the content
-        const length = textareaRef.current.value.length
-        textareaRef.current.setSelectionRange(length, length)
-        // Keep scroll position at top
-        textareaRef.current.scrollTop = 0
-        textareaRef.current.scrollLeft = 0
-        // Sync the code display scroll position
-        if (codeRef.current) {
-          codeRef.current.scrollTop = 0
-          codeRef.current.scrollLeft = 0
-        }
-      }
-    }
-  }, [editable])
-
   return (
     <Box
       css={{
@@ -205,26 +184,6 @@ function CodeEditor ({
       {editable && (
         <Content
           as='textarea'
-          ref={el => {
-            textareaRef.current = el
-            // Auto-focus when textarea is mounted and editable is true
-            if (el && editable) {
-              setTimeout(() => {
-                el.focus()
-                // Set cursor to the end of the content
-                const length = el.value.length
-                el.setSelectionRange(length, length)
-                // Keep scroll position at top
-                el.scrollTop = 0
-                el.scrollLeft = 0
-                // Sync the code display scroll position
-                if (codeRef.current) {
-                  codeRef.current.scrollTop = 0
-                  codeRef.current.scrollLeft = 0
-                }
-              }, 0)
-            }
-          }}
           value={value}
           onChange={e => onChange && onChange(e.target.value)}
           onKeyDown={onKeyDown}
@@ -330,17 +289,19 @@ const Toolbar = React.memo(
           if (!isLoading) e.target.style.opacity = '1'
         }}
       >
-        {isLoading ? (
-          <Spinner
-            width='12px'
-            height='16px'
-            color={colors.white}
-            style={{ padding: '0' }}
-            aria-label='Loading'
-          />
-        ) : (
-          <PlayIcon />
-        )}
+        {isLoading
+          ? (
+            <Spinner
+              width='12px'
+              height='16px'
+              color={colors.white}
+              style={{ padding: '0' }}
+              aria-label='Loading'
+            />
+            )
+          : (
+            <PlayIcon />
+            )}
       </Button>
       <span id='execute-button-help' style={{ display: 'none' }}>
         Click to run the code and see the API response
@@ -678,51 +639,53 @@ const ContentArea = React.memo(
               aria-labelledby={`view-button-${activeView}`}
               aria-label='Response headers'
             >
-              {!responseData ? (
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100%',
-                    color: colors.black50,
-                    fontStyle: 'italic',
-                    padding: '2rem'
-                  }}
-                >
-                  No response headers available. Execute a request to see the
-                  headers.
-                </div>
-              ) : (
-                <div role='table' aria-label='HTTP response headers'>
-                  {(() => {
-                    const headers = responseData?.headers || {}
-                    const maxKeyLength = Math.max(
-                      ...Object.keys(headers).map(key => key.length)
-                    )
-                    const sortedHeaders = Object.entries(headers).sort(
-                      ([a], [b]) => a.localeCompare(b)
-                    )
-                    return sortedHeaders.map(([key, value], index) => (
-                      <Box
-                        key={key}
-                        css={theme({ mb: index > 0 ? 1 : 0 })}
-                        role='row'
-                      >
-                        <span role='cell' aria-label={`Header name: ${key}`}>
-                          {key.padEnd(maxKeyLength, ' ')}
-                        </span>
-                        <span role='cell' aria-hidden='true'>
-                          :
-                        </span>
-                        <span role='cell' aria-label={`Header value: ${value}`}>
-                          {value}
-                        </span>
-                      </Box>
-                    ))
-                  })()}
-                </div>
-              )}
+              {!responseData
+                ? (
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      color: colors.black50,
+                      fontStyle: 'italic',
+                      padding: '2rem'
+                    }}
+                  >
+                    No response headers available. Execute a request to see the
+                    headers.
+                  </div>
+                  )
+                : (
+                  <div role='table' aria-label='HTTP response headers'>
+                    {(() => {
+                      const headers = responseData?.headers || {}
+                      const maxKeyLength = Math.max(
+                        ...Object.keys(headers).map(key => key.length)
+                      )
+                      const sortedHeaders = Object.entries(headers).sort(
+                        ([a], [b]) => a.localeCompare(b)
+                      )
+                      return sortedHeaders.map(([key, value], index) => (
+                        <Box
+                          key={key}
+                          css={theme({ mb: index > 0 ? 1 : 0 })}
+                          role='row'
+                        >
+                          <span role='cell' aria-label={`Header name: ${key}`}>
+                            {key.padEnd(maxKeyLength, ' ')}
+                          </span>
+                          <span role='cell' aria-hidden='true'>
+                            :
+                          </span>
+                          <span role='cell' aria-label={`Header value: ${value}`}>
+                            {value}
+                          </span>
+                        </Box>
+                      ))
+                    })()}
+                  </div>
+                  )}
             </TerminalText>
           )}
         />
@@ -736,7 +699,7 @@ ContentArea.displayName = 'ContentArea'
 function MultiCodeEditorInteractive ({
   mqlCode: codeSnippets,
   height = 180,
-  editable = true
+  editable = false
 }) {
   const availableLanguages = Object.keys(codeSnippets)
   const [language, setLanguage] = useState('JavaScript')
