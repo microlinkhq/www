@@ -1,5 +1,5 @@
 import { css, keyframes } from 'styled-components'
-import { Box } from 'components/elements'
+import Box from 'components/elements/Box'
 import { transition } from 'theme'
 import { lighten } from 'polished'
 import React from 'react'

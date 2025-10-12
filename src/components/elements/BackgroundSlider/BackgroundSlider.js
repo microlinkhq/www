@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Box } from 'components/elements'
+import Box from '../Box'
 import { slide } from 'components/keyframes'
 
 const SliderContainer = styled('div')`

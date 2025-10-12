@@ -1,8 +1,9 @@
 /* global fetch */
 
 import { loadStripe } from '@stripe/stripe-js/pure'
-import { Caps, Button } from 'components/elements'
-import { useSiteMetadata } from 'components/hook'
+import Caps from 'components/elements/Caps'
+import { Button } from 'components/elements/Button/Button'
+import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useState } from 'react'
 import { theme } from 'theme'
 

@@ -1,11 +1,23 @@
 import { Star as StarIcon, AlertCircle as IssueIcon } from 'react-feather'
-import { Meta, Heading, Link, Text, Flex, Box } from 'components/elements'
-import { Caption, DotsBackground, Layout } from 'components/patterns'
+import Meta from 'components/elements/Meta/Meta'
+import HeadingBase from 'components/elements/Heading'
+import { Link } from 'components/elements/Link/base'
+import Text from 'components/elements/Text'
+import Flex from 'components/elements/Flex'
+import Box from 'components/elements/Box'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
+import Layout from 'components/patterns/Layout'
 import { formatNumber } from 'helpers/format-number'
 import { cdnUrl } from 'helpers/cdn-url'
-import { useOss } from 'components/hook'
+import { useOss } from 'components/hook/use-oss'
 import { layout, theme } from 'theme'
 import React from 'react'
+
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta

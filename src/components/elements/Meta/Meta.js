@@ -1,5 +1,5 @@
 import { useLocation } from '@gatsbyjs/reach-router'
-import { useSiteMetadata } from 'components/hook'
+import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useMemo } from 'react'
 
 const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
@@ -70,11 +70,10 @@ function Meta ({ script, ...props }) {
     twitter,
     url,
     video
-  } = useMemo(() => mergeMeta(props, location, siteMetadata), [
-    props,
-    location,
-    siteMetadata
-  ])
+  } = useMemo(
+    () => mergeMeta(props, location, siteMetadata),
+    [props, location, siteMetadata]
+  )
 
   const fullTitle = `${title} — ${name}`
 

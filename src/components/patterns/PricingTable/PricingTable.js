@@ -1,5 +1,6 @@
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
-import { ArrowLink, Checkout } from 'components/patterns'
+import ArrowLink from '../ArrowLink'
+import Checkout from '../Checkout'
 import { formatNumber } from 'helpers/format-number'
 import FeatherIcon from 'components/icons/Feather'
 import { breakpoints, colors, theme } from 'theme'
@@ -7,16 +8,17 @@ import Caption from '../Caption/Caption'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import {
-  Box,
-  Flex,
-  Highlight,
-  Label,
-  Link,
-  PriceMonthly,
-  Subhead,
-  Text
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import Flex from 'components/elements/Flex'
+import Highlight from 'components/elements/Highlight'
+import Label from 'components/elements/Label'
+import { Link } from 'components/elements/Link/base'
+import PriceMonthly from 'components/elements/PriceMonthly'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
+import { withTitle } from 'helpers/hoc/with-title'
+
+const Subhead = withTitle(SubheadBase)
 
 const FREE_PLAN_RATE_LIMIT = 50
 

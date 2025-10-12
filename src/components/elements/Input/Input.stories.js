@@ -1,12 +1,13 @@
 import { storiesOf } from '@storybook/react'
 import { serializeFmt } from 'helpers/prettier'
-import { Input, InputIcon } from 'components/elements'
+import Input from './Input'
+import InputIcon from './InputIcon'
 import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
 
 const createCode = (props = '') => `
-  import { Select } from 'components/elements'
+  import Select from '../Select/Select'
 
   export default () => (<form><Input ${serializeFmt(props)} /></form>)
   `

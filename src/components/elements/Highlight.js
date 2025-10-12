@@ -3,8 +3,8 @@
 import React, { useState, useCallback } from 'react'
 import { highlight } from 'components/keyframes'
 import styled, { css } from 'styled-components'
-import { usePrevious } from 'components/hook'
-import { Box } from 'components/elements'
+import { usePrevious } from 'components/hook/use-previous'
+import Box from './Box'
 
 const HIGHLIGHT_DURATION = 1000
 

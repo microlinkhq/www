@@ -1,5 +1,5 @@
 import { H2, Paraph, Strong, Link } from 'components/markdown'
-import { Chat } from 'components/patterns'
+import Chat from 'components/patterns/Chat/Chat'
 import React from 'react'
 
 const PostFooter = () => (

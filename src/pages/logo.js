@@ -12,47 +12,47 @@ import { noop } from 'helpers/noop'
 
 import logoUri from '../../static/logo.svg'
 
-import {
-  useClipboard,
-  useFeaturesMeta,
-  useHealthcheck,
-  useQueryState
-} from 'components/hook'
+import { useClipboard } from 'components/hook/use-clipboard'
+import { useFeaturesMeta } from 'components/hook/use-features-meta'
+import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { useQueryState } from 'components/hook/use-query-state'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Choose,
-  Container,
-  Flex,
-  Heading,
-  Hide,
-  Image,
-  Input,
-  InputIcon,
-  LineBreak,
-  Link,
-  Meta,
-  Placeholder,
-  Subhead,
-  Text
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Choose from 'components/elements/Choose'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import Hide from 'components/elements/Hide'
+import Image from 'components/elements/Image/Image'
+import Input from 'components/elements/Input/Input'
+import InputIcon from 'components/elements/Input/InputIcon'
+import LineBreak from 'components/elements/LineBreak'
+import { Link } from 'components/elements/Link/base'
+import Meta from 'components/elements/Meta/Meta'
+import Placeholder from 'components/elements/Placeholder/Placeholder'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
 
-import {
-  Announcement,
-  ArrowLink,
-  Average,
-  Block,
-  Caption,
-  Faq,
-  Features,
-  FetchProvider,
-  Layout,
-  Tooltip
-} from 'components/patterns'
+import Announcement from 'components/patterns/Announcement/Announcement'
+import ArrowLink from 'components/patterns/ArrowLink'
+import Average from 'components/patterns/Average/Average'
+import Block from 'components/patterns/Block/Block'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Faq from 'components/patterns/Faq/Faq'
+import Features from 'components/patterns/Features/Features'
+import FetchProvider from 'components/patterns/FetchProvider'
+import Layout from 'components/patterns/Layout'
+import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import demoLinks from '../../data/demo-links'
+
+const Heading = withTitle(HeadingBase)
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 
 const SUGGESTIONS = [
   'apple',

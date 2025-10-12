@@ -4,7 +4,7 @@ import { Story } from 'story'
 import Toggle from './Toggle'
 
 const code = `
-import { Toggle } from 'components/elements'
+import Toggle from './Toggle'
 
 export default () => (
   <Toggle defaultValue={'MQL'}>

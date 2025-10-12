@@ -1,4 +1,4 @@
-import { Image } from 'components/elements'
+import Image from 'components/elements/Image/Image'
 import React from 'react'
 
 import logoUri from '../../../static/logo.svg'

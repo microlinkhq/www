@@ -1,5 +1,8 @@
 import { colors, space, layout, toPx, toRaw, fontSizes, theme } from 'theme'
-import { DotsBackground, Layout, Caption } from 'components/patterns'
+import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
+import Layout from 'components/patterns/Layout'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
 import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
@@ -10,20 +13,23 @@ import { getDomain } from 'tldts'
 
 import { Logo } from 'components/pages/recipes'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Card,
-  Flex,
-  Heading,
-  Link,
-  Meta,
-  Subhead,
-  Text
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Card from 'components/elements/Card/Card'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import { Link } from 'components/elements/Link/base'
+import Meta from 'components/elements/Meta/Meta'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
 
 import recipes from '../../data/recipes.json'
+
+const Heading = withTitle(HeadingBase)
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 
 const allRecipesKeys = recipes.map(([key]) => key)
 

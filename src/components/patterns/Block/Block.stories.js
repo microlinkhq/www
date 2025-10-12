@@ -2,8 +2,9 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 
-import { Box, Text } from 'components/elements'
-import { Block } from 'components/patterns'
+import Box from 'components/elements/Box'
+import Text from 'components/elements/Text'
+import Block from './Block'
 
 storiesOf('Patterns', module).add('Block', () => (
   <>

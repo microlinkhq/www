@@ -4,7 +4,7 @@ import { Story } from 'story'
 import List from './List'
 
 const code = `
-import { List } from 'components/patterns'
+import List from 'components/patterns/List/List'
 
 export default () => (
   <List px={[3, 0]} mt={4} mb={3}>

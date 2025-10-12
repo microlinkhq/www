@@ -1,4 +1,5 @@
-import { Box, Toolbar } from 'components/elements'
+import Box from 'components/elements/Box'
+import Toolbar from 'components/elements/Toolbar'
 import styled from 'styled-components'
 import { theme } from 'theme'
 import React from 'react'

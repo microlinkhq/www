@@ -1,4 +1,6 @@
-import { Card, Box, Flex } from 'components/elements'
+import Card from './Card'
+import Box from '../Box'
+import Flex from '../Flex'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import { theme } from 'theme'
@@ -9,7 +11,9 @@ const RATIO = [0.7, 0.7, 0.7, 0.7]
 const storyName = 'Card'
 
 const code = `
-import { Card, Box, Flex } from 'components/elements'
+import Card from 'components/elements/Card/Card'
+import Box from 'components/elements/Box'
+import Flex from 'components/elements/Flex'
 
 export default () => (
   <Flex>

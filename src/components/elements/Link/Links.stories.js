@@ -1,4 +1,6 @@
-import { Box, Link, LinkSolid } from 'components/elements'
+import Box from '../Box'
+import { Link } from './base'
+import { LinkSolid } from './solid'
 import React, { createElement } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
@@ -12,7 +14,7 @@ const buttons = [
 const states = [null, 'hover']
 
 const createCode = name => `
-import { ${name} } from 'components/elements'
+import { ${name} } from 'components/elements/Link'
 
 export default () => (
   <${name}>Click my site</${name}>

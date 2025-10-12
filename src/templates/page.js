@@ -1,11 +1,22 @@
-import { Choose, Flex, Heading, Text, Box } from 'components/elements'
-import { PostFooter, PostTitle } from 'components/pages/blog'
-import { Caption, Layout } from 'components/patterns'
+import Choose from 'components/elements/Choose'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import Text from 'components/elements/Text'
+import Box from 'components/elements/Box'
+import PostFooter from 'components/pages/blog/post-footer'
+import PostTitle from 'components/pages/blog/post-title'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Layout from 'components/patterns/Layout'
 import Markdown, { H1 } from 'components/markdown'
 import { textGradient, layout, theme } from 'theme'
 import { formatDate } from 'helpers/format-date'
 import TimeAgo from 'react-timeago'
 import React from 'react'
+
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
   return (

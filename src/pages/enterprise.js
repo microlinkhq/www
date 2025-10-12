@@ -1,20 +1,26 @@
-import { DotsBackground, Caption, Layout } from 'components/patterns'
+import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Layout from 'components/patterns/Layout'
 import { transition, space, gradient, layout, theme as themeProp } from 'theme'
 import Markdown from 'components/markdown'
-import { useTheme } from 'components/hook'
+import { useTheme } from 'components/hook/use-theme'
 import { cdnUrl } from 'helpers/cdn-url'
 import styled from 'styled-components'
 import React from 'react'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Container,
-  Heading,
-  Meta,
-  Subhead
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Container from 'components/elements/Container'
+import HeadingBase from 'components/elements/Heading'
+import Meta from 'components/elements/Meta/Meta'
+import SubheadBase from 'components/elements/Subhead'
+
+const Heading = withTitle(HeadingBase)
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 
 const THEMES = {
   dark: {

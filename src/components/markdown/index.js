@@ -1,5 +1,7 @@
 import { commonHeadingStyles } from 'components/elements/Heading'
-import { withContainer, withTitle, withSlug } from 'helpers/hoc'
+import { withContainer } from 'helpers/hoc/with-container'
+import { withTitle } from 'helpers/hoc/with-title'
+import { withSlug } from 'helpers/hoc/with-slug'
 import { space, fontSizes, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
 import { mqlCode } from 'helpers/mql-code'
@@ -9,21 +11,19 @@ import slug from 'rehype-slug'
 import React from 'react'
 import get from 'dlv'
 
-import {
-  Box,
-  Button,
-  CodeEditor,
-  Color,
-  Iframe as IframeBase,
-  Image as ImageBase,
-  Label,
-  Link,
-  PriceMonthly as PriceMonthlyBase,
-  Terminal as TerminalBase,
-  Text,
-  Tweet,
-  Video as VideoBase
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import Color from 'components/elements/Color/Color'
+import IframeBase from 'components/elements/Iframe/Iframe'
+import ImageBase from 'components/elements/Image/Image'
+import Label from 'components/elements/Label'
+import { Link } from 'components/elements/Link/base'
+import PriceMonthlyBase from 'components/elements/PriceMonthly'
+import TerminalBase from 'components/elements/Terminal/Terminal'
+import Text from 'components/elements/Text'
+import Tweet from 'components/elements/Tweet/Tweet'
+import VideoBase from 'components/elements/Video/Video'
 
 import MultiCodeEditorBase from '../patterns/MultiCodeEditor/MultiCodeEditor'
 import MultiCodeEditorInteractiveBase from '../patterns/MultiCodeEditor/MultiCodeEditorInteractive'

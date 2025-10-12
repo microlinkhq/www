@@ -1,10 +1,10 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-import { Badge } from 'components/elements'
+import Badge from './Badge'
 
 const code = `
-import { Badge } from 'components/elements'
+import Badge from './Badge'
 
 export default () => (
   <Badge>PRO</Badge>

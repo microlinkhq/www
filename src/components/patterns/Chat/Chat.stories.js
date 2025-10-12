@@ -4,7 +4,7 @@ import { Story } from 'story'
 import Chat from './Chat'
 
 const code = `
-import { Chat } from 'components/patterns'
+import Chat from 'components/patterns/Chat/Chat'
 
 export default () => (
   <Chat />

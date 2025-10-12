@@ -1,4 +1,5 @@
-import { Select, Text } from 'components/elements'
+import Select from './Select'
+import Text from '../Text'
 import { storiesOf } from '@storybook/react'
 import React, { useState } from 'react'
 import { Story } from 'story'
@@ -76,7 +77,7 @@ const MySelectWithDefault = ({ placeholder, ...props }) => {
 }
 
 const code = `
-import { Select } from 'components/elements'
+import Select from './Select'
 import { theme } from 'theme'
 
 export default () => (

@@ -1,4 +1,6 @@
-import { Text, Box, CodeEditor } from 'components/elements'
+import Text from '../Text'
+import Box from '../Box'
+import CodeEditor from './CodeEditor'
 import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
 import { Story } from 'story'

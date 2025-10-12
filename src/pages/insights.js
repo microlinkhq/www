@@ -9,45 +9,45 @@ import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import get from 'dlv'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Card,
-  Choose,
-  Container,
-  Flex,
-  Heading,
-  Hide,
-  Iframe,
-  Image,
-  Input,
-  InputIcon,
-  Link,
-  Meta,
-  Subhead,
-  Text
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Card from 'components/elements/Card/Card'
+import Choose from 'components/elements/Choose'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import Hide from 'components/elements/Hide'
+import Iframe from 'components/elements/Iframe/Iframe'
+import Image from 'components/elements/Image/Image'
+import Input from 'components/elements/Input/Input'
+import InputIcon from 'components/elements/Input/InputIcon'
+import { Link } from 'components/elements/Link/base'
+import Meta from 'components/elements/Meta/Meta'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
 
-import {
-  ArrowLink,
-  Average,
-  Block,
-  Caption,
-  Faq,
-  Features,
-  FetchProvider,
-  Layout,
-  Tooltip
-} from 'components/patterns'
+import ArrowLink from 'components/patterns/ArrowLink'
+import Average from 'components/patterns/Average/Average'
+import Block from 'components/patterns/Block/Block'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Faq from 'components/patterns/Faq/Faq'
+import Features from 'components/patterns/Features/Features'
+import FetchProvider from 'components/patterns/FetchProvider'
+import Layout from 'components/patterns/Layout'
+import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
-import {
-  useClipboard,
-  useFeatures,
-  useHealthcheck,
-  useQueryState,
-  useWindowSize
-} from 'components/hook'
+import { useClipboard } from 'components/hook/use-clipboard'
+import { useFeatures } from 'components/hook/use-features'
+import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { useQueryState } from 'components/hook/use-query-state'
+import { useWindowSize } from 'components/hook/use-window-size'
+
+const Heading = withTitle(HeadingBase)
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 

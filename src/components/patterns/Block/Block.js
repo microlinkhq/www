@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { Container, Flex, Box } from 'components/elements'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import Box from 'components/elements/Box'
 import { theme } from 'theme'
 
 const Block = ({

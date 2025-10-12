@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Box, Flex, Subhead } from 'components/elements'
+import Box from 'components/elements/Box'
+import Flex from 'components/elements/Flex'
+import SubheadBase from 'components/elements/Subhead'
+import { withTitle } from 'helpers/hoc/with-title'
 import { LogoBrand } from 'components/logos'
+
+const Subhead = withTitle(SubheadBase)
 
 const logos = Object.entries(LogoBrand)
 

@@ -19,7 +19,7 @@ const Checkout = () => (
 const PricingTable = createPricingTable(Checkout)
 
 const code = `
-import { PricingTable } from 'components/patterns'
+import PricingTable from 'components/patterns/PricingTable/PricingTable'
 
 export default () => ( <PricingTable />)
 `

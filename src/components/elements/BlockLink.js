@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { withAnalytics, withLink } from 'helpers/hoc'
+import { withAnalytics } from 'helpers/hoc/with-analytics'
+import { withLink } from 'helpers/hoc/with-link'
 import Box from './Box'
 
 const BlockLink = styled(Box)({

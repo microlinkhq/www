@@ -6,11 +6,8 @@ import range from 'lodash/range'
 import { Story } from 'story'
 import React from 'react'
 
-import {
-  Box,
-  BackgroundSlider,
-  BackgroundSliderContainer
-} from 'components/elements'
+import Box from '../Box'
+import { BackgroundSlider, BackgroundSliderContainer } from './BackgroundSlider'
 
 const LogoWrap = styled(Box)`
   cursor: pointer;
@@ -25,8 +22,8 @@ const LogoWrap = styled(Box)`
 const code = `
 import {
   BackgroundSliderContainer,
-  BackgroundSlider,
-} from 'components/elements'
+  BackgroundSlider
+} from './BackgroundSlider'
 
 export default () => (
   <BackgroundSliderContainer>

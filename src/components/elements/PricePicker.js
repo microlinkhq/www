@@ -1,5 +1,6 @@
 import { formatNumber } from 'helpers/format-number'
-import { Box, Select } from 'components/elements'
+import Box from './Box'
+import Select from './Select/Select'
 import React, { useState } from 'react'
 import { theme } from 'theme'
 

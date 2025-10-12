@@ -2,6 +2,8 @@ import { textGradient, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
 import { lighten } from 'polished'
 import React from 'react'
+import { withAnalytics } from 'helpers/hoc/with-analytics'
+import { withLink } from 'helpers/hoc/with-link'
 
 import Box from '../Box'
 import { LinkBase } from './base'
@@ -50,7 +52,7 @@ const LinkSolidWrapper = styled(LinkBase).withConfig({
   }
 `
 
-const LinkSolid = props => {
+const LinkSolidComponent = props => {
   return (
     <Box css={{ display: 'inline' }}>
       <LinkSolidWrapper css={theme({ fontWeight: 'regular' })} {...props} />
@@ -58,4 +60,5 @@ const LinkSolid = props => {
   )
 }
 
-export default LinkSolid
+export const LinkSolid = withAnalytics(withLink(LinkSolidComponent))
+export default LinkSolidComponent

@@ -1,26 +1,26 @@
-import {
-  Tooltip,
-  DotsBackground,
-  ArrowLink,
-  Caption,
-  Layout
-} from 'components/patterns'
+import Tooltip from 'components/patterns/Tooltip/Tooltip'
+import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
+import ArrowLink from 'components/patterns/ArrowLink'
+import Layout from 'components/patterns/Layout'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
 import { formatDate } from 'helpers/format-date'
-import { useClipboard } from 'components/hook'
+import { useClipboard } from 'components/hook/use-clipboard'
 import { Li, Ul } from 'components/markdown'
 import React, { useState } from 'react'
 import { layout, theme } from 'theme'
 
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  Meta,
-  Toggle
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import Meta from 'components/elements/Meta/Meta'
+import Toggle from 'components/elements/Toggle/Toggle'
 
 import userAgents from '../../data/user-agents.json'
+
+const Caption = withTitle(CaptionBase)
+const Heading = withTitle(HeadingBase)
 
 export const Head = () => (
   <Meta

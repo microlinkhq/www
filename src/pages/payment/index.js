@@ -1,19 +1,23 @@
-import { Caption, Layout } from 'components/patterns'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Layout from 'components/patterns/Layout'
 import React, { useState, useEffect } from 'react'
-import { useQueryState } from 'components/hook'
+import { useQueryState } from 'components/hook/use-query-state'
 import { emailUrl } from 'helpers/email-url'
 import { layout, theme } from 'theme'
 
-import {
-  Confetti,
-  Container,
-  DotSpinner,
-  Heading,
-  Link,
-  Meta
-} from 'components/elements'
+import Confetti from 'components/elements/Confetti'
+import Container from 'components/elements/Container'
+import DotSpinner from 'components/elements/DotSpinner'
+import HeadingBase from 'components/elements/Heading'
+import { Link } from 'components/elements/Link/base'
+import Meta from 'components/elements/Meta/Meta'
 
 import { PAYMENT_STATE } from 'components/pages/payment/constants'
+
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 const getTitle = paymentState => {
   switch (paymentState) {

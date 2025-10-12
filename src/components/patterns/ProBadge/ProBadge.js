@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { Badge, Link } from 'components/elements'
+import Badge from 'components/elements/Badge/Badge'
+import { Link } from 'components/elements/Link/base'
 import Tooltip from '../Tooltip/Tooltip'
 
 import { theme } from 'theme'

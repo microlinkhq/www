@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { withLazy } from 'helpers/hoc'
+import { withLazy } from 'helpers/hoc/with-lazy'
 import React from 'react'
 
 import {

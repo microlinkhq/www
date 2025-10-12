@@ -1,11 +1,24 @@
-import { Caption, DotsBackground, ArrowLink, Layout } from 'components/patterns'
-import { Meta, Text, Box, CodeEditor, Flex, Heading } from 'components/elements'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
+import ArrowLink from 'components/patterns/ArrowLink'
+import Layout from 'components/patterns/Layout'
+import Meta from 'components/elements/Meta/Meta'
+import Text from 'components/elements/Text'
+import Box from 'components/elements/Box'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
 import { fontSizes, colors, layout, theme } from 'theme'
 import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
 import { Logo } from 'components/pages/recipes'
 import { cdnUrl } from 'helpers/cdn-url'
 import { Eye } from 'react-feather'
+
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 const Description = recipe => {
   const { description, domain } = recipe

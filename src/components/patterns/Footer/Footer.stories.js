@@ -4,7 +4,7 @@ import { Story } from 'story'
 import Footer from './Footer'
 
 const code = `
-import { Footer } from 'components/patterns'
+import Footer from 'components/patterns/Footer/Footer'
 
 export default () => (
   <Footer />

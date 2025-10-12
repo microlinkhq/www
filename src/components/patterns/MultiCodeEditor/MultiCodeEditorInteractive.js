@@ -1,18 +1,19 @@
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Choose from 'components/elements/Choose'
 import {
-  Box,
-  Button,
-  Caps,
-  Choose,
   Code,
-  CodeCopy,
-  Flex,
-  If,
-  Image,
-  Input,
-  Select,
-  Spinner,
-  Text
-} from 'components/elements'
+  wrapLinesWithHighlight
+} from 'components/elements/CodeEditor/CodeEditor'
+import CodeCopy from 'components/elements/Codecopy'
+import Flex from 'components/elements/Flex'
+import If from 'components/elements/If'
+import Image from 'components/elements/Image/Image'
+import Input from 'components/elements/Input/Input'
+import Select from 'components/elements/Select/Select'
+import Spinner from 'components/elements/Spinner'
+import Text from 'components/elements/Text'
 
 import {
   colors,
@@ -27,8 +28,8 @@ import {
 
 import React, { useState, useRef, useCallback } from 'react'
 import FeatherIcon from 'components/icons/Feather'
-import { useLocalStorage } from 'components/hook'
-import { ProBadge } from 'components/patterns'
+import { useLocalStorage } from 'components/hook/use-local-storage'
+import ProBadge from '../ProBadge/ProBadge'
 import { highlight } from 'sugar-high'
 import styled from 'styled-components'
 import mql from '@microlink/mql'
@@ -37,8 +38,6 @@ import Terminal, {
   TERMINAL_WIDTH,
   TerminalText
 } from 'components/elements/Terminal/Terminal'
-
-import { wrapLinesWithHighlight } from 'components/elements/CodeEditor/CodeEditor'
 
 const fontStyles = {
   fontFamily: fonts.mono,

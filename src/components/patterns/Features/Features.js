@@ -1,4 +1,6 @@
-import { Container, Box, Hide } from 'components/elements'
+import Container from 'components/elements/Container'
+import Box from 'components/elements/Box'
+import Hide from 'components/elements/Hide'
 import { layout, theme } from 'theme'
 import React from 'react'
 

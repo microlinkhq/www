@@ -1,4 +1,4 @@
-import { Notification } from 'components/elements'
+import Notification from 'components/elements/Notification/Notification'
 import React, { useState } from 'react'
 
 export const useClipboard = () => {

@@ -4,7 +4,7 @@ import { Story } from 'story'
 import Announcement from './Announcement'
 
 const code = `
-import { Announcement } from 'components/patterns'
+import Announcement from 'components/patterns/Announcement/Announcement'
 
 export default () => (
   <Announcement

@@ -1,4 +1,5 @@
-import { Image, Unavatar } from 'components/elements'
+import Image from 'components/elements/Image/Image'
+import Unavatar from 'components/elements/Unavatar/Unavatar'
 import { Microlink } from 'components/logos'
 
 import React from 'react'

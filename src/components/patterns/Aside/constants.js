@@ -1,4 +1,20 @@
-import * as Icons from 'components/icons'
+import { HourGlass } from 'components/icons/HourGlass'
+import { JavaScript } from 'components/icons/JavaScript'
+import { Jekyll } from 'components/icons/Jekyll'
+import { Vue } from 'components/icons/Vue'
+import { Hugo } from 'components/icons/Hugo'
+import { Eleventy } from 'components/icons/Eleventy'
+import { _React as ReactIcon } from 'components/icons/React'
+
+const Icons = {
+  HourGlass,
+  JavaScript,
+  Jekyll,
+  Vue,
+  Hugo,
+  Eleventy,
+  React: ReactIcon
+}
 
 export const ASIDE_WIDTH = '320px'
 export const SDK = 'SDK'

@@ -1,10 +1,19 @@
-import { Meta, Container, Heading, Box } from 'components/elements'
-import { Caption, Layout } from 'components/patterns'
+import Meta from 'components/elements/Meta/Meta'
+import Container from 'components/elements/Container'
+import HeadingBase from 'components/elements/Heading'
+import Box from 'components/elements/Box'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Layout from 'components/patterns/Layout'
 import Markdown, { H1 } from 'components/markdown'
-import { useChangelog } from 'components/hook'
+import { useChangelog } from 'components/hook/use-changelog'
 import { cdnUrl } from 'helpers/cdn-url'
 import { layout, theme } from 'theme'
 import React from 'react'
+
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta

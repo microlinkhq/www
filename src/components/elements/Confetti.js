@@ -1,4 +1,4 @@
-import { useWindowSize } from 'components/hook'
+import { useWindowSize } from 'components/hook/use-window-size'
 import BaseConfetti from 'react-confetti'
 import { colors } from 'theme'
 import React from 'react'

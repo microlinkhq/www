@@ -1,10 +1,17 @@
-import { ClusterMonitor, Layout } from 'components/patterns'
-import { useTheme, useQueryState } from 'components/hook'
+import ClusterMonitor from 'components/patterns/ClusterMonitor/ClusterMonitor'
+import Layout from 'components/patterns/Layout'
+import { useTheme } from 'components/hook/use-theme'
+import { useQueryState } from 'components/hook/use-query-state'
 import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
 import { theme as themeProp } from 'theme'
 
-import { Box, Choose, DotSpinner, Flex, Meta, Text } from 'components/elements'
+import Box from 'components/elements/Box'
+import Choose from 'components/elements/Choose'
+import DotSpinner from 'components/elements/DotSpinner'
+import Flex from 'components/elements/Flex'
+import Meta from 'components/elements/Meta/Meta'
+import Text from 'components/elements/Text'
 
 const THEMES = {
   light: { color: 'black', bg: 'white' },

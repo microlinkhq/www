@@ -1,6 +1,6 @@
 import * as FeatherIcons from 'react-feather'
 import React, { createElement } from 'react'
-import { Flex } from 'components/elements'
+import Flex from 'components/elements/Flex'
 import { fontSizes, cx, theme } from 'theme'
 
 const getWidth = size => {

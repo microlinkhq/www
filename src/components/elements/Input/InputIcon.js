@@ -1,5 +1,5 @@
 import { Link as LinkIcon } from 'react-feather'
-import { Unavatar } from 'components/elements'
+import Unavatar from '../Unavatar/Unavatar'
 import React, { createElement } from 'react'
 import { colors } from 'theme'
 

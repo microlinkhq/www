@@ -1,6 +1,7 @@
 import FeatherIcon from 'components/icons/Feather'
-import { Link, Flex } from 'components/elements'
-import { useHover } from 'components/hook'
+import { Link } from 'components/elements/Link/base'
+import Flex from 'components/elements/Flex'
+import { useHover } from 'components/hook/use-hover'
 import React from 'react'
 
 const ArrowLink = ({ children, ...props }) => {

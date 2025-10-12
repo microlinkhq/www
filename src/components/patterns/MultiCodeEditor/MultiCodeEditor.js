@@ -1,7 +1,10 @@
-import { CodeEditor, CodeCopy, Flex, Box } from 'components/elements'
-import { useLocalStorage } from 'components/hook'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import CodeCopy from 'components/elements/Codecopy'
+import Flex from 'components/elements/Flex'
+import Box from 'components/elements/Box'
+import { useLocalStorage } from 'components/hook/use-local-storage'
 import React, { useEffect, useMemo } from 'react'
-import { Tabs } from 'components/patterns'
+import Tabs from '../Tabs'
 import styled from 'styled-components'
 import { theme } from 'theme'
 
