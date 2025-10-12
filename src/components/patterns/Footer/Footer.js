@@ -186,7 +186,7 @@ const Footer = ({ isDark, ...props }) => {
                   pt: 3
                 })}
               >
-                Early access & updates on new releases.
+                Get early access & updates on new releases.
               </Text>
             </Flex>
           </Flex>

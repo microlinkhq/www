@@ -25,7 +25,7 @@ However, some domains on the Internet (like **Instagram**, **SoundCloud**, **Spo
 
 The [media](/docs/sdk/parameters/media/) property takes into consideration the URL preferences, setting up the [Microlink API](/docs/api/getting-started/overview) call in order to satisfy the media requirements.
 
-For example, when the URL is an audio provider (like **SoundCloud** or **Spotify**) if you set `media: ['audio']` you are telling at Microlink API level that you want to detect the streaming source of audio behind the URL, enabling [audio](/docs/api/parameters/audio) for that purpose.
+For example, when the URL is an audio provider (like **SoundCloud** or **Spotify**) if you set `media: ['audio']` you are telling Microlink API that you want to detect the streaming source of audio behind the URL, enabling [audio](/docs/api/parameters/audio) for that purpose.
 
 ```json
 {

@@ -18,7 +18,7 @@ const Heading = withTitle(HeadingBase)
 const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
-  <Meta description='Early access & updates on new releases.' />
+  <Meta description='Get early access & updates on new releases.' />
 )
 
 const NewsletterPage = () => (
@@ -36,7 +36,7 @@ const NewsletterPage = () => (
         })}
         titleize={false}
       >
-        Early access & updates on new releases.
+        Get early access & updates on new releases.
       </Caption>
 
       <Flex
