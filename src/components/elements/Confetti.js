@@ -1,9 +1,11 @@
 import { useWindowSize } from 'components/hook/use-window-size'
-import BaseConfetti from 'react-confetti'
+import React, { lazy, Suspense } from 'react'
 import { colors } from 'theme'
-import React from 'react'
 
-const Confetti = () => {
+// Lazy load react-confetti to reduce initial bundle size
+const BaseConfetti = lazy(() => import('react-confetti'))
+
+const ConfettiContent = () => {
   const size = useWindowSize()
   return (
     <BaseConfetti
@@ -23,6 +25,14 @@ const Confetti = () => {
       ]}
       {...size}
     />
+  )
+}
+
+const Confetti = () => {
+  return (
+    <Suspense fallback={null}>
+      <ConfettiContent />
+    </Suspense>
   )
 }
 
