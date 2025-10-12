@@ -28,6 +28,7 @@ import ProBadge from './ProBadge/ProBadge'
 import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
 import MultiCodeEditorInteractive from './MultiCodeEditor/MultiCodeEditorInteractive'
 import Tabs from './Tabs'
+import Tooltip from './Tooltip/Tooltip'
 
 const Caption = withTitle(CaptionBase)
 
@@ -59,5 +60,6 @@ export {
   PricingTable,
   ProBadge,
   Tabs,
-  Toolbar
+  Toolbar,
+  Tooltip
 }

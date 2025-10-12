@@ -1,9 +1,7 @@
 import React from 'react'
 
 import { Badge, Link } from 'components/elements'
-
-// TODO: move tooltip from elements to patterns
-import Tooltip from '../../elements/Tooltip/Tooltip'
+import Tooltip from '../Tooltip/Tooltip'
 
 import { theme } from 'theme'
 

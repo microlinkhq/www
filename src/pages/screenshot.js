@@ -31,8 +31,7 @@ import {
   Link,
   Meta,
   Subhead,
-  Text,
-  Tooltip
+  Text
 } from 'components/elements'
 
 import {
@@ -43,7 +42,8 @@ import {
   Faq,
   Features,
   FetchProvider,
-  Layout
+  Layout,
+  Tooltip
 } from 'components/patterns'
 
 import {

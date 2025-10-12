@@ -41,7 +41,6 @@ import Terminal from './Terminal/Terminal'
 import Text from './Text'
 import Toggle from './Toggle/Toggle'
 import Toolbar from './Toolbar'
-import Tooltip from './Tooltip/Tooltip'
 import Tweet from './Tweet/Tweet'
 import Unavatar from './Unavatar/Unavatar'
 import Video from './Video/Video'
@@ -100,7 +99,6 @@ export {
   Text,
   Toggle,
   Toolbar,
-  Tooltip,
   Tweet,
   Unavatar,
   Video

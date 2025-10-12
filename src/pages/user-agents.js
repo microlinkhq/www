@@ -1,4 +1,10 @@
-import { DotsBackground, ArrowLink, Caption, Layout } from 'components/patterns'
+import {
+  Tooltip,
+  DotsBackground,
+  ArrowLink,
+  Caption,
+  Layout
+} from 'components/patterns'
 import { formatDate } from 'helpers/format-date'
 import { useClipboard } from 'components/hook'
 import { Li, Ul } from 'components/markdown'
@@ -11,8 +17,7 @@ import {
   Flex,
   Heading,
   Meta,
-  Toggle,
-  Tooltip
+  Toggle
 } from 'components/elements'
 
 import userAgents from '../../data/user-agents.json'

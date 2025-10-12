@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import Tippy from '@tippyjs/react'
 import React from 'react'
 
-import Text from '../Text'
-import Box from '../Box'
+import Text from '../../elements/Text'
+import Box from '../../elements/Box'
 
 /* https://atomiks.github.io/tippyjs/v6/all-props/ */
 const TOOLTIPS_OPTS = {
