@@ -53,6 +53,32 @@ const AsideMobile = ({ children, ...props }) => {
     }
   }, [isOpen])
 
+  // Handle click outside to close drawer
+  useEffect(() => {
+    const handleClickOutside = event => {
+      const asideElement = document.querySelector('[data-aside]')
+      const menuButton = event.target.closest(
+        'button[aria-label="open aside menu"]'
+      )
+
+      if (
+        isOpen &&
+        asideElement &&
+        !asideElement.contains(event.target) &&
+        !menuButton
+      ) {
+        handleClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+    }
+  }, [isOpen])
+
   return (
     <Box>
       <AsideBase
@@ -70,7 +96,7 @@ const AsideMobile = ({ children, ...props }) => {
         title='open aside menu'
         iconComponent={<MenuIcon size={ICON_SIZE} onClick={toggleOpen} />}
       />
-      <Flex flexDirection='column' as='section'>
+      <Flex css={theme({ flexDirection: 'column' })} as='section'>
         {children}
       </Flex>
     </Box>
