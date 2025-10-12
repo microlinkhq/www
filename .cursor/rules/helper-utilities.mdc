@@ -1,0 +1,220 @@
+---
+globs: src/helpers/**/*.js
+description: Guidelines for creating utility functions and helpers
+---
+
+# Helper and Utility Functions
+
+Utilities live in [src/helpers/](mdc:src/helpers/) and should follow clean code principles.
+
+## Core Principles
+
+### 1. Single Responsibility
+
+Each helper should do one thing and do it well:
+
+```javascript
+// Good - from format-date.js
+export const formatDate = (date, options) => {
+  return new Date(date).toLocaleDateString('en-US', options)
+}
+
+// Avoid - doing too much
+export const processData = (data) => {
+  // validates, transforms, formats, and saves data
+}
+```
+
+### 2. Pure Functions When Possible
+
+Helpers should be pure functions (same input → same output, no side effects):
+
+```javascript
+// Good - pure function
+export const formatNumber = (num) => {
+  return num.toLocaleString()
+}
+
+// Avoid - side effects in helper
+export const formatNumber = (num) => {
+  console.log('Formatting:', num) // Side effect
+  updateAnalytics(num) // Side effect
+  return num.toLocaleString()
+}
+```
+
+### 3. Descriptive Names
+
+Function names should clearly describe what they do:
+
+Good examples from the codebase:
+- `formatDate` - formats a date
+- `trimMs` - trims milliseconds
+- `getApiUrl` - gets the API URL
+- `childrenTextAll` - extracts all text from children
+
+### 4. Use Constants, Not Magic Numbers
+
+See [format-number.js](mdc:src/helpers/format-number.js), [trim-ms.js](mdc:src/helpers/trim-ms.js)
+
+```javascript
+// Good
+const DEFAULT_DECIMALS = 2
+export const formatPrice = (price, decimals = DEFAULT_DECIMALS) => {
+  return price.toFixed(decimals)
+}
+
+// Avoid
+export const formatPrice = (price) => {
+  return price.toFixed(2) // What does 2 mean?
+}
+```
+
+## Helper Categories
+
+### Higher-Order Components (HOCs)
+
+Location: [src/helpers/hoc/](mdc:src/helpers/hoc/)
+
+Naming: `with{Capability}` (e.g., `withAnalytics`, `withContainer`)
+
+Structure:
+```javascript
+export const withContainer = (Component, containerProps = {}, childProps) => {
+  const ContainerWrapper = props => (
+    <Container {...containerProps}>
+      <Component {...childProps} {...props} />
+    </Container>
+  )
+  return ContainerWrapper
+}
+
+// Export related utilities
+withContainer.Container = Container
+withContainer.CONTAINER_SPACE = CONTAINER_SPACE
+```
+
+### Style Helpers
+
+Location: [src/helpers/style/](mdc:src/helpers/style/)
+
+For style-related utilities and calculations.
+
+### Data Formatters
+
+Functions that format data for display:
+- `formatDate` - date formatting
+- `formatNumber` - number formatting
+- `childrenText` - extract text from React children
+
+### URL Helpers
+
+Functions for URL manipulation:
+- `cdnUrl` - constructs CDN URLs
+- `emailUrl` - creates email URLs
+- `issueUrl` - creates GitHub issue URLs
+- `getApiUrl` - gets API URL
+
+### Validators and Checks
+
+Boolean functions that check conditions:
+- `isSsr` - checks if running on server
+- `isFastConnection` - checks network speed
+- `hasChildren` - checks if component has children
+
+## Best Practices
+
+### 1. Document Complex Logic
+
+Add JSDoc comments for complex helpers:
+
+```javascript
+/**
+ * Generates URL variations for a given URL
+ * @param {string} url - The base URL
+ * @param {Object} options - Configuration options
+ * @returns {Array<string>} Array of URL variations
+ */
+export const urlVariations = (url, options = {}) => {
+  // implementation
+}
+```
+
+### 2. Provide Sensible Defaults
+
+Use default parameters:
+
+```javascript
+export const template = (str, data = {}) => {
+  return str.replace(/\{\{(\w+)\}\}/g, (match, key) => data[key] || '')
+}
+```
+
+### 3. Handle Edge Cases
+
+Consider null, undefined, and empty values:
+
+```javascript
+export const childrenText = children => {
+  if (!children) return ''
+  if (typeof children === 'string') return children
+  // ... handle other cases
+}
+```
+
+### 4. Keep It Simple
+
+Don't over-engineer. A simple function is better than a complex one:
+
+```javascript
+// Good - simple and clear
+export const noop = () => {}
+
+// Avoid - unnecessary complexity
+export const noop = (...args) => {
+  if (typeof args !== 'undefined') {
+    return undefined
+  }
+}
+```
+
+### 5. Export Constants
+
+If a helper uses constants that might be useful elsewhere, export them:
+
+```javascript
+export const CONTAINER_SPACE = {
+  mt: 3,
+  mb: 4
+}
+
+export const Container = props => (
+  <Box css={theme({ ...CONTAINER_SPACE })} {...props} />
+)
+```
+
+### 6. Composition Over Duplication
+
+Reuse existing helpers:
+
+```javascript
+// Good
+export const getApiUrl = (...args) => {
+  // Reuse imported function
+  return importedGetApiUrl(...args)
+}
+
+// Avoid - duplicating logic
+export const getApiUrl = (params) => {
+  // Reimplementing the same logic
+}
+```
+
+## Testing
+
+Helpers should be tested. See [test/helpers/](mdc:test/helpers/) for examples.
+
+Write unit tests for:
+- Expected behavior
+- Edge cases
+- Error conditions

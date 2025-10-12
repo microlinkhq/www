@@ -1,0 +1,268 @@
+---
+description: Guidelines for testing, linting, and code quality
+---
+
+# Testing and Code Quality
+
+This project uses modern tooling to ensure code quality and maintainability.
+
+## Testing
+
+### Test Framework
+
+Uses **Vitest** for unit testing.
+
+Configuration: [vitest.config.ts](mdc:vitest.config.ts)
+
+### Test Location
+
+Tests live in [test/](mdc:test/) directory, mirroring the source structure:
+
+- `test/helpers/` - Tests for helper functions
+- Test files use the same name as the source file
+
+### Running Tests
+
+```bash
+npm test           # Run tests with linting
+npm run pretest    # Run linting only
+```
+
+### Writing Tests
+
+Example structure:
+
+```javascript
+import { describe, it, expect } from 'vitest'
+import { helperFunction } from '../src/helpers/helper-function'
+
+describe('helperFunction', () => {
+  it('should handle normal case', () => {
+    expect(helperFunction('input')).toBe('expected')
+  })
+
+  it('should handle edge case', () => {
+    expect(helperFunction(null)).toBe('')
+  })
+})
+```
+
+### Snapshots
+
+For complex output, use snapshots:
+
+```javascript
+it('should match snapshot', () => {
+  expect(component).toMatchSnapshot()
+})
+```
+
+Snapshots stored in `test/__snapshots__/`
+
+## Linting
+
+### JavaScript/React
+
+Uses **Standard.js** for JavaScript linting:
+
+```bash
+npm run lint       # Lint JavaScript and Markdown
+standard           # Run Standard only
+```
+
+Configuration in [package.json](mdc:package.json):
+
+```json
+"standard": {
+  "ignore": [
+    "src/helpers/get-api-url.js"
+  ]
+}
+```
+
+### Standard.js Rules
+
+- **2 spaces** for indentation
+- **Single quotes** for strings
+- **No semicolons** (except when required)
+- **Space after keywords** (`if (condition)` not `if(condition)`)
+- **Space before function parentheses** (`function name () {}`)
+- **No unused variables**
+- **Always use `===`** instead of `==`
+
+### Auto-fixing
+
+Standard can auto-fix many issues:
+
+```bash
+standard --fix
+```
+
+### Markdown
+
+Uses **standard-markdown** for markdown linting:
+
+```bash
+standard-markdown README.md
+```
+
+## Code Formatting
+
+### Prettier
+
+Uses **prettier-standard** (Prettier + Standard.js):
+
+Configuration in [package.json](mdc:package.json):
+
+```json
+"nano-staged": {
+  "*.js": [
+    "prettier-standard"
+  ]
+}
+```
+
+Automatically formats on commit via git hooks.
+
+### Manual Formatting
+
+```bash
+npx prettier-standard --write "src/**/*.js"
+```
+
+## Git Hooks
+
+Uses **simple-git-hooks** and **nano-staged** for pre-commit checks:
+
+```json
+"simple-git-hooks": {
+  "commit-msg": "npx commitlint --edit",
+  "pre-commit": "npx nano-staged"
+}
+```
+
+### Pre-commit Hook
+
+Automatically runs on `git commit`:
+
+1. Formats JavaScript with `prettier-standard`
+2. Formats `package.json` with `finepack`
+
+### Commit Message Linting
+
+Uses **commitlint** with conventional commits:
+
+Format: `<type>(<scope>): <subject>`
+
+Types:
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation
+- `style` - Formatting
+- `refactor` - Code restructuring
+- `test` - Adding tests
+- `chore` - Maintenance
+
+Examples:
+```
+feat(button): add loading state
+fix(aside): close on escape key
+docs(readme): update installation steps
+```
+
+Configuration in [package.json](mdc:package.json):
+
+```json
+"commitlint": {
+  "extends": ["@commitlint/config-conventional"]
+}
+```
+
+## Code Quality Principles
+
+### From User Rules (Clean Code)
+
+1. **Avoid hard-coded numbers** - Use named constants
+2. **Meaningful names** - Variables, functions, classes should be self-documenting
+3. **Comments sparingly** - Code should be self-explanatory; comment the "why", not the "what"
+4. **Short functions** - One responsibility per function
+5. **DRY principle** - Don't repeat yourself
+6. **Follow standards** - Use established conventions
+7. **Encapsulate conditionals** - Extract nested if/else into functions
+8. **Refactor continuously** - Leave code better than you found it
+
+### Code Review Checklist
+
+Before committing, ensure:
+
+- [ ] No console.logs (unless intentional)
+- [ ] No commented-out code
+- [ ] Meaningful variable/function names
+- [ ] Functions are small and focused
+- [ ] No magic numbers (use constants)
+- [ ] Tests added/updated for changes
+- [ ] Linter passes (`npm run lint`)
+- [ ] Build succeeds (`npm run build`)
+
+## Performance Considerations
+
+### Bundle Size
+
+Monitor bundle size. Avoid importing entire libraries:
+
+```javascript
+// Good
+import { debounce } from 'lodash/debounce'
+
+// Avoid
+import _ from 'lodash'
+```
+
+### React Performance
+
+- Use `React.memo` for expensive components
+- Use `useMemo` and `useCallback` when appropriate
+- Avoid inline object/array creation in render
+- Use proper dependency arrays in hooks
+
+### Build Performance
+
+```bash
+npm run clean:build  # Clear cache if builds are slow
+```
+
+## Debugging
+
+### Development Tools
+
+- React DevTools - Component hierarchy and props
+- Redux DevTools - If using Redux (n/a for this project)
+- Chrome DevTools - Network, performance, console
+
+### Common Issues
+
+**Build Errors:**
+- Clear cache: `npm run clean:build`
+- Check GraphQL queries: `http://localhost:8000/___graphql`
+- Verify data files exist: `npm run build:data`
+
+**Styling Issues:**
+- Verify theme imports
+- Check styled-components version
+- Clear browser cache
+
+**Module Resolution:**
+- Check absolute imports in `gatsby-node.js` webpack config
+- Verify file exists at import path
+- Check for circular dependencies
+
+## Continuous Integration
+
+Vercel deployment checks:
+
+1. Linting passes
+2. Build succeeds
+3. No TypeScript errors (if applicable)
+4. Security headers applied (see [scripts/security-headers.js](mdc:scripts/security-headers.js))
+
+Configuration: [vercel.json](mdc:vercel.json)

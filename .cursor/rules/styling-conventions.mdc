@@ -1,0 +1,211 @@
+---
+globs: *.js,*.jsx
+description: Guidelines for styled-components and styling patterns
+---
+
+# Styling Conventions
+
+This project uses `styled-components` with `styled-system` for theming. Follow these patterns for consistency.
+
+## Styled Components
+
+### 1. Use Theme Values
+
+Always reference theme values instead of hardcoding:
+
+```javascript
+// Good
+import { colors, space, transition } from 'theme'
+
+const StyledButton = styled(Box)`
+  transition: background-color ${transition.medium};
+  padding: ${space[3]};
+  background: ${colors.link};
+`
+
+// Avoid
+const StyledButton = styled(Box)`
+  transition: background-color 0.3s;
+  padding: 16px;
+  background: #3B82F6;
+`
+```
+
+### 2. Extend Base Components
+
+Build on existing base components (Box, Flex, Text) rather than creating from scratch:
+
+```javascript
+import Box from '../Box'
+
+const StyledButton = styled(Box)`
+  // Additional styles
+`
+```
+
+### 3. Use the `theme` Helper for Styled-System Props
+
+For styled-system properties, use the `theme` helper:
+
+```javascript
+import { theme } from 'theme'
+
+<Flex css={theme({
+  pl: `calc(${ASIDE_WIDTH} + 14px)`,
+  flexDirection: 'column'
+})} />
+```
+
+### 4. Conditional Styles with Props
+
+Use props for conditional styling:
+
+```javascript
+const StyledButton = styled(Box)`
+  ${({ variant }) =>
+    variant === 'gradient' &&
+    `
+    background: ${gradient};
+    padding: ${space[1]};
+  `}
+
+  ${({ theme, variant }) => {
+    const { background, color } = getVariant({ theme, variant })
+    return themeProp({
+      background,
+      color,
+      _hover: hoverStyle({ theme, variant })
+    })
+  }}
+`
+```
+
+### 5. Extract Style Logic
+
+Extract complex style calculations into separate functions:
+
+```javascript
+const getVariant = ({ theme, variant }) => {
+  const { background = 'link', color = 'white' } =
+    theme.variants.buttons[variant] || {}
+  return { background, color }
+}
+
+export const hoverStyle = ({ theme, variant }) => {
+  const { background, color } = getVariant({ theme, variant })
+  return {
+    cursor: 'pointer',
+    background: color,
+    color: background,
+    boxShadow: `0 0 0 1px ${colors[background]}`
+  }
+}
+```
+
+### 6. Use `withConfig` for shouldForwardProp
+
+Prevent styled-system from forwarding custom props to the DOM:
+
+```javascript
+const StyledButton = styled(Box).withConfig({
+  shouldForwardProp: prop => !['variant'].includes(prop)
+})`
+  // styles
+`
+```
+
+### 7. Pseudo-Selectors with Styled-System
+
+Use underscore-prefixed props for pseudo-selectors:
+
+```javascript
+themeProp({
+  color: 'white',
+  background: 'black',
+  _hover: {
+    color: 'black',
+    background: 'white'
+  },
+  _disabled: {
+    opacity: 0.8,
+    cursor: 'not-allowed'
+  }
+})
+```
+
+### 8. CSS Prop for One-Off Styles
+
+Use the `css` prop for component-specific styles:
+
+```javascript
+<Box css={theme({ maxWidth: layout.small, mx: 'auto' })}>
+  {children}
+</Box>
+```
+
+### 9. Inline CSS Template Strings
+
+For complex one-off styles, use template literals:
+
+```javascript
+const css = `
+  box-shadow: ${shadows[0]};
+  background: white;
+  z-index: 3;
+`
+
+<AsideBase css={css} />
+```
+
+## Common Patterns
+
+### Transitions
+
+Always use theme transition values:
+
+```javascript
+transition: background-color ${transition.medium},
+            color ${transition.medium},
+            box-shadow ${transition.medium};
+```
+
+Available: `transition.short`, `transition.medium`, `transition.long`
+
+### Shadows
+
+Use theme shadow values:
+
+```javascript
+box-shadow: ${shadows[0]};
+```
+
+### Responsive Styles
+
+Use array syntax for responsive values:
+
+```javascript
+css={theme({
+  maxWidth: ['100%', '100%', layout.small, layout.small],
+  fontSize: [1, 2, 3] // Mobile, tablet, desktop
+})}
+```
+
+### Colors
+
+Always use theme colors:
+
+```javascript
+import { colors } from 'theme'
+
+color: ${colors.black50}
+background: ${colors.white}
+border: 1px solid ${colors.black20}
+```
+
+## SCSS
+
+For global styles, use SCSS in [src/styles/main.scss](mdc:src/styles/main.scss):
+
+- Component-specific styles should use styled-components
+- Global resets, typography, and base styles go in SCSS
+- Import normalize.css for consistent base styles
