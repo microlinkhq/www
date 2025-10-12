@@ -9,7 +9,6 @@ import Box from '../Box'
 import { LinkBase } from './base'
 
 const style = css`
-  outline: 0;
   opacity: 0.65;
   display: inline-block;
   color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};

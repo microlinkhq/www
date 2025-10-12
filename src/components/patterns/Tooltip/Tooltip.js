@@ -58,7 +58,6 @@ const TippyTheme = styled(Tippy)`
 `
 
 const TippyContainer = styled(Box)`
-  outline: 0;
   cursor: ${({ $type }) => $type};
 `
 

@@ -9,7 +9,6 @@ import Text from '../Text'
 const style = css`
   cursor: pointer;
   text-decoration: none;
-  outline: 0;
   transition: color ${transition.medium};
   line-height: ${lineHeights[2]};
 `

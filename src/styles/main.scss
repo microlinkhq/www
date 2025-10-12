@@ -277,6 +277,16 @@ input::-webkit-calendar-picker-indicator {
 }
 
 
+/* Clear focus for accessibility */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
 :root {
   --sh-class: var(--link);
   --sh-identifier: var(--link);
