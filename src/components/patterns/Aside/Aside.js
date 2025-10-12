@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import { shadows, theme } from 'theme'
 
 import AsideBase from './AsideBase'
-
 import { ASIDE_WIDTH } from './constants'
 
 const ICON_SIZE = 20
@@ -38,6 +37,21 @@ const css = `
 const AsideMobile = ({ children, ...props }) => {
   const [isOpen, setOpen] = useState(false)
   const toggleOpen = () => setOpen(!isOpen)
+  const handleClose = () => setOpen(false)
+
+  // Handle Escape key to close drawer
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.key === 'Escape' && isOpen) {
+        handleClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown)
+      return () => document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen])
 
   return (
     <Box>
@@ -45,7 +59,7 @@ const AsideMobile = ({ children, ...props }) => {
         CloseButton={
           <AsideButton
             title='close aside menu'
-            iconComponent={<CloseIcon size={ICON_SIZE} onClick={toggleOpen} />}
+            iconComponent={<CloseIcon size={ICON_SIZE} onClick={handleClose} />}
           />
         }
         isOpen={isOpen}
