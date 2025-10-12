@@ -135,7 +135,7 @@
     "github-slugger": "~2.0.0",
     "humanize-url": "~3.0.0",
     "is-color": "~1.0.2",
-    "is-url-http": "~2.3.9",
+    "is-url-http": "~2.3.11",
     "json-future": "~2.2.21",
     "lodash": "~4.17.21",
     "mdx-scoped-runtime": "~0.8.0",
