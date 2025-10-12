@@ -65,7 +65,7 @@ const ConfettiStory = () => {
                 mt: 2
               })}
             >
-              Confetti will auto-stop in 3 seconds or click "Stop"
+              Confetti will auto-stop in 3 seconds or click &ldquo;Stop&rdquo;
             </Text>
           )}
         </Flex>
