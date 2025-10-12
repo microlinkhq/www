@@ -1,5 +1,18 @@
-import { format } from 'prettier/standalone'
-import babel from 'prettier/parser-babel'
+// Dynamic imports for better tree-shaking and code splitting
+let prettierFormat = null
+let babelParser = null
+
+const loadPrettier = async () => {
+  if (!prettierFormat || !babelParser) {
+    const [{ format }, babel] = await Promise.all([
+      import('prettier/standalone'),
+      import('prettier/parser-babel')
+    ])
+    prettierFormat = format
+    babelParser = babel
+  }
+  return { format: prettierFormat, babel: babelParser }
+}
 
 /**
  * https://prettier.io/docs/en/options.html
@@ -14,15 +27,15 @@ const PRETTIER_CONFIG = {
   trailingComma: 'none'
 }
 
-const JS_OPTS = {
+const getJsOpts = babel => ({
   parser: 'babel',
   plugins: [babel]
-}
+})
 
-const JSON_OPTS = {
+const getJsonOpts = babel => ({
   parser: 'json',
   plugins: [babel]
-}
+})
 
 /**
  * It turns an JS object:
@@ -69,8 +82,9 @@ const serializeObject = (props, { quotes = true } = {}) => {
   }, '')
 }
 
-export const prettier = (code, opts) => {
+export const prettier = async (code, opts = {}) => {
   try {
+    const { format } = await loadPrettier()
     const pretty = format(code, { ...PRETTIER_CONFIG, ...opts })
     return pretty.replace(';<', '<')
   } catch (error) {
@@ -79,10 +93,25 @@ export const prettier = (code, opts) => {
   }
 }
 
-prettier.jsx = prettier.js = (code, opts) =>
-  prettier(code, { ...JS_OPTS, ...opts })
+prettier.jsx = prettier.js = async (code, opts = {}) => {
+  try {
+    const { format, babel } = await loadPrettier()
+    return prettier(code, { ...getJsOpts(babel), ...opts })
+  } catch (error) {
+    console.error('[prettier.js]', error)
+    return code
+  }
+}
 
-prettier.json = (code, opts) => prettier(code, { ...JSON_OPTS, ...opts })
+prettier.json = async (code, opts = {}) => {
+  try {
+    const { format, babel } = await loadPrettier()
+    return prettier(code, { ...getJsonOpts(babel), ...opts })
+  } catch (error) {
+    console.error('[prettier.json]', error)
+    return code
+  }
+}
 
 prettier.headers = content => {
   return content

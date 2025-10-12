@@ -3,7 +3,7 @@ import { hideScrollbar, wordBreak } from 'helpers/style'
 import { getLines } from 'helpers/get-lines'
 import { prettier } from 'helpers/prettier'
 import { template } from 'helpers/template'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import identity from 'lodash/identity'
 import { highlight } from 'sugar-high'
 import styled from 'styled-components'
@@ -185,14 +185,37 @@ const CodeEditor = ({
   blinkCursor = false,
   ...props
 }) => {
+  const [formattedText, setFormattedText] = useState('')
   const className = getClassName(props)
   const highlightLines = getLines(className)
   const language = toAlias(
     getLanguage({ className, language: languageProp, title })
   )
 
-  const pretty = get(prettier, language, identity)
-  const text = pretty(template(children)).trim()
+  useEffect(() => {
+    const formatCode = async () => {
+      try {
+        const pretty = get(prettier, language, identity)
+        const templatedCode = template(children)
+
+        // If prettier function exists for this language, use it (async)
+        if (typeof pretty === 'function' && pretty !== identity) {
+          const formatted = await pretty(templatedCode)
+          setFormattedText(formatted.trim())
+        } else {
+          // Fallback to identity (no formatting)
+          setFormattedText(templatedCode.trim())
+        }
+      } catch (error) {
+        console.error('[CodeEditor] Formatting error:', error)
+        setFormattedText(template(children).trim())
+      }
+    }
+
+    formatCode()
+  }, [children, language])
+
+  const text = formattedText || template(children).trim()
 
   const highLightLinesSelector = generateHighlightLines(highlightLines)
   const firstHighlightLine = highLightLinesSelector && highLightLinesSelector[0]

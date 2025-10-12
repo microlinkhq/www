@@ -1,6 +1,5 @@
-import { Link as LinkIcon } from 'react-feather'
 import Unavatar from '../Unavatar/Unavatar'
-import React, { createElement } from 'react'
+import React, { createElement, useState, useEffect } from 'react'
 import { colors } from 'theme'
 
 const InputIcon = React.memo(function InputIcon ({
@@ -9,9 +8,30 @@ const InputIcon = React.memo(function InputIcon ({
   style,
   ...props
 }) {
-  return props.query || props.url
-    ? createElement(Unavatar, { style: { ...style, height, width }, ...props })
-    : createElement(LinkIcon, { color: colors.black50, size: '16px' })
+  const [LinkIcon, setLinkIcon] = useState(null)
+
+  useEffect(() => {
+    // Only load the Link icon when needed (not for query/url cases)
+    if (!props.query && !props.url) {
+      import('react-feather/dist/icons/link.js')
+        .then(module => setLinkIcon(() => module.default))
+        .catch(() => {
+          // Fallback to main bundle
+          import('react-feather').then(({ Link }) => setLinkIcon(() => Link))
+        })
+    }
+  }, [props.query, props.url])
+
+  if (props.query || props.url) {
+    return createElement(Unavatar, {
+      style: { ...style, height, width },
+      ...props
+    })
+  }
+
+  return LinkIcon
+    ? createElement(LinkIcon, { color: colors.black50, size: '16px' })
+    : null
 })
 
 export default InputIcon
