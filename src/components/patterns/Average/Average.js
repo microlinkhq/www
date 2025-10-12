@@ -1,4 +1,5 @@
-import { Text, Highlight } from 'components/elements'
+import Text from 'components/elements/Text'
+import Highlight from 'components/elements/Highlight'
 import uniqueRandomArray from 'unique-random-array'
 import React, { useEffect, useState } from 'react'
 import range from 'lodash/range'

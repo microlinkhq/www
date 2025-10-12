@@ -1,11 +1,21 @@
-import { Hide, Box, Caps, Flex, Subhead } from 'components/elements'
-import { Block, Caption } from 'components/patterns'
+import Hide from 'components/elements/Hide'
+import Box from 'components/elements/Box'
+import Caps from 'components/elements/Caps'
+import Flex from 'components/elements/Flex'
+import SubheadBase from 'components/elements/Subhead'
+import Block from 'components/patterns/Block/Block'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
 import { colors, borders, theme } from 'theme'
 import styled from 'styled-components'
 import take from 'lodash/take'
 import React from 'react'
 
 import analyticsData from '../../../../data/analytics.json'
+
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 
 const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
 

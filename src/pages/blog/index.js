@@ -1,14 +1,23 @@
 import { textGradient, layout, transition, theme, letterSpacings } from 'theme'
-import { Meta, Heading, Link, Flex } from 'components/elements'
-import { Layout, Caption } from 'components/patterns'
-import { PostTitle } from 'components/pages/blog'
+import Meta from 'components/elements/Meta/Meta'
+import HeadingBase from 'components/elements/Heading'
+import { Link } from 'components/elements/Link/base'
+import Flex from 'components/elements/Flex'
+import Layout from 'components/patterns/Layout'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import PostTitle from 'components/pages/blog/post-title'
 import { formatDate } from 'helpers/format-date'
-import { useBlogIndex } from 'components/hook'
+import { useBlogIndex } from 'components/hook/use-blog-index'
 import { H1Base } from 'components/markdown'
 import { cdnUrl } from 'helpers/cdn-url'
 import styled from 'styled-components'
 import TimeAgo from 'react-timeago'
 import React from 'react'
+
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 const BlogSeparator = styled(Flex)`
   ${({ $isLastPost }) =>

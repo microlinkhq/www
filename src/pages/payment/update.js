@@ -1,8 +1,12 @@
 /* global fetch */
 
-import { useFingerprint, useSiteMetadata, useQueryState } from 'components/hook'
+import { useFingerprint } from 'components/hook/use-fingerprint'
+import { useSiteMetadata } from 'components/hook/use-site-meta'
+import { useQueryState } from 'components/hook/use-query-state'
 import { PAYMENT_STATE } from 'components/pages/payment/constants'
-import { Caption, Layout } from 'components/patterns'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Layout from 'components/patterns/Layout'
 import { loadStripe } from '@stripe/stripe-js/pure'
 import React, { useEffect, useState } from 'react'
 import { emailUrl } from 'helpers/email-url'
@@ -18,17 +22,15 @@ import {
   theme
 } from 'theme'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Confetti,
-  Container,
-  DotSpinner,
-  Heading,
-  Link,
-  Meta
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Confetti from 'components/elements/Confetti'
+import Container from 'components/elements/Container'
+import DotSpinner from 'components/elements/DotSpinner'
+import HeadingBase from 'components/elements/Heading'
+import { Link } from 'components/elements/Link/base'
+import Meta from 'components/elements/Meta/Meta'
 
 import {
   Elements,
@@ -36,6 +38,10 @@ import {
   useStripe,
   useElements
 } from '@stripe/react-stripe-js'
+
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 const fetchOnce = once(fetch)
 

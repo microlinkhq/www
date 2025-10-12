@@ -1,5 +1,6 @@
 import MultiCodeEditorInteractive from './MultiCodeEditorInteractive'
-import { Box, Text } from 'components/elements'
+import Box from 'components/elements/Box'
+import Text from 'components/elements/Text'
 import { storiesOf } from '@storybook/react'
 import { mqlCode } from 'helpers/mql-code'
 import { theme } from 'theme'

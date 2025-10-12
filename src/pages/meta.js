@@ -7,52 +7,52 @@ import { cdnUrl } from 'helpers/cdn-url'
 import prependHttp from 'prepend-http'
 import chunk from 'lodash/chunk'
 
-import {
-  useClipboard,
-  useFeaturesMeta,
-  useHealthcheck,
-  useQueryState,
-  useWindowSize
-} from 'components/hook'
+import { useClipboard } from 'components/hook/use-clipboard'
+import { useFeaturesMeta } from 'components/hook/use-features-meta'
+import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { useQueryState } from 'components/hook/use-query-state'
+import { useWindowSize } from 'components/hook/use-window-size'
 
-import {
-  AnimatedBox,
-  Box,
-  Button,
-  Caps,
-  Card,
-  CodeEditor,
-  Container,
-  Flex,
-  Heading,
-  Hide,
-  Image,
-  Input,
-  InputIcon,
-  LineBreak,
-  Link,
-  Meta,
-  Subhead,
-  Text
-} from 'components/elements'
+import AnimatedBox from 'components/elements/AnimatedBox'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Card from 'components/elements/Card/Card'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import Hide from 'components/elements/Hide'
+import Image from 'components/elements/Image/Image'
+import Input from 'components/elements/Input/Input'
+import InputIcon from 'components/elements/Input/InputIcon'
+import LineBreak from 'components/elements/LineBreak'
+import { Link } from 'components/elements/Link/base'
+import Meta from 'components/elements/Meta/Meta'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
 
-import {
-  ArrowLink,
-  Average,
-  Block,
-  Caption,
-  CubeBackground,
-  Faq,
-  Features,
-  FetchProvider,
-  Layout,
-  List,
-  Tooltip
-} from 'components/patterns'
+import ArrowLink from 'components/patterns/ArrowLink'
+import Average from 'components/patterns/Average/Average'
+import Block from 'components/patterns/Block/Block'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import CubeBackground from 'components/patterns/CubeBackground/CubeBackground'
+import Faq from 'components/patterns/Faq/Faq'
+import Features from 'components/patterns/Features/Features'
+import FetchProvider from 'components/patterns/FetchProvider'
+import Layout from 'components/patterns/Layout'
+import List from 'components/patterns/List/List'
+import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import humanizeUrl from 'humanize-url'
 
 import demoLinks from '../../data/demo-links'
+
+const Heading = withTitle(HeadingBase)
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 
 const INITIAL_SUGGESTION = 'youtube'
 

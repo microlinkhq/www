@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { Button, Flex, Caps } from 'components/elements'
+import { Button } from 'components/elements/Button/Button'
+import Flex from 'components/elements/Flex'
+import Caps from 'components/elements/Caps'
 import { theme } from 'theme'
 
 const Chat = () => {

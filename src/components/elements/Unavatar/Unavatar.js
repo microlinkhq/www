@@ -1,5 +1,5 @@
 import React, { createElement } from 'react'
-import { Image } from 'components/elements'
+import Image from '../Image/Image'
 import styled from 'styled-components'
 import { theme } from 'theme'
 

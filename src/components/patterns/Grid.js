@@ -1,4 +1,7 @@
-import { Caps, Flex, Text, Box } from 'components/elements'
+import Caps from 'components/elements/Caps'
+import Flex from 'components/elements/Flex'
+import Text from 'components/elements/Text'
+import Box from 'components/elements/Box'
 import Markdown from 'components/markdown'
 import chunk from 'lodash/chunk'
 import React from 'react'

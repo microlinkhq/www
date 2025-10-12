@@ -1,7 +1,9 @@
 import { transition, theme as themeProp, colors, space, gradient } from 'theme'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Box from '../Box'
 import React, { forwardRef } from 'react'
+import { withSpinner } from 'helpers/hoc/with-spinner'
+import { withAnalytics } from 'helpers/hoc/with-analytics'
 
 const getVariant = ({ theme, variant }) => {
   const { background = 'link', color = 'white' } =
@@ -74,10 +76,25 @@ const StyledButton = styled(Box).withConfig({
   }}
 `
 
-const Button = forwardRef((props, ref) => (
+const ButtonComponent = forwardRef((props, ref) => (
   <StyledButton as='button' ref={ref} {...props} />
 ))
 
-Button.displayName = 'Button'
+ButtonComponent.displayName = 'Button'
 
-export default Button
+const Button = withAnalytics(
+  withSpinner(
+    ButtonComponent,
+    css`
+      &:hover {
+        background-color: ${({ theme }) =>
+          props =>
+            theme.colors[props.bg]};
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+    `
+  )
+)
+
+export { Button }
+export default ButtonComponent

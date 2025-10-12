@@ -1,5 +1,5 @@
 import React from 'react'
-import { Svg } from 'components/elements'
+import Svg from 'components/elements/Svg'
 import styled, { css } from 'styled-components'
 import { transition, theme } from 'theme'
 

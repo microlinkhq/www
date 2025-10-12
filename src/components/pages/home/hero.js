@@ -1,11 +1,20 @@
-import { Subhead, Box, Flex, Heading } from 'components/elements'
+import SubheadBase from 'components/elements/Subhead'
+import Box from 'components/elements/Box'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
 import FeatherIcon from 'components/icons/Feather'
-import { Caption } from 'components/patterns'
-import { useHover } from 'components/hook'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import { useHover } from 'components/hook/use-hover'
 import { transition, layout, theme } from 'theme'
 import { setSaturation } from 'polished'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+
+const Subhead = withTitle(SubheadBase)
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 const FlexLink = styled(Flex)`
   cursor: pointer;

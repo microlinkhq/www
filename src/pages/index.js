@@ -1,9 +1,20 @@
-import { Analytics, Faqs, Hero, Overlay, Pricing } from 'components/pages/home'
-import { Meta, Link, Subhead } from 'components/elements'
-import { useFeatures, useSiteMetadata } from 'components/hook'
-import { Features, Layout } from 'components/patterns'
+import Analytics from 'components/pages/home/analytics'
+import Faqs from 'components/pages/home/faqs'
+import Hero from 'components/pages/home/hero'
+import Overlay from 'components/pages/home/overlay'
+import Pricing from 'components/pages/home/pricing'
+import Meta from 'components/elements/Meta/Meta'
+import { Link } from 'components/elements/Link/base'
+import { withTitle } from 'helpers/hoc/with-title'
+import SubheadBase from 'components/elements/Subhead'
+import { useFeatures } from 'components/hook/use-features'
+import { useSiteMetadata } from 'components/hook/use-site-meta'
+import Features from 'components/patterns/Features/Features'
+import Layout from 'components/patterns/Layout'
 import { colors, borders, theme } from 'theme'
 import React from 'react'
+
+const Subhead = withTitle(SubheadBase)
 
 export const Head = () => <Meta />
 

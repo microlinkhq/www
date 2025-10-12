@@ -1,17 +1,21 @@
-import { Caption, Layout } from 'components/patterns'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Layout from 'components/patterns/Layout'
 import { layout, colors, theme } from 'theme'
 import { Mail } from 'react-feather'
 import React from 'react'
 
-import {
-  Button,
-  Caps,
-  Container,
-  Flex,
-  Heading,
-  Input,
-  Meta
-} from 'components/elements'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import Input from 'components/elements/Input/Input'
+import Meta from 'components/elements/Meta/Meta'
+
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta description='Early access & updates on new releases.' />

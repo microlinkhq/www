@@ -1,9 +1,16 @@
 import React from 'react'
-import { Subhead, Text, Box, Container, Flex } from 'components/elements'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
+import Box from 'components/elements/Box'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import { withTitle } from 'helpers/hoc/with-title'
+import { withSlug } from 'helpers/hoc/with-slug'
 import { slug as slugger } from 'github-slugger'
 import Caption from '../Caption/Caption'
-import { withSlug } from 'helpers/hoc'
 import { layout, theme } from 'theme'
+
+const Subhead = withTitle(SubheadBase)
 
 const Question = withSlug(({ index, ...props }) => (
   <Caption

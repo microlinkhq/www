@@ -1,6 +1,9 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Image, Box, Text, Terminal } from 'components/elements'
+import Image from '../Image/Image'
+import Box from '../Box'
+import Text from '../Text'
+import Terminal from './Terminal'
 import styled from 'styled-components'
 import { cx, theme } from 'theme'
 import { Story } from 'story'
@@ -8,7 +11,7 @@ import { Story } from 'story'
 const cmd = 'curl https://api.microlink.io?url=https://kikobeats.com'
 
 const code = `
-import { Terminal } from 'components/elements'
+import Terminal from './Terminal'
 
 export default () => (
   <Terminal title='microlink' children='${cmd}' theme='light' blinkCursor shellSymbol />

@@ -1,7 +1,14 @@
-import { Caption, PricingTable } from 'components/patterns'
-import { Subhead, Container } from 'components/elements'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import PricingTable from 'components/patterns/PricingTable/PricingTable'
+import SubheadBase from 'components/elements/Subhead'
+import Container from 'components/elements/Container'
 import { fontSizes, layout, theme } from 'theme'
 import React from 'react'
+
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 
 const Pricing = ({ canonicalUrl, stripeKey, apiEndpoint }) => {
   return (

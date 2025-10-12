@@ -1,4 +1,5 @@
-import { Placeholder, Flex } from 'components/elements'
+import Placeholder from './Placeholder'
+import Flex from '../Flex'
 import { aspectRatio } from 'helpers/aspect-ratio'
 import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
@@ -8,7 +9,7 @@ import React from 'react'
 const storyName = 'Placeholder'
 
 const code = `
-import { Placeholder } from 'components/elements'
+import Placeholder from './Placeholder'
 
 export default () => (
   <Placeholder />

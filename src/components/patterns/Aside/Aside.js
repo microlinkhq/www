@@ -1,7 +1,8 @@
 import React, { createElement, useEffect, useState } from 'react'
 import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
 import { useBreakpoint } from 'context/breakpoint'
-import { Box, Flex } from 'components/elements'
+import Box from 'components/elements/Box'
+import Flex from 'components/elements/Flex'
 import styled from 'styled-components'
 import { shadows, theme } from 'theme'
 

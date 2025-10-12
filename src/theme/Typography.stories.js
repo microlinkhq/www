@@ -1,19 +1,34 @@
 import React from 'react'
-import { Heading, Caps, Text, Label } from 'components/elements'
-import { Caption, Legend } from 'components/patterns'
+import HeadingBase from 'components/elements/Heading'
+import Caps from 'components/elements/Caps'
+import Text from 'components/elements/Text'
+import Label from 'components/elements/Label'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Legend from 'components/patterns/Legend/Legend'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import { theme } from 'theme'
 
+const Heading = withTitle(HeadingBase)
+
+const Caption = withTitle(CaptionBase)
+
 const codeHeading = `
-import { Heading } from 'components/elements'
+import { withTitle } from 'helpers/hoc/with-title'
+import HeadingBase from 'components/elements/Heading'
+
+const Heading = withTitle(HeadingBase)
 
 export default () => (
   <Heading children='Browser as API' />
 )`
 
 const codeCaption = `
-import { Caption } from 'components/patterns'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+
+const Caption = withTitle(CaptionBase)
 
 export default () => (
   <Caption>
@@ -23,14 +38,14 @@ export default () => (
 )`
 
 const codeLegend = `
-import { Legend } from 'components/patterns'
+import Legend from 'components/patterns/Legend/Legend'
 
 export default () => (
   <Legend sup='screenshot' title='Turn websites into screenshots' />
 )`
 
 const codeLabel = `
-import { Label } from 'components/elements'
+import Label from 'components/elements/Label'
 
 export default () => (
   <Label display='inline' children='reqs' suffix='/day' />
@@ -38,13 +53,13 @@ export default () => (
 `
 
 const codeCaps = `
-import { Caps } from 'components/elements'
+import Caps from 'components/elements/Caps'
 
 export default () => <Caps fontSize={0}>See More</Caps>
 `
 
 const codeText = `
-import { Text } from 'components/elements'
+import Text from 'components/elements/Text'
 
 export default () => (
   <Fragment>

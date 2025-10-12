@@ -1,10 +1,12 @@
 import { storiesOf } from '@storybook/react'
-import { Text, Color } from 'components/elements'
+import Text from '../Text'
+import Color from './Color'
 import { Story } from 'story'
 import React from 'react'
 
 const code = `
-import { Color, Text } from 'components/elements'
+import Color from './Color'
+import Text from '../Text'
 
 export default () => (
   <Text>

@@ -1,5 +1,6 @@
-import { Meta, Iframe } from 'components/elements'
-import { Layout } from 'components/patterns'
+import Meta from 'components/elements/Meta/Meta'
+import Iframe from 'components/elements/Iframe/Iframe'
+import Layout from 'components/patterns/Layout'
 import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
 

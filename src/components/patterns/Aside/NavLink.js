@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
-import { Text } from 'components/elements'
-import { withAnalytics, withLink } from 'helpers/hoc'
+import Text from 'components/elements/Text'
+import { withAnalytics } from 'helpers/hoc/with-analytics'
+import { withLink } from 'helpers/hoc/with-link'
 
 export const style = css`
   transition: color ${({ theme }) => theme.transition.medium};

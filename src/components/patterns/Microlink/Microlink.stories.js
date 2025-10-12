@@ -1,12 +1,12 @@
 import { storiesOf } from '@storybook/react'
-import { Box } from 'components/elements'
+import Box from 'components/elements/Box'
 import { Story } from 'story'
 import React from 'react'
 
 import Microlink from './Microlink'
 
 const code = `
-import { Microlink } from 'components/patterns'
+import Microlink from 'components/patterns/Microlink/Microlink'
 import { Fragment } from 'react'
 
 const url = 'https://x.com/futurism/status/882987478541533189'

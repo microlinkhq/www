@@ -1,4 +1,4 @@
-import { Text } from 'components/elements'
+import Text from 'components/elements/Text'
 import { commonHeadingStyles } from 'components/elements/Heading'
 import styled from 'styled-components'
 import { theme } from 'theme'

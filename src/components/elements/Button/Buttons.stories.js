@@ -1,4 +1,6 @@
-import { Caps, Flex, Button } from 'components/elements'
+import Caps from '../Caps'
+import Flex from '../Flex'
+import Button from './index'
 import React, { useState, createElement } from 'react'
 import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
@@ -12,7 +14,7 @@ const variants = ['base', 'black', 'white']
 const text = 'BUY'
 
 const code = `
-import { Button } from 'components/elements'
+import { Button } from './Button'
 
 export default () => (
   <Button>${text}</Button>

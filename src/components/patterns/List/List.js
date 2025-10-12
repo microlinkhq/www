@@ -1,5 +1,6 @@
 import FeatherIcon from 'components/icons/Feather'
-import { Flex, Text } from 'components/elements'
+import Flex from 'components/elements/Flex'
+import Text from 'components/elements/Text'
 import { fontSizes, theme } from 'theme'
 import React from 'react'
 

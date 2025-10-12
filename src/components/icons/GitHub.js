@@ -1,5 +1,5 @@
 import React from 'react'
-import { Svg } from 'components/elements'
+import Svg from 'components/elements/Svg'
 
 export const GitHub = ({ width = 18, ...props }) => (
   <Svg

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image } from 'components/elements'
+import Image from 'components/elements/Image/Image'
 
 import slackLogo from '../../../static/slack.svg'
 

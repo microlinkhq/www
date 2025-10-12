@@ -2,14 +2,15 @@ import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import React from 'react'
 
-import { Video, Flex } from 'components/elements'
+import Video from './Video'
+import Flex from '../Flex'
 
 const storyName = 'Video'
 
 const videoUrl = 'https://i.imgur.com/Az4FXS8.mp4'
 
 const code = `
-import { Image } from 'components/elements'
+import Image from '../Image/Image'
 
 export default () => (
   <Video src='${videoUrl}' />

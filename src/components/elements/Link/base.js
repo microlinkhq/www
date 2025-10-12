@@ -1,6 +1,8 @@
 import { colors, transition, lineHeights, theme } from 'theme'
 import styled, { css } from 'styled-components'
 import React from 'react'
+import { withAnalytics } from 'helpers/hoc/with-analytics'
+import { withLink } from 'helpers/hoc/with-link'
 
 import Text from '../Text'
 
@@ -26,6 +28,7 @@ const StyledLink = styled(LinkBase)`
   })}
 `
 
-const Link = props => <StyledLink as='span' {...props} />
+const LinkComponent = props => <StyledLink as='span' {...props} />
 
-export default Link
+export const Link = withAnalytics(withLink(LinkComponent))
+export default LinkComponent

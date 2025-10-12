@@ -3,19 +3,17 @@ import React, { useState } from 'react'
 import { Story } from 'story'
 import { theme } from 'theme'
 
-import {
-  Caps,
-  Choose,
-  Button,
-  Notification,
-  Box,
-  Flex
-} from 'components/elements'
+import Caps from '../Caps'
+import Choose from '../Choose'
+import Button from '../Button'
+import Notification from './Notification'
+import Box from '../Box'
+import Flex from '../Flex'
 
 const storyName = 'Notification'
 
 const code = `
-import { Notification } from 'components/elements'
+import Notification from './Notification'
 
 export default () => (
   <Fragment>

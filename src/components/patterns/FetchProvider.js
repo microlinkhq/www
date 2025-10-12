@@ -1,7 +1,9 @@
-import { Choose, Link, Notification } from 'components/elements'
+import Choose from 'components/elements/Choose'
+import { Link } from 'components/elements/Link/base'
+import Notification from 'components/elements/Notification/Notification'
 import React, { useCallback, useState, useEffect } from 'react'
 import { urlVariations } from 'helpers/url-variations'
-import { useQueryState } from 'components/hook'
+import { useQueryState } from 'components/hook/use-query-state'
 import mql from '@microlink/mql'
 
 import demoLinks from '../../../data/demo-links'

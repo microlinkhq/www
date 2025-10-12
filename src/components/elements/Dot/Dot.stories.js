@@ -1,13 +1,14 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Dot, Box } from 'components/elements'
+import Dot from './Dot'
+import Box from '../Box'
 import { Story } from 'story'
 import { theme } from 'theme'
 
 const storyName = 'Dot'
 
 const code = `
-import { Dot } from 'components/elements'
+import Dot from './Dot'
 
 export default () => (
   <Fragment>

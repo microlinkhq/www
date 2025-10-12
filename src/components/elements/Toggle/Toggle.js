@@ -1,4 +1,7 @@
-import { Text, Flex, Box, Caps } from 'components/elements'
+import Text from '../Text'
+import Flex from '../Flex'
+import Box from '../Box'
+import Caps from '../Caps'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { noop } from 'helpers/noop'

@@ -1,41 +1,59 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { useQueryState } from 'components/hook'
+import { useQueryState } from 'components/hook/use-query-state'
 import isUrl from 'is-url-http/lightweight'
 import { mqlCode } from 'helpers/mql-code'
-import * as Icons from 'components/icons'
+import { HourGlass } from 'components/icons/HourGlass'
+import { JavaScript } from 'components/icons/JavaScript'
+import { Jekyll } from 'components/icons/Jekyll'
+import { Vue } from 'components/icons/Vue'
+import { Hugo } from 'components/icons/Hugo'
+import { Eleventy } from 'components/icons/Eleventy'
+import { _React as ReactIcon } from 'components/icons/React'
 import { cdnUrl } from 'helpers/cdn-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import humanizeUrl from 'humanize-url'
 import { layout, theme } from 'theme'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Card,
-  Choose,
-  Container,
-  Flex,
-  Heading,
-  Input,
-  InputIcon,
-  Link,
-  Meta,
-  Subhead,
-  Text
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Card from 'components/elements/Card/Card'
+import Choose from 'components/elements/Choose'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import Input from 'components/elements/Input/Input'
+import InputIcon from 'components/elements/Input/InputIcon'
+import { Link } from 'components/elements/Link/base'
+import Meta from 'components/elements/Meta/Meta'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
 
-import {
-  ArrowLink,
-  Caption,
-  FetchProvider,
-  Layout,
-  Microlink,
-  MultiCodeEditor
-} from 'components/patterns'
+import ArrowLink from 'components/patterns/ArrowLink'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import FetchProvider from 'components/patterns/FetchProvider'
+import Layout from 'components/patterns/Layout'
+import Microlink from 'components/patterns/Microlink/Microlink'
+import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
 
 import demoLinks from '../../data/demo-links'
+
+const Icons = {
+  HourGlass,
+  JavaScript,
+  Jekyll,
+  Vue,
+  Hugo,
+  Eleventy,
+  React: ReactIcon
+}
+
+const Heading = withTitle(HeadingBase)
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 
 const INITIAL_SUGGESTION = 'youtube'
 

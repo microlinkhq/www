@@ -1,5 +1,5 @@
 import { hideScrollbar } from 'helpers/style'
-import { Flex } from 'components/elements'
+import Flex from 'components/elements/Flex'
 import styled from 'styled-components'
 
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'

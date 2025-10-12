@@ -1,22 +1,29 @@
-import { DotsBackground, Faq, Caption, Layout } from 'components/patterns'
+import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
+import Faq from 'components/patterns/Faq/Faq'
+import { withTitle } from 'helpers/hoc/with-title'
+import CaptionBase from 'components/patterns/Caption/Caption'
+import Layout from 'components/patterns/Layout'
 import { cx, colors, borders, layout, theme } from 'theme'
 import { XCircle, CheckCircle } from 'react-feather'
 import React, { createElement } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 
-import {
-  Box,
-  Button,
-  Caps,
-  Container,
-  Flex,
-  Heading,
-  Link,
-  Subhead,
-  Text
-} from 'components/elements'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import { Link } from 'components/elements/Link/base'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
 
 import fileFormats from '../../data/formats'
+
+const Heading = withTitle(HeadingBase)
+const Subhead = withTitle(SubheadBase)
+
+const Caption = withTitle(CaptionBase)
 const [{ score }, formats] = fileFormats
 
 const SPACE = {

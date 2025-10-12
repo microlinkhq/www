@@ -1,9 +1,9 @@
+import Flex from 'components/elements/Flex'
+import Box from 'components/elements/Box'
 import {
-  Flex,
-  Box,
   BackgroundSlider,
   BackgroundSliderContainer
-} from 'components/elements'
+} from 'components/elements/BackgroundSlider/BackgroundSlider'
 
 import React, { createElement } from 'react'
 import { LogoBrand } from 'components/logos'

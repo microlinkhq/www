@@ -7,20 +7,18 @@ import React from 'react'
 import IntersectionObserver from '../../elements/IntersectionObserver'
 import Healthcheck from '../Healthcheck/Healthcheck'
 
-import {
-  Choose,
-  Container,
-  Hide,
-  Caps,
-  Box,
-  Button,
-  Flex,
-  Input,
-  Text,
-  LinkSolid,
-  Link,
-  Dot
-} from 'components/elements'
+import Choose from 'components/elements/Choose'
+import Container from 'components/elements/Container'
+import Hide from 'components/elements/Hide'
+import Caps from 'components/elements/Caps'
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Flex from 'components/elements/Flex'
+import Input from 'components/elements/Input/Input'
+import Text from 'components/elements/Text'
+import { Link } from 'components/elements/Link/base'
+import { LinkSolid } from 'components/elements/Link/solid'
+import Dot from 'components/elements/Dot/Dot'
 
 const LIGHT_THEME = {
   background: 'white',
