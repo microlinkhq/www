@@ -1,6 +1,6 @@
 import Caps from '../Caps'
 import Flex from '../Flex'
-import Button from './index'
+import Button from './Button'
 import React, { useState, createElement } from 'react'
 import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'

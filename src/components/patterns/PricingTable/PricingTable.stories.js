@@ -4,7 +4,7 @@ import { Story } from 'story'
 
 import { createPricingTable } from './PricingTable'
 import Caps from '../../elements/Caps'
-import Button from '../../elements/Button'
+import Button from '../../elements/Button/Button'
 
 const Checkout = () => (
   <Button
