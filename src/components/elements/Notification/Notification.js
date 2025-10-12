@@ -26,6 +26,9 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
 
   return (
     <Wrapper
+      role='status'
+      aria-live='polite'
+      aria-atomic='true'
       aria-hidden={isHidden}
       css={theme({
         alignItems: 'center',
@@ -52,12 +55,17 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
             {children}
           </Text>
           <FeatherIcon
+            as='button'
             icon='X'
             size='16px'
+            aria-label='Close notification'
             css={theme({
               ml: 3,
               color: 'black50',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              border: 0,
+              background: 'transparent',
+              padding: 0
             })}
             onClick={() => {
               setIsHidden(true)

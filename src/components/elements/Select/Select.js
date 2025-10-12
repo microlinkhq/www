@@ -39,7 +39,6 @@ const StyledSelect = styled(Box)(
       }
     },
     _focus: {
-      outline: 'none',
       borderColor: 'black80'
     },
     _disabled: {

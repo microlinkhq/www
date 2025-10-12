@@ -11,7 +11,23 @@ const TOOLTIPS_OPTS = {
   arrow: true,
   duration: [speed.normal, speed.quickly],
   hideOnClick: false,
-  interactive: true
+  interactive: true,
+  // Enable keyboard navigation - Escape to close, focus management
+  appendTo: () => document.body,
+  // Ensure proper focus management when tooltip opens
+  onShow: instance => {
+    // Store reference to trigger element for focus restoration
+    instance._triggerElement = document.activeElement
+  },
+  onHide: instance => {
+    // Return focus to trigger element when tooltip closes
+    if (
+      instance._triggerElement &&
+      document.body.contains(instance._triggerElement)
+    ) {
+      instance._triggerElement.focus()
+    }
+  }
 }
 
 const TippyTheme = styled(Tippy)`
@@ -81,9 +97,15 @@ const Tooltip = ({
     <TippyTheme
       $top={top}
       content={content}
-      {...Object.assign(TOOLTIPS_OPTS, tooltipsOpts)}
+      role='tooltip'
+      {...Object.assign({}, TOOLTIPS_OPTS, tooltipsOpts)}
     >
-      <TippyContainer $type={type} {...props}>
+      <TippyContainer
+        $type={type}
+        tabIndex={0}
+        aria-describedby='tooltip-content'
+        {...props}
+      >
         {children}
       </TippyContainer>
     </TippyTheme>

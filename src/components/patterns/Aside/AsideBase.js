@@ -5,7 +5,7 @@ import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import { transition, borders, colors, space, theme } from 'theme'
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc/with-link'
 import { noop } from 'helpers/noop'
@@ -109,10 +109,23 @@ const Aside = ({
 }) => {
   const [tree, setTree] = useState(activeRouteName)
 
+  // Prevent body scroll when drawer is open (mobile)
+  useEffect(() => {
+    if (isOpen && CloseButton) {
+      // Only lock scroll on mobile (when CloseButton exists)
+      document.body.style.overflow = 'hidden'
+      return () => {
+        document.body.style.overflow = ''
+      }
+    }
+  }, [isOpen, CloseButton])
+
   return (
     <AsideWrapper
       as='aside'
       data-aside
+      role='navigation'
+      aria-label='Navigation menu'
       aria-hidden={!isOpen}
       css={theme({
         pt: [0, 0, 0, 5],
