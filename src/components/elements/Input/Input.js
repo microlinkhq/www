@@ -14,8 +14,8 @@ const StyledInputBase = styled(Text)(
     verticalAlign: 'middle',
     appearance: 'none',
     color: 'inherit',
-    '&:focus': {
-      outline: '0'
+    '&:focus-visible': {
+      outline: 'none'
     },
     '&:disabled': {
       opacity: 1 / 4
@@ -31,7 +31,6 @@ const StyledInputBase = styled(Text)(
 const InputBase = props => <StyledInputBase as='input' type='text' {...props} />
 
 const focusStyle = css`
-  outline: 0;
   border-color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
   svg {
     stroke: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
@@ -46,10 +45,16 @@ const InputWrapper = styled(Flex).withConfig({
   border: ${borders[1]};
   border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black10)};
   color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
-  transition: border-color ${transition.medium}, stroke ${transition.medium},
-    color ${transition.medium};
+  transition: border-color, stroke, color, box-shadow ${transition.short};
   ${props => props.focus && focusStyle}
   &:hover {
+    ${focusStyle};
+  }
+  &:focus-within {
+    ${focusStyle};
+    box-shadow: 0px 0px 0px 4px ${colors.black10};
+  }
+  &:focus-visible {
     ${focusStyle};
   }
 `

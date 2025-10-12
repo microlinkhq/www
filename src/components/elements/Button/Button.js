@@ -32,7 +32,6 @@ const StyledButton = styled(Box).withConfig({
   text-decoration: none;
   vertical-align: middle;
   white-space: nowrap;
-  outline: 0;
 
   ${({ variant }) =>
     variant === 'gradient' &&
