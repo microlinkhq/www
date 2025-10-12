@@ -20,31 +20,31 @@ const FAQs = props => (
               use. It’s the best way to start using the service.
             </div>
             <div>
-              The free plan runs under some limitation to avoid abusive usage of
-              the platform, like burst rate, limited concurrency rate and daily
-              rate limit.
+              The free plan runs under some limitations to avoid abusive usage
+              of the platform, like burst rate, limited concurrency rate and
+              daily rate limit.
             </div>
             <div>
-              The free plan should be enough for little projects or low API
+              The free plan should be enough for small projects or low API
               quota.
             </div>
           </>
         )
       },
       {
-        question: 'How different is the free plan compared with pro?',
+        question: 'How different is the free plan compared with the Pro plan?',
         answer: (
           <>
             <div>
               The pro plan is ready to be used at scale, with better performance
-              and unlocked functionalities such as{' '}
+              and unlocked features such as{' '}
               <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
               <Link href='/docs/api/parameters/ttl'>ttl</Link> or{' '}
               <Link href='/docs/api/parameters/proxy'>proxy</Link>.
             </div>
             <div>
-              A pro plan has an API key associated, with configurable quota. You
-              only pay as you need.
+              A Pro plan comes with an associated API key and configurable
+              quota. You only pay as you need.
             </div>
           </>
         )
@@ -69,22 +69,22 @@ const FAQs = props => (
               email you signed up.
             </div>
             <div>
-              The API key need to be attached to all your requests:
+              The API key needs to be attached to all your requests:
               <Box as='ul' css={theme({ pt: 3, my: 0 })}>
                 <Box as='li'>
-                  At{' '}
+                  In{' '}
                   <Link href='/docs/sdk/getting-started/overview'>
                     Microlink SDK
                   </Link>
-                  attach it as{' '}
+                  , attach it as{' '}
                   <Link href='/docs/sdk/parameters/api-key/'>apiKey</Link>.
                 </Box>
                 <Box as='li' css={theme({ pt: 3 })}>
-                  At{' '}
+                  In{' '}
                   <Link href='/docs/api/getting-started/overview'>
                     Microlink API
                   </Link>
-                  attach it as{' '}
+                  , attach it as a{' '}
                   <Link href='/docs/api/basics/authentication'>header</Link>.
                 </Box>
               </Box>
@@ -110,7 +110,7 @@ const FAQs = props => (
           <>
             <div>
               We notify you automatically when you reach 80% or more of your
-              usage plan, offering you to upgrade your plan to one more suitable
+              usage plan, offering to upgrade your plan to one more suitable
               based on your plan usage.
             </div>
           </>
@@ -122,7 +122,7 @@ const FAQs = props => (
           <>
             <div>
               You can upgrade, downgrade, or cancel your monthly account at any
-              time with no further obligation, sending an email to{' '}
+              time with no further obligation by sending an email to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
               with the email you signed up.
             </div>
@@ -130,7 +130,7 @@ const FAQs = props => (
         )
       },
       {
-        question: 'How is the payment being processed?',
+        question: 'How is the payment processed?',
         answer: (
           <>
             <div>
@@ -148,7 +148,7 @@ const FAQs = props => (
             <div>
               Yes, send an email to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
-              requesting the change. You will receive a link from where you’ll
+              requesting the change. You will receive a link where you&apos;ll
               be able to securely update your details.
             </div>
           </>
