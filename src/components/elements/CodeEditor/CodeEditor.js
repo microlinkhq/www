@@ -1,9 +1,9 @@
 import { cx, radii, theme, fontSizes, lineHeights, fonts, space } from 'theme'
 import { hideScrollbar, wordBreak } from 'helpers/style'
+import React, { useState, useEffect } from 'react'
 import { getLines } from 'helpers/get-lines'
 import { prettier } from 'helpers/prettier'
 import { template } from 'helpers/template'
-import React from 'react'
 import { highlight } from 'sugar-high'
 import styled from 'styled-components'
 import { hash } from 'helpers/hash'
@@ -189,7 +189,21 @@ const CodeEditor = ({
     getLanguage({ className, language: languageProp, title })
   )
 
-  const text = prettier(template(children), language).trim()
+  const [text, setText] = useState('')
+
+  useEffect(() => {
+    const formatCode = async () => {
+      try {
+        const formatted = await prettier(template(children), language)
+        setText(formatted.trim())
+      } catch (error) {
+        console.error('[CodeEditor] Formatting error:', error)
+        setText(template(children).trim())
+      }
+    }
+
+    formatCode()
+  }, [children, language])
 
   const highLightLinesSelector = generateHighlightLines(highlightLines)
   const firstHighlightLine = highLightLinesSelector && highLightLinesSelector[0]

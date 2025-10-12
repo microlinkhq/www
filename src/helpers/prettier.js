@@ -1,3 +1,39 @@
+// Lazy load prettier for better bundle optimization
+let prettierPromise = null
+
+const loadPrettier = () => {
+  if (!prettierPromise) {
+    prettierPromise = Promise.all([
+      import('prettier/standalone'),
+      import('prettier/parser-babel')
+    ]).then(([{ format }, babel]) => ({ format, babel }))
+  }
+  return prettierPromise
+}
+
+/**
+ * https://prettier.io/docs/en/options.html
+ */
+const PRETTIER_CONFIG = {
+  arrowParens: 'avoid',
+  jsxSingleQuote: true,
+  printWidth: 80,
+  semi: false,
+  singleQuote: true,
+  tabWidth: 2,
+  trailingComma: 'none'
+}
+
+const getJsOpts = babel => ({
+  parser: 'babel',
+  plugins: [babel]
+})
+
+const getJsonOpts = babel => ({
+  parser: 'json',
+  plugins: [babel]
+})
+
 /**
  * It turns an JS object:
  *
@@ -66,16 +102,25 @@ const formatHeaders = content => {
     .join('\n')
 }
 
-export const prettier = (code, language = 'js') => {
-  // Handle different formatting types
+export const prettier = async (code, language = 'js') => {
+  // Handle headers formatting (no prettier needed)
   if (language === 'headers') {
     return formatHeaders(code)
   }
 
-  // For now, return code as-is to avoid complexity
-  // Dynamic prettier loading will be handled by webpack code splitting
+  // For JS/JSON, use lazy-loaded prettier
   try {
-    return code
+    const { format, babel } = await loadPrettier()
+
+    let opts = PRETTIER_CONFIG
+    if (language === 'js' || language === 'jsx') {
+      opts = { ...PRETTIER_CONFIG, ...getJsOpts(babel) }
+    } else if (language === 'json') {
+      opts = { ...PRETTIER_CONFIG, ...getJsonOpts(babel) }
+    }
+
+    const formatted = format(code, opts)
+    return formatted.replace(';<', '<')
   } catch (error) {
     if (error.name !== 'SyntaxError') console.error('[prettier]', error)
     return code
