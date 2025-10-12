@@ -7,7 +7,9 @@ Default: <Type children='false'/>
 
 It enables audio source detection over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.spotify.url}}', { audio: true })} />
+<MultiCodeEditorInteractive 
+  mqlCode={mqlCode('https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT', { audio: true })} 
+/>
 
 <Figcaption children="Some websites can be different output based on User Agent." />
 

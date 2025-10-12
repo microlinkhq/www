@@ -7,7 +7,7 @@ Default: <Type children='true'/>
 
 It identifies technology behind target [url](/docs/api/parameters/url), powered by [Wappalyzer](https://www.wappalyzer.com).
 
-<MultiCodeEditor languages={mqlCode('https://microlink.io', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { 
   insights: {
     technologies: true
   }

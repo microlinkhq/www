@@ -3,9 +3,9 @@ import { cx, theme } from 'theme'
 import is from 'styled-is'
 import React from 'react'
 
-import Text from './Text'
-import Flex from './Flex'
-import Box from './Box'
+import Text from '../elements/Text'
+import Flex from '../elements/Flex'
+import Box from '../elements/Box'
 
 const getColor = ({ $active: isActive, isDark }) => {
   const id = isDark ? 'white' : 'black'

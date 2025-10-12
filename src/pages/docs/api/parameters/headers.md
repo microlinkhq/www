@@ -7,7 +7,7 @@ Type: <Type children='<object>'/>
 
 It sets any HTTP header that will be passed along over the [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://news.ycombinator.com', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://news.ycombinator.com', { 
   headers: {
     'user-agent': 'googlebot',
     'accept-language': 'en-US'

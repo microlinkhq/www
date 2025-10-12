@@ -8,7 +8,7 @@ Type: <Type children='<string>'/>
 
 The target URL for getting information based on the content.
 
-<MultiCodeEditor languages={mqlCode('https://kikobeats.com')} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://kikobeats.com')} />
 
 The URL provided need to be reachable by the service. 
 
@@ -18,19 +18,7 @@ In case you need to authenticate a URL, need to provide the authentication crede
 
 If the URL provided has query strings parameters, they should be properly escaped in order to not interfere with the rest of the Microlink API query parameters.
 
-<MultiCodeEditor languages={{
-  Shell: `microlink https%3A%2F%2Fkikobeats.com%3F%26ref%3Dmicrolink`,
-  'JavaScript': `const mql = require('@microlink/mql')
- 
-module.exports = async () => {
-  const { status, data, response } = await mql(
-    'https://kikobeats.com?ref=microlink'
-  )
-  console.log(data)
-}
-  `
-  }} 
-/>
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://kikobeats.com?ref=microlink')} />
 
 Using [MQL](/docs/mql/getting-started/overview) or [Microlink CLI](/docs/api/getting-started/cli) will escape the URL properly; Otherwise, you need to be sure to escape it, using [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) or equivalent.
 

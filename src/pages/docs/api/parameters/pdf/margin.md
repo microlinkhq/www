@@ -9,7 +9,7 @@ It sets the paper margins for the [pdf](/docs/api/parameters/pdf) over the targe
 
 <Iframe src="https://cdn.microlink.io/pdf/basecamp.pdf" />
 
-<MultiCodeEditor languages={mqlCode('https://basecamp.com/shapeup/0.3-chapter-01', { pdf: { margin: '4mm' } })} />
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://basecamp.com/shapeup/0.3-chapter-01', { pdf: { margin: '4mm' } })} />
 
 All possible units are:
 

@@ -1,58 +1,57 @@
-import { fontSizes, lineHeights, fonts, cx } from 'theme'
-import { css } from 'styled-components'
+// Function to get CSS custom properties for specific language
+export const getLanguageTheme = (language, themeKey) => {
+  const normalizedLang = language?.toLowerCase()
 
-const base = ({ background, primary, secondary }) => css`
-  margin: 0;
-  code {
-    font-family: ${fonts.mono};
-    font-size: ${fontSizes[0]};
-    line-height: ${lineHeights[2]};
-    direction: ltr;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    tab-size 2;
-    hyphens: none;
-    background ${background};
-    color: ${primary};
+  // Map language aliases to main language keys
+  const languageMap = {
+    js: 'javascript',
+    jsx: 'javascript',
+    ts: 'javascript',
+    tsx: 'javascript',
+    'node.js': 'javascript',
+    shell: 'bash',
+    sh: 'bash',
+    curl: 'bash'
   }
-  pre {
-    padding: 0px 1em 0px 0px;
-    margin: .5em 0;
-    overflow: auto;
-  };
 
-  .keyword,
-  .attr-name,
-  .arrow,
-  .punctuation,
-  .operator {
-    color: ${secondary};
-  }
-  .keyword,
-  .template-string {
-    color: ${primary};
-  }
-`
+  const mappedLang = languageMap[normalizedLang] || normalizedLang
+  return languageColors[mappedLang]?.[themeKey]
+}
 
-const theme = {
-  light: {
-    background: cx('white'),
-    primary: cx('black'),
-    secondary: cx('black50')
+// Language-specific CSS custom properties for sugar-high tokens
+const languageColors = {
+  bash: {
+    light: `
+      --sh-class: var(--gray9);
+      --sh-identifier: var(--gray9);
+      --sh-sign: var(--gray9);
+      --sh-property: var(--gray9);
+      --sh-entity: var(--gray9);
+      --sh-jsxliterals: var(--gray9);
+      --sh-string: var(--gray9);
+      --sh-keyword: var(--gray9);
+      --sh-comment: var(--gray9);
+       .sh__token--identifier:first-of-type {
+         color: var(--link) !important;
+       }
+    `,
+    dark: ''
   },
-  dark: {
-    background: cx('black'),
-    primary: cx('white'),
-    secondary: cx('white50')
+  json: {
+    light: `
+      --sh-class: var(--gray9);
+      --sh-identifier: var(--gray9);
+      --sh-sign: var(--gray);
+      --sh-property: var(--gray9);
+      --sh-entity: var(--gray9);
+      --sh-jsxliterals: var(--gray9);
+      --sh-string: var(--gray9);
+      --sh-keyword: var(--gray9);
+      --sh-comment: var(--gray9);
+    `,
+    dark: ''
   }
 }
 
-const codeTheme = {
-  theme,
-  dark: base(theme.dark),
-  light: base(theme.light)
-}
-
-export default codeTheme
+languageColors.headers = languageColors.json
+languageColors.cli = languageColors.bash

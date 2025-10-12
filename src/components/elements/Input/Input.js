@@ -60,6 +60,7 @@ const Input = ({
   suggestions,
   children,
   isDark,
+  labelCss,
   ...props
 }) => {
   const [isFocus, setFocus] = useState(Boolean(props.autoFocus))
@@ -84,7 +85,8 @@ const Input = ({
         py: '12px',
         pl: 2,
         alignItems: 'center',
-        borderRadius: 2
+        borderRadius: 2,
+        ...labelCss
       })}
     >
       {Icon && <Flex>{Icon}</Flex>}

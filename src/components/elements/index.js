@@ -10,7 +10,7 @@ import Caps from './Caps'
 import Card from './Card/Card'
 import Choose from './Choose'
 import CodeCopy from './Codecopy'
-import CodeEditor from './CodeEditor/CodeEditor'
+import CodeEditor, { Code } from './CodeEditor/CodeEditor'
 import Color from './Color/Color'
 import Confetti from './Confetti'
 import Container from './Container'
@@ -29,12 +29,10 @@ import InputIcon from './Input/InputIcon'
 import Label from './Label'
 import LineBreak from './LineBreak'
 import Meta from './Meta/Meta'
-import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
 import Notification from './Notification/Notification'
 import Placeholder from './Placeholder/Placeholder'
 import PriceMonthly from './PriceMonthly'
 import PricePicker from './PricePicker'
-import Runkit from './Runkit/Runkit'
 import Select from './Select/Select'
 import Spinner from './Spinner'
 import SubheadBase from './Subhead'
@@ -43,7 +41,6 @@ import Terminal from './Terminal/Terminal'
 import Text from './Text'
 import Toggle from './Toggle/Toggle'
 import Toolbar from './Toolbar'
-import Tooltip from './Tooltip/Tooltip'
 import Tweet from './Tweet/Tweet'
 import Unavatar from './Unavatar/Unavatar'
 import Video from './Video/Video'
@@ -67,6 +64,7 @@ export {
   Caps,
   Card,
   Choose,
+  Code,
   CodeCopy,
   CodeEditor,
   Color,
@@ -89,12 +87,10 @@ export {
   Link,
   LinkSolid,
   Meta,
-  MultiCodeEditor,
   Notification,
   Placeholder,
   PriceMonthly,
   PricePicker,
-  Runkit,
   Select,
   Spinner,
   Subhead,
@@ -103,7 +99,6 @@ export {
   Text,
   Toggle,
   Toolbar,
-  Tooltip,
   Tweet,
   Unavatar,
   Video

@@ -1,3 +1,7 @@
+- date: September 2025
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Added [markdown.microlink.io](http://markdown.microlink.io/https://example.com) alias.'
+
 - date: August 2025
   notes:
     - '[Microlink API](/docs/api/parameters/pdf): Improved [pdf](/docs/api/parameters/pdf) with [waitUntil=auto](/docs/api/parameters/waitUntil).'

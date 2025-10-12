@@ -33,8 +33,7 @@ import {
   Link,
   Meta,
   Subhead,
-  Text,
-  Tooltip
+  Text
 } from 'components/elements'
 
 import {
@@ -47,7 +46,8 @@ import {
   Features,
   FetchProvider,
   Layout,
-  List
+  List,
+  Tooltip
 } from 'components/patterns'
 
 import humanizeUrl from 'humanize-url'

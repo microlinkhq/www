@@ -83,3 +83,26 @@ prettier.jsx = prettier.js = (code, opts) =>
   prettier(code, { ...JS_OPTS, ...opts })
 
 prettier.json = (code, opts) => prettier(code, { ...JSON_OPTS, ...opts })
+
+prettier.headers = content => {
+  return content
+    .split('\n')
+    .map(line => {
+      const colonIndex = line.indexOf(':')
+      if (colonIndex === -1) return line
+
+      const key = line.substring(0, colonIndex).trim()
+      const value = line.substring(colonIndex + 1).trim()
+
+      // Find the longest key to align properly
+      const allLines = content.split('\n')
+      const maxKeyLength = Math.max(
+        ...allLines
+          .filter(l => l.includes(':'))
+          .map(l => l.substring(0, l.indexOf(':')).trim().length)
+      )
+
+      return `${key.padEnd(maxKeyLength)} : ${value}`
+    })
+    .join('\n')
+}

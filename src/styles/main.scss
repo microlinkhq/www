@@ -275,3 +275,16 @@ input::-webkit-calendar-picker-indicator {
   opacity: 0;
   width: 0;
 }
+
+
+:root {
+  --sh-class: var(--link);
+  --sh-identifier: var(--link);
+  --sh-sign: var(--gray9);
+  --sh-property: var(--link);
+  --sh-entity: var(--link);
+  --sh-jsxliterals: var(--link);
+  --sh-string: var(--gray9);
+  --sh-keyword: var(--secondary);
+  --sh-comment: var(--link);
+}

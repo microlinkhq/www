@@ -10,7 +10,6 @@ import React from 'react'
 import get from 'dlv'
 
 import {
-  Badge,
   Box,
   Button,
   CodeEditor,
@@ -19,42 +18,23 @@ import {
   Image as ImageBase,
   Label,
   Link,
-  MultiCodeEditor as MultiCodeEditorBase,
   PriceMonthly as PriceMonthlyBase,
   Terminal as TerminalBase,
   Text,
-  Tooltip,
   Tweet,
   Video as VideoBase
 } from 'components/elements'
 
+import MultiCodeEditorBase from '../patterns/MultiCodeEditor/MultiCodeEditor'
+import MultiCodeEditorInteractiveBase from '../patterns/MultiCodeEditor/MultiCodeEditorInteractive'
+
 import MicrolinkBase from '../patterns/Microlink/Microlink'
+import ProBadge from '../patterns/ProBadge/ProBadge'
 import DemoIntegrations from './DemoIntegrations'
 import Heading from '../elements/Heading'
 import { layout } from '../../theme'
 
 const { Container, CONTAINER_SPACE } = withContainer
-
-const ProBadge = ({ top, ...props }) => (
-  <Tooltip
-    css={theme({ display: 'inline', top: 0 })}
-    content={
-      <Tooltip.Content tabIndex='0'>
-        You have to buy{' '}
-        <Link
-          css={{ display: 'inline-block' }}
-          href='https://microlink.io#pricing'
-        >
-          pro
-        </Link>{' '}
-        plan to use this feature.
-      </Tooltip.Content>
-    }
-    {...props}
-  >
-    <Badge>PRO</Badge>
-  </Tooltip>
-)
 
 export { ProBadge, Tweet, Label, Link }
 
@@ -65,6 +45,10 @@ export const Terminal = withContainer(TerminalBase)
 export const Code = withContainer(CodeEditor)
 
 export const MultiCodeEditor = withContainer(MultiCodeEditorBase)
+
+export const MultiCodeEditorInteractive = withContainer(
+  MultiCodeEditorInteractiveBase
+)
 
 const StyledH1 = styled(Heading)(
   theme({
@@ -203,17 +187,17 @@ const StyledLi = styled(Text)`
 
   ${theme({
     mx: 'auto',
-    mb: 3
+    mb: 2
   })}
 `
 
 export const Li = props => <StyledLi as='li' {...props} />
 
 const codeStyle = css`
-  color: ${({ theme }) => theme.colors.pink7};
+  color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.mono};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-size: 90% !important;
+  font-weight: ${({ theme }) => theme.fontWeights.normal};
+  font-size: 0.9rem;
   text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
 `
 
@@ -298,12 +282,6 @@ const StyledType = styled(Text)`
 const Type = props => <StyledType as='span' {...props} />
 
 const TypeContainer = styled(Box)`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    color: 'gray7'
-  })}
-
   display: inline;
 `
 
@@ -365,7 +343,7 @@ const ScopedComponents = {
   Li,
   Link,
   Microlink,
-  MultiCodeEditor,
+  MultiCodeEditorInteractive,
   Ol,
   Paraph,
   PriceMonthly,

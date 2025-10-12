@@ -7,7 +7,9 @@ Default: <Type children='true'/>
 
 It allows/disallows third party sub-requests related to advertisements or trackers services over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditor languages={mqlCode('https://www.youtube.com', { adblock: true })} />
+<MultiCodeEditorInteractive 
+  mqlCode={mqlCode('https://www.youtube.com', { adblock: true })} 
+/>
 
 These third party requests aren't essential and they generally bloat the response time.
 

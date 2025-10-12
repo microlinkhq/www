@@ -9,7 +9,7 @@ It enables embedded detection over the target [url](/docs/api/parameters/url).
 
 When is present, a new `iframe` data field will be returned when is possible. Any URL that implements [oEmbed](https://oembed.com/) specification is supported.
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.youtube.url}}', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
   iframe: true
 })} />
 
@@ -37,7 +37,7 @@ If the discovery has been done successfully, the `iframe` field will be now pres
 
 Additionally, you can supply any consumer query parameter supported by [specification](https://oembed.com/), like `maxWidth` or `maxHeight`:
 
-<MultiCodeEditor languages={mqlCode('{{demolinks.youtube.url}}', { 
+<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
   iframe: {
     maxWidth: 350
   }

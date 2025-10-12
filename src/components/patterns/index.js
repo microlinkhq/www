@@ -24,6 +24,11 @@ import Healthcheck from './Healthcheck/Healthcheck'
 import Toolbar from './Toolbar/Toolbar'
 import ArrowLink from './ArrowLink'
 import Features from './Features/Features'
+import ProBadge from './ProBadge/ProBadge'
+import MultiCodeEditor from './MultiCodeEditor/MultiCodeEditor'
+import MultiCodeEditorInteractive from './MultiCodeEditor/MultiCodeEditorInteractive'
+import Tabs from './Tabs'
+import Tooltip from './Tooltip/Tooltip'
 
 const Caption = withTitle(CaptionBase)
 
@@ -50,6 +55,11 @@ export {
   Legend,
   List,
   Microlink,
+  MultiCodeEditor,
+  MultiCodeEditorInteractive,
   PricingTable,
-  Toolbar
+  ProBadge,
+  Tabs,
+  Toolbar,
+  Tooltip
 }
