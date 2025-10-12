@@ -5,7 +5,7 @@ import { theme } from 'theme'
 
 import Caps from '../Caps'
 import Choose from '../Choose'
-import Button from '../Button'
+import Button from '../Button/Button'
 import Notification from './Notification'
 import Box from '../Box'
 import Flex from '../Flex'
