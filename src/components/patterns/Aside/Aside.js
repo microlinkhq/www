@@ -96,7 +96,7 @@ const AsideMobile = ({ children, ...props }) => {
         title='open aside menu'
         iconComponent={<MenuIcon size={ICON_SIZE} onClick={toggleOpen} />}
       />
-      <Flex flexDirection='column' as='section'>
+      <Flex css={theme({ flexDirection: 'column' })} as='section'>
         {children}
       </Flex>
     </Box>
