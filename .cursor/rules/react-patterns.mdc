@@ -1,0 +1,161 @@
+---
+globs: *.js,*.jsx
+description: Guidelines for writing React components following clean code principles
+---
+
+# React Component Patterns
+
+Follow these patterns to maintain clean, readable, and maintainable React components.
+
+## Component Structure
+
+### 1. Keep Components Small and Focused
+
+Each component should do one thing well. If a component grows too large or handles multiple concerns, split it into smaller components.
+
+**Example from [Aside.js](mdc:src/components/patterns/Aside/Aside.js):**
+- `AsideMobile` - handles mobile behavior
+- `AsideDesktop` - handles desktop behavior
+- `AsideResponsive` - chooses the right variant
+- `Aside` - handles initialization logic
+
+### 2. Use Meaningful Component Names
+
+Component names should clearly describe what they do or represent. Avoid generic names like `Component1` or `Wrapper`.
+
+Good: `AsideButton`, `MenuButton`, `MultiCodeEditor`
+Bad: `Button1`, `Container2`, `Comp`
+
+### 3. Destructure Props Early
+
+Destructure props in the function signature for clarity:
+
+```javascript
+// Good
+const AsideButton = ({ title, iconComponent, ...props }) => (
+  <MenuButton aria-label={title} title={title} {...props}>
+    {iconComponent}
+  </MenuButton>
+)
+
+// Avoid
+const AsideButton = (props) => (
+  <MenuButton aria-label={props.title} title={props.title}>
+    {props.iconComponent}
+  </MenuButton>
+)
+```
+
+### 4. Use forwardRef for Reusable Components
+
+When creating reusable components that might need refs, use `forwardRef`:
+
+```javascript
+const ButtonComponent = forwardRef((props, ref) => (
+  <StyledButton as='button' ref={ref} {...props} />
+))
+
+ButtonComponent.displayName = 'Button'
+```
+
+### 5. Extract Complex Logic into Hooks
+
+If a component has complex stateful logic, extract it into a custom hook:
+
+- Hooks live in [src/components/hook/](mdc:src/components/hook/)
+- Name with `use` prefix (e.g., `useBreakpoint`, `useClipboard`)
+- See examples: [use-breakpoint.js](mdc:src/components/hook/use-breakpoint.js)
+
+### 6. Compose with Higher-Order Components
+
+Use HOCs to add cross-cutting concerns (analytics, loading states, etc.):
+
+```javascript
+// From Button.js
+const Button = withAnalytics(
+  withSpinner(
+    ButtonComponent,
+    // ... spinner config
+  )
+)
+```
+
+HOCs live in [src/helpers/hoc/](mdc:src/helpers/hoc/) with `with` prefix.
+
+### 7. Handle Side Effects Properly
+
+Use `useEffect` with proper dependencies and cleanup:
+
+```javascript
+// Good - from Aside.js
+useEffect(() => {
+  const handleKeyDown = event => {
+    if (event.key === 'Escape' && isOpen) {
+      handleClose()
+    }
+  }
+
+  if (isOpen) {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }
+}, [isOpen]) // Clear dependencies
+```
+
+### 8. Avoid Inline Functions in JSX (When Performance Matters)
+
+For performance-critical components, define event handlers outside JSX:
+
+```javascript
+// Good
+const toggleOpen = () => setOpen(!isOpen)
+
+return <MenuIcon onClick={toggleOpen} />
+
+// Acceptable for simple cases
+return <MenuIcon onClick={() => setOpen(!isOpen)} />
+```
+
+### 9. Use Semantic HTML and ARIA Attributes
+
+Ensure accessibility with proper semantic HTML and ARIA attributes:
+
+```javascript
+<MenuButton aria-label={title} title={title}>
+  {iconComponent}
+</MenuButton>
+```
+
+### 10. Export Pattern
+
+For components with variants, export both the enhanced and base versions:
+
+```javascript
+export { Button } // Enhanced with HOCs
+export default ButtonComponent // Base component
+```
+
+## State Management
+
+### Local State First
+
+Use local state (`useState`) by default. Only lift state up when needed by multiple components.
+
+### Context for Shared State
+
+For state shared across many components (theme, breakpoints), use Context:
+- See [src/context/breakpoint.js](mdc:src/context/breakpoint.js)
+
+## Constants
+
+Define constants at the top of the file or in a separate constants file:
+
+```javascript
+const ICON_SIZE = 20
+const ASIDE_WIDTH = '280px'
+```
+
+Import from constants file for shared values:
+```javascript
+import { ASIDE_WIDTH } from './constants'
+```
