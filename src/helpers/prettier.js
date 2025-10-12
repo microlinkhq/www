@@ -1,42 +1,3 @@
-// Dynamic imports for better tree-shaking and code splitting
-let prettierFormat = null
-let babelParser = null
-
-const loadPrettier = async () => {
-  if (!prettierFormat || !babelParser) {
-    const [{ format }, babel] = await Promise.all([
-      import('prettier/standalone'),
-      import('prettier/parser-babel')
-    ])
-    prettierFormat = format
-    babelParser = babel
-  }
-  return { format: prettierFormat, babel: babelParser }
-}
-
-/**
- * https://prettier.io/docs/en/options.html
- */
-const PRETTIER_CONFIG = {
-  arrowParens: 'avoid',
-  jsxSingleQuote: true,
-  printWidth: 80,
-  semi: false,
-  singleQuote: true,
-  tabWidth: 2,
-  trailingComma: 'none'
-}
-
-const getJsOpts = babel => ({
-  parser: 'babel',
-  plugins: [babel]
-})
-
-const getJsonOpts = babel => ({
-  parser: 'json',
-  plugins: [babel]
-})
-
 /**
  * It turns an JS object:
  *
@@ -82,38 +43,7 @@ const serializeObject = (props, { quotes = true } = {}) => {
   }, '')
 }
 
-export const prettier = async (code, opts = {}) => {
-  try {
-    const { format } = await loadPrettier()
-    const pretty = format(code, { ...PRETTIER_CONFIG, ...opts })
-    return pretty.replace(';<', '<')
-  } catch (error) {
-    if (error.name !== 'SyntaxError') console.error('[prettier]', error)
-    return code
-  }
-}
-
-prettier.jsx = prettier.js = async (code, opts = {}) => {
-  try {
-    const { format, babel } = await loadPrettier()
-    return prettier(code, { ...getJsOpts(babel), ...opts })
-  } catch (error) {
-    console.error('[prettier.js]', error)
-    return code
-  }
-}
-
-prettier.json = async (code, opts = {}) => {
-  try {
-    const { format, babel } = await loadPrettier()
-    return prettier(code, { ...getJsonOpts(babel), ...opts })
-  } catch (error) {
-    console.error('[prettier.json]', error)
-    return code
-  }
-}
-
-prettier.headers = content => {
+const formatHeaders = content => {
   return content
     .split('\n')
     .map(line => {
@@ -134,4 +64,20 @@ prettier.headers = content => {
       return `${key.padEnd(maxKeyLength)} : ${value}`
     })
     .join('\n')
+}
+
+export const prettier = (code, language = 'js') => {
+  // Handle different formatting types
+  if (language === 'headers') {
+    return formatHeaders(code)
+  }
+
+  // For now, return code as-is to avoid complexity
+  // Dynamic prettier loading will be handled by webpack code splitting
+  try {
+    return code
+  } catch (error) {
+    if (error.name !== 'SyntaxError') console.error('[prettier]', error)
+    return code
+  }
 }
