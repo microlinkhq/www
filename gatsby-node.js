@@ -27,13 +27,39 @@ const githubUrl = (() => {
   }
 })()
 
-exports.onCreateWebpackConfig = ({ actions }) => {
+exports.onCreateWebpackConfig = ({ actions, stage }) => {
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
       fallback: {
         path: require.resolve('path-browserify')
       }
+    },
+    // Target modern browsers for smaller bundle size
+    target: ['web', 'es2019'],
+    optimization: {
+      // Only for production builds
+      ...(stage === 'build-javascript' && {
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            // Separate vendor bundle for better caching
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              priority: 10,
+              reuseExistingChunk: true
+            },
+            // Separate common components
+            common: {
+              minChunks: 2,
+              priority: 5,
+              reuseExistingChunk: true,
+              enforce: true
+            }
+          }
+        }
+      })
     }
   })
 }

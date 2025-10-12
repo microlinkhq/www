@@ -1,10 +1,12 @@
 import { theme, space, radii, colors, shadows, speed } from 'theme'
+import React, { lazy, Suspense } from 'react'
 import styled from 'styled-components'
-import Tippy from '@tippyjs/react'
-import React from 'react'
 
 import Text from '../../elements/Text'
 import Box from '../../elements/Box'
+
+// Lazy load @tippyjs/react to reduce initial bundle
+const Tippy = lazy(() => import('@tippyjs/react'))
 
 /* https://atomiks.github.io/tippyjs/v6/all-props/ */
 const TOOLTIPS_OPTS = {
@@ -94,21 +96,23 @@ const Tooltip = ({
   ...props
 }) => {
   return (
-    <TippyTheme
-      $top={top}
-      content={content}
-      role='tooltip'
-      {...Object.assign({}, TOOLTIPS_OPTS, tooltipsOpts)}
-    >
-      <TippyContainer
-        $type={type}
-        tabIndex={0}
-        aria-describedby='tooltip-content'
-        {...props}
+    <Suspense fallback={children}>
+      <TippyTheme
+        $top={top}
+        content={content}
+        role='tooltip'
+        {...Object.assign({}, TOOLTIPS_OPTS, tooltipsOpts)}
       >
-        {children}
-      </TippyContainer>
-    </TippyTheme>
+        <TippyContainer
+          $type={type}
+          tabIndex={0}
+          aria-describedby='tooltip-content'
+          {...props}
+        >
+          {children}
+        </TippyContainer>
+      </TippyTheme>
+    </Suspense>
   )
 }
 

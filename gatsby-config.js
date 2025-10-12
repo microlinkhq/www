@@ -14,6 +14,11 @@ const {
 
 module.exports = {
   trailingSlash: 'never',
+  flags: {
+    FAST_DEV: true,
+    PRESERVE_FILE_DOWNLOAD_CACHE: true,
+    PARALLEL_SOURCING: true
+  },
   siteMetadata: {
     // Basic
     name: 'Microlink',
