@@ -1,4 +1,4 @@
-import { Star as StarIcon, AlertCircle as IssueIcon } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import Meta from 'components/elements/Meta/Meta'
 import HeadingBase from 'components/elements/Heading'
 import { Link } from 'components/elements/Link/base'
@@ -95,11 +95,11 @@ const OssPage = () => {
                         <Text css={theme({ mr: 1 })}>
                           {formatNumber(stars)}
                         </Text>
-                        <StarIcon width='16px' />
+                        <FeatherIcon icon='star' size={[0, 0, 1, 1]} />
                       </Flex>
                       <Flex css={{ alignItems: 'center' }}>
                         <Text css={theme({ mr: 1 })}>{issues}</Text>
-                        <IssueIcon width='16px' />
+                        <FeatherIcon icon='alert-circle' size={[0, 0, 1, 1]} />
                       </Flex>
                     </Flex>
                     <Text

@@ -4,8 +4,8 @@ import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { cx, colors, borders, layout, theme } from 'theme'
-import { XCircle, CheckCircle } from 'react-feather'
-import React, { createElement } from 'react'
+import FeatherIcon from 'components/icons/Feather'
+import React from 'react'
 import { issueUrl } from 'helpers/issue-url'
 
 import Box from 'components/elements/Box'
@@ -38,15 +38,22 @@ const StatusIcon = value => {
   const isOptional = value === undefined
   const condition = isOptional ? undefined : false
   const isPresent = value !== condition
-  const Icon = isPresent ? CheckCircle : isOptional ? SkipIcon : XCircle
-  const color = isPresent ? cx('close') : cx('gray')
-  return createElement(
-    props => (
+
+  if (isOptional) {
+    return (
       <Box css={theme({ pl: 2 })}>
-        <Icon {...props} />
+        <SkipIcon size={20} color={cx('gray')} />
       </Box>
-    ),
-    { size: 20, color }
+    )
+  }
+
+  const iconName = isPresent ? 'check-circle' : 'x-circle'
+  const color = isPresent ? cx('close') : cx('gray')
+
+  return (
+    <Box css={theme({ pl: 2 })}>
+      <FeatherIcon icon={iconName} color={color} size={[1, 1, 2, 2]} />
+    </Box>
   )
 }
 

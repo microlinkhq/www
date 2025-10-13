@@ -1,4 +1,4 @@
-import React, { createElement, lazy, Suspense } from 'react'
+import React, { lazy, Suspense } from 'react'
 import Flex from 'components/elements/Flex'
 import { fontSizes, cx, theme } from 'theme'
 
@@ -8,16 +8,23 @@ const getWidth = size => {
 }
 
 const FeatherIcon = ({ color, icon, size = [1, 1, 2, 2], ...props }) => {
-  // Create a lazy component for this specific icon
-  const LazyIcon = lazy(async () => {
-    const FeatherIcons = await import('react-feather')
-    return {
-      default: () =>
-        createElement(FeatherIcons[icon], {
-          color: color ? cx(color) : undefined
-        })
-    }
-  })
+  // Ensure icon name is lowercase and kebab-case for filename
+  const iconFileName = icon.toLowerCase()
+
+  // Lazy load only the specific icon we need
+  const LazyIcon = lazy(() =>
+    import(`react-feather/dist/icons/${iconFileName}.js`).catch(() => {
+      // Fallback: if individual icon fails, load from main bundle
+      console.warn(`[FeatherIcon] Fallback to main bundle for icon: ${icon}`)
+      // Convert to PascalCase for main bundle access
+      const pascalCaseIcon =
+        icon.charAt(0).toUpperCase() +
+        icon.slice(1).replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
+      return import('react-feather').then(module => ({
+        default: module[pascalCaseIcon]
+      }))
+    })
+  )
 
   return (
     <Flex
@@ -30,7 +37,7 @@ const FeatherIcon = ({ color, icon, size = [1, 1, 2, 2], ...props }) => {
       {...props}
     >
       <Suspense fallback={null}>
-        <LazyIcon />
+        <LazyIcon color={color ? cx(color) : undefined} />
       </Suspense>
     </Flex>
   )

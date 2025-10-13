@@ -56,7 +56,7 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
           </Text>
           <FeatherIcon
             as='button'
-            icon='X'
+            icon='x'
             size='16px'
             aria-label='Close notification'
             css={theme({

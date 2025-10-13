@@ -1,5 +1,5 @@
 import React, { createElement, useEffect, useState } from 'react'
-import { Menu as MenuIcon, X as CloseIcon } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import { useBreakpoint } from 'context/breakpoint'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -8,8 +8,6 @@ import { shadows, theme } from 'theme'
 
 import AsideBase from './AsideBase'
 import { ASIDE_WIDTH } from './constants'
-
-const ICON_SIZE = 20
 
 const MenuButton = styled('button')`
   cursor: pointer;
@@ -85,7 +83,14 @@ const AsideMobile = ({ children, ...props }) => {
         CloseButton={
           <AsideButton
             title='close aside menu'
-            iconComponent={<CloseIcon size={ICON_SIZE} onClick={handleClose} />}
+            iconComponent={
+              <FeatherIcon
+                icon='x'
+                size={[1, 1, 2, 2]}
+                onClick={handleClose}
+                css={{ cursor: 'pointer' }}
+              />
+            }
           />
         }
         isOpen={isOpen}
@@ -94,7 +99,14 @@ const AsideMobile = ({ children, ...props }) => {
       />
       <AsideButton
         title='open aside menu'
-        iconComponent={<MenuIcon size={ICON_SIZE} onClick={toggleOpen} />}
+        iconComponent={
+          <FeatherIcon
+            icon='menu'
+            size={[1, 1, 2, 2]}
+            onClick={toggleOpen}
+            css={{ cursor: 'pointer' }}
+          />
+        }
       />
       <Flex css={theme({ flexDirection: 'column' })} as='section'>
         {children}

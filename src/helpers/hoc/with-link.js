@@ -1,6 +1,6 @@
 /* global IntersectionObserver */
 
-import { ArrowUpRight as ExternalIcon } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import React, { useRef, useState, useEffect } from 'react'
 import { useLocation } from '@gatsbyjs/reach-router'
 import { toRaw, transition, colors } from 'theme'
@@ -56,7 +56,7 @@ const Icon = ({ children }) => {
   return (
     <Flex css={linkIconWrapper}>
       {children}
-      <ExternalIcon ref={ref} size={size} />
+      <FeatherIcon icon='arrow-up-right' ref={ref} size={size} />
     </Flex>
   )
 }

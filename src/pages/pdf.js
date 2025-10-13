@@ -1,4 +1,4 @@
-import { Minimize as MinimizeIcon, Book as BookIcon } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import { borders, breakpoints, layout, colors, theme } from 'theme'
 import React, { useMemo, useState } from 'react'
 import isUrl from 'is-url-http/lightweight'
@@ -208,7 +208,11 @@ const LiveDemo = React.memo(function LiveDemo ({
               value={inputMargin}
               onChange={event => setinputMargin(event.target.value)}
               iconComponent={
-                <MinimizeIcon color={colors.black50} width='16px' />
+                <FeatherIcon
+                  icon='minimize'
+                  color='black50'
+                  size={[0, 0, 1, 1]}
+                />
               }
               suggestions={[
                 { value: '0' },
@@ -229,7 +233,9 @@ const LiveDemo = React.memo(function LiveDemo ({
               })}
               value={inputFormat}
               onChange={event => setinputFormat(event.target.value)}
-              iconComponent={<BookIcon color={colors.black50} width='16px' />}
+              iconComponent={
+                <FeatherIcon icon='book' color='black50' size={[0, 0, 1, 1]} />
+              }
               suggestions={[
                 { value: 'Letter' },
                 { value: 'Legal' },
