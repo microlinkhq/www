@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
 
-import prettier, { serializeFmt } from '../../src/helpers/prettier'
+import { prettier, serializeFmt } from '../../src/helpers/prettier'
 
 test('js', async () => {
   const code = `const mql = require('@microlink/mql')

@@ -5,8 +5,11 @@ const loadPrettier = () => {
   if (!prettierPromise) {
     prettierPromise = Promise.all([
       import('prettier/standalone'),
-      import('prettier/parser-babel')
-    ]).then(([{ format }, babel]) => ({ format, babel }))
+      import('prettier/plugins/babel')
+    ]).then(([prettier, babel]) => ({
+      format: prettier.format,
+      babel: babel.default
+    }))
   }
   return prettierPromise
 }
