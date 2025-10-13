@@ -1,6 +1,7 @@
 import Unavatar from '../Unavatar/Unavatar'
 import FeatherIcon from '../../icons/Feather'
 import React, { createElement } from 'react'
+import { theme } from 'theme'
 
 const InputIcon = React.memo(function InputIcon ({
   height = '24px',
@@ -20,7 +21,7 @@ const InputIcon = React.memo(function InputIcon ({
       icon='link'
       color='black50'
       size={[0, 0, 1, 1]}
-      css={{ width: '16px', height: '16px' }}
+      css={theme({ width: '16px', height: '16px' })}
     />
   )
 })

@@ -3,8 +3,8 @@
 import FeatherIcon from 'components/icons/Feather'
 import React, { useRef, useState, useEffect } from 'react'
 import { useLocation } from '@gatsbyjs/reach-router'
-import { toRaw, transition, colors } from 'theme'
 import styled, { css } from 'styled-components'
+import { transition, colors } from 'theme'
 import { Link as GatsbyLink } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
@@ -44,19 +44,12 @@ const linkIconWrapper = css`
 `
 
 const Icon = ({ children }) => {
-  const [size, setSize] = useState(12)
   const ref = useRef(null)
-
-  useEffect(() => {
-    const computedStyle = window.getComputedStyle(ref.current)
-    const size = toRaw(computedStyle['font-size']) * 0.8
-    setSize(size)
-  }, [])
 
   return (
     <Flex css={linkIconWrapper}>
       {children}
-      <FeatherIcon icon='arrow-up-right' ref={ref} size={size} />
+      <FeatherIcon icon='arrow-up-right' ref={ref} size={[0, 0, 1, 1]} />
     </Flex>
   )
 }

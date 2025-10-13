@@ -193,15 +193,9 @@ const CodeEditor = ({
 
   useEffect(() => {
     const formatCode = async () => {
-      try {
-        const formatted = await prettier(template(children), language)
-        setText(formatted.trim())
-      } catch (error) {
-        console.error('[CodeEditor] Formatting error:', error)
-        setText(template(children).trim())
-      }
+      const formatted = await prettier(template(children), language)
+      setText(formatted.trim())
     }
-
     formatCode()
   }, [children, language])
 
