@@ -1,10 +1,10 @@
 /* global IntersectionObserver */
 
 import React, { useRef, useState, useLayoutEffect, useEffect } from 'react'
-import FeatherIcon from 'components/icons/Feather'
+import { toRaw, transition, colors, toPx } from 'theme'
 import { useLocation } from '@gatsbyjs/reach-router'
+import FeatherIcon from 'components/icons/Feather'
 import styled, { css } from 'styled-components'
-import { toRaw, transition, colors } from 'theme'
 import { Link as GatsbyLink } from 'gatsby'
 
 import Flex from '../../components/elements/Flex'
@@ -58,7 +58,7 @@ const Icon = ({ children }) => {
   return (
     <Flex ref={ref} css={linkIconWrapper}>
       {children}
-      <FeatherIcon icon='arrow-up-right' size={size} />
+      <FeatherIcon icon='arrow-up-right' size={toPx(size)} />
     </Flex>
   )
 }

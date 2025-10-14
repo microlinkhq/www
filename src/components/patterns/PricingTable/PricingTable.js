@@ -110,7 +110,7 @@ const Check = ({ children, ...props }) => (
     <Flex css={theme({ alignItems: 'center' })}>
       <FeatherIcon
         css={theme({ display: 'inline-flex', pr: 2 })}
-        icon='Check'
+        icon='check'
       />
       <Text as='span'>{children}</Text>
     </Flex>

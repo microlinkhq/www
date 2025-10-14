@@ -80,21 +80,21 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
 
 const NotificationSuccess = props =>
   createElement(Notification, {
-    icon: 'CheckCircle',
+    icon: 'check-circle',
     iconColor: 'close',
     ...props
   })
 
 const NotificationError = props =>
   createElement(Notification, {
-    icon: 'XCircle',
+    icon: 'x-circle',
     iconColor: 'fullscreen',
     ...props
   })
 
 const NotificationWarning = props =>
   createElement(Notification, {
-    icon: 'AlertTriangle',
+    icon: 'alert-triangle',
     iconColor: 'minimize',
     ...props
   })
