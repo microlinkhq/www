@@ -6,7 +6,7 @@ import React from 'react'
 
 const ArrowLink = ({ children, ...props }) => {
   const [ref, isHover] = useHover()
-  const icon = isHover ? 'ArrowRight' : 'ChevronRight'
+  const icon = isHover ? 'arrow-right' : 'chevron-right'
 
   return (
     <Flex ref={ref}>

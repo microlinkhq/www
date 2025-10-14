@@ -33,7 +33,7 @@ const FlexLink = styled(Flex)`
 
 const GridLink = ({ children, setColor, color, ...props }) => {
   const [ref, isHover] = useHover()
-  const icon = isHover ? 'ArrowRight' : 'ArrowUpRight'
+  const icon = isHover ? 'arrow-right' : 'arrow-up-right'
 
   return (
     <FlexLink

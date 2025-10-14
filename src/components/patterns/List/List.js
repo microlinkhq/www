@@ -22,7 +22,7 @@ const ListItem = ({ type = 'yes', ...props }) => {
         as='span'
       >
         <FeatherIcon
-          icon={isYes ? 'CheckCircle' : 'XCircle'}
+          icon={isYes ? 'check-circle' : 'x-circle'}
           color={isYes ? 'close' : 'gray'}
         />
       </Flex>
