@@ -1,8 +1,7 @@
 ---
-globs: *.js,*.jsx
 description: Guidelines for styled-components and styling patterns
+alwaysApply: false
 ---
-
 # Styling Conventions
 
 This project uses `styled-components` with `styled-system` for theming. Follow these patterns for consistency.
