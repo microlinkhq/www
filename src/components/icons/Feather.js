@@ -4,7 +4,7 @@ import { fontSizes, cx, theme } from 'theme'
 
 const getWidth = size => {
   if (Array.isArray(size)) return size.map(index => fontSizes[index])
-  return fontSizes[size]
+  return fontSizes[size] || size
 }
 
 const FeatherIcon = ({ color, icon, size = [1, 1, 2, 2], ...props }) => {
