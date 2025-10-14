@@ -986,7 +986,7 @@ function MultiCodeEditorInteractive ({
         }}
       >
         <FeatherIcon
-          icon='Key'
+          icon='key'
           color={showApiKeyInput ? colors.black : colors.black20}
           size={[1, 1, 1, 1]}
           aria-hidden='true'
@@ -1020,7 +1020,7 @@ function MultiCodeEditorInteractive ({
         }}
       >
         <FeatherIcon
-          icon='Globe'
+          icon='globe'
           color={colors.black20}
           size={[1, 1, 1, 1]}
           aria-hidden='true'
