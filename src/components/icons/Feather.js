@@ -8,7 +8,13 @@ const getWidth = size => {
   return fontSizes[size] || size
 }
 
-const FeatherIcon = ({ color, icon, size = [1, 1, 2, 2], ...props }) => {
+const FeatherIcon = ({
+  color,
+  icon,
+  size = [1, 1, 2, 2],
+  animations = true,
+  ...props
+}) => {
   const LazyIcon = useMemo(
     () => lazy(() => import(`react-feather/dist/icons/${icon}.js`)),
     [icon]
@@ -17,11 +23,10 @@ const FeatherIcon = ({ color, icon, size = [1, 1, 2, 2], ...props }) => {
   const AnimatedLazyIcon = useMemo(() => animated(LazyIcon), [LazyIcon])
 
   const styles = useSpring({
+    opacity: 1,
     from: { opacity: 0 },
-    to: { opacity: 1 },
     config: { duration: speed.quickly },
-    reset: true,
-    key: icon
+    immediate: !animations
   })
 
   return (
@@ -35,10 +40,14 @@ const FeatherIcon = ({ color, icon, size = [1, 1, 2, 2], ...props }) => {
       {...props}
     >
       <Suspense fallback={null}>
-        <AnimatedLazyIcon
-          style={{ ...styles, willChange: 'opacity' }}
-          color={color ? cx(color) : undefined}
-        />
+        {animations ? (
+          <AnimatedLazyIcon
+            style={{ ...styles, willChange: 'opacity' }}
+            color={color ? cx(color) : undefined}
+          />
+        ) : (
+          <LazyIcon color={color ? cx(color) : undefined} />
+        )}
       </Suspense>
     </Flex>
   )

@@ -26,9 +26,9 @@ import {
   transition
 } from 'theme'
 
+import { useLocalStorage } from 'components/hook/use-local-storage'
 import React, { useState, useRef, useCallback } from 'react'
 import FeatherIcon from 'components/icons/Feather'
-import { useLocalStorage } from 'components/hook/use-local-storage'
 import ProBadge from '../ProBadge/ProBadge'
 import { highlight } from 'sugar-high'
 import styled from 'styled-components'
@@ -120,7 +120,7 @@ function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
       {view}
       {isActive && (
         <FeatherIcon
-          icon={isExpanded ? 'ChevronUp' : 'ChevronDown'}
+          icon={isExpanded ? 'chevron-up' : 'chevron-down'}
           color='black'
           size={[0, 0, 0, 0]}
           aria-hidden='true'
@@ -233,7 +233,7 @@ PlayIcon.displayName = 'PlayIcon'
 
 const Toolbar = React.memo(
   ({
-    language,
+    currentLanguage,
     onLanguageChange,
     onExecute,
     isLoading,
@@ -251,7 +251,7 @@ const Toolbar = React.memo(
       aria-label='Code editor actions'
     >
       <Select
-        value={language}
+        value={currentLanguage}
         onChange={onLanguageChange}
         aria-label='Select programming language'
         style={{
@@ -288,19 +288,17 @@ const Toolbar = React.memo(
           if (!isLoading) e.target.style.opacity = '1'
         }}
       >
-        {isLoading
-          ? (
-            <Spinner
-              width='12px'
-              height='16px'
-              color={colors.white}
-              style={{ padding: '0' }}
-              aria-label='Loading'
-            />
-            )
-          : (
-            <PlayIcon />
-            )}
+        {isLoading ? (
+          <Spinner
+            width='12px'
+            height='16px'
+            color={colors.white}
+            style={{ padding: '0' }}
+            aria-label='Loading'
+          />
+        ) : (
+          <PlayIcon />
+        )}
       </Button>
       <span id='execute-button-help' style={{ display: 'none' }}>
         Click to run the code and see the API response
@@ -638,53 +636,51 @@ const ContentArea = React.memo(
               aria-labelledby={`view-button-${activeView}`}
               aria-label='Response headers'
             >
-              {!responseData
-                ? (
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '100%',
-                      color: colors.black50,
-                      fontStyle: 'italic',
-                      padding: '2rem'
-                    }}
-                  >
-                    No response headers available. Execute a request to see the
-                    headers.
-                  </div>
-                  )
-                : (
-                  <div role='table' aria-label='HTTP response headers'>
-                    {(() => {
-                      const headers = responseData?.headers || {}
-                      const maxKeyLength = Math.max(
-                        ...Object.keys(headers).map(key => key.length)
-                      )
-                      const sortedHeaders = Object.entries(headers).sort(
-                        ([a], [b]) => a.localeCompare(b)
-                      )
-                      return sortedHeaders.map(([key, value], index) => (
-                        <Box
-                          key={key}
-                          css={theme({ mb: index > 0 ? 1 : 0 })}
-                          role='row'
-                        >
-                          <span role='cell' aria-label={`Header name: ${key}`}>
-                            {key.padEnd(maxKeyLength, ' ')}
-                          </span>
-                          <span role='cell' aria-hidden='true'>
-                            :
-                          </span>
-                          <span role='cell' aria-label={`Header value: ${value}`}>
-                            {value}
-                          </span>
-                        </Box>
-                      ))
-                    })()}
-                  </div>
-                  )}
+              {!responseData ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    color: colors.black50,
+                    fontStyle: 'italic',
+                    padding: '2rem'
+                  }}
+                >
+                  No response headers available. Execute a request to see the
+                  headers.
+                </div>
+              ) : (
+                <div role='table' aria-label='HTTP response headers'>
+                  {(() => {
+                    const headers = responseData?.headers || {}
+                    const maxKeyLength = Math.max(
+                      ...Object.keys(headers).map(key => key.length)
+                    )
+                    const sortedHeaders = Object.entries(headers).sort(
+                      ([a], [b]) => a.localeCompare(b)
+                    )
+                    return sortedHeaders.map(([key, value], index) => (
+                      <Box
+                        key={key}
+                        css={theme({ mb: index > 0 ? 1 : 0 })}
+                        role='row'
+                      >
+                        <span role='cell' aria-label={`Header name: ${key}`}>
+                          {key.padEnd(maxKeyLength, ' ')}
+                        </span>
+                        <span role='cell' aria-hidden='true'>
+                          :
+                        </span>
+                        <span role='cell' aria-label={`Header value: ${value}`}>
+                          {value}
+                        </span>
+                      </Box>
+                    ))
+                  })()}
+                </div>
+              )}
             </TerminalText>
           )}
         />
@@ -695,20 +691,129 @@ const ContentArea = React.memo(
 
 ContentArea.displayName = 'ContentArea'
 
+const TerminalActions = React.memo(
+  ({
+    showApiKeyInput,
+    setShowApiKeyInput,
+    setActiveView,
+    handleOpenInBrowser,
+    getCurrentViewText
+  }) => (
+    <div
+      role='group'
+      aria-label='Terminal actions'
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem'
+      }}
+    >
+      <button
+        onClick={() => setShowApiKeyInput(!showApiKeyInput)}
+        title={showApiKeyInput ? 'Hide API key input' : 'Show API key input'}
+        aria-label={
+          showApiKeyInput ? 'Hide API key input' : 'Show API key input'
+        }
+        style={{
+          padding: 0,
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          position: 'relative',
+          top: '-1px'
+        }}
+        onMouseEnter={e => {
+          const icon = e.currentTarget.querySelector('svg')
+          if (icon) icon.style.stroke = colors.black
+        }}
+        onMouseLeave={e => {
+          const icon = e.currentTarget.querySelector('svg')
+          if (icon) {
+            icon.style.stroke = showApiKeyInput ? colors.black : colors.black20
+          }
+        }}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            const newShowApiKeyInput = !showApiKeyInput
+            setShowApiKeyInput(newShowApiKeyInput)
+            if (newShowApiKeyInput) {
+              setActiveView('body')
+            } else {
+              setActiveView('code')
+            }
+          }
+        }}
+      >
+        <FeatherIcon
+          icon='key'
+          color={showApiKeyInput ? colors.black : colors.black20}
+          size={[1, 1, 1, 1]}
+          animations={false}
+          aria-hidden='true'
+        />
+      </button>
+      <button
+        onClick={handleOpenInBrowser}
+        title='Open API request in browser'
+        aria-label='Open API request in browser'
+        style={{
+          padding: 0,
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          position: 'relative',
+          top: '-1px'
+        }}
+        onMouseEnter={e => {
+          const icon = e.currentTarget.querySelector('svg')
+          if (icon) icon.style.stroke = colors.black
+        }}
+        onMouseLeave={e => {
+          const icon = e.currentTarget.querySelector('svg')
+          if (icon) icon.style.stroke = colors.black20
+        }}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            handleOpenInBrowser()
+          }
+        }}
+      >
+        <FeatherIcon
+          icon='globe'
+          color={colors.black20}
+          size={[1, 1, 1, 1]}
+          animations={false}
+          aria-hidden='true'
+        />
+      </button>
+      <CodeCopy text={getCurrentViewText()} />
+    </div>
+  )
+)
+
+TerminalActions.displayName = 'TerminalActions'
+
 function MultiCodeEditorInteractive ({
   mqlCode: codeSnippets,
   height = 180,
   editable = false
 }) {
+  const [languageIndex, setLanguageIndex] = useLocalStorage(
+    'multi_code_editor_index',
+    2
+  )
+
   const availableLanguages = Object.keys(codeSnippets)
-  const [language, setLanguage] = useState('JavaScript')
+  const [language, setLanguage] = useState(availableLanguages[languageIndex])
 
   // Ensure saved language is available, fallback to first available language
-  const validLanguage = availableLanguages.includes(language)
+  const currentLanguage = availableLanguages.includes(language)
     ? language
     : availableLanguages[0]
 
-  const [code, setCode] = useState(codeSnippets[validLanguage])
+  const [code, setCode] = useState(codeSnippets[currentLanguage])
   const [responseData, setResponseData] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [activeView, setActiveView] = useState('code')
@@ -737,6 +842,7 @@ function MultiCodeEditorInteractive ({
         e.detail?.newValue &&
         availableLanguages.includes(e.detail.newValue)
       ) {
+        setLanguageIndex(availableLanguages.indexOf(e.detail.newValue))
         setLanguage(e.detail.newValue)
         setCode(codeSnippets[e.detail.newValue])
         setActiveView('code')
@@ -878,7 +984,7 @@ function MultiCodeEditorInteractive ({
     [activeView, isExpanded]
   )
 
-  const handleOpenInBrowser = () => {
+  const handleOpenInBrowser = useCallback(() => {
     const [url, options] = parseCodeParameters()
     const queryParams = new URLSearchParams()
     queryParams.set('url', url)
@@ -892,7 +998,7 @@ function MultiCodeEditorInteractive ({
     })
     const apiUrl = `https://api.microlink.io?${queryParams.toString()}`
     window.open(apiUrl, '_blank')
-  }
+  }, [parseCodeParameters])
 
   const handleLanguageChange = useCallback(
     e => {
@@ -911,7 +1017,7 @@ function MultiCodeEditorInteractive ({
     [codeSnippets]
   )
 
-  const getCurrentViewText = () => {
+  const getCurrentViewText = useCallback(() => {
     if (activeView === 'code') {
       return code
     } else if (activeView === 'body') {
@@ -936,98 +1042,19 @@ function MultiCodeEditorInteractive ({
         .join('\n')
     }
     return ''
-  }
+  }, [activeView, code, responseData])
 
-  const TerminalActions = ({ setActiveView }) => (
-    <div
-      role='group'
-      aria-label='Terminal actions'
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem'
-      }}
-    >
-      <button
-        onClick={() => setShowApiKeyInput(!showApiKeyInput)}
-        title={showApiKeyInput ? 'Hide API key input' : 'Show API key input'}
-        aria-label={
-          showApiKeyInput ? 'Hide API key input' : 'Show API key input'
-        }
-        style={{
-          padding: 0,
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          position: 'relative',
-          top: '-1px'
-        }}
-        onMouseEnter={e => {
-          const icon = e.currentTarget.querySelector('svg')
-          if (icon) icon.style.stroke = colors.black
-        }}
-        onMouseLeave={e => {
-          const icon = e.currentTarget.querySelector('svg')
-          if (icon) {
-            icon.style.stroke = showApiKeyInput ? colors.black : colors.black20
-          }
-        }}
-        onKeyDown={e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            const newShowApiKeyInput = !showApiKeyInput
-            setShowApiKeyInput(newShowApiKeyInput)
-            if (newShowApiKeyInput) {
-              setActiveView('body')
-            } else {
-              setActiveView('code')
-            }
-          }
-        }}
-      >
-        <FeatherIcon
-          icon='key'
-          color={showApiKeyInput ? colors.black : colors.black20}
-          size={[1, 1, 1, 1]}
-          aria-hidden='true'
-        />
-      </button>
-      <button
-        onClick={handleOpenInBrowser}
-        title='Open API request in browser'
-        aria-label='Open API request in browser'
-        style={{
-          padding: 0,
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          position: 'relative',
-          top: '-1px'
-        }}
-        onMouseEnter={e => {
-          const icon = e.currentTarget.querySelector('svg')
-          if (icon) icon.style.stroke = colors.black
-        }}
-        onMouseLeave={e => {
-          const icon = e.currentTarget.querySelector('svg')
-          if (icon) icon.style.stroke = colors.black20
-        }}
-        onKeyDown={e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            handleOpenInBrowser()
-          }
-        }}
-      >
-        <FeatherIcon
-          icon='globe'
-          color={colors.black20}
-          size={[1, 1, 1, 1]}
-          aria-hidden='true'
-        />
-      </button>
-      <CodeCopy text={getCurrentViewText()} />
-    </div>
+  const MemoizedActionComponent = useCallback(
+    () => (
+      <TerminalActions
+        showApiKeyInput={showApiKeyInput}
+        setShowApiKeyInput={setShowApiKeyInput}
+        setActiveView={setActiveView}
+        handleOpenInBrowser={handleOpenInBrowser}
+        getCurrentViewText={getCurrentViewText}
+      />
+    ),
+    [showApiKeyInput, handleOpenInBrowser, getCurrentViewText]
   )
 
   const componentHeight = isExpanded ? `${height * 2}px` : `${height}px`
@@ -1072,9 +1099,7 @@ function MultiCodeEditorInteractive ({
       <main>
         <Terminal
           text={getCurrentViewText()}
-          ActionComponent={() => (
-            <TerminalActions setActiveView={setActiveView} />
-          )}
+          ActionComponent={MemoizedActionComponent}
           css={theme({ width: TERMINAL_WIDTH })}
           style={{ position: 'relative' }}
           role='application'
@@ -1118,7 +1143,7 @@ function MultiCodeEditorInteractive ({
           </div>
 
           <Toolbar
-            currentLanguage={validLanguage}
+            currentLanguage={currentLanguage}
             onLanguageChange={handleLanguageChange}
             onExecute={executeRequest}
             isLoading={isLoading}
