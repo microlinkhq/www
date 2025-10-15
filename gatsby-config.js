@@ -15,10 +15,10 @@ const {
 module.exports = {
   trailingSlash: 'never',
   flags: {
+    DEV_SSR: true, // better 1:1 production behavior
     FAST_DEV: true,
-    PRESERVE_FILE_DOWNLOAD_CACHE: true,
     PARALLEL_SOURCING: true,
-    DEV_SSR: false
+    PRESERVE_FILE_DOWNLOAD_CACHE: true
   },
   siteMetadata: {
     // Basic
