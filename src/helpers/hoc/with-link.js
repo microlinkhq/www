@@ -6,6 +6,7 @@ import { useLocation } from '@gatsbyjs/reach-router'
 import FeatherIcon from 'components/icons/Feather'
 import styled, { css } from 'styled-components'
 import { Link as GatsbyLink } from 'gatsby'
+import { ArrowUpRight } from 'react-feather'
 
 import Flex from '../../components/elements/Flex'
 
@@ -58,7 +59,7 @@ const Icon = ({ children }) => {
   return (
     <Flex ref={ref} css={linkIconWrapper}>
       {children}
-      <FeatherIcon icon='arrow-up-right' size={toPx(size)} />
+      <FeatherIcon icon={ArrowUpRight} size={toPx(size)} />
     </Flex>
   )
 }

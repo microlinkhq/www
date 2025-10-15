@@ -14,7 +14,7 @@ import Input from 'components/elements/Input/Input'
 import Select from 'components/elements/Select/Select'
 import Spinner from 'components/elements/Spinner'
 import Text from 'components/elements/Text'
-
+import { ChevronUp, ChevronDown, Key, Globe } from 'react-feather'
 import {
   colors,
   fonts,
@@ -120,7 +120,7 @@ function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
       {view}
       {isActive && (
         <FeatherIcon
-          icon={isExpanded ? 'chevron-up' : 'chevron-down'}
+          icon={isExpanded ? ChevronUp : ChevronDown}
           color='black'
           size={[0, 0, 0, 0]}
           aria-hidden='true'
@@ -746,7 +746,7 @@ const TerminalActions = React.memo(
         }}
       >
         <FeatherIcon
-          icon='key'
+          icon={Key}
           color={showApiKeyInput ? colors.black : colors.black20}
           size={[1, 1, 1, 1]}
           animations={false}
@@ -781,7 +781,7 @@ const TerminalActions = React.memo(
         }}
       >
         <FeatherIcon
-          icon='globe'
+          icon={Globe}
           color={colors.black20}
           size={[1, 1, 1, 1]}
           animations={false}

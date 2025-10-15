@@ -5,6 +5,7 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { cx, colors, borders, layout, theme } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
+import { XCircle, CheckCircle } from 'react-feather'
 import React from 'react'
 import { issueUrl } from 'helpers/issue-url'
 
@@ -47,7 +48,7 @@ const StatusIcon = value => {
     )
   }
 
-  const iconName = isPresent ? 'check-circle' : 'x-circle'
+  const iconName = isPresent ? CheckCircle : XCircle
   const color = isPresent ? cx('close') : cx('gray')
 
   return (
@@ -254,7 +255,8 @@ const FormatsPage = () => (
           <Box css={theme({ p: [4, 4, 0, 0] })}>
             <Button
               onClick={() =>
-                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
+                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
+              }
             >
               <Caps>Request a format</Caps>
             </Button>

@@ -1,3 +1,4 @@
+import { CheckCircle, XCircle } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -22,7 +23,7 @@ const ListItem = ({ type = 'yes', ...props }) => {
         as='span'
       >
         <FeatherIcon
-          icon={isYes ? 'check-circle' : 'x-circle'}
+          icon={isYes ? CheckCircle : XCircle}
           color={isYes ? 'close' : 'gray'}
         />
       </Flex>

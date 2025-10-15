@@ -1,4 +1,5 @@
 import { hideNotification, showNotification } from 'components/keyframes'
+import { CheckCircle, X, AlertTriangle } from 'react-feather' // TODO: XCircle is probably X
 import React, { createElement, useState } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { theme, transition } from 'theme'
@@ -56,7 +57,7 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
           </Text>
           <FeatherIcon
             as='button'
-            icon='x'
+            icon={X}
             size='16px'
             aria-label='Close notification'
             css={theme({
@@ -80,21 +81,21 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
 
 const NotificationSuccess = props =>
   createElement(Notification, {
-    icon: 'check-circle',
+    icon: CheckCircle,
     iconColor: 'close',
     ...props
   })
 
 const NotificationError = props =>
   createElement(Notification, {
-    icon: 'x-circle',
+    icon: X,
     iconColor: 'fullscreen',
     ...props
   })
 
 const NotificationWarning = props =>
   createElement(Notification, {
-    icon: 'alert-triangle',
+    icon: AlertTriangle,
     iconColor: 'minimize',
     ...props
   })

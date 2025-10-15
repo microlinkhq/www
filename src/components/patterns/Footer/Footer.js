@@ -19,6 +19,7 @@ import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link/base'
 import { LinkSolid } from 'components/elements/Link/solid'
 import Dot from 'components/elements/Dot/Dot'
+import { Mail } from 'react-feather'
 
 const LIGHT_THEME = {
   background: 'white',
@@ -157,7 +158,7 @@ const Footer = ({ isDark, ...props }) => {
                       placeholder='you@domain.com'
                       iconComponent={
                         <FeatherIcon
-                          icon='mail'
+                          icon={Mail}
                           color={inputIconColor}
                           size={[0, 0, 1, 1]}
                         />

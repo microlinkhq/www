@@ -1,7 +1,6 @@
-import React, { lazy, Suspense, useMemo } from 'react'
-import { useSpring, animated } from '@react-spring/web'
 import Flex from 'components/elements/Flex'
-import { fontSizes, cx, theme, speed } from 'theme'
+import { fontSizes, cx, theme } from 'theme'
+import React, { createElement } from 'react'
 
 const getWidth = size => {
   if (Array.isArray(size)) return size.map(index => fontSizes[index])
@@ -10,25 +9,11 @@ const getWidth = size => {
 
 const FeatherIcon = ({
   color,
-  icon,
+  icon: Icon,
   size = [1, 1, 2, 2],
   animations = true,
   ...props
 }) => {
-  const LazyIcon = useMemo(
-    () => lazy(() => import(`react-feather/dist/icons/${icon}.js`)),
-    [icon]
-  )
-
-  const AnimatedLazyIcon = useMemo(() => animated(LazyIcon), [LazyIcon])
-
-  const styles = useSpring({
-    opacity: 1,
-    from: { opacity: 0 },
-    config: { duration: speed.quickly },
-    immediate: !animations
-  })
-
   return (
     <Flex
       css={theme({
@@ -39,16 +24,9 @@ const FeatherIcon = ({
       as='span'
       {...props}
     >
-      <Suspense fallback={null}>
-        {animations ? (
-          <AnimatedLazyIcon
-            style={{ ...styles, willChange: 'opacity' }}
-            color={color ? cx(color) : undefined}
-          />
-        ) : (
-          <LazyIcon color={color ? cx(color) : undefined} />
-        )}
-      </Suspense>
+      {createElement(Icon, {
+        color: color ? cx(color) : undefined
+      })}
     </Flex>
   )
 }

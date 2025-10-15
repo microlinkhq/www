@@ -9,6 +9,7 @@ import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import get from 'dlv'
+import { Book, Minimize } from 'react-feather'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -209,7 +210,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               onChange={event => setinputMargin(event.target.value)}
               iconComponent={
                 <FeatherIcon
-                  icon='minimize'
+                  icon={Minimize}
                   color='black50'
                   size={[0, 0, 1, 1]}
                 />
@@ -234,7 +235,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               value={inputFormat}
               onChange={event => setinputFormat(event.target.value)}
               iconComponent={
-                <FeatherIcon icon='book' color='black50' size={[0, 0, 1, 1]} />
+                <FeatherIcon icon={Book} color='black50' size={[0, 0, 1, 1]} />
               }
               suggestions={[
                 { value: 'Letter' },

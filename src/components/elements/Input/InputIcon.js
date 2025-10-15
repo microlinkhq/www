@@ -1,6 +1,7 @@
 import Unavatar from '../Unavatar/Unavatar'
 import FeatherIcon from '../../icons/Feather'
 import React, { createElement } from 'react'
+import { Link } from 'react-feather'
 
 const InputIcon = React.memo(function InputIcon ({
   height = '24px',
@@ -15,7 +16,7 @@ const InputIcon = React.memo(function InputIcon ({
     })
   }
 
-  return <FeatherIcon icon='link' color='black50' size={[0, 0, 1, 1]} />
+  return <FeatherIcon icon={Link} color='black50' size={[0, 0, 1, 1]} />
 })
 
 export default InputIcon

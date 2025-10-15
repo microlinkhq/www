@@ -1,10 +1,11 @@
 import React, { createElement, useEffect, useState } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import { useBreakpoint } from 'context/breakpoint'
-import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import Box from 'components/elements/Box'
 import styled from 'styled-components'
 import { shadows, theme } from 'theme'
+import { Menu, X } from 'react-feather'
 
 import AsideBase from './AsideBase'
 import { ASIDE_WIDTH } from './constants'
@@ -85,7 +86,7 @@ const AsideMobile = ({ children, ...props }) => {
             title='close aside menu'
             iconComponent={
               <FeatherIcon
-                icon='x'
+                icon={X}
                 size={[1, 1, 2, 2]}
                 onClick={handleClose}
                 css={{ cursor: 'pointer' }}
@@ -101,7 +102,7 @@ const AsideMobile = ({ children, ...props }) => {
         title='open aside menu'
         iconComponent={
           <FeatherIcon
-            icon='menu'
+            icon={Menu}
             size={[1, 1, 2, 2]}
             onClick={toggleOpen}
             css={{ cursor: 'pointer' }}

@@ -10,6 +10,7 @@ import { cdnUrl } from 'helpers/cdn-url'
 import kebabCase from 'lodash/kebabCase'
 import FeatherIcon from 'components/icons/Feather'
 import { getDomain } from 'tldts'
+import { Eye } from 'react-feather'
 
 import { Logo } from 'components/pages/recipes'
 
@@ -163,7 +164,7 @@ const RecipesPage = () => {
                       style={{ visibility: isLoaded ? 'inherit' : 'hidden' }}
                     >
                       <FeatherIcon
-                        icon='eye'
+                        icon={Eye}
                         color='black50'
                         size={[0, 0, 1, 1]}
                       />
@@ -192,7 +193,8 @@ const RecipesPage = () => {
             <Box css={theme({ pt: [4, null, 0] })}>
               <Button
                 onClick={() =>
-                  window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
+                  window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
+                }
               >
                 <Caps>Request an Integration</Caps>
               </Button>

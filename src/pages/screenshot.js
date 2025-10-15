@@ -6,6 +6,7 @@ import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
+import { Compass, Image as ImageIcon } from 'react-feather'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -178,9 +179,10 @@ const Screenshot = ({ data, style }) => {
             isLoading
               ? imageStyle
               : {
-                  ...imageStyle,
-                  filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-                }}
+                ...imageStyle,
+                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+              }
+          }
         />
       </Box>
     </Link>
@@ -222,7 +224,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const backgroundIconComponent = isColor(inputBg)
     ? createElement(ColorPreview, { color: inputBg })
     : createElement(FeatherIcon, {
-      icon: 'image',
+      icon: ImageIcon,
       color: 'black50',
       size: [0, 0, 1, 1]
     })
@@ -308,7 +310,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               onChange={event => setInputOverlay(event.target.value)}
               iconComponent={
                 <FeatherIcon
-                  icon='compass'
+                  icon={Compass}
                   color='black50'
                   size={[0, 0, 1, 1]}
                 />

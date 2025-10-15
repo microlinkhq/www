@@ -12,6 +12,7 @@ import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import Meta from 'components/elements/Meta/Meta'
+import { Mail } from 'react-feather'
 
 const Heading = withTitle(HeadingBase)
 
@@ -65,7 +66,7 @@ const NewsletterPage = () => (
                   css={theme({ width: '8rem', fontSize: 0 })}
                   iconComponent={
                     <FeatherIcon
-                      icon='mail'
+                      icon={Mail}
                       color='black40'
                       size={[0, 0, 1, 1]}
                     />
