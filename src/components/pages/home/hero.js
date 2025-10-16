@@ -10,6 +10,7 @@ import { transition, layout, theme } from 'theme'
 import { setSaturation } from 'polished'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { ArrowRight, ArrowUpRight } from 'react-feather'
 
 const Subhead = withTitle(SubheadBase)
 const Heading = withTitle(HeadingBase)
@@ -33,7 +34,7 @@ const FlexLink = styled(Flex)`
 
 const GridLink = ({ children, setColor, color, ...props }) => {
   const [ref, isHover] = useHover()
-  const icon = isHover ? 'ArrowRight' : 'ArrowUpRight'
+  const icon = isHover ? ArrowRight : ArrowUpRight
 
   return (
     <FlexLink

@@ -1,7 +1,6 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
-
 # Project Architecture
 
 This is a Gatsby-based React application for Microlink's website. Understanding the architecture is crucial for maintaining consistency.

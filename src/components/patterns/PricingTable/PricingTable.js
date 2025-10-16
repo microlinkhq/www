@@ -17,6 +17,7 @@ import PriceMonthly from 'components/elements/PriceMonthly'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { withTitle } from 'helpers/hoc/with-title'
+import { Check as CheckIcon } from 'react-feather'
 
 const Subhead = withTitle(SubheadBase)
 
@@ -110,7 +111,7 @@ const Check = ({ children, ...props }) => (
     <Flex css={theme({ alignItems: 'center' })}>
       <FeatherIcon
         css={theme({ display: 'inline-flex', pr: 2 })}
-        icon='Check'
+        icon={CheckIcon}
       />
       <Text as='span'>{children}</Text>
     </Flex>

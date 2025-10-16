@@ -225,7 +225,7 @@
     "release:github": "github-generate-release",
     "release:tags": "git push --follow-tags origin HEAD:master",
     "storybook": "start-storybook -p 6006",
-    "test": "vitest",
+    "test": "vitest --no-watch",
     "transpile": "echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
     "update": "ncu -i"
   },

@@ -2,6 +2,12 @@
 
 exports[`.serializeFmt 1`] = `"type='email' id='input' placeholder='you@domain.com' suggestions={[{ value: 'you@gmail.com' }, { value: 'you@hotmail.com' }]} width='9rem' fontSize={1} required "`;
 
+exports[`headers 1`] = `
+"content-type    : application/json
+cache-control   : public, max-age=31536000
+x-custom-header : some-value"
+`;
+
 exports[`js 1`] = `
 "const mql = require('@microlink/mql')
 const { status, data } = await mql('https://geolocation.microlink.io', {

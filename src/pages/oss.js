@@ -1,4 +1,4 @@
-import { Star as StarIcon, AlertCircle as IssueIcon } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import Meta from 'components/elements/Meta/Meta'
 import HeadingBase from 'components/elements/Heading'
 import { Link } from 'components/elements/Link/base'
@@ -14,6 +14,7 @@ import { cdnUrl } from 'helpers/cdn-url'
 import { useOss } from 'components/hook/use-oss'
 import { layout, theme } from 'theme'
 import React from 'react'
+import { Star, AlertCircle } from 'react-feather'
 
 const Heading = withTitle(HeadingBase)
 
@@ -95,11 +96,21 @@ const OssPage = () => {
                         <Text css={theme({ mr: 1 })}>
                           {formatNumber(stars)}
                         </Text>
-                        <StarIcon width='16px' />
+                        <Flex>
+                          <FeatherIcon
+                            icon={Star}
+                            size={[0, 0, 1, 1]}
+                            css={{ display: 'flex', alignItems: 'center' }}
+                          />
+                        </Flex>
                       </Flex>
                       <Flex css={{ alignItems: 'center' }}>
                         <Text css={theme({ mr: 1 })}>{issues}</Text>
-                        <IssueIcon width='16px' />
+                        <FeatherIcon
+                          icon={AlertCircle}
+                          size={[0, 0, 1, 1]}
+                          css={{ display: 'flex', alignItems: 'center' }}
+                        />
                       </Flex>
                     </Flex>
                     <Text

@@ -1,8 +1,8 @@
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
-import { layout, colors, theme } from 'theme'
-import { Mail } from 'react-feather'
+import { layout, theme } from 'theme'
+import FeatherIcon from 'components/icons/Feather'
 import React from 'react'
 
 import { Button } from 'components/elements/Button/Button'
@@ -12,6 +12,7 @@ import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import Meta from 'components/elements/Meta/Meta'
+import { Mail } from 'react-feather'
 
 const Heading = withTitle(HeadingBase)
 
@@ -63,7 +64,13 @@ const NewsletterPage = () => (
                   name='EMAIL'
                   placeholder='you@domain.com'
                   css={theme({ width: '8rem', fontSize: 0 })}
-                  iconComponent={<Mail color={colors.black40} size={16} />}
+                  iconComponent={
+                    <FeatherIcon
+                      icon={Mail}
+                      color='black40'
+                      size={[0, 0, 1, 1]}
+                    />
+                  }
                   required
                 />
 

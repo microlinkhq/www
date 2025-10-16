@@ -1,5 +1,18 @@
-import { format } from 'prettier/standalone'
-import babel from 'prettier/parser-babel'
+// Lazy load prettier for better bundle optimization
+let prettierPromise = null
+
+const loadPrettier = () => {
+  if (!prettierPromise) {
+    prettierPromise = Promise.all([
+      import('prettier/standalone'),
+      import('prettier/parser-babel')
+    ]).then(([{ format }, babel]) => ({
+      format,
+      babel: babel.default || babel
+    }))
+  }
+  return prettierPromise
+}
 
 /**
  * https://prettier.io/docs/en/options.html
@@ -14,15 +27,15 @@ const PRETTIER_CONFIG = {
   trailingComma: 'none'
 }
 
-const JS_OPTS = {
+const getJsOpts = babel => ({
   parser: 'babel',
   plugins: [babel]
-}
+})
 
-const JSON_OPTS = {
+const getJsonOpts = babel => ({
   parser: 'json',
   plugins: [babel]
-}
+})
 
 /**
  * It turns an JS object:
@@ -69,22 +82,7 @@ const serializeObject = (props, { quotes = true } = {}) => {
   }, '')
 }
 
-export const prettier = (code, opts) => {
-  try {
-    const pretty = format(code, { ...PRETTIER_CONFIG, ...opts })
-    return pretty.replace(';<', '<')
-  } catch (error) {
-    if (error.name !== 'SyntaxError') console.error('[prettier]', error)
-    return code
-  }
-}
-
-prettier.jsx = prettier.js = (code, opts) =>
-  prettier(code, { ...JS_OPTS, ...opts })
-
-prettier.json = (code, opts) => prettier(code, { ...JSON_OPTS, ...opts })
-
-prettier.headers = content => {
+const formatHeaders = content => {
   return content
     .split('\n')
     .map(line => {
@@ -105,4 +103,29 @@ prettier.headers = content => {
       return `${key.padEnd(maxKeyLength)} : ${value}`
     })
     .join('\n')
+}
+
+export const prettier = async (code, language = 'js') => {
+  // Handle headers formatting (no prettier needed)
+  if (language === 'headers') {
+    return formatHeaders(code)
+  }
+
+  // For JS/JSON, use lazy-loaded prettier
+  try {
+    const { format, babel } = await loadPrettier()
+
+    let opts = PRETTIER_CONFIG
+    if (language === 'js' || language === 'jsx') {
+      opts = { ...PRETTIER_CONFIG, ...getJsOpts(babel) }
+    } else if (language === 'json') {
+      opts = { ...PRETTIER_CONFIG, ...getJsonOpts(babel) }
+    }
+
+    const formatted = format(code, opts)
+    return formatted.replace(';<', '<')
+  } catch (error) {
+    if (error.name !== 'SyntaxError') console.error('[prettier]', error)
+    return code
+  }
 }

@@ -118,7 +118,6 @@ Functions for URL manipulation:
 ### Validators and Checks
 
 Boolean functions that check conditions:
-- `isSsr` - checks if running on server
 - `isFastConnection` - checks network speed
 - `hasChildren` - checks if component has children
 

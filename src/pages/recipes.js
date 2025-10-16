@@ -1,4 +1,4 @@
-import { colors, space, layout, toPx, toRaw, fontSizes, theme } from 'theme'
+import { space, layout, toPx, toRaw, theme } from 'theme'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
@@ -8,8 +8,9 @@ import React, { useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 import { cdnUrl } from 'helpers/cdn-url'
 import kebabCase from 'lodash/kebabCase'
-import { Eye } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import { getDomain } from 'tldts'
+import { Eye } from 'react-feather'
 
 import { Logo } from 'components/pages/recipes'
 
@@ -162,7 +163,11 @@ const RecipesPage = () => {
                       css={{ alignItems: 'center' }}
                       style={{ visibility: isLoaded ? 'inherit' : 'hidden' }}
                     >
-                      <Eye size={fontSizes[0]} color={colors.black50} />
+                      <FeatherIcon
+                        icon={Eye}
+                        color='black50'
+                        size={[0, 0, 1, 1]}
+                      />
                       <Text
                         css={theme({ pl: 1, color: 'black50', fontSize: 0 })}
                       >

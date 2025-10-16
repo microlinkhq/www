@@ -1,8 +1,8 @@
 import { colors, transition, lineHeights, theme } from 'theme'
-import styled, { css } from 'styled-components'
-import React from 'react'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
 import { withLink } from 'helpers/hoc/with-link'
+import styled, { css } from 'styled-components'
+import React from 'react'
 
 import Text from '../Text'
 

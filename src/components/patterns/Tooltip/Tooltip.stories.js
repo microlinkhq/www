@@ -11,7 +11,6 @@ const code = `
 import Tooltip from '../Tooltip'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { HelpCircle } from 'react-feather'
 
 export default () => (
   <Tooltip

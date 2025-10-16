@@ -3,10 +3,11 @@ import { Link } from 'components/elements/Link/base'
 import Flex from 'components/elements/Flex'
 import { useHover } from 'components/hook/use-hover'
 import React from 'react'
+import { ArrowRight, ChevronRight } from 'react-feather'
 
 const ArrowLink = ({ children, ...props }) => {
   const [ref, isHover] = useHover()
-  const icon = isHover ? 'ArrowRight' : 'ChevronRight'
+  const icon = isHover ? ArrowRight : ChevronRight
 
   return (
     <Flex ref={ref}>

@@ -1,8 +1,7 @@
 ---
-globs: *.js,*.jsx
 description: Guidelines for writing React components following clean code principles
+alwaysApply: false
 ---
-
 # React Component Patterns
 
 Follow these patterns to maintain clean, readable, and maintainable React components.

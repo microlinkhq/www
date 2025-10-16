@@ -1,7 +1,7 @@
 import { layout, colors, theme } from 'theme'
 import { Microlink } from 'components/logos'
 import { issueUrl } from 'helpers/issue-url'
-import { Mail } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import React from 'react'
 
 import IntersectionObserver from '../../elements/IntersectionObserver'
@@ -19,6 +19,7 @@ import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link/base'
 import { LinkSolid } from 'components/elements/Link/solid'
 import Dot from 'components/elements/Dot/Dot'
+import { Mail } from 'react-feather'
 
 const LIGHT_THEME = {
   background: 'white',
@@ -155,7 +156,13 @@ const Footer = ({ isDark, ...props }) => {
                       type='email'
                       name='EMAIL'
                       placeholder='you@domain.com'
-                      iconComponent={<Mail color={inputIconColor} size={16} />}
+                      iconComponent={
+                        <FeatherIcon
+                          icon={Mail}
+                          color={inputIconColor}
+                          size={[0, 0, 1, 1]}
+                        />
+                      }
                       isDark={isDark}
                       css={theme({ fontSize: 0, width: '8rem' })}
                       required

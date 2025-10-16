@@ -3,7 +3,7 @@ import CodeCopy from 'components/elements/Codecopy'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import Tabs from '../Tabs'
 import styled from 'styled-components'
 import { theme } from 'theme'
@@ -51,7 +51,7 @@ const ActionComponent = ({
 }
 
 const DEFAULT_LANGUAGE_INDEX = 1
-const LOCALSTORAGE_KEY = 'multi_code_editor_index'
+const LOCALSTORAGE_KEY = ''
 
 const MultiCodeEditor = ({
   interactive,
@@ -74,18 +74,8 @@ const MultiCodeEditor = ({
   const setLanguage = language => {
     const languageIndex = languages.findIndex(lang => lang === language)
     if (languageIndex < 0) return
-    const event = new window.CustomEvent(LOCALSTORAGE_KEY, {
-      detail: languageIndex
-    })
-    document.dispatchEvent(event)
+    setLanguageIndex(languageIndex)
   }
-
-  useEffect(() => {
-    const updateLanguageIndex = event => setLanguageIndex(event.detail)
-    document.addEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
-    return () =>
-      document.removeEventListener(LOCALSTORAGE_KEY, updateLanguageIndex)
-  }, [setLanguageIndex])
 
   return (
     <CodeEditor

@@ -1,4 +1,4 @@
-import { Compass as CompassIcon, Image as ImageIcon } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
 import React, { createElement, useMemo, useState } from 'react'
 import { borders, breakpoints, layout, colors, theme } from 'theme'
 import { useTransition, animated } from '@react-spring/web'
@@ -6,6 +6,7 @@ import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
+import { Compass, Image as ImageIcon } from 'react-feather'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -221,7 +222,11 @@ const LiveDemo = React.memo(function LiveDemo ({
 
   const backgroundIconComponent = isColor(inputBg)
     ? createElement(ColorPreview, { color: inputBg })
-    : createElement(ImageIcon, { color: colors.black50, size: '16px' })
+    : createElement(FeatherIcon, {
+      icon: ImageIcon,
+      color: 'black50',
+      size: [0, 0, 1, 1]
+    })
 
   return (
     <Container as='section' css={theme({ alignItems: 'center', pt: 2 })}>
@@ -303,7 +308,11 @@ const LiveDemo = React.memo(function LiveDemo ({
               value={inputOverlay}
               onChange={event => setInputOverlay(event.target.value)}
               iconComponent={
-                <CompassIcon color={colors.black50} width='16px' />
+                <FeatherIcon
+                  icon={Compass}
+                  color='black50'
+                  size={[0, 0, 1, 1]}
+                />
               }
               suggestions={[{ value: 'dark' }, { value: 'light' }]}
             />

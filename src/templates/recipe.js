@@ -9,12 +9,13 @@ import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
-import { fontSizes, colors, layout, theme } from 'theme'
+import { layout, theme } from 'theme'
 import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
 import { Logo } from 'components/pages/recipes'
-import { cdnUrl } from 'helpers/cdn-url'
+import FeatherIcon from 'components/icons/Feather'
 import { Eye } from 'react-feather'
+import { cdnUrl } from 'helpers/cdn-url'
 
 const Heading = withTitle(HeadingBase)
 
@@ -103,7 +104,7 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
 
           {isLoaded && (
             <Flex css={theme({ pt: 2, alignItems: 'center' })}>
-              <Eye size={fontSizes[2]} color={colors.black50} />
+              <FeatherIcon icon={Eye} color='black50' size={[1, 1, 2, 2]} />
               <Text css={theme({ pl: 2, color: 'black50' })}>
                 {formatNumber(count)}
               </Text>

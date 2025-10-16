@@ -1,11 +1,12 @@
 /* global IntersectionObserver */
 
-import { ArrowUpRight as ExternalIcon } from 'react-feather'
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useLayoutEffect, useEffect } from 'react'
+import { toRaw, transition, colors, toPx } from 'theme'
 import { useLocation } from '@gatsbyjs/reach-router'
-import { toRaw, transition, colors } from 'theme'
+import FeatherIcon from 'components/icons/Feather'
 import styled, { css } from 'styled-components'
 import { Link as GatsbyLink } from 'gatsby'
+import { ArrowUpRight } from 'react-feather'
 
 import Flex from '../../components/elements/Flex'
 
@@ -47,16 +48,18 @@ const Icon = ({ children }) => {
   const [size, setSize] = useState(12)
   const ref = useRef(null)
 
-  useEffect(() => {
-    const computedStyle = window.getComputedStyle(ref.current)
-    const size = toRaw(computedStyle['font-size']) * 0.8
-    setSize(size)
+  useLayoutEffect(() => {
+    if (ref.current) {
+      const computedStyle = window.getComputedStyle(ref.current)
+      const size = toRaw(computedStyle['font-size']) * 0.8
+      setSize(size)
+    }
   }, [])
 
   return (
-    <Flex css={linkIconWrapper}>
+    <Flex ref={ref} css={linkIconWrapper}>
       {children}
-      <ExternalIcon ref={ref} size={size} />
+      <FeatherIcon icon={ArrowUpRight} size={toPx(size)} />
     </Flex>
   )
 }

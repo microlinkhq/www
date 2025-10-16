@@ -1,15 +1,13 @@
 import { cx, radii, theme, fontSizes, lineHeights, fonts, space } from 'theme'
 import { hideScrollbar, wordBreak } from 'helpers/style'
+import React, { useState, useEffect } from 'react'
 import { getLines } from 'helpers/get-lines'
 import { prettier } from 'helpers/prettier'
 import { template } from 'helpers/template'
-import React from 'react'
-import identity from 'lodash/identity'
 import { highlight } from 'sugar-high'
 import styled from 'styled-components'
 import { hash } from 'helpers/hash'
 import range from 'lodash/range'
-import get from 'dlv'
 
 import { getLanguageTheme } from './theme'
 
@@ -191,8 +189,15 @@ const CodeEditor = ({
     getLanguage({ className, language: languageProp, title })
   )
 
-  const pretty = get(prettier, language, identity)
-  const text = pretty(template(children)).trim()
+  const [text, setText] = useState('')
+
+  useEffect(() => {
+    const formatCode = async () => {
+      const formatted = await prettier(template(children), language)
+      setText(formatted.trim())
+    }
+    formatCode()
+  }, [children, language])
 
   const highLightLinesSelector = generateHighlightLines(highlightLines)
   const firstHighlightLine = highLightLinesSelector && highLightLinesSelector[0]
