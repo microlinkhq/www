@@ -5,7 +5,7 @@ date: '2018-06-30'
 
 ## Custom Rules
 
-[![](https://i.imgur.com/subDjQ1.png)](/blog/custom-rules)
+[![](/images/subDjQ1.png)](/blog/custom-rules)
 
 <Figcaption>Custom Rules enables build custom API response based on your necessities.</Figcaption>
 
@@ -21,7 +21,7 @@ We wrote a specific blog [post](/blog/custom-rules) explaining how to use custom
 
 ## Compression documentation
 
-[![](https://i.imgur.com/Jh7GHUP.png)](/docs/api/basics/compression)
+[![](/images/Jh7GHUP.png)](/docs/api/basics/compression)
 
 <Figcaption>Ensure to use *Accept-Encoding* for enabling compression</Figcaption>
 

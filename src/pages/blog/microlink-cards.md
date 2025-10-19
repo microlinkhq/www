@@ -3,7 +3,7 @@ title: 'Microlink Cards: Under the hood'
 date: '2021-04-06'
 ---
 
-![](https://i.imgur.com/YbOSJHy.png)
+![](/images/YbOSJHy.png)
 
 Even some [early adopters](https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452) knew about this service almost one year ago [one year ago](https://mailchi.mp/4273d2f40705/introducing-microlink-cards), [Microlink Cards](https://cards.microlink.io) has been officially [launched](https://www.producthunt.com/posts/microlink-cards) today.
 
@@ -19,7 +19,7 @@ How real is that? A code editor can be huge and hard to embed in a web applicati
 
 Well, Microlink Cards is using [Monaco Editor](https://microsoft.github.io/monaco-editor/) which is a core component used by [VS Code](https://code.visualstudio.com/docs/editor/editingevolved), meaning you will have the same code editor features, like autocomplete, among others.
 
-![](https://i.imgur.com/SPMzFhm.png)
+![](/images/SPMzFhm.png)
 
 Although Monaco Editor is lighter than it may seem, it has to load asynchronously to prevent blocking the rendering step in a web browser.
 

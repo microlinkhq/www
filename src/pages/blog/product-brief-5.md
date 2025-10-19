@@ -5,7 +5,7 @@ date: '2018-05-30'
 
 ## Microlink API
 
-[![](https://i.imgur.com/2RNeKiR.png)](/docs/api/getting-started/overview)
+[![](/images/2RNeKiR.png)](/docs/api/getting-started/overview)
 
 <Figcaption>
   <Link href='/docs/api/getting-started/overview' children='Microlink API' /> examples was improved,

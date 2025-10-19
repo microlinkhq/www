@@ -189,7 +189,6 @@
     "rgb-hex": "latest",
     "simple-git-hooks": "latest",
     "standard": "latest",
-    "standard-markdown": "latest",
     "standard-version": "latest",
     "tinyspawn": "latest",
     "vitest": "latest"
@@ -214,7 +213,7 @@
     "clean:data": "rm -rf data/*.json",
     "contributors": "(npx git-authors-cli && npx finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
     "dev": "gatsby develop --host 0.0.0.0 --port 8000",
-    "lint": "standard-markdown README.md && standard",
+    "lint": "standard",
     "postinstall": "npm run transpile",
     "postrelease": "npm run release:tags && npm run release:github",
     "prebuild": "npm run build:data",
@@ -244,6 +243,9 @@
   "nano-staged": {
     "*.js": [
       "prettier-standard"
+    ],
+    "*.md": [
+      "node scripts/static-assets.js"
     ],
     "package.json": [
       "finepack"

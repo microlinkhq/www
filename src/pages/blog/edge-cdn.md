@@ -1,6 +1,6 @@
 ---
 title: 'Microlink CDN: Global Edge Cache'
-image: 'https://i.imgur.com/VsS5RwW.png'
+image: '/images/VsS5RwW.png'
 date: '2020-03-31'
 ---
 
@@ -48,7 +48,7 @@ The first time you hit [Microlink API](/docs/api/getting-started/overview), the 
 
 Once cached, the successive requests to the same resource will be served using the [CloudFlare Network](https://www.cloudflare.com/network), meaning the cached response will come from the nearest edge server in the world (and they're a lot, more than 240 edge servers in over 90 countries).
 
-![](https://i.imgur.com/VsS5RwW.png)
+![](/images/VsS5RwW.png)
 
 <Figcaption>Cached response (blue) vs. Uncached response (gray).</Figcaption>
 

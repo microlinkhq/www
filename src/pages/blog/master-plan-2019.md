@@ -12,8 +12,6 @@ Based on that, and a lot of feedback you told us from our [community](/community
 
 ## Microlink Query Language ([RFC](https://github.com/microlinkhq/open/issues/5))
 
-> 
-
 Although [Microlink API](/docs/api/getting-started/overview) works fine for getting generic metadata, most of the users need to get specific things from the content, like count, followers, hits, price variation, etc.
 
 In the past, we launched [custom rules](/blog/custom-rules) for that purpose, but we feel it only usable if you have a tiny rules set.
@@ -36,7 +34,7 @@ It has a lot of sense specially if your API is starting to grow and you are only
 
 Because our [Microlink API](/docs/api/getting-started/overview) response tends to grow (especially after [MQL](https://github.com/microlinkhq/open/issues/5) support) that's definitely a worth it thing we can to support.
 
-## Hover Preview ([RFC link](https://github.com/microlinkhq/open/issues/18))
+## Hover Preview ([RFC](https://github.com/microlinkhq/open/issues/18))
 
 That's a thing we wanted to build from the beginning.
 

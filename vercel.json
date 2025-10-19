@@ -52,7 +52,7 @@
         },
         {
           "key": "strict-transport-security",
-          "value": "max-age=15552000; includeSubDomains"
+          "value": "max-age=31536000; includeSubDomains"
         },
         {
           "key": "x-content-type-options",

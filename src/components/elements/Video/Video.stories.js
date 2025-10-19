@@ -7,7 +7,7 @@ import Flex from '../Flex'
 
 const storyName = 'Video'
 
-const videoUrl = 'https://i.imgur.com/Az4FXS8.mp4'
+const videoUrl = '/images/Az4FXS8.mp4'
 
 const code = `
 import Image from '../Image/Image'

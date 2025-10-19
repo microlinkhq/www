@@ -27,7 +27,7 @@ import Microlink from '@microlink/react'
     ...data,
     title: 'SENTRY ACTIVATED',
     description: 'Are humans worth it?',
-    image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
+    image: { url: '/images/1FyFxlk.jpg' },
     publisher: 'HAL 9000',
     url: 'http://thehal9000.com'
   })}
@@ -43,7 +43,7 @@ The function should return all the data necessary to be mounted.
   setData={data => ({
     title: 'SENTRY ACTIVATED',
     description: 'Are humans worth it?',
-    image: { url: 'https://i.imgur.com/1FyFxlk.jpg' },
+    image: { url: '/images/1FyFxlk.jpg' },
     publisher: 'HAL 9000',
     url: 'http://thehal9000.com'
   })}
