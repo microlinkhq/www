@@ -1,6 +1,6 @@
 /* global IntersectionObserver */
 
-import React, { useRef, useState, useLayoutEffect, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { toRaw, transition, colors, toPx } from 'theme'
 import { useLocation } from '@gatsbyjs/reach-router'
 import FeatherIcon from 'components/icons/Feather'
@@ -48,8 +48,8 @@ const Icon = ({ children }) => {
   const [size, setSize] = useState(12)
   const ref = useRef(null)
 
-  useLayoutEffect(() => {
-    if (ref.current) {
+  useEffect(() => {
+    if (ref.current && typeof window !== 'undefined') {
       const computedStyle = window.getComputedStyle(ref.current)
       const size = toRaw(computedStyle['font-size']) * 0.8
       setSize(size)
