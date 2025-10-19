@@ -27,7 +27,7 @@ In addition, we took this opportunity to improve our payment process, you’ll n
 
 ## Unified Documentation
 
-![](https://i.imgur.com/tJxodpG.jpg)
+![](/images/tJxodpG.jpg)
 
 <Figcaption>
   {'The only place for checking all the documentation is '}

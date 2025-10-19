@@ -9,7 +9,7 @@ All [Microlink Pro](#pricing) plans come with a built-in proxy layer that does a
 
 The Internet is a wild place where every URL is different. That's an issue especially when you are doing things at scale.
 
-![](https://i.imgur.com/pVPDpao.png)
+![](/images/pVPDpao.png)
 
 <Figcaption>
   {'A '}
@@ -28,7 +28,7 @@ You can quickly face these problems when sending enough traffic to popular sites
 
 Wouldn't it be nice if every time you want to retrieve data from any URL, the Microlink API just returned the data all while handling any of the problems above transparently?
 
-![](https://i.imgur.com/8uvahxZ.png)
+![](/images/8uvahxZ.png)
 
 <Figcaption>No additional setup needed, just a Microlink Pro plan.</Figcaption>
 

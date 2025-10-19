@@ -5,7 +5,7 @@ date: '2017-12-30'
 
 ## Prerendering by default
 
-![Example of using microlink for Amazon links. Prerending improves data accuracy.](https://i.imgur.com/VC9vYjz.png)
+![Example of using microlink for Amazon links. Prerending improves data accuracy.](/images/VC9vYjz.png)
 
 <Figcaption children='Example of using microlink for Amazon links. Prerending improves data accuracy.' />
 

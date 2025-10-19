@@ -5,7 +5,7 @@ date: '2018-03-02'
 
 ## Microlink API
 
-![](https://i.imgur.com/o8cC1k4.png)
+![](/images/o8cC1k4.png)
 
 <Figcaption>
   The new video data property in action.{' '}
@@ -40,7 +40,7 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
 
 ## Microlink SDK
 
-![](https://i.imgur.com/MkuOzT9.gif)
+![](/images/MkuOzT9.gif)
 
 <Figcaption>
   <Link href='/docs' children='Microlink SDK' /> now supports video
@@ -82,7 +82,7 @@ We improved the transition between how the card looks before the content of the 
 
 ### Add reverse property
 
-![](https://i.imgur.com/qyPAMve.png)
+![](/images/qyPAMve.png)
 
 <Figcaption>
   Using the new{' '}

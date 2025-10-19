@@ -65,7 +65,7 @@ storiesOf('Elements', module).add('Terminal', () => (
       <Image
         css={theme({ pt: 3, width: 300 })}
         alt='kikobeats.com screenshot'
-        src='https://i.imgur.com/WikuSgo.png'
+        src='/images/WikuSgo.png'
       />
       <Box css={theme({ pt: 3 })}>
         <SpanLabel>SUCCESS</SpanLabel> <Span>57.9 kB in 13830.018ms</Span>

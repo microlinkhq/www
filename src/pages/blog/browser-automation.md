@@ -3,7 +3,7 @@ title: 'Microlink API: Browser automation'
 date: '2020-01-26'
 ---
 
-![](https://i.imgur.com/S2D1sZR.png)
+![](/images/S2D1sZR.png)
 
 A web browser is one of the most complex pieces of software, with some internal sub-systems that work together for resolving any kind of URL on the Internet, even if the content was written with HTML tables in 1992.
 

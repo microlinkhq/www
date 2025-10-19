@@ -1,6 +1,6 @@
 ---
 title: 'Microlink API: Introducing Custom Rules'
-image: 'https://i.imgur.com/3yy4kDD.png'
+image: '/images/3yy4kDD.png'
 date: '2018-05-31'
 ---
 
@@ -20,7 +20,7 @@ Today we’re happy to introduce a new core functionality called **Custom Rules*
 
 Imagine you want ot interact with an Instagram profile url, like [@elonmusk](https://x.com/elonmusk)'s profile.
 
-![](https://i.imgur.com/subDjQ1.png)
+![](/images/subDjQ1.png)
 
 <Figcaption>A website is just an interface for a database, let's convert the web into real data 🤘.</Figcaption>
 
@@ -72,7 +72,7 @@ A **rule** is a way to interact with the API. You’ve to declare the type of da
 
 It defines the HTML element you want to get from the HTML of the targeted URL.
 
-![](https://i.imgur.com/3yy4kDD.png)
+![](/images/3yy4kDD.png)
 
 <Figcaption>A simple way to get the selector could be copy it directly from DevTools.</Figcaption>
 

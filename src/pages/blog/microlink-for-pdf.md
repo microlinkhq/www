@@ -7,7 +7,7 @@ Six months ago we launched [Microlink screenshot](https://www.producthunt.com/po
 
 Today, we’re thrilled to announce [Microlink PDF](/pdf) 🔥.
 
-[![](https://i.imgur.com/owPghHJ.png)](/pdf)
+[![](/images/owPghHJ.png)](/pdf)
 
 <Figcaption>See live demo at <Link href='/pdf' children='microlink.io/pdf' />.</Figcaption>
 
