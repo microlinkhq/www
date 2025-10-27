@@ -139,23 +139,24 @@ const AsideResponsive = props =>
 const Aside = props => {
   useEffect(() => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
-    // if (activeEl) {
-    //   const asideContainer = document.querySelector('[data-aside]')
-    //   const asideHeader = document.querySelector('[data-aside-header]')
+    if (activeEl.textContent?.trim() !== 'Overview') {
+      const asideContainer = document.querySelector('[data-aside]')
 
-    //   const activeElOffset = activeEl.offsetTop
-    //   const headerHeight = asideHeader.getBoundingClientRect().height
-    //   const containerScrollTop = asideContainer.scrollTop
+      const activeElOffset = activeEl.offsetTop
+      const containerScrollTop = asideContainer.scrollTop
 
-    //   const targetScroll = activeElOffset - headerHeight
+      // Use a default offset if the header no longer exists
+      const headerHeight = 0
 
-    //   if (
-    //     targetScroll > containerScrollTop ||
-    //     activeElOffset < containerScrollTop
-    //   ) {
-    //     asideContainer.scrollTo({ top: targetScroll, behavior: 'instant' })
-    //   }
-    // }
+      const targetScroll = activeElOffset - headerHeight
+
+      if (
+        targetScroll > containerScrollTop ||
+        activeElOffset < containerScrollTop
+      ) {
+        asideContainer.scrollTo({ top: targetScroll - 10, behavior: 'instant' })
+      }
+    }
   }, [])
 
   return <AsideResponsive {...props} />
