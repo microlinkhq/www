@@ -141,13 +141,9 @@ const Aside = props => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
     if (activeEl.textContent?.trim() !== 'Overview') {
       const asideContainer = document.querySelector('[data-aside]')
-
       const activeElOffset = activeEl.offsetTop
       const containerScrollTop = asideContainer.scrollTop
-
-      // Use a default offset if the header no longer exists
       const headerHeight = 0
-
       const targetScroll = activeElOffset - headerHeight
 
       if (

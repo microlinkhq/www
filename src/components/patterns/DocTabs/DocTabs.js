@@ -1,10 +1,11 @@
-import React from 'react'
+import { Link } from 'components/elements/Link/base'
+import Flex from 'components/elements/Flex'
+import Text from 'components/elements/Text'
+import Box from 'components/elements/Box'
 import styled from 'styled-components'
 import { theme } from 'theme'
-import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
-import { Link } from 'components/elements/Link/base'
-import Text from 'components/elements/Text'
+import React from 'react'
+
 import { DOC_TABS } from 'components/patterns/Aside/constants'
 
 const TabButton = styled(Link)`

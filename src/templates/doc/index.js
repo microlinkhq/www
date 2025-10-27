@@ -1,22 +1,19 @@
 import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import Markdown, { H1, ProBadge } from 'components/markdown'
-import Layout from 'components/patterns/Layout'
-import Aside from 'components/patterns/Aside/Aside'
 import DocTabs from 'components/patterns/DocTabs/DocTabs'
-import {
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_SECONDARY_HEIGHT
-} from 'components/elements/Toolbar'
-import { layout, theme } from 'theme'
+import Container from 'components/elements/Container'
+import { Link } from 'components/elements/Link/base'
+import Aside from 'components/patterns/Aside/Aside'
 import { formatDate } from 'helpers/format-date'
+import Layout from 'components/patterns/Layout'
+import Choose from 'components/elements/Choose'
+import Flex from 'components/elements/Flex'
+import Text from 'components/elements/Text'
+import Box from 'components/elements/Box'
+import { layout, theme } from 'theme'
 import React from 'react'
 
-import Box from 'components/elements/Box'
-import Choose from 'components/elements/Choose'
-import Container from 'components/elements/Container'
-import Flex from 'components/elements/Flex'
-import { Link } from 'components/elements/Link/base'
-import Text from 'components/elements/Text'
+import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 
 const DocTemplate = ({
   title,
@@ -71,10 +68,7 @@ const DocTemplate = ({
               <Text as='header'>
                 <H1
                   css={theme({
-                    mt: [
-                      0,
-                      `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT} + 16px)`
-                    ],
+                    mt: 3,
                     mb: 1
                   })}
                   variant={null}
