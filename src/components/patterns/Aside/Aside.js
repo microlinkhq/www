@@ -140,20 +140,20 @@ const Aside = props => {
   useEffect(() => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
     if (activeEl) {
-      const elOffset = activeEl.offsetTop
+      const asideContainer = document.querySelector('[data-aside]')
+      const asideHeader = document.querySelector('[data-aside-header]')
 
-      const offset = document
-        .querySelector('[data-aside-header]')
-        .getBoundingClientRect().y
+      const activeElOffset = activeEl.offsetTop
+      const headerHeight = asideHeader.getBoundingClientRect().height
+      const containerScrollTop = asideContainer.scrollTop
 
-      const minOffset = offset * 2
+      const targetScroll = activeElOffset - headerHeight - 84
 
-      if (elOffset > minOffset) {
-        const top = elOffset - offset
-
-        document
-          .querySelector('[data-aside]')
-          .scrollTo({ top, behavior: 'instant' })
+      if (
+        targetScroll > containerScrollTop ||
+        activeElOffset < containerScrollTop
+      ) {
+        asideContainer.scrollTo({ top: targetScroll, behavior: 'instant' })
       }
     }
   }, [])

@@ -128,7 +128,7 @@ const Aside = ({
       aria-label='Navigation menu'
       aria-hidden={!isOpen}
       css={theme({
-        pt: [0, 0, 0, 5],
+        pt: [0, 0, 0, '90px'],
         pr: [0, 0, 0, '14px']
       })}
       $isOpen={isOpen}
@@ -145,7 +145,8 @@ const Aside = ({
           pb: 3,
           mb: 4,
           ml: [3, 3, 3, 0],
-          pl: [2, 2, 2, 0]
+          pl: [2, 2, 2, 0],
+          display: ['flex', 'flex', 'flex', 'none']
         })}
       >
         {CloseButton && (

@@ -21,7 +21,7 @@ const TOOLBAR_HEIGHTS = [
   TOOLBAR_PRIMARY_HEIGHT,
   `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
   `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
-  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
+  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT} + 24px)`
 ]
 
 const Layout = ({
@@ -62,7 +62,11 @@ const Layout = ({
             component,
             {
               as: 'main',
-              style: { flex: 1, paddingTop: toolbarHeight },
+              style: {
+                flex: 1,
+                paddingTop: toolbarHeight,
+                overflow: 'visible'
+              },
               ...props
             },
             children

@@ -2,6 +2,8 @@ import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import Markdown, { H1, ProBadge } from 'components/markdown'
 import Layout from 'components/patterns/Layout'
 import Aside from 'components/patterns/Aside/Aside'
+import DocTabs from 'components/patterns/DocTabs/DocTabs'
+import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import { fontSizes, layout, theme } from 'theme'
 import { formatDate } from 'helpers/format-date'
 import React from 'react'
@@ -26,15 +28,41 @@ const DocTemplate = ({
 
   return (
     <Layout footer={false}>
+      <Box
+        data-docs-navbar
+        css={{
+          position: 'fixed',
+          top: TOOLBAR_PRIMARY_HEIGHT,
+          left: 0,
+          right: 0,
+          zIndex: 2,
+          background: 'white',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+          display: ['none', 'none', 'none', 'block']
+        }}
+      >
+        <Container
+          css={theme({
+            mx: [3, null, null, 'auto'],
+            px: 0,
+            pt: 0,
+            maxWidth: layout.large
+          })}
+        >
+          <DocTabs activeRouteName={activeRouteName} />
+        </Container>
+      </Box>
       <Container
+        data-docs-container
         css={theme({
-          pt: [0, null, null, 4],
+          pt: [4, 4, 4, 0],
           mx: [3, null, null, 'auto'],
           px: 0,
           maxWidth: layout.large
         })}
       >
         <Aside activeRouteName={activeRouteName}>
+          <Box css={theme({ mt: [0, 0, 0, 4] })} />
           <Choose>
             <Choose.When condition={!!title}>
               <Text as='header'>
