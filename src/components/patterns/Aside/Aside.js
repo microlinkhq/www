@@ -147,7 +147,7 @@ const Aside = props => {
       const headerHeight = asideHeader.getBoundingClientRect().height
       const containerScrollTop = asideContainer.scrollTop
 
-      const targetScroll = activeElOffset - headerHeight - 84
+      const targetScroll = activeElOffset - headerHeight
 
       if (
         targetScroll > containerScrollTop ||
