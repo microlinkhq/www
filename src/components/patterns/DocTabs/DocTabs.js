@@ -5,6 +5,7 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link/base'
 import Text from 'components/elements/Text'
+import { DOC_TABS } from 'components/patterns/Aside/constants'
 
 const TabButton = styled(Link)`
   ${theme({
@@ -33,18 +34,6 @@ const isActive = (activeRouteName, tab) =>
   activeRouteName.toLowerCase() === tab.name.toLowerCase()
 
 const DocTabs = ({ activeRouteName }) => {
-  const tabs = [
-    { name: 'API', path: '/docs/api/getting-started/overview' },
-    {
-      name: 'MQL',
-      path: '/docs/mql/getting-started/overview'
-    },
-    {
-      name: 'CARDS',
-      path: '/docs/cards/getting-started/overview'
-    }
-  ]
-
   return (
     <Box
       css={theme({
@@ -53,7 +42,7 @@ const DocTabs = ({ activeRouteName }) => {
       })}
     >
       <Flex>
-        {tabs.map(tab => (
+        {DOC_TABS.map(tab => (
           <TabButton
             key={tab.name}
             href={tab.path}

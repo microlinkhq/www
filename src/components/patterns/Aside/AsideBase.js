@@ -1,14 +1,12 @@
-import Flex from 'components/elements/Flex'
-import Toggle from 'components/elements/Toggle/Toggle'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
 import {
   TOOLBAR_PRIMARY_HEIGHT,
-  DOCS_NAVBAR_HEIGHT
+  DOCS_LAYOUT_OFFSET
 } from 'components/elements/Toolbar'
 import { transition, borders, colors, space, theme, fontSizes } from 'theme'
-import React, { useState, Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc/with-link'
 import { noop } from 'helpers/noop'
@@ -19,12 +17,7 @@ import NavLink, {
   activeStyle as navLinkActiveStyle
 } from './NavLink'
 
-import {
-  DEFAULT_ACTIVE_ROUTE_NAME,
-  ALL_ROUTES_NAMES,
-  ASIDE_WIDTH,
-  ROUTES
-} from './constants'
+import { DEFAULT_ACTIVE_ROUTE_NAME, ASIDE_WIDTH, ROUTES } from './constants'
 
 const LINK_ICON_CLASSNAME = 'nav-link-icon'
 
@@ -62,7 +55,6 @@ const AsideWrapper = styled(Box)`
   position: fixed;
   overflow-y: auto;
   bottom: 0;
-  top: calc(${TOOLBAR_PRIMARY_HEIGHT} + ${DOCS_NAVBAR_HEIGHT});
   width: ${ASIDE_WIDTH};
   transition: transform ${transition.medium};
 
@@ -101,8 +93,6 @@ const Aside = ({
   onChange = noop,
   ...props
 }) => {
-  const [tree, setTree] = useState(activeRouteName)
-
   // Prevent body scroll when drawer is open (mobile)
   useEffect(() => {
     if (isOpen && CloseButton) {
@@ -122,85 +112,71 @@ const Aside = ({
       aria-label='Navigation menu'
       aria-hidden={!isOpen}
       css={theme({
-        pt: [0, 0, 0, 4],
-        pr: [0, 0, 0, '14px']
+        top: [TOOLBAR_PRIMARY_HEIGHT, DOCS_LAYOUT_OFFSET],
+        pt: [0, 4],
+        pr: [0, '14px']
       })}
       $isOpen={isOpen}
       {...props}
     >
-      <Flex
+      <Box
         data-aside-header
         as='header'
         css={theme({
-          justifyContent: 'end',
-          alignItems: 'center',
-          flexDirection: ['column', 'column', 'column', 'row'],
-          mt: [0, 0, 0, 3],
-          pb: 3,
-          mb: 4,
-          ml: [3, 3, 3, 0],
-          pl: [2, 2, 2, 0],
-          display: ['flex', 'flex', 'flex', 'none']
+          px: [3, 0],
+          pb: [3, 0]
         })}
       >
-        {CloseButton && (
-          <Box css={theme({ mb: 4, width: '100%' })}>{CloseButton}</Box>
-        )}
-        <Toggle
-          defaultValue={activeRouteName}
-          onChange={value => {
-            onChange(value)
-            setTree(value)
-          }}
-        >
-          {ALL_ROUTES_NAMES}
-        </Toggle>
-      </Flex>
-      <Box as='section' data-aside-tree css={theme({ pl: 4 })}>
-        {ROUTES[tree].map(path => (
-          <Box css={theme({ mb: 4 })} key={`${tree}_${path.name}`}>
-            <Header>{path.name}</Header>
-            {path.posts.map(post => {
-              const hasSubEntries = Boolean(post.posts)
-              if (!hasSubEntries) {
-                return (
-                  <Title
-                    key={`${tree}_title_${post.name}`}
-                    href={post.href}
-                    Icon={post.icon}
-                  >
-                    {post.name}
-                  </Title>
-                )
-              } else {
-                return (
-                  <Fragment key={`${tree}_subheader_${post.name}`}>
-                    <Title key={`${tree}_title_${post.name}`} href={post.href}>
+        {CloseButton && <Box>{CloseButton}</Box>}
+        <Box as='section' data-aside-tree css={theme({ pl: 3 })}>
+          {ROUTES[activeRouteName].map(path => (
+            <Box css={theme({ mb: 4 })} key={`${activeRouteName}_${path.name}`}>
+              <Header>{path.name}</Header>
+              {path.posts.map(post => {
+                const hasSubEntries = Boolean(post.posts)
+                if (!hasSubEntries) {
+                  return (
+                    <Title
+                      key={`${activeRouteName}_title_${post.name}`}
+                      href={post.href}
+                      Icon={post.icon}
+                    >
                       {post.name}
                     </Title>
-                    <Box
-                      data-subtree
-                      css={theme({
-                        ml: 2,
-                        borderLeft: `${borders[1]} ${colors.black05}`
-                      })}
-                    >
-                      {post.posts.map(post => (
-                        <Title
-                          css={theme({ ml: 3 })}
-                          key={`${tree}_subtitle_${post.name}`}
-                          href={post.href}
-                        >
-                          {post.name}
-                        </Title>
-                      ))}
-                    </Box>
-                  </Fragment>
-                )
-              }
-            })}
-          </Box>
-        ))}
+                  )
+                } else {
+                  return (
+                    <Fragment key={`${activeRouteName}_subheader_${post.name}`}>
+                      <Title
+                        key={`${activeRouteName}_title_${post.name}`}
+                        href={post.href}
+                      >
+                        {post.name}
+                      </Title>
+                      <Box
+                        data-subtree
+                        css={theme({
+                          ml: 2,
+                          borderLeft: `${borders[1]} ${colors.black05}`
+                        })}
+                      >
+                        {post.posts.map(post => (
+                          <Title
+                            css={theme({ ml: 3 })}
+                            key={`${activeRouteName}_subtitle_${post.name}`}
+                            href={post.href}
+                          >
+                            {post.name}
+                          </Title>
+                        ))}
+                      </Box>
+                    </Fragment>
+                  )
+                }
+              })}
+            </Box>
+          ))}
+        </Box>
       </Box>
     </AsideWrapper>
   )

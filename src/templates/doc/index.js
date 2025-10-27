@@ -3,8 +3,11 @@ import Markdown, { H1, ProBadge } from 'components/markdown'
 import Layout from 'components/patterns/Layout'
 import Aside from 'components/patterns/Aside/Aside'
 import DocTabs from 'components/patterns/DocTabs/DocTabs'
-import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
-import { fontSizes, layout, theme } from 'theme'
+import {
+  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_SECONDARY_HEIGHT
+} from 'components/elements/Toolbar'
+import { layout, theme } from 'theme'
 import { formatDate } from 'helpers/format-date'
 import React from 'react'
 
@@ -38,12 +41,11 @@ const DocTemplate = ({
           zIndex: 2,
           background: 'white',
           borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-          display: ['none', 'none', 'none', 'block']
+          display: ['none', 'block']
         })}
       >
         <Container
           css={theme({
-            mx: [3, null, null, 'auto'],
             px: 0,
             pt: 0,
             maxWidth: layout.large
@@ -55,20 +57,24 @@ const DocTemplate = ({
       <Container
         data-docs-container
         css={theme({
+          mx: [3, 'auto'],
           pt: 0,
-          mx: [3, null, null, 'auto'],
           px: 0,
+          mt: [TOOLBAR_PRIMARY_HEIGHT, 0],
           maxWidth: layout.large
         })}
       >
         <Aside activeRouteName={activeRouteName}>
-          <Box css={theme({ mt: [0, 0, 0, 4] })} />
+          <Box css={theme({ mt: [0, 4, 4, 4] })} />
           <Choose>
             <Choose.When condition={!!title}>
               <Text as='header'>
                 <H1
                   css={theme({
-                    mt: [0, null, null, `calc(-1 * ${fontSizes[1]})`],
+                    mt: [
+                      0,
+                      `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT} + 16px)`
+                    ],
                     mb: 1
                   })}
                   variant={null}

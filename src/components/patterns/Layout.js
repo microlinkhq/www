@@ -12,18 +12,6 @@ import themeSpec, { theme as themeProp } from 'theme'
 
 import 'styles/main.scss'
 
-import {
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_SECONDARY_HEIGHT
-} from 'components/elements/Toolbar'
-
-const TOOLBAR_HEIGHTS = [
-  TOOLBAR_PRIMARY_HEIGHT,
-  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
-  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
-  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT} + 24px)`
-]
-
 const Layout = ({
   footer = true,
   children,
@@ -34,7 +22,6 @@ const Layout = ({
   ...props
 }) => {
   const breakpoint = useBreakpoint([0, 1, 2, 3])
-  const toolbarHeight = TOOLBAR_HEIGHTS[breakpoint]
 
   useEffect(() => {
     const slug = window.location.hash
@@ -64,7 +51,6 @@ const Layout = ({
               as: 'main',
               style: {
                 flex: 1,
-                paddingTop: toolbarHeight,
                 overflow: 'visible'
               },
               ...props
