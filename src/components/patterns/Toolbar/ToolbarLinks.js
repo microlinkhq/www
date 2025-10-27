@@ -112,7 +112,7 @@ export const NavLogo = createNavItem({
 export const NavDocs = createNavItem({
   children: 'docs',
   href: '/docs/api/getting-started/overview',
-  actively: 'partial'
+  actively: ({ location }) => location.pathname.startsWith('/docs')
 })
 
 export const NavCommunity = createNavItem({
