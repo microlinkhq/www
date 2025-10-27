@@ -5,7 +5,7 @@ import Box from 'components/elements/Box'
 import { useLocation } from '@gatsbyjs/reach-router'
 import { GitHub } from 'components/icons/GitHub'
 import { Twitter } from 'components/icons/Twitter'
-import { colors, theme } from 'theme'
+import { colors, fontSizes, theme } from 'theme'
 import React, { useState } from 'react'
 import { css } from 'styled-components'
 import { rgba } from 'polished'
@@ -54,12 +54,17 @@ const iconDark = css`
 const ToolbarSecondary = ({ isDark, children }) => (
   <Toolbar as='nav' type='secondary' aria-label='Secondary Navigation'>
     <Flex
-      css={theme({
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        m: 0,
-        p: 0
-      })}
+      css={`
+        ul > li {
+          font-size: 13px;
+        }
+        ${theme({
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          m: 0,
+          p: 0
+        })}
+      `}
     >
       <NavContainer as='ul' css={theme({ pl: 0, py: 2 })} isDark={isDark}>
         {children}
@@ -168,49 +173,31 @@ const ToolbarDesktop = ({ isDark }) => {
           <Choose.When condition={secondary === 'products'}>
             <ToolbarSecondary>
               <NavFormats
-                css={theme({ pl: 0, fontSize: '12px' })}
+                css={theme({ pl: 0, fontSize: '13px' })}
                 isDark={isDark}
               />
-              <NavInsights isDark={isDark} css={theme({ fontSize: '12px' })} />
-              <NavLogo isDark={isDark} css={theme({ fontSize: '12px' })} />
-              <NavMeta isDark={isDark} css={theme({ fontSize: '12px' })} />
-              <NavPdf isDark={isDark} css={theme({ fontSize: '12px' })} />
-              <NavScreenshot
-                isDark={isDark}
-                css={theme({ fontSize: '12px' })}
-              />
-              <NavSDK isDark={isDark} css={theme({ fontSize: '12px' })} />
+              <NavInsights isDark={isDark} />
+              <NavLogo isDark={isDark} />
+              <NavMeta isDark={isDark} />
+              <NavPdf isDark={isDark} />
+              <NavScreenshot isDark={isDark} />
+              <NavSDK isDark={isDark} />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'developers'}>
             <ToolbarSecondary>
-              <NavChangelog
-                css={theme({ pl: 0, fontSize: '12px' })}
-                isDark={isDark}
-              />
-              <NavCommunity isDark={isDark} css={theme({ fontSize: '12px' })} />
-              <NavDocs isDark={isDark} css={theme({ fontSize: '12px' })} />
-              <NavRecipes isDark={isDark} css={theme({ fontSize: '12px' })} />
-              <NavUserAgents
-                isDark={isDark}
-                css={theme({ fontSize: '12px' })}
-              />
+              <NavChangelog css={theme({ pl: 0 })} isDark={isDark} />
+              <NavCommunity isDark={isDark} />
+              <NavDocs isDark={isDark} />
+              <NavRecipes isDark={isDark} />
+              <NavUserAgents isDark={isDark} />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'company'}>
             <ToolbarSecondary>
-              <NavBlog
-                css={theme({ pl: 0, fontSize: '12px' })}
-                isDark={isDark}
-              />
-              <NavNewsletter
-                isDark={isDark}
-                css={theme({ fontSize: '12px' })}
-              />
-              <NavOpenSource
-                isDark={isDark}
-                css={theme({ fontSize: '12px' })}
-              />
+              <NavBlog css={theme({ pl: 0 })} isDark={isDark} />
+              <NavNewsletter isDark={isDark} />
+              <NavOpenSource isDark={isDark} />
             </ToolbarSecondary>
           </Choose.When>
         </Choose>

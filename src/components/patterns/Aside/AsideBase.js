@@ -3,8 +3,11 @@ import Toggle from 'components/elements/Toggle/Toggle'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
-import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
-import { transition, borders, colors, space, theme } from 'theme'
+import {
+  TOOLBAR_PRIMARY_HEIGHT,
+  DOCS_NAVBAR_HEIGHT
+} from 'components/elements/Toolbar'
+import { transition, borders, colors, space, theme, fontSizes } from 'theme'
 import React, { useState, Fragment, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { withLink } from 'helpers/hoc/with-link'
@@ -29,18 +32,6 @@ const { isInternalLink } = withLink
 
 const linkStyle = css`
   margin-bottom: ${space[2]};
-
-  > a {
-    display: flex;
-    align-items: center;
-
-    &:hover,
-    &.active {
-      .${LINK_ICON_CLASSNAME} {
-        opacity: 1;
-      }
-    }
-  }
 
   .${LINK_ICON_CLASSNAME} {
     width: 16px;
@@ -71,7 +62,7 @@ const AsideWrapper = styled(Box)`
   position: fixed;
   overflow-y: auto;
   bottom: 0;
-  top: ${TOOLBAR_PRIMARY_HEIGHT};
+  top: calc(${TOOLBAR_PRIMARY_HEIGHT} + ${DOCS_NAVBAR_HEIGHT});
   width: ${ASIDE_WIDTH};
   transition: transform ${transition.medium};
 
@@ -90,8 +81,11 @@ const Title = ({ children, href, Icon, ...props }) => {
     <NavLink href={href} actively css={linkStyle}>
       {Icon && <Icon className={LINK_ICON_CLASSNAME} />}
       <Text
-        fontWeight='normal'
-        css={isInternalLink(href) ? titleStyle : titleExternalStyle}
+        data-debug
+        css={{
+          ...(isInternalLink(href) ? titleStyle : titleExternalStyle),
+          fontSize: fontSizes[1]
+        }}
         {...props}
       >
         {children}
@@ -128,7 +122,7 @@ const Aside = ({
       aria-label='Navigation menu'
       aria-hidden={!isOpen}
       css={theme({
-        pt: [0, 0, 0, '90px'],
+        pt: [0, 0, 0, 4],
         pr: [0, 0, 0, '14px']
       })}
       $isOpen={isOpen}

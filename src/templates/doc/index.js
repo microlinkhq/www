@@ -30,7 +30,7 @@ const DocTemplate = ({
     <Layout footer={false}>
       <Box
         data-docs-navbar
-        css={{
+        css={theme({
           position: 'fixed',
           top: TOOLBAR_PRIMARY_HEIGHT,
           left: 0,
@@ -39,7 +39,7 @@ const DocTemplate = ({
           background: 'white',
           borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
           display: ['none', 'none', 'none', 'block']
-        }}
+        })}
       >
         <Container
           css={theme({
@@ -55,7 +55,7 @@ const DocTemplate = ({
       <Container
         data-docs-container
         css={theme({
-          pt: [4, 4, 4, 0],
+          pt: 0,
           mx: [3, null, null, 'auto'],
           px: 0,
           maxWidth: layout.large
@@ -68,7 +68,7 @@ const DocTemplate = ({
               <Text as='header'>
                 <H1
                   css={theme({
-                    mt: [0, null, null, `calc(-1 * ${fontSizes[2]})`],
+                    mt: [0, null, null, `calc(-1 * ${fontSizes[1]})`],
                     mb: 1
                   })}
                   variant={null}

@@ -7,6 +7,7 @@ import Flex from './Flex'
 
 export const TOOLBAR_PRIMARY_HEIGHT = '64px'
 export const TOOLBAR_SECONDARY_HEIGHT = '48px'
+export const DOCS_NAVBAR_HEIGHT = '74px'
 
 const ToolbarBase = styled(Flex)`
   ${theme({

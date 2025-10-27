@@ -22,7 +22,8 @@ const TabButton = styled(Link)`
 
   &.active {
     ${theme({
-      borderColor: 'black80',
+      borderBottom: 2,
+      borderColor: 'black',
       fontWeight: 600
     })}
   }
@@ -34,11 +35,15 @@ const isActive = (activeRouteName, tab) =>
 const DocTabs = ({ activeRouteName }) => {
   const tabs = [
     { name: 'API', path: '/docs/api/getting-started/overview' },
-    { name: 'MQL', path: '/docs/mql/getting-started/overview' },
-    { name: 'CARDS', path: '/docs/cards/getting-started/overview' }
+    {
+      name: 'MQL',
+      path: '/docs/mql/getting-started/overview'
+    },
+    {
+      name: 'CARDS',
+      path: '/docs/cards/getting-started/overview'
+    }
   ]
-
-  console.log(activeRouteName)
 
   return (
     <Box
@@ -57,16 +62,25 @@ const DocTabs = ({ activeRouteName }) => {
               color: isActive(activeRouteName, tab) ? 'black' : 'black50'
             })}
           >
-            <Text
+            <Flex
               css={theme({
-                fontSize: 0,
-                fontWeight: isActive(activeRouteName, tab) ? 'bold' : 'normal',
-                textTransform: 'uppercase',
-                letterSpacing: 2
+                alignItems: 'center',
+                gap: 2
               })}
             >
-              {tab.name}
-            </Text>
+              <Text
+                css={theme({
+                  fontSize: 0,
+                  fontWeight: isActive(activeRouteName, tab)
+                    ? 'bold'
+                    : 'normal',
+                  textTransform: 'uppercase',
+                  letterSpacing: 2
+                })}
+              >
+                {tab.name}
+              </Text>
+            </Flex>
           </TabButton>
         ))}
       </Flex>
