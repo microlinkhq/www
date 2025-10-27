@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
-
+import { theme } from 'theme'
 import Text from 'components/elements/Text'
 import Faq from './Faq'
 
@@ -17,7 +17,10 @@ storiesOf('Patterns', module).add('Faq', () => (
             answer: (
               <>
                 <div>
-                  <Text as='span' fontWeight='bold' color='black'>
+                  <Text
+                    as='span'
+                    css={theme({ fontWeight: 'bold', color: 'black' })}
+                  >
                     Microlink screenshot
                   </Text>{' '}
                   takes any URL as an input and returns a screenshot back,

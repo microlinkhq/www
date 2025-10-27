@@ -36,7 +36,7 @@ const DotsBackgroundStory = () => {
         >
           <Text color={theme === 'light' ? 'black' : 'white'}>
             dots,{' '}
-            <Text as='span' fontWeight='bold'>
+            <Text as='span' css={theme({ fontWeight: 'bold' })}>
               dots
             </Text>{' '}
             everywhere
