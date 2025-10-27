@@ -85,7 +85,7 @@ const ROUTES_SDK = [
     ]
   },
   {
-    name: 'API Parameters',
+    name: 'Query Parameters',
     posts: [
       {
         name: 'apiKey',
@@ -168,7 +168,7 @@ const ROUTES_API = [
     ]
   },
   {
-    name: 'API Basics',
+    name: 'Basics',
     posts: [
       {
         name: 'Authentication',
@@ -201,7 +201,7 @@ const ROUTES_API = [
     ]
   },
   {
-    name: 'API Parameters',
+    name: 'Query Parameters',
     posts: [
       {
         name: 'adblock',
