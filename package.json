@@ -179,6 +179,7 @@
     "contrast": "latest",
     "debug-logfmt": "latest",
     "esbuild": "latest",
+    "eslint": "latest",
     "eslint-config-next": "latest",
     "finepack": "latest",
     "git-authors-cli": "latest",

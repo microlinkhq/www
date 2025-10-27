@@ -44,7 +44,7 @@ const fn = async () => {
   for (const fileUrl of await fileUrls()) {
     try {
       const contentType = getType(fileUrl) || 'application'
-      const [type] = contentType?.split('/')
+      const [type] = contentType?.split('/') || []
       const isImage = type === 'image'
 
       const { data, response } = await mql(
