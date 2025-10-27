@@ -84,7 +84,7 @@ const generateFilename = (url, index) => {
   return `image-${index}${ext}`
 }
 
-const processFrontmatterImage = async (data, imagesFolder, content) => {
+const processFrontmatterImage = async (data, imagesFolder) => {
   if (data.image && isHttpUrl(data.image)) {
     console.log(`Processing frontmatter image: ${data.image}`)
     const filename = generateFilename(data.image, 0)

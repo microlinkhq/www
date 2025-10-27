@@ -44,8 +44,6 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: latest
-          run_install: false
+          run_install: true
       - name: Lint
-        run: |
-          pnpm install react react-dom next
-          ./node_modules/.bin/next lint
+        run: pnpm lint

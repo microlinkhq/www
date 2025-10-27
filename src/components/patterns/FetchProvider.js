@@ -78,14 +78,12 @@ const FetchProvider = ({
   }
 
   // TODO: Use React.Suspense
-  /* eslint-disable*/
   useEffect(() => {
     queueMicrotask(() => {
       const { url, ...opts } = query
       if (url) fetchData(url, opts)
     })
   }, [])
-  /* eslint-enable */
 
   return (
     <>
