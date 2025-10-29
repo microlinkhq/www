@@ -109,7 +109,8 @@ const Aside = ({
       data-aside
       role='navigation'
       aria-label='Navigation menu'
-      aria-hidden={!isOpen}
+      aria-hidden={CloseButton && !isOpen}
+      inert={CloseButton && !isOpen ? '' : undefined}
       css={theme({
         top: [TOOLBAR_PRIMARY_HEIGHT, DOCS_LAYOUT_OFFSET],
         pt: [0, 4],
@@ -126,7 +127,7 @@ const Aside = ({
           pb: [3, 0]
         })}
       >
-        {CloseButton && <Box>{CloseButton}</Box>}
+        {CloseButton && isOpen && <Box>{CloseButton}</Box>}
         <Box as='section' data-aside-tree css={theme({ pl: 3 })}>
           {ROUTES[activeRouteName].map(path => (
             <Box css={theme({ mb: 4 })} key={`${activeRouteName}_${path.name}`}>

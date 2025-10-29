@@ -2,7 +2,7 @@ import { toRaw, breakpoints } from 'theme'
 import {
   useMemo,
   createElement,
-  useEffect,
+  useLayoutEffect,
   useState,
   createContext,
   useContext
@@ -36,7 +36,7 @@ export function BreakpointProvider ({ children }) {
   const breakpoint = useBreakpoint()
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setMounted(true)
   }, [])
 
