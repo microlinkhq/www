@@ -57,7 +57,6 @@ const DocTemplate = ({
           mx: [3, 'auto'],
           pt: 0,
           px: 0,
-          mt: [TOOLBAR_PRIMARY_HEIGHT, 0],
           maxWidth: layout.large
         })}
       >
