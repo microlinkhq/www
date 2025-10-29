@@ -73,7 +73,6 @@ const Title = ({ children, href, Icon, ...props }) => {
     <NavLink href={href} actively css={linkStyle}>
       {Icon && <Icon className={LINK_ICON_CLASSNAME} />}
       <Text
-        data-debug
         css={{
           ...(isInternalLink(href) ? titleStyle : titleExternalStyle),
           fontSize: fontSizes[1]
