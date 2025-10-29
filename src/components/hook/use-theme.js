@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useLayoutEffect } from 'react'
 
 export const useTheme = (themes, initialThemeKey) => {
   const [themeKey, setThemeKey] = useState(initialThemeKey)
@@ -13,7 +13,7 @@ export const useTheme = (themes, initialThemeKey) => {
     [themes]
   )
 
-  useEffect(() => set(themeKey), [set, themeKey])
+  useLayoutEffect(() => set(themeKey), [set, themeKey])
 
   return [{ theme: themeKey, ...theme }, set]
 }
