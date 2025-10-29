@@ -45,7 +45,7 @@ const ToolbarMobile = ({ isDark }) => {
         <Toolbar as='nav'>
           <NavMicrolinkLogo isMobile />
           <Nav as='ul'>
-            <NavDocs isDark={isDark} />
+            <NavDocs isDark={isDark} css={theme({ pl: 0 })} />
             <NavInsights isDark={isDark} />
             <NavLogo isDark={isDark} isMobile />
             <NavMeta isDark={isDark} isMobile />
