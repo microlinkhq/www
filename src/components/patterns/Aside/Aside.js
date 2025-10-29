@@ -1,13 +1,13 @@
-import React, { createElement, useEffect, useState } from 'react'
+import React, { useEffect, useState, createElement } from 'react'
+import { useBreakpoint } from 'components/hook/use-breakpoint'
 import FeatherIcon from 'components/icons/Feather'
-import { useBreakpoint } from 'context/breakpoint'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
+import { Menu, X } from 'react-feather'
 import styled from 'styled-components'
 import { shadows, theme } from 'theme'
-import { Menu, X } from 'react-feather'
-
 import AsideBase from './AsideBase'
+
 import { ASIDE_WIDTH } from './constants'
 
 const MenuButton = styled('button')`
@@ -133,8 +133,11 @@ const AsideDesktop = ({ children, ...props }) => {
   )
 }
 
-const AsideResponsive = props =>
-  createElement(useBreakpoint() === 0 ? AsideMobile : AsideDesktop, props)
+const AsideResponsive = props => {
+  const breakpoint = useBreakpoint()
+  const Component = breakpoint === 0 ? AsideMobile : AsideDesktop
+  return createElement(Component, props)
+}
 
 const Aside = props => {
   useEffect(() => {
