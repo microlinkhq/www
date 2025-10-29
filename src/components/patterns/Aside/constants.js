@@ -31,6 +31,18 @@ export const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/mql')) return MQL
 }
 
+export const DOC_TABS = [
+  { name: 'API', path: '/docs/api/getting-started/overview' },
+  {
+    name: 'MQL',
+    path: '/docs/mql/getting-started/overview'
+  },
+  {
+    name: 'CARDS',
+    path: '/docs/cards/getting-started/overview'
+  }
+]
+
 const ROUTES_SDK = [
   {
     name: 'Getting Started',
@@ -85,7 +97,7 @@ const ROUTES_SDK = [
     ]
   },
   {
-    name: 'API Parameters',
+    name: 'Query Parameters',
     posts: [
       {
         name: 'apiKey',
@@ -168,7 +180,7 @@ const ROUTES_API = [
     ]
   },
   {
-    name: 'API Basics',
+    name: 'Basics',
     posts: [
       {
         name: 'Authentication',
@@ -201,7 +213,7 @@ const ROUTES_API = [
     ]
   },
   {
-    name: 'API Parameters',
+    name: 'Query Parameters',
     posts: [
       {
         name: 'adblock',

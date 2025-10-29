@@ -1,21 +1,24 @@
 import React, { useEffect, createElement } from 'react'
-import { BreakpointProvider } from 'context/breakpoint'
+import { ThemeProvider } from 'styled-components'
+import Flex from 'components/elements/Flex'
+import Box from 'components/elements/Box'
 import Toolbar from './Toolbar/Toolbar'
 import Footer from './Footer/Footer'
-import { ThemeProvider } from 'styled-components'
-import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
-import { useBreakpoint } from 'components/hook/use-breakpoint'
 import { noop } from 'helpers/noop'
 
-import themeSpec, { theme as themeProp } from 'theme'
+import {
+  BreakpointProvider,
+  useBreakpoint
+} from 'components/hook/use-breakpoint'
 
-import 'styles/main.scss'
+import themeSpec, { theme as themeProp } from 'theme'
 
 import {
   TOOLBAR_PRIMARY_HEIGHT,
   TOOLBAR_SECONDARY_HEIGHT
 } from 'components/elements/Toolbar'
+
+import 'styles/main.scss'
 
 const TOOLBAR_HEIGHTS = [
   TOOLBAR_PRIMARY_HEIGHT,
@@ -33,7 +36,7 @@ const Layout = ({
   component = Box,
   ...props
 }) => {
-  const breakpoint = useBreakpoint([0, 1, 2, 3])
+  const breakpoint = useBreakpoint()
   const toolbarHeight = TOOLBAR_HEIGHTS[breakpoint]
 
   useEffect(() => {
@@ -45,7 +48,7 @@ const Layout = ({
   }, [])
 
   return (
-    <BreakpointProvider value={breakpoint}>
+    <BreakpointProvider>
       <ThemeProvider theme={themeSpec}>
         <Flex
           data-breakpoint={breakpoint}
@@ -62,7 +65,11 @@ const Layout = ({
             component,
             {
               as: 'main',
-              style: { flex: 1, paddingTop: toolbarHeight },
+              style: {
+                flex: 1,
+                overflow: 'visible',
+                paddingTop: toolbarHeight
+              },
               ...props
             },
             children

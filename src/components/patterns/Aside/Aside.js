@@ -1,13 +1,13 @@
-import React, { createElement, useEffect, useState } from 'react'
+import React, { useEffect, useState, createElement } from 'react'
+import { useBreakpoint } from 'components/hook/use-breakpoint'
 import FeatherIcon from 'components/icons/Feather'
-import { useBreakpoint } from 'context/breakpoint'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
+import { Menu, X } from 'react-feather'
 import styled from 'styled-components'
 import { shadows, theme } from 'theme'
-import { Menu, X } from 'react-feather'
-
 import AsideBase from './AsideBase'
+
 import { ASIDE_WIDTH } from './constants'
 
 const MenuButton = styled('button')`
@@ -133,27 +133,27 @@ const AsideDesktop = ({ children, ...props }) => {
   )
 }
 
-const AsideResponsive = props =>
-  createElement(useBreakpoint() === 0 ? AsideMobile : AsideDesktop, props)
+const AsideResponsive = props => {
+  const breakpoint = useBreakpoint()
+  const Component = breakpoint === 0 ? AsideMobile : AsideDesktop
+  return createElement(Component, props)
+}
 
 const Aside = props => {
   useEffect(() => {
     const activeEl = document.querySelector('[data-aside-tree] .active')
-    if (activeEl) {
-      const elOffset = activeEl.offsetTop
+    if (activeEl.textContent?.trim() !== 'Overview') {
+      const asideContainer = document.querySelector('[data-aside]')
+      const activeElOffset = activeEl.offsetTop
+      const containerScrollTop = asideContainer.scrollTop
+      const headerHeight = 0
+      const targetScroll = activeElOffset - headerHeight
 
-      const offset = document
-        .querySelector('[data-aside-header]')
-        .getBoundingClientRect().y
-
-      const minOffset = offset * 2
-
-      if (elOffset > minOffset) {
-        const top = elOffset - offset
-
-        document
-          .querySelector('[data-aside]')
-          .scrollTo({ top, behavior: 'instant' })
+      if (
+        targetScroll > containerScrollTop ||
+        activeElOffset < containerScrollTop
+      ) {
+        asideContainer.scrollTo({ top: targetScroll - 10, behavior: 'instant' })
       }
     }
   }, [])
