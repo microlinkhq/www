@@ -97,6 +97,12 @@ export const NavOpenSource = createNavItem({
   actively: 'partial'
 })
 
+export const NavAbout = createNavItem({
+  children: 'About',
+  href: '/about',
+  actively: 'partial'
+})
+
 export const NavPdf = createNavItem({
   children: 'PDF',
   href: '/pdf',
