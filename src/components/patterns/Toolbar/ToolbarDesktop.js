@@ -13,6 +13,7 @@ import { rgba } from 'polished'
 import NavContainer from './NavContainer'
 
 import {
+  NavAbout,
   NavBlog,
   NavChangelog,
   NavCommunity,
@@ -198,6 +199,7 @@ const ToolbarDesktop = ({ isDark }) => {
               <NavBlog css={theme({ pl: 0 })} isDark={isDark} />
               <NavNewsletter isDark={isDark} />
               <NavOpenSource isDark={isDark} />
+              <NavAbout isDark={isDark} />
             </ToolbarSecondary>
           </Choose.When>
         </Choose>
