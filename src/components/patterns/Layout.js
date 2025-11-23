@@ -1,7 +1,7 @@
-import React, { useEffect, createElement } from 'react'
 import { ThemeProvider } from 'styled-components'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
+import React, { useEffect } from 'react'
 import Toolbar from './Toolbar/Toolbar'
 import Footer from './Footer/Footer'
 import { noop } from 'helpers/noop'
@@ -33,7 +33,6 @@ const Layout = ({
   onClick = noop,
   style,
   isDark = false,
-  component = Box,
   ...props
 }) => {
   const breakpoint = useBreakpoint()
@@ -60,19 +59,18 @@ const Layout = ({
           })}
         >
           <Toolbar as='header' isDark={isDark} style={style} />
-          {createElement(
-            component,
-            {
-              as: 'main',
+
+          <Box
+            as='main'
+            css={themeProp({
               pt: TOOLBAR_HEIGHTS,
-              style: {
-                flex: 1,
-                overflow: 'visible'
-              },
-              ...props
-            },
-            children
-          )}
+              flex: 1,
+              overflow: 'visible'
+            })}
+            {...props}
+          >
+            {children}
+          </Box>
           {footer && (
             <Box as='footer' className='hidden-print'>
               <Footer isDark={isDark} {...footer} />
