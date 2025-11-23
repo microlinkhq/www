@@ -1,6 +1,5 @@
 /* global fetch */
 
-import { loadStripe } from '@stripe/stripe-js/pure'
 import Caps from 'components/elements/Caps'
 import { Button } from 'components/elements/Button/Button'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
@@ -16,20 +15,17 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const handleCheckout = async () => {
     setIsLoading(true)
 
-    const [{ data }, stripe] = await Promise.all([
-      fetch(`${apiEndpoint}/payment/session`, {
-        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
-        method: 'POST',
-        body: JSON.stringify({
-          planId,
-          successUrl: `${canonicalUrl}/payment?status=success`,
-          cancelUrl: `${canonicalUrl}/payment?status=failed`
-        })
-      }).then(res => res.json()),
-      loadStripe(stripeKey, { locale: 'en' })
-    ])
+    const { data } = await fetch(`${apiEndpoint}/payment/session`, {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+      method: 'POST',
+      body: JSON.stringify({
+        planId,
+        successUrl: `${canonicalUrl}/payment?status=success`,
+        cancelUrl: `${canonicalUrl}/payment?status=failed`
+      })
+    }).then(res => res.json())
 
-    stripe.redirectToCheckout(data)
+    window.location.href = data.url
   }
 
   return (
