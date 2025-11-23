@@ -37,7 +37,6 @@ const Layout = ({
   ...props
 }) => {
   const breakpoint = useBreakpoint()
-  const toolbarHeight = TOOLBAR_HEIGHTS[breakpoint]
 
   useEffect(() => {
     const slug = window.location.hash
@@ -65,10 +64,10 @@ const Layout = ({
             component,
             {
               as: 'main',
+              pt: TOOLBAR_HEIGHTS,
               style: {
                 flex: 1,
-                overflow: 'visible',
-                paddingTop: toolbarHeight
+                overflow: 'visible'
               },
               ...props
             },

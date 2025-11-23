@@ -1,9 +1,17 @@
-import { useBreakpoint } from 'components/hook/use-breakpoint'
 import ToolbarDesktop from './ToolbarDesktop'
 import ToolbarMobile from './ToolbarMobile'
-import { createElement } from 'react'
+import Box from 'components/elements/Box'
+import React from 'react'
 
-const Toolbar = props =>
-  createElement(useBreakpoint() === 0 ? ToolbarMobile : ToolbarDesktop, props)
+const Toolbar = props => (
+  <>
+    <Box display={['block', 'none', 'none', 'none']}>
+      <ToolbarMobile {...props} />
+    </Box>
+    <Box display={['none', 'block', 'block', 'block']}>
+      <ToolbarDesktop {...props} />
+    </Box>
+  </>
+)
 
 export default Toolbar
