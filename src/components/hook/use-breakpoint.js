@@ -40,11 +40,6 @@ export function BreakpointProvider ({ children }) {
     setMounted(true)
   }, [])
 
-  // Don't render anything until mounted (prevents SSR hydration mismatch)
-  if (!mounted) {
-    return null
-  }
-
   return createElement(
     BreakpointContext.Provider,
     { value: { mounted, breakpoint } },
