@@ -8,16 +8,23 @@ import {
 import { transition, borders, colors, space, theme, fontSizes } from 'theme'
 import React, { Fragment, useEffect } from 'react'
 import styled, { css } from 'styled-components'
+import { navigate } from 'gatsby'
 import { withLink } from 'helpers/hoc/with-link'
 import { noop } from 'helpers/noop'
 import { isNot } from 'styled-is'
 
+import Select from 'components/elements/Select/Select'
 import NavLink, {
   style as navLinkStyle,
   activeStyle as navLinkActiveStyle
 } from './NavLink'
 
-import { DEFAULT_ACTIVE_ROUTE_NAME, ASIDE_WIDTH, ROUTES } from './constants'
+import {
+  DEFAULT_ACTIVE_ROUTE_NAME,
+  ASIDE_WIDTH,
+  ROUTES,
+  DOC_TABS
+} from './constants'
 
 const LINK_ICON_CLASSNAME = 'nav-link-icon'
 
@@ -128,6 +135,26 @@ const Aside = ({
         })}
       >
         {CloseButton && isOpen && <Box>{CloseButton}</Box>}
+        <Box css={theme({ mt: 3, ml: 3, mb: 3, display: ['block', 'none'] })}>
+          <Select
+            css={theme({ width: '100%' })}
+            value={activeRouteName.toUpperCase()}
+            onChange={event => {
+              const selectedTab = DOC_TABS.find(
+                tab => tab.name === event.target.value
+              )
+              if (selectedTab) {
+                navigate(selectedTab.path)
+              }
+            }}
+          >
+            {DOC_TABS.map(tab => (
+              <option key={tab.name} value={tab.name}>
+                {tab.name}
+              </option>
+            ))}
+          </Select>
+        </Box>
         <Box as='section' data-aside-tree css={theme({ pl: 3 })}>
           {ROUTES[activeRouteName].map(path => (
             <Box css={theme({ mb: 4 })} key={`${activeRouteName}_${path.name}`}>
