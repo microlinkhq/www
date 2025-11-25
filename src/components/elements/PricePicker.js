@@ -9,10 +9,14 @@ const BASE_PLAN_PRICE = 24
 const MONTH_DAYS = 28
 
 const createReqsLabels = reqsPerDay => {
-  const reqsPerMonth = formatNumber(reqsPerDay * MONTH_DAYS)
+  const total = reqsPerDay * MONTH_DAYS
+  const reqsPerMonth = formatNumber(total)
+  const pretty = Math.round(total / 1000)
+  const reqsPerMonthPretty = `${formatNumber(pretty)}K`
+
   return {
     reqsPerMonth,
-    reqsPerMonthPretty: reqsPerMonth.replace(',000', 'K'),
+    reqsPerMonthPretty,
     monthlyPrice: calculateMonthlyPrice(reqsPerDay)
   }
 }
@@ -21,9 +25,7 @@ const calculateMonthlyPrice = reqsPerDay =>
   (reqsPerDay / 1000) * BASE_PLAN_PRICE
 
 export const PLANS = [
-  { id: 'pro-500-v3', ...createReqsLabels(500) },
-  { id: 'pro-1k-v3', ...createReqsLabels(1000) },
-  { id: 'pro-2k-v3', ...createReqsLabels(2000) },
+  { id: 'pro-1625-v3', ...createReqsLabels(1625) },
   { id: 'pro-3k-v3', ...createReqsLabels(3000) },
   { id: 'pro-5k-v3', ...createReqsLabels(5000) },
   { id: 'pro-10k-v3', ...createReqsLabels(10000) },
@@ -31,7 +33,7 @@ export const PLANS = [
   { id: 'pro-20k-v3', ...createReqsLabels(20000) }
 ]
 
-export const DEFAULT_PLAN = PLANS[1]
+export const DEFAULT_PLAN = PLANS[0]
 
 const PricePicker = ({ onChange }) => {
   const [plan, setPlan] = useState(DEFAULT_PLAN)
@@ -53,10 +55,7 @@ const PricePicker = ({ onChange }) => {
       })}
     >
       <Select
-        aria-label={`${plan.reqsPerMonthPretty.replace(
-          'K',
-          '000'
-        )} requests per month`}
+        aria-label={`${plan.reqsPerMonth} requests per month`}
         value={plan.reqsPerMonthPretty}
         onChange={handleChange}
         selected={plan.reqsPerMonthPretty}
