@@ -193,20 +193,6 @@
   --yellow9: #e67700;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 142px;
-}
-
-/**
- * Disable smooth scrolling when users have prefers-reduced-motion enabled
- */
-@media screen and (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
 @media print {
   .hidden-print {
     display: none;
