@@ -1,10 +1,10 @@
 import { ThemeProvider } from 'styled-components'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
-import React, { useEffect } from 'react'
 import Toolbar from './Toolbar/Toolbar'
 import Footer from './Footer/Footer'
 import { noop } from 'helpers/noop'
+import React from 'react'
 
 import {
   BreakpointProvider,
@@ -36,14 +36,6 @@ const Layout = ({
   ...props
 }) => {
   const breakpoint = useBreakpoint()
-
-  useEffect(() => {
-    const slug = window.location.hash
-    if (slug) {
-      const el = document.querySelector(slug)
-      if (el) el.scrollIntoView()
-    }
-  }, [])
 
   return (
     <BreakpointProvider>
