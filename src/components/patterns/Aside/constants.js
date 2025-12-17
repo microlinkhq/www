@@ -37,6 +37,7 @@ export const DOC_TABS = [
     name: 'MQL',
     path: '/docs/mql/getting-started/overview'
   },
+  { name: 'SDK', path: '/docs/sdk/getting-started/overview' },
   {
     name: 'CARDS',
     path: '/docs/cards/getting-started/overview'
