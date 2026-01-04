@@ -187,7 +187,7 @@ const StyledLi = styled(Text)`
 
   ${theme({
     mx: 'auto',
-    mb: 2
+    mb: 3
   })}
 `
 

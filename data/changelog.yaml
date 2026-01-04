@@ -1,3 +1,8 @@
+- date: January 2026
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Integrated [is-antibot](https://github.com/microlinkhq/is-antibot) for better [antibot](/blog/antibot-at-scale) detection.'
+    - '[Microlink API](/docs/api/getting-started/overview): Added [EPROXYNEEDED](/docs/api/basics/error-codes#eproxyneeded) error code.'
+
 - date: September 2025
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): Added [markdown.microlink.io](http://markdown.microlink.io/https://example.com) alias.'

@@ -15,9 +15,8 @@ const PostFooter = () => (
     </Paraph>
 
     <Paraph>
-      Whether you are are building a product and you need fancy previews, you’re
-      an indie hacker or simply you like frontend stuff, come{' '}
-      <Link href='/community'>chat</Link> with us 🙂.
+      Whether you are building a product, an indie developer, or just interested
+      in web technologies, come <Link href='/community'>chat</Link> with us.
     </Paraph>
   </>
 )
