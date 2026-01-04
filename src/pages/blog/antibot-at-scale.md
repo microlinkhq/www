@@ -1,6 +1,5 @@
 ---
 title: 'Antibot detection at scale'
-image: '/images/Mh13XWB.gif'
 date: '2026-01-04'
 ---
 

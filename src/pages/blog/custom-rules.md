@@ -1,6 +1,5 @@
 ---
 title: 'Microlink API: Introducing Custom Rules'
-image: '/images/3yy4kDD.png'
 date: '2018-05-31'
 ---
 
