@@ -170,6 +170,16 @@ You need a <ProBadge/> plan for using [proxy](/docs/api/parameters/proxy) query 
 
 See [pricing](/#pricing) for upgrading your plan.
 
+## EPROXYNEEDED
+
+**Message**
+
+The URL provided uses antibot protection. Upgrade to a <ProBadge/> plan.
+
+**Solution**
+
+See [pricing](/#pricing) for upgrading your plan.
+
 ## ERATE
 
 **Message**
