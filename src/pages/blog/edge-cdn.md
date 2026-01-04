@@ -1,6 +1,5 @@
 ---
 title: 'Microlink CDN: Global Edge Cache'
-image: '/images/VsS5RwW.png'
 date: '2020-03-31'
 ---
 
@@ -40,7 +39,7 @@ Now, you only consume \*one request\*, serving the rest from the cache and **not
 
 ### Cache is served around the world
 
-![](https://blog-cloudflare-com-assets.storage.googleapis.com/2019/08/image1-3.png)
+![](/images/image1-3.png)
 
 <Figcaption>The CloudFlare Network has more than 240 edge servers in over 90 countries.</Figcaption>
 
@@ -56,7 +55,7 @@ You can see how cached resources **always** have the lowest response time associ
 
 ### Cache optimizes screenshots on the fly
 
-![](https://caniuse.bitsofco.de/image/webp.png)
+![](/images/webp.png)
 
 <Figcaption>WebP browser adoption.</Figcaption>
 

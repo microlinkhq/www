@@ -1,3 +1,17 @@
+- date: December 2025
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Improved infrastructure for transparent [antibot](/blog/antibot-at-scale) resolution.'
+    - '[Metascraper](https://metascraper.js.org): Improved [metascraper](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-x) integration for for X (formerly Twitter).'
+
+- date: November 2025
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Migrated from regional to global Redis for better performance and consistency.'
+
+- date: October 2025
+  notes:
+    - '[Microlink API](/docs/api/getting-started/overview): Improved [markdown.microlink.io](http://markdown.microlink.io/https://example.com) rendering by cleaning up DOM elements.'
+    - '[Microlink API](/docs/api/getting-started/overview): Performance and scalability optimizations.'
+
 - date: September 2025
   notes:
     - '[Microlink API](/docs/api/getting-started/overview): Added [markdown.microlink.io](http://markdown.microlink.io/https://example.com) alias.'
