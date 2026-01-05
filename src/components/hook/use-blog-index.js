@@ -3,10 +3,10 @@ import map from 'lodash/map'
 import get from 'dlv'
 
 export const useBlogIndex = () => {
-  const { allMarkdownRemark } = useStaticQuery(
+  const { allMdx } = useStaticQuery(
     graphql`
       query BlogIndexData {
-        allMarkdownRemark(filter: { fields: { slug: { regex: "//blog//" } } }) {
+        allMdx(filter: { fields: { slug: { regex: "//blog//" } } }) {
           edges {
             node {
               fields {
@@ -23,7 +23,7 @@ export const useBlogIndex = () => {
     `
   )
 
-  return map(get(allMarkdownRemark, 'edges'), ({ node }) => ({
+  return map(get(allMdx, 'edges'), ({ node }) => ({
     ...node.fields,
     ...node.frontmatter
   })).sort((a, b) => new Date(b.date) - new Date(a.date))

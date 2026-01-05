@@ -6,8 +6,7 @@ import { space, fontSizes, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
 import { mqlCode } from 'helpers/mql-code'
 import { wordBreak } from 'helpers/style'
-import Mdx from 'mdx-scoped-runtime'
-import slug from 'rehype-slug'
+import { MDXProvider } from '@mdx-js/react'
 import React from 'react'
 import get from 'dlv'
 
@@ -357,13 +356,13 @@ const ScopedComponents = {
   ProBadge
 }
 
-const Markdown = props => (
-  <Mdx
-    components={mdComponents}
-    scope={ScopedComponents}
-    mdPlugins={[slug]}
-    {...props}
-  />
+const components = {
+  ...mdComponents,
+  ...ScopedComponents
+}
+
+const Markdown = ({ children }) => (
+  <MDXProvider components={components}>{children}</MDXProvider>
 )
 
 export default Markdown

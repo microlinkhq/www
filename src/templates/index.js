@@ -16,7 +16,7 @@ const HeadDoc = ({ data, location, pageContext }) => {
     <Meta
       name='Microlink Docs'
       image={cdnUrl('banner/docs.jpeg')}
-      title={`${name} ${activeRouteName}: ${data.markdownRemark.frontmatter.title}`}
+      title={`${name} ${activeRouteName}: ${data.mdx.frontmatter.title}`}
       date={pageContext.lastEdited}
     />
   )
@@ -28,12 +28,12 @@ export const Head = ({ pageContext, location, data }) =>
         HeadDoc({ location, pageContext, data })
       )
     : (
-      <Meta {...data.markdownRemark.frontmatter} />
+      <Meta {...data.mdx.frontmatter} />
       )
 
-const Template = ({ pageContext, data, ...props }) => {
+const Template = ({ pageContext, data, children, ...props }) => {
   const { isDocPage, isBlogPage, lastEdited, githubUrl } = pageContext
-  const { frontmatter, rawMarkdownBody } = data.markdownRemark
+  const { frontmatter } = data.mdx
   const date = frontmatter.date ?? lastEdited
 
   if (!isDocPage) {
@@ -43,7 +43,7 @@ const Template = ({ pageContext, data, ...props }) => {
         date={date && new Date(date)}
         lastEdited={frontmatter.lastEdited ? lastEdited : null}
         isBlogPage={isBlogPage}
-        content={rawMarkdownBody}
+        content={children}
         {...props}
       />
     )
@@ -54,7 +54,7 @@ const Template = ({ pageContext, data, ...props }) => {
       title={frontmatter.title}
       isPro={frontmatter.isPro}
       date={date}
-      content={rawMarkdownBody}
+      content={children}
       githubUrl={githubUrl}
       {...props}
     />
@@ -62,11 +62,9 @@ const Template = ({ pageContext, data, ...props }) => {
 }
 
 export const query = graphql`
-  query PageBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query PageBySlug($id: String!) {
+    mdx(id: { eq: $id }) {
       id
-      rawMarkdownBody
-      timeToRead
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")

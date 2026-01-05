@@ -40,7 +40,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
-  if (node.internal.type === 'MarkdownRemark') {
+  if (node.internal.type === 'Mdx') {
     const slug = createFilePath({ node, getNode, basePath: 'pages' })
     createNodeField({
       node,
@@ -120,10 +120,13 @@ const createRecipesPages = async ({ createPage, recipes }) => {
 const createMarkdownPages = async ({ graphql, createPage }) => {
   const query = `
   {
-    allMarkdownRemark {
+    allMdx {
       edges {
         node {
-          fileAbsolutePath
+          id
+          internal {
+            contentFilePath
+          }
           fields {
             slug
           }
@@ -139,15 +142,19 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
     throw result.errors
   }
 
-  const pages = result.data.allMarkdownRemark.edges.map(async ({ node }) => {
+  const pages = result.data.allMdx.edges.map(async ({ node }) => {
     const slug = node.fields.slug.replace(/\/+$/, '')
+    const contentFilePath = node.internal.contentFilePath
 
     return createPage({
       path: slug,
-      component: path.resolve('./src/templates/index.js'),
+      component: `${path.resolve(
+        './src/templates/index.js'
+      )}?__contentFilePath=${contentFilePath}`,
       context: {
-        githubUrl: await githubUrl(node.fileAbsolutePath),
-        lastEdited: await getLastModifiedDate(node.fileAbsolutePath),
+        id: node.id,
+        githubUrl: await githubUrl(contentFilePath),
+        lastEdited: await getLastModifiedDate(contentFilePath),
         isBlogPage: node.fields.slug.startsWith('/blog/'),
         isDocPage: node.fields.slug.startsWith('/docs/'),
         slug: node.fields.slug

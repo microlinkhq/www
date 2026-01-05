@@ -78,7 +78,15 @@ module.exports = {
         siteUrl: CANONICAL_URL
       }
     },
-    'gatsby-transformer-remark',
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        extensions: ['.mdx', '.md'],
+        mdxOptions: {
+          rehypePlugins: [require('rehype-slug')]
+        }
+      }
+    },
     'gatsby-transformer-yaml',
     'gatsby-plugin-advanced-sitemap'
   ].filter(Boolean)
