@@ -56,8 +56,7 @@ const StyledH1 = styled(Heading)(
     lineHeight: [1, 2],
     textAlign: 'left',
     mt: 5,
-    mb: 4,
-    mx: 'auto'
+    mb: 4
   })
 )
 
@@ -69,7 +68,6 @@ export const H1 = withTitle(withSlug(H1Base))
 
 const StyledH2 = styled(Heading)`
   ${theme({
-    mx: 'auto',
     maxWidth: layout.small,
     fontSize: `calc(${fontSizes[4]} * 0.75)`,
     lineHeight: [1, 2],
@@ -85,7 +83,6 @@ export const H2 = withTitle(withSlug(H2Base))
 
 const StyledH3 = styled(Heading)`
   ${theme({
-    mx: 'auto',
     maxWidth: layout.small,
     fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
     lineHeight: 1,
@@ -101,7 +98,6 @@ export const H3 = withTitle(withSlug(H3Base))
 
 const StyledH4 = styled(Heading)`
   ${theme({
-    mx: 'auto',
     maxWidth: layout.small,
     fontSize: 2,
     lineHeight: 1,
@@ -117,7 +113,6 @@ export const H4 = withTitle(withSlug(H4Base))
 
 const StyledH5 = styled(Heading)`
   ${theme({
-    mx: 'auto',
     maxWidth: layout.small,
     fontSize: 1,
     lineHeight: 1,
@@ -133,7 +128,6 @@ export const H5 = withTitle(withSlug(H5Base))
 
 const StyledH6 = styled(Heading)`
   ${theme({
-    mx: 'auto',
     maxWidth: layout.small,
     fontSize: 1,
     color: 'gray9',
@@ -167,7 +161,6 @@ const StyledUl = styled(Text)`
   max-width: ${layout.small};
 
   ${theme({
-    mx: 'auto',
     ...CONTAINER_SPACE
   })}
 `
@@ -180,7 +173,6 @@ const StyledLi = styled(Text)`
   max-width: ${layout.small};
 
   ${theme({
-    mx: 'auto',
     mb: 3
   })}
 `
@@ -211,7 +203,6 @@ export const CodeInline = props => <StyledCodeInline as='code' {...props} />
 
 const mediaStyle = {
   borderRadius: '3px',
-  mx: 'auto',
   textAlign: 'center'
 }
 
@@ -234,7 +225,6 @@ const _VideoBase = props => <StyledVideoBase autoPlay {...props} />
 export const Video = withContainer(_VideoBase)
 
 const _IframeBase = styled(IframeBase)`
-  ${theme({ mx: 'auto' })}
   width: ${CodeEditor.width};
   height: ${CodeEditor.height};
   max-width: ${layout.small};
@@ -251,7 +241,6 @@ const FigcaptionBase = styled(Text)`
 export const Figcaption = withContainer(FigcaptionBase)
 
 export const Blockquote = styled.blockquote`
-  margin: auto;
   max-width: ${layout.small};
   border-left: 3px solid ${colors.black};
   padding-left: ${space[3]};
@@ -336,6 +325,7 @@ const ScopedComponents = {
   Li,
   Link,
   Microlink,
+  MultiCodeEditor,
   MultiCodeEditorInteractive,
   Ol,
   Paraph,
@@ -350,15 +340,25 @@ const ScopedComponents = {
   Video
 }
 
-const Markdown = ({ children }) => (
-  <MDXProvider
-    components={{
-      ...mdComponents,
-      ...ScopedComponents
-    }}
+const components = {
+  ...mdComponents,
+  ...ScopedComponents
+}
+
+const Markdown = ({ children, isBlogPage, ...props }) => (
+  <Box
+    {...props}
+    css={theme({
+      ...(isBlogPage && {
+        '& > *': {
+          mx: 'auto'
+        }
+      }),
+      ...props.css
+    })}
   >
-    {children}
-  </MDXProvider>
+    <MDXProvider components={components}>{children}</MDXProvider>
+  </Box>
 )
 
 export default Markdown

@@ -12,7 +12,6 @@ export const Container = props => (
   <Box
     css={theme({
       maxWidth: ['100%', '100%', layout.small, layout.small],
-      mx: 'auto',
       ...CONTAINER_SPACE
     })}
     {...props}
