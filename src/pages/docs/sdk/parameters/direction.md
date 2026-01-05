@@ -1,6 +1,6 @@
 ---
 title: 'direction'
---- 
+---
 
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'ltr'"/><br/>

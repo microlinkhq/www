@@ -1,6 +1,6 @@
 ---
 title: 'media'
---- 
+---
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="[ 'image', 'logo' ]"/><br/>

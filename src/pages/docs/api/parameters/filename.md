@@ -1,7 +1,9 @@
 ---
 title: 'filename'
 isPro: true
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/>
 

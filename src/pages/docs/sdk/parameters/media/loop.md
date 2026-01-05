@@ -1,6 +1,6 @@
 ---
 title: 'loop'
---- 
+---
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>

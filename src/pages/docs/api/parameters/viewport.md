@@ -2,11 +2,13 @@
 title: 'viewport'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Type: <Type children='<object>'/>
 
 It sets browser visible area settings and device capabilities over the target [url](/docs/api/parameters/url).
 
-![](https://cdn.microlink.io/docs/viewport.png)
+![](/images/viewport.png)
 
 <MultiCodeEditorInteractive mqlCode={mqlCode('https://en.wikipedia.org/wiki/Bob_Dylan', {
   screenshot: true,

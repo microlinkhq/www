@@ -2,12 +2,14 @@
 title: 'codeScheme'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'atom-dark'"/>
 
 It enables code syntax highlighting to beautify HTML markup under JSON/Text content type over the target [url](/docs/api/parameters/url).
 
-![](https://cdn.microlink.io/docs/code-scheme.png)
+![](/images/code-scheme.png)
 
 <MultiCodeEditorInteractive mqlCode={mqlCode('https://emojipedia-api.vercel.app', { screenshot: { codeScheme: 'atom-dark' }})} />
 

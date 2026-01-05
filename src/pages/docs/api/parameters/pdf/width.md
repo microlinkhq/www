@@ -1,6 +1,8 @@
 ---
 title: 'width'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/><br/>
 

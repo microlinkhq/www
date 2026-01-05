@@ -2,6 +2,8 @@
 title: 'Overview'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Microlink API provides a powerful API for automating any browser action.
 
 <MultiCodeEditorInteractive 

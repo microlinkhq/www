@@ -1,6 +1,8 @@
 ---
 title: 'click'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 

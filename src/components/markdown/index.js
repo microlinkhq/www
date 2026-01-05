@@ -4,7 +4,6 @@ import { withTitle } from 'helpers/hoc/with-title'
 import { withSlug } from 'helpers/hoc/with-slug'
 import { space, fontSizes, colors, theme } from 'theme'
 import styled, { css } from 'styled-components'
-import { mqlCode } from 'helpers/mql-code'
 import { wordBreak } from 'helpers/style'
 import { MDXProvider } from '@mdx-js/react'
 import React from 'react'
@@ -153,11 +152,7 @@ export const Paraph = props => {
   const isMedia = get(props, 'children.props.name') === 'img'
   const maxWidth = isMedia ? layout.large : layout.small
   return (
-    <Text
-      as='div'
-      css={theme({ mx: 'auto', ...CONTAINER_SPACE, maxWidth })}
-      {...props}
-    />
+    <Text as='div' css={theme({ ...CONTAINER_SPACE, maxWidth })} {...props} />
   )
 }
 
@@ -321,7 +316,6 @@ const mdComponents = {
 }
 
 const ScopedComponents = {
-  mqlCode,
   Blockquote,
   Button,
   Code,
@@ -346,23 +340,25 @@ const ScopedComponents = {
   Ol,
   Paraph,
   PriceMonthly,
+  ProBadge,
   Strong,
   Terminal,
   Tweet,
   Type,
   TypeContainer,
   Ul,
-  Video,
-  ProBadge
-}
-
-const components = {
-  ...mdComponents,
-  ...ScopedComponents
+  Video
 }
 
 const Markdown = ({ children }) => (
-  <MDXProvider components={components}>{children}</MDXProvider>
+  <MDXProvider
+    components={{
+      ...mdComponents,
+      ...ScopedComponents
+    }}
+  >
+    {children}
+  </MDXProvider>
 )
 
 export default Markdown

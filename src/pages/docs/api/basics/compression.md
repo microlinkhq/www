@@ -2,6 +2,8 @@
 title: 'Compression'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 The compression algorithms **brotli** and **gzip** are supported.
 
 If you are performing the API requests using [SDK](/docs/sdk/getting-started/overview/) or [MQL](/docs/mql/getting-started/overview/), compression will be enabled by default.

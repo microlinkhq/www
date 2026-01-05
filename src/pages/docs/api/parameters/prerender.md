@@ -2,6 +2,8 @@
 title: 'prerender'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<string>'/></TypeContainer><br/>
 Default: <Type children="'auto'"/><br/>
 Values: <TypeContainer><Type children="'auto'"/> | <Type children='true'/> | <Type children='false'/></TypeContainer>

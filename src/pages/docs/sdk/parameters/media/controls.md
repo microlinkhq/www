@@ -1,6 +1,6 @@
 ---
 title: 'controls'
---- 
+---
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>

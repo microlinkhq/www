@@ -1,12 +1,14 @@
 ---
 title: 'styles'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
 It injects [&lt;style&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style) into the browser page over the target [url](/docs/api/parameters/url).
 
-![](https://cdn.microlink.io/docs/styles.png)
+![](/images/styles.png)
 
 <MultiCodeEditorInteractive mqlCode={mqlCode('https://example.com', { 
   screenshot: true, 

@@ -1,12 +1,14 @@
 ---
 title: 'scripts'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
 It injects [&lt;script&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) into the browser page over the target [url](/docs/api/parameters/url).
 
-![](https://cdn.microlink.io/docs/scripts.png)
+![](/images/scripts.png)
 
 <MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', {
   screenshot: true, 

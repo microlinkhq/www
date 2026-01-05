@@ -1,7 +1,7 @@
 ---
 title: 'Master Plan for 2019'
 date: '2019-01-18'
---- 
+---
 
 We launched our [initial product release on march 2018](https://www.indiehackers.com/forum/show-ih-microlink-io-beautiful-links-previews-for-any-website-8fee2613af) and months later we reached +[1000 upvotes on Product Hunt](https://www.producthunt.com/posts/microlink-2-0).
 

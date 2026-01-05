@@ -1,13 +1,15 @@
 ---
 title: 'proxy'
-isPro: true
+isPro: 'true'
 ---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<object>'/></TypeContainer><br/>
 
 It sets the proxy HTTP server for resolving any internal sub-requests over the target [url](/docs/api/parameters/url).
 
-![](https://cdn.microlink.io/docs/proxy.png)
+![](/images/proxy.png)
 
 We provide an **automatic proxy resolution** included for any [pro plan](/docs/api/basics/endpoint) to handle IP blocking, CAPTCHAs, banners, or any other scraping shield protection. 
 

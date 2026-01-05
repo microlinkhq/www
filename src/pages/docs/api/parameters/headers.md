@@ -1,7 +1,9 @@
 ---
 title: 'headers'
 isPro: true
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<object>'/>
 

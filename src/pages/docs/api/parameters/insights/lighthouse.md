@@ -1,9 +1,11 @@
 ---
 title: 'lighthouse'
---- 
+---
 
 Type: <TypeContainer><Type children="boolean"/> | <Type children="object"/></TypeContainer><br/>
 Default: <Type children='true'/>
+
+import { mqlCode } from 'helpers/mql-code'
 
 <Iframe
   src="https://lighthouse.microlink.io/?url=https://cdn.microlink.io/insights/css-tricks.json"

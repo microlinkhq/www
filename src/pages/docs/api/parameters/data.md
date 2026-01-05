@@ -1,6 +1,8 @@
 ---
 title: 'data'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<object>'/>
 

@@ -2,6 +2,8 @@
 title: 'iframe'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
 

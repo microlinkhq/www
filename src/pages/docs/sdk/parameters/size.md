@@ -1,6 +1,6 @@
 ---
 title: 'size'
---- 
+---
 
 Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>
 Default: <Type children="'normal'"/><br/>

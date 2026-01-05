@@ -2,6 +2,8 @@
 title: Authentication
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 The authentication is done passing your API token associated with your [pro plan](/#pricing) as `x-api-key` request header.
 
 <MultiCodeEditorInteractive mqlCode={mqlCode('https://github.com/microlinkhq', { apiKey: 'YOUR_API_TOKEN' })} />

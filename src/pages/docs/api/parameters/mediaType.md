@@ -2,6 +2,8 @@
 title: 'mediaType'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'screen'"/><br/>
 Values: <TypeContainer><Type children="'screen'"/> | <Type children="'print'"/></TypeContainer>

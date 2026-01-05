@@ -1,6 +1,8 @@
 ---
 title: 'type'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'png'"/><br/>

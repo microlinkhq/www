@@ -1,6 +1,6 @@
 ---
 title: 'contrast'
---- 
+---
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>

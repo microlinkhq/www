@@ -2,6 +2,8 @@
 title: 'pageRanges'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Type: <Type children='<string>'/><br/>
 
 It specifies the page range for generating the [pdf](/docs/api/parameters/pdf) over the target [url](/docs/api/parameters/url).

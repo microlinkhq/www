@@ -1,7 +1,9 @@
 ---
 title: 'staleTtl'
 isPro: true
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/> | <Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children="false"/>

@@ -2,12 +2,14 @@
 title: 'screenshot'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
 It generates a screenshot over the target [url](/docs/api/parameters/url).
 
-![](https://cdn.microlink.io/docs/netflix.png)
+![](/images/netflix.png)
 
 <MultiCodeEditorInteractive mqlCode={mqlCode('https://www.netflix.com/title/80057281', { screenshot: true })} />
 
@@ -39,15 +41,15 @@ Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HT
 <!-- Meta & SEO Tags  -->
 <meta
   name="image"
-  content="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
+  content="/images/image-2.png"
 />
 <meta
   itemprop="image"
-  content="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
+  content="/images/image-1.png"
 />
 <meta
   property="og:image"
-  content="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
+  content="/images/image-1.png"
 />
 <meta
   name="twitter:image"

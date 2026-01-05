@@ -1,6 +1,8 @@
 ---
 title: 'technologies'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children='true'/>

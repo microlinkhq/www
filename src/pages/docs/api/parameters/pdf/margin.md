@@ -1,6 +1,8 @@
 ---
 title: 'margin'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<object'/></TypeContainer><br/>
 Default: <Type children="'0.35cm'"/>

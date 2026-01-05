@@ -1,6 +1,8 @@
 ---
 title: 'video'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>

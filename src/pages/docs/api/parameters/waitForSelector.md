@@ -1,6 +1,8 @@
 ---
 title: 'waitForSelector'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>
 

@@ -2,6 +2,8 @@
 title: 'modules'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
 Injects [&lt;script type="module"&gt;](https://v8.dev/features/modules) into the browser page over the target [url](/docs/api/parameters/url).

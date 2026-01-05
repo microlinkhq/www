@@ -1,6 +1,6 @@
 ---
 title: 'Format'
---- 
+---
 
 All the responses are served as **JSON**.
 

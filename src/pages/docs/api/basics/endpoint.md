@@ -2,6 +2,8 @@
 title: 'Endpoint'
 ---
 
+import { mqlCode } from 'helpers/mql-code'
+
 Microlink API is exposed from two endpoints:
 
 - **free** ([api.microlink.io](https://api.microlink.io)): The endpoint to be used for unauthenticated requests. It has daily rate limit.

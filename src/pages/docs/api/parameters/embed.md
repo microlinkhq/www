@@ -1,6 +1,8 @@
 ---
 title: 'embed'
---- 
+---
+
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/>
 
@@ -26,7 +28,7 @@ In this way, you can embed any data field directly as part of your HTML markup.
 
 And it will be rendered as an external image:
 
-![](https://cdn.microlink.io/docs/embed.png)
+![](/images/embed.png)
 
 This signals Microlink to return a specified field and set the `content-type` response accordingly, enabling API URLs to be used directly in HTML, CSS, and Markdown without JavaScript JSON parsing.
 
