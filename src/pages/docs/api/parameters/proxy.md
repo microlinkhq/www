@@ -1,6 +1,6 @@
 ---
 title: 'proxy'
-isPro: 'true'
+isPro: true
 ---
 
 import { mqlCode } from 'helpers/mql-code'
