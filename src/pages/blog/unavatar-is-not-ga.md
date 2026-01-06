@@ -16,9 +16,15 @@ That's why we built [unavatar](https://unavatar.io), and today we're excited to 
 [unavatar](https://unavatar.io) is the simplest way to get a user avatar from across the web. Whether you have a username, an email address, or a domain name, unavatar resolves it and returns the avatar URL instantly.
 
 ```bash
-curl https://unavatar.io/x/microlinkhq # Get avatar by X username
-curl https://unavatar.io/microlink.io # Get avatar by domain
-curl https://unavatar.io/hello@microlink.io # Get avatar by email
+
+# Get avatar by X username
+curl https://unavatar.io/x/microlinkhq      
+
+# Get avatar by domain
+curl https://unavatar.io/microlink.io       
+
+# Get avatar by email
+curl https://unavatar.io/hello@microlink.io
 ```
 
 The core value of unavatar is that it eliminates the need for developers to integrate with dozens of different APIs just to show a profile picture. It provides a single, reliable endpoint that works across the entire internet.

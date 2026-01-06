@@ -15,6 +15,7 @@ export const getLanguageTheme = (language, themeKey) => {
   }
 
   const mappedLang = languageMap[normalizedLang] || normalizedLang
+
   return languageColors[mappedLang]?.[themeKey]
 }
 
@@ -31,11 +32,32 @@ const languageColors = {
       --sh-string: var(--gray9);
       --sh-keyword: var(--gray9);
       --sh-comment: var(--gray9);
-       .sh__token--identifier:first-of-type {
-         color: var(--link) !important;
+       .sh__token--bash-command {
+         --sh-identifier: var(--link);
+       }
+       .sh__token--bash-comment,
+       .sh__token--bash-comment * {
+         color: var(--gray6) !important;
        }
     `,
-    dark: ''
+    dark: `
+      --sh-class: var(--white);
+      --sh-identifier: var(--white);
+      --sh-sign: var(--white);
+      --sh-property: var(--white);
+      --sh-entity: var(--white);
+      --sh-jsxliterals: var(--white);
+      --sh-string: var(--white);
+      --sh-keyword: var(--white);
+      --sh-comment: var(--white);
+       .sh__token--bash-command {
+         --sh-identifier: var(--link);
+       }
+       .sh__token--bash-comment,
+       .sh__token--bash-comment * {
+         color: var(--gray5) !important;
+       }
+    `
   },
   json: {
     light: `

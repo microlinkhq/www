@@ -102,7 +102,39 @@ export const Code = ({
   lastHighlightLine,
   language
 }) => {
-  const highlightedHtml = highlight(children)
+  let highlightedHtml = highlight(children)
+
+  if (language === 'bash') {
+    highlightedHtml = highlightedHtml
+      .split('\n')
+      .map(line => {
+        line = line.replace(
+          /class="sh__token--identifier"/,
+          'class="sh__token--identifier sh__token--bash-command"'
+        )
+
+        if (line.includes('#')) {
+          // Case 1: The # is inside a mistaken comment span (like after //)
+          if (line.includes('class="sh__token--comment"')) {
+            line = line.replace(
+              /(<span class="sh__token--comment"[^>]*>)(.*?)(#.*)(<\/span>)/g,
+              '$1$2</span><span class="sh__token--comment sh__token--bash-comment">$3$4'
+            )
+          }
+          // Case 2: The # is outside any comment span (starts a line or follows a command)
+          else if (!line.includes('sh__token--bash-comment')) {
+            line = line.replace(
+              /(.*?)((?:<span[^>]*>)?#.*$)/,
+              '$1<span class="sh__token--comment sh__token--bash-comment">$2</span>'
+            )
+          }
+        }
+
+        return line
+      })
+      .join('\n')
+  }
+
   const textHtml = wrapLinesWithHighlight(highlightedHtml, highlightLines)
 
   return (
