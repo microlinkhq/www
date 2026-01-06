@@ -29,7 +29,7 @@ Components are organized hierarchically by complexity and reusability:
 - **`icons/`** - SVG icon components
 - **`logos/`** - Brand logo components
 - **`hook/`** - Custom React hooks (use-* naming convention)
-- **`markdown/`** - MDX components for markdown rendering
+- **`markdown/`** - MDX components for markdown rendering. Components are organized as named exports in individual files (e.g., `markdown/Iframe.js`) and should be imported explicitly in MDX files.
 
 ### `/src/helpers/`
 

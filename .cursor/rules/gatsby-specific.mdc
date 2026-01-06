@@ -56,7 +56,7 @@ date: '2024-01-01'
 Content here...
 ```
 
-Processed by `gatsby-transformer-remark`.
+Processed by `gatsby-plugin-mdx` (v5).
 
 ## Templates
 

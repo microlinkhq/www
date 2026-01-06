@@ -134,10 +134,13 @@ themeProp({
 
 ### 8. CSS Prop for One-Off Styles
 
-Use the `css` prop for component-specific styles:
+Use the `css` prop for component-specific styles. For markdown components, centering is often conditional based on `isBlogPage`:
 
 ```javascript
-<Box css={theme({ maxWidth: layout.small, mx: 'auto' })}>
+<Box css={theme({ 
+  maxWidth: layout.small, 
+  mx: isBlogPage ? 'auto' : undefined 
+})}>
   {children}
 </Box>
 ```
