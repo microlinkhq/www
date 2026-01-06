@@ -41,7 +41,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
   if (node.internal.type === 'Mdx') {
-    const slug = createFilePath({ node, getNode, basePath: 'pages' })
+    // MDX files are now in src/content/ directory
+    const slug = createFilePath({ node, getNode, basePath: 'src/content' })
     createNodeField({
       node,
       name: 'slug',
@@ -130,6 +131,12 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           fields {
             slug
           }
+          frontmatter {
+            title
+            date
+            lastEdited
+            isPro
+          }
         }
       }
     }
@@ -153,6 +160,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       )}?__contentFilePath=${contentFilePath}`,
       context: {
         id: node.id,
+        frontmatter: node.frontmatter,
         githubUrl: await githubUrl(contentFilePath),
         lastEdited: await getLastModifiedDate(contentFilePath),
         isBlogPage: node.fields.slug.startsWith('/blog/'),

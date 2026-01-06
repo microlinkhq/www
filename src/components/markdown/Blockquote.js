@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { space, colors, theme } from 'theme'
 import { layout } from '../../theme'
 import { MarkdownContext } from './Context'

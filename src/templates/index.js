@@ -2,38 +2,39 @@ import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import Meta from 'components/elements/Meta/Meta'
 import { cdnUrl } from 'helpers/cdn-url'
-import { graphql } from 'gatsby'
 import React from 'react'
 
 import PageTemplate from './page'
 import DocTemplate from './doc'
 
-const HeadDoc = ({ data, location, pageContext }) => {
+const HeadDoc = ({ location, pageContext }) => {
   const { name } = useSiteMetadata()
   const activeRouteName = getActiveRouteName(location)
+  const frontmatter = pageContext.frontmatter || {}
+  // Validate date to avoid "Invalid time value" errors
+  const lastEdited = pageContext.lastEdited
+  const validDate = lastEdited && !isNaN(new Date(lastEdited).getTime()) ? lastEdited : undefined
 
   return (
     <Meta
       name='Microlink Docs'
       image={cdnUrl('banner/docs.jpeg')}
-      title={`${name} ${activeRouteName}: ${data.mdx.frontmatter.title}`}
-      date={pageContext.lastEdited}
+      title={`${name} ${activeRouteName}: ${frontmatter.title || ''}`}
+      date={validDate}
     />
   )
 }
 
-export const Head = ({ pageContext, location, data }) =>
-  pageContext.isDocPage
-    ? (
-        HeadDoc({ location, pageContext, data })
-      )
-    : (
-      <Meta {...data.mdx.frontmatter} />
-      )
+export const Head = ({ pageContext, location }) => {
+  const frontmatter = pageContext.frontmatter || {}
 
-const Template = ({ pageContext, data, children, ...props }) => {
-  const { isDocPage, isBlogPage, lastEdited, githubUrl } = pageContext
-  const { frontmatter } = data.mdx
+  return pageContext.isDocPage
+    ? HeadDoc({ location, pageContext })
+    : <Meta {...frontmatter} />
+}
+
+const Template = ({ pageContext, children, ...props }) => {
+  const { isDocPage, isBlogPage, lastEdited, githubUrl, frontmatter = {} } = pageContext
   const date = frontmatter.date ?? lastEdited
 
   if (!isDocPage) {
@@ -60,22 +61,5 @@ const Template = ({ pageContext, data, children, ...props }) => {
     />
   )
 }
-
-export const query = graphql`
-  query PageBySlug($id: String!) {
-    mdx(id: { eq: $id }) {
-      id
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        lastEdited
-        isPro
-      }
-      fields {
-        slug
-      }
-    }
-  }
-`
 
 export default Template

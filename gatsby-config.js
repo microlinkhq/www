@@ -73,6 +73,13 @@ module.exports = {
       }
     },
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: path.join(__dirname, 'src/content'),
+        name: 'content'
+      }
+    },
+    {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: CANONICAL_URL
