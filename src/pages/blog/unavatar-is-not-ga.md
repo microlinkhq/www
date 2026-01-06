@@ -5,7 +5,7 @@ date: '2026-01-05'
 
 import { Since } from 'components/markdown/Since'
 
-Resolving user avatars across different social networks can be a surprisingly difficult task: from handling different API formats to bypassing bot protection on platforms like Instagram, it’s a constant battle to keep things working.
+Resolving user avatars across different social networks can be a surprisingly difficult task: from handling different API formats to bypassing bot protection on platforms like Instagram or LinkedIn, it’s a constant battle to keep things working.
 
 <Microlink url='https://unavatar.io' />
 
@@ -35,7 +35,7 @@ The project started almost **<Since from='2018' /> years ago**. Today, unavatar 
 
 Throughout this journey, we've faced significant challenges in keeping the service both reliable and free. As platforms introduced increasingly aggressive bot protection and stricter rate limits, resolving avatars became a complex game of cat and mouse.
 
-At the same time, the daily limits—originally designed to protect our infrastructure from automated abuse—became a significant bottleneck for users moving from side projects to production-grade applications.
+At the same time, the daily limits (originally designed to protect our infrastructure from automated abuse) became a significant bottleneck for users moving from side projects to production-grade applications.
 
 We found that maintaining a high success rate across all providers required a level of infrastructure and complexity that the original free-tier architecture was never designed to handle.
 
@@ -55,6 +55,14 @@ Designed to unlock the free plan limitations, [PRO](https://unavatar.io/checkout
 - **Advanced resolution**: Jump CAPTCHAs, handle bot protection, and bypass restrictive challenges on platforms like Instagram or LinkedIn.
 - **Dynamic pricing**: Automatically adjusts its strategy and cost based on each provider's complexity to ensure the highest success rate.
 
+Also, we've shortened the cache duration: instead of 1 year (the fixed value prior to introducing the [PRO](https://unavatar.io/checkout) plan), we've lowered the new default to **7 days**. Additionally, you can now control this value yourself and set anything between **1 hour and 28 days** using the `ttl` parameter.
+
+```bash
+https://unavatar.io/x/microlinkhq?ttl=1d # 86400000
+https://unavatar.io/x/microlinkhq?ttl=1day # 86400000
+https://unavatar.io/x/microlinkhq?ttl=1h # 3600000
+```
+
 ## What's the pricing
 
 The [PRO](https://unavatar.io/checkout) plan uses a simple pay-as-you-go model at **$0.001 per avatar token**. 
@@ -67,10 +75,10 @@ unavatar uses different resolution strategies depending on what's required. An a
 
 Our goal is to stay out of your way: the service will proactively suggest an upgrade to [PRO](https://unavatar.io/checkout) only when it detects that a request failing under the free tier could be successfully resolved using our advanced strategies. This ensures you only pay for what you actually need, when you need it.
 
-### Pricing examples
+### Real-world emulation
 
-- **Simple avatar**: Resolved normally: `1 × $0.001 = $0.001 total`.
-- **Complex provider**: (e.g., Instagram) requiring a residential proxy: `1 × $0.001 + 2 × $0.001 + 4 × $0.001 = $0.007 total`.
+- **Simple avatar**: Resolved normally (`1 × $0.001 = $0.001 total`).
+- **Complex provider** (e.g., Instagram, LinkedIn): Requires a residential proxy (`1 × $0.001 + 2 × $0.001 + 4 × $0.001 = $0.007 total`).
 
 Key points:
 
@@ -84,20 +92,6 @@ You can verify this information using the response headers:
 - `x-pricing-tier` (`free` / `pro`): indicates which pricing tier was used.
 - `x-proxy-tier` (`origin` / `datacenter` / `residential`): indicates which resolution method was required.
 - `x-unavatar-cost` (`n`): number of tokens consumed for the avatar resolution.
-
-## Configurable TTL
-
-Previously, avatars had a fixed TTL of **1 year**. Any resolved avatar stayed cached for 12 months.
-
-You can now define the TTL per request using the `ttl` query parameter, with valid values from **1 hour to 28 days**:
-
-```bash
-https://unavatar.io/x/microlinkhq?ttl=1d # 86400000
-https://unavatar.io/x/microlinkhq?ttl=1day # 86400000
-https://unavatar.io/x/microlinkhq?ttl=1h # 3600000
-```
-
-The new default TTL is **7 days**.
 
 ## What's next
 
