@@ -3,6 +3,7 @@ title: 'Overview'
 ---
 
 import { Link } from 'components/elements/Link/base'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 ![](https://cdn.microlink.io/docs/cards-overview.png)
 

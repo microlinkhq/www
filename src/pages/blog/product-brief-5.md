@@ -4,6 +4,7 @@ date: '2018-05-30'
 ---
 
 import { Link } from 'components/elements/Link/base'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 ## Microlink API
 

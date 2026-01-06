@@ -4,7 +4,8 @@ title: 'Presets'
 
 import { Video } from 'components/markdown/Video'
 import { Link } from 'components/elements/Link/base'
-import Tweet from 'components/elements/Tweet/Tweet'
+import { Tweet } from 'components/elements/Tweet/Tweet'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 A preset is a design you use as starting point.
 

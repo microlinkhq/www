@@ -2,6 +2,8 @@
 title: 'Overview'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 **Microlink Query Language** (*MQL*) is the official HTTP client for interacting with [Microlink API](/docs/api/getting-started/overview), being the same query parameters been supported:
 
 

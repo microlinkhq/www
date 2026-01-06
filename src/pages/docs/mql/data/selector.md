@@ -2,6 +2,8 @@
 title: 'selector'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 

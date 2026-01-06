@@ -2,6 +2,8 @@
 title: 'Usage'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 For using **MQL**, you need to provide at least a [url](/docs/api/parameters/url).
 
 ```js

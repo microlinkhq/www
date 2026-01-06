@@ -3,6 +3,8 @@ title: 'Product Brief #6: Custom Rules & metadata improvements'
 date: '2018-06-30'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 ## Custom Rules
 
 [![](/images/subDjQ1.png)](/blog/custom-rules)

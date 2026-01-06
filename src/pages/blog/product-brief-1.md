@@ -3,6 +3,8 @@ title: 'Product Brief #1: Prerendering, Pricing & SDK First Steps'
 date: '2017-12-30'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 ## Prerendering by default
 
 ![Example of using microlink for Amazon links. Prerending improves data accuracy.](/images/VC9vYjz.png)

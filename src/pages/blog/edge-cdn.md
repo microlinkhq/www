@@ -3,6 +3,8 @@ title: 'Microlink CDN: Global Edge Cache'
 date: '2020-03-31'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 From the beginning, [Microlink API](/docs/api/getting-started/overview) shipped with a built-in cache layer for speeding up consecutive API calls, aiming to improve response times for the same resource.
 
 ## How cache works

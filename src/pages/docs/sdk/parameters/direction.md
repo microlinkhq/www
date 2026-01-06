@@ -3,6 +3,7 @@ title: 'direction'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'ltr'"/><br/>

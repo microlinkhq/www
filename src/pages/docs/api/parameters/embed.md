@@ -3,6 +3,7 @@ title: 'embed'
 ---
 
 import { mqlCode } from 'helpers/mql-code'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <Type children='<string>'/>
 

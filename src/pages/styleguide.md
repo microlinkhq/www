@@ -2,6 +2,8 @@
 title: 'Styleguide'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 # A Header 1
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.

@@ -2,6 +2,8 @@
 title: 'API'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 ### mql(&lt;url&gt;, [options], [httpOptions])
 
 <H4 titleize={false}>url</H4>

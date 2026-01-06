@@ -22,7 +22,6 @@ import { layout } from '../../theme'
 import { Blockquote } from './Blockquote'
 import { Code } from './Code'
 import { CodeInline } from './CodeInline'
-import { Figcaption } from './Figcaption'
 import { Microlink } from './Microlink'
 import { MultiCodeEditor } from './MultiCodeEditor'
 import { MultiCodeEditorInteractive } from './MultiCodeEditorInteractive'
@@ -301,7 +300,6 @@ const ScopedComponents = {
   Code,
   CodeInline,
   Container,
-  Figcaption,
   H1,
   H2,
   H3,

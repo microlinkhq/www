@@ -2,6 +2,8 @@
 title: 'Vanilla'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 It's available as [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 
 ```bash

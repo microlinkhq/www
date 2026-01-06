@@ -3,6 +3,7 @@ title: 'technologies'
 ---
 
 import { mqlCode } from 'helpers/mql-code'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <TypeContainer><Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children='true'/>

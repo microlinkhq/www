@@ -2,6 +2,8 @@
 title: 'evaluate'
 ---
 
+import { Figcaption } from 'components/markdown/Figcaption'
+
 Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>
 
 It evaluates the JavaScript stringified value provided inside the browser context over the target URL, returning the result.

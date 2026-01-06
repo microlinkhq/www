@@ -3,6 +3,7 @@ title: attr
 ---
 
 import { Link } from 'components/elements/Link/base'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="'html'"/><br/>

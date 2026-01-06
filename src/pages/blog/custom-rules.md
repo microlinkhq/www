@@ -4,6 +4,7 @@ date: '2018-05-31'
 ---
 
 import { Link } from 'components/elements/Link/base'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 The [Microlink API](/docs/api/getting-started/overview) is used for extracting information from **any** link.
 

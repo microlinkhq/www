@@ -3,6 +3,7 @@ title: 'audio'
 ---
 
 import { mqlCode } from 'helpers/mql-code'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>

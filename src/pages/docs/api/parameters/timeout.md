@@ -3,6 +3,7 @@ title: 'timeout'
 ---
 
 import { mqlCode } from 'helpers/mql-code'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
 Default: <Type children="28s"/>

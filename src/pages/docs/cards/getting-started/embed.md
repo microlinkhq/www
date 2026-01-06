@@ -3,6 +3,7 @@ title: 'Embed'
 ---
 
 import { Link } from 'components/elements/Link/base'
+import { Figcaption } from 'components/markdown/Figcaption'
 
 Once your composition has been created, is time to spread to the world.
 
