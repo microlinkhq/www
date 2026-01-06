@@ -3,6 +3,7 @@ title: 'media'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+import { Type, TypeContainer } from 'components/markdown/Type'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="[ 'image', 'logo' ]"/><br/>

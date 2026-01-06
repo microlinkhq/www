@@ -2,6 +2,7 @@
 title: 'evaluate'
 ---
 
+import { Type, TypeContainer } from 'components/markdown/Type'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <TypeContainer><Type children='<string>'/></TypeContainer><br/>

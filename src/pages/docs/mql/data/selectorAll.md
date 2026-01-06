@@ -2,6 +2,8 @@
 title: 'selectorAll'
 ---
 
+import { Type, TypeContainer } from 'components/markdown/Type'
+
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 

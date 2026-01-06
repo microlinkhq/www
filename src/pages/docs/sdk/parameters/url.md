@@ -3,6 +3,7 @@ title: 'url'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+import { Type } from 'components/markdown/Type'
 
 **required**
 

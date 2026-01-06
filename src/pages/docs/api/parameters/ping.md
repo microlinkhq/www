@@ -2,9 +2,10 @@
 title: 'ping'
 ---
 
-import { mqlCode } from 'helpers/mql-code'
-import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Type, TypeContainer } from 'components/markdown/Type'
+import { Figcaption } from 'components/markdown/Figcaption'
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='true'/>

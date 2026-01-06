@@ -2,8 +2,9 @@
 title: 'url'
 ---
 
-import { mqlCode } from 'helpers/mql-code'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Type } from 'components/markdown/Type'
+import { mqlCode } from 'helpers/mql-code'
 
 **required**
 

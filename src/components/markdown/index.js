@@ -25,7 +25,6 @@ import { CodeInline } from './CodeInline'
 import { MultiCodeEditor } from './MultiCodeEditor'
 import { Iframe } from './Iframe'
 import { Video } from './Video'
-import { Type, TypeContainer } from './Type'
 
 const { Container, CONTAINER_SPACE } = withContainer
 
@@ -310,8 +309,6 @@ const ScopedComponents = {
   Ol,
   Paraph,
   Strong,
-  Type,
-  TypeContainer,
   Ul
 }
 

@@ -3,6 +3,7 @@ title: 'autoPlay'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+import { Type } from 'components/markdown/Type'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>

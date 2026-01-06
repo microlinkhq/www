@@ -2,13 +2,14 @@
 title: 'lighthouse'
 ---
 
-Type: <TypeContainer><Type children="boolean"/> | <Type children="object"/></TypeContainer><br/>
-Default: <Type children='true'/>
-
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Type, TypeContainer } from 'components/markdown/Type'
 import { Iframe } from 'components/markdown/Iframe'
 import { Link } from 'components/elements/Link/base'
 import { mqlCode } from 'helpers/mql-code'
+
+Type: <TypeContainer><Type children="boolean"/> | <Type children="object"/></TypeContainer><br/>
+Default: <Type children='true'/>
 
 <Iframe
   src="https://lighthouse.microlink.io/?url=https://cdn.microlink.io/insights/css-tricks.json"

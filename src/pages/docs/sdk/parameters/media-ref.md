@@ -2,6 +2,7 @@
 title: 'mediaRef'
 ---
 
+import { Type, TypeContainer } from 'components/markdown/Type'
 import { Microlink } from 'components/markdown/Microlink'
 
 Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/></TypeContainer>

@@ -3,6 +3,7 @@ title: 'lazy'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+import { Type, TypeContainer } from 'components/markdown/Type'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='true'/>

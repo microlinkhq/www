@@ -2,8 +2,9 @@
 title: 'prerender'
 ---
 
-import { mqlCode } from 'helpers/mql-code'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Type, TypeContainer } from 'components/markdown/Type'
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<string>'/></TypeContainer><br/>
 Default: <Type children="'auto'"/><br/>

@@ -2,9 +2,10 @@
 title: 'function'
 ---
 
-import { mqlCode } from 'helpers/mql-code'
-import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Figcaption } from 'components/markdown/Figcaption'
+import { Type } from 'components/markdown/Type'
+import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/>
 
