@@ -2,9 +2,8 @@ import { commonHeadingStyles } from 'components/elements/Heading'
 import { withContainer } from 'helpers/hoc/with-container'
 import { withTitle } from 'helpers/hoc/with-title'
 import { withSlug } from 'helpers/hoc/with-slug'
-import { space, fontSizes, colors, theme } from 'theme'
-import styled, { css } from 'styled-components'
-import { wordBreak } from 'helpers/style'
+import { fontSizes, theme } from 'theme'
+import styled from 'styled-components'
 import { MDXProvider } from '@mdx-js/react'
 import React, { useContext } from 'react'
 import get from 'dlv'
@@ -13,7 +12,6 @@ import { MarkdownContext } from './Context'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
-import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import ImageBase from 'components/elements/Image/Image'
 import { Link } from 'components/elements/Link/base'
 import Text from 'components/elements/Text'
@@ -21,16 +19,18 @@ import Text from 'components/elements/Text'
 import Heading from '../elements/Heading'
 import { layout } from '../../theme'
 
+import { Blockquote } from './Blockquote'
+import { Code } from './Code'
+import { CodeInline } from './CodeInline'
 import { Figcaption } from './Figcaption'
 import { Microlink } from './Microlink'
 import { MultiCodeEditor } from './MultiCodeEditor'
 import { MultiCodeEditorInteractive } from './MultiCodeEditorInteractive'
 import { Iframe } from './Iframe'
 import { Video } from './Video'
+import { Type, TypeContainer } from './Type'
 
 const { Container, CONTAINER_SPACE } = withContainer
-
-export const Code = withContainer(CodeEditor)
 
 const StyledH1 = styled(Heading)(
   theme({
@@ -257,28 +257,6 @@ export const Li = props => {
   )
 }
 
-const codeStyle = css`
-  color: ${({ theme }) => theme.colors.secondary};
-  font-family: ${({ theme }) => theme.fonts.mono};
-  font-weight: ${({ theme }) => theme.fontWeights.normal};
-  font-size: 0.9rem;
-  text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
-`
-
-export const StyledCodeInline = styled(Text)`
-  ${codeStyle};
-  ${wordBreak};
-  display: inline;
-  padding: 0 4px;
-
-  &::before,
-  &::after {
-    content: '\`';
-  }
-`
-
-export const CodeInline = props => <StyledCodeInline as='code' {...props} />
-
 const mediaStyle = {
   borderRadius: '3px',
   textAlign: 'center'
@@ -291,44 +269,6 @@ const _ImageBase = styled(ImageBase)`
 export const Image = withContainer(_ImageBase, {
   style: { maxWidth: 'inherit' }
 })
-
-const StyledBlockquote = styled.blockquote`
-  max-width: ${layout.small};
-  border-left: 3px solid ${colors.black};
-  padding-left: ${space[3]};
-  font-style: italic;
-  color: ${colors.gray8};
-`
-
-export const Blockquote = props => {
-  const { isBlogPage } = useContext(MarkdownContext)
-  return (
-    <StyledBlockquote
-      css={theme({ margin: isBlogPage ? 'auto' : undefined })}
-      {...props}
-    />
-  )
-}
-
-const StyledType = styled(Text)`
-  ${theme({
-    bg: 'gray1',
-    color: 'gray7',
-    fontFamily: 'mono',
-    fontSize: 0,
-    fontWeight: 'regular'
-  })}
-
-  padding: 0.2em 0.4em;
-  margin: 0;
-  border-radius: 3px;
-`
-
-const Type = props => <StyledType as='span' {...props} />
-
-const TypeContainer = styled(Box)`
-  display: inline;
-`
 
 const mdComponents = {
   a: Link,
