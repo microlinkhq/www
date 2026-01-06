@@ -175,6 +175,10 @@
       "destination": "/docs/api/basics/error-codes#einvalproxy"
     },
     {
+      "source": "/eproxyneeded",
+      "destination": "/docs/api/basics/error-codes#eproxyneeded"
+    },
+    {
       "source": "/erate",
       "destination": "/docs/api/basics/error-codes#erate"
     },
