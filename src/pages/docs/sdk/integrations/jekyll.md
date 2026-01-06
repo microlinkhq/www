@@ -2,6 +2,9 @@
 title: 'Jekyll'
 ---
 
+import { Microlink } from 'components/markdown/Microlink'
+
+
 The [Jekyll](https://jekyllrb.com/) integration is pretty similar to the [Vanilla](/docs/sdk/integrations/vanilla/) approach.
 
 Just you need to be sure to load the script. A good place to put it's `_layouts/default.html`:

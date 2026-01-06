@@ -3,6 +3,7 @@ title: 'meta'
 ---
 
 import { mqlCode } from 'helpers/mql-code'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='true'/>

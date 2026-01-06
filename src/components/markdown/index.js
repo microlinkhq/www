@@ -22,9 +22,7 @@ import { layout } from '../../theme'
 import { Blockquote } from './Blockquote'
 import { Code } from './Code'
 import { CodeInline } from './CodeInline'
-import { Microlink } from './Microlink'
 import { MultiCodeEditor } from './MultiCodeEditor'
-import { MultiCodeEditorInteractive } from './MultiCodeEditorInteractive'
 import { Iframe } from './Iframe'
 import { Video } from './Video'
 import { Type, TypeContainer } from './Type'
@@ -308,9 +306,7 @@ const ScopedComponents = {
   H6,
   Image,
   Li,
-  Microlink,
   MultiCodeEditor,
-  MultiCodeEditorInteractive,
   Ol,
   Paraph,
   Strong,

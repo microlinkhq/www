@@ -4,7 +4,7 @@ title: 'Endpoint'
 
 import { mqlCode } from 'helpers/mql-code'
 import { Figcaption } from 'components/markdown/Figcaption'
-
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 Microlink API is exposed from two endpoints:
 

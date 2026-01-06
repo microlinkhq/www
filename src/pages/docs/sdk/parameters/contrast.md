@@ -3,6 +3,7 @@ title: 'contrast'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+import { Microlink } from 'components/markdown/Microlink'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>

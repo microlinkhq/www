@@ -4,6 +4,7 @@ title: 'setData'
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
 import { Figcaption } from 'components/markdown/Figcaption'
+import { Microlink } from 'components/markdown/Microlink'
 
 Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/></TypeContainer>
 

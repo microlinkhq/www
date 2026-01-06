@@ -2,6 +2,7 @@
 title: 'margin'
 ---
 
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Iframe } from 'components/markdown/Iframe'
 import { mqlCode } from 'helpers/mql-code'
 

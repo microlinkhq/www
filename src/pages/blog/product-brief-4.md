@@ -3,6 +3,8 @@ title: 'Product Brief #4: SDK v2 & More Video Providers'
 date: '2018-04-11'
 ---
 
+import { Microlink } from 'components/markdown/Microlink'
+
 ## Microlink SDK
 
 ### Release 2.0

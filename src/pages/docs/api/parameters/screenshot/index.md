@@ -2,6 +2,7 @@
 title: 'screenshot'
 ---
 
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<boolean>'/><br/>

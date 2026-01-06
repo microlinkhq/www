@@ -4,6 +4,7 @@ title: 'technologies'
 
 import { mqlCode } from 'helpers/mql-code'
 import { Figcaption } from 'components/markdown/Figcaption'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 Type: <TypeContainer><Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children='true'/>

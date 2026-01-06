@@ -3,6 +3,7 @@ title: 'javascript'
 ---
 
 import { mqlCode } from 'helpers/mql-code'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>

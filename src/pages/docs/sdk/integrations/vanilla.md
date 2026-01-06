@@ -3,6 +3,7 @@ title: 'Vanilla'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
+import { Microlink } from 'components/markdown/Microlink'
 
 It's available as [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 

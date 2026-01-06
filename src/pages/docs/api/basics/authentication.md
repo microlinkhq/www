@@ -3,6 +3,7 @@ title: Authentication
 ---
 
 import { mqlCode } from 'helpers/mql-code'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 The authentication is done passing your API token associated with your [pro plan](/#pricing) as `x-api-key` request header.
 

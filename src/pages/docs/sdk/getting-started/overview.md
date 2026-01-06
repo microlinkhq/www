@@ -2,6 +2,8 @@
 title: 'Overview'
 ---
 
+import { Microlink } from 'components/markdown/Microlink'
+
 **Microlink SDK** is the way to consume [Microlink API](/docs/api/getting-started/overview) directly from your UI, enabling beauty link previews for any link, designed with three things in mind:
 
 - **Common surface**: Although they may have different interface API, every specific integration has the same functionalities.

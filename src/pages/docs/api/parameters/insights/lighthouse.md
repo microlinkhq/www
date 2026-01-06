@@ -5,6 +5,7 @@ title: 'lighthouse'
 Type: <TypeContainer><Type children="boolean"/> | <Type children="object"/></TypeContainer><br/>
 Default: <Type children='true'/>
 
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Iframe } from 'components/markdown/Iframe'
 import { Link } from 'components/elements/Link/base'
 import { mqlCode } from 'helpers/mql-code'

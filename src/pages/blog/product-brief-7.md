@@ -3,6 +3,8 @@ title: 'Product Brief #7: SDK v4, Documentation Portal & MQL'
 date: '2019-05-01'
 ---
 
+import { Microlink } from 'components/markdown/Microlink'
+
 ## Microlink SDK 4.0
 
 > [See release notes on GitHub](https://github.com/microlinkhq/sdk/releases/tag/v4.0.0).

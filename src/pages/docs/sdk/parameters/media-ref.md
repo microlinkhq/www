@@ -2,6 +2,8 @@
 title: 'mediaRef'
 ---
 
+import { Microlink } from 'components/markdown/Microlink'
+
 Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/></TypeContainer>
 
 It returns the DOM reference used for mounting the internal media component.

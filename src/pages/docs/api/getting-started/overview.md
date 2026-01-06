@@ -5,6 +5,7 @@ title: 'Overview'
 import { Link } from 'components/elements/Link/base'
 import { mqlCode } from 'helpers/mql-code'
 import { Figcaption } from 'components/markdown/Figcaption'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 Microlink API provides a powerful API for automating any browser action.
 

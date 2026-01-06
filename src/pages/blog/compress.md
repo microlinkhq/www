@@ -5,6 +5,7 @@ date: '2022-09-03'
 
 import { mqlCode } from 'helpers/mql-code'
 import { Figcaption } from 'components/markdown/Figcaption'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 The query parameter [function](/docs/api/parameters/function) allows you dynamic code execution with remote headless browser access on runtime:
 

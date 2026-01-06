@@ -5,6 +5,7 @@ date: '2019-12-29'
 
 import { Link } from 'components/elements/Link/base'
 import { Figcaption } from 'components/markdown/Figcaption'
+import { Microlink } from 'components/markdown/Microlink'
 
 We released [Microlink SDK v4.5.0](https://github.com/microlinkhq/sdk/releases/tag/v4.5.0), introducing a powerful functionality: the ability to embed **native iframes** 🔥.
 

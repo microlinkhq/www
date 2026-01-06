@@ -4,6 +4,7 @@ title: 'video'
 
 import { mqlCode } from 'helpers/mql-code'
 import { Figcaption } from 'components/markdown/Figcaption'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>

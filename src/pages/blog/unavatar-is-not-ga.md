@@ -4,6 +4,7 @@ date: '2026-01-05'
 ---
 
 import { Since } from 'components/markdown/Since'
+import { Microlink } from 'components/markdown/Microlink'
 
 Resolving user avatars across different social networks can be a surprisingly difficult task: from handling different API formats to bypassing bot protection on platforms like Instagram or LinkedIn, it’s a constant battle to keep things working.
 

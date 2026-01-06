@@ -2,6 +2,8 @@
 title: 'Vue'
 ---
 
+import { Microlink } from 'components/markdown/Microlink'
+
 It's available as [npm package](https://www.npmjs.com/package/@microlink/vue).
 
 ```bash

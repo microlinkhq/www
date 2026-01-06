@@ -2,6 +2,8 @@
 title: 'React'
 ---
 
+import { Microlink } from 'components/markdown/Microlink'
+
 It's available as [npm package](https://www.npmjs.com/package/@microlink/react).
 
 ```bash

@@ -4,6 +4,7 @@ isPro: true
 ---
 
 import { mqlCode } from 'helpers/mql-code'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 Type: <Type children='<object>'/>
 
