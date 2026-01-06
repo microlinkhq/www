@@ -120,9 +120,8 @@ export const Code = ({
               /(<span class="sh__token--comment"[^>]*>)(.*?)(#.*)(<\/span>)/g,
               '$1$2</span><span class="sh__token--comment sh__token--bash-comment">$3$4'
             )
-          }
-          // Case 2: The # is outside any comment span (starts a line or follows a command)
-          else if (!line.includes('sh__token--bash-comment')) {
+            // Case 2: The # is outside any comment span (starts a line or follows a command)
+          } else if (!line.includes('sh__token--bash-comment')) {
             line = line.replace(
               /(.*?)((?:<span[^>]*>)?#.*$)/,
               '$1<span class="sh__token--comment sh__token--bash-comment">$2</span>'
