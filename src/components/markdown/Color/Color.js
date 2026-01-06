@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import { theme } from 'theme'
-import Text from '../Text'
 import React from 'react'
+
+import Text from '../../elements/Text'
 
 const Colored = styled(Text)(
   theme({
@@ -16,11 +17,9 @@ const Colored = styled(Text)(
   })
 )
 
-const Color = ({ children, ...props }) => (
+export const Color = ({ children, ...props }) => (
   <>
     <Colored as='span' style={{ background: children }} {...props} />
     {children}
   </>
 )
-
-export default Color
