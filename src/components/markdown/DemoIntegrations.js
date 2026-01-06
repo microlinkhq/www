@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react'
 import kebabCase from 'lodash/kebabCase'
 
-import { Figcaption, Microlink, MultiCodeEditor } from 'components/markdown'
+import { Figcaption } from './Figcaption'
+import { Microlink } from './Microlink'
+import { MultiCodeEditor } from './MultiCodeEditor'
 
 const DEFAULTS = {
   url: 'https://microlink.io'
@@ -39,7 +41,11 @@ const formatParam = (param, useRealJson = false) => {
   return param
 }
 
-const DemoIntegrations = ({ caption, parameters = {}, showCard = true }) => {
+export const DemoIntegrations = ({
+  caption,
+  parameters = {},
+  showCard = true
+}) => {
   const params = useMemo(() => ({ ...DEFAULTS, ...parameters }), [parameters])
   const paramKeys = useMemo(() => Object.keys(params), [params])
   const withoutUrl = useMemo(
@@ -145,5 +151,3 @@ const DemoIntegrations = ({ caption, parameters = {}, showCard = true }) => {
     </>
   )
 }
-
-export default DemoIntegrations

@@ -5,7 +5,7 @@ const TweetBase = lazy(() =>
   import('react-twitter-widgets').then(module => ({ default: module.Tweet }))
 )
 
-const Tweet = props => (
+export const Tweet = props => (
   <Suspense fallback={<div style={{ minHeight: '500px' }} />}>
     <TweetBase
       options={{
@@ -15,5 +15,3 @@ const Tweet = props => (
     />
   </Suspense>
 )
-
-export default Tweet

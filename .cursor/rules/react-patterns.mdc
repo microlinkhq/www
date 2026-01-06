@@ -144,6 +144,29 @@ Use local state (`useState`) by default. Only lift state up when needed by multi
 
 For state shared across many components (theme, breakpoints), use Context:
 - See [src/context/breakpoint.js](mdc:src/context/breakpoint.js)
+- Use `MarkdownContext` for passing page-level state (like `isBlogPage`) to markdown components.
+
+## Markdown Components
+
+### Explicit Imports in MDX
+
+Components used in MDX files should be imported explicitly rather than relying on global scope:
+
+```markdown
+import { Microlink } from 'components/markdown'
+import { Iframe } from 'components/markdown/Iframe'
+
+<Microlink url="https://microlink.io" />
+```
+
+### Conditional Centering
+
+Markdown components should consume `MarkdownContext` to conditionally apply `mx: 'auto'` when `isBlogPage` is true:
+
+```javascript
+const { isBlogPage } = useContext(MarkdownContext)
+return <Component mx={isBlogPage ? 'auto' : undefined} />
+```
 
 ## Constants
 

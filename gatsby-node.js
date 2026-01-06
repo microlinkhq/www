@@ -40,8 +40,9 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
-  if (node.internal.type === 'MarkdownRemark') {
-    const slug = createFilePath({ node, getNode, basePath: 'pages' })
+  if (node.internal.type === 'Mdx') {
+    // MDX files are now in src/content/ directory
+    const slug = createFilePath({ node, getNode, basePath: 'src/content' })
     createNodeField({
       node,
       name: 'slug',
@@ -120,12 +121,21 @@ const createRecipesPages = async ({ createPage, recipes }) => {
 const createMarkdownPages = async ({ graphql, createPage }) => {
   const query = `
   {
-    allMarkdownRemark {
+    allMdx {
       edges {
         node {
-          fileAbsolutePath
+          id
+          internal {
+            contentFilePath
+          }
           fields {
             slug
+          }
+          frontmatter {
+            title
+            date
+            lastEdited
+            isPro
           }
         }
       }
@@ -139,15 +149,20 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
     throw result.errors
   }
 
-  const pages = result.data.allMarkdownRemark.edges.map(async ({ node }) => {
+  const pages = result.data.allMdx.edges.map(async ({ node }) => {
     const slug = node.fields.slug.replace(/\/+$/, '')
+    const contentFilePath = node.internal.contentFilePath
 
     return createPage({
       path: slug,
-      component: path.resolve('./src/templates/index.js'),
+      component: `${path.resolve(
+        './src/templates/index.js'
+      )}?__contentFilePath=${contentFilePath}`,
       context: {
-        githubUrl: await githubUrl(node.fileAbsolutePath),
-        lastEdited: await getLastModifiedDate(node.fileAbsolutePath),
+        id: node.id,
+        frontmatter: node.frontmatter,
+        githubUrl: await githubUrl(contentFilePath),
+        lastEdited: await getLastModifiedDate(contentFilePath),
         isBlogPage: node.fields.slug.startsWith('/blog/'),
         isDocPage: node.fields.slug.startsWith('/docs/'),
         slug: node.fields.slug
