@@ -2,6 +2,8 @@
 title: 'url'
 ---
 
+import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+
 **required**
 
 Type: <Type children='<string>'/>

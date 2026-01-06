@@ -3,6 +3,8 @@ title: 'Product Brief #5: New API Parameters & Gallery Showcase'
 date: '2018-05-30'
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 ## Microlink API
 
 [![](/images/2RNeKiR.png)](/docs/api/getting-started/overview)

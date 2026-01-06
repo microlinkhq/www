@@ -2,6 +2,8 @@
 title: 'Query Variables'
 ---
 
+import { Video } from 'components/markdown/Video'
+
 The query variables is the way to reuse your composition, feeding it with data, creating a new mix.
 
 <Video src="https://cdn.microlink.io/docs/cards-query-variables.mp4" />

@@ -2,6 +2,8 @@
 title: 'fetchData'
 ---
 
+import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+
 Type: <TypeContainer><Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children="true"/>
 

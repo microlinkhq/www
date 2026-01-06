@@ -2,6 +2,7 @@
 title: 'iframe'
 ---
 
+import { Iframe } from 'components/markdown/Iframe'
 import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>

@@ -3,6 +3,8 @@ title: 'Microlink Proxy: How it works'
 date: '2021-06-07'
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 All [Microlink Pro](#pricing) plans come with a built-in proxy layer that does automatic proxy resolution and rotation based on the input URL.
 
 ## What's wrong with URLs

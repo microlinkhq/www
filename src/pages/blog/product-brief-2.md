@@ -3,6 +3,8 @@ title: 'Product Brief #2: New Branding, Documentation & Improvements'
 date: '2018-01-31'
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 ## Website Refresh
 
 ![the new microlink.io swag logo!](https://cdn-images-1.medium.com/max/800/1*qnT4Rmic-FA4_Kf8LdZs_g.png)

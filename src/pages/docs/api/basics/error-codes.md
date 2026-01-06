@@ -2,6 +2,8 @@
 title: Error codes
 ---
 
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
+
 Microlink API considers an unexpected situation any request performed on which [status](/docs/api/basics/format#status) is different from <Type children="'success'"/>.
 
 When this happens, the response payload includes some useful information in order to determine the root cause of the problem:

@@ -2,6 +2,8 @@
 title: 'Editor'
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 The editor lets you design in the browser, allowing visualize your composition before the screenshot will be finally taken. The code is written using JSX markup that will be transformed into HTML.
 
 ![](https://cdn.microlink.io/docs/cards-editor.png)

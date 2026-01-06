@@ -2,6 +2,8 @@
 title: 'CLI'
 ---
 
+import { Terminal } from 'components/markdown/Terminal'
+
 We provide a command-line interface for interacting with [Microlink API](/docs/api/getting-started/overview/) from your terminal, available as an [npm package](https://www.npmjs.com/package/@microlink/cli).
 
 <Terminal>npm install @microlink/cli --global</Terminal>

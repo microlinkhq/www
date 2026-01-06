@@ -2,6 +2,7 @@
 title: 'width'
 ---
 
+import { Iframe } from 'components/markdown/Iframe'
 import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/><br/>

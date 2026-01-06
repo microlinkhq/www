@@ -2,6 +2,10 @@
 title: 'Presets'
 ---
 
+import { Video } from 'components/markdown/Video'
+import { Link } from 'components/elements/Link/base'
+import Tweet from 'components/elements/Tweet/Tweet'
+
 A preset is a design you use as starting point.
 
 <Video src="https://cdn.microlink.io/docs/cards-presets.mp4" />

@@ -30,6 +30,8 @@ const THEMES = {
 }
 
 const content = `
+import { PriceMonthly } from 'components/markdown/PriceMonthly'
+
 The **Microlink Enterprise** plan is oriented for any customer that wants to maximize Microlink capabilities, unleashing the maximum performance with dedicated hardware and superior software integration with any existence customer infrastructure.
 
 Running a **Microlink Enterprise** plan means:

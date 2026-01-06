@@ -2,6 +2,8 @@
 title: 'apiKey'
 ---
 
+import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+
 Type: <Type children='<string>'/>
 
 The API Key associated with your plan for [authenticating](/docs/api/basics/authentication) your requests.

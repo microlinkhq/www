@@ -2,6 +2,7 @@
 title: 'margin'
 ---
 
+import { Iframe } from 'components/markdown/Iframe'
 import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<object'/></TypeContainer><br/>

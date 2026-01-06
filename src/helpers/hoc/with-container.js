@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Box from '../../components/elements/Box'
 
 import { layout, theme } from 'theme'
+import { MarkdownContext } from 'components/markdown/Context'
 
 export const CONTAINER_SPACE = {
   mt: 3,
   mb: 4
 }
 
-export const Container = props => (
-  <Box
-    css={theme({
-      maxWidth: ['100%', '100%', layout.small, layout.small],
-      ...CONTAINER_SPACE
-    })}
-    {...props}
-  />
-)
+export const Container = props => {
+  const { isBlogPage } = useContext(MarkdownContext)
+  return (
+    <Box
+      css={theme({
+        maxWidth: ['100%', '100%', layout.small, layout.small],
+        mx: isBlogPage ? 'auto' : undefined,
+        ...CONTAINER_SPACE
+      })}
+      {...props}
+    />
+  )
+}
 
 export const withContainer = (Component, containerProps = {}, childProps) => {
   const ContainerWrapper = props => (

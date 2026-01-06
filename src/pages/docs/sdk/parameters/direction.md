@@ -2,6 +2,8 @@
 title: 'direction'
 ---
 
+import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'ltr'"/><br/>
 Values: <TypeContainer><Type children="'ltr'"/> | <Type children="'rtl'"/></TypeContainer>

@@ -2,6 +2,8 @@
 title: attr
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="'html'"/><br/>
 Values: <TypeContainer><Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Element/tagName">tagName</Link></Type> | <Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName">nodeName</Link></Type> | <Type children="'html'"/> | <Type children="'innerHTML'"/> | <Type children="'outerHTML'"/> | <Type children="'text'"/> | <Type children="'textContent'"/> | <Type children="'innerText'"/> | <Type children="'val'"/></TypeContainer>

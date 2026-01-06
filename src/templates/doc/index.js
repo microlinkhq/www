@@ -1,5 +1,6 @@
 import { getActiveRouteName } from 'components/patterns/Aside/constants'
-import Markdown, { H1, ProBadge } from 'components/markdown'
+import Markdown, { H1 } from 'components/markdown'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 import DocTabs from 'components/patterns/DocTabs/DocTabs'
 import Container from 'components/elements/Container'
 import { Link } from 'components/elements/Link/base'

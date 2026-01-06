@@ -1,10 +1,9 @@
 ---
-title: 'unavatar is now GA'
+title: 'unavatar.io is now GA'
 date: '2026-01-05'
 ---
 
-import Since from 'components/elements/Since'
-import { Microlink } from 'components/markdown'
+import { Since } from 'components/markdown/Since'
 
 Resolving user avatars across different social networks can be a surprisingly difficult task: from handling different API formats to bypassing bot protection on platforms like Instagram, it’s a constant battle to keep things working.
 

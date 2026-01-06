@@ -2,6 +2,8 @@
 title: 'setData'
 ---
 
+import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+
 Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/></TypeContainer>
 
 A data mapper that will be invoked before mounting the card.

@@ -2,6 +2,7 @@
 title: 'scale'
 ---
 
+import { Iframe } from 'components/markdown/Iframe'
 import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<number>'/><br/>

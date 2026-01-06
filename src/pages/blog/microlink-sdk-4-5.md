@@ -3,6 +3,8 @@ title: 'Microlink SDK v4.5: Introducing iframe support'
 date: '2019-12-29'
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 We released [Microlink SDK v4.5.0](https://github.com/microlinkhq/sdk/releases/tag/v4.5.0), introducing a powerful functionality: the ability to embed **native iframes** 🔥.
 
 Every time you use **Microlink SDK**, it turns any link into a beautiful link preview, where the card can be displayed with three [size](/docs/sdk/parameters/size/) variations: `'small'`, `'normal'` and `'large'`.

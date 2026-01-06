@@ -1,7 +1,7 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { ProBadge } from 'components/markdown'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
 import { Story } from 'story'

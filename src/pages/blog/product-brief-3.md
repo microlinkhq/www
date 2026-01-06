@@ -3,6 +3,8 @@ title: 'Product Brief #3: Video Support, Better Prerendering & SDK Features'
 date: '2018-03-02'
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 ## Microlink API
 
 ![](/images/o8cC1k4.png)

@@ -3,6 +3,8 @@ title: 'Microlink API: Introducing Custom Rules'
 date: '2018-05-31'
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 The [Microlink API](/docs/api/getting-started/overview) is used for extracting information from **any** link.
 
 Just enter a URL and you will receive data.

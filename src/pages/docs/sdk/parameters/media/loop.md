@@ -2,6 +2,8 @@
 title: 'loop'
 ---
 
+import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>
 

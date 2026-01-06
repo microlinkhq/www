@@ -2,6 +2,8 @@
 title: 'Styling'
 ---
 
+import { Color } from 'components/markdown/Color/Color'
+
 We don't inject any CSS into your application.
 
 Instead, the card previsualization is shipped with a default minimal inline style.

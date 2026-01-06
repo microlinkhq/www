@@ -2,6 +2,8 @@
 title: 'Rate limit'
 ---
 
+import Label from 'components/elements/Label'
+
 The API quota is the number of requests you can perform during a quantity of time.
 
 Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are using:

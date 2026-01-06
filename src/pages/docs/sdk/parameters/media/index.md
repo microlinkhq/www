@@ -2,6 +2,8 @@
 title: 'media'
 ---
 
+import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
+
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="[ 'image', 'logo' ]"/><br/>
 Values: <TypeContainer><Type children="'audio'"/> | <Type children="'iframe'"/> | <Type children="'image'"/> | <Type children="'logo'"/> | <Type children="'screenshot'" /> | <Type children="'video'"/></TypeContainer>

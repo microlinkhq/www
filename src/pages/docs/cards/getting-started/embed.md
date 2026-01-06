@@ -2,6 +2,8 @@
 title: 'Embed'
 ---
 
+import { Link } from 'components/elements/Link/base'
+
 Once your composition has been created, is time to spread to the world.
 
 ![](https://cdn.microlink.io/docs/cards-embed.png)
