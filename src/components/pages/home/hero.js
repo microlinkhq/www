@@ -148,9 +148,8 @@ const Hero = ({ children }) => {
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
         })}
       >
-        Microlink is a fast, scalable, and reliable high-level API to control a
-        headless browser built for businesses and developers. Proudly Open
-        Source.
+        <br />
+        Generate screenshots, PDFs, previews and scrape content via a <b>browserless API</b>. No Puppeteer clusters to manage. Open source roots, enterprise scale.
       </Caption>
       <Box>
         <Grid css={theme({ maxWidth: layout.large, pb: [4, 4, 5, 5] })}>
