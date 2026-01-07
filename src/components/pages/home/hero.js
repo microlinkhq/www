@@ -148,7 +148,6 @@ const Hero = ({ children }) => {
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
         })}
       >
-        <br />
         Generate screenshots, PDFs, previews and scrape content via a <b>browserless API</b>. No Puppeteer clusters to manage. Open source roots, enterprise scale.
       </Caption>
       <Box>
