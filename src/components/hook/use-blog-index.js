@@ -9,6 +9,7 @@ export const useBlogIndex = () => {
         allMdx(filter: { fields: { slug: { regex: "//blog//" } } }) {
           edges {
             node {
+              excerpt(pruneLength: 250)
               fields {
                 slug
               }
@@ -25,6 +26,7 @@ export const useBlogIndex = () => {
 
   return map(get(allMdx, 'edges'), ({ node }) => ({
     ...node.fields,
-    ...node.frontmatter
+    ...node.frontmatter,
+    excerpt: node.excerpt
   })).sort((a, b) => new Date(b.date) - new Date(a.date))
 }

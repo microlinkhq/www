@@ -59,7 +59,7 @@ const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
                   css={{ marginTop: 0, maxWidth: layout.large }}
                   titleize={false}
                 >
-                  <PostTitle>{title}</PostTitle>
+                  {title}
                 </Heading>
                 {lastEdited && (
                   <Caption forwardedAs='h2' css={theme({ fontSize: 2, pt: 4 })}>
