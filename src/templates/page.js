@@ -72,9 +72,7 @@ const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
         </Text>
 
         <Box css={theme({ pt: [3, null, 4] })}>
-          <Markdown isBlogPage={true} data-debug>
-            {content}
-          </Markdown>
+          <Markdown isBlogPage>{content}</Markdown>
         </Box>
 
         {isBlogPage && (

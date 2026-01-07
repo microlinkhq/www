@@ -117,13 +117,11 @@ export const prettier = async (code, language = 'js') => {
     return formatHeaders(code)
   }
 
-  const formatterOpts = getFormatterOpts[language]
-  if (!formatterOpts) return code
+  const formatterOpts = getFormatterOpts[language] || getFormatterOpts.js
 
   // For JS/JSON, use lazy-loaded prettier
   try {
     const { format, babel } = await loadPrettier()
-
     const opts = { ...PRETTIER_CONFIG, ...formatterOpts(babel) }
     const formatted = format(code, opts)
     return formatted.replace(';<', '<')
