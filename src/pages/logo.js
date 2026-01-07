@@ -13,7 +13,6 @@ import { noop } from 'helpers/noop'
 import logoUri from '../../static/logo.svg'
 
 import { useClipboard } from 'components/hook/use-clipboard'
-import { useFeaturesMeta } from 'components/hook/use-features-meta'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { useQueryState } from 'components/hook/use-query-state'
 
@@ -48,6 +47,53 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import demoLinks from '../../data/demo-links'
+
+const FEATURES = [
+  {
+    title: 'Unified Metadata',
+    description: 'Metadata normalized from Open Graph, JSON+LD and HTML markup.'
+  },
+  {
+    title: 'Color Detection',
+    description:
+      'Get predominant and complementary colors per every image detected.'
+  },
+  {
+    title: 'Always fresh',
+    description:
+      'Stale revalidation, with built-in cache keeping things up to date.'
+  },
+  {
+    title: 'Contextual Info',
+    description:
+      'Get more from any data, expanding it to get extra useful information.'
+  },
+  {
+    title: 'Native Iframe',
+    description:
+      'Using oEmbed to get the embedded representation of any third party URL.'
+  },
+  {
+    title: 'Media Support',
+    description:
+      'Detecting the original streaming source for any video or audio.'
+  },
+  {
+    title: 'Costless Solution',
+    description:
+      'Starts free. No upfront costs, scalable pricing as you go, growing with your business.'
+  },
+  {
+    title: 'Built-in cache',
+    description:
+      'Always fresh based on response payload with stale revalidation support.'
+  },
+  {
+    title: 'Global CDN',
+    description:
+      'Edge storage distributed over +240 nodes backed by CloudFlare Network.'
+  }
+]
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -878,7 +924,6 @@ export const Head = () => (
 
 const LogoPage = () => {
   const [query] = useQueryState()
-  const features = useFeaturesMeta()
   const hasQuery = !!query?.url
 
   return (
@@ -925,7 +970,7 @@ const LogoPage = () => {
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
                 }
-                features={features}
+                features={FEATURES}
               />
               <Resume />
               <ProductInformation />

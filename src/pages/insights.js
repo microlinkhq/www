@@ -39,10 +39,53 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useClipboard } from 'components/hook/use-clipboard'
-import { useFeatures } from 'components/hook/use-features'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { useQueryState } from 'components/hook/use-query-state'
 import { useWindowSize } from 'components/hook/use-window-size'
+
+const FEATURES = [
+  {
+    title: 'Powerful & Scalable',
+    description: 'Cloud-based solution with superior operational performance.'
+  },
+  {
+    title: 'Costless Solution',
+    description:
+      'Starts free. No upfront costs, scalable pricing as you go, growing with your business.'
+  },
+  {
+    title: 'Global CDN',
+    description:
+      'Edge storage distributed over +240 nodes backed by CloudFlare Network.'
+  },
+  {
+    title: 'Developer First',
+    description:
+      'For developers, with top-notch industry technologies, language-agnostic.'
+  },
+  {
+    title: 'Fully programmable',
+    description:
+      'Easy to integrate with any existing stack or cloud in just a few minutes.'
+  },
+  {
+    title: 'Declarative Usage',
+    description:
+      'Simple documentation and interactive code examples that enable quick implementations.'
+  },
+  {
+    title: 'Optimized hardware',
+    description: 'No servers to maintain; no shared browsers between requests.'
+  },
+  {
+    title: 'Built-in cache',
+    description: 'Enabled by default, no additional caching setup required.'
+  },
+  {
+    title: 'Security compliance',
+    description: 'Request isolation with no shared browsers between requests.'
+  }
+]
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -855,7 +898,6 @@ export const Head = () => (
 
 const InsightsPage = () => {
   const [query] = useQueryState()
-  const features = useFeatures()
   const hasQuery = !!query?.url
 
   return (
@@ -901,7 +943,7 @@ const InsightsPage = () => {
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
                 }
-                features={features}
+                features={FEATURES}
               />
               <Resume />
               <ProductInformation />
