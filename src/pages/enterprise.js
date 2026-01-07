@@ -17,6 +17,8 @@ import HeadingBase from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 
+import Content from '../content/fragments/enterprise.md'
+
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 
@@ -28,21 +30,6 @@ const THEMES = {
     secondary: 'white80'
   }
 }
-
-const content = `
-import { PriceMonthly } from 'components/markdown/PriceMonthly'
-
-The **Microlink Enterprise** plan is oriented for any customer that wants to maximize Microlink capabilities, unleashing the maximum performance with dedicated hardware and superior software integration with any existence customer infrastructure.
-
-Running a **Microlink Enterprise** plan means:
-
-- Your own Microlink API endpoint, off of the rest customers, with your own dedicated pool of always-ready browsers.
-- Your own S3-like storage service for assets integration, with no time-to-live (TTL) restriction.
-- Your own worlwide CDN distribution (+240 nodes over the world, powered by CloudFlare).
-
-The physical servers associated with your own Microlink API endpoint can be chosen between 8 locations (🇺🇸 New York, 🇺🇸 San Francisco, 🇳🇱 Amsterdam, 🇸🇬 Singapore, 🇬🇧 London, 🇩🇪 Frankfurt, 🇨🇦 Toronto, or 🇮🇳 Bangalore).
-
-The price model is the same as you Microlink Pro plan, plus <PriceMonthly isDark>500</PriceMonthly> for the extra cost of keeping the dedicated infrastructure running.`.trim()
 
 const GradientButton = styled(Button)`
   transition: filter ${transition.medium};
@@ -105,7 +92,9 @@ const EnterprisePage = () => {
               }
             `}
           >
-            <Markdown>{content}</Markdown>
+            <Markdown>
+              <Content />
+            </Markdown>
           </Box>
           <Box css={themeProp({ pt: [2, null, 3], color: secondary })}>
             <GradientButton
@@ -114,7 +103,8 @@ const EnterprisePage = () => {
                   'mailto:hello@microlink.io?subject=Microlink%20Enterprise&body=Hello%2C%20I%20want%20to%20upgrade%20my%20customer%20plan%20to%20Microlink%20Enterprise.%0D%0A%0D%0ACan%20you%20tell%20me%20more%20about%20the%20details%3F%0D%0A%0D%0AThank%20you!%0D%0A',
                   '_blank',
                   'noopener noreferrer'
-                )}
+                )
+              }
             >
               <Caps
                 css={themeProp({ bg: 'black', px: 3, py: 2, color: primary })}
