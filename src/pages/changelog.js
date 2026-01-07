@@ -5,11 +5,12 @@ import Box from 'components/elements/Box'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
-import Markdown, { H1 } from 'components/markdown'
-import { useChangelog } from 'components/hook/use-changelog'
+import Markdown from 'components/markdown'
 import { cdnUrl } from 'helpers/cdn-url'
 import { layout, theme } from 'theme'
 import React from 'react'
+
+import Content from '../content/fragments/changelog.md'
 
 const Heading = withTitle(HeadingBase)
 
@@ -23,8 +24,6 @@ export const Head = () => (
 )
 
 const ChangelogPage = () => {
-  const changelog = useChangelog()
-
   return (
     <Layout>
       <Container
@@ -49,14 +48,9 @@ const ChangelogPage = () => {
           our lineup of products & improvements over the time.
         </Caption>
         <Box css={theme({ pt: [3, null, 4] })}>
-          {changelog.map(({ date, notes }) => {
-            return (
-              <Box key={date}>
-                <H1 forwardedAs='h3'>{date}</H1>
-                <Markdown>{notes.map(note => `- ${note}`).join('\n')}</Markdown>
-              </Box>
-            )
-          })}
+          <Markdown>
+            <Content />
+          </Markdown>
         </Box>
       </Container>
     </Layout>
