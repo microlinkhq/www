@@ -312,12 +312,9 @@ const ScopedComponents = {
   Ul
 }
 
-const Markdown = ({ children, isBlogPage, ...props }) => {
-  const components = {
-    ...mdComponents,
-    ...ScopedComponents
-  }
+const components = { ...mdComponents, ...ScopedComponents }
 
+const Markdown = ({ children, isBlogPage, ...props }) => {
   return (
     <MarkdownContext.Provider value={{ isBlogPage }}>
       <Box {...props}>

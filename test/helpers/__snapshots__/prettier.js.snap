@@ -90,5 +90,3 @@ exports[`json 1`] = `
 }
 "
 `;
-
-exports[`serializeFmt 1`] = `"type='email' id='input' placeholder='you@domain.com' suggestions={[{ value: 'you@gmail.com' }, { value: 'you@hotmail.com' }]} width='9rem' fontSize={1} required "`;

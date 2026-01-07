@@ -31,6 +31,12 @@ x-custom-header: some-value`
   expect(output).toMatchSnapshot()
 })
 
+test('unsupported', async () => {
+  const code = 'curl https://unavatar.io/x/microlinkhq'
+  const output = await prettier(code, 'bash')
+  expect(output).toBe(code)
+})
+
 test('.serializeFmt', () => {
   const output = serializeFmt({
     type: 'email',

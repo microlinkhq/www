@@ -22,8 +22,8 @@ const NavLogoMobile = props => (
   <NavLink href='/' {...props}>
     <Microlink
       css={{
-        'max-height': fontSizes[2],
-        'object-fit': 'cover',
+        maxHeight: fontSizes[2],
+        objectFit: 'cover',
         width: '100%',
         height: 'auto'
       }}
