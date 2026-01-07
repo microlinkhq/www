@@ -26,7 +26,7 @@ const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
           as='header'
           css={theme({
             textAlign: 'center',
-            maxWidth: isBlogPage ? layout.normal : 'none',
+            maxWidth: layout.normal,
             mx: 'auto'
           })}
         >
@@ -72,7 +72,7 @@ const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
         </Text>
 
         <Box css={theme({ pt: [3, null, 4] })}>
-          <Markdown isBlogPage={isBlogPage} data-debug>
+          <Markdown isBlogPage={true} data-debug>
             {content}
           </Markdown>
         </Box>

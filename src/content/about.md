@@ -2,9 +2,11 @@
 title: 'Our history'
 ---
 
+import { Since } from 'components/markdown/Since'
+
 ## Automating the web, for the web.
 
-Microlink is created by [Kiko](https://kikobeats.com) as a side project in 2017 (7 years ago).
+Microlink is created by [Kiko](https://kikobeats.com) as a side project in 2017 (<Since from='2018' /> years ago).
 
 It started as a project for getting unified metadata from any URL. The project [metascraper](https://github.com/microlinkhq/metascraper) was born.
 
