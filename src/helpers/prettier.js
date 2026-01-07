@@ -27,15 +27,21 @@ const PRETTIER_CONFIG = {
   trailingComma: 'none'
 }
 
-const getJsOpts = babel => ({
+const jsFormatterOpts = babel => ({
   parser: 'babel',
   plugins: [babel]
 })
 
-const getJsonOpts = babel => ({
+const jsonFormatterOpts = babel => ({
   parser: 'json',
   plugins: [babel]
 })
+
+const getFormatterOpts = {
+  js: jsFormatterOpts,
+  jsx: jsFormatterOpts,
+  json: jsonFormatterOpts
+}
 
 /**
  * It turns an JS object:
@@ -111,17 +117,14 @@ export const prettier = async (code, language = 'js') => {
     return formatHeaders(code)
   }
 
+  const formatterOpts = getFormatterOpts[language]
+  if (!formatterOpts) return code
+
   // For JS/JSON, use lazy-loaded prettier
   try {
     const { format, babel } = await loadPrettier()
 
-    let opts = PRETTIER_CONFIG
-    if (language === 'js' || language === 'jsx') {
-      opts = { ...PRETTIER_CONFIG, ...getJsOpts(babel) }
-    } else if (language === 'json') {
-      opts = { ...PRETTIER_CONFIG, ...getJsonOpts(babel) }
-    }
-
+    const opts = { ...PRETTIER_CONFIG, ...formatterOpts(babel) }
     const formatted = format(code, opts)
     return formatted.replace(';<', '<')
   } catch (error) {
