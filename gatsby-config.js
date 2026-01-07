@@ -24,7 +24,7 @@ module.exports = {
     // Basic
     name: 'Microlink',
     author: 'Microlink HQ',
-    headline: 'Turns websites into data',
+    headline: 'Headless Browser API for Screenshots, PDF, Previews & Scraping',
     description:
       'Enter a URL, receive information. Normalize metadata. Get HTML markup. Take a screenshot. Identify tech stack. Generate a PDF. Automate web scraping. Run Lighthouse.',
     siteUrl: SITE_URL,

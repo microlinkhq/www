@@ -134,8 +134,8 @@ const Hero = ({ children }) => {
       })}
     >
       {children({ color })}
-      <Heading css={theme({ fontSize: ['48px', 6, 7, 7] })} titleize={false}>
-        Browser as API
+      <Heading css={theme({ fontSize: ['34px', '46px', '68px'] })} titleize={false}>
+        Headless Browser API
       </Heading>
 
       <Caption
@@ -148,9 +148,7 @@ const Hero = ({ children }) => {
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
         })}
       >
-        Microlink is a fast, scalable, and reliable high-level API to control a
-        headless browser built for businesses and developers. Proudly Open
-        Source.
+        Generate screenshots, PDFs, previews and scrape content via a <b>browserless API</b>. No Puppeteer clusters to manage. Open source roots, enterprise scale.
       </Caption>
       <Box>
         <Grid css={theme({ maxWidth: layout.large, pb: [4, 4, 5, 5] })}>
