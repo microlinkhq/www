@@ -144,7 +144,6 @@
     "is-url-http": "~2.3.13",
     "json-future": "~2.2.25",
     "lodash": "~4.17.21",
-    "mdx-scoped-runtime": "~0.8.0",
     "microsoft-capitalize": "~1.0.5",
     "normalize.css": "~8.0.1",
     "path-browserify": "~1.0.1",

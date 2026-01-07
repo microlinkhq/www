@@ -149,26 +149,28 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
     throw result.errors
   }
 
-  const pages = result.data.allMdx.edges.map(async ({ node }) => {
-    const slug = node.fields.slug.replace(/\/+$/, '')
-    const contentFilePath = node.internal.contentFilePath
+  const pages = result.data.allMdx.edges
+    .filter(({ node }) => !node.fields.slug.startsWith('/fragments/'))
+    .map(async ({ node }) => {
+      const slug = node.fields.slug.replace(/\/+$/, '')
+      const contentFilePath = node.internal.contentFilePath
 
-    return createPage({
-      path: slug,
-      component: `${path.resolve(
-        './src/templates/index.js'
-      )}?__contentFilePath=${contentFilePath}`,
-      context: {
-        id: node.id,
-        frontmatter: node.frontmatter,
-        githubUrl: await githubUrl(contentFilePath),
-        lastEdited: await getLastModifiedDate(contentFilePath),
-        isBlogPage: node.fields.slug.startsWith('/blog/'),
-        isDocPage: node.fields.slug.startsWith('/docs/'),
-        slug: node.fields.slug
-      }
+      return createPage({
+        path: slug,
+        component: `${path.resolve(
+          './src/templates/index.js'
+        )}?__contentFilePath=${contentFilePath}`,
+        context: {
+          id: node.id,
+          frontmatter: node.frontmatter,
+          githubUrl: await githubUrl(contentFilePath),
+          lastEdited: await getLastModifiedDate(contentFilePath),
+          isBlogPage: node.fields.slug.startsWith('/blog/'),
+          isDocPage: node.fields.slug.startsWith('/docs/'),
+          slug: node.fields.slug
+        }
+      })
     })
-  })
 
   return Promise.all(pages)
 }
