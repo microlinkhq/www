@@ -7,12 +7,55 @@ import Meta from 'components/elements/Meta/Meta'
 import { Link } from 'components/elements/Link/base'
 import { withTitle } from 'helpers/hoc/with-title'
 import SubheadBase from 'components/elements/Subhead'
-import { useFeatures } from 'components/hook/use-features'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { colors, borders, theme } from 'theme'
 import React from 'react'
+
+const FEATURES = [
+  {
+    title: 'Powerful & Scalable',
+    description: 'Cloud-based solution with superior operational performance.'
+  },
+  {
+    title: 'Costless Solution',
+    description:
+      'Starts free. No upfront costs, scalable pricing as you go, growing with your business.'
+  },
+  {
+    title: 'Global CDN',
+    description:
+      'Edge storage distributed over +240 nodes backed by CloudFlare Network.'
+  },
+  {
+    title: 'Developer First',
+    description:
+      'For developers, with top-notch industry technologies, language-agnostic.'
+  },
+  {
+    title: 'Fully programmable',
+    description:
+      'Easy to integrate with any existing stack or cloud in just a few minutes.'
+  },
+  {
+    title: 'Declarative Usage',
+    description:
+      'Simple documentation and interactive code examples that enable quick implementations.'
+  },
+  {
+    title: 'Optimized hardware',
+    description: 'No servers to maintain; no shared browsers between requests.'
+  },
+  {
+    title: 'Built-in cache',
+    description: 'Enabled by default, no additional caching setup required.'
+  },
+  {
+    title: 'Security compliance',
+    description: 'Request isolation with no shared browsers between requests.'
+  }
+]
 
 const Subhead = withTitle(SubheadBase)
 
@@ -43,7 +86,7 @@ const HomePage = () => {
             <Link href='/docs/api/getting-started/overview'>API</Link>.
           </>
         }
-        features={useFeatures()}
+        features={FEATURES}
       />
       <Pricing
         canonicalUrl={canonicalUrl}

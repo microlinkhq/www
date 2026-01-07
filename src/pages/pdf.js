@@ -41,10 +41,88 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useClipboard } from 'components/hook/use-clipboard'
-import { useFeaturesPdf } from 'components/hook/use-features-pdf'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { useQueryState } from 'components/hook/use-query-state'
 import { useWindowSize } from 'components/hook/use-window-size'
+
+const FEATURES = [
+  {
+    title: 'Always fresh',
+    description: (
+      <>
+        Stale revalidation, keeping things fresh and always up to date via{' '}
+        <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link>, reflecting
+        any change on the target URL.
+      </>
+    )
+  },
+  {
+    title: 'Embed Mode',
+    description: (
+      <>
+        Enabling <Link href='/docs/api/parameters/embed'>embed</Link> mode for
+        consuming content directly from your HTML markup.
+      </>
+    )
+  },
+  {
+    title: 'Delay',
+    description:
+      'Wait a quantity of time, selector or event to preload content before generate the document.'
+  },
+  {
+    title: 'Page Ranges',
+    description: (
+      <>
+        Selective page ranges to print via{' '}
+        <Link href='/docs/api/parameters/pdf/pageRanges'>pageRanges</Link> for
+        removing unnecessary content.
+      </>
+    )
+  },
+  {
+    title: 'Scale',
+    description: (
+      <>
+        Customize the <Link href='/docs/api/parameters/pdf/scale'>scale</Link>{' '}
+        of the webpage rendering, adjusting the zoom level.
+      </>
+    )
+  },
+  {
+    title: 'Orientation',
+    description: (
+      <>
+        Change between portrait or{' '}
+        <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link> to fit
+        user case necessities.
+      </>
+    )
+  },
+  {
+    title: 'CSS/JS Injection',
+    description: 'Inject any CSS styles or JS code into the page.'
+  },
+  {
+    title: 'Page Format',
+    description: (
+      <>
+        Setup between a set of different paper{' '}
+        <Link href='/docs/api/parameters/pdf/format'>format</Link> sizes.
+      </>
+    )
+  },
+  {
+    title: 'Margins',
+    description: (
+      <>
+        Adjust the paper{' '}
+        <Link href='/docs/api/parameters/pdf/margin'>margin</Link> per every
+        document.
+      </>
+    )
+  }
+]
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -743,7 +821,6 @@ export const Head = () => (
 
 const PdfPage = () => {
   const [query] = useQueryState()
-  const features = useFeaturesPdf()
   const hasQuery = !!query?.url
 
   return (
@@ -789,7 +866,7 @@ const PdfPage = () => {
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
                 }
-                features={features}
+                features={FEATURES}
               />
               <Resume />
               <ProductInformation />

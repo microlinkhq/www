@@ -45,12 +45,103 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useClipboard } from 'components/hook/use-clipboard'
-import { useFeaturesScreenshot } from 'components/hook/use-features-screenshot'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { useQueryState } from 'components/hook/use-query-state'
 import { useWindowSize } from 'components/hook/use-window-size'
 
 import demoLinks from '../../data/demo-links'
+
+const FEATURES = [
+  {
+    title: 'Always fresh',
+    description: (
+      <>
+        Content cached on the edge to serve data as fast as possible, respecting{' '}
+        <Link href='/docs/api/parameters/ttl'>ttl</Link>.
+      </>
+    )
+  },
+  {
+    title: 'Overlay Composition',
+    description: (
+      <>
+        Create{' '}
+        <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
+        compositions combining layers and backgrounds.
+      </>
+    )
+  },
+  {
+    title: 'Browser Events',
+    description: (
+      <>
+        Using <Link href='/docs/api/parameters/waitUntil'>waitUntil</Link>,{' '}
+        <Link href='/docs/api/parameters/waitForSelector'>waitForSelector</Link>
+        , or{' '}
+        <Link href='/docs/api/parameters/waitForTimeout'>waitForTimeout</Link>{' '}
+        to await certain events.
+      </>
+    )
+  },
+  {
+    title: 'Device Emulation',
+    description: (
+      <>
+        A large list of <Link href='/docs/api/parameters/device'>device</Link>{' '}
+        are supported for simulating scenarios and environments.
+      </>
+    )
+  },
+  {
+    title: 'Browser Automation',
+    description: (
+      <>
+        Ability to <Link href='/docs/api/parameters/click'>click</Link> or{' '}
+        <Link href='/docs/api/parameters/scroll'>scroll</Link> to any element
+        matching the given CSS Selector.
+      </>
+    )
+  },
+  {
+    title: 'Embed Mode',
+    description: (
+      <>
+        Incrustate directly into Markdown, HTML or any other markup using{' '}
+        <Link href='/docs/api/parameters/embed'>embed</Link>.
+      </>
+    )
+  },
+  {
+    title: 'CSS/JS Injection',
+    description: (
+      <>
+        Inject <Link href='/docs/api/parameters/styles'>styles</Link>,{' '}
+        <Link href='/docs/api/parameters/javascript'>javascript</Link> or{' '}
+        <Link href='/docs/api/parameters/modules'>modules</Link> into the page.
+      </>
+    )
+  },
+  {
+    title: 'Full Screenshot',
+    description: (
+      <>
+        Using{' '}
+        <Link href='/docs/api/parameters/screenshot/fullPage'>fullPage</Link>{' '}
+        for exporting the entire page as screenshot.
+      </>
+    )
+  },
+  {
+    title: 'File Format',
+    description: (
+      <>
+        Configurable{' '}
+        <Link href='/docs/api/parameters/screenshot/type'>type</Link> support
+        with on-fly WebP support.
+      </>
+    )
+  }
+]
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -849,7 +940,6 @@ export const Head = () => (
 
 const ScreenshotPage = () => {
   const [query] = useQueryState()
-  const features = useFeaturesScreenshot()
   const hasQuery = !!query?.url
 
   return (
@@ -895,7 +985,7 @@ const ScreenshotPage = () => {
                     <Link href='/docs/api/getting-started/overview'>API</Link>.
                   </>
                 }
-                features={features}
+                features={FEATURES}
               />
               <Resume />
               <ProductInformation />
