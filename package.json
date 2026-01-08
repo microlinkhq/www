@@ -255,6 +255,7 @@
       "prettier-standard"
     ],
     "*.md": [
+      "node scripts/blog-slugger.js",
       "node scripts/static-assets.js"
     ],
     "package.json": [
