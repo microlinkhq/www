@@ -38,7 +38,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   })
 }
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
+exports.onCreateNode = async ({ node, getNode, actions }) => {
   const { createNodeField } = actions
   if (node.internal.type === 'Mdx') {
     // MDX files are now in src/content/ directory
@@ -48,6 +48,55 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: 'slug',
       value: slug
     })
+  }
+
+  const contentFilePath = node.internal.contentFilePath
+  if (contentFilePath) {
+    try {
+      const lastmod = await getLastModifiedDate(contentFilePath)
+      createNodeField({
+        node,
+        name: 'lastmod',
+        value: lastmod
+      })
+    } catch (error) {
+      const fileNode = getNode(node.parent)
+      if (fileNode && fileNode.mtime) {
+        createNodeField({
+          node,
+          name: 'lastmod',
+          value: new Date(fileNode.mtime).toISOString()
+        })
+      }
+    }
+  }
+
+  if (node.internal.type === 'File' && node.sourceInstanceName === 'pages') {
+    const absolutePath = node.absolutePath
+    if (absolutePath && (absolutePath.endsWith('.js') || absolutePath.endsWith('.jsx'))) {
+      try {
+        const lastmod = await getLastModifiedDate(absolutePath)
+        createNodeField({
+          node,
+          name: 'lastmod',
+          value: lastmod
+        })
+      } catch (error) {
+        if (node.mtime) {
+          createNodeField({
+            node,
+            name: 'lastmod',
+            value: new Date(node.mtime).toISOString()
+          })
+        } else if (node.modifiedTime) {
+          createNodeField({
+            node,
+            name: 'lastmod',
+            value: new Date(node.modifiedTime).toISOString()
+          })
+        }
+      }
+    }
   }
 }
 
