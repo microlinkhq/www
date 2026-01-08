@@ -33,7 +33,7 @@ const StyledH1 = styled(Heading)(
     ...commonHeadingStyles,
     maxWidth: layout.small,
     fontSize: `calc(${fontSizes[5]} * 0.75)`,
-    lineHeight: [1, 2],
+    lineHeight: 0,
     textAlign: 'left',
     mt: 5,
     mb: 4
@@ -58,7 +58,7 @@ const StyledH2 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
     fontSize: `calc(${fontSizes[4]} * 0.75)`,
-    lineHeight: [1, 2],
+    lineHeight: 0,
     textAlign: 'left',
     mt: 5,
     mb: 4
@@ -83,7 +83,7 @@ const StyledH3 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
     fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
-    lineHeight: 1,
+    lineHeight: 0,
     textAlign: 'left',
     mt: 5,
     mb: 4
@@ -108,7 +108,7 @@ const StyledH4 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
     fontSize: 2,
-    lineHeight: 1,
+    lineHeight: 0,
     textAlign: 'left',
     mt: 4,
     mb: 3
@@ -133,7 +133,7 @@ const StyledH5 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
     fontSize: 1,
-    lineHeight: 1,
+    lineHeight: 0,
     textAlign: 'left',
     mt: 4,
     mb: 3
@@ -159,7 +159,7 @@ const StyledH6 = styled(Heading)`
     maxWidth: layout.small,
     fontSize: 1,
     color: 'gray9',
-    lineHeight: 1,
+    lineHeight: 0,
     textAlign: 'left',
     mt: 4,
     mb: 3

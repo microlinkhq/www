@@ -6,10 +6,10 @@ export const useBlogIndex = () => {
   const { allMdx } = useStaticQuery(
     graphql`
       query BlogIndexData {
-        allMdx(filter: { fields: { slug: { regex: "//blog//" } } }) {
+        allMdx(filter: { fields: { slug: { regex: "/blog/" } } }) {
           edges {
             node {
-              excerpt(pruneLength: 250)
+              excerpt(pruneLength: 240)
               fields {
                 slug
               }
