@@ -114,8 +114,8 @@ importers:
         specifier: ~4.17.21
         version: 4.17.21
       microsoft-capitalize:
-        specifier: ~1.0.5
-        version: 1.0.5
+        specifier: ~1.0.6
+        version: 1.0.6
       normalize.css:
         specifier: ~8.0.1
         version: 8.0.1
@@ -8320,8 +8320,8 @@ packages:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
-  microsoft-capitalize@1.0.5:
-    resolution: {integrity: sha512-iqDMU9J643BHg8Zp7EMZNLTp6Pgs2f1S2SMnCW2VlUqMs17xCZ5vwVjalBJEGVcUfG+/1ePqeEGcMW3VfzHK5A==}
+  microsoft-capitalize@1.0.6:
+    resolution: {integrity: sha512-ZIt5am7KOboDsVR9ngsZVHViPpvuNZhuGWCmrPKMMVUJ1BAXAjK1eewwQNFbAV3K1SvIGgBQHxF1XSCt6A2qhg==}
     engines: {node: '>= 10'}
 
   miller-rabin@4.0.1:
@@ -23515,7 +23515,7 @@ snapshots:
       braces: 3.0.3
       picomatch: 2.3.1
 
-  microsoft-capitalize@1.0.5: {}
+  microsoft-capitalize@1.0.6: {}
 
   miller-rabin@4.0.1:
     dependencies:
