@@ -187,7 +187,7 @@ module.exports = {
         }
         
         return allPages.map(page => {
-          let lastmod = mdxMap[page.path] || pagesMap[page.path] || null
+          const lastmod = mdxMap[page.path] || pagesMap[page.path] || null
           return { ...page, lastmod }
         })
       },
