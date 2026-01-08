@@ -3,7 +3,7 @@ import { Link } from 'components/elements/Link/base'
 import Chat from 'components/patterns/Chat/Chat'
 import React from 'react'
 
-const PostFooter = () => (
+export const PostFooter = () => (
   <>
     <H2 id='chat'>Join the community</H2>
     <Paraph>
@@ -21,5 +21,3 @@ const PostFooter = () => (
     </Paraph>
   </>
 )
-
-export default PostFooter

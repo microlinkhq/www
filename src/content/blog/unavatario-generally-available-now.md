@@ -1,5 +1,5 @@
 ---
-title: "unavatar.io: It's now generally available"
+title: "unavatar.io: Generally available now"
 date: '2026-01-05'
 ---
 
