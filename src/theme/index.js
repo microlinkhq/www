@@ -231,7 +231,7 @@ export const shadows = shadowOffsets.map(
   (shadow, index) => `${shadow} ${shadowColors[index]}`
 )
 
-export const lineHeights = ['normal', 1.25, 1.5, 1.6, 1.65]
+export const lineHeights = [1.2, 1.45, 1.6, 1.75, 1.8]
 
 export const sizes = [
   1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 64, 72, 82, 96

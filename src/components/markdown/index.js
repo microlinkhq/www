@@ -159,7 +159,7 @@ const StyledH6 = styled(Heading)`
     maxWidth: layout.small,
     fontSize: 1,
     color: 'gray9',
-    lineHeight: 1,
+    lineHeight: 0,
     textAlign: 'left',
     mt: 4,
     mb: 3
