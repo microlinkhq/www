@@ -4,7 +4,6 @@ import HeadingBase from 'components/elements/Heading'
 import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
 import PostFooter from 'components/pages/blog/post-footer'
-import PostTitle from 'components/pages/blog/post-title'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
@@ -42,7 +41,7 @@ const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
                 <H1
                   css={{ ...textGradient, textAlign: 'center', marginTop: 0 }}
                 >
-                  <PostTitle>{title}</PostTitle>
+                  {title}
                 </H1>
                 <Caption
                   forwardedAs='h2'
