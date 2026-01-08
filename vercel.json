@@ -281,6 +281,10 @@
     {
       "source": "/waituntil",
       "destination": "/docs/api/parameters/waitUntil"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap-index.xml"
     }
   ]
 }
