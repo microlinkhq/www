@@ -95,6 +95,109 @@ module.exports = {
       }
     },
     'gatsby-transformer-yaml',
-    'gatsby-plugin-advanced-sitemap'
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        query: `
+        {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+          allMdx {
+            edges {
+              node {
+                fields {
+                  slug
+                  lastmod
+                }
+                frontmatter {
+                  date
+                }
+              }
+            }
+          }
+          allFile(filter: { sourceInstanceName: { eq: "pages" } }) {
+            nodes {
+              relativePath
+              relativeDirectory
+              name
+              fields {
+                lastmod
+              }
+              modifiedTime
+              mtime
+            }
+          }
+        }
+      `,
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allMdx: { edges: mdxPages },
+          allFile: { nodes: pageFiles }
+        }) => {
+          const mdxMap = {}
+          if (mdxPages && Array.isArray(mdxPages)) {
+            mdxPages.forEach(({ node }) => {
+              const slug = node.fields?.slug
+              const lastmod = node.fields?.lastmod || node.frontmatter?.date
+              if (slug && lastmod) {
+                const normalizedSlug = slug.endsWith('/') && slug.length > 1 ? slug.slice(0, -1) : slug
+                mdxMap[normalizedSlug] = lastmod
+              }
+            })
+          }
+
+          const pagesMap = {}
+          if (pageFiles && Array.isArray(pageFiles)) {
+            pageFiles.forEach(file => {
+              let pagePath = null
+              if (file.relativeDirectory === '') {
+                if (file.name === 'index') {
+                  pagePath = '/'
+                } else {
+                  pagePath = `/${file.name}`
+                }
+              } else {
+                const dirPath = file.relativeDirectory.replace(/\\/g, '/')
+                if (file.name === 'index') {
+                  pagePath = `/${dirPath}`
+                } else {
+                  pagePath = `/${dirPath}/${file.name}`
+                }
+              }
+
+              if (pagePath) {
+                const lastmod = file.fields?.lastmod || file.modifiedTime || (file.mtime ? new Date(file.mtime).toISOString() : null)
+                if (lastmod) {
+                  pagesMap[pagePath] = lastmod
+                }
+              }
+            })
+          }
+
+          if (!allPages || !Array.isArray(allPages)) {
+            return []
+          }
+
+          return allPages.map(page => {
+            const lastmod = mdxMap[page.path] || pagesMap[page.path] || null
+            return { ...page, lastmod }
+          })
+        },
+        serialize: ({ path, lastmod }) => {
+          return {
+            url: path,
+            lastmod
+          }
+        }
+      }
+    }
   ].filter(Boolean)
 }

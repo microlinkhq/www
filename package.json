@@ -132,7 +132,7 @@
     "cssnano-preset-advanced": "~7.0.10",
     "dlv": "~1.1.3",
     "gatsby": "~5.15.0",
-    "gatsby-plugin-advanced-sitemap": "~2.1.0",
+    "gatsby-plugin-sitemap": "~6.15.0",
     "gatsby-plugin-canonical-urls": "~5.15.0",
     "gatsby-plugin-catch-links": "~5.15.0",
     "gatsby-plugin-mdx": "~5.15.0",
