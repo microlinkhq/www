@@ -2,6 +2,7 @@ import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
 import Caption from 'components/patterns/Caption/Caption'
 import { formatDate } from 'helpers/format-date'
+import { useBreakpoint } from 'components/hook/use-breakpoint'
 import { useQueryState } from 'components/hook/use-query-state'
 import React from 'react'
 import { layout, theme } from 'theme'
@@ -26,6 +27,13 @@ export const Head = () => (
 
 const UserAgentsPage = () => {
   const [{ type = 'user' }, setType] = useQueryState()
+  const breakpoint = useBreakpoint()
+
+  const terminalTitle =
+    breakpoint === 0
+      ? 'microlink.io/user-agents.json'
+      : 'curl -L microlink.io/user-agents.json'
+
   const data = userAgents[type] || userAgents.user
   return (
     <DotsBackground>
@@ -96,7 +104,7 @@ const UserAgentsPage = () => {
             })}
           >
             <Terminal
-              title='curl -L microlink.io/user-agents.json'
+              title={terminalTitle}
               blinkCursor={false}
               shellSymbol={false}
               height='350px'
