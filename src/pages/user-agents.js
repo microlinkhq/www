@@ -3,7 +3,8 @@ import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import { formatDate } from 'helpers/format-date'
-import React, { useState } from 'react'
+import { useQueryState } from 'components/hook/use-query-state'
+import React from 'react'
 import { layout, theme } from 'theme'
 
 import { Link } from 'components/elements/Link/base'
@@ -29,8 +30,8 @@ export const Head = () => (
 )
 
 const UserAgentsPage = () => {
-  const [type, setType] = useState('user')
-  const data = userAgents[type]
+  const [{ type = 'user' }, setType] = useQueryState()
+  const data = userAgents[type] || userAgents.user
   return (
     <DotsBackground>
       <Layout>
@@ -81,8 +82,8 @@ const UserAgentsPage = () => {
                 css={theme({
                   width: 'auto'
                 })}
-                defaultValue='user'
-                onChange={setType}
+                defaultValue={type}
+                onChange={value => setType({ type: value })}
               >
                 {[
                   { id: 'user', node: 'User' },
@@ -103,7 +104,7 @@ const UserAgentsPage = () => {
             })}
           >
             <Terminal
-              title={`${type} agents`}
+              title='curl -L https://microlink.io/user-agents.json'
               blinkCursor={false}
               shellSymbol={false}
               height='350px'
@@ -131,27 +132,27 @@ const UserAgentsPage = () => {
           css={theme({ pt: 5 })}
           questions={[
             {
-              question: 'What is a User Agent string?',
+              question: 'What is a user-agent string?',
               answer: (
                 <>
                   <div>
                     A User Agent is a request header (User-Agent) that lets
                     servers identify the application, operating system, vendor,
                     and version of the requesting client. For developers, it's
-                    essential for ensuring browser compatibility and
-                    bypassing basic bot detection systems.
+                    essential for ensuring browser compatibility and bypassing
+                    basic bot detection systems.
                   </div>
                 </>
               )
             },
             {
-              question: 'Why do I need a User Agent list?',
+              question: 'Why do I need a user-agent list?',
               answer: (
                 <>
                   <div>
-                    Rotating User Agents is critical for web scraping and automation.
-                    By randomizing the User Agent header, you mimic organic traffic
-                    and reduce the risk of being blocked by WAFs
+                    Rotating User Agents is critical for web scraping and
+                    automation. By randomizing the User Agent header, you mimic
+                    organic traffic and reduce the risk of being blocked by WAFs
                     (Web Application Firewalls) or anti-bot measures.
                   </div>
                 </>
@@ -183,30 +184,30 @@ const UserAgentsPage = () => {
               )
             },
             {
-              question: 'How do I rotate User Agents in a Headless Browser?',
+              question: 'How do I rotate user-agents in a headless browser?',
               answer: (
                 <>
                   <div>
                     You can manually set the header in Puppeteer or Playwright
                     using a random string from this list. However, scaling a
-                    Headless Browser infrastructure is complex.
-                    {' '}<Link href='/'>Microlink API</Link>{' '}
-                    runs a remote Headless Chrome instance for you, automatically
-                    handling User Agent rotation, proxy management,
-                    and browser fingerprinting so you never get blocked.
+                    Headless Browser infrastructure is complex.{' '}
+                    <Link href='/'>Microlink API</Link> runs a remote Headless
+                    Chrome instance for you, automatically handling User Agent
+                    rotation, proxy management, and browser fingerprinting so
+                    you never get blocked.
                   </div>
                 </>
               )
             },
             {
-              question: 'Does this list include Mobile User Agents?',
+              question: 'Does this list include mobile user-agents?',
               answer: (
                 <>
                   <div>
-                    Yes. The list distinguishes between Desktop (Windows, macOS, Linux)
-                    and Mobile (Android, iOS) strings. Using a Mobile User Agent is
-                    often effective for scraping simpler HTML versions of
-                    complex websites or testing responsive designs.
+                    Yes. The list distinguishes between Desktop (Windows, macOS,
+                    Linux) and Mobile (Android, iOS) strings. Using a Mobile
+                    User Agent is often effective for scraping simpler HTML
+                    versions of complex websites or testing responsive designs.
                   </div>
                 </>
               )
@@ -216,11 +217,15 @@ const UserAgentsPage = () => {
               answer: (
                 <>
                   <div>
-                    Yes. You can fetch the full, up-to-date database programmatically at GET{' '}
-                    <Link href='/user-agents.json'>
-                      microlink.io/user-agents.json
-                    </Link>
-                    . It's CORS-enabled and ready for direct integration into your frontend or backend logic.
+                    Yes, you can get the full list in the following endpoint:
+                  </div>
+                  <Terminal css={theme({ my: 3 })} blinkCursor={false}>
+                    curl -L https://microlink.io/user-agents.json
+                  </Terminal>
+                  <div>
+                    It's CORS-enabled and ready for direct integration into any
+                    frontend or backend application, ensuring your project
+                    always has access to the most up-to-date strings.
                   </div>
                 </>
               )
