@@ -1,5 +1,5 @@
 ---
-title: 'pageRanges'
+title: 'pdf pageRanges'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
