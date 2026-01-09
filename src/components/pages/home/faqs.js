@@ -6,7 +6,6 @@ import { theme } from 'theme'
 
 const FAQs = props => (
   <Faq
-    as='section'
     title='FAQs'
     caption='Frequently asked questions.'
     questions={[

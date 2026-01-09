@@ -146,6 +146,7 @@
     "humanize-url": "~3.0.0",
     "is-color": "~1.0.2",
     "is-url-http": "~2.3.13",
+    "isbot": "~5.1.32",
     "json-future": "~2.2.25",
     "lodash": "~4.17.21",
     "microsoft-capitalize": "~1.0.6",
@@ -171,8 +172,7 @@
     "sugar-high": "~0.9.5",
     "swr": "~2.3.8",
     "tldts": "~7.0.19",
-    "top-crawler-agents": "~1.0.34",
-    "top-user-agents": "~2.1.88",
+    "top-user-agents": "~2.1.89",
     "unique-random-array": "~4.0.0"
   },
   "devDependencies": {
