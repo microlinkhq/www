@@ -24,8 +24,8 @@ const Heading = withTitle(HeadingBase)
 
 export const Head = () => (
   <Meta
-    title={`The Ultimate User Agents List (${new Date().getFullYear()})`}
-    description='Most common User Agents used on the Internet up to date'
+    title={`The ultimate user-agents list (${new Date().getFullYear()})`}
+    description='Most common user-agents used on the Internet up to date'
   />
 )
 
@@ -45,7 +45,6 @@ const UserAgentsPage = () => {
         >
           <Heading
             css={theme({ px: 5, maxWidth: layout.large, textAlign: 'center' })}
-            title='demo demo demo'
           >
             User Agents
           </Heading>
@@ -55,7 +54,6 @@ const UserAgentsPage = () => {
               pt: [3, null, 4],
               maxWidth: layout.small
             })}
-            titleize={false}
           >
             A self-updating list of the latest
             <br />& most common browser agents.
@@ -104,7 +102,7 @@ const UserAgentsPage = () => {
             })}
           >
             <Terminal
-              title='curl -L https://microlink.io/user-agents.json'
+              title='curl -L microlink.io/user-agents.json'
               blinkCursor={false}
               shellSymbol={false}
               height='350px'
