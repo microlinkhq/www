@@ -1,0 +1,60 @@
+---
+description: Guidelines for text formatting, specifically titleization and casing conventions
+globs: src/**/*.js
+---
+
+# Text Formatting and Titleization
+
+This project uses a specific approach to titleizing headings and captions to maintain consistency across the site.
+
+## Titleization with `withTitle` HOC
+
+Most headings, subheadings, and captions should be wrapped with the `withTitle` HOC (located in `src/helpers/hoc/with-title.js`).
+
+### How it Works
+
+The `withTitle` HOC automatically transforms the `children` of a component using the [microsoft-capitalize](https://www.npmjs.com/package/microsoft-capitalize) library.
+
+### Core Rules
+
+- **Capitalize the first word** of the sentence.
+- **Use lowercase** for everything else (except for special words).
+- **Special Words**: Centralized at `src/helpers/title.js`. These words (e.g., `Microlink`, `APIs`, `JavaScript`) always maintain their specific casing regardless of their position.
+
+```javascript
+import { withTitle } from 'helpers/hoc/with-title'
+const Heading = withTitle(HeadingBase)
+
+// Rendered as "The ultimate user-agents list"
+// (assuming "user-agents" is not in special words)
+<Heading>the ultimate user-agents list</Heading>
+```
+
+### Constraints
+
+1. **String Children Only**: Automatic titleization ONLY works when `children` is a single string. If you pass an array of children (e.g., containing a `<br />`), titleization will be skipped.
+2. **Title Prop**: The HOC does not look at the `title` prop; it only processes `children`.
+
+### Manual Control
+
+- **Disable Titleization**: Pass `titleize={false}` to skip the automatic transformation.
+- **Exceptions**: Pass `omitTitleize={['word']}` to keep specific words from being capitalized.
+
+## SEO and Meta Tags
+
+For SEO-related components like `<Meta />`, do NOT rely on automatic titleization. Instead:
+
+1. **Use Sentence Case**: Use sentence case (only the first letter of the first word is capitalized) for `title` and `description` props in `<Meta />`.
+2. **Hyphenated Keywords**: Use lowercase for technical hyphenated terms like `user-agents` unless they are at the beginning of a sentence.
+
+**Example:**
+```javascript
+<Meta
+  title={`The ultimate user-agents list (${new Date().getFullYear()})`}
+  description='Most common user-agents used on the Internet up to date'
+/>
+```
+
+## Special Words
+
+The titleization helper (`src/helpers/title.js`) maintains a list of special words that are always capitalized in a specific way (e.g., `Microlink`, `JavaScript`, `APIs`). Check this file if a word is being capitalized incorrectly.

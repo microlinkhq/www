@@ -1,36 +1,39 @@
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import { formatDate } from 'helpers/format-date'
+import { useBreakpoint } from 'components/hook/use-breakpoint'
 import { useQueryState } from 'components/hook/use-query-state'
 import React from 'react'
 import { layout, theme } from 'theme'
-
 import { Link } from 'components/elements/Link/base'
 import Terminal from 'components/elements/Terminal/Terminal'
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 import Toggle from 'components/elements/Toggle/Toggle'
 import Faq from 'components/patterns/Faq/Faq'
 
 import userAgents from '../../static/user-agents.json'
 
-const Caption = withTitle(CaptionBase)
-const Heading = withTitle(HeadingBase)
-
 export const Head = () => (
   <Meta
-    title={`The Ultimate User Agents List (${new Date().getFullYear()})`}
-    description='Most common User Agents used on the Internet up to date'
+    title={`The ultimate user-agents list (${new Date().getFullYear()})`}
+    description='Most common user-agents used on the Internet up to date'
   />
 )
 
 const UserAgentsPage = () => {
   const [{ type = 'user' }, setType] = useQueryState()
+  const breakpoint = useBreakpoint()
+
+  const terminalTitle =
+    breakpoint === 0
+      ? 'microlink.io/user-agents.json'
+      : 'curl -L microlink.io/user-agents.json'
+
   const data = userAgents[type] || userAgents.user
   return (
     <DotsBackground>
@@ -45,7 +48,6 @@ const UserAgentsPage = () => {
         >
           <Heading
             css={theme({ px: 5, maxWidth: layout.large, textAlign: 'center' })}
-            title='demo demo demo'
           >
             User Agents
           </Heading>
@@ -55,7 +57,6 @@ const UserAgentsPage = () => {
               pt: [3, null, 4],
               maxWidth: layout.small
             })}
-            titleize={false}
           >
             A self-updating list of the latest
             <br />& most common browser agents.
@@ -63,7 +64,6 @@ const UserAgentsPage = () => {
           <Caption
             forwardedAs='p'
             css={theme({ fontSize: 2, pt: 3, color: 'black60' })}
-            titleize={false}
           >
             Last updated on {formatDate(new Date(userAgents.updatedAt))}
           </Caption>
@@ -104,7 +104,7 @@ const UserAgentsPage = () => {
             })}
           >
             <Terminal
-              title='curl -L https://microlink.io/user-agents.json'
+              title={terminalTitle}
               blinkCursor={false}
               shellSymbol={false}
               height='350px'
