@@ -1066,31 +1066,8 @@ function MultiCodeEditorInteractive ({
   return (
     <article
       itemScope
-      itemType='https://schema.org/SoftwareApplication'
       style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
     >
-      <script
-        type='application/ld+json'
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'SoftwareApplication',
-            name: 'Interactive Code Editor',
-            description:
-              'An interactive code editor for testing API requests with multiple programming languages',
-            applicationCategory: 'DeveloperApplication',
-            operatingSystem: 'Web Browser',
-            programmingLanguage: availableLanguages,
-            featureList: [
-              'Multi-language code editing',
-              'Real-time API testing',
-              'Response visualization',
-              'Code execution',
-              'Syntax highlighting'
-            ]
-          })
-        }}
-      />
 
       <header style={{ display: 'none' }}>
         <h2 itemProp='name'>Interactive Code Editor</h2>
