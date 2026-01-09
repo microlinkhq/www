@@ -23,8 +23,8 @@ const Heading = withTitle(HeadingBase)
 
 export const Head = () => (
   <Meta
-    title='User Agents'
-    description='Most common user-agents used on Internet'
+    title={`The Ultimate User Agents List (${new Date().getFullYear()})`}
+    description='Most common User Agents used on the Internet up to date'
   />
 )
 
@@ -44,6 +44,7 @@ const UserAgentsPage = () => {
         >
           <Heading
             css={theme({ px: 5, maxWidth: layout.large, textAlign: 'center' })}
+            title='demo demo demo'
           >
             User Agents
           </Heading>
@@ -130,26 +131,28 @@ const UserAgentsPage = () => {
           css={theme({ pt: 5 })}
           questions={[
             {
-              question: 'What is a user agent?',
+              question: 'What is a User Agent string?',
               answer: (
                 <>
                   <div>
-                    A user agent is a string that a browser or application sends
-                    to a server to identify itself. It typically includes
-                    information about the browser type, operating system, and
-                    hardware.
+                    A User Agent is a request header (User-Agent) that lets
+                    servers identify the application, operating system, vendor,
+                    and version of the requesting client. For developers, it's
+                    essential for ensuring browser compatibility and
+                    bypassing basic bot detection systems.
                   </div>
                 </>
               )
             },
             {
-              question: 'Why is this list useful?',
+              question: 'Why do I need a User Agent list?',
               answer: (
                 <>
                   <div>
-                    Having a curated list of common user agents is useful for
-                    developers who need to emulate different browsers for
-                    testing, web scraping, or security auditing.
+                    Rotating User Agents is critical for web scraping and automation.
+                    By randomizing the User Agent header, you mimic organic traffic
+                    and reduce the risk of being blocked by WAFs
+                    (Web Application Firewalls) or anti-bot measures.
                   </div>
                 </>
               )
@@ -180,15 +183,44 @@ const UserAgentsPage = () => {
               )
             },
             {
+              question: 'How do I rotate User Agents in a Headless Browser?',
+              answer: (
+                <>
+                  <div>
+                    You can manually set the header in Puppeteer or Playwright
+                    using a random string from this list. However, scaling a
+                    Headless Browser infrastructure is complex.
+                    {' '}<Link href='/'>Microlink API</Link>{' '}
+                    runs a remote Headless Chrome instance for you, automatically
+                    handling User Agent rotation, proxy management,
+                    and browser fingerprinting so you never get blocked.
+                  </div>
+                </>
+              )
+            },
+            {
+              question: 'Does this list include Mobile User Agents?',
+              answer: (
+                <>
+                  <div>
+                    Yes. The list distinguishes between Desktop (Windows, macOS, Linux)
+                    and Mobile (Android, iOS) strings. Using a Mobile User Agent is
+                    often effective for scraping simpler HTML versions of
+                    complex websites or testing responsive designs.
+                  </div>
+                </>
+              )
+            },
+            {
               question: 'Is there an API for this list?',
               answer: (
                 <>
                   <div>
-                    Yes, you can access the full list in JSON format at{' '}
+                    Yes. You can fetch the full, up-to-date database programmatically at GET{' '}
                     <Link href='/user-agents.json'>
                       microlink.io/user-agents.json
                     </Link>
-                    .
+                    . It's CORS-enabled and ready for direct integration into your frontend or backend logic.
                   </div>
                 </>
               )
