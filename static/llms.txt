@@ -1,0 +1,7 @@
+# Microlink.io API Context for LLMs
+
+Project: Microlink
+Description: Turn any website into data. APIs for link previews, screenshots, PDF generation, and scraping.
+
+# Documentation
+https://microlink.io/llms-full.txt
