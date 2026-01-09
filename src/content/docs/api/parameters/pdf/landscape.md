@@ -1,5 +1,5 @@
 ---
-title: 'landscape'
+title: 'pdf landscape'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

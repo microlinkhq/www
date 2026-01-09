@@ -1,5 +1,5 @@
 ---
-title: 'width'
+title: 'pdf width'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

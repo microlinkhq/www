@@ -1,5 +1,5 @@
 ---
-title: 'scale'
+title: 'pdf scale'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

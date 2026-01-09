@@ -1,5 +1,5 @@
 ---
-title: 'format'
+title: 'pdf format'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
