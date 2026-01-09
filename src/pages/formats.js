@@ -70,7 +70,6 @@ const HEADER = [
 
 const FAQs = props => (
   <Faq
-    id='information'
     title='FAQs'
     caption='Frequently asked questions.'
     questions={[

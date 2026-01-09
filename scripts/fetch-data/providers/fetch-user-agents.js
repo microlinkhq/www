@@ -1,38 +1,44 @@
 'use strict'
 
-const crawlerAgents = require('top-crawler-agents')
-const userAgents = require('top-user-agents')
-const $ = require('tinyspawn')
+const { isbot } = require('isbot')
 const path = require('path')
 
-const pkgInfo = async pkgName => {
-  const { stdout } = await $.json(`npm view ${pkgName} --json`)
-  const version = stdout.version
-  const updatedAt = stdout.time[version]
-  return { updatedAt, version }
+const toUserAgent = items => {
+  const agents = items.map(item => item.instances.accepted).flat()
+  const uniqueAgents = new Map()
+
+  for (const agent of agents) {
+    const normalizedAgent = agent.trim()
+    const lowercasedAgent = normalizedAgent.toLowerCase()
+    if (!uniqueAgents.has(lowercasedAgent)) {
+      uniqueAgents.set(lowercasedAgent, normalizedAgent)
+    }
+  }
+
+  return Array.from(uniqueAgents.values()).sort((a, b) =>
+    a.toLowerCase().localeCompare(b.toLowerCase())
+  )
 }
 
 const fn = async () => {
-  const npm = await Promise.all([
-    pkgInfo('top-user-agents'),
-    pkgInfo('top-crawler-agents')
-  ])
+  const allAgents =
+    'https://raw.githubusercontent.com/arcjet/well-known-bots/main/well-known-bots.json'
 
-  return [
-    {
-      name: 'top-user-agents',
-      ...npm[0],
-      data: userAgents
-    },
-    {
-      name: 'top-crawler-agents',
-      ...npm[1],
-      data: crawlerAgents
-    }
-  ]
+  const res = await fetch(allAgents)
+  const data = await res.json()
+
+  const ai = data.filter(item => item.categories.includes('ai'))
+  const rest = data.filter(item => !item.categories.includes('ai'))
+
+  return {
+    updatedAt: Date.now(),
+    user: require('top-user-agents'),
+    crawler: toUserAgent(rest).filter(isbot),
+    ai: toUserAgent(ai)
+  }
 }
 
 module.exports = () =>
   require('../create-provider').fromCode(fn, {
-    dist: path.resolve(__dirname, '../../../data/user-agents.json')
+    dist: path.resolve(__dirname, '../../../static/user-agents.json')
   })

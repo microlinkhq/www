@@ -1,23 +1,22 @@
-import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
-import ArrowLink from 'components/patterns/ArrowLink'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import { formatDate } from 'helpers/format-date'
-import { useClipboard } from 'components/hook/use-clipboard'
-import { Li, Ul } from 'components/markdown'
 import React, { useState } from 'react'
 import { layout, theme } from 'theme'
 
+import { Link } from 'components/elements/Link/base'
+import Terminal from 'components/elements/Terminal/Terminal'
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 import Toggle from 'components/elements/Toggle/Toggle'
+import Faq from 'components/patterns/Faq/Faq'
 
-import userAgents from '../../data/user-agents.json'
+import userAgents from '../../static/user-agents.json'
 
 const Caption = withTitle(CaptionBase)
 const Heading = withTitle(HeadingBase)
@@ -30,32 +29,22 @@ export const Head = () => (
 )
 
 const UserAgentsPage = () => {
-  const [ClipboardComponent, toClipboard] = useClipboard()
-  const [type, setType] = useState('top-user-agents')
-  const isUserType = type === 'top-user-agents'
-
-  const { data, updatedAt, version } = userAgents[isUserType ? 0 : 1]
-
-  const githubUrl = isUserType
-    ? 'https://github.com/microlinkhq/top-user-agents'
-    : 'https://github.com/Kikobeats/top-crawler-agents'
-
-  const downloadUrl = isUserType
-    ? `https://raw.githubusercontent.com/microlinkhq/top-user-agents/v${version}/src/index.json`
-    : `https://raw.githubusercontent.com/Kikobeats/top-crawler-agents/v${version}/index.json`
-
+  const [type, setType] = useState('user')
+  const data = userAgents[type]
   return (
     <DotsBackground>
       <Layout>
         <Container
           css={theme({
             pt: 2,
-            pb: 3,
-            justifyContent: 'center',
+            px: 3,
+            width: '100%',
             alignItems: 'center'
           })}
         >
-          <Heading css={theme({ px: 5, maxWidth: layout.large })}>
+          <Heading
+            css={theme({ px: 5, maxWidth: layout.large, textAlign: 'center' })}
+          >
             User Agents
           </Heading>
           <Caption
@@ -69,76 +58,157 @@ const UserAgentsPage = () => {
             A self-updating list of the latest
             <br />& most common browser agents.
           </Caption>
-          <Caption css={theme({ fontSize: 2, py: 3 })}>
-            Last updated on {formatDate(new Date(updatedAt))}
+          <Caption
+            forwardedAs='p'
+            css={theme({ fontSize: 2, pt: 3, color: 'black60' })}
+            titleize={false}
+          >
+            Last updated on {formatDate(new Date(userAgents.updatedAt))}
           </Caption>
+
           <Flex
             css={theme({
               py: [3, null, 4],
               flexDirection: 'column',
               justifyContent: 'center',
+              alignItems: 'center',
+              gap: 4
+            })}
+          >
+            <Box>
+              <Toggle
+                css={theme({
+                  width: 'auto'
+                })}
+                defaultValue='user'
+                onChange={setType}
+              >
+                {[
+                  { id: 'user', node: 'User' },
+                  { id: 'crawler', node: 'Crawler' },
+                  { id: 'ai', node: 'AI' }
+                ]}
+              </Toggle>
+            </Box>
+          </Flex>
+
+          <Flex
+            css={theme({
+              flexDirection: 'column',
+              width: '100%',
+              px: [3, 0],
+              mx: 'auto',
               alignItems: 'center'
             })}
           >
-            <Toggle
-              css={theme({ alignItems: 'center', justifyContent: 'center' })}
-              defaultValue='User Agent'
-              onChange={value =>
-                setType(
-                  `top-${value === 'User Agent' ? 'user' : 'crawler'}-agents`
-                )}
+            <Terminal
+              title={`${type} agents`}
+              blinkCursor={false}
+              shellSymbol={false}
+              height='350px'
+              text={JSON.stringify(data, null, 2)}
             >
-              {['User Agent', 'Crawler Agent']}
-            </Toggle>
-            <Flex
-              css={theme({
-                pt: [3, null, 4],
-                gap: [2, 4],
-                fontSize: [2, null, 3]
-              })}
-            >
-              <ArrowLink href={downloadUrl}>Download</ArrowLink>
-              <ArrowLink href={githubUrl}>See on GitHub</ArrowLink>
-            </Flex>
-          </Flex>
-          <Flex css={theme({ flexDirection: 'column', maxWidth: '95vw' })}>
-            <Ul>
               {data.map((userAgent, index) => (
-                <Tooltip
-                  type='copy'
+                <Box
                   key={`${userAgent}_${index}`}
-                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
-                  content={
-                    <Tooltip.Content>
-                      {Tooltip.TEXT.COPY('user agent')}
-                    </Tooltip.Content>
-                  }
+                  as='span'
+                  css={theme({
+                    display: 'block',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  })}
                 >
-                  <Li
-                    key={userAgent}
-                    onClick={() => {
-                      toClipboard({
-                        copy: userAgent,
-                        text: Tooltip.TEXT.COPIED('HTML')
-                      })
-                    }}
-                  >
-                    <Box
-                      css={`
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                      `}
-                    >
-                      {userAgent}
-                    </Box>
-                  </Li>
-                </Tooltip>
+                  {userAgent}
+                </Box>
               ))}
-            </Ul>
+            </Terminal>
           </Flex>
-          <ClipboardComponent />
         </Container>
+
+        <Faq
+          css={theme({ pt: 5 })}
+          questions={[
+            {
+              question: 'What is a user agent?',
+              answer: (
+                <>
+                  <div>
+                    A user agent is a string that a browser or application sends
+                    to a server to identify itself. It typically includes
+                    information about the browser type, operating system, and
+                    hardware.
+                  </div>
+                </>
+              )
+            },
+            {
+              question: 'Why is this list useful?',
+              answer: (
+                <>
+                  <div>
+                    Having a curated list of common user agents is useful for
+                    developers who need to emulate different browsers for
+                    testing, web scraping, or security auditing.
+                  </div>
+                </>
+              )
+            },
+            {
+              question: 'How often is this list updated?',
+              answer: (
+                <>
+                  <div>
+                    This list is self-updating. We automatically fetch the
+                    latest user agents from reliable sources to ensure the list
+                    remains current.
+                  </div>
+                </>
+              )
+            },
+            {
+              question: 'How do I use these user agents?',
+              answer: (
+                <>
+                  <div>
+                    You can use the copy icon in the top right corner of the
+                    terminal to copy the entire list as JSON. You can then use
+                    it in your code, for example, when setting the{' '}
+                    <code>User-Agent</code> header in an HTTP request.
+                  </div>
+                </>
+              )
+            },
+            {
+              question: 'Is there an API for this list?',
+              answer: (
+                <>
+                  <div>
+                    Yes, you can access the full list in JSON format at{' '}
+                    <Link href='/user-agents.json'>
+                      microlink.io/user-agents.json
+                    </Link>
+                    .
+                  </div>
+                </>
+              )
+            },
+            {
+              question: 'Other questions?',
+              answer: (
+                <>
+                  <div>
+                    We’re always available at{' '}
+                    <Link href='mailto:hello@microlink.io'>
+                      hello@microlink.io
+                    </Link>
+                    .
+                  </div>
+                </>
+              )
+            }
+          ]}
+        />
       </Layout>
     </DotsBackground>
   )

@@ -675,8 +675,6 @@ const Resume = () => (
 
 const ProductInformation = () => (
   <Faq
-    forwardedAs='section'
-    id='information'
     title='Product Information'
     caption='All the details you need to know about the product.'
     css={theme({

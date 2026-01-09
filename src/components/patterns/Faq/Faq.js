@@ -26,21 +26,25 @@ const Question = withSlug(({ index, ...props }) => (
 
 const Faq = ({ title, caption, questions, ...props }) => {
   return (
-    <Container id='faq' {...props}>
+    <Container as='section' id='faq' {...props}>
       <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
-        <Subhead css={theme({ px: 4 })} variant='gradient' titleize={false}>
-          {title}
-        </Subhead>
-        <Caption
-          css={theme({
-            px: [4, 0, 0, 0],
-            pt: [3, 4, 4, 4],
-            pb: [4, 4, 4, 5],
-            maxWidth: layout.normal
-          })}
-        >
-          {caption}
-        </Caption>
+        {title && (
+          <Subhead css={theme({ px: 4 })} variant='gradient' titleize={false}>
+            {title}
+          </Subhead>
+        )}
+        {caption && (
+          <Caption
+            css={theme({
+              px: [4, 0, 0, 0],
+              pt: [3, 4, 4, 4],
+              pb: [4, 4, 4, 5],
+              maxWidth: layout.normal
+            })}
+          >
+            {caption}
+          </Caption>
+        )}
       </Flex>
 
       <Flex

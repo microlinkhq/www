@@ -31,4 +31,4 @@ module.exports.fromUrl = async (url, { dist, mapper = identity }) => {
 }
 
 module.exports.fromCode = async (fn, { dist }) =>
-  !(await existsFile(dist)) && jsonFuture.saveAsync(dist, castArray(await fn()))
+  !(await existsFile(dist)) && jsonFuture.saveAsync(dist, await fn())

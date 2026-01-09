@@ -32,7 +32,6 @@ const PageBlog = () => {
           px: 3,
           width: '100%',
           flexDirection: 'column',
-          justifyContent: 'center',
           alignItems: 'center'
         })}
       >
