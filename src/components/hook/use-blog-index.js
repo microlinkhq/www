@@ -15,6 +15,7 @@ export const useBlogIndex = () => {
               }
               frontmatter {
                 title
+                description
                 date
               }
             }
@@ -27,6 +28,6 @@ export const useBlogIndex = () => {
   return map(get(allMdx, 'edges'), ({ node }) => ({
     ...node.fields,
     ...node.frontmatter,
-    excerpt: node.excerpt
+    excerpt: node.frontmatter.description || node.excerpt
   })).sort((a, b) => new Date(b.date) - new Date(a.date))
 }

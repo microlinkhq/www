@@ -20,7 +20,6 @@ const mergeMeta = (props, location, metadata) => {
     dataValue1,
     dataValue2,
     date,
-    description,
     image,
     logo,
     name
@@ -28,6 +27,9 @@ const mergeMeta = (props, location, metadata) => {
     ...metadata,
     ...props
   }
+
+  const description =
+    props.description || metadata.description || metadata.headline
 
   const url = location
     ? `${siteUrl}${location.pathname}${location.search}`

@@ -27,6 +27,15 @@ const githubUrl = (() => {
   }
 })()
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  createTypes(`
+    type MdxFrontmatter {
+      description: String
+    }
+  `)
+}
+
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
@@ -73,7 +82,10 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
 
   if (node.internal.type === 'File' && node.sourceInstanceName === 'pages') {
     const absolutePath = node.absolutePath
-    if (absolutePath && (absolutePath.endsWith('.js') || absolutePath.endsWith('.jsx'))) {
+    if (
+      absolutePath &&
+      (absolutePath.endsWith('.js') || absolutePath.endsWith('.jsx'))
+    ) {
       try {
         const lastmod = await getLastModifiedDate(absolutePath)
         createNodeField({
@@ -180,8 +192,10 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           fields {
             slug
           }
+          description: excerpt(pruneLength: 240)
           frontmatter {
             title
+            description
             date
             lastEdited
             isPro
@@ -211,6 +225,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
         )}?__contentFilePath=${contentFilePath}`,
         context: {
           id: node.id,
+          description: node.frontmatter.description || node.description,
           frontmatter: node.frontmatter,
           githubUrl: await githubUrl(contentFilePath),
           lastEdited: await getLastModifiedDate(contentFilePath),

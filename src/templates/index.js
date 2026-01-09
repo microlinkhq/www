@@ -7,34 +7,51 @@ import React from 'react'
 import PageTemplate from './page'
 import DocTemplate from './doc'
 
-const HeadDoc = ({ location, pageContext }) => {
-  const { name } = useSiteMetadata()
-  const activeRouteName = getActiveRouteName(location)
-  const frontmatter = pageContext.frontmatter || {}
-  // Validate date to avoid "Invalid time value" errors
-  const lastEdited = pageContext.lastEdited
-  const validDate = lastEdited && !isNaN(new Date(lastEdited).getTime()) ? lastEdited : undefined
-
-  return (
-    <Meta
-      name='Microlink Docs'
-      image={cdnUrl('banner/docs.jpeg')}
-      title={`${name} ${activeRouteName}: ${frontmatter.title || ''}`}
-      date={validDate}
-    />
-  )
-}
-
 export const Head = ({ pageContext, location }) => {
-  const frontmatter = pageContext.frontmatter || {}
+  const {
+    description,
+    isDocPage,
+    isBlogPage,
+    frontmatter = {},
+    lastEdited
+  } = pageContext
+  const siteMetadata = useSiteMetadata()
+  const { name: siteName } = siteMetadata
 
-  return pageContext.isDocPage
-    ? HeadDoc({ location, pageContext })
-    : <Meta {...frontmatter} />
+  if (isDocPage || isBlogPage) {
+    const activeRouteName = getActiveRouteName(location)
+    const validDate =
+      lastEdited && !isNaN(new Date(lastEdited).getTime())
+        ? lastEdited
+        : undefined
+
+    const metaProps = {
+      ...frontmatter,
+      description,
+      name: isDocPage ? 'Microlink Docs' : 'Microlink Blog',
+      image: isDocPage
+        ? cdnUrl('banner/docs.jpeg')
+        : cdnUrl('banner/blog.jpeg'),
+      title: isDocPage
+        ? `${siteName} ${activeRouteName}: ${frontmatter.title || ''}`
+        : frontmatter.title,
+      date: validDate
+    }
+
+    return <Meta {...metaProps} />
+  }
+
+  return <Meta {...frontmatter} />
 }
 
 const Template = ({ pageContext, children, ...props }) => {
-  const { isDocPage, isBlogPage, lastEdited, githubUrl, frontmatter = {} } = pageContext
+  const {
+    isDocPage,
+    isBlogPage,
+    lastEdited,
+    githubUrl,
+    frontmatter = {}
+  } = pageContext
   const date = frontmatter.date ?? lastEdited
 
   if (!isDocPage) {
