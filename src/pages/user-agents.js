@@ -1,26 +1,21 @@
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import { formatDate } from 'helpers/format-date'
 import { useQueryState } from 'components/hook/use-query-state'
 import React from 'react'
 import { layout, theme } from 'theme'
-
 import { Link } from 'components/elements/Link/base'
 import Terminal from 'components/elements/Terminal/Terminal'
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 import Toggle from 'components/elements/Toggle/Toggle'
 import Faq from 'components/patterns/Faq/Faq'
 
 import userAgents from '../../static/user-agents.json'
-
-const Caption = withTitle(CaptionBase)
-const Heading = withTitle(HeadingBase)
 
 export const Head = () => (
   <Meta
@@ -61,7 +56,6 @@ const UserAgentsPage = () => {
           <Caption
             forwardedAs='p'
             css={theme({ fontSize: 2, pt: 3, color: 'black60' })}
-            titleize={false}
           >
             Last updated on {formatDate(new Date(userAgents.updatedAt))}
           </Caption>

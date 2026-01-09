@@ -67,7 +67,7 @@ If a component has complex stateful logic, extract it into a custom hook:
 
 ### 6. Compose with Higher-Order Components
 
-Use HOCs to add cross-cutting concerns (analytics, loading states, etc.):
+Use HOCs to add cross-cutting concerns (analytics, loading states, titleization, etc.):
 
 ```javascript
 // From Button.js
@@ -77,9 +77,12 @@ const Button = withAnalytics(
     // ... spinner config
   )
 )
+
+// From user-agents.js
+const Heading = withTitle(HeadingBase)
 ```
 
-HOCs live in [src/helpers/hoc/](mdc:src/helpers/hoc/) with `with` prefix.
+HOCs live in [src/helpers/hoc/](mdc:src/helpers/hoc/) with `with` prefix. See [Text Formatting](mdc:.cursor/rules/text-formatting.mdc) for `withTitle` usage.
 
 ### 7. Handle Side Effects Properly
 
