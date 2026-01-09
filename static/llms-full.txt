@@ -1,0 +1,131 @@
+# Microlink API Simplified Documentation
+
+## 1. Overview
+Microlink is a "browser-as-a-service" API. It turns any website URL into structured data, automating browser actions like scraping, taking screenshots, and generating PDFs.
+
+**Core Value:**
+- Input: A URL (and optional parameters).
+- Output: Structured JSON containing metadata, media, screenshot URLs, or scraped content.
+
+## 2. API Connection
+- **Base Endpoint:** `GET https://api.microlink.io`
+- **Authentication:**
+  - **Free:** No key required (limited concurrency).
+  - **Pro:** Send `x-api-key` header.
+- **Client Libraries:**
+  - Node.js: `@microlink/mql` (Recommended)
+  - Other: cURL, Python, Ruby, PHP, Golang, Vanilla JS (fetch).
+
+## 3. Request Parameters
+All parameters are passed as query strings (REST) or options objects (Node.js SDK).
+
+### Core Parameters
+- `url` (Required): The target URL to process (must be encoded).
+- `meta` (Boolean, default `true`): Extracts Open Graph/JSON-LD metadata.
+- `prerender` (String): Set to `'auto'` to render client-side apps (React/Vue/SPA) before scraping.
+- `ttl` (Number): Cache duration in milliseconds.
+
+### Visual Actions
+- `screenshot` (Boolean | Object):
+  - `true`: Returns a screenshot URL.
+  - `fullPage`: Capture entire height.
+  - `overlay.browser`: `'dark'` | `'light'` (Wraps image in a browser frame).
+- `pdf` (Boolean | Object):
+  - `true`: Returns a PDF URL.
+  - `format`: `'A4'`, `'Letter'`, etc.
+
+### Intelligent Extraction
+- `palette` (Boolean): Detect predominant colors from the main image.
+- `embed` (String): Returns embeddable HTML for supported providers (YouTube, Spotify, etc.).
+- `iframe` (Boolean): Returns specific oEmbed/iframe data.
+
+### Custom Scraping (`data`)
+Pass a `data` object to scrape specific DOM elements using CSS selectors.
+- Syntax: `data.<field_name>.<property>=<value>`
+- Example: Extract a price.
+  - `data.price.selector` = `.product-price`
+  - `data.price.attr` = `text`
+
+## 4. Response Schema
+The API returns a JSON object with a `status` and `data` object.
+
+### Standard Metadata Fields (returned by default)
+When `meta=true`, the following fields are normalized and returned:
+- `author`: Human-readable author name.
+- `date`: ISO 8601 publication date.
+- `description`: Publisher's description.
+- `title`: Article/Page title.
+- `publisher`: Publisher brand name (e.g., "The New York Times").
+- `lang`: ISO 639-1 language code (e.g., `en`).
+- `url`: The final canonical URL (after redirects).
+
+### Media Fields (Image/Video/Logo/Screenshot)
+When a field contains media (like `image`, `logo`, `video`, or `screenshot`), it returns an object with context:
+- `url`: The direct link to the asset.
+- `type`: File extension (png, jpg, mp4).
+- `size`: File size in bytes.
+- `size_pretty`: Human-readable size (e.g., "4.12 kB").
+- `width` / `height`: Dimensions in pixels.
+- `duration`: (Video/Audio only) Duration in seconds.
+
+### HTTP Context
+- `statusCode`: HTTP status of the target URL.
+- `headers`: HTTP headers of the target URL.
+- `redirects`: Array of redirects followed (status code + url).
+
+## 5. Examples
+
+### JSON Response Example
+```json
+{
+  "status": "success",
+  "data": {
+    "title": "Microlink.io",
+    "description": "Turn websites into data...",
+    "lang": "en",
+    "image": {
+      "url": "https://cdn.microlink.io/...",
+      "type": "png",
+      "size": 4118,
+      "width": 280,
+      "height": 280
+    },
+    "screenshot": {
+      "url": "https://cdn.microlink.io/shot/...",
+      "width": 1280,
+      "height": 800
+    }
+  }
+}
+```
+
+### Node.js Example with @microlink/mql
+
+```javascript
+const mql = require('@microlink/mql')
+
+const { status, data } = await mql('https://github.com/microlinkhq', {
+  screenshot: { overlay: { browser: 'dark' } },
+  pdf: false,
+  prerender: 'auto'
+})
+
+console.log(data.screenshot.url)
+```
+
+### Python Example
+
+```python
+import requests
+
+url = "https://api.microlink.io/"
+
+querystring = {
+    "url": "https://www.netflix.com/title/80057281",
+    "screenshot": "true"
+}
+
+response = requests.get(url, params=querystring)
+
+print(response.json())
+```
