@@ -285,6 +285,10 @@
     {
       "source": "/sitemap.xml",
       "destination": "/sitemap-index.xml"
+    },
+    {
+      "source": "/blog/unavatar-generally-available",
+      "destination": "/blog/unavatario-generally-available-now"
     }
   ]
 }
