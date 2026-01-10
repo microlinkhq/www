@@ -1,6 +1,6 @@
 ---
 title: 'adblock'
-description: Improve performance and reduce response times by blocking non-essential advertisements and trackers. Microlink uses a world-class adblock engine to prevent third-party sub-requests from bloating your automated browser actions.
+description: Improve performance and reduce response times by blocking non-essential advertisements and trackers.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

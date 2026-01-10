@@ -1,6 +1,6 @@
 ---
 title: 'embed'
-description: Use the embed parameter to return a specific data field directly as the response body with the appropriate content-type headers. This allows you to insert Microlink API URLs directly into HTML, CSS, or Markdown tags for instant media rendering without manual JSON parsing.
+description: Use the embed parameter to return a specific data field directly as the response body with the appropriate content-type headers.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

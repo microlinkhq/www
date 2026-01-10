@@ -1,6 +1,6 @@
 ---
 title: 'waitForSelector'
-description: Pause browser execution until a specific element is present in the DOM. The waitForSelector parameter ensures that dynamic content, such as results from an API call or elements loaded via slow scripts, is fully rendered before capturing a screenshot or extracting data.
+description: Pause browser execution until a specific element is present in the DOM. The waitForSelector parameter ensures that dynamic content is fully rendered before extracting data.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

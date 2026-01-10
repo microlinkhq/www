@@ -1,6 +1,6 @@
 ---
 title: 'meta'
-description: Extract normalized metadata from any URL, including titles, descriptions, images, and logos. The meta parameter allows fine-grained control to include or exclude specific fields, optimizing response size and speed while ensuring consistent data across different websites.
+description: Extract normalized metadata from any URL, including titles, descriptions, images, and logos.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

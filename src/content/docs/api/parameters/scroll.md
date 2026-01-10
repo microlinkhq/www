@@ -1,6 +1,6 @@
 ---
 title: 'scroll'
-description: Navigate to specific sections of a webpage by scrolling to a DOM element matching a CSS selector. This parameter is ideal for capturing screenshots of content below the fold or triggering lazy-loaded elements by ensuring the browser viewport is positioned exactly where you need it.
+description: Navigate to specific sections of a webpage by scrolling to a DOM element matching a CSS selector.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

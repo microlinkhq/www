@@ -1,6 +1,6 @@
 ---
 title: 'headers'
-description: Configure custom HTTP headers to be sent with your requests to the target URL. This Pro feature allows for emulating specific browsers, setting language preferences, or authenticating against private websites via Authorization or Cookie headers.
+description: Configure custom HTTP headers to be sent with your requests to the target URL. This Pro feature allows for emulating specific browsers.
 isPro: true
 ---
 

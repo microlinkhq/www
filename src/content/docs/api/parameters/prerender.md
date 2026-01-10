@@ -1,6 +1,6 @@
 ---
 title: 'prerender'
-description: Optimize how content is fetched from the target URL by choosing between a headless browser or a simple HTTP request. The prerender parameter is essential for capturing content from Single Page Applications (SPAs) like React or Angular, allowing you to simulate a real user session or speed up requests for static sites.
+description: Optimize how content is fetched from the target URL by choosing between a headless browser or a simple HTTP request.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

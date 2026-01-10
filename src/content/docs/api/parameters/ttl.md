@@ -1,6 +1,6 @@
 ---
 title: 'ttl'
-description: Define the cache expiration time for your requests to balance data freshness and response speed. The ttl parameter supports human-readable formats from 1 minute up to 31 days, allowing you to optimize Microlink's caching layer based on how frequently the target website's content changes.
+description: Define the cache expiration time for your requests to balance data freshness and response speed. The ttl parameter supports human-readable formats.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

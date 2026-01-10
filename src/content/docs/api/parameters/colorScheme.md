@@ -1,6 +1,6 @@
 ---
 title: 'colorScheme'
-description: Force the browser to render websites in light or dark mode using the prefers-color-scheme CSS media feature. Perfectly capture screenshots of dark-themed UI variations or maintain brand consistency across different user preferences.
+description: Force the browser to render websites in light or dark mode using the prefers-color-scheme CSS media feature.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

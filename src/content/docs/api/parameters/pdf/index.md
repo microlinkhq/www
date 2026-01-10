@@ -1,6 +1,6 @@
 ---
 title: 'pdf'
-description: Generate high-quality PDFs from any website using Microlink's headless browser infrastructure. Customize scaling, margins, and paper formats, or use embed mode for direct PDF downloads and asynchronous background refreshing.
+description: Generate high-quality PDFs from any website using Microlink's headless browser infrastructure.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

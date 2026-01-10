@@ -1,6 +1,6 @@
 ---
 title: 'waitUntil'
-description: Fine-tune when Microlink considers a page fully "loaded" by waiting for specific lifecycle events. This parameter helps you balance between speed and completeness, allowing you to trigger actions as soon as the HTML is ready or wait until all network activity has ceased for a perfect capture.
+description: Fine-tune when Microlink considers a page fully "loaded" by waiting for specific lifecycle events.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

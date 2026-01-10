@@ -1,6 +1,6 @@
 ---
 title: 'CLI'
-description: Install and use the Microlink CLI to interact with the API directly from your terminal. Learn how to perform requests, authenticate via API keys, and format JSON output using simple command-line flags.
+description: Install and use the CLI to interact with the API from your terminal. Perform requests, authenticate via API keys, and format JSON output.
 ---
 
 import { Terminal } from 'components/markdown/Terminal'

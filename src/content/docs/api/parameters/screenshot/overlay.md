@@ -1,6 +1,6 @@
 ---
 title: 'overlay'
-description: Create professional screenshot compositions with customizable browser overlays and backgrounds. Choose between light and dark browser themes and set backgrounds using hex codes, CSS gradients, or image URLs via the Microlink API.
+description: Create professional screenshot compositions with customizable browser overlays and backgrounds.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,6 +1,6 @@
 ---
 title: 'device'
-description: Emulate a wide range of mobile, tablet, and desktop devices by automatically setting the correct viewport, user agent, and screen resolution. Support for dozens of presets including iPhone, iPad, Galaxy, and Macbook models ensures accurate cross-device rendering.
+description: Emulate a wide range of mobile, tablet, and desktop devices by automatically setting the correct viewport, user agent, and screen resolution.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

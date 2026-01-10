@@ -1,6 +1,6 @@
 ---
 title: 'omitBackground'
-description: Generate transparent screenshots by omitting the default white background of the webpage. Ideal for creating UI elements, logo extractions, or website overlays with a professional alpha channel using Microlink API.
+description: Generate transparent screenshots by omitting the default white background of the webpage.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

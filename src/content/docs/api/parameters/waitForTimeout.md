@@ -1,6 +1,6 @@
 ---
 title: 'waitForTimeout'
-description: Force the headless browser to wait for a specific duration before capturing or extracting data from the target URL. This parameter is useful for ensuring animations complete, lazy-loaded content appears, or third-party widgets fully initialize after the initial page load.
+description: Force the headless browser to wait for a specific duration before capturing or extracting data from the target URL.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

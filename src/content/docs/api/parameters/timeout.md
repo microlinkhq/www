@@ -1,6 +1,6 @@
 ---
 title: 'timeout'
-description: Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts values in milliseconds or human-readable formats like '10s', giving you control over the request lifecycle for faster-loading pages or strictly enforcing performance limits in your application.
+description: Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts values in milliseconds or human-readable formats.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

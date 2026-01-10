@@ -1,6 +1,6 @@
 ---
 title: 'codeScheme'
-description: Beautify HTML and JSON content with professional code syntax highlighting using the codeScheme parameter. Choose from popular Prism themes like Dracula or provide a custom CSS URL to style your automated screenshots.
+description: Beautify HTML and JSON content with professional code syntax highlighting using the codeScheme parameter. Choose from popular Prism themes like Dracula or provide a custom CSS URL.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
