@@ -1,5 +1,6 @@
 ---
 title: Cache
+description: Optimize API performance with Microlink's built-in cache layer. Understand unified vs. edge node caching, x-cache-status headers, and how to use ttl or force for cache invalidation.
 ---
 
 import { Type } from 'components/markdown/Type'
