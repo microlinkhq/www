@@ -1,5 +1,6 @@
 ---
 title: 'Overview'
+description: Use Microlink Query Language (MQL) to interact with Microlink API. A lightweight HTTP client for metadata extraction, custom data scraping, and browser automation.
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'

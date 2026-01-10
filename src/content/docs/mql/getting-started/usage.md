@@ -1,5 +1,6 @@
 ---
 title: 'Usage'
+description: Learn how to use the MQL library to fetch URL data. Detailed guide on handling API responses, objects, and MicrolinkError exceptions for robust error handling.
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'

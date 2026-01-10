@@ -1,5 +1,6 @@
 ---
 title: attr
+description: Learn how to extract specific HTML attributes and node properties from any URL using the Microlink Query Language (MQL) attr parameter.
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'

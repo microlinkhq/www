@@ -1,5 +1,6 @@
 ---
 title: 'Fallbacks rules definition'
+description: Implement resilient data scraping using fallback rules. Define multiple selector strategies to ensure data extraction success even when website structures or meta tags vary.
 ---
 
 A [data field](/docs/api/getting-started/data-fields) can be defined by more than one [rule](/docs/mql/rules/basic) that will be used as fallback rules:

@@ -1,5 +1,6 @@
 ---
 title: 'selectorAll'
+description: Extract multiple elements from a URL using CSS selectors. Similar to querySelectorAll, it returns a collection of structured data for lists, tables, or repeated patterns.
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'

@@ -1,5 +1,6 @@
 ---
 title: 'evaluate'
+description: Execute custom JavaScript strings or functions within the headless browser context to extract dynamic data or interact with the DOM using the evaluate parameter.
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'
