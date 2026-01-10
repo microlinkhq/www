@@ -1,5 +1,6 @@
 ---
 title: 'type'
+description: Choose between JPEG or PNG file formats for your website screenshots. When using Microlink CDN, assets are automatically optimized and served in modern formats like WebP based on client device capabilities.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
