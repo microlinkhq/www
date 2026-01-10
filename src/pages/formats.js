@@ -16,6 +16,7 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import { Link } from 'components/elements/Link/base'
+import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
@@ -155,6 +156,13 @@ const FAQs = props => (
       }
     ]}
     {...props}
+  />
+)
+
+export const Head = () => (
+  <Meta
+    title='Formats'
+    description='Supported formats by Microlink up to date.'
   />
 )
 
