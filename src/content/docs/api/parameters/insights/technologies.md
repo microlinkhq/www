@@ -1,5 +1,6 @@
 ---
 title: 'technologies'
+description: Identify the software stack behind any URL using Microlink's technology detection. Powered by Wappalyzer, it returns a detailed list of frameworks, CDNs, and analytics tools with confidence scores and category tags.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
