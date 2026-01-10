@@ -141,7 +141,10 @@ const CheckoutForm = ({
   )
 }
 
-export const Head = () => <Meta title='Payment' />
+export const Head = () => <Meta
+  title='Payment'
+  description='Update your credit card details.'
+                          />
 
 const PaymentUpdatePage = () => {
   const [isLoading, setIsLoading] = useState(true)
