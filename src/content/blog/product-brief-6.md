@@ -1,6 +1,6 @@
 ---
 title: 'Product Brief #6: Custom Rules & metadata improvements'
-description: Unlock the power of Microlink Custom Rules to transform our API into a "scraper-as-a-service.".
+description: 'Unlock the power of Microlink Custom Rules to transform our API into a "scraper-as-a-service.".'
 date: '2018-06-30'
 ---
 

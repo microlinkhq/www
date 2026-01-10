@@ -1,6 +1,6 @@
 ---
 title: 'Security'
-description: Learn about Microlink's security protocols, including infrastructure encryption, GDPR compliance, and how we protect your browser automation data.
+description: 'Learn about Microlink security protocols, including infrastructure encryption, GDPR compliance, and how we protect your browser automation data.'
 lastEdited: true
 ---
 

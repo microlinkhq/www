@@ -1,6 +1,6 @@
 ---
 title: 'Antibot detection at scale'
-description: Master antibot detection at scale. Learn how to bypass Cloudflare, DataDome, and Akamai challenges using Microlink.
+description: 'Master antibot detection at scale. Learn how to bypass Cloudflare, DataDome, and Akamai challenges using Microlink.'
 date: '2026-01-04'
 ---
 

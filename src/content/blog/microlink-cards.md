@@ -1,6 +1,6 @@
 ---
 title: 'Microlink Cards: Under the hood'
-description: Learn how Microlink Cards uses Monaco Editor, URL-based state management with lz-string compression, and the Microlink API to generate dynamic social images at scale.
+description: 'Learn how Microlink Cards uses Monaco Editor, URL-based state management with lz-string compression, and the Microlink API to generate dynamic social images at scale.'
 date: '2021-04-06'
 ---
 
