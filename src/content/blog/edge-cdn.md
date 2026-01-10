@@ -1,5 +1,6 @@
 ---
 title: 'Microlink CDN: Global Edge Cache'
+description: Learn how Microlink CDN uses Global Edge Caching to speed up API responses, optimize images with WebP, and save your API quota by serving cached requests for free.
 date: '2020-03-31'
 ---
 

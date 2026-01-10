@@ -1,5 +1,6 @@
 ---
 title: 'Product Brief #3: Video Support, Better Prerendering & SDK Features'
+description: Boost your link previews with Microlink's video support, auto-prerendering for 50% faster responses, and new SDK features.
 date: '2018-03-02'
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: 'Product Brief #4: SDK v2 & More Video Providers'
+description: Explore Microlink SDK v2.0 with improved styling flexibility and expanded video detection for major platforms like YouTube, Facebook, and Instagram.
 date: '2018-04-11'
 ---
 
