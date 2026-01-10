@@ -1,5 +1,6 @@
 ---
 title: 'audio'
+description: Detect and extract audio sources from any URL. It returns browser-friendly audio URLs along with metadata like duration, file size, and type, enabling seamless integration of media content from platforms like Spotify or SoundCloud.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

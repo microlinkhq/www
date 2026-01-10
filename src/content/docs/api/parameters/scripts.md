@@ -1,5 +1,6 @@
 ---
 title: 'scripts'
+description: Inject custom JavaScript into a webpage before it is rendered or captured. The scripts parameter allows you to manipulate the DOM, modify styles, or load external libraries via absolute URLs or inline code, providing total control over the page's final state for screenshots and data extraction.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

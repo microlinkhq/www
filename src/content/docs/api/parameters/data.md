@@ -1,5 +1,6 @@
 ---
 title: 'data'
+description: Define custom data extraction rules using CSS selectors with the Microlink Query Language (MQL). Extract specific attributes, images, or text from any URL and receive the structured data directly in your API response payload.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

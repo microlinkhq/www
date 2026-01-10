@@ -1,5 +1,6 @@
 ---
 title: 'styles'
+description: Inject custom CSS into a webpage before it is rendered or captured. The styles parameter supports both inline CSS rules and absolute URLs to external stylesheets, allowing you to hide elements, change background colors, or apply completely new themes to a site prior to generating a screenshot or PDF.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

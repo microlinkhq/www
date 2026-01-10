@@ -1,5 +1,6 @@
 ---
 title: 'iframe'
+description: Automatically detect and extract oEmbed-compliant embed codes for videos, social posts, and rich media. The iframe parameter returns ready-to-use HTML and script tags for hundreds of providers like YouTube, TikTok, and Spotify, supporting custom sizing via maxWidth and maxHeight.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

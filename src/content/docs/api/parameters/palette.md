@@ -1,5 +1,6 @@
 ---
 title: 'palette'
+description: Extract dominant color palettes and accessibility-compliant color schemes from detected images. Enabling the palette parameter adds hexadecimal color collections to the response, including background and foreground colors that meet WCAG contrast ratios for professional UI design.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

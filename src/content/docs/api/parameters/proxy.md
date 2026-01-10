@@ -1,5 +1,6 @@
 ---
 title: 'proxy'
+description: Bypass IP rate limits, CAPTCHAs, and regional restrictions using high-quality proxy rotation. This Pro feature includes built-in automatic proxy resolution for top-tier websites and allows you to provide your own custom proxy server via WHATWG URL strings to ensure reliable data extraction and screenshot capture.
 isPro: true
 ---
 

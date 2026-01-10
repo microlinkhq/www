@@ -1,5 +1,6 @@
 ---
 title: 'video'
+description: Detect and extract direct video source URLs from any website in a browser-friendly format. Enabling the video parameter provides rich metadata including the direct MP4 link, duration, file size, and dimensions, making it easy to embed or process video content from platforms like YouTube and others.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

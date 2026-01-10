@@ -1,5 +1,6 @@
 ---
 title: 'mediaType'
+description: Switch between 'screen' and 'print' CSS media queries to control how a website renders for capture. This is particularly useful for PDF generation, allowing you to choose between the standard web layout or the printer-friendly version of a page.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

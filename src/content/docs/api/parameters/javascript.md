@@ -1,5 +1,6 @@
 ---
 title: 'javascript'
+description: Control whether JavaScript is executed within the headless browser for a target URL. Disabling JavaScript can significantly speed up response times and reduce bandwidth for static pages, while enabling it ensures that client-side rendered content and interactive elements are fully processed before data extraction.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,5 +1,6 @@
 ---
 title: 'click'
+description: Automate browser interactions by clicking specific DOM elements via CSS selectors. Use this parameter to trigger navigation, toggle UI components, or change page state before capturing screenshots or metadata with the Microlink API.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

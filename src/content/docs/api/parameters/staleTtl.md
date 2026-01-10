@@ -1,5 +1,6 @@
 ---
 title: 'staleTtl'
+description: Optimize API performance by serving cached content while simultaneously refreshing it in the background. The staleTtl parameter allows you to define a grace period for expired data, ensuring users receive immediate responses while the Microlink cache stays up-to-date without blocking the current request.
 isPro: true
 ---
 

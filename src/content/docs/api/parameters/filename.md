@@ -1,5 +1,6 @@
 ---
 title: 'filename'
+description: Define a custom name for generated assets like screenshots or PDFs using the filename parameter. This Pro feature ensures that downloadable files are returned with identifiable names, simplifying file organization and management for automated exports.
 isPro: true
 ---
 

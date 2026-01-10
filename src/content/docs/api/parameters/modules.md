@@ -1,5 +1,6 @@
 ---
 title: 'modules'
+description: Inject JavaScript modules into a webpage during the rendering process. The modules parameter supports both inline code and absolute URLs, enabling the use of modern ES modules to modify page behavior or styles before capturing screenshots or data.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,5 +1,6 @@
 ---
 title: 'viewport'
+description: Customize the browser's visible area and device capabilities to control how a website is rendered. The viewport parameter allows you to define specific dimensions, pixel densities (Retina/High-DPI), and mobile behaviors, ensuring your screenshots or data extraction match exactly what a user would see on a specific screen.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

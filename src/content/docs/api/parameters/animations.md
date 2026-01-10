@@ -1,5 +1,6 @@
 ---
 title: 'animations'
+description: Control CSS animations and transitions during website rendering. Enabling this parameter ensures consistent snapshots by handling motion effects and automatically updating the prefers-reduced-motion media feature in the headless browser.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

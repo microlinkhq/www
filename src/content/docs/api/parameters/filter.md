@@ -1,5 +1,6 @@
 ---
 title: 'filter'
+description: Reduce response bandwidth and optimize payload size by selecting specific data fields. Use the filter parameter with comma-separated values and dot notation to retrieve only the information you need from the Microlink API response.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
