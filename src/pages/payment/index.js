@@ -56,7 +56,10 @@ const getCaption = paymentState => {
   }
 }
 
-export const Head = () => <Meta />
+export const Head = () => <Meta
+  title='Payment Details'
+  description='Add payment method to get started with Microlink.'
+                          />
 
 const PaymentPage = () => {
   const [paymentState, setPaymentState] = useState(PAYMENT_STATE.processing)
