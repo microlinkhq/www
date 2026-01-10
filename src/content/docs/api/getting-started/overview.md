@@ -1,5 +1,6 @@
 ---
 title: 'Overview'
+description: Get started with Microlink API to turn any website into structured data. Learn how to automate browser actions, extract metadata, take screenshots, generate PDFs, and identify web technologies with a simple HTTP GET request.
 ---
 
 import { Link } from 'components/elements/Link/base'
