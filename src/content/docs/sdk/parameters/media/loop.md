@@ -1,5 +1,6 @@
 ---
 title: 'loop'
+description: Configure media looping for your link previews. Use the loop parameter to specify whether video or audio content should restart automatically after finishing.
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

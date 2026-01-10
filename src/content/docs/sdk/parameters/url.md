@@ -1,5 +1,6 @@
 ---
 title: 'url'
+description: Learn how to use the required url parameter to extract data, capture screenshots, or generate PDFs from any target website using the Microlink API.
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

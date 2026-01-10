@@ -1,5 +1,6 @@
 ---
 title: 'setData'
+description: Manually override or augment extracted metadata. Pass an object or a function to completely transform the data before the link preview is rendered.
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

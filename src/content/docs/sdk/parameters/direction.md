@@ -1,5 +1,6 @@
 ---
 title: 'direction'
+description: Configure the text direction of your link previews. Support for LTR (left-to-right) and RTL (right-to-left) layouts.
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

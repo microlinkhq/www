@@ -1,5 +1,6 @@
 ---
 title: 'controls'
+description: Enable or disable native media player controls for video and audio in your link previews. Use the controls parameter to customize the interface of Microlink SDK.
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
