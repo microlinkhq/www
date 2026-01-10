@@ -1,5 +1,6 @@
 ---
 title: 'Terms of Service'
+description: Read the Microlink Terms of Service to understand our licensing, usage rules, and legal obligations for using our website and browser automation API.
 date: '2018-04-08'
 ---
 

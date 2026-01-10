@@ -1,5 +1,6 @@
 ---
 title: 'pdf'
+description: 'Generate high-quality PDFs from any website using Microlink headless browser infrastructure.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

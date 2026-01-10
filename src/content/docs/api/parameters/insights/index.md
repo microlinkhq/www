@@ -1,5 +1,6 @@
 ---
 title: 'insights'
+description: 'Analyze web performance and stack data with Microlink Insights. Extract identified technologies via Wappalyzer and detailed Lighthouse audit reports directly from any target URL.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

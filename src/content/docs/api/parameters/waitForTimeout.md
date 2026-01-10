@@ -1,5 +1,6 @@
 ---
 title: 'waitForTimeout'
+description: 'Force the headless browser to wait for a specific duration before capturing or extracting data from the target URL.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

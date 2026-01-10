@@ -1,5 +1,6 @@
 ---
 title: 'type'
+description: 'Validate and cast extracted values into specific data types like strings, numbers, images, or URLs. Ensure data consistency and correctness for your API responses.'
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'

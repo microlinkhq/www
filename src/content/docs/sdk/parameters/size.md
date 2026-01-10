@@ -1,5 +1,6 @@
 ---
 title: 'size'
+description: 'Define the visual dimensions of your link previews. Choose between small, normal, or large sizes to best fit your application layout and content density requirements.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

@@ -1,5 +1,6 @@
 ---
 title: 'Presets'
+description: 'Utilize pre-defined design templates as the foundation for your dynamic visuals. Presets serve as reusable design building blocks that allow for the infinite generation of social media assets.'
 ---
 
 import { Video } from 'components/markdown/Video'

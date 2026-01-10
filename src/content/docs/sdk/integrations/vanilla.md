@@ -1,5 +1,6 @@
 ---
 title: 'Vanilla'
+description: 'Add beautiful link previews to any website with Microlink Vanilla. Integrate via CDN or npm, use CSS selectors for auto-replacement, and pass API parameters.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'

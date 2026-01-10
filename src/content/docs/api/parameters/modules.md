@@ -1,5 +1,6 @@
 ---
 title: 'modules'
+description: 'Inject JavaScript modules into a webpage during the rendering process.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

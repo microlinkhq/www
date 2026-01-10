@@ -1,5 +1,6 @@
 ---
 title: 'Our history'
+description: Discover the story behind Microlink, from its Open Source roots with metascraper to building a world-class browser automation API for developers.
 ---
 
 import { Since } from 'components/markdown/Since'

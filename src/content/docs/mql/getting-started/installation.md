@@ -1,5 +1,6 @@
 ---
 title: 'Installation'
+description: 'Install and set up the Microlink Query Language (MQL) client. Support for Node.js, Edge Functions (Vercel/Cloudflare), and direct Browser integration via ESM.'
 ---
 
 **MQL** is available as [npm package](https://www.npmjs.com/package/@microlink/react):

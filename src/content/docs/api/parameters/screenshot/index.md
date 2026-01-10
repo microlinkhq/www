@@ -1,5 +1,6 @@
 ---
 title: 'screenshot'
+description: 'Generate high-fidelity screenshots of any website with a single API call. Automatically handle headless browser infrastructure to extract visual data.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

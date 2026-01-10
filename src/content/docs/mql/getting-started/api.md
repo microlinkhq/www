@@ -1,5 +1,6 @@
 ---
 title: 'API'
+description: 'Technical documentation for the mql function. Learn how to configure URL targets, API keys, Node.js caching, and retry logic for high-performance web scraping and automation.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'

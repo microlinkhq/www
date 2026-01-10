@@ -1,5 +1,6 @@
 ---
 title: "unavatar.io: Generally available now"
+description: 'Discover unavatar.io, the unified API for resolving user avatars from any social network. New PRO plan for scaling past bot protection and residential proxies.'
 date: '2026-01-05'
 ---
 

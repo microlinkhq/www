@@ -1,5 +1,6 @@
 ---
 title: 'viewport'
+description: 'Customize the browser visible area and device capabilities to control how a website is rendered.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

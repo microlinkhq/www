@@ -1,5 +1,6 @@
 ---
 title: 'type'
+description: 'Choose between JPEG or PNG file formats for your website screenshots. Assets are automatically optimized and served in modern formats based on client device capabilities.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,5 +1,6 @@
 ---
 title: 'data'
+description: 'Define custom data extraction rules using CSS selectors with the Microlink Query Language (MQL).'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

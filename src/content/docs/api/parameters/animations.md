@@ -1,5 +1,6 @@
 ---
 title: 'animations'
+description: 'Control CSS animations and transitions during website rendering. Ensures consistent snapshots by handling motion effects in the headless browser.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

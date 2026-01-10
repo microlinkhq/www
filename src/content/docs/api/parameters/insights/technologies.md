@@ -1,5 +1,6 @@
 ---
 title: 'technologies'
+description: 'Identify the software stack behind any URL using Microlink technology detection. It returns a detailed list of frameworks, CDNs, and analytics tools with confidence scores.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

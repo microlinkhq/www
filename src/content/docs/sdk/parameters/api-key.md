@@ -1,5 +1,6 @@
 ---
 title: 'apiKey'
+description: 'Authenticate your Microlink SDK requests using your API key to increase rate limits and access Pro features.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

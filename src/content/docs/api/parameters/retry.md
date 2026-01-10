@@ -1,5 +1,6 @@
 ---
 title: 'retry'
+description: 'Configure the number of exponential backoff retries to attempt if the underlying browser encounters an unexpected internal error.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

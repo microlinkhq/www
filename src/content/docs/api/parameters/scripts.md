@@ -1,5 +1,6 @@
 ---
 title: 'scripts'
+description: 'Inject custom JavaScript into a webpage before it is rendered or captured.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

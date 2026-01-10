@@ -1,5 +1,6 @@
 ---
 title: 'Editor'
+description: 'Design and preview dynamic visual assets directly in the browser using the Cards Editor. Instantly shareable and can be programmatically populated with your own data.'
 ---
 
 import { Link } from 'components/elements/Link/base'

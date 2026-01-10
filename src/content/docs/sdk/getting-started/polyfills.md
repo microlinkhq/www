@@ -1,5 +1,6 @@
 ---
 title: 'Polyfills'
+description: 'Ensure browser compatibility for Microlink SDK by providing the Fetch API. Learn how to implement polyfills for older environments to guarantee smooth link preview rendering.'
 ---
 
 Since the **Microlink SDK** consumes the [Microlink API](/docs/api/getting-started/overview) and turns the raw data into a beautiful preview, it needs to perform an internal request to obtain it from the target URL.

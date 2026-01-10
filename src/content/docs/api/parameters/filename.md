@@ -1,5 +1,6 @@
 ---
 title: 'filename'
+description: 'Define a custom name for generated assets like screenshots or PDFs using the filename parameter.'
 isPro: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: 'CLI'
+description: 'Install and use the CLI to interact with the API from your terminal. Perform requests, authenticate via API keys, and format JSON output.'
 ---
 
 import { Terminal } from 'components/markdown/Terminal'

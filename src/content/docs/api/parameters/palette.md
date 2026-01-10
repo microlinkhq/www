@@ -1,5 +1,6 @@
 ---
 title: 'palette'
+description: 'Extract dominant color palettes and accessibility-compliant color schemes from detected images.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

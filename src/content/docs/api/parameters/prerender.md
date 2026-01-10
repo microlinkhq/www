@@ -1,5 +1,6 @@
 ---
 title: 'prerender'
+description: 'Optimize how content is fetched from the target URL by choosing between a headless browser or a simple HTTP request.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

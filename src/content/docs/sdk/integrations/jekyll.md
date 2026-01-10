@@ -1,5 +1,6 @@
 ---
 title: 'Jekyll'
+description: 'Learn how to integrate Microlink SDK with Jekyll to create beautiful link previews in your blog posts. Use simple Markdown to automate URL-to-preview conversion.'
 ---
 
 import { Microlink } from 'components/markdown/Microlink'

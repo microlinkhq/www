@@ -1,5 +1,6 @@
 ---
 title: 'media'
+description: 'Select the primary media type for your link previews. Support for images, logos, video, audio, screenshots, and iframes with automatic fallback logic.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

@@ -1,5 +1,6 @@
 ---
 title: 'Vue'
+description: 'Integrate beautiful link previews into Vue.js apps using the official Microlink SDK. Supports global registration, custom props, and CSS variable styling.'
 ---
 
 import { Microlink } from 'components/markdown/Microlink'

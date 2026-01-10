@@ -1,5 +1,6 @@
 ---
 title: 'iframe'
+description: 'The iframe parameter returns ready-to-use HTML and script tags for hundreds of providers.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

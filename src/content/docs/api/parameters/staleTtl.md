@@ -1,5 +1,6 @@
 ---
 title: 'staleTtl'
+description: 'Optimize API performance by serving cached content while simultaneously refreshing it in the background.'
 isPro: true
 ---
 

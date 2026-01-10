@@ -1,5 +1,6 @@
 ---
 title: 'waitForSelector'
+description: 'Pause browser execution until a specific element is present in the DOM. The waitForSelector parameter ensures that dynamic content is fully rendered before extracting data.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

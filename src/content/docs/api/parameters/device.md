@@ -1,5 +1,6 @@
 ---
 title: 'device'
+description: 'Emulate a wide range of mobile, tablet, and desktop devices by automatically setting the correct viewport, user agent, and screen resolution.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

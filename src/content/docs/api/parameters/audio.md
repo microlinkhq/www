@@ -1,5 +1,6 @@
 ---
 title: 'audio'
+description: 'Detect and extract audio sources from any URL. It returns browser-friendly audio URLs along with metadata enabling integration of media content from platforms.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,5 +1,6 @@
 ---
 title: 'element'
+description: 'Capture a specific DOM element as a screenshot by providing a CSS selector. The Microlink API automatically waits for the element to be visible before rendering the image.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

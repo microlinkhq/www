@@ -1,5 +1,6 @@
 ---
 title: 'colorScheme'
+description: 'Force the browser to render websites in light or dark mode using the prefers-color-scheme CSS media feature.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

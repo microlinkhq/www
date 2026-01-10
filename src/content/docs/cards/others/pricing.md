@@ -1,5 +1,6 @@
 ---
 title: 'Pricing'
+description: 'Cards operates on a consumption-based model tied to the Microlink API. Cloud-rendered screenshot served via a global edge network, usage counts toward your API quota.'
 ---
 
 **Microlink Cards** produces cloud browser screenshots as output of the process, using [Microlink API](/docs/api/getting-started/overview), serving the generated asset via [Microlink CDN](/blog/edge-cdn/).

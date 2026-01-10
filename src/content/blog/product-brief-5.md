@@ -1,5 +1,6 @@
 ---
 title: 'Product Brief #5: New API Parameters & Gallery Showcase'
+description: 'Discover Microlink Product Brief, featuring custom User Agent support, optimized video detection parameters, and the major metascraper v3.11 update with Custom Rules.'
 date: '2018-05-30'
 ---
 

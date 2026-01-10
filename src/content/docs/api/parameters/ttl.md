@@ -1,5 +1,6 @@
 ---
 title: 'ttl'
+description: 'Define the cache expiration time for your requests to balance data freshness and response speed. The ttl parameter supports human-readable formats.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

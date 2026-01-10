@@ -1,5 +1,6 @@
 ---
 title: 'filter'
+description: 'Reduce response bandwidth and optimize payload size by selecting specific data fields.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,5 +1,6 @@
 ---
 title: 'Microlink Function: How to compress'
+description: 'Learn how to use the `function` parameter to execute remote JavaScript code. Optimize your API requests by compressing functions using Brotli, Gzip, or lz-string.'
 date: '2022-09-03'
 ---
 

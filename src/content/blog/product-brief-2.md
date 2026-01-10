@@ -1,5 +1,6 @@
 ---
 title: 'Product Brief #2: New Branding, Documentation & Improvements'
+description: 'Discover Microlink second product brief, featuring a fresh brand identity, unified documentation portal, and key improvements to metascraper and the SDK.'
 date: '2018-01-31'
 ---
 

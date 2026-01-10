@@ -1,5 +1,6 @@
 ---
 title: 'pdf landscape'
+description: 'Set the paper orientation to landscape for your website-to-PDF conversions. Toggle between portrait and landscape modes to optimize the layout of generated PDF documents.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

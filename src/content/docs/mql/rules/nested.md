@@ -1,5 +1,6 @@
 ---
 title: Nested rules definition
+description: 'Organize your scraped data using nested rules. Map complex DOM structures into clean JSON objects by nesting selectors and attributes within a single parent property.'
 ---
 
 In case you need, you can use [attr](/docs/mql/data/attr) for mapping data structures over the same property key:

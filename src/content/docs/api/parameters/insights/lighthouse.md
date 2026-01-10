@@ -1,5 +1,6 @@
 ---
 title: 'lighthouse'
+description: 'Generate comprehensive Google Lighthouse reports for any URL. Export web performance audits in JSON, HTML, or CSV formats using custom configurations via Microlink API.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

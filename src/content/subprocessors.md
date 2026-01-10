@@ -1,5 +1,6 @@
 ---
 title: 'Subprocessors'
+description: Review the list of third-party subprocessors used by Microlink to provide secure, GDPR-compliant infrastructure, payment processing, and support services.
 lastEdited: true
 ---
 

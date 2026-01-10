@@ -1,5 +1,6 @@
 ---
 title: 'mediaType'
+description: 'Switch between "screen" and "print" CSS media queries to control how a website renders for capture.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
