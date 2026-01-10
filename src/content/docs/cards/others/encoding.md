@@ -1,5 +1,6 @@
 ---
 title: 'Encoding'
+description: Manage how your design state and configuration are stored within the URL to ensure compatibility with the Microlink API.
 ---
 
 **Microlink Cards** are shipped as stateful application, where the state is all time encoded in the URL.

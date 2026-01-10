@@ -1,5 +1,6 @@
 ---
 title: 'Query Variables'
+description: Dynamicize your designs by passing data directly through URL parameters to create unique variations of a single template.
 ---
 
 import { Video } from 'components/markdown/Video'
