@@ -1,5 +1,6 @@
 ---
 title: 'Data processing agreement'
+description: Learn how Microlink evolved from metascraper into a powerful browser automation platform built on open source, web standards, and developer-first APIs.
 lastEdited: true
 ---
 

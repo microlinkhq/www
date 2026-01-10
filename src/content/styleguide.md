@@ -1,5 +1,6 @@
 ---
 title: 'Styleguide'
+description: Explore the Microlink design system and documentation styleguide, including typography, code block formatting, and UI component standards.
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'

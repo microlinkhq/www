@@ -1,5 +1,6 @@
 ---
 title: 'Privacy policy'
+description: Read the Microlink Privacy Policy to understand how we handle data, maintain GDPR compliance, and protect your information across our website and API.
 lastEdited: true
 ---
 
