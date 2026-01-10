@@ -1,6 +1,6 @@
 ---
 title: 'fetchData'
-description: Control how link data is retrieved. Enable internal API calls for real-time metadata extraction or disable it to provide custom pre-fetched data manually.
+description: 'Control how link data is retrieved. Enable internal API calls for real-time metadata extraction or disable it to provide custom pre-fetched data manually.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

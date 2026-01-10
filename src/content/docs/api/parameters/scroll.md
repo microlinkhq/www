@@ -1,6 +1,6 @@
 ---
 title: 'scroll'
-description: Navigate to specific sections of a webpage by scrolling to a DOM element matching a CSS selector.
+description: 'Navigate to specific sections of a webpage by scrolling to a DOM element matching a CSS selector.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

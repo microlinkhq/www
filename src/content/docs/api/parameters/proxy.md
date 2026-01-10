@@ -1,6 +1,6 @@
 ---
 title: 'proxy'
-description: Bypass IP rate limits, CAPTCHAs, and regional restrictions using high-quality proxy rotation.
+description: 'Bypass IP rate limits, CAPTCHAs, and regional restrictions using high-quality proxy rotation.'
 isPro: true
 ---
 

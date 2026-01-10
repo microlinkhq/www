@@ -1,6 +1,6 @@
 ---
 title: 'click'
-description: Automate browser interactions by clicking specific DOM elements via CSS selectors. Use this parameter to trigger navigation, toggle UI components, or change page state.
+description: 'Automate browser interactions by clicking specific DOM elements via CSS selectors. Use this parameter to trigger navigation, toggle UI components, or change page state.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

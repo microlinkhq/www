@@ -1,6 +1,6 @@
 ---
 title: 'Styling'
-description: Customize the look and feel of your link previews using CSS variables and BEM classes. Learn how to style Microlink SDK components to match your brand's design system.
+description: 'Customize the look and feel of your link previews using CSS variables and BEM classes. Learn how to style Microlink SDK components to match your brand design system.'
 ---
 
 import { Color } from 'components/markdown/Color/Color'

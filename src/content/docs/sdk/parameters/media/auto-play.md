@@ -1,6 +1,6 @@
 ---
 title: 'autoPlay'
-description: Control the media playback behavior of your link previews. Use the autoPlay parameter to enable or disable automatic video and audio playback for Microlink SDK components.
+description: 'Control the media playback behavior of your link previews. Use the autoPlay parameter to enable or disable automatic video and audio playback for Microlink SDK components.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

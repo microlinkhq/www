@@ -1,6 +1,6 @@
 ---
 title: 'React'
-description: Implement beautiful link previews in React applications using the official Microlink SDK. Supports styled-components, custom props, and all Microlink API parameters.
+description: 'Implement beautiful link previews in React applications using the official Microlink SDK. Supports styled-components, custom props, and all Microlink API parameters.'
 ---
 
 import { Microlink } from 'components/markdown/Microlink'

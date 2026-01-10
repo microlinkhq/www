@@ -1,6 +1,6 @@
 ---
 title: 'meta'
-description: Extract normalized metadata from any URL, including titles, descriptions, images, and logos.
+description: 'Extract normalized metadata from any URL, including titles, descriptions, images, and logos.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

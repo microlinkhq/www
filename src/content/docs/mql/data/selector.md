@@ -1,6 +1,6 @@
 ---
 title: 'selector'
-description: Define CSS selectors to target and extract specific HTML elements from any URL. Support for IDs, classes, pseudo-classes, and fallback logic for resilient scraping.
+description: 'Define CSS selectors to target and extract specific HTML elements from any URL. Support for IDs, classes, pseudo-classes, and fallback logic for resilient scraping.'
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'

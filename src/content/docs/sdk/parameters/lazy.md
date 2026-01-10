@@ -1,6 +1,6 @@
 ---
 title: 'lazy'
-description: Optimize performance with lazy loading for link previews. Use the lazy parameter to trigger API calls only when cards enter the viewport.
+description: 'Optimize performance with lazy loading for link previews. Use the lazy parameter to trigger API calls only when cards enter the viewport.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

@@ -1,6 +1,6 @@
 ---
 title: 'force'
-description: Bypass the Microlink CDN cache to fetch a fresh version of the target URL. Use the force parameter to invalidate existing cached copies and ensure the most up-to-date metadata.
+description: 'Bypass the Microlink CDN cache to fetch a fresh version of the target URL. Use the force parameter to invalidate existing cached copies and ensure the most up-to-date metadata.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

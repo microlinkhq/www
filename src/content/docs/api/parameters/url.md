@@ -1,6 +1,6 @@
 ---
 title: 'url'
-description: The primary address of the website you want to process. The url parameter is the core requirement for any Microlink API request, serving as the base for metadata extraction.
+description: 'The primary address of the website you want to process. The url parameter is the core requirement for any Microlink API request, serving as the base for metadata extraction.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

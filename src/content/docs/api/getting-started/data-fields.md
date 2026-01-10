@@ -1,6 +1,6 @@
 ---
 title: 'Data fields'
-description: Explore the default data fields extracted by Microlink API, including metadata, media properties, and HTTP status details like headers and redirects.
+description: 'Explore the default data fields extracted by Microlink API, including metadata, media properties, and HTTP status details like headers and redirects.'
 ---
 
 import { Type } from 'components/markdown/Type'

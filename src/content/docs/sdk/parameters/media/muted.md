@@ -1,6 +1,6 @@
 ---
 title: 'muted'
-description: Control the audio state of media within your link previews. Use the muted parameter to enable or disable sound for auto-playing videos and audio components.
+description: 'Control the audio state of media within your link previews. Use the muted parameter to enable or disable sound for auto-playing videos and audio components.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

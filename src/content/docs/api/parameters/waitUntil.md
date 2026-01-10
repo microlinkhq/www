@@ -1,6 +1,6 @@
 ---
 title: 'waitUntil'
-description: Fine-tune when Microlink considers a page fully "loaded" by waiting for specific lifecycle events.
+description: 'Fine-tune when Microlink considers a page fully "loaded" by waiting for specific lifecycle events.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

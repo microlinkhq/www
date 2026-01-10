@@ -1,6 +1,6 @@
 ---
 title: 'contrast'
-description: Enhance accessibility and aesthetics with high-contrast link previews.
+description: 'Enhance accessibility and aesthetics with high-contrast link previews.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

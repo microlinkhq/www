@@ -1,6 +1,6 @@
 ---
 title: 'ping'
-description: Validate the accessibility of all URLs extracted in the response payload. The ping parameter verifies that links to images, videos, or audio are publicly reachable.
+description: 'Validate the accessibility of all URLs extracted in the response payload. The ping parameter verifies that links to images, videos, or audio are publicly reachable.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

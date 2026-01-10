@@ -1,6 +1,6 @@
 ---
 title: 'Basic rules definition'
-description: Learn how to define custom data extraction rules using MQL primitives: selectors, attributes, and types. Overwrite or extend default metadata to build custom APIs.
+description: 'Learn how to define custom data extraction rules using MQL primitives: selectors, attributes, and types. Overwrite or extend default metadata to build custom APIs.'
 ---
 
 import { Type } from 'components/markdown/Type'

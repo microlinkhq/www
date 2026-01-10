@@ -1,6 +1,6 @@
 ---
 title: 'headers'
-description: Configure custom HTTP headers to be sent with your requests to the target URL. This Pro feature allows for emulating specific browsers.
+description: 'Configure custom HTTP headers to be sent with your requests to the target URL. This Pro feature allows for emulating specific browsers.'
 isPro: true
 ---
 

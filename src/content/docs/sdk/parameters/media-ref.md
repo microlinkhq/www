@@ -1,6 +1,6 @@
 ---
 title: 'mediaRef'
-description: Access the underlying DOM reference of the media component using the mediaRef prop. Perfect for programmatic playback control or attaching custom event listeners.
+description: 'Access the underlying DOM reference of the media component using the mediaRef prop. Perfect for programmatic playback control or attaching custom event listeners.'
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'

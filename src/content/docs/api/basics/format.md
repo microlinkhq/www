@@ -1,6 +1,6 @@
 ---
 title: 'Format'
-description: Understand the Microlink API response format based on the JSend specification. Learn about status codes, JSON data payloads, and how to handle error messages.
+description: 'Understand the Microlink API response format based on the JSend specification. Learn about status codes, JSON data payloads, and how to handle error messages.'
 ---
 
 import { Type } from 'components/markdown/Type'

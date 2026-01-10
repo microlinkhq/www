@@ -1,6 +1,6 @@
 ---
 title: 'Endpoint'
-description: Access Microlink API via free and pro endpoints. Learn how to perform HTTP GET requests, use camelCase or snake_case query parameters, and automate endpoint selection using Microlink Query Language (MQL).
+description: 'Access Microlink API via free and pro endpoints. Learn how to perform HTTP GET requests, use camelCase or snake_case query parameters, and automate endpoint selection using Microlink Query Language (MQL).'
 ---
 
 import { mqlCode } from 'helpers/mql-code'

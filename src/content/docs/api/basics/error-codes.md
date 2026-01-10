@@ -1,6 +1,6 @@
 ---
 title: Error codes
-description: Troubleshoot Microlink API error codes including EAUTH, ERATE, and EBRWSRTIMEOUT. Find solutions for authentication issues, rate limits, timeouts, and specific Pro plan parameter requirements.
+description: 'Troubleshoot Microlink API error codes including EAUTH, ERATE, and EBRWSRTIMEOUT. Find solutions for authentication issues, rate limits, timeouts, and specific Pro plan parameter requirements.'
 ---
 
 import { Type } from 'components/markdown/Type'

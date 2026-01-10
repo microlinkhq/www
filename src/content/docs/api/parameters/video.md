@@ -1,6 +1,6 @@
 ---
 title: 'video'
-description: Detect and extract direct video source URLs from any website in a browser-friendly format.
+description: 'Detect and extract direct video source URLs from any website in a browser-friendly format.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

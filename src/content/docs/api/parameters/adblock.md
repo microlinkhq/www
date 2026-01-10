@@ -1,6 +1,6 @@
 ---
 title: 'adblock'
-description: Improve performance and reduce response times by blocking non-essential advertisements and trackers.
+description: 'Improve performance and reduce response times by blocking non-essential advertisements and trackers.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,6 +1,6 @@
 ---
 title: 'overlay'
-description: Create professional screenshot compositions with customizable browser overlays and backgrounds.
+description: 'Create professional screenshot compositions with customizable browser overlays and backgrounds.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

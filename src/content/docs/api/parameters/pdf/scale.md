@@ -1,6 +1,6 @@
 ---
 title: 'pdf scale'
-description: Adjust the zoom level of your website-to-PDF conversions using the scale parameter with Microlink API's automated browser.
+description: 'Adjust the zoom level of your website-to-PDF conversions using the scale parameter with Microlink API automated browser.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,6 +1,6 @@
 ---
 title: 'Overview'
-description: Get started with Microlink API. Learn how to automate browser actions, extract metadata, take screenshots, generate PDFs with a simple HTTP GET request.
+description: 'Get started with Microlink API. Learn how to automate browser actions, extract metadata, take screenshots, generate PDFs with a simple HTTP GET request.'
 ---
 
 import { Link } from 'components/elements/Link/base'

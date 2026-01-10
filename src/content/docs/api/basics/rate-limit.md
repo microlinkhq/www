@@ -1,6 +1,6 @@
 ---
 title: 'Rate limit'
-description: Understand Microlink API rate limits for free and pro endpoints. Monitor usage via x-rate-limit headers, handle HTTP 429, and scale your quota for high-concurrency.
+description: 'Understand Microlink API rate limits for free and pro endpoints. Monitor usage via x-rate-limit headers, handle HTTP 429, and scale your quota for high-concurrency.'
 ---
 
 import Label from 'components/elements/Label'

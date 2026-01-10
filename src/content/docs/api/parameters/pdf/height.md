@@ -1,6 +1,6 @@
 ---
 title: 'pdf height'
-description: Set a custom paper height for your PDF generation using pixels, inches, or other CSS units. Fine-tune the dimensions of your website-to-PDF conversions.
+description: 'Set a custom paper height for your PDF generation using pixels, inches, or other CSS units. Fine-tune the dimensions of your website-to-PDF conversions.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

@@ -1,6 +1,6 @@
 ---
 title: 'Compression'
-description: Reduce API latency and payload size using Brotli and Gzip compression. Learn how to configure Accept-Encoding headers and verify content-encoding for optimized Microlink API responses.
+description: 'Reduce API latency and payload size using Brotli and Gzip compression. Learn how to configure Accept-Encoding headers and verify content-encoding for optimized Microlink API responses.'
 ---
 
 import { mqlCode } from 'helpers/mql-code'

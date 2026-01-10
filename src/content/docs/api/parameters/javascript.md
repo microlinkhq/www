@@ -1,6 +1,6 @@
 ---
 title: 'javascript'
-description: Control whether JavaScript is executed within the headless browser for a target URL.
+description: 'Control whether JavaScript is executed within the headless browser for a target URL.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

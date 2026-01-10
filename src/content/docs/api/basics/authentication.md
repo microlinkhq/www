@@ -1,6 +1,6 @@
 ---
 title: Authentication
-description: Securely authenticate your Microlink API requests using x-api-key headers. Includes best practices for Pro plan integration and protecting tokens via proxy for frontend usage.
+description: 'Securely authenticate your Microlink API requests using x-api-key headers. Includes best practices for Pro plan integration and protecting tokens via proxy for frontend usage.'
 ---
 
 import { mqlCode } from 'helpers/mql-code'
