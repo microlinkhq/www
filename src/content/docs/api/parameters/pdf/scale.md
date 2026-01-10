@@ -1,5 +1,6 @@
 ---
 title: 'pdf scale'
+description: Adjust the zoom level of your website-to-PDF conversions using the scale parameter. Set a value between 0.1 and 2 to perfectly fit content onto the page with Microlink API's automated browser.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'

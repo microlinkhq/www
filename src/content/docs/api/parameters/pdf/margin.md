@@ -1,5 +1,6 @@
 ---
 title: 'pdf margin'
+description: Configure custom paper margins for your website-to-PDF conversions. Specify unified margins or individual top, bottom, left, and right values using px, in, cm, or mm units via the Microlink API.
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
