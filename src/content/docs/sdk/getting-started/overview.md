@@ -1,5 +1,6 @@
 ---
 title: 'Overview'
+description: Implementation guide for Microlink SDK. Transform plain URLs into beautiful, high-performance link previews, embeds, and media players with less than 10KB of JS.
 ---
 
 import { Microlink } from 'components/markdown/Microlink'
