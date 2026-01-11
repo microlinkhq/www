@@ -5,7 +5,7 @@ import Flex from 'components/elements/Flex'
 import Caps from 'components/elements/Caps'
 import { theme } from 'theme'
 
-const Chat = () => {
+const Chat = ({ text = 'Join the community' }) => {
   return (
     <Flex css={theme({ justifyContent: 'center', alignItems: 'center' })}>
       <Button
@@ -17,7 +17,7 @@ const Chat = () => {
           )}
       >
         <Caps css={theme({ fontSize: 0, px: 3, py: 2 })}>
-          Join in the community
+          {text}
         </Caps>
       </Button>
     </Flex>
