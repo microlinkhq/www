@@ -48,7 +48,7 @@ Well, you can do it, but that will produce so long URLs:
 https://cards.microlink.io/editor?code=%3C%3E%0A++%3CBox%0A++++as%3D%27header%27%0A++++sx%3D%7B%7B%0A++++++position%3A+%27absolute%27%2C…
 ```
 
-We didn't find an official [URL length limitation](https://stackoverflow.com/a/417184) but looks like it could be around 2,000 characters. Also, we are not particularly interested in long URLs, they look terrible.
+We didn't find an official [URL length limitation](https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers/417184#417184) but looks like it could be around 2,000 characters. Also, we are not particularly interested in long URLs, they look terrible.
 
 In order to minimize the size of the URLs, we apply [lz-string](https://pieroxy.net/blog/pages/lz-string/index.html) compression algorithm.
 

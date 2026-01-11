@@ -45,7 +45,7 @@ We also want to provide examples, and ways to integrate it with popular framewor
 
 Maintaining documentation is laborious and requires effort. We needed to combine **all** the documentation associated with [microlink.io](https://microlink.io) into one place.
 
-After comparing multiple approaches on the matter and seeing how other companies take on the challenge, we decided on [Vercel documentation](https://github.com/vercel/docs) portal.
+After comparing multiple approaches on the matter and seeing how other companies take on the challenge, we decided on [Vercel documentation](https://vercel.com/docs) portal.
 
 <Microlink size='large' url={'https://x.com/Kikobeats/status/956221717319421952'} />
 
