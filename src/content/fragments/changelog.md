@@ -238,10 +238,10 @@
 - [Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) preset.
 - [Microlink Recipes](/recipes): Added [excerption](/recipes/excerpt) recipe.
 - [Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/mql/data/evaluate) performance.
-- [Keyv](https://keyv.js.org): Released [@keyvhq/multi](https://github.com/microlinkhq/keyv/tree/master/packages/multi)
-- [Keyv](https://keyv.js.org): Released [@keyvhq/offline](https://github.com/microlinkhq/keyv/tree/master/packages/offline)
-- [Keyv](https://keyv.js.org): Released [@keyvhq/compress](https://github.com/microlinkhq/keyv/tree/master/packages/compress)
-- [Keyv](https://keyv.js.org): Released [@keyvhq/memoize](https://github.com/microlinkhq/keyv/tree/master/packages/memoize)
+- [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/multi](https://github.com/microlinkhq/keyv/tree/master/packages/multi)
+- [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/offline](https://github.com/microlinkhq/keyv/tree/master/packages/offline)
+- [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/compress](https://github.com/microlinkhq/keyv/tree/master/packages/compress)
+- [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/memoize](https://github.com/microlinkhq/keyv/tree/master/packages/memoize)
 
 ### August 2021
 
@@ -255,7 +255,7 @@
 - [Microlink Recipes](/recipes): Added [Instagram](/recipes/instagram) recipe.
 - [Microlink Recipes](/recipes): Added [Telegram](/recipes/telegram) recipe.
 - [Microlink Recipes](/recipes): Added [Reddit](/recipes/reddit) recipe.
-- [Microlink OSS](/oss) Released [keyv.js.org](https://keyv.js.org).
+- [Microlink OSS](/oss) Released [keyv](https://github.com/microlinkhq/keyvhq).
 - [Metascraper v5.22.0](https://metascraper.js.org): Added more heuristic cases for logo detection.
 - [Microlink Proxy](/blog/proxy-capabilities): Added Wallmart URLs support.
 
