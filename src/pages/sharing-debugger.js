@@ -12,14 +12,13 @@ import Container from 'components/elements/Container'
 import { Button } from 'components/elements/Button/Button'
 import Input from 'components/elements/Input/Input'
 import Image from 'components/elements/Image/Image'
-import Caps from 'components/elements/Caps'
-
 import Layout from 'components/patterns/Layout'
 import FetchProvider from 'components/patterns/FetchProvider'
 import { useQueryState } from 'components/hook/use-query-state'
 import { withTitle } from 'helpers/hoc/with-title'
 import Meta from 'components/elements/Meta/Meta'
 import { cdnUrl } from 'helpers/cdn-url'
+import Caps from 'components/elements/Caps'
 
 const GoogleIcon = ({ size, ...props }) => (
   <Box
@@ -32,7 +31,7 @@ const GoogleIcon = ({ size, ...props }) => (
   </Box>
 )
 
-const TwitterIcon = ({ size, ...props }) => (
+const XIcon = ({ size, ...props }) => (
   <Box
     as='svg'
     viewBox='0 0 24 24'
@@ -206,8 +205,8 @@ const GooglePreview = ({ metadata }) => {
   )
 }
 
-const TwitterPreview = ({ metadata }) => (
-  <Box css={theme({ maxWidth: layout.small })}>
+const XPreview = ({ metadata }) => (
+  <Box css={theme({ maxWidth: layout.small, mx: 'auto' })}>
     <Box
       css={theme({
         border: 1,
@@ -277,6 +276,7 @@ const FacebookPreview = ({ metadata }) => (
       bg: 'white',
       borderColor: 'black10',
       maxWidth: layout.small,
+      mx: 'auto',
       height: '400px',
       flexDirection: 'column'
     })}
@@ -339,7 +339,8 @@ const LinkedInPreview = ({ metadata }) => (
       borderRadius: '12px',
       overflow: 'hidden',
       borderColor: 'black10',
-      maxWidth: layout.small
+      maxWidth: layout.small,
+      mx: 'auto'
     })}
   >
     {metadata.image && (
@@ -383,6 +384,7 @@ const SlackPreview = ({ metadata }) => (
     css={theme({
       borderLeft: '4px solid',
       borderColor: '#e8e8e8',
+
       pl: 3,
       py: 1
     })}
@@ -637,7 +639,6 @@ const TelegramPreview = ({ metadata }) => (
           src={metadata.image.url}
           alt={metadata.title}
           css={theme({
-            maxWidth: '100%',
             borderRadius: '4px',
             display: 'block'
           })}
@@ -680,76 +681,86 @@ const TelegramPreview = ({ metadata }) => (
 const DiscordPreview = ({ metadata }) => (
   <Box
     css={theme({
-      bg: 'white',
-      p: '16px',
-      borderRadius: '8px',
-      maxWidth: layout.small,
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      border: '1px solid',
-      borderColor: 'black10'
+      bg: '#313338',
+      p: 3,
+      borderRadius: 4,
+      maxWidth: '432px',
+      fontFamily: 'sans',
+      mx: 'auto'
     })}
   >
-    <Box
+    <Text
       css={theme({
-        border: '1px solid',
-        borderColor: '#E3E5E8',
-        borderRadius: '4px',
-        overflow: 'hidden'
+        color: '#00A8FC',
+        fontSize: 1,
+        mb: 2,
+        '&:hover': { textDecoration: 'underline' },
+        cursor: 'pointer'
       })}
     >
-      <Box css={theme({ p: '12px' })}>
+      {metadata.url}
+    </Text>
+    <Box
+      css={theme({
+        bg: '#2B2D31',
+        p: 3,
+        borderRadius: 1,
+        maxWidth: 'fit-content'
+      })}
+    >
+      {metadata.publisher && (
         <Text
           css={theme({
-            fontWeight: 'bold',
-            fontSize: '14px',
-            mb: '4px',
-            color: 'black',
-            fontFamily: 'sans'
-          })}
-        >
-          {metadata.title}
-        </Text>
-        <Text
-          css={theme({
+            color: '#B5BAC1',
             fontSize: '12px',
-            color: '#4F5660',
-            lineHeight: 1.4,
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            fontFamily: 'sans'
+            fontWeight: 500,
+            mb: 1
           })}
         >
-          {metadata.description}
+          {metadata.publisher}
         </Text>
-      </Box>
+      )}
+      <Text
+        css={theme({
+          color: '#00A8FC',
+          fontSize: 1,
+          fontWeight: 'bold',
+          mb: 2,
+          '&:hover': { textDecoration: 'underline' },
+          cursor: 'pointer'
+        })}
+      >
+        {metadata.title}
+      </Text>
+      <Text
+        css={theme({
+          color: '#DBDEE1',
+          fontSize: 0,
+          lineHeight: '18px',
+          mb: 3
+        })}
+      >
+        {metadata.description}
+      </Text>
       {metadata.image && (
         <Image
           src={metadata.image.url}
           alt={metadata.title}
-          css={theme({ width: '100%', height: '150px', objectFit: 'cover' })}
+          css={theme({
+            borderRadius: 4,
+            maxWidth: '100%',
+            mt: 3
+          })}
         />
       )}
-      <Box css={theme({ px: '12px', py: '8px' })}>
-        <Text
-          css={theme({
-            fontSize: '12px',
-            color: '#4F5660',
-            fontFamily: 'sans'
-          })}
-        >
-          {metadata.url ? new URL(metadata.url).hostname : ''}
-        </Text>
-      </Box>
     </Box>
   </Box>
 )
 
 const PREVIEWS = {
   all: { name: 'All', component: null, icon: Grid },
+  x: { name: 'X (Twitter)', component: XPreview, icon: XIcon },
   google: { name: 'Google', component: GooglePreview, icon: GoogleIcon },
-  twitter: { name: 'Twitter', component: TwitterPreview, icon: TwitterIcon },
   slack: { name: 'Slack', component: SlackPreview, icon: SlackIcon },
   facebook: {
     name: 'Facebook',
@@ -772,7 +783,9 @@ const PREVIEWS = {
 
 const SharingDebugger = () => {
   const [query, setQuery] = useQueryState()
-  const [selectedPlatform, setSelectedPlatform] = useState('all')
+  const [selectedPlatform, setSelectedPlatform] = useState(
+    Object.keys(PREVIEWS)[1]
+  )
   const [inputUrl, setInputUrl] = useState(query.url || '')
 
   const platforms =
@@ -866,7 +879,7 @@ const SharingDebugger = () => {
 
                 {data && (
                   <>
-                    <Flex css={theme({ justifyContent: 'center', mb: 5 })}>
+                    <Flex css={theme({ justifyContent: 'center', mb: 4 })}>
                       <Flex
                         css={theme({
                           gap: space[3]
@@ -874,7 +887,6 @@ const SharingDebugger = () => {
                       >
                         {Object.entries(PREVIEWS).map(([key, { icon }]) => {
                           const isActive = selectedPlatform === key
-                          const isAll = selectedPlatform === 'all'
                           return (
                             <Button
                               key={key}
@@ -882,7 +894,7 @@ const SharingDebugger = () => {
                               css={theme({
                                 alignItems: 'center',
                                 bg: 'transparent',
-                                color: isActive || isAll ? 'black' : 'black40',
+                                color: isActive ? 'black' : 'black40',
                                 display: 'flex',
                                 height: '20px',
                                 justifyContent: 'center',
@@ -916,7 +928,7 @@ const SharingDebugger = () => {
                         <Box
                           key={key}
                           css={theme({
-                            p: 5,
+                            p: 4,
                             borderRight: 1,
                             borderBottom: 1,
                             borderColor: 'black10',

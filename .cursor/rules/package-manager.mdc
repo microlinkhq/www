@@ -1,0 +1,11 @@
+---
+description: Enforce the use of pnpm as the package manager
+globs: package.json, pnpm-lock.yaml
+---
+# Package Manager
+
+This project uses **pnpm** as its package manager.
+
+- Never use `npm` or `yarn`.
+- Use `pnpm` for installing dependencies, running scripts, and all other package management tasks.
+- Ensure that `pnpm-lock.yaml` is updated whenever dependencies change.
