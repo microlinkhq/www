@@ -16,6 +16,7 @@ import { Button } from 'components/elements/Button/Button'
 import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import Image from 'components/elements/Image/Image'
+import List from 'components/patterns/List/List'
 import Layout from 'components/patterns/Layout'
 import FetchProvider from 'components/patterns/FetchProvider'
 import { useQueryState } from 'components/hook/use-query-state'
@@ -761,6 +762,111 @@ const DiscordPreview = ({ metadata }) => (
   </Box>
 )
 
+const Metatags = ({ metadata }) => {
+  const fields = [
+    {
+      selector: ['title', 'og:title', 'twitter:title'],
+      value: metadata.title
+    },
+    {
+      selector: ['description', 'og:description', 'twitter:description'],
+      value: metadata.description
+    },
+    {
+      type: 'url',
+      selector: ['image', 'og:image', 'twitter:image'],
+      value: metadata.image?.url
+    },
+    {
+      type: 'url',
+      selector: ['url', 'og:url'],
+      value: metadata.url
+    },
+    {
+      selector: ['og:site_name'],
+      value: metadata.publisher
+    },
+    {
+      selector: ['og:locale'],
+      value: metadata.lang
+    },
+    {
+      selector: ['author'],
+      value: metadata.author
+    },
+    {
+      selector: ['date'],
+      value: metadata.date
+    }
+  ]
+    .map(field => ({
+      ...field,
+      isNullable: field.value === null || field.value === undefined
+    }))
+    .sort((a, b) => {
+      if (a.isNullable && !b.isNullable) return -1
+      if (!a.isNullable && b.isNullable) return 1
+      return 0
+    })
+
+  return (
+    <List>
+      {fields.map((field, index) => {
+        const type = field.isNullable ? 'no' : 'yes'
+        return (
+          <Box key={index} css={theme({ mb: 3 })}>
+            <List.Item
+              type={type}
+              css={theme({
+                color: field.isNullable ? 'black20' : 'black'
+              })}
+            >
+              <Text
+                css={theme({
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  fontWeight: 'bold'
+                })}
+              >
+                {field.selector.join(' / ')}
+              </Text>
+            </List.Item>
+            <Box css={theme({ pl: '28px', wordBreak: 'break-all' })}>
+              {field.type === 'url' && field.value ? (
+                <Text
+                  as='a'
+                  href={field.value}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  css={theme({
+                    color: 'link',
+                    fontSize: 0,
+                    fontFamily: 'mono',
+                    textDecoration: 'none',
+                    '&:hover': { textDecoration: 'underline' }
+                  })}
+                >
+                  {field.value}
+                </Text>
+              ) : (
+                <Text
+                  css={theme({
+                    fontFamily: 'mono',
+                    fontSize: 0,
+                    color: field.isNullable ? 'black20' : 'black60'
+                  })}
+                >
+                  {field.value || 'n/a'}
+                </Text>
+              )}
+            </Box>
+          </Box>
+        )
+      })}
+    </List>
+  )
+}
+
 const PREVIEWS = {
   all: { name: 'All', component: null, icon: Grid },
   x: { name: 'X (Twitter)', component: XPreview, icon: XIcon },
@@ -806,6 +912,7 @@ const SharingDebugger = () => {
     Object.keys(PREVIEWS)[1]
   )
   const [inputUrl, setInputUrl] = useState(query.url || '')
+  const [showValidation, setShowValidation] = useState(false)
 
   const platforms =
     selectedPlatform === 'all'
@@ -813,8 +920,11 @@ const SharingDebugger = () => {
       : [[selectedPlatform, PREVIEWS[selectedPlatform]]]
 
   useEffect(() => {
-    if (query.url && !/^https?:\/\//.test(query.url)) {
-      setQuery({ url: prependHttp(query.url) })
+    if (query.url) {
+      setShowValidation(true)
+      if (!/^https?:\/\//.test(query.url)) {
+        setQuery({ url: prependHttp(query.url) })
+      }
     }
   }, [query.url, setQuery])
 
@@ -830,6 +940,7 @@ const SharingDebugger = () => {
             if (e) e.preventDefault()
             const url = prependHttp(inputUrl)
             if (isUrl(url)) {
+              setShowValidation(true)
               setQuery({ url: inputUrl })
               doFetch(url)
             }
@@ -844,12 +955,16 @@ const SharingDebugger = () => {
 
           return (
             <Box>
-              <Container css={theme({ maxWidth: layout.normal, pt: 0 })}>
+              <Container
+                css={theme({
+                  maxWidth: showValidation ? layout.large : layout.normal,
+                  pt: 0
+                })}
+              >
                 <Flex
                   css={theme({
                     flexDirection: 'column',
-                    alignItems: 'center',
-                    mb: 4
+                    alignItems: 'center'
                   })}
                 >
                   <Heading css={theme({ fontSize: 5, mb: 2 })}>
@@ -904,7 +1019,10 @@ const SharingDebugger = () => {
 
                 {metadata && (
                   <>
-                    <Flex css={theme({ justifyContent: 'center', mb: 4 })}>
+                    <Flex
+                      id='providers'
+                      css={theme({ justifyContent: 'center', mb: 3 })}
+                    >
                       <Flex
                         css={theme({
                           gap: space[3]
@@ -939,48 +1057,72 @@ const SharingDebugger = () => {
                       </Flex>
                     </Flex>
 
-                    <Box
+                    <Flex
                       css={theme({
-                        display: 'grid',
-                        gridTemplateColumns: '1fr',
-                        borderTop: 1,
-                        borderLeft: 1,
-                        borderColor: 'black10',
-                        overflow: 'hidden'
+                        flexDirection: ['column', 'column', 'row', 'row'],
+                        gap: 4
                       })}
                     >
-                      {platforms.map(([key, { name, component }]) => (
-                        <Box
-                          key={key}
-                          css={theme({
-                            p: 4,
-                            borderRight: 1,
-                            borderBottom: 1,
-                            borderColor: 'black10',
-                            bg: 'white',
-                            position: 'relative'
-                          })}
-                        >
-                          {isAll && (
-                            <Caps
-                              css={theme({
-                                fontSize: 0,
-                                color: 'black40',
-                                mb: 4,
-                                position: 'absolute',
-                                top: '16px',
-                                left: '16px'
-                              })}
-                            >
-                              {name}
-                            </Caps>
-                          )}
-                          <Box css={theme({ mt: isAll ? 4 : 0 })}>
-                            {createElement(component, { metadata })}
+                      <Box
+                        as='section'
+                        id='preview'
+                        css={theme({
+                          flex: 1,
+                          display: 'grid',
+                          gridTemplateColumns: '1fr',
+                          overflow: 'hidden',
+                          height: 'fit-content',
+                          ...(isAll && {
+                            borderTop: 1,
+                            borderLeft: 1,
+                            borderColor: 'black10'
+                          })
+                        })}
+                      >
+                        {platforms.map(([key, { name, component }]) => (
+                          <Box
+                            key={key}
+                            css={theme({
+                              p: 3,
+                              ...(isAll && {
+                                borderRight: 1,
+                                borderBottom: 1,
+                                borderColor: 'black10',
+                                bg: 'white',
+                                position: 'relative'
+                              })
+                            })}
+                          >
+                            {isAll && (
+                              <Caps
+                                css={theme({
+                                  fontSize: 0,
+                                  color: 'black40',
+                                  mb: 4,
+                                  position: 'absolute',
+                                  top: '16px',
+                                  left: '16px'
+                                })}
+                              >
+                                {name}
+                              </Caps>
+                            )}
+                            <Box css={theme({ mt: isAll ? 4 : 0 })}>
+                              {createElement(component, { metadata })}
+                            </Box>
                           </Box>
+                        ))}
+                      </Box>
+                      {showValidation && (
+                        <Box
+                          as='section'
+                          id='metatags'
+                          css={theme({ flex: 1 })}
+                        >
+                          <Metatags metadata={metadata} />
                         </Box>
-                      ))}
-                    </Box>
+                      )}
+                    </Flex>
                   </>
                 )}
               </Container>
