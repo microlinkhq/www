@@ -22,7 +22,8 @@ const mergeMeta = (props, location, metadata) => {
     date,
     image,
     logo,
-    name
+    name,
+    noSuffix
   } = {
     ...metadata,
     ...props
@@ -49,7 +50,8 @@ const mergeMeta = (props, location, metadata) => {
     title,
     twitter,
     url,
-    video
+    video,
+    noSuffix
   }
 }
 
@@ -71,13 +73,14 @@ function Meta ({ script, ...props }) {
     title,
     twitter,
     url,
-    video
+    video,
+    noSuffix
   } = useMemo(
     () => mergeMeta(props, location, siteMetadata),
     [props, location, siteMetadata]
   )
 
-  const fullTitle = `${title} — ${name}`
+  const fullTitle = noSuffix ? title : `${title} — ${name}`
 
   return (
     <>

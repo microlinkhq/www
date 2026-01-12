@@ -59,7 +59,7 @@ const FEATURES = [
 
 const Subhead = withTitle(SubheadBase)
 
-export const Head = () => <Meta />
+export const Head = () => <Meta noSuffix />
 
 const HomePage = () => {
   const { canonicalUrl, stripeKey, paymentEndpoint } = useSiteMetadata()
