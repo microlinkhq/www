@@ -127,7 +127,7 @@ const GooglePreview = ({ metadata }) => {
     <Box>
       <Flex css={theme({ alignItems: 'center', mb: 2 })}>
         {metadata.logo && (
-          <Box
+          <Flex
             css={theme({
               bg: 'white',
               borderRadius: '50%',
@@ -137,7 +137,6 @@ const GooglePreview = ({ metadata }) => {
               mr: 3,
               width: '28px',
               height: '28px',
-              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               overflow: 'hidden'
@@ -149,7 +148,7 @@ const GooglePreview = ({ metadata }) => {
               width='18px'
               height='18px'
             />
-          </Box>
+          </Flex>
         )}
         <Box>
           <Text
@@ -173,9 +172,9 @@ const GooglePreview = ({ metadata }) => {
             >
               {metadata.url}
             </Text>
-            <Box css={theme({ ml: 1, color: 'black40', display: 'flex' })}>
+            <Flex css={theme({ ml: 1, color: 'black40' })}>
               <MoreVertical size={14} />
-            </Box>
+            </Flex>
           </Flex>
         </Box>
       </Flex>
@@ -208,7 +207,7 @@ const GooglePreview = ({ metadata }) => {
 }
 
 const TwitterPreview = ({ metadata }) => (
-  <Box css={theme({ maxWidth: layout.small, mx: 'auto' })}>
+  <Box css={theme({ maxWidth: layout.small })}>
     <Box
       css={theme({
         border: 1,
@@ -271,20 +270,18 @@ const TwitterPreview = ({ metadata }) => (
 )
 
 const FacebookPreview = ({ metadata }) => (
-  <Box
+  <Flex
     css={theme({
       border: 1,
       overflow: 'hidden',
       bg: 'white',
       borderColor: 'black10',
       maxWidth: layout.small,
-      mx: 'auto',
       height: '400px',
-      display: 'flex',
       flexDirection: 'column'
     })}
   >
-    <Box css={theme({ height: '80%', bg: 'white' })}>
+    <Box css={theme({ height: '310px', bg: 'white' })}>
       {metadata.image && (
         <Image
           src={metadata.image.url}
@@ -298,15 +295,13 @@ const FacebookPreview = ({ metadata }) => (
         />
       )}
     </Box>
-    <Box
+    <Flex
       css={theme({
         px: 3,
-        py: 2,
         bg: '#F2F3F5',
         borderTop: 1,
         borderColor: 'black10',
-        height: '20%',
-        display: 'flex',
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center'
       })}
@@ -315,7 +310,9 @@ const FacebookPreview = ({ metadata }) => (
         css={theme({
           color: '#606770',
           fontSize: '12px',
-          textTransform: 'uppercase'
+          textTransform: 'uppercase',
+          maxWidth: '80%',
+          mb: 1
         })}
       >
         {metadata.url ? new URL(metadata.url).hostname : ''}
@@ -325,25 +322,14 @@ const FacebookPreview = ({ metadata }) => (
           fontWeight: 'bold',
           color: '#1d2129',
           fontSize: '16px',
-          maxWidth: '80%'
+          maxWidth: '80%',
+          lineHeight: '20px'
         })}
       >
         {metadata.title}
       </Text>
-      {/* <Text
-        css={theme({
-          color: 'black60',
-          fontSize: '14px',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-          fontFamily: 'sans'
-        })}
-      >
-        {metadata.description}
-      </Text> */}
-    </Box>
-  </Box>
+    </Flex>
+  </Flex>
 )
 
 const LinkedInPreview = ({ metadata }) => (
@@ -353,21 +339,22 @@ const LinkedInPreview = ({ metadata }) => (
       borderRadius: '12px',
       overflow: 'hidden',
       borderColor: 'black10',
-      maxWidth: '280px',
-      mx: 'auto'
+      maxWidth: layout.small
     })}
   >
     {metadata.image && (
-      <Image
-        src={metadata.image.url}
-        alt={metadata.title}
-        css={theme({
-          width: '100%',
-          height: '150px',
-          objectFit: 'cover',
-          display: 'block'
-        })}
-      />
+      <Box css={theme({ height: '310px', bg: 'white' })}>
+        <Image
+          src={metadata.image.url}
+          alt={metadata.title}
+          css={theme({
+            width: '100%',
+            height: '100%',
+            objectFit: 'scale-down',
+            display: 'block'
+          })}
+        />
+      </Box>
     )}
     <Box css={theme({ p: 3, bg: 'white' })}>
       <Text
@@ -376,7 +363,8 @@ const LinkedInPreview = ({ metadata }) => (
           fontSize: '14px',
           color: 'black',
           mb: '4px',
-          fontFamily: 'sans'
+          fontFamily: 'sans',
+          overflow: 'hidden'
         })}
       >
         {metadata.title}
@@ -462,133 +450,230 @@ const SlackPreview = ({ metadata }) => (
   </Box>
 )
 
-const WhatsAppPreview = ({ metadata }) => (
-  <Box
-    css={theme({
-      bg: '#ECE5DD',
-      p: '16px',
-      borderRadius: '8px',
-      maxWidth: '280px',
-      mx: 'auto'
-    })}
-  >
+const WhatsAppPreview = ({ metadata }) => {
+  const domain = metadata.url ? new URL(metadata.url).hostname : ''
+  const time = new Date().toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  })
+
+  return (
     <Box
       css={theme({
-        bg: 'white',
+        bg: '#154D38',
+        p: '8px',
         borderRadius: '8px',
-        overflow: 'hidden',
-        boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
+        maxWidth: `calc(${layout.small} * 0.6)`,
+        mx: 'auto'
       })}
     >
-      {metadata.image && (
-        <Image
-          src={metadata.image.url}
-          alt={metadata.title}
-          css={theme({ width: '100%', height: '150px', objectFit: 'cover' })}
-        />
-      )}
-      <Box css={theme({ p: '12px' })}>
-        <Text
-          css={theme({
-            fontWeight: 'bold',
-            fontSize: '14px',
-            mb: '4px',
-            fontFamily: 'sans'
-          })}
-        >
-          {metadata.title}
-        </Text>
-        <Text
-          css={theme({
-            fontSize: '12px',
-            color: 'black60',
-            lineHeight: 1.4,
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            fontFamily: 'sans'
-          })}
-        >
-          {metadata.description}
-        </Text>
-        <Text
-          css={theme({
-            fontSize: '12px',
-            color: 'black40',
-            mt: '4px',
-            fontFamily: 'sans'
-          })}
-        >
-          {metadata.url ? new URL(metadata.url).hostname : ''}
-        </Text>
+      <Box
+        css={theme({
+          bg: '#113E2D',
+          borderRadius: '6px',
+          overflow: 'hidden',
+          mb: 2
+        })}
+      >
+        {metadata.image && (
+          <Image
+            src={metadata.image.url}
+            alt={metadata.title}
+            css={theme({ width: '100%', height: 'auto', display: 'block' })}
+          />
+        )}
+        <Box css={theme({ p: '10px' })}>
+          <Text
+            css={theme({
+              fontWeight: 'bold',
+              lineHeight: '19px',
+              fontSize: '13.6px',
+              color: '#F7F7F7',
+              mb: 1
+            })}
+          >
+            {metadata.title}
+          </Text>
+          <Text
+            css={theme({
+              fontSize: '12px',
+              color: '#F6F6F6',
+              mb: 1
+            })}
+          >
+            {metadata.description}
+          </Text>
+          <Text
+            css={theme({
+              fontSize: '12px',
+              color: '#9DADA6',
+              textTransform: 'lowercase'
+            })}
+          >
+            {domain}
+          </Text>
+        </Box>
       </Box>
+
+      <Flex
+        css={theme({
+          justifyContent: 'space-between',
+          alignItems: 'flex-end',
+          px: 1,
+          mt: 2,
+          gap: 2
+        })}
+      >
+        <Text
+          css={theme({
+            fontSize: '14px',
+            color: '#55eb90',
+            textDecoration: 'underline',
+            cursor: 'pointer',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+          })}
+        >
+          {metadata.url}
+        </Text>
+
+        <Flex
+          css={theme({
+            alignItems: 'center',
+            gap: 1,
+            flexShrink: 0,
+            pb: '2px'
+          })}
+        >
+          <Text
+            css={theme({
+              fontSize: '11px',
+              color: '#8696a0'
+            })}
+          >
+            Edited {time}
+          </Text>
+          <Text
+            css={theme({
+              fontSize: '11px',
+              color: '#8696a0'
+            })}
+          >
+            ✓
+          </Text>
+        </Flex>
+      </Flex>
     </Box>
-  </Box>
-)
+  )
+}
 
 const TelegramPreview = ({ metadata }) => (
   <Box
     css={theme({
-      bg: '#F5F5F5',
-      p: '16px',
-      borderRadius: '8px',
-      maxWidth: '280px',
-      mx: 'auto'
+      bg: '#766BC8',
+      p: 2,
+      borderRadius: '12px',
+      maxWidth: `calc(${layout.small} * 0.75)`,
+      mx: 'auto',
+      color: 'white',
+      fontFamily: 'sans'
     })}
   >
-    <Box
+    <Text
       css={theme({
-        bg: 'white',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
+        fontSize: '14px',
+        mb: 2,
+        textDecoration: 'underline',
+        cursor: 'pointer',
+        display: 'block'
       })}
     >
-      {metadata.image && (
-        <Image
-          src={metadata.image.url}
-          alt={metadata.title}
-          css={theme({ width: '100%', height: '150px', objectFit: 'cover' })}
-        />
-      )}
-      <Box css={theme({ p: '12px' })}>
+      {metadata.url}
+    </Text>
+
+    <Box
+      css={theme({
+        borderRadius: '3px',
+        borderLeft: '.1875rem solid white',
+        bg: '#8775DA',
+        color: 'white',
+        p: 2
+      })}
+    >
+      {metadata.publisher && (
         <Text
           css={theme({
             fontWeight: 'bold',
             fontSize: '14px',
-            mb: '4px',
-            fontFamily: 'sans'
+            mb: '2px'
           })}
         >
-          {metadata.title}
+          {metadata.publisher}
         </Text>
+      )}
+      <Text
+        css={theme({
+          fontWeight: 'bold',
+          fontSize: '14px',
+          mb: '2px'
+        })}
+      >
+        {metadata.title}
+      </Text>
+      <Box css={theme({ mb: 2 })}>
         <Text
           css={theme({
-            fontSize: '12px',
-            color: 'black60',
-            lineHeight: 1.4,
-            display: '-webkit-box',
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            fontFamily: 'sans'
+            fontSize: '14px',
+            lineHeight: 1.4
           })}
         >
           {metadata.description}
         </Text>
-        <Text
-          css={theme({
-            fontSize: '12px',
-            color: '#0088cc',
-            mt: '4px',
-            fontFamily: 'sans'
-          })}
-        >
-          {metadata.url ? new URL(metadata.url).hostname : ''}
-        </Text>
       </Box>
+      {metadata.image && (
+        <Image
+          src={metadata.image.url}
+          alt={metadata.title}
+          css={theme({
+            maxWidth: '100%',
+            borderRadius: '4px',
+            display: 'block'
+          })}
+        />
+      )}
     </Box>
+
+    <Flex
+      css={theme({
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        mt: 1,
+        opacity: 0.8
+      })}
+    >
+      <Text
+        css={theme({
+          fontSize: '11px',
+          mr: 1
+        })}
+      >
+        edited{' '}
+        {new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit'
+        })}
+      </Text>
+      <Text
+        css={theme({
+          fontSize: '11px',
+          fontWeight: 'bold'
+        })}
+      >
+        ✓✓
+      </Text>
+    </Flex>
   </Box>
 )
 
@@ -598,11 +683,10 @@ const DiscordPreview = ({ metadata }) => (
       bg: 'white',
       p: '16px',
       borderRadius: '8px',
-      maxWidth: '280px',
+      maxWidth: layout.small,
       boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
       border: '1px solid',
-      borderColor: 'black10',
-      mx: 'auto'
+      borderColor: 'black10'
     })}
   >
     <Box
