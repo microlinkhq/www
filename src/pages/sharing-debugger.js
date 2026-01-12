@@ -1,8 +1,11 @@
-import React, { useState, createElement, useEffect } from 'react'
+import React, { useState, useMemo, createElement, useEffect } from 'react'
 import { theme, layout, space } from 'theme'
 import { Grid, MoreVertical } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
+import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
+
+import demoLinks from '../../data/demo-links'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -11,6 +14,7 @@ import Text from 'components/elements/Text'
 import Container from 'components/elements/Container'
 import { Button } from 'components/elements/Button/Button'
 import Input from 'components/elements/Input/Input'
+import InputIcon from 'components/elements/Input/InputIcon'
 import Image from 'components/elements/Image/Image'
 import Layout from 'components/patterns/Layout'
 import FetchProvider from 'components/patterns/FetchProvider'
@@ -781,6 +785,21 @@ const PREVIEWS = {
   telegram: { name: 'Telegram', component: TelegramPreview, icon: TelegramIcon }
 }
 
+const INITIAL_SUGGESTION = 'youtube'
+
+const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
+
+const SUGGESTIONS = [
+  'instagram',
+  'soundcloud',
+  'spotify',
+  'theverge',
+  'youtube'
+].map(id => {
+  const { data } = demoLinks.find(item => item.id === id)
+  return { value: humanizeUrl(data.url), data }
+})
+
 const SharingDebugger = () => {
   const [query, setQuery] = useQueryState()
   const [selectedPlatform, setSelectedPlatform] = useState(
@@ -804,7 +823,8 @@ const SharingDebugger = () => {
       <FetchProvider mqlOpts={{ meta: true }}>
         {({ status, doFetch, data }) => {
           const isLoading = status === 'fetching'
-          const metadata = data || {}
+          const metadata = data || DEMO_LINK.data
+          const isInitialData = metadata.url === DEMO_LINK.data.url
 
           const handleSubmit = e => {
             if (e) e.preventDefault()
@@ -814,6 +834,11 @@ const SharingDebugger = () => {
               doFetch(url)
             }
           }
+
+          const url = useMemo(() => {
+            const input = prependHttp(inputUrl)
+            return isUrl(input) ? input : data?.url
+          }, [inputUrl, data])
 
           const isAll = selectedPlatform === 'all'
 
@@ -831,53 +856,53 @@ const SharingDebugger = () => {
                     Sharing Debugger
                   </Heading>
 
-                  <Box
-                    as='form'
-                    onSubmit={handleSubmit}
-                    css={theme({ mt: 4, width: '100%', maxWidth: '500px' })}
+                  <Flex
+                    css={{ justifyContent: 'center', alignItems: 'center' }}
                   >
-                    <Flex>
-                      <Input
-                        id='sharing-debugger-url'
-                        placeholder='microlink.io'
-                        value={inputUrl.replace(/^https?:\/\//, '')}
-                        onChange={e => setInputUrl(e.target.value)}
-                        labelCss={{
-                          flex: 1,
-                          borderTopRightRadius: 0,
-                          borderBottomRightRadius: 0,
-                          borderRight: 0,
-                          bg: 'white',
-                          height: '46px'
-                        }}
-                        prepend={
-                          <Text
-                            css={theme({
-                              color: 'black40',
-                              fontSize: '14px',
-                              ml: 2
-                            })}
-                          >
-                            https://
-                          </Text>
-                        }
-                      />
+                    <Flex
+                      as='form'
+                      css={theme({
+                        pt: [3, 3, 4, 4],
+                        pb: 4,
+                        mx: [0, 0, 'auto', 'auto'],
+                        justifyContent: 'center',
+                        flexDirection: ['column', 'column', 'row', 'row']
+                      })}
+                      onSubmit={handleSubmit}
+                    >
+                      <Box>
+                        <Input
+                          id='sharing-debugger-url'
+                          css={theme({
+                            fontSize: 2,
+                            width: ['100%', '100%', 128, 128]
+                          })}
+                          iconComponent={
+                            <InputIcon
+                              src={metadata?.logo?.url}
+                              provider={!isInitialData && 'microlink'}
+                              url={!isInitialData && url}
+                            />
+                          }
+                          placeholder='Visit URL'
+                          type='text'
+                          suggestions={SUGGESTIONS}
+                          value={inputUrl}
+                          onChange={event => setInputUrl(event.target.value)}
+                          autoFocus
+                        />
+                      </Box>
                       <Button
+                        css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
                         loading={isLoading}
-                        css={{
-                          borderTopLeftRadius: 0,
-                          borderBottomLeftRadius: 0,
-                          px: 4,
-                          height: '46px'
-                        }}
                       >
-                        Preview
+                        <Caps css={theme({ fontSize: 1 })}>Preview</Caps>
                       </Button>
                     </Flex>
-                  </Box>
+                  </Flex>
                 </Flex>
 
-                {data && (
+                {metadata && (
                   <>
                     <Flex css={theme({ justifyContent: 'center', mb: 4 })}>
                       <Flex
