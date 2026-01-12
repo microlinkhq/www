@@ -222,18 +222,16 @@ const XPreview = ({ metadata }) => (
         position: 'relative'
       })}
     >
-      {metadata.image && (
-        <Image
-          src={metadata.image.url}
-          alt={metadata.title}
-          css={theme({
-            width: '100%',
-            height: '325px',
-            display: 'block',
-            objectFit: 'scale-down'
-          })}
-        />
-      )}
+      <Image
+        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
+        alt={metadata.title}
+        css={theme({
+          width: '100%',
+          height: '325px',
+          display: 'block',
+          objectFit: 'scale-down'
+        })}
+      />
       <Box
         css={theme({
           position: 'absolute',
@@ -287,18 +285,16 @@ const FacebookPreview = ({ metadata }) => (
     })}
   >
     <Box css={theme({ height: '310px', bg: 'white' })}>
-      {metadata.image && (
-        <Image
-          src={metadata.image.url}
-          alt={metadata.title}
-          css={theme({
-            width: '100%',
-            height: '100%',
-            objectFit: 'scale-down',
-            display: 'block'
-          })}
-        />
-      )}
+      <Image
+        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
+        alt={metadata.title}
+        css={theme({
+          width: '100%',
+          height: '100%',
+          objectFit: 'scale-down',
+          display: 'block'
+        })}
+      />
     </Box>
     <Flex
       css={theme({
@@ -348,20 +344,18 @@ const LinkedInPreview = ({ metadata }) => (
       mx: 'auto'
     })}
   >
-    {metadata.image && (
-      <Box css={theme({ height: '310px', bg: 'white' })}>
-        <Image
-          src={metadata.image.url}
-          alt={metadata.title}
-          css={theme({
-            width: '100%',
-            height: '100%',
-            objectFit: 'scale-down',
-            display: 'block'
-          })}
-        />
-      </Box>
-    )}
+    <Box css={theme({ height: '310px', bg: 'white' })}>
+      <Image
+        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
+        alt={metadata.title}
+        css={theme({
+          width: '100%',
+          height: '100%',
+          objectFit: 'scale-down',
+          display: 'block'
+        })}
+      />
+    </Box>
     <Box css={theme({ p: 3, bg: 'white' })}>
       <Text
         css={theme({
@@ -440,20 +434,18 @@ const SlackPreview = ({ metadata }) => (
           `(${metadata.image.size_pretty})`}
       </Text>
     </Box>
-    {metadata.image && (
-      <Image
-        src={metadata.image.url}
-        alt={metadata.title}
-        css={theme({
-          maxWidth: '280px',
-          maxHeight: '150px',
-          objectFit: 'cover',
-          borderRadius: '8px',
-          border: 1,
-          borderColor: 'black10'
-        })}
-      />
-    )}
+    <Image
+      src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
+      alt={metadata.title}
+      css={theme({
+        maxWidth: '280px',
+        maxHeight: '150px',
+        objectFit: 'cover',
+        borderRadius: '8px',
+        border: 1,
+        borderColor: 'black10'
+      })}
+    />
   </Box>
 )
 
@@ -483,13 +475,11 @@ const WhatsAppPreview = ({ metadata }) => {
           mb: 2
         })}
       >
-        {metadata.image && (
-          <Image
-            src={metadata.image.url}
-            alt={metadata.title}
-            css={theme({ width: '100%', height: 'auto', display: 'block' })}
-          />
-        )}
+        <Image
+          src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
+          alt={metadata.title}
+          css={theme({ width: '100%', height: 'auto', display: 'block' })}
+        />
         <Box css={theme({ p: '10px' })}>
           <Text
             css={theme({
@@ -639,16 +629,14 @@ const TelegramPreview = ({ metadata }) => (
           {metadata.description}
         </Text>
       </Box>
-      {metadata.image && (
-        <Image
-          src={metadata.image.url}
-          alt={metadata.title}
-          css={theme({
-            borderRadius: '4px',
-            display: 'block'
-          })}
-        />
-      )}
+      <Image
+        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
+        alt={metadata.title}
+        css={theme({
+          borderRadius: '4px',
+          display: 'block'
+        })}
+      />
     </Box>
 
     <Flex
@@ -747,17 +735,15 @@ const DiscordPreview = ({ metadata }) => (
       >
         {metadata.description}
       </Text>
-      {metadata.image && (
-        <Image
-          src={metadata.image.url}
-          alt={metadata.title}
-          css={theme({
-            borderRadius: 4,
-            maxWidth: '100%',
-            mt: 3
-          })}
-        />
-      )}
+      <Image
+        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
+        alt={metadata.title}
+        css={theme({
+          borderRadius: 4,
+          maxWidth: '100%',
+          mt: 3
+        })}
+      />
     </Box>
   </Box>
 )
@@ -774,16 +760,16 @@ const Metatags = ({ metadata }) => {
     },
     {
       type: 'url',
-      selector: ['image', 'og:image', 'twitter:image'],
+      selector: ['og:image', 'image'],
       value: metadata.image?.url
     },
     {
       type: 'url',
-      selector: ['url', 'og:url'],
+      selector: ['og:url', 'link[rel="canonical"]'],
       value: metadata.url
     },
     {
-      selector: ['og:site_name'],
+      selector: ['og:site_name', 'publisher'],
       value: metadata.publisher
     },
     {
@@ -791,7 +777,7 @@ const Metatags = ({ metadata }) => {
       value: metadata.lang
     },
     {
-      selector: ['author'],
+      selector: ['author', 'article:author'],
       value: metadata.author
     },
     {
@@ -818,7 +804,7 @@ const Metatags = ({ metadata }) => {
             <List.Item
               type={type}
               css={theme({
-                color: field.isNullable ? 'black20' : 'black'
+                color: field.isNullable ? 'red7' : 'black'
               })}
             >
               <Text
@@ -853,7 +839,7 @@ const Metatags = ({ metadata }) => {
                   css={theme({
                     fontFamily: 'mono',
                     fontSize: 0,
-                    color: field.isNullable ? 'black20' : 'black60'
+                    color: field.isNullable ? 'red7' : 'black60'
                   })}
                 >
                   {field.value || 'n/a'}
@@ -892,6 +878,9 @@ const PREVIEWS = {
 }
 
 const INITIAL_SUGGESTION = 'youtube'
+
+const FALLBACK_IMAGE =
+  'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+'
 
 const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
 

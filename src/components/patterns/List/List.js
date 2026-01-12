@@ -24,7 +24,7 @@ const ListItem = ({ type = 'yes', ...props }) => {
       >
         <FeatherIcon
           icon={isYes ? CheckCircle : XCircle}
-          color={isYes ? 'close' : 'gray'}
+          color={isYes ? 'close' : 'red7'}
         />
       </Flex>
       <Text {...props} />

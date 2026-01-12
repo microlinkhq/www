@@ -148,7 +148,7 @@ const JSONProperty = ({ property, data, ...props }) => {
     <List.Item
       css={theme({
         width: '100px',
-        color: type === 'no' ? 'gray' : undefined,
+        color: type === 'no' ? 'red' : undefined,
         fontSize: 1
       })}
       type={type}
