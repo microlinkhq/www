@@ -58,11 +58,11 @@ const Iframe = ({
       style={
         isLoading
           ? {
-            opacity: 0,
-            visibility: 'hidden',
-            position: 'absolute',
-            pointerEvents: 'none'
-          }
+              opacity: 0,
+              visibility: 'hidden',
+              position: 'absolute',
+              pointerEvents: 'none'
+            }
           : undefined
       }
       frameBorder='0'
@@ -72,13 +72,15 @@ const Iframe = ({
     />
   )
 
-  return isLoading ? (
-    <Placeholder width={width} height={height} maxWidth={maxWidth}>
-      {iframe}
-    </Placeholder>
-  ) : (
-    iframe
-  )
+  return isLoading
+    ? (
+      <Placeholder width={width} height={height} maxWidth={maxWidth}>
+        {iframe}
+      </Placeholder>
+      )
+    : (
+        iframe
+      )
 }
 
 export default Iframe

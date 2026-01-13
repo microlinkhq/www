@@ -10,7 +10,6 @@ import { Link } from 'components/elements/Link'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { mqlCode } from 'helpers/mql-code'
 
-
 export const Head = () => (
   <Meta
     description='Test how your website will look like on social networks.'
@@ -78,11 +77,11 @@ const SharingDebugger = () => {
             answer: (
               <>
                 <div>
-                Social networks aggressively cache link previews. This validator fetches the live version of your URL, acting as a "fresh" crawler.
-                <ul>
-                  <li><b>Agent Spoofing:</b> We simulate the User-Agent of bots (Googlebot, Twitterbot) to show you exactly what they see.</li>
-                  <li><b>Rendered HTML:</b> Unlike standard scrapers, we can execute JavaScript to capture meta tags dynamically injected by React/Vue apps.</li>
-                </ul>
+                  Social networks aggressively cache link previews. This validator fetches the live version of your URL, acting as a "fresh" crawler.
+                  <ul>
+                    <li><b>Agent Spoofing:</b> We simulate the User-Agent of bots (Googlebot, Twitterbot) to show you exactly what they see.</li>
+                    <li><b>Rendered HTML:</b> Unlike standard scrapers, we can execute JavaScript to capture meta tags dynamically injected by React/Vue apps.</li>
+                  </ul>
                 </div>
               </>
             )
@@ -94,7 +93,7 @@ const SharingDebugger = () => {
                 <div>
                   Stop manually updating preview images. You can use Microlink's API
                   to generate Open Graph images on the fly. By passing screenshot=true
-                  {` `}<a href="/docs/api/parameters/screenshot">to our API</a>,
+                  {' '}<a href='/docs/api/parameters/screenshot'>to our API</a>,
                   you get a hosted, cached image URL ready to be served in
                   your <i>meta property="og:image"</i> tag.
 
@@ -105,7 +104,7 @@ const SharingDebugger = () => {
                   />
 
                   <b>Need more granular control?</b> Discover how to capture specific DOM elements,
-                  inject CSS, and customize viewports on the <Link href="/screenshot" logoIcon>Screenshot API page</Link>.
+                  inject CSS, and customize viewports on the <Link href='/screenshot' logoIcon>Screenshot API page</Link>.
                 </div>
               </>
             )
