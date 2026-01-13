@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import IframeBase from 'components/elements/Iframe/Iframe'
+import { Iframe as IframeBase } from 'components/elements/Iframe/Iframe'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import { withContainer } from 'helpers/hoc/with-container'
 import { layout } from '../../theme'

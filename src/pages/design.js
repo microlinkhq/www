@@ -1,5 +1,5 @@
 import Meta from 'components/elements/Meta/Meta'
-import Iframe from 'components/elements/Iframe/Iframe'
+import { Iframe } from 'components/elements/Iframe/Iframe'
 import Layout from 'components/patterns/Layout'
 import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
