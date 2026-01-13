@@ -32,7 +32,7 @@
       "headers": [
         {
           "key": "content-security-policy",
-          "value": "frame-ancestors 'self'; upgrade-insecure-requests"
+          "value": "frame-src https://www.youtube-nocookie.com; frame-ancestors 'self'; upgrade-insecure-requests"
         },
         {
           "key": "cross-origin-opener-policy",
