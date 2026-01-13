@@ -12,26 +12,37 @@ const Iframe = ({
   width = aspectRatio.width,
   height = aspectRatio.height,
   onLoad = noop,
+  onError = noop,
   children,
   ...props
 }) => {
   const [isLoading, setLoading] = useState(loading)
 
   const inputEl = useRef(null)
-  const setLoaded = () => setLoading(false)
 
   useEffect(() => {
-    if (inputEl.current) {
-      const iframe = inputEl.current
-      if (iframe) {
-        iframe.addEventListener('load', () => {
-          onLoad(iframe)
-          setLoaded()
-        })
-        return () => iframe.removeEventListener('load', setLoaded)
+    const iframe = inputEl.current
+    if (iframe) {
+      const handleLoad = () => {
+        onLoad(iframe)
+        setLoading(false)
+      }
+
+      const handleError = error => {
+        console.error(`Iframe error for ${iframe.src}:`, error)
+        onError(error)
+        setLoading(false)
+      }
+
+      iframe.addEventListener('load', handleLoad)
+      iframe.addEventListener('error', handleError)
+
+      return () => {
+        iframe.removeEventListener('load', handleLoad)
+        iframe.removeEventListener('error', handleError)
       }
     }
-  }, [onLoad])
+  }, [onLoad, onError])
 
   const iframe = (
     <Flex
