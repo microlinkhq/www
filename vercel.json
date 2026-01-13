@@ -48,7 +48,7 @@
         },
         {
           "key": "referrer-policy",
-          "value": "no-referrer"
+          "value": "strict-origin-when-cross-origin"
         },
         {
           "key": "strict-transport-security",
