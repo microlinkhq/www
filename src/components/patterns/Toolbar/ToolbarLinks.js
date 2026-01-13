@@ -193,12 +193,12 @@ export const NavGitHub = createNavItem({
   children: 'GitHub',
   href: 'https://github.com/microlinkhq',
   title: '@microlinkhq on GitHub',
-  icon: false
+  externalIcon: false
 })
 
 export const NavTwitter = createNavItem({
   children: 'Twitter',
   href: 'https://x.com/microlinkhq',
   title: '@microlinkhq on Twitter',
-  icon: false
+  externalIcon: false
 })

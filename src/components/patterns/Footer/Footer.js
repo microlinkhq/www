@@ -373,6 +373,7 @@ const Footer = ({ isDark, ...props }) => {
                     pl: index > 0 ? 2 : 0,
                     fontSize: 1
                   })}
+                  externalIcon={false}
                   {...props}
                 />
               ))}
