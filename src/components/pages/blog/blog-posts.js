@@ -1,5 +1,5 @@
 import { textGradient, theme, transition, breakpoints } from 'theme'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { formatDate } from 'helpers/format-date'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'

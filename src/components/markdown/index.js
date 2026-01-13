@@ -13,7 +13,7 @@ import { MarkdownContext } from './Context'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import ImageBase from 'components/elements/Image/Image'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import Heading from '../elements/Heading'

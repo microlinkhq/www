@@ -4,7 +4,7 @@ description: 'Utilize pre-defined design templates as the foundation for your dy
 ---
 
 import { Video } from 'components/markdown/Video'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Tweet } from 'components/elements/Tweet/Tweet'
 import { Figcaption } from 'components/markdown/Figcaption'
 

@@ -1,5 +1,5 @@
 import Box from 'components/elements/Box'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Faq from 'components/patterns/Faq/Faq'
 import React from 'react'
 import { theme } from 'theme'

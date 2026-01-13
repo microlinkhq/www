@@ -1,7 +1,7 @@
 import Hide from 'components/elements/Hide'
 import Box from 'components/elements/Box'
 import Badge from 'components/elements/Badge/Badge'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { theme } from 'theme'
 import React from 'react'
 

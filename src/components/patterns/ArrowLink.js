@@ -1,5 +1,5 @@
 import FeatherIcon from 'components/icons/Feather'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Flex from 'components/elements/Flex'
 import { useHover } from 'components/hook/use-hover'
 import React from 'react'
@@ -18,7 +18,7 @@ const ArrowLink = ({ children, ...props }) => {
             align-items: center;
           }
         `}
-        icon={false}
+        externalIcon={false}
         {...props}
       >
         {children} <FeatherIcon icon={icon} />

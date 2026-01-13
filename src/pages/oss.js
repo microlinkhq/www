@@ -1,7 +1,7 @@
 import FeatherIcon from 'components/icons/Feather'
 import Meta from 'components/elements/Meta/Meta'
 import HeadingBase from 'components/elements/Heading'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
@@ -79,7 +79,11 @@ const OssPage = () => {
                     borderColor: 'black05'
                   })}
                 >
-                  <Link css={theme({ color: 'black' })} href={url} icon={false}>
+                  <Link
+                    css={theme({ color: 'black' })}
+                    href={url}
+                    externalIcon={false}
+                  >
                     <Text
                       as='h3'
                       css={theme({

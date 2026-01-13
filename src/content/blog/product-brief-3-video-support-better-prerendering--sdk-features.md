@@ -4,7 +4,7 @@ description: 'Boost your link previews with Microlink video support, auto-preren
 date: '2018-03-02'
 ---
 
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 ## Microlink API

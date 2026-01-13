@@ -4,7 +4,7 @@ description: 'Discover Microlink Product Brief, featuring custom User Agent supp
 date: '2018-05-30'
 ---
 
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 ## Microlink API

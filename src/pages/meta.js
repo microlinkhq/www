@@ -26,7 +26,7 @@ import Image from 'components/elements/Image/Image'
 import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import LineBreak from 'components/elements/LineBreak'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -148,8 +148,9 @@ const JSONProperty = ({ property, data, ...props }) => {
     <List.Item
       css={theme({
         width: '100px',
-        color: type === 'no' ? 'gray' : undefined,
-        fontSize: 1
+        color: type === 'no' ? 'red' : undefined,
+        fontFamily: 'mono',
+        fontSize: 0
       })}
       type={type}
       {...props}
@@ -201,6 +202,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   return (
     <Container
       as='section'
+      id='hero'
       css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
     >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
@@ -375,7 +377,7 @@ const Timings = () => {
   const healthcheck = useHealthcheck()
 
   return (
-    <AnimatedBox as='section'>
+    <AnimatedBox as='section' id='timings'>
       <Block
         id='timings'
         flexDirection='column'

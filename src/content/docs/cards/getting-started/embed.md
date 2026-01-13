@@ -3,7 +3,7 @@ title: 'Embed'
 description: 'Deploy your custom designs globally by embedding generated image URLs directly into your website markup. Cards are generated on-the-fly and then served via a high-performance CDN.'
 ---
 
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 Once your composition has been created, is time to spread to the world.

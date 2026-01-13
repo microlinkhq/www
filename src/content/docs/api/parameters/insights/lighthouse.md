@@ -6,7 +6,7 @@ description: 'Generate comprehensive Google Lighthouse reports for any URL. Expo
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Iframe } from 'components/markdown/Iframe'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children="boolean"/> | <Type children="object"/></TypeContainer><br/>
@@ -16,7 +16,7 @@ Default: <Type children='true'/>
   src="https://lighthouse.microlink.io/?url=https://cdn.microlink.io/insights/css-tricks.json"
 />
 
-It returns a web performance report over the target [url](/docs/api/parameters/url), powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
+It returns a web performance report over the target <Link href="/docs/api/parameters/url">url</Link>, powered by <Link href="https://developers.google.com/web/tools/lighthouse" logoIcon>Lighthouse</Link>.
 
 <MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
   insights: {
@@ -24,9 +24,9 @@ It returns a web performance report over the target [url](/docs/api/parameters/u
   }
 })} />
 
-The report is serialized to JSON by default to make easy visualize it using [lighthouse.microlink.io](https://lighthouse.microlink.io).
+The report is serialized to JSON by default to make it easy to visualize using <Link href="https://lighthouse.microlink.io" logoIcon>lighthouse.microlink.io</Link>.
 
-<Link icon={false} href="https://lighthouse.microlink.io">
+<Link href="https://lighthouse.microlink.io">
   <Image src="https://cdn.microlink.io/docs/lighthouse-viewer.png"/>
 </Link>
 

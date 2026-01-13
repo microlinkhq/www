@@ -5,7 +5,7 @@ date: '2020-01-08'
 ---
 
 import { Iframe } from 'components/markdown/Iframe'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 Six months ago we launched [Microlink screenshot](https://www.producthunt.com/posts/microlink-screenshot) as part of our product iteration to offer browser capabilities ready to be used directly consuming our [API](/docs/api/getting-started/overview).

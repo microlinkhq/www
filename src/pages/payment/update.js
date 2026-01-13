@@ -29,7 +29,7 @@ import Confetti from 'components/elements/Confetti'
 import Container from 'components/elements/Container'
 import DotSpinner from 'components/elements/DotSpinner'
 import HeadingBase from 'components/elements/Heading'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 
 import {
