@@ -1,0 +1,293 @@
+import React, { useState, useEffect, useMemo, createElement } from 'react'
+import { theme, layout, space } from 'theme'
+import isUrl from 'is-url-http/lightweight'
+import prependHttp from 'prepend-http'
+import Box from 'components/elements/Box'
+import Flex from 'components/elements/Flex'
+import Heading from 'components/elements/Heading'
+import Container from 'components/elements/Container'
+import { Button } from 'components/elements/Button/Button'
+import Input from 'components/elements/Input/Input'
+import InputIcon from 'components/elements/Input/InputIcon'
+import { useQueryState } from 'components/hook/use-query-state'
+import { PREVIEWS } from 'components/pages/sharing-debugger/preview'
+import { Metatags } from 'components/pages/sharing-debugger/metatags'
+import Caps from 'components/elements/Caps'
+import FetchProvider from 'components/patterns/FetchProvider'
+import humanizeUrl from 'humanize-url'
+import LineBreak from 'components/elements/LineBreak'
+import Caption from 'components/patterns/Caption/Caption'
+
+import demoLinks from '../../../../data/demo-links'
+
+const INITIAL_SUGGESTION = 'microlink'
+
+const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
+
+const SUGGESTIONS = [
+  'instagram',
+  'soundcloud',
+  'spotify',
+  'theverge',
+  'youtube'
+].map(id => {
+  const { data } = demoLinks.find(item => item.id === id)
+  return { value: humanizeUrl(data.url), data }
+})
+
+export const Hero = () => {
+  const [query, setQuery] = useQueryState()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  const hasQuery = isMounted && !!query.url
+  const [selectedPlatform, setSelectedPlatform] = useState(
+    Object.keys(PREVIEWS)[1]
+  )
+  const [inputUrl, setInputUrl] = useState(query.url || '')
+  const [showValidation, setShowValidation] = useState(!hasQuery)
+
+  const platforms =
+    selectedPlatform === 'all'
+      ? Object.entries(PREVIEWS).filter(([key, value]) => value.component)
+      : [[selectedPlatform, PREVIEWS[selectedPlatform]]]
+
+  useEffect(() => {
+    if (query.url) {
+      setShowValidation(true)
+      if (!/^https?:\/\//.test(query.url)) {
+        setQuery({ url: prependHttp(query.url) })
+      }
+    }
+  }, [query.url, setQuery])
+
+  return (
+    <FetchProvider mqlOpts={{ meta: true }}>
+      {({ status, doFetch, data }) => {
+        const isLoading =
+          (hasQuery && status === 'initial') || status === 'fetching'
+        const metadata = data || (hasQuery ? null : DEMO_LINK.data)
+        const isInitialData = metadata?.url === DEMO_LINK.data.url
+
+        const handleSubmit = e => {
+          if (e) e.preventDefault()
+          const url = prependHttp(inputUrl)
+          if (isUrl(url)) {
+            setShowValidation(true)
+            setQuery({ url: inputUrl })
+            doFetch(url)
+          }
+        }
+
+        const url = useMemo(() => {
+          const input = prependHttp(inputUrl)
+          return isUrl(input) ? input : data?.url
+        }, [inputUrl, data])
+
+        const isAll = selectedPlatform === 'all'
+
+        return (
+          <Box
+            as='section'
+            id='hero'
+            css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+          >
+            <Box id='input'>
+              <Container
+                css={theme({
+                  maxWidth: showValidation ? layout.large : layout.normal,
+                  pt: 0
+                })}
+              >
+                <Flex
+                  css={theme({
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  })}
+                >
+                  <Heading css={theme({ fontSize: 5 })}>
+                    Sharing Debugger
+                  </Heading>
+
+                  <Caption
+                    forwardedAs='h2'
+                    css={theme({
+                      pt: [3, 3, 4, 4],
+                      px: 4,
+                      maxWidth: layout.small
+                    })}
+                  >
+                    A tool for verifying the meta tags of any website.
+                    <LineBreak breakpoints={[2, 3]} />
+                    Preview how it looks across social networks.
+                  </Caption>
+
+                  <Flex
+                    css={{ justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <Flex
+                      as='form'
+                      css={theme({
+                        pt: [3, 3, 4, 4],
+                        pb: 4,
+                        mx: [0, 0, 'auto', 'auto'],
+                        justifyContent: 'center',
+                        flexDirection: ['column', 'column', 'row', 'row']
+                      })}
+                      onSubmit={handleSubmit}
+                    >
+                      <Box>
+                        <Input
+                          id='sharing-debugger-url'
+                          css={theme({
+                            fontSize: 2,
+                            width: ['100%', '100%', 128, 128]
+                          })}
+                          iconComponent={
+                            <InputIcon
+                              src={metadata?.logo?.url}
+                              provider={!isInitialData && 'microlink'}
+                              url={!isInitialData && url}
+                            />
+                          }
+                          placeholder='Visit URL'
+                          type='text'
+                          suggestions={SUGGESTIONS}
+                          value={inputUrl}
+                          onChange={event => setInputUrl(event.target.value)}
+                          autoFocus={!query.url}
+                        />
+                      </Box>
+                      <Button
+                        css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
+                        loading={isLoading}
+                      >
+                        <Caps css={theme({ fontSize: 1 })}>Preview</Caps>
+                      </Button>
+                    </Flex>
+                  </Flex>
+                </Flex>
+              </Container>
+            </Box>
+
+            {metadata && (
+              <Box id='previews'>
+                <Container
+                  css={theme({
+                    maxWidth: layout.large,
+                    pt: 0
+                  })}
+                >
+                  <Flex
+                    id='providers'
+                    css={theme({ justifyContent: 'center', mb: 3 })}
+                  >
+                    <Flex
+                      css={theme({
+                        gap: space[3]
+                      })}
+                    >
+                      {Object.entries(PREVIEWS).map(([key, { icon }]) => {
+                        const isActive = selectedPlatform === key
+                        return (
+                          <Button
+                            key={key}
+                            onClick={() => setSelectedPlatform(key)}
+                            css={theme({
+                              alignItems: 'center',
+                              bg: 'transparent',
+                              color: isActive ? 'black' : 'black40',
+                              display: 'flex',
+                              height: '20px',
+                              justifyContent: 'center',
+                              p: 0,
+                              width: '20px',
+                              _hover: {
+                                color: 'black',
+                                border: 0,
+                                boxShadow: 'none'
+                              }
+                            })}
+                          >
+                            {createElement(icon)}
+                          </Button>
+                        )
+                      })}
+                    </Flex>
+                  </Flex>
+
+                  <Flex
+                    css={theme({
+                      flexDirection: ['column', 'column', 'row', 'row'],
+                      gap: 4,
+                      pt: 3
+                    })}
+                  >
+                    <Box
+                      as='section'
+                      id='preview'
+                      css={theme({
+                        flex: 1,
+                        display: 'grid',
+                        gridTemplateColumns: '1fr',
+                        overflow: 'hidden',
+                        height: 'fit-content',
+                        ...(isAll && {
+                          borderTop: 1,
+                          borderLeft: 1,
+                          borderColor: 'black10'
+                        })
+                      })}
+                    >
+                      {platforms.map(([key, { name, component }]) => (
+                        <Box
+                          key={key}
+                          css={theme({
+                            ...(isAll && {
+                              p: 3,
+                              borderRight: 1,
+                              borderBottom: 1,
+                              borderColor: 'black10',
+                              bg: 'white',
+                              position: 'relative'
+                            })
+                          })}
+                        >
+                          {isAll && (
+                            <Caps
+                              css={theme({
+                                fontSize: 0,
+                                color: 'black40',
+                                mb: 4,
+                                position: 'absolute',
+                                top: '16px',
+                                left: '16px'
+                              })}
+                            >
+                              {name}
+                            </Caps>
+                          )}
+                          <Box css={theme({ mt: isAll ? 4 : 0 })}>
+                            {createElement(component, { metadata })}
+                          </Box>
+                        </Box>
+                      ))}
+                    </Box>
+                    {showValidation && (
+                      <Box as='section' id='metatags' css={theme({ flex: 1 })}>
+                        <Metatags metadata={metadata} />
+                      </Box>
+                    )}
+                  </Flex>
+                </Container>
+              </Box>
+            )}
+          </Box>
+        )
+      }}
+    </FetchProvider>
+  )
+}

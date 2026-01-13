@@ -39,6 +39,8 @@ const UserAgentsPage = () => {
     <DotsBackground>
       <Layout>
         <Container
+          as='section'
+          id='hero'
           css={theme({
             pt: 2,
             px: 3,
@@ -191,10 +193,13 @@ const UserAgentsPage = () => {
                     You can manually set the header in Puppeteer or Playwright
                     using a random string from this list. However, scaling a
                     Headless Browser infrastructure is complex.{' '}
-                    <Link href='/'>Microlink API</Link> runs a remote Headless
-                    Chrome instance for you, automatically handling User Agent
-                    rotation, proxy management, and browser fingerprinting so
-                    you never get blocked.
+                    <Link href='/docs/api/getting-started/overview'>
+                      Microlink API
+                    </Link>{' '}
+                    runs a remote Headless Chrome instance for you,
+                    automatically handling User Agent rotation, proxy
+                    management, and browser fingerprinting so you never get
+                    blocked.
                   </div>
                 </>
               )
