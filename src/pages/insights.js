@@ -1,5 +1,6 @@
 import { borders, breakpoints, layout, colors, theme } from 'theme'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
+import { useMounted } from 'components/hook/use-mounted'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
@@ -242,15 +243,20 @@ const LiveDemo = React.memo(function LiveDemo ({
   onSubmit,
   query
 }) {
+  const isMounted = useMounted()
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
   const technologies = get(data, 'insights.technologies')
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
+  const cardBase = !isMounted || size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
-  const [inputUrl, setInputUrl] = useState(query.url || '')
+  const [inputUrl, setInputUrl] = useState('')
+
+  useEffect(() => {
+    setInputUrl(query.url || '')
+  }, [query])
 
   const values = useMemo(() => {
     const preprendUrl = prependHttp(inputUrl)
@@ -896,7 +902,8 @@ export const Head = () => (
 
 const InsightsPage = () => {
   const [query] = useQueryState()
-  const hasQuery = !!query?.url
+  const isMounted = useMounted()
+  const hasQuery = isMounted && !!query?.url
 
   return (
     <Layout>
@@ -913,7 +920,7 @@ const InsightsPage = () => {
                 isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
-                query={query}
+                query={isMounted ? query : {}}
               />
               <Timings />
               <Features

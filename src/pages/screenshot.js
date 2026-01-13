@@ -1,5 +1,5 @@
 import FeatherIcon from 'components/icons/Feather'
-import React, { createElement, useMemo, useState } from 'react'
+import React, { createElement, useMemo, useState, useEffect } from 'react'
 import { borders, breakpoints, layout, colors, theme } from 'theme'
 import { useTransition, animated } from '@react-spring/web'
 import isUrl from 'is-url-http/lightweight'
@@ -46,6 +46,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { useMounted } from 'components/hook/use-mounted'
 import { useQueryState } from 'components/hook/use-query-state'
 import { useWindowSize } from 'components/hook/use-window-size'
 
@@ -286,18 +287,23 @@ const LiveDemo = React.memo(function LiveDemo ({
   onSubmit,
   query
 }) {
+  const isMounted = useMounted()
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
-  const cardBase = size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
+  const cardBase = !isMounted || size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
-  const [inputBg, setInputBg] = useState(get(query, 'overlay.background') || '')
-  const [inputUrl, setInputUrl] = useState(query.url || '')
-  const [inputOverlay, setInputOverlay] = useState(
-    get(query, 'overlay.browser') || ''
-  )
+  const [inputBg, setInputBg] = useState('')
+  const [inputUrl, setInputUrl] = useState('')
+  const [inputOverlay, setInputOverlay] = useState('')
+
+  useEffect(() => {
+    setInputBg(get(query, 'overlay.background') || '')
+    setInputUrl(query.url || '')
+    setInputOverlay(get(query, 'overlay.browser') || '')
+  }, [query])
 
   const values = useMemo(() => {
     const preprendUrl = prependHttp(inputUrl)
@@ -938,7 +944,8 @@ export const Head = () => (
 
 const ScreenshotPage = () => {
   const [query] = useQueryState()
-  const hasQuery = !!query?.url
+  const isMounted = useMounted()
+  const hasQuery = isMounted && !!query?.url
 
   return (
     <Layout>
@@ -955,7 +962,7 @@ const ScreenshotPage = () => {
                 isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
-                query={query}
+                query={isMounted ? query : {}}
               />
               <Timings />
               <Features

@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react'
+import { useMounted } from 'components/hook/use-mounted'
 import { useQueryState } from 'components/hook/use-query-state'
 import isUrl from 'is-url-http/lightweight'
 import { mqlCode } from 'helpers/mql-code'
@@ -111,18 +112,25 @@ const LiveDemo = React.memo(function LiveDemo ({
   onSubmit,
   query
 }) {
+  const isMounted = useMounted()
   const [mode, setMode] = useState(MODES[0])
   const [type, setType] = useState(TYPES[0])
   const [minHeight, setMinHeight] = useState(0)
 
   useEffect(() => {
-    const card = document.querySelector('.microlink_card')
-    if (card) {
-      setMinHeight(card.getBoundingClientRect().height - 36 * 2 - 8 * 2)
+    if (isMounted) {
+      const card = document.querySelector('.microlink_card')
+      if (card) {
+        setMinHeight(card.getBoundingClientRect().height - 36 * 2 - 8 * 2)
+      }
     }
-  }, [])
+  }, [isMounted])
 
-  const [inputUrl, setInputUrl] = useState(query.url || '')
+  const [inputUrl, setInputUrl] = useState('')
+
+  useEffect(() => {
+    setInputUrl(query.url || '')
+  }, [query])
 
   const url = useMemo(() => {
     const input = prependHttp(inputUrl)
@@ -378,7 +386,8 @@ export const Head = () => (
 
 const SdkPage = () => {
   const [query] = useQueryState()
-  const hasQuery = !!query?.url
+  const isMounted = useMounted()
+  const hasQuery = isMounted && !!query?.url
 
   return (
     <Layout>
@@ -396,7 +405,7 @@ const SdkPage = () => {
                 isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
-                query={query}
+                query={isMounted ? query : {}}
               />
               <Integrations />
               {/* TODO: Add Hover banner */}
