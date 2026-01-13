@@ -3,7 +3,7 @@ title: 'Editor'
 description: 'Design and preview dynamic visual assets directly in the browser using the Cards Editor. Instantly shareable and can be programmatically populated with your own data.'
 ---
 
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 The editor lets you design in the browser, allowing visualize your composition before the screenshot will be finally taken. The code is written using JSX markup that will be transformed into HTML.

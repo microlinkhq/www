@@ -4,7 +4,7 @@ description: 'Enhance your link previews with native iframe support in Microlink
 date: '2019-12-29'
 ---
 
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Microlink } from 'components/markdown/Microlink'
 

@@ -16,8 +16,7 @@ import { Button } from 'components/elements/Button/Button'
 import Flex from 'components/elements/Flex'
 import Input from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
-import { Link } from 'components/elements/Link/base'
-import { LinkSolid } from 'components/elements/Link/solid'
+import { Link } from 'components/elements/Link'
 import Dot from 'components/elements/Dot/Dot'
 import { Mail } from 'react-feather'
 
@@ -37,7 +36,8 @@ const DARK_THEME = {
 
 const StatusPage = ({ isDark }) => {
   return (
-    <LinkSolid
+    <Link
+      variant='solid'
       isDark={isDark}
       data-event-location='Footer'
       data-event-name='Status'
@@ -53,7 +53,7 @@ const StatusPage = ({ isDark }) => {
       >
         Status Page
       </Text>
-    </LinkSolid>
+    </Link>
   )
 }
 
@@ -217,8 +217,9 @@ const Footer = ({ isDark, ...props }) => {
               { children: 'Community', href: '/community' },
               { children: 'Status', href: '/status' }
             ].map(({ href, children }) => (
-              <LinkSolid
+              <Link
                 key={href}
+                variant='solid'
                 isDark={isDark}
                 href={href}
                 data-event-name={children}
@@ -230,7 +231,7 @@ const Footer = ({ isDark, ...props }) => {
                 })}
               >
                 {children}
-              </LinkSolid>
+              </Link>
             ))}
           </Flex>
         </Box>
@@ -252,8 +253,9 @@ const Footer = ({ isDark, ...props }) => {
               { children: 'Open Source', href: '/oss' },
               { children: 'Bug Reports', href: issueUrl.bug() }
             ].map(({ href, children }) => (
-              <LinkSolid
+              <Link
                 key={href}
+                variant='solid'
                 isDark={isDark}
                 href={href}
                 data-event-name={children}
@@ -265,7 +267,7 @@ const Footer = ({ isDark, ...props }) => {
                 })}
               >
                 {children}
-              </LinkSolid>
+              </Link>
             ))}
           </Flex>
         </Box>
@@ -318,8 +320,9 @@ const Footer = ({ isDark, ...props }) => {
                     children: 'Privacy'
                   }
                 ].map(({ href, children }) => (
-                  <LinkSolid
+                  <Link
                     key={href}
+                    variant='solid'
                     isDark={isDark}
                     href={href}
                     data-event-name={children}
@@ -331,7 +334,7 @@ const Footer = ({ isDark, ...props }) => {
                     })}
                   >
                     {children}
-                  </LinkSolid>
+                  </Link>
                 ))}
               </Flex>
             </Hide>
@@ -360,7 +363,8 @@ const Footer = ({ isDark, ...props }) => {
                   title: 'hello@microlink.io'
                 }
               ].map((props, index) => (
-                <LinkSolid
+                <Link
+                  variant='solid'
                   data-event-location='Footer'
                   data-event-name={props.children}
                   isDark={isDark}
@@ -369,7 +373,6 @@ const Footer = ({ isDark, ...props }) => {
                     pl: index > 0 ? 2 : 0,
                     fontSize: 1
                   })}
-                  icon
                   {...props}
                 />
               ))}

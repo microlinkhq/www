@@ -1,5 +1,5 @@
 import Choose from 'components/elements/Choose'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Notification from 'components/elements/Notification/Notification'
 import React, { useCallback, useState, useEffect } from 'react'
 import { urlVariations } from 'helpers/url-variations'

@@ -3,7 +3,7 @@ title: 'Overview'
 description: 'Create, automate, and scale dynamic visual assets with Microlink Cards, merges code and data. Use a React-based interactive editor, generate optimized images on the fly.'
 ---
 
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 ![](https://cdn.microlink.io/docs/cards-overview.png)

@@ -1,5 +1,5 @@
 import { H2, Paraph, Strong } from 'components/markdown'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Chat from 'components/patterns/Chat/Chat'
 import React from 'react'
 

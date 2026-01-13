@@ -5,7 +5,7 @@ description: 'Learn how to extract specific HTML attributes and node properties 
 
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Figcaption } from 'components/markdown/Figcaption'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="'html'"/><br/>

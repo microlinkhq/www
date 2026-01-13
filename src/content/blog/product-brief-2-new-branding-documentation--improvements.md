@@ -4,7 +4,7 @@ description: 'Discover Microlink second product brief, featuring a fresh brand i
 date: '2018-01-31'
 ---
 
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Microlink } from 'components/markdown/Microlink'
 

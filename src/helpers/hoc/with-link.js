@@ -83,7 +83,7 @@ const withBaseLink = Component => {
   const BaseLinkWrapper = ({
     children,
     href,
-    icon = true,
+    externalIcon = true,
     isInternal = isInternalLink(href),
     title,
     ...props
@@ -94,7 +94,7 @@ const withBaseLink = Component => {
     return (
       <Component {...props}>
         <LinkBase title={title} href={href} rel={rel} target={target}>
-          {icon ? <Icon>{children}</Icon> : children}
+          {externalIcon ? <Icon>{children}</Icon> : children}
         </LinkBase>
       </Component>
     )
@@ -112,6 +112,7 @@ export const withLink = Component => {
     href = '/',
     title,
     prefetch = true,
+    externalIcon,
     icon,
     ...props
   }) => {
@@ -153,7 +154,7 @@ export const withLink = Component => {
     return (
       <BaseLink
         href={href}
-        icon={icon}
+        externalIcon={externalIcon}
         isInternal={isInternal}
         title={title}
         {...props}
@@ -162,8 +163,6 @@ export const withLink = Component => {
       </BaseLink>
     )
   }
-
-  LinkWrapper.Base = BaseLink
 
   return LinkWrapper
 }

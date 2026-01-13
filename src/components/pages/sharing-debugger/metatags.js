@@ -2,7 +2,7 @@ import React from 'react'
 import { theme } from 'theme'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import List from 'components/patterns/List/List'
 import TimeAgo from 'react-timeago'
 import { formatDate } from 'helpers/format-date'
@@ -171,45 +171,53 @@ export const Metatags = ({ metadata }) => {
                   wordBreak: 'break-all'
                 })}
               >
-                {field.isNullable ? (
-                  <Link
-                    href={field.validatorUrl}
-                    icon
-                    css={theme({
-                      color: 'red7',
-                      fontSize: 0,
-                      fontFamily: 'mono',
-                      textDecoration: 'none',
-                      '&:hover': { textDecoration: 'underline' }
-                    })}
-                  >
-                    click to fix
-                  </Link>
-                ) : field.type === 'url' ? (
-                  <Link
-                    href={value}
-                    icon
-                    css={theme({
-                      color: 'black60',
-                      fontSize: 0,
-                      fontFamily: 'mono',
-                      textDecoration: 'none',
-                      '&:hover': { textDecoration: 'underline' }
-                    })}
-                  >
-                    {value}
-                  </Link>
-                ) : field.type === 'date' ? (
-                  <>
-                    {formatDate(value)} (<TimeAgo date={value} />)
-                  </>
-                ) : field.type === 'locale' ? (
-                  <>
-                    {getFlag(value)} {value}
-                  </>
-                ) : (
-                  value
-                )}
+                {field.isNullable
+                  ? (
+                    <Link
+                      href={field.validatorUrl}
+                      logoIcon
+                      css={theme({
+                        color: 'red7',
+                        fontSize: 0,
+                        fontFamily: 'mono',
+                        textDecoration: 'none',
+                        '&:hover': { textDecoration: 'underline' }
+                      })}
+                    >
+                      click to fix
+                    </Link>
+                    )
+                  : field.type === 'url'
+                    ? (
+                      <Link
+                        href={value}
+                        logoIcon
+                        css={theme({
+                          color: 'black60',
+                          fontSize: 0,
+                          fontFamily: 'mono',
+                          textDecoration: 'none',
+                          '&:hover': { textDecoration: 'underline' }
+                        })}
+                      >
+                        {value}
+                      </Link>
+                      )
+                    : field.type === 'date'
+                      ? (
+                        <>
+                          {formatDate(value)} (<TimeAgo date={value} />)
+                        </>
+                        )
+                      : field.type === 'locale'
+                        ? (
+                          <>
+                            {getFlag(value)} {value}
+                          </>
+                          )
+                        : (
+                            value
+                          )}
               </Text>
             </Box>
           </List.Item>

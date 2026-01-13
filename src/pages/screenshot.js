@@ -28,7 +28,7 @@ import Image from 'components/elements/Image/Image'
 import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import LineBreak from 'components/elements/LineBreak'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -252,7 +252,7 @@ const Screenshot = ({ data, style }) => {
   const imageStyle = { objectFit: 'contain', ...style }
 
   return (
-    <Link px={3} href={imageUrl} icon={false}>
+    <Link px={3} href={imageUrl} externalIcon={false}>
       <Box
         css={theme({
           my: 4,

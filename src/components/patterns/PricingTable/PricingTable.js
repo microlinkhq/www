@@ -12,7 +12,7 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Highlight from 'components/elements/Highlight'
 import Label from 'components/elements/Label'
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import PriceMonthly from 'components/elements/PriceMonthly'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -36,7 +36,7 @@ const Requests = ({ suffix, ...props }) => (
 
 const PricingLink = ({ children, ...props }) => {
   return (
-    <Link.Base css={theme({ color: 'black' })} {...props}>
+    <Link css={theme({ color: 'black' })} {...props}>
       <Caption
         css={theme({
           fontSize: [1, 1, 2, 2],
@@ -47,7 +47,7 @@ const PricingLink = ({ children, ...props }) => {
       >
         {children}
       </Caption>
-    </Link.Base>
+    </Link>
   )
 }
 

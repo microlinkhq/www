@@ -6,7 +6,8 @@ import { withAnalytics } from 'helpers/hoc/with-analytics'
 import { withLink } from 'helpers/hoc/with-link'
 
 import Box from '../Box'
-import { LinkBase } from './base'
+import Text from '../Text'
+import { linkStyle } from './base'
 
 const style = css`
   opacity: 0.65;
@@ -28,9 +29,10 @@ const style = css`
   text-decoration-thickness: 1px;
 `
 
-const LinkSolidWrapper = styled(LinkBase).withConfig({
+const LinkSolidWrapper = styled(Text).withConfig({
   shouldForwardProp: prop => !['isDark'].includes(prop)
 })`
+  ${linkStyle};
   ${style};
 
   ${theme({
@@ -60,4 +62,3 @@ const LinkSolidComponent = props => {
 }
 
 export const LinkSolid = withAnalytics(withLink(LinkSolidComponent))
-export default LinkSolidComponent

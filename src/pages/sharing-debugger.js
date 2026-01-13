@@ -1,14 +1,12 @@
 import React from 'react'
 import { theme } from 'theme'
-import Flex from 'components/elements/Flex'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import Meta from 'components/elements/Meta/Meta'
 import { cdnUrl } from 'helpers/cdn-url'
 import { Hero } from 'components/pages/sharing-debugger/hero'
 import Faq from 'components/patterns/Faq/Faq'
-import { Link } from 'components/elements/Link/base'
-import InputIcon from 'components/elements/Input/InputIcon'
+import { Link } from 'components/elements/Link'
 
 export const Head = () => (
   <Meta
@@ -19,7 +17,7 @@ export const Head = () => (
 
 const SharingDebugger = () => {
   return (
-    <Layout footer={false}>
+    <Layout>
       <Hero />
       {/* <Timings /> */}
       <Faq
@@ -31,20 +29,8 @@ const SharingDebugger = () => {
               <>
                 <div>
                   Microlink uses their own meta tags parser called{' '}
-                  <Link href='https://metascraper.js.org/#/'>
-                    <Flex
-                      as='span'
-                      alignItems='center'
-                      css={{ display: 'inline-flex' }}
-                    >
-                      <InputIcon
-                        width='16px'
-                        height='16px'
-                        mr={1}
-                        query='metascraper.js.org'
-                      />
-                      metascraper
-                    </Flex>
+                  <Link href='https://metascraper.js.org/#/' logoIcon>
+                    metascraper
                   </Link>
                   .{' '}
                 </div>

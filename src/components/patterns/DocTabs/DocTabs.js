@@ -1,4 +1,4 @@
-import { Link } from 'components/elements/Link/base'
+import { Link } from 'components/elements/Link'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
