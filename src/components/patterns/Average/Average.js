@@ -1,7 +1,8 @@
 import Text from 'components/elements/Text'
 import Highlight from 'components/elements/Highlight'
 import uniqueRandomArray from 'unique-random-array'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
+import { useMounted } from 'components/hook/use-mounted'
 import range from 'lodash/range'
 import { theme } from 'theme'
 
@@ -14,6 +15,7 @@ const trimUnit = str => str.replace(/ms|s/, '')
 const prettyNumber = str => (str.length === 3 ? `${str}0` : str)
 
 const Average = ({ size, value }) => {
+  const isMounted = useMounted()
   const base = Number(trimUnit(value))
   const bottom = base - base * 0.2
   const top = base + base * 0.15
@@ -24,13 +26,19 @@ const Average = ({ size, value }) => {
     value.toFixed(unit === 'secs' ? 2 : 0)
   )
 
-  const rand = uniqueRandomArray(values)
-  const [average, setAverage] = useState(rand())
+  const rand = useMemo(() => uniqueRandomArray(values), [values])
+  const [average, setAverage] = useState(null)
 
   useEffect(() => {
-    const interval = setInterval(() => setAverage(rand()), INTERVAL)
-    return () => clearInterval(interval)
-  }, [rand])
+    if (isMounted) {
+      setAverage(rand())
+      const interval = setInterval(() => setAverage(rand()), INTERVAL)
+      return () => clearInterval(interval)
+    }
+  }, [isMounted, rand])
+
+  const displayValue =
+    isMounted && average ? prettyNumber(average) : trimUnit(value)
 
   if (size === 'tiny') {
     return (
@@ -39,7 +47,7 @@ const Average = ({ size, value }) => {
           as='span'
           css={theme({ px: '2px', color: 'black80', fontWeight: 'bold' })}
         >
-          {prettyNumber(average)} {unit}
+          {displayValue} {unit}
         </Text>
       </Highlight>
     )
@@ -48,7 +56,7 @@ const Average = ({ size, value }) => {
   return (
     <Highlight css={theme({ px: 3 })}>
       <Text as='span' css={theme({ fontSize: 6, fontWeight: 'bold' })}>
-        {prettyNumber(average)}
+        {displayValue}
       </Text>
       <Caption
         css={theme({
