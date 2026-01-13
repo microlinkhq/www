@@ -17,38 +17,54 @@ const Iframe = ({
   ...props
 }) => {
   const [isLoading, setLoading] = useState(loading)
-
   const inputEl = useRef(null)
+
+  const onLoadRef = useRef(onLoad)
+  const onErrorRef = useRef(onError)
+
+  useEffect(() => {
+    onLoadRef.current = onLoad
+    onErrorRef.current = onError
+  }, [onLoad, onError])
 
   useEffect(() => {
     const iframe = inputEl.current
-    if (iframe) {
-      const handleLoad = () => {
-        onLoad(iframe)
-        setLoading(false)
-      }
+    if (!iframe) return
 
-      const handleError = error => {
-        console.error(`Iframe error for ${iframe.src}:`, error)
-        onError(error)
-        setLoading(false)
-      }
-
-      iframe.addEventListener('load', handleLoad)
-      iframe.addEventListener('error', handleError)
-
-      return () => {
-        iframe.removeEventListener('load', handleLoad)
-        iframe.removeEventListener('error', handleError)
-      }
+    const handleLoad = () => {
+      onLoadRef.current(iframe)
+      setLoading(false)
     }
-  }, [onLoad, onError])
+
+    const handleError = error => {
+      console.error(`Iframe error for ${iframe.src}:`, error)
+      onErrorRef.current(error)
+      setLoading(false)
+    }
+
+    iframe.addEventListener('load', handleLoad)
+    iframe.addEventListener('error', handleError)
+
+    return () => {
+      iframe.removeEventListener('load', handleLoad)
+      iframe.removeEventListener('error', handleError)
+    }
+  }, [])
 
   const iframe = (
     <Flex
       as='iframe'
       ref={inputEl}
-      style={isLoading ? { display: 'none' } : undefined}
+      style={
+        isLoading
+          ? {
+            opacity: 0,
+            visibility: 'hidden',
+            position: 'absolute',
+            pointerEvents: 'none'
+          }
+          : undefined
+      }
       frameBorder='0'
       target='_parent'
       css={theme({ maxWidth, width, height })}
@@ -56,9 +72,13 @@ const Iframe = ({
     />
   )
 
-  return isLoading
-    ? createElement(Placeholder, { width, height, maxWidth, ...props }, iframe)
-    : iframe
+  return isLoading ? (
+    <Placeholder width={width} height={height} maxWidth={maxWidth}>
+      {iframe}
+    </Placeholder>
+  ) : (
+    iframe
+  )
 }
 
 export default Iframe
