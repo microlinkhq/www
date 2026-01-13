@@ -153,7 +153,7 @@ export const Hero = () => {
                               url={!isInitialData && url}
                             />
                           }
-                          placeholder='Visit URL'
+                          placeholder='Check URL'
                           type='text'
                           suggestions={SUGGESTIONS}
                           value={inputUrl}
