@@ -9,16 +9,15 @@ const List = props => (
   <Flex as='ul' css={theme({ flexDirection: 'column' })} {...props} />
 )
 
-const ListItem = ({ type = 'yes', ...props }) => {
+const ListItem = ({ type = 'yes', alignItems = 'center', ...props }) => {
   const isYes = type === 'yes'
   return (
-    <Flex as='li' css={theme({ alignItems: 'center', mb: 3 })}>
+    <Flex as='li' css={theme({ alignItems, mb: 3 })}>
       <Flex
         css={theme({
           justifyContent: 'center',
           mr: 2,
-          width: [fontSizes[1], fontSizes[1], fontSizes[2], fontSizes[2]],
-          height: '100%'
+          width: [fontSizes[1], fontSizes[1], fontSizes[2], fontSizes[2]]
         })}
         as='span'
       >

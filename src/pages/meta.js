@@ -149,7 +149,8 @@ const JSONProperty = ({ property, data, ...props }) => {
       css={theme({
         width: '100px',
         color: type === 'no' ? 'red' : undefined,
-        fontSize: 1
+        fontFamily: 'mono',
+        fontSize: 0
       })}
       type={type}
       {...props}
@@ -201,6 +202,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   return (
     <Container
       as='section'
+      id='hero'
       css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
     >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
@@ -375,7 +377,7 @@ const Timings = () => {
   const healthcheck = useHealthcheck()
 
   return (
-    <AnimatedBox as='section'>
+    <AnimatedBox as='section' id='timings'>
       <Block
         id='timings'
         flexDirection='column'

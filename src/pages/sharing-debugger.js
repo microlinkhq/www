@@ -5,12 +5,15 @@ import isUrl from 'is-url-http/lightweight'
 import humanizeUrl from 'humanize-url'
 import prependHttp from 'prepend-http'
 
+import TimeAgo from 'react-timeago'
+import { formatDate } from 'helpers/format-date'
 import demoLinks from '../../data/demo-links'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Text from 'components/elements/Text'
+import { Link } from 'components/elements/Link/base'
 import Container from 'components/elements/Container'
 import { Button } from 'components/elements/Button/Button'
 import Input from 'components/elements/Input/Input'
@@ -24,6 +27,29 @@ import { withTitle } from 'helpers/hoc/with-title'
 import Meta from 'components/elements/Meta/Meta'
 import { cdnUrl } from 'helpers/cdn-url'
 import Caps from 'components/elements/Caps'
+
+const getFlag = (value = '') => {
+  const [lang, country] = value.split('-')
+  const code = (country || lang).toUpperCase()
+  if (code.length !== 2) return
+
+  const common = {
+    EN: '🇺🇸',
+    ES: '🇪🇸',
+    FR: '🇫🇷',
+    DE: '🇩🇪',
+    IT: '🇮🇹',
+    PT: '🇵🇹',
+    JA: '🇯🇵',
+    ZH: '🇨🇳',
+    KO: '🇰🇷',
+    RU: '🇷🇺'
+  }
+
+  if (common[code]) return common[code]
+
+  return String.fromCodePoint(...[...code].map(c => c.charCodeAt(0) + 127397))
+}
 
 const GoogleIcon = ({ size, ...props }) => (
   <Box
@@ -751,37 +777,68 @@ const DiscordPreview = ({ metadata }) => (
 const Metatags = ({ metadata }) => {
   const fields = [
     {
-      selector: ['title', 'og:title', 'twitter:title'],
+      name: 'title',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-title/src/index.js',
       value: metadata.title
     },
     {
-      selector: ['description', 'og:description', 'twitter:description'],
+      name: 'description',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-description/src/index.js',
       value: metadata.description
     },
     {
       type: 'url',
-      selector: ['og:image', 'image'],
-      value: metadata.image?.url
+      name: 'image',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-image/src/index.js',
+      value: metadata.image?.url,
+      width: metadata.image?.width,
+      height: metadata.image?.height,
+      size: metadata.image?.size_pretty
     },
     {
       type: 'url',
-      selector: ['og:url', 'link[rel="canonical"]'],
+      name: 'logo',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-logo/src/index.js',
+      value: metadata.logo?.url,
+      width: metadata.logo?.width,
+      height: metadata.logo?.height,
+      size: metadata.logo?.size_pretty
+    },
+    {
+      type: 'url',
+      name: 'url',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-url/src/index.js',
       value: metadata.url
     },
     {
-      selector: ['og:site_name', 'publisher'],
+      name: 'publisher',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-publisher/src/index.js',
       value: metadata.publisher
     },
     {
-      selector: ['og:locale'],
+      name: 'locale',
+      type: 'locale',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-lang/src/index.js',
       value: metadata.lang
     },
     {
-      selector: ['author', 'article:author'],
+      name: 'author',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-author/src/index.js',
       value: metadata.author
     },
     {
-      selector: ['date'],
+      name: 'date',
+      type: 'date',
+      validatorUrl:
+        'https://github.com/microlinkhq/metascraper/blob/master/packages/metascraper-date/src/index.js',
       value: metadata.date
     }
   ]
@@ -796,57 +853,110 @@ const Metatags = ({ metadata }) => {
     })
 
   return (
-    <List>
+    <List css={theme({ pl: 0, m: 0 })}>
       {fields.map((field, index) => {
         const type = field.isNullable ? 'no' : 'yes'
+        const value = field.value || 'n/a'
+        const length = field.value?.length || 0
+
         return (
-          <Box key={index} css={theme({ mb: 3 })}>
-            <List.Item
-              type={type}
+          <List.Item
+            key={index}
+            type={type}
+            alignItems='flex-start'
+            css={theme({
+              color: field.isNullable ? 'red7' : 'black'
+            })}
+          >
+            <Box
               css={theme({
-                color: field.isNullable ? 'red7' : 'black'
+                display: 'flex',
+                flexDirection: 'column'
               })}
             >
+              <Box
+                css={theme({
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: 1
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontFamily: 'mono',
+                    fontSize: 0,
+                    fontWeight: 'bold'
+                  })}
+                >
+                  {field.name}
+                </Text>
+                {!field.isNullable && (
+                  <Text
+                    css={theme({
+                      fontFamily: 'mono',
+                      fontSize: 0,
+                      color: 'black40',
+                      mx: 1
+                    })}
+                  >
+                    {length} length
+                    {field.width &&
+                      field.height &&
+                      ` • ${field.width}x${field.height}`}
+                    {field.size && ` • ${field.size}`}
+                  </Text>
+                )}
+              </Box>
               <Text
                 css={theme({
                   fontFamily: 'mono',
                   fontSize: 0,
-                  fontWeight: 'bold'
+                  color: field.isNullable ? 'red7' : 'black60',
+                  wordBreak: 'break-all'
                 })}
               >
-                {field.selector.join(' / ')}
+                {field.isNullable ? (
+                  <Link
+                    href={field.validatorUrl}
+                    icon
+                    css={theme({
+                      color: 'red7',
+                      fontSize: 0,
+                      fontFamily: 'mono',
+                      textDecoration: 'none',
+                      '&:hover': { textDecoration: 'underline' }
+                    })}
+                  >
+                    click to fix
+                  </Link>
+                ) : field.type === 'url' ? (
+                  <Link
+                    href={value}
+                    icon
+                    css={theme({
+                      color: 'black60',
+                      fontSize: 0,
+                      fontFamily: 'mono',
+                      textDecoration: 'none',
+                      '&:hover': { textDecoration: 'underline' }
+                    })}
+                  >
+                    {value}
+                  </Link>
+                ) : field.type === 'date' ? (
+                  <>
+                    {formatDate(value)} (<TimeAgo date={value} />)
+                  </>
+                ) : field.type === 'locale' ? (
+                  <>
+                    {getFlag(value)} {value}
+                  </>
+                ) : (
+                  value
+                )}
               </Text>
-            </List.Item>
-            <Box css={theme({ pl: '28px', wordBreak: 'break-all' })}>
-              {field.type === 'url' && field.value ? (
-                <Text
-                  as='a'
-                  href={field.value}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  css={theme({
-                    color: 'link',
-                    fontSize: 0,
-                    fontFamily: 'mono',
-                    textDecoration: 'none',
-                    '&:hover': { textDecoration: 'underline' }
-                  })}
-                >
-                  {field.value}
-                </Text>
-              ) : (
-                <Text
-                  css={theme({
-                    fontFamily: 'mono',
-                    fontSize: 0,
-                    color: field.isNullable ? 'red7' : 'black60'
-                  })}
-                >
-                  {field.value || 'n/a'}
-                </Text>
-              )}
             </Box>
-          </Box>
+          </List.Item>
         )
       })}
     </List>
@@ -943,7 +1053,7 @@ const SharingDebugger = () => {
           const isAll = selectedPlatform === 'all'
 
           return (
-            <Box>
+            <Box as='section' id='hero'>
               <Container
                 css={theme({
                   maxWidth: showValidation ? layout.large : layout.normal,
@@ -1049,7 +1159,8 @@ const SharingDebugger = () => {
                     <Flex
                       css={theme({
                         flexDirection: ['column', 'column', 'row', 'row'],
-                        gap: 4
+                        gap: 4,
+                        pt: 3
                       })}
                     >
                       <Box
@@ -1072,8 +1183,8 @@ const SharingDebugger = () => {
                           <Box
                             key={key}
                             css={theme({
-                              p: 3,
                               ...(isAll && {
+                                p: 3,
                                 borderRight: 1,
                                 borderBottom: 1,
                                 borderColor: 'black10',
