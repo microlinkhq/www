@@ -37,7 +37,7 @@ const mergeMeta = (props, location, metadata) => {
     : siteUrl
 
   return {
-    date: date === undefined ? new Date() : new Date(date),
+    date: date ? new Date(date) : undefined,
     dataLabel1,
     dataLabel2,
     dataValue1,
@@ -116,7 +116,9 @@ function Meta ({ script, ...props }) {
       <meta property='og:logo' content={logo} />
       <meta property='og:site_name' content={name} />
       <meta property='og:type' content='website' />
-      <meta name='article:modified_time' content={date.toISOString()} />
+      {date && (
+        <meta name='article:modified_time' content={date.toISOString()} />
+      )}
     </>
   )
 }

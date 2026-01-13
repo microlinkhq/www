@@ -1,5 +1,5 @@
 import { toPx, borders, layout, colors, theme } from 'theme'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -14,6 +14,7 @@ import logoUri from '../../static/logo.svg'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { useMounted } from 'components/hook/use-mounted'
 import { useQueryState } from 'components/hook/use-query-state'
 
 import Box from 'components/elements/Box'
@@ -186,17 +187,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-        ...new Set(
-          []
-            .concat(
-              logo.palette,
-              logo.background_color,
-              logo.color,
-              logo.alternative_color
-            )
-            .filter(Boolean)
-        )
-      ]
+      ...new Set(
+        []
+          .concat(
+            logo.palette,
+            logo.background_color,
+            logo.color,
+            logo.alternative_color
+          )
+          .filter(Boolean)
+      )
+    ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -311,7 +312,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -338,8 +340,12 @@ const LiveDemo = React.memo(function LiveDemo ({
   onSubmit,
   query
 }) {
-  const [inputUrl, setInputUrl] = useState(query.url || '')
+  const [inputUrl, setInputUrl] = useState('')
   const [ClipboardComponent, toClipboard] = useClipboard()
+
+  useEffect(() => {
+    setInputUrl(query.url || '')
+  }, [query])
 
   const url = useMemo(() => {
     const input = prependHttp(inputUrl)
@@ -922,7 +928,8 @@ export const Head = () => (
 
 const LogoPage = () => {
   const [query] = useQueryState()
-  const hasQuery = !!query?.url
+  const isMounted = useMounted()
+  const hasQuery = isMounted && !!query?.url
 
   return (
     <Layout>
@@ -940,7 +947,7 @@ const LogoPage = () => {
                 isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
-                query={query}
+                query={isMounted ? query : {}}
               />
               <Timings />
               <Features
