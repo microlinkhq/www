@@ -1,4 +1,4 @@
-import React, { createElement, useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { aspectRatio } from 'helpers/aspect-ratio'
 import { noop } from 'helpers/noop'
 import { theme } from 'theme'
