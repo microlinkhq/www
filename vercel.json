@@ -32,15 +32,15 @@
       "headers": [
         {
           "key": "content-security-policy",
-          "value": "frame-src https://*.youtube.com https://*.youtube-nocookie.com; frame-ancestors 'self'; upgrade-insecure-requests"
+          "value": "frame-ancestors 'self'; upgrade-insecure-requests"
         },
         {
           "key": "cross-origin-opener-policy",
-          "value": "same-origin-allow-popups"
+          "value": "same-origin"
         },
         {
           "key": "cross-origin-resource-policy",
-          "value": "cross-origin"
+          "value": "same-origin"
         },
         {
           "key": "origin-agent-cluster",
@@ -48,7 +48,7 @@
         },
         {
           "key": "referrer-policy",
-          "value": "strict-origin-when-cross-origin"
+          "value": "no-referrer"
         },
         {
           "key": "strict-transport-security",
