@@ -16,8 +16,8 @@ const Question = withSlug(({ index, ...props }) => (
   <Caption
     css={theme({
       fontWeight: 'bold',
-      pt: index === 0 ? 0 : 5,
-      pr: [3, 0, 0, 0],
+      pt: [4, 5],
+      pr: [3, 0],
       textAlign: 'left'
     })}
     {...props}

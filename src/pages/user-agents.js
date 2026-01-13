@@ -131,7 +131,7 @@ const UserAgentsPage = () => {
         </Container>
 
         <Faq
-          css={theme({ pt: 5 })}
+          css={theme({ pt: [3, 5] })}
           questions={[
             {
               question: 'What is a user-agent string?',
@@ -225,7 +225,7 @@ const UserAgentsPage = () => {
                     Yes, you can get the full list in the following endpoint:
                   </div>
                   <Terminal css={theme({ my: 3 })} blinkCursor={false}>
-                    curl -L https://microlink.io/user-agents.json
+                    curl -L microlink.io/user-agents.json
                   </Terminal>
                   <div>
                     It's CORS-enabled and ready for direct integration into any
