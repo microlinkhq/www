@@ -734,24 +734,24 @@ const DiscordPreview = ({ metadata }) => (
 
 export const PREVIEWS = {
   all: { name: 'All', component: null, icon: Grid },
-  x: { name: 'X (Twitter)', component: XPreview, icon: XIcon },
-  google: { name: 'Google', component: GooglePreview, icon: GoogleIcon },
-  slack: { name: 'Slack', component: SlackPreview, icon: SlackIcon },
   facebook: {
     name: 'Facebook',
     component: FacebookPreview,
     icon: FacebookIcon
   },
-  linkedin: {
-    name: 'LinkedIn',
-    component: LinkedInPreview,
-    icon: LinkedInIcon
-  },
-  discord: { name: 'Discord', component: DiscordPreview, icon: DiscordIcon },
   whatsapp: {
     name: 'WhatsApp',
     component: WhatsAppPreview,
     icon: WhatsAppIcon
   },
-  telegram: { name: 'Telegram', component: TelegramPreview, icon: TelegramIcon }
+  google: { name: 'Google', component: GooglePreview, icon: GoogleIcon },
+  telegram: { name: 'Telegram', component: TelegramPreview, icon: TelegramIcon },
+  linkedin: {
+    name: 'LinkedIn',
+    component: LinkedInPreview,
+    icon: LinkedInIcon
+  },
+  x: { name: 'X (Twitter)', component: XPreview, icon: XIcon },
+  discord: { name: 'Discord', component: DiscordPreview, icon: DiscordIcon },
+  slack: { name: 'Slack', component: SlackPreview, icon: SlackIcon }
 }

@@ -7,6 +7,8 @@ import { cdnUrl } from 'helpers/cdn-url'
 import { Hero } from 'components/pages/sharing-debugger/hero'
 import Faq from 'components/patterns/Faq/Faq'
 import { Link } from 'components/elements/Link'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { mqlCode } from 'helpers/mql-code'
 
 export const Head = () => (
   <Meta
@@ -24,96 +26,85 @@ const SharingDebugger = () => {
         css={theme({ pt: 5 })}
         questions={[
           {
-            question: 'How it works?',
+            question: 'How it works',
             answer: (
               <>
                 <div>
-                  Microlink uses their own meta tags parser called{' '}
+                  This tool runs on{' '}
                   <Link href='https://metascraper.js.org/#/' logoIcon>
-                    metascraper
+                    Metascraper
                   </Link>
-                  .{' '}
-                </div>
-                <div>
-                  It's a flexible rule-based system for getting unified metatags
-                  from any website. A library to easily get unified metadata
-                  from websites using{' '}
-                  <Link href='https://ogp.me/'>Open Graph</Link>,{' '}
-                  <Link href='https://developer.mozilla.org/en-US/docs/Web/HTML/Microdata'>
-                    Microdata
-                  </Link>
-                  ,{' '}
-                  <Link href='https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards'>
-                    Twitter Cards
-                  </Link>
-                  , <Link href='https://www.w3.org/RDFa/'>RDFa</Link>,{' '}
-                  <Link href='https://json-ld.org/'>JSON-LD</Link>, and more.
+                  ,{' '}the battle-tested library maintained by Microlink.
+                  We don't just regex HTML; we use a flexible rule-based system
+                  to normalize metadata from the wildest edge cases on the web.
                 </div>
               </>
             )
           },
           {
-            question: 'What are meta tags?',
+            question: 'Supported Structured Data',
             answer: (
               <>
                 <div>
-                  Meta tags are snippets of text that describe a page's content;
-                  the meta tags don't appear on the page itself, but only in the
-                  page's source code. Meta tags are essentially little content
-                  descriptors that help tell search engines and social media
-                  platforms what a web page is about, such as the title, image,
-                  and description.
+                  We normalize data into a unified JSON response, prioritizing the most relevant source automatically.{' '}
+                  <ul>
+                    <li>
+                      <Link href='https://ogp.me' logoIcon>Open Graph</Link>
+                    </li>
+                    <li>
+                      <Link href='https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Microdata' logoIcon>
+                        Microdata
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href='https://developer.x.com/en/docs/x-for-websites/cards/overview/abouts-cards' logoIcon>
+                        Twitter Cards
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href='https://rdfa.info' logoIcon>RDFa</Link>
+                    </li>
+                    <li>
+                      <Link href='https://json-ld.org' logoIcon>JSON-LD</Link>
+                    </li>
+                  </ul>
                 </div>
               </>
             )
           },
           {
-            question: 'What is Open Graph?',
+            question: 'Debugging & Caching logic',
             answer: (
               <>
                 <div>
-                  <Link href='https://opengraphexamples.com/posts/open-graph/'>
-                    The Open Graph protocol
-                  </Link>{' '}
-                  allows web pages to become rich objects in a social graph,
-                  enabling any web page to have the same functionality as any
-                  other object on social media platforms like Facebook,
-                  LinkedIn, and Twitter.
-                </div>
-                <div css={theme({ pt: 3 })}>
-                  Before Open Graph, social media platforms had to guess which
-                  content to display from standard meta tags like{' '}
-                  <code>description</code> or <code>keywords</code>, which were
-                  originally designed for search engines. Open Graph introduced
-                  a standardized way to explicitly define rich media elements
-                  like preview images and titles, ensuring a consistent and
-                  engaging presentation across different social networks.
-                </div>
-                <div css={theme({ pt: 3 })}>
-                  It works by allowing web pages to include specific metadata
-                  tags in the HTML that can influence how the page is
-                  represented when shared or liked on social platforms.
+                  Social networks aggressively cache link previews. This validator fetches the live version of your URL, acting as a "fresh" crawler.
+                  <ul>
+                    <li><b>Agent Spoofing:</b> We simulate the User-Agent of bots (Googlebot, Twitterbot) to show you exactly what they see.</li>
+                    <li><b>Rendered HTML:</b> Unlike standard scrapers, we can execute JavaScript to capture meta tags dynamically injected by React/Vue apps.</li>
+                  </ul>
                 </div>
               </>
             )
           },
           {
-            question: 'Can I use website screenshots as Open Graph images?',
+            question: 'Automating Screenshots for OG Images',
             answer: (
               <>
                 <div>
-                  Yes, you can{' '}
-                  <Link href='https://takescreenshot.app/'>
-                    render website screenshots manually with TakeScreenshot.app
-                  </Link>{' '}
-                  or use{' '}
-                  <Link href='https://screenshotone.com/'>
-                    one of the best screenshot APIs
-                  </Link>{' '}
-                  to automate rendering website screenshots and put them in your
-                  meta tags to display in social media previews. It is one of
-                  best ways to keep your open graph images up to date and save
-                  time on crafting templates.
+                  Stop manually updating preview images. You can use Microlink's API
+                  to generate Open Graph images on the fly. By passing screenshot=true
+                  {' '}<a href='/docs/api/parameters/screenshot'>to our API</a>,
+                  you get a hosted, cached image URL ready to be served in
+                  your <i>meta property="og:image"</i> tag.
+
+                  <MultiCodeEditorInteractive
+                    mqlCode={mqlCode('https://microlink.io', {
+                      screenshot: true
+                    })}
+                  />
+
+                  <b>Need more granular control?</b> Discover how to capture specific DOM elements,
+                  inject CSS, and customize viewports on the <Link href='/screenshot' logoIcon>Screenshot API page</Link>.
                 </div>
               </>
             )
