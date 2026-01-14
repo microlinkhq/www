@@ -28,13 +28,13 @@ export const Iframe = ({ width, height, ...props }) => {
       <Box
         as='iframe'
         ref={iframeRef}
-        frameBorder='0'
         target='_parent'
         css={theme({ width, height })}
         style={{
           opacity: isMounted ? 1 : 0,
           pointerEvents: isMounted ? 'auto' : 'none',
-          aspectRatio: '16 / 9'
+          aspectRatio: '16 / 9',
+          border: 'none'
         }}
         {...props}
       />
