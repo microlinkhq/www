@@ -6,17 +6,27 @@ import Box from '../Box'
 
 import { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
+const isPdf = src => /\.pdf($|\?)/i.test(src)
+
+const isYouTube = src => /youtube-nocookie\.com/.test(src)
+
 export const Iframe = ({
-  loading = true,
   width = TERMINAL_WIDTH,
   height = TERMINAL_HEIGHT,
   onLoad = noop,
   children,
   ...props
 }) => {
-  const [isLoading, setLoading] = useState(loading)
+  const { src } = props
+  const [isLoading, setLoading] = useState(true)
   const inputEl = useRef(null)
   const onLoadRef = useRef(onLoad)
+  const loadedRef = useRef(false)
+
+  useEffect(() => {
+    loadedRef.current = false
+    setLoading(!isPdf(src) && !isYouTube(src))
+  }, [src])
 
   useEffect(() => {
     onLoadRef.current = onLoad
@@ -25,8 +35,11 @@ export const Iframe = ({
   useEffect(() => {
     const iframe = inputEl.current
     if (!iframe) return
+    if (loadedRef.current) return
 
     const handleLoad = () => {
+      if (loadedRef.current) return
+      loadedRef.current = true
       onLoadRef.current(iframe)
       setLoading(false)
     }
@@ -43,9 +56,9 @@ export const Iframe = ({
         isLoading
           ? { display: 'none' }
           : {
-              height: 'auto',
-              aspectRatio: '16 / 9'
-            }
+            height: 'auto',
+            aspectRatio: '16 / 9'
+          }
       }
       frameBorder='0'
       target='_parent'
@@ -54,11 +67,9 @@ export const Iframe = ({
     />
   )
 
-  return isLoading
-    ? (
-      <Placeholder css={theme({ width, height })}>{iframe}</Placeholder>
-      )
-    : (
-        iframe
-      )
+  return isLoading ? (
+    <Placeholder css={theme({ width, height })}>{iframe}</Placeholder>
+  ) : (
+    iframe
+  )
 }
