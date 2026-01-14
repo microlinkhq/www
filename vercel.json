@@ -32,7 +32,7 @@
       "headers": [
         {
           "key": "content-security-policy",
-          "value": "frame-src https://www.youtube-nocookie.com https://lighthouse.microlink.io; frame-ancestors 'self'; upgrade-insecure-requests"
+          "value": "frame-src https://www.youtube-nocookie.com https://lighthouse.microlink.io https://cdn.microlink.io; frame-ancestors 'self'; upgrade-insecure-requests"
         },
         {
           "key": "cross-origin-opener-policy",
