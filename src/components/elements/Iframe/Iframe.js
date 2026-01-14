@@ -7,69 +7,53 @@ import Box from '../Box'
 import { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
 const isPdf = src => /\.pdf($|\?)/i.test(src)
-
 const isYouTube = src => /youtube-nocookie\.com/.test(src)
 
 export const Iframe = ({
   width = TERMINAL_WIDTH,
   height = TERMINAL_HEIGHT,
   onLoad = noop,
-  children,
   ...props
 }) => {
   const { src } = props
+
   const [isLoading, setLoading] = useState(true)
-  const inputEl = useRef(null)
-  const onLoadRef = useRef(onLoad)
   const loadedRef = useRef(false)
 
+  // Reset loading state when src changes
   useEffect(() => {
     loadedRef.current = false
     setLoading(!isPdf(src) && !isYouTube(src))
   }, [src])
 
-  useEffect(() => {
-    onLoadRef.current = onLoad
-  }, [onLoad])
-
-  useEffect(() => {
-    const iframe = inputEl.current
-    if (!iframe) return
+  const handleLoad = e => {
     if (loadedRef.current) return
+    loadedRef.current = true
 
-    const handleLoad = () => {
-      if (loadedRef.current) return
-      loadedRef.current = true
-      onLoadRef.current(iframe)
-      setLoading(false)
-    }
+    onLoad(e.currentTarget)
+    setLoading(false)
+  }
 
-    iframe.addEventListener('load', handleLoad)
-    return () => iframe.removeEventListener('load', handleLoad)
-  }, [])
-
-  const iframe = (
-    <Box
-      as='iframe'
-      ref={inputEl}
-      style={
-        isLoading
-          ? { display: 'none' }
-          : {
-            height: 'auto',
-            aspectRatio: '16 / 9'
-          }
-      }
-      frameBorder='0'
-      target='_parent'
-      css={theme({ width, height })}
-      {...props}
-    />
-  )
-
-  return isLoading ? (
-    <Placeholder css={theme({ width, height })}>{iframe}</Placeholder>
-  ) : (
-    iframe
+  return (
+    <Box position='relative' css={theme({ width, height })}>
+      {isLoading && (
+        <Box position='absolute' inset={0} zIndex={1}>
+          <Placeholder width={width} height={height} />
+        </Box>
+      )}
+      <Box
+        as='iframe'
+        onLoad={handleLoad}
+        frameBorder='0'
+        target='_parent'
+        css={theme({ width, height })}
+        style={{
+          opacity: isLoading ? 0 : 1,
+          pointerEvents: isLoading ? 'none' : 'auto',
+          aspectRatio: '16 / 9'
+        }}
+        {...props}
+      />
+    </Box>
   )
 }
