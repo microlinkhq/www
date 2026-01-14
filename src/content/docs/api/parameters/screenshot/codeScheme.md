@@ -1,5 +1,5 @@
 ---
-title: 'codeScheme'
+title: 'screenshot » codeScheme'
 description: 'Beautify HTML and JSON content with professional code syntax highlighting using the codeScheme parameter. Choose from popular Prism themes like Dracula or provide a custom CSS URL.'
 ---
 

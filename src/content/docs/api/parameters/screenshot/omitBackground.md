@@ -1,5 +1,5 @@
 ---
-title: 'omitBackground'
+title: 'screenshot » omitBackground'
 description: 'Generate transparent screenshots by omitting the default white background of the webpage.'
 ---
 
