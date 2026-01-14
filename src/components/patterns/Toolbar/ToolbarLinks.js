@@ -1,6 +1,5 @@
 import React, { createElement } from 'react'
 import { Microlink } from 'components/logos'
-import { navigate } from 'gatsby'
 import { fontSizes } from 'theme'
 
 import NavLink from './NavLink'
@@ -33,10 +32,6 @@ const NavLogoMobile = props => (
 
 const NavLogoDesktop = props => (
   <NavLink
-    onContextMenu={event => {
-      event.preventDefault()
-      navigate('/design')
-    }}
     css={{
       display: 'flex',
       width: '52px'
