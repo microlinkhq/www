@@ -1,35 +1,27 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import Box from '../Box'
 import Placeholder from '../Placeholder/Placeholder'
 import { theme } from 'theme'
-import Box from '../Box'
 
-import { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
-
-export const Iframe = ({
-  width = TERMINAL_WIDTH,
-  height = TERMINAL_HEIGHT,
-  ...props
-}) => {
-  const { src } = props
-
+export const Iframe = ({ src, width, height }) => {
   const iframeRef = useRef(null)
-  const [isVisible, setVisible] = useState(false)
+  const [isMounted, setMounted] = useState(false)
 
   // Reset when src changes
   useEffect(() => {
-    setVisible(false)
+    setMounted(false)
   }, [src])
 
-  // Toggle as soon as iframe is mounted
+  // Consider "ready to show" as soon as iframe exists in the DOM
   useEffect(() => {
     if (iframeRef.current) {
-      setVisible(true)
+      setMounted(true)
     }
   }, [])
 
   return (
     <Box position='relative' css={theme({ width, height })}>
-      {!isVisible && (
+      {!isMounted && (
         <Box position='absolute' inset={0} zIndex={1}>
           <Placeholder width={width} height={height} />
         </Box>
@@ -38,15 +30,15 @@ export const Iframe = ({
       <Box
         as='iframe'
         ref={iframeRef}
+        src={src}
         frameBorder='0'
         target='_parent'
         css={theme({ width, height })}
         style={{
-          opacity: isVisible ? 1 : 0,
-          pointerEvents: isVisible ? 'auto' : 'none',
+          opacity: isMounted ? 1 : 0,
+          pointerEvents: isMounted ? 'auto' : 'none',
           aspectRatio: '16 / 9'
         }}
-        {...props}
       />
     </Box>
   )
