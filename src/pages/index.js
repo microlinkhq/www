@@ -59,7 +59,42 @@ const FEATURES = [
 
 const Subhead = withTitle(SubheadBase)
 
-export const Head = () => <Meta noSuffix />
+export const Head = () => {
+  const structuredData = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Microlink API',
+    operatingSystem: 'Any',
+    applicationCategory: 'DeveloperApplication',
+    url: 'https://microlink.io',
+    image: 'https://cdn.microlink.io/logo/logo.png',
+    description: 'Microlink is a headless browser API that converts any URL into structured data, screenshots, previews and PDFs.',
+    softwareHelp: 'https://microlink.io/docs',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'EUR'
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'Microlink HQ',
+      url: 'https://microlink.io'
+    },
+    sameAs: [
+      'https://github.com/microlinkhq',
+      'https://x.com/microlinkhq'
+    ]
+  })
+
+  return (
+    <>
+      <Meta noSuffix />
+      <script type='application/ld+json'>
+        {structuredData}
+      </script>
+    </>
+  )
+}
 
 const HomePage = () => {
   const { canonicalUrl, stripeKey, paymentEndpoint } = useSiteMetadata()

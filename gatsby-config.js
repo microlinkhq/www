@@ -26,7 +26,7 @@ module.exports = {
     author: 'Microlink HQ',
     headline: 'Microlink | Headless Browser API: Screenshot, PDF & Previews',
     description:
-      'Turn any URL into structured data (JSON). The all-in-one API for browser automation: screenshots, PDFs, scraping, and link previews. No infrastructure to manage.',
+      'Turn any URL into structured data. The all-in-one API for browser automation: screenshots, PDFs, scraping, and link previews. No infrastructure to manage.',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     twitter: '@microlinkhq',
