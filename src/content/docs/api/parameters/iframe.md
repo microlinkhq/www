@@ -268,7 +268,6 @@ A non exhaustive list of supported providers are:
 - [ScribbleMaps](https://scribblemaps.com)
 - [Scribd](https://www.scribd.com/)
 - [SendtoNews](https://www.sendtonews.com/)
-- [ShortNote](https://www.shortnote.jp/)
 - [Shoudio](https://shoudio.com)
 - [Show by Animaker](https://getshow.io/)
 - [Show the Way, actionable location info](https://showtheway.io)

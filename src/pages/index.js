@@ -63,7 +63,7 @@ export const Head = () => {
   const structuredData = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'Microlink API',
+    name: 'Microlink',
     operatingSystem: 'Any',
     applicationCategory: 'DeveloperApplication',
     url: 'https://microlink.io',
@@ -77,7 +77,7 @@ export const Head = () => {
     },
     author: {
       '@type': 'Organization',
-      name: 'Microlink HQ',
+      name: 'Microlink',
       url: 'https://microlink.io'
     },
     sameAs: [
