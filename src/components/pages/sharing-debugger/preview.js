@@ -734,18 +734,22 @@ const DiscordPreview = ({ metadata }) => (
 
 export const PREVIEWS = {
   all: { name: 'All', component: null, icon: Grid },
-  facebook: {
-    name: 'Facebook',
-    component: FacebookPreview,
-    icon: FacebookIcon
-  },
   whatsapp: {
     name: 'WhatsApp',
     component: WhatsAppPreview,
     icon: WhatsAppIcon
   },
+  facebook: {
+    name: 'Facebook',
+    component: FacebookPreview,
+    icon: FacebookIcon
+  },
   google: { name: 'Google', component: GooglePreview, icon: GoogleIcon },
-  telegram: { name: 'Telegram', component: TelegramPreview, icon: TelegramIcon },
+  telegram: {
+    name: 'Telegram',
+    component: TelegramPreview,
+    icon: TelegramIcon
+  },
   linkedin: {
     name: 'LinkedIn',
     component: LinkedInPreview,

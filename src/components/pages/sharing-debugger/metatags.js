@@ -6,6 +6,7 @@ import { Link } from 'components/elements/Link'
 import List from 'components/patterns/List/List'
 import TimeAgo from 'react-timeago'
 import { formatDate } from 'helpers/format-date'
+import humanizeUrl from 'humanize-url'
 
 const getFlag = (value = '') => {
   const [lang, country] = value.split('-')
@@ -28,6 +29,13 @@ const getFlag = (value = '') => {
   if (common[code]) return common[code]
 
   return String.fromCodePoint(...[...code].map(c => c.charCodeAt(0) + 127397))
+}
+
+const truncateUrl = (url, maxLength = 30) => {
+  if (!url) return url
+  const humanized = humanizeUrl(url)
+  if (humanized.length <= maxLength) return humanized
+  return `${humanized.substring(0, maxLength)}...`
 }
 
 export const Metatags = ({ metadata }) => {
@@ -155,10 +163,12 @@ export const Metatags = ({ metadata }) => {
                       mx: 1
                     })}
                   >
-                    {length} length
+                    {field.type !== 'url' && `${length} length`}
                     {field.width &&
                       field.height &&
-                      ` • ${field.width}x${field.height}`}
+                      `${field.type !== 'url' && length ? ' • ' : ''}${
+                        field.width
+                      }x${field.height}`}
                     {field.size && ` • ${field.size}`}
                   </Text>
                 )}
@@ -200,7 +210,7 @@ export const Metatags = ({ metadata }) => {
                           '&:hover': { textDecoration: 'underline' }
                         })}
                       >
-                        {value}
+                        {truncateUrl(value)}
                       </Link>
                       )
                     : field.type === 'date'
