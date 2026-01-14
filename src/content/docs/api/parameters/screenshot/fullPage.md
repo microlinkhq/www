@@ -1,5 +1,5 @@
 ---
-title: 'fullPage'
+title: 'screenshot » fullPage'
 description: 'Capture a high-resolution screenshot of the entire scrollable content of a website. Use the fullPage parameter to render the complete layout of a URL.'
 ---
 
