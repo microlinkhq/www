@@ -14,6 +14,7 @@ export const Head = () => (
   <Meta
     description='Test how your website will look like on social networks.'
     image={cdnUrl('banner/sharing-debugger.jpeg')}
+    title='Sharing Debugger'
   />
 )
 

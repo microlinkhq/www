@@ -221,7 +221,7 @@ export const Hero = () => {
 
                   <Flex
                     css={theme({
-                      flexDirection: ['column', 'column', 'row', 'row'],
+                      flexDirection: 'column',
                       gap: 4,
                       pt: 3
                     })}
@@ -230,7 +230,7 @@ export const Hero = () => {
                       as='section'
                       id='preview'
                       css={theme({
-                        flex: 1,
+                        width: '100%',
                         display: 'grid',
                         gridTemplateColumns: '1fr',
                         overflow: 'hidden',
@@ -277,7 +277,11 @@ export const Hero = () => {
                       ))}
                     </Box>
                     {showValidation && (
-                      <Box as='section' id='metatags' css={theme({ flex: 1 })}>
+                      <Box
+                        as='section'
+                        id='metatags'
+                        css={theme({ width: '100%' })}
+                      >
                         <Metatags metadata={metadata} />
                       </Box>
                     )}
