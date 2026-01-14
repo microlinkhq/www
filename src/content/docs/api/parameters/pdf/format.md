@@ -1,5 +1,5 @@
 ---
-title: 'pdf » format'
+title: 'pdf › format'
 description: 'Customize the paper format for PDF generation from any URL. Supports standard sizes including A4, Letter, Legal, and Tabloid for high-quality.'
 ---
 

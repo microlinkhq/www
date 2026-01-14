@@ -1,56 +1,40 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Placeholder from '../Placeholder/Placeholder'
-import { noop } from 'helpers/noop'
 import { theme } from 'theme'
 import Box from '../Box'
 
-import { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
+export const Iframe = ({ width, height, ...props }) => {
+  const iframeRef = useRef(null)
+  const [isMounted, setMounted] = useState(false)
 
-const isPdf = src => /\.pdf($|\?)/i.test(src)
-const isYouTube = src => /youtube-nocookie\.com/.test(src)
-
-export const Iframe = ({
-  width = TERMINAL_WIDTH,
-  height = TERMINAL_HEIGHT,
-  onLoad = noop,
-  ...props
-}) => {
-  const { src } = props
-
-  const [isLoading, setLoading] = useState(true)
-  const loadedRef = useRef(false)
-
-  // Reset loading state when src changes
   useEffect(() => {
-    loadedRef.current = false
-    setLoading(!isPdf(src) && !isYouTube(src))
-  }, [src])
+    setMounted(false)
+  }, [props.src])
 
-  const handleLoad = e => {
-    if (loadedRef.current) return
-    loadedRef.current = true
-
-    onLoad(e.currentTarget)
-    setLoading(false)
-  }
+  useEffect(() => {
+    if (iframeRef.current) {
+      setMounted(true)
+    }
+  }, [])
 
   return (
     <Box position='relative' css={theme({ width, height })}>
-      {isLoading && (
+      {!isMounted && (
         <Box position='absolute' inset={0} zIndex={1}>
           <Placeholder width={width} height={height} />
         </Box>
       )}
+
       <Box
         as='iframe'
-        onLoad={handleLoad}
-        frameBorder='0'
+        ref={iframeRef}
         target='_parent'
         css={theme({ width, height })}
         style={{
-          opacity: isLoading ? 0 : 1,
-          pointerEvents: isLoading ? 'none' : 'auto',
-          aspectRatio: '16 / 9'
+          opacity: isMounted ? 1 : 0,
+          pointerEvents: isMounted ? 'auto' : 'none',
+          aspectRatio: '16 / 9',
+          border: 'none'
         }}
         {...props}
       />
