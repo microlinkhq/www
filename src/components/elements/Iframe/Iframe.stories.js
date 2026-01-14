@@ -1,14 +1,14 @@
 import Flex from '../Flex'
 import Box from '../Box'
 import CodeEditor from '../CodeEditor/CodeEditor'
-import Iframe from './Iframe'
+import { Iframe } from './Iframe'
 import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import { theme } from 'theme'
 import React from 'react'
 
 const code = `
-import Iframe from './Iframe'
+import { Iframe } from './Iframe'
 
 export default () => (
   <Iframe

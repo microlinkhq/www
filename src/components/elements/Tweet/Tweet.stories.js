@@ -9,7 +9,7 @@ import Box from '../Box'
 import Flex from '../Flex'
 import Text from '../Text'
 import Input from '../Input/Input'
-import Tweet from './Tweet'
+import { Tweet } from './Tweet'
 
 const storyName = 'Tweet'
 

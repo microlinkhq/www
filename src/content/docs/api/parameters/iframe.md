@@ -21,7 +21,7 @@ When is present, a new `iframe` data field will be returned when is possible. An
 })} />
 
 <Iframe
-  src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed"
+  src="https://www.youtube-nocookie.com/embed/9P6rdqiybaw?feature=oembed"
   allowFullScreen
 />
 

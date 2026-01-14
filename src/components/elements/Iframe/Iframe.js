@@ -1,31 +1,26 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { aspectRatio } from 'helpers/aspect-ratio'
+import Placeholder from '../Placeholder/Placeholder'
 import { noop } from 'helpers/noop'
 import { theme } from 'theme'
+import Box from '../Box'
 
-import Placeholder from '../Placeholder/Placeholder'
-import Flex from '../Flex'
+import { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
-const Iframe = ({
+export const Iframe = ({
   loading = true,
-  maxWidth,
-  width = aspectRatio.width,
-  height = aspectRatio.height,
+  width = TERMINAL_WIDTH,
+  height = TERMINAL_HEIGHT,
   onLoad = noop,
-  onError = noop,
   children,
   ...props
 }) => {
   const [isLoading, setLoading] = useState(loading)
   const inputEl = useRef(null)
-
   const onLoadRef = useRef(onLoad)
-  const onErrorRef = useRef(onError)
 
   useEffect(() => {
     onLoadRef.current = onLoad
-    onErrorRef.current = onError
-  }, [onLoad, onError])
+  }, [onLoad])
 
   useEffect(() => {
     const iframe = inputEl.current
@@ -36,51 +31,34 @@ const Iframe = ({
       setLoading(false)
     }
 
-    const handleError = error => {
-      console.error(`Iframe error for ${iframe.src}:`, error)
-      onErrorRef.current(error)
-      setLoading(false)
-    }
-
     iframe.addEventListener('load', handleLoad)
-    iframe.addEventListener('error', handleError)
-
-    return () => {
-      iframe.removeEventListener('load', handleLoad)
-      iframe.removeEventListener('error', handleError)
-    }
+    return () => iframe.removeEventListener('load', handleLoad)
   }, [])
 
   const iframe = (
-    <Flex
+    <Box
       as='iframe'
       ref={inputEl}
       style={
         isLoading
-          ? {
-              opacity: 0,
-              visibility: 'hidden',
-              position: 'absolute',
-              pointerEvents: 'none'
+          ? { display: 'none' }
+          : {
+              height: 'auto',
+              aspectRatio: '16 / 9'
             }
-          : undefined
       }
       frameBorder='0'
       target='_parent'
-      css={theme({ maxWidth, width, height })}
+      css={theme({ width, height })}
       {...props}
     />
   )
 
   return isLoading
     ? (
-      <Placeholder width={width} height={height} maxWidth={maxWidth}>
-        {iframe}
-      </Placeholder>
+      <Placeholder css={theme({ width, height })}>{iframe}</Placeholder>
       )
     : (
         iframe
       )
 }
-
-export default Iframe
