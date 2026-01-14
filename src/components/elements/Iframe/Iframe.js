@@ -7,7 +7,6 @@ import Box from '../Box'
 import { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
 const isPdf = src => /\.pdf($|\?)/i.test(src)
-
 const isYouTube = src => /youtube-nocookie\.com/.test(src)
 
 export const Iframe = ({
@@ -17,9 +16,11 @@ export const Iframe = ({
   ...props
 }) => {
   const { src } = props
+
   const [isLoading, setLoading] = useState(true)
   const loadedRef = useRef(false)
 
+  // Reset loading state when src changes
   useEffect(() => {
     loadedRef.current = false
     setLoading(!isPdf(src) && !isYouTube(src))
@@ -28,25 +29,31 @@ export const Iframe = ({
   const handleLoad = e => {
     if (loadedRef.current) return
     loadedRef.current = true
+
     onLoad(e.currentTarget)
     setLoading(false)
   }
 
   return (
-    <Placeholder data-debug css={theme({ width, height })}>
+    <Box position='relative' css={theme({ width, height })}>
+      {isLoading && (
+        <Box position='absolute' inset={0} zIndex={1}>
+          <Placeholder width={width} height={height} />
+        </Box>
+      )}
       <Box
         as='iframe'
         onLoad={handleLoad}
+        frameBorder='0'
+        target='_parent'
+        css={theme({ width, height })}
         style={{
           opacity: isLoading ? 0 : 1,
           pointerEvents: isLoading ? 'none' : 'auto',
           aspectRatio: '16 / 9'
         }}
-        frameBorder='0'
-        target='_parent'
-        css={theme({ width, height })}
         {...props}
       />
-    </Placeholder>
+    </Box>
   )
 }
