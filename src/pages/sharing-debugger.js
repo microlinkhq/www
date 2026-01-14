@@ -91,20 +91,29 @@ const SharingDebugger = () => {
             answer: (
               <>
                 <div>
-                  Stop manually updating preview images. You can use Microlink's API
-                  to generate Open Graph images on the fly. By passing screenshot=true
-                  {' '}<a href='/docs/api/parameters/screenshot'>to our API</a>,
-                  you get a hosted, cached image URL ready to be served in
-                  your <i>meta property="og:image"</i> tag.
+                  In the era of link unfurling (Facebook, X, LinkedIn, etc.), your og:image
+                  is your first impression. Manually designing assets for every dynamic
+                  route is unscalable, but generic logos get ignored.
+                  <br /><br />
+                  Microlink solves this by treating your screenshots as an
+                  {' '}<Link href='/screenshot' logoIcon>Screenshot API</Link>.
 
                   <MultiCodeEditorInteractive
-                    mqlCode={mqlCode('https://microlink.io', {
+                    mqlCode={mqlCode('https://www.netflix.com/title/80057281', {
                       screenshot: true
                     })}
                   />
 
-                  <b>Need more granular control?</b> Discover how to capture specific DOM elements,
-                  inject CSS, and customize viewports on the <Link href='/screenshot' logoIcon>Screenshot API page</Link>.
+                  Instead of storing static JPEGs, simply pass your page's URL to
+                  {' '}<Link href='/docs/api/parameters/screenshot' logoIcon>Microlink with screenshot=true</Link>.
+                  We spin up a headless browser, capture the viewport, and serve a globally cached image.
+
+                  <ul>
+                    <li><b>Always Fresh:</b> Your social cards automatically reflect your latest UI updates.</li>
+                    <li><b>Zero Maintenance:</b> No more Photoshop or Figma templates for every blog post.</li>
+                    <li><b>High Performance:</b> Served via global CDN, ensuring link previews load instantly.</li>
+                  </ul>
+
                 </div>
               </>
             )
