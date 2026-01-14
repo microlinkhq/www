@@ -6,9 +6,6 @@ import Box from '../Box'
 
 import { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
-const isPdf = src => /\.pdf($|\?)/i.test(src)
-const isYouTube = src => /youtube-nocookie\.com/.test(src)
-
 export const Iframe = ({
   width = TERMINAL_WIDTH,
   height = TERMINAL_HEIGHT,
@@ -17,39 +14,44 @@ export const Iframe = ({
 }) => {
   const { src } = props
 
-  const [isLoading, setLoading] = useState(true)
-  const loadedRef = useRef(false)
+  const iframeRef = useRef(null)
+  const [isVisible, setVisible] = useState(false)
 
-  // Reset loading state when src changes
+  // Reset when src changes
   useEffect(() => {
-    loadedRef.current = false
-    setLoading(!isPdf(src) && !isYouTube(src))
+    setVisible(false)
   }, [src])
 
-  const handleLoad = e => {
-    if (loadedRef.current) return
-    loadedRef.current = true
+  // Toggle as soon as iframe is mounted
+  useEffect(() => {
+    if (iframeRef.current) {
+      setVisible(true)
+    }
+  }, [])
 
+  // Optional telemetry only
+  const handleLoad = e => {
     onLoad(e.currentTarget)
-    setLoading(false)
   }
 
   return (
     <Box position='relative' css={theme({ width, height })}>
-      {isLoading && (
+      {!isVisible && (
         <Box position='absolute' inset={0} zIndex={1}>
           <Placeholder width={width} height={height} />
         </Box>
       )}
+
       <Box
         as='iframe'
-        onLoad={handleLoad}
+        ref={iframeRef}
+        onLoad={handleLoad} // best-effort only
         frameBorder='0'
         target='_parent'
         css={theme({ width, height })}
         style={{
-          opacity: isLoading ? 0 : 1,
-          pointerEvents: isLoading ? 'none' : 'auto',
+          opacity: isVisible ? 1 : 0,
+          pointerEvents: isVisible ? 'auto' : 'none',
           aspectRatio: '16 / 9'
         }}
         {...props}
