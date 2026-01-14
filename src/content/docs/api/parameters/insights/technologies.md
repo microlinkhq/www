@@ -1,5 +1,5 @@
 ---
-title: 'insights » technologies'
+title: 'insights › technologies'
 description: 'Identify the software stack behind any URL using Microlink technology detection. It returns a detailed list of frameworks, CDNs, and analytics tools with confidence scores.'
 ---
 

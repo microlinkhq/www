@@ -1,5 +1,5 @@
 ---
-title: 'screenshot » overlay'
+title: 'screenshot › overlay'
 description: 'Create professional screenshot compositions with customizable browser overlays and backgrounds.'
 ---
 
