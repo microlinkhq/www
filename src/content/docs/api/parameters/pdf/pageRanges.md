@@ -1,5 +1,5 @@
 ---
-title: 'pdf pageRanges'
+title: 'pageRanges'
 description: 'Define specific page ranges for your website-to-PDF conversion. Extract single pages or custom intervals like "1-5, 8, 11-13" from any URL using the Microlink API pageRanges parameter.'
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 'pdf width'
+title: 'width'
 description: 'Control the scale of your generated PDF documents. Adjust the zoom level to ensure your website content is perfectly proportioned and legible.'
 ---
 
