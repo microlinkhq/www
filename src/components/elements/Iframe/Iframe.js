@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
 import Placeholder from '../Placeholder/Placeholder'
-import { noop } from 'helpers/noop'
 import { theme } from 'theme'
 import Box from '../Box'
 
@@ -9,7 +8,6 @@ import { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 export const Iframe = ({
   width = TERMINAL_WIDTH,
   height = TERMINAL_HEIGHT,
-  onLoad = noop,
   ...props
 }) => {
   const { src } = props
@@ -29,11 +27,6 @@ export const Iframe = ({
     }
   }, [])
 
-  // Optional telemetry only
-  const handleLoad = e => {
-    onLoad(e.currentTarget)
-  }
-
   return (
     <Box position='relative' css={theme({ width, height })}>
       {!isVisible && (
@@ -45,7 +38,6 @@ export const Iframe = ({
       <Box
         as='iframe'
         ref={iframeRef}
-        onLoad={handleLoad} // best-effort only
         frameBorder='0'
         target='_parent'
         css={theme({ width, height })}
