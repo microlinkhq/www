@@ -192,7 +192,7 @@ const UserAgentsPage = () => {
                   <div>
                     You can manually set the header in Puppeteer or Playwright
                     using a random string from this list. However,{' '}
-                    <Link href="/blog/what-is-a-headless-browser">scaling a Headless Browser</Link>
+                    <Link href='/blog/what-is-a-headless-browser'>scaling a Headless Browser</Link>
                     {' '}infrastructure is complex.{' '}
                     <Link href='/docs/api/getting-started/overview'>
                       Microlink API
