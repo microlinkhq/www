@@ -50,6 +50,7 @@ const PageTemplate = ({
                 <H1
                   css={theme({
                     ...textGradient,
+                    textAlign: 'center',
                     mt: 0,
                     mb: subtitle ? 1 : undefined
                   })}
@@ -57,7 +58,12 @@ const PageTemplate = ({
                   <PostTitle>{titleize(title)}</PostTitle>
                 </H1>
                 {subtitle && (
-                  <H2 css={theme({ mt: 0 })}>
+                  <H2
+                    css={theme({
+                      textAlign: 'center',
+                      mt: 0
+                    })}
+                  >
                     <PostTitle>{titleize(subtitle)}</PostTitle>
                   </H2>
                 )}
