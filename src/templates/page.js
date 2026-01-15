@@ -11,6 +11,7 @@ import Layout from 'components/patterns/Layout'
 import Markdown, { H1 } from 'components/markdown'
 import { textGradient, layout, theme } from 'theme'
 import { formatDate } from 'helpers/format-date'
+import { title as titleize } from 'helpers/title'
 import TimeAgo from 'react-timeago'
 import React from 'react'
 
@@ -42,7 +43,7 @@ const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
                 <H1
                   css={{ ...textGradient, textAlign: 'center', marginTop: 0 }}
                 >
-                  <PostTitle>{title}</PostTitle>
+                  <PostTitle>{titleize(title)}</PostTitle>
                 </H1>
                 <Caption
                   forwardedAs='h2'

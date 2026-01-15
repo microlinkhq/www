@@ -1,11 +1,11 @@
 import { textGradient, theme, transition, breakpoints } from 'theme'
 import { Link } from 'components/elements/Link'
 import { formatDate } from 'helpers/format-date'
+import { title as titleize } from 'helpers/title'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import styled from 'styled-components'
 import React from 'react'
-
 const BlogLink = styled(Link)(
   theme({
     cursor: 'pointer',
@@ -60,7 +60,7 @@ export const BlogPostList = ({ title, date, slug, excerpt, isLastPost }) => {
               display: 'inline-block'
             })}
           >
-            {title}
+            {titleize(title)}
           </Text>
           <Text
             css={theme({
