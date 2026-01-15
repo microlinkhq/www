@@ -48,7 +48,12 @@ const main = async () => {
       const { title } = parseFrontmatter(fileContent)
 
       if (title) {
-        const newFilename = `${slug(title)}.md`
+        // Remove content in parentheses before generating slug
+        const titleWithoutParentheses = title
+          .replace(/\([^()]*\)/g, '') // Remove parentheses and their content
+          .replace(/\s+/g, ' ') // Normalize whitespace
+          .trim()
+        const newFilename = `${slug(titleWithoutParentheses)}.md`
         const dirname = path.dirname(filepath)
         const newPath = path.join(dirname, newFilename)
 
