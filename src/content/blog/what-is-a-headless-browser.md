@@ -1,5 +1,6 @@
 ---
-title: 'What Is a Headless Browser? (And Why I Stopped Hating Them)'
+title: 'What Is a Headless Browser?'
+subtitle: 'And Why I Stopped Hating Them'
 description: 'Learn how headless web browser enables scraping SPAs, creating assets and E2E testing, and why self-hosting infrastructure is often a trap.'
 date: '2026-01-15'
 ---

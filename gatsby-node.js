@@ -195,6 +195,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           description: excerpt(pruneLength: 240)
           frontmatter {
             title
+            subtitle
             description
             date
             lastEdited
