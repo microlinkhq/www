@@ -69,7 +69,7 @@ const languageColors = {
       --sh-jsxliterals: var(--gray9);
       --sh-string: var(--gray9);
       --sh-keyword: var(--gray9);
-      --sh-comment: var(--gray9);
+      --sh-comment: var(--gray5);
     `,
     dark: ''
   }
