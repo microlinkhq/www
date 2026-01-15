@@ -135,7 +135,7 @@ const Hero = ({ children }) => {
     >
       {children({ color })}
       <Heading css={theme({ fontSize: ['34px', '46px', '68px'] })} titleize={false}>
-        Headless Browser API
+        Browser as API
       </Heading>
 
       <Caption
@@ -148,7 +148,7 @@ const Hero = ({ children }) => {
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
         })}
       >
-        Generate screenshots, PDFs, previews and scrape content via a <b>browserless API</b>. No Puppeteer clusters to manage. Open source roots, enterprise scale.
+        <b>Microlink</b> turns any link into screenshots, PDFs, previews, or structured data. No more Puppeteer clusters. Open source roots.
       </Caption>
       <Box>
         <Grid css={theme({ maxWidth: layout.large, pb: [4, 4, 5, 5] })}>
