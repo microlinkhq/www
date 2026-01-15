@@ -15,7 +15,7 @@ const StyledMicrolink = styled(Image.Component).withConfig({
 `
 
 const Microlink = props => {
-  return <StyledMicrolink alt='microlink logo' src={logoUri} {...props} />
+  return <StyledMicrolink alt='Microlink' src={logoUri} {...props} />
 }
 
 Microlink.logoUri = logoUri
