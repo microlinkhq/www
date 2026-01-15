@@ -8,6 +8,7 @@ const special = [
   'cache',
   'click',
   'CodeSandbox',
+  'cURL',
   'deviceScaleFactor',
   'Edge Node Cache',
   'fullPage',

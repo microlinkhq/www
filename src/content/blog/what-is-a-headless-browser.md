@@ -1,5 +1,6 @@
 ---
-title: 'What Is a Headless Browser? (And Why I Stopped Hating Them)'
+title: 'What Is a Headless Browser?'
+subtitle: 'And Why I Stopped Hating Them'
 description: 'Learn how headless web browser enables scraping SPAs, creating assets and E2E testing, and why self-hosting infrastructure is often a trap.'
 date: '2026-01-15'
 ---
@@ -14,7 +15,7 @@ You have the engine. That's a **headless browser**. A browser that doesn't value
 
 It handles standard tasks like rendering HTML and running JavaScript. It works only through a **Command Line Interface (CLI)** and not a visual display. For a regular user, this is useless. For a developer, it's the only way to automate the modern web.
 
-## **Why curl Doesn't Cut It Anymore**
+## Why cURL doesn't cut it anymore
 
 ```bash
 curl -G https://microlink.io
@@ -30,13 +31,42 @@ A simple HTTP request can't execute JS. **A headless browser can**. It spins up 
 
 Instead, let [Microlink](/) handle these tasks. An API manages the infrastructure and gives you ready-to-use assets or JSON.
 
-```bash
-curl -G "https://api.microlink.io" -d "url=https://microlink.io"
-
-# response: {"status":"success","data":{"lang":"en","author":"Microlink HQ","title":"Microlink | Headless Browser API: Screenshot, PDF & Previews","publisher":"Microlink","image":{"url":"https://cdn.microlink.io/logo/banner.jpeg"...}
+```json
+// curl -G "https://api.microlink.io" -d "url=https://microlink.io"
+{
+  "status": "success",
+  "data": {
+    "lang": "en",
+    "author": "Microlink",
+    "title": "Microlink | Headless Browser API: Screenshot, PDF & Previews",
+    "publisher": "Microlink",
+    "image": {
+      "url": "https://cdn.microlink.io/logo/banner.jpeg",
+      "type": "jpg",
+      "size": 56978,
+      "height": 1009,
+      "width": 1686,
+      "size_pretty": "57 kB"
+    },
+    "date": "2026-01-15T19:47:35.000Z",
+    "url": "https://microlink.io/",
+    "description": "Turn any URL into structured data. The all-in-one API for browser automation: screenshots, PDFs, scraping, and link previews. No infrastructure to manage.",
+    "logo": {
+      "url": "https://cdn.microlink.io/logo/logo.png",
+      "type": "png",
+      "size": 5187,
+      "height": 500,
+      "width": 500,
+      "size_pretty": "5.19 kB"
+    }
+  },
+  "statusCode": 200,
+  "redirects": [],
+  "headers": { … }
+}
 ```
 
-## **The Big 5 Use Cases**
+## The Big 5 Use Cases
 
 Most of us reach for libraries like [**Puppeteer**](https://pptr.dev/) or [**Playwright**](https://playwright.dev/) for three reasons:
 
@@ -46,7 +76,7 @@ Most of us reach for libraries like [**Puppeteer**](https://pptr.dev/) or [**Pla
 4. **Performance monitoring:** Measure the exact time a web browser needs to render your site. Make Google love you.  
 5. **Anti bot walls:** Viewing the content hidden behind a captcha without manually clicking the "I'm not a robot" checkbox.
 
-## **The "It Works on My Machine" Trap**
+## The "It Works on My Machine" Trap
 
 Here is the part that generic tutorials won't tell you.
 
@@ -60,7 +90,7 @@ I have spent more hours than I care to admit debugging headless browsers in [Doc
 * **The Font Nightmare:** Your screenshot looks great locally. On your Linux server, the fonts are missing, and your emojis look like square boxes. Fixing this requires installing a bloat of font packages.  
 * **Cold Starts:** Booting a browser takes time. If you are using serverless functions [(like AWS Lambda)](https://aws.amazon.com/pm/lambda), that 2-second boot time kills your user experience.
 
-## **Don't Build It. Call It.**
+## Don't Build It. Call It.
 
 If your core business isn't "building browser infrastructure," you shouldn't be managing headless instances. You should be using an API. That's the philosophy behind **Microlink**.
 
@@ -81,7 +111,7 @@ const { data } = await mql('https://github.com/microlinkhq', { screenshot: true 
 Explore our [docs](/docs/api/getting-started/overview) to see the full potential of browserless automation. Our infrastructure can even bypass the complex [anti bot protections](/blog/antibot-at-scale) used by major platforms.
 
 
-## **The Verdict**
+## The Verdict
 
 A headless browser is a powerful tool in your arsenal. It bridges the gap between your backend code and the frontend user experience.
 

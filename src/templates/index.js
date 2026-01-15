@@ -58,6 +58,7 @@ const Template = ({ pageContext, children, ...props }) => {
     return (
       <PageTemplate
         title={frontmatter.title}
+        subtitle={frontmatter.subtitle}
         date={date && new Date(date)}
         lastEdited={frontmatter.lastEdited ? lastEdited : null}
         isBlogPage={isBlogPage}

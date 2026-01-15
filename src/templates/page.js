@@ -8,7 +8,7 @@ import { PostTitle } from 'components/pages/blog/post-title'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
-import Markdown, { H1 } from 'components/markdown'
+import Markdown, { H1, H2 } from 'components/markdown'
 import { textGradient, layout, theme } from 'theme'
 import { formatDate } from 'helpers/format-date'
 import { title as titleize } from 'helpers/title'
@@ -19,7 +19,14 @@ const Heading = withTitle(HeadingBase)
 
 const Caption = withTitle(CaptionBase)
 
-const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
+const PageTemplate = ({
+  isBlogPage,
+  date,
+  title,
+  subtitle,
+  content,
+  lastEdited
+}) => {
   return (
     <Layout>
       <Box css={theme({ px: 3 })}>
@@ -41,12 +48,21 @@ const PageTemplate = ({ isBlogPage, date, title, content, lastEdited }) => {
             <Choose>
               <Choose.When condition={isBlogPage}>
                 <H1
-                  css={{ ...textGradient, textAlign: 'center', marginTop: 0 }}
+                  css={theme({
+                    ...textGradient,
+                    mt: 0,
+                    mb: subtitle ? 1 : undefined
+                  })}
                 >
                   <PostTitle>{titleize(title)}</PostTitle>
                 </H1>
+                {subtitle && (
+                  <H2 css={theme({ mt: 0 })}>
+                    <PostTitle>{titleize(subtitle)}</PostTitle>
+                  </H2>
+                )}
                 <Caption
-                  forwardedAs='h2'
+                  forwardedAs='h3'
                   css={theme({
                     color: 'black60',
                     textAlign: ['center', 'inherit']
