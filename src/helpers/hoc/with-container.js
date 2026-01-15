@@ -9,14 +9,15 @@ export const CONTAINER_SPACE = {
   mb: 4
 }
 
-export const Container = props => {
+export const Container = ({ css, ...props }) => {
   const { isBlogPage } = useContext(MarkdownContext)
   return (
     <Box
       css={theme({
         maxWidth: ['100%', '100%', layout.small, layout.small],
         mx: isBlogPage ? 'auto' : undefined,
-        ...CONTAINER_SPACE
+        ...CONTAINER_SPACE,
+        ...css
       })}
       {...props}
     />

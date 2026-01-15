@@ -253,17 +253,15 @@ export const Li = props => {
   )
 }
 
-const mediaStyle = {
-  borderRadius: '3px',
-  textAlign: 'center'
-}
-
-const _ImageBase = styled(ImageBase)`
-  ${theme(mediaStyle)}
-`
+const _ImageBase = styled(ImageBase)(
+  theme({
+    borderRadius: '3px',
+    textAlign: 'center'
+  })
+)
 
 export const Image = withContainer(_ImageBase, {
-  style: { maxWidth: 'inherit' }
+  css: { maxWidth: layout.large }
 })
 
 const mdComponents = {
