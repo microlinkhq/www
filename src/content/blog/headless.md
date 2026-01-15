@@ -1,6 +1,6 @@
 ---
 title: 'What Is a Headless Browser? (And Why I Stopped Hating Them)'
-description: 'What is a headless browser? Learn how programmable Chrome enables scraping SPAs and E2E testing, and why self-hosting infrastructure is often a trap.'
+description: 'Learn how headless web browser enables scraping SPAs, creating assets and E2E testing, and why self-hosting infrastructure is often a trap.'
 date: '2026-01-15'
 ---
 
