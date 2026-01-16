@@ -286,7 +286,6 @@ A non exhaustive list of supported providers are:
 - [Spotlightr](https://spotlightr.com)
 - [Spreaker](https://www.spreaker.com/)
 - [SproutVideo](https://sproutvideo.com)
-- [Spyke](https://spyke.social)
 - [Stanford Digital Repository](https://purl.stanford.edu/)
 - [Streamable](https://streamable.com/)
 - [Streamio](https://www.streamio.com)
