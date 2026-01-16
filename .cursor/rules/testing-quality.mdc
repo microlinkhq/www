@@ -24,8 +24,8 @@ Tests live in [test/](mdc:test/) directory, mirroring the source structure:
 ### Running Tests
 
 ```bash
-npm test           # Run tests with linting
-npm run pretest    # Run linting only
+pnpm test          # Run tests with linting
+pnpm run pretest   # Run linting only
 ```
 
 ### Writing Tests
@@ -66,7 +66,7 @@ Snapshots stored in `test/__snapshots__/`
 Uses **Standard.js** for JavaScript linting:
 
 ```bash
-npm run lint       # Lint JavaScript and Markdown
+pnpm run lint      # Lint JavaScript and Markdown
 standard           # Run Standard only
 ```
 
@@ -127,7 +127,7 @@ Automatically formats on commit via git hooks.
 ### Manual Formatting
 
 ```bash
-npx prettier-standard --write "src/**/*.js"
+pnpm exec prettier-standard --write "src/**/*.js"
 ```
 
 ## Git Hooks
@@ -228,7 +228,7 @@ import _ from 'lodash'
 ### Build Performance
 
 ```bash
-npm run clean:build  # Clear cache if builds are slow
+pnpm run clean:build  # Clear cache if builds are slow
 ```
 
 ## Debugging

@@ -42,10 +42,15 @@ Utility functions and HOCs:
 
 ### `/src/pages/`
 
-Gatsby page components and markdown content:
+Gatsby page components:
 - Each file automatically becomes a route
-- Markdown files (.md) for documentation and blog posts
 - JavaScript files (.js) for dynamic pages
+
+### `/src/content/`
+
+MDX content for docs, blog, and static pages:
+- Content is created by `gatsby-node.js` using templates
+- Avoid adding MDX directly in `src/pages/`
 
 ### `/src/templates/`
 

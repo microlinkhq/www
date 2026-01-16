@@ -209,6 +209,11 @@ export const getApiUrl = (params) => {
 }
 ```
 
+### 7. Avoid Editing Generated Helpers
+
+`src/helpers/get-api-url.js` is generated via `pnpm run transpile`.
+Do not edit it by hand; update the source or script instead.
+
 ## Testing
 
 Helpers should be tested. See [test/helpers/](mdc:test/helpers/) for examples.

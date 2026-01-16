@@ -8,4 +8,5 @@ This project uses **pnpm** as its package manager.
 
 - Never use `npm` or `yarn`.
 - Use `pnpm` for installing dependencies, running scripts, and all other package management tasks.
+- If you touch `package.json` scripts, keep them pnpm-friendly (avoid adding new `npm run` entries).
 - Ensure that `pnpm-lock.yaml` is updated whenever dependencies change.

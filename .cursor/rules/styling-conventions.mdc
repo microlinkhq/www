@@ -2,6 +2,7 @@
 description: Guidelines for styled-components and styling patterns
 alwaysApply: false
 ---
+
 # Styling Conventions
 
 This project uses `styled-components` with `styled-system` for theming. Follow these patterns for consistency.
@@ -137,9 +138,9 @@ themeProp({
 Use the `css` prop for component-specific styles. For markdown components, centering is often conditional based on `isBlogPage`:
 
 ```javascript
-<Box css={theme({ 
-  maxWidth: layout.small, 
-  mx: isBlogPage ? 'auto' : undefined 
+<Box css={theme({
+  maxWidth: layout.small,
+  mx: isBlogPage ? 'auto' : undefined
 })}>
   {children}
 </Box>
@@ -183,14 +184,40 @@ box-shadow: ${shadows[0]};
 
 ### Responsive Styles
 
-Use array syntax for responsive values:
+**Always use array syntax for responsive values instead of breakpoint checks.**
+
+The array index corresponds to the breakpoint:
+- Index 0: Mobile (< 600px)
+- Index 1: Tablet (600px - 767px)
+- Index 2: Desktop (768px - 1199px)
+- Index 3: Large Desktop (≥ 1200px)
 
 ```javascript
+// ✅ Good - Use arrays for responsive values
 css={theme({
-  maxWidth: ['100%', '100%', layout.small, layout.small],
-  fontSize: [1, 2, 3] // Mobile, tablet, desktop
+  px: [2, 0],  // 2 on mobile, 0 on tablet+ (no need to repeat 0)
+  maxWidth: ['100%', layout.small],  // 100% on mobile, layout.small on tablet+ (no need to repeat)
+  fontSize: [1, 2, 3],  // Mobile, tablet, desktop
+  height: ['200px', '325px']  // 200px on mobile, 325px on tablet+ (no need to repeat)
+})}
+
+// ❌ Bad - Don't repeat constant values
+css={theme({
+  px: [2, 0, 0, 0],  // Unnecessary repetition
+  maxWidth: ['100%', layout.small, layout.small, layout.small]  // Unnecessary repetition
+})}
+
+// ❌ Bad - Don't use breakpoint checks
+const breakpoint = useBreakpoint()
+css={theme({
+  px: breakpoint === 0 ? 2 : 0,
+  maxWidth: breakpoint === 0 ? '100%' : layout.small
 })}
 ```
+
+**Note:** If a value is constant for all subsequent breakpoints, you don't need to repeat it. The last value in the array applies to all remaining breakpoints.
+
+**Never import or use `useBreakpoint` hook for styling.** The theme system handles responsive values automatically through array syntax.
 
 ### Colors
 

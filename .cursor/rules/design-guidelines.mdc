@@ -1,9 +1,6 @@
 ---
-description: Vercel Design Guidelines based on https://vercel.com/design/guidelines
-globs:
-  alwaysApply: false
+alwaysApply: true
 ---
-
 Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVER to guide decisions
 
 ## Interactions
@@ -37,7 +34,7 @@ Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVE
   - MUST: Trim values to handle text expansion trailing spaces
   - MUST: No dead zones on checkboxes/radios; label+control share one generous hit target
 - State & navigation
-  - MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels) Prefer libs like [nuqs](https://nuqs.dev)
+  - MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels); prefer [@kikobeats/use-query-state](https://github.com/microlinkhq/use-query-state) for syncing state with the URL
   - MUST: Back/Forward restores scroll
   - MUST: Links are links—use `<a>/<Link>` for navigation (support Cmd/Ctrl/middle-click)
 - Feedback
