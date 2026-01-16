@@ -14,13 +14,16 @@ export const VALIDATOR_STATUS_ERROR = 'ERROR'
 
 export const VALIDATOR_STATUS = {
   [VALIDATOR_STATUS_OK]: {
-    color: 'green7'
+    color: 'green7',
+    bg: 'green0'
   },
   [VALIDATOR_STATUS_WARNING]: {
-    color: 'orange7'
+    color: 'orange7',
+    bg: 'orange0'
   },
   [VALIDATOR_STATUS_ERROR]: {
-    color: 'red7'
+    color: 'red8',
+    bg: 'red0'
   }
 }
 
@@ -101,8 +104,7 @@ export const validate = metadata => {
     if (field.isNullable) {
       result = {
         status: 'ERROR',
-        resume: 'Missing',
-        description: "It's missing, so it cannot be validated."
+        resume: 'Missing'
       }
     } else {
       result = FIELD_VALIDATORS[field.name](field)

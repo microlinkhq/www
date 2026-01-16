@@ -93,7 +93,7 @@ export const Hero = () => {
           <Box
             as='section'
             id='hero'
-            css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+            css={theme({ alignItems: 'center', pt: 2, pb: 0 })}
           >
             <Box id='input'>
               <Container
@@ -277,13 +277,13 @@ export const Hero = () => {
                       ))}
                     </Box>
                     {showValidation && (
-                      <Box
+                      <Flex
                         as='section'
                         id='metatags'
-                        css={theme({ width: '100%' })}
+                        css={theme({ width: '100%', justifyContent: 'center' })}
                       >
                         <Metatags metadata={metadata} />
-                      </Box>
+                      </Flex>
                     )}
                   </Flex>
                 </Container>
