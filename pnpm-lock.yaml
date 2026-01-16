@@ -188,6 +188,9 @@ importers:
       top-user-agents:
         specifier: ~2.1.89
         version: 2.1.89
+      truncate-url:
+        specifier: ~3.0.0
+        version: 3.0.0
       unique-random-array:
         specifier: ~4.0.0
         version: 4.0.0
@@ -11372,6 +11375,10 @@ packages:
 
   true-case-path@2.2.1:
     resolution: {integrity: sha512-0z3j8R7MCjy10kc/g+qg7Ln3alJTodw9aDuVWZa3uiWqfuBMKeAeP2ocWcxoyM3D73yz3Jt/Pu4qPr4wHSdB/Q==}
+
+  truncate-url@3.0.0:
+    resolution: {integrity: sha512-wA5wjXMMSSKguMBdOhkLxtUvEE8x6Dc4qE0VB0WxDq5lGYU2m9ilDjMnM/kn1S0FdfyvPZjCJiDoLxzAsZ3+PQ==}
+    engines: {node: '>=20'}
 
   ts-api-utils@2.0.0:
     resolution: {integrity: sha512-xCt/TOAc+EOHS1XPnijD3/yzpH6qg2xppZO1YDqGoVsNXfQfzHpOdNuXwrwOU8u4ITXJyDCTyt8w5g1sZv9ynQ==}
@@ -27045,6 +27052,8 @@ snapshots:
   trough@2.2.0: {}
 
   true-case-path@2.2.1: {}
+
+  truncate-url@3.0.0: {}
 
   ts-api-utils@2.0.0(typescript@5.7.3):
     dependencies:
