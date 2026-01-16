@@ -78,5 +78,7 @@ const languageColors = {
   }
 }
 
+languageColors.html = languageColors.json
+
 languageColors.headers = languageColors.json
 languageColors.cli = languageColors.bash

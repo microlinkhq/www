@@ -85,7 +85,8 @@ const CustomCodeBlock = styled.pre`
     padding-left: ${props => (props.$showLineNumbers ? '3rem' : '0')};
     font-family: ${fonts.mono};
     font-size: ${fontSizes[0]};
-    line-height: ${lineHeights[4]};
+    line-height: ${props =>
+      props.$language === 'bash' ? lineHeights[0] : lineHeights[4]};
     tab-size: 2;
   }
 
@@ -150,6 +151,7 @@ export const Code = ({
 
   return (
     <CustomCodeBlock
+      $language={language}
       css={`
         ${String(highLightLinesSelector)} {
           background: ${cx(isDark ? 'white05' : 'black05')};

@@ -38,7 +38,12 @@ to {
 const fromString = text =>
   Array.isArray(text)
     ? text
-    : text.split(/\r?\n/).map((item, index) => <span key={index}>{item}</span>)
+    : text.split(/\r?\n/).map((item, index) => (
+      <span key={index}>
+        {item}
+        {'\n'}
+      </span>
+    ))
 
 const TerminalHeader = styled('div')`
   background: linear-gradient(
@@ -87,9 +92,9 @@ const TerminalButtonRed = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(1),
-            animationDuration
-          }
+          animationDelay: animationDelay(1),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -115,9 +120,9 @@ const TerminalButtonGreen = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(3),
-            animationDuration
-          }
+          animationDelay: animationDelay(3),
+          animationDuration
+        }
         : undefined
     }
     {...props}

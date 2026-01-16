@@ -13,7 +13,7 @@ import { CodeInline } from 'components/markdown/CodeInline'
 import Choose from 'components/elements/Choose'
 import { CheckCircle, XCircle } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
-import Terminal from 'components/elements/Terminal/Terminal'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 export const Metatags = ({ metadata }) => {
   const breakpoint = useBreakpoint()
@@ -42,19 +42,20 @@ export const Metatags = ({ metadata }) => {
                 color: 'black60'
               })}
             >
-              Copy the fix. Apply to your site. Come Back.
+              Copy the fix. Apply to your site & come back.
             </Text>
           </Box>
 
-          <Terminal>
+          <CodeEditor language='html'>
             {[
-              '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />',
-              '<link rel="icon" type="image/svg+xml" href="/favicon.svg" />',
-              '<link rel="shortcut icon" href="/favicon.ico" />',
-              '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />',
-              '<link rel="manifest" href="/site.webmanifest" />'
+              '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">',
+              '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+              '<link rel="shortcut icon" href="/favicon.ico">',
+              '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">',
+              '<link rel="manifest" href="/site.webmanifest">',
+              '<meta name="generator" content="Microlink">'
             ].join('\n')}
-          </Terminal>
+          </CodeEditor>
         </Box>
       )}
 
