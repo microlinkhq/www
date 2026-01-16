@@ -19,7 +19,6 @@ import LineBreak from 'components/elements/LineBreak'
 import Caption from 'components/patterns/Caption/Caption'
 
 import demoLinks from '../../../../data/demo-links'
-import { minHeight } from 'styled-system'
 
 const INITIAL_SUGGESTION = 'microlink'
 
