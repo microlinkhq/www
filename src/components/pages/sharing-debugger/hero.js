@@ -19,6 +19,7 @@ import LineBreak from 'components/elements/LineBreak'
 import Caption from 'components/patterns/Caption/Caption'
 
 import demoLinks from '../../../../data/demo-links'
+import { minHeight } from 'styled-system'
 
 const INITIAL_SUGGESTION = 'microlink'
 
@@ -158,7 +159,6 @@ export const Hero = () => {
                           suggestions={SUGGESTIONS}
                           value={inputUrl}
                           onChange={event => setInputUrl(event.target.value)}
-                          autoFocus={!query.url}
                         />
                       </Box>
                       <Button
@@ -202,9 +202,11 @@ export const Hero = () => {
                               color: isActive ? 'black' : 'black40',
                               display: 'flex',
                               height: '20px',
+                              width: '20px',
+                              minWidth: '20px',
+                              minHeight: '20px',
                               justifyContent: 'center',
                               p: 0,
-                              width: '20px',
                               _hover: {
                                 color: 'black',
                                 border: 0,

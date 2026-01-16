@@ -26,7 +26,7 @@ export const Metatags = ({ metadata }) => {
   return (
     <Box css={theme({ m: 0 })}>
       {issues.length > 0 && (
-        <Box css={theme({ pt: 4 })}>
+        <Box css={theme({ pt: 4, px: [2, 0] })}>
           <Box css={theme({ textAlign: 'center', pb: 3 })}>
             <Text
               css={theme({
@@ -59,7 +59,7 @@ export const Metatags = ({ metadata }) => {
         </Box>
       )}
 
-      <Box css={theme({ pt: 4 })}>
+      <Box css={theme({ pt: 4, px: [2, 0] })}>
         <Box css={theme({ textAlign: 'center', pb: 3 })}>
           <Text
             css={theme({
@@ -91,10 +91,11 @@ export const Metatags = ({ metadata }) => {
                 key={index}
                 css={theme({
                   mt: index > 0 ? 3 : 0,
-                  maxWidth: layout.small,
+                  maxWidth: ['100%', layout.small],
                   mx: 'auto',
+                  px: [2, 0],
                   bg,
-                  p: 3
+                  p: [2, 3]
                 })}
               >
                 <Flex css={theme({ gap: 2 })}>
