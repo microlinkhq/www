@@ -128,7 +128,18 @@ Ensure accessibility with proper semantic HTML and ARIA attributes:
 </MenuButton>
 ```
 
-### 10. Export Pattern
+### 10. Prefer the Link Component
+
+Use `components/elements/Link` instead of raw `<a>` for navigation and links.
+It handles Gatsby prefetching, external targets, and analytics.
+
+```javascript
+import { Link } from 'components/elements/Link'
+
+<Link href='/docs'>Docs</Link>
+```
+
+### 11. Export Pattern
 
 For components with variants, export both the enhanced and base versions:
 

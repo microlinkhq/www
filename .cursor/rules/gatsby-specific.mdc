@@ -1,5 +1,5 @@
 ---
-description: Gatsby-specific patterns and conventions for this project
+description: Gatsby-specific patterns and conventions for this
 ---
 
 # Gatsby-Specific Conventions
@@ -30,7 +30,7 @@ Files in [src/pages/](mdc:src/pages/) automatically become routes:
 
 ```javascript
 import React from 'react'
-import { Layout } from 'components/patterns/Layout'
+import Layout from 'components/patterns/Layout'
 
 const PageName = () => {
   return (
@@ -43,9 +43,11 @@ const PageName = () => {
 export default PageName
 ```
 
-### Markdown Pages
+### MDX Content Pages
 
-For documentation and blog posts, use `.md` files:
+Docs and blog content live in [src/content/](mdc:src/content/). These MDX
+files are turned into pages by [gatsby-node.js](mdc:gatsby-node.js) using
+[src/templates/index.js](mdc:src/templates/index.js).
 
 ```markdown
 ---
@@ -57,6 +59,11 @@ Content here...
 ```
 
 Processed by `gatsby-plugin-mdx` (v5).
+
+Notes:
+- `src/content/fragments/` is for partials and is excluded from page creation.
+- Frontmatter commonly includes: `title`, `subtitle`, `description`, `date`,
+  `lastEdited`, `isPro`.
 
 ## Templates
 
@@ -114,6 +121,17 @@ exports.createPages = async ({ actions, graphql }) => {
     })
   })
 }
+```
+
+### Head and Meta
+
+Use Gatsby's `Head` export for SEO and structured data. Default to
+`components/elements/Meta/Meta` for meta tags.
+
+```javascript
+import Meta from 'components/elements/Meta/Meta'
+
+export const Head = () => <Meta title='Page title' description='...' />
 ```
 
 ## Data Management
@@ -198,7 +216,7 @@ See examples: [healthcheck-fragment.js](mdc:src/components/hook/healthcheck-frag
 ### Development
 
 ```bash
-npm run dev
+pnpm run dev
 # Starts dev server at http://localhost:8000
 # GraphQL explorer at http://localhost:8000/___graphql
 ```
@@ -206,17 +224,17 @@ npm run dev
 ### Build
 
 ```bash
-npm run build
-# 1. Runs `npm run build:data` (fetches external data)
+pnpm run build
+# 1. Runs `pnpm run build:data` (fetches external data)
 # 2. Builds Gatsby site to `public/`
 ```
 
 ### Clean Build
 
 ```bash
-npm run clean:build  # Clear Gatsby cache
-npm run clean:data   # Clear generated data
-npm run clean        # Full clean including node_modules
+pnpm run clean:build  # Clear Gatsby cache
+pnpm run clean:data   # Clear generated data
+pnpm run clean        # Full clean including node_modules
 ```
 
 ## Plugins
