@@ -6,10 +6,7 @@ import Footer from './Footer/Footer'
 import { noop } from 'helpers/noop'
 import React from 'react'
 
-import {
-  BreakpointProvider,
-  useBreakpoint
-} from 'components/hook/use-breakpoint'
+import { useBreakpoint } from 'components/hook/use-breakpoint'
 
 import themeSpec, { theme as themeProp } from 'theme'
 
@@ -38,39 +35,36 @@ const Layout = ({
   const breakpoint = useBreakpoint()
 
   return (
-    <BreakpointProvider>
-      <ThemeProvider theme={themeSpec}>
-        <Flex
-          data-breakpoint={breakpoint}
-          onClick={onClick}
-          style={style}
+    <ThemeProvider theme={themeSpec}>
+      <Flex
+        data-breakpoint={breakpoint}
+        onClick={onClick}
+        style={style}
+        css={themeProp({
+          flexDirection: 'column',
+          'overflow-x': 'hidden',
+          'min-height': '100vh'
+        })}
+      >
+        <Toolbar as='header' isDark={isDark} style={style} />
+        <Box
+          as='main'
           css={themeProp({
-            flexDirection: 'column',
-            'overflow-x': 'hidden',
-            'min-height': '100vh'
+            pt: TOOLBAR_HEIGHTS,
+            flex: 1,
+            overflow: 'visible'
           })}
+          {...props}
         >
-          <Toolbar as='header' isDark={isDark} style={style} />
-
-          <Box
-            as='main'
-            css={themeProp({
-              pt: TOOLBAR_HEIGHTS,
-              flex: 1,
-              overflow: 'visible'
-            })}
-            {...props}
-          >
-            {children}
+          {children}
+        </Box>
+        {footer && (
+          <Box as='footer' className='hidden-print'>
+            <Footer isDark={isDark} {...footer} />
           </Box>
-          {footer && (
-            <Box as='footer' className='hidden-print'>
-              <Footer isDark={isDark} {...footer} />
-            </Box>
-          )}
-        </Flex>
-      </ThemeProvider>
-    </BreakpointProvider>
+        )}
+      </Flex>
+    </ThemeProvider>
   )
 }
 
