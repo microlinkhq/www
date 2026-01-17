@@ -51,7 +51,7 @@ const UserAgentsPage = () => {
           <Heading
             css={theme({ px: 5, maxWidth: layout.large, textAlign: 'center' })}
           >
-            User Agents
+            User Agent List
           </Heading>
           <Caption
             forwardedAs='h2'
@@ -148,14 +148,17 @@ const UserAgentsPage = () => {
               )
             },
             {
-              question: 'Why do I need a user-agent list?',
+              question: 'Why do I need an updated user-agent list?',
               answer: (
                 <>
                   <div>
-                    Rotating User Agents is critical for web scraping and
+                    Browsers have aggressive release cycles.
+                    {' '}<b>Rotating User Agents</b> is critical for web scraping and
                     automation. By randomizing the User Agent header, you mimic
-                    organic traffic and reduce the risk of being blocked by WAFs
-                    (Web Application Firewalls) or anti-bot measures.
+                    organic traffic and reduce the risk of being blocked by{' '}
+                    <Link href='https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/'>WAFs</Link>{' '}
+                    (Web Application Firewalls) or anti-bot measures. You can use
+                    this list to rotate the User Agent header in your project.
                   </div>
                 </>
               )
@@ -173,7 +176,7 @@ const UserAgentsPage = () => {
               )
             },
             {
-              question: 'How do I use these user agents?',
+              question: 'How do I use these user agents list on my project?',
               answer: (
                 <>
                   <div>
@@ -181,6 +184,24 @@ const UserAgentsPage = () => {
                     terminal to copy the entire list as JSON. You can then use
                     it in your code, for example, when setting the{' '}
                     <code>User-Agent</code> header in an HTTP request.
+                  </div>
+                </>
+              )
+            },
+            {
+              question: 'Is there an API for this list?',
+              answer: (
+                <>
+                  <div>
+                    Yes, you can get the full list in the following endpoint:
+                  </div>
+                  <Terminal css={theme({ my: 3 })} blinkCursor={false}>
+                    curl -L microlink.io/user-agents.json
+                  </Terminal>
+                  <div>
+                    It's CORS-enabled and ready for direct integration into any
+                    frontend or backend application, ensuring your project
+                    always has access to the most up-to-date strings.
                   </div>
                 </>
               )
@@ -214,24 +235,6 @@ const UserAgentsPage = () => {
                     Linux) and Mobile (Android, iOS) strings. Using a Mobile
                     User Agent is often effective for scraping simpler HTML
                     versions of complex websites or testing responsive designs.
-                  </div>
-                </>
-              )
-            },
-            {
-              question: 'Is there an API for this list?',
-              answer: (
-                <>
-                  <div>
-                    Yes, you can get the full list in the following endpoint:
-                  </div>
-                  <Terminal css={theme({ my: 3 })} blinkCursor={false}>
-                    curl -L microlink.io/user-agents.json
-                  </Terminal>
-                  <div>
-                    It's CORS-enabled and ready for direct integration into any
-                    frontend or backend application, ensuring your project
-                    always has access to the most up-to-date strings.
                   </div>
                 </>
               )
