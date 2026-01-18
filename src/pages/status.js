@@ -13,7 +13,7 @@ import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
 import Text from 'components/elements/Text'
 
-const DAYS_TO_SHOW = 368
+const DAYS_TO_SHOW = 365
 
 // Mock reasons for outages and degraded performance
 const OUTAGE_REASONS = [
@@ -40,7 +40,7 @@ const generateMockAvailability = () => {
   const days = []
   const today = new Date()
 
-  for (let i = DAYS_TO_SHOW - 1; i >= 0; i--) {
+  for (let i = DAYS_TO_SHOW; i >= 0; i--) {
     const date = new Date(today)
     date.setDate(date.getDate() - i)
 
@@ -168,10 +168,10 @@ const AvailabilityBar = ({ days }) => {
   }
 
   const rowDefault = 92
-  const firstRow = days.slice(0, rowDefault - 1)
+  const firstRow = days.slice(0, rowDefault)
   const secondRow = days.slice(rowDefault - 1, rowDefault * 2 - 1)
   const thirdRow = days.slice(rowDefault * 2 - 1, rowDefault * 3 - 1)
-  const fourthRow = days.slice(rowDefault * 3 - 1) // Include all remaining days including today
+  const fourthRow = days.slice(rowDefault * 3 - 1)
 
   const renderBarRow = (rowDays, startIndex) => (
     <Flex
@@ -184,13 +184,15 @@ const AvailabilityBar = ({ days }) => {
         const bgColor = getStatusColor(day.status)
         const actualIndex = startIndex + index
 
+        const isLastDay = actualIndex === DAYS_TO_SHOW
+
         return (
           <Box
             key={day.date}
             onMouseEnter={e => handleMouseEnter(actualIndex, e)}
             onMouseLeave={handleMouseLeave}
             style={{
-              width: `${barWidth}px`,
+              width: isLastDay ? `${barWidth * 2 + barGap}px` : `${barWidth}px`,
               height: `${barHeight}px`,
               backgroundColor: bgColor,
               borderRadius: '2px',
@@ -274,7 +276,7 @@ const ApiAvailability = () => {
             m: 0
           })}
         >
-          365 days ago
+          {DAYS_TO_SHOW} days ago
       </Text>
 
       {/* Availability Bar Chart */}
