@@ -98,6 +98,55 @@ const getStatusColor = status => {
 }
 
 const Tooltip = ({ day, isVisible, position }) => {
+  const tooltipRef = useRef(null)
+  const [adjustedStyle, setAdjustedStyle] = useState(null)
+
+  useEffect(() => {
+    if (!isVisible || !day || !position) {
+      setAdjustedStyle(null)
+      return
+    }
+
+    const timeoutId = setTimeout(() => {
+      if (!tooltipRef.current) return
+
+      const tooltip = tooltipRef.current
+      const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
+      const padding = 8
+
+      const tooltipRect = tooltip.getBoundingClientRect()
+      const tooltipWidth = tooltipRect.width || 200
+      const tooltipHeight = tooltipRect.height || 100
+
+      let left = position.x
+      let top = position.y + 42
+      let transform = 'translateX(-50%)'
+
+      const halfWidth = tooltipWidth / 2
+      if (left - halfWidth < padding) {
+        left = padding + halfWidth
+      } else if (left + halfWidth > viewportWidth - padding) {
+        left = viewportWidth - padding - halfWidth
+      }
+
+      if (top + tooltipHeight > viewportHeight - padding) {
+        top = position.y - tooltipHeight - 8
+        if (top < padding) {
+          top = viewportHeight - tooltipHeight - padding
+        }
+      }
+
+      setAdjustedStyle({
+        left: `${left}px`,
+        top: `${top}px`,
+        transform
+      })
+    }, 0)
+
+    return () => clearTimeout(timeoutId)
+  }, [isVisible, position, day])
+
   if (!isVisible || !day || !position) return null
 
   const formatDate = dateStr => {
@@ -125,13 +174,17 @@ const Tooltip = ({ day, isVisible, position }) => {
     tooltipContent = `Degraded\n${formatDate(day.date)}\n${day.reason}\nDowntime: ${formatDowntime(day.downtime)}`
   }
 
+  const initialStyle = {
+    left: `${position.x}px`,
+    top: `${position.y + 42}px`,
+    transform: 'translateX(-50%)'
+  }
+
   const tooltipElement = (
     <div
+      ref={tooltipRef}
       style={{
         position: 'fixed',
-        left: `${position.x}px`,
-        top: `${position.y + 42}px`,
-        transform: 'translateX(-50%)',
         padding: '8px 12px',
         backgroundColor: '#000',
         color: '#fff',
@@ -143,8 +196,11 @@ const Tooltip = ({ day, isVisible, position }) => {
         pointerEvents: 'none',
         boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
         minWidth: '200px',
+        maxWidth: 'calc(100vw - 16px)',
         textAlign: 'left',
-        lineHeight: '1.6'
+        lineHeight: '1.6',
+        wordBreak: 'break-word',
+        ...(adjustedStyle || initialStyle)
       }}
     >
       {tooltipContent}
@@ -165,13 +221,17 @@ const AvailabilityBar = ({ days }) => {
   const barHeight = 32
   const transitionStyle = transition.short
 
-  const handleMouseEnter = (index, event) => {
+  const updateTooltipPosition = (index, event) => {
     setHoveredIndex(index)
     const rect = event.currentTarget.getBoundingClientRect()
     setTooltipPosition({
       x: rect.left + rect.width / 2,
       y: rect.top
     })
+  }
+
+  const handleMouseEnter = (index, event) => {
+    updateTooltipPosition(index, event)
   }
 
   const handleMouseLeave = () => {
