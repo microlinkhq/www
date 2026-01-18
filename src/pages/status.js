@@ -122,7 +122,7 @@ const Tooltip = ({ day, isVisible, position }) => {
 
       let left = position.x
       let top = position.y + 42
-      let transform = 'translateX(-50%)'
+      const transform = 'translateX(-50%)'
 
       const halfWidth = tooltipWidth / 2
       if (left - halfWidth < padding) {
