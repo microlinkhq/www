@@ -2,7 +2,7 @@ import ClusterMonitor from 'components/patterns/ClusterMonitor/ClusterMonitor'
 import Layout from 'components/patterns/Layout'
 import { useQueryState } from 'components/hook/use-query-state'
 import { cdnUrl } from 'helpers/cdn-url'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { css, keyframes } from 'styled-components'
 import { theme as themeProp, transition } from 'theme'
@@ -16,7 +16,6 @@ import Text from 'components/elements/Text'
 
 const DAYS_TO_SHOW = 365
 
-// Pulsing blip animation for live indicator
 const blip = keyframes`
   0%, 100% {
     opacity: 1;
@@ -95,6 +94,8 @@ const generateMockAvailability = () => {
   return { days, uptime: totalUptime.toFixed(3) }
 }
 
+
+
 const getStatusColor = status => {
   if (status === 'operational') return '#40c057' // green6
   if (status === 'degraded') return '#fab005' // yellow6
@@ -163,6 +164,7 @@ const Tooltip = ({ day, isVisible, position }) => {
 const AvailabilityBar = ({ days }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null)
   const [tooltipPosition, setTooltipPosition] = useState(null)
+  const scrollContainerRef = useRef(null)
   const barWidth = 9
   const barGap = 2
   const barHeight = 32
@@ -187,6 +189,13 @@ const AvailabilityBar = ({ days }) => {
   const secondRow = days.slice(rowDefault - 1, rowDefault * 2 - 1)
   const thirdRow = days.slice(rowDefault * 2 - 1, rowDefault * 3 - 1)
   const fourthRow = days.slice(rowDefault * 3 - 1)
+
+  useEffect(() => {
+    // Scroll to the right end to show the last bar (today)
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth
+    }
+  }, [])
 
   const renderBarRow = (rowDays, startIndex) => (
     <Flex
@@ -235,13 +244,12 @@ const AvailabilityBar = ({ days }) => {
   return (
     <>
       <Box
-        css={[
-          themeProp({
-            mt: 1,
-            pb: 2,
-            'overflow-y': 'auto'
-          })
-        ]}
+        ref={scrollContainerRef}
+        css={themeProp({
+          mt: 1,
+          pb: 2,
+          overflowX: 'auto'
+        })}
       >
         <Flex
           css={themeProp({
@@ -261,7 +269,7 @@ const AvailabilityBar = ({ days }) => {
       {hoveredIndex !== null && (
         <Tooltip
           day={days[hoveredIndex]}
-          isVisible
+          isVisible={true}
           position={tooltipPosition}
         />
       )}
@@ -289,7 +297,7 @@ const ApiAvailability = () => {
       css={themeProp({
         mt: 2,
         width: ['100%'],
-        maxWidth: '1010px',
+        maxWidth: '1010px', // the sum of the 92 bars and the gaps between them
         mx: 'auto'
       })}
     >
@@ -299,14 +307,14 @@ const ApiAvailability = () => {
       </Monospace>
 
       <Text
-        css={themeProp({
-          color: 'black',
-          fontFamily: 'monospace',
-          fontSize: [0, null, 1],
-          m: 0
-        })}
-      >
-        {DAYS_TO_SHOW} days ago
+          css={themeProp({
+            color: 'black',
+            fontFamily: 'monospace',
+            fontSize: [0, null, 1],
+            m: 0
+          })}
+        >
+          {DAYS_TO_SHOW} days ago
       </Text>
 
       {/* Availability Bar Chart */}
