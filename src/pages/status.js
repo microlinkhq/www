@@ -95,8 +95,6 @@ const generateMockAvailability = () => {
   return { days, uptime: totalUptime.toFixed(3) }
 }
 
-
-
 const getStatusColor = status => {
   if (status === 'operational') return '#40c057' // green6
   if (status === 'degraded') return '#fab005' // yellow6
@@ -237,10 +235,13 @@ const AvailabilityBar = ({ days }) => {
   return (
     <>
       <Box
-        css={themeProp({
-          mt: 1,
-          pb: 2
-        })}
+        css={[
+          themeProp({
+            mt: 1,
+            pb: 2,
+            'overflow-y': 'auto'
+          })
+        ]}
       >
         <Flex
           css={themeProp({
@@ -260,7 +261,7 @@ const AvailabilityBar = ({ days }) => {
       {hoveredIndex !== null && (
         <Tooltip
           day={days[hoveredIndex]}
-          isVisible={true}
+          isVisible
           position={tooltipPosition}
         />
       )}
@@ -288,7 +289,7 @@ const ApiAvailability = () => {
       css={themeProp({
         mt: 2,
         width: ['100%'],
-        maxWidth: '1000px',
+        maxWidth: '1010px',
         mx: 'auto'
       })}
     >
@@ -298,14 +299,14 @@ const ApiAvailability = () => {
       </Monospace>
 
       <Text
-          css={themeProp({
-            color: 'black',
-            fontFamily: 'monospace',
-            fontSize: [0, null, 1],
-            m: 0
-          })}
-        >
-          {DAYS_TO_SHOW} days ago
+        css={themeProp({
+          color: 'black',
+          fontFamily: 'monospace',
+          fontSize: [0, null, 1],
+          m: 0
+        })}
+      >
+        {DAYS_TO_SHOW} days ago
       </Text>
 
       {/* Availability Bar Chart */}
