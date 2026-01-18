@@ -31,7 +31,6 @@ const blipReduced = keyframes`
   }
 `
 
-// Mock reasons for outages and degraded performance
 const OUTAGE_REASONS = [
   'Database connection timeout',
   'CDN provider outage',
@@ -71,14 +70,12 @@ const generateMockAvailability = () => {
       status = 'outage'
       uptime = Math.random() * 50
       reason = OUTAGE_REASONS[Math.floor(Math.random() * OUTAGE_REASONS.length)]
-      // Mock downtime duration in minutes
-      downtime = Math.floor(Math.random() * 480) + 30 // 30 minutes to 8 hours
+      downtime = Math.floor(Math.random() * 480) + 30
     } else if (random > 0.98) {
       status = 'degraded'
       uptime = 90 + Math.random() * 10
       reason = DEGRADED_REASONS[Math.floor(Math.random() * DEGRADED_REASONS.length)]
-      // Mock downtime duration in minutes for degraded
-      downtime = Math.floor(Math.random() * 180) + 15 // 15 minutes to 3 hours
+      downtime = Math.floor(Math.random() * 180) + 15
     }
 
     days.push({
@@ -93,8 +90,6 @@ const generateMockAvailability = () => {
   const totalUptime = days.reduce((acc, day) => acc + day.uptime, 0) / days.length
   return { days, uptime: totalUptime.toFixed(3) }
 }
-
-
 
 const getStatusColor = status => {
   if (status === 'operational') return '#40c057' // green6
@@ -191,7 +186,6 @@ const AvailabilityBar = ({ days }) => {
   const fourthRow = days.slice(rowDefault * 3 - 1)
 
   useEffect(() => {
-    // Scroll to the right end to show the last bar (today)
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth
     }
@@ -269,7 +263,7 @@ const AvailabilityBar = ({ days }) => {
       {hoveredIndex !== null && (
         <Tooltip
           day={days[hoveredIndex]}
-          isVisible={true}
+          isVisible
           position={tooltipPosition}
         />
       )}
@@ -301,23 +295,22 @@ const ApiAvailability = () => {
         mx: 'auto'
       })}
     >
-      {/* API Availability Row */}
+
       <Monospace css={themeProp({ color: 'black', mb: 2 })}>
         API Availability: {availability.uptime}% uptime
       </Monospace>
 
       <Text
-          css={themeProp({
-            color: 'black',
-            fontFamily: 'monospace',
-            fontSize: [0, null, 1],
-            m: 0
-          })}
-        >
-          {DAYS_TO_SHOW} days ago
+        css={themeProp({
+          color: 'black',
+          fontFamily: 'monospace',
+          fontSize: [0, null, 1],
+          m: 0
+        })}
+      >
+        {DAYS_TO_SHOW} days ago
       </Text>
 
-      {/* Availability Bar Chart */}
       <AvailabilityBar days={availability.days} />
       <Flex
         css={themeProp({
