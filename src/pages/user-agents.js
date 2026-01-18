@@ -1,4 +1,3 @@
-import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
 import Caption from 'components/patterns/Caption/Caption'
 import { formatDate } from 'helpers/format-date'
@@ -20,7 +19,7 @@ import userAgents from '../../static/user-agents.json'
 
 export const Head = () => (
   <Meta
-    title={`The ultimate user-agents list (${new Date().getFullYear()})`}
+    title={`The ultimate user agent list (${new Date().getFullYear()})`}
     description='Most common user-agents used on the Internet up to date'
   />
 )
@@ -36,7 +35,7 @@ const UserAgentsPage = () => {
 
   const data = userAgents[type] || userAgents.user
   return (
-    <DotsBackground>
+    <>
       <Layout>
         <Container
           as='section'
@@ -61,7 +60,7 @@ const UserAgentsPage = () => {
             })}
           >
             A self-updating list of the latest
-            <br />& most common browser agents.
+            <br />& most common user agents.
           </Caption>
           <Caption
             forwardedAs='p'
@@ -134,7 +133,7 @@ const UserAgentsPage = () => {
           css={theme({ pt: [3, 5] })}
           questions={[
             {
-              question: 'What is a user-agent string?',
+              question: 'What is a user agent string?',
               answer: (
                 <>
                   <div>
@@ -148,7 +147,7 @@ const UserAgentsPage = () => {
               )
             },
             {
-              question: 'Why do I need an updated user-agent list?',
+              question: 'Why do I need an updated user agent list?',
               answer: (
                 <>
                   <div>
@@ -256,7 +255,7 @@ const UserAgentsPage = () => {
           ]}
         />
       </Layout>
-    </DotsBackground>
+    </>
   )
 }
 
