@@ -4,6 +4,7 @@ import { useQueryState } from 'components/hook/use-query-state'
 import { cdnUrl } from 'helpers/cdn-url'
 import React, { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { css, keyframes } from 'styled-components'
 import { theme as themeProp, transition } from 'theme'
 
 import Box from 'components/elements/Box'
@@ -14,6 +15,22 @@ import Meta from 'components/elements/Meta/Meta'
 import Text from 'components/elements/Text'
 
 const DAYS_TO_SHOW = 365
+
+// Pulsing blip animation for live indicator
+const blip = keyframes`
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+`
+
+const blipReduced = keyframes`
+  0%, 100% {
+    opacity: 1;
+  }
+`
 
 // Mock reasons for outages and degraded performance
 const OUTAGE_REASONS = [
@@ -181,18 +198,29 @@ const AvailabilityBar = ({ days }) => {
       })}
     >
       {rowDays.map((day, index) => {
-        const bgColor = getStatusColor(day.status)
         const actualIndex = startIndex + index
 
+        const bgColor = getStatusColor(day.status)
         const isLastDay = actualIndex === DAYS_TO_SHOW
+        const width = isLastDay ? `${barWidth * 2 + barGap}px` : `${barWidth}px`
 
         return (
           <Box
             key={day.date}
             onMouseEnter={e => handleMouseEnter(actualIndex, e)}
             onMouseLeave={handleMouseLeave}
+            css={
+              isLastDay
+                ? css`
+                    animation: ${blip} 1.5s ease-in-out infinite;
+                    @media (prefers-reduced-motion: reduce) {
+                      animation: ${blipReduced} 1.5s ease-in-out infinite;
+                    }
+                  `
+                : undefined
+            }
             style={{
-              width: isLastDay ? `${barWidth * 2 + barGap}px` : `${barWidth}px`,
+              width,
               height: `${barHeight}px`,
               backgroundColor: bgColor,
               borderRadius: '2px',
@@ -259,7 +287,8 @@ const ApiAvailability = () => {
     <Box
       css={themeProp({
         mt: 2,
-        width: ['100%', null, '1000px'],
+        width: ['100%'],
+        maxWidth: '1000px',
         mx: 'auto'
       })}
     >
@@ -281,11 +310,9 @@ const ApiAvailability = () => {
 
       {/* Availability Bar Chart */}
       <AvailabilityBar days={availability.days} />
-
-      {/* Timeline Labels */}
       <Flex
         css={themeProp({
-          justifyContent: 'right',
+          justifyContent: 'flex-end',
           mt: 0
         })}
       >
@@ -294,12 +321,14 @@ const ApiAvailability = () => {
             color: 'black',
             fontFamily: 'monospace',
             fontSize: [0, null, 1],
-            m: 0
+            m: 0,
+            textAlign: 'right'
           })}
         >
           Today
         </Text>
       </Flex>
+
     </Box>
   )
 }
