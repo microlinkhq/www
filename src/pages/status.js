@@ -448,12 +448,12 @@ const StatusPage = () => {
                         fontWeight: 'regular',
                         fontFamily: 'mono',
                         lineHeight: 0,
-                        fontSize: 4,
+                        fontSize: 2,
                         pt: [1, null, 2],
                         color: 'black'
                       })}
                     >
-                      Please wait
+                      Fetching latest status
                       <DotSpinner />
                     </Text>
                   </Flex>
