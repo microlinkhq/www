@@ -11,6 +11,7 @@ import Box from 'components/elements/Box'
 import Choose from 'components/elements/Choose'
 import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
+import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 import Text from 'components/elements/Text'
 
@@ -430,6 +431,9 @@ const StatusPage = () => {
             css={{ justifyContent: 'center', alignItems: 'center' }}
           >
             <Box id='status' style={{ padding: '0 16px' }}>
+              <Heading css={themeProp({ mb: 3, mt: [2, null, 0], textAlign: 'center', fontSize: [3, null, 4] })}>
+                Microlink Status
+              </Heading>
               <Choose>
                 <Choose.When condition={isLoading}>
                   <Flex
@@ -456,7 +460,7 @@ const StatusPage = () => {
                 </Choose.When>
                 <Choose.Otherwise>
                   <ApiAvailability />
-                  <Box css={themeProp({ mt: 1 })}>
+                  <Box>
                     <Monospace css={themeProp({ color: 'black' })}>
                       {resume}
                     </Monospace>
