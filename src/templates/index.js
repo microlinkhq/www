@@ -53,7 +53,6 @@ const Template = ({ pageContext, children, ...props }) => {
     frontmatter = {}
   } = pageContext
   const date = frontmatter.date ?? lastEdited
-
   if (!isDocPage) {
     return (
       <PageTemplate

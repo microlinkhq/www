@@ -55,7 +55,7 @@ const PageTemplate = ({
                     mb: subtitle ? 1 : undefined
                   })}
                 >
-                  <PostTitle>{titleize(title)}</PostTitle>
+                  <PostTitle>{title}</PostTitle>
                 </H1>
                 {subtitle && (
                   <H2
