@@ -68,10 +68,10 @@ const PageTemplate = ({
                   </H2>
                 )}
                 <Caption
-                  forwardedAs='h3'
+                  forwardedAs='p'
                   css={theme({
                     color: 'black60',
-                    textAlign: ['center', 'inherit']
+                    fontSize: 2
                   })}
                 >
                   {formatDate(date)} (<TimeAgo date={date} />)
@@ -85,8 +85,11 @@ const PageTemplate = ({
                   {title}
                 </Heading>
                 {lastEdited && (
-                  <Caption forwardedAs='h2' css={theme({ fontSize: 2, pt: 4 })}>
-                    Last updated on {formatDate(new Date(lastEdited))}
+                  <Caption
+                    forwardedAs='p'
+                    css={theme({ fontSize: 2, pt: 4, color: 'black60' })}
+                  >
+                    Last updated on {formatDate(lastEdited)}
                   </Caption>
                 )}
               </Choose.Otherwise>

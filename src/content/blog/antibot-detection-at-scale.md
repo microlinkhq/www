@@ -3,23 +3,35 @@ title: 'Antibot detection at scale'
 description: 'Master antibot detection at scale. Learn how to bypass Cloudflare, DataDome, Akamai, PerimeterX, Shape Security, Kasada, AWS WAF, and more, including CAPTCHA providers like reCAPTCHA and hCaptcha using Microlink.'
 date: '2026-01-04'
 ---
-
 import { CodeEditor } from 'components/markdown/CodeEditor'
+import { Link } from 'components/elements/Link'
+
+![](/images/hiRLMQQ.jpeg)
+
+If you’re building crawlers, scrapers, link previews, or metadata pipelines, you’re constantly interacting with defenses designed to stop you. And they’re good—often invisible until they suddenly aren’t.
+
+Today, we’re releasing <Link href="https://github.com/microlinkhq/is-antibot" logoIcon externalIcon>is-antibot</Link>, an open-source, dependency-free utility for detecting when responses are blocked by antibot systems at scale.
+
+It’s open source, dependency-free, and built to work at scale.
 
 <CodeEditor title='microlinkhq/is-antibot' language='bash'>
   {`# https://github.com/microlinkhq/is-antibot
 npm install is-antibot --save`}
 </CodeEditor>
 
-Trying to get HTML from popular sites like **LinkedIn**, **Instagram**, or **YouTube** can be a frustrating experience. 
+For users of the <Link href="/docs/api/getting-started/overview">Microlink API</Link>, this means fewer retries, cleaner data, and predictable behavior at scale by understanding why requests fail.
 
-You write your scraper, set up your requests, and then—boom—you hit a "403 Forbidden", a "429 Too Many Requests", or a "Please prove you're human" challenge.
+## The problem
 
-## Why you can't get HTML from popular sites
+You deploy a scraper. Requests look fine. Headers are set. TLS is valid.
 
-Websites receiving massive quantities of traffic throughout the day have sophisticated antibot systems to prevent automated access.
+Then suddenly:
 
-These systems are often powered by providers like:
+- 403 Forbidden
+- 429 Too Many Requests
+- A *“Please prove you’re human”* challenge
+
+These blocks are rarely random. They’re usually enforced by dedicated antibot providers such as:
 
 - **Cloudflare**: Uses challenge pages ("Just a moment...") and IP reputation scoring.
 - **DataDome**: Analyzes request signatures to block scrapers in real-time.
@@ -31,7 +43,7 @@ These systems are often powered by providers like:
 - **Imperva/Incapsula**: Web application firewall with bot detection capabilities.
 - **AWS WAF**: Amazon Web Services Web Application Firewall with bot control rules.
 
-Additionally, many sites use CAPTCHA providers to verify human interaction:
+Many sites also rely on CAPTCHA providers to verify human interaction:
 
 - **reCAPTCHA**: Google's CAPTCHA service (v2 and v3).
 - **hCaptcha**: Privacy-focused CAPTCHA alternative.
@@ -39,29 +51,31 @@ Additionally, many sites use CAPTCHA providers to verify human interaction:
 - **GeeTest**: AI-powered CAPTCHA system.
 - **Cloudflare Turnstile**: Privacy-preserving CAPTCHA alternative.
 
-When you try to fetch the HTML of these sites without the right tools, you often end up with a blocked response that contains no useful data, just the challenge itself.
+The missing piece isn’t bypassing antibot systems: It’s knowing when you’ve hit one.
 
-## How bot protection works
+## Antibot is no longer just CAPTCHA
 
-Antibot systems act as a gatekeeper between your request and the website's content. To determine if a visitor is a human or a bot, they analyze several layers of information from every incoming request:
+Modern antibot systems operate at multiple layers—often before your request even reaches application code.
 
-- **IP Reputation**: They check if the request comes from a known data center (like AWS or Google Cloud) rather than a residential ISP. Data center IPs are often flagged as suspicious by default.
-- **HTTP Headers**: Systems verify that headers are consistent with a real browser. A missing `User-Agent` or an unusual `Accept-Language` header can trigger a challenge.
-- **TLS Fingerprinting**: Even before the HTTP request is processed, the way your client negotiates the TLS connection (JA3 fingerprint) can reveal if you are using a library like `axios` or `curl` instead of a real browser.
-- **Behavioral Analysis**: They monitor how the visitor interacts with the page. Humans have unpredictable mouse movements and scroll patterns, while bots often follow rigid, programmatic paths.
-- **Browser Fingerprinting**: Advanced systems run small JavaScript snippets to check your browser's capabilities, such as canvas rendering, WebGL support, and screen resolution, ensuring they match the declared `User-Agent`.
+Common signals include:
 
-Based on the signals gathered, the antibot system makes a real-time decision on how to handle the request:
+- **IP reputation**: Data-center IPs are flagged by default. Residential traffic behaves differently.
+- **HTTP consistency**: Headers must match a real browser profile—not just User-Agent, but the full set.
+- **TLS fingerprints (JA3)**: The way a client negotiates TLS leaks whether it’s a browser or a script.
+- **Behavioral heuristics**: Timing, navigation order, and interaction patterns matter.
+- **JavaScript fingerprinting**: Canvas, WebGL, fonts, screen size—small inconsistencies are enough.
 
-- **Allow**: If the heuristics indicate a legitimate human visitor, the request is passed through to the target website.
-- **Block**: If the request is highly suspicious (e.g., coming from a known malicious IP or with a broken TLS fingerprint), it is blocked immediately with a `403 Forbidden` or `429 Too Many Requests` error.
-- **Challenge**: If the system is unsure, it serves a "challenge"—such as a CAPTCHA or a JavaScript-based interstitial—that must be resolved before the actual content is released.
+Based on these signals, a request is either:
 
-## How we detect Antibot protection
+- **Allowed**: If the heuristics indicate a legitimate human visitor, the request is passed through to the target website.
+- **Blocked**: If the request is highly suspicious (e.g., coming from a known malicious IP or with a broken TLS fingerprint), it is blocked immediately with a `403 Forbidden` or `429 Too Many Requests` error.
+- **Challenged**: If the system is unsure, it serves a "challenge"—such as a CAPTCHA or a JavaScript-based interstitial—that must be resolved before the actual content is released.
 
-Knowing that you've been blocked is the first step toward a solution. Traditional scrapers often fail because they don't even realize they've been intercepted by a challenge page, leading to empty data or silent failures.
+## Detecting the invisible
 
-We developed [is-antibot](https://github.com/microlinkhq/is-antibot), a lightweight, vendor-agnostic JavaScript library that identifies when a response is actually an antibot challenge from Cloudflare, Akamai, DataDome, Vercel, PerimeterX, Shape Security, Kasada, Imperva, AWS WAF, and more, including CAPTCHA providers like reCAPTCHA, hCaptcha, FunCaptcha, GeeTest, and Cloudflare Turnstile. 
+Our library <Link href="https://github.com/microlinkhq/is-antibot" logoIcon externalIcon>is-antibot</Link> doesn’t try to solve challenges.
+
+It does something more fundamental: it tells you that a challenge happened and who triggered it:
 
 ```js
 const isAntibot = require('is-antibot')
@@ -74,6 +88,43 @@ if (detected) {
 }
 ```
 
-Once a block is detected, the real complexity begins. A challenge from one provider requires a completely different resolution strategy than a block from another. Each system has its own set of rules, and a "one size fits all" approach simply doesn't work when you are scraping at scale.
+Under the hood, it inspects:
 
-This is where the Microlink magic happens: we don't just detect the block; we understand which specific system is standing in your way and apply the exact behavior needed to resolve it.
+- HTTP status patterns
+- Known challenge signatures
+- Response headers and body markers
+- Provider-specific fingerprints
+
+The result is deterministic and fast—designed to run on every request without becoming the bottleneck.
+
+This detection step is part of how the <Link href="/docs/api/getting-started/overview">Microlink API</Link> decides how to handle blocked requests at scale.
+
+
+## Why detection beats bypassing
+
+Most systems fail because they treat all failures the same.
+
+But antibot systems aren’t interchangeable:
+
+- A Cloudflare JS challenge is not the same as an Akamai edge block
+- CAPTCHA responses differ by provider and version
+- Retry strategies that work for one system amplify detection in another
+
+Once you can identify the blocker, you can:
+
+- adapt your retry strategy to the specific block
+- route requests through alternative IPs or proxies
+- escalate to full browser rendering when needed
+- exit early to avoid wasting resources and costs
+
+Detection is the decision point.
+
+## How this improves Microlink
+
+Antibot detection is one of the first checks in our request flow.
+
+Instead of treating every failure the same, we identify why a request failed and route it through the exact resolution path required for that protection layer. The result:
+
+- fewer retries
+- cleaner data
+- predictable behavior at scale
