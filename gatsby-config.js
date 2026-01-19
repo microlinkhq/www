@@ -3,6 +3,12 @@
 const { URL } = require('url')
 const path = require('path')
 
+const log = (...args) => {
+  if (process.env.DEBUG) {
+    console.log(...args)
+  }
+}
+
 const {
   STRIPE_KEY,
   PAYMENT_API_KEY,
@@ -120,18 +126,20 @@ module.exports = {
                 frontmatter {
                   date
                 }
+                parent {
+                  ... on File {
+                    absolutePath
+                  }
+                }
               }
             }
           }
           allFile(filter: { sourceInstanceName: { eq: "pages" } }) {
             nodes {
+              absolutePath
               relativePath
               relativeDirectory
               name
-              fields {
-                lastmod
-              }
-              modifiedTime
               mtime
             }
           }
@@ -147,8 +155,12 @@ module.exports = {
             mdxPages.forEach(({ node }) => {
               const slug = node.fields?.slug
               const lastmod = node.fields?.lastmod || node.frontmatter?.date
+
               if (slug && lastmod) {
-                const normalizedSlug = slug.endsWith('/') && slug.length > 1 ? slug.slice(0, -1) : slug
+                const normalizedSlug =
+                  slug.endsWith('/') && slug.length > 1
+                    ? slug.slice(0, -1)
+                    : slug
                 mdxMap[normalizedSlug] = lastmod
               }
             })
@@ -174,7 +186,7 @@ module.exports = {
               }
 
               if (pagePath) {
-                const lastmod = file.fields?.lastmod || file.modifiedTime || (file.mtime ? new Date(file.mtime).toISOString() : null)
+                const lastmod = file.fields?.lastmod || file.mtime
                 if (lastmod) {
                   pagesMap[pagePath] = lastmod
                 }
@@ -191,11 +203,9 @@ module.exports = {
             return { ...page, lastmod }
           })
         },
-        serialize: ({ path, lastmod }) => {
-          return {
-            url: path,
-            lastmod
-          }
+        serialize: ({ path: url, lastmod }) => {
+          log({ url, lastmod })
+          return { url, lastmod }
         }
       }
     }

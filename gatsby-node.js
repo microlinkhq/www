@@ -1,23 +1,15 @@
 'use strict'
 
+const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const { createFilePath } = require('gatsby-source-filesystem')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
 const { getDomain } = require('tldts')
-const { promisify } = require('util')
 const path = require('path')
-
-const exec = promisify(require('child_process').exec)
-exec.stdout = (...args) => exec(...args).then(({ stdout }) => stdout.trim())
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
 )
-
-const getLastModifiedDate = filepath =>
-  exec.stdout(`git log --max-count=1 --format="%cI" -- ${filepath}`)
-
-const branchName = () => exec.stdout('git rev-parse --abbrev-ref HEAD')
 
 const githubUrl = (() => {
   return async filepath => {
@@ -57,54 +49,23 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
       name: 'slug',
       value: slug
     })
-  }
 
-  const contentFilePath = node.internal.contentFilePath
-  if (contentFilePath) {
-    try {
-      const lastmod = await getLastModifiedDate(contentFilePath)
-      createNodeField({
-        node,
-        name: 'lastmod',
-        value: lastmod
-      })
-    } catch (error) {
-      const fileNode = getNode(node.parent)
-      if (fileNode && fileNode.mtime) {
-        createNodeField({
-          node,
-          name: 'lastmod',
-          value: new Date(fileNode.mtime).toISOString()
-        })
-      }
-    }
-  }
-
-  if (node.internal.type === 'File' && node.sourceInstanceName === 'pages') {
-    const absolutePath = node.absolutePath
-    if (
-      absolutePath &&
-      (absolutePath.endsWith('.js') || absolutePath.endsWith('.jsx'))
-    ) {
+    const contentFilePath = node.internal.contentFilePath
+    if (contentFilePath) {
       try {
-        const lastmod = await getLastModifiedDate(absolutePath)
+        const lastmod = await getLastModifiedDate(contentFilePath)
         createNodeField({
           node,
           name: 'lastmod',
           value: lastmod
         })
-      } catch (error) {
-        if (node.mtime) {
+      } catch (_) {
+        const fileNode = getNode(node.parent)
+        if (fileNode && fileNode.mtime) {
           createNodeField({
             node,
             name: 'lastmod',
-            value: new Date(node.mtime).toISOString()
-          })
-        } else if (node.modifiedTime) {
-          createNodeField({
-            node,
-            name: 'lastmod',
-            value: new Date(node.modifiedTime).toISOString()
+            value: fileNode.mtime
           })
         }
       }
@@ -218,6 +179,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
     .map(async ({ node }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
       const contentFilePath = node.internal.contentFilePath
+      const lastEdited = await getLastModifiedDate(contentFilePath)
 
       return createPage({
         path: slug,
@@ -229,7 +191,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           description: node.frontmatter.description || node.description,
           frontmatter: node.frontmatter,
           githubUrl: await githubUrl(contentFilePath),
-          lastEdited: await getLastModifiedDate(contentFilePath),
+          lastEdited,
           isBlogPage: node.fields.slug.startsWith('/blog/'),
           isDocPage: node.fields.slug.startsWith('/docs/'),
           slug: node.fields.slug

@@ -1,7 +1,6 @@
 'use strict'
 
 const { readFile, rename } = require('fs/promises')
-const { execSync } = require('child_process')
 const path = require('path')
 const fs = require('fs')
 
@@ -35,6 +34,7 @@ const parseFrontmatter = fileContent => {
  */
 const main = async () => {
   const { slug } = await import('github-slugger')
+  const { mv } = await import('../src/helpers/git')
   const files = process.argv.slice(2)
 
   for (const filepath of files) {
@@ -66,9 +66,9 @@ const main = async () => {
 
           try {
             // Try using git mv for better integration with git
-            execSync(`git mv "${filepath}" "${newPath}"`, { stdio: 'ignore' })
+            await mv(filepath, newPath)
             console.log(`${filepath} -> ${newPath} (git)`)
-          } catch (e) {
+          } catch (_) {
             // Fallback to regular rename if not in git or other error
             await rename(filepath, newPath)
             console.log(`${filepath} -> ${newPath}`)
