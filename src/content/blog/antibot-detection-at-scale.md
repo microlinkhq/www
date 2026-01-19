@@ -1,6 +1,6 @@
 ---
 title: 'Antibot detection at scale'
-description: 'Master antibot detection at scale. Learn how to bypass Cloudflare, DataDome, Akamai, PerimeterX, Shape Security, Kasada, AWS WAF, and more, including CAPTCHA providers like reCAPTCHA and hCaptcha using Microlink.'
+description: "Understand how modern antibot systems block requests and how Microlink detects and handles those failures at scale."
 date: '2026-01-04'
 ---
 import { CodeEditor } from 'components/markdown/CodeEditor'
