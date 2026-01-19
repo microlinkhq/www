@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme } from 'theme'
+import { theme, layout } from 'theme'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import Meta from 'components/elements/Meta/Meta'
@@ -20,11 +20,11 @@ export const Head = () => (
 
 const SharingDebugger = () => {
   return (
-    <Layout>
+    <Layout css={theme({ maxWidth: layout.small, mx: 'auto' })}>
       <Hero />
       {/* <Timings /> */}
       <Faq
-        css={theme({ pt: 0 })}
+        css={theme({ pt: 0, px: 0 })}
         questions={[
           {
             question: 'How it works',

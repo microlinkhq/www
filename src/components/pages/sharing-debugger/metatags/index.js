@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme, layout } from 'theme'
+import { theme } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -59,8 +59,8 @@ export const Metatags = ({ metadata }) => {
         </Box>
       )}
 
-      <Box css={theme({ pt: 4, px: [2, 0] })}>
-        <Box css={theme({ textAlign: 'center', pb: 3 })}>
+      <Box css={theme({ pt: [3, 4] })}>
+        <Box css={theme({ textAlign: 'center', pb: [3, 4] })}>
           <Text
             css={theme({
               fontSize: 3,
@@ -91,7 +91,6 @@ export const Metatags = ({ metadata }) => {
                 key={index}
                 css={theme({
                   mt: index > 0 ? 3 : 0,
-                  maxWidth: ['100%', layout.small],
                   mx: 'auto',
                   px: [2, 0],
                   bg,

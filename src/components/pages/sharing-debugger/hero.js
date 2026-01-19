@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, createElement } from 'react'
-import { theme, layout, space } from 'theme'
+import { theme, space, layout } from 'theme'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
@@ -93,12 +93,15 @@ export const Hero = () => {
           <Box
             as='section'
             id='hero'
-            css={theme({ alignItems: 'center', pt: 2, pb: 0 })}
+            css={theme({
+              pt: 2,
+              pb: 0
+            })}
           >
             <Box id='input'>
               <Container
                 css={theme({
-                  maxWidth: showValidation ? layout.large : layout.normal,
+                  px: 0,
                   pt: 0
                 })}
               >
@@ -115,9 +118,7 @@ export const Hero = () => {
                   <Caption
                     forwardedAs='h2'
                     css={theme({
-                      pt: [3, 3, 4, 4],
-                      px: 4,
-                      maxWidth: layout.small
+                      pt: [3, 3, 4, 4]
                     })}
                   >
                     A tool for verifying the meta tags of any website.
@@ -176,7 +177,7 @@ export const Hero = () => {
               <Box id='previews'>
                 <Container
                   css={theme({
-                    maxWidth: layout.large,
+                    px: 0,
                     pt: 0
                   })}
                 >
@@ -223,7 +224,6 @@ export const Hero = () => {
                   <Flex
                     css={theme({
                       flexDirection: 'column',
-                      gap: 4,
                       pt: 3
                     })}
                   >
@@ -247,6 +247,7 @@ export const Hero = () => {
                         <Box
                           key={key}
                           css={theme({
+                            mx: 'auto',
                             ...(isAll && {
                               p: 3,
                               borderRight: 1,
@@ -281,7 +282,7 @@ export const Hero = () => {
                       <Flex
                         as='section'
                         id='metatags'
-                        css={theme({ width: '100%', justifyContent: 'center' })}
+                        css={theme({ justifyContent: 'center' })}
                       >
                         <Metatags metadata={metadata} />
                       </Flex>
