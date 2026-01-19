@@ -1,23 +1,15 @@
 'use strict'
 
+const { getLastModifiedDate, branchName } = require('./src/helpers/git.js')
 const { createFilePath } = require('gatsby-source-filesystem')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
 const { getDomain } = require('tldts')
-const { promisify } = require('util')
 const path = require('path')
-
-const exec = promisify(require('child_process').exec)
-exec.stdout = (...args) => exec(...args).then(({ stdout }) => stdout.trim())
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
 )
-
-const getLastModifiedDate = filepath =>
-  exec.stdout(`git log --max-count=1 --format="%cI" -- ${filepath}`)
-
-const branchName = () => exec.stdout('git rev-parse --abbrev-ref HEAD')
 
 const githubUrl = (() => {
   return async filepath => {
