@@ -32,10 +32,11 @@ const languageColors = {
       --sh-string: var(--gray9);
       --sh-keyword: var(--gray9);
       --sh-comment: var(--gray9);
+
        .sh__token--bash-command {
          --sh-identifier: var(--link);
        }
-       .sh__token--bash-comment,
+
        .sh__token--bash-comment * {
          color: var(--gray6) !important;
        }
@@ -53,9 +54,11 @@ const languageColors = {
        .sh__token--bash-command {
          --sh-identifier: var(--link);
        }
-       .sh__token--bash-comment,
-       .sh__token--bash-comment * {
-         color: var(--gray5) !important;
+       .sh__token--bash-comment {
+         --sh-sign: var(--gray5);
+         --sh-space: var(--gray5);
+         --sh-identifier: var(--gray5);
+         --sh-comment: var(--gray5);
        }
     `
   },

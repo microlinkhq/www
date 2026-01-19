@@ -43,6 +43,31 @@ const generateHighlightLines = linesRange => {
 const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
 
+const applyBashCommentLineClass = line => {
+  const isBashCommentLine =
+    /^<span class="sh__line">(?:\s|<span[^>]*>)*<span class="sh__token--sign"[^>]*>#<\/span>/.test(
+      line
+    )
+
+  if (!isBashCommentLine) return line
+
+  return line.replace(
+    'class="sh__line"',
+    'class="sh__line sh__token--bash-comment"'
+  )
+}
+
+const applyBashInlineCommentClass = line => {
+  if (line.includes('sh__line sh__token--bash-comment')) return line
+  if (!line.includes('sh__token--sign')) return line
+  if (line.includes('sh__token--bash-comment')) return line
+
+  return line.replace(
+    /(<span class="sh__token--sign"[^>]*>#<\/span>)(.*)$/,
+    '<span class="sh__token--comment sh__token--bash-comment">$1$2</span>'
+  )
+}
+
 const CustomCodeBlock = styled.pre`
   ${hideScrollbar};
 
@@ -113,21 +138,8 @@ export const Code = ({
           'class="sh__token--identifier sh__token--bash-command"'
         )
 
-        if (line.includes('#')) {
-          // Case 1: The # is inside a mistaken comment span (like after //)
-          if (line.includes('class="sh__token--comment"')) {
-            line = line.replace(
-              /(<span class="sh__token--comment"[^>]*>)(.*?)(#.*)(<\/span>)/g,
-              '$1$2</span><span class="sh__token--comment sh__token--bash-comment">$3$4'
-            )
-            // Case 2: The # is outside any comment span (starts a line or follows a command)
-          } else if (!line.includes('sh__token--bash-comment')) {
-            line = line.replace(
-              /(.*?)((?:<span[^>]*>)?#.*$)/,
-              '$1<span class="sh__token--comment sh__token--bash-comment">$2</span>'
-            )
-          }
-        }
+        line = applyBashCommentLineClass(line)
+        line = applyBashInlineCommentClass(line)
 
         return line
       })
