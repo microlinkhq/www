@@ -242,9 +242,9 @@ const AvailabilityBar = ({ days }) => {
 
   const rowDefault = 92
   const firstRow = days.slice(0, rowDefault)
-  const secondRow = days.slice(rowDefault - 1, rowDefault * 2 - 1)
-  const thirdRow = days.slice(rowDefault * 2 - 1, rowDefault * 3 - 1)
-  const fourthRow = days.slice(rowDefault * 3 - 1)
+  const secondRow = days.slice(rowDefault, rowDefault * 2)
+  const thirdRow = days.slice(rowDefault * 2, rowDefault * 3)
+  const fourthRow = days.slice(rowDefault * 3)
 
   useEffect(() => {
     if (scrollContainerRef.current) {
@@ -264,7 +264,7 @@ const AvailabilityBar = ({ days }) => {
 
         const bgColor = getStatusColor(day.status)
         const isLastDay = actualIndex === DAYS_TO_SHOW
-        const width = isLastDay ? `${barWidth * 2 + barGap}px` : `${barWidth}px`
+        const width = isLastDay ? `${barWidth * 3 + barGap * 2}px` : `${barWidth}px`
 
         return (
           <Box
@@ -316,9 +316,9 @@ const AvailabilityBar = ({ days }) => {
 
           {renderBarRow(secondRow, 92)}
 
-          {renderBarRow(thirdRow, 183)}
+          {renderBarRow(thirdRow, 184)}
 
-          {renderBarRow(fourthRow, 275)}
+          {renderBarRow(fourthRow, 276)}
         </Flex>
       </Box>
       {hoveredIndex !== null && (
