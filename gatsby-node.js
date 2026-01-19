@@ -2,6 +2,7 @@
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const { createFilePath } = require('gatsby-source-filesystem')
+const { title: formatTitle } = require('./src/helpers/title')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
 const { getDomain } = require('tldts')
@@ -180,6 +181,13 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
       const contentFilePath = node.internal.contentFilePath
       const lastEdited = await getLastModifiedDate(contentFilePath)
+      const isBlogPage = node.fields.slug.startsWith('/blog/')
+      const frontmatter = isBlogPage
+        ? {
+            ...node.frontmatter,
+            title: formatTitle(node.frontmatter.title)
+          }
+        : node.frontmatter
 
       return createPage({
         path: slug,
@@ -189,7 +197,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
         context: {
           id: node.id,
           description: node.frontmatter.description || node.description,
-          frontmatter: node.frontmatter,
+          frontmatter,
           githubUrl: await githubUrl(contentFilePath),
           lastEdited,
           isBlogPage: node.fields.slug.startsWith('/blog/'),
