@@ -12,7 +12,6 @@ import { MarkdownContext } from './Context'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
-import ImageBase from 'components/elements/Image/Image'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
@@ -25,6 +24,7 @@ import { CodeInline } from './CodeInline'
 import { MultiCodeEditor } from './MultiCodeEditor'
 import { Iframe } from './Iframe'
 import { Video } from './Video'
+import { Image } from './Image'
 
 const { Container, CONTAINER_SPACE } = withContainer
 
@@ -252,17 +252,6 @@ export const Li = props => {
     />
   )
 }
-
-const _ImageBase = styled(ImageBase)(
-  theme({
-    borderRadius: '3px',
-    textAlign: 'center'
-  })
-)
-
-export const Image = withContainer(_ImageBase, {
-  css: { maxWidth: layout.large }
-})
 
 const mdComponents = {
   a: Link,

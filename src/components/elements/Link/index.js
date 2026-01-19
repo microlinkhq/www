@@ -2,6 +2,7 @@ import React from 'react'
 import { LinkBase } from './base'
 import { LinkSolid } from './solid'
 
+import { space } from 'theme'
 import InputIcon from '../Input/InputIcon'
 import Flex from '../Flex'
 
@@ -28,8 +29,13 @@ export const Link = ({
     const domain = getDomain(href)
     if (domain) {
       children = (
-        <Flex as='span' alignItems='center' css={{ display: 'inline-flex' }}>
-          <InputIcon width='16px' height='16px' mr={1} query={domain} />
+        <Flex as='span' css={{ display: 'inline-flex', alignItems: 'center' }}>
+          <InputIcon
+            width='16px'
+            height='16px'
+            style={{ marginRight: space[1] }}
+            query={domain}
+          />
           {children}
         </Flex>
       )

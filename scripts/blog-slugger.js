@@ -34,7 +34,7 @@ const parseFrontmatter = fileContent => {
  */
 const main = async () => {
   const { slug } = await import('github-slugger')
-  const { mv } = await import('../src/helpers/git')
+  const { mv } = await import('../src/helpers/git.js')
   const files = process.argv.slice(2)
 
   for (const filepath of files) {
