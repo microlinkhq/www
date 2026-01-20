@@ -13,7 +13,6 @@ import { PREVIEWS } from 'components/pages/sharing-debugger/preview'
 import { Metatags } from 'components/pages/sharing-debugger/metatags'
 import Caps from 'components/elements/Caps'
 import FetchProvider from 'components/patterns/FetchProvider'
-import humanizeUrl from 'humanize-url'
 import LineBreak from 'components/elements/LineBreak'
 import Caption from 'components/patterns/Caption/Caption'
 
@@ -22,17 +21,6 @@ import demoLinks from '../../../../data/demo-links'
 const INITIAL_SUGGESTION = 'microlink'
 
 const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
-
-const SUGGESTIONS = [
-  'instagram',
-  'soundcloud',
-  'spotify',
-  'theverge',
-  'youtube'
-].map(id => {
-  const { data } = demoLinks.find(item => item.id === id)
-  return { value: humanizeUrl(data.url), data }
-})
 
 export const Hero = () => {
   const [query, setQuery] = useQueryState()
@@ -129,7 +117,6 @@ export const Hero = () => {
                       }
                       placeholder='Check URL'
                       type='text'
-                      suggestions={SUGGESTIONS}
                       value={inputUrl}
                       onChange={event => setInputUrl(event.target.value)}
                     />
