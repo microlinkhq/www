@@ -11,6 +11,7 @@ yarn-error.log
 static/data/
 data/*.json
 !data/healthcheck.json
+!data/git-timestamps.json
 static/logo.svg
 .vercel
 src/helpers/get-api-url.js
