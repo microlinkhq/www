@@ -1,3 +1,5 @@
+/* global process */
+
 import React, { useState, useEffect, useMemo, createElement } from 'react'
 import { theme, space } from 'theme'
 import isUrl from 'is-url-http/lightweight'
@@ -19,6 +21,8 @@ import Caption from 'components/patterns/Caption/Caption'
 import demoLinks from '../../../../data/demo-links'
 
 const INITIAL_SUGGESTION = 'microlink'
+
+const HAS_FORCE = process.env.NODE_ENV !== 'development'
 
 const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
 
@@ -52,7 +56,7 @@ export const Hero = () => {
   }, [query.url, setQuery])
 
   return (
-    <FetchProvider mqlOpts={{ meta: true }}>
+    <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
       {({ status, doFetch, data }) => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
