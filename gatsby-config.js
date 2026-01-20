@@ -103,6 +103,7 @@ module.exports = {
     'gatsby-transformer-yaml',
     {
       resolve: 'gatsby-plugin-sitemap',
+      /* activate fields { slug, lastmod } once we find a workaround for Vercel git history */
       options: {
         query: `
         {
@@ -121,7 +122,6 @@ module.exports = {
               node {
                 fields {
                   slug
-                  lastmod
                 }
                 frontmatter {
                   date
@@ -205,7 +205,10 @@ module.exports = {
         },
         serialize: ({ path: url, lastmod }) => {
           log({ url, lastmod })
-          return { url, lastmod }
+          // even if `lastmod` is available on local
+          // working with Vercel git history on production is not reliable
+          // so we're not gonna use it until we find a workaround
+          return { url }
         }
       }
     }
