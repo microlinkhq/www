@@ -22,7 +22,7 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 export const Metatags = ({ metadata }) => {
   const breakpoint = useBreakpoint()
-  const TRUNCATE_URL_LENGTH = breakpoint === 0 ? 45 : 100
+  const TRUNCATE_URL_LENGTH = breakpoint === 0 ? 45 : 75
   const fields = validate(metadata)
   const issues = fields.filter(({ status }) => status !== VALIDATOR_STATUS_OK)
 

@@ -5,7 +5,6 @@ import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
-import Container from 'components/elements/Container'
 import { Button } from 'components/elements/Button/Button'
 import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
@@ -90,96 +89,70 @@ export const Hero = () => {
         const isAll = selectedPlatform === 'all'
 
         return (
-          <Box
-            as='section'
-            id='hero'
-            css={theme({
-              pt: 2,
-              pb: 0
-            })}
-          >
+          <Box as='section' id='hero'>
             <Box id='input'>
-              <Container
+              <Heading>Sharing Debugger</Heading>
+              <Caption
+                forwardedAs='h2'
                 css={theme({
-                  px: 0,
-                  pt: 0
+                  pt: [3, 3, 4, 4],
+                  px: [4, 0]
                 })}
               >
+                A tool for verifying the meta tags of any website.
+                <LineBreak breakpoints={[2, 3]} />
+                Preview how it looks across social networks.
+              </Caption>
+
+              <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Flex
+                  as='form'
                   css={theme({
-                    flexDirection: 'column',
-                    alignItems: 'center'
+                    pt: [3, 3, 4, 4],
+                    pb: 4,
+                    mx: [0, 0, 'auto', 'auto'],
+                    justifyContent: 'center',
+                    flexDirection: ['column', 'column', 'row', 'row']
                   })}
+                  onSubmit={handleSubmit}
                 >
-                  <Heading css={theme({ fontSize: 5 })}>
-                    Sharing Debugger
-                  </Heading>
-
-                  <Caption
-                    forwardedAs='h2'
-                    css={theme({
-                      pt: [3, 3, 4, 4],
-                      px: [4, 0]
-                    })}
-                  >
-                    A tool for verifying the meta tags of any website.
-                    <LineBreak breakpoints={[2, 3]} />
-                    Preview how it looks across social networks.
-                  </Caption>
-
-                  <Flex
-                    css={{ justifyContent: 'center', alignItems: 'center' }}
-                  >
-                    <Flex
-                      as='form'
+                  <Box>
+                    <Input
+                      id='sharing-debugger-url'
                       css={theme({
-                        pt: [3, 3, 4, 4],
-                        pb: 4,
-                        mx: [0, 0, 'auto', 'auto'],
-                        justifyContent: 'center',
-                        flexDirection: ['column', 'column', 'row', 'row']
+                        fontSize: 2,
+                        width: ['100%', '100%', 128, 128]
                       })}
-                      onSubmit={handleSubmit}
-                    >
-                      <Box>
-                        <Input
-                          id='sharing-debugger-url'
-                          css={theme({
-                            fontSize: 2,
-                            width: ['100%', '100%', 128, 128]
-                          })}
-                          iconComponent={
-                            <InputIcon
-                              src={metadata?.logo?.url}
-                              provider={!isInitialData && 'microlink'}
-                              url={!isInitialData && url}
-                            />
-                          }
-                          placeholder='Check URL'
-                          type='text'
-                          suggestions={SUGGESTIONS}
-                          value={inputUrl}
-                          onChange={event => setInputUrl(event.target.value)}
+                      iconComponent={
+                        <InputIcon
+                          src={metadata?.logo?.url}
+                          provider={!isInitialData && 'microlink'}
+                          url={!isInitialData && url}
                         />
-                      </Box>
-                      <Button
-                        css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
-                        loading={isLoading}
-                      >
-                        <Caps css={theme({ fontSize: 1 })}>Preview</Caps>
-                      </Button>
-                    </Flex>
-                  </Flex>
+                      }
+                      placeholder='Check URL'
+                      type='text'
+                      suggestions={SUGGESTIONS}
+                      value={inputUrl}
+                      onChange={event => setInputUrl(event.target.value)}
+                    />
+                  </Box>
+                  <Button
+                    css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
+                    loading={isLoading}
+                  >
+                    <Caps css={theme({ fontSize: 1 })}>Preview</Caps>
+                  </Button>
                 </Flex>
-              </Container>
+              </Flex>
             </Box>
 
             {metadata && (
               <Box id='previews'>
-                <Container
+                <Flex
                   css={theme({
-                    px: 0,
-                    pt: 0
+                    flexDirection: 'column',
+                    mx: 'auto'
                   })}
                 >
                   <Flex
@@ -289,7 +262,7 @@ export const Hero = () => {
                       </Flex>
                     )}
                   </Flex>
-                </Container>
+                </Flex>
               </Box>
             )}
           </Box>

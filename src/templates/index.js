@@ -53,27 +53,28 @@ const Template = ({ pageContext, children, ...props }) => {
     frontmatter = {}
   } = pageContext
   const date = frontmatter.date ?? lastEdited
-  if (!isDocPage) {
+
+  if (isDocPage) {
     return (
-      <PageTemplate
+      <DocTemplate
         title={frontmatter.title}
-        subtitle={frontmatter.subtitle}
-        date={date && new Date(date)}
-        lastEdited={frontmatter.lastEdited ? lastEdited : null}
-        isBlogPage={isBlogPage}
+        isPro={frontmatter.isPro}
+        date={date}
         content={children}
+        githubUrl={githubUrl}
         {...props}
       />
     )
   }
 
   return (
-    <DocTemplate
+    <PageTemplate
       title={frontmatter.title}
-      isPro={frontmatter.isPro}
-      date={date}
+      subtitle={frontmatter.subtitle}
+      date={date && new Date(date)}
+      lastEdited={frontmatter.lastEdited ? lastEdited : null}
+      isBlogPage={isBlogPage}
       content={children}
-      githubUrl={githubUrl}
       {...props}
     />
   )
