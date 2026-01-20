@@ -51,6 +51,7 @@ const Layout = ({
           as='main'
           css={themeProp({
             pt: TOOLBAR_HEIGHTS,
+            px: [3, 0],
             flex: 1,
             overflow: 'visible'
           })}

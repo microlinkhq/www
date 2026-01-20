@@ -20,7 +20,7 @@ It handles standard tasks like rendering HTML and running JavaScript. It works o
 ```bash
 curl -G https://microlink.io
 
-# response: <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link rel="preconnect" href="https://cdn.microlink.io" crossorigin="anonymous"/><meta name="generator" content="Gatsby 5.15.0"/>...
+# <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link rel="preconnect" href="https://cdn.microlink.io" crossorigin="anonymous"/><meta name="generator" content="Gatsby 5.15.0"/>...
 ```
 
 Ten years ago, if you wanted to scrape a website, you just sent a simple HTTP GET request.

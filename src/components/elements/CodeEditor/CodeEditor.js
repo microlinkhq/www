@@ -43,6 +43,10 @@ const generateHighlightLines = linesRange => {
 const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
 
+const STRIP_HTML_TAGS_REGEX = /<[^>]+>/g
+const HTML_COMMENT_START_REGEX = /^\s*<!/
+const HTML_COMMENT_ENTITY_START_REGEX = /^\s*&lt;!/
+
 const applyBashCommentLineClass = line => {
   const isBashCommentLine =
     /^<span class="sh__line">(?:\s|<span[^>]*>)*<span class="sh__token--sign"[^>]*>#<\/span>/.test(
@@ -68,6 +72,19 @@ const applyBashInlineCommentClass = line => {
   )
 }
 
+const applyHtmlCommentLineClass = line => {
+  const text = line.replace(STRIP_HTML_TAGS_REGEX, '')
+  const isHtmlComment =
+    HTML_COMMENT_START_REGEX.test(text) ||
+    HTML_COMMENT_ENTITY_START_REGEX.test(text)
+  if (!isHtmlComment) return line
+
+  return line.replace(
+    'class="sh__line"',
+    'class="sh__line sh__token--html-comment"'
+  )
+}
+
 const CustomCodeBlock = styled.pre`
   ${hideScrollbar};
 
@@ -85,7 +102,8 @@ const CustomCodeBlock = styled.pre`
     padding-left: ${props => (props.$showLineNumbers ? '3rem' : '0')};
     font-family: ${fonts.mono};
     font-size: ${fontSizes[0]};
-    line-height: ${lineHeights[4]};
+    line-height: ${props =>
+      props.$language === 'bash' ? lineHeights[0] : lineHeights[4]};
     tab-size: 2;
   }
 
@@ -146,10 +164,18 @@ export const Code = ({
       .join('\n')
   }
 
+  if (language === 'html') {
+    highlightedHtml = highlightedHtml
+      .split('\n')
+      .map(line => applyHtmlCommentLineClass(line))
+      .join('\n')
+  }
+
   const textHtml = wrapLinesWithHighlight(highlightedHtml, highlightLines)
 
   return (
     <CustomCodeBlock
+      $language={language}
       css={`
         ${String(highLightLinesSelector)} {
           background: ${cx(isDark ? 'white05' : 'black05')};

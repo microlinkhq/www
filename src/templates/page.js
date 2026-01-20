@@ -29,84 +29,82 @@ const PageTemplate = ({
 }) => {
   return (
     <Layout>
-      <Box css={theme({ px: 3 })}>
-        <Text
-          as='header'
-          css={theme({
-            textAlign: 'center',
-            maxWidth: layout.normal,
-            mx: 'auto'
-          })}
+      <Text
+        as='header'
+        css={theme({
+          textAlign: 'center',
+          maxWidth: layout.normal,
+          mx: 'auto'
+        })}
+      >
+        <Flex
+          css={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
         >
-          <Flex
-            css={{
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <Choose>
-              <Choose.When condition={isBlogPage}>
-                <H1
+          <Choose>
+            <Choose.When condition={isBlogPage}>
+              <H1
+                css={theme({
+                  ...textGradient,
+                  textAlign: 'center',
+                  mt: 0,
+                  mb: subtitle ? 1 : undefined
+                })}
+              >
+                <PostTitle>{title}</PostTitle>
+              </H1>
+              {subtitle && (
+                <H2
                   css={theme({
-                    ...textGradient,
                     textAlign: 'center',
-                    mt: 0,
-                    mb: subtitle ? 1 : undefined
+                    mt: 0
                   })}
                 >
-                  <PostTitle>{title}</PostTitle>
-                </H1>
-                {subtitle && (
-                  <H2
-                    css={theme({
-                      textAlign: 'center',
-                      mt: 0
-                    })}
-                  >
-                    <PostTitle>{titleize(subtitle)}</PostTitle>
-                  </H2>
-                )}
+                  <PostTitle>{titleize(subtitle)}</PostTitle>
+                </H2>
+              )}
+              <Caption
+                forwardedAs='p'
+                css={theme({
+                  color: 'black60',
+                  fontSize: 2
+                })}
+              >
+                {formatDate(date)} (<TimeAgo date={date} />)
+              </Caption>
+            </Choose.When>
+            <Choose.Otherwise>
+              <Heading
+                css={{ marginTop: 0, maxWidth: layout.large }}
+                titleize={false}
+              >
+                {title}
+              </Heading>
+              {lastEdited && (
                 <Caption
                   forwardedAs='p'
-                  css={theme({
-                    color: 'black60',
-                    fontSize: 2
-                  })}
+                  css={theme({ fontSize: 2, pt: 4, color: 'black60' })}
                 >
-                  {formatDate(date)} (<TimeAgo date={date} />)
+                  Last updated on {formatDate(lastEdited)}
                 </Caption>
-              </Choose.When>
-              <Choose.Otherwise>
-                <Heading
-                  css={{ marginTop: 0, maxWidth: layout.large }}
-                  titleize={false}
-                >
-                  {title}
-                </Heading>
-                {lastEdited && (
-                  <Caption
-                    forwardedAs='p'
-                    css={theme({ fontSize: 2, pt: 4, color: 'black60' })}
-                  >
-                    Last updated on {formatDate(lastEdited)}
-                  </Caption>
-                )}
-              </Choose.Otherwise>
-            </Choose>
-          </Flex>
-        </Text>
+              )}
+            </Choose.Otherwise>
+          </Choose>
+        </Flex>
+      </Text>
 
-        <Box css={theme({ pt: [3, null, 4] })}>
-          <Markdown isBlogPage>{content}</Markdown>
-        </Box>
-
-        {isBlogPage && (
-          <Markdown isBlogPage={isBlogPage}>
-            <PostFooter />
-          </Markdown>
-        )}
+      <Box css={theme({ pt: [3, null, 4] })}>
+        <Markdown isBlogPage>{content}</Markdown>
       </Box>
+
+      {isBlogPage && (
+        <Markdown isBlogPage={isBlogPage}>
+          <PostFooter />
+        </Markdown>
+      )}
     </Layout>
   )
 }

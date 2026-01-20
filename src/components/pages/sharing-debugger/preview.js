@@ -195,7 +195,7 @@ const GooglePreview = ({ metadata }) => {
 }
 
 const XPreview = ({ metadata }) => (
-  <Box css={theme({ maxWidth: layout.small, mx: 'auto' })}>
+  <Box css={theme({ maxWidth: ['100%', layout.small] })}>
     <Box
       css={theme({
         border: 1,
@@ -211,7 +211,7 @@ const XPreview = ({ metadata }) => (
         alt={metadata.title}
         css={theme({
           width: '100%',
-          height: '325px',
+          height: ['200px', '325px'],
           display: 'block',
           objectFit: 'scale-down'
         })}
@@ -262,13 +262,13 @@ const FacebookPreview = ({ metadata }) => (
       overflow: 'hidden',
       bg: 'white',
       borderColor: 'black10',
-      maxWidth: layout.small,
+      maxWidth: ['100%', layout.small],
       mx: 'auto',
-      height: '400px',
+      height: ['300px', '400px'],
       flexDirection: 'column'
     })}
   >
-    <Box css={theme({ height: '310px', bg: 'white' })}>
+    <Box css={theme({ height: ['200px', '310px'], bg: 'white' })}>
       <Image
         src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
         alt={metadata.title}
@@ -324,11 +324,12 @@ const LinkedInPreview = ({ metadata }) => (
       borderRadius: '12px',
       overflow: 'hidden',
       borderColor: 'black10',
-      maxWidth: layout.small,
-      mx: 'auto'
+      maxWidth: ['100%', layout.small],
+      mx: 'auto',
+      px: [2, 0]
     })}
   >
-    <Box css={theme({ height: '310px', bg: 'white' })}>
+    <Box css={theme({ height: ['200px', '310px'], bg: 'white' })}>
       <Image
         src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
         alt={metadata.title}
@@ -367,8 +368,7 @@ const SlackPreview = ({ metadata }) => (
     css={theme({
       borderLeft: '4px solid',
       borderColor: '#e8e8e8',
-
-      pl: 3,
+      pl: [2, 3],
       py: 1
     })}
   >
@@ -422,7 +422,7 @@ const SlackPreview = ({ metadata }) => (
       src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
       alt={metadata.title}
       css={theme({
-        maxWidth: '280px',
+        maxWidth: ['100%', '280px'],
         maxHeight: '150px',
         objectFit: 'cover',
         borderRadius: '8px',
@@ -447,7 +447,7 @@ const WhatsAppPreview = ({ metadata }) => {
         bg: '#154D38',
         p: '8px',
         borderRadius: '8px',
-        maxWidth: `calc(${layout.small} * 0.6)`,
+        maxWidth: ['100%', `calc(${layout.small} * 0.6)`],
         mx: 'auto'
       })}
     >
@@ -556,8 +556,7 @@ const TelegramPreview = ({ metadata }) => (
       bg: '#766BC8',
       p: 2,
       borderRadius: '12px',
-      maxWidth: `calc(${layout.small} * 0.75)`,
-      mx: 'auto',
+      maxWidth: ['100%', `calc(${layout.small} * 0.75)`],
       color: 'white',
       fontFamily: 'sans'
     })}
@@ -659,11 +658,10 @@ const DiscordPreview = ({ metadata }) => (
   <Box
     css={theme({
       bg: '#313338',
-      p: 3,
+      p: [2, 3],
       borderRadius: 4,
-      maxWidth: '432px',
-      fontFamily: 'sans',
-      mx: 'auto'
+      maxWidth: ['100%', '432px'],
+      fontFamily: 'sans'
     })}
   >
     <Text

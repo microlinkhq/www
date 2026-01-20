@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, createElement } from 'react'
-import { theme, layout, space } from 'theme'
+import { theme, space } from 'theme'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
@@ -93,12 +93,15 @@ export const Hero = () => {
           <Box
             as='section'
             id='hero'
-            css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+            css={theme({
+              pt: 2,
+              pb: 0
+            })}
           >
             <Box id='input'>
               <Container
                 css={theme({
-                  maxWidth: showValidation ? layout.large : layout.normal,
+                  px: 0,
                   pt: 0
                 })}
               >
@@ -116,8 +119,7 @@ export const Hero = () => {
                     forwardedAs='h2'
                     css={theme({
                       pt: [3, 3, 4, 4],
-                      px: 4,
-                      maxWidth: layout.small
+                      px: [4, 0]
                     })}
                   >
                     A tool for verifying the meta tags of any website.
@@ -158,7 +160,6 @@ export const Hero = () => {
                           suggestions={SUGGESTIONS}
                           value={inputUrl}
                           onChange={event => setInputUrl(event.target.value)}
-                          autoFocus={!query.url}
                         />
                       </Box>
                       <Button
@@ -177,7 +178,7 @@ export const Hero = () => {
               <Box id='previews'>
                 <Container
                   css={theme({
-                    maxWidth: layout.large,
+                    px: 0,
                     pt: 0
                   })}
                 >
@@ -202,9 +203,11 @@ export const Hero = () => {
                               color: isActive ? 'black' : 'black40',
                               display: 'flex',
                               height: '20px',
+                              width: '20px',
+                              minWidth: '20px',
+                              minHeight: '20px',
                               justifyContent: 'center',
                               p: 0,
-                              width: '20px',
                               _hover: {
                                 color: 'black',
                                 border: 0,
@@ -221,8 +224,7 @@ export const Hero = () => {
 
                   <Flex
                     css={theme({
-                      flexDirection: ['column', 'column', 'row', 'row'],
-                      gap: 4,
+                      flexDirection: 'column',
                       pt: 3
                     })}
                   >
@@ -230,7 +232,7 @@ export const Hero = () => {
                       as='section'
                       id='preview'
                       css={theme({
-                        flex: 1,
+                        width: '100%',
                         display: 'grid',
                         gridTemplateColumns: '1fr',
                         overflow: 'hidden',
@@ -246,6 +248,7 @@ export const Hero = () => {
                         <Box
                           key={key}
                           css={theme({
+                            mx: 'auto',
                             ...(isAll && {
                               p: 3,
                               borderRight: 1,
@@ -277,9 +280,13 @@ export const Hero = () => {
                       ))}
                     </Box>
                     {showValidation && (
-                      <Box as='section' id='metatags' css={theme({ flex: 1 })}>
+                      <Flex
+                        as='section'
+                        id='metatags'
+                        css={theme({ justifyContent: 'center' })}
+                      >
                         <Metatags metadata={metadata} />
-                      </Box>
+                      </Flex>
                     )}
                   </Flex>
                 </Container>

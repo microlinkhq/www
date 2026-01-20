@@ -16,7 +16,7 @@ const Question = withSlug(({ index, ...props }) => (
   <Caption
     css={theme({
       fontWeight: 'bold',
-      pt: [4, 5],
+      pt: 4,
       pr: [3, 0],
       textAlign: 'left'
     })}
@@ -27,46 +27,41 @@ const Question = withSlug(({ index, ...props }) => (
 const Faq = ({ title, caption, questions, ...props }) => {
   return (
     <Container as='section' id='faq' {...props}>
-      <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
-        {title && (
+      {title && (
+        <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
           <Subhead css={theme({ px: 4 })} variant='gradient' titleize={false}>
             {title}
           </Subhead>
-        )}
-        {caption && (
-          <Caption
-            css={theme({
-              px: [4, 0, 0, 0],
-              pt: [3, 4, 4, 4],
-              pb: [4, 4, 4, 5],
-              maxWidth: layout.normal
-            })}
-          >
-            {caption}
-          </Caption>
-        )}
-      </Flex>
+          {caption && (
+            <Caption
+              css={theme({
+                px: [4, 0, 0, 0],
+                pt: [3, 4, 4, 4],
+                pb: [4, 4, 4, 5],
+                maxWidth: layout.normal
+              })}
+            >
+              {caption}
+            </Caption>
+          )}
+        </Flex>
+      )}
 
       <Flex
         css={theme({
           justifyContent: 'center',
           flexDirection: 'column',
-          alignItems: 'center',
-          px: [0, 0, 4, 6]
+          alignItems: 'center'
         })}
       >
         <Box css={theme({ pb: [0, 0, 4, 4] })}>
           {questions.map(({ answer, question }, index) => {
             return (
-              <Text
-                css={theme({ px: 4, maxWidth: layout.small })}
-                key={question}
-              >
+              <Text css={theme({ maxWidth: layout.small })} key={question}>
                 <Question index={index}>{question}</Question>
                 {React.Children.map(answer.props.children, (paraph, index) => (
                   <Text
                     css={theme({
-                      pr: [3, 0, 0, 0],
                       pt: [3, 4, 4, 4],
                       color: 'black80'
                     })}

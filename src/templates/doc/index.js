@@ -55,7 +55,6 @@ const DocTemplate = ({
       <Container
         data-docs-container
         css={theme({
-          mx: [3, 'auto'],
           pt: 0,
           px: 0,
           maxWidth: layout.large

@@ -36,14 +36,12 @@ const UserAgentsPage = () => {
   const data = userAgents[type] || userAgents.user
   return (
     <>
-      <Layout>
+      <Layout css={theme({ maxWidth: layout.small, mx: 'auto' })}>
         <Container
           as='section'
           id='hero'
           css={theme({
             pt: 2,
-            px: 3,
-            width: '100%',
             alignItems: 'center'
           })}
         >
@@ -130,7 +128,7 @@ const UserAgentsPage = () => {
         </Container>
 
         <Faq
-          css={theme({ pt: [3, 5] })}
+          css={theme({ pt: 0, px: 0 })}
           questions={[
             {
               question: 'What is a user agent string?',
@@ -151,13 +149,16 @@ const UserAgentsPage = () => {
               answer: (
                 <>
                   <div>
-                    Browsers have aggressive release cycles.
-                    {' '}<b>Rotating User Agents</b> is critical for web scraping and
+                    Browsers have aggressive release cycles.{' '}
+                    <b>Rotating User Agents</b> is critical for web scraping and
                     automation. By randomizing the User Agent header, you mimic
                     organic traffic and reduce the risk of being blocked by{' '}
-                    <Link href='https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/'>WAFs</Link>{' '}
-                    (Web Application Firewalls) or anti-bot measures. You can use
-                    this list to rotate the User Agent header in your project.
+                    <Link href='https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/'>
+                      WAFs
+                    </Link>{' '}
+                    (Web Application Firewalls) or anti-bot measures. You can
+                    use this list to rotate the User Agent header in your
+                    project.
                   </div>
                 </>
               )
@@ -212,8 +213,10 @@ const UserAgentsPage = () => {
                   <div>
                     You can manually set the header in Puppeteer or Playwright
                     using a random string from this list. However,{' '}
-                    <Link href='/blog/what-is-a-headless-browser'>scaling a Headless Browser</Link>
-                    {' '}infrastructure is complex.{' '}
+                    <Link href='/blog/what-is-a-headless-browser'>
+                      scaling a Headless Browser
+                    </Link>{' '}
+                    infrastructure is complex.{' '}
                     <Link href='/docs/api/getting-started/overview'>
                       Microlink API
                     </Link>{' '}

@@ -33,13 +33,13 @@ const languageColors = {
       --sh-keyword: var(--gray9);
       --sh-comment: var(--gray9);
 
-       .sh__token--bash-command {
-         --sh-identifier: var(--link);
-       }
+      .sh__token--bash-command {
+        --sh-identifier: var(--link);
+      }
 
-       .sh__token--bash-comment * {
-         color: var(--gray6) !important;
-       }
+      .sh__token--bash-comment * {
+        color: var(--gray6) !important;
+      }
     `,
     dark: `
       --sh-class: var(--white);
@@ -51,15 +51,16 @@ const languageColors = {
       --sh-string: var(--white);
       --sh-keyword: var(--white);
       --sh-comment: var(--white);
-       .sh__token--bash-command {
-         --sh-identifier: var(--link);
-       }
-       .sh__token--bash-comment {
-         --sh-sign: var(--gray5);
-         --sh-space: var(--gray5);
-         --sh-identifier: var(--gray5);
-         --sh-comment: var(--gray5);
-       }
+
+      .sh__token--bash-command {
+        --sh-identifier: var(--link);
+      }
+      .sh__token--bash-comment {
+        --sh-sign: var(--gray5);
+        --sh-space: var(--gray5);
+        --sh-identifier: var(--gray5);
+        --sh-comment: var(--gray5);
+      }
     `
   },
   json: {
@@ -76,6 +77,16 @@ const languageColors = {
     `,
     dark: ''
   }
+}
+
+languageColors.html = {
+  ...languageColors.json,
+  light: `
+    ${languageColors.json.light}
+    .sh__token--html-comment * {
+      color: var(--gray5) !important;
+    }
+  `
 }
 
 languageColors.headers = languageColors.json

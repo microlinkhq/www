@@ -173,6 +173,7 @@
     "swr": "~2.3.8",
     "tldts": "~7.0.19",
     "top-user-agents": "~2.1.89",
+    "truncate-url": "~3.0.0",
     "unique-random-array": "~4.0.0"
   },
   "devDependencies": {
