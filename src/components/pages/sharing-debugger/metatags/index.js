@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme } from 'theme'
+import { theme, space } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -17,7 +17,7 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 export const Metatags = ({ metadata }) => {
   const breakpoint = useBreakpoint()
-  const TRUNCATE_URL_LENGTH = breakpoint === 0 ? 60 : 100
+  const TRUNCATE_URL_LENGTH = breakpoint === 0 ? 45 : 100
   const fields = validate(metadata)
   const issues = fields.filter(({ status }) => status !== VALIDATOR_STATUS_OK)
 
@@ -26,7 +26,7 @@ export const Metatags = ({ metadata }) => {
   return (
     <Box css={theme({ m: 0 })}>
       {issues.length > 0 && (
-        <Box css={theme({ pt: 4, px: [2, 0] })}>
+        <Box css={theme({ pt: 4 })}>
           <Box css={theme({ textAlign: 'center', pb: 3 })}>
             <Text
               css={theme({
@@ -42,20 +42,30 @@ export const Metatags = ({ metadata }) => {
                 color: 'black60'
               })}
             >
-              Copy the fix. Apply to your site & come back.
+              {breakpoint === 0
+                ? 'Apply to your site & come back.'
+                : 'Copy the fix. Apply to your site & come back.'}
             </Text>
           </Box>
 
-          <CodeEditor language='html'>
-            {[
-              '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">',
-              '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
-              '<link rel="shortcut icon" href="/favicon.ico">',
-              '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">',
-              '<link rel="manifest" href="/site.webmanifest">',
-              '<meta name="generator" content="Microlink">'
-            ].join('\n')}
-          </CodeEditor>
+          <Flex
+            css={theme({
+              alignItems: 'center',
+              justifyContent: 'center',
+              maxWidth: `calc(100vw - ${space[4]})`
+            })}
+          >
+            <CodeEditor language='html' css={theme({ width: '100%' })}>
+              {[
+                '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">',
+                '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+                '<link rel="shortcut icon" href="/favicon.ico">',
+                '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">',
+                '<link rel="manifest" href="/site.webmanifest">',
+                '<meta name="generator" content="Microlink">'
+              ].join('\n')}
+            </CodeEditor>
+          </Flex>
         </Box>
       )}
 
@@ -71,14 +81,6 @@ export const Metatags = ({ metadata }) => {
               ? 'Your site is fully optimized'
               : 'Your site needs improvement'}
           </Text>
-          {/* <Text
-            css={theme({
-              fontSize: 2,
-              color: 'black60'
-            })}
-          >
-            {score === 100 ? 'Congratulations 🎉' : 'Understand the details'}
-          </Text> */}
         </Box>
         {fields.map(
           ({ name, isNullable, value, status, description, resume }, index) => {

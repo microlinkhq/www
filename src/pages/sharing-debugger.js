@@ -20,9 +20,8 @@ export const Head = () => (
 
 const SharingDebugger = () => {
   return (
-    <Layout css={theme({ maxWidth: layout.small, mx: 'auto' })}>
+    <Layout css={theme({ maxWidth: ['100%', layout.small], mx: 'auto' })}>
       <Hero />
-      {/* <Timings /> */}
       <Faq
         css={theme({ pt: 0, px: 0 })}
         questions={[

@@ -62,7 +62,6 @@ const Faq = ({ title, caption, questions, ...props }) => {
                 {React.Children.map(answer.props.children, (paraph, index) => (
                   <Text
                     css={theme({
-                      pr: [3, 0, 0, 0],
                       pt: [3, 4, 4, 4],
                       color: 'black80'
                     })}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, createElement } from 'react'
-import { theme, space, layout } from 'theme'
+import { theme, space } from 'theme'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
@@ -118,7 +118,8 @@ export const Hero = () => {
                   <Caption
                     forwardedAs='h2'
                     css={theme({
-                      pt: [3, 3, 4, 4]
+                      pt: [3, 3, 4, 4],
+                      px: [4, 0]
                     })}
                   >
                     A tool for verifying the meta tags of any website.
