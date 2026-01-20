@@ -43,6 +43,10 @@ const generateHighlightLines = linesRange => {
 const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
 
+const STRIP_HTML_TAGS_REGEX = /<[^>]+>/g
+const HTML_COMMENT_START_REGEX = /^\s*<!/
+const HTML_COMMENT_ENTITY_START_REGEX = /^\s*&lt;!/
+
 const applyBashCommentLineClass = line => {
   const isBashCommentLine =
     /^<span class="sh__line">(?:\s|<span[^>]*>)*<span class="sh__token--sign"[^>]*>#<\/span>/.test(
@@ -65,6 +69,19 @@ const applyBashInlineCommentClass = line => {
   return line.replace(
     /(<span class="sh__token--sign"[^>]*>#<\/span>)(.*)$/,
     '<span class="sh__token--comment sh__token--bash-comment">$1$2</span>'
+  )
+}
+
+const applyHtmlCommentLineClass = line => {
+  const text = line.replace(STRIP_HTML_TAGS_REGEX, '')
+  const isHtmlComment =
+    HTML_COMMENT_START_REGEX.test(text) ||
+    HTML_COMMENT_ENTITY_START_REGEX.test(text)
+  if (!isHtmlComment) return line
+
+  return line.replace(
+    'class="sh__line"',
+    'class="sh__line sh__token--html-comment"'
   )
 }
 
@@ -144,6 +161,13 @@ export const Code = ({
 
         return line
       })
+      .join('\n')
+  }
+
+  if (language === 'html') {
+    highlightedHtml = highlightedHtml
+      .split('\n')
+      .map(line => applyHtmlCommentLineClass(line))
       .join('\n')
   }
 
