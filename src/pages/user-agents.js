@@ -36,7 +36,7 @@ const UserAgentsPage = () => {
   const data = userAgents[type] || userAgents.user
   return (
     <>
-      <Layout>
+      <Layout css={theme({ maxWidth: layout.small, mx: 'auto' })}>
         <Container
           as='section'
           id='hero'
@@ -128,7 +128,7 @@ const UserAgentsPage = () => {
         </Container>
 
         <Faq
-          css={theme({ pt: 0 })}
+          css={theme({ pt: 0, px: 0 })}
           questions={[
             {
               question: 'What is a user agent string?',
