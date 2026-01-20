@@ -215,11 +215,14 @@ const TerminalProvider = ({
   isDark = false,
   title,
   header,
-  width = TERMINAL_WIDTH,
   ...props
 }) => {
   return (
-    <TerminalWindow $isDark={isDark} css={theme({ width })} {...props}>
+    <TerminalWindow
+      $isDark={isDark}
+      css={theme({ width: TERMINAL_WIDTH })}
+      {...props}
+    >
       <TerminalHeader $isDark={isDark} {...header}>
         <TerminalButton.Red loading={loading} />
         <TerminalButton.Yellow loading={loading} />

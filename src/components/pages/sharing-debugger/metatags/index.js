@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme, space } from 'theme'
+import { theme, space, layout } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -57,11 +57,15 @@ export const Metatags = ({ metadata }) => {
           <Flex
             css={theme({
               alignItems: 'center',
-              justifyContent: 'center',
-              maxWidth: `calc(100vw - ${space[4]})`
+              justifyContent: 'center'
             })}
           >
-            <CodeEditor language='html' css={theme({ width: '100%' })}>
+            <CodeEditor
+              language='html'
+              css={theme({
+                width: [`calc(100vw - ${space[4]})`, layout.small]
+              })}
+            >
               {fixSnippet}
             </CodeEditor>
           </Flex>
