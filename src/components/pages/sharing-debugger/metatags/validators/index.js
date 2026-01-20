@@ -7,6 +7,7 @@ import { publisher } from './publisher'
 import { author } from './author'
 import { locale } from './locale'
 import { date } from './date'
+import { buildFixSnippet } from './fix-snippet'
 
 export const VALIDATOR_STATUS_OK = 'OK'
 export const VALIDATOR_STATUS_WARNING = 'WARNING'
@@ -26,6 +27,8 @@ export const VALIDATOR_STATUS = {
     bg: 'red0'
   }
 }
+
+export { buildFixSnippet }
 
 const FIELD_VALIDATORS = {
   title,
@@ -98,24 +101,37 @@ export const validate = metadata => {
       return 0
     })
 
-  return fields.map(field => {
-    let result = null
+  const statusPriority = {
+    [VALIDATOR_STATUS_ERROR]: 0,
+    [VALIDATOR_STATUS_WARNING]: 1,
+    [VALIDATOR_STATUS_OK]: 2
+  }
 
-    if (field.isNullable) {
-      result = {
-        status: 'ERROR',
-        resume: 'Missing'
+  return fields
+    .map(field => {
+      let result = null
+
+      if (field.isNullable) {
+        result = {
+          status: VALIDATOR_STATUS_ERROR,
+          resume: 'Missing'
+        }
+      } else {
+        result = FIELD_VALIDATORS[field.name](field)
       }
-    } else {
-      result = FIELD_VALIDATORS[field.name](field)
-    }
 
-    return {
-      name: field.name,
-      value: field.value,
-      type: field.type,
-      isNullable: field.isNullable,
-      ...result
-    }
-  })
+      return {
+        name: field.name,
+        value: field.value,
+        type: field.type,
+        isNullable: field.isNullable,
+        ...result
+      }
+    })
+    .sort((a, b) => {
+      const aPriority = statusPriority[a.status] ?? Number.POSITIVE_INFINITY
+      const bPriority = statusPriority[b.status] ?? Number.POSITIVE_INFINITY
+      if (aPriority !== bPriority) return aPriority - bPriority
+      return a.name.localeCompare(b.name)
+    })
 }

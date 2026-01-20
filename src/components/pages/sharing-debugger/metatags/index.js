@@ -8,7 +8,12 @@ import TimeAgo from 'react-timeago'
 import { formatDate } from 'helpers/format-date'
 import truncateUrl from 'truncate-url'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
-import { VALIDATOR_STATUS, VALIDATOR_STATUS_OK, validate } from './validators'
+import {
+  VALIDATOR_STATUS,
+  VALIDATOR_STATUS_OK,
+  buildFixSnippet,
+  validate
+} from './validators'
 import { CodeInline } from 'components/markdown/CodeInline'
 import Choose from 'components/elements/Choose'
 import { CheckCircle, XCircle } from 'react-feather'
@@ -22,6 +27,7 @@ export const Metatags = ({ metadata }) => {
   const issues = fields.filter(({ status }) => status !== VALIDATOR_STATUS_OK)
 
   const score = 100 - issues.length * 10
+  const fixSnippet = buildFixSnippet({ issues, metadata })
 
   return (
     <Box css={theme({ m: 0 })}>
@@ -56,14 +62,7 @@ export const Metatags = ({ metadata }) => {
             })}
           >
             <CodeEditor language='html' css={theme({ width: '100%' })}>
-              {[
-                '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">',
-                '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
-                '<link rel="shortcut icon" href="/favicon.ico">',
-                '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">',
-                '<link rel="manifest" href="/site.webmanifest">',
-                '<meta name="generator" content="Microlink">'
-              ].join('\n')}
+              {fixSnippet}
             </CodeEditor>
           </Flex>
         </Box>
