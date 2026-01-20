@@ -219,6 +219,7 @@
     "build": "NODE_ENV=production gatsby build",
     "build-storybook": "NODE_ENV=production build-storybook",
     "build:data": "DEBUG=data:providers* node scripts/fetch-data",
+    "build:timestamps": "node scripts/git-timestamps.js",
     "clean": "npm run clean:build && npm run clean:data && rm -rf node_modules",
     "clean:build": "gatsby clean",
     "clean:data": "rm -rf data/*.json",
@@ -229,6 +230,7 @@
     "postrelease": "npm run release:tags && npm run release:github",
     "prebuild": "npm run build:data",
     "predev": "npm run build:data",
+    "prepare": "simple-git-hooks",
     "pretest": "npm run lint",
     "preversion": "git-authors-cli && git add package.json",
     "release": "standard-version -a",
@@ -252,6 +254,9 @@
     }
   },
   "nano-staged": {
+    "*": [
+      "node scripts/git-timestamps.js"
+    ],
     "*.js": [
       "prettier-standard"
     ],
@@ -264,8 +269,8 @@
     ]
   },
   "simple-git-hooks": {
-    "commit-msg": "npx commitlint --edit",
-    "pre-commit": "npx nano-staged"
+    "commit-msg": "commitlint --edit",
+    "pre-commit": "nano-staged"
   },
   "standard": {
     "ignore": [
