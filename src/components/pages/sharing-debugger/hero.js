@@ -94,10 +94,7 @@ export const Hero = () => {
               <Heading>Sharing Debugger</Heading>
               <Caption
                 forwardedAs='h2'
-                css={theme({
-                  pt: [3, 3, 4, 4],
-                  px: [4, 0]
-                })}
+                css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}
               >
                 A tool for verifying the meta tags of any website.
                 <LineBreak breakpoints={[2, 3]} />
