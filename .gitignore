@@ -14,3 +14,4 @@ data/*.json
 static/logo.svg
 .vercel
 src/helpers/get-api-url.js
+static/user-agents.json
