@@ -12,7 +12,6 @@ import { issueUrl } from 'helpers/issue-url'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
-import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
@@ -169,12 +168,11 @@ export const Head = () => (
 const FormatsPage = () => (
   <DotsBackground>
     <Layout>
-      <Container
+      <Flex
         css={theme({
-          pt: 2,
-          pb: 3,
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          flexDirection: 'column'
         })}
       >
         <Heading css={theme({ px: 5, maxWidth: layout.large })}>
@@ -262,13 +260,14 @@ const FormatsPage = () => (
           <Box css={theme({ p: [4, 4, 0, 0] })}>
             <Button
               onClick={() =>
-                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
+                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
+              }
             >
               <Caps>Request a format</Caps>
             </Button>
           </Box>
         </Flex>
-      </Container>
+      </Flex>
       <FAQs
         css={theme({
           pb: [5, 5, 6, 6],

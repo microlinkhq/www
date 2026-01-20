@@ -271,9 +271,10 @@ const Screenshot = ({ data, style }) => {
             isLoading
               ? imageStyle
               : {
-                  ...imageStyle,
-                  filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-                }}
+                ...imageStyle,
+                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+              }
+          }
         />
       </Box>
     </Link>
@@ -326,7 +327,10 @@ const LiveDemo = React.memo(function LiveDemo ({
     })
 
   return (
-    <Container as='section' css={theme({ alignItems: 'center', pt: 2 })}>
+    <Flex
+      as='section'
+      css={theme({ flexDirection: 'column', alignItems: 'center' })}
+    >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
         Easy peasy screenshots
       </Heading>
@@ -499,7 +503,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Choose.Otherwise>
       </Choose>
       <ClipboardComponent />
-    </Container>
+    </Flex>
   )
 })
 

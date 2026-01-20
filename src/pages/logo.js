@@ -187,17 +187,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-        ...new Set(
-          []
-            .concat(
-              logo.palette,
-              logo.background_color,
-              logo.color,
-              logo.alternative_color
-            )
-            .filter(Boolean)
-        )
-      ]
+      ...new Set(
+        []
+          .concat(
+            logo.palette,
+            logo.background_color,
+            logo.color,
+            logo.alternative_color
+          )
+          .filter(Boolean)
+      )
+    ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -312,7 +312,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -356,9 +357,13 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetText = `curl -sL ${embedUrl}`
 
   return (
-    <Container
+    <Flex
       as='section'
-      css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+      css={theme({
+        flexDirection: 'column',
+        alignItems: 'center',
+        pb: [4, 4, 5, 5]
+      })}
     >
       <Announcement
         data-event-location='Home'
@@ -478,7 +483,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Box>
       </Flex>
       <ClipboardComponent />
-    </Container>
+    </Flex>
   )
 })
 

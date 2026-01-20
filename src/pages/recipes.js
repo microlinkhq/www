@@ -65,12 +65,8 @@ const RecipesPage = () => {
       <Layout footer={{ style: { background: 'transparent' } }}>
         <Flex
           css={theme({
-            width: '100%',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            pt: 2,
-            px: 3
+            alignItems: 'center'
           })}
         >
           <Flex
@@ -193,7 +189,8 @@ const RecipesPage = () => {
             <Box css={theme({ pt: [4, null, 0] })}>
               <Button
                 onClick={() =>
-                  window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
+                  window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
+                }
               >
                 <Caps>Request an Integration</Caps>
               </Button>

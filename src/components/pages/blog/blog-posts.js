@@ -6,6 +6,7 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import styled from 'styled-components'
 import React from 'react'
+
 const BlogLink = styled(Link)(
   theme({
     cursor: 'pointer',
