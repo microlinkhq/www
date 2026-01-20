@@ -5,8 +5,11 @@ const path = require('node:path')
 const $ = require('tinyspawn')
 
 const OUTPUT_FILE = path.join(process.cwd(), 'data', 'git-timestamps.json')
-const CONTENT_PREFIX = 'src/content/'
-const isContentPath = value => value.startsWith(CONTENT_PREFIX)
+
+const INCLUDED_PREFIXES = ['src/content/', 'src/pages/']
+
+const isIncludedPath = value =>
+  INCLUDED_PREFIXES.some(prefix => value.startsWith(prefix))
 
 const buildTimestamps = async () => {
   const { stdout } = await $(
@@ -28,7 +31,7 @@ const buildTimestamps = async () => {
       continue
     }
 
-    if (currentTimestamp && isContentPath(line)) {
+    if (currentTimestamp && isIncludedPath(line)) {
       timestamps[line] = currentTimestamp
     }
   }

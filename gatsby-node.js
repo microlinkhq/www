@@ -5,12 +5,25 @@ const { createFilePath } = require('gatsby-source-filesystem')
 const { title: formatTitle } = require('./src/helpers/title')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
+const { readFileSync } = require('node:fs')
 const { getDomain } = require('tldts')
-const path = require('path')
+const path = require('node:path')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
 )
+
+const GIT_TIMESTAMPS = JSON.parse(
+  readFileSync(path.join(process.cwd(), 'data', 'git-timestamps.json'), 'utf8')
+)
+
+const getTimestampForFile = fileNode => {
+  const relativePath = path
+    .relative(process.cwd(), fileNode.absolutePath)
+    .replace(/\\/g, '/')
+
+  return GIT_TIMESTAMPS[relativePath]
+}
 
 const githubUrl = (() => {
   return async filepath => {
@@ -42,6 +55,18 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {
   const { createNodeField } = actions
+  if (node.internal.type === 'File') {
+    const lastmod = getTimestampForFile(node) || node.mtime
+
+    if (lastmod) {
+      createNodeField({
+        node,
+        name: 'lastmod',
+        value: lastmod
+      })
+    }
+  }
+
   if (node.internal.type === 'Mdx') {
     // MDX files are now in src/content/ directory
     const slug = createFilePath({ node, getNode, basePath: 'src/content' })

@@ -35,11 +35,7 @@ const OssPage = () => {
       <Layout footer={{ style: { background: 'transparent' } }}>
         <Flex
           css={theme({
-            pt: 2,
-            px: 3,
-            width: '100%',
             flexDirection: 'column',
-            justifyContent: 'center',
             alignItems: 'center'
           })}
         >
@@ -50,7 +46,7 @@ const OssPage = () => {
           <Caption
             forwardedAs='h2'
             css={theme({
-              pt: [3, null, 4],
+              pt: 3,
               px: 4,
               maxWidth: layout.small
             })}
@@ -63,7 +59,6 @@ const OssPage = () => {
           <Flex
             css={theme({
               pt: [3, null, 4],
-              px: [2, null, 4],
               width: '100%',
               maxWidth: layout.normal,
               flexDirection: 'column'

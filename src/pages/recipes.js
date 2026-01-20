@@ -65,12 +65,8 @@ const RecipesPage = () => {
       <Layout footer={{ style: { background: 'transparent' } }}>
         <Flex
           css={theme({
-            width: '100%',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            pt: 2,
-            px: 3
+            alignItems: 'center'
           })}
         >
           <Flex

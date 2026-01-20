@@ -356,9 +356,13 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetText = `curl -sL ${embedUrl}`
 
   return (
-    <Container
+    <Flex
       as='section'
-      css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+      css={theme({
+        flexDirection: 'column',
+        alignItems: 'center',
+        pb: [4, 4, 5, 5]
+      })}
     >
       <Announcement
         data-event-location='Home'
@@ -478,7 +482,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Box>
       </Flex>
       <ClipboardComponent />
-    </Container>
+    </Flex>
   )
 })
 

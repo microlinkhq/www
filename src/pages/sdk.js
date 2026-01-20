@@ -146,7 +146,10 @@ const LiveDemo = React.memo(function LiveDemo ({
   ].filter(Boolean)
 
   return (
-    <Container as='section' css={theme({ alignItems: 'center', pt: 2 })}>
+    <Flex
+      as='section'
+      css={theme({ flexDirection: 'column', alignItems: 'center' })}
+    >
       <Heading css={theme({ px: 5, maxWidth: layout.large })} titleize={false}>
         Embed any content
       </Heading>
@@ -308,7 +311,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           </Box>
         </Flex>
       </Flex>
-    </Container>
+    </Flex>
   )
 })
 

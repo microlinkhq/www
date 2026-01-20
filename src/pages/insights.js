@@ -281,9 +281,13 @@ const LiveDemo = React.memo(function LiveDemo ({
   )}`
 
   return (
-    <Container
+    <Flex
       as='section'
-      css={theme({ alignItems: 'center', pt: 2, pb: [4, 4, 5, 5] })}
+      css={theme({
+        flexDirection: 'column',
+        alignItems: 'center',
+        pb: [4, 4, 5, 5]
+      })}
     >
       <Heading css={theme({ px: 5, maxWidth: layout.large })}>
         Automate web performance
@@ -459,7 +463,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         </Choose.Otherwise>
       </Choose>
       <ClipboardComponent />
-    </Container>
+    </Flex>
   )
 })
 

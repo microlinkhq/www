@@ -7,7 +7,6 @@ import React from 'react'
 
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
-import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
@@ -24,8 +23,11 @@ export const Head = () => (
 
 const NewsletterPage = () => (
   <Layout>
-    <Container
-      css={theme({ pt: 2, justifyContent: 'center', alignItems: 'center' })}
+    <Flex
+      css={theme({
+        flexDirection: 'column',
+        alignItems: 'center'
+      })}
     >
       <Heading>Newsletter</Heading>
 
@@ -86,7 +88,7 @@ const NewsletterPage = () => (
           </Flex>
         </Flex>
       </Flex>
-    </Container>
+    </Flex>
   </Layout>
 )
 

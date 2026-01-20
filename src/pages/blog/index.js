@@ -28,9 +28,6 @@ const PageBlog = () => {
     <Layout footer={{ style: { background: 'transparent' } }}>
       <Flex
         css={theme({
-          pt: 2,
-          px: 3,
-          width: '100%',
           flexDirection: 'column',
           alignItems: 'center'
         })}

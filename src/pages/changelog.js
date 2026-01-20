@@ -1,10 +1,10 @@
 import Meta from 'components/elements/Meta/Meta'
-import Container from 'components/elements/Container'
 import HeadingBase from 'components/elements/Heading'
 import Box from 'components/elements/Box'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
+import Flex from 'components/elements/Flex'
 import Markdown from 'components/markdown'
 import { cdnUrl } from 'helpers/cdn-url'
 import { layout, theme } from 'theme'
@@ -26,10 +26,9 @@ export const Head = () => (
 const ChangelogPage = () => {
   return (
     <Layout>
-      <Container
+      <Flex
         css={theme({
-          pt: [2, null, 3],
-          justifyContent: 'center',
+          flexDirection: 'column',
           alignItems: 'center'
         })}
       >
@@ -52,7 +51,7 @@ const ChangelogPage = () => {
             <Content />
           </Markdown>
         </Box>
-      </Container>
+      </Flex>
     </Layout>
   )
 }
