@@ -260,8 +260,7 @@ const FormatsPage = () => (
           <Box css={theme({ p: [4, 4, 0, 0] })}>
             <Button
               onClick={() =>
-                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')
-              }
+                window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
             >
               <Caps>Request a format</Caps>
             </Button>

@@ -122,14 +122,10 @@ module.exports = {
               node {
                 fields {
                   slug
+                  lastmod
                 }
                 frontmatter {
                   date
-                }
-                parent {
-                  ... on File {
-                    absolutePath
-                  }
                 }
               }
             }
@@ -141,6 +137,9 @@ module.exports = {
               relativeDirectory
               name
               mtime
+              fields {
+                lastmod
+              }
             }
           }
         }
@@ -204,11 +203,13 @@ module.exports = {
           })
         },
         serialize: ({ path: url, lastmod }) => {
-          log({ url, lastmod })
-          // even if `lastmod` is available on local
-          // working with Vercel git history on production is not reliable
-          // so we're not gonna use it until we find a workaround
-          return { url }
+          if (!lastmod) {
+            log('not lastmod found', { url, lastmod })
+            if (!url.startsWith('/recipes')) {
+              throw new Error(`not lastmod found for '${url}'`)
+            }
+          }
+          return { url, lastmod }
         }
       }
     }
