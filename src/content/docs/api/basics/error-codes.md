@@ -145,6 +145,22 @@ The `staleTtl` value is invalid.
 
 The [staleTtl](/docs/api/parameters/staleTtl) value should be a value less than the current [ttl](/docs/api/parameters/ttl) provided.
 
+## EINVALOVERLAYBG
+
+**Message**
+
+The gradient is not valid. Ensure it follows CSS gradient syntax.
+
+**Solution**
+
+The [overlay.background](/docs/api/parameters/screenshot/overlay) value must be a valid CSS gradient or color. Common issues include:
+
+- Missing color stops (e.g., `linear-gradient(90deg,)` instead of `linear-gradient(90deg, red, blue)`)
+- Invalid color values
+- Malformed gradient syntax
+
+Ensure your gradient follows the [CSS gradient syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient).
+
 ## EMAXREDIRECTS
 
 **Message**
