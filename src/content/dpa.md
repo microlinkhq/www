@@ -1,6 +1,6 @@
 ---
 title: 'Data processing agreement'
-description: Learn how Microlink evolved from metascraper into a powerful browser automation platform built on open source, web standards, and developer-first APIs.
+description: Review the Microlink Data Processing Agreement (DPA) outlining GDPR-compliant data handling practices, security measures, and contractual obligations for API customers.
 lastEdited: true
 ---
 

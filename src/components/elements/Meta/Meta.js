@@ -115,6 +115,7 @@ function Meta ({ script, ...props }) {
       <meta property='og:video:secure_url' content={video} />
       <meta property='og:logo' content={logo} />
       <meta property='og:site_name' content={name} />
+      <meta property='og:locale' content='en_US' />
       <meta property='og:type' content='website' />
       {date && (
         <meta name='article:modified_time' content={date.toISOString()} />
