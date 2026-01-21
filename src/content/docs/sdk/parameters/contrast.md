@@ -1,6 +1,6 @@
 ---
 title: 'contrast'
-description: 'Enhance accessibility and aesthetics with high-contrast link previews.'
+description: 'Enable high-contrast mode for link previews based on predominant image colors. Improves accessibility and creates visually striking cards that adapt to your content.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'

@@ -1,6 +1,6 @@
 ---
 title: 'pdf › width'
-description: 'Control the scale of your generated PDF documents. Adjust the zoom level to ensure your website content is perfectly proportioned and legible.'
+description: 'Set a custom paper width for your PDF generation using pixels, inches, or other CSS units. Fine-tune the horizontal dimensions of your website-to-PDF conversions.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
