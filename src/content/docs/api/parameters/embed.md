@@ -63,7 +63,7 @@ Use embedded URLs directly in stylesheets:
 Embed in any Markdown document:
 
 ```md
-![Website Preview](https://api.microlink.io/?url=https://www.apple.com/&screenshot=true&meta=false&embed=screenshot.url)
+![Website Preview](/images/image-1.png)
 ```
 
 ![Website Preview](/images/image-1.png)
