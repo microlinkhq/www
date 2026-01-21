@@ -20,6 +20,64 @@ export const Head = () => (
   <Meta
     title={`The ultimate user agent list (${new Date().getFullYear()})`}
     description='Most common user-agents used on the Internet up to date'
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Dataset',
+        name: 'User Agent List',
+        description:
+          'A self-updating list of the latest and most common user agents for browsers, crawlers, and AI bots.',
+        url: 'https://microlink.io/user-agents',
+        keywords: [
+          'user agent',
+          'user-agent string',
+          'browser user agent',
+          'crawler user agent',
+          'web scraping'
+        ],
+        license: 'https://microlink.io/tos',
+        creator: {
+          '@type': 'Organization',
+          name: 'Microlink',
+          url: 'https://microlink.io'
+        },
+        distribution: {
+          '@type': 'DataDownload',
+          encodingFormat: 'application/json',
+          contentUrl: 'https://microlink.io/user-agents.json'
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What is a user agent string?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'A User Agent is a request header (User-Agent) that lets servers identify the application, operating system, vendor, and version of the requesting client.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Why do I need an updated user agent list?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Browsers have aggressive release cycles. Rotating User Agents is critical for web scraping and automation to mimic organic traffic and avoid being blocked by WAFs.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Is there an API for this user agent list?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes, you can get the full list at microlink.io/user-agents.json. It is CORS-enabled and ready for direct integration into any frontend or backend application.'
+            }
+          }
+        ]
+      }
+    ]}
   />
 )
 

@@ -35,7 +35,8 @@ export const Head = ({ pageContext, location }) => {
       title: isDocPage
         ? `${siteName} ${activeRouteName}: ${frontmatter.title || ''}`
         : frontmatter.title,
-      date: validDate
+      date: validDate,
+      schemaType: isBlogPage ? 'Article' : 'TechArticle'
     }
 
     return <Meta {...metaProps} />
