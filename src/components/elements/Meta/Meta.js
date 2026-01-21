@@ -23,7 +23,8 @@ const mergeMeta = (props, location, metadata) => {
     image,
     logo,
     name,
-    noSuffix
+    noSuffix,
+    schemaType
   } = {
     ...metadata,
     ...props
@@ -51,11 +52,79 @@ const mergeMeta = (props, location, metadata) => {
     twitter,
     url,
     video,
-    noSuffix
+    noSuffix,
+    schemaType
   }
 }
 
-function Meta ({ script, ...props }) {
+const generateStructuredData = ({
+  schemaType,
+  title,
+  description,
+  url,
+  image,
+  date,
+  author
+}) => {
+  if (!schemaType) return null
+
+  const baseSchema = {
+    '@context': 'https://schema.org',
+    headline: title,
+    description,
+    url,
+    image,
+    author: {
+      '@type': 'Organization',
+      name: 'Microlink',
+      url: 'https://microlink.io',
+      logo: 'https://cdn.microlink.io/logo/logo.png'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Microlink',
+      url: 'https://microlink.io',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://cdn.microlink.io/logo/logo.png'
+      }
+    }
+  }
+
+  if (schemaType === 'Article') {
+    return {
+      ...baseSchema,
+      '@type': 'Article',
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': url
+      },
+      ...(date && {
+        datePublished: date.toISOString(),
+        dateModified: date.toISOString()
+      })
+    }
+  }
+
+  if (schemaType === 'TechArticle') {
+    return {
+      ...baseSchema,
+      '@type': 'TechArticle',
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': url
+      },
+      ...(date && {
+        datePublished: date.toISOString(),
+        dateModified: date.toISOString()
+      })
+    }
+  }
+
+  return null
+}
+
+function Meta ({ script, structured, ...props }) {
   const siteMetadata = useSiteMetadata()
   const location = useLocation()
   const { author } = siteMetadata
@@ -74,13 +143,36 @@ function Meta ({ script, ...props }) {
     twitter,
     url,
     video,
-    noSuffix
+    noSuffix,
+    schemaType
   } = useMemo(
     () => mergeMeta(props, location, siteMetadata),
     [props, location, siteMetadata]
   )
 
   const fullTitle = noSuffix ? title : `${title} — ${name}`
+
+  const autoStructuredData = useMemo(
+    () =>
+      generateStructuredData({
+        schemaType,
+        title: fullTitle,
+        description,
+        url,
+        image,
+        date,
+        author
+      }),
+    [schemaType, fullTitle, description, url, image, date, author]
+  )
+
+  // Combine auto-generated schema with custom structured data
+  const allStructuredData = useMemo(() => {
+    const schemas = []
+    if (autoStructuredData) schemas.push(autoStructuredData)
+    if (structured) { schemas.push(...(Array.isArray(structured) ? structured : [structured])) }
+    return schemas
+  }, [autoStructuredData, structured])
 
   return (
     <>
@@ -120,6 +212,12 @@ function Meta ({ script, ...props }) {
       {date && (
         <meta name='article:modified_time' content={date.toISOString()} />
       )}
+      {/* <!-- JSON-LD Structured Data --> */}
+      {allStructuredData.map((schema, index) => (
+        <script key={index} type='application/ld+json'>
+          {JSON.stringify(schema)}
+        </script>
+      ))}
     </>
   )
 }

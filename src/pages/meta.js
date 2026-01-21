@@ -785,6 +785,36 @@ export const Head = () => (
   <Meta
     description='Structured and normalized data from Open Graph, Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.'
     image={cdnUrl('banner/meta.jpeg')}
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: 'Microlink Meta',
+        description:
+          'Extract structured metadata from any URL. Get unified data from Open Graph, JSON-LD, Twitter Cards, Microdata, and HTML markup.',
+        url: 'https://microlink.io/meta',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Any',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD'
+        },
+        featureList: [
+          'Open Graph extraction',
+          'JSON-LD parsing',
+          'Twitter Cards support',
+          'Microdata extraction',
+          'oEmbed integration',
+          'Color palette detection'
+        ],
+        creator: {
+          '@type': 'Organization',
+          name: 'Microlink',
+          url: 'https://microlink.io'
+        }
+      }
+    ]}
   />
 )
 

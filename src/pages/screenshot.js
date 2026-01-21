@@ -942,6 +942,60 @@ export const Head = () => (
   <Meta
     description='Easy peasy screenshots. Say goodbye to complexity. Turn websites into screenshots.'
     image={cdnUrl('banner/screenshot.jpeg')}
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: 'Microlink Screenshot',
+        description:
+          'Turn any website into a high-quality screenshot with a simple API call. Supports device emulation, browser overlays, and full-page captures.',
+        url: 'https://microlink.io/screenshot',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Any',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD'
+        },
+        featureList: [
+          'Full page screenshots',
+          'Device emulation',
+          'Browser overlay composition',
+          'CSS/JS injection',
+          'Custom viewport sizes',
+          'WebP and PNG formats'
+        ],
+        creator: {
+          '@type': 'Organization',
+          name: 'Microlink',
+          url: 'https://microlink.io'
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        name: 'How to take a website screenshot with Microlink API',
+        description:
+          'Learn how to capture screenshots of any website using the Microlink Screenshot API.',
+        step: [
+          {
+            '@type': 'HowToStep',
+            name: 'Get the target URL',
+            text: 'Identify the website URL you want to capture as a screenshot.'
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Call the API',
+            text: 'Make a GET request to api.microlink.io with url and screenshot=true parameters.'
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Receive the screenshot',
+            text: 'The API returns a JSON response with the screenshot URL hosted on Microlink CDN.'
+          }
+        ]
+      }
+    ]}
   />
 )
 
