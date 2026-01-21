@@ -86,9 +86,7 @@ const Button = withAnalytics(
     ButtonComponent,
     css`
       &:hover {
-        background-color: ${({ theme }) =>
-          props =>
-            theme.colors[props.bg]};
+        background-color: ${props => props.theme.colors[props.bg]};
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
       }
     `

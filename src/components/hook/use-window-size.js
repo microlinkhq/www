@@ -6,12 +6,26 @@ const getSize = () => ({
 })
 
 export function useWindowSize (fallback = { width: 1440, height: 798 }) {
-  const [windowSize, setWindowSize] = useState(fallback)
+  const [windowSize, setWindowSize] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return getSize()
+    }
+    return fallback
+  })
 
   useEffect(() => {
-    const handleResize = () => setWindowSize(getSize())
-    handleResize()
-    window.addEventListener('resize', handleResize)
+    const handleResize = () => {
+      setWindowSize(prev => {
+        const newWidth = window.innerWidth
+        const newHeight = window.innerHeight
+        if (prev.width === newWidth && prev.height === newHeight) {
+          return prev
+        }
+        return { width: newWidth, height: newHeight }
+      })
+    }
+
+    window.addEventListener('resize', handleResize, { passive: true })
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
