@@ -83,14 +83,14 @@ export const Hero = () => {
         return (
           <Box as='section' id='hero'>
             <Box id='input'>
-              <Heading>Sharing Debugger</Heading>
+              <Heading css={theme({ fontSize: 5 })}>Sharing Debugger</Heading>
               <Caption
                 forwardedAs='h2'
                 css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}
               >
-                A tool for verifying the meta tags of any website.
+                Verify and fix Open Graph meta tags for any website.
                 <LineBreak breakpoints={[2, 3]} />
-                Preview how it looks across social networks.
+                Visualize your social cards instantly.
               </Caption>
 
               <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
