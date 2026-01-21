@@ -64,6 +64,11 @@ const AsideWrapper = styled(Box)`
   bottom: 0;
   width: ${ASIDE_WIDTH};
   transition: transform ${transition.medium};
+  overscroll-behavior: contain;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   ${isNot('$isOpen')`
     transform: translateX(-100%);

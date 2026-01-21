@@ -13,7 +13,7 @@ export const useClipboard = () => {
   }, [])
 
   const toClipboard = useCallback(({ copy, text }) => {
-    if (!navigator.clipboard) {
+    if (typeof navigator === 'undefined' || !navigator.clipboard) {
       console.warn("[hook/use-clipboard]: 'navigator.clipboard' is undefined")
       return
     }

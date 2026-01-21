@@ -22,8 +22,8 @@ const StyledImage = styled('img')(
   border
 )
 
-const Image = props => (
-  <StyledImage decoding='async' loading='lazy' {...props} />
+const Image = ({ loading = 'lazy', alt = '', ...props }) => (
+  <StyledImage decoding='async' loading={loading} alt={alt} {...props} />
 )
 
 export default withLazy(Image)

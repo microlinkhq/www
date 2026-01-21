@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { transition, toPx, colors, theme } from 'theme'
+import { transition, toPx, colors, theme, touchTargets } from 'theme'
 
 import Flex from '../Flex'
 import Text from '../Text'
@@ -39,27 +39,44 @@ const Card = ({
   )
 }
 
-const CardOption = ({ children, value, ...props }) => (
-  <Text
-    as='span'
-    css={theme({
-      color: children === value ? 'black' : 'black60',
-      fontWeight: children === value ? 'regular' : 'normal',
-      pt: 3,
-      pr: 2,
-      fontSize: 1,
-      textAlign: 'right',
-      cursor: children !== value ? 'pointer' : 'default',
-      transition: `color ${transition.medium}`,
-      _hover: {
-        color: 'black'
-      }
-    })}
-    {...props}
-  >
-    {children}
-  </Text>
-)
+const CardOption = ({ children, value, onClick, ...props }) => {
+  const isActive = children === value
+  return (
+    <Text
+      as='button'
+      type='button'
+      onClick={onClick}
+      aria-pressed={isActive}
+      css={theme({
+        color: isActive ? 'black' : 'black60',
+        fontWeight: isActive ? 'regular' : 'normal',
+        pt: 3,
+        pr: 2,
+        fontSize: 1,
+        textAlign: 'right',
+        cursor: !isActive ? 'pointer' : 'default',
+        transition: `color ${transition.medium}`,
+        background: 'transparent',
+        border: 0,
+        minHeight: touchTargets.minHeight,
+        minWidth: touchTargets.minHeight,
+        _hover: {
+          color: 'black'
+        },
+        _focus: {
+          outline: 'none',
+          boxShadow: '0 0 0 2px var(--link)'
+        },
+        '@media (prefers-reduced-motion: reduce)': {
+          transition: 'none'
+        }
+      })}
+      {...props}
+    >
+      {children}
+    </Text>
+  )
+}
 
 Card.Option = CardOption
 Card.width = BASE_WIDTH

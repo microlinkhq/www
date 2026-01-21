@@ -1,4 +1,11 @@
-import { transition, theme as themeProp, colors, space, gradient } from 'theme'
+import {
+  transition,
+  theme as themeProp,
+  colors,
+  space,
+  gradient,
+  touchTargets
+} from 'theme'
 import styled, { css } from 'styled-components'
 import Box from '../Box'
 import React, { forwardRef } from 'react'
@@ -32,6 +39,17 @@ const StyledButton = styled(Box).withConfig({
   text-decoration: none;
   vertical-align: middle;
   white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
 
   ${({ variant }) =>
     variant === 'gradient' &&
@@ -44,6 +62,9 @@ const StyledButton = styled(Box).withConfig({
         box-shadow: none;
         filter: hue-rotate(40deg);
       }
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
     }
   `}
 
@@ -54,7 +75,12 @@ const StyledButton = styled(Box).withConfig({
       fontSize: 1,
       fontWeight: 'bold',
       px: 3,
-      py: 2,
+      /*
+       * WCAG/Apple HIG touch target: minimum 44px for comfortable tap interaction.
+       * py: 12px + fontSize + lineHeight achieves the minHeight.
+       */
+      py: '12px',
+      minHeight: touchTargets.minHeight,
       border: 0,
       borderRadius: 2,
       background,

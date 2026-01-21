@@ -35,12 +35,14 @@ from {
   transform: scale(0.5);
 } to {
   opacity: 1;
+  transform: scale(1);
 }
 `
 
 export const hideNotification = keyframes`
 from {
   opacity: 1;
+  transform: translateY(0);
 } to {
   opacity: 0;
   transform: translateY(100%);
@@ -109,4 +111,8 @@ to { transform: translateY( -6.0em); }
 export const fadeIn = css`
   animation: ${fadeInDown} 300ms;
   animation-fill-mode: both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 `
