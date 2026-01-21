@@ -87,6 +87,7 @@ const StyledTd = styled(Text)`
     font-size: 0.9em;
     color: ${colors.secondary};
     text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
+    white-space: nowrap;
 
     &::before,
     &::after {
