@@ -1,22 +1,46 @@
 import { toRaw, breakpoints } from 'theme'
-import { useMemo } from 'react'
-
-import { useWindowSize } from './use-window-size'
+import { useState, useEffect } from 'react'
 
 const rawBreakpoints = breakpoints.map(toRaw)
 
-export function useBreakpoint () {
-  const { width } = useWindowSize()
-
-  return useMemo(() => {
-    let findIndex = rawBreakpoints.length - 1
-
-    for (let index = 0; index < rawBreakpoints.length; index++) {
-      if (width < rawBreakpoints[index]) {
-        findIndex = index
-        break
-      }
+const calculateBreakpoint = width => {
+  for (let index = 0; index < rawBreakpoints.length; index++) {
+    if (width < rawBreakpoints[index]) {
+      return index
     }
-    return findIndex
-  }, [width])
+  }
+  return rawBreakpoints.length - 1
+}
+
+export function useBreakpoint () {
+  const [breakpoint, setBreakpoint] = useState(() => {
+    if (typeof window === 'undefined') {
+      return rawBreakpoints.length - 1
+    }
+    return calculateBreakpoint(window.innerWidth)
+  })
+
+  useEffect(() => {
+    const queries = rawBreakpoints.map(bp =>
+      window.matchMedia(`(max-width: ${bp - 1}px)`)
+    )
+
+    const handleChange = () => {
+      setBreakpoint(calculateBreakpoint(window.innerWidth))
+    }
+
+    queries.forEach(query => {
+      query.addEventListener('change', handleChange)
+    })
+
+    handleChange()
+
+    return () => {
+      queries.forEach(query => {
+        query.removeEventListener('change', handleChange)
+      })
+    }
+  }, [])
+
+  return breakpoint
 }
