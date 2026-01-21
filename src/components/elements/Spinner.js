@@ -35,10 +35,20 @@ const StyledSpinner = styled(Svg)`
   animation: ${rotate} 2s linear infinite;
   will-change: stroke-dasharray, stroke-dashoffset;
 
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
   .path {
     stroke: ${props => cx(props.$color)};
     stroke-linecap: round;
     animation: ${dash} 1.5s ease-in-out infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
   }
 `
 

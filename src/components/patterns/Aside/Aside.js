@@ -153,7 +153,7 @@ const Aside = props => {
         targetScroll > containerScrollTop ||
         activeElOffset < containerScrollTop
       ) {
-        asideContainer.scrollTo({ top: targetScroll - 10, behavior: 'instant' })
+        asideContainer.scrollTo({ top: targetScroll - 60, behavior: 'instant' })
       }
     }
   }, [])

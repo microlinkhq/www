@@ -24,6 +24,39 @@ const TOOLBAR_HEIGHTS = [
   `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
 ]
 
+const SkipLink = () => (
+  <a
+    href='#main-content'
+    css={{
+      position: 'absolute',
+      left: '-9999px',
+      top: 'auto',
+      width: '1px',
+      height: '1px',
+      overflow: 'hidden',
+      zIndex: 9999,
+      padding: '16px 24px',
+      background: 'var(--link)',
+      color: 'white',
+      textDecoration: 'none',
+      fontWeight: 'bold',
+      borderRadius: '0 0 4px 0',
+      '&:focus': {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: 'auto',
+        height: 'auto',
+        overflow: 'visible',
+        outline: '2px solid var(--link)',
+        outlineOffset: '2px'
+      }
+    }}
+  >
+    Skip to content
+  </a>
+)
+
 const Layout = ({
   footer = true,
   children,
@@ -36,6 +69,7 @@ const Layout = ({
 
   return (
     <ThemeProvider theme={themeSpec}>
+      <SkipLink />
       <Flex
         data-breakpoint={breakpoint}
         onClick={onClick}
@@ -49,11 +83,16 @@ const Layout = ({
         <Toolbar as='header' isDark={isDark} style={style} />
         <Box
           as='main'
+          id='main-content'
+          tabIndex={-1}
           css={themeProp({
             pt: TOOLBAR_HEIGHTS,
             px: [3, 3, 0],
             flex: 1,
-            overflow: 'visible'
+            overflow: 'visible',
+            '&:focus': {
+              outline: 'none'
+            }
           })}
           {...props}
         >

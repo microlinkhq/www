@@ -1,9 +1,8 @@
-import { useCallback, useState, useRef } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 
 export const useTheme = (themes, initialThemeKey) => {
   const [themeKey, setThemeKey] = useState(initialThemeKey)
   const [theme, setTheme] = useState(themes[initialThemeKey])
-  const isInitialMount = useRef(true)
 
   const set = useCallback(
     newThemeKey => {
@@ -16,10 +15,11 @@ export const useTheme = (themes, initialThemeKey) => {
     [themes]
   )
 
-  if (isInitialMount.current && typeof document !== 'undefined') {
-    isInitialMount.current = false
-    document.body.dataset.theme = initialThemeKey
-  }
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.body.dataset.theme = initialThemeKey
+    }
+  }, [initialThemeKey])
 
   return [{ theme: themeKey, ...theme }, set]
 }

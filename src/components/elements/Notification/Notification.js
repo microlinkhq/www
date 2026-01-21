@@ -2,7 +2,7 @@ import { hideNotification, showNotification } from 'components/keyframes'
 import { CheckCircle, X, AlertTriangle } from 'react-feather' // TODO: XCircle is probably X
 import React, { createElement, useState } from 'react'
 import FeatherIcon from 'components/icons/Feather'
-import { theme, transition } from 'theme'
+import { theme, transition, touchTargets } from 'theme'
 import styled from 'styled-components'
 import Text from '../Text'
 import Flex from '../Flex'
@@ -14,9 +14,14 @@ const Wrapper = styled(Flex)`
   right: 0;
   z-index: 3;
   animation: ${showNotification} ${transition.medium} forwards 1;
+  padding-bottom: env(safe-area-inset-bottom, 0);
 
   &[aria-hidden='true'] {
     animation: ${hideNotification} ${transition.medium} forwards 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 `
 
@@ -41,7 +46,7 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
         css={theme({
           boxShadow: 0,
           m: 3,
-          px: 3,
+          pl: 3,
           py: '10px',
           borderRadius: 2,
           border: 1,
@@ -51,28 +56,47 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
         {...props}
       >
         <Flex css={theme({ alignItems: 'center' })}>
-          <FeatherIcon css={theme({ mr: 3, color: iconColor })} icon={icon} />
+          <FeatherIcon
+            css={theme({
+              mr: 3,
+              color: iconColor,
+              display: 'flex',
+              alignItems: 'center'
+            })}
+            icon={icon}
+          />
           <Text css={theme({ color: 'black80', fontSize: ['10px', 1] })}>
             {children}
           </Text>
-          <FeatherIcon
+          <Flex
             as='button'
-            icon={X}
-            size='16px'
+            type='button'
             aria-label='Close notification'
             css={theme({
-              ml: 3,
+              pl: 3,
               color: 'black50',
               cursor: 'pointer',
               border: 0,
               background: 'transparent',
-              padding: 0
+              minWidth: touchTargets.minHeight,
+              minHeight: touchTargets.minHeight,
+              display: 'inline-flex',
+              alignItems: 'center',
+              _hover: {
+                color: 'black80'
+              },
+              _focus: {
+                outline: 'none',
+                boxShadow: '0 0 0 2px var(--link)'
+              }
             })}
             onClick={() => {
               setIsHidden(true)
               setTimeout(() => setIsClosed(true), 300)
             }}
-          />
+          >
+            <X size={16} />
+          </Flex>
         </Flex>
       </Flex>
     </Wrapper>

@@ -1,10 +1,10 @@
 import Flex from '../Flex'
 import Box from '../Box'
 import Caps from '../Caps'
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { noop } from 'helpers/noop'
-import { theme } from 'theme'
+import { theme, touchTargets } from 'theme'
 
 import Button from '../Button/Button'
 
@@ -14,11 +14,16 @@ const ButtonToggle = styled(Button)`
     py: 0,
     px: 0,
     borderRadius: 0,
+    minHeight: touchTargets.minHeight,
     _hover: {
       cursor: props => (props.$active ? 'auto' : 'pointer'),
       boxShadow: 'none'
     }
   })}
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `
 
 function Toggle ({ onChange = noop, children, defaultValue, ...props }) {
@@ -27,8 +32,36 @@ function Toggle ({ onChange = noop, children, defaultValue, ...props }) {
       (typeof children[0] === 'object' ? children[0].id : children[0])
   )
 
+  const handleKeyDown = useCallback(
+    (value, currentActive) => event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        if (value !== currentActive) {
+          setActive(value)
+          onChange(value)
+        }
+      }
+    },
+    [onChange]
+  )
+
+  const setAsActive = useCallback(
+    value => () => {
+      if (value !== active) {
+        setActive(value)
+        onChange(value)
+      }
+    },
+    [active, onChange]
+  )
+
   return (
-    <Flex css={{ width: '100%' }} {...props}>
+    <Flex
+      role='tablist'
+      aria-label='Toggle options'
+      css={{ width: '100%' }}
+      {...props}
+    >
       <Box
         css={theme({
           bg: 'white',
@@ -44,13 +77,6 @@ function Toggle ({ onChange = noop, children, defaultValue, ...props }) {
           const label = typeof item === 'object' ? item.node : item
           const isActive = active === value
 
-          const setAsActive = value => () => {
-            if (value !== active) {
-              setActive(value)
-              onChange(value)
-            }
-          }
-
           return (
             <Flex
               as='span'
@@ -63,31 +89,37 @@ function Toggle ({ onChange = noop, children, defaultValue, ...props }) {
                 justifyContent: 'center'
               })}
             >
-              <ButtonToggle $active={isActive} onClick={setAsActive(value)}>
-                {typeof label === 'string'
-                  ? (
-                    <Caps
-                      css={theme({
-                        fontWeight: !isActive ? 'normal' : 'bold',
-                        color: isActive ? 'black80' : 'black40',
-                        fontSize: 0
-                      })}
-                    >
-                      {label}
-                    </Caps>
-                    )
-                  : (
-                    <Box
-                      css={theme({
-                        color: isActive ? 'black80' : 'black40',
-                        display: 'flex',
-                        alignItems: 'center',
-                        py: 1
-                      })}
-                    >
-                      {label}
-                    </Box>
-                    )}
+              <ButtonToggle
+                role='tab'
+                aria-selected={isActive}
+                aria-controls={`panel-${value}`}
+                tabIndex={isActive ? 0 : -1}
+                $active={isActive}
+                onClick={setAsActive(value)}
+                onKeyDown={handleKeyDown(value, active)}
+              >
+                {typeof label === 'string' ? (
+                  <Caps
+                    css={theme({
+                      fontWeight: !isActive ? 'normal' : 'bold',
+                      color: isActive ? 'black80' : 'black40',
+                      fontSize: 0
+                    })}
+                  >
+                    {label}
+                  </Caps>
+                ) : (
+                  <Box
+                    css={theme({
+                      color: isActive ? 'black80' : 'black40',
+                      display: 'flex',
+                      alignItems: 'center',
+                      py: 1
+                    })}
+                  >
+                    {label}
+                  </Box>
+                )}
               </ButtonToggle>
             </Flex>
           )

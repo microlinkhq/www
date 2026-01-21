@@ -65,7 +65,9 @@ const NewsletterPage = () => (
                   type='email'
                   name='EMAIL'
                   placeholder='you@domain.com'
-                  css={theme({ width: '8rem', fontSize: 0 })}
+                  autoComplete='email'
+                  inputMode='email'
+                  css={theme({ width: '8rem' })}
                   iconComponent={
                     <FeatherIcon
                       icon={Mail}
@@ -77,6 +79,7 @@ const NewsletterPage = () => (
                 />
 
                 <Button
+                  type='submit'
                   data-event-location='Footer'
                   data-event-name='Be Notified'
                   css={theme({ ml: 2 })}

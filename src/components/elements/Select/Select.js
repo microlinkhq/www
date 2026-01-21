@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { theme, transition, fonts } from 'theme'
+import { theme, transition, fonts, colors, touchTargets } from 'theme'
 import React from 'react'
 
 import Box from '../Box'
@@ -16,14 +16,21 @@ const StyledSelect = styled(Box)(
     color: 'inherit',
     width: 'inherit',
     cursor: 'pointer',
-    transition: `border-color ${transition.medium}`,
+    transitionProperty: 'border-color, box-shadow',
+    transition: transition.medium,
     fontSize: 'inherit',
     lineHeight: 'inherit',
     appearance: 'none',
     backgroundImage: `url("${arrow}")`,
     backgroundPosition: `calc(100% - ${ARROW_SIZE}) center`,
     backgroundRepeat: 'no-repeat',
-    backgroundSize: `${ARROW_SIZE} ${ARROW_SIZE}`
+    backgroundSize: `${ARROW_SIZE} ${ARROW_SIZE}`,
+    touchAction: 'manipulation',
+    WebkitTapHighlightColor: 'transparent',
+    minHeight: touchTargets.minHeight,
+    '@media (prefers-reduced-motion: reduce)': {
+      transition: 'none'
+    }
   },
   theme({
     pl: '8px',
@@ -39,7 +46,9 @@ const StyledSelect = styled(Box)(
       }
     },
     _focus: {
-      borderColor: 'black80'
+      borderColor: 'black80',
+      boxShadow: `0 0 0 2px ${colors.link}`,
+      outline: 'none'
     },
     _disabled: {
       opacity: 1 / 4

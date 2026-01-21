@@ -294,6 +294,10 @@ export const layout = {
   small: toPx(650)
 }
 
+export const touchTargets = {
+  minHeight: toPx(44)
+}
+
 export const letterSpacings = [0, -0.025, 0.025, 0.1, 0.25].map(toEm)
 
 const theme = {
