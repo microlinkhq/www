@@ -12,7 +12,7 @@ import { mqlCode } from 'helpers/mql-code'
 
 export const Head = () => (
   <Meta
-    description='Test how your website will look like on social networks.'
+    description='Debug and validate Open Graph and SEO meta tags. Preview how your URL appears on Facebook, WhatsApp, Twitter, and LinkedIn.'
     image={cdnUrl('banner/sharing-debugger.jpeg')}
     title='Sharing Debugger'
   />
@@ -38,13 +38,6 @@ const SharingDebugger = () => {
                   just regex HTML; we use a flexible rule-based system to
                   normalize metadata from the wildest edge cases on the web.
                 </div>
-              </>
-            )
-          },
-          {
-            question: 'Supported Structured Data',
-            answer: (
-              <>
                 <div>
                   We normalize data into a unified JSON response, prioritizing
                   the most relevant source automatically.{' '}
@@ -102,6 +95,50 @@ const SharingDebugger = () => {
                       <b>Rendered HTML:</b> Unlike standard scrapers, we can
                       execute JavaScript to capture meta tags dynamically
                       injected by React/Vue apps.
+                    </li>
+                  </ul>
+                  Update your metadata using our recommended patterns, then
+                  re-run the test to verify the fix.
+                </div>
+              </>
+            )
+          },
+          {
+            question: 'Programmatic Metadata Validation',
+            answer: (
+              <>
+                <div>
+                  You can automate your Open Graph and SEO audit workflow using
+                  the{' '}
+                  <Link href='/docs/api/parameters/meta' logoIcon>
+                    Microlink API
+                  </Link>
+                  . This allows you to programmatically validate metadata for
+                  thousands of URLs without manual intervention.
+                  <MultiCodeEditorInteractive
+                    mqlCode={mqlCode('https://microlink.io', { meta: true })}
+                  />
+                  By hitting our API endpoint, you get a structured JSON payload
+                  containing every meta tag, allowing you to build internal
+                  health checks or automated CI/CD scripts to ensure your
+                  production deploys never break your social previews.
+                  <ul>
+                    <li>
+                      <b>Bulk Processing:</b> Use our{' '}
+                      <Link href='/#pricing' logoIcon>
+                        free tier
+                      </Link>{' '}
+                      to run validation scripts across your entire sitemap.
+                    </li>
+                    <li>
+                      <b>Integration Ready:</b> Easily integrate with Node.js,
+                      Python, or even simple cURL commands.
+                    </li>
+                    <li>
+                      <b>Edge Case Detection:</b> Programmatically detect
+                      missing
+                      <i>og:image</i> tags, broken canonicals, or invalid
+                      JSON-LD schemas across your whole domain.
                     </li>
                   </ul>
                 </div>
