@@ -1,6 +1,6 @@
 ---
 title: 'embed'
-description: 'Use the embed parameter to return a specific data field directly as the response body with the appropriate content-type headers.'
+description: 'Return a specific data field directly as the response body with appropriate content-type headers. Embed screenshots, PDFs, or extracted data directly in HTML, CSS, or Markdown.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
@@ -10,7 +10,7 @@ import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/>
 
-It returns the specified data field as response over the target [url](/docs/api/parameters/url), mimic the same headers and body.
+It returns the specified data field as response over the target [url](/docs/api/parameters/url), mimicking the same headers and body of the original resource.
 
 <MultiCodeEditorInteractive 
   mqlCode={mqlCode('https://news.ycombinator.com/item?id=13713480', {
@@ -21,7 +21,18 @@ It returns the specified data field as response over the target [url](/docs/api/
 
 <Figcaption children='You can use dot notation to reference a nested data field of the response payload.' />
 
-In this way, you can embed any data field directly as part of your HTML markup.
+## Why Use Embed
+
+The embed parameter transforms Microlink API from a JSON endpoint into a direct asset server. Instead of receiving JSON and parsing it with JavaScript, you get the actual resource (image, PDF, etc.) that can be used directly in:
+
+- HTML `<img>` tags
+- CSS `background-image` properties
+- Markdown image syntax
+- Open Graph meta tags
+
+## HTML Integration
+
+Embed screenshots directly in your HTML markup:
 
 ```html
 <img 
@@ -32,10 +43,66 @@ In this way, you can embed any data field directly as part of your HTML markup.
 
 And it will be rendered as an external image:
 
-![](/images/embed.png)
+![](/images/embed.jpeg)
 
-This signals Microlink to return a specified field and set the `content-type` response accordingly, enabling API URLs to be used directly in HTML, CSS, and Markdown without JavaScript JSON parsing.
+## CSS Integration
 
-To authenticate requests securely, use [proxy](https://github.com/microlinkhq/proxy) and [edge-proxy](https://github.com/microlinkhq/edge-proxy) to protect your credentials.
+Use embedded URLs directly in stylesheets:
 
-Read more about that at [authentication](/docs/api/basics/authentication) section.
+```css
+.hero-background {
+  background-image: url(/images/image-1.png);
+  background-size: cover;
+}
+```
+
+![Website Preview](/images/image-1.png)
+
+## Markdown Integration
+
+Embed in any Markdown document:
+
+```md
+![Website Preview](/images/image-1.png)
+```
+
+![Website Preview](/images/image-1.png)
+
+## Common Embed Fields
+
+| Field            | Description                | Use case                 |
+|------------------|----------------------------|--------------------------|
+| `screenshot.url` | Screenshot image URL       | Social cards, previews   |
+| `pdf.url`        | Generated PDF URL          | Document downloads       |
+| `image.url`      | Primary image URL          | Link previews            |
+| `logo.url`       | Website logo URL           | Brand displays           |
+| `video.url`      | Video source URL           | Media embeds             |
+
+
+## Combining with Other Parameters
+
+Embed works well with other parameters for customized output:
+
+<MultiCodeEditorInteractive 
+  mqlCode={mqlCode('https://microlink.io', {
+    screenshot: true,
+    device: 'iPhone X',
+    embed: 'screenshot.url'
+  })}
+/>
+
+<Figcaption children="Generate and embed a mobile screenshot directly." />
+
+## Open Graph Images
+
+A common use case is generating dynamic Open Graph images:
+
+```html
+<meta property="og:image" content="https://api.microlink.io/?url=https://your-site.com/blog/post&screenshot=true&meta=false&embed=screenshot.url">
+```
+
+## Security Considerations
+
+To authenticate requests securely when using embed in client-side code, use [proxy](https://github.com/microlinkhq/proxy) and [edge-proxy](https://github.com/microlinkhq/edge-proxy) to protect your API credentials.
+
+Read more about that at the [authentication](/docs/api/basics/authentication) section.

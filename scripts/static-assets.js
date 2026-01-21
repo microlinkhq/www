@@ -12,6 +12,8 @@
  * - Processes markdown image syntax: ![alt](url)
  * - Preserves original filenames when possible
  * - Handles redirects automatically
+ * - Deduplicates URLs (same URL = same local file)
+ * - Automatically stages downloaded assets with git add
  *
  * Usage:
  *   node scripts/static-assets.js <file1.md> <file2.md> ...
@@ -26,6 +28,13 @@ const https = require('https')
 const http = require('http')
 const path = require('path')
 const fs = require('fs')
+const $ = require('tinyspawn')
+
+// Track all downloaded assets for git staging
+const downloadedAssets = new Set()
+
+// Cache URL -> local path mappings for deduplication
+const urlToLocalPath = new Map()
 
 const isHttpUrl = input => /^https?:\/\//.test(input)
 
@@ -86,13 +95,25 @@ const generateFilename = (url, index) => {
 
 const processFrontmatterImage = async (data, imagesFolder) => {
   if (data.image && isHttpUrl(data.image)) {
-    console.log(`Processing frontmatter image: ${data.image}`)
-    const filename = generateFilename(data.image, 0)
+    const url = data.image
+
+    // Check if this URL was already processed (deduplication)
+    if (urlToLocalPath.has(url)) {
+      console.log(`Reusing cached image for frontmatter: ${url}`)
+      data.image = urlToLocalPath.get(url)
+      return true
+    }
+
+    console.log(`Processing frontmatter image: ${url}`)
+    const filename = generateFilename(url, 0)
     const outputPath = path.join(imagesFolder, filename)
+    const localPath = `/images/${filename}`
 
     try {
-      await downloadFile(data.image, outputPath)
-      data.image = `/images/${filename}`
+      await downloadFile(url, outputPath)
+      downloadedAssets.add(outputPath)
+      urlToLocalPath.set(url, localPath)
+      data.image = localPath
       return true
     } catch (err) {
       console.error(`Failed to download frontmatter image: ${err.message}`)
@@ -111,20 +132,33 @@ const processMarkdownImages = async (content, imagesFolder) => {
     matches.push({ alt: match[1], url: match[2] })
   }
 
-  let index = 1
-  for (const { url } of matches) {
-    if (isHttpUrl(url)) {
-      console.log(`Processing markdown image: ${url}`)
-      const filename = generateFilename(url, index++)
-      const outputPath = path.join(imagesFolder, filename)
+  // Collect unique HTTP URLs for processing
+  const httpUrls = [...new Set(matches.map(m => m.url).filter(isHttpUrl))]
 
-      try {
-        await downloadFile(url, outputPath)
-        const newPath = `/images/${filename}`
-        content = content.replace(url, newPath)
-      } catch (err) {
-        console.error(`Failed to download ${url}: ${err.message}`)
-      }
+  let index = 1
+  for (const url of httpUrls) {
+    // Check if this URL was already processed (deduplication)
+    if (urlToLocalPath.has(url)) {
+      console.log(`Reusing cached image: ${url}`)
+      const localPath = urlToLocalPath.get(url)
+      // Replace ALL occurrences of this URL
+      content = content.replaceAll(url, localPath)
+      continue
+    }
+
+    console.log(`Processing markdown image: ${url}`)
+    const filename = generateFilename(url, index++)
+    const outputPath = path.join(imagesFolder, filename)
+    const localPath = `/images/${filename}`
+
+    try {
+      await downloadFile(url, outputPath)
+      downloadedAssets.add(outputPath)
+      urlToLocalPath.set(url, localPath)
+      // Replace ALL occurrences of this URL
+      content = content.replaceAll(url, localPath)
+    } catch (err) {
+      console.error(`Failed to download ${url}: ${err.message}`)
     }
   }
 
@@ -202,6 +236,23 @@ const processFile = async filepath => {
   }
 }
 
+const gitAddAssets = async () => {
+  if (downloadedAssets.size === 0) {
+    return
+  }
+
+  console.log(`\nStaging ${downloadedAssets.size} downloaded asset(s)...`)
+
+  for (const assetPath of downloadedAssets) {
+    try {
+      await $(`git add "${assetPath}"`)
+      console.log(`✓ Staged ${path.basename(assetPath)}`)
+    } catch (err) {
+      console.error(`Failed to stage ${assetPath}: ${err.message}`)
+    }
+  }
+}
+
 const main = async () => {
   const files = process.argv.slice(2)
 
@@ -218,6 +269,9 @@ const main = async () => {
       process.exit(1)
     }
   }
+
+  // Stage all downloaded assets with git
+  await gitAddAssets()
 
   console.log('\n✓ Migration complete!')
 }

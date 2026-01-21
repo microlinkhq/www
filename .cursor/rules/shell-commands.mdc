@@ -1,0 +1,55 @@
+---
+description: Guidelines for executing shell commands in Node.js scripts
+globs: scripts/**/*.js, src/helpers/**/*.js
+alwaysApply: false
+---
+
+# Shell Command Execution
+
+## Use tinyspawn Instead of child_process
+
+- NEVER use `execSync`, `exec`, `spawn`, or `spawnSync` from `child_process`
+- ALWAYS use `tinyspawn` for shell command execution
+- Import as: `const $ = require('tinyspawn')` (CommonJS) or `import $ from 'tinyspawn'` (ESM)
+
+## Why tinyspawn?
+
+- Simpler API with promise-based interface
+- Consistent error handling
+- Already a project dependency
+- Cleaner, more readable code
+
+## Examples
+
+```javascript
+// ❌ Bad - using child_process
+const { execSync } = require('child_process')
+execSync('git add file.txt', { stdio: 'pipe' })
+
+// ✅ Good - using tinyspawn
+const $ = require('tinyspawn')
+await $('git add file.txt')
+
+// ❌ Bad - using spawn
+const { spawn } = require('child_process')
+const child = spawn('git', ['status'])
+
+// ✅ Good - using tinyspawn
+const $ = require('tinyspawn')
+const { stdout } = await $('git status')
+```
+
+## Pattern for git operations
+
+```javascript
+const $ = require('tinyspawn')
+
+// Stage files
+await $(`git add "${filepath}"`)
+
+// Get branch name
+const { stdout: branch } = await $('git rev-parse --abbrev-ref HEAD')
+
+// Move files
+await $(`git mv "${source}" "${destination}"`)
+```
