@@ -485,15 +485,30 @@ const WhatsAppPreview = ({ metadata }) => {
           >
             {metadata.description}
           </Text>
-          <Text
+          <Flex
             css={theme({
-              fontSize: '12px',
-              color: '#9DADA6',
-              textTransform: 'lowercase'
+              alignItems: 'center',
+              justifyContent: 'space-between'
             })}
           >
-            {domain}
-          </Text>
+            <Text
+              css={theme({
+                fontSize: '12px',
+                color: '#9DADA6',
+                textTransform: 'lowercase'
+              })}
+            >
+              {domain}
+            </Text>
+            {metadata.logo && (
+              <Image
+                src={metadata.logo.url}
+                alt={domain}
+                width='18px'
+                height='18px'
+              />
+            )}
+          </Flex>
         </Box>
       </Box>
 
@@ -648,7 +663,7 @@ const TelegramPreview = ({ metadata }) => (
           fontWeight: 'bold'
         })}
       >
-        ✓✓
+        ✓
       </Text>
     </Flex>
   </Box>
