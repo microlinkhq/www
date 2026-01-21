@@ -96,7 +96,8 @@ module.exports = {
       options: {
         extensions: ['.mdx', '.md'],
         mdxOptions: {
-          rehypePlugins: [require('rehype-slug')]
+          remarkPlugins: [require('remark-gfm').default],
+          rehypePlugins: [require('rehype-slug').default]
         }
       }
     },

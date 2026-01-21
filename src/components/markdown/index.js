@@ -25,6 +25,7 @@ import { MultiCodeEditor } from './MultiCodeEditor'
 import { Iframe } from './Iframe'
 import { Video } from './Video'
 import { Image } from './Image'
+import { Table, Thead, Tbody, Tr, Th, Td } from './Table'
 
 const { Container, CONTAINER_SPACE } = withContainer
 
@@ -275,7 +276,13 @@ const mdComponents = {
   strong: Strong,
   ul: Ul,
   iframe: Iframe,
-  video: Video
+  video: Video,
+  table: Table,
+  thead: Thead,
+  tbody: Tbody,
+  tr: Tr,
+  th: Th,
+  td: Td
 }
 
 const ScopedComponents = {

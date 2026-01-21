@@ -98,28 +98,30 @@ function Toggle ({ onChange = noop, children, defaultValue, ...props }) {
                 onClick={setAsActive(value)}
                 onKeyDown={handleKeyDown(value, active)}
               >
-                {typeof label === 'string' ? (
-                  <Caps
-                    css={theme({
-                      fontWeight: !isActive ? 'normal' : 'bold',
-                      color: isActive ? 'black80' : 'black40',
-                      fontSize: 0
-                    })}
-                  >
-                    {label}
-                  </Caps>
-                ) : (
-                  <Box
-                    css={theme({
-                      color: isActive ? 'black80' : 'black40',
-                      display: 'flex',
-                      alignItems: 'center',
-                      py: 1
-                    })}
-                  >
-                    {label}
-                  </Box>
-                )}
+                {typeof label === 'string'
+                  ? (
+                    <Caps
+                      css={theme({
+                        fontWeight: !isActive ? 'normal' : 'bold',
+                        color: isActive ? 'black80' : 'black40',
+                        fontSize: 0
+                      })}
+                    >
+                      {label}
+                    </Caps>
+                    )
+                  : (
+                    <Box
+                      css={theme({
+                        color: isActive ? 'black80' : 'black40',
+                        display: 'flex',
+                        alignItems: 'center',
+                        py: 1
+                      })}
+                    >
+                      {label}
+                    </Box>
+                    )}
               </ButtonToggle>
             </Flex>
           )
