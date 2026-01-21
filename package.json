@@ -148,7 +148,7 @@
     "is-url-http": "~2.3.13",
     "isbot": "~5.1.32",
     "json-future": "~2.2.25",
-    "lodash": "~4.17.21",
+    "lodash": "~4.17.23",
     "microsoft-capitalize": "~1.0.6",
     "normalize.css": "~8.0.1",
     "path-browserify": "~1.0.1",
