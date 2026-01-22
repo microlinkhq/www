@@ -5,9 +5,9 @@ description: 'Learn how to build a Node.js script that automatically validates O
 date: '2026-01-22'
 ---
 
-That sinking feeling when you check a shared link and realize the preview is broken? That isn't just annoyance—that is **lost revenue**.
+A naked URL without an Open Graph image and proper metadata is a **conversion leak**. It looks unprofessional, and it gets scrolled past.
 
-A naked URL without an Open Graph image is a **conversion leak**. It looks unprofessional, and it gets scrolled past.
+We built a [Sharing Debugger Tool](/tools/sharing-debugger) for exactly this: paste in any URL and instantly see how your metadata looks across different platforms. It's perfect for spot-checking individual pages.
 
 The problem is **scale**. You can't manually audit a sitemap with 5,000 pages using a browser extension. You need infrastructure that scales with your deployment.
 
@@ -156,7 +156,7 @@ const runAudit = async () => {
 runAudit();
 ```
 
-## Running Your First Audit
+### Running Your First Audit
 
 Just fire it up:
 
@@ -166,14 +166,42 @@ node audit.js
 
 **A quick heads-up on rate limits:** If you're on the free plan, keep CONCURRENCY at 1. You'll avoid those annoying 429 errors. With a [Pro plan](/#pricing), you can crank it to 10 or 20 and blast through thousands of pages in minutes.
 
-## What Makes This Actually Work
+### What Makes This Actually Work
 
 When you call ```mql(url, { meta: true })```, we're not just parsing HTML. We spin up a [real headless Chrome browser](/blog/what-is-a-headless-browser). Why does this matter?
 Your React/Vue/Angular site renders properly. Even if you're doing client-side rendering we execute the JavaScript and grab the tags after they're populated.
 
 We validate the actual images. That og:image URL? We check if it actually loads, grab its dimensions, verify the file size. No more broken image links slipping through.
 
-## Make This Part of Your Deploy Process
+### Grab the Code
+The complete working script is available on GitHub: [microlink/sitemap-validator](github.com/microlinkhq)
+
+Clone it, customize it, break it, fix it—whatever you need. Pull requests welcome if you add something useful.
+
+#### Not a Node.js Developer? No Problem
+
+This example uses Node.js because that's what I work with daily, but the Microlink API works with any language. 
+
+Want to rewrite this in Python, Ruby, Go, or whatever you're comfortable with?
+
+Here's how to adapt it:
+
+Copy this prompt and paste it into Claude, ChatGPT, or your AI tool of choice:
+
+```bash
+I need to rewrite this Open Graph validation script for [YOUR LANGUAGE]. The script should:
+1. Parse an XML sitemap and extract all URLs
+2. Make API requests to Microlink (https://api.microlink.io) with the meta: true parameter
+3. Validate that each page has: og:image, og:title, and og:description
+4. Generate a report showing which URLs failed validation
+5. Handle concurrency to avoid rate limits
+Here's the original Node.js version: [paste the code from above]
+Please rewrite this in [YOUR LANGUAGE] using idiomatic patterns and popular libraries for that ecosystem.
+```
+
+The AI will handle the translation and suggest the right libraries for your language. I've seen people successfully port this to Python (using requests and BeautifulSoup), Ruby (with Nokogiri), and even shell scripts with curl.
+
+### Make This Part of Your Deploy Process
 
 Want to never ship broken OG tags again? Add this to your GitHub Actions or GitLab CI:
 
@@ -185,6 +213,7 @@ if (failures.length > 0) {
 
 Now your deploy will fail if someone breaks the social metadata. Trust me, your marketing team will love you for this.
 
+### About me
+I'm Joseba, and I've been a CTO and full-stack developer for 15+ years. Now I'm scaling Microlink.
 
-
-
+Questions about the API or link previews? Hit me up at joseba@microlink.io
