@@ -53,6 +53,10 @@ export const getLastModifiedDate = async filepath => {
     `git log --max-count=1 --format=%cI -- ${normalizedPath}`
   )
 
+  if (!value) {
+    return new Date().toISOString()
+  }
+
   return parseGitTimestamp(value, filepath)
 }
 
