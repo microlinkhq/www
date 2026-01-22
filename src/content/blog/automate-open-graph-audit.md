@@ -11,10 +11,180 @@ A naked URL without an Open Graph image is a **conversion leak**. It looks unpro
 
 The problem is **scale**. You can't manually audit a sitemap with 5,000 pages using a browser extension. You need infrastructure that scales with your deployment.
 
-Here is how I solved this problem programmatically—and how you can too.
-
 ### The Cost of Broken Links
 
 * **Visually Dominant:** Rich previews occupy 400% more pixels in a feed than plain text.
 * **Developer Trust:** If your meta tags are broken, I assume your API is too.
 * **CTR is King:** You can rank #1 on Google, but if your social sharing is broken, your viral coefficient is zero.
+
+Here is how I solved this problem programmatically and how you can too.
+
+### The Simple Stack
+
+I wanted this to be lightweight and practical, not some enterprise monstrosity. Three dependencies, that's it:
+
+* **sitemapper**: Grabs every URL from your sitemap (even handles those nested sitemap indexes)
+* **@microlink/mql**: Fetches metadata exactly like social networks see it
+* **p-map**: Manages concurrency so you don't melt the free tier API
+
+### Getting Started
+
+Five minutes of setup:
+
+```shell
+mkdir sitemap-validator
+cd sitemap-validator
+npm init -y
+npm install sitemapper @microlink/mql p-map --save
+```
+
+### The Script That Does the Heavy Lifting
+
+Create **audit.js** file and drop this in:
+
+```javascript
+import Sitemapper from 'sitemapper';
+import mql from '@microlink/mql';
+import pMap from 'p-map';
+
+// CONFIGURATION
+const SITEMAP_URL = process.env.SITEMAP_URL || 'https://YOUR_WEB_PAGE.com/sitemap.xml';
+const API_KEY = process.env.API_KEY; // Optional, but recommended to large sitemaps
+
+const CONCURRENCY = 1; // Keep it low for free tier
+const FREE_TIER_LIMIT = 50; // 50 requests per day for free tier
+const FIRST_BATCH = 0; // If the free tier gets small make batch by batch
+
+const validateUrl = async (url) => {
+  await new Promise(resolve => setTimeout(resolve, 1000)); // Avoid free tier limits
+  try {
+    // We request 'meta' data specifically.
+    // Microlink mimics a browser to extract OG tags.
+    const { status, data, response } = await mql(url, {
+      meta: true,
+      apiKey: API_KEY
+    });
+
+    if (status !== 'success') {
+      return { url, error: 'API Error', status };
+    }
+
+    const errors = [];
+    
+    // VALIDATION LOGIC
+
+    if (!data.image || !data.image.url) errors.push('Missing OG Image');
+    
+    if (!data.title) errors.push('Missing OG Title');
+    else if (data.title > 60) errors.push('OG Title is too long')
+
+    if (!data.description) errors.push('Missing Description');
+    else if (data.description.length < 50) errors.push('Description too short');
+
+    if (!data.author) errors.push('Missing Author');
+
+    if (!data.date) errors.push('Missing Date');
+    else if (isNaN(new Date(data.date).getTime())) errors.push('Invalid Date');
+
+    if (!data.logo) errors.push('Missing Logo');
+
+    return {
+      url,
+      valid: errors.length === 0,
+      errors
+    };
+
+  } catch (err) {
+    return { url, error: err.message, valid: false };
+  }
+};
+
+const runAudit = async () => {
+  console.log(`🗺️  Fetching sitemap: ${SITEMAP_URL}...`);
+  
+  const sitemap = new Sitemapper({
+    url: SITEMAP_URL,
+    timeout: 15000
+  });
+
+  let { sites } = await sitemap.fetch();
+  if (sites.length > FREE_TIER_LIMIT && !API_KEY) {
+    console.log(` Total URLs exceeds free tier limit. Cutting from ${sites.length} to ${FREE_TIER_LIMIT}` );
+    sites = sites.slice(FREE_TIER_LIMIT * FIRST_BATCH, FREE_TIER_LIMIT);
+  }
+
+  const totalUrls = sites.length;
+  let processedCount = 0;
+  
+  console.log(`Found ${totalUrls} URLs. Starting validation...`);
+
+  // Use p-map to control concurrency with progress tracking
+  const results = await pMap(sites, async (url) => {
+    const result = await validateUrl(url);
+    processedCount++;
+    const percent = ((processedCount / totalUrls) * 100).toFixed(1);
+    process.stdout.write(`\r⏳ Progress: ${processedCount}/${totalUrls} (${percent}%)`);
+    return result;
+  }, { concurrency: CONCURRENCY });
+
+  // REPORTING
+  const failures = results.filter(r => !r.valid);
+  
+  console.log('\n\n--- 📊 AUDIT REPORT ---');
+  console.log(`Total Scanned: ${results.length}`);
+  console.log(`Passed: ${results.length - failures.length}`);
+  console.log(`Failed: ${failures.length}`);
+  
+  if (failures.length > 0) {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const errorFilePath = `./errors-${timestamp}.txt`;
+    
+    let errorContent = '❌ FAILED URLS:\n';
+    failures.forEach(f => {
+      errorContent += `\n${f.url}\n`;
+      if (f.errors) f.errors.forEach(e => errorContent += `   - ${e}\n`);
+      if (f.error) errorContent += `   - System Error: ${f.error}\n`;
+    });
+
+    fs.writeFileSync(errorFilePath, errorContent);
+    console.log(`\n❌ Errors saved to: ${errorFilePath}`);
+  } else {
+    console.log('\n✅ All systems nominal. Your sitemap is perfect.');
+  }
+};
+
+runAudit();
+```
+
+## Running Your First Audit
+
+Just fire it up:
+
+```bash
+node audit.js
+```
+
+**A quick heads-up on rate limits:** If you're on the free plan, keep CONCURRENCY at 1. You'll avoid those annoying 429 errors. With a [Pro plan](/#pricing), you can crank it to 10 or 20 and blast through thousands of pages in minutes.
+
+## What Makes This Actually Work
+
+When you call ```mql(url, { meta: true })```, we're not just parsing HTML. We spin up a [real headless Chrome browser](/blog/what-is-a-headless-browser). Why does this matter?
+Your React/Vue/Angular site renders properly. Even if you're doing client-side rendering we execute the JavaScript and grab the tags after they're populated.
+
+We validate the actual images. That og:image URL? We check if it actually loads, grab its dimensions, verify the file size. No more broken image links slipping through.
+
+## Make This Part of Your Deploy Process
+
+Want to never ship broken OG tags again? Add this to your GitHub Actions or GitLab CI:
+
+```javascript
+if (failures.length > 0) {
+  process.exit(1);
+}
+```
+
+Now your deploy will fail if someone breaks the social metadata. Trust me, your marketing team will love you for this.
+
+
+
+
