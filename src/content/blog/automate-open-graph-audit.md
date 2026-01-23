@@ -2,10 +2,10 @@
 title: 'Automate Open Graph Audit'
 subtitle: 'Stop Shipping Broken Link Previews'
 description: 'Learn how to build a Node.js script that automatically validates Open Graph tags across your entire sitemap.'
-date: '2026-01-22'
+date: '2026-01-23'
 ---
 
-A naked URL without an Open Graph image and proper metadata is a **conversion leak**. It looks unprofessional, and it gets scrolled past.
+A naked URL without an Open Graph image and proper metadata is a **conversion leak**. It looks unprofessional, and it gets scrolled past. Additionally, SEO can be affected since Google values those who maintain their pages better.
 
 We built a [Sharing Debugger Tool](/tools/sharing-debugger) for exactly this: paste in any URL and instantly see how your metadata looks across different platforms. It's perfect for spot-checking individual pages.
 
@@ -14,17 +14,19 @@ The problem is **scale**. You can't manually audit a sitemap with 5,000 pages us
 ### The Cost of Broken Links
 
 * **Visually Dominant:** Rich previews occupy 400% more pixels in a feed than plain text.
-* **Developer Trust:** If your meta tags are broken, I assume your API is too.
+* **Developer Trust:** If your meta tags are broken, maybe your API too.
 * **CTR is King:** You can rank #1 on Google, but if your social sharing is broken, your viral coefficient is zero.
 
-Here is how I solved this problem programmatically and how you can too.
+A Microlink client with thousands of pages to analyze recurrently, since their own employees had the ability to modify the information on each page, needed a custom solution that would analyze several sitemaps.
+
+In this post you'll learn to use Microlink to automate your own scans to maintain quality. We're going to look at a simplified example that gives you the foundation to build on.
 
 ### The Simple Stack
 
 I wanted this to be lightweight and practical, not some enterprise monstrosity. Three dependencies, that's it:
 
 * **sitemapper**: Grabs every URL from your sitemap (even handles those nested sitemap indexes)
-* **@microlink/mql**: Fetches metadata exactly like social networks see it
+* **microlink/mql**: Fetches metadata exactly like social networks see it
 * **p-map**: Manages concurrency so you don't melt the free tier API
 
 ### Getting Started
@@ -46,6 +48,7 @@ Create **audit.js** file and drop this in:
 import Sitemapper from 'sitemapper';
 import mql from '@microlink/mql';
 import pMap from 'p-map';
+import fs from  'fs'
 
 // CONFIGURATION
 const SITEMAP_URL = process.env.SITEMAP_URL || 'https://YOUR_WEB_PAGE.com/sitemap.xml';
@@ -173,12 +176,72 @@ Your React/Vue/Angular site renders properly. Even if you're doing client-side r
 
 We validate the actual images. That og:image URL? We check if it actually loads, grab its dimensions, verify the file size. No more broken image links slipping through.
 
-### Grab the Code
-The complete working script is available on GitHub: [microlink/sitemap-validator](github.com/microlinkhq)
+### Level Up: Semantic SEO with AI
 
-Clone it, customize it, break it, fix it—whatever you need. Pull requests welcome if you add something useful.
+Since you are already fetching the page metadata, why not validate the quality of the content?
 
-#### Not a Node.js Developer? No Problem
+Once you have it running, you can add extra features as elaborate as you want. You could take the title and description and ask an LLM that, by analyzing the website content, checks and improves both the title and description if it considers appropriate to climb positions in Google's ranking.
+
+```javascript
+const mql = require('@microlink/mql')
+
+// ... prev code
+const { status, data, response } = mql(url, {
+  meta: true,
+  data: {
+    content: {
+      selector: 'body' // get the body of the page
+      type: 'text' // get combined text content
+    }
+  }
+})
+
+console.log(`The content of the url -> ${data.content}`)
+// next code ...
+```
+
+You can extend and adapt to your use case or your clients' and offer a service that makes a difference.
+
+```bash
+You are an expert Technical SEO Auditor and Content Analyst. Your goal is to evaluate the semantic coherence between a webpage's metadata and its actual body content, adhering to Google's latest search documentation and best practices.
+
+**INPUT DATA:**
+1.  `current_title`: The content of the <title> tag.
+2.  `current_description`: The content of the <meta name="description"> tag.
+3.  `page_content`: The main body text of the URL (scraped/cleaned text).
+
+**ANALYSIS CRITERIA:**
+1.  **Relevance:** Does the title and description accurately reflect the primary topic (H1 and main body) of the page content?
+2.  **Length:** * Title: Should be approx. 50-60 characters (max 600 pixels).
+    * Description: Should be approx. 150-160 characters.
+3.  **Intent:** Does the metadata match the search intent (Informational, Transactional, etc.) of the content?
+4.  **uniqueness:** Is the current metadata generic or specific to the content provided?
+
+**OUTPUT INSTRUCTIONS:**
+Return ONLY a valid JSON object. Do not include markdown formatting (like ```json).
+
+The JSON object must follow this schema:
+{
+  "valid": boolean, // true if current metadata is coherent, optimal length, and accurate. false otherwise.
+  "reasoning": "string", // Brief technical explanation of why it passed or failed (e.g., 'Title too long', 'Miss-matched intent', 'Keyword stuffing').
+  "suggestions": {
+    "title": "string", // ONLY if valid is false. Provide an optimized title.
+    "description": "string" // ONLY if valid is false. Provide an optimized meta description.
+  }
+}
+
+**OPTIMIZATION RULES (If valid is false):**
+* **Title:** format as "Primary Keyword | Context/Brand" or "Compelling Hook - Brand". Front-load important keywords.
+* **Description:** Use active voice. Include a clear value proposition and a call-to-action (implicit or explicit) if the content is commercial.
+* **Tone:** Professional, clear, and engaging.
+
+**INPUT TO PROCESS:**
+Current Title: {{current_title}}
+Current Description: {{current_description}}
+Page Content: {{page_content}}
+```
+
+### Not a Node.js Developer? No Problem
 
 This example uses Node.js because that's what I work with daily, but the Microlink API works with any language. 
 
