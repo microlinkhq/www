@@ -17,7 +17,7 @@ The problem is **scale**. You can't manually audit a sitemap with 5,000 pages us
 * **Developer Trust:** If your meta tags are broken, maybe your API too.
 * **CTR is King:** You can rank #1 on Google, but if your social sharing is broken, your viral coefficient is zero.
 
-A Microlink client with thousands of pages to analyze recurrently, since their own employees had the ability to modify the information on each page, needed a custom solution that would analyze several sitemaps.
+For organizations with thousands of pages, content updates happen daily. When multiple employees have the ability to modify pages, you need a robust solution that can recurrently analyze all your sitemaps to catch regressions.
 
 In this post you'll learn to use Microlink to automate your own scans to maintain quality. We're going to look at a simplified example that gives you the foundation to build on.
 
