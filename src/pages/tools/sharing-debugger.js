@@ -124,11 +124,11 @@ const SharingDebugger = () => {
                   production deploys never break your social previews.
                   <ul>
                     <li>
-                      <b>Bulk Processing:</b> Use our{' '}
-                      <Link href='/#pricing' logoIcon>
-                        free tier
-                      </Link>{' '}
-                      to run validation scripts across your entire sitemap.
+                      <b>Bulk Processing:</b> Read how to{' '}
+                      <Link href='/blog/automate-open-graph-audit' logoIcon>
+                        run a validation script across your entire sitemap
+                      </Link>
+                      .
                     </li>
                     <li>
                       <b>Integration Ready:</b> Easily integrate with Node.js,

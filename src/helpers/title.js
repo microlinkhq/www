@@ -1,6 +1,7 @@
 import capitalize from 'microsoft-capitalize'
 
 const special = [
+  'AI',
   'apiKey',
   'APIs',
   'background',
@@ -32,6 +33,7 @@ const special = [
   'retry',
   'scroll',
   'SDK',
+  'SEO',
   'staleTtl',
   'timeout',
   'type',
