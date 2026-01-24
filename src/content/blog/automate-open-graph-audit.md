@@ -11,7 +11,7 @@ We built a [Sharing Debugger Tool](/tools/sharing-debugger) for exactly this: pa
 
 The problem is **scale**. You can't manually audit a sitemap with 5,000 pages using a browser extension. You need infrastructure that scales with your deployment.
 
-### The Cost of Broken Links
+### The cost of broken links
 
 * **Visually Dominant:** Rich previews occupy 400% more pixels in a feed than plain text.
 * **Developer Trust:** If your meta tags are broken, maybe your API too.
@@ -21,15 +21,15 @@ For organizations with thousands of pages, content updates happen daily. When mu
 
 In this post you'll learn to use Microlink to automate your own scans to maintain quality. We're going to look at a simplified example that gives you the foundation to build on.
 
-### The Simple Stack
+### The simple stack
 
 I wanted this to be lightweight and practical, not some enterprise monstrosity. Three dependencies, that's it:
 
-* **sitemapper**: Grabs every URL from your sitemap (even handles those nested sitemap indexes)
-* **microlink/mql**: Fetches metadata exactly like social networks see it
-* **p-map**: Manages concurrency so you don't melt the free tier API
+* [**sitemapper**](https://www.npmjs.com/package/sitemapper): Grabs every URL from your sitemap (even handles nested sitemap indexes).
+* [**microlink/mql**](/docs/mql/getting-started/installation): Fetches metadata exactly like social networks see it.
+* [**p-map**](https://www.npmjs.com/package/p-map): Manages concurrency so you don't melt the free tier API.
 
-### Getting Started
+### Getting started
 
 Five minutes of setup:
 
@@ -40,7 +40,7 @@ npm init -y
 npm install sitemapper @microlink/mql p-map --save
 ```
 
-### The Script That Does the Heavy Lifting
+### The script that does the heavy lifting
 
 Create **audit.js** file and drop this in:
 
@@ -74,7 +74,7 @@ const validateUrl = async (url) => {
 
     const errors = [];
     
-    // VALIDATION LOGIC
+    // Validation logic
 
     if (!data.image || !data.image.url) errors.push('Missing OG Image');
     
@@ -91,11 +91,7 @@ const validateUrl = async (url) => {
 
     if (!data.logo) errors.push('Missing Logo');
 
-    return {
-      url,
-      valid: errors.length === 0,
-      errors
-    };
+    return { valid: !errors.length, url, errors };
 
   } catch (err) {
     return { url, error: err.message, valid: false };
@@ -105,14 +101,11 @@ const validateUrl = async (url) => {
 const runAudit = async () => {
   console.log(`🗺️  Fetching sitemap: ${SITEMAP_URL}...`);
   
-  const sitemap = new Sitemapper({
-    url: SITEMAP_URL,
-    timeout: 15000
-  });
+  const sitemap = new Sitemapper({ url: SITEMAP_URL, timeout: 15000 });
 
   let { sites } = await sitemap.fetch();
   if (sites.length > FREE_TIER_LIMIT && !API_KEY) {
-    console.log(` Total URLs exceeds free tier limit. Cutting from ${sites.length} to ${FREE_TIER_LIMIT}` );
+    console.log(`Total URLs exceeds free tier limit. Cutting from ${sites.length} to ${FREE_TIER_LIMIT}` );
     sites = sites.slice(FREE_TIER_LIMIT * FIRST_BATCH, FREE_TIER_LIMIT);
   }
 
@@ -130,7 +123,7 @@ const runAudit = async () => {
     return result;
   }, { concurrency: CONCURRENCY });
 
-  // REPORTING
+  // Reporting
   const failures = results.filter(r => !r.valid);
   
   console.log('\n\n--- 📊 AUDIT REPORT ---');
@@ -159,7 +152,7 @@ const runAudit = async () => {
 runAudit();
 ```
 
-### Running Your First Audit
+### Running your first audit
 
 Just fire it up:
 
@@ -171,12 +164,13 @@ node audit.js
 
 ### What Makes This Actually Work
 
-When you call ```mql(url, { meta: true })```, we're not just parsing HTML. We spin up a [real headless Chrome browser](/blog/what-is-a-headless-browser). Why does this matter?
+When you call ```mql(url, { meta: true })```, we're not just parsing HTML. We spin up a [real headless Chrome browser](/blog/what-is-a-headless-browser).
+
+**Why does this matter?**
+
 Your React/Vue/Angular site renders properly. Even if you're doing client-side rendering we execute the JavaScript and grab the tags after they're populated.
 
-We validate the actual images. That og:image URL? We check if it actually loads, grab its dimensions, verify the file size. No more broken image links slipping through.
-
-### Level Up: Semantic SEO with AI
+### Level up, semantic SEO with AI
 
 Since you are already fetching the page metadata, why not validate the quality of the content?
 
@@ -241,7 +235,7 @@ Current Description: {{current_description}}
 Page Content: {{page_content}}
 ```
 
-### Not a Node.js Developer? No Problem
+### Not a Node.js Developer?
 
 This example uses Node.js because that's what I work with daily, but the Microlink API works with any language. 
 
@@ -262,9 +256,9 @@ Here's the original Node.js version: [paste the code from above]
 Please rewrite this in [YOUR LANGUAGE] using idiomatic patterns and popular libraries for that ecosystem.
 ```
 
-The AI will handle the translation and suggest the right libraries for your language. I've seen people successfully port this to Python (using requests and BeautifulSoup), Ruby (with Nokogiri), and even shell scripts with curl.
+The AI will handle the translation and suggest the right libraries for your language. I've seen people successfully port this to Python (using requests and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/)), Ruby (with [Nokogiri](https://nokogiri.org/index.html)), and even shell scripts with curl.
 
-### Make This Part of Your Deploy Process
+### Make this part of your deploy process
 
 Want to never ship broken OG tags again? Add this to your GitHub Actions or GitLab CI:
 
