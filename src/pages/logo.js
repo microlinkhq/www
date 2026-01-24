@@ -1,4 +1,4 @@
-import { toPx, borders, layout, colors, theme } from 'theme'
+import { toPx, borders, layout, colors, theme, fonts } from 'theme'
 import React, { useMemo, useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 import isUrl from 'is-url-http/lightweight'
@@ -187,17 +187,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-      ...new Set(
-        []
-          .concat(
-            logo.palette,
-            logo.background_color,
-            logo.color,
-            logo.alternative_color
-          )
-          .filter(Boolean)
-      )
-    ]
+        ...new Set(
+          []
+            .concat(
+              logo.palette,
+              logo.background_color,
+              logo.color,
+              logo.alternative_color
+            )
+            .filter(Boolean)
+        )
+      ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -312,8 +312,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })
-                        }
+                          })}
                       />
                     </Tooltip>
                   )
@@ -473,9 +472,11 @@ const LiveDemo = React.memo(function LiveDemo ({
                 })
               }}
               css={theme({
+                fontSize: 1,
+                fontFamily: fonts.mono,
+                cursor: 'copy',
                 width: '100%',
-                color: 'black60',
-                cursor: 'copy'
+                color: 'black60'
               })}
               value={snippetText}
             />
