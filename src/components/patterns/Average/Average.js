@@ -22,19 +22,22 @@ const Average = ({ size, value }) => {
   const steps = base * 0.1
 
   const unit = value.includes('ms') ? 'msecs' : 'secs'
-  const values = range(bottom, top, steps).map(value =>
-    value.toFixed(unit === 'secs' ? 2 : 0)
+  const values = useMemo(
+    () =>
+      range(bottom, top, steps).map(value =>
+        value.toFixed(unit === 'secs' ? 2 : 0)
+      ),
+    [bottom, top, steps, unit]
   )
 
   const rand = useMemo(() => uniqueRandomArray(values), [values])
   const [average, setAverage] = useState(null)
 
   useEffect(() => {
-    if (isMounted) {
-      setAverage(rand())
-      const interval = setInterval(() => setAverage(rand()), INTERVAL)
-      return () => clearInterval(interval)
-    }
+    if (!isMounted) return
+    setAverage(rand())
+    const interval = setInterval(() => setAverage(rand()), INTERVAL)
+    return () => clearInterval(interval)
   }, [isMounted, rand])
 
   const displayValue =

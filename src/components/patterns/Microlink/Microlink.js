@@ -1,10 +1,9 @@
 import { isFastConnection } from 'helpers/is-fast-connection'
+import { findDemoLinkByVariations } from 'helpers/demo-links'
 import { urlVariations } from 'helpers/url-variations'
 import { template } from 'helpers/template'
 import LinkPreview from '@microlink/react'
 import React from 'react'
-
-import demoLinks from '../../../../data/demo-links'
 
 const defaultMedia = [
   'iframe',
@@ -25,7 +24,7 @@ const Microlink = ({
   if (url) url = template(url)
 
   const variations = urlVariations(url)
-  const demoLink = demoLinks.find(item => variations.includes(item.data.url))
+  const demoLink = findDemoLinkByVariations(variations)
   const { data: demolinkData } = demoLink || {}
 
   const _fetchData = fetchData || !demolinkData

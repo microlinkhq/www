@@ -47,7 +47,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import humanizeUrl from 'humanize-url'
 
-import demoLinks from '../../data/demo-links'
+import { findDemoLinkById } from 'helpers/demo-links'
 
 const FEATURES = [
   {
@@ -103,7 +103,7 @@ const Caption = withTitle(CaptionBase)
 
 const INITIAL_SUGGESTION = 'youtube'
 
-const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
+const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
 
 const trimPx = str => Number(str.replace('px', ''))
 
@@ -116,7 +116,7 @@ const SUGGESTIONS = [
   'theverge',
   'youtube'
 ].map(id => {
-  const { data } = demoLinks.find(item => item.id === id)
+  const { data } = findDemoLinkById(id)
   return { value: humanizeUrl(data.url), data }
 })
 

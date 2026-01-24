@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 
 import { once } from 'helpers/once'
 
+const STORAGE_KEY = 'fingerprint:v1'
+
 const getFingerprint = once(() =>
   fetch('https://geolocation.microlink.io')
     .then(res => res.json())
@@ -13,17 +15,23 @@ const getFingerprint = once(() =>
     }))
 )
 
-export const useFingerprint = initialState => {
-  const [fingerprint, setFingerprint] = useState(initialState)
+export const useFingerprint = () => {
+  const [fingerprint, setFingerprint] = useState(() => {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY)
+      return data ? JSON.parse(data) : null
+    } catch {
+      return null
+    }
+  })
 
   useEffect(() => {
-    const data = localStorage.getItem('fingerprint')
-    if (data) return setFingerprint(JSON.parse(data))
+    if (fingerprint) return
     getFingerprint().then(data => {
-      localStorage.setItem('fingerprint', JSON.stringify(data))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
       setFingerprint(data)
     })
-  }, [])
+  }, [fingerprint])
 
   return fingerprint
 }

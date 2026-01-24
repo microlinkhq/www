@@ -40,41 +40,36 @@ const AsideMobile = ({ children, ...props }) => {
 
   // Handle Escape key to close drawer
   useEffect(() => {
+    if (!isOpen) return
+
     const handleKeyDown = event => {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === 'Escape') {
         handleClose()
       }
     }
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown)
-      return () => document.removeEventListener('keydown', handleKeyDown)
-    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isOpen])
 
   // Handle click outside to close drawer
   useEffect(() => {
+    if (!isOpen) return
+
     const handleClickOutside = event => {
       const asideElement = document.querySelector('[data-aside]')
       const menuButton = event.target.closest(
         'button[aria-label="open aside menu"]'
       )
 
-      if (
-        isOpen &&
-        asideElement &&
-        !asideElement.contains(event.target) &&
-        !menuButton
-      ) {
+      if (asideElement && !asideElement.contains(event.target) && !menuButton) {
         handleClose()
       }
     }
 
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside)
-      }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isOpen])
 

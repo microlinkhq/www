@@ -47,7 +47,7 @@ import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
-import demoLinks from '../../data/demo-links'
+import { findDemoLinkById } from 'helpers/demo-links'
 
 const FEATURES = [
   {
@@ -108,7 +108,7 @@ const SUGGESTIONS = [
   'producthunt',
   'nasa'
 ].map(id => {
-  const { url, logo } = demoLinks.find(item => item.id === id).data
+  const { url, logo } = findDemoLinkById(id).data
   return {
     logo,
     id,
@@ -187,17 +187,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-        ...new Set(
-          []
-            .concat(
-              logo.palette,
-              logo.background_color,
-              logo.color,
-              logo.alternative_color
-            )
-            .filter(Boolean)
-        )
-      ]
+      ...new Set(
+        []
+          .concat(
+            logo.palette,
+            logo.background_color,
+            logo.color,
+            logo.alternative_color
+          )
+          .filter(Boolean)
+      )
+    ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -312,7 +312,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
