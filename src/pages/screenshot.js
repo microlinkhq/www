@@ -1,6 +1,6 @@
 import FeatherIcon from 'components/icons/Feather'
+import { borders, breakpoints, layout, colors, theme, fonts } from 'theme'
 import React, { createElement, useMemo, useState, useEffect } from 'react'
-import { borders, breakpoints, layout, colors, theme } from 'theme'
 import { useTransition, animated } from '@react-spring/web'
 import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
@@ -271,9 +271,10 @@ const Screenshot = ({ data, style }) => {
             isLoading
               ? imageStyle
               : {
-                  ...imageStyle,
-                  filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-                }}
+                ...imageStyle,
+                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+              }
+          }
         />
       </Box>
     </Link>
@@ -484,7 +485,13 @@ const LiveDemo = React.memo(function LiveDemo ({
                     })
                   }}
                   style={{ cursor: 'copy' }}
-                  css={theme({ width: '100%', color: 'black60' })}
+                  css={theme({
+                    fontSize: 1,
+                    fontFamily: fonts.mono,
+                    cursor: 'copy',
+                    width: '100%',
+                    color: 'black60'
+                  })}
                   value={snippetText}
                 />
               </Tooltip>

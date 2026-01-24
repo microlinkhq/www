@@ -1,4 +1,4 @@
-import { layout, breakpoints, colors, borders, theme } from 'theme'
+import { layout, breakpoints, colors, borders, theme, fonts } from 'theme'
 import React, { useMemo, useState, useEffect } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
 import isUrl from 'is-url-http/lightweight'
@@ -342,7 +342,13 @@ const LiveDemo = React.memo(function LiveDemo ({
                     text: Tooltip.TEXT.COPIED('HTML')
                   })
                 }}
-                css={theme({ cursor: 'copy', width: '100%', color: 'black60' })}
+                css={theme({
+                  fontSize: 1,
+                  fontFamily: fonts.mono,
+                  cursor: 'copy',
+                  width: '100%',
+                  color: 'black60'
+                })}
                 value={snippetText}
               />
             </Tooltip>

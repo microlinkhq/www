@@ -1,5 +1,5 @@
+import { borders, breakpoints, layout, colors, theme, fonts } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
-import { borders, breakpoints, layout, colors, theme } from 'theme'
 import React, { useMemo, useState, useEffect } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
 import isUrl from 'is-url-http/lightweight'
@@ -376,7 +376,13 @@ const LiveDemo = React.memo(function LiveDemo ({
                     })
                   }}
                   style={{ cursor: 'copy' }}
-                  css={theme({ width: '100%', color: 'black60' })}
+                  css={theme({
+                    fontSize: 1,
+                    fontFamily: fonts.mono,
+                    cursor: 'copy',
+                    width: '100%',
+                    color: 'black60'
+                  })}
                   value={snippetText}
                 />
               </Tooltip>
