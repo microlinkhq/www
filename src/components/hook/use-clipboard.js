@@ -31,10 +31,7 @@ export const useClipboard = () => {
   }, [])
 
   const ClipboardComponent = useCallback(() => {
-    if (isCopied) {
-      return <Notification.Success>{text}</Notification.Success>
-    }
-    return null
+    return isCopied ? <Notification.Success>{text}</Notification.Success> : null
   }, [isCopied, text])
 
   return [ClipboardComponent, toClipboard]

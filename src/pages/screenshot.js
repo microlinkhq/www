@@ -50,7 +50,7 @@ import { useMounted } from 'components/hook/use-mounted'
 import { useQueryState } from 'components/hook/use-query-state'
 import { useWindowSize } from 'components/hook/use-window-size'
 
-import demoLinks from '../../data/demo-links'
+import { findDemoLinkById } from 'helpers/demo-links'
 
 const FEATURES = [
   {
@@ -182,7 +182,7 @@ const SUGGESTIONS = [
   { theme: 'dark', id: 'nasa' }
 ].map(({ theme, id }) => {
   const filename = `${id}.png`
-  const { url } = demoLinks.find(item => item.id === id).data
+  const { url } = findDemoLinkById(id).data
 
   return {
     cdnUrl: cdnUrl(`screenshot/browser/${theme}/${filename}`),
@@ -197,7 +197,7 @@ const fromCache = (variations, opts) => {
   const suggestion = SUGGESTIONS.find(({ url }) => variations.includes(url))
   if (!suggestion) return
 
-  const { data } = demoLinks.find(item => item.id === suggestion.id)
+  const { data } = findDemoLinkById(suggestion.id)
   const theme = get(opts, 'overlay.browser')
 
   const screenshotUrl = cdnUrl(

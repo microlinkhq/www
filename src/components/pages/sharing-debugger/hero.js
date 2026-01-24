@@ -17,14 +17,14 @@ import Caps from 'components/elements/Caps'
 import FetchProvider from 'components/patterns/FetchProvider'
 import LineBreak from 'components/elements/LineBreak'
 import Caption from 'components/patterns/Caption/Caption'
-
-import demoLinks from '../../../../data/demo-links'
+import { findDemoLinkById } from 'helpers/demo-links'
 
 const INITIAL_SUGGESTION = 'microlink'
 
 const HAS_FORCE = process.env.NODE_ENV !== 'development'
 
-const DEMO_LINK = demoLinks.find(demoLink => demoLink.id === INITIAL_SUGGESTION)
+// Use O(1) Map lookup instead of O(n) array.find()
+const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
 
 export const Hero = () => {
   const [query, setQuery] = useQueryState()

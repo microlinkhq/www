@@ -1,12 +1,11 @@
 import Choose from 'components/elements/Choose'
 import { Link } from 'components/elements/Link'
 import Notification from 'components/elements/Notification/Notification'
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useRef } from 'react'
+import { findDemoLinkByVariations } from 'helpers/demo-links'
 import { urlVariations } from 'helpers/url-variations'
 import { useQueryState } from 'components/hook/use-query-state'
 import mql from '@microlink/mql'
-
-import demoLinks from '../../../data/demo-links'
 
 const ErrorMessage = ({ more }) => {
   const text = 'The URL has something weird.'
@@ -26,23 +25,22 @@ const ErrorMessage = ({ more }) => {
   )
 }
 
-const fetch = (url, fromCache, opts) => {
+const fetchFromApi = (url, fromCache, opts) => {
   const variations = urlVariations(url)
   return fromCache(variations, opts) || mql(url, opts)
 }
 
-const FetchProvider = ({
-  fromCache = variations =>
-    demoLinks.find(item => variations.includes(item.data.url)),
-  mqlOpts,
-  children
-}) => {
+const defaultFromCache = variations => findDemoLinkByVariations(variations)
+
+const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
   const [response, setResponse] = useState({})
   const [error, setError] = useState(null)
   const [warning, setWarning] = useState(null)
   const [data, setData] = useState(null)
   const [query, setQuery] = useQueryState()
+
+  const didInitialFetch = useRef(false)
 
   const fetchData = useCallback(
     async (url, opts) => {
@@ -51,7 +49,8 @@ const FetchProvider = ({
         setError(null)
         setStatus('fetching')
 
-        const doFetch = url => fetch(url, fromCache, { ...mqlOpts, ...opts })
+        const doFetch = url =>
+          fetchFromApi(url, fromCache, { ...mqlOpts, ...opts })
 
         const { data, response } = Array.isArray(url)
           ? await Promise.all(url.map(doFetch))
@@ -71,24 +70,25 @@ const FetchProvider = ({
 
   const doFetch = (url, opts) => {
     setWarning(null)
-    if (url) return fetchData(url, opts)
-    queueMicrotask(() =>
+    if (!url) {
       setWarning({ children: 'You need to provide a valid URL.' })
-    )
+      return
+    }
+    return fetchData(url, opts)
   }
 
-  // TODO: Use React.Suspense
   useEffect(() => {
-    queueMicrotask(() => {
-      const { url, ...opts } = query
-      if (url) fetchData(url, opts)
-    })
-  }, [])
+    if (didInitialFetch.current) return
+    didInitialFetch.current = true
+
+    const { url, ...opts } = query
+    if (url) fetchData(url, opts)
+  }, [query, fetchData])
 
   return (
     <>
-      {error && <ErrorMessage {...error} />}
-      {!error && warning && <Notification.Warning {...warning} />}
+      {error ? <ErrorMessage {...error} /> : null}
+      {!error && warning ? <Notification.Warning {...warning} /> : null}
       {children({ status, doFetch, data, response })}
     </>
   )

@@ -14,7 +14,6 @@ const StyledInputBase = styled(Text)(
     verticalAlign: 'middle',
     appearance: 'none',
     color: 'inherit',
-    fontSize: 1,
     '&:focus-visible': {
       outline: 'none'
     },
