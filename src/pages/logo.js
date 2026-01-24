@@ -1,4 +1,4 @@
-import { toPx, borders, layout, colors, theme } from 'theme'
+import { toPx, borders, layout, colors, theme, fonts } from 'theme'
 import React, { useMemo, useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 import isUrl from 'is-url-http/lightweight'
@@ -472,9 +472,11 @@ const LiveDemo = React.memo(function LiveDemo ({
                 })
               }}
               css={theme({
+                fontSize: 1,
+                fontFamily: fonts.mono,
+                cursor: 'copy',
                 width: '100%',
-                color: 'black60',
-                cursor: 'copy'
+                color: 'black60'
               })}
               value={snippetText}
             />
