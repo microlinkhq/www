@@ -1,4 +1,4 @@
-import { transition, colors, borders, theme } from 'theme'
+import { transition, colors, borders, theme, touchTargets } from 'theme'
 import React, { useMemo, useState } from 'react'
 import styled, { css } from 'styled-components'
 
@@ -46,16 +46,21 @@ const InputWrapper = styled(Flex).withConfig({
   border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black10)};
   color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
   transition: border-color, stroke, color, box-shadow ${transition.short};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: ${touchTargets.minHeight};
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   ${props => props.focus && focusStyle}
   &:hover {
     ${focusStyle};
   }
   &:focus-within {
     ${focusStyle};
-    box-shadow: 0px 0px 0px 4px ${colors.black10};
-  }
-  &:focus-visible {
-    ${focusStyle};
+    box-shadow: 0px 0px 0px 4px ${colors.link}33;
   }
 `
 
@@ -66,6 +71,8 @@ const Input = ({
   children,
   isDark,
   labelCss,
+  autoComplete,
+  inputMode,
   ...props
 }) => {
   const [isFocus, setFocus] = useState(Boolean(props.autoFocus))
@@ -100,6 +107,8 @@ const Input = ({
         ref={innerRef}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
         {...props}
       />
 
