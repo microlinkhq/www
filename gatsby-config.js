@@ -21,7 +21,7 @@ const {
 module.exports = {
   trailingSlash: 'never',
   flags: {
-    DEV_SSR: true, // better 1:1 production behavior
+    DEV_SSR: false,
     FAST_DEV: true,
     PARALLEL_SOURCING: true,
     PRESERVE_FILE_DOWNLOAD_CACHE: true
@@ -51,7 +51,13 @@ module.exports = {
     cdnUrl: CDN_URL
   },
   plugins: [
-    'gatsby-plugin-styled-components',
+    {
+      resolve: 'gatsby-plugin-styled-components',
+      options: {
+        disableVendorPrefixes: false,
+        namespace: 'microlink'
+      }
+    },
     'gatsby-plugin-catch-links',
     'gatsby-transformer-javascript-frontmatter',
     {
