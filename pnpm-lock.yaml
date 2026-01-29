@@ -53,6 +53,9 @@ importers:
       beauty-error:
         specifier: ~1.2.21
         version: 1.2.21
+      cloudflare-bot-directory:
+        specifier: ~1.0.0
+        version: 1.0.5
       cssnano:
         specifier: ~7.1.2
         version: 7.1.2(postcss@8.5.6)
@@ -107,9 +110,6 @@ importers:
       is-url-http:
         specifier: ~2.3.13
         version: 2.3.13
-      isbot:
-        specifier: ~5.1.33
-        version: 5.1.33
       json-future:
         specifier: ~2.2.25
         version: 2.2.25
@@ -4467,6 +4467,10 @@ packages:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
 
+  cloudflare-bot-directory@1.0.5:
+    resolution: {integrity: sha512-MfK0EwXhOoxMjIiSfEx6+MYbrnizDC8BONNfyApDAGVNurT8AH1JiASlpeIc5Z6SIhcK3YeLirQ+QLcdvKWXFA==}
+    engines: {node: '>= 20'}
+
   coffeescript@2.7.0:
     resolution: {integrity: sha512-hzWp6TUE2d/jCcN67LrW1eh5b/rSDKQK6oD6VMLlggYVUUFexgTH9z3dNYihzX4RMhze5FTUsUmOXViJKFQR/A==}
     engines: {node: '>=6'}
@@ -7461,10 +7465,6 @@ packages:
 
   isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
-
-  isbot@5.1.33:
-    resolution: {integrity: sha512-P4Hgb5NqswjkI0J1CM6XKXon/sxKY1SuowE7Qx2hrBhIwICFyXy54mfgB5eMHXsbe/eStzzpbIGNOvGmz+dlKg==}
-    engines: {node: '>=18'}
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
@@ -18034,6 +18034,8 @@ snapshots:
 
   clone@2.1.2: {}
 
+  cloudflare-bot-directory@1.0.5: {}
+
   coffeescript@2.7.0: {}
 
   collapse-white-space@1.0.6: {}
@@ -22220,8 +22222,6 @@ snapshots:
   isarray@1.0.0: {}
 
   isarray@2.0.5: {}
-
-  isbot@5.1.33: {}
 
   isexe@2.0.0: {}
 
