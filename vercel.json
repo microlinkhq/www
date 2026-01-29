@@ -289,6 +289,10 @@
     {
       "source": "/blog/unavatar-generally-available",
       "destination": "/blog/unavatario-generally-available-now"
+    },
+    {
+      "source": "/sharing-debugger",
+      "destination": "/tools/sharing-debugger"
     }
   ]
 }
