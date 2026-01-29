@@ -20,7 +20,6 @@ import {
   NavCompany,
   NavDevelopers,
   NavDocs,
-  NavFormats,
   NavGitHub,
   NavInsights,
   NavLogo,
@@ -35,7 +34,8 @@ import {
   NavScreenshot,
   NavSDK,
   NavTwitter,
-  NavUserAgents
+  NavUserAgents,
+  NavSharingDebugger
 } from '../Toolbar/ToolbarLinks'
 
 const iconLight = css`
@@ -173,16 +173,13 @@ const ToolbarDesktop = ({ isDark }) => {
         <Choose>
           <Choose.When condition={secondary === 'products'}>
             <ToolbarSecondary>
-              <NavFormats
-                css={theme({ pl: 0, fontSize: '13px' })}
-                isDark={isDark}
-              />
               <NavInsights isDark={isDark} />
               <NavLogo isDark={isDark} />
               <NavMeta isDark={isDark} />
               <NavPdf isDark={isDark} />
               <NavScreenshot isDark={isDark} />
               <NavSDK isDark={isDark} />
+              <NavSharingDebugger isDark={isDark} />
             </ToolbarSecondary>
           </Choose.When>
           <Choose.When condition={secondary === 'developers'}>

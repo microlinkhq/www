@@ -84,7 +84,7 @@ const Health = ({ isDark, textColor }) => (
                     mr: 2
                   })}
                 />
-                All systems operational
+                Status - All systems operational
               </Choose.When>
               <Choose.Otherwise>
                 <Dot.Warning
@@ -92,7 +92,7 @@ const Health = ({ isDark, textColor }) => (
                     mr: 2
                   })}
                 />
-                System performance degradation
+                Status - System performance degradation
               </Choose.Otherwise>
             </Choose>
           </Text>
@@ -214,8 +214,8 @@ const Footer = ({ isDark, ...props }) => {
             {[
               { children: 'API', href: '/docs/api/getting-started/overview' },
               { children: 'Blog', href: '/blog' },
-              { children: 'Community', href: '/community' },
-              { children: 'Status', href: '/status' }
+              { children: 'Formats', href: '/formats' },
+              { children: 'Community', href: '/community' }
             ].map(({ href, children }) => (
               <Link
                 key={href}

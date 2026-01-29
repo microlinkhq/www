@@ -74,12 +74,6 @@ export const NavInsights = createNavItem({
   actively: 'partial'
 })
 
-export const NavFormats = createNavItem({
-  children: 'Formats',
-  href: '/formats',
-  actively: 'partial'
-})
-
 export const NavScreenshot = createNavItem({
   children: 'Screenshot',
   href: '/screenshot',
@@ -158,14 +152,20 @@ export const NavProducts = createNavItem({
     NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
 })
 
+export const NavSharingDebugger = createNavItem({
+  children: 'Sharing Debugger',
+  href: '/tools/sharing-debugger',
+  actively: 'partial'
+})
+
 NavProducts.pages = [
-  '/formats',
   '/insights',
   '/logo',
   '/meta',
   '/pdf',
   '/screenshot',
-  '/sdk'
+  '/sdk',
+  '/tools/sharing-debugger'
 ]
 
 export const NavDevelopers = createNavItem({

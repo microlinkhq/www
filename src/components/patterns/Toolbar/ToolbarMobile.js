@@ -15,7 +15,8 @@ import {
   NavPdf,
   NavPricing,
   NavScreenshot,
-  NavSDK
+  NavSDK,
+  NavSharingDebugger
 } from './ToolbarLinks'
 
 const Nav = styled(NavContainer)`
@@ -52,7 +53,8 @@ const ToolbarMobile = ({ isDark }) => {
             <NavPdf isDark={isDark} isMobile />
             <NavPricing isDark={isDark} />
             <NavScreenshot isDark={isDark} isMobile />
-            <NavSDK isDark={isDark} isMobile pr={4} />
+            <NavSDK isDark={isDark} isMobile />
+            <NavSharingDebugger isDark={isDark} isMobile pr={4} />
           </Nav>
         </Toolbar>
       </Box>
