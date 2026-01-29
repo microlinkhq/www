@@ -191,7 +191,16 @@ export const Metatags = ({ metadata }) => {
                               </>
                             )}
                           />
-                          <Choose.Otherwise render={() => 'lol'} />
+                          <Choose.Otherwise
+                            render={() => (
+                              <>
+                                You should to add a{' '}
+                                <CodeInline>{name}</CodeInline> meta tag inside{' '}
+                                <CodeInline>head</CodeInline> tag in your HTML
+                                markup.
+                              </>
+                            )}
+                          />
                         </Choose>
                       )}
                     />
