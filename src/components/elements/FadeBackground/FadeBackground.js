@@ -23,13 +23,7 @@ export const FadeBackground = styled(Box)`
   z-index: 1;
   opacity: ${({ $visible }) => ($visible === false ? 0 : 1)};
   background: linear-gradient(
-    to
-      ${({ $position }) => {
-        if ($position === 'top') return 'bottom'
-        if ($position === 'bottom') return 'top'
-        if ($position === 'left') return 'right'
-        if ($position === 'right') return 'left'
-      }},
+    to ${({ $position }) => ($position === 'bottom' ? 'top' : 'bottom')},
     white 0%,
     transparent 100%
   );
@@ -50,20 +44,15 @@ export const FadeBackground = styled(Box)`
   }}
 `
 
-const FadeBackgroundTop = props => {
+FadeBackground.Top = props => {
   const { showTop } = useContext(FadeBackgroundContext)
   return <FadeBackground $position='top' $visible={showTop} {...props} />
 }
 
-const FadeBackgroundBottom = props => {
+FadeBackground.Bottom = props => {
   const { showBottom } = useContext(FadeBackgroundContext)
   return <FadeBackground $position='bottom' $visible={showBottom} {...props} />
 }
-
-FadeBackground.Top = FadeBackgroundTop
-FadeBackground.Bottom = FadeBackgroundBottom
-FadeBackground.Left = props => <FadeBackground $position='left' {...props} />
-FadeBackground.Right = props => <FadeBackground $position='right' {...props} />
 
 export const useFadeMask = containerRef => {
   const [showTop, setShowTop] = useState(false)
