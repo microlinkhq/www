@@ -127,8 +127,8 @@ const UserAgentsPage = () => {
             >
               {[
                 { id: 'user', node: 'User' },
-                { id: 'crawler', node: 'Crawler' },
-                { id: 'ai', node: 'AI' }
+                { id: 'ai', node: 'AI' },
+                { id: 'crawler', node: 'Crawler' }
               ]}
             </Toggle>
           </Box>
