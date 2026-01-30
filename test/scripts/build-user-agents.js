@@ -31,4 +31,16 @@ describe('buildUserAgents', () => {
       ).toBe(true)
     }
   })
+
+  it('crawler should not include crawlers starting with a number', async () => {
+    const { crawler } = await buildUserAgents()
+    expect(crawler.some(crawler => /^[0-9]/.test(crawler))).toBe(false)
+  })
+
+  it('crawler should not include crawlers containing "(" or ")"', async () => {
+    const { crawler } = await buildUserAgents()
+    expect(
+      crawler.some(crawler => crawler.includes('(') || crawler.includes(')'))
+    ).toBe(false)
+  })
 })

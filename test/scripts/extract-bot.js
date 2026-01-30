@@ -28,5 +28,6 @@ describe('extractBotName', () => {
       )
     ).toBe('gluten free crawler')
     expect(extractBotName('2ip bot/1.1 (+http://2ip.io)')).toBe('2ip bot')
+    expect(extractBotName('amazon-kendra-')).toBe('amazon-kendra')
   })
 })

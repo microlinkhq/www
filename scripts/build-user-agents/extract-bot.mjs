@@ -21,6 +21,9 @@ const EXCLUDED_PRODUCTS = new Set([
   'macintosh'
 ])
 
+// Clean up bot name by removing trailing punctuation
+const cleanBotName = name => name.replace(/[-_.]+$/, '')
+
 export function extractBotName (ua) {
   // Match multi-word bot name with version at start (e.g., "2ip bot/1.1 (+http://...)")
   const multiWordBotStart = ua.match(
@@ -30,7 +33,7 @@ export function extractBotName (ua) {
     const name = multiWordBotStart[1].toLowerCase()
     const firstWord = name.split(' ')[0]
     if (!EXCLUDED_PRODUCTS.has(firstWord)) {
-      return name
+      return cleanBotName(name)
     }
   }
 
@@ -46,7 +49,7 @@ export function extractBotName (ua) {
     if (multiWordBot) {
       const name = multiWordBot[1].toLowerCase()
       if (!EXCLUDED_PRODUCTS.has(name.split(' ')[0])) {
-        return name
+        return cleanBotName(name)
       }
     }
 
@@ -56,7 +59,7 @@ export function extractBotName (ua) {
       /(?:^|;\s*)([a-z][a-z0-9]*_[a-z0-9_]+)\b/
     )
     if (snakeCaseIdentifier) {
-      return snakeCaseIdentifier[1]
+      return cleanBotName(snakeCaseIdentifier[1])
     }
   }
 
@@ -72,7 +75,7 @@ export function extractBotName (ua) {
   if (products.length > 0) {
     // Prefer longer / more specific names (ChatGPT-User > Bot)
     products.sort((a, b) => b.name.length - a.name.length)
-    return products[0].lname
+    return cleanBotName(products[0].lname)
   }
 
   // Fallback: first word before any URL or parenthesis (e.g., "YouBot (+http://...)" → "youbot")
@@ -80,7 +83,7 @@ export function extractBotName (ua) {
   if (firstWordMatch) {
     const name = firstWordMatch[1].toLowerCase()
     if (!EXCLUDED_PRODUCTS.has(name)) {
-      return name
+      return cleanBotName(name)
     }
   }
 

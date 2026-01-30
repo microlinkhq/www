@@ -86,12 +86,24 @@ const buildAI = async () => {
     .filter(bot => bot.category.startsWith('AI'))
     .map(bot => bot.userAgentPatterns)
     .flat()
-    .map(bot => bot.toLowerCase().replace(/\/$/, ''))
-    .forEach(aiBot => {
-      if (!result.includes(aiBot)) result.push(aiBot)
+    .map(bot => extractBotName(bot.toLowerCase().replace(/\/$/, '')))
+    .forEach(ai => {
+      if (!result.includes(ai)) {
+        result.push(ai)
+      }
     })
 
   return result.sort(sortAlphabetically)
+}
+
+const isValidCrawler = crawler => {
+  if (!crawler) return false
+  // Exclude crawlers starting with a number
+  if (/^[0-9]/.test(crawler)) return false
+  // Exclude crawlers containing "(" or ")"
+  if (crawler.includes('(') || crawler.includes(')')) return false
+  // Anything else is allowed
+  return true
 }
 
 const buildCrawler = async ai => {
@@ -100,7 +112,11 @@ const buildCrawler = async ai => {
     await SOURCES.wellKnownBots().then(({ crawler }) => crawler)
   ).reduce((acc, crawlerAgent) => {
     const crawler = extractBotName(crawlerAgent)
-    if (crawler && !ai.includes(crawler) && !acc.includes(crawler)) {
+    if (
+      isValidCrawler(crawler) &&
+      !ai.includes(crawler) &&
+      !acc.includes(crawler)
+    ) {
       acc.push(crawler)
     }
     return acc
@@ -109,7 +125,11 @@ const buildCrawler = async ai => {
   ;(await SOURCES.crawlerAgents().then(({ crawler }) => crawler)).forEach(
     crawlerAgent => {
       const crawler = extractBotName(crawlerAgent)
-      if (crawler && !ai.includes(crawler) && !result.includes(crawler)) {
+      if (
+        isValidCrawler(crawler) &&
+        !ai.includes(crawler) &&
+        !result.includes(crawler)
+      ) {
         result.push(crawler)
       }
     }
@@ -119,7 +139,8 @@ const buildCrawler = async ai => {
     .filter(bot => !bot.category.startsWith('AI'))
     .map(bot => bot.userAgentPatterns)
     .flat()
-    .map(bot => bot.toLowerCase().replace(/\/$/, ''))
+    .map(bot => extractBotName(bot.toLowerCase().replace(/\/$/, '')))
+    .filter(crawler => isValidCrawler(crawler))
     .forEach(crawler => {
       if (!ai.includes(crawler) && !result.includes(crawler)) {
         result.push(crawler)
