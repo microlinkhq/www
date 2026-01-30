@@ -55,9 +55,8 @@ const getValue = (placeholders, name, value) =>
 
 export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
   const placeholders = buildPlaceholders(metadata)
-  const missingIssues = issues.filter(issue => issue.isNullable)
 
-  const issueFixes = missingIssues.reduce(
+  const issueFixes = issues.reduce(
     (groups, issue) => {
       const rawValue = getValue(placeholders, issue.name, issue.value)
       const safeValue = escapeHtml(rawValue)
@@ -74,6 +73,11 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
           break
         }
         case 'description': {
+          if (!issue.isNullable) {
+            groups.search.push(
+              '<!-- Consider extending to 140-240 characters for best results -->'
+            )
+          }
           groups.search.push(`<meta name="description" content="${safeValue}">`)
           groups.openGraph.push(
             `<meta property="og:description" content="${safeValue}">`
@@ -95,6 +99,11 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
           break
         }
         case 'logo': {
+          if (!issue.isNullable) {
+            groups.favicon.push(
+              '<!-- Use images at least 100x100px for better quality -->'
+            )
+          }
           groups.openGraph.push(
             `<meta property="og:logo" content="${safeValue}">`
           )
