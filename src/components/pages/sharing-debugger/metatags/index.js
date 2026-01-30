@@ -180,17 +180,6 @@ export const Metatags = ({ metadata }) => {
                               </>
                             )}
                           />
-                          <Choose.When
-                            condition={name === 'author'}
-                            render={() => (
-                              <>
-                                You should to add a{' '}
-                                <CodeInline>author</CodeInline> meta tag inside{' '}
-                                <CodeInline>head</CodeInline> tag in your HTML
-                                markup.
-                              </>
-                            )}
-                          />
                           <Choose.Otherwise
                             render={() => (
                               <>
