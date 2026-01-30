@@ -21,7 +21,7 @@ export const FadeBackground = styled(Box)`
   position: sticky;
   pointer-events: none;
   z-index: 1;
-  opacity: ${({ $visible }) => ($visible === false ? 0 : 1)};
+  display: ${({ $visible }) => ($visible === false ? 'none' : 'block')};
   background: linear-gradient(
     to ${({ $position }) => ($position === 'bottom' ? 'top' : 'bottom')},
     white 0%,
@@ -56,19 +56,20 @@ FadeBackground.Bottom = props => {
 
 export const useFadeMask = containerRef => {
   const [showTop, setShowTop] = useState(false)
-  const [showBottom, setShowBottom] = useState(true)
+  const [showBottom, setShowBottom] = useState(false)
 
   const updateScrollState = useCallback(() => {
     const container = containerRef.current
     if (!container) return
 
     const { scrollTop, scrollHeight, clientHeight } = container
+    const hasOverflow = scrollHeight > clientHeight + SCROLL_THRESHOLD
     const isAtTop = scrollTop <= SCROLL_THRESHOLD
     const isAtBottom =
       scrollTop + clientHeight >= scrollHeight - SCROLL_THRESHOLD
 
-    setShowTop(!isAtTop)
-    setShowBottom(!isAtBottom)
+    setShowTop(hasOverflow && !isAtTop)
+    setShowBottom(hasOverflow && !isAtBottom)
   }, [containerRef])
 
   useEffect(() => {
