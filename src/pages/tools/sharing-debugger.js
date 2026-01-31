@@ -12,9 +12,36 @@ import { mqlCode } from 'helpers/mql-code'
 
 export const Head = () => (
   <Meta
-    description='Debug and validate Open Graph and SEO meta tags. Preview how your URL appears on Facebook, WhatsApp, Twitter, and LinkedIn.'
+    title='Sharing Debugger Tool'
+    description='Debug and validate Open Graph and SEO meta tags. Preview how your URL appears on Facebook, WhatsApp, Twitter, and LinkedIn. Test social media sharing instantly.'
     image={cdnUrl('banner/sharing-debugger.jpeg')}
-    title='Sharing Debugger'
+    schemaType='SoftwareApplication'
+    structured={{
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      '@id': 'https://microlink.io/tools/sharing-debugger',
+      name: 'Microlink Sharing Debugger',
+      description:
+        'Debug and validate Open Graph and SEO meta tags. Preview social media sharing across platforms.',
+      url: 'https://microlink.io/tools/sharing-debugger',
+      applicationCategory: ['DeveloperApplication', 'Tool'],
+      keywords: [
+        'sharing debugger',
+        'Open Graph debugger',
+        'social media preview',
+        'meta tags validator',
+        'Facebook debugger',
+        'Twitter card validator',
+        'SEO meta tags',
+        'link preview tool'
+      ],
+      about: [
+        { '@type': 'Thing', name: 'Open Graph Debugger' },
+        { '@type': 'Thing', name: 'Social Media Preview Tool' },
+        { '@type': 'Thing', name: 'Meta Tags Validator' },
+        { '@type': 'Thing', name: 'SEO Debugging Tool' }
+      ]
+    }}
   />
 )
 
@@ -26,7 +53,7 @@ const SharingDebugger = () => {
         css={theme({ pt: 0, px: 0 })}
         questions={[
           {
-            question: 'How it works',
+            question: 'What can I debug with this tool?',
             answer: (
               <>
                 <div>
@@ -79,7 +106,7 @@ const SharingDebugger = () => {
             )
           },
           {
-            question: 'Debugging & Caching logic',
+            question: 'How does social media caching work?',
             answer: (
               <>
                 <div>
@@ -104,7 +131,7 @@ const SharingDebugger = () => {
             )
           },
           {
-            question: 'Programmatic Metadata Validation',
+            question: 'Can I automate this process?',
             answer: (
               <>
                 <div>
@@ -146,7 +173,7 @@ const SharingDebugger = () => {
             )
           },
           {
-            question: 'Automating Screenshots for OG Images',
+            question: 'How can I create social media images?',
             answer: (
               <>
                 <div>
