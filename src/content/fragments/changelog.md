@@ -1,3 +1,7 @@
+### January 2025
+
+- [Microlink API](/docs/api/getting-started/overview): Better Bluesky support.
+
 ### December 2025
 
 - [Microlink API](/docs/api/getting-started/overview): Improved infrastructure for transparent [antibot](/blog/antibot-at-scale) resolution.
