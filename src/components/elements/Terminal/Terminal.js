@@ -1,10 +1,14 @@
 import { theme, speed, toMs, timings, cx, colors, radii, borders } from 'theme'
+import {
+  FadeBackground,
+  FadeBackgroundProvider
+} from '../FadeBackground/FadeBackground'
 import { childrenTextAll } from 'helpers/children-text-all'
 import styled, { css, keyframes } from 'styled-components'
 import { aspectRatio } from 'helpers/aspect-ratio'
 import { blink } from 'components/keyframes'
 import { wordBreak } from 'helpers/style'
-import React from 'react'
+import React, { useRef } from 'react'
 
 import CodeCopy from '../Codecopy'
 import Text from '../Text'
@@ -46,10 +50,7 @@ const fromString = text =>
     ))
 
 const TerminalHeader = styled('div')`
-  background: linear-gradient(
-    ${props => (props.$isDark ? 'black' : 'white')} 75%,
-    transparent
-  );
+  background: white;
   border-top-right-radius: ${radii[3]};
   border-top-left-radius: ${radii[3]};
   display: flex;
@@ -154,13 +155,14 @@ export const TerminalTitle = ({ isDark, children }) => (
 )
 
 export const TerminalText = styled('div')`
-  padding: 16px 8px 16px 8px;
+  padding: 0 8px 8px 8px;
   overflow: visible;
   font-size: 13px;
   line-height: 20px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   align-items: center;
+  position: relative;
 
   div > span,
   code > span {
@@ -217,21 +219,31 @@ const TerminalProvider = ({
   header,
   ...props
 }) => {
+  const containerRef = useRef(null)
+
   return (
-    <TerminalWindow
-      $isDark={isDark}
-      css={theme({ width: TERMINAL_WIDTH })}
-      {...props}
-    >
-      <TerminalHeader $isDark={isDark} {...header}>
-        <TerminalButton.Red loading={loading} />
-        <TerminalButton.Yellow loading={loading} />
-        <TerminalButton.Green loading={loading} />
-        <TerminalTitle isDark={isDark}>{title}</TerminalTitle>
-        <ActionComponent isDark={isDark} text={text} />
-      </TerminalHeader>
-      <TerminalText>{children}</TerminalText>
-    </TerminalWindow>
+    <FadeBackgroundProvider containerRef={containerRef}>
+      <TerminalWindow
+        ref={containerRef}
+        $isDark={isDark}
+        css={theme({ width: TERMINAL_WIDTH })}
+        {...props}
+      >
+        <TerminalHeader $isDark={isDark} {...header}>
+          <TerminalButton.Red loading={loading} />
+          <TerminalButton.Yellow loading={loading} />
+          <TerminalButton.Green loading={loading} />
+          <TerminalTitle isDark={isDark}>{title}</TerminalTitle>
+          <ActionComponent isDark={isDark} text={text} />
+        </TerminalHeader>
+
+        <TerminalText>
+          <FadeBackground.Top />
+          {children}
+          <FadeBackground.Bottom />
+        </TerminalText>
+      </TerminalWindow>
+    </FadeBackgroundProvider>
   )
 }
 

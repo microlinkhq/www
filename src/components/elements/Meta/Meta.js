@@ -149,8 +149,8 @@ function Meta ({ script, structured, ...props }) {
         <meta name='article:modified_time' content={date.toISOString()} />
       )}
       {/* <!-- JSON-LD Structured Data --> */}
-      {allStructuredData.map((schema, index) => (
-        <script key={index} type='application/ld+json'>
+      {allStructuredData.map(schema => (
+        <script key={JSON.stringify(schema)} type='application/ld+json'>
           {JSON.stringify(schema)}
         </script>
       ))}

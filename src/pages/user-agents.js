@@ -7,6 +7,7 @@ import React from 'react'
 import { layout, space, theme } from 'theme'
 import { Link } from 'components/elements/Link'
 import Terminal from 'components/elements/Terminal/Terminal'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
@@ -19,7 +20,7 @@ import userAgents from '../../static/user-agents.json'
 export const Head = () => (
   <Meta
     title={`The ultimate user agent list (${new Date().getFullYear()})`}
-    description='Most common user-agents used on the Internet up to date'
+    description='Comprehensive, up-to-date user agent database. Essential for web scraping, testing, and bot development. Covers browsers, crawlers, and AI agents with regular updates.'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -29,11 +30,14 @@ export const Head = () => (
           'A self-updating list of the latest and most common user agents for browsers, crawlers, and AI bots.',
         url: 'https://microlink.io/user-agents',
         keywords: [
-          'user agent',
-          'user-agent string',
-          'browser user agent',
-          'crawler user agent',
-          'web scraping'
+          'user agent database',
+          'user agent strings',
+          'browser user agents',
+          'crawler user agents',
+          'web scraping user agents',
+          'bot user agents',
+          'AI user agents',
+          'user agent list'
         ],
         license: 'https://microlink.io/tos',
         creator: {
@@ -53,26 +57,26 @@ export const Head = () => (
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'What is a user agent string?',
+            name: 'How is the user agent list obtained?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'A User Agent is a request header (User-Agent) that lets servers identify the application, operating system, vendor, and version of the requesting client.'
+              text: 'The data comes from multiple reliable sources including CloudFlare Bot Directory, Top User Agents, Well-Known Bots, and Crawler User Agents. This data undergoes rigorous normalization including deduplication, standardization, validation, categorization, and quality assurance to ensure reliability and production-readiness.'
             }
           },
           {
             '@type': 'Question',
-            name: 'Why do I need an updated user agent list?',
+            name: 'How frequently is the user agent list updated?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Browsers have aggressive release cycles. Rotating User Agents is critical for web scraping and automation to mimic organic traffic and avoid being blocked by WAFs.'
+              text: 'The user agent list is updated weekly to ensure you have the latest and most effective user agents. Check the "Last updated" timestamp at the top of the page to see when the most recent refresh occurred.'
             }
           },
           {
             '@type': 'Question',
-            name: 'Is there an API for this user agent list?',
+            name: 'How to consume the user agent list?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes, you can get the full list at microlink.io/user-agents.json. It is CORS-enabled and ready for direct integration into any frontend or backend application.'
+              text: "Access the full list programmatically via the API endpoint at microlink.io/user-agents.json. It's CORS-enabled and ready for direct integration into any frontend or backend application. You can also copy the JSON directly from the terminal display for testing purposes."
             }
           }
         ]
@@ -91,13 +95,15 @@ const UserAgentsPage = () => {
       : 'curl -L microlink.io/user-agents.json'
 
   const data = userAgents[type] || userAgents.user
+
   return (
     <Layout css={theme({ maxWidth: layout.small, mx: 'auto' })}>
       <Box as='section' id='hero'>
         <Heading>User Agent List</Heading>
         <Caption forwardedAs='h2' css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}>
-          A self-updating list of the latest
-          <br />& most common user agents.
+          Comprehensive database of user agents for all major browsers and
+          crawlers. Essential resource for web scraping, bot development, and
+          browser testing.
         </Caption>
         <Caption
           forwardedAs='p'
@@ -125,117 +131,128 @@ const UserAgentsPage = () => {
             >
               {[
                 { id: 'user', node: 'User' },
-                { id: 'crawler', node: 'Crawler' },
-                { id: 'ai', node: 'AI' }
+                { id: 'ai', node: 'AI' },
+                { id: 'crawler', node: 'Crawler' }
               ]}
             </Toggle>
           </Box>
         </Flex>
 
-        <Flex
+        <Terminal
+          title={`${terminalTitle} (${data.length})`}
+          blinkCursor={false}
+          shellSymbol={false}
+          text={JSON.stringify(data, null, 2)}
           css={theme({
-            alignItems: 'center',
-            justifyContent: 'center'
+            height: '350px',
+            width: [`calc(100vw - ${space[4]})`, layout.small]
           })}
         >
-          <Terminal
-            title={terminalTitle}
-            blinkCursor={false}
-            shellSymbol={false}
-            text={JSON.stringify(data, null, 2)}
-            css={theme({
-              height: '350px',
-              width: [`calc(100vw - ${space[4]})`, layout.small]
-            })}
-          >
-            {data.map((userAgent, index) => (
-              <Box
-                key={`${userAgent}_${index}`}
-                as='span'
-                css={theme({
-                  display: 'block',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
-                })}
-              >
-                {userAgent}
-              </Box>
-            ))}
-          </Terminal>
-        </Flex>
+          {data.map((userAgent, index) => (
+            <Box
+              key={`${userAgent}_${index}`}
+              as='span'
+              css={theme({
+                display: 'block',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+              })}
+            >
+              {userAgent}
+            </Box>
+          ))}
+        </Terminal>
       </Box>
 
       <Faq
         css={theme({ pt: 0, px: 0 })}
         questions={[
           {
-            question: 'What is a user agent string?',
+            question: 'What can I use this user agent database for?',
+            answer: (
+              <div>
+                Build robust web scraping, testing, and automation solutions.
+                This comprehensive database supports:
+                <ul>
+                  <li>
+                    <strong>Web Scraping</strong>: Rotate user agents to avoid
+                    detection and access restricted content
+                  </li>
+                  <li>
+                    <strong>Browser Testing</strong>: Ensure compatibility
+                    across different browsers and devices
+                  </li>
+                  <li>
+                    <strong>Bot Development</strong>: Build sophisticated
+                    automation tools that mimic real user behavior
+                  </li>
+                  <li>
+                    <strong>SEO Monitoring</strong>: Test how search engines and
+                    crawlers see your website
+                  </li>
+                  <li>
+                    <Link
+                      href='https://github.com/arcjet/well-known-bots'
+                      logoIcon
+                    >
+                      Well-Known Bots
+                    </Link>{' '}
+                    : comprehensive collection of known bot user agents.
+                  </li>
+                  <li>
+                    <Link
+                      href='https://github.com/monperrus/crawler-user-agents'
+                      logoIcon
+                    >
+                      Crawler User Agents
+                    </Link>{' '}
+                    : curated list of web crawler user agents.
+                  </li>
+                </ul>
+                Whether you're building scraping tools, testing frameworks, or
+                automation systems, our comprehensive database ensures you have
+                the right user agents for any use case.
+              </div>
+            )
+          },
+          {
+            question: 'How current and reliable is the data?',
             answer: (
               <>
                 <div>
-                  A User Agent is a request header (User-Agent) that lets
-                  servers identify the application, operating system, vendor,
-                  and version of the requesting client. For developers, it's
-                  essential for ensuring browser compatibility and bypassing
-                  basic bot detection systems.
+                  Our database is continuously updated with the latest user
+                  agents from trusted sources. We maintain high data quality
+                  through rigorous validation, deduplication, and
+                  categorization. The last update timestamp shows when the data
+                  was refreshed, ensuring you always have access to current,
+                  production-ready user agents.
+                </div>
+                <div>
+                  Each entry is validated and tested to ensure compatibility and
+                  effectiveness across different platforms and use cases. This
+                  reliability is crucial for production applications where user
+                  agent accuracy matters.
                 </div>
               </>
             )
           },
           {
-            question: 'Why do I need an updated user agent list?',
+            question: 'How do I integrate this into my projects?',
             answer: (
               <>
                 <div>
-                  Browsers have aggressive release cycles.{' '}
-                  <b>Rotating User Agents</b> is critical for web scraping and
-                  automation. By randomizing the User Agent header, you mimic
-                  organic traffic and reduce the risk of being blocked by{' '}
-                  <Link href='https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/'>
-                    WAFs
-                  </Link>{' '}
-                  (Web Application Firewalls) or anti-bot measures. You can use
-                  this list to rotate the User Agent header in your project.
-                </div>
-              </>
-            )
-          },
-          {
-            question: 'How often is this list updated?',
-            answer: (
-              <>
-                <div>
-                  This list is self-updating. We automatically fetch the latest
-                  user agents from reliable sources to ensure the list remains
-                  current.
-                </div>
-              </>
-            )
-          },
-          {
-            question: 'How do I use these user agents list on my project?',
-            answer: (
-              <>
-                <div>
-                  You can use the copy icon in the top right corner of the
-                  terminal to copy the entire list as JSON. You can then use it
-                  in your code, for example, when setting the{' '}
-                  <code>User-Agent</code> header in an HTTP request.
-                </div>
-              </>
-            )
-          },
-          {
-            question: 'Is there an API for this list?',
-            answer: (
-              <>
-                <div>
-                  Yes, you can get the full list in the following endpoint:
+                  The preferred way is to consume it as an API by accessing the
+                  full list programmatically via this endpoint:
                 </div>
                 <Terminal blinkCursor={false}>
                   curl -L microlink.io/user-agents.json
                 </Terminal>
+                <div>
+                  Alternatively, for testing purposes, you can use the copy icon
+                  in the top right corner of the terminal to copy the entire
+                  list as JSON and use it directly in your code.
+                </div>
                 <div>
                   It's CORS-enabled and ready for direct integration into any
                   frontend or backend application, ensuring your project always
@@ -245,35 +262,72 @@ const UserAgentsPage = () => {
             )
           },
           {
-            question: 'How do I rotate user-agents in a headless browser?',
+            question: 'What are best practices for using user agents?',
             answer: (
               <>
                 <div>
-                  You can manually set the header in Puppeteer or Playwright
-                  using a random string from this list. However,{' '}
-                  <Link href='/blog/what-is-a-headless-browser'>
-                    scaling a Headless Browser
-                  </Link>{' '}
-                  infrastructure is complex.{' '}
-                  <Link href='/docs/api/getting-started/overview'>
-                    Microlink API
-                  </Link>{' '}
-                  runs a remote Headless Chrome instance for you, automatically
-                  handling User Agent rotation, proxy management, and browser
-                  fingerprinting so you never get blocked.
+                  When using user agents in your applications, follow these best
+                  practices:
+                  <ul>
+                    <li>
+                      <strong>Rotate regularly</strong>: Change user agents
+                      frequently to avoid detection patterns
+                    </li>
+                    <li>
+                      <strong>Match device context</strong>: Use appropriate
+                      user agents for the target platform (mobile, desktop,
+                      crawler)
+                    </li>
+                    <li>
+                      <strong>Respect rate limits</strong>: Combine user agent
+                      rotation with appropriate delays to avoid blocking
+                    </li>
+                    <li>
+                      <strong>Test compatibility</strong>: Verify your
+                      applications work with different browser user agents
+                    </li>
+                  </ul>
+                  Our categorized database makes it easy to select the right
+                  user agents for your specific use case.
                 </div>
-              </>
-            )
-          },
-          {
-            question: 'Does this list include mobile user-agents?',
-            answer: (
-              <>
+                <CodeEditor
+                  title='puppeteer.js'
+                  language='javascript'
+                  css={theme({
+                    width: [`calc(100vw - ${space[4]})`, layout.small]
+                  })}
+                >
+                  {`const ENDPOINT = 'https://microlink.io/user-agents.json'
+
+const puppeteer = require('puppeteer')
+
+const browser = await puppeteer.launch()
+const page = await browser.newPage()
+
+// Fetch user agents from the API
+const userAgents = await fetch(ENDPOINT).then(res => res.json())
+
+// Pick a random user agent
+const userAgent = userAgents[Math.floor(Math.random() * userAgents.length)]
+await page.setUserAgent(userAgent)
+
+await page.goto('https://example.com')
+`}
+                </CodeEditor>
                 <div>
-                  Yes. The list distinguishes between Desktop (Windows, macOS,
-                  Linux) and Mobile (Android, iOS) strings. Using a Mobile User
-                  Agent is often effective for scraping simpler HTML versions of
-                  complex websites or testing responsive designs.
+                  If you don’t want to manage that infrastructure, you can use
+                  the fully managed{' '}
+                  <Link href='https://microlink.io/docs/api/getting-started/overview'>
+                    Microlink API
+                  </Link>
+                  : It automatically handles proxy rotation, paywalls, bot
+                  detection, and restricted platforms such as major social
+                  networks, while scaling on demand. Pricing is pay-as-you-go
+                  and{' '}
+                  <Link href='https://microlink.io/#pricing'>
+                    starts for free
+                  </Link>
+                  .
                 </div>
               </>
             )
