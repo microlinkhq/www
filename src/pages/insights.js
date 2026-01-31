@@ -301,9 +301,9 @@ const LiveDemo = React.memo(function LiveDemo ({
     >
       <Box>
         <Heading css={theme({ px: 5, maxWidth: layout.large })}>
-          Automated Web
+          Automated web
           <br />
-          Performance Insights
+          performance insights
         </Heading>
       </Box>
 

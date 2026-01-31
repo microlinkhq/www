@@ -374,7 +374,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         <b>Microlink for Logo</b>
       </Announcement>
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        Always guaranteed <br /> Logo detection
+        Always guaranteed <br /> logo detection
       </Heading>
       <Caption
         forwardedAs='h2'

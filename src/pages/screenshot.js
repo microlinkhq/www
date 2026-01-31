@@ -286,7 +286,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       css={theme({ flexDirection: 'column', alignItems: 'center' })}
     >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        Pixel-Perfect <br /> Website Screenshots
+        Pixel-perfect <br /> website screenshots
       </Heading>
       <Caption
         forwardedAs='h2'

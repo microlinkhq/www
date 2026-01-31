@@ -190,7 +190,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       })}
     >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        Automated Website <br /> PDF Conversion
+        Automated website <br /> PDF conversion
       </Heading>
       <Caption
         titleize={false}

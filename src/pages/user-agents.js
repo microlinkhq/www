@@ -174,7 +174,7 @@ const UserAgentsPage = () => {
               <div>
                 Build robust web scraping, testing, and automation solutions.
                 This comprehensive database supports:
-                <ul>
+                <Faq.List>
                   <li>
                     <strong>Web Scraping</strong>: Rotate user agents to avoid
                     detection and access restricted content
@@ -190,6 +190,40 @@ const UserAgentsPage = () => {
                   <li>
                     <strong>SEO Monitoring</strong>: Test how search engines and
                     crawlers see your website
+                  </li>
+                </Faq.List>
+                Whether you're building scraping tools, testing frameworks, or
+                automation systems, our comprehensive database ensures you have
+                the right user agents for any use case.
+              </div>
+            )
+          },
+          {
+            question: 'How is the user agent list obtained?',
+            answer: (
+              <div>
+                The data comes from multiple sources to provide comprehensive
+                user agent detection, then undergoes rigorous normalization to
+                ensure reliability and quality:
+                <Faq.List>
+                  <li>
+                    <Link
+                      href='https://github.com/microlinkhq/cloudflare-bot-directory'
+                      logoIcon
+                    >
+                      CloudFlare Bot Directory
+                    </Link>{' '}
+                    : a wrapper of CloudFlare Radar verified bots directory.
+                  </li>
+                  <li>
+                    <Link
+                      href='https://github.com/microlinkhq/top-user-agents'
+                      logoIcon
+                    >
+                      Top User Agents
+                    </Link>{' '}
+                    : an always up-to-date list of the top 100 HTTP user agents
+                    most used over the Internet.
                   </li>
                   <li>
                     <Link
@@ -209,10 +243,38 @@ const UserAgentsPage = () => {
                     </Link>{' '}
                     : curated list of web crawler user agents.
                   </li>
-                </ul>
-                Whether you're building scraping tools, testing frameworks, or
-                automation systems, our comprehensive database ensures you have
-                the right user agents for any use case.
+                </Faq.List>
+                The data obtained from these sources is messy—duplicates,
+                inconsistencies, and formatting issues abound. Our normalization
+                process transforms this chaos into reliable, production-ready
+                data through:
+                <Faq.List>
+                  <li>
+                    <b>Deduplication</b>: We identify and merge duplicate user
+                    agents while preserving the most accurate representations
+                  </li>
+                  <li>
+                    <b>Standardization</b>: Consistent formatting ensures
+                    compatibility across different systems and programming
+                    languages
+                  </li>
+                  <li>
+                    <b>Validation</b>: Each user agent is validated against
+                    known patterns to filter out malformed or outdated entries
+                  </li>
+                  <li>
+                    <b>Categorization</b>: Intelligent classification separates
+                    bots, crawlers, browsers, and AI agents for targeted use
+                    cases
+                  </li>
+                  <li>
+                    <b>Quality Assurance</b>: Automated testing ensures the
+                    normalized data works reliably in real-world applications
+                  </li>
+                </Faq.List>
+                This rigorous process means you get battle-tested user agents
+                that just work, without the headaches of manual cleanup and
+                validation.
               </div>
             )
           },
@@ -268,7 +330,7 @@ const UserAgentsPage = () => {
                 <div>
                   When using user agents in your applications, follow these best
                   practices:
-                  <ul>
+                  <Faq.List>
                     <li>
                       <strong>Rotate regularly</strong>: Change user agents
                       frequently to avoid detection patterns
@@ -286,7 +348,7 @@ const UserAgentsPage = () => {
                       <strong>Test compatibility</strong>: Verify your
                       applications work with different browser user agents
                     </li>
-                  </ul>
+                  </Faq.List>
                   Our categorized database makes it easy to select the right
                   user agents for your specific use case.
                 </div>

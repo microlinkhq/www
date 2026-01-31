@@ -68,40 +68,40 @@ const SharingDebugger = () => {
                 <div>
                   We normalize data into a unified JSON response, prioritizing
                   the most relevant source automatically.{' '}
-                  <ul>
-                    <li>
-                      <Link href='https://ogp.me' logoIcon>
-                        Open Graph
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href='https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Microdata'
-                        logoIcon
-                      >
-                        Microdata
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href='https://developer.x.com/en/docs/x-for-websites/cards/overview/abouts-cards'
-                        logoIcon
-                      >
-                        Twitter Cards
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href='https://rdfa.info' logoIcon>
-                        RDFa
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href='https://json-ld.org' logoIcon>
-                        JSON-LD
-                      </Link>
-                    </li>
-                  </ul>
                 </div>
+                <Faq.List>
+                  <li>
+                    <Link href='https://ogp.me' logoIcon>
+                      Open Graph
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href='https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Microdata'
+                      logoIcon
+                    >
+                      Microdata
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href='https://developer.x.com/en/docs/x-for-websites/cards/overview/abouts-cards'
+                      logoIcon
+                    >
+                      Twitter Cards
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href='https://rdfa.info' logoIcon>
+                      RDFa
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href='https://json-ld.org' logoIcon>
+                      JSON-LD
+                    </Link>
+                  </li>
+                </Faq.List>
               </>
             )
           },
@@ -113,17 +113,19 @@ const SharingDebugger = () => {
                   Social networks aggressively cache link previews. This
                   validator fetches the live version of your URL, acting as a
                   "fresh" crawler.
-                  <ul>
-                    <li>
-                      <b>Agent Spoofing:</b> We simulate the User-Agent of bots
-                      (Googlebot, Twitterbot) to show you exactly what they see.
-                    </li>
-                    <li>
-                      <b>Rendered HTML:</b> Unlike standard scrapers, we can
-                      execute JavaScript to capture meta tags dynamically
-                      injected by React/Vue apps.
-                    </li>
-                  </ul>
+                </div>
+                <Faq.List>
+                  <li>
+                    <b>Agent Spoofing:</b> We simulate the User-Agent of bots
+                    (Googlebot, Twitterbot) to show you exactly what they see.
+                  </li>
+                  <li>
+                    <b>Rendered HTML:</b> Unlike standard scrapers, we can
+                    execute JavaScript to capture meta tags dynamically injected
+                    by React/Vue apps.
+                  </li>
+                </Faq.List>
+                <div>
                   Update your metadata using our recommended patterns, then
                   re-run the test to verify the fix.
                 </div>
@@ -149,26 +151,25 @@ const SharingDebugger = () => {
                   containing every meta tag, allowing you to build internal
                   health checks or automated CI/CD scripts to ensure your
                   production deploys never break your social previews.
-                  <ul>
-                    <li>
-                      <b>Bulk Processing:</b> Read how to{' '}
-                      <Link href='/blog/automate-open-graph-audit' logoIcon>
-                        run a validation script across your entire sitemap
-                      </Link>
-                      .
-                    </li>
-                    <li>
-                      <b>Integration Ready:</b> Easily integrate with Node.js,
-                      Python, or even simple cURL commands.
-                    </li>
-                    <li>
-                      <b>Edge Case Detection:</b> Programmatically detect
-                      missing
-                      <i>og:image</i> tags, broken canonicals, or invalid
-                      JSON-LD schemas across your whole domain.
-                    </li>
-                  </ul>
                 </div>
+                <Faq.List>
+                  <li>
+                    <b>Bulk Processing:</b> Read how to{' '}
+                    <Link href='/blog/automate-open-graph-audit' logoIcon>
+                      run a validation script across your entire sitemap
+                    </Link>
+                    .
+                  </li>
+                  <li>
+                    <b>Integration Ready:</b> Easily integrate with Node.js,
+                    Python, or even simple cURL commands.
+                  </li>
+                  <li>
+                    <b>Edge Case Detection:</b> Programmatically detect missing
+                    <i>og:image</i> tags, broken canonicals, or invalid JSON-LD
+                    schemas across your whole domain.
+                  </li>
+                </Faq.List>
               </>
             )
           },
@@ -200,21 +201,21 @@ const SharingDebugger = () => {
                   </Link>
                   . We spin up a headless browser, capture the viewport, and
                   serve a globally cached image.
-                  <ul>
-                    <li>
-                      <b>Always Fresh:</b> Your social cards automatically
-                      reflect your latest UI updates.
-                    </li>
-                    <li>
-                      <b>Zero Maintenance:</b> No more Photoshop or Figma
-                      templates for every blog post.
-                    </li>
-                    <li>
-                      <b>High Performance:</b> Served via global CDN, ensuring
-                      link previews load instantly.
-                    </li>
-                  </ul>
                 </div>
+                <Faq.List>
+                  <li>
+                    <b>Always Fresh:</b> Your social cards automatically reflect
+                    your latest UI updates.
+                  </li>
+                  <li>
+                    <b>Zero Maintenance:</b> No more Photoshop or Figma
+                    templates for every blog post.
+                  </li>
+                  <li>
+                    <b>High Performance:</b> Served via global CDN, ensuring
+                    link previews load instantly.
+                  </li>
+                </Faq.List>
               </>
             )
           },
