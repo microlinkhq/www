@@ -297,7 +297,13 @@ const UserAgentsPage = () => {
                   You can manually set the header in Puppeteer or Playwright
                   using a random string from this list:
                 </div>
-                <CodeEditor title='puppeteer.js' language='javascript'>
+                <CodeEditor
+                  title='puppeteer.js'
+                  language='javascript'
+                  css={theme({
+                    width: [`calc(100vw - ${space[4]})`, layout.small]
+                  })}
+                >
                   {`const ENDPOINT = 'https://microlink.io/user-agents.json'
 
 const puppeteer = require('puppeteer')
