@@ -20,7 +20,7 @@ import userAgents from '../../static/user-agents.json'
 export const Head = () => (
   <Meta
     title={`The ultimate user agent list (${new Date().getFullYear()})`}
-    description='Comprehensive, up-to-date user agent database. Essential for web scraping, testing, and bot development. Covers browsers, crawlers, and AI agents with regular updates.'
+    description='Comprehensive, up-to-date user agent list. Essential for web scraping, testing, and bot development. Covers browsers, crawlers, and AI agents with regular updates.'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -30,7 +30,7 @@ export const Head = () => (
           'A self-updating list of the latest and most common user agents for browsers, crawlers, and AI bots.',
         url: 'https://microlink.io/user-agents',
         keywords: [
-          'user agent database',
+          'user agent list',
           'user agent strings',
           'browser user agents',
           'crawler user agents',
@@ -99,11 +99,14 @@ const UserAgentsPage = () => {
   return (
     <Layout css={theme({ maxWidth: layout.small, mx: 'auto' })}>
       <Box as='section' id='hero'>
-        <Heading>User Agent List</Heading>
+        <Heading>
+          The ultimate <br />
+          user agent list
+        </Heading>
         <Caption forwardedAs='h2' css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}>
-          Comprehensive database of user agents for all major browsers and
-          crawlers. Essential resource for web scraping, bot development, and
-          browser testing.
+          Comprehensive list of user agents for all major browsers and crawlers.
+          Essential resource for web scraping, bot development, and browser
+          testing.
         </Caption>
         <Caption
           forwardedAs='p'
@@ -169,11 +172,11 @@ const UserAgentsPage = () => {
         css={theme({ pt: 0, px: 0 })}
         questions={[
           {
-            question: 'What can I use this user agent database for?',
+            question: 'What can I use this user agent list for?',
             answer: (
               <div>
                 Build robust web scraping, testing, and automation solutions.
-                This comprehensive database supports:
+                This comprehensive list supports:
                 <Faq.List>
                   <li>
                     <strong>Web Scraping</strong>: Rotate user agents to avoid
@@ -193,8 +196,8 @@ const UserAgentsPage = () => {
                   </li>
                 </Faq.List>
                 Whether you're building scraping tools, testing frameworks, or
-                automation systems, our comprehensive database ensures you have
-                the right user agents for any use case.
+                automation systems, our comprehensive list ensures you have the
+                right user agents for any use case.
               </div>
             )
           },
@@ -283,12 +286,12 @@ const UserAgentsPage = () => {
             answer: (
               <>
                 <div>
-                  Our database is continuously updated with the latest user
-                  agents from trusted sources. We maintain high data quality
-                  through rigorous validation, deduplication, and
-                  categorization. The last update timestamp shows when the data
-                  was refreshed, ensuring you always have access to current,
-                  production-ready user agents.
+                  Our list is continuously updated with the latest user agents
+                  from trusted sources. We maintain high data quality through
+                  rigorous validation, deduplication, and categorization. The
+                  last update timestamp shows when the data was refreshed,
+                  ensuring you always have access to current, production-ready
+                  user agents.
                 </div>
                 <div>
                   Each entry is validated and tested to ensure compatibility and
@@ -349,8 +352,8 @@ const UserAgentsPage = () => {
                       applications work with different browser user agents
                     </li>
                   </Faq.List>
-                  Our categorized database makes it easy to select the right
-                  user agents for your specific use case.
+                  Our categorized list makes it easy to select the right user
+                  agents for your specific use case.
                 </div>
                 <CodeEditor
                   title='puppeteer.js'
