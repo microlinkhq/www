@@ -216,7 +216,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       })}
     >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        Consistent Structured <br /> Unified Metadata
+        Consistent structured <br /> unified metadata
       </Heading>
 
       <Caption

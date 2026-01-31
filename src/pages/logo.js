@@ -187,17 +187,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-        ...new Set(
-          []
-            .concat(
-              logo.palette,
-              logo.background_color,
-              logo.color,
-              logo.alternative_color
-            )
-            .filter(Boolean)
-        )
-      ]
+      ...new Set(
+        []
+          .concat(
+            logo.palette,
+            logo.background_color,
+            logo.color,
+            logo.alternative_color
+          )
+          .filter(Boolean)
+      )
+    ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -312,7 +312,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -374,7 +375,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         <b>Microlink for Logo</b>
       </Announcement>
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        Always guaranteed <br /> Logo detection
+        Always guaranteed <br /> logo detection
       </Heading>
       <Caption
         forwardedAs='h2'
