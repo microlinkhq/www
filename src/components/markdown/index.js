@@ -33,8 +33,6 @@ const StyledH1 = styled(Heading)(
   theme({
     ...commonHeadingStyles,
     maxWidth: layout.small,
-    fontSize: `calc(${fontSizes[5]} * 0.75)`,
-    lineHeight: 0,
     textAlign: 'left',
     mt: 5,
     mb: 4
