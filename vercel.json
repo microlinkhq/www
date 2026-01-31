@@ -293,6 +293,10 @@
     {
       "source": "/sharing-debugger",
       "destination": "/tools/sharing-debugger"
+    },
+    {
+      "source": "/meta",
+      "destination": "/metadata"
     }
   ]
 }
