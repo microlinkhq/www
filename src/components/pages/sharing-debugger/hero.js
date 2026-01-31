@@ -15,7 +15,6 @@ import { PREVIEWS } from 'components/pages/sharing-debugger/preview'
 import { Metatags } from 'components/pages/sharing-debugger/metatags'
 import Caps from 'components/elements/Caps'
 import FetchProvider from 'components/patterns/FetchProvider'
-import LineBreak from 'components/elements/LineBreak'
 import Caption from 'components/patterns/Caption/Caption'
 import { findDemoLinkById } from 'helpers/demo-links'
 
@@ -83,14 +82,14 @@ export const Hero = () => {
         return (
           <Box as='section' id='hero'>
             <Box id='input'>
-              <Heading css={theme({ fontSize: 5 })}>Sharing Debugger</Heading>
+              <Heading>Sharing Debugger</Heading>
               <Caption
                 forwardedAs='h2'
                 css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}
               >
-                Verify and fix Open Graph meta tags for any website.
-                <LineBreak breakpoints={[2, 3]} />
-                Visualize your social cards instantly.
+                Preview how your links appear when shared on social media,
+                inspect and fix Open Graph metadata, and ensure accurate titles,
+                descriptions, and images across all major social networks.
               </Caption>
 
               <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>

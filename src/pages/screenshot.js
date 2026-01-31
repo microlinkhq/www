@@ -27,7 +27,6 @@ import Hide from 'components/elements/Hide'
 import Image from 'components/elements/Image/Image'
 import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
-import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
@@ -54,93 +53,49 @@ import { findDemoLinkById } from 'helpers/demo-links'
 
 const FEATURES = [
   {
-    title: 'Always fresh',
-    description: (
-      <>
-        Content cached on the edge to serve data as fast as possible, respecting{' '}
-        <Link href='/docs/api/parameters/ttl'>ttl</Link>.
-      </>
-    )
+    title: 'Enterprise-Grade Reliability',
+    description:
+      'Production-ready screenshot generation at scale. Handle millions of captures with 99.9% uptime SLA and guaranteed performance for business-critical workflows.'
   },
   {
-    title: 'Overlay Composition',
-    description: (
-      <>
-        Create{' '}
-        <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
-        compositions combining layers and backgrounds.
-      </>
-    )
+    title: 'Free to Start',
+    description:
+      'Begin capturing screenshots immediately. No setup fees, pay-as-you-grow pricing that scales with your capture needs.'
   },
   {
-    title: 'Browser Events',
-    description: (
-      <>
-        Using <Link href='/docs/api/parameters/waitUntil'>waitUntil</Link>,{' '}
-        <Link href='/docs/api/parameters/waitForSelector'>waitForSelector</Link>
-        , or{' '}
-        <Link href='/docs/api/parameters/waitForTimeout'>waitForTimeout</Link>{' '}
-        to await certain events.
-      </>
-    )
+    title: 'Global CDN Network',
+    description:
+      'Distributed across 240+ edge locations powered by Cloudflare. Lightning-fast screenshot generation from anywhere worldwide.'
   },
   {
-    title: 'Device Emulation',
-    description: (
-      <>
-        A large list of <Link href='/docs/api/parameters/device'>device</Link>{' '}
-        are supported for simulating scenarios and environments.
-      </>
-    )
+    title: 'Developer-First API',
+    description:
+      'RESTful API designed for developers. Language-agnostic integration with comprehensive SDKs and interactive documentation.'
   },
   {
-    title: 'Browser Automation',
-    description: (
-      <>
-        Ability to <Link href='/docs/api/parameters/click'>click</Link> or{' '}
-        <Link href='/docs/api/parameters/scroll'>scroll</Link> to any element
-        matching the given CSS Selector.
-      </>
-    )
+    title: 'Device & Browser Control',
+    description:
+      'Full device emulation and browser automation. Capture screenshots exactly as users see them across any device, browser, or interaction.'
   },
   {
-    title: 'Embed Mode',
-    description: (
-      <>
-        Incrustate directly into Markdown, HTML or any other markup using{' '}
-        <Link href='/docs/api/parameters/embed'>embed</Link>.
-      </>
-    )
+    title: 'Advanced Customization',
+    description:
+      'Complete control over screenshots. Custom CSS injection, JavaScript execution, overlays, and precise element targeting for perfect captures.'
   },
   {
-    title: 'CSS/JS Injection',
-    description: (
-      <>
-        Inject <Link href='/docs/api/parameters/styles'>styles</Link>,{' '}
-        <Link href='/docs/api/parameters/javascript'>javascript</Link> or{' '}
-        <Link href='/docs/api/parameters/modules'>modules</Link> into the page.
-      </>
-    )
+    title: 'Real-Time Updates',
+    description:
+      'Smart caching with automatic refresh. Stay current with website changes while maintaining optimal performance.'
   },
   {
-    title: 'Full Screenshot',
-    description: (
-      <>
-        Using{' '}
-        <Link href='/docs/api/parameters/screenshot/fullPage'>fullPage</Link>{' '}
-        for exporting the entire page as screenshot.
-      </>
-    )
+    title: 'Multiple Output Formats',
+    description:
+      'Flexible file formats including WebP optimization. Full-page captures, custom viewports, and high-quality image exports.'
   },
   {
-    title: 'File Format',
-    description: (
-      <>
-        Configurable{' '}
-        <Link href='/docs/api/parameters/screenshot/type'>type</Link> support
-        with on-fly WebP support.
-      </>
-    )
+    title: 'Zero-Config Integration',
+    description:
+      'Interactive documentation with live code examples. Get started in minutes with copy-paste integration snippets and embed-ready code.'
   }
 ]
 
@@ -331,7 +286,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       css={theme({ flexDirection: 'column', alignItems: 'center' })}
     >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        Easy peasy screenshots
+        Pixel-Perfect <br /> Website Screenshots
       </Heading>
       <Caption
         forwardedAs='h2'
@@ -341,9 +296,8 @@ const LiveDemo = React.memo(function LiveDemo ({
           maxWidth: layout.small
         })}
       >
-        Say goodbye to complexity.
-        <LineBreak />
-        Turn websites into screenshots.
+        Transform any website into high-quality screenshots instantly. Full
+        browser control, device emulation, and professional visual output.
       </Caption>
       <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
         <ArrowLink
@@ -700,10 +654,7 @@ const Resume = () => (
       pb: [5, 5, 6, 6]
     })}
   >
-    <Subhead variant='gradient'>
-      The fastest way for
-      <LineBreak breakpoints={[1, 2]} /> taking screenshots
-    </Subhead>
+    <Subhead variant='gradient'>Instant Visual Documentation</Subhead>
     <Caption
       css={theme({
         pt: [3, 3, 4, 4],
@@ -711,9 +662,10 @@ const Resume = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      <b>Microlink screenshot</b> provides a set of powerful features without
-      the headaches of running your own infrastructure, giving you great power,
-      less responsibilities.
+      <b>Microlink Screenshot</b> delivers enterprise-grade visual capture
+      through a developer-friendly API. Transform any website into high-quality
+      screenshots automatically. Perfect for documentation, monitoring,
+      archiving, and visual content creation.
     </Caption>
 
     <Block
@@ -770,20 +722,13 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Browse automation
+            Complete Browser Control
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Such as <Link href='/docs/api/parameters/device'>device</Link>{' '}
-            emulation, <Link href='/docs/api/parameters/styles'>styles</Link>,{' '}
-            <Link href='/docs/api/parameters/javascript'>javascript</Link> or{' '}
-            <Link href='/docs/api/parameters/modules'>modules</Link> injection,
-            partial or{' '}
-            <Link href='/docs/api/parameters/screenshot/fullPage'>full</Link>{' '}
-            page screenshot,{' '}
-            <Link href='/docs/api/parameters/scroll'>scroll</Link> or{' '}
-            <Link href='/docs/api/parameters/click'>click</Link> events, custom{' '}
-            <Link href='/docs/api/parameters/viewport'>viewport</Link>, and
-            more.
+            Full browser automation and device emulation. Capture screenshots
+            exactly as users experience them with custom viewports,
+            interactions, and responsive design testing across all devices and
+            screen sizes.
           </Text>
         </Flex>
       }
@@ -793,7 +738,7 @@ const Resume = () => (
             px: [4, 0, 0, 0],
             width: ['100%', 6, 7, 8]
           })}
-          alt='Browse automation'
+          alt='Complete Browser Control'
           src='https://cdn.microlink.io/illustrations/robots.svg'
         />
       }
@@ -806,7 +751,7 @@ const Resume = () => (
             px: [4, 0, 0, 0],
             width: ['100%', 6, 7, 8]
           })}
-          alt='Overlay composition'
+          alt='Professional Visual Output'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }
@@ -825,13 +770,15 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Overlay composition
+            Professional Visual Output
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Create truly{' '}
-            <Link href='/docs/api/parameters/screenshot/overlay'>overlay</Link>{' '}
-            compositions, setting up the background, browser window, color
-            syntax highlight, and more.
+            Create stunning visual compositions with{' '}
+            <Link href='/docs/api/parameters/screenshot/overlay'>
+              overlay effects
+            </Link>
+            , custom backgrounds, and professional presentation. Perfect for
+            marketing materials, documentation, and branded content creation.
           </Text>
         </Flex>
       }
@@ -840,8 +787,6 @@ const Resume = () => (
 )
 
 const ProductInformation = () => {
-  const healthcheck = useHealthcheck()
-
   return (
     <Faq
       title='Product Information'
@@ -854,85 +799,73 @@ const ProductInformation = () => {
       })}
       questions={[
         {
-          question: 'What is it?',
+          question: 'What can I build with Screenshot API?',
           answer: (
             <>
               <div>
-                <Text
-                  as='span'
-                  css={theme({ color: 'black', fontWeight: 'bold' })}
-                >
-                  Microlink screenshot
-                </Text>{' '}
-                is an easy way for taking an screenshot of any website in a
-                programmatic way using{' '}
+                Build powerful visual applications and automation tools. Create
+                website monitoring systems, visual regression testing, content
+                archiving, social media automation, and documentation generators
+                that capture and process website visuals at scale.
+              </div>
+              <div>
+                Perfect for developers building visual testing suites, content
+                management platforms, marketing automation, and any application
+                that needs high-quality website captures.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'How reliable is screenshot generation?',
+          answer: (
+            <>
+              <div>
+                Enterprise-grade reliability with 99.9% uptime SLA. Our
+                optimized Chromium infrastructure handles complex websites,
+                dynamic content, and custom interactions with consistent
+                high-quality results.
+              </div>
+              <div>
+                Every request runs in isolated browser instances for security
+                and reliability. Screenshots are processed server-side and
+                delivered via global CDN for optimal performance worldwide.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'What about customization and control?',
+          answer: (
+            <>
+              <div>
+                Complete control over capture output. Customize viewports,
+                device emulation, full-page vs. element screenshots, file
+                formats, overlays, and browser interactions. Inject custom CSS
+                and JavaScript for perfect captures.
+              </div>
+              <div>
+                Perfect for generating professional visuals for reports,
+                marketing materials, documentation, and quality assurance across
+                any device or screen size.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'How do I get started?',
+          answer: (
+            <>
+              <div>
+                Start free with our comprehensive API. Visit our{' '}
                 <Link href='/docs/api/getting-started/overview'>
-                  Microlink API
-                </Link>
-                .
-              </div>
-            </>
-          )
-        },
-        {
-          question: 'How does it work?',
-          answer: (
-            <>
-              <div>
-                For taking a screenshot, just you have to pass{' '}
-                <Link href='/docs/api/parameters/screenshot'>screenshot</Link>{' '}
-                query parameter against{' '}
-                <Link href='/docs/api/getting-started/overview'>
-                  Microlink API
-                </Link>
-                .
+                  documentation
+                </Link>{' '}
+                for interactive examples, SDKs in multiple languages, and
+                ready-to-use code snippets. No infrastructure setup required.
               </div>
               <div>
-                The screenshot is taken running a chromium browser hosted on our
-                own servers. Servers run the browser on top of optimized
-                hardware to ensure the screenshot is taken fast as possible but
-                also under security isolation condition, spawning a new browser
-                per every new request, meaning no browsers are shared between
-                requests.
-              </div>
-              <div>
-                After that, the screenshot is uploaded into{' '}
-                <Link href='/blog/edge-cdn/'>Microlink CDN</Link> and served
-                across +140 edges nodes to ensure the best worldwide access
-                time.
-              </div>
-            </>
-          )
-        },
-        {
-          question: 'Why not run my own solution?',
-          answer: (
-            <>
-              <div>
-                The service aims to avoid headaches, preventing you for running
-                and maintaining your own infrastructure.
-              </div>
-              <div>
-                Every URL on the Internet are different and browser are a
-                complex piece of software, with unpredictable resources usage.
-              </div>
-              <div>
-                The fact of resolve any URL at scale in{' '}
-                <Average
-                  size='tiny'
-                  value={healthcheck.screenshot.avg_pretty}
-                />{' '}
-                isn’t a trivial thing.
-              </div>
-            </>
-          )
-        },
-        {
-          question: 'Other questions?',
-          answer: (
-            <>
-              <div>
-                We’re always available at{' '}
+                Have questions? Contact us at{' '}
                 <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .
               </div>
@@ -946,62 +879,36 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    description='Easy peasy screenshots. Say goodbye to complexity. Turn websites into screenshots.'
+    title='Pixel-Perfect Website Screenshots'
+    description='Transform any website into high-quality screenshots instantly. Full browser control, device emulation, and professional visual output for reports, documentation, and automation.'
     image={cdnUrl('banner/screenshot.jpeg')}
-    structured={[
-      {
-        '@context': 'https://schema.org',
-        '@type': 'WebApplication',
-        name: 'Microlink Screenshot',
-        description:
-          'Turn any website into a high-quality screenshot with a simple API call. Supports device emulation, browser overlays, and full-page captures.',
-        url: 'https://microlink.io/screenshot',
-        applicationCategory: 'DeveloperApplication',
-        operatingSystem: 'Any',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD'
-        },
-        featureList: [
-          'Full page screenshots',
-          'Device emulation',
-          'Browser overlay composition',
-          'CSS/JS injection',
-          'Custom viewport sizes',
-          'WebP and PNG formats'
-        ],
-        creator: {
-          '@type': 'Organization',
-          name: 'Microlink',
-          url: 'https://microlink.io'
-        }
-      },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'HowTo',
-        name: 'How to take a website screenshot with Microlink API',
-        description:
-          'Learn how to capture screenshots of any website using the Microlink Screenshot API.',
-        step: [
-          {
-            '@type': 'HowToStep',
-            name: 'Get the target URL',
-            text: 'Identify the website URL you want to capture as a screenshot.'
-          },
-          {
-            '@type': 'HowToStep',
-            name: 'Call the API',
-            text: 'Make a GET request to api.microlink.io with url and screenshot=true parameters.'
-          },
-          {
-            '@type': 'HowToStep',
-            name: 'Receive the screenshot',
-            text: 'The API returns a JSON response with the screenshot URL hosted on Microlink CDN.'
-          }
-        ]
-      }
-    ]}
+    schemaType='SoftwareApplication'
+    structured={{
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      '@id': 'https://microlink.io/screenshot',
+      name: 'Microlink Screenshot API',
+      description:
+        'Transform any website into high-quality screenshots with full browser control and device emulation.',
+      url: 'https://microlink.io/screenshot',
+      applicationCategory: ['DeveloperApplication', 'API'],
+      keywords: [
+        'screenshot API',
+        'website screenshot',
+        'webpage capture',
+        'browser automation',
+        'visual testing',
+        'web scraping screenshots',
+        'automated screenshots',
+        'website thumbnail'
+      ],
+      about: [
+        { '@type': 'Thing', name: 'Screenshot API' },
+        { '@type': 'Thing', name: 'Website Capture' },
+        { '@type': 'Thing', name: 'Visual Documentation' },
+        { '@type': 'Thing', name: 'Browser Automation' }
+      ]
+    }}
   />
 )
 

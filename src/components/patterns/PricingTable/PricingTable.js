@@ -163,7 +163,7 @@ export const createPricingTable = Checkout => {
               <PricingLink href='/recipes'>Microlink recipes</PricingLink>
             </Check>
             <Check css={theme({ pt: 2 })}>
-              <PricingLink href='/meta'>Microlink metadata</PricingLink>
+              <PricingLink href='/metadata'>Microlink metadata</PricingLink>
             </Check>
             <Check css={theme({ pt: 2 })}>
               <PricingLink href='/screenshot'>Microlink screenshot</PricingLink>

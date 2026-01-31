@@ -104,10 +104,10 @@ const GRID_ITEMS = [
     href: '/insights'
   },
   {
-    title: 'Meta',
+    title: 'Metadata',
     subtitle: 'Get unified metadata',
     color: '#3e55ff',
-    href: '/meta'
+    href: '/metadata'
   },
   {
     title: 'PDF',
@@ -148,7 +148,8 @@ const Hero = ({ children }) => {
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
         })}
       >
-        <b>Microlink</b> turns any link into screenshots, PDFs, previews, or structured data. No more Puppeteer clusters. Open source roots.
+        <b>Microlink</b> turns any link into screenshots, PDFs, previews, or
+        structured data. No more Puppeteer clusters. Open source roots.
       </Caption>
       <Box>
         <Grid css={theme({ maxWidth: layout.large, pb: [4, 4, 5, 5] })}>

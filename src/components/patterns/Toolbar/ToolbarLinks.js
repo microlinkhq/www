@@ -63,8 +63,8 @@ export const NavSDK = createNavItem({
 })
 
 export const NavMeta = createNavItem({
-  children: 'meta',
-  href: '/meta',
+  children: 'metadata',
+  href: '/metadata',
   actively: 'partial'
 })
 
@@ -161,7 +161,7 @@ export const NavSharingDebugger = createNavItem({
 NavProducts.pages = [
   '/insights',
   '/logo',
-  '/meta',
+  '/metadata',
   '/pdf',
   '/screenshot',
   '/sdk',

@@ -26,7 +26,6 @@ import Hide from 'components/elements/Hide'
 import Image from 'components/elements/Image/Image'
 import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
-import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
@@ -51,48 +50,49 @@ import { findDemoLinkById } from 'helpers/demo-links'
 
 const FEATURES = [
   {
-    title: 'Unified Metadata',
-    description: 'Metadata normalized from Open Graph, JSON+LD and HTML markup.'
+    title: 'Enterprise-Grade Reliability',
+    description:
+      'Production-ready metadata extraction at scale. Handle millions of requests with 99.9% uptime SLA and guaranteed performance for business-critical applications.'
   },
   {
-    title: 'Color Detection',
+    title: 'Free to Start',
     description:
-      'Get predominant and complementary colors per every image detected.'
+      'Begin extracting metadata immediately. No setup fees, pay-as-you-grow pricing that scales with your data needs.'
   },
   {
-    title: 'Always fresh',
+    title: 'Global CDN Network',
     description:
-      'Stale revalidation, with built-in cache keeping things up to date.'
+      'Distributed across 240+ edge locations powered by Cloudflare. Lightning-fast metadata extraction from anywhere worldwide.'
   },
   {
-    title: 'Contextual Info',
+    title: 'Developer-First API',
     description:
-      'Get more from any data, expanding it to get extra useful information.'
+      'RESTful API designed for developers. Language-agnostic integration with comprehensive SDKs and interactive documentation.'
   },
   {
-    title: 'Native Iframe',
+    title: 'Smart Color Analysis',
     description:
-      'Using oEmbed to get the embedded representation of any third party URL.'
+      'Advanced color detection algorithms extract brand palettes, dominant colors, and complementary schemes automatically.'
   },
   {
-    title: 'Media Support',
+    title: 'Universal Detection',
     description:
-      'Detecting the original streaming source for any video or audio.'
+      'Extract metadata from any website, including social media profiles, favicons, and custom brand assets across all platforms.'
   },
   {
-    title: 'Costless Solution',
+    title: 'Real-Time Updates',
     description:
-      'Starts free. No upfront costs, scalable pricing as you go, growing with your business.'
+      'Intelligent caching with automatic refresh. Stay current with website changes while maintaining optimal performance.'
   },
   {
-    title: 'Built-in cache',
+    title: 'Complete Metadata',
     description:
-      'Always fresh based on response payload with stale revalidation support.'
+      'Get comprehensive data including titles, descriptions, images, videos, and structured information from any URL.'
   },
   {
-    title: 'Global CDN',
+    title: 'Zero-Config Integration',
     description:
-      'Edge storage distributed over +240 nodes backed by CloudFlare Network.'
+      'Interactive documentation with live code examples. Get started in minutes with copy-paste integration snippets.'
   }
 ]
 
@@ -216,7 +216,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       })}
     >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        Get unified metadata
+        Consistent Structured <br /> Unified Metadata
       </Heading>
 
       <Caption
@@ -227,9 +227,9 @@ const LiveDemo = React.memo(function LiveDemo ({
           maxWidth: layout.small
         })}
       >
-        Structured and normalized data <LineBreak breakpoints={[0, 1]} /> from{' '}
-        <LineBreak breakpoints={[2, 3]} />
-        Open Graph, Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.
+        Transform any website into structured data instantly. Extract titles,
+        descriptions, images, videos, and metadata from Open Graph, JSON-LD, and
+        HTML markup automatically.
       </Caption>
 
       <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
@@ -562,7 +562,7 @@ const Resume = () => (
     })}
   >
     <Subhead css={theme({ px: [3, 3, 0, 0] })} variant='gradient'>
-      Turns websites into data
+      Instant Link Intelligence
     </Subhead>
     <Caption
       css={theme({
@@ -571,9 +571,10 @@ const Resume = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      <b>Microlink meta</b> extracts structured data from any website. Enter a
-      URL, receive information. Get relevant information from any link & easily
-      create beautiful previews.
+      <b>Microlink Metadata</b> delivers enterprise-grade metadata extraction
+      through a developer-friendly API. Transform any URL into structured data
+      automatically. Perfect for link previews, content management, social media
+      automation, and rich media applications.
     </Caption>
 
     <Block
@@ -711,7 +712,7 @@ const ProductInformation = () => (
                 as='span'
                 css={theme({ color: 'black', fontWeight: 'bold' })}
               >
-                Microlink meta
+                Microlink metadata
               </Text>{' '}
               is a data extraction service that take a URL as input, giving you
               structured data as output.
@@ -789,38 +790,36 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    description='Structured and normalized data from Open Graph, Microdata, RDFa, Twitter Cards, JSON-LD, HTML, and more.'
+    title='Consistent Structured Unified Metadata'
+    description='Transform any website into structured data instantly. Extract titles, descriptions, images, videos, and metadata from Open Graph, JSON-LD, and HTML markup automatically.'
     image={cdnUrl('banner/meta.jpeg')}
-    structured={[
-      {
-        '@context': 'https://schema.org',
-        '@type': 'WebApplication',
-        name: 'Microlink Meta',
-        description:
-          'Extract structured metadata from any URL. Get unified data from Open Graph, JSON-LD, Twitter Cards, Microdata, and HTML markup.',
-        url: 'https://microlink.io/meta',
-        applicationCategory: 'DeveloperApplication',
-        operatingSystem: 'Any',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD'
-        },
-        featureList: [
-          'Open Graph extraction',
-          'JSON-LD parsing',
-          'Twitter Cards support',
-          'Microdata extraction',
-          'oEmbed integration',
-          'Color palette detection'
-        ],
-        creator: {
-          '@type': 'Organization',
-          name: 'Microlink',
-          url: 'https://microlink.io'
-        }
-      }
-    ]}
+    schemaType='SoftwareApplication'
+    structured={{
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      '@id': 'https://microlink.io/meta',
+      name: 'Microlink Metadata API',
+      description:
+        'Get unified metadata from any website. Transform URLs into structured data with titles, descriptions, images, videos, and comprehensive metadata.',
+      url: 'https://microlink.io/meta',
+      applicationCategory: ['DeveloperApplication', 'API'],
+      keywords: [
+        'metadata API',
+        'unified metadata',
+        'structured data',
+        'Open Graph',
+        'JSON-LD',
+        'link preview',
+        'web scraping',
+        'data extraction'
+      ],
+      about: [
+        { '@type': 'Thing', name: 'Metadata Extraction' },
+        { '@type': 'Thing', name: 'Structured Data API' },
+        { '@type': 'Thing', name: 'Link Preview Service' },
+        { '@type': 'Thing', name: 'Web Data Extraction' }
+      ]
+    }}
   />
 )
 
