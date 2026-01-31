@@ -8,7 +8,8 @@ import { withTitle } from 'helpers/hoc/with-title'
 import { withSlug } from 'helpers/hoc/with-slug'
 import { slug as slugger } from 'github-slugger'
 import Caption from '../Caption/Caption'
-import { layout, theme } from 'theme'
+import { layout, space, theme } from 'theme'
+import styled from 'styled-components'
 
 const Subhead = withTitle(SubheadBase)
 
@@ -78,5 +79,11 @@ const Faq = ({ title, caption, questions, ...props }) => {
     </Container>
   )
 }
+
+Faq.List = styled(Text).attrs({ as: 'ul' })`
+  > li:not(:first-child) {
+    margin-top: ${space[3]};
+  }
+`
 
 export default Faq
