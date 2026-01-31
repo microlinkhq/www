@@ -134,38 +134,31 @@ const UserAgentsPage = () => {
           </Box>
         </Flex>
 
-        <Flex
+        <Terminal
+          title={`${terminalTitle} (${data.length})`}
+          blinkCursor={false}
+          shellSymbol={false}
+          text={JSON.stringify(data, null, 2)}
           css={theme({
-            alignItems: 'center',
-            justifyContent: 'center'
+            height: '350px',
+            width: [`calc(100vw - ${space[4]})`, layout.small]
           })}
         >
-          <Terminal
-            title={`${terminalTitle} (${data.length})`}
-            blinkCursor={false}
-            shellSymbol={false}
-            text={JSON.stringify(data, null, 2)}
-            css={theme({
-              height: '350px',
-              width: [`calc(100vw - ${space[4]})`, layout.small]
-            })}
-          >
-            {data.map((userAgent, index) => (
-              <Box
-                key={`${userAgent}_${index}`}
-                as='span'
-                css={theme({
-                  display: 'block',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
-                })}
-              >
-                {userAgent}
-              </Box>
-            ))}
-          </Terminal>
-        </Flex>
+          {data.map((userAgent, index) => (
+            <Box
+              key={`${userAgent}_${index}`}
+              as='span'
+              css={theme({
+                display: 'block',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+              })}
+            >
+              {userAgent}
+            </Box>
+          ))}
+        </Terminal>
       </Box>
 
       <Faq
