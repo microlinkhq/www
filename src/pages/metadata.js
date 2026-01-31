@@ -793,10 +793,16 @@ export const Head = () => (
     title='Consistent Structured Unified Metadata'
     description='Transform any website into structured data instantly. Extract titles, descriptions, images, videos, and metadata from Open Graph, JSON-LD, and HTML markup automatically.'
     image={cdnUrl('banner/meta.jpeg')}
-    schemaType='WebPage'
+    schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',
-      '@type': 'WebPage',
+      '@type': 'SoftwareApplication',
+      '@id': 'https://microlink.io/meta',
+      name: 'Microlink Metadata API',
+      description:
+        'Get unified metadata from any website. Transform URLs into structured data with titles, descriptions, images, videos, and comprehensive metadata.',
+      url: 'https://microlink.io/meta',
+      applicationCategory: ['DeveloperApplication', 'API'],
       keywords: [
         'metadata API',
         'unified metadata',
@@ -808,41 +814,11 @@ export const Head = () => (
         'data extraction'
       ],
       about: [
-        {
-          '@type': 'Thing',
-          name: 'Metadata Extraction'
-        },
-        {
-          '@type': 'Thing',
-          name: 'Structured Data API'
-        },
-        {
-          '@type': 'Thing',
-          name: 'Link Preview Service'
-        },
-        {
-          '@type': 'Thing',
-          name: 'Web Data Extraction'
-        }
-      ],
-      mainEntity: {
-        '@type': 'SoftwareApplication',
-        name: 'Microlink Metadata API',
-        description:
-          'Get unified metadata from any website. Transform URLs into structured data with titles, descriptions, images, and comprehensive metadata.',
-        url: 'https://microlink.io/metadata',
-        applicationCategory: 'DeveloperApplication',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD'
-        },
-        provider: {
-          '@type': 'Organization',
-          name: 'Microlink',
-          url: 'https://microlink.io'
-        }
-      }
+        { '@type': 'Thing', name: 'Metadata Extraction' },
+        { '@type': 'Thing', name: 'Structured Data API' },
+        { '@type': 'Thing', name: 'Link Preview Service' },
+        { '@type': 'Thing', name: 'Web Data Extraction' }
+      ]
     }}
   />
 )

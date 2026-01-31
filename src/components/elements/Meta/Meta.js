@@ -1,6 +1,7 @@
 import { useLocation } from '@gatsbyjs/reach-router'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useMemo } from 'react'
+import { generateStructuredData } from './structured'
 
 const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
 
@@ -57,73 +58,6 @@ const mergeMeta = (props, location, metadata) => {
   }
 }
 
-const generateStructuredData = ({
-  schemaType,
-  title,
-  description,
-  url,
-  image,
-  date,
-  author
-}) => {
-  if (!schemaType) return null
-
-  const baseSchema = {
-    '@context': 'https://schema.org',
-    headline: title,
-    description,
-    url,
-    image,
-    author: {
-      '@type': 'Organization',
-      name: 'Microlink',
-      url: 'https://microlink.io',
-      logo: 'https://cdn.microlink.io/logo/logo.png'
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Microlink',
-      url: 'https://microlink.io',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://cdn.microlink.io/logo/logo.png'
-      }
-    }
-  }
-
-  if (schemaType === 'Article') {
-    return {
-      ...baseSchema,
-      '@type': 'Article',
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': url
-      },
-      ...(date && {
-        datePublished: date.toISOString(),
-        dateModified: date.toISOString()
-      })
-    }
-  }
-
-  if (schemaType === 'TechArticle') {
-    return {
-      ...baseSchema,
-      '@type': 'TechArticle',
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': url
-      },
-      ...(date && {
-        datePublished: date.toISOString(),
-        dateModified: date.toISOString()
-      })
-    }
-  }
-
-  return null
-}
-
 function Meta ({ script, structured, ...props }) {
   const siteMetadata = useSiteMetadata()
   const location = useLocation()
@@ -170,7 +104,9 @@ function Meta ({ script, structured, ...props }) {
   const allStructuredData = useMemo(() => {
     const schemas = []
     if (autoStructuredData) schemas.push(autoStructuredData)
-    if (structured) { schemas.push(...(Array.isArray(structured) ? structured : [structured])) }
+    if (structured) {
+      schemas.push(...(Array.isArray(structured) ? structured : [structured]))
+    }
     return schemas
   }, [autoStructuredData, structured])
 

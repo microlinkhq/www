@@ -47,44 +47,48 @@ import { useWindowSize } from 'components/hook/use-window-size'
 const FEATURES = [
   {
     title: 'Powerful & Scalable',
-    description: 'Cloud-based solution with superior operational performance.'
-  },
-  {
-    title: 'Costless Solution',
     description:
-      'Starts free. No upfront costs, scalable pricing as you go, growing with your business.'
+      'Enterprise-grade performance monitoring at scale. Handle millions of Lighthouse audits with 99.9% uptime SLA.'
   },
   {
-    title: 'Global CDN',
+    title: 'Free to Start',
     description:
-      'Edge storage distributed over +240 nodes backed by CloudFlare Network.'
+      'Begin monitoring web performance immediately. No setup fees, pay-as-you-grow pricing that scales with your traffic.'
   },
   {
-    title: 'Developer First',
+    title: 'Global CDN Network',
     description:
-      'For developers, with top-notch industry technologies, language-agnostic.'
+      'Distributed across 240+ edge locations powered by Cloudflare. Lightning-fast performance insights from anywhere worldwide.'
   },
   {
-    title: 'Fully programmable',
+    title: 'Developer-First API',
     description:
-      'Easy to integrate with any existing stack or cloud in just a few minutes.'
+      'RESTful API designed for developers. Language-agnostic integration with comprehensive SDKs and documentation.'
   },
   {
-    title: 'Declarative Usage',
+    title: 'Fully Programmable',
     description:
-      'Simple documentation and interactive code examples that enable quick implementations.'
+      'Complete automation capabilities. Integrate performance monitoring into CI/CD pipelines, dashboards, and alerting systems.'
   },
   {
-    title: 'Optimized hardware',
-    description: 'No servers to maintain; no shared browsers between requests.'
+    title: 'Zero-Config Setup',
+    description:
+      'Interactive documentation with live code examples. Get started in minutes with copy-paste integration snippets.'
   },
   {
-    title: 'Built-in cache',
-    description: 'Enabled by default, no additional caching setup required.'
+    title: 'Browser Isolation',
+    description:
+      'Dedicated browser instances per request. No shared resources, maximum security, and consistent performance.'
   },
   {
-    title: 'Security compliance',
-    description: 'Request isolation with no shared browsers between requests.'
+    title: 'Smart Caching Layer',
+    description:
+      'Intelligent caching reduces redundant audits. Faster response times while maintaining fresh performance data.'
+  },
+  {
+    title: 'Enterprise Security',
+    description:
+      'Bank-grade security with request isolation. SOC 2 compliant infrastructure protecting your performance data.'
   }
 ]
 
@@ -153,11 +157,14 @@ const LighthouseReport = props => (
     </Subhead>
     <Box css={theme({ pt: 3 })}>
       <Text css={{ maxWidth: layout.normal }}>
+        Powered by Google's{' '}
         <Link href='https://github.com/GoogleChrome/lighthouse'>
           Lighthouse
         </Link>{' '}
-        is an open-source, automated tool for improving the quality of web
-        pages.
+        auditing engine - the industry standard for web performance analysis
+        used by Google Search Console, PageSpeed Insights, and Chrome DevTools.
+        Get comprehensive performance metrics, Core Web Vitals scores, SEO
+        analysis, and accessibility audits.
       </Text>
     </Box>
     <Flex css={theme({ justifyContent: 'center', pt: 4, width: '100%' })}>
@@ -176,15 +183,18 @@ const TechnologyStack = ({ technologies }) => (
     </Subhead>
     <Box css={theme({ pt: 3 })}>
       <Text css={{ maxWidth: layout.small }}>
-        Software detected under the target URL after analyzing source code,
-        response headers, script variables and several other
+        Comprehensive technology stack detection using advanced fingerprinting
+        techniques. Analyzes HTML source code, HTTP response headers, JavaScript
+        variables, CSS frameworks, and client-side libraries to identify your
+        complete tech ecosystem.
       </Text>
       <Text css={theme({ pt: 3 })}>
-        Detected{' '}
+        Identified{' '}
         <Text as='span' css={{ fontWeight: 'bold' }}>
           {technologies.length}
         </Text>{' '}
-        technologies behind the site.
+        technologies powering this website, including frameworks, analytics
+        tools, content management systems, and server infrastructure.
       </Text>
     </Box>
     <Flex
@@ -289,9 +299,14 @@ const LiveDemo = React.memo(function LiveDemo ({
         pb: [4, 4, 5, 5]
       })}
     >
-      <Heading css={theme({ px: 5, maxWidth: layout.large })}>
-        Automate web performance
-      </Heading>
+      <Box>
+        <Heading css={theme({ px: 5, maxWidth: layout.large })}>
+          Automated Web
+          <br />
+          Performance Insights
+        </Heading>
+      </Box>
+
       <Caption
         forwardedAs='h2'
         css={theme({
@@ -300,12 +315,9 @@ const LiveDemo = React.memo(function LiveDemo ({
           maxWidth: [layout.small, layout.small, layout.small, layout.small]
         })}
       >
-        Track site speed & website quality over time — Get performance insights
-        powered by{' '}
-        <Link href='https://developers.google.com/web/tools/lighthouse'>
-          Lighthouse
-        </Link>
-        .
+        Monitor website performance automatically. Get Lighthouse-powered speed
+        insights & quality metrics. Track Core Web Vitals, SEO scores, and
+        performance trends.
       </Caption>
       <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
         <ArrowLink
@@ -361,7 +373,7 @@ const LiveDemo = React.memo(function LiveDemo ({
             css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
             loading={isLoading}
           >
-            <Caps css={theme({ fontSize: 1 })}>Get it</Caps>
+            <Caps css={theme({ fontSize: 1 })}>Analyze</Caps>
           </Button>
         </Flex>
       </Flex>
@@ -479,9 +491,9 @@ const Timings = () => {
       }}
     >
       <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
-        Measure at scale{' '}
+        Performance metrics{' '}
         <span css={theme({ color: 'white60', display: 'block' })}>
-          without compromises
+          & SLA guarantees
         </span>
       </Subhead>
     </Flex>
@@ -657,7 +669,7 @@ const Resume = () => (
     })}
   >
     <Subhead css={theme({ px: [3, 3, 4, 4] })} variant='gradient'>
-      Global performance insights on click
+      Instant Web Performance Analytics
     </Subhead>
     <Caption
       css={theme({
@@ -666,9 +678,10 @@ const Resume = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      <b>Microlink insights</b> provides first-class support for web performance
-      monitoring, easy to integrate with any existing stack or cloud in just a
-      few minutes.
+      <b>Microlink Insights</b> delivers enterprise-grade web performance
+      monitoring through a developer-friendly API. Automate Lighthouse audits,
+      track Core Web Vitals, detect technology stacks, and integrate performance
+      monitoring into your CI/CD pipeline in minutes.
     </Caption>
 
     <Block
@@ -697,17 +710,21 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Audit on-demand
+            On-Demand Audits
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Enable <Link href='/docs/api/parameters/insights'>insights</Link>{' '}
-            query parameter at{' '}
+            Trigger comprehensive performance audits on-demand by adding the{' '}
+            <Link href='/docs/api/parameters/insights'>
+              <code>insights=true</code>
+            </Link>{' '}
+            parameter to any{' '}
             <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
-            for getting a{' '}
+            request. Get detailed{' '}
             <Link href='https://developers.google.com/web/tools/lighthouse'>
               Lighthouse
             </Link>{' '}
-            report and technologies detected over the target URL.
+            performance scores, Core Web Vitals metrics, SEO analysis, and
+            complete technology stack detection instantly.
           </Text>
         </Flex>
       }
@@ -730,12 +747,14 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Run on the edge
+            Cloud-Native Infrastructure
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Never get worried about infrastructure again. Just hit{' '}
-            <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
-            and we will run a cloud-based browsers for you.
+            Enterprise-grade cloud infrastructure eliminates infrastructure
+            headaches. Our globally distributed browser network handles
+            Lighthouse execution, resource management, and scaling
+            automatically. Focus on performance insights, not server maintenance
+            or browser compatibility issues.
           </Text>
         </Flex>
       }
@@ -777,15 +796,20 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Simple integration
+            Developer-Friendly Integration
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Connect it with{' '}
-            <Link href='https://lighthouse.microlink.io'>Lighthouse</Link> or{' '}
+            Seamlessly integrate with your existing development workflow.
+            Connect with{' '}
+            <Link href='https://lighthouse.microlink.io'>
+              Lighthouse dashboards
+            </Link>
+            ,{' '}
             <Link href='https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md'>
               Lighthouse CI
-            </Link>{' '}
-            for unleashing all the power without compromise.
+            </Link>
+            , or custom monitoring solutions. RESTful API with comprehensive
+            SDKs for JavaScript, Python, PHP, and more.
           </Text>
         </Flex>
       }
@@ -808,7 +832,7 @@ const ProductInformation = () => {
       })}
       questions={[
         {
-          question: 'What is it?',
+          question: 'What is Microlink Insights?',
           answer: (
             <>
               <div>
@@ -816,78 +840,117 @@ const ProductInformation = () => {
                   as='span'
                   css={theme({ color: 'black', fontWeight: 'bold' })}
                 >
-                  Microlink insights
+                  Microlink Insights
                 </Text>{' '}
-                gives you web performance metrics in a simple way using{' '}
-                <Link href='/docs/api/getting-started/overview'>
-                  Microlink API
-                </Link>
-                .
+                is a comprehensive web performance monitoring solution that
+                provides automated Lighthouse audits and technology stack
+                detection through our REST API. Get detailed performance
+                metrics, Core Web Vitals scores, SEO analysis, and accessibility
+                audits instantly for any website URL.
+              </div>
+              <div>
+                Built on Google's industry-standard Lighthouse framework, it
+                delivers the same performance insights used by Google Search
+                Console, PageSpeed Insights, and Chrome DevTools - but
+                programmatically accessible via API.
               </div>
             </>
           )
         },
         {
-          question: 'How does it work?',
+          question: 'How does Microlink Insights work?',
           answer: (
             <>
               <div>
-                The report is created after passing{' '}
-                <Link href='/docs/api/parameters/insights'>insights</Link> query
-                parameter to{' '}
+                Simply append the{' '}
+                <Link href='/docs/api/parameters/insights'>
+                  <code>insights=true</code>
+                </Link>{' '}
+                parameter to any{' '}
                 <Link href='/docs/api/getting-started/overview'>
                   Microlink API
-                </Link>
-                .
+                </Link>{' '}
+                request. Our infrastructure automatically triggers a
+                comprehensive audit process.
               </div>
               <div>
-                For getting the report, we run{' '}
+                We launch an isolated Chrome browser instance in our cloud
+                infrastructure, navigate to your target URL, and execute
+                Google's{' '}
                 <Link href='https://developers.google.com/web/tools/lighthouse'>
                   Lighthouse
                 </Link>{' '}
-                in our cloud browser servers, giving you the report obtained
-                from the target URL.
+                auditing engine. This provides the same detailed performance
+                analysis used by Google Search Console and PageSpeed Insights.
               </div>
               <div>
-                Additionally, we can also detect the technology stack behind the
-                target URL, using{' '}
-                <Link href='https://www.wappalyzer.com/'>Wappalyzer</Link> .
+                Simultaneously, our system analyzes the website's source code,
+                HTTP headers, and JavaScript variables using{' '}
+                <Link href='https://www.wappalyzer.com/'>Wappalyzer</Link>{' '}
+                technology detection engine to identify the complete technology
+                stack - from frameworks and CMS platforms to analytics tools and
+                server software.
               </div>
               <div>
-                The data obtained will be returned as part of the HTTP response
-                payload.
+                All performance metrics, audit scores, and technology data are
+                compiled into a structured JSON response, delivered via HTTP
+                with comprehensive error handling and retry logic for maximum
+                reliability.
               </div>
             </>
           )
         },
         {
-          question: 'Why not run my own solution?',
+          question: 'Why choose Microlink over building your own?',
           answer: (
             <>
               <div>
-                The service aims to avoid headaches, preventing you for running
-                and maintaining your own infrastructure.
+                Running Lighthouse at scale requires significant infrastructure
+                investment. Each audit needs isolated browser instances, proper
+                resource management, and sophisticated error handling for the
+                millions of edge cases across the modern web.
               </div>
               <div>
-                Every URL on the Internet are different and browser are a
-                complex piece of software, with unpredictable resources usage.
+                Modern websites vary dramatically - from simple static sites to
+                complex SPAs with JavaScript frameworks, authentication
+                requirements, and dynamic content. Browser automation demands
+                expertise in handling timeouts, JavaScript execution, network
+                conditions, and security constraints.
               </div>
               <div>
-                The fact of resolve any URL at scale in{' '}
+                Our infrastructure delivers consistent{' '}
                 <Average size='tiny' value={healthcheck.insights.avg_pretty} />{' '}
-                isn’t a trivial thing.
+                response times across global regions, backed by 99.9% SLA. We've
+                solved the complex engineering challenges so you can focus on
+                using performance data, not generating it.
+              </div>
+              <div>
+                Skip months of development time, infrastructure costs, and
+                ongoing maintenance. Get enterprise-grade performance monitoring
+                instantly with our battle-tested API that handles edge cases,
+                security, and scaling automatically.
               </div>
             </>
           )
         },
         {
-          question: 'Other questions?',
+          question: 'Still have questions?',
           answer: (
             <>
               <div>
-                We’re always available at{' '}
-                <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
-                .
+                Our developer-friendly team is here to help you succeed. Reach
+                out at{' '}
+                <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
+                for technical support, integration guidance, or custom
+                enterprise solutions.
+              </div>
+              <div>
+                Check our <Link href='/docs'>comprehensive documentation</Link>,{' '}
+                <Link href='https://github.com/microlinkhq'>
+                  GitHub repositories
+                </Link>
+                , and <Link href='/blog'>engineering blog</Link> for additional
+                resources and examples.
               </div>
             </>
           )
@@ -899,8 +962,35 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    description='Automate web performance. Track site speed & website quality over time. Get performance insights powered by Lighthouse.'
+    title='Automated Web Performance Insights'
+    description='Track web speed & website quality over time. Monitor website performance automatically. Get Lighthouse-powered speed insights & quality metrics in real-time. Track Core Web Vitals, SEO scores & more.'
     image={cdnUrl('banner/insights.jpeg')}
+    schemaType='SoftwareApplication'
+    structured={{
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      '@id': 'https://microlink.io/insights',
+      name: 'Microlink Insights API',
+      description:
+        'Monitor website performance automatically with Lighthouse-powered insights. Track Core Web Vitals, SEO scores, and quality metrics over time.',
+      url: 'https://microlink.io/insights',
+      applicationCategory: ['DeveloperApplication', 'API'],
+      keywords: [
+        'web performance monitoring',
+        'Lighthouse audit',
+        'Core Web Vitals',
+        'website speed test',
+        'performance insights',
+        'SEO audit',
+        'page speed analysis',
+        'website optimization'
+      ],
+      about: [
+        { '@type': 'Thing', name: 'Web Performance Monitoring' },
+        { '@type': 'Thing', name: 'Lighthouse Audits' },
+        { '@type': 'Thing', name: 'Core Web Vitals' }
+      ]
+    }}
   />
 )
 
@@ -931,7 +1021,7 @@ const InsightsPage = () => {
                 css={theme({ px: 4 })}
                 title={
                   <Subhead css={{ width: '100%', textAlign: 'left' }}>
-                    You call the API,{' '}
+                    Focus on performance,{' '}
                     <span
                       css={{
                         display: 'block',
@@ -940,16 +1030,21 @@ const InsightsPage = () => {
                         textAlign: 'left'
                       }}
                     >
-                      we handle the rest.
+                      not infrastructure
                     </span>
                   </Subhead>
                 }
                 caption={
                   <>
-                    No code to maintain, no servers to deploy, but always ready
-                    — Microlink allows you spend more time building, less time
-                    configuring, easy integration via{' '}
-                    <Link href='/docs/api/getting-started/overview'>API</Link>.
+                    Zero infrastructure overhead. Deploy performance monitoring
+                    instantly with our production-ready API. Focus on optimizing
+                    user experience while we handle the complex browser
+                    automation, scaling, and reliability. Start monitoring in
+                    minutes with our{' '}
+                    <Link href='/docs/api/getting-started/overview'>
+                      comprehensive API documentation
+                    </Link>
+                    .
                   </>
                 }
                 features={FEATURES}

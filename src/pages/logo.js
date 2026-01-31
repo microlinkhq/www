@@ -187,17 +187,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-      ...new Set(
-        []
-          .concat(
-            logo.palette,
-            logo.background_color,
-            logo.color,
-            logo.alternative_color
-          )
-          .filter(Boolean)
-      )
-    ]
+        ...new Set(
+          []
+            .concat(
+              logo.palette,
+              logo.background_color,
+              logo.color,
+              logo.alternative_color
+            )
+            .filter(Boolean)
+        )
+      ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -312,8 +312,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })
-                        }
+                          })}
                       />
                     </Tooltip>
                   )
@@ -954,19 +953,7 @@ export const Head = () => (
         { '@type': 'Thing', name: 'Website Logo Extraction' },
         { '@type': 'Thing', name: 'Color Palette Detection' },
         { '@type': 'Thing', name: 'Brand Metadata API' }
-      ],
-      provider: {
-        '@type': 'Organization',
-        '@id': 'https://microlink.io/about',
-        name: 'Microlink',
-        url: 'https://microlink.io'
-      },
-      isPartOf: {
-        '@type': 'WebSite',
-        '@id': 'https://microlink.io',
-        url: 'https://microlink.io',
-        name: 'Microlink'
-      }
+      ]
     }}
   />
 )

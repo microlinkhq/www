@@ -48,80 +48,49 @@ import { useWindowSize } from 'components/hook/use-window-size'
 
 const FEATURES = [
   {
-    title: 'Always fresh',
-    description: (
-      <>
-        Stale revalidation, keeping things fresh and always up to date via{' '}
-        <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link>, reflecting
-        any change on the target URL.
-      </>
-    )
-  },
-  {
-    title: 'Embed Mode',
-    description: (
-      <>
-        Enabling <Link href='/docs/api/parameters/embed'>embed</Link> mode for
-        consuming content directly from your HTML markup.
-      </>
-    )
-  },
-  {
-    title: 'Delay',
+    title: 'Enterprise-Grade Reliability',
     description:
-      'Wait a quantity of time, selector or event to preload content before generate the document.'
+      'Production-ready PDF generation at scale. Handle millions of documents with 99.9% uptime SLA and guaranteed performance for business-critical workflows.'
   },
   {
-    title: 'Page Ranges',
-    description: (
-      <>
-        Selective page ranges to print via{' '}
-        <Link href='/docs/api/parameters/pdf/pageRanges'>pageRanges</Link> for
-        removing unnecessary content.
-      </>
-    )
+    title: 'Free to Start',
+    description:
+      'Begin generating PDFs immediately. No setup fees, pay-as-you-grow pricing that scales with your document generation needs.'
   },
   {
-    title: 'Scale',
-    description: (
-      <>
-        Customize the <Link href='/docs/api/parameters/pdf/scale'>scale</Link>{' '}
-        of the webpage rendering, adjusting the zoom level.
-      </>
-    )
+    title: 'Global CDN Network',
+    description:
+      'Distributed across 240+ edge locations powered by Cloudflare. Lightning-fast PDF generation from anywhere worldwide.'
   },
   {
-    title: 'Orientation',
-    description: (
-      <>
-        Change between portrait or{' '}
-        <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link> to fit
-        user case necessities.
-      </>
-    )
+    title: 'Developer-First API',
+    description:
+      'RESTful API designed for developers. Language-agnostic integration with comprehensive SDKs and interactive documentation.'
   },
   {
-    title: 'CSS/JS Injection',
-    description: 'Inject any CSS styles or JS code into the page.'
+    title: 'Advanced Content Control',
+    description:
+      'Advanced page range selection, custom scaling, and layout optimization. Generate exactly the content you need with precision control.'
   },
   {
-    title: 'Page Format',
-    description: (
-      <>
-        Setup between a set of different paper{' '}
-        <Link href='/docs/api/parameters/pdf/format'>format</Link> sizes.
-      </>
-    )
+    title: 'Flexible Output Formats',
+    description:
+      'Multiple paper sizes, orientation options, and margin controls. Perfect documents for any business requirement or compliance standard.'
   },
   {
-    title: 'Margins',
-    description: (
-      <>
-        Adjust the paper{' '}
-        <Link href='/docs/api/parameters/pdf/margin'>margin</Link> per every
-        document.
-      </>
-    )
+    title: 'Real-Time Updates',
+    description:
+      'Automatic caching with refresh. Stay current with website changes while maintaining optimal performance.'
+  },
+  {
+    title: 'Complete Customization',
+    description:
+      'CSS injection, JavaScript execution, and delay controls. Full customization capabilities for complex document generation needs.'
+  },
+  {
+    title: 'Zero-Config Integration',
+    description:
+      'Interactive documentation with live code examples. Get started in minutes with copy-paste integration snippets and embed-ready code.'
   }
 ]
 
@@ -221,7 +190,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       })}
     >
       <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        PDF made simple
+        Automated Website <br /> PDF Conversion
       </Heading>
       <Caption
         titleize={false}
@@ -232,8 +201,9 @@ const LiveDemo = React.memo(function LiveDemo ({
           maxWidth: layout.small
         })}
       >
-        Simplify your workflow, use less to get — Turn websites into PDF, in an
-        easy way.
+        Transform any website into a professional PDF with one API call.
+        Enterprise-grade reliability, full customization, and instant
+        generation.
       </Caption>
       <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
         <ArrowLink
@@ -591,8 +561,8 @@ const Resume = () => (
       pb: [5, 5, 6, 6]
     })}
   >
-    <Subhead css={theme({ px: [3, 3, 6, 6] })} variant='gradient'>
-      Generate PDFs from any website
+    <Subhead css={theme({ px: [3, 3, 0, 0] })} variant='gradient'>
+      Instant PDF Generation
     </Subhead>
     <Caption
       css={theme({
@@ -601,9 +571,10 @@ const Resume = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      <b>Microlink PDF</b> provides a set of powerful features without the
-      headaches of running your own infrastructure, giving you great power, less
-      responsibilities.
+      <b>Microlink PDF</b> delivers enterprise-grade document generation through
+      a developer-friendly API. Convert any website to PDF automatically with
+      full customization and control. Perfect for reports, archiving,
+      compliance, and automated document workflows.
     </Caption>
 
     <Block
@@ -613,7 +584,7 @@ const Resume = () => (
             px: [4, 0, 0, 0],
             width: ['100%', 6, 7, 8]
           })}
-          alt='Always fresh'
+          alt='Lightning-Fast Performance'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
@@ -632,12 +603,13 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Always fresh
+            Lightning-Fast Performance
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Consecutive requests will be cached on the edge, respecting{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
-            responses doesn’t affect your plan.
+            Smart edge caching ensures instant PDF generation. Configure{' '}
+            <Link href='/docs/api/parameters/ttl'>TTL settings</Link> for
+            optimal performance while staying current with website changes. No
+            infrastructure overhead.
           </Text>
         </Flex>
       }
@@ -660,17 +632,13 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Fully adaptable
+            Complete Document Control
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Such as set the paper{' '}
-            <Link href='/docs/api/parameters/pdf/format'>format</Link>,
-            establish a{' '}
-            <Link href='/docs/api/parameters/pdf/margin'>margin</Link>, change
-            the <Link href='/docs/api/parameters/pdf/scale'>scale</Link>, set{' '}
-            <Link href='/docs/api/parameters/pdf/pageRanges'>page ranges</Link>,
-            use <Link href='/docs/api/parameters/pdf/landscape'>landscape</Link>{' '}
-            orientation, and a lot more.
+            Full customization for professional documents. Control paper sizes,
+            margins, scaling, page ranges, and orientation. Generate perfect
+            PDFs for reports, contracts, and compliance documentation with
+            pixel-perfect precision.
           </Text>
         </Flex>
       }
@@ -712,13 +680,14 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Embed directly
+            Seamless Integration
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Create PDFs on-demand and{' '}
+            Generate PDFs on-demand and{' '}
             <Link href='/docs/api/parameters/embed'>embed</Link> them directly
-            in your HTML markup, without being worried about code or
-            infrastructure.
+            in your applications. No infrastructure worries, no complex setup.
+            Perfect for dynamic reports, user-generated content, and automated
+            document workflows.
           </Text>
         </Flex>
       }
@@ -727,12 +696,10 @@ const Resume = () => (
 )
 
 const ProductInformation = () => {
-  const healthcheck = useHealthcheck()
-
   return (
     <Faq
       title='Product Information'
-      caption='All the details you need to know about the product.'
+      caption='Everything you need to know about PDF generation with our API.'
       css={theme({
         pb: [5, 5, 6, 6],
         bg: 'pinky',
@@ -741,81 +708,72 @@ const ProductInformation = () => {
       })}
       questions={[
         {
-          question: 'What is it?',
+          question: 'What can I build with PDF API?',
           answer: (
             <>
               <div>
-                <Text
-                  as='span'
-                  css={theme({ color: 'black', fontWeight: 'bold' })}
-                >
-                  Microlink PDF
-                </Text>{' '}
-                is a simple way to generate a PDF from any website using{' '}
+                Build powerful document automation systems. Create report
+                generators, compliance archives, content preservation tools, and
+                automated document workflows. Perfect for SaaS platforms,
+                content management systems, and business process automation.
+              </div>
+              <div>
+                Generate PDFs for invoices, contracts, user manuals, marketing
+                materials, and any web content that needs to be preserved in
+                document format.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'How reliable is PDF generation?',
+          answer: (
+            <>
+              <div>
+                Enterprise-grade reliability with 99.9% uptime SLA. Our
+                optimized Chromium infrastructure handles complex websites,
+                dynamic content, and large documents with consistent
+                performance.
+              </div>
+              <div>
+                Every request runs in isolated browser instances for security
+                and reliability. PDFs are generated server-side and delivered
+                via global CDN for optimal performance worldwide.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'What about customization and control?',
+          answer: (
+            <>
+              <div>
+                Full control over document output. Customize paper sizes,
+                margins, orientation, page ranges, scaling, and content
+                selection. Inject custom CSS and JavaScript for complete
+                document styling and behavior control.
+              </div>
+              <div>
+                Perfect for generating professional reports, branded documents,
+                and compliance-ready PDFs with pixel-perfect precision.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'How do I get started?',
+          answer: (
+            <>
+              <div>
+                Start free with our comprehensive API. Visit our{' '}
                 <Link href='/docs/api/getting-started/overview'>
-                  Microlink API
-                </Link>
-                .
-              </div>
-            </>
-          )
-        },
-        {
-          question: 'How does it work?',
-          answer: (
-            <>
-              <div>
-                The PDF will be generated after passing{' '}
-                <Link href='/docs/api/parameters/pdf'>pdf</Link> query parameter
-                to{' '}
-                <Link href='/docs/api/getting-started/overview'>
-                  Microlink API
-                </Link>
-                .
+                  documentation
+                </Link>{' '}
+                for interactive examples, multiple language SDKs, and
+                ready-to-use code snippets. No infrastructure setup required.
               </div>
               <div>
-                For creating the file, a chromium browser will run on our own
-                servers, getting a PDF file as output. Servers run the browser
-                on top of optimized hardware to ensure the PDF is created as
-                fast as possible but also under security isolation condition,
-                spawning a new browser per every new request, meaning no
-                browsers are shared between requests.
-              </div>
-              <div>
-                After that, the PDF file is uploaded into{' '}
-                <Link href='/blog/edge-cdn/'>Microlink CDN</Link> and served
-                across +140 edges nodes to ensure the best worldwide access
-                time.
-              </div>
-            </>
-          )
-        },
-        {
-          question: 'Why not run my own solution?',
-          answer: (
-            <>
-              <div>
-                The service aims to avoid headaches, preventing you for running
-                and maintaining your own infrastructure.
-              </div>
-              <div>
-                Every URL on the Internet are different and browser are a
-                complex piece of software, with unpredictable resources usage.
-              </div>
-              <div>
-                The fact of resolve any URL at scale in{' '}
-                <Average size='tiny' value={healthcheck.pdf.avg_pretty} /> isn’t
-                a trivial thing.
-              </div>
-            </>
-          )
-        },
-        {
-          question: 'Other questions?',
-          answer: (
-            <>
-              <div>
-                We’re always available at{' '}
+                Have questions? Contact us at{' '}
                 <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .
               </div>
@@ -829,9 +787,38 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    title='PDF'
-    description='PDF made simple. Simplify your workflow, use less to get. Turn websites into PDF, in an easy way.'
+    title='Automated Website PDF Conversion'
+    description='Transform any website into a professional PDF with one API call. Enterprise-grade reliability, full customization, and instant generation for reports, archiving, compliance, and automated document workflows.'
     image={cdnUrl('banner/pdf.jpeg')}
+    schemaType='SoftwareApplication'
+    structured={{
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      '@id': 'https://microlink.io/pdf',
+      name: 'Microlink PDF API',
+      description:
+        'Transform any website into a professional PDF with one API call. Enterprise-grade reliability, full customization, and instant generation.',
+      url: 'https://microlink.io/pdf',
+      applicationCategory: ['DeveloperApplication', 'API'],
+      keywords: [
+        'PDF API',
+        'website to PDF',
+        'PDF generation',
+        'document automation',
+        'web scraping PDF',
+        'PDF conversion',
+        'automated PDF',
+        'document generation',
+        'instant PDF',
+        'one click PDF'
+      ],
+      about: [
+        { '@type': 'Thing', name: 'PDF Generation API' },
+        { '@type': 'Thing', name: 'Website to PDF Conversion' },
+        { '@type': 'Thing', name: 'Document Automation' },
+        { '@type': 'Thing', name: 'PDF Creation Service' }
+      ]
+    }}
   />
 )
 
