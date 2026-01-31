@@ -46,12 +46,18 @@ For SEO-related components like `<Meta />`, do NOT rely on automatic titleizatio
 
 1. **Use Sentence Case**: Use sentence case (only the first letter of the first word is capitalized) for `title` and `description` props in `<Meta />`.
 2. **Hyphenated Keywords**: Use lowercase for technical hyphenated terms like `user-agents` unless they are at the beginning of a sentence.
+3. **No Manual Branding**: The Meta component automatically appends site branding (`" — Microlink"`). Never manually add branding suffixes like `"| Microlink"` to avoid double branding.
 
 **Example:**
 ```javascript
 <Meta
-  title={`The ultimate user-agents list (${new Date().getFullYear()})`}
-  description='Most common user-agents used on the Internet up to date'
+  title='From Click to PDF'  // ✅ Auto-becomes "From Click to PDF — Microlink"
+  description='Transform any website into a professional PDF with one API call'
+/>
+
+// ❌ AVOID: This creates double branding
+<Meta
+  title='From Click to PDF | Microlink'  // Results in "From Click to PDF | Microlink — Microlink"
 />
 ```
 

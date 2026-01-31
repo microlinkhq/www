@@ -83,7 +83,7 @@ export const Hero = () => {
         return (
           <Box as='section' id='hero'>
             <Box id='input'>
-              <Heading css={theme({ fontSize: 5 })}>Sharing Debugger</Heading>
+              <Heading>Sharing Debugger</Heading>
               <Caption
                 forwardedAs='h2'
                 css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}
