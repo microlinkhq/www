@@ -20,7 +20,7 @@ import userAgents from '../../static/user-agents.json'
 export const Head = () => (
   <Meta
     title={`The ultimate user agent list (${new Date().getFullYear()})`}
-    description='Most common user agents used on the Internet up to date'
+    description='Comprehensive, up-to-date user agent database. Essential for web scraping, testing, and bot development. Covers browsers, crawlers, and AI agents with regular updates.'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -30,11 +30,14 @@ export const Head = () => (
           'A self-updating list of the latest and most common user agents for browsers, crawlers, and AI bots.',
         url: 'https://microlink.io/user-agents',
         keywords: [
-          'user agent',
-          'user-agent string',
-          'browser user agent',
-          'crawler user agent',
-          'web scraping'
+          'user agent database',
+          'user agent strings',
+          'browser user agents',
+          'crawler user agents',
+          'web scraping user agents',
+          'bot user agents',
+          'AI user agents',
+          'user agent list'
         ],
         license: 'https://microlink.io/tos',
         creator: {
@@ -98,8 +101,9 @@ const UserAgentsPage = () => {
       <Box as='section' id='hero'>
         <Heading>User Agent List</Heading>
         <Caption forwardedAs='h2' css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}>
-          A self-updating list of the latest
-          <br />& most common user agents.
+          Comprehensive database of user agents for all major browsers and
+          crawlers. Essential resource for web scraping, bot development, and
+          browser testing.
         </Caption>
         <Caption
           forwardedAs='p'
@@ -165,31 +169,27 @@ const UserAgentsPage = () => {
         css={theme({ pt: 0, px: 0 })}
         questions={[
           {
-            question: 'How is the user agent list obtained?',
+            question: 'What can I use this user agent database for?',
             answer: (
               <div>
-                The data comes from multiple sources to provide comprehensive
-                user agent detection, then undergoes rigorous normalization to
-                ensure reliability and quality:
+                Build robust web scraping, testing, and automation solutions.
+                This comprehensive database supports:
                 <ul>
                   <li>
-                    <Link
-                      href='https://github.com/microlinkhq/cloudflare-bot-directory'
-                      logoIcon
-                    >
-                      CloudFlare Bot Directory
-                    </Link>{' '}
-                    : a wrapper of CloudFlare Radar verified bots directory.
+                    <strong>Web Scraping</strong>: Rotate user agents to avoid
+                    detection and access restricted content
                   </li>
                   <li>
-                    <Link
-                      href='https://github.com/microlinkhq/top-user-agents'
-                      logoIcon
-                    >
-                      Top User Agents
-                    </Link>{' '}
-                    : an always up-to-date list of the top 100 HTTP user agents
-                    most used over the Internet.
+                    <strong>Browser Testing</strong>: Ensure compatibility
+                    across different browsers and devices
+                  </li>
+                  <li>
+                    <strong>Bot Development</strong>: Build sophisticated
+                    automation tools that mimic real user behavior
+                  </li>
+                  <li>
+                    <strong>SEO Monitoring</strong>: Test how search engines and
+                    crawlers see your website
                   </li>
                   <li>
                     <Link
@@ -210,63 +210,35 @@ const UserAgentsPage = () => {
                     : curated list of web crawler user agents.
                   </li>
                 </ul>
-                The data obtained from these sources is messy—duplicates,
-                inconsistencies, and formatting issues abound. Our normalization
-                process transforms this chaos into reliable, production-ready
-                data through:
-                <ul>
-                  <li>
-                    <b>Deduplication</b>: We identify and merge duplicate user
-                    agents while preserving the most accurate representations
-                  </li>
-                  <li>
-                    <b>Standardization</b>: Consistent formatting ensures
-                    compatibility across different systems and programming
-                    languages
-                  </li>
-                  <li>
-                    <b>Validation</b>: Each user agent is validated against
-                    known patterns to filter out malformed or outdated entries
-                  </li>
-                  <li>
-                    <b>Categorization</b>: Intelligent classification separates
-                    bots, crawlers, browsers, and AI agents for targeted use
-                    cases
-                  </li>
-                  <li>
-                    <b>Quality Assurance</b>: Automated testing ensures the
-                    normalized data works reliably in real-world applications
-                  </li>
-                </ul>
-                This rigorous process means you get battle-tested user agents
-                that just work, without the headaches of manual cleanup and
-                validation.
+                Whether you're building scraping tools, testing frameworks, or
+                automation systems, our comprehensive database ensures you have
+                the right user agents for any use case.
               </div>
             )
           },
           {
-            question: 'How frequently is the user agent list updated?',
+            question: 'How current and reliable is the data?',
             answer: (
               <>
                 <div>
-                  The user agent list is updated weekly by fetching the latest
-                  data from reliable sources. Each update ensures you have
-                  access to the most current and effective user agents. The last
-                  update timestamp is displayed at the top of the page, and the
-                  data is refreshed as new user agents become available from
-                  these sources.
+                  Our database is continuously updated with the latest user
+                  agents from trusted sources. We maintain high data quality
+                  through rigorous validation, deduplication, and
+                  categorization. The last update timestamp shows when the data
+                  was refreshed, ensuring you always have access to current,
+                  production-ready user agents.
                 </div>
                 <div>
-                  Each update ensures you have access to the most current and
-                  effective user agents. The last update timestamp is displayed
-                  at the top of the page, and the data is refreshed as new user
-                  agents become available from these sources.
+                  Each entry is validated and tested to ensure compatibility and
+                  effectiveness across different platforms and use cases. This
+                  reliability is crucial for production applications where user
+                  agent accuracy matters.
                 </div>
               </>
             )
           },
           {
-            question: 'How to consume the user agent list?',
+            question: 'How do I integrate this into my projects?',
             answer: (
               <>
                 <div>
@@ -290,12 +262,33 @@ const UserAgentsPage = () => {
             )
           },
           {
-            question: 'How to rotate user agents in headless browsers?',
+            question: 'What are best practices for using user agents?',
             answer: (
               <>
                 <div>
-                  You can manually set the header in Puppeteer or Playwright
-                  using a random string from this list:
+                  When using user agents in your applications, follow these best
+                  practices:
+                  <ul>
+                    <li>
+                      <strong>Rotate regularly</strong>: Change user agents
+                      frequently to avoid detection patterns
+                    </li>
+                    <li>
+                      <strong>Match device context</strong>: Use appropriate
+                      user agents for the target platform (mobile, desktop,
+                      crawler)
+                    </li>
+                    <li>
+                      <strong>Respect rate limits</strong>: Combine user agent
+                      rotation with appropriate delays to avoid blocking
+                    </li>
+                    <li>
+                      <strong>Test compatibility</strong>: Verify your
+                      applications work with different browser user agents
+                    </li>
+                  </ul>
+                  Our categorized database makes it easy to select the right
+                  user agents for your specific use case.
                 </div>
                 <CodeEditor
                   title='puppeteer.js'
@@ -322,13 +315,12 @@ await page.goto('https://example.com')
 `}
                 </CodeEditor>
                 <div>
-                  Running this at scale means operating headless browsers,
-                  proxies, and antibot workarounds. If you don’t want to manage
-                  that infrastructure, you can use the fully managed{' '}
+                  If you don’t want to manage that infrastructure, you can use
+                  the fully managed{' '}
                   <Link href='https://microlink.io/docs/api/getting-started/overview'>
                     Microlink API
                   </Link>
-                  . It automatically handles proxy rotation, paywalls, bot
+                  : It automatically handles proxy rotation, paywalls, bot
                   detection, and restricted platforms such as major social
                   networks, while scaling on demand. Pricing is pay-as-you-go
                   and{' '}
