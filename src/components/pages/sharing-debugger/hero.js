@@ -85,11 +85,9 @@ export const Hero = () => {
               <Heading>Sharing debugger</Heading>
               <Caption
                 forwardedAs='h2'
-                css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}
+                css={theme({ pt: '20px', px: [4, 0], fontSize: '25px' })}
               >
-                Preview how your links appear when shared on social media,
-                inspect and fix Open Graph metadata, and ensure accurate titles,
-                descriptions, and images across all major social networks.
+                Preview how your links appear when shared on social media
               </Caption>
 
               <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
