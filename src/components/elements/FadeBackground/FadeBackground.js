@@ -28,12 +28,15 @@ export const FadeBackground = styled(Box)`
     transparent 100%
   );
 
+  height: ${HEIGHT};
+  width: 100%;
+
   ${({ $position }) => {
     switch ($position) {
       case 'top':
-        return `height: ${HEIGHT}; width: 100%; top: 36px; margin-bottom: -${HEIGHT};`
+        return `top: 36px; margin-bottom: -${HEIGHT};`
       case 'bottom':
-        return `height: ${HEIGHT}; width: 100%; bottom: 0; margin-top: -${HEIGHT};`
+        return `bottom: 0; margin-top: -${HEIGHT};`
       case 'left':
         return `width: ${HEIGHT}; height: 100%; left: 0; margin-right: -${HEIGHT};`
       case 'right':
