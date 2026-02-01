@@ -1,6 +1,7 @@
 ### January 2025
 
-- [Microlink API](/docs/api/getting-started/overview): Better Bluesky support.
+- [Microlink API](/docs/api/getting-started/overview): Improved [Dribbble](https://x.com/microlinkhq/status/2017919456463265976) URLs resolution.
+- [Microlink API](/docs/api/getting-started/overview): Better [Bluesky](https://x.com/microlinkhq/status/2016431365592437183) support.
 
 ### December 2025
 
