@@ -75,7 +75,7 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
         case 'description': {
           if (!issue.isNullable) {
             groups.search.push(
-              '<!-- Consider extending to 140-240 characters for best results -->'
+              '<!-- Aim for 90-155 characters to optimize the preview -->'
             )
           }
           groups.search.push(`<meta name="description" content="${safeValue}">`)
