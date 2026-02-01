@@ -314,7 +314,6 @@ const LiveDemo = React.memo(function LiveDemo ({
         <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
           <CodeEditor
             css={theme({
-              pb: 4,
               width: cardWidth,
               height: cardHeight,
               maxWidth: layout.normal
@@ -324,7 +323,7 @@ const LiveDemo = React.memo(function LiveDemo ({
             {JSON.stringify(jsonData, null, 2)}
           </CodeEditor>
           <Box
-            css={theme({ pt: 4, width: cardWidth, maxWidth: layout.normal })}
+            css={theme({ pt: 3, width: cardWidth, maxWidth: layout.normal })}
           >
             <Tooltip
               type='copy'

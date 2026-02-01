@@ -255,9 +255,6 @@
     }
   },
   "nano-staged": {
-    "*": [
-      "node scripts/git-timestamps.js"
-    ],
     "*.js": [
       "prettier-standard"
     ],
@@ -271,7 +268,7 @@
   },
   "simple-git-hooks": {
     "commit-msg": "npx commitlint --edit",
-    "pre-commit": "npx nano-staged"
+    "pre-commit": "node scripts/git-timestamps.js && npx nano-staged"
   },
   "standard": {
     "ignore": [

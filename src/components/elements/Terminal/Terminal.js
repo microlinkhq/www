@@ -237,11 +237,9 @@ const TerminalProvider = ({
           <ActionComponent isDark={isDark} text={text} />
         </TerminalHeader>
 
-        <TerminalText>
-          <FadeBackground.Top />
-          {children}
-          <FadeBackground.Bottom />
-        </TerminalText>
+        <FadeBackground.Top />
+        <TerminalText>{children}</TerminalText>
+        <FadeBackground.Bottom />
       </TerminalWindow>
     </FadeBackgroundProvider>
   )
