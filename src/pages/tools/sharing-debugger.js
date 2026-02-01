@@ -57,7 +57,12 @@ const SharingDebugger = () => {
             answer: (
               <>
                 <div>
-                  This tool runs on{' '}
+                  This <b>link preview debugging tool</b> inspects and fixes
+                  Open Graph metadata, ensuring accurate titles, descriptions,
+                  and images across all major social networks.
+                </div>
+                <div>
+                  It runs on{' '}
                   <Link href='https://metascraper.js.org/#/' logoIcon>
                     Metascraper
                   </Link>
@@ -165,7 +170,7 @@ const SharingDebugger = () => {
                     Python, or even simple cURL commands.
                   </li>
                   <li>
-                    <b>Edge Case Detection:</b> Programmatically detect missing
+                    <b>Edge Case Detection:</b> Programmatically detect missing{' '}
                     <i>og:image</i> tags, broken canonicals, or invalid JSON-LD
                     schemas across your whole domain.
                   </li>
@@ -179,9 +184,9 @@ const SharingDebugger = () => {
               <>
                 <div>
                   In the era of link unfurling (Facebook, X, LinkedIn, etc.),
-                  your og:image is your first impression. Manually designing
-                  assets for every dynamic route is unscalable, but generic
-                  logos get ignored.
+                  your <i>og:image</i> is your first impression. Manually
+                  designing assets for every dynamic route is unscalable, but
+                  generic logos get ignored.
                   <br />
                   <br />
                   Microlink solves this by treating your screenshots as an{' '}
