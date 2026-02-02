@@ -348,10 +348,10 @@ const UserAgentsPage = () => {
             )
           },
           {
-            question: 'What are best practices for using user agents?',
+            question: 'Best practices for using the list of User Agents',
             answer: (
               <>
-                When using user agents in your applications, follow these best
+                When using User Agents in your applications, follow these best
                 practices:
                 <div>
                   <Faq.List>
@@ -361,21 +361,21 @@ const UserAgentsPage = () => {
                     </li>
                     <li>
                       <strong>Match device context</strong>: Use appropriate
-                      user agents for the target platform (mobile, desktop,
+                      User Agents for the target platform (mobile, desktop,
                       crawler)
                     </li>
                     <li>
-                      <strong>Respect rate limits</strong>: Combine user agent
+                      <strong>Respect rate limits</strong>: Combine User Agent
                       rotation with appropriate delays to avoid blocking
                     </li>
                     <li>
                       <strong>Test compatibility</strong>: Verify your
-                      applications work with different browser user agents
+                      applications work with different browser User Agents
                     </li>
                   </Faq.List>
                 </div>
-                Our categorized list makes it easy to select the right user
-                agents for your specific use case.
+                Our categorized list makes it easy to select the right User
+                Agents for your specific use case.
                 <CodeEditor
                   title='puppeteer.js'
                   language='javascript'
