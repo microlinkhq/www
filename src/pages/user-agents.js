@@ -19,15 +19,15 @@ import userAgents from '../../static/user-agents.json'
 
 export const Head = () => (
   <Meta
-    title={`The ultimate user agent list (${new Date().getFullYear()})`}
-    description='Comprehensive, up-to-date user agent list. Essential for web scraping, testing, and bot development. Covers browsers, crawlers, and AI agents with regular updates.'
+    title={`The latest User Agent list (${new Date().getFullYear()})`}
+    description='Most common User Agent list up to date. Essential for web scraping, testing, and bot development. Covers browsers, crawlers, and AI agents. Updated weekly.'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'Dataset',
-        name: 'User Agent List',
+        name: 'Latest User Agent List',
         description:
-          'A self-updating list of the latest and most common user agents for browsers, crawlers, and AI bots.',
+          'The latest User Agent list for 2026. A self-updating list of the latest and most common user agents for browsers, crawlers, and AI bots. Aggregated weekly from high-authority sources to ensure reliability.',
         url: 'https://microlink.io/user-agents',
         keywords: [
           'user agent list',
@@ -99,14 +99,10 @@ const UserAgentsPage = () => {
   return (
     <Layout css={theme({ maxWidth: layout.small, mx: 'auto' })}>
       <Box as='section' id='hero'>
-        <Heading>
-          The ultimate <br />
-          user agent list
-        </Heading>
+        <Heading>User agent list</Heading>
         <Caption forwardedAs='h2' css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}>
-          Comprehensive list of user agents for all major browsers and crawlers.
-          Essential resource for web scraping, bot development, and browser
-          testing.
+          A self-updating list of the latest
+          <br />& most common user agents.
         </Caption>
         <Caption
           forwardedAs='p'
@@ -172,6 +168,30 @@ const UserAgentsPage = () => {
         css={theme({ pt: 0, px: 0 })}
         questions={[
           {
+            question:
+              'Why is using the latest User Agent list critical for web scraping?',
+            answer: (
+              <>
+                <div>
+                  <div>
+                    Browsers have aggressive release cycles. Rotating User
+                    Agents is critical for <b>web scraping</b> and{' '}
+                    <b>automation</b>.
+                  </div>
+                  <br />
+                  <div>
+                    By randomizing the User Agent header, you mimic organic
+                    traffic and reduce the risk of being blocked by{' '}
+                    <Link href='https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/'>
+                      WAFs
+                    </Link>{' '}
+                    (Web Application Firewalls) or anti-bot measures.
+                  </div>
+                </div>
+              </>
+            )
+          },
+          {
             question: 'What can I use this user agent list for?',
             answer: (
               <div>
@@ -202,12 +222,14 @@ const UserAgentsPage = () => {
             )
           },
           {
-            question: 'How is the user agent list obtained?',
+            question: 'How is the list of User Agents obtained?',
             answer: (
               <div>
-                The data comes from multiple sources to provide comprehensive
-                user agent detection, then undergoes rigorous normalization to
-                ensure reliability and quality:
+                <div>
+                  The data comes from <b>multiple high-authority sources</b> to
+                  provide comprehensive user agent detection, then undergoes
+                  rigorous normalization to ensure reliability and quality:
+                </div>
                 <Faq.List>
                   <li>
                     <Link
@@ -225,8 +247,8 @@ const UserAgentsPage = () => {
                     >
                       Top User Agents
                     </Link>{' '}
-                    : an always up-to-date list of the top 100 HTTP user agents
-                    most used over the Internet.
+                    : Our always up-to-date list of the{' '}
+                    <b>top 100 HTTP user agents</b> most used over the Internet.
                   </li>
                   <li>
                     <Link
@@ -247,10 +269,8 @@ const UserAgentsPage = () => {
                     : curated list of web crawler user agents.
                   </li>
                 </Faq.List>
-                The data obtained from these sources is messy—duplicates,
-                inconsistencies, and formatting issues abound. Our normalization
-                process transforms this chaos into reliable, production-ready
-                data through:
+                Raw User Agent data is notoriously messy. Our pipeline
+                transforms this "chaos" into production-ready JSON through:
                 <Faq.List>
                   <li>
                     <b>Deduplication</b>: We identify and merge duplicate user
@@ -262,66 +282,67 @@ const UserAgentsPage = () => {
                     languages
                   </li>
                   <li>
-                    <b>Validation</b>: Each user agent is validated against
-                    known patterns to filter out malformed or outdated entries
+                    <b>Validation</b>: Filtering malformed strings that would
+                    trigger 403 Forbidden errors in{' '}
+                    <Link href='/blog/what-is-a-headless-browser'>
+                      headless browsers
+                    </Link>
                   </li>
                   <li>
                     <b>Categorization</b>: Intelligent classification separates
                     bots, crawlers, browsers, and AI agents for targeted use
                     cases
                   </li>
-                  <li>
-                    <b>Quality Assurance</b>: Automated testing ensures the
-                    normalized data works reliably in real-world applications
-                  </li>
                 </Faq.List>
-                This rigorous process means you get battle-tested user agents
-                that just work, without the headaches of manual cleanup and
-                validation.
+                <div>
+                  This rigorous process means you get battle-tested list of{' '}
+                  <b>popular User Agent strings</b> that just work, without the
+                  headaches of manual cleanup and validation.
+                </div>
               </div>
             )
           },
           {
-            question: 'How current and reliable is the data?',
+            question: 'How frequently is the User Agent list updated?',
             answer: (
               <>
                 <div>
-                  Our list is continuously updated with the latest user agents
-                  from trusted sources. We maintain high data quality through
-                  rigorous validation, deduplication, and categorization. The
-                  last update timestamp shows when the data was refreshed,
-                  ensuring you always have access to current, production-ready
-                  user agents.
+                  The user agent list is <b>updated weekly</b> by fetching the
+                  latest data from reliable sources. The last update timestamp
+                  is displayed at the top of the page, and the data is refreshed
+                  as new user agents become available from these sources.
                 </div>
                 <div>
-                  Each entry is validated and tested to ensure compatibility and
-                  effectiveness across different platforms and use cases. This
-                  reliability is crucial for production applications where user
-                  agent accuracy matters.
+                  Each update ensures you have access to the most common User
+                  Agents.
                 </div>
               </>
             )
           },
           {
-            question: 'How do I integrate this into my projects?',
+            question: 'How to consume the User Agent list?',
             answer: (
               <>
                 <div>
-                  The preferred way is to consume it as an API by accessing the
-                  full list programmatically via this endpoint:
+                  For rapid testing, you can use the <b>Copy JSON</b> icon in
+                  the terminal UI above to get the full array immediately.
+                </div>
+                <div>
+                  Or access the full list programmatically via our{' '}
+                  <Link
+                    href='https://microlink.io/user-agents.json'
+                    target='_blank'
+                  >
+                    JSON API endpoint
+                  </Link>
                 </div>
                 <Terminal blinkCursor={false}>
                   curl -L microlink.io/user-agents.json
                 </Terminal>
                 <div>
-                  Alternatively, for testing purposes, you can use the copy icon
-                  in the top right corner of the terminal to copy the entire
-                  list as JSON and use it directly in your code.
-                </div>
-                <div>
-                  It's CORS-enabled and ready for direct integration into any
-                  frontend or backend application, ensuring your project always
-                  has access to the most up-to-date strings.
+                  It's <b>CORS-enabled</b> and ready for direct integration into
+                  any frontend or backend application, ensuring your project
+                  always has access to the most up-to-date User Agent strings.
                 </div>
               </>
             )
@@ -330,9 +351,9 @@ const UserAgentsPage = () => {
             question: 'What are best practices for using user agents?',
             answer: (
               <>
+                When using user agents in your applications, follow these best
+                practices:
                 <div>
-                  When using user agents in your applications, follow these best
-                  practices:
                   <Faq.List>
                     <li>
                       <strong>Rotate regularly</strong>: Change user agents
@@ -352,9 +373,9 @@ const UserAgentsPage = () => {
                       applications work with different browser user agents
                     </li>
                   </Faq.List>
-                  Our categorized list makes it easy to select the right user
-                  agents for your specific use case.
                 </div>
+                Our categorized list makes it easy to select the right user
+                agents for your specific use case.
                 <CodeEditor
                   title='puppeteer.js'
                   language='javascript'
@@ -385,10 +406,12 @@ await page.goto('https://example.com')
                   <Link href='https://microlink.io/docs/api/getting-started/overview'>
                     Microlink API
                   </Link>
-                  : It automatically handles proxy rotation, paywalls, bot
-                  detection, and restricted platforms such as major social
-                  networks, while scaling on demand. Pricing is pay-as-you-go
-                  and{' '}
+                  : It automatically handles proxy rotation, paywalls,{' '}
+                  <Link href='/blog/antibot-detection-at-scale'>
+                    bot detection
+                  </Link>
+                  , and restricted platforms such as major social networks,
+                  while scaling on demand. Pricing is pay-as-you-go and{' '}
                   <Link href='https://microlink.io/#pricing'>
                     starts for free
                   </Link>
