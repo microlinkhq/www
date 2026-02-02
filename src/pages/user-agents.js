@@ -332,6 +332,7 @@ const UserAgentsPage = () => {
                   <Link
                     href='https://microlink.io/user-agents.json'
                     target='_blank'
+                    rel='noreferrer'
                   >
                     JSON API endpoint
                   </Link>
