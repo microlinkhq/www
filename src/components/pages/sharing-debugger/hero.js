@@ -87,7 +87,9 @@ export const Hero = () => {
                 forwardedAs='h2'
                 css={theme({ pt: '20px', px: [4, 0], fontSize: '25px' })}
               >
-                Preview how your links appear when shared on social media
+                Debug and validate metadata HTML markup, including Open Graph,
+                microdata, RDFa, JSON-LD, and more. Preview how your URL appears
+                on major social networks instantly.
               </Caption>
 
               <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>

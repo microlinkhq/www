@@ -13,7 +13,7 @@ import { mqlCode } from 'helpers/mql-code'
 export const Head = () => (
   <Meta
     title='Sharing Debugger Tool'
-    description='Debug and validate Open Graph and SEO meta tags. Preview how your URL appears on Facebook, WhatsApp, Twitter, and LinkedIn. Test social media sharing instantly.'
+    description='Debug and validate metadata HTML markup, including Open Graph, microdata, RDFa, JSON-LD, and more. Preview how your URL appears on major social networks instantly.'
     image={cdnUrl('banner/sharing-debugger.jpeg')}
     schemaType='SoftwareApplication'
     structured={{
@@ -22,21 +22,27 @@ export const Head = () => (
       '@id': 'https://microlink.io/tools/sharing-debugger',
       name: 'Microlink Sharing Debugger',
       description:
-        'Debug and validate Open Graph and SEO meta tags. Preview social media sharing across platforms.',
+        'Debug and validate metadata HTML markup, including Open Graph, microdata, RDFa, JSON-LD, and more. Preview social media sharing across platforms.',
       url: 'https://microlink.io/tools/sharing-debugger',
       applicationCategory: ['DeveloperApplication', 'Tool'],
       keywords: [
         'sharing debugger',
         'Open Graph debugger',
+        'metadata validator',
+        'HTML markup debugger',
+        'microdata validator',
+        'RDFa debugger',
+        'JSON-LD validator',
         'social media preview',
         'meta tags validator',
-        'Facebook debugger',
-        'Twitter card validator',
-        'SEO meta tags',
-        'link preview tool'
+        'SEO debugging tool'
       ],
       about: [
         { '@type': 'Thing', name: 'Open Graph Debugger' },
+        { '@type': 'Thing', name: 'Microdata Validator' },
+        { '@type': 'Thing', name: 'RDFa Debugger' },
+        { '@type': 'Thing', name: 'JSON-LD Validator' },
+        { '@type': 'Thing', name: 'HTML Markup Validator' },
         { '@type': 'Thing', name: 'Social Media Preview Tool' },
         { '@type': 'Thing', name: 'Meta Tags Validator' },
         { '@type': 'Thing', name: 'SEO Debugging Tool' }
@@ -57,8 +63,8 @@ const SharingDebugger = () => {
             answer: (
               <>
                 <div>
-                  This <b>link preview debugging tool</b> inspects and fixes
-                  Open Graph metadata, ensuring accurate titles, descriptions,
+                  This <b>link preview debugging tool</b> inspects and debug
+                  metadata HTML markup, ensuring accurate titles, descriptions,
                   and images across all major social networks.
                 </div>
                 <div>
