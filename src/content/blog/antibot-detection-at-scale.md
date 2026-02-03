@@ -1,6 +1,8 @@
 ---
 title: 'Antibot detection at scale'
 description: "Understand how modern antibot systems block requests and how Microlink detects and handles those failures at scale."
+authors:
+  - kiko
 date: '2026-01-04'
 ---
 import { CodeEditor } from 'components/markdown/CodeEditor'

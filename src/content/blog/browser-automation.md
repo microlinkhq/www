@@ -1,6 +1,8 @@
 ---
 title: 'Microlink API: Browser automation'
 description: 'Control a headless browser via API. Use 30+ parameters to automate screenshots, PDFs, metadata extraction, and browser actions without managing infrastructure.'
+authors:
+  - kiko
 date: '2020-01-26'
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: 'Master Plan for 2019'
 description: 'Explore Microlinks 2019 roadmap, featuring the launch of Microlink Query Language (MQL) for advanced scraping, a GraphQL endpoint, and interactive hover previews.'
+authors:
+  - kiko
 date: '2019-01-18'
 ---
 

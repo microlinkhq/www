@@ -38,6 +38,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(`
     type MdxFrontmatter {
       description: String
+      authors: [String]
     }
   `)
 }
@@ -187,6 +188,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
             date
             lastEdited
             isPro
+            authors
           }
         }
       }

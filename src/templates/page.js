@@ -5,6 +5,7 @@ import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
 import { PostFooter } from 'components/pages/blog/post-footer'
 import { PostTitle } from 'components/pages/blog/post-title'
+import { PostAuthor } from 'components/pages/blog/post-author'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
@@ -24,9 +25,11 @@ const PageTemplate = ({
   date,
   title,
   subtitle,
+  authors,
   content,
   lastEdited
 }) => {
+  const authorList = Array.isArray(authors) ? authors : []
   return (
     <Layout>
       <Text
@@ -66,6 +69,7 @@ const PageTemplate = ({
                   <PostTitle>{titleize(subtitle)}</PostTitle>
                 </H2>
               )}
+              <PostAuthor authorIds={authorList} />
               <Caption
                 forwardedAs='p'
                 css={theme({
