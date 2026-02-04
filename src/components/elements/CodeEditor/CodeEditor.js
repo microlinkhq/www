@@ -258,7 +258,9 @@ const CodeEditor = ({
     getLanguage({ className, language: languageProp, title })
   )
 
-  const [text, setText] = useState('')
+  // Initialize with template-processed content for SSR, then format on client
+  const initialText = template(children).trim()
+  const [text, setText] = useState(initialText)
 
   useEffect(() => {
     const formatCode = async () => {
