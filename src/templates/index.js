@@ -2,6 +2,7 @@ import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import Meta from 'components/elements/Meta/Meta'
 import { cdnUrl } from 'helpers/cdn-url'
+import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 
 import PageTemplate from './page'
@@ -15,6 +16,16 @@ export const Head = ({ pageContext, location }) => {
     frontmatter = {},
     lastEdited
   } = pageContext
+  const authorsData = useStaticQuery(graphql`
+    query BlogAuthorsMetaData {
+      allAuthorsYaml {
+        nodes {
+          key
+          name
+        }
+      }
+    }
+  `)
   const siteMetadata = useSiteMetadata()
   const { name: siteName } = siteMetadata
 
@@ -36,7 +47,21 @@ export const Head = ({ pageContext, location }) => {
         ? `${siteName} ${activeRouteName}: ${frontmatter.title || ''}`
         : frontmatter.title,
       date: validDate,
-      schemaType: isBlogPage ? 'Article' : 'TechArticle'
+      schemaType: isBlogPage ? 'Article' : 'TechArticle',
+      authors: isBlogPage
+        ? (() => {
+            const authorsByKey = new Map(
+              (authorsData?.allAuthorsYaml?.nodes || []).map(author => [
+                author.key,
+                author.name
+              ])
+            )
+            const authorKeys = frontmatter.authors || []
+            return authorKeys
+              .map(key => authorsByKey.get(key))
+              .filter(Boolean)
+          })()
+        : undefined
     }
 
     return <Meta {...metaProps} />
@@ -72,6 +97,7 @@ const Template = ({ pageContext, children, ...props }) => {
     <PageTemplate
       title={frontmatter.title}
       subtitle={frontmatter.subtitle}
+      authors={frontmatter.authors}
       date={date && new Date(date)}
       lastEdited={frontmatter.lastEdited ? lastEdited : null}
       isBlogPage={isBlogPage}

@@ -1,6 +1,8 @@
 ---
 title: 'Microlink Proxy: How it works'
 description: 'Bypass geographic restrictions and IP blacklists with Microlink Proxy. Learn how our automatic rotation layer ensures successful data extraction.'
+authors:
+  - kiko
 date: '2021-06-07'
 ---
 

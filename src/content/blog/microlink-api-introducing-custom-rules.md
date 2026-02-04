@@ -1,6 +1,8 @@
 ---
 title: 'Microlink API: Introducing Custom Rules'
 description: 'Learn how to use Microlink Custom Rules to extract specific data from any website by defining jQuery-like selectors, attributes, and data types via API parameters.'
+authors:
+  - kiko
 date: '2018-05-31'
 ---
 

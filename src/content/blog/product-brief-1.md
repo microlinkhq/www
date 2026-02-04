@@ -1,6 +1,8 @@
 ---
 title: 'Product Brief #1: Prerendering, Pricing & SDK First Steps'
 description: 'Learn about Microlink first product brief: enabling browser prerendering by default, the launch of adaptive pricing plans, and the release of metascraper v3.'
+authors:
+  - kiko
 date: '2017-12-30'
 ---
 

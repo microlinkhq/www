@@ -1,6 +1,8 @@
 ---
 title: 'Product Brief #7: SDK v4, Documentation Portal & MQL'
 description: 'Experience the next evolution of Microlink with SDK v4.0, featuring a streamlined API and smarter bundling. Plus, explore our new Documentation Portal.'
+authors:
+  - kiko
 date: '2019-05-01'
 ---
 

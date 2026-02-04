@@ -1,6 +1,8 @@
 ---
 title: 'Microlink API: Introducing Microlink PDF'
 description: 'Turn any URL into a high-quality PDF using the Microlink API. Learn how to customize margins, scale, and media types, and serve PDFs directly via our global CDN.'
+authors:
+  - kiko
 date: '2020-01-08'
 ---
 

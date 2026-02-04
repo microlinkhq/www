@@ -25,7 +25,8 @@ const mergeMeta = (props, location, metadata) => {
     logo,
     name,
     noSuffix,
-    schemaType
+    schemaType,
+    authors: inputAuthors
   } = {
     ...metadata,
     ...props
@@ -37,6 +38,10 @@ const mergeMeta = (props, location, metadata) => {
   const url = location
     ? `${siteUrl}${location.pathname}${location.search}`
     : siteUrl
+
+  const author = Array.isArray(inputAuthors)
+    ? inputAuthors.filter(Boolean).join(', ')
+    : inputAuthors || metadata.author
 
   return {
     date: date ? new Date(date) : undefined,
@@ -54,14 +59,14 @@ const mergeMeta = (props, location, metadata) => {
     url,
     video,
     noSuffix,
-    schemaType
+    schemaType,
+    author
   }
 }
 
 function Meta ({ script, structured, ...props }) {
   const siteMetadata = useSiteMetadata()
   const location = useLocation()
-  const { author } = siteMetadata
 
   const {
     dataLabel1,
@@ -78,7 +83,8 @@ function Meta ({ script, structured, ...props }) {
     url,
     video,
     noSuffix,
-    schemaType
+    schemaType,
+    author
   } = useMemo(
     () => mergeMeta(props, location, siteMetadata),
     [props, location, siteMetadata]

@@ -4,6 +4,7 @@ import { formatDate } from 'helpers/format-date'
 import { title as titleize } from 'helpers/title'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
+import Image from 'components/elements/Image/Image'
 import styled from 'styled-components'
 import React from 'react'
 
@@ -34,7 +35,20 @@ const ListFlex = styled(Flex)(
   })
 )
 
-export const BlogPostList = ({ title, date, slug, excerpt, isLastPost }) => {
+export const BlogPostList = ({
+  title,
+  date,
+  slug,
+  excerpt,
+  isLastPost,
+  authorAvatars,
+  authorNames
+}) => {
+  const dateLabel =
+    authorNames && authorNames.length > 0
+      ? `${authorNames.join(', ')} · ${formatDate(date)}`
+      : formatDate(date)
+
   return (
     <BlogLink href={slug} title={title} css={{ width: '100%' }}>
       <ListFlex
@@ -63,16 +77,48 @@ export const BlogPostList = ({ title, date, slug, excerpt, isLastPost }) => {
           >
             {titleize(title)}
           </Text>
-          <Text
+          <Flex
             css={theme({
-              pt: 2,
-              fontSize: 1,
-              color: 'black60',
-              whiteSpace: 'nowrap'
+              alignItems: 'center',
+              gap: 2,
+              pt: 2
             })}
           >
-            {formatDate(date)}
-          </Text>
+            {authorAvatars && authorAvatars.length > 0 && (
+              <Flex css={theme({ alignItems: 'center' })}>
+                {authorAvatars.map((avatar, index) => (
+                  <Image
+                    key={`${avatar}-${index}`}
+                    src={avatar}
+                    alt={
+                      authorNames?.[index]
+                        ? `Avatar of ${authorNames[index]}`
+                        : 'Author avatar'
+                    }
+                    width='22px'
+                    height='22px'
+                    css={theme({
+                      borderRadius: 999,
+                      border: '1px solid',
+                      borderColor: 'black05',
+                      ml: index === 0 ? 0 : '-8px',
+                      position: 'relative',
+                      zIndex: authorAvatars.length - index
+                    })}
+                  />
+                ))}
+              </Flex>
+            )}
+            <Text
+              css={theme({
+                fontSize: 1,
+                color: 'black60',
+                whiteSpace: 'nowrap'
+              })}
+            >
+              {dateLabel}
+            </Text>
+          </Flex>
         </Flex>
         <Text css={theme({ color: 'black60', my: 2 })}>{excerpt}</Text>
       </ListFlex>

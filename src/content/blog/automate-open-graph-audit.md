@@ -2,6 +2,8 @@
 title: 'Automate Open Graph Audit'
 subtitle: 'Stop Shipping Broken Link Previews'
 description: 'Learn how to build a Node.js script that automatically validates Open Graph tags across your entire sitemap.'
+authors: 
+  - joseba
 date: '2026-01-23'
 ---
 
