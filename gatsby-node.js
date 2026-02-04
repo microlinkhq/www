@@ -129,11 +129,8 @@ exports.onCreateDevServer = ({ app }) => {
     return null
   }
 
-  const shouldServeMarkdown = req => {
-    if (req.path.endsWith('.md')) return true
-    const accept = req.headers.accept || ''
-    return accept.includes('text/markdown')
-  }
+  const shouldServeMarkdown = req =>
+    req.path.endsWith('.md') || req.headers.accept?.includes('text/markdown')
 
   app.get(/^\/docs\/.*$/, (req, res, next) => {
     if (!shouldServeMarkdown(req)) return next()
@@ -254,9 +251,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       const isBlogPage = node.fields.slug.startsWith('/blog/')
       const frontmatter = isBlogPage
         ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+          ...node.frontmatter,
+          title: formatTitle(node.frontmatter.title)
+        }
         : node.frontmatter
 
       return createPage({
