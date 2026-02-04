@@ -28,6 +28,15 @@
       ]
     },
     {
+      "source": "/(.*)\\.md",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "text/markdown; charset=utf-8"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -297,6 +306,19 @@
     {
       "source": "/meta",
       "destination": "/metadata"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/docs/(.*)",
+      "destination": "/docs/$1.md",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/markdown.*"
+        }
+      ]
     }
   ]
 }

@@ -5,7 +5,12 @@ const { createFilePath } = require('gatsby-source-filesystem')
 const { title: formatTitle } = require('./src/helpers/title')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
-const { readFileSync } = require('node:fs')
+const {
+  readFileSync,
+  mkdirSync,
+  writeFileSync,
+  existsSync
+} = require('node:fs')
 const { getDomain } = require('tldts')
 const path = require('node:path')
 
@@ -106,6 +111,51 @@ exports.createPages = ({ graphql, actions }) => {
     createMarkdownPages({ graphql, createPage }),
     createRecipesPages({ createPage, recipes })
   ])
+}
+
+exports.onPostBuild = async ({ graphql, reporter }) => {
+  await createDocsMarkdownFiles({ graphql, reporter })
+}
+
+exports.onCreateDevServer = ({ app }) => {
+  app.get(/^\/docs\/.*$/, (req, res, next) => {
+    const accept = req.headers.accept || ''
+    if (!accept.includes('text/markdown')) return next()
+
+    const slug = req.path.replace(/\/+$/, '')
+    const basePath = path.join(process.cwd(), 'src', 'content', slug)
+    const mdPath = `${basePath}.md`
+    const mdxPath = `${basePath}.mdx`
+    const filePath = existsSync(mdPath)
+      ? mdPath
+      : existsSync(mdxPath)
+        ? mdxPath
+        : null
+
+    if (!filePath) return res.status(404).send('Not Found')
+
+    const content = readFileSync(filePath, 'utf8')
+    res.set('Content-Type', 'text/markdown; charset=utf-8')
+    return res.send(content)
+  })
+
+  app.get(/^\/docs\/.*\.md$/, (req, res) => {
+    const slug = req.path.replace(/\.md$/, '')
+    const basePath = path.join(process.cwd(), 'src', 'content', slug)
+    const mdPath = `${basePath}.md`
+    const mdxPath = `${basePath}.mdx`
+    const filePath = existsSync(mdPath)
+      ? mdPath
+      : existsSync(mdxPath)
+        ? mdxPath
+        : null
+
+    if (!filePath) return res.status(404).send('Not Found')
+
+    const content = readFileSync(filePath, 'utf8')
+    res.set('Content-Type', 'text/markdown; charset=utf-8')
+    res.send(content)
+  })
 }
 
 const getMqlCode = (recipe, { name }) => `const mql = require('@microlink/mql')
@@ -211,9 +261,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       const isBlogPage = node.fields.slug.startsWith('/blog/')
       const frontmatter = isBlogPage
         ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+          ...node.frontmatter,
+          title: formatTitle(node.frontmatter.title)
+        }
         : node.frontmatter
 
       return createPage({
@@ -235,4 +285,47 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
     })
 
   return Promise.all(pages)
+}
+
+const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
+  const query = `
+  {
+    allMdx(filter: { fields: { slug: { regex: "//docs//" } } }) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          internal {
+            contentFilePath
+          }
+        }
+      }
+    }
+  }
+  `
+
+  const result = await graphql(query)
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      'Error while generating docs markdown files',
+      result.errors
+    )
+    return
+  }
+
+  const pages = result.data.allMdx.edges
+
+  pages.forEach(({ node }) => {
+    const slug = node.fields.slug.replace(/\/+$/, '')
+    const relative = `${slug.replace(/^\/+/, '')}.md`
+    const outputPath = path.join(process.cwd(), 'public', relative)
+
+    mkdirSync(path.dirname(outputPath), { recursive: true })
+    const content = readFileSync(node.internal.contentFilePath, 'utf8')
+    writeFileSync(outputPath, content)
+  })
+
+  reporter.info(`Generated ${pages.length} docs markdown files`)
 }
