@@ -4,15 +4,12 @@ description: 'Get started with Microlink API. Learn how to automate browser acti
 ---
 
 import { Link } from 'components/elements/Link'
-import { mqlCode } from 'helpers/mql-code'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 Microlink API provides a powerful API for automating any browser action.
 
-<MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://github.com/microlinkhq')} 
-/>
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://github.com/microlinkhq' }} />
 
 You can hit the API directly from your browser or any environment that allows you to perform a simple HTTP GET request.
 

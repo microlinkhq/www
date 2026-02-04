@@ -5,16 +5,13 @@ description: 'Extract dominant color palettes and accessibility-compliant color 
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
 It enables color schema information over the images data field detected over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { 
-  palette: true
-})} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', palette: true }} />
 
 The following fields will be added per each image detected in the payload:
 

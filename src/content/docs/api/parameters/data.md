@@ -6,22 +6,22 @@ description: 'Define custom data extraction rules using CSS selectors with the M
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<object>'/>
 
 It enables specific data extraction over the target [url](/docs/api/parameters/url), turning Microlink API into a powerful web scraping tool.
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://kikobeats.com', {
-  data: {
+  mqlCode={{
+    url: 'https://kikobeats.com',
+    data: {
     avatar: {
       selector: '#avatar',
       type: 'image',
       attr: 'src'
     }
   }
-})} 
+  }} 
 />
 
 <Figcaption children="The data extraction needs to be defined at least with a CSS selector." />
@@ -63,13 +63,14 @@ Each data rule accepts the following properties:
 You can extract multiple data fields in a single request:
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://news.ycombinator.com', {
-  data: {
+  mqlCode={{
+    url: 'https://news.ycombinator.com',
+    data: {
     headline: { selector: '.titleline > a', attr: 'text' },
     link: { selector: '.titleline > a', attr: 'href', type: 'url' },
     score: { selector: '.score', attr: 'text' }
   }
-})} 
+  }} 
 />
 
 <Figcaption children="Extract title, link, and score from Hacker News." />
@@ -79,14 +80,15 @@ You can extract multiple data fields in a single request:
 Use [selectorAll](/docs/mql/data/selectorAll) to extract multiple matching elements as an array:
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://news.ycombinator.com', {
-  data: {
+  mqlCode={{
+    url: 'https://news.ycombinator.com',
+    data: {
     stories: { 
       selectorAll: '.titleline > a', 
       attr: 'text' 
     }
   }
-})} 
+  }} 
 />
 
 <Figcaption children="Extract all story titles as an array." />
@@ -96,8 +98,9 @@ Use [selectorAll](/docs/mql/data/selectorAll) to extract multiple matching eleme
 For complex DOM structures, use [nested rules](/docs/mql/rules/nested) to organize your data hierarchically:
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://github.com/microlinkhq', {
-  data: {
+  mqlCode={{
+    url: 'https://github.com/microlinkhq',
+    data: {
     repos: { 
       selectorAll: '.repo',
       data: {
@@ -106,7 +109,7 @@ For complex DOM structures, use [nested rules](/docs/mql/rules/nested) to organi
       }
     }
   }
-})} 
+  }} 
 />
 
 ## Fallback Values
@@ -114,15 +117,16 @@ For complex DOM structures, use [nested rules](/docs/mql/rules/nested) to organi
 Define [fallback rules](/docs/mql/rules/fallbacks) to ensure data extraction succeeds even when the primary selector fails:
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://example.com', {
-  data: {
+  mqlCode={{
+    url: 'https://example.com',
+    data: {
     title: [
       { selector: 'meta[property="og:title"]', attr: 'content' },
       { selector: 'title', attr: 'text' },
       { selector: 'h1', attr: 'text' }
     ]
   }
-})} 
+  }} 
 />
 
 <Figcaption children="Try multiple selectors in order until one succeeds." />

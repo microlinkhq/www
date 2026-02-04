@@ -3,12 +3,11 @@ title: Authentication
 description: 'Securely authenticate your Microlink API requests using x-api-key headers. Includes best practices for Pro plan integration and protecting tokens via proxy for frontend usage.'
 ---
 
-import { mqlCode } from 'helpers/mql-code'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 The authentication is done passing your API token associated with your [pro plan](/#pricing) as `x-api-key` request header.
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://github.com/microlinkhq', { apiKey: 'YOUR_API_TOKEN' })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://github.com/microlinkhq', apiKey: 'YOUR_API_TOKEN' }} />
 
 You can ensure your authentication is done correctly checking the `x-pricing-plan` header on the response.
 

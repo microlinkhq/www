@@ -6,14 +6,13 @@ isPro: true
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/> | <Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children="false"/>
 
 It enables serve a stale response while a background refresh cache copy is being generated over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { ttl: '1d', staleTtl: 0 })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', ttl: '1d', staleTtl: 0 }} />
 
 The value provided can't be higher than [ttl](/docs/api/parameters/ttl), being supported the following formats:
 

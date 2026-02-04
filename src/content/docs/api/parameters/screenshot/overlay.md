@@ -5,7 +5,6 @@ description: 'Create professional screenshot compositions with customizable brow
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<object>'/>
 
@@ -13,12 +12,15 @@ It creates a beauty [screenshot](/docs/api/parameters/screenshot) composition us
 
 <Image src="https://cdn.microlink.io/docs/overlay.png" />
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.apple.com/music', { screenshot: {
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://www.apple.com/music',
+    screenshot: {
   overlay: {
     background: 'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)',
     browser: 'dark'
   }
-} })} />
+}
+  }} />
 
 <H5 titleize={false}>browser</H5>
 

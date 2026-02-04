@@ -5,7 +5,6 @@ description: 'Force the browser to render websites in light or dark mode using t
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'no-preference'"/>
@@ -15,5 +14,5 @@ Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@me
 ![](/images/color-scheme.png)
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://googlechromelabs.github.io/dark-mode-toggle/demo', { screenshot: true, colorScheme: 'dark' })} 
+  mqlCode={{ url: 'https://googlechromelabs.github.io/dark-mode-toggle/demo', screenshot: true, colorScheme: 'dark' }} 
 />

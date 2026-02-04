@@ -5,7 +5,6 @@ description: 'Choose between JPEG or PNG file formats for your website screensho
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'png'"/><br/>
@@ -13,7 +12,7 @@ Values: <TypeContainer><Type children="'jpeg'"/> | <Type children="'png'"/></Typ
 
 It specifies the screenshot file type for the [screenshot](/docs/api/parameters/screenshot) over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { screenshot: { type: 'jpeg' } })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', screenshot: { type: 'jpeg' } }} />
 
 This query parameter just defines the file format to be used at asset generation. 
 

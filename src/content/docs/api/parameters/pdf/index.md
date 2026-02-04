@@ -6,7 +6,6 @@ description: 'Generate high-quality PDFs from any website using Microlink headle
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Iframe } from 'components/markdown/Iframe'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
@@ -15,7 +14,7 @@ It generates a PDF over the target [url](/docs/api/parameters/url).
 
 <Iframe src="https://cdn.microlink.io/pdf/rauchg.pdf" />
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://rauchg.com/2014/7-principles-of-rich-web-applications', { pdf: true })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications', pdf: true }} />
 
 When it's enabled, a new `pdf` data field will be part of the response payload.
 
@@ -51,7 +50,7 @@ When it's enabled, a new `pdf` data field will be part of the response payload.
 
 You can configure different specific options, such as [scale](/docs/api/parameters/pdf/scale) or [margin](/docs/api/parameters/pdf/margin):
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://rauchg.com/2014/7-principles-of-rich-web-applications', { pdf: true, scale: 1, margin: '0.4cm' })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications', pdf: true, scale: 1, margin: '0.4cm' }} />
 
 Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup and refresh it asynchronously in the background (known as _stale_).
 

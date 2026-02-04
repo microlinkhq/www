@@ -6,7 +6,6 @@ isPro: true
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<object>'/></TypeContainer><br/>
 
@@ -20,7 +19,7 @@ Our automatic proxy resolution is well-tested against [Top 500](/blog/proxy-capa
 
 Additionally, you can provide your own proxy server:
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://geolocation.microlink.io', { proxy: 'https://myproxy:603f60f5@superproxy.cool:8001' })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://geolocation.microlink.io', proxy: 'https://myproxy:603f60f5@superproxy.cool:8001' }} />
 
 The proxy server string provided should be [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api).
 

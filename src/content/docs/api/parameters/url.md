@@ -6,7 +6,6 @@ description: 'The primary address of the website you want to process. The url pa
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 **required**
 
@@ -14,7 +13,7 @@ Type: <Type children='<string>'/>
 
 The target URL for getting information based on the content.
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://kikobeats.com')} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://kikobeats.com' }} />
 
 <Figcaption children="The url parameter is the only required parameter for any Microlink API request." />
 
@@ -32,7 +31,7 @@ If you want to extract content behind a login panel, the URL provided should con
 
 If the URL provided has query string parameters, they should be properly escaped to not interfere with the Microlink API query parameters.
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://kikobeats.com?ref=microlink')} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://kikobeats.com?ref=microlink' }} />
 
 <Figcaption children="URLs with query parameters are automatically encoded." />
 
@@ -50,15 +49,15 @@ Here are examples of different URL types you can process:
 
 **Standard websites**
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://github.com/microlinkhq')} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://github.com/microlinkhq' }} />
 
 **URLs with fragments**
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io/docs/api/getting-started/overview#url-requirements')} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io/docs/api/getting-started/overview#url-requirements' }} />
 
 **Internationalized domain names**
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://例え.jp')} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://例え.jp' }} />
 
 ## Error Handling
 

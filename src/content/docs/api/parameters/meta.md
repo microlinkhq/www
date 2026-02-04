@@ -5,16 +5,13 @@ description: 'Extract normalized metadata from any URL, including titles, descri
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='true'/>
 
 It enables normalized metadata detection over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
-  meta: true
-})} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.youtube.com/watch?v=9P6rdqiybaw', meta: true }} />
 
 Normalized data fields are enabled by default, so explicit setting to `true` is unnecessary.
 
@@ -56,9 +53,7 @@ You can configure which specific metadata fields to detect by passing an object 
 
 Detect only specific fields by setting them to `true`:
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
-  meta: { author: true, title: true }
-})} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.youtube.com/watch?v=9P6rdqiybaw', meta: { author: true, title: true } }} />
 
 This will only extract `author` and `title` metadata, ignoring other fields like `description`, `image`, etc.
 
@@ -66,17 +61,13 @@ This will only extract `author` and `title` metadata, ignoring other fields like
 
 Detect all fields except those explicitly set to `false`:
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
-  meta: { image: false, logo: false }
-})} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.youtube.com/watch?v=9P6rdqiybaw', meta: { image: false, logo: false } }} />
 
 This will extract all metadata fields except `image` and `logo`, which can help reduce response size and improve performance when you don't need heavy assets.
 
 If you don't need any of this, you can explicitly disable the default behavior 
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
-  meta: false
-})} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.youtube.com/watch?v=9P6rdqiybaw', meta: false }} />
 
 Doing that you can speed up response timing for those cases you are not interested in consuming the metadata, like [screenshot](/docs/api/parameters/screenshot) or [video](/docs/api/parameters/video).
 

@@ -6,7 +6,6 @@ description: 'Customize the paper format for PDF generation from any URL. Suppor
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Iframe } from 'components/markdown/Iframe'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'A4'"/>
@@ -15,7 +14,7 @@ It sets the paper format for the [pdf](/docs/api/parameters/pdf) over the target
 
 <Iframe src="https://cdn.microlink.io/docs/caffeine.pdf" />
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://keygen.sh/blog/i-quit', { pdf: { format: 'A4' } })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://keygen.sh/blog/i-quit', pdf: { format: 'A4' } }} />
 
 The format options are:
 

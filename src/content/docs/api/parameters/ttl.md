@@ -5,14 +5,13 @@ description: 'Define the cache expiration time for your requests to balance data
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
 Default: <Type children="'24h'"/>
 
 It sets the maximum quantity of time a resource can be cached before be considered as expired over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { ttl: '1d' })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', ttl: '1d' }} />
 
 The value provided need to be at least **1 minute** and not higher than **31 days**, being supported the following formats:
 

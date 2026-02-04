@@ -5,7 +5,6 @@ description: 'Capture a specific DOM element as a screenshot by providing a CSS 
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/>
 
@@ -13,6 +12,6 @@ It captures the DOM element matching the given [CSS selector](https://developer.
 
 ![](/images/codepen.png)
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://codepen.io/fossheim/full/oNjxrZa', { screenshot: { element: '#result-iframe-wrap' } })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://codepen.io/fossheim/full/oNjxrZa', screenshot: { element: '#result-iframe-wrap' } }} />
 
 It will wait for the element to appear in the page and to be visible.

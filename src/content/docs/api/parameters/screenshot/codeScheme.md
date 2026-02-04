@@ -5,7 +5,6 @@ description: 'Beautify HTML and JSON content with professional code syntax highl
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'atom-dark'"/>
@@ -14,7 +13,7 @@ It enables code syntax highlighting to beautify HTML markup under JSON/Text cont
 
 ![](/images/code-scheme.png)
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://emojipedia-api.vercel.app', { screenshot: { codeScheme: 'atom-dark' }})} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://emojipedia-api.vercel.app', screenshot: { codeScheme: 'atom-dark' } }} />
 
 The theme can be defined as:
 

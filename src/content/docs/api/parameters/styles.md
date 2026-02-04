@@ -5,7 +5,6 @@ description: 'Inject custom CSS into a webpage before it is rendered or captured
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer>
 
@@ -13,13 +12,14 @@ It injects [&lt;style&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Ele
 
 ![](/images/styles.png)
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://example.com', { 
-  screenshot: true, 
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://example.com',
+    screenshot: true, 
   styles: [
     'body { background: white; }',
     'div { border: 1px solid gray; font-family: "Comic Sans MS", "Comic Sans", cursive; }'
   ]
-})} />
+  }} />
 
 The code to be injected can be defined as:
 

@@ -5,7 +5,6 @@ description: 'Generate high-fidelity screenshots of any website with a single AP
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
@@ -14,7 +13,7 @@ It generates a screenshot over the target [url](/docs/api/parameters/url).
 
 ![](/images/netflix.png)
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.netflix.com/title/80057281', { screenshot: true })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.netflix.com/title/80057281', screenshot: true }} />
 
 When it's enabled, a new `screenshot` data field will be part of the response payload.
 
@@ -36,7 +35,7 @@ When it's enabled, a new `screenshot` data field will be part of the response pa
 
 You can configure different specific options, such as [element](/docs/api/parameters/screenshot/element) or [overlay](/docs/api/parameters/screenshot/overlay):
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.netflix.com/title/80057281', { screenshot: true, element: "#section-hero" })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.netflix.com/title/80057281', screenshot: true, element: "#section-hero" }} />
 
 Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup and refresh it asynchronously in the background (known as _stale_).
 

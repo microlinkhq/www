@@ -6,7 +6,6 @@ description: 'Customize the browser visible area and device capabilities to cont
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<object>'/>
 
@@ -14,15 +13,16 @@ It sets browser visible area settings and device capabilities over the target [u
 
 ![](/images/viewport.png)
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://en.wikipedia.org/wiki/Bob_Dylan', {
-  screenshot: true,
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://en.wikipedia.org/wiki/Bob_Dylan',
+    screenshot: true,
   viewport: {
     width: 640,
     height: 400,
     deviceScaleFactor: 2,
     isMobile: true
   }
-})} />
+  }} />
 
 <Figcaption>Establishing a custom viewport.</Figcaption>
 
@@ -37,12 +37,13 @@ The default viewport values are provided by the default [device](/docs/api/param
 
 If you just provide an incomplete set of viewport values, they will be merged with the default values:
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://en.wikipedia.org/wiki/Bob_Dylan', {
-  screenshot: true,
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://en.wikipedia.org/wiki/Bob_Dylan',
+    screenshot: true,
   viewport: {
     deviceScaleFactor: 0.5
   }
-})} />
+  }} />
 
 <Figcaption>Using the default viewport with lower device scale factor.</Figcaption>
 

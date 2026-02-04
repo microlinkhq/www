@@ -5,14 +5,13 @@ description: 'Bypass the Microlink CDN cache to fetch a fresh version of the tar
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
 It invalidates the [cache](/docs/api/basics/cache) copy associated with the resource requested, returning a new fresh copy over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://time.kikobeats.com/html', { force: true })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://time.kikobeats.com/html', force: true }} />
 
 When it's provided, the header `x-cache-status` on the response will return **BYPASS**.
 

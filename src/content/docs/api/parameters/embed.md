@@ -6,17 +6,17 @@ description: 'Return a specific data field directly as the response body with ap
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/>
 
 It returns the specified data field as response over the target [url](/docs/api/parameters/url), mimicking the same headers and body of the original resource.
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://news.ycombinator.com/item?id=13713480', {
+  mqlCode={{
+    url: 'https://news.ycombinator.com/item?id=13713480',
     screenshot: true, 
     embed: 'screenshot.url'
-  })}
+  }}
 />
 
 <Figcaption children='You can use dot notation to reference a nested data field of the response payload.' />
@@ -84,11 +84,12 @@ Embed in any Markdown document:
 Embed works well with other parameters for customized output:
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://microlink.io', {
+  mqlCode={{
+    url: 'https://microlink.io',
     screenshot: true,
     device: 'iPhone X',
     embed: 'screenshot.url'
-  })}
+  }}
 />
 
 <Figcaption children="Generate and embed a mobile screenshot directly." />
