@@ -27,11 +27,13 @@ import {
 } from 'theme'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useMemo } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import ProBadge from '../ProBadge/ProBadge'
 import { highlight } from 'sugar-high'
 import styled from 'styled-components'
+import { mqlCode } from 'helpers/mql-code'
+import { humanList } from 'helpers/human-list'
 import mql from '@microlink/mql'
 
 import Terminal, {
@@ -54,6 +56,18 @@ const Content = styled(TerminalText)`
   white-space: pre-wrap;
   word-break: break-word;
   ${theme(fontStyles)}
+`
+
+/**
+ * Visually hidden but crawler-friendly container for SEO content.
+ * Uses position off-screen with real height (not clipped) so Google indexes it.
+ */
+const SeoContent = styled.div`
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: auto;
+  overflow: visible;
 `
 
 const FadeOverlay = styled(Box)`
@@ -130,16 +144,79 @@ function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
   )
 }
 
-function CodeEditor ({
-  value,
-  onChange,
-  onKeyDown,
-  editable,
-  language,
-  ...props
-}) {
+const LANGUAGE_MAP = {
+  CLI: 'bash',
+  cURL: 'bash',
+  JavaScript: 'javascript',
+  Python: 'python',
+  Ruby: 'ruby',
+  PHP: 'php',
+  Golang: 'go'
+}
+
+const SEOParagraph = ({ url, mqlOpts, languages }) => {
+  let message = 'The following examples show how to use the Microlink API'
+  if (languages.length > 0) {
+    message += ` with ${humanList(languages)}`
+  }
+
+  if (url) {
+    message += `, targeting '${url}' URL`
+  }
+
+  const mqlOptsKeys = Object.keys(mqlOpts || {})
+  if (mqlOptsKeys.length > 0) {
+    message += ` with ${humanList(
+      mqlOptsKeys.map(param => `'${param}'`)
+    )} API parameter${mqlOptsKeys.length > 1 ? 's' : ''}`
+  }
+
+  return `${message}:`
+}
+
+/**
+ * SEO-optimized code snippets section
+ * Uses max-height:0 instead of display:none so Google can crawl all content
+ * Each language has a proper heading and anchor ID for direct linking
+ */
+const SeoCodeSnippets = React.memo(({ codeSnippets, url, mqlOpts }) => {
+  const languages = Object.keys(codeSnippets)
+  return (
+    <SeoContent>
+      <p>{SEOParagraph({ url, mqlOpts, languages })}</p>
+      {languages.map(lang => {
+        const langClass = LANGUAGE_MAP[lang] || 'javascript'
+
+        return (
+          <section
+            key={lang}
+            itemScope
+            itemType='https://schema.org/SoftwareSourceCode'
+          >
+            <h3>{lang} Microlink API example</h3>
+            <meta itemProp='programmingLanguage' content={lang} />
+            <pre>
+              <code itemProp='text' className={`language-${langClass}`}>
+                {codeSnippets[lang]}
+              </code>
+            </pre>
+          </section>
+        )
+      })}
+    </SeoContent>
+  )
+})
+
+SeoCodeSnippets.displayName = 'SeoCodeSnippets'
+
+/**
+ * Interactive code editor that shows only the active language
+ * This is the UX layer - SEO is handled by SeoCodeSnippets
+ */
+function InteractiveCodeEditor ({ activeLanguage, editable, code, setCode }) {
   const textareaRef = useRef(null)
   const codeRef = useRef(null)
+  const langClass = LANGUAGE_MAP[activeLanguage] || 'javascript'
 
   const handleScroll = () => {
     if (editable && textareaRef.current && codeRef.current) {
@@ -157,8 +234,9 @@ function CodeEditor ({
       }}
       role='group'
       aria-label='Code editor'
-      aria-labelledby='aria-labelledby'
-      {...props}
+      id='tabpanel-code'
+      aria-labelledby='view-button-code'
+      aria-describedby='code-editor-help'
     >
       <Content
         as='pre'
@@ -175,17 +253,21 @@ function CodeEditor ({
           pointerEvents: editable ? 'none' : 'auto',
           overflow: 'auto'
         }}
-        dangerouslySetInnerHTML={{
-          __html: wrapLinesWithHighlight(highlight(value))
-        }}
-      />
+      >
+        <code
+          className={`language-${langClass}`}
+          dangerouslySetInnerHTML={{
+            __html: wrapLinesWithHighlight(highlight(code))
+          }}
+        />
+      </Content>
 
       {editable && (
         <Content
           as='textarea'
-          value={value}
-          onChange={e => onChange && onChange(e.target.value)}
-          onKeyDown={onKeyDown}
+          ref={textareaRef}
+          value={code}
+          onChange={e => setCode && setCode(e.target.value)}
           onScroll={handleScroll}
           aria-label='Edit code'
           aria-describedby='code-editor-help'
@@ -432,7 +514,8 @@ const ContentArea = React.memo(
     onApiKeySubmit,
     setApiKey,
     showApiKeyInput,
-    language
+    language,
+    codeSnippets
   }) => {
     if (showApiKeyInput) {
       return (
@@ -489,15 +572,12 @@ const ContentArea = React.memo(
         <Choose.When
           condition={activeView === 'code'}
           render={() => (
-            <CodeEditor
-              value={code}
-              onChange={setCode}
+            <InteractiveCodeEditor
+              codeSnippets={codeSnippets}
+              activeLanguage={language}
               editable={editable}
-              language={language}
-              aria-label='Code editor'
-              aria-describedby='code-editor-help'
-              id='tabpanel-code'
-              aria-labelledby='view-button-code'
+              code={code}
+              setCode={setCode}
             />
           )}
         />
@@ -800,24 +880,35 @@ const TerminalActions = React.memo(
 TerminalActions.displayName = 'TerminalActions'
 
 function MultiCodeEditorInteractive ({
-  mqlCode: codeSnippets,
+  mqlCode: mqlCodeProps,
   height = 180,
   editable = false
 }) {
+  // Extract url and options from mqlCode prop
+  const { url, ...mqlOpts } = mqlCodeProps || {}
+
+  // Generate code snippets from url and options
+  const codeSnippets = useMemo(
+    () => (url ? mqlCode(url, mqlOpts) : {}),
+    [url, mqlOpts]
+  )
+
   const [languageIndex, setLanguageIndex] = useLocalStorage(
     'multi_code_editor_index',
     2
   )
 
   const availableLanguages = Object.keys(codeSnippets)
-  const [language, setLanguage] = useState(availableLanguages[languageIndex])
+  const [language, setLanguage] = useState(
+    availableLanguages[languageIndex] || ''
+  )
 
   // Ensure saved language is available, fallback to first available language
   const currentLanguage = availableLanguages.includes(language)
     ? language
-    : availableLanguages[0]
+    : availableLanguages[0] || ''
 
-  const [code, setCode] = useState(codeSnippets[currentLanguage])
+  const [code, setCode] = useState(codeSnippets[currentLanguage] || '')
   const [responseData, setResponseData] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [activeView, setActiveView] = useState('code')
@@ -828,6 +919,8 @@ function MultiCodeEditorInteractive ({
   const [showApiKeyInput, setShowApiKeyInput] = useState(false)
 
   React.useEffect(() => {
+    if (!url) return
+
     const handleStorageChange = e => {
       if (
         e.key === 'mql-code-editor-language' &&
@@ -863,67 +956,27 @@ function MultiCodeEditorInteractive ({
       window.removeEventListener('storage', handleStorageChange)
       window.removeEventListener('mql-language-change', handleCustomEvent)
     }
-  }, [setLanguage, availableLanguages, codeSnippets, setCode, setActiveView])
-
-  const parseCodeParameters = useCallback(() => {
-    const jsCode = codeSnippets.JavaScript
-    const urlMatch = jsCode.match(/mql\(['"`]([^'"`]+)['"`]/)
-    const url = urlMatch ? urlMatch[1] : ''
-    let options = {}
-
-    // Find the start of the options object after the URL
-    const afterUrlMatch = jsCode.match(/mql\(['"`][^'"`]+['"`],\s*/)
-    if (afterUrlMatch) {
-      const startIndex = afterUrlMatch.index + afterUrlMatch[0].length
-      const optionsString = extractBalancedBraces(jsCode, startIndex)
-
-      if (optionsString) {
-        try {
-          // eslint-disable-next-line no-eval
-          options = eval(`(${optionsString})`)
-        } catch (e) {
-          console.warn('Could not parse options:', e)
-        }
-      }
-    }
-
-    return [url, options]
-  }, [codeSnippets.JavaScript])
-
-  // Helper function to extract balanced braces content
-  const extractBalancedBraces = (str, startIndex) => {
-    if (str[startIndex] !== '{') return null
-
-    let braceCount = 0
-    let i = startIndex
-
-    while (i < str.length) {
-      if (str[i] === '{') {
-        braceCount++
-      } else if (str[i] === '}') {
-        braceCount--
-        if (braceCount === 0) {
-          // Found the matching closing brace
-          return str.substring(startIndex, i + 1)
-        }
-      }
-      i++
-    }
-
-    return null // No matching closing brace found
-  }
+  }, [
+    url,
+    setLanguage,
+    availableLanguages,
+    codeSnippets,
+    setCode,
+    setActiveView
+  ])
 
   const checkForProPlanRequired = responseText =>
     responseText && responseText.includes('You need a pro plan')
 
   const parseCodeAndExecute = useCallback(
-    async apiKey => {
+    async currentApiKey => {
       setIsLoading(true)
       const result = await (async () => {
         try {
-          const [targetUrl, mqlOpts] = parseCodeParameters()
-          if (apiKey) mqlOpts.apiKey = apiKey
-          const raw = await mql.arrayBuffer(targetUrl, mqlOpts)
+          const raw = await mql.arrayBuffer(url, {
+            ...mqlOpts,
+            ...(currentApiKey && { apiKey: currentApiKey })
+          })
           const { body, headers } = raw
           return {
             status: 'fulfilled',
@@ -931,7 +984,14 @@ function MultiCodeEditorInteractive ({
             body
           }
         } catch (error) {
-          const { headers, name, statusCode, message, url, ...body } = error
+          const {
+            headers,
+            name,
+            statusCode,
+            message,
+            url: errorUrl,
+            ...body
+          } = error
           const encoder = new TextEncoder()
           const errorBody = encoder.encode(JSON.stringify(body))
 
@@ -947,14 +1007,14 @@ function MultiCodeEditorInteractive ({
 
       if (result.status === 'rejected') {
         const errorText = new TextDecoder().decode(result.body)
-        if (checkForProPlanRequired(errorText) && !apiKey) {
+        if (checkForProPlanRequired(errorText) && !currentApiKey) {
           setShowApiKeyInput(true)
         }
       }
 
       setIsLoading(false)
     },
-    [parseCodeParameters]
+    [url, mqlOpts]
   )
 
   const handleApiKeySubmit = useCallback(
@@ -989,10 +1049,9 @@ function MultiCodeEditorInteractive ({
   )
 
   const handleOpenInBrowser = useCallback(() => {
-    const [url, options] = parseCodeParameters()
     const queryParams = new URLSearchParams()
     queryParams.set('url', url)
-    Object.entries(options).forEach(([key, value]) => {
+    Object.entries(mqlOpts).forEach(([key, value]) => {
       if (key === 'apiKey') return
       if (typeof value === 'object' && value !== null) {
         queryParams.set(key, JSON.stringify(value))
@@ -1002,7 +1061,7 @@ function MultiCodeEditorInteractive ({
     })
     const apiUrl = `https://api.microlink.io?${queryParams.toString()}`
     window.open(apiUrl, '_blank')
-  }, [parseCodeParameters])
+  }, [url, mqlOpts])
 
   const handleLanguageChange = useCallback(
     e => {
@@ -1063,21 +1122,22 @@ function MultiCodeEditorInteractive ({
 
   const componentHeight = isExpanded ? `${height * 2}px` : `${height}px`
 
+  // Return null if no URL provided
+  if (!url) {
+    return null
+  }
+
   return (
-    <article
-      itemScope
-      style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-    >
+    <>
+      {/* SEO shadow content - crawlable by Google but not visible */}
+      <SeoCodeSnippets
+        codeSnippets={codeSnippets}
+        url={url}
+        mqlOpts={mqlOpts}
+      />
 
-      <header style={{ display: 'none' }}>
-        <h2 itemProp='name'>Interactive Code Editor</h2>
-        <p itemProp='description'>
-          Test API requests with multiple programming languages. Edit code,
-          execute requests, and view responses in real-time.
-        </p>
-      </header>
-
-      <main>
+      {/* Interactive UX layer */}
+      <div>
         <Terminal
           text={getCurrentViewText()}
           ActionComponent={MemoizedActionComponent}
@@ -1110,6 +1170,7 @@ function MultiCodeEditorInteractive ({
               setApiKey={setApiKey}
               showApiKeyInput={showApiKeyInput}
               language={language}
+              codeSnippets={codeSnippets}
             />
 
             <If
@@ -1140,8 +1201,8 @@ function MultiCodeEditorInteractive ({
             showApiKeyInput={showApiKeyInput}
           />
         )}
-      </main>
-    </article>
+      </div>
+    </>
   )
 }
 

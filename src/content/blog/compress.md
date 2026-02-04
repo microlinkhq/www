@@ -6,18 +6,18 @@ authors:
 date: '2022-09-03'
 ---
 
-import { mqlCode } from 'helpers/mql-code'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 The query parameter [function](/docs/api/parameters/function) allows you dynamic code execution with remote headless browser access on runtime:
 
-<MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://microlink.io', {
+<MultiCodeEditorInteractive
+  mqlCode={{
+    url: 'https://microlink.io',
     function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
     meta: false,
     scripts: ['https://code.jquery.com/jquery-3.5.0.min.js']
-  })}
+  }}
 />
 
 The function body can be pass in plain text, but also multiple compression algorithms are supported.
@@ -56,7 +56,7 @@ mql.render(data.function)
 [lz-string](https://pieroxy.net/blog/pages/lz-string/index.html) is designed to be efficient for compressing text.
 
 ```js
-const { compressToURI } = require('lz-ts') 
+const { compressToURI } = require('lz-ts')
 const mql = require('@microlink/mql')
 
 const code = compressToURI('({ page }) => page.evaluate("jQuery.fn.jquery")')

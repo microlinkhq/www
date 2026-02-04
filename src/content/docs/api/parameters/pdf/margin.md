@@ -6,7 +6,6 @@ description: 'Configure custom paper margins for your website-to-PDF conversions
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Iframe } from 'components/markdown/Iframe'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<object'/></TypeContainer><br/>
 Default: <Type children="'0.35cm'"/>
@@ -15,7 +14,7 @@ It sets the paper margins for the [pdf](/docs/api/parameters/pdf) over the targe
 
 <Iframe src="https://cdn.microlink.io/pdf/basecamp.pdf" />
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://basecamp.com/shapeup/0.3-chapter-01', { pdf: { margin: '4mm' } })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://basecamp.com/shapeup/0.3-chapter-01', pdf: { margin: '4mm' } }} />
 
 All possible units are:
 

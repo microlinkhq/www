@@ -6,7 +6,6 @@ description: 'Detect and extract audio sources from any URL. It returns browser-
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
@@ -14,7 +13,7 @@ Default: <Type children='false'/>
 It enables audio source detection over the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT', { audio: true })} 
+  mqlCode={{ url: 'https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT', audio: true }} 
 />
 
 <Figcaption children="Some websites can be different output based on User Agent." />

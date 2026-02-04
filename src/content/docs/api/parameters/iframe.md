@@ -7,7 +7,6 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Iframe } from 'components/markdown/Iframe'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
@@ -16,9 +15,7 @@ It enables embedded detection over the target [url](/docs/api/parameters/url).
 
 When is present, a new `iframe` data field will be returned when is possible. Any URL that implements [oEmbed](https://oembed.com/) specification is supported.
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
-  iframe: true
-})} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.youtube.com/watch?v=9P6rdqiybaw', iframe: true }} />
 
 <Iframe
   src="https://www.youtube-nocookie.com/embed/9P6rdqiybaw?feature=oembed"
@@ -44,11 +41,12 @@ If the discovery has been done successfully, the `iframe` field will be now pres
 
 Additionally, you can supply any consumer query parameter supported by [specification](https://oembed.com/), like `maxWidth` or `maxHeight`:
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', { 
-  iframe: {
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
+    iframe: {
     maxWidth: 350
   }
-})} />
+  }} />
 
 Keep in mind the support for this query parameters depend on every provider implementation.
 

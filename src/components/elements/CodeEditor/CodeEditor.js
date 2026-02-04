@@ -258,7 +258,8 @@ const CodeEditor = ({
     getLanguage({ className, language: languageProp, title })
   )
 
-  const [text, setText] = useState('')
+  const initialText = template(children).trim()
+  const [text, setText] = useState(initialText)
 
   useEffect(() => {
     const formatCode = async () => {

@@ -6,18 +6,18 @@ description: 'Identify the software stack behind any URL using Microlink technol
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Figcaption } from 'components/markdown/Figcaption'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children='<boolean>'/></TypeContainer><br/>
 Default: <Type children='true'/>
 
 It identifies technology behind target [url](/docs/api/parameters/url), powered by [Wappalyzer](https://www.wappalyzer.com).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://microlink.io', { 
-  insights: {
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://microlink.io',
+    insights: {
     technologies: true
   }
-})} />
+  }} />
 
 A detected technology is defined by:
 

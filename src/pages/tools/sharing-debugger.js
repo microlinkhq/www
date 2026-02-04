@@ -8,7 +8,6 @@ import { Hero } from 'components/pages/sharing-debugger/hero'
 import Faq from 'components/patterns/Faq/Faq'
 import { Link } from 'components/elements/Link'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
-import { mqlCode } from 'helpers/mql-code'
 
 export const Head = () => (
   <Meta
@@ -156,7 +155,7 @@ const SharingDebugger = () => {
                   . This allows you to programmatically validate metadata for
                   thousands of URLs without manual intervention.
                   <MultiCodeEditorInteractive
-                    mqlCode={mqlCode('https://microlink.io', { meta: true })}
+                    mqlCode={{ url: 'https://microlink.io', meta: true }}
                   />
                   By hitting our API endpoint, you get a structured JSON payload
                   containing every meta tag, allowing you to build internal
@@ -201,9 +200,10 @@ const SharingDebugger = () => {
                   </Link>
                   .
                   <MultiCodeEditorInteractive
-                    mqlCode={mqlCode('https://www.netflix.com/title/80057281', {
+                    mqlCode={{
+                      url: 'https://www.netflix.com/title/80057281',
                       screenshot: true
-                    })}
+                    }}
                   />
                   Instead of storing static JPEGs, simply pass your page's URL
                   to{' '}

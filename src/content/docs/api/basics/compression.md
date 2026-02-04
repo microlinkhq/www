@@ -3,7 +3,6 @@ title: 'Compression'
 description: 'Reduce API latency and payload size using Brotli and Gzip compression. Learn how to configure Accept-Encoding headers and verify content-encoding for optimized Microlink API responses.'
 ---
 
-import { mqlCode } from 'helpers/mql-code'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 The compression algorithms **brotli** and **gzip** are supported.
@@ -13,7 +12,7 @@ If you are performing the API requests using [SDK](/docs/sdk/getting-started/ove
 Otherwise, ensure to specify what compression you want to use using [Accept-Encoding](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding) header.
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://github.com/microlinkhq')} 
+  mqlCode={{ url: 'https://github.com/microlinkhq' }} 
 />
 
 You can check what compression algorithm has been used after the HTTP negotiation seeing `content-encoding` response header.

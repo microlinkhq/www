@@ -6,17 +6,17 @@ description: 'Execute custom JavaScript code inside a headless browser to perfor
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/>
 
 It runs JavaScript code with runtime access to a headless browser.
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://microlink.io', {
+  mqlCode={{
+    url: 'https://microlink.io',
     function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
     scripts: ['https://code.jquery.com/jquery-3.5.0.min.js']
-  })}
+  }}
 />
 
 The function will receive any query parameter provided, plus:

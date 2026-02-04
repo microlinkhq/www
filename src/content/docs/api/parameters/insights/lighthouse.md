@@ -7,7 +7,6 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Iframe } from 'components/markdown/Iframe'
 import { Link } from 'components/elements/Link'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <TypeContainer><Type children="boolean"/> | <Type children="object"/></TypeContainer><br/>
 Default: <Type children='true'/>
@@ -18,11 +17,12 @@ Default: <Type children='true'/>
 
 It returns a web performance report over the target <Link href="/docs/api/parameters/url">url</Link>, powered by <Link href="https://developers.google.com/web/tools/lighthouse" logoIcon>Lighthouse</Link>.
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
-  insights: {
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://css-tricks.com/nerds-guide-color-web',
+    insights: {
     lighthouse: true
   }
-})} />
+  }} />
 
 The report is serialized to JSON by default to make it easy to visualize using <Link href="https://lighthouse.microlink.io" logoIcon>lighthouse.microlink.io</Link>.
 
@@ -32,27 +32,30 @@ The report is serialized to JSON by default to make it easy to visualize using <
 
 Alternatively, you can serialize to `'html'` or `'csv'`:
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
-  insights: {
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://css-tricks.com/nerds-guide-color-web',
+    insights: {
     lighthouse: { output: 'html' }
   }
-})} />
+  }} />
 
 Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) setting is supported:
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
-  insights: {
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://css-tricks.com/nerds-guide-color-web',
+    insights: {
     lighthouse: { onlyCategories: ['accesibility'] }
   }
-})} />
+  }} />
 
 You can use `'preset'` to load a set of specific Lighthouse settings at once:
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://css-tricks.com/nerds-guide-color-web', { 
-  insights: {
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://css-tricks.com/nerds-guide-color-web',
+    insights: {
     lighthouse: { preset: 'desktop' }
   }
-})} />
+  }} />
 
 The following presets are supported:
 

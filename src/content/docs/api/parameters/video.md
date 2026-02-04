@@ -6,14 +6,13 @@ description: 'Detect and extract direct video source URLs from any website in a 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='false'/>
 
 Enables video source detection over the target [url](/docs/api/parameters/url).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://www.youtube.com/watch?v=9P6rdqiybaw', {video: true })} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.youtube.com/watch?v=9P6rdqiybaw', video: true }} />
 
 <Figcaption children="Some websites can be different output based on User Agent." />
 

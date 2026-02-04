@@ -5,7 +5,6 @@ description: 'Emulate a wide range of mobile, tablet, and desktop devices by aut
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<string>'/><br/>
 Default: <Type children="'macbook pro 13'"/>
@@ -13,10 +12,11 @@ Default: <Type children="'macbook pro 13'"/>
 It loads a set of options (such as [viewport](/docs/api/parameters/viewport), user agent, etc) to emulate the specified device over the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditorInteractive 
-  mqlCode={mqlCode('https://microlink.io', {
+  mqlCode={{
+    url: 'https://microlink.io',
     screenshot: true, 
     device: 'iPad'
-  })}
+  }}
 />
 
 When the divide is defined, it will affect the whole request lifecycle. It doesn't matter if you use uppercase or lowercase.

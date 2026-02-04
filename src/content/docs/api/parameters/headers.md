@@ -6,18 +6,18 @@ isPro: true
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { mqlCode } from 'helpers/mql-code'
 
 Type: <Type children='<object>'/>
 
 It sets any HTTP header that will be passed along over the [url](/docs/api/parameters/url).
 
-<MultiCodeEditorInteractive mqlCode={mqlCode('https://news.ycombinator.com', { 
-  headers: {
+<MultiCodeEditorInteractive mqlCode={{
+    url: 'https://news.ycombinator.com',
+    headers: {
     'user-agent': 'googlebot',
     'accept-language': 'en-US'
-  } 
-})} />
+  }
+  }} />
 
 Passing headers must the way to authenticate a non-public target URL, providing the necessary headers to make it reachable for Microlink API.
 
