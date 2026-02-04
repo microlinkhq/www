@@ -118,43 +118,36 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
 }
 
 exports.onCreateDevServer = ({ app }) => {
-  app.get(/^\/docs\/.*$/, (req, res, next) => {
-    const accept = req.headers.accept || ''
-    if (!accept.includes('text/markdown')) return next()
-
-    const slug = req.path.replace(/\/+$/, '')
+  const resolveDocsMarkdown = requestPath => {
+    const slug = requestPath.replace(/\/+$/, '').replace(/\.md$/, '')
     const basePath = path.join(process.cwd(), 'src', 'content', slug)
     const mdPath = `${basePath}.md`
     const mdxPath = `${basePath}.mdx`
-    const filePath = existsSync(mdPath)
-      ? mdPath
-      : existsSync(mdxPath)
-        ? mdxPath
-        : null
 
-    if (!filePath) return res.status(404).send('Not Found')
+    if (existsSync(mdPath)) return mdPath
+    if (existsSync(mdxPath)) return mdxPath
+    return null
+  }
+
+  const shouldServeMarkdown = req => {
+    if (req.path.endsWith('.md')) return true
+    const accept = req.headers.accept || ''
+    return accept.includes('text/markdown')
+  }
+
+  app.get(/^\/docs\/.*$/, (req, res, next) => {
+    if (!shouldServeMarkdown(req)) return next()
+
+    const filePath = resolveDocsMarkdown(req.path)
+    if (!filePath) {
+      return req.path.endsWith('.md')
+        ? res.status(404).send('Not Found')
+        : next()
+    }
 
     const content = readFileSync(filePath, 'utf8')
     res.set('Content-Type', 'text/markdown; charset=utf-8')
     return res.send(content)
-  })
-
-  app.get(/^\/docs\/.*\.md$/, (req, res) => {
-    const slug = req.path.replace(/\.md$/, '')
-    const basePath = path.join(process.cwd(), 'src', 'content', slug)
-    const mdPath = `${basePath}.md`
-    const mdxPath = `${basePath}.mdx`
-    const filePath = existsSync(mdPath)
-      ? mdPath
-      : existsSync(mdxPath)
-        ? mdxPath
-        : null
-
-    if (!filePath) return res.status(404).send('Not Found')
-
-    const content = readFileSync(filePath, 'utf8')
-    res.set('Content-Type', 'text/markdown; charset=utf-8')
-    res.send(content)
   })
 }
 
@@ -261,9 +254,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       const isBlogPage = node.fields.slug.startsWith('/blog/')
       const frontmatter = isBlogPage
         ? {
-          ...node.frontmatter,
-          title: formatTitle(node.frontmatter.title)
-        }
+            ...node.frontmatter,
+            title: formatTitle(node.frontmatter.title)
+          }
         : node.frontmatter
 
       return createPage({
