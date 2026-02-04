@@ -33,6 +33,7 @@ import ProBadge from '../ProBadge/ProBadge'
 import { highlight } from 'sugar-high'
 import styled from 'styled-components'
 import { mqlCode } from 'helpers/mql-code'
+import { humanList } from 'helpers/human-list'
 import mql from '@microlink/mql'
 
 import Terminal, {
@@ -153,13 +154,24 @@ const LANGUAGE_MAP = {
   Golang: 'go'
 }
 
-/**
- * Format parameters object as human-readable string
- */
-const formatParameters = options => {
-  const keys = Object.keys(options).filter(k => k !== 'apiKey')
-  if (keys.length === 0) return null
-  return keys.map(k => `${k}=${JSON.stringify(options[k])}`).join(', ')
+const SEOParagraph = ({ url, mqlOpts, languages }) => {
+  let message = 'The following examples show how to use the Microlink API'
+  if (languages.length > 0) {
+    message += ` with ${humanList(languages)}`
+  }
+
+  if (url) {
+    message += `, targeting '${url}' URL`
+  }
+
+  const mqlOptsKeys = Object.keys(mqlOpts || {})
+  if (mqlOptsKeys.length > 0) {
+    message += ` with ${humanList(
+      mqlOptsKeys.map(param => `'${param}'`)
+    )} API parameter${mqlOptsKeys.length > 1 ? 's' : ''}`
+  }
+
+  return `${message}:`
 }
 
 /**
@@ -167,23 +179,11 @@ const formatParameters = options => {
  * Uses max-height:0 instead of display:none so Google can crawl all content
  * Each language has a proper heading and anchor ID for direct linking
  */
-const SeoCodeSnippets = React.memo(({ codeSnippets, url, options }) => {
+const SeoCodeSnippets = React.memo(({ codeSnippets, url, mqlOpts }) => {
   const languages = Object.keys(codeSnippets)
-  const params = formatParameters(options)
-  const languageList =
-    languages.length > 1
-      ? `${languages.slice(0, -1).join(', ')} & ${
-          languages[languages.length - 1]
-        }`
-      : languages[0]
-
   return (
     <SeoContent>
-      <p>
-        {`The following examples show how to use Microlink in ${languageList}${
-          url ? ` targeting ${url}` : ''
-        }${params ? ` with parameters ${params}` : ''}.`}
-      </p>
+      <p>{SEOParagraph({ url, mqlOpts, languages })}</p>
       {languages.map(lang => {
         const langClass = LANGUAGE_MAP[lang] || 'javascript'
 
@@ -193,10 +193,7 @@ const SeoCodeSnippets = React.memo(({ codeSnippets, url, options }) => {
             itemScope
             itemType='https://schema.org/SoftwareSourceCode'
           >
-            <h3>
-              {lang} Microlink API example{url ? ` for ${url}` : ''}
-              {params ? ` with ${params}` : ''}
-            </h3>
+            <h3>{lang} Microlink API example</h3>
             <meta itemProp='programmingLanguage' content={lang} />
             <pre>
               <code itemProp='text' className={`language-${langClass}`}>
@@ -216,13 +213,7 @@ SeoCodeSnippets.displayName = 'SeoCodeSnippets'
  * Interactive code editor that shows only the active language
  * This is the UX layer - SEO is handled by SeoCodeSnippets
  */
-function InteractiveCodeEditor ({
-  codeSnippets,
-  activeLanguage,
-  editable,
-  code,
-  setCode
-}) {
+function InteractiveCodeEditor ({ activeLanguage, editable, code, setCode }) {
   const textareaRef = useRef(null)
   const codeRef = useRef(null)
   const langClass = LANGUAGE_MAP[activeLanguage] || 'javascript'
@@ -894,12 +885,12 @@ function MultiCodeEditorInteractive ({
   editable = false
 }) {
   // Extract url and options from mqlCode prop
-  const { url, ...options } = mqlCodeProps || {}
+  const { url, ...mqlOpts } = mqlCodeProps || {}
 
   // Generate code snippets from url and options
   const codeSnippets = useMemo(
-    () => (url ? mqlCode(url, options) : {}),
-    [url, options]
+    () => (url ? mqlCode(url, mqlOpts) : {}),
+    [url, mqlOpts]
   )
 
   const [languageIndex, setLanguageIndex] = useLocalStorage(
@@ -982,9 +973,10 @@ function MultiCodeEditorInteractive ({
       setIsLoading(true)
       const result = await (async () => {
         try {
-          const mqlOpts = { ...options }
-          if (currentApiKey) mqlOpts.apiKey = currentApiKey
-          const raw = await mql.arrayBuffer(url, mqlOpts)
+          const raw = await mql.arrayBuffer(url, {
+            ...mqlOpts,
+            ...(currentApiKey && { apiKey: currentApiKey })
+          })
           const { body, headers } = raw
           return {
             status: 'fulfilled',
@@ -1022,7 +1014,7 @@ function MultiCodeEditorInteractive ({
 
       setIsLoading(false)
     },
-    [url, options]
+    [url, mqlOpts]
   )
 
   const handleApiKeySubmit = useCallback(
@@ -1059,7 +1051,7 @@ function MultiCodeEditorInteractive ({
   const handleOpenInBrowser = useCallback(() => {
     const queryParams = new URLSearchParams()
     queryParams.set('url', url)
-    Object.entries(options).forEach(([key, value]) => {
+    Object.entries(mqlOpts).forEach(([key, value]) => {
       if (key === 'apiKey') return
       if (typeof value === 'object' && value !== null) {
         queryParams.set(key, JSON.stringify(value))
@@ -1069,7 +1061,7 @@ function MultiCodeEditorInteractive ({
     })
     const apiUrl = `https://api.microlink.io?${queryParams.toString()}`
     window.open(apiUrl, '_blank')
-  }, [url, options])
+  }, [url, mqlOpts])
 
   const handleLanguageChange = useCallback(
     e => {
@@ -1136,12 +1128,12 @@ function MultiCodeEditorInteractive ({
   }
 
   return (
-    <article style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <>
       {/* SEO shadow content - crawlable by Google but not visible */}
       <SeoCodeSnippets
         codeSnippets={codeSnippets}
         url={url}
-        options={options}
+        mqlOpts={mqlOpts}
       />
 
       {/* Interactive UX layer */}
@@ -1210,7 +1202,7 @@ function MultiCodeEditorInteractive ({
           />
         )}
       </div>
-    </article>
+    </>
   )
 }
 
