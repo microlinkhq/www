@@ -829,7 +829,7 @@ const PdfPage = () => {
 
   return (
     <Layout>
-      <FetchProvider mqlOpts={{ pdf: true }}>
+      <FetchProvider mqlOpts={{ pdf: true }} fromCache={() => undefined}>
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
