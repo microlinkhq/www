@@ -64,19 +64,17 @@ const DocTemplate = ({
           <Box css={theme({ mt: [0, 4, 4, 4] })} />
           <Choose>
             <Choose.When condition={!!title}>
-              <Text as='header'>
-                <H1
-                  css={theme({
-                    mt: 3,
-                    mb: 1
-                  })}
-                  variant={null}
-                  slug={false}
-                >
-                  <span>{title}</span>
-                  {isPro && <ProBadge css={theme({ top: '12px', ml: 2 })} />}
-                </H1>
-              </Text>
+              <H1
+                css={theme({
+                  mt: 3,
+                  mb: 1
+                })}
+                variant={null}
+                slug={false}
+              >
+                <span>{title}</span>
+                {isPro && <ProBadge css={theme({ top: '12px', ml: 2 })} />}
+              </H1>
             </Choose.When>
             <Choose.Otherwise>
               <Box css={theme({ mt: 4 })} />
