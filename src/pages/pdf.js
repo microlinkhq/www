@@ -141,13 +141,7 @@ const PDFPlaceholder = props => {
   )
 }
 
-const LiveDemo = React.memo(function LiveDemo ({
-  data,
-  isInitialData,
-  isLoading,
-  onSubmit,
-  query
-}) {
+const LiveDemo = ({ data, isInitialData, isLoading, onSubmit, query }) => {
   const isMounted = useMounted()
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
@@ -163,9 +157,11 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [inputMargin, setinputMargin] = useState('')
 
   useEffect(() => {
-    setinputFormat(get(query, 'format') || '')
-    setInputUrl(query.url || '')
-    setinputMargin(get(query, 'margin') || '')
+    if (query.url) {
+      setInputUrl(query.url)
+      setinputFormat(get(query, 'format') || '')
+      setinputMargin(get(query, 'margin') || '')
+    }
   }, [query])
 
   const values = useMemo(() => {
@@ -325,6 +321,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         <Choose.When condition={!!dataPdfUrl}>
           <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
             <Iframe
+              key={dataPdfUrl}
               maxWidth={layout.normal}
               width={cardWidth}
               height={cardHeight}
@@ -376,7 +373,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       <ClipboardComponent />
     </Flex>
   )
-})
+}
 
 const Timings = () => {
   const healthcheck = useHealthcheck()
@@ -789,6 +786,9 @@ const ProductInformation = () => {
   )
 }
 
+const PDF_MQL_OPTS = { pdf: true }
+const noCacheFn = () => undefined
+
 export const Head = () => (
   <Meta
     title='Automated Website PDF Conversion'
@@ -833,7 +833,7 @@ const PdfPage = () => {
 
   return (
     <Layout>
-      <FetchProvider mqlOpts={{ pdf: true }} fromCache={() => undefined}>
+      <FetchProvider mqlOpts={PDF_MQL_OPTS} fromCache={noCacheFn}>
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
