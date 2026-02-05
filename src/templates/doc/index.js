@@ -14,7 +14,13 @@ import Box from 'components/elements/Box'
 import { layout, theme } from 'theme'
 import React from 'react'
 
+import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
+import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
+
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
+
+const COPY = 'Copy for LLM'
+const COPIED = 'Copied to LLM'
 
 const DocTemplate = ({
   title,
@@ -26,6 +32,27 @@ const DocTemplate = ({
   ...props
 }) => {
   const activeRouteName = getActiveRouteName(props.location)
+  const pathname = props.location?.pathname || ''
+  const mdUrl = `${pathname.replace(/\/+$/, '')}.md`
+  const [copyLabel, setCopyLabel] = React.useState(COPY)
+  const copyTimeoutRef = React.useRef(null)
+
+  const handleCopyForLlm = async event => {
+    event.preventDefault()
+    try {
+      const response = await window.fetch(mdUrl)
+      if (!response.ok) throw new Error('Failed to fetch markdown')
+      const text = await response.text()
+      await navigator.clipboard.writeText(text)
+      setCopyLabel(COPIED)
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current)
+      copyTimeoutRef.current = setTimeout(() => {
+        setCopyLabel(COPY)
+      }, 1000)
+    } catch (error) {
+      // Best-effort copy: fail silently to avoid breaking the page
+    }
+  }
 
   return (
     <Layout footer={false}>
@@ -75,6 +102,37 @@ const DocTemplate = ({
                 <span>{title}</span>
                 {isPro && <ProBadge css={theme({ top: '12px', ml: 2 })} />}
               </H1>
+              <Flex
+                data-exclude-from-llms
+                css={theme({ alignItems: 'center', fontSize: 1, gap: 2 })}
+              >
+                <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                  <ClipboardIcon css={theme({ color: 'gray8' })} />
+                  <Link
+                    href={mdUrl}
+                    externalIcon={false}
+                    title='Copy content for LLM'
+                    onClick={handleCopyForLlm}
+                  >
+                    {copyLabel}
+                  </Link>
+                </Flex>
+                <Text as='span' css={theme({ color: 'gray5' })}>
+                  |
+                </Text>
+                <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                  <MarkdownIcon css={theme({ color: 'gray8' })} />
+                  <Link
+                    href={mdUrl}
+                    css={theme({ fontSize: 1 })}
+                    title='View content as Markdown'
+                    prefetch={false}
+                    isInternal={false}
+                  >
+                    View as Markdown
+                  </Link>
+                </Flex>
+              </Flex>
             </Choose.When>
             <Choose.Otherwise>
               <Box css={theme({ mt: 4 })} />

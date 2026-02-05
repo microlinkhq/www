@@ -1,13 +1,15 @@
 'use strict'
 
-const { getLastModifiedDate, branchName } = require('./src/helpers/git')
+const { readFileSync, mkdirSync, writeFileSync } = require('node:fs')
 const { createFilePath } = require('gatsby-source-filesystem')
-const { title: formatTitle } = require('./src/helpers/title')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
-const { readFileSync } = require('node:fs')
 const { getDomain } = require('tldts')
+const mql = require('@microlink/mql')
 const path = require('node:path')
+
+const { getLastModifiedDate, branchName } = require('./src/helpers/git')
+const { title: formatTitle } = require('./src/helpers/title')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
@@ -52,6 +54,10 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       }
     }
   })
+}
+
+exports.onPostBuild = async ({ graphql, reporter }) => {
+  await createDocsMarkdownFiles({ graphql, reporter })
 }
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {
@@ -106,6 +112,54 @@ exports.createPages = ({ graphql, actions }) => {
     createMarkdownPages({ graphql, createPage }),
     createRecipesPages({ createPage, recipes })
   ])
+}
+
+exports.onCreateDevServer = ({ app }) => {
+  const shouldServeMarkdown = req =>
+    req.path.endsWith('.md') || req.headers.accept?.includes('text/markdown')
+
+  const getDocsMarkdown = async requestPath => {
+    const slug = requestPath.replace(/\/+$/, '').replace(/\.md$/, '')
+    const baseUrl =
+      process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
+    const url = new URL(slug, baseUrl).toString()
+
+    const {
+      data: { markdown }
+    } = await mql(url, {
+      apiKey: process.env.MICROLINK_API_KEY,
+      data: {
+        markdown: {
+          selector: 'markdown'
+        }
+      },
+      meta: false,
+      force: true
+    })
+
+    return markdown
+  }
+
+  app.get(/^\/docs\/.*$/, async (req, res, next) => {
+    if (!shouldServeMarkdown(req)) return next()
+
+    try {
+      const markdown = await getDocsMarkdown(req.path)
+      if (!markdown) {
+        return req.path.endsWith('.md')
+          ? res.status(503).send('MICROLINK_API_KEY is not set')
+          : next()
+      }
+
+      res.set('Content-Type', 'text/markdown; charset=utf-8')
+      return res.send(markdown)
+    } catch (error) {
+      if (req.path.endsWith('.md')) {
+        return res.status(502).send('Failed to generate markdown')
+      }
+      return next()
+    }
+  })
 }
 
 const getMqlCode = (recipe, { name }) => `const mql = require('@microlink/mql')
@@ -211,9 +265,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       const isBlogPage = node.fields.slug.startsWith('/blog/')
       const frontmatter = isBlogPage
         ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+          ...node.frontmatter,
+          title: formatTitle(node.frontmatter.title)
+        }
         : node.frontmatter
 
       return createPage({
@@ -235,4 +289,67 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
     })
 
   return Promise.all(pages)
+}
+
+const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
+  const apiKey = process.env.MICROLINK_API_KEY
+  if (!apiKey) {
+    reporter.warn(
+      'Skipping docs markdown generation: MICROLINK_API_KEY is not set'
+    )
+    return
+  }
+
+  const query = `
+  {
+    allMdx(filter: { fields: { slug: { regex: "//docs//" } } }) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  }
+  `
+
+  const result = await graphql(query)
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      'Error while generating docs markdown files',
+      result.errors
+    )
+    return
+  }
+
+  const baseUrl =
+    process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
+  const pages = result.data.allMdx.edges
+
+  for (const { node } of pages) {
+    const slug = node.fields.slug.replace(/\/+$/, '')
+    const url = new URL(slug, baseUrl).toString()
+
+    const {
+      data: { markdown }
+    } = await mql(url, {
+      apiKey,
+      data: {
+        markdown: {
+          selector: 'markdown'
+        }
+      },
+      meta: false,
+      force: true
+    })
+
+    const relative = `${slug.replace(/^\/+/, '')}.md`
+    const outputPath = path.join(process.cwd(), 'public', relative)
+    mkdirSync(path.dirname(outputPath), { recursive: true })
+    writeFileSync(outputPath, markdown || '')
+  }
+
+  reporter.info(`Generated ${pages.length} docs markdown files`)
 }
