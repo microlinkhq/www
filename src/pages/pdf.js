@@ -152,6 +152,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
   const dataPdfUrl = get(data, 'pdf.url')
+  const dataUrl = get(data, 'url')
 
   const cardBase = !isMounted || size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
@@ -177,8 +178,11 @@ const LiveDemo = React.memo(function LiveDemo ({
     })
   }, [inputUrl, inputMargin, inputFormat])
 
-  const embedUrl = useMemo(() => getEmbedUrl(values.url), [values])
-  const snippetText = `curl -sL ${embedUrl}`
+  const embedUrl = useMemo(
+    () => (dataUrl ? getEmbedUrl(dataUrl) : ''),
+    [dataUrl]
+  )
+  const snippetText = embedUrl ? `curl -sL ${embedUrl}` : ''
 
   return (
     <Flex
