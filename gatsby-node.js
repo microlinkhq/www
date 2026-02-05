@@ -1,14 +1,15 @@
 'use strict'
 
-const { getLastModifiedDate, branchName } = require('./src/helpers/git')
+const { readFileSync, mkdirSync, writeFileSync } = require('node:fs')
 const { createFilePath } = require('gatsby-source-filesystem')
-const { title: formatTitle } = require('./src/helpers/title')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
-const { readFileSync, mkdirSync, writeFileSync } = require('node:fs')
-const mql = require('@microlink/mql')
 const { getDomain } = require('tldts')
+const mql = require('@microlink/mql')
 const path = require('node:path')
+
+const { getLastModifiedDate, branchName } = require('./src/helpers/git')
+const { title: formatTitle } = require('./src/helpers/title')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
@@ -264,9 +265,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       const isBlogPage = node.fields.slug.startsWith('/blog/')
       const frontmatter = isBlogPage
         ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+          ...node.frontmatter,
+          title: formatTitle(node.frontmatter.title)
+        }
         : node.frontmatter
 
       return createPage({
