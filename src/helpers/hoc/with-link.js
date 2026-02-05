@@ -86,6 +86,7 @@ const withBaseLink = Component => {
     externalIcon = true,
     isInternal = isInternalLink(href),
     title,
+    onClick,
     ...props
   }) => {
     const rel = isInternal ? undefined : 'noopener noreferrer'
@@ -93,7 +94,13 @@ const withBaseLink = Component => {
 
     return (
       <Component {...props}>
-        <LinkBase title={title} href={href} rel={rel} target={target}>
+        <LinkBase
+          title={title}
+          href={href}
+          rel={rel}
+          target={target}
+          onClick={onClick}
+        >
           {externalIcon ? <Icon>{children}</Icon> : children}
         </LinkBase>
       </Component>
@@ -114,6 +121,7 @@ export const withLink = Component => {
     prefetch = true,
     externalIcon,
     icon,
+    onClick,
     ...props
   }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
@@ -144,6 +152,7 @@ export const withLink = Component => {
             to={href || location.pathname}
             getProps={getProps}
             title={title}
+            onClick={onClick}
           >
             {children}
           </PrefetchLink>
@@ -157,6 +166,7 @@ export const withLink = Component => {
         externalIcon={externalIcon}
         isInternal={isInternal}
         title={title}
+        onClick={onClick}
         {...props}
       >
         {children}
