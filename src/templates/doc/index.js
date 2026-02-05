@@ -14,6 +14,9 @@ import Box from 'components/elements/Box'
 import { layout, theme } from 'theme'
 import React from 'react'
 
+import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
+import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
+
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 
 const DocTemplate = ({
@@ -75,6 +78,34 @@ const DocTemplate = ({
                 <span>{title}</span>
                 {isPro && <ProBadge css={theme({ top: '12px', ml: 2 })} />}
               </H1>
+              <Flex
+                data-exclude-from-llms
+                css={theme({ alignItems: 'center', fontSize: 1, gap: 2 })}
+              >
+                <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                  <ClipboardIcon css={theme({ color: 'gray8' })} />
+                  <Link
+                    href='#'
+                    externalIcon={false}
+                    title='Copy content for LLM'
+                  >
+                    Copy for LLM
+                  </Link>
+                </Flex>
+                <Text as='span' css={theme({ color: 'gray5' })}>
+                  |
+                </Text>
+                <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                  <MarkdownIcon css={theme({ color: 'gray8' })} />
+                  <Link
+                    href='https://example.com'
+                    css={theme({ fontSize: 1 })}
+                    title='View content as Markdown'
+                  >
+                    View as Markdown
+                  </Link>
+                </Flex>
+              </Flex>
             </Choose.When>
             <Choose.Otherwise>
               <Box css={theme({ mt: 4 })} />
