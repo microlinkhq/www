@@ -9,7 +9,7 @@ import { PostAuthor } from 'components/pages/blog/post-author'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
-import Markdown, { H1, H2 } from 'components/markdown'
+import Markdown, { H2 } from 'components/markdown'
 import { textGradient, layout, theme } from 'theme'
 import { formatDate } from 'helpers/format-date'
 import { title as titleize } from 'helpers/title'
@@ -49,7 +49,8 @@ const PageTemplate = ({
         >
           <Choose>
             <Choose.When condition={isBlogPage}>
-              <H1
+              <H2
+                as='h1'
                 css={theme({
                   ...textGradient,
                   textAlign: 'center',
@@ -58,7 +59,7 @@ const PageTemplate = ({
                 })}
               >
                 <PostTitle>{title}</PostTitle>
-              </H1>
+              </H2>
               {subtitle && (
                 <H2
                   css={theme({
