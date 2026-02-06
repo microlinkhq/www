@@ -60,7 +60,6 @@ The code above is exactly the code we are using: 14 lines of code to have a mark
 
 We only need to run that code in our pipeline to generate an accurate markdown representation of production URLs.
 
-
 Additionally, at Vercel, we added a rewrite for docs routes:
 
 ```json

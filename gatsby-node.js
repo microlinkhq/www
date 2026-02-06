@@ -265,9 +265,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       const isBlogPage = node.fields.slug.startsWith('/blog/')
       const frontmatter = isBlogPage
         ? {
-          ...node.frontmatter,
-          title: formatTitle(node.frontmatter.title)
-        }
+            ...node.frontmatter,
+            title: formatTitle(node.frontmatter.title)
+          }
         : node.frontmatter
 
       return createPage({
