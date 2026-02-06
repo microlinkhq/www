@@ -2,8 +2,6 @@
 title: 'Documentation as markdown'
 subtitle: 'How to create LLM ready documentation'
 description: 'Every docs page at microlink.io can now be consumed as markdown. Learn why this matters and how we implemented it with Microlink API in a few lines.'
-authors:
-  - kiko
 date: '2026-02-06'
 ---
 
@@ -37,7 +35,17 @@ The key benefit for us was architectural: one canonical docs source, multiple de
 
 ## How we implemented it
 
-We just created an extraction rule for [Microlink API](/docs/api/getting-started/overview) telling we want to get markdown output from the target URL:
+Some time ago, we shipped text, markdown, and HTML serialization as part of MQL data rules, using [attr](/docs/mql/data/attr) (and an optional [selector](/docs/mql/data/selector)) to define how to extract content.
+
+![](/images/S0QqYLR.jpeg)
+
+We also shipped quick aliases so you can serialize any URL via `html.microlink.io`, `text.microlink.io`, or `markdown.microlink.io`:
+
+```shell
+curl https://markdown.microlink.io/https://example.com
+```
+
+Those endpoints are just aliases for creating an extraction rule:
 
 ```js
 const url = 'https://microlink.io/docs/api/getting-started/overview'
@@ -46,11 +54,10 @@ const { data } = await mql(url, {
   apiKey,
   data: {
     markdown: {
-      selector: 'markdown' // # the magic!
+      attr: 'markdown' // # the magic!
     }
   },
-  meta: false,
-  force: true
+  meta: false
 })
 
 console.log(data.markdown)
