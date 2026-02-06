@@ -2,6 +2,8 @@
 title: 'Documentation as markdown'
 subtitle: 'How to create LLM ready documentation'
 description: 'Every docs page at microlink.io can now be consumed as markdown. Learn why this matters and how we implemented it with Microlink API in a few lines.'
+authors:
+  - kiko
 date: '2026-02-06'
 ---
 
