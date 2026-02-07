@@ -15,7 +15,6 @@ import { formatDate } from 'helpers/format-date'
 import { title as titleize } from 'helpers/title'
 import TimeAgo from 'react-timeago'
 import React from 'react'
-import { fontSize } from 'styled-system'
 
 const Heading = withTitle(HeadingBase)
 
