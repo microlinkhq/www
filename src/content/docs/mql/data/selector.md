@@ -37,7 +37,28 @@ It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-U
 - A CSS class or pseudo class, id or data-attribute (e.g., <Type children="'#avatar'"/>).
 - A combination of both (e.g., <Type children="'img:first'"/>).
 
-If you pass a collection of selectors, they are considered as fallbacks values:
+When `selector` is omitted, the [attr](/docs/mql/data/attr) operates on the entire page. This is useful for whole-page serialization (including formats like <Type children="'markdown'"/>):
+
+```js
+const mql = require('@microlink/mql')
+
+const { data } = await mql('https://example.com', {
+  data: {
+    content: {
+      attr: 'markdown'
+    }
+  }
+})
+
+console.log(data.content)
+// => '# Example Domain\n\nThis domain is for use in…'
+```
+
+<Figcaption children='Omitting selector with attr is useful for LLM pipelines, content indexing, or feeding page content into downstream processing. Unsupported attr values fall back to HTML.' />
+
+## Fallback selectors
+
+If you pass a collection of selectors, they are considered as fallback values:
 
 ```jsx
 const mql = require('@microlink/mql')
@@ -66,6 +87,6 @@ const { response, data } = await github(username)
 console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
 ```
 
-<Figcaption children='Using mulitple selectors makes the data rule more generic.' />
+<Figcaption children='Using multiple selectors makes the data rule more generic.' />
 
 The position into the collection matters: The first data rule that returns a truthy value after applying type will be used, discarding the rest of the selectors.

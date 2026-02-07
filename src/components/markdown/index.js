@@ -2,7 +2,7 @@ import { commonHeadingStyles } from 'components/elements/Heading'
 import { withContainer } from 'helpers/hoc/with-container'
 import { withTitle } from 'helpers/hoc/with-title'
 import { withSlug } from 'helpers/hoc/with-slug'
-import { fontSizes, theme } from 'theme'
+import { toPx, toRaw, fontSizes, theme } from 'theme'
 import styled from 'styled-components'
 import { MDXProvider } from '@mdx-js/react'
 import React, { useContext } from 'react'
@@ -29,13 +29,63 @@ import { Table, Thead, Tbody, Tr, Th, Td } from './Table'
 
 const { Container, CONTAINER_SPACE } = withContainer
 
+// Utility to calculate responsive heading style based on level
+const getHeadingStyle = (level = 1) => {
+  const scale = 0.75
+  const baseDesktop = toRaw(fontSizes[4]) * scale
+  const baseMobile = toRaw(fontSizes[4]) * scale * scale
+
+  const headingSizes = []
+  let mobile = baseMobile
+  let desktop = baseDesktop
+  for (let i = 0; i < 5; i++) {
+    headingSizes.push([toPx(mobile), toPx(desktop)])
+    desktop = mobile
+    mobile = mobile * scale
+  }
+
+  let fontSizeArr
+  if (level === 6) {
+    fontSizeArr = headingSizes[4] // h5
+  } else {
+    fontSizeArr = headingSizes[level - 1]
+  }
+
+  // Ensure font size is not less than fontSizes[1]
+  const minPx = toRaw(fontSizes[1])
+  fontSizeArr = fontSizeArr.map(size => {
+    let px = toRaw(size)
+    px = px < minPx ? minPx : px
+    return toPx(Math.round(px))
+  })
+
+  const marginMap = Array(3)
+    .fill({ mt: [4, 5], mb: [3, 4] })
+    .concat(Array(2).fill({ mt: [3, 4], mb: [2, 3] }))
+
+  let margin = marginMap[level - 1] || { mt: [0, 0], mb: [0, 0] }
+  if (level === 6) {
+    margin = { ...marginMap[4], color: 'gray7' }
+  }
+
+  // Debug print
+  if (typeof window !== 'undefined') {
+    console.log(`Heading level ${level}:`, {
+      fontSize: fontSizeArr
+    })
+  }
+  return {
+    fontSize: fontSizeArr,
+    ...margin
+  }
+}
+
 const StyledH1 = styled(Heading)(
   theme({
     ...commonHeadingStyles,
     maxWidth: layout.small,
-    textAlign: 'left',
-    mt: 5,
-    mb: 4
+    ...getHeadingStyle(1),
+    textAlign: 'left'
   })
 )
 
@@ -56,11 +106,9 @@ export const H1 = withTitle(withSlug(H1Base))
 const StyledH2 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
-    fontSize: `calc(${fontSizes[4]} * 0.75)`,
+    ...getHeadingStyle(2),
     lineHeight: 0,
-    textAlign: 'left',
-    mt: 5,
-    mb: 4
+    textAlign: 'left'
   })}
 `
 
@@ -81,11 +129,9 @@ export const H2 = withTitle(withSlug(H2Base))
 const StyledH3 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
-    fontSize: `calc(${fontSizes[4]} * 0.75 * 0.75)`,
+    ...getHeadingStyle(3),
     lineHeight: 0,
-    textAlign: 'left',
-    mt: 5,
-    mb: 4
+    textAlign: 'left'
   })}
 `
 
@@ -106,11 +152,9 @@ export const H3 = withTitle(withSlug(H3Base))
 const StyledH4 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
-    fontSize: 2,
+    ...getHeadingStyle(4),
     lineHeight: 0,
-    textAlign: 'left',
-    mt: 4,
-    mb: 3
+    textAlign: 'left'
   })}
 `
 
@@ -131,11 +175,9 @@ export const H4 = withTitle(withSlug(H4Base))
 const StyledH5 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
-    fontSize: 1,
+    ...getHeadingStyle(5),
     lineHeight: 0,
-    textAlign: 'left',
-    mt: 4,
-    mb: 3
+    textAlign: 'left'
   })}
 `
 
@@ -156,12 +198,9 @@ export const H5 = withTitle(withSlug(H5Base))
 const StyledH6 = styled(Heading)`
   ${theme({
     maxWidth: layout.small,
-    fontSize: 1,
-    color: 'gray9',
+    ...getHeadingStyle(6),
     lineHeight: 0,
-    textAlign: 'left',
-    mt: 4,
-    mb: 3
+    textAlign: 'left'
   })}
 `
 

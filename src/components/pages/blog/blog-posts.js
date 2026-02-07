@@ -2,6 +2,7 @@ import { textGradient, theme, transition, breakpoints } from 'theme'
 import { Link } from 'components/elements/Link'
 import { formatDate } from 'helpers/format-date'
 import { title as titleize } from 'helpers/title'
+import { H2 } from 'components/markdown'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Image from 'components/elements/Image/Image'
@@ -16,7 +17,7 @@ const BlogLink = styled(Link)(
       color: 'inherit'
     },
     [`@media screen and (min-width: ${breakpoints[0]})`]: {
-      '&:hover h3, &:hover h4': textGradient
+      '&:hover h2': textGradient
     }
   })
 )
@@ -67,16 +68,17 @@ export const BlogPostList = ({
             mb: 2
           })}
         >
-          <Text
-            as='h3'
+          <H2
+            slug={false}
             css={theme({
+              mt: 0,
+              mb: 0,
               fontWeight: 'bold',
-              mr: 3,
               display: 'inline-block'
             })}
           >
             {titleize(title)}
-          </Text>
+          </H2>
           <Flex
             css={theme({
               alignItems: 'center',
