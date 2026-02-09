@@ -800,7 +800,7 @@ const PreviewDisplay = ({ data, isLoading, error, onRetry, url }) => {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '520px',
+              minHeight: '550px',
               px: 4,
               textAlign: 'center'
             })}
@@ -944,7 +944,7 @@ const PreviewDisplay = ({ data, isLoading, error, onRetry, url }) => {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '520px',
+              minHeight: '550px',
               px: 4,
               textAlign: 'center'
             })}
@@ -1062,7 +1062,8 @@ const ScreenshotTool = () => {
       id='tool'
       css={theme({
         maxWidth: [layout.normal, layout.normal, '1460px', '1460px'],
-        pb: [4, 4, 5, 5]
+        pb: [2, 2, 4, 4],
+        pt: [3, 3, 5, 5]
       })}
     >
       <Flex
@@ -1076,7 +1077,8 @@ const ScreenshotTool = () => {
         <Box
           css={theme({
             width: ['100%', '100%', '340px', '360px'],
-            flexShrink: 0
+            flexShrink: 0,
+            minHeight: ['550px']
           })}
         >
           <OptionsPanel
@@ -1091,11 +1093,16 @@ const ScreenshotTool = () => {
         <Box
           css={theme({
             width: ['100%'],
+            height: ['100%'],
             flex: [null, null, 1, 1],
+            minHeight: ['550px'],
             minWidth: 0
           })}
         >
           <PreviewDisplay
+            css={theme({
+              minHeight: ['550px']
+            })}
             data={data}
             isLoading={isLoading}
             error={error}
@@ -1117,8 +1124,8 @@ const Hero = () => (
     css={theme({
       flexDirection: 'column',
       alignItems: 'center',
-      pt: [4, 4, 5, 5],
-      pb: [3, 3, 4, 4]
+      pt: [1],
+      pb: [1]
     })}
   >
     <Heading css={theme({ px: [4, 5], maxWidth: layout.large })}>
@@ -1129,23 +1136,12 @@ const Hero = () => (
       css={theme({
         pt: [3, 3, 4, 4],
         px: 4,
-        maxWidth: layout.small
+        maxWidth: layout.large
       })}
     >
       Automate high-quality screenshots of any webpage with our powerful API.
       Perfect for developers, designers, and marketers.
     </Caption>
-    <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
-      <ArrowLink
-        css={theme({ pr: [2, 4] })}
-        href='/docs/api/parameters/screenshot'
-      >
-        Get Started
-      </ArrowLink>
-      <ArrowLink href='https://github.com/microlinkhq/browserless'>
-        See on GitHub
-      </ArrowLink>
-    </Flex>
   </Flex>
 )
 
