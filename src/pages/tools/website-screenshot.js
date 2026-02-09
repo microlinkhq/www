@@ -48,6 +48,7 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useClipboard } from 'components/hook/use-clipboard'
+import { useLocalStorage } from 'components/hook/use-local-storage'
 import { withTitle } from 'helpers/hoc/with-title'
 
 const Heading = withTitle(HeadingBase)
@@ -1002,6 +1003,8 @@ const ScreenshotTool = () => {
   const [error, setError] = useState(null)
   const [lastUrl, setLastUrl] = useState('')
 
+  const [localStorageData] = useLocalStorage('mql-api-key')
+
   const handleSubmit = useCallback(
     async url => {
       setIsLoading(true)
@@ -1019,6 +1022,7 @@ const ScreenshotTool = () => {
             : DEVICES[options.device] || DEVICES.desktop
 
         const mqlOpts = {
+          apiKey: localStorageData.apiKey,
           screenshot: {
             type: options.type,
             ...(options.type !== 'png' && { quality: options.quality }),
