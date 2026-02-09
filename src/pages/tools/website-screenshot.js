@@ -1061,7 +1061,7 @@ const ScreenshotTool = () => {
       as='section'
       id='tool'
       css={theme({
-        maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
+        maxWidth: [layout.normal, layout.normal, '1460px', '1460px'],
         pb: [4, 4, 5, 5]
       })}
     >
