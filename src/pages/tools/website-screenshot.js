@@ -1091,37 +1091,60 @@ const PreviewDisplay = ({
   return (
     <PreviewCanvas>
       <Choose>
-        {/* ── Loading: viewport-sized skeleton ─── */}
+        {/* ── Loading: viewport-sized skeleton + action bar with loading ─── */}
         <Choose.When condition={isLoading}>
-          <FadeIn key='loading' css={theme({ p: [3, 4] })}>
-            <ViewportCard
-              style={{
-                maxWidth: `${maxWidth}px`,
-                maxHeight: `${maxHeight}px`
-              }}
+          <FadeIn
+            key='loading'
+            css={theme({
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%'
+            })}
+          >
+            <Box
+              css={theme({
+                p: [3, 4],
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              })}
             >
-              <SkeletonPulse
-                role='progressbar'
-                aria-label='Loading screenshot'
+              <ViewportCard
                 style={{
-                  width: '100%',
-                  paddingBottom: `${Math.min(aspectRatio, 180)}%`
+                  maxWidth: `${maxWidth}px`,
+                  maxHeight: `${maxHeight}px`
                 }}
-              />
-            </ViewportCard>
+              >
+                <SkeletonPulse
+                  role='progressbar'
+                  aria-label='Loading screenshot'
+                  style={{
+                    width: '100%',
+                    paddingBottom: `${Math.min(aspectRatio, 180)}%`
+                  }}
+                />
+              </ViewportCard>
+            </Box>
+            {/* Action bar: loading state */}
             <Flex
               css={theme({
-                justifyContent: 'center',
-                alignItems: 'center',
+                p: 3,
                 gap: 2,
-                pt: 3
+                borderTop: 1,
+                borderColor: 'black05',
+                bg: 'white',
+                justifyContent: 'center',
+                alignItems: 'center'
               })}
+              aria-live='polite'
+              aria-label='Capturing screenshot'
             >
               <Spinner width='20px' height='14px' />
               <Text
                 css={theme({
                   color: 'black50',
-                  fontSize: 0,
+                  fontSize: 1,
                   fontFamily: 'sans'
                 })}
               >
