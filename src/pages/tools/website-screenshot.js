@@ -629,6 +629,7 @@ const SegmentedControl = ({ options, value, onChange, name }) => {
 
 const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
   const [urlError, setUrlError] = useState('')
+  const [viewportError, setViewportError] = useState('')
 
   const handleUrlChange = useCallback(
     e => {
@@ -651,10 +652,30 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
       setUrlError('Please enter a valid URL (e.g., example.com)')
       return
     }
+
+    const width = Number(options.customWidth) || 1920
+    const height = Number(options.customHeight) || 1080
+    const perimeter = width + height
+
+    if (perimeter > 8000) {
+      setViewportError(
+        'Viewport perimeter (width + height) is too big. Please use 8000px or less.'
+      )
+      return
+    }
+
     setOptions(prev => ({ ...prev, url }))
     setUrlError('')
+    setViewportError('')
     onSubmit(url)
-  }, [options.url, onSubmit, normalizeUrl, setOptions])
+  }, [
+    options.url,
+    options.customWidth,
+    options.customHeight,
+    onSubmit,
+    normalizeUrl,
+    setOptions
+  ])
 
   const handleDeviceChange = useCallback(
     val => {
@@ -738,13 +759,14 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 placeholder='1920'
                 aria-label='Viewport width in pixels'
                 value={options.customWidth}
-                onChange={e =>
+                onChange={e => {
                   setOptions(prev => ({
                     ...prev,
                     customWidth: e.target.value,
                     device: 'custom'
                   }))
-                }
+                  if (viewportError) setViewportError('')
+                }}
                 css={theme({ width: '100%', fontSize: 1 })}
               />
             </Box>
@@ -764,18 +786,28 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 inputMode='numeric'
                 placeholder='1080'
                 aria-label='Viewport height in pixels'
+                disabled={options.fullPage}
                 value={options.customHeight}
-                onChange={e =>
+                onChange={e => {
                   setOptions(prev => ({
                     ...prev,
                     customHeight: e.target.value,
                     device: 'custom'
                   }))
-                }
+                  if (viewportError) setViewportError('')
+                }}
                 css={theme({ width: '100%', fontSize: 1 })}
               />
             </Box>
           </Flex>
+          {viewportError && (
+            <Text
+              role='alert'
+              css={theme({ color: 'fullscreen', fontSize: 0, pt: 1 })}
+            >
+              {viewportError}
+            </Text>
+          )}
         </Box>
 
         <CheckboxLabel>
