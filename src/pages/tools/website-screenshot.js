@@ -1,7 +1,7 @@
 /* global fetch */
 
 import { borders, colors, layout, theme, transition, space } from 'theme'
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Camera,
   Clipboard,
@@ -1077,22 +1077,34 @@ const PreviewDisplay = ({
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
+  const [imagePainted, setImagePainted] = useState(false)
+  const prevImageUrlRef = useRef(null)
   const imageUrl = get(data, 'screenshot.url')
   const maxHeight = viewportHeight > 750 ? 750 : viewportHeight
   const maxWidth = (viewportWidth * 2) / 3
   const aspectRatio = (maxHeight / maxWidth) * 100
 
+  const showSkeleton = isLoading || (!!imageUrl && !imagePainted)
+
   useEffect(() => {
     if (isLoading) {
       setIsPreviewTooBig(false)
+      setImagePainted(false)
     }
   }, [isLoading])
+
+  useEffect(() => {
+    if (imageUrl && imageUrl !== prevImageUrlRef.current) {
+      prevImageUrlRef.current = imageUrl
+      setImagePainted(false)
+    }
+  }, [imageUrl])
 
   return (
     <PreviewCanvas>
       <Choose>
-        {/* ── Loading: viewport-sized skeleton + action bar with loading ─── */}
-        <Choose.When condition={isLoading}>
+        {/* ── Loading / waiting for image: skeleton until image is painted ─── */}
+        <Choose.When condition={showSkeleton}>
           <FadeIn
             key='loading'
             css={theme({
@@ -1107,9 +1119,25 @@ const PreviewDisplay = ({
                 flex: 1,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                position: 'relative'
               })}
             >
+              {imageUrl && !isLoading && (
+                <img
+                  src={imageUrl}
+                  alt=''
+                  aria-hidden
+                  onLoad={() => setImagePainted(true)}
+                  style={{
+                    position: 'absolute',
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    width: 0,
+                    height: 0
+                  }}
+                />
+              )}
               <ViewportCard
                 style={{
                   maxWidth: `${maxWidth}px`,
@@ -1118,7 +1146,9 @@ const PreviewDisplay = ({
               >
                 <SkeletonPulse
                   role='progressbar'
-                  aria-label='Loading screenshot'
+                  aria-label={
+                    isLoading ? 'Loading screenshot' : 'Loading image'
+                  }
                   style={{
                     width: '100%',
                     paddingBottom: `${Math.min(aspectRatio, 180)}%`
@@ -1138,7 +1168,7 @@ const PreviewDisplay = ({
                 alignItems: 'center'
               })}
               aria-live='polite'
-              aria-label='Capturing screenshot'
+              aria-label={isLoading ? 'Capturing screenshot' : 'Loading image'}
             >
               <Spinner width='20px' height='14px' />
               <Text
@@ -1148,8 +1178,17 @@ const PreviewDisplay = ({
                   fontFamily: 'sans'
                 })}
               >
-                Capturing screenshot
-                <DotSpinner />
+                {isLoading ? (
+                  <>
+                    Capturing screenshot
+                    <DotSpinner />
+                  </>
+                ) : (
+                  <>
+                    Loading image
+                    <DotSpinner />
+                  </>
+                )}
               </Text>
             </Flex>
           </FadeIn>
@@ -1188,8 +1227,8 @@ const PreviewDisplay = ({
           </FadeIn>
         </Choose.When>
 
-        {/* ── Screenshot result ──────────────── */}
-        <Choose.When condition={!!imageUrl}>
+        {/* ── Screenshot result (only after image has painted) ──────────────── */}
+        <Choose.When condition={!!imageUrl && imagePainted}>
           <FadeIn
             key='result'
             css={theme({
