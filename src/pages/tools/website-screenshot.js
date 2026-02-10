@@ -1,7 +1,7 @@
 /* global fetch */
 
 import { borders, colors, layout, theme, transition, space } from 'theme'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Camera,
   Clipboard,
@@ -953,9 +953,16 @@ const PreviewDisplay = ({
   viewportHeight
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
+  const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
   const imageUrl = get(data, 'screenshot.url')
   const maxHeight = viewportHeight > 1100 ? 1100 : viewportHeight
   const aspectRatio = (maxHeight / viewportWidth) * 100
+
+  useEffect(() => {
+    if (isLoading) {
+      setIsPreviewTooBig(false)
+    }
+  }, [isLoading])
 
   return (
     <PreviewCanvas>
@@ -1057,28 +1064,98 @@ const PreviewDisplay = ({
                 overscrollBehavior: 'contain'
               })}
             >
-              <ViewportCard style={{ maxWidth: `${viewportWidth}px` }}>
-                <Image
-                  alt={`Screenshot of ${url}`}
-                  src={imageUrl}
+              {isPreviewTooBig ? (
+                <Flex
                   css={theme({
-                    width: '100%',
-                    maxWidth: '100%',
-                    display: 'block'
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '100%'
                   })}
-                  style={isImgLoading =>
-                    isImgLoading
-                      ? {
-                        objectFit: 'contain',
-                        imageRendering: '-webkit-optimize-contrast'
-                      }
-                      : {
-                        objectFit: 'contain',
-                        imageRendering: '-webkit-optimize-contrast'
-                      }
-                  }
-                />
-              </ViewportCard>
+                >
+                  <ViewportCard
+                    as='section'
+                    aria-live='polite'
+                    aria-label='Screenshot preview notice'
+                    style={{ maxWidth: `${viewportWidth}px` }}
+                  >
+                    <Flex
+                      css={theme({
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        p: [4, 5],
+                        textAlign: 'center',
+                        bg: 'gray0'
+                      })}
+                    >
+                      <Box
+                        css={theme({
+                          width: '56px',
+                          height: '56px',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mb: 3
+                        })}
+                        style={{
+                          background:
+                            'linear-gradient(225deg, #FF057C11 0%, #32157511 100%)'
+                        }}
+                      >
+                        <ExternalLink size={26} color={colors.link} />
+                      </Box>
+                      <Text
+                        role='status'
+                        css={theme({
+                          fontSize: 2,
+                          fontWeight: 'bold',
+                          color: 'black80',
+                          fontFamily: 'sans'
+                        })}
+                      >
+                        This screenshot is too large to preview here.
+                      </Text>
+                      <Text
+                        css={theme({
+                          pt: 2,
+                          fontSize: 1,
+                          color: 'black60',
+                          maxWidth: '420px',
+                          fontFamily: 'sans'
+                        })}
+                      >
+                        You can still download the full image or open it in a
+                        new browser tab using the options below.
+                      </Text>
+                    </Flex>
+                  </ViewportCard>
+                </Flex>
+              ) : (
+                <ViewportCard style={{ maxWidth: `${viewportWidth}px` }}>
+                  <Image
+                    alt={`Screenshot of ${url}`}
+                    src={imageUrl}
+                    css={theme({
+                      width: '100%',
+                      maxWidth: '100%',
+                      display: 'block'
+                    })}
+                    style={isImgLoading =>
+                      isImgLoading
+                        ? {
+                          objectFit: 'contain',
+                          imageRendering: '-webkit-optimize-contrast'
+                        }
+                        : {
+                          objectFit: 'contain',
+                          imageRendering: '-webkit-optimize-contrast'
+                        }
+                    }
+                    onLazyError={() => setIsPreviewTooBig(true)}
+                  />
+                </ViewportCard>
+              )}
             </Box>
 
             {/* Action buttons bar */}
