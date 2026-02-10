@@ -928,6 +928,7 @@ const PreviewDisplay = ({ data, isLoading, error, onRetry, url }) => {
                 overflowY: 'auto',
                 overflowX: 'hidden',
                 maxHeight: ['60vh', '65vh', '70vh', '70vh'],
+                minHeight: '520px',
                 WebkitOverflowScrolling: 'touch',
                 overscrollBehavior: 'contain'
               })}
