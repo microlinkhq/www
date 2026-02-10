@@ -98,6 +98,9 @@ const FORMAT_OPTIONS = [
   { value: 'jpeg', label: 'JPG' }
 ]
 
+const LAYOUT_PIVOT = 1200
+const MOBILE_BP = 768
+
 const DEVICE_OPTIONS = [
   { value: 'desktop', label: 'Desktop' },
   { value: 'tablet', label: 'Tablet' },
@@ -287,6 +290,13 @@ const SegmentedOption = styled(Box)
     outline: 2px solid ${colors.link};
     outline-offset: -2px;
   }
+
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 const GenerateButton = styled(Button)`
@@ -296,6 +306,11 @@ const GenerateButton = styled(Button)`
     color: white;
     border: none;
     width: 100%;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    justify-content: center;
     transition: opacity ${transition.medium}, transform ${transition.short},
       box-shadow ${transition.medium};
 
@@ -346,6 +361,15 @@ const CheckboxLabel = styled(Flex).attrs({ as: 'label' })`
     height: 16px;
     cursor: pointer;
   }
+
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    min-height: 44px;
+
+    input[type='checkbox'] {
+      width: 20px;
+      height: 20px;
+    }
+  }
 `
 
 const ColorSwatch = styled(Box).withConfig({
@@ -374,6 +398,11 @@ const ColorSwatch = styled(Box).withConfig({
     outline: 2px solid ${colors.link};
     outline-offset: 2px;
   }
+
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    width: 32px;
+    height: 32px;
+  }
 `
 
 /* ─── Preview Animations ──────────────────────────────── */
@@ -398,8 +427,17 @@ const PreviewCanvas = styled(Box)`
     overflow: 'hidden',
     position: 'relative'
   })}
-  min-height: 520px;
+  min-height: 380px;
   background: #f1f5f9;
+  transition: min-height 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  @media (min-width: ${LAYOUT_PIVOT}px) {
+    min-height: 520px;
+  }
 `
 
 const ViewportCard = styled(Box)`
@@ -517,6 +555,80 @@ const ActionButton = styled(Flex).attrs({ as: 'a' })`
   &:focus-visible {
     outline: 2px solid ${colors.link};
     outline-offset: 2px;
+  }
+`
+
+/* ─── Responsive Layout Components ────────────────────── */
+
+const ToolLayout = styled(Box)`
+  display: grid;
+  grid-template-columns: 1fr;
+  ${theme({ gap: [3, 3, 4, 4] })}
+
+  @media (min-width: ${LAYOUT_PIVOT}px) {
+    grid-template-columns: 360px 1fr;
+    align-items: start;
+  }
+`
+
+const OptionsPanelOuter = styled(Box)`
+  width: 100%;
+  min-width: 0;
+
+  @media (min-width: ${LAYOUT_PIVOT}px) {
+    position: sticky;
+    top: ${space[3]};
+    min-height: 550px;
+  }
+`
+
+const PreviewOuter = styled(Box)`
+  width: 100%;
+  min-width: 0;
+
+  @media (min-width: ${LAYOUT_PIVOT}px) {
+    min-height: 550px;
+  }
+`
+
+const PanelRibbonLayout = styled(Flex)`
+  flex-direction: column;
+
+  @media (min-width: ${MOBILE_BP}px) and (max-width: ${LAYOUT_PIVOT - 1}px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: ${space[3]};
+    border-bottom: 1px solid ${colors.black05};
+    padding-bottom: ${space[3]};
+    margin-bottom: ${space[3]};
+
+    > * {
+      flex: 1 1 200px;
+    }
+
+    ${PanelSection} {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: ${space[1]};
+    }
+
+    ${SectionLabel} {
+      padding-bottom: 8px;
+    }
+  }
+`
+
+const StickyGenerateWrapper = styled(Box)`
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    padding-top: ${space[3]};
+    margin-left: -${space[3]};
+    margin-right: -${space[3]};
+    padding-left: ${space[3]};
+    padding-right: ${space[3]};
+    background: linear-gradient(to top, #f8fafc 80%, transparent);
   }
 `
 
@@ -704,13 +816,12 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
-        <OptionLabel htmlFor='ws-url'>Website URL</OptionLabel>
         <Input
           id='ws-url'
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com…'
+          placeholder='example.com'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -734,192 +845,211 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         )}
       </PanelSection>
 
-      {/* ── Display Settings ────────────────── */}
-      <PanelSection>
-        <SectionLabel>Display</SectionLabel>
+      {/* ── Settings Groups (Ribbon on tablet) ── */}
+      <PanelRibbonLayout>
+        {/* ── Display Settings ────────────────── */}
+        <PanelSection>
+          <Box css={theme({ pb: '12px' })}>
+            <OptionLabel as='span'>Device</OptionLabel>
+            <SegmentedControl
+              name='Device'
+              options={DEVICE_OPTIONS}
+              value={options.device}
+              onChange={handleDeviceChange}
+            />
+          </Box>
 
-        <Box css={theme({ pb: '12px' })}>
-          <OptionLabel as='span'>Device</OptionLabel>
-          <SegmentedControl
-            name='Device'
-            options={DEVICE_OPTIONS}
-            value={options.device}
-            onChange={handleDeviceChange}
-          />
-        </Box>
-
-        <Box css={theme({ pb: '12px' })}>
-          <OptionLabel as='span'>Viewport</OptionLabel>
-          <Flex css={{ alignItems: 'center' }}>
-            <Box css={{ flex: 1 }}>
-              <Input
-                id='ws-width'
-                type='number'
-                inputMode='numeric'
-                placeholder='1920'
-                aria-label='Viewport width in pixels'
-                value={options.customWidth}
-                onChange={e => {
-                  setOptions(prev => ({
-                    ...prev,
-                    customWidth: e.target.value,
-                    device: 'custom'
-                  }))
-                  if (viewportError) setViewportError('')
-                }}
-                css={theme({ width: '100%', fontSize: 1 })}
-              />
-            </Box>
-            <Flex
-              css={theme({
-                px: '6px',
-                color: 'black20',
-                alignItems: 'center'
-              })}
-            >
-              <Link2 size={14} />
+          <Box css={theme({ pb: '12px' })}>
+            <OptionLabel as='span'>Viewport</OptionLabel>
+            <Flex css={{ alignItems: 'center' }}>
+              <Box css={{ flex: 1 }}>
+                <Input
+                  id='ws-width'
+                  type='number'
+                  inputMode='numeric'
+                  placeholder='1920'
+                  aria-label='Viewport width in pixels'
+                  value={options.customWidth}
+                  onChange={e => {
+                    setOptions(prev => ({
+                      ...prev,
+                      customWidth: e.target.value,
+                      device: 'custom'
+                    }))
+                    if (viewportError) setViewportError('')
+                  }}
+                  css={theme({
+                    width: '100%',
+                    fontSize: '16px',
+                    height: '18px'
+                  })}
+                />
+              </Box>
+              <Flex
+                css={theme({
+                  px: '6px',
+                  color: 'black20',
+                  alignItems: 'center'
+                })}
+              >
+                <Link2 size={14} />
+              </Flex>
+              <Box css={{ flex: 1 }}>
+                <Input
+                  id='ws-height'
+                  type='number'
+                  inputMode='numeric'
+                  placeholder='1080'
+                  aria-label='Viewport height in pixels'
+                  disabled={options.fullPage}
+                  value={options.customHeight}
+                  onChange={e => {
+                    setOptions(prev => ({
+                      ...prev,
+                      customHeight: e.target.value,
+                      device: 'custom'
+                    }))
+                    if (viewportError) setViewportError('')
+                  }}
+                  css={theme({
+                    width: '100%',
+                    fontSize: '16px',
+                    height: '18px'
+                  })}
+                />
+              </Box>
             </Flex>
-            <Box css={{ flex: 1 }}>
-              <Input
-                id='ws-height'
-                type='number'
-                inputMode='numeric'
-                placeholder='1080'
-                aria-label='Viewport height in pixels'
-                disabled={options.fullPage}
-                value={options.customHeight}
-                onChange={e => {
-                  setOptions(prev => ({
-                    ...prev,
-                    customHeight: e.target.value,
-                    device: 'custom'
-                  }))
-                  if (viewportError) setViewportError('')
-                }}
-                css={theme({ width: '100%', fontSize: 1 })}
-              />
-            </Box>
-          </Flex>
-          {viewportError && (
-            <Text
-              role='alert'
-              css={theme({ color: 'fullscreen', fontSize: 0, pt: 1 })}
-            >
-              {viewportError}
-            </Text>
-          )}
-        </Box>
+            {viewportError && (
+              <Text
+                role='alert'
+                css={theme({ color: 'fullscreen', fontSize: 0, pt: 1 })}
+              >
+                {viewportError}
+              </Text>
+            )}
+          </Box>
 
-        <CheckboxLabel>
-          <input
-            type='checkbox'
-            checked={options.fullPage}
-            onChange={e =>
-              setOptions(prev => ({ ...prev, fullPage: e.target.checked }))
-            }
-          />
-          <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-            Full page
-          </Text>
-        </CheckboxLabel>
-      </PanelSection>
-
-      {/* ── Output Settings ─────────────────── */}
-      <PanelSection>
-        <SectionLabel>Output</SectionLabel>
-
-        <Box>
-          <OptionLabel as='span'>Format</OptionLabel>
-          <SegmentedControl
-            name='Format'
-            options={FORMAT_OPTIONS}
-            value={options.type}
-            onChange={val => setOptions(prev => ({ ...prev, type: val }))}
-          />
-        </Box>
-      </PanelSection>
-
-      {/* ── Advanced ────────────────────────── */}
-      <Box css={theme({ pb: 3 })}>
-        <SectionLabel>Advanced</SectionLabel>
-
-        <CheckboxLabel>
-          <input
-            type='checkbox'
-            checked={options.adblock}
-            onChange={e =>
-              setOptions(prev => ({ ...prev, adblock: e.target.checked }))
-            }
-          />
-          <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-            Block ads
-          </Text>
-        </CheckboxLabel>
-
-        <Box>
           <CheckboxLabel>
             <input
               type='checkbox'
-              checked={options.overlayEnabled}
+              checked={options.fullPage}
               onChange={e =>
-                setOptions(prev => ({
-                  ...prev,
-                  overlayEnabled: e.target.checked
-                }))
+                setOptions(prev => ({ ...prev, fullPage: e.target.checked }))
+              }
+            />
+            <Text css={theme({ pl: 2, fontSize: '16px', color: 'black80' })}>
+              Full page
+            </Text>
+          </CheckboxLabel>
+        </PanelSection>
+
+        {/* ── Output Settings ─────────────────── */}
+        <PanelSection>
+          <Box>
+            <OptionLabel as='span'>Format</OptionLabel>
+            <SegmentedControl
+              name='Format'
+              options={FORMAT_OPTIONS}
+              value={options.type}
+              onChange={val => setOptions(prev => ({ ...prev, type: val }))}
+            />
+          </Box>
+        </PanelSection>
+
+        {/* ── Advanced ────────────────────────── */}
+        <Box css={theme({ pb: 3 })}>
+          <SectionLabel>Advanced</SectionLabel>
+
+          <CheckboxLabel>
+            <input
+              type='checkbox'
+              checked={options.adblock}
+              onChange={e =>
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
               }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-              Enable overlay
+              Block ads
             </Text>
           </CheckboxLabel>
 
-          {options.overlayEnabled && (
-            <Box css={theme({ pt: 1, pl: 0 })}>
-              <ColorPicker
-                value={options.overlayBackground}
-                onChange={val =>
-                  setOptions(prev => ({ ...prev, overlayBackground: val }))
+          <Box>
+            <CheckboxLabel>
+              <input
+                type='checkbox'
+                checked={options.overlayEnabled}
+                onChange={e =>
+                  setOptions(prev => ({
+                    ...prev,
+                    overlayEnabled: e.target.checked
+                  }))
                 }
               />
-              <Box css={theme({ pt: 3 })}>
-                <OptionLabel as='span'>Browser chrome</OptionLabel>
-                <SegmentedControl
-                  name='Browser chrome'
-                  options={[
-                    { value: 'dark', label: 'Dark' },
-                    { value: 'light', label: 'Light' }
-                  ]}
-                  value={options.overlayBrowser}
+              <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+                Enable overlay
+              </Text>
+            </CheckboxLabel>
+
+            {options.overlayEnabled && (
+              <Box css={theme({ pt: 1, pl: 0 })}>
+                <ColorPicker
+                  value={options.overlayBackground}
                   onChange={val =>
-                    setOptions(prev => ({ ...prev, overlayBrowser: val }))
+                    setOptions(prev => ({ ...prev, overlayBackground: val }))
                   }
                 />
+                <Box css={theme({ pt: 3 })}>
+                  <OptionLabel as='span'>Browser chrome</OptionLabel>
+                  <SegmentedControl
+                    name='Browser chrome'
+                    options={[
+                      { value: 'dark', label: 'Dark' },
+                      { value: 'light', label: 'Light' }
+                    ]}
+                    value={options.overlayBrowser}
+                    onChange={val =>
+                      setOptions(prev => ({ ...prev, overlayBrowser: val }))
+                    }
+                  />
+                </Box>
               </Box>
-            </Box>
-          )}
-        </Box>
+            )}
+          </Box>
 
-        <CheckboxLabel>
-          <input
-            type='checkbox'
-            checked={options.cache}
-            onChange={e =>
-              setOptions(prev => ({ ...prev, cache: e.target.checked }))
-            }
-          />
-          <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-            Use cache
-          </Text>
-        </CheckboxLabel>
-      </Box>
+          <CheckboxLabel>
+            <input
+              type='checkbox'
+              checked={options.cache}
+              onChange={e =>
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
+            />
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+              Use cache
+            </Text>
+          </CheckboxLabel>
+        </Box>
+      </PanelRibbonLayout>
 
       {/* ── Generate ────────────────────────── */}
-      <GenerateButton type='button' onClick={handleSubmit} loading={isLoading}>
-        <Flex css={{ alignItems: 'center', gap: space[2] }}>
-          <Camera size={16} />
-          Generate screenshot
-        </Flex>
-      </GenerateButton>
+      <StickyGenerateWrapper css={{ textAlign: 'center' }}>
+        <GenerateButton
+          type='button'
+          onClick={handleSubmit}
+          loading={isLoading}
+        >
+          <Flex
+            css={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: space[2]
+            }}
+          >
+            <Camera size={16} />
+            Generate screenshot
+          </Flex>
+        </GenerateButton>
+      </StickyGenerateWrapper>
     </Box>
   )
 }
@@ -1018,7 +1148,7 @@ const PreviewDisplay = ({
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '520px',
+              minHeight: ['380px', '380px', '520px'],
               px: 4,
               textAlign: 'center'
             })}
@@ -1060,9 +1190,8 @@ const PreviewDisplay = ({
                 overflowY: 'auto',
                 overflowX: 'hidden',
                 maxHeight: ['60vh', '750px', '750px'],
-                minHeight: '520px',
-                WebkitOverflowScrolling: 'touch',
-                overscrollBehavior: 'contain'
+                minHeight: ['380px', '380px', '520px'],
+                WebkitOverflowScrolling: 'touch'
               })}
             >
               {isPreviewTooBig ? (
@@ -1246,7 +1375,7 @@ const PreviewDisplay = ({
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '520px',
+              minHeight: ['380px', '380px', '520px'],
               px: 4,
               textAlign: 'center'
             })}
@@ -1366,48 +1495,26 @@ const ScreenshotTool = () => {
       as='section'
       id='tool'
       css={theme({
-        maxWidth: [layout.normal, layout.normal, '1460px', '1460px'],
+        px: ['16px', '25px'],
+        maxWidth: ['100%', layout.normal, '1460px', '1460px'],
         pb: [2, 2, 4, 4],
         pt: [3, 3, 5, 5]
       })}
     >
-      <Flex
-        css={theme({
-          flexDirection: ['column', 'column', 'row', 'row'],
-          gap: [3, 3, 4, 4],
-          alignItems: 'flex-start'
-        })}
-      >
-        {/* Left Panel — Options */}
-        <Box
-          css={theme({
-            width: ['100%', '100%', '340px', '360px'],
-            flexShrink: 0,
-            minHeight: ['550px']
-          })}
-        >
+      <ToolLayout>
+        {/* Options Panel */}
+        <OptionsPanelOuter>
           <OptionsPanel
             options={options}
             setOptions={setOptions}
             onSubmit={handleSubmit}
             isLoading={isLoading}
           />
-        </Box>
+        </OptionsPanelOuter>
 
-        {/* Right Panel — Preview */}
-        <Box
-          css={theme({
-            width: ['100%'],
-            height: ['100%'],
-            flex: [null, null, 1, 1],
-            minHeight: ['550px'],
-            minWidth: 0
-          })}
-        >
+        {/* Preview Canvas */}
+        <PreviewOuter>
           <PreviewDisplay
-            css={theme({
-              minHeight: ['550px']
-            })}
             data={data}
             isLoading={isLoading}
             error={error}
@@ -1416,8 +1523,8 @@ const ScreenshotTool = () => {
             viewportWidth={requestedViewport.width}
             viewportHeight={requestedViewport.height}
           />
-        </Box>
-      </Flex>
+        </PreviewOuter>
+      </ToolLayout>
     </Container>
   )
 }
