@@ -15,7 +15,7 @@ import {
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import get from 'dlv'
 import mql from '@microlink/mql'
 
@@ -376,17 +376,65 @@ const ColorSwatch = styled(Box).withConfig({
   }
 `
 
-const PreviewPanel = styled(Box)`
+/* ─── Preview Animations ──────────────────────────────── */
+
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+`
+
+const shimmer = keyframes`
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+`
+
+/* ─── Preview Styled Components ───────────────────────── */
+
+const PreviewCanvas = styled(Box)`
   ${theme({
     border: 1,
     borderColor: 'black10',
     borderRadius: 3,
-    bg: 'white',
     overflow: 'hidden',
     position: 'relative'
   })}
   min-height: 520px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 24px rgba(0, 0, 0, 0.03);
+  background: #f1f5f9;
+`
+
+const ViewportCard = styled(Box)`
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.04);
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  transition: max-width 600ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`
+
+const SkeletonPulse = styled(Box)`
+  background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 40%, #e2e8f0 80%);
+  background-size: 200% 100%;
+  animation: ${shimmer} 1.8s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background: #e2e8f0;
+  }
+`
+
+const FadeIn = styled(Box)`
+  animation: ${fadeIn} 400ms cubic-bezier(0.4, 0, 0.2, 1) both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 `
 
 const StepCard = styled(Flex)`
@@ -863,38 +911,74 @@ const downloadScreenshot = async (imageUrl, filename) => {
   }
 }
 
-const PreviewDisplay = ({ data, isLoading, error, onRetry, url }) => {
+const PreviewDisplay = ({
+  data,
+  isLoading,
+  error,
+  onRetry,
+  url,
+  viewportWidth,
+  viewportHeight
+}) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const imageUrl = get(data, 'screenshot.url')
+  const maxHeight = viewportHeight > 1100 ? 1100 : viewportHeight
+  const aspectRatio = (maxHeight / viewportWidth) * 100
 
   return (
-    <PreviewPanel>
+    <PreviewCanvas>
       <Choose>
+        {/* ── Loading: viewport-sized skeleton ─── */}
         <Choose.When condition={isLoading}>
-          <Flex
+          <FadeIn key='loading' css={theme({ p: [3, 4] })}>
+            <ViewportCard
+              style={{
+                maxWidth: `${viewportWidth}px`,
+                maxHeight: `${maxHeight}px`
+              }}
+            >
+              <SkeletonPulse
+                role='progressbar'
+                aria-label='Loading screenshot'
+                style={{
+                  width: '100%',
+                  paddingBottom: `${Math.min(aspectRatio, 180)}%`
+                }}
+              />
+            </ViewportCard>
+            <Flex
+              css={theme({
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 2,
+                pt: 3
+              })}
+            >
+              <Spinner width='20px' height='14px' />
+              <Text
+                css={theme({
+                  color: 'black50',
+                  fontSize: 0,
+                  fontFamily: 'sans'
+                })}
+              >
+                Capturing screenshot
+                <DotSpinner />
+              </Text>
+            </Flex>
+          </FadeIn>
+        </Choose.When>
+
+        {/* ── Error state ────────────────────── */}
+        <Choose.When condition={!!error}>
+          <FadeIn
+            key='error'
             css={theme({
+              display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
               minHeight: '520px',
-              px: 4
-            })}
-          >
-            <Spinner />
-            <Text css={theme({ pt: 3, color: 'black60', fontSize: 1 })}>
-              Capturing screenshot
-              <DotSpinner />
-            </Text>
-          </Flex>
-        </Choose.When>
-
-        <Choose.When condition={!!error}>
-          <Flex
-            css={theme({
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: '550px',
               px: 4,
               textAlign: 'center'
             })}
@@ -915,45 +999,54 @@ const PreviewDisplay = ({ data, isLoading, error, onRetry, url }) => {
                 <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
               </Button>
             )}
-          </Flex>
+          </FadeIn>
         </Choose.When>
 
+        {/* ── Screenshot result ──────────────── */}
         <Choose.When condition={!!imageUrl}>
-          <Flex css={theme({ flexDirection: 'column', height: '100%' })}>
-            {/* Image area — scrollable when screenshot is taller than viewport */}
+          <FadeIn
+            key='result'
+            css={theme({
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%'
+            })}
+          >
+            {/* Scrollable image area */}
             <Box
               css={theme({
                 p: [3, 4],
                 flex: 1,
                 overflowY: 'auto',
                 overflowX: 'hidden',
-                maxHeight: ['60vh', '65vh', '70vh', '70vh'],
+                maxHeight: ['60vh', '1100px', '1100px'],
                 minHeight: '520px',
                 WebkitOverflowScrolling: 'touch',
                 overscrollBehavior: 'contain'
               })}
-              style={{
-                background: 'linear-gradient(180deg, #fafafa 0%, #f5f5f5 100%)'
-              }}
             >
-              <Image
-                alt={`Screenshot of ${url}`}
-                src={imageUrl}
-                css={theme({
-                  width: '100%',
-                  maxWidth: '100%',
-                  borderRadius: 2
-                })}
-                style={isImgLoading =>
-                  isImgLoading
-                    ? { objectFit: 'contain' }
-                    : {
-                      objectFit: 'contain',
-                      filter: 'drop-shadow(rgba(0, 0, 0, 0.12) 0 8px 24px)',
-                      borderRadius: '6px'
-                    }
-                }
-              />
+              <ViewportCard style={{ maxWidth: `${viewportWidth}px` }}>
+                <Image
+                  alt={`Screenshot of ${url}`}
+                  src={imageUrl}
+                  css={theme({
+                    width: '100%',
+                    maxWidth: '100%',
+                    display: 'block'
+                  })}
+                  style={isImgLoading =>
+                    isImgLoading
+                      ? {
+                        objectFit: 'contain',
+                        imageRendering: '-webkit-optimize-contrast'
+                      }
+                      : {
+                        objectFit: 'contain',
+                        imageRendering: '-webkit-optimize-contrast'
+                      }
+                  }
+                />
+              </ViewportCard>
             </Box>
 
             {/* Action buttons bar */}
@@ -962,7 +1055,8 @@ const PreviewDisplay = ({ data, isLoading, error, onRetry, url }) => {
                 p: 3,
                 gap: 2,
                 borderTop: 1,
-                borderColor: 'black05'
+                borderColor: 'black05',
+                bg: 'white'
               })}
             >
               <ActionButton
@@ -1029,17 +1123,20 @@ const PreviewDisplay = ({ data, isLoading, error, onRetry, url }) => {
                 <Caps css={theme({ fontSize: 0 })}>Open</Caps>
               </ActionButton>
             </Flex>
-          </Flex>
+          </FadeIn>
           <ClipboardComponent />
         </Choose.When>
 
+        {/* ── Empty state ────────────────────── */}
         <Choose.Otherwise>
-          <Flex
+          <FadeIn
+            key='empty'
             css={theme({
+              display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '550px',
+              minHeight: '520px',
               px: 4,
               textAlign: 'center'
             })}
@@ -1067,10 +1164,10 @@ const PreviewDisplay = ({ data, isLoading, error, onRetry, url }) => {
             <Text css={theme({ color: 'black20', fontSize: 1, pt: 1 })}>
               Your screenshot will appear here
             </Text>
-          </Flex>
+          </FadeIn>
         </Choose.Otherwise>
       </Choose>
-    </PreviewPanel>
+    </PreviewCanvas>
   )
 }
 
@@ -1095,22 +1192,27 @@ const ScreenshotTool = () => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [lastUrl, setLastUrl] = useState('')
+  const [requestedViewport, setRequestedViewport] = useState({
+    width: 1920,
+    height: 1080
+  })
 
   const [localStorageData] = useLocalStorage('mql-api-key')
 
   const handleSubmit = useCallback(
     async url => {
+      const viewport = {
+        width: Number(options.customWidth) || 1920,
+        height: Number(options.customHeight) || 1080
+      }
+
+      setRequestedViewport(viewport)
       setIsLoading(true)
       setError(null)
       setData(null)
       setLastUrl(url)
 
       try {
-        const viewport = {
-          width: Number(options.customWidth) || 1920,
-          height: Number(options.customHeight) || 1080
-        }
-
         const mqlOpts = {
           apiKey: localStorageData.apiKey,
           screenshot: {
@@ -1119,12 +1221,12 @@ const ScreenshotTool = () => {
           },
           viewport,
           adblock: options.adblock,
-          ...(options.cache && { force: false })
+          force: !options.cache
         }
 
         if (options.overlayEnabled) {
           mqlOpts.screenshot.overlay = {
-            browser: options.overlayBrowser,
+            // browser: options.overlayBrowser,
             background: options.overlayBackground
           }
         }
@@ -1201,6 +1303,8 @@ const ScreenshotTool = () => {
             error={error}
             onRetry={handleRetry}
             url={lastUrl}
+            viewportWidth={requestedViewport.width}
+            viewportHeight={requestedViewport.height}
           />
         </Box>
       </Flex>
