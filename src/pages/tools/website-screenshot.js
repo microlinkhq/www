@@ -4,14 +4,13 @@ import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback } from 'react'
 import {
   Camera,
-  ChevronDown,
-  ChevronUp,
   Clipboard,
   Download,
   ExternalLink,
   Globe,
   ArrowRight,
   Code,
+  Link2,
   Settings
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
@@ -33,11 +32,9 @@ import Input from 'components/elements/Input/Input'
 import Label from 'components/elements/Label'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import Select from 'components/elements/Select/Select'
 import Spinner from 'components/elements/Spinner'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import Toggle from 'components/elements/Toggle/Toggle'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
@@ -101,11 +98,11 @@ const FORMAT_OPTIONS = [
   { value: 'jpeg', label: 'JPG' }
 ]
 
-const QUALITY_PRESETS = {
-  low: 30,
-  good: 75,
-  high: 95
-}
+const DEVICE_OPTIONS = [
+  { value: 'desktop', label: 'Desktop' },
+  { value: 'tablet', label: 'Tablet' },
+  { value: 'mobile', label: 'Mobile' }
+]
 
 const FEATURES_LIST = [
   {
@@ -141,7 +138,7 @@ const FEATURES_LIST = [
   {
     title: 'Multiple Formats',
     description:
-      'Export as PNG, JPG, or WebP with configurable quality. Optimize for size or visual fidelity as needed.'
+      'Export as PNG, JPG, or WebP. Optimize for size or visual fidelity as needed.'
   },
   {
     title: 'Smart Caching',
@@ -166,7 +163,7 @@ const HOW_IT_WORKS = [
     icon: Settings,
     title: 'Configure Options',
     description:
-      'Choose format, quality, device viewport, and optional overlays to match your needs.'
+      'Choose format, device viewport, and optional overlays to match your needs.'
   },
   {
     icon: Camera,
@@ -217,19 +214,120 @@ const USE_CASES = [
 
 /* ─── Styled helpers ───────────────────────────────────── */
 
-const OptionGroup = styled(Box)`
-  ${theme({ pb: 3 })}
+const PanelSection = styled(Box)`
+  ${theme({ pb: 3, mb: 3 })}
+  border-bottom: 1px solid ${colors.black05};
+`
+
+const SectionLabel = styled(Text)`
+  ${theme({
+    fontSize: 0,
+    fontWeight: 'bold',
+    color: 'black80',
+    pb: '12px',
+    fontFamily: 'sans'
+  })}
 `
 
 const OptionLabel = styled(Label)`
   ${theme({
     display: 'block',
     pb: 1,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     fontFamily: 'sans',
     fontSize: 0,
-    color: 'black60'
+    color: 'black50'
   })}
+`
+
+const SegmentedWrapper = styled(Flex)`
+  background: #eef1f5;
+  ${theme({ borderRadius: 2, p: '3px' })}
+`
+
+const SegmentedOption = styled(Box)
+  .withConfig({
+    shouldForwardProp: prop => !['$active'].includes(prop)
+  })
+  .attrs({ as: 'button', type: 'button' })`
+  ${theme({
+    px: 3,
+    py: '7px',
+    borderRadius: '4px',
+    border: 0,
+    cursor: 'pointer',
+    fontFamily: 'sans',
+    fontSize: 0,
+    fontWeight: 'regular',
+    flex: 1,
+    textAlign: 'center'
+  })}
+  background: ${({ $active }) => ($active ? 'white' : 'transparent')};
+  color: ${({ $active }) => ($active ? colors.black80 : colors.black50)};
+  box-shadow: ${({ $active }) =>
+    $active ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'};
+  transition: background ${transition.medium}, color ${transition.medium},
+    box-shadow ${transition.medium};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover {
+    color: ${colors.black80};
+  }
+
+  &:active {
+    background: ${({ $active }) => ($active ? 'white' : 'rgba(0, 0, 0, 0.03)')};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: -2px;
+  }
+`
+
+const GenerateButton = styled(Button)`
+  &&& {
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+    box-shadow: 0 4px 14px 0 rgba(236, 72, 153, 0.39);
+    color: white;
+    border: none;
+    width: 100%;
+    transition: opacity ${transition.medium}, transform ${transition.short},
+      box-shadow ${transition.medium};
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+
+    &:hover:not(:disabled) {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px 0 rgba(236, 72, 153, 0.45);
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+      color: white;
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px 0 rgba(236, 72, 153, 0.3);
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${colors.link};
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: wait;
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+      color: white;
+    }
+  }
 `
 
 const CheckboxLabel = styled(Flex).attrs({ as: 'label' })`
@@ -436,11 +534,53 @@ const ColorPicker = ({ value, onChange }) => {
   )
 }
 
+/* ─── Segmented Control ───────────────────────────────── */
+
+const SegmentedControl = ({ options, value, onChange, name }) => {
+  const handleKeyDown = useCallback(
+    e => {
+      const currentIndex = options.findIndex(opt => opt.value === value)
+      let nextIndex
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault()
+        nextIndex = (currentIndex + 1) % options.length
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault()
+        nextIndex = (currentIndex - 1 + options.length) % options.length
+      } else {
+        return
+      }
+      onChange(options[nextIndex].value)
+    },
+    [options, value, onChange]
+  )
+
+  return (
+    <SegmentedWrapper role='radiogroup' aria-label={name}>
+      {options.map(opt => {
+        const isActive = value === opt.value
+        return (
+          <SegmentedOption
+            key={opt.value}
+            role='radio'
+            aria-checked={isActive}
+            tabIndex={isActive ? 0 : -1}
+            $active={isActive}
+            onClick={() => onChange(opt.value)}
+            onKeyDown={handleKeyDown}
+          >
+            {opt.label}
+          </SegmentedOption>
+        )
+      })}
+    </SegmentedWrapper>
+  )
+}
+
 /* ─── Options Panel ────────────────────────────────────── */
 
 const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
   const [urlError, setUrlError] = useState('')
-  const [showAdvanced, setShowAdvanced] = useState(false)
 
   const handleUrlChange = useCallback(
     e => {
@@ -468,18 +608,33 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     onSubmit(url)
   }, [options.url, onSubmit, normalizeUrl, setOptions])
 
+  const handleDeviceChange = useCallback(
+    val => {
+      const device = DEVICES[val]
+      if (device) {
+        setOptions(prev => ({
+          ...prev,
+          device: val,
+          customWidth: String(device.width),
+          customHeight: String(device.height)
+        }))
+      }
+    },
+    [setOptions]
+  )
+
   return (
     <Box
       css={theme({
         p: [3, 4],
         border: 1,
         borderColor: 'black10',
-        borderRadius: 3,
-        bg: 'white'
+        borderRadius: 3
       })}
+      style={{ background: '#f8fafc' }}
     >
-      {/* URL Input */}
-      <OptionGroup>
+      {/* ── Primary Input ───────────────────── */}
+      <PanelSection>
         <OptionLabel htmlFor='ws-url'>Website URL</OptionLabel>
         <Input
           id='ws-url'
@@ -508,245 +663,183 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             {urlError}
           </Text>
         )}
-      </OptionGroup>
+      </PanelSection>
 
-      {/* Format & Quality */}
-      <Flex
-        css={theme({
-          gap: 3,
-          pb: 3,
-          flexDirection: ['column', 'row']
-        })}
-      >
-        <Box css={{ flex: 1 }}>
-          <OptionLabel htmlFor='ws-format'>Format</OptionLabel>
-          <Select
-            id='ws-format'
-            value={options.type}
-            onChange={e =>
-              setOptions(prev => ({ ...prev, type: e.target.value }))
-            }
-            css={theme({ width: '100%', py: '10px' })}
-          >
-            {FORMAT_OPTIONS.map(opt => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </Select>
-        </Box>
-        <Box css={{ flex: 1 }}>
-          <OptionLabel as='span'>Quality</OptionLabel>
-          <Toggle
-            defaultValue='good'
-            onChange={val =>
-              setOptions(prev => ({
-                ...prev,
-                quality: QUALITY_PRESETS[val] || 75
-              }))
-            }
-          >
-            {['low', 'good', 'high']}
-          </Toggle>
-        </Box>
-      </Flex>
+      {/* ── Display Settings ────────────────── */}
+      <PanelSection>
+        <SectionLabel>Display</SectionLabel>
 
-      {/* Checkboxes */}
-      <OptionGroup>
-        <Flex css={{ flexWrap: 'wrap', gap: space[3] }}>
-          {[
-            { key: 'fullPage', label: 'Full page' },
-            { key: 'adblock', label: 'Block ads' }
-          ].map(({ key, label }) => (
-            <CheckboxLabel key={key}>
-              <input
-                type='checkbox'
-                checked={options[key]}
+        <Box css={theme({ pb: '12px' })}>
+          <OptionLabel as='span'>Device</OptionLabel>
+          <SegmentedControl
+            name='Device'
+            options={DEVICE_OPTIONS}
+            value={options.device}
+            onChange={handleDeviceChange}
+          />
+        </Box>
+
+        <Box css={theme({ pb: '12px' })}>
+          <OptionLabel as='span'>Viewport</OptionLabel>
+          <Flex css={{ alignItems: 'center' }}>
+            <Box css={{ flex: 1 }}>
+              <Input
+                id='ws-width'
+                type='number'
+                inputMode='numeric'
+                placeholder='1920'
+                aria-label='Viewport width in pixels'
+                value={options.customWidth}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, [key]: e.target.checked }))
+                  setOptions(prev => ({
+                    ...prev,
+                    customWidth: e.target.value,
+                    device: 'custom'
+                  }))
                 }
+                css={theme({ width: '100%', fontSize: 1 })}
               />
-              <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-                {label}
-              </Text>
-            </CheckboxLabel>
-          ))}
-        </Flex>
-      </OptionGroup>
+            </Box>
+            <Flex
+              css={theme({
+                px: '6px',
+                color: 'black20',
+                alignItems: 'center'
+              })}
+            >
+              <Link2 size={14} />
+            </Flex>
+            <Box css={{ flex: 1 }}>
+              <Input
+                id='ws-height'
+                type='number'
+                inputMode='numeric'
+                placeholder='1080'
+                aria-label='Viewport height in pixels'
+                value={options.customHeight}
+                onChange={e =>
+                  setOptions(prev => ({
+                    ...prev,
+                    customHeight: e.target.value,
+                    device: 'custom'
+                  }))
+                }
+                css={theme({ width: '100%', fontSize: 1 })}
+              />
+            </Box>
+          </Flex>
+        </Box>
 
-      {/* Device: Desktop / Tablet / Mobile */}
-      <OptionGroup>
-        <OptionLabel as='span'>Device</OptionLabel>
-        <Toggle
-          defaultValue='desktop'
-          onChange={val => setOptions(prev => ({ ...prev, device: val }))}
-        >
-          {['desktop', 'tablet', 'mobile']}
-        </Toggle>
-      </OptionGroup>
-
-      {/* Overlay Section */}
-      <OptionGroup>
         <CheckboxLabel>
           <input
             type='checkbox'
-            checked={options.overlayEnabled}
+            checked={options.fullPage}
             onChange={e =>
-              setOptions(prev => ({
-                ...prev,
-                overlayEnabled: e.target.checked
-              }))
+              setOptions(prev => ({ ...prev, fullPage: e.target.checked }))
             }
           />
-          <Text
-            css={theme({
-              pl: 2,
-              fontSize: 1,
-              fontWeight: 'bold',
-              color: 'black80'
-            })}
-          >
-            Enable overlay
+          <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+            Full page
+          </Text>
+        </CheckboxLabel>
+      </PanelSection>
+
+      {/* ── Output Settings ─────────────────── */}
+      <PanelSection>
+        <SectionLabel>Output</SectionLabel>
+
+        <Box>
+          <OptionLabel as='span'>Format</OptionLabel>
+          <SegmentedControl
+            name='Format'
+            options={FORMAT_OPTIONS}
+            value={options.type}
+            onChange={val => setOptions(prev => ({ ...prev, type: val }))}
+          />
+        </Box>
+      </PanelSection>
+
+      {/* ── Advanced ────────────────────────── */}
+      <Box css={theme({ pb: 3 })}>
+        <SectionLabel>Advanced</SectionLabel>
+
+        <CheckboxLabel>
+          <input
+            type='checkbox'
+            checked={options.adblock}
+            onChange={e =>
+              setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+            }
+          />
+          <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+            Block ads
           </Text>
         </CheckboxLabel>
 
-        {options.overlayEnabled && (
-          <Box css={theme({ pt: 2, pl: 0 })}>
-            <ColorPicker
-              value={options.overlayBackground}
-              onChange={val =>
-                setOptions(prev => ({ ...prev, overlayBackground: val }))
+        <Box>
+          <CheckboxLabel>
+            <input
+              type='checkbox'
+              checked={options.overlayEnabled}
+              onChange={e =>
+                setOptions(prev => ({
+                  ...prev,
+                  overlayEnabled: e.target.checked
+                }))
               }
             />
-            <Box css={theme({ pt: 3 })}>
-              <OptionLabel as='span'>Browser chrome</OptionLabel>
-              <Toggle
-                defaultValue={options.overlayBrowser}
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+              Enable overlay
+            </Text>
+          </CheckboxLabel>
+
+          {options.overlayEnabled && (
+            <Box css={theme({ pt: 1, pl: 0 })}>
+              <ColorPicker
+                value={options.overlayBackground}
                 onChange={val =>
-                  setOptions(prev => ({ ...prev, overlayBrowser: val }))
+                  setOptions(prev => ({ ...prev, overlayBackground: val }))
                 }
-              >
-                {['dark', 'light']}
-              </Toggle>
-            </Box>
-          </Box>
-        )}
-      </OptionGroup>
-
-      {/* Advanced Options (collapsible) */}
-      <OptionGroup>
-        <Flex
-          as='button'
-          type='button'
-          onClick={() => setShowAdvanced(prev => !prev)}
-          aria-expanded={showAdvanced}
-          aria-controls='ws-advanced-options'
-          css={theme({
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-            py: 2,
-            px: 0,
-            border: 0,
-            borderTop: 1,
-            borderColor: 'black05',
-            bg: 'transparent',
-            cursor: 'pointer',
-            color: 'black60',
-            fontSize: 1,
-            fontWeight: 'bold'
-          })}
-        >
-          <Caps css={theme({ fontSize: 0, color: 'black50' })}>
-            Advanced options
-          </Caps>
-          {showAdvanced ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </Flex>
-
-        {showAdvanced && (
-          <Box id='ws-advanced-options' css={theme({ pt: 3 })}>
-            {/* Use cache */}
-            <Box css={theme({ pb: 3 })}>
-              <CheckboxLabel>
-                <input
-                  type='checkbox'
-                  checked={options.cache}
-                  onChange={e =>
-                    setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              />
+              <Box css={theme({ pt: 3 })}>
+                <OptionLabel as='span'>Browser chrome</OptionLabel>
+                <SegmentedControl
+                  name='Browser chrome'
+                  options={[
+                    { value: 'dark', label: 'Dark' },
+                    { value: 'light', label: 'Light' }
+                  ]}
+                  value={options.overlayBrowser}
+                  onChange={val =>
+                    setOptions(prev => ({ ...prev, overlayBrowser: val }))
                   }
                 />
-                <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-                  Use cache
-                </Text>
-              </CheckboxLabel>
+              </Box>
             </Box>
+          )}
+        </Box>
 
-            {/* Custom viewport */}
-            <Box>
-              <OptionLabel as='span'>Custom viewport</OptionLabel>
-              <Flex css={theme({ gap: 3, pt: 1 })}>
-                <Box css={{ flex: 1 }}>
-                  <OptionLabel htmlFor='ws-width'>Width (px)</OptionLabel>
-                  <Input
-                    id='ws-width'
-                    type='number'
-                    inputMode='numeric'
-                    placeholder='1920'
-                    value={options.customWidth}
-                    onChange={e =>
-                      setOptions(prev => ({
-                        ...prev,
-                        customWidth: e.target.value,
-                        device: 'custom'
-                      }))
-                    }
-                    css={theme({ width: '100%', fontSize: 1 })}
-                  />
-                </Box>
-                <Box css={{ flex: 1 }}>
-                  <OptionLabel htmlFor='ws-height'>Height (px)</OptionLabel>
-                  <Input
-                    id='ws-height'
-                    type='number'
-                    inputMode='numeric'
-                    placeholder='1080'
-                    value={options.customHeight}
-                    onChange={e =>
-                      setOptions(prev => ({
-                        ...prev,
-                        customHeight: e.target.value,
-                        device: 'custom'
-                      }))
-                    }
-                    css={theme({ width: '100%', fontSize: 1 })}
-                  />
-                </Box>
-              </Flex>
-            </Box>
-          </Box>
-        )}
-      </OptionGroup>
+        <CheckboxLabel>
+          <input
+            type='checkbox'
+            checked={options.cache}
+            onChange={e =>
+              setOptions(prev => ({ ...prev, cache: e.target.checked }))
+            }
+          />
+          <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+            Use cache
+          </Text>
+        </CheckboxLabel>
+      </Box>
 
-      {/* Submit */}
-      <Button
-        type='button'
-        onClick={handleSubmit}
-        css={theme({ width: '100%' })}
-        loading={isLoading}
-        variant='gradient'
-      >
-        <Caps
-          css={theme({
-            fontSize: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: space[2]
-          })}
-        >
-          <Camera size={16} /> Generate screenshot
-        </Caps>
-      </Button>
+      {/* ── Generate ────────────────────────── */}
+      <GenerateButton type='button' onClick={handleSubmit} loading={isLoading}>
+        <Flex css={{ alignItems: 'center', gap: space[2] }}>
+          <Camera size={16} />
+          Generate screenshot
+        </Flex>
+      </GenerateButton>
     </Box>
   )
 }
@@ -986,13 +1079,12 @@ const ScreenshotTool = () => {
   const [options, setOptions] = useState({
     url: '',
     type: 'png',
-    quality: QUALITY_PRESETS.good,
     fullPage: false,
     adblock: true,
     cache: true,
     device: 'desktop',
-    customWidth: '',
-    customHeight: '',
+    customWidth: '1920',
+    customHeight: '1080',
     overlayEnabled: false,
     overlayBackground: DEFAULT_OVERLAY_BG,
     overlayBrowser: 'dark'
@@ -1013,19 +1105,15 @@ const ScreenshotTool = () => {
       setLastUrl(url)
 
       try {
-        const viewport =
-          options.device === 'custom'
-            ? {
-              width: Number(options.customWidth) || 1920,
-              height: Number(options.customHeight) || 1080
-            }
-            : DEVICES[options.device] || DEVICES.desktop
+        const viewport = {
+          width: Number(options.customWidth) || 1920,
+          height: Number(options.customHeight) || 1080
+        }
 
         const mqlOpts = {
           apiKey: localStorageData.apiKey,
           screenshot: {
             type: options.type,
-            ...(options.type !== 'png' && { quality: options.quality }),
             fullPage: options.fullPage
           },
           viewport,
@@ -1605,14 +1693,13 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'What formats and quality options are available?',
+        question: 'What formats are available?',
         answer: (
           <>
             <div>
-              Export screenshots as <b>PNG</b> (lossless), <b>JPG</b>{' '}
-              (configurable quality 0–100), or <b>WebP</b> (modern format,
-              smaller file sizes). Choose the format that best fits your use
-              case.
+              Export screenshots as <b>PNG</b> (lossless), <b>JPG</b>, or{' '}
+              <b>WebP</b> (modern format, smaller file sizes). Choose the format
+              that best fits your use case.
             </div>
             <div>
               Full-page screenshots, custom viewports, ad blocking, and
