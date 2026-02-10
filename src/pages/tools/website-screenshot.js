@@ -826,6 +826,12 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           onChange={handleUrlChange}
           onKeyDown={e => {
             if (e.key === 'Enter') {
+              // Avoid triggering a new request while a screenshot is already being generated.
+              if (isLoading) {
+                e.preventDefault()
+                return
+              }
+
               e.preventDefault()
               handleSubmit()
             }
@@ -973,6 +979,18 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             </Text>
           </CheckboxLabel>
 
+          <CheckboxLabel>
+            <input
+              type='checkbox'
+              checked={options.cache}
+              onChange={e =>
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
+            />
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+              Use cache
+            </Text>
+          </CheckboxLabel>
           <Box>
             <CheckboxLabel>
               <input
@@ -986,7 +1004,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 }
               />
               <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-                Enable overlay
+                Add background color
               </Text>
             </CheckboxLabel>
 
@@ -1015,19 +1033,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               </Box>
             )}
           </Box>
-
-          <CheckboxLabel>
-            <input
-              type='checkbox'
-              checked={options.cache}
-              onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))
-              }
-            />
-            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-              Use cache
-            </Text>
-          </CheckboxLabel>
         </Box>
       </PanelRibbonLayout>
 
