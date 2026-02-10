@@ -90,7 +90,7 @@ const DEFAULT_OVERLAY_BG =
 const DEVICES = {
   desktop: { width: 1920, height: 1080 },
   tablet: { width: 768, height: 1024 },
-  mobile: { width: 375, height: 812 }
+  mobile: { width: 393, height: 852 }
 }
 
 const FORMAT_OPTIONS = [
@@ -650,7 +650,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               handleSubmit()
             }
           }}
-          css={theme({ width: '100%', fontSize: 2 })}
+          css={theme({ width: '100%', fontSize: '18px' })}
           aria-describedby={urlError ? 'ws-url-error' : undefined}
           aria-invalid={!!urlError}
         />
