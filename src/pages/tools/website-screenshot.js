@@ -1201,12 +1201,12 @@ const PreviewDisplay = ({
             {/* Scrollable image area */}
             <Box
               css={theme({
-                p: [3, 4],
+                p: [3],
                 flex: 1,
                 overflowY: 'auto',
                 overflowX: 'hidden',
                 maxHeight: ['60vh', '750px', '750px'],
-                minHeight: ['380px', '380px', '520px'],
+                minHeight: ['380px', '380px'],
                 WebkitOverflowScrolling: 'touch'
               })}
             >
