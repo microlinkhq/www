@@ -955,8 +955,9 @@ const PreviewDisplay = ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
   const imageUrl = get(data, 'screenshot.url')
-  const maxHeight = viewportHeight > 1100 ? 1100 : viewportHeight
-  const aspectRatio = (maxHeight / viewportWidth) * 100
+  const maxHeight = viewportHeight > 750 ? 750 : viewportHeight
+  const maxWidth = (viewportWidth * 2) / 3
+  const aspectRatio = (maxHeight / maxWidth) * 100
 
   useEffect(() => {
     if (isLoading) {
@@ -972,7 +973,7 @@ const PreviewDisplay = ({
           <FadeIn key='loading' css={theme({ p: [3, 4] })}>
             <ViewportCard
               style={{
-                maxWidth: `${viewportWidth}px`,
+                maxWidth: `${maxWidth}px`,
                 maxHeight: `${maxHeight}px`
               }}
             >
@@ -1058,7 +1059,7 @@ const PreviewDisplay = ({
                 flex: 1,
                 overflowY: 'auto',
                 overflowX: 'hidden',
-                maxHeight: ['60vh', '1100px', '1100px'],
+                maxHeight: ['60vh', '750px', '750px'],
                 minHeight: '520px',
                 WebkitOverflowScrolling: 'touch',
                 overscrollBehavior: 'contain'
@@ -1076,7 +1077,7 @@ const PreviewDisplay = ({
                     as='section'
                     aria-live='polite'
                     aria-label='Screenshot preview notice'
-                    style={{ maxWidth: `${viewportWidth}px` }}
+                    style={{ maxWidth: `${maxWidth}px` }}
                   >
                     <Flex
                       css={theme({
@@ -1132,7 +1133,7 @@ const PreviewDisplay = ({
                   </ViewportCard>
                 </Flex>
               ) : (
-                <ViewportCard style={{ maxWidth: `${viewportWidth}px` }}>
+                <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
                   <Image
                     alt={`Screenshot of ${url}`}
                     src={imageUrl}
