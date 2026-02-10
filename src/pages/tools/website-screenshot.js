@@ -55,14 +55,14 @@ const Caption = withTitle(CaptionBase)
 /* ─── Constants ────────────────────────────────────────── */
 
 const SOLID_COLORS = [
+  '#000000',
+  '#FFFFFF',
   '#FF057C',
-  '#8D0B93',
   '#321575',
   '#4158D0',
   '#C850C0',
   '#FFCC70',
   '#667eea',
-  '#764ba2',
   '#f093fb',
   '#f5576c',
   '#4facfe',
@@ -670,6 +670,7 @@ const ColorPicker = ({ value, onChange }) => {
       <Flex
         role='group'
         aria-labelledby='gradients-label'
+        mb={2}
         css={{ flexWrap: 'wrap', gap: space[2] }}
       >
         {GRADIENT_PRESETS.map(grad => (
@@ -816,6 +817,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
+        <OptionLabel as='span'>Website URL</OptionLabel>
         <Input
           id='ws-url'
           type='url'
@@ -944,7 +946,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               }
             />
             <Text css={theme({ pl: 2, fontSize: '16px', color: 'black80' })}>
-              Full page
+              Full page screenshot
             </Text>
           </CheckboxLabel>
         </PanelSection>
@@ -1016,20 +1018,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     setOptions(prev => ({ ...prev, overlayBackground: val }))
                   }
                 />
-                <Box css={theme({ pt: 3 })}>
-                  <OptionLabel as='span'>Browser chrome</OptionLabel>
-                  <SegmentedControl
-                    name='Browser chrome'
-                    options={[
-                      { value: 'dark', label: 'Dark' },
-                      { value: 'light', label: 'Light' }
-                    ]}
-                    value={options.overlayBrowser}
-                    onChange={val =>
-                      setOptions(prev => ({ ...prev, overlayBrowser: val }))
-                    }
-                  />
-                </Box>
               </Box>
             )}
           </Box>
@@ -1428,8 +1416,7 @@ const ScreenshotTool = () => {
     customWidth: '1920',
     customHeight: '1080',
     overlayEnabled: false,
-    overlayBackground: DEFAULT_OVERLAY_BG,
-    overlayBrowser: 'dark'
+    overlayBackground: DEFAULT_OVERLAY_BG
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -1470,7 +1457,6 @@ const ScreenshotTool = () => {
 
         if (options.overlayEnabled) {
           mqlOpts.screenshot.overlay = {
-            // browser: options.overlayBrowser,
             background: options.overlayBackground
           }
         }
