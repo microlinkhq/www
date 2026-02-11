@@ -10,6 +10,7 @@ import {
   Globe,
   ArrowRight,
   Code,
+  HelpCircle,
   Link2,
   Settings
 } from 'react-feather'
@@ -381,8 +382,10 @@ const ColorSwatch = styled(Box).withConfig({
   border-radius: 50%;
   cursor: pointer;
   transition: transform ${transition.short}, box-shadow ${transition.short};
-  border: 2px solid
-    ${({ isActive }) => (isActive ? colors.black80 : 'transparent')};
+
+  ${({ isActive }) =>
+    isActive ? `border: 2px solid ${colors.black80}` : null};
+
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
@@ -968,8 +971,21 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-              Block ads
+              Block ads and banners
             </Text>
+            <Tooltip
+              content={
+                <Tooltip.Content>
+                  Removes all the ads and cookie banners before the rendering
+                </Tooltip.Content>
+              }
+            >
+              <HelpCircle
+                size={16}
+                color={colors.black60}
+                style={{ marginLeft: '6px', marginTop: '5px' }}
+              />
+            </Tooltip>
           </CheckboxLabel>
 
           <CheckboxLabel>
@@ -983,6 +999,20 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
             </Text>
+            <Tooltip
+              content={
+                <Tooltip.Content>
+                  Uses the cached screenshot if available, otherwise generates a
+                  new one
+                </Tooltip.Content>
+              }
+            >
+              <HelpCircle
+                size={16}
+                color={colors.black60}
+                style={{ marginLeft: '6px', marginTop: '5px' }}
+              />
+            </Tooltip>
           </CheckboxLabel>
           <Box>
             <CheckboxLabel>
