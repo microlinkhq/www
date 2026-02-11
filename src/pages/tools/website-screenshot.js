@@ -409,6 +409,84 @@ const ColorSwatch = styled(Box).withConfig({
   }
 `
 
+const NativeColorPicker = styled.input.attrs({ type: 'color' })`
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  border: 2px solid ${colors.black10};
+  border-radius: 50%;
+  cursor: pointer;
+  background: none;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+  }
+
+  &::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    border-color: ${colors.black20};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+  }
+`
+
+const HexTextInput = styled.input`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    px: 2,
+    py: '7px',
+    borderRadius: '6px',
+    border: 1,
+    borderColor: 'black10',
+    color: 'black80'
+  })}
+  flex: 1;
+  min-width: 0;
+  background: white;
+
+  &::placeholder {
+    color: ${colors.black30};
+  }
+
+  &:focus {
+    outline: none;
+    border-color: ${colors.link};
+    box-shadow: 0 0 0 1px ${colors.link};
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    font-size: 16px;
+    min-height: 44px;
+  }
+`
+
 /* ─── Preview Animations ──────────────────────────────── */
 
 const fadeIn = keyframes`
@@ -628,9 +706,23 @@ const StickyGenerateWrapper = styled(Box)`
 
 /* ─── Color Picker Component ──────────────────────────── */
 
-const ColorPicker = ({ value, onChange }) => {
+const ColorPicker = ({ value, onChange, customHex, onCustomHexChange }) => {
+  const hasCustomHex = customHex && customHex.length > 0
+
+  const nativePickerValue =
+    hasCustomHex && /^#?[0-9A-Fa-f]{6}$/.test(customHex)
+      ? customHex.startsWith('#')
+        ? customHex
+        : `#${customHex}`
+      : '#000000'
+
+  const handlePresetClick = preset => {
+    onChange(preset)
+    onCustomHexChange('')
+  }
+
   return (
-    <Box css={theme({ pt: 2 })}>
+    <Box css={theme({ pt: 1 })}>
       <OptionLabel as='span' id='solid-colors-label'>
         Solid colors
       </OptionLabel>
@@ -645,13 +737,13 @@ const ColorPicker = ({ value, onChange }) => {
             role='button'
             tabIndex={0}
             aria-label={`Select color ${color}`}
-            isActive={value === color}
+            isActive={!hasCustomHex && value === color}
             style={{ background: color }}
-            onClick={() => onChange(color)}
+            onClick={() => handlePresetClick(color)}
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
-                onChange(color)
+                handlePresetClick(color)
               }
             }}
           />
@@ -673,17 +765,40 @@ const ColorPicker = ({ value, onChange }) => {
             role='button'
             tabIndex={0}
             aria-label='Select gradient'
-            isActive={value === grad}
+            isActive={!hasCustomHex && value === grad}
             style={{ background: grad }}
-            onClick={() => onChange(grad)}
+            onClick={() => handlePresetClick(grad)}
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
-                onChange(grad)
+                handlePresetClick(grad)
               }
             }}
           />
         ))}
+      </Flex>
+
+      <OptionLabel as='span' css={theme({ pt: 2 })} id='custom-color-label'>
+        Custom color
+      </OptionLabel>
+      <Flex
+        aria-labelledby='custom-color-label'
+        css={{ alignItems: 'center', gap: space[2] }}
+      >
+        <NativeColorPicker
+          value={nativePickerValue}
+          onChange={e => onCustomHexChange(e.target.value)}
+          aria-label='Pick a custom color'
+        />
+        <HexTextInput
+          placeholder='#FF057C…'
+          value={customHex}
+          onChange={e => onCustomHexChange(e.target.value.trim())}
+          aria-label='Enter hex color code'
+          spellCheck={false}
+          autoComplete='off'
+          maxLength={7}
+        />
       </Flex>
     </Box>
   )
@@ -1038,6 +1153,10 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   onChange={val =>
                     setOptions(prev => ({ ...prev, overlayBackground: val }))
                   }
+                  customHex={options.overlayCustomHex}
+                  onCustomHexChange={val =>
+                    setOptions(prev => ({ ...prev, overlayCustomHex: val }))
+                  }
                 />
               </Box>
             )}
@@ -1046,7 +1165,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
       </PanelRibbonLayout>
 
       {/* ── Generate ────────────────────────── */}
-      <StickyGenerateWrapper css={{ textAlign: 'center' }}>
+      <StickyGenerateWrapper css={{ textAlign: 'center', marginTop: '10px' }}>
         <GenerateButton
           type='button'
           onClick={handleSubmit}
@@ -1529,7 +1648,8 @@ const ScreenshotTool = () => {
     customWidth: '1920',
     customHeight: '1080',
     overlayEnabled: false,
-    overlayBackground: DEFAULT_OVERLAY_BG
+    overlayBackground: DEFAULT_OVERLAY_BG,
+    overlayCustomHex: ''
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -1569,8 +1689,14 @@ const ScreenshotTool = () => {
         }
 
         if (options.overlayEnabled) {
+          const customHex = options.overlayCustomHex
+            ? options.overlayCustomHex.startsWith('#')
+              ? options.overlayCustomHex
+              : `#${options.overlayCustomHex}`
+            : ''
+
           mqlOpts.screenshot.overlay = {
-            background: options.overlayBackground
+            background: customHex || options.overlayBackground
           }
         }
 
