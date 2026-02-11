@@ -24,11 +24,12 @@
  */
 
 const { mkdir, readFile, writeFile } = require('fs/promises')
+const optimo = require('optimo')
+const $ = require('tinyspawn')
 const https = require('https')
 const http = require('http')
 const path = require('path')
 const fs = require('fs')
-const $ = require('tinyspawn')
 
 // Track all downloaded assets for git staging
 const downloadedAssets = new Set()
@@ -93,6 +94,11 @@ const generateFilename = (url, index) => {
   return `image-${index}${ext}`
 }
 
+const optimizeImage = async outputPath => {
+  await optimo.file(outputPath)
+  console.log(`✓ Optimized ${path.basename(outputPath)}`)
+}
+
 const processFrontmatterImage = async (data, imagesFolder) => {
   if (data.image && isHttpUrl(data.image)) {
     const url = data.image
@@ -111,6 +117,7 @@ const processFrontmatterImage = async (data, imagesFolder) => {
 
     try {
       await downloadFile(url, outputPath)
+      await optimizeImage(outputPath)
       downloadedAssets.add(outputPath)
       urlToLocalPath.set(url, localPath)
       data.image = localPath
@@ -153,6 +160,7 @@ const processMarkdownImages = async (content, imagesFolder) => {
 
     try {
       await downloadFile(url, outputPath)
+      await optimizeImage(outputPath)
       downloadedAssets.add(outputPath)
       urlToLocalPath.set(url, localPath)
       // Replace ALL occurrences of this URL
