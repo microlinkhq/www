@@ -141,7 +141,13 @@ const PDFPlaceholder = props => {
   )
 }
 
-const LiveDemo = ({ data, isInitialData, isLoading, onSubmit, query }) => {
+const LiveDemo = React.memo(function LiveDemo ({
+  data,
+  isInitialData,
+  isLoading,
+  onSubmit,
+  query
+}) {
   const isMounted = useMounted()
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
@@ -156,13 +162,17 @@ const LiveDemo = ({ data, isInitialData, isLoading, onSubmit, query }) => {
   const [inputUrl, setInputUrl] = useState('')
   const [inputMargin, setinputMargin] = useState('')
 
+  const queryUrl = query?.url || ''
+  const queryFormat = get(query, 'format') || ''
+  const queryMargin = get(query, 'margin') || ''
+
   useEffect(() => {
-    if (query.url) {
-      setInputUrl(query.url)
-      setinputFormat(get(query, 'format') || '')
-      setinputMargin(get(query, 'margin') || '')
+    if (queryUrl) {
+      setInputUrl(queryUrl)
+      setinputFormat(queryFormat)
+      setinputMargin(queryMargin)
     }
-  }, [query])
+  }, [queryUrl, queryFormat, queryMargin])
 
   const values = useMemo(() => {
     const preprendUrl = prependHttp(inputUrl)
@@ -373,7 +383,7 @@ const LiveDemo = ({ data, isInitialData, isLoading, onSubmit, query }) => {
       <ClipboardComponent />
     </Flex>
   )
-}
+})
 
 const Timings = () => {
   const healthcheck = useHealthcheck()
