@@ -1050,9 +1050,15 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             <input
               type='checkbox'
               checked={options.fullPage}
-              onChange={e =>
-                setOptions(prev => ({ ...prev, fullPage: e.target.checked }))
-              }
+              disabled={options.overlayEnabled}
+              onChange={e => {
+                const checked = e.target.checked
+                setOptions(prev => ({
+                  ...prev,
+                  fullPage: checked,
+                  overlayEnabled: checked ? false : prev.overlayEnabled
+                }))
+              }}
             />
             <Text css={theme({ pl: 2, fontSize: '16px', color: 'black80' })}>
               Full page screenshot
@@ -1134,12 +1140,15 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               <input
                 type='checkbox'
                 checked={options.overlayEnabled}
-                onChange={e =>
+                disabled={options.fullPage}
+                onChange={e => {
+                  const checked = e.target.checked
                   setOptions(prev => ({
                     ...prev,
-                    overlayEnabled: e.target.checked
+                    overlayEnabled: checked,
+                    fullPage: checked ? false : prev.fullPage
                   }))
-                }
+                }}
               />
               <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
                 Add background color
