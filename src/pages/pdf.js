@@ -332,7 +332,6 @@ const LiveDemo = React.memo(function LiveDemo ({
           <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
             <Iframe
               key={dataPdfUrl}
-              maxWidth={layout.normal}
               width={cardWidth}
               height={cardHeight}
               src={`https://docs.google.com/viewer?url=${dataPdfUrl}&embedded=true`}
