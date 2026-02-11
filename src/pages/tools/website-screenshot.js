@@ -430,11 +430,6 @@ const PreviewCanvas = styled(Box)`
   })}
   min-height: 380px;
   background: #f1f5f9;
-  transition: min-height 300ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 
   @media (min-width: ${LAYOUT_PIVOT}px) {
     min-height: 520px;
@@ -450,11 +445,6 @@ const ViewportCard = styled(Box)`
   overflow: hidden;
   width: 100%;
   margin: 0 auto;
-  transition: max-width 600ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 `
 
 const SkeletonPulse = styled(Box)`
