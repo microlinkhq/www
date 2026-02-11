@@ -152,6 +152,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
   const dataPdfUrl = get(data, 'pdf.url')
+  const dataUrl = get(data, 'url')
 
   const cardBase = !isMounted || size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
@@ -161,11 +162,17 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [inputUrl, setInputUrl] = useState('')
   const [inputMargin, setinputMargin] = useState('')
 
+  const queryUrl = query?.url || ''
+  const queryFormat = get(query, 'format') || ''
+  const queryMargin = get(query, 'margin') || ''
+
   useEffect(() => {
-    setinputFormat(get(query, 'format') || '')
-    setInputUrl(query.url || '')
-    setinputMargin(get(query, 'margin') || '')
-  }, [query])
+    if (queryUrl) {
+      setInputUrl(queryUrl)
+      setinputFormat(queryFormat)
+      setinputMargin(queryMargin)
+    }
+  }, [queryUrl, queryFormat, queryMargin])
 
   const values = useMemo(() => {
     const preprendUrl = prependHttp(inputUrl)
@@ -177,8 +184,11 @@ const LiveDemo = React.memo(function LiveDemo ({
     })
   }, [inputUrl, inputMargin, inputFormat])
 
-  const embedUrl = useMemo(() => getEmbedUrl(values.url), [values])
-  const snippetText = `curl -sL ${embedUrl}`
+  const embedUrl = useMemo(
+    () => (dataUrl ? getEmbedUrl(dataUrl) : ''),
+    [dataUrl]
+  )
+  const snippetText = embedUrl ? `curl -sL ${embedUrl}` : ''
 
   return (
     <Flex
@@ -321,6 +331,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         <Choose.When condition={!!dataPdfUrl}>
           <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
             <Iframe
+              key={dataPdfUrl}
               maxWidth={layout.normal}
               width={cardWidth}
               height={cardHeight}
@@ -785,6 +796,9 @@ const ProductInformation = () => {
   )
 }
 
+const PDF_MQL_OPTS = { pdf: true }
+const noCacheFn = () => undefined
+
 export const Head = () => (
   <Meta
     title='Automated Website PDF Conversion'
@@ -829,7 +843,7 @@ const PdfPage = () => {
 
   return (
     <Layout>
-      <FetchProvider mqlOpts={{ pdf: true }}>
+      <FetchProvider mqlOpts={PDF_MQL_OPTS} fromCache={noCacheFn}>
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
