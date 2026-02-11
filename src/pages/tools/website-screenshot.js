@@ -1778,7 +1778,25 @@ const createThumbnail = imageUrl =>
 
 /* ─── Screenshot History ──────────────────────────────── */
 
-const ScreenshotHistory = ({ entries, activeId, onSelect, onDelete }) => {
+const ScreenshotHistory = ({
+  entries,
+  activeId,
+  onSelect,
+  onDelete,
+  disabled
+}) => {
+  const scrollRef = useRef(null)
+  const prevFirstIdRef = useRef(null)
+
+  /* Scroll to the start when a new screenshot is prepended */
+  useEffect(() => {
+    const firstId = entries?.[0]?.id
+    if (firstId && firstId !== prevFirstIdRef.current && scrollRef.current) {
+      scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' })
+    }
+    prevFirstIdRef.current = firstId
+  }, [entries])
+
   if (!entries || entries.length === 0) return null
 
   return (
@@ -1811,21 +1829,29 @@ const ScreenshotHistory = ({ entries, activeId, onSelect, onDelete }) => {
           {entries.length}/{MAX_HISTORY_ITEMS}
         </Text>
       </Flex>
-      <HistoryScrollContainer role='list' aria-label='Screenshot history'>
+      <HistoryScrollContainer
+        ref={scrollRef}
+        role='list'
+        aria-label='Screenshot history'
+      >
         {entries.map(entry => (
           <HistoryThumbnail
             key={entry.id}
             role='listitem'
             $active={entry.id === activeId}
-            tabIndex={0}
+            tabIndex={disabled ? -1 : 0}
             aria-label={`Load screenshot of ${entry.settings.url}`}
-            onClick={() => onSelect(entry)}
+            aria-disabled={disabled || undefined}
+            onClick={() => !disabled && onSelect(entry)}
             onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') {
+              if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
                 e.preventDefault()
                 onSelect(entry)
               }
             }}
+            style={
+              disabled ? { opacity: 0.5, cursor: 'not-allowed' } : undefined
+            }
           >
             <img
               src={entry.thumbnail || entry.screenshot.url}
@@ -1835,9 +1861,10 @@ const ScreenshotHistory = ({ entries, activeId, onSelect, onDelete }) => {
             />
             <ThumbnailDeleteButton
               aria-label={`Delete screenshot of ${entry.settings.url}`}
+              disabled={disabled || undefined}
               onClick={e => {
                 e.stopPropagation()
-                onDelete(entry.id)
+                if (!disabled) onDelete(entry.id)
               }}
             >
               <X size={12} />
@@ -2059,6 +2086,7 @@ const ScreenshotTool = () => {
           activeId={activeHistoryId}
           onSelect={handleHistorySelect}
           onDelete={handleHistoryDelete}
+          disabled={isLoading}
         />
       )}
     </Container>
