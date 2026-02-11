@@ -100,7 +100,6 @@ const FORMAT_OPTIONS = [
 
 const LAYOUT_PIVOT = 1200
 const MOBILE_BP = 768
-const MAX_SCREENSHOT_PREVIEW_WIDTH = 978
 const MAX_SCREENSHOT_PREVIEW_HEIGHT = 750
 
 const DEVICE_OPTIONS = [
@@ -1083,12 +1082,29 @@ const PreviewDisplay = ({
   const prevImageUrlRef = useRef(null)
   const imageUrl = get(data, 'screenshot.url')
 
+  const viewportCardRef = useRef(null)
+  const [actualWidth, setActualWidth] = useState(0)
+
+  useEffect(() => {
+    if (!viewportCardRef.current) return
+
+    const updateWidth = () => {
+      if (viewportCardRef.current) {
+        setActualWidth(viewportCardRef.current.offsetWidth - 32) // 32 px padding
+      }
+    }
+
+    updateWidth()
+
+    const resizeObserver = new ResizeObserver(updateWidth)
+    resizeObserver.observe(viewportCardRef.current)
+
+    return () => resizeObserver.disconnect()
+  }, [])
+
   /* scale width to preview the screenshot with a better aspect ratio and quality*/
   const maxWidthtScaled = (viewportWidth * 2) / 3
-  const maxWidth =
-    maxWidthtScaled > MAX_SCREENSHOT_PREVIEW_WIDTH
-      ? MAX_SCREENSHOT_PREVIEW_WIDTH
-      : maxWidthtScaled
+  const maxWidth = maxWidthtScaled > actualWidth ? actualWidth : maxWidthtScaled
 
   /* scale height proportional to the width lost */
   const fractionLost = (viewportWidth - maxWidth) / viewportWidth
@@ -1097,6 +1113,15 @@ const PreviewDisplay = ({
     maxHeightScaled > MAX_SCREENSHOT_PREVIEW_HEIGHT
       ? MAX_SCREENSHOT_PREVIEW_HEIGHT
       : maxHeightScaled
+
+  console.log({
+    actualWidth,
+    maxWidth,
+    maxWidthtScaled,
+    fractionLost,
+    maxHeightScaled,
+    maxHeight
+  })
 
   const showSkeleton = isLoading || (!!imageUrl && !imagePainted)
 
@@ -1115,7 +1140,7 @@ const PreviewDisplay = ({
   }, [imageUrl])
 
   return (
-    <PreviewCanvas>
+    <PreviewCanvas ref={viewportCardRef}>
       <Choose>
         {/* ── Loading / waiting for image: skeleton until image is painted ─── */}
         <Choose.When condition={showSkeleton}>
@@ -1158,13 +1183,6 @@ const PreviewDisplay = ({
                   maxHeight: `${maxHeight}px`
                 }}
               >
-                {console.log(
-                  maxHeight + 'px',
-                  'by user set ->',
-                  viewportHeight,
-                  'width user ->',
-                  maxWidth
-                )}
                 <SkeletonPulse
                   role='progressbar'
                   aria-label={
@@ -1266,7 +1284,6 @@ const PreviewDisplay = ({
                 overflowY: 'auto',
                 overflowX: 'hidden',
                 maxHeight: ['60vh', '750px', '750px'],
-                minHeight: ['380px', '380px'],
                 WebkitOverflowScrolling: 'touch'
               })}
             >
@@ -1338,13 +1355,7 @@ const PreviewDisplay = ({
                   </ViewportCard>
                 </Flex>
               ) : (
-                <ViewportCard
-                  style={{
-                    maxWidth: `${maxWidth}px`,
-                    minHeight: `${maxHeight}px`
-                  }}
-                >
-                  {console.log(maxWidth + 'px', 'by user set ->', maxWidth)}
+                <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
                   <Image
                     alt={`Screenshot of ${url}`}
                     src={imageUrl}
