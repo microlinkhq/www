@@ -12,7 +12,8 @@ import {
   Code,
   HelpCircle,
   Link2,
-  Settings
+  Settings,
+  X
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
@@ -28,7 +29,6 @@ import Container from 'components/elements/Container'
 import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
-import Image from 'components/elements/Image/Image'
 import Input from 'components/elements/Input/Input'
 import Label from 'components/elements/Label'
 import { Link } from 'components/elements/Link'
@@ -98,6 +98,12 @@ const FORMAT_OPTIONS = [
   { value: 'png', label: 'PNG' },
   { value: 'jpeg', label: 'JPG' }
 ]
+
+const SCREENSHOT_HISTORY_KEY = 'screenshot-history'
+const MAX_HISTORY_ITEMS = 12
+const HISTORY_MAX_AGE_MS = 24 * 60 * 60 * 1000
+const THUMB_SIZE = 244
+const THUMB_QUALITY = 0.85
 
 const LAYOUT_PIVOT = 1200
 const MOBILE_BP = 768
@@ -701,6 +707,113 @@ const StickyGenerateWrapper = styled(Box)`
     padding-left: ${space[3]};
     padding-right: ${space[3]};
     background: linear-gradient(to top, #f8fafc 80%, transparent);
+  }
+`
+
+/* ─── Screenshot History Styled Components ────────────── */
+
+const HistoryScrollContainer = styled(Flex)`
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  ${theme({ gap: 2, pb: 2, pt: 2 })}
+  scrollbar-width: thin;
+  scrollbar-color: ${colors.black10} transparent;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${colors.black10};
+    border-radius: 2px;
+  }
+`
+
+const HistoryThumbnail = styled(Box).withConfig({
+  shouldForwardProp: prop => !['$active'].includes(prop)
+})`
+  position: relative;
+  flex-shrink: 0;
+  width: 122px;
+  height: 122px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  scroll-snap-align: start;
+  border: 2px solid ${({ $active }) => ($active ? colors.link : colors.black10)};
+  transition: border-color ${transition.medium}, box-shadow ${transition.medium},
+    transform ${transition.short};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover {
+    border-color: ${({ $active }) => ($active ? colors.link : colors.black20)};
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+`
+
+const ThumbnailDeleteButton = styled(Box).attrs({
+  as: 'button',
+  type: 'button'
+})`
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity ${transition.short}, background ${transition.short};
+  z-index: 1;
+  padding: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  ${HistoryThumbnail}:hover &,
+  ${HistoryThumbnail}:focus-within & {
+    opacity: 1;
+  }
+
+  &:hover {
+    background: rgba(220, 38, 38, 0.9);
+  }
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 2px solid white;
+    outline-offset: 1px;
   }
 `
 
@@ -1498,25 +1611,19 @@ const PreviewDisplay = ({
                 </Flex>
               ) : (
                 <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
-                  <Image
+                  <img
                     alt={`Screenshot of ${url}`}
                     src={imageUrl}
-                    css={theme({
+                    loading='lazy'
+                    decoding='async'
+                    onError={() => setIsPreviewTooBig(true)}
+                    style={{
                       width: '100%',
-                      display: 'block'
-                    })}
-                    style={isImgLoading =>
-                      isImgLoading
-                        ? {
-                          objectFit: 'contain',
-                          imageRendering: '-webkit-optimize-contrast'
-                        }
-                        : {
-                          objectFit: 'contain',
-                          imageRendering: '-webkit-optimize-contrast'
-                        }
-                    }
-                    onLazyError={() => setIsPreviewTooBig(true)}
+                      maxWidth: '100%',
+                      display: 'block',
+                      objectFit: 'contain',
+                      imageRendering: '-webkit-optimize-contrast'
+                    }}
                   />
                 </ViewportCard>
               )}
@@ -1644,6 +1751,104 @@ const PreviewDisplay = ({
   )
 }
 
+/* ─── Screenshot Thumbnail Generator ──────────────────── */
+
+const createThumbnail = imageUrl =>
+  new Promise(resolve => {
+    const img = new window.Image()
+    img.crossOrigin = 'anonymous'
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas')
+        canvas.width = THUMB_SIZE
+        canvas.height = THUMB_SIZE
+        const ctx = canvas.getContext('2d')
+        /* crop from the top, square-fitted */
+        const size = Math.min(img.width, img.height)
+        const sx = (img.width - size) / 2
+        ctx.drawImage(img, sx, 0, size, size, 0, 0, THUMB_SIZE, THUMB_SIZE)
+        resolve(canvas.toDataURL('image/jpeg', THUMB_QUALITY))
+      } catch {
+        resolve(null)
+      }
+    }
+    img.onerror = () => resolve(null)
+    img.src = imageUrl
+  })
+
+/* ─── Screenshot History ──────────────────────────────── */
+
+const ScreenshotHistory = ({ entries, activeId, onSelect, onDelete }) => {
+  if (!entries || entries.length === 0) return null
+
+  return (
+    <Box css={theme({ pt: [3, 3, 4, 4] })}>
+      <Flex
+        css={theme({
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          pb: 2
+        })}
+      >
+        <Text
+          css={theme({
+            fontSize: 0,
+            fontWeight: 'bold',
+            color: 'black50',
+            fontFamily: 'sans'
+          })}
+        >
+          Recent screenshots
+        </Text>
+        <Text
+          css={theme({
+            fontSize: 0,
+            color: 'black30',
+            fontFamily: 'sans'
+          })}
+          style={{ fontVariantNumeric: 'tabular-nums' }}
+        >
+          {entries.length}/{MAX_HISTORY_ITEMS}
+        </Text>
+      </Flex>
+      <HistoryScrollContainer role='list' aria-label='Screenshot history'>
+        {entries.map(entry => (
+          <HistoryThumbnail
+            key={entry.id}
+            role='listitem'
+            $active={entry.id === activeId}
+            tabIndex={0}
+            aria-label={`Load screenshot of ${entry.settings.url}`}
+            onClick={() => onSelect(entry)}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                onSelect(entry)
+              }
+            }}
+          >
+            <img
+              src={entry.thumbnail || entry.screenshot.url}
+              alt={`Screenshot of ${entry.settings.url}`}
+              loading='lazy'
+              draggable='false'
+            />
+            <ThumbnailDeleteButton
+              aria-label={`Delete screenshot of ${entry.settings.url}`}
+              onClick={e => {
+                e.stopPropagation()
+                onDelete(entry.id)
+              }}
+            >
+              <X size={12} />
+            </ThumbnailDeleteButton>
+          </HistoryThumbnail>
+        ))}
+      </HistoryScrollContainer>
+    </Box>
+  )
+}
+
 /* ─── Main Tool Section ────────────────────────────────── */
 
 const ScreenshotTool = () => {
@@ -1671,6 +1876,22 @@ const ScreenshotTool = () => {
   })
 
   const [localStorageData] = useLocalStorage('mql-api-key')
+  const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
+  const [activeHistoryId, setActiveHistoryId] = useState(null)
+  const [historyReady, setHistoryReady] = useState(false)
+
+  /* Clean expired entries (>24 h) on mount, then allow rendering */
+  useEffect(() => {
+    setHistory(prev => {
+      if (!Array.isArray(prev)) return []
+      const now = Date.now()
+      const cleaned = prev.filter(
+        entry => now - entry.createdAt < HISTORY_MAX_AGE_MS
+      )
+      return cleaned.length !== prev.length ? cleaned : prev
+    })
+    setHistoryReady(true)
+  }, [setHistory])
 
   const handleSubmit = useCallback(
     async url => {
@@ -1711,6 +1932,37 @@ const ScreenshotTool = () => {
 
         const response = await mql(url, mqlOpts)
         setData(response.data)
+
+        if (response.data?.screenshot) {
+          const entryId = String(Date.now())
+          const thumbnail = await createThumbnail(response.data.screenshot.url)
+          setHistory(prev => {
+            const items = Array.isArray(prev) ? prev : []
+            return [
+              {
+                id: entryId,
+                createdAt: Date.now(),
+                screenshot: response.data.screenshot,
+                thumbnail,
+                settings: {
+                  url,
+                  type: options.type,
+                  fullPage: options.fullPage,
+                  device: options.device,
+                  customWidth: options.customWidth,
+                  customHeight: options.customHeight,
+                  overlayEnabled: options.overlayEnabled,
+                  overlayBackground: options.overlayBackground,
+                  overlayCustomHex: options.overlayCustomHex,
+                  adblock: options.adblock,
+                  cache: options.cache
+                }
+              },
+              ...items
+            ].slice(0, MAX_HISTORY_ITEMS)
+          })
+          setActiveHistoryId(entryId)
+        }
       } catch (err) {
         console.error('Screenshot error:', err)
         setError({
@@ -1722,7 +1974,43 @@ const ScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options]
+    [options, setHistory]
+  )
+
+  const handleHistorySelect = useCallback(entry => {
+    const { settings, screenshot } = entry
+    setOptions({
+      url: settings.url,
+      type: settings.type,
+      fullPage: settings.fullPage,
+      device: settings.device,
+      customWidth: settings.customWidth,
+      customHeight: settings.customHeight,
+      overlayEnabled: settings.overlayEnabled,
+      overlayBackground: settings.overlayBackground || DEFAULT_OVERLAY_BG,
+      overlayCustomHex: settings.overlayCustomHex || '',
+      adblock: settings.adblock !== undefined ? settings.adblock : true,
+      cache: settings.cache !== undefined ? settings.cache : true
+    })
+    setData({ screenshot })
+    setLastUrl(settings.url)
+    setRequestedViewport({
+      width: Number(settings.customWidth) || 1920,
+      height: Number(settings.customHeight) || 1080
+    })
+    setError(null)
+    setActiveHistoryId(entry.id)
+  }, [])
+
+  const handleHistoryDelete = useCallback(
+    id => {
+      setHistory(prev => {
+        const items = Array.isArray(prev) ? prev : []
+        return items.filter(entry => entry.id !== id)
+      })
+      setActiveHistoryId(prev => (prev === id ? null : prev))
+    },
+    [setHistory]
   )
 
   const handleRetry = useCallback(() => {
@@ -1764,6 +2052,15 @@ const ScreenshotTool = () => {
           />
         </PreviewOuter>
       </ToolLayout>
+
+      {historyReady && (
+        <ScreenshotHistory
+          entries={Array.isArray(history) ? history : []}
+          activeId={activeHistoryId}
+          onSelect={handleHistorySelect}
+          onDelete={handleHistoryDelete}
+        />
+      )}
     </Container>
   )
 }
