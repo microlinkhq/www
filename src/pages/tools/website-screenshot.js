@@ -1103,8 +1103,8 @@ const PreviewDisplay = ({
   }, [])
 
   /* scale width to preview the screenshot with a better aspect ratio and quality*/
-  const maxWidthtScaled = (viewportWidth * 2) / 3
-  const maxWidth = maxWidthtScaled > actualWidth ? actualWidth : maxWidthtScaled
+  const maxWidthScaled = (viewportWidth * 2) / 3
+  const maxWidth = maxWidthScaled > actualWidth ? actualWidth : maxWidthScaled
 
   /* scale height proportional to the width lost */
   const fractionLost = (viewportWidth - maxWidth) / viewportWidth
@@ -1114,14 +1114,7 @@ const PreviewDisplay = ({
       ? MAX_SCREENSHOT_PREVIEW_HEIGHT
       : maxHeightScaled
 
-  console.log({
-    actualWidth,
-    maxWidth,
-    maxWidthtScaled,
-    fractionLost,
-    maxHeightScaled,
-    maxHeight
-  })
+  const containerHeight = maxHeight + 32 // 32 px padding
 
   const showSkeleton = isLoading || (!!imageUrl && !imagePainted)
 
@@ -1283,6 +1276,7 @@ const PreviewDisplay = ({
                 flex: 1,
                 overflowY: 'auto',
                 overflowX: 'hidden',
+                minHeight: `${containerHeight}px`,
                 maxHeight: ['60vh', '750px', '750px'],
                 WebkitOverflowScrolling: 'touch'
               })}
