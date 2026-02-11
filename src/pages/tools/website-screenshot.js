@@ -100,6 +100,8 @@ const FORMAT_OPTIONS = [
 
 const LAYOUT_PIVOT = 1200
 const MOBILE_BP = 768
+const MAX_SCREENSHOT_PREVIEW_WIDTH = 978
+const MAX_SCREENSHOT_PREVIEW_HEIGHT = 750
 
 const DEVICE_OPTIONS = [
   { value: 'desktop', label: 'Desktop' },
@@ -1080,9 +1082,21 @@ const PreviewDisplay = ({
   const [imagePainted, setImagePainted] = useState(false)
   const prevImageUrlRef = useRef(null)
   const imageUrl = get(data, 'screenshot.url')
-  const maxHeight = viewportHeight > 750 ? 750 : viewportHeight
-  const maxWidth = (viewportWidth * 2) / 3
-  const aspectRatio = (maxHeight / maxWidth) * 100
+
+  /* scale width to preview the screenshot with a better aspect ratio and quality*/
+  const maxWidthtScaled = (viewportWidth * 2) / 3
+  const maxWidth =
+    maxWidthtScaled > MAX_SCREENSHOT_PREVIEW_WIDTH
+      ? MAX_SCREENSHOT_PREVIEW_WIDTH
+      : maxWidthtScaled
+
+  /* scale height proportional to the width lost */
+  const fractionLost = (viewportWidth - maxWidth) / viewportWidth
+  const maxHeightScaled = viewportHeight - viewportHeight * fractionLost
+  const maxHeight =
+    maxHeightScaled > MAX_SCREENSHOT_PREVIEW_HEIGHT
+      ? MAX_SCREENSHOT_PREVIEW_HEIGHT
+      : maxHeightScaled
 
   const showSkeleton = isLoading || (!!imageUrl && !imagePainted)
 
@@ -1115,7 +1129,7 @@ const PreviewDisplay = ({
           >
             <Box
               css={theme({
-                p: [3, 4],
+                p: [3],
                 flex: 1,
                 display: 'flex',
                 alignItems: 'center',
@@ -1144,6 +1158,13 @@ const PreviewDisplay = ({
                   maxHeight: `${maxHeight}px`
                 }}
               >
+                {console.log(
+                  maxHeight + 'px',
+                  'by user set ->',
+                  viewportHeight,
+                  'width user ->',
+                  maxWidth
+                )}
                 <SkeletonPulse
                   role='progressbar'
                   aria-label={
@@ -1151,7 +1172,7 @@ const PreviewDisplay = ({
                   }
                   style={{
                     width: '100%',
-                    paddingBottom: `${Math.min(aspectRatio, 180)}%`
+                    height: `${maxHeight}px`
                   }}
                 />
               </ViewportCard>
@@ -1317,13 +1338,18 @@ const PreviewDisplay = ({
                   </ViewportCard>
                 </Flex>
               ) : (
-                <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
+                <ViewportCard
+                  style={{
+                    maxWidth: `${maxWidth}px`,
+                    minHeight: `${maxHeight}px`
+                  }}
+                >
+                  {console.log(maxWidth + 'px', 'by user set ->', maxWidth)}
                   <Image
                     alt={`Screenshot of ${url}`}
                     src={imageUrl}
                     css={theme({
                       width: '100%',
-                      maxWidth: '100%',
                       display: 'block'
                     })}
                     style={isImgLoading =>
