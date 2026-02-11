@@ -252,6 +252,9 @@ importers:
       nano-staged:
         specifier: latest
         version: 0.8.0
+      optimo:
+        specifier: latest
+        version: 0.0.0
       pretty-bytes:
         specifier: latest
         version: 7.0.0
@@ -6628,6 +6631,7 @@ packages:
 
   glob@10.5.0:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@13.0.0:
@@ -8990,6 +8994,11 @@ packages:
   opentracing@0.14.7:
     resolution: {integrity: sha512-vz9iS7MJ5+Bp1URw8Khvdyw1H/hGvzHWlKQ7eRrQojSCDL1/SrWfrY9QebLw97n2deyRtzHRC3MkQfVNUCo91Q==}
     engines: {node: '>=0.10'}
+
+  optimo@0.0.0:
+    resolution: {integrity: sha512-9IafRk++6aTcw4rKoHxJuOPC3TQJpmvLAbKujQbJMMbysK/fvc7bRYRlDsNSxiByP09h/Tfih04sjaGduHOkvA==}
+    engines: {node: '>= 24'}
+    hasBin: true
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -24499,6 +24508,10 @@ snapshots:
       is-wsl: 2.2.0
 
   opentracing@0.14.7: {}
+
+  optimo@0.0.0:
+    dependencies:
+      mri: 1.2.0
 
   optionator@0.9.4:
     dependencies:
