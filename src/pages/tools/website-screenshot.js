@@ -1363,7 +1363,7 @@ const PreviewDisplay = ({
     return () => resizeObserver.disconnect()
   }, [])
 
-  /* scale width to preview the screenshot with a better aspect ratio and quality*/
+  /* scale width to preview the screenshot with a better aspect ratio and quality */
   const maxWidthScaled = (viewportWidth * 2) / 3
   const maxWidth = maxWidthScaled > actualWidth ? actualWidth : maxWidthScaled
 
@@ -1957,10 +1957,19 @@ const ScreenshotTool = () => {
           }
         }
 
-        const response = await mql(url, mqlOpts)
-        setData(response.data)
+        let response = null
+        try {
+          response = await mql(url, mqlOpts)
+          setData(response.data)
+        } catch (err) {
+          setError({
+            message:
+              err.description || err.message || 'Failed to capture screenshot.',
+            statusCode: err.statusCode || err.code
+          })
+        }
 
-        if (response.data?.screenshot) {
+        if (response?.data?.screenshot) {
           const entryId = String(Date.now())
           const thumbnail = await createThumbnail(response.data.screenshot.url)
           setHistory(prev => {
@@ -1991,7 +2000,6 @@ const ScreenshotTool = () => {
           setActiveHistoryId(entryId)
         }
       } catch (err) {
-        console.error('Screenshot error:', err)
         setError({
           message:
             err.description || err.message || 'Failed to capture screenshot.',
