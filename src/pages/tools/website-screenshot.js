@@ -1501,12 +1501,13 @@ const PreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <Text css={theme({ color: 'fullscreen', fontSize: 2, pb: 3 })}>
+            <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
               {error?.statusCode === 429 ? (
                 <>
-                  You've reached your free daily limit.{' '}
-                  <Link href='/payment'>Get an&nbsp;API&nbsp;key</Link> or come
-                  back tomorrow.
+                  You've reached your free daily limit.
+                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
+                    We allow 50 requests per day for free users.
+                  </Text>
                 </>
               ) : (
                 error?.message || 'Something went wrong. Please try again.'
