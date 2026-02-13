@@ -190,12 +190,12 @@ const REASON_TO_USE = [
   {
     title: 'Fast Screen Capture',
     description:
-      'Our advanced technology captures website screenshots as fast as possible. Whether you need a quick snapshot or bulk captures via API, we deliver speed without compromising quality.'
+      'Our advanced technology captures website screenshots as fast as possible. We deliver speed without compromising quality. No manual scrolling or stitching required.'
   },
   {
     title: 'High-Resolution Website Images',
     description:
-      'Get crystal-clear screenshots at any viewport size—mobile, tablet, desktop, or custom dimensions. Perfect for portfolios, documentation, and testing.'
+      'Get crystal-clear screenshots at any viewport size—mobile, tablet, desktop, or custom dimensions. Add custom backgrounds and choose from multiple formats.'
   },
   {
     title: 'No Installation Required',
@@ -213,9 +213,9 @@ const REASON_TO_USE = [
       'Save screenshots to your local storage for easy access. Access them for 24 hours so if you grab the perfect screenshot, you can come back and grab it again.'
   },
   {
-    title: 'API Support',
+    title: 'Block ads and banners',
     description:
-      'Use our API to capture screenshots programmatically. Perfect for automation, CI/CD pipelines, and integration with other tools.'
+      'Automatically block ads and cookie banners before the rendering. Get the cleanest screenshots possible.'
   }
 ]
 
@@ -2125,7 +2125,8 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large
+        maxWidth: layout.large,
+        fontSize: [2, 2, 3, '32px']
       })}
     >
       Capture pixel-perfect screenshots of any website in seconds.
@@ -2144,18 +2145,20 @@ const HowItWorks = () => (
       width: '100%',
       pt: 0,
       pb: [2, 2, 3, 3],
-      mt: [4, 4, 4, 4]
+      mt: 2
     })}
   >
-    <Subhead
-      variant='gradient'
+    <Caption
+      forwardedAs='h2'
       css={theme({
-        fontSize: [3, '25px', '30px', '35px'],
-        pb: [2, 2, 3, 3]
+        pt: [2, 2, 3, 3],
+        px: 3,
+        maxWidth: layout.large,
+        fontSize: '32px'
       })}
     >
       How to Take a Website Screenshot
-    </Subhead>
+    </Caption>
     <Flex
       css={theme({
         flexDirection: 'row',
@@ -2190,7 +2193,7 @@ const UseCases = () => (
     id='use-cases'
     css={theme({
       alignItems: 'center',
-      pb: [5, 5, 6, 6],
+      pb: [4, 4, 5, 5],
       pt: [4, 4, 5, 5],
       mt: [3, 3, 4, 4],
       bg: 'pinky'
@@ -2230,8 +2233,17 @@ const UseCases = () => (
         maxWidth: layout.large
       })}
     >
-      This screenshot tool is powered by our own API, so you can be sure you're
-      getting the best possible quality and performance.
+      <Text css={theme({ fontSize: 3, color: 'black' })}>
+        Wondering how we deliver this quality for free?
+      </Text>
+      <Text
+        css={theme({ fontSize: 2, color: 'black80', lineHeight: 2, mt: 2 })}
+      >
+        This tool runs on our{' '}
+        <Link href='/screenshot'>production screenshot API</Link>—the same
+        infrastructure processing millions of screenshots per week for paying
+        customers. You get enterprise performance at no cost.
+      </Text>
     </Caption>
   </Container>
 )
@@ -2714,7 +2726,7 @@ const WebsiteScreenshotPage = () => (
     <HowItWorks />
     <UseCases />
     <Features
-      css={theme({ px: 4 })}
+      css={theme({ px: 4, pt: [4, 4, 5, 5] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
           High performance,{' '}
