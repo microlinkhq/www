@@ -2137,22 +2137,36 @@ const HowItWorks = () => (
     id='how-it-works'
     css={theme({
       alignItems: 'center',
-      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pt: [3, 3, 4, 4]
+      width: '100%',
+      pt: [2, 2, 3, 3],
+      pb: [2, 2, 3, 3],
+      mt: [4, 4, 5, 5],
+      bg: 'pinky'
     })}
   >
+    <Subhead
+      variant='gradient'
+      css={theme({
+        fontSize: [3, '30px', '35px', '45px'],
+        pb: [2, 2, 3, 3],
+        pt: [2, 2, 3, 3]
+      })}
+    >
+      How to Take a Website Screenshot
+    </Subhead>
     <Flex
       css={theme({
         flexDirection: ['column', 'column', 'row', 'row'],
         flexWrap: 'wrap',
         justifyContent: 'center',
-        gap: [3, 3, 4, 4]
+        gap: [3, 3, 4, 4],
+        pt: [2, 2, 3, 3]
       })}
     >
       {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
         <StepCard key={title}>
-          <IconCircle>
-            <Icon size={24} color={colors.link} />
+          <IconCircle css={theme({ width: '80px', height: '80px' })}>
+            <Icon size={32} color={colors.link} />
           </IconCircle>
           <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}>
             {title}
@@ -2176,7 +2190,8 @@ const UseCases = () => (
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
       pb: [5, 5, 6, 6],
-      pt: [3, 3, 4, 4]
+      pt: [3, 3, 4, 4],
+      mt: [3, 3, 4, 4]
     })}
   >
     <Subhead
