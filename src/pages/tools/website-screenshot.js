@@ -2467,7 +2467,7 @@ const ProductInformation = () => (
     css={theme({
       fontSize: [1, 1, 1, 1],
       pt: [2, 2, 3, 3],
-      pb: [5, 5, 6, 6],
+      pb: [3, 3, 4, 4],
       bg: 'pinky',
       borderTop: `${borders[1]} ${colors.pinkest}`,
       borderBottom: `${borders[1]} ${colors.pinkest}`
@@ -2523,6 +2523,18 @@ const ProductInformation = () => (
         )
       },
       {
+        question: 'Whats the quality of the screenshots?',
+        answer: (
+          <>
+            <div>
+              We always use the best quality settings for the screenshots. Then
+              we compress the images to the smallest file size possible without
+              losing quality.
+            </div>
+          </>
+        )
+      },
+      {
         question: 'Can I integrate this into my application?',
         answer: (
           <>
@@ -2559,15 +2571,6 @@ const ProductInformation = () => (
             </div>
           </>
         )
-      },
-      {
-        question: 'Other questions?',
-        answer: (
-          <div>
-            We're always available at{' '}
-            <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
-          </div>
-        )
       }
     ]}
   />
@@ -2578,7 +2581,7 @@ const ProductInformation = () => (
 export const Head = () => (
   <Meta
     title='Website Screenshot Generator - Free URL Screen Capture'
-    noSuffix={true}
+    noSuffix
     description='Generate high-quality website screenshots from any URL. Free, no-login online screen capture tool powered by a fast, reliable, and high resolution API.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg' // TODO: generate banner
     schemaType='SoftwareApplication'
