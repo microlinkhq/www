@@ -190,7 +190,7 @@ const REASON_TO_USE = [
   {
     title: 'Fast Screen Capture',
     description:
-      'Our advanced technology captures website screenshots as fast as possible. We deliver speed without compromising quality. No manual scrolling or stitching required.'
+      'Our advanced technology captures website screenshots as fast as possible. Whether you need a quick snapshot or bulk captures via API, we deliver speed and quality.'
   },
   {
     title: 'High-Resolution Website Images',
@@ -203,9 +203,9 @@ const REASON_TO_USE = [
       'Take web screenshots directly in your browser. No downloads, no plugins, no hassle. Just paste the URL and capture.'
   },
   {
-    title: 'Free & Premium Options',
+    title: 'No login required',
     description:
-      'Start with our free screenshot tool with 50 captures per day. No login required.'
+      'Start with our free screenshot tool with 50 screen captures per day. Come back as many times as you want.'
   },
   {
     title: 'Local Storage Support',
@@ -900,7 +900,7 @@ const ColorPicker = ({ value, onChange, customHex, onCustomHexChange }) => {
           aria-label='Pick a custom color'
         />
         <HexTextInput
-          placeholder='#FF057C…'
+          placeholder='#FF057C'
           value={customHex}
           onChange={e => onCustomHexChange(e.target.value.trim())}
           aria-label='Enter hex color code'
@@ -1815,16 +1815,6 @@ const ScreenshotHistory = ({
         >
           Recent screenshots
         </Text>
-        <Text
-          css={theme({
-            fontSize: 0,
-            color: 'black30',
-            fontFamily: 'sans'
-          })}
-          style={{ fontVariantNumeric: 'tabular-nums' }}
-        >
-          {entries.length}/{MAX_HISTORY_ITEMS}
-        </Text>
       </Flex>
       <HistoryScrollContainer
         ref={scrollRef}
@@ -2129,7 +2119,7 @@ const Hero = () => (
         fontSize: [2, 2, 3, '32px']
       })}
     >
-      Capture pixel-perfect screenshots of any website in seconds.
+      Capture any website screenshot online in seconds
     </Caption>
   </Flex>
 )
@@ -2151,13 +2141,13 @@ const HowItWorks = () => (
     <Caption
       forwardedAs='h2'
       css={theme({
-        pt: [2, 2, 3, 3],
+        pt: [3, 3, 4, 4],
         px: 3,
         maxWidth: layout.large,
-        fontSize: '32px'
+        fontSize: [3, 3, 3, '32px']
       })}
     >
-      How to Take a Website Screenshot
+      How to take a high quality screenshot of a website
     </Caption>
     <Flex
       css={theme({
@@ -2185,9 +2175,9 @@ const HowItWorks = () => (
   </Container>
 )
 
-/* ─── Use Cases ────────────────────────────────────────── */
+/* ─── Explanation ────────────────────────────────────── */
 
-const UseCases = () => (
+const Explanation = () => (
   <Container
     as='section'
     id='use-cases'
@@ -2203,7 +2193,7 @@ const UseCases = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Why Choose Our Website Screenshot Tool?
+      Why choose our free screenshot tool?
     </Subhead>
     <Box
       css={theme({
@@ -2239,10 +2229,10 @@ const UseCases = () => (
       <Text
         css={theme({ fontSize: 2, color: 'black80', lineHeight: 2, mt: 2 })}
       >
-        This tool runs on our{' '}
-        <Link href='/screenshot'>production screenshot API</Link>—the same
-        infrastructure processing millions of screenshots per week for paying
-        customers. You get enterprise performance at no cost.
+        This tool runs on <b>Microlink's</b>{' '}
+        <Link href='/screenshot'>screenshot API</Link>—the same infrastructure
+        processing millions of screenshots per week for paying customers. You
+        get enterprise performance at no cost.
       </Text>
     </Caption>
   </Container>
@@ -2307,17 +2297,20 @@ const ApiDocs = () => (
   </Container>
 )
 
-/* ─── Pricing / Limits ─────────────────────────────────── */
+/* ─── Banner ─────────────────────────────────────────── */
 
-const PricingLimits = () => (
+const Banner = () => (
   <Block
     forwardedAs='section'
     id='pricing'
     flexDirection='column'
     css={theme({
       px: 4,
-      pb: [5, 5, 6, 6],
+      maxHeight: '800px',
+      pb: 0,
+      pt: 5,
       width: '100%',
+      overflow: 'hidden',
       backgroundImage: `radial-gradient(
         circle at center right,
         #850ba7 0%,
@@ -2343,9 +2336,9 @@ const PricingLimits = () => (
         }}
       >
         <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
-          Start free{' '}
+          Screenshot API{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
-            Scale as you grow
+            for developers
           </span>
         </Subhead>
       </Flex>
@@ -2355,139 +2348,19 @@ const PricingLimits = () => (
         css={theme({
           pt: [4, 4, 5, 5],
           justifyContent: 'center',
-          alignItems: 'baseline',
-          width: '100%',
-          maxWidth: layout.normal,
-          gap: [4, 4, 5, 5],
-          flexWrap: 'wrap'
+          alignItems: 'flex-start',
+          maxHeight: ['200px', '300px', '400px', '650px'],
+          overflow: 'hidden'
         })}
         style={{ fontVariantNumeric: 'tabular-nums' }}
       >
-        <Flex
-          css={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column'
-          }}
-        >
-          <Subhead
-            forwardedAs='div'
-            css={theme({
-              fontSize: [3, 4, 4, 4],
-              color: 'white',
-              fontWeight: 'bold'
-            })}
-          >
-            50
-            <Caption
-              forwardedAs='div'
-              css={theme({
-                ml: 2,
-                color: 'white',
-                display: 'inline',
-                fontWeight: 'bold'
-              })}
-              titleize={false}
-            >
-              /day
-            </Caption>
-          </Subhead>
-          <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
-            {['Free', 'requests'].map(children => (
-              <Caps
-                key={children}
-                css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
-              >
-                {children}
-              </Caps>
-            ))}
-          </Caption>
-        </Flex>
-
-        <Flex
-          css={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column'
-          }}
-        >
-          <Subhead
-            forwardedAs='div'
-            css={theme({
-              fontSize: [3, 4, 4, 4],
-              color: 'white',
-              fontWeight: 'bold'
-            })}
-          >
-            99.9
-            <Caption
-              forwardedAs='div'
-              css={theme({
-                ml: 2,
-                color: 'white',
-                display: 'inline',
-                fontWeight: 'bold'
-              })}
-              titleize={false}
-            >
-              %
-            </Caption>
-          </Subhead>
-          <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
-            {['Uptime', 'SLA'].map(children => (
-              <Caps
-                key={children}
-                css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
-              >
-                {children}
-              </Caps>
-            ))}
-          </Caption>
-        </Flex>
-
-        <Flex
-          css={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column'
-          }}
-        >
-          <Subhead
-            forwardedAs='div'
-            css={theme({
-              fontSize: [3, 4, 4, 4],
-              color: 'white',
-              fontWeight: 'bold'
-            })}
-          >
-            240
-            <Caption
-              forwardedAs='div'
-              css={theme({
-                ml: 2,
-                color: 'white',
-                display: 'inline',
-                fontWeight: 'bold'
-              })}
-              titleize={false}
-            >
-              +
-            </Caption>
-          </Subhead>
-          <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
-            {['CDN', 'edges'].map(children => (
-              <Caps
-                key={children}
-                css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
-              >
-                {children}
-              </Caps>
-            ))}
-          </Caption>
-        </Flex>
+        <img
+          css={theme({
+            width: ['300px', '500px', '700px', '900px']
+          })}
+          src='/images/screenshot-tool-landing.png' // TODO: add the definitive landing image
+          alt='Screenshot API'
+        />
       </Flex>
     }
   />
@@ -2724,12 +2597,14 @@ const WebsiteScreenshotPage = () => (
     <Hero />
     <ScreenshotTool />
     <HowItWorks />
-    <UseCases />
+    <Explanation />
+    <Banner />
+    <RelatedTools />
     <Features
       css={theme({ px: 4, pt: [4, 4, 5, 5] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
-          High performance,{' '}
+          Website Screenshot API{' '}
           <span
             css={{
               display: 'block',
@@ -2738,7 +2613,7 @@ const WebsiteScreenshotPage = () => (
               textAlign: 'left'
             }}
           >
-            with no compromises.
+            for Automated Captures.
           </span>
         </Subhead>
       }
@@ -2746,15 +2621,13 @@ const WebsiteScreenshotPage = () => (
         <>
           No servers to maintain, no load balancers, no paying for capacity you
           don't use. Microlink lets you spend more time building and less time
-          configuring — easy integration via{' '}
-          <Link href='/docs/api/getting-started/overview'>API</Link>.
+          configuring — easy integration via <Link href='/screenshot'>API</Link>
+          .
         </>
       }
       features={FEATURES_LIST}
     />
     <ApiDocs />
-    <PricingLimits />
-    <RelatedTools />
     <ProductInformation />
   </Layout>
 )
