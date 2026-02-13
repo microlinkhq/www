@@ -166,60 +166,52 @@ const FEATURES_LIST = [
 const HOW_IT_WORKS = [
   {
     icon: Globe,
-    title: 'Enter URL',
-    description:
-      'Paste any website URL you want to capture. Our system accepts any public webpage.'
+    title: 'Enter URL'
   },
   {
     icon: Settings,
-    title: 'Configure Options',
-    description:
-      'Choose format, device viewport, and optional overlays to match your needs.'
+    title: 'Configure Options'
   },
   {
     icon: Camera,
-    title: 'Generate Screenshot',
-    description:
-      'Our headless browser renders the page and captures a pixel-perfect screenshot in seconds.'
+    title: 'Generate Screenshot'
   },
   {
     icon: Download,
-    title: 'Download & Share',
-    description:
-      'Get your screenshot as a direct URL. Download it, embed it, or share it anywhere.'
+    title: 'Download & Share'
   }
 ]
 
-const USE_CASES = [
+const REASON_TO_USE = [
   {
-    title: 'Visual Monitoring',
+    title: 'Fast Screen Capture',
     description:
-      'Track website changes over time. Detect visual regressions and layout issues automatically.'
+      'Our advanced technology captures website screenshots as fast as possible. Whether you need a quick snapshot or bulk captures via API, we deliver speed without compromising quality.'
   },
   {
-    title: 'Automated Testing',
+    title: 'High-Resolution Website Images',
     description:
-      'Integrate screenshots into CI/CD pipelines for visual regression testing across browsers and devices.'
+      'Get crystal-clear screenshots at any viewport size—mobile, tablet, desktop, or custom dimensions. Perfect for portfolios, documentation, and testing.'
   },
   {
-    title: 'Social Sharing',
+    title: 'No Installation Required',
     description:
-      'Generate dynamic og:image tags for link previews. Every page gets a unique, up-to-date social card.'
+      'Take web screenshots directly in your browser. No downloads, no plugins, no hassle. Just paste the URL and capture.'
   },
   {
-    title: 'Documentation',
+    title: 'Free & Premium Options',
     description:
-      'Auto-generate screenshots for docs, tutorials, and guides. Always current, never outdated.'
+      'Start with our free screenshot tool with 50 captures per day. No login required.'
   },
   {
-    title: 'Competitor Analysis',
+    title: 'Local Storage Support',
     description:
-      'Capture and archive competitor websites at scale for design research and market intelligence.'
+      'Save screenshots to your local storage for easy access. Access them for 24 hours so if you grab the perfect screenshot, you can come back and grab it again.'
   },
   {
-    title: 'Content Archiving',
+    title: 'API Support',
     description:
-      'Preserve web content as visual snapshots. Build searchable archives of pages over time.'
+      'Use our API to capture screenshots programmatically. Perfect for automation, CI/CD pipelines, and integration with other tools.'
   }
 ]
 
@@ -2061,7 +2053,7 @@ const ScreenshotTool = () => {
         px: ['16px', '25px'],
         maxWidth: ['100%', layout.normal, '1460px', '1460px'],
         pb: [2, 2, 4, 4],
-        pt: [3, 3, 5, 5]
+        pt: [3, 3, 4, 5]
       })}
     >
       <ToolLayout>
@@ -2115,19 +2107,24 @@ const Hero = () => (
       pb: [1]
     })}
   >
-    <Heading css={theme({ px: [4, 5], maxWidth: layout.large })}>
-      Capture perfect website screenshots
+    <Heading
+      css={theme({
+        px: [3, 3],
+        maxWidth: layout.large,
+        fontSize: [3, '35px', '40px', '50px']
+      })}
+    >
+      Generate Website Screenshots Instantly
     </Heading>
     <Caption
       forwardedAs='h2'
       css={theme({
-        pt: [3, 3, 4, 4],
-        px: 4,
+        pt: [2, 2, 3, 3],
+        px: 3,
         maxWidth: layout.large
       })}
     >
-      Automate high-quality screenshots of any webpage with our powerful API.
-      Perfect for developers, designers, and marketers.
+      Capture pixel-perfect screenshots of any website in seconds.
     </Caption>
   </Flex>
 )
@@ -2141,22 +2138,11 @@ const HowItWorks = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [5, 5, 6, 6]
+      pt: [3, 3, 4, 4]
     })}
   >
-    <Subhead variant='gradient'>How it works</Subhead>
-    <Caption
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: layout.small
-      })}
-    >
-      From URL to screenshot in four simple steps.
-    </Caption>
     <Flex
       css={theme({
-        pt: [4, 4, 5, 5],
         flexDirection: ['column', 'column', 'row', 'row'],
         flexWrap: 'wrap',
         justifyContent: 'center',
@@ -2189,19 +2175,16 @@ const UseCases = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [5, 5, 6, 6]
+      pb: [5, 5, 6, 6],
+      pt: [3, 3, 4, 4]
     })}
   >
-    <Subhead variant='gradient'>Use cases</Subhead>
-    <Caption
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: layout.small
-      })}
+    <Subhead
+      variant='gradient'
+      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Powerful screenshot automation for every workflow.
-    </Caption>
+      Why Choose Our Website Screenshot Tool?
+    </Subhead>
     <Box
       css={theme({
         display: 'grid',
@@ -2211,9 +2194,9 @@ const UseCases = () => (
         width: '100%'
       })}
     >
-      {USE_CASES.map(({ title, description }) => (
+      {REASON_TO_USE.map(({ title, description }) => (
         <UseCaseCard key={title}>
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}>
+          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 1 })}>
             {title}
           </Caps>
           <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
@@ -2222,6 +2205,17 @@ const UseCases = () => (
         </UseCaseCard>
       ))}
     </Box>
+    <Caption
+      css={theme({
+        pt: [4, 4, 5, 5],
+        px: [1, 1, 3, 3],
+        fontSize: '24px',
+        maxWidth: layout.large
+      })}
+    >
+      This screenshot tool is powered by our own API, so you can be sure you're
+      getting the best possible quality and performance.
+    </Caption>
   </Container>
 )
 
@@ -2660,9 +2654,10 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Capture perfect website screenshots'
-    description='Automate high-quality screenshots of any webpage with a powerful API. Full-page capture, device emulation, overlays, and multiple formats. Free to use.'
-    image='https://cdn.microlink.io/banner/screenshot.jpeg'
+    title='Website Screenshot Generator - Free URL Screen Capture'
+    noSuffix={true}
+    description='Generate high-quality website screenshots from any URL. Free, no-login online screen capture tool powered by a fast, reliable, and high resolution API.'
+    image='https://cdn.microlink.io/banner/screenshot.jpeg' // TODO: generate banner
     schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',
@@ -2670,26 +2665,18 @@ export const Head = () => (
       '@id': 'https://microlink.io/tools/website-screenshot',
       name: 'Microlink Website Screenshot Tool',
       description:
-        'Capture high-quality screenshots of any webpage with full-page support, device emulation, overlays, and multiple formats.',
+        'Capture high-quality screenshots of any webpage with full-page support, device emulation, overlays, and multiple formats.', // TODO: add json-ld description
       url: 'https://microlink.io/tools/website-screenshot',
       applicationCategory: ['DeveloperApplication', 'Tool'],
       keywords: [
         'website screenshot tool',
         'screenshot API',
         'webpage capture',
-        'full page screenshot',
+        'take web screenshot',
         'website screenshot generator',
         'responsive screenshot',
-        'browser automation',
-        'visual testing',
-        'web scraping screenshots',
-        'automated screenshots'
-      ],
-      about: [
-        { '@type': 'Thing', name: 'Website Screenshot Tool' },
-        { '@type': 'Thing', name: 'Screenshot API' },
-        { '@type': 'Thing', name: 'Visual Documentation' },
-        { '@type': 'Thing', name: 'Browser Automation' }
+        'screen capture site',
+        'web page screen capture online'
       ],
       offers: {
         '@type': 'Offer',
