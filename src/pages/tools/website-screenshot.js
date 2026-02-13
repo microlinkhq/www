@@ -117,39 +117,9 @@ const DEVICE_OPTIONS = [
 
 const FEATURES_LIST = [
   {
-    title: 'Full-Page Capture',
-    description:
-      'Capture entire web pages from top to bottom, including below-the-fold content. No manual scrolling or stitching required.'
-  },
-  {
-    title: 'Responsive Screenshots',
-    description:
-      'Emulate any device viewport — desktop, tablet, or mobile. Test responsive designs with pixel-perfect accuracy.'
-  },
-  {
-    title: 'No Watermarks',
-    description:
-      'Every screenshot is clean and professional. No branding, overlays, or watermarks on your captured images.'
-  },
-  {
     title: 'Fast CDN Delivery',
     description:
       'Screenshots are served via a global CDN with 240+ edge locations. Lightning-fast delivery anywhere in the world.'
-  },
-  {
-    title: 'Ad & Popup Blocking',
-    description:
-      'Automatically block ads, cookie banners, and popups for clean, distraction-free screenshots every time.'
-  },
-  {
-    title: 'Custom Overlays',
-    description:
-      'Add professional browser chrome, gradient backgrounds, and custom styling to make screenshots presentation-ready.'
-  },
-  {
-    title: 'Multiple Formats',
-    description:
-      'Export as PNG, JPG, or WebP. Optimize for size or visual fidelity as needed.'
   },
   {
     title: 'Smart Caching',
@@ -203,9 +173,9 @@ const REASON_TO_USE = [
       'Take web screenshots directly in your browser. No downloads, no plugins, no hassle. Just paste the URL and capture.'
   },
   {
-    title: 'No login required',
+    title: 'Free + No login',
     description:
-      'Start with our free screenshot tool with 50 screen captures per day. Come back as many times as you want.'
+      'Free screenshot tool with 50 screen captures per day. Every screenshot is clean and professional. No branding, overlays, or watermarks on your captured images.'
   },
   {
     title: 'Local Storage Support',
@@ -2144,7 +2114,7 @@ const HowItWorks = () => (
         pt: [3, 3, 4, 4],
         px: 3,
         maxWidth: layout.large,
-        fontSize: [3, 3, 3, '32px']
+        fontSize: [3, 3, 3, '28px']
       })}
     >
       How to take a high quality screenshot of a website
@@ -2283,7 +2253,8 @@ const ApiDocs = () => (
           pt: [3, 3, 4, 4],
           justifyContent: 'center',
           gap: 3,
-          flexWrap: 'wrap'
+          flexWrap: 'wrap',
+          fontSize: [1, 1, 2, 2]
         })}
       >
         <ArrowLink href='/docs/api/parameters/screenshot'>
@@ -2366,88 +2337,124 @@ const Banner = () => (
   />
 )
 
-/* ─── Related Tools ────────────────────────────────────── */
+/* ─── Use Cases ───────────────────────────────────────── */
 
-const RelatedTools = () => (
+const USE_CASES = [
+  {
+    title: 'For Web Designers & Developers',
+    items: [
+      'Create portfolio screenshots of live websites',
+      'Document design iterations and A/B tests',
+      'Generate client approval mockups instantly',
+      'Capture responsive layouts across devices'
+    ]
+  },
+  {
+    title: 'For Digital Marketers',
+    items: [
+      'Screenshot competitor websites for analysis',
+      'Create case study visuals with before/after shots',
+      'Capture landing pages for ad compliance records',
+      'Generate social media preview images'
+    ]
+  },
+  {
+    title: 'For QA & Testing Teams',
+    items: [
+      'Screenshot webpages for bug reports',
+      'Automate visual regression testing via API',
+      'Capture site states at specific timestamps',
+      'Document cross-browser rendering issues'
+    ]
+  }
+]
+
+const UseCases = () => (
   <Container
     as='section'
-    id='related'
+    id='use-cases'
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [5, 5, 6, 6]
+      pb: [5, 5, 6, 6],
+      pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead css={theme({ fontSize: [3, 3, 4, 4] })}>Related tools</Subhead>
+    <Subhead
+      variant='gradient'
+      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
+    >
+      Use cases for website screen capture
+    </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
-      Explore more developer tools powered by Microlink.
+      From design reviews to automated testing, website screenshots power
+      workflows across every team.
     </Caption>
     <Box
       css={theme({
         display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr 1fr'],
+        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr 1fr', '1fr 1fr 1fr'],
         gap: 3,
         pt: [4, 4, 5, 5],
         width: '100%'
       })}
     >
-      {[
-        {
-          title: 'Screenshot API',
-          description:
-            'The core screenshot endpoint with full browser control and device emulation.',
-          href: '/screenshot'
-        },
-        {
-          title: 'PDF Generation',
-          description:
-            'Convert any webpage to a professional PDF document with a single API call.',
-          href: '/pdf'
-        },
-        {
-          title: 'Sharing Debugger',
-          description:
-            'Debug and validate Open Graph, Twitter Cards, and other metadata markup.',
-          href: '/tools/sharing-debugger'
-        },
-        {
-          title: 'Metadata API',
-          description:
-            'Extract structured metadata from any URL — titles, images, descriptions, and more.',
-          href: '/metadata'
-        },
-        {
-          title: 'Insights',
-          description:
-            'Get Lighthouse performance audits and technology stack detection for any URL.',
-          href: '/insights'
-        },
-        {
-          title: 'Microlink SDK',
-          description:
-            'Beautiful link previews for your website with a single React component.',
-          href: '/sdk'
-        }
-      ].map(({ title, description, href }) => (
-        <Link key={href} href={href} externalIcon={false}>
-          <UseCaseCard css={theme({ height: '100%' })}>
-            <Caps
-              as='h3'
-              css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}
-            >
-              {title}
-            </Caps>
-            <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-              {description}
-            </Text>
-            <Flex css={theme({ pt: 2, alignItems: 'center', color: 'link' })}>
-              <Text css={theme({ fontSize: 0, fontWeight: 'bold' })}>
-                Learn more
-              </Text>
-              <ArrowRight size={14} />
-            </Flex>
-          </UseCaseCard>
-        </Link>
+      {USE_CASES.map(({ title, items }) => (
+        <Box
+          key={title}
+          css={theme({
+            p: 4,
+            border: 1,
+            borderColor: 'black10',
+            borderRadius: 3,
+            bg: 'white'
+          })}
+        >
+          <Caps
+            as='h3'
+            titleize={false}
+            css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
+          >
+            {title}
+          </Caps>
+          <Box
+            as='ul'
+            css={{
+              padding: 0,
+              margin: 0,
+              listStyle: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: space[2]
+            }}
+          >
+            {items.map(item => (
+              <Flex
+                key={item}
+                as='li'
+                css={{
+                  alignItems: 'baseline',
+                  gap: space[2]
+                }}
+              >
+                <ArrowRight
+                  size={12}
+                  color={colors.link}
+                  css={{ flexShrink: 0, position: 'relative', top: 1 }}
+                />
+                <Text
+                  css={theme({
+                    fontSize: 1,
+                    color: 'black60',
+                    lineHeight: 2
+                  })}
+                >
+                  {item}
+                </Text>
+              </Flex>
+            ))}
+          </Box>
+        </Box>
       ))}
     </Box>
   </Container>
@@ -2457,9 +2464,9 @@ const RelatedTools = () => (
 
 const ProductInformation = () => (
   <Faq
-    title='Product information'
-    caption='Everything you need to know about the Website Screenshot tool.'
     css={theme({
+      fontSize: [1, 1, 1, 1],
+      pt: [2, 2, 3, 3],
       pb: [5, 5, 6, 6],
       bg: 'pinky',
       borderTop: `${borders[1]} ${colors.pinkest}`,
@@ -2467,7 +2474,7 @@ const ProductInformation = () => (
     })}
     questions={[
       {
-        question: 'Is the screenshot tool free to use?',
+        question: 'Is this website screenshot tool really free?',
         answer: (
           <>
             <div>
@@ -2477,8 +2484,24 @@ const ProductInformation = () => (
               multiple formats.
             </div>
             <div>
-              Need more? Check our <Link href='/payment'>pricing plans</Link>{' '}
+              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
               for higher limits and priority processing.
+            </div>
+          </>
+        )
+      },
+      {
+        question: "What's the maximum screenshot size?",
+        answer: (
+          <>
+            <div>
+              On the screenshot tool, the maximum resolution area goes up to
+              8000px. Even if the preview shows a smaller area, the actual
+              screenshot will be the full size.
+            </div>
+            <div>
+              On the API, there's no maximum size limit. You can take
+              screenshots of any size you need.
             </div>
           </>
         )
@@ -2488,9 +2511,9 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Export screenshots as <b>PNG</b> (lossless), <b>JPG</b>, or{' '}
-              <b>WebP</b> (modern format, smaller file sizes). Choose the format
-              that best fits your use case.
+              Export screenshots as <b>PNG</b> (lossless) and <b>JPG</b>(modern
+              format, smaller file sizes). Choose the format that best fits your
+              use case.
             </div>
             <div>
               Full-page screenshots, custom viewports, ad blocking, and
@@ -2528,13 +2551,11 @@ const ProductInformation = () => (
             <div>
               Screenshots are cached on our global CDN by default. Cached
               responses are served instantly and{' '}
-              <b>don't count against your quota</b>. You can configure the cache
-              TTL via the{' '}
-              <Link href='/docs/api/parameters/ttl'>ttl parameter</Link>.
+              <b>don't count against your limit</b>. It lasts for 24 hours.
             </div>
             <div>
-              Use <Link href='/docs/api/parameters/force'>force: true</Link> to
-              bypass the cache and get a fresh screenshot.
+              We only recomend turning of the cache if you need to take a
+              screenshot of a page that changes frequently.
             </div>
           </>
         )
@@ -2598,10 +2619,10 @@ const WebsiteScreenshotPage = () => (
     <ScreenshotTool />
     <HowItWorks />
     <Explanation />
+    <UseCases />
     <Banner />
-    <RelatedTools />
     <Features
-      css={theme({ px: 4, pt: [4, 4, 5, 5] })}
+      css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
           Website Screenshot API{' '}
