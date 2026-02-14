@@ -253,8 +253,8 @@ importers:
         specifier: latest
         version: 0.8.0
       optimo:
-        specifier: 0.0.7
-        version: 0.0.7
+        specifier: latest
+        version: 0.0.10
       pretty-bytes:
         specifier: latest
         version: 7.0.0
@@ -1925,6 +1925,10 @@ packages:
 
   '@microlink/mql@0.14.0':
     resolution: {integrity: sha512-ZIFnLyBQ+aneTstA+JJgkO/MwlOSsl9f90BDQnZlLWRQSD55ACfhyPQ7fY067eTqrmw33PZwkvO25vNPTQmWYg==}
+    engines: {node: '>= 18'}
+
+  '@microlink/mql@0.14.2':
+    resolution: {integrity: sha512-xiuCpb1yHJT0rD5v7F6hW+TZNRVk8DQfrZVBj9QzQpZfJ22hme45NieaNtSiY4DsiqEIxaQxParYRR18D/RYeg==}
     engines: {node: '>= 18'}
 
   '@microlink/react@5.5.24':
@@ -8995,8 +8999,8 @@ packages:
     resolution: {integrity: sha512-vz9iS7MJ5+Bp1URw8Khvdyw1H/hGvzHWlKQ7eRrQojSCDL1/SrWfrY9QebLw97n2deyRtzHRC3MkQfVNUCo91Q==}
     engines: {node: '>=0.10'}
 
-  optimo@0.0.7:
-    resolution: {integrity: sha512-fn65Cy68vUUrAGQownT8V5U1yseP6K2944D+JDfj5hsYjRt/53fczbv94UYSFlG0YaNXqhzTs92JLEy8UfSPoQ==}
+  optimo@0.0.10:
+    resolution: {integrity: sha512-Xdcse23ure2iiOj+EQHM1/7B+fcI8ipug5CD8Gx+G3cP7w6uFL+uj4tQDAis3ovtTDXqsnTkSwSgkgiQJKRPEw==}
     engines: {node: '>= 24'}
     hasBin: true
 
@@ -12311,6 +12315,10 @@ packages:
     resolution: {integrity: sha512-H2sKu1asxnFE2mNUeRzNY0CQuvl+n6iyE6phvzOaBfZblItNKpC1EzKWy2Zx+woZ3qUFK/wbmmNiLeqXwzk+FA==}
     engines: {node: '>= 8'}
 
+  whoops@5.1.0:
+    resolution: {integrity: sha512-JVrjrkswIIaFcZ4DZRHObijOhhXIcADrup/USchmrHo6p8PZcU3TmILSHqs/7d2GrWN17uTKScik/7Mq0wBkMA==}
+    engines: {node: '>= 8'}
+
   why-is-node-running@2.3.0:
     resolution: {integrity: sha512-hUrmaWBdVDcxvYqnyh09zunKzROWjbZTiNy8dBEjkS7ehEDQibXJ7XvlmtbwuTclUiIyN+CyXQD4Vmko8fNm8w==}
     engines: {node: '>=8'}
@@ -14528,6 +14536,12 @@ snapshots:
       got: 11.8.6
       whoops: 5.0.1
 
+  '@microlink/mql@0.14.2':
+    dependencies:
+      flattie: 1.1.1
+      got: 11.8.6
+      whoops: 5.1.0
+
   '@microlink/react@5.5.24(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@microlink/mql': 0.13.20
@@ -14541,7 +14555,7 @@ snapshots:
     dependencies:
       '@microlink/demo-links': 1.0.18
       '@microlink/function': 0.2.2
-      '@microlink/mql': 0.14.0
+      '@microlink/mql': 0.14.2
     transitivePeerDependencies:
       - supports-color
 
@@ -24513,7 +24527,7 @@ snapshots:
 
   opentracing@0.14.7: {}
 
-  optimo@0.0.7:
+  optimo@0.0.10:
     dependencies:
       mri: 1.2.0
       tinyspawn: 1.5.5
@@ -28465,6 +28479,8 @@ snapshots:
       mimic-fn: 3.1.0
 
   whoops@5.0.1: {}
+
+  whoops@5.1.0: {}
 
   why-is-node-running@2.3.0:
     dependencies:
