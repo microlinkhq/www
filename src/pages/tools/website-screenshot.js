@@ -2217,13 +2217,15 @@ const ApiDocs = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [5, 5, 6, 6]
+      pb: [2, 2, 3, 3],
+      pt: [5, 5, 5, 5],
+      mb: [4, 4, 5, 5]
     })}
   >
     <Box
       css={theme({
         width: '100%',
-        p: [4, 5],
+        p: [3, 4],
         borderRadius: 3,
         textAlign: 'center'
       })}
@@ -2234,17 +2236,19 @@ const ApiDocs = () => (
       <Flex
         css={theme({
           justifyContent: 'center',
-          pb: 3
+          p: 1
         })}
       >
         <IconCircle>
           <Code size={24} color={colors.link} />
         </IconCircle>
       </Flex>
-      <Subhead css={theme({ fontSize: [3, 3, 4, 4] })}>
-        API documentation
+      <Subhead css={theme({ fontSize: 3 })}>
+        Screenshot API documentation
       </Subhead>
-      <Caption css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto' })}>
+      <Caption
+        css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
+      >
         Explore the full Screenshot API reference with interactive examples,
         SDKs for every language, and ready-to-use code snippets.
       </Caption>
@@ -2341,13 +2345,18 @@ const Banner = () => (
 
 const USE_CASES = [
   {
-    title: 'For Web Designers & Developers',
+    title: 'For Web Designers',
     items: [
       'Create portfolio screenshots of live websites',
-      'Document design iterations and A/B tests',
+      'Add the screenshots to AI tools to turn them in HTML',
       'Generate client approval mockups instantly',
       'Capture responsive layouts across devices'
-    ]
+    ],
+    link: {
+      href: '/blog/using-screenshot-design',
+      alt: 'Screenshot for designers use case',
+      text: 'Check out how to xxxx'
+    }
   },
   {
     title: 'For Digital Marketers',
@@ -2356,16 +2365,26 @@ const USE_CASES = [
       'Create case study visuals with before/after shots',
       'Capture landing pages for ad compliance records',
       'Generate social media preview images'
-    ]
+    ],
+    link: {
+      href: '/use-cases/generate-og-img-previews',
+      alt: 'Screenshot for og:images',
+      text: 'Check out this use case xxxx'
+    }
   },
   {
-    title: 'For QA & Testing Teams',
+    title: 'For Developers',
     items: [
       'Screenshot webpages for bug reports',
       'Automate visual regression testing via API',
       'Capture site states at specific timestamps',
-      'Document cross-browser rendering issues'
-    ]
+      'Generate and previews of multiple websites without effort'
+    ],
+    link: {
+      href: '/screenshot',
+      alt: 'Screenshot API',
+      text: 'Check out the API'
+    }
   }
 ]
 
@@ -2399,7 +2418,7 @@ const UseCases = () => (
         width: '100%'
       })}
     >
-      {USE_CASES.map(({ title, items }) => (
+      {USE_CASES.map(({ title, items, link }) => (
         <Box
           key={title}
           css={theme({
@@ -2453,6 +2472,16 @@ const UseCases = () => (
                 </Text>
               </Flex>
             ))}
+            {/* <Flex
+              css={
+                theme({
+                  px: 2,
+                  textAlign: 'center'
+                })
+              }
+            >
+              <Link alt={link.alt} href={link.href}>{link.text}</Link>
+            </Flex> */}
           </Box>
         </Box>
       ))}
@@ -2466,8 +2495,8 @@ const ProductInformation = () => (
   <Faq
     css={theme({
       fontSize: [1, 1, 1, 1],
-      pt: [2, 2, 3, 3],
-      pb: [3, 3, 4, 4],
+      pt: [2, 2, 4, 4],
+      pb: 4,
       bg: 'pinky',
       borderTop: `${borders[1]} ${colors.pinkest}`,
       borderBottom: `${borders[1]} ${colors.pinkest}`
@@ -2507,23 +2536,7 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'What formats are available?',
-        answer: (
-          <>
-            <div>
-              Export screenshots as <b>PNG</b> (lossless) and <b>JPG</b>(modern
-              format, smaller file sizes). Choose the format that best fits your
-              use case.
-            </div>
-            <div>
-              Full-page screenshots, custom viewports, ad blocking, and
-              professional overlay effects are all included at no extra cost.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'Whats the quality of the screenshots?',
+        question: "What's the quality of the screenshots?",
         answer: (
           <>
             <div>
@@ -2569,6 +2582,17 @@ const ProductInformation = () => (
               We only recomend turning of the cache if you need to take a
               screenshot of a page that changes frequently.
             </div>
+          </>
+        )
+      },
+      {
+        question: 'Any question or issue?',
+        answer: (
+          <>
+            <span>
+              We're are always available at:{' '}
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
+            </span>
           </>
         )
       }
