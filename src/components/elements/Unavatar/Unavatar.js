@@ -13,7 +13,7 @@ const Unavatar = ({ query, ...props }) => {
   return (
     <StyledImage
       alt={`Logo for ${query}`}
-      src={`https://unavatar.io/${query}`}
+      src={`https://unavatar.io/${query}?fallback=data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==`}
       {...props}
     />
   )
