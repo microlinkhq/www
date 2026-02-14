@@ -154,6 +154,8 @@ const LANGUAGE_MAP = {
   Golang: 'go'
 }
 
+const isTextContentType = contentType => contentType.startsWith('text/')
+
 const SEOParagraph = ({ url, mqlOpts, languages }) => {
   let message = 'The following examples show how to use the Microlink API'
   if (languages.length > 0) {
@@ -370,19 +372,17 @@ const Toolbar = React.memo(
           if (!isLoading) e.target.style.opacity = '1'
         }}
       >
-        {isLoading
-          ? (
-            <Spinner
-              width='12px'
-              height='16px'
-              color={colors.white}
-              style={{ padding: '0' }}
-              aria-label='Loading'
-            />
-            )
-          : (
-            <PlayIcon />
-            )}
+        {isLoading ? (
+          <Spinner
+            width='12px'
+            height='16px'
+            color={colors.white}
+            style={{ padding: '0' }}
+            aria-label='Loading'
+          />
+        ) : (
+          <PlayIcon />
+        )}
       </Button>
       <span id='execute-button-help' style={{ display: 'none' }}>
         Click to run the code and see the API response
@@ -718,53 +718,51 @@ const ContentArea = React.memo(
               aria-labelledby={`view-button-${activeView}`}
               aria-label='Response headers'
             >
-              {!responseData
-                ? (
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '100%',
-                      color: colors.black50,
-                      fontStyle: 'italic',
-                      padding: '2rem'
-                    }}
-                  >
-                    No response headers available. Execute a request to see the
-                    headers.
-                  </div>
-                  )
-                : (
-                  <div role='table' aria-label='HTTP response headers'>
-                    {(() => {
-                      const headers = responseData?.headers || {}
-                      const maxKeyLength = Math.max(
-                        ...Object.keys(headers).map(key => key.length)
-                      )
-                      const sortedHeaders = Object.entries(headers).sort(
-                        ([a], [b]) => a.localeCompare(b)
-                      )
-                      return sortedHeaders.map(([key, value], index) => (
-                        <Box
-                          key={key}
-                          css={theme({ mb: index > 0 ? 1 : 0 })}
-                          role='row'
-                        >
-                          <span role='cell' aria-label={`Header name: ${key}`}>
-                            {key.padEnd(maxKeyLength, ' ')}
-                          </span>
-                          <span role='cell' aria-hidden='true'>
-                            :
-                          </span>
-                          <span role='cell' aria-label={`Header value: ${value}`}>
-                            {value}
-                          </span>
-                        </Box>
-                      ))
-                    })()}
-                  </div>
-                  )}
+              {!responseData ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    color: colors.black50,
+                    fontStyle: 'italic',
+                    padding: '2rem'
+                  }}
+                >
+                  No response headers available. Execute a request to see the
+                  headers.
+                </div>
+              ) : (
+                <div role='table' aria-label='HTTP response headers'>
+                  {(() => {
+                    const headers = responseData?.headers || {}
+                    const maxKeyLength = Math.max(
+                      ...Object.keys(headers).map(key => key.length)
+                    )
+                    const sortedHeaders = Object.entries(headers).sort(
+                      ([a], [b]) => a.localeCompare(b)
+                    )
+                    return sortedHeaders.map(([key, value], index) => (
+                      <Box
+                        key={key}
+                        css={theme({ mb: index > 0 ? 1 : 0 })}
+                        role='row'
+                      >
+                        <span role='cell' aria-label={`Header name: ${key}`}>
+                          {key.padEnd(maxKeyLength, ' ')}
+                        </span>
+                        <span role='cell' aria-hidden='true'>
+                          :
+                        </span>
+                        <span role='cell' aria-label={`Header value: ${value}`}>
+                          {value}
+                        </span>
+                      </Box>
+                    ))
+                  })()}
+                </div>
+              )}
             </TerminalText>
           )}
         />
@@ -882,7 +880,9 @@ TerminalActions.displayName = 'TerminalActions'
 function MultiCodeEditorInteractive ({
   mqlCode: mqlCodeProps,
   height = 180,
-  editable = false
+  editable = false,
+  autoExecute = false,
+  defaultView = 'code'
 }) {
   // Extract url and options from mqlCode prop
   const { url, ...mqlOpts } = mqlCodeProps || {}
@@ -911,8 +911,9 @@ function MultiCodeEditorInteractive ({
   const [code, setCode] = useState(codeSnippets[currentLanguage] || '')
   const [responseData, setResponseData] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [activeView, setActiveView] = useState('code')
+  const [activeView, setActiveView] = useState(defaultView)
   const [isExpanded, setIsExpanded] = useState(false)
+  const autoExecutedRef = useRef('')
 
   // API key management
   const [apiKey, setApiKey] = useLocalStorage('mql-api-key', '')
@@ -921,15 +922,19 @@ function MultiCodeEditorInteractive ({
   React.useEffect(() => {
     if (!url) return
 
+    const syncLanguage = nextLanguage => {
+      setLanguage(nextLanguage)
+      setCode(codeSnippets[nextLanguage])
+      setActiveView('code')
+    }
+
     const handleStorageChange = e => {
       if (
         e.key === 'mql-code-editor-language' &&
         e.newValue &&
         availableLanguages.includes(e.newValue)
       ) {
-        setLanguage(e.newValue)
-        setCode(codeSnippets[e.newValue])
-        setActiveView('code')
+        syncLanguage(e.newValue)
       }
     }
 
@@ -940,9 +945,7 @@ function MultiCodeEditorInteractive ({
         availableLanguages.includes(e.detail.newValue)
       ) {
         setLanguageIndex(availableLanguages.indexOf(e.detail.newValue))
-        setLanguage(e.detail.newValue)
-        setCode(codeSnippets[e.detail.newValue])
-        setActiveView('code')
+        syncLanguage(e.detail.newValue)
       }
     }
 
@@ -1035,6 +1038,20 @@ function MultiCodeEditorInteractive ({
     }
   }, [isLoading, parseCodeAndExecute, apiKey])
 
+  React.useEffect(() => {
+    setActiveView(defaultView)
+  }, [defaultView, url])
+
+  React.useEffect(() => {
+    if (!autoExecute || !url) return
+
+    const key = `${url}:${JSON.stringify(mqlOpts)}:${defaultView}`
+    if (autoExecutedRef.current === key) return
+
+    autoExecutedRef.current = key
+    executeRequest()
+  }, [autoExecute, defaultView, executeRequest, mqlOpts, url])
+
   const handleViewClick = useCallback(
     view => {
       if (activeView === view && !isExpanded) {
@@ -1081,30 +1098,38 @@ function MultiCodeEditorInteractive ({
   )
 
   const getCurrentViewText = useCallback(() => {
-    if (activeView === 'code') {
-      return code
-    } else if (activeView === 'body') {
-      if (!responseData) return ''
-      const { body, headers } = responseData
-      const contentType = headers['content-type']
-      if (contentType.includes('application/json')) {
-        const text = new TextDecoder().decode(body)
-        const { data } = JSON.parse(text)
-        return JSON.stringify(data, null, 2)
-      }
+    switch (activeView) {
+      case 'code':
+        return code
+      case 'body': {
+        if (!responseData) return ''
+        const { body, headers } = responseData
+        const contentType = (headers['content-type'] || '').toLowerCase()
 
-      if (contentType.startsWith('image/')) {
-        return `Image content (${contentType})\nSize: ${body.byteLength} bytes`
-      }
+        if (contentType.includes('application/json')) {
+          const text = new TextDecoder().decode(body)
+          const { data } = JSON.parse(text)
+          return JSON.stringify(data, null, 2)
+        }
 
-      throw new Error(`Unsupported content type: ${contentType}`)
-    } else if (activeView === 'headers') {
-      return Object.entries(responseData.headers || {})
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([key, value]) => `${key}: ${value}`)
-        .join('\n')
+        if (isTextContentType(contentType)) {
+          return body
+        }
+
+        if (contentType.startsWith('image/')) {
+          return `Image content (${contentType})\nSize: ${body.byteLength} bytes`
+        }
+
+        throw new Error(`Unsupported content type: ${contentType}`)
+      }
+      case 'headers':
+        return Object.entries(responseData?.headers || {})
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([key, value]) => `${key}: ${value}`)
+          .join('\n')
+      default:
+        return ''
     }
-    return ''
   }, [activeView, code, responseData])
 
   const MemoizedActionComponent = useCallback(
@@ -1184,13 +1209,15 @@ function MultiCodeEditorInteractive ({
             />
           </div>
 
-          <Toolbar
-            currentLanguage={currentLanguage}
-            onLanguageChange={handleLanguageChange}
-            onExecute={executeRequest}
-            isLoading={isLoading}
-            availableLanguages={availableLanguages}
-          />
+          {activeView === 'code' && (
+            <Toolbar
+              currentLanguage={currentLanguage}
+              onLanguageChange={handleLanguageChange}
+              onExecute={executeRequest}
+              isLoading={isLoading}
+              availableLanguages={availableLanguages}
+            />
+          )}
         </Terminal>
 
         {responseData && (
