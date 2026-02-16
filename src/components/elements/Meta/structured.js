@@ -1,4 +1,4 @@
-import { toValidDate } from 'helpers/to-valid-date'
+import { toDate } from 'helpers/to-date'
 
 const sharedContext = {
   provider: {
@@ -84,14 +84,13 @@ export const generateStructuredData = ({
   description,
   url,
   image,
-  publishedDate,
-  modifiedDate
+  publishedDate: rawPublishedDate,
+  modifiedDate: rawModifiedDate
 }) => {
   if (!schemaType) return null
 
-  const normalizedPublishedDate = toValidDate(publishedDate)
-  const normalizedModifiedDate =
-    toValidDate(modifiedDate) || normalizedPublishedDate
+  const publishedDate = toDate(rawPublishedDate)
+  const modifiedDate = toDate(rawModifiedDate) || publishedDate
 
   if (schemaType === 'Article') {
     return articleSchema({
@@ -100,8 +99,8 @@ export const generateStructuredData = ({
       description,
       url,
       image,
-      publishedDate: normalizedPublishedDate,
-      modifiedDate: normalizedModifiedDate
+      publishedDate,
+      modifiedDate
     })
   }
 
@@ -112,8 +111,8 @@ export const generateStructuredData = ({
       description,
       url,
       image,
-      publishedDate: normalizedPublishedDate,
-      modifiedDate: normalizedModifiedDate
+      publishedDate,
+      modifiedDate
     })
   }
 

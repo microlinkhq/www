@@ -6,6 +6,7 @@ import {
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useMemo } from 'react'
 import { generateStructuredData } from './structured'
+import { toDate } from 'helpers/to-date'
 
 const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
 
@@ -184,13 +185,13 @@ function Meta ({ structured, ...props }) {
       {publishedDate && (
         <meta
           property='article:published_time'
-          content={publishedDate.toISOString()}
+          content={toDate(publishedDate).toISOString()}
         />
       )}
       {modifiedDate && (
         <meta
           property='article:modified_time'
-          content={modifiedDate.toISOString()}
+          content={toDate(modifiedDate).toISOString()}
         />
       )}
       {/* <!-- JSON-LD Structured Data --> */}
