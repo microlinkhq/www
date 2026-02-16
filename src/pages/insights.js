@@ -353,11 +353,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', 128, 128]
               })}
               iconComponent={
-                <InputIcon
-                  src={data?.logo?.url}
-                  provider={!isInitialData && 'microlink'}
-                  url={!isInitialData && values.url}
-                />
+                <InputIcon.Microlink url={!isInitialData && values.url} />
               }
               id='pdf-demo-url'
               placeholder='Visit URL'

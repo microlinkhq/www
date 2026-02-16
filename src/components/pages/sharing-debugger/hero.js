@@ -112,11 +112,7 @@ export const Hero = () => {
                         width: ['100%', '100%', 128, 128]
                       })}
                       iconComponent={
-                        <InputIcon
-                          src={metadata?.logo?.url}
-                          provider={!isInitialData && 'microlink'}
-                          url={!isInitialData && url}
-                        />
+                        <InputIcon.Microlink url={!isInitialData && url} />
                       }
                       placeholder='Check URL'
                       type='text'

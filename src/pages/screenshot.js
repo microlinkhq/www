@@ -226,9 +226,10 @@ const Screenshot = ({ data, style }) => {
             isLoading
               ? imageStyle
               : {
-                  ...imageStyle,
-                  filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-                }}
+                ...imageStyle,
+                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+              }
+          }
         />
       </Box>
     </Link>
@@ -332,11 +333,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', '102px', '102px']
               })}
               iconComponent={
-                <InputIcon
-                  src={data?.logo?.url}
-                  provider={!isInitialData && 'microlink'}
-                  url={!isInitialData && values.url}
-                />
+                <InputIcon.Microlink url={!isInitialData && values.url} />
               }
               id='screenshot-demo-url'
               placeholder='Visit URL'

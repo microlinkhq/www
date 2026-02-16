@@ -208,11 +208,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', 128, 128]
               })}
               iconComponent={
-                <InputIcon
-                  src={data?.logo?.url}
-                  provider={!isInitialData && 'microlink'}
-                  url={!isInitialData && url}
-                />
+                <InputIcon.Microlink url={!isInitialData && url} />
               }
               placeholder='Visit URL'
               type='text'
