@@ -1,3 +1,4 @@
+import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import React, { useEffect, useMemo, useState } from 'react'
 import { borders, colors, layout, space, theme } from 'theme'
 import Hide from 'components/elements/Hide'
@@ -6,8 +7,6 @@ import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import { useQueryState } from 'components/hook/use-query-state'
 import styled from 'styled-components'
-import take from 'lodash/take'
-
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
@@ -21,13 +20,512 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
-import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
+import humanizeUrl from 'humanize-url'
+
+const SUGGESTIONS = ['https://microlink.io'].map(url => ({
+  value: humanizeUrl(url)
+}))
+
+const DEFAULT_MD = `# Browser as API
+
+## **Microlink** turns any link into screenshots, PDFs, previews, or structured data. No more Puppeteer clusters. Open source roots.
+
+[](https://microlink.io/logo)
+
+## Logo
+
+### Get and embed favicons from any web
+
+[](https://microlink.io/screenshot)
+
+## Screenshot
+
+### Turn websites into screenshots
+
+[](https://microlink.io/sdk)
+
+## SDK
+
+### Create beautiful link previews
+
+[](https://microlink.io/insights)
+
+## Insights
+
+### Performance metrics powered by Lighthouse
+
+[](https://microlink.io/metadata)
+
+## Metadata
+
+### Get unified metadata
+
+[](https://microlink.io/pdf)
+
+## PDF
+
+### PDF made simple
+
+240
+
+###
+
+CDN Edges
+
+1B
+
+###
+
+reqs per month
+
+46TB
+
+###
+
+data served
+
+99.9%
+
+###
+
+uptime
+
+240
+
+###
+
+CDN Edges
+
+1B
+
+###
+
+reqs per month
+
+46TB
+
+###
+
+data served
+
+## Production ready, browser as a service
+
+### There are hidden costs to run your own infrastructure — Give your team an extra boost in performance, ease of use, browser automation made simple at cost pricing, full control via .
+
+- #### Powerful & Scalable
+
+
+
+
+
+  Cloud-based solution with superior operational performance.
+
+
+
+
+
+- #### Costless Solution
+
+
+
+
+
+  Starts free. No upfront costs, scalable pricing as you go, growing with your business.
+
+
+
+
+
+- #### Global CDN
+
+
+
+
+
+  Edge storage distributed over +240 nodes backed by CloudFlare Network.
+
+
+
+
+
+- #### Developer First
+
+
+
+
+
+  For developers, with top-notch industry technologies, language-agnostic.
+
+
+
+
+
+- #### Fully programmable
+
+
+
+
+
+  Easy to integrate with any existing stack or cloud in just a few minutes.
+
+
+
+
+
+- #### Declarative Usage
+
+
+
+
+
+  Simple documentation and interactive code examples that enable quick implementations.
+
+
+
+
+
+- #### Optimized hardware
+
+
+
+
+
+  No servers to maintain; no shared browsers between requests.
+
+
+
+
+
+- #### Built-in cache
+
+
+
+
+
+  Enabled by default, no additional caching setup required.
+
+
+
+
+
+- #### Security compliance
+
+
+
+
+
+  Request isolation with no shared browsers between requests.
+
+
+
+
+
+- #### Powerful & Scalable
+
+
+
+
+
+  Cloud-based solution with superior operational performance.
+
+
+
+
+
+- #### Costless Solution
+
+
+
+
+
+  Starts free. No upfront costs, scalable pricing as you go, growing with your business.
+
+
+
+
+
+- #### Global CDN
+
+
+
+
+
+  Edge storage distributed over +240 nodes backed by CloudFlare Network.
+
+
+
+
+
+- #### Developer First
+
+
+
+
+
+  For developers, with top-notch industry technologies, language-agnostic.
+
+
+
+
+
+- #### Fully programmable
+
+
+
+
+
+  Easy to integrate with any existing stack or cloud in just a few minutes.
+
+
+
+
+
+- #### Declarative Usage
+
+
+
+
+
+  Simple documentation and interactive code examples that enable quick implementations.
+
+
+
+
+
+- #### Optimized hardware
+
+
+
+
+
+  No servers to maintain; no shared browsers between requests.
+
+
+
+
+
+- #### Built-in cache
+
+
+
+
+
+  Enabled by default, no additional caching setup required.
+
+
+
+
+
+- #### Security compliance
+
+
+
+
+
+  Request isolation with no shared browsers between requests.
+
+
+
+
+
+## Pricing
+
+### Every plan comes with API access & 24/7 tech support. Use the forever free plan to try the service, no credit-card required.
+
+## Free
+
+50
+
+-
+
+  [](https://microlink.io/sdk)
+  ### Microlink SDK
+
+
+
+-
+
+  [](https://microlink.io/pdf)
+  ### Microlink PDF
+
+
+
+-
+
+  [](https://microlink.io/insights)
+  ### Microlink insights
+
+
+
+-
+
+  [](https://microlink.io/recipes)
+  ### Microlink recipes
+
+
+
+-
+
+  [](https://microlink.io/metadata)
+  ### Microlink metadata
+
+
+
+-
+
+  [](https://microlink.io/screenshot)
+  ### Microlink screenshot
+
+
+
+[Get started](https://microlink.io/docs/api/getting-started/overview)
+
+## Pro
+
+-
+
+  Everything in Free
+
+
+
+-
+
+  [](https://microlink.io/docs/api/parameters/ttl)
+  ### Configurable TTL
+
+
+
+-
+
+  [](https://microlink.io/docs/api/parameters/headers)
+  ### Custom HTTP headers
+
+
+
+-
+
+  [](https://microlink.io/docs/api/parameters/proxy)
+  ### Automatic proxy resolution
+
+
+
+## Enterprise
+
+Starts from
+
+-
+
+  Everything in Pro
+
+
+
+-
+
+  [](https://microlink.io/enterprise)
+  ### Custom API endpoint
+
+
+
+-
+
+  [](https://microlink.io/enterprise)
+  ### Dedicated CDN distribution
+
+
+
+-
+
+  [](https://microlink.io/enterprise)
+  ### S3 like storage integration
+
+
+
+[See details](https://microlink.io/enterprise)
+
+## FAQs
+
+### Frequently asked questions.
+
+### [Can I use microlink for free?](https://microlink.io/#can-i-use-microlink-for-free)
+
+Absolutely. We have a forever free [endpoint](https://microlink.io/docs/api/basics/endpoint) you can use. It’s the best way to start using the service.
+
+The free plan runs under some limitations to avoid abusive usage of the platform, like burst rate, limited concurrency rate and daily rate limit.
+
+The free plan should be enough for small projects or low API quota.
+
+### [How different is the free plan compared with the Pro plan?](https://microlink.io/#how-different-is-the-free-plan-compared-with-the-pro-plan)
+
+The pro plan is ready to be used at scale, with better performance and unlocked features such as [headers](https://microlink.io/docs/api/parameters/headers), [ttl](https://microlink.io/docs/api/parameters/ttl) or [proxy](https://microlink.io/docs/api/parameters/proxy).
+
+A Pro plan comes with an associated API key and configurable quota. You only pay as you need.
+
+### [What if I don't know how much API quota I need?](https://microlink.io/#what-if-i-dont-know-how-much-api-quota-i-need)
+
+No problem, just start with the smallest pro plan, and at the moment you need more, you can upgrade your plan.
+
+### [How do I get an API key?](https://microlink.io/#how-do-i-get-an-api-key)
+
+After your payment, we send you the API key associated with the email you signed up.
+
+The API key needs to be attached to all your requests:
+
+- In [Microlink SDK](https://microlink.io/docs/sdk/getting-started/overview), attach it as [apiKey](https://microlink.io/docs/sdk/parameters/api-key).
+- In [Microlink API](https://microlink.io/docs/api/getting-started/overview), attach it as a [header](https://microlink.io/docs/api/basics/authentication).
+
+### [What's your SLA level?](https://microlink.io/#whats-your-sla-level)
+
+Our Service-Level Agreements commitment is 99.9% (three nines). You can see the live [status](https://microlink.io/status) of the service.
+
+### [How do I know my plan usage?](https://microlink.io/#how-do-i-know-my-plan-usage)
+
+We notify you automatically when you reach 80% or more of your usage plan, offering to upgrade your plan to one more suitable based on your plan usage.
+
+### [What if I want to change my plan?](https://microlink.io/#what-if-i-want-to-change-my-plan)
+
+You can upgrade, downgrade, or cancel your monthly account at any time with no further obligation by sending an email to [](mailto:hello@microlink.io)
+
+hello@microlink.io
+
+with the email you signed up.
+
+### [How is the payment processed?](https://microlink.io/#how-is-the-payment-processed)
+
+We use Stripe to process your payment. It’s the same payment provider used in products such as Twitter, Pinterest, and Lyft. We do not handle your credit card information directly.
+
+### [Can I update my card details?](https://microlink.io/#can-i-update-my-card-details)
+
+Yes, send an email to [](mailto:hello@microlink.io)
+
+hello@microlink.io
+
+requesting the change. You will receive a link where you'll be able to securely update your details.
+
+### [Can I cancel my subscription?](https://microlink.io/#can-i-cancel-my-subscription)
+
+Yes, by sending an email to [](mailto:hello@microlink.io)
+
+hello@microlink.io
+
+. Your request will be processed within 24hrs.
+
+### [Other questions?](https://microlink.io/#other-questions)
+
+We’re always available at [](mailto:hello@microlink.io)
+
+hello@microlink.io
+
+.`
+
+const DEFAULT_RESPONSE_DATA = {
+  body: new TextEncoder().encode(DEFAULT_MD),
+  headers: { 'content-type': 'text/markdown; charset=utf-8' }
+}
 
 const FEATURES = [
   {
@@ -62,41 +560,39 @@ const FEATURES = [
   }
 ]
 
-const Timings = ({ previewUrl }) => {
-  return (
+const Timings = () => (
+  <Flex
+    forwardedAs='section'
+    id='timings'
+    flexDirection='column'
+    css={theme({
+      p: [5, 5, 6, 6],
+      width: '100%',
+      'background-image':
+        'radial-gradient(circle at center right, rgb(253, 97, 39) 0%, rgb(253, 97, 39) 14.286%,rgb(251, 108, 38) 14.286%, rgb(251, 108, 38) 28.572%,rgb(249, 118, 37) 28.572%, rgb(249, 118, 37) 42.858%,rgb(247, 129, 37) 42.858%, rgb(247, 129, 37) 57.144%,rgb(245, 140, 36) 57.144%, rgb(245, 140, 36) 71.43%,rgb(243, 150, 35) 71.43%, rgb(243, 150, 35) 85.716%,rgb(241, 161, 34) 85.716%, rgb(241, 161, 34) 100.002%)',
+      borderTop: `${borders[1]} ${colors.white20}`,
+      borderBottom: `${borders[1]} ${colors.white20}`
+    })}
+  >
     <Flex
-      forwardedAs='section'
-      id='timings'
-      flexDirection='column'
-      css={theme({
-        p: [5, 5, 6, 6],
-        width: '100%',
-        'background-image':
-          'radial-gradient(circle at center right, rgb(253, 97, 39) 0%, rgb(253, 97, 39) 14.286%,rgb(251, 108, 38) 14.286%, rgb(251, 108, 38) 28.572%,rgb(249, 118, 37) 28.572%, rgb(249, 118, 37) 42.858%,rgb(247, 129, 37) 42.858%, rgb(247, 129, 37) 57.144%,rgb(245, 140, 36) 57.144%, rgb(245, 140, 36) 71.43%,rgb(243, 150, 35) 71.43%, rgb(243, 150, 35) 85.716%,rgb(241, 161, 34) 85.716%, rgb(241, 161, 34) 100.002%)',
-        borderTop: `${borders[1]} ${colors.white20}`,
-        borderBottom: `${borders[1]} ${colors.white20}`
-      })}
+      css={{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
     >
-      <Flex
-        css={{
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Text css={theme({ pb: 2, color: 'orange1', textAlign: 'center' })}>
-          80% fewer tokens than raw HTML, 5x content per context window
-        </Text>
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
-          HTML into markdown <br /> ready for AI
-        </Subhead>
-        <Text css={theme({ pt: 2, color: 'orange1', textAlign: 'center' })}>
-          Consider not just human visitors, but agents as first-class citizens.
-        </Text>
-      </Flex>
+      <Text css={theme({ pb: 2, color: 'orange1', textAlign: 'center' })}>
+        80% fewer tokens than raw HTML, 5x content per context window
+      </Text>
+      <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        HTML into markdown <br /> ready for AI
+      </Subhead>
+      <Text css={theme({ pt: 2, color: 'orange1', textAlign: 'center' })}>
+        Consider not just human visitors, but agents as first-class citizens.
+      </Text>
     </Flex>
-  )
-}
+  </Flex>
+)
 
 const Resume = () => (
   <Container
@@ -263,44 +759,34 @@ const stats = [
   { value: '5x more', name: 'content per context window' }
 ]
 
-const Analytics = () => {
-  return (
-    <Block
-      forwardedAs='section'
-      id='analytics'
-      css={theme({
-        flexDirection: 'column',
-        pb: [5, 5, 6, 6],
-        bg: 'pinky',
-        borderTop: `${borders[1]} ${colors.white20}`,
-        borderBottom: `${borders[1]} ${colors.white20}`
-      })}
-    >
-      <Hide breakpoints={[0, 1]}>
-        <Flex css={{ width: '100%', justifyContent: 'space-around' }}>
-          {stats.map((stat, index) => (
-            <Stat
-              key={stat.name}
-              isLast={index === stats.length - 1}
-              {...stat}
-            />
-          ))}
-        </Flex>
-      </Hide>
-      <Hide breakpoints={[2, 3]}>
-        <Flex css={{ width: '100%', justifyContent: 'space-around' }}>
-          {take(stats, stats.length - 1).map((stat, index) => (
-            <Stat
-              key={stat.name}
-              isLast={index === stats.length - 2}
-              {...stat}
-            />
-          ))}
-        </Flex>
-      </Hide>
-    </Block>
-  )
-}
+const Analytics = () => (
+  <Block
+    forwardedAs='section'
+    id='analytics'
+    css={theme({
+      flexDirection: 'column',
+      pb: [5, 5, 6, 6],
+      bg: 'pinky',
+      borderTop: `${borders[1]} ${colors.white20}`,
+      borderBottom: `${borders[1]} ${colors.white20}`
+    })}
+  >
+    <Hide breakpoints={[0, 1]}>
+      <Flex css={{ width: '100%', justifyContent: 'space-around' }}>
+        {stats.map((stat, index) => (
+          <Stat key={stat.name} isLast={index === stats.length - 1} {...stat} />
+        ))}
+      </Flex>
+    </Hide>
+    <Hide breakpoints={[2, 3]}>
+      <Flex css={{ width: '100%', justifyContent: 'space-around' }}>
+        {stats.slice(0, -1).map((stat, index) => (
+          <Stat key={stat.name} isLast={index === stats.length - 2} {...stat} />
+        ))}
+      </Flex>
+    </Hide>
+  </Block>
+)
 
 const ProductInformation = () => (
   <Faq
@@ -382,37 +868,39 @@ const ProductInformation = () => (
 
 const MarkdownPage = () => {
   const [query, setQuery] = useQueryState()
-  const [url, setUrl] = useState('')
-  const [submittedUrl, setSubmittedUrl] = useState('')
+  const [draftUrl, setDraftUrl] = useState('')
+  const [isFetching, setIsFetching] = useState(false)
+  const committedUrl = useMemo(
+    () => (query?.url ? prependHttp(query.url) : ''),
+    [query?.url]
+  )
 
-  const normalizedUrl = useMemo(() => {
-    const value = url.trim()
+  const normalizedDraftUrl = useMemo(() => {
+    const value = draftUrl.trim()
     if (!value) return ''
     return prependHttp(value)
-  }, [url])
+  }, [draftUrl])
 
-  const isValidUrl = useMemo(() => isUrl(normalizedUrl), [normalizedUrl])
+  const isValidUrl = useMemo(
+    () => isUrl(normalizedDraftUrl),
+    [normalizedDraftUrl]
+  )
 
   const iconQuery = useMemo(() => {
-    if (!isValidUrl) return undefined
+    if (!isUrl(normalizedDraftUrl)) return undefined
 
     try {
-      return new URL(normalizedUrl).hostname
+      return new URL(normalizedDraftUrl).hostname
     } catch (_) {
       return undefined
     }
-  }, [isValidUrl, normalizedUrl])
+  }, [normalizedDraftUrl])
 
   useEffect(() => {
     if (!query?.url) return
-    setUrl(query.url)
-    setSubmittedUrl(prependHttp(query.url))
+    setIsFetching(true)
+    setDraftUrl(query.url)
   }, [query?.url])
-
-  const previewUrl = useMemo(() => {
-    if (!isValidUrl) return 'https://markdown.microlink.io/any-url-here'
-    return `https://markdown.microlink.io/${normalizedUrl}`
-  }, [isValidUrl, normalizedUrl])
 
   return (
     <Layout>
@@ -439,13 +927,6 @@ const MarkdownPage = () => {
             noise.
           </Caption>
 
-          {/* <Caption forwardedAs='h3' css={theme({ pt: 3, display: 'flex' })}>
-            <Text as='strong' css={theme({ fontWeight: 'bold', mr: 2 })}>
-              80%
-            </Text>
-            <Text>fewer tokens than raw HTML</Text>
-          </Caption> */}
-
           <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
             <Flex
               as='form'
@@ -460,8 +941,8 @@ const MarkdownPage = () => {
               onSubmit={event => {
                 event.preventDefault()
                 if (isValidUrl) {
-                  setQuery({ url: normalizedUrl })
-                  setSubmittedUrl(normalizedUrl)
+                  if (normalizedDraftUrl !== committedUrl) setIsFetching(true)
+                  setQuery({ url: normalizedDraftUrl })
                 }
               }}
             >
@@ -470,49 +951,58 @@ const MarkdownPage = () => {
                   id='markdown-url'
                   css={theme({
                     fontSize: 2,
-                    width: ['100%', '100%', 128, 128]
+                    width: ['100%', '100%', 128]
                   })}
                   iconComponent={<InputIcon query={iconQuery} />}
-                  placeholder='Paste any URL (e.g., https://microlink.io/blog)'
+                  placeholder='Paste URL'
                   type='text'
-                  value={url}
-                  onChange={event => setUrl(event.target.value)}
+                  value={draftUrl}
+                  onChange={event => setDraftUrl(event.target.value)}
+                  suggestions={SUGGESTIONS}
+                  autoFocus
                 />
               </Box>
 
-              <Button css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}>
+              <Button
+                css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
+                loading={isFetching}
+              >
                 <Caps css={theme({ fontSize: 1 })}>Convert</Caps>
               </Button>
             </Flex>
           </Flex>
 
-          {submittedUrl && (
-            <MultiCodeEditorInteractive
-              key={submittedUrl}
-              mqlCode={{
-                url: submittedUrl,
-                data: {
-                  markdown: {
-                    attr: 'markdown'
-                  }
-                },
-                embed: 'markdown',
-                meta: false
-              }}
-              autoExecute
-              defaultView='body'
-              height={350}
-              css={theme({
-                mt: 3,
-                width: [`calc(100vw - ${space[4]})`, layout.small]
-              })}
-            />
-          )}
+          <MultiCodeEditorInteractive
+            mqlCode={
+              committedUrl
+                ? {
+                  url: committedUrl,
+                  force: true,
+                  data: {
+                    markdown: {
+                      attr: 'markdown'
+                    }
+                  },
+                  embed: 'markdown',
+                  meta: false
+                }
+                : {}
+            }
+            defaultResponseData={DEFAULT_RESPONSE_DATA}
+            autoExecute={!!committedUrl}
+            onLoadingChange={setIsFetching}
+            defaultView='body'
+            height={350}
+            css={theme({
+              mt: 3,
+              width: [`calc(100vw - ${space[4]})`, layout.small]
+            })}
+          />
         </Flex>
 
         <Analytics />
 
-        <Timings previewUrl={previewUrl} />
+        <Timings />
 
         <Features
           css={theme({ px: 4 })}

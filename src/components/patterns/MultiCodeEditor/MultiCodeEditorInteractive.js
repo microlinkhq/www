@@ -27,7 +27,7 @@ import {
 } from 'theme'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import React, { useState, useRef, useCallback, useMemo } from 'react'
+import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import ProBadge from '../ProBadge/ProBadge'
 import { highlight } from 'sugar-high'
@@ -882,7 +882,9 @@ function MultiCodeEditorInteractive ({
   height = 180,
   editable = false,
   autoExecute = false,
-  defaultView = 'code'
+  defaultView = 'code',
+  defaultResponseData,
+  onLoadingChange
 }) {
   // Extract url and options from mqlCode prop
   const { url, ...mqlOpts } = mqlCodeProps || {}
@@ -909,7 +911,7 @@ function MultiCodeEditorInteractive ({
     : availableLanguages[0] || ''
 
   const [code, setCode] = useState(codeSnippets[currentLanguage] || '')
-  const [responseData, setResponseData] = useState(null)
+  const [responseData, setResponseData] = useState(defaultResponseData ?? null)
   const [isLoading, setIsLoading] = useState(false)
   const [activeView, setActiveView] = useState(defaultView)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -1042,6 +1044,12 @@ function MultiCodeEditorInteractive ({
     setActiveView(defaultView)
   }, [defaultView, url])
 
+  useEffect(() => {
+    onLoadingChange?.(isLoading)
+  }, [isLoading, onLoadingChange])
+
+  useEffect(() => () => onLoadingChange?.(false), [onLoadingChange])
+
   React.useEffect(() => {
     if (!autoExecute || !url) return
 
@@ -1113,7 +1121,7 @@ function MultiCodeEditorInteractive ({
         }
 
         if (isTextContentType(contentType)) {
-          return body
+          return new TextDecoder().decode(body)
         }
 
         if (contentType.startsWith('image/')) {
@@ -1147,8 +1155,7 @@ function MultiCodeEditorInteractive ({
 
   const componentHeight = isExpanded ? `${height * 2}px` : `${height}px`
 
-  // Return null if no URL provided
-  if (!url) {
+  if (!url && !responseData) {
     return null
   }
 
