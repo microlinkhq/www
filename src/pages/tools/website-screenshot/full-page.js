@@ -1347,7 +1347,7 @@ const PreviewDisplay = ({
             {/* Action buttons bar */}
             <Flex
               css={theme({
-                p: 3,
+                p: 2,
                 gap: 2,
                 borderTop: 1,
                 borderColor: 'black05',
