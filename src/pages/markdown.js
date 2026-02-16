@@ -938,9 +938,9 @@ const MarkdownPage = () => {
             forwardedAs='h2'
             css={theme({ pt: '20px', px: [4, 0], fontSize: '25px' })}
           >
-            Discovery is shifting from search results to AI agents. Convert any
-            URL into clean markdown so models consume signal instead of markup
-            noise.
+            Transform any website into clean markdown instantly. Extract
+            high-signal content for crawling, summarization, and RAG pipelines
+            without brittle HTML cleanup or custom parsers.
           </Caption>
 
           <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
