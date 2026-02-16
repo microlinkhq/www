@@ -1,6 +1,7 @@
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import React, { useEffect, useMemo, useState } from 'react'
 import { borders, colors, layout, space, theme } from 'theme'
+import { useMounted } from 'components/hook/use-mounted'
 import Hide from 'components/elements/Hide'
 import { cdnUrl } from 'helpers/cdn-url'
 import isUrl from 'is-url-http/lightweight'
@@ -561,10 +562,9 @@ const FEATURES = [
 ]
 
 const Timings = () => (
-  <Flex
-    forwardedAs='section'
+  <Box
+    as='section'
     id='timings'
-    flexDirection='column'
     css={theme({
       p: [5, 5, 6, 6],
       width: '100%',
@@ -591,7 +591,7 @@ const Timings = () => (
         Consider not just human visitors, but agents as first-class citizens.
       </Text>
     </Flex>
-  </Flex>
+  </Box>
 )
 
 const Resume = () => (
@@ -868,11 +868,13 @@ const ProductInformation = () => (
 
 const MarkdownPage = () => {
   const [query, setQuery] = useQueryState()
+  const isMounted = useMounted()
   const [draftUrl, setDraftUrl] = useState('')
   const [isFetching, setIsFetching] = useState(false)
+  const mountedQuery = isMounted ? query : undefined
   const committedUrl = useMemo(
-    () => (query?.url ? prependHttp(query.url) : ''),
-    [query?.url]
+    () => (mountedQuery?.url ? prependHttp(mountedQuery.url) : ''),
+    [mountedQuery?.url]
   )
 
   const normalizedDraftUrl = useMemo(() => {
@@ -885,6 +887,20 @@ const MarkdownPage = () => {
     () => isUrl(normalizedDraftUrl),
     [normalizedDraftUrl]
   )
+  const interactiveMqlCode = useMemo(() => {
+    if (!committedUrl) return {}
+    return {
+      url: committedUrl,
+      force: true,
+      data: {
+        markdown: {
+          attr: 'markdown'
+        }
+      },
+      embed: 'markdown',
+      meta: false
+    }
+  }, [committedUrl])
 
   const iconQuery = useMemo(() => {
     if (!isUrl(normalizedDraftUrl)) return undefined
@@ -897,10 +913,10 @@ const MarkdownPage = () => {
   }, [normalizedDraftUrl])
 
   useEffect(() => {
-    if (!query?.url) return
+    if (!mountedQuery?.url) return
     setIsFetching(true)
-    setDraftUrl(query.url)
-  }, [query?.url])
+    setDraftUrl(mountedQuery.url)
+  }, [mountedQuery?.url])
 
   return (
     <Layout>
@@ -973,21 +989,7 @@ const MarkdownPage = () => {
           </Flex>
 
           <MultiCodeEditorInteractive
-            mqlCode={
-              committedUrl
-                ? {
-                  url: committedUrl,
-                  force: true,
-                  data: {
-                    markdown: {
-                      attr: 'markdown'
-                    }
-                  },
-                  embed: 'markdown',
-                  meta: false
-                }
-                : {}
-            }
+            mqlCode={interactiveMqlCode}
             defaultResponseData={DEFAULT_RESPONSE_DATA}
             autoExecute={!!committedUrl}
             onLoadingChange={setIsFetching}

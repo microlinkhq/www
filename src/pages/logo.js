@@ -187,17 +187,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-      ...new Set(
-        []
-          .concat(
-            logo.palette,
-            logo.background_color,
-            logo.color,
-            logo.alternative_color
-          )
-          .filter(Boolean)
-      )
-    ]
+        ...new Set(
+          []
+            .concat(
+              logo.palette,
+              logo.background_color,
+              logo.color,
+              logo.alternative_color
+            )
+            .filter(Boolean)
+        )
+      ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -312,8 +312,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })
-                        }
+                          })}
                       />
                     </Tooltip>
                   )
@@ -639,9 +638,9 @@ const Timings = () => {
     <Block
       id='timings'
       forwardedAs='section'
-      flexDirection='column'
       css={theme({
         px: 4,
+        flexDirection: 'column',
         pb: [5, 5, 6, 6],
         width: '100%',
         // https://www.gradientmagic.com/collection/radialstripes
