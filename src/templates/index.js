@@ -31,10 +31,14 @@ export const Head = ({ pageContext, location }) => {
 
   if (isDocPage || isBlogPage) {
     const activeRouteName = getActiveRouteName(location)
-    const validDate =
+    const validPublishedDate =
+      frontmatter.date && !isNaN(new Date(frontmatter.date).getTime())
+        ? frontmatter.date
+        : undefined
+    const validModifiedDate =
       lastEdited && !isNaN(new Date(lastEdited).getTime())
         ? lastEdited
-        : undefined
+        : validPublishedDate
 
     const metaProps = {
       ...frontmatter,
@@ -46,7 +50,8 @@ export const Head = ({ pageContext, location }) => {
       title: isDocPage
         ? `${siteName} ${activeRouteName}: ${frontmatter.title || ''}`
         : frontmatter.title,
-      date: validDate,
+      publishedDate: validPublishedDate,
+      modifiedDate: validModifiedDate,
       schemaType: isBlogPage ? 'Article' : 'TechArticle',
       authors: isBlogPage
         ? (() => {
@@ -57,9 +62,7 @@ export const Head = ({ pageContext, location }) => {
               ])
             )
             const authorKeys = frontmatter.authors || []
-            return authorKeys
-              .map(key => authorsByKey.get(key))
-              .filter(Boolean)
+            return authorKeys.map(key => authorsByKey.get(key)).filter(Boolean)
           })()
         : undefined
     }
