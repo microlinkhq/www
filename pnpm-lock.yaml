@@ -146,6 +146,9 @@ importers:
       react-codecopy:
         specifier: 5.0.18
         version: 5.0.18(react@18.3.1)(styled-components@6.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      react-compare-slider:
+        specifier: ~3.1.0
+        version: 3.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-confetti:
         specifier: ~6.4.0
         version: 6.4.0(react@18.3.1)
@@ -10109,6 +10112,13 @@ packages:
     peerDependencies:
       react: '>= 16 < 19'
       styled-components: '>=5.1'
+
+  react-compare-slider@3.1.0:
+    resolution: {integrity: sha512-TQVbZYmYyTIeKRmQciVXCmUwHjTThQTON7GfWfzMAOInRRG9tCiQnVXnCUd5DJ5l3Hngh4IEzOb9TG82gjoEhQ==}
+    engines: {node: '>=16.9.0'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
 
   react-confetti@6.4.0:
     resolution: {integrity: sha512-5MdGUcqxrTU26I2EU7ltkWPwxvucQTuqMm8dUz72z2YMqTD6s9vMcDUysk7n9jnC+lXuCPeJJ7Knf98VEYE9Rg==}
@@ -25711,6 +25721,11 @@ snapshots:
     dependencies:
       react: 18.3.1
       styled-components: 6.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  react-compare-slider@3.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   react-confetti@6.4.0(react@18.3.1):
     dependencies:
