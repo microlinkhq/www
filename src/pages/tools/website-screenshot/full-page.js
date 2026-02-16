@@ -1636,6 +1636,7 @@ const ScreenshotTool = () => {
       try {
         const mqlOpts = {
           apiKey: localStorageData.apiKey,
+          meta: false,
           screenshot: {
             type: options.type,
             fullPage: true
