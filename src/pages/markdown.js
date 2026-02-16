@@ -1046,8 +1046,75 @@ export const Head = () => (
   <Meta
     title='Markdown for Agents'
     description='Convert any URL to clean Markdown optimized for AI agents, RAG ingestion, and token-efficient processing.'
-    image={cdnUrl('banner/metadata.jpeg')}
-    schemaType='SoftwareApplication'
+    image={cdnUrl('banner/markdown.jpeg')}
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        '@id': 'https://microlink.io/markdown',
+        name: 'Microlink Markdown API',
+        description:
+          'Convert any URL into clean Markdown for AI agents, RAG ingestion, and token-efficient content processing.',
+        url: 'https://microlink.io/markdown',
+        applicationCategory: ['DeveloperApplication', 'API'],
+        keywords: [
+          'markdown API',
+          'URL to markdown',
+          'webpage to markdown',
+          'RAG ingestion',
+          'AI agent content extraction',
+          'LLM preprocessing',
+          'token-efficient content',
+          'structured markdown'
+        ],
+        about: [
+          { '@type': 'Thing', name: 'Markdown Conversion API' },
+          { '@type': 'Thing', name: 'AI Agent Content Processing' },
+          { '@type': 'Thing', name: 'RAG Data Preparation' },
+          { '@type': 'Thing', name: 'Structured Content Extraction' }
+        ]
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': 'https://microlink.io/markdown#faq',
+        url: 'https://microlink.io/markdown',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What is Microlink Markdown?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Microlink Markdown is an extraction API that takes a URL and returns markdown content ready for AI workflows. Use it for crawling, summarization, and RAG ingestion where clean text beats noisy HTML.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How do I integrate it?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Integration is straightforward: send a URL through the API client and read the markdown field from the response. For production, run it server-side to keep credentials safe and control throughput.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I process private pages?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. Process authenticated pages when your integration includes the required credentials. Keep API keys and auth tokens out of the browser and proxy secure requests through your backend.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Where can I see all parameters?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Visit Microlink API documentation for parameter details, request examples, and SDK usage guides. You will find examples for metadata, screenshots, PDFs, and markdown extraction in one consistent API surface.'
+            }
+          }
+        ]
+      }
+    ]}
   />
 )
 
