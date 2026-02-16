@@ -1,9 +1,4 @@
-import { readFile } from 'node:fs/promises'
-import process from 'node:process'
-import path from 'node:path'
-import $ from 'tinyspawn'
-
-const TIMESTAMPS_PATH = path.join(process.cwd(), 'data', 'git-timestamps.json')
+const TIMESTAMPS_FILENAME = 'git-timestamps-modified.json'
 
 let cachedTimestamps = null
 let didLoadTimestamps = false
@@ -14,7 +9,10 @@ const loadTimestamps = async () => {
   }
 
   try {
-    const contents = await readFile(TIMESTAMPS_PATH, 'utf8')
+    const { readFile } = await import('node:fs/promises')
+    const path = await import('node:path')
+    const timestampsPath = path.join(process.cwd(), 'data', TIMESTAMPS_FILENAME)
+    const contents = await readFile(timestampsPath, 'utf8')
     cachedTimestamps = JSON.parse(contents)
   } catch (error) {
     if (error.code !== 'ENOENT') {
@@ -41,6 +39,7 @@ const parseGitTimestamp = (value, filepath) => {
 
 export const getLastModifiedDate = async filepath => {
   const timestamps = await loadTimestamps()
+  const path = await import('node:path')
   const normalizedPath = path.isAbsolute(filepath)
     ? path.relative(process.cwd(), filepath)
     : filepath
@@ -49,6 +48,7 @@ export const getLastModifiedDate = async filepath => {
     return parseGitTimestamp(timestamps[normalizedPath], filepath)
   }
 
+  const { default: $ } = await import('tinyspawn')
   const { stdout: value } = await $(
     `git log --max-count=1 --format=%cI -- ${normalizedPath}`
   )
@@ -60,8 +60,12 @@ export const getLastModifiedDate = async filepath => {
   return parseGitTimestamp(value, filepath)
 }
 
-export const branchName = () =>
-  $('git rev-parse --abbrev-ref HEAD').then(({ stdout }) => stdout)
+export const branchName = async () => {
+  const { default: $ } = await import('tinyspawn')
+  return $('git rev-parse --abbrev-ref HEAD').then(({ stdout }) => stdout)
+}
 
-export const mv = (sourcePath, destinationPath) =>
-  $(`git mv "${sourcePath}" "${destinationPath}"`)
+export const mv = async (sourcePath, destinationPath) => {
+  const { default: $ } = await import('tinyspawn')
+  return $(`git mv "${sourcePath}" "${destinationPath}"`)
+}

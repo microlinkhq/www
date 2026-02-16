@@ -68,12 +68,6 @@ const getHeadingStyle = (level = 1) => {
     margin = { ...marginMap[4], color: 'gray7' }
   }
 
-  // Debug print
-  if (typeof window !== 'undefined') {
-    console.log(`Heading level ${level}:`, {
-      fontSize: fontSizeArr
-    })
-  }
   return {
     fontSize: fontSizeArr,
     ...margin

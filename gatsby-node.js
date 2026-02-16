@@ -16,7 +16,10 @@ const RECIPES_BY_FEATURES_KEYS = Object.keys(
 )
 
 const GIT_TIMESTAMPS = JSON.parse(
-  readFileSync(path.join(process.cwd(), 'data', 'git-timestamps.json'), 'utf8')
+  readFileSync(
+    path.join(process.cwd(), 'data', 'git-timestamps-modified.json'),
+    'utf8'
+  )
 )
 
 const getTimestampForFile = fileNode => {

@@ -106,6 +106,14 @@ module.exports = {
       resolve: 'gatsby-plugin-sitemap',
       /* activate fields { slug, lastmod } once we find a workaround for Vercel git history */
       options: {
+        excludes: [
+          '/404',
+          '/404.html',
+          '/dev-404-page',
+          '/offline-plugin-app-shell-fallback',
+          '/payment',
+          '/payment/update'
+        ],
         query: `
         {
           site {

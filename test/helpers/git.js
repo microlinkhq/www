@@ -23,10 +23,10 @@ describe('git helpers', () => {
     tinyspawn.mockResolvedValueOnce({ stdout: '2024-01-01T00:00:00Z' })
 
     const { getLastModifiedDate } = await loadGitHelpers()
-    const result = await getLastModifiedDate('src/helpers/git.js')
+    const result = await getLastModifiedDate('src/helpers/git/index.js')
 
     expect(tinyspawn).toHaveBeenCalledWith(
-      'git log --max-count=1 --format=%cI -- src/helpers/git.js'
+      'git log --max-count=1 --format=%cI -- src/helpers/git/index.js'
     )
     expect(result).toBe('2024-01-01T00:00:00.000Z')
   })
@@ -35,12 +35,12 @@ describe('git helpers', () => {
     vi.resetModules()
     readFile.mockResolvedValueOnce(
       JSON.stringify({
-        'src/helpers/git.js': '2024-01-01T00:00:00Z'
+        'src/helpers/git/index.js': '2024-01-01T00:00:00Z'
       })
     )
 
     const { getLastModifiedDate } = await loadGitHelpers()
-    const result = await getLastModifiedDate('src/helpers/git.js')
+    const result = await getLastModifiedDate('src/helpers/git/index.js')
 
     expect(tinyspawn).not.toHaveBeenCalled()
     expect(result).toBe('2024-01-01T00:00:00.000Z')

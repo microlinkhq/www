@@ -1,3 +1,5 @@
+import { toDate } from 'helpers/to-date'
+
 const sharedContext = {
   provider: {
     '@type': 'Organization',
@@ -49,44 +51,69 @@ const softwareBaseSchema = ({ title, description, url, image }) => ({
   ...sharedContext
 })
 
+const withArticleDates = ({ publishedDate, modifiedDate }) => ({
+  ...(publishedDate && {
+    datePublished: publishedDate.toISOString()
+  }),
+  ...(modifiedDate && {
+    dateModified: modifiedDate.toISOString()
+  })
+})
+
+const articleSchema = ({
+  type,
+  title,
+  description,
+  url,
+  image,
+  publishedDate,
+  modifiedDate
+}) => ({
+  ...articleBaseSchema({ title, description, url, image }),
+  '@type': type,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': url
+  },
+  ...withArticleDates({ publishedDate, modifiedDate })
+})
+
 export const generateStructuredData = ({
   schemaType,
   title,
   description,
   url,
   image,
-  date
+  publishedDate: rawPublishedDate,
+  modifiedDate: rawModifiedDate
 }) => {
   if (!schemaType) return null
 
+  const publishedDate = toDate(rawPublishedDate)
+  const modifiedDate = toDate(rawModifiedDate) || publishedDate
+
   if (schemaType === 'Article') {
-    return {
-      ...articleBaseSchema({ title, description, url, image }),
-      '@type': 'Article',
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': url
-      },
-      ...(date && {
-        datePublished: date.toISOString(),
-        dateModified: date.toISOString()
-      })
-    }
+    return articleSchema({
+      type: 'Article',
+      title,
+      description,
+      url,
+      image,
+      publishedDate,
+      modifiedDate
+    })
   }
 
   if (schemaType === 'TechArticle') {
-    return {
-      ...articleBaseSchema({ title, description, url, image }),
-      '@type': 'TechArticle',
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': url
-      },
-      ...(date && {
-        datePublished: date.toISOString(),
-        dateModified: date.toISOString()
-      })
-    }
+    return articleSchema({
+      type: 'TechArticle',
+      title,
+      description,
+      url,
+      image,
+      publishedDate,
+      modifiedDate
+    })
   }
 
   if (schemaType === 'SoftwareApplication') {

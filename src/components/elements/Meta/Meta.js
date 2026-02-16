@@ -1,7 +1,12 @@
 import { useLocation } from '@gatsbyjs/reach-router'
+import {
+  getCreatedFromPathname,
+  getLastModifiedFromPathname
+} from 'helpers/git/date'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useMemo } from 'react'
 import { generateStructuredData } from './structured'
+import { toDate } from 'helpers/to-date'
 
 const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
 
@@ -11,20 +16,27 @@ const getTitle = location => {
   return page.charAt(0).toUpperCase() + page.slice(1)
 }
 
-const mergeMeta = (props, location, metadata) => {
-  const { siteUrl, video, twitter, headline } = metadata
-  const title = props.title || getTitle(location) || metadata.headline
+const normalizeAuthor = (authors, fallbackAuthor) => {
+  if (Array.isArray(authors)) return authors.filter(Boolean).join(', ')
+  return authors || fallbackAuthor
+}
 
-  const {
+const mergeMeta = (props, location, metadata) => {
+  const { siteUrl, video, twitter, headline, author: fallbackAuthor } = metadata
+  const title = props.title || getTitle(location) || headline
+
+  let {
     dataLabel1,
     dataLabel2,
     dataValue1,
     dataValue2,
-    date,
     image,
     logo,
     name,
     noSuffix,
+    publishedDate,
+    modifiedDate,
+    robots = 'index, follow',
     schemaType,
     authors: inputAuthors
   } = {
@@ -32,25 +44,26 @@ const mergeMeta = (props, location, metadata) => {
     ...props
   }
 
-  const description =
-    props.description || metadata.description || metadata.headline
+  const description = props.description || metadata.description || headline
 
-  const url = location
-    ? `${siteUrl}${location.pathname}${location.search}`
-    : siteUrl
+  const url = location ? `${siteUrl}${location.pathname}` : siteUrl
 
-  const author = Array.isArray(inputAuthors)
-    ? inputAuthors.filter(Boolean).join(', ')
-    : inputAuthors || metadata.author
+  const author = normalizeAuthor(inputAuthors, fallbackAuthor)
+
+  if (!modifiedDate) {
+    modifiedDate = getLastModifiedFromPathname(location?.pathname)
+  }
+
+  if (!publishedDate) {
+    publishedDate = getCreatedFromPathname(location?.pathname) || modifiedDate
+  }
 
   return {
-    date: date ? new Date(date) : undefined,
     dataLabel1,
     dataLabel2,
     dataValue1,
     dataValue2,
     description,
-    headline,
     image,
     logo,
     name,
@@ -58,13 +71,16 @@ const mergeMeta = (props, location, metadata) => {
     twitter,
     url,
     video,
+    robots,
     noSuffix,
+    publishedDate,
+    modifiedDate,
     schemaType,
     author
   }
 }
 
-function Meta ({ script, structured, ...props }) {
+function Meta ({ structured, ...props }) {
   const siteMetadata = useSiteMetadata()
   const location = useLocation()
 
@@ -73,7 +89,6 @@ function Meta ({ script, structured, ...props }) {
     dataLabel2,
     dataValue1,
     dataValue2,
-    date,
     description,
     image,
     logo,
@@ -82,7 +97,10 @@ function Meta ({ script, structured, ...props }) {
     twitter,
     url,
     video,
+    robots,
     noSuffix,
+    publishedDate,
+    modifiedDate,
     schemaType,
     author
   } = useMemo(
@@ -100,20 +118,31 @@ function Meta ({ script, structured, ...props }) {
         description,
         url,
         image,
-        date,
+        publishedDate,
+        modifiedDate,
         author
       }),
-    [schemaType, fullTitle, description, url, image, date, author]
+    [
+      schemaType,
+      fullTitle,
+      description,
+      url,
+      image,
+      publishedDate,
+      modifiedDate,
+      author
+    ]
   )
 
-  // Combine auto-generated schema with custom structured data
   const allStructuredData = useMemo(() => {
-    const schemas = []
-    if (autoStructuredData) schemas.push(autoStructuredData)
-    if (structured) {
-      schemas.push(...(Array.isArray(structured) ? structured : [structured]))
-    }
-    return schemas
+    const customSchemas = structured
+      ? Array.isArray(structured)
+        ? structured
+        : [structured]
+      : []
+    return autoStructuredData
+      ? [autoStructuredData, ...customSchemas]
+      : customSchemas
   }, [autoStructuredData, structured])
 
   return (
@@ -123,6 +152,8 @@ function Meta ({ script, structured, ...props }) {
       <meta name='description' content={description} />
       <meta name='image' content={image} />
       <meta name='author' content={author} />
+      <meta name='robots' content={robots} />
+      <meta name='googlebot' content={robots} />
       {/* <!-- Schema.org for Google --> */}
       <meta itemProp='name' content={fullTitle} />
       <meta itemProp='description' content={description} />
@@ -137,10 +168,10 @@ function Meta ({ script, structured, ...props }) {
       <meta name='twitter:player:stream' content={video} />
       <meta name='twitter:image' content={image} />
       <meta name='twitter:creator' content={twitter} />
-      <meta name='twitter:label1' value={dataLabel1} />
-      <meta name='twitter:data1' value={dataValue1} />
-      <meta name='twitter:label2' value={dataLabel2} />
-      <meta name='twitter:data2' value={dataValue2} />
+      <meta name='twitter:label1' content={dataLabel1} />
+      <meta name='twitter:data1' content={dataValue1} />
+      <meta name='twitter:label2' content={dataLabel2} />
+      <meta name='twitter:data2' content={dataValue2} />
       {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
       <meta property='og:url' content={url} />
       <meta property='og:title' content={fullTitle} />
@@ -151,8 +182,17 @@ function Meta ({ script, structured, ...props }) {
       <meta property='og:site_name' content={name} />
       <meta property='og:locale' content='en_US' />
       <meta property='og:type' content='website' />
-      {date && (
-        <meta name='article:modified_time' content={date.toISOString()} />
+      {publishedDate && (
+        <meta
+          property='article:published_time'
+          content={toDate(publishedDate).toISOString()}
+        />
+      )}
+      {modifiedDate && (
+        <meta
+          property='article:modified_time'
+          content={toDate(modifiedDate).toISOString()}
+        />
       )}
       {/* <!-- JSON-LD Structured Data --> */}
       {allStructuredData.map(schema => (
