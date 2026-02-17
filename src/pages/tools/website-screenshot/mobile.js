@@ -130,9 +130,19 @@ const LAYOUT_PIVOT = 1200
 const MOBILE_BP = 768
 const MAX_SCREENSHOT_PREVIEW_HEIGHT = 750
 
+const PortraitIcon = () => <Smartphone size={14} aria-hidden='true' />
+
+const LandscapeIcon = () => (
+  <Smartphone
+    size={14}
+    aria-hidden='true'
+    style={{ transform: 'rotate(90deg)' }}
+  />
+)
+
 const ORIENTATION_OPTIONS = [
-  { value: 'portrait', label: 'Portrait' },
-  { value: 'landscape', label: 'Landscape' }
+  { value: 'portrait', label: 'Portrait', icon: PortraitIcon },
+  { value: 'landscape', label: 'Landscape', icon: LandscapeIcon }
 ]
 
 const FEATURES_LIST = [
@@ -258,7 +268,11 @@ const SegmentedOption = styled(Box)
     fontSize: 0,
     fontWeight: 'regular',
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '6px'
   })}
   background: ${({ $active }) => ($active ? 'white' : 'transparent')};
   color: ${({ $active }) => ($active ? colors.black80 : colors.black50)};
@@ -974,6 +988,7 @@ const SegmentedControl = ({ options, value, onChange, name }) => {
             onClick={() => onChange(opt.value)}
             onKeyDown={handleKeyDown}
           >
+            {opt.icon && <opt.icon />}
             {opt.label}
           </SegmentedOption>
         )
