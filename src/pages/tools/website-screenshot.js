@@ -481,12 +481,7 @@ const PreviewCanvas = styled(Box)`
     overflow: 'hidden',
     position: 'relative'
   })}
-  min-height: 380px;
   background: #f1f5f9;
-
-  @media (min-width: ${LAYOUT_PIVOT}px) {
-    min-height: 520px;
-  }
 `
 
 const ViewportCard = styled(Box)`
