@@ -2182,7 +2182,7 @@ const UseCases = () => (
     <Box
       css={theme({
         display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr 1fr', '1fr 1fr 1fr'],
+        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
         gap: 3,
         pt: [4, 4, 5, 5],
         width: '100%'
