@@ -5,15 +5,18 @@ import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Camera,
   Clipboard,
+  Crosshair,
   Download,
   ExternalLink,
   Globe,
+  XSquare,
   ArrowRight,
   Code,
   HelpCircle,
-  Link2,
+  Maximize,
   Settings,
-  X
+  X,
+  Zap
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
@@ -155,24 +158,28 @@ const HOW_IT_WORKS = [
 
 const REASON_TO_USE = [
   {
+    icon: Maximize,
     title: 'Capture the Entire Webpage, Not Just the Visible Area',
     description:
-      "Most screenshot tools only capture what's visible on screen. Our tool scrolls and renders the entire web page — every section, every pixel — into a single high-resolution image. Whether it's a long landing page or an infinite-scroll blog, you get the whole site screenshot."
+      "Most screenshot tools only capture what's visible on screen. Our tool scrolls and renders the entire web page. <br><br> Every section, every pixel, into a single high-resolution image. Whether it's a long landing page or an infinite-scroll blog, you get the whole site screenshot."
   },
   {
+    icon: XSquare,
     title: 'No Extension, No Install — 100% Online and Free',
     description:
-      'This is a full page screenshot tool that works entirely in your browser. No Chrome extensions, no desktop apps, no sign-ups required to start. Just a fast, online screenshot capture experience.'
+      "This is a full page screenshot tool that works entirely in your browser. No Chrome extensions, no desktop apps, no sign-ups required to start. <br><br> Capture any website for free — it's a full page screen capture online, with no hidden limits or trials. Just a fast, online screenshot capture experience."
   },
   {
-    title: 'Pixel-Perfect at Any Resolution with no ads and cookie banners',
+    icon: Crosshair,
+    title: 'Pixel-Perfect at Any Resolution',
     description:
-      'Need a full screen website screenshot at 1440px? 1920px? Custom dimensions? Choose your viewport and get a crisp, accurate capture every time. Automatically block ads and cookie banners before the rendering.Perfect for designers, QA teams, and agencies that need reliable web page screenshots.'
+      'Need a full screen website screenshot at 1440px? 1920px? Custom dimensions? <br><br> Choose your viewport width and get a crisp, accurate capture every time. Perfect for designers, QA teams, and agencies that need reliable web page screenshots.'
   },
   {
-    title: 'Lightning Fast, Even for Long Pages',
+    icon: Zap,
+    title: 'Blazing Fast, Zero Ads',
     description:
-      'Our rendering engine captures full webpage screenshots in seconds — even for pages that are thousands of pixels tall. No timeouts, no broken renders.'
+      'Our rendering engine captures full webpage screenshots in seconds, even for pages that are thousands of pixels tall. <br><br> Automatically block ads and cookie banners before the rendering. No timeouts, no broken renders.'
   }
 ]
 
@@ -1793,7 +1800,12 @@ const Hero = () => (
     >
       Full Page Screenshot Tool
       <Text
-        css={theme({ fontSize: [3, '30px', '35px', '40px'], color: 'black80' })}
+        css={theme({
+          fontSize: [3, '30px', '35px', '40px'],
+          color: 'black80',
+          WebkitTextFillColor: 'initial',
+          backgroundImage: 'none'
+        })}
       >
         Capture Any Entire Website
       </Text>
@@ -1888,20 +1900,56 @@ const Explanation = () => (
     <Box
       css={theme({
         display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr 1fr'],
+        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
         gap: 3,
         pt: [4, 4, 5, 5],
         maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
       })}
     >
-      {REASON_TO_USE.map(({ title, description }) => (
+      {REASON_TO_USE.map(({ icon: Icon, title, description }) => (
         <UseCaseCard key={title}>
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 1 })}>
+          {/* Mobile: inline icon as bullet */}
+          <Flex
+            css={theme({
+              display: ['flex', 'flex', 'none', 'none'],
+              alignItems: 'center',
+              pb: 2,
+              gap: '8px'
+            })}
+          >
+            <Icon size={16} color={colors.black80} style={{ flexShrink: 0 }} />
+            <Caps as='h3' css={theme({ fontWeight: 'bold', fontSize: 1 })}>
+              {title}
+            </Caps>
+          </Flex>
+          {/* Desktop: centered icon above title */}
+          <Flex
+            css={theme({
+              display: ['none', 'none', 'flex', 'flex'],
+              justifyContent: 'center',
+              pb: 3
+            })}
+          >
+            <IconCircle>
+              <Icon size={24} color={colors.black80} />
+            </IconCircle>
+          </Flex>
+          <Caps
+            as='h3'
+            css={theme({
+              display: ['none', 'none', 'block', 'block'],
+              fontWeight: 'bold',
+              pb: 2,
+              fontSize: 1,
+              textAlign: 'center'
+            })}
+          >
             {title}
           </Caps>
-          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-            {description}
-          </Text>
+          <Text
+            css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </UseCaseCard>
       ))}
     </Box>
@@ -2125,7 +2173,7 @@ const UseCases = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Use Cases — Who Needs Full Page Website Screenshots?
+      Who Needs Full Page Website Screenshots?
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
       From design reviews to automated testing, website screenshots power
