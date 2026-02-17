@@ -2448,7 +2448,7 @@ const UseCases = () => (
         display: 'grid',
         gridTemplateColumns: ['1fr', '1fr', '1fr 1fr 1fr', '1fr 1fr 1fr'],
         gap: 3,
-        pt: [3, 3, 4, 4],
+        pt: [4, 4, 5, 5],
         width: '100%'
       })}
     >
