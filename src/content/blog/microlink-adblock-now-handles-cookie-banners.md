@@ -11,7 +11,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 Cookie banners are one of the most annoying things on today’s internet.
 
-![](/images/1627043352452-webcookiespiecelede-1.jpeg)
+![](/images/cookies.jpeg)
 
 If you take [screenshots](/docs/api/parameters/screenshot), generate [PDFs](/docs/api/parameters/pdf), or extract [metadata](/docs/api/parameters/meta), you eventually hit the same problem: the page loads, but a consent popup covers the content.
 
