@@ -1064,7 +1064,11 @@ const PreviewDisplay = ({
                 alignItems: 'center'
               })}
               aria-live='polite'
-              aria-label={isLoading ? 'Capturing screenshot' : 'Loading image'}
+              aria-label={
+                isLoading
+                  ? 'Capturing full webpage screenshot'
+                  : 'Loading image'
+              }
             >
               <Spinner width='20px' height='14px' />
               <Text
@@ -1076,7 +1080,7 @@ const PreviewDisplay = ({
               >
                 {isLoading ? (
                   <>
-                    Capturing screenshot
+                    Capturing full webpage screenshot
                     <DotSpinner />
                   </>
                 ) : (
@@ -1343,10 +1347,10 @@ const PreviewDisplay = ({
               <Camera size={32} color={colors.black20} />
             </Box>
             <Text css={theme({ color: 'black40', fontSize: 2 })}>
-              Enter a URL and click Generate
+              Enter a URL and click Generate Screenshot
             </Text>
             <Text css={theme({ color: 'black20', fontSize: 1, pt: 1 })}>
-              Your screenshot will appear here
+              Your full page screenshot will appear here
             </Text>
           </FadeIn>
         </Choose.Otherwise>
