@@ -54,39 +54,6 @@ const Caption = withTitle(CaptionBase)
 
 /* ─── Constants ────────────────────────────────────────── */
 
-const SOLID_COLORS = [
-  '#000000',
-  '#FFFFFF',
-  '#FF057C',
-  '#321575',
-  '#4158D0',
-  '#C850C0',
-  '#FFCC70',
-  '#667eea',
-  '#f093fb',
-  '#f5576c',
-  '#4facfe',
-  '#00f2fe'
-]
-
-const GRADIENT_PRESETS = [
-  'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)',
-  'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-  'linear-gradient(225deg, #f093fb 0%, #f5576c 100%)',
-  'linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)',
-  'linear-gradient(180deg, #C850C0 0%, #FFCC70 100%)',
-  'linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%)',
-  'linear-gradient(225deg, #FF057C 0%, #4158D0 100%)',
-  'linear-gradient(45deg, #8D0B93 0%, #00f2fe 100%)',
-  'linear-gradient(135deg, #f5576c 0%, #FFCC70 100%)',
-  'linear-gradient(225deg, #321575 0%, #4facfe 100%)',
-  'linear-gradient(180deg, #667eea 0%, #f093fb 100%)',
-  'linear-gradient(135deg, #764ba2 0%, #C850C0 50%, #FF057C 100%)'
-]
-
-const DEFAULT_OVERLAY_BG =
-  'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
-
 const PHONE_DEVICES = [
   {
     id: 'iphone-17',
@@ -419,119 +386,6 @@ const CheckboxLabel = styled(Flex).attrs({ as: 'label' })`
       width: 20px;
       height: 20px;
     }
-  }
-`
-
-const ColorSwatch = styled(Box).withConfig({
-  shouldForwardProp: prop => !['isActive'].includes(prop)
-})`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform ${transition.short}, box-shadow ${transition.short};
-
-  ${({ isActive }) =>
-    isActive ? `border: 2px solid ${colors.black80}` : null};
-
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover {
-    transform: scale(1.15);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    width: 32px;
-    height: 32px;
-  }
-`
-
-const NativeColorPicker = styled.input.attrs({ type: 'color' })`
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
-  padding: 0;
-  border: 2px solid ${colors.black10};
-  border-radius: 50%;
-  cursor: pointer;
-  background: none;
-  -webkit-appearance: none;
-  appearance: none;
-  overflow: hidden;
-
-  &::-webkit-color-swatch-wrapper {
-    padding: 0;
-  }
-
-  &::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-  }
-
-  &::-moz-color-swatch {
-    border: none;
-    border-radius: 50%;
-  }
-
-  &:hover {
-    border-color: ${colors.black20};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-  }
-`
-
-const HexTextInput = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '7px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80'
-  })}
-  flex: 1;
-  min-width: 0;
-  background: white;
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
-
-  &:focus-visible {
-    outline: none;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-    min-height: 44px;
   }
 `
 
@@ -885,106 +739,6 @@ const ThumbnailDeleteButton = styled(Box).attrs({
   }
 `
 
-/* ─── Color Picker Component ──────────────────────────── */
-
-const ColorPicker = ({ value, onChange, customHex, onCustomHexChange }) => {
-  const hasCustomHex = customHex && customHex.length > 0
-
-  const nativePickerValue =
-    hasCustomHex && /^#?[0-9A-Fa-f]{6}$/.test(customHex)
-      ? customHex.startsWith('#')
-        ? customHex
-        : `#${customHex}`
-      : '#000000'
-
-  const handlePresetClick = preset => {
-    onChange(preset)
-    onCustomHexChange('')
-  }
-
-  return (
-    <Box css={theme({ pt: 1 })}>
-      <OptionLabel as='span' id='solid-colors-label'>
-        Solid colors
-      </OptionLabel>
-      <Flex
-        role='group'
-        aria-labelledby='solid-colors-label'
-        css={{ flexWrap: 'wrap', gap: space[2] }}
-      >
-        {SOLID_COLORS.map(color => (
-          <ColorSwatch
-            key={color}
-            role='button'
-            tabIndex={0}
-            aria-label={`Select color ${color}`}
-            isActive={!hasCustomHex && value === color}
-            style={{ background: color }}
-            onClick={() => handlePresetClick(color)}
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                handlePresetClick(color)
-              }
-            }}
-          />
-        ))}
-      </Flex>
-
-      <OptionLabel as='span' css={theme({ pt: 3 })} id='gradients-label'>
-        Gradients
-      </OptionLabel>
-      <Flex
-        role='group'
-        aria-labelledby='gradients-label'
-        mb={2}
-        css={{ flexWrap: 'wrap', gap: space[2] }}
-      >
-        {GRADIENT_PRESETS.map(grad => (
-          <ColorSwatch
-            key={grad}
-            role='button'
-            tabIndex={0}
-            aria-label='Select gradient'
-            isActive={!hasCustomHex && value === grad}
-            style={{ background: grad }}
-            onClick={() => handlePresetClick(grad)}
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                handlePresetClick(grad)
-              }
-            }}
-          />
-        ))}
-      </Flex>
-
-      <OptionLabel as='span' css={theme({ pt: 2 })} id='custom-color-label'>
-        Custom color
-      </OptionLabel>
-      <Flex
-        aria-labelledby='custom-color-label'
-        css={{ alignItems: 'center', gap: space[2] }}
-      >
-        <NativeColorPicker
-          value={nativePickerValue}
-          onChange={e => onCustomHexChange(e.target.value)}
-          aria-label='Pick a custom color'
-        />
-        <HexTextInput
-          placeholder='#FF057C'
-          value={customHex}
-          onChange={e => onCustomHexChange(e.target.value.trim())}
-          aria-label='Enter hex color code'
-          spellCheck={false}
-          autoComplete='off'
-          maxLength={7}
-        />
-      </Flex>
-    </Box>
-  )
-}
-
 /* ─── Segmented Control ───────────────────────────────── */
 
 const SegmentedControl = ({ options, value, onChange, name }) => {
@@ -1150,15 +904,12 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             <input
               type='checkbox'
               checked={options.fullPage}
-              disabled={options.overlayEnabled}
-              onChange={e => {
-                const checked = e.target.checked
+              onChange={e =>
                 setOptions(prev => ({
                   ...prev,
-                  fullPage: checked,
-                  overlayEnabled: checked ? false : prev.overlayEnabled
+                  fullPage: e.target.checked
                 }))
-              }}
+              }
             />
             <Text css={theme({ pl: 2, fontSize: '16px', color: 'black80' })}>
               Full page screenshot
@@ -1235,41 +986,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               />
             </Tooltip>
           </CheckboxLabel>
-          <Box>
-            <CheckboxLabel>
-              <input
-                type='checkbox'
-                checked={options.overlayEnabled}
-                disabled={options.fullPage}
-                onChange={e => {
-                  const checked = e.target.checked
-                  setOptions(prev => ({
-                    ...prev,
-                    overlayEnabled: checked,
-                    fullPage: checked ? false : prev.fullPage
-                  }))
-                }}
-              />
-              <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-                Add background color
-              </Text>
-            </CheckboxLabel>
-
-            {options.overlayEnabled && (
-              <Box css={theme({ pt: 1, pl: 0 })}>
-                <ColorPicker
-                  value={options.overlayBackground}
-                  onChange={val =>
-                    setOptions(prev => ({ ...prev, overlayBackground: val }))
-                  }
-                  customHex={options.overlayCustomHex}
-                  onCustomHexChange={val =>
-                    setOptions(prev => ({ ...prev, overlayCustomHex: val }))
-                  }
-                />
-              </Box>
-            )}
-          </Box>
         </Box>
       </PanelRibbonLayout>
 
@@ -1864,10 +1580,7 @@ const ScreenshotTool = () => {
     adblock: true,
     cache: true,
     phoneId: PHONE_DEVICES[0].id,
-    landscape: false,
-    overlayEnabled: false,
-    overlayBackground: DEFAULT_OVERLAY_BG,
-    overlayCustomHex: ''
+    landscape: false
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -1924,18 +1637,6 @@ const ScreenshotTool = () => {
           force: !options.cache
         }
 
-        if (options.overlayEnabled) {
-          const customHex = options.overlayCustomHex
-            ? options.overlayCustomHex.startsWith('#')
-              ? options.overlayCustomHex
-              : `#${options.overlayCustomHex}`
-            : ''
-
-          mqlOpts.screenshot.overlay = {
-            background: customHex || options.overlayBackground
-          }
-        }
-
         let response = null
         try {
           response = await mql(url, mqlOpts)
@@ -1965,9 +1666,6 @@ const ScreenshotTool = () => {
                   fullPage: options.fullPage,
                   phoneId: options.phoneId,
                   landscape: options.landscape,
-                  overlayEnabled: options.overlayEnabled,
-                  overlayBackground: options.overlayBackground,
-                  overlayCustomHex: options.overlayCustomHex,
                   adblock: options.adblock,
                   cache: options.cache
                 }
@@ -2001,9 +1699,6 @@ const ScreenshotTool = () => {
       fullPage: settings.fullPage,
       phoneId,
       landscape,
-      overlayEnabled: settings.overlayEnabled,
-      overlayBackground: settings.overlayBackground || DEFAULT_OVERLAY_BG,
-      overlayCustomHex: settings.overlayCustomHex || '',
       adblock: settings.adblock !== undefined ? settings.adblock : true,
       cache: settings.cache !== undefined ? settings.cache : true
     })
