@@ -34,7 +34,7 @@ For common cases, you no longer need custom Puppeteer scripts. This also speed u
 
 ## Why this matters
 
-![](/images/static/images/cookies-2.jpeg)
+![](/images/cookies2.jpeg)
 
 Historically, hide cookie banners popup require site-specific scripts, brittle selectors, and constant maintenance. This could be achieved in many ways:
 
