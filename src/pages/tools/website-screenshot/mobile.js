@@ -113,12 +113,6 @@ const PHONE_DEVICES = [
     height: 896
   },
   {
-    id: 'iphone-se-4',
-    label: 'iPhone SE 4',
-    width: 390,
-    height: 844
-  },
-  {
     id: 'galaxy-s25-ultra',
     label: 'Samsung Galaxy S26 Ultra',
     width: 412,
@@ -127,6 +121,18 @@ const PHONE_DEVICES = [
   {
     id: 'galaxy-s25',
     label: 'Samsung Galaxy S26',
+    width: 360,
+    height: 800
+  },
+  {
+    id: 'galaxy-a16',
+    label: 'Samsung Galaxy A16',
+    width: 360,
+    height: 780
+  },
+  {
+    id: 'galaxy-a06',
+    label: 'Samsung Galaxy A06',
     width: 360,
     height: 800
   },
@@ -211,7 +217,7 @@ const HOW_IT_WORKS = [
   },
   {
     icon: Camera,
-    title: 'Generate Screenshot',
+    title: 'Generate Mobile Screenshot',
     description: 'Click the button and wait a few seconds.'
   },
   {
@@ -2096,7 +2102,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Mobile Website Screenshots
+      Mobile Website Screenshot Generator
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -2107,7 +2113,7 @@ const Hero = () => (
         fontSize: [2, 2, 3, '32px']
       })}
     >
-      Capture any website as it appears on real mobile devices
+      Take mobile screenshots of any website instantly.
     </Caption>
   </Flex>
 )
@@ -2149,7 +2155,7 @@ const HowItWorks = () => (
       {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
         <StepCard key={title}>
           <IconCircle css={theme({ width: '80px', height: '80px' })}>
-            <Icon size={32} color={colors.link} />
+            <Icon size={32} color='rgba(0, 0, 0, 0.8)' />
           </IconCircle>
           <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}>
             {title}
@@ -2179,16 +2185,28 @@ const Explanation = () => (
   >
     <Subhead
       variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
+      css={theme({ fontSize: [3, '30px', '35px', '40px'] })}
     >
       Why choose our mobile screenshot tool?
     </Subhead>
+    <Caption
+      css={theme({
+        pt: [3, 3, 4, 4],
+        px: [1, 1, 3, 3],
+        fontSize: [2, 2, '24px'],
+        maxWidth: layout.large
+      })}
+    >
+      Responsive design testing shouldn't require a drawer full of phones. Our
+      tool lets you screenshot responsive website layouts across multiple device
+      sizes in a single session.
+    </Caption>
     <Box
       css={theme({
         display: 'grid',
         gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr 1fr'],
         gap: 3,
-        pt: [4, 4, 5, 5],
+        pt: [3, 3, 4, 4],
         maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
       })}
     >
@@ -2363,45 +2381,36 @@ const Banner = () => (
 
 const USE_CASES = [
   {
-    title: 'For Web Designers',
+    title: 'Developers',
     items: [
-      'Create portfolio screenshots of live websites',
-      'Add the screenshots to AI tools to turn them in HTML',
-      'Generate client approval mockups instantly',
-      'Capture responsive layouts across devices'
+      "Capture visual regression bugs across device sizes before they reach production. <br><br> A website screenshot mobile capture is the fastest way to document what went wrong and prove it's fixed."
     ],
     link: {
-      href: '/blog/using-screenshot-design',
-      alt: 'Screenshot for designers use case',
-      text: 'Check out how to xxxx'
+      href: '',
+      alt: '',
+      text: ''
     }
   },
   {
-    title: 'For Digital Marketers',
+    title: 'Designers',
     items: [
-      'Screenshot competitor websites for analysis',
-      'Create case study visuals with before/after shots',
-      'Capture landing pages for ad compliance records',
-      'Generate social media preview images'
+      'Verify that Figma-to-code handoffs look correct on real mobile viewports. <br><br> Our screenshot mobile website output gives you a pixel-level source of truth.'
     ],
     link: {
-      href: '/use-cases/generate-og-img-previews',
-      alt: 'Screenshot for og:images',
-      text: 'Check out this use case xxxx'
+      href: '',
+      alt: '',
+      text: ''
     }
   },
   {
-    title: 'For Developers',
+    title: 'Marketers and SEO',
     items: [
-      'Screenshot webpages for bug reports',
-      'Automate visual regression testing via API',
-      'Capture site states at specific timestamps',
-      'Generate and previews of multiple websites without effort'
+      'Document landing page performance, track competitor changes, and build visual audit reports. <br><br> All from a mobile screenshot online tool that requires no installs or configuration.'
     ],
     link: {
-      href: '/screenshot',
-      alt: 'Screenshot API',
-      text: 'Check out the API'
+      href: '',
+      alt: '',
+      text: ''
     }
   }
 ]
@@ -2419,11 +2428,18 @@ const UseCases = () => (
   >
     <Subhead
       variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
+      css={theme({ fontSize: [3, '30px', '35px', '40px'] })}
     >
-      Use cases for website screen capture
+      Who Uses a Mobile Website Screenshot Generator?
     </Subhead>
-    <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
+    <Caption
+      css={theme({
+        pt: [3, 3, 4, 4],
+        px: [1, 1, 3, 3],
+        fontSize: [2, 2, '24px'],
+        maxWidth: layout.large
+      })}
+    >
       From design reviews to automated testing, website screenshots power
       workflows across every team.
     </Caption>
@@ -2432,7 +2448,7 @@ const UseCases = () => (
         display: 'grid',
         gridTemplateColumns: ['1fr', '1fr', '1fr 1fr 1fr', '1fr 1fr 1fr'],
         gap: 3,
-        pt: [4, 4, 5, 5],
+        pt: [3, 3, 4, 4],
         width: '100%'
       })}
     >
@@ -2485,9 +2501,8 @@ const UseCases = () => (
                     color: 'black60',
                     lineHeight: 2
                   })}
-                >
-                  {item}
-                </Text>
+                  dangerouslySetInnerHTML={{ __html: item }}
+                />
               </Flex>
             ))}
             {/* <Flex
@@ -2525,9 +2540,9 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes! You can take up to <b>50&nbsp;screenshots per day</b> for
-              free, with no credit card required. Free screenshots include all
-              features — phone emulation, full-page capture, portrait and
+              Yes! You can take up to <b>50&nbsp;mobile screenshots per day</b>{' '}
+              for free, with no credit card required. Free screenshots include
+              all features — phone emulation, full-page capture, portrait and
               landscape modes, overlays, and multiple formats.
             </div>
             <div>
@@ -2542,16 +2557,21 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              We support the 10 most popular smartphones including iPhone 16 Pro
-              Max, iPhone 16 Pro, iPhone 16, iPhone 15 Pro Max, iPhone 15,
-              iPhone SE, Samsung Galaxy S24 Ultra, Samsung Galaxy S24, Google
-              Pixel&nbsp;9 Pro, and Google Pixel&nbsp;9.
+              We support the 10 most popular smartphones including iPhone 17 Pro
+              Max, iPhone 17 Pro, iPhone 17, iPhone 17 Air, Samsung Galaxy S25
+              Ultra, Samsung Galaxy S24, Samsung Galaxy A16, Samsung Galaxy A06,
+              Google Pixel 9 Pro, and Google Pixel 9.
             </div>
             <div>
               Each device uses its real CSS viewport dimensions for
-              pixel-perfect mobile screenshots. Need a custom size? Use the{' '}
-              <Link href='/docs/api/parameters/screenshot'>Screenshot API</Link>{' '}
-              directly.
+              pixel-perfect mobile screenshots.
+            </div>
+            <div>
+              <b>Need a custom size?</b> Use the{' '}
+              <Link href='/tools/website-screenshot'>
+                Advanced Screenshot Tool
+              </Link>
+              .
             </div>
           </>
         )
@@ -2581,39 +2601,29 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Can I integrate this into my application?',
+        question:
+          'Can I screenshot a website in different mobile devices at the same time?',
         answer: (
           <>
             <div>
-              Absolutely. The tool is built on the{' '}
-              <Link href='/docs/api/parameters/screenshot'>
-                Microlink Screenshot API
-              </Link>
-              , which provides a simple REST endpoint. Integrate with any
-              language — Node.js, Python, Ruby, or plain cURL.
-            </div>
-            <div>
-              Use the{' '}
-              <Link href='https://www.npmjs.com/package/@microlink/mql'>
-                @microlink/mql
-              </Link>{' '}
-              SDK for Node.js, or hit the API directly from any HTTP client.
+              The free tool handles one device at a time. For batch captures
+              across multiple devices simultaneously, use our{' '}
+              <Link href='/screenshot'>Screenshot API</Link> which supports any
+              custom viewport or preset device in a single request.
             </div>
           </>
         )
       },
       {
-        question: 'How does caching work?',
+        question:
+          "What's the difference between a viewport screenshot and a full page capture?",
         answer: (
           <>
             <div>
-              Screenshots are cached on our global CDN by default. Cached
-              responses are served instantly and{' '}
-              <b>don't count against your limit</b>. It lasts for 24 hours.
-            </div>
-            <div>
-              We only recommend turning off the cache if you need to take a
-              screenshot of a page that changes frequently.
+              A viewport screenshot captures only the visible area of the screen
+              (what you'd see without scrolling). A full page screen capture
+              mobile screenshot stitches together the entire page from top to
+              bottom — ideal for documenting long pages.
             </div>
           </>
         )
@@ -2637,9 +2647,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Mobile website screenshot tool — free phone screen capture'
+    title='Mobile Website Screenshot Generator — Free Online Tool'
     noSuffix
-    description='Take mobile screenshots of any website using real phone viewports. iPhone, Samsung Galaxy, Google Pixel emulation. Free online tool, no login required.'
+    description='Take full page screen capture mobile screenshots of any website. Test responsive designs across real device sizes. Free online tool + Screenshot API.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
     structured={{
@@ -2652,14 +2662,14 @@ export const Head = () => (
       url: 'https://microlink.io/tools/website-screenshot/mobile',
       applicationCategory: ['DeveloperApplication', 'Tool'],
       keywords: [
-        'mobile screenshot tool',
-        'phone screenshot',
-        'mobile website capture',
-        'iPhone screenshot',
-        'responsive mobile screenshot',
-        'phone screen capture',
-        'mobile web screenshot online',
-        'landscape screenshot'
+        'mobile website screenshot generator',
+        'mobile screenshot online',
+        'full page screen capture mobile',
+        'mobile screenshot of website',
+        'screenshot responsive website',
+        'website screenshot in different devices',
+        'mobile website capture tool',
+        'responsive design screenshot'
       ],
       offers: {
         '@type': 'Offer',

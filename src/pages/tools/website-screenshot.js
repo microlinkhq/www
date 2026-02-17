@@ -2132,7 +2132,7 @@ const HowItWorks = () => (
       {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
         <StepCard key={title}>
           <IconCircle css={theme({ width: '80px', height: '80px' })}>
-            <Icon size={32} color={colors.link} />
+            <Icon size={32} color='rgba(0, 0, 0, 0.8)' />
           </IconCircle>
           <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}>
             {title}
