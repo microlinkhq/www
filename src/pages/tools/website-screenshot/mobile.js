@@ -89,30 +89,65 @@ const DEFAULT_OVERLAY_BG =
 
 const PHONE_DEVICES = [
   {
-    id: 'iphone-16-pro-max',
-    label: 'iPhone 16 Pro Max',
+    id: 'iphone-17',
+    label: 'iPhone 17',
+    width: 393,
+    height: 852
+  },
+  {
+    id: 'iphone-17-pro-max',
+    label: 'iPhone 17 Pro Max',
     width: 440,
     height: 956
   },
-  { id: 'iphone-16-pro', label: 'iPhone 16 Pro', width: 402, height: 874 },
-  { id: 'iphone-16', label: 'iPhone 16', width: 393, height: 852 },
   {
-    id: 'iphone-15-pro-max',
-    label: 'iPhone 15 Pro Max',
-    width: 430,
-    height: 932
+    id: 'iphone-17-pro',
+    label: 'iPhone 17 Pro',
+    width: 402,
+    height: 874
   },
-  { id: 'iphone-15', label: 'iPhone 15', width: 393, height: 852 },
-  { id: 'iphone-se', label: 'iPhone SE', width: 375, height: 667 },
   {
-    id: 'galaxy-s24-ultra',
-    label: 'Samsung Galaxy S24 Ultra',
+    id: 'iphone-17-air',
+    label: 'iPhone 17 Air',
+    width: 414,
+    height: 896
+  },
+  {
+    id: 'iphone-se-4',
+    label: 'iPhone SE 4',
+    width: 390,
+    height: 844
+  },
+  {
+    id: 'galaxy-s25-ultra',
+    label: 'Samsung Galaxy S26 Ultra',
     width: 412,
     height: 915
   },
-  { id: 'galaxy-s24', label: 'Samsung Galaxy S24', width: 360, height: 780 },
-  { id: 'pixel-9-pro', label: 'Google Pixel 9 Pro', width: 412, height: 892 },
-  { id: 'pixel-9', label: 'Google Pixel 9', width: 412, height: 892 }
+  {
+    id: 'galaxy-s25',
+    label: 'Samsung Galaxy S26',
+    width: 360,
+    height: 800
+  },
+  {
+    id: 'pixel-10-pro',
+    label: 'Google Pixel 10 Pro',
+    width: 412,
+    height: 892
+  },
+  {
+    id: 'pixel-10-pro-xl',
+    label: 'Google Pixel 10 Pro XL',
+    width: 448,
+    height: 968
+  },
+  {
+    id: 'pixel-10',
+    label: 'Google Pixel 10',
+    width: 412,
+    height: 892
+  }
 ]
 
 const FORMAT_OPTIONS = [
@@ -551,12 +586,7 @@ const PreviewCanvas = styled(Box)`
     overflow: 'hidden',
     position: 'relative'
   })}
-  min-height: 380px;
   background: #f1f5f9;
-
-  @media (min-width: ${LAYOUT_PIVOT}px) {
-    min-height: 520px;
-  }
 `
 
 const ViewportCard = styled(Box)`
@@ -699,10 +729,6 @@ const OptionsPanelOuter = styled(Box)`
 const PreviewOuter = styled(Box)`
   width: 100%;
   min-width: 0;
-
-  @media (min-width: ${LAYOUT_PIVOT}px) {
-    min-height: 550px;
-  }
 `
 
 const PanelRibbonLayout = styled(Flex)`
