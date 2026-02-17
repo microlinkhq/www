@@ -21,7 +21,7 @@ Today, we’re announcing a major upgrade to Microlink adblock, powered by [brow
 
 From today, when Microlink’s [adblock](/docs/api/parameters/adblock) is enabled, cookie consent banners are handled automatically.
 
-<SliderCompare before={{src: 'https://private-user-images.githubusercontent.com/2096101/549871757-8f392626-6c18-4e56-adcb-fc2e48d18011.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzEyNjUyNjAsIm5iZiI6MTc3MTI2NDk2MCwicGF0aCI6Ii8yMDk2MTAxLzU0OTg3MTc1Ny04ZjM5MjYyNi02YzE4LTRlNTYtYWRjYi1mYzJlNDhkMTgwMTEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDIxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjAyMTZUMTgwMjQwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZmUyMjY0NTkyYmM1OGZlZjQwMjE5NmIyNTQ3ZDY4YTJhN2FiYThhOGZlNDMyZmEzMWNkMGM5ZmM3ZTcyZGY0MSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.bdHnWaALJPX-tT1Nc-NlkRIWGBvJQaWZxcDZ6vrAJI8'}} after={{ src: 'https://private-user-images.githubusercontent.com/2096101/549871756-58706259-54e9-4f59-a2b7-d3e2fcc5548a.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzEyNjUyNjAsIm5iZiI6MTc3MTI2NDk2MCwicGF0aCI6Ii8yMDk2MTAxLzU0OTg3MTc1Ni01ODcwNjI1OS01NGU5LTRmNTktYTJiNy1kM2UyZmNjNTU0OGEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDIxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjAyMTZUMTgwMjQwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MTRlN2M3NmI1NTFmYWEyNzYwY2E3ZjBjZjg4NmVmZmRjM2NkMDI5OTk0ZmY1NmE1YzQ0MzQ4M2M4N2E2ZWM1YyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.YW8-vGLwnUGeVTX4F-QNeEhp4Z0wwC0Z0GcMBr_TBmA'}} />
+<SliderCompare before={{src: '/images/M4jeZNS.png'}} after={{ src: '/images/FrmIQOj.png'}} />
 
 <Figcaption>The same request with adblock disabled and enabled</Figcaption>
 
@@ -54,7 +54,7 @@ However, the issue is always there: as soon as the target URL markup changes, th
 
 Now [Microlink API](/docs/api/getting-started/overview) is enough smart to detect cookies banners common case, avoid you to write domain-specific one-offs while keeping the rest of your request flow unchanged.
 
-<SliderCompare before={{src: 'https://private-user-images.githubusercontent.com/2096101/549871752-bd9c4d9e-1ca6-4406-9f12-0bcbcf4d0487.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzEyNzg1MDIsIm5iZiI6MTc3MTI3ODIwMiwicGF0aCI6Ii8yMDk2MTAxLzU0OTg3MTc1Mi1iZDljNGQ5ZS0xY2E2LTQ0MDYtOWYxMi0wYmNiY2Y0ZDA0ODcucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDIxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjAyMTZUMjE0MzIyWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZDU0MDhkMGQzNGI3MTkxMzFiNGVjY2M0OTAwZTVkMGUxNmE3NjhhNzUzZjMwYzkwMzhlMmJjMWI3NTdhYWEyNCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.bJn0abG06C3u0cqDaBq4ktUUk3LMQgwEWWrvaZKx-Mc'}} after={{ src: 'https://private-user-images.githubusercontent.com/2096101/549871751-3fa6b84c-ff12-444f-8680-e75085b8fd38.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzEyNzg1MDIsIm5iZiI6MTc3MTI3ODIwMiwicGF0aCI6Ii8yMDk2MTAxLzU0OTg3MTc1MS0zZmE2Yjg0Yy1mZjEyLTQ0NGYtODY4MC1lNzUwODViOGZkMzgucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDIxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjAyMTZUMjE0MzIyWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9Mjg1M2RmNTg5NzVkMDg5ZjU3YWU2MGI5ODZmOWQ3OTA0ZWE5YmI0OWIyY2M1MmRjM2FjY2ZlZDhhOTc0OGM0ZSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.Dc-aGQeui4DebXSYbZWMvWXYC0iLKCPqT4HEu8CHAUc'}} />
+<SliderCompare before={{src: '/images/dsGYcxo.png'}} after={{ src: '/images/2afO5FJ.png'}} />
 
 <Figcaption>The same request with adblock disabled and enabled</Figcaption>
 
@@ -66,7 +66,7 @@ The [adblock](/docs/api/parameters/adblock) capabilities are enabled by default,
 
 <MultiCodeEditorInteractive 
   mqlCode={{ 
-    url: 'https://example.com', 
+    url: 'https://www.nytimes.com/', 
     screenshot: true, 
     adblock: true
   }} 
@@ -86,7 +86,7 @@ Inside that runner, [@browserless/goto](https://github.com/microlinkhq/browserle
 
 You can set [adblock=false](/docs/api/parameters/adblock) if your workflow requires loading ads/trackers or validating the default consent UX.
 
-<MultiCodeEditorInteractive mqlCode={{ url: 'https://example.com', adblock: false }} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://www.nytimes.com/', adblock: false }} />
 
 ## Final notes
 
