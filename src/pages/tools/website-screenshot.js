@@ -1,4 +1,4 @@
-/* global fetch */
+/* global fetch, ResizeObserver */
 
 import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'

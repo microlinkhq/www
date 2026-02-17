@@ -1,4 +1,4 @@
-/* global fetch */
+/* global fetch, ResizeObserver */
 
 import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
@@ -57,36 +57,6 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
 /* ─── Constants ────────────────────────────────────────── */
-
-const SOLID_COLORS = [
-  '#000000',
-  '#FFFFFF',
-  '#FF057C',
-  '#321575',
-  '#4158D0',
-  '#C850C0',
-  '#FFCC70',
-  '#667eea',
-  '#f093fb',
-  '#f5576c',
-  '#4facfe',
-  '#00f2fe'
-]
-
-const GRADIENT_PRESETS = [
-  'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)',
-  'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-  'linear-gradient(225deg, #f093fb 0%, #f5576c 100%)',
-  'linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)',
-  'linear-gradient(180deg, #C850C0 0%, #FFCC70 100%)',
-  'linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%)',
-  'linear-gradient(225deg, #FF057C 0%, #4158D0 100%)',
-  'linear-gradient(45deg, #8D0B93 0%, #00f2fe 100%)',
-  'linear-gradient(135deg, #f5576c 0%, #FFCC70 100%)',
-  'linear-gradient(225deg, #321575 0%, #4facfe 100%)',
-  'linear-gradient(180deg, #667eea 0%, #f093fb 100%)',
-  'linear-gradient(135deg, #764ba2 0%, #C850C0 50%, #FF057C 100%)'
-]
 
 const DEVICES = {
   desktop: { width: 1920, height: 1080 },
@@ -337,84 +307,6 @@ const CheckboxLabel = styled(Flex).attrs({ as: 'label' })`
       width: 20px;
       height: 20px;
     }
-  }
-`
-
-const ColorSwatch = styled(Box).withConfig({
-  shouldForwardProp: prop => !['isActive'].includes(prop)
-})`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform ${transition.short}, box-shadow ${transition.short};
-
-  ${({ isActive }) =>
-    isActive ? `border: 2px solid ${colors.black80}` : null};
-
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover {
-    transform: scale(1.15);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    width: 32px;
-    height: 32px;
-  }
-`
-
-const NativeColorPicker = styled.input.attrs({ type: 'color' })`
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
-  padding: 0;
-  border: 2px solid ${colors.black10};
-  border-radius: 50%;
-  cursor: pointer;
-  background: none;
-  -webkit-appearance: none;
-  appearance: none;
-  overflow: hidden;
-
-  &::-webkit-color-swatch-wrapper {
-    padding: 0;
-  }
-
-  &::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-  }
-
-  &::-moz-color-swatch {
-    border: none;
-    border-radius: 50%;
-  }
-
-  &:hover {
-    border-color: ${colors.black20};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
   }
 `
 
@@ -1053,8 +945,7 @@ const PreviewDisplay = ({
   error,
   onRetry,
   url,
-  viewportWidth,
-  viewportHeight
+  viewportWidth
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
@@ -1076,6 +967,7 @@ const PreviewDisplay = ({
 
     updateWidth()
 
+    console.log('updateWidth', new ResizeObserver(updateWidth))
     const resizeObserver = new ResizeObserver(updateWidth)
     resizeObserver.observe(viewportCardRef.current)
 
@@ -2115,7 +2007,7 @@ const USE_CASES = [
   {
     title: 'Designers & Agencies',
     items: [
-      'Capture full website screenshots for client presentations, design audits, and portfolio showcases. Save entire webpages as images with one click — no more stitching screenshots together.'
+      'Capture full website screenshots for client presentations, design audits, and portfolio showcases.<br><br> Save entire webpages as images with one click — no more stitching screenshots together.'
     ],
     link: {
       href: '',
@@ -2126,7 +2018,7 @@ const USE_CASES = [
   {
     title: 'QA & Development Teams',
     items: [
-      'Take full page screenshots across different viewports and resolutions to catch layout issues before launch. Automate visual regression testing with our API.'
+      'Take full page screenshots across different viewports and resolutions to catch layout issues before launch. <br><br> Create any kind of product, automation or integration with our <a href="/screenshot">screenshot API</a>.'
     ],
     link: {
       href: '',
@@ -2137,18 +2029,7 @@ const USE_CASES = [
   {
     title: 'Marketing & SEO Professionals',
     items: [
-      'Screenshot competitor landing pages, track design changes over time, or capture long web pages for reports. Get a snapshot of any entire website without ever visiting it.'
-    ],
-    link: {
-      href: '',
-      alt: '',
-      text: ''
-    }
-  },
-  {
-    title: 'Archival & Compliance',
-    items: [
-      'Save a complete webpage screenshot as a timestamped record for legal, compliance, or documentation purposes.'
+      'Screenshot competitor landing pages, track design changes over time, or capture long web pages for reports. <br><br> Get a snapshot of any entire website without ever visiting it.'
     ],
     link: {
       href: '',
@@ -2182,7 +2063,7 @@ const UseCases = () => (
     <Box
       css={theme({
         display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
+        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr 1fr', '1fr 1fr 1fr'],
         gap: 3,
         pt: [4, 4, 5, 5],
         width: '100%'
@@ -2237,9 +2118,8 @@ const UseCases = () => (
                     color: 'black60',
                     lineHeight: 2
                   })}
-                >
-                  {item}
-                </Text>
+                  dangerouslySetInnerHTML={{ __html: item }}
+                />
               </Flex>
             ))}
             {/* <Flex
