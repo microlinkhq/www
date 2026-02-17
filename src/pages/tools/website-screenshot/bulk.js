@@ -20,6 +20,7 @@ import prependHttp from 'prepend-http'
 import styled, { keyframes } from 'styled-components'
 import get from 'dlv'
 import mql from '@microlink/mql'
+import JSZip from 'jszip'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -695,6 +696,65 @@ const RowDeleteButton = styled(Box).attrs({
 
   @media (max-width: ${MOBILE_BP - 1}px) {
     opacity: 1;
+  }
+`
+
+const HistoryRowCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  cursor: pointer;
+  accent-color: ${colors.link};
+  margin: 0;
+  flex-shrink: 0;
+
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+  }
+`
+
+const DownloadZipButton = styled(Flex).attrs({
+  as: 'button',
+  type: 'button'
+})`
+  ${theme({
+    alignItems: 'center',
+    gap: '6px',
+    py: '6px',
+    px: '12px',
+    borderRadius: 2,
+    fontSize: 0,
+    fontWeight: 'bold',
+    fontFamily: 'sans',
+    cursor: 'pointer',
+    border: 0
+  })}
+  white-space: nowrap;
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+  color: white;
+  transition: opacity ${transition.medium}, transform ${transition.short};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
   }
 `
 
@@ -1532,7 +1592,13 @@ const ScreenshotHistory = ({
   activeId,
   onSelect,
   onDelete,
-  disabled
+  disabled,
+  selectedIds,
+  onToggleSelect,
+  onSelectAll,
+  onDeselectAll,
+  onDownloadZip,
+  isZipping
 }) => {
   const scrollRef = useRef(null)
   const prevFirstIdRef = useRef(null)
@@ -1547,6 +1613,9 @@ const ScreenshotHistory = ({
   }, [entries])
 
   if (!entries || entries.length === 0) return null
+
+  const allSelected = selectedIds.length === entries.length
+  const someSelected = selectedIds.length > 0
 
   return (
     <Box css={theme({ pt: [3, 3, 4, 4] })}>
@@ -1578,6 +1647,58 @@ const ScreenshotHistory = ({
           {entries.length}/{MAX_HISTORY_ITEMS}
         </Text>
       </Flex>
+      <Flex
+        css={theme({
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          pb: 2,
+          gap: 2
+        })}
+      >
+        <CheckboxLabel>
+          <input
+            type='checkbox'
+            checked={allSelected}
+            ref={el => {
+              if (el) el.indeterminate = someSelected && !allSelected
+            }}
+            onChange={() => (allSelected ? onDeselectAll() : onSelectAll())}
+          />
+          <Text css={theme({ pl: 2, fontSize: 0, color: 'black60' })}>
+            Select all
+          </Text>
+        </CheckboxLabel>
+        {someSelected && (
+          <Flex css={theme({ alignItems: 'center', gap: 2 })}>
+            <Text
+              css={theme({
+                fontSize: '11px',
+                color: 'black40',
+                fontFamily: 'sans',
+                fontVariantNumeric: 'tabular-nums'
+              })}
+            >
+              {selectedIds.length} selected
+            </Text>
+            <DownloadZipButton
+              onClick={onDownloadZip}
+              disabled={isZipping || disabled}
+            >
+              {isZipping ? (
+                <>
+                  <Spinner width='14px' height='14px' />
+                  Creating ZIP…
+                </>
+              ) : (
+                <>
+                  <Download size={14} />
+                  Download ZIP
+                </>
+              )}
+            </DownloadZipButton>
+          </Flex>
+        )}
+      </Flex>
       <Box
         css={theme({
           border: 1,
@@ -1592,73 +1713,82 @@ const ScreenshotHistory = ({
           role='list'
           aria-label='Screenshot history'
         >
-          {entries.map(entry => (
-            <HistoryRow
-              key={entry.id}
-              role='listitem'
-              $active={entry.id === activeId}
-              tabIndex={disabled ? -1 : 0}
-              aria-label={`Load screenshot of ${entry.settings.url}`}
-              aria-disabled={disabled || undefined}
-              onClick={() => !disabled && onSelect(entry)}
-              onKeyDown={e => {
-                if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
-                  e.preventDefault()
-                  onSelect(entry)
-                }
-              }}
-              style={
-                disabled ? { opacity: 0.5, cursor: 'not-allowed' } : undefined
-              }
-            >
-              <HistoryRowThumb>
-                <img
-                  src={entry.thumbnail || entry.screenshot.url}
-                  alt={`Screenshot of ${entry.settings.url}`}
-                  loading='lazy'
-                  draggable='false'
-                />
-              </HistoryRowThumb>
-              <Box css={{ flex: 1, minWidth: 0 }}>
-                <Text
-                  css={theme({
-                    fontSize: '13px',
-                    fontFamily: 'sans',
-                    color: entry.id === activeId ? 'link' : 'black80',
-                    fontWeight: entry.id === activeId ? 'bold' : 'regular',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                  })}
-                  title={entry.settings.url}
-                >
-                  {formatHistoryUrl(entry.settings.url)}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: '11px',
-                    color: 'black30',
-                    fontFamily: 'sans',
-                    pt: '2px'
-                  })}
-                >
-                  {entry.settings.customWidth}&times;
-                  {entry.settings.customHeight}
-                  {entry.settings.fullPage ? ' · Full page' : ''}
-                </Text>
-              </Box>
-              <RowDeleteButton
-                aria-label={`Delete screenshot of ${entry.settings.url}`}
-                disabled={disabled || undefined}
-                onClick={e => {
-                  e.stopPropagation()
-                  if (!disabled) onDelete(entry.id)
+          {entries.map(entry => {
+            const isSelected = selectedIds.includes(entry.id)
+            return (
+              <HistoryRow
+                key={entry.id}
+                role='listitem'
+                $active={entry.id === activeId}
+                tabIndex={disabled ? -1 : 0}
+                aria-label={`Load screenshot of ${entry.settings.url}`}
+                aria-disabled={disabled || undefined}
+                onClick={() => !disabled && onSelect(entry)}
+                onKeyDown={e => {
+                  if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault()
+                    onSelect(entry)
+                  }
                 }}
+                style={
+                  disabled ? { opacity: 0.5, cursor: 'not-allowed' } : undefined
+                }
               >
-                <X size={14} />
-              </RowDeleteButton>
-            </HistoryRow>
-          ))}
+                <HistoryRowCheckbox
+                  checked={isSelected}
+                  onClick={e => e.stopPropagation()}
+                  onChange={() => onToggleSelect(entry.id)}
+                  aria-label={`Select screenshot of ${entry.settings.url}`}
+                />
+                <HistoryRowThumb>
+                  <img
+                    src={entry.thumbnail || entry.screenshot.url}
+                    alt={`Screenshot of ${entry.settings.url}`}
+                    loading='lazy'
+                    draggable='false'
+                  />
+                </HistoryRowThumb>
+                <Box css={{ flex: 1, minWidth: 0 }}>
+                  <Text
+                    css={theme({
+                      fontSize: '13px',
+                      fontFamily: 'sans',
+                      color: entry.id === activeId ? 'link' : 'black80',
+                      fontWeight: entry.id === activeId ? 'bold' : 'regular',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap'
+                    })}
+                    title={entry.settings.url}
+                  >
+                    {formatHistoryUrl(entry.settings.url)}
+                  </Text>
+                  <Text
+                    css={theme({
+                      fontSize: '11px',
+                      color: 'black30',
+                      fontFamily: 'sans',
+                      pt: '2px'
+                    })}
+                  >
+                    {entry.settings.customWidth}&times;
+                    {entry.settings.customHeight}
+                    {entry.settings.fullPage ? ' · Full page' : ''}
+                  </Text>
+                </Box>
+                <RowDeleteButton
+                  aria-label={`Delete screenshot of ${entry.settings.url}`}
+                  disabled={disabled || undefined}
+                  onClick={e => {
+                    e.stopPropagation()
+                    if (!disabled) onDelete(entry.id)
+                  }}
+                >
+                  <X size={14} />
+                </RowDeleteButton>
+              </HistoryRow>
+            )
+          })}
         </HistoryListContainer>
       </Box>
     </Box>
@@ -1692,6 +1822,8 @@ const ScreenshotTool = () => {
   const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
+  const [selectedIds, setSelectedIds] = useState([])
+  const [isZipping, setIsZipping] = useState(false)
 
   /* Clean expired entries (>24 h) on mount, then allow rendering */
   useEffect(() => {
@@ -1813,9 +1945,75 @@ const ScreenshotTool = () => {
         return items.filter(entry => entry.id !== id)
       })
       setActiveHistoryId(prev => (prev === id ? null : prev))
+      setSelectedIds(prev => prev.filter(x => x !== id))
     },
     [setHistory]
   )
+
+  const handleToggleSelect = useCallback(id => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    )
+  }, [])
+
+  const handleSelectAll = useCallback(() => {
+    const entries = Array.isArray(history) ? history : []
+    setSelectedIds(entries.map(e => e.id))
+  }, [history])
+
+  const handleDeselectAll = useCallback(() => {
+    setSelectedIds([])
+  }, [])
+
+  const handleDownloadZip = useCallback(async () => {
+    const entries = Array.isArray(history) ? history : []
+    const selected = entries.filter(e => selectedIds.includes(e.id))
+    if (selected.length === 0) return
+
+    setIsZipping(true)
+    try {
+      const zip = new JSZip()
+      const nameCount = {}
+
+      await Promise.all(
+        selected.map(async entry => {
+          try {
+            const response = await fetch(entry.screenshot.url)
+            const blob = await response.blob()
+            let hostname = 'screenshot'
+            try {
+              hostname = new URL(entry.settings.url).hostname.replace(
+                /\./g,
+                '-'
+              )
+            } catch {}
+            const ext = entry.settings?.type || 'png'
+            nameCount[hostname] = (nameCount[hostname] || 0) + 1
+            const suffix =
+              nameCount[hostname] > 1 ? `-${nameCount[hostname]}` : ''
+            zip.file(`${hostname}${suffix}.${ext}`, blob)
+          } catch {
+            /* skip failed downloads */
+          }
+        })
+      )
+
+      const content = await zip.generateAsync({ type: 'blob' })
+      const blobUrl = URL.createObjectURL(content)
+      const a = document.createElement('a')
+      a.href = blobUrl
+      a.download = `screenshots-${Date.now()}.zip`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(blobUrl)
+      setSelectedIds([])
+    } catch {
+      /* zip generation failed */
+    } finally {
+      setIsZipping(false)
+    }
+  }, [history, selectedIds])
 
   const handleRetry = useCallback(() => {
     if (lastUrl) handleSubmit(lastUrl)
@@ -1864,6 +2062,12 @@ const ScreenshotTool = () => {
           onSelect={handleHistorySelect}
           onDelete={handleHistoryDelete}
           disabled={isLoading}
+          selectedIds={selectedIds}
+          onToggleSelect={handleToggleSelect}
+          onSelectAll={handleSelectAll}
+          onDeselectAll={handleDeselectAll}
+          onDownloadZip={handleDownloadZip}
+          isZipping={isZipping}
         />
       )}
     </Container>
