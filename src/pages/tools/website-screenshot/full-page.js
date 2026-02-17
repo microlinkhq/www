@@ -134,7 +134,7 @@ const HOW_IT_WORKS = [
   {
     icon: Globe,
     title: 'Enter URL',
-    description: 'Paste any website address into the capture field above.'
+    description: 'Enter the full web address of the page you want to capture.'
   },
   {
     icon: Settings,
@@ -143,46 +143,36 @@ const HOW_IT_WORKS = [
   },
   {
     icon: Camera,
-    title: 'Generate Screenshot',
+    title: 'Generate Full Page Screenshot',
     description: 'Click the button and wait a few seconds.'
   },
   {
     icon: Download,
     title: 'Download & Share',
-    description: 'Save your screenshot to your device or share it with others.'
+    description: 'Save your complete page screenshot or share it with others.'
   }
 ]
 
 const REASON_TO_USE = [
   {
-    title: 'Fast Screen Capture',
+    title: 'Capture the Entire Webpage, Not Just the Visible Area',
     description:
-      'Our advanced technology captures website screenshots as fast as possible. Whether you need a quick snapshot or bulk captures via API, we deliver speed and quality.'
+      "Most screenshot tools only capture what's visible on screen. Our tool scrolls and renders the entire web page — every section, every pixel — into a single high-resolution image. Whether it's a long landing page or an infinite-scroll blog, you get the whole site screenshot."
   },
   {
-    title: 'High-Resolution Website Images',
+    title: 'No Extension, No Install — 100% Online and Free',
     description:
-      'Get crystal-clear screenshots at any viewport size—mobile, tablet, desktop, or custom dimensions. Add custom backgrounds and choose from multiple formats.'
+      'This is a full page screenshot tool that works entirely in your browser. No Chrome extensions, no desktop apps, no sign-ups required to start. Just a fast, online screenshot capture experience.'
   },
   {
-    title: 'No Installation Required',
+    title: 'Pixel-Perfect at Any Resolution with no ads and cookie banners',
     description:
-      'Take web screenshots directly in your browser. No downloads, no plugins, no hassle. Just paste the URL and capture.'
+      'Need a full screen website screenshot at 1440px? 1920px? Custom dimensions? Choose your viewport and get a crisp, accurate capture every time. Automatically block ads and cookie banners before the rendering.Perfect for designers, QA teams, and agencies that need reliable web page screenshots.'
   },
   {
-    title: 'Free + No login',
+    title: 'Lightning Fast, Even for Long Pages',
     description:
-      'Free screenshot tool with 50 screen captures per day. Every screenshot is clean and professional. No branding, overlays, or watermarks on your captured images.'
-  },
-  {
-    title: 'Local Storage Support',
-    description:
-      'Save screenshots to your local storage for easy access. Access them for 24 hours so if you grab the perfect screenshot, you can come back and grab it again.'
-  },
-  {
-    title: 'Block ads and banners',
-    description:
-      'Automatically block ads and cookie banners before the rendering. Get the cleanest screenshots possible.'
+      'Our rendering engine captures full webpage screenshots in seconds — even for pages that are thousands of pixels tall. No timeouts, no broken renders.'
   }
 ]
 
@@ -1798,10 +1788,15 @@ const Hero = () => (
       css={theme({
         px: [3, 3],
         maxWidth: layout.large,
-        fontSize: [3, '35px', '40px', '50px']
+        fontSize: ['35px', '40px', '45px', '55px']
       })}
     >
-      Full Page Website Screenshots
+      Full Page Screenshot Tool
+      <Text
+        css={theme({ fontSize: [3, '30px', '35px', '40px'], color: 'black80' })}
+      >
+        Capture Any Entire Website
+      </Text>
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -1809,10 +1804,12 @@ const Hero = () => (
         pt: [2, 2, 3, 3],
         px: 3,
         maxWidth: layout.large,
-        fontSize: [2, 2, 3, '32px']
+        fontSize: [2, 2, 2, '26px']
       })}
     >
-      Capture any website screenshot online in seconds
+      Paste any URL and get a pixel-perfect, full page screenshot of the entire
+      website. No extension to install, no software to download. Just results in
+      seconds.
     </Caption>
   </Flex>
 )
@@ -1840,7 +1837,7 @@ const HowItWorks = () => (
         fontSize: [3, 3, 3, '28px']
       })}
     >
-      How to take a high quality screenshot of a website
+      How to Take a Full Page Screenshot of Any Website
     </Caption>
     <Flex
       css={theme({
@@ -1886,7 +1883,7 @@ const Explanation = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Why choose our free screenshot tool?
+      Why Choose Our Full Page Screen Capture Tool?
     </Subhead>
     <Box
       css={theme({
@@ -2068,45 +2065,47 @@ const Banner = () => (
 
 const USE_CASES = [
   {
-    title: 'For Web Designers',
+    title: 'Designers & Agencies',
     items: [
-      'Create portfolio screenshots of live websites',
-      'Add the screenshots to AI tools to turn them in HTML',
-      'Generate client approval mockups instantly',
-      'Capture responsive layouts across devices'
+      'Capture full website screenshots for client presentations, design audits, and portfolio showcases. Save entire webpages as images with one click — no more stitching screenshots together.'
     ],
     link: {
-      href: '/blog/using-screenshot-design',
-      alt: 'Screenshot for designers use case',
-      text: 'Check out how to xxxx'
+      href: '',
+      alt: '',
+      text: ''
     }
   },
   {
-    title: 'For Digital Marketers',
+    title: 'QA & Development Teams',
     items: [
-      'Screenshot competitor websites for analysis',
-      'Create case study visuals with before/after shots',
-      'Capture landing pages for ad compliance records',
-      'Generate social media preview images'
+      'Take full page screenshots across different viewports and resolutions to catch layout issues before launch. Automate visual regression testing with our API.'
     ],
     link: {
-      href: '/use-cases/generate-og-img-previews',
-      alt: 'Screenshot for og:images',
-      text: 'Check out this use case xxxx'
+      href: '',
+      alt: '',
+      text: ''
     }
   },
   {
-    title: 'For Developers',
+    title: 'Marketing & SEO Professionals',
     items: [
-      'Screenshot webpages for bug reports',
-      'Automate visual regression testing via API',
-      'Capture site states at specific timestamps',
-      'Generate and previews of multiple websites without effort'
+      'Screenshot competitor landing pages, track design changes over time, or capture long web pages for reports. Get a snapshot of any entire website without ever visiting it.'
     ],
     link: {
-      href: '/screenshot',
-      alt: 'Screenshot API',
-      text: 'Check out the API'
+      href: '',
+      alt: '',
+      text: ''
+    }
+  },
+  {
+    title: 'Archival & Compliance',
+    items: [
+      'Save a complete webpage screenshot as a timestamped record for legal, compliance, or documentation purposes.'
+    ],
+    link: {
+      href: '',
+      alt: '',
+      text: ''
     }
   }
 ]
@@ -2126,7 +2125,7 @@ const UseCases = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Use cases for website screen capture
+      Use Cases — Who Needs Full Page Website Screenshots?
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
       From design reviews to automated testing, website screenshots power
@@ -2226,14 +2225,25 @@ const ProductInformation = () => (
     })}
     questions={[
       {
-        question: 'Is this website screenshot tool really free?',
+        question: "What's the maximum screenshot size?",
         answer: (
           <>
             <div>
-              Yes! You can take up to <b>50&nbsp;screenshots per day</b> for
-              free, with no credit card required. Free screenshots include all
-              features — full-page capture, device emulation, overlays, and
-              multiple formats.
+              On the screenshot tool, the maximum width length goes up to
+              8000px. The height is not limited, it'll be as long as the page
+              is.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Is this entire website screenshot tool really free?',
+        answer: (
+          <>
+            <div>
+              Yes! You can take up to{' '}
+              <b>50&nbsp;full page screenshots per day</b> for free, with no
+              credit card required.
             </div>
             <div>
               Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
@@ -2243,40 +2253,24 @@ const ProductInformation = () => (
         )
       },
       {
-        question: "What's the maximum screenshot size?",
-        answer: (
-          <>
-            <div>
-              On the screenshot tool, the maximum resolution area goes up to
-              8000px. Even if the preview shows a smaller area, the actual
-              screenshot will be the full size.
-            </div>
-            <div>
-              On the API, there's no maximum size limit. You can take
-              screenshots of any size you need.
-            </div>
-          </>
-        )
-      },
-      {
         question: "What's the quality of the screenshots?",
         answer: (
           <>
             <div>
-              We always use the best quality settings for the screenshots. Then
-              we compress the images to the smallest file size possible without
-              losing quality.
+              We always use the best quality settings for the full page
+              screenshots. Then we compress the images to the smallest file size
+              possible without losing quality.
             </div>
           </>
         )
       },
       {
-        question: 'Can I integrate this into my application?',
+        question: 'Do you offer a screenshot API?',
         answer: (
           <>
             <div>
               Absolutely. The tool is built on the{' '}
-              <Link href='/docs/api/parameters/screenshot'>
+              <Link href='/docs/api/parameters/screenshot/fullPage'>
                 Microlink Screenshot API
               </Link>
               , which provides a simple REST endpoint. Integrate with any
@@ -2327,9 +2321,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Website Screenshot Generator - Free URL Screen Capture'
+    title='Full Page Screenshot — Capture Any Website Instantly Free'
     noSuffix
-    description='Generate high-quality website screenshots from any URL. Free, no-login online screen capture tool powered by a fast, reliable, and high resolution API.'
+    description='Take a full page screenshot of any website in seconds. Just paste a URL and capture the entire webpage. Free, fast, no extension needed. Try it now.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg' // TODO: generate banner
     schemaType='SoftwareApplication'
     structured={{
@@ -2342,14 +2336,15 @@ export const Head = () => (
       url: 'https://microlink.io/tools/website-screenshot',
       applicationCategory: ['DeveloperApplication', 'Tool'],
       keywords: [
-        'website screenshot tool',
+        'complete page screenshot',
         'screenshot API',
-        'webpage capture',
-        'take web screenshot',
-        'website screenshot generator',
-        'responsive screenshot',
-        'screen capture site',
-        'web page screen capture online'
+        'capture full page screenshot',
+        'full page screenshot',
+        'full website screenshot generator',
+        'full site screenshot',
+        'entire page screenshot',
+        'free full page screen capture',
+        'full length website screenshot'
       ],
       offers: {
         '@type': 'Offer',
