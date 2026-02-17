@@ -1,3 +1,5 @@
+/* global process */
+
 const TIMESTAMPS_FILENAME = 'git-timestamps-modified.json'
 
 let cachedTimestamps = null
@@ -68,4 +70,13 @@ export const branchName = async () => {
 export const mv = async (sourcePath, destinationPath) => {
   const { default: $ } = await import('tinyspawn')
   return $(`git mv "${sourcePath}" "${destinationPath}"`)
+}
+
+export const add = async (...filepaths) => {
+  const { default: $ } = await import('tinyspawn')
+  const args = filepaths.flat().filter(Boolean)
+
+  if (args.length === 0) return
+
+  return $('git', ['add', '--', ...args])
 }
