@@ -110,7 +110,9 @@ const generateFilename = (url, index) => {
 }
 
 const optimizeImage = async outputPath => {
-  await optimo.file(outputPath)
+  await optimo.file(outputPath, {
+    resize: 'w1280'
+  })
   console.log(`✓ Optimized ${path.basename(outputPath)}`)
 }
 
