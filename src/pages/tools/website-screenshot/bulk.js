@@ -137,7 +137,7 @@ const REASON_TO_USE = [
       'Paste up to 50 URLs and generate all screenshots in one batch. No need to capture them one by one — save hours of repetitive manual work.'
   },
   {
-    title: 'Download everything as a ZIP',
+    title: 'Get all images as a ZIP',
     description:
       'All your bulk screenshots are packaged into a single ZIP file that downloads automatically. Ready to share with your team, archive, or use in your workflow.'
   },
@@ -2635,7 +2635,7 @@ const ScreenshotTool = () => {
       const blobUrl = URL.createObjectURL(content)
       const a = document.createElement('a')
       a.href = blobUrl
-      a.download = `screenshots-${Date.now()}.zip`
+      a.download = `microlink-screenshots.zip`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
@@ -2688,7 +2688,7 @@ const ScreenshotTool = () => {
 
         try {
           const response = await mql(url, {
-            // apiKey: localStorageData?.apiKey,
+            apiKey: localStorageData?.apiKey,
             meta: false,
             screenshot: { type: options.type, fullPage: options.fullPage },
             viewport,
