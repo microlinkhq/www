@@ -2383,7 +2383,8 @@ const BulkPreview = ({
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  mt: 4
                 })}
                 style={{
                   background:
@@ -2441,48 +2442,56 @@ const BulkPreview = ({
                 >
                   Failed requests
                 </Text>
-                {failedResults.map((r, i) => (
-                  <Flex
-                    key={i}
-                    css={theme({
-                      gap: 2,
-                      py: '6px',
-                      alignItems: 'flex-start',
-                      borderBottom: i < failedResults.length - 1 ? 1 : 0,
-                      borderColor: 'black05'
-                    })}
-                  >
-                    <X
-                      size={14}
-                      color='#ef4444'
-                      style={{ flexShrink: 0, marginTop: '2px' }}
-                    />
-                    <Box css={{ minWidth: 0, flex: 1 }}>
-                      <Text
-                        css={theme({
-                          fontSize: 0,
-                          color: 'black80',
-                          fontFamily: 'sans',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap'
-                        })}
-                      >
-                        {r.url}
-                      </Text>
-                      <Text
-                        css={theme({
-                          fontSize: '11px',
-                          color: 'black40',
-                          fontFamily: 'sans',
-                          pt: '2px'
-                        })}
-                      >
-                        {r.error?.message}
-                      </Text>
-                    </Box>
-                  </Flex>
-                ))}
+                <Box
+                  css={theme({
+                    maxHeight: `${5 * 46}px`,
+                    overflowY: 'auto',
+                    overscrollBehavior: 'contain'
+                  })}
+                >
+                  {failedResults.map((r, i) => (
+                    <Flex
+                      key={i}
+                      css={theme({
+                        gap: 2,
+                        py: '6px',
+                        alignItems: 'flex-start',
+                        borderBottom: i < failedResults.length - 1 ? 1 : 0,
+                        borderColor: 'black05'
+                      })}
+                    >
+                      <X
+                        size={14}
+                        color='#ef4444'
+                        style={{ flexShrink: 0, marginTop: '5px' }}
+                      />
+                      <Box css={{ minWidth: 0, flex: 1 }}>
+                        <Text
+                          css={theme({
+                            fontSize: 0,
+                            color: 'black80',
+                            fontFamily: 'sans',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          })}
+                        >
+                          {r.url}
+                        </Text>
+                        <Text
+                          css={theme({
+                            fontSize: '11px',
+                            color: 'black40',
+                            fontFamily: 'sans',
+                            pt: '2px'
+                          })}
+                        >
+                          {r.error?.message}
+                        </Text>
+                      </Box>
+                    </Flex>
+                  ))}
+                </Box>
               </Box>
               {hasRateLimit && (
                 <Box
@@ -2491,7 +2500,8 @@ const BulkPreview = ({
                     maxWidth: '500px',
                     textAlign: 'left',
                     borderRadius: 2,
-                    p: 3
+                    p: 3,
+                    mb: 4
                   })}
                   style={{
                     background: '#fffbeb',
@@ -2529,13 +2539,15 @@ const BulkPreview = ({
               )}
             </>
           )}
-          <Button
-            onClick={onReset}
-            css={theme({ mt: 2 })}
-            aria-label='Start a new batch of screenshots'
-          >
-            <Caps css={theme({ fontSize: 0 })}>Take more screenshots</Caps>
-          </Button>
+          {!hasRateLimit && (
+            <Button
+              onClick={onReset}
+              css={theme({ mt: 2 })}
+              aria-label='Start a new batch of screenshots'
+            >
+              <Caps css={theme({ fontSize: 0 })}>Take more screenshots</Caps>
+            </Button>
+          )}
         </Flex>
       </FadeIn>
     </PreviewCanvas>
@@ -2676,7 +2688,7 @@ const ScreenshotTool = () => {
 
         try {
           const response = await mql(url, {
-            apiKey: localStorageData?.apiKey,
+            // apiKey: localStorageData?.apiKey,
             meta: false,
             screenshot: { type: options.type, fullPage: options.fullPage },
             viewport,
@@ -2920,8 +2932,8 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 2, 3, '32px']
+        maxWidth: '100%',
+        fontSize: [2, 2, '24px', '28px']
       })}
     >
       Paste up to 50 URLs, capture every page at once, and download all
