@@ -2276,8 +2276,8 @@ const BulkPreview = ({
                 {bulkProgress.currentUrl && (
                   <Text
                     css={theme({
-                      fontSize: 1,
-                      color: 'black40',
+                      fontSize: '18px',
+                      color: 'black50',
                       fontFamily: 'sans',
                       pt: 1,
                       overflow: 'hidden',
