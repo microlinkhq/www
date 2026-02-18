@@ -332,6 +332,19 @@ const shimmer = keyframes`
   100% { background-position: -200% 0; }
 `
 
+const resultEnter = keyframes`
+  from { opacity: 0; transform: translateY(10px); max-height: 0; }
+  to { opacity: 1; transform: translateY(0); max-height: 40px; }
+`
+
+const resultExit = keyframes`
+  from { opacity: 1; transform: translateY(0); max-height: 40px; }
+  to { opacity: 0; transform: translateY(-10px); max-height: 0; padding-top: 0; padding-bottom: 0; }
+`
+
+const VISIBLE_RESULTS = 8
+const RESULT_ANIM_MS = 280
+
 /* ─── Preview Styled Components ───────────────────────── */
 
 const PreviewCanvas = styled(Box)`
@@ -374,6 +387,125 @@ const FadeIn = styled(Box)`
     animation: none;
   }
 `
+
+const ResultItemBase = styled(Flex)`
+  ${theme({ gap: 2, py: '4px', alignItems: 'center' })}
+  overflow: hidden;
+`
+
+const ResultItemEnter = styled(ResultItemBase)`
+  animation: ${resultEnter} ${RESULT_ANIM_MS}ms cubic-bezier(0.4, 0, 0.2, 1)
+    both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const ResultItemExit = styled(ResultItemBase)`
+  animation: ${resultExit} ${RESULT_ANIM_MS}ms cubic-bezier(0.4, 0, 0.2, 1) both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const AnimatedResultsList = ({ results }) => {
+  const [displayItems, setDisplayItems] = useState([])
+  const processedRef = useRef(0)
+
+  useEffect(() => {
+    if (results.length === 0) {
+      setDisplayItems([])
+      processedRef.current = 0
+      return
+    }
+
+    const count = results.length
+    const prev = processedRef.current
+    if (count <= prev) return
+
+    setDisplayItems(current => {
+      const active = current.filter(it => !it.exiting)
+      const additions = results.slice(prev, count).map((r, i) => ({
+        data: r,
+        id: prev + i,
+        entering: true,
+        exiting: false
+      }))
+
+      const all = [...active, ...additions]
+      const overflow = all.length - VISIBLE_RESULTS
+      if (overflow > 0) {
+        for (let i = 0; i < overflow; i++) {
+          all[i] = { ...all[i], exiting: true, entering: false }
+        }
+      }
+
+      return all
+    })
+
+    processedRef.current = count
+
+    const timer = setTimeout(() => {
+      setDisplayItems(prev =>
+        prev.filter(it => !it.exiting).map(it => ({ ...it, entering: false }))
+      )
+    }, RESULT_ANIM_MS)
+
+    return () => clearTimeout(timer)
+  }, [results.length])
+
+  if (displayItems.length === 0) return null
+
+  return (
+    <Box
+      css={theme({
+        width: '100%',
+        maxWidth: '400px',
+        textAlign: 'left'
+      })}
+    >
+      {displayItems.map(item => {
+        const Wrapper = item.exiting
+          ? ResultItemExit
+          : item.entering
+            ? ResultItemEnter
+            : ResultItemBase
+
+        return (
+          <Wrapper key={item.id}>
+            {item.data.success ? (
+              <CheckCircle
+                size={14}
+                color='#22c55e'
+                style={{ flexShrink: 0 }}
+              />
+            ) : (
+              <AlertTriangle
+                size={14}
+                color='#ef4444'
+                style={{ flexShrink: 0 }}
+              />
+            )}
+            <Text
+              css={theme({
+                fontSize: 0,
+                color: item.data.success ? 'black60' : 'fullscreen',
+                fontFamily: 'sans',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+              })}
+            >
+              {formatHistoryUrl(item.data.url)}
+            </Text>
+          </Wrapper>
+        )
+      })}
+    </Box>
+  )
+}
 
 const StepCard = styled(Flex)`
   ${theme({
@@ -2106,19 +2238,22 @@ const BulkPreview = ({
       <PreviewCanvas>
         <FadeIn
           key='processing'
-          css={theme({
+          css={{
+            position: 'relative',
             display: 'flex',
             flexDirection: 'column',
-            minHeight: ['380px', '380px', '520px']
-          })}
+            minHeight: '380px',
+            '@media screen and (min-width: 40em)': { minHeight: '520px' }
+          }}
         >
           <Flex
             css={theme({
-              flex: 1,
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
               px: 4,
+              pt: 4,
+              pb: 3,
               textAlign: 'center',
               gap: 3
             })}
@@ -2137,73 +2272,40 @@ const BulkPreview = ({
                 Capturing screenshot {bulkProgress.current} of{' '}
                 {bulkProgress.total}…
               </Text>
-              {bulkProgress.currentUrl && (
-                <Text
-                  css={theme({
-                    fontSize: 1,
-                    color: 'black40',
-                    fontFamily: 'sans',
-                    pt: 1,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: '400px',
-                    mx: 'auto'
-                  })}
-                >
-                  {formatHistoryUrl(bulkProgress.currentUrl)}
-                </Text>
-              )}
+              <Box css={{ minHeight: '24px' }}>
+                {bulkProgress.currentUrl && (
+                  <Text
+                    css={theme({
+                      fontSize: 1,
+                      color: 'black40',
+                      fontFamily: 'sans',
+                      pt: 1,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      maxWidth: '400px',
+                      mx: 'auto'
+                    })}
+                  >
+                    {formatHistoryUrl(bulkProgress.currentUrl)}
+                  </Text>
+                )}
+              </Box>
             </Box>
             <ProgressBarTrack>
               <ProgressBarFill style={{ width: `${pct}%` }} />
             </ProgressBarTrack>
-            {bulkResults.length > 0 && (
-              <Box
-                css={theme({
-                  width: '100%',
-                  maxWidth: '400px',
-                  textAlign: 'left'
-                })}
-              >
-                {bulkResults.map((r, i) => (
-                  <Flex
-                    key={i}
-                    css={theme({
-                      gap: 2,
-                      py: '4px',
-                      alignItems: 'center'
-                    })}
-                  >
-                    {r.success ? (
-                      <CheckCircle
-                        size={14}
-                        color='#22c55e'
-                        style={{ flexShrink: 0 }}
-                      />
-                    ) : (
-                      <AlertTriangle
-                        size={14}
-                        color='#ef4444'
-                        style={{ flexShrink: 0 }}
-                      />
-                    )}
-                    <Text
-                      css={theme({
-                        fontSize: 0,
-                        color: r.success ? 'black60' : 'fullscreen',
-                        fontFamily: 'sans',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap'
-                      })}
-                    >
-                      {formatHistoryUrl(r.url)}
-                    </Text>
-                  </Flex>
-                ))}
-              </Box>
-            )}
+          </Flex>
+          <Flex
+            css={theme({
+              flexDirection: 'column',
+              alignItems: 'center',
+              px: 4,
+              pt: 3,
+              pb: 4
+            })}
+          >
+            <AnimatedResultsList results={bulkResults} />
           </Flex>
         </FadeIn>
       </PreviewCanvas>
