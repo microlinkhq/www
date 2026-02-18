@@ -2271,19 +2271,6 @@ const BulkPreview = ({
               >
                 Your ZIP file is downloading. Check your downloads folder.
               </Text>
-              <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
-                {isZipping ? (
-                  <>
-                    <Spinner width='14px' height='14px' />
-                    Creating ZIP…
-                  </>
-                ) : (
-                  <>
-                    <Download size={14} />
-                    Download ZIP again
-                  </>
-                )}
-              </DownloadZipButton>
             </>
           ) : (
             <>
