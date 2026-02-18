@@ -1081,7 +1081,7 @@ const OptionsPanel = ({
       setOptions(prev => ({ ...prev, urlsText: next }))
       if (urlError) setUrlError('')
       const cursor = selectionStart + pasted.length
-      requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
         el.selectionStart = el.selectionEnd = cursor
       })
     },
@@ -2635,7 +2635,7 @@ const ScreenshotTool = () => {
       const blobUrl = URL.createObjectURL(content)
       const a = document.createElement('a')
       a.href = blobUrl
-      a.download = `microlink-screenshots.zip`
+      a.download = 'microlink-screenshots.zip'
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
