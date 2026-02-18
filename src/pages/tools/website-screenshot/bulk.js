@@ -3,7 +3,9 @@
 import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
+  AlertTriangle,
   Camera,
+  CheckCircle,
   Clipboard,
   Download,
   ExternalLink,
@@ -69,6 +71,7 @@ const FORMAT_OPTIONS = [
 
 const SCREENSHOT_HISTORY_KEY = 'screenshot-history/bulk'
 const MAX_HISTORY_ITEMS = 50
+const MAX_URLS = 50
 const HISTORY_MAX_AGE_MS = 24 * 60 * 60 * 1000
 const THUMB_SIZE = 80
 const THUMB_QUALITY = 0.8
@@ -104,8 +107,8 @@ const FEATURES_LIST = [
 const HOW_IT_WORKS = [
   {
     icon: Globe,
-    title: 'Enter URL',
-    description: 'Paste any website address into the capture field above.'
+    title: 'Paste your URLs',
+    description: 'Add up to 50 URLs at once, one per line or comma-separated.'
   },
   {
     icon: Settings,
@@ -114,13 +117,15 @@ const HOW_IT_WORKS = [
   },
   {
     icon: Camera,
-    title: 'Generate Screenshot',
-    description: 'Click the button and wait a few seconds.'
+    title: 'Generate Screenshots',
+    description:
+      'Click the button and watch them captured one by one in real time.'
   },
   {
     icon: Download,
-    title: 'Download & Share',
-    description: 'Save your screenshot to your device or share it with others.'
+    title: 'Download ZIP',
+    description:
+      'Get all your screenshots in a single ZIP file saved to your desktop.'
   }
 ]
 
@@ -758,6 +763,68 @@ const DownloadZipButton = styled(Flex).attrs({
   }
 `
 
+/* ─── Bulk Input & Progress ──────────────────────────── */
+
+const BulkTextarea = styled.textarea`
+  width: 100%;
+  min-height: 120px;
+  max-height: 300px;
+  resize: vertical;
+  font-size: 16px;
+  line-height: 1.6;
+  ${theme({
+    fontFamily: 'sans',
+    p: '12px',
+    borderRadius: 2,
+    border: 1,
+    borderColor: 'black10',
+    color: 'black80'
+  })}
+  background: white;
+  outline: none;
+  transition: border-color ${transition.medium};
+
+  &::placeholder {
+    color: ${colors.black20};
+  }
+
+  &:focus {
+    border-color: ${colors.link};
+  }
+
+  &[aria-invalid='true'] {
+    border-color: #ef4444;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    font-size: 16px;
+  }
+`
+
+const ProgressBarTrack = styled(Box)`
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+`
+
+const ProgressBarFill = styled(Box)`
+  height: 100%;
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+  border-radius: 3px;
+  transition: width 300ms ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`
+
 /* ─── Segmented Control ───────────────────────────────── */
 
 const SegmentedControl = ({ options, value, onChange, name }) => {
@@ -803,29 +870,81 @@ const SegmentedControl = ({ options, value, onChange, name }) => {
 
 /* ─── Options Panel ────────────────────────────────────── */
 
-const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
+const OptionsPanel = ({
+  options,
+  setOptions,
+  onSubmit,
+  isLoading,
+  bulkProgress
+}) => {
   const [urlError, setUrlError] = useState('')
   const [viewportError, setViewportError] = useState('')
 
-  const handleUrlChange = useCallback(
+  const handleUrlsChange = useCallback(
     e => {
       const val = e.target.value
-      setOptions(prev => ({ ...prev, url: val }))
+      setOptions(prev => ({ ...prev, urlsText: val }))
       if (urlError) setUrlError('')
     },
     [setOptions, urlError]
   )
 
-  const normalizeUrl = useCallback(rawUrl => {
-    const trimmed = rawUrl.trim()
-    if (!trimmed) return ''
-    return prependHttp(trimmed)
+  const handlePaste = useCallback(
+    e => {
+      e.preventDefault()
+      const pasted = e.clipboardData.getData('text/plain')
+      const el = e.target
+      const { selectionStart, selectionEnd, value } = el
+      const next =
+        value.substring(0, selectionStart) +
+        pasted +
+        value.substring(selectionEnd)
+      setOptions(prev => ({ ...prev, urlsText: next }))
+      if (urlError) setUrlError('')
+      const cursor = selectionStart + pasted.length
+      requestAnimationFrame(() => {
+        el.selectionStart = el.selectionEnd = cursor
+      })
+    },
+    [setOptions, urlError]
+  )
+
+  const parseUrls = useCallback(text => {
+    if (!text || !text.trim()) return []
+    return [
+      ...new Set(
+        text
+          .split(/[\n,]+/)
+          .map(s => s.trim())
+          .filter(Boolean)
+      )
+    ]
   }, [])
 
+  const detectedUrls = parseUrls(options.urlsText)
+
   const handleSubmit = useCallback(() => {
-    const url = normalizeUrl(options.url)
-    if (!url || !isUrl(url)) {
-      setUrlError('Please enter a valid URL (e.g., example.com)')
+    if (detectedUrls.length === 0) {
+      setUrlError('Please enter at least one URL')
+      return
+    }
+
+    if (detectedUrls.length > MAX_URLS) {
+      setUrlError(
+        `Maximum ${MAX_URLS} URLs allowed. You entered ${detectedUrls.length}.`
+      )
+      return
+    }
+
+    const normalized = detectedUrls.map(u => prependHttp(u.trim()))
+    const invalid = normalized.filter(u => !isUrl(u))
+
+    if (invalid.length > 0) {
+      setUrlError(
+        invalid.length === 1
+          ? `"${invalid[0]}" is not a valid URL`
+          : `${invalid.length} invalid URLs found. Please check your list.`
+      )
       return
     }
 
@@ -840,18 +959,10 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
       return
     }
 
-    setOptions(prev => ({ ...prev, url }))
     setUrlError('')
     setViewportError('')
-    onSubmit(url)
-  }, [
-    options.url,
-    options.customWidth,
-    options.customHeight,
-    onSubmit,
-    normalizeUrl,
-    setOptions
-  ])
+    onSubmit(normalized)
+  }, [detectedUrls, options.customWidth, options.customHeight, onSubmit])
 
   const handleDeviceChange = useCallback(
     val => {
@@ -880,31 +991,60 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
-        <OptionLabel as='span'>Website URL</OptionLabel>
-        <Input
-          id='ws-url'
-          type='url'
-          inputMode='url'
-          autoComplete='url'
-          placeholder='example.com'
-          value={options.url}
-          onChange={handleUrlChange}
+        <Flex
+          css={theme({
+            justifyContent: 'space-between',
+            alignItems: 'baseline'
+          })}
+        >
+          <OptionLabel as='span'>Website URLs</OptionLabel>
+          {detectedUrls.length > 0 && (
+            <Text
+              css={theme({
+                fontSize: '11px',
+                color:
+                  detectedUrls.length > MAX_URLS ? 'fullscreen' : 'black30',
+                fontFamily: 'sans',
+                fontVariantNumeric: 'tabular-nums'
+              })}
+            >
+              {detectedUrls.length}/{MAX_URLS}
+            </Text>
+          )}
+        </Flex>
+        <BulkTextarea
+          id='ws-urls'
+          placeholder={
+            'https://example.com\nhttps://github.com\nhttps://google.com\n…'
+          }
+          value={options.urlsText}
+          onChange={handleUrlsChange}
+          onPaste={handlePaste}
           onKeyDown={e => {
-            if (e.key === 'Enter') {
-              // Avoid triggering a new request while a screenshot is already being generated.
+            if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
               if (isLoading) {
                 e.preventDefault()
                 return
               }
-
               e.preventDefault()
               handleSubmit()
             }
           }}
-          css={theme({ width: '100%', fontSize: '18px' })}
+          rows={5}
+          spellCheck={false}
           aria-describedby={urlError ? 'ws-url-error' : undefined}
           aria-invalid={!!urlError}
         />
+        <Text
+          css={theme({
+            fontSize: '11px',
+            color: 'black30',
+            fontFamily: 'sans',
+            pt: '4px'
+          })}
+        >
+          One URL per line or comma-separated ·&nbsp;⌘+Enter to generate
+        </Text>
         {urlError && (
           <Text
             id='ws-url-error'
@@ -1091,6 +1231,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         <GenerateButton
           type='button'
           onClick={handleSubmit}
+          disabled={isLoading}
           loading={isLoading}
         >
           <Flex
@@ -1100,8 +1241,22 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               gap: space[2]
             }}
           >
-            <Camera size={16} />
-            Generate screenshot
+            {isLoading ? (
+              <>
+                <Spinner width='16px' height='14px' />
+                Capturing {bulkProgress.current} of {bulkProgress.total}…
+              </>
+            ) : (
+              <>
+                <Camera size={16} />
+                {detectedUrls.length > 1
+                  ? `Generate ${Math.min(
+                    detectedUrls.length,
+                    MAX_URLS
+                  )} screenshots`
+                  : 'Generate screenshot'}
+              </>
+            )}
           </Flex>
         </GenerateButton>
       </StickyGenerateWrapper>
@@ -1795,11 +1950,425 @@ const ScreenshotHistory = ({
   )
 }
 
+/* ─── Bulk Preview Panel ──────────────────────────────── */
+
+const BulkPreview = ({
+  bulkState,
+  bulkProgress,
+  bulkResults,
+  urls,
+  onDownloadZip,
+  isZipping,
+  onReset
+}) => {
+  const successCount = bulkResults.filter(r => r.success).length
+  const failedResults = bulkResults.filter(r => !r.success)
+  const hasRateLimit = failedResults.some(r => r.error?.statusCode === 429)
+
+  if (bulkState === 'idle') {
+    return (
+      <PreviewCanvas>
+        <FadeIn
+          key='empty'
+          css={theme({
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: ['380px', '380px', '520px'],
+            px: 4,
+            textAlign: 'center'
+          })}
+        >
+          <Box
+            css={theme({
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mb: 3
+            })}
+            style={{
+              background:
+                'linear-gradient(225deg, #FF057C11 0%, #32157511 100%)'
+            }}
+          >
+            <Camera size={32} color={colors.black20} />
+          </Box>
+          <Text css={theme({ color: 'black40', fontSize: 2 })}>
+            Paste your URLs and click Generate
+          </Text>
+          <Text css={theme({ color: 'black20', fontSize: 1, pt: 1 })}>
+            Up to {MAX_URLS} screenshots at once
+          </Text>
+        </FadeIn>
+      </PreviewCanvas>
+    )
+  }
+
+  if (bulkState === 'processing') {
+    const completedCount = bulkResults.length
+    const pct =
+      bulkProgress.total > 0 ? (completedCount / bulkProgress.total) * 100 : 0
+
+    return (
+      <PreviewCanvas>
+        <FadeIn
+          key='processing'
+          css={theme({
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: ['380px', '380px', '520px']
+          })}
+        >
+          <Flex
+            css={theme({
+              flex: 1,
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              px: 4,
+              textAlign: 'center',
+              gap: 3
+            })}
+          >
+            <Spinner width='32px' height='24px' />
+            <Box>
+              <Text
+                aria-live='polite'
+                css={theme({
+                  fontSize: 3,
+                  fontWeight: 'bold',
+                  color: 'black80',
+                  fontFamily: 'sans'
+                })}
+              >
+                Capturing screenshot {bulkProgress.current} of{' '}
+                {bulkProgress.total}…
+              </Text>
+              {bulkProgress.currentUrl && (
+                <Text
+                  css={theme({
+                    fontSize: 1,
+                    color: 'black40',
+                    fontFamily: 'sans',
+                    pt: 1,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '400px',
+                    mx: 'auto'
+                  })}
+                >
+                  {formatHistoryUrl(bulkProgress.currentUrl)}
+                </Text>
+              )}
+            </Box>
+            <ProgressBarTrack>
+              <ProgressBarFill style={{ width: `${pct}%` }} />
+            </ProgressBarTrack>
+            {bulkResults.length > 0 && (
+              <Box
+                css={theme({
+                  width: '100%',
+                  maxWidth: '400px',
+                  textAlign: 'left'
+                })}
+              >
+                {bulkResults.map((r, i) => (
+                  <Flex
+                    key={i}
+                    css={theme({
+                      gap: 2,
+                      py: '4px',
+                      alignItems: 'center'
+                    })}
+                  >
+                    {r.success ? (
+                      <CheckCircle
+                        size={14}
+                        color='#22c55e'
+                        style={{ flexShrink: 0 }}
+                      />
+                    ) : (
+                      <AlertTriangle
+                        size={14}
+                        color='#ef4444'
+                        style={{ flexShrink: 0 }}
+                      />
+                    )}
+                    <Text
+                      css={theme({
+                        fontSize: 0,
+                        color: r.success ? 'black60' : 'fullscreen',
+                        fontFamily: 'sans',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                      })}
+                    >
+                      {formatHistoryUrl(r.url)}
+                    </Text>
+                  </Flex>
+                ))}
+              </Box>
+            )}
+          </Flex>
+        </FadeIn>
+      </PreviewCanvas>
+    )
+  }
+
+  /* bulkState === 'done' */
+  return (
+    <PreviewCanvas>
+      <FadeIn
+        key='done'
+        css={theme({
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: ['380px', '380px', '520px']
+        })}
+      >
+        <Flex
+          css={theme({
+            flex: 1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            px: 4,
+            textAlign: 'center',
+            gap: 3
+          })}
+        >
+          {failedResults.length === 0 ? (
+            <>
+              <Box
+                css={theme({
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                })}
+                style={{
+                  background:
+                    'linear-gradient(225deg, #22c55e22 0%, #16a34a22 100%)'
+                }}
+              >
+                <CheckCircle size={28} color='#22c55e' />
+              </Box>
+              <Text
+                css={theme({
+                  fontSize: 3,
+                  fontWeight: 'bold',
+                  color: 'black80',
+                  fontFamily: 'sans'
+                })}
+              >
+                {bulkResults.length === 1
+                  ? 'Screenshot ready!'
+                  : `All ${bulkResults.length} screenshots ready!`}
+              </Text>
+              <Text
+                css={theme({
+                  fontSize: 1,
+                  color: 'black50',
+                  fontFamily: 'sans'
+                })}
+              >
+                Your ZIP file is downloading. Check your downloads folder.
+              </Text>
+              <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
+                {isZipping ? (
+                  <>
+                    <Spinner width='14px' height='14px' />
+                    Creating ZIP…
+                  </>
+                ) : (
+                  <>
+                    <Download size={14} />
+                    Download ZIP again
+                  </>
+                )}
+              </DownloadZipButton>
+            </>
+          ) : (
+            <>
+              <Box
+                css={theme({
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                })}
+                style={{
+                  background:
+                    'linear-gradient(225deg, #f59e0b22 0%, #d9770622 100%)'
+                }}
+              >
+                <AlertTriangle size={28} color='#f59e0b' />
+              </Box>
+              <Text
+                css={theme({
+                  fontSize: 3,
+                  fontWeight: 'bold',
+                  color: 'black80',
+                  fontFamily: 'sans'
+                })}
+              >
+                {successCount} of {bulkResults.length} screenshots ready
+              </Text>
+              {successCount > 0 && (
+                <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
+                  {isZipping ? (
+                    <>
+                      <Spinner width='14px' height='14px' />
+                      Creating ZIP…
+                    </>
+                  ) : (
+                    <>
+                      <Download size={14} />
+                      Download ZIP ({successCount}{' '}
+                      {successCount === 1 ? 'image' : 'images'})
+                    </>
+                  )}
+                </DownloadZipButton>
+              )}
+              <Box
+                css={theme({
+                  width: '100%',
+                  maxWidth: '500px',
+                  textAlign: 'left',
+                  border: 1,
+                  borderColor: 'black10',
+                  borderRadius: 2,
+                  p: 3,
+                  bg: 'white'
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontSize: 0,
+                    fontWeight: 'bold',
+                    color: 'black60',
+                    fontFamily: 'sans',
+                    pb: 2
+                  })}
+                >
+                  Failed requests
+                </Text>
+                {failedResults.map((r, i) => (
+                  <Flex
+                    key={i}
+                    css={theme({
+                      gap: 2,
+                      py: '6px',
+                      alignItems: 'flex-start',
+                      borderBottom: i < failedResults.length - 1 ? 1 : 0,
+                      borderColor: 'black05'
+                    })}
+                  >
+                    <X
+                      size={14}
+                      color='#ef4444'
+                      style={{ flexShrink: 0, marginTop: '2px' }}
+                    />
+                    <Box css={{ minWidth: 0, flex: 1 }}>
+                      <Text
+                        css={theme({
+                          fontSize: 0,
+                          color: 'black80',
+                          fontFamily: 'sans',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap'
+                        })}
+                      >
+                        {r.url}
+                      </Text>
+                      <Text
+                        css={theme({
+                          fontSize: '11px',
+                          color: 'black40',
+                          fontFamily: 'sans',
+                          pt: '2px'
+                        })}
+                      >
+                        {r.error?.message}
+                      </Text>
+                    </Box>
+                  </Flex>
+                ))}
+              </Box>
+              {hasRateLimit && (
+                <Box
+                  css={theme({
+                    width: '100%',
+                    maxWidth: '500px',
+                    textAlign: 'left',
+                    borderRadius: 2,
+                    p: 3
+                  })}
+                  style={{
+                    background: '#fffbeb',
+                    border: '1px solid #fef3c7'
+                  }}
+                >
+                  <Text
+                    css={theme({
+                      fontSize: 1,
+                      fontWeight: 'bold',
+                      fontFamily: 'sans',
+                      pb: 1
+                    })}
+                    style={{ color: '#92400e' }}
+                  >
+                    Daily limit reached
+                  </Text>
+                  <Text
+                    css={theme({
+                      fontSize: 0,
+                      fontFamily: 'sans',
+                      lineHeight: 2
+                    })}
+                    style={{ color: '#78350f' }}
+                  >
+                    Free users can take up to 50 screenshots per day. Your limit
+                    will reset tomorrow. For unlimited access, check out our{' '}
+                    <Link href='/#pricing'>API plans</Link> or write to{' '}
+                    <Link href='mailto:hello@microlink.io'>
+                      hello@microlink.io
+                    </Link>{' '}
+                    if you need something else.
+                  </Text>
+                </Box>
+              )}
+            </>
+          )}
+          <Button
+            onClick={onReset}
+            css={theme({ mt: 2 })}
+            aria-label='Start a new batch of screenshots'
+          >
+            <Caps css={theme({ fontSize: 0 })}>Take more screenshots</Caps>
+          </Button>
+        </Flex>
+      </FadeIn>
+    </PreviewCanvas>
+  )
+}
+
 /* ─── Main Tool Section ────────────────────────────────── */
 
 const ScreenshotTool = () => {
   const [options, setOptions] = useState({
-    url: '',
+    urlsText: '',
     type: 'png',
     fullPage: false,
     adblock: true,
@@ -1809,14 +2378,14 @@ const ScreenshotTool = () => {
     customHeight: '1080'
   })
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
-  const [lastUrl, setLastUrl] = useState('')
-  const [requestedViewport, setRequestedViewport] = useState({
-    width: 1920,
-    height: 1080
+  const [bulkState, setBulkState] = useState('idle')
+  const [bulkProgress, setBulkProgress] = useState({
+    current: 0,
+    total: 0,
+    currentUrl: ''
   })
+  const [bulkResults, setBulkResults] = useState([])
+  const bulkUrlsRef = useRef([])
 
   const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
@@ -1825,7 +2394,13 @@ const ScreenshotTool = () => {
   const [selectedIds, setSelectedIds] = useState([])
   const [isZipping, setIsZipping] = useState(false)
 
-  /* Clean expired entries (>24 h) on mount, then allow rendering */
+  const [previewData, setPreviewData] = useState(null)
+  const [previewUrl, setPreviewUrl] = useState('')
+  const [previewViewport, setPreviewViewport] = useState({
+    width: 1920,
+    height: 1080
+  })
+
   useEffect(() => {
     setHistory(prev => {
       if (!Array.isArray(prev)) return []
@@ -1838,104 +2413,187 @@ const ScreenshotTool = () => {
     setHistoryReady(true)
   }, [setHistory])
 
-  const handleSubmit = useCallback(
-    async url => {
+  const downloadZipFromEntries = useCallback(async selected => {
+    if (selected.length === 0) return
+    setIsZipping(true)
+    try {
+      const zip = new JSZip()
+      const nameCount = {}
+      await Promise.all(
+        selected.map(async entry => {
+          try {
+            const resp = await fetch(entry.screenshot.url)
+            const blob = await resp.blob()
+            let hostname = 'screenshot'
+            try {
+              hostname = new URL(entry.settings.url).hostname.replace(
+                /\./g,
+                '-'
+              )
+            } catch {}
+            const ext = entry.settings?.type || 'png'
+            nameCount[hostname] = (nameCount[hostname] || 0) + 1
+            const suffix =
+              nameCount[hostname] > 1 ? `-${nameCount[hostname]}` : ''
+            zip.file(`${hostname}${suffix}.${ext}`, blob)
+          } catch {
+            /* skip failed fetches */
+          }
+        })
+      )
+      const content = await zip.generateAsync({ type: 'blob' })
+      const blobUrl = URL.createObjectURL(content)
+      const a = document.createElement('a')
+      a.href = blobUrl
+      a.download = `screenshots-${Date.now()}.zip`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(blobUrl)
+    } catch {
+      /* zip generation failed */
+    } finally {
+      setIsZipping(false)
+    }
+  }, [])
+
+  const handleBulkSubmit = useCallback(
+    async urls => {
+      setBulkState('processing')
+      setBulkProgress({ current: 0, total: urls.length, currentUrl: '' })
+      setBulkResults([])
+      setPreviewData(null)
+      bulkUrlsRef.current = urls
+
+      const results = []
+      const newEntryIds = []
+      let hitRateLimit = false
+
       const viewport = {
         width: Number(options.customWidth) || 1920,
         height: Number(options.customHeight) || 1080
       }
 
-      setRequestedViewport(viewport)
-      setIsLoading(true)
-      setError(null)
-      setData(null)
-      setLastUrl(url)
-
-      try {
-        const mqlOpts = {
-          apiKey: localStorageData.apiKey,
-          meta: false,
-          screenshot: {
-            type: options.type,
-            fullPage: options.fullPage
-          },
-          viewport,
-          adblock: options.adblock,
-          force: !options.cache
-        }
-
-        let response = null
-        try {
-          response = await mql(url, mqlOpts)
-          setData(response.data)
-        } catch (err) {
-          setError({
-            message:
-              err.description || err.message || 'Failed to capture screenshot.',
-            statusCode: err.statusCode || err.code
-          })
-        }
-
-        if (response?.data?.screenshot) {
-          const entryId = String(Date.now())
-          const thumbnail = await createThumbnail(response.data.screenshot.url)
-          setHistory(prev => {
-            const items = Array.isArray(prev) ? prev : []
-            return [
-              {
-                id: entryId,
-                createdAt: Date.now(),
-                screenshot: response.data.screenshot,
-                thumbnail,
-                settings: {
-                  url,
-                  type: options.type,
-                  fullPage: options.fullPage,
-                  device: options.device,
-                  customWidth: options.customWidth,
-                  customHeight: options.customHeight,
-                  adblock: options.adblock,
-                  cache: options.cache
-                }
-              },
-              ...items
-            ].slice(0, MAX_HISTORY_ITEMS)
-          })
-          setActiveHistoryId(entryId)
-        }
-      } catch (err) {
-        setError({
-          message:
-            err.description || err.message || 'Failed to capture screenshot.',
-          statusCode: err.statusCode || err.code
+      for (let i = 0; i < urls.length; i++) {
+        const url = urls[i]
+        setBulkProgress({
+          current: i + 1,
+          total: urls.length,
+          currentUrl: url
         })
-      } finally {
-        setIsLoading(false)
+
+        if (hitRateLimit) {
+          const result = {
+            url,
+            success: false,
+            error: {
+              message: 'Skipped — daily rate limit reached',
+              statusCode: 429
+            }
+          }
+          results.push(result)
+          setBulkResults([...results])
+          continue
+        }
+
+        try {
+          const response = await mql(url, {
+            apiKey: localStorageData?.apiKey,
+            meta: false,
+            screenshot: { type: options.type, fullPage: options.fullPage },
+            viewport,
+            adblock: options.adblock,
+            force: !options.cache
+          })
+
+          if (response?.data?.screenshot) {
+            results.push({ url, success: true, data: response.data })
+            setBulkResults([...results])
+
+            const entryId = `${Date.now()}-${i}`
+            const thumbnail = await createThumbnail(
+              response.data.screenshot.url
+            )
+            setHistory(prev => {
+              const items = Array.isArray(prev) ? prev : []
+              return [
+                {
+                  id: entryId,
+                  createdAt: Date.now(),
+                  screenshot: response.data.screenshot,
+                  thumbnail,
+                  settings: {
+                    url,
+                    type: options.type,
+                    fullPage: options.fullPage,
+                    device: options.device,
+                    customWidth: options.customWidth,
+                    customHeight: options.customHeight,
+                    adblock: options.adblock,
+                    cache: options.cache
+                  }
+                },
+                ...items
+              ].slice(0, MAX_HISTORY_ITEMS)
+            })
+            newEntryIds.push(entryId)
+          } else {
+            results.push({
+              url,
+              success: false,
+              error: { message: 'No screenshot returned' }
+            })
+            setBulkResults([...results])
+          }
+        } catch (err) {
+          const statusCode = err.statusCode || err.code
+          if (statusCode === 429) hitRateLimit = true
+          results.push({
+            url,
+            success: false,
+            error: {
+              message:
+                err.description ||
+                err.message ||
+                'Failed to capture screenshot',
+              statusCode
+            }
+          })
+          setBulkResults([...results])
+        }
+      }
+
+      setBulkState('done')
+      setSelectedIds(newEntryIds)
+
+      const allSucceeded = results.every(r => r.success)
+      if (allSucceeded && results.length > 0) {
+        const successEntries = results
+          .filter(r => r.success)
+          .map((r, idx) => ({
+            screenshot: r.data.screenshot,
+            settings: {
+              url: r.url,
+              type: options.type
+            },
+            id: newEntryIds[idx]
+          }))
+        await downloadZipFromEntries(successEntries)
       }
     },
-    [options, setHistory]
+    [options, localStorageData, setHistory, downloadZipFromEntries]
   )
 
   const handleHistorySelect = useCallback(entry => {
     const { settings, screenshot } = entry
-    setOptions({
-      url: settings.url,
-      type: settings.type,
-      fullPage: settings.fullPage,
-      device: settings.device,
-      customWidth: settings.customWidth,
-      customHeight: settings.customHeight,
-      adblock: settings.adblock !== undefined ? settings.adblock : true,
-      cache: settings.cache !== undefined ? settings.cache : true
-    })
-    setData({ screenshot })
-    setLastUrl(settings.url)
-    setRequestedViewport({
+    setPreviewData({ screenshot })
+    setPreviewUrl(settings.url)
+    setPreviewViewport({
       width: Number(settings.customWidth) || 1920,
       height: Number(settings.customHeight) || 1080
     })
-    setError(null)
     setActiveHistoryId(entry.id)
+    setBulkState('history-preview')
   }, [])
 
   const handleHistoryDelete = useCallback(
@@ -1968,56 +2626,17 @@ const ScreenshotTool = () => {
   const handleDownloadZip = useCallback(async () => {
     const entries = Array.isArray(history) ? history : []
     const selected = entries.filter(e => selectedIds.includes(e.id))
-    if (selected.length === 0) return
+    await downloadZipFromEntries(selected)
+  }, [history, selectedIds, downloadZipFromEntries])
 
-    setIsZipping(true)
-    try {
-      const zip = new JSZip()
-      const nameCount = {}
+  const handleReset = useCallback(() => {
+    setBulkState('idle')
+    setBulkResults([])
+    setBulkProgress({ current: 0, total: 0, currentUrl: '' })
+    setPreviewData(null)
+  }, [])
 
-      await Promise.all(
-        selected.map(async entry => {
-          try {
-            const response = await fetch(entry.screenshot.url)
-            const blob = await response.blob()
-            let hostname = 'screenshot'
-            try {
-              hostname = new URL(entry.settings.url).hostname.replace(
-                /\./g,
-                '-'
-              )
-            } catch {}
-            const ext = entry.settings?.type || 'png'
-            nameCount[hostname] = (nameCount[hostname] || 0) + 1
-            const suffix =
-              nameCount[hostname] > 1 ? `-${nameCount[hostname]}` : ''
-            zip.file(`${hostname}${suffix}.${ext}`, blob)
-          } catch {
-            /* skip failed downloads */
-          }
-        })
-      )
-
-      const content = await zip.generateAsync({ type: 'blob' })
-      const blobUrl = URL.createObjectURL(content)
-      const a = document.createElement('a')
-      a.href = blobUrl
-      a.download = `screenshots-${Date.now()}.zip`
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(blobUrl)
-      setSelectedIds([])
-    } catch {
-      /* zip generation failed */
-    } finally {
-      setIsZipping(false)
-    }
-  }, [history, selectedIds])
-
-  const handleRetry = useCallback(() => {
-    if (lastUrl) handleSubmit(lastUrl)
-  }, [lastUrl, handleSubmit])
+  const isProcessing = bulkState === 'processing'
 
   return (
     <Container
@@ -2031,27 +2650,38 @@ const ScreenshotTool = () => {
       })}
     >
       <ToolLayout>
-        {/* Options Panel */}
         <OptionsPanelOuter>
           <OptionsPanel
             options={options}
             setOptions={setOptions}
-            onSubmit={handleSubmit}
-            isLoading={isLoading}
+            onSubmit={handleBulkSubmit}
+            isLoading={isProcessing}
+            bulkProgress={bulkProgress}
           />
         </OptionsPanelOuter>
 
-        {/* Preview Canvas */}
         <PreviewOuter>
-          <PreviewDisplay
-            data={data}
-            isLoading={isLoading}
-            error={error}
-            onRetry={handleRetry}
-            url={lastUrl}
-            viewportWidth={requestedViewport.width}
-            viewportHeight={requestedViewport.height}
-          />
+          {bulkState === 'history-preview' && previewData ? (
+            <PreviewDisplay
+              data={previewData}
+              isLoading={false}
+              error={null}
+              onRetry={() => {}}
+              url={previewUrl}
+              viewportWidth={previewViewport.width}
+              viewportHeight={previewViewport.height}
+            />
+          ) : (
+            <BulkPreview
+              bulkState={bulkState}
+              bulkProgress={bulkProgress}
+              bulkResults={bulkResults}
+              urls={bulkUrlsRef.current}
+              onDownloadZip={handleDownloadZip}
+              isZipping={isZipping}
+              onReset={handleReset}
+            />
+          )}
         </PreviewOuter>
       </ToolLayout>
 
@@ -2061,7 +2691,7 @@ const ScreenshotTool = () => {
           activeId={activeHistoryId}
           onSelect={handleHistorySelect}
           onDelete={handleHistoryDelete}
-          disabled={isLoading}
+          disabled={isProcessing}
           selectedIds={selectedIds}
           onToggleSelect={handleToggleSelect}
           onSelectAll={handleSelectAll}
@@ -2094,7 +2724,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Generate Website Screenshots Instantly
+      Bulk Website Screenshot Generator
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -2105,7 +2735,7 @@ const Hero = () => (
         fontSize: [2, 2, 3, '32px']
       })}
     >
-      Capture any website screenshot online in seconds
+      Capture up to 50 website screenshots at once and download them as a ZIP
     </Caption>
   </Flex>
 )
@@ -2133,7 +2763,7 @@ const HowItWorks = () => (
         fontSize: [3, 3, 3, '28px']
       })}
     >
-      How to take a high quality screenshot of a website
+      How to take bulk website screenshots
     </Caption>
     <Flex
       css={theme({
@@ -2519,34 +3149,54 @@ const ProductInformation = () => (
     })}
     questions={[
       {
-        question: 'Is this website screenshot tool really free?',
+        question: 'Is this bulk screenshot tool really free?',
         answer: (
           <>
             <div>
               Yes! You can take up to <b>50&nbsp;screenshots per day</b> for
               free, with no credit card required. Free screenshots include all
-              features — full-page capture, device emulation, overlays, and
-              multiple formats.
+              features — full-page capture, device emulation, and multiple
+              formats.
             </div>
             <div>
               Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
-              for higher limits and priority processing.
+              for higher limits and priority processing, or write to{' '}
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>
           </>
         )
       },
       {
-        question: "What's the maximum screenshot size?",
+        question: 'How many URLs can I screenshot at once?',
         answer: (
           <>
             <div>
-              On the screenshot tool, the maximum resolution area goes up to
-              8000px. Even if the preview shows a smaller area, the actual
-              screenshot will be the full size.
+              You can capture up to <b>50&nbsp;URLs</b> in a single batch. Paste
+              them one per line or comma-separated. Screenshots are processed
+              one by one and you can track progress in real time.
             </div>
             <div>
-              On the API, there's no maximum size limit. You can take
-              screenshots of any size you need.
+              All successful screenshots are packaged into a ZIP file that
+              downloads automatically. They're also saved to your local storage
+              for 24&nbsp;hours so you can re-download anytime.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'What happens if some screenshots fail?',
+        answer: (
+          <>
+            <div>
+              If a screenshot fails, the tool continues with the remaining URLs.
+              At the end you'll see a summary of which ones succeeded and which
+              failed, along with the reason. Successful screenshots are
+              automatically selected so you can download just the working ones
+              as a ZIP.
+            </div>
+            <div>
+              If you hit the daily rate limit (50 requests), the remaining URLs
+              will be skipped. Your limit resets the next day.
             </div>
           </>
         )
@@ -2564,7 +3214,7 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Can I integrate this into my application?',
+        question: 'Can I integrate bulk screenshots into my application?',
         answer: (
           <>
             <div>
@@ -2595,7 +3245,7 @@ const ProductInformation = () => (
               <b>don't count against your limit</b>. It lasts for 24 hours.
             </div>
             <div>
-              We only recomend turning of the cache if you need to take a
+              We only recommend turning off the cache if you need to take a
               screenshot of a page that changes frequently.
             </div>
           </>
@@ -2606,7 +3256,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <span>
-              We're are always available at:{' '}
+              We're always available at:{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
             </span>
           </>
@@ -2620,29 +3270,29 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Website Screenshot Generator - Free URL Screen Capture'
+    title='Bulk website screenshot generator - capture up to 50 URLs at once'
     noSuffix
-    description='Generate high-quality website screenshots from any URL. Free, no-login online screen capture tool powered by a fast, reliable, and high resolution API.'
-    image='https://cdn.microlink.io/banner/screenshot.jpeg' // TODO: generate banner
+    description='Take up to 50 website screenshots at once and download them as a ZIP. Free bulk screen capture tool with no login required.'
+    image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      '@id': 'https://microlink.io/tools/website-screenshot',
-      name: 'Microlink Website Screenshot Tool',
+      '@id': 'https://microlink.io/tools/website-screenshot/bulk',
+      name: 'Microlink Bulk Website Screenshot Tool',
       description:
-        'Capture high-quality screenshots of any webpage with full-page support, device emulation, overlays, and multiple formats.', // TODO: add json-ld description
-      url: 'https://microlink.io/tools/website-screenshot',
+        'Capture up to 50 website screenshots at once with full-page support, device emulation, and ZIP download.',
+      url: 'https://microlink.io/tools/website-screenshot/bulk',
       applicationCategory: ['DeveloperApplication', 'Tool'],
       keywords: [
-        'website screenshot tool',
+        'bulk screenshot tool',
+        'batch screenshot',
+        'multiple website screenshots',
         'screenshot API',
         'webpage capture',
-        'take web screenshot',
+        'bulk screen capture',
         'website screenshot generator',
-        'responsive screenshot',
-        'screen capture site',
-        'web page screen capture online'
+        'download screenshots zip'
       ],
       offers: {
         '@type': 'Offer',
