@@ -132,34 +132,34 @@ const HOW_IT_WORKS = [
 
 const REASON_TO_USE = [
   {
-    title: 'Fast Screen Capture',
+    title: 'Capture multiple URLs at once',
     description:
-      'Our advanced technology captures website screenshots as fast as possible. Whether you need a quick snapshot or bulk captures via API, we deliver speed and quality.'
+      'Paste up to 50 URLs and generate all screenshots in one batch. No need to capture them one by one — save hours of repetitive manual work.'
   },
   {
-    title: 'High-Resolution Website Images',
+    title: 'Download everything as a ZIP',
     description:
-      'Get crystal-clear screenshots at any viewport size—mobile, tablet, desktop, or custom dimensions. Add custom backgrounds and choose from multiple formats.'
+      'All your bulk screenshots are packaged into a single ZIP file that downloads automatically. Ready to share with your team, archive, or use in your workflow.'
   },
   {
-    title: 'No Installation Required',
+    title: 'Free + No login required',
     description:
-      'Take web screenshots directly in your browser. No downloads, no plugins, no hassle. Just paste the URL and capture.'
+      'Take up to 50 bulk website screenshots per day for free. No account needed, no credit card, no watermarks on your images.'
   },
   {
-    title: 'Free + No login',
+    title: 'Desktop, tablet, and mobile',
     description:
-      'Free screenshot tool with 50 screen captures per day. Every screenshot is clean and professional. No branding, overlays, or watermarks on your captured images.'
+      'Choose from preset device viewports or enter custom dimensions. Capture how any website looks on every screen size in a single batch.'
   },
   {
-    title: 'Local Storage Support',
+    title: 'Full-page screenshots',
     description:
-      'Save screenshots to your local storage for easy access. Access them for 24 hours so if you grab the perfect screenshot, you can come back and grab it again.'
+      'Capture the entire page from top to bottom, not just the visible viewport. Useful for long landing pages, documentation sites, or full website audits.'
   },
   {
-    title: 'Block ads and banners',
+    title: 'Block ads and cookie banners',
     description:
-      'Automatically block ads and cookie banners before the rendering. Get the cleanest screenshots possible.'
+      'Automatically remove ads and cookie consent popups before capturing. Get clean, professional screenshots of every page without visual clutter.'
   }
 ]
 
@@ -2913,7 +2913,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Bulk Website Screenshot Generator
+      Bulk website screenshot tool
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -2924,7 +2924,8 @@ const Hero = () => (
         fontSize: [2, 2, 3, '32px']
       })}
     >
-      Capture up to 50 website screenshots at once and download them as a ZIP
+      Paste up to 50 URLs, capture every page at once, and download all
+      screenshots as a ZIP
     </Caption>
   </Flex>
 )
@@ -2998,7 +2999,7 @@ const Explanation = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Why choose our free screenshot tool?
+      Why use a bulk website screenshot tool?
     </Subhead>
     <Box
       css={theme({
@@ -3029,15 +3030,15 @@ const Explanation = () => (
       })}
     >
       <Text css={theme({ fontSize: 3, color: 'black' })}>
-        Wondering how we deliver this quality for free?
+        How can a bulk screenshot tool be free?
       </Text>
       <Text
         css={theme({ fontSize: 2, color: 'black80', lineHeight: 2, mt: 2 })}
       >
-        This tool runs on <b>Microlink's</b>{' '}
+        This tool is built on <b>Microlink's</b>{' '}
         <Link href='/screenshot'>screenshot API</Link>—the same infrastructure
-        processing millions of screenshots per week for paying customers. You
-        get enterprise performance at no cost.
+        that processes millions of screenshots per week for paying customers.
+        You get the same speed, quality, and reliability at no cost.
       </Text>
     </Caption>
   </Container>
@@ -3084,8 +3085,9 @@ const ApiDocs = () => (
       <Caption
         css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
       >
-        Explore the full Screenshot API reference with interactive examples,
-        SDKs for every language, and ready-to-use code snippets.
+        Automate bulk website screenshots with a simple REST call. Explore the
+        full API reference with interactive examples, SDKs for every language,
+        and ready-to-use code snippets.
       </Caption>
       <Flex
         css={theme({
@@ -3180,40 +3182,40 @@ const Banner = () => (
 
 const USE_CASES = [
   {
-    title: 'For Web Designers',
+    title: 'For QA & site audits',
     items: [
-      'Create portfolio screenshots of live websites',
-      'Add the screenshots to AI tools to turn them in HTML',
-      'Generate client approval mockups instantly',
-      'Capture responsive layouts across devices'
+      'Take a screenshot of all pages in a website for visual QA',
+      'Compare before and after a redesign or deployment',
+      'Document the current state of every page for stakeholders',
+      'Catch layout issues across desktop, tablet, and mobile'
     ],
     link: {
-      href: '/blog/using-screenshot-design',
-      alt: 'Screenshot for designers use case',
-      text: 'Check out how to xxxx'
+      href: '/screenshot',
+      alt: 'Screenshot API for QA',
+      text: 'Check out the API'
     }
   },
   {
-    title: 'For Digital Marketers',
+    title: 'For digital marketers',
     items: [
-      'Screenshot competitor websites for analysis',
+      'Bulk screenshot competitor websites for analysis',
+      'Archive landing pages for ad compliance records',
       'Create case study visuals with before/after shots',
-      'Capture landing pages for ad compliance records',
-      'Generate social media preview images'
+      'Generate social media preview images at scale'
     ],
     link: {
       href: '/use-cases/generate-og-img-previews',
       alt: 'Screenshot for og:images',
-      text: 'Check out this use case xxxx'
+      text: 'Check out this use case'
     }
   },
   {
-    title: 'For Developers',
+    title: 'For developers',
     items: [
-      'Screenshot webpages for bug reports',
-      'Automate visual regression testing via API',
-      'Capture site states at specific timestamps',
-      'Generate and previews of multiple websites without effort'
+      'Automate bulk website screenshots via REST API',
+      'Integrate visual regression testing into CI/CD',
+      'Generate thumbnail previews for multiple URLs',
+      'Build screenshot workflows with the Microlink SDK'
     ],
     link: {
       href: '/screenshot',
@@ -3238,11 +3240,11 @@ const UseCases = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Use cases for website screen capture
+      Who needs bulk website screenshots?
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
-      From design reviews to automated testing, website screenshots power
-      workflows across every team.
+      From site audits to competitive analysis, bulk screenshot capture saves
+      time across every team.
     </Caption>
     <Box
       css={theme({
@@ -3338,18 +3340,19 @@ const ProductInformation = () => (
     })}
     questions={[
       {
-        question: 'Is this bulk screenshot tool really free?',
+        question: 'Is this bulk website screenshot tool really free?',
         answer: (
           <>
             <div>
-              Yes! You can take up to <b>50&nbsp;screenshots per day</b> for
-              free, with no credit card required. Free screenshots include all
-              features — full-page capture, device emulation, and multiple
-              formats.
+              Yes! You can take up to <b>50&nbsp;bulk screenshots per day</b>{' '}
+              for free, with no credit card or account required. Free
+              screenshots include every feature — full-page capture, device
+              emulation, ad blocking, and PNG/JPG formats.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
-              for higher limits and priority processing, or write to{' '}
+              Need higher limits? Check our{' '}
+              <Link href='/#pricing'>pricing plans</Link> for unlimited
+              screenshots and priority processing, or write to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>
           </>
@@ -3362,12 +3365,33 @@ const ProductInformation = () => (
             <div>
               You can capture up to <b>50&nbsp;URLs</b> in a single batch. Paste
               them one per line or comma-separated. Screenshots are processed
-              one by one and you can track progress in real time.
+              sequentially and you can track progress in real time.
             </div>
             <div>
               All successful screenshots are packaged into a ZIP file that
-              downloads automatically. They're also saved to your local storage
-              for 24&nbsp;hours so you can re-download anytime.
+              downloads automatically. They're also saved to your browser's
+              local storage for 24&nbsp;hours so you can re-download anytime.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Can I take a screenshot of all pages in a website?',
+        answer: (
+          <>
+            <div>
+              Yes. To screenshot all pages in a website, paste every URL you
+              want to capture into the text area — one per line. The tool will
+              process them all in order and deliver a ZIP with every screenshot.
+            </div>
+            <div>
+              If you need to automate this (e.g., feed URLs from a sitemap), use
+              the{' '}
+              <Link href='/docs/api/parameters/screenshot'>
+                Microlink screenshot API
+              </Link>{' '}
+              directly. You can parse your sitemap.xml, extract the URLs, and
+              call the API for each one programmatically.
             </div>
           </>
         )
@@ -3391,51 +3415,57 @@ const ProductInformation = () => (
         )
       },
       {
-        question: "What's the quality of the screenshots?",
+        question: "What's the quality of the bulk screenshots?",
         answer: (
           <>
             <div>
-              We always use the best quality settings for the screenshots. Then
-              we compress the images to the smallest file size possible without
-              losing quality.
+              Every screenshot is rendered at the highest quality settings using
+              a real Chromium browser. We then compress the images to the
+              smallest file size possible without visible quality loss. You get
+              the same output whether you capture one URL or fifty.
             </div>
           </>
         )
       },
       {
-        question: 'Can I integrate bulk screenshots into my application?',
+        question: 'Can I automate bulk website screenshots?',
         answer: (
           <>
             <div>
-              Absolutely. The tool is built on the{' '}
+              Absolutely. This tool is built on the{' '}
               <Link href='/docs/api/parameters/screenshot'>
-                Microlink Screenshot API
+                Microlink screenshot API
               </Link>
-              , which provides a simple REST endpoint. Integrate with any
-              language — Node.js, Python, Ruby, or plain cURL.
+              , which provides a simple REST endpoint. Send a URL, get back a
+              screenshot — integrate with any language (Node.js, Python, Ruby,
+              Go) or plain cURL.
             </div>
             <div>
-              Use the{' '}
+              For Node.js, use the{' '}
               <Link href='https://www.npmjs.com/package/@microlink/mql'>
                 @microlink/mql
               </Link>{' '}
-              SDK for Node.js, or hit the API directly from any HTTP client.
+              SDK. Loop over your URLs, call the API for each, and you have a
+              fully automated bulk screenshot pipeline.
             </div>
           </>
         )
       },
       {
-        question: 'How does caching work?',
+        question: 'How does caching work for bulk screenshots?',
         answer: (
           <>
             <div>
-              Screenshots are cached on our global CDN by default. Cached
-              responses are served instantly and{' '}
-              <b>don't count against your limit</b>. It lasts for 24 hours.
+              Screenshots are cached on our global CDN (240+ edge locations) by
+              default. Cached responses are served instantly and{' '}
+              <b>don't count against your daily limit</b>. Cache lasts for
+              24&nbsp;hours.
             </div>
             <div>
-              We only recommend turning off the cache if you need to take a
-              screenshot of a page that changes frequently.
+              This is especially useful for bulk captures — if you re-run the
+              same batch, cached URLs will resolve immediately. Turn off caching
+              only if you need a fresh screenshot of a page that changes
+              frequently.
             </div>
           </>
         )
@@ -3459,9 +3489,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Bulk website screenshot generator - capture up to 50 URLs at once'
+    title='Bulk website screenshot tool — capture up to 50 URLs at once'
     noSuffix
-    description='Take up to 50 website screenshots at once and download them as a ZIP. Free bulk screen capture tool with no login required.'
+    description='Free bulk website screenshot tool. Paste up to 50 URLs, capture every page at once, and download all screenshots as a ZIP. No login required. Powered by Microlink screenshot API.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
     structured={{
@@ -3470,15 +3500,16 @@ export const Head = () => (
       '@id': 'https://microlink.io/tools/website-screenshot/bulk',
       name: 'Microlink Bulk Website Screenshot Tool',
       description:
-        'Capture up to 50 website screenshots at once with full-page support, device emulation, and ZIP download.',
+        'Free bulk website screenshot tool. Paste up to 50 URLs, generate screenshots for every page at once, and download them all as a ZIP file. Built on Microlink screenshot API.',
       url: 'https://microlink.io/tools/website-screenshot/bulk',
-      applicationCategory: ['DeveloperApplication', 'Tool'],
+      applicationCategory: ['DeveloperApplication', 'DesignApplication'],
       keywords: [
-        'bulk screenshot tool',
-        'batch screenshot',
+        'bulk website screenshot',
+        'bulk website screenshot tool',
+        'take screenshot of all pages in a website',
+        'batch website screenshot',
         'multiple website screenshots',
         'screenshot API',
-        'webpage capture',
         'bulk screen capture',
         'website screenshot generator',
         'download screenshots zip'
@@ -3522,10 +3553,10 @@ const WebsiteScreenshotPage = () => (
       }
       caption={
         <>
-          No servers to maintain, no load balancers, no paying for capacity you
-          don't use. Microlink lets you spend more time building and less time
-          configuring — easy integration via <Link href='/screenshot'>API</Link>
-          .
+          Need to automate bulk website screenshots? No servers to maintain, no
+          headless browsers to manage. Microlink's screenshot API handles the
+          infrastructure so you can focus on building — easy integration via{' '}
+          <Link href='/screenshot'>API</Link>.
         </>
       }
       features={FEATURES_LIST}
