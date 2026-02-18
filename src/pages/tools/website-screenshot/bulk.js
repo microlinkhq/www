@@ -15,6 +15,7 @@ import {
   HelpCircle,
   Link2,
   Settings,
+  Trash2,
   X
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
@@ -755,6 +756,52 @@ const DownloadZipButton = styled(Flex).attrs({
   &:disabled {
     opacity: 0.6;
     cursor: wait;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+`
+
+const DeleteSelectedButton = styled(Flex).attrs({
+  as: 'button',
+  type: 'button'
+})`
+  ${theme({
+    alignItems: 'center',
+    gap: '6px',
+    py: '6px',
+    px: '12px',
+    borderRadius: 2,
+    fontSize: 0,
+    fontWeight: 'bold',
+    fontFamily: 'sans',
+    cursor: 'pointer',
+    border: 1,
+    borderColor: 'black10'
+  })}
+  white-space: nowrap;
+  background: white;
+  color: ${colors.black60};
+  transition: color ${transition.short}, border-color ${transition.short},
+    background ${transition.short};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover:not(:disabled) {
+    color: #dc2626;
+    border-color: #dc2626;
+    background: #fef2f2;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   &:focus-visible {
@@ -1753,10 +1800,13 @@ const ScreenshotHistory = ({
   onSelectAll,
   onDeselectAll,
   onDownloadZip,
+  onDeleteSelected,
   isZipping
 }) => {
   const scrollRef = useRef(null)
   const prevFirstIdRef = useRef(null)
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const confirmTimerRef = useRef(null)
 
   /* Scroll to the top when a new screenshot is prepended */
   useEffect(() => {
@@ -1766,6 +1816,17 @@ const ScreenshotHistory = ({
     }
     prevFirstIdRef.current = firstId
   }, [entries])
+
+  useEffect(() => {
+    if (!confirmingDelete) return
+    confirmTimerRef.current = setTimeout(() => setConfirmingDelete(false), 3000)
+    return () => clearTimeout(confirmTimerRef.current)
+  }, [confirmingDelete])
+
+  /* Reset confirmation when selection changes */
+  useEffect(() => {
+    setConfirmingDelete(false)
+  }, [selectedIds])
 
   if (!entries || entries.length === 0) return null
 
@@ -1835,6 +1896,34 @@ const ScreenshotHistory = ({
             >
               {selectedIds.length} selected
             </Text>
+            <DeleteSelectedButton
+              onClick={() => {
+                if (confirmingDelete) {
+                  setConfirmingDelete(false)
+                  onDeleteSelected()
+                } else {
+                  setConfirmingDelete(true)
+                }
+              }}
+              disabled={disabled}
+              aria-label={
+                confirmingDelete
+                  ? `Confirm deletion of ${selectedIds.length} screenshots`
+                  : `Delete ${selectedIds.length} selected screenshots`
+              }
+              style={
+                confirmingDelete
+                  ? {
+                    color: '#dc2626',
+                    borderColor: '#dc2626',
+                    background: '#fef2f2'
+                  }
+                  : undefined
+              }
+            >
+              <Trash2 size={14} />
+              {confirmingDelete ? 'Are you sure?' : 'Delete'}
+            </DeleteSelectedButton>
             <DownloadZipButton
               onClick={onDownloadZip}
               disabled={isZipping || disabled}
@@ -2623,6 +2712,16 @@ const ScreenshotTool = () => {
     setSelectedIds([])
   }, [])
 
+  const handleDeleteSelected = useCallback(() => {
+    if (selectedIds.length === 0) return
+    setHistory(prev => {
+      const items = Array.isArray(prev) ? prev : []
+      return items.filter(entry => !selectedIds.includes(entry.id))
+    })
+    setActiveHistoryId(prev => (selectedIds.includes(prev) ? null : prev))
+    setSelectedIds([])
+  }, [selectedIds, setHistory])
+
   const handleDownloadZip = useCallback(async () => {
     const entries = Array.isArray(history) ? history : []
     const selected = entries.filter(e => selectedIds.includes(e.id))
@@ -2697,6 +2796,7 @@ const ScreenshotTool = () => {
           onSelectAll={handleSelectAll}
           onDeselectAll={handleDeselectAll}
           onDownloadZip={handleDownloadZip}
+          onDeleteSelected={handleDeleteSelected}
           isZipping={isZipping}
         />
       )}
