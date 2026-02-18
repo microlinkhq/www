@@ -1135,7 +1135,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               }}
             />
             <Text css={theme({ pl: 2, fontSize: '16px', color: 'black80' })}>
-              Full page screenshot
+              Capture entire page
             </Text>
           </CheckboxLabel>
         </PanelSection>
