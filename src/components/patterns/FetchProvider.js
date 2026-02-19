@@ -3,9 +3,11 @@ import { Link } from 'components/elements/Link'
 import Notification from 'components/elements/Notification/Notification'
 import React, { useCallback, useState, useEffect, useRef } from 'react'
 import { findDemoLinkByVariations } from 'helpers/demo-links'
+import { hasDomainLikeHostname, normalizeUrl } from 'helpers/url-input'
 import { urlVariations } from 'helpers/url-variations'
 import { useQueryState } from 'components/hook/use-query-state'
 import mql from '@microlink/mql'
+import prependHttp from 'prepend-http'
 
 const ErrorMessage = ({ more }) => {
   const text = 'The URL has something weird.'
@@ -31,6 +33,12 @@ const fetchFromApi = (url, fromCache, opts) => {
 }
 
 const defaultFromCache = variations => findDemoLinkByVariations(variations)
+const withProtocol = url =>
+  Array.isArray(url) ? url.map(prependHttp) : prependHttp(url)
+const isValidQueryUrl = url => {
+  const urls = Array.isArray(url) ? url : [url]
+  return urls.every(value => hasDomainLikeHostname(normalizeUrl(value)))
+}
 
 const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
@@ -41,16 +49,18 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const [query, setQuery] = useQueryState()
 
   const didInitialFetch = useRef(false)
+  const warningId = useRef(0)
 
   const fetchData = useCallback(
     async (url, opts) => {
       try {
-        setQuery({ url, ...opts })
+        const { queryUrl, ...fetchOpts } = opts || {}
+        setQuery({ url: queryUrl || url, ...fetchOpts })
         setError(null)
         setStatus('fetching')
 
         const doFetch = url =>
-          fetchFromApi(url, fromCache, { ...mqlOpts, ...opts })
+          fetchFromApi(url, fromCache, { ...mqlOpts, ...fetchOpts })
 
         const { data, response } = Array.isArray(url)
           ? await Promise.all(url.map(doFetch))
@@ -70,8 +80,12 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
 
   const doFetch = (url, opts) => {
     setWarning(null)
-    if (!url) {
-      setWarning({ children: 'You need to provide a valid URL.' })
+    if (!url || !isValidQueryUrl(url)) {
+      warningId.current += 1
+      setWarning({
+        id: warningId.current,
+        children: 'You need to provide a valid URL.'
+      })
       return
     }
     return fetchData(url, opts)
@@ -82,13 +96,17 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
     didInitialFetch.current = true
 
     const { url, ...opts } = query
-    if (url) fetchData(url, opts)
+    if (url && isValidQueryUrl(url)) {
+      fetchData(withProtocol(url), { ...opts, queryUrl: url })
+    }
   }, [query, fetchData])
 
   return (
     <>
       {error ? <ErrorMessage {...error} /> : null}
-      {!error && warning ? <Notification.Warning {...warning} /> : null}
+      {!error && warning && (
+        <Notification.Warning key={warning.id} {...warning} />
+      )}
       {children({ status, doFetch, data, response })}
     </>
   )

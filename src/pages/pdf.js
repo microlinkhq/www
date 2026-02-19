@@ -2,12 +2,15 @@ import { borders, breakpoints, layout, colors, theme, fonts } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
 import React, { useMemo, useState, useEffect } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
-import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
+import {
+  getHostname,
+  hasDomainLikeHostname,
+  normalizeUrl
+} from 'helpers/url-input'
 import humanizeUrl from 'humanize-url'
-import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import get from 'dlv'
 import { Book, Minimize } from 'react-feather'
@@ -143,7 +146,6 @@ const PDFPlaceholder = props => {
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  isInitialData,
   isLoading,
   onSubmit,
   query
@@ -168,21 +170,34 @@ const LiveDemo = React.memo(function LiveDemo ({
 
   useEffect(() => {
     if (queryUrl) {
-      setInputUrl(queryUrl)
+      setInputUrl(prevInputUrl => {
+        if (normalizeUrl(prevInputUrl) === normalizeUrl(queryUrl)) { return prevInputUrl }
+        return queryUrl
+      })
       setinputFormat(queryFormat)
       setinputMargin(queryMargin)
     }
   }, [queryUrl, queryFormat, queryMargin])
 
-  const values = useMemo(() => {
-    const preprendUrl = prependHttp(inputUrl)
+  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
+  const inputHostname = useMemo(
+    () => getHostname(normalizedInputUrl),
+    [normalizedInputUrl]
+  )
+  const iconQuery = useMemo(() => {
+    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
+    return inputHostname || undefined
+  }, [inputHostname, normalizedInputUrl])
 
+  const values = useMemo(() => {
     return pickBy({
-      url: isUrl(preprendUrl) ? preprendUrl : undefined,
+      url: hasDomainLikeHostname(normalizedInputUrl)
+        ? normalizedInputUrl
+        : undefined,
       margin: inputMargin,
       format: inputFormat
     })
-  }, [inputUrl, inputMargin, inputFormat])
+  }, [normalizedInputUrl, inputMargin, inputFormat])
 
   const embedUrl = useMemo(
     () => (dataUrl ? getEmbedUrl(dataUrl) : ''),
@@ -238,8 +253,9 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
+            const rawUrl = inputUrl.trim()
             const { url, ...opts } = values
-            return onSubmit(url, opts)
+            return onSubmit(url, { ...opts, queryUrl: rawUrl })
           }}
         >
           <Box css={theme({ mb: [3, 3, 0, 0] })}>
@@ -248,9 +264,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 fontSize: 2,
                 width: ['100%', '100%', '102px', '102px']
               })}
-              iconComponent={
-                <InputIcon.Microlink url={!isInitialData && values.url} />
-              }
+              iconComponent={<InputIcon query={iconQuery} />}
               id='pdf-demo-url'
               placeholder='Visit URL'
               suggestions={SUGGESTIONS.map(
@@ -842,13 +856,11 @@ const PdfPage = () => {
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
-          const isInitialData = data === null
 
           return (
             <>
               <LiveDemo
                 data={data}
-                isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={isMounted ? query : {}}

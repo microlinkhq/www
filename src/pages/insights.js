@@ -1,12 +1,15 @@
 import { borders, breakpoints, layout, colors, theme } from 'theme'
 import React, { useMemo, useState, useEffect } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
-import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
+import {
+  getHostname,
+  hasDomainLikeHostname,
+  normalizeUrl
+} from 'helpers/url-input'
 import humanizeUrl from 'humanize-url'
-import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import get from 'dlv'
 
@@ -248,7 +251,6 @@ const LighthousePlaceholder = props => {
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  isInitialData,
   isLoading,
   onSubmit,
   query
@@ -265,13 +267,30 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [inputUrl, setInputUrl] = useState('')
 
   useEffect(() => {
-    setInputUrl(query.url || '')
-  }, [query])
+    if (!query?.url) return
+    setInputUrl(prevInputUrl => {
+      if (normalizeUrl(prevInputUrl) === normalizeUrl(query.url)) { return prevInputUrl }
+      return query.url
+    })
+  }, [query?.url])
+
+  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
+  const inputHostname = useMemo(
+    () => getHostname(normalizedInputUrl),
+    [normalizedInputUrl]
+  )
+  const iconQuery = useMemo(() => {
+    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
+    return inputHostname || undefined
+  }, [inputHostname, normalizedInputUrl])
 
   const values = useMemo(() => {
-    const preprendUrl = prependHttp(inputUrl)
-    return pickBy({ url: isUrl(preprendUrl) ? preprendUrl : undefined })
-  }, [inputUrl])
+    return pickBy({
+      url: hasDomainLikeHostname(normalizedInputUrl)
+        ? normalizedInputUrl
+        : undefined
+    })
+  }, [normalizedInputUrl])
 
   const embedTechnologiesUrl = useMemo(
     () => getEmbedUrl(values.url, 'insights.technologies'),
@@ -342,8 +361,9 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
+            const rawUrl = inputUrl.trim()
             const { url, ...opts } = values
-            return onSubmit(url, opts)
+            return onSubmit(url, { ...opts, queryUrl: rawUrl })
           }}
         >
           <Box>
@@ -352,9 +372,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 fontSize: 2,
                 width: ['100%', '100%', 128, 128]
               })}
-              iconComponent={
-                <InputIcon.Microlink url={!isInitialData && values.url} />
-              }
+              iconComponent={<InputIcon query={iconQuery} />}
               id='pdf-demo-url'
               placeholder='Visit URL'
               suggestions={SUGGESTIONS}
@@ -1001,13 +1019,11 @@ const InsightsPage = () => {
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
-          const isInitialData = data === null
 
           return (
             <>
               <LiveDemo
                 data={data}
-                isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={isMounted ? query : {}}
