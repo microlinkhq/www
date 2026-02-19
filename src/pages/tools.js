@@ -50,14 +50,15 @@ const TOOLS = [
           'Scroll-capture an entire page from top to bottom in one image. Perfect for design reviews, archiving, and documentation.',
         href: '/tools/website-screenshot/full-page',
         icon: Maximize,
-        image: '/images/screenshot-tool-landing.png',
-        animation: ['scale(1.7) translateY(-40%)', 'scale(1.7)'],
+        image: '/images/screenshot-scroll.png',
+        animation: ['scale(1) translateY(-65%)', 'scale(1)'],
         styles: {
-          maxHeight: '100%',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          marginTop: '320px',
+          width: '250px',
           objectFit: 'cover',
-          transition: 'transform 1000ms cubic-bezier(0.4, 0, 0.2, 1)',
-          transformOrigin: 'top center',
-          transform: 'scale(1.7) translateY(-40%)'
+          transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transformOrigin: 'top center'
         }
       },
       {
@@ -66,11 +67,12 @@ const TOOLS = [
           'Paste up to 50 URLs and capture them all at once. Download every screenshot as a ZIP file. Great for competitive analysis and monitoring.',
         href: '/tools/website-screenshot/bulk',
         icon: Grid,
-        image: cdnUrl('illustrations/abstract-2.svg'),
+        image: '/images/screenshot-bulk.png',
+        animation: ['scale(1.5) rotate(0deg)', 'scale(1.3) rotate(-10deg)'],
         styles: {
-          maxHeight: '80%',
+          maxHeight: '100%',
           objectFit: 'contain',
-          transition: `transform ${transition.medium}`,
+          transition: `transform ${transition.long}`,
           transformOrigin: 'center center'
         }
       },
@@ -86,7 +88,7 @@ const TOOLS = [
           mt: '310px',
           maxWidth: '290px',
           objectFit: 'contain',
-          transition: `transform ${transition.medium}`,
+          transition: `transform ${transition.long}`,
           transformOrigin: 'center center'
         }
       }
@@ -209,10 +211,12 @@ const FeaturedTool = ({
             css={theme({
               maxHeight: '100%',
               objectFit: 'contain',
-              transition: `transform ${transition.medium}`
+              transition: `transform ${transition.long}`
             })}
             style={{
-              transform: isHover ? 'scale(1.50) translateY(15%)' : 'scale(1)'
+              transform: isHover
+                ? 'scale(1.65) translateY(18%)'
+                : 'scale(1.35) translateY(15%)'
             }}
           />
         </ImagePreview>
