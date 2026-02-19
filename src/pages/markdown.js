@@ -384,7 +384,7 @@ const Timings = () => (
     as='section'
     id='timings'
     css={theme({
-      p: [5, 5, 6, 6],
+      p: [4, 4, 5, 5],
       width: '100%',
       'background-image':
         'radial-gradient(circle at center right, rgb(253, 97, 39) 0%, rgb(253, 97, 39) 14.286%,rgb(251, 108, 38) 14.286%, rgb(251, 108, 38) 28.572%,rgb(249, 118, 37) 28.572%, rgb(249, 118, 37) 42.858%,rgb(247, 129, 37) 42.858%, rgb(247, 129, 37) 57.144%,rgb(245, 140, 36) 57.144%, rgb(245, 140, 36) 71.43%,rgb(243, 150, 35) 71.43%, rgb(243, 150, 35) 85.716%,rgb(241, 161, 34) 85.716%, rgb(241, 161, 34) 100.002%)',
@@ -580,40 +580,6 @@ const Stat = ({ value, name, isLast }) => (
     </Flex>
     {!isLast && <Separator />}
   </Flex>
-)
-
-const stats = [
-  { value: '80% fewer', name: 'tokens than raw HTML' },
-  { value: '5x more', name: 'content per context window' }
-]
-
-const Analytics = () => (
-  <Block
-    forwardedAs='section'
-    id='analytics'
-    css={theme({
-      flexDirection: 'column',
-      pb: [5, 5, 6, 6],
-      bg: 'pinky',
-      borderTop: `${borders[1]} ${colors.white20}`,
-      borderBottom: `${borders[1]} ${colors.white20}`
-    })}
-  >
-    <Hide breakpoints={[0, 1]}>
-      <Flex css={{ width: '100%', justifyContent: 'space-around' }}>
-        {stats.map((stat, index) => (
-          <Stat key={stat.name} isLast={index === stats.length - 1} {...stat} />
-        ))}
-      </Flex>
-    </Hide>
-    <Hide breakpoints={[2, 3]}>
-      <Flex css={{ width: '100%', justifyContent: 'space-around' }}>
-        {stats.slice(0, -1).map((stat, index) => (
-          <Stat key={stat.name} isLast={index === stats.length - 2} {...stat} />
-        ))}
-      </Flex>
-    </Hide>
-  </Block>
 )
 
 const ProductInformation = () => (
@@ -858,8 +824,6 @@ const MarkdownPage = () => {
             })}
           />
         </Flex>
-
-        <Analytics />
 
         <Timings />
 
