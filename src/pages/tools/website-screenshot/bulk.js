@@ -495,11 +495,25 @@ const AnimatedResultsList = ({ results }) => {
                 fontFamily: 'sans',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                flex: 1
               })}
             >
               {formatHistoryUrl(item.data.url)}
             </Text>
+            {item.data.duration != null && (
+              <Text
+                css={theme({
+                  fontSize: '11px',
+                  color: 'black30',
+                  fontFamily: 'mono',
+                  flexShrink: 0,
+                  pl: 2
+                })}
+              >
+                {formatDuration(item.data.duration)}
+              </Text>
+            )}
           </Wrapper>
         )
       })}
@@ -1921,6 +1935,17 @@ const formatHistoryUrl = url => {
   }
 }
 
+const formatDuration = (ms, { forceSeconds = false } = {}) => {
+  if (ms == null) return null
+  const totalSeconds = ms / 1000
+  if (!forceSeconds && totalSeconds >= 60) {
+    const mins = Math.floor(totalSeconds / 60)
+    const secs = Math.round(totalSeconds % 60)
+    return `${mins}m ${secs}s`
+  }
+  return `${totalSeconds.toFixed(3)} seconds`
+}
+
 const ScreenshotHistory = ({
   entries,
   activeId,
@@ -2177,6 +2202,7 @@ const BulkPreview = ({
   bulkState,
   bulkProgress,
   bulkResults,
+  bulkTotalMs,
   urls,
   onDownloadZip,
   isZipping,
@@ -2373,6 +2399,17 @@ const BulkPreview = ({
               >
                 Your ZIP file is downloading. Check your downloads folder.
               </Text>
+              {bulkTotalMs != null && (
+                <Text
+                  css={theme({
+                    fontSize: 0,
+                    color: 'black30',
+                    fontFamily: 'mono'
+                  })}
+                >
+                  Total time: {formatDuration(bulkTotalMs)}
+                </Text>
+              )}
             </>
           ) : (
             <>
@@ -2537,6 +2574,17 @@ const BulkPreview = ({
                   </Text>
                 </Box>
               )}
+              {bulkTotalMs != null && (
+                <Text
+                  css={theme({
+                    fontSize: 0,
+                    color: 'black30',
+                    fontFamily: 'mono'
+                  })}
+                >
+                  Total time: {formatDuration(bulkTotalMs)}
+                </Text>
+              )}
             </>
           )}
           {!hasRateLimit && (
@@ -2575,6 +2623,7 @@ const ScreenshotTool = () => {
     currentUrl: ''
   })
   const [bulkResults, setBulkResults] = useState([])
+  const [bulkTotalMs, setBulkTotalMs] = useState(null)
   const bulkUrlsRef = useRef([])
 
   const [localStorageData] = useLocalStorage('mql-api-key')
@@ -2652,6 +2701,7 @@ const ScreenshotTool = () => {
       setBulkState('processing')
       setBulkProgress({ current: 0, total: urls.length, currentUrl: '' })
       setBulkResults([])
+      setBulkTotalMs(null)
       setPreviewData(null)
       bulkUrlsRef.current = urls
 
@@ -2676,6 +2726,7 @@ const ScreenshotTool = () => {
           const result = {
             url,
             success: false,
+            duration: null,
             error: {
               message: 'Skipped — daily rate limit reached',
               statusCode: 429
@@ -2686,6 +2737,7 @@ const ScreenshotTool = () => {
           continue
         }
 
+        const reqStart = Date.now()
         try {
           const response = await mql(url, {
             apiKey: localStorageData?.apiKey,
@@ -2695,9 +2747,10 @@ const ScreenshotTool = () => {
             adblock: options.adblock,
             force: !options.cache
           })
+          const duration = Date.now() - reqStart
 
           if (response?.data?.screenshot) {
-            results.push({ url, success: true, data: response.data })
+            results.push({ url, success: true, duration, data: response.data })
             setBulkResults([...results])
 
             const entryId = `${Date.now()}-${i}`
@@ -2731,16 +2784,19 @@ const ScreenshotTool = () => {
             results.push({
               url,
               success: false,
+              duration,
               error: { message: 'No screenshot returned' }
             })
             setBulkResults([...results])
           }
         } catch (err) {
+          const duration = Date.now() - reqStart
           const statusCode = err.statusCode || err.code
           if (statusCode === 429) hitRateLimit = true
           results.push({
             url,
             success: false,
+            duration,
             error: {
               message:
                 err.description ||
@@ -2753,6 +2809,7 @@ const ScreenshotTool = () => {
         }
       }
 
+      setBulkTotalMs(results.reduce((sum, r) => sum + (r.duration ?? 0), 0))
       setBulkState('done')
       setSelectedIds(newEntryIds)
 
@@ -2832,6 +2889,7 @@ const ScreenshotTool = () => {
   const handleReset = useCallback(() => {
     setBulkState('idle')
     setBulkResults([])
+    setBulkTotalMs(null)
     setBulkProgress({ current: 0, total: 0, currentUrl: '' })
     setPreviewData(null)
   }, [])
@@ -2876,6 +2934,7 @@ const ScreenshotTool = () => {
               bulkState={bulkState}
               bulkProgress={bulkProgress}
               bulkResults={bulkResults}
+              bulkTotalMs={bulkTotalMs}
               urls={bulkUrlsRef.current}
               onDownloadZip={handleDownloadZip}
               isZipping={isZipping}
@@ -2925,7 +2984,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Bulk website screenshot tool
+      Bulk website screenshots tool
     </Heading>
     <Caption
       forwardedAs='h2'
