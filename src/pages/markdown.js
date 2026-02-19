@@ -743,32 +743,55 @@ const ProductInformation = () => (
   />
 )
 
+const normalizeUrl = value => {
+  const trimmedValue = value?.trim()
+  if (!trimmedValue) return ''
+  return prependHttp(trimmedValue)
+}
+
+const getHostname = value => {
+  try {
+    return new URL(value).hostname
+  } catch (_) {
+    return ''
+  }
+}
+
+const hasDomainLikeHostname = value => {
+  if (!isUrl(value)) return false
+
+  return getHostname(value).includes('.')
+}
+
 const MarkdownPage = () => {
   const [query, setQuery] = useQueryState()
   const isMounted = useMounted()
   const [ClipboardComponent, toClipboard] = useClipboard()
-  const [draftUrl, setDraftUrl] = useState('')
+  const [inputUrl, setInputUrl] = useState('')
   const [isFetching, setIsFetching] = useState(false)
   const mountedQuery = isMounted ? query : undefined
-  const committedUrl = useMemo(
-    () => (mountedQuery?.url ? prependHttp(mountedQuery.url) : ''),
+  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
+  const inputHostname = useMemo(
+    () => getHostname(normalizedInputUrl),
+    [normalizedInputUrl]
+  )
+  const targetUrl = useMemo(
+    () => normalizeUrl(mountedQuery?.url),
     [mountedQuery?.url]
   )
-
-  const normalizedDraftUrl = useMemo(() => {
-    const value = draftUrl.trim()
-    if (!value) return ''
-    return prependHttp(value)
-  }, [draftUrl])
-
-  const isValidUrl = useMemo(
-    () => isUrl(normalizedDraftUrl),
-    [normalizedDraftUrl]
+  const hasValidTargetUrl = useMemo(
+    () => hasDomainLikeHostname(targetUrl),
+    [targetUrl]
   )
+  const isValidInputUrl = useMemo(
+    () => hasDomainLikeHostname(normalizedInputUrl),
+    [normalizedInputUrl]
+  )
+
   const interactiveMqlCode = useMemo(() => {
-    if (!committedUrl) return {}
+    if (!hasValidTargetUrl) return {}
     return {
-      url: committedUrl,
+      url: targetUrl,
       force: true,
       data: {
         markdown: {
@@ -778,29 +801,28 @@ const MarkdownPage = () => {
       embed: 'markdown',
       meta: false
     }
-  }, [committedUrl])
+  }, [hasValidTargetUrl, targetUrl])
   const snippetText = useMemo(
     () =>
-      committedUrl
-        ? `curl https://markdown.microlink.io/${committedUrl}`
+      targetUrl
+        ? `curl https://markdown.microlink.io/${targetUrl}`
         : 'curl https://markdown.microlink.io/https://example.com',
-    [committedUrl]
+    [targetUrl]
   )
 
   const iconQuery = useMemo(() => {
-    if (!isUrl(normalizedDraftUrl)) return undefined
-
-    try {
-      return new URL(normalizedDraftUrl).hostname
-    } catch (_) {
-      return undefined
-    }
-  }, [normalizedDraftUrl])
+    if (!isValidInputUrl) return undefined
+    return inputHostname || undefined
+  }, [inputHostname, isValidInputUrl])
 
   useEffect(() => {
-    if (!mountedQuery?.url) return
-    setIsFetching(true)
-    setDraftUrl(mountedQuery.url)
+    if (!mountedQuery?.url) {
+      setIsFetching(false)
+      return
+    }
+    const normalizedMountedUrl = normalizeUrl(mountedQuery.url)
+    setIsFetching(hasDomainLikeHostname(normalizedMountedUrl))
+    setInputUrl(mountedQuery.url)
   }, [mountedQuery?.url])
 
   return (
@@ -852,9 +874,9 @@ const MarkdownPage = () => {
               })}
               onSubmit={event => {
                 event.preventDefault()
-                if (isValidUrl) {
-                  if (normalizedDraftUrl !== committedUrl) setIsFetching(true)
-                  setQuery({ url: normalizedDraftUrl })
+                if (isValidInputUrl) {
+                  if (normalizedInputUrl !== targetUrl) setIsFetching(true)
+                  setQuery({ url: inputUrl.trim() })
                 }
               }}
             >
@@ -868,8 +890,8 @@ const MarkdownPage = () => {
                   iconComponent={<InputIcon query={iconQuery} />}
                   placeholder='Paste URL'
                   type='text'
-                  value={draftUrl}
-                  onChange={event => setDraftUrl(event.target.value)}
+                  value={inputUrl}
+                  onChange={event => setInputUrl(event.target.value)}
                   suggestions={SUGGESTIONS}
                   autoFocus
                 />
@@ -887,7 +909,7 @@ const MarkdownPage = () => {
           <MultiCodeEditorInteractive
             mqlCode={interactiveMqlCode}
             defaultResponseData={DEFAULT_RESPONSE_DATA}
-            autoExecute={!!committedUrl}
+            autoExecute={hasValidTargetUrl}
             onLoadingChange={setIsFetching}
             bodyPreviewOnly
             height={350}
