@@ -531,7 +531,7 @@ const ToolsPage = () => (
           width: '100%',
           maxWidth: layout.large,
           px: [3, 3, 4, 4],
-          pb: [5, 5, 6, 6],
+          pb: [1, 1, 2, 2],
           pt: [3, null, 4],
           borderTop: `${borders[1]} ${colors.black05}`,
           textAlign: 'center'
