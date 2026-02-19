@@ -1,6 +1,8 @@
 ---
 title: 'Microlink adblock now handles cookie banners'
 description: 'Microlink adblock now combines network-level blocking with automatic cookie consent handling, so you get cleaner screenshots and metadata without custom scripts.'
+authors:
+  - kiko
 date: '2026-02-16'
 ---
 
