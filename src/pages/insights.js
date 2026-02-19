@@ -4,6 +4,7 @@ import { useMounted } from 'components/hook/use-mounted'
 import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
+import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
 import get from 'dlv'
@@ -273,8 +274,8 @@ const LiveDemo = React.memo(function LiveDemo ({
     [validInputUrl]
   )
 
-  const snippetTechnologiesText = `curl -sL ${embedTechnologiesUrl}`
-  const snippetInsightsText = `curl -sL ${embedInsightsUrl}`
+  const snippetTechnologiesText = toCurlSnippet(embedTechnologiesUrl)
+  const snippetInsightsText = toCurlSnippet(embedInsightsUrl)
 
   const reportUrl = `https://lighthouse.microlink.io/?url=${encodeURIComponent(
     embedInsightsUrl

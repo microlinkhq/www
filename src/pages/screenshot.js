@@ -5,6 +5,7 @@ import { useTransition, animated } from '@react-spring/web'
 import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
+import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
 import { Compass, Image as ImageIcon } from 'react-feather'
 import humanizeUrl from 'humanize-url'
@@ -270,7 +271,7 @@ const LiveDemo = React.memo(function LiveDemo ({
   }, [validInputUrl, inputOverlay, inputBg])
 
   const embedUrl = useMemo(() => getEmbedUrl(values), [values])
-  const snippetText = `curl -sL ${embedUrl}`
+  const snippetText = toCurlSnippet(embedUrl)
 
   const backgroundIconComponent = isColor(inputBg)
     ? createElement(ColorPreview, { color: inputBg })

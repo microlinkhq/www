@@ -4,6 +4,7 @@ import { issueUrl } from 'helpers/issue-url'
 import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
+import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
@@ -343,8 +344,7 @@ const LiveDemo = React.memo(function LiveDemo ({
     useUrlInput(queryUrl)
 
   const embedUrl = useMemo(() => getEmbedUrl(data.url), [data.url])
-
-  const snippetText = `curl -sL ${embedUrl}`
+  const snippetText = toCurlSnippet(embedUrl)
 
   return (
     <Flex

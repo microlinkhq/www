@@ -5,6 +5,7 @@ import { useMounted } from 'components/hook/use-mounted'
 import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
+import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
 import pickBy from 'lodash/pickBy'
@@ -185,7 +186,7 @@ const LiveDemo = React.memo(function LiveDemo ({
     () => (dataUrl ? getEmbedUrl(dataUrl) : ''),
     [dataUrl]
   )
-  const snippetText = embedUrl ? `curl -sL ${embedUrl}` : ''
+  const snippetText = toCurlSnippetOrEmpty(embedUrl)
 
   return (
     <Flex
