@@ -886,7 +886,7 @@ function MultiCodeEditorInteractive ({
   height = 180,
   editable = false,
   autoExecute = false,
-  defaultView = 'code',
+  bodyPreviewOnly = false,
   defaultResponseData,
   onLoadingChange
 }) {
@@ -917,7 +917,8 @@ function MultiCodeEditorInteractive ({
   const [code, setCode] = useState(codeSnippets[currentLanguage] || '')
   const [responseData, setResponseData] = useState(defaultResponseData ?? null)
   const [isLoading, setIsLoading] = useState(false)
-  const [activeView, setActiveView] = useState(defaultView)
+  const normalizedDefaultView = bodyPreviewOnly ? 'body' : 'code'
+  const [activeView, setActiveView] = useState(normalizedDefaultView)
   const [isExpanded, setIsExpanded] = useState(false)
   const autoExecutedRef = useRef('')
 
@@ -931,7 +932,7 @@ function MultiCodeEditorInteractive ({
     const syncLanguage = nextLanguage => {
       setLanguage(nextLanguage)
       setCode(codeSnippets[nextLanguage])
-      setActiveView('code')
+      setActiveView(bodyPreviewOnly ? 'body' : 'code')
     }
 
     const handleStorageChange = e => {
@@ -967,6 +968,7 @@ function MultiCodeEditorInteractive ({
     }
   }, [
     url,
+    bodyPreviewOnly,
     setLanguage,
     availableLanguages,
     codeSnippets,
@@ -1045,8 +1047,8 @@ function MultiCodeEditorInteractive ({
   }, [isLoading, parseCodeAndExecute, apiKey])
 
   React.useEffect(() => {
-    setActiveView(defaultView)
-  }, [defaultView, url])
+    setActiveView(normalizedDefaultView)
+  }, [normalizedDefaultView, url])
 
   useEffect(() => {
     onLoadingChange?.(isLoading)
@@ -1057,12 +1059,12 @@ function MultiCodeEditorInteractive ({
   React.useEffect(() => {
     if (!autoExecute || !url) return
 
-    const key = `${url}:${JSON.stringify(mqlOpts)}:${defaultView}`
+    const key = `${url}:${JSON.stringify(mqlOpts)}:${normalizedDefaultView}`
     if (autoExecutedRef.current === key) return
 
     autoExecutedRef.current = key
     executeRequest()
-  }, [autoExecute, defaultView, executeRequest, mqlOpts, url])
+  }, [autoExecute, executeRequest, mqlOpts, normalizedDefaultView, url])
 
   const handleViewClick = useCallback(
     view => {
@@ -1097,7 +1099,7 @@ function MultiCodeEditorInteractive ({
       const newLanguage = e.target.value
       setLanguage(newLanguage)
       setCode(codeSnippets[newLanguage])
-      setActiveView('code')
+      setActiveView(bodyPreviewOnly ? 'body' : 'code')
 
       // Dispatch custom event to notify other components on the same page
       window.dispatchEvent(
@@ -1106,7 +1108,7 @@ function MultiCodeEditorInteractive ({
         })
       )
     },
-    [codeSnippets]
+    [bodyPreviewOnly, codeSnippets]
   )
 
   const getCurrentViewText = useCallback(() => {
@@ -1145,16 +1147,19 @@ function MultiCodeEditorInteractive ({
   }, [activeView, code, responseData])
 
   const MemoizedActionComponent = useCallback(
-    () => (
-      <TerminalActions
-        showApiKeyInput={showApiKeyInput}
-        setShowApiKeyInput={setShowApiKeyInput}
-        setActiveView={setActiveView}
-        handleOpenInBrowser={handleOpenInBrowser}
-        getCurrentViewText={getCurrentViewText}
-      />
-    ),
-    [showApiKeyInput, handleOpenInBrowser, getCurrentViewText]
+    () =>
+      bodyPreviewOnly
+        ? null
+        : (
+          <TerminalActions
+            showApiKeyInput={showApiKeyInput}
+            setShowApiKeyInput={setShowApiKeyInput}
+            setActiveView={setActiveView}
+            handleOpenInBrowser={handleOpenInBrowser}
+            getCurrentViewText={getCurrentViewText}
+          />
+          ),
+    [bodyPreviewOnly, showApiKeyInput, handleOpenInBrowser, getCurrentViewText]
   )
 
   const componentHeight = isExpanded ? `${height * 2}px` : `${height}px`
@@ -1220,7 +1225,7 @@ function MultiCodeEditorInteractive ({
             />
           </div>
 
-          {activeView === 'code' && (
+          {!bodyPreviewOnly && activeView === 'code' && (
             <Toolbar
               currentLanguage={currentLanguage}
               onLanguageChange={handleLanguageChange}
@@ -1231,7 +1236,7 @@ function MultiCodeEditorInteractive ({
           )}
         </Terminal>
 
-        {responseData && (
+        {!bodyPreviewOnly && responseData && (
           <ViewNavigation
             activeView={activeView}
             onViewClick={handleViewClick}

@@ -1,9 +1,8 @@
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import React, { useEffect, useMemo, useState } from 'react'
-import { borders, colors, layout, space, theme } from 'theme'
+import { borders, colors, fonts, layout, space, theme } from 'theme'
 import { useMounted } from 'components/hook/use-mounted'
-import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
-import Toggle from 'components/elements/Toggle/Toggle'
+import { useClipboard } from 'components/hook/use-clipboard'
 import { cdnUrl } from 'helpers/cdn-url'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
@@ -26,9 +25,14 @@ import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
+import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import humanizeUrl from 'humanize-url'
+import LineBreak from 'components/elements/LineBreak'
 
-const SUGGESTIONS = ['https://microlink.io'].map(url => ({
+const SUGGESTIONS = [
+  'https://www.tmaker.io/blog/million-dollar-mindset-shift-going-into-2026',
+  'https://docs.stripe.com/get-started/api-request'
+].map(url => ({
   value: humanizeUrl(url)
 }))
 
@@ -400,7 +404,7 @@ const Timings = () => (
       }}
     >
       <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
-        HTML into markdown <br /> ready for AI
+        HTML into markdown <br /> for AI pipelines
       </Subhead>
       <Text
         css={theme({
@@ -416,51 +420,19 @@ const Timings = () => (
   </Box>
 )
 
-const CODE_SNIPPETS = {
-  javascript: {
-    title: 'javascript',
-    language: 'javascript',
-    code: `
-(async () => {
-
-  const api = 'https://api.microlink.io'
-  const url = 'https://example.com'
-  const response = await fetch(\`\${api}/?url=\${url}&data.markdown.attr=markdown&meta=false\`);
-  const { data } = await response.json()
-
-  console.log(data.markdown)
-})()`
-  },
-  mql: {
-    title: 'Microlink Query Language',
-    language: 'javascript',
-    code: `import mql from '@microlink/mql'
-
-const { data } = await mql('https://example.com', {
+const SHOWCASE_MQL_CODE = {
+  url: 'https://example.com',
+  force: true,
   data: {
     markdown: {
       attr: 'markdown'
     }
   },
+  embed: 'markdown',
   meta: false
-})
-
-console.log(data.markdown)`
-  },
-  curl: {
-    title: 'terminal',
-    language: 'shell',
-    code: `
-# Convert any URL to clean markdown
-curl https://markdown.microlink.io/https://example.com
-`
-  }
 }
 
 const CodeShowcase = () => {
-  const [lang, setLang] = useState('javascript')
-  const snippet = CODE_SNIPPETS[lang]
-
   return (
     <Block
       forwardedAs='section'
@@ -510,27 +482,15 @@ const CodeShowcase = () => {
             width: '100%'
           })}
         >
-          <Toggle
-            defaultValue='javascript'
-            onChange={setLang}
-            css={theme({ justifyContent: 'center', width: 'auto' })}
-          >
-            {[
-              { id: 'javascript', node: 'JavaScript' },
-              { id: 'mql', node: 'MQL' },
-              { id: 'curl', node: 'cURL' }
-            ]}
-          </Toggle>
-          <CodeEditor
-            key={lang}
-            title={snippet.title}
-            language={snippet.language}
+          <MultiCodeEditorInteractive
+            mqlCode={SHOWCASE_MQL_CODE}
+            defaultResponseData={DEFAULT_RESPONSE_DATA}
+            autoExecute={false}
+            height={280}
             css={theme({
               width: [`calc(100vw - ${space[4]})`, layout.small]
             })}
-          >
-            {snippet.code}
-          </CodeEditor>
+          />
         </Flex>
       </Flex>
     </Block>
@@ -786,6 +746,7 @@ const ProductInformation = () => (
 const MarkdownPage = () => {
   const [query, setQuery] = useQueryState()
   const isMounted = useMounted()
+  const [ClipboardComponent, toClipboard] = useClipboard()
   const [draftUrl, setDraftUrl] = useState('')
   const [isFetching, setIsFetching] = useState(false)
   const mountedQuery = isMounted ? query : undefined
@@ -818,6 +779,13 @@ const MarkdownPage = () => {
       meta: false
     }
   }, [committedUrl])
+  const snippetText = useMemo(
+    () =>
+      committedUrl
+        ? `curl https://markdown.microlink.io/${committedUrl}`
+        : 'curl https://markdown.microlink.io/https://example.com',
+    [committedUrl]
+  )
 
   const iconQuery = useMemo(() => {
     if (!isUrl(normalizedDraftUrl)) return undefined
@@ -849,13 +817,22 @@ const MarkdownPage = () => {
             pb: [5, 5, 6, 6]
           })}
         >
-          <Heading css={theme({ fontSize: [4, 4, '60px'] })}>
-            HTML to markdown API for agents
+          <Heading css={theme({ fontSize: [3, 4] })}>
+            Structured Markdown <LineBreak breakpoints={[0, 1]} /> built for
+            Agents
           </Heading>
 
           <Caption
             forwardedAs='h2'
-            css={theme({ pt: '20px', px: [4, 0], fontSize: '25px' })}
+            css={theme({
+              pt: [3, 3, 4, 4],
+              maxWidth: [
+                layout.small,
+                layout.small,
+                layout.normal,
+                layout.normal
+              ]
+            })}
           >
             Convert any URL to clean markdown with 80% fewer tokens than raw
             HTML. Built for AI agent crawling, LLM ingestion, and RAG pipelines
@@ -912,13 +889,43 @@ const MarkdownPage = () => {
             defaultResponseData={DEFAULT_RESPONSE_DATA}
             autoExecute={!!committedUrl}
             onLoadingChange={setIsFetching}
-            defaultView='body'
+            bodyPreviewOnly
             height={350}
             css={theme({
               mt: 3,
               width: [`calc(100vw - ${space[4]})`, layout.small]
             })}
           />
+          <Box css={theme({ pt: 4, width: '100%', maxWidth: layout.small })}>
+            <Tooltip
+              type='copy'
+              tooltipsOpts={Tooltip.TEXT.OPTIONS}
+              content={
+                <Tooltip.Content>{Tooltip.TEXT.COPY('cURL')}</Tooltip.Content>
+              }
+            >
+              <Input
+                readOnly
+                onClick={event => {
+                  event.target.select()
+                  toClipboard({
+                    copy: snippetText,
+                    text: Tooltip.TEXT.COPIED('cURL')
+                  })
+                }}
+                style={{ cursor: 'copy' }}
+                css={theme({
+                  fontSize: 1,
+                  fontFamily: fonts.mono,
+                  cursor: 'copy',
+                  width: '100%',
+                  color: 'black60'
+                })}
+                value={snippetText}
+              />
+            </Tooltip>
+          </Box>
+          <ClipboardComponent />
         </Flex>
 
         <Timings />
