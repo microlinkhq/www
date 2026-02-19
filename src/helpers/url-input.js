@@ -2,9 +2,8 @@ import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 
 export const normalizeUrl = value => {
-  const trimmedValue = value?.trim()
-  if (!trimmedValue) return ''
-  return prependHttp(trimmedValue)
+  const normalizedValue = value?.trim()
+  return normalizedValue ? prependHttp(normalizedValue) : ''
 }
 
 export const getHostname = value => {
@@ -15,7 +14,5 @@ export const getHostname = value => {
   }
 }
 
-export const hasDomainLikeHostname = value => {
-  if (!isUrl(value)) return false
-  return getHostname(value).includes('.')
-}
+export const hasDomainLikeHostname = value =>
+  isUrl(value) && getHostname(value).includes('.')
