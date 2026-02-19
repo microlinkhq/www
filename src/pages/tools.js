@@ -50,8 +50,8 @@ const TOOLS = [
           'Scroll-capture an entire page from top to bottom in one image. Perfect for design reviews, archiving, and documentation.',
         href: '/tools/website-screenshot/full-page',
         icon: Maximize,
-        image:
-          'https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
+        image: '/images/screenshot-tool-landing.png',
+        scrollCapture: true
       },
       {
         title: 'Bulk Screenshots',
@@ -59,7 +59,7 @@ const TOOLS = [
           'Paste up to 50 URLs and capture them all at once. Download every screenshot as a ZIP file. Great for competitive analysis and monitoring.',
         href: '/tools/website-screenshot/bulk',
         icon: Grid,
-        image: 'https://cdn.microlink.io/illustrations/abstract-2.svg'
+        image: cdnUrl('illustrations/abstract-2.svg')
       },
       {
         title: 'Mobile Screenshot',
@@ -67,7 +67,7 @@ const TOOLS = [
           'Emulate real mobile devices and capture responsive layouts. Test how your site looks on iPhone, Pixel, and more.',
         href: '/tools/website-screenshot/mobile',
         icon: Smartphone,
-        image: 'https://cdn.microlink.io/illustrations/robots.svg'
+        image: cdnUrl('illustrations/robots.svg')
       }
     ]
   },
@@ -186,12 +186,11 @@ const FeaturedTool = ({
             src={image}
             alt={title}
             css={theme({
-              maxWidth: '85%',
-              maxHeight: '85%',
+              maxHeight: '100%',
               objectFit: 'contain',
               transition: `transform ${transition.medium}`
             })}
-            style={{ transform: isHover ? 'scale(1.03)' : 'scale(1)' }}
+            style={{ transform: isHover ? 'scale(1.06)' : 'scale(1)' }}
           />
         </ImagePreview>
 
@@ -260,8 +259,23 @@ const FeaturedTool = ({
   )
 }
 
-const Tool = ({ title, description, href, icon: Icon, image }) => {
+const Tool = ({
+  title,
+  description,
+  href,
+  icon: Icon,
+  image,
+  scrollCapture = false
+}) => {
   const [isHover, setIsHover] = React.useState(false)
+
+  const transform = scrollCapture
+    ? isHover
+      ? 'scale(1.7) translateY(-40%)'
+      : 'scale(1.7)'
+    : isHover
+      ? 'scale(1.05)'
+      : 'scale(1)'
 
   return (
     <Link
@@ -290,12 +304,16 @@ const Tool = ({ title, description, href, icon: Icon, image }) => {
             src={image}
             alt={title}
             css={theme({
-              maxWidth: '70%',
-              maxHeight: '75%',
-              objectFit: 'contain',
-              transition: `transform ${transition.medium}`
+              maxHeight: scrollCapture ? '100%' : '80%',
+              objectFit: scrollCapture ? 'cover' : 'contain',
+              transition: scrollCapture
+                ? 'transform 1000ms cubic-bezier(0.4, 0, 0.2, 1)'
+                : `transform ${transition.medium}`
             })}
-            style={{ transform: isHover ? 'scale(1.05)' : 'scale(1)' }}
+            style={{
+              transform,
+              transformOrigin: scrollCapture ? 'top center' : 'center center'
+            }}
           />
         </ImagePreview>
 
