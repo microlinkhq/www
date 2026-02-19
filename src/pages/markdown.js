@@ -637,7 +637,7 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Does it work on any website without special setup?',
+        question: 'Does it work on any website?',
         answer: (
           <>
             <div>
@@ -755,7 +755,9 @@ const MarkdownPage = () => {
             pb: [5, 5, 6, 6]
           })}
         >
-          <Heading>HTML to markdown for AI agents</Heading>
+          <Heading css={theme({ fontSize: [4, 4, '60px'] })}>
+            HTML to markdown API for agents
+          </Heading>
 
           <Caption
             forwardedAs='h2'
