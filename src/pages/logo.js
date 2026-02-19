@@ -422,9 +422,8 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', 128, 128]
               })}
               iconComponent={
-                <InputIcon
+                <InputIcon.Microlink
                   src={data.logo?.url}
-                  provider={!isInitialData && 'microlink'}
                   url={!isInitialData && url}
                 />
               }
@@ -639,9 +638,9 @@ const Timings = () => {
     <Block
       id='timings'
       forwardedAs='section'
-      flexDirection='column'
       css={theme({
         px: 4,
+        flexDirection: 'column',
         pb: [5, 5, 6, 6],
         width: '100%',
         // https://www.gradientmagic.com/collection/radialstripes

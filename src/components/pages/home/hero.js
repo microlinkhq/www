@@ -126,7 +126,6 @@ const Hero = ({ children }) => {
       id='hero'
       css={theme({
         px: 3,
-        pt: [2, 2, 3, 3],
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
