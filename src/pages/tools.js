@@ -190,7 +190,9 @@ const FeaturedTool = ({
         textDecoration: 'none',
         color: 'inherit',
         _hover: { color: 'inherit' },
-        display: 'block'
+        display: 'block',
+        WebkitTapHighlightColor: 'transparent',
+        touchAction: 'manipulation'
       })}
     >
       <CardBase
@@ -310,7 +312,9 @@ const Tool = ({
         color: 'inherit',
         _hover: { color: 'inherit' },
         display: 'block',
-        height: '100%'
+        height: '100%',
+        WebkitTapHighlightColor: 'transparent',
+        touchAction: 'manipulation'
       })}
     >
       <CardBase
