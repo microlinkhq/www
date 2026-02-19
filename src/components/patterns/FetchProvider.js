@@ -6,6 +6,7 @@ import { findDemoLinkByVariations } from 'helpers/demo-links'
 import { urlVariations } from 'helpers/url-variations'
 import { useQueryState } from 'components/hook/use-query-state'
 import mql from '@microlink/mql'
+import prependHttp from 'prepend-http'
 
 const ErrorMessage = ({ more }) => {
   const text = 'The URL has something weird.'
@@ -31,6 +32,8 @@ const fetchFromApi = (url, fromCache, opts) => {
 }
 
 const defaultFromCache = variations => findDemoLinkByVariations(variations)
+const withProtocol = url =>
+  Array.isArray(url) ? url.map(prependHttp) : prependHttp(url)
 
 const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
@@ -45,12 +48,13 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const fetchData = useCallback(
     async (url, opts) => {
       try {
-        setQuery({ url, ...opts })
+        const { queryUrl, ...fetchOpts } = opts || {}
+        setQuery({ url: queryUrl || url, ...fetchOpts })
         setError(null)
         setStatus('fetching')
 
         const doFetch = url =>
-          fetchFromApi(url, fromCache, { ...mqlOpts, ...opts })
+          fetchFromApi(url, fromCache, { ...mqlOpts, ...fetchOpts })
 
         const { data, response } = Array.isArray(url)
           ? await Promise.all(url.map(doFetch))
@@ -82,7 +86,7 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
     didInitialFetch.current = true
 
     const { url, ...opts } = query
-    if (url) fetchData(url, opts)
+    if (url) fetchData(withProtocol(url), { ...opts, queryUrl: url })
   }, [query, fetchData])
 
   return (

@@ -4,8 +4,11 @@ import { borders, colors, fonts, layout, space, theme } from 'theme'
 import { useMounted } from 'components/hook/use-mounted'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { cdnUrl } from 'helpers/cdn-url'
-import isUrl from 'is-url-http/lightweight'
-import prependHttp from 'prepend-http'
+import {
+  getHostname,
+  hasDomainLikeHostname,
+  normalizeUrl
+} from 'helpers/url-input'
 import { useQueryState } from 'components/hook/use-query-state'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -750,26 +753,6 @@ const ProductInformation = () => (
     ]}
   />
 )
-
-const normalizeUrl = value => {
-  const trimmedValue = value?.trim()
-  if (!trimmedValue) return ''
-  return prependHttp(trimmedValue)
-}
-
-const getHostname = value => {
-  try {
-    return new URL(value).hostname
-  } catch (_) {
-    return ''
-  }
-}
-
-const hasDomainLikeHostname = value => {
-  if (!isUrl(value)) return false
-
-  return getHostname(value).includes('.')
-}
 
 const MarkdownPage = () => {
   const [query, setQuery] = useQueryState()

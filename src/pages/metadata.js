@@ -5,8 +5,12 @@ import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import { trimMs } from 'helpers/trim-ms'
 import { cdnUrl } from 'helpers/cdn-url'
-import prependHttp from 'prepend-http'
 import chunk from 'lodash/chunk'
+import {
+  getHostname,
+  hasDomainLikeHostname,
+  normalizeUrl
+} from 'helpers/url-input'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
@@ -149,7 +153,7 @@ const JSONProperty = ({ property, data, ...props }) => {
     <List.Item
       css={theme({
         width: '100px',
-        color: type === 'no' ? 'red' : undefined,
+        color: type === 'no' ? 'gray' : undefined,
         fontFamily: 'mono',
         fontSize: 0
       })}
@@ -163,7 +167,6 @@ const JSONProperty = ({ property, data, ...props }) => {
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  isInitialData,
   isLoading,
   onSubmit,
   query
@@ -179,13 +182,23 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [inputUrl, setInputUrl] = useState('')
 
   useEffect(() => {
-    setInputUrl(query.url || '')
-  }, [query])
+    if (!query?.url) return
+    setInputUrl(prevInputUrl => {
+      const normalizedQueryUrl = normalizeUrl(query.url)
+      if (normalizeUrl(prevInputUrl) === normalizedQueryUrl) return prevInputUrl
+      return query.url
+    })
+  }, [query?.url])
 
-  const url = useMemo(() => {
-    const input = prependHttp(inputUrl)
-    return isUrl(input) ? input : data.url
-  }, [inputUrl, data])
+  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
+  const inputHostname = useMemo(
+    () => getHostname(normalizedInputUrl),
+    [normalizedInputUrl]
+  )
+  const iconQuery = useMemo(() => {
+    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
+    return inputHostname || undefined
+  }, [inputHostname, normalizedInputUrl])
 
   const jsonData = (() => {
     const suggestion = SUGGESTIONS.find(({ value }) => value === inputUrl)
@@ -256,8 +269,11 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
-            const url = prependHttp(inputUrl)
-            onSubmit(isUrl(url) ? url : undefined)
+            const rawUrl = inputUrl.trim()
+            const normalizedUrl = normalizeUrl(rawUrl)
+            onSubmit(isUrl(normalizedUrl) ? normalizedUrl : undefined, {
+              queryUrl: rawUrl
+            })
           }}
         >
           <Box>
@@ -267,9 +283,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 fontSize: 2,
                 width: ['100%', '100%', 128, 128]
               })}
-              iconComponent={
-                <InputIcon.Microlink url={!isInitialData && url} />
-              }
+              iconComponent={<InputIcon query={iconQuery} />}
               placeholder='Visit URL'
               type='text'
               suggestions={SUGGESTIONS}
@@ -832,13 +846,11 @@ const MetaPage = () => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
           const unifiedData = data || DEMO_LINK.data
-          const isInitialData = unifiedData.url === DEMO_LINK.data.url
 
           return (
             <>
               <LiveDemo
                 data={unifiedData}
-                isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={isMounted ? query : {}}
