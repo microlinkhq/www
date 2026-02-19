@@ -54,7 +54,7 @@ const TOOLS = [
         animation: ['scale(1) translateY(-65%)', 'scale(1)'],
         styles: {
           boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-          marginTop: '320px',
+          marginTop: '340px',
           width: '250px',
           objectFit: 'cover',
           transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -83,7 +83,7 @@ const TOOLS = [
         href: '/tools/website-screenshot/mobile',
         icon: Smartphone,
         image: '/images/screenshot-mobile.png',
-        animation: ['scale(1.4) translateY(-4%)', 'scale(1.4)'],
+        animation: ['scale(1.1) translateY(-8%)', 'scale(1.4)'],
         styles: {
           mt: '310px',
           maxWidth: '290px',
@@ -196,6 +196,9 @@ const FeaturedTool = ({
       <CardBase
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
+        onTouchStart={() => setIsHover(true)}
+        onTouchEnd={() => setIsHover(false)}
+        onTouchCancel={() => setIsHover(false)}
         css={theme({ borderColor: 'black10' })}
       >
         <ImagePreview
@@ -215,7 +218,7 @@ const FeaturedTool = ({
             })}
             style={{
               transform: isHover
-                ? 'scale(1.65) translateY(18%)'
+                ? 'scale(1.67) translateY(16%)'
                 : 'scale(1.35) translateY(15%)'
             }}
           />
@@ -313,6 +316,9 @@ const Tool = ({
       <CardBase
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
+        onTouchStart={() => setIsHover(true)}
+        onTouchEnd={() => setIsHover(false)}
+        onTouchCancel={() => setIsHover(false)}
         css={{ height: '100%', display: 'flex', flexDirection: 'column' }}
       >
         <ImagePreview
