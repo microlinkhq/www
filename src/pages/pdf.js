@@ -2,14 +2,11 @@ import { borders, breakpoints, layout, colors, theme, fonts } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
 import React, { useMemo, useState, useEffect } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
+import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
+import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
-import {
-  getHostname,
-  hasDomainLikeHostname,
-  normalizeUrl
-} from 'helpers/url-input'
 import humanizeUrl from 'humanize-url'
 import pickBy from 'lodash/pickBy'
 import get from 'dlv'
@@ -160,50 +157,36 @@ const LiveDemo = React.memo(function LiveDemo ({
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
-  const [inputFormat, setinputFormat] = useState('')
-  const [inputUrl, setInputUrl] = useState('')
-  const [inputMargin, setinputMargin] = useState('')
+  const [inputFormat, setInputFormat] = useState('')
+  const [inputMargin, setInputMargin] = useState('')
 
   const queryUrl = query?.url || ''
   const queryFormat = get(query, 'format') || ''
   const queryMargin = get(query, 'margin') || ''
+  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
+    useUrlInput(queryUrl)
 
   useEffect(() => {
-    if (queryUrl) {
-      setInputUrl(prevInputUrl => {
-        if (normalizeUrl(prevInputUrl) === normalizeUrl(queryUrl)) { return prevInputUrl }
-        return queryUrl
-      })
-      setinputFormat(queryFormat)
-      setinputMargin(queryMargin)
-    }
+    if (!queryUrl) return
+    setInputFormat(queryFormat)
+    setInputMargin(queryMargin)
   }, [queryUrl, queryFormat, queryMargin])
 
-  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
-  const inputHostname = useMemo(
-    () => getHostname(normalizedInputUrl),
-    [normalizedInputUrl]
+  const values = useMemo(
+    () =>
+      pickBy({
+        url: validInputUrl,
+        margin: inputMargin,
+        format: inputFormat
+      }),
+    [validInputUrl, inputMargin, inputFormat]
   )
-  const iconQuery = useMemo(() => {
-    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
-    return inputHostname || undefined
-  }, [inputHostname, normalizedInputUrl])
-
-  const values = useMemo(() => {
-    return pickBy({
-      url: hasDomainLikeHostname(normalizedInputUrl)
-        ? normalizedInputUrl
-        : undefined,
-      margin: inputMargin,
-      format: inputFormat
-    })
-  }, [normalizedInputUrl, inputMargin, inputFormat])
 
   const embedUrl = useMemo(
     () => (dataUrl ? getEmbedUrl(dataUrl) : ''),
     [dataUrl]
   )
-  const snippetText = embedUrl ? `curl -sL ${embedUrl}` : ''
+  const snippetText = toCurlSnippetOrEmpty(embedUrl)
 
   return (
     <Flex
@@ -287,7 +270,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', '82px', '82px']
               })}
               value={inputMargin}
-              onChange={event => setinputMargin(event.target.value)}
+              onChange={event => setInputMargin(event.target.value)}
               iconComponent={
                 <FeatherIcon
                   icon={Minimize}
@@ -313,7 +296,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', '84px', '84px']
               })}
               value={inputFormat}
-              onChange={event => setinputFormat(event.target.value)}
+              onChange={event => setInputFormat(event.target.value)}
               iconComponent={
                 <FeatherIcon icon={Book} color='black50' size={[0, 0, 1, 1]} />
               }

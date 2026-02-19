@@ -39,6 +39,7 @@ const isValidQueryUrl = url => {
   const urls = Array.isArray(url) ? url : [url]
   return urls.every(value => hasDomainLikeHostname(normalizeUrl(value)))
 }
+const INVALID_URL_WARNING = 'The URL value is not valid'
 
 const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const [status, setStatus] = useState('initial')
@@ -50,6 +51,13 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
 
   const didInitialFetch = useRef(false)
   const warningId = useRef(0)
+  const createInvalidWarning = () => {
+    warningId.current += 1
+    return {
+      id: warningId.current,
+      children: INVALID_URL_WARNING
+    }
+  }
 
   const fetchData = useCallback(
     async (url, opts) => {
@@ -81,11 +89,7 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const doFetch = (url, opts) => {
     setWarning(null)
     if (!url || !isValidQueryUrl(url)) {
-      warningId.current += 1
-      setWarning({
-        id: warningId.current,
-        children: 'You need to provide a valid URL.'
-      })
+      setWarning(createInvalidWarning())
       return
     }
     return fetchData(url, opts)

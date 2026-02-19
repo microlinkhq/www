@@ -1,16 +1,12 @@
 import { borders, breakpoints, layout, colors, theme } from 'theme'
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
+import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
+import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
-import {
-  getHostname,
-  hasDomainLikeHostname,
-  normalizeUrl
-} from 'helpers/url-input'
 import humanizeUrl from 'humanize-url'
-import pickBy from 'lodash/pickBy'
 import get from 'dlv'
 
 import Box from 'components/elements/Box'
@@ -264,46 +260,22 @@ const LiveDemo = React.memo(function LiveDemo ({
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
-  const [inputUrl, setInputUrl] = useState('')
-
-  useEffect(() => {
-    if (!query?.url) return
-    setInputUrl(prevInputUrl => {
-      if (normalizeUrl(prevInputUrl) === normalizeUrl(query.url)) { return prevInputUrl }
-      return query.url
-    })
-  }, [query?.url])
-
-  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
-  const inputHostname = useMemo(
-    () => getHostname(normalizedInputUrl),
-    [normalizedInputUrl]
-  )
-  const iconQuery = useMemo(() => {
-    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
-    return inputHostname || undefined
-  }, [inputHostname, normalizedInputUrl])
-
-  const values = useMemo(() => {
-    return pickBy({
-      url: hasDomainLikeHostname(normalizedInputUrl)
-        ? normalizedInputUrl
-        : undefined
-    })
-  }, [normalizedInputUrl])
+  const queryUrl = query?.url || ''
+  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
+    useUrlInput(queryUrl)
 
   const embedTechnologiesUrl = useMemo(
-    () => getEmbedUrl(values.url, 'insights.technologies'),
-    [values]
+    () => getEmbedUrl(validInputUrl, 'insights.technologies'),
+    [validInputUrl]
   )
 
   const embedInsightsUrl = useMemo(
-    () => getEmbedUrl(values.url, 'insights.lighthouse'),
-    [values]
+    () => getEmbedUrl(validInputUrl, 'insights.lighthouse'),
+    [validInputUrl]
   )
 
-  const snippetTechnologiesText = `curl -sL ${embedTechnologiesUrl}`
-  const snippetInsightsText = `curl -sL ${embedInsightsUrl}`
+  const snippetTechnologiesText = toCurlSnippet(embedTechnologiesUrl)
+  const snippetInsightsText = toCurlSnippet(embedInsightsUrl)
 
   const reportUrl = `https://lighthouse.microlink.io/?url=${encodeURIComponent(
     embedInsightsUrl
@@ -362,8 +334,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           onSubmit={event => {
             event.preventDefault()
             const rawUrl = inputUrl.trim()
-            const { url, ...opts } = values
-            return onSubmit(url, { ...opts, queryUrl: rawUrl })
+            return onSubmit(validInputUrl, { queryUrl: rawUrl })
           }}
         >
           <Box>
