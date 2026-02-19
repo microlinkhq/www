@@ -501,7 +501,7 @@ const AnimatedResultsList = ({ results }) => {
             >
               {formatHistoryUrl(item.data.url)}
             </Text>
-            {item.data.duration != null && (
+            {item.data.sizePretty && (
               <Text
                 css={theme({
                   fontSize: '11px',
@@ -511,7 +511,20 @@ const AnimatedResultsList = ({ results }) => {
                   pl: 2
                 })}
               >
-                {formatDuration(item.data.duration)}
+                {item.data.sizePretty}
+              </Text>
+            )}
+            {item.data.duration != null && (
+              <Text
+                css={theme({
+                  fontSize: '11px',
+                  color: 'black30',
+                  fontFamily: 'mono',
+                  flexShrink: 0,
+                  pl: 1
+                })}
+              >
+                · {formatDuration(item.data.duration)}
               </Text>
             )}
           </Wrapper>
@@ -1935,6 +1948,12 @@ const formatHistoryUrl = url => {
   }
 }
 
+const formatFileSize = bytes => {
+  if (!bytes) return null
+  const kb = bytes / 1000
+  return kb >= 1000 ? `${(kb / 1000).toFixed(2)} MB` : `${kb.toFixed(0)} KB`
+}
+
 const formatDuration = (ms, { forceSeconds = false } = {}) => {
   if (ms == null) return null
   const totalSeconds = ms / 1000
@@ -2203,6 +2222,7 @@ const BulkPreview = ({
   bulkProgress,
   bulkResults,
   bulkTotalMs,
+  bulkTotalBytes,
   urls,
   onDownloadZip,
   isZipping,
@@ -2399,7 +2419,7 @@ const BulkPreview = ({
               >
                 Your ZIP file is downloading. Check your downloads folder.
               </Text>
-              {bulkTotalMs != null && (
+              {(bulkTotalMs != null || bulkTotalBytes > 0) && (
                 <Text
                   css={theme({
                     fontSize: 0,
@@ -2407,7 +2427,13 @@ const BulkPreview = ({
                     fontFamily: 'mono'
                   })}
                 >
-                  Total time: {formatDuration(bulkTotalMs)}
+                  {[
+                    bulkTotalMs != null &&
+                      `Total time: ${formatDuration(bulkTotalMs)}`,
+                    bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes)
+                  ]
+                    .filter(Boolean)
+                    .join(' · ')}
                 </Text>
               )}
             </>
@@ -2574,7 +2600,7 @@ const BulkPreview = ({
                   </Text>
                 </Box>
               )}
-              {bulkTotalMs != null && (
+              {(bulkTotalMs != null || bulkTotalBytes > 0) && (
                 <Text
                   css={theme({
                     fontSize: 0,
@@ -2582,7 +2608,13 @@ const BulkPreview = ({
                     fontFamily: 'mono'
                   })}
                 >
-                  Total time: {formatDuration(bulkTotalMs)}
+                  {[
+                    bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes),
+                    bulkTotalMs != null &&
+                      `Total time: ${formatDuration(bulkTotalMs)}`
+                  ]
+                    .filter(Boolean)
+                    .join(' · ')}
                 </Text>
               )}
             </>
@@ -2624,6 +2656,7 @@ const ScreenshotTool = () => {
   })
   const [bulkResults, setBulkResults] = useState([])
   const [bulkTotalMs, setBulkTotalMs] = useState(null)
+  const [bulkTotalBytes, setBulkTotalBytes] = useState(null)
   const bulkUrlsRef = useRef([])
 
   const [localStorageData] = useLocalStorage('mql-api-key')
@@ -2702,6 +2735,7 @@ const ScreenshotTool = () => {
       setBulkProgress({ current: 0, total: urls.length, currentUrl: '' })
       setBulkResults([])
       setBulkTotalMs(null)
+      setBulkTotalBytes(null)
       setPreviewData(null)
       bulkUrlsRef.current = urls
 
@@ -2750,7 +2784,16 @@ const ScreenshotTool = () => {
           const duration = Date.now() - reqStart
 
           if (response?.data?.screenshot) {
-            results.push({ url, success: true, duration, data: response.data })
+            const { size_pretty: sizePretty, size: sizeBytes } =
+              response.data.screenshot
+            results.push({
+              url,
+              success: true,
+              duration,
+              sizePretty,
+              sizeBytes,
+              data: response.data
+            })
             setBulkResults([...results])
 
             const entryId = `${Date.now()}-${i}`
@@ -2810,6 +2853,7 @@ const ScreenshotTool = () => {
       }
 
       setBulkTotalMs(results.reduce((sum, r) => sum + (r.duration ?? 0), 0))
+      setBulkTotalBytes(results.reduce((sum, r) => sum + (r.sizeBytes ?? 0), 0))
       setBulkState('done')
       setSelectedIds(newEntryIds)
 
@@ -2890,6 +2934,7 @@ const ScreenshotTool = () => {
     setBulkState('idle')
     setBulkResults([])
     setBulkTotalMs(null)
+    setBulkTotalBytes(null)
     setBulkProgress({ current: 0, total: 0, currentUrl: '' })
     setPreviewData(null)
   }, [])
@@ -2935,6 +2980,7 @@ const ScreenshotTool = () => {
               bulkProgress={bulkProgress}
               bulkResults={bulkResults}
               bulkTotalMs={bulkTotalMs}
+              bulkTotalBytes={bulkTotalBytes}
               urls={bulkUrlsRef.current}
               onDownloadZip={handleDownloadZip}
               isZipping={isZipping}
