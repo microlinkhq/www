@@ -2,12 +2,12 @@ import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/Mult
 import React, { useEffect, useMemo, useState } from 'react'
 import { borders, colors, layout, space, theme } from 'theme'
 import { useMounted } from 'components/hook/use-mounted'
-import Hide from 'components/elements/Hide'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import Toggle from 'components/elements/Toggle/Toggle'
 import { cdnUrl } from 'helpers/cdn-url'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import { useQueryState } from 'components/hook/use-query-state'
-import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
@@ -399,9 +399,6 @@ const Timings = () => (
         alignItems: 'center'
       }}
     >
-      <Text css={theme({ pb: 2, color: 'orange1', textAlign: 'center' })}>
-        A typical page: 20,000 HTML tokens → 4,000 markdown tokens
-      </Text>
       <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
         HTML into markdown <br /> ready for AI
       </Subhead>
@@ -418,6 +415,127 @@ const Timings = () => (
     </Flex>
   </Box>
 )
+
+const CODE_SNIPPETS = {
+  javascript: {
+    title: 'javascript',
+    language: 'javascript',
+    code: `
+(async () => {
+
+  const api = 'https://api.microlink.io'
+  const url = 'https://example.com'
+  const response = await fetch(\`\${api}/?url=\${url}&data.markdown.attr=markdown&meta=false\`);
+  const { data } = await response.json()
+
+  console.log(data.markdown)
+})()`
+  },
+  mql: {
+    title: 'Microlink Query Language',
+    language: 'javascript',
+    code: `import mql from '@microlink/mql'
+
+const { data } = await mql('https://example.com', {
+  data: {
+    markdown: {
+      attr: 'markdown'
+    }
+  },
+  meta: false
+})
+
+console.log(data.markdown)`
+  },
+  curl: {
+    title: 'terminal',
+    language: 'shell',
+    code: `
+# Convert any URL to clean markdown
+curl https://markdown.microlink.io/https://example.com
+`
+  }
+}
+
+const CodeShowcase = () => {
+  const [lang, setLang] = useState('javascript')
+  const snippet = CODE_SNIPPETS[lang]
+
+  return (
+    <Block
+      forwardedAs='section'
+      id='code-showcase'
+      css={theme({
+        flexDirection: 'column',
+        alignItems: 'center',
+        py: [5, 5, 6, 6],
+        bg: 'pinky',
+        borderTop: `${borders[1]} ${colors.white20}`,
+        borderBottom: `${borders[1]} ${colors.white20}`
+      })}
+    >
+      <Flex
+        css={theme({
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
+          gap: [3, 3, 4, 4]
+        })}
+      >
+        <Subhead
+          css={theme({
+            textAlign: 'center',
+            px: [4, 0],
+            fontSize: [4, 4, 5, 5]
+          })}
+          variant='gradient'
+        >
+          One API call. Clean markdown out.
+        </Subhead>
+        <Caption
+          css={theme({
+            px: [4, 4, 0, 0],
+            textAlign: 'center',
+            maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+          })}
+        >
+          A typical page: 20,000 HTML tokens → 4,000 markdown tokens
+        </Caption>
+        <Flex
+          css={theme({
+            pt: [2, 2, 3, 3],
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: [3, 3, 4, 4],
+            width: '100%'
+          })}
+        >
+          <Toggle
+            defaultValue='javascript'
+            onChange={setLang}
+            css={theme({ justifyContent: 'center', width: 'auto' })}
+          >
+            {[
+              { id: 'javascript', node: 'JavaScript' },
+              { id: 'mql', node: 'MQL' },
+              { id: 'curl', node: 'cURL' }
+            ]}
+          </Toggle>
+          <CodeEditor
+            key={lang}
+            title={snippet.title}
+            language={snippet.language}
+            css={theme({
+              width: [`calc(100vw - ${space[4]})`, layout.small]
+            })}
+          >
+            {snippet.code}
+          </CodeEditor>
+        </Flex>
+      </Flex>
+    </Block>
+  )
+}
 
 const Resume = () => (
   <Container
@@ -556,30 +674,6 @@ const Resume = () => (
       }
     />
   </Container>
-)
-
-const Separator = styled(Box)`
-  width: 1px;
-  ${theme({ mt: [1, 1, 0, 0], mx: [3, 3, 4, 4] })}
-`
-
-const Stat = ({ value, name, isLast }) => (
-  <Flex>
-    <Flex css={theme({ alignItems: 'center', flexDirection: 'column' })}>
-      <Subhead
-        forwardedAs='div'
-        css={theme({ fontSize: [3, 4], color: 'black' })}
-      >
-        {value}
-      </Subhead>
-      <Caption css={theme({ pt: [2, 3], color: 'pink', opacity: 0.8 })}>
-        <Caps css={theme({ fontWeight: 'bold', fontSize: [0, 2, 3, 3] })}>
-          {name}
-        </Caps>
-      </Caption>
-    </Flex>
-    {!isLast && <Separator />}
-  </Flex>
 )
 
 const ProductInformation = () => (
@@ -828,6 +922,8 @@ const MarkdownPage = () => {
         </Flex>
 
         <Timings />
+
+        <CodeShowcase />
 
         <Features
           css={theme({ px: 4 })}
