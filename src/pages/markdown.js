@@ -1,5 +1,5 @@
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { borders, colors, fonts, layout, space, theme } from 'theme'
 import { useMounted } from 'components/hook/use-mounted'
 import { useClipboard } from 'components/hook/use-clipboard'
@@ -21,6 +21,7 @@ import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
+import Notification from 'components/elements/Notification/Notification'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Block from 'components/patterns/Block/Block'
@@ -760,6 +761,8 @@ const MarkdownPage = () => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [inputUrl, setInputUrl] = useState('')
   const [isFetching, setIsFetching] = useState(false)
+  const [warning, setWarning] = useState(null)
+  const warningId = useRef(0)
   const mountedQuery = isMounted ? query : undefined
   const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
   const inputHostname = useMemo(
@@ -817,6 +820,7 @@ const MarkdownPage = () => {
 
   return (
     <Layout>
+      {warning && <Notification.Warning key={warning.id} {...warning} />}
       <Box css={theme({ bg: 'white', color: 'black', minHeight: '100%' })}>
         <Flex
           as='section'
@@ -864,10 +868,17 @@ const MarkdownPage = () => {
               })}
               onSubmit={event => {
                 event.preventDefault()
+                setWarning(null)
                 if (isValidInputUrl) {
                   if (normalizedInputUrl !== targetUrl) setIsFetching(true)
                   setQuery({ url: inputUrl.trim() })
+                  return
                 }
+                warningId.current += 1
+                setWarning({
+                  id: warningId.current,
+                  children: 'The URL value is not valid'
+                })
               }}
             >
               <Box>

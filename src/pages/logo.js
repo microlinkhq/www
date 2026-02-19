@@ -1,12 +1,15 @@
 import { toPx, borders, layout, colors, theme, fonts } from 'theme'
 import React, { useMemo, useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
-import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
+import {
+  getHostname,
+  hasDomainLikeHostname,
+  normalizeUrl
+} from 'helpers/url-input'
 import humanizeUrl from 'humanize-url'
-import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { noop } from 'helpers/noop'
 
@@ -334,7 +337,6 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  isInitialData,
   isLoading,
   onSubmit,
   query
@@ -343,15 +345,24 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
 
   useEffect(() => {
-    setInputUrl(query.url || '')
-  }, [query])
+    if (!query?.url) return
+    setInputUrl(prevInputUrl => {
+      if (normalizeUrl(prevInputUrl) === normalizeUrl(query.url)) { return prevInputUrl }
+      return query.url
+    })
+  }, [query?.url])
 
-  const url = useMemo(() => {
-    const input = prependHttp(inputUrl)
-    return isUrl(input) ? input : data.url
-  }, [inputUrl, data])
+  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
+  const inputHostname = useMemo(
+    () => getHostname(normalizedInputUrl),
+    [normalizedInputUrl]
+  )
+  const iconQuery = useMemo(() => {
+    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
+    return inputHostname || undefined
+  }, [inputHostname, normalizedInputUrl])
 
-  const embedUrl = useMemo(() => getEmbedUrl(url), [url])
+  const embedUrl = useMemo(() => getEmbedUrl(data.url), [data.url])
 
   const snippetText = `curl -sL ${embedUrl}`
 
@@ -411,8 +422,11 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
-            const url = prependHttp(inputUrl)
-            onSubmit(isUrl(url) ? url : undefined)
+            const rawUrl = inputUrl.trim()
+            const url = hasDomainLikeHostname(normalizeUrl(rawUrl))
+              ? normalizeUrl(rawUrl)
+              : undefined
+            onSubmit(url, { queryUrl: rawUrl })
           }}
         >
           <Box>
@@ -422,10 +436,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', 128, 128]
               })}
               iconComponent={
-                <InputIcon.Microlink
-                  src={data.logo?.url}
-                  url={!isInitialData && url}
-                />
+                <InputIcon.Microlink src={data.logo?.url} query={iconQuery} />
               }
               id='screenshot-demo-url'
               placeholder='Site URL'
@@ -969,13 +980,11 @@ const LogoPage = () => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
           const unifiedData = data || DEFAULT_DATA
-          const isInitialData = unifiedData.url === DEFAULT_DATA.url
 
           return (
             <>
               <LiveDemo
                 data={unifiedData}
-                isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={isMounted ? query : {}}

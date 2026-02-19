@@ -2,13 +2,16 @@ import FeatherIcon from 'components/icons/Feather'
 import { borders, breakpoints, layout, colors, theme, fonts } from 'theme'
 import React, { createElement, useMemo, useState, useEffect } from 'react'
 import { useTransition, animated } from '@react-spring/web'
-import isUrl from 'is-url-http/lightweight'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
+import {
+  getHostname,
+  hasDomainLikeHostname,
+  normalizeUrl
+} from 'helpers/url-input'
 import { Compass, Image as ImageIcon } from 'react-feather'
 import humanizeUrl from 'humanize-url'
-import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
@@ -237,7 +240,6 @@ const Screenshot = ({ data, style }) => {
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  isInitialData,
   isLoading,
   onSubmit,
   query
@@ -253,21 +255,42 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [inputBg, setInputBg] = useState('')
   const [inputUrl, setInputUrl] = useState('')
   const [inputOverlay, setInputOverlay] = useState('')
+  const queryUrl = query?.url || ''
+  const queryBackground = get(query, 'overlay.background') || ''
+  const queryOverlay = get(query, 'overlay.browser') || ''
 
   useEffect(() => {
-    setInputBg(get(query, 'overlay.background') || '')
-    setInputUrl(query.url || '')
-    setInputOverlay(get(query, 'overlay.browser') || '')
-  }, [query])
+    setInputBg(queryBackground)
+    setInputOverlay(queryOverlay)
+  }, [queryBackground, queryOverlay])
+
+  useEffect(() => {
+    if (!queryUrl) return
+    setInputUrl(prevInputUrl => {
+      if (normalizeUrl(prevInputUrl) === normalizeUrl(queryUrl)) { return prevInputUrl }
+      return queryUrl
+    })
+  }, [queryUrl])
+
+  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
+  const inputHostname = useMemo(
+    () => getHostname(normalizedInputUrl),
+    [normalizedInputUrl]
+  )
+  const iconQuery = useMemo(() => {
+    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
+    return inputHostname || undefined
+  }, [inputHostname, normalizedInputUrl])
 
   const values = useMemo(() => {
-    const preprendUrl = prependHttp(inputUrl)
     const overlay = pickBy({ browser: inputOverlay, background: inputBg })
     return pickBy({
-      url: isUrl(preprendUrl) ? preprendUrl : undefined,
+      url: hasDomainLikeHostname(normalizedInputUrl)
+        ? normalizedInputUrl
+        : undefined,
       overlay: isEmpty(overlay) ? undefined : overlay
     })
-  }, [inputUrl, inputOverlay, inputBg])
+  }, [normalizedInputUrl, inputOverlay, inputBg])
 
   const embedUrl = useMemo(() => getEmbedUrl(values), [values])
   const snippetText = `curl -sL ${embedUrl}`
@@ -321,8 +344,9 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
+            const rawUrl = inputUrl.trim()
             const { url, ...opts } = values
-            return onSubmit(url, opts)
+            return onSubmit(url, { ...opts, queryUrl: rawUrl })
           }}
         >
           <Box css={theme({ mb: [3, 3, 0, 0] })}>
@@ -331,9 +355,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 fontSize: 2,
                 width: ['100%', '100%', '102px', '102px']
               })}
-              iconComponent={
-                <InputIcon.Microlink url={!isInitialData && values.url} />
-              }
+              iconComponent={<InputIcon query={iconQuery} />}
               id='screenshot-demo-url'
               placeholder='Visit URL'
               suggestions={SUGGESTIONS.map(
@@ -919,13 +941,11 @@ const ScreenshotPage = () => {
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
-          const isInitialData = data === null
 
           return (
             <>
               <LiveDemo
                 data={data}
-                isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={isMounted ? query : {}}
