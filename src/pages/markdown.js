@@ -120,219 +120,75 @@ data served
 
 - #### Powerful & Scalable
 
-
-
-
-
   Cloud-based solution with superior operational performance.
-
-
-
-
 
 - #### Costless Solution
 
-
-
-
-
   Starts free. No upfront costs, scalable pricing as you go, growing with your business.
-
-
-
-
 
 - #### Global CDN
 
-
-
-
-
   Edge storage distributed over +240 nodes backed by CloudFlare Network.
-
-
-
-
 
 - #### Developer First
 
-
-
-
-
   For developers, with top-notch industry technologies, language-agnostic.
-
-
-
-
 
 - #### Fully programmable
 
-
-
-
-
   Easy to integrate with any existing stack or cloud in just a few minutes.
-
-
-
-
 
 - #### Declarative Usage
 
-
-
-
-
   Simple documentation and interactive code examples that enable quick implementations.
-
-
-
-
 
 - #### Optimized hardware
 
-
-
-
-
   No servers to maintain; no shared browsers between requests.
-
-
-
-
 
 - #### Built-in cache
 
-
-
-
-
   Enabled by default, no additional caching setup required.
-
-
-
-
 
 - #### Security compliance
 
-
-
-
-
   Request isolation with no shared browsers between requests.
-
-
-
-
 
 - #### Powerful & Scalable
 
-
-
-
-
   Cloud-based solution with superior operational performance.
-
-
-
-
 
 - #### Costless Solution
 
-
-
-
-
   Starts free. No upfront costs, scalable pricing as you go, growing with your business.
-
-
-
-
 
 - #### Global CDN
 
-
-
-
-
   Edge storage distributed over +240 nodes backed by CloudFlare Network.
-
-
-
-
 
 - #### Developer First
 
-
-
-
-
   For developers, with top-notch industry technologies, language-agnostic.
-
-
-
-
 
 - #### Fully programmable
 
-
-
-
-
   Easy to integrate with any existing stack or cloud in just a few minutes.
-
-
-
-
 
 - #### Declarative Usage
 
-
-
-
-
   Simple documentation and interactive code examples that enable quick implementations.
-
-
-
-
 
 - #### Optimized hardware
 
-
-
-
-
   No servers to maintain; no shared browsers between requests.
-
-
-
-
 
 - #### Built-in cache
 
-
-
-
-
   Enabled by default, no additional caching setup required.
-
-
-
-
 
 - #### Security compliance
 
-
-
-
-
   Request isolation with no shared browsers between requests.
-
-
-
-
 
 ## Pricing
 
@@ -346,44 +202,26 @@ data served
 
   [](https://microlink.io/sdk)
   ### Microlink SDK
-
-
-
 -
 
   [](https://microlink.io/pdf)
   ### Microlink PDF
-
-
-
 -
 
   [](https://microlink.io/insights)
   ### Microlink insights
-
-
-
 -
 
   [](https://microlink.io/recipes)
   ### Microlink recipes
-
-
-
 -
 
   [](https://microlink.io/metadata)
   ### Microlink metadata
-
-
-
 -
 
   [](https://microlink.io/screenshot)
   ### Microlink screenshot
-
-
-
 [Get started](https://microlink.io/docs/api/getting-started/overview)
 
 ## Pro
@@ -391,30 +229,18 @@ data served
 -
 
   Everything in Free
-
-
-
 -
 
   [](https://microlink.io/docs/api/parameters/ttl)
   ### Configurable TTL
-
-
-
 -
 
   [](https://microlink.io/docs/api/parameters/headers)
   ### Custom HTTP headers
-
-
-
 -
 
   [](https://microlink.io/docs/api/parameters/proxy)
   ### Automatic proxy resolution
-
-
-
 ## Enterprise
 
 Starts from
@@ -423,28 +249,20 @@ Starts from
 
   Everything in Pro
 
-
-
 -
 
   [](https://microlink.io/enterprise)
   ### Custom API endpoint
-
-
 
 -
 
   [](https://microlink.io/enterprise)
   ### Dedicated CDN distribution
 
-
-
 -
 
   [](https://microlink.io/enterprise)
   ### S3 like storage integration
-
-
 
 [See details](https://microlink.io/enterprise)
 
@@ -530,34 +348,34 @@ const DEFAULT_RESPONSE_DATA = {
 
 const FEATURES = [
   {
-    title: 'Token Efficient by Default',
+    title: 'Token efficient by default',
     description:
-      'Return clean markdown instead of HTML noise, so your agents spend context budget on meaning, not markup.'
+      'Return clean markdown instead of HTML noise so your agents spend context budget on meaning, not markup. 80% fewer tokens on average.'
   },
   {
-    title: 'Simple API Surface',
+    title: 'Works on any website',
     description:
-      'One URL in, markdown out. Keep ingestion and retrieval pipelines predictable with less glue code.'
+      'Convert any public URL to markdown without the target site needing CDN opt-in or special configuration. The entire web is your dataset.'
   },
   {
-    title: 'Built for Agent Workloads',
+    title: 'Built for agent workloads',
     description:
-      'Purpose-built for crawling, summarization, RAG indexing, and large-scale data preparation.'
+      'Purpose-built for AI crawling, summarization, RAG indexing, LangChain, LlamaIndex, and large-scale LLM data preparation.'
   },
   {
-    title: 'Streaming Friendly',
+    title: 'Streaming friendly',
     description:
-      'Compact markdown payloads move cleanly through queues, workers, and inference services.'
+      'Compact markdown payloads move cleanly through queues, workers, and inference services with lower latency than HTML.'
   },
   {
-    title: 'Metadata Included',
+    title: 'Metadata included',
     description:
-      'Pair markdown content with structured metadata for better ranking, chunking, and traceability.'
+      'Pair markdown content with structured metadata — title, description, author, date — for better chunking, ranking, and traceability.'
   },
   {
-    title: 'Fast Integration',
+    title: 'Fast integration',
     description:
-      'Ship quickly from browser demos, server workers, or SDK clients with minimal setup.'
+      'Ship quickly from browser demos, server workers, or SDK clients. One URL in, clean markdown out. Minimal glue code.'
   }
 ]
 
@@ -582,13 +400,20 @@ const Timings = () => (
       }}
     >
       <Text css={theme({ pb: 2, color: 'orange1', textAlign: 'center' })}>
-        80% fewer tokens than raw HTML, 5x content per context window
+        A typical page: 20,000 HTML tokens → 4,000 markdown tokens
       </Text>
       <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
         HTML into markdown <br /> ready for AI
       </Subhead>
-      <Text css={theme({ pt: 2, color: 'orange1', textAlign: 'center' })}>
-        Consider not just human visitors, but agents as first-class citizens.
+      <Text
+        css={theme({
+          mt: 4,
+          color: 'orange1',
+          textAlign: 'center',
+          fontSize: [1, 1, '24px']
+        })}
+      >
+        Any URL. Any site. No target-site setup required.
       </Text>
     </Flex>
   </Box>
@@ -605,7 +430,7 @@ const Resume = () => (
     })}
   >
     <Subhead css={theme({ px: [3, 3, 0, 0] })} variant='gradient'>
-      Production-ready markdown extraction
+      HTML to markdown API, production-ready
     </Subhead>
     <Caption
       css={theme({
@@ -614,9 +439,9 @@ const Resume = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      <b>Microlink Markdown</b> turns any URL into clean markdown for AI
-      ingestion. Process cleaner inputs for chunking, summarization, and
-      retrieval without adding brittle parsing layers.
+      <b>Microlink Markdown</b> converts any URL to clean markdown. Feed LLM
+      workflows with cleaner inputs for chunking, summarization, RAG indexing,
+      and retrieval without brittle parsing layers.
     </Caption>
 
     <Block
@@ -648,8 +473,9 @@ const Resume = () => (
             Better token economics
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Reduce context waste by replacing HTML-heavy responses with compact
-            markdown your models can use immediately.
+            A typical page drops from 20,000 HTML tokens to 4,000 markdown
+            tokens. Fit 5x more content into every LLM context window and cut
+            your inference costs at scale.
           </Text>
         </Flex>
       }
@@ -675,8 +501,9 @@ const Resume = () => (
             Drop-in for existing pipelines
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Feed markdown directly into RAG, indexing, and orchestration flows
-            with minimal transformation overhead.
+            Feed clean markdown directly into LangChain, LlamaIndex, RAG
+            pipelines, and orchestration flows. No HTML cleanup steps, no custom
+            parsers, no transformation overhead.
           </Text>
         </Flex>
       }
@@ -721,8 +548,9 @@ const Resume = () => (
             Less infrastructure to maintain
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Skip custom scrapers and HTML cleanup jobs. Keep extraction logic
-            small while you scale usage over time.
+            Skip custom scrapers, HTML cleanup jobs, and brittle parsing layers.
+            One API call extracts clean markdown from any URL — no target-site
+            setup, no maintenance as the web changes.
           </Text>
         </Flex>
       }
@@ -755,7 +583,7 @@ const Stat = ({ value, name, isLast }) => (
 )
 
 const stats = [
-  { value: '80% fewer', name: 'Token reduction' },
+  { value: '80% fewer', name: 'tokens than raw HTML' },
   { value: '5x more', name: 'content per context window' }
 ]
 
@@ -804,12 +632,56 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Microlink Markdown is an extraction API that takes a URL and
-              returns markdown content ready for AI workflows.
+              Microlink Markdown is an extraction API that takes any URL and
+              returns clean markdown content ready for AI workflows.
             </div>
             <div>
               Use it for crawling, summarization, and RAG ingestion where clean
               text beats noisy HTML.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Why do AI agents prefer markdown over HTML?',
+        answer: (
+          <>
+            <div>
+              Markdown's explicit structure lets AI models focus on meaning, not
+              markup, which improves comprehension and reduces LLM API costs at
+              scale. Avoid handling HTML noise and focus on the content.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'How much do I save on tokens by converting to markdown?',
+        answer: (
+          <>
+            <div>
+              On average, markdown reduces token usage by 80% compared to raw
+              HTML. A page costing 20,000 tokens as HTML costs around 4,000
+              tokens as markdown. Giving you 5x more content per context window.
+            </div>
+            <div>
+              This directly lowers your LLM API costs and increases how much
+              information you can process per request.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Does it work on any website without special setup?',
+        answer: (
+          <>
+            <div>
+              Yes. Microlink extracts markdown from any public URL. The target
+              website does not need to natively serve markdown or have any
+              special CDN or server-level configuration.
+            </div>
+            <div>
+              Unlike solutions that require opt-in at the infrastructure layer,
+              Microlink works on the entire web immediately.
             </div>
           </>
         )
@@ -825,21 +697,6 @@ const ProductInformation = () => (
             <div>
               For production, run it server-side to keep credentials safe and
               control throughput.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'Can I process private pages?',
-        answer: (
-          <>
-            <div>
-              Yes. Process authenticated pages when your integration includes
-              the required credentials.
-            </div>
-            <div>
-              Keep API keys and auth tokens out of the browser and proxy secure
-              requests through your backend.
             </div>
           </>
         )
@@ -927,20 +784,20 @@ const MarkdownPage = () => {
             flexDirection: 'column',
             alignItems: 'center',
             px: [4, 4, 0, 0],
-            maxWidth: ['100%', layout.small],
+            maxWidth: ['100%', layout.large],
             mx: 'auto',
             pb: [5, 5, 6, 6]
           })}
         >
-          <Heading>Markdown for Agents</Heading>
+          <Heading>HTML to markdown for AI agents</Heading>
 
           <Caption
             forwardedAs='h2'
             css={theme({ pt: '20px', px: [4, 0], fontSize: '25px' })}
           >
-            Transform any website into clean markdown instantly. Extract
-            high-signal content for crawling, summarization, and RAG pipelines
-            without brittle HTML cleanup or custom parsers.
+            Convert any URL to clean markdown with 80% fewer tokens than raw
+            HTML. Built for AI agent crawling, LLM ingestion, and RAG pipelines
+            without parsers or custom scrapers.
           </Caption>
 
           <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -1025,12 +882,13 @@ const MarkdownPage = () => {
           }
           caption={
             <>
-              Convert URLs to markdown on the same API surface your team already
-              uses for metadata, screenshots, and PDFs. Start with{' '}
+              Convert any URL to markdown on the same API surface your team
+              already uses for metadata, screenshots, and PDFs — no new
+              infrastructure, no target-site setup. Start with{' '}
               <Link href='/docs/api/getting-started/overview'>
                 Microlink API docs
               </Link>{' '}
-              and ship faster.
+              and ship in minutes.
             </>
           }
           features={FEATURES}
@@ -1044,8 +902,8 @@ const MarkdownPage = () => {
 
 export const Head = () => (
   <Meta
-    title='Markdown for Agents'
-    description='Convert any URL to clean Markdown optimized for AI agents, RAG ingestion, and token-efficient processing.'
+    title='HTML to markdown API for AI agents'
+    description='Convert any URL to clean markdown — 80% fewer tokens than raw HTML. Built for AI agent crawling, RAG pipelines, and LLM ingestion without custom parsers or brittle scrapers.'
     image={cdnUrl('banner/markdown.jpeg')}
     structured={[
       {
@@ -1054,24 +912,56 @@ export const Head = () => (
         '@id': 'https://microlink.io/markdown',
         name: 'Microlink Markdown API',
         description:
-          'Convert any URL into clean Markdown for AI agents, RAG ingestion, and token-efficient content processing.',
+          'Convert any URL into clean markdown — 80% fewer tokens than raw HTML. Purpose-built for AI agents, RAG ingestion, and LLM content processing at scale.',
         url: 'https://microlink.io/markdown',
         applicationCategory: ['DeveloperApplication', 'API'],
         keywords: [
           'markdown API',
+          'HTML to markdown API',
           'URL to markdown',
+          'convert URL to markdown',
           'webpage to markdown',
+          'markdown for AI agents',
           'RAG ingestion',
           'AI agent content extraction',
           'LLM preprocessing',
+          'LLM content ingestion',
           'token-efficient content',
-          'structured markdown'
+          'structured markdown',
+          'markdown for LLM'
         ],
         about: [
+          { '@type': 'Thing', name: 'HTML to Markdown Conversion' },
           { '@type': 'Thing', name: 'Markdown Conversion API' },
           { '@type': 'Thing', name: 'AI Agent Content Processing' },
           { '@type': 'Thing', name: 'RAG Data Preparation' },
-          { '@type': 'Thing', name: 'Structured Content Extraction' }
+          { '@type': 'Thing', name: 'Structured Content Extraction' },
+          { '@type': 'Thing', name: 'Token-Efficient LLM Content Extraction' }
+        ]
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        '@id': 'https://microlink.io/markdown#howto',
+        name: 'How to convert any URL to markdown for AI agents',
+        description:
+          'Use Microlink to convert any URL to clean markdown optimized for AI agents, RAG pipelines, and LLM ingestion — no target-site setup required.',
+        step: [
+          {
+            '@type': 'HowToStep',
+            name: 'Install the MQL client or use the REST API',
+            text: 'Install the Microlink Query Language (MQL) client for Node.js or call the REST API directly from any language.'
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Pass any URL with the markdown parameter',
+            text: 'Send any public URL to the API with the markdown extraction parameter. Microlink fetches and processes the page automatically — no setup required on the target site.'
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Receive clean markdown',
+            text: 'Get back clean, structured markdown ready for your AI agent, RAG pipeline, or LLM ingestion workflow — 80% fewer tokens than the raw HTML version, no post-processing required.'
+          }
         ]
       },
       {
@@ -1085,7 +975,31 @@ export const Head = () => (
             name: 'What is Microlink Markdown?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Microlink Markdown is an extraction API that takes a URL and returns markdown content ready for AI workflows. Use it for crawling, summarization, and RAG ingestion where clean text beats noisy HTML.'
+              text: 'Microlink Markdown is an extraction API that takes any URL and returns clean markdown content ready for AI workflows. Use it for crawling, summarization, and RAG ingestion where clean text beats noisy HTML.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Why do AI agents prefer markdown over HTML?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "HTML pages are padded with navigation bars, script tags, class attributes, and styling that carry zero semantic value for AI. A typical blog post costs 20,000 tokens as HTML but only 4,000 tokens as markdown — an 80% reduction. Markdown's explicit structure lets AI models focus on meaning, not markup, which improves comprehension and reduces LLM API costs at scale."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How much do I save on tokens by converting to markdown?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'On average, markdown reduces token usage by 80% compared to raw HTML. A page that costs 20,000 tokens as HTML costs around 4,000 tokens as markdown, giving you 5x more content per context window. This directly lowers your LLM API costs and increases the amount of information you can process per request.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Does Microlink work on any website without special setup?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. Microlink extracts markdown from any public URL — the target website does not need to natively serve markdown or have any special CDN or server-level configuration. Unlike solutions that require opt-in at the infrastructure layer, Microlink works on the entire web immediately.'
             }
           },
           {
