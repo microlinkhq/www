@@ -36,6 +36,8 @@ const SUGGESTIONS = [
   value: humanizeUrl(url)
 }))
 
+const DEFAULT_URL = 'https://microlink.io'
+
 const DEFAULT_MD = `# Browser as API
 
 ## **Microlink** turns any link into screenshots, PDFs, previews, or structured data. No more Puppeteer clusters. Open source roots.
@@ -420,8 +422,8 @@ const Timings = () => (
   </Box>
 )
 
-const SHOWCASE_MQL_CODE = {
-  url: 'https://example.com',
+const getShowcaseMqlCode = targetUrl => ({
+  url: hasDomainLikeHostname(targetUrl) ? targetUrl : DEFAULT_URL,
   force: true,
   data: {
     markdown: {
@@ -430,9 +432,14 @@ const SHOWCASE_MQL_CODE = {
   },
   embed: 'markdown',
   meta: false
-}
+})
 
-const CodeShowcase = () => {
+const CodeShowcase = ({ targetUrl }) => {
+  const showcaseMqlCode = useMemo(
+    () => getShowcaseMqlCode(targetUrl),
+    [targetUrl]
+  )
+
   return (
     <Block
       forwardedAs='section'
@@ -483,7 +490,8 @@ const CodeShowcase = () => {
           })}
         >
           <MultiCodeEditorInteractive
-            mqlCode={SHOWCASE_MQL_CODE}
+            key={showcaseMqlCode.url}
+            mqlCode={showcaseMqlCode}
             defaultResponseData={DEFAULT_RESPONSE_DATA}
             autoExecute={false}
             height={280}
@@ -804,10 +812,9 @@ const MarkdownPage = () => {
   }, [hasValidTargetUrl, targetUrl])
   const snippetText = useMemo(
     () =>
-      targetUrl
-        ? `curl https://markdown.microlink.io/${targetUrl}`
-        : 'curl https://markdown.microlink.io/https://example.com',
-    [targetUrl]
+      `curl https://markdown.microlink.io/${targetUrl || DEFAULT_URL}`[
+        targetUrl
+      ]
   )
 
   const iconQuery = useMemo(() => {
@@ -952,7 +959,7 @@ const MarkdownPage = () => {
 
         <Timings />
 
-        <CodeShowcase />
+        <CodeShowcase targetUrl={targetUrl} />
 
         <Features
           css={theme({ px: 4 })}
