@@ -3,12 +3,9 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { borders, colors, fonts, layout, space, theme } from 'theme'
 import { useMounted } from 'components/hook/use-mounted'
 import { useClipboard } from 'components/hook/use-clipboard'
+import { useUrlInput } from 'components/hook/use-url-input'
 import { cdnUrl } from 'helpers/cdn-url'
-import {
-  getHostname,
-  hasDomainLikeHostname,
-  normalizeUrl
-} from 'helpers/url-input'
+import { hasDomainLikeHostname, normalizeUrl } from 'helpers/url-input'
 import { useQueryState } from 'components/hook/use-query-state'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -759,16 +756,17 @@ const MarkdownPage = () => {
   const [query, setQuery] = useQueryState()
   const isMounted = useMounted()
   const [ClipboardComponent, toClipboard] = useClipboard()
-  const [inputUrl, setInputUrl] = useState('')
   const [isFetching, setIsFetching] = useState(false)
   const [warning, setWarning] = useState(null)
   const warningId = useRef(0)
   const mountedQuery = isMounted ? query : undefined
-  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
-  const inputHostname = useMemo(
-    () => getHostname(normalizedInputUrl),
-    [normalizedInputUrl]
-  )
+  const {
+    iconQuery,
+    inputUrl,
+    isValidInputUrl,
+    normalizedInputUrl,
+    setInputUrl
+  } = useUrlInput(mountedQuery?.url)
   const targetUrl = useMemo(
     () => normalizeUrl(mountedQuery?.url),
     [mountedQuery?.url]
@@ -776,10 +774,6 @@ const MarkdownPage = () => {
   const hasValidTargetUrl = useMemo(
     () => hasDomainLikeHostname(targetUrl),
     [targetUrl]
-  )
-  const isValidInputUrl = useMemo(
-    () => hasDomainLikeHostname(normalizedInputUrl),
-    [normalizedInputUrl]
   )
 
   const interactiveMqlCode = useMemo(() => {
@@ -803,11 +797,6 @@ const MarkdownPage = () => {
       ]
   )
 
-  const iconQuery = useMemo(() => {
-    if (!isValidInputUrl) return undefined
-    return inputHostname || undefined
-  }, [inputHostname, isValidInputUrl])
-
   useEffect(() => {
     if (!mountedQuery?.url) {
       setIsFetching(false)
@@ -815,7 +804,6 @@ const MarkdownPage = () => {
     }
     const normalizedMountedUrl = normalizeUrl(mountedQuery.url)
     setIsFetching(hasDomainLikeHostname(normalizedMountedUrl))
-    setInputUrl(mountedQuery.url)
   }, [mountedQuery?.url])
 
   return (

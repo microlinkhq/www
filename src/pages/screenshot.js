@@ -2,14 +2,10 @@ import FeatherIcon from 'components/icons/Feather'
 import { borders, breakpoints, layout, colors, theme, fonts } from 'theme'
 import React, { createElement, useMemo, useState, useEffect } from 'react'
 import { useTransition, animated } from '@react-spring/web'
+import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
-import {
-  getHostname,
-  hasDomainLikeHostname,
-  normalizeUrl
-} from 'helpers/url-input'
 import { Compass, Image as ImageIcon } from 'react-feather'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
@@ -253,44 +249,25 @@ const LiveDemo = React.memo(function LiveDemo ({
   const cardHeight = cardWidth / Card.ratio
 
   const [inputBg, setInputBg] = useState('')
-  const [inputUrl, setInputUrl] = useState('')
   const [inputOverlay, setInputOverlay] = useState('')
   const queryUrl = query?.url || ''
   const queryBackground = get(query, 'overlay.background') || ''
   const queryOverlay = get(query, 'overlay.browser') || ''
+  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
+    useUrlInput(queryUrl)
 
   useEffect(() => {
     setInputBg(queryBackground)
     setInputOverlay(queryOverlay)
   }, [queryBackground, queryOverlay])
 
-  useEffect(() => {
-    if (!queryUrl) return
-    setInputUrl(prevInputUrl => {
-      if (normalizeUrl(prevInputUrl) === normalizeUrl(queryUrl)) { return prevInputUrl }
-      return queryUrl
-    })
-  }, [queryUrl])
-
-  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
-  const inputHostname = useMemo(
-    () => getHostname(normalizedInputUrl),
-    [normalizedInputUrl]
-  )
-  const iconQuery = useMemo(() => {
-    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
-    return inputHostname || undefined
-  }, [inputHostname, normalizedInputUrl])
-
   const values = useMemo(() => {
     const overlay = pickBy({ browser: inputOverlay, background: inputBg })
     return pickBy({
-      url: hasDomainLikeHostname(normalizedInputUrl)
-        ? normalizedInputUrl
-        : undefined,
+      url: validInputUrl,
       overlay: isEmpty(overlay) ? undefined : overlay
     })
-  }, [normalizedInputUrl, inputOverlay, inputBg])
+  }, [validInputUrl, inputOverlay, inputBg])
 
   const embedUrl = useMemo(() => getEmbedUrl(values), [values])
   const snippetText = `curl -sL ${embedUrl}`

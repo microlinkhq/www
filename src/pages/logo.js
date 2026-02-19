@@ -1,14 +1,10 @@
 import { toPx, borders, layout, colors, theme, fonts } from 'theme'
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import { issueUrl } from 'helpers/issue-url'
+import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
-import {
-  getHostname,
-  hasDomainLikeHostname,
-  normalizeUrl
-} from 'helpers/url-input'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { noop } from 'helpers/noop'
@@ -341,26 +337,10 @@ const LiveDemo = React.memo(function LiveDemo ({
   onSubmit,
   query
 }) {
-  const [inputUrl, setInputUrl] = useState('')
   const [ClipboardComponent, toClipboard] = useClipboard()
-
-  useEffect(() => {
-    if (!query?.url) return
-    setInputUrl(prevInputUrl => {
-      if (normalizeUrl(prevInputUrl) === normalizeUrl(query.url)) { return prevInputUrl }
-      return query.url
-    })
-  }, [query?.url])
-
-  const normalizedInputUrl = useMemo(() => normalizeUrl(inputUrl), [inputUrl])
-  const inputHostname = useMemo(
-    () => getHostname(normalizedInputUrl),
-    [normalizedInputUrl]
-  )
-  const iconQuery = useMemo(() => {
-    if (!hasDomainLikeHostname(normalizedInputUrl)) return undefined
-    return inputHostname || undefined
-  }, [inputHostname, normalizedInputUrl])
+  const queryUrl = query?.url || ''
+  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
+    useUrlInput(queryUrl)
 
   const embedUrl = useMemo(() => getEmbedUrl(data.url), [data.url])
 
@@ -423,10 +403,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           onSubmit={event => {
             event.preventDefault()
             const rawUrl = inputUrl.trim()
-            const url = hasDomainLikeHostname(normalizeUrl(rawUrl))
-              ? normalizeUrl(rawUrl)
-              : undefined
-            onSubmit(url, { queryUrl: rawUrl })
+            onSubmit(validInputUrl, { queryUrl: rawUrl })
           }}
         >
           <Box>
