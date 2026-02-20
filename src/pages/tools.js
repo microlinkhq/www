@@ -6,6 +6,7 @@ import {
   Maximize,
   Grid,
   Smartphone,
+  Play,
   Share2,
   ArrowRight,
   ChevronRight
@@ -41,8 +42,17 @@ const TOOLS = [
         href: '/tools/website-screenshot',
         icon: Camera,
         image: cdnUrl('screenshot/browser/dark/apple.png'),
-        featured: true
-        // tags: ['Free', 'No login']
+        featured: true,
+        // tags: ['Free', 'No login'],
+        animation: [
+          'scale(1.67) translateY(16%)',
+          'scale(1.35) translateY(15%)'
+        ],
+        styles: {
+          maxHeight: '100%',
+          objectFit: 'contain',
+          transition: `transform ${transition.long}`
+        }
       },
       {
         title: 'Full Page Screenshot',
@@ -51,11 +61,12 @@ const TOOLS = [
         href: '/tools/website-screenshot/full-page',
         icon: Maximize,
         image: '/images/screenshot-scroll.png',
-        animation: ['scale(1) translateY(-65%)', 'scale(1)'],
+        animation: ['scale(1) translateY(-75%)', 'scale(1)'],
         styles: {
           boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-          marginTop: '340px',
-          width: '250px',
+          position: 'absolute',
+          top: '10%',
+          width: ['85%', '60%', '90%'],
           objectFit: 'cover',
           transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
           transformOrigin: 'top center'
@@ -91,6 +102,22 @@ const TOOLS = [
           transition: `transform ${transition.long}`,
           transformOrigin: 'center center'
         }
+      },
+      {
+        title: 'Animated Screenshot',
+        description:
+          'Capture an animated screenshot of any website. Get a GIF or MP4 file in seconds with the motion that the webpage has. Create rich previews.',
+        href: '/tools/website-screenshot/animated',
+        icon: Play,
+        image: '/images/screenshot-mobile.png',
+        animation: ['scale(1.1) translateY(-8%)', 'scale(1.4)'],
+        styles: {
+          mt: '310px',
+          maxWidth: '290px',
+          objectFit: 'contain',
+          transition: `transform ${transition.long}`,
+          transformOrigin: 'center center'
+        }
       }
     ]
   },
@@ -105,9 +132,19 @@ const TOOLS = [
           'Validate Open Graph, Twitter Cards, JSON-LD, microdata, and every other meta tag in one place. Preview how your URL renders on Facebook, X, LinkedIn, Slack, and more — before you hit publish.',
         href: '/tools/sharing-debugger',
         icon: Share2,
-        image: 'https://cdn.microlink.io/illustrations/abstract-delivery.svg',
+        image: '/images/sharing-debugger.png',
         featured: true,
-        tags: ['Free', 'No login']
+        // tags: ['Free', 'No login'],
+        animation: ['scale(1) translateY(-70%)', 'scale(1)'],
+        styles: {
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          position: 'absolute',
+          top: ['25%', '10%'],
+          width: ['300px', '450px', '550px'],
+          objectFit: 'cover',
+          transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transformOrigin: 'top center'
+        }
       }
     ]
   }
@@ -179,9 +216,12 @@ const FeaturedTool = ({
   href,
   icon: Icon,
   image,
-  tags
+  tags,
+  styles = {},
+  animation = []
 }) => {
   const [isHover, setIsHover] = React.useState(false)
+  const transform = isHover ? animation[0] : animation[1]
 
   return (
     <Link
@@ -214,15 +254,9 @@ const FeaturedTool = ({
             src={image}
             alt={title}
             css={theme({
-              maxHeight: '100%',
-              objectFit: 'contain',
-              transition: `transform ${transition.long}`
+              ...styles,
+              transform
             })}
-            style={{
-              transform: isHover
-                ? 'scale(1.67) translateY(16%)'
-                : 'scale(1.35) translateY(15%)'
-            }}
           />
         </ImagePreview>
 
@@ -442,8 +476,8 @@ const CategorySection = ({ category, description, tools }) => {
             gridTemplateColumns: [
               '1fr',
               '1fr',
-              'repeat(3, 1fr)',
-              'repeat(3, 1fr)'
+              'repeat(2, 1fr)',
+              'repeat(2, 1fr)'
             ],
             gap: 3
           })}
