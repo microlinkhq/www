@@ -1615,8 +1615,18 @@ const ScreenshotTool = () => {
       const phone =
         PHONE_DEVICES.find(p => p.id === options.phoneId) || PHONE_DEVICES[0]
       const viewport = options.landscape
-        ? { width: phone.height, height: phone.width }
-        : { width: phone.width, height: phone.height }
+        ? {
+          width: phone.height,
+          height: phone.width,
+          isMobile: true,
+          isLandscape: true
+        }
+        : {
+          width: phone.width,
+          height: phone.height,
+          isMobile: true,
+          isLandscape: false
+        }
 
       setRequestedViewport(viewport)
       setIsLoading(true)
