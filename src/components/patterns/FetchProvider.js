@@ -51,13 +51,6 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
 
   const didInitialFetch = useRef(false)
   const warningId = useRef(0)
-  const createInvalidWarning = () => {
-    warningId.current += 1
-    return {
-      id: warningId.current,
-      children: INVALID_URL_WARNING
-    }
-  }
 
   const fetchData = useCallback(
     async (url, opts) => {
@@ -89,7 +82,8 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const doFetch = (url, opts) => {
     setWarning(null)
     if (!url || !isValidQueryUrl(url)) {
-      setWarning(createInvalidWarning())
+      warningId.current += 1
+      setWarning({ id: warningId.current, children: INVALID_URL_WARNING })
       return
     }
     return fetchData(url, opts)
@@ -97,13 +91,15 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
 
   useEffect(() => {
     if (didInitialFetch.current) return
-    didInitialFetch.current = true
 
     const { url, ...opts } = query
-    if (url && isValidQueryUrl(url)) {
+    if (!url) return
+
+    didInitialFetch.current = true
+    if (isValidQueryUrl(url)) {
       fetchData(withProtocol(url), { ...opts, queryUrl: url })
     }
-  }, [query, fetchData])
+  }, [query?.url, fetchData])
 
   return (
     <>
