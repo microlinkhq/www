@@ -2,6 +2,7 @@ import Toolbar from 'components/elements/Toolbar'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
+import Caps from 'components/elements/Caps'
 import Image from 'components/elements/Image/Image'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
@@ -14,17 +15,27 @@ import { rgba } from 'polished'
 import { formatDate } from 'helpers/format-date'
 import { useBlogIndex } from 'components/hook/use-blog-index'
 
-import { colors, layout, theme, transition } from 'theme'
+import { colors, fontWeights, layout, theme, transition } from 'theme'
 
 import {
-  DOCUMENTATION_NAV_ITEM,
+  DIRECT_NAV_ITEMS,
   NavMicrolinkLogo,
   NAVIGATION_SECTIONS,
-  PRICING_NAV_ITEM,
   SOCIAL_NAV_ITEMS,
   ToolbarNavLink,
   getToolbarSectionFromPathname
 } from './ToolbarLinks'
+import {
+  TOOLBAR_CHEVRON_ICON_SIZE,
+  TOOLBAR_LIST_RESET_STYLES,
+  TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES,
+  TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+  TOOLBAR_MENU_ITEM_TITLE_STYLES,
+  TOOLBAR_SECTION_DESCRIPTION_STYLES,
+  TOOLBAR_TOP_LEVEL_CAPS_STYLES,
+  TOOLBAR_TOP_LEVEL_TEXT_STYLES
+} from './ToolbarStyles'
+import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
 const iconLight = css`
   color: ${colors.black50};
@@ -33,49 +44,39 @@ const iconLight = css`
   }
 `
 
-const DEBUG_HOVER_BORDERS = false
+const LABEL_STYLE = {
+  ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
+  mb: 2,
+  maxWidth: 560
+}
 
-const debugHoverOutline = css`
-  outline: 1px dashed rgba(255, 59, 48, 0.35);
-  outline-offset: -1px;
+const TOP_LEVEL_LINK_LAYOUT_STYLES = {
+  px: 3,
+  py: 2
+}
 
-  &:hover {
-    outline-color: #ff3b30;
+const TOP_LEVEL_ACTIVE_BACKGROUND = rgba(colors.black, 0.06)
+
+const MENU_LINK_HOVER_STYLES = css`
+  transition: background-color ${transition.medium};
+
+  .menu-item-title {
+    font-weight: ${fontWeights.regular};
+  }
+
+  &:hover,
+  &:focus-within,
+  &.active {
+    background-color: ${TOP_LEVEL_ACTIVE_BACKGROUND};
+  }
+
+  &:hover .menu-item-title,
+  &:focus-within .menu-item-title,
+  &.active .menu-item-title {
+    color: ${colors.black};
+    font-weight: ${fontWeights.bold};
   }
 `
-
-const TOP_LEVEL_STYLE = {
-  textTransform: 'uppercase',
-  letterSpacing: 2,
-  fontSize: 0,
-  color: 'black80'
-}
-
-const ICON_STYLE = {
-  height: '18px',
-  width: '18px',
-  position: 'relative',
-  top: '6px',
-  color: 'black60'
-}
-
-const LIST_RESET_STYLES = {
-  listStyle: 'none',
-  p: 0,
-  m: 0
-}
-
-const TOP_LEVEL_LINK_STYLES = {
-  px: 3,
-  py: 2,
-  fontSize: 1
-}
-
-const MENU_ITEM_TITLE_STYLES = {
-  display: 'block',
-  fontSize: 1,
-  color: 'black80'
-}
 
 const TopLevelTrigger = styled('button').withConfig({
   shouldForwardProp: prop => !['isActive'].includes(prop)
@@ -83,22 +84,21 @@ const TopLevelTrigger = styled('button').withConfig({
   background: transparent;
   appearance: none;
   border: 0;
-  font-weight: ${({ isActive }) => (isActive ? 'bold' : 'regular')};
   display: inline-flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
   height: 44px;
   padding: 0 16px;
+  border-radius: 999px;
+  background-color: ${({ isActive }) =>
+    isActive ? TOP_LEVEL_ACTIVE_BACKGROUND : 'transparent'};
   transition: color ${transition.medium};
   ${theme({
     color: 'black80',
     fontFamily: 'sans',
-    fontSize: 0,
-    textTransform: 'uppercase',
-    letterSpacing: 2
+    fontWeight: 'regular'
   })};
-  ${DEBUG_HOVER_BORDERS ? debugHoverOutline : ''};
 `
 
 const MegaMenuPanel = styled(Box)`
@@ -110,7 +110,6 @@ const MegaMenuPanel = styled(Box)`
   -webkit-backdrop-filter: blur(12px) saturate(140%);
   background: ${rgba(colors.white95, 0.96)};
   box-shadow: 0 24px 60px ${rgba('black', 0.16)};
-  ${DEBUG_HOVER_BORDERS ? debugHoverOutline : ''};
 `
 
 const MenuItemIcon = styled(Box)`
@@ -123,16 +122,16 @@ const MenuItemIcon = styled(Box)`
   color: ${colors.black70};
 `
 
-const ResourceMenuItemIcon = styled(MenuItemIcon)`
-  border-radius: 0;
-  background: transparent;
-  color: ${colors.black60};
-`
+const RESOURCE_MENU_ITEM_ICON_CLASSNAME = 'resource-menu-item-icon'
 
 const MegaMenuItemLink = styled(ToolbarNavLink)`
   border-radius: 12px;
-  transition: background-color ${transition.medium};
-  ${DEBUG_HOVER_BORDERS ? debugHoverOutline : ''};
+
+  > a {
+    border-radius: inherit;
+    align-items: baseline;
+    ${MENU_LINK_HOVER_STYLES};
+  }
 
   &:hover
     ${MenuItemIcon},
@@ -141,24 +140,28 @@ const MegaMenuItemLink = styled(ToolbarNavLink)`
     > .active
     ${MenuItemIcon},
     &:hover
-    .menu-item-title,
-  &:focus-within .menu-item-title,
-  > .active .menu-item-title,
-  &:hover .menu-item-description,
+    .menu-item-description,
   &:focus-within .menu-item-description,
   > .active .menu-item-description {
     color: ${colors.black};
-  }
-
-  &:hover .menu-item-title,
-  &:focus-within .menu-item-title,
-  > .active .menu-item-title {
-    font-weight: 700;
   }
 `
 
 const ResourcesMegaMenuItemLink = styled(MegaMenuItemLink)`
   border-radius: 10px;
+
+  > a {
+    align-items: center;
+  }
+
+  &:hover
+    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
+    &:focus-within
+    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
+    > .active
+    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
+    color: ${colors.black};
+  }
 `
 
 const ResourcesLayout = styled(Flex)(
@@ -204,19 +207,17 @@ const ResourcesBlogColumn = styled(Box)(
 
 const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   border-radius: 12px;
-  transition: background-color ${transition.medium};
 
   > a {
     display: block;
-  }
-
-  &:hover,
-  &:focus-within {
-    background-color: ${rgba(colors.black, 0.06)};
+    border-radius: inherit;
+    padding: 12px;
+    ${MENU_LINK_HOVER_STYLES};
   }
 `
 
 const DEBUG_STICKY_SECTION = ''
+const isStickySection = Boolean(DEBUG_STICKY_SECTION)
 
 const toSectionDomId = label =>
   `toolbar-mega-menu-${String(label).toLowerCase().replace(/\s+/g, '-')}`
@@ -234,10 +235,11 @@ const ToolbarDesktop = () => {
   )
 
   const section = NAVIGATION_SECTIONS.find(({ label }) => label === openSection)
+  const isResourcesSection = section?.label === 'Resources'
   const latestPosts = useMemo(() => blogPosts.slice(0, 3), [blogPosts])
 
   useEffect(() => {
-    if (DEBUG_STICKY_SECTION) return
+    if (isStickySection) return
     setOpenSection('')
   }, [location.pathname])
 
@@ -250,7 +252,7 @@ const ToolbarDesktop = () => {
   }, [])
 
   useEffect(() => {
-    if (!openSection || DEBUG_STICKY_SECTION) return
+    if (!openSection || isStickySection) return
 
     const handleKeyDown = event => {
       if (event.key === 'Escape') setOpenSection('')
@@ -276,12 +278,12 @@ const ToolbarDesktop = () => {
   }
 
   const handleClosePanel = () => {
-    if (DEBUG_STICKY_SECTION) return
+    if (isStickySection) return
     setOpenSection('')
   }
 
   const handleClosePanelWithDelay = () => {
-    if (DEBUG_STICKY_SECTION) return
+    if (isStickySection) return
     clearClosePanelTimeout()
     closeTimeoutRef.current = setTimeout(() => {
       setOpenSection('')
@@ -297,7 +299,7 @@ const ToolbarDesktop = () => {
   const handleTriggerClick = sectionId => event => {
     event.preventDefault()
     clearClosePanelTimeout()
-    if (DEBUG_STICKY_SECTION) {
+    if (isStickySection) {
       setOpenSection(sectionId)
       return
     }
@@ -312,20 +314,17 @@ const ToolbarDesktop = () => {
       data-event-location='Toolbar'
       data-event-name={`Blog Post: ${post.title}`}
       onClick={handleClosePanel}
-      css={theme({
-        px: 3,
-        py: 2
-      })}
     >
       <Text
         as='span'
+        className='menu-item-title'
         css={theme({
           display: 'block',
-          color: 'black90',
+          color: 'black80',
           fontSize: 0,
           lineHeight: 1,
           fontFamily: 'sans',
-          fontWeight: 'bold',
+          fontWeight: fontWeights.regular,
           mb: 1
         })}
       >
@@ -406,18 +405,22 @@ const ToolbarDesktop = () => {
             css={theme({
               alignItems: 'center',
               justifyContent: 'center',
-              ...LIST_RESET_STYLES,
+              ...TOOLBAR_LIST_RESET_STYLES,
               flex: 1
             })}
           >
             {NAVIGATION_SECTIONS.map(({ label }) => {
-              const isActive = openSection === label || activeSection === label
+              const isActive = openSection
+                ? openSection === label
+                : activeSection === label
 
               return (
                 <Box
                   as='li'
                   key={label}
-                  css={theme({ listStyle: LIST_RESET_STYLES.listStyle })}
+                  css={theme({
+                    listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle
+                  })}
                 >
                   <TopLevelTrigger
                     type='button'
@@ -429,10 +432,12 @@ const ToolbarDesktop = () => {
                     onMouseEnter={() => handleOpenSection(label)}
                     onFocus={() => handleOpenSection(label)}
                   >
-                    {label}
+                    <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+                      {label}
+                    </Caps>
                     <FeatherIcon
                       icon={ChevronDown}
-                      size='12px'
+                      size={TOOLBAR_CHEVRON_ICON_SIZE}
                       css={{ alignItems: 'center' }}
                       style={{
                         transform:
@@ -446,30 +451,26 @@ const ToolbarDesktop = () => {
                 </Box>
               )
             })}
-            <ToolbarNavLink
-              forwardedAs='li'
-              href={DOCUMENTATION_NAV_ITEM.href}
-              actively={DOCUMENTATION_NAV_ITEM.actively}
-              data-event-location='Toolbar'
-              data-event-name={DOCUMENTATION_NAV_ITEM.label}
-              onClick={handleClosePanel}
-              onMouseEnter={handleClosePanel}
-              css={theme({ ...TOP_LEVEL_LINK_STYLES, ...TOP_LEVEL_STYLE })}
-            >
-              {DOCUMENTATION_NAV_ITEM.label}
-            </ToolbarNavLink>
-            <ToolbarNavLink
-              forwardedAs='li'
-              href={PRICING_NAV_ITEM.href}
-              actively={PRICING_NAV_ITEM.actively}
-              data-event-location='Toolbar'
-              data-event-name={PRICING_NAV_ITEM.label}
-              onClick={handleClosePanel}
-              onMouseEnter={handleClosePanel}
-              css={theme({ ...TOP_LEVEL_LINK_STYLES, ...TOP_LEVEL_STYLE })}
-            >
-              {PRICING_NAV_ITEM.label}
-            </ToolbarNavLink>
+            {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
+              <ToolbarNavLink
+                key={label}
+                forwardedAs='li'
+                href={href}
+                actively={actively}
+                data-event-location='Toolbar'
+                data-event-name={label}
+                onClick={handleClosePanel}
+                onMouseEnter={handleClosePanel}
+                css={theme({
+                  ...TOP_LEVEL_LINK_LAYOUT_STYLES,
+                  ...TOOLBAR_TOP_LEVEL_TEXT_STYLES
+                })}
+              >
+                <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+                  {label}
+                </Caps>
+              </ToolbarNavLink>
+            ))}
           </Flex>
           <Flex as='div' css={theme({ alignItems: 'center' })}>
             {SOCIAL_NAV_ITEMS.map(({ href, label, title, externalIcon }) => {
@@ -510,41 +511,13 @@ const ToolbarDesktop = () => {
                 py: [3, 3, 4, 4]
               })}
             >
-              {section.label !== 'Resources' && (
-                <>
-                  <Text as='p' css={theme(TOP_LEVEL_STYLE)}>
-                    {section.label}
-                  </Text>
-
-                  <Text
-                    css={theme({
-                      fontSize: 0,
-                      mb: 2,
-                      maxWidth: 560,
-                      color: 'black60'
-                    })}
-                  >
-                    {section.description}
-                  </Text>
-                </>
+              {!isResourcesSection && (
+                <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
               )}
-              {section.label === 'Resources' && (
+              {isResourcesSection && (
                 <ResourcesLayout>
                   <ResourcesListColumn>
-                    <Text as='p' css={theme(TOP_LEVEL_STYLE)}>
-                      {section.label}
-                    </Text>
-                    <Text
-                      css={theme({
-                        fontSize: 0,
-                        mt: 1,
-                        mb: 2,
-                        maxWidth: 560,
-                        color: 'black60'
-                      })}
-                    >
-                      {section.description}
-                    </Text>
+                    <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
                     <ResourcesListGrid as='ul'>
                       {section.items
                         .filter(({ label }) => label !== 'Blog')
@@ -569,41 +542,23 @@ const ToolbarDesktop = () => {
                               data-event-name={label}
                               onClick={handleClosePanel}
                               css={theme({
-                                py: 2,
-                                px: 0,
-                                display: 'flex',
-                                gap: 2,
-                                whiteSpace: 'normal',
-                                pr: [0, 0, 2, 2]
+                                '> a': { padding: '6px 12px' },
+                                whiteSpace: 'normal'
                               })}
                             >
-                              <ResourceMenuItemIcon as='span'>
-                                {logo ? (
-                                  <Image
-                                    src={logo}
-                                    width='18px'
-                                    height='18px'
-                                    alt={label}
-                                    style={{
-                                      position: 'relative',
-                                      top: '6px'
-                                    }}
-                                  />
-                                ) : (
-                                  <FeatherIcon
-                                    icon={Icon}
-                                    size='18px'
-                                    css={{
-                                      position: 'relative',
-                                      top: '6px'
-                                    }}
-                                  />
-                                )}
-                              </ResourceMenuItemIcon>
+                              <ToolbarMenuItemMedia
+                                label={label}
+                                logo={logo}
+                                icon={Icon}
+                                iconClassName={
+                                  RESOURCE_MENU_ITEM_ICON_CLASSNAME
+                                }
+                                iconCss={{ color: colors.black60 }}
+                              />
                               <Text
                                 as='span'
                                 className='menu-item-title'
-                                css={theme(MENU_ITEM_TITLE_STYLES)}
+                                css={theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)}
                               >
                                 {label}
                               </Text>
@@ -620,15 +575,26 @@ const ToolbarDesktop = () => {
                         data-event-location='Toolbar'
                         data-event-name='Blog'
                         onClick={handleClosePanel}
-                        css={theme({ mb: 3, ...TOP_LEVEL_STYLE })}
+                        css={theme({
+                          mb: 3,
+                          ...TOOLBAR_TOP_LEVEL_TEXT_STYLES
+                        })}
                       >
-                        <Flex
+                        <Caps
                           as='span'
-                          css={theme({ alignItems: 'center', gap: 1 })}
+                          css={theme({
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 1,
+                            ...TOOLBAR_TOP_LEVEL_CAPS_STYLES
+                          })}
                         >
                           Blog
-                          <FeatherIcon icon={ChevronRight} size='12px' />
-                        </Flex>
+                          <FeatherIcon
+                            icon={ChevronRight}
+                            size={TOOLBAR_CHEVRON_ICON_SIZE}
+                          />
+                        </Caps>
                       </ToolbarNavLink>
                       <Flex
                         as='ul'
@@ -646,16 +612,16 @@ const ToolbarDesktop = () => {
                   )}
                 </ResourcesLayout>
               )}
-              {section.label !== 'Resources' && (
+              {!isResourcesSection && (
                 <Flex
                   as='ul'
                   css={{
                     display: 'grid',
                     gridTemplateColumns: `repeat(${section.columns}, minmax(180px, 1fr))`,
                     gap: '4px 32px',
-                    listStyle: LIST_RESET_STYLES.listStyle,
-                    margin: LIST_RESET_STYLES.m,
-                    padding: LIST_RESET_STYLES.p
+                    listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle,
+                    margin: TOOLBAR_LIST_RESET_STYLES.m,
+                    padding: TOOLBAR_LIST_RESET_STYLES.p
                   }}
                 >
                   {section.items.map(
@@ -680,40 +646,31 @@ const ToolbarDesktop = () => {
                         data-event-name={label}
                         onClick={handleClosePanel}
                         css={theme({
-                          py: 3,
-                          px: 0,
-                          gap: 3,
-                          whiteSpace: 'normal',
-                          pr: [0, 0, 3, 3]
+                          '> a': { padding: '12px' },
+                          whiteSpace: 'normal'
                         })}
                       >
                         <MenuItemIcon as='span'>
-                          {logo ? (
-                            <Image
-                              src={logo}
-                              alt={label}
-                              css={theme(ICON_STYLE)}
-                            />
-                          ) : (
-                            <FeatherIcon icon={Icon} css={theme(ICON_STYLE)} />
-                          )}
+                          <ToolbarMenuItemMedia
+                            label={label}
+                            logo={logo}
+                            icon={Icon}
+                            iconCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
+                            imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
+                          />
                         </MenuItemIcon>
                         <Box as='span'>
                           <Text
                             as='span'
                             className='menu-item-title'
-                            css={theme(MENU_ITEM_TITLE_STYLES)}
+                            css={theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)}
                           >
                             {label}
                           </Text>
                           <Text
                             as='span'
                             className='menu-item-description'
-                            css={theme({
-                              display: 'block',
-                              fontSize: 0,
-                              color: 'black60'
-                            })}
+                            css={theme(TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES)}
                           >
                             {description}
                           </Text>

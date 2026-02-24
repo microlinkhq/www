@@ -2,25 +2,32 @@ import Box from 'components/elements/Box'
 import Toolbar from 'components/elements/Toolbar'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import Image from 'components/elements/Image/Image'
-import { Menu, X } from 'react-feather'
+import Caps from 'components/elements/Caps'
+import FeatherIcon from 'components/icons/Feather'
+import { useLocation } from '@gatsbyjs/reach-router'
+import { ChevronDown, ChevronRight, Menu, X } from 'react-feather'
+import { navigate } from 'gatsby'
 import styled from 'styled-components'
 import { colors, theme } from 'theme'
 import React, { useEffect, useState } from 'react'
 
 import {
-  DOCUMENTATION_NAV_ITEM,
+  DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
   NavMicrolinkLogo,
-  PRICING_NAV_ITEM,
-  ToolbarNavLink
+  ToolbarNavLink,
+  getToolbarSectionFromPathname
 } from './ToolbarLinks'
-
-const LIST_RESET_STYLES = {
-  listStyle: 'none',
-  p: 0,
-  m: 0
-}
+import {
+  TOOLBAR_CHEVRON_ICON_SIZE,
+  TOOLBAR_LIST_RESET_STYLES,
+  TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES,
+  TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+  TOOLBAR_MENU_ITEM_TITLE_STYLES,
+  TOOLBAR_SECTION_DESCRIPTION_STYLES,
+  TOOLBAR_TOP_LEVEL_CAPS_STYLES
+} from './ToolbarStyles'
+import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
 const MOBILE_MENU_ITEM_STYLES = {
   py: 2,
@@ -33,12 +40,9 @@ const MOBILE_MENU_ITEM_STYLES = {
   whiteSpace: 'normal'
 }
 
-const MOBILE_TOP_LEVEL_LINK_STYLES = {
-  py: 2,
-  px: 0,
-  fontSize: 2,
-  fontWeight: 'bold',
-  listStyle: 'none'
+const MOBILE_DIRECT_NAV_LABEL_STYLES = {
+  ...TOOLBAR_TOP_LEVEL_CAPS_STYLES,
+  color: 'black80'
 }
 
 const MenuButton = styled('button')`
@@ -56,43 +60,77 @@ const MenuButton = styled('button')`
 `
 
 const MenuItemIcon = styled(Box)`
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: ${colors.black70};
-  background: #f1f3f5;
 `
 
 const MenuItemTitle = styled(Text)`
-  display: block;
-  color: ${colors.black90};
-  ${theme({
-    fontSize: 1,
-    lineHeight: 0,
-    fontFamily: 'sans',
-    fontWeight: 'bold'
-  })};
+  ${theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)};
 `
 
 const MenuItemDescription = styled(Text)`
-  display: block;
   margin-top: 2px;
-  color: ${colors.black40};
+  ${theme(TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES)};
+`
+
+const SectionContainer = styled(Box).withConfig({
+  shouldForwardProp: prop => !['isExpanded'].includes(prop)
+})`
+  background: ${({ isExpanded }) =>
+    isExpanded ? colors.black05 : 'transparent'};
   ${theme({
-    fontSize: 0,
-    lineHeight: 1
+    borderRadius: 2
   })};
 `
 
+const SectionToggle = styled('button')`
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  ${theme({
+    borderRadius: 2,
+    pt: 2,
+    pb: 0,
+    mt: 2
+  })};
+`
+
+const toMobileSectionDomId = label =>
+  `mobile-toolbar-section-${String(label).toLowerCase().replace(/\s+/g, '-')}`
+
 const ToolbarMobile = () => {
+  const location = useLocation()
   const [isOpen, setOpen] = useState(false)
+  const [openSection, setOpenSection] = useState('')
 
   const toggleOpen = () => setOpen(value => !value)
-  const closeMenu = () => setOpen(false)
+  const closeMenu = () => {
+    setOpen(false)
+    setOpenSection('')
+  }
+
+  const toggleSection = label => {
+    setOpenSection(currentLabel => (currentLabel === label ? '' : label))
+  }
+
+  const handleNavigate = href => () => {
+    closeMenu()
+    navigate(href)
+  }
+
+  useEffect(() => {
+    if (!isOpen) return
+    const activeSection = getToolbarSectionFromPathname(location.pathname)
+    setOpenSection(activeSection || '')
+  }, [isOpen, location.pathname])
 
   useEffect(() => {
     if (!isOpen) return
@@ -129,20 +167,27 @@ const ToolbarMobile = () => {
         as='nav'
         aria-label='Mobile Navigation'
         css={theme({
-          justifyContent: 'space-between',
           px: 3
         })}
       >
-        <NavMicrolinkLogo isMobile />
-        <MenuButton
-          type='button'
-          aria-expanded={isOpen}
-          aria-controls='toolbar-mobile-navigation'
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          onClick={toggleOpen}
+        <Flex
+          css={theme({
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          })}
         >
-          {isOpen ? <X size={22} /> : <Menu size={22} />}
-        </MenuButton>
+          <NavMicrolinkLogo isMobile />
+          <MenuButton
+            type='button'
+            aria-expanded={isOpen}
+            aria-controls='toolbar-mobile-navigation'
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            onClick={toggleOpen}
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
+          </MenuButton>
+        </Flex>
       </Toolbar>
       {isOpen && (
         <Box
@@ -150,117 +195,132 @@ const ToolbarMobile = () => {
           role='dialog'
           aria-label='Navigation'
           css={theme({
+            height: 'calc(100dvh - 64px)',
+            'min-height': 'calc(100vh - 64px)',
             'max-height': 'calc(100vh - 64px)',
             'overflow-y': 'auto',
             'border-top': '1px solid',
             'border-color': 'black10',
             background: 'white95',
-            px: 3,
-            py: 3
+            p: '12px'
           })}
         >
-          {NAVIGATION_SECTIONS.map(({ label, description, items }) => (
-            <Box key={label} css={theme({ mb: 4 })}>
-              <Text
-                as='p'
-                css={theme({
-                  color: 'black40',
-                  fontSize: 1,
-                  mb: 0
-                })}
-              >
-                {label}
-              </Text>
-              <Text
-                as='p'
-                css={theme({
-                  color: 'black50',
-                  fontSize: 0,
-                  lineHeight: 2,
-                  mt: 1,
-                  mb: 2
-                })}
-              >
-                {description}
-              </Text>
-              <Flex
-                as='ul'
-                css={theme({
-                  flexDirection: 'column',
-                  ...LIST_RESET_STYLES
-                })}
-              >
-                {items.map(
-                  ({
-                    label,
-                    href,
-                    actively,
-                    title,
-                    externalIcon,
-                    description,
-                    logo,
-                    icon: Icon
-                  }) => (
-                    <ToolbarNavLink
-                      key={label}
-                      forwardedAs='li'
-                      href={href}
-                      actively={actively}
-                      title={title}
-                      externalIcon={externalIcon}
-                      data-event-location='Toolbar'
-                      data-event-name={label}
-                      onClick={closeMenu}
-                      css={theme(MOBILE_MENU_ITEM_STYLES)}
+          <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
+            {NAVIGATION_SECTIONS.map(({ label, description, items }) => {
+              const isExpanded = openSection === label
+
+              return (
+                <Box as='li' key={label}>
+                  <SectionContainer isExpanded={isExpanded}>
+                    <SectionToggle
+                      type='button'
+                      aria-expanded={isExpanded}
+                      aria-controls={toMobileSectionDomId(label)}
+                      onClick={() => toggleSection(label)}
                     >
-                      <MenuItemIcon as='span'>
-                        {logo ? (
-                          <Image
-                            src={logo}
-                            width='15px'
-                            height='15px'
-                            alt={label}
-                          />
-                        ) : (
-                          <Icon size={15} />
-                        )}
-                      </MenuItemIcon>
-                      <Box as='span'>
-                        <MenuItemTitle as='span'>{label}</MenuItemTitle>
-                        <MenuItemDescription as='span'>
-                          {description}
-                        </MenuItemDescription>
-                      </Box>
-                    </ToolbarNavLink>
-                  )
-                )}
-              </Flex>
-            </Box>
-          ))}
-          <Box css={theme({ pt: 1, pb: 2 })}>
-            <Box as='ul' css={theme(LIST_RESET_STYLES)}>
-              <ToolbarNavLink
-                forwardedAs='li'
-                href={DOCUMENTATION_NAV_ITEM.href}
-                actively={DOCUMENTATION_NAV_ITEM.actively}
-                data-event-location='Toolbar'
-                data-event-name={DOCUMENTATION_NAV_ITEM.label}
-                onClick={closeMenu}
-                css={theme(MOBILE_TOP_LEVEL_LINK_STYLES)}
-              >
-                {DOCUMENTATION_NAV_ITEM.label}
-              </ToolbarNavLink>
-              <ToolbarNavLink
-                forwardedAs='li'
-                href={PRICING_NAV_ITEM.href}
-                actively={PRICING_NAV_ITEM.actively}
-                data-event-location='Toolbar'
-                data-event-name={PRICING_NAV_ITEM.label}
-                onClick={closeMenu}
-                css={theme(MOBILE_TOP_LEVEL_LINK_STYLES)}
-              >
-                {PRICING_NAV_ITEM.label}
-              </ToolbarNavLink>
+                      <Caps
+                        as='span'
+                        css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
+                      >
+                        {label}
+                      </Caps>
+                      <FeatherIcon
+                        icon={isExpanded ? ChevronDown : ChevronRight}
+                        size={TOOLBAR_CHEVRON_ICON_SIZE}
+                        css={{ color: colors.black60 }}
+                      />
+                    </SectionToggle>
+                    {isExpanded && (
+                      <Text
+                        as='p'
+                        css={theme({
+                          ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
+                          mt: 0,
+                          mb: 0,
+                          px: 2,
+                          pb: 2
+                        })}
+                      >
+                        {description}
+                      </Text>
+                    )}
+                  </SectionContainer>
+                  {isExpanded && (
+                    <Flex
+                      id={toMobileSectionDomId(label)}
+                      as='ul'
+                      css={theme({
+                        flexDirection: 'column',
+                        ...TOOLBAR_LIST_RESET_STYLES,
+                        mt: 1,
+                        mb: 2
+                      })}
+                    >
+                      {items.map(
+                        ({
+                          label,
+                          href,
+                          actively,
+                          title,
+                          externalIcon,
+                          description,
+                          logo,
+                          icon: Icon
+                        }) => (
+                          <ToolbarNavLink
+                            key={label}
+                            forwardedAs='li'
+                            href={href}
+                            actively={actively}
+                            title={title}
+                            externalIcon={externalIcon}
+                            data-event-location='Toolbar'
+                            data-event-name={label}
+                            onClick={closeMenu}
+                            css={theme(MOBILE_MENU_ITEM_STYLES)}
+                          >
+                            <MenuItemIcon as='span'>
+                              <ToolbarMenuItemMedia
+                                label={label}
+                                logo={logo}
+                                icon={Icon}
+                                iconCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
+                                imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
+                              />
+                            </MenuItemIcon>
+                            <Box as='span'>
+                              <MenuItemTitle as='span'>{label}</MenuItemTitle>
+                              <MenuItemDescription as='span'>
+                                {description}
+                              </MenuItemDescription>
+                            </Box>
+                          </ToolbarNavLink>
+                        )
+                      )}
+                    </Flex>
+                  )}
+                </Box>
+              )
+            })}
+          </Box>
+          <Box css={theme({ pt: 0, pb: 2 })}>
+            <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
+              {DIRECT_NAV_ITEMS.map(({ label, href }) => (
+                <Box as='li' key={label}>
+                  <SectionContainer>
+                    <SectionToggle type='button' onClick={handleNavigate(href)}>
+                      <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                        {label}
+                      </Caps>
+                      <FeatherIcon
+                        icon={ChevronRight}
+                        size={TOOLBAR_CHEVRON_ICON_SIZE}
+                        css={{ color: colors.black60 }}
+                      />
+                    </SectionToggle>
+                  </SectionContainer>
+                </Box>
+              ))}
             </Box>
           </Box>
         </Box>

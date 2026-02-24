@@ -1,6 +1,6 @@
 import React, { createElement } from 'react'
 import { Microlink } from 'components/logos'
-import { fontSizes } from 'theme'
+import { theme, fontSizes } from 'theme'
 import styled from 'styled-components'
 import {
   BarChart2,
@@ -24,7 +24,6 @@ export const ToolbarNavLink = styled(NavLink)`
 
   > a {
     display: flex;
-    align-items: baseline;
     justify-content: flex-start;
     gap: 12px;
     width: 100%;
@@ -32,6 +31,10 @@ export const ToolbarNavLink = styled(NavLink)`
     letter-spacing: inherit;
     text-transform: inherit;
   }
+
+  ${theme({
+    pl: 0
+  })}
 `
 
 const docsMatcher = ({ location }) => location.pathname.startsWith('/docs')
@@ -67,6 +70,8 @@ export const DOCUMENTATION_NAV_ITEM = createNavigationItem({
   href: '/docs/api/getting-started/overview',
   actively: docsMatcher
 })
+
+export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
 export const SOCIAL_NAV_ITEMS = [
   createNavigationItem({
