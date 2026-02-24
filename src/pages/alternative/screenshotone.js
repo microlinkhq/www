@@ -6,7 +6,8 @@ import {
   layout,
   transition,
   theme,
-  textGradient
+  textGradient,
+  breakpoints
 } from 'theme'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
@@ -113,6 +114,26 @@ const GradientText = styled('span')`
   ${css`
     ${textGradient}
   `}
+`
+
+const HeroImageDesktop = styled.img`
+  display: none;
+  max-width: 1000px;
+  width: 100%;
+  height: auto;
+  @media screen and (min-width: ${breakpoints[1]}) {
+    display: block;
+  }
+`
+
+const HeroImageMobile = styled.img`
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  @media screen and (min-width: ${breakpoints[1]}) {
+    display: none;
+  }
 `
 
 const CodeBlock = styled('pre')`
@@ -767,8 +788,17 @@ const Hero = () => (
       <ArrowLink href='/screenshot'>Get Started Free</ArrowLink>
     </Flex>
 
-    <Flex css={theme({ width: '100%', justifyContent: 'center' })}>
-      <img src='/images/Jh7GHUP.png' alt='ScreenshotOne Hero' height={600} />
+    <Flex
+      css={theme({ width: '100%', justifyContent: 'center', my: [3, 3, 4, 4] })}
+    >
+      <HeroImageDesktop
+        src='/images/benchmark-screenshotone.gif'
+        alt='ScreenshotOne Hero'
+      />
+      <HeroImageMobile
+        src='/images/benchmark-screenshotone-mb.gif'
+        alt='ScreenshotOne Hero'
+      />
     </Flex>
 
     <Flex
