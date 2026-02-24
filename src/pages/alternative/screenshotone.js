@@ -218,29 +218,64 @@ const Cross = () => (
 )
 
 const Partial = ({ children }) => (
-  <span css={{ color: colors.yellow7, fontSize: '13px' }}>
+  <span css={{ color: colors.yellow7, fontSize: '14px' }}>
     {children || '~'}
   </span>
 )
 
 const COMPARISON_DATA = [
+  // Both
   { feature: 'Screenshot capture', microlink: true, screenshotone: true },
   { feature: 'Full-page screenshots', microlink: true, screenshotone: true },
   {
     feature: 'Element-level capture (CSS selector)',
     microlink: true,
-    screenshotone: true,
-    note: 'ScreenshotOne uses coordinate clipping'
+    screenshotone: true
   },
-  { feature: 'Proxy resolution', microlink: true, screenshotone: false },
-  { feature: 'Custom proxy support', microlink: true, screenshotone: false },
   {
-    feature: 'Open-source core',
+    feature: 'PDF generation',
+    microlink: true,
+    screenshotone: true,
+    highlight: true
+  },
+  { feature: 'HTML rendering', microlink: true, screenshotone: true },
+  { feature: 'Animated GIF output', microlink: true, screenshotone: true },
+  { feature: 'Video output', microlink: true, screenshotone: true },
+  { feature: 'Dark/light mode capture', microlink: true, screenshotone: true },
+  { feature: 'Device emulation presets', microlink: true, screenshotone: true },
+  { feature: 'Custom JS/CSS injection', microlink: true, screenshotone: true },
+  { feature: 'Custom HTTP headers', microlink: true, screenshotone: true },
+  { feature: 'Custom cookies', microlink: true, screenshotone: true },
+  {
+    feature: 'Hide elements (CSS selectors)',
+    microlink: true,
+    screenshotone: true
+  },
+  {
+    feature: 'Click/scroll interactions',
+    microlink: true,
+    screenshotone: true
+  },
+  { feature: 'Wait for selector', microlink: true, screenshotone: true },
+  { feature: 'Cookie banner blocking', microlink: true, screenshotone: true },
+  { feature: 'Ad blocking', microlink: true, screenshotone: true },
+  { feature: 'Signed request URLs', microlink: true, screenshotone: true },
+  { feature: 'Built-in response cache', microlink: true, screenshotone: true },
+  { feature: 'MCP server', microlink: true, screenshotone: true },
+  { feature: 'Markdown rendering', microlink: true, screenshotone: true },
+  // Microlink-only
+  {
+    feature: 'Metadata extraction',
     microlink: true,
     screenshotone: false,
     highlight: true
   },
-  { feature: 'Animated GIF output', microlink: true, screenshotone: true },
+  {
+    feature: 'Link previews SDK',
+    microlink: true,
+    screenshotone: false,
+    highlight: true
+  },
   {
     feature: 'Browser chrome overlay',
     microlink: true,
@@ -253,57 +288,46 @@ const COMPARISON_DATA = [
     screenshotone: false,
     highlight: true
   },
-  { feature: 'Cookie banner blocking', microlink: true, screenshotone: true },
-  { feature: 'Ad blocking', microlink: true, screenshotone: true },
-  { feature: 'Custom JS/CSS injection', microlink: true, screenshotone: true },
-  { feature: 'Dark/light mode capture', microlink: true, screenshotone: true },
   {
-    feature: 'PDF generation',
+    feature: 'Open-source core',
     microlink: true,
     screenshotone: false,
     highlight: true
   },
-  {
-    feature: 'Metadata extraction',
-    microlink: true,
-    screenshotone: false,
-    highlight: true
-  },
-  {
-    feature: 'Link previews (SDK)',
-    microlink: true,
-    screenshotone: false,
-    highlight: true
-  },
+  { feature: 'Proxy resolution', microlink: true, screenshotone: false },
+  { feature: 'Custom proxy support', microlink: true, screenshotone: false },
   { feature: 'Remote JS execution', microlink: true, screenshotone: false },
-  { feature: 'Video output', microlink: false, screenshotone: true },
-  { feature: 'GPU rendering', microlink: false, screenshotone: true },
-  { feature: 'S3 direct upload', microlink: false, screenshotone: true },
+  { feature: '240+ CDN edge nodes', microlink: true, screenshotone: false },
+  // ScreenshotOne-only / partial
+  { feature: 'GPU rendering', microlink: 'on demand', screenshotone: true },
+  {
+    feature: 'No-code integrations (Zapier, Make...)',
+    microlink: 'partial',
+    screenshotone: true
+  },
   { feature: 'Async + webhooks', microlink: false, screenshotone: true },
+  { feature: 'S3 direct upload', microlink: false, screenshotone: true },
+  { feature: 'Bulk screenshots', microlink: false, screenshotone: true },
+  { feature: 'Geolocation targeting', microlink: false, screenshotone: true },
   {
     feature: 'OpenAI Vision integration',
     microlink: false,
     screenshotone: true
   },
   {
-    feature: 'No-code integrations',
-    microlink: 'partial',
-    screenshotone: true
-  },
-  {
     feature: 'Team organizations / roles',
     microlink: false,
     screenshotone: true
-  },
-  { feature: '240+ CDN edge nodes', microlink: true, screenshotone: false },
-  { feature: 'Request isolation', microlink: true, screenshotone: false },
-  { feature: '99.9% uptime SLA', microlink: true, screenshotone: false }
+  }
 ]
 
 const CellValue = ({ value, note }) => {
   if (value === true) return <Check />
   if (value === false) return <Cross />
-  if (value === 'partial') return <Partial>Partial</Partial>
+  if (value === 'partial' || value === 'on demand') {
+    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
+    return <Partial>{capitalized}</Partial>
+  }
   return <span>{value}</span>
 }
 
@@ -376,37 +400,34 @@ const ComparisonTable = () => (
 const BENCHMARKS = [
   {
     label: 'Desktop screenshot',
-    sublabel: 'microlink.io — PNG, 1280×800',
+    url: 'microlink.io',
+    sublabel: 'PNG, 1280×800',
     microlink: 1.2,
     screenshotone: 4.8,
     unit: 's'
   },
   {
     label: 'Full-page capture',
-    sublabel: 'github.com/trending — PNG, full scroll',
+    url: 'github.com/trending',
+    sublabel: 'PNG, full scroll',
     microlink: 2.1,
     screenshotone: 8.3,
     unit: 's'
   },
   {
     label: 'JPEG output',
-    sublabel: 'stripe.com — JPEG 80%, 1280×800',
+    url: 'stripe.com',
+    sublabel: 'JPEG 80%, 1280×800',
     microlink: 0.9,
     screenshotone: 3.6,
     unit: 's'
   },
   {
     label: 'Large landing page',
-    sublabel: 'vercel.com — PNG, full-page',
+    url: 'vercel.com',
+    sublabel: 'PNG, full-page',
     microlink: 2.8,
     screenshotone: 11.2,
-    unit: 's'
-  },
-  {
-    label: 'Cached response',
-    sublabel: 'Any URL — CDN edge hit',
-    microlink: 0.05,
-    screenshotone: 0.8,
     unit: 's'
   }
 ]
@@ -456,15 +477,6 @@ const SpeedLabel = styled(Text)`
   })}
 `
 
-const SpeedSublabel = styled(Text)`
-  ${theme({
-    fontSize: '12px',
-    color: 'black40',
-    fontFamily: 'mono',
-    pb: 2
-  })}
-`
-
 const MultiplierBadge = styled(Box)`
   display: inline-flex;
   align-items: center;
@@ -496,32 +508,41 @@ const MultiplierBadge = styled(Box)`
 `
 
 const BenchmarkRow = ({ benchmark, index, inView }) => {
-  const { label, sublabel, microlink, screenshotone, unit } = benchmark
+  const { label, sublabel, microlink, screenshotone, unit, url } = benchmark
   const maxVal = Math.max(...BENCHMARKS.map(b => b.screenshotone)) * 1.1
   const mlWidth = `${Math.max((microlink / maxVal) * 100, 8)}%`
   const soWidth = `${Math.max((screenshotone / maxVal) * 100, 8)}%`
   const multiplier = (screenshotone / microlink).toFixed(1)
 
   return (
-    <Box css={theme({ pb: [4, 4, 5, 5] })}>
+    <Box css={theme({ pb: [2], pt: [3, 3, 4, 4] })}>
       <Flex css={{ alignItems: 'baseline', flexWrap: 'wrap' }}>
         <SpeedLabel>{label}</SpeedLabel>
         <MultiplierBadge
           data-animate={inView ? 'true' : 'false'}
-          style={{ '--delay': `${index * 0.15 + 0.8}s` }}
+          style={{ '--delay': `${index * 0.3 + 1}s` }}
         >
           {multiplier}× faster
         </MultiplierBadge>
       </Flex>
-      <SpeedSublabel>{sublabel}</SpeedSublabel>
+      <Text
+        css={theme({
+          fontSize: '14px',
+          color: 'black80',
+          fontFamily: 'mono',
+          pb: 2
+        })}
+      >
+        {url} - <span css={theme({ color: 'black40' })}>{sublabel}</span>
+      </Text>
 
-      <Box css={theme({ pb: 2 })}>
+      <Box css={theme({ py: 2 })}>
         <Flex css={{ alignItems: 'center', pb: '6px' }}>
           <Text
             css={theme({
-              fontSize: '12px',
+              fontSize: '14px',
               fontWeight: 'bold',
-              width: '100px',
+              width: '120px',
               flexShrink: 0,
               color: 'black80'
             })}
@@ -547,8 +568,8 @@ const BenchmarkRow = ({ benchmark, index, inView }) => {
         <Flex css={{ alignItems: 'center' }}>
           <Text
             css={theme({
-              fontSize: '12px',
-              width: '100px',
+              fontSize: '14px',
+              width: '120px',
               flexShrink: 0,
               color: 'black50'
             })}
@@ -743,10 +764,7 @@ const Hero = () => (
         justifyContent: 'center'
       })}
     >
-      <ArrowLink href='/docs/api/parameters/screenshot'>
-        Get Started Free
-      </ArrowLink>
-      <ArrowLink href='#speed'>See Speed Benchmarks</ArrowLink>
+      <ArrowLink href='/screenshot'>Get Started Free</ArrowLink>
     </Flex>
 
     <Flex css={theme({ width: '100%', justifyContent: 'center' })}>
@@ -842,10 +860,11 @@ const ComparisonSection = () => (
   <Section
     as='section'
     id='comparison'
-    css={{
+    css={theme({
       borderTop: `${borders[1]} ${colors.black05}`,
-      borderBottom: `${borders[1]} ${colors.black05}`
-    }}
+      borderBottom: `${borders[1]} ${colors.black05}`,
+      paddingBottom: [2, 2, 3, 3]
+    })}
   >
     <SectionInner>
       <Subhead css={theme({ pb: [1, 2, 2, 2] })} titleize={false}>
@@ -865,7 +884,8 @@ const ComparisonSection = () => (
       <ComparisonTable />
       <Text
         css={theme({
-          pt: 3,
+          pt: 4,
+          pb: 4,
           fontSize: '12px',
           color: 'black40',
           textAlign: 'center',
@@ -912,15 +932,14 @@ const SpeedSection = () => {
 
         <Caption
           css={theme({
-            pb: [4, 4, 5, 5],
+            pb: [3, 3, 4, 4],
             maxWidth: layout.normal,
             color: 'black60'
           })}
           titleize={false}
         >
           Same request. Same URL. Same output format. Microlink consistently
-          delivers screenshots in a fraction of the time — thanks to 240+ edge
-          nodes and optimized Chromium instances.
+          delivers screenshots in a fraction of the time.
         </Caption>
 
         <Box
@@ -939,6 +958,20 @@ const SpeedSection = () => {
             />
           ))}
         </Box>
+
+        <Flex
+          css={theme({
+            py: [3, 3, 4, 4],
+            fontSize: [2, 2, 3, 3],
+            gap: '16px',
+            flexWrap: 'wrap',
+            justifyContent: 'center'
+          })}
+        >
+          <ArrowLink href='https://github.com/microlinkhq/benchmark'>
+            Complete speed benchmark
+          </ArrowLink>
+        </Flex>
 
         <Flex
           css={theme({
@@ -999,7 +1032,6 @@ const SpeedSection = () => {
             </Flex>
           ))}
         </Flex>
-
         <Text
           css={theme({
             pt: 4,
@@ -1011,9 +1043,8 @@ const SpeedSection = () => {
             mx: 'auto'
           })}
         >
-          Benchmarks measured from EU-West with cold cache, averaged over 50
-          runs per URL. Your results may vary. We encourage you to run your own
-          tests.
+          Benchmarks measured from EU-West and US-East averaged over 10 runs per
+          URL. Your results may vary. We encourage you to run your own tests.
         </Text>
       </SectionInner>
     </Section>
@@ -1171,13 +1202,12 @@ const HonestySection = () => (
       <Caption
         css={theme({
           pb: [4, 4, 5, 5],
-          maxWidth: layout.small,
+          maxWidth: layout.large,
           color: 'black60'
         })}
         titleize={false}
       >
-        Developers verify claims. Here is where ScreenshotOne has capabilities
-        Microlink does not.
+        Here is where ScreenshotOne has capabilities Microlink does not.
       </Caption>
 
       <Flex
@@ -1208,7 +1238,7 @@ const HonestySection = () => (
           {
             title: 'No-code integrations are critical',
             description:
-              'ScreenshotOne has first-class integrations with Make, Zapier, n8n, Bubble, and Clay. Microlink has fewer no-code connectors.'
+              'ScreenshotOne has first-class integrations with Make, Zapier, n8n, Bubble, and Clay. Microlink has fewer no-code connectors (coming soon... we promise!).'
           },
           {
             title: 'Team access control (organizations/roles)',
