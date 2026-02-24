@@ -1,6 +1,7 @@
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { borders, colors, fonts, layout, space, theme } from 'theme'
+import { cdnUrl } from 'helpers/cdn-url'
 import { useMounted } from 'components/hook/use-mounted'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useUrlInput } from 'components/hook/use-url-input'
@@ -983,6 +984,7 @@ export const Head = () => (
   <Meta
     title='HTML to markdown API for AI agents'
     description='Convert any URL to clean markdown — 80% fewer tokens than raw HTML. Built for AI agent crawling, RAG pipelines, and LLM ingestion without custom parsers or brittle scrapers.'
+    image={cdnUrl('logo/banner.jpeg')}
     structured={[
       {
         '@context': 'https://schema.org',
