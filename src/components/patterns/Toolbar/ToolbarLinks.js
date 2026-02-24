@@ -1,6 +1,6 @@
 import React, { createElement } from 'react'
 import { Microlink } from 'components/logos'
-import { fontSizes, fontWeights } from 'theme'
+import { fontSizes } from 'theme'
 import styled from 'styled-components'
 import {
   BarChart2,
@@ -20,14 +20,11 @@ import NavLink from './NavLink'
 
 export const ToolbarNavLink = styled(NavLink)`
   text-transform: none;
-  letter-spacing: 0;
-  font-family: ${({ theme }) => theme.fonts.sans};
-  font-weight: ${fontWeights.regular};
-  line-height: 1.2;
+  letter-spacing: normal;
 
   > a {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: flex-start;
     gap: 12px;
     width: 100%;
@@ -46,7 +43,8 @@ const createNavigationItem = ({
   title,
   externalIcon,
   description,
-  icon
+  icon,
+  logo
 }) => ({
   label,
   href,
@@ -54,7 +52,8 @@ const createNavigationItem = ({
   title,
   externalIcon,
   description,
-  icon
+  icon,
+  logo
 })
 
 export const PRICING_NAV_ITEM = createNavigationItem({
@@ -84,90 +83,82 @@ export const SOCIAL_NAV_ITEMS = [
   })
 ]
 
+const UNAVATAR_LOGO =
+  'data:image/png;base64,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'
+
 export const NAVIGATION_SECTIONS = [
   {
     label: 'Products',
     description: 'APIs and tooling to turn any URL into structured output.',
     columns: 3,
-    pages: [
-      '/markdown',
-      '/metadata',
-      '/screenshot',
-      '/pdf',
-      '/insights',
-      '/logo',
-      '/sdk',
-      'https://unavatar.io'
-    ],
     items: [
       createNavigationItem({
         label: 'Markdown',
         href: '/markdown',
-        description: 'Built for Agents',
+        description: 'Built for agents handling website content',
         icon: FileText
       }),
       createNavigationItem({
         label: 'Metadata',
         href: '/metadata',
-        description: 'Unified website data',
+        description: 'Extract normalized metadata from any website',
         icon: Database
       }),
       createNavigationItem({
         label: 'Screenshot',
         href: '/screenshot',
-        description: 'Pixel-perfect captures',
+        description: 'Generate pixel-perfect captures for any URL',
         icon: Camera
       }),
       createNavigationItem({
         label: 'PDF',
         href: '/pdf',
-        description: 'Production-ready docs',
+        description: 'Create production-ready PDFs from live webpages',
         icon: File
       }),
       createNavigationItem({
         label: 'Insights',
         href: '/insights',
-        description: 'Lighthouse at scale',
+        description: 'Run lighthouse insights across pages at scale',
         icon: BarChart2
       }),
       createNavigationItem({
         label: 'Logo',
         href: '/logo',
-        description: 'Favicons and brand assets',
+        description: 'Fetch favicons and logos from websites',
         icon: Image
-      }),
-      createNavigationItem({
-        label: 'SDK',
-        href: '/sdk',
-        description: 'Ship integrations fast',
-        icon: Code
       }),
       createNavigationItem({
         label: 'Unavatar',
         href: 'https://unavatar.io',
-        description: 'Avatar service',
+        description: 'Serve reliable avatars from email domains',
         externalIcon: false,
-        icon: Image
+        logo: UNAVATAR_LOGO
       })
     ]
   },
   {
     label: 'Tools',
     description: 'Utilities to test and validate your metadata integrations.',
-    columns: 1,
-    pages: ['/tools', '/user-agents'],
+    columns: 2,
     items: [
       createNavigationItem({
         label: 'User Agents',
         href: '/user-agents',
-        description: 'Curated browser strings',
+        description: 'Use curated browser signatures for testing',
         icon: Shield
       }),
       createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
-        description: 'Preview social cards',
+        description: 'Preview social cards before publishing links',
         icon: Share2
+      }),
+      createNavigationItem({
+        label: 'SDK',
+        href: '/sdk',
+        description: 'Ship API integrations faster across platforms',
+        icon: Code
       })
     ]
   },
@@ -175,56 +166,47 @@ export const NAVIGATION_SECTIONS = [
     label: 'Resources',
     description: 'Guides and tools to support your development and growth.',
     columns: 3,
-    pages: [
-      '/blog',
-      '/newsletter',
-      '/oss',
-      '/about',
-      '/changelog',
-      '/community',
-      '/recipes'
-    ],
     items: [
       createNavigationItem({
         label: 'Blog',
         href: '/blog',
-        description: 'Guides and product notes',
+        description: 'Read product stories and technical deep dives',
         icon: BarChart2
       }),
       createNavigationItem({
         label: 'Newsletter',
         href: '/newsletter',
-        description: 'Monthly release digest',
+        description: 'Get monthly updates, launches, and tutorials',
         icon: Share2
       }),
       createNavigationItem({
         label: 'Open Source',
         href: '/oss',
-        description: 'Built in public',
+        description: 'Explore public projects powering Microlink tools',
         icon: Shield
       }),
       createNavigationItem({
         label: 'About',
         href: '/about',
-        description: 'Who we are',
+        description: 'Meet the team building Microlink products',
         icon: File
       }),
       createNavigationItem({
         label: 'Changelog',
         href: '/changelog',
-        description: 'See what shipped',
+        description: 'Track shipped improvements and platform releases',
         icon: Clock
       }),
       createNavigationItem({
         label: 'Community',
         href: '/community',
-        description: 'Ask and share with devs',
+        description: 'Join discussions, ask questions, share solutions',
         icon: Users
       }),
       createNavigationItem({
         label: 'Recipes',
         href: '/recipes',
-        description: 'Copy-paste examples',
+        description: 'Use ready-made recipes for common workflows',
         icon: Command
       })
     ]
@@ -232,8 +214,8 @@ export const NAVIGATION_SECTIONS = [
 ]
 
 export const getToolbarSectionFromPathname = pathname => {
-  const section = NAVIGATION_SECTIONS.find(({ pages }) =>
-    pages.some(pagePath => pathname.startsWith(pagePath))
+  const section = NAVIGATION_SECTIONS.find(({ items }) =>
+    items.some(({ href }) => href.startsWith('/') && pathname.startsWith(href))
   )
 
   return section ? section.label : ''

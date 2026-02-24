@@ -3,6 +3,7 @@ import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import Image from 'components/elements/Image/Image'
+import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
 import { GitHub } from 'components/icons/GitHub'
 import { Twitter } from 'components/icons/Twitter'
@@ -13,7 +14,7 @@ import { rgba } from 'polished'
 import { formatDate } from 'helpers/format-date'
 import { useBlogIndex } from 'components/hook/use-blog-index'
 
-import { colors, layout, theme, transition, fontSizes } from 'theme'
+import { colors, layout, theme, transition } from 'theme'
 
 import {
   DOCUMENTATION_NAV_ITEM,
@@ -43,7 +44,6 @@ const debugHoverOutline = css`
   }
 `
 
-const ICON_SIZE = fontSizes[4]
 const LIST_RESET_STYLES = {
   listStyle: 'none',
   p: 0,
@@ -51,37 +51,15 @@ const LIST_RESET_STYLES = {
 }
 
 const TOP_LEVEL_LINK_STYLES = {
-  listStyle: 'none',
   px: 3,
   py: 2,
-  fontSize: 1,
-  fontWeight: 'regular'
+  fontSize: 1
 }
 
-const MEGA_MENU_ITEM_STYLES = {
-  py: 3,
-  px: 0,
-  fontSize: 2,
-  fontWeight: 'regular',
-  listStyle: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  gap: 3,
-  whiteSpace: 'normal',
-  pr: [0, 0, 3, 3]
-}
-
-const RESOURCES_MENU_ITEM_STYLES = {
-  py: 2,
-  px: 0,
+const MENU_ITEM_TITLE_STYLES = {
+  display: 'block',
   fontSize: 1,
-  fontWeight: 'regular',
-  listStyle: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  gap: 2,
-  whiteSpace: 'normal',
-  pr: [0, 0, 2, 2]
+  color: 'black80'
 }
 
 const TopLevelTrigger = styled('button').withConfig({
@@ -123,8 +101,6 @@ const MegaMenuPanel = styled(Box)`
 `
 
 const MenuItemIcon = styled(Box)`
-  width: ${ICON_SIZE};
-  height: ${ICON_SIZE};
   border-radius: 9px;
   flex-shrink: 0;
   display: inline-flex;
@@ -132,34 +108,14 @@ const MenuItemIcon = styled(Box)`
   justify-content: center;
   transition: transform ${transition.medium};
   color: ${colors.black70};
-  background: #f1f3f5;
 `
 
 const ResourceMenuItemIcon = styled(MenuItemIcon)`
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-`
-
-const MenuItemTitle = styled(Text)`
-  display: block;
-  color: ${colors.black90};
-  ${theme({
-    fontSize: 1,
-    fontFamily: 'sans',
-    fontWeight: 'bold',
-    lineHeight: 0
-  })};
-`
-
-const MenuItemDescription = styled(Text)`
-  display: block;
-  transition: color ${transition.medium};
-  color: ${colors.black50};
-  ${theme({
-    fontSize: 0,
-    lineHeight: 1
-  })};
+  width: 24px;
+  height: 24px;
+  border-radius: 0;
+  background: transparent;
+  color: ${colors.black60};
 `
 
 const MegaMenuItemLink = styled(ToolbarNavLink)`
@@ -167,34 +123,26 @@ const MegaMenuItemLink = styled(ToolbarNavLink)`
   transition: background-color ${transition.medium};
   ${DEBUG_HOVER_BORDERS ? debugHoverOutline : ''};
 
-  &:hover,
-  &:focus-within {
-    background-color: ${rgba(colors.black, 0.06)};
+  &:hover
+    ${MenuItemIcon},
+    &:focus-within
+    ${MenuItemIcon},
+    &:hover
+    .menu-item-title,
+  &:focus-within .menu-item-title,
+  &:hover .menu-item-description,
+  &:focus-within .menu-item-description {
+    color: ${colors.black};
   }
 
-  &:hover ${MenuItemIcon}, &:focus-within ${MenuItemIcon} {
-    transform: translateY(-1px);
-  }
-
-  &:hover ${MenuItemDescription}, &:focus-within ${MenuItemDescription} {
-    color: ${colors.black60};
+  &:hover .menu-item-title,
+  &:focus-within .menu-item-title {
+    font-weight: 700;
   }
 `
 
 const ResourcesMegaMenuItemLink = styled(MegaMenuItemLink)`
   border-radius: 10px;
-`
-
-const SectionDescription = styled(Text)`
-  display: block;
-  margin-top: 4px;
-  margin-bottom: 16px;
-  max-width: 560px;
-  color: ${colors.black50};
-  ${theme({
-    fontSize: 0,
-    lineHeight: 1
-  })};
 `
 
 const ResourcesLayout = styled(Flex)(
@@ -252,7 +200,7 @@ const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   }
 `
 
-const DEFAULT_OPEN_SECTION = '' // NAVIGATION_SECTIONS[0]?.label ?? ''
+const DEBUG_STICKY_SECTION = ''
 
 const toSectionDomId = label =>
   `toolbar-mega-menu-${String(label).toLowerCase().replace(/\s+/g, '-')}`
@@ -262,7 +210,7 @@ const ToolbarDesktop = () => {
   const blogPosts = useBlogIndex()
   const headerRef = useRef(null)
   const closeTimeoutRef = useRef(null)
-  const [openSection, setOpenSection] = useState(DEFAULT_OPEN_SECTION)
+  const [openSection, setOpenSection] = useState(DEBUG_STICKY_SECTION)
 
   const activeSection = useMemo(
     () => getToolbarSectionFromPathname(location.pathname),
@@ -270,9 +218,10 @@ const ToolbarDesktop = () => {
   )
 
   const section = NAVIGATION_SECTIONS.find(({ label }) => label === openSection)
-  const latestPost = blogPosts[0]
+  const latestPosts = useMemo(() => blogPosts.slice(0, 3), [blogPosts])
 
   useEffect(() => {
+    if (DEBUG_STICKY_SECTION) return
     setOpenSection('')
   }, [location.pathname])
 
@@ -285,7 +234,7 @@ const ToolbarDesktop = () => {
   }, [])
 
   useEffect(() => {
-    if (!openSection) return
+    if (!openSection || DEBUG_STICKY_SECTION) return
 
     const handleKeyDown = event => {
       if (event.key === 'Escape') setOpenSection('')
@@ -310,12 +259,16 @@ const ToolbarDesktop = () => {
     closeTimeoutRef.current = null
   }
 
-  const handleClosePanel = () => setOpenSection(DEFAULT_OPEN_SECTION)
+  const handleClosePanel = () => {
+    if (DEBUG_STICKY_SECTION) return
+    setOpenSection('')
+  }
 
   const handleClosePanelWithDelay = () => {
+    if (DEBUG_STICKY_SECTION) return
     clearClosePanelTimeout()
     closeTimeoutRef.current = setTimeout(() => {
-      setOpenSection(DEFAULT_OPEN_SECTION)
+      setOpenSection('')
       closeTimeoutRef.current = null
     }, 150)
   }
@@ -328,8 +281,79 @@ const ToolbarDesktop = () => {
   const handleTriggerClick = sectionId => event => {
     event.preventDefault()
     clearClosePanelTimeout()
+    if (DEBUG_STICKY_SECTION) {
+      setOpenSection(sectionId)
+      return
+    }
     setOpenSection(currentId => (currentId === sectionId ? '' : sectionId))
   }
+
+  const renderLatestPostItem = post => (
+    <ResourcesLatestPostLink
+      key={post.slug}
+      forwardedAs='li'
+      href={post.slug}
+      data-event-location='Toolbar'
+      data-event-name={`Blog Post: ${post.title}`}
+      onClick={handleClosePanel}
+      css={theme({
+        px: 3,
+        py: 2
+      })}
+    >
+      <Text
+        as='span'
+        css={theme({
+          display: 'block',
+          color: 'black90',
+          fontSize: 0,
+          lineHeight: 1,
+          fontFamily: 'sans',
+          fontWeight: 'bold',
+          mb: 1
+        })}
+      >
+        {post.title}
+      </Text>
+      <Flex
+        as='span'
+        css={theme({
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1
+        })}
+      >
+        {post.authorAvatars?.[0] && (
+          <Image
+            src={post.authorAvatars[0]}
+            alt={
+              post.authorNames?.[0]
+                ? `Avatar of ${post.authorNames[0]}`
+                : 'Author avatar'
+            }
+            width='18px'
+            height='18px'
+            css={theme({
+              borderRadius: 999,
+              border: '1px solid',
+              borderColor: 'black10'
+            })}
+          />
+        )}
+        <Text
+          as='span'
+          css={theme({
+            color: 'black60',
+            fontSize: 0,
+            lineHeight: 1
+          })}
+        >
+          {post.authorNames?.join(', ') || 'Microlink'} ·{' '}
+          {formatDate(post.date)}
+        </Text>
+      </Flex>
+    </ResourcesLatestPostLink>
+  )
 
   return (
     <Box
@@ -390,8 +414,10 @@ const ToolbarDesktop = () => {
                     onFocus={() => handleOpenSection(label)}
                   >
                     {label}
-                    <ChevronDown
-                      size={12}
+                    <FeatherIcon
+                      icon={ChevronDown}
+                      size='12px'
+                      css={{ alignItems: 'center' }}
                       style={{
                         transform:
                           openSection === label
@@ -471,23 +497,41 @@ const ToolbarDesktop = () => {
               <Text
                 as='p'
                 css={theme({
-                  color: 'black40',
-                  fontSize: 1,
-                  mb: 0
+                  fontSize: 0,
+                  textTransform: 'uppercase',
+                  letterSpacing: 2,
+                  color: 'black80'
                 })}
               >
                 {section.label}
               </Text>
-              <SectionDescription as='p'>
+
+              <Text
+                css={theme({
+                  fontSize: 0,
+                  mb: 2,
+                  maxWidth: 560,
+                  color: 'black60'
+                })}
+              >
                 {section.description}
-              </SectionDescription>
-              {section.label === 'Resources'
-                ? (
-                  <ResourcesLayout>
-                    <ResourcesListColumn>
-                      <ResourcesListGrid as='ul'>
-                        {section.items.map(
-                          ({ label, href, actively, title, externalIcon, icon: Icon }) => (
+              </Text>
+              {section.label === 'Resources' && (
+                <ResourcesLayout>
+                  <ResourcesListColumn>
+                    <ResourcesListGrid as='ul'>
+                      {section.items
+                        .filter(({ label }) => label !== 'Blog')
+                        .map(
+                          ({
+                            label,
+                            href,
+                            actively,
+                            title,
+                            externalIcon,
+                            logo,
+                            icon: Icon
+                          }) => (
                             <ResourcesMegaMenuItemLink
                               key={label}
                               forwardedAs='li'
@@ -498,161 +542,168 @@ const ToolbarDesktop = () => {
                               data-event-location='Toolbar'
                               data-event-name={label}
                               onClick={handleClosePanel}
-                              css={theme(RESOURCES_MENU_ITEM_STYLES)}
+                              css={theme({
+                                py: 2,
+                                px: 0,
+                                display: 'flex',
+                                gap: 2,
+                                whiteSpace: 'normal',
+                                pr: [0, 0, 2, 2]
+                              })}
                             >
                               <ResourceMenuItemIcon as='span'>
-                                <Icon size={16} />
+                                {logo ? (
+                                  <Image
+                                    src={logo}
+                                    width='24px'
+                                    height='24px'
+                                    alt={label}
+                                  />
+                                ) : (
+                                  <FeatherIcon icon={Icon} size='24px' />
+                                )}
                               </ResourceMenuItemIcon>
-                              <MenuItemTitle as='span'>{label}</MenuItemTitle>
+                              <Text
+                                as='span'
+                                className='menu-item-title'
+                                css={theme(MENU_ITEM_TITLE_STYLES)}
+                              >
+                                {label}
+                              </Text>
                             </ResourcesMegaMenuItemLink>
                           )
                         )}
-                      </ResourcesListGrid>
-                    </ResourcesListColumn>
-                    {latestPost && (
-                      <ResourcesBlogColumn>
-                        <Text
-                          as='p'
-                          css={theme({
-                            mt: 1,
-                            mb: 2,
-                            color: 'black50',
-                            fontSize: 0,
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.06em'
-                          })}
-                        >
-                          Latest from Blog
-                        </Text>
-                        <ResourcesLatestPostLink
-                          forwardedAs='div'
-                          href={latestPost.slug}
-                          data-event-location='Toolbar'
-                          data-event-name='Latest Blog Post'
-                          onClick={handleClosePanel}
-                          css={theme({
-                            p: 3
-                          })}
-                        >
-                          <Text
-                            as='span'
-                            css={theme({
-                              display: 'block',
-                              color: 'black90',
-                              fontSize: [2, 2, 3, 3],
-                              lineHeight: 0,
-                              fontFamily: 'sans',
-                              fontWeight: 'bold',
-                              mb: 2
-                            })}
-                          >
-                            {latestPost.title}
-                          </Text>
-                          <Text
-                            as='span'
-                            css={theme({
-                              display: 'block',
-                              color: 'black60',
-                              fontSize: 1,
-                              lineHeight: 2,
-                              mb: 3
-                            })}
-                          >
-                            {latestPost.excerpt}
-                          </Text>
-                          <Flex
-                            as='span'
-                            css={theme({ display: 'flex', alignItems: 'center', gap: 2 })}
-                          >
-                            {latestPost.authorAvatars?.length > 0 && (
-                              <Flex
-                                as='span'
-                                css={theme({ display: 'flex', alignItems: 'center' })}
-                              >
-                                {latestPost.authorAvatars.slice(0, 2).map((avatar, index) => (
-                                  <Image
-                                    key={`${avatar}-${index}`}
-                                    src={avatar}
-                                    alt={
-                                      latestPost.authorNames?.[index]
-                                        ? `Avatar of ${latestPost.authorNames[index]}`
-                                        : 'Author avatar'
-                                    }
-                                    width='22px'
-                                    height='22px'
-                                    css={theme({
-                                      borderRadius: 999,
-                                      border: '1px solid',
-                                      borderColor: 'black10',
-                                      ml: index === 0 ? 0 : '-8px',
-                                      position: 'relative',
-                                      zIndex: 3 - index
-                                    })}
-                                  />
-                                ))}
-                              </Flex>
-                            )}
-                            <Text
-                              as='span'
-                              css={theme({ color: 'black60', fontSize: 1, lineHeight: 1 })}
-                            >
-                              {latestPost.authorNames?.join(', ') || 'Microlink'} ·{' '}
-                              {formatDate(latestPost.date)}
-                            </Text>
-                          </Flex>
-                        </ResourcesLatestPostLink>
-                      </ResourcesBlogColumn>
-                    )}
-                  </ResourcesLayout>
-                  )
-                : (
-                  <Flex
-                    as='ul'
-                    css={{
-                      display: 'grid',
-                      gridTemplateColumns: `repeat(${section.columns}, minmax(180px, 1fr))`,
-                      gap: '4px 32px',
-                      listStyle: LIST_RESET_STYLES.listStyle,
-                      margin: LIST_RESET_STYLES.m,
-                      padding: LIST_RESET_STYLES.p
-                    }}
-                  >
-                    {section.items.map(
-                      ({
-                        label,
-                        href,
-                        actively,
-                        title,
-                        externalIcon,
-                        description,
-                        icon: Icon
-                      }) => (
-                        <MegaMenuItemLink
-                          key={label}
-                          forwardedAs='li'
-                          href={href}
-                          title={title}
-                          actively={actively}
-                          externalIcon={externalIcon}
-                          data-event-location='Toolbar'
-                          data-event-name={label}
-                          onClick={handleClosePanel}
-                          css={theme(MEGA_MENU_ITEM_STYLES)}
-                        >
-                          <MenuItemIcon as='span'>
-                            <Icon size={18} />
-                          </MenuItemIcon>
-                          <Box as='span'>
-                            <MenuItemTitle as='span'>{label}</MenuItemTitle>
-                            <MenuItemDescription as='span'>
-                              {description}
-                            </MenuItemDescription>
-                          </Box>
-                        </MegaMenuItemLink>
-                      )
-                    )}
-                  </Flex>
+                    </ResourcesListGrid>
+                  </ResourcesListColumn>
+                  {latestPosts.length > 0 && (
+                    <ResourcesBlogColumn>
+                      <ToolbarNavLink
+                        forwardedAs='div'
+                        href='/blog'
+                        data-event-location='Toolbar'
+                        data-event-name='Blog'
+                        onClick={handleClosePanel}
+                        css={theme({
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          mt: 1,
+                          mb: 3,
+                          color: 'black60',
+                          fontSize: 0,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                          pl: 0
+                        })}
+                      >
+                        Blog →
+                      </ToolbarNavLink>
+                      <Flex
+                        as='ul'
+                        css={theme({
+                          flexDirection: 'column',
+                          listStyle: 'none',
+                          m: 0,
+                          p: 0,
+                          gap: 2
+                        })}
+                      >
+                        {latestPosts.map(renderLatestPostItem)}
+                      </Flex>
+                    </ResourcesBlogColumn>
                   )}
+                </ResourcesLayout>
+              )}
+              {section.label !== 'Resources' && (
+                <Flex
+                  as='ul'
+                  css={{
+                    display: 'grid',
+                    gridTemplateColumns: `repeat(${section.columns}, minmax(180px, 1fr))`,
+                    gap: '4px 32px',
+                    listStyle: LIST_RESET_STYLES.listStyle,
+                    margin: LIST_RESET_STYLES.m,
+                    padding: LIST_RESET_STYLES.p
+                  }}
+                >
+                  {section.items.map(
+                    ({
+                      label,
+                      href,
+                      actively,
+                      title,
+                      externalIcon,
+                      logo,
+                      description,
+                      icon: Icon
+                    }) => (
+                      <MegaMenuItemLink
+                        key={label}
+                        forwardedAs='li'
+                        href={href}
+                        title={title}
+                        actively={actively}
+                        externalIcon={externalIcon}
+                        data-event-location='Toolbar'
+                        data-event-name={label}
+                        onClick={handleClosePanel}
+                        css={theme({
+                          py: 3,
+                          px: 0,
+                          gap: 3,
+                          whiteSpace: 'normal',
+                          pr: [0, 0, 3, 3]
+                        })}
+                      >
+                        <MenuItemIcon as='span'>
+                          {logo ? (
+                            <Image
+                              src={logo}
+                              width='18px'
+                              height='18px'
+                              alt={label}
+                              style={{
+                                position: 'relative',
+                                top: '6px'
+                              }}
+                            />
+                          ) : (
+                            <FeatherIcon
+                              icon={Icon}
+                              size='18px'
+                              css={{
+                                position: 'relative',
+                                top: '6px',
+                                color: 'black60'
+                              }}
+                            />
+                          )}
+                        </MenuItemIcon>
+                        <Box as='span'>
+                          <Text
+                            as='span'
+                            className='menu-item-title'
+                            css={theme(MENU_ITEM_TITLE_STYLES)}
+                          >
+                            {label}
+                          </Text>
+                          <Text
+                            as='span'
+                            className='menu-item-description'
+                            css={theme({
+                              display: 'block',
+                              fontSize: 0,
+                              color: 'black60'
+                            })}
+                          >
+                            {description}
+                          </Text>
+                        </Box>
+                      </MegaMenuItemLink>
+                    )
+                  )}
+                </Flex>
+              )}
             </Box>
           </MegaMenuPanel>
         )}

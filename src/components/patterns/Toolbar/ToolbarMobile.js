@@ -2,6 +2,7 @@ import Box from 'components/elements/Box'
 import Toolbar from 'components/elements/Toolbar'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
+import Image from 'components/elements/Image/Image'
 import { Menu, X } from 'react-feather'
 import styled from 'styled-components'
 import { colors, theme } from 'theme'
@@ -197,6 +198,7 @@ const ToolbarMobile = () => {
                     title,
                     externalIcon,
                     description,
+                    logo,
                     icon: Icon
                   }) => (
                     <ToolbarNavLink
@@ -212,12 +214,19 @@ const ToolbarMobile = () => {
                       css={theme(MOBILE_MENU_ITEM_STYLES)}
                     >
                       <MenuItemIcon as='span'>
-                        <Icon size={15} />
+                        {logo ? (
+                          <Image
+                            src={logo}
+                            width='15px'
+                            height='15px'
+                            alt={label}
+                          />
+                        ) : (
+                          <Icon size={15} />
+                        )}
                       </MenuItemIcon>
                       <Box as='span'>
-                        <MenuItemTitle as='span'>
-                          {label}
-                        </MenuItemTitle>
+                        <MenuItemTitle as='span'>{label}</MenuItemTitle>
                         <MenuItemDescription as='span'>
                           {description}
                         </MenuItemDescription>
