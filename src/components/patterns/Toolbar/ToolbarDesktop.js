@@ -7,7 +7,7 @@ import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
 import { GitHub } from 'components/icons/GitHub'
 import { Twitter } from 'components/icons/Twitter'
-import { ChevronDown } from 'react-feather'
+import { ChevronDown, ChevronRight } from 'react-feather'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
@@ -44,6 +44,21 @@ const debugHoverOutline = css`
   }
 `
 
+const TOP_LEVEL_STYLE = {
+  textTransform: 'uppercase',
+  letterSpacing: 2,
+  fontSize: 0,
+  color: 'black80'
+}
+
+const ICON_STYLE = {
+  height: '18px',
+  width: '18px',
+  position: 'relative',
+  top: '6px',
+  color: 'black60'
+}
+
 const LIST_RESET_STYLES = {
   listStyle: 'none',
   p: 0,
@@ -65,25 +80,23 @@ const MENU_ITEM_TITLE_STYLES = {
 const TopLevelTrigger = styled('button').withConfig({
   shouldForwardProp: prop => !['isActive'].includes(prop)
 })`
+  background: transparent;
   appearance: none;
   border: 0;
-  background: ${({ isActive }) => (isActive ? colors.black05 : 'transparent')};
-  border-radius: 999px;
-  color: ${({ isActive }) => {
-    if (isActive) return colors.black
-    return colors.black60
-  }};
+  font-weight: ${({ isActive }) => (isActive ? 'bold' : 'regular')};
   display: inline-flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
   height: 44px;
   padding: 0 16px;
-  transition: color ${transition.medium}, background-color ${transition.medium};
+  transition: color ${transition.medium};
   ${theme({
+    color: 'black80',
     fontFamily: 'sans',
-    fontSize: 1,
-    fontWeight: 'regular'
+    fontSize: 0,
+    textTransform: 'uppercase',
+    letterSpacing: 2
   })};
   ${DEBUG_HOVER_BORDERS ? debugHoverOutline : ''};
 `
@@ -111,8 +124,6 @@ const MenuItemIcon = styled(Box)`
 `
 
 const ResourceMenuItemIcon = styled(MenuItemIcon)`
-  width: 24px;
-  height: 24px;
   border-radius: 0;
   background: transparent;
   color: ${colors.black60};
@@ -127,16 +138,21 @@ const MegaMenuItemLink = styled(ToolbarNavLink)`
     ${MenuItemIcon},
     &:focus-within
     ${MenuItemIcon},
+    > .active
+    ${MenuItemIcon},
     &:hover
     .menu-item-title,
   &:focus-within .menu-item-title,
+  > .active .menu-item-title,
   &:hover .menu-item-description,
-  &:focus-within .menu-item-description {
+  &:focus-within .menu-item-description,
+  > .active .menu-item-description {
     color: ${colors.black};
   }
 
   &:hover .menu-item-title,
-  &:focus-within .menu-item-title {
+  &:focus-within .menu-item-title,
+  > .active .menu-item-title {
     font-weight: 700;
   }
 `
@@ -438,7 +454,7 @@ const ToolbarDesktop = () => {
               data-event-name={DOCUMENTATION_NAV_ITEM.label}
               onClick={handleClosePanel}
               onMouseEnter={handleClosePanel}
-              css={theme(TOP_LEVEL_LINK_STYLES)}
+              css={theme({ ...TOP_LEVEL_LINK_STYLES, ...TOP_LEVEL_STYLE })}
             >
               {DOCUMENTATION_NAV_ITEM.label}
             </ToolbarNavLink>
@@ -450,7 +466,7 @@ const ToolbarDesktop = () => {
               data-event-name={PRICING_NAV_ITEM.label}
               onClick={handleClosePanel}
               onMouseEnter={handleClosePanel}
-              css={theme(TOP_LEVEL_LINK_STYLES)}
+              css={theme({ ...TOP_LEVEL_LINK_STYLES, ...TOP_LEVEL_STYLE })}
             >
               {PRICING_NAV_ITEM.label}
             </ToolbarNavLink>
@@ -494,31 +510,41 @@ const ToolbarDesktop = () => {
                 py: [3, 3, 4, 4]
               })}
             >
-              <Text
-                as='p'
-                css={theme({
-                  fontSize: 0,
-                  textTransform: 'uppercase',
-                  letterSpacing: 2,
-                  color: 'black80'
-                })}
-              >
-                {section.label}
-              </Text>
+              {section.label !== 'Resources' && (
+                <>
+                  <Text as='p' css={theme(TOP_LEVEL_STYLE)}>
+                    {section.label}
+                  </Text>
 
-              <Text
-                css={theme({
-                  fontSize: 0,
-                  mb: 2,
-                  maxWidth: 560,
-                  color: 'black60'
-                })}
-              >
-                {section.description}
-              </Text>
+                  <Text
+                    css={theme({
+                      fontSize: 0,
+                      mb: 2,
+                      maxWidth: 560,
+                      color: 'black60'
+                    })}
+                  >
+                    {section.description}
+                  </Text>
+                </>
+              )}
               {section.label === 'Resources' && (
                 <ResourcesLayout>
                   <ResourcesListColumn>
+                    <Text as='p' css={theme(TOP_LEVEL_STYLE)}>
+                      {section.label}
+                    </Text>
+                    <Text
+                      css={theme({
+                        fontSize: 0,
+                        mt: 1,
+                        mb: 2,
+                        maxWidth: 560,
+                        color: 'black60'
+                      })}
+                    >
+                      {section.description}
+                    </Text>
                     <ResourcesListGrid as='ul'>
                       {section.items
                         .filter(({ label }) => label !== 'Blog')
@@ -555,12 +581,23 @@ const ToolbarDesktop = () => {
                                 {logo ? (
                                   <Image
                                     src={logo}
-                                    width='24px'
-                                    height='24px'
+                                    width='18px'
+                                    height='18px'
                                     alt={label}
+                                    style={{
+                                      position: 'relative',
+                                      top: '6px'
+                                    }}
                                   />
                                 ) : (
-                                  <FeatherIcon icon={Icon} size='24px' />
+                                  <FeatherIcon
+                                    icon={Icon}
+                                    size='18px'
+                                    css={{
+                                      position: 'relative',
+                                      top: '6px'
+                                    }}
+                                  />
                                 )}
                               </ResourceMenuItemIcon>
                               <Text
@@ -583,20 +620,15 @@ const ToolbarDesktop = () => {
                         data-event-location='Toolbar'
                         data-event-name='Blog'
                         onClick={handleClosePanel}
-                        css={theme({
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: 1,
-                          mt: 1,
-                          mb: 3,
-                          color: 'black60',
-                          fontSize: 0,
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.06em',
-                          pl: 0
-                        })}
+                        css={theme({ mb: 3, ...TOP_LEVEL_STYLE })}
                       >
-                        Blog →
+                        <Flex
+                          as='span'
+                          css={theme({ alignItems: 'center', gap: 1 })}
+                        >
+                          Blog
+                          <FeatherIcon icon={ChevronRight} size='12px' />
+                        </Flex>
                       </ToolbarNavLink>
                       <Flex
                         as='ul'
@@ -659,24 +691,11 @@ const ToolbarDesktop = () => {
                           {logo ? (
                             <Image
                               src={logo}
-                              width='18px'
-                              height='18px'
                               alt={label}
-                              style={{
-                                position: 'relative',
-                                top: '6px'
-                              }}
+                              css={theme(ICON_STYLE)}
                             />
                           ) : (
-                            <FeatherIcon
-                              icon={Icon}
-                              size='18px'
-                              css={{
-                                position: 'relative',
-                                top: '6px',
-                                color: 'black60'
-                              }}
-                            />
+                            <FeatherIcon icon={Icon} css={theme(ICON_STYLE)} />
                           )}
                         </MenuItemIcon>
                         <Box as='span'>

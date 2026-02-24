@@ -17,7 +17,10 @@ import React from 'react'
 import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
 import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
 
-import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
+import {
+  TOOLBAR_PRIMARY_HEIGHT,
+  DOCS_NAVBAR_HEIGHT
+} from 'components/elements/Toolbar'
 
 const COPY = 'Copy for LLM'
 const COPIED = 'Copied to LLM'
@@ -82,18 +85,17 @@ const DocTemplate = ({
       <Container
         data-docs-container
         css={theme({
-          pt: 0,
+          pt: [0, DOCS_NAVBAR_HEIGHT],
           px: 0,
           maxWidth: layout.large
         })}
       >
         <Aside activeRouteName={activeRouteName}>
-          <Box css={theme({ mt: [0, 4, 4, 4] })} />
           <Choose>
             <Choose.When condition={!!title}>
               <H1
                 css={theme({
-                  mt: 3,
+                  mt: '-12px',
                   mb: 1
                 })}
                 variant={null}

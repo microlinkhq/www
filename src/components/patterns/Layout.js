@@ -84,6 +84,7 @@ const Layout = ({
           tabIndex={-1}
           css={themeProp({
             pt: TOOLBAR_HEIGHTS,
+            mt: 4,
             px: [3, 3, 0],
             flex: 1,
             overflow: 'visible',

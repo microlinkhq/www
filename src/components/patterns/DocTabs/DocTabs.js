@@ -38,7 +38,6 @@ const DocTabs = ({ activeRouteName }) => {
   return (
     <Box
       css={theme({
-        pt: 3,
         pl: 3
       })}
     >
