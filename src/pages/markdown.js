@@ -821,7 +821,7 @@ const MarkdownPage = () => {
             pb: [5, 5, 6, 6]
           })}
         >
-          <Heading css={theme({ fontSize: [3, 4] })}>
+          <Heading>
             Structured Markdown <LineBreak breakpoints={[0, 1]} /> built for
             Agents
           </Heading>
