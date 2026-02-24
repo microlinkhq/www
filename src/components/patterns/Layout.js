@@ -10,18 +10,15 @@ import { useBreakpoint } from 'components/hook/use-breakpoint'
 
 import themeSpec, { theme as themeProp } from 'theme'
 
-import {
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_SECONDARY_HEIGHT
-} from 'components/elements/Toolbar'
+import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 
 import 'styles/main.scss'
 
 const TOOLBAR_HEIGHTS = [
   TOOLBAR_PRIMARY_HEIGHT,
-  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
-  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`,
-  `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${TOOLBAR_SECONDARY_HEIGHT})`
+  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_PRIMARY_HEIGHT
 ]
 
 const SkipLink = () => (
