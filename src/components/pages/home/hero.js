@@ -133,7 +133,7 @@ const Hero = ({ children }) => {
       })}
     >
       {children({ color })}
-      <Heading css={theme({ fontSize: ['48px', 6, 7, 7] })} titleize={false}>
+      <Heading css={theme({ fontSize: ['42px', 4] })} titleize={false}>
         Browser as API
       </Heading>
 
