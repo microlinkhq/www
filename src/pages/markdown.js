@@ -792,9 +792,10 @@ const MarkdownPage = () => {
   }, [hasValidTargetUrl, targetUrl])
   const snippetText = useMemo(
     () =>
-      `curl https://markdown.microlink.io/${targetUrl || DEFAULT_URL}`[
-        targetUrl
-      ]
+      hasValidTargetUrl
+        ? `curl https://markdown.microlink.io/${targetUrl}`
+        : '',
+    [hasValidTargetUrl, targetUrl]
   )
 
   useEffect(() => {
@@ -907,35 +908,37 @@ const MarkdownPage = () => {
               width: [`calc(100vw - ${space[4]})`, layout.small]
             })}
           />
-          <Box css={theme({ pt: 4, width: '100%', maxWidth: layout.small })}>
-            <Tooltip
-              type='copy'
-              tooltipsOpts={Tooltip.TEXT.OPTIONS}
-              content={
-                <Tooltip.Content>{Tooltip.TEXT.COPY('cURL')}</Tooltip.Content>
-              }
-            >
-              <Input
-                readOnly
-                onClick={event => {
-                  event.target.select()
-                  toClipboard({
-                    copy: snippetText,
-                    text: Tooltip.TEXT.COPIED('cURL')
-                  })
-                }}
-                style={{ cursor: 'copy' }}
-                css={theme({
-                  fontSize: 1,
-                  fontFamily: fonts.mono,
-                  cursor: 'copy',
-                  width: '100%',
-                  color: 'black60'
-                })}
-                value={snippetText}
-              />
-            </Tooltip>
-          </Box>
+          {snippetText && (
+            <Box css={theme({ pt: 4, width: '100%', maxWidth: layout.small })}>
+              <Tooltip
+                type='copy'
+                tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                content={
+                  <Tooltip.Content>{Tooltip.TEXT.COPY('cURL')}</Tooltip.Content>
+                }
+              >
+                <Input
+                  readOnly
+                  onClick={event => {
+                    event.target.select()
+                    toClipboard({
+                      copy: snippetText,
+                      text: Tooltip.TEXT.COPIED('cURL')
+                    })
+                  }}
+                  style={{ cursor: 'copy' }}
+                  css={theme({
+                    fontSize: 1,
+                    fontFamily: fonts.mono,
+                    cursor: 'copy',
+                    width: '100%',
+                    color: 'black60'
+                  })}
+                  value={snippetText}
+                />
+              </Tooltip>
+            </Box>
+          )}
           <ClipboardComponent />
         </Flex>
 
