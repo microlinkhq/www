@@ -984,7 +984,6 @@ export const Head = () => (
   <Meta
     title='HTML to markdown API for AI agents'
     description='Convert any URL to clean markdown — 80% fewer tokens than raw HTML. Built for AI agent crawling, RAG pipelines, and LLM ingestion without custom parsers or brittle scrapers.'
-    image={cdnUrl('banner/markdown.jpeg')}
     structured={[
       {
         '@context': 'https://schema.org',
