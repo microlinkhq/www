@@ -1,6 +1,6 @@
 import React, { createElement } from 'react'
 import { Microlink } from 'components/logos'
-import { theme, fontSizes } from 'theme'
+import { theme } from 'theme'
 import styled from 'styled-components'
 import {
   BarChart2,
@@ -235,10 +235,8 @@ const NavLogoMobile = props => (
   >
     <Microlink
       css={{
-        maxHeight: fontSizes[2],
-        objectFit: 'cover',
-        width: '100%',
-        height: 'auto'
+        height: 16,
+        width: 'auto'
       }}
     />
   </ToolbarNavLink>
