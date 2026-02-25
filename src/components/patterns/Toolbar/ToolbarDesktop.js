@@ -522,8 +522,7 @@ const ToolbarDesktop = () => {
                     onClick={handleTriggerClick(label)}
                     onMouseEnter={() => handleOpenSectionWithHover(label)}
                     onFocus={() =>
-                      canUseFocusOpen() ? handleOpenSection(label) : undefined
-                    }
+                      canUseFocusOpen() ? handleOpenSection(label) : undefined}
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
