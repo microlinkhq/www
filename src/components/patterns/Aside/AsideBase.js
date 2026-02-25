@@ -58,6 +58,16 @@ const titleExternalStyle = css`
   }
 `
 
+const InternalTitleText = styled(Text)`
+  ${titleStyle};
+  font-size: ${fontSizes[1]};
+`
+
+const ExternalTitleText = styled(Text)`
+  ${titleExternalStyle};
+  font-size: ${fontSizes[1]};
+`
+
 const AsideWrapper = styled(Box)`
   position: fixed;
   overflow-y: auto;
@@ -81,19 +91,14 @@ const Header = props => (
 )
 
 const Title = ({ children, href, Icon, ...props }) => {
+  const TitleText = isInternalLink(href) ? InternalTitleText : ExternalTitleText
+
   return (
     <NavLink href={href} actively css={linkStyle}>
       {Icon && <Icon className={LINK_ICON_CLASSNAME} />}
-      <Text
-        as='span'
-        css={{
-          ...(isInternalLink(href) ? titleStyle : titleExternalStyle),
-          fontSize: fontSizes[1]
-        }}
-        {...props}
-      >
+      <TitleText as='span' {...props}>
         {children}
-      </Text>
+      </TitleText>
     </NavLink>
   )
 }

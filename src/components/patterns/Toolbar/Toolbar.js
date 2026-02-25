@@ -2,16 +2,29 @@ import ToolbarDesktop from './ToolbarDesktop'
 import ToolbarMobile from './ToolbarMobile'
 import Box from 'components/elements/Box'
 import { theme } from 'theme'
+import styled from 'styled-components'
 import React from 'react'
+
+const MobileOnly = styled(Box)`
+  ${theme({
+    display: ['block', 'none', 'none', 'none']
+  })};
+`
+
+const DesktopOnly = styled(Box)`
+  ${theme({
+    display: ['none', 'block', 'block', 'block']
+  })};
+`
 
 const Toolbar = props => (
   <>
-    <Box css={theme({ display: ['block', 'none', 'none', 'none'] })}>
+    <MobileOnly>
       <ToolbarMobile {...props} />
-    </Box>
-    <Box css={theme({ display: ['none', 'block', 'block', 'block'] })}>
+    </MobileOnly>
+    <DesktopOnly>
       <ToolbarDesktop {...props} />
-    </Box>
+    </DesktopOnly>
   </>
 )
 

@@ -16,6 +16,7 @@ import React from 'react'
 
 import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
 import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
+import styled from 'styled-components'
 
 import {
   TOOLBAR_PRIMARY_HEIGHT,
@@ -24,6 +25,35 @@ import {
 
 const COPY = 'Copy for LLM'
 const COPIED = 'Copied to LLM'
+
+const DocsNavbar = styled(Box)`
+  ${theme({
+    position: 'fixed',
+    top: TOOLBAR_PRIMARY_HEIGHT,
+    left: 0,
+    right: 0,
+    zIndex: 2,
+    background: 'white',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+    display: ['none', 'block']
+  })}
+`
+
+const DocsNavbarContainer = styled(Container)`
+  ${theme({
+    px: 0,
+    pt: 0,
+    maxWidth: layout.large
+  })}
+`
+
+const DocsContainer = styled(Container)`
+  ${theme({
+    pt: [0, DOCS_NAVBAR_HEIGHT],
+    px: 0,
+    maxWidth: layout.large
+  })}
+`
 
 const DocTemplate = ({
   title,
@@ -59,37 +89,12 @@ const DocTemplate = ({
 
   return (
     <Layout footer={false}>
-      <Box
-        data-docs-navbar
-        css={theme({
-          position: 'fixed',
-          top: TOOLBAR_PRIMARY_HEIGHT,
-          left: 0,
-          right: 0,
-          zIndex: 2,
-          background: 'white',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-          display: ['none', 'block']
-        })}
-      >
-        <Container
-          css={theme({
-            px: 0,
-            pt: 0,
-            maxWidth: layout.large
-          })}
-        >
+      <DocsNavbar data-docs-navbar>
+        <DocsNavbarContainer>
           <DocTabs activeRouteName={activeRouteName} />
-        </Container>
-      </Box>
-      <Container
-        data-docs-container
-        css={theme({
-          pt: [0, DOCS_NAVBAR_HEIGHT],
-          px: 0,
-          maxWidth: layout.large
-        })}
-      >
+        </DocsNavbarContainer>
+      </DocsNavbar>
+      <DocsContainer data-docs-container>
         <Aside activeRouteName={activeRouteName}>
           <Choose>
             <Choose.When condition={!!title}>
@@ -159,7 +164,7 @@ const DocTemplate = ({
             </Link>
           </Flex>
         </Aside>
-      </Container>
+      </DocsContainer>
     </Layout>
   )
 }

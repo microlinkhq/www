@@ -1,4 +1,4 @@
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Toolbar from './Toolbar/Toolbar'
@@ -21,37 +21,35 @@ const TOOLBAR_HEIGHTS = [
   TOOLBAR_PRIMARY_HEIGHT
 ]
 
+const SkipLinkAnchor = styled.a`
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 9999;
+  padding: 16px 24px;
+  background: var(--link);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 0 0 4px 0;
+
+  &:focus {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+  }
+`
+
 const SkipLink = () => (
-  <a
-    href='#main-content'
-    css={{
-      position: 'absolute',
-      left: '-9999px',
-      top: 'auto',
-      width: '1px',
-      height: '1px',
-      overflow: 'hidden',
-      zIndex: 9999,
-      padding: '16px 24px',
-      background: 'var(--link)',
-      color: 'white',
-      textDecoration: 'none',
-      fontWeight: 'bold',
-      borderRadius: '0 0 4px 0',
-      '&:focus': {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: 'auto',
-        height: 'auto',
-        overflow: 'visible',
-        outline: '2px solid var(--link)',
-        outlineOffset: '2px'
-      }
-    }}
-  >
-    Skip to content
-  </a>
+  <SkipLinkAnchor href='#main-content'>Skip to content</SkipLinkAnchor>
 )
 
 const Layout = ({
