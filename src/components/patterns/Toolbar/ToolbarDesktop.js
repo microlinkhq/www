@@ -64,7 +64,6 @@ const TOP_LEVEL_LINK_LAYOUT_STYLES = {
 
 const TOP_LEVEL_ACTIVE_BACKGROUND = colors.black05
 const PANEL_CLOSE_DELAY_MS = speed.normal
-const PANEL_VISIBILITY_TRANSITION_MS = speed.quickly
 
 const MENU_LINK_HOVER_STYLES = css`
   transition: background-color ${transition.medium};
@@ -140,6 +139,12 @@ const MegaMenuPanel = styled(Box).withConfig({
     scale(${({ isVisible }) => (isVisible ? 1 : 0.985)});
   pointer-events: ${({ isVisible }) => (isVisible ? 'auto' : 'none')};
   transition: opacity ${transition.medium}, transform ${transition.medium};
+`
+
+const MegaMenuSection = styled(Box).withConfig({
+  shouldForwardProp: prop => !['isActive'].includes(prop)
+})`
+  display: ${({ isActive }) => (isActive ? 'block' : 'none')};
 `
 
 const MenuItemIcon = styled(Box)`
@@ -269,23 +274,14 @@ const ToolbarDesktop = () => {
   const blogPosts = useBlogIndex()
   const headerRef = useRef(null)
   const closeTimeoutRef = useRef(null)
-  const panelUnmountTimeoutRef = useRef(null)
-  const openPanelFrameRef = useRef(null)
   const [openSection, setOpenSection] = useState(DEBUG_STICKY_SECTION)
-  const [renderedSection, setRenderedSection] = useState(DEBUG_STICKY_SECTION)
-  const [isPanelVisible, setPanelVisible] = useState(
-    Boolean(DEBUG_STICKY_SECTION)
-  )
 
   const activeSection = useMemo(
     () => getToolbarSectionFromPathname(location.pathname),
     [location.pathname]
   )
 
-  const section = NAVIGATION_SECTIONS.find(
-    ({ label }) => label === renderedSection
-  )
-  const isResourcesSection = section?.label === 'Resources'
+  const isPanelVisible = Boolean(openSection)
   const latestPosts = useMemo(() => blogPosts.slice(0, 3), [blogPosts])
 
   useEffect(() => {
@@ -298,43 +294,8 @@ const ToolbarDesktop = () => {
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current)
       }
-      if (panelUnmountTimeoutRef.current) {
-        clearTimeout(panelUnmountTimeoutRef.current)
-      }
-      if (openPanelFrameRef.current) {
-        window.cancelAnimationFrame(openPanelFrameRef.current)
-      }
     }
   }, [])
-
-  useEffect(() => {
-    if (openPanelFrameRef.current) {
-      window.cancelAnimationFrame(openPanelFrameRef.current)
-      openPanelFrameRef.current = null
-    }
-
-    if (panelUnmountTimeoutRef.current) {
-      clearTimeout(panelUnmountTimeoutRef.current)
-      panelUnmountTimeoutRef.current = null
-    }
-
-    if (openSection) {
-      setRenderedSection(openSection)
-      openPanelFrameRef.current = window.requestAnimationFrame(() => {
-        setPanelVisible(true)
-        openPanelFrameRef.current = null
-      })
-      return
-    }
-
-    setPanelVisible(false)
-
-    if (!renderedSection) return
-    panelUnmountTimeoutRef.current = setTimeout(() => {
-      setRenderedSection('')
-      panelUnmountTimeoutRef.current = null
-    }, PANEL_VISIBILITY_TRANSITION_MS)
-  }, [openSection, renderedSection])
 
   useEffect(() => {
     if (!openSection || isStickySection) return
@@ -580,68 +541,194 @@ const ToolbarDesktop = () => {
             )}
           </Flex>
         </Toolbar>
-        {section && (
-          <MegaMenuPanel
-            isVisible={isPanelVisible}
-            id={toSectionDomId(section.label)}
-            role='dialog'
-            aria-label={`${section.label} navigation`}
-            onMouseEnter={() => handleOpenSectionWithHover(section.label)}
-            onMouseLeave={handleClosePanelWithDelay}
-          >
-            <Box
-              css={theme({
-                px: [3, 3, 4, 4],
-                py: [3, 3, 4, 4]
-              })}
-            >
-              {!isResourcesSection && (
-                <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
-              )}
-              {isResourcesSection && (
-                <ResourcesLayout>
-                  <ResourcesListColumn>
+        <MegaMenuPanel
+          isVisible={isPanelVisible}
+          id='toolbar-mega-menu'
+          role='dialog'
+          aria-label='Primary navigation submenu'
+          aria-hidden={!isPanelVisible}
+          inert={!isPanelVisible ? '' : undefined}
+          onMouseEnter={clearClosePanelTimeout}
+          onMouseLeave={handleClosePanelWithDelay}
+        >
+          {NAVIGATION_SECTIONS.map(section => {
+            const isSectionActive = openSection === section.label
+            const isResourcesSection = section.label === 'Resources'
+
+            return (
+              <MegaMenuSection
+                key={section.label}
+                id={toSectionDomId(section.label)}
+                isActive={isSectionActive}
+                aria-hidden={!isSectionActive}
+              >
+                <Box
+                  css={theme({
+                    px: [3, 3, 4, 4],
+                    py: [3, 3, 4, 4]
+                  })}
+                >
+                  {!isResourcesSection && (
                     <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
-                    <ResourcesListGrid as='ul'>
-                      {section.items
-                        .filter(({ label }) => label !== 'Blog')
-                        .map(
-                          ({
-                            label,
-                            href,
-                            actively,
-                            title,
-                            externalIcon,
-                            logo,
-                            icon: Icon
-                          }) => (
-                            <ResourcesMegaMenuItemLink
-                              key={label}
-                              forwardedAs='li'
-                              href={href}
-                              title={title}
-                              actively={actively}
-                              externalIcon={externalIcon}
-                              data-event-location='Toolbar'
-                              data-event-name={label}
-                              onClick={handleClosePanel}
+                  )}
+                  {isResourcesSection && (
+                    <ResourcesLayout>
+                      <ResourcesListColumn>
+                        <Text css={theme(LABEL_STYLE)}>
+                          {section.description}
+                        </Text>
+                        <ResourcesListGrid as='ul'>
+                          {section.items
+                            .filter(({ label }) => label !== 'Blog')
+                            .map(
+                              ({
+                                label,
+                                href,
+                                actively,
+                                title,
+                                externalIcon,
+                                logo,
+                                icon: Icon
+                              }) => (
+                                <ResourcesMegaMenuItemLink
+                                  key={label}
+                                  forwardedAs='li'
+                                  href={href}
+                                  title={title}
+                                  actively={actively}
+                                  externalIcon={externalIcon}
+                                  data-event-location='Toolbar'
+                                  data-event-name={label}
+                                  onClick={handleClosePanel}
+                                  css={theme({
+                                    '> a': { padding: '6px 12px' },
+                                    whiteSpace: 'normal'
+                                  })}
+                                >
+                                  <ToolbarMenuItemMedia
+                                    label={label}
+                                    logo={logo}
+                                    icon={Icon}
+                                    iconClassName={
+                                      RESOURCE_MENU_ITEM_ICON_CLASSNAME
+                                    }
+                                    iconCss={theme({
+                                      ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
+                                      color: 'black60'
+                                    })}
+                                  />
+                                  <Text
+                                    as='span'
+                                    className='menu-item-title'
+                                    css={theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)}
+                                  >
+                                    {label}
+                                  </Text>
+                                </ResourcesMegaMenuItemLink>
+                              )
+                            )}
+                        </ResourcesListGrid>
+                      </ResourcesListColumn>
+                      {latestPosts.length > 0 && (
+                        <ResourcesBlogColumn>
+                          <ToolbarNavLink
+                            forwardedAs='div'
+                            href='/blog'
+                            data-event-location='Toolbar'
+                            data-event-name='Blog'
+                            onClick={handleClosePanel}
+                            css={theme({
+                              mb: 3,
+                              ...TOOLBAR_TOP_LEVEL_TEXT_STYLES
+                            })}
+                          >
+                            <Caps
+                              as='span'
                               css={theme({
-                                '> a': { padding: '6px 12px' },
-                                whiteSpace: 'normal'
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: 1,
+                                ...TOOLBAR_TOP_LEVEL_CAPS_STYLES
                               })}
                             >
+                              Blog
+                              <FeatherIcon
+                                icon={ChevronRight}
+                                size={TOOLBAR_CHEVRON_ICON_SIZE}
+                              />
+                            </Caps>
+                          </ToolbarNavLink>
+                          <Flex
+                            as='ul'
+                            css={theme({
+                              flexDirection: 'column',
+                              listStyle: 'none',
+                              m: 0,
+                              p: 0,
+                              gap: 2
+                            })}
+                          >
+                            {latestPosts.map(renderLatestPostItem)}
+                          </Flex>
+                        </ResourcesBlogColumn>
+                      )}
+                    </ResourcesLayout>
+                  )}
+                  {!isResourcesSection && (
+                    <Flex
+                      as='ul'
+                      css={{
+                        display: 'grid',
+                        gridTemplateColumns: `repeat(${section.columns}, minmax(180px, 1fr))`,
+                        gap: '4px 32px',
+                        listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle,
+                        margin: TOOLBAR_LIST_RESET_STYLES.m,
+                        padding: TOOLBAR_LIST_RESET_STYLES.p
+                      }}
+                    >
+                      {section.items.map(
+                        ({
+                          label,
+                          href,
+                          actively,
+                          title,
+                          externalIcon,
+                          logo,
+                          description,
+                          icon: Icon
+                        }) => (
+                          <MegaMenuItemLink
+                            key={label}
+                            forwardedAs='li'
+                            href={href}
+                            title={title}
+                            actively={actively}
+                            externalIcon={externalIcon}
+                            data-event-location='Toolbar'
+                            data-event-name={label}
+                            onClick={handleClosePanel}
+                            css={theme({
+                              '> a': { padding: '12px' },
+                              whiteSpace: 'normal'
+                            })}
+                          >
+                            <MenuItemIcon as='span'>
                               <ToolbarMenuItemMedia
                                 label={label}
                                 logo={logo}
                                 icon={Icon}
-                                iconClassName={
-                                  RESOURCE_MENU_ITEM_ICON_CLASSNAME
-                                }
-                                iconCss={theme({
-                                  ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
-                                  color: 'black60'
-                                })}
+                                iconCss={theme(
+                                  label === 'Markdown'
+                                    ? {
+                                      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+                                      top: 0
+                                    }
+                                    : TOOLBAR_MENU_ITEM_MEDIA_STYLES
+                                )}
+                                imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
                               />
+                            </MenuItemIcon>
+                            <Box as='span'>
                               <Text
                                 as='span'
                                 className='menu-item-title'
@@ -649,131 +736,26 @@ const ToolbarDesktop = () => {
                               >
                                 {label}
                               </Text>
-                            </ResourcesMegaMenuItemLink>
-                          )
-                        )}
-                    </ResourcesListGrid>
-                  </ResourcesListColumn>
-                  {latestPosts.length > 0 && (
-                    <ResourcesBlogColumn>
-                      <ToolbarNavLink
-                        forwardedAs='div'
-                        href='/blog'
-                        data-event-location='Toolbar'
-                        data-event-name='Blog'
-                        onClick={handleClosePanel}
-                        css={theme({
-                          mb: 3,
-                          ...TOOLBAR_TOP_LEVEL_TEXT_STYLES
-                        })}
-                      >
-                        <Caps
-                          as='span'
-                          css={theme({
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: 1,
-                            ...TOOLBAR_TOP_LEVEL_CAPS_STYLES
-                          })}
-                        >
-                          Blog
-                          <FeatherIcon
-                            icon={ChevronRight}
-                            size={TOOLBAR_CHEVRON_ICON_SIZE}
-                          />
-                        </Caps>
-                      </ToolbarNavLink>
-                      <Flex
-                        as='ul'
-                        css={theme({
-                          flexDirection: 'column',
-                          listStyle: 'none',
-                          m: 0,
-                          p: 0,
-                          gap: 2
-                        })}
-                      >
-                        {latestPosts.map(renderLatestPostItem)}
-                      </Flex>
-                    </ResourcesBlogColumn>
+                              <Text
+                                as='span'
+                                className='menu-item-description'
+                                css={theme(
+                                  TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES
+                                )}
+                              >
+                                {description}
+                              </Text>
+                            </Box>
+                          </MegaMenuItemLink>
+                        )
+                      )}
+                    </Flex>
                   )}
-                </ResourcesLayout>
-              )}
-              {!isResourcesSection && (
-                <Flex
-                  as='ul'
-                  css={{
-                    display: 'grid',
-                    gridTemplateColumns: `repeat(${section.columns}, minmax(180px, 1fr))`,
-                    gap: '4px 32px',
-                    listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle,
-                    margin: TOOLBAR_LIST_RESET_STYLES.m,
-                    padding: TOOLBAR_LIST_RESET_STYLES.p
-                  }}
-                >
-                  {section.items.map(
-                    ({
-                      label,
-                      href,
-                      actively,
-                      title,
-                      externalIcon,
-                      logo,
-                      description,
-                      icon: Icon
-                    }) => (
-                      <MegaMenuItemLink
-                        key={label}
-                        forwardedAs='li'
-                        href={href}
-                        title={title}
-                        actively={actively}
-                        externalIcon={externalIcon}
-                        data-event-location='Toolbar'
-                        data-event-name={label}
-                        onClick={handleClosePanel}
-                        css={theme({
-                          '> a': { padding: '12px' },
-                          whiteSpace: 'normal'
-                        })}
-                      >
-                        <MenuItemIcon as='span'>
-                          <ToolbarMenuItemMedia
-                            label={label}
-                            logo={logo}
-                            icon={Icon}
-                            iconCss={theme(
-                              label === 'Markdown'
-                                ? { ...TOOLBAR_MENU_ITEM_MEDIA_STYLES, top: 0 }
-                                : TOOLBAR_MENU_ITEM_MEDIA_STYLES
-                            )}
-                            imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
-                          />
-                        </MenuItemIcon>
-                        <Box as='span'>
-                          <Text
-                            as='span'
-                            className='menu-item-title'
-                            css={theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)}
-                          >
-                            {label}
-                          </Text>
-                          <Text
-                            as='span'
-                            className='menu-item-description'
-                            css={theme(TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES)}
-                          >
-                            {description}
-                          </Text>
-                        </Box>
-                      </MegaMenuItemLink>
-                    )
-                  )}
-                </Flex>
-              )}
-            </Box>
-          </MegaMenuPanel>
-        )}
+                </Box>
+              </MegaMenuSection>
+            )
+          })}
+        </MegaMenuPanel>
       </Box>
     </Box>
   )

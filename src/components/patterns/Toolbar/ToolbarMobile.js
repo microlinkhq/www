@@ -8,10 +8,9 @@ import Caps from 'components/elements/Caps'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
 import { ChevronDown, Menu, X } from 'react-feather'
-import { navigate } from 'gatsby'
 import styled from 'styled-components'
-import { colors, fontWeights, speed, theme, transition } from 'theme'
-import React, { useEffect, useRef, useState } from 'react'
+import { colors, fontWeights, theme, transition } from 'theme'
+import React, { useEffect, useState } from 'react'
 
 import {
   DIRECT_NAV_ITEMS,
@@ -46,8 +45,6 @@ const MOBILE_DIRECT_NAV_LABEL_STYLES = {
   ...TOOLBAR_TOP_LEVEL_CAPS_STYLES,
   color: 'black80'
 }
-
-const MOBILE_MENU_CLOSE_DELAY_MS = speed.normal
 
 const MenuButton = styled('button')`
   border: 0;
@@ -125,6 +122,24 @@ const MobileMenuItemLink = styled(ToolbarNavLink)`
   }
 `
 
+const MobileDirectNavLink = styled(ToolbarNavLink)`
+  border-radius: 12px;
+
+  > a {
+    border-radius: inherit;
+    padding: 8px 12px;
+    transition: background-color ${transition.medium},
+      color ${transition.medium};
+  }
+
+  &:hover > a,
+  &:focus-within > a,
+  > .active {
+    background: ${colors.black05};
+    color: ${colors.black};
+  }
+`
+
 const SectionToggle = styled('button').withConfig({
   shouldForwardProp: prop => !['isExpanded'].includes(prop)
 })`
@@ -181,54 +196,18 @@ const toMobileSectionDomId = label =>
 
 const ToolbarMobile = () => {
   const location = useLocation()
-  const closeTimeoutRef = useRef(null)
-  const openFrameRef = useRef(null)
   const [isOpen, setOpen] = useState(false)
-  const [isPanelMounted, setPanelMounted] = useState(false)
   const [openSection, setOpenSection] = useState('')
 
-  const clearAnimationTimers = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current)
-      closeTimeoutRef.current = null
-    }
-    if (openFrameRef.current) {
-      window.cancelAnimationFrame(openFrameRef.current)
-      openFrameRef.current = null
-    }
-  }
-
-  const openMenu = () => {
-    clearAnimationTimers()
-    setPanelMounted(true)
-    openFrameRef.current = window.requestAnimationFrame(() => {
-      setOpen(true)
-      openFrameRef.current = null
-    })
-  }
-
   const closeMenu = () => {
-    clearAnimationTimers()
     setOpen(false)
     setOpenSection('')
-    closeTimeoutRef.current = setTimeout(() => {
-      setPanelMounted(false)
-      closeTimeoutRef.current = null
-    }, MOBILE_MENU_CLOSE_DELAY_MS)
   }
 
-  const toggleOpen = () => {
-    if (isOpen) return closeMenu()
-    openMenu()
-  }
+  const toggleOpen = () => setOpen(value => !value)
 
   const toggleSection = label => {
     setOpenSection(currentLabel => (currentLabel === label ? '' : label))
-  }
-
-  const handleNavigate = href => () => {
-    closeMenu()
-    navigate(href)
   }
 
   useEffect(() => {
@@ -238,7 +217,7 @@ const ToolbarMobile = () => {
   }, [isOpen, location.pathname])
 
   useEffect(() => {
-    if (!isPanelMounted) return
+    if (!isOpen) return
 
     const body = document.body
     const previousOverflow = body.style.overflow
@@ -254,13 +233,7 @@ const ToolbarMobile = () => {
       body.style.overflow = previousOverflow
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isPanelMounted])
-
-  useEffect(() => {
-    return () => {
-      clearAnimationTimers()
-    }
-  }, [])
+  }, [isOpen])
 
   return (
     <Box
@@ -300,163 +273,161 @@ const ToolbarMobile = () => {
           </MenuButton>
         </Flex>
       </Toolbar>
-      {isPanelMounted && (
-        <MobileMenuPanel
-          isOpen={isOpen}
-          id='toolbar-mobile-navigation'
-          role='dialog'
-          aria-label='Navigation'
-          css={theme({
-            height: `calc(100dvh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
-            'min-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
-            'max-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
-            'overflow-y': 'auto',
-            borderTop: 1,
-            borderColor: 'black10',
-            background: 'white95',
-            p: '12px'
-          })}
-        >
-          <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
-            {NAVIGATION_SECTIONS.map(({ label, description, items }) => {
-              const isExpanded = openSection === label
+      <MobileMenuPanel
+        isOpen={isOpen}
+        id='toolbar-mobile-navigation'
+        role='dialog'
+        aria-label='Navigation'
+        aria-hidden={!isOpen}
+        inert={!isOpen ? '' : undefined}
+        css={theme({
+          height: `calc(100dvh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
+          'min-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
+          'max-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
+          'overflow-y': 'auto',
+          borderTop: 1,
+          borderColor: 'black10',
+          background: 'white95',
+          p: '12px'
+        })}
+      >
+        <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
+          {NAVIGATION_SECTIONS.map(({ label, description, items }) => {
+            const isExpanded = openSection === label
 
-              return (
-                <Box as='li' key={label}>
-                  <SectionContainer>
-                    <SectionToggle
-                      type='button'
+            return (
+              <Box as='li' key={label}>
+                <SectionContainer>
+                  <SectionToggle
+                    type='button'
+                    isExpanded={isExpanded}
+                    aria-expanded={isExpanded}
+                    aria-controls={toMobileSectionDomId(label)}
+                    onClick={() => toggleSection(label)}
+                  >
+                    <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+                      {label}
+                    </Caps>
+                    <SectionChevron
+                      icon={ChevronDown}
                       isExpanded={isExpanded}
-                      aria-expanded={isExpanded}
-                      aria-controls={toMobileSectionDomId(label)}
-                      onClick={() => toggleSection(label)}
-                    >
-                      <Caps
-                        as='span'
-                        css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
-                      >
-                        {label}
-                      </Caps>
-                      <SectionChevron
-                        icon={ChevronDown}
-                        isExpanded={isExpanded}
-                        size={TOOLBAR_CHEVRON_ICON_SIZE}
-                      />
-                    </SectionToggle>
-                    <SectionContent
-                      isExpanded={isExpanded}
-                      aria-hidden={!isExpanded}
-                    >
-                      <Text
-                        as='p'
-                        css={theme({
-                          ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
-                          mt: 0,
-                          mb: 0,
-                          px: 2,
-                          pb: 2
-                        })}
-                      >
-                        {description}
-                      </Text>
-                    </SectionContent>
-                  </SectionContainer>
+                      size={TOOLBAR_CHEVRON_ICON_SIZE}
+                    />
+                  </SectionToggle>
                   <SectionContent
                     isExpanded={isExpanded}
                     aria-hidden={!isExpanded}
                   >
-                    <Flex
-                      id={toMobileSectionDomId(label)}
-                      as='ul'
+                    <Text
+                      as='p'
                       css={theme({
-                        flexDirection: 'column',
-                        ...TOOLBAR_LIST_RESET_STYLES,
-                        mt: 1,
-                        mb: 2
+                        ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
+                        mt: 0,
+                        mb: 0,
+                        px: 2,
+                        pb: 2
                       })}
                     >
-                      {items.map(
-                        ({
-                          label,
-                          href,
-                          actively,
-                          title,
-                          externalIcon,
-                          description,
-                          logo,
-                          icon: Icon
-                        }) => (
-                          <MobileMenuItemLink
-                            key={label}
-                            forwardedAs='li'
-                            href={href}
-                            actively={actively}
-                            title={title}
-                            externalIcon={externalIcon}
-                            data-event-location='Toolbar'
-                            data-event-name={label}
-                            onClick={closeMenu}
-                            css={theme(MOBILE_MENU_ITEM_STYLES)}
-                          >
-                            <MenuItemIcon as='span'>
-                              <ToolbarMenuItemMedia
-                                label={label}
-                                logo={logo}
-                                icon={Icon}
-                                iconCss={theme(
-                                  label === 'Markdown'
-                                    ? {
-                                        ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-                                        top: 0
-                                      }
-                                    : TOOLBAR_MENU_ITEM_MEDIA_STYLES
-                                )}
-                                imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
-                              />
-                            </MenuItemIcon>
-                            <Box as='span'>
-                              <MenuItemTitle
-                                as='span'
-                                className='menu-item-title'
-                              >
-                                {label}
-                              </MenuItemTitle>
-                              <MenuItemDescription
-                                as='span'
-                                className='menu-item-description'
-                              >
-                                {description}
-                              </MenuItemDescription>
-                            </Box>
-                          </MobileMenuItemLink>
-                        )
-                      )}
-                    </Flex>
+                      {description}
+                    </Text>
                   </SectionContent>
-                </Box>
-              )
-            })}
+                </SectionContainer>
+                <SectionContent
+                  isExpanded={isExpanded}
+                  aria-hidden={!isExpanded}
+                >
+                  <Flex
+                    id={toMobileSectionDomId(label)}
+                    as='ul'
+                    css={theme({
+                      flexDirection: 'column',
+                      ...TOOLBAR_LIST_RESET_STYLES,
+                      mt: 1,
+                      mb: 2
+                    })}
+                  >
+                    {items.map(
+                      ({
+                        label,
+                        href,
+                        actively,
+                        title,
+                        externalIcon,
+                        description,
+                        logo,
+                        icon: Icon
+                      }) => (
+                        <MobileMenuItemLink
+                          key={label}
+                          forwardedAs='li'
+                          href={href}
+                          actively={actively}
+                          title={title}
+                          externalIcon={externalIcon}
+                          data-event-location='Toolbar'
+                          data-event-name={label}
+                          onClick={closeMenu}
+                          css={theme(MOBILE_MENU_ITEM_STYLES)}
+                        >
+                          <MenuItemIcon as='span'>
+                            <ToolbarMenuItemMedia
+                              label={label}
+                              logo={logo}
+                              icon={Icon}
+                              iconCss={theme(
+                                label === 'Markdown'
+                                  ? {
+                                    ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+                                    top: 0
+                                  }
+                                  : TOOLBAR_MENU_ITEM_MEDIA_STYLES
+                              )}
+                              imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
+                            />
+                          </MenuItemIcon>
+                          <Box as='span'>
+                            <MenuItemTitle
+                              as='span'
+                              className='menu-item-title'
+                            >
+                              {label}
+                            </MenuItemTitle>
+                            <MenuItemDescription
+                              as='span'
+                              className='menu-item-description'
+                            >
+                              {description}
+                            </MenuItemDescription>
+                          </Box>
+                        </MobileMenuItemLink>
+                      )
+                    )}
+                  </Flex>
+                </SectionContent>
+              </Box>
+            )
+          })}
+        </Box>
+        <Box css={theme({ pt: 0, pb: 2 })}>
+          <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
+            {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
+              <MobileDirectNavLink
+                key={label}
+                forwardedAs='li'
+                href={href}
+                actively={actively}
+                data-event-location='Toolbar'
+                data-event-name={label}
+                onClick={closeMenu}
+              >
+                <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                  {label}
+                </Caps>
+              </MobileDirectNavLink>
+            ))}
           </Box>
-          <Box css={theme({ pt: 0, pb: 2 })}>
-            <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
-              {DIRECT_NAV_ITEMS.map(({ label, href }) => (
-                <Box as='li' key={label}>
-                  <SectionContainer>
-                    <SectionToggle type='button' onClick={handleNavigate(href)}>
-                      <Caps
-                        as='span'
-                        css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}
-                      >
-                        {label}
-                      </Caps>
-                    </SectionToggle>
-                  </SectionContainer>
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        </MobileMenuPanel>
-      )}
+        </Box>
+      </MobileMenuPanel>
     </Box>
   )
 }
