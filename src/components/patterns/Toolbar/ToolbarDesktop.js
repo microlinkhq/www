@@ -15,7 +15,15 @@ import { rgba } from 'polished'
 import { formatDate } from 'helpers/format-date'
 import { useBlogIndex } from 'components/hook/use-blog-index'
 
-import { colors, fontWeights, layout, theme, transition } from 'theme'
+import {
+  colors,
+  fontWeights,
+  layout,
+  shadows,
+  speed,
+  theme,
+  transition
+} from 'theme'
 
 import {
   DIRECT_NAV_ITEMS,
@@ -55,7 +63,9 @@ const TOP_LEVEL_LINK_LAYOUT_STYLES = {
   py: 2
 }
 
-const TOP_LEVEL_ACTIVE_BACKGROUND = rgba(colors.black, 0.06)
+const TOP_LEVEL_ACTIVE_BACKGROUND = colors.black05
+const PANEL_CLOSE_DELAY_MS = speed.normal
+const PANEL_VISIBILITY_TRANSITION_MS = speed.quickly
 
 const MENU_LINK_HOVER_STYLES = css`
   transition: background-color ${transition.medium};
@@ -93,7 +103,7 @@ const TopLevelTrigger = styled('button').withConfig({
   border-radius: 999px;
   background-color: ${({ isActive }) =>
     isActive ? TOP_LEVEL_ACTIVE_BACKGROUND : 'transparent'};
-  transition: color ${transition.medium};
+  transition: color ${transition.medium}, background-color ${transition.medium};
   ${theme({
     color: 'black80',
     fontFamily: 'sans',
@@ -101,7 +111,17 @@ const TopLevelTrigger = styled('button').withConfig({
   })};
 `
 
-const MegaMenuPanel = styled(Box)`
+const TopLevelChevron = styled(FeatherIcon).withConfig({
+  shouldForwardProp: prop => !['isOpen'].includes(prop)
+})`
+  align-items: center;
+  transform: rotate(${({ isOpen }) => (isOpen ? '180deg' : '0deg')});
+  transition: transform ${transition.medium};
+`
+
+const MegaMenuPanel = styled(Box).withConfig({
+  shouldForwardProp: prop => !['isVisible'].includes(prop)
+})`
   margin-top: 8px;
   margin-bottom: 12px;
   border: 1px solid ${colors.black10};
@@ -109,7 +129,13 @@ const MegaMenuPanel = styled(Box)`
   backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
   background: ${rgba(colors.white95, 0.96)};
-  box-shadow: 0 24px 60px ${rgba('black', 0.16)};
+  box-shadow: ${shadows[2]};
+  transform-origin: top center;
+  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
+  transform: translateY(${({ isVisible }) => (isVisible ? '0px' : '-8px')})
+    scale(${({ isVisible }) => (isVisible ? 1 : 0.985)});
+  pointer-events: ${({ isVisible }) => (isVisible ? 'auto' : 'none')};
+  transition: opacity ${transition.medium}, transform ${transition.medium};
 `
 
 const MenuItemIcon = styled(Box)`
@@ -227,14 +253,22 @@ const ToolbarDesktop = () => {
   const blogPosts = useBlogIndex()
   const headerRef = useRef(null)
   const closeTimeoutRef = useRef(null)
+  const panelUnmountTimeoutRef = useRef(null)
+  const openPanelFrameRef = useRef(null)
   const [openSection, setOpenSection] = useState(DEBUG_STICKY_SECTION)
+  const [renderedSection, setRenderedSection] = useState(DEBUG_STICKY_SECTION)
+  const [isPanelVisible, setPanelVisible] = useState(
+    Boolean(DEBUG_STICKY_SECTION)
+  )
 
   const activeSection = useMemo(
     () => getToolbarSectionFromPathname(location.pathname),
     [location.pathname]
   )
 
-  const section = NAVIGATION_SECTIONS.find(({ label }) => label === openSection)
+  const section = NAVIGATION_SECTIONS.find(
+    ({ label }) => label === renderedSection
+  )
   const isResourcesSection = section?.label === 'Resources'
   const latestPosts = useMemo(() => blogPosts.slice(0, 3), [blogPosts])
 
@@ -248,8 +282,43 @@ const ToolbarDesktop = () => {
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current)
       }
+      if (panelUnmountTimeoutRef.current) {
+        clearTimeout(panelUnmountTimeoutRef.current)
+      }
+      if (openPanelFrameRef.current) {
+        window.cancelAnimationFrame(openPanelFrameRef.current)
+      }
     }
   }, [])
+
+  useEffect(() => {
+    if (openPanelFrameRef.current) {
+      window.cancelAnimationFrame(openPanelFrameRef.current)
+      openPanelFrameRef.current = null
+    }
+
+    if (panelUnmountTimeoutRef.current) {
+      clearTimeout(panelUnmountTimeoutRef.current)
+      panelUnmountTimeoutRef.current = null
+    }
+
+    if (openSection) {
+      setRenderedSection(openSection)
+      openPanelFrameRef.current = window.requestAnimationFrame(() => {
+        setPanelVisible(true)
+        openPanelFrameRef.current = null
+      })
+      return
+    }
+
+    setPanelVisible(false)
+
+    if (!renderedSection) return
+    panelUnmountTimeoutRef.current = setTimeout(() => {
+      setRenderedSection('')
+      panelUnmountTimeoutRef.current = null
+    }, PANEL_VISIBILITY_TRANSITION_MS)
+  }, [openSection, renderedSection])
 
   useEffect(() => {
     if (!openSection || isStickySection) return
@@ -288,7 +357,7 @@ const ToolbarDesktop = () => {
     closeTimeoutRef.current = setTimeout(() => {
       setOpenSection('')
       closeTimeoutRef.current = null
-    }, 150)
+    }, PANEL_CLOSE_DELAY_MS)
   }
 
   const handleOpenSection = sectionId => {
@@ -384,8 +453,7 @@ const ToolbarDesktop = () => {
         left: 0,
         right: 0,
         'backdrop-filter': 'blur(12px) saturate(140%)',
-        '-webkit-backdrop-filter': 'blur(12px) saturate(140%)',
-        'background-color': rgba('white', 0.5)
+        '-webkit-backdrop-filter': 'blur(12px) saturate(140%)'
       })}
     >
       <Box css={theme({ px: 3, mx: 'auto', maxWidth: layout.large })}>
@@ -435,17 +503,10 @@ const ToolbarDesktop = () => {
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
                     </Caps>
-                    <FeatherIcon
+                    <TopLevelChevron
                       icon={ChevronDown}
+                      isOpen={openSection === label}
                       size={TOOLBAR_CHEVRON_ICON_SIZE}
-                      css={{ alignItems: 'center' }}
-                      style={{
-                        transform:
-                          openSection === label
-                            ? 'rotate(180deg)'
-                            : 'rotate(0deg)',
-                        transition: 'transform 150ms ease'
-                      }}
                     />
                   </TopLevelTrigger>
                 </Box>
@@ -499,6 +560,7 @@ const ToolbarDesktop = () => {
         </Toolbar>
         {section && (
           <MegaMenuPanel
+            isVisible={isPanelVisible}
             id={toSectionDomId(section.label)}
             role='dialog'
             aria-label={`${section.label} navigation`}

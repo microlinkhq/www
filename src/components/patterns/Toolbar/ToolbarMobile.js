@@ -1,15 +1,17 @@
 import Box from 'components/elements/Box'
-import Toolbar from 'components/elements/Toolbar'
+import Toolbar, {
+  TOOLBAR_PRIMARY_MOBILE_HEIGHT
+} from 'components/elements/Toolbar'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
-import { ChevronDown, ChevronRight, Menu, X } from 'react-feather'
+import { ChevronDown, Menu, X } from 'react-feather'
 import { navigate } from 'gatsby'
 import styled from 'styled-components'
-import { colors, fontWeights, theme, transition } from 'theme'
-import React, { useEffect, useState } from 'react'
+import { colors, fontWeights, speed, theme, transition } from 'theme'
+import React, { useEffect, useRef, useState } from 'react'
 
 import {
   DIRECT_NAV_ITEMS,
@@ -44,6 +46,8 @@ const MOBILE_DIRECT_NAV_LABEL_STYLES = {
   ...TOOLBAR_TOP_LEVEL_CAPS_STYLES,
   color: 'black80'
 }
+
+const MOBILE_MENU_CLOSE_DELAY_MS = speed.normal
 
 const MenuButton = styled('button')`
   border: 0;
@@ -118,7 +122,9 @@ const MobileMenuItemLink = styled(ToolbarNavLink)`
   }
 `
 
-const SectionToggle = styled('button')`
+const SectionToggle = styled('button').withConfig({
+  shouldForwardProp: prop => !['isExpanded'].includes(prop)
+})`
   appearance: none;
   border: 0;
   background: transparent;
@@ -133,6 +139,37 @@ const SectionToggle = styled('button')`
     pb: 0,
     mt: 2
   })};
+  transition: color ${transition.medium};
+`
+
+const SectionChevron = styled(FeatherIcon).withConfig({
+  shouldForwardProp: prop => !['isExpanded'].includes(prop)
+})`
+  color: ${colors.black60};
+  transform: rotate(${({ isExpanded }) => (isExpanded ? '0deg' : '-90deg')});
+  transition: transform ${transition.medium}, color ${transition.medium};
+`
+
+const SectionContent = styled(Box).withConfig({
+  shouldForwardProp: prop => !['isExpanded'].includes(prop)
+})`
+  overflow: hidden;
+  max-height: ${({ isExpanded }) => (isExpanded ? '1200px' : '0px')};
+  opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
+  transform: translateY(${({ isExpanded }) => (isExpanded ? '0px' : '-4px')});
+  transition: max-height ${transition.long}, opacity ${transition.short},
+    transform ${transition.medium};
+  pointer-events: ${({ isExpanded }) => (isExpanded ? 'auto' : 'none')};
+`
+
+const MobileMenuPanel = styled(Box).withConfig({
+  shouldForwardProp: prop => !['isOpen'].includes(prop)
+})`
+  transform-origin: top center;
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  transform: translateY(${({ isOpen }) => (isOpen ? '0px' : '-8px')});
+  pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
+  transition: opacity ${transition.medium}, transform ${transition.medium};
 `
 
 const toMobileSectionDomId = label =>
@@ -140,13 +177,45 @@ const toMobileSectionDomId = label =>
 
 const ToolbarMobile = () => {
   const location = useLocation()
+  const closeTimeoutRef = useRef(null)
+  const openFrameRef = useRef(null)
   const [isOpen, setOpen] = useState(false)
+  const [isPanelMounted, setPanelMounted] = useState(false)
   const [openSection, setOpenSection] = useState('')
 
-  const toggleOpen = () => setOpen(value => !value)
+  const clearAnimationTimers = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+    if (openFrameRef.current) {
+      window.cancelAnimationFrame(openFrameRef.current)
+      openFrameRef.current = null
+    }
+  }
+
+  const openMenu = () => {
+    clearAnimationTimers()
+    setPanelMounted(true)
+    openFrameRef.current = window.requestAnimationFrame(() => {
+      setOpen(true)
+      openFrameRef.current = null
+    })
+  }
+
   const closeMenu = () => {
+    clearAnimationTimers()
     setOpen(false)
     setOpenSection('')
+    closeTimeoutRef.current = setTimeout(() => {
+      setPanelMounted(false)
+      closeTimeoutRef.current = null
+    }, MOBILE_MENU_CLOSE_DELAY_MS)
+  }
+
+  const toggleOpen = () => {
+    if (isOpen) return closeMenu()
+    openMenu()
   }
 
   const toggleSection = label => {
@@ -165,7 +234,7 @@ const ToolbarMobile = () => {
   }, [isOpen, location.pathname])
 
   useEffect(() => {
-    if (!isOpen) return
+    if (!isPanelMounted) return
 
     const body = document.body
     const previousOverflow = body.style.overflow
@@ -181,7 +250,13 @@ const ToolbarMobile = () => {
       body.style.overflow = previousOverflow
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isOpen])
+  }, [isPanelMounted])
+
+  useEffect(() => {
+    return () => {
+      clearAnimationTimers()
+    }
+  }, [])
 
   return (
     <Box
@@ -221,15 +296,16 @@ const ToolbarMobile = () => {
           </MenuButton>
         </Flex>
       </Toolbar>
-      {isOpen && (
-        <Box
+      {isPanelMounted && (
+        <MobileMenuPanel
+          isOpen={isOpen}
           id='toolbar-mobile-navigation'
           role='dialog'
           aria-label='Navigation'
           css={theme({
-            height: 'calc(100dvh - 64px)',
-            'min-height': 'calc(100vh - 64px)',
-            'max-height': 'calc(100vh - 64px)',
+            height: `calc(100dvh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
+            'min-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
+            'max-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
             'overflow-y': 'auto',
             borderTop: 1,
             borderColor: 'black10',
@@ -246,6 +322,7 @@ const ToolbarMobile = () => {
                   <SectionContainer>
                     <SectionToggle
                       type='button'
+                      isExpanded={isExpanded}
                       aria-expanded={isExpanded}
                       aria-controls={toMobileSectionDomId(label)}
                       onClick={() => toggleSection(label)}
@@ -256,13 +333,16 @@ const ToolbarMobile = () => {
                       >
                         {label}
                       </Caps>
-                      <FeatherIcon
-                        icon={isExpanded ? ChevronDown : ChevronRight}
+                      <SectionChevron
+                        icon={ChevronDown}
+                        isExpanded={isExpanded}
                         size={TOOLBAR_CHEVRON_ICON_SIZE}
-                        css={{ color: colors.black60 }}
                       />
                     </SectionToggle>
-                    {isExpanded && (
+                    <SectionContent
+                      isExpanded={isExpanded}
+                      aria-hidden={!isExpanded}
+                    >
                       <Text
                         as='p'
                         css={theme({
@@ -275,9 +355,12 @@ const ToolbarMobile = () => {
                       >
                         {description}
                       </Text>
-                    )}
+                    </SectionContent>
                   </SectionContainer>
-                  {isExpanded && (
+                  <SectionContent
+                    isExpanded={isExpanded}
+                    aria-hidden={!isExpanded}
+                  >
                     <Flex
                       id={toMobileSectionDomId(label)}
                       as='ul'
@@ -338,7 +421,7 @@ const ToolbarMobile = () => {
                         )
                       )}
                     </Flex>
-                  )}
+                  </SectionContent>
                 </Box>
               )
             })}
@@ -361,7 +444,7 @@ const ToolbarMobile = () => {
               ))}
             </Box>
           </Box>
-        </Box>
+        </MobileMenuPanel>
       )}
     </Box>
   )
