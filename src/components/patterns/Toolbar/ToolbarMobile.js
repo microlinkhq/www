@@ -58,8 +58,7 @@ const MOBILE_DIRECT_NAV_ITEM_STYLES = {
   listStyle: 'none',
   display: 'flex',
   width: '100%',
-  alignItems: 'stretch',
-  mt: 2
+  alignItems: 'stretch'
 }
 
 const MenuButton = styled('button')`
@@ -173,11 +172,7 @@ const SectionToggle = styled('button').withConfig({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${theme({
-    mt: 2,
-    borderRadius: 2,
-    ...MOBILE_TOP_LEVEL_ITEM_SURFACE_STYLES
-  })};
+  ${theme(MOBILE_TOP_LEVEL_ITEM_SURFACE_STYLES)};
 `
 
 const SectionChevron = styled(FeatherIcon).withConfig({
@@ -401,9 +396,9 @@ const ToolbarMobile = () => {
                               iconCss={theme(
                                 label === 'Markdown'
                                   ? {
-                                      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-                                      top: 0
-                                    }
+                                    ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+                                    top: 0
+                                  }
                                   : TOOLBAR_MENU_ITEM_MEDIA_STYLES
                               )}
                               imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
@@ -431,26 +426,22 @@ const ToolbarMobile = () => {
               </Box>
             )
           })}
-        </Box>
-        <Box css={theme({ pt: 0, pb: 2 })}>
-          <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
-            {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
-              <MobileDirectNavLink
-                key={label}
-                forwardedAs='li'
-                href={href}
-                actively={actively}
-                data-event-location='Toolbar'
-                data-event-name={label}
-                onClick={closeMenu}
-                css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
-              >
-                <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
-                  {label}
-                </Caps>
-              </MobileDirectNavLink>
-            ))}
-          </Box>
+          {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
+            <MobileDirectNavLink
+              key={label}
+              forwardedAs='li'
+              href={href}
+              actively={actively}
+              data-event-location='Toolbar'
+              data-event-name={label}
+              onClick={closeMenu}
+              css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
+            >
+              <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                {label}
+              </Caps>
+            </MobileDirectNavLink>
+          ))}
         </Box>
       </MobileMenuPanel>
     </Box>
