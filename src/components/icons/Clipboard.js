@@ -7,7 +7,7 @@ export const Clipboard = props => (
     viewBox='0 0 16 16'
     version='1.1'
     width='16px'
-    ariaHidden='true'
+    aria-hidden='true'
     {...props}
   >
     <path

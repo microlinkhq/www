@@ -6,7 +6,7 @@ export const Markdown = props => (
     xmlns='http://www.w3.org/2000/svg'
     width='16px'
     height='16px'
-    ariaHidden='true'
+    aria-hidden='true'
     className='SVGInline-svg SVGInline--cleaned-svg SVG-svg Icon-svg Icon--markdown-svg Icon-color-svg Icon-color--gray600-svg'
     viewBox='0 0 208 128'
     {...props}
