@@ -181,7 +181,7 @@ const ResourcesMegaMenuItemLink = styled(MegaMenuItemLink)`
   border-radius: 10px;
 
   > a {
-    align-items: center;
+    align-items: flex-start;
   }
 
   .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
@@ -522,7 +522,8 @@ const ToolbarDesktop = () => {
                     onClick={handleTriggerClick(label)}
                     onMouseEnter={() => handleOpenSectionWithHover(label)}
                     onFocus={() =>
-                      canUseFocusOpen() ? handleOpenSection(label) : undefined}
+                      canUseFocusOpen() ? handleOpenSection(label) : undefined
+                    }
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}

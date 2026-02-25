@@ -175,12 +175,6 @@ export const NAVIGATION_SECTIONS = [
     columns: 2,
     items: [
       createNavigationItem({
-        label: 'User Agents',
-        href: '/user-agents',
-        description: 'Use curated browser signatures for testing',
-        icon: Shield
-      }),
-      createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
         description: 'Preview social cards before publishing links',
@@ -258,6 +252,12 @@ export const NAVIGATION_SECTIONS = [
         href: '/recipes',
         description: 'Use ready-made recipes for common workflows',
         icon: Command
+      }),
+      createNavigationItem({
+        label: 'User Agents',
+        href: '/user-agents',
+        description: 'Use curated browser signatures for testing',
+        icon: Shield
       })
     ]
   }

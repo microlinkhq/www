@@ -34,13 +34,12 @@ export const TOOLBAR_MENU_ITEM_MEDIA_STYLES = {
 export const TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES = {
   ...TOOLBAR_MENU_ITEM_ICON_STYLES,
   position: 'relative',
-  top: '6px'
+  top: 0
 }
 
 export const TOOLBAR_MENU_ITEM_TITLE_STYLES = {
   display: 'block',
   fontSize: 1,
-  lineHeight: 0,
   fontFamily: 'sans',
   fontWeight: fontWeights.regular,
   color: 'black80',
@@ -50,14 +49,11 @@ export const TOOLBAR_MENU_ITEM_TITLE_STYLES = {
 }
 
 export const TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES = {
-  display: 'block',
   fontSize: 0,
-  lineHeight: 1,
-  color: 'black60'
+  color: 'black80'
 }
 
 export const TOOLBAR_SECTION_DESCRIPTION_STYLES = {
   fontSize: 0,
-  lineHeight: 2,
-  color: 'black60'
+  color: 'black80'
 }
