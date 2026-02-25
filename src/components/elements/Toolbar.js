@@ -5,8 +5,8 @@ import React from 'react'
 
 import Flex from './Flex'
 
+export const TOOLBAR_PRIMARY_MOBILE_HEIGHT = '44px'
 export const TOOLBAR_PRIMARY_HEIGHT = '64px'
-export const TOOLBAR_SECONDARY_HEIGHT = '48px'
 export const DOCS_NAVBAR_HEIGHT = '74px'
 
 export const DOCS_LAYOUT_OFFSET = `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${DOCS_NAVBAR_HEIGHT})`
@@ -25,20 +25,18 @@ const ToolbarBase = styled(Flex)`
   ${hideScrollbar};
 `
 
-const secondaryProps = {
-  justifyContent: 'center'
-}
-
 const Toolbar = ({ type = 'primary', ...props }) => {
-  const isSecondary = type !== 'primary'
-
   return (
     <ToolbarBase
       data-toolbar={type}
-      css={{
-        height: isSecondary ? TOOLBAR_SECONDARY_HEIGHT : TOOLBAR_PRIMARY_HEIGHT,
-        ...(isSecondary ? secondaryProps : {})
-      }}
+      css={theme({
+        height: [
+          TOOLBAR_PRIMARY_MOBILE_HEIGHT,
+          TOOLBAR_PRIMARY_HEIGHT,
+          TOOLBAR_PRIMARY_HEIGHT,
+          TOOLBAR_PRIMARY_HEIGHT
+        ]
+      })}
       {...props}
     />
   )

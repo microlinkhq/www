@@ -10,12 +10,15 @@ import { useBreakpoint } from 'components/hook/use-breakpoint'
 
 import themeSpec, { theme as themeProp } from 'theme'
 
-import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
+import {
+  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_PRIMARY_MOBILE_HEIGHT
+} from 'components/elements/Toolbar'
 
 import 'styles/main.scss'
 
 const TOOLBAR_HEIGHTS = [
-  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_PRIMARY_MOBILE_HEIGHT,
   TOOLBAR_PRIMARY_HEIGHT,
   TOOLBAR_PRIMARY_HEIGHT,
   TOOLBAR_PRIMARY_HEIGHT
@@ -52,6 +55,27 @@ const SkipLink = () => (
   <SkipLinkAnchor href='#main-content'>Skip to content</SkipLinkAnchor>
 )
 
+const Root = styled(Flex)`
+  ${themeProp({
+    flexDirection: 'column',
+    'overflow-x': 'hidden',
+    'min-height': '100vh'
+  })}
+`
+
+const Main = styled(Box)`
+  ${themeProp({
+    pt: TOOLBAR_HEIGHTS,
+    mt: [0, 0, 4],
+    px: [3, 3, 0],
+    flex: 1,
+    overflow: 'visible',
+    '&:focus': {
+      outline: 'none'
+    }
+  })}
+`
+
 const Layout = ({
   footer = true,
   children,
@@ -65,41 +89,17 @@ const Layout = ({
   return (
     <ThemeProvider theme={themeSpec}>
       <SkipLink />
-      <Flex
-        data-breakpoint={breakpoint}
-        onClick={onClick}
-        style={style}
-        css={themeProp({
-          flexDirection: 'column',
-          'overflow-x': 'hidden',
-          'min-height': '100vh'
-        })}
-      >
+      <Root data-breakpoint={breakpoint} onClick={onClick} style={style}>
         <Toolbar as='header' isDark={isDark} style={style} />
-        <Box
-          as='main'
-          id='main-content'
-          tabIndex={-1}
-          css={themeProp({
-            pt: TOOLBAR_HEIGHTS,
-            mt: 4,
-            px: [3, 3, 0],
-            flex: 1,
-            overflow: 'visible',
-            '&:focus': {
-              outline: 'none'
-            }
-          })}
-          {...props}
-        >
+        <Main as='main' id='main-content' tabIndex={-1} {...props}>
           {children}
-        </Box>
+        </Main>
         {footer && (
           <Box as='footer' className='hidden-print'>
             <Footer isDark={isDark} {...footer} />
           </Box>
         )}
-      </Flex>
+      </Root>
     </ThemeProvider>
   )
 }

@@ -100,7 +100,7 @@ const DocTemplate = ({
             <Choose.When condition={!!title}>
               <H1
                 css={theme({
-                  mt: '-12px',
+                  mt: [0, '-12px'],
                   mb: 1
                 })}
                 variant={null}

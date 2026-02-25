@@ -121,6 +121,7 @@ const Aside = ({ children, ...props }) => {
         />
         <AsideButton
           title='open aside menu'
+          css={theme({ mb: 2 })}
           iconComponent={
             <FeatherIcon
               icon={Menu}
