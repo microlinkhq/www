@@ -240,10 +240,9 @@ const ProductInformation = () => (
               requests per day — enough to explore all nine tools.
             </div>
             <div>
-              Add your{' '}
-              <Link href='https://microlink.io/pricing'>Microlink API key</Link>{' '}
-              when you need production volume, configurable TTL, custom headers,
-              or proxy support.
+              Add your <Link href='/#pricing'>Microlink API key</Link> when you
+              need production volume, configurable TTL, custom headers, or proxy
+              support.
             </div>
           </>
         )
@@ -293,10 +292,7 @@ const ProductInformation = () => (
             <div>
               When you need more throughput or pro features, upgrade to a paid
               plan at any time from{' '}
-              <Link href='https://microlink.io/pricing'>
-                microlink.io/pricing
-              </Link>
-              .
+              <Link href='/#pricing'>microlink.io/#pricing</Link>.
             </div>
           </>
         )
