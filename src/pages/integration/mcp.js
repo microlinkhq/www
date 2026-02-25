@@ -5,7 +5,7 @@ import React from 'react'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
-import Image from 'components/elements/Image/Image'
+import Video from 'components/elements/Video/Video'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
@@ -182,7 +182,7 @@ const MediaPlaceholder = () => (
     >
       <Subhead
         css={theme({
-          pb: [4, 4, 5, 5],
+          mb: 3,
           textAlign: 'center',
           fontSize: [3, 3, 4, 4]
         })}
@@ -190,14 +190,20 @@ const MediaPlaceholder = () => (
       >
         Ask. Get. Done.
       </Subhead>
-      {/* TODO: Replace with a real screenshot/video of MCP in use inside Claude or Cursor */}
-      <Image
+      <Text css={theme({ pb: [3, 3, 4, 4] })}>
+        Use the Microlink API through natural language.
+      </Text>
+      <Video
+        src='https://cdn.microlink.io/mcp/codex-screenshot.mp4'
+        title='Microlink MCP in action'
+        controls={false}
         css={theme({
           width: ['100%', '100%', layout.normal, layout.normal],
-          maxWidth: layout.normal
+          mb: [3, 3, 4, 4],
+          maxWidth: layout.normal,
+          borderRadius: 3,
+          boxShadow: '0 32px 80px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.1)'
         })}
-        alt='Microlink MCP in action'
-        src='https://cdn.microlink.io/illustrations/abstract-2.svg'
       />
     </Flex>
   </Block>
@@ -237,7 +243,7 @@ const ProductInformation = () => (
           <>
             <div>
               No API key required to get started. The free tier covers 50
-              requests per day — enough to explore all nine tools.
+              requests per day — enough to explore all ten tools.
             </div>
             <div>
               Add your <Link href='/#pricing'>Microlink API key</Link> when you
@@ -274,8 +280,8 @@ const ProductInformation = () => (
               detect a site&apos;s tech stack, and extract color palettes.
             </div>
             <div>
-              All nine tools are available through natural language — no code,
-              no API calls, no configuration beyond the initial setup.
+              All ten tools are available through natural language — no code, no
+              API calls, no configuration beyond the initial setup.
             </div>
           </>
         )
@@ -286,7 +292,7 @@ const ProductInformation = () => (
           <>
             <div>
               Yes. Start immediately with 50 free requests per day — no credit
-              card, no signup required. All nine tools are available on the free
+              card, no signup required. All ten tools are available on the free
               tier.
             </div>
             <div>
@@ -329,7 +335,9 @@ const ProductInformation = () => (
               title='mcp.json'
               css={{ marginTop: '12px', marginBottom: '12px' }}
             >
-              {`{\n  "mcpServers": {\n    "microlink": {\n      "command": "npx",\n      "args": ["-y", "@microlink/mcp"]\n    }\n  }\n}`}
+              {
+                '{\n  "mcpServers": {\n    "microlink": {\n      "command": "npx",\n      "args": ["-y", "@microlink/mcp"]\n    }\n  }\n}'
+              }
             </Terminal>
             <div>
               Optionally, install globally to run it as a named command:
@@ -339,7 +347,7 @@ const ProductInformation = () => (
               shellSymbol='$'
               css={{ marginTop: '12px', marginBottom: '12px' }}
             >
-              {'npm install -g @microlink/mcp'}
+              npm install -g @microlink/mcp
             </Terminal>
             <div>
               And then reference it via <code>node</code> with the absolute path
@@ -349,7 +357,9 @@ const ProductInformation = () => (
               title='mcp.json'
               css={{ marginTop: '12px', marginBottom: '12px' }}
             >
-              {`{\n  "mcpServers": {\n    "microlink": {\n      "command": "node",\n      "args": ["/absolute/path/to/mcp/src/index.js"],\n      "env": {\n        "MICROLINK_API_KEY": "YOUR_MICROLINK_API_KEY"\n      }\n    }\n  }\n}`}
+              {
+                '{\n  "mcpServers": {\n    "microlink": {\n      "command": "node",\n      "args": ["/absolute/path/to/mcp/src/index.js"],\n      "env": {\n        "MICROLINK_API_KEY": "YOUR_MICROLINK_API_KEY"\n      }\n    }\n  }\n}'
+              }
             </Terminal>
           </>
         )
