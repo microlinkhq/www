@@ -377,12 +377,12 @@ const ToolbarMobile = () => {
                               iconCss={theme(
                                 label === 'Markdown'
                                   ? {
-                                    ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-                                    top: 0
-                                  }
+                                      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+                                      top: 0
+                                    }
                                   : TOOLBAR_MENU_ITEM_MEDIA_STYLES
                               )}
-                              imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
+                              imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
                             />
                           </MenuItemIcon>
                           <Box as='span'>

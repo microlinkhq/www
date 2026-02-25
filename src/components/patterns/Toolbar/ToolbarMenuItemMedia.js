@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'components/elements/Image/Image'
 import FeatherIcon from 'components/icons/Feather'
 
 const ToolbarMenuItemMedia = ({
@@ -13,13 +12,7 @@ const ToolbarMenuItemMedia = ({
 }) =>
   logo
     ? (
-      <Image
-        src={logo}
-        width={size}
-        height={size}
-        alt={label}
-        css={imageCss}
-      />
+      <img src={logo} width={size} height={size} alt={label} style={imageCss} />
       )
     : (
       <FeatherIcon
