@@ -2,7 +2,6 @@ import { borders, layout, colors, theme } from 'theme'
 import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
 
-import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
@@ -22,34 +21,49 @@ import Layout from 'components/patterns/Layout'
 
 const FEATURES = [
   {
-    title: 'Screenshots from AI agents',
+    title: 'extract',
     description:
-      'Capture pixel-perfect screenshots of any website directly from Claude, Cursor, or any MCP-compatible client. No browser automation setup required.'
+      'The most capable tool. Extracts metadata, scrapes custom fields via CSS selectors, and can combine screenshots, PDFs, video, audio, insights, and palette — all in a single request.'
   },
   {
-    title: 'PDF generation',
+    title: 'screenshot',
     description:
-      'Generate PDFs from any URL through your AI assistant. Full control over paper size, margins, orientation, and page ranges — all via natural language.'
+      'Captures a screenshot of any URL. Supports full-page, element targeting, device emulation, browser overlays, custom CSS/JS injection. Returns a permanent CDN URL.'
   },
   {
-    title: 'Web to markdown',
+    title: 'pdf',
     description:
-      'Convert any webpage to clean, structured markdown optimized for LLM context windows. 80% fewer tokens than raw HTML.'
+      'Converts any URL to a PDF. Control paper size, margins, orientation, page ranges, and scale. Returns a permanent CDN URL ready to embed or download.'
   },
   {
-    title: 'Metadata extraction',
+    title: 'markdown',
     description:
-      'Extract structured metadata from any URL — title, description, author, date, images, and logos. Normalized and ready to use.'
+      'Converts any URL to clean Markdown. Ideal for feeding web content into LLM context windows — 80% fewer tokens than raw HTML.'
   },
   {
-    title: 'Web scraping',
+    title: 'video',
     description:
-      'Extract structured data from any website using CSS selectors. Scrape custom fields, lists, and nested data without writing a single line of code.'
+      'Extracts a playable video source from any page. Works with YouTube, Vimeo, Twitter/X, TikTok, Instagram, Dailymotion, and hundreds of other platforms.'
   },
   {
-    title: 'Works with any MCP client',
+    title: 'audio',
     description:
-      'Compatible with Claude Desktop, Cursor, Windsurf, and any tool that supports the Model Context Protocol. One install, every client.'
+      'Extracts a playable audio source from any page. Works with SoundCloud, Spotify, Mixcloud, and other platforms. Returns duration and file size.'
+  },
+  {
+    title: 'meta',
+    description:
+      'Extracts normalized metadata from any URL: title, description, author, publisher, date, image (with dimensions), and favicon. Lightweight alternative to extract.'
+  },
+  {
+    title: 'palette',
+    description:
+      'Extracts a dominant color palette from images on any URL. Returns hex colors ranked by dominance plus WCAG-contrast background and overlay colors.'
+  },
+  {
+    title: 'insights',
+    description:
+      'Runs a Lighthouse performance audit and detects the technology stack of any URL via Wappalyzer. Returns scores for performance, accessibility, SEO, and best practices.'
   }
 ]
 
@@ -140,147 +154,6 @@ const Installation = () => (
         MCP-compatible client.
       </Text>
     </Flex>
-  </Container>
-)
-
-const About = () => (
-  <Container
-    as='section'
-    id='about'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [3, 3]
-    })}
-  >
-    <Subhead css={theme({ px: [3, 3, 0, 0] })} variant='gradient'>
-      The entire Microlink API, inside your AI
-    </Subhead>
-    <Caption
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
-      })}
-    >
-      <b>Microlink MCP</b> is a Model Context Protocol server that gives AI
-      agents direct access to the Microlink API. Your AI assistant can take
-      screenshots, generate PDFs, convert pages to markdown, extract metadata,
-      and scrape structured data — all through natural language.
-    </Caption>
-
-    <Block
-      blockOne={
-        <Image
-          css={theme({
-            px: [4, 0, 0, 0],
-            width: ['100%', 6, 7, 8]
-          })}
-          alt='AI-powered browser automation'
-          src='https://cdn.microlink.io/illustrations/genius-idea.svg'
-        />
-      }
-      blockTwo={
-        <Flex
-          css={theme({
-            px: [4, 0, 0, 0],
-            flexDirection: 'column',
-            alignItems: 'baseline'
-          })}
-        >
-          <Subhead
-            css={theme({
-              pt: [3, 3, 3, 0],
-              fontSize: [2, 2, 3, 3],
-              textAlign: 'left'
-            })}
-          >
-            Natural language, real results
-          </Subhead>
-          <Text css={theme({ pt: [2, 2, 3, 3], maxWidth: 8 })}>
-            Ask your AI to &quot;take a screenshot of example.com&quot; or
-            &quot;extract the metadata from this article&quot; and get back
-            structured, production-quality output. No API calls to write, no
-            SDKs to configure.
-          </Text>
-        </Flex>
-      }
-    />
-
-    <Block
-      flexDirection='row-reverse'
-      blockTwo={
-        <Flex
-          css={theme({
-            px: [4, 0, 0, 0],
-            flexDirection: 'column',
-            alignItems: 'baseline'
-          })}
-        >
-          <Subhead
-            css={theme({
-              pt: [3, 3, 3, 0],
-              fontSize: [2, 2, 3, 3],
-              textAlign: 'left'
-            })}
-          >
-            One server, every capability
-          </Subhead>
-          <Text css={theme({ pt: [2, 2, 3, 3], maxWidth: 8 })}>
-            Screenshots, PDFs, markdown conversion, metadata extraction, and web
-            scraping — all from a single MCP server. No need to install separate
-            tools for each task.
-          </Text>
-        </Flex>
-      }
-      blockOne={
-        <Image
-          css={theme({
-            px: [4, 0, 0, 0],
-            width: ['100%', 6, 7, 8]
-          })}
-          alt='Unified browser capabilities'
-          src='https://cdn.microlink.io/illustrations/robots.svg'
-        />
-      }
-    />
-
-    <Block
-      blockOne={
-        <Image
-          css={theme({
-            px: [4, 0, 0, 0],
-            width: ['100%', 6, 7, 8]
-          })}
-          alt='Works with any MCP client'
-          src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
-        />
-      }
-      blockTwo={
-        <Flex
-          css={theme({
-            px: [4, 0, 0, 0],
-            flexDirection: 'column',
-            alignItems: 'baseline'
-          })}
-        >
-          <Subhead
-            css={theme({
-              pt: [3, 3, 3, 0],
-              fontSize: [2, 2, 3, 3],
-              textAlign: 'left'
-            })}
-          >
-            Any MCP client, zero config
-          </Subhead>
-          <Text css={theme({ pt: [2, 2, 3, 3], maxWidth: 8 })}>
-            Works with Claude Desktop, Cursor, Windsurf, and every
-            MCP-compatible tool. Add the config once, and every client gets
-            access to the full Microlink API.
-          </Text>
-        </Flex>
-      }
-    />
   </Container>
 )
 
@@ -573,7 +446,7 @@ const McpPage = () => (
       css={theme({ px: 4, py: [5, 5, 6, 6] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
-          Every Microlink capability,{' '}
+          One MCP server.{' '}
           <span
             css={{
               display: 'block',
@@ -582,7 +455,7 @@ const McpPage = () => (
               textAlign: 'left'
             }}
           >
-            at your AI&apos;s fingertips.
+            10 Tools.
           </span>
         </Subhead>
       }
