@@ -184,6 +184,10 @@ const SectionContent = styled(Box).withConfig({
 const MobileMenuPanel = styled(Box).withConfig({
   shouldForwardProp: prop => !['isOpen'].includes(prop)
 })`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
   transform-origin: top center;
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   transform: translateY(${({ isOpen }) => (isOpen ? '0px' : '-8px')});

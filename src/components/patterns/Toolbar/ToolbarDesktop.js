@@ -9,7 +9,6 @@ import { useLocation } from '@gatsbyjs/reach-router'
 import { ChevronDown, ChevronRight } from 'react-feather'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { rgba } from 'polished'
 import { formatDate } from 'helpers/format-date'
 import { useBlogIndex } from 'components/hook/use-blog-index'
 
@@ -125,13 +124,17 @@ const TopLevelChevron = styled(FeatherIcon).withConfig({
 const MegaMenuPanel = styled(Box).withConfig({
   shouldForwardProp: prop => !['isVisible'].includes(prop)
 })`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
   margin-top: 8px;
   margin-bottom: 12px;
   border: 1px solid ${colors.black10};
   border-radius: 20px;
   backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
-  background: ${rgba(colors.white95, 0.96)};
+  background: white;
   box-shadow: ${shadows[2]};
   transform-origin: top center;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
@@ -440,7 +443,14 @@ const ToolbarDesktop = () => {
         '-webkit-backdrop-filter': 'blur(12px) saturate(140%)'
       })}
     >
-      <Box css={theme({ px: 3, mx: 'auto', maxWidth: layout.large })}>
+      <Box
+        css={theme({
+          px: 3,
+          mx: 'auto',
+          maxWidth: layout.large,
+          position: 'relative'
+        })}
+      >
         <Toolbar
           forwardedAs='nav'
           aria-label='Primary Navigation'
