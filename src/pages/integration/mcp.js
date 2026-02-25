@@ -326,18 +326,35 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Run <code>npx -y @microlink/mcp</code> — no global install needed.
-              Then paste the config block into your MCP client&apos;s settings
-              file.
+              The recommended way requires no installation. Use <code>npx</code>{' '}
+              directly in your MCP client config:
             </div>
+            <Terminal
+              title='mcp.json'
+              css={{ marginTop: '12px', marginBottom: '12px' }}
+            >
+              {`{\n  "mcpServers": {\n    "microlink": {\n      "command": "npx",\n      "args": ["-y", "@microlink/mcp"]\n    }\n  }\n}`}
+            </Terminal>
             <div>
-              Client-specific instructions for Claude Desktop, Cursor, VS Code,
-              and Windsurf are in the{' '}
-              <Link href='https://github.com/microlinkhq/mcp'>
-                GitHub repository
-              </Link>
-              .
+              Optionally, install globally to run it as a named command:
             </div>
+            <Terminal
+              title='Terminal'
+              shellSymbol='$'
+              css={{ marginTop: '12px', marginBottom: '12px' }}
+            >
+              {'npm install -g @microlink/mcp'}
+            </Terminal>
+            <div>
+              And then reference it via <code>node</code> with the absolute path
+              to the local entry point:
+            </div>
+            <Terminal
+              title='mcp.json'
+              css={{ marginTop: '12px', marginBottom: '12px' }}
+            >
+              {`{\n  "mcpServers": {\n    "microlink": {\n      "command": "node",\n      "args": ["/absolute/path/to/mcp/src/index.js"],\n      "env": {\n        "MICROLINK_API_KEY": "YOUR_MICROLINK_API_KEY"\n      }\n    }\n  }\n}`}
+            </Terminal>
           </>
         )
       }
