@@ -199,8 +199,8 @@ const ToolbarMobile = () => {
             'min-height': 'calc(100vh - 64px)',
             'max-height': 'calc(100vh - 64px)',
             'overflow-y': 'auto',
-            'border-top': '1px solid',
-            'border-color': 'black10',
+            borderTop: 1,
+            borderColor: 'black10',
             background: 'white95',
             p: '12px'
           })}
@@ -309,14 +309,12 @@ const ToolbarMobile = () => {
                 <Box as='li' key={label}>
                   <SectionContainer>
                     <SectionToggle type='button' onClick={handleNavigate(href)}>
-                      <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                      <Caps
+                        as='span'
+                        css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}
+                      >
                         {label}
                       </Caps>
-                      <FeatherIcon
-                        icon={ChevronRight}
-                        size={TOOLBAR_CHEVRON_ICON_SIZE}
-                        css={{ color: colors.black60 }}
-                      />
                     </SectionToggle>
                   </SectionContainer>
                 </Box>
