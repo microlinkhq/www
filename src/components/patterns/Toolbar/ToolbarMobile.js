@@ -46,6 +46,22 @@ const MOBILE_DIRECT_NAV_LABEL_STYLES = {
   color: 'black80'
 }
 
+const MOBILE_TOP_LEVEL_ITEM_SURFACE_STYLES = {
+  py: 3,
+  px: 2
+}
+
+const MOBILE_DIRECT_NAV_ITEM_STYLES = {
+  py: 0,
+  px: 0,
+  fontSize: 2,
+  listStyle: 'none',
+  display: 'flex',
+  width: '100%',
+  alignItems: 'stretch',
+  mt: 2
+}
+
 const MenuButton = styled('button')`
   border: 0;
   appearance: none;
@@ -66,17 +82,17 @@ const MenuItemIcon = styled(Box)`
   align-items: center;
   justify-content: center;
   color: ${colors.black70};
-  transition: color ${transition.medium};
+  transition: color ${transition.short};
 `
 
 const MenuItemTitle = styled(Text)`
-  transition: color ${transition.medium}, font-weight ${transition.medium};
+  transition: color ${transition.short}, font-weight ${transition.short};
   ${theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)};
 `
 
 const MenuItemDescription = styled(Text)`
   margin-top: 2px;
-  transition: color ${transition.medium};
+  transition: color ${transition.short};
   ${theme(TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES)};
 `
 
@@ -93,7 +109,7 @@ const MobileMenuItemLink = styled(ToolbarNavLink)`
     border-radius: inherit;
     align-items: baseline;
     padding: 8px 12px;
-    transition: background-color ${transition.medium};
+    transition: background-color ${transition.short};
   }
 
   &:hover > a,
@@ -123,13 +139,18 @@ const MobileMenuItemLink = styled(ToolbarNavLink)`
 `
 
 const MobileDirectNavLink = styled(ToolbarNavLink)`
-  border-radius: 12px;
+  ${theme({ borderRadius: 2 })};
+  display: flex;
+  width: 100%;
 
   > a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
     border-radius: inherit;
-    padding: 8px 12px;
-    transition: background-color ${transition.medium},
-      color ${transition.medium};
+    ${theme(MOBILE_TOP_LEVEL_ITEM_SURFACE_STYLES)};
+    transition: background-color ${transition.short}, color ${transition.short};
   }
 
   &:hover > a,
@@ -153,12 +174,10 @@ const SectionToggle = styled('button').withConfig({
   align-items: center;
   justify-content: space-between;
   ${theme({
+    mt: 2,
     borderRadius: 2,
-    pt: 2,
-    pb: 0,
-    mt: 2
+    ...MOBILE_TOP_LEVEL_ITEM_SURFACE_STYLES
   })};
-  transition: color ${transition.medium};
 `
 
 const SectionChevron = styled(FeatherIcon).withConfig({
@@ -166,7 +185,7 @@ const SectionChevron = styled(FeatherIcon).withConfig({
 })`
   color: ${colors.black60};
   transform: rotate(${({ isExpanded }) => (isExpanded ? '0deg' : '-90deg')});
-  transition: transform ${transition.medium}, color ${transition.medium};
+  transition: transform ${transition.short}, color ${transition.short};
 `
 
 const SectionContent = styled(Box).withConfig({
@@ -176,8 +195,8 @@ const SectionContent = styled(Box).withConfig({
   max-height: ${({ isExpanded }) => (isExpanded ? '1200px' : '0px')};
   opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
   transform: translateY(${({ isExpanded }) => (isExpanded ? '0px' : '-4px')});
-  transition: max-height ${transition.long}, opacity ${transition.short},
-    transform ${transition.medium};
+  transition: max-height ${transition.short}, opacity ${transition.short},
+    transform ${transition.short};
   pointer-events: ${({ isExpanded }) => (isExpanded ? 'auto' : 'none')};
 `
 
@@ -188,11 +207,9 @@ const MobileMenuPanel = styled(Box).withConfig({
   left: 0;
   right: 0;
   top: 100%;
-  transform-origin: top center;
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   transform: translateY(${({ isOpen }) => (isOpen ? '0px' : '-8px')});
   pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
-  transition: opacity ${transition.medium}, transform ${transition.medium};
 `
 
 const toMobileSectionDomId = label =>
@@ -239,6 +256,8 @@ const ToolbarMobile = () => {
     }
   }, [isOpen])
 
+  const MenuIcon = isOpen ? X : Menu
+
   return (
     <Box
       as='header'
@@ -273,7 +292,7 @@ const ToolbarMobile = () => {
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             onClick={toggleOpen}
           >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
+            <MenuIcon size={20} color={colors.black80} />
           </MenuButton>
         </Flex>
       </Toolbar>
@@ -291,7 +310,7 @@ const ToolbarMobile = () => {
           'overflow-y': 'auto',
           borderTop: 1,
           borderColor: 'black10',
-          background: 'white95',
+          background: 'white',
           p: '12px'
         })}
       >
@@ -329,7 +348,8 @@ const ToolbarMobile = () => {
                         mt: 0,
                         mb: 0,
                         px: 2,
-                        pb: 2
+                        pb: 2,
+                        pt: 2
                       })}
                     >
                       {description}
@@ -423,6 +443,7 @@ const ToolbarMobile = () => {
                 data-event-location='Toolbar'
                 data-event-name={label}
                 onClick={closeMenu}
+                css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
               >
                 <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
                   {label}

@@ -10,8 +10,6 @@ import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { noop } from 'helpers/noop'
 
-import logoUri from '../../static/logo.svg'
-
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { useMounted } from 'components/hook/use-mounted'
@@ -118,6 +116,7 @@ const SUGGESTIONS = [
 })
 
 const LOGO_SIZE = 128
+const logoUri = 'https://cdn.microlink.io/logo/logo.svg'
 
 const IMAGE_PREVIEW_STYLE = [
   LOGO_SIZE * 0.8,

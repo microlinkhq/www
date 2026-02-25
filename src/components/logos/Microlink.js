@@ -2,7 +2,7 @@ import Image from 'components/elements/Image/Image'
 import React from 'react'
 import styled from 'styled-components'
 
-import logoUri from '../../../static/logo.svg'
+const logoUri = 'https://cdn.microlink.io/logo/logo.svg'
 
 const StyledMicrolink = styled(Image.Component).withConfig({
   shouldForwardProp: prop =>
