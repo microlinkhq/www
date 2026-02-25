@@ -31,6 +31,12 @@ export const TOOLBAR_MENU_ITEM_MEDIA_STYLES = {
   top: '6px'
 }
 
+export const TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES = {
+  ...TOOLBAR_MENU_ITEM_ICON_STYLES,
+  position: 'relative',
+  top: '6px'
+}
+
 export const TOOLBAR_MENU_ITEM_TITLE_STYLES = {
   display: 'block',
   fontSize: 1,

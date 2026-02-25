@@ -6,8 +6,6 @@ import Caps from 'components/elements/Caps'
 import Image from 'components/elements/Image/Image'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
-import { GitHub } from 'components/icons/GitHub'
-import { Twitter } from 'components/icons/Twitter'
 import { ChevronDown, ChevronRight } from 'react-feather'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
@@ -38,6 +36,7 @@ import {
   TOOLBAR_LIST_RESET_STYLES,
   TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES,
   TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+  TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
   TOOLBAR_MENU_ITEM_TITLE_STYLES,
   TOOLBAR_SECTION_DESCRIPTION_STYLES,
   TOOLBAR_TOP_LEVEL_CAPS_STYLES,
@@ -72,6 +71,11 @@ const MENU_LINK_HOVER_STYLES = css`
 
   .menu-item-title {
     font-weight: ${fontWeights.regular};
+    transition: color ${transition.medium};
+  }
+
+  .menu-item-description {
+    transition: color ${transition.medium};
   }
 
   &:hover,
@@ -144,7 +148,7 @@ const MenuItemIcon = styled(Box)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform ${transition.medium};
+  transition: transform ${transition.medium}, color ${transition.medium};
   color: ${colors.black70};
 `
 
@@ -178,6 +182,10 @@ const ResourcesMegaMenuItemLink = styled(MegaMenuItemLink)`
 
   > a {
     align-items: center;
+  }
+
+  .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
+    transition: color ${transition.medium};
   }
 
   &:hover
@@ -247,6 +255,14 @@ const isStickySection = Boolean(DEBUG_STICKY_SECTION)
 
 const toSectionDomId = label =>
   `toolbar-mega-menu-${String(label).toLowerCase().replace(/\s+/g, '-')}`
+
+const canUseHover = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
+const canUseFocusOpen = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
 const ToolbarDesktop = () => {
   const location = useLocation()
@@ -352,7 +368,7 @@ const ToolbarDesktop = () => {
   }
 
   const handleClosePanelWithDelay = () => {
-    if (isStickySection) return
+    if (isStickySection || !canUseHover()) return
     clearClosePanelTimeout()
     closeTimeoutRef.current = setTimeout(() => {
       setOpenSection('')
@@ -365,6 +381,11 @@ const ToolbarDesktop = () => {
     setOpenSection(sectionId)
   }
 
+  const handleOpenSectionWithHover = sectionId => {
+    if (!canUseHover()) return
+    handleOpenSection(sectionId)
+  }
+
   const handleTriggerClick = sectionId => event => {
     event.preventDefault()
     clearClosePanelTimeout()
@@ -372,7 +393,9 @@ const ToolbarDesktop = () => {
       setOpenSection(sectionId)
       return
     }
-    setOpenSection(currentId => (currentId === sectionId ? '' : sectionId))
+    setOpenSection(currentId =>
+      canUseHover() ? sectionId : currentId === sectionId ? '' : sectionId
+    )
   }
 
   const renderLatestPostItem = post => (
@@ -497,8 +520,10 @@ const ToolbarDesktop = () => {
                     aria-expanded={openSection === label}
                     aria-controls={toSectionDomId(label)}
                     onClick={handleTriggerClick(label)}
-                    onMouseEnter={() => handleOpenSection(label)}
-                    onFocus={() => handleOpenSection(label)}
+                    onMouseEnter={() => handleOpenSectionWithHover(label)}
+                    onFocus={() =>
+                      canUseFocusOpen() ? handleOpenSection(label) : undefined
+                    }
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
@@ -534,28 +559,25 @@ const ToolbarDesktop = () => {
             ))}
           </Flex>
           <Flex as='div' css={theme({ alignItems: 'center' })}>
-            {SOCIAL_NAV_ITEMS.map(({ href, label, title, externalIcon }) => {
-              const icon = label === 'Twitter' ? <Twitter /> : <GitHub />
-
-              return (
-                <ToolbarNavLink
-                  key={label}
-                  forwardedAs='div'
-                  href={href}
-                  title={title}
-                  externalIcon={externalIcon}
-                  data-event-location='Toolbar'
-                  data-event-name={label}
-                  onMouseEnter={handleClosePanel}
-                  css={`
-                    ${theme({ pl: label === 'Twitter' ? 0 : 3 })};
-                    ${iconLight};
-                  `}
-                >
-                  {icon}
-                </ToolbarNavLink>
-              )
-            })}
+            {SOCIAL_NAV_ITEMS.map(
+              ({ href, label, title, externalIcon, icon: Icon }) => {
+                return (
+                  <ToolbarNavLink
+                    key={label}
+                    forwardedAs='div'
+                    href={href}
+                    title={title}
+                    externalIcon={externalIcon}
+                    data-event-location='Toolbar'
+                    data-event-name={label}
+                    onMouseEnter={handleClosePanel}
+                    css={iconLight}
+                  >
+                    <Icon />
+                  </ToolbarNavLink>
+                )
+              }
+            )}
           </Flex>
         </Toolbar>
         {section && (
@@ -564,7 +586,7 @@ const ToolbarDesktop = () => {
             id={toSectionDomId(section.label)}
             role='dialog'
             aria-label={`${section.label} navigation`}
-            onMouseEnter={() => handleOpenSection(section.label)}
+            onMouseEnter={() => handleOpenSectionWithHover(section.label)}
             onMouseLeave={handleClosePanelWithDelay}
           >
             <Box
@@ -615,7 +637,10 @@ const ToolbarDesktop = () => {
                                 iconClassName={
                                   RESOURCE_MENU_ITEM_ICON_CLASSNAME
                                 }
-                                iconCss={{ color: colors.black60 }}
+                                iconCss={theme({
+                                  ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
+                                  color: 'black60'
+                                })}
                               />
                               <Text
                                 as='span'
@@ -717,7 +742,11 @@ const ToolbarDesktop = () => {
                             label={label}
                             logo={logo}
                             icon={Icon}
-                            iconCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
+                            iconCss={theme(
+                              label === 'Markdown'
+                                ? { ...TOOLBAR_MENU_ITEM_MEDIA_STYLES, top: 0 }
+                                : TOOLBAR_MENU_ITEM_MEDIA_STYLES
+                            )}
                             imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
                           />
                         </MenuItemIcon>

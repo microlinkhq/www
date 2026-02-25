@@ -1,5 +1,10 @@
 import React, { createElement } from 'react'
+import Flex from 'components/elements/Flex'
+import Text from 'components/elements/Text'
 import { Microlink } from 'components/logos'
+import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
+import { GitHub as GitHubBrand } from 'components/icons/GitHub'
+import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
 import styled from 'styled-components'
 import {
@@ -8,13 +13,14 @@ import {
   Code,
   Database,
   File,
-  FileText,
   Image,
   Share2,
   Shield,
   Clock,
   Users,
-  Command
+  Command,
+  Activity,
+  Layers
 } from 'react-feather'
 import NavLink from './NavLink'
 
@@ -38,6 +44,32 @@ export const ToolbarNavLink = styled(NavLink)`
 `
 
 const docsMatcher = ({ location }) => location.pathname.startsWith('/docs')
+const compactNumberFormatter = new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 0
+})
+
+const formatCompactNumber = number => compactNumberFormatter.format(number)
+
+const GitHubSocialIcon = () => {
+  const totalOssStars = useOssTotalStars()
+
+  return (
+    <Flex
+      as='span'
+      css={theme({
+        alignItems: 'center',
+        gap: 1,
+        color: 'inherit'
+      })}
+    >
+      <GitHubBrand width='14px' style={{ position: 'relative', top: '-1px' }} />
+      <Text as='span' css={theme({ color: 'inherit', fontSize: 0, m: 0 })}>
+        {formatCompactNumber(totalOssStars)}
+      </Text>
+    </Flex>
+  )
+}
 
 const createNavigationItem = ({
   label,
@@ -75,16 +107,11 @@ export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
 export const SOCIAL_NAV_ITEMS = [
   createNavigationItem({
-    label: 'Twitter',
-    href: 'https://x.com/microlinkhq',
-    title: '@microlinkhq on Twitter',
-    externalIcon: false
-  }),
-  createNavigationItem({
     label: 'GitHub',
     href: 'https://github.com/microlinkhq',
     title: '@microlinkhq on GitHub',
-    externalIcon: false
+    externalIcon: false,
+    icon: GitHubSocialIcon
   })
 ]
 
@@ -101,7 +128,7 @@ export const NAVIGATION_SECTIONS = [
         label: 'Markdown',
         href: '/markdown',
         description: 'Built for agents handling website content',
-        icon: FileText
+        icon: MarkdownIcon
       }),
       createNavigationItem({
         label: 'Metadata',
@@ -207,6 +234,24 @@ export const NAVIGATION_SECTIONS = [
         href: '/community',
         description: 'Join discussions, ask questions, share solutions',
         icon: Users
+      }),
+      createNavigationItem({
+        label: 'Status',
+        href: '/status',
+        description: 'Monitor uptime and incident history in real time',
+        icon: Activity
+      }),
+      createNavigationItem({
+        label: 'Formats',
+        href: '/formats',
+        description: 'See every supported format and coverage details',
+        icon: Layers
+      }),
+      createNavigationItem({
+        label: 'API',
+        href: '/docs/api/getting-started/overview',
+        description: 'Explore API guides, parameters and examples',
+        icon: Code
       }),
       createNavigationItem({
         label: 'Recipes',

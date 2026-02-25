@@ -69,14 +69,17 @@ const MenuItemIcon = styled(Box)`
   align-items: center;
   justify-content: center;
   color: ${colors.black70};
+  transition: color ${transition.medium};
 `
 
 const MenuItemTitle = styled(Text)`
+  transition: color ${transition.medium}, font-weight ${transition.medium};
   ${theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)};
 `
 
 const MenuItemDescription = styled(Text)`
   margin-top: 2px;
+  transition: color ${transition.medium};
   ${theme(TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES)};
 `
 
@@ -128,6 +131,7 @@ const SectionToggle = styled('button').withConfig({
   appearance: none;
   border: 0;
   background: transparent;
+  color: ${colors.black80};
   cursor: pointer;
   width: 100%;
   display: flex;
@@ -399,7 +403,14 @@ const ToolbarMobile = () => {
                                 label={label}
                                 logo={logo}
                                 icon={Icon}
-                                iconCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
+                                iconCss={theme(
+                                  label === 'Markdown'
+                                    ? {
+                                      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+                                      top: 0
+                                    }
+                                    : TOOLBAR_MENU_ITEM_MEDIA_STYLES
+                                )}
                                 imageCss={theme(TOOLBAR_MENU_ITEM_MEDIA_STYLES)}
                               />
                             </MenuItemIcon>
