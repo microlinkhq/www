@@ -8,7 +8,7 @@ import { useLocation } from '@gatsbyjs/reach-router'
 import { ChevronDown, ChevronRight, Menu, X } from 'react-feather'
 import { navigate } from 'gatsby'
 import styled from 'styled-components'
-import { colors, theme } from 'theme'
+import { colors, fontWeights, theme, transition } from 'theme'
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -30,7 +30,7 @@ import {
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
 const MOBILE_MENU_ITEM_STYLES = {
-  py: 2,
+  py: 1,
   px: 0,
   fontSize: 2,
   listStyle: 'none',
@@ -76,14 +76,46 @@ const MenuItemDescription = styled(Text)`
   ${theme(TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES)};
 `
 
-const SectionContainer = styled(Box).withConfig({
-  shouldForwardProp: prop => !['isExpanded'].includes(prop)
-})`
-  background: ${({ isExpanded }) =>
-    isExpanded ? colors.black05 : 'transparent'};
+const SectionContainer = styled(Box)`
   ${theme({
     borderRadius: 2
   })};
+`
+
+const MobileMenuItemLink = styled(ToolbarNavLink)`
+  border-radius: 12px;
+
+  > a {
+    border-radius: inherit;
+    align-items: baseline;
+    padding: 8px 12px;
+    transition: background-color ${transition.medium};
+  }
+
+  &:hover > a,
+  &:focus-within > a,
+  > .active {
+    background: ${colors.black05};
+  }
+
+  &:hover .menu-item-title,
+  &:focus-within .menu-item-title,
+  > .active .menu-item-title {
+    color: ${colors.black};
+    font-weight: ${fontWeights.bold};
+  }
+
+  &:hover .menu-item-description,
+  &:focus-within .menu-item-description,
+  > .active .menu-item-description,
+  &:hover
+    ${MenuItemIcon},
+    &:focus-within
+    ${MenuItemIcon},
+    > .active
+    ${MenuItemIcon} {
+    color: ${colors.black};
+  }
 `
 
 const SectionToggle = styled('button')`
@@ -211,7 +243,7 @@ const ToolbarMobile = () => {
 
               return (
                 <Box as='li' key={label}>
-                  <SectionContainer isExpanded={isExpanded}>
+                  <SectionContainer>
                     <SectionToggle
                       type='button'
                       aria-expanded={isExpanded}
@@ -267,7 +299,7 @@ const ToolbarMobile = () => {
                           logo,
                           icon: Icon
                         }) => (
-                          <ToolbarNavLink
+                          <MobileMenuItemLink
                             key={label}
                             forwardedAs='li'
                             href={href}
@@ -289,12 +321,20 @@ const ToolbarMobile = () => {
                               />
                             </MenuItemIcon>
                             <Box as='span'>
-                              <MenuItemTitle as='span'>{label}</MenuItemTitle>
-                              <MenuItemDescription as='span'>
+                              <MenuItemTitle
+                                as='span'
+                                className='menu-item-title'
+                              >
+                                {label}
+                              </MenuItemTitle>
+                              <MenuItemDescription
+                                as='span'
+                                className='menu-item-description'
+                              >
                                 {description}
                               </MenuItemDescription>
                             </Box>
-                          </ToolbarNavLink>
+                          </MobileMenuItemLink>
                         )
                       )}
                     </Flex>
