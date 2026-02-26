@@ -2,9 +2,7 @@
 
 const React = require('react')
 
-const NODE_ENV = process.env.NODE_ENV || 'development'
-
-const isDevelopment = NODE_ENV === 'development'
+const isDevelopment = (process.env.NODE_ENV || 'development') === 'development'
 
 const VA_SCRIPT = isDevelopment
   ? 'https://cdn.vercel-insights.com/v1/script.debug.js'

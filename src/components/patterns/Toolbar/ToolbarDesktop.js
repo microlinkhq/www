@@ -12,6 +12,7 @@ import styled, { css } from 'styled-components'
 import { formatDate } from 'helpers/format-date'
 import { backDrop } from 'helpers/style'
 import { useBlogIndex } from 'components/hook/use-blog-index'
+import { isDevelopment } from 'helpers/is-development'
 
 import {
   colors,
@@ -271,8 +272,9 @@ const Header = styled(Box).withConfig({
   ${({ isDocsRoute }) => !isDocsRoute && backDrop}
 `
 
+// To debug, set to a section label (e.g. 'Products') during development
 const DEBUG_STICKY_SECTION = ''
-const isStickySection = Boolean(DEBUG_STICKY_SECTION)
+const isStickySection = isDevelopment && Boolean(DEBUG_STICKY_SECTION)
 
 const toSectionDomId = label =>
   `toolbar-mega-menu-${String(label).toLowerCase().replace(/\s+/g, '-')}`
@@ -286,7 +288,9 @@ const ToolbarDesktop = () => {
   const blogPosts = useBlogIndex()
   const headerRef = useRef(null)
   const closeTimeoutRef = useRef(null)
-  const [openSection, setOpenSection] = useState(DEBUG_STICKY_SECTION)
+  const [openSection, setOpenSection] = useState(
+    isStickySection ? DEBUG_STICKY_SECTION : ''
+  )
 
   const activeSection = useMemo(
     () => getToolbarSectionFromPathname(location.pathname),
@@ -495,8 +499,7 @@ const ToolbarDesktop = () => {
                     onClick={handleTriggerClick(label)}
                     onMouseEnter={() => handleOpenSectionWithHover(label)}
                     onFocus={() =>
-                      canUseHover() ? handleOpenSection(label) : undefined
-                    }
+                      canUseHover() ? handleOpenSection(label) : undefined}
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
@@ -732,9 +735,9 @@ const ToolbarDesktop = () => {
                                 iconCss={theme(
                                   label === 'Markdown'
                                     ? {
-                                      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-                                      top: 0
-                                    }
+                                        ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+                                        top: 0
+                                      }
                                     : TOOLBAR_MENU_ITEM_MEDIA_STYLES
                                 )}
                                 imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
