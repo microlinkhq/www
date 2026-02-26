@@ -16,6 +16,7 @@ import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
 import { Terminal as TerminalIcon } from 'components/icons/Terminal'
 import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
 import { GitHub as GitHubBrand } from 'components/icons/GitHub'
+import { Brain as BrainIcon } from 'components/icons/Brain'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
 import styled from 'styled-components'
@@ -170,8 +171,14 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Tools',
     description: 'Utilities to test and validate your metadata integrations.',
-    columns: 2,
+    columns: 3,
     items: [
+      createNavigationItem({
+        label: 'MCP',
+        href: '/integrations/mcp',
+        description: 'Give your AI access to the Microlink API',
+        icon: BrainIcon
+      }),
       createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
