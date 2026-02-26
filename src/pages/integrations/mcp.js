@@ -371,8 +371,9 @@ const ProductInformation = () => (
 export const Head = () => (
   <Meta
     title='Microlink MCP — Web scraping & browser tools for AI agents'
-    description='Give Claude, Cursor, and any MCP client access to screenshots, PDFs, web scraping, markdown conversion, and metadata extraction. One config block, nine browser tools, no boilerplate.'
+    description='Give Claude, Cursor, and any MCP client screenshots, PDFs, web scraping, markdown, and metadata extraction. One config block, nine browser tools, zero boilerplate.'
     image={cdnUrl('logo/banner.jpeg')}
+    noSuffix
     structured={[
       {
         '@context': 'https://schema.org',
@@ -403,7 +404,34 @@ export const Head = () => (
           { '@type': 'Thing', name: 'PDF Generation' },
           { '@type': 'Thing', name: 'Web Scraping' },
           { '@type': 'Thing', name: 'Metadata Extraction' }
-        ]
+        ],
+        provider: {
+          '@type': 'Organization',
+          '@id': 'https://microlink.io/about',
+          name: 'Microlink',
+          url: 'https://microlink.io'
+        },
+        isPartOf: {
+          '@type': 'WebSite',
+          '@id': 'https://microlink.io',
+          url: 'https://microlink.io',
+          name: 'Microlink'
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        name: 'Microlink MCP in action',
+        description:
+          'See how Claude and other AI agents use Microlink MCP to take screenshots, convert pages to markdown, and scrape structured data through natural language.',
+        thumbnailUrl: cdnUrl('logo/banner.jpeg'),
+        contentUrl: 'https://cdn.microlink.io/mcp/codex.mp4',
+        uploadDate: '2025-02-01',
+        publisher: {
+          '@type': 'Organization',
+          name: 'Microlink',
+          url: 'https://microlink.io'
+        }
       },
       {
         '@context': 'https://schema.org',
@@ -437,10 +465,10 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: 'What can I do with Microlink MCP?',
+            name: 'What can my AI agent do with it?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Take screenshots of any website, generate PDFs from URLs, convert webpages to clean markdown, extract metadata, and scrape custom data using CSS selectors — all through natural language.'
+              text: "Screenshot any URL, generate a PDF, convert a webpage to clean Markdown, pull normalized metadata, scrape custom fields with CSS selectors, extract video or audio sources, run a Lighthouse audit, detect a site's tech stack, and extract color palettes — all through natural language."
             }
           },
           {
@@ -453,7 +481,7 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: 'How is Microlink MCP different from using the API directly?',
+            name: 'How is this different from calling the Microlink API directly?',
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'The Microlink API requires writing code. Microlink MCP lets your AI agent call the same API through natural language, with no code needed. MCP translates requests into Microlink API calls and returns structured results.'
@@ -461,10 +489,10 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: 'How do I install Microlink MCP?',
+            name: 'How do I install it?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Install globally with npm install -g @microlink/mcp, then add the MCP server configuration to your AI client settings file. See the GitHub repository for detailed setup instructions.'
+              text: 'The recommended way requires no installation — use npx directly in your MCP client config with @microlink/mcp as the command. Optionally, install globally with npm install -g @microlink/mcp and reference it via node with the absolute path to the local entry point.'
             }
           }
         ]
