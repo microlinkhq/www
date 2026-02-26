@@ -34,8 +34,8 @@ Use this `mcpServers` entry:
 }
 ```
 
-If no API key is provided, requests go to the free endpoint (`50 requests/day`).  
-For higher/unlimited usage, get an API key at [microlink.io/#pricing](https://microlink.io/#pricing).
+For higher/unlimited usage, get an API key at [microlink.io/#pricing](https://microlink.io/#pricing).  
+If no API key is provided, requests go to the free endpoint with a 50 requests/day limit.
 
 ## Usage
 
@@ -43,31 +43,35 @@ Once you've added the MCP to your favorite LLM client, try asking it to take a s
 
 ## Tools
 
-- `microlink_extract`: General extractor. Metadata + custom `data` scraping + optional screenshot/pdf/video/audio/insights/palette in one call.
-- `microlink_screenshot`: Capture screenshots (`fullPage`, `element`, `overlay`, `type`, etc.).
-- `microlink_pdf`: Generate PDFs (`format`, `margin`, `scale`, `pageRanges`, etc.).
-- `microlink_video`: Extract playable video source (`data.video`).
-- `microlink_audio`: Extract playable audio source (`data.audio`).
-- `microlink_insights`: Lighthouse + technology detection.
-- `microlink_meta`: Normalized metadata only (`title`, `description`, `image`, `logo`, etc.).
-- `microlink_palette`: Extract color palette from detected images.
-- `microlink_markdown`: Convert URL content to Markdown.
-- `microlink_text`: Convert URL content to plain text.
+- **microlink_extract**: General extractor. Metadata + custom `data` scraping + optional screenshot/pdf/video/audio/insights/palette in one call.
+- **microlink_screenshot**: Capture screenshots (`fullPage`, `element`, `overlay`, `type`, etc.).
+- **microlink_pdf**: Generate PDFs (`format`, `margin`, `scale`, `pageRanges`, etc.).
+- **microlink_video**: Extract playable video source (`data.video`).
+- **microlink_audio**: Extract playable audio source (`data.audio`).
+- **microlink_insights**: Lighthouse + technology detection.
+- **microlink_meta**: Normalized metadata only (`title`, `description`, `image`, `logo`, etc.).
+- **microlink_palette**: Extract color palette from detected images.
+- **microlink_markdown**: Convert URL content to Markdown (`microlink.data.markdown`).
+- **microlink_text**: Convert URL content to plain text (`microlink.data.text`).
 
 Notes:
-- `screenshot`, `pdf`, and `insights` accept `true` or `{ ...options }`.
+- **screenshot**, **pdf**, and **insights** accept `true` or `{ ...options }`.
 - Empty objects like `{}` are treated as `true`.
 - Boolean strings (`"true"`, `"false"`) and JSON-stringified objects are normalized for compatibility with some MCP clients.
 
 ## Response format
 
-- JSON tools return `structuredContent` with:
+- All tools return `structuredContent` with:
   - `endpoint`, `requestUrl`, `finalUrl`, `statusCode`, `responseHeaders`, `microlink`
-- Embed tools (`microlink_markdown`, `microlink_text`) return text in `content[0].text`.
+- For markdown/text specifically:
+  - Markdown content is in `microlink.data.markdown`
+  - Plain text content is in `microlink.data.text`
 
-## Examples
+## Prompt Examples
 
 ### Extract metadata + screenshot in one request
+
+*"Get a full page screenshot of microlink.io and include the metadata"*
 
 ```json
 {
@@ -84,6 +88,8 @@ Notes:
 
 ### Screenshot with overlay
 
+*"Get a screenshot of microlink.io with a dark browser overlay"*
+
 ```json
 {
   "tool": "microlink_screenshot",
@@ -98,6 +104,8 @@ Notes:
 ```
 
 ### Generate a PDF
+
+*"Download a pdf of example.com"*
 
 ```json
 {
@@ -114,11 +122,13 @@ Notes:
 
 ### Get page insights
 
+*"Check the performance of microlink.io"*
+
 ```json
 {
   "tool": "microlink_insights",
   "arguments": {
-    "url": "https://example.com",
+    "url": "https://microlink.io",
     "insights": {
       "lighthouse": { "preset": "perf" },
       "technologies": true
@@ -129,11 +139,13 @@ Notes:
 
 ### Convert a page to Markdown
 
+*"Read https://microlink.io/blog/antibot-detection-at-scale as markdown and give the key points of the article"*
+
 ```json
 {
   "tool": "microlink_markdown",
   "arguments": {
-    "url": "https://microlink.io/docs"
+    "url": "https://microlink.io/blog/antibot-detection-at-scale"
   }
 }
 ```
