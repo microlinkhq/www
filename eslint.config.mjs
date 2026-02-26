@@ -115,7 +115,9 @@ export default [
         TextEncoder: 'readonly',
         TextDecoder: 'readonly',
         Blob: 'readonly',
-        CustomEvent: 'readonly'
+        CustomEvent: 'readonly',
+        requestAnimationFrame: 'readonly',
+        cancelAnimationFrame: 'readonly'
       }
     },
     rules: {
