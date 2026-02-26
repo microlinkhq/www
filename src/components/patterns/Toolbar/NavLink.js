@@ -6,12 +6,12 @@ import Caps from 'components/elements/Caps'
 
 const activeStyle = css`
   font-weight: ${fontWeights.bold};
-  color: ${({ isDark }) => (isDark ? colors.white : colors.black)};
+  color: ${colors.black};
 `
 
 const style = css`
   transition: color ${transition.medium};
-  color: ${({ isDark }) => (isDark ? colors.white50 : colors.black50)};
+  color: ${colors.black50};
   ${props => props.isActive && activeStyle};
   &:hover,
   > .active {
@@ -19,9 +19,7 @@ const style = css`
   }
 `
 
-const NavLink = styled(Caps).withConfig({
-  shouldForwardProp: prop => !['isDark'].includes(prop)
-})(
+const NavLink = styled(Caps)(
   theme({
     fontSize: 0,
     pl: 3,

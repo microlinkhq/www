@@ -2,7 +2,7 @@ import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
 import {
-  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_PRIMARY_MOBILE_HEIGHT,
   DOCS_LAYOUT_OFFSET
 } from 'components/elements/Toolbar'
 import { transition, borders, colors, space, theme, fontSizes } from 'theme'
@@ -58,6 +58,16 @@ const titleExternalStyle = css`
   }
 `
 
+const InternalTitleText = styled(Text)`
+  ${titleStyle};
+  font-size: ${fontSizes[1]};
+`
+
+const ExternalTitleText = styled(Text)`
+  ${titleExternalStyle};
+  font-size: ${fontSizes[1]};
+`
+
 const AsideWrapper = styled(Box)`
   position: fixed;
   overflow-y: auto;
@@ -81,19 +91,14 @@ const Header = props => (
 )
 
 const Title = ({ children, href, Icon, ...props }) => {
+  const TitleText = isInternalLink(href) ? InternalTitleText : ExternalTitleText
+
   return (
     <NavLink href={href} actively css={linkStyle}>
       {Icon && <Icon className={LINK_ICON_CLASSNAME} />}
-      <Text
-        as='span'
-        css={{
-          ...(isInternalLink(href) ? titleStyle : titleExternalStyle),
-          fontSize: fontSizes[1]
-        }}
-        {...props}
-      >
+      <TitleText as='span' {...props}>
         {children}
-      </Text>
+      </TitleText>
     </NavLink>
   )
 }
@@ -125,7 +130,7 @@ const Aside = ({
       aria-hidden={CloseButton && !isOpen}
       inert={CloseButton && !isOpen ? '' : undefined}
       css={theme({
-        top: [TOOLBAR_PRIMARY_HEIGHT, DOCS_LAYOUT_OFFSET],
+        top: [TOOLBAR_PRIMARY_MOBILE_HEIGHT, DOCS_LAYOUT_OFFSET],
         pt: [0, 4],
         pr: [0, '14px']
       })}

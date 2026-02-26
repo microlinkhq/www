@@ -1,5 +1,4 @@
-import React, { useEffect, useState, createElement } from 'react'
-import { useBreakpoint } from 'components/hook/use-breakpoint'
+import React, { useEffect, useState } from 'react'
 import FeatherIcon from 'components/icons/Feather'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
@@ -33,10 +32,20 @@ const css = `
   left: 0;
 `
 
-const AsideMobile = ({ children, ...props }) => {
+const Aside = ({ children, ...props }) => {
   const [isOpen, setOpen] = useState(false)
   const toggleOpen = () => setOpen(!isOpen)
   const handleClose = () => setOpen(false)
+  const getVisibleAsideElement = () =>
+    Array.from(document.querySelectorAll('[data-aside]')).find(element => {
+      const style = window.getComputedStyle(element)
+      if (style.display === 'none' || style.visibility === 'hidden') {
+        return false
+      }
+
+      const { width, height } = element.getBoundingClientRect()
+      return width > 0 && height > 0
+    })
 
   // Handle Escape key to close drawer
   useEffect(() => {
@@ -57,7 +66,7 @@ const AsideMobile = ({ children, ...props }) => {
     if (!isOpen) return
 
     const handleClickOutside = event => {
-      const asideElement = document.querySelector('[data-aside]')
+      const asideElement = getVisibleAsideElement()
       const menuButton = event.target.closest(
         'button[aria-label="open aside menu"]'
       )
@@ -73,76 +82,17 @@ const AsideMobile = ({ children, ...props }) => {
     }
   }, [isOpen])
 
-  return (
-    <Box>
-      <AsideBase
-        CloseButton={
-          <AsideButton
-            title='close aside menu'
-            iconComponent={
-              <FeatherIcon
-                icon={X}
-                size={[1, 1, 2, 2]}
-                onClick={handleClose}
-                css={{ cursor: 'pointer' }}
-              />
-            }
-          />
-        }
-        isOpen={isOpen}
-        css={css}
-        {...props}
-      />
-      <AsideButton
-        title='open aside menu'
-        iconComponent={
-          <FeatherIcon
-            icon={Menu}
-            size={[1, 1, 2, 2]}
-            onClick={toggleOpen}
-            css={{ cursor: 'pointer' }}
-          />
-        }
-      />
-      <Flex css={theme({ flexDirection: 'column' })} as='section'>
-        {children}
-      </Flex>
-    </Box>
-  )
-}
-
-const AsideDesktop = ({ children, ...props }) => {
-  return (
-    <>
-      <AsideBase isOpen {...props} />
-      <Flex
-        css={theme({
-          pl: `calc(${ASIDE_WIDTH} + 14px)`,
-          flexDirection: 'column'
-        })}
-        as='section'
-      >
-        {children}
-      </Flex>
-    </>
-  )
-}
-
-const AsideResponsive = props => {
-  const breakpoint = useBreakpoint()
-  const Component = breakpoint === 0 ? AsideMobile : AsideDesktop
-  return createElement(Component, props)
-}
-
-const Aside = props => {
   useEffect(() => {
-    const activeEl = document.querySelector('[data-aside-tree] .active')
+    const asideContainer = getVisibleAsideElement()
+    if (!asideContainer) return
+
+    const activeEl = asideContainer.querySelector('[data-aside-tree] .active')
+    if (!activeEl) return
+
     if (activeEl.textContent?.trim() !== 'Overview') {
-      const asideContainer = document.querySelector('[data-aside]')
       const activeElOffset = activeEl.offsetTop
       const containerScrollTop = asideContainer.scrollTop
-      const headerHeight = 0
-      const targetScroll = activeElOffset - headerHeight
+      const targetScroll = activeElOffset
 
       if (
         targetScroll > containerScrollTop ||
@@ -153,7 +103,63 @@ const Aside = props => {
     }
   }, [])
 
-  return <AsideResponsive {...props} />
+  return (
+    <>
+      <Box css={theme({ display: ['block', 'none', 'none', 'none'] })}>
+        <AsideBase
+          CloseButton={
+            <AsideButton
+              title='close aside menu'
+              iconComponent={
+                <FeatherIcon
+                  icon={X}
+                  size={[1, 1, 2, 2]}
+                  onClick={handleClose}
+                  css={{ cursor: 'pointer' }}
+                />
+              }
+            />
+          }
+          isOpen={isOpen}
+          css={css}
+          {...props}
+        />
+        <AsideButton
+          title='open aside menu'
+          css={theme({ mb: 2 })}
+          iconComponent={
+            <FeatherIcon
+              icon={Menu}
+              size={[1, 1, 2, 2]}
+              onClick={toggleOpen}
+              css={{ cursor: 'pointer' }}
+            />
+          }
+        />
+      </Box>
+      <AsideBase
+        isOpen
+        css={theme({
+          display: ['none', 'block', 'block', 'block']
+        })}
+        {...props}
+      />
+      <Flex
+        css={theme({
+          pl: [
+            0,
+            `calc(${ASIDE_WIDTH} + 14px)`,
+            `calc(${ASIDE_WIDTH} + 14px)`,
+            `calc(${ASIDE_WIDTH} + 14px)`
+          ],
+          flexDirection: 'column'
+        })}
+        as='section'
+      >
+        {children}
+      </Flex>
+    </>
+  )
 }
 
 export default Aside
