@@ -6,6 +6,7 @@ import Container from 'components/elements/Container'
 import { Link } from 'components/elements/Link'
 import Aside from 'components/patterns/Aside/Aside'
 import { formatDate } from 'helpers/format-date'
+import { backDrop } from 'helpers/style'
 import Layout from 'components/patterns/Layout'
 import Choose from 'components/elements/Choose'
 import Flex from 'components/elements/Flex'
@@ -16,11 +17,59 @@ import React from 'react'
 
 import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
 import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
+import styled from 'styled-components'
 
-import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
+import {
+  TOOLBAR_PRIMARY_HEIGHT,
+  DOCS_NAVBAR_HEIGHT
+} from 'components/elements/Toolbar'
 
 const COPY = 'Copy for LLM'
 const COPIED = 'Copied to LLM'
+
+const DocsHeaderBackdrop = styled(Box)`
+  ${backDrop};
+
+  ${theme({
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${DOCS_NAVBAR_HEIGHT})`,
+    zIndex: 99,
+    pointerEvents: 'none',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+    display: ['none', 'block']
+  })}
+`
+
+const DocsNavbar = styled(Box)`
+  ${theme({
+    position: 'fixed',
+    top: TOOLBAR_PRIMARY_HEIGHT,
+    left: 0,
+    right: 0,
+    zIndex: 100,
+    background: 'transparent',
+    display: ['none', 'block']
+  })}
+`
+
+const DocsNavbarContainer = styled(Container)`
+  ${theme({
+    px: 0,
+    pt: 0,
+    maxWidth: layout.large
+  })}
+`
+
+const DocsContainer = styled(Container)`
+  ${theme({
+    pt: [0, DOCS_NAVBAR_HEIGHT],
+    px: 0,
+    maxWidth: layout.large
+  })}
+`
 
 const DocTemplate = ({
   title,
@@ -56,44 +105,19 @@ const DocTemplate = ({
 
   return (
     <Layout footer={false}>
-      <Box
-        data-docs-navbar
-        css={theme({
-          position: 'fixed',
-          top: TOOLBAR_PRIMARY_HEIGHT,
-          left: 0,
-          right: 0,
-          zIndex: 2,
-          background: 'white',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-          display: ['none', 'block']
-        })}
-      >
-        <Container
-          css={theme({
-            px: 0,
-            pt: 0,
-            maxWidth: layout.large
-          })}
-        >
+      <DocsHeaderBackdrop data-docs-header-backdrop aria-hidden='true' />
+      <DocsNavbar data-docs-navbar>
+        <DocsNavbarContainer>
           <DocTabs activeRouteName={activeRouteName} />
-        </Container>
-      </Box>
-      <Container
-        data-docs-container
-        css={theme({
-          pt: 0,
-          px: 0,
-          maxWidth: layout.large
-        })}
-      >
+        </DocsNavbarContainer>
+      </DocsNavbar>
+      <DocsContainer data-docs-container>
         <Aside activeRouteName={activeRouteName}>
-          <Box css={theme({ mt: [0, 4, 4, 4] })} />
           <Choose>
             <Choose.When condition={!!title}>
               <H1
                 css={theme({
-                  mt: 3,
+                  mt: [0, '-12px'],
                   mb: 1
                 })}
                 variant={null}
@@ -157,7 +181,7 @@ const DocTemplate = ({
             </Link>
           </Flex>
         </Aside>
-      </Container>
+      </DocsContainer>
     </Layout>
   )
 }
