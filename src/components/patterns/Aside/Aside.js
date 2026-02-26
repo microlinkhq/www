@@ -36,6 +36,16 @@ const Aside = ({ children, ...props }) => {
   const [isOpen, setOpen] = useState(false)
   const toggleOpen = () => setOpen(!isOpen)
   const handleClose = () => setOpen(false)
+  const getVisibleAsideElement = () =>
+    Array.from(document.querySelectorAll('[data-aside]')).find(element => {
+      const style = window.getComputedStyle(element)
+      if (style.display === 'none' || style.visibility === 'hidden') {
+        return false
+      }
+
+      const { width, height } = element.getBoundingClientRect()
+      return width > 0 && height > 0
+    })
 
   // Handle Escape key to close drawer
   useEffect(() => {
@@ -56,9 +66,7 @@ const Aside = ({ children, ...props }) => {
     if (!isOpen) return
 
     const handleClickOutside = event => {
-      const asideElement = Array.from(
-        document.querySelectorAll('[data-aside]')
-      ).find(element => element.offsetParent !== null)
+      const asideElement = getVisibleAsideElement()
       const menuButton = event.target.closest(
         'button[aria-label="open aside menu"]'
       )
@@ -79,9 +87,7 @@ const Aside = ({ children, ...props }) => {
     if (!activeEl) return
 
     if (activeEl.textContent?.trim() !== 'Overview') {
-      const asideContainer = Array.from(
-        document.querySelectorAll('[data-aside]')
-      ).find(element => element.offsetParent !== null)
+      const asideContainer = getVisibleAsideElement()
       if (!asideContainer) return
 
       const activeElOffset = activeEl.offsetTop
