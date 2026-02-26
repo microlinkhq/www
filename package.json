@@ -187,7 +187,7 @@
     "@storybook/addon-essentials": "~6.5.16",
     "@storybook/builder-webpack5": "~6.5.16",
     "@storybook/manager-webpack5": "~6.5.16",
-    "@storybook/react": "~6.5.16",
+    "@storybook/react": "~10.2.13",
     "contrast": "latest",
     "debug-logfmt": "latest",
     "esbuild": "latest",
