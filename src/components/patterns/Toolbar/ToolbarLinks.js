@@ -3,25 +3,23 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Microlink } from 'components/logos'
 import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
+import { Award as AwardIcon } from 'components/icons/Award'
+import { Building2 as Building2Icon } from 'components/icons/Building2'
+import { Bug as BugIcon } from 'components/icons/Bug'
+import { Files as FilesIcon } from 'components/icons/Files'
+import { Focus as FocusIcon } from 'components/icons/Focus'
+import { Inbox as InboxIcon } from 'components/icons/Inbox'
+import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
+import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
+import { PDF as PDFIcon } from 'components/icons/PDF'
+import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
+import { Terminal as TerminalIcon } from 'components/icons/Terminal'
+import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
 import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
 import styled from 'styled-components'
-import {
-  BarChart2,
-  Camera,
-  Code,
-  Database,
-  File,
-  Image,
-  Share2,
-  Shield,
-  Clock,
-  Users,
-  Command,
-  Activity,
-  Layers
-} from 'react-feather'
+import { BarChart2, Code, Image, Map, Users, Activity } from 'react-feather'
 import NavLink from './NavLink'
 
 export const ToolbarNavLink = styled(NavLink)`
@@ -134,25 +132,25 @@ export const NAVIGATION_SECTIONS = [
         label: 'Metadata',
         href: '/metadata',
         description: 'Extract normalized metadata from any website',
-        icon: Database
+        icon: MetascraperIcon
       }),
       createNavigationItem({
         label: 'Screenshot',
         href: '/screenshot',
         description: 'Generate pixel-perfect captures for any URL',
-        icon: Camera
+        icon: FocusIcon
       }),
       createNavigationItem({
         label: 'PDF',
         href: '/pdf',
         description: 'Create production-ready PDFs from live webpages',
-        icon: File
+        icon: PDFIcon
       }),
       createNavigationItem({
         label: 'Insights',
         href: '/insights',
         description: 'Run lighthouse insights across pages at scale',
-        icon: BarChart2
+        icon: LighthouseIcon
       }),
       createNavigationItem({
         label: 'Logo',
@@ -178,13 +176,13 @@ export const NAVIGATION_SECTIONS = [
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
         description: 'Preview social cards before publishing links',
-        icon: Share2
+        icon: BugIcon
       }),
       createNavigationItem({
         label: 'SDK',
         href: '/sdk',
         description: 'Ship API integrations faster across platforms',
-        icon: Code
+        icon: TerminalIcon
       })
     ]
   },
@@ -203,25 +201,25 @@ export const NAVIGATION_SECTIONS = [
         label: 'Newsletter',
         href: '/newsletter',
         description: 'Get monthly updates, launches, and tutorials',
-        icon: Share2
+        icon: InboxIcon
       }),
       createNavigationItem({
         label: 'Open Source',
         href: '/oss',
         description: 'Explore public projects powering Microlink tools',
-        icon: Shield
+        icon: AwardIcon
       }),
       createNavigationItem({
         label: 'About',
         href: '/about',
         description: 'Meet the team building Microlink products',
-        icon: File
+        icon: Building2Icon
       }),
       createNavigationItem({
         label: 'Changelog',
         href: '/changelog',
         description: 'Track shipped improvements and platform releases',
-        icon: Clock
+        icon: Map
       }),
       createNavigationItem({
         label: 'Community',
@@ -239,7 +237,7 @@ export const NAVIGATION_SECTIONS = [
         label: 'Formats',
         href: '/formats',
         description: 'See every supported format and coverage details',
-        icon: Layers
+        icon: FilesIcon
       }),
       createNavigationItem({
         label: 'API',
@@ -251,13 +249,13 @@ export const NAVIGATION_SECTIONS = [
         label: 'Recipes',
         href: '/recipes',
         description: 'Use ready-made recipes for common workflows',
-        icon: Command
+        icon: WandSparklesIcon
       }),
       createNavigationItem({
         label: 'User Agents',
         href: '/user-agents',
         description: 'Use curated browser signatures for testing',
-        icon: Shield
+        icon: ShieldUserIcon
       })
     ]
   }
