@@ -194,7 +194,7 @@ const MediaPlaceholder = () => (
         Use the Microlink API through natural language.
       </Text>
       <Video
-        src='https://cdn.microlink.io/mcp/codex-screenshot.mp4'
+        src='https://cdn.microlink.io/mcp/codex.mp4'
         title='Microlink MCP in action'
         controls={false}
         css={theme({
