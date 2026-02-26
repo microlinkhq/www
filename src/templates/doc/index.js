@@ -6,6 +6,7 @@ import Container from 'components/elements/Container'
 import { Link } from 'components/elements/Link'
 import Aside from 'components/patterns/Aside/Aside'
 import { formatDate } from 'helpers/format-date'
+import { backDrop } from 'helpers/style'
 import Layout from 'components/patterns/Layout'
 import Choose from 'components/elements/Choose'
 import Flex from 'components/elements/Flex'
@@ -26,15 +27,30 @@ import {
 const COPY = 'Copy for LLM'
 const COPIED = 'Copied to LLM'
 
+const DocsHeaderBackdrop = styled(Box)`
+  ${backDrop};
+
+  ${theme({
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${DOCS_NAVBAR_HEIGHT})`,
+    zIndex: 99,
+    pointerEvents: 'none',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+    display: ['none', 'block']
+  })}
+`
+
 const DocsNavbar = styled(Box)`
   ${theme({
     position: 'fixed',
     top: TOOLBAR_PRIMARY_HEIGHT,
     left: 0,
     right: 0,
-    zIndex: 2,
-    background: 'white',
-    borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+    zIndex: 100,
+    background: 'transparent',
     display: ['none', 'block']
   })}
 `
@@ -89,6 +105,7 @@ const DocTemplate = ({
 
   return (
     <Layout footer={false}>
+      <DocsHeaderBackdrop data-docs-header-backdrop aria-hidden='true' />
       <DocsNavbar data-docs-navbar>
         <DocsNavbarContainer>
           <DocTabs activeRouteName={activeRouteName} />

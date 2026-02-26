@@ -10,6 +10,7 @@ import { ChevronDown, ChevronRight } from 'react-feather'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { formatDate } from 'helpers/format-date'
+import { backDrop } from 'helpers/style'
 import { useBlogIndex } from 'components/hook/use-blog-index'
 
 import {
@@ -132,8 +133,6 @@ const MegaMenuPanel = styled(Box).withConfig({
   margin-bottom: 12px;
   border: 1px solid ${colors.black10};
   border-radius: 20px;
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
   background: white;
   box-shadow: ${shadows[2]};
   transform-origin: top center;
@@ -258,6 +257,20 @@ const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   }
 `
 
+const Header = styled(Box).withConfig({
+  shouldForwardProp: prop => !['isDocsRoute'].includes(prop)
+})`
+  ${theme({
+    position: 'fixed',
+    zIndex: 101,
+    top: 0,
+    left: 0,
+    right: 0
+  })}
+
+  ${({ isDocsRoute }) => !isDocsRoute && backDrop}
+`
+
 const DEBUG_STICKY_SECTION = ''
 const isStickySection = Boolean(DEBUG_STICKY_SECTION)
 
@@ -286,6 +299,7 @@ const ToolbarDesktop = () => {
 
   const isPanelVisible = Boolean(openSection)
   const latestPosts = useMemo(() => blogPosts.slice(0, 3), [blogPosts])
+  const isDocsRoute = location.pathname.startsWith('/docs')
 
   useEffect(() => {
     if (isStickySection) return
@@ -427,21 +441,13 @@ const ToolbarDesktop = () => {
   )
 
   return (
-    <Box
+    <Header
       as='header'
       className='hidden-print'
       ref={headerRef}
       onMouseEnter={clearClosePanelTimeout}
       onMouseLeave={handleClosePanelWithDelay}
-      css={theme({
-        position: 'fixed',
-        zIndex: 101,
-        top: 0,
-        left: 0,
-        right: 0,
-        'backdrop-filter': 'blur(12px) saturate(140%)',
-        '-webkit-backdrop-filter': 'blur(12px) saturate(140%)'
-      })}
+      isDocsRoute={isDocsRoute}
     >
       <Box
         css={theme({
@@ -766,7 +772,7 @@ const ToolbarDesktop = () => {
           })}
         </MegaMenuPanel>
       </Box>
-    </Box>
+    </Header>
   )
 }
 
