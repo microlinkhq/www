@@ -499,8 +499,7 @@ const ToolbarDesktop = () => {
                     onClick={handleTriggerClick(label)}
                     onMouseEnter={() => handleOpenSectionWithHover(label)}
                     onFocus={() =>
-                      canUseHover() ? handleOpenSection(label) : undefined
-                    }
+                      canUseHover() ? handleOpenSection(label) : undefined}
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
@@ -736,9 +735,9 @@ const ToolbarDesktop = () => {
                                 iconCss={theme(
                                   label === 'Markdown'
                                     ? {
-                                      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-                                      top: 0
-                                    }
+                                        ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+                                        top: 0
+                                      }
                                     : TOOLBAR_MENU_ITEM_MEDIA_STYLES
                                 )}
                                 imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
