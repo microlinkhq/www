@@ -17,6 +17,7 @@ const MenuButton = styled('button')`
   margin: 0;
   padding: 0;
   background: transparent;
+  ${theme({ color: 'black80' })};
 `
 
 const AsideButton = ({ title, iconComponent, ...props }) => (
