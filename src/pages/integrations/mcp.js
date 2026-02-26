@@ -1,7 +1,8 @@
-import { borders, layout, colors, theme } from 'theme'
+import { borders, layout, colors, fonts, theme } from 'theme'
 import { cdnUrl } from 'helpers/cdn-url'
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 
+import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
@@ -184,13 +185,13 @@ const MediaPlaceholder = () => (
         css={theme({
           mb: 3,
           textAlign: 'center',
-          fontSize: [3, 3, 4, 4]
+          fontSize: [3, 4, 4, 4]
         })}
         variant='gradient'
       >
         Ask. Get. Done.
       </Subhead>
-      <Text css={theme({ pb: [3, 3, 4, 4] })}>
+      <Text css={theme({ pb: [3, 3, 4, 4], fontSize: [1, 2, 3, 3] })}>
         Use the Microlink API through natural language.
       </Text>
       <Video
@@ -213,7 +214,6 @@ const ProductInformation = () => (
   <Faq
     css={theme({
       py: [4, 4, 5, 5],
-      bg: 'pinky',
       borderTop: `${borders[1]} ${colors.black10}`,
       borderBottom: `${borders[1]} ${colors.black10}`
     })}
@@ -473,6 +473,256 @@ export const Head = () => (
   />
 )
 
+const EXAMPLES = [
+  {
+    tool: 'microlink_screenshot',
+    prompt:
+      'Screenshot the Stripe pricing page with a dark browser overlay and share it with the team',
+    result:
+      'A framed, browser-chrome PNG hosted on CDN — ready to paste into Notion or Slack.'
+  },
+  {
+    tool: 'microlink_screenshot',
+    prompt:
+      'Take a full-page screenshot of our landing page and export it as a JPEG',
+    result:
+      'A pixel-perfect full-page capture — every section, above and below the fold — as a JPEG URL.'
+  },
+  {
+    tool: 'microlink_screenshot',
+    prompt:
+      'Screenshot only the hero section of linear.app using its CSS selector',
+    result:
+      'An element-level crop of exactly the DOM node you specified — nothing more, nothing less.'
+  },
+  {
+    tool: 'microlink_screenshot',
+    prompt:
+      'Capture a mobile view of twitter.com to see how the layout looks on a phone screen',
+    result:
+      'A screenshot taken at 390×844 mobile viewport — identical to what a real iPhone sees.'
+  },
+  {
+    tool: 'microlink_screenshot',
+    prompt:
+      'Take a screenshot of our staging site with a light browser overlay for the pitch deck',
+    result:
+      'A polished browser-framed PNG that looks great in presentations — one CDN link, no fuss.'
+  },
+  {
+    tool: 'microlink_extract',
+    prompt:
+      'Get the metadata and a full-page screenshot of vercel.com in a single request',
+    result:
+      'Title, description, OG image, author, date — plus a full-page screenshot URL — all in one call.'
+  },
+  {
+    tool: 'microlink_markdown',
+    prompt:
+      'Read this research paper and summarise the key findings in 5 bullet points',
+    result:
+      'Clean Markdown output — 80% fewer tokens than raw HTML — fed straight into the LLM context.'
+  },
+  {
+    tool: 'microlink_insights',
+    prompt:
+      "Audit our competitor's homepage performance and tell me what stack they're running",
+    result:
+      'Lighthouse scores for performance, accessibility, and SEO, plus Wappalyzer tech-stack detection.'
+  },
+  {
+    tool: 'microlink_extract',
+    prompt:
+      'Scrape every pricing plan name and its monthly price from this SaaS page',
+    result:
+      'Structured JSON with the exact fields you asked for, extracted via CSS selectors.'
+  },
+  {
+    tool: 'microlink_palette',
+    prompt: 'What are the exact brand colors used on linear.app?',
+    result:
+      'Hex codes ranked by dominance, plus WCAG-contrast-safe background and overlay colors.'
+  },
+  {
+    tool: 'microlink_pdf',
+    prompt:
+      'Convert this documentation page to an A4 PDF and send it to the client',
+    result:
+      'A print-ready PDF with full CSS rendering, hosted on CDN and available immediately.'
+  },
+  {
+    tool: 'microlink_meta',
+    prompt:
+      'Fetch the title, OG image, and description for each of these 10 blog posts',
+    result:
+      'Normalized metadata for every URL — title, description, image, author, date, and favicon.'
+  },
+  {
+    tool: 'microlink_text',
+    prompt:
+      'Extract the plain text content of this article so I can count the words',
+    result:
+      'Raw readable text — no tags, no scripts, no noise — ready for analysis or summarisation.'
+  },
+  {
+    tool: 'microlink_screenshot',
+    prompt:
+      'Screenshot the dark-mode version of our app at 1440px wide for the design review',
+    result:
+      'A full desktop-width capture at the exact viewport you need — dark scheme applied, CDN-hosted.'
+  }
+]
+
+const scrollbarHideCss = `
+  .mcp-scroll-track { scrollbar-width: none; -ms-overflow-style: none; }
+  .mcp-scroll-track::-webkit-scrollbar { display: none; }
+`
+
+const ExamplesScroll = () => {
+  const trackRef = useRef(null)
+  const isPaused = useRef(false)
+  const rafRef = useRef(null)
+  const posRef = useRef(0)
+
+  useEffect(() => {
+    const el = trackRef.current
+    if (!el) return
+
+    const step = () => {
+      if (!isPaused.current) {
+        posRef.current += 0.7
+        const half = el.scrollWidth / 2
+        if (posRef.current >= half) posRef.current = 0
+        el.scrollLeft = Math.round(posRef.current)
+      }
+      rafRef.current = requestAnimationFrame(step)
+    }
+
+    rafRef.current = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [])
+
+  return (
+    <Box
+      css={{
+        marginTop: '40px',
+        WebkitMaskImage:
+          'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+        maskImage:
+          'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)'
+      }}
+    >
+      <Flex
+        ref={trackRef}
+        className='mcp-scroll-track'
+        onMouseEnter={() => {
+          isPaused.current = true
+        }}
+        onMouseLeave={() => {
+          isPaused.current = false
+        }}
+        onTouchStart={() => {
+          isPaused.current = true
+        }}
+        onTouchEnd={() => {
+          isPaused.current = false
+        }}
+        css={{
+          overflowX: 'scroll',
+          gap: '20px',
+          paddingBottom: '8px',
+          cursor: 'grab'
+        }}
+      >
+        {[...EXAMPLES, ...EXAMPLES].map((example, i) => (
+          <Flex
+            key={i}
+            css={theme({
+              flexDirection: 'column',
+              flexShrink: 0,
+              width: ['320px', '420px', '500px', '520px'],
+              border: 1,
+              borderColor: 'black10',
+              borderRadius: 3,
+              px: [3, 3, 4, 4],
+              py: [3, 3, 3, 3],
+              bg: 'white'
+            })}
+          >
+            <Text
+              css={theme({
+                fontFamily: fonts.mono,
+                fontSize: 0,
+                color: 'secondary',
+                mb: 2
+              })}
+            >
+              {example.tool}
+            </Text>
+            <Box
+              css={theme({
+                borderLeft: `3px solid ${colors.secondary}`,
+                pl: 3,
+                mb: 2,
+                flex: 1
+              })}
+            >
+              <Text
+                css={theme({
+                  fontSize: [1, 1, 1, 2],
+                  color: 'black80',
+                  fontStyle: 'italic'
+                })}
+              >
+                &ldquo;{example.prompt}&rdquo;
+              </Text>
+            </Box>
+            <Text css={theme({ fontSize: 1, color: 'black50' })}>
+              {example.result}
+            </Text>
+          </Flex>
+        ))}
+      </Flex>
+    </Box>
+  )
+}
+
+const Examples = () => (
+  <Box
+    as='section'
+    id='examples'
+    css={theme({
+      bg: 'pinky',
+      pb: [4, 4, 5, 5],
+      borderTop: `${borders[1]} ${colors.black10}`,
+      borderBottom: `${borders[1]} ${colors.black10}`
+    })}
+  >
+    <style>{scrollbarHideCss}</style>
+    <Container
+      css={theme({
+        pt: [4, 4, 5, 5],
+        alignItems: 'center',
+        maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
+        px: [4, 4, 4, 0]
+      })}
+    >
+      <Subhead variant='gradient' css={theme({ fontSize: [4, 4, 5, 5] })}>
+        Unlock the web for your agents
+      </Subhead>
+      <Caption
+        css={theme({
+          pt: [3, 3, 4, 4],
+          maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+        })}
+      >
+        Even behind bot detection, cookie walls, and ads.
+      </Caption>
+    </Container>
+    <ExamplesScroll />
+  </Box>
+)
+
 const McpPage = () => (
   <Layout>
     <Hero />
@@ -506,6 +756,7 @@ const McpPage = () => (
       }
       features={FEATURES}
     />
+    <Examples />
     <ProductInformation />
   </Layout>
 )
