@@ -83,17 +83,16 @@ const Aside = ({ children, ...props }) => {
   }, [isOpen])
 
   useEffect(() => {
-    const activeEl = document.querySelector('[data-aside-tree] .active')
+    const asideContainer = getVisibleAsideElement()
+    if (!asideContainer) return
+
+    const activeEl = asideContainer.querySelector('[data-aside-tree] .active')
     if (!activeEl) return
 
     if (activeEl.textContent?.trim() !== 'Overview') {
-      const asideContainer = getVisibleAsideElement()
-      if (!asideContainer) return
-
       const activeElOffset = activeEl.offsetTop
       const containerScrollTop = asideContainer.scrollTop
-      const headerHeight = 0
-      const targetScroll = activeElOffset - headerHeight
+      const targetScroll = activeElOffset
 
       if (
         targetScroll > containerScrollTop ||
