@@ -1,7 +1,6 @@
 import { css } from 'styled-components'
 
 export const backDrop = css`
-  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   background: linear-gradient(
     to bottom,

@@ -8,6 +8,7 @@ import Caps from 'components/elements/Caps'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
 import { ChevronDown, Menu, X } from 'react-feather'
+import { backDrop } from 'helpers/style'
 import styled from 'styled-components'
 import { colors, fontWeights, theme, transition } from 'theme'
 import React, { useEffect, useState } from 'react'
@@ -207,6 +208,18 @@ const MobileMenuPanel = styled(Box).withConfig({
   pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
 `
 
+const Header = styled(Box)`
+  ${theme({
+    position: 'fixed',
+    zIndex: 101,
+    top: 0,
+    left: 0,
+    right: 0
+  })}
+
+  ${backDrop}
+`
+
 const toMobileSectionDomId = label =>
   `mobile-toolbar-section-${String(label).toLowerCase().replace(/\s+/g, '-')}`
 
@@ -254,17 +267,7 @@ const ToolbarMobile = () => {
   const MenuIcon = isOpen ? X : Menu
 
   return (
-    <Box
-      as='header'
-      css={theme({
-        position: 'fixed',
-        zIndex: 101,
-        top: 0,
-        left: 0,
-        right: 0,
-        background: 'white'
-      })}
-    >
+    <Header as='header'>
       <Toolbar
         as='nav'
         aria-label='Mobile Navigation'
@@ -444,7 +447,7 @@ const ToolbarMobile = () => {
           ))}
         </Box>
       </MobileMenuPanel>
-    </Box>
+    </Header>
   )
 }
 
