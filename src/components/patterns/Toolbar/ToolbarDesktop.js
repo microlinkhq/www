@@ -281,10 +281,6 @@ const canUseHover = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
-const canUseFocusOpen = () =>
-  typeof window !== 'undefined' &&
-  window.matchMedia('(hover: hover) and (pointer: fine)').matches
-
 const ToolbarDesktop = () => {
   const location = useLocation()
   const blogPosts = useBlogIndex()
@@ -499,7 +495,8 @@ const ToolbarDesktop = () => {
                     onClick={handleTriggerClick(label)}
                     onMouseEnter={() => handleOpenSectionWithHover(label)}
                     onFocus={() =>
-                      canUseFocusOpen() ? handleOpenSection(label) : undefined}
+                      canUseHover() ? handleOpenSection(label) : undefined
+                    }
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
@@ -735,9 +732,9 @@ const ToolbarDesktop = () => {
                                 iconCss={theme(
                                   label === 'Markdown'
                                     ? {
-                                        ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-                                        top: 0
-                                      }
+                                      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+                                      top: 0
+                                    }
                                     : TOOLBAR_MENU_ITEM_MEDIA_STYLES
                                 )}
                                 imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
