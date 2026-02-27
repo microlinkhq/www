@@ -666,7 +666,7 @@ const ExamplesGrid = () => (
             padding: '22px 24px',
             backgroundColor: 'white',
             border: `1px solid ${colors.black10}`,
-            '@media screen and (min-width: 600px)': {
+            '@media screen and (min-width: 768px)': {
               gridColumn: example.span ? `span ${example.span}` : 'span 1'
             }
           }}
