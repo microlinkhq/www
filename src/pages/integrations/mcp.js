@@ -1,6 +1,6 @@
 import { borders, layout, colors, fonts, theme } from 'theme'
 import { cdnUrl } from 'helpers/cdn-url'
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
@@ -973,10 +973,18 @@ const examplesCss = `
 const ExamplesGrid = () => {
   const [active, setActive] = useState('all')
 
-  const visible =
-    active === 'all'
-      ? EXAMPLES.filter(e => !e.hidden)
-      : EXAMPLES.filter(e => e.tool === active)
+  const handlePillClick = useCallback(e => {
+    const tool = e.currentTarget.dataset.tool
+    setActive(curr => (curr === tool ? 'all' : tool))
+  }, [])
+
+  const visible = useMemo(
+    () =>
+      active === 'all'
+        ? EXAMPLES.filter(e => !e.hidden)
+        : EXAMPLES.filter(e => e.tool === active),
+    [active]
+  )
 
   return (
     <>
@@ -993,9 +1001,10 @@ const ExamplesGrid = () => {
         {TOOLS.map(({ tool, accent }) => (
           <button
             key={tool}
+            data-tool={tool}
             className={`ex-pill${active === tool ? ' active' : ''}`}
             style={{ '--pill-accent': accent, '--pill-bg': `${accent}14` }}
-            onClick={() => setActive(active === tool ? 'all' : tool)}
+            onClick={handlePillClick}
           >
             <span className='ex-pill-dot' />
             {tool}
