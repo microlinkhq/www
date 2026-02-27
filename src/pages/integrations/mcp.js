@@ -151,18 +151,10 @@ const Installation = () => (
         })}
       >
         Paste this into your MCP client config file.{' '}
-        <Link href='https://claude.ai/download' logoIcon>
-          Claude Desktop
-        </Link>
-        ,{' '}
-        <Link href='https://cursor.com' logoIcon>
-          Cursor
-        </Link>
-        ,{' '}
-        <Link href='https://windsurf.com' logoIcon>
-          Windsurf
-        </Link>
-        , and every other MCP-compatible client get access immediately.
+        <Link href='https://claude.ai/download'>Claude Desktop</Link>,{' '}
+        <Link href='https://cursor.com'>Cursor</Link>,{' '}
+        <Link href='https://windsurf.com'>Windsurf</Link>, and every other
+        MCP-compatible client get access immediately.
       </Text>
     </Flex>
   </Container>
@@ -1181,7 +1173,7 @@ const ExamplesGrid = () => {
                 style={{ marginLeft: 'auto' }}
                 aria-label='Copy prompt'
               >
-                {copiedPrompt === example.prompt ? (
+                {copiedPrompt === example.prompt && (
                   <>
                     <svg
                       width='18'
@@ -1199,7 +1191,8 @@ const ExamplesGrid = () => {
                       Prompt copied
                     </span>
                   </>
-                ) : (
+                )}
+                {copiedPrompt !== example.prompt && (
                   <svg
                     width='18'
                     height='18'
