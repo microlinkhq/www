@@ -1,6 +1,6 @@
 import { borders, layout, colors, fonts, theme } from 'theme'
 import { cdnUrl } from 'helpers/cdn-url'
-import React from 'react'
+import React, { useState } from 'react'
 
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
@@ -561,7 +561,7 @@ const EXAMPLES = [
   },
   {
     tool: 'meta',
-    accent: '#6366F1',
+    accent: '#F97316',
     prompt:
       'Fetch the title, OG image, and description for each of these 10 blog posts',
     result:
@@ -569,7 +569,7 @@ const EXAMPLES = [
   },
   {
     tool: 'text',
-    accent: '#8B5CF6',
+    accent: '#14B8A6',
     prompt:
       'Extract the plain text content of this article so I can count the words',
     result:
@@ -599,19 +599,308 @@ const EXAMPLES = [
       'Screenshot the dark-mode version of our app at 1440 px wide for the design review',
     result:
       'A full desktop-width capture at the exact viewport you need — dark scheme applied, CDN-hosted.'
+  },
+  {
+    tool: 'screenshot',
+    accent: '#7B61FF',
+    prompt:
+      'Take a full-page screenshot of our landing page and export it as a JPEG',
+    result:
+      'A pixel-perfect full-page capture — every section, above and below the fold — as a JPEG URL.',
+    hidden: true
+  },
+  {
+    tool: 'screenshot',
+    accent: '#7B61FF',
+    prompt:
+      'Screenshot only the hero section of linear.app using its CSS selector',
+    result:
+      'An element-level crop of exactly the DOM node you specified — nothing more, nothing less.',
+    hidden: true
+  },
+  {
+    tool: 'screenshot',
+    accent: '#7B61FF',
+    prompt:
+      'Take a screenshot of our staging site with a browser overlay for the pitch deck',
+    result:
+      'A polished browser-framed PNG that looks great in presentations — one CDN link, no fuss.',
+    hidden: true
+  },
+  {
+    tool: 'markdown',
+    accent: '#00B4D8',
+    prompt:
+      'Convert this Wikipedia article to Markdown so I can paste it into Notion',
+    result:
+      'Clean structured Markdown — headings, lists, links all preserved — ready to paste anywhere.',
+    hidden: true
+  },
+  {
+    tool: 'markdown',
+    accent: '#00B4D8',
+    prompt:
+      'Turn this changelog page into Markdown and summarise what changed in the last release',
+    result:
+      'Parsed Markdown fed to the LLM, which returns a concise summary of the latest version changes.',
+    hidden: true
+  },
+  {
+    tool: 'markdown',
+    accent: '#00B4D8',
+    prompt:
+      'Convert the React docs page to Markdown and find all the code examples',
+    result:
+      'Full-page Markdown with all code blocks intact — grep, filter, or pipe straight into your workflow.',
+    hidden: true
+  },
+  {
+    tool: 'extract',
+    accent: '#067df7',
+    prompt:
+      'Find all the author names and publish dates from this blog index page',
+    result:
+      'An array of structured objects — one per article — with author and date fields extracted via selectors.',
+    hidden: true
+  },
+  {
+    tool: 'extract',
+    accent: '#067df7',
+    prompt:
+      'Pull the job title, company, and LinkedIn URL from this profile page',
+    result:
+      'Structured JSON with every field you named — ready to push into your CRM or spreadsheet.',
+    hidden: true
+  },
+  {
+    tool: 'extract',
+    accent: '#067df7',
+    prompt:
+      'Extract the product name, SKU, and price from each item on this e-commerce page',
+    result:
+      'A clean JSON array — one object per product — with all the fields you specified.',
+    hidden: true
+  },
+  {
+    tool: 'pdf',
+    accent: '#EA407B',
+    prompt: 'Export this invoice page as a PDF so I can send it to accounting',
+    result:
+      'A pixel-accurate PDF of the page at A4 size — fonts, tables, and layout fully rendered.',
+    hidden: true
+  },
+  {
+    tool: 'pdf',
+    accent: '#EA407B',
+    prompt:
+      'Generate a landscape PDF of this analytics dashboard for the board meeting',
+    result:
+      'A landscape-format PDF at the exact dimensions you specified — charts, colors, and all.',
+    hidden: true
+  },
+  {
+    tool: 'pdf',
+    accent: '#EA407B',
+    prompt: 'Save this terms-of-service page as a PDF for our legal records',
+    result:
+      'A print-ready PDF with correct pagination, hosted on CDN and ready to download or share.',
+    hidden: true
+  },
+  {
+    tool: 'insights',
+    accent: '#F59E0B',
+    prompt:
+      'Check our new landing page for accessibility issues before we ship',
+    result:
+      'Lighthouse accessibility score with every failing rule listed — fix before launch, not after.',
+    hidden: true
+  },
+  {
+    tool: 'insights',
+    accent: '#F59E0B',
+    prompt:
+      'Run a performance audit on our checkout page and flag the biggest bottlenecks',
+    result:
+      'Core Web Vitals breakdown — LCP, FID, CLS — with actionable suggestions for each.',
+    hidden: true
+  },
+  {
+    tool: 'insights',
+    accent: '#F59E0B',
+    prompt:
+      'Detect what CMS our competitor is running and what analytics tools they use',
+    result:
+      'A full Wappalyzer tech-stack report — CMS, CDN, analytics, A/B testing tools, and more.',
+    hidden: true
+  },
+  {
+    tool: 'palette',
+    accent: '#10B981',
+    prompt:
+      'Extract the color palette from our hero image so I can build a matching UI',
+    result:
+      'Dominant hex codes from the image ranked by coverage — ready to drop into your design system.',
+    hidden: true
+  },
+  {
+    tool: 'palette',
+    accent: '#10B981',
+    prompt:
+      'What background color would be safest to use on top of the main image on stripe.com?',
+    result:
+      'The WCAG-contrast-safe overlay color — guaranteed readable text on any image background.',
+    hidden: true
+  },
+  {
+    tool: 'palette',
+    accent: '#10B981',
+    prompt:
+      'Give me the five most used colors on vercel.com so I can match our design',
+    result:
+      'Five dominant hex codes ranked by usage — with dark/light contrast-safe alternatives for each.',
+    hidden: true
+  },
+  {
+    tool: 'video',
+    accent: '#F43F5E',
+    prompt:
+      'Get the direct MP4 URL from this Vimeo embed so I can cache it locally',
+    result:
+      'A direct, playable MP4 source URL — no embed, no JavaScript, no rate limits.',
+    hidden: true
+  },
+  {
+    tool: 'video',
+    accent: '#F43F5E',
+    prompt:
+      'Extract the audio stream from this SoundCloud track so I can transcribe it',
+    result:
+      'A direct audio source URL from SoundCloud, Spotify, Mixcloud, or any supported platform.',
+    hidden: true
+  },
+  {
+    tool: 'video',
+    accent: '#F43F5E',
+    prompt:
+      'Pull the video source from this TikTok so I can use it in our montage',
+    result:
+      'A watermark-free direct video URL from TikTok — ready to download or pipe into ffmpeg.',
+    hidden: true
+  },
+  {
+    tool: 'meta',
+    accent: '#F97316',
+    prompt:
+      'Get the OG image and title for this URL so I can generate a link preview',
+    result:
+      'Open Graph image URL, title, and description — normalized and ready for your link preview component.',
+    hidden: true
+  },
+  {
+    tool: 'meta',
+    accent: '#F97316',
+    prompt:
+      'Check if this article has an author and publication date set in its metadata',
+    result:
+      'Parsed author name and ISO date from the page meta tags — null if not present, never guessed.',
+    hidden: true
+  },
+  {
+    tool: 'meta',
+    accent: '#F97316',
+    prompt:
+      "Pull the favicon URL from our competitor's site for the comparison table",
+    result:
+      'A direct favicon URL — upsized, normalized, and CDN-hosted — for any page you point at.',
+    hidden: true
+  },
+  {
+    tool: 'text',
+    accent: '#14B8A6',
+    prompt:
+      'Pull the raw text from this job listing so I can parse requirements with an LLM',
+    result:
+      'Plain text stripped of all HTML — just the readable content, ready for LLM processing.',
+    hidden: true
+  },
+  {
+    tool: 'text',
+    accent: '#14B8A6',
+    prompt:
+      'Extract the article body from this page without the nav or footer noise',
+    result:
+      'Main content only — navigation, headers, footers, and ads stripped out automatically.',
+    hidden: true
+  },
+  {
+    tool: 'text',
+    accent: '#14B8A6',
+    prompt:
+      'Get the plain text of this product changelog so I can diff it against last month',
+    result:
+      'Raw text output — no markup, no scripts — ready to compare, diff, or feed into any tool.',
+    hidden: true
+  },
+  {
+    tool: 'audio',
+    accent: '#D946EF',
+    prompt:
+      'Extract the audio stream from this SoundCloud track so I can embed it in our app',
+    result:
+      'A direct playable audio URL from SoundCloud — no API key, no scraping setup, no rate limits.'
+  },
+  {
+    tool: 'audio',
+    accent: '#D946EF',
+    prompt:
+      'Get the direct audio source from this Spotify episode so I can transcribe it',
+    result:
+      'A direct audio stream URL from Spotify — ready to pipe into Whisper or any transcription tool.',
+    hidden: true
+  },
+  {
+    tool: 'audio',
+    accent: '#D946EF',
+    prompt:
+      'Pull the audio file from this podcast episode page so I can process it offline',
+    result:
+      'A direct MP3 or AAC URL from any podcast host — download, transcribe, or archive with no friction.',
+    hidden: true
+  },
+  {
+    tool: 'audio',
+    accent: '#D946EF',
+    prompt:
+      'Extract the audio from this Mixcloud mix so I can add it to our playlist',
+    result:
+      'A direct playable source from Mixcloud — works with hundreds of audio platforms out of the box.',
+    hidden: true
   }
 ]
 
-const exampleCardCss = `
+const TOOLS = [
+  { tool: 'screenshot', accent: '#7B61FF' },
+  { tool: 'markdown', accent: '#00B4D8' },
+  { tool: 'extract', accent: '#067df7' },
+  { tool: 'pdf', accent: '#EA407B' },
+  { tool: 'insights', accent: '#F59E0B' },
+  { tool: 'palette', accent: '#10B981' },
+  { tool: 'video', accent: '#F43F5E' },
+  { tool: 'audio', accent: '#D946EF' },
+  { tool: 'meta', accent: '#F97316' },
+  { tool: 'text', accent: '#14B8A6' }
+]
+
+const examplesCss = `
   @keyframes ex-ball-on {
-    0%   { transform: scale(1);   opacity: 0.35; box-shadow: none; }
-    45%  { transform: scale(1.7); opacity: 1; }
+    0%   { transform: scale(1);    opacity: 0.35; box-shadow: none; }
+    45%  { transform: scale(1.7);  opacity: 1; }
     75%  { transform: scale(0.85); }
-    100% { transform: scale(1);   opacity: 1; box-shadow: 0 0 0 3px var(--card-accent, #7B61FF), 0 0 10px var(--card-accent, #7B61FF); }
+    100% { transform: scale(1);    opacity: 1; box-shadow: 0 0 0 3px var(--card-accent), 0 0 10px var(--card-accent); }
   }
   @keyframes ex-tool-in {
-    from { opacity: 0.5; letter-spacing: 0; }
-    to   { opacity: 1;   letter-spacing: 0.04em; }
+    from { letter-spacing: 0; }
+    to   { letter-spacing: 0.04em; }
   }
   .ex-card {
     transition: box-shadow 0.25s ease;
@@ -621,7 +910,6 @@ const exampleCardCss = `
   }
   .ex-ball {
     opacity: 0.35;
-    transition: opacity 0.2s;
   }
   .ex-card:hover .ex-ball {
     animation: ex-ball-on 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -630,104 +918,171 @@ const exampleCardCss = `
     transition: color 0.25s ease;
   }
   .ex-card:hover .ex-tool {
-    color: var(--card-accent, #7B61FF);
+    color: var(--card-accent);
     animation: ex-tool-in 0.3s ease forwards;
+  }
+  .ex-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 12px;
+    width: 100%;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: white;
+    cursor: pointer;
+    font-family: ${fonts.mono};
+    font-size: 13px;
+    color: rgba(0,0,0,0.55);
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+    user-select: none;
+    appearance: none;
+    outline: none;
+  }
+  .ex-pill:hover {
+    border-color: var(--pill-accent, rgba(0,0,0,0.3));
+    color: var(--pill-accent, rgba(0,0,0,0.8));
+  }
+  .ex-pill.active {
+    border-color: var(--pill-accent, rgba(0,0,0,0.5));
+    color: var(--pill-accent, rgba(0,0,0,0.8));
+    background-color: var(--pill-bg, rgba(0,0,0,0.04));
+  }
+  .ex-pill-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background-color: var(--pill-accent, rgba(0,0,0,0.3));
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+  }
+  .ex-pill:hover .ex-pill-dot,
+  .ex-pill.active .ex-pill-dot {
+    opacity: 1;
   }
 `
 
-const ExamplesGrid = () => (
-  <>
-    <style>{exampleCardCss}</style>
-    <Box
-      css={{
-        display: 'grid',
-        gridTemplateColumns: '1fr',
-        gap: '14px',
-        marginTop: '40px',
-        '@media screen and (min-width: 600px)': {
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '16px'
-        },
-        '@media screen and (min-width: 768px)': {
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '18px'
-        }
-      }}
-    >
-      {EXAMPLES.map((example, i) => (
-        <Flex
-          key={i}
-          className='ex-card'
-          style={{ '--card-accent': example.accent }}
-          css={{
-            flexDirection: 'column',
-            gridColumn: 'span 1',
-            borderRadius: '12px',
-            padding: '22px 24px',
-            backgroundColor: 'white',
-            border: `1px solid ${colors.black10}`,
-            '@media screen and (min-width: 768px)': {
-              gridColumn: example.span ? `span ${example.span}` : 'span 1'
-            }
-          }}
-        >
+const ExamplesGrid = () => {
+  const [active, setActive] = useState('all')
+
+  const visible =
+    active === 'all'
+      ? EXAMPLES.filter(e => !e.hidden)
+      : EXAMPLES.filter(e => e.tool === active)
+
+  return (
+    <>
+      <style>{examplesCss}</style>
+      <Box
+        css={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(5, 1fr)',
+          gap: '8px',
+          marginTop: '32px',
+          marginBottom: '8px'
+        }}
+      >
+        {TOOLS.map(({ tool, accent }) => (
+          <button
+            key={tool}
+            className={`ex-pill${active === tool ? ' active' : ''}`}
+            style={{ '--pill-accent': accent, '--pill-bg': `${accent}14` }}
+            onClick={() => setActive(active === tool ? 'all' : tool)}
+          >
+            <span className='ex-pill-dot' />
+            {tool}
+          </button>
+        ))}
+      </Box>
+      <Box
+        css={{
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: '14px',
+          marginTop: '12px',
+          '@media screen and (min-width: 600px)': {
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '16px'
+          },
+          '@media screen and (min-width: 768px)': {
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '18px'
+          }
+        }}
+      >
+        {visible.map((example, i) => (
           <Flex
+            key={`${example.tool}-${i}`}
+            className='ex-card'
+            style={{ '--card-accent': example.accent }}
             css={{
-              alignItems: 'center',
-              gap: '8px',
-              marginBottom: '16px'
+              flexDirection: 'column',
+              gridColumn: 'span 1',
+              borderRadius: '12px',
+              padding: '22px 24px',
+              backgroundColor: 'white',
+              border: `1px solid ${colors.black10}`,
+              '@media screen and (min-width: 768px)': {
+                gridColumn: example.span ? `span ${example.span}` : 'span 1'
+              }
             }}
           >
-            <Box
-              className='ex-ball'
-              css={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: example.accent,
-                flexShrink: 0
-              }}
-            />
+            <Flex
+              css={{ alignItems: 'center', gap: '8px', marginBottom: '16px' }}
+            >
+              <Box
+                className='ex-ball'
+                css={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: example.accent,
+                  flexShrink: 0
+                }}
+              />
+              <Text
+                className='ex-tool'
+                css={{
+                  fontFamily: fonts.mono,
+                  fontSize: '13px',
+                  color: colors.black70
+                }}
+              >
+                {example.tool}
+              </Text>
+            </Flex>
             <Text
-              className='ex-tool'
               css={{
-                fontFamily: fonts.mono,
-                fontSize: '13px',
-                color: colors.black70
+                fontSize: '17px',
+                fontWeight: 500,
+                color: colors.black80,
+                lineHeight: 1.5,
+                marginBottom: '16px',
+                flex: 1,
+                letterSpacing: '-0.01em'
               }}
             >
-              {example.tool}
+              &ldquo;{example.prompt}&rdquo;
+            </Text>
+            <Text
+              css={{
+                fontSize: '13px',
+                color: colors.black40,
+                lineHeight: 1.45,
+                borderTop: `1px solid ${colors.black10}`,
+                paddingTop: '12px'
+              }}
+            >
+              {example.result}
             </Text>
           </Flex>
-          <Text
-            css={{
-              fontSize: '17px',
-              fontWeight: 500,
-              color: colors.black80,
-              lineHeight: 1.5,
-              marginBottom: '16px',
-              flex: 1,
-              letterSpacing: '-0.01em'
-            }}
-          >
-            &ldquo;{example.prompt}&rdquo;
-          </Text>
-          <Text
-            css={{
-              fontSize: '13px',
-              color: colors.black40,
-              lineHeight: 1.45,
-              borderTop: `1px solid ${colors.black10}`,
-              paddingTop: '12px'
-            }}
-          >
-            {example.result}
-          </Text>
-        </Flex>
-      ))}
-    </Box>
-  </>
-)
+        ))}
+      </Box>
+    </>
+  )
+}
 
 const Examples = () => (
   <Box
@@ -748,7 +1103,7 @@ const Examples = () => (
         px: [4, 4, 4, 4]
       })}
     >
-      <Subhead variant='gradient' css={theme({ fontSize: [4, 4, 5, 5] })}>
+      <Subhead variant='gradient' css={theme({ fontSize: [3, 3, 4, 4] })}>
         Unlock the web for your agents
       </Subhead>
       <Caption
