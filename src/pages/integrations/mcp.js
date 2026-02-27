@@ -150,10 +150,18 @@ const Installation = () => (
         })}
       >
         Paste this into your MCP client config file.{' '}
-        <Link href='https://claude.ai/download'>Claude Desktop</Link>,{' '}
-        <Link href='https://cursor.com'>Cursor</Link>,{' '}
-        <Link href='https://windsurf.com'>Windsurf</Link>, and every other
-        MCP-compatible client get access immediately.
+        <Link href='https://claude.ai/download' logoIcon>
+          Claude Desktop
+        </Link>
+        ,{' '}
+        <Link href='https://cursor.com' logoIcon>
+          Cursor
+        </Link>
+        ,{' '}
+        <Link href='https://windsurf.com' logoIcon>
+          Windsurf
+        </Link>
+        , and every other MCP-compatible client get access immediately.
       </Text>
     </Flex>
   </Container>
@@ -175,33 +183,60 @@ const MediaPlaceholder = () => (
   >
     <Flex
       css={theme({
-        flexDirection: 'column',
+        flexDirection: ['column', 'column', 'row', 'row'],
         alignItems: 'center',
         justifyContent: 'center',
+        gap: [0, 0, 4, 5],
         width: '100%'
       })}
     >
-      <Subhead
+      <Flex
         css={theme({
-          mb: 3,
-          textAlign: 'center',
-          fontSize: [3, 4, 4, 4]
+          flexDirection: 'column',
+          alignItems: ['center', 'center', 'flex-start', 'flex-start'],
+          flex: '1 1 auto',
+          minWidth: 0
         })}
-        variant='gradient'
       >
-        Ask. Get. Done.
-      </Subhead>
-      <Text css={theme({ pb: [3, 3, 4, 4], fontSize: [1, 2, 3, 3] })}>
-        Use the Microlink API through natural language.
-      </Text>
+        <Subhead
+          css={theme({
+            mb: 3,
+            textAlign: ['center', 'center', 'left', 'left'],
+            fontSize: [3, 4, 4, 4]
+          })}
+          variant='gradient'
+        >
+          Ask. Get. Done.
+        </Subhead>
+        <Text
+          css={theme({
+            fontSize: [1, 2, 2, 3],
+            textAlign: ['center', 'center', 'left', 'left']
+          })}
+        >
+          Use the Microlink API through natural language.
+        </Text>
+        <Text
+          css={theme({
+            mt: 3,
+            fontSize: [0, 1, 1, 2],
+            textAlign: ['center', 'center', 'left', 'left'],
+            maxWidth: '600px',
+            color: 'black60'
+          })}
+        >
+          Tell your AI what you need. It screenshots, scrapes, converts, and
+          extracts — straight from the live web. Type a request. Get a result.
+        </Text>
+      </Flex>
       <Video
         src='https://cdn.microlink.io/mcp/codex.mp4'
         title='Microlink MCP in action'
         controls={false}
         css={theme({
-          width: ['100%', '100%', layout.normal, layout.normal],
-          mb: [3, 3, 4, 4],
-          maxWidth: layout.normal,
+          width: ['100%', '100%', '50%', '50%'],
+          mt: [3, 3, 0, 0],
+          maxWidth: ['100%', '100%', '520px', '520px'],
           borderRadius: 3,
           boxShadow: '0 32px 80px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.1)'
         })}
