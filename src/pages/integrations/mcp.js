@@ -87,12 +87,13 @@ const Hero = () => (
   >
     <Heading
       css={theme({
+        mt: [3, 3, 0, 0],
         maxWidth: layout.large,
         textAlign: 'center',
         fontSize: [3, 4, 4, 5]
       })}
     >
-      The web browser your AI agent never had
+      The web browser your <br /> AI agent never had
     </Heading>
     <Caption
       forwardedAs='h2'
