@@ -249,7 +249,8 @@ const MediaPlaceholder = () => (
 const ProductInformation = () => (
   <Faq
     css={theme({
-      pb: [5, 5, 6, 6],
+      pt: [4, 4, 5, 5],
+      pb: [4, 4, 5, 5],
       borderTop: `${borders[1]} ${colors.black10}`,
       borderBottom: `${borders[1]} ${colors.black10}`
     })}
@@ -1252,14 +1253,14 @@ const Examples = () => (
     id='examples'
     css={theme({
       bg: 'pinky',
-      pb: [4, 4, 5, 5],
+      pb: [5, 5, 6, 6],
       borderTop: `${borders[1]} ${colors.black10}`,
       borderBottom: `${borders[1]} ${colors.black10}`
     })}
   >
     <Container
       css={theme({
-        pt: [4, 4, 5, 5],
+        pt: [5, 5, 6, 6],
         alignItems: 'center',
         maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
         px: [4, 4, 4, 4]
