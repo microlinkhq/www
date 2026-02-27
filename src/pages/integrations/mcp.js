@@ -3,6 +3,7 @@ import { cdnUrl } from 'helpers/cdn-url'
 import React, { useState, useMemo, useCallback } from 'react'
 
 import Box from 'components/elements/Box'
+import CodeCopy from 'components/elements/Codecopy'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
@@ -151,10 +152,18 @@ const Installation = () => (
         })}
       >
         Paste this into your MCP client config file.{' '}
-        <Link href='https://claude.ai/download'>Claude Desktop</Link>,{' '}
-        <Link href='https://cursor.com'>Cursor</Link>,{' '}
-        <Link href='https://windsurf.com'>Windsurf</Link>, and every other
-        MCP-compatible client get access immediately.
+        <Link href='https://claude.ai/download' logoIcon>
+          Claude Desktop
+        </Link>
+        ,{' '}
+        <Link href='https://cursor.com' logoIcon>
+          Cursor
+        </Link>
+        ,{' '}
+        <Link href='https://windsurf.com' logoIcon>
+          Windsurf
+        </Link>
+        , and every other MCP-compatible client get access immediately.
       </Text>
     </Flex>
   </Container>
@@ -948,11 +957,6 @@ const examplesCss = `
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes ex-copied {
-    0%   { transform: scale(0.7); opacity: 0; }
-    60%  { transform: scale(1.2); }
-    100% { transform: scale(1);   opacity: 1; }
-  }
   .ex-card {
     transition: box-shadow 0.25s ease;
     animation: ex-card-in 0.3s ease both;
@@ -962,32 +966,10 @@ const examplesCss = `
   }
   .ex-copy {
     opacity: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px 6px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    color: rgba(0,0,0,0.3);
-    flex-shrink: 0;
-    transition: opacity 0.2s ease, color 0.2s ease, background 0.2s ease;
+    transition: opacity 0.2s ease;
   }
   .ex-card:hover .ex-copy {
     opacity: 1;
-  }
-  .ex-copy:hover {
-    color: rgba(0,0,0,0.6);
-    background: rgba(0,0,0,0.05);
-  }
-  .ex-copy.copied {
-    opacity: 1;
-    color: var(--card-accent);
-  }
-  .ex-copy.copied svg {
-    animation: ex-copied 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
   .ex-ball {
     opacity: 0.35;
@@ -1047,23 +1029,9 @@ const examplesCss = `
 
 const ExamplesGrid = () => {
   const [active, setActive] = useState('all')
-  const [copiedPrompt, setCopiedPrompt] = useState(null)
-
   const handlePillClick = useCallback(e => {
     const tool = e.currentTarget.dataset.tool
     setActive(curr => (curr === tool ? 'all' : tool))
-  }, [])
-
-  const handleCopy = useCallback(e => {
-    e.stopPropagation()
-    const prompt = e.currentTarget.dataset.prompt
-    navigator.clipboard.writeText(prompt).then(() => {
-      setCopiedPrompt(prompt)
-      setTimeout(
-        () => setCopiedPrompt(curr => (curr === prompt ? null : curr)),
-        1500
-      )
-    })
   }, [])
 
   const visible = useMemo(
@@ -1164,50 +1132,9 @@ const ExamplesGrid = () => {
               >
                 {example.tool}
               </Text>
-              <button
-                className={`ex-copy${
-                  copiedPrompt === example.prompt ? ' copied' : ''
-                }`}
-                data-prompt={example.prompt}
-                onClick={handleCopy}
-                style={{ marginLeft: 'auto' }}
-                aria-label='Copy prompt'
-              >
-                {copiedPrompt === example.prompt && (
-                  <>
-                    <svg
-                      width='18'
-                      height='18'
-                      viewBox='0 0 14 14'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='1.5'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    >
-                      <path d='M2.5 7L5.5 10L11.5 4' />
-                    </svg>
-                    <span style={{ fontSize: '12px', fontFamily: fonts.mono }}>
-                      Prompt copied
-                    </span>
-                  </>
-                )}
-                {copiedPrompt !== example.prompt && (
-                  <svg
-                    width='18'
-                    height='18'
-                    viewBox='0 0 14 14'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  >
-                    <rect x='4' y='4' width='8' height='8' rx='1.5' />
-                    <path d='M2 10V2h8' />
-                  </svg>
-                )}
-              </button>
+              <div className='ex-copy' style={{ marginLeft: 'auto' }}>
+                <CodeCopy text={example.prompt} />
+              </div>
             </Flex>
             <Text
               css={{
