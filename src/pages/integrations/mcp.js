@@ -581,7 +581,16 @@ const EXAMPLES = [
     prompt:
       'Capture a mobile view of twitter.com to see how the layout looks on a phone screen',
     result:
-      'A screenshot taken at 390 x 844 mobile viewport — identical to what a real iPhone sees.'
+      'A screenshot taken at 390 x 844 mobile viewport — identical to what a real iPhone sees.',
+    hidden: true
+  },
+  {
+    tool: 'audio',
+    accent: '#D946EF',
+    prompt:
+      'Extract the audio stream from this SoundCloud track so I can embed it in our app',
+    result:
+      'A direct playable audio URL from SoundCloud — no API key, no scraping setup, no rate limits.'
   },
   {
     tool: 'extract',
@@ -845,14 +854,6 @@ const EXAMPLES = [
     tool: 'audio',
     accent: '#D946EF',
     prompt:
-      'Extract the audio stream from this SoundCloud track so I can embed it in our app',
-    result:
-      'A direct playable audio URL from SoundCloud — no API key, no scraping setup, no rate limits.'
-  },
-  {
-    tool: 'audio',
-    accent: '#D946EF',
-    prompt:
       'Get the direct audio source from this Spotify episode so I can transcribe it',
     result:
       'A direct audio stream URL from Spotify — ready to pipe into Whisper or any transcription tool.',
@@ -974,7 +975,7 @@ const ExamplesGrid = () => {
 
   return (
     <>
-      <style>{examplesCss}</style>
+      <style dangerouslySetInnerHTML={{ __html: examplesCss }} />
       <Box
         css={{
           display: 'grid',

@@ -273,10 +273,6 @@
     "pre-commit": "node scripts/git-timestamps.js && npx nano-staged"
   },
   "standard": {
-    "globals": [
-      "cancelAnimationFrame",
-      "requestAnimationFrame"
-    ],
     "ignore": [
       "src/helpers/get-api-url.js"
     ]
