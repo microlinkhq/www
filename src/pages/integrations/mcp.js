@@ -213,7 +213,7 @@ const MediaPlaceholder = () => (
 const ProductInformation = () => (
   <Faq
     css={theme({
-      py: [4, 4, 5, 5],
+      pb: [5, 5, 6, 6],
       borderTop: `${borders[1]} ${colors.black10}`,
       borderBottom: `${borders[1]} ${colors.black10}`
     })}
@@ -333,7 +333,11 @@ const ProductInformation = () => (
             </div>
             <Terminal
               title='mcp.json'
-              css={{ marginTop: '12px', marginBottom: '12px' }}
+              css={{
+                marginTop: '12px',
+                marginBottom: '12px',
+                maxWidth: 'calc(100vw - 32px)'
+              }}
             >
               {
                 '{\n  "mcpServers": {\n    "microlink": {\n      "command": "npx",\n      "args": ["-y", "@microlink/mcp"]\n    }\n  }\n}'
@@ -345,7 +349,11 @@ const ProductInformation = () => (
             <Terminal
               title='Terminal'
               shellSymbol='$'
-              css={{ marginTop: '12px', marginBottom: '12px' }}
+              css={{
+                marginTop: '12px',
+                marginBottom: '12px',
+                maxWidth: 'calc(100vw - 32px)'
+              }}
             >
               npm install -g @microlink/mcp
             </Terminal>
@@ -355,7 +363,11 @@ const ProductInformation = () => (
             </div>
             <Terminal
               title='mcp.json'
-              css={{ marginTop: '12px', marginBottom: '12px' }}
+              css={{
+                marginTop: '12px',
+                marginBottom: '12px',
+                maxWidth: 'calc(100vw - 32px)'
+              }}
             >
               {
                 '{\n  "mcpServers": {\n    "microlink": {\n      "command": "node",\n      "args": ["/absolute/path/to/mcp/src/index.js"],\n      "env": {\n        "MICROLINK_API_KEY": "YOUR_MICROLINK_API_KEY"\n      }\n    }\n  }\n}'
@@ -992,10 +1004,16 @@ const ExamplesGrid = () => {
       <Box
         css={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
+          gridTemplateColumns: 'repeat(2, 1fr)',
           gap: '8px',
           marginTop: '32px',
-          marginBottom: '8px'
+          marginBottom: '8px',
+          '@media screen and (min-width: 480px)': {
+            gridTemplateColumns: 'repeat(3, 1fr)'
+          },
+          '@media screen and (min-width: 768px)': {
+            gridTemplateColumns: 'repeat(5, 1fr)'
+          }
         }}
       >
         {TOOLS.map(({ tool, accent }) => (
