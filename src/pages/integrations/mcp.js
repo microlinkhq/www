@@ -903,8 +903,13 @@ const examplesCss = `
     from { letter-spacing: 0; }
     to   { letter-spacing: 0.04em; }
   }
+  @keyframes ex-card-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
   .ex-card {
     transition: box-shadow 0.25s ease;
+    animation: ex-card-in 0.3s ease both;
   }
   .ex-card:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.10), 0 24px 64px rgba(0,0,0,0.06);
@@ -1015,9 +1020,12 @@ const ExamplesGrid = () => {
       >
         {visible.map((example, i) => (
           <Flex
-            key={`${example.tool}-${i}`}
+            key={`${active}-${example.tool}-${i}`}
             className='ex-card'
-            style={{ '--card-accent': example.accent }}
+            style={{
+              '--card-accent': example.accent,
+              animationDelay: `${i * 35}ms`
+            }}
             css={{
               flexDirection: 'column',
               gridColumn: 'span 1',
