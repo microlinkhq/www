@@ -185,17 +185,17 @@ const MediaPlaceholder = () => (
   >
     <Flex
       css={theme({
-        flexDirection: ['column', 'column', 'row', 'row'],
+        flexDirection: ['column', 'column', 'column', 'row'],
         alignItems: 'center',
         justifyContent: 'center',
-        gap: [0, 0, 4, 5],
+        gap: [0, 0, 0, 5],
         width: '100%'
       })}
     >
       <Flex
         css={theme({
           flexDirection: 'column',
-          alignItems: ['center', 'center', 'flex-start', 'flex-start'],
+          alignItems: ['center', 'center', 'center', 'flex-start'],
           flex: '1 1 auto',
           minWidth: 0
         })}
@@ -203,7 +203,7 @@ const MediaPlaceholder = () => (
         <Subhead
           css={theme({
             mb: 3,
-            textAlign: ['center', 'center', 'left', 'left'],
+            textAlign: ['center', 'center', 'center', 'left'],
             fontSize: [3, 4, 4, 4]
           })}
           variant='gradient'
@@ -213,7 +213,7 @@ const MediaPlaceholder = () => (
         <Text
           css={theme({
             fontSize: [1, 2, 2, 3],
-            textAlign: ['center', 'center', 'left', 'left']
+            textAlign: ['center', 'center', 'center', 'left']
           })}
         >
           Use the Microlink API through natural language.
@@ -222,7 +222,7 @@ const MediaPlaceholder = () => (
           css={theme({
             mt: 3,
             fontSize: [0, 1, 1, 2],
-            textAlign: ['center', 'center', 'left', 'left'],
+            textAlign: ['center', 'center', 'center', 'left'],
             maxWidth: '600px',
             color: 'black60'
           })}
@@ -232,13 +232,13 @@ const MediaPlaceholder = () => (
         </Text>
       </Flex>
       <Video
-        src='https://cdn.microlink.io/mcp/codex.mp4'
+        src='https://cdn.microlink.io/mcp/claude.mp4'
         title='Microlink MCP in action'
         controls={false}
         css={theme({
-          width: ['100%', '100%', '50%', '50%'],
-          mt: [3, 3, 0, 0],
-          maxWidth: ['100%', '100%', '520px', '520px'],
+          width: ['100%', '100%', '100%', '50%'],
+          mt: [3, 3, 4, 0],
+          maxWidth: ['100%', '100%', '750px', '900px'],
           borderRadius: 3,
           boxShadow: '0 32px 80px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.1)'
         })}
