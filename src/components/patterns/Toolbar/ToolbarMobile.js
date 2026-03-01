@@ -78,7 +78,7 @@ const MenuButton = styled('button')`
 
 const MobileMenuIcon = () => (
   <svg
-    width='12'
+    width='18'
     height='10'
     viewBox='0 0 18 10'
     fill='none'
