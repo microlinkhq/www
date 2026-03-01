@@ -7,7 +7,7 @@ import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
-import { ChevronDown, Menu, X } from 'react-feather'
+import { ChevronDown, X } from 'react-feather'
 import { backDrop } from 'helpers/style'
 import styled from 'styled-components'
 import { colors, fontWeights, theme, transition } from 'theme'
@@ -70,11 +70,27 @@ const MenuButton = styled('button')`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: black;
+  color: ${colors.black80};
   width: 44px;
   height: 44px;
   margin-right: -6px;
 `
+
+const MobileMenuIcon = () => (
+  <svg
+    width='18'
+    height='10'
+    viewBox='0 0 18 10'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    aria-hidden='true'
+  >
+    <path
+      d='M0 1C0 0.447715 0.447715 0 1 0H17C17.5523 0 18 0.447715 18 1C18 1.55228 17.5523 2 17 2H1C0.447715 2 0 1.55228 0 1ZM0 9C0 8.44772 0.447715 8 1 8H11C11.5523 8 12 8.44772 12 9C12 9.55229 11.5523 10 11 10H1C0.447715 10 0 9.55229 0 9Z'
+      fill='currentColor'
+    />
+  </svg>
+)
 
 const MenuItemIcon = styled(Box)`
   flex-shrink: 0;
@@ -112,28 +128,20 @@ const MobileMenuItemLink = styled(ToolbarNavLink)`
     transition: background-color ${transition.short};
   }
 
-  &:hover > a,
   &:focus-within > a,
   > .active {
     background: ${colors.black05};
   }
 
-  &:hover .menu-item-title,
   &:focus-within .menu-item-title,
   > .active .menu-item-title {
     color: ${colors.black};
     font-weight: ${fontWeights.bold};
   }
 
-  &:hover .menu-item-description,
   &:focus-within .menu-item-description,
   > .active .menu-item-description,
-  &:hover
-    ${MenuItemIcon},
-    &:focus-within
-    ${MenuItemIcon},
-    > .active
-    ${MenuItemIcon} {
+  &:focus-within ${MenuItemIcon}, > .active ${MenuItemIcon} {
     color: ${colors.black};
   }
 `
@@ -153,7 +161,6 @@ const MobileDirectNavLink = styled(ToolbarNavLink)`
     transition: background-color ${transition.short}, color ${transition.short};
   }
 
-  &:hover > a,
   &:focus-within > a,
   > .active {
     background: ${colors.black05};
@@ -264,8 +271,6 @@ const ToolbarMobile = () => {
     }
   }, [isOpen])
 
-  const MenuIcon = isOpen ? X : Menu
-
   return (
     <Header as='header'>
       <Toolbar
@@ -290,7 +295,13 @@ const ToolbarMobile = () => {
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             onClick={toggleOpen}
           >
-            <MenuIcon size={20} color={colors.black80} />
+            {isOpen
+              ? (
+                <X size={20} color={colors.black80} />
+                )
+              : (
+                <MobileMenuIcon />
+                )}
           </MenuButton>
         </Flex>
       </Toolbar>
