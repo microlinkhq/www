@@ -112,28 +112,20 @@ const MobileMenuItemLink = styled(ToolbarNavLink)`
     transition: background-color ${transition.short};
   }
 
-  &:hover > a,
   &:focus-within > a,
   > .active {
     background: ${colors.black05};
   }
 
-  &:hover .menu-item-title,
   &:focus-within .menu-item-title,
   > .active .menu-item-title {
     color: ${colors.black};
     font-weight: ${fontWeights.bold};
   }
 
-  &:hover .menu-item-description,
   &:focus-within .menu-item-description,
   > .active .menu-item-description,
-  &:hover
-    ${MenuItemIcon},
-    &:focus-within
-    ${MenuItemIcon},
-    > .active
-    ${MenuItemIcon} {
+  &:focus-within ${MenuItemIcon}, > .active ${MenuItemIcon} {
     color: ${colors.black};
   }
 `
@@ -153,7 +145,6 @@ const MobileDirectNavLink = styled(ToolbarNavLink)`
     transition: background-color ${transition.short}, color ${transition.short};
   }
 
-  &:hover > a,
   &:focus-within > a,
   > .active {
     background: ${colors.black05};
