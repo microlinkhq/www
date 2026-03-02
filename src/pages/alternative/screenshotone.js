@@ -287,7 +287,14 @@ const COMPARISON_DATA = [
   { feature: 'Built-in response cache', microlink: true, screenshotone: true },
   { feature: 'MCP server', microlink: true, screenshotone: true },
   { feature: 'Markdown rendering', microlink: true, screenshotone: true },
+  { feature: 'Custom proxy support', microlink: true, screenshotone: true },
   // Microlink-only
+  {
+    feature: 'Built-in proxy',
+    microlink: true,
+    screenshotone: false,
+    highlight: true
+  },
   {
     feature: 'Metadata extraction',
     microlink: true,
@@ -318,8 +325,6 @@ const COMPARISON_DATA = [
     screenshotone: false,
     highlight: true
   },
-  { feature: 'Proxy resolution', microlink: true, screenshotone: false },
-  { feature: 'Custom proxy support', microlink: true, screenshotone: false },
   { feature: 'Remote JS execution', microlink: true, screenshotone: false },
   { feature: '240+ CDN edge nodes', microlink: true, screenshotone: false },
   // ScreenshotOne-only / partial
@@ -423,35 +428,43 @@ const ComparisonTable = () => (
 
 const BENCHMARKS = [
   {
-    label: 'Desktop screenshot',
-    url: 'microlink.io',
+    label: 'Simple page',
+    url: 'example.com',
     sublabel: 'PNG, 1280×800',
-    microlink: 1.2,
-    screenshotone: 4.8,
+    microlink: 1.38,
+    screenshotone: 2.93,
     unit: 's'
   },
   {
     label: 'Full-page capture',
-    url: 'github.com/trending',
-    sublabel: 'PNG, full scroll',
-    microlink: 2.1,
-    screenshotone: 8.3,
+    url: 'news.ycombinator.com',
+    sublabel: 'JPEG, 1440×1080, full page',
+    microlink: 3.46,
+    screenshotone: 6.56,
     unit: 's'
   },
   {
-    label: 'JPEG output',
-    url: 'stripe.com',
-    sublabel: 'JPEG 80%, 1280×800',
-    microlink: 0.9,
-    screenshotone: 3.6,
+    label: 'Their own site',
+    url: 'screenshotone.com',
+    sublabel: 'PNG, 1920×1080, full page',
+    microlink: 5.85,
+    screenshotone: 10.33,
     unit: 's'
   },
   {
     label: 'Large landing page',
     url: 'vercel.com',
-    sublabel: 'PNG, full-page',
-    microlink: 2.8,
-    screenshotone: 11.2,
+    sublabel: 'JPEG, 1920×1080, full page',
+    microlink: 7.46,
+    screenshotone: 10.57,
+    unit: 's'
+  },
+  {
+    label: 'Tablet viewport',
+    url: 'github.com/trending',
+    sublabel: 'PNG, 768×1024',
+    microlink: 3.59,
+    screenshotone: 6.09,
     unit: 's'
   }
 ]
@@ -776,7 +789,8 @@ const Hero = () => (
     >
       <b>ScreenshotOne</b> does one thing: render screenshots. <b>Microlink</b>{' '}
       does many things. That's exactly why it's been battle-tested across enough
-      edge cases to make its screenshot engine <b>50% faster</b>.
+      edge cases to make its screenshot engine <b>46% faster on average</b> —
+      and up to 2× faster on real-world pages.
     </Caption>
 
     <Flex
@@ -820,8 +834,8 @@ const Hero = () => (
       {[
         {
           icon: Zap,
-          value: '50%',
-          label: 'Faster engine'
+          value: '46%',
+          label: 'Faster on average'
         },
         {
           icon: Code,
@@ -963,7 +977,7 @@ const SpeedSection = () => {
           css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5] })}
           titleize={false}
         >
-          <GradientText>3–4× faster</GradientText> response times
+          <GradientText>Up to 2× faster</GradientText> response times
         </Subhead>
 
         <Caption
@@ -974,8 +988,9 @@ const SpeedSection = () => {
           })}
           titleize={false}
         >
-          Same request. Same URL. Same output format. Microlink consistently
-          delivers screenshots in a fraction of the time.
+          Same request. Same URL. Same output format. Averaged over 10 runs from
+          a New York server at different hours, Microlink is 46% faster — and
+          the gap widens on complex, full-page captures.
         </Caption>
 
         <Box
@@ -1079,8 +1094,12 @@ const SpeedSection = () => {
             mx: 'auto'
           })}
         >
-          Benchmarks measured from EU-West and US-East averaged over 10 runs per
-          URL. Your results may vary. We encourage you to run your own tests.
+          Averages from 10 benchmark runs taken from a New York server at
+          different hours. The{' '}
+          <Link href='https://github.com/microlinkhq/benchmark'>
+            benchmark repo
+          </Link>{' '}
+          is open — run it yourself and see.
         </Text>
       </SectionInner>
     </Section>
@@ -1146,7 +1165,7 @@ const WhySwitchSection = () => (
             number: '01',
             title: 'Response time matters at scale',
             description:
-              'When you process 100k+ screenshots/month, the difference between 1.2s and 4.8s per request compounds into hours of wall-clock time. Pipeline throughput depends on API latency.'
+              'When you process 100k+ screenshots/month, saving ~2s per request on average adds up to over 55 hours of recovered pipeline time. That difference compounds fast at scale.'
           },
           {
             number: '02',
@@ -1308,153 +1327,11 @@ const HonestySection = () => (
 )
 
 /* ---------------------------------------------------------------------------
- * Code Comparison Section
- * --------------------------------------------------------------------------- */
-
-const CodeComparisonSection = () => {
-  const [activeTab, setActiveTab] = useState('microlink')
-
-  const tabs = [
-    { id: 'microlink', label: 'Microlink (cURL)' },
-    { id: 'overlay', label: 'Microlink Overlay' },
-    { id: 'sdk', label: 'Microlink SDK' },
-    { id: 'screenshotone', label: 'ScreenshotOne' }
-  ]
-
-  const codeMap = {
-    microlink: CODE_MICROLINK_BASIC,
-    overlay: CODE_MICROLINK_OVERLAY,
-    sdk: CODE_MICROLINK_SDK,
-    screenshotone: CODE_SCREENSHOTONE
-  }
-
-  return (
-    <Section
-      as='section'
-      id='code'
-      css={{
-        background: colors.gray0,
-        borderTop: `${borders[1]} ${colors.black05}`,
-        borderBottom: `${borders[1]} ${colors.black05}`
-      }}
-    >
-      <SectionInner>
-        <Subhead css={theme({ pb: [1, 2, 2, 2] })} titleize={false}>
-          Code Comparison
-        </Subhead>
-        <Caption
-          css={theme({
-            pb: [4, 4, 5, 5],
-            maxWidth: layout.small,
-            color: 'black60'
-          })}
-          titleize={false}
-        >
-          Same task, different APIs. Note the{' '}
-          <InlineCode>embed=screenshot.url</InlineCode> and{' '}
-          <InlineCode>overlay</InlineCode> parameters — unique to Microlink.
-        </Caption>
-
-        <Box
-          css={theme({
-            maxWidth: layout.normal,
-            width: '100%',
-            mx: 'auto'
-          })}
-        >
-          <Flex css={{ flexWrap: 'wrap', gap: '2px' }} role='tablist'>
-            {tabs.map(({ id, label }) => (
-              <CodeTab
-                key={id}
-                role='tab'
-                aria-selected={activeTab === id}
-                data-active={activeTab === id ? 'true' : 'false'}
-                onClick={() => setActiveTab(id)}
-              >
-                {label}
-              </CodeTab>
-            ))}
-          </Flex>
-
-          <CodeBlock
-            role='tabpanel'
-            css={{
-              background: colors.gray9,
-              color: colors.white90,
-              borderTopLeftRadius: 0
-            }}
-          >
-            {codeMap[activeTab]}
-          </CodeBlock>
-        </Box>
-
-        <Flex
-          css={theme({
-            pt: [4, 4, 5, 5],
-            flexDirection: ['column', 'column', 'row', 'row'],
-            gap: [3, 3, 4, 4],
-            maxWidth: layout.normal,
-            width: '100%',
-            mx: 'auto'
-          })}
-        >
-          <Flex
-            css={theme({
-              flexDirection: 'column',
-              flex: 1,
-              p: [3, 3, 4, 4],
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black10',
-              bg: 'white'
-            })}
-          >
-            <Text
-              css={theme({ fontWeight: 'bold', fontSize: [1, 2, 2, 2], pb: 2 })}
-            >
-              <GradientText>embed=screenshot.url</GradientText>
-            </Text>
-            <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-              Returns the screenshot URL directly. Drop it into an{' '}
-              <InlineCode>&lt;img&gt;</InlineCode> tag, CSS{' '}
-              <InlineCode>background-image</InlineCode>, or Markdown. No
-              backend, no storage, no extra step.
-            </Text>
-          </Flex>
-          <Flex
-            css={theme({
-              flexDirection: 'column',
-              flex: 1,
-              p: [3, 3, 4, 4],
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black10',
-              bg: 'white'
-            })}
-          >
-            <Text
-              css={theme({ fontWeight: 'bold', fontSize: [1, 2, 2, 2], pb: 2 })}
-            >
-              <GradientText>screenshot.overlay</GradientText>
-            </Text>
-            <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-              Wraps the screenshot in a browser chrome frame with a custom
-              background — gradient, solid color, or image URL.
-              Presentation-ready visuals without design tools.
-            </Text>
-          </Flex>
-        </Flex>
-      </SectionInner>
-    </Section>
-  )
-}
-
-/* ---------------------------------------------------------------------------
  * Pricing Section
  * --------------------------------------------------------------------------- */
 
 const PricingSection = () => (
-  <Section as='section' id='pricing'>
+  <Section as='section' id='pricing' css={theme({ background: colors.gray0 })}>
     <SectionInner>
       <Subhead css={theme({ pb: [1, 2, 2, 2] })} titleize={false}>
         Pricing Comparison
@@ -1732,8 +1609,8 @@ const FAQSection = () => (
             </div>
             <div>
               The main difference is speed: Microlink consistently returns
-              screenshots 3–4× faster due to its 240+ edge node infrastructure
-              and optimized browser instances.
+              screenshots up to 2× faster due to its 240+ edge node
+              infrastructure and pre-warmed browser instances.
             </div>
           </>
         )
@@ -1903,7 +1780,6 @@ const ScreenshotOnePage = () => (
     <ComparisonSection />
     <WhySwitchSection />
     <HonestySection />
-    <CodeComparisonSection />
     <PricingSection />
     <CTASection />
     <FAQSection />
