@@ -647,19 +647,6 @@ const PriceCard = styled(Flex)`
     flex: 1,
     minWidth: '260px'
   })}
-  transition: box-shadow ${transition.medium}, transform ${transition.medium};
-
-  &:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    &:hover {
-      transform: none;
-    }
-  }
 `
 
 const PriceAmount = styled(Text)`
@@ -789,8 +776,7 @@ const Hero = () => (
     >
       <b>ScreenshotOne</b> does one thing: render screenshots. <b>Microlink</b>{' '}
       does many things. That's exactly why it's been battle-tested across enough
-      edge cases to make its screenshot engine <b>46% faster on average</b> —
-      and up to 2× faster on real-world pages.
+      edge cases to make its screenshot engine <b>46% faster on average</b>.
     </Caption>
 
     <Flex
@@ -1249,7 +1235,11 @@ const WhySwitchSection = () => (
  * --------------------------------------------------------------------------- */
 
 const HonestySection = () => (
-  <Section as='section' id='screenshotone-strengths'>
+  <Section
+    as='section'
+    id='screenshotone-strengths'
+    css={theme({ background: colors.gray0 })}
+  >
     <SectionInner>
       <Subhead css={theme({ pb: [1, 2, 2, 2] })} titleize={false}>
         Where ScreenshotOne Might Be the Right Choice
@@ -1331,10 +1321,10 @@ const HonestySection = () => (
  * --------------------------------------------------------------------------- */
 
 const PricingSection = () => (
-  <Section as='section' id='pricing' css={theme({ background: colors.gray0 })}>
+  <Section as='section' id='pricing'>
     <SectionInner>
       <Subhead css={theme({ pb: [1, 2, 2, 2] })} titleize={false}>
-        Pricing Comparison
+        More requests. Half the price.
       </Subhead>
       <Caption
         css={theme({
@@ -1344,8 +1334,9 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Microlink gives you more capabilities at a comparable price point — and
-        you can start without a credit card.
+        ScreenshotOne's recommended plan: 10,000 screenshots for $79/month.
+        Microlink: 46,000 requests for $45. That's the same volume ScreenshotOne
+        charges $259 for.
       </Caption>
 
       <Flex
@@ -1357,57 +1348,84 @@ const PricingSection = () => (
           mx: 'auto'
         })}
       >
-        <PriceCard style={{ borderColor: colors.link, borderWidth: '2px' }}>
-          <Badge
-            css={{
-              background: colors.blue0,
-              color: colors.blue8,
-              alignSelf: 'flex-start',
-              marginBottom: '12px'
+        <Box
+          style={{
+            background:
+              'linear-gradient(90deg, rgb(247, 102, 152), rgb(192, 63, 162) 60%, rgb(140, 27, 171) 100%)',
+            borderRadius: '8px',
+            padding: '2px',
+            flex: 1,
+            minWidth: '260px'
+          }}
+        >
+          <PriceCard
+            style={{
+              border: 'none',
+              borderRadius: '6px',
+              flex: 1,
+              minWidth: 0,
+              background: 'white'
             }}
           >
-            Microlink
-          </Badge>
-          <PriceAmount>
-            €39
-            <Text
-              as='span'
-              css={theme({
-                fontSize: 1,
-                color: 'black50',
-                fontWeight: 'normal'
-              })}
+            <Badge
+              css={{
+                background: colors.blue0,
+                color: colors.blue8,
+                alignSelf: 'flex-start',
+                marginBottom: '12px'
+              }}
             >
-              /mo
-            </Text>
-          </PriceAmount>
-          <Text css={theme({ fontSize: 1, color: 'black60', pt: 2, pb: 3 })}>
-            ~46,000 requests/month
-          </Text>
-          <Box as='ul' css={theme({ pl: 3, m: 0 })}>
-            {[
-              'Screenshots + PDF + metadata + previews + remote JS',
-              'Free tier: 50 requests/day, no credit card',
-              '240+ edge nodes, 99.9% SLA',
-              'Request isolation (no shared browsers)',
-              'Open-source core (MIT)',
-              'Pay-as-you-go, scale up anytime'
-            ].map(item => (
+              Microlink
+            </Badge>
+            <PriceAmount>
+              $45
               <Text
-                as='li'
-                key={item}
+                as='span'
                 css={theme({
                   fontSize: 1,
-                  color: 'black70',
-                  pb: 2,
-                  lineHeight: 2
+                  color: 'black50',
+                  fontWeight: 'normal'
                 })}
               >
-                {item}
+                /mo
               </Text>
-            ))}
-          </Box>
-        </PriceCard>
+            </PriceAmount>
+            <Text css={theme({ fontSize: 1, color: 'black60', pt: 2, pb: 3 })}>
+              46,000 requests/month · no rate limit
+            </Text>
+            <Box as='ul' css={theme({ pl: 3, m: 0 })}>
+              {[
+                'Screenshots + PDF + metadata + previews + remote JS',
+                'Free tier: 50 requests/day, no credit card',
+                'No requests-per-minute cap',
+                '240+ edge nodes, 99.9% SLA',
+                'Open-source core (MIT)',
+                "Equivalent to ScreenshotOne's $259 plan by volume"
+              ].map(item => (
+                <Text
+                  as='li'
+                  key={item}
+                  css={theme({
+                    fontSize: 1,
+                    color: 'black70',
+                    pb: 2,
+                    lineHeight: 2
+                  })}
+                >
+                  {item}
+                </Text>
+              ))}
+            </Box>
+            <Box css={theme({ pt: 3 })}>
+              <Button
+                href='/#pricing'
+                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
+              >
+                <Caps>Start for free</Caps>
+              </Button>
+            </Box>
+          </PriceCard>
+        </Box>
 
         <PriceCard>
           <Badge
@@ -1421,7 +1439,7 @@ const PricingSection = () => (
             ScreenshotOne
           </Badge>
           <PriceAmount>
-            ~$17
+            $79
             <Text
               as='span'
               css={theme({
@@ -1434,14 +1452,14 @@ const PricingSection = () => (
             </Text>
           </PriceAmount>
           <Text css={theme({ fontSize: 1, color: 'black60', pt: 2, pb: 3 })}>
-            Entry plan (screenshots only)
+            Recommended plan · screenshots only
           </Text>
           <Box as='ul' css={theme({ pl: 3, m: 0 })}>
             {[
-              'Screenshots only',
-              'Free tier: 100 screenshots/month',
-              'Overage: $0.004/screenshot',
-              'Hard cap: 100k screenshots/month',
+              '10,000 screenshots/month',
+              '80 requests per minute cap',
+              '$0.006 per extra screenshot',
+              'Screenshots only — no PDF, metadata, or previews',
               'GPU rendering (opt-in)',
               'S3 upload + webhooks'
             ].map(item => (
@@ -1473,10 +1491,10 @@ const PricingSection = () => (
           lineHeight: 2
         })}
       >
-        With Microlink, the same plan that powers your screenshots also handles
-        PDF generation, metadata extraction, link previews, and remote
-        JavaScript. With ScreenshotOne, each additional capability requires a
-        separate service.
+        At $45/month, Microlink gives you 4.6× more requests than
+        ScreenshotOne's $79 plan — with no per-minute rate cap, plus PDF
+        generation, metadata extraction, and link previews included. No extra
+        services, no extra bills.
       </Text>
     </SectionInner>
   </Section>
