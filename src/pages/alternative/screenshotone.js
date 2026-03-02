@@ -116,11 +116,14 @@ const GradientText = styled('span')`
   `}
 `
 
-const HeroImageDesktop = styled.img`
+const HeroVideoDesktop = styled.video`
   display: none;
-  max-width: 1000px;
+  max-width: 1150px;
   width: 100%;
   height: auto;
+  border-radius: 18px;
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.35),
+    0 0 0 1px rgba(15, 23, 42, 0.12);
   @media screen and (min-width: ${breakpoints[1]}) {
     display: block;
   }
@@ -791,12 +794,15 @@ const Hero = () => (
     <Flex
       css={theme({ width: '100%', justifyContent: 'center', my: [3, 3, 4, 4] })}
     >
-      <HeroImageDesktop
-        src='/images/benchmark-screenshotone.gif'
-        alt='ScreenshotOne Hero'
+      <HeroVideoDesktop
+        src='https://cdn.microlink.io/www/alternative/benchmark-screenshotone.mp4'
+        autoPlay
+        muted
+        loop
+        playsInline
       />
       <HeroImageMobile
-        src='/images/benchmark-screenshotone-mb.gif'
+        src='https://cdn.microlink.io/www/alternative/benchmark-screenshotone-mb.gif'
         alt='ScreenshotOne Hero'
       />
     </Flex>
