@@ -550,17 +550,20 @@ const BenchmarkRow = ({ benchmark, index, inView }) => {
   const mlWidth = `${Math.max((microlink / maxVal) * 100, 8)}%`
   const soWidth = `${Math.max((screenshotone / maxVal) * 100, 8)}%`
   const multiplier = (screenshotone / microlink).toFixed(1)
+  const microlinkWins = screenshotone > microlink
 
   return (
     <Box css={theme({ pb: [2], pt: [3, 3, 4, 4] })}>
       <Flex css={{ alignItems: 'baseline', flexWrap: 'wrap' }}>
         <SpeedLabel>{label}</SpeedLabel>
-        <MultiplierBadge
-          data-animate={inView ? 'true' : 'false'}
-          style={{ '--delay': `${index * 0.3 + 1}s` }}
-        >
-          {multiplier}× faster
-        </MultiplierBadge>
+        {microlinkWins && (
+          <MultiplierBadge
+            data-animate={inView ? 'true' : 'false'}
+            style={{ '--delay': `${index * 0.3 + 1}s` }}
+          >
+            {multiplier}× faster
+          </MultiplierBadge>
+        )}
       </Flex>
       <Text
         css={theme({
@@ -657,86 +660,6 @@ const PriceAmount = styled(Text)`
   })}
   font-variant-numeric: tabular-nums;
 `
-
-/* ---------------------------------------------------------------------------
- * Code Comparison
- * --------------------------------------------------------------------------- */
-
-const CodeTab = styled('button')`
-  appearance: none;
-  border: none;
-  cursor: pointer;
-  transition: background ${transition.medium}, color ${transition.medium};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: '13px',
-    fontWeight: 'bold',
-    px: 3,
-    py: 2,
-    borderRadius: '6px 6px 0 0',
-    bg: 'transparent',
-    color: 'black50'
-  })}
-
-  &[data-active='true'] {
-    background: ${colors.gray9};
-    color: ${colors.white};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: -2px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-`
-
-const CODE_MICROLINK_BASIC = `# Take a screenshot with Microlink
-curl "https://api.microlink.io?url=https://stripe.com&screenshot=true&embed=screenshot.url"
-
-# That's it — the response is the image itself.
-# Use it directly in an <img> tag, no backend needed.`
-
-const CODE_MICROLINK_OVERLAY = `# Browser chrome overlay — unique to Microlink
-curl "https://api.microlink.io\\
-  ?url=https://stripe.com\\
-  &screenshot=true\\
-  &screenshot.overlay.browser=dark\\
-  &screenshot.overlay.background=linear-gradient(225deg,+%23FF057C+0%25,+%238D0B93+50%25,+%23321575+100%25)\\
-  &embed=screenshot.url"
-
-# Generates a presentation-ready image with
-# browser chrome + custom gradient background.
-# No design tools needed.`
-
-const CODE_SCREENSHOTONE = `# Take a screenshot with ScreenshotOne
-curl "https://api.screenshotone.com/take\\
-  ?access_key=YOUR_ACCESS_KEY\\
-  &url=https://stripe.com\\
-  &viewport_width=1280\\
-  &viewport_height=800\\
-  &format=png"
-
-# Returns the image binary.
-# No overlay equivalent available.
-# No direct embed parameter.`
-
-const CODE_MICROLINK_SDK = `import mql from '@microlink/mql'
-
-const { data } = await mql('https://stripe.com', {
-  screenshot: true,
-  overlay: {
-    browser: 'dark',
-    background: 'linear-gradient(225deg, #FF057C, #8D0B93, #321575)'
-  }
-})
-
-console.log(data.screenshot.url)
-// → https://microlink.io/.../screenshot.png`
 
 /* ---------------------------------------------------------------------------
  * Hero Section
@@ -899,23 +822,27 @@ const ComparisonSection = () => (
     css={theme({
       borderTop: `${borders[1]} ${colors.black05}`,
       borderBottom: `${borders[1]} ${colors.black05}`,
-      paddingBottom: [2, 2, 3, 3]
+      paddingBottom: [2, 2, 3, 3],
+      py: 5
     })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [1, 2, 2, 2] })} titleize={false}>
-        Feature-by-Feature Comparison
+      <Subhead
+        css={theme({ pb: [2, 2, 3, 3], fontSize: [3, 3, 4, 4], pt: 3 })}
+        titleize={false}
+      >
+        <GradientText>Feature-by-Feature</GradientText> Comparison
       </Subhead>
       <Caption
         css={theme({
-          pb: [4, 4, 5, 5],
-          maxWidth: layout.small,
+          pt: 2,
+          pb: [3, 3, 4, 4],
+          maxWidth: layout.normal,
           color: 'black60'
         })}
         titleize={false}
       >
-        An honest look at what each API offers. Microlink is a platform;
-        ScreenshotOne is a point solution.
+        An honest look at what each API offers.
       </Caption>
       <ComparisonTable />
       <Text
@@ -946,19 +873,9 @@ const SpeedSection = () => {
       as='section'
       id='speed'
       ref={ref}
-      css={theme({ background: colors.gray0, paddingTop: [4, 4, 5, 5] })}
+      css={theme({ background: colors.gray0, paddingTop: [5, 5, 6, 6] })}
     >
       <SectionInner>
-        <Badge
-          css={{
-            background: colors.green0,
-            color: colors.green8,
-            marginBottom: '16px'
-          }}
-        >
-          Performance
-        </Badge>
-
         <Subhead
           css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5] })}
           titleize={false}
@@ -970,14 +887,28 @@ const SpeedSection = () => {
           css={theme({
             pb: [3, 3, 4, 4],
             maxWidth: layout.normal,
-            color: 'black60'
+            color: 'black80',
+            fontSize: 3
           })}
           titleize={false}
         >
-          Same request. Same URL. Same output format. Averaged over 10 runs from
-          a New York server at different hours, Microlink is 46% faster — and
-          the gap widens on complex, full-page captures.
+          Same request. Same URL. Same output format.
         </Caption>
+
+        <Text
+          css={theme({
+            fontSize: '20px',
+            color: 'black60',
+            fontFamily: 'mono',
+            maxWidth: layout.normal,
+            mx: 'auto',
+            pt: 3,
+            pb: 2
+          })}
+        >
+          Averaged over 10 runs from a New York server Microlink is 46% faster.
+          The gap widens even more on complex, full-page captures.
+        </Text>
 
         <Box
           css={theme({
@@ -998,7 +929,8 @@ const SpeedSection = () => {
 
         <Flex
           css={theme({
-            py: [3, 3, 4, 4],
+            pt: [4, 4, 5, 5],
+            pb: [3, 3, 4, 4],
             fontSize: [2, 2, 3, 3],
             gap: '16px',
             flexWrap: 'wrap',
@@ -1026,7 +958,7 @@ const SpeedSection = () => {
               icon: '⚡',
               title: 'Cold start',
               description:
-                'Microlink pre-warms browser instances at the edge. No cold boot penalty on first request.'
+                'We obsessively fine-tune our libraries to eliminate latency, delivering maximum speed.'
             },
             {
               icon: '🌐',
@@ -1072,7 +1004,7 @@ const SpeedSection = () => {
         <Text
           css={theme({
             pt: 4,
-            fontSize: '12px',
+            fontSize: '15px',
             color: 'black40',
             textAlign: 'center',
             fontFamily: 'mono',
@@ -1127,9 +1059,9 @@ const WhySwitchSection = () => (
       </Subhead>
       <Caption
         css={theme({
-          color: 'white80',
+          color: 'white90',
           pb: [4, 4, 5, 5],
-          maxWidth: layout.small
+          maxWidth: layout.normal
         })}
         titleize={false}
       >
@@ -1149,39 +1081,39 @@ const WhySwitchSection = () => (
         {[
           {
             number: '01',
-            title: 'Response time matters at scale',
+            title: 'API latency compounds at scale',
             description:
-              'When you process 100k+ screenshots/month, saving ~2s per request on average adds up to over 55 hours of recovered pipeline time. That difference compounds fast at scale.'
+              'At 100k screenshots/month, saving ~2s per request recovers over 55 hours of pipeline time. Microlink is 46% faster on average — and up to 2× faster on complex, full-page captures.'
           },
           {
             number: '02',
             title: 'One API key, not five',
             description:
-              'Microlink replaces separate services for screenshots, metadata, PDFs, link previews, and remote JS. One integration, one billing, one set of docs.'
+              'Microlink handles screenshots, PDFs, metadata extraction, link previews, and remote JS in a single integration. One bill, one set of docs, no glue code between services.'
           },
           {
             number: '03',
-            title: 'Enterprise-grade at any scale',
+            title: '4.6× more requests for nearly half the price',
             description:
-              '99.9% uptime SLA with request isolation. No shared browsers between requests. Trusted by enterprises handling hundreds of millions of requests per month.'
+              "ScreenshotOne's recommended plan: 10,000 screenshots for $79/month. Microlink: 46,000 requests for $45. That's the volume ScreenshotOne charges $259 for."
           },
           {
             number: '04',
-            title: 'Open-source, auditable stack',
+            title: 'Open-source, fully auditable',
             description:
-              'Metascraper, MQL, and Browserless are MIT-licensed. Enterprise teams can inspect, fork, and audit the core engine. No black boxes.'
+              'Metascraper, MQL, and Browserless are MIT-licensed. Inspect the core engine, fork it, or self-host. No black boxes, no vendor lock-in — just code you can read.'
           },
           {
             number: '05',
-            title: 'Direct embed without a backend',
+            title: 'Drop screenshots anywhere — no backend',
             description:
-              'The embed=screenshot.url parameter returns the image URL directly. Put live screenshots in any <img> tag, CSS background, or Markdown — no server needed.'
+              'embed=screenshot.url returns the image URL directly. Drop it in an <img> tag, a CSS background-image, or Markdown. No storage layer, no server, no extra step.'
           },
           {
             number: '06',
-            title: 'Max quality by default',
+            title: 'Presentation-ready screenshots in one call',
             description:
-              'Microlink serves maximum quality screenshots with optimal compression out of the box. No manual tuning for the quality/size trade-off.'
+              'screenshot.overlay wraps any capture in a browser chrome frame with a custom gradient or image background. Marketing-ready visuals straight from the API — no Figma, no design tools.'
           }
         ].map(({ number, title, description }) => (
           <Flex
@@ -1202,8 +1134,8 @@ const WhySwitchSection = () => (
             <Text
               css={theme({
                 fontFamily: 'mono',
-                fontSize: '12px',
-                color: 'white40',
+                fontSize: '14px',
+                color: 'white50',
                 pb: 2
               })}
             >
@@ -1220,7 +1152,9 @@ const WhySwitchSection = () => (
             >
               {title}
             </Text>
-            <Text css={theme({ fontSize: 1, color: 'white70', lineHeight: 2 })}>
+            <Text
+              css={theme({ fontSize: '18px', color: 'white80', lineHeight: 2 })}
+            >
               {description}
             </Text>
           </Flex>
@@ -1238,26 +1172,21 @@ const HonestySection = () => (
   <Section
     as='section'
     id='screenshotone-strengths'
-    css={theme({ background: colors.gray0 })}
+    css={theme({ background: colors.gray0, py: 5 })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [1, 2, 2, 2] })} titleize={false}>
-        Where ScreenshotOne Might Be the Right Choice
-      </Subhead>
-      <Caption
-        css={theme({
-          pb: [4, 4, 5, 5],
-          maxWidth: layout.large,
-          color: 'black60'
-        })}
+      <Subhead
+        css={theme({ pb: [4, 4, 5, 5], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        Here is where ScreenshotOne has capabilities Microlink does not.
-      </Caption>
+        Where <GradientText>ScreenshotOne</GradientText> <br></br> Might Be the
+        Right Choice
+      </Subhead>
 
-      <Flex
+      <Box
         css={theme({
-          flexDirection: 'column',
+          display: 'grid',
+          gridTemplateColumns: ['1fr', '1fr 1fr', '1fr 1fr', '1fr 1fr'],
           gap: 3,
           maxWidth: layout.normal,
           width: '100%',
@@ -1286,9 +1215,14 @@ const HonestySection = () => (
               'ScreenshotOne has first-class integrations with Make, Zapier, n8n, Bubble, and Clay. Microlink has fewer no-code connectors (coming soon... we promise!).'
           },
           {
-            title: 'Team access control (organizations/roles)',
+            title: 'Team access control',
             description:
               'ScreenshotOne supports organizations with role-based access. Microlink does not have a team/organization feature.'
+          },
+          {
+            title: 'Scheduled or recurring captures',
+            description:
+              'ScreenshotOne lets you schedule screenshots to run on a recurring basis straight from the dashboard. Microlink focuses on on-demand captures and does not include a built-in scheduler.'
           }
         ].map(({ title, description }) => (
           <Flex
@@ -1298,7 +1232,8 @@ const HonestySection = () => (
               borderRadius: 3,
               border: 1,
               borderColor: 'black10',
-              flexDirection: 'column'
+              flexDirection: 'column',
+              bg: 'white'
             })}
           >
             <Text
@@ -1311,7 +1246,7 @@ const HonestySection = () => (
             </Text>
           </Flex>
         ))}
-      </Flex>
+      </Box>
     </SectionInner>
   </Section>
 )
@@ -1321,22 +1256,23 @@ const HonestySection = () => (
  * --------------------------------------------------------------------------- */
 
 const PricingSection = () => (
-  <Section as='section' id='pricing'>
+  <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
-      <Subhead css={theme({ pb: [1, 2, 2, 2] })} titleize={false}>
-        More requests. Half the price.
+      <Subhead
+        css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5], pt: 3 })}
+        titleize={false}
+      >
+        More requests. <GradientText>Half the price.</GradientText>
       </Subhead>
       <Caption
         css={theme({
           pb: [4, 4, 5, 5],
-          maxWidth: layout.small,
+          maxWidth: layout.large,
           color: 'black60'
         })}
         titleize={false}
       >
-        ScreenshotOne's recommended plan: 10,000 screenshots for $79/month.
-        Microlink: 46,000 requests for $45. That's the same volume ScreenshotOne
-        charges $259 for.
+        Get <b>4.6x more</b> for nearly half the price.
       </Caption>
 
       <Flex
@@ -1355,7 +1291,7 @@ const PricingSection = () => (
             borderRadius: '8px',
             padding: '2px',
             flex: 1,
-            minWidth: '260px'
+            minWidth: '400px'
           }}
         >
           <PriceCard
@@ -1390,8 +1326,16 @@ const PricingSection = () => (
                 /mo
               </Text>
             </PriceAmount>
-            <Text css={theme({ fontSize: 1, color: 'black60', pt: 2, pb: 3 })}>
-              46,000 requests/month · no rate limit
+            <Text
+              css={theme({
+                fontSize: 2,
+                color: 'black80',
+                pt: 2,
+                pb: 3,
+                fontWeight: 'bold'
+              })}
+            >
+              46,000 requests/month
             </Text>
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
@@ -1451,12 +1395,19 @@ const PricingSection = () => (
               /mo
             </Text>
           </PriceAmount>
-          <Text css={theme({ fontSize: 1, color: 'black60', pt: 2, pb: 3 })}>
-            Recommended plan · screenshots only
+          <Text
+            css={theme({
+              fontSize: 2,
+              color: 'black80',
+              pt: 2,
+              pb: 3,
+              fontWeight: 'bold'
+            })}
+          >
+            10,000 screenshots/month
           </Text>
           <Box as='ul' css={theme({ pl: 3, m: 0 })}>
             {[
-              '10,000 screenshots/month',
               '80 requests per minute cap',
               '$0.006 per extra screenshot',
               'Screenshots only — no PDF, metadata, or previews',
@@ -1483,18 +1434,17 @@ const PricingSection = () => (
       <Text
         css={theme({
           pt: 4,
-          fontSize: 1,
-          color: 'black50',
+          fontSize: 2,
+          color: 'black60',
           textAlign: 'center',
           maxWidth: layout.small,
           mx: 'auto',
           lineHeight: 2
         })}
       >
-        At $45/month, Microlink gives you 4.6× more requests than
-        ScreenshotOne's $79 plan — with no per-minute rate cap, plus PDF
-        generation, metadata extraction, and link previews included. No extra
-        services, no extra bills.
+        Microlink offers <b>46,000 requests</b> for $45, compared to
+        ScreenshotOne’s <b>10,000 screenshots</b> for $79. That's{' '}
+        <b>4.6× more requests</b>.
       </Text>
     </SectionInner>
   </Section>
@@ -1508,35 +1458,43 @@ const CTASection = () => (
   <Section
     as='section'
     id='get-started'
-    css={{
-      background: colors.gray9,
+    css={theme({
+      py: 5,
+      background: `radial-gradient(ellipse at 65% 0%, rgba(140, 27, 171, 0.35) 0%, transparent 65%), ${colors.gray9}`,
       borderTop: `${borders[1]} ${colors.white10}`
-    }}
+    })}
   >
     <Flex
       css={theme({
         flexDirection: 'column',
         alignItems: 'center',
-        maxWidth: layout.small,
+        maxWidth: layout.large,
         mx: 'auto',
         textAlign: 'center'
       })}
     >
       <Subhead
-        css={theme({ color: 'white', pb: [1, 2, 2, 2] })}
-        titleize={false}
-      >
-        Try Microlink Free
-      </Subhead>
-      <Caption
         css={theme({
-          color: 'white60',
-          pb: [3, 3, 4, 4]
+          color: 'white',
+          pb: [2, 2, 3, 3],
+          fontSize: [3, 3, 4, 4]
         })}
         titleize={false}
       >
-        50 requests/day, no credit card required. See the speed difference for
-        yourself.
+        Make the switch in minutes
+      </Subhead>
+
+      <Caption
+        css={theme({
+          color: 'white80',
+          pb: [3, 3, 4, 4],
+          maxWidth: layout.large,
+          fontSize: 2
+        })}
+        titleize={false}
+      >
+        Replace your ScreenshotOne endpoint. Keep your code. Your first 50
+        requests/day are free — no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1547,52 +1505,17 @@ const CTASection = () => (
         })}
       >
         <Button
-          as='a'
-          href='/docs/api/parameters/screenshot'
-          css={theme({ fontSize: 1 })}
-        >
-          <Caps>Screenshot Docs</Caps>
-        </Button>
-        <Button
-          as='a'
           href='/screenshot'
-          variant='white'
-          css={theme({ fontSize: 1 })}
+          css={theme({ fontSize: 2, px: 5, py: 3 })}
+          style={{
+            background:
+              'linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%)',
+            color: 'white',
+            boxShadow: '0 8px 32px rgba(192, 63, 162, 0.45)'
+          }}
         >
-          <Caps>Live Demo</Caps>
+          <Caps>Start Building Free</Caps>
         </Button>
-      </Flex>
-
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          gap: [3, 4, 5, 5],
-          flexWrap: 'wrap',
-          justifyContent: 'center'
-        })}
-      >
-        {[
-          { label: 'SDKs', value: 'JS, Python, Ruby, PHP, Go + CLI' },
-          { label: 'Start', value: 'Free, no credit card' },
-          { label: 'Support', value: 'hello@microlink.io' }
-        ].map(({ label, value }) => (
-          <Flex
-            key={label}
-            css={{ flexDirection: 'column', alignItems: 'center' }}
-          >
-            <Caps
-              css={theme({
-                fontSize: 0,
-                color: 'white40',
-                fontWeight: 'bold',
-                pb: 1
-              })}
-            >
-              {label}
-            </Caps>
-            <Text css={theme({ fontSize: 1, color: 'white80' })}>{value}</Text>
-          </Flex>
-        ))}
       </Flex>
     </Flex>
   </Section>
@@ -1604,11 +1527,9 @@ const CTASection = () => (
 
 const FAQSection = () => (
   <Faq
-    title='Frequently Asked Questions'
-    caption='Common questions when evaluating Microlink as a ScreenshotOne alternative.'
     css={theme({
+      pt: [4, 4, 5, 5],
       pb: [5, 5, 6, 6],
-      bg: 'pinky',
       borderTop: `${borders[1]} ${colors.pinkest}`,
       borderBottom: `${borders[1]} ${colors.pinkest}`
     })}
@@ -1795,11 +1716,11 @@ const ScreenshotOnePage = () => (
   <Layout>
     <Hero />
     <SpeedSection />
-    <ComparisonSection />
-    <WhySwitchSection />
-    <HonestySection />
     <PricingSection />
+    <WhySwitchSection />
     <CTASection />
+    <ComparisonSection />
+    <HonestySection />
     <FAQSection />
   </Layout>
 )
