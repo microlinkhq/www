@@ -855,7 +855,7 @@ const ComparisonSection = () => (
           fontFamily: 'mono'
         })}
       >
-        Last verified: February 2026. See each product's docs for the latest.
+        Last verified: March 2026. See each product's docs for the latest.
       </Text>
     </SectionInner>
   </Section>
@@ -1542,6 +1542,24 @@ const FAQSection = () => (
     })}
     questions={[
       {
+        question: 'Is there a free ScreenshotOne alternative?',
+        answer: (
+          <>
+            <div>
+              Yes. Microlink's <Link href='/#pricing'>free tier</Link> includes
+              50&nbsp;requests/day with no credit card and no time limit. You
+              get the same API, the same quality, and the same 240+ edge network
+              as paid plans.
+            </div>
+            <div>
+              ScreenshotOne also offers a free tier, but it's limited to
+              100&nbsp;screenshots with no daily renewal — once they're gone,
+              you need a paid plan.
+            </div>
+          </>
+        )
+      },
+      {
         question:
           'How does Microlink compare to ScreenshotOne for screenshot quality?',
         answer: (
@@ -1552,11 +1570,6 @@ const FAQSection = () => (
               default — no manual parameter tuning needed. ScreenshotOne also
               delivers good quality, with optional GPU rendering for WebGL-heavy
               sites.
-            </div>
-            <div>
-              The main difference is speed: Microlink consistently returns
-              screenshots up to 2× faster due to its 240+ edge node
-              infrastructure and pre-warmed browser instances.
             </div>
           </>
         )
@@ -1575,30 +1588,9 @@ const FAQSection = () => (
               include examples for every parameter.
             </div>
             <div>
-              SDKs are available for JavaScript, Python, Ruby, PHP, and Go. If
+              Just ask to your favorite LLM client to migrate your code. Or, if
               you need help migrating, contact{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'What is the overlay feature and why does it matter?',
-        answer: (
-          <>
-            <div>
-              <Link href='/docs/api/parameters/screenshot/overlay'>
-                screenshot.overlay
-              </Link>{' '}
-              wraps your screenshot in a browser chrome frame (light or dark)
-              with a customizable background — CSS gradient, solid color, or
-              image URL. The result is a presentation-ready image in a single
-              API call.
-            </div>
-            <div>
-              This eliminates the design step between "capture screenshot" and
-              "use in marketing materials, documentation, or social media."
-              ScreenshotOne has no equivalent feature.
             </div>
           </>
         )
@@ -1612,11 +1604,6 @@ const FAQSection = () => (
               screenshots, PDF generation, metadata/Open Graph extraction, link
               previews (via SDK), remote JavaScript execution, and Lighthouse
               audits.
-            </div>
-            <div>
-              With ScreenshotOne, you get screenshots. For PDFs, metadata,
-              previews, or any other capability, you need additional services —
-              each with their own billing, docs, and integration work.
             </div>
           </>
         )
@@ -1643,6 +1630,83 @@ const FAQSection = () => (
             <div>
               ScreenshotOne is closed-source. There is no way to inspect or
               audit the engine processing your requests.
+            </div>
+            <div>
+              We know for sure that some of our competitors are using our code
+              to run similar services. We're glad to see that our work is
+              helping the community.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'How much does ScreenshotOne cost compared to Microlink?',
+        answer: (
+          <>
+            <div>
+              ScreenshotOne's recommended plan is $79/month for
+              10,000&nbsp;screenshots with an 80&nbsp;requests-per-minute cap.
+              Microlink's comparable plan is $45/month for 46,000&nbsp;requests
+              — 4.6× more volume for nearly half the price — with no per-minute
+              rate limit.
+            </div>
+            <div>
+              Microlink can offer lower prices because enterprise clients
+              running millions of requests a month cover the infrastructure
+              cost. Indie devs and startups benefit from the same global edge
+              network without the enterprise price tag.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Does Microlink have rate limits?',
+        answer: (
+          <>
+            <div>
+              Paid plans have no requests-per-minute cap — you can burst as high
+              as your concurrency allows. The only limit is your monthly request
+              quota.
+            </div>
+            <div>
+              ScreenshotOne enforces a per-minute rate limit (80&nbsp;req/min on
+              the $79 plan), which can bottleneck batch pipelines or
+              high-traffic embed scenarios.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'How does Microlink handle sites with cookie banners or ads?',
+        answer: (
+          <>
+            <div>
+              Both Microlink and ScreenshotOne support ad blocking and cookie
+              banner removal. In Microlink you enable them with{' '}
+              <Link href='/docs/api/parameters/adblock'>adblock</Link> and
+              custom CSS/JS injection to dismiss consent dialogs before the
+              screenshot is taken.
+            </div>
+            <div>
+              You can also use{' '}
+              <Link href='/docs/api/parameters/screenshot/hide'>
+                screenshot.hide
+              </Link>{' '}
+              to remove specific elements by CSS selector — useful for sticky
+              banners, chat widgets, or any overlay that clutters the capture.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'What uptime and SLA does Microlink guarantee?',
+        answer: (
+          <>
+            <div>
+              Microlink guarantees 99.9% uptime backed by a formal SLA. Requests
+              are served from 240+ Cloudflare edge nodes worldwide, so latency
+              and availability stay consistent regardless of where the caller is
+              located.
             </div>
           </>
         )
@@ -1707,6 +1771,62 @@ export const Head = () => (
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'Yes. Microlink accepts similar parameters. Most migrations involve updating the API endpoint and key. SDKs are available for JavaScript, Python, Ruby, PHP, and Go.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Is there a free ScreenshotOne alternative?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "Yes. Microlink's free tier includes 50 requests/day with no credit card and no time limit — the same API, quality, and 240+ edge network as paid plans."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How much does ScreenshotOne cost compared to Microlink?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 req/min cap. Microlink offers 46,000 requests for $45/month with no per-minute rate limit — 4.6× more volume for nearly half the price."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Does Microlink have rate limits?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Paid plans have no requests-per-minute cap. The only limit is the monthly request quota. ScreenshotOne enforces a per-minute rate limit which can bottleneck batch pipelines.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I use the screenshot API without running my own server?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "Yes. Microlink's embed mode returns a direct image URL you can drop into an <img> tag, CSS background-image, or Markdown — no backend or storage layer needed."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'What output formats does the Microlink screenshot API support?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Microlink supports PNG, JPEG, and WebP for still screenshots, animated GIF and video (MP4) for motion captures, and PDF generation — all from the same API endpoint.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How does Microlink handle sites with cookie banners or ads?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Microlink supports ad blocking and cookie banner removal via the adblock parameter and custom CSS/JS injection. You can also hide specific elements by CSS selector using screenshot.hide.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'What uptime and SLA does Microlink guarantee?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from 240+ Cloudflare edge nodes worldwide for consistent latency and availability.'
             }
           }
         ]
