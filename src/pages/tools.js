@@ -115,7 +115,8 @@ const TOOLS = [
         styles: {
           width: ['90%', '90%', '80%', '80%'],
           marginTop: ['60px', '200px', '50px', '75px'],
-          transition: 'transform 600ms cubic-bezier(0.4, 0, 0.2, 1)'
+          transition: 'transform 600ms cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
         }
       }
     ]
