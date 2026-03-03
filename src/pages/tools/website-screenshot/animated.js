@@ -82,75 +82,78 @@ const DEVICE_OPTIONS = [
 
 const FEATURES_LIST = [
   {
-    title: 'Fast CDN Delivery',
+    title: 'Global CDN Delivery',
     description:
-      'Animated screenshots are served via a global CDN with 240+ edge locations. Lightning-fast delivery anywhere in the world.'
+      'Every animated screenshot is served from 240+ edge locations worldwide. Your MP4 loads fast no matter where your users are.'
   },
   {
     title: 'Smart Caching',
     description:
-      "Automatic edge caching with configurable TTL. Cached responses are free and don't count against your plan."
+      "Repeated captures of the same animated web page are served from cache instantly and don't count against your daily limit."
   },
   {
-    title: 'Zero-Config API',
+    title: 'One-Line API Integration',
     description:
-      'Get started in minutes with a simple REST API. No browsers to manage, no infrastructure to maintain.'
+      'Add animated screen capture to any app with a single API call. No headless browsers to manage, no infrastructure to maintain.'
   }
 ]
 
 const HOW_IT_WORKS = [
   {
     icon: Globe,
-    title: 'Enter URL',
-    description: 'Paste any website address into the capture field above.'
+    title: 'Paste a URL',
+    description:
+      'Enter any website address into the animated screenshot tool above.'
   },
   {
     icon: Settings,
-    title: 'Configure Options',
-    description: 'Choose from desktop, tablet, or mobile viewports.'
+    title: 'Pick Device & Duration',
+    description: 'Choose desktop, tablet, or mobile and set how long to record.'
   },
   {
     icon: Film,
-    title: 'Generate Recording',
-    description: 'Click the button and wait while the page is recorded.'
+    title: 'Capture the Animation',
+    description:
+      'We open the page and record every animation, transition, and scroll effect as an MP4.'
   },
   {
     icon: Download,
-    title: 'Download & Share',
-    description: 'Save your animated screenshot as MP4 or share it with others.'
+    title: 'Download or Share',
+    description:
+      'Save the animated screenshot to your device or copy the CDN URL to use anywhere.'
   }
 ]
 
 const REASON_TO_USE = [
   {
-    title: 'Animated Screen Capture',
+    title: 'True Animated Screen Capture',
     description:
-      'Record any website as a 5-second MP4 video. Show scrolling, animations, and interactive content that static screenshots miss.'
+      'Static screenshots miss CSS transitions, scroll effects, and interactive states. Our animated screenshot tool records the full live experience as an MP4 video.'
   },
   {
-    title: 'High-Resolution Recordings',
+    title: 'Screenshot Any Animated Page',
     description:
-      'Get crystal-clear animated screenshots at any viewport size\u2014mobile, tablet, desktop, or custom dimensions up to 2500\u00D71200.'
+      'Works on any public webpage — marketing sites, dashboards, product demos, portfolios. If a browser can open it, we can capture it animated.'
   },
   {
-    title: 'No Installation Required',
+    title: 'Free Online Animated Screenshot',
     description:
-      'Record animated website screenshots directly in your browser. No downloads, no plugins, no hassle. Just paste the URL and capture.'
+      'Take animated screenshots online with no software to install and no account required. Just paste the URL and capture.'
   },
   {
-    title: 'Free + No login',
+    title: '50 Free Captures per Day',
     description:
-      'Free animated screenshot tool with 50 captures per day. Every recording is clean and professional. No branding, overlays, or watermarks.'
+      'Every animated screenshot is clean and professional — no watermarks, no overlays, no branding. Free for up to 50 captures daily.'
   },
   {
-    title: 'Local Storage Support',
+    title: '24-Hour Recording History',
     description:
-      'Save recordings to your local storage for easy access. Access them for 24 hours so you can come back and grab them again.'
+      'Your recent animated screenshots are saved locally for 24 hours so you can revisit, download, or share them any time.'
   },
   {
-    title: 'Block ads and banners',
+    title: 'Clean Captures, No Ads',
     description:
-      'Automatically block ads and cookie banners before the recording. Get the cleanest animated screenshots possible.'
+      'Cookie banners and ad overlays are automatically removed before the animated web page is captured, giving you a clean, professional result every time.'
   }
 ]
 
@@ -1641,7 +1644,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Generate Animated Website Screenshots
+      Animated Screenshot Tool
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -1652,7 +1655,7 @@ const Hero = () => (
         fontSize: [2, 2, 3, '32px']
       })}
     >
-      Record any website as a short MP4 video in seconds
+      Capture any animated web page as a video. Free, online, no sign-up.
     </Caption>
   </Flex>
 )
@@ -1680,7 +1683,7 @@ const HowItWorks = () => (
         fontSize: [3, 3, 3, '28px']
       })}
     >
-      How to capture an animated website screenshot
+      How to take an animated screenshot of a webpage
     </Caption>
     <Flex
       css={theme({
@@ -1726,7 +1729,7 @@ const Explanation = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Why choose our animated screenshot tool?
+      Why use our online animated screenshot tool?
     </Subhead>
     <Box
       css={theme({
@@ -1757,15 +1760,15 @@ const Explanation = () => (
       })}
     >
       <Text css={theme({ fontSize: 3, color: 'black' })}>
-        Wondering how we deliver this quality for free?
+        How do we offer this level of quality for free?
       </Text>
       <Text
         css={theme({ fontSize: 2, color: 'black80', lineHeight: 2, mt: 2 })}
       >
-        This tool runs on <b>Microlink's</b>{' '}
-        <Link href='/screenshot'>screenshot API</Link>—the same infrastructure
-        processing millions of screenshots per week for paying customers. You
-        get enterprise performance at no cost.
+        This animated screen capture tool runs on <b>Microlink's</b>{' '}
+        <Link href='/screenshot'>screenshot API</Link> — the same infrastructure
+        used by thousands of paying customers to capture millions of animated
+        screenshots every week. You get enterprise performance at zero cost.
       </Text>
     </Caption>
   </Container>
@@ -1807,13 +1810,14 @@ const ApiDocs = () => (
         </IconCircle>
       </Flex>
       <Subhead css={theme({ fontSize: 3 })}>
-        Screenshot API documentation
+        Animated Screenshot API documentation
       </Subhead>
       <Caption
         css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
       >
-        Explore the full Screenshot API reference with animated capture support,
-        interactive examples, SDKs, and ready-to-use code snippets.
+        Integrate animated screen capture into any app. Explore the full API
+        reference with interactive examples, SDKs for every language, and
+        copy-paste code snippets.
       </Caption>
       <Flex
         css={theme({
@@ -1874,7 +1878,7 @@ const Banner = () => (
         }}
       >
         <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
-          Screenshot API{' '}
+          Animated Screenshot API{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             for developers
           </span>
@@ -1910,28 +1914,28 @@ const USE_CASES = [
   {
     title: 'For Product Teams',
     items: [
-      'Record animated walkthroughs of feature flows',
-      'Capture interactive UI states that static shots miss',
-      'Generate demo recordings for stakeholder presentations',
-      'Document onboarding flows with real interactions'
+      'Take animated screenshots of feature flows and onboarding',
+      'Capture interactive UI states that static images miss',
+      'Record animated walkthroughs for stakeholder presentations',
+      'Screenshot animated pages to document product behavior'
     ]
   },
   {
     title: 'For Digital Marketers',
     items: [
-      'Record competitor website animations for analysis',
-      'Create eye-catching social media content from any website',
-      'Capture dynamic landing pages for ad creative research',
-      'Generate animated previews for email campaigns'
+      'Print screen animated web pages for competitor research',
+      'Capture animated landing pages for ad creative analysis',
+      'Generate animated webpage screenshots for social content',
+      'Screenshot website animations for campaign inspiration'
     ]
   },
   {
     title: 'For Developers',
     items: [
-      'Record animated bug reproductions automatically',
-      'Capture CSS animations and transitions via API',
-      'Generate animated previews for documentation',
-      'Automate visual regression testing with video'
+      'Automate animated screen capture via a simple REST API',
+      'Record animated page screenshots for visual regression tests',
+      'Capture CSS transitions and scroll effects on any webpage',
+      'Screenshot animated pages for automated documentation'
     ]
   }
 ]
@@ -1951,11 +1955,11 @@ const UseCases = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Use cases for animated screen capture
+      Who uses our animated screen capture tool?
     </Subhead>
-    <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
-      From product demos to automated testing, animated screenshots capture what
-      static images cannot.
+    <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.normal })}>
+      From print-screen animated web pages to automated API capture, teams
+      across every discipline rely on animated screenshots.
     </Caption>
     <Box
       css={theme({
@@ -2045,65 +2049,86 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes! You can capture up to{' '}
-              <b>50&nbsp;animated screenshots per day</b> for free, with no
-              credit card required. Free captures include all features — device
-              emulation, ad blocking, and caching.
+              Yes. You can take up to{' '}
+              <b>50&nbsp;animated screenshots per day</b> at no cost — no credit
+              card, no account required. Every free capture includes all
+              features: device emulation, ad blocking, and CDN caching.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
-              for higher limits and priority processing.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'How long are the animated screenshots?',
-        answer: (
-          <div>
-            Each animated screenshot records <b>5&nbsp;seconds</b> of the
-            website. This is enough to capture page load animations, scrolling
-            behavior, and interactive elements.
-          </div>
-        )
-      },
-      {
-        question: 'What format are the recordings?',
-        answer: (
-          <div>
-            All animated screenshots are delivered as <b>MP4</b> video files
-            using the H.264 codec (avc1). This ensures the best compatibility
-            across all browsers and devices while maintaining high quality with
-            small file sizes.
-          </div>
-        )
-      },
-      {
-        question: "What's the maximum viewport size?",
-        answer: (
-          <>
-            <div>
-              The animated screenshot tool supports viewports up to{' '}
-              <b>2500&times;1200</b> pixels. Choose from desktop, tablet, or
-              mobile presets, or enter custom dimensions within this range.
-            </div>
-            <div>
-              On the API, you can use custom viewport sizes beyond these limits.
+              Need more? See our <Link href='/#pricing'>pricing plans</Link> for
+              higher daily limits and priority processing.
             </div>
           </>
         )
       },
       {
-        question: 'Can I integrate this into my application?',
+        question: 'How do I take an animated screenshot of a webpage?',
         answer: (
           <>
             <div>
-              Absolutely. The tool is built on the{' '}
+              Paste the URL into the tool above, choose a device (desktop,
+              tablet, or mobile), set the recording duration, and click
+              Generate. We open the page in a real browser, capture the animated
+              web page — including CSS transitions, scroll effects, and
+              interactive states — and return an MP4 video within seconds.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'How long can an animated screenshot be?',
+        answer: (
+          <>
+            <div>
+              You can record between 2&nbsp;and 15&nbsp;seconds. The default is
+              5&nbsp;seconds.
+            </div>
+            <div>
+              For long web pages with delayed animations or slow scroll
+              interactions, increase the duration up to 15&nbsp;seconds using
+              the slider in the options panel.
+            </div>
+          </>
+        )
+      },
+      {
+        question:
+          'Can I take a full page animated screenshot of a long web page?',
+        answer: (
+          <>
+            <div>
+              The tool captures the visible viewport for the selected duration.
+              For long web pages, increase the recording time so more of the
+              page content and animations are captured. On the{' '}
+              <Link href='/docs/api/parameters/screenshot'>API</Link>, you have
+              full control over duration and viewport to capture entire animated
+              pages programmatically.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'What format are animated screenshots saved in?',
+        answer: (
+          <div>
+            All animated screenshots are delivered as MP4 files using the H.264
+            codec. MP4 plays natively in every major browser and device, keeping
+            file sizes small without sacrificing quality.
+          </div>
+        )
+      },
+      {
+        question: 'Can I automate animated screen capture via API?',
+        answer: (
+          <>
+            <div>
+              Yes. The tool is powered by the{' '}
               <Link href='/docs/api/parameters/screenshot'>
                 Microlink Screenshot API
               </Link>
-              , which provides a simple REST endpoint with animated screenshot
-              support. Integrate with any language — Node.js, Python, Ruby, or
+              , which accepts a single REST call. Add{' '}
+              <code>screenshot: {'{ animated: true }'}</code> to capture any
+              animated webpage programmatically from Node.js, Python, Ruby, or
               plain cURL.
             </div>
             <div>
@@ -2111,7 +2136,8 @@ const ProductInformation = () => (
               <Link href='https://www.npmjs.com/package/@microlink/mql'>
                 @microlink/mql
               </Link>{' '}
-              SDK for Node.js, or hit the API directly from any HTTP client.
+              SDK for the easiest integration, or call the HTTP endpoint
+              directly.
             </div>
           </>
         )
@@ -2121,24 +2147,26 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Animated screenshots are cached on our global CDN by default.
-              Cached responses are served instantly and{' '}
-              <b>don't count against your limit</b>. Cache lasts for 24 hours.
+              Animated screenshots are cached on our global CDN for 24 hours by
+              default. Cached responses are served instantly and{' '}
+              <b>don't count against your daily limit</b>.
             </div>
             <div>
-              We only recommend turning off the cache if you need to capture a
-              page that changes frequently.
+              Turn off caching only if you need a fresh capture of a page that
+              updates frequently.
             </div>
           </>
         )
       },
       {
-        question: 'Any question or issue?',
+        question: 'Any questions or issues?',
         answer: (
-          <span>
-            We're always available at:{' '}
-            <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
-          </span>
+          <>
+            <span>
+              We are always available at:{' '}
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
+            </span>
+          </>
         )
       }
     ]}
@@ -2149,29 +2177,41 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Animated Website Screenshot Generator - Free URL Screen Capture'
+    title='Animated Screenshot Tool — Free Online Animated Screen Capture'
     noSuffix
-    description='Generate animated website screenshots as MP4 videos from any URL. Free, no-login online screen capture tool powered by a fast, reliable, and high resolution API.'
+    description='Take a free animated screenshot of any website online. Capture animated web pages as MP4 video — no login, no install. Our online animated screen capture tool records any webpage in seconds.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
       '@id': 'https://microlink.io/tools/website-screenshot/animated',
-      name: 'Microlink Animated Website Screenshot Tool',
+      name: 'Microlink Animated Screenshot Tool',
       description:
-        'Record animated screenshots of any webpage as MP4 videos with device emulation, ad blocking, and caching.',
+        'Free online animated screenshot tool. Capture any animated web page as an MP4 video. Screenshot animated websites, capture full page animations, and record any webpage online without installing anything.',
       url: 'https://microlink.io/tools/website-screenshot/animated',
       applicationCategory: ['DeveloperApplication', 'Tool'],
       keywords: [
-        'animated website screenshot',
-        'website screen recording',
         'animated screenshot tool',
-        'website to video',
-        'webpage recording',
+        'animated screenshot',
         'animated screen capture',
-        'website video capture',
-        'MP4 screenshot'
+        'online animated screenshot',
+        'animated website screenshot',
+        'animated webpage screenshot',
+        'website animated screenshot',
+        'webpage animated screenshot',
+        'screenshot animated page',
+        'screenshot website animated',
+        'capture animated web page',
+        'capture animated page',
+        'screen capture animated web page',
+        'full page animated screen capture',
+        'capture entire web page animated',
+        'capture web page with animated',
+        'screenshot web page with animated',
+        'print screen animated web page',
+        'print animated web page',
+        'take screenshot of long web page'
       ],
       offers: {
         '@type': 'Offer',
@@ -2206,16 +2246,15 @@ const AnimatedWebsiteScreenshotPage = () => (
               textAlign: 'left'
             }}
           >
-            for Automated Captures.
+            for Automated Screen Capture.
           </span>
         </Subhead>
       }
       caption={
         <>
-          No servers to maintain, no load balancers, no paying for capacity you
-          don't use. Microlink lets you spend more time building and less time
-          configuring — easy integration via <Link href='/screenshot'>API</Link>
-          .
+          No servers to maintain, no headless browsers to manage, no paying for
+          capacity you don't use. Add animated screen capture to any app in
+          minutes — easy integration via <Link href='/screenshot'>API</Link>.
         </>
       }
       features={FEATURES_LIST}
