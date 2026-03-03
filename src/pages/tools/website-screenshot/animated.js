@@ -3,7 +3,6 @@
 import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
-  Camera,
   Clipboard,
   Download,
   ExternalLink,
@@ -11,7 +10,6 @@ import {
   ArrowRight,
   Code,
   HelpCircle,
-  Link2,
   Settings,
   X,
   Film
@@ -57,12 +55,12 @@ const Caption = withTitle(CaptionBase)
 /* ─── Constants ────────────────────────────────────────── */
 
 const DEVICES = {
-  desktop: { width: 1920, height: 1080 },
-  tablet: { width: 768, height: 1024 },
-  mobile: { width: 393, height: 852 }
+  desktop: { apiName: 'Macbook Pro 13', width: 1440, height: 900 },
+  tablet: { apiName: 'iPad', width: 768, height: 1024 },
+  mobile: { apiName: 'iPhone 13 Pro Max', width: 428, height: 926 }
 }
 
-const SCREENSHOT_HISTORY_KEY = 'animated-screenshot-history'
+const SCREENSHOT_HISTORY_KEY = 'screenshot-history/animated'
 const MAX_HISTORY_ITEMS = 12
 const HISTORY_MAX_AGE_MS = 24 * 60 * 60 * 1000
 const THUMB_SIZE = 244
@@ -71,9 +69,6 @@ const THUMB_QUALITY = 0.85
 const LAYOUT_PIVOT = 1200
 const MOBILE_BP = 768
 const MAX_SCREENSHOT_PREVIEW_HEIGHT = 750
-
-const MAX_WIDTH = 2500
-const MAX_HEIGHT = 1200
 
 const MIN_DURATION_S = 2
 const MAX_DURATION_S = 15
@@ -682,7 +677,6 @@ const SegmentedControl = ({ options, value, onChange, name }) => {
 
 const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
   const [urlError, setUrlError] = useState('')
-  const [viewportError, setViewportError] = useState('')
 
   const handleUrlChange = useCallback(
     e => {
@@ -706,40 +700,15 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
       return
     }
 
-    const width = Math.min(Number(options.customWidth) || 1920, MAX_WIDTH)
-    const height = Math.min(Number(options.customHeight) || 1080, MAX_HEIGHT)
-    const perimeter = width + height
-
-    if (perimeter > 8000) {
-      setViewportError(
-        'Viewport perimeter (width + height) is too big. Please use 8000px or less.'
-      )
-      return
-    }
-
     setOptions(prev => ({ ...prev, url }))
     setUrlError('')
-    setViewportError('')
     onSubmit(url)
-  }, [
-    options.url,
-    options.customWidth,
-    options.customHeight,
-    onSubmit,
-    normalizeUrl,
-    setOptions
-  ])
+  }, [options.url, onSubmit, normalizeUrl, setOptions])
 
   const handleDeviceChange = useCallback(
     val => {
-      const device = DEVICES[val]
-      if (device) {
-        setOptions(prev => ({
-          ...prev,
-          device: val,
-          customWidth: String(device.width),
-          customHeight: String(device.height)
-        }))
+      if (DEVICES[val]) {
+        setOptions(prev => ({ ...prev, device: val }))
       }
     },
     [setOptions]
@@ -795,160 +764,82 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
       <PanelRibbonLayout>
         {/* ── Display Settings ────────────────── */}
         <PanelSection>
-          <Box css={theme({ pb: '12px' })}>
-            <OptionLabel as='span'>Device</OptionLabel>
-            <SegmentedControl
-              name='Device'
-              options={DEVICE_OPTIONS}
-              value={options.device}
-              onChange={handleDeviceChange}
-            />
-          </Box>
+          <OptionLabel as='span'>Device</OptionLabel>
+          <SegmentedControl
+            name='Device'
+            options={DEVICE_OPTIONS}
+            value={options.device}
+            onChange={handleDeviceChange}
+          />
+        </PanelSection>
 
-          <Box css={theme({ pb: '12px' })}>
-            <OptionLabel as='span'>Viewport</OptionLabel>
-            <Flex css={{ alignItems: 'center' }}>
-              <Box css={{ flex: 1 }}>
-                <Input
-                  id='ws-width'
-                  type='number'
-                  inputMode='numeric'
-                  placeholder='1920'
-                  aria-label='Viewport width in pixels'
-                  value={options.customWidth}
-                  onChange={e => {
-                    setOptions(prev => ({
-                      ...prev,
-                      customWidth: e.target.value,
-                      device: 'custom'
-                    }))
-                    if (viewportError) setViewportError('')
-                  }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: '16px',
-                    height: '18px'
-                  })}
-                />
-              </Box>
-              <Flex
-                css={theme({
-                  px: '6px',
-                  color: 'black20',
-                  alignItems: 'center'
-                })}
-              >
-                <Link2 size={14} />
-              </Flex>
-              <Box css={{ flex: 1 }}>
-                <Input
-                  id='ws-height'
-                  type='number'
-                  inputMode='numeric'
-                  placeholder='1080'
-                  aria-label='Viewport height in pixels'
-                  value={options.customHeight}
-                  onChange={e => {
-                    setOptions(prev => ({
-                      ...prev,
-                      customHeight: e.target.value,
-                      device: 'custom'
-                    }))
-                    if (viewportError) setViewportError('')
-                  }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: '16px',
-                    height: '18px'
-                  })}
-                />
-              </Box>
-            </Flex>
-            <Text
-              css={theme({
-                color: 'black30',
-                fontSize: '11px',
-                pt: 1,
-                fontFamily: 'sans'
-              })}
-            >
-              Max {MAX_WIDTH}&times;{MAX_HEIGHT}
-            </Text>
-            {viewportError && (
-              <Text
-                role='alert'
-                css={theme({ color: 'fullscreen', fontSize: 0, pt: 1 })}
-              >
-                {viewportError}
-              </Text>
-            )}
-          </Box>
-
-          <Box css={theme({ pb: '12px' })}>
-            <OptionLabel as='span'>Animation duration (seconds)</OptionLabel>
-            <Flex css={{ alignItems: 'center', gap: space[2] }}>
-              <Box css={{ flex: 1 }}>
-                <input
-                  id='ws-duration'
-                  type='range'
-                  min={MIN_DURATION_S}
-                  max={MAX_DURATION_S}
-                  step={1}
-                  value={Number(options.duration) || DEFAULT_DURATION_S}
-                  onChange={e =>
-                    setOptions(prev => ({ ...prev, duration: e.target.value }))
-                  }
-                  aria-label='Animation duration in seconds'
-                  style={{ width: '100%', accentColor: colors.link }}
-                />
-              </Box>
-              <Input
-                id='ws-duration-input'
-                type='number'
-                inputMode='numeric'
+        {/* ── Duration ────────────────────────── */}
+        <PanelSection>
+          <OptionLabel as='span'>Animation duration</OptionLabel>
+          <Flex
+            css={{ alignItems: 'center', gap: space[2], marginTop: space[2] }}
+          >
+            <Box css={{ flex: 1 }}>
+              <input
+                id='ws-duration'
+                type='range'
                 min={MIN_DURATION_S}
                 max={MAX_DURATION_S}
                 step={1}
-                placeholder={String(DEFAULT_DURATION_S)}
+                value={Number(options.duration) || DEFAULT_DURATION_S}
+                onChange={e =>
+                  setOptions(prev => ({ ...prev, duration: e.target.value }))
+                }
                 aria-label='Animation duration in seconds'
-                value={options.duration}
-                onChange={e => {
-                  const raw = e.target.value
-                  setOptions(prev => ({ ...prev, duration: raw }))
-                }}
-                onBlur={() => {
-                  const n = Number(options.duration)
-                  if (!n || n < MIN_DURATION_S) {
-                    setOptions(prev => ({
-                      ...prev,
-                      duration: String(MIN_DURATION_S)
-                    }))
-                  } else if (n > MAX_DURATION_S) {
-                    setOptions(prev => ({
-                      ...prev,
-                      duration: String(MAX_DURATION_S)
-                    }))
-                  }
-                }}
-                css={theme({
-                  width: '70px',
-                  fontSize: '16px',
-                  height: '18px',
-                  textAlign: 'center'
-                })}
+                style={{ width: '100%', accentColor: colors.link }}
               />
-              <Text
-                css={theme({
-                  fontFamily: 'sans',
-                  fontSize: 0,
-                  color: 'black50',
-                  flexShrink: 0
-                })}
-              >
-                s
-              </Text>
-            </Flex>
-          </Box>
+            </Box>
+            <Input
+              id='ws-duration-input'
+              type='number'
+              inputMode='numeric'
+              min={MIN_DURATION_S}
+              max={MAX_DURATION_S}
+              step={1}
+              placeholder={String(DEFAULT_DURATION_S)}
+              aria-label='Animation duration in seconds'
+              value={options.duration}
+              onChange={e => {
+                const raw = e.target.value
+                setOptions(prev => ({ ...prev, duration: raw }))
+              }}
+              onBlur={() => {
+                const n = Number(options.duration)
+                if (!n || n < MIN_DURATION_S) {
+                  setOptions(prev => ({
+                    ...prev,
+                    duration: String(MIN_DURATION_S)
+                  }))
+                } else if (n > MAX_DURATION_S) {
+                  setOptions(prev => ({
+                    ...prev,
+                    duration: String(MAX_DURATION_S)
+                  }))
+                }
+              }}
+              css={theme({
+                width: '70px',
+                fontSize: '16px',
+                height: '18px',
+                textAlign: 'center'
+              })}
+            />
+            <Text
+              css={theme({
+                fontFamily: 'sans',
+                fontSize: 0,
+                color: 'black50',
+                flexShrink: 0
+              })}
+            >
+              s
+            </Text>
+          </Flex>
         </PanelSection>
 
         {/* ── Advanced ────────────────────────── */}
@@ -1532,8 +1423,6 @@ const AnimatedScreenshotTool = () => {
     adblock: true,
     cache: true,
     device: 'desktop',
-    customWidth: '1920',
-    customHeight: '1080',
     duration: String(DEFAULT_DURATION_S)
   })
 
@@ -1542,8 +1431,8 @@ const AnimatedScreenshotTool = () => {
   const [error, setError] = useState(null)
   const [lastUrl, setLastUrl] = useState('')
   const [requestedViewport, setRequestedViewport] = useState({
-    width: 1920,
-    height: 1080
+    width: DEVICES.desktop.width,
+    height: DEVICES.desktop.height
   })
 
   const [localStorageData] = useLocalStorage('mql-api-key')
@@ -1565,11 +1454,8 @@ const AnimatedScreenshotTool = () => {
 
   const handleSubmit = useCallback(
     async url => {
-      const width = Math.min(Number(options.customWidth) || 1920, MAX_WIDTH)
-      const height = Math.min(Number(options.customHeight) || 1080, MAX_HEIGHT)
-      const viewport = { width, height }
-
-      setRequestedViewport(viewport)
+      const deviceDef = DEVICES[options.device] || DEVICES.desktop
+      setRequestedViewport({ width: deviceDef.width, height: deviceDef.height })
       setIsLoading(true)
       setError(null)
       setData(null)
@@ -1592,7 +1478,7 @@ const AnimatedScreenshotTool = () => {
               duration: durationS * 1000
             }
           },
-          viewport,
+          device: deviceDef.apiName,
           adblock: options.adblock,
           force: !options.cache
         }
@@ -1627,8 +1513,6 @@ const AnimatedScreenshotTool = () => {
                 settings: {
                   url,
                   device: options.device,
-                  customWidth: options.customWidth,
-                  customHeight: options.customHeight,
                   duration: options.duration,
                   adblock: options.adblock,
                   cache: options.cache
@@ -1656,20 +1540,20 @@ const AnimatedScreenshotTool = () => {
 
   const handleHistorySelect = useCallback(entry => {
     const { settings, screenshot } = entry
+    const deviceKey = settings.device || 'desktop'
+    const deviceDef = DEVICES[deviceKey] || DEVICES.desktop
     setOptions({
       url: settings.url,
       adblock: settings.adblock !== undefined ? settings.adblock : true,
       cache: settings.cache !== undefined ? settings.cache : true,
-      device: settings.device,
-      customWidth: settings.customWidth,
-      customHeight: settings.customHeight,
+      device: deviceKey,
       duration: settings.duration || String(DEFAULT_DURATION_S)
     })
     setData({ screenshot })
     setLastUrl(settings.url)
     setRequestedViewport({
-      width: Number(settings.customWidth) || 1920,
-      height: Number(settings.customHeight) || 1080
+      width: deviceDef.width,
+      height: deviceDef.height
     })
     setError(null)
     setActiveHistoryId(entry.id)
