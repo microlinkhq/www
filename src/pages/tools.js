@@ -16,6 +16,7 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Image from 'components/elements/Image/Image'
+import Video from 'components/elements/Video/Video'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -109,14 +110,10 @@ const TOOLS = [
           'Capture an animated screenshot of any website. Get a GIF or MP4 file in seconds with the motion that the webpage has. Create rich previews.',
         href: '/tools/website-screenshot/animated',
         icon: Play,
-        image: '/images/screenshot-mobile.png',
-        animation: ['scale(1.1) translateY(-8%)', 'scale(1.4)'],
+        image: cdnUrl('www/tools/animated-screenshot.mp4'),
         styles: {
-          mt: '310px',
-          maxWidth: '290px',
-          objectFit: 'contain',
-          transition: `transform ${transition.long}`,
-          transformOrigin: 'center center'
+          width: '100%',
+          marginTop: ['50px', '100px', '0px', '0px']
         }
       }
     ]
@@ -366,14 +363,18 @@ const Tool = ({
             borderColor: 'black05'
           })}
         >
-          <Image
-            src={image}
-            alt={title}
-            css={theme({
-              ...styles,
-              transform
-            })}
-          />
+          {image.endsWith('.mp4') ? (
+            <Video src={image} title={title} css={theme({ ...styles })} />
+          ) : (
+            <Image
+              src={image}
+              alt={title}
+              css={theme({
+                ...styles,
+                transform
+              })}
+            />
+          )}
         </ImagePreview>
 
         <Flex
