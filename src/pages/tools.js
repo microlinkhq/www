@@ -111,9 +111,11 @@ const TOOLS = [
         href: '/tools/website-screenshot/animated',
         icon: Play,
         image: cdnUrl('www/tools/animated-screenshot.mp4'),
+        animation: ['scale(1.2) translateY(10%)', 'scale(1)'],
         styles: {
-          width: '100%',
-          marginTop: ['50px', '100px', '0px', '0px']
+          width: ['90%', '90%', '80%', '80%'],
+          marginTop: ['60px', '200px', '50px', '75px'],
+          transition: 'transform 600ms cubic-bezier(0.4, 0, 0.2, 1)'
         }
       }
     ]
@@ -364,7 +366,11 @@ const Tool = ({
           })}
         >
           {image.endsWith('.mp4') ? (
-            <Video src={image} title={title} css={theme({ ...styles })} />
+            <Video
+              src={image}
+              title={title}
+              css={theme({ ...styles, transform })}
+            />
           ) : (
             <Image
               src={image}
