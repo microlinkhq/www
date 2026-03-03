@@ -67,6 +67,32 @@ const TOP_LEVEL_LINK_LAYOUT_STYLES = {
 const TOP_LEVEL_ACTIVE_BACKGROUND = colors.black05
 const PANEL_EXIT_DURATION_MS = speed.quickly
 
+const getMenuItemMediaStyles = label => {
+  if (label === 'Markdown') {
+    return {
+      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+      top: 0
+    }
+  }
+
+  return TOOLBAR_MENU_ITEM_MEDIA_STYLES
+}
+
+const getResourceMenuItemMediaStyles = label => {
+  if (label === 'Skills') {
+    return {
+      ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
+      color: 'black60',
+      top: '2px'
+    }
+  }
+
+  return {
+    ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
+    color: 'black60'
+  }
+}
+
 const clearTimeoutRef = timeoutRef => {
   if (!timeoutRef.current) return
   clearTimeout(timeoutRef.current)
@@ -524,7 +550,8 @@ const ToolbarDesktop = () => {
                     onClick={handleTriggerClick(label)}
                     onMouseEnter={() => handleOpenSectionWithHover(label)}
                     onFocus={() =>
-                      canUseHover() ? handleOpenSection(label) : undefined}
+                      canUseHover() ? handleOpenSection(label) : undefined
+                    }
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
@@ -652,10 +679,9 @@ const ToolbarDesktop = () => {
                                     iconClassName={
                                       RESOURCE_MENU_ITEM_ICON_CLASSNAME
                                     }
-                                    iconCss={theme({
-                                      ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
-                                      color: 'black60'
-                                    })}
+                                    iconCss={theme(
+                                      getResourceMenuItemMediaStyles(label)
+                                    )}
                                   />
                                   <Text
                                     as='span'
@@ -757,14 +783,7 @@ const ToolbarDesktop = () => {
                                 label={label}
                                 logo={logo}
                                 icon={Icon}
-                                iconCss={theme(
-                                  label === 'Markdown'
-                                    ? {
-                                        ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-                                        top: 0
-                                      }
-                                    : TOOLBAR_MENU_ITEM_MEDIA_STYLES
-                                )}
+                                iconCss={theme(getMenuItemMediaStyles(label))}
                                 imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
                               />
                             </MenuItemIcon>

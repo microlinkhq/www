@@ -1,5 +1,5 @@
 import { layout, theme } from 'theme'
-import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
+import SquareBackground from 'components/patterns/SquareBackground/SquareBackground'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
@@ -34,7 +34,7 @@ export const Head = () => (
 )
 
 const SkillsPage = () => (
-  <DotsBackground>
+  <SquareBackground>
     <Layout footer={{ style: { background: 'transparent' } }}>
       <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
         <Flex
@@ -117,7 +117,8 @@ const SkillsPage = () => (
           <Box css={theme({ pt: [4, null, 0] })}>
             <Button
               onClick={() =>
-                window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')}
+                window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')
+              }
             >
               <Caps>Request a Skill</Caps>
             </Button>
@@ -125,7 +126,7 @@ const SkillsPage = () => (
         </Flex>
       </Flex>
     </Layout>
-  </DotsBackground>
+  </SquareBackground>
 )
 
 export default SkillsPage

@@ -1,4 +1,4 @@
-import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
+import SquareBackground from 'components/patterns/SquareBackground/SquareBackground'
 import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
 import { useClipboard } from 'components/hook/use-clipboard'
 import Meta from 'components/elements/Meta/Meta'
@@ -21,7 +21,7 @@ export const Head = ({ pageContext }) => {
   )
 }
 
-export const SkillTemplate = ({ pageContext }) => {
+const SkillTemplate = ({ pageContext }) => {
   const { frontmatter = {}, rawContent = '', skillSlug } = pageContext
   const [ClipboardComponent, toClipboard] = useClipboard()
 
@@ -37,7 +37,7 @@ export const SkillTemplate = ({ pageContext }) => {
   }`
 
   return (
-    <DotsBackground>
+    <SquareBackground>
       <Layout footer={{ style: { background: 'transparent' } }}>
         <Flex
           css={theme({
@@ -191,7 +191,7 @@ export const SkillTemplate = ({ pageContext }) => {
           </Box>
         </Flex>
       </Layout>
-    </DotsBackground>
+    </SquareBackground>
   )
 }
 
