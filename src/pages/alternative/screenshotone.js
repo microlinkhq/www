@@ -685,7 +685,7 @@ const Hero = () => (
         color: 'black'
       })}
     >
-      The fastest <GradientText>ScreenshotOne</GradientText> alternative
+      The fastest <GradientText>Screenshot One</GradientText> alternative
     </Heading>
 
     <Caption
@@ -758,8 +758,8 @@ const Hero = () => (
         },
         {
           icon: TrendingUp,
-          value: '8× reqs',
-          label: 'For the same price'
+          value: '4× requests',
+          label: 'for half the price'
         }
       ].map(({ icon, value, label }) => (
         <Flex
@@ -1014,7 +1014,10 @@ const SpeedSection = () => {
         >
           Averages from 10 benchmark runs taken from a New York server at
           different hours. The{' '}
-          <Link href='https://github.com/microlinkhq/benchmark'>
+          <Link
+            css={theme({ fontSize: '16px' })}
+            href='https://github.com/microlinkhq/benchmark'
+          >
             benchmark repo
           </Link>{' '}
           is open — run it yourself and see.
@@ -1172,14 +1175,14 @@ const HonestySection = () => (
   <Section
     as='section'
     id='screenshotone-strengths'
-    css={theme({ background: colors.gray0, py: 5 })}
+    css={theme({ background: colors.gray0, px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
       <Subhead
         css={theme({ pb: [4, 4, 5, 5], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        Where <GradientText>ScreenshotOne</GradientText> <br></br> Might Be the
+        Where <GradientText>Screenshot One</GradientText> <br></br> Might Be the
         Right Choice
       </Subhead>
 
@@ -1434,7 +1437,7 @@ const PricingSection = () => (
       <Text
         css={theme({
           pt: 4,
-          fontSize: 2,
+          fontSize: 1,
           color: 'black60',
           textAlign: 'center',
           maxWidth: layout.small,
@@ -1442,9 +1445,10 @@ const PricingSection = () => (
           lineHeight: 2
         })}
       >
-        Microlink offers <b>46,000 requests</b> for $45, compared to
-        ScreenshotOne’s <b>10,000 screenshots</b> for $79. That's{' '}
-        <b>4.6× more requests</b>.
+        We can keep prices this low because our{' '}
+        <Link href='/enterprise'>enterprise clients</Link> cover the
+        infrastructure cost. We want to help indie devs and startups{' '}
+        <b>squeeze every drop of value</b> out of their budget.
       </Text>
     </SectionInner>
   </Section>
@@ -1493,8 +1497,11 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Replace your ScreenshotOne endpoint. Keep your code. Your first 50
-        requests/day are free — no credit card, no commitment.
+        Replace your ScreenshotOne endpoint. Keep your code.
+        <br />
+        Your first{' '}
+        <b css={theme({ color: 'white' })}>50 requests/day are free</b> — no
+        credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1651,7 +1658,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='ScreenshotOne Alternative'
-    description='Microlink captures screenshots 3-4× faster than ScreenshotOne, plus includes PDF, metadata, and link previews in one API. Free to start.'
+    description='Microlink captures screenshots up to 2× faster than ScreenshotOne — 46% faster on average — plus PDF, metadata, and link previews in one API. Free to start.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -1660,7 +1667,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'ScreenshotOne Alternative — Microlink Screenshot API',
         description:
-          'Compare Microlink and ScreenshotOne screenshot APIs. Microlink delivers 3-4× faster response times with screenshots, PDF generation, metadata extraction, and more in one API.',
+          'Compare Microlink and ScreenshotOne screenshot APIs. Microlink is 46% faster on average — up to 2× faster on full-page captures — with screenshots, PDF generation, metadata extraction, and more in one API.',
         url: 'https://microlink.io/alternative/screenshotone',
         mainEntity: {
           '@type': 'SoftwareApplication',
@@ -1683,7 +1690,7 @@ export const Head = () => (
             name: 'How does Microlink compare to ScreenshotOne for screenshot quality?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default and returns screenshots 3-4× faster due to its 240+ edge node infrastructure.'
+              text: 'Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default and is 46% faster on average — up to 2× faster on full-page captures — due to its 240+ edge node infrastructure.'
             }
           },
           {
@@ -1716,11 +1723,11 @@ const ScreenshotOnePage = () => (
   <Layout>
     <Hero />
     <SpeedSection />
-    <PricingSection />
-    <WhySwitchSection />
-    <CTASection />
     <ComparisonSection />
+    <WhySwitchSection />
+    <PricingSection />
     <HonestySection />
+    <CTASection />
     <FAQSection />
   </Layout>
 )
