@@ -1,10 +1,10 @@
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { borders, colors, fonts, layout, space, theme } from 'theme'
+import { cdnUrl } from 'helpers/cdn-url'
 import { useMounted } from 'components/hook/use-mounted'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useUrlInput } from 'components/hook/use-url-input'
-import { cdnUrl } from 'helpers/cdn-url'
 import { hasDomainLikeHostname, normalizeUrl } from 'helpers/url-input'
 import { useQueryState } from 'components/hook/use-query-state'
 import Box from 'components/elements/Box'
@@ -792,9 +792,10 @@ const MarkdownPage = () => {
   }, [hasValidTargetUrl, targetUrl])
   const snippetText = useMemo(
     () =>
-      `curl https://markdown.microlink.io/${targetUrl || DEFAULT_URL}`[
-        targetUrl
-      ]
+      hasValidTargetUrl
+        ? `curl https://markdown.microlink.io/${targetUrl}`
+        : '',
+    [hasValidTargetUrl, targetUrl]
   )
 
   useEffect(() => {
@@ -821,7 +822,7 @@ const MarkdownPage = () => {
             pb: [5, 5, 6, 6]
           })}
         >
-          <Heading css={theme({ fontSize: [3, 4] })}>
+          <Heading>
             Structured Markdown <LineBreak breakpoints={[0, 1]} /> built for
             Agents
           </Heading>
@@ -907,35 +908,37 @@ const MarkdownPage = () => {
               width: [`calc(100vw - ${space[4]})`, layout.small]
             })}
           />
-          <Box css={theme({ pt: 4, width: '100%', maxWidth: layout.small })}>
-            <Tooltip
-              type='copy'
-              tooltipsOpts={Tooltip.TEXT.OPTIONS}
-              content={
-                <Tooltip.Content>{Tooltip.TEXT.COPY('cURL')}</Tooltip.Content>
-              }
-            >
-              <Input
-                readOnly
-                onClick={event => {
-                  event.target.select()
-                  toClipboard({
-                    copy: snippetText,
-                    text: Tooltip.TEXT.COPIED('cURL')
-                  })
-                }}
-                style={{ cursor: 'copy' }}
-                css={theme({
-                  fontSize: 1,
-                  fontFamily: fonts.mono,
-                  cursor: 'copy',
-                  width: '100%',
-                  color: 'black60'
-                })}
-                value={snippetText}
-              />
-            </Tooltip>
-          </Box>
+          {snippetText && (
+            <Box css={theme({ pt: 4, width: '100%', maxWidth: layout.small })}>
+              <Tooltip
+                type='copy'
+                tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                content={
+                  <Tooltip.Content>{Tooltip.TEXT.COPY('cURL')}</Tooltip.Content>
+                }
+              >
+                <Input
+                  readOnly
+                  onClick={event => {
+                    event.target.select()
+                    toClipboard({
+                      copy: snippetText,
+                      text: Tooltip.TEXT.COPIED('cURL')
+                    })
+                  }}
+                  style={{ cursor: 'copy' }}
+                  css={theme({
+                    fontSize: 1,
+                    fontFamily: fonts.mono,
+                    cursor: 'copy',
+                    width: '100%',
+                    color: 'black60'
+                  })}
+                  value={snippetText}
+                />
+              </Tooltip>
+            </Box>
+          )}
           <ClipboardComponent />
         </Flex>
 
@@ -984,7 +987,7 @@ export const Head = () => (
   <Meta
     title='HTML to markdown API for AI agents'
     description='Convert any URL to clean markdown — 80% fewer tokens than raw HTML. Built for AI agent crawling, RAG pipelines, and LLM ingestion without custom parsers or brittle scrapers.'
-    image={cdnUrl('banner/markdown.jpeg')}
+    image={cdnUrl('logo/banner.jpeg')}
     structured={[
       {
         '@context': 'https://schema.org',

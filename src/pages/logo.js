@@ -10,8 +10,6 @@ import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { noop } from 'helpers/noop'
 
-import logoUri from '../../static/logo.svg'
-
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { useMounted } from 'components/hook/use-mounted'
@@ -118,6 +116,7 @@ const SUGGESTIONS = [
 })
 
 const LOGO_SIZE = 128
+const logoUri = 'https://cdn.microlink.io/logo/logo.svg'
 
 const IMAGE_PREVIEW_STYLE = [
   LOGO_SIZE * 0.8,
@@ -187,17 +186,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-        ...new Set(
-          []
-            .concat(
-              logo.palette,
-              logo.background_color,
-              logo.color,
-              logo.alternative_color
-            )
-            .filter(Boolean)
-        )
-      ]
+      ...new Set(
+        []
+          .concat(
+            logo.palette,
+            logo.background_color,
+            logo.color,
+            logo.alternative_color
+          )
+          .filter(Boolean)
+      )
+    ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -312,7 +311,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )

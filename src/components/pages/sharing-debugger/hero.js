@@ -1,5 +1,3 @@
-/* global process */
-
 import React, { useState, useEffect, useMemo, createElement } from 'react'
 import { theme, space } from 'theme'
 import isUrl from 'is-url-http/lightweight'
@@ -17,10 +15,11 @@ import Caps from 'components/elements/Caps'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Caption from 'components/patterns/Caption/Caption'
 import { findDemoLinkById } from 'helpers/demo-links'
+import { isDevelopment } from 'helpers/is-development'
 
 const INITIAL_SUGGESTION = 'microlink'
 
-const HAS_FORCE = process.env.NODE_ENV !== 'development'
+const HAS_FORCE = !isDevelopment
 
 // Use O(1) Map lookup instead of O(n) array.find()
 const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)

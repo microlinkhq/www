@@ -1,7 +1,7 @@
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
+import { useUrlInput } from 'components/hook/use-url-input'
 import { useQueryState } from 'components/hook/use-query-state'
-import isUrl from 'is-url-http/lightweight'
 import { HourGlass } from 'components/icons/HourGlass'
 import { JavaScript } from 'components/icons/JavaScript'
 import { Jekyll } from 'components/icons/Jekyll'
@@ -10,7 +10,6 @@ import { Hugo } from 'components/icons/Hugo'
 import { Eleventy } from 'components/icons/Eleventy'
 import { _React as ReactIcon } from 'components/icons/React'
 import { cdnUrl } from 'helpers/cdn-url'
-import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import humanizeUrl from 'humanize-url'
 import { layout, theme } from 'theme'
@@ -107,7 +106,6 @@ const LinkPreview = styled(Microlink)`
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  isInitialData,
   isLoading,
   onSubmit,
   query
@@ -126,16 +124,9 @@ const LiveDemo = React.memo(function LiveDemo ({
     }
   }, [isMounted])
 
-  const [inputUrl, setInputUrl] = useState('')
-
-  useEffect(() => {
-    setInputUrl(query.url || '')
-  }, [query])
-
-  const url = useMemo(() => {
-    const input = prependHttp(inputUrl)
-    return isUrl(input) ? input : data.url
-  }, [inputUrl, data])
+  const queryUrl = query?.url || ''
+  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
+    useUrlInput(queryUrl)
 
   const media = [
     mode === 'iframe' && 'iframe',
@@ -196,8 +187,8 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
-            const url = prependHttp(inputUrl)
-            onSubmit(isUrl(url) ? url : undefined)
+            const rawUrl = inputUrl.trim()
+            onSubmit(validInputUrl, { queryUrl: rawUrl })
           }}
         >
           <Box>
@@ -207,17 +198,12 @@ const LiveDemo = React.memo(function LiveDemo ({
                 fontSize: 2,
                 width: ['100%', '100%', 128, 128]
               })}
-              iconComponent={
-                <InputIcon.Microlink url={!isInitialData && url} />
-              }
+              iconComponent={<InputIcon query={iconQuery} />}
               placeholder='Visit URL'
               type='text'
               suggestions={SUGGESTIONS}
               value={inputUrl}
-              onChange={event => {
-                const url = event.target.value
-                setInputUrl(url)
-              }}
+              onChange={event => setInputUrl(event.target.value)}
               autoFocus
             />
           </Box>
@@ -244,7 +230,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           <Choose>
             <Choose.When condition={type === 'render'}>
               <LinkPreview
-                key={`${url}_${media.join('_')}`}
+                key={`${data.url}_${media.join('_')}`}
                 loading={isLoading ? true : undefined}
                 size='large'
                 url={data.url}
@@ -395,13 +381,11 @@ const SdkPage = () => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
           const unifiedData = data || DEMO_LINK.data
-          const isInitialData = unifiedData.url === DEMO_LINK.data.url
 
           return (
             <>
               <LiveDemo
                 data={unifiedData}
-                isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={isMounted ? query : {}}

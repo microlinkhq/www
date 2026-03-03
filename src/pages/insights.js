@@ -4,7 +4,8 @@ import { useMounted } from 'components/hook/use-mounted'
 import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
-import { toCurlSnippet } from 'helpers/curl-snippet'
+import { normalizeUrl } from 'helpers/url-input'
+import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
 import get from 'dlv'
@@ -255,31 +256,37 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
   const technologies = get(data, 'insights.technologies')
+  const dataUrl = get(data, 'url')
 
   const cardBase = !isMounted || size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
   const queryUrl = query?.url || ''
-  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
-    useUrlInput(queryUrl)
+  const { iconQuery, inputUrl, setInputUrl } = useUrlInput(queryUrl)
 
   const embedTechnologiesUrl = useMemo(
-    () => getEmbedUrl(validInputUrl, 'insights.technologies'),
-    [validInputUrl]
+    () => (dataUrl ? getEmbedUrl(dataUrl, 'insights.technologies') : ''),
+    [dataUrl]
   )
 
   const embedInsightsUrl = useMemo(
-    () => getEmbedUrl(validInputUrl, 'insights.lighthouse'),
-    [validInputUrl]
+    () => (dataUrl ? getEmbedUrl(dataUrl, 'insights.lighthouse') : ''),
+    [dataUrl]
   )
 
-  const snippetTechnologiesText = toCurlSnippet(embedTechnologiesUrl)
-  const snippetInsightsText = toCurlSnippet(embedInsightsUrl)
+  const snippetTechnologiesText = toCurlSnippetOrEmpty(embedTechnologiesUrl)
+  const snippetInsightsText = toCurlSnippetOrEmpty(embedInsightsUrl)
 
-  const reportUrl = `https://lighthouse.microlink.io/?url=${encodeURIComponent(
-    embedInsightsUrl
-  )}`
+  const reportUrl = useMemo(() => {
+    if (!embedInsightsUrl) return ''
+    return `https://lighthouse.microlink.io/?url=${encodeURIComponent(
+      embedInsightsUrl
+    )}`
+  }, [embedInsightsUrl])
+  const hasTechnologies = Array.isArray(technologies)
+    ? technologies.length > 0
+    : Boolean(technologies)
 
   return (
     <Flex
@@ -334,7 +341,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           onSubmit={event => {
             event.preventDefault()
             const rawUrl = inputUrl.trim()
-            return onSubmit(validInputUrl, { queryUrl: rawUrl })
+            return onSubmit(normalizeUrl(rawUrl), { queryUrl: rawUrl })
           }}
         >
           <Box>
@@ -364,52 +371,58 @@ const LiveDemo = React.memo(function LiveDemo ({
       </Flex>
 
       <Choose>
-        <Choose.When condition={!!reportUrl && !!technologies}>
-          <Box
-            as='section'
-            id='technology-stack'
-            css={{
-              width: cardWidth,
-              maxWidth: layout.normal,
-              flexDirection: 'column'
-            }}
-          >
-            <Box css={theme({ pt: 4 })}>
-              <TechnologyStack technologies={technologies} />
-            </Box>
-            <Box
-              css={theme({
-                pt: [1, 1, 2, 2],
-                width: [256, 256, 528, 528],
-                mx: 'auto'
-              })}
-            >
-              <Tooltip
-                type='copy'
-                tooltipsOpts={Tooltip.TEXT.OPTIONS}
-                content={
-                  <Tooltip.Content>{Tooltip.TEXT.COPY('HTML')}</Tooltip.Content>
-                }
+        <Choose.When condition={!!reportUrl}>
+          <Choose>
+            <Choose.When condition={hasTechnologies}>
+              <Box
+                as='section'
+                id='technology-stack'
+                css={{
+                  width: cardWidth,
+                  maxWidth: layout.normal,
+                  flexDirection: 'column'
+                }}
               >
-                <Input
-                  readOnly
-                  onClick={event => {
-                    event.target.select()
-                    toClipboard({
-                      copy: snippetTechnologiesText,
-                      text: Tooltip.TEXT.COPIED('HTML')
-                    })
-                  }}
+                <Box css={theme({ pt: 4 })}>
+                  <TechnologyStack technologies={technologies} />
+                </Box>
+                <Box
                   css={theme({
-                    width: '100%',
-                    color: 'black60',
-                    cursor: 'copy'
+                    pt: [1, 1, 2, 2],
+                    width: [256, 256, 528, 528],
+                    mx: 'auto'
                   })}
-                  value={snippetTechnologiesText}
-                />
-              </Tooltip>
-            </Box>
-          </Box>
+                >
+                  <Tooltip
+                    type='copy'
+                    tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                    content={
+                      <Tooltip.Content>
+                        {Tooltip.TEXT.COPY('HTML')}
+                      </Tooltip.Content>
+                    }
+                  >
+                    <Input
+                      readOnly
+                      onClick={event => {
+                        event.target.select()
+                        toClipboard({
+                          copy: snippetTechnologiesText,
+                          text: Tooltip.TEXT.COPIED('HTML')
+                        })
+                      }}
+                      css={theme({
+                        width: '100%',
+                        color: 'black60',
+                        cursor: 'copy'
+                      })}
+                      value={snippetTechnologiesText}
+                    />
+                  </Tooltip>
+                </Box>
+              </Box>
+            </Choose.When>
+          </Choose>
           <Box
             as='section'
             id='lighthouse-report'

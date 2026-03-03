@@ -1,199 +1,307 @@
 import React, { createElement } from 'react'
+import Flex from 'components/elements/Flex'
+import Text from 'components/elements/Text'
 import { Microlink } from 'components/logos'
-import { fontSizes } from 'theme'
-
+import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
+import { Award as AwardIcon } from 'components/icons/Award'
+import { Building2 as Building2Icon } from 'components/icons/Building2'
+import { Bug as BugIcon } from 'components/icons/Bug'
+import { Files as FilesIcon } from 'components/icons/Files'
+import { Focus as FocusIcon } from 'components/icons/Focus'
+import { Inbox as InboxIcon } from 'components/icons/Inbox'
+import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
+import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
+import { PDF as PDFIcon } from 'components/icons/PDF'
+import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
+import { Terminal as TerminalIcon } from 'components/icons/Terminal'
+import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
+import { GitHub as GitHubBrand } from 'components/icons/GitHub'
+import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
+import { theme } from 'theme'
+import styled from 'styled-components'
+import { BarChart2, Code, Image, Map, Users, Activity } from 'react-feather'
 import NavLink from './NavLink'
 
-const createNavItem = opts => {
-  const NavItemWrapper = ({ isMobile, ...props }) =>
-    createElement(NavLink, {
-      'data-event-location': 'Toolbar',
-      'data-event-name': opts.children,
-      ...opts,
-      ...props,
-      as: 'li'
-    })
+export const ToolbarNavLink = styled(NavLink)`
+  text-transform: none;
+  letter-spacing: normal;
 
-  return NavItemWrapper
+  > a {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+  }
+
+  ${theme({
+    pl: 0
+  })}
+`
+
+const docsMatcher = ({ location }) => location.pathname.startsWith('/docs')
+const compactNumberFormatter = new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 0
+})
+
+const formatCompactNumber = number => compactNumberFormatter.format(number)
+
+const GitHubSocialIcon = () => {
+  const totalOssStars = useOssTotalStars()
+
+  return (
+    <Flex
+      as='span'
+      css={theme({
+        alignItems: 'center',
+        gap: 1,
+        color: 'inherit'
+      })}
+    >
+      <GitHubBrand width='14px' style={{ position: 'relative', top: '-1px' }} />
+      <Text as='span' css={theme({ color: 'inherit', fontSize: 0, m: 0 })}>
+        {formatCompactNumber(totalOssStars)}
+      </Text>
+    </Flex>
+  )
 }
 
-const NavLogoMobile = props => (
-  <NavLink href='/' {...props}>
-    <Microlink
-      css={{
-        maxHeight: fontSizes[2],
-        objectFit: 'cover',
-        width: '100%',
-        height: 'auto'
-      }}
-    />
-  </NavLink>
-)
+const createNavigationItem = ({
+  label,
+  href,
+  actively = 'partial',
+  title,
+  externalIcon,
+  description,
+  icon,
+  logo
+}) => ({
+  label,
+  href,
+  actively,
+  title,
+  externalIcon,
+  description,
+  icon,
+  logo
+})
 
-const NavLogoDesktop = props => (
-  <NavLink
-    css={{
-      display: 'flex',
-      width: '52px'
-    }}
-    href='/'
-    {...props}
-  >
-    <Microlink />
-  </NavLink>
-)
-
-export const NavMicrolinkLogo = ({ isMobile, ...props }) =>
-  createElement(isMobile ? NavLogoMobile : NavLogoDesktop, {
-    'data-event-location': 'Toolbar',
-    'data-event-name': 'Logo',
-    ...props
-  })
-
-export const NavPricing = createNavItem({
-  children: 'Pricing',
+export const PRICING_NAV_ITEM = createNavigationItem({
+  label: 'Pricing',
   href: '/#pricing',
   actively: 'observer'
 })
 
-export const NavSDK = createNavItem({
-  children: 'SDK',
-  href: '/sdk',
-  actively: 'partial'
-})
-
-export const NavMeta = createNavItem({
-  children: 'metadata',
-  href: '/metadata',
-  actively: 'partial'
-})
-
-export const NavInsights = createNavItem({
-  children: 'Insights',
-  href: '/insights',
-  actively: 'partial'
-})
-
-export const NavScreenshot = createNavItem({
-  children: 'Screenshot',
-  href: '/screenshot',
-  actively: 'partial'
-})
-
-export const NavOpenSource = createNavItem({
-  children: 'Open Source',
-  href: '/oss',
-  actively: 'partial'
-})
-
-export const NavAbout = createNavItem({
-  children: 'About',
-  href: '/about',
-  actively: 'partial'
-})
-
-export const NavPdf = createNavItem({
-  children: 'PDF',
-  href: '/pdf',
-  actively: 'partial'
-})
-
-export const NavLogo = createNavItem({
-  children: 'Logo',
-  href: '/logo',
-  actively: 'partial'
-})
-
-export const NavDocs = createNavItem({
-  children: 'docs',
+export const DOCUMENTATION_NAV_ITEM = createNavigationItem({
+  label: 'Docs',
   href: '/docs/api/getting-started/overview',
-  actively: ({ location }) => location.pathname.startsWith('/docs')
+  actively: docsMatcher
 })
 
-export const NavCommunity = createNavItem({
-  children: 'Community',
-  href: '/community',
-  actively: 'partial'
-})
+export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
-export const NavBlog = createNavItem({
-  children: 'Blog',
-  href: '/blog',
-  actively: 'partial'
-})
-
-export const NavNewsletter = createNavItem({
-  children: 'Newsletter',
-  href: '/newsletter',
-  actively: 'partial'
-})
-
-export const NavRecipes = createNavItem({
-  children: 'Recipes',
-  href: '/recipes',
-  actively: 'partial'
-})
-
-export const NavChangelog = createNavItem({
-  children: 'Changelog',
-  href: '/changelog',
-  actively: 'partial'
-})
-
-export const NavUserAgents = createNavItem({
-  children: 'User Agents',
-  href: '/user-agents',
-  actively: 'partial'
-})
-
-export const NavProducts = createNavItem({
-  children: 'Products',
-  actively: ({ location }) =>
-    NavProducts.pages.some(pagePath => location.pathname.startsWith(pagePath))
-})
-
-export const NavSharingDebugger = createNavItem({
-  children: 'Sharing Debugger',
-  href: '/tools/sharing-debugger',
-  actively: 'partial'
-})
-
-NavProducts.pages = [
-  '/insights',
-  '/logo',
-  '/metadata',
-  '/pdf',
-  '/screenshot',
-  '/sdk',
-  '/tools/sharing-debugger'
+export const SOCIAL_NAV_ITEMS = [
+  createNavigationItem({
+    label: 'GitHub',
+    href: 'https://github.com/microlinkhq',
+    title: '@microlinkhq on GitHub',
+    externalIcon: false,
+    icon: GitHubSocialIcon
+  })
 ]
 
-export const NavDevelopers = createNavItem({
-  children: 'Developers',
-  actively: ({ location }) =>
-    NavDevelopers.pages.some(pagePath => location.pathname.startsWith(pagePath))
-})
+const UNAVATAR_LOGO =
+  'data:image/png;base64,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'
 
-NavDevelopers.pages = ['/docs', '/recipes', '/community', '/changelog']
+export const NAVIGATION_SECTIONS = [
+  {
+    label: 'Products',
+    description: 'APIs and tooling to turn any URL into structured output.',
+    columns: 3,
+    items: [
+      createNavigationItem({
+        label: 'Markdown',
+        href: '/markdown',
+        description: 'Built for agents handling website content',
+        icon: MarkdownIcon
+      }),
+      createNavigationItem({
+        label: 'Metadata',
+        href: '/metadata',
+        description: 'Extract normalized metadata from any website',
+        icon: MetascraperIcon
+      }),
+      createNavigationItem({
+        label: 'Screenshot',
+        href: '/screenshot',
+        description: 'Generate pixel-perfect captures for any URL',
+        icon: FocusIcon
+      }),
+      createNavigationItem({
+        label: 'PDF',
+        href: '/pdf',
+        description: 'Create production-ready PDFs from live webpages',
+        icon: PDFIcon
+      }),
+      createNavigationItem({
+        label: 'Insights',
+        href: '/insights',
+        description: 'Run lighthouse insights across pages at scale',
+        icon: LighthouseIcon
+      }),
+      createNavigationItem({
+        label: 'Logo',
+        href: '/logo',
+        description: 'Fetch favicons and logos from websites',
+        icon: Image
+      }),
+      createNavigationItem({
+        label: 'Unavatar',
+        href: 'https://unavatar.io',
+        description: 'Serve reliable avatars from email domains',
+        externalIcon: false,
+        logo: UNAVATAR_LOGO
+      })
+    ]
+  },
+  {
+    label: 'Tools',
+    description: 'Utilities to test and validate your metadata integrations.',
+    columns: 2,
+    items: [
+      createNavigationItem({
+        label: 'Sharing Debugger',
+        href: '/tools/sharing-debugger',
+        description: 'Preview social cards before publishing links',
+        icon: BugIcon
+      }),
+      createNavigationItem({
+        label: 'SDK',
+        href: '/sdk',
+        description: 'Ship API integrations faster across platforms',
+        icon: TerminalIcon
+      })
+    ]
+  },
+  {
+    label: 'Resources',
+    description: 'Guides and tools to support your development and growth.',
+    columns: 3,
+    items: [
+      createNavigationItem({
+        label: 'Blog',
+        href: '/blog',
+        description: 'Read product stories and technical deep dives',
+        icon: BarChart2
+      }),
+      createNavigationItem({
+        label: 'Newsletter',
+        href: '/newsletter',
+        description: 'Get monthly updates, launches, and tutorials',
+        icon: InboxIcon
+      }),
+      createNavigationItem({
+        label: 'Open Source',
+        href: '/oss',
+        description: 'Explore public projects powering Microlink tools',
+        icon: AwardIcon
+      }),
+      createNavigationItem({
+        label: 'About',
+        href: '/about',
+        description: 'Meet the team building Microlink products',
+        icon: Building2Icon
+      }),
+      createNavigationItem({
+        label: 'Changelog',
+        href: '/changelog',
+        description: 'Track shipped improvements and platform releases',
+        icon: Map
+      }),
+      createNavigationItem({
+        label: 'Community',
+        href: '/community',
+        description: 'Join discussions, ask questions, share solutions',
+        icon: Users
+      }),
+      createNavigationItem({
+        label: 'Status',
+        href: '/status',
+        description: 'Monitor uptime and incident history in real time',
+        icon: Activity
+      }),
+      createNavigationItem({
+        label: 'Formats',
+        href: '/formats',
+        description: 'See every supported format and coverage details',
+        icon: FilesIcon
+      }),
+      createNavigationItem({
+        label: 'API',
+        href: '/docs/api/getting-started/overview',
+        description: 'Explore API guides, parameters and examples',
+        icon: Code
+      }),
+      createNavigationItem({
+        label: 'Recipes',
+        href: '/recipes',
+        description: 'Use ready-made recipes for common workflows',
+        icon: WandSparklesIcon
+      }),
+      createNavigationItem({
+        label: 'User Agents',
+        href: '/user-agents',
+        description: 'Use curated browser signatures for testing',
+        icon: ShieldUserIcon
+      })
+    ]
+  }
+]
 
-export const NavCompany = createNavItem({
-  children: 'Company',
-  actively: ({ location }) =>
-    NavCompany.pages.some(pagePath => location.pathname.startsWith(pagePath))
-})
+export const getToolbarSectionFromPathname = pathname => {
+  const section = NAVIGATION_SECTIONS.find(({ items }) =>
+    items.some(({ href }) => href.startsWith('/') && pathname.startsWith(href))
+  )
 
-NavCompany.pages = ['/blog', '/oss', '/newsletter']
+  return section ? section.label : ''
+}
 
-export const NavGitHub = createNavItem({
-  children: 'GitHub',
-  href: 'https://github.com/microlinkhq',
-  title: '@microlinkhq on GitHub',
-  externalIcon: false
-})
+const NavLogoMobile = props => (
+  <ToolbarNavLink
+    href='/'
+    data-event-location='Toolbar'
+    data-event-name='Logo'
+    {...props}
+  >
+    <Microlink
+      css={{
+        height: 16,
+        width: 'auto'
+      }}
+    />
+  </ToolbarNavLink>
+)
 
-export const NavTwitter = createNavItem({
-  children: 'Twitter',
-  href: 'https://x.com/microlinkhq',
-  title: '@microlinkhq on Twitter',
-  externalIcon: false
-})
+const NavLogoDesktop = props => (
+  <ToolbarNavLink
+    data-event-location='Toolbar'
+    data-event-name='Logo'
+    href='/'
+    css={{
+      display: 'flex',
+      width: '52px'
+    }}
+    {...props}
+  >
+    <Microlink />
+  </ToolbarNavLink>
+)
+
+export const NavMicrolinkLogo = ({ isMobile, ...props }) =>
+  createElement(isMobile ? NavLogoMobile : NavLogoDesktop, {
+    forwardedAs: 'div',
+    ...props
+  })

@@ -1,0 +1,40 @@
+name: top-user-agents update
+
+on:
+  workflow_dispatch:
+  schedule:
+    # https://crontab.guru/every-tuesday
+    - cron: "0 0 * * TUE"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Update top-user-agents
+        run: pnpm up --latest top-user-agents --ignore-scripts
+
+      - name: Commit and push to master
+        run: |
+          git config --global user.email ${{ secrets.GIT_EMAIL }}
+          git config --global user.name ${{ secrets.GIT_USERNAME }}
+          git add package.json pnpm-lock.yaml
+          git diff-index --quiet HEAD || git commit -m "chore(deps): update top-user-agents" --no-verify
+          git push origin ${{ github.head_ref }} || true
