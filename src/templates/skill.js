@@ -1,4 +1,4 @@
-import SquareBackground from 'components/patterns/SquareBackground/SquareBackground'
+import FlickeringBackground from 'components/patterns/FlickeringBackground/FlickeringBackground'
 import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
 import { useClipboard } from 'components/hook/use-clipboard'
 import Meta from 'components/elements/Meta/Meta'
@@ -37,7 +37,7 @@ const SkillTemplate = ({ pageContext }) => {
   }`
 
   return (
-    <SquareBackground>
+    <FlickeringBackground>
       <Layout footer={{ style: { background: 'transparent' } }}>
         <Flex
           css={theme({
@@ -191,7 +191,7 @@ const SkillTemplate = ({ pageContext }) => {
           </Box>
         </Flex>
       </Layout>
-    </SquareBackground>
+    </FlickeringBackground>
   )
 }
 

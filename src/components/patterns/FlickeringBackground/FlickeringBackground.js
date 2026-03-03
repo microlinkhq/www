@@ -11,13 +11,13 @@ const INTERNAL_PROPS = [
   'maxOpacity'
 ]
 
-const SQUARE_SIZE = 4
+const DOT_SIZE = 4
 const GRID_GAP = 6
 const FLICKER_CHANCE = 0.3
 const GRID_COLOR = colors.gray5
 const MAX_OPACITY = 0.3
 
-const StyledSquareBackground = styled(Box).withConfig({
+const StyledFlickeringBackground = styled(Box).withConfig({
   shouldForwardProp: prop => !INTERNAL_PROPS.includes(prop)
 })`
   position: relative;
@@ -49,7 +49,7 @@ const getRgbaPrefix = color => {
   return `rgba(${red}, ${green}, ${blue},`
 }
 
-const SquareBackground = ({ children, ...props }) => {
+const FlickeringBackground = ({ children, ...props }) => {
   const containerRef = useRef(null)
   const canvasRef = useRef(null)
   const gridRef = useRef(null)
@@ -71,6 +71,8 @@ const SquareBackground = ({ children, ...props }) => {
       if (!grid) return
 
       const { cols, rows, squares, dpr } = grid
+      const dotRadius = (DOT_SIZE * dpr) / 2
+      const step = (DOT_SIZE + GRID_GAP) * dpr
 
       context.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -78,12 +80,15 @@ const SquareBackground = ({ children, ...props }) => {
         for (let row = 0; row < rows; row++) {
           const opacity = squares[col * rows + row]
           context.fillStyle = `${rgbaPrefix}${opacity})`
-          context.fillRect(
-            col * (SQUARE_SIZE + GRID_GAP) * dpr,
-            row * (SQUARE_SIZE + GRID_GAP) * dpr,
-            SQUARE_SIZE * dpr,
-            SQUARE_SIZE * dpr
+          context.beginPath()
+          context.arc(
+            col * step + dotRadius,
+            row * step + dotRadius,
+            dotRadius,
+            0,
+            Math.PI * 2
           )
+          context.fill()
         }
       }
     }
@@ -93,8 +98,8 @@ const SquareBackground = ({ children, ...props }) => {
       const canvasWidth = Math.max(1, Math.floor(width))
       const canvasHeight = Math.max(1, Math.floor(height))
       const dpr = window.devicePixelRatio || 1
-      const cols = Math.ceil(canvasWidth / (SQUARE_SIZE + GRID_GAP))
-      const rows = Math.ceil(canvasHeight / (SQUARE_SIZE + GRID_GAP))
+      const cols = Math.ceil(canvasWidth / (DOT_SIZE + GRID_GAP))
+      const rows = Math.ceil(canvasHeight / (DOT_SIZE + GRID_GAP))
       const squares = new Float32Array(cols * rows)
 
       canvas.width = canvasWidth * dpr
@@ -179,11 +184,11 @@ const SquareBackground = ({ children, ...props }) => {
   }, [rgbaPrefix])
 
   return (
-    <StyledSquareBackground ref={containerRef} {...props}>
+    <StyledFlickeringBackground ref={containerRef} {...props}>
       <canvas ref={canvasRef} />
       {children}
-    </StyledSquareBackground>
+    </StyledFlickeringBackground>
   )
 }
 
-export default SquareBackground
+export default FlickeringBackground

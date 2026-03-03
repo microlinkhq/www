@@ -4,11 +4,11 @@ import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { Story } from 'story'
 
-import SquareBackground from './SquareBackground'
+import FlickeringBackground from './FlickeringBackground'
 
-const SquareBackgroundStory = () => (
-  <Story name='SquareBackground' height='100vh' width='100%'>
-    <SquareBackground>
+const FlickeringBackgroundStory = () => (
+  <Story name='FlickeringBackground' height='100vh' width='100%'>
+    <FlickeringBackground>
       <Flex
         px={4}
         pt={4}
@@ -19,12 +19,12 @@ const SquareBackgroundStory = () => (
         justifyContent='center'
         alignItems='center'
       >
-        <Text color='black'>squares everywhere</Text>
+        <Text color='black'>dots everywhere</Text>
       </Flex>
-    </SquareBackground>
+    </FlickeringBackground>
   </Story>
 )
 
-storiesOf('Patterns', module).add('SquareBackground', () => (
-  <SquareBackgroundStory />
+storiesOf('Patterns', module).add('FlickeringBackground', () => (
+  <FlickeringBackgroundStory />
 ))

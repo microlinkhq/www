@@ -1,5 +1,5 @@
 import { layout, theme } from 'theme'
-import SquareBackground from 'components/patterns/SquareBackground/SquareBackground'
+import FlickeringBackground from 'components/patterns/FlickeringBackground/FlickeringBackground'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
@@ -34,7 +34,7 @@ export const Head = () => (
 )
 
 const SkillsPage = () => (
-  <SquareBackground>
+  <FlickeringBackground>
     <Layout footer={{ style: { background: 'transparent' } }}>
       <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
         <Flex
@@ -126,7 +126,7 @@ const SkillsPage = () => (
         </Flex>
       </Flex>
     </Layout>
-  </SquareBackground>
+  </FlickeringBackground>
 )
 
 export default SkillsPage
