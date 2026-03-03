@@ -252,6 +252,12 @@ export const NAVIGATION_SECTIONS = [
         icon: WandSparklesIcon
       }),
       createNavigationItem({
+        label: 'Skills',
+        href: '/skills',
+        description: 'Browse reusable workflow skills',
+        icon: MarkdownIcon
+      }),
+      createNavigationItem({
         label: 'User Agents',
         href: '/user-agents',
         description: 'Use curated browser signatures for testing',

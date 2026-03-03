@@ -43,6 +43,7 @@ import {
   TOOLBAR_TOP_LEVEL_CAPS_STYLES,
   TOOLBAR_TOP_LEVEL_TEXT_STYLES
 } from './ToolbarStyles'
+
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
 const iconLight = css`
@@ -64,7 +65,13 @@ const TOP_LEVEL_LINK_LAYOUT_STYLES = {
 }
 
 const TOP_LEVEL_ACTIVE_BACKGROUND = colors.black05
-const PANEL_CLOSE_DELAY_MS = speed.normal
+const PANEL_EXIT_DURATION_MS = speed.quickly
+
+const clearTimeoutRef = timeoutRef => {
+  if (!timeoutRef.current) return
+  clearTimeout(timeoutRef.current)
+  timeoutRef.current = null
+}
 
 const MENU_LINK_HOVER_STYLES = css`
   transition: background-color ${transition.medium};
@@ -288,7 +295,11 @@ const ToolbarDesktop = () => {
   const blogPosts = useBlogIndex()
   const headerRef = useRef(null)
   const closeTimeoutRef = useRef(null)
+  const renderedSectionTimeoutRef = useRef(null)
   const [openSection, setOpenSection] = useState(
+    isStickySection ? DEBUG_STICKY_SECTION : ''
+  )
+  const [renderedSection, setRenderedSection] = useState(
     isStickySection ? DEBUG_STICKY_SECTION : ''
   )
 
@@ -308,11 +319,24 @@ const ToolbarDesktop = () => {
 
   useEffect(() => {
     return () => {
-      if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current)
-      }
+      clearTimeoutRef(closeTimeoutRef)
+      clearTimeoutRef(renderedSectionTimeoutRef)
     }
   }, [])
+
+  useEffect(() => {
+    clearTimeoutRef(renderedSectionTimeoutRef)
+
+    if (!openSection) {
+      renderedSectionTimeoutRef.current = setTimeout(() => {
+        setRenderedSection('')
+        renderedSectionTimeoutRef.current = null
+      }, PANEL_EXIT_DURATION_MS)
+      return
+    }
+
+    setRenderedSection(openSection)
+  }, [openSection])
 
   useEffect(() => {
     if (!openSection || isStickySection) return
@@ -335,9 +359,7 @@ const ToolbarDesktop = () => {
   }, [openSection])
 
   const clearClosePanelTimeout = () => {
-    if (!closeTimeoutRef.current) return
-    clearTimeout(closeTimeoutRef.current)
-    closeTimeoutRef.current = null
+    clearTimeoutRef(closeTimeoutRef)
   }
 
   const handleClosePanel = () => {
@@ -351,11 +373,12 @@ const ToolbarDesktop = () => {
     closeTimeoutRef.current = setTimeout(() => {
       setOpenSection('')
       closeTimeoutRef.current = null
-    }, PANEL_CLOSE_DELAY_MS)
+    }, PANEL_EXIT_DURATION_MS)
   }
 
   const handleOpenSection = sectionId => {
     clearClosePanelTimeout()
+    setRenderedSection(sectionId)
     setOpenSection(sectionId)
   }
 
@@ -371,9 +394,11 @@ const ToolbarDesktop = () => {
       setOpenSection(sectionId)
       return
     }
-    setOpenSection(currentId =>
-      canUseHover() ? sectionId : currentId === sectionId ? '' : sectionId
-    )
+    setOpenSection(currentId => {
+      if (canUseHover()) return sectionId
+      if (currentId === sectionId) return ''
+      return sectionId
+    })
   }
 
   const renderLatestPostItem = post => (
@@ -567,7 +592,7 @@ const ToolbarDesktop = () => {
           onMouseLeave={handleClosePanelWithDelay}
         >
           {NAVIGATION_SECTIONS.map(section => {
-            const isSectionActive = openSection === section.label
+            const isSectionActive = renderedSection === section.label
             const isResourcesSection = section.label === 'Resources'
 
             return (
