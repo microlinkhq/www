@@ -1504,6 +1504,7 @@ const PreviewDisplay = ({
   viewportHeight,
   nerdStats,
   mqlQuery,
+  responseData,
   showNerdStats,
   onToggleNerdStats
 }) => {
@@ -1723,7 +1724,11 @@ const PreviewDisplay = ({
               })}
             >
               {showNerdStats && nerdStats && (
-                <NerdStatsOverlay stats={nerdStats} mqlQuery={mqlQuery} />
+                <NerdStatsOverlay
+                  stats={nerdStats}
+                  mqlQuery={mqlQuery}
+                  responseData={responseData}
+                />
               )}
               {isPreviewTooBig ? (
                 <Flex
@@ -2693,6 +2698,7 @@ const ScreenshotTool = () => {
   })
   const [previewNerdStats, setPreviewNerdStats] = useState(null)
   const [previewMqlQuery, setPreviewMqlQuery] = useState(null)
+  const [previewResponseData, setPreviewResponseData] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
 
   useEffect(() => {
@@ -2762,6 +2768,7 @@ const ScreenshotTool = () => {
       setShowNerdStats(false)
       setPreviewNerdStats(null)
       setPreviewMqlQuery(null)
+      setPreviewResponseData(null)
       bulkUrlsRef.current = urls
 
       const results = []
@@ -2810,6 +2817,11 @@ const ScreenshotTool = () => {
           const response = await mql(url, mqlOpts)
           const duration = Date.now() - reqStart
           const headerStats = extractNerdStats(response?.response?.headers)
+          const responseData = JSON.stringify(
+            { status: response.status, data: response.data },
+            null,
+            2
+          )
 
           if (response?.data?.screenshot) {
             const { size_pretty: sizePretty, size: sizeBytes } =
@@ -2822,6 +2834,7 @@ const ScreenshotTool = () => {
               sizeBytes,
               data: response.data,
               nerdStats: headerStats,
+              responseData,
               mqlQuery: queryStr
             })
             setBulkResults([...results])
@@ -2839,6 +2852,7 @@ const ScreenshotTool = () => {
                   screenshot: response.data.screenshot,
                   thumbnail,
                   nerdStats: headerStats,
+                  responseData,
                   mqlQuery: queryStr,
                   settings: {
                     url,
@@ -2917,6 +2931,7 @@ const ScreenshotTool = () => {
     })
     setPreviewNerdStats(entry.nerdStats || null)
     setPreviewMqlQuery(entry.mqlQuery || null)
+    setPreviewResponseData(entry.responseData || null)
     setActiveHistoryId(entry.id)
     setBulkState('history-preview')
   }, [])
@@ -2973,6 +2988,7 @@ const ScreenshotTool = () => {
     setPreviewData(null)
     setPreviewNerdStats(null)
     setPreviewMqlQuery(null)
+    setPreviewResponseData(null)
   }, [])
 
   const isProcessing = bulkState === 'processing'
@@ -3011,6 +3027,7 @@ const ScreenshotTool = () => {
               viewportHeight={previewViewport.height}
               nerdStats={previewNerdStats}
               mqlQuery={previewMqlQuery}
+              responseData={previewResponseData}
               showNerdStats={showNerdStats}
               onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
             />
