@@ -13,10 +13,15 @@ import React from 'react'
 
 export const Head = ({ pageContext }) => {
   const { frontmatter = {} } = pageContext
+  const title = frontmatter.title || 'Skill'
+  const description = frontmatter.description
+    ? frontmatter.description.split(/\s+Use when\s+/i)[0].trim()
+    : undefined
+
   return (
     <Meta
-      title={`Microlink Skill: ${frontmatter.title || 'Skill'}`}
-      description={frontmatter.description}
+      title={`Skill for ${title}`}
+      description={description}
       image={cdnUrl('banner/recipes.jpeg')}
     />
   )

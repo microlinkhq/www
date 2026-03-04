@@ -26,8 +26,7 @@ const REQUEST_SKILL_URL = 'https://github.com/microlinkhq/skills/issues/new'
 
 export const Head = () => (
   <Meta
-    title='Microlink Skills'
-    description='Browse reusable skills and implementation guides for common automation workflows.'
+    description='A set of skills built by agents.'
     image={cdnUrl('banner/recipes.jpeg')}
   />
 )
@@ -119,7 +118,8 @@ const SkillsPage = () => (
           <Box css={theme({ pt: [4, null, 0] })}>
             <Button
               onClick={() =>
-                window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')}
+                window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')
+              }
             >
               <Caps>Request a Skill</Caps>
             </Button>
