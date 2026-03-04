@@ -257,9 +257,12 @@ const SkillTemplate = ({ pageContext }) => {
               </Flex>
             </Flex>
             <Text
+              as='p'
               css={theme({
                 color: 'black60',
-                fontSize: [2, 3]
+                fontSize: [2, 3],
+                px: [0, 5],
+                textAlign: 'center'
               })}
             >
               {summary}
@@ -275,12 +278,22 @@ const SkillTemplate = ({ pageContext }) => {
                     fontSize: [1, 2]
                   })}
                 >
-                  Best for
+                  User intent
                 </Text>
-                <Flex css={theme({ pt: 2, gap: 2, flexWrap: 'wrap' })}>
+                <Flex
+                  as='ul'
+                  css={theme({
+                    listStyle: 'none',
+                    m: 0,
+                    p: 0,
+                    pt: 2,
+                    gap: 2,
+                    flexWrap: 'wrap'
+                  })}
+                >
                   {triggerPhrases.map(trigger => (
                     <Text
-                      as='span'
+                      as='li'
                       key={trigger}
                       css={theme({
                         px: 2,
@@ -427,11 +440,21 @@ const SkillTemplate = ({ pageContext }) => {
                 >
                   Related skills
                 </Text>
-                <Flex css={theme({ pt: 2, gap: 3, flexWrap: 'wrap' })}>
+                <Flex
+                  as='ul'
+                  css={theme({
+                    listStyle: 'none',
+                    m: 0,
+                    p: 0,
+                    pt: 2,
+                    gap: 3,
+                    flexWrap: 'wrap'
+                  })}
+                >
                   {relatedSkills.map(skill => (
-                    <Link key={skill.slug} href={`/skills/${skill.slug}`}>
-                      {skill.name}
-                    </Link>
+                    <Text as='li' key={skill.slug} css={theme({ m: 0 })}>
+                      <Link href={`/skills/${skill.slug}`}>{skill.name}</Link>
+                    </Text>
                   ))}
                 </Flex>
               </Box>

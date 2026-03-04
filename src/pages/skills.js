@@ -3,6 +3,7 @@ import FlickeringBackground from 'components/patterns/FlickeringBackground/Flick
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
+import styled from 'styled-components'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -197,22 +198,33 @@ export const Head = () => (
   />
 )
 
+const StyledCard = styled(Card)`
+  &:hover {
+    h3 {
+      color: black;
+    }
+  }
+`
+
 const SkillCard = ({ skill }) => (
   <Flex
+    as='li'
     key={skill.slug}
     id={`skill-${skill.slug}`}
     css={theme({
+      listStyle: 'none',
       width: ['100%', '100%', '49%'],
       mb: 3
     })}
   >
-    <Card
+    <StyledCard
       width='100%'
-      height='100%'
+      height='auto'
       css={theme({
         display: 'flex',
         flexDirection: 'column',
-        width: '100%'
+        width: '100%',
+        overflow: 'hidden'
       })}
     >
       <Link
@@ -220,44 +232,58 @@ const SkillCard = ({ skill }) => (
         css={theme({
           color: 'black',
           display: 'block',
-          height: '100%',
-          width: '100%',
-          _hover: { color: 'inherit' }
+          width: '100%'
         })}
       >
         <Box
           css={theme({
             p: 4,
-            height: '100%',
             display: 'flex',
             flexDirection: 'column'
           })}
         >
-          <Text as='h3' css={theme({ fontWeight: 'bold', fontSize: 2, m: 0 })}>
+          <Text
+            as='h3'
+            css={theme({
+              color: 'black80',
+              fontWeight: 'bold',
+              fontSize: [1, 2],
+              m: 0
+            })}
+          >
             {skill.name}
           </Text>
           <Text
             css={theme({
               color: 'black60',
-              mt: 2,
               display: '-webkit-box',
               WebkitLineClamp: 3,
               WebkitBoxOrient: 'vertical',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              fontSize: 0,
+              pt: 2,
+              pb: 3
             })}
           >
             {skill.summary}
           </Text>
           {skill.bestFor && (
             <Text
-              css={theme({ color: 'black50', mt: 'auto', pt: 2, fontSize: 0 })}
+              css={theme({
+                fontSize: 0,
+                color: 'black60',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden'
+              })}
             >
               {`Best for: ${skill.bestFor}`}
             </Text>
           )}
         </Box>
       </Link>
-    </Card>
+    </StyledCard>
   </Flex>
 )
 
@@ -279,7 +305,7 @@ const SkillsPage = () => (
             </Heading>
           </Heading>
           <Caption
-            forwardedAs='h2'
+            forwardedAs='p'
             titleize={false}
             css={theme({ pt: 3, px: 4, maxWidth: layout.small })}
           >
@@ -305,7 +331,7 @@ const SkillsPage = () => (
             justifyContent: 'center',
             pt: 3,
             width: '100%',
-            maxWidth: layout.large,
+            maxWidth: layout.small,
             flexWrap: 'wrap',
             gap: 3
           })}
@@ -319,8 +345,10 @@ const SkillsPage = () => (
 
         {groupedSkills.map(category => (
           <Flex
+            as='section'
             key={category.id}
             id={category.id}
+            aria-labelledby={`${category.id}-title`}
             css={theme({
               flexDirection: 'column',
               alignItems: 'center',
@@ -332,6 +360,7 @@ const SkillsPage = () => (
             <Box css={theme({ pb: 3, textAlign: 'center' })}>
               <Text
                 as='h2'
+                id={`${category.id}-title`}
                 css={theme({
                   fontWeight: 'bold',
                   fontSize: [3, 4],
@@ -349,7 +378,11 @@ const SkillsPage = () => (
               </Text>
             </Box>
             <Flex
+              as='ul'
               css={theme({
+                listStyle: 'none',
+                m: 0,
+                p: 0,
                 pt: 3,
                 width: '100%',
                 flexWrap: 'wrap',

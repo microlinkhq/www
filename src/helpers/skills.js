@@ -45,6 +45,18 @@ export const getUseWhenText = value => {
   return parts[1] ? parts[1].trim() : ''
 }
 
+const normalizeIntent = value =>
+  value
+    .replace(/^the user (mentions|asks for)\s+/i, '')
+    .replace(/^mentions?\s+/i, '')
+    .replace(/^asks for\s+/i, '')
+    .replace(/^users?\s+need(?:s)?\s+to\s+/i, '')
+    .replace(/^users?\s+want(?:s)?\s+to\s+/i, '')
+    .replace(/^need(?:s)?\s+to\s+/i, '')
+    .replace(/^to\s+/i, '')
+    .replace(/\.$/, '')
+    .trim()
+
 export const getTriggerPhrases = value => {
   const useWhen = getUseWhenText(value)
   if (!useWhen) return []
@@ -52,28 +64,17 @@ export const getTriggerPhrases = value => {
   return useWhen
     .replace(/\s+or\s+/gi, ', ')
     .split(',')
-    .map(item =>
-      item
-        .replace(/^the user (mentions|asks for)\s+/i, '')
-        .replace(/^mentions?\s+/i, '')
-        .replace(/^asks for\s+/i, '')
-        .replace(/\.$/, '')
-        .trim()
-    )
+    .map(normalizeIntent)
     .filter(Boolean)
     .slice(0, 6)
 }
 
 export const getBestFor = value => {
-  const useWhen = getUseWhenText(value)
-  if (!useWhen) return undefined
-
-  return useWhen
-    .replace(/^the user (mentions|asks for)\s+/i, '')
-    .replace(/\.$/, '')
-    .split(',')
-    .map(item => item.trim())
-    .filter(Boolean)[0]
+  const intents = getTriggerPhrases(value).slice(0, 2)
+  if (intents.length === 0) return undefined
+  const sentence =
+    intents.length === 1 ? intents[0] : `${intents[0]} or ${intents[1]}`
+  return sentence.endsWith('.') ? sentence : `${sentence}.`
 }
 
 export const enrichedSkills = skills

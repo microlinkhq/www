@@ -204,6 +204,7 @@ const createRecipesPages = async ({ createPage, recipes }) => {
 }
 
 const createMarkdownPages = async ({ graphql, createPage }) => {
+  const PAGE_SOURCES = new Set(['content', 'skills-content'])
   const query = `
   {
     allMdx {
@@ -215,6 +216,11 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           }
           fields {
             slug
+          }
+          parent {
+            ... on File {
+              sourceInstanceName
+            }
           }
           description: excerpt(pruneLength: 240)
           frontmatter {
@@ -242,7 +248,11 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   }
 
   const pages = result.data.allMdx.edges
-    .filter(({ node }) => !node.fields.slug.startsWith('/fragments/'))
+    .filter(({ node }) => {
+      const source = node.parent?.sourceInstanceName
+      const slug = node.fields?.slug || ''
+      return PAGE_SOURCES.has(source) && !slug.startsWith('/fragments/')
+    })
     .map(async ({ node }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
       const contentFilePath = node.internal.contentFilePath
@@ -254,9 +264,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
         : null
       const frontmatter = isBlogPage
         ? {
-          ...node.frontmatter,
-          title: formatTitle(node.frontmatter.title)
-        }
+            ...node.frontmatter,
+            title: formatTitle(node.frontmatter.title)
+          }
         : node.frontmatter
       const templatePath = isSkillPage
         ? path.resolve('./src/templates/skill.js')
