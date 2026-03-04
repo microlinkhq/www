@@ -49,7 +49,8 @@ import { useLocalStorage } from 'components/hook/use-local-storage'
 import { withTitle } from 'helpers/hoc/with-title'
 import NerdStatsOverlay, {
   NerdStatsToggle,
-  extractNerdStats
+  extractNerdStats,
+  buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 
 const Heading = withTitle(HeadingBase)
@@ -959,6 +960,7 @@ const PreviewDisplay = ({
   viewportWidth,
   viewportHeight,
   nerdStats,
+  mqlQuery,
   showNerdStats,
   onToggleNerdStats
 }) => {
@@ -1177,7 +1179,7 @@ const PreviewDisplay = ({
               })}
             >
               {showNerdStats && nerdStats && (
-                <NerdStatsOverlay stats={nerdStats} />
+                <NerdStatsOverlay stats={nerdStats} mqlQuery={mqlQuery} />
               )}
               <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
                 <video
@@ -1451,6 +1453,7 @@ const AnimatedScreenshotTool = () => {
   const [error, setError] = useState(null)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
+  const [mqlQuery, setMqlQuery] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
   const [requestedViewport, setRequestedViewport] = useState({
     width: DEVICES.desktop.width,
@@ -1506,6 +1509,9 @@ const AnimatedScreenshotTool = () => {
           force: !options.cache
         }
 
+        const queryStr = buildMqlQuery(url, mqlOpts)
+        setMqlQuery(queryStr)
+
         let response = null
         let headerStats = null
         try {
@@ -1537,6 +1543,7 @@ const AnimatedScreenshotTool = () => {
                 previewImage,
                 thumbnail,
                 nerdStats: headerStats,
+                mqlQuery: queryStr,
                 settings: {
                   url,
                   device: options.device,
@@ -1579,6 +1586,7 @@ const AnimatedScreenshotTool = () => {
     setData({ screenshot })
     setLastUrl(settings.url)
     setNerdStats(entry.nerdStats || null)
+    setMqlQuery(entry.mqlQuery || null)
     setRequestedViewport({
       width: deviceDef.width,
       height: deviceDef.height
@@ -1633,6 +1641,7 @@ const AnimatedScreenshotTool = () => {
             viewportWidth={requestedViewport.width}
             viewportHeight={requestedViewport.height}
             nerdStats={nerdStats}
+            mqlQuery={mqlQuery}
             showNerdStats={showNerdStats}
             onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
           />

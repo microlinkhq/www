@@ -7,6 +7,27 @@ import Flex from 'components/elements/Flex'
 
 const NERD_STATS_STORAGE_KEY = 'screenshot-nerd-stats'
 
+const serializeValue = (val, indent = 2) => {
+  if (val === null || val === undefined) return String(val)
+  if (typeof val === 'string') return `'${val}'`
+  if (typeof val !== 'object') return String(val)
+  const pad = ' '.repeat(indent)
+  const inner = ' '.repeat(indent + 2)
+  const entries = Object.entries(val)
+    .map(([k, v]) => `${inner}${k}: ${serializeValue(v, indent + 2)}`)
+    .join(',\n')
+  return `{\n${entries}\n${pad}}`
+}
+
+export const buildMqlQuery = (url, opts) => {
+  const sanitized = { ...opts }
+  if (sanitized.apiKey) sanitized.apiKey = 'MICROLINK_API_KEY'
+  const inner = Object.entries(sanitized)
+    .map(([k, v]) => `  ${k}: ${serializeValue(v, 2)}`)
+    .join(',\n')
+  return `await mql('${url}', {\n${inner}\n})`
+}
+
 const ALL_HEADER_KEYS = [
   'x-cache-status',
   'x-cache-ttl',
@@ -300,6 +321,20 @@ const Overlay = styled(Box)`
   }
 `
 
+const QueryBlock = styled.pre`
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: rgba(0, 255, 136, 0.06);
+  border: 1px solid rgba(0, 255, 136, 0.12);
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(0, 255, 136, 0.85);
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-x: auto;
+`
+
 const SectionTitle = styled.span`
   font-size: 11px;
   font-weight: 700;
@@ -382,7 +417,7 @@ const ToggleButton = styled.button`
   }
 `
 
-const NerdStatsOverlay = ({ stats }) => {
+const NerdStatsOverlay = ({ stats, mqlQuery }) => {
   if (!stats) return null
 
   const sections = FULL_SECTIONS.map(section => ({
@@ -412,6 +447,22 @@ const NerdStatsOverlay = ({ stats }) => {
           gap: '12px'
         }}
       >
+        {mqlQuery && (
+          <Box>
+            <SectionTitle
+              style={{
+                fontSize: '13px',
+                color: 'rgba(0, 255, 136, 0.8)',
+                paddingBottom: '4px',
+                marginBottom: '8px',
+                borderBottom: '1px solid rgba(255,255,255,0.08)'
+              }}
+            >
+              Microlink Query Language (MQL)
+            </SectionTitle>
+            <QueryBlock>{mqlQuery}</QueryBlock>
+          </Box>
+        )}
         <Flex
           css={{
             alignItems: 'center',

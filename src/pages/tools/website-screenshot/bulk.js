@@ -54,7 +54,8 @@ import { useLocalStorage } from 'components/hook/use-local-storage'
 import { withTitle } from 'helpers/hoc/with-title'
 import NerdStatsOverlay, {
   NerdStatsToggle,
-  extractNerdStats
+  extractNerdStats,
+  buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 
 const Heading = withTitle(HeadingBase)
@@ -1502,6 +1503,7 @@ const PreviewDisplay = ({
   viewportWidth,
   viewportHeight,
   nerdStats,
+  mqlQuery,
   showNerdStats,
   onToggleNerdStats
 }) => {
@@ -1721,7 +1723,7 @@ const PreviewDisplay = ({
               })}
             >
               {showNerdStats && nerdStats && (
-                <NerdStatsOverlay stats={nerdStats} />
+                <NerdStatsOverlay stats={nerdStats} mqlQuery={mqlQuery} />
               )}
               {isPreviewTooBig ? (
                 <Flex
@@ -2690,6 +2692,7 @@ const ScreenshotTool = () => {
     height: 1080
   })
   const [previewNerdStats, setPreviewNerdStats] = useState(null)
+  const [previewMqlQuery, setPreviewMqlQuery] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
 
   useEffect(() => {
@@ -2758,6 +2761,7 @@ const ScreenshotTool = () => {
       setPreviewData(null)
       setShowNerdStats(false)
       setPreviewNerdStats(null)
+      setPreviewMqlQuery(null)
       bulkUrlsRef.current = urls
 
       const results = []
@@ -2794,14 +2798,16 @@ const ScreenshotTool = () => {
 
         const reqStart = Date.now()
         try {
-          const response = await mql(url, {
+          const mqlOpts = {
             apiKey: localStorageData?.apiKey,
             meta: false,
             screenshot: { type: options.type, fullPage: options.fullPage },
             viewport,
             adblock: options.adblock,
             force: !options.cache
-          })
+          }
+          const queryStr = buildMqlQuery(url, mqlOpts)
+          const response = await mql(url, mqlOpts)
           const duration = Date.now() - reqStart
           const headerStats = extractNerdStats(response?.response?.headers)
 
@@ -2815,7 +2821,8 @@ const ScreenshotTool = () => {
               sizePretty,
               sizeBytes,
               data: response.data,
-              nerdStats: headerStats
+              nerdStats: headerStats,
+              mqlQuery: queryStr
             })
             setBulkResults([...results])
 
@@ -2832,6 +2839,7 @@ const ScreenshotTool = () => {
                   screenshot: response.data.screenshot,
                   thumbnail,
                   nerdStats: headerStats,
+                  mqlQuery: queryStr,
                   settings: {
                     url,
                     type: options.type,
@@ -2908,6 +2916,7 @@ const ScreenshotTool = () => {
       height: Number(settings.customHeight) || 1080
     })
     setPreviewNerdStats(entry.nerdStats || null)
+    setPreviewMqlQuery(entry.mqlQuery || null)
     setActiveHistoryId(entry.id)
     setBulkState('history-preview')
   }, [])
@@ -2963,6 +2972,7 @@ const ScreenshotTool = () => {
     setBulkProgress({ current: 0, total: 0, currentUrl: '' })
     setPreviewData(null)
     setPreviewNerdStats(null)
+    setPreviewMqlQuery(null)
   }, [])
 
   const isProcessing = bulkState === 'processing'
@@ -3000,6 +3010,7 @@ const ScreenshotTool = () => {
               viewportWidth={previewViewport.width}
               viewportHeight={previewViewport.height}
               nerdStats={previewNerdStats}
+              mqlQuery={previewMqlQuery}
               showNerdStats={showNerdStats}
               onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
             />
