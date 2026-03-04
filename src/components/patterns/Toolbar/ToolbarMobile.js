@@ -27,7 +27,8 @@ import {
   TOOLBAR_MENU_ITEM_MEDIA_STYLES,
   TOOLBAR_MENU_ITEM_TITLE_STYLES,
   TOOLBAR_SECTION_DESCRIPTION_STYLES,
-  TOOLBAR_TOP_LEVEL_CAPS_STYLES
+  TOOLBAR_TOP_LEVEL_CAPS_STYLES,
+  getMenuItemMediaStyles
 } from './ToolbarStyles'
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
@@ -60,24 +61,6 @@ const MOBILE_DIRECT_NAV_ITEM_STYLES = {
   display: 'flex',
   width: '100%',
   alignItems: 'stretch'
-}
-
-const getMenuItemMediaStyles = label => {
-  if (label === 'Markdown') {
-    return {
-      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-      top: 0
-    }
-  }
-
-  if (label === 'Skills') {
-    return {
-      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-      top: '2px'
-    }
-  }
-
-  return TOOLBAR_MENU_ITEM_MEDIA_STYLES
 }
 
 const MenuButton = styled('button')`
@@ -313,13 +296,11 @@ const ToolbarMobile = () => {
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             onClick={toggleOpen}
           >
-            {isOpen
-              ? (
-                <X size={20} color={colors.black80} />
-                )
-              : (
-                <MobileMenuIcon />
-                )}
+            {isOpen ? (
+              <X size={20} color={colors.black80} />
+            ) : (
+              <MobileMenuIcon />
+            )}
           </MenuButton>
         </Flex>
       </Toolbar>

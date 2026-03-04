@@ -41,7 +41,8 @@ import {
   TOOLBAR_MENU_ITEM_TITLE_STYLES,
   TOOLBAR_SECTION_DESCRIPTION_STYLES,
   TOOLBAR_TOP_LEVEL_CAPS_STYLES,
-  TOOLBAR_TOP_LEVEL_TEXT_STYLES
+  TOOLBAR_TOP_LEVEL_TEXT_STYLES,
+  getMenuItemMediaStyles
 } from './ToolbarStyles'
 
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
@@ -66,32 +67,6 @@ const TOP_LEVEL_LINK_LAYOUT_STYLES = {
 
 const TOP_LEVEL_ACTIVE_BACKGROUND = colors.black05
 const PANEL_EXIT_DURATION_MS = speed.quickly
-
-const getMenuItemMediaStyles = label => {
-  if (label === 'Markdown') {
-    return {
-      ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-      top: 0
-    }
-  }
-
-  return TOOLBAR_MENU_ITEM_MEDIA_STYLES
-}
-
-const getResourceMenuItemMediaStyles = label => {
-  if (label === 'Skills') {
-    return {
-      ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
-      color: 'black60',
-      top: '2px'
-    }
-  }
-
-  return {
-    ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
-    color: 'black60'
-  }
-}
 
 const clearTimeoutRef = timeoutRef => {
   if (!timeoutRef.current) return
@@ -683,7 +658,10 @@ const ToolbarDesktop = () => {
                                       RESOURCE_MENU_ITEM_ICON_CLASSNAME
                                     }
                                     iconCss={theme(
-                                      getResourceMenuItemMediaStyles(label)
+                                      getMenuItemMediaStyles(
+                                        label,
+                                        TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES
+                                      )
                                     )}
                                   />
                                   <Text
