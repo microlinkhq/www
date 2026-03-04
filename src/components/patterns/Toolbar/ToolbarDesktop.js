@@ -395,13 +395,18 @@ const ToolbarDesktop = () => {
     event.preventDefault()
     clearClosePanelTimeout()
     if (isStickySection) {
+      setRenderedSection(sectionId)
       setOpenSection(sectionId)
       return
     }
     setOpenSection(currentId => {
-      if (canUseHover()) return sectionId
-      if (currentId === sectionId) return ''
-      return sectionId
+      const nextId = canUseHover()
+        ? sectionId
+        : currentId === sectionId
+          ? ''
+          : sectionId
+      setRenderedSection(nextId)
+      return nextId
     })
   }
 
