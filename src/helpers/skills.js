@@ -50,20 +50,49 @@ const normalizeIntent = value =>
     .replace(/^the user (mentions|asks for)\s+/i, '')
     .replace(/^mentions?\s+/i, '')
     .replace(/^asks for\s+/i, '')
+    .replace(/^users?\s+ask(?:s)?\s+to\s+/i, '')
+    .replace(/^ask(?:s)?\s+to\s+/i, '')
     .replace(/^users?\s+need(?:s)?\s+to\s+/i, '')
     .replace(/^users?\s+want(?:s)?\s+to\s+/i, '')
     .replace(/^need(?:s)?\s+to\s+/i, '')
     .replace(/^to\s+/i, '')
+    .replace(/^(and|or)\s+/i, '')
+    .replace(/^then\s+/i, '')
     .replace(/\.$/, '')
     .trim()
+
+const splitTopLevelComma = value => {
+  const items = []
+  let current = ''
+  let depthRound = 0
+  let depthSquare = 0
+
+  for (const char of value) {
+    if (char === '(') depthRound += 1
+    if (char === ')' && depthRound > 0) depthRound -= 1
+    if (char === '[') depthSquare += 1
+    if (char === ']' && depthSquare > 0) depthSquare -= 1
+
+    if (char === ',' && depthRound === 0 && depthSquare === 0) {
+      items.push(current.trim())
+      current = ''
+      continue
+    }
+
+    current += char
+  }
+
+  const tail = current.trim()
+  if (tail) items.push(tail)
+
+  return items
+}
 
 export const getTriggerPhrases = value => {
   const useWhen = getUseWhenText(value)
   if (!useWhen) return []
 
-  return useWhen
-    .replace(/\s+or\s+/gi, ', ')
-    .split(',')
+  return splitTopLevelComma(useWhen)
     .map(normalizeIntent)
     .filter(Boolean)
     .slice(0, 6)
