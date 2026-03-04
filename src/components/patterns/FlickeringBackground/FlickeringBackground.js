@@ -15,7 +15,7 @@ const DOT_SIZE = 4
 const GRID_GAP = 6
 const FLICKER_CHANCE = 0.3
 const GRID_COLOR = colors.gray5
-const MAX_OPACITY = 0.3
+const MAX_OPACITY = 0.2
 
 const StyledFlickeringBackground = styled(Box).withConfig({
   shouldForwardProp: prop => !INTERNAL_PROPS.includes(prop)

@@ -16,10 +16,40 @@ const SKILLS_CONTENT_DIR = path.resolve(
   '../../../data/skills-content'
 )
 const SKILLS_DATA_PATH = path.resolve(__dirname, '../../../data/skills.json')
+const SKILL_REPO_BLOB_URL = 'https://github.com/microlinkhq/skills/blob/master'
+
+const SKILL_FRONTMATTER_DEFAULTS = {
+  browserless: {
+    website: 'https://browserless.js.org/',
+    githubUrl: 'https://github.com/microlinkhq/browserless'
+  },
+  metascraper: {
+    website: 'https://metascraper.js.org/',
+    githubUrl: 'https://github.com/microlinkhq/metascraper'
+  },
+  keyvhq: {
+    website: 'https://keyvhq.js.org/',
+    githubUrl: 'https://github.com/microlinkhq/keyvhq'
+  },
+  'microlink-api': {
+    website: 'https://microlink.io/docs/api/getting-started/overview'
+  },
+  optimo: {
+    githubUrl: 'https://github.com/microlinkhq/optimo'
+  },
+  'html-get': {
+    githubUrl: 'https://github.com/microlinkhq/html-get'
+  },
+  unavatar: {
+    website: 'https://unavatar.io/',
+    githubUrl: 'https://github.com/microlinkhq/unavatar'
+  }
+}
 
 const FRONTMATTER_REGEX = /^---\n([\s\S]*?)\n---\n?/
 
 const unquote = value => value.replace(/^['"]|['"]$/g, '')
+const getSkillUrl = slug => `${SKILL_REPO_BLOB_URL}/${slug}/SKILL.md`
 
 const parseFrontmatter = input => {
   const match = input.match(FRONTMATTER_REGEX)
@@ -52,11 +82,26 @@ const parseFrontmatter = input => {
   }
 }
 
-const createFrontmatter = ({ title, description }) => `---
-title: ${JSON.stringify(title)}
-description: ${JSON.stringify(description)}
+const createFrontmatter = ({
+  title,
+  description,
+  website,
+  githubUrl,
+  skillUrl
+}) => {
+  const values = [
+    ['title', title],
+    ['description', description],
+    ['website', website],
+    ['githubUrl', githubUrl],
+    ['skillUrl', skillUrl]
+  ].filter(([, value]) => value)
+
+  return `---
+${values.map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n')}
 ---
 `
+}
 
 const upsertSkillsRepository = async () => {
   if (existsSync(path.join(SKILLS_REPO_DIR, '.git'))) {
@@ -72,16 +117,24 @@ const parseSkill = async slug => {
   const filepath = path.join(SKILLS_REPO_DIR, slug, 'SKILL.md')
   const source = await readFile(filepath, 'utf8')
   const { meta, body } = parseFrontmatter(source)
+  const metadata = {
+    ...SKILL_FRONTMATTER_DEFAULTS[slug],
+    ...meta
+  }
 
-  const name = meta.name || slug
+  const name = metadata.name || slug
   const description =
-    meta.description || `Usage guide and implementation patterns for ${name}.`
+    metadata.description ||
+    `Usage guide and implementation patterns for ${name}.`
+  const githubUrl = metadata.githubUrl || metadata.github
 
   return {
     slug,
     name,
     description,
-    githubUrl: `https://github.com/microlinkhq/skills/blob/master/${slug}/SKILL.md`,
+    website: metadata.website,
+    githubUrl,
+    skillUrl: getSkillUrl(slug),
     markdown: body
   }
 }
@@ -121,7 +174,10 @@ const writeSkillPages = async skills => {
       const content = [
         createFrontmatter({
           title: skill.name,
-          description: skill.description
+          description: skill.description,
+          website: skill.website,
+          githubUrl: skill.githubUrl,
+          skillUrl: skill.skillUrl
         }),
         skill.markdown,
         ''

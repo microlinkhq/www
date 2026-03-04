@@ -7,40 +7,171 @@ import Layout from 'components/patterns/Layout'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
-import { cdnUrl } from 'helpers/cdn-url'
 import { layout, theme } from 'theme'
+import { GitHub as GitHubIcon } from 'components/icons/GitHub'
+import { Link } from 'components/elements/Link'
 import React from 'react'
+import {
+  SKILLS_PAGE_URL,
+  getBaseDescription,
+  getRelatedSkills,
+  getTriggerPhrases,
+  stripFrontmatter
+} from 'helpers/skills'
+
+const SITE_URL = 'https://microlink.io'
+
+const getDomainLabel = value => {
+  if (!value) return ''
+
+  try {
+    return new URL(value).hostname.replace(/^www\./, '')
+  } catch (_) {
+    return value
+  }
+}
+
+const toIsoDate = value => {
+  if (!value) return undefined
+  const date = new Date(value)
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString()
+}
+
+const getInstallCommand = value =>
+  `npx skills add https://github.com/microlinkhq/skills --skill ${value}`
 
 export const Head = ({ pageContext }) => {
-  const { frontmatter = {} } = pageContext
-  const title = frontmatter.title || 'Skill'
-  const description = frontmatter.description
-    ? frontmatter.description.split(/\s+Use when\s+/i)[0].trim()
-    : undefined
+  const { frontmatter = {}, skillSlug, lastEdited } = pageContext
+  const title = frontmatter.title || skillSlug || 'Skill'
+  const websiteUrl = frontmatter.website
+  const githubUrl = frontmatter.githubUrl
+  const baseDescription = getBaseDescription(frontmatter.description)
+  const triggerPhrases = getTriggerPhrases(frontmatter.description)
+  const description =
+    baseDescription && baseDescription.length >= 90
+      ? baseDescription
+      : `${
+        baseDescription || title
+      }. Reusable AI automation skill guide with install command, usage patterns, and workflow examples.`
+  const publishedDate = toIsoDate(frontmatter.date || lastEdited)
+  const modifiedDate = toIsoDate(lastEdited) || publishedDate
+  const installTarget = skillSlug || title
+  const installCommand = getInstallCommand(installTarget)
+  const pageUrl = skillSlug
+    ? `${SKILLS_PAGE_URL}/${skillSlug}`
+    : SKILLS_PAGE_URL
+
+  const skillSourceUrl = frontmatter.skillUrl
+  const sourceUrls = [websiteUrl, githubUrl, skillSourceUrl].filter(Boolean)
 
   return (
     <Meta
-      title={`Skill for ${title}`}
+      title={`${title} AI Agent Skill`}
       description={description}
-      image={cdnUrl('banner/recipes.jpeg')}
+      schemaType='TechArticle'
+      publishedDate={publishedDate}
+      modifiedDate={modifiedDate}
+      structured={[
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          '@id': `${pageUrl}#breadcrumb`,
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: SITE_URL
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Skills',
+              item: SKILLS_PAGE_URL
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: title,
+              item: pageUrl
+            }
+          ]
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          '@id': `${pageUrl}#installation`,
+          url: pageUrl,
+          name: `How to install ${title} skill`,
+          description: `Install ${title} from the microlinkhq/skills repository with one command.`,
+          step: [
+            {
+              '@type': 'HowToStep',
+              name: 'Run installation command',
+              text: `Run ${installCommand} in your terminal to install the skill.`
+            }
+          ]
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareSourceCode',
+          '@id': `${pageUrl}#source`,
+          url: pageUrl,
+          name: `${title} skill`,
+          description,
+          codeRepository: githubUrl || skillSourceUrl,
+          programmingLanguage: 'Markdown',
+          sameAs: sourceUrls
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          '@id': `${pageUrl}#faq`,
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: `When should I use the ${title} skill?`,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: triggerPhrases.length
+                  ? `Use this skill when you need ${triggerPhrases
+                    .slice(0, 3)
+                    .join(', ')}.`
+                  : `Use this skill for ${baseDescription || title}.`
+              }
+            },
+            {
+              '@type': 'Question',
+              name: `How do I install the ${title} skill?`,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: `Run ${installCommand} in your terminal.`
+              }
+            }
+          ]
+        }
+      ]}
     />
   )
 }
+
+const Separator = () => <Box css={theme({ color: 'black60', px: 2 })}>|</Box>
 
 const SkillTemplate = ({ pageContext }) => {
   const { frontmatter = {}, rawContent = '', skillSlug } = pageContext
   const [ClipboardComponent, toClipboard] = useClipboard()
 
   const title = frontmatter.title || skillSlug || 'Skill'
+  const websiteUrl = frontmatter.website
+  const websiteLabel = getDomainLabel(websiteUrl)
+  const githubUrl = frontmatter.githubUrl
+  const skillSourceUrl = frontmatter.skillUrl
   const description = frontmatter.description
-  const useWhen = description
-    ? description.split(/\s+Use when\s+/i)[0].trim()
-    : ''
-  const markdown = rawContent.trim()
-
-  const installCommand = `npx skills add https://github.com/microlinkhq/skills --skill ${
-    skillSlug || title
-  }`
+  const summary = getBaseDescription(description)
+  const triggerPhrases = getTriggerPhrases(description)
+  const markdown = stripFrontmatter(rawContent).trim()
+  const relatedSkills = getRelatedSkills({ skillSlug, description })
+  const installCommand = getInstallCommand(skillSlug || title)
 
   return (
     <FlickeringBackground>
@@ -56,27 +187,117 @@ const SkillTemplate = ({ pageContext }) => {
           })}
         >
           <Box css={theme({ width: '100%', maxWidth: layout.large })}>
-            <Heading variant={null} css={theme({ pb: 4 })}>
-              Microlink <Heading as='span'>SKILLS</Heading>
-            </Heading>
-            <Text
-              as='h1'
+            <Flex
               css={theme({
-                pb: 3,
-                fontWeight: 'bold',
-                fontSize: [1, 2]
+                alignItems: 'center',
+                flexDirection: 'column',
+                pb: 4
               })}
             >
-              {title}
-            </Text>
+              <Heading variant={null}>
+                Skill for <Heading as='span'>{title}</Heading>
+              </Heading>
+              <Flex
+                css={theme({
+                  alignItems: 'center',
+                  gap: 2,
+                  pt: 3,
+                  flexWrap: 'wrap',
+                  justifyContent: 'center'
+                })}
+              >
+                <Link href='/skills' css={theme({ fontSize: 1 })}>
+                  Browse all skills
+                </Link>
+
+                {websiteUrl && (
+                  <>
+                    <Separator />
+                    <Link
+                      href={websiteUrl}
+                      css={theme({ fontSize: 1 })}
+                      title='Open project website'
+                      prefetch={false}
+                      isInternal={false}
+                    >
+                      {websiteLabel}
+                    </Link>
+                  </>
+                )}
+                {githubUrl && (
+                  <>
+                    <Separator />
+                    <GitHubIcon css={theme({ color: 'gray8' })} />
+                    <Link
+                      href={githubUrl}
+                      css={theme({ fontSize: 1 })}
+                      title='Open project source code'
+                      prefetch={false}
+                      isInternal={false}
+                    >
+                      Project on GitHub
+                    </Link>
+                  </>
+                )}
+
+                {skillSourceUrl && (
+                  <>
+                    <Separator />
+                    <Link
+                      href={skillSourceUrl}
+                      css={theme({ fontSize: 1 })}
+                      title='Open skill definition source'
+                      prefetch={false}
+                      isInternal={false}
+                    >
+                      Edit this skill
+                    </Link>
+                  </>
+                )}
+              </Flex>
+            </Flex>
             <Text
               css={theme({
                 color: 'black60',
                 fontSize: [2, 3]
               })}
             >
-              {useWhen}
+              {summary}
             </Text>
+
+            {triggerPhrases.length > 0 && (
+              <Box css={theme({ pt: 4 })}>
+                <Text
+                  as='h2'
+                  css={theme({
+                    m: 0,
+                    fontWeight: 'bold',
+                    fontSize: [1, 2]
+                  })}
+                >
+                  Best for
+                </Text>
+                <Flex css={theme({ pt: 2, gap: 2, flexWrap: 'wrap' })}>
+                  {triggerPhrases.map(trigger => (
+                    <Text
+                      as='span'
+                      key={trigger}
+                      css={theme({
+                        px: 2,
+                        py: 1,
+                        bg: 'black5',
+                        borderRadius: 2,
+                        color: 'black70',
+                        fontSize: 0
+                      })}
+                    >
+                      {trigger}
+                    </Text>
+                  ))}
+                </Flex>
+              </Box>
+            )}
+
             <Text
               as='h2'
               css={theme({
@@ -193,6 +414,28 @@ const SkillTemplate = ({ pageContext }) => {
                 </Text>
               </Box>
             </Box>
+
+            {relatedSkills.length > 0 && (
+              <Box css={theme({ pt: 5 })}>
+                <Text
+                  as='h2'
+                  css={theme({
+                    m: 0,
+                    fontWeight: 'bold',
+                    fontSize: [1, 2]
+                  })}
+                >
+                  Related skills
+                </Text>
+                <Flex css={theme({ pt: 2, gap: 3, flexWrap: 'wrap' })}>
+                  {relatedSkills.map(skill => (
+                    <Link key={skill.slug} href={`/skills/${skill.slug}`}>
+                      {skill.name}
+                    </Link>
+                  ))}
+                </Flex>
+              </Box>
+            )}
 
             <Box css={theme({ pt: 3 })}>
               <ClipboardComponent />

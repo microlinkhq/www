@@ -65,6 +65,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     type MdxFrontmatter {
       description: String
       authors: [String]
+      website: String
+      githubUrl: String
+      skillUrl: String
     }
   `)
 }
@@ -222,6 +225,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
             lastEdited
             isPro
             authors
+            website
+            githubUrl
+            skillUrl
           }
         }
       }
@@ -248,9 +254,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
         : null
       const frontmatter = isBlogPage
         ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+          ...node.frontmatter,
+          title: formatTitle(node.frontmatter.title)
+        }
         : node.frontmatter
       const templatePath = isSkillPage
         ? path.resolve('./src/templates/skill.js')
