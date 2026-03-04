@@ -1,6 +1,11 @@
 'use strict'
 
-const { readFileSync, mkdirSync, writeFileSync } = require('node:fs')
+const {
+  existsSync,
+  readFileSync,
+  mkdirSync,
+  writeFileSync
+} = require('node:fs')
 const { createFilePath } = require('gatsby-source-filesystem')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
@@ -60,6 +65,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     type MdxFrontmatter {
       description: String
       authors: [String]
+      website: String
+      githubUrl: String
+      skillUrl: String
     }
   `)
 }
@@ -94,8 +102,12 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
   }
 
   if (node.internal.type === 'Mdx') {
-    // MDX files are now in src/content/ directory
-    const slug = createFilePath({ node, getNode, basePath: 'src/content' })
+    const fileNode = getNode(node.parent)
+    const isSkillContent = fileNode?.sourceInstanceName === 'skills-content'
+    const slug = isSkillContent
+      ? `/skills/${fileNode.name}/`
+      : createFilePath({ node, getNode, basePath: 'src/content' })
+
     createNodeField({
       node,
       name: 'slug',
@@ -112,7 +124,6 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
           value: lastmod
         })
       } catch (_) {
-        const fileNode = getNode(node.parent)
         if (fileNode && fileNode.mtime) {
           createNodeField({
             node,
@@ -193,6 +204,7 @@ const createRecipesPages = async ({ createPage, recipes }) => {
 }
 
 const createMarkdownPages = async ({ graphql, createPage }) => {
+  const PAGE_SOURCES = new Set(['content', 'skills-content'])
   const query = `
   {
     allMdx {
@@ -205,6 +217,11 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           fields {
             slug
           }
+          parent {
+            ... on File {
+              sourceInstanceName
+            }
+          }
           description: excerpt(pruneLength: 240)
           frontmatter {
             title
@@ -214,6 +231,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
             lastEdited
             isPro
             authors
+            website
+            githubUrl
+            skillUrl
           }
         }
       }
@@ -228,24 +248,51 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   }
 
   const pages = result.data.allMdx.edges
-    .filter(({ node }) => !node.fields.slug.startsWith('/fragments/'))
+    .filter(({ node }) => {
+      const source = node.parent?.sourceInstanceName
+      const slug = node.fields?.slug || ''
+      return PAGE_SOURCES.has(source) && !slug.startsWith('/fragments/')
+    })
     .map(async ({ node }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
       const contentFilePath = node.internal.contentFilePath
       const lastEdited = await getLastModifiedDate(contentFilePath)
       const isBlogPage = node.fields.slug.startsWith('/blog/')
+      const isSkillPage = node.fields.slug.startsWith('/skills/')
+      const skillSlug = isSkillPage
+        ? node.fields.slug.split('/').filter(Boolean).pop()
+        : null
       const frontmatter = isBlogPage
         ? {
             ...node.frontmatter,
             title: formatTitle(node.frontmatter.title)
           }
         : node.frontmatter
+      const templatePath = isSkillPage
+        ? path.resolve('./src/templates/skill.js')
+        : path.resolve('./src/templates/index.js')
+      const skillSourcePath =
+        skillSlug &&
+        path.resolve(
+          process.cwd(),
+          'data',
+          'skills-repo',
+          skillSlug,
+          'SKILL.md'
+        )
+      const rawContent = isSkillPage
+        ? existsSync(skillSourcePath)
+          ? readFileSync(skillSourcePath, 'utf8')
+          : readFileSync(contentFilePath, 'utf8')
+        : undefined
+
+      const component = isSkillPage
+        ? templatePath
+        : `${templatePath}?__contentFilePath=${contentFilePath}`
 
       return createPage({
         path: slug,
-        component: `${path.resolve(
-          './src/templates/index.js'
-        )}?__contentFilePath=${contentFilePath}`,
+        component,
         context: {
           id: node.id,
           description: node.frontmatter.description || node.description,
@@ -254,6 +301,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           lastEdited,
           isBlogPage: node.fields.slug.startsWith('/blog/'),
           isDocPage: node.fields.slug.startsWith('/docs/'),
+          isSkillPage,
+          skillSlug,
+          rawContent,
           slug: node.fields.slug
         }
       })

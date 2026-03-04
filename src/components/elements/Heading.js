@@ -18,6 +18,8 @@ const StyledHeading = styled(Text)(
   })
 )
 
-const Heading = props => <StyledHeading as='h1' variant='gradient' {...props} />
+const Heading = ({ titleize, omitTitleize, ...props }) => (
+  <StyledHeading as='h1' variant='gradient' {...props} />
+)
 
 export default Heading

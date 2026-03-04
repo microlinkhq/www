@@ -3,6 +3,7 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Microlink } from 'components/logos'
 import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
+import { Bot as BotIcon } from 'components/icons/Bot'
 import { Award as AwardIcon } from 'components/icons/Award'
 import { Building2 as Building2Icon } from 'components/icons/Building2'
 import { Bug as BugIcon } from 'components/icons/Bug'
@@ -250,6 +251,12 @@ export const NAVIGATION_SECTIONS = [
         href: '/recipes',
         description: 'Use ready-made recipes for common workflows',
         icon: WandSparklesIcon
+      }),
+      createNavigationItem({
+        label: 'Skills',
+        href: '/skills',
+        description: 'Browse reusable workflow skills',
+        icon: BotIcon
       }),
       createNavigationItem({
         label: 'User Agents',
