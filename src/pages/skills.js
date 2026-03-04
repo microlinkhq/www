@@ -10,7 +10,7 @@ import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
@@ -19,7 +19,6 @@ import Card from 'components/elements/Card/Card'
 
 import skills from '../../data/skills.json'
 
-const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
@@ -43,8 +42,11 @@ const SkillsPage = () => (
             alignItems: 'center'
           })}
         >
-          <Heading titleize={false} css={theme({ maxWidth: layout.large })}>
-            Microlink SKILLS
+          <Heading variant={null} css={theme({ maxWidth: layout.large })}>
+            Microlink{' '}
+            <Heading titleize={false} as='span'>
+              SKILLS
+            </Heading>
           </Heading>
           <Caption
             forwardedAs='h2'
@@ -117,8 +119,7 @@ const SkillsPage = () => (
           <Box css={theme({ pt: [4, null, 0] })}>
             <Button
               onClick={() =>
-                window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')
-              }
+                window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')}
             >
               <Caps>Request a Skill</Caps>
             </Button>

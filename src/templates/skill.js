@@ -1,6 +1,7 @@
 import FlickeringBackground from 'components/patterns/FlickeringBackground/FlickeringBackground'
 import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
 import { useClipboard } from 'components/hook/use-clipboard'
+import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 import Flex from 'components/elements/Flex'
@@ -50,6 +51,9 @@ const SkillTemplate = ({ pageContext }) => {
           })}
         >
           <Box css={theme({ width: '100%', maxWidth: layout.large })}>
+            <Heading variant={null} css={theme({ pb: 4 })}>
+              Microlink <Heading as='span'>SKILLS</Heading>
+            </Heading>
             <Text
               as='h1'
               css={theme({
@@ -100,7 +104,7 @@ const SkillTemplate = ({ pageContext }) => {
                     m: 0,
                     color: 'black80',
                     fontFamily: 'mono',
-                    fontSize: [0, 1]
+                    fontSize: 0
                   })}
                   style={{
                     whiteSpace: 'pre-wrap',
@@ -176,7 +180,7 @@ const SkillTemplate = ({ pageContext }) => {
                     m: 0,
                     color: 'black80',
                     fontFamily: 'mono',
-                    fontSize: [0, 1]
+                    fontSize: 0
                   })}
                   style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}
                 >
