@@ -71,7 +71,7 @@ const MOBILE_BP = 768
 const MAX_SCREENSHOT_PREVIEW_HEIGHT = 750
 
 const MIN_DURATION_S = 2
-const MAX_DURATION_S = 15
+const MAX_DURATION_S = 10
 const DEFAULT_DURATION_S = 5
 
 const DEVICE_OPTIONS = [
@@ -2085,7 +2085,7 @@ const ProductInformation = () => (
             </div>
             <div>
               For long web pages with delayed animations or slow scroll
-              interactions, increase the duration up to 15&nbsp;seconds using
+              interactions, increase the duration up to 10&nbsp;seconds using
               the slider in the options panel.
             </div>
           </>
