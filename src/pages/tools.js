@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {
   Camera,
   Maximize,
-  Grid,
+  Layers,
   Smartphone,
   Play,
   Share2,
@@ -78,7 +78,7 @@ const TOOLS = [
         description:
           'Paste up to 50 URLs and capture them all at once. Download every screenshot as a ZIP file. Great for competitive analysis and monitoring.',
         href: '/tools/website-screenshot/bulk',
-        icon: Grid,
+        icon: Layers,
         image: '/images/screenshot-bulk.png',
         animation: ['scale(1.5) rotate(0deg)', 'scale(1.3) rotate(-10deg)'],
         styles: {
