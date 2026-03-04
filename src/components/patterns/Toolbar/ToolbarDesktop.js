@@ -174,7 +174,10 @@ const MegaMenuPanel = styled(Box).withConfig({
   transform: translateY(${({ isVisible }) => (isVisible ? '0px' : '-8px')})
     scale(${({ isVisible }) => (isVisible ? 1 : 0.985)});
   pointer-events: ${({ isVisible }) => (isVisible ? 'auto' : 'none')};
-  transition: opacity ${transition.medium}, transform ${transition.medium};
+  transition: opacity
+      ${({ isVisible }) => (isVisible ? transition.medium : transition.short)},
+    transform
+      ${({ isVisible }) => (isVisible ? transition.medium : transition.short)};
 `
 
 const MegaMenuSection = styled(Box).withConfig({
@@ -550,7 +553,8 @@ const ToolbarDesktop = () => {
                     onClick={handleTriggerClick(label)}
                     onMouseEnter={() => handleOpenSectionWithHover(label)}
                     onFocus={() =>
-                      canUseHover() ? handleOpenSection(label) : undefined}
+                      canUseHover() ? handleOpenSection(label) : undefined
+                    }
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
