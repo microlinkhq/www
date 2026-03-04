@@ -287,6 +287,47 @@ const ResourcesBlogColumn = styled(Box)(
   })
 )
 
+const ToolsLayout = styled(Flex)(
+  theme({
+    alignItems: 'stretch',
+    flexDirection: ['column', 'column', 'row', 'row'],
+    gap: [4, 4, 4, 4]
+  })
+)
+
+const ToolsListColumn = styled(Box)(
+  theme({
+    width: ['100%', '100%', '66%', '66%'],
+    minWidth: 0,
+    pr: [0, 0, 4, 4],
+    borderRight: [0, 0, '1px solid', '1px solid'],
+    borderColor: [null, null, 'black10', 'black10']
+  })
+)
+
+const ToolsListGrid = styled(Flex)(
+  theme({
+    display: 'grid',
+    gridTemplateColumns: [
+      'minmax(180px, 1fr)',
+      'repeat(2, minmax(180px, 1fr))',
+      'repeat(2, minmax(180px, 1fr))',
+      'repeat(2, minmax(180px, 1fr))'
+    ],
+    gap: '4px 32px',
+    listStyle: 'none',
+    margin: 0,
+    padding: 0
+  })
+)
+
+const ToolsIntegrationsColumn = styled(Box)(
+  theme({
+    width: ['100%', '100%', '34%', '34%'],
+    minWidth: 0
+  })
+)
+
 const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   border-radius: 12px;
 
@@ -633,6 +674,7 @@ const ToolbarDesktop = () => {
           {NAVIGATION_SECTIONS.map(section => {
             const isSectionActive = renderedSection === section.label
             const isResourcesSection = section.label === 'Resources'
+            const isToolsSection = section.label === 'Tools'
 
             return (
               <MegaMenuSection
@@ -647,8 +689,195 @@ const ToolbarDesktop = () => {
                     py: [3, 3, 4, 4]
                   })}
                 >
-                  {!isResourcesSection && (
+                  {!isResourcesSection && !isToolsSection && (
                     <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
+                  )}
+                  {isToolsSection && (
+                    <ToolsLayout>
+                      <ToolsListColumn>
+                        <Text css={theme({ ...LABEL_STYLE })}>
+                          {section.description}
+                        </Text>
+                        <ToolsListGrid as='ul'>
+                          {section.items
+                            .filter(({ group }) => group === 'tools')
+                            .map(
+                              ({
+                                label,
+                                href,
+                                actively,
+                                title,
+                                externalIcon,
+                                logo,
+                                description,
+                                icon: Icon
+                              }) => (
+                                <MegaMenuItemLink
+                                  key={label}
+                                  forwardedAs='li'
+                                  href={href}
+                                  title={title}
+                                  actively={actively}
+                                  externalIcon={externalIcon}
+                                  data-event-location='Toolbar'
+                                  data-event-name={label}
+                                  onClick={handleClosePanel}
+                                  css={theme({
+                                    '> a': { padding: '12px' },
+                                    whiteSpace: 'normal'
+                                  })}
+                                >
+                                  <MenuItemIcon as='span'>
+                                    <ToolbarMenuItemMedia
+                                      label={label}
+                                      logo={logo}
+                                      icon={Icon}
+                                      iconCss={theme(
+                                        TOOLBAR_MENU_ITEM_MEDIA_STYLES
+                                      )}
+                                      imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
+                                    />
+                                  </MenuItemIcon>
+                                  <Box as='span'>
+                                    <Text
+                                      as='span'
+                                      className='menu-item-title'
+                                      css={theme(
+                                        TOOLBAR_MENU_ITEM_TITLE_STYLES
+                                      )}
+                                    >
+                                      {label}
+                                    </Text>
+                                    <Text
+                                      as='span'
+                                      className='menu-item-description'
+                                      css={theme(
+                                        TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES
+                                      )}
+                                    >
+                                      {description}
+                                    </Text>
+                                  </Box>
+                                </MegaMenuItemLink>
+                              )
+                            )}
+                        </ToolsListGrid>
+                      </ToolsListColumn>
+                      <ToolsIntegrationsColumn>
+                        <ToolbarNavLink
+                          forwardedAs='div'
+                          href='/'
+                          data-event-location='Toolbar'
+                          data-event-name='Integrations'
+                          onClick={handleClosePanel}
+                          css={theme({
+                            mb: 3,
+                            ...TOOLBAR_TOP_LEVEL_TEXT_STYLES
+                          })}
+                        >
+                          <Caps
+                            as='span'
+                            css={theme({
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 1,
+                              ...TOOLBAR_TOP_LEVEL_CAPS_STYLES
+                            })}
+                          >
+                            Integrations
+                            <FeatherIcon
+                              icon={ChevronRight}
+                              size={TOOLBAR_CHEVRON_ICON_SIZE}
+                            />
+                          </Caps>
+                        </ToolbarNavLink>
+                        <Flex
+                          as='ul'
+                          css={theme({
+                            flexDirection: 'column',
+                            gap: '4px',
+                            ...TOOLBAR_LIST_RESET_STYLES
+                          })}
+                        >
+                          {section.items
+                            .filter(({ group }) => group === 'integrations')
+                            .map(
+                              ({
+                                label,
+                                href,
+                                actively,
+                                title,
+                                externalIcon,
+                                logo,
+                                description,
+                                icon: Icon
+                              }) => (
+                                <ResourcesMegaMenuItemLink
+                                  key={label}
+                                  forwardedAs='li'
+                                  href={href}
+                                  title={title}
+                                  actively={actively}
+                                  externalIcon={externalIcon}
+                                  data-event-location='Toolbar'
+                                  data-event-name={label}
+                                  onClick={handleClosePanel}
+                                  css={theme({
+                                    '> a': { padding: '6px 12px' },
+                                    '> a .menu-item-title': {
+                                      fontWeight: fontWeights.bold
+                                    },
+                                    whiteSpace: 'nowrap'
+                                  })}
+                                >
+                                  <ToolbarMenuItemMedia
+                                    label={label}
+                                    logo={logo}
+                                    icon={Icon}
+                                    iconClassName={
+                                      RESOURCE_MENU_ITEM_ICON_CLASSNAME
+                                    }
+                                    iconCss={theme({
+                                      ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
+                                      color: 'black60'
+                                    })}
+                                  />
+                                  <Flex
+                                    as='span'
+                                    css={{
+                                      display: 'inline-flex',
+                                      alignItems: 'baseline',
+                                      gap: '0.25em'
+                                    }}
+                                  >
+                                    <Text
+                                      as='span'
+                                      className='menu-item-title'
+                                      css={theme({
+                                        ...TOOLBAR_MENU_ITEM_TITLE_STYLES,
+                                        display: 'inline',
+                                        fontWeight: fontWeights.bold
+                                      })}
+                                    >
+                                      {label}
+                                    </Text>
+                                    <Text
+                                      as='span'
+                                      className='menu-item-description'
+                                      css={theme({
+                                        ...TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES,
+                                        fontSize: '16px'
+                                      })}
+                                    >
+                                      &nbsp;–&nbsp;&nbsp;{description}
+                                    </Text>
+                                  </Flex>
+                                </ResourcesMegaMenuItemLink>
+                              )
+                            )}
+                        </Flex>
+                      </ToolsIntegrationsColumn>
+                    </ToolsLayout>
                   )}
                   {isResourcesSection && (
                     <ResourcesLayout>
@@ -755,7 +984,7 @@ const ToolbarDesktop = () => {
                       )}
                     </ResourcesLayout>
                   )}
-                  {!isResourcesSection && (
+                  {!isResourcesSection && !isToolsSection && (
                     <Flex
                       as='ul'
                       css={{

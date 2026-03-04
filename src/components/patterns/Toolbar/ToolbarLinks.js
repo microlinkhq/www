@@ -12,6 +12,7 @@ import { Grid as GridIcon } from 'components/icons/Grid'
 import { Files as FilesIcon } from 'components/icons/Files'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
+import { Layers } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
 import { PDF as PDFIcon } from 'components/icons/PDF'
@@ -81,7 +82,8 @@ const createNavigationItem = ({
   externalIcon,
   description,
   icon,
-  logo
+  logo,
+  group
 }) => ({
   label,
   href,
@@ -90,7 +92,8 @@ const createNavigationItem = ({
   externalIcon,
   description,
   icon,
-  logo
+  logo,
+  group
 })
 
 export const PRICING_NAV_ITEM = createNavigationItem({
@@ -177,28 +180,32 @@ export const NAVIGATION_SECTIONS = [
     columns: 3,
     items: [
       createNavigationItem({
-        label: 'Sharing Debugger',
-        href: '/tools/sharing-debugger',
-        description: 'Preview social cards before publishing links',
-        icon: BugIcon
-      }),
-      createNavigationItem({
         label: 'Website Screenshot',
         href: '/tools/website-screenshot',
         description: 'Capture any website as a screenshot',
-        icon: CameraIcon
+        icon: CameraIcon,
+        group: 'tools'
+      }),
+      createNavigationItem({
+        label: 'Bulk Screenshots',
+        href: '/tools/website-screenshot/bulk',
+        description: 'Capture multiple websites as screenshots in one go',
+        icon: Layers,
+        group: 'tools'
+      }),
+      createNavigationItem({
+        label: 'Sharing Debugger',
+        href: '/tools/sharing-debugger',
+        description: 'Preview social cards before publishing links',
+        icon: BugIcon,
+        group: 'tools'
       }),
       createNavigationItem({
         label: 'All Tools',
         href: '/tools',
         description: 'Explore all web automation and scraping tools',
-        icon: GridIcon
-      }),
-      createNavigationItem({
-        label: 'SDK',
-        href: '/sdk',
-        description: 'Ship API integrations faster across platforms',
-        icon: TerminalIcon
+        icon: GridIcon,
+        group: 'tools'
       }),
       createNavigationItem({
         label: 'Geolocation',
@@ -206,6 +213,13 @@ export const NAVIGATION_SECTIONS = [
         description: 'Get detailed information about the incoming request',
         externalIcon: false,
         icon: GlobeIcon
+      }),
+      createNavigationItem({
+        label: 'SDK',
+        href: '/sdk',
+        description: 'Link Previews',
+        icon: TerminalIcon,
+        group: 'integrations'
       })
     ]
   },
