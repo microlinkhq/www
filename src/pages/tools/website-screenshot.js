@@ -1304,6 +1304,7 @@ const PreviewDisplay = ({
   viewportHeight,
   nerdStats,
   mqlQuery,
+  responseData,
   showNerdStats,
   onToggleNerdStats
 }) => {
@@ -1523,7 +1524,11 @@ const PreviewDisplay = ({
               })}
             >
               {showNerdStats && nerdStats && (
-                <NerdStatsOverlay stats={nerdStats} mqlQuery={mqlQuery} />
+                <NerdStatsOverlay
+                  stats={nerdStats}
+                  mqlQuery={mqlQuery}
+                  responseData={responseData}
+                />
               )}
               {isPreviewTooBig ? (
                 <Flex
@@ -1871,6 +1876,7 @@ const ScreenshotTool = () => {
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
   const [mqlQuery, setMqlQuery] = useState(null)
+  const [responseData, setResponseData] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
   const [requestedViewport, setRequestedViewport] = useState({
     width: 1920,
@@ -1944,6 +1950,13 @@ const ScreenshotTool = () => {
           setData(response.data)
           headerStats = extractNerdStats(response.response?.headers)
           setNerdStats(headerStats)
+          setResponseData(
+            JSON.stringify(
+              { status: response.status, data: response.data },
+              null,
+              2
+            )
+          )
         } catch (err) {
           setError({
             message:
@@ -1965,6 +1978,11 @@ const ScreenshotTool = () => {
                 thumbnail,
                 nerdStats: headerStats,
                 mqlQuery: queryStr,
+                responseData: JSON.stringify(
+                  { status: response.status, data: response.data },
+                  null,
+                  2
+                ),
                 settings: {
                   url,
                   type: options.type,
@@ -2016,6 +2034,7 @@ const ScreenshotTool = () => {
     setLastUrl(settings.url)
     setNerdStats(entry.nerdStats || null)
     setMqlQuery(entry.mqlQuery || null)
+    setResponseData(entry.responseData || null)
     setRequestedViewport({
       width: Number(settings.customWidth) || 1920,
       height: Number(settings.customHeight) || 1080
@@ -2073,6 +2092,7 @@ const ScreenshotTool = () => {
             viewportHeight={requestedViewport.height}
             nerdStats={nerdStats}
             mqlQuery={mqlQuery}
+            responseData={responseData}
             showNerdStats={showNerdStats}
             onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
           />

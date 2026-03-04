@@ -417,7 +417,7 @@ const ToggleButton = styled.button`
   }
 `
 
-const NerdStatsOverlay = ({ stats, mqlQuery }) => {
+const NerdStatsOverlay = ({ stats, mqlQuery, responseData }) => {
   if (!stats) return null
 
   const sections = FULL_SECTIONS.map(section => ({
@@ -447,6 +447,19 @@ const NerdStatsOverlay = ({ stats, mqlQuery }) => {
           gap: '12px'
         }}
       >
+        <span
+          css={{
+            fontSize: '18px',
+            fontWeight: 700,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: 'rgba(0, 255, 136, 0.9)',
+            paddingBottom: '8px',
+            borderBottom: '1px solid rgba(255,255,255,0.08)'
+          }}
+        >
+          Nerd Mode
+        </span>
         {mqlQuery && (
           <Box>
             <SectionTitle
@@ -463,26 +476,32 @@ const NerdStatsOverlay = ({ stats, mqlQuery }) => {
             <QueryBlock>{mqlQuery}</QueryBlock>
           </Box>
         )}
-        <Flex
-          css={{
-            alignItems: 'center',
-            gap: '6px',
+        {responseData && (
+          <Box>
+            <SectionTitle
+              style={{
+                fontSize: '13px',
+                color: 'rgba(0, 255, 136, 0.8)',
+                paddingBottom: '4px',
+                marginBottom: '8px',
+                borderBottom: '1px solid rgba(255,255,255,0.08)'
+              }}
+            >
+              Response
+            </SectionTitle>
+            <QueryBlock>{responseData}</QueryBlock>
+          </Box>
+        )}
+        <SectionTitle
+          style={{
+            fontSize: '13px',
+            color: 'rgba(0, 255, 136, 0.8)',
             paddingBottom: '4px',
             borderBottom: '1px solid rgba(255,255,255,0.08)'
           }}
         >
-          <span
-            css={{
-              fontSize: '12px',
-              fontWeight: 700,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'rgba(0, 255, 136, 0.8)'
-            }}
-          >
-            Stats for Nerds
-          </span>
-        </Flex>
+          Headers
+        </SectionTitle>
         {sections.map(section => (
           <Box key={section.label}>
             <SectionTitle>{section.label}</SectionTitle>
@@ -494,6 +513,27 @@ const NerdStatsOverlay = ({ stats, mqlQuery }) => {
             ))}
           </Box>
         ))}
+        <Box
+          css={{
+            marginTop: '8px',
+            paddingTop: '12px',
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            fontSize: '11px',
+            lineHeight: 1.6,
+            color: 'rgba(255,255,255,0.35)'
+          }}
+        >
+          If you're reading this, you're our kind of people.{' '}
+          <a
+            href='mailto:hello@microlink.io'
+            style={{
+              color: 'rgba(0, 255, 136, 0.7)',
+              textDecoration: 'none'
+            }}
+          >
+            Say hi at hello@microlink.io
+          </a>
+        </Box>
       </Flex>
     </Overlay>
   )
