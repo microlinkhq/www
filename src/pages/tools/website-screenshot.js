@@ -47,7 +47,8 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import NerdStatsOverlay, {
   NerdStatsToggle,
-  extractNerdStats
+  extractNerdStats,
+  buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
@@ -1302,6 +1303,7 @@ const PreviewDisplay = ({
   viewportWidth,
   viewportHeight,
   nerdStats,
+  mqlQuery,
   showNerdStats,
   onToggleNerdStats
 }) => {
@@ -1521,7 +1523,7 @@ const PreviewDisplay = ({
               })}
             >
               {showNerdStats && nerdStats && (
-                <NerdStatsOverlay stats={nerdStats} />
+                <NerdStatsOverlay stats={nerdStats} mqlQuery={mqlQuery} />
               )}
               {isPreviewTooBig ? (
                 <Flex
@@ -1868,6 +1870,7 @@ const ScreenshotTool = () => {
   const [error, setError] = useState(null)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
+  const [mqlQuery, setMqlQuery] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
   const [requestedViewport, setRequestedViewport] = useState({
     width: 1920,
@@ -1908,7 +1911,7 @@ const ScreenshotTool = () => {
 
       try {
         const mqlOpts = {
-          // apiKey: localStorageData.apiKey,
+          apiKey: localStorageData.apiKey,
           meta: false,
           screenshot: {
             type: options.type,
@@ -1930,6 +1933,9 @@ const ScreenshotTool = () => {
             background: customHex || options.overlayBackground
           }
         }
+
+        const queryStr = buildMqlQuery(url, mqlOpts)
+        setMqlQuery(queryStr)
 
         let response = null
         let headerStats = null
@@ -1958,6 +1964,7 @@ const ScreenshotTool = () => {
                 screenshot: response.data.screenshot,
                 thumbnail,
                 nerdStats: headerStats,
+                mqlQuery: queryStr,
                 settings: {
                   url,
                   type: options.type,
@@ -2008,6 +2015,7 @@ const ScreenshotTool = () => {
     setData({ screenshot })
     setLastUrl(settings.url)
     setNerdStats(entry.nerdStats || null)
+    setMqlQuery(entry.mqlQuery || null)
     setRequestedViewport({
       width: Number(settings.customWidth) || 1920,
       height: Number(settings.customHeight) || 1080
@@ -2064,6 +2072,7 @@ const ScreenshotTool = () => {
             viewportWidth={requestedViewport.width}
             viewportHeight={requestedViewport.height}
             nerdStats={nerdStats}
+            mqlQuery={mqlQuery}
             showNerdStats={showNerdStats}
             onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
           />

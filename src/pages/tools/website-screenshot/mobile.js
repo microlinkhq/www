@@ -49,7 +49,8 @@ import { useLocalStorage } from 'components/hook/use-local-storage'
 import { withTitle } from 'helpers/hoc/with-title'
 import NerdStatsOverlay, {
   NerdStatsToggle,
-  extractNerdStats
+  extractNerdStats,
+  buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 
 const Heading = withTitle(HeadingBase)
@@ -1044,6 +1045,7 @@ const PreviewDisplay = ({
   viewportWidth,
   viewportHeight,
   nerdStats,
+  mqlQuery,
   showNerdStats,
   onToggleNerdStats
 }) => {
@@ -1263,7 +1265,7 @@ const PreviewDisplay = ({
               })}
             >
               {showNerdStats && nerdStats && (
-                <NerdStatsOverlay stats={nerdStats} />
+                <NerdStatsOverlay stats={nerdStats} mqlQuery={mqlQuery} />
               )}
               {isPreviewTooBig ? (
                 <Flex
@@ -1605,6 +1607,7 @@ const ScreenshotTool = () => {
   const [error, setError] = useState(null)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
+  const [mqlQuery, setMqlQuery] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
   const [requestedViewport, setRequestedViewport] = useState({
     width: PHONE_DEVICES[0].width,
@@ -1667,6 +1670,9 @@ const ScreenshotTool = () => {
           force: !options.cache
         }
 
+        const queryStr = buildMqlQuery(url, mqlOpts)
+        setMqlQuery(queryStr)
+
         let response = null
         let headerStats = null
         try {
@@ -1694,6 +1700,7 @@ const ScreenshotTool = () => {
                 screenshot: response.data.screenshot,
                 thumbnail,
                 nerdStats: headerStats,
+                mqlQuery: queryStr,
                 settings: {
                   url,
                   type: options.type,
@@ -1739,6 +1746,7 @@ const ScreenshotTool = () => {
     setData({ screenshot })
     setLastUrl(settings.url)
     setNerdStats(entry.nerdStats || null)
+    setMqlQuery(entry.mqlQuery || null)
     setRequestedViewport(
       landscape
         ? { width: phone.height, height: phone.width }
@@ -1796,6 +1804,7 @@ const ScreenshotTool = () => {
             viewportWidth={requestedViewport.width}
             viewportHeight={requestedViewport.height}
             nerdStats={nerdStats}
+            mqlQuery={mqlQuery}
             showNerdStats={showNerdStats}
             onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
           />
