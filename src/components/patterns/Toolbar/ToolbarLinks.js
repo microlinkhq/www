@@ -6,6 +6,8 @@ import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
 import { Award as AwardIcon } from 'components/icons/Award'
 import { Building2 as Building2Icon } from 'components/icons/Building2'
 import { Bug as BugIcon } from 'components/icons/Bug'
+import { Camera as CameraIcon } from 'components/icons/Camera'
+import { Grid as GridIcon } from 'components/icons/Grid'
 import { Files as FilesIcon } from 'components/icons/Files'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
@@ -169,14 +171,26 @@ export const NAVIGATION_SECTIONS = [
   },
   {
     label: 'Tools',
-    description: 'Utilities to test and validate your metadata integrations.',
-    columns: 2,
+    description: 'Browse and use tools built on top of the Microlink API.',
+    columns: 3,
     items: [
       createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
         description: 'Preview social cards before publishing links',
         icon: BugIcon
+      }),
+      createNavigationItem({
+        label: 'Website Screenshot',
+        href: '/tools/website-screenshot',
+        description: 'Capture any website as a screenshot',
+        icon: CameraIcon
+      }),
+      createNavigationItem({
+        label: 'All Tools',
+        href: '/tools',
+        description: 'Explore all web automation and scraping tools',
+        icon: GridIcon
       }),
       createNavigationItem({
         label: 'SDK',
