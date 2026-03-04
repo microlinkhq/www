@@ -144,7 +144,12 @@ const getSkills = async () => {
 
   const skills = await Promise.all(
     entries
-      .filter(entry => entry.isDirectory())
+      .filter(
+        entry =>
+          entry.isDirectory() &&
+          !entry.name.startsWith('.') &&
+          entry.name !== 'README.md'
+      )
       .map(entry => entry.name)
       .map(async slug => {
         try {
