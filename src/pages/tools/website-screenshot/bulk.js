@@ -52,6 +52,10 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { withTitle } from 'helpers/hoc/with-title'
+import NerdStatsOverlay, {
+  NerdStatsToggle,
+  extractNerdStats
+} from 'components/patterns/NerdStats/NerdStats'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -1496,13 +1500,23 @@ const PreviewDisplay = ({
   onRetry,
   url,
   viewportWidth,
-  viewportHeight
+  viewportHeight,
+  nerdStats,
+  showNerdStats,
+  onToggleNerdStats
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
   const [imagePainted, setImagePainted] = useState(false)
   const prevImageUrlRef = useRef(null)
+  const scrollAreaRef = useRef(null)
   const imageUrl = get(data, 'screenshot.url')
+
+  useEffect(() => {
+    if (showNerdStats && scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = 0
+    }
+  }, [showNerdStats])
 
   const viewportCardRef = useRef(null)
   const [actualWidth, setActualWidth] = useState(0)
@@ -1694,6 +1708,7 @@ const PreviewDisplay = ({
           >
             {/* Scrollable image area */}
             <Box
+              ref={scrollAreaRef}
               css={theme({
                 p: [3],
                 flex: 1,
@@ -1701,9 +1716,13 @@ const PreviewDisplay = ({
                 overflowX: 'hidden',
                 minHeight: `${containerHeight}px`,
                 maxHeight: ['60vh', '750px', '750px'],
-                WebkitOverflowScrolling: 'touch'
+                WebkitOverflowScrolling: 'touch',
+                position: 'relative'
               })}
             >
+              {showNerdStats && nerdStats && (
+                <NerdStatsOverlay stats={nerdStats} />
+              )}
               {isPreviewTooBig ? (
                 <Flex
                   css={theme({
@@ -1818,35 +1837,27 @@ const PreviewDisplay = ({
                 <Caps css={theme({ fontSize: 0 })}>Download</Caps>
               </ActionButton>
 
-              <Tooltip
-                type='copy'
-                tooltipsOpts={Tooltip.TEXT.OPTIONS}
-                content={
-                  <Tooltip.Content>{Tooltip.TEXT.COPY('URL')}</Tooltip.Content>
+              <ActionButton
+                as='button'
+                type='button'
+                onClick={() =>
+                  toClipboard({
+                    copy: imageUrl,
+                    text: Tooltip.TEXT.COPIED('URL')
+                  })
                 }
+                css={theme({
+                  bg: 'white',
+                  color: 'black80',
+                  border: 1,
+                  borderColor: 'black10',
+                  width: '100%',
+                  _hover: { bg: 'gray1', borderColor: 'black20' }
+                })}
               >
-                <ActionButton
-                  as='button'
-                  type='button'
-                  onClick={() =>
-                    toClipboard({
-                      copy: imageUrl,
-                      text: Tooltip.TEXT.COPIED('URL')
-                    })
-                  }
-                  css={theme({
-                    bg: 'white',
-                    color: 'black80',
-                    border: 1,
-                    borderColor: 'black10',
-                    width: '100%',
-                    _hover: { bg: 'gray1', borderColor: 'black20' }
-                  })}
-                >
-                  <Clipboard size={15} />
-                  <Caps css={theme({ fontSize: 0 })}>Copy URL</Caps>
-                </ActionButton>
-              </Tooltip>
+                <Clipboard size={15} />
+                <Caps css={theme({ fontSize: 0 })}>Copy URL</Caps>
+              </ActionButton>
 
               <ActionButton
                 href={imageUrl}
@@ -1864,6 +1875,12 @@ const PreviewDisplay = ({
                 <ExternalLink size={15} />
                 <Caps css={theme({ fontSize: 0 })}>Open</Caps>
               </ActionButton>
+              {nerdStats && (
+                <NerdStatsToggle
+                  active={showNerdStats}
+                  onClick={onToggleNerdStats}
+                />
+              )}
             </Flex>
           </FadeIn>
           <ClipboardComponent />
@@ -2672,6 +2689,8 @@ const ScreenshotTool = () => {
     width: 1920,
     height: 1080
   })
+  const [previewNerdStats, setPreviewNerdStats] = useState(null)
+  const [showNerdStats, setShowNerdStats] = useState(false)
 
   useEffect(() => {
     setHistory(prev => {
@@ -2737,6 +2756,8 @@ const ScreenshotTool = () => {
       setBulkTotalMs(null)
       setBulkTotalBytes(null)
       setPreviewData(null)
+      setShowNerdStats(false)
+      setPreviewNerdStats(null)
       bulkUrlsRef.current = urls
 
       const results = []
@@ -2782,6 +2803,7 @@ const ScreenshotTool = () => {
             force: !options.cache
           })
           const duration = Date.now() - reqStart
+          const headerStats = extractNerdStats(response?.response?.headers)
 
           if (response?.data?.screenshot) {
             const { size_pretty: sizePretty, size: sizeBytes } =
@@ -2792,7 +2814,8 @@ const ScreenshotTool = () => {
               duration,
               sizePretty,
               sizeBytes,
-              data: response.data
+              data: response.data,
+              nerdStats: headerStats
             })
             setBulkResults([...results])
 
@@ -2808,6 +2831,7 @@ const ScreenshotTool = () => {
                   createdAt: Date.now(),
                   screenshot: response.data.screenshot,
                   thumbnail,
+                  nerdStats: headerStats,
                   settings: {
                     url,
                     type: options.type,
@@ -2883,6 +2907,7 @@ const ScreenshotTool = () => {
       width: Number(settings.customWidth) || 1920,
       height: Number(settings.customHeight) || 1080
     })
+    setPreviewNerdStats(entry.nerdStats || null)
     setActiveHistoryId(entry.id)
     setBulkState('history-preview')
   }, [])
@@ -2937,6 +2962,7 @@ const ScreenshotTool = () => {
     setBulkTotalBytes(null)
     setBulkProgress({ current: 0, total: 0, currentUrl: '' })
     setPreviewData(null)
+    setPreviewNerdStats(null)
   }, [])
 
   const isProcessing = bulkState === 'processing'
@@ -2973,6 +2999,9 @@ const ScreenshotTool = () => {
               url={previewUrl}
               viewportWidth={previewViewport.width}
               viewportHeight={previewViewport.height}
+              nerdStats={previewNerdStats}
+              showNerdStats={showNerdStats}
+              onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
             />
           ) : (
             <BulkPreview

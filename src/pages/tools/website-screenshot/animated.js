@@ -47,6 +47,10 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { withTitle } from 'helpers/hoc/with-title'
+import NerdStatsOverlay, {
+  NerdStatsToggle,
+  extractNerdStats
+} from 'components/patterns/NerdStats/NerdStats'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -953,14 +957,24 @@ const PreviewDisplay = ({
   onRetry,
   url,
   viewportWidth,
-  viewportHeight
+  viewportHeight,
+  nerdStats,
+  showNerdStats,
+  onToggleNerdStats
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [videoPainted, setVideoPainted] = useState(false)
   const prevVideoUrlRef = useRef(null)
+  const scrollAreaRef = useRef(null)
 
   const videoUrl = get(data, 'screenshot.animated.url')
   const previewImageUrl = get(data, 'screenshot.url')
+
+  useEffect(() => {
+    if (showNerdStats && scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = 0
+    }
+  }, [showNerdStats])
 
   const viewportCardRef = useRef(null)
   const [actualWidth, setActualWidth] = useState(0)
@@ -1150,6 +1164,7 @@ const PreviewDisplay = ({
             })}
           >
             <Box
+              ref={scrollAreaRef}
               css={theme({
                 p: [3],
                 flex: 1,
@@ -1157,9 +1172,13 @@ const PreviewDisplay = ({
                 overflowX: 'hidden',
                 minHeight: `${containerHeight}px`,
                 maxHeight: ['60vh', '750px', '750px'],
-                WebkitOverflowScrolling: 'touch'
+                WebkitOverflowScrolling: 'touch',
+                position: 'relative'
               })}
             >
+              {showNerdStats && nerdStats && (
+                <NerdStatsOverlay stats={nerdStats} />
+              )}
               <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
                 <video
                   src={videoUrl}
@@ -1210,35 +1229,27 @@ const PreviewDisplay = ({
                 <Caps css={theme({ fontSize: 0 })}>Download</Caps>
               </ActionButton>
 
-              <Tooltip
-                type='copy'
-                tooltipsOpts={Tooltip.TEXT.OPTIONS}
-                content={
-                  <Tooltip.Content>{Tooltip.TEXT.COPY('URL')}</Tooltip.Content>
+              <ActionButton
+                as='button'
+                type='button'
+                onClick={() =>
+                  toClipboard({
+                    copy: videoUrl,
+                    text: Tooltip.TEXT.COPIED('URL')
+                  })
                 }
+                css={theme({
+                  bg: 'white',
+                  color: 'black80',
+                  border: 1,
+                  borderColor: 'black10',
+                  width: '100%',
+                  _hover: { bg: 'gray1', borderColor: 'black20' }
+                })}
               >
-                <ActionButton
-                  as='button'
-                  type='button'
-                  onClick={() =>
-                    toClipboard({
-                      copy: videoUrl,
-                      text: Tooltip.TEXT.COPIED('URL')
-                    })
-                  }
-                  css={theme({
-                    bg: 'white',
-                    color: 'black80',
-                    border: 1,
-                    borderColor: 'black10',
-                    width: '100%',
-                    _hover: { bg: 'gray1', borderColor: 'black20' }
-                  })}
-                >
-                  <Clipboard size={15} />
-                  <Caps css={theme({ fontSize: 0 })}>Copy URL</Caps>
-                </ActionButton>
-              </Tooltip>
+                <Clipboard size={15} />
+                <Caps css={theme({ fontSize: 0 })}>Copy URL</Caps>
+              </ActionButton>
 
               <ActionButton
                 href={videoUrl}
@@ -1256,6 +1267,12 @@ const PreviewDisplay = ({
                 <ExternalLink size={15} />
                 <Caps css={theme({ fontSize: 0 })}>Open</Caps>
               </ActionButton>
+              {nerdStats && (
+                <NerdStatsToggle
+                  active={showNerdStats}
+                  onClick={onToggleNerdStats}
+                />
+              )}
             </Flex>
           </FadeIn>
           <ClipboardComponent />
@@ -1433,6 +1450,8 @@ const AnimatedScreenshotTool = () => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [lastUrl, setLastUrl] = useState('')
+  const [nerdStats, setNerdStats] = useState(null)
+  const [showNerdStats, setShowNerdStats] = useState(false)
   const [requestedViewport, setRequestedViewport] = useState({
     width: DEVICES.desktop.width,
     height: DEVICES.desktop.height
@@ -1462,6 +1481,7 @@ const AnimatedScreenshotTool = () => {
       setIsLoading(true)
       setError(null)
       setData(null)
+      setShowNerdStats(false)
       setLastUrl(url)
 
       try {
@@ -1487,9 +1507,12 @@ const AnimatedScreenshotTool = () => {
         }
 
         let response = null
+        let headerStats = null
         try {
           response = await mql(url, mqlOpts)
           setData(response.data)
+          headerStats = extractNerdStats(response.response?.headers)
+          setNerdStats(headerStats)
         } catch (err) {
           setError({
             message:
@@ -1513,6 +1536,7 @@ const AnimatedScreenshotTool = () => {
                 screenshot: response.data.screenshot,
                 previewImage,
                 thumbnail,
+                nerdStats: headerStats,
                 settings: {
                   url,
                   device: options.device,
@@ -1554,6 +1578,7 @@ const AnimatedScreenshotTool = () => {
     })
     setData({ screenshot })
     setLastUrl(settings.url)
+    setNerdStats(entry.nerdStats || null)
     setRequestedViewport({
       width: deviceDef.width,
       height: deviceDef.height
@@ -1607,6 +1632,9 @@ const AnimatedScreenshotTool = () => {
             url={lastUrl}
             viewportWidth={requestedViewport.width}
             viewportHeight={requestedViewport.height}
+            nerdStats={nerdStats}
+            showNerdStats={showNerdStats}
+            onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
           />
         </PreviewOuter>
       </ToolLayout>
