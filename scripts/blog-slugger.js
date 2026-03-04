@@ -1,8 +1,11 @@
 'use strict'
 
 const { readFile, rename } = require('fs/promises')
+const { slug } = require('github-slugger')
 const path = require('path')
 const fs = require('fs')
+
+const git = require('../src/helpers/git')
 
 /**
  * Parse frontmatter from markdown file content
@@ -33,8 +36,6 @@ const parseFrontmatter = fileContent => {
  * Main function
  */
 const main = async () => {
-  const { slug } = await import('github-slugger')
-  const { mv } = await import('../src/helpers/git.js')
   const files = process.argv.slice(2)
 
   for (const filepath of files) {
@@ -66,7 +67,7 @@ const main = async () => {
 
           try {
             // Try using git mv for better integration with git
-            await mv(filepath, newPath)
+            await git.mv(filepath, newPath)
             console.log(`${filepath} -> ${newPath} (git)`)
           } catch (_) {
             // Fallback to regular rename if not in git or other error

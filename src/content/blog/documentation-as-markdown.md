@@ -50,6 +50,8 @@ curl https://markdown.microlink.io/https://example.com
 Those endpoints are just aliases for creating an extraction rule:
 
 ```js
+import mql from '@microlink/mql'
+
 const url = 'https://microlink.io/docs/api/getting-started/overview'
 
 const { data } = await mql(url, {

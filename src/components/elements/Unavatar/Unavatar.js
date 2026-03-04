@@ -1,4 +1,4 @@
-import React, { createElement } from 'react'
+import React from 'react'
 import Image from '../Image/Image'
 import styled from 'styled-components'
 import { theme } from 'theme'
@@ -13,19 +13,14 @@ const Unavatar = ({ query, ...props }) => {
   return (
     <StyledImage
       alt={`Logo for ${query}`}
-      src={`https://unavatar.io/${query}`}
+      src={`https://unavatar.io/${query}?fallback=data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==`}
       {...props}
     />
   )
 }
 
-const UnavatarMicrolink = ({ url, ...props }) => (
+Unavatar.Microlink = ({ url, ...props }) => (
   <StyledImage alt={`Logo for ${url}`} {...props} />
 )
 
-Unavatar.Microlink = UnavatarMicrolink
-
-const UnavatarBase = ({ provider, ...props }) =>
-  createElement(provider === 'microlink' ? Unavatar.Microlink : Unavatar, props)
-
-export default UnavatarBase
+export default Unavatar

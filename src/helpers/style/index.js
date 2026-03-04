@@ -1,5 +1,14 @@
 import { css } from 'styled-components'
 
+export const backDrop = css`
+  backdrop-filter: blur(8px);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.78),
+    rgba(255, 255, 255, 0.52)
+  );
+`
+
 export const wordBreak = css`
   /* These are technically the same, but use both */
   overflow-wrap: break-word;

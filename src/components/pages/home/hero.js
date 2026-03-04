@@ -126,7 +126,6 @@ const Hero = ({ children }) => {
       id='hero'
       css={theme({
         px: 3,
-        pt: [2, 2, 3, 3],
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
@@ -134,7 +133,7 @@ const Hero = ({ children }) => {
       })}
     >
       {children({ color })}
-      <Heading css={theme({ fontSize: ['48px', 6, 7, 7] })} titleize={false}>
+      <Heading css={theme({ fontSize: ['42px', 5] })} titleize={false}>
         Browser as API
       </Heading>
 

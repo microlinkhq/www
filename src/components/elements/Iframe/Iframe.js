@@ -15,7 +15,7 @@ export const Iframe = ({ width, height, ...props }) => {
     if (iframeRef.current) {
       setMounted(true)
     }
-  }, [])
+  }, [props.src])
 
   return (
     <Box position='relative' css={theme({ width, height })}>

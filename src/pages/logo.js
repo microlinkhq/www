@@ -1,16 +1,14 @@
 import { toPx, borders, layout, colors, theme, fonts } from 'theme'
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import { issueUrl } from 'helpers/issue-url'
-import isUrl from 'is-url-http/lightweight'
+import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
+import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
-import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import { noop } from 'helpers/noop'
-
-import logoUri from '../../static/logo.svg'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
@@ -118,6 +116,7 @@ const SUGGESTIONS = [
 })
 
 const LOGO_SIZE = 128
+const logoUri = 'https://cdn.microlink.io/logo/logo.svg'
 
 const IMAGE_PREVIEW_STYLE = [
   LOGO_SIZE * 0.8,
@@ -187,17 +186,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-        ...new Set(
-          []
-            .concat(
-              logo.palette,
-              logo.background_color,
-              logo.color,
-              logo.alternative_color
-            )
-            .filter(Boolean)
-        )
-      ]
+      ...new Set(
+        []
+          .concat(
+            logo.palette,
+            logo.background_color,
+            logo.color,
+            logo.alternative_color
+          )
+          .filter(Boolean)
+      )
+    ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -312,7 +311,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -334,26 +334,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  isInitialData,
   isLoading,
   onSubmit,
   query
 }) {
-  const [inputUrl, setInputUrl] = useState('')
   const [ClipboardComponent, toClipboard] = useClipboard()
+  const queryUrl = query?.url || ''
+  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
+    useUrlInput(queryUrl)
 
-  useEffect(() => {
-    setInputUrl(query.url || '')
-  }, [query])
-
-  const url = useMemo(() => {
-    const input = prependHttp(inputUrl)
-    return isUrl(input) ? input : data.url
-  }, [inputUrl, data])
-
-  const embedUrl = useMemo(() => getEmbedUrl(url), [url])
-
-  const snippetText = `curl -sL ${embedUrl}`
+  const embedUrl = useMemo(() => getEmbedUrl(data.url), [data.url])
+  const snippetText = toCurlSnippet(embedUrl)
 
   return (
     <Flex
@@ -411,8 +402,8 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
-            const url = prependHttp(inputUrl)
-            onSubmit(isUrl(url) ? url : undefined)
+            const rawUrl = inputUrl.trim()
+            onSubmit(validInputUrl, { queryUrl: rawUrl })
           }}
         >
           <Box>
@@ -422,11 +413,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', 128, 128]
               })}
               iconComponent={
-                <InputIcon
-                  src={data.logo?.url}
-                  provider={!isInitialData && 'microlink'}
-                  url={!isInitialData && url}
-                />
+                <InputIcon.Microlink src={data.logo?.url} query={iconQuery} />
               }
               id='screenshot-demo-url'
               placeholder='Site URL'
@@ -639,9 +626,9 @@ const Timings = () => {
     <Block
       id='timings'
       forwardedAs='section'
-      flexDirection='column'
       css={theme({
         px: 4,
+        flexDirection: 'column',
         pb: [5, 5, 6, 6],
         width: '100%',
         // https://www.gradientmagic.com/collection/radialstripes
@@ -970,13 +957,11 @@ const LogoPage = () => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
           const unifiedData = data || DEFAULT_DATA
-          const isInitialData = unifiedData.url === DEFAULT_DATA.url
 
           return (
             <>
               <LiveDemo
                 data={unifiedData}
-                isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={isMounted ? query : {}}

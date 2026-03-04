@@ -10,7 +10,6 @@ import SubheadBase from 'components/elements/Subhead'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
-import { colors, borders, theme } from 'theme'
 import React from 'react'
 
 const FEATURES = [
@@ -69,7 +68,8 @@ export const Head = () => {
     applicationCategory: ['DeveloperApplication', 'WebApplication'],
     url: 'https://microlink.io',
     image: 'https://cdn.microlink.io/logo/logo.png',
-    description: 'Microlink is a headless browser API that converts any URL into structured data, screenshots, previews and PDFs.',
+    description:
+      'Microlink is a headless browser API that converts any URL into structured data, screenshots, previews and PDFs.',
     softwareHelp: 'https://microlink.io/docs',
     offers: {
       '@type': 'Offer',
@@ -81,18 +81,13 @@ export const Head = () => {
       name: 'Microlink',
       url: 'https://microlink.io'
     },
-    sameAs: [
-      'https://github.com/microlinkhq',
-      'https://x.com/microlinkhq'
-    ]
+    sameAs: ['https://github.com/microlinkhq', 'https://x.com/microlinkhq']
   })
 
   return (
     <>
       <Meta noSuffix />
-      <script type='application/ld+json'>
-        {structuredData}
-      </script>
+      <script type='application/ld+json'>{structuredData}</script>
     </>
   )
 }
@@ -105,11 +100,10 @@ const HomePage = () => {
       <Hero>{({ color }) => <Overlay color={color} />}</Hero>
       <Analytics />
       <Features
-        css={theme({ px: 4 })}
         title={
-          <Subhead css={{ textAlign: 'left' }}>
+          <Subhead style={{ textAlign: 'left' }}>
             Production ready,{' '}
-            <span css={{ display: 'block', color: '#3e55ff' }}>
+            <span style={{ display: 'block', color: '#3e55ff' }}>
               browser as a service
             </span>
           </Subhead>
@@ -129,14 +123,7 @@ const HomePage = () => {
         stripeKey={stripeKey}
         apiEndpoint={paymentEndpoint}
       />
-      <Faqs
-        css={theme({
-          bg: 'pinky',
-          borderTop: `${borders[1]} ${colors.pinkest}`,
-          borderBottom: `${borders[1]} ${colors.pinkest}`,
-          pb: [5, 5, 6, 6]
-        })}
-      />
+      <Faqs />
     </Layout>
   )
 }

@@ -23,7 +23,7 @@ const ListItem = ({ type = 'yes', alignItems = 'center', ...props }) => {
       >
         <FeatherIcon
           icon={isYes ? CheckCircle : XCircle}
-          color={isYes ? 'close' : 'red7'}
+          color={isYes ? 'close' : 'gray'}
         />
       </Flex>
       <Text {...props} />

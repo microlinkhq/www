@@ -24,11 +24,16 @@
  */
 
 const { mkdir, readFile, writeFile } = require('fs/promises')
+const { styleText } = require('node:util')
+const optimo = require('optimo')
 const https = require('https')
 const http = require('http')
 const path = require('path')
 const fs = require('fs')
-const $ = require('tinyspawn')
+
+const git = require('../src/helpers/git')
+
+const red = str => styleText('red', str)
 
 // Track all downloaded assets for git staging
 const downloadedAssets = new Set()
@@ -44,6 +49,17 @@ const getExtension = url => {
   const pathname = new URL(url).pathname
   const ext = path.extname(pathname)
   return ext || '.png'
+}
+
+const isImageUrl = input => {
+  if (!isHttpUrl(input)) return false
+
+  try {
+    const pathname = new URL(input).pathname.toLowerCase()
+    return /\.(png|jpe?g|webp|gif|svg|avif|heic|jxl|bmp)$/.test(pathname)
+  } catch (_) {
+    return false
+  }
 }
 
 const downloadFile = (url, outputPath) => {
@@ -93,6 +109,13 @@ const generateFilename = (url, index) => {
   return `image-${index}${ext}`
 }
 
+const optimizeImage = async outputPath => {
+  await optimo.file(outputPath, {
+    resize: 'w1280'
+  })
+  console.log(`✓ Optimized ${path.basename(outputPath)}`)
+}
+
 const processFrontmatterImage = async (data, imagesFolder) => {
   if (data.image && isHttpUrl(data.image)) {
     const url = data.image
@@ -111,12 +134,13 @@ const processFrontmatterImage = async (data, imagesFolder) => {
 
     try {
       await downloadFile(url, outputPath)
+      await optimizeImage(outputPath)
       downloadedAssets.add(outputPath)
       urlToLocalPath.set(url, localPath)
       data.image = localPath
       return true
     } catch (err) {
-      console.error(`Failed to download frontmatter image: ${err.message}`)
+      console.error(red(`Failed to download frontmatter image: ${err.message}`))
       return false
     }
   }
@@ -153,6 +177,7 @@ const processMarkdownImages = async (content, imagesFolder) => {
 
     try {
       await downloadFile(url, outputPath)
+      await optimizeImage(outputPath)
       downloadedAssets.add(outputPath)
       urlToLocalPath.set(url, localPath)
       // Replace ALL occurrences of this URL
@@ -163,6 +188,80 @@ const processMarkdownImages = async (content, imagesFolder) => {
   }
 
   return content
+}
+
+const processJsxImageSources = async (content, imagesFolder) => {
+  const matches = []
+
+  // Match object-style props: src: 'https://...'
+  const objectSrcRegex = /src\s*:\s*['"]([^'"]+)['"]/g
+  let objectMatch
+  while ((objectMatch = objectSrcRegex.exec(content)) !== null) {
+    matches.push(objectMatch[1])
+  }
+
+  // Match JSX attribute style: src="https://..."
+  const attrSrcRegex = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
+  let attrMatch
+  while ((attrMatch = attrSrcRegex.exec(content)) !== null) {
+    matches.push(attrMatch[1])
+  }
+
+  // Only process unique external image URLs
+  const httpUrls = [...new Set(matches.filter(isImageUrl))]
+
+  let index = 1
+  for (const url of httpUrls) {
+    if (urlToLocalPath.has(url)) {
+      console.log(`Reusing cached JSX image: ${url}`)
+      content = content.replaceAll(url, urlToLocalPath.get(url))
+      continue
+    }
+
+    console.log(`Processing JSX image source: ${url}`)
+    const filename = generateFilename(url, index++)
+    const outputPath = path.join(imagesFolder, filename)
+    const localPath = `/images/${filename}`
+
+    try {
+      await downloadFile(url, outputPath)
+      await optimizeImage(outputPath)
+      downloadedAssets.add(outputPath)
+      urlToLocalPath.set(url, localPath)
+      content = content.replaceAll(url, localPath)
+    } catch (err) {
+      console.error(`Failed to download ${url}: ${err.message}`)
+    }
+  }
+
+  return content
+}
+
+const countExternalImageCandidates = content => {
+  let total = 0
+
+  // Markdown image syntax
+  const markdownRegex = /!\[([^\]]*)\]\(([^)]+)\)/g
+  let markdownMatch
+  while ((markdownMatch = markdownRegex.exec(content)) !== null) {
+    if (isHttpUrl(markdownMatch[2])) total++
+  }
+
+  // JSX object-style src: 'https://...'
+  const objectSrcRegex = /src\s*:\s*['"]([^'"]+)['"]/g
+  let objectMatch
+  while ((objectMatch = objectSrcRegex.exec(content)) !== null) {
+    if (isImageUrl(objectMatch[1])) total++
+  }
+
+  // JSX attribute style src="https://..."
+  const attrSrcRegex = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
+  let attrMatch
+  while ((attrMatch = attrSrcRegex.exec(content)) !== null) {
+    if (isImageUrl(attrMatch[1])) total++
+  }
+
+  return total
 }
 
 const parseFrontmatter = fileContent => {
@@ -212,6 +311,7 @@ const processFile = async filepath => {
 
   let modified = false
   let newContent = content
+  const externalCandidates = countExternalImageCandidates(content)
 
   // Process frontmatter image
   if (await processFrontmatterImage(data, imagesFolder, content)) {
@@ -220,8 +320,18 @@ const processFile = async filepath => {
 
   // Process markdown images
   const updatedContent = await processMarkdownImages(content, imagesFolder)
-  if (updatedContent !== content) {
+  if (updatedContent !== newContent) {
     newContent = updatedContent
+    modified = true
+  }
+
+  // Process external image URLs used inside JSX component props (e.g. SliderCompare src fields)
+  const updatedJsxContent = await processJsxImageSources(
+    newContent,
+    imagesFolder
+  )
+  if (updatedJsxContent !== newContent) {
+    newContent = updatedJsxContent
     modified = true
   }
 
@@ -231,6 +341,10 @@ const processFile = async filepath => {
       : newContent
     await writeFile(filepath, finalContent, 'utf-8')
     console.log(`✓ Updated ${filepath}`)
+  } else if (externalCandidates > 0) {
+    console.log(
+      `→ Found ${externalCandidates} external image reference(s), but none were migrated (download failures or inaccessible hosts)`
+    )
   } else {
     console.log('→ No external images found')
   }
@@ -245,10 +359,12 @@ const gitAddAssets = async () => {
 
   for (const assetPath of downloadedAssets) {
     try {
-      await $(`git add "${assetPath}"`)
+      const relativeAssetPath = path.relative(process.cwd(), assetPath)
+      await git.add(relativeAssetPath)
       console.log(`✓ Staged ${path.basename(assetPath)}`)
     } catch (err) {
-      console.error(`Failed to stage ${assetPath}: ${err.message}`)
+      const stderr = err?.stderr ? `\n${err.stderr}` : ''
+      console.error(`Failed to stage ${assetPath}: ${err.message}${stderr}`)
     }
   }
 }
@@ -265,7 +381,9 @@ const main = async () => {
     try {
       await processFile(filepath)
     } catch (err) {
-      console.error(`Error processing ${filepath}:`, err.message)
+      console.error()
+      console.error(red(`Error processing ${filepath}`))
+      console.error(red(err.message))
       process.exit(1)
     }
   }

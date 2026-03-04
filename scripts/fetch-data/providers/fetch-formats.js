@@ -57,7 +57,7 @@ const fn = async () => {
               type: isImage ? 'image' : 'url'
             }
           },
-          ttl: '28d',
+          ttl: 'max',
           filter: 'file',
           prerender: false,
           // force: true,

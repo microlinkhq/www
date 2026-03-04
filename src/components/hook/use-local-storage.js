@@ -1,17 +1,19 @@
 import { isSSR } from 'helpers/is-ssr'
 import { noop } from 'helpers/noop'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 const createUseLocalStorage = storage => (key, initialValue) => {
-  const [storedValue, setStoredValue] = useState(() => {
+  const [storedValue, setStoredValue] = useState(initialValue)
+
+  useEffect(() => {
     try {
       const item = storage.getItem(key)
-      return item ? JSON.parse(item) : initialValue
+      if (item == null) return
+      setStoredValue(JSON.parse(item))
     } catch (error) {
       console.log(error)
-      return initialValue
     }
-  })
+  }, [key, storage])
 
   const setValue = useCallback(
     value => {

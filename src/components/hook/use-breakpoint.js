@@ -13,14 +13,11 @@ const calculateBreakpoint = width => {
 }
 
 export function useBreakpoint () {
-  const [breakpoint, setBreakpoint] = useState(() => {
-    if (typeof window === 'undefined') {
-      return rawBreakpoints.length - 1
-    }
-    return calculateBreakpoint(window.innerWidth)
-  })
+  const [breakpoint, setBreakpoint] = useState(rawBreakpoints.length - 1)
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+
     const queries = rawBreakpoints.map(bp =>
       window.matchMedia(`(max-width: ${bp - 1}px)`)
     )

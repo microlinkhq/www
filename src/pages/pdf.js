@@ -2,12 +2,12 @@ import { borders, breakpoints, layout, colors, theme, fonts } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
 import React, { useMemo, useState, useEffect } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
-import isUrl from 'is-url-http/lightweight'
+import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
+import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
-import prependHttp from 'prepend-http'
 import pickBy from 'lodash/pickBy'
 import get from 'dlv'
 import { Book, Minimize } from 'react-feather'
@@ -143,7 +143,6 @@ const PDFPlaceholder = props => {
 
 const LiveDemo = React.memo(function LiveDemo ({
   data,
-  isInitialData,
   isLoading,
   onSubmit,
   query
@@ -152,33 +151,42 @@ const LiveDemo = React.memo(function LiveDemo ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
   const dataPdfUrl = get(data, 'pdf.url')
+  const dataUrl = get(data, 'url')
 
   const cardBase = !isMounted || size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
 
-  const [inputFormat, setinputFormat] = useState('')
-  const [inputUrl, setInputUrl] = useState('')
-  const [inputMargin, setinputMargin] = useState('')
+  const [inputFormat, setInputFormat] = useState('')
+  const [inputMargin, setInputMargin] = useState('')
+
+  const queryUrl = query?.url || ''
+  const queryFormat = get(query, 'format') || ''
+  const queryMargin = get(query, 'margin') || ''
+  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
+    useUrlInput(queryUrl)
 
   useEffect(() => {
-    setinputFormat(get(query, 'format') || '')
-    setInputUrl(query.url || '')
-    setinputMargin(get(query, 'margin') || '')
-  }, [query])
+    if (!queryUrl) return
+    setInputFormat(queryFormat)
+    setInputMargin(queryMargin)
+  }, [queryUrl, queryFormat, queryMargin])
 
-  const values = useMemo(() => {
-    const preprendUrl = prependHttp(inputUrl)
+  const values = useMemo(
+    () =>
+      pickBy({
+        url: validInputUrl,
+        margin: inputMargin,
+        format: inputFormat
+      }),
+    [validInputUrl, inputMargin, inputFormat]
+  )
 
-    return pickBy({
-      url: isUrl(preprendUrl) ? preprendUrl : undefined,
-      margin: inputMargin,
-      format: inputFormat
-    })
-  }, [inputUrl, inputMargin, inputFormat])
-
-  const embedUrl = useMemo(() => getEmbedUrl(values.url), [values])
-  const snippetText = `curl -sL ${embedUrl}`
+  const embedUrl = useMemo(
+    () => (dataUrl ? getEmbedUrl(dataUrl) : ''),
+    [dataUrl]
+  )
+  const snippetText = toCurlSnippetOrEmpty(embedUrl)
 
   return (
     <Flex
@@ -228,8 +236,9 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
+            const rawUrl = inputUrl.trim()
             const { url, ...opts } = values
-            return onSubmit(url, opts)
+            return onSubmit(url, { ...opts, queryUrl: rawUrl })
           }}
         >
           <Box css={theme({ mb: [3, 3, 0, 0] })}>
@@ -238,13 +247,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 fontSize: 2,
                 width: ['100%', '100%', '102px', '102px']
               })}
-              iconComponent={
-                <InputIcon
-                  src={data?.logo?.url}
-                  provider={!isInitialData && 'microlink'}
-                  url={!isInitialData && values.url}
-                />
-              }
+              iconComponent={<InputIcon query={iconQuery} />}
               id='pdf-demo-url'
               placeholder='Visit URL'
               suggestions={SUGGESTIONS.map(
@@ -267,7 +270,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', '82px', '82px']
               })}
               value={inputMargin}
-              onChange={event => setinputMargin(event.target.value)}
+              onChange={event => setInputMargin(event.target.value)}
               iconComponent={
                 <FeatherIcon
                   icon={Minimize}
@@ -293,7 +296,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 width: ['100%', '100%', '84px', '84px']
               })}
               value={inputFormat}
-              onChange={event => setinputFormat(event.target.value)}
+              onChange={event => setInputFormat(event.target.value)}
               iconComponent={
                 <FeatherIcon icon={Book} color='black50' size={[0, 0, 1, 1]} />
               }
@@ -321,7 +324,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         <Choose.When condition={!!dataPdfUrl}>
           <Flex css={{ flexDirection: 'column', alignItems: 'center' }}>
             <Iframe
-              maxWidth={layout.normal}
+              key={dataPdfUrl}
               width={cardWidth}
               height={cardHeight}
               src={`https://docs.google.com/viewer?url=${dataPdfUrl}&embedded=true`}
@@ -785,6 +788,9 @@ const ProductInformation = () => {
   )
 }
 
+const PDF_MQL_OPTS = { pdf: true }
+const noCacheFn = () => undefined
+
 export const Head = () => (
   <Meta
     title='Automated Website PDF Conversion'
@@ -829,17 +835,15 @@ const PdfPage = () => {
 
   return (
     <Layout>
-      <FetchProvider mqlOpts={{ pdf: true }}>
+      <FetchProvider mqlOpts={PDF_MQL_OPTS} fromCache={noCacheFn}>
         {({ status, doFetch, data }) => {
           const isLoading =
             (hasQuery && status === 'initial') || status === 'fetching'
-          const isInitialData = data === null
 
           return (
             <>
               <LiveDemo
                 data={data}
-                isInitialData={isInitialData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
                 query={isMounted ? query : {}}

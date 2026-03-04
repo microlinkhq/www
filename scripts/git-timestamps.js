@@ -4,7 +4,16 @@ const { writeFile } = require('node:fs/promises')
 const path = require('node:path')
 const $ = require('tinyspawn')
 
-const OUTPUT_FILE = path.join(process.cwd(), 'data', 'git-timestamps.json')
+const MODIFIED_OUTPUT_FILE = path.join(
+  process.cwd(),
+  'data',
+  'git-timestamps-modified.json'
+)
+const CREATED_OUTPUT_FILE = path.join(
+  process.cwd(),
+  'data',
+  'git-timestamps-created.json'
+)
 
 const INCLUDED_PREFIXES = ['src/content/', 'src/pages/']
 
@@ -16,7 +25,8 @@ const buildTimestamps = async () => {
     'git -c core.quotePath=false log --reverse --format=%cI --name-only'
   )
 
-  const timestamps = Object.create(null)
+  const modifiedTimestamps = Object.create(null)
+  const createdTimestamps = Object.create(null)
   let currentTimestamp = null
 
   for (const rawLine of stdout.split('\n')) {
@@ -32,23 +42,38 @@ const buildTimestamps = async () => {
     }
 
     if (currentTimestamp && isIncludedPath(line)) {
-      timestamps[line] = currentTimestamp
+      if (!createdTimestamps[line]) {
+        createdTimestamps[line] = currentTimestamp
+      }
+
+      modifiedTimestamps[line] = currentTimestamp
     }
   }
 
-  const orderedTimestamps = Object.keys(timestamps)
-    .sort()
-    .reduce((accumulator, key) => {
-      accumulator[key] = timestamps[key]
-      return accumulator
-    }, {})
+  const orderTimestamps = timestamps =>
+    Object.keys(timestamps)
+      .sort()
+      .reduce((accumulator, key) => {
+        accumulator[key] = timestamps[key]
+        return accumulator
+      }, {})
+
+  const orderedModifiedTimestamps = orderTimestamps(modifiedTimestamps)
+  const orderedCreatedTimestamps = orderTimestamps(createdTimestamps)
 
   await writeFile(
-    OUTPUT_FILE,
-    `${JSON.stringify(orderedTimestamps, null, 2)}\n`
+    MODIFIED_OUTPUT_FILE,
+    `${JSON.stringify(orderedModifiedTimestamps, null, 2)}\n`
   )
 
-  await $('git add data/git-timestamps.json')
+  await writeFile(
+    CREATED_OUTPUT_FILE,
+    `${JSON.stringify(orderedCreatedTimestamps, null, 2)}\n`
+  )
+
+  await $(
+    'git add data/git-timestamps-modified.json data/git-timestamps-created.json'
+  )
 }
 
 buildTimestamps().catch(error => {
