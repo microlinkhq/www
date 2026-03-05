@@ -48,9 +48,9 @@ storiesOf('Elements', module).add('Terminal', () => (
     </Terminal>
 
     <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
-      {'<Terminal isDark />'}
+      {"<Terminal title='microlink' />"}
     </Text>
-    <Terminal css={theme({ mb: 4 })} title='microlink' isDark>
+    <Terminal css={theme({ mb: 4 })} title='microlink'>
       {cmd}
     </Terminal>
 

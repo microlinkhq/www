@@ -52,7 +52,6 @@ const StatusPage = () => {
         return (
           <Layout
             onClick={toggleTheme}
-            isDark={theme === 'dark'}
             style={{ background: bg }}
             component={Flex}
             css={{ justifyContent: 'center', alignItems: 'center' }}

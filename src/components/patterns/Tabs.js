@@ -7,9 +7,8 @@ import Text from '../elements/Text'
 import Flex from '../elements/Flex'
 import Box from '../elements/Box'
 
-const getColor = ({ $active: isActive, isDark }) => {
-  const id = isDark ? 'white' : 'black'
-  return cx(isActive ? id : `${id}50`)
+const getColor = ({ $active: isActive }) => {
+  return cx(isActive ? 'black' : 'black50')
 }
 
 const StyledTab = styled(Box)`
