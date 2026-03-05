@@ -13,12 +13,10 @@ import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import HeadingBase from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
 
 import Content from '../content/fragments/enterprise.md'
 
 const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
 
 const Caption = withTitle(CaptionBase)
 
