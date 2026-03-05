@@ -1,6 +1,5 @@
 import ClusterMonitor from 'components/patterns/ClusterMonitor/ClusterMonitor'
 import Layout from 'components/patterns/Layout'
-import { useTheme } from 'components/hook/use-theme'
 import { useQueryState } from 'components/hook/use-query-state'
 import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
@@ -12,11 +11,6 @@ import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
 import Text from 'components/elements/Text'
-
-const THEMES = {
-  light: { color: 'black', bg: 'white' },
-  dark: { color: 'white', bg: 'black' }
-}
 
 const Monospace = props => (
   <Text
@@ -40,19 +34,15 @@ export const Head = () => (
 )
 
 const StatusPage = () => {
-  const [{ theme, color, bg }, setTheme] = useTheme(THEMES, 'light')
   const [{ cluster }] = useQueryState()
 
   const endpoint = new URL(cluster || '', 'https://k8s.microlink.io').toString()
-  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light')
 
   return (
     <ClusterMonitor endpoint={endpoint}>
       {({ isLoading, resume, info }) => {
         return (
           <Layout
-            onClick={toggleTheme}
-            style={{ background: bg }}
             component={Flex}
             css={{ justifyContent: 'center', alignItems: 'center' }}
           >
@@ -72,8 +62,7 @@ const StatusPage = () => {
                         fontFamily: 'mono',
                         lineHeight: 0,
                         fontSize: 4,
-                        pt: [2, null, 3],
-                        color
+                        pt: [2, null, 3]
                       })}
                     >
                       Please wait
@@ -82,13 +71,9 @@ const StatusPage = () => {
                   </Flex>
                 </Choose.When>
                 <Choose.Otherwise>
-                  <Monospace css={themeProp({ color })}>
-                    $ watch curl -sL {endpoint}
-                  </Monospace>
-                  <Monospace css={themeProp({ color })}>
-                    {`\n${resume}`}
-                  </Monospace>
-                  <Monospace css={themeProp({ color, fontSize: [0, null, 1] })}>
+                  <Monospace>$ watch curl -sL {endpoint}</Monospace>
+                  <Monospace>{`\n${resume}`}</Monospace>
+                  <Monospace css={themeProp({ fontSize: [0, null, 1] })}>
                     {`\n${info}`}
                   </Monospace>
                 </Choose.Otherwise>
