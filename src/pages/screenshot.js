@@ -53,49 +53,49 @@ import { findDemoLinkById } from 'helpers/demo-links'
 
 const FEATURES = [
   {
-    title: 'Enterprise-Grade Reliability',
+    title: 'Enterprise-Grade Screenshot Service',
     description:
-      'Production-ready screenshot generation at scale. Handle millions of captures with 99.9% uptime SLA and guaranteed performance for business-critical workflows.'
+      'Production-ready screenshot API service built for scale. Handle millions of web captures with 99.9% uptime SLA and guaranteed performance for business-critical workflows.'
   },
   {
-    title: 'Free to Start',
+    title: 'Free Screenshot API',
     description:
-      'Begin capturing screenshots immediately. No setup fees, pay-as-you-grow pricing that scales with your capture needs.'
+      'Start using the free website screenshot API immediately. No setup fees, pay-as-you-grow pricing that scales with your screen capture needs.'
   },
   {
     title: 'Global CDN Network',
     description:
-      'Distributed across 240+ edge locations powered by Cloudflare. Lightning-fast screenshot generation from anywhere worldwide.'
+      'Web screenshot service distributed across 240+ edge locations powered by Cloudflare. Lightning-fast site screenshot delivery from anywhere worldwide.'
   },
   {
-    title: 'Developer-First API',
+    title: 'Developer-First URL Screenshot API',
     description:
-      'RESTful API designed for developers. Language-agnostic integration with comprehensive SDKs and interactive documentation.'
+      'RESTful screenshot API designed for developers. Language-agnostic integration with comprehensive SDKs to capture any URL as an image.'
   },
   {
-    title: 'Device & Browser Control',
+    title: 'Browser Screenshot Control',
     description:
-      'Full device emulation and browser automation. Capture screenshots exactly as users see them across any device, browser, or interaction.'
+      'Full browser screenshot API with device emulation. Capture screenshots exactly as users see them across any device, viewport, or interaction.'
   },
   {
-    title: 'Advanced Customization',
+    title: 'HTML Screenshot & Customization',
     description:
-      'Complete control over screenshots. Custom CSS injection, JavaScript execution, overlays, and precise element targeting for perfect captures.'
+      'Complete HTML screenshot API control. Custom CSS injection, JavaScript execution, overlays, and precise element targeting for pixel-perfect screen captures.'
   },
   {
-    title: 'Real-Time Updates',
+    title: 'Always-Fresh Web Snapshots',
     description:
-      'Smart caching with automatic refresh. Stay current with website changes while maintaining optimal performance.'
+      'Smart caching with automatic refresh keeps your URL snapshots current. Stay up to date with website changes while maintaining optimal screenshot service performance.'
   },
   {
     title: 'Multiple Output Formats',
     description:
-      'Flexible file formats including WebP optimization. Full-page captures, custom viewports, and high-quality image exports.'
+      'Flexible website capture API formats including WebP optimization. Full-page captures, custom viewports, and high-quality image exports for any use case.'
   },
   {
     title: 'Zero-Config Integration',
     description:
-      'Interactive documentation with live code examples. Get started in minutes with copy-paste integration snippets and embed-ready code.'
+      'Interactive documentation with live code examples. Get started with our web API screenshot integration in minutes with copy-paste snippets and embed-ready code.'
   }
 ]
 
@@ -226,9 +226,10 @@ const Screenshot = ({ data, style }) => {
             isLoading
               ? imageStyle
               : {
-                  ...imageStyle,
-                  filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-                }}
+                ...imageStyle,
+                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+              }
+          }
         />
       </Box>
     </Link>
@@ -284,21 +285,32 @@ const LiveDemo = React.memo(function LiveDemo ({
   return (
     <Flex
       as='section'
-      css={theme({ flexDirection: 'column', alignItems: 'center' })}
+      css={theme({
+        flexDirection: 'column',
+        alignItems: 'center',
+        pt: [3, 3, 1, 1]
+      })}
     >
-      <Heading css={theme({ px: [4, 5, 5, 5], maxWidth: layout.large })}>
-        Pixel-perfect <br /> website screenshots
+      <Heading
+        css={theme({
+          px: [4, 5, 5, 5],
+          maxWidth: layout.large,
+          fontSize: [3, 4, 4, 5]
+        })}
+      >
+        Website screenshot API <br /> for developers
       </Heading>
       <Caption
         forwardedAs='h2'
         css={theme({
           pt: [3, 3, 4, 4],
           px: 4,
-          maxWidth: layout.small
+          maxWidth: layout.large
         })}
       >
-        Transform any website into high-quality screenshots instantly. Full
-        browser control, device emulation, and professional visual output.
+        The web screenshot service that turns any URL into a pixel-perfect
+        image. Capture site screenshots with full browser control, device
+        emulation, and professional output.
       </Caption>
       <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
         <ArrowLink
@@ -476,7 +488,7 @@ const Timings = () => {
       <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
         Send the URL{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
-          We do the rest
+          Get a screenshot back
         </span>
       </Subhead>
     </Flex>
@@ -650,7 +662,7 @@ const Resume = () => (
       pb: [5, 5, 6, 6]
     })}
   >
-    <Subhead variant='gradient'>Instant Visual Documentation</Subhead>
+    <Subhead variant='gradient'>Website capture API for every use case</Subhead>
     <Caption
       css={theme({
         pt: [3, 3, 4, 4],
@@ -658,10 +670,10 @@ const Resume = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      <b>Microlink Screenshot</b> delivers enterprise-grade visual capture
-      through a developer-friendly API. Transform any website into high-quality
-      screenshots automatically. Perfect for documentation, monitoring,
-      archiving, and visual content creation.
+      <b>Microlink screenshot API</b> delivers enterprise-grade screen capture
+      through a developer-friendly web API. Automatically take screenshots of
+      any website for documentation, monitoring, archiving, and visual content
+      creation.
     </Caption>
 
     <Block
@@ -671,7 +683,7 @@ const Resume = () => (
             px: [4, 0, 0, 0],
             width: ['100%', 6, 7, 8]
           })}
-          alt='Always fresh'
+          alt='Always-fresh web snapshots from the screenshot API'
           src='https://cdn.microlink.io/illustrations/genius-idea.svg'
         />
       }
@@ -690,12 +702,13 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Always fresh
+            Always-fresh web snapshots
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Consecutive requests will be cached on the edge, respecting{' '}
+            Every URL snapshot is cached on the edge, respecting{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
-            responses doesn’t affect your plan.
+            screenshot responses doesn’t affect your plan, keeping your web
+            snapshots fast and cost-effective.
           </Text>
         </Flex>
       }
@@ -718,13 +731,13 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Complete Browser Control
+            Browser screenshot API with full control
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Full browser automation and device emulation. Capture screenshots
-            exactly as users experience them with custom viewports,
-            interactions, and responsive design testing across all devices and
-            screen sizes.
+            Full browser automation and device emulation for automated website
+            screenshots. Our site screenshot API captures pages exactly as users
+            experience them with custom viewports, interactions, and responsive
+            design testing across all devices and screen sizes.
           </Text>
         </Flex>
       }
@@ -734,7 +747,7 @@ const Resume = () => (
             px: [4, 0, 0, 0],
             width: ['100%', 6, 7, 8]
           })}
-          alt='Complete Browser Control'
+          alt='Browser screenshot API with full device control'
           src='https://cdn.microlink.io/illustrations/robots.svg'
         />
       }
@@ -747,7 +760,7 @@ const Resume = () => (
             px: [4, 0, 0, 0],
             width: ['100%', 6, 7, 8]
           })}
-          alt='Professional Visual Output'
+          alt='Professional screen capture and website screenshot output'
           src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
         />
       }
@@ -766,15 +779,16 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Professional Visual Output
+            Professional screen capture output
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Create stunning visual compositions with{' '}
             <Link href='/docs/api/parameters/screenshot/overlay'>
               overlay effects
             </Link>
-            , custom backgrounds, and professional presentation. Perfect for
-            marketing materials, documentation, and branded content creation.
+            , custom backgrounds, and professional presentation. The best
+            website screenshot tool for marketing materials, documentation, and
+            branded content creation.
           </Text>
         </Flex>
       }
@@ -782,11 +796,100 @@ const Resume = () => (
   </Container>
 )
 
+const USE_CASES = [
+  {
+    title: 'Automated Website Screenshots',
+    description:
+      'Automate website screenshots at scale. Set up scheduled captures to automatically take screenshots of any website for monitoring, archiving, or reporting workflows.'
+  },
+  {
+    title: 'Programmatic Web Page Capture',
+    description:
+      'Programmatically take screenshots of web pages from your code. Integrate the URL screenshot API into CI/CD pipelines, testing suites, or backend services with a single HTTP call.'
+  },
+  {
+    title: 'Screenshot URL Tool for Teams',
+    description:
+      'Give your team a reliable screenshot URL tool. Generate shareable web snapshots and URL snapshots for design reviews, bug reports, and stakeholder presentations.'
+  },
+  {
+    title: 'Automated Screen Capture for Websites',
+    description:
+      'Build automated screen capture workflows for any website. Monitor visual changes, detect regressions, and create automated screenshots of web pages for quality assurance.'
+  },
+  {
+    title: 'Web Snapshot & Archiving',
+    description:
+      'Create web snapshots and URL snapshots for compliance, legal, or archival purposes. Capture point-in-time website states with full-page or element-level precision.'
+  },
+  {
+    title: 'Social Media & OG Image Generation',
+    description:
+      'Generate dynamic social media images and Open Graph previews. Use the website screenshot service to create branded visual content from any URL automatically.'
+  }
+]
+
+const UseCases = () => (
+  <Container
+    as='section'
+    id='use-cases'
+    css={theme({
+      alignItems: 'center',
+      bg: 'pinky',
+      maxWidth: '100%',
+      pb: [4, 4, 5, 5]
+    })}
+  >
+    <Subhead variant='gradient'>
+      Automate website screenshots
+      <br />
+      for any workflow
+    </Subhead>
+    <Caption
+      css={theme({
+        pt: [3, 3, 4, 4],
+        px: [4, 4, 4, 0],
+        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+      })}
+    >
+      From automated screen capture to programmatic web page snapshots, our
+      screenshot API service powers visual workflows across every industry.
+    </Caption>
+    <Flex
+      css={theme({
+        pt: [4, 4, 5, 5],
+        px: [4, 4, 0, 0],
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        maxWidth: layout.large
+      })}
+    >
+      {USE_CASES.map(({ title, description }) => (
+        <Box
+          key={title}
+          css={theme({
+            width: ['100%', '100%', '33.33%'],
+            px: [0, 0, 3],
+            pb: [4, 4, 5]
+          })}
+        >
+          <Text css={theme({ fontWeight: 'bold', fontSize: [2, 2, 3], pb: 2 })}>
+            {title}
+          </Text>
+          <Text css={theme({ color: 'black80', fontSize: [1, 1, 2] })}>
+            {description}
+          </Text>
+        </Box>
+      ))}
+    </Flex>
+  </Container>
+)
+
 const ProductInformation = () => {
   return (
     <Faq
-      title='Product Information'
-      caption='All the details you need to know about the product.'
+      title='Screenshot API FAQ'
+      caption='Everything you need to know about our website screenshot API and web screenshot service.'
       css={theme({
         pb: [5, 5, 6, 6],
         bg: 'pinky',
@@ -795,70 +898,133 @@ const ProductInformation = () => {
       })}
       questions={[
         {
-          question: 'What can I build with Screenshot API?',
+          question: 'What is a screenshot API and what can I build with it?',
           answer: (
             <>
               <div>
-                Build powerful visual applications and automation tools. Create
-                website monitoring systems, visual regression testing, content
-                archiving, social media automation, and documentation generators
-                that capture and process website visuals at scale.
+                A screenshot API is a web service that programmatically captures
+                screenshots of any URL or HTML page. Microlink's website
+                screenshot API lets you build visual monitoring systems,
+                automated screen capture workflows, visual regression testing,
+                content archiving, and documentation generators at scale.
               </div>
               <div>
                 Perfect for developers building visual testing suites, content
-                management platforms, marketing automation, and any application
-                that needs high-quality website captures.
+                management platforms, social media automation, and any
+                application that needs a reliable site screenshot API.
               </div>
             </>
           )
         },
         {
-          question: 'How reliable is screenshot generation?',
+          question: 'Is this a free screenshot API?',
           answer: (
             <>
               <div>
-                Enterprise-grade reliability with 99.9% uptime SLA. Our
-                optimized Chromium infrastructure handles complex websites,
-                dynamic content, and custom interactions with consistent
-                high-quality results.
+                Yes — Microlink offers a free website screenshot API tier to get
+                started immediately. The free screenshot API includes full
+                access to all features: browser screenshot capture, HTML
+                screenshot rendering, device emulation, and custom overlays. No
+                credit card required.
               </div>
               <div>
-                Every request runs in isolated browser instances for security
-                and reliability. Screenshots are processed server-side and
-                delivered via global CDN for optimal performance worldwide.
+                As your screenshot needs grow, pay-as-you-grow pricing ensures
+                you only pay for what you use. The website screenshot API free
+                tier is perfect for prototyping and small projects.
               </div>
             </>
           )
         },
         {
-          question: 'What about customization and control?',
+          question: 'What makes this the best screenshot API?',
           answer: (
             <>
               <div>
-                Complete control over capture output. Customize viewports,
-                device emulation, full-page vs. element screenshots, file
-                formats, overlays, and browser interactions. Inject custom CSS
-                and JavaScript for perfect captures.
+                Microlink stands out as the best screenshot API for its
+                combination of speed, reliability, and developer experience. Our
+                screenshot service delivers sub-second captures with a 99.9%
+                uptime SLA, distributed across 240+ edge locations worldwide.
               </div>
               <div>
-                Perfect for generating professional visuals for reports,
-                marketing materials, documentation, and quality assurance across
-                any device or screen size.
+                Unlike other screenshot API services, Microlink provides a
+                unified web screenshot API with built-in browser automation,
+                full device emulation, and advanced customization — all through
+                a single REST endpoint. It's the best website screenshot tool
+                for teams that need production-grade reliability.
               </div>
             </>
           )
         },
         {
-          question: 'How do I get started?',
+          question: 'How do I automate website screenshots?',
           answer: (
             <>
               <div>
-                Start free with our comprehensive API. Visit our{' '}
+                Automate website screenshots by calling our URL screenshot API
+                with any target page. The API lets you programmatically take
+                screenshots of web pages with a simple HTTP request — no
+                headless browser infrastructure to manage. Schedule automated
+                screenshots of web pages using cron jobs, CI/CD pipelines, or
+                event-driven webhooks.
+              </div>
+              <div>
+                Whether you need to automatically take screenshots of a website
+                on a schedule or capture an automatic screenshot of a website in
+                response to events, our web API screenshot endpoint handles it.
+              </div>
+            </>
+          )
+        },
+        {
+          question:
+            'Does the screenshot API support HTML rendering and browser control?',
+          answer: (
+            <>
+              <div>
+                Yes. The HTML screenshot API renders any markup with full
+                Chromium support, including CSS, web fonts, and JavaScript
+                execution. Our browser screenshot API provides complete control
+                over viewports, device emulation, scroll position, element
+                targeting, and wait conditions for dynamic content.
+              </div>
+              <div>
+                You can inject custom CSS and JavaScript before capture, making
+                it the most flexible screen capture API for complex pages that
+                require interaction or authentication.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'How reliable is the web screenshot service?',
+          answer: (
+            <>
+              <div>
+                Enterprise-grade reliability with 99.9% uptime SLA. Our website
+                screenshot service runs on optimized Chromium infrastructure
+                that handles complex websites, dynamic content, and custom
+                interactions with consistent high-quality results.
+              </div>
+              <div>
+                Every request runs in isolated browser instances for security.
+                Screenshots are delivered via global CDN for optimal web
+                screenshot service performance worldwide.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'How do I get started with the screenshot API?',
+          answer: (
+            <>
+              <div>
+                Start free with our screenshot API service. Visit our{' '}
                 <Link href='/docs/api/getting-started/overview'>
                   documentation
                 </Link>{' '}
                 for interactive examples, SDKs in multiple languages, and
-                ready-to-use code snippets. No infrastructure setup required.
+                ready-to-use code snippets. No infrastructure setup required —
+                just pass a URL and get a screenshot back.
               </div>
               <div>
                 Have questions? Contact us at{' '}
@@ -875,8 +1041,8 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    title='Pixel-Perfect Website Screenshots'
-    description='Transform any website into high-quality screenshots instantly. Full browser control, device emulation, and professional visual output for reports, documentation, and automation.'
+    title='Screenshot API — capture any website screenshot'
+    description='The best screenshot API and web screenshot service to capture any URL as an image. Free website screenshot API with browser control, device emulation, and HTML screenshot support.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='SoftwareApplication'
     structured={{
@@ -885,24 +1051,36 @@ export const Head = () => (
       '@id': 'https://microlink.io/screenshot',
       name: 'Microlink Screenshot API',
       description:
-        'Transform any website into high-quality screenshots with full browser control and device emulation.',
+        'Website screenshot API service to capture any site screenshot or web snapshot via a simple URL. Free screenshot API with browser automation and HTML rendering.',
       url: 'https://microlink.io/screenshot',
       applicationCategory: ['DeveloperApplication', 'API'],
       keywords: [
-        'screenshot API',
-        'website screenshot',
-        'webpage capture',
-        'browser automation',
-        'visual testing',
-        'web scraping screenshots',
-        'automated screenshots',
-        'website thumbnail'
+        'screenshot api',
+        'website screenshot api',
+        'web screenshot api',
+        'site screenshot api',
+        'screenshot service',
+        'browser screenshot api',
+        'url screenshot api',
+        'html screenshot api',
+        'free screenshot api',
+        'website capture api',
+        'screen capture api',
+        'web screenshot service',
+        'website screenshot service',
+        'screenshot api service',
+        'best screenshot api',
+        'automated website screenshots',
+        'web snapshot',
+        'url snapshot',
+        'screenshot url tool'
       ],
       about: [
         { '@type': 'Thing', name: 'Screenshot API' },
-        { '@type': 'Thing', name: 'Website Capture' },
-        { '@type': 'Thing', name: 'Visual Documentation' },
-        { '@type': 'Thing', name: 'Browser Automation' }
+        { '@type': 'Thing', name: 'Website Screenshot Service' },
+        { '@type': 'Thing', name: 'Website Capture API' },
+        { '@type': 'Thing', name: 'Web Screenshot Service' },
+        { '@type': 'Thing', name: 'Browser Screenshot API' }
       ]
     }}
   />
@@ -930,10 +1108,10 @@ const ScreenshotPage = () => {
               />
               <Timings />
               <Features
-                css={theme({ px: 4 })}
+                css={theme({ px: 4, pb: 6 })}
                 title={
                   <Subhead css={{ width: '100%', textAlign: 'left' }}>
-                    High performance,{' '}
+                    The best screenshot API,{' '}
                     <span
                       css={{
                         display: 'block',
@@ -949,13 +1127,18 @@ const ScreenshotPage = () => {
                 caption={
                   <>
                     No more servers to maintain, load balancers, or paying for
-                    capacity you don’t use — Microlink allows you spend more
-                    time building, less time configuring, easy integration via{' '}
-                    <Link href='/docs/api/getting-started/overview'>API</Link>.
+                    capacity you don’t use — our screenshot service lets you
+                    spend more time building, less time configuring, with easy
+                    integration via{' '}
+                    <Link href='/docs/api/getting-started/overview'>
+                      web screenshot API
+                    </Link>
+                    .
                   </>
                 }
                 features={FEATURES}
               />
+              <UseCases />
               <Resume />
               <ProductInformation />
             </>
