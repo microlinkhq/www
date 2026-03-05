@@ -27,7 +27,8 @@ import {
   TOOLBAR_MENU_ITEM_MEDIA_STYLES,
   TOOLBAR_MENU_ITEM_TITLE_STYLES,
   TOOLBAR_SECTION_DESCRIPTION_STYLES,
-  TOOLBAR_TOP_LEVEL_CAPS_STYLES
+  TOOLBAR_TOP_LEVEL_CAPS_STYLES,
+  getMenuItemMediaStyles
 } from './ToolbarStyles'
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
@@ -405,14 +406,7 @@ const ToolbarMobile = () => {
                               label={label}
                               logo={logo}
                               icon={Icon}
-                              iconCss={theme(
-                                label === 'Markdown'
-                                  ? {
-                                    ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-                                    top: 0
-                                  }
-                                  : TOOLBAR_MENU_ITEM_MEDIA_STYLES
-                              )}
+                              iconCss={theme(getMenuItemMediaStyles(label))}
                               imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
                             />
                           </MenuItemIcon>
