@@ -11,7 +11,15 @@ import { Grid as GridIcon } from 'components/icons/Grid'
 import { Files as FilesIcon } from 'components/icons/Files'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
-import { Layers } from 'react-feather'
+import {
+  Layers,
+  BarChart2,
+  Code,
+  Image,
+  Map,
+  Users,
+  Activity
+} from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
 import { PDF as PDFIcon } from 'components/icons/PDF'
@@ -22,7 +30,6 @@ import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
 import styled from 'styled-components'
-import { BarChart2, Code, Image, Map, Users, Activity } from 'react-feather'
 import NavLink from './NavLink'
 
 export const ToolbarNavLink = styled(NavLink)`

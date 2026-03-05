@@ -1,4 +1,4 @@
-/* global fetch, ResizeObserver */
+/* global fetch */
 
 import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
@@ -6,9 +6,7 @@ import {
   AlertTriangle,
   Camera,
   CheckCircle,
-  Clipboard,
   Download,
-  ExternalLink,
   Globe,
   ArrowRight,
   Code,
@@ -21,20 +19,16 @@ import {
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { keyframes } from 'styled-components'
-import get from 'dlv'
 import mql from '@microlink/mql'
 import JSZip from 'jszip'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
-import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
-import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
-import Label from 'components/elements/Label'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Spinner from 'components/elements/Spinner'
@@ -49,14 +43,36 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
-import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { withTitle } from 'helpers/hoc/with-title'
-import NerdStatsOverlay, {
-  NerdStatsToggle,
+import {
   extractNerdStats,
   buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
+
+import {
+  PanelSection,
+  SectionLabel,
+  OptionLabel,
+  GenerateButton,
+  CheckboxLabel,
+  PreviewCanvas,
+  FadeIn,
+  StepCard,
+  IconCircle,
+  UseCaseCard,
+  ToolLayout,
+  OptionsPanelOuter,
+  PreviewOuter,
+  PanelRibbonLayout,
+  StickyGenerateWrapper,
+  SegmentedControl,
+  createThumbnail,
+  PreviewDisplay,
+  FORMAT_OPTIONS,
+  LAYOUT_PIVOT,
+  MOBILE_BP
+} from 'components/pages/screenshot/shared'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -70,22 +86,10 @@ const DEVICES = {
   mobile: { width: 393, height: 852 }
 }
 
-const FORMAT_OPTIONS = [
-  { value: 'png', label: 'PNG' },
-  { value: 'jpeg', label: 'JPG' }
-]
-
 const SCREENSHOT_HISTORY_KEY = 'screenshot-history/bulk'
 const MAX_HISTORY_ITEMS = 50
 const MAX_URLS = 50
 const HISTORY_MAX_AGE_MS = 24 * 60 * 60 * 1000
-const THUMB_SIZE = 80
-const THUMB_QUALITY = 0.8
-
-const LAYOUT_PIVOT = 1200
-const MOBILE_BP = 768
-const MAX_SCREENSHOT_PREVIEW_HEIGHT = 750
-
 const DEVICE_OPTIONS = [
   { value: 'desktop', label: 'Desktop' },
   { value: 'tablet', label: 'Tablet' },
@@ -168,174 +172,7 @@ const REASON_TO_USE = [
   }
 ]
 
-/* ─── Styled helpers ───────────────────────────────────── */
-
-const PanelSection = styled(Box)`
-  ${theme({ pb: 3, mb: 3 })}
-  border-bottom: 1px solid ${colors.black05};
-`
-
-const SectionLabel = styled(Text)`
-  ${theme({
-    fontSize: 0,
-    fontWeight: 'bold',
-    color: 'black80',
-    pb: '12px',
-    fontFamily: 'sans'
-  })}
-`
-
-const OptionLabel = styled(Label)`
-  ${theme({
-    display: 'block',
-    pb: 1,
-    fontWeight: 'regular',
-    fontFamily: 'sans',
-    fontSize: 0,
-    color: 'black50'
-  })}
-`
-
-const SegmentedWrapper = styled(Flex)`
-  background: #eef1f5;
-  ${theme({ borderRadius: 2, p: '3px' })}
-`
-
-const SegmentedOption = styled(Box)
-  .withConfig({
-    shouldForwardProp: prop => !['$active'].includes(prop)
-  })
-  .attrs({ as: 'button', type: 'button' })`
-  ${theme({
-    px: 3,
-    py: '7px',
-    borderRadius: '4px',
-    border: 0,
-    cursor: 'pointer',
-    fontFamily: 'sans',
-    fontSize: 0,
-    fontWeight: 'regular',
-    flex: 1,
-    textAlign: 'center'
-  })}
-  background: ${({ $active }) => ($active ? 'white' : 'transparent')};
-  color: ${({ $active }) => ($active ? colors.black80 : colors.black50)};
-  box-shadow: ${({ $active }) =>
-    $active ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'};
-  transition: background ${transition.medium}, color ${transition.medium},
-    box-shadow ${transition.medium};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover {
-    color: ${colors.black80};
-  }
-
-  &:active {
-    background: ${({ $active }) => ($active ? 'white' : 'rgba(0, 0, 0, 0.03)')};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: -2px;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-`
-
-const GenerateButton = styled(Button)`
-  &&& {
-    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-    box-shadow: 0 4px 14px 0 rgba(236, 72, 153, 0.39);
-    color: white;
-    border: none;
-    width: 100%;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    justify-content: center;
-    transition: opacity ${transition.medium}, transform ${transition.short},
-      box-shadow ${transition.medium};
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
-
-    &:hover:not(:disabled) {
-      opacity: 0.92;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px 0 rgba(236, 72, 153, 0.45);
-      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-      color: white;
-    }
-
-    &:active:not(:disabled) {
-      transform: translateY(0);
-      box-shadow: 0 2px 8px 0 rgba(236, 72, 153, 0.3);
-    }
-
-    &:focus-visible {
-      outline: 2px solid ${colors.link};
-      outline-offset: 2px;
-    }
-
-    &:disabled {
-      opacity: 0.7;
-      cursor: wait;
-      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-      color: white;
-    }
-  }
-`
-
-const CheckboxLabel = styled(Flex).attrs({ as: 'label' })`
-  ${theme({
-    alignItems: 'center',
-    cursor: 'pointer',
-    fontFamily: 'sans',
-    py: 1
-  })}
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-
-  input[type='checkbox'] {
-    accent-color: ${colors.link};
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    min-height: 44px;
-
-    input[type='checkbox'] {
-      width: 20px;
-      height: 20px;
-    }
-  }
-`
-
-/* ─── Preview Animations ──────────────────────────────── */
-
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-`
-
-const shimmer = keyframes`
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-`
+/* ─── Preview Animations (bulk-specific) ────────────────── */
 
 const resultEnter = keyframes`
   from { opacity: 0; transform: translateY(10px); max-height: 0; }
@@ -349,49 +186,6 @@ const resultExit = keyframes`
 
 const VISIBLE_RESULTS = 8
 const RESULT_ANIM_MS = 280
-
-/* ─── Preview Styled Components ───────────────────────── */
-
-const PreviewCanvas = styled(Box)`
-  ${theme({
-    border: 1,
-    borderColor: 'black10',
-    borderRadius: 3,
-    overflow: 'hidden',
-    position: 'relative'
-  })}
-  background: #f1f5f9;
-`
-
-const ViewportCard = styled(Box)`
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 8px;
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-    0 8px 10px -6px rgb(0 0 0 / 0.04);
-  overflow: hidden;
-  width: 100%;
-  margin: 0 auto;
-`
-
-const SkeletonPulse = styled(Box)`
-  background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 40%, #e2e8f0 80%);
-  background-size: 200% 100%;
-  animation: ${shimmer} 1.8s ease-in-out infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    background: #e2e8f0;
-  }
-`
-
-const FadeIn = styled(Box)`
-  animation: ${fadeIn} 400ms cubic-bezier(0.4, 0, 0.2, 1) both;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-`
 
 const ResultItemBase = styled(Flex)`
   ${theme({ gap: 2, py: '4px', alignItems: 'center' })}
@@ -539,164 +333,7 @@ const AnimatedResultsList = ({ results }) => {
   )
 }
 
-const StepCard = styled(Flex)`
-  ${theme({
-    flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center',
-    p: 4,
-    flex: ['0 0 calc(50% - 12px)', '0 0 calc(50% - 12px)', 1, 1],
-    maxWidth: ['none', 'none', '240px', '240px']
-  })}
-`
-
-const IconCircle = styled(Flex)`
-  ${theme({
-    width: '56px',
-    height: '56px',
-    borderRadius: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    mb: 3
-  })}
-  background: linear-gradient(225deg, #FF057C22 0%, #32157522 100%);
-`
-
-const UseCaseCard = styled(Box)`
-  ${theme({
-    p: 4,
-    border: 1,
-    borderColor: 'black10',
-    borderRadius: 3,
-    bg: 'white'
-  })}
-  transition: box-shadow ${transition.medium}, transform ${transition.medium};
-  touch-action: manipulation;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-  }
-`
-
-const ActionButton = styled(Flex).attrs({ as: 'a' })`
-  ${theme({
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '6px',
-    py: '10px',
-    px: 3,
-    borderRadius: 2,
-    fontSize: 1,
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    flex: 1,
-    textAlign: 'center'
-  })}
-  text-decoration: none;
-  transition: background ${transition.medium}, box-shadow ${transition.medium},
-    transform ${transition.short};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-`
-
-/* ─── Responsive Layout Components ────────────────────── */
-
-const ToolLayout = styled(Box)`
-  display: grid;
-  grid-template-columns: 1fr;
-  ${theme({ gap: [3, 3, 4, 4] })}
-
-  @media (min-width: ${LAYOUT_PIVOT}px) {
-    grid-template-columns: 360px 1fr;
-    align-items: start;
-  }
-`
-
-const OptionsPanelOuter = styled(Box)`
-  width: 100%;
-  min-width: 0;
-
-  @media (min-width: ${LAYOUT_PIVOT}px) {
-    position: sticky;
-    top: ${space[3]};
-    min-height: 550px;
-  }
-`
-
-const PreviewOuter = styled(Box)`
-  width: 100%;
-  min-width: 0;
-
-  @media (min-width: ${LAYOUT_PIVOT}px) {
-    min-height: 550px;
-  }
-`
-
-const PanelRibbonLayout = styled(Flex)`
-  flex-direction: column;
-
-  @media (min-width: ${MOBILE_BP}px) and (max-width: ${LAYOUT_PIVOT - 1}px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: ${space[3]};
-    border-bottom: 1px solid ${colors.black05};
-    padding-bottom: ${space[3]};
-    margin-bottom: ${space[3]};
-
-    > * {
-      flex: 1 1 200px;
-    }
-
-    ${PanelSection} {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: ${space[1]};
-    }
-
-    ${SectionLabel} {
-      padding-bottom: 8px;
-    }
-  }
-`
-
-const StickyGenerateWrapper = styled(Box)`
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
-    padding-top: ${space[3]};
-    margin-left: -${space[3]};
-    margin-right: -${space[3]};
-    padding-left: ${space[3]};
-    padding-right: ${space[3]};
-    background: linear-gradient(to top, #f8fafc 80%, transparent);
-  }
-`
-
-/* ─── Screenshot History Styled Components ────────────── */
+/* ─── Screenshot History Styled Components (bulk-specific) ─ */
 
 const HISTORY_ROW_H = 61
 const HISTORY_VISIBLE_ROWS = 4
@@ -1035,49 +672,6 @@ const ProgressBarFill = styled(Box)`
     transition: none;
   }
 `
-
-/* ─── Segmented Control ───────────────────────────────── */
-
-const SegmentedControl = ({ options, value, onChange, name }) => {
-  const handleKeyDown = useCallback(
-    e => {
-      const currentIndex = options.findIndex(opt => opt.value === value)
-      let nextIndex
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault()
-        nextIndex = (currentIndex + 1) % options.length
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault()
-        nextIndex = (currentIndex - 1 + options.length) % options.length
-      } else {
-        return
-      }
-      onChange(options[nextIndex].value)
-    },
-    [options, value, onChange]
-  )
-
-  return (
-    <SegmentedWrapper role='radiogroup' aria-label={name}>
-      {options.map(opt => {
-        const isActive = value === opt.value
-        return (
-          <SegmentedOption
-            key={opt.value}
-            role='radio'
-            aria-checked={isActive}
-            tabIndex={isActive ? 0 : -1}
-            $active={isActive}
-            onClick={() => onChange(opt.value)}
-            onKeyDown={handleKeyDown}
-          >
-            {opt.label}
-          </SegmentedOption>
-        )
-      })}
-    </SegmentedWrapper>
-  )
-}
 
 /* ─── Options Panel ────────────────────────────────────── */
 
@@ -1474,492 +1068,6 @@ const OptionsPanel = ({
     </Box>
   )
 }
-
-/* ─── Preview Panel ────────────────────────────────────── */
-
-const downloadScreenshot = async (imageUrl, filename) => {
-  try {
-    const response = await fetch(imageUrl)
-    const blob = await response.blob()
-    const blobUrl = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = blobUrl
-    a.download = filename || 'screenshot.png'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(blobUrl)
-  } catch {
-    window.open(imageUrl, '_blank')
-  }
-}
-
-const PreviewDisplay = ({
-  data,
-  isLoading,
-  error,
-  onRetry,
-  url,
-  viewportWidth,
-  viewportHeight,
-  nerdStats,
-  mqlQuery,
-  responseData,
-  showNerdStats,
-  onToggleNerdStats
-}) => {
-  const [ClipboardComponent, toClipboard] = useClipboard()
-  const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
-  const [imagePainted, setImagePainted] = useState(false)
-  const prevImageUrlRef = useRef(null)
-  const scrollAreaRef = useRef(null)
-  const imageUrl = get(data, 'screenshot.url')
-
-  useEffect(() => {
-    if (showNerdStats && scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = 0
-    }
-  }, [showNerdStats])
-
-  const viewportCardRef = useRef(null)
-  const [actualWidth, setActualWidth] = useState(0)
-
-  useEffect(() => {
-    if (!viewportCardRef.current) return
-
-    const updateWidth = () => {
-      if (viewportCardRef.current) {
-        setActualWidth(viewportCardRef.current.offsetWidth - 32) // 32 px padding
-      }
-    }
-
-    updateWidth()
-
-    const resizeObserver = new ResizeObserver(updateWidth)
-    resizeObserver.observe(viewportCardRef.current)
-
-    return () => resizeObserver.disconnect()
-  }, [])
-
-  /* scale width to preview the screenshot with a better aspect ratio and quality */
-  const maxWidthScaled = (viewportWidth * 2) / 3
-  const maxWidth = maxWidthScaled > actualWidth ? actualWidth : maxWidthScaled
-
-  /* scale height proportional to the width lost */
-  const fractionLost = (viewportWidth - maxWidth) / viewportWidth
-  const maxHeightScaled = viewportHeight - viewportHeight * fractionLost
-  const maxHeight =
-    maxHeightScaled > MAX_SCREENSHOT_PREVIEW_HEIGHT
-      ? MAX_SCREENSHOT_PREVIEW_HEIGHT
-      : maxHeightScaled
-
-  const containerHeight = maxHeight + 32 // 32 px padding
-
-  const showSkeleton = isLoading || (!!imageUrl && !imagePainted)
-
-  useEffect(() => {
-    if (isLoading) {
-      setIsPreviewTooBig(false)
-      setImagePainted(false)
-    }
-  }, [isLoading])
-
-  useEffect(() => {
-    if (imageUrl && imageUrl !== prevImageUrlRef.current) {
-      prevImageUrlRef.current = imageUrl
-      setImagePainted(false)
-    }
-  }, [imageUrl])
-
-  return (
-    <PreviewCanvas ref={viewportCardRef}>
-      <Choose>
-        {/* ── Loading / waiting for image: skeleton until image is painted ─── */}
-        <Choose.When condition={showSkeleton}>
-          <FadeIn
-            key='loading'
-            css={theme({
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%'
-            })}
-          >
-            <Box
-              css={theme({
-                p: [3],
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative'
-              })}
-            >
-              {imageUrl && !isLoading && (
-                <img
-                  src={imageUrl}
-                  alt=''
-                  aria-hidden
-                  onLoad={() => setImagePainted(true)}
-                  style={{
-                    position: 'absolute',
-                    opacity: 0,
-                    pointerEvents: 'none',
-                    width: 0,
-                    height: 0
-                  }}
-                />
-              )}
-              <ViewportCard
-                style={{
-                  maxWidth: `${maxWidth}px`,
-                  maxHeight: `${maxHeight}px`
-                }}
-              >
-                <SkeletonPulse
-                  role='progressbar'
-                  aria-label={
-                    isLoading ? 'Loading screenshot' : 'Loading image'
-                  }
-                  style={{
-                    width: '100%',
-                    height: `${maxHeight}px`
-                  }}
-                />
-              </ViewportCard>
-            </Box>
-            {/* Action bar: loading state */}
-            <Flex
-              css={theme({
-                p: 3,
-                gap: 2,
-                borderTop: 1,
-                borderColor: 'black05',
-                bg: 'white',
-                justifyContent: 'center',
-                alignItems: 'center'
-              })}
-              aria-live='polite'
-              aria-label={isLoading ? 'Capturing screenshot' : 'Loading image'}
-            >
-              <Spinner width='20px' height='14px' />
-              <Text
-                css={theme({
-                  color: 'black50',
-                  fontSize: 1,
-                  fontFamily: 'sans'
-                })}
-              >
-                {isLoading ? (
-                  <>
-                    Capturing screenshot
-                    <DotSpinner />
-                  </>
-                ) : (
-                  <>
-                    Loading image
-                    <DotSpinner />
-                  </>
-                )}
-              </Text>
-            </Flex>
-          </FadeIn>
-        </Choose.When>
-
-        {/* ── Error state ────────────────────── */}
-        <Choose.When condition={!!error}>
-          <FadeIn
-            key='error'
-            css={theme({
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: ['380px', '380px', '520px'],
-              px: 4,
-              textAlign: 'center'
-            })}
-          >
-            <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429 ? (
-                <>
-                  You've reached your free daily limit.
-                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                    We allow 50 requests per day for free users.
-                  </Text>
-                </>
-              ) : (
-                error?.message || 'Something went wrong. Please try again.'
-              )}
-            </Text>
-            {error?.statusCode !== 429 && (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
-            )}
-          </FadeIn>
-        </Choose.When>
-
-        {/* ── Screenshot result (only after image has painted) ──────────────── */}
-        <Choose.When condition={!!imageUrl && imagePainted}>
-          <FadeIn
-            key='result'
-            css={theme({
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%'
-            })}
-          >
-            {/* Scrollable image area */}
-            <Box
-              ref={scrollAreaRef}
-              css={theme({
-                p: [3],
-                flex: 1,
-                overflowY: 'auto',
-                overflowX: 'hidden',
-                minHeight: `${containerHeight}px`,
-                maxHeight: ['60vh', '750px', '750px'],
-                WebkitOverflowScrolling: 'touch',
-                position: 'relative'
-              })}
-            >
-              {showNerdStats && nerdStats && (
-                <NerdStatsOverlay
-                  stats={nerdStats}
-                  mqlQuery={mqlQuery}
-                  responseData={responseData}
-                />
-              )}
-              {isPreviewTooBig ? (
-                <Flex
-                  css={theme({
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: '100%'
-                  })}
-                >
-                  <ViewportCard
-                    as='section'
-                    aria-live='polite'
-                    aria-label='Screenshot preview notice'
-                    style={{ maxWidth: `${maxWidth}px` }}
-                  >
-                    <Flex
-                      css={theme({
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        p: [4, 5],
-                        textAlign: 'center',
-                        bg: 'gray0'
-                      })}
-                    >
-                      <Box
-                        css={theme({
-                          width: '56px',
-                          height: '56px',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          mb: 3
-                        })}
-                        style={{
-                          background:
-                            'linear-gradient(225deg, #FF057C11 0%, #32157511 100%)'
-                        }}
-                      >
-                        <ExternalLink size={26} color={colors.link} />
-                      </Box>
-                      <Text
-                        role='status'
-                        css={theme({
-                          fontSize: 2,
-                          fontWeight: 'bold',
-                          color: 'black80',
-                          fontFamily: 'sans'
-                        })}
-                      >
-                        This screenshot is too large to preview here.
-                      </Text>
-                      <Text
-                        css={theme({
-                          pt: 2,
-                          fontSize: 1,
-                          color: 'black60',
-                          maxWidth: '420px',
-                          fontFamily: 'sans'
-                        })}
-                      >
-                        You can still download the full image or open it in a
-                        new browser tab using the options below.
-                      </Text>
-                    </Flex>
-                  </ViewportCard>
-                </Flex>
-              ) : (
-                <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
-                  <img
-                    alt={`Screenshot of ${url}`}
-                    src={imageUrl}
-                    loading='lazy'
-                    decoding='async'
-                    onError={() => setIsPreviewTooBig(true)}
-                    style={{
-                      width: '100%',
-                      maxWidth: '100%',
-                      display: 'block',
-                      objectFit: 'contain',
-                      imageRendering: '-webkit-optimize-contrast'
-                    }}
-                  />
-                </ViewportCard>
-              )}
-            </Box>
-
-            {/* Action buttons bar */}
-            <Flex
-              css={theme({
-                p: 3,
-                gap: 2,
-                borderTop: 1,
-                borderColor: 'black05',
-                bg: 'white'
-              })}
-            >
-              <ActionButton
-                role='button'
-                tabIndex={0}
-                onClick={e => {
-                  e.preventDefault()
-                  downloadScreenshot(imageUrl, `screenshot-${Date.now()}.png`)
-                }}
-                css={theme({
-                  bg: 'black',
-                  color: 'white',
-                  _hover: { bg: 'black80' }
-                })}
-              >
-                <Download size={15} />
-                <Caps css={theme({ fontSize: 0 })}>Download</Caps>
-              </ActionButton>
-
-              <ActionButton
-                as='button'
-                type='button'
-                onClick={() =>
-                  toClipboard({
-                    copy: imageUrl,
-                    text: Tooltip.TEXT.COPIED('URL')
-                  })
-                }
-                css={theme({
-                  bg: 'white',
-                  color: 'black80',
-                  border: 1,
-                  borderColor: 'black10',
-                  width: '100%',
-                  _hover: { bg: 'gray1', borderColor: 'black20' }
-                })}
-              >
-                <Clipboard size={15} />
-                <Caps css={theme({ fontSize: 0 })}>Copy URL</Caps>
-              </ActionButton>
-
-              <ActionButton
-                href={imageUrl}
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='Open screenshot in new tab'
-                css={theme({
-                  bg: 'white',
-                  color: 'black80',
-                  border: 1,
-                  borderColor: 'black10',
-                  _hover: { bg: 'gray1', borderColor: 'black20' }
-                })}
-              >
-                <ExternalLink size={15} />
-                <Caps css={theme({ fontSize: 0 })}>Open</Caps>
-              </ActionButton>
-              {nerdStats && (
-                <NerdStatsToggle
-                  active={showNerdStats}
-                  onClick={onToggleNerdStats}
-                />
-              )}
-            </Flex>
-          </FadeIn>
-          <ClipboardComponent />
-        </Choose.When>
-
-        {/* ── Empty state ────────────────────── */}
-        <Choose.Otherwise>
-          <FadeIn
-            key='empty'
-            css={theme({
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: ['380px', '380px', '520px'],
-              px: 4,
-              textAlign: 'center'
-            })}
-          >
-            <Box
-              css={theme({
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mb: 3
-              })}
-              style={{
-                background:
-                  'linear-gradient(225deg, #FF057C11 0%, #32157511 100%)'
-              }}
-            >
-              <Camera size={32} color={colors.black20} />
-            </Box>
-            <Text css={theme({ color: 'black40', fontSize: 2 })}>
-              Enter a URL and click Generate
-            </Text>
-            <Text css={theme({ color: 'black20', fontSize: 1, pt: 1 })}>
-              Your screenshot will appear here
-            </Text>
-          </FadeIn>
-        </Choose.Otherwise>
-      </Choose>
-    </PreviewCanvas>
-  )
-}
-
-/* ─── Screenshot Thumbnail Generator ──────────────────── */
-
-const createThumbnail = imageUrl =>
-  new Promise(resolve => {
-    const img = new window.Image()
-    img.crossOrigin = 'anonymous'
-    img.onload = () => {
-      try {
-        const canvas = document.createElement('canvas')
-        canvas.width = THUMB_SIZE
-        canvas.height = THUMB_SIZE
-        const ctx = canvas.getContext('2d')
-        /* crop from the top-left, square-fitted */
-        const srcSize = Math.min(img.width, img.height)
-        ctx.drawImage(img, 0, 0, srcSize, srcSize, 0, 0, THUMB_SIZE, THUMB_SIZE)
-        resolve(canvas.toDataURL('image/jpeg', THUMB_QUALITY))
-      } catch {
-        resolve(null)
-      }
-    }
-    img.onerror = () => resolve(null)
-    img.src = imageUrl
-  })
 
 /* ─── Screenshot History ──────────────────────────────── */
 
@@ -2730,7 +1838,9 @@ const ScreenshotTool = () => {
                 /\./g,
                 '-'
               )
-            } catch {}
+            } catch {
+              /* ignore invalid URLs */
+            }
             const ext = entry.settings?.type || 'png'
             nameCount[hostname] = (nameCount[hostname] || 0) + 1
             const suffix =
@@ -2841,7 +1951,9 @@ const ScreenshotTool = () => {
 
             const entryId = `${Date.now()}-${i}`
             const thumbnail = await createThumbnail(
-              response.data.screenshot.url
+              response.data.screenshot.url,
+              80,
+              0.8
             )
             setHistory(prev => {
               const items = Array.isArray(prev) ? prev : []
@@ -3005,7 +2117,11 @@ const ScreenshotTool = () => {
       })}
     >
       <ToolLayout>
-        <OptionsPanelOuter>
+        <OptionsPanelOuter
+          css={theme({
+            minHeight: ['auto', 'auto', 550, 550]
+          })}
+        >
           <OptionsPanel
             options={options}
             setOptions={setOptions}
@@ -3015,7 +2131,11 @@ const ScreenshotTool = () => {
           />
         </OptionsPanelOuter>
 
-        <PreviewOuter>
+        <PreviewOuter
+          css={theme({
+            minHeight: ['auto', 'auto', 550, 550]
+          })}
+        >
           {bulkState === 'history-preview' && previewData ? (
             <PreviewDisplay
               data={previewData}
