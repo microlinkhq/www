@@ -7,9 +7,20 @@ import { Bot as BotIcon } from 'components/icons/Bot'
 import { Award as AwardIcon } from 'components/icons/Award'
 import { Building2 as Building2Icon } from 'components/icons/Building2'
 import { Bug as BugIcon } from 'components/icons/Bug'
+import { Camera as CameraIcon } from 'components/icons/Camera'
+import { Grid as GridIcon } from 'components/icons/Grid'
 import { Files as FilesIcon } from 'components/icons/Files'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
+import {
+  Layers,
+  BarChart2,
+  Code,
+  Image,
+  Map,
+  Users,
+  Activity
+} from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
 import { PDF as PDFIcon } from 'components/icons/PDF'
@@ -20,7 +31,6 @@ import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
 import styled from 'styled-components'
-import { BarChart2, Code, Image, Map, Users, Activity } from 'react-feather'
 import NavLink from './NavLink'
 
 export const ToolbarNavLink = styled(NavLink)`
@@ -78,7 +88,8 @@ const createNavigationItem = ({
   externalIcon,
   description,
   icon,
-  logo
+  logo,
+  group
 }) => ({
   label,
   href,
@@ -87,7 +98,8 @@ const createNavigationItem = ({
   externalIcon,
   description,
   icon,
-  logo
+  logo,
+  group
 })
 
 export const PRICING_NAV_ITEM = createNavigationItem({
@@ -170,20 +182,43 @@ export const NAVIGATION_SECTIONS = [
   },
   {
     label: 'Tools',
-    description: 'Utilities to test and validate your metadata integrations.',
-    columns: 2,
+    description: 'Browse and use tools built on top of the Microlink API.',
+    columns: 3,
     items: [
+      createNavigationItem({
+        label: 'Website Screenshot',
+        href: '/tools/website-screenshot',
+        description: 'Capture any website as a screenshot',
+        icon: CameraIcon,
+        group: 'tools'
+      }),
+      createNavigationItem({
+        label: 'Bulk Screenshots',
+        href: '/tools/website-screenshot/bulk',
+        description: 'Capture multiple websites as screenshots in one go',
+        icon: Layers,
+        group: 'tools'
+      }),
       createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
         description: 'Preview social cards before publishing links',
-        icon: BugIcon
+        icon: BugIcon,
+        group: 'tools'
+      }),
+      createNavigationItem({
+        label: 'All Tools',
+        href: '/tools',
+        description: 'Explore all web automation and scraping tools',
+        icon: GridIcon,
+        group: 'tools'
       }),
       createNavigationItem({
         label: 'SDK',
         href: '/sdk',
-        description: 'Ship API integrations faster across platforms',
-        icon: TerminalIcon
+        description: 'Link Previews',
+        icon: TerminalIcon,
+        group: 'integrations'
       })
     ]
   },
