@@ -366,22 +366,24 @@ const Tool = ({
             borderColor: 'black05'
           })}
         >
-          {image.endsWith('.mp4') ? (
-            <Video
-              src={image}
-              title={title}
-              css={theme({ ...styles, transform })}
-            />
-          ) : (
-            <Image
-              src={image}
-              alt={title}
-              css={theme({
-                ...styles,
-                transform
-              })}
-            />
-          )}
+          {image.endsWith('.mp4')
+            ? (
+              <Video
+                src={image}
+                title={title}
+                css={theme({ ...styles, transform })}
+              />
+              )
+            : (
+              <Image
+                src={image}
+                alt={title}
+                css={theme({
+                  ...styles,
+                  transform
+                })}
+              />
+              )}
         </ImagePreview>
 
         <Flex
