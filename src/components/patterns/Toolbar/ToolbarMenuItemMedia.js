@@ -10,15 +10,17 @@ const ToolbarMenuItemMedia = ({
   iconCss,
   imageCss
 }) =>
-  logo ? (
-    <img src={logo} width={size} height={size} alt={label} style={imageCss} />
-  ) : (
-    <FeatherIcon
-      icon={Icon}
-      size={size}
-      className={iconClassName}
-      css={iconCss}
-    />
-  )
+  logo
+    ? (
+      <img src={logo} width={size} height={size} alt={label} style={imageCss} />
+      )
+    : (
+      <FeatherIcon
+        icon={Icon}
+        size={size}
+        className={iconClassName}
+        css={iconCss}
+      />
+      )
 
 export default ToolbarMenuItemMedia
