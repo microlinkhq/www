@@ -310,7 +310,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 step={1}
                 value={Number(options.duration) || DEFAULT_DURATION_S}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, duration: e.target.value }))}
+                  setOptions(prev => ({ ...prev, duration: e.target.value }))
+                }
                 aria-label='Animation duration in seconds'
                 style={{ width: '100%', accentColor: colors.link }}
               />
@@ -372,7 +373,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -397,7 +399,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -600,19 +603,17 @@ const PreviewDisplay = ({
                   fontFamily: 'sans'
                 })}
               >
-                {isLoading
-                  ? (
-                    <>
-                      Recording animated screenshot
-                      <DotSpinner />
-                    </>
-                    )
-                  : (
-                    <>
-                      Loading video
-                      <DotSpinner />
-                    </>
-                    )}
+                {isLoading ? (
+                  <>
+                    Recording animated screenshot
+                    <DotSpinner />
+                  </>
+                ) : (
+                  <>
+                    Loading video
+                    <DotSpinner />
+                  </>
+                )}
               </Text>
             </Flex>
           </FadeIn>
@@ -633,18 +634,16 @@ const PreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429
-                ? (
-                  <>
-                    You've reached your free daily limit.
-                    <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                      We allow 50 requests per day for free users.
-                    </Text>
-                  </>
-                  )
-                : (
-                    error?.message || 'Something went wrong. Please try again.'
-                  )}
+              {error?.statusCode === 429 ? (
+                <>
+                  You've reached your free daily limit.
+                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
+                    We allow 50 requests per day for free users.
+                  </Text>
+                </>
+              ) : (
+                error?.message || 'Something went wrong. Please try again.'
+              )}
             </Text>
             {error?.statusCode !== 429 && (
               <Button onClick={onRetry}>
@@ -741,7 +740,8 @@ const PreviewDisplay = ({
                   toClipboard({
                     copy: videoUrl,
                     text: Tooltip.TEXT.COPIED('URL')
-                  })}
+                  })
+                }
                 css={theme({
                   bg: 'white',
                   color: 'black80',
@@ -887,7 +887,7 @@ const AnimatedScreenshotTool = () => {
         )
 
         const mqlOpts = {
-          apiKey: localStorageData.apiKey,
+          apiKey: localStorageData?.apiKey,
           meta: false,
           screenshot: {
             animated: {
