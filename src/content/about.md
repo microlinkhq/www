@@ -5,7 +5,7 @@ description: Discover the story behind Microlink, from its Open Source roots wit
 
 import { Since } from 'components/markdown/Since'
 import { Image } from 'components/markdown/Image'
-import { KikoSignature } from 'components/icons/KikoSignature'
+import { Signature } from 'components/icons/Signature'
 import { Container } from 'helpers/hoc/with-container'
 
 <Image src='/images/microlink.jpeg' hoverSrc='/images/microlink-eyes.jpeg' width={500} />
@@ -20,8 +20,16 @@ Getting unified metadata is great, but it's not enough. We needed to get specifi
 
 All of this is running when you use [Microlink API](/docs/api/getting-started/overview), a service to automate any browser action.
 
+In January 2026, [Joseba](https://x.com/josebaseba) joined the team.
+
+Kiko and Joseba have known each other since 2012 — two friends who spent years following each other's work from a distance.
+
+In 2014, Joseba co-founded an ed-tech company where he served as CTO for a decade, eventually selling it in 2024. When the earn-out period ended, the decision to join Microlink was a no-brainer: a chance to build something meaningful again, alongside someone he trusted.
+
+Today, Kiko leads as CTO and Joseba as CPO. Both are here for the same reason — to take Microlink as far as it can go.
+
 <Container css={{ display: 'flex', justifyContent: 'center' }}>
-  <KikoSignature width={150} />
+  <Signature width={150} />
 </Container>
 
 ## What we pursue
