@@ -267,9 +267,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
         : null
       const frontmatter = isBlogPage
         ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+          ...node.frontmatter,
+          title: formatTitle(node.frontmatter.title)
+        }
         : node.frontmatter
       const templatePath = isSkillPage
         ? path.resolve('./src/templates/skill.js')
@@ -316,6 +316,13 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
 }
 
 const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
+  const isPreviewDeployment = process.env.VERCEL_ENV === 'preview'
+
+  if (isPreviewDeployment) {
+    reporter.info('Skipping markdown generation on preview deployment')
+    return
+  }
+
   const query = `
   {
     allMdx(filter: { fields: { slug: { regex: "//docs//" } } }) {
