@@ -9,6 +9,7 @@ const {
 const { createFilePath } = require('gatsby-source-filesystem')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
+const { default: pMap } = require('p-map')
 const { getDomain } = require('tldts')
 const mql = require('@microlink/mql')
 const path = require('node:path')
@@ -45,7 +46,8 @@ const githubUrl = (() => {
 
 const toMarkdown = async url => {
   const {
-    data: { markdown }
+    data: { markdown },
+    response
   } = await mql(url, {
     apiKey: process.env.MICROLINK_API_KEY,
     data: {
@@ -56,7 +58,8 @@ const toMarkdown = async url => {
     meta: false,
     force: true
   })
-  return markdown
+
+  return { markdown, duration: response.headers['x-response-time'] }
 }
 
 exports.createSchemaCustomization = ({ actions }) => {
@@ -341,15 +344,24 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
     process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
   const pages = result.data.allMdx.edges
 
-  for (const { node } of pages) {
-    const slug = node.fields.slug.replace(/\/+$/, '')
-    const url = new URL(slug, baseUrl).toString()
-    const markdown = await toMarkdown(url)
-    const relative = `${slug.replace(/^\/+/, '')}.md`
-    const outputPath = path.join(process.cwd(), 'public', relative)
-    mkdirSync(path.dirname(outputPath), { recursive: true })
-    writeFileSync(outputPath, markdown || '')
-  }
+  const startTime = Date.now()
+  await pMap(
+    pages,
+    async ({ node }) => {
+      const slug = node.fields.slug.replace(/\/+$/, '')
+      const url = new URL(slug, baseUrl).toString()
+      const { markdown, duration } = await toMarkdown(url)
+      reporter.info(`Generating markdown for ${url} in ${duration}`)
+      const relative = `${slug.replace(/^\/+/, '')}.md`
+      const outputPath = path.join(process.cwd(), 'public', relative)
+      mkdirSync(path.dirname(outputPath), { recursive: true })
+      writeFileSync(outputPath, markdown || '')
+    },
+    { concurrency: 4 }
+  )
+  const duration = Date.now() - startTime
 
-  reporter.info(`Generated ${pages.length} docs markdown files`)
+  reporter.info(
+    `Generated ${pages.length} docs markdown files in ${duration}ms`
+  )
 }

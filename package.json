@@ -151,6 +151,7 @@
     "lodash": "~4.17.23",
     "microsoft-capitalize": "~1.0.6",
     "normalize.css": "~8.0.1",
+    "p-map": "~7.0.4",
     "path-browserify": "~1.0.1",
     "polished": "~4.3.1",
     "postcss": "~8.5.6",
