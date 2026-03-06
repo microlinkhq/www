@@ -1,8 +1,12 @@
-import { layout, colors, theme } from 'theme'
+import { layout, colors, theme, transition } from 'theme'
 import { issueUrl } from 'helpers/issue-url'
 import FeatherIcon from 'components/icons/Feather'
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 
+import IntersectionObserver from '../../elements/IntersectionObserver'
+import Healthcheck from '../Healthcheck/Healthcheck'
+
+import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Caps from 'components/elements/Caps'
 import Box from 'components/elements/Box'
@@ -11,31 +15,32 @@ import Flex from 'components/elements/Flex'
 import Input from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
-import { Mail } from 'react-feather'
+import Dot from 'components/elements/Dot/Dot'
+import { ChevronDown, Mail } from 'react-feather'
+import styled from 'styled-components'
 
 const FOOTER_COLUMNS = [
   {
-    title: 'Product',
+    title: 'Products',
     links: [
-      { label: 'Markdown', href: '/markdown' },
-      { label: 'Metadata', href: '/metadata' },
-      { label: 'Screenshot', href: '/screenshot' },
-      { label: 'PDF', href: '/pdf' },
       { label: 'Insights', href: '/insights' },
       { label: 'Logo', href: '/logo' },
-      { label: 'Enterprise', href: '/enterprise' }
+      { label: 'Markdown', href: '/markdown' },
+      { label: 'Metadata', href: '/metadata' },
+      { label: 'PDF', href: '/pdf' },
+      { label: 'Screenshot', href: '/screenshot' },
+      { label: 'Unavatar', href: 'https://unavatar.io' }
     ]
   },
   {
     title: 'Resources',
     links: [
       { label: 'Blog', href: '/blog' },
-      { label: 'Recipes', href: '/recipes' },
       { label: 'Changelog', href: '/changelog' },
       { label: 'Community', href: '/community' },
+      { label: 'Formats', href: '/formats' },
       { label: 'Open Source', href: '/oss' },
       { label: 'Skills', href: '/skills' },
-      { label: 'Formats', href: '/formats' },
       { label: 'User Agents', href: '/user-agents' }
     ]
   },
@@ -43,9 +48,21 @@ const FOOTER_COLUMNS = [
     title: 'Company',
     links: [
       { label: 'About', href: '/about' },
-      { label: 'Terms', href: '/tos' },
-      { label: 'Privacy', href: '/privacy' },
-      { label: 'Status', href: '/status' }
+      { label: 'Bug Reports', href: issueUrl.bug() },
+      { label: 'Contact', href: 'mailto:hello@microlink.io' },
+      { label: 'GitHub', href: 'https://github.com/microlinkhq' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/microlink' },
+      { label: 'X/Twitter', href: 'https://x.com/microlinkhq' }
+    ],
+    groups: [
+      {
+        title: 'Legal',
+        links: [
+          { label: 'DPA', href: '/dpa' },
+          { label: 'Privacy policy', href: '/privacy' },
+          { label: 'Terms of service', href: '/tos' }
+        ]
+      }
     ]
   },
   {
@@ -55,29 +72,11 @@ const FOOTER_COLUMNS = [
   {
     title: 'Tools',
     links: [
-      { label: 'Sharing Debugger', href: '/tools/sharing-debugger' },
-      { label: 'SDK', href: '/sdk' },
       { label: 'API', href: '/docs/api/getting-started/overview' },
-      { label: 'Bug Reports', href: issueUrl.bug() }
+      { label: 'Geolocation', href: 'https://geolocation.microlink.io' },
+      { label: 'SDK', href: '/sdk' },
+      { label: 'Sharing Debugger', href: '/tools/sharing-debugger' }
     ]
-  }
-]
-
-const SOCIAL_LINKS = [
-  {
-    href: 'https://x.com/microlinkhq',
-    children: 'X',
-    title: '@microlinkhq on x.com'
-  },
-  {
-    href: 'https://github.com/microlinkhq',
-    children: 'GitHub',
-    title: '@microlinkhq on GitHub'
-  },
-  {
-    href: 'mailto:hello@microlink.io',
-    children: 'Email',
-    title: 'hello@microlink.io'
   }
 ]
 
@@ -85,7 +84,163 @@ const textColor = colors.black60
 const headerColor = colors.black80
 const inputIconColor = colors.black40
 
-const FooterColumn = ({ title, links }) => (
+const StatusPage = () => (
+  <Link
+    data-event-location='Footer'
+    data-event-name='Status'
+    href='/status'
+    css={theme({
+      px: 0,
+      color: textColor,
+      textDecoration: 'none',
+      opacity: 1
+    })}
+  >
+    <Text css={theme({ fontSize: 1 })}>Status</Text>
+  </Link>
+)
+
+const Health = () => (
+  <Healthcheck>
+    {({ isHealthy, isLoading }) => {
+      if (isLoading) return <StatusPage />
+      return (
+        <Link
+          data-event-location='Footer'
+          data-event-name='Status'
+          href='/status'
+          css={theme({
+            px: 0,
+            color: textColor,
+            textDecoration: 'none',
+            opacity: 1,
+            '&:hover': { color: colors.black, opacity: 1 }
+          })}
+        >
+          <Flex css={theme({ alignItems: 'center' })}>
+            <Choose>
+              <Choose.When condition={isHealthy}>
+                <Dot.Success />
+                <Text css={theme({ pl: 2, fontSize: 1 })}>
+                  All systems operational
+                </Text>
+              </Choose.When>
+              <Choose.Otherwise>
+                <Dot.Warning />
+                <Text css={theme({ pl: 2, fontSize: 1 })}>
+                  System performance degradation
+                </Text>
+              </Choose.Otherwise>
+            </Choose>
+          </Flex>
+        </Link>
+      )
+    }}
+  </Healthcheck>
+)
+
+const linkStyles = theme({
+  color: textColor,
+  textDecoration: 'none',
+  fontSize: 1,
+  display: 'inline-block',
+  opacity: 1,
+  _hover: {
+    color: colors.black,
+    opacity: 1
+  }
+})
+
+const DisclosurePanel = styled(Box)`
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity ${transition.short}, transform ${transition.short};
+
+  &[data-open='true'] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+`
+
+const DisclosureChevron = styled(ChevronDown)`
+  transition: transform ${transition.short};
+
+  &[data-open='true'] {
+    transform: rotate(180deg);
+  }
+`
+
+const FooterLinkList = ({ links }) => (
+  <Flex
+    as='ul'
+    css={theme({
+      flexDirection: 'column',
+      listStyle: 'none',
+      m: 0,
+      p: 0,
+      gap: 2
+    })}
+  >
+    {links.map(({ label, href }) => (
+      <Box as='li' key={href}>
+        <Link
+          href={href}
+          data-event-location='Footer'
+          data-event-name={label}
+          css={linkStyles}
+        >
+          {label}
+        </Link>
+      </Box>
+    ))}
+  </Flex>
+)
+
+const FooterGroup = ({ title, links }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const toggle = useCallback(() => setIsOpen(prev => !prev), [])
+
+  return (
+    <Box css={{ position: 'relative' }}>
+      <Text
+        onClick={toggle}
+        aria-expanded={isOpen}
+        css={theme({
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '4px',
+          cursor: 'pointer'
+        })}
+      >
+        <Text as='span' css={linkStyles}>
+          {title}
+        </Text>
+        <DisclosureChevron size={12} data-open={isOpen} />
+      </Text>
+      <DisclosurePanel
+        data-open={isOpen}
+        css={theme({
+          position: 'absolute',
+          left: 0,
+          mt: 2,
+          background: colors.white,
+          border: `1px solid ${colors.black10}`,
+          borderRadius: 2,
+          px: 3,
+          py: 3,
+          zIndex: 1,
+          minWidth: '180px'
+        })}
+      >
+        <FooterLinkList links={links} />
+      </DisclosurePanel>
+    </Box>
+  )
+}
+
+const FooterColumn = ({ title, links, groups }) => (
   <Box>
     <Caps
       css={theme({
@@ -99,42 +254,21 @@ const FooterColumn = ({ title, links }) => (
       {title}
     </Caps>
     <Flex
-      as='ul'
       css={theme({
         flexDirection: 'column',
-        listStyle: 'none',
-        m: 0,
-        p: 0,
         gap: 2
       })}
     >
-      {links.map(({ label, href }) => (
-        <Box as='li' key={href}>
-          <Link
-            href={href}
-            data-event-location='Footer'
-            data-event-name={label}
-            css={theme({
-              color: textColor,
-              textDecoration: 'none',
-              fontSize: 1,
-              display: 'inline-block',
-              opacity: 1,
-              '&:hover': {
-                color: colors.black,
-                opacity: 1
-              }
-            })}
-          >
-            {label}
-          </Link>
-        </Box>
-      ))}
+      <FooterLinkList links={links} />
+      {groups &&
+        groups.map(group => <FooterGroup key={group.title} {...group} />)}
     </Flex>
   </Box>
 )
 
-const activeColumns = FOOTER_COLUMNS.filter(col => col.links.length > 0)
+const activeColumns = FOOTER_COLUMNS.filter(
+  col => col.links.length > 0 || (col.groups && col.groups.length > 0)
+)
 
 const Footer = ({ ...props }) => {
   return (
@@ -184,39 +318,22 @@ const Footer = ({ ...props }) => {
           <Flex
             css={theme({
               alignItems: 'center',
-              gap: 2,
               flexWrap: 'wrap'
             })}
           >
-            {SOCIAL_LINKS.map((linkProps, index) => (
-              <Link
-                key={linkProps.children}
-                data-event-location='Footer'
-                data-event-name={linkProps.children}
-                externalIcon={false}
-                css={theme({
-                  color: textColor,
-                  textDecoration: 'none',
-                  fontSize: 1,
-                  opacity: 1,
-                  '&:hover': {
-                    color: colors.black,
-                    opacity: 1
-                  },
-                  ...(index > 0 && { pl: 1 })
-                })}
-                {...linkProps}
-              />
-            ))}
             <Text
               css={theme({
                 color: textColor,
                 fontSize: 1,
-                pl: 1
+                pr: 2
               })}
             >
               &copy; {new Date().getFullYear()} Microlink
             </Text>
+            <IntersectionObserver
+              placeholder={() => <StatusPage />}
+              onView={() => <Health />}
+            />
           </Flex>
 
           <form
