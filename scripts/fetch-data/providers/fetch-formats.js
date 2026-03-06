@@ -75,7 +75,7 @@ const fn = async () => {
           extension: path.extname(fileUrl).substring(1),
           type,
           height: file.height !== null,
-          width: file.height !== null,
+          width: file.width !== null,
           size: file.size !== null
         }
 

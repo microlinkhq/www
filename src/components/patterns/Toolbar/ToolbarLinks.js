@@ -172,7 +172,7 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Tools',
     description: 'Utilities to test and validate your metadata integrations.',
-    columns: 2,
+    columns: 3,
     items: [
       createNavigationItem({
         label: 'Sharing Debugger',
