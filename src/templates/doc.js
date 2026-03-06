@@ -173,7 +173,7 @@ const DocTemplate = ({
               pt: 4
             })}
           >
-            <Text css={theme({ color: 'gray', fontSize: 0 })}>
+            <Text css={theme({ color: 'black50', fontSize: 0 })}>
               Last updated on {formatDate(date)}
             </Text>
             <Link href={githubUrl} css={theme({ fontSize: 0 })}>

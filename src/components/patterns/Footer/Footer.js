@@ -80,9 +80,31 @@ const FOOTER_COLUMNS = [
   }
 ]
 
-const textColor = colors.black60
-const headerColor = colors.black80
-const inputIconColor = colors.black40
+const primaryColor = colors.black60
+const secondaryColor = colors.black40
+
+const dotStyle = theme({
+  pl: 2,
+  fontSize: 0,
+  color: 'black50',
+  transition: `color ${transition.medium}`,
+  _hover: { color: 'black' }
+})
+
+const linkStyles = theme({
+  color: primaryColor,
+  textDecoration: 'none',
+  fontSize: 1,
+  display: 'inline-block',
+  opacity: 1,
+  _hover: {
+    color: 'black',
+    opacity: 1,
+    '& svg': {
+      stroke: 'black'
+    }
+  }
+})
 
 const StatusPage = () => (
   <Link
@@ -91,7 +113,7 @@ const StatusPage = () => (
     href='/status'
     css={theme({
       px: 0,
-      color: textColor,
+      color: primaryColor,
       textDecoration: 'none',
       opacity: 1
     })}
@@ -109,27 +131,16 @@ const Health = () => (
           data-event-location='Footer'
           data-event-name='Status'
           href='/status'
-          css={theme({
-            px: 0,
-            color: textColor,
-            textDecoration: 'none',
-            opacity: 1,
-            '&:hover': { color: colors.black, opacity: 1 }
-          })}
         >
           <Flex css={theme({ alignItems: 'center' })}>
             <Choose>
               <Choose.When condition={isHealthy}>
                 <Dot.Success />
-                <Text css={theme({ pl: 2, fontSize: 1 })}>
-                  All systems operational
-                </Text>
+                <Text css={dotStyle}>All systems operational</Text>
               </Choose.When>
               <Choose.Otherwise>
                 <Dot.Warning />
-                <Text css={theme({ pl: 2, fontSize: 1 })}>
-                  System performance degradation
-                </Text>
+                <Text css={dotStyle}>System performance degradation</Text>
               </Choose.Otherwise>
             </Choose>
           </Flex>
@@ -138,18 +149,6 @@ const Health = () => (
     }}
   </Healthcheck>
 )
-
-const linkStyles = theme({
-  color: textColor,
-  textDecoration: 'none',
-  fontSize: 1,
-  display: 'inline-block',
-  opacity: 1,
-  _hover: {
-    color: colors.black,
-    opacity: 1
-  }
-})
 
 const DisclosurePanel = styled(Box)`
   opacity: 0;
@@ -245,10 +244,9 @@ const FooterColumn = ({ title, links, groups }) => (
     <Caps
       css={theme({
         fontSize: 0,
-        fontWeight: 'bold',
-        color: headerColor,
+        color: secondaryColor,
         mb: 3,
-        letterSpacing: '0.1em'
+        letterSpacing: 3
       })}
     >
       {title}
@@ -283,7 +281,7 @@ const Footer = ({ ...props }) => {
         css={theme({
           background: colors.white,
           borderRadius: 3,
-          px: [4, 4, 5, 5],
+          px: 3,
           pt: [4, 4, 5, 5],
           pb: [4, 4, 4, 4]
         })}
@@ -306,9 +304,9 @@ const Footer = ({ ...props }) => {
 
         <Flex
           css={theme({
-            mt: [4, 4, 5, 5],
-            pt: [3, 3, 3, 3],
-            borderTop: `1px solid ${colors.black10}`,
+            mt: [3, 3, 4, 4],
+            pt: [3, 3, 4, 4],
+            borderTop: `1px solid ${colors.black05}`,
             flexDirection: ['column', 'column', 'row', 'row'],
             justifyContent: 'space-between',
             alignItems: ['flex-start', 'flex-start', 'center', 'center'],
@@ -323,8 +321,8 @@ const Footer = ({ ...props }) => {
           >
             <Text
               css={theme({
-                color: textColor,
-                fontSize: 1,
+                color: 'black50',
+                fontSize: 0,
                 pr: 2
               })}
             >
@@ -348,14 +346,14 @@ const Footer = ({ ...props }) => {
                 iconComponent={
                   <FeatherIcon
                     icon={Mail}
-                    color={inputIconColor}
+                    color={secondaryColor}
                     size={[0, 0, 1, 1]}
                   />
                 }
                 css={theme({ fontSize: 0, width: '8rem' })}
                 labelCss={{
                   borderColor: colors.black10,
-                  '&:hover': { borderColor: colors.black40 },
+                  '&:hover': { borderColor: secondaryColor },
                   '&:focus-within': {
                     borderColor: colors.black80,
                     boxShadow: 'none'

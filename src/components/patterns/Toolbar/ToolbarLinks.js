@@ -16,6 +16,7 @@ import { PDF as PDFIcon } from 'components/icons/PDF'
 import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
 import { Terminal as TerminalIcon } from 'components/icons/Terminal'
 import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
+import { Globe as GlobeIcon } from 'components/icons/Globe'
 import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
@@ -184,6 +185,13 @@ export const NAVIGATION_SECTIONS = [
         href: '/sdk',
         description: 'Ship API integrations faster across platforms',
         icon: TerminalIcon
+      }),
+      createNavigationItem({
+        label: 'Geolocation',
+        href: 'https://geolocation.microlink.io',
+        description: 'Get detailed information about the incoming request',
+        externalIcon: false,
+        icon: GlobeIcon
       })
     ]
   },

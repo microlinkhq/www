@@ -96,7 +96,6 @@ const MENU_LINK_HOVER_STYLES = css`
   &:focus-within .menu-item-title,
   &.active .menu-item-title {
     color: ${colors.black};
-    font-weight: ${fontWeights.bold};
   }
 `
 
@@ -533,7 +532,8 @@ const ToolbarDesktop = () => {
                     onClick={handleTriggerClick(label)}
                     onMouseEnter={() => handleOpenSectionWithHover(label)}
                     onFocus={() =>
-                      canUseHover() ? handleOpenSection(label) : undefined}
+                      canUseHover() ? handleOpenSection(label) : undefined
+                    }
                   >
                     <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                       {label}
