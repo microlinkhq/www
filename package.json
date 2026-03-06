@@ -209,7 +209,7 @@
     "vitest": "latest"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 24"
   },
   "files": [
     "data",
