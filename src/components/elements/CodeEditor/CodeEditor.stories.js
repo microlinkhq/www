@@ -143,14 +143,9 @@ storiesOf('Elements', module).add('CodeEditor', () => (
 
     <Box css={theme({ mb: 4 })}>
       <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
-        {"<CodeEditor title='mql.js' language='js' isDark>"}
+        {"<CodeEditor title='mql.sh' language='bash'>"}
       </Text>
-      <CodeEditor
-        className='language-sh{1}'
-        title='mql.sh'
-        language='bash'
-        isDark
-      >
+      <CodeEditor className='language-sh{1}' title='mql.sh' language='bash'>
         {bashCode}
       </CodeEditor>
     </Box>

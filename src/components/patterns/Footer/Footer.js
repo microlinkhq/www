@@ -20,25 +20,10 @@ import { Link } from 'components/elements/Link'
 import Dot from 'components/elements/Dot/Dot'
 import { Mail } from 'react-feather'
 
-const LIGHT_THEME = {
-  background: 'white',
-  textColor: 'black60',
-  inputIconColor: colors.black40,
-  iconColor: colors.black80
-}
-
-const DARK_THEME = {
-  background: 'black',
-  textColor: 'white60',
-  inputIconColor: colors.white40,
-  iconColor: colors.white80
-}
-
-const StatusPage = ({ isDark }) => {
+const StatusPage = () => {
   return (
     <Link
       variant='solid'
-      isDark={isDark}
       data-event-location='Footer'
       data-event-name='Status'
       href='/status'
@@ -57,10 +42,10 @@ const StatusPage = ({ isDark }) => {
   )
 }
 
-const Health = ({ isDark, textColor }) => (
+const Health = ({ textColor }) => (
   <Healthcheck>
     {({ isHealthy, isLoading }) => {
-      if (isLoading) return <StatusPage isDark={isDark} />
+      if (isLoading) return <StatusPage />
       return (
         <Link
           data-event-location='Footer'
@@ -102,10 +87,10 @@ const Health = ({ isDark, textColor }) => (
   </Healthcheck>
 )
 
-const Footer = ({ isDark, ...props }) => {
-  const { background, textColor, inputIconColor } = isDark
-    ? DARK_THEME
-    : LIGHT_THEME
+const Footer = ({ ...props }) => {
+  const background = 'white'
+  const textColor = 'black60'
+  const inputIconColor = colors.black40
 
   return (
     <Container
@@ -163,7 +148,6 @@ const Footer = ({ isDark, ...props }) => {
                           size={[0, 0, 1, 1]}
                         />
                       }
-                      isDark={isDark}
                       css={theme({ fontSize: 0, width: '8rem' })}
                       required
                     />
@@ -171,7 +155,7 @@ const Footer = ({ isDark, ...props }) => {
                     <Button
                       data-event-location='Footer'
                       data-event-name='Be Notified'
-                      variant={isDark ? 'white' : 'black'}
+                      variant='black'
                       css={theme({ ml: 2 })}
                     >
                       <Caps
@@ -220,7 +204,6 @@ const Footer = ({ isDark, ...props }) => {
               <Link
                 key={href}
                 variant='solid'
-                isDark={isDark}
                 href={href}
                 data-event-name={children}
                 data-event-location='Footer'
@@ -256,7 +239,6 @@ const Footer = ({ isDark, ...props }) => {
               <Link
                 key={href}
                 variant='solid'
-                isDark={isDark}
                 href={href}
                 data-event-name={children}
                 data-event-location='Footer'
@@ -285,10 +267,8 @@ const Footer = ({ isDark, ...props }) => {
                 })}
               >
                 <IntersectionObserver
-                  placeholder={() => <StatusPage isDark={isDark} />}
-                  onView={() => (
-                    <Health isDark={isDark} textColor={textColor} />
-                  )}
+                  placeholder={() => <StatusPage />}
+                  onView={() => <Health textColor={textColor} />}
                 />
               </Flex>
             </Flex>
@@ -323,7 +303,6 @@ const Footer = ({ isDark, ...props }) => {
                   <Link
                     key={href}
                     variant='solid'
-                    isDark={isDark}
                     href={href}
                     data-event-name={children}
                     data-event-location='Footer'
@@ -367,7 +346,6 @@ const Footer = ({ isDark, ...props }) => {
                   variant='solid'
                   data-event-location='Footer'
                   data-event-name={props.children}
-                  isDark={isDark}
                   key={props.children}
                   css={theme({
                     pl: index > 0 ? 2 : 0,
