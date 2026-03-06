@@ -9,7 +9,6 @@ export const Signature = ({ width = 220, ...props }) => (
     viewBox='-12.55 51.23 423.84 382.12'
     {...props}
   >
-    <path fill='currentColor' d='' transform='translate(370.29, 182.12)' />
     <path
       fill='currentColor'
       d='

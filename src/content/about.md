@@ -28,8 +28,8 @@ In 2014, Joseba co-founded an ed-tech company where he served as CTO for a decad
 
 Today, Kiko leads as CTO and Joseba as CPO. Both are here for the same reason — to take Microlink as far as it can go.
 
-<Container css={{ display: 'flex', justifyContent: 'center' }}>
-  <Signature width={150} />
+<Container css={{ pt: 3, display: 'flex', justifyContent: 'center' }}>
+  <Signature width={200} />
 </Container>
 
 ## What we pursue

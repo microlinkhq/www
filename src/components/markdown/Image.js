@@ -20,23 +20,14 @@ const ImageWithContainer = withContainer(_ImageBase, {
   }
 })
 
-export const Image = ({ containerCss, src, hoverSrc, ...props }) => {
-  const [currentSrc, setCurrentSrc] = useState(src)
-
-  const handleMouseEnter = () => {
-    if (hoverSrc) setCurrentSrc(hoverSrc)
-  }
-
-  const handleMouseLeave = () => {
-    if (hoverSrc) setCurrentSrc(src)
-  }
+export const Image = ({ src, hoverSrc, ...props }) => {
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <ImageWithContainer
-      containerProps={{ css: containerCss }}
-      src={currentSrc}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      src={isHovered && hoverSrc ? hoverSrc : src}
+      onMouseEnter={hoverSrc ? () => setIsHovered(true) : undefined}
+      onMouseLeave={hoverSrc ? () => setIsHovered(false) : undefined}
       {...props}
     />
   )
