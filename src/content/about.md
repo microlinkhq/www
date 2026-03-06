@@ -4,8 +4,11 @@ description: Discover the story behind Microlink, from its Open Source roots wit
 ---
 
 import { Since } from 'components/markdown/Since'
+import { Image } from 'components/markdown/Image'
+import { KikoSignature } from 'components/icons/KikoSignature'
+import { Container } from 'helpers/hoc/with-container'
 
-## Automating the web, for the web.
+<Image src='/images/microlink.jpeg' hoverSrc='/images/microlink-eyes.jpeg' width={500} />
 
 Microlink is created by [Kiko](https://kikobeats.com) as a side project in 2017 (<Since from='2018' /> years ago).
 
@@ -16,6 +19,10 @@ We started to dig deeper and in order to get specific data from the HTML content
 Getting unified metadata is great, but it's not enough. We needed to get specific data from the HTML content behind any URL. So we built [MQL](/docs/mql/getting-started/overview), a client library to get easy to define data rules.
 
 All of this is running when you use [Microlink API](/docs/api/getting-started/overview), a service to automate any browser action.
+
+<Container css={{ display: 'flex', justifyContent: 'center' }}>
+  <KikoSignature width={150} />
+</Container>
 
 ## What we pursue
 
