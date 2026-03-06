@@ -96,7 +96,6 @@ const MENU_LINK_HOVER_STYLES = css`
   &:focus-within .menu-item-title,
   &.active .menu-item-title {
     color: ${colors.black};
-    font-weight: ${fontWeights.bold};
   }
 `
 
