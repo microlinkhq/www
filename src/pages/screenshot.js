@@ -1,22 +1,13 @@
-import FeatherIcon from 'components/icons/Feather'
-import { borders, breakpoints, layout, colors, theme, fonts } from 'theme'
-import React, { createElement, useMemo, useState, useEffect } from 'react'
+import { borders, breakpoints, layout, colors, theme } from 'theme'
+import React, { useState } from 'react'
 import { useTransition, animated } from '@react-spring/web'
-import { useUrlInput } from 'components/hook/use-url-input'
-import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
-import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
-import { Compass, Image as ImageIcon } from 'react-feather'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
-import isEmpty from 'lodash/isEmpty'
-import pickBy from 'lodash/pickBy'
-import isColor from 'is-color'
 import get from 'dlv'
 
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Card from 'components/elements/Card/Card'
 import Choose from 'components/elements/Choose'
@@ -25,8 +16,6 @@ import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Hide from 'components/elements/Hide'
 import Image from 'components/elements/Image/Image'
-import Input from 'components/elements/Input/Input'
-import InputIcon from 'components/elements/Input/InputIcon'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
@@ -41,12 +30,9 @@ import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
-import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
-import { useClipboard } from 'components/hook/use-clipboard'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { useMounted } from 'components/hook/use-mounted'
-import { useQueryState } from 'components/hook/use-query-state'
 import { useWindowSize } from 'components/hook/use-window-size'
 
 import { findDemoLinkById } from 'helpers/demo-links'
@@ -105,21 +91,6 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
-const ColorPreview = ({ color }) => (
-  <Box
-    css={theme({
-      border: 1,
-      borderColor: 'black10',
-      borderRadius: 1,
-      width: '14px',
-      height: '14px',
-      top: '-2px',
-      position: 'relative'
-    })}
-    style={{ background: color }}
-  />
-)
-
 const AnimatedImage = styled(animated.img)`
   width: 100%;
   position: absolute;
@@ -164,9 +135,6 @@ const fromCache = (variations, opts) => {
   return { data: { ...data, screenshot: { url: screenshotUrl } } }
 }
 
-const getEmbedUrl = ({ url, ...opts }) =>
-  getApiUrl(url, { ...opts, screenshot: true, embed: 'screenshot.url' })[0]
-
 const DemoSlider = props => {
   const [index, setIndex] = useState(0)
   const next = index => ++index % SUGGESTIONS.length
@@ -183,23 +151,21 @@ const DemoSlider = props => {
   })
 
   return (
-    <Box css={theme({ pt: 3 })}>
-      <Flex css={{ position: 'relative' }} {...props}>
-        {transitions((style, index) => {
-          const url = SUGGESTIONS[index].cdnUrl
-          const src = url
-          return (
-            <AnimatedImage
-              key={src}
-              decoding='async'
-              style={style}
-              src={src}
-              alt={`${SUGGESTIONS[index].id} screenshot`}
-            />
-          )
-        })}
-      </Flex>
-    </Box>
+    <Flex css={{ position: 'relative' }} {...props}>
+      {transitions((style, index) => {
+        const url = SUGGESTIONS[index].cdnUrl
+        const src = url
+        return (
+          <AnimatedImage
+            key={src}
+            decoding='async'
+            style={style}
+            src={src}
+            alt={`${SUGGESTIONS[index].id} screenshot`}
+          />
+        )
+      })}
+    </Flex>
   )
 }
 
@@ -208,11 +174,9 @@ const Screenshot = ({ data, style }) => {
   const imageStyle = { objectFit: 'contain', ...style }
 
   return (
-    <Link px={3} href={imageUrl} externalIcon={false}>
+    <Link href={imageUrl} externalIcon={false}>
       <Box
         css={theme({
-          my: 4,
-          px: 0,
           border: 1,
           borderColor: 'black05',
           borderRadius: 3
@@ -222,65 +186,27 @@ const Screenshot = ({ data, style }) => {
           alt={`Microlink screenshot for ${data.url}`}
           key={imageUrl}
           src={imageUrl}
-          style={isLoading =>
-            isLoading
-              ? imageStyle
-              : {
-                ...imageStyle,
-                filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-              }
-          }
+          style={isLoading => {
+            if (isLoading) return imageStyle
+
+            return {
+              ...imageStyle,
+              filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
+            }
+          }}
         />
       </Box>
     </Link>
   )
 }
 
-const LiveDemo = React.memo(function LiveDemo ({
-  data,
-  isLoading,
-  onSubmit,
-  query
-}) {
+const LiveDemo = React.memo(function LiveDemo ({ data }) {
   const isMounted = useMounted()
-  const [ClipboardComponent, toClipboard] = useClipboard()
   const size = useWindowSize()
 
   const cardBase = !isMounted || size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
   const cardWidth = size.width / cardBase
   const cardHeight = cardWidth / Card.ratio
-
-  const [inputBg, setInputBg] = useState('')
-  const [inputOverlay, setInputOverlay] = useState('')
-  const queryUrl = query?.url || ''
-  const queryBackground = get(query, 'overlay.background') || ''
-  const queryOverlay = get(query, 'overlay.browser') || ''
-  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
-    useUrlInput(queryUrl)
-
-  useEffect(() => {
-    setInputBg(queryBackground)
-    setInputOverlay(queryOverlay)
-  }, [queryBackground, queryOverlay])
-
-  const values = useMemo(() => {
-    const overlay = pickBy({ browser: inputOverlay, background: inputBg })
-    return pickBy({
-      url: validInputUrl,
-      overlay: isEmpty(overlay) ? undefined : overlay
-    })
-  }, [validInputUrl, inputOverlay, inputBg])
-
-  const embedUrl = useMemo(() => getEmbedUrl(values), [values])
-  const snippetText = toCurlSnippet(embedUrl)
-
-  const backgroundIconComponent = isColor(inputBg)
-    ? createElement(ColorPreview, { color: inputBg })
-    : createElement(FeatherIcon, {
-      icon: ImageIcon,
-      color: 'black50',
-      size: [0, 0, 1, 1]
-    })
 
   return (
     <Flex
@@ -288,188 +214,113 @@ const LiveDemo = React.memo(function LiveDemo ({
       css={theme({
         flexDirection: 'column',
         alignItems: 'center',
-        pt: [3, 3, 1, 1]
+        pt: [3, 3, 2, 1],
+        pb: [4, 4, 4, 5]
       })}
     >
-      <Heading
+      <Flex
         css={theme({
-          px: [4, 5, 5, 5],
-          maxWidth: layout.large,
-          fontSize: [3, 4, 4, 5]
+          width: '100%',
+          mx: 'auto',
+          flexDirection: ['column', 'column', 'column', 'row'],
+          alignItems: ['center', 'center', 'center', 'stretch'],
+          gap: [0, 0, 3, 4],
+          px: [1, 1, 1, 5]
         })}
       >
-        Website screenshot API <br /> for developers
-      </Heading>
-      <Caption
-        forwardedAs='h2'
-        css={theme({
-          pt: [3, 3, 4, 4],
-          px: 4,
-          maxWidth: layout.large
-        })}
-      >
-        The web screenshot service that turns any URL into a pixel-perfect
-        image. Capture site screenshots with full browser control, device
-        emulation, and professional output.
-      </Caption>
-      <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
-        <ArrowLink
-          css={theme({ pr: [2, 4, 4, 4] })}
-          href='/docs/api/parameters/screenshot'
-        >
-          Get Started
-        </ArrowLink>
-        <ArrowLink href='https://github.com/microlinkhq/browserless'>
-          See on GitHub
-        </ArrowLink>
-      </Flex>
-      <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
         <Flex
-          as='form'
           css={theme({
-            pt: [3, 3, 4, 4],
-            mx: [0, 0, 'auto', 'auto'],
+            width: ['100%', '100%', '100%', '50%'],
+            flexDirection: 'column',
             justifyContent: 'center',
-            flexDirection: ['column', 'column', 'row', 'row']
+            alignItems: ['center', 'center', 'center', 'flex-start']
           })}
-          onSubmit={event => {
-            event.preventDefault()
-            const rawUrl = inputUrl.trim()
-            const { url, ...opts } = values
-            return onSubmit(url, { ...opts, queryUrl: rawUrl })
-          }}
         >
-          <Box css={theme({ mb: [3, 3, 0, 0] })}>
-            <Input
-              css={theme({
-                fontSize: 2,
-                width: ['100%', '100%', '102px', '102px']
-              })}
-              iconComponent={<InputIcon query={iconQuery} />}
-              id='screenshot-demo-url'
-              placeholder='Visit URL'
-              suggestions={SUGGESTIONS.map(
-                ({ cdnUrl, filename, ...suggestion }) => suggestion
-              )}
-              type='text'
-              value={inputUrl}
-              onChange={event => setInputUrl(event.target.value)}
-              autoFocus
-            />
-          </Box>
-
-          <Box css={theme({ ml: [0, 0, 2, 2], mb: [3, 3, 0, 0] })}>
-            <Input
-              placeholder='Overlay'
-              id='screenshot-demo-overlay'
-              type='text'
-              css={theme({
-                fontSize: 2,
-                width: ['100%', '100%', '88px', '88px']
-              })}
-              value={inputOverlay}
-              onChange={event => setInputOverlay(event.target.value)}
-              iconComponent={
-                <FeatherIcon
-                  icon={Compass}
-                  color='black50'
-                  size={[0, 0, 1, 1]}
-                />
-              }
-              suggestions={[{ value: 'dark' }, { value: 'light' }]}
-            />
-          </Box>
-
-          <Box css={theme({ ml: [0, 0, 2, 2], mb: [3, 3, 0, 0] })}>
-            <Input
-              placeholder='Background'
-              id='screenshot-demo-background'
-              type='text'
-              css={theme({
-                fontSize: 2,
-                width: ['100%', '100%', '128px', '128px']
-              })}
-              value={inputBg}
-              onChange={event => setInputBg(event.target.value)}
-              iconComponent={backgroundIconComponent}
-              suggestions={[
-                { value: '#c1c1c1' },
-                {
-                  value:
-                    'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
-                },
-                {
-                  value: 'https://source.unsplash.com/random/2776x1910'
-                }
-              ]}
-            />
-          </Box>
-
-          <Button css={theme({ ml: [0, 0, 2, 2] })} loading={isLoading}>
-            <Caps css={theme({ fontSize: 1 })}>Take it</Caps>
-          </Button>
-        </Flex>
-      </Flex>
-
-      <Choose>
-        <Choose.When condition={!!data}>
-          <Flex
+          <Heading
             css={theme({
-              flexDirection: 'column',
-              alignItems: 'center',
-              pb: [4, 4, 5, 5]
+              maxWidth: layout.large,
+              fontSize: [3, 4, 4, 5],
+              textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            <Screenshot
-              style={{
-                maxWidth: layout.normal,
-                width: cardWidth,
-                height: cardHeight
-              }}
-              data={data}
-            />
-            <Box css={theme({ width: cardWidth, maxWidth: layout.normal })}>
-              <Tooltip
-                type='copy'
-                tooltipsOpts={Tooltip.TEXT.OPTIONS}
-                content={
-                  <Tooltip.Content>{Tooltip.TEXT.COPY('HTML')}</Tooltip.Content>
-                }
-              >
-                <Input
-                  readOnly
-                  onClick={event => {
-                    event.target.select()
-                    toClipboard({
-                      copy: snippetText,
-                      text: Tooltip.TEXT.COPIED('HTML')
-                    })
-                  }}
-                  style={{ cursor: 'copy' }}
-                  css={theme({
-                    fontSize: 1,
-                    fontFamily: fonts.mono,
-                    cursor: 'copy',
-                    width: '100%',
-                    color: 'black60'
-                  })}
-                  value={snippetText}
-                />
-              </Tooltip>
-            </Box>
+            Website screenshot API <br /> for developers
+          </Heading>
+          <Caption
+            forwardedAs='h2'
+            css={theme({
+              pt: [3, 3, 3, 4],
+              fontSize: [1, 2, 2, 3],
+              maxWidth: [
+                layout.small,
+                layout.small,
+                layout.normal,
+                layout.large
+              ],
+              textAlign: ['center', 'center', 'left', 'left']
+            })}
+          >
+            The web screenshot service that turns any URL into a pixel-perfect
+            image. Capture site screenshots with full browser control, device
+            emulation, and professional output.
+          </Caption>
+          <Flex
+            css={theme({
+              pt: [3, 3, 4, 4],
+              fontSize: [2, 2, 3, 3],
+              justifyContent: ['center', 'center', 'flex-start', 'flex-start']
+            })}
+          >
+            <ArrowLink
+              css={theme({ pr: [2, 4, 4, 4] })}
+              href='/docs/api/parameters/screenshot'
+            >
+              Get Started
+            </ArrowLink>
+            <ArrowLink href='https://github.com/microlinkhq/browserless'>
+              See on GitHub
+            </ArrowLink>
           </Flex>
-        </Choose.When>
-        <Choose.Otherwise>
-          <DemoSlider
-            css={{
-              height: cardHeight,
-              width: cardWidth,
-              maxWidth: layout.normal
-            }}
+        </Flex>
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '100%', '50%'],
+            pt: [4, 4, 4, 0],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
+        >
+          <Image
+            src={cdnUrl('screenshot/browser/dark/apple.png')}
+            alt='Apple screenshot'
+            css={theme({
+              // maxWidth: layout.large,
+              maxWidth: ['100%', '85%', '70%', '100%']
+            })}
           />
-        </Choose.Otherwise>
-      </Choose>
-      <ClipboardComponent />
+          {/* <Choose>
+            <Choose.When condition={!!data}>
+              <Screenshot
+                style={{
+                  maxWidth: layout.normal,
+                  width: cardWidth,
+                  height: cardHeight
+                }}
+                data={data}
+              />
+            </Choose.When>
+            <Choose.Otherwise>
+              <DemoSlider
+                css={{
+                  height: cardHeight,
+                  width: cardWidth,
+                  maxWidth: layout.normal
+                }}
+              />
+            </Choose.Otherwise>
+          </Choose> */}
+        </Flex>
+      </Flex>
     </Flex>
   )
 })
@@ -1086,67 +937,53 @@ export const Head = () => (
   />
 )
 
-const ScreenshotPage = () => {
-  const [query] = useQueryState()
-  const isMounted = useMounted()
-  const hasQuery = isMounted && !!query?.url
-
-  return (
-    <Layout>
-      <FetchProvider fromCache={fromCache} mqlOpts={{ screenshot: true }}>
-        {({ status, doFetch, data }) => {
-          const isLoading =
-            (hasQuery && status === 'initial') || status === 'fetching'
-
-          return (
-            <>
-              <LiveDemo
-                data={data}
-                isLoading={isLoading}
-                onSubmit={doFetch}
-                query={isMounted ? query : {}}
-              />
-              <Timings />
-              <Features
-                css={theme({ px: 4, pb: 6 })}
-                title={
-                  <Subhead css={{ width: '100%', textAlign: 'left' }}>
-                    The best screenshot API,{' '}
-                    <span
-                      css={{
-                        display: 'block',
-                        color: '#fd494a',
-                        width: '100%',
-                        textAlign: 'left'
-                      }}
-                    >
-                      with no compromises.
-                    </span>
-                  </Subhead>
-                }
-                caption={
-                  <>
-                    No more servers to maintain, load balancers, or paying for
-                    capacity you don’t use — our screenshot service lets you
-                    spend more time building, less time configuring, with easy
-                    integration via{' '}
-                    <Link href='/docs/api/getting-started/overview'>
-                      web screenshot API
-                    </Link>
-                    .
-                  </>
-                }
-                features={FEATURES}
-              />
-              <UseCases />
-              <Resume />
-              <ProductInformation />
-            </>
-          )
-        }}
-      </FetchProvider>
-    </Layout>
-  )
-}
+const ScreenshotPage = () => (
+  <Layout>
+    <FetchProvider fromCache={fromCache} mqlOpts={{ screenshot: true }}>
+      {({ data }) => {
+        return (
+          <>
+            <LiveDemo data={data} />
+            <Timings />
+            <Features
+              css={theme({ px: 4, pb: 6 })}
+              title={
+                <Subhead css={{ width: '100%', textAlign: 'left' }}>
+                  The best screenshot API,{' '}
+                  <span
+                    css={{
+                      display: 'block',
+                      color: '#fd494a',
+                      width: '100%',
+                      textAlign: 'left'
+                    }}
+                  >
+                    with no compromises.
+                  </span>
+                </Subhead>
+              }
+              caption={
+                <>
+                  No more servers to maintain, load balancers, or paying for
+                  capacity you don’t use — our screenshot service lets you spend
+                  more time building, less time configuring, with easy
+                  integration via{' '}
+                  <Link href='/docs/api/getting-started/overview'>
+                    web screenshot API
+                  </Link>
+                  .
+                </>
+              }
+              features={FEATURES}
+            />
+            <UseCases />
+            <Resume />
+            <ProductInformation />
+          </>
+        )
+      }}
+    </FetchProvider>
+  </Layout>
+)
 
 export default ScreenshotPage
