@@ -1,6 +1,5 @@
-import { borders, breakpoints, layout, colors, theme } from 'theme'
-import React, { useState } from 'react'
-import { useTransition, animated } from '@react-spring/web'
+import { borders, layout, colors, theme } from 'theme'
+import React from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
@@ -9,8 +8,6 @@ import get from 'dlv'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
-import Card from 'components/elements/Card/Card'
-import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
@@ -32,8 +29,6 @@ import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
-import { useMounted } from 'components/hook/use-mounted'
-import { useWindowSize } from 'components/hook/use-window-size'
 
 import { findDemoLinkById } from 'helpers/demo-links'
 
@@ -89,16 +84,23 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 
 const Caption = withTitle(CaptionBase)
-const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
-const AnimatedImage = styled(animated.img)`
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0px;
+const HERO_MQ = '@media (min-width: 1200px) and (max-width: 1550px)'
+
+const HeroTextContainer = styled(Flex)`
+  ${HERO_MQ} {
+    h1 {
+      font-size: 48px !important;
+    }
+    h2 {
+      font-size: 24px !important;
+      padding-top: 20px !important;
+    }
+    & > div:last-child {
+      font-size: 26px !important;
+    }
+  }
 `
-
-const INTERVAL = 1500
 
 const SUGGESTIONS = [
   { theme: 'dark', id: 'apple' },
@@ -135,86 +137,14 @@ const fromCache = (variations, opts) => {
   return { data: { ...data, screenshot: { url: screenshotUrl } } }
 }
 
-const DemoSlider = props => {
-  const [index, setIndex] = useState(0)
-  const next = index => ++index % SUGGESTIONS.length
-
-  const transitions = useTransition(index, {
-    key: index,
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: { duration: INTERVAL, mass: 1, tension: 120, friction: 14 },
-    onRest: (_a, _b, item) => {
-      if (index === item) setTimeout(() => setIndex(next), 1500)
-    }
-  })
-
-  return (
-    <Flex css={{ position: 'relative' }} {...props}>
-      {transitions((style, index) => {
-        const url = SUGGESTIONS[index].cdnUrl
-        const src = url
-        return (
-          <AnimatedImage
-            key={src}
-            decoding='async'
-            style={style}
-            src={src}
-            alt={`${SUGGESTIONS[index].id} screenshot`}
-          />
-        )
-      })}
-    </Flex>
-  )
-}
-
-const Screenshot = ({ data, style }) => {
-  const imageUrl = get(data, 'screenshot.url')
-  const imageStyle = { objectFit: 'contain', ...style }
-
-  return (
-    <Link href={imageUrl} externalIcon={false}>
-      <Box
-        css={theme({
-          border: 1,
-          borderColor: 'black05',
-          borderRadius: 3
-        })}
-      >
-        <Image
-          alt={`Microlink screenshot for ${data.url}`}
-          key={imageUrl}
-          src={imageUrl}
-          style={isLoading => {
-            if (isLoading) return imageStyle
-
-            return {
-              ...imageStyle,
-              filter: 'drop-shadow(rgba(0, 0, 0, 0.2) 0 16px 12px)'
-            }
-          }}
-        />
-      </Box>
-    </Link>
-  )
-}
-
-const LiveDemo = React.memo(function LiveDemo ({ data }) {
-  const isMounted = useMounted()
-  const size = useWindowSize()
-
-  const cardBase = !isMounted || size.width < SMALL_BREAKPOINT ? 1.2 : 2.2
-  const cardWidth = size.width / cardBase
-  const cardHeight = cardWidth / Card.ratio
-
+const Hero = function Hero () {
   return (
     <Flex
       as='section'
       css={theme({
         flexDirection: 'column',
         alignItems: 'center',
-        pt: [3, 3, 2, 1],
+        pt: [4, 4, 4, 4],
         pb: [4, 4, 4, 5]
       })}
     >
@@ -228,7 +158,7 @@ const LiveDemo = React.memo(function LiveDemo ({ data }) {
           px: [1, 1, 1, 5]
         })}
       >
-        <Flex
+        <HeroTextContainer
           css={theme({
             width: ['100%', '100%', '100%', '50%'],
             flexDirection: 'column',
@@ -249,14 +179,14 @@ const LiveDemo = React.memo(function LiveDemo ({ data }) {
             forwardedAs='h2'
             css={theme({
               pt: [3, 3, 3, 4],
-              fontSize: [1, 2, 2, 3],
+              fontSize: [1, 2, '24px', 3],
               maxWidth: [
                 layout.small,
                 layout.small,
                 layout.normal,
                 layout.large
               ],
-              textAlign: ['center', 'center', 'left', 'left']
+              textAlign: ['center', 'center', 'center', 'left']
             })}
           >
             The web screenshot service that turns any URL into a pixel-perfect
@@ -266,8 +196,8 @@ const LiveDemo = React.memo(function LiveDemo ({ data }) {
           <Flex
             css={theme({
               pt: [3, 3, 4, 4],
-              fontSize: [2, 2, 3, 3],
-              justifyContent: ['center', 'center', 'flex-start', 'flex-start']
+              fontSize: [2, 2, '26px', 3],
+              justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
             <ArrowLink
@@ -280,7 +210,7 @@ const LiveDemo = React.memo(function LiveDemo ({ data }) {
               See on GitHub
             </ArrowLink>
           </Flex>
-        </Flex>
+        </HeroTextContainer>
         <Flex
           css={theme({
             width: ['100%', '100%', '100%', '50%'],
@@ -298,32 +228,11 @@ const LiveDemo = React.memo(function LiveDemo ({ data }) {
               maxWidth: ['100%', '85%', '70%', '100%']
             })}
           />
-          {/* <Choose>
-            <Choose.When condition={!!data}>
-              <Screenshot
-                style={{
-                  maxWidth: layout.normal,
-                  width: cardWidth,
-                  height: cardHeight
-                }}
-                data={data}
-              />
-            </Choose.When>
-            <Choose.Otherwise>
-              <DemoSlider
-                css={{
-                  height: cardHeight,
-                  width: cardWidth,
-                  maxWidth: layout.normal
-                }}
-              />
-            </Choose.Otherwise>
-          </Choose> */}
         </Flex>
       </Flex>
     </Flex>
   )
-})
+}
 
 const Timings = () => {
   const healthcheck = useHealthcheck()
@@ -943,7 +852,7 @@ const ScreenshotPage = () => (
       {({ data }) => {
         return (
           <>
-            <LiveDemo data={data} />
+            <Hero data={data} />
             <Timings />
             <Features
               css={theme({ px: 4, pb: 6 })}
