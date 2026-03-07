@@ -141,8 +141,9 @@ const AddressBar = styled(Flex)`
   align-items: center;
   justify-content: center;
   padding: 0 10px;
-  gap: 5px;
+  gap: 10px;
   min-width: 0;
+  position: relative;
 
   &:focus-within {
     background: rgba(255, 255, 255, 0.11);
@@ -256,6 +257,60 @@ const CopyButton = styled('button')`
   svg.icon-check {
     animation: ${fadeInDown} 0.2s ease both;
     color: #4ade80;
+  }
+`
+
+const HistoryDropdown = styled('div')`
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #2c2c2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+`
+
+const HistoryItem = styled('button')`
+  width: 100%;
+  min-width: 0;
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: background 0.1s ease, color 0.1s ease;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    flex: 1;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.9);
+    outline: none;
+  }
+
+  & + & {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 `
 
@@ -376,10 +431,25 @@ const ensureProtocol = value => {
 }
 
 const stripProtocol = url => url.replace(/^https?:\/\//i, '')
+const stripForDisplay = url => stripProtocol(url).replace(/\?.*$/, '')
+
+const MAX_HISTORY = 6
+const DEFAULT_HISTORY = [
+  'https://apple.com',
+  'https://microlink.io',
+  'https://vercel.com'
+]
+
+const addToHistory = (history, url) => {
+  const filtered = history.filter(u => u !== url)
+  return [url, ...filtered].slice(0, MAX_HISTORY)
+}
 
 const Hero = function Hero () {
   const [inputUrl, setInputUrl] = useState('https://apple.com')
   const [isFocused, setIsFocused] = useState(false)
+  const [history, setHistory] = useState(DEFAULT_HISTORY)
+  const inputRef = useRef(null)
   const [screenshotSrc, setScreenshotSrc] = useState(
     `https://api.microlink.io?url=${encodeURIComponent(
       inputUrl
@@ -393,6 +463,7 @@ const Hero = function Hero () {
   const abortRef = useRef(null)
   const copyTimerRef = useRef(null)
   const hasImageRef = useRef(false)
+  const skipBlurRef = useRef(false)
 
   const handleCopy = () => {
     if (typeof navigator === 'undefined' || !navigator.clipboard) return
@@ -402,7 +473,7 @@ const Hero = function Hero () {
     copyTimerRef.current = setTimeout(() => setIsCopied(false), 1500)
   }
 
-  const displayValue = isFocused ? inputUrl : stripProtocol(inputUrl)
+  const displayValue = isFocused ? inputUrl : stripForDisplay(inputUrl)
   const apiUrl = `https://api.microlink.io?url=${inputUrl}&screenshot`
 
   const fetchScreenshot = useCallback(async url => {
@@ -451,23 +522,48 @@ const Hero = function Hero () {
 
   const handleFocus = () => setIsFocused(true)
 
-  const handleBlur = e => {
-    const normalized = ensureProtocol(e.target.value)
+  const submitUrl = url => {
+    const normalized = ensureProtocol(url)
     setInputUrl(normalized)
     setIsFocused(false)
-    if (normalized && normalized !== inputUrl) {
-      fetchScreenshot(normalized)
-    }
+    setHistory(h => addToHistory(h, normalized))
+    fetchScreenshot(normalized)
+  }
+
+  const handleBlur = e => {
+    setTimeout(() => {
+      if (skipBlurRef.current) {
+        skipBlurRef.current = false
+        return
+      }
+      const normalized = ensureProtocol(e.target.value)
+      setInputUrl(normalized)
+      setIsFocused(false)
+      if (normalized && normalized !== inputUrl) {
+        setHistory(h => addToHistory(h, normalized))
+        fetchScreenshot(normalized)
+      }
+    }, 150)
   }
 
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
-      const normalized = ensureProtocol(e.target.value)
-      setInputUrl(normalized)
-      setIsFocused(false)
       e.target.blur()
-      fetchScreenshot(normalized)
+      submitUrl(e.target.value)
     }
+    if (e.key === 'Escape') {
+      e.target.blur()
+      setIsFocused(false)
+    }
+  }
+
+  const handleHistoryClick = url => {
+    skipBlurRef.current = true
+    setInputUrl(url)
+    setIsFocused(false)
+    inputRef.current?.blur()
+    fetchScreenshot(url)
+    setHistory(h => addToHistory(h, url))
   }
 
   return (
@@ -621,6 +717,7 @@ const Hero = function Hero () {
                     />
                   </svg>
                   <AddressInput
+                    ref={inputRef}
                     type='text'
                     value={displayValue}
                     onChange={handleChange}
@@ -633,6 +730,44 @@ const Hero = function Hero () {
                     autoCorrect='off'
                     autoCapitalize='off'
                   />
+                  {isFocused && history.length > 0 && (
+                    <HistoryDropdown role='listbox' aria-label='Recent URLs'>
+                      {history.map(url => (
+                        <HistoryItem
+                          key={url}
+                          role='option'
+                          type='button'
+                          onMouseDown={e => {
+                            e.preventDefault()
+                            handleHistoryClick(url)
+                          }}
+                        >
+                          <svg
+                            width='12'
+                            height='12'
+                            viewBox='0 0 12 12'
+                            fill='none'
+                            aria-hidden='true'
+                          >
+                            <circle
+                              cx='5'
+                              cy='5'
+                              r='3.5'
+                              stroke='rgba(255,255,255,0.3)'
+                              strokeWidth='1.3'
+                            />
+                            <path
+                              d='M8 8l2 2'
+                              stroke='rgba(255,255,255,0.3)'
+                              strokeWidth='1.3'
+                              strokeLinecap='round'
+                            />
+                          </svg>
+                          <span>{stripProtocol(url)}</span>
+                        </HistoryItem>
+                      ))}
+                    </HistoryDropdown>
+                  )}
                 </AddressBar>
                 <Box css={{ width: '52px', flexShrink: 0 }} />
               </BrowserHeader>
