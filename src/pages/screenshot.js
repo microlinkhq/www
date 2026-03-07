@@ -92,7 +92,6 @@ const HERO_MQ = '@media (min-width: 1200px) and (max-width: 1550px)'
 const BrowserWindow = styled('div')`
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
   background: #1c1c1e;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.4);
   display: flex;
@@ -133,6 +132,17 @@ const NavArrow = styled('button')`
   line-height: 1;
 `
 
+const caretPulse = keyframes`
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.65), 0 0 10px 1px rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.12);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.15), 0 0 4px 0px rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.07);
+  }
+`
+
 const AddressBar = styled(Flex)`
   flex: 1;
   background: rgba(255, 255, 255, 0.07);
@@ -149,16 +159,24 @@ const AddressBar = styled(Flex)`
   ${({ $glowing }) =>
     $glowing &&
     css`
-      background: rgba(255, 255, 255, 0.14);
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3),
-        0 0 20px 2px rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.11);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7),
+        0 0 12px 1px rgba(255, 255, 255, 0.15);
     `}
 
-  ${({ $active }) =>
+  ${({ $isPulsing }) =>
+    $isPulsing &&
+    css`
+      animation: ${caretPulse} 2s ease-in-out 10;
+    `}
+
+  ${({ $active, $isPulsing }) =>
     $active &&
+    !$isPulsing &&
     css`
       background: rgba(255, 255, 255, 0.11);
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
+        0 0 10px 1px rgba(255, 255, 255, 0.12);
     `}
 
   &:focus-within {
@@ -168,6 +186,7 @@ const AddressBar = styled(Flex)`
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+    animation: none;
     box-shadow: none;
   }
 `
@@ -503,12 +522,12 @@ const Hero = function Hero () {
   const [isCopied, setIsCopied] = useState(false)
   const [isGlowing, setIsGlowing] = useState(false)
   const [isAttractMode, setIsAttractMode] = useState(false)
+  const [isPulsing, setIsPulsing] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
   const abortRef = useRef(null)
   const copyTimerRef = useRef(null)
   const hasImageRef = useRef(false)
   const skipBlurRef = useRef(false)
-  const typingRef = useRef(null)
 
   const DEMO_URLS = ['vercel.com', 'microlink.io']
 
@@ -528,7 +547,7 @@ const Hero = function Hero () {
       for (let i = 1; i <= url.length; i++) {
         await delay(130)
         if (check()) return false
-        setInputUrl(url.slice(0, i))
+        setInputUrl('https://' + url.slice(0, i))
       }
       await delay(250)
       setIsGlowing(false)
@@ -571,11 +590,15 @@ const Hero = function Hero () {
           setInputUrl('')
         } else {
           // last url loaded — attract mode after screenshot loads
-          await delay(1000)
+          await delay(2000)
           if (check()) return
           setIsGlowing(true)
           setIsFocused(true)
           setIsAttractMode(true)
+          setIsPulsing(true)
+          await delay(10000) // 5 cycles × 2s
+          if (check()) return
+          setIsPulsing(false)
         }
       }
     }
@@ -597,7 +620,7 @@ const Hero = function Hero () {
   }
 
   const displayValue = isFocused ? inputUrl : stripForDisplay(inputUrl)
-  const apiUrl = `https://api.microlink.io?url=${inputUrl}&screenshot`
+  const apiUrl = `https://api.microlink.io?screenshot&url=${inputUrl}`
 
   const fetchScreenshot = useCallback(async url => {
     if (abortRef.current) abortRef.current.abort()
@@ -647,6 +670,7 @@ const Hero = function Hero () {
   const stopAttract = () => {
     setIsGlowing(false)
     setIsAttractMode(false)
+    setIsPulsing(false)
     setHasInteracted(true)
   }
 
@@ -790,7 +814,17 @@ const Hero = function Hero () {
               width: ['100%', '85%', '70%', '100%']
             })}
           >
-            <BrowserWindow>
+            <BrowserWindow
+              onClick={e => {
+                if (
+                  !e.target.closest('input') &&
+                  !e.target.closest('[role="listbox"]')
+                ) {
+                  setIsFocused(false)
+                  stopAttract()
+                }
+              }}
+            >
               <BrowserHeader>
                 <TrafficLights>
                   <TerminalButton.Red />
@@ -837,7 +871,11 @@ const Hero = function Hero () {
                     </svg>
                   </NavArrow>
                 </NavButtons>
-                <AddressBar $glowing={isGlowing} $active={isAttractMode}>
+                <AddressBar
+                  $glowing={isGlowing}
+                  $active={isAttractMode}
+                  $isPulsing={isPulsing}
+                >
                   <svg
                     width='10'
                     height='12'
