@@ -191,11 +191,6 @@ const AddressBar = styled(Flex)`
   }
 `
 
-const fakeCursorBlink = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-`
-
 const AddressInput = styled('input')`
   background: none;
   border: none;
@@ -226,20 +221,6 @@ const AddressInput = styled('input')`
     outline: none;
     color: rgba(255, 255, 255, 0.85);
     text-align: left;
-  }
-`
-
-const FakeCursor = styled('span')`
-  display: inline-block;
-  width: 1.5px;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.75);
-  border-radius: 1px;
-  animation: ${fakeCursorBlink} 1s ease-in-out infinite;
-  flex-shrink: 0;
-
-  @media (prefers-reduced-motion: reduce) {
-    display: none;
   }
 `
 
@@ -537,8 +518,8 @@ const Hero = function Hero () {
     const timeouts = []
     let cancelled = false
     const delay = ms =>
-      new Promise(res => {
-        timeouts.push(setTimeout(res, ms))
+      new Promise(resolve => {
+        timeouts.push(setTimeout(resolve, ms))
       })
     const check = () => cancelled || hasInteracted
 
@@ -730,8 +711,8 @@ const Hero = function Hero () {
       css={theme({
         flexDirection: 'column',
         alignItems: 'center',
-        pt: [4, 4, 4, 4],
-        pb: [4, 4, 4, 5]
+        pt: [4, 4, 4, 5],
+        pb: [4, 4, 4, 6]
       })}
     >
       <Flex
@@ -1079,7 +1060,7 @@ const Hero = function Hero () {
                 <Text
                   as='span'
                   css={theme({
-                    fontSize: ['10px', '11px', '12px', '12px'],
+                    fontSize: ['12px', '12px', '13px', '13px'],
                     fontFamily: 'mono',
                     letterSpacing: '0.01em',
                     overflow: 'hidden',
