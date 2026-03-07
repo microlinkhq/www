@@ -17,7 +17,9 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
+import CodeCopy from 'components/elements/Codecopy'
 
+import { TerminalButton } from 'components/elements/Terminal/Terminal'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Average from 'components/patterns/Average/Average'
 import Block from 'components/patterns/Block/Block'
@@ -86,6 +88,83 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
 const HERO_MQ = '@media (min-width: 1200px) and (max-width: 1550px)'
+
+const API_URL = 'https://api.microlink.io/?url=https://apple.com&screenshot'
+
+const BrowserWindow = styled('div')`
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #1c1c1e;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+`
+
+const BrowserHeader = styled(Flex)`
+  background: #2c2c2e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  height: 44px;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  flex-shrink: 0;
+`
+
+const TrafficLights = styled(Flex)`
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+`
+
+const NavButtons = styled(Flex)`
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+`
+
+const NavArrow = styled('button')`
+  background: none;
+  border: none;
+  padding: 4px 5px;
+  cursor: default;
+  color: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  line-height: 1;
+`
+
+const AddressBar = styled(Flex)`
+  flex: 1;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  gap: 5px;
+  min-width: 0;
+`
+
+const ScreenshotApiBar = styled(Flex)`
+  background: #111113;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  .codecopy__button {
+    top: 0;
+    opacity: 0.85;
+    transition: opacity 0.15s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .codecopy__icon {
+    fill: rgba(255, 255, 255, 0.9) !important;
+  }
+`
 
 const HeroTextContainer = styled(Flex)`
   ${HERO_MQ} {
@@ -220,14 +299,129 @@ const Hero = function Hero () {
             alignItems: 'center'
           })}
         >
-          <Image
-            src={cdnUrl('screenshot/browser/dark/apple.png')}
-            alt='Apple screenshot'
+          <Box
             css={theme({
-              // maxWidth: layout.large,
-              maxWidth: ['100%', '85%', '70%', '100%']
+              display: 'inline-flex',
+              flexDirection: 'column',
+              maxWidth: ['100%', '85%', '70%', '100%'],
+              width: ['100%', '85%', '70%', '100%']
             })}
-          />
+          >
+            <BrowserWindow>
+              <BrowserHeader>
+                <TrafficLights>
+                  <TerminalButton.Red />
+                  <TerminalButton.Yellow />
+                  <TerminalButton.Green />
+                </TrafficLights>
+                <NavButtons>
+                  <NavArrow aria-hidden='true' tabIndex={-1}>
+                    <svg
+                      width='7'
+                      height='12'
+                      viewBox='0 0 7 12'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M6 1L1 6l5 5'
+                        stroke='currentColor'
+                        strokeWidth='1.5'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  </NavArrow>
+                  <NavArrow
+                    aria-hidden='true'
+                    tabIndex={-1}
+                    style={{ color: 'rgba(255,255,255,0.12)' }}
+                  >
+                    <svg
+                      width='7'
+                      height='12'
+                      viewBox='0 0 7 12'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M1 1l5 5-5 5'
+                        stroke='currentColor'
+                        strokeWidth='1.5'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  </NavArrow>
+                </NavButtons>
+                <AddressBar>
+                  <svg
+                    width='10'
+                    height='12'
+                    viewBox='0 0 10 12'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M5 1a3 3 0 00-3 3v1H1.5A.5.5 0 001 5.5v5a.5.5 0 00.5.5h7a.5.5 0 00.5-.5v-5A.5.5 0 008.5 5H8V4a3 3 0 00-3-3zm2 4V4a2 2 0 10-4 0v1h4z'
+                      fill='rgba(255,255,255,0.3)'
+                    />
+                  </svg>
+                  <Text
+                    as='span'
+                    css={theme({
+                      fontSize: '14px',
+                      color: 'white80',
+                      fontWeight: 'regular',
+                      letterSpacing: '0.01em',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap'
+                    })}
+                  >
+                    apple.com
+                  </Text>
+                </AddressBar>
+                <Box css={{ width: '52px', flexShrink: 0 }} />
+              </BrowserHeader>
+              <Image
+                src='https://api.microlink.io/?url=https://apple.com&screenshot&embed=screenshot.url'
+                alt='Apple screenshot'
+                css={{
+                  display: 'block',
+                  width: '100%',
+                  verticalAlign: 'bottom'
+                }}
+              />
+              <ScreenshotApiBar
+                css={theme({
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  px: [2, 3, 3, 3],
+                  py: '10px',
+                  gap: 2
+                })}
+              >
+                <Text
+                  as='span'
+                  css={theme({
+                    fontSize: ['10px', '11px', '12px', '12px'],
+                    fontFamily: 'mono',
+                    letterSpacing: '0.01em',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    flex: 1,
+                    minWidth: 0
+                  })}
+                  style={{ color: '#4ade80' }}
+                >
+                  {API_URL}
+                </Text>
+                <CodeCopy isDark text={API_URL} />
+              </ScreenshotApiBar>
+            </BrowserWindow>
+          </Box>
         </Flex>
       </Flex>
     </Flex>
