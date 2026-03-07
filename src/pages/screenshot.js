@@ -209,7 +209,7 @@ const ScreenshotApiBar = styled(Flex)`
 const ScreenshotOverlay = styled('div')`
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: ${({ $dim }) => ($dim ? 'rgba(0, 0, 0, 0.55)' : 'transparent')};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -381,15 +381,18 @@ const Hero = function Hero () {
   const [inputUrl, setInputUrl] = useState('https://apple.com')
   const [isFocused, setIsFocused] = useState(false)
   const [screenshotSrc, setScreenshotSrc] = useState(
-    `https://api.microlink.io/?url=${encodeURIComponent(
+    `https://api.microlink.io?url=${encodeURIComponent(
       inputUrl
-    )}&screenshot&embed=screenshot.url`
+    )}&screenshot&embed=screenshot.url&force=true`
   )
+  const [imgKey, setImgKey] = useState(0)
+  const [imgVisible, setImgVisible] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isCopied, setIsCopied] = useState(false)
   const abortRef = useRef(null)
   const copyTimerRef = useRef(null)
+  const hasImageRef = useRef(false)
 
   const handleCopy = () => {
     if (typeof navigator === 'undefined' || !navigator.clipboard) return
@@ -429,7 +432,8 @@ const Hero = function Hero () {
       const src = json?.data?.screenshot?.url
       if (src) {
         setScreenshotSrc(src)
-        // loading stays true — cleared by onLoad on the image
+        setImgKey(k => k + 1)
+        setImgVisible(false)
       } else {
         setIsLoading(false)
       }
@@ -632,20 +636,38 @@ const Hero = function Hero () {
                 </AddressBar>
                 <Box css={{ width: '52px', flexShrink: 0 }} />
               </BrowserHeader>
-              <div style={{ position: 'relative' }}>
-                <Image
+              <div
+                style={{
+                  position: 'relative',
+                  aspectRatio: '16/10',
+                  overflow: 'hidden'
+                }}
+              >
+                <img
+                  key={imgKey}
                   src={screenshotSrc}
                   alt='Website screenshot'
-                  onLoad={() => setIsLoading(false)}
+                  decoding='async'
+                  onLoad={() => {
+                    hasImageRef.current = true
+                    setImgVisible(true)
+                    setIsLoading(false)
+                  }}
                   onError={() => setIsLoading(false)}
-                  css={{
-                    display: 'block',
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
                     width: '100%',
-                    verticalAlign: 'bottom'
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                    filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
+                    transition: 'filter 0.5s ease'
                   }}
                 />
                 {isLoading && (
                   <ScreenshotOverlay
+                    $dim={hasImageRef.current}
                     aria-label='Loading screenshot'
                     role='status'
                   >
