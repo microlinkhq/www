@@ -511,12 +511,18 @@ const Hero = function Hero () {
       await delay(1800)
       if (check()) return
 
-      for (const url of DEMO_URLS) {
+      for (let i = 0; i < DEMO_URLS.length; i++) {
+        const url = DEMO_URLS[i]
         if (check()) return
 
-        setIsGlowing(true)
-        await delay(250)
-        if (check()) return
+        if (i === 0) {
+          // first url: glow then wait before typing
+          setIsGlowing(true)
+          await delay(250)
+          if (check()) return
+        }
+        // subsequent urls: glow+clear already done between iterations, type immediately
+
         const completed = await typeUrl(url)
         if (!completed) return
 
@@ -528,11 +534,13 @@ const Hero = function Hero () {
         setHistory(h => addToHistory(h, normalized))
         fetchScreenshot(normalized)
 
-        if (url !== DEMO_URLS[DEMO_URLS.length - 1]) {
+        if (i < DEMO_URLS.length - 1) {
           await delay(5000)
           if (check()) return
+          setIsGlowing(true)
+          await delay(250)
+          if (check()) return
           setInputUrl('')
-          await delay(300)
         }
       }
     }
