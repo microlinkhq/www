@@ -156,6 +156,16 @@ const AddressBar = styled(Flex)`
   position: relative;
   transition: box-shadow 0.3s ease, background 0.3s ease;
 
+  &:hover {
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
+      0 0 12px 1px rgba(255, 255, 255, 0.15);
+
+    input {
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+
   ${({ $glowing }) =>
     $glowing &&
     css`
@@ -208,6 +218,7 @@ const AddressInput = styled('input')`
     $active ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.5)'};
   text-align: ${({ $active }) => ($active ? 'left' : 'center')};
   letter-spacing: 0.01em;
+  transition: color 0.2s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   caret-color: rgba(255, 255, 255, 0.7);
@@ -271,13 +282,15 @@ const SpinnerCircle = styled('circle')`
 const CopyButton = styled('button')`
   background: none;
   border: none;
-  padding: 0;
+  padding: 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   color: rgba(255, 255, 255, 0.9);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: color 0.15s ease, transform 0.15s ease;
 
   &:hover {
@@ -593,11 +606,39 @@ const Hero = function Hero () {
   }, [hasInteracted])
 
   const handleCopy = () => {
-    if (typeof navigator === 'undefined' || !navigator.clipboard) return
-    navigator.clipboard.writeText(apiUrl)
-    setIsCopied(true)
-    if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
-    copyTimerRef.current = setTimeout(() => setIsCopied(false), 1500)
+    const markCopied = () => {
+      setIsCopied(true)
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
+      copyTimerRef.current = setTimeout(() => setIsCopied(false), 1500)
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard
+        .writeText(apiUrl)
+        .then(markCopied)
+        .catch(() => {
+          fallbackCopy(apiUrl) && markCopied()
+        })
+    } else {
+      fallbackCopy(apiUrl) && markCopied()
+    }
+  }
+
+  const fallbackCopy = text => {
+    try {
+      const el = document.createElement('textarea')
+      el.value = text
+      el.setAttribute('readonly', '')
+      el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0'
+      document.body.appendChild(el)
+      el.focus()
+      el.select()
+      const ok = document.execCommand('copy')
+      document.body.removeChild(el)
+      return ok
+    } catch {
+      return false
+    }
   }
 
   const displayValue = isFocused ? inputUrl : stripForDisplay(inputUrl)
@@ -736,7 +777,7 @@ const Hero = function Hero () {
           <Heading
             css={theme({
               maxWidth: layout.large,
-              fontSize: [3, 4, 4, 5],
+              fontSize: [4, 4, 4, 5],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
@@ -746,7 +787,7 @@ const Hero = function Hero () {
             forwardedAs='h2'
             css={theme({
               pt: [3, 3, 3, 4],
-              fontSize: [1, 2, '24px', 3],
+              fontSize: [2, 2, '24px', 3],
               maxWidth: [
                 layout.small,
                 layout.small,
@@ -872,7 +913,7 @@ const Hero = function Hero () {
                   <AddressInput
                     ref={inputRef}
                     $active={isFocused || isAttractMode}
-                    type='text'
+                    type='url'
                     value={displayValue}
                     onChange={handleChange}
                     onFocus={handleFocus}
@@ -1078,39 +1119,37 @@ const Hero = function Hero () {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
