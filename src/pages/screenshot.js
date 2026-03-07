@@ -123,13 +123,32 @@ const NavButtons = styled(Flex)`
 const NavArrow = styled('button')`
   background: none;
   border: none;
-  padding: 4px 5px;
+  padding: 4px 9px;
   cursor: default;
   color: rgba(255, 255, 255, 0.25);
   display: flex;
   align-items: center;
   border-radius: 4px;
   line-height: 1;
+  transition: color 0.15s ease;
+
+  &:not(:disabled) {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.65);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    &:active {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: 2px;
+  }
 `
 
 const caretPulse = keyframes`
@@ -216,7 +235,7 @@ const AddressInput = styled('input')`
   font-weight: 500;
   color: ${({ $active }) =>
     $active ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.5)'};
-  text-align: ${({ $active }) => ($active ? 'left' : 'center')};
+  text-align: left;
   letter-spacing: 0.01em;
   transition: color 0.2s ease;
   touch-action: manipulation;
@@ -518,6 +537,8 @@ const Hero = function Hero () {
   const [isAttractMode, setIsAttractMode] = useState(false)
   const [isPulsing, setIsPulsing] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [navStack, setNavStack] = useState(['https://apple.com'])
+  const [navIndex, setNavIndex] = useState(0)
   const abortRef = useRef(null)
   const copyTimerRef = useRef(null)
   const hasImageRef = useRef(false)
@@ -573,6 +594,11 @@ const Hero = function Hero () {
         const normalized = ensureProtocol(url)
         setInputUrl(normalized)
         setHistory(h => addToHistory(h, normalized))
+        setNavStack(s => {
+          const next = [...s, normalized].slice(-MAX_HISTORY)
+          setNavIndex(next.length - 1)
+          return next
+        })
         fetchScreenshot(normalized)
 
         if (i < DEMO_URLS.length - 1) {
@@ -703,10 +729,34 @@ const Hero = function Hero () {
 
   const submitUrl = url => {
     const normalized = ensureProtocol(url)
+    const newStack = [...navStack.slice(0, navIndex + 1), normalized].slice(
+      -MAX_HISTORY
+    )
+    const newIndex = newStack.length - 1
     setInputUrl(normalized)
     setIsFocused(false)
     setHistory(h => addToHistory(h, normalized))
+    setNavStack(newStack)
+    setNavIndex(newIndex)
     fetchScreenshot(normalized)
+  }
+
+  const handleBack = () => {
+    if (navIndex === 0) return
+    const newIndex = navIndex - 1
+    const url = navStack[newIndex]
+    setNavIndex(newIndex)
+    setInputUrl(url)
+    fetchScreenshot(url)
+  }
+
+  const handleForward = () => {
+    if (navIndex >= navStack.length - 1) return
+    const newIndex = navIndex + 1
+    const url = navStack[newIndex]
+    setNavIndex(newIndex)
+    setInputUrl(url)
+    fetchScreenshot(url)
   }
 
   const handleBlur = e => {
@@ -854,7 +904,12 @@ const Hero = function Hero () {
                   <TerminalButton.Green />
                 </TrafficLights>
                 <NavButtons>
-                  <NavArrow aria-hidden='true' tabIndex={-1}>
+                  <NavArrow
+                    type='button'
+                    aria-label='Go back'
+                    disabled={navIndex === 0}
+                    onClick={handleBack}
+                  >
                     <svg
                       width='7'
                       height='12'
@@ -872,9 +927,10 @@ const Hero = function Hero () {
                     </svg>
                   </NavArrow>
                   <NavArrow
-                    aria-hidden='true'
-                    tabIndex={-1}
-                    style={{ color: 'rgba(255,255,255,0.12)' }}
+                    type='button'
+                    aria-label='Go forward'
+                    disabled={navIndex >= navStack.length - 1}
+                    onClick={handleForward}
                   >
                     <svg
                       width='7'
@@ -899,15 +955,26 @@ const Hero = function Hero () {
                   $isPulsing={isPulsing}
                 >
                   <svg
-                    width='10'
-                    height='12'
-                    viewBox='0 0 10 12'
+                    width='11'
+                    height='13'
+                    viewBox='0 0 11 13'
                     fill='none'
                     aria-hidden='true'
+                    style={{ flexShrink: 0 }}
                   >
-                    <path
-                      d='M5 1a3 3 0 00-3 3v1H1.5A.5.5 0 001 5.5v5a.5.5 0 00.5.5h7a.5.5 0 00.5-.5v-5A.5.5 0 008.5 5H8V4a3 3 0 00-3-3zm2 4V4a2 2 0 10-4 0v1h4z'
+                    <rect
+                      x='1'
+                      y='5.5'
+                      width='9'
+                      height='7'
+                      rx='1.5'
                       fill='rgba(255,255,255,0.3)'
+                    />
+                    <path
+                      d='M3 5.5V3.5a2.5 2.5 0 015 0v2'
+                      stroke='rgba(255,255,255,0.3)'
+                      strokeWidth='1.4'
+                      strokeLinecap='round'
                     />
                   </svg>
                   <AddressInput
@@ -965,7 +1032,7 @@ const Hero = function Hero () {
                     </HistoryDropdown>
                   )}
                 </AddressBar>
-                <Box css={{ width: '52px', flexShrink: 0 }} />
+                <Box css={{ width: '4px', flexShrink: 0 }} />
               </BrowserHeader>
               <div
                 style={{
