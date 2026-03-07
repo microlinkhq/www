@@ -789,11 +789,8 @@ const Hero = function Hero () {
   const handleHistoryClick = url => {
     skipBlurRef.current = true
     stopAttract()
-    setInputUrl(url)
-    setIsFocused(false)
     inputRef.current?.blur()
-    fetchScreenshot(url)
-    setHistory(h => addToHistory(h, url))
+    submitUrl(url)
   }
 
   return (
