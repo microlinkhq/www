@@ -1,5 +1,5 @@
 import { borders, layout, colors, theme } from 'theme'
-import React, { useState } from 'react'
+import React, { useState, useCallback, useRef } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
@@ -17,8 +17,8 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import CodeCopy from 'components/elements/Codecopy'
 
+import { rotate, dash, fadeInDown } from 'components/keyframes'
 import { TerminalButton } from 'components/elements/Terminal/Terminal'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Average from 'components/patterns/Average/Average'
@@ -194,10 +194,127 @@ const ScreenshotApiBar = styled(Flex)`
     &:hover {
       opacity: 1;
     }
+
+    &::before,
+    &::after {
+      display: none !important;
+    }
   }
 
   .codecopy__icon {
     fill: rgba(255, 255, 255, 0.9) !important;
+  }
+`
+
+const ScreenshotOverlay = styled('div')`
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+`
+
+const Spinner = styled('svg')`
+  animation: ${rotate} 1.4s linear infinite;
+`
+
+const SpinnerCircle = styled('circle')`
+  animation: ${dash} 1.4s ease-in-out infinite;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-linecap: round;
+`
+
+const CopyButton = styled('button')`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    color: #fff;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  svg.icon-check {
+    animation: ${fadeInDown} 0.2s ease both;
+    color: #4ade80;
+  }
+`
+
+const ErrorModalOverlay = styled('div')`
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+`
+
+const ErrorModalWindow = styled('div')`
+  background: #1c1c1e;
+  border: 1px solid rgba(255, 80, 80, 0.25);
+  border-radius: 12px;
+  width: 340px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+`
+
+const ErrorModalHeader = styled('div')`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+`
+
+const ErrorModalBody = styled('div')`
+  padding: 16px;
+`
+
+const ErrorCloseButton = styled('button')`
+  background: rgba(255, 255, 255, 0.07);
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  line-height: 1;
+  font-size: 14px;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.13);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: 2px;
   }
 `
 
@@ -263,10 +380,66 @@ const stripProtocol = url => url.replace(/^https?:\/\//i, '')
 const Hero = function Hero () {
   const [inputUrl, setInputUrl] = useState('https://apple.com')
   const [isFocused, setIsFocused] = useState(false)
+  const [screenshotSrc, setScreenshotSrc] = useState(
+    `https://api.microlink.io/?url=${encodeURIComponent(
+      inputUrl
+    )}&screenshot&embed=screenshot.url`
+  )
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [isCopied, setIsCopied] = useState(false)
+  const abortRef = useRef(null)
+  const copyTimerRef = useRef(null)
+
+  const handleCopy = () => {
+    if (typeof navigator === 'undefined' || !navigator.clipboard) return
+    navigator.clipboard.writeText(apiUrl)
+    setIsCopied(true)
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
+    copyTimerRef.current = setTimeout(() => setIsCopied(false), 1500)
+  }
 
   const displayValue = isFocused ? inputUrl : stripProtocol(inputUrl)
+  const apiUrl = `https://api.microlink.io?url=${inputUrl}&screenshot`
 
-  const apiUrl = `https://api.microlink.io/?url=${inputUrl}&screenshot`
+  const fetchScreenshot = useCallback(async url => {
+    if (abortRef.current) abortRef.current.abort()
+    abortRef.current = new AbortController()
+
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const res = await fetch(
+        `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
+        { signal: abortRef.current.signal }
+      )
+      const json = await res.json()
+
+      if (!res.ok) {
+        const message =
+          res.status === 429
+            ? 'Rate limit reached — try again in a moment.'
+            : json.message || `Error ${res.status}`
+        setError(message)
+        setIsLoading(false)
+        return
+      }
+
+      const src = json?.data?.screenshot?.url
+      if (src) {
+        setScreenshotSrc(src)
+        // loading stays true — cleared by onLoad on the image
+      } else {
+        setIsLoading(false)
+      }
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        setError(err.message || 'Something went wrong.')
+      }
+      setIsLoading(false)
+    }
+  }, [])
 
   const handleChange = e => {
     setInputUrl(e.target.value)
@@ -278,6 +451,19 @@ const Hero = function Hero () {
     const normalized = ensureProtocol(e.target.value)
     setInputUrl(normalized)
     setIsFocused(false)
+    if (normalized && normalized !== inputUrl) {
+      fetchScreenshot(normalized)
+    }
+  }
+
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      const normalized = ensureProtocol(e.target.value)
+      setInputUrl(normalized)
+      setIsFocused(false)
+      e.target.blur()
+      fetchScreenshot(normalized)
+    }
   }
 
   return (
@@ -436,6 +622,7 @@ const Hero = function Hero () {
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onKeyDown={handleKeyDown}
                     aria-label='Browser address bar'
                     spellCheck={false}
                     autoComplete='off'
@@ -445,15 +632,110 @@ const Hero = function Hero () {
                 </AddressBar>
                 <Box css={{ width: '52px', flexShrink: 0 }} />
               </BrowserHeader>
-              <Image
-                src={`https://api.microlink.io/?url=${inputUrl}&screenshot&embed=screenshot.url`}
-                alt='Apple screenshot'
-                css={{
-                  display: 'block',
-                  width: '100%',
-                  verticalAlign: 'bottom'
-                }}
-              />
+              <div style={{ position: 'relative' }}>
+                <Image
+                  src={screenshotSrc}
+                  alt='Website screenshot'
+                  onLoad={() => setIsLoading(false)}
+                  onError={() => setIsLoading(false)}
+                  css={{
+                    display: 'block',
+                    width: '100%',
+                    verticalAlign: 'bottom'
+                  }}
+                />
+                {isLoading && (
+                  <ScreenshotOverlay
+                    aria-label='Loading screenshot'
+                    role='status'
+                  >
+                    <Spinner
+                      width='36'
+                      height='36'
+                      viewBox='0 0 50 50'
+                      aria-hidden='true'
+                    >
+                      <SpinnerCircle
+                        cx='25'
+                        cy='25'
+                        r='20'
+                        fill='none'
+                        strokeWidth='4'
+                      />
+                    </Spinner>
+                  </ScreenshotOverlay>
+                )}
+                {error && (
+                  <ErrorModalOverlay
+                    role='dialog'
+                    aria-modal='true'
+                    aria-label='Error'
+                    onClick={e => {
+                      if (e.target === e.currentTarget) setError(null)
+                    }}
+                  >
+                    <ErrorModalWindow>
+                      <ErrorModalHeader>
+                        <Flex css={{ alignItems: 'center', gap: '8px' }}>
+                          <svg
+                            width='16'
+                            height='16'
+                            viewBox='0 0 16 16'
+                            fill='none'
+                            aria-hidden='true'
+                          >
+                            <circle
+                              cx='8'
+                              cy='8'
+                              r='7'
+                              stroke='rgba(255,80,80,0.8)'
+                              strokeWidth='1.5'
+                            />
+                            <path
+                              d='M8 5v3M8 10.5v.5'
+                              stroke='rgba(255,80,80,0.9)'
+                              strokeWidth='1.5'
+                              strokeLinecap='round'
+                            />
+                          </svg>
+                          <Text
+                            as='span'
+                            style={{
+                              color: 'rgba(255,255,255,0.9)',
+                              fontSize: '13px',
+                              fontWeight: 600,
+                              letterSpacing: '0.01em'
+                            }}
+                          >
+                            Request failed
+                          </Text>
+                        </Flex>
+                        <ErrorCloseButton
+                          type='button'
+                          aria-label='Dismiss error'
+                          onClick={() => setError(null)}
+                        >
+                          ×
+                        </ErrorCloseButton>
+                      </ErrorModalHeader>
+                      <ErrorModalBody>
+                        <Text
+                          as='p'
+                          css={theme({ fontFamily: 'mono' })}
+                          style={{
+                            color: 'rgba(255,120,120,0.9)',
+                            fontSize: '12px',
+                            lineHeight: '1.6',
+                            margin: 0
+                          }}
+                        >
+                          {error}
+                        </Text>
+                      </ErrorModalBody>
+                    </ErrorModalWindow>
+                  </ErrorModalOverlay>
+                )}
+              </div>
               <ScreenshotApiBar
                 css={theme({
                   alignItems: 'center',
@@ -479,7 +761,43 @@ const Hero = function Hero () {
                 >
                   {apiUrl}
                 </Text>
-                <CodeCopy isDark text={apiUrl} />
+                <CopyButton
+                  type='button'
+                  onClick={handleCopy}
+                  aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
+                >
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
+                </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
           </Box>
