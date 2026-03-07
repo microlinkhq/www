@@ -154,6 +154,13 @@ const AddressBar = styled(Flex)`
         0 0 20px 2px rgba(255, 255, 255, 0.1);
     `}
 
+  ${({ $active }) =>
+    $active &&
+    css`
+      background: rgba(255, 255, 255, 0.11);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+    `}
+
   &:focus-within {
     background: rgba(255, 255, 255, 0.11);
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
@@ -163,6 +170,11 @@ const AddressBar = styled(Flex)`
     transition: none;
     box-shadow: none;
   }
+`
+
+const fakeCursorBlink = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 `
 
 const AddressInput = styled('input')`
@@ -178,9 +190,10 @@ const AddressInput = styled('input')`
   font-size: 14px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.white80};
+  color: ${({ $active }) =>
+    $active ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.5)'};
+  text-align: ${({ $active }) => ($active ? 'left' : 'center')};
   letter-spacing: 0.01em;
-  text-align: center;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   caret-color: rgba(255, 255, 255, 0.7);
@@ -194,6 +207,20 @@ const AddressInput = styled('input')`
     outline: none;
     color: rgba(255, 255, 255, 0.85);
     text-align: left;
+  }
+`
+
+const FakeCursor = styled('span')`
+  display: inline-block;
+  width: 1.5px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 1px;
+  animation: ${fakeCursorBlink} 1s ease-in-out infinite;
+  flex-shrink: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
   }
 `
 
@@ -475,6 +502,7 @@ const Hero = function Hero () {
   const [error, setError] = useState(null)
   const [isCopied, setIsCopied] = useState(false)
   const [isGlowing, setIsGlowing] = useState(false)
+  const [isAttractMode, setIsAttractMode] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
   const abortRef = useRef(null)
   const copyTimerRef = useRef(null)
@@ -535,12 +563,19 @@ const Hero = function Hero () {
         fetchScreenshot(normalized)
 
         if (i < DEMO_URLS.length - 1) {
-          await delay(5000)
+          await delay(3000)
           if (check()) return
           setIsGlowing(true)
           await delay(250)
           if (check()) return
           setInputUrl('')
+        } else {
+          // last url loaded — attract mode after screenshot loads
+          await delay(1000)
+          if (check()) return
+          setIsGlowing(true)
+          setIsFocused(true)
+          setIsAttractMode(true)
         }
       }
     }
@@ -606,11 +641,18 @@ const Hero = function Hero () {
 
   const handleChange = e => {
     setInputUrl(e.target.value)
+    stopAttract()
+  }
+
+  const stopAttract = () => {
+    setIsGlowing(false)
+    setIsAttractMode(false)
+    setHasInteracted(true)
   }
 
   const handleFocus = () => {
     setIsFocused(true)
-    setHasInteracted(true)
+    stopAttract()
   }
 
   const submitUrl = url => {
@@ -650,6 +692,7 @@ const Hero = function Hero () {
 
   const handleHistoryClick = url => {
     skipBlurRef.current = true
+    stopAttract()
     setInputUrl(url)
     setIsFocused(false)
     inputRef.current?.blur()
@@ -794,7 +837,7 @@ const Hero = function Hero () {
                     </svg>
                   </NavArrow>
                 </NavButtons>
-                <AddressBar $glowing={isGlowing}>
+                <AddressBar $glowing={isGlowing} $active={isAttractMode}>
                   <svg
                     width='10'
                     height='12'
@@ -809,6 +852,7 @@ const Hero = function Hero () {
                   </svg>
                   <AddressInput
                     ref={inputRef}
+                    $active={isFocused || isAttractMode}
                     type='text'
                     value={displayValue}
                     onChange={handleChange}
@@ -821,6 +865,7 @@ const Hero = function Hero () {
                     autoCorrect='off'
                     autoCapitalize='off'
                   />
+
                   {isFocused && history.length > 0 && (
                     <HistoryDropdown role='listbox' aria-label='Recent URLs'>
                       {history.map(url => (
