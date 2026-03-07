@@ -1,5 +1,5 @@
 import { borders, layout, colors, theme } from 'theme'
-import React from 'react'
+import React, { useState } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
@@ -89,8 +89,6 @@ const Caption = withTitle(CaptionBase)
 
 const HERO_MQ = '@media (min-width: 1200px) and (max-width: 1550px)'
 
-const API_URL = 'https://api.microlink.io/?url=https://apple.com&screenshot'
-
 const BrowserWindow = styled('div')`
   border-radius: 10px;
   overflow: hidden;
@@ -145,6 +143,43 @@ const AddressBar = styled(Flex)`
   padding: 0 10px;
   gap: 5px;
   min-width: 0;
+
+  &:focus-within {
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+  }
+`
+
+const AddressInput = styled('input')`
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.white80};
+  letter-spacing: 0.01em;
+  text-align: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  caret-color: rgba(255, 255, 255, 0.7);
+
+  &::selection {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &:focus {
+    outline: none;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: left;
+  }
 `
 
 const ScreenshotApiBar = styled(Flex)`
@@ -216,7 +251,35 @@ const fromCache = (variations, opts) => {
   return { data: { ...data, screenshot: { url: screenshotUrl } } }
 }
 
+const ensureProtocol = value => {
+  const trimmed = value.trim()
+  if (!trimmed) return trimmed
+  if (/^https?:\/\//i.test(trimmed)) return trimmed
+  return `https://${trimmed}`
+}
+
+const stripProtocol = url => url.replace(/^https?:\/\//i, '')
+
 const Hero = function Hero () {
+  const [inputUrl, setInputUrl] = useState('https://apple.com')
+  const [isFocused, setIsFocused] = useState(false)
+
+  const displayValue = isFocused ? inputUrl : stripProtocol(inputUrl)
+
+  const apiUrl = `https://api.microlink.io/?url=${inputUrl}&screenshot`
+
+  const handleChange = e => {
+    setInputUrl(e.target.value)
+  }
+
+  const handleFocus = () => setIsFocused(true)
+
+  const handleBlur = e => {
+    const normalized = ensureProtocol(e.target.value)
+    setInputUrl(normalized)
+    setIsFocused(false)
+  }
+
   return (
     <Flex
       as='section'
@@ -367,25 +430,23 @@ const Hero = function Hero () {
                       fill='rgba(255,255,255,0.3)'
                     />
                   </svg>
-                  <Text
-                    as='span'
-                    css={theme({
-                      fontSize: '14px',
-                      color: 'white80',
-                      fontWeight: 'regular',
-                      letterSpacing: '0.01em',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap'
-                    })}
-                  >
-                    apple.com
-                  </Text>
+                  <AddressInput
+                    type='text'
+                    value={displayValue}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    aria-label='Browser address bar'
+                    spellCheck={false}
+                    autoComplete='off'
+                    autoCorrect='off'
+                    autoCapitalize='off'
+                  />
                 </AddressBar>
                 <Box css={{ width: '52px', flexShrink: 0 }} />
               </BrowserHeader>
               <Image
-                src='https://api.microlink.io/?url=https://apple.com&screenshot&embed=screenshot.url'
+                src={`https://api.microlink.io/?url=${inputUrl}&screenshot&embed=screenshot.url`}
                 alt='Apple screenshot'
                 css={{
                   display: 'block',
@@ -416,9 +477,9 @@ const Hero = function Hero () {
                   })}
                   style={{ color: '#4ade80' }}
                 >
-                  {API_URL}
+                  {apiUrl}
                 </Text>
-                <CodeCopy isDark text={API_URL} />
+                <CodeCopy isDark text={apiUrl} />
               </ScreenshotApiBar>
             </BrowserWindow>
           </Box>
