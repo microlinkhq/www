@@ -1,9 +1,9 @@
 import { borders, layout, colors, theme } from 'theme'
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import get from 'dlv'
 
 import Box from 'components/elements/Box'
@@ -144,10 +144,24 @@ const AddressBar = styled(Flex)`
   gap: 10px;
   min-width: 0;
   position: relative;
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+
+  ${({ $glowing }) =>
+    $glowing &&
+    css`
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3),
+        0 0 20px 2px rgba(255, 255, 255, 0.1);
+    `}
 
   &:focus-within {
     background: rgba(255, 255, 255, 0.11);
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    box-shadow: none;
   }
 `
 
@@ -460,10 +474,76 @@ const Hero = function Hero () {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isCopied, setIsCopied] = useState(false)
+  const [isGlowing, setIsGlowing] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const abortRef = useRef(null)
   const copyTimerRef = useRef(null)
   const hasImageRef = useRef(false)
   const skipBlurRef = useRef(false)
+  const typingRef = useRef(null)
+
+  const DEMO_URLS = ['vercel.com', 'microlink.io']
+
+  useEffect(() => {
+    if (hasInteracted) return
+
+    const timeouts = []
+    let cancelled = false
+    const delay = ms =>
+      new Promise(res => {
+        timeouts.push(setTimeout(res, ms))
+      })
+    const check = () => cancelled || hasInteracted
+
+    const typeUrl = async url => {
+      setInputUrl('')
+      for (let i = 1; i <= url.length; i++) {
+        await delay(130)
+        if (check()) return false
+        setInputUrl(url.slice(0, i))
+      }
+      await delay(250)
+      setIsGlowing(false)
+      return true
+    }
+
+    const run = async () => {
+      await delay(1800)
+      if (check()) return
+
+      for (const url of DEMO_URLS) {
+        if (check()) return
+
+        setIsGlowing(true)
+        await delay(250)
+        if (check()) return
+        const completed = await typeUrl(url)
+        if (!completed) return
+
+        await delay(50)
+        if (check()) return
+
+        const normalized = ensureProtocol(url)
+        setInputUrl(normalized)
+        setHistory(h => addToHistory(h, normalized))
+        fetchScreenshot(normalized)
+
+        if (url !== DEMO_URLS[DEMO_URLS.length - 1]) {
+          await delay(5000)
+          if (check()) return
+          setInputUrl('')
+          await delay(300)
+        }
+      }
+    }
+
+    run()
+
+    return () => {
+      cancelled = true
+      timeouts.forEach(clearTimeout)
+    }
+  }, [hasInteracted])
 
   const handleCopy = () => {
     if (typeof navigator === 'undefined' || !navigator.clipboard) return
@@ -520,7 +600,10 @@ const Hero = function Hero () {
     setInputUrl(e.target.value)
   }
 
-  const handleFocus = () => setIsFocused(true)
+  const handleFocus = () => {
+    setIsFocused(true)
+    setHasInteracted(true)
+  }
 
   const submitUrl = url => {
     const normalized = ensureProtocol(url)
@@ -703,7 +786,7 @@ const Hero = function Hero () {
                     </svg>
                   </NavArrow>
                 </NavButtons>
-                <AddressBar>
+                <AddressBar $glowing={isGlowing}>
                   <svg
                     width='10'
                     height='12'
