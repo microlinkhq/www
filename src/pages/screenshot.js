@@ -383,7 +383,7 @@ const Hero = function Hero () {
   const [screenshotSrc, setScreenshotSrc] = useState(
     `https://api.microlink.io?url=${encodeURIComponent(
       inputUrl
-    )}&screenshot&embed=screenshot.url&force=true`
+    )}&screenshot&embed=screenshot.url`
   )
   const [imgKey, setImgKey] = useState(0)
   const [imgVisible, setImgVisible] = useState(true)
