@@ -32,6 +32,7 @@ import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
+import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 
@@ -98,7 +99,7 @@ const BrowserWindow = styled('div')`
   border-radius: 10px;
   overflow: hidden;
   background: #1c1c1e;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
 `
@@ -1895,6 +1896,102 @@ const Clients = () => (
   </Container>
 )
 
+const CodeExample = () => (
+  <Container
+    as='section'
+    css={theme({
+      alignItems: 'center',
+      width: '100%',
+      pt: [5, 5, 6, 6],
+      pb: [4, 4, 5, 5],
+      px: [1, 1, 5, 5]
+    })}
+  >
+    <Flex
+      css={theme({
+        width: '100%',
+        mx: 'auto',
+        flexDirection: ['column', 'column', 'column', 'row'],
+        alignItems: ['center', 'center', 'center', 'center'],
+        gap: [4, 4, 5, 5],
+        px: [4, 4, 5, 5]
+      })}
+    >
+      <Flex
+        css={theme({
+          width: ['100%', '100%', '100%', '60%'],
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: ['center', 'center', 'center', 'flex-start']
+        })}
+      >
+        <Subhead
+          css={theme({
+            fontSize: [3, 3, 4, 4],
+            textAlign: ['center', 'center', 'center', 'left']
+          })}
+        >
+          Website capture API in any language
+        </Subhead>
+        <Caption
+          forwardedAs='div'
+          css={theme({
+            pt: [3, 3, 4, 4],
+            fontSize: [1, 1, 2, 2],
+            textAlign: ['center', 'center', 'center', 'left'],
+            maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
+          })}
+        >
+          Microlink screenshot API delivers enterprise-grade screen capture
+          through a developer-friendly web API. Automatically take screenshots
+          of any website for documentation, monitoring, archiving, and visual
+          content creation.
+        </Caption>
+        <Flex
+          css={theme({
+            pt: [3, 3, 4, 4],
+            fontSize: [2, 2, 3, 3],
+            justifyContent: ['center', 'center', 'center', 'flex-start']
+          })}
+        >
+          <ArrowLink href='/docs/api/parameters/screenshot'>
+            Read the docs
+          </ArrowLink>
+        </Flex>
+      </Flex>
+      <Box
+        css={[
+          theme({
+            width: ['100%', '100%', '100%', '40%'],
+            minHeight: '400px'
+          }),
+          {
+            '& > div > div:first-child': {
+              boxShadow:
+                '0 24px 64px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1)'
+            }
+          }
+        ]}
+      >
+        <MultiCodeEditorInteractive
+          height={300}
+          mqlCode={{
+            url: 'https://www.netflix.com/title/80057281',
+            screenshot: {
+              type: 'jpeg'
+            },
+            viewport: {
+              width: 1920,
+              height: 1080,
+              deviceScaleFactor: 2
+            }
+          }}
+        />
+      </Box>
+    </Flex>
+  </Container>
+)
+
 const CAPABILITIES = [
   {
     icon: (
@@ -2496,6 +2593,7 @@ const ScreenshotPage = () => {
               />
               <Capabilities />
               <Clients />
+              <CodeExample />
               <Features
                 css={theme({ px: 4, pb: 6 })}
                 title={
