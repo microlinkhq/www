@@ -18,10 +18,9 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { rotate, dash, fadeInDown } from 'components/keyframes'
+import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
 import { TerminalButton } from 'components/elements/Terminal/Terminal'
 import ArrowLink from 'components/patterns/ArrowLink'
-import Average from 'components/patterns/Average/Average'
 import Block from 'components/patterns/Block/Block'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
@@ -196,7 +195,7 @@ const AddressBar = styled(Flex)`
   ${({ $isPulsing }) =>
     $isPulsing &&
     css`
-      animation: ${caretPulse} 2s ease-in-out 10;
+      animation: ${caretPulse} 2s ease-in-out 5;
     `}
 
   ${({ $active, $isPulsing }) =>
@@ -518,14 +517,14 @@ const addToHistory = (history, url) => {
   return [url, ...filtered].slice(0, MAX_HISTORY)
 }
 
-const Hero = function Hero () {
+const Hero = function Hero ({ onRequestTiming }) {
   const [inputUrl, setInputUrl] = useState('https://apple.com')
   const [isFocused, setIsFocused] = useState(false)
   const [history, setHistory] = useState(DEFAULT_HISTORY)
   const inputRef = useRef(null)
   const [screenshotSrc, setScreenshotSrc] = useState(
     `https://api.microlink.io?url=${encodeURIComponent(
-      inputUrl
+      'https://apple.com'
     )}&screenshot&embed=screenshot.url`
   )
   const [imgKey, setImgKey] = useState(0)
@@ -616,7 +615,7 @@ const Hero = function Hero () {
           setIsFocused(true)
           setIsAttractMode(true)
           setIsPulsing(true)
-          await delay(10000) // 5 cycles × 2s
+          await delay(5000) // 5 cycles × 2s
           if (check()) return
           setIsPulsing(false)
         }
@@ -670,45 +669,53 @@ const Hero = function Hero () {
   const displayValue = isFocused ? inputUrl : stripForDisplay(inputUrl)
   const apiUrl = `https://api.microlink.io?screenshot&url=${inputUrl}`
 
-  const fetchScreenshot = useCallback(async url => {
-    if (abortRef.current) abortRef.current.abort()
-    abortRef.current = new AbortController()
+  const fetchScreenshot = useCallback(
+    async url => {
+      if (abortRef.current) abortRef.current.abort()
+      abortRef.current = new AbortController()
 
-    setIsLoading(true)
-    setError(null)
+      setIsLoading(true)
+      setError(null)
 
-    try {
-      const res = await fetch(
-        `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
-        { signal: abortRef.current.signal }
-      )
-      const json = await res.json()
+      const t0 = Date.now()
 
-      if (!res.ok) {
-        const message =
-          res.status === 429
-            ? 'Rate limit reached — try again in a moment.'
-            : json.message || `Error ${res.status}`
-        setError(message)
+      try {
+        const res = await fetch(
+          `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
+          { signal: abortRef.current.signal }
+        )
+        const json = await res.json()
+        const elapsedMs = Date.now() - t0
+
+        if (!res.ok) {
+          const message =
+            res.status === 429
+              ? 'Rate limit reached — try again in a moment.'
+              : json.message || `Error ${res.status}`
+          setError(message)
+          setIsLoading(false)
+          return
+        }
+
+        onRequestTiming?.(elapsedMs, url)
+
+        const src = json?.data?.screenshot?.url
+        if (src) {
+          setScreenshotSrc(src)
+          setImgKey(k => k + 1)
+          setImgVisible(false)
+        } else {
+          setIsLoading(false)
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          setError(err.message || 'Something went wrong.')
+        }
         setIsLoading(false)
-        return
       }
-
-      const src = json?.data?.screenshot?.url
-      if (src) {
-        setScreenshotSrc(src)
-        setImgKey(k => k + 1)
-        setImgVisible(false)
-      } else {
-        setIsLoading(false)
-      }
-    } catch (err) {
-      if (err.name !== 'AbortError') {
-        setError(err.message || 'Something went wrong.')
-      }
-      setIsLoading(false)
-    }
-  }, [])
+    },
+    [onRequestTiming]
+  )
 
   const handleChange = e => {
     setInputUrl(e.target.value)
@@ -1047,6 +1054,7 @@ const Hero = function Hero () {
                     hasImageRef.current = true
                     setImgVisible(true)
                     setIsLoading(false)
+                    console.log('onLoad')
                   }}
                   onError={() => setIsLoading(false)}
                   style={{
@@ -1224,7 +1232,143 @@ const Hero = function Hero () {
   )
 }
 
-const Timings = () => {
+const HIGHLIGHT_DURATION = 1000
+
+const TimingHighlight = styled('span')`
+  animation: ${highlight} ${HIGHLIGHT_DURATION}ms ease both;
+  border-radius: 2px;
+  padding: 0 2px;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const extractDomain = url => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '')
+  } catch {
+    return url
+  }
+}
+
+const formatTiming = ms =>
+  ms < 100 ? `${Math.round(ms)}` : (ms / 1000).toFixed(2)
+const timingUnit = ms => (ms < 100 ? 'ms' : 'secs')
+
+const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
+  const [displayMs, setDisplayMs] = useState(null)
+  const [displayUrl, setDisplayUrl] = useState(null)
+  const [key, setKey] = useState(0)
+  const idleTimerRef = useRef(null)
+  const historyRef = useRef(timingHistory)
+  const prevTimingMsRef = useRef(undefined)
+  const displayUrlRef = useRef(null)
+
+  useEffect(() => {
+    historyRef.current = timingHistory
+  }, [timingHistory])
+
+  const show = useCallback((ms, url) => {
+    displayUrlRef.current = url
+    setDisplayMs(ms)
+    setDisplayUrl(url)
+    setKey(k => k + 1)
+  }, [])
+
+  useEffect(() => {
+    if (timingMs == null) return
+    if (
+      timingMs === prevTimingMsRef.current &&
+      timingUrl === prevTimingMsRef.currentUrl
+    )
+      return
+    prevTimingMsRef.current = timingMs
+    prevTimingMsRef.currentUrl = timingUrl
+    show(timingMs, timingUrl)
+
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+
+    const scheduleIdle = () => {
+      idleTimerRef.current = setTimeout(() => {
+        const history = historyRef.current
+        if (history.length < 2) {
+          scheduleIdle()
+          return
+        }
+        const others = history.filter(e => e.url !== displayUrlRef.current)
+        const pick = others[Math.floor(Math.random() * others.length)]
+        show(pick.ms, pick.url)
+        scheduleIdle()
+      }, 5000)
+    }
+    scheduleIdle()
+
+    return () => {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+    }
+  }, [timingMs, timingUrl, show])
+
+  const hasValue = displayMs != null
+  const isCache = hasValue && displayMs < 500
+  const value = hasValue ? formatTiming(displayMs) : null
+  const unit = hasValue ? timingUnit(displayMs) : 'secs'
+  const domain = displayUrl ? extractDomain(displayUrl) : null
+
+  return (
+    <Flex
+      css={theme({
+        display: 'inline-flex',
+        px: [2, 2, 2, 3],
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column'
+      })}
+    >
+      <Subhead
+        forwardedAs='div'
+        css={theme({
+          fontSize: ['28px', '34px', '42px', '42px'],
+          color: 'white',
+          fontWeight: 'bold'
+        })}
+        style={{ fontVariantNumeric: 'tabular-nums' }}
+      >
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
+      </Subhead>
+      <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
+        <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
+          {hasValue
+            ? isCache
+              ? `${domain} · cached`
+              : `${domain} · cold`
+            : 'loading\u2026'}
+        </Caps>
+      </Caption>
+    </Flex>
+  )
+}
+
+const Timings = ({ timingMs, timingUrl, timingHistory }) => {
   const healthcheck = useHealthcheck()
 
   const blockOne = (
@@ -1235,7 +1379,7 @@ const Timings = () => {
         alignItems: 'center'
       }}
     >
-      <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+      <Subhead css={theme({ fontSize: [2, 3, 4, 4], color: 'white' })}>
         Send the URL{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
           Get a screenshot back
@@ -1247,11 +1391,12 @@ const Timings = () => {
   const blockTwo = (
     <Flex
       css={theme({
-        pt: [4, 4, 5, 5],
+        pt: [3, 3, 4, 4],
         justifyContent: 'center',
         alignItems: 'baseline',
         width: '100%',
-        maxWidth: layout.normal
+        maxWidth: layout.large,
+        gap: [1, 3, 4, 5]
       })}
       style={{ fontVariantNumeric: 'tabular-nums' }}
     >
@@ -1266,7 +1411,7 @@ const Timings = () => {
         <Subhead
           forwardedAs='div'
           css={theme({
-            fontSize: [3, 4, 4, 4],
+            fontSize: ['20px', '26px', '32px', '32px'],
             color: 'white',
             fontWeight: 'bold'
           })}
@@ -1275,7 +1420,7 @@ const Timings = () => {
           <Caption
             forwardedAs='div'
             css={theme({
-              ml: 2,
+              ml: 1,
               color: 'white',
               display: 'inline',
               fontWeight: 'bold'
@@ -1285,48 +1430,22 @@ const Timings = () => {
             secs
           </Caption>
         </Subhead>
-        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
-          {['P95', 'response time'].map(children => (
-            <Caps
-              key={children}
-              css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
-            >
-              {children}
-            </Caps>
-          ))}
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
+          <Caps
+            css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}
+          >
+            P95 cold response
+          </Caps>
         </Caption>
       </Flex>
       <Hide breakpoints={[1, 2, 3]}>
-        <Box css={theme({ px: 3 })} />
+        <Box css={theme({ px: 2 })} />
       </Hide>
-      <Hide breakpoints={[0]}>
-        <Flex
-          css={theme({
-            display: 'inline-flex',
-            px: [2, 2, 2, 5],
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column'
-          })}
-        >
-          <Subhead
-            forwardedAs='div'
-            css={theme({ color: 'white', fontWeight: 'bold' })}
-          >
-            <Average value={healthcheck.screenshot.avg_pretty} />
-          </Subhead>
-          <Caption forwardedAs='div' css={theme({ color: 'white60' })}>
-            {['average', 'response time'].map(children => (
-              <Caps
-                key={children}
-                css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
-              >
-                {children}
-              </Caps>
-            ))}
-          </Caption>
-        </Flex>
-      </Hide>
+      <LiveTiming
+        timingMs={timingMs}
+        timingUrl={timingUrl}
+        timingHistory={timingHistory}
+      />
       <Flex
         css={{
           display: 'inline-flex',
@@ -1338,16 +1457,16 @@ const Timings = () => {
         <Subhead
           forwardedAs='div'
           css={theme({
-            fontSize: [3, 4, 4, 4],
+            fontSize: ['20px', '26px', '32px', '32px'],
             color: 'white',
             fontWeight: 'bold'
           })}
         >
-          99.9
+          99.95
           <Caption
             forwardedAs='div'
             css={theme({
-              ml: 2,
+              ml: 1,
               color: 'white',
               display: 'inline',
               fontWeight: 'bold'
@@ -1356,15 +1475,12 @@ const Timings = () => {
             %
           </Caption>
         </Subhead>
-        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 2 })}>
-          {['SLA', 'Guaranteed'].map(children => (
-            <Caps
-              key={children}
-              css={theme({ fontWeight: 'bold', fontSize: [0, 2, 2, 2] })}
-            >
-              {children}
-            </Caps>
-          ))}
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
+          <Caps
+            css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}
+          >
+            SLA Guaranteed
+          </Caps>
         </Caption>
       </Flex>
     </Flex>
@@ -1377,7 +1493,8 @@ const Timings = () => {
       flexDirection='column'
       css={theme({
         px: 4,
-        pb: [5, 5, 6, 6],
+        pt: [4, 4, 5, 5],
+        pb: [4, 4, 5, 5],
         width: '100%',
         // https://www.gradientmagic.com/collection/radialstripes
         backgroundImage: `radial-gradient(
@@ -1836,53 +1953,76 @@ export const Head = () => (
   />
 )
 
-const ScreenshotPage = () => (
-  <Layout>
-    <FetchProvider fromCache={fromCache} mqlOpts={{ screenshot: true }}>
-      {({ data }) => {
-        return (
-          <>
-            <Hero data={data} />
-            <Timings />
-            <Features
-              css={theme({ px: 4, pb: 6 })}
-              title={
-                <Subhead css={{ width: '100%', textAlign: 'left' }}>
-                  The best screenshot API,{' '}
-                  <span
-                    css={{
-                      display: 'block',
-                      color: '#fd494a',
-                      width: '100%',
-                      textAlign: 'left'
-                    }}
-                  >
-                    with no compromises.
-                  </span>
-                </Subhead>
-              }
-              caption={
-                <>
-                  No more servers to maintain, load balancers, or paying for
-                  capacity you don’t use — our screenshot service lets you spend
-                  more time building, less time configuring, with easy
-                  integration via{' '}
-                  <Link href='/docs/api/getting-started/overview'>
-                    web screenshot API
-                  </Link>
-                  .
-                </>
-              }
-              features={FEATURES}
-            />
-            <UseCases />
-            <Resume />
-            <ProductInformation />
-          </>
-        )
-      }}
-    </FetchProvider>
-  </Layout>
-)
+const INITIAL_TIMING_MS = Math.floor(Math.random() * (25 - 14 + 1)) + 14
+
+const ScreenshotPage = () => {
+  const [timingMs, setTimingMs] = useState(INITIAL_TIMING_MS)
+  const [timingUrl, setTimingUrl] = useState('https://apple.com')
+  const [timingHistory, setTimingHistory] = useState([
+    { ms: INITIAL_TIMING_MS, url: 'https://apple.com' }
+  ])
+
+  const handleRequestTiming = useCallback((ms, url) => {
+    setTimingMs(ms)
+    setTimingUrl(url)
+    setTimingHistory(prev => {
+      const filtered = prev.filter(e => e.url !== url)
+      return [{ ms, url }, ...filtered].slice(0, 20)
+    })
+  }, [])
+
+  return (
+    <Layout>
+      <FetchProvider fromCache={fromCache} mqlOpts={{ screenshot: true }}>
+        {({ data }) => {
+          return (
+            <>
+              <Hero data={data} onRequestTiming={handleRequestTiming} />
+              <Timings
+                timingMs={timingMs}
+                timingUrl={timingUrl}
+                timingHistory={timingHistory}
+              />
+              <Features
+                css={theme({ px: 4, pb: 6 })}
+                title={
+                  <Subhead css={{ width: '100%', textAlign: 'left' }}>
+                    The best screenshot API,{' '}
+                    <span
+                      css={{
+                        display: 'block',
+                        color: '#fd494a',
+                        width: '100%',
+                        textAlign: 'left'
+                      }}
+                    >
+                      with no compromises.
+                    </span>
+                  </Subhead>
+                }
+                caption={
+                  <>
+                    No more servers to maintain, load balancers, or paying for
+                    capacity you don’t use — our screenshot service lets you
+                    spend more time building, less time configuring, with easy
+                    integration via{' '}
+                    <Link href='/docs/api/getting-started/overview'>
+                      web screenshot API
+                    </Link>
+                    .
+                  </>
+                }
+                features={FEATURES}
+              />
+              <UseCases />
+              <Resume />
+              <ProductInformation />
+            </>
+          )
+        }}
+      </FetchProvider>
+    </Layout>
+  )
+}
 
 export default ScreenshotPage
