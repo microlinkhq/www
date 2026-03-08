@@ -1908,39 +1908,67 @@ const CodeExample = () => (
     })}
   >
     <Flex
-      css={theme({
-        width: '100%',
-        mx: 'auto',
-        flexDirection: ['column', 'column', 'column', 'row'],
-        alignItems: ['center', 'center', 'center', 'center'],
-        gap: [4, 4, 5, 5],
-        px: [4, 4, 5, 5]
-      })}
+      css={[
+        theme({
+          width: '100%',
+          mx: 'auto',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: [4, 4, 5, 5]
+        }),
+        {
+          '@media (min-width: 1500px)': {
+            flexDirection: 'row'
+          }
+        }
+      ]}
     >
       <Flex
-        css={theme({
-          width: ['100%', '100%', '100%', '60%'],
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: ['center', 'center', 'center', 'flex-start']
-        })}
+        css={[
+          theme({
+            width: '100%',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }),
+          {
+            '@media (min-width: 1500px)': {
+              width: '60%',
+              alignItems: 'flex-start'
+            }
+          }
+        ]}
       >
         <Subhead
-          css={theme({
-            fontSize: [3, 3, 4, 4],
-            textAlign: ['center', 'center', 'center', 'left']
-          })}
+          css={[
+            theme({
+              fontSize: [3, 3, 4, 4],
+              textAlign: 'center'
+            }),
+            {
+              '@media (min-width: 1500px)': {
+                textAlign: 'left'
+              }
+            }
+          ]}
         >
           Website capture API in any language
         </Subhead>
         <Caption
           forwardedAs='div'
-          css={theme({
-            pt: [3, 3, 4, 4],
-            fontSize: [1, 1, 2, 2],
-            textAlign: ['center', 'center', 'center', 'left'],
-            maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
-          })}
+          css={[
+            theme({
+              pt: [3, 3, 4, 4],
+              fontSize: [1, 1, 2, 2],
+              textAlign: 'center',
+              maxWidth: [layout.small, layout.small, layout.normal, '650px']
+            }),
+            {
+              '@media (min-width: 1500px)': {
+                textAlign: 'left'
+              }
+            }
+          ]}
         >
           Microlink screenshot API delivers enterprise-grade screen capture
           through a developer-friendly web API. Automatically take screenshots
@@ -1948,24 +1976,36 @@ const CodeExample = () => (
           content creation.
         </Caption>
         <Flex
-          css={theme({
-            pt: [3, 3, 4, 4],
-            fontSize: [2, 2, 3, 3],
-            justifyContent: ['center', 'center', 'center', 'flex-start']
-          })}
+          css={[
+            theme({
+              pt: [3, 3, 4, 4],
+              fontSize: [2, 2, 3, 3],
+              justifyContent: 'center'
+            }),
+            {
+              '@media (min-width: 1500px)': {
+                justifyContent: 'flex-start'
+              }
+            }
+          ]}
         >
           <ArrowLink href='/docs/api/parameters/screenshot'>
             Read the docs
           </ArrowLink>
         </Flex>
       </Flex>
-      <Box
+      <Flex
         css={[
           theme({
-            width: ['100%', '100%', '100%', '40%'],
-            minHeight: '400px'
+            width: '100%',
+            minHeight: '400px',
+            justifyContent: 'center'
           }),
           {
+            '@media (min-width: 1500px)': {
+              width: '40%',
+              justifyContent: 'flex-end'
+            },
             '& > div > div:first-child': {
               boxShadow:
                 '0 24px 64px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1)'
@@ -1987,7 +2027,7 @@ const CodeExample = () => (
             }
           }}
         />
-      </Box>
+      </Flex>
     </Flex>
   </Container>
 )
