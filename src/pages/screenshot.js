@@ -18,6 +18,10 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage
+} from 'react-compare-slider'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
 import { TerminalButton } from 'components/elements/Terminal/Terminal'
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -810,7 +814,7 @@ const Hero = function Hero ({ onRequestTiming }) {
         flexDirection: 'column',
         alignItems: 'center',
         pt: [4, 4, 4, 5],
-        pb: [4, 4, 4, 6]
+        pb: [5, 5, 5, 6]
       })}
     >
       <Flex
@@ -1757,39 +1761,6 @@ const CLIENTS = [
   }
 ]
 
-const USE_CASES = [
-  {
-    title: 'Automated Website Screenshots',
-    description:
-      'Automate website screenshots at scale. Set up scheduled captures to automatically take screenshots of any website for monitoring, archiving, or reporting workflows.'
-  },
-  {
-    title: 'Programmatic Web Page Capture',
-    description:
-      'Programmatically take screenshots of web pages from your code. Integrate the URL screenshot API into CI/CD pipelines, testing suites, or backend services with a single HTTP call.'
-  },
-  {
-    title: 'Screenshot URL Tool for Teams',
-    description:
-      'Give your team a reliable screenshot URL tool. Generate shareable web snapshots and URL snapshots for design reviews, bug reports, and stakeholder presentations.'
-  },
-  {
-    title: 'Automated Screen Capture for Websites',
-    description:
-      'Build automated screen capture workflows for any website. Monitor visual changes, detect regressions, and create automated screenshots of web pages for quality assurance.'
-  },
-  {
-    title: 'Web Snapshot & Archiving',
-    description:
-      'Create web snapshots and URL snapshots for compliance, legal, or archival purposes. Capture point-in-time website states with full-page or element-level precision.'
-  },
-  {
-    title: 'Social Media & OG Image Generation',
-    description:
-      'Generate dynamic social media images and Open Graph previews. Use the website screenshot service to create branded visual content from any URL automatically.'
-  }
-]
-
 const ClientLogo = styled(Flex)`
   transition: transform 0.2s ease, filter 0.3s ease;
 
@@ -1812,7 +1783,7 @@ const Clients = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: layout.large,
-      pt: [3, 3, 4, 4],
+      pt: [4, 4, 5, 5],
       pb: [2, 2, 3, 3]
     })}
   >
@@ -1924,58 +1895,279 @@ const Clients = () => (
   </Container>
 )
 
-const UseCases = () => (
+const CAPABILITIES = [
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <path d='M18 6L6 18M6 6l12 12' />
+      </svg>
+    ),
+    title: 'Blocks ads & cookie banners',
+    description:
+      'Built-in adblock removes ads, trackers, and cookie consent popups automatically. Get clean captures without custom scripts.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <rect x='2' y='3' width='20' height='14' rx='2' ry='2' />
+        <path d='M8 21h8M12 17v4' />
+      </svg>
+    ),
+    title: 'Any viewport, any device',
+    description:
+      'Capture at any resolution with full device emulation — mobile, tablet, desktop, or custom viewports up to full-page.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <circle cx='12' cy='12' r='10' />
+        <polyline points='12 6 12 12 16 14' />
+      </svg>
+    ),
+    title: 'Fastest screenshot API',
+    description:
+      'Sub-second cached responses with P95 cold starts under 3 seconds. Global edge network ensures low latency worldwide.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' />
+      </svg>
+    ),
+    title: 'Isolated & secure',
+    description:
+      'Every request runs in its own browser instance. No shared state, no data leaks — enterprise-grade isolation by default.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <path d='M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z' />
+      </svg>
+    ),
+    title: 'Full browser control',
+    description:
+      'Inject CSS, execute JavaScript, click elements, scroll, wait for selectors — automate any interaction before capture.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <polyline points='16 18 22 12 16 6' />
+        <polyline points='8 6 2 12 8 18' />
+      </svg>
+    ),
+    title: 'Simple integration',
+    description:
+      'A single REST endpoint that works from any language or framework. No SDKs required — just an HTTP call with your URL.'
+  }
+]
+
+const CapabilityItem = styled(Flex)`
+  gap: 14px;
+  align-items: flex-start;
+`
+
+const CapabilityIcon = styled(Flex)`
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(253, 73, 74, 0.1);
+  color: #fd494a;
+`
+
+const Capabilities = () => (
   <Container
     as='section'
-    id='use-cases'
     css={theme({
       alignItems: 'center',
-      bg: 'pinky',
       maxWidth: '100%',
-      pb: [4, 4, 5, 5]
+      bg: 'pinky',
+      pt: [4, 4, 5, 6],
+      pb: [5, 5, 6, 6]
     })}
   >
-    <Subhead variant='gradient'>
-      Automate website screenshots
-      <br />
-      for any workflow
-    </Subhead>
-    <Caption
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
-      })}
-    >
-      From automated screen capture to programmatic web page snapshots, our
-      screenshot API service powers visual workflows across every industry.
-    </Caption>
     <Flex
-      css={theme({
-        pt: [4, 4, 5, 5],
-        px: [4, 4, 0, 0],
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        maxWidth: layout.large
-      })}
+      css={[
+        theme({
+          width: '100%',
+          mx: 'auto',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: [4, 4, 5, 5],
+          px: [4, 4, 5, 5]
+        }),
+        { '@media (min-width: 2100px)': { width: '80%' } }
+      ]}
     >
-      {USE_CASES.map(({ title, description }) => (
+      <Subhead
+        css={[
+          theme({
+            fontSize: [3, 3, '40px', 4],
+            textAlign: 'center',
+            width: '100%'
+          }),
+          { '@media (min-width: 1200px)': { display: 'none' } }
+        ]}
+      >
+        Everything you need,{' '}
+        <span style={{ color: '#fd494a' }}>one API call away</span>
+      </Subhead>
+      <Flex
+        css={theme({
+          width: '100%',
+          flexDirection: ['column', 'column', 'column', 'row'],
+          alignItems: 'center',
+          gap: [4, 4, 5, 5]
+        })}
+      >
         <Box
-          key={title}
+          css={[
+            theme({
+              width: ['100%', '100%', '50%', '50%'],
+              borderRadius: 3,
+              overflow: 'hidden',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+            }),
+            {
+              lineHeight: 0,
+              '& img': { display: 'block', width: '100%', height: 'auto' }
+            }
+          ]}
+        >
+          <ReactCompareSlider
+            itemOne={
+              <ReactCompareSliderImage
+                src='/images/M4jeZNS.png'
+                alt='Website screenshot without adblock — cookie banner visible'
+              />
+            }
+            itemTwo={
+              <ReactCompareSliderImage
+                src='/images/FrmIQOj.png'
+                alt='Website screenshot with adblock — clean capture'
+              />
+            }
+          />
+        </Box>
+        <Flex
           css={theme({
-            width: ['100%', '100%', '33.33%'],
-            px: [0, 0, 3],
-            pb: [4, 4, 5]
+            width: ['100%', '100%', '100%', '50%'],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: 4
           })}
         >
-          <Text css={theme({ fontWeight: 'bold', fontSize: [2, 2, 3], pb: 2 })}>
-            {title}
-          </Text>
-          <Text css={theme({ color: 'black80', fontSize: [1, 1, 2] })}>
-            {description}
-          </Text>
-        </Box>
-      ))}
+          <Subhead
+            css={[
+              theme({
+                fontSize: 4,
+                textAlign: 'left',
+                pb: 1
+              }),
+              {
+                display: 'none',
+                '@media (min-width: 1200px)': { display: 'block' }
+              }
+            ]}
+          >
+            Everything you need,{' '}
+            <span style={{ color: '#fd494a' }}>one API call away</span>
+          </Subhead>
+          <Flex
+            css={[
+              theme({ gap: [3, 3, 3, 4] }),
+              {
+                flexDirection: 'column',
+                '@media (min-width: 768px) and (max-width: 1199px)': {
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  '& > *': { width: 'calc(50% - 12px)' }
+                }
+              }
+            ]}
+          >
+            {CAPABILITIES.map(({ icon, title, description }) => (
+              <CapabilityItem key={title}>
+                <CapabilityIcon>{icon}</CapabilityIcon>
+                <Flex css={{ flexDirection: 'column', gap: '4px' }}>
+                  <Text
+                    css={theme({ fontWeight: 'bold', fontSize: [1, 1, 2, 2] })}
+                  >
+                    {title}
+                  </Text>
+                  <Text
+                    css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+                  >
+                    {description}
+                  </Text>
+                </Flex>
+              </CapabilityItem>
+            ))}
+          </Flex>
+        </Flex>
+      </Flex>
     </Flex>
   </Container>
 )
@@ -2211,6 +2403,7 @@ const ScreenshotPage = () => {
                 timingUrl={timingUrl}
                 timingHistory={timingHistory}
               />
+              <Capabilities />
               <Clients />
               <Features
                 css={theme({ px: 4, pb: 6 })}
@@ -2243,7 +2436,6 @@ const ScreenshotPage = () => {
                 }
                 features={FEATURES}
               />
-              <UseCases />
               <Resume />
               <ProductInformation />
             </>
