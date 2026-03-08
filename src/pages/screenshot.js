@@ -2037,140 +2037,234 @@ const CapabilityIcon = styled(Flex)`
   color: #fd494a;
 `
 
-const Capabilities = () => (
-  <Container
-    as='section'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      bg: 'pinky',
-      pt: [4, 4, 5, 6],
-      pb: [5, 5, 6, 6]
-    })}
-  >
-    <Flex
-      css={[
-        theme({
-          width: '100%',
-          mx: 'auto',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: [4, 4, 5, 5],
-          px: [4, 4, 5, 5]
-        }),
-        { '@media (min-width: 2100px)': { width: '80%' } }
-      ]}
+const Capabilities = () => {
+  const [adblock, setAdblock] = useState(true)
+  const [capCopied, setCapCopied] = useState(false)
+  const capCopyTimerRef = useRef(null)
+
+  const handlePositionChange = useCallback(position => {
+    setAdblock(position < 51)
+  }, [])
+
+  const capApiUrl = `api.microlink.io?screenshot&url=https://ft.com&adblock=${adblock}`
+
+  const handleCapCopy = () => {
+    const markCopied = () => {
+      setCapCopied(true)
+      if (capCopyTimerRef.current) clearTimeout(capCopyTimerRef.current)
+      capCopyTimerRef.current = setTimeout(() => setCapCopied(false), 1500)
+    }
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard
+        .writeText(capApiUrl)
+        .then(markCopied)
+        .catch(() => {})
+    }
+  }
+
+  return (
+    <Container
+      as='section'
+      css={theme({
+        alignItems: 'center',
+        maxWidth: '100%',
+        bg: 'pinky',
+        pt: [4, 4, 5, 6],
+        pb: [5, 5, 6, 6]
+      })}
     >
-      <Subhead
+      <Flex
         css={[
           theme({
-            fontSize: [3, 3, '40px', 4],
-            textAlign: 'center',
-            width: '100%'
+            width: '100%',
+            mx: 'auto',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: [4, 4, 5, 5],
+            px: [4, 4, 5, 5]
           }),
-          { '@media (min-width: 1200px)': { display: 'none' } }
+          { '@media (min-width: 2100px)': { width: '80%' } }
         ]}
       >
-        Everything you need,{' '}
-        <span style={{ color: '#fd494a' }}>one API call away</span>
-      </Subhead>
-      <Flex
-        css={theme({
-          width: '100%',
-          flexDirection: ['column', 'column', 'column', 'row'],
-          alignItems: 'center',
-          gap: [4, 4, 5, 5]
-        })}
-      >
-        <Box
+        <Subhead
           css={[
             theme({
-              width: ['100%', '100%', '50%', '50%'],
-              borderRadius: 3,
-              overflow: 'hidden',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+              fontSize: [3, 3, '40px', 4],
+              textAlign: 'center',
+              width: '100%'
             }),
-            {
-              lineHeight: 0,
-              '& img': { display: 'block', width: '100%', height: 'auto' }
-            }
+            { '@media (min-width: 1200px)': { display: 'none' } }
           ]}
         >
-          <ReactCompareSlider
-            itemOne={
-              <ReactCompareSliderImage
-                src='/images/M4jeZNS.png'
-                alt='Website screenshot without adblock — cookie banner visible'
-              />
-            }
-            itemTwo={
-              <ReactCompareSliderImage
-                src='/images/FrmIQOj.png'
-                alt='Website screenshot with adblock — clean capture'
-              />
-            }
-          />
-        </Box>
+          Everything you need,{' '}
+          <span style={{ color: '#fd494a' }}>one API call away</span>
+        </Subhead>
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', '50%'],
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: 4
+            width: '100%',
+            flexDirection: ['column', 'column', 'column', 'row'],
+            alignItems: 'center',
+            gap: [4, 4, 5, 5]
           })}
         >
-          <Subhead
+          <Box
             css={[
               theme({
-                fontSize: 4,
-                textAlign: 'left',
-                pb: 1
+                width: ['100%', '100%', '70%', '50%'],
+                borderRadius: 3,
+                overflow: 'hidden',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
               }),
               {
-                display: 'none',
-                '@media (min-width: 1200px)': { display: 'block' }
+                lineHeight: 0,
+                '& img': { display: 'block', width: '100%', height: 'auto' }
               }
             ]}
           >
-            Everything you need,{' '}
-            <span style={{ color: '#fd494a' }}>one API call away</span>
-          </Subhead>
+            <ReactCompareSlider
+              onPositionChange={handlePositionChange}
+              itemOne={
+                <ReactCompareSliderImage
+                  src='/images/M4jeZNS.png'
+                  alt='Website screenshot without adblock — cookie banner visible'
+                />
+              }
+              itemTwo={
+                <ReactCompareSliderImage
+                  src='/images/FrmIQOj.png'
+                  alt='Website screenshot with adblock — clean capture'
+                />
+              }
+            />
+            <ScreenshotApiBar
+              css={theme({
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                px: [2, 3, 3, 3],
+                py: '10px',
+                gap: 2
+              })}
+              style={{ lineHeight: 1 }}
+            >
+              <Text
+                as='span'
+                css={theme({
+                  fontSize: ['12px', '12px', '13px', '13px'],
+                  fontFamily: 'mono',
+                  letterSpacing: '0.01em',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  flex: 1,
+                  minWidth: 0
+                })}
+                style={{ color: '#4ade80' }}
+              >
+                {capApiUrl}
+              </Text>
+              <CopyButton
+                type='button'
+                onClick={handleCapCopy}
+                aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
+              >
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
+              </CopyButton>
+            </ScreenshotApiBar>
+          </Box>
           <Flex
-            css={[
-              theme({ gap: [3, 3, 3, 4] }),
-              {
-                flexDirection: 'column',
-                '@media (min-width: 768px) and (max-width: 1199px)': {
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  '& > *': { width: 'calc(50% - 12px)' }
-                }
-              }
-            ]}
+            css={theme({
+              width: ['100%', '100%', '100%', '50%'],
+              flexDirection: 'column',
+              justifyContent: 'center',
+              gap: 4
+            })}
           >
-            {CAPABILITIES.map(({ icon, title, description }) => (
-              <CapabilityItem key={title}>
-                <CapabilityIcon>{icon}</CapabilityIcon>
-                <Flex css={{ flexDirection: 'column', gap: '4px' }}>
-                  <Text
-                    css={theme({ fontWeight: 'bold', fontSize: [1, 1, 2, 2] })}
-                  >
-                    {title}
-                  </Text>
-                  <Text
-                    css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
-                  >
-                    {description}
-                  </Text>
-                </Flex>
-              </CapabilityItem>
-            ))}
+            <Subhead
+              css={[
+                theme({
+                  fontSize: 4,
+                  textAlign: 'left',
+                  pb: 1
+                }),
+                {
+                  display: 'none',
+                  '@media (min-width: 1200px)': { display: 'block' }
+                }
+              ]}
+            >
+              Everything you need,{' '}
+              <span style={{ color: '#fd494a' }}>one API call away</span>
+            </Subhead>
+            <Flex
+              css={[
+                theme({ gap: [3, 3, 3, 4] }),
+                {
+                  flexDirection: 'column',
+                  '@media (min-width: 768px) and (max-width: 1199px)': {
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    '& > *': { width: 'calc(50% - 12px)' }
+                  }
+                }
+              ]}
+            >
+              {CAPABILITIES.map(({ icon, title, description }) => (
+                <CapabilityItem key={title}>
+                  <CapabilityIcon>{icon}</CapabilityIcon>
+                  <Flex css={{ flexDirection: 'column', gap: '4px' }}>
+                    <Text
+                      css={theme({
+                        fontWeight: 'bold',
+                        fontSize: [1, 1, 2, 2]
+                      })}
+                    >
+                      {title}
+                    </Text>
+                    <Text
+                      css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+                    >
+                      {description}
+                    </Text>
+                  </Flex>
+                </CapabilityItem>
+              ))}
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
-  </Container>
-)
+    </Container>
+  )
+}
 
 const ProductInformation = () => {
   return (
