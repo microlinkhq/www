@@ -86,7 +86,7 @@ const Subhead = withTitle(SubheadBase)
 
 const Caption = withTitle(CaptionBase)
 
-const HERO_MQ = '@media (min-width: 1200px) and (max-width: 1550px)'
+const HERO_MQ = '@media (min-width: 1200px) and (max-width: 1750px)'
 
 const BrowserWindow = styled('div')`
   border-radius: 10px;
@@ -1054,7 +1054,6 @@ const Hero = function Hero ({ onRequestTiming }) {
                     hasImageRef.current = true
                     setImgVisible(true)
                     setIsLoading(false)
-                    console.log('onLoad')
                   }}
                   onError={() => setIsLoading(false)}
                   style={{
@@ -1292,8 +1291,7 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
     const scheduleIdle = () => {
       idleTimerRef.current = setTimeout(() => {
         const history = historyRef.current
-        if (history.length < 2) {
-          scheduleIdle()
+        if (history.length < 3) {
           return
         }
         const others = history.filter(e => e.url !== displayUrlRef.current)
