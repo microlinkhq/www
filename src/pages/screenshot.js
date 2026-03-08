@@ -632,7 +632,7 @@ const Hero = function Hero ({ onRequestTiming }) {
     }
 
     const run = async () => {
-      await delay(1800)
+      await delay(400)
       if (check()) return
 
       for (let i = 0; i < DEMO_URLS.length; i++) {
@@ -664,7 +664,7 @@ const Hero = function Hero ({ onRequestTiming }) {
         fetchScreenshot(normalized)
 
         if (i < DEMO_URLS.length - 1) {
-          await delay(3000)
+          await delay(4000)
           if (check()) return
           setIsGlowing(true)
           await delay(250)
