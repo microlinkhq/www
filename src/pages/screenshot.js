@@ -22,8 +22,12 @@ import {
   ReactCompareSlider,
   ReactCompareSliderImage
 } from 'react-compare-slider'
-import { Check as CheckIcon } from 'react-feather'
+import { Check as CheckIcon, Terminal as TerminalIcon } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
+import NerdStatsOverlay, {
+  extractNerdStats,
+  buildMqlQuery
+} from 'components/patterns/NerdStats/NerdStats'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
 import { TerminalButton } from 'components/elements/Terminal/Terminal'
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -96,6 +100,41 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
 const HERO_MQ = '@media (min-width: 1200px) and (max-width: 1750px)'
+
+const NerdButton = styled('button')`
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(74, 222, 128, 0.06);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Operator Mono', 'Fira Code', 'SF Mono', monospace;
+  color: #4ade80;
+  opacity: 0.7;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(74, 222, 128, 0.12);
+    border-color: rgba(74, 222, 128, 0.4);
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.15);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(74, 222, 128, 0.4);
+    outline-offset: 2px;
+  }
+`
 
 const BrowserWindow = styled('div')`
   border-radius: 10px;
@@ -553,6 +592,10 @@ const Hero = function Hero ({ onRequestTiming }) {
   const [error, setError] = useState(null)
   const [isCopied, setIsCopied] = useState(false)
   const [isGlowing, setIsGlowing] = useState(false)
+  const [showNerdStats, setShowNerdStats] = useState(false)
+  const [nerdStats, setNerdStats] = useState(null)
+  const [nerdQuery, setNerdQuery] = useState(null)
+  const [nerdResponse, setNerdResponse] = useState(null)
   const [isAttractMode, setIsAttractMode] = useState(false)
   const [isPulsing, setIsPulsing] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
@@ -696,6 +739,7 @@ const Hero = function Hero ({ onRequestTiming }) {
 
       setIsLoading(true)
       setError(null)
+      setShowNerdStats(false)
 
       const t0 = Date.now()
 
@@ -718,6 +762,11 @@ const Hero = function Hero ({ onRequestTiming }) {
         }
 
         onRequestTiming?.(elapsedMs, url)
+
+        const stats = extractNerdStats(res.headers)
+        setNerdStats(stats)
+        setNerdQuery(buildMqlQuery(url, { screenshot: true }))
+        setNerdResponse(JSON.stringify(json.data, null, 2))
 
         const src = json?.data?.screenshot?.url
         if (src) {
@@ -1060,6 +1109,23 @@ const Hero = function Hero ({ onRequestTiming }) {
                     </HistoryDropdown>
                   )}
                 </AddressBar>
+                {nerdStats && (
+                  <NerdButton
+                    type='button'
+                    aria-label={
+                      showNerdStats ? 'Hide nerd stats' : 'Show nerd stats'
+                    }
+                    aria-pressed={showNerdStats}
+                    onClick={() => setShowNerdStats(s => !s)}
+                    style={
+                      showNerdStats
+                        ? { opacity: 1, color: '#4ade80' }
+                        : undefined
+                    }
+                  >
+                    <TerminalIcon size={13} aria-hidden='true' /> Nerd Stats
+                  </NerdButton>
+                )}
                 <Box css={{ width: '4px', flexShrink: 0 }} />
               </BrowserHeader>
               <div
@@ -1112,6 +1178,13 @@ const Hero = function Hero ({ onRequestTiming }) {
                       />
                     </Spinner>
                   </ScreenshotOverlay>
+                )}
+                {showNerdStats && nerdStats && (
+                  <NerdStatsOverlay
+                    stats={nerdStats}
+                    mqlQuery={nerdQuery}
+                    responseData={nerdResponse}
+                  />
                 )}
                 {error && (
                   <ErrorModalOverlay
@@ -2436,7 +2509,7 @@ const Capabilities = () => {
             width: '100%',
             flexDirection: ['column', 'column', 'column', 'row'],
             alignItems: 'center',
-            gap: [4, 4, 5, 5]
+            gap: [4, 4, 5, 6]
           })}
         >
           <Box
