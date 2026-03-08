@@ -1378,8 +1378,9 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
     if (
       timingMs === prevTimingMsRef.current &&
       timingUrl === prevTimingMsRef.currentUrl
-    )
+    ) {
       return
+    }
     prevTimingMsRef.current = timingMs
     prevTimingMsRef.currentUrl = timingUrl
     show(timingMs, timingUrl)
