@@ -104,6 +104,16 @@ const BrowserWindow = styled('div')`
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
+
+  &:hover:not(:has(.screenshot-api-bar:hover)) .address-bar {
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
+      0 0 12px 1px rgba(255, 255, 255, 0.15);
+
+    input {
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
 `
 
 const BrowserHeader = styled(Flex)`
@@ -967,6 +977,7 @@ const Hero = function Hero ({ onRequestTiming }) {
                   </NavArrow>
                 </NavButtons>
                 <AddressBar
+                  className='address-bar'
                   $glowing={isGlowing}
                   $active={isAttractMode}
                   $isPulsing={isPulsing}
@@ -1174,6 +1185,7 @@ const Hero = function Hero ({ onRequestTiming }) {
                 )}
               </div>
               <ScreenshotApiBar
+                className='screenshot-api-bar'
                 css={theme({
                   alignItems: 'center',
                   justifyContent: 'space-between',
