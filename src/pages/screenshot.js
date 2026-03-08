@@ -2046,7 +2046,7 @@ const Capabilities = () => {
     setAdblock(position < 51)
   }, [])
 
-  const capApiUrl = `api.microlink.io?screenshot&url=https://ft.com&adblock=${adblock}`
+  const capApiUrl = `https://api.microlink.io?screenshot&url=https://ft.com&adblock=${adblock}`
 
   const handleCapCopy = () => {
     const markCopied = () => {
@@ -2110,7 +2110,7 @@ const Capabilities = () => {
           <Box
             css={[
               theme({
-                width: ['100%', '100%', '70%', '50%'],
+                width: ['100%', '100%', '65%', '50%'],
                 borderRadius: 3,
                 overflow: 'hidden',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
@@ -2138,13 +2138,12 @@ const Capabilities = () => {
             />
             <ScreenshotApiBar
               css={theme({
-                alignItems: 'center',
+                alignItems: 'flex-end',
                 justifyContent: 'space-between',
                 px: [2, 3, 3, 3],
                 py: '10px',
                 gap: 2
               })}
-              style={{ lineHeight: 1 }}
             >
               <Text
                 as='span'
@@ -2152,13 +2151,11 @@ const Capabilities = () => {
                   fontSize: ['12px', '12px', '13px', '13px'],
                   fontFamily: 'mono',
                   letterSpacing: '0.01em',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
                   flex: 1,
-                  minWidth: 0
+                  minWidth: 0,
+                  lineHeight: '20px'
                 })}
-                style={{ color: '#4ade80' }}
+                style={{ color: '#4ade80', wordBreak: 'break-all' }}
               >
                 {capApiUrl}
               </Text>
