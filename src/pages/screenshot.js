@@ -453,6 +453,7 @@ const HeroTextContainer = styled(Flex)`
     h2 {
       font-size: 24px !important;
       padding-top: 20px !important;
+      max-width: 580px !important;
     }
     & > div:last-child {
       font-size: 26px !important;
@@ -682,7 +683,7 @@ const Hero = function Hero ({ onRequestTiming }) {
       try {
         const res = await fetch(
           `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
-          { signal: abortRef.current.signal }
+          { cache: 'no-store', signal: abortRef.current.signal }
         )
         const json = await res.json()
         const elapsedMs = Date.now() - t0
@@ -874,13 +875,16 @@ const Hero = function Hero ({ onRequestTiming }) {
           </Flex>
         </HeroTextContainer>
         <Flex
-          css={theme({
-            width: ['100%', '100%', '100%', '50%'],
-            pt: [4, 4, 4, 0],
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-          })}
+          css={[
+            theme({
+              width: ['100%', '100%', '100%', '50%'],
+              pt: [4, 4, 4, 0],
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }),
+            { '@media (min-width: 2100px)': { width: '42%' } }
+          ]}
         >
           <Box
             css={theme({
@@ -1377,7 +1381,7 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
         alignItems: 'center'
       }}
     >
-      <Subhead css={theme({ fontSize: [2, 3, 4, 4], color: 'white' })}>
+      <Subhead css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white' })}>
         Send the URL{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
           Get a screenshot back
