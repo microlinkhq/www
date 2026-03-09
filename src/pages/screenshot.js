@@ -946,9 +946,6 @@ const Hero = function Hero ({ onRequestTiming }) {
             >
               Get Started
             </ArrowLink>
-            <ArrowLink href='https://github.com/microlinkhq/browserless'>
-              See on GitHub
-            </ArrowLink>
           </Flex>
         </HeroTextContainer>
         <Flex
@@ -2558,150 +2555,6 @@ const Benchmark = () => (
   </section>
 )
 
-const Resume = () => (
-  <Container
-    as='section'
-    id='resume'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [5, 5, 6, 6]
-    })}
-  >
-    <Subhead variant='gradient'>Website capture API for every use case</Subhead>
-    <Caption
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
-      })}
-    >
-      <b>Microlink screenshot API</b> delivers enterprise-grade screen capture
-      through a developer-friendly web API. Automatically take screenshots of
-      any website for documentation, monitoring, archiving, and visual content
-      creation.
-    </Caption>
-
-    <Block
-      blockOne={
-        <Image
-          css={theme({
-            px: [4, 0, 0, 0],
-            width: ['100%', 6, 7, 8]
-          })}
-          alt='Always-fresh web snapshots from the screenshot API'
-          src='https://cdn.microlink.io/illustrations/genius-idea.svg'
-        />
-      }
-      blockTwo={
-        <Flex
-          css={theme({
-            px: [4, 0, 0, 0],
-            flexDirection: 'column',
-            alignItems: 'baseline'
-          })}
-        >
-          <Subhead
-            css={theme({
-              pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
-              textAlign: 'left'
-            })}
-          >
-            Always-fresh web snapshots
-          </Subhead>
-          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Every URL snapshot is cached on the edge, respecting{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link>. Consuming cached
-            screenshot responses doesn’t affect your plan, keeping your web
-            snapshots fast and cost-effective.
-          </Text>
-        </Flex>
-      }
-    />
-
-    <Block
-      flexDirection='row-reverse'
-      blockTwo={
-        <Flex
-          css={theme({
-            px: [4, 0, 0, 0],
-            flexDirection: 'column',
-            alignItems: 'baseline'
-          })}
-        >
-          <Subhead
-            css={theme({
-              pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
-              textAlign: 'left'
-            })}
-          >
-            Browser screenshot API with full control
-          </Subhead>
-          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Full browser automation and device emulation for automated website
-            screenshots. Our site screenshot API captures pages exactly as users
-            experience them with custom viewports, interactions, and responsive
-            design testing across all devices and screen sizes.
-          </Text>
-        </Flex>
-      }
-      blockOne={
-        <Image
-          css={theme({
-            px: [4, 0, 0, 0],
-            width: ['100%', 6, 7, 8]
-          })}
-          alt='Browser screenshot API with full device control'
-          src='https://cdn.microlink.io/illustrations/robots.svg'
-        />
-      }
-    />
-
-    <Block
-      blockOne={
-        <Image
-          css={theme({
-            px: [4, 0, 0, 0],
-            width: ['100%', 6, 7, 8]
-          })}
-          alt='Professional screen capture and website screenshot output'
-          src='https://cdn.microlink.io/illustrations/abstract-page-is-under-construction.svg'
-        />
-      }
-      blockTwo={
-        <Flex
-          css={theme({
-            px: [4, 0, 0, 0],
-            flexDirection: 'column',
-            alignItems: 'baseline'
-          })}
-        >
-          <Subhead
-            css={theme({
-              pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
-              textAlign: 'left'
-            })}
-          >
-            Professional screen capture output
-          </Subhead>
-          <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
-            Create stunning visual compositions with{' '}
-            <Link href='/docs/api/parameters/screenshot/overlay'>
-              overlay effects
-            </Link>
-            , custom backgrounds, and professional presentation. The best
-            website screenshot tool for marketing materials, documentation, and
-            branded content creation.
-          </Text>
-        </Flex>
-      }
-    />
-  </Container>
-)
-
 const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
 
 const analyticsBytes = (() => {
@@ -3173,7 +3026,7 @@ const Pricing = () => (
         <Flex
           css={theme({ pt: 3, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
-          <ArrowLink href='/docs/api/getting-started/overview'>
+          <ArrowLink href='/docs/api/parameters/screenshot'>
             Get started free
           </ArrowLink>
         </Flex>
@@ -3610,6 +3463,123 @@ const Capabilities = () => {
   )
 }
 
+const CTA_DURATION = 6.2
+const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
+const CTA_CHAR_PCT = CTA_SWEEP_PCT / 5
+
+const ctaCharAnim = index => {
+  const on = index * CTA_CHAR_PCT
+  const off = on + CTA_CHAR_PCT
+  return keyframes`
+    0%, ${on}%, ${off}%, 100% { color: inherit; }
+    ${on + 0.01}%, ${off - 0.01}% { color: #fd494a; }
+  `
+}
+
+const ctaAnims = Array.from({ length: 5 }, (_, i) => ctaCharAnim(i))
+
+const CtaChar = styled('span')`
+  animation: ${({ $i }) => ctaAnims[$i]} ${CTA_DURATION}s step-end infinite;
+`
+
+const ctaNowAnim = keyframes`
+  0%, ${CTA_SWEEP_PCT}% { color: inherit; }
+  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: #fd494a; }
+`
+
+const CtaNow = styled('span')`
+  animation: ${ctaNowAnim} ${CTA_DURATION}s step-end infinite;
+`
+
+const CallToAction = () => (
+  <Container
+    as='section'
+    css={theme({
+      alignItems: 'center',
+      maxWidth: '100%',
+      bg: 'white',
+      pt: 1,
+      pb: [5, 5, 6, 6]
+    })}
+  >
+    <Flex
+      css={theme({
+        flexDirection: 'column',
+        alignItems: 'center',
+        maxWidth: layout.normal,
+        px: [4, 4, 4, 0],
+        mx: 'auto'
+      })}
+    >
+      <Subhead
+        css={theme({
+          fontSize: ['40px', '48px', '52px', '58px'],
+          textAlign: 'center'
+        })}
+      >
+        {'Start'.split('').map((char, i) => (
+          <CtaChar key={i} $i={i}>
+            {char}
+          </CtaChar>
+        ))}{' '}
+        <CtaNow>now</CtaNow>
+      </Subhead>
+      <Caption
+        forwardedAs='div'
+        css={theme({
+          pt: [3, 3, 4, 4],
+          maxWidth: [layout.small, layout.small, layout.normal, layout.normal],
+          textAlign: 'center'
+        })}
+      >
+        Get 50&nbsp;requests/day with zero commitment — no account, and no
+        credit card. Just call the API and start capturing screenshots in
+        seconds.
+      </Caption>
+      <Flex
+        css={theme({
+          pt: [4, 4, 5, 5],
+          gap: [3, 3, 4, 4],
+          flexDirection: ['column', 'column', 'row', 'row'],
+          alignItems: 'center'
+        })}
+      >
+        <ArrowLink
+          href='/docs/api/parameters/screenshot'
+          css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
+        >
+          Get started free
+        </ArrowLink>
+      </Flex>
+      <Flex
+        css={theme({
+          pt: [4, 4, 5, 5],
+          gap: [3, 3, 4, 4],
+          flexWrap: 'wrap',
+          justifyContent: 'center'
+        })}
+      >
+        {['No login needed', '50 reqs/day free', 'No credit card'].map(
+          label => (
+            <Flex
+              key={label}
+              css={theme({
+                alignItems: 'center',
+                gap: 1,
+                color: 'black60',
+                fontSize: [0, 0, 1, 1]
+              })}
+            >
+              <CheckIcon size={16} color={colors.close} />
+              <Text as='span'>{label}</Text>
+            </Flex>
+          )
+        )}
+      </Flex>
+    </Flex>
+  </Container>
+)
+
 const ProductInformation = () => {
   return (
     <Faq
@@ -3744,7 +3714,7 @@ const ProductInformation = () => {
             <>
               <div>
                 Start free with our screenshot API service. Visit our{' '}
-                <Link href='/docs/api/getting-started/overview'>
+                <Link href='/docs/api/parameters/screenshot'>
                   documentation
                 </Link>{' '}
                 for interactive examples, SDKs in multiple languages, and
@@ -3849,7 +3819,7 @@ const ScreenshotPage = () => {
               <Playground />
               <Benchmark />
               <Features
-                css={theme({ px: 4, pb: 6 })}
+                css={theme({ px: 4, pb: 5 })}
                 title={
                   <Subhead css={{ width: '100%', textAlign: 'left' }}>
                     The best screenshot API,{' '}
@@ -3871,7 +3841,7 @@ const ScreenshotPage = () => {
                     capacity you don’t use — our screenshot service lets you
                     spend more time building, less time configuring, with easy
                     integration via{' '}
-                    <Link href='/docs/api/getting-started/overview'>
+                    <Link href='/docs/api/parameters/screenshot'>
                       web screenshot API
                     </Link>
                     .
@@ -3879,7 +3849,7 @@ const ScreenshotPage = () => {
                 }
                 features={FEATURES}
               />
-              <Resume />
+              <CallToAction />
               <ProductInformation />
             </>
           )
