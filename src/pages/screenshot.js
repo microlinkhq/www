@@ -2321,6 +2321,90 @@ const Playground = () => {
   )
 }
 
+const Benchmark = () => (
+  <Block
+    forwardedAs='section'
+    id='benchmark'
+    flexDirection='column'
+    css={theme({
+      px: 4,
+      pt: [4, 4, 5, 5],
+      pb: [4, 4, 5, 5],
+      width: '100%',
+      backgroundImage: `radial-gradient(
+        circle at center right,
+        #850ba7 0%,
+        #850ba7 48%,
+        #a31b91 48%,
+        #a31b91 52%,
+        #c12a78 52%,
+        #c12a78 65%,
+        #df3a61 65%,
+        #df3a61 79%,
+        #fd494a 79%,
+        #fd494a 100%
+      )`,
+      borderTop: `${borders[1]} ${colors.white20}`,
+      borderBottom: `${borders[1]} ${colors.white20}`
+    })}
+    blockOne={
+      <Flex
+        css={{
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Subhead
+          css={theme({ fontSize: [2, 3, '44px', '44px'], color: 'white' })}
+        >
+          The fastest screenshot API{' '}
+          <span css={theme({ display: 'block', color: 'white60' })}>
+            50% faster than competitors
+          </span>
+        </Subhead>
+      </Flex>
+    }
+    blockTwo={
+      <Flex
+        css={theme({
+          pt: [3, 3, 4, 4],
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          maxWidth: layout.large,
+          gap: [3, 3, 4, 4]
+        })}
+      >
+        <Text
+          css={theme({
+            color: 'white80',
+            textAlign: 'center',
+            fontSize: [1, 1, 2, 2],
+            maxWidth: layout.normal,
+            lineHeight: 2
+          })}
+        >
+          Microlink delivers screenshots up to 50% faster than most direct
+          competitors. Our infrastructure is optimized for speed at every layer
+          — from headless browser orchestration to global CDN delivery.
+        </Text>
+        <ArrowLink
+          href='/benchmarks/screenshot'
+          css={theme({
+            fontSize: ['22px', '24px', '26px', '26px'],
+            color: 'white'
+          })}
+          style={{ color: 'white' }}
+        >
+          See the benchmarks
+        </ArrowLink>
+      </Flex>
+    }
+  />
+)
+
 const Resume = () => (
   <Container
     as='section'
@@ -3610,6 +3694,7 @@ const ScreenshotPage = () => {
               <Pricing />
               <OpenSource />
               <Playground />
+              <Benchmark />
               <Features
                 css={theme({ px: 4, pb: 6 })}
                 title={
