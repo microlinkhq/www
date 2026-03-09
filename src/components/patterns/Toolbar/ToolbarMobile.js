@@ -72,8 +72,7 @@ const MOBILE_INTERACTION_SURFACE_STYLES = css`
 
 const MOBILE_INTERACTION_NEUTRAL_HOVER_STYLES = css`
   &:hover {
-    color: ${colors.black80};
-    font-weight: ${fontWeights.regular};
+    color: ${colors.black};
   }
 `
 

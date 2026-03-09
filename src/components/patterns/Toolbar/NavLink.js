@@ -1,11 +1,10 @@
-import { colors, fontWeights, transition, theme } from 'theme'
+import { colors, transition, theme } from 'theme'
 import { withLink } from 'helpers/hoc/with-link'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
 import styled, { css } from 'styled-components'
 import Caps from 'components/elements/Caps'
 
 const activeStyle = css`
-  font-weight: ${fontWeights.bold};
   color: ${colors.black};
 `
 

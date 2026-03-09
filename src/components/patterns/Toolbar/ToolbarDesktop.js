@@ -72,23 +72,25 @@ const TOP_LEVEL_INTERACTION_BASE_STYLES = css`
   border-radius: 999px;
   transition: color ${transition.medium}, background-color ${transition.medium};
   color: ${colors.black80};
-  font-weight: ${fontWeights.regular};
 `
 
 const TOP_LEVEL_INTERACTION_HOVER_STYLES = css`
   &:hover,
   &:focus-within {
     background-color: ${TOP_LEVEL_ACTIVE_BACKGROUND};
-    color: ${colors.black80};
-    font-weight: ${fontWeights.regular};
+    color: ${colors.black};
   }
 `
 
 const TOP_LEVEL_INTERACTION_ACTIVE_LINK_STYLES = css`
-  > .active {
+  &:has(> .active) {
     background-color: ${TOP_LEVEL_ACTIVE_BACKGROUND};
-    color: ${colors.black80};
-    font-weight: ${fontWeights.regular};
+    color: ${colors.black};
+  }
+
+  && > .active {
+    background-color: transparent;
+    color: inherit;
   }
 `
 
@@ -427,11 +429,12 @@ const ToolbarDesktop = () => {
       return
     }
     setOpenSection(currentId => {
-      const nextId = canUseHover()
-        ? sectionId
-        : currentId === sectionId
-          ? ''
-          : sectionId
+      let nextId = sectionId
+
+      if (!canUseHover()) {
+        nextId = currentId === sectionId ? '' : sectionId
+      }
+
       setRenderedSection(nextId)
       return nextId
     })

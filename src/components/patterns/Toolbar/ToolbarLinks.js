@@ -21,7 +21,7 @@ import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
 import styled from 'styled-components'
-import { BarChart2, Code, Image, Map, Users, Activity } from 'react-feather'
+import { BarChart2, Image, Map, Users, Activity } from 'react-feather'
 import NavLink from './NavLink'
 
 export const ToolbarNavLink = styled(NavLink)`
@@ -247,12 +247,6 @@ export const NAVIGATION_SECTIONS = [
         href: '/formats',
         description: 'See every supported format and coverage details',
         icon: FilesIcon
-      }),
-      createNavigationItem({
-        label: 'API',
-        href: '/docs/api/getting-started/overview',
-        description: 'Explore API guides, parameters and examples',
-        icon: Code
       }),
       createNavigationItem({
         label: 'Recipes',
