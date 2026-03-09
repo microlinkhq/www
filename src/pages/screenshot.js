@@ -27,7 +27,6 @@ import {
   Terminal as TerminalIcon,
   Star as StarIcon,
   GitBranch as ForkIcon,
-  ExternalLink as ExternalLinkIcon,
   Camera,
   Play,
   ArrowRight
