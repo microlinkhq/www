@@ -1,4 +1,4 @@
-import { borders, layout, colors, theme } from 'theme'
+import { borders, layout, colors, theme, transition } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
@@ -27,7 +27,9 @@ import {
   Terminal as TerminalIcon,
   Star as StarIcon,
   GitBranch as ForkIcon,
-  ExternalLink as ExternalLinkIcon
+  ExternalLink as ExternalLinkIcon,
+  Camera,
+  ArrowRight
 } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import NerdStatsOverlay, {
@@ -1716,8 +1718,8 @@ const OpenSource = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      pt: [5, 5, 6, 6],
-      pb: [3, 3, 4, 4],
+      pt: [5, 5, 5, 6],
+      pb: [4, 4, 4, 5],
       px: [1, 1, 5, 5]
     })}
   >
@@ -1816,12 +1818,6 @@ const OpenSource = () => (
             css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
           >
             Explore all repos on GitHub
-          </ArrowLink>
-          <ArrowLink
-            href='/tools/website-screenshot'
-            css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
-          >
-            Try the screenshot playground
           </ArrowLink>
         </Flex>
       </Flex>
@@ -1974,16 +1970,224 @@ const OpenSource = () => (
         >
           Explore all repos on GitHub
         </ArrowLink>
-        <ArrowLink
-          href='/tools/website-screenshot'
-          css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
-        >
-          Try the screenshot playground
-        </ArrowLink>
       </Flex>
     </Flex>
   </Container>
 )
+
+const ToolCardBase = styled(Flex)`
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid ${colors.black10};
+  background: white;
+  flex-direction: column;
+  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
+
+  &:hover {
+    border-color: ${colors.black20};
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+`
+
+const ToolImagePreview = styled(Flex)`
+  overflow: hidden;
+  align-items: flex-end;
+  justify-content: center;
+  background: ${colors.black03};
+`
+
+const ToolArrowIndicator = styled(Flex)`
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: ${colors.black05};
+  flex-shrink: 0;
+  transition: background ${transition.medium}, transform ${transition.medium};
+
+  ${({ $hover }) =>
+    $hover &&
+    css`
+      background: ${colors.black};
+      transform: translateX(2px);
+
+      svg {
+        color: white;
+      }
+    `}
+`
+
+const Playground = () => {
+  const [isHover, setIsHover] = React.useState(false)
+
+  return (
+    <Container
+      as='section'
+      id='playground'
+      css={theme({
+        alignItems: 'center',
+        width: '100%',
+        pt: [4, 4, 4, 5],
+        pb: [5, 5, 6, 6],
+        px: [1, 1, 5, 5]
+      })}
+    >
+      <Flex
+        css={theme({
+          width: '100%',
+          mx: 'auto',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 3
+        })}
+      >
+        <Subhead
+          css={theme({
+            fontSize: ['28px', '36px', '46px', '46px'],
+            textAlign: 'center'
+          })}
+        >
+          Try it <span css={{ color: '#fd494a' }}>live</span>, right now
+        </Subhead>
+        <Caption
+          css={theme({
+            px: [4, 4, 4, 0],
+            fontSize: ['20px', '20px', '24px', '24px'],
+            maxWidth: layout.large,
+            textAlign: 'center'
+          })}
+        >
+          Skip the setup. Our interactive playground lets you test the
+          screenshot API instantly — paste any URL, configure options, and see
+          the result in real time.
+        </Caption>
+
+        <Flex
+          css={theme({
+            width: '100%',
+            justifyContent: 'center',
+            maxWidth: layout.normal,
+            pt: 4
+          })}
+        >
+          <Link
+            href='/tools/website-screenshot'
+            css={theme({
+              textDecoration: 'none',
+              color: 'inherit',
+              _hover: { color: 'inherit' },
+              display: 'block',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              width: '100%',
+              maxWidth: '550px'
+            })}
+          >
+            <ToolCardBase
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              onTouchStart={() => setIsHover(true)}
+              onTouchEnd={() => setIsHover(false)}
+              onTouchCancel={() => setIsHover(false)}
+            >
+              <ToolImagePreview
+                css={theme({
+                  height: ['180px', '200px', '260px', '260px'],
+                  borderBottom: 1,
+                  borderColor: 'black05'
+                })}
+              >
+                <Image
+                  src={cdnUrl('screenshot/browser/dark/apple.png')}
+                  alt='Website Screenshot'
+                  css={theme({
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                    transition: `transform ${transition.long}`,
+                    transform: isHover
+                      ? 'scale(1.57) translateY(17%)'
+                      : 'scale(1.25) translateY(15%)'
+                  })}
+                />
+              </ToolImagePreview>
+              <Flex
+                css={theme({
+                  p: [3, 3, 4, 4],
+                  flexDirection: 'column',
+                  gap: 3
+                })}
+              >
+                <Flex
+                  css={theme({
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    gap: 3
+                  })}
+                >
+                  <Box css={{ flex: 1, minWidth: 0 }}>
+                    <Flex css={theme({ alignItems: 'center', gap: 2, mb: 2 })}>
+                      <Flex
+                        css={theme({
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '28px',
+                          height: '28px',
+                          borderRadius: 2,
+                          bg: 'rgba(253, 73, 74, 0.08)',
+                          color: '#fd494a',
+                          flexShrink: 0
+                        })}
+                      >
+                        <Camera size={16} aria-hidden='true' />
+                      </Flex>
+                      <Text
+                        css={theme({
+                          fontSize: [2, 2, 3, 3],
+                          fontWeight: 'bold',
+                          color: 'black'
+                        })}
+                      >
+                        Website Screenshot
+                      </Text>
+                    </Flex>
+                    <Text
+                      css={theme({
+                        fontSize: [0, 0, 1, 1],
+                        color: 'black60',
+                        lineHeight: 2
+                      })}
+                    >
+                      The fastest way to capture any website. Paste a URL, pick
+                      a viewport, and get a high-resolution PNG or JPEG in
+                      seconds. Supports custom overlays and backgrounds.
+                    </Text>
+                  </Box>
+                  <ToolArrowIndicator
+                    $hover={isHover}
+                    css={theme({ mt: [0, 0, '5px', '10px'] })}
+                  >
+                    <ArrowRight size={16} aria-hidden='true' />
+                  </ToolArrowIndicator>
+                </Flex>
+              </Flex>
+            </ToolCardBase>
+          </Link>
+        </Flex>
+
+        <ArrowLink
+          href='/tools'
+          css={theme({
+            fontSize: ['20px', '20px', '24px', '24px'],
+            pt: [3, 3, 4, 4]
+          })}
+        >
+          See all the screenshot tools
+        </ArrowLink>
+      </Flex>
+    </Container>
+  )
+}
 
 const Resume = () => (
   <Container
@@ -2241,8 +2445,8 @@ const Clients = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: layout.large,
-      pt: [4, 4, 5, 5],
-      pb: [2, 2, 3, 3]
+      pt: [1, 1, 2, 2],
+      pb: [5, 5, 6, 6]
     })}
   >
     <Caps
@@ -2360,7 +2564,7 @@ const CodeExample = () => (
       alignItems: 'center',
       width: '100%',
       pt: [5, 5, 6, 6],
-      pb: [4, 4, 6, 6],
+      pb: [3, 3, 5, 5],
       px: [1, 1, 5, 5]
     })}
   >
@@ -2529,7 +2733,7 @@ const Pricing = () => (
       maxWidth: '100%',
       bg: 'pinky',
       pt: 5,
-      pb: [5, 5, 6, 6]
+      pb: [5, 5, 5, 6]
     })}
   >
     <Subhead
@@ -3269,10 +3473,11 @@ const ScreenshotPage = () => {
                 timingHistory={timingHistory}
               />
               <Capabilities />
-              <Clients />
               <CodeExample />
+              <Clients />
               <Pricing />
               <OpenSource />
+              <Playground />
               <Features
                 css={theme({ px: 4, pb: 6 })}
                 title={
