@@ -68,6 +68,30 @@ const TOP_LEVEL_LINK_LAYOUT_STYLES = {
 const TOP_LEVEL_ACTIVE_BACKGROUND = colors.black05
 const PANEL_EXIT_DURATION_MS = speed.quickly
 
+const TOP_LEVEL_INTERACTION_BASE_STYLES = css`
+  border-radius: 999px;
+  transition: color ${transition.medium}, background-color ${transition.medium};
+  color: ${colors.black80};
+  font-weight: ${fontWeights.regular};
+`
+
+const TOP_LEVEL_INTERACTION_HOVER_STYLES = css`
+  &:hover,
+  &:focus-within {
+    background-color: ${TOP_LEVEL_ACTIVE_BACKGROUND};
+    color: ${colors.black80};
+    font-weight: ${fontWeights.regular};
+  }
+`
+
+const TOP_LEVEL_INTERACTION_ACTIVE_LINK_STYLES = css`
+  > .active {
+    background-color: ${TOP_LEVEL_ACTIVE_BACKGROUND};
+    color: ${colors.black80};
+    font-weight: ${fontWeights.regular};
+  }
+`
+
 const clearTimeoutRef = timeoutRef => {
   if (!timeoutRef.current) return
   clearTimeout(timeoutRef.current)
@@ -111,15 +135,19 @@ const TopLevelTrigger = styled('button').withConfig({
   cursor: pointer;
   height: 44px;
   padding: 0 16px;
-  border-radius: 999px;
+  ${TOP_LEVEL_INTERACTION_BASE_STYLES}
+  ${TOP_LEVEL_INTERACTION_HOVER_STYLES}
   background-color: ${({ isActive }) =>
     isActive ? TOP_LEVEL_ACTIVE_BACKGROUND : 'transparent'};
-  transition: color ${transition.medium}, background-color ${transition.medium};
   ${theme({
-    color: 'black80',
-    fontFamily: 'sans',
-    fontWeight: 'regular'
+    fontFamily: 'sans'
   })};
+`
+
+const TopLevelDirectLink = styled(ToolbarNavLink)`
+  ${TOP_LEVEL_INTERACTION_BASE_STYLES}
+  ${TOP_LEVEL_INTERACTION_HOVER_STYLES}
+  ${TOP_LEVEL_INTERACTION_ACTIVE_LINK_STYLES}
 `
 
 const TopLevelChevron = styled(FeatherIcon).withConfig({
@@ -547,7 +575,7 @@ const ToolbarDesktop = () => {
               )
             })}
             {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
-              <ToolbarNavLink
+              <TopLevelDirectLink
                 key={label}
                 forwardedAs='li'
                 href={href}
@@ -564,7 +592,7 @@ const ToolbarDesktop = () => {
                 <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
                   {label}
                 </Caps>
-              </ToolbarNavLink>
+              </TopLevelDirectLink>
             ))}
           </Flex>
           <Flex as='div' css={theme({ alignItems: 'center' })}>
