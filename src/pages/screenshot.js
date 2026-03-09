@@ -1976,6 +1976,21 @@ const OpenSource = () => (
   </Container>
 )
 
+const livePulse = keyframes`
+  0%, 62% { color: inherit; }
+  70%, 90% { color: #fd494a; }
+  100% { color: inherit; }
+`
+
+const LiveText = styled('span')`
+  animation: ${livePulse} 5s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    color: #fd494a;
+  }
+`
+
 const ToolCardBase = styled(Flex)`
   overflow: hidden;
   border-radius: 12px;
@@ -2050,7 +2065,7 @@ const Playground = () => {
             textAlign: 'center'
           })}
         >
-          Try it <span css={{ color: '#fd494a' }}>live</span>, right now
+          Try it <LiveText>live</LiveText>, right now
         </Subhead>
         <Caption
           css={theme({
