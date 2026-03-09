@@ -2416,9 +2416,9 @@ const CodeExample = () => (
           css={[
             theme({
               pt: [3, 3, 4, 4],
-              fontSize: [1, 1, 2, 2],
+              fontSize: [2, 2, 3, 3],
               textAlign: 'center',
-              maxWidth: [layout.small, layout.small, layout.normal, '650px']
+              maxWidth: [layout.small, layout.small, layout.normal, '700px']
             }),
             {
               '@media (min-width: 1500px)': {
@@ -2428,9 +2428,7 @@ const CodeExample = () => (
           ]}
         >
           Microlink screenshot API delivers enterprise-grade screen capture
-          through a developer-friendly web API. Automatically take screenshots
-          of any website for documentation, monitoring, archiving, and visual
-          content creation.
+          through a developer-friendly web API.
         </Caption>
         <Flex
           css={[
