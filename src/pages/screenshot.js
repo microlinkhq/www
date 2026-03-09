@@ -29,6 +29,7 @@ import {
   GitBranch as ForkIcon,
   ExternalLink as ExternalLinkIcon,
   Camera,
+  Play,
   ArrowRight
 } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
@@ -2009,7 +2010,7 @@ const ToolArrowIndicator = styled(Flex)`
   ${({ $hover }) =>
     $hover &&
     css`
-      background: ${colors.black};
+      background: #fd494a;
       transform: translateX(2px);
 
       svg {
@@ -2020,6 +2021,7 @@ const ToolArrowIndicator = styled(Flex)`
 
 const Playground = () => {
   const [isHover, setIsHover] = React.useState(false)
+  const [isHover2, setIsHover2] = React.useState(false)
 
   return (
     <Container
@@ -2028,7 +2030,7 @@ const Playground = () => {
       css={theme({
         alignItems: 'center',
         width: '100%',
-        pt: [4, 4, 4, 5],
+        pt: [4, 4, 4, 4],
         pb: [5, 5, 6, 6],
         px: [1, 1, 5, 5]
       })}
@@ -2067,8 +2069,11 @@ const Playground = () => {
           css={theme({
             width: '100%',
             justifyContent: 'center',
-            maxWidth: layout.normal,
-            pt: 4
+            maxWidth: layout.large,
+            pt: 4,
+            gap: [4, 4, 4, 4],
+            flexDirection: ['column', 'column', 'row', 'row'],
+            alignItems: ['center', 'center', 'stretch', 'stretch']
           })}
         >
           <Link
@@ -2081,7 +2086,8 @@ const Playground = () => {
               WebkitTapHighlightColor: 'transparent',
               touchAction: 'manipulation',
               width: '100%',
-              maxWidth: '550px'
+              maxWidth: ['550px', '550px', 'none', 'none'],
+              flex: [null, null, 1, 1]
             })}
           >
             <ToolCardBase
@@ -2090,6 +2096,7 @@ const Playground = () => {
               onTouchStart={() => setIsHover(true)}
               onTouchEnd={() => setIsHover(false)}
               onTouchCancel={() => setIsHover(false)}
+              css={{ height: '100%' }}
             >
               <ToolImagePreview
                 css={theme({
@@ -2106,8 +2113,8 @@ const Playground = () => {
                     objectFit: 'contain',
                     transition: `transform ${transition.long}`,
                     transform: isHover
-                      ? 'scale(1.57) translateY(17%)'
-                      : 'scale(1.25) translateY(15%)'
+                      ? 'scale(1.35) translateY(5%)'
+                      : 'scale(1.25) translateY(14%)'
                   })}
                 />
               </ToolImagePreview>
@@ -2143,7 +2150,7 @@ const Playground = () => {
                       </Flex>
                       <Text
                         css={theme({
-                          fontSize: [2, 2, 3, 3],
+                          fontSize: [2, 2, 2, 2],
                           fontWeight: 'bold',
                           color: 'black'
                         })}
@@ -2165,6 +2172,116 @@ const Playground = () => {
                   </Box>
                   <ToolArrowIndicator
                     $hover={isHover}
+                    css={theme({ mt: [0, 0, '5px', '10px'] })}
+                  >
+                    <ArrowRight size={16} aria-hidden='true' />
+                  </ToolArrowIndicator>
+                </Flex>
+              </Flex>
+            </ToolCardBase>
+          </Link>
+
+          <Link
+            href='/tools/website-screenshot/animated'
+            css={theme({
+              textDecoration: 'none',
+              color: 'inherit',
+              _hover: { color: 'inherit' },
+              display: 'block',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              width: '100%',
+              maxWidth: ['550px', '550px', 'none', 'none'],
+              flex: [null, null, 1, 1]
+            })}
+          >
+            <ToolCardBase
+              onMouseEnter={() => setIsHover2(true)}
+              onMouseLeave={() => setIsHover2(false)}
+              onTouchStart={() => setIsHover2(true)}
+              onTouchEnd={() => setIsHover2(false)}
+              onTouchCancel={() => setIsHover2(false)}
+              css={{ height: '100%' }}
+            >
+              <ToolImagePreview
+                css={theme({
+                  height: ['180px', '200px', '260px', '260px'],
+                  borderBottom: 1,
+                  borderColor: 'black05'
+                })}
+              >
+                <video
+                  src={cdnUrl('www/tools/animated-screenshot.mp4')}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  aria-label='Animated Screenshot'
+                  css={theme({
+                    width: ['90%', '90%', '80%', '80%'],
+                    marginTop: ['60px', '200px', '50px', '75px'],
+                    transition: 'transform 600ms cubic-bezier(0.4, 0, 0.2, 1)',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                    transform: isHover2
+                      ? 'scale(1.2) translateY(5%)'
+                      : 'scale(1)'
+                  })}
+                />
+              </ToolImagePreview>
+              <Flex
+                css={theme({
+                  p: [3, 3, 4, 4],
+                  flexDirection: 'column',
+                  gap: 3
+                })}
+              >
+                <Flex
+                  css={theme({
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    gap: 3
+                  })}
+                >
+                  <Box css={{ flex: 1, minWidth: 0 }}>
+                    <Flex css={theme({ alignItems: 'center', gap: 2, mb: 2 })}>
+                      <Flex
+                        css={theme({
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '28px',
+                          height: '28px',
+                          borderRadius: 2,
+                          bg: 'rgba(253, 73, 74, 0.08)',
+                          color: '#fd494a',
+                          flexShrink: 0
+                        })}
+                      >
+                        <Play size={16} aria-hidden='true' />
+                      </Flex>
+                      <Text
+                        css={theme({
+                          fontSize: [2, 2, 2, 2],
+                          fontWeight: 'bold',
+                          color: 'black'
+                        })}
+                      >
+                        Animated Screenshot
+                      </Text>
+                    </Flex>
+                    <Text
+                      css={theme({
+                        fontSize: [0, 0, 1, 1],
+                        color: 'black60',
+                        lineHeight: 2
+                      })}
+                    >
+                      Capture an animated screenshot of any website. Get a GIF
+                      or MP4 file in seconds with the motion that the webpage
+                      has. Create rich previews.
+                    </Text>
+                  </Box>
+                  <ToolArrowIndicator
+                    $hover={isHover2}
                     css={theme({ mt: [0, 0, '5px', '10px'] })}
                   >
                     <ArrowRight size={16} aria-hidden='true' />
