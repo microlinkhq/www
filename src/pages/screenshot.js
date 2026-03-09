@@ -3603,10 +3603,10 @@ const ProductInformation = () => {
                 manage the instance pool, and handle edge caching.
               </div>
               <div>
-                You simply make a REST API call to our browser screenshot API
-                and receive a structured JSON payload or a binary image
-                directly. It eliminates the need to maintain Puppeteer or
-                Playwright on your own servers.
+                You simply make a REST API call and receive a structured JSON
+                payload or a binary image directly — the easiest way to
+                automatically take screenshots of website pages without
+                maintaining Puppeteer or Playwright on your own servers.
               </div>
             </>
           )
@@ -3616,8 +3616,8 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Yes. The free tier provides 50 requests per day with
-                unrestricted access to all browser automation features,
+                Yes. Our free screenshot API tier provides 50 requests per day
+                with unrestricted access to all browser automation features,
                 including device emulation, custom HTTP headers, and CSS
                 injection.
               </div>
