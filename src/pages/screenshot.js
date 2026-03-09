@@ -56,49 +56,49 @@ import analyticsData from '../../data/analytics.json'
 
 const FEATURES = [
   {
-    title: 'Enterprise-Grade Screenshot Service',
+    title: 'Enterprise-Grade Infrastructure',
     description:
-      'Production-ready screenshot API service built for scale. Handle millions of web captures with 99.9% uptime SLA and guaranteed performance for business-critical workflows.'
+      'Production-ready and built for scale. Handle millions of browser sessions with a 99.95% uptime SLA and guaranteed latency limits for business-critical workflows.'
   },
   {
-    title: 'Free Screenshot API',
+    title: 'Generous Free Tier',
     description:
-      'Start using the free website screenshot API immediately. No setup fees, pay-as-you-grow pricing that scales with your screen capture needs.'
+      'Start capturing immediately. No setup fees, no credit card required, and pay-as-you-grow pricing that scales seamlessly as your infrastructure needs increase.'
   },
   {
-    title: 'Global CDN Network',
+    title: 'Global Edge Delivery',
     description:
-      'Web screenshot service distributed across 240+ edge locations powered by Cloudflare. Lightning-fast site screenshot delivery from anywhere worldwide.'
+      'Assets are automatically cached and distributed across 240+ edge locations powered by Cloudflare, ensuring lightning-fast image delivery worldwide.'
   },
   {
-    title: 'Developer-First URL Screenshot API',
+    title: 'Language-Agnostic API',
     description:
-      'RESTful screenshot API designed for developers. Language-agnostic integration with comprehensive SDKs to capture any URL as an image.'
+      'A single REST endpoint designed for developers. Pass any link to our URL screenshot API and integrate in minutes using our official SDKs for Node.js, Python, Ruby, and Go, or standard HTTP requests.'
   },
   {
-    title: 'Browser Screenshot Control',
+    title: 'Full Headless Browser Control',
     description:
-      'Full browser screenshot API with device emulation. Capture screenshots exactly as users see them across any device, viewport, or interaction.'
+      'Complete Puppeteer and Playwright capabilities. Configure custom viewports, full-page captures, device emulation, user agents, and geolocation natively.'
   },
   {
-    title: 'HTML Screenshot & Customization',
+    title: 'Custom Injections & Overlays',
     description:
-      'Complete HTML screenshot API control. Custom CSS injection, JavaScript execution, overlays, and precise element targeting for pixel-perfect screen captures.'
+      'Execute custom JavaScript, inject CSS, click specific DOM elements, hide ad banners, or wait for network events before the capture is finalized.'
   },
   {
-    title: 'Always-Fresh Web Snapshots',
+    title: 'Smart TTL Caching',
     description:
-      'Smart caching with automatic refresh keeps your URL snapshots current. Stay up to date with website changes while maintaining optimal screenshot service performance.'
+      'Configure Time-To-Live (TTL) caching rules to keep your snapshots fresh. Stay up to date with target website changes while maintaining sub-second API performance.'
   },
   {
-    title: 'Multiple Output Formats',
+    title: 'Optimized Output Formats',
     description:
-      'Flexible website capture API formats including WebP optimization. Full-page captures, custom viewports, and high-quality image exports for any use case.'
+      'Our website capture API exports directly to WebP, JPEG, or PNG formats with configurable compression. Optimize image payloads for web performance without sacrificing visual fidelity.'
   },
   {
     title: 'Zero-Config Integration',
     description:
-      'Interactive documentation with live code examples. Get started with our web API screenshot integration in minutes with copy-paste snippets and embed-ready code.'
+      'Interactive documentation packed with live code examples. Copy-paste ready snippets allow you to bypass complex infrastructure setup and ship to production faster.'
   }
 ]
 
@@ -928,9 +928,9 @@ const Hero = function Hero ({ onRequestTiming }) {
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            The web screenshot service that turns any URL into a pixel-perfect
-            image. Capture site screenshots with full browser control, device
-            emulation, and professional output.
+            The website screenshot service that turns any URL into a
+            pixel-perfect image. Capture site screenshots with full browser
+            control, device emulation, and professional output.
           </Caption>
           <Flex
             css={theme({
@@ -1293,39 +1293,37 @@ const Hero = function Hero ({ onRequestTiming }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1438,28 +1436,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
         })}
         style={{ fontVariantNumeric: 'tabular-nums' }}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -1488,7 +1484,7 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
       <Subhead css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white' })}>
         Send the URL{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
-          Get a screenshot back
+          Get a web snapshot back
         </span>
       </Subhead>
     </Flex>
@@ -2076,7 +2072,7 @@ const Playground = () => {
             textAlign: 'center'
           })}
         >
-          Skip the setup. Our interactive playground lets you test the
+          Skip the setup. Our interactive screenshot url tool lets you test the
           screenshot API instantly — paste any URL, configure options, and see
           the result in real time.
         </Caption>
@@ -2539,7 +2535,7 @@ const Benchmark = () => (
           px: [4, 4, 4, 0]
         })}
       >
-        Benchmarked against every major screenshot provider.
+        Benchmarked against every major web screenshot API provider.
         <br />
         From cold start to pixel delivery, Microlink consistently finishes
         first.
@@ -2856,8 +2852,8 @@ const CodeExample = () => (
             }
           ]}
         >
-          Microlink screenshot API delivers enterprise-grade screen capture
-          through a developer-friendly web API.
+          Microlink screenshot API delivers enterprise-grade screen capture API
+          through a developer-friendly web screenshot service.
         </Caption>
         <Flex
           css={[
@@ -2975,7 +2971,8 @@ const Pricing = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      No login required. No credit card needed. Just start using the API.
+      No login required. No credit card needed. Screenshot API free to use —
+      just start calling it.
     </Caption>
     <Flex
       css={theme({
@@ -3017,7 +3014,8 @@ const Pricing = () => (
             fontSize: [1, 1, '18px', '18px']
           })}
         >
-          50 requests/day — no login, no credit card.
+          Website screenshot API free — 50 requests/day, no login, no credit
+          card.
         </Text>
         <Box css={theme({ pt: 3 })}>
           <PricingCheck>Screenshot API</PricingCheck>
@@ -3159,7 +3157,7 @@ const CAPABILITIES = [
     ),
     title: 'Fastest screenshot API',
     description:
-      'Sub-second cached responses with P95 cold starts under 3 seconds. Global edge network ensures low latency worldwide.'
+      'Sub-second cached responses with P95 cold starts under 3 seconds. The fastest site screenshot API with a global edge network for low latency worldwide.'
   },
   {
     icon: (
@@ -3199,7 +3197,7 @@ const CAPABILITIES = [
     ),
     title: 'Full browser control',
     description:
-      'Inject CSS, execute JavaScript, click elements, scroll, wait for selectors — automate any interaction before capture.'
+      'Inject CSS, execute JavaScript, click elements, scroll, wait for selectors — a complete screen capture API to automate any interaction before capture.'
   },
   {
     icon: (
@@ -3367,39 +3365,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </ScreenshotApiBar>
           </Box>
@@ -3537,9 +3533,9 @@ const CallToAction = () => (
           textAlign: 'center'
         })}
       >
-        Get 50&nbsp;requests/day with zero commitment — no account, and no
-        credit card. Just call the API and start capturing screenshots in
-        seconds.
+        Get 50&nbsp;requests/day with zero commitment — screenshot API free to
+        use, no account, and no credit card. Just call the API and start
+        capturing screenshots in seconds.
       </Caption>
       <Flex
         css={theme({
@@ -3598,136 +3594,127 @@ const ProductInformation = () => {
       })}
       questions={[
         {
-          question: 'What is a screenshot API and what can I build with it?',
+          question: 'Do I need to manage my own Headless Chrome instances?',
           answer: (
             <>
               <div>
-                A screenshot API is a web service that programmatically captures
-                screenshots of any URL or HTML page. Microlink's website
-                screenshot API lets you build visual monitoring systems,
-                automated screen capture workflows, visual regression testing,
-                content archiving, and documentation generators at scale.
+                No. Microlink acts as a fully managed, "backendless" browser
+                service. We maintain the underlying Chromium infrastructure,
+                manage the instance pool, and handle edge caching.
               </div>
               <div>
-                Perfect for developers building visual testing suites, content
-                management platforms, social media automation, and any
-                application that needs a reliable site screenshot API.
+                You simply make a REST API call to our browser screenshot API
+                and receive a structured JSON payload or a binary image
+                directly. It eliminates the need to maintain Puppeteer or
+                Playwright on your own servers.
               </div>
             </>
           )
         },
         {
-          question: 'Is this a free screenshot API?',
+          question: 'Is there a free tier for testing and local development?',
           answer: (
             <>
               <div>
-                Yes — Microlink offers a free website screenshot API tier to get
-                started immediately. The free screenshot API includes full
-                access to all features: browser screenshot capture, HTML
-                screenshot rendering, device emulation, and custom overlays. No
-                credit card required.
+                Yes. The free tier provides 50 requests per day with
+                unrestricted access to all browser automation features,
+                including device emulation, custom HTTP headers, and CSS
+                injection.
               </div>
               <div>
-                As your screenshot needs grow, pay-as-you-grow pricing ensures
-                you only pay for what you use. The website screenshot API free
-                tier is perfect for prototyping and small projects.
+                No credit card, account creation, or API key is required to
+                start developing. Just point your code at the endpoint and begin
+                capturing.
               </div>
             </>
           )
         },
         {
-          question: 'What makes this the best screenshot API?',
+          question: 'How do you handle cookie banners and ad popups?',
           answer: (
             <>
               <div>
-                Microlink stands out as the best screenshot API for its
-                combination of speed, reliability, and developer experience. Our
-                screenshot service delivers sub-second captures with a 99.9%
-                uptime SLA, distributed across 240+ edge locations worldwide.
+                By default, our engine includes a built-in, frequently updated
+                adblocker. It automatically dismisses GDPR cookie consent
+                banners, closes newsletter popups, and removes injected ads.
               </div>
               <div>
-                Unlike other screenshot API services, Microlink provides a
-                unified web screenshot API with built-in browser automation,
-                full device emulation, and advanced customization — all through
-                a single REST endpoint. It's the best website screenshot tool
-                for teams that need production-grade reliability.
-              </div>
-            </>
-          )
-        },
-        {
-          question: 'How do I automate website screenshots?',
-          answer: (
-            <>
-              <div>
-                Automate website screenshots by calling our URL screenshot API
-                with any target page. The API lets you programmatically take
-                screenshots of web pages with a simple HTTP request — no
-                headless browser infrastructure to manage. Schedule automated
-                screenshots of web pages using cron jobs, CI/CD pipelines, or
-                event-driven webhooks.
-              </div>
-              <div>
-                Whether you need to automatically take screenshots of a website
-                on a schedule or capture an automatic screenshot of a website in
-                response to events, our web API screenshot endpoint handles it.
+                This ensures your programmatic captures remain clean and focused
+                on the actual page content without requiring you to write custom
+                dismissal scripts.
               </div>
             </>
           )
         },
         {
           question:
-            'Does the screenshot API support HTML rendering and browser control?',
+            'Can I interact with the DOM or run scripts before capturing?',
           answer: (
             <>
               <div>
-                Yes. The HTML screenshot API renders any markup with full
-                Chromium support, including CSS, web fonts, and JavaScript
-                execution. Our browser screenshot API provides complete control
-                over viewports, device emulation, scroll position, element
-                targeting, and wait conditions for dynamic content.
+                Absolutely. Our HTML screenshot API provides complete browser
+                control. You can inject custom CSS, execute arbitrary
+                JavaScript, scroll to specific coordinates, or wait for specific
+                DOM elements or network events to load.
               </div>
               <div>
-                You can inject custom CSS and JavaScript before capture, making
-                it the most flexible screen capture API for complex pages that
-                require interaction or authentication.
+                It is built to handle complex, dynamic SPA (Single Page
+                Application) rendering and visual regression testing workflows
+                with pixel-perfect accuracy.
               </div>
             </>
           )
         },
         {
-          question: 'How reliable is the web screenshot service?',
+          question: 'What is your uptime SLA and expected latency?',
           answer: (
             <>
               <div>
-                Enterprise-grade reliability with 99.9% uptime SLA. Our website
-                screenshot service runs on optimized Chromium infrastructure
-                that handles complex websites, dynamic content, and custom
-                interactions with consistent high-quality results.
+                We guarantee enterprise-grade reliability with a 99.95% uptime
+                SLA. Every request runs in an isolated browser instance to
+                guarantee security and avoid shared-state leaks.
               </div>
               <div>
-                Every request runs in isolated browser instances for security.
-                Screenshots are delivered via global CDN for optimal web
-                screenshot service performance worldwide.
+                For latency: assets are distributed via Cloudflare's 240+ edge
+                locations, meaning cached responses are delivered in
+                milliseconds. For cold starts, our optimized Chromium pool
+                typically responds in under 3 seconds (P95).
               </div>
             </>
           )
         },
         {
-          question: 'How do I get started with the screenshot API?',
+          question: 'What output formats and payloads are supported?',
           answer: (
             <>
               <div>
-                Start free with our screenshot API service. Visit our{' '}
+                You can export captures as optimized WebP, JPEG, or PNG formats.
+                We support specific viewport cropping as well as full-page
+                scrolling captures.
+              </div>
+              <div>
+                Depending on your integration, you can request a raw image
+                buffer, or a comprehensive JSON payload that includes the image
+                URL alongside metadata, performance timings, and HTTP headers.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'How quickly can I integrate this into my stack?',
+          answer: (
+            <>
+              <div>
+                In minutes. Visit our{' '}
                 <Link href='/docs/api/parameters/screenshot'>
                   documentation
                 </Link>{' '}
-                for interactive examples, SDKs in multiple languages, and
-                ready-to-use code snippets. No infrastructure setup required —
-                just pass a URL and get a screenshot back.
+                for interactive playground examples, official SDKs (Node.js,
+                Python, Ruby, Go), and copy-paste code snippets.
               </div>
               <div>
-                Have questions? Contact us at{' '}
+                Need architectural advice or have custom requirements? Contact
+                our engineering team at{' '}
                 <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .
               </div>
@@ -3741,8 +3728,8 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    title='Screenshot API — capture any website screenshot'
-    description='The best screenshot API and web screenshot service to capture any URL as an image. Free website screenshot API with browser control, device emulation, and HTML screenshot support.'
+    title='Screenshot API | Fast, Automated Web Snapshots — Microlink'
+    description='The best screenshot API and web screenshot service to capture any URL as an image. Built for developers. Features device emulation, ad-blocking, and edge caching. Start for free.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='SoftwareApplication'
     structured={{
@@ -3751,41 +3738,39 @@ export const Head = () => (
       '@id': 'https://microlink.io/screenshot',
       name: 'Microlink Screenshot API',
       description:
-        'Website screenshot API service to capture any site screenshot or web snapshot via a simple URL. Free screenshot API with browser automation and HTML rendering.',
+        'A backendless API for developers to programmatically capture website screenshots, generate web snapshots, and automate browser tasks using Headless Chrome.',
       url: 'https://microlink.io/screenshot',
-      applicationCategory: ['DeveloperApplication', 'API'],
-      keywords: [
-        'screenshot api',
-        'website screenshot api',
-        'web screenshot api',
-        'site screenshot api',
-        'screenshot service',
-        'browser screenshot api',
-        'url screenshot api',
-        'html screenshot api',
-        'free screenshot api',
-        'website capture api',
-        'screen capture api',
-        'web screenshot service',
-        'website screenshot service',
-        'screenshot api service',
-        'best screenshot api',
-        'automated website screenshots',
-        'web snapshot',
-        'url snapshot',
-        'screenshot url tool'
-      ],
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web, Platform-Agnostic',
+      provider: {
+        '@type': 'Organization',
+        name: 'Microlink',
+        url: 'https://microlink.io'
+      },
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description:
+          'Free tier available for experimentation. Pro plans scale for high concurrency.'
+      },
+      keywords:
+        'screenshot API, website capture, automated screenshots, puppeteer API, headless chrome, web snapshot',
       about: [
-        { '@type': 'Thing', name: 'Screenshot API' },
-        { '@type': 'Thing', name: 'Website Screenshot Service' },
-        { '@type': 'Thing', name: 'Website Capture API' },
-        { '@type': 'Thing', name: 'Web Screenshot Service' },
-        { '@type': 'Thing', name: 'Browser Screenshot API' }
+        {
+          '@type': 'Thing',
+          name: 'Application Programming Interface',
+          sameAs: 'https://en.wikipedia.org/wiki/API'
+        },
+        {
+          '@type': 'Thing',
+          name: 'Headless browser',
+          sameAs: 'https://en.wikipedia.org/wiki/Headless_browser'
+        }
       ]
     }}
   />
 )
-
 const INITIAL_TIMING_MS = Math.floor(Math.random() * (25 - 14 + 1)) + 14
 
 const ScreenshotPage = () => {
@@ -3843,7 +3828,7 @@ const ScreenshotPage = () => {
                 caption={
                   <>
                     No more servers to maintain, load balancers, or paying for
-                    capacity you don’t use — our screenshot service lets you
+                    capacity you don’t use — our screenshot service API lets you
                     spend more time building, less time configuring, with easy
                     integration via{' '}
                     <Link href='/docs/api/parameters/screenshot'>
