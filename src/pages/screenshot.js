@@ -1736,7 +1736,8 @@ const OpenSource = () => (
         {
           '@media (min-width: 1500px)': {
             flexDirection: 'row-reverse',
-            alignItems: 'center'
+            alignItems: 'center',
+            paddingBottom: '30px'
           }
         }
       ]}
@@ -2321,15 +2322,47 @@ const Playground = () => {
   )
 }
 
+const speedStreak = keyframes`
+  0% {
+    transform: translateX(-10vw);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+`
+
+const SpeedLine = styled('div')`
+  position: absolute;
+  height: ${({ $h }) => $h || '2px'};
+  border-radius: 2px;
+  background: ${({ $color }) => $color || 'rgba(255, 255, 255, 0.3)'};
+  top: ${({ $top }) => $top};
+  animation: ${speedStreak} ${({ $dur }) => $dur || '2s'}
+    ${({ $delay }) => $delay || '0s'} linear infinite;
+  width: ${({ $w }) => $w || '800px'};
+  box-shadow: 0 0 ${({ $glow }) => $glow || '4px'}
+    ${({ $color }) => $color || 'rgba(255, 255, 255, 0.2)'};
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 0;
+  }
+`
+
 const Benchmark = () => (
-  <Block
-    forwardedAs='section'
+  <section
     id='benchmark'
-    flexDirection='column'
-    css={theme({
-      px: 4,
-      pt: [4, 4, 5, 5],
-      pb: [4, 4, 5, 5],
+    css={{
+      position: 'relative',
+      overflow: 'hidden',
       width: '100%',
       backgroundImage: `radial-gradient(
         circle at center right,
@@ -2346,63 +2379,183 @@ const Benchmark = () => (
       )`,
       borderTop: `${borders[1]} ${colors.white20}`,
       borderBottom: `${borders[1]} ${colors.white20}`
-    })}
-    blockOne={
-      <Flex
-        css={{
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Subhead
-          css={theme({ fontSize: [2, 3, '44px', '44px'], color: 'white' })}
-        >
-          The fastest screenshot API{' '}
-          <span css={theme({ display: 'block', color: 'white60' })}>
-            50% faster than competitors
-          </span>
-        </Subhead>
-      </Flex>
-    }
-    blockTwo={
-      <Flex
+    }}
+  >
+    {/* Speed lines — full width absolute overlay */}
+    <Box
+      css={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        overflow: 'hidden',
+        pointerEvents: 'none',
+        zIndex: 0
+      }}
+    >
+      <SpeedLine
+        $top='12%'
+        $w='140px'
+        $h='3px'
+        $dur='2.25s'
+        $delay='0s'
+        $color='rgba(255,255,255,0.45)'
+        $glow='8px'
+      />
+      <SpeedLine
+        $top='22%'
+        $w='80px'
+        $h='2px'
+        $dur='3.15s'
+        $delay='0.6s'
+        $color='rgba(255,255,255,0.2)'
+        $glow='4px'
+      />
+      <SpeedLine
+        $top='32%'
+        $w='110px'
+        $h='2px'
+        $dur='1.95s'
+        $delay='0.15s'
+        $color='rgba(255,255,255,0.55)'
+        $glow='10px'
+      />
+      <SpeedLine
+        $top='42%'
+        $w='50px'
+        $h='1px'
+        $dur='3.75s'
+        $delay='1.1s'
+        $color='rgba(255,255,255,0.12)'
+        $glow='3px'
+      />
+      <SpeedLine
+        $top='52%'
+        $w='130px'
+        $h='3px'
+        $dur='1.8s'
+        $delay='0.3s'
+        $color='rgba(255,255,255,0.6)'
+        $glow='12px'
+      />
+      <SpeedLine
+        $top='62%'
+        $w='60px'
+        $h='1px'
+        $dur='3.4s'
+        $delay='1.35s'
+        $color='rgba(255,255,255,0.15)'
+        $glow='3px'
+      />
+      <SpeedLine
+        $top='17%'
+        $w='90px'
+        $h='2px'
+        $dur='2.1s'
+        $delay='0.2s'
+        $color='rgba(255,255,255,0.35)'
+        $glow='6px'
+      />
+      <SpeedLine
+        $top='37%'
+        $w='120px'
+        $h='3px'
+        $dur='1.65s'
+        $delay='0s'
+        $color='rgba(255,255,255,0.5)'
+        $glow='10px'
+      />
+      <SpeedLine
+        $top='47%'
+        $w='45px'
+        $h='1px'
+        $dur='3.2s'
+        $delay='0.8s'
+        $color='rgba(255,255,255,0.18)'
+        $glow='3px'
+      />
+      <SpeedLine
+        $top='57%'
+        $w='75px'
+        $h='2px'
+        $dur='2.4s'
+        $delay='0.45s'
+        $color='rgba(255,255,255,0.3)'
+        $glow='5px'
+      />
+      <SpeedLine
+        $top='67%'
+        $w='105px'
+        $h='3px'
+        $dur='1.9s'
+        $delay='0.15s'
+        $color='rgba(255,255,255,0.5)'
+        $glow='9px'
+      />
+      <SpeedLine
+        $top='77%'
+        $w='55px'
+        $h='1px'
+        $dur='3.5s'
+        $delay='1.2s'
+        $color='rgba(255,255,255,0.14)'
+        $glow='3px'
+      />
+    </Box>
+
+    {/* Content */}
+    <Flex
+      css={theme({
+        position: 'relative',
+        zIndex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        py: [4, 4, 5, 5],
+        px: 4,
+        gap: [3, 3, 4, 4]
+      })}
+    >
+      <Subhead
         css={theme({
-          pt: [3, 3, 4, 4],
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          maxWidth: layout.large,
-          gap: [3, 3, 4, 4]
+          fontSize: [2, 3, '44px', '44px'],
+          color: 'white',
+          textAlign: 'center'
         })}
       >
-        <Text
-          css={theme({
-            color: 'white80',
-            textAlign: 'center',
-            fontSize: [1, 1, 2, 2],
-            maxWidth: layout.normal,
-            lineHeight: 2
-          })}
-        >
-          Microlink delivers screenshots up to 50% faster than most direct
-          competitors. Our infrastructure is optimized for speed at every layer
-          — from headless browser orchestration to global CDN delivery.
-        </Text>
-        <ArrowLink
-          href='/benchmarks/screenshot'
-          css={theme({
-            fontSize: ['22px', '24px', '26px', '26px'],
-            color: 'white'
-          })}
-          style={{ color: 'white' }}
-        >
-          See the benchmarks
-        </ArrowLink>
-      </Flex>
-    }
-  />
+        The fastest screenshot API{' '}
+        <span css={theme({ display: 'block', color: 'white60' })}>
+          50% faster than competitors
+        </span>
+      </Subhead>
+      <Caption
+        forwardedAs='div'
+        css={theme({
+          color: 'white70',
+          textAlign: 'center',
+          width: '100%',
+          fontSize: [2, 2, '22px', '22px'],
+          px: [4, 4, 4, 0]
+        })}
+      >
+        Benchmarked against every major screenshot provider.
+        <br />
+        From cold start to pixel delivery, Microlink consistently finishes
+        first.
+      </Caption>
+      <ArrowLink
+        href='/benchmarks/screenshot'
+        css={theme({
+          fontSize: ['22px', '24px', '26px', '26px'],
+          color: 'white'
+        })}
+        style={{ color: 'white' }}
+      >
+        See the benchmarks
+      </ArrowLink>
+    </Flex>
+  </section>
 )
 
 const Resume = () => (
