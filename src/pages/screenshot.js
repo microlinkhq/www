@@ -633,7 +633,7 @@ const MAX_HISTORY = 6
 const DEFAULT_HISTORY = [
   'https://apple.com',
   'https://microlink.io',
-  'https://vercel.com'
+  'https://unavatar.io'
 ]
 
 const addToHistory = (history, url) => {
@@ -646,11 +646,7 @@ const Hero = function Hero ({ onRequestTiming }) {
   const [isFocused, setIsFocused] = useState(false)
   const [history, setHistory] = useState(DEFAULT_HISTORY)
   const inputRef = useRef(null)
-  const [screenshotSrc, setScreenshotSrc] = useState(
-    `https://api.microlink.io?url=${encodeURIComponent(
-      'https://apple.com'
-    )}&screenshot&embed=screenshot.url`
-  )
+  const [screenshotSrc, setScreenshotSrc] = useState(cdnUrl('www/apple.png'))
   const [imgKey, setImgKey] = useState(0)
   const [imgVisible, setImgVisible] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
@@ -671,8 +667,9 @@ const Hero = function Hero ({ onRequestTiming }) {
   const copyTimerRef = useRef(null)
   const hasImageRef = useRef(false)
   const skipBlurRef = useRef(false)
+  const imageLoadResolverRef = useRef(null)
 
-  const DEMO_URLS = ['vercel.com', 'microlink.io']
+  const DEMO_URLS = ['unavatar.io', 'microlink.io']
 
   useEffect(() => {
     if (hasInteracted) return
@@ -726,7 +723,13 @@ const Hero = function Hero ({ onRequestTiming }) {
           setNavIndex(next.length - 1)
           return next
         })
+        const imageLoaded = new Promise(resolve => {
+          imageLoadResolverRef.current = resolve
+        })
         fetchScreenshot(normalized)
+
+        await Promise.race([imageLoaded, delay(15000)])
+        if (check()) return
 
         if (i < DEMO_URLS.length - 1) {
           await delay(4000)
@@ -742,9 +745,10 @@ const Hero = function Hero ({ onRequestTiming }) {
           setIsFocused(true)
           setIsAttractMode(true)
           setIsPulsing(true)
-          await delay(5000) // 5 cycles × 2s
+          await delay(5000)
           if (check()) return
           setIsPulsing(false)
+          setShowTooltip(false)
         }
       }
     }
@@ -754,6 +758,10 @@ const Hero = function Hero ({ onRequestTiming }) {
     return () => {
       cancelled = true
       timeouts.forEach(clearTimeout)
+      if (imageLoadResolverRef.current) {
+        imageLoadResolverRef.current()
+        imageLoadResolverRef.current = null
+      }
     }
   }, [hasInteracted])
 
@@ -810,7 +818,7 @@ const Hero = function Hero ({ onRequestTiming }) {
       try {
         const res = await fetch(
           `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
-          { cache: 'no-store', signal: abortRef.current.signal }
+          { signal: abortRef.current.signal }
         )
         const json = await res.json()
         const elapsedMs = Date.now() - t0
@@ -1231,12 +1239,24 @@ const Hero = function Hero ({ onRequestTiming }) {
                   src={screenshotSrc}
                   alt='Website screenshot'
                   decoding='async'
+                  loading='eager'
+                  fetchpriority='high'
                   onLoad={() => {
                     hasImageRef.current = true
                     setImgVisible(true)
                     setIsLoading(false)
+                    if (imageLoadResolverRef.current) {
+                      imageLoadResolverRef.current()
+                      imageLoadResolverRef.current = null
+                    }
                   }}
-                  onError={() => setIsLoading(false)}
+                  onError={() => {
+                    setIsLoading(false)
+                    if (imageLoadResolverRef.current) {
+                      imageLoadResolverRef.current()
+                      imageLoadResolverRef.current = null
+                    }
+                  }}
                   style={{
                     position: 'absolute',
                     inset: 0,
