@@ -2,7 +2,6 @@ import { borders, layout, colors, theme, transition } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
-import humanizeUrl from 'humanize-url'
 import styled, { css, keyframes } from 'styled-components'
 import get from 'dlv'
 
@@ -50,9 +49,9 @@ import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/Mult
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 
-import { findDemoLinkById } from 'helpers/demo-links'
-
 import analyticsData from '../../data/analytics.json'
+
+const APPLE_IMAGE_URL = 'https://cdn.microlink.io/www/apple.png'
 
 const FEATURES = [
   {
@@ -583,41 +582,6 @@ const HeroTextContainer = styled(Flex)`
   }
 `
 
-const SUGGESTIONS = [
-  { theme: 'dark', id: 'apple' },
-  { theme: 'light', id: 'mdn' },
-  { theme: 'light', id: 'stackoverflow' },
-  { theme: 'light', id: 'producthunt' },
-  { theme: 'dark', id: 'nasa' }
-].map(({ theme, id }) => {
-  const filename = `${id}.png`
-  const { url } = findDemoLinkById(id).data
-
-  return {
-    cdnUrl: cdnUrl(`screenshot/browser/${theme}/${filename}`),
-    filename,
-    id,
-    url,
-    value: humanizeUrl(url)
-  }
-})
-
-const fromCache = (variations, opts) => {
-  const suggestion = SUGGESTIONS.find(({ url }) => variations.includes(url))
-  if (!suggestion) return
-
-  const { data } = findDemoLinkById(suggestion.id)
-  const theme = get(opts, 'overlay.browser')
-
-  const screenshotUrl = cdnUrl(
-    theme
-      ? `screenshot/browser/${theme}/${suggestion.filename}`
-      : `screenshot/${suggestion.filename}`
-  )
-
-  return { data: { ...data, screenshot: { url: screenshotUrl } } }
-}
-
 const ensureProtocol = value => {
   const trimmed = value.trim()
   if (!trimmed) return trimmed
@@ -645,7 +609,7 @@ const Hero = function Hero ({ onRequestTiming }) {
   const [isFocused, setIsFocused] = useState(false)
   const [history, setHistory] = useState(DEFAULT_HISTORY)
   const inputRef = useRef(null)
-  const [screenshotSrc, setScreenshotSrc] = useState(cdnUrl('www/apple.png'))
+  const [screenshotSrc, setScreenshotSrc] = useState(APPLE_IMAGE_URL)
   const [imgKey, setImgKey] = useState(0)
   const [imgVisible, setImgVisible] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
@@ -1396,39 +1360,37 @@ const Hero = function Hero ({ onRequestTiming }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1541,28 +1503,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
         })}
         style={{ fontVariantNumeric: 'tabular-nums' }}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -3475,39 +3435,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </ScreenshotApiBar>
           </Box>
@@ -3904,60 +3862,51 @@ const ScreenshotPage = () => {
 
   return (
     <Layout>
-      <FetchProvider fromCache={fromCache} mqlOpts={{ screenshot: true }}>
-        {({ data }) => {
-          return (
-            <>
-              <Hero data={data} onRequestTiming={handleRequestTiming} />
-              <Timings
-                timingMs={timingMs}
-                timingUrl={timingUrl}
-                timingHistory={timingHistory}
-              />
-              <Capabilities />
-              <CodeExample />
-              <Clients />
-              <Pricing />
-              <OpenSource />
-              <Playground />
-              <Benchmark />
-              <Features
-                css={theme({ px: 4, pb: 5 })}
-                title={
-                  <Subhead css={{ width: '100%', textAlign: 'left' }}>
-                    The best screenshot API,{' '}
-                    <span
-                      css={{
-                        display: 'block',
-                        color: '#fd494a',
-                        width: '100%',
-                        textAlign: 'left'
-                      }}
-                    >
-                      with no compromises.
-                    </span>
-                  </Subhead>
-                }
-                caption={
-                  <>
-                    No more servers to maintain, load balancers, or paying for
-                    capacity you don’t use — our screenshot service API lets you
-                    spend more time building, less time configuring, with easy
-                    integration via{' '}
-                    <Link href='/docs/api/parameters/screenshot'>
-                      web screenshot API
-                    </Link>
-                    .
-                  </>
-                }
-                features={FEATURES}
-              />
-              <CallToAction />
-              <ProductInformation />
-            </>
-          )
-        }}
-      </FetchProvider>
+      <Hero onRequestTiming={handleRequestTiming} />
+      <Timings
+        timingMs={timingMs}
+        timingUrl={timingUrl}
+        timingHistory={timingHistory}
+      />
+      <Capabilities />
+      <CodeExample />
+      <Clients />
+      <Pricing />
+      <OpenSource />
+      <Playground />
+      <Benchmark />
+      <Features
+        css={theme({ px: 4, pb: 5 })}
+        title={
+          <Subhead css={{ width: '100%', textAlign: 'left' }}>
+            The best screenshot API,{' '}
+            <span
+              css={{
+                display: 'block',
+                color: '#fd494a',
+                width: '100%',
+                textAlign: 'left'
+              }}
+            >
+              with no compromises.
+            </span>
+          </Subhead>
+        }
+        caption={
+          <>
+            No more servers to maintain, load balancers, or paying for capacity
+            you don’t use — our screenshot service API lets you spend more time
+            building, less time configuring, with easy integration via{' '}
+            <Link href='/docs/api/parameters/screenshot'>
+              web screenshot API
+            </Link>
+            .
+          </>
+        }
+        features={FEATURES}
+      />
+      <CallToAction />
+      <ProductInformation />
     </Layout>
   )
 }
