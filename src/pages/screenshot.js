@@ -2497,7 +2497,7 @@ const Benchmark = () => (
         $top='12%'
         $w='140px'
         $h='3px'
-        $dur='2.25s'
+        $dur='1.27s'
         $delay='0s'
         $color='rgba(255,255,255,0.45)'
         $glow='8px'
@@ -2506,7 +2506,7 @@ const Benchmark = () => (
         $top='22%'
         $w='80px'
         $h='2px'
-        $dur='3.15s'
+        $dur='1.78s'
         $delay='0.6s'
         $color='rgba(255,255,255,0.2)'
         $glow='4px'
@@ -2515,7 +2515,7 @@ const Benchmark = () => (
         $top='32%'
         $w='110px'
         $h='2px'
-        $dur='1.95s'
+        $dur='1.1s'
         $delay='0.15s'
         $color='rgba(255,255,255,0.55)'
         $glow='10px'
@@ -2524,7 +2524,7 @@ const Benchmark = () => (
         $top='42%'
         $w='50px'
         $h='1px'
-        $dur='3.75s'
+        $dur='2.11s'
         $delay='1.1s'
         $color='rgba(255,255,255,0.12)'
         $glow='3px'
@@ -2533,7 +2533,7 @@ const Benchmark = () => (
         $top='52%'
         $w='130px'
         $h='3px'
-        $dur='1.8s'
+        $dur='1.01s'
         $delay='0.3s'
         $color='rgba(255,255,255,0.6)'
         $glow='12px'
@@ -2542,7 +2542,7 @@ const Benchmark = () => (
         $top='62%'
         $w='60px'
         $h='1px'
-        $dur='3.4s'
+        $dur='1.91s'
         $delay='1.35s'
         $color='rgba(255,255,255,0.15)'
         $glow='3px'
@@ -2551,7 +2551,7 @@ const Benchmark = () => (
         $top='17%'
         $w='90px'
         $h='2px'
-        $dur='2.1s'
+        $dur='1.19s'
         $delay='0.2s'
         $color='rgba(255,255,255,0.35)'
         $glow='6px'
@@ -2560,7 +2560,7 @@ const Benchmark = () => (
         $top='37%'
         $w='120px'
         $h='3px'
-        $dur='1.65s'
+        $dur='0.94s'
         $delay='0s'
         $color='rgba(255,255,255,0.5)'
         $glow='10px'
@@ -2569,7 +2569,7 @@ const Benchmark = () => (
         $top='47%'
         $w='45px'
         $h='1px'
-        $dur='3.2s'
+        $dur='1.8s'
         $delay='0.8s'
         $color='rgba(255,255,255,0.18)'
         $glow='3px'
@@ -2578,7 +2578,7 @@ const Benchmark = () => (
         $top='57%'
         $w='75px'
         $h='2px'
-        $dur='2.4s'
+        $dur='1.35s'
         $delay='0.45s'
         $color='rgba(255,255,255,0.3)'
         $glow='5px'
@@ -2587,7 +2587,7 @@ const Benchmark = () => (
         $top='67%'
         $w='105px'
         $h='3px'
-        $dur='1.9s'
+        $dur='1.08s'
         $delay='0.15s'
         $color='rgba(255,255,255,0.5)'
         $glow='9px'
@@ -2596,7 +2596,7 @@ const Benchmark = () => (
         $top='77%'
         $w='55px'
         $h='1px'
-        $dur='3.5s'
+        $dur='1.97s'
         $delay='1.2s'
         $color='rgba(255,255,255,0.14)'
         $glow='3px'
@@ -2618,7 +2618,7 @@ const Benchmark = () => (
     >
       <Subhead
         css={theme({
-          fontSize: [2, 3, '44px', '44px'],
+          fontSize: [3, 3, '44px', '44px'],
           color: 'white',
           textAlign: 'center'
         })}
@@ -2631,7 +2631,7 @@ const Benchmark = () => (
       <Caption
         forwardedAs='div'
         css={theme({
-          color: 'white70',
+          color: 'white80',
           textAlign: 'center',
           width: '100%',
           fontSize: [2, 2, '22px', '22px'],
