@@ -876,6 +876,7 @@ const Hero = function Hero ({ onRequestTiming }) {
     const newIndex = newStack.length - 1
     setInputUrl(normalized)
     setIsFocused(false)
+    setShowTooltip(false)
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
@@ -884,6 +885,7 @@ const Hero = function Hero ({ onRequestTiming }) {
 
   const handleBack = () => {
     if (navIndex === 0) return
+    stopAttract()
     const newIndex = navIndex - 1
     const url = navStack[newIndex]
     setNavIndex(newIndex)
@@ -893,6 +895,7 @@ const Hero = function Hero ({ onRequestTiming }) {
 
   const handleForward = () => {
     if (navIndex >= navStack.length - 1) return
+    stopAttract()
     const newIndex = navIndex + 1
     const url = navStack[newIndex]
     setNavIndex(newIndex)
@@ -909,6 +912,7 @@ const Hero = function Hero ({ onRequestTiming }) {
       const normalized = ensureProtocol(e.target.value)
       setInputUrl(normalized)
       setIsFocused(false)
+      setShowTooltip(false)
       if (normalized && normalized !== inputUrl) {
         setHistory(h => addToHistory(h, normalized))
         fetchScreenshot(normalized)
@@ -924,6 +928,7 @@ const Hero = function Hero ({ onRequestTiming }) {
     if (e.key === 'Escape') {
       e.target.blur()
       setIsFocused(false)
+      setShowTooltip(false)
     }
   }
 
@@ -1037,15 +1042,19 @@ const Hero = function Hero ({ onRequestTiming }) {
               onClick={e => {
                 if (
                   !e.target.closest('input') &&
-                  !e.target.closest('[role="listbox"]')
+                  !e.target.closest('[role="listbox"]') &&
+                  !e.target.closest('.screenshot-api-bar')
                 ) {
                   setIsFocused(false)
-                  stopAttract()
                 }
               }}
             >
               <BrowserHeader>
-                <TrafficLights>
+                <TrafficLights
+                  css={theme({
+                    display: ['none', 'inherit', 'inherit', 'inherit']
+                  })}
+                >
                   <TerminalButton.Red />
                   <TerminalButton.Yellow />
                   <TerminalButton.Green />
@@ -1187,14 +1196,25 @@ const Hero = function Hero ({ onRequestTiming }) {
                       showNerdStats ? 'Hide nerd stats' : 'Show nerd stats'
                     }
                     aria-pressed={showNerdStats}
-                    onClick={() => setShowNerdStats(s => !s)}
+                    onClick={() => {
+                      stopAttract()
+                      setShowNerdStats(s => !s)
+                    }}
                     style={
                       showNerdStats
                         ? { opacity: 1, color: '#4ade80' }
                         : undefined
                     }
                   >
-                    <TerminalIcon size={13} aria-hidden='true' /> Stats
+                    <TerminalIcon size={13} aria-hidden='true' />{' '}
+                    <span
+                      css={theme({
+                        display: ['none', 'none', 'inline', 'inline']
+                      })}
+                    >
+                      Nerd
+                    </span>{' '}
+                    Stats
                   </NerdButton>
                 )}
                 <Box css={{ width: '4px', flexShrink: 0 }} />
