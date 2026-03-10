@@ -3425,7 +3425,7 @@ const Capabilities = () => {
             />
             <ScreenshotApiBar
               css={theme({
-                alignItems: 'flex-end',
+                alignItems: 'center',
                 justifyContent: 'space-between',
                 px: [2, 3, 3, 3],
                 py: '10px',
@@ -3671,6 +3671,7 @@ const ProductInformation = () => {
   return (
     <Faq
       title='Screenshot API FAQ'
+      titleSize={['40px', 4, 5, 5]}
       caption='Everything you need to know about our website screenshot API and web screenshot service.'
       css={theme({
         pb: [5, 5, 6, 6],

@@ -25,12 +25,22 @@ const Question = withSlug(({ index, ...props }) => (
   />
 ))
 
-const Faq = ({ title, caption, questions, ...props }) => {
+const Faq = ({
+  title,
+  caption,
+  questions,
+  titleSize = [4, 4, 6, 6],
+  ...props
+}) => {
   return (
     <Container as='section' id='faq' {...props}>
       {title && (
         <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
-          <Subhead css={theme({ px: 4 })} variant='gradient' titleize={false}>
+          <Subhead
+            css={theme({ px: 4, fontSize: titleSize })}
+            variant='gradient'
+            titleize={false}
+          >
             {title}
           </Subhead>
           {caption && (
