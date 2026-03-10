@@ -144,6 +144,63 @@ const NerdButton = styled('button')`
   }
 `
 
+const tooltipFloat = keyframes`
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-3px); }
+`
+
+const tooltipFadeIn = keyframes`
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+`
+
+const HintTooltip = styled('span')`
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  animation: ${tooltipFadeIn} 0.35s ease both,
+    ${tooltipFloat} 3s ease-in-out 0.35s infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: ${tooltipFadeIn} 0.01s ease both;
+  }
+`
+
+const HintTooltipLabel = styled('span')`
+  color: #4ade80;
+  font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo,
+    monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  background: #111113;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 7px 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 640px) {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+`
+
+const HintTooltipArrow = styled('span')`
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #111113;
+`
+
 const BrowserWindow = styled('div')`
   border-radius: 10px;
   overflow: hidden;
@@ -261,7 +318,7 @@ const AddressBar = styled(Flex)`
   ${({ $isPulsing }) =>
     $isPulsing &&
     css`
-      animation: ${caretPulse} 2s ease-in-out 5;
+      animation: ${caretPulse} 2s ease-in-out 2;
     `}
 
   ${({ $active, $isPulsing }) =>
@@ -607,6 +664,7 @@ const Hero = function Hero ({ onRequestTiming }) {
   const [isAttractMode, setIsAttractMode] = useState(false)
   const [isPulsing, setIsPulsing] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [showTooltip, setShowTooltip] = useState(false)
   const [navStack, setNavStack] = useState(['https://apple.com'])
   const [navIndex, setNavIndex] = useState(0)
   const abortRef = useRef(null)
@@ -640,7 +698,7 @@ const Hero = function Hero ({ onRequestTiming }) {
     }
 
     const run = async () => {
-      await delay(400)
+      await delay(1200)
       if (check()) return
 
       for (let i = 0; i < DEMO_URLS.length; i++) {
@@ -648,12 +706,11 @@ const Hero = function Hero ({ onRequestTiming }) {
         if (check()) return
 
         if (i === 0) {
-          // first url: glow then wait before typing
           setIsGlowing(true)
+          setTimeout(() => setShowTooltip(true), 50)
           await delay(250)
           if (check()) return
         }
-        // subsequent urls: glow+clear already done between iterations, type immediately
 
         const completed = await typeUrl(url)
         if (!completed) return
@@ -679,7 +736,6 @@ const Hero = function Hero ({ onRequestTiming }) {
           if (check()) return
           setInputUrl('')
         } else {
-          // last url loaded — attract mode after screenshot loads
           await delay(2000)
           if (check()) return
           setIsGlowing(true)
@@ -804,6 +860,7 @@ const Hero = function Hero ({ onRequestTiming }) {
     setIsAttractMode(false)
     setIsPulsing(false)
     setHasInteracted(true)
+    setShowTooltip(false)
   }
 
   const handleFocus = () => {
@@ -951,7 +1008,7 @@ const Hero = function Hero ({ onRequestTiming }) {
           css={[
             theme({
               width: ['100%', '100%', '100%', '50%'],
-              pt: [4, 4, 4, 0],
+              pt: [5, 5, 5, 0],
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center'
@@ -966,7 +1023,16 @@ const Hero = function Hero ({ onRequestTiming }) {
               maxWidth: ['100%', '85%', '70%', '100%'],
               width: ['100%', '85%', '70%', '100%']
             })}
+            style={{ position: 'relative' }}
           >
+            {showTooltip && (
+              <HintTooltip aria-hidden='true'>
+                <HintTooltipLabel>
+                  Type any URL to capture a screenshot
+                </HintTooltipLabel>
+                <HintTooltipArrow />
+              </HintTooltip>
+            )}
             <BrowserWindow
               onClick={e => {
                 if (
@@ -1128,7 +1194,7 @@ const Hero = function Hero ({ onRequestTiming }) {
                         : undefined
                     }
                   >
-                    <TerminalIcon size={13} aria-hidden='true' /> Nerd Stats
+                    <TerminalIcon size={13} aria-hidden='true' /> Stats
                   </NerdButton>
                 )}
                 <Box css={{ width: '4px', flexShrink: 0 }} />
