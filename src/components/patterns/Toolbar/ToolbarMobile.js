@@ -9,7 +9,7 @@ import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
 import { ChevronDown, X } from 'react-feather'
 import { backDrop } from 'helpers/style'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { colors, fontWeights, theme, transition } from 'theme'
 import React, { useEffect, useState } from 'react'
 
@@ -62,6 +62,26 @@ const MOBILE_DIRECT_NAV_ITEM_STYLES = {
   width: '100%',
   alignItems: 'stretch'
 }
+
+const MOBILE_INTERACTION_SURFACE_STYLES = css`
+  &:focus-within > a,
+  > .active {
+    background: ${colors.black05};
+  }
+`
+
+const MOBILE_INTERACTION_NEUTRAL_HOVER_STYLES = css`
+  &:hover {
+    color: ${colors.black};
+  }
+`
+
+const MOBILE_INTERACTION_ACTIVE_TEXT_STYLES = css`
+  &:focus-within > a,
+  > .active {
+    color: ${colors.black};
+  }
+`
 
 const MenuButton = styled('button')`
   border: 0;
@@ -129,10 +149,7 @@ const MobileMenuItemLink = styled(ToolbarNavLink)`
     transition: background-color ${transition.short};
   }
 
-  &:focus-within > a,
-  > .active {
-    background: ${colors.black05};
-  }
+  ${MOBILE_INTERACTION_SURFACE_STYLES}
 
   &:focus-within .menu-item-title,
   > .active .menu-item-title {
@@ -152,6 +169,8 @@ const MobileDirectNavLink = styled(ToolbarNavLink)`
   display: flex;
   width: 100%;
 
+  ${MOBILE_INTERACTION_NEUTRAL_HOVER_STYLES}
+
   > a {
     display: flex;
     align-items: center;
@@ -162,11 +181,8 @@ const MobileDirectNavLink = styled(ToolbarNavLink)`
     transition: background-color ${transition.short}, color ${transition.short};
   }
 
-  &:focus-within > a,
-  > .active {
-    background: ${colors.black05};
-    color: ${colors.black};
-  }
+  ${MOBILE_INTERACTION_SURFACE_STYLES}
+  ${MOBILE_INTERACTION_ACTIVE_TEXT_STYLES}
 `
 
 const SectionToggle = styled('button').withConfig({
