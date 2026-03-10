@@ -149,27 +149,26 @@ const tooltipFloat = keyframes`
   50% { transform: translateX(-50%) translateY(-3px); }
 `
 
-const tooltipFadeIn = keyframes`
-  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-`
-
 const HintTooltip = styled('span')`
   position: absolute;
   bottom: calc(100% + 10px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(${p => (p.$visible ? '0' : '4px')});
+  opacity: ${p => (p.$visible ? 1 : 0)};
   z-index: 20;
   pointer-events: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
-  animation: ${tooltipFadeIn} 0.35s ease both,
-    ${tooltipFloat} 3s ease-in-out 0.35s infinite;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ${p => (p.$visible ? tooltipFloat : 'none')} 3s ease-in-out 0.4s
+    infinite;
 
   @media (prefers-reduced-motion: reduce) {
-    animation: ${tooltipFadeIn} 0.01s ease both;
+    transition: opacity 0.01s, transform 0.01s;
+    animation: none;
   }
 `
 
@@ -1038,14 +1037,12 @@ const Hero = function Hero ({ onRequestTiming }) {
             })}
             style={{ position: 'relative' }}
           >
-            {showTooltip && (
-              <HintTooltip aria-hidden='true'>
-                <HintTooltipLabel>
-                  Type any URL to capture a screenshot
-                </HintTooltipLabel>
-                <HintTooltipArrow />
-              </HintTooltip>
-            )}
+            <HintTooltip $visible={showTooltip} aria-hidden='true'>
+              <HintTooltipLabel>
+                Type any URL to capture a screenshot
+              </HintTooltipLabel>
+              <HintTooltipArrow />
+            </HintTooltip>
             <BrowserWindow
               onClick={e => {
                 if (
