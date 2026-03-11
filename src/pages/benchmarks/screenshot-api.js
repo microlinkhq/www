@@ -187,6 +187,19 @@ const RaceContainer = styled('div')`
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 32px 28px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  @media (max-width: 600px) {
+    padding: 24px 16px;
+    border-radius: 10px;
+  }
 `
 
 const UrlLabel = styled('div')`
