@@ -286,6 +286,7 @@ const slideInFromRight = keyframes`
 `
 
 const RaceContainer = styled('div')`
+  position: relative;
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
@@ -331,6 +332,91 @@ const UrlLabel = styled('div')`
 
   @media (max-width: 600px) {
     font-size: 14px;
+  }
+`
+
+const domainShrink = keyframes`
+  0% {
+    font-size: 42px;
+    opacity: 1;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  60% {
+    font-size: 42px;
+    opacity: 1;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    font-size: 16px;
+    opacity: 1;
+    top: 32px;
+    transform: translate(-50%, 0);
+  }
+`
+
+const domainShrinkMobile = keyframes`
+  0% {
+    font-size: 28px;
+    opacity: 1;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  60% {
+    font-size: 28px;
+    opacity: 1;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    font-size: 14px;
+    opacity: 1;
+    top: 32px;
+    transform: translate(-50%, 0);
+  }
+`
+
+const DomainAnnounce = styled('div')`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: ${MONO_FONT};
+  font-size: 42px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  z-index: 10;
+  animation: ${domainShrink} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+  @media (max-width: 600px) {
+    font-size: 28px;
+    animation: ${domainShrinkMobile} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    font-size: 16px;
+    top: 32px;
+    transform: translate(-50%, 0);
+  }
+`
+
+const AnnounceBackdrop = styled('div')`
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 14px;
+  z-index: 5;
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  transition: opacity ${({ $visible }) => ($visible ? '0.4s' : '0s')} ease;
+  pointer-events: none;
+
+  @media (max-width: 600px) {
+    border-radius: 10px;
   }
 `
 
@@ -414,7 +500,12 @@ const LaneBar = styled('div')`
   height: 100%;
   border-radius: 5px;
   transform-origin: left center;
-  animation: ${barGrow} 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: ${({ $noGrow }) =>
+    $noGrow
+      ? 'none'
+      : css`
+        ${barGrow} 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards
+      `};
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 
@@ -685,6 +776,8 @@ const HeroRace = () => {
   const rankedOrderRef = useRef(ALPHABETICAL_SERVICES)
   const [isReordering, setIsReordering] = useState(false)
   const [isSumming, setIsSumming] = useState(false)
+  const [isAnnouncing, setIsAnnouncing] = useState(false)
+  const [announcingUrl, setAnnouncingUrl] = useState(null)
   const introTimerRef = useRef(null)
   const modeTimerRef = useRef(null)
   const containerRef = useRef(null)
@@ -704,7 +797,7 @@ const HeroRace = () => {
     pendingTimers.current = []
   }, [])
 
-  const scheduleNext = useCallback(() => {
+  const scheduleNextBars = useCallback(() => {
     const currentStep = stepRef.current
     const url = BENCHMARK_DATA.testUrls[currentStep]?.url
 
@@ -735,8 +828,16 @@ const HeroRace = () => {
               setPhase('finished')
             } else {
               stepRef.current = nextStep
-              setStep(nextStep)
-              scheduleNext()
+              setAnnouncingUrl(BENCHMARK_DATA.testUrls[nextStep]?.url)
+              setIsAnnouncing(true)
+              schedule(() => {
+                schedule(() => {
+                  setIsAnnouncing(false)
+                  setAnnouncingUrl(null)
+                  setStep(nextStep)
+                  scheduleNextBars()
+                }, 300)
+              }, 1500)
             }
           }
 
@@ -753,11 +854,26 @@ const HeroRace = () => {
             schedule(advance, 500)
           }
         }, 1000)
-      }, 1400)
+      }, 2300)
 
       return next
     })
   }, [schedule])
+
+  const scheduleNext = useCallback(() => {
+    const url = BENCHMARK_DATA.testUrls[stepRef.current]?.url
+    setAnnouncingUrl(url)
+    setIsAnnouncing(true)
+
+    schedule(() => {
+      schedule(() => {
+        setIsAnnouncing(false)
+        setAnnouncingUrl(null)
+        setStep(stepRef.current)
+        scheduleNextBars()
+      }, 300)
+    }, 1500)
+  }, [schedule, scheduleNextBars])
 
   const jumpToStep = useCallback(
     targetStep => {
@@ -769,57 +885,73 @@ const HeroRace = () => {
         targetStep > 0
           ? getCumulativeAtStep(targetStep - 1)
           : initCumulativeTimes()
-      const cum = getCumulativeAtStep(targetStep)
-      const order = getRankedOrder(prevCum)
+      const order =
+        targetStep > 0 ? getRankedOrder(prevCum) : ALPHABETICAL_SERVICES
 
       stepRef.current = targetStep
-      setStep(targetStep)
       setCumulativeTimes(prevCum)
       setDisplayedCumulative(prevCum)
       setRankedOrder(order)
       rankedOrderRef.current = order
+      setAnnouncingUrl(BENCHMARK_DATA.testUrls[targetStep]?.url)
+      setIsAnnouncing(true)
 
       schedule(() => {
-        setCumulativeTimes(cum)
-
         schedule(() => {
-          setIsSumming(true)
-          setDisplayedCumulative(cum)
+          setIsAnnouncing(false)
+          setAnnouncingUrl(null)
+          setStep(targetStep)
+          const cum = getCumulativeAtStep(targetStep)
+
+          setCumulativeTimes(cum)
 
           schedule(() => {
-            setIsSumming(false)
-            const newOrder = getRankedOrder(cum)
-            const orderChanged = newOrder.some(
-              (k, i) => k !== rankedOrderRef.current[i]
-            )
+            setIsSumming(true)
+            setDisplayedCumulative(cum)
 
-            const advance = () => {
-              setIsReordering(false)
-              const nextStep = targetStep + 1
-              if (nextStep >= BENCHMARK_DATA.testUrls.length) {
-                setPhase('finished')
-              } else {
-                stepRef.current = nextStep
-                setStep(nextStep)
-                scheduleNext()
+            schedule(() => {
+              setIsSumming(false)
+              const newOrder = getRankedOrder(cum)
+              const orderChanged = newOrder.some(
+                (k, i) => k !== rankedOrderRef.current[i]
+              )
+
+              const advance = () => {
+                setIsReordering(false)
+                const nextStep = targetStep + 1
+                if (nextStep >= BENCHMARK_DATA.testUrls.length) {
+                  setPhase('finished')
+                } else {
+                  stepRef.current = nextStep
+                  setAnnouncingUrl(BENCHMARK_DATA.testUrls[nextStep]?.url)
+                  setIsAnnouncing(true)
+                  schedule(() => {
+                    schedule(() => {
+                      setIsAnnouncing(false)
+                      setAnnouncingUrl(null)
+                      setStep(nextStep)
+                      scheduleNextBars()
+                    }, 300)
+                  }, 1500)
+                }
               }
-            }
 
-            if (orderChanged) {
-              schedule(() => {
-                setIsReordering(true)
+              if (orderChanged) {
+                schedule(() => {
+                  setIsReordering(true)
+                  setRankedOrder(newOrder)
+                  rankedOrderRef.current = newOrder
+                  schedule(advance, 2600)
+                }, 1000)
+              } else {
                 setRankedOrder(newOrder)
                 rankedOrderRef.current = newOrder
-                schedule(advance, 2600)
-              }, 1000)
-            } else {
-              setRankedOrder(newOrder)
-              rankedOrderRef.current = newOrder
-              schedule(advance, 500)
-            }
-          }, 1000)
-        }, 2300)
-      }, 0)
+                schedule(advance, 500)
+              }
+            }, 1000)
+          }, 2300)
+        }, 300)
+      }, 1500)
     },
     [schedule, clearPending, scheduleNext]
   )
@@ -827,7 +959,7 @@ const HeroRace = () => {
   const startRace = useCallback(() => {
     clearPending()
     stepRef.current = 0
-    setStep(0)
+    setStep(-1)
     const fresh = initCumulativeTimes()
     setCumulativeTimes(fresh)
     setDisplayedCumulative(fresh)
@@ -835,6 +967,8 @@ const HeroRace = () => {
     rankedOrderRef.current = ALPHABETICAL_SERVICES
     setIsReordering(false)
     setIsSumming(false)
+    setIsAnnouncing(false)
+    setAnnouncingUrl(null)
     setPhase('racing')
     setModeIndex(0)
     if (modeTimerRef.current) {
@@ -1002,7 +1136,17 @@ const HeroRace = () => {
 
         {isRacing && (
           <>
-            <UrlLabel>{extractDomain(currentUrl)}</UrlLabel>
+            <AnnounceBackdrop $visible={isAnnouncing} />
+            {isAnnouncing && announcingUrl && (
+              <DomainAnnounce key={`announce-${announcingUrl}`}>
+                {extractDomain(announcingUrl)}
+              </DomainAnnounce>
+            )}
+            <UrlLabel
+              style={{ visibility: isAnnouncing ? 'hidden' : 'visible' }}
+            >
+              {extractDomain(announcingUrl || currentUrl || '')}
+            </UrlLabel>
 
             <div
               style={{
@@ -1038,16 +1182,19 @@ const HeroRace = () => {
                     <LaneTrack>
                       <LaneBar
                         $isMicrolink={isMicrolink}
+                        $noGrow={isAnnouncing}
                         style={{
-                          width: `${pct}%`,
+                          width: isAnnouncing ? '0%' : `${pct}%`,
                           background: isMicrolink
                             ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
                             : SERVICE_COLORS[key]
                         }}
                       >
-                        <BarTimeLabel $visible>
-                          {formatMs(cold)}&thinsp;ms
-                        </BarTimeLabel>
+                        {!isAnnouncing && (
+                          <BarTimeLabel $visible>
+                            {formatMs(cold)}&thinsp;ms
+                          </BarTimeLabel>
+                        )}
                       </LaneBar>
                     </LaneTrack>
                     <CumulativeTime
@@ -1064,7 +1211,7 @@ const HeroRace = () => {
               })}
             </div>
 
-            <StepIndicator css={{ marginTop: '30px' }}>
+            <StepIndicator style={{ marginTop: '30px' }}>
               {BENCHMARK_DATA.testUrls.map((t, i) => (
                 <StepDot
                   key={t.url}
