@@ -22,13 +22,55 @@ const Caption = withTitle(CaptionBase)
 const BENCHMARK_DATA = {
   timestamp: '2026-03-10T17:51:40.480Z',
   testUrls: [
-    { url: 'https://vercel.com' },
-    { url: 'https://example.com' },
-    { url: 'https://stripe.com' },
-    { url: 'https://screenshotone.com' },
-    { url: 'https://news.ycombinator.com' },
-    { url: 'https://github.com/trending' },
-    { url: 'https://www.framer.com' }
+    {
+      url: 'https://vercel.com',
+      width: 1920,
+      height: 1080,
+      fullPage: true,
+      format: 'jpeg'
+    },
+    {
+      url: 'https://example.com',
+      width: 1280,
+      height: 800,
+      fullPage: false,
+      format: 'png'
+    },
+    {
+      url: 'https://stripe.com',
+      width: 393,
+      height: 852,
+      fullPage: false,
+      format: 'jpeg'
+    },
+    {
+      url: 'https://screenshotone.com',
+      width: 1920,
+      height: 1080,
+      fullPage: true,
+      format: 'png'
+    },
+    {
+      url: 'https://news.ycombinator.com',
+      width: 1440,
+      height: 1080,
+      fullPage: true,
+      format: 'jpeg'
+    },
+    {
+      url: 'https://github.com/trending',
+      width: 768,
+      height: 1024,
+      fullPage: false,
+      format: 'png'
+    },
+    {
+      url: 'https://www.framer.com',
+      width: 1920,
+      height: 1800,
+      fullPage: false,
+      format: 'jpeg'
+    }
   ],
   results: {
     microlink: {
@@ -615,6 +657,20 @@ const getRankedOrder = cumulative =>
 
 const getVisualIndex = (key, rankedOrder) => rankedOrder.indexOf(key)
 
+const getCumulativeAtStep = targetStep => {
+  const cum = initCumulativeTimes()
+  for (let s = 0; s <= targetStep; s++) {
+    const url = BENCHMARK_DATA.testUrls[s]?.url
+    ALPHABETICAL_SERVICES.forEach(key => {
+      const d =
+        BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
+          ?.coldDuration || 0
+      cum[key] += d
+    })
+  }
+  return cum
+}
+
 const HeroRace = () => {
   const totalSteps = BENCHMARK_DATA.testUrls.length
   const [phase, setPhase] = useState('idle')
@@ -634,6 +690,18 @@ const HeroRace = () => {
   const innerRef = useRef(null)
   const hasAutoStarted = useRef(false)
   const stepRef = useRef(0)
+  const pendingTimers = useRef([])
+
+  const schedule = useCallback((fn, ms) => {
+    const id = setTimeout(fn, ms)
+    pendingTimers.current.push(id)
+    return id
+  }, [])
+
+  const clearPending = useCallback(() => {
+    pendingTimers.current.forEach(clearTimeout)
+    pendingTimers.current = []
+  }, [])
 
   const scheduleNext = useCallback(() => {
     const currentStep = stepRef.current
@@ -648,13 +716,11 @@ const HeroRace = () => {
         next[key] = prev[key] + d
       })
 
-      // 1. Show bars for 1.8s, then wait 0.5s
-      setTimeout(() => {
-        // 2. Sum animation (500ms counter + 500ms hold)
+      schedule(() => {
         setIsSumming(true)
         setDisplayedCumulative(next)
 
-        setTimeout(() => {
+        schedule(() => {
           setIsSumming(false)
           const newOrder = getRankedOrder(next)
           const orderChanged = newOrder.some(
@@ -674,25 +740,91 @@ const HeroRace = () => {
           }
 
           if (orderChanged) {
-            setTimeout(() => {
+            schedule(() => {
               setIsReordering(true)
               setRankedOrder(newOrder)
               rankedOrderRef.current = newOrder
-              setTimeout(advance, 2600)
+              schedule(advance, 2600)
             }, 1000)
           } else {
             setRankedOrder(newOrder)
             rankedOrderRef.current = newOrder
-            setTimeout(advance, 500)
+            schedule(advance, 500)
           }
         }, 1000)
-      }, 1000)
+      }, 1400)
 
       return next
     })
-  }, [])
+  }, [schedule])
+
+  const jumpToStep = useCallback(
+    targetStep => {
+      clearPending()
+      setIsReordering(false)
+      setIsSumming(false)
+
+      const prevCum =
+        targetStep > 0
+          ? getCumulativeAtStep(targetStep - 1)
+          : initCumulativeTimes()
+      const cum = getCumulativeAtStep(targetStep)
+      const order = getRankedOrder(prevCum)
+
+      stepRef.current = targetStep
+      setStep(targetStep)
+      setCumulativeTimes(prevCum)
+      setDisplayedCumulative(prevCum)
+      setRankedOrder(order)
+      rankedOrderRef.current = order
+
+      schedule(() => {
+        setCumulativeTimes(cum)
+
+        schedule(() => {
+          setIsSumming(true)
+          setDisplayedCumulative(cum)
+
+          schedule(() => {
+            setIsSumming(false)
+            const newOrder = getRankedOrder(cum)
+            const orderChanged = newOrder.some(
+              (k, i) => k !== rankedOrderRef.current[i]
+            )
+
+            const advance = () => {
+              setIsReordering(false)
+              const nextStep = targetStep + 1
+              if (nextStep >= BENCHMARK_DATA.testUrls.length) {
+                setPhase('finished')
+              } else {
+                stepRef.current = nextStep
+                setStep(nextStep)
+                scheduleNext()
+              }
+            }
+
+            if (orderChanged) {
+              schedule(() => {
+                setIsReordering(true)
+                setRankedOrder(newOrder)
+                rankedOrderRef.current = newOrder
+                schedule(advance, 2600)
+              }, 1000)
+            } else {
+              setRankedOrder(newOrder)
+              rankedOrderRef.current = newOrder
+              schedule(advance, 500)
+            }
+          }, 1000)
+        }, 2300)
+      }, 0)
+    },
+    [schedule, clearPending, scheduleNext]
+  )
 
   const startRace = useCallback(() => {
+    clearPending()
     stepRef.current = 0
     setStep(0)
     const fresh = initCumulativeTimes()
@@ -940,7 +1072,7 @@ const HeroRace = () => {
                   $active={i === step}
                   $done={i < step}
                   aria-label={`Step ${i + 1}: ${extractDomain(t.url)}`}
-                  onClick={() => {}}
+                  onClick={() => jumpToStep(i)}
                 />
               ))}
             </StepIndicator>
