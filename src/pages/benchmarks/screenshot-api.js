@@ -625,6 +625,7 @@ const HeroRace = () => {
   const [displayedCumulative, setDisplayedCumulative] =
     useState(initCumulativeTimes)
   const [rankedOrder, setRankedOrder] = useState(ALPHABETICAL_SERVICES)
+  const rankedOrderRef = useRef(ALPHABETICAL_SERVICES)
   const [isReordering, setIsReordering] = useState(false)
   const [isSumming, setIsSumming] = useState(false)
   const introTimerRef = useRef(null)
@@ -654,26 +655,36 @@ const HeroRace = () => {
         setDisplayedCumulative(next)
 
         setTimeout(() => {
-          // 3. Wait 1s, then reorder
           setIsSumming(false)
+          const newOrder = getRankedOrder(next)
+          const orderChanged = newOrder.some(
+            (k, i) => k !== rankedOrderRef.current[i]
+          )
 
-          setTimeout(() => {
-            setIsReordering(true)
-            setRankedOrder(getRankedOrder(next))
+          const advance = () => {
+            setIsReordering(false)
+            const nextStep = currentStep + 1
+            if (nextStep >= BENCHMARK_DATA.testUrls.length) {
+              setPhase('finished')
+            } else {
+              stepRef.current = nextStep
+              setStep(nextStep)
+              scheduleNext()
+            }
+          }
 
-            // 4. Reorder animation (600ms) + wait 2s, then advance
+          if (orderChanged) {
             setTimeout(() => {
-              setIsReordering(false)
-              const nextStep = currentStep + 1
-              if (nextStep >= BENCHMARK_DATA.testUrls.length) {
-                setPhase('finished')
-              } else {
-                stepRef.current = nextStep
-                setStep(nextStep)
-                scheduleNext()
-              }
-            }, 2000)
-          }, 1000)
+              setIsReordering(true)
+              setRankedOrder(newOrder)
+              rankedOrderRef.current = newOrder
+              setTimeout(advance, 2600)
+            }, 1000)
+          } else {
+            setRankedOrder(newOrder)
+            rankedOrderRef.current = newOrder
+            setTimeout(advance, 500)
+          }
         }, 1000)
       }, 1000)
 
@@ -688,6 +699,7 @@ const HeroRace = () => {
     setCumulativeTimes(fresh)
     setDisplayedCumulative(fresh)
     setRankedOrder(ALPHABETICAL_SERVICES)
+    rankedOrderRef.current = ALPHABETICAL_SERVICES
     setIsReordering(false)
     setIsSumming(false)
     setPhase('racing')
@@ -867,72 +879,58 @@ const HeroRace = () => {
                 height: ALPHABETICAL_SERVICES.length * ROW_SLOT - ROW_GAP
               }}
             >
-              {(() => {
-                const fastest = Math.min(
-                  ...ALPHABETICAL_SERVICES.map(
-                    k =>
-                      BENCHMARK_DATA.results[k].perUrl.find(
-                        p => p.url === currentUrl
-                      )?.coldDuration || Infinity
-                  )
-                )
+              {ALPHABETICAL_SERVICES.map((key, domIndex) => {
+                const svc = BENCHMARK_DATA.results[key]
+                const urlData = svc.perUrl.find(p => p.url === currentUrl)
+                const cold = urlData?.coldDuration || 0
+                const pct = (cold / currentMaxForStep) * 100
+                const isMicrolink = key === 'microlink'
+                const visualIndex = getVisualIndex(key, rankedOrder)
+                const offset = (visualIndex - domIndex) * ROW_SLOT
+                const cumTotal = displayedCumulative[key]
 
-                return ALPHABETICAL_SERVICES.map((key, domIndex) => {
-                  const svc = BENCHMARK_DATA.results[key]
-                  const urlData = svc.perUrl.find(p => p.url === currentUrl)
-                  const cold = urlData?.coldDuration || 0
-                  const pct = (cold / currentMaxForStep) * 100
-                  const isMicrolink = key === 'microlink'
-                  const isFastest = cold === fastest
-                  const visualIndex = getVisualIndex(key, rankedOrder)
-                  const offset = (visualIndex - domIndex) * ROW_SLOT
-                  const cumTotal = displayedCumulative[key]
-
-                  return (
-                    <LaneRow
-                      key={key}
-                      style={{
-                        position: 'absolute',
-                        top: domIndex * ROW_SLOT,
-                        left: 0,
-                        right: 0,
-                        transform: `translateY(${offset}px)`,
-                        transition: isReordering
-                          ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                          : 'none'
-                      }}
-                    >
-                      <LaneName $isMicrolink={false}>{svc.name}</LaneName>
-                      <LaneTrack>
-                        <LaneBar
-                          $isMicrolink={isMicrolink}
-                          style={{
-                            width: `${pct}%`,
-                            background: isMicrolink
-                              ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
-                              : SERVICE_COLORS[key]
-                          }}
-                        >
-                          <BarTimeLabel $visible>
-                            {formatMs(cold)}&thinsp;ms
-                          </BarTimeLabel>
-                        </LaneBar>
-                      </LaneTrack>
-                      <CumulativeTime
-                        style={
-                          isFastest && !isSumming
-                            ? { color: '#fd494a' }
-                            : isSumming
-                              ? { color: 'rgba(255, 255, 255, 0.95)' }
-                              : undefined
-                        }
+                return (
+                  <LaneRow
+                    key={key}
+                    style={{
+                      position: 'absolute',
+                      top: domIndex * ROW_SLOT,
+                      left: 0,
+                      right: 0,
+                      transform: `translateY(${offset}px)`,
+                      transition: isReordering
+                        ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                        : 'none'
+                    }}
+                  >
+                    <LaneName $isMicrolink={false}>{svc.name}</LaneName>
+                    <LaneTrack>
+                      <LaneBar
+                        $isMicrolink={isMicrolink}
+                        style={{
+                          width: `${pct}%`,
+                          background: isMicrolink
+                            ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
+                            : SERVICE_COLORS[key]
+                        }}
                       >
-                        <AnimatedCounter value={cumTotal} animate={isSumming} />
-                      </CumulativeTime>
-                    </LaneRow>
-                  )
-                })
-              })()}
+                        <BarTimeLabel $visible>
+                          {formatMs(cold)}&thinsp;ms
+                        </BarTimeLabel>
+                      </LaneBar>
+                    </LaneTrack>
+                    <CumulativeTime
+                      style={
+                        isSumming
+                          ? { color: 'rgba(255, 255, 255, 0.95)' }
+                          : undefined
+                      }
+                    >
+                      <AnimatedCounter value={cumTotal} animate={isSumming} />
+                    </CumulativeTime>
+                  </LaneRow>
+                )
+              })}
             </div>
 
             <StepIndicator css={{ marginTop: '30px' }}>
