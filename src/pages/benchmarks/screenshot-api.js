@@ -144,13 +144,17 @@ const SORTED_BY_TOTAL = [...SERVICES].sort(
 
 const SORTED_SERVICES = SORTED_BY_AVG
 
+const ALPHABETICAL_SERVICES = [...SERVICES].sort((a, b) =>
+  BENCHMARK_DATA.results[a].name.localeCompare(BENCHMARK_DATA.results[b].name)
+)
+
 const SERVICE_COLORS = {
-  microlink: '#fd494a',
-  apiflash: '#6366f1',
-  screenshotapi: '#f59e0b',
-  screenshotmachine: '#10b981',
-  screenshotone: '#8b5cf6',
-  urlbox: '#06b6d4'
+  microlink: 'rgba(253, 73, 74, 0.5)',
+  apiflash: 'rgba(99, 102, 241, 0.5)',
+  screenshotapi: 'rgba(245, 158, 11, 0.5)',
+  screenshotmachine: 'rgba(16, 185, 129, 0.5)',
+  screenshotone: 'rgba(139, 92, 246, 0.5)',
+  urlbox: 'rgba(6, 182, 212, 0.5)'
 }
 
 const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
@@ -181,6 +185,12 @@ const fadeIn = keyframes`
 const pulseGlow = keyframes`
   0%, 100% { box-shadow: 0 0 0 0 rgba(253, 73, 74, 0); }
   50% { box-shadow: 0 0 12px 2px rgba(253, 73, 74, 0.3); }
+`
+
+const introSweep = keyframes`
+  0% { transform: scaleX(0); opacity: 0.6; }
+  50% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0.3; }
 `
 
 const RaceContainer = styled('div')`
@@ -220,14 +230,27 @@ const UrlLabel = styled('div')`
   }
 `
 
-const UrlCounter = styled('span')`
+const IntroLabel = styled('div')`
   font-family: ${MONO_FONT};
-  font-size: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 4px;
-  padding: 3px 8px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+  animation: ${fadeIn} 0.4s ease forwards;
+
+  @media (max-width: 600px) {
+    font-size: 13px;
+  }
+`
+
+const IntroHighlightBar = styled('div')`
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  transform-origin: left center;
+  animation: ${introSweep} 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 `
 
 const LaneRow = styled('div')`
@@ -462,13 +485,16 @@ const LEADERBOARD_MODES = [
   }
 ]
 
+const INTRO_DELAY_PER_LANE = 800
+
 const HeroRace = () => {
   const totalSteps = BENCHMARK_DATA.testUrls.length
+  const [phase, setPhase] = useState('idle')
+  const [introHighlight, setIntroHighlight] = useState(-1)
   const [step, setStep] = useState(0)
-  const [isFinished, setIsFinished] = useState(false)
-  const [isRunning, setIsRunning] = useState(false)
   const [modeIndex, setModeIndex] = useState(0)
   const timerRef = useRef(null)
+  const introTimerRef = useRef(null)
   const modeTimerRef = useRef(null)
   const containerRef = useRef(null)
   const hasAutoStarted = useRef(false)
@@ -479,8 +505,7 @@ const HeroRace = () => {
       if (next >= totalSteps) {
         clearInterval(timerRef.current)
         timerRef.current = null
-        setIsFinished(true)
-        setIsRunning(false)
+        setPhase('finished')
         return prev
       }
       return next
@@ -488,27 +513,64 @@ const HeroRace = () => {
   }, [totalSteps])
 
   const startRace = useCallback(() => {
-    if (isRunning) return
     setStep(0)
-    setIsFinished(false)
-    setIsRunning(true)
+    setPhase('racing')
     setModeIndex(0)
     if (modeTimerRef.current) {
       clearInterval(modeTimerRef.current)
       modeTimerRef.current = null
     }
     timerRef.current = setInterval(advanceStep, 1800)
-  }, [isRunning, advanceStep])
+  }, [advanceStep])
+
+  const startIntro = useCallback(() => {
+    if (hasAutoStarted.current) return
+    hasAutoStarted.current = true
+    setPhase('intro')
+    setIntroHighlight(-1)
+
+    const lastIndex = ALPHABETICAL_SERVICES.length - 1
+    let i = 0
+    introTimerRef.current = setInterval(() => {
+      if (i <= lastIndex) {
+        setIntroHighlight(i)
+        i++
+      } else {
+        clearInterval(introTimerRef.current)
+        introTimerRef.current = null
+        setIntroHighlight(lastIndex + 1)
+        setTimeout(() => startRace(), 1000)
+      }
+    }, INTRO_DELAY_PER_LANE)
+  }, [startRace])
+
+  const replay = useCallback(() => {
+    if (phase === 'racing' || phase === 'intro') return
+    hasAutoStarted.current = false
+    setPhase('intro')
+    setIntroHighlight(-1)
+
+    const lastIndex = ALPHABETICAL_SERVICES.length - 1
+    let i = 0
+    introTimerRef.current = setInterval(() => {
+      if (i <= lastIndex) {
+        setIntroHighlight(i)
+        i++
+      } else {
+        clearInterval(introTimerRef.current)
+        introTimerRef.current = null
+        setIntroHighlight(lastIndex + 1)
+        setTimeout(() => startRace(), 1000)
+      }
+    }, INTRO_DELAY_PER_LANE)
+  }, [phase, startRace])
 
   useEffect(() => {
-    if (hasAutoStarted.current) return
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAutoStarted.current) {
-          hasAutoStarted.current = true
           observer.disconnect()
-          startRace()
+          startIntro()
         }
       },
       { threshold: 0.3 }
@@ -517,10 +579,10 @@ const HeroRace = () => {
     const el = containerRef.current
     if (el) observer.observe(el)
     return () => observer.disconnect()
-  }, [startRace])
+  }, [startIntro])
 
   useEffect(() => {
-    if (isFinished) {
+    if (phase === 'finished') {
       modeTimerRef.current = setInterval(() => {
         setModeIndex(prev => (prev + 1) % LEADERBOARD_MODES.length)
       }, 5000)
@@ -531,13 +593,18 @@ const HeroRace = () => {
     return () => {
       if (modeTimerRef.current) clearInterval(modeTimerRef.current)
     }
-  }, [isFinished])
+  }, [phase])
 
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
+      if (introTimerRef.current) clearInterval(introTimerRef.current)
     }
   }, [])
+
+  const isRacing = phase === 'racing'
+  const isFinished = phase === 'finished'
+  const isIntro = phase === 'intro'
 
   const currentUrl = BENCHMARK_DATA.testUrls[step]?.url
   const currentMaxForStep = Math.max(
@@ -550,7 +617,68 @@ const HeroRace = () => {
 
   return (
     <RaceContainer ref={containerRef}>
-      {!isFinished ? (
+      {isIntro && (
+        <>
+          <IntroLabel>
+            Measuring cold-start speed across {SERVICES.length}&nbsp;screenshot
+            APIs…
+          </IntroLabel>
+
+          <Flex css={{ flexDirection: 'column', gap: '8px' }}>
+            {ALPHABETICAL_SERVICES.map((key, i) => {
+              const svc = BENCHMARK_DATA.results[key]
+              const isLit = i <= introHighlight
+
+              return (
+                <LaneRow key={key}>
+                  <LaneName
+                    $isMicrolink={false}
+                    style={{
+                      color: isLit
+                        ? 'rgba(255, 255, 255, 0.95)'
+                        : 'rgba(255, 255, 255, 0.4)',
+                      transition: 'color 0.4s ease'
+                    }}
+                  >
+                    {svc.name}
+                  </LaneName>
+                  <LaneTrack>
+                    {i === introHighlight && (
+                      <IntroHighlightBar
+                        key={i}
+                        style={{ background: SERVICE_COLORS[key] }}
+                      />
+                    )}
+                    {isLit && i !== introHighlight && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: '5px',
+                          background: SERVICE_COLORS[key]
+                        }}
+                      />
+                    )}
+                  </LaneTrack>
+                  <LaneTime
+                    $isMicrolink={false}
+                    style={{
+                      color: isLit
+                        ? 'rgba(255, 255, 255, 0.7)'
+                        : 'rgba(255, 255, 255, 0.25)',
+                      transition: 'color 0.4s ease'
+                    }}
+                  >
+                    —
+                  </LaneTime>
+                </LaneRow>
+              )
+            })}
+          </Flex>
+        </>
+      )}
+
+      {isRacing && (
         <>
           <StepIndicator>
             {BENCHMARK_DATA.testUrls.map((t, i) => (
@@ -559,25 +687,15 @@ const HeroRace = () => {
                 $active={i === step}
                 $done={i < step}
                 aria-label={`Step ${i + 1}: ${extractDomain(t.url)}`}
-                onClick={() => {
-                  if (!isRunning) {
-                    setStep(i)
-                    setIsFinished(false)
-                  }
-                }}
+                onClick={() => {}}
               />
             ))}
           </StepIndicator>
 
-          <UrlLabel>
-            <UrlCounter>
-              {step + 1}/{totalSteps}
-            </UrlCounter>
-            {extractDomain(currentUrl)}
-          </UrlLabel>
+          <UrlLabel>{extractDomain(currentUrl)}</UrlLabel>
 
           <Flex css={{ flexDirection: 'column', gap: '8px' }}>
-            {SORTED_SERVICES.map(key => {
+            {ALPHABETICAL_SERVICES.map(key => {
               const svc = BENCHMARK_DATA.results[key]
               const urlData = svc.perUrl.find(p => p.url === currentUrl)
               const cold = urlData?.coldDuration || 0
@@ -594,7 +712,7 @@ const HeroRace = () => {
                         width: `${pct}%`,
                         background: isMicrolink
                           ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
-                          : `${SERVICE_COLORS[key]}bb`
+                          : SERVICE_COLORS[key]
                       }}
                     />
                   </LaneTrack>
@@ -605,16 +723,10 @@ const HeroRace = () => {
               )
             })}
           </Flex>
-
-          {!isRunning && hasAutoStarted.current && (
-            <Flex css={{ justifyContent: 'center', marginTop: '32px' }}>
-              <RaceButton onClick={startRace} aria-label='Restart race'>
-                ▶ Replay
-              </RaceButton>
-            </Flex>
-          )}
         </>
-      ) : (
+      )}
+
+      {isFinished &&
         (() => {
           const mode = LEADERBOARD_MODES[modeIndex]
           const sorted = mode.sorted
@@ -676,17 +788,13 @@ const HeroRace = () => {
                 })}
               </Flex>
               <Flex css={{ justifyContent: 'center', marginTop: '32px' }}>
-                <RaceButton
-                  onClick={startRace}
-                  aria-label='Replay benchmark race'
-                >
+                <RaceButton onClick={replay} aria-label='Replay benchmark race'>
                   ▶ Replay
                 </RaceButton>
               </Flex>
             </>
           )
-        })()
-      )}
+        })()}
     </RaceContainer>
   )
 }
