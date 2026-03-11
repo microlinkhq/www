@@ -517,42 +517,85 @@ const LEADERBOARD_MODES = [
 
 const INTRO_DELAY_PER_LANE = 800
 
+const ROW_HEIGHT = 38
+const ROW_GAP = 8
+const ROW_SLOT = ROW_HEIGHT + ROW_GAP
+
+const initCumulativeTimes = () =>
+  ALPHABETICAL_SERVICES.reduce((acc, key) => {
+    acc[key] = 0
+    return acc
+  }, {})
+
+const getRankedOrder = cumulative =>
+  [...ALPHABETICAL_SERVICES].sort((a, b) => cumulative[a] - cumulative[b])
+
+const getVisualIndex = (key, rankedOrder) => rankedOrder.indexOf(key)
+
 const HeroRace = () => {
   const totalSteps = BENCHMARK_DATA.testUrls.length
   const [phase, setPhase] = useState('idle')
   const [introHighlight, setIntroHighlight] = useState(-1)
   const [step, setStep] = useState(0)
   const [modeIndex, setModeIndex] = useState(0)
-  const timerRef = useRef(null)
+  const [cumulativeTimes, setCumulativeTimes] = useState(initCumulativeTimes)
+  const [rankedOrder, setRankedOrder] = useState(ALPHABETICAL_SERVICES)
+  const [isReordering, setIsReordering] = useState(false)
   const introTimerRef = useRef(null)
   const modeTimerRef = useRef(null)
   const containerRef = useRef(null)
   const innerRef = useRef(null)
   const hasAutoStarted = useRef(false)
+  const stepRef = useRef(0)
 
-  const advanceStep = useCallback(() => {
-    setStep(prev => {
-      const next = prev + 1
-      if (next >= totalSteps) {
-        clearInterval(timerRef.current)
-        timerRef.current = null
-        setPhase('finished')
-        return prev
-      }
+  const scheduleNext = useCallback(() => {
+    const currentStep = stepRef.current
+    const url = BENCHMARK_DATA.testUrls[currentStep]?.url
+
+    setCumulativeTimes(prev => {
+      const next = { ...prev }
+      ALPHABETICAL_SERVICES.forEach(key => {
+        const d =
+          BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
+            ?.coldDuration || 0
+        next[key] = prev[key] + d
+      })
+
+      setTimeout(() => {
+        setIsReordering(true)
+        setRankedOrder(getRankedOrder(next))
+
+        setTimeout(() => {
+          setIsReordering(false)
+          const nextStep = currentStep + 1
+          if (nextStep >= BENCHMARK_DATA.testUrls.length) {
+            setPhase('finished')
+          } else {
+            stepRef.current = nextStep
+            setStep(nextStep)
+            scheduleNext()
+          }
+        }, 1000)
+      }, 1800)
+
       return next
     })
-  }, [totalSteps])
+  }, [])
 
   const startRace = useCallback(() => {
+    stepRef.current = 0
     setStep(0)
+    setCumulativeTimes(initCumulativeTimes())
+    setRankedOrder(ALPHABETICAL_SERVICES)
+    setIsReordering(false)
     setPhase('racing')
     setModeIndex(0)
     if (modeTimerRef.current) {
-      clearInterval(modeTimerRef.current)
+      clearTimeout(modeTimerRef.current)
       modeTimerRef.current = null
     }
-    timerRef.current = setInterval(advanceStep, 1800)
-  }, [advanceStep])
+    setTimeout(() => scheduleNext(), 0)
+  }, [scheduleNext])
 
   const startIntro = useCallback(() => {
     if (hasAutoStarted.current) return
@@ -613,7 +656,6 @@ const HeroRace = () => {
 
   useEffect(() => {
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current)
       if (introTimerRef.current) clearInterval(introTimerRef.current)
     }
   }, [])
@@ -717,7 +759,12 @@ const HeroRace = () => {
           <>
             <UrlLabel>{extractDomain(currentUrl)}</UrlLabel>
 
-            <Flex css={{ flexDirection: 'column', gap: '8px' }}>
+            <div
+              style={{
+                position: 'relative',
+                height: ALPHABETICAL_SERVICES.length * ROW_SLOT - ROW_GAP
+              }}
+            >
               {(() => {
                 const fastest = Math.min(
                   ...ALPHABETICAL_SERVICES.map(
@@ -728,16 +775,30 @@ const HeroRace = () => {
                   )
                 )
 
-                return ALPHABETICAL_SERVICES.map(key => {
+                return ALPHABETICAL_SERVICES.map((key, domIndex) => {
                   const svc = BENCHMARK_DATA.results[key]
                   const urlData = svc.perUrl.find(p => p.url === currentUrl)
                   const cold = urlData?.coldDuration || 0
                   const pct = (cold / currentMaxForStep) * 100
                   const isMicrolink = key === 'microlink'
                   const isFastest = cold === fastest
+                  const visualIndex = getVisualIndex(key, rankedOrder)
+                  const offset = (visualIndex - domIndex) * ROW_SLOT
 
                   return (
-                    <LaneRow key={key}>
+                    <LaneRow
+                      key={key}
+                      style={{
+                        position: 'absolute',
+                        top: domIndex * ROW_SLOT,
+                        left: 0,
+                        right: 0,
+                        transform: `translateY(${offset}px)`,
+                        transition: isReordering
+                          ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                          : 'none'
+                      }}
+                    >
                       <LaneName $isMicrolink={false}>{svc.name}</LaneName>
                       <LaneTrack>
                         <LaneBar
@@ -764,7 +825,7 @@ const HeroRace = () => {
                   )
                 })
               })()}
-            </Flex>
+            </div>
 
             <StepIndicator css={{ marginTop: '30px' }}>
               {BENCHMARK_DATA.testUrls.map((t, i) => (
