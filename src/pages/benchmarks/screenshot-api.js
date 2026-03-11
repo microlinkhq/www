@@ -194,10 +194,16 @@ const introSweep = keyframes`
   100% { transform: scaleX(1); opacity: 0.3; }
 `
 
+const slideInFromRight = keyframes`
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+`
+
 const RaceContainer = styled('div')`
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
+  min-height: 360px;
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -206,10 +212,21 @@ const RaceContainer = styled('div')`
   padding: 32px 28px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
 
   @media (max-width: 600px) {
+    min-height: 310px;
     padding: 24px 16px;
     border-radius: 10px;
+  }
+`
+
+const RaceInner = styled('div')`
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `
 
@@ -259,10 +276,23 @@ const LaneRow = styled('div')`
   align-items: center;
   gap: 10px;
   height: 38px;
+  opacity: ${({ $animate }) => ($animate ? 0 : 1)};
+  animation: ${({ $animate, $delay }) =>
+    $animate
+      ? css`
+        ${slideInFromRight} 0.4s cubic-bezier(0.4, 0, 0.2, 1) ${$delay ||
+        '0s'} forwards
+      `
+      : 'none'};
 
   @media (max-width: 600px) {
     height: 32px;
     gap: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    animation: none;
   }
 `
 
@@ -498,6 +528,7 @@ const HeroRace = () => {
   const introTimerRef = useRef(null)
   const modeTimerRef = useRef(null)
   const containerRef = useRef(null)
+  const innerRef = useRef(null)
   const hasAutoStarted = useRef(false)
 
   const advanceStep = useCallback(() => {
@@ -546,24 +577,8 @@ const HeroRace = () => {
   }, [startRace])
 
   const replay = useCallback(() => {
-    if (phase === 'racing' || phase === 'intro') return
-    hasAutoStarted.current = false
-    setPhase('intro')
-    setIntroHighlight(-1)
-
-    const lastIndex = ALPHABETICAL_SERVICES.length - 1
-    let i = 0
-    introTimerRef.current = setInterval(() => {
-      if (i <= lastIndex) {
-        setIntroHighlight(i)
-        i++
-      } else {
-        clearInterval(introTimerRef.current)
-        introTimerRef.current = null
-        setIntroHighlight(lastIndex + 1)
-        setTimeout(() => startRace(), 1000)
-      }
-    }, INTRO_DELAY_PER_LANE)
+    if (phase === 'racing') return
+    startRace()
   }, [phase, startRace])
 
   useEffect(() => {
@@ -603,6 +618,23 @@ const HeroRace = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const el = innerRef.current
+    if (!el) return
+
+    const prevHeight = el.offsetHeight
+    el.style.height = 'auto'
+    const nextHeight = el.scrollHeight
+
+    if (prevHeight && prevHeight !== nextHeight) {
+      el.style.height = `${prevHeight}px`
+      el.offsetHeight // force reflow
+      el.style.height = `${nextHeight}px`
+    } else {
+      el.style.height = `${nextHeight}px`
+    }
+  }, [phase, modeIndex])
+
   const isRacing = phase === 'racing'
   const isFinished = phase === 'finished'
   const isIntro = phase === 'intro'
@@ -618,184 +650,190 @@ const HeroRace = () => {
 
   return (
     <RaceContainer ref={containerRef}>
-      {isIntro && (
-        <>
-          <IntroLabel>
-            Measuring cold-start speed across {SERVICES.length}&nbsp;screenshot
-            APIs…
-          </IntroLabel>
+      <RaceInner ref={innerRef}>
+        {(isIntro || phase === 'idle') && (
+          <>
+            <IntroLabel>
+              Measuring cold-start speed across {SERVICES.length}
+              &nbsp;screenshot APIs…
+            </IntroLabel>
 
-          <Flex css={{ flexDirection: 'column', gap: '8px' }}>
-            {ALPHABETICAL_SERVICES.map((key, i) => {
-              const svc = BENCHMARK_DATA.results[key]
-              const isLit = i <= introHighlight
+            <Flex css={{ flexDirection: 'column', gap: '8px' }}>
+              {ALPHABETICAL_SERVICES.map((key, i) => {
+                const svc = BENCHMARK_DATA.results[key]
+                const isLit = isIntro && i <= introHighlight
+                const staggerDelay = `${i * 80}ms`
 
-              return (
-                <LaneRow key={key}>
-                  <LaneName
-                    $isMicrolink={false}
-                    style={{
-                      color: isLit
-                        ? 'rgba(255, 255, 255, 0.95)'
-                        : 'rgba(255, 255, 255, 0.4)',
-                      transition: 'color 0.4s ease'
-                    }}
-                  >
-                    {svc.name}
-                  </LaneName>
-                  <LaneTrack>
-                    {i === introHighlight && (
-                      <IntroHighlightBar
-                        key={i}
-                        style={{ background: SERVICE_COLORS[key] }}
-                      />
-                    )}
-                    {isLit && i !== introHighlight && (
-                      <div
+                return (
+                  <LaneRow key={key} $animate $delay={staggerDelay}>
+                    <LaneName
+                      $isMicrolink={false}
+                      style={{
+                        color: isLit
+                          ? 'rgba(255, 255, 255, 0.95)'
+                          : 'rgba(255, 255, 255, 0.4)',
+                        transition: 'color 0.4s ease'
+                      }}
+                    >
+                      {svc.name}
+                    </LaneName>
+                    <LaneTrack>
+                      {isIntro && i === introHighlight && (
+                        <IntroHighlightBar
+                          key={i}
+                          style={{ background: SERVICE_COLORS[key] }}
+                        />
+                      )}
+                      {isLit && i !== introHighlight && (
+                        <div
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            borderRadius: '5px',
+                            background: SERVICE_COLORS[key]
+                          }}
+                        />
+                      )}
+                    </LaneTrack>
+                    <LaneTime
+                      $isMicrolink={false}
+                      style={{
+                        color: isLit
+                          ? 'rgba(255, 255, 255, 0.7)'
+                          : 'rgba(255, 255, 255, 0.25)',
+                        transition: 'color 0.4s ease'
+                      }}
+                    >
+                      —
+                    </LaneTime>
+                  </LaneRow>
+                )
+              })}
+            </Flex>
+          </>
+        )}
+
+        {isRacing && (
+          <>
+            <StepIndicator>
+              {BENCHMARK_DATA.testUrls.map((t, i) => (
+                <StepDot
+                  key={t.url}
+                  $active={i === step}
+                  $done={i < step}
+                  aria-label={`Step ${i + 1}: ${extractDomain(t.url)}`}
+                  onClick={() => {}}
+                />
+              ))}
+            </StepIndicator>
+
+            <UrlLabel>{extractDomain(currentUrl)}</UrlLabel>
+
+            <Flex css={{ flexDirection: 'column', gap: '8px' }}>
+              {ALPHABETICAL_SERVICES.map(key => {
+                const svc = BENCHMARK_DATA.results[key]
+                const urlData = svc.perUrl.find(p => p.url === currentUrl)
+                const cold = urlData?.coldDuration || 0
+                const pct = (cold / currentMaxForStep) * 100
+                const isMicrolink = key === 'microlink'
+
+                return (
+                  <LaneRow key={key}>
+                    <LaneName $isMicrolink={isMicrolink}>{svc.name}</LaneName>
+                    <LaneTrack>
+                      <LaneBar
+                        $isMicrolink={isMicrolink}
                         style={{
-                          position: 'absolute',
-                          inset: 0,
-                          borderRadius: '5px',
-                          background: SERVICE_COLORS[key]
+                          width: `${pct}%`,
+                          background: isMicrolink
+                            ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
+                            : SERVICE_COLORS[key]
                         }}
                       />
-                    )}
-                  </LaneTrack>
-                  <LaneTime
-                    $isMicrolink={false}
-                    style={{
-                      color: isLit
-                        ? 'rgba(255, 255, 255, 0.7)'
-                        : 'rgba(255, 255, 255, 0.25)',
-                      transition: 'color 0.4s ease'
-                    }}
-                  >
-                    —
-                  </LaneTime>
-                </LaneRow>
-              )
-            })}
-          </Flex>
-        </>
-      )}
+                    </LaneTrack>
+                    <LaneTime $isMicrolink={isMicrolink}>
+                      {formatMs(cold)}&thinsp;ms
+                    </LaneTime>
+                  </LaneRow>
+                )
+              })}
+            </Flex>
+          </>
+        )}
 
-      {isRacing && (
-        <>
-          <StepIndicator>
-            {BENCHMARK_DATA.testUrls.map((t, i) => (
-              <StepDot
-                key={t.url}
-                $active={i === step}
-                $done={i < step}
-                aria-label={`Step ${i + 1}: ${extractDomain(t.url)}`}
-                onClick={() => {}}
-              />
-            ))}
-          </StepIndicator>
+        {isFinished &&
+          (() => {
+            const mode = LEADERBOARD_MODES[modeIndex]
+            const sorted = mode.sorted
+            const field = mode.field
+            const bestVal = BENCHMARK_DATA.results[sorted[0]].summary[field]
 
-          <UrlLabel>{extractDomain(currentUrl)}</UrlLabel>
-
-          <Flex css={{ flexDirection: 'column', gap: '8px' }}>
-            {ALPHABETICAL_SERVICES.map(key => {
-              const svc = BENCHMARK_DATA.results[key]
-              const urlData = svc.perUrl.find(p => p.url === currentUrl)
-              const cold = urlData?.coldDuration || 0
-              const pct = (cold / currentMaxForStep) * 100
-              const isMicrolink = key === 'microlink'
-
-              return (
-                <LaneRow key={key}>
-                  <LaneName $isMicrolink={isMicrolink}>{svc.name}</LaneName>
-                  <LaneTrack>
-                    <LaneBar
-                      $isMicrolink={isMicrolink}
-                      style={{
-                        width: `${pct}%`,
-                        background: isMicrolink
-                          ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
-                          : SERVICE_COLORS[key]
+            return (
+              <>
+                <MetricTabs>
+                  {LEADERBOARD_MODES.map((m, i) => (
+                    <MetricTab
+                      key={m.key}
+                      $active={i === modeIndex}
+                      onClick={() => {
+                        setModeIndex(i)
+                        if (modeTimerRef.current) {
+                          clearInterval(modeTimerRef.current)
+                        }
+                        modeTimerRef.current = setInterval(() => {
+                          setModeIndex(
+                            prev => (prev + 1) % LEADERBOARD_MODES.length
+                          )
+                        }, 5000)
                       }}
-                    />
-                  </LaneTrack>
-                  <LaneTime $isMicrolink={isMicrolink}>
-                    {formatMs(cold)}&thinsp;ms
-                  </LaneTime>
-                </LaneRow>
-              )
-            })}
-          </Flex>
-        </>
-      )}
+                      aria-label={`Show ${m.label}`}
+                    >
+                      {m.label}
+                    </MetricTab>
+                  ))}
+                </MetricTabs>
+                <UrlLabel
+                  css={{
+                    justifyContent: 'center',
+                    marginBottom: '28px',
+                    fontSize: '16px',
+                    color: 'rgba(255,255,255,0.8)'
+                  }}
+                >
+                  Final leaderboard — {mode.label}
+                </UrlLabel>
+                <Flex css={{ flexDirection: 'column', gap: '8px' }}>
+                  {sorted.map((key, rank) => {
+                    const svc = BENCHMARK_DATA.results[key]
+                    const val = svc.summary[field]
+                    const delta = val - bestVal
 
-      {isFinished &&
-        (() => {
-          const mode = LEADERBOARD_MODES[modeIndex]
-          const sorted = mode.sorted
-          const field = mode.field
-          const bestVal = BENCHMARK_DATA.results[sorted[0]].summary[field]
-
-          return (
-            <>
-              <MetricTabs>
-                {LEADERBOARD_MODES.map((m, i) => (
-                  <MetricTab
-                    key={m.key}
-                    $active={i === modeIndex}
-                    onClick={() => {
-                      setModeIndex(i)
-                      if (modeTimerRef.current) {
-                        clearInterval(modeTimerRef.current)
-                      }
-                      modeTimerRef.current = setInterval(() => {
-                        setModeIndex(
-                          prev => (prev + 1) % LEADERBOARD_MODES.length
-                        )
-                      }, 5000)
-                    }}
-                    aria-label={`Show ${m.label}`}
+                    return (
+                      <LeaderboardRow key={key} $rank={rank}>
+                        <RankBadge $rank={rank}>#{rank + 1}</RankBadge>
+                        <LeaderName $rank={rank}>{svc.name}</LeaderName>
+                        <LeaderDelta>
+                          {rank === 0 ? '—' : `+${formatMs(delta)}\u2009ms`}
+                        </LeaderDelta>
+                        <LeaderTime $rank={rank}>
+                          {formatMsDecimal(val)}&thinsp;ms
+                        </LeaderTime>
+                      </LeaderboardRow>
+                    )
+                  })}
+                </Flex>
+                <Flex css={{ justifyContent: 'center', marginTop: '32px' }}>
+                  <RaceButton
+                    onClick={replay}
+                    aria-label='Replay benchmark race'
                   >
-                    {m.label}
-                  </MetricTab>
-                ))}
-              </MetricTabs>
-              <UrlLabel
-                css={{
-                  justifyContent: 'center',
-                  marginBottom: '28px',
-                  fontSize: '16px',
-                  color: 'rgba(255,255,255,0.8)'
-                }}
-              >
-                Final leaderboard — {mode.label}
-              </UrlLabel>
-              <Flex css={{ flexDirection: 'column', gap: '8px' }}>
-                {sorted.map((key, rank) => {
-                  const svc = BENCHMARK_DATA.results[key]
-                  const val = svc.summary[field]
-                  const delta = val - bestVal
-
-                  return (
-                    <LeaderboardRow key={key} $rank={rank}>
-                      <RankBadge $rank={rank}>#{rank + 1}</RankBadge>
-                      <LeaderName $rank={rank}>{svc.name}</LeaderName>
-                      <LeaderDelta>
-                        {rank === 0 ? '—' : `+${formatMs(delta)}\u2009ms`}
-                      </LeaderDelta>
-                      <LeaderTime $rank={rank}>
-                        {formatMsDecimal(val)}&thinsp;ms
-                      </LeaderTime>
-                    </LeaderboardRow>
-                  )
-                })}
-              </Flex>
-              <Flex css={{ justifyContent: 'center', marginTop: '32px' }}>
-                <RaceButton onClick={replay} aria-label='Replay benchmark race'>
-                  ▶ Replay
-                </RaceButton>
-              </Flex>
-            </>
-          )
-        })()}
+                    ▶ Replay
+                  </RaceButton>
+                </Flex>
+              </>
+            )
+          })()}
+      </RaceInner>
     </RaceContainer>
   )
 }
@@ -1360,13 +1398,11 @@ const CompetitorComparison = () => {
                       const isMin = times[i] === minTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : (
-                                formatMs(times[i])
-                              )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
