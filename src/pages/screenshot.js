@@ -2892,7 +2892,8 @@ const CodeExample = () => (
             }
           ]}
         >
-          Website capture API in any language
+          Website capture API in{' '}
+          <span style={{ color: '#fd494a' }}>any language</span>
         </Subhead>
         <Caption
           forwardedAs='div'
