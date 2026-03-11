@@ -637,6 +637,8 @@ const StepIndicator = styled('div')`
   gap: 6px;
   justify-content: center;
   padding: 4px 0;
+  position: relative;
+  z-index: 15;
 `
 
 const StepDot = styled('button')`
@@ -822,6 +824,7 @@ const HeroRace = () => {
   const [phase, setPhase] = useState('idle')
   const [introHighlight, setIntroHighlight] = useState(-1)
   const [step, setStep] = useState(0)
+  const [activeStep, setActiveStep] = useState(0)
   const [modeIndex, setModeIndex] = useState(0)
   const [cumulativeTimes, setCumulativeTimes] = useState(initCumulativeTimes)
   const [displayedCumulative, setDisplayedCumulative] =
@@ -882,6 +885,7 @@ const HeroRace = () => {
               setPhase('finished')
             } else {
               stepRef.current = nextStep
+              setActiveStep(nextStep)
               setAnnouncingUrl(BENCHMARK_DATA.testUrls[nextStep]?.url)
               setIsAnnouncing(true)
               schedule(() => {
@@ -916,6 +920,7 @@ const HeroRace = () => {
 
   const scheduleNext = useCallback(() => {
     const url = BENCHMARK_DATA.testUrls[stepRef.current]?.url
+    setActiveStep(stepRef.current)
     setAnnouncingUrl(url)
     setIsAnnouncing(true)
 
@@ -943,6 +948,7 @@ const HeroRace = () => {
         targetStep > 0 ? getRankedOrder(prevCum) : ALPHABETICAL_SERVICES
 
       stepRef.current = targetStep
+      setActiveStep(targetStep)
       setCumulativeTimes(prevCum)
       setDisplayedCumulative(prevCum)
       setRankedOrder(order)
@@ -977,6 +983,7 @@ const HeroRace = () => {
                   setPhase('finished')
                 } else {
                   stepRef.current = nextStep
+                  setActiveStep(nextStep)
                   setAnnouncingUrl(BENCHMARK_DATA.testUrls[nextStep]?.url)
                   setIsAnnouncing(true)
                   schedule(() => {
@@ -1014,6 +1021,7 @@ const HeroRace = () => {
     clearPending()
     stepRef.current = 0
     setStep(-1)
+    setActiveStep(0)
     const fresh = initCumulativeTimes()
     setCumulativeTimes(fresh)
     setDisplayedCumulative(fresh)
@@ -1110,7 +1118,7 @@ const HeroRace = () => {
     } else {
       el.style.height = `${nextHeight}px`
     }
-  }, [phase, modeIndex])
+  }, [phase, modeIndex, step, isAnnouncing])
 
   const isRacing = phase === 'racing'
   const isFinished = phase === 'finished'
@@ -1306,18 +1314,6 @@ const HeroRace = () => {
                 )
               })}
             </div>
-
-            <StepIndicator style={{ marginTop: '30px' }}>
-              {BENCHMARK_DATA.testUrls.map((t, i) => (
-                <StepDot
-                  key={t.url}
-                  $active={i === step}
-                  $done={i < step}
-                  aria-label={`Step ${i + 1}: ${extractDomain(t.url)}`}
-                  onClick={() => jumpToStep(i)}
-                />
-              ))}
-            </StepIndicator>
           </>
         )}
 
@@ -1334,7 +1330,7 @@ const HeroRace = () => {
                   css={{
                     justifyContent: 'center',
                     marginBottom: '28px',
-                    fontSize: '16px',
+                    fontSize: '20px',
                     color: 'rgba(255,255,255,0.8)'
                   }}
                 >
@@ -1390,6 +1386,19 @@ const HeroRace = () => {
             )
           })()}
       </RaceInner>
+      {isRacing && (
+        <StepIndicator style={{ marginTop: '16px' }}>
+          {BENCHMARK_DATA.testUrls.map((t, i) => (
+            <StepDot
+              key={t.url}
+              $active={i === activeStep}
+              $done={i < activeStep}
+              aria-label={`Step ${i + 1}: ${extractDomain(t.url)}`}
+              onClick={() => jumpToStep(i)}
+            />
+          ))}
+        </StepIndicator>
+      )}
     </RaceContainer>
   )
 }
