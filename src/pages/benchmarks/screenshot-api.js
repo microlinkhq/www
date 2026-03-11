@@ -255,6 +255,9 @@ const AnimatedCounter = ({ value, animate }) => {
   useEffect(() => {
     if (!animate) {
       prevValue.current = value
+      if (displayRef.current) {
+        displayRef.current.textContent = `${formatMs(value)}\u2009ms`
+      }
     }
   }, [value, animate])
 
